@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { content } from "../data";
 import { useT } from "../i18n";
@@ -91,20 +91,61 @@ const ICONS = {
   ),
 };
 
-function Card({ item, t, onOpen }) {
+// Kart ekrana girince yukarı süzülür; fareyle eğilir ve ışık fareyi izler.
+function useCardMotion() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        el.classList.add("is-in");
+        io.disconnect();
+      },
+      { threshold: 0.12 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  const fine = typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (!fine) return { ref };
+  return {
+    ref,
+    onPointerMove: (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      e.currentTarget.style.setProperty("--ry", `${((x - 0.5) * 10).toFixed(2)}deg`);
+      e.currentTarget.style.setProperty("--rx", `${((0.5 - y) * 8).toFixed(2)}deg`);
+      e.currentTarget.style.setProperty("--lx", `${(x * 100).toFixed(1)}%`);
+      e.currentTarget.style.setProperty("--ly", `${(y * 100).toFixed(1)}%`);
+    },
+    onPointerLeave: (e) => {
+      for (const k of ["--rx", "--ry", "--lx", "--ly"]) e.currentTarget.style.removeProperty(k);
+    },
+  };
+}
+
+function Card({ item, t, onOpen, index = 0 }) {
   const addToCart = useStore((s) => s.addToCart);
   const setCartOpen = useStore((s) => s.setCartOpen);
   const cat = C.categories.find((c) => c.id === item.category);
   const name = item.name[t.lang] ?? item.name.tr;
   const [added, setAdded] = useState(false);
+  const motion = useCardMotion();
   return (
-    <article className="pcard" style={{ "--c": item.color ?? cat?.color }}>
+    <article className="pcard" style={{ "--c": item.color ?? cat?.color, "--i": index % 4, "--f": index % 5 }} {...motion}>
       <button className="pcard__media" onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
-        {item.image ? (
-          <img src={`${BASE}${item.image}`} alt="" loading="lazy" />
-        ) : (
-          <span className="pcard__icon">{ICONS[item.icon] ?? ICONS.set}</span>
-        )}
+        <span className="pcard__beam" aria-hidden="true" />
+        <span className="pcard__float">
+          {item.image ? (
+            <img src={`${BASE}${item.image}`} alt="" loading="lazy" />
+          ) : (
+            <span className="pcard__icon">{ICONS[item.icon] ?? ICONS.set}</span>
+          )}
+        </span>
+        {!item.image && <span className="pcard__stage" aria-hidden="true" />}
+        <span className="pcard__dust" aria-hidden="true" />
         {item.product != null && <span className="pcard__badge mono">3D</span>}
       </button>
       <div className="pcard__body">
@@ -130,6 +171,60 @@ function Card({ item, t, onOpen }) {
         </div>
       </div>
     </article>
+  );
+}
+
+// Ana sayfadaki 3B sahne gibi: süzülen zeytin yaprakları ve ışık tozları.
+// Bir kısmı kartların arkasında, birkaçı önünde (derinlik).
+const rnd = (i, k) => {
+  const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453;
+  return x - Math.floor(x);
+};
+const LEAF = "M12 .5C7 5 5.5 12 7.5 19c.8 2.8 2.6 4.5 4.5 4.5s3.7-1.7 4.5-4.5C18.5 12 17 5 12 .5Z";
+const SHADE = "M12 .5v23c-1.9 0-3.7-1.7-4.5-4.5C5.5 12 7 5 12 .5Z";
+function Leaves({ count, front = false }) {
+  const leaves = useMemo(
+    () =>
+      Array.from({ length: count }, (_, i) => ({
+        left: rnd(i, front ? 7 : 1) * 100,
+        size: (front ? 28 : 16) + rnd(i, 2) * (front ? 20 : 20),
+        dur: (front ? 13 : 18) + rnd(i, 3) * 14,
+        delay: -rnd(i, 4) * 30,
+        sway: 30 + rnd(i, 5) * 70,
+        spin: rnd(i, 6) > 0.5 ? 1 : -1,
+      })),
+    [count, front]
+  );
+  return (
+    <div className={`leaves${front ? " leaves--front" : ""}`} aria-hidden="true">
+      {leaves.map((l, i) => (
+        <span
+          key={i}
+          style={{ left: `${l.left}%`, "--s": `${l.size}px`, "--d": `${l.dur}s`, "--dl": `${l.delay}s`, "--sw": `${l.sway}px`, "--sp": l.spin }}
+        >
+          <svg viewBox="0 0 24 24">
+            <path d={LEAF} />
+            <path d={SHADE} className="leaves__shade" />
+            <path d="M12 2.5v20" className="leaves__vein" />
+          </svg>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function Atmosphere() {
+  return (
+    <div className="atmos" aria-hidden="true">
+      <div className="atmos__beam" />
+      <div className="atmos__bokeh">
+        {Array.from({ length: 14 }, (_, i) => (
+          <i key={i} style={{ left: `${rnd(i, 8) * 100}%`, top: `${rnd(i, 9) * 100}%`, "--b": `${6 + rnd(i, 10) * 26}px`, "--d": `${16 + rnd(i, 11) * 18}s`, "--dl": `${-rnd(i, 12) * 20}s` }} />
+        ))}
+      </div>
+      <Leaves count={16} />
+      <div className="atmos__grain" />
+    </div>
   );
 }
 
@@ -161,8 +256,8 @@ export function CollectionGrid() {
         <p className="tagline tagline--static">{t.ui.allTag(C.items.length)}</p>
       </header>
       <div className="pgrid reveal">
-        {mixed.slice(0, C.homeCount ?? 8).map((item) => (
-          <Card key={item.id} item={item} t={t} onOpen={openProduct} />
+        {mixed.slice(0, C.homeCount ?? 8).map((item, i) => (
+          <Card key={item.id} item={item} t={t} onOpen={openProduct} index={i} />
         ))}
       </div>
       <div className="collection__more reveal">
@@ -174,51 +269,75 @@ export function CollectionGrid() {
   );
 }
 
-// Ayrı sayfa: kategoriler başlık başlık, üstte hızlı geçiş çipleri.
-export function CatalogPage() {
+// Ayrı sayfa: kategoriler başlık başlık, üstte hızlı geçiş çipleri. Seçili
+// kategori adreste durur (#/urunler/sac), üst menüden doğrudan açılabilir.
+export function CatalogPage({ cat }) {
   const t = useT();
-  const [active, setActive] = useState("all");
+  const tabs = useRef(null);
+  const cats = C.categories.filter((c) => C.items.some((i) => i.category === c.id));
+  const active = cats.some((c) => c.id === cat) ? cat : "all";
   useEffect(() => {
     window.scrollTo(0, 0);
     // Bu sayfada 3B sahne yok: doğrudan linkle açılınca yükleme ekranı beklemesin.
     useStore.getState().setSceneReady();
   }, []);
-  const cats = C.categories.filter((c) => C.items.some((i) => i.category === c.id));
+  // Kategori değişince sekmeler görünür kalsın; telefonda seçili sekme ortaya kayar.
+  const first = useRef(true);
+  useEffect(() => {
+    const on = tabs.current.querySelector(".is-on");
+    if (on) tabs.current.scrollTo({ left: on.offsetLeft - (tabs.current.clientWidth - on.offsetWidth) / 2, behavior: first.current ? "auto" : "smooth" });
+    if (first.current) return void (first.current = false);
+    const top = tabs.current.getBoundingClientRect().top + window.scrollY - 110;
+    if (window.scrollY > top) window.scrollTo({ top, behavior: "smooth" });
+  }, [active]);
   const shown = active === "all" ? cats : cats.filter((c) => c.id === active);
+  const tint = active === "all" ? C.glow ?? content.products[0]?.theme?.glow : cats.find((c) => c.id === active)?.color;
+  let n = 0;
   return (
-    <main className="catalog" style={{ "--accent": content.products[0]?.color }}>
+    <main className="catalog" style={{ "--accent": C.glow ?? content.products[0]?.color, "--tint": tint }}>
+      <Atmosphere />
       <header className="catalog__head">
         <a className="catalog__back mono" href="#flavors">
           ← {t.ui.backHome}
         </a>
         <p className="mono section__eyebrow">{t.ui.allEyebrow}</p>
-        <h1 className="section__title">{t.ui.catalogTitle}</h1>
+        <h1 className="catalog__title">{active === "all" ? t.ui.catalogTitle : cats.find((c) => c.id === active).name[t.lang]}</h1>
         <p className="tagline tagline--static">{t.ui.allTag(C.items.length)}</p>
-        <nav className="catalog__tabs" aria-label={t.ui.categories}>
-          {[{ id: "all", name: { tr: t.ui.all, en: t.ui.all } }, ...cats].map((c) => (
-            <button key={c.id} className={active === c.id ? "is-on" : ""} aria-pressed={active === c.id} onClick={() => setActive(c.id)}>
+        <nav className="catalog__tabs" aria-label={t.ui.categories} ref={tabs}>
+          {[{ id: "all", color: C.glow, name: { tr: t.ui.all, en: t.ui.all } }, ...cats].map((c) => (
+            <a
+              key={c.id}
+              href={c.id === "all" ? "#/urunler" : `#/urunler/${c.id}`}
+              className={active === c.id ? "is-on" : ""}
+              aria-current={active === c.id ? "page" : undefined}
+              style={{ "--c": c.color }}
+            >
+              {c.id !== "all" && <i aria-hidden="true" />}
               {c.name[t.lang]}
               <small>{c.id === "all" ? C.items.length : C.items.filter((i) => i.category === c.id).length}</small>
-            </button>
+            </a>
           ))}
         </nav>
       </header>
-      {shown.map((c) => (
-        <section key={c.id} className="catalog__group" id={`cat-${c.id}`}>
-          <div className="catalog__grouphead">
-            <h2>{c.name[t.lang]}</h2>
-            {c.desc && <p>{c.desc[t.lang]}</p>}
-          </div>
-          <div className="pgrid">
-            {C.items
-              .filter((i) => i.category === c.id)
-              .map((item) => (
-                <Card key={item.id} item={item} t={t} onOpen={openProduct} />
-              ))}
-          </div>
-        </section>
-      ))}
+      <div className="catalog__groups" key={active}>
+        {shown.map((c) => (
+          <section key={c.id} className="catalog__group" id={`cat-${c.id}`} style={{ "--c": c.color }}>
+            <div className="catalog__grouphead">
+              <h2>{c.name[t.lang]}</h2>
+              {c.desc && <p>{c.desc[t.lang]}</p>}
+            </div>
+            <div className="pgrid">
+              {C.items
+                .filter((i) => i.category === c.id)
+                .map((item) => (
+                  <Card key={item.id} item={item} t={t} onOpen={openProduct} index={n++} />
+                ))}
+            </div>
+          </section>
+        ))}
+      </div>
       <p className="catalog__note">{t.brand.disclaimer}</p>
+      <Leaves count={5} front />
     </main>
   );
 }

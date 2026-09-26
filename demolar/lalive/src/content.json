@@ -1126,8 +1126,9 @@
       ],
       "slogan": "Live well.",
       "nav": {
-        "flavors": "Ürünler",
-        "catalog": "Tüm ürünler"
+        "flavors": "Öne çıkanlar",
+        "catalog": "Tüm ürünler",
+        "categories": "Kategoriler"
       },
       "flavors": "Ürünler",
       "notes": "İçerik",
@@ -1170,8 +1171,9 @@
       ],
       "slogan": "Live well.",
       "nav": {
-        "flavors": "Products",
-        "catalog": "All products"
+        "flavors": "Featured",
+        "catalog": "All products",
+        "categories": "Categories"
       },
       "flavors": "Products",
       "notes": "Ingredients",
@@ -1744,7 +1746,8 @@
         "color": "#8a8f9a",
         "icon": "shirt"
       }
-    ]
+    ],
+    "glow": "#2e5a3c"
   },
   "logo": "brand/logo-cream.png"
 }

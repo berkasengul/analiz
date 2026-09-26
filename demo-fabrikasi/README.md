@@ -49,6 +49,7 @@ Süre: ~20 saniye (etiket çizimi + derleme).
 | `particles` | `"leaves"`: süzülen zeytin yaprakları |
 | `glossary` | İçerik sözlüğü: çiplerin üstünde açılan kısa açıklamalar (TR/EN) |
 | `backdrop` | `false` ise arka planda etiketten bulanık manzara gösterilmez |
+| `catalog` | Tüm ürün kataloğu: `categories` (ad, renk, açıklama), `items` (fiyat, kategori, simge ya da görsel, 3B ürüne bağlantı `product`), `homeCount` (ana sayfa vitrini), `glow` (katalog sayfasının ışık rengi). Menüde "Kategoriler" paneli ve `#/urunler/<kategori>` adresleri bundan oluşur |
 
 ## Notlar
 

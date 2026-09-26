@@ -45,7 +45,7 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 
 - [ ] Tarayıcı konsolunda hata yok.
 - [ ] Tıklamalar gerçek fare/dokunma ile test edildi (kodla `.click()` yetmez; `pointer-events` hatalarını gizler).
-- [ ] Ek sayfalar (ör. `#/urunler`) doğrudan linkle açılınca yükleme ekranı kapanıyor mu?
+- [ ] Ek sayfalar (ör. `#/urunler`) doğrudan linkle açılınca yükleme ekranı kapanıyor mu? Oradan ana sayfaya dönünce bütün bölümler görünüyor mu?
 - [ ] Masaüstü ve telefon: ana sayfa, detay, 4 hikâye kartı, ritüel, mağaza, sepet, hikâye, SSS.
 - [ ] Telefonda detay kartı ürünü kapatmıyor; içerik açıklaması dokununca çıkıyor.
 - [ ] Netlify zip güncel (`yeni-demo.py` en son çalıştırıldı), `noindex` var.
@@ -68,3 +68,5 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Katalog sayfasında kartlara tıklanamıyordu (`main` pointer-events) | Gerçek tıklama testi; `.catalog { pointer-events: auto }` |
 | Lalive | `#/urunler` doğrudan açılınca yükleme ekranı kapanmıyordu | Katalog sayfası açılınca yükleme tamamlanır |
 | Lalive | ₺1.333,9 (tek haneli kuruş) | Kuruşlu fiyatlar iki haneli |
+| Lalive | Katalogdan ana sayfaya dönünce alt bölümler görünmez kalıyordu (`.reveal` yeniden izlenmiyordu) | Sayfa değişince görünme izleyicisi yeniden kurulur; dönüş testi eklendi |
+| Lalive | "Ürünler" ve "Tüm ürünler" menüde karışıyordu; katalog başlığı menünün altında kalıyordu | Menü: "Öne çıkanlar" + "Kategoriler" açılır paneli; katalogda buzlu cam üst bant |

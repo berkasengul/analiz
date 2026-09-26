@@ -7,6 +7,7 @@ const links = ["flavors", ...(content.catalog ? ["catalog"] : []), "ritual", "sh
 
 export default function Menu() {
   const menu = useStore((s) => s.menu);
+  const lang = useStore((s) => s.lang);
   const { ui } = useT();
   return (
     <div id="menu" className={`menu${menu ? " is-open" : ""}`} aria-hidden={!menu}>
@@ -18,6 +19,17 @@ export default function Menu() {
           </a>
         ))}
       </nav>
+      {content.catalog && (
+        <nav className="menu__cats" aria-label={ui.nav.categories ?? ui.categories}>
+          <p className="mono">{ui.nav.categories ?? ui.categories}</p>
+          {content.catalog.categories.map((c, i) => (
+            <a key={c.id} href={`#/urunler/${c.id}`} tabIndex={menu ? 0 : -1} style={{ "--c": c.color, "--i": i + links.length }}>
+              <i aria-hidden="true" />
+              {c.name[lang] ?? c.name.tr}
+            </a>
+          ))}
+        </nav>
+      )}
       <div className="menu__lang">
         <LangSwitch />
       </div>

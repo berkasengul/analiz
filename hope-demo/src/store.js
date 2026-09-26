@@ -44,6 +44,7 @@ export const useStore = create(
       feature: null,
       spin: false,
       menu: false,
+      page: "home",
       cartOpen: false,
       shopFlavor: null, // null = detayda en son bakılan tat
       picked: null,
@@ -54,6 +55,7 @@ export const useStore = create(
       setLoaded: () => set({ loaded: true }),
       setSceneReady: () => set({ sceneReady: true }),
       setLang: (lang) => set({ lang }),
+      setPage: (page) => set({ page }),
       setActive: (active) => set({ active }),
       setMoving: (moving) => set({ moving }),
       setSwapping: (swapping) => set({ swapping }),

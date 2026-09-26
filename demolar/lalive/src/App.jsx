@@ -98,8 +98,9 @@ function useKeys() {
   }, []);
 }
 
-// Aşağıdaki bölümlerde metinler ekrana girerken yukarı süzülür.
-function useReveal() {
+// Aşağıdaki bölümlerde metinler ekrana girerken yukarı süzülür. Sayfa değişince
+// (katalogdan ana sayfaya dönüş) yeni öğeler yeniden izlenir; yoksa görünmez kalırlar.
+function useReveal(route) {
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("is-in")),
@@ -107,7 +108,7 @@ function useReveal() {
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [route]);
 }
 
 // Butonlar fareye doğru hafifçe çekilir (mıknatıs etkisi).
@@ -144,7 +145,8 @@ function useDocLang() {
   }, [lang]);
 }
 
-// Basit sayfa yönlendirmesi: "#/urunler" katalog sayfası, geri kalanı ana sayfa.
+// Basit sayfa yönlendirmesi: "#/urunler" katalog sayfası ("#/urunler/<kategori>"
+// o kategoriyle açılır), geri kalanı ana sayfa.
 function useRoute() {
   const read = () => (window.location.hash.startsWith("#/") ? window.location.hash.slice(2) : "");
   const [route, setRoute] = useState(read);
@@ -188,23 +190,29 @@ function useOpenProduct() {
 export default function App() {
   useSmoothScroll();
   useKeys();
-  useReveal();
   useMagnetic();
   useDocLang();
   useOpenProduct();
   const route = useRoute();
+  useReveal(route);
+  const [page, cat] = route.split("/");
+  const isCatalog = page === "urunler" && !!content.catalog;
+  useEffect(() => {
+    useStore.getState().setPage(isCatalog ? "catalog" : "home");
+    document.documentElement.dataset.page = isCatalog ? "catalog" : "home";
+  }, [isCatalog]);
   const detail = useStore((s) => s.detail);
   const cinema = useStore((s) => s.detail && s.feature != null);
 
   return (
     <>
       <Preloader />
-      {route !== "urunler" && <Scene />}
+      {!isCatalog && <Scene />}
       <Header />
       <Menu />
       <CartDrawer />
-      {route === "urunler" && content.catalog ? (
-        <CatalogPage />
+      {isCatalog ? (
+        <CatalogPage cat={cat} />
       ) : (
       <main>
         <section id="flavors" className="flavors" style={{ height: `calc(100vh + ${(N - 1) * 60}vh)` }}>
