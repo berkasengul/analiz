@@ -6,142 +6,21 @@ import { brand as brandTr } from "./brand";
 // brand.js'te; burada İngilizce karşılıkları, fiyatlar ve arayüz metinleri var.
 
 // ---------------------------------------------------------------- İngilizce içerik
+const C = D.content;
 const EN = {
-  flavors: [
-    {
-      family: "Woody spicy",
-      tagline: "The spice-scented courtyards of the old hans.",
-      notes: ["Lemon", "Cinnamon", "Patchouli", "Cedar", "Amber"],
-      description: "One of the house's first scents, recalling the stone courtyards of Istanbul's old hans. It opens with lemon, warms with cinnamon and cedar, and stays on skin with amber and musk.",
-    },
-    {
-      family: "Floral fruity",
-      tagline: "Queen of the palace, love of two continents.",
-      notes: ["Rose", "Jasmine", "Mango", "Vanilla", "Amber"],
-      description: "A bouquet of magnificence and allure opening with rose, jasmine and mango. Its vanilla and amber base stands for permanence and warmth: the scent of a love that joins two continents.",
-    },
-    {
-      family: "White floral",
-      tagline: "A spring morning on the Historical Peninsula.",
-      notes: ["Passionfruit", "Tuberose", "White flowers", "Vanilla"],
-      description: "A luminous scent that sparkles with passionfruit and mandarin, blooms with tuberose and white flowers, and softens into vanilla and white musk.",
-    },
-    {
-      family: "Powdery woody",
-      tagline: "The timeless charisma of leadership.",
-      notes: ["Bergamot", "Iris", "Frankincense", "Vetiver", "Amber"],
-      description: "Bergamot, iris and frankincense build powerful accords that lift the spirit, turning into timeless charisma with vetiver and amber.",
-    },
-    {
-      family: "Floral marine",
-      tagline: "The deepest secret of the Bosphorus.",
-      notes: ["Hibiscus", "Peony", "Marine notes", "Magnolia", "Cashmeran"],
-      description: "It tells the stories hidden in the soul of Istanbul. Hibiscus, peony and peach meet a sea breeze, then settle through jasmine, violet and magnolia into cashmeran and sandalwood.",
-    },
-    {
-      family: "Spicy ozonic",
-      tagline: "Rebellious and elegant, from Galata to Tophane.",
-      notes: ["Bergamot", "Juniper", "Ginger", "Honey", "Sandalwood"],
-      description: "Intense spice notes and ozonic freshness carry the rebellious, elegant spirit of the streets stretching from Galata to Tophane.",
-    },
-    {
-      family: "Aromatic musk",
-      tagline: "A modern classic of the seven hills.",
-      notes: ["Citrus", "Violet", "Lavender", "White musk"],
-      description: "A modern classic opening with citrus and violet. Lavender and white musk bring together purity and elegance.",
-    },
-    {
-      family: "Fruity woody",
-      tagline: "From the depths of the Bosphorus.",
-      notes: ["Pear", "Orange blossom", "Ginger", "Rose", "Vetiver"],
-      description: "It sparkles with lemon, pear and orange blossom, deepens with pink pepper, ginger and rose, and stays on skin with patchouli and vetiver.",
-    },
-  ],
-  features: [
-    {
-      short: "30% oil",
-      kicker: "30%",
-      struck: "Eau de toilette",
-      title: "Extrait de Parfum",
-      text: "Every scent is made at the highest concentration, with 30% perfume oil. It lasts for hours on skin and for days on fabric.",
-    },
-    {
-      short: "Eight-point star",
-      kicker: "Gold",
-      struck: "An ordinary label",
-      title: "Istanbul's geometry",
-      text: "The eight-point star on the gold and black label recalls Istanbul's tiles and carved wooden doors. Heavy glass carries it like a jewel.",
-    },
-    {
-      short: "Scent pyramid",
-      kicker: "Three",
-      struck: "A one-note scent",
-      title: "A story in three layers",
-      text: "Top notes tell the first minutes, heart notes the first hours, base notes the end of the day. Turn the bottle: they're all on the back label.",
-    },
-    {
-      short: "Perfumers",
-      kicker: "Master",
-      struck: "Mass production",
-      title: "Master perfumers",
-      text: "The scents carry the signature of Gökhan Şimşek and Julien Rasquinet, who has also created for Amouage, Creed and Frederic Malle.",
-    },
-  ],
-  ritual: [
-    { title: "Pulse points", text: "Inner wrists, neck and behind the ears: warm spots carry the scent all day.", stat: "3 points" },
-    { title: "Don't rub", text: "After spraying, don't rub your wrists together; let the top notes open at their own pace.", stat: "15 cm" },
-    { title: "Layer", text: "Hope Istanbul scents are made to be combined freely. Spray two on top of each other and create your own signature.", stat: "1 + 1" },
-  ],
-  stockists: [
-    ["Istanbul", "Hope Istanbul by Serimu · official sales", "Open"],
-    ["Online", "hopeistanbulofficial.com", "Online"],
-    ["International", "Lodore, Level Perfume and selected niche perfumeries", "Open"],
-    ["Milan", "Esxence 2024 · global debut", "Fair"],
-  ],
-  story: {
-    lead: "Istanbul has always been more than a place: the scent of a spice market, the salt of the Bosphorus, the silence of a mosque at dawn.",
-    paragraphs: [
-      "The story began with a seven-year-old's fascination with scent and grew, over the years, into a perfume house. The name comes from the founder's mother: Umut, Turkish for hope. Hope Istanbul was founded in 2021 under Serimu Kozmetik, on that bond of love and family.",
-      "The aim is to capture hope in a bottle. Born in Istanbul, where the fragrance of history meets the pulse of modern life, each scent is a journey blending Eastern opulence with Western elegance, inspired by the city that never sleeps. A different story in every note, a new discovery in every breath.",
-      "Three names stand behind the scents: Gökhan Şimşek, Hüseyin Erdoğmuş and perfumer Julien Rasquinet, who has also created for Amouage, Creed and Frederic Malle. The house made its global debut at Esxence in Milan in 2024.",
-    ],
-    timeline: [
-      ["2021", "Hope Istanbul is founded, named after the founder's mother Umut"],
-      ["2022", "First collection: Han, Narcissus, Queen and N.E.C.O"],
-      ["2024", "Global debut at Esxence Milan; Forza and Submarine"],
-      ["2025", "The Grand series, Queen of Palace and Deep Secret"],
-    ],
-    stats: [
-      ["30%", "perfume oil"],
-      ["20", "scents"],
-      ["4", "Istanbul collections"],
-    ],
-  },
-  faqs: [
-    ["Where does the name Hope come from?", "From the founder's mother, Umut, Turkish for hope. A love of scent that began at age seven became, in 2021, a perfume house carrying her name."],
-    ["What does Extrait de Parfum mean?", "The most concentrated form of perfume. Hope Istanbul scents are made with 30% perfume oil and last far longer than eau de parfum or eau de toilette."],
-    ["Which scent should I choose?", "Han for warm and spicy, Queen of Palace for floral and majestic, Narcissus for bright and sweet, Grand Conqueror for clean and charismatic, Deep Secret for fresh and marine, N.E.C.O for spicy and rebellious, Forza for lavender and elegant, Submarine for fruity and deep."],
-    ["What do the collections tell?", "Each collection tells one face of Istanbul: 7 Hills, Historical Peninsula, Two Continents One Love and Wonders of Istanbul."],
-    ["What other scents are in the collection?", "This page shows eight scents. The house's collection also includes Amber Delight, Mango Crush, Addictive, Rare, Miss Miris and Grand Han."],
-    ["Are the scents unisex?", "Yes. Hope Istanbul scents are designed for women and men."],
-    ["Can I layer the scents?", "Yes. Hope Istanbul scents are made to be layered freely; try Han's spice with Queen of Palace's rose and create your own signature."],
-    ["What is the 10 ml travel size for?", "To wear a scent for a few days or carry it in your bag. If you love it, move up to a full bottle."],
-    ["How do shipping and gift wrapping work?", "This demo shows a sample flow: same-day dispatch, a free gift box and a handwritten note. Real terms will be set with the brand."],
-  ],
-  specs: "Extrait de Parfum · 100 ml",
-  brand: {
-    specs: "A niche perfume house from Istanbul",
-    disclaimer:
-      "This page is an independent concept demo prepared for Hope Istanbul and is not affiliated with the brand owner. Bottle designs are illustrative; product copy and prices are examples.",
-  },
-  packLabels: { 10: "Travel", 50: "Everyday", 100: "Most popular" },
+  flavors: C.products.map((p) => p.en),
+  features: C.features.map((f) => f.en),
+  ritual: C.ritual.map((r) => r.en),
+  stockists: C.stockists.en,
+  story: C.story.en,
+  faqs: C.faqs.en,
+  specs: C.specs.en,
+  brand: C.brand.en,
+  packLabels: Object.fromEntries(C.packs.map((p) => [p.size, p.label.en])),
 };
 
 // ---------------------------------------------------------------- fiyatlar
-const PRICES = {
-  tr: { currency: "TRY", locale: "tr-TR", packs: { 10: 1490, 50: 5900, 100: 9500 }, freeShipping: 5000, shipping: 99.9 },
-  en: { currency: "USD", locale: "en-US", packs: { 10: 39, 50: 139, 100: 219 }, freeShipping: 150, shipping: 9.9 },
-};
+const PRICES = C.prices;
 
 // ---------------------------------------------------------------- arayüz metinleri
 const UI = {
@@ -364,7 +243,7 @@ export function getT(lang) {
 
   const t = {
     lang,
-    ui: UI[lang],
+    ui: { ...UI[lang], ...(C.ui?.[lang] ?? {}) },
     money,
     price,
     packLabel,

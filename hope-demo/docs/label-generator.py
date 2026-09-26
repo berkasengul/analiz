@@ -8,6 +8,7 @@ Doku bir atlas: sol yarı (u 0–0.5) ön etiket, sağ yarı (u 0.5–1) arka et
 (koku piramidi, ilham aldığı yer ve İstanbul silueti). Arka etiketin silüet
 bandı (üstten %44–%80) arka planda bulanık şehir olarak da kullanılır.
 
+Ayarlar src/content.json\'dan okunur (CONTENT ortam değişkeniyle değiştirilebilir).
 Çıktı 2048×1024 JPG. Kullanım: python3 label-generator.py <çıktı klasörü>
 """
 import math
@@ -184,14 +185,14 @@ def front(c, seed):
 
     # Yazılar.
     y = 340
-    y = text_c(d, S / 2, y, "HOPE", font("Cinzel-Medium.ttf", 118), spacing=8) + 24
-    y = text_c(d, S / 2, y, "ISTANBUL", font("OpenSans-Bold.ttf", 30), spacing=10) + 70
+    y = text_c(d, S / 2, y, BRAND["wordmark"], fit(d, BRAND["wordmark"], "Cinzel-Medium.ttf", 420, 118, spacing=8), spacing=8) + 24
+    y = text_c(d, S / 2, y, BRAND.get("submark", ""), font("OpenSans-Bold.ttf", 30), spacing=10) + 70
     if c.get("smallcaps"):
         y = small_caps(d, S / 2, y, c["name"], font("OpenSans-Bold.ttf", 38), font("OpenSans-Bold.ttf", 29), spacing=3) + 62
     else:
         f = fit(d, c["name"].upper(), "OpenSans-Bold.ttf", 400, 36, spacing=2)
         y = text_c(d, S / 2, y, c["name"].upper(), f, spacing=2) + 62
-    text_c(d, S / 2, y, "EXTRAIT DE PARFUM", font("OpenSans-SemiBold.ttf", 27), spacing=2)
+    text_c(d, S / 2, y, BRAND["concentration"], font("OpenSans-SemiBold.ttf", 27), spacing=2)
     img = put(img, arr(m, 0.35), gold(seed + 5))
     return img
 
@@ -346,7 +347,7 @@ def back(c, seed):
     for head, body in c["notes"]:
         y = text_c(d, S / 2, y, head, font("OpenSans-Bold.ttf", 18), spacing=7) + 12
         y = text_c(d, S / 2, y, body, font("Gloock-Regular.ttf", 32)) + 30
-    text_c(d, S / 2, 930, "HOPE ISTANBUL  ·  EXTRAIT DE PARFUM  ·  100 ml e 3.4 FL.OZ", font("OpenSans-SemiBold.ttf", 17), spacing=3)
+    text_c(d, S / 2, 930, f'{BRAND["wordmark"]} {BRAND.get("submark", "")}  ·  {BRAND["concentration"]}  ·  {BRAND["volume"]}', font("OpenSans-SemiBold.ttf", 17), spacing=3)
     shade = arr(m, 3)
     img = img * (1 - np.clip(shade * 1.2, 0, 0.7))[..., None]
     img = put(img, arr(m, 0.35), g)
@@ -354,28 +355,65 @@ def back(c, seed):
 
 
 # ================================================================ kokular
-PERFUMES = [
-    {"file": "han.jpg", "plate": (16, 14, 13), "star": (18, 92, 64), "name": "Han", "place": "KAPALIÇARŞI", "scene": scene_han,
-     "notes": [("TOP", "Limon · Tarçın"), ("HEART", "Paçuli · Sedir"), ("BASE", "Kuru odun · Amber · Misk")]},
-    {"file": "queen-of-palace.jpg", "plate": "gold", "star": (14, 12, 11), "name": "Queen of Palace", "place": "TWO CONTINENTS ONE LOVE", "scene": scene_palace,
-     "notes": [("TOP", "Bergamot · Mango · Frenk üzümü"), ("HEART", "Gül · Yasemin · İris"), ("BASE", "Vanilya · Amber · Sandal")]},
-    {"file": "narcissus.jpg", "plate": (16, 14, 13), "star": (122, 20, 40), "name": "Narcissus", "smallcaps": True, "place": "HISTORICAL PENINSULA", "scene": scene_peninsula,
-     "notes": [("TOP", "Çarkıfelek · Mandalina"), ("HEART", "Sümbülteber · Beyaz çiçekler"), ("BASE", "Vanilya · Amber · Beyaz misk")]},
-    {"file": "grand-conqueror.jpg", "plate": "gold", "star": (28, 44, 104), "name": "Grand Conqueror", "place": "RUMELİ HİSARI", "scene": scene_walls,
-     "notes": [("TOP", "Bergamot · Mandalina · Limon"), ("HEART", "İris · Yasemin"), ("BASE", "Günlük · Vetiver · Amber")]},
-    {"file": "deep-secret.jpg", "plate": (16, 14, 13), "star": (12, 92, 104), "name": "Deep Secret", "place": "WONDERS OF ISTANBUL", "scene": scene_tower,
-     "notes": [("TOP", "Hibiskus · Şakayık · Şeftali"), ("HEART", "Yasemin · Menekşe · Manolya"), ("BASE", "Misk · Amber · Kaşmiran")]},
-    {"file": "neco.jpg", "plate": (16, 14, 13), "star": (160, 62, 30), "name": "N.E.C.O", "place": "GALATA · TOPHANE", "scene": scene_galata,
-     "notes": [("TOP", "Bergamot · Greyfurt · Ardıç"), ("HEART", "Zencefil · Ahududu · Tarçın"), ("BASE", "Paçuli · Bal · Amber · Sandal")]},
-    {"file": "forza.jpg", "plate": (16, 14, 13), "star": (78, 44, 126), "name": "Forza", "place": "7 TEPE", "scene": scene_hills,
-     "notes": [("TOP", "Narenciye · Menekşe"), ("HEART", "Lavanta · Baharat"), ("BASE", "Sandal · Sedir · Beyaz misk")]},
-    {"file": "submarine.jpg", "plate": (16, 14, 13), "star": (28, 84, 168), "name": "Submarine", "place": "BOĞAZ'IN DERİNLİKLERİ", "scene": scene_sea,
-     "notes": [("TOP", "Limon · Armut · Portakal çiçeği"), ("HEART", "Pembe biber · Zencefil · Gül"), ("BASE", "Paçuli · Vetiver · Amber")]},
-]
+# Bütün ayarlar src/content.json'dan okunur: `labelBrand` (logo yazıları) ve
+# her ürünün `label` alanı (stil, renkler, arka etiket sahnesi, koku piramidi).
+import json
+
+SCENES = {
+    "han": scene_han, "palace": scene_palace, "peninsula": scene_peninsula, "walls": scene_walls,
+    "tower": scene_tower, "galata": scene_galata, "hills": scene_hills, "sea": scene_sea,
+    "none": lambda d: None,
+}
+CONTENT = os.path.join(HERE, "..", "src", "content.json")
+BRAND = {}
+
+
+def load(path=CONTENT):
+    data = json.load(open(path, encoding="utf-8"))
+    BRAND.update(data["labelBrand"])
+    out = []
+    for p in data["products"]:
+        L = p["label"]
+        out.append({
+            "file": p["file"],
+            "name": p["name"],
+            "style": L.get("style", "star"),
+            "plate": L["plate"] if L["plate"] == "gold" else tuple(L["plate"]),
+            "star": tuple(L.get("star", (14, 12, 11))),
+            "ink": tuple(L.get("ink", (226, 190, 110))),
+            "smallcaps": L.get("smallcaps", False),
+            "place": L.get("place", ""),
+            "scene": SCENES[L.get("scene", "none")],
+            "notes": [tuple(x) for x in L.get("pyramid", [])],
+        })
+    return out
+
+
+def classic(c, seed):
+    """Sade etiket: düz plaka, ince çerçeve, marka ve koku adı (yeni markalar için başlangıç)."""
+    cx = N / 2
+    if c["plate"] == "gold":
+        img = gold(seed)
+    else:
+        img = np.broadcast_to(np.array(c["plate"], np.float32), (N, N, 3)).copy()
+        img *= smooth_noise(N, N, (6, 6), seed, 0.95, 1.05)[..., None]
+    ink = np.array(c["ink"], np.float32)
+    m, d = mask()
+    d.rectangle([22 * K, 22 * K, N - 22 * K, N - 22 * K], outline=255, width=3 * K)
+    d.rectangle([40 * K, 40 * K, N - 40 * K, N - 40 * K], outline=255, width=1 * K)
+    y = 300
+    y = text_c(d, S / 2, y, BRAND["wordmark"], fit(d, BRAND["wordmark"], "Cinzel-Medium.ttf", 760, 130, spacing=8), spacing=8) + 22
+    if BRAND.get("submark"):
+        y = text_c(d, S / 2, y, BRAND["submark"], font("OpenSans-Bold.ttf", 28), spacing=12) + 90
+    d.line([((S / 2 - 90) * K, (y - 40) * K), ((S / 2 + 90) * K, (y - 40) * K)], fill=255, width=2 * K)
+    y = text_c(d, S / 2, y, c["name"].upper(), fit(d, c["name"].upper(), "OpenSans-Bold.ttf", 640, 46, spacing=4), spacing=4) + 60
+    text_c(d, S / 2, y, BRAND["concentration"], font("OpenSans-SemiBold.ttf", 26), spacing=4)
+    text_c(d, S / 2, 900, BRAND["volume"], font("OpenSans-SemiBold.ttf", 20), spacing=3)
+    return put(img, arr(m, 0.35), ink if c["plate"] != "gold" else np.array(BLACK, np.float32))
 
 
 def render(c, idx):
-    f = front(c, idx * 7 + 1)
+    f = (classic if c["style"] == "classic" else front)(c, idx * 7 + 1)
     b = back(c, idx * 7 + 2)
     atlas = np.concatenate([f, b], axis=1)
     out = Image.fromarray(np.clip(atlas, 0, 255).astype(np.uint8), "RGB").resize((S * 2, S), Image.LANCZOS)
@@ -387,6 +425,7 @@ def render(c, idx):
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     only = sys.argv[2] if len(sys.argv) > 2 else None
+    PERFUMES = load(os.environ.get("CONTENT", CONTENT))
     for i, c in enumerate(PERFUMES):
         if only and only not in c["file"]:
             continue

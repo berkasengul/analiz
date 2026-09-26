@@ -3,35 +3,31 @@ import { useTexture } from "@react-three/drei";
 import { MeshPhysicalMaterial, MeshStandardMaterial, CylinderGeometry, PlaneGeometry, RepeatWrapping, SRGBColorSpace } from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 
-import { flavors } from "./data";
+import { content, flavors } from "./data";
 
-import han from "./assets/labels/han.jpg";
-import queenOfPalace from "./assets/labels/queen-of-palace.jpg";
-import narcissus from "./assets/labels/narcissus.jpg";
-import grandConqueror from "./assets/labels/grand-conqueror.jpg";
-import deepSecret from "./assets/labels/deep-secret.jpg";
-import neco from "./assets/labels/neco.jpg";
-import forza from "./assets/labels/forza.jpg";
-import submarine from "./assets/labels/submarine.jpg";
+// Etiket dokuları: content.json'daki her ürünün `file` adıyla eşleşir.
+const FILES = import.meta.glob("./assets/labels/*.jpg", { eager: true, import: "default" });
+const LABELS = flavors.map((f) => FILES[`./assets/labels/${f.file}`]);
 
-// data.js'teki koku sırasıyla aynı.
-const LABELS = [han, queenOfPalace, narcissus, grandConqueror, deepSecret, neco, forza, submarine];
-
-// 100 ml Hope Istanbul şişesi, ürün fotoğrafına göre koddan üretilir:
-// kare, kalın şeffaf cam; önde altın-siyah geometrik etiket, arkada koku
-// piramidi etiketi ve parlak altın silindir kapak.
-const W = 2.3; // cam genişliği
-const H = 2.3; // cam yüksekliği (y -1.55 … 0.75)
-const D = 1.25; // cam derinliği
+// Parfüm şişesi, content.json → bottle ölçüleriyle koddan üretilir: kalın
+// şeffaf cam, önde etiket, arkada koku piramidi etiketi, boyun ve kapak.
+const B = content.bottle;
+const W = B.glass.width; // cam genişliği
+const H = B.glass.height;
+const D = B.glass.depth;
 const GY = -0.4; // cam merkezi
-const LABEL = 2.02;
-const LABEL_Y = -0.42;
+const LABEL = B.label.size;
+const LABEL_Y = GY + B.label.y;
 
-const glassGeo = new RoundedBoxGeometry(W, H, D, 4, 0.1);
-const liquidGeo = new RoundedBoxGeometry(W - 0.3, H - 0.42, D - 0.3, 3, 0.06);
-const baseGeo = new RoundedBoxGeometry(W - 0.08, 0.26, D - 0.08, 2, 0.05);
-const neckGeo = new CylinderGeometry(0.36, 0.36, 0.18, 48);
-const capGeo = new CylinderGeometry(0.5, 0.5, 1.02, 96);
+const glassGeo = new RoundedBoxGeometry(W, H, D, 4, B.glass.corner);
+const liquidGeo = new RoundedBoxGeometry(W - 0.3, H - 0.42, D - 0.3, 3, Math.max(0.06, B.glass.corner - 0.15));
+// Kalın taban: köşeleri yuvarlak şişelerde camın içinde kalacak kadar küçülür.
+const baseGeo = new RoundedBoxGeometry(W - 0.08 - B.glass.corner * 0.9, 0.26, D - 0.08 - B.glass.corner * 0.9, 2, 0.05);
+const neckGeo = new CylinderGeometry(B.neck.radius, B.neck.radius, B.neck.height, 48);
+const capGeo =
+  B.cap.shape === "box"
+    ? new RoundedBoxGeometry(B.cap.radius * 2, B.cap.height, B.cap.radius * 2, 3, 0.04)
+    : new CylinderGeometry(B.cap.radius, B.cap.radius, B.cap.height, B.cap.shape === "octagon" ? 8 : 96);
 
 // Etiket atlası: ön etiket dokunun sol yarısı, arka etiket sağ yarısı.
 function labelGeo(u0) {
@@ -89,8 +85,13 @@ function glassMaterial(opacity, color = "#ffffff") {
 // Her şişenin kendi malzemeleri olur; carousel'de tek tek karartılabilmesi için.
 export function createBottleParts() {
   // Parlatılmış altın kapak.
-  const metal = new MeshStandardMaterial({ color: "#ffdc8c", metalness: 1, roughness: 0.16, envMapIntensity: 2.2, emissive: "#3a2808" });
-  const cap = new MeshStandardMaterial({ color: "#eef1f4", metalness: 0.9, roughness: 0.14, envMapIntensity: 1.6 });
+  // Kapak: "gold" / "silver" parlatılmış metal, "black" lake.
+  const finish = B.cap.finish;
+  const metal =
+    finish === "black"
+      ? new MeshStandardMaterial({ color: B.cap.color, metalness: 0.3, roughness: 0.18, envMapIntensity: 1.2 })
+      : new MeshStandardMaterial({ color: B.cap.color, metalness: 1, roughness: 0.16, envMapIntensity: 2.2, emissive: finish === "gold" ? "#3a2808" : "#101214" });
+  const cap = new MeshStandardMaterial({ color: B.neck.color, metalness: 0.9, roughness: 0.14, envMapIntensity: 1.6 });
   const glass = glassMaterial(0.08);
   const base = glassMaterial(0.3, "#e4ecee");
   const liquid = glassMaterial(0.06, "#f6f1e4");
@@ -109,14 +110,14 @@ export function dimBottleParts(parts, dim) {
 
 export default function CanMesh({ body, parts }) {
   return (
-    <group rotation={[0, 0, -0.06]} position={[0, -0.2, 0]} scale={1.1}>
-      <mesh geometry={backGeo} material={body} position={[0, LABEL_Y, -D / 2 - 0.004]} rotation={[0, Math.PI, 0]} />
+    <group rotation={[0, 0, B.tilt]} position={[0, -0.2, 0]} scale={B.scale}>
+      {B.label.back && <mesh geometry={backGeo} material={body} position={[0, LABEL_Y, -D / 2 - 0.004]} rotation={[0, Math.PI, 0]} />}
       <mesh geometry={liquidGeo} material={parts.liquid} position={[0, GY + 0.08, 0]} renderOrder={1} />
       <mesh geometry={baseGeo} material={parts.base} position={[0, GY - H / 2 + 0.15, 0]} renderOrder={2} />
       <mesh geometry={glassGeo} material={parts.glass} position={[0, GY, 0]} renderOrder={3} />
       <mesh geometry={frontGeo} material={body} position={[0, LABEL_Y, D / 2 + 0.004]} />
-      <mesh geometry={neckGeo} material={parts.cap} position={[0, GY + H / 2 + 0.09, 0]} />
-      <mesh geometry={capGeo} material={parts.metal} position={[0, GY + H / 2 + 0.18 + 0.51, 0]} />
+      <mesh geometry={neckGeo} material={parts.cap} position={[0, GY + H / 2 + B.neck.height / 2, 0]} />
+      <mesh geometry={capGeo} material={parts.metal} position={[0, GY + H / 2 + B.neck.height + B.cap.height / 2, 0]} rotation={[0, B.cap.shape === "octagon" ? Math.PI / 8 : 0, 0]} />
     </group>
   );
 }

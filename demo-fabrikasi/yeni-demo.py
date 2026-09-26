@@ -1,0 +1,110 @@
+"""Demo fabrikası: bir marka ayar dosyasından yeni 3B parfüm sitesi üretir.
+
+Kullanım:
+    python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/<marka>.json
+
+Yaptıkları:
+  1. hope-demo şablonunu demolar/<slug>/ klasörüne kopyalar (node_modules
+     kopyalanmaz, şablondakine bağlanır).
+  2. Ayar dosyasını src/content.json olarak yazar; sayfa başlığını günceller.
+  3. Etiket dokularını üretir (docs/label-generator.py).
+  4. Siteyi derler ve demolar/<slug>-Netlify.zip dosyasını hazırlar.
+
+Ayar dosyasının biçimi için demo-fabrikasi/sablon.json ve README.md'ye bak.
+"""
+import json
+import os
+import shutil
+import subprocess
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE = os.path.join(ROOT, "hope-demo")
+OUT_ROOT = os.path.join(ROOT, "demolar")
+
+SKIP = {"node_modules", "dist", ".git", "__pycache__"}
+NPM = shutil.which("npm") or "npm"
+
+
+def copy_template(dst):
+    def ignore(folder, names):
+        rel = os.path.relpath(folder, TEMPLATE)
+        out = [n for n in names if n in SKIP]
+        if rel == os.path.join("src", "assets", "labels"):
+            out += [n for n in names if n.endswith(".jpg")]
+        if rel == "docs":
+            out += [n for n in names if n.endswith((".png", ".jpg")) or n == "reference"]
+        return out
+
+    if os.path.exists(dst):
+        shutil.rmtree(dst)
+    shutil.copytree(TEMPLATE, dst, ignore=ignore)
+    try:
+        os.symlink(os.path.join(TEMPLATE, "node_modules"), os.path.join(dst, "node_modules"), target_is_directory=True)
+    except OSError:
+        # Windows'ta sembolik bağ izni yoksa paketler demo klasörüne kurulur.
+        print("→ Paketler kuruluyor (npm install)")
+        subprocess.run([NPM, "install"], cwd=dst, check=True, stdout=subprocess.DEVNULL)
+
+
+def check(cfg):
+    need = ["slug", "meta", "brand", "labelBrand", "bottle", "products", "specs", "features", "ritual",
+            "packs", "prices", "stockists", "story", "faqs", "ui"]
+    missing = [k for k in need if k not in cfg]
+    if missing:
+        sys.exit(f"Ayar dosyasında eksik alanlar: {', '.join(missing)}")
+    if len(cfg["features"]) != 4:
+        sys.exit("features tam 4 hikâye kartı olmalı.")
+    for i, p in enumerate(cfg["products"]):
+        for k in ("name", "file", "color", "theme", "tagline", "notes", "description", "en", "label"):
+            if k not in p:
+                sys.exit(f"products[{i}] ({p.get('name', '?')}): '{k}' eksik.")
+    for r in cfg["ritual"]:
+        if r["flavor"] >= len(cfg["products"]):
+            sys.exit("ritual.flavor ürün sayısından büyük olamaz.")
+
+
+def main(path):
+    cfg = json.load(open(path, encoding="utf-8"))
+    check(cfg)
+    slug = cfg["slug"]
+    dst = os.path.join(OUT_ROOT, slug)
+    os.makedirs(OUT_ROOT, exist_ok=True)
+    print(f"→ Şablon kopyalanıyor: demolar/{slug}")
+    copy_template(dst)
+
+    content = os.path.join(dst, "src", "content.json")
+    json.dump(cfg, open(content, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+    index = os.path.join(dst, "index.html")
+    html = open(index, encoding="utf-8").read()
+    tmpl = json.load(open(os.path.join(TEMPLATE, "src", "content.json"), encoding="utf-8"))["meta"]
+    for key in ("title", "description", "og"):
+        html = html.replace(tmpl[key], cfg["meta"][key])
+    open(index, "w", encoding="utf-8").write(html)
+
+    readme = os.path.join(dst, "README.md")
+    open(readme, "w", encoding="utf-8").write(
+        f"# {cfg['brand']['name']} · 3B konsept demo\n\n"
+        f"> {cfg['brand']['disclaimer']}\n\n"
+        "Demo fabrikasıyla (demo-fabrikasi/) üretildi. İçerik `src/content.json` dosyasında.\n\n"
+        "```bash\nnpm install\nnpm run dev\n```\n"
+    )
+
+    print("→ Etiketler çiziliyor")
+    labels = os.path.join(dst, "src", "assets", "labels")
+    env = dict(os.environ, CONTENT=content)
+    subprocess.run([sys.executable, os.path.join(dst, "docs", "label-generator.py"), labels], check=True, env=env)
+
+    print("→ Site derleniyor")
+    subprocess.run([NPM, "run", "build"], cwd=dst, check=True, stdout=subprocess.DEVNULL)
+    zip_base = os.path.join(OUT_ROOT, f"{slug}-Netlify")
+    shutil.make_archive(zip_base, "zip", os.path.join(dst, "dist"))
+    shutil.rmtree(os.path.join(dst, "dist"))
+    print(f"✓ Hazır: demolar/{slug}/  ve  demolar/{slug}-Netlify.zip")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        sys.exit(__doc__)
+    main(sys.argv[1])

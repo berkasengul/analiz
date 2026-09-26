@@ -1,0 +1,825 @@
+{
+  "slug": "ornek-marka",
+  "meta": {
+    "title": "Örnek Parfüm · Konsept Demo",
+    "description": "Örnek Parfüm için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
+    "og": "Örnek Parfüm için 3B konsept site."
+  },
+  "brand": {
+    "name": "Örnek Parfüm",
+    "sub": "Eau de Parfum",
+    "specs": "İstanbul'dan niş parfüm evi",
+    "disclaimer": "Bu sayfa Örnek Parfüm için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Şişe tasarımları temsilidir; ürün açıklamaları ve fiyatlar örnektir.",
+    "en": {
+      "specs": "A niche perfume house from Istanbul",
+      "disclaimer": "This page is an independent concept demo prepared for Örnek Parfüm and is not affiliated with the brand owner. Bottle designs are illustrative; product copy and prices are examples."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "ÖRNEK",
+    "submark": "PARFÜM",
+    "concentration": "EAU DE PARFUM",
+    "volume": "50 ml e 1.7 FL.OZ"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.9,
+      "height": 2.7,
+      "depth": 1.9,
+      "corner": 0.9
+    },
+    "label": {
+      "size": 1.5,
+      "y": 0.0,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e8ea"
+    },
+    "cap": {
+      "shape": "box",
+      "radius": 0.55,
+      "height": 0.9,
+      "color": "#141210",
+      "finish": "black"
+    },
+    "scale": 1.1,
+    "tilt": -0.05
+  },
+  "products": [
+    {
+      "file": "urun-1.jpg",
+      "name": "Ayna",
+      "collection": null,
+      "family": "Çiçeksi odunsu",
+      "year": 2025,
+      "perfumer": null,
+      "color": "#d8b46a",
+      "ink": "#155a40",
+      "theme": {
+        "glow": "#1f6a4a",
+        "edge": "#020a06",
+        "drop": "#9fe0c0",
+        "mood": "warm"
+      },
+      "tagline": "Kısa, akılda kalan bir cümle.",
+      "notes": [
+        "Bergamot",
+        "Pembe biber",
+        "Gül",
+        "Amber",
+        "Misk"
+      ],
+      "description": "Kokunun hikâyesi: nereden ilham aldığı, nasıl açıldığı ve tende nasıl kaldığı.",
+      "en": {
+        "family": "Floral woody",
+        "tagline": "A short, memorable line.",
+        "notes": [
+          "Bergamot",
+          "Pink pepper",
+          "Rose",
+          "Amber",
+          "Musk"
+        ],
+        "description": "The scent's story: its inspiration, how it opens and how it stays on skin."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          250,
+          247,
+          240
+        ],
+        "ink": [
+          30,
+          26,
+          22
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Bergamot · Pembe biber"
+          ],
+          [
+            "HEART",
+            "Gül · İris"
+          ],
+          [
+            "BASE",
+            "Amber · Misk"
+          ]
+        ]
+      }
+    },
+    {
+      "file": "urun-2.jpg",
+      "name": "Lodos",
+      "collection": null,
+      "family": "Çiçeksi odunsu",
+      "year": 2025,
+      "perfumer": null,
+      "color": "#6fa8d8",
+      "ink": "#6b4a10",
+      "theme": {
+        "glow": "#a8802e",
+        "edge": "#0c0903",
+        "drop": "#f3dc98",
+        "mood": "warm"
+      },
+      "tagline": "Kısa, akılda kalan bir cümle.",
+      "notes": [
+        "Bergamot",
+        "Pembe biber",
+        "Gül",
+        "Amber",
+        "Misk"
+      ],
+      "description": "Kokunun hikâyesi: nereden ilham aldığı, nasıl açıldığı ve tende nasıl kaldığı.",
+      "en": {
+        "family": "Floral woody",
+        "tagline": "A short, memorable line.",
+        "notes": [
+          "Bergamot",
+          "Pink pepper",
+          "Rose",
+          "Amber",
+          "Musk"
+        ],
+        "description": "The scent's story: its inspiration, how it opens and how it stays on skin."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          20,
+          18,
+          16
+        ],
+        "ink": [
+          226,
+          190,
+          110
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Bergamot · Pembe biber"
+          ],
+          [
+            "HEART",
+            "Gül · İris"
+          ],
+          [
+            "BASE",
+            "Amber · Misk"
+          ]
+        ]
+      }
+    },
+    {
+      "file": "urun-3.jpg",
+      "name": "Kehribar",
+      "collection": null,
+      "family": "Çiçeksi odunsu",
+      "year": 2025,
+      "perfumer": null,
+      "color": "#d88a3a",
+      "ink": "#7a1428",
+      "theme": {
+        "glow": "#7a1428",
+        "edge": "#0e0305",
+        "drop": "#f0a0b0",
+        "mood": "warm"
+      },
+      "tagline": "Kısa, akılda kalan bir cümle.",
+      "notes": [
+        "Bergamot",
+        "Pembe biber",
+        "Gül",
+        "Amber",
+        "Misk"
+      ],
+      "description": "Kokunun hikâyesi: nereden ilham aldığı, nasıl açıldığı ve tende nasıl kaldığı.",
+      "en": {
+        "family": "Floral woody",
+        "tagline": "A short, memorable line.",
+        "notes": [
+          "Bergamot",
+          "Pink pepper",
+          "Rose",
+          "Amber",
+          "Musk"
+        ],
+        "description": "The scent's story: its inspiration, how it opens and how it stays on skin."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          250,
+          247,
+          240
+        ],
+        "ink": [
+          30,
+          26,
+          22
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Bergamot · Pembe biber"
+          ],
+          [
+            "HEART",
+            "Gül · İris"
+          ],
+          [
+            "BASE",
+            "Amber · Misk"
+          ]
+        ]
+      }
+    },
+    {
+      "file": "urun-4.jpg",
+      "name": "Mürver",
+      "collection": null,
+      "family": "Çiçeksi odunsu",
+      "year": 2025,
+      "perfumer": null,
+      "color": "#9a6fd0",
+      "ink": "#1c2c68",
+      "theme": {
+        "glow": "#2c4596",
+        "edge": "#03050e",
+        "drop": "#b0c4f5",
+        "mood": "cool"
+      },
+      "tagline": "Kısa, akılda kalan bir cümle.",
+      "notes": [
+        "Bergamot",
+        "Pembe biber",
+        "Gül",
+        "Amber",
+        "Misk"
+      ],
+      "description": "Kokunun hikâyesi: nereden ilham aldığı, nasıl açıldığı ve tende nasıl kaldığı.",
+      "en": {
+        "family": "Floral woody",
+        "tagline": "A short, memorable line.",
+        "notes": [
+          "Bergamot",
+          "Pink pepper",
+          "Rose",
+          "Amber",
+          "Musk"
+        ],
+        "description": "The scent's story: its inspiration, how it opens and how it stays on skin."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          20,
+          18,
+          16
+        ],
+        "ink": [
+          226,
+          190,
+          110
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Bergamot · Pembe biber"
+          ],
+          [
+            "HEART",
+            "Gül · İris"
+          ],
+          [
+            "BASE",
+            "Amber · Misk"
+          ]
+        ]
+      }
+    },
+    {
+      "file": "urun-5.jpg",
+      "name": "Çınar",
+      "collection": null,
+      "family": "Çiçeksi odunsu",
+      "year": 2025,
+      "perfumer": null,
+      "color": "#6fb88a",
+      "ink": "#0c5c68",
+      "theme": {
+        "glow": "#0f6a74",
+        "edge": "#020a0b",
+        "drop": "#a0e4ea",
+        "mood": "cool"
+      },
+      "tagline": "Kısa, akılda kalan bir cümle.",
+      "notes": [
+        "Bergamot",
+        "Pembe biber",
+        "Gül",
+        "Amber",
+        "Misk"
+      ],
+      "description": "Kokunun hikâyesi: nereden ilham aldığı, nasıl açıldığı ve tende nasıl kaldığı.",
+      "en": {
+        "family": "Floral woody",
+        "tagline": "A short, memorable line.",
+        "notes": [
+          "Bergamot",
+          "Pink pepper",
+          "Rose",
+          "Amber",
+          "Musk"
+        ],
+        "description": "The scent's story: its inspiration, how it opens and how it stays on skin."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          250,
+          247,
+          240
+        ],
+        "ink": [
+          30,
+          26,
+          22
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Bergamot · Pembe biber"
+          ],
+          [
+            "HEART",
+            "Gül · İris"
+          ],
+          [
+            "BASE",
+            "Amber · Misk"
+          ]
+        ]
+      }
+    }
+  ],
+  "specs": {
+    "tr": "Extrait de Parfum · 100 ml",
+    "en": "Extrait de Parfum · 100 ml"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Eau de Parfum",
+        "kicker": "%20",
+        "struck": "Eau de toilette",
+        "title": "Kalıcı bir iz",
+        "text": "Her koku yüksek esans oranıyla hazırlanır; gün boyu tende kalır."
+      },
+      "en": {
+        "short": "Eau de Parfum",
+        "kicker": "20%",
+        "struck": "Eau de toilette",
+        "title": "A lasting trail",
+        "text": "Every scent is made with a high perfume oil concentration and stays on skin all day."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.55,
+        "rotZ": 0.02,
+        "y": 0.1,
+        "scale": 2.1
+      },
+      "tr": {
+        "short": "Şişe tasarımı",
+        "kicker": "Özel",
+        "struck": "Sıradan bir şişe",
+        "title": "Elde tutulan bir obje",
+        "text": "Şişe ve etiket markanın hikâyesini taşır: [tasarım hakkında bir cümle]."
+      },
+      "en": {
+        "short": "Bottle design",
+        "kicker": "Signature",
+        "struck": "An ordinary bottle",
+        "title": "An object to hold",
+        "text": "The bottle and label carry the house's story: [a line about the design]."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.181592653589793,
+        "rotZ": 0.02,
+        "y": -0.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Koku piramidi",
+        "kicker": "Üç",
+        "struck": "Tek boyutlu koku",
+        "title": "Üç katlı bir hikâye",
+        "text": "Üst notalar ilk dakikaları, kalp notaları ilk saatleri, taban notaları günün sonunu anlatır. Şişeyi çevir: hepsi arka etikette."
+      },
+      "en": {
+        "short": "Scent pyramid",
+        "kicker": "Three",
+        "struck": "A one-note scent",
+        "title": "A story in three layers",
+        "text": "Top notes tell the first minutes, heart notes the first hours, base notes the end of the day. Turn the bottle: they're all on the back label."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.5,
+        "rotZ": 0.02,
+        "y": -2.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Parfümör",
+        "kicker": "Usta",
+        "struck": "Seri üretim",
+        "title": "Parfümörün imzası",
+        "text": "Kokular [parfümör adı] imzasını taşır."
+      },
+      "en": {
+        "short": "Perfumer",
+        "kicker": "Master",
+        "struck": "Mass production",
+        "title": "The perfumer's signature",
+        "text": "The scents carry the signature of [perfumer name]."
+      }
+    }
+  ],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Nabız noktaları",
+        "text": "Bilek içi, boyun ve kulak arkası: sıcak noktalar kokuyu gün boyu yayar.",
+        "stat": "3 nokta"
+      },
+      "en": {
+        "title": "Pulse points",
+        "text": "Inner wrists, neck and behind the ears: warm spots carry the scent all day.",
+        "stat": "3 points"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Ovuşturma",
+        "text": "Sıktıktan sonra bileklerini birbirine sürtme; üst notalar kendi hızında açılsın.",
+        "stat": "15 cm"
+      },
+      "en": {
+        "title": "Don't rub",
+        "text": "After spraying, don't rub your wrists together; let the top notes open at their own pace.",
+        "stat": "15 cm"
+      }
+    },
+    {
+      "flavor": 4,
+      "tr": {
+        "title": "Katmanla",
+        "text": "Hope Istanbul kokuları birbiriyle özgürce birleştirilebilir. İki kokuyu üst üste sık, kendi imzanı yarat.",
+        "stat": "1 + 1"
+      },
+      "en": {
+        "title": "Layer",
+        "text": "Hope Istanbul scents are made to be combined freely. Spray two on top of each other and create your own signature.",
+        "stat": "1 + 1"
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 10,
+      "label": {
+        "tr": "Seyahat",
+        "en": "Travel"
+      }
+    },
+    {
+      "size": 50,
+      "label": {
+        "tr": "Günlük",
+        "en": "Everyday"
+      }
+    },
+    {
+      "size": 100,
+      "label": {
+        "tr": "En popüler",
+        "en": "Most popular"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "10": 1490,
+        "50": 5900,
+        "100": 9500
+      },
+      "freeShipping": 5000,
+      "shipping": 99.9
+    },
+    "en": {
+      "currency": "USD",
+      "locale": "en-US",
+      "packs": {
+        "10": 39,
+        "50": 139,
+        "100": 219
+      },
+      "freeShipping": 150,
+      "shipping": 9.9
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "stockists": {
+    "tr": [
+      [
+        "İstanbul",
+        "Hope Istanbul by Serimu · resmi satış",
+        "Açık"
+      ],
+      [
+        "Online",
+        "hopeistanbulofficial.com",
+        "Online"
+      ],
+      [
+        "Uluslararası",
+        "Lodore, Level Perfume ve seçkin niş parfümeriler",
+        "Açık"
+      ],
+      [
+        "Milano",
+        "Esxence 2024 · dünya lansmanı",
+        "Fuar"
+      ]
+    ],
+    "en": [
+      [
+        "Istanbul",
+        "Hope Istanbul by Serimu · official sales",
+        "Open"
+      ],
+      [
+        "Online",
+        "hopeistanbulofficial.com",
+        "Online"
+      ],
+      [
+        "International",
+        "Lodore, Level Perfume and selected niche perfumeries",
+        "Open"
+      ],
+      [
+        "Milan",
+        "Esxence 2024 · global debut",
+        "Fair"
+      ]
+    ]
+  },
+  "story": {
+    "founder": "Kurucu Adı",
+    "instagram": "https://www.instagram.com/",
+    "website": "https://example.com/",
+    "press": [
+      "Esxence Milano",
+      "Fragrantica",
+      "Parfumo",
+      "Lodore",
+      "Level Perfume"
+    ],
+    "tr": {
+      "lead": "İstanbul her zaman bir coğrafyadan fazlası oldu: baharat çarşısının kokusu, Boğaz'ın tuzu, şafakta bir caminin sessizliği.",
+      "paragraphs": [
+        "Hikâye yedi yaşında bir çocuğun kokulara duyduğu merakla başladı ve yıllar içinde bir parfüm evine dönüştü. Markanın adı kurucunun annesinden geliyor: Umut. Hope Istanbul, 2021'de Serimu Kozmetik çatısı altında bu sevgi ve aile bağıyla kuruldu.",
+        "Amaç, umudu bir şişeye sığdırmak. Tarihin kokusunun modern hayatın nabzıyla buluştuğu İstanbul'da doğan her koku, Doğu'nun ihtişamını Batı'nın zarafetiyle harmanlayan, hiç uyumayan şehirden ilham alan bir yolculuk. Her notada bir hikâye, her nefeste yeni bir keşif.",
+        "Kokuların arkasında üç isim var: Gökhan Şimşek, Hüseyin Erdoğmuş ve Amouage, Creed, Frederic Malle için de çalışmış parfümör Julien Rasquinet. Marka dünyaya açılışını 2024'te Milano'daki Esxence'ta yaptı."
+      ],
+      "timeline": [
+        [
+          "2021",
+          "Hope Istanbul, kurucunun annesi Umut'un adıyla kuruluyor"
+        ],
+        [
+          "2022",
+          "İlk koleksiyon: Han, Narcissus, Queen ve N.E.C.O"
+        ],
+        [
+          "2024",
+          "Esxence Milano'da dünya lansmanı; Forza ve Submarine"
+        ],
+        [
+          "2025",
+          "Grand serisi, Queen of Palace ve Deep Secret"
+        ]
+      ],
+      "stats": [
+        [
+          "%30",
+          "esans oranı"
+        ],
+        [
+          "20",
+          "koku"
+        ],
+        [
+          "4",
+          "İstanbul koleksiyonu"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Istanbul has always been more than a place: the scent of a spice market, the salt of the Bosphorus, the silence of a mosque at dawn.",
+      "paragraphs": [
+        "The story began with a seven-year-old's fascination with scent and grew, over the years, into a perfume house. The name comes from the founder's mother: Umut, Turkish for hope. Hope Istanbul was founded in 2021 under Serimu Kozmetik, on that bond of love and family.",
+        "The aim is to capture hope in a bottle. Born in Istanbul, where the fragrance of history meets the pulse of modern life, each scent is a journey blending Eastern opulence with Western elegance, inspired by the city that never sleeps. A different story in every note, a new discovery in every breath.",
+        "Three names stand behind the scents: Gökhan Şimşek, Hüseyin Erdoğmuş and perfumer Julien Rasquinet, who has also created for Amouage, Creed and Frederic Malle. The house made its global debut at Esxence in Milan in 2024."
+      ],
+      "timeline": [
+        [
+          "2021",
+          "Hope Istanbul is founded, named after the founder's mother Umut"
+        ],
+        [
+          "2022",
+          "First collection: Han, Narcissus, Queen and N.E.C.O"
+        ],
+        [
+          "2024",
+          "Global debut at Esxence Milan; Forza and Submarine"
+        ],
+        [
+          "2025",
+          "The Grand series, Queen of Palace and Deep Secret"
+        ]
+      ],
+      "stats": [
+        [
+          "30%",
+          "perfume oil"
+        ],
+        [
+          "20",
+          "scents"
+        ],
+        [
+          "4",
+          "Istanbul collections"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Hope adı nereden geliyor?",
+        "Kurucunun annesinin adından: Umut. Yedi yaşında başlayan koku tutkusu, 2021'de annesinin adını taşıyan bir parfüm evine dönüştü."
+      ],
+      [
+        "Extrait de Parfum ne demek?",
+        "Parfümün en yoğun hali. Hope Istanbul kokuları %30 esans oranıyla hazırlanır; eau de parfum ve eau de toilette'ten çok daha kalıcıdır."
+      ],
+      [
+        "Hangi kokuyu seçmeliyim?",
+        "Sıcak ve baharatlı sevenler için Han, çiçeksi ve görkemli için Queen of Palace, aydınlık ve tatlı için Narcissus, temiz ve karizmatik için Grand Conqueror, ferah ve denizsi için Deep Secret, baharatlı ve asi için N.E.C.O, lavantalı ve zarif için Forza, meyveli ve derin için Submarine."
+      ],
+      [
+        "Koleksiyonlar neyi anlatıyor?",
+        "Her koleksiyon İstanbul'un bir yüzünü anlatır: 7 Tepe, Tarihi Yarımada, İki Kıta Bir Aşk ve İstanbul'un Harikaları."
+      ],
+      [
+        "Koleksiyonda başka hangi kokular var?",
+        "Bu sayfada sekiz koku var. Markanın koleksiyonunda Amber Delight, Mango Crush, Addictive, Rare, Miss Miris ve Grand Han gibi başka kokular da bulunuyor."
+      ],
+      [
+        "Kokular unisex mi?",
+        "Evet. Hope Istanbul kokuları kadın ve erkek için tasarlanır."
+      ],
+      [
+        "Kokuları birleştirebilir miyim?",
+        "Evet. Hope Istanbul kokuları birbiriyle özgürce katmanlanabilir; örneğin Han'ın baharatını Queen of Palace'ın gülüyle birleştirip kendi imzanı yaratabilirsin."
+      ],
+      [
+        "10 ml seyahat boyu ne işe yarar?",
+        "Kokuyu tende birkaç gün denemek ya da çantada taşımak için. Beğenirsen büyük şişeye geçersin."
+      ],
+      [
+        "Kargo ve hediye paketi nasıl işliyor?",
+        "Bu demo sayfada örnek akış gösteriliyor: aynı gün kargo, ücretsiz hediye kutusu ve el yazısı not. Gerçek koşullar markayla birlikte belirlenecek."
+      ]
+    ],
+    "en": [
+      [
+        "Where does the name Hope come from?",
+        "From the founder's mother, Umut, Turkish for hope. A love of scent that began at age seven became, in 2021, a perfume house carrying her name."
+      ],
+      [
+        "What does Extrait de Parfum mean?",
+        "The most concentrated form of perfume. Hope Istanbul scents are made with 30% perfume oil and last far longer than eau de parfum or eau de toilette."
+      ],
+      [
+        "Which scent should I choose?",
+        "Han for warm and spicy, Queen of Palace for floral and majestic, Narcissus for bright and sweet, Grand Conqueror for clean and charismatic, Deep Secret for fresh and marine, N.E.C.O for spicy and rebellious, Forza for lavender and elegant, Submarine for fruity and deep."
+      ],
+      [
+        "What do the collections tell?",
+        "Each collection tells one face of Istanbul: 7 Hills, Historical Peninsula, Two Continents One Love and Wonders of Istanbul."
+      ],
+      [
+        "What other scents are in the collection?",
+        "This page shows eight scents. The house's collection also includes Amber Delight, Mango Crush, Addictive, Rare, Miss Miris and Grand Han."
+      ],
+      [
+        "Are the scents unisex?",
+        "Yes. Hope Istanbul scents are designed for women and men."
+      ],
+      [
+        "Can I layer the scents?",
+        "Yes. Hope Istanbul scents are made to be layered freely; try Han's spice with Queen of Palace's rose and create your own signature."
+      ],
+      [
+        "What is the 10 ml travel size for?",
+        "To wear a scent for a few days or carry it in your bag. If you love it, move up to a full bottle."
+      ],
+      [
+        "How do shipping and gift wrapping work?",
+        "This demo shows a sample flow: same-day dispatch, a free gift box and a handwritten note. Real terms will be set with the brand."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Esans damıtılıyor",
+      "madeFor": "Örnek Parfüm için hazırlanmış konsept",
+      "whereTag": "İstanbul'dan Milano'ya, bir sıkım uzaklıkta.",
+      "recyclable": "İstanbul'da tasarlanır, Türkiye'de üretilir",
+      "founder": "Kurucular ve parfümörler",
+      "contactTag": "Butik, otel ve kurumsal hediye siparişleri için.",
+      "newsTitle": "Yeni kokular önce burada duyurulur.",
+      "marquee": [
+        "Hope in a bottle",
+        "Her notada bir hikâye",
+        "Her nefeste yeni bir keşif",
+        "Doğu'nun ihtişamı, Batı'nın zarafeti",
+        "Hiç uyumayan şehirden",
+        "Extrait de Parfum · %30",
+        "Esxence Milano 2024"
+      ]
+    },
+    "en": {
+      "loading": "Distilling the essence",
+      "madeFor": "A concept made for Örnek Parfüm",
+      "whereTag": "From Istanbul to Milan, one spray away.",
+      "recyclable": "Designed in Istanbul, made in Türkiye",
+      "founder": "Founders and perfumers",
+      "contactTag": "For boutiques, hotels and corporate gifting.",
+      "newsTitle": "New scents are announced here first.",
+      "marquee": [
+        "Hope in a bottle",
+        "A story in every note",
+        "A new discovery in every breath",
+        "Eastern opulence, Western elegance",
+        "From the city that never sleeps",
+        "Extrait de Parfum · 30%",
+        "Esxence Milan 2024"
+      ]
+    }
+  }
+}
