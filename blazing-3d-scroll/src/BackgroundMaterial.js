@@ -11,6 +11,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_aspect: 1,
     u_color: null,
     u_center: null,
+    u_dark: 0,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -25,6 +26,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_aspect;
     uniform vec3 u_color;
     uniform vec2 u_center;
+    uniform float u_dark;
 
     varying vec2 vUv;
 
@@ -61,6 +63,8 @@ export const BackgroundMaterial = shaderMaterial(
         ring = max(displacement - (n + nz) - grain * 0.3, 0.);
       }
       vec3 col = base + ring * u_color * 1.6 + (grain - 0.5) * 0.012;
+      // Sinematik mod: sahne kararır, kenarlarda koyu bir vinyet oluşur.
+      col *= mix(1., 0.35 + 0.65 * (1. - smoothstep(0.25, 1.0, screenDist)), u_dark);
 
       gl_FragColor = vec4(col, 1.0);
       #include <tonemapping_fragment>

@@ -112,6 +112,7 @@ export default function App() {
   useKeys();
   useReveal();
   const detail = useStore((s) => s.detail);
+  const cinema = useStore((s) => s.detail && s.feature != null);
 
   return (
     <>
@@ -122,7 +123,7 @@ export default function App() {
       <CartDrawer />
       <main>
         <section id="flavors" className="flavors" style={{ height: `calc(100vh + ${(N - 1) * 60}vh)` }}>
-          <div className={`stage${detail ? " is-detail" : ""}`}>
+          <div className={`stage${detail ? " is-detail" : ""}${cinema ? " is-cinema" : ""}`}>
             <FlavorHud />
             <DetailPanel />
           </div>

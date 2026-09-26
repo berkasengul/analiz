@@ -83,6 +83,7 @@ export default function HeroCan() {
   const body = useMemo(() => createCanMaterial(materials.Body, uniforms), [materials, uniforms]);
 
   const group = useRef();
+  const spot = useRef();
   const l = useRef({
     detailT: 0,
     target: 0,
@@ -95,6 +96,8 @@ export default function HeroCan() {
     featureAt: 0,
     pose: null,
     wasDetail: false,
+    spot: 0,
+    sweepAt: 0,
   });
 
   // Detayda kutuyu sürükleyerek döndürme.
@@ -169,7 +172,25 @@ export default function HeroCan() {
       s.featureAt = time;
       s.dragTarget = 0;
     }
-    if (s.poseFeature !== s.feature && time - s.featureAt > 0.22) s.poseFeature = s.feature;
+    if (s.poseFeature !== s.feature && time - s.featureAt > 0.22) {
+      s.poseFeature = s.feature;
+      s.sweepAt = time;
+    }
+
+    // Sinematik mod: özellik yakın çekiminde etikete spot ışık düşer, arka
+    // plan kararır. Işık kısa bir süzülmeyle soldan etiketin üstüne gelir.
+    const focusOn = st.detail && s.poseFeature != null;
+    s.spot = MathUtils.damp(s.spot, focusOn ? 1 : 0, 3, dt);
+    sceneState.spotlight = s.spot;
+    const sweepK = 1 - Math.pow(1 - Math.min(1, (time - s.sweepAt) / 1.4), 3);
+    const light = spot.current;
+    light.intensity = s.spot * 9;
+    light.position.set(group.current.position.x - 2.8 + sweepK * 2.6, group.current.position.y * 0.2 + 2.2, 11);
+    light.target.position.set(group.current.position.x, 0.2, group.current.position.z);
+    light.target.updateMatrixWorld();
+    // Ortam yansımaları azalır ki spot ışığın kontrastı öne çıksın.
+    body.envMapIntensity = 1.35 - 0.75 * s.spot;
+    aluminium.envMapIntensity = 1.3 - 0.7 * s.spot;
     // Detay açılınca kutunun yüzeyinden açık renkli bir ışık süpürmesi geçer.
     if (st.detail && !s.wasDetail) sweep();
     s.wasDetail = st.detail;
@@ -220,6 +241,17 @@ export default function HeroCan() {
   });
 
   return (
+    <>
+    {/* Hep sahnede; yoğunluğu 0 iken görünmez. Işık sayısı sabit kaldığı
+        için shader'lar yeniden derlenmez. */}
+    <spotLight
+      ref={spot}
+      intensity={0}
+      angle={0.32}
+      penumbra={1}
+      decay={0}
+      color="#ffe6c7"
+    />
     <group
       ref={group}
       visible={false}
@@ -232,5 +264,6 @@ export default function HeroCan() {
     >
       <CanMesh body={body} aluminium={aluminium} />
     </group>
+    </>
   );
 }

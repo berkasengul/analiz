@@ -1908,3 +1908,18 @@ main {
   align-items: center;
   gap: 10px;
 }
+
+/* Sinematik mod: özellik yakın çekiminde ekranın kenarları kararır. */
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 58% 50%, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+  opacity: 0;
+  transition: opacity 1s var(--ease);
+}
+
+.stage.is-cinema::before {
+  opacity: 1;
+}

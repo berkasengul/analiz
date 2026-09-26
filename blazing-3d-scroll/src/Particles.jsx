@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
+import { sceneState } from "./shared";
 import { AdditiveBlending, BufferAttribute, BufferGeometry, ShaderMaterial } from "three";
 
 const COUNT = typeof window !== "undefined" && window.innerWidth < 760 ? 180 : 420;
@@ -29,7 +30,7 @@ export default function Particles() {
         transparent: true,
         depthWrite: false,
         blending: AdditiveBlending,
-        uniforms: { u_time: { value: 0 }, u_dpr: { value: dpr } },
+        uniforms: { u_time: { value: 0 }, u_dpr: { value: dpr }, u_dim: { value: 1 } },
         vertexShader: /* glsl */ `
           uniform float u_time;
           uniform float u_dpr;
@@ -48,6 +49,7 @@ export default function Particles() {
           }
         `,
         fragmentShader: /* glsl */ `
+          uniform float u_dim;
           varying float vSeed;
           varying float vDepth;
           void main() {
@@ -59,7 +61,7 @@ export default function Particles() {
             float alpha = smoothstep(0.5, 0.05, d);
             // Yakındakiler daha bulanık ve soluk.
             float near = smoothstep(18., 8., vDepth);
-            alpha *= mix(0.16, 0.06, near);
+            alpha *= mix(0.16, 0.06, near) * u_dim;
             gl_FragColor = vec4(vec3(0.8, 0.82, 0.86) * alpha, alpha);
           }
         `,
@@ -69,6 +71,7 @@ export default function Particles() {
 
   useFrame(({ clock }) => {
     material.uniforms.u_time.value = clock.getElapsedTime();
+    material.uniforms.u_dim.value = 1 - 0.6 * sceneState.spotlight;
   });
 
   return <points geometry={geometry} material={material} frustumCulled={false} />;

@@ -38,6 +38,7 @@ export default function Background() {
     const l = last.current;
     const time = clock.getElapsedTime();
     material.current.u_time = time;
+    material.current.u_dark = sceneState.spotlight;
     const st = useStore.getState();
 
     // Ritüel'de halka ekranın ortasından, carousel'de öndeki kutudan çıkar.
