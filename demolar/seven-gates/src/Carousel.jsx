@@ -231,7 +231,7 @@ export default function Carousel() {
           onPointerOver={hover(i)}
           onPointerOut={unhover(i)}
         >
-          <CanMesh body={bodies[i]} parts={parts[i]} form={flavors[i].form} />
+          <CanMesh body={bodies[i]} parts={parts[i]} flavor={i} />
         </group>
       ))}
     </>

@@ -42,7 +42,9 @@ export default function FlavorHud() {
         </p>
         <ul className="chips" aria-label={ui.notes} key={f.name + t.lang}>
           {f.notes.map((n) => (
-            <li key={n}>{n}</li>
+            <li key={n} data-tip={t.glossary[n]} tabIndex={t.glossary[n] ? 0 : undefined}>
+              {n}
+            </li>
           ))}
         </ul>
       </div>

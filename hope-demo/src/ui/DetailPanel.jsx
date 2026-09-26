@@ -34,6 +34,8 @@ export default function DetailPanel() {
   const want = feature != null ? `f-${feature}` : `c-${active}`;
   const [shown, setShown] = useState({ key: want, feature, active });
   const [leaving, setLeaving] = useState(false);
+  // Dokunmatik ekranlar için: seçilen içeriğin açıklaması çiplerin altında görünür.
+  const [tip, setTip] = useState(null);
   useEffect(() => {
     if (want === shown.key) return;
     if (!detail) {
@@ -113,9 +115,22 @@ export default function DetailPanel() {
           </dl>
           <ul className="chips detail__notes" aria-label={ui.notes}>
             {f.notes.map((n) => (
-              <li key={n}>{n}</li>
+              <li
+                key={n}
+                data-tip={t.glossary[n]}
+                tabIndex={t.glossary[n] ? 0 : undefined}
+                className={tip === n ? "is-on" : undefined}
+                onClick={() => t.glossary[n] && setTip(tip === n ? null : n)}
+              >
+                {n}
+              </li>
             ))}
           </ul>
+          {tip && t.glossary[tip] && f.notes.includes(tip) && (
+            <p className="detail__tip">
+              <b>{tip}</b> {t.glossary[tip]}
+            </p>
+          )}
           <div className="buy">
             <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, DETAIL_PACK, "once")}>
               {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once"))}

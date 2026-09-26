@@ -2,7 +2,10 @@ import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { AdditiveBlending, Color, DoubleSide, MeshBasicMaterial, InstancedMesh, MathUtils, MeshPhysicalMaterial, Object3D, OctahedronGeometry, SphereGeometry, Vector3 } from "three";
 
-import { flavors } from "./data";
+import { content, flavors } from "./data";
+
+// "leaves": gül yaprağı yerine zeytin yaprağı (content.json → particles).
+const LEAVES = content.particles === "leaves";
 import { sceneState } from "./shared";
 
 // Parfüm reklamlarındaki sahne: şişelerin arasında kristal parçaları ve
@@ -89,7 +92,7 @@ export default function IceScene() {
     });
     mats.cube.opacity = 0.22 * show;
     // Yapraklar öndeki kokunun rengine yavaşça döner.
-    mats.bean.color.lerp(tmp.c.set(flavors[sceneState.heroFlavor].color), 1 - Math.exp(-2 * dt));
+    mats.bean.color.lerp(tmp.c.set(LEAVES ? "#7d9152" : flavors[sceneState.heroFlavor].color), 1 - Math.exp(-2 * dt));
 
     // Kahve sıçraması: tat oturduğunda kutunun tepesinden damlalar fırlar.
     if (sceneState.burstAt !== st.burst) {
@@ -144,7 +147,7 @@ export default function IceScene() {
           <mesh key={`c${i}`} geometry={cubeGeo} material={mats.cube} scale={c.s} userData={c} renderOrder={4} />
         ))}
         {BEANS.map((c, i) => (
-          <mesh key={`b${i}`} geometry={beanGeo} material={mats.bean} scale={[1, 1, 1]} userData={c} />
+          <mesh key={`b${i}`} geometry={beanGeo} material={mats.bean} scale={LEAVES ? [0.4, 1.25, 1] : [1, 1, 1]} userData={c} />
         ))}
       </group>
       <primitive ref={drops} object={dropMesh} />

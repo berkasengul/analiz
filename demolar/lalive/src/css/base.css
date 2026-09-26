@@ -2931,3 +2931,63 @@ main {
     margin-bottom: 8px;
   }
 }
+
+/* İçerik sözlüğü: nota/içerik çipinin üstüne gelince kısa açıklama */
+.chips li[data-tip] {
+  position: relative;
+  cursor: help;
+  pointer-events: auto;
+}
+.chips li[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: 240px;
+  transform: translate(-50%, 6px);
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(14, 14, 16, 0.92);
+  border: 1px solid var(--faint);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s var(--ease);
+  z-index: 20;
+}
+.chips li[data-tip]:hover::after,
+.chips li[data-tip]:focus-visible::after,
+.chips li[data-tip]:focus::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.detail__tip {
+  display: none;
+  margin: -4px 0 12px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.detail__tip b {
+  color: var(--accent, var(--fg));
+  font-weight: 600;
+}
+@media (hover: none), (max-width: 760px) {
+  .detail__tip {
+    display: block;
+  }
+  .chips li[data-tip]::after {
+    display: none;
+  }
+  .chips li.is-on {
+    border-color: var(--accent, var(--fg));
+  }
+}

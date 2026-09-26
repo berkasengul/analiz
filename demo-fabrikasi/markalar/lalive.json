@@ -50,11 +50,13 @@
     "tube": {
       "radius": 0.62,
       "height": 3.3,
-      "capRadius": 0.56,
-      "capHeight": 0.6,
-      "color": "#f1ebdf",
-      "capColor": "#c9ad74",
-      "capFinish": "gold",
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
       "scale": 1.0
     }
   },
@@ -67,35 +69,35 @@
       "family": "El bakımı",
       "year": null,
       "perfumer": null,
-      "color": "#9aae6a",
+      "color": "#d8cc9c",
       "ink": "#56663a",
       "theme": {
-        "glow": "#56663a",
-        "edge": "#060803",
-        "drop": "#dfe8c4",
+        "glow": "#6a6a3a",
+        "edge": "#070704",
+        "drop": "#efe6c4",
         "mood": "warm"
       },
       "tagline": "Zeytinyağıyla derin besleme.",
       "notes": [
         "Zeytinyağı",
-        "Shea",
         "Kakao yağı",
-        "Jojoba",
-        "Niasinamid"
+        "Hyalüronik asit",
+        "B vitamini",
+        "E vitamini"
       ],
-      "description": "Geliştirilmiş bitki bazlı formül: zeytinyağı, shea, kakao ve jojoba yağı elleri derinlemesine besler; aloe vera ve niasinamid yatıştırır, hyalüronik asit yağlı his bırakmadan uzun süre nemlendirir.",
+      "description": "Geliştirilmiş bitki bazlı formül: zeytinyağı, shea, kakao ve jojoba yağı elleri derinlemesine besler; aloe vera ve niasinamid yatıştırır, hyalüronik asit yağlı his bırakmadan uzun süre nemlendirir. E vitamini ve vanilya yağı antioksidan etkisiyle korur.",
       "file": "el-kremi.jpg",
       "en": {
         "family": "Hand care",
         "tagline": "Deep nourishment with olive oil.",
         "notes": [
           "Olive oil",
-          "Shea",
           "Cocoa butter",
-          "Jojoba",
-          "Niacinamide"
+          "Hyaluronic acid",
+          "Vitamin B",
+          "Vitamin E"
         ],
-        "description": "An improved plant-based formula: olive, shea, cocoa and jojoba oils nourish hands deeply; aloe vera and niacinamide soothe; hyaluronic acid hydrates for hours without a greasy feel."
+        "description": "An improved plant-based formula: olive oil, shea, cocoa butter and jojoba nourish hands deeply; aloe vera, panthenol and niacinamide soothe; hyaluronic acid and squalene hydrate for hours without a greasy feel, while vitamin E and vanilla oil protect."
       },
       "label": {
         "plate": [
@@ -137,8 +139,41 @@
             "Assos · Koruoba"
           ]
         ],
-        "style": "tube",
-        "volume": "50 ml"
+        "style": "lalive",
+        "volume": "50 ml",
+        "lalive": {
+          "bg": [
+            216,
+            204,
+            156
+          ],
+          "ink": [
+            30,
+            56,
+            40
+          ],
+          "en": "NATURAL HAND CREAM",
+          "tr": "doğal el kremi",
+          "lines": [
+            "B Vitamini · E Vitamini",
+            "Zeytinyağı · Kakao yağı",
+            "Hyaluronik Asit"
+          ],
+          "volume": "50 ml e 1,69 oz",
+          "back": [
+            {
+              "text": "Lalive Doğal El Kremi'nin geliştirilmiş yeni bitki bazlı formülü ile doğanın şifasını gün boyu ellerinizde hissedin. Zeytinyağı, shea, kakao ve jojoba yağı ellerinizi derinlemesine besler ve yumuşatırken aloe vera ve niasinamid cildi yatıştırır, hyalüronik asit yağlı bir his bırakmadan uzun süreli nemlendirme sağlar. E vitamini ve vanilya yağı antioksidan etkisiyle ellerinizi çevresel faktörlere karşı korur."
+            },
+            {
+              "head": "KULLANIM",
+              "text": "Avucunuza yeterli miktarda kremi alınız ve dairesel hareketlerle masaj yaparak uygulayınız."
+            },
+            {
+              "head": "UYARILAR",
+              "text": "Haricen kullanılır. Göz ile temasından kaçınınız. Kuru yerde, oda sıcaklığında ve güneş ışığından koruyarak saklayınız."
+            }
+          ]
+        }
       }
     },
     {
@@ -217,24 +252,55 @@
             "Assos · Koruoba"
           ]
         ],
-        "style": "tube",
-        "volume": "50 ml"
+        "style": "lalive",
+        "volume": "50 ml",
+        "lalive": {
+          "bg": [
+            238,
+            231,
+            214
+          ],
+          "ink": [
+            30,
+            56,
+            40
+          ],
+          "en": "NATURAL SUNSCREEN",
+          "tr": "doğal güneş kremi",
+          "lines": [
+            "Mineral Filtre · SPF 50",
+            "Zeytinyağı · Bitkisel yağlar"
+          ],
+          "volume": "",
+          "back": [
+            {
+              "text": "Mineral filtre ve bitki bazlı içeriklerle cildinizi güneşin zararlı etkilerine karşı korur. %100 doğal formül, Assos zeytinyağının besleyici dokunuşuyla."
+            },
+            {
+              "head": "KULLANIM",
+              "text": "Güneşe çıkmadan 15 dakika önce bolca uygulayınız; yüzme ve terlemeden sonra yenileyiniz."
+            }
+          ]
+        }
+      },
+      "tube": {
+        "color": "#eee7d6"
       }
     },
     {
       "name": "Dudak Balmı",
       "form": "tube",
-      "sub": "Bitkisel yağlar",
+      "sub": "10 ml",
       "collection": null,
       "family": "Dudak bakımı",
       "year": null,
       "perfumer": null,
-      "color": "#d99a95",
-      "ink": "#8a4a48",
+      "color": "#7fae88",
+      "ink": "#1f3326",
       "theme": {
-        "glow": "#8a4a48",
-        "edge": "#0c0404",
-        "drop": "#f2cdca",
+        "glow": "#2a4a32",
+        "edge": "#020604",
+        "drop": "#c8e0cc",
         "mood": "warm"
       },
       "tagline": "Yoğun nem, doğal koruma.",
@@ -297,8 +363,48 @@
             "Assos · Koruoba"
           ]
         ],
-        "style": "tube",
-        "volume": "50 ml"
+        "style": "lalive",
+        "volume": "50 ml",
+        "lalive": {
+          "bg": [
+            31,
+            51,
+            38
+          ],
+          "ink": [
+            232,
+            222,
+            194
+          ],
+          "layout": "vertical",
+          "en": "NATURAL LIP BALM",
+          "tr": "doğal dudak balm",
+          "volume": "10 ml e 0,33 oz",
+          "badgeY": 0.26,
+          "badgeX": 0.12,
+          "logoSize": 320,
+          "back": [
+            {
+              "text": "Bitkisel yağlarla zenginleştirilmiş formülüyle dudaklarınıza yoğun nem ve doğal koruma sağlar."
+            },
+            {
+              "head": "KULLANIM",
+              "text": "Dudaklarınıza gün boyu ihtiyaç duydukça uygulayınız."
+            }
+          ],
+          "backSize": 34
+        }
+      },
+      "tube": {
+        "radius": 0.44,
+        "height": 3.1,
+        "capRadius": 0.44,
+        "capHeight": 0.75,
+        "color": "#1f3326",
+        "capColor": "#1f3326",
+        "capShape": "round",
+        "finish": "matte",
+        "scale": 1.12
       }
     },
     {
@@ -378,8 +484,76 @@
             "Assos · Koruoba"
           ]
         ],
-        "style": "tube",
-        "volume": "200 ml"
+        "style": "lalive",
+        "volume": "200 ml",
+        "lalive": {
+          "bg": [
+            58,
+            24,
+            12
+          ],
+          "ink": [
+            232,
+            222,
+            194
+          ],
+          "layout": "bottle",
+          "en": "BRONZING OIL",
+          "tr": "bronzlaştırıcı yağ",
+          "badge": "Doğal İçerikler · Natural Ingredients · ",
+          "badgeIcon": "drop",
+          "badgeY": 0.2,
+          "logoY": 0.5,
+          "logoSize": 260,
+          "lines": [
+            "Her kullanımdan önce çalkalayınız",
+            "Havuç Tohumu Yağı · Kakao Yağı · Avokado Yağı",
+            "Zeytinyağı · Hindistan Cevizi Yağı"
+          ],
+          "lineSize": 34,
+          "volume": "200 ml e 6,76 oz",
+          "volumeY": 0.9,
+          "back": [
+            {
+              "text": "Yaz boyu doğal ve ışıltılı bir bronzluk için geliştirilen besleyici formül. Havuç tohumu, hindistan cevizi ve kakao yağı doğal ışıltı verir; avokado, üzüm çekirdeği ve zeytinyağı güneşte kuruyan cildi besler."
+            },
+            {
+              "head": "KULLANIM",
+              "text": "Her kullanımdan önce çalkalayınız. Güneşlenmeden önce ve sonra tüm vücuda uygulayınız."
+            }
+          ],
+          "backTop": 0.25
+        }
+      },
+      "bottle": {
+        "glass": {
+          "width": 1.9,
+          "height": 2.6,
+          "depth": 0.9,
+          "corner": 0.26
+        },
+        "label": {
+          "width": 1.78,
+          "height": 2.44,
+          "y": 0.0,
+          "back": true
+        },
+        "neck": {
+          "radius": 0.44,
+          "height": 0.1,
+          "color": "#101010"
+        },
+        "cap": {
+          "shape": "cylinder",
+          "radius": 0.6,
+          "height": 0.85,
+          "color": "#0e0e0e",
+          "finish": "black"
+        },
+        "tint": "#3b170b",
+        "tintOpacity": 0.93,
+        "scale": 1.08,
+        "tilt": -0.04
       }
     },
     {
@@ -390,13 +564,13 @@
       "family": "Yüz bakımı",
       "year": null,
       "perfumer": null,
-      "color": "#8fb8cc",
-      "ink": "#3a6a80",
+      "color": "#9fbf98",
+      "ink": "#23331f",
       "theme": {
-        "glow": "#3a6a80",
-        "edge": "#030709",
-        "drop": "#d4e8f2",
-        "mood": "warm"
+        "glow": "#3a5a36",
+        "edge": "#030603",
+        "drop": "#d8ead4",
+        "mood": "cool"
       },
       "tagline": "Gül suyuyla ferahlık.",
       "notes": [
@@ -457,8 +631,74 @@
             "Assos · Koruoba"
           ]
         ],
-        "style": "tube",
-        "volume": "100 ml"
+        "style": "lalive",
+        "volume": "100 ml",
+        "lalive": {
+          "bg": [
+            34,
+            50,
+            32
+          ],
+          "ink": [
+            232,
+            222,
+            194
+          ],
+          "layout": "bottle",
+          "en": "FACE MIST",
+          "tr": "doğal yüz misti",
+          "badgeY": 0.18,
+          "logoY": 0.47,
+          "logoSize": 210,
+          "enSize": 40,
+          "trSize": 34,
+          "lines": [
+            "Gül Suyu · Aloe Vera",
+            "Hyalüronik Asit · Panthenol"
+          ],
+          "lineSize": 34,
+          "volume": "",
+          "back": [
+            {
+              "text": "Hyalüronik asit, bitkisel gliserin ve panthenol içerir; organik aloe vera ve gül suyuyla zenginleştirilmiştir. Cildi ferahlatır ve nem dengesini destekler."
+            },
+            {
+              "head": "KULLANIM",
+              "text": "Gün içinde yüzünüze 20 cm uzaktan sıkınız."
+            }
+          ],
+          "backTop": 0.25
+        }
+      },
+      "bottle": {
+        "glass": {
+          "width": 1.55,
+          "height": 2.9,
+          "depth": 0.9,
+          "corner": 0.3
+        },
+        "label": {
+          "width": 1.45,
+          "height": 2.7,
+          "y": 0.0,
+          "back": true
+        },
+        "neck": {
+          "radius": 0.3,
+          "height": 0.1,
+          "color": "#101010"
+        },
+        "cap": {
+          "shape": "cylinder",
+          "radius": 0.42,
+          "height": 0.9,
+          "color": "#0e0e0e",
+          "finish": "black"
+        },
+        "tint": "#23331f",
+        "tintOpacity": 0.9,
+        "scale": 1.05,
+        "tilt": -0.04
       }
     }
   ],
@@ -929,5 +1169,42 @@
   },
   "packUnit": "adet",
   "detailPack": 1,
-  "backdrop": false
+  "backdrop": false,
+  "particles": "leaves",
+  "glossary": {
+    "tr": {
+      "Zeytinyağı": "Assos Koruoba'daki zeytin ağaçlarından; cildi besler ve yumuşatır.",
+      "Kakao yağı": "Kuru cildi derinlemesine besleyen zengin bitkisel yağ.",
+      "Hyalüronik asit": "Yağlı his bırakmadan uzun süreli nem sağlar.",
+      "B vitamini": "Niasinamid: cildi yatıştırır ve dengeler.",
+      "E vitamini": "Antioksidan; cildi çevresel etkilere karşı korur.",
+      "Shea": "Yumuşatır, kuruluğa karşı koruyucu bir tabaka oluşturur.",
+      "Mineral filtre": "Güneş ışınlarını cildin yüzeyinde yansıtan doğal koruma.",
+      "SPF 50": "Yüksek güneş koruma faktörü.",
+      "Bitkisel yağlar": "Besleyici, doğal kaynaklı yağlar.",
+      "Havuç tohumu": "Doğal ışıltı ve bronzluk verir.",
+      "Hindistan cevizi": "Cildi yumuşatır ve besler.",
+      "Avokado": "Güneşte kuruyan cildi derinlemesine nemlendirir.",
+      "Gül suyu": "Ferahlatır ve cildi tazeler.",
+      "Aloe vera": "Yatıştırır ve serinletir.",
+      "Panthenol": "B5 vitamini; nem dengesini destekler."
+    },
+    "en": {
+      "Olive oil": "From the olive trees of Koruoba, Assos; nourishes and softens.",
+      "Cocoa butter": "A rich plant butter that deeply nourishes dry skin.",
+      "Hyaluronic acid": "Long-lasting hydration without a greasy feel.",
+      "Vitamin B": "Niacinamide: soothes and balances skin.",
+      "Vitamin E": "An antioxidant that protects against environmental stress.",
+      "Shea": "Softens and forms a protective layer against dryness.",
+      "Mineral filter": "Natural protection that reflects sunlight at the skin's surface.",
+      "SPF 50": "High sun protection factor.",
+      "Plant oils": "Nourishing oils of natural origin.",
+      "Carrot seed": "Gives a natural glow and tan.",
+      "Coconut": "Softens and nourishes skin.",
+      "Avocado": "Deeply moisturises sun-dried skin.",
+      "Rose water": "Refreshes and revives skin.",
+      "Aloe vera": "Soothes and cools.",
+      "Panthenol": "Vitamin B5; supports moisture balance."
+    }
+  }
 }

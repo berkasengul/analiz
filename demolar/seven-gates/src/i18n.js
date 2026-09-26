@@ -266,6 +266,7 @@ export function getT(lang) {
     stockists: en ? EN.stockists : D.stockists,
     story: en ? { ...D.story, ...EN.story } : D.story,
     faqs: en ? EN.faqs : D.faqs,
+    glossary: C.glossary?.[lang] ?? {},
     specs: en ? EN.specs : D.specs,
     brand: en ? { ...brandTr, ...EN.brand } : brandTr,
     packs: D.packs.map((p) => ({ ...p, label: en ? EN.packLabels[p.size] : p.label })),

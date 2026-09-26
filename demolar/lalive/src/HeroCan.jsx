@@ -76,7 +76,8 @@ function detailPose(feature, wide, time, turn) {
 // Gösterdiği tat değişince Codrops gürültülü doku geçişini oynatır.
 export default function HeroCan() {
   const canBody = useCanBody();
-  const parts = useMemo(() => createBottleParts(flavors[0]), []);
+  // Her ürünün kendi ambalaj malzemeleri; gösterilen ürüne göre seçilir.
+  const allParts = useMemo(() => flavors.map((f) => createBottleParts(f)), []);
   const size = useThree((s) => s.size);
 
   const uniforms = useMemo(() => createCanUniforms(flavors[0]), []);
@@ -121,12 +122,13 @@ export default function HeroCan() {
   }, []);
 
   // Ürünlerin biçimi farklı olabilir (şişe / tüp): gösterilen ürünle değişir.
-  const [form, setForm] = useState(flavors[0].form);
+  const [shown, setShown] = useState(0);
+  const parts = allParts[shown];
 
   const showFlavor = (next, animated) => {
     const s = l.current;
     s.target = next;
-    setForm(flavors[next].form);
+    setShown(next);
     s.controls?.stop();
     const f = flavors[next];
     if (!animated) {
@@ -277,7 +279,7 @@ export default function HeroCan() {
         document.body.style.cursor = "grabbing";
       }}
     >
-      <CanMesh body={body} parts={parts} form={form} />
+      <CanMesh body={body} parts={parts} flavor={shown} />
     </group>
     </>
   );

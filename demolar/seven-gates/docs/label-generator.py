@@ -368,6 +368,14 @@ CONTENT = os.path.join(HERE, "..", "src", "content.json")
 BRAND = {}
 
 
+def aspect_of(bottle, p):
+    if p.get("form") == "tube":
+        t = {**bottle["tube"], **p.get("tube", {})}
+        return t["height"] / (math.pi * t["radius"])
+    lab = {**bottle["label"], **p.get("bottle", {}).get("label", {})}
+    return lab.get("height", lab.get("size", 1)) / lab.get("width", lab.get("size", 1))
+
+
 def load(path=CONTENT):
     data = json.load(open(path, encoding="utf-8"))
     BRAND.update(data["labelBrand"])
@@ -393,8 +401,9 @@ def load(path=CONTENT):
             "claims": L.get("claims", []),
             "ingredients": L.get("ingredients", ""),
             "usage": L.get("usage", ""),
-            # Tüpte doku yarım çevreye sarılır; şişede kare etikettir.
-            "aspect": (data["bottle"]["tube"]["height"] / (math.pi * data["bottle"]["tube"]["radius"])) if p.get("form") == "tube" else 1,
+            # Tüpte doku yarım çevreye sarılır; şişede etiket en/boy oranı kadardır.
+            "aspect": aspect_of(data["bottle"], p),
+            "lv": L.get("lalive", {}),
             "volume": L.get("volume"),
         })
     return out
@@ -628,8 +637,145 @@ def tube_panel(c, seed, back=False):
     return np.asarray(img.resize((N, N), Image.LANCZOS)).astype(np.float32)
 
 
+# ================================================================ lalive stili
+def ring_text(img, cx, cy, r, text, f, fill):
+    """Rozet: çember üzerine dizilmiş yazı."""
+    d = ImageDraw.Draw(img)
+    total = sum(d.textlength(ch, font=f) for ch in text)
+    ang = -math.pi / 2 - (total / r) / 2
+    for ch in text:
+        w = d.textlength(ch, font=f)
+        a = ang + (w / 2) / r
+        tile = Image.new("L", (int(f.size * 2), int(f.size * 2)), 0)
+        ImageDraw.Draw(tile).text((f.size, f.size), ch, font=f, fill=255, anchor="mm")
+        tile = tile.rotate(-math.degrees(a + math.pi / 2), resample=Image.BICUBIC)
+        x, y = cx + math.cos(a) * r, cy + math.sin(a) * r
+        img.paste(Image.new("RGB", tile.size, fill), (int(x - tile.width / 2), int(y - tile.height / 2)), tile)
+        ang += w / r
+
+
+def sprig(d, x, y, s, fill, ang=-1.2):
+    """Logodaki i harfinin üstündeki küçük zeytin dalı."""
+    ex, ey = x + math.cos(ang) * 70 * s, y + math.sin(ang) * 70 * s
+    d.line([(x, y), (ex, ey)], fill=fill, width=max(2, int(4 * s)))
+    for t, side in ((0.35, 1), (0.6, -1), (0.85, 1)):
+        px, py = x + (ex - x) * t, y + (ey - y) * t
+        a = ang + side * 0.9
+        lx, ly = px + math.cos(a) * 30 * s, py + math.sin(a) * 30 * s
+        nx, ny = -math.sin(a) * 8 * s, math.cos(a) * 8 * s
+        d.polygon([(px, py), ((px + lx) / 2 + nx, (py + ly) / 2 + ny), (lx, ly), ((px + lx) / 2 - nx, (py + ly) / 2 - ny)], fill=fill)
+
+
+def logo(img, cx, base, size, fill):
+    """"lalive": Marcellus, i'nin noktası yerine zeytin dalı."""
+    d = ImageDraw.Draw(img)
+    f = font("Marcellus-Regular.ttf", size)
+    word = "lalıve"
+    total = d.textlength(word, font=f)
+    x0 = cx - total / 2
+    d.text((x0, base), word, font=f, fill=fill, anchor="ls")
+    xi = x0 + d.textlength("lal", font=f) + d.textlength("ı", font=f) / 2
+    sprig(d, xi - 2 * K * size / 100, base + f.getbbox("ı", anchor="ls")[1] - 4 * K * size / 100, size / 100 * K * 0.42, fill, ang=-1.05)
+
+
+def ctext(d, cx, y, text, f, fill, spacing=0):
+    widths = [d.textlength(ch, font=f) for ch in text]
+    x = cx - (sum(widths) + spacing * K * (len(text) - 1)) / 2
+    for ch, w in zip(text, widths):
+        d.text((x, y), ch, font=f, fill=fill, anchor="ls")
+        x += w + spacing * K
+
+
+def wrap(d, text, f, width):
+    out, line = [], ""
+    for w in text.split():
+        t = (line + " " + w).strip()
+        if d.textlength(t, font=f) > width and line:
+            out.append(line)
+            line = w
+        else:
+            line = t
+    return out + ([line] if line else [])
+
+
+def lalive_panel(c, seed, back=False):
+    """Lalive ambalajı (ürün fotoğraflarına göre): düz renk zemin, rozet,
+    logo, İngilizce büyük harf ad, Türkçe küçük harf ad, içerik satırları."""
+    L = c["lv"]
+    W_, H_ = N, int(N * c["aspect"])
+    bg = tuple(L.get("bg", (236, 226, 196)))
+    ink = tuple(L.get("ink", (30, 56, 40)))
+    layout = L.get("layout", "tube")
+    img = Image.new("RGB", (W_, H_), bg)
+    noise = smooth_noise(W_, H_, (6, 10), seed, 0.985, 1.015)[..., None]
+    img = Image.fromarray(np.clip(np.asarray(img).astype(np.float32) * noise, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(img)
+    cx = W_ / 2
+    Y = lambda f: H_ * f
+    serif, sans = "Marcellus-Regular.ttf", "Lato-Regular.ttf"
+
+    if back:
+        y = Y(L.get("backTop", 0.4))
+        f_body = font(sans, L.get("backSize", 30))
+        for block in L.get("back", []):
+            head = block.get("head")
+            if head:
+                ctext(d, cx, y, head, font("Lato-Bold.ttf", L.get("backSize", 30)), ink, spacing=2)
+                y += 44 * K
+            for line in wrap(d, block["text"], f_body, W_ * 0.82):
+                ctext(d, cx, y, line, f_body, ink)
+                y += L.get("backSize", 30) * 1.32 * K
+            y += 26 * K
+        if L.get("volume"):
+            ctext(d, cx, Y(0.95), L["volume"], font(sans, 30), ink)
+        return np.asarray(img.resize((N, N), Image.LANCZOS)).astype(np.float32)
+
+    badge_y = Y(L.get("badgeY", 0.3))
+    ring_text(img, cx + L.get("badgeX", 0) * W_, badge_y, 78 * K, L.get("badge", "Doğal İçerikler · Doğal İçerikler · "), font(serif, 24), ink)
+    d = ImageDraw.Draw(img)
+    bx = cx + L.get("badgeX", 0) * W_
+    if L.get("badgeIcon") == "drop":
+        d.ellipse([bx - 16 * K, badge_y - 4 * K, bx + 16 * K, badge_y + 28 * K], outline=ink, width=2 * K)
+        d.line([(bx - 15 * K, badge_y + 6 * K), (bx, badge_y - 26 * K), (bx + 15 * K, badge_y + 6 * K)], fill=ink, width=2 * K)
+    else:
+        sprig(d, bx - 10 * K, badge_y + 26 * K, 0.7 * K, ink, ang=-1.3)
+
+    if layout == "vertical":
+        # Dudak balmı: logo ve yazılar tüp boyunca, aşağıdan yukarı okunur.
+        side = Image.new("RGB", (H_, W_), bg)
+        sd = ImageDraw.Draw(side)
+        logo(side, H_ * 0.34, W_ * 0.62, L.get("logoSize", 300), ink)
+        sd = ImageDraw.Draw(side)
+        x = H_ * 0.5
+        sd.text((x, W_ * 0.7), L["en"], font=font(serif, 42), fill=ink, anchor="ls")
+        sd.text((x, W_ * 0.78), L["tr"], font=font(serif, 40), fill=ink, anchor="ls")
+        sd.text((x, W_ * 0.86), L.get("volume", ""), font=font(serif, 34), fill=ink, anchor="ls")
+        side = side.rotate(90, expand=True)
+        mask_ = Image.new("L", side.size, 0)
+        diff = np.abs(np.asarray(side).astype(np.int16) - np.array(bg, np.int16)).sum(axis=2)
+        mask_ = Image.fromarray((np.clip(diff * 4, 0, 255)).astype(np.uint8))
+        img.paste(side, (0, 0), mask_)
+    else:
+        logo(img, cx, Y(L.get("logoY", 0.52)), L.get("logoSize", 230), ink)
+        d = ImageDraw.Draw(img)
+        y = Y(L.get("logoY", 0.52)) + 90 * K
+        ctext(d, cx, y, L["en"], font(serif, L.get("enSize", 44)), ink, spacing=5)
+        y += 58 * K
+        ctext(d, cx, y, L["tr"], font(serif, L.get("trSize", 38)), ink, spacing=3)
+        y += 110 * K
+        f_lines = font(sans, L.get("lineSize", 44))
+        for line in L.get("lines", []):
+            ctext(d, cx, y, line, f_lines, ink)
+            y += L.get("lineSize", 44) * 1.35 * K
+        if L.get("volume"):
+            ctext(d, cx, Y(L.get("volumeY", 0.88)), L["volume"], font("Lato-Bold.ttf", 42), ink)
+    return np.asarray(img.resize((N, N), Image.LANCZOS)).astype(np.float32)
+
+
 def render(c, idx):
-    if c["style"] == "tube":
+    if c["style"] == "lalive":
+        f, b = lalive_panel(c, idx * 7 + 1), lalive_panel(c, idx * 7 + 2, back=True)
+    elif c["style"] == "tube":
         f, b = tube_panel(c, idx * 7 + 1), tube_panel(c, idx * 7 + 2, back=True)
     elif c["style"] == "art":
         f, b = art_front(c, idx * 7 + 1), art_back(c, idx * 7 + 2)
