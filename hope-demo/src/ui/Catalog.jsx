@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { content } from "../data";
+import { PAGE, SET_KEY, content, flavors } from "../data";
 import { useT } from "../i18n";
 import { useStore } from "../store";
 import { Plus } from "../Icons";
@@ -228,15 +228,87 @@ function Atmosphere() {
   );
 }
 
-// 3B ürüne tıklanınca ana sayfaya dönüp o ürünün detayını açar.
+// 3B ürüne tıklanınca: ürün bu sayfanın 3B setindeyse akışta ona kayıp
+// detayı açar; değilse ürünün kategori sayfası o ürünle açılır.
 function openProduct(item) {
   if (item.product == null) return;
-  window.location.hash = "#flavors";
-  setTimeout(() => {
-    const s = useStore.getState();
-    const slot = s.order.indexOf(item.product);
-    window.dispatchEvent(new CustomEvent("open-product", { detail: { index: item.product, slot } }));
-  }, 350);
+  const index = flavors.findIndex((f) => f.gid === item.product);
+  if (index < 0) {
+    window.location.hash = `#/urunler/${item.category}/${item.id}`;
+    return;
+  }
+  const home = SET_KEY === "home" ? "#flavors" : `#/urunler/${SET_KEY}`;
+  const here = !document.getElementById("flavors");
+  if (here) window.location.hash = home;
+  setTimeout(() => window.dispatchEvent(new CustomEvent("open-product", { detail: { index } })), here ? 700 : 0);
+}
+
+const catCount = (id) => C.items.filter((i) => i.category === id).length;
+
+// Kategori sayfasının üstünde: kategori adı ve diğer kategorilere geçiş.
+export function CategoryBar({ id }) {
+  const t = useT();
+  const cat = C.categories.find((c) => c.id === id);
+  const ref = useRef(null);
+  useEffect(() => {
+    const on = ref.current?.querySelector(".is-on");
+    if (on) ref.current.scrollLeft = on.offsetLeft - (ref.current.clientWidth - on.offsetWidth) / 2;
+  }, []);
+  return (
+    <div className="catbar" style={{ "--c": cat.color }}>
+      <p className="catbar__title mono">
+        <i aria-hidden="true" />
+        {cat.name[t.lang]} · {t.ui.itemsCount ? t.ui.itemsCount(catCount(id)) : catCount(id)}
+      </p>
+      <nav className="catbar__chips" ref={ref} aria-label={t.ui.categories}>
+        <a href="#/urunler">{t.ui.all}</a>
+        {C.categories.map((c) => (
+          <a key={c.id} href={`#/urunler/${c.id}`} className={c.id === id ? "is-on" : ""} aria-current={c.id === id ? "page" : undefined} style={{ "--c": c.color }}>
+            {c.name[t.lang]}
+          </a>
+        ))}
+      </nav>
+    </div>
+  );
+}
+
+// Kategori sayfasında 3B akışın altında: o kategorinin kartları ve diğer kategoriler.
+export function CategoryGrid({ id }) {
+  const t = useT();
+  const cat = C.categories.find((c) => c.id === id);
+  const items = C.items.filter((i) => i.category === id);
+  const others = C.categories.filter((c) => c.id !== id);
+  return (
+    <section className="catgrid" style={{ "--c": cat.color }}>
+      <Leaves count={10} />
+      <header className="catgrid__head">
+        <p className="mono section__eyebrow">{t.ui.allEyebrow}</p>
+        <h2 className="catalog__title">{cat.name[t.lang]}</h2>
+        {cat.desc && <p className="tagline tagline--static">{cat.desc[t.lang]}</p>}
+      </header>
+      <div className="pgrid">
+        {items.map((item, i) => (
+          <Card key={item.id} item={item} t={t} onOpen={openProduct} index={i} />
+        ))}
+      </div>
+      <div className="catgrid__others">
+        <p className="mono">{t.ui.otherCategories ?? t.ui.categories}</p>
+        <nav className="catalog__tabs">
+          {others.map((c) => (
+            <a key={c.id} href={`#/urunler/${c.id}`} style={{ "--c": c.color }}>
+              <i aria-hidden="true" />
+              {c.name[t.lang]}
+              <small>{catCount(c.id)}</small>
+            </a>
+          ))}
+          <a href="#/urunler">
+            {t.ui.all}
+            <small>{C.items.length}</small>
+          </a>
+        </nav>
+      </div>
+    </section>
+  );
 }
 
 // Ana sayfa: kategoriler karışık, sırayla birinden birer ürün.

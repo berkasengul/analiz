@@ -27,12 +27,19 @@ export function measureScroll() {
   const flavorsEl = document.getElementById("flavors");
   const ritualEl = document.getElementById("ritual");
   const shopEl = document.getElementById("shop");
-  if (!flavorsEl || !ritualEl || !shopEl) return;
+  if (!flavorsEl) return;
 
   const fr = flavorsEl.getBoundingClientRect();
   const range = Math.max(1, fr.height - vh);
   scrollState.p = Math.min(magnet(clamp01(-fr.top / range) * (N - 1)), N - 1);
 
+  // Kategori sayfalarında Ritüel ve Mağaza yok: sahne akış bitince kaybolur.
+  if (!ritualEl || !shopEl) {
+    scrollState.ritualIn = scrollState.ritualStep = scrollState.shopIn = scrollState.shopOut = 0;
+    scrollState.sceneVisible = fr.bottom > 0;
+    scrollState.velocity = smooth.lenis ? smooth.lenis.velocity : 0;
+    return;
+  }
   const rr = ritualEl.getBoundingClientRect();
   scrollState.ritualIn = ease(clamp01(1 - rr.top / vh));
   const steps = 3;
@@ -51,7 +58,7 @@ export function measureScroll() {
 function yForFlavor(i) {
   const el = document.getElementById("flavors");
   const range = Math.max(1, el.offsetHeight - window.innerHeight);
-  return el.offsetTop + (i / (N - 1)) * range;
+  return el.offsetTop + (N > 1 ? i / (N - 1) : 0) * range;
 }
 
 export const slotIndex = (p) => ((Math.round(p) % N) + N) % N;

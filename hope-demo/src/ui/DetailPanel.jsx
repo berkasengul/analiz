@@ -88,7 +88,7 @@ export default function DetailPanel() {
             N° {pad(shown.active + 1)} — {f.collection ? <span lang="en">{f.collection}</span> : t.brand.specs}
           </p>
           <h2 className="detail__title">
-            <span className="detail__flavor" lang={t.nameLang}>
+            <span className="detail__flavor" lang={f.nameLang ?? t.nameLang}>
               <SplitChars text={f.name} delay={80} step={32} />
             </span>
           </h2>

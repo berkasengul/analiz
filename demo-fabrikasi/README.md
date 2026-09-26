@@ -49,6 +49,11 @@ Süre: ~20 saniye (etiket çizimi + derleme).
 | `particles` | `"leaves"`: süzülen zeytin yaprakları |
 | `glossary` | İçerik sözlüğü: çiplerin üstünde açılan kısa açıklamalar (TR/EN) |
 | `backdrop` | `false` ise arka planda etiketten bulanık manzara gösterilmez |
+| `home` | Ana sayfanın 3B akışındaki ürünler (`products` sırası, ör. `[0,1,2,3,4]`). Katalogdaki diğer 3B ürünler kategori sayfalarında (`#/urunler/<kategori>`) kendi 3B akışlarında görünür |
+| `products[].form: "tool"` | Ahşap/lif bakım aleti (`bottle.tool`: `lymph`, `brush`, `loofah`), etiket askılı kartta (`bottle.tag`) |
+| `bottle.cap.shape` | `cylinder`, `octagon`, `box`, `pump` (pompa), `spray`, `dropper` (damlalık), `ball` (roll-on), `none` |
+| `bottle.finish: "matte"` | Opak gövde (sabun, kutu, kumaş); `ribbon` hediye kurdelesi, `garment` sweatshirt silüeti, `liquid` şeffaf şişede içerik rengi |
+| `products[].nameLang` | Tek ürünün ad dili (ör. İngilizce "Sweatshirt" → `"en"`) |
 | `catalog` | Tüm ürün kataloğu: `categories` (ad, renk, açıklama), `items` (fiyat, kategori, simge ya da görsel, 3B ürüne bağlantı `product`), `homeCount` (ana sayfa vitrini), `glow` (katalog sayfasının ışık rengi). Menüde "Kategoriler" paneli ve `#/urunler/<kategori>` adresleri bundan oluşur |
 
 ## Notlar

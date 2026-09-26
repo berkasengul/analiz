@@ -1,7 +1,11 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { DEFAULT_SHOP_FLAVOR, DETAIL_PACK, VARIETY, content, flavors } from "./data";
+import { DEFAULT_SHOP_FLAVOR, DETAIL_PACK, VARIETY, catalogIdOf, content, flavors } from "./data";
+
+// Sepette 3B ürünler katalog kimliğiyle tutulur ("c:el-kremi"): sayfalar farklı
+// ürün setleri gösterse de sepet aynı kalır.
+const cartKey = (f) => (typeof f === "number" && flavors[f]?.cid ? `c:${flavors[f].cid}` : f);
 
 // Gizli sekme gibi durumlarda localStorage hata verebilir.
 const safeStorage = {
@@ -76,6 +80,7 @@ export const useStore = create(
 
       addToCart: (flavor, pack, plan, qty = 1) =>
         set((s) => {
+          flavor = cartKey(flavor);
           const id = `${flavor}-${pack}-${plan}`;
           const found = s.cart.find((i) => i.id === id);
           const cart = found
@@ -92,6 +97,15 @@ export const useStore = create(
       name: `${content.slug}-cart`,
       storage: createJSONStorage(() => safeStorage),
       partialize: (s) => ({ cart: s.cart, lang: s.lang }),
+      // Eski sepetlerdeki ürün numaraları katalog kimliğine çevrilir.
+      version: 1,
+      migrate: (state) => {
+        const cart = (state?.cart ?? []).map((i) => {
+          const cid = typeof i.flavor === "number" ? catalogIdOf(i.flavor) : null;
+          return cid ? { ...i, flavor: `c:${cid}`, id: `c:${cid}-${i.pack}-${i.plan}` } : i;
+        });
+        return { ...state, cart };
+      },
     }
   )
 );

@@ -8,9 +8,9 @@ import { brand as brandTr } from "./brand";
 // ---------------------------------------------------------------- İngilizce içerik
 const C = D.content;
 const EN = {
-  flavors: C.products.map((p) => p.en),
+  flavors: D.SET.map((g) => C.products[g].en),
   features: C.features.map((f) => f.en),
-  ritual: C.ritual.map((r) => r.en),
+  ritual: D.PAGE.kind === "home" ? C.ritual.map((r) => r.en) : [],
   stockists: C.stockists.en,
   story: C.story.en,
   faqs: C.faqs.en,
@@ -132,6 +132,8 @@ const UI = {
     catalogTitle: "Ürünler",
     categories: "Kategoriler",
     all: "Tümü",
+    itemsCount: (n) => `${n} ürün`,
+    otherCategories: "Diğer kategoriler",
     added: "Eklendi",
   },
   en: {
@@ -242,6 +244,8 @@ const UI = {
     catalogTitle: "Products",
     categories: "Categories",
     all: "All",
+    itemsCount: (n) => `${n} ${n === 1 ? "product" : "products"}`,
+    otherCategories: "Other categories",
     added: "Added",
   },
 };
@@ -276,8 +280,7 @@ export function getT(lang) {
   const avg = own.every(Boolean) ? own.reduce((a, b) => a + b, 0) / own.length : null;
   const catalog = Object.fromEntries((C.catalog?.items ?? []).map((i) => [`c:${i.id}`, i]));
   const price = (size, plan, flavor) => {
-    if (catalog[flavor]) return catalog[flavor].price[lang] * size;
-    const base = flavor === D.VARIETY ? avg : own[flavor];
+    const base = catalog[flavor] ? catalog[flavor].price[lang] : flavor === D.VARIETY ? avg : own[flavor];
     const p = base ? base * size * factor[size] : P.packs[size];
     const v = p * (plan === "sub" ? 1 - D.SUB_DISCOUNT : 1);
     // İndirimli set fiyatları yuvarlanır: ₺ 10'luk, $ tam sayı.

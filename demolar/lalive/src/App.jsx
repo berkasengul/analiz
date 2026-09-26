@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Lenis from "lenis";
 
 import Scene from "./Scene";
-import { content, flavors } from "./data";
+import { PAGE, SET_KEY, content, flavors, setKey } from "./data";
 import { measureScroll, scrollState, scrollToElement, scrollToFlavorOf, smooth } from "./scroll";
 import { useStore } from "./store";
 
@@ -15,7 +15,7 @@ import Preloader from "./ui/Preloader";
 import Ritual from "./ui/Ritual";
 import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
-import { CatalogPage, CollectionGrid } from "./ui/Catalog";
+import { CatalogPage, CategoryBar, CategoryGrid, CollectionGrid } from "./ui/Catalog";
 
 const N = flavors.length;
 
@@ -43,6 +43,8 @@ function useSmoothScroll() {
       const a = e.target.closest("a[href^='#']");
       // "#/..." sayfa bağlantılarıdır (ör. #/urunler); tarayıcı hash'i değiştirir.
       if (!a || a.getAttribute("href").startsWith("#/")) return;
+      // Kategori sayfasında ana sayfa bölümlerine giden bağlantılar ana sayfayı açar.
+      if (PAGE.kind === "category" && !a.closest(".stage")) return;
       const el = document.querySelector(a.getAttribute("href"));
       if (!el) return;
       e.preventDefault();
@@ -153,6 +155,13 @@ function useRoute() {
   useEffect(() => {
     const on = () => {
       const next = read();
+      // 3B sahnesi olan bir sayfa başka bir ürün setini gösteriyorsa (ana sayfa ↔
+      // kategori, kategori ↔ kategori) sayfa o setle yeniden açılır.
+      const scenePage = !next || setKey(window.location.hash) !== "home";
+      if (scenePage && setKey(window.location.hash) !== SET_KEY) {
+        window.location.reload();
+        return;
+      }
       setRoute(next);
       const s = useStore.getState();
       s.setMenu(false);
@@ -172,6 +181,24 @@ function useRoute() {
     return () => window.removeEventListener("hashchange", on);
   }, []);
   return route;
+}
+
+// Sayfa yeniden açıldıktan sonra: adresteki bölüme ya da ürüne git
+// (#ritual, #/urunler/sac/sac-bakim-suyu).
+function useLanding() {
+  const loaded = useStore((s) => s.loaded);
+  useEffect(() => {
+    if (!loaded) return;
+    if (PAGE.focus) {
+      const item = content.catalog.items.find((i) => i.id === PAGE.focus);
+      const index = item ? flavors.findIndex((f) => f.gid === item.product) : -1;
+      if (index > 0) setTimeout(() => scrollToFlavorOf(useStore.getState().order, index, false), 300);
+      return;
+    }
+    const id = window.location.hash.slice(1);
+    const el = id && !id.startsWith("/") && id !== "flavors" && document.getElementById(id);
+    if (el) setTimeout(() => scrollToElement(el), 300);
+  }, [loaded]);
 }
 
 // Katalogdan bir 3B ürüne tıklanınca: carousel'de o ürüne kay ve detayı aç.
@@ -195,14 +222,28 @@ export default function App() {
   useOpenProduct();
   const route = useRoute();
   useReveal(route);
+  useLanding();
   const [page, cat] = route.split("/");
-  const isCatalog = page === "urunler" && !!content.catalog;
+  // "#/urunler": tüm ürünler listesi (3B sahne yok). "#/urunler/<kategori>":
+  // o kategorinin ürünleri ana sayfadaki gibi 3B akışta, altında kartları.
+  const isCategory = PAGE.kind === "category" && page === "urunler" && cat === PAGE.id;
+  const isCatalog = page === "urunler" && !!content.catalog && !isCategory;
   useEffect(() => {
-    useStore.getState().setPage(isCatalog ? "catalog" : "home");
-    document.documentElement.dataset.page = isCatalog ? "catalog" : "home";
-  }, [isCatalog]);
+    useStore.getState().setPage(isCatalog || isCategory ? "catalog" : "home");
+    document.documentElement.dataset.page = isCatalog ? "catalog" : isCategory ? "category" : "home";
+  }, [isCatalog, isCategory]);
   const detail = useStore((s) => s.detail);
   const cinema = useStore((s) => s.detail && s.feature != null);
+
+  const stage = (
+    <section id="flavors" className="flavors" style={{ height: `calc(100vh + ${(N - 1) * 60}vh)` }}>
+      <div className={`stage${detail ? " is-detail" : ""}${cinema ? " is-cinema" : ""}`}>
+        {isCategory && <CategoryBar id={PAGE.id} />}
+        <FlavorHud />
+        <DetailPanel />
+      </div>
+    </section>
+  );
 
   return (
     <>
@@ -213,23 +254,24 @@ export default function App() {
       <CartDrawer />
       {isCatalog ? (
         <CatalogPage cat={cat} />
+      ) : isCategory ? (
+        <main className="is-category">
+          {stage}
+          <CategoryGrid id={PAGE.id} />
+          <Footer />
+        </main>
       ) : (
-      <main>
-        <section id="flavors" className="flavors" style={{ height: `calc(100vh + ${(N - 1) * 60}vh)` }}>
-          <div className={`stage${detail ? " is-detail" : ""}${cinema ? " is-cinema" : ""}`}>
-            <FlavorHud />
-            <DetailPanel />
-          </div>
-        </section>
-        <Ritual />
-        {content.catalog && <CollectionGrid />}
-        <Shop />
-        <Marquee />
-        <Story />
-        <Stockists />
-        <Faq />
-        <Footer />
-      </main>
+        <main>
+          {stage}
+          <Ritual />
+          {content.catalog && <CollectionGrid />}
+          <Shop />
+          <Marquee />
+          <Story />
+          <Stockists />
+          <Faq />
+          <Footer />
+        </main>
       )}
     </>
   );

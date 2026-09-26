@@ -740,6 +740,8 @@ def lalive_panel(c, seed, back=False):
         return np.asarray(img.resize((N, N), Image.LANCZOS)).astype(np.float32)
 
     badge_y = Y(L.get("badgeY", 0.3))
+    if L.get("badge") is False:
+        return front_body(img, L, cx, Y, bg, ink, H_, W_, serif, sans)
     ring_text(img, cx + L.get("badgeX", 0) * W_, badge_y, 78 * K, L.get("badge", "Doğal İçerikler · Doğal İçerikler · "), font(serif, 24), ink)
     d = ImageDraw.Draw(img)
     bx = cx + L.get("badgeX", 0) * W_
@@ -749,6 +751,12 @@ def lalive_panel(c, seed, back=False):
     else:
         sprig(d, bx - 10 * K, badge_y + 26 * K, 0.7 * K, ink, ang=-1.3)
 
+    return front_body(img, L, cx, Y, bg, ink, H_, W_, serif, sans)
+
+
+def front_body(img, L, cx, Y, bg, ink, H_, W_, serif, sans):
+    layout = L.get("layout", "tube")
+    d = ImageDraw.Draw(img)
     if layout == "vertical":
         # Dudak balmı: logo ve yazılar tüp boyunca, aşağıdan yukarı okunur.
         side = Image.new("RGB", (H_, W_), bg)

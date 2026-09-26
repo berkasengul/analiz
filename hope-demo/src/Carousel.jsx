@@ -12,6 +12,9 @@ import { sceneState } from "./shared";
 import { useStore } from "./store";
 
 const N = flavors.length;
+// Az ürünlü setlerde (kategori sayfaları) ürünler sonsuz yay yerine yan yana
+// düz bir sırada durur; kaydırdıkça sıradaki ürün ortaya gelir.
+const LINEAR = N < 5;
 const WHITE = new Color(1, 1, 1);
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -34,7 +37,7 @@ export function arcPose(d, aspect, time, i) {
     rotX: 0.08,
     rotY: -0.22 * d + (focus > 0 ? Math.sin(time * 0.6) * 0.18 * focus : 0),
     rotZ: 0.1 * d + 0.12 * focus,
-    scale: base * (1 + 0.36 * focus) * (1 - MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2))),
+    scale: base * (1 + 0.36 * focus) * (1 - (LINEAR ? MathUtils.smoothstep(ad, 3.4, 4.4) : MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2)))),
   };
 }
 
@@ -119,8 +122,11 @@ export default function Carousel() {
 
     groups.current.forEach((g, i) => {
       if (!g) return;
-      let d = (((slotOf[i] - s.p) % N) + N) % N;
-      if (d >= N / 2) d -= N;
+      let d = slotOf[i] - s.p;
+      if (!LINEAR) {
+        d = ((d % N) + N) % N;
+        if (d >= N / 2) d -= N;
+      }
       let pose = arcPose(d, aspect, t, i);
 
       // Yer değiştirme uçuşu: gelen kutu öne doğru kavis çizip dönerek
