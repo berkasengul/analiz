@@ -2444,3 +2444,275 @@ main {
     font-size: 1rem;
   }
 }
+
+/* =====================================================================
+   Carousel başlığı: kutuyla çakışmasın, her zeminde okunsun
+   ===================================================================== */
+
+.hud__center {
+  bottom: max(64px, 8vh);
+}
+
+.hud__center::before {
+  content: "";
+  position: absolute;
+  inset: -18% -22% -10%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(4, 4, 8, 0.55), transparent);
+  filter: blur(8px);
+}
+
+.hud__name {
+  font-size: clamp(2.2rem, min(5.2vw, 8.5vh), 6rem);
+  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.55);
+}
+
+.hud__center .tagline {
+  font-size: clamp(1.2rem, min(1.9vw, 3.4vh), 1.9rem);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+}
+
+.hud__center .tag {
+  color: rgba(242, 239, 233, 0.92);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.hud__cta {
+  margin-top: min(18px, 2vh);
+}
+
+.track__label {
+  display: none;
+}
+
+/* ---------- Nota etiketleri ---------- */
+
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px 7px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--fg);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(14, 16, 22, 0.55), rgba(14, 16, 22, 0.55)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.3), color-mix(in srgb, var(--accent) 60%, transparent)) border-box;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: rise 0.7s var(--ease) both;
+}
+
+.chips li:nth-child(2) { animation-delay: 0.06s; }
+.chips li:nth-child(3) { animation-delay: 0.12s; }
+.chips li:nth-child(4) { animation-delay: 0.18s; }
+
+.chips li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.detail__notes.chips {
+  padding-top: 20px;
+}
+
+/* =====================================================================
+   Özellik kartları (detay ekranı, sağ taraf)
+   ===================================================================== */
+
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  width: 244px;
+}
+
+.features ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.features__hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fg);
+  padding-left: 4px;
+}
+
+.features__pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.features__pulse::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  animation: halo 1.8s ease-out infinite;
+}
+
+.feat {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 999px;
+  text-align: left;
+  color: var(--fg);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(14, 16, 22, 0.55), rgba(14, 16, 22, 0.55)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05) 45%,
+      color-mix(in srgb, var(--accent) 70%, transparent)) border-box;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.9);
+  translate: var(--mx, 0) var(--my, 0);
+  animation: feat-in 0.7s var(--ease) both;
+  animation-delay: calc(0.35s + var(--i) * 0.08s);
+  transition: transform 0.35s var(--ease), box-shadow 0.4s ease, background 0.4s ease, translate 0.35s var(--ease);
+}
+
+@keyframes feat-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+.feat__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: #0a0a0c;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 40%, #fff), var(--accent));
+  box-shadow: 0 6px 18px -6px var(--accent), 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+}
+
+/* Tıklanmamış kartlar sırayla hafifçe nabız atar. */
+.feat:not(.is-on) .feat__icon::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  animation: halo 3.2s ease-out infinite;
+  animation-delay: calc(var(--i) * 0.8s + 1s);
+}
+
+.feat__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.feat__num {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--accent) 60%, #fff);
+}
+
+.feat__title {
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.2;
+}
+
+.feat__arrow {
+  font-size: 1.05rem;
+  opacity: 0.7;
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+}
+
+.feat:hover {
+  transform: translateX(-6px);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent),
+    0 18px 40px -16px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.feat:hover .feat__arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.feat.is-on {
+  color: #0a0a0c;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, #fff), var(--accent)) padding-box,
+    linear-gradient(140deg, #fff, var(--accent)) border-box;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 20px 44px -14px color-mix(in srgb, var(--accent) 90%, transparent);
+  transform: translateX(-10px);
+}
+
+.feat.is-on .feat__icon {
+  color: var(--fg);
+  background: #0e1016;
+  box-shadow: none;
+}
+
+.feat.is-on .feat__num {
+  color: rgba(10, 10, 12, 0.6);
+}
+
+@media (max-width: 900px) {
+  .features {
+    width: auto;
+    gap: 8px;
+  }
+
+  .features__hint,
+  .feat__text,
+  .feat__arrow,
+  .hud__count .chips {
+    display: none;
+  }
+
+  .feat {
+    grid-template-columns: auto;
+    padding: 4px;
+  }
+
+  .feat.is-on {
+    transform: none;
+  }
+
+  .feat__icon {
+    width: 42px;
+    height: 42px;
+  }
+}

@@ -91,7 +91,11 @@ export default function DetailPanel() {
           <p className="detail__desc">
             <SplitWords text={f.description} delay={420} />
           </p>
-          <p className="detail__notes mono">{f.notes.join(" · ")}</p>
+          <ul className="chips detail__notes" aria-label="Notalar">
+            {f.notes.map((n) => (
+              <li key={n}>{n}</li>
+            ))}
+          </ul>
           <div className="buy">
             <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, 12, "once")}>
               {packLabel(12)} paket · {money(packPrice(12, "once"))}
@@ -131,25 +135,40 @@ export default function DetailPanel() {
         )}
       </div>
 
-      <ul className="features" aria-label="İçinde ne var">
-        {features.map((item, i) => {
-          const Icon = featureIcons[item.icon];
-          const on = feature === i;
-          return (
-            <li key={item.short}>
-              <button
-                className={`round round--lg${on ? " is-on" : ""}`}
-                onClick={() => setFeature(on ? null : i)}
-                aria-pressed={on}
-                tabIndex={tab}
-              >
-                <Icon />
-                <span className="features__label mono">{item.short}</span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="features">
+        <p className="features__hint mono">
+          <span className="features__pulse" aria-hidden="true" />
+          Kutuyu keşfet · {features.length} hikâye
+        </p>
+        <ul aria-label="İçinde ne var">
+          {features.map((item, i) => {
+            const Icon = featureIcons[item.icon];
+            const on = feature === i;
+            return (
+              <li key={item.short} style={{ "--i": i }}>
+                <button
+                  className={`feat${on ? " is-on" : ""}`}
+                  onClick={() => setFeature(on ? null : i)}
+                  aria-pressed={on}
+                  aria-label={item.short}
+                  tabIndex={tab}
+                >
+                  <span className="feat__icon">
+                    <Icon />
+                  </span>
+                  <span className="feat__text">
+                    <span className="feat__num">{pad(i + 1)}</span>
+                    <span className="feat__title">{item.short}</span>
+                  </span>
+                  <span className="feat__arrow" aria-hidden="true">
+                    {on ? "×" : "→"}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <p className="drag-hint mono">Kutuyu çevirmek için sürükle</p>
     </div>

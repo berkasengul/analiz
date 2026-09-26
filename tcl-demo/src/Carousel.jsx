@@ -28,12 +28,13 @@ export function arcPose(d, aspect, time, i) {
   const base = aspect < 0.9 ? 0.78 : 1;
   return {
     x: 4.8 * d * (1 + 0.08 * ad) * spread,
-    y: 0.5 - 0.22 * Math.min(ad, 3) + 0.4 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07,
+    // Öndeki kutu yukarıda durur; altındaki başlık için yer kalır.
+    y: 0.6 - 0.22 * Math.min(ad, 3) + 0.85 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07,
     z: -0.8 * d * d + focus * 1.2,
     rotX: 0.08,
     rotY: -0.22 * d + (focus > 0 ? Math.sin(time * 0.6) * 0.18 * focus : 0),
     rotZ: 0.13 * d + 0.3 * focus,
-    scale: base * (1 + 0.38 * focus) * (1 - MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2))),
+    scale: base * (1 + 0.24 * focus) * (1 - MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2))),
   };
 }
 

@@ -112,7 +112,7 @@ function useReveal() {
 function useMagnetic() {
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches) return;
-    const SEL = ".pill, .round, .menu-btn, .cart-btn, .hud__cta";
+    const SEL = ".pill, .round, .menu-btn, .cart-btn, .hud__cta, .feat";
     let current = null;
     const reset = (el) => {
       el.style.removeProperty("--mx");

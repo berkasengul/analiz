@@ -37,7 +37,11 @@ export default function FlavorHud() {
           <span className="count__line" />
           <span className="count__total">{pad(N)}</span>
         </p>
-        <p className="mono">{f.notes.join(" · ")}</p>
+        <ul className="chips" aria-label="Notalar" key={f.name}>
+          {f.notes.map((n) => (
+            <li key={n}>{n}</li>
+          ))}
+        </ul>
       </div>
 
       <div className="track" aria-label="Tatlar">
