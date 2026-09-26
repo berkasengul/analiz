@@ -8,7 +8,7 @@
 
 Turkish Coffee Lady demosuyla aynı 3B altyapı. Şişe, markanın ürün fotoğrafına (docs/reference) göre modellendi: kare kalın cam, parlak altın silindir kapak, altın plaka üzerinde siyah sekiz köşeli yıldız ve ortada siyah pano.
 
-- **Kokular (8):** Han, Queen of Palace, Narcissus, Grand Conqueror, Deep Secret, N.E.C.O, Forza, Submarine. Ön etiket fotoğraftaki tasarım; arka etiket (konsept) koku piramidi ve kokunun ilham aldığı yerin altın silüetini taşır.
+- **Kokular (8):** Han, Queen of Palace, Narcissus, Grand Conqueror, Deep Secret, N.E.C.O, Forza, Submarine. Ön etiket fotoğraflardaki tasarım: Queen of Palace altın zemin + siyah yıldız, Narcissus siyah zemin + bordo yıldız (birebir); diğer altı kokunun mine renkleri ürün fotoğrafları gelene kadar temsili; arka etiket (konsept) koku piramidi ve kokunun ilham aldığı yerin altın silüetini taşır.
 - **Detay:** 4 hikâye kartı şişeyi döndürür: %30 esans, sekiz köşeli yıldız, koku piramidi (arka etiket), parfümörler (kapak yakın çekim).
 - **Mağaza:** 10 / 50 / 100 ml (100 ml ₺9.500, markanın sitesindeki fiyat; diğerleri örnek), 5.000 ₺ üzeri ücretsiz kargo, hediye kutusu seçeneği, keşif seti, sepet.
 - **İki dil:** Türkçe (₺) ve İngilizce ($).

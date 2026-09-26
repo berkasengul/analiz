@@ -103,51 +103,75 @@ def star_points(c, r):
     return sq, di
 
 
-def front(c, seed):
-    """Fotoğraftaki etiket: altın plaka, siyah yıldız, altın geçme, siyah pano."""
-    img = gold(seed)
-    cx = N / 2
-    # Plakanın kenarında ince koyu çizgi ve iç çerçeve.
-    m, d = mask()
-    d.rectangle([0, 0, N - 1, N - 1], outline=255, width=3 * K)
-    d.rectangle([34 * K, 34 * K, N - 34 * K, N - 34 * K], outline=255, width=3 * K)
-    img = put(img, arr(m, 0.4) * 0.8, (90, 62, 20))
+def small_caps(d, cx, y, s, big, small, fill=255, spacing=2):
+    """Büyük harfle başlayan küçük büyük harf (small caps) yazı."""
+    parts = [(ch, big if (i == 0 or s[i - 1] == " ") else small) for i, ch in enumerate(s.upper())]
+    widths = [d.textlength(ch, font=f) for ch, f in parts]
+    total = sum(widths) + spacing * K * (len(parts) - 1)
+    x = cx * K - total / 2
+    base = y * K + big.getbbox("H")[3]
+    for (ch, f), w in zip(parts, widths):
+        d.text((x, base), ch, font=f, fill=fill, anchor="ls")
+        x += w + spacing * K
+    return y + big.getbbox("H")[3] / K
 
-    # Siyah yıldız (iki kare).
+
+def front(c, seed):
+    """Fotoğraftaki etiket: plaka, mine yıldız, altın geçme, siyah pano.
+
+    `plate` "gold" (Queen of Palace gibi altın zemin) ya da bir renk (Narcissus
+    gibi siyah zemin); `star` yıldızın mine rengi.
+    """
+    cx = N / 2
+    gold_plate = c["plate"] == "gold"
+    if gold_plate:
+        img = gold(seed)
+    else:
+        img = np.broadcast_to(np.array(c["plate"], np.float32), (N, N, 3)).copy()
+        img *= smooth_noise(N, N, (6, 6), seed, 0.94, 1.06)[..., None]
+    pale = gold(seed + 3) * 0.55 + np.array([250, 232, 180], np.float32) * 0.45
+
+    # Plakanın kenar çerçevesi.
+    m, d = mask()
+    d.rectangle([0, 0, N - 1, N - 1], outline=255, width=(3 if gold_plate else 14) * K)
+    d.rectangle([34 * K, 34 * K, N - 34 * K, N - 34 * K], outline=255, width=3 * K)
+    img = put(img, arr(m, 0.4) * (0.8 if gold_plate else 1), (90, 62, 20) if gold_plate else gold(seed + 1))
+
+    # Mine yıldız (iki kare), ince altın kenarlı.
     r = 335 * K
     sq, di = star_points(cx, r)
     m, d = mask()
     d.polygon(sq, fill=255)
-    d.polygon([(x, y) for x, y in di], fill=255)
+    d.polygon(di, fill=255)
     star = arr(m, 0.4)
-    img = put(img, star, BLACK)
+    enamel = np.array(c["star"], np.float32) * smooth_noise(N, N, (8, 8), seed + 7, 0.9, 1.08)[..., None]
+    img = put(img, star, enamel)
+    edge = np.clip(star - arr(m.filter(ImageFilter.MinFilter(7)), 0.4), 0, 1)
+    img = put(img, edge, gold(seed + 2))
 
-    # Altın geçme: yıldızın içinde, kenarlara paralel ince çizgiler ve
-    # merkezden açılan çeyrek daireler.
+    # Altın geçme şeritleri: yıldızın iç çizgileri ve kollardaki halkalar.
     g, d = mask()
-    inset = 22 * K
+    inset = 24 * K
     sq_in = [(cx - r + inset, cx - r + inset), (cx + r - inset, cx - r + inset), (cx + r - inset, cx + r - inset), (cx - r + inset, cx + r - inset)]
     rr = r * math.sqrt(2) - inset * math.sqrt(2)
     di_in = [(cx, cx - rr), (cx + rr, cx), (cx, cx + rr), (cx - rr, cx)]
-    d.line(sq_in + sq_in[:1], fill=255, width=5 * K)
-    d.line(di_in + di_in[:1], fill=255, width=5 * K)
-    # Yıldız kollarında geçme halkaları (fotoğraftaki kıvrımlı altın şeritler).
+    d.line(sq_in + sq_in[:1], fill=255, width=6 * K)
+    d.line(di_in + di_in[:1], fill=255, width=6 * K)
     for k in range(8):
         a = k * math.pi / 4
         px, py = cx + math.cos(a) * r * 0.98, cx + math.sin(a) * r * 0.98
         rad = 130 * K
-        d.ellipse([px - rad, py - rad, px + rad, py + rad], outline=255, width=16 * K)
-        rad2 = 72 * K
-        d.ellipse([px - rad2, py - rad2, px + rad2, py + rad2], outline=255, width=6 * K)
+        d.ellipse([px - rad, py - rad, px + rad, py + rad], outline=255, width=22 * K)
+        rad2 = 70 * K
+        d.ellipse([px - rad2, py - rad2, px + rad2, py + rad2], outline=255, width=7 * K)
     geo = arr(g, 0.4) * star
-    # Küçük altın baklavalar: yıldızın dört çapraz ucunda.
     b, d = mask()
     for k in range(4):
         a = math.pi / 4 + k * math.pi / 2
         px, py = cx + math.cos(a) * r * 1.2, cx + math.sin(a) * r * 1.2
-        s = 26 * K
-        d.polygon([(px, py - s), (px + s, py), (px, py + s), (px - s, py)], fill=255)
-    img = put(img, np.clip(geo + arr(b, 0.4) * star, 0, 1), gold(seed + 3))
+        s_ = 26 * K
+        d.polygon([(px, py - s_), (px + s_, py), (px, py + s_), (px - s_, py)], fill=255)
+    img = put(img, np.clip(geo + arr(b, 0.4) * star, 0, 1), pale)
 
     # Ortadaki siyah pano, çift altın çerçeve.
     half = 238 * K
@@ -162,8 +186,11 @@ def front(c, seed):
     y = 340
     y = text_c(d, S / 2, y, "HOPE", font("Cinzel-Medium.ttf", 118), spacing=8) + 24
     y = text_c(d, S / 2, y, "ISTANBUL", font("OpenSans-Bold.ttf", 30), spacing=10) + 70
-    f = fit(d, c["name"].upper(), "OpenSans-Bold.ttf", 400, 36, spacing=2)
-    y = text_c(d, S / 2, y, c["name"].upper(), f, spacing=2) + 62
+    if c.get("smallcaps"):
+        y = small_caps(d, S / 2, y, c["name"], font("OpenSans-Bold.ttf", 38), font("OpenSans-Bold.ttf", 29), spacing=3) + 62
+    else:
+        f = fit(d, c["name"].upper(), "OpenSans-Bold.ttf", 400, 36, spacing=2)
+        y = text_c(d, S / 2, y, c["name"].upper(), f, spacing=2) + 62
     text_c(d, S / 2, y, "EXTRAIT DE PARFUM", font("OpenSans-SemiBold.ttf", 27), spacing=2)
     img = put(img, arr(m, 0.35), gold(seed + 5))
     return img
@@ -308,7 +335,7 @@ def back(c, seed):
     # Silüet: yarı saydam altın.
     s, d = mask()
     c["scene"](d)
-    img = put(img, arr(s, 1.0) * 0.28, g)
+    img = put(img, arr(s, 1.0) * 0.55, np.array(c["star"], np.float32) * 1.1 + 20)
     edge = np.clip(arr(s, 0.8) - arr(s.filter(ImageFilter.MinFilter(7)), 0.8), 0, 1)
     img = put(img, edge * 0.7, g)
     # Yazılar.
@@ -328,21 +355,21 @@ def back(c, seed):
 
 # ================================================================ kokular
 PERFUMES = [
-    {"file": "han.jpg", "name": "Han", "place": "KAPALIÇARŞI", "scene": scene_han,
+    {"file": "han.jpg", "plate": (16, 14, 13), "star": (18, 92, 64), "name": "Han", "place": "KAPALIÇARŞI", "scene": scene_han,
      "notes": [("TOP", "Limon · Tarçın"), ("HEART", "Paçuli · Sedir"), ("BASE", "Kuru odun · Amber · Misk")]},
-    {"file": "queen-of-palace.jpg", "name": "Queen of Palace", "place": "TWO CONTINENTS ONE LOVE", "scene": scene_palace,
+    {"file": "queen-of-palace.jpg", "plate": "gold", "star": (14, 12, 11), "name": "Queen of Palace", "place": "TWO CONTINENTS ONE LOVE", "scene": scene_palace,
      "notes": [("TOP", "Bergamot · Mango · Frenk üzümü"), ("HEART", "Gül · Yasemin · İris"), ("BASE", "Vanilya · Amber · Sandal")]},
-    {"file": "narcissus.jpg", "name": "Narcissus", "place": "HISTORICAL PENINSULA", "scene": scene_peninsula,
+    {"file": "narcissus.jpg", "plate": (16, 14, 13), "star": (122, 20, 40), "name": "Narcissus", "smallcaps": True, "place": "HISTORICAL PENINSULA", "scene": scene_peninsula,
      "notes": [("TOP", "Çarkıfelek · Mandalina"), ("HEART", "Sümbülteber · Beyaz çiçekler"), ("BASE", "Vanilya · Amber · Beyaz misk")]},
-    {"file": "grand-conqueror.jpg", "name": "Grand Conqueror", "place": "RUMELİ HİSARI", "scene": scene_walls,
+    {"file": "grand-conqueror.jpg", "plate": "gold", "star": (28, 44, 104), "name": "Grand Conqueror", "place": "RUMELİ HİSARI", "scene": scene_walls,
      "notes": [("TOP", "Bergamot · Mandalina · Limon"), ("HEART", "İris · Yasemin"), ("BASE", "Günlük · Vetiver · Amber")]},
-    {"file": "deep-secret.jpg", "name": "Deep Secret", "place": "KIZ KULESİ", "scene": scene_tower,
+    {"file": "deep-secret.jpg", "plate": (16, 14, 13), "star": (12, 92, 104), "name": "Deep Secret", "place": "KIZ KULESİ", "scene": scene_tower,
      "notes": [("TOP", "Hibiskus · Şakayık · Şeftali"), ("HEART", "Yasemin · Menekşe · Manolya"), ("BASE", "Misk · Amber · Kaşmiran")]},
-    {"file": "neco.jpg", "name": "N.E.C.O", "place": "GALATA · TOPHANE", "scene": scene_galata,
+    {"file": "neco.jpg", "plate": (16, 14, 13), "star": (160, 62, 30), "name": "N.E.C.O", "place": "GALATA · TOPHANE", "scene": scene_galata,
      "notes": [("TOP", "Bergamot · Greyfurt · Ardıç"), ("HEART", "Zencefil · Ahududu · Tarçın"), ("BASE", "Paçuli · Bal · Amber · Sandal")]},
-    {"file": "forza.jpg", "name": "Forza", "place": "7 TEPE", "scene": scene_hills,
+    {"file": "forza.jpg", "plate": (16, 14, 13), "star": (78, 44, 126), "name": "Forza", "place": "7 TEPE", "scene": scene_hills,
      "notes": [("TOP", "Narenciye · Menekşe"), ("HEART", "Lavanta · Baharat"), ("BASE", "Sandal · Sedir · Beyaz misk")]},
-    {"file": "submarine.jpg", "name": "Submarine", "place": "BOĞAZ'IN DERİNLİKLERİ", "scene": scene_sea,
+    {"file": "submarine.jpg", "plate": (16, 14, 13), "star": (28, 84, 168), "name": "Submarine", "place": "BOĞAZ'IN DERİNLİKLERİ", "scene": scene_sea,
      "notes": [("TOP", "Limon · Armut · Portakal çiçeği"), ("HEART", "Pembe biber · Zencefil · Gül"), ("BASE", "Paçuli · Vetiver · Amber")]},
 ]
 
