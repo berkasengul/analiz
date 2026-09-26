@@ -83,7 +83,7 @@ export default function DetailPanel() {
         <div className={bodyClass} key={shown.key + t.lang}>
           <p className="tag">
             <i className="dot" />
-            N° {pad(shown.active + 1)} — {t.brand.specs}
+            N° {pad(shown.active + 1)} — {f.collection ? <span lang="en">{f.collection}</span> : t.brand.specs}
           </p>
           <h2 className="detail__title">
             <span className="detail__flavor" lang="en">
@@ -93,6 +93,22 @@ export default function DetailPanel() {
           <p className="detail__desc">
             <SplitWords text={f.description} delay={420} />
           </p>
+          <dl className="detail__meta mono">
+            <div>
+              <dt>{ui.family}</dt>
+              <dd>{f.family}</dd>
+            </div>
+            {f.perfumer && (
+              <div>
+                <dt>{ui.perfumer}</dt>
+                <dd lang={/^[\x00-\x7F]+$/.test(f.perfumer) ? "en" : undefined}>{f.perfumer}</dd>
+              </div>
+            )}
+            <div>
+              <dt>{ui.year}</dt>
+              <dd>{f.year}</dd>
+            </div>
+          </dl>
           <ul className="chips detail__notes" aria-label={ui.notes}>
             {f.notes.map((n) => (
               <li key={n}>{n}</li>

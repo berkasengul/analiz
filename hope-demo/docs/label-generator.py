@@ -363,7 +363,7 @@ PERFUMES = [
      "notes": [("TOP", "Çarkıfelek · Mandalina"), ("HEART", "Sümbülteber · Beyaz çiçekler"), ("BASE", "Vanilya · Amber · Beyaz misk")]},
     {"file": "grand-conqueror.jpg", "plate": "gold", "star": (28, 44, 104), "name": "Grand Conqueror", "place": "RUMELİ HİSARI", "scene": scene_walls,
      "notes": [("TOP", "Bergamot · Mandalina · Limon"), ("HEART", "İris · Yasemin"), ("BASE", "Günlük · Vetiver · Amber")]},
-    {"file": "deep-secret.jpg", "plate": (16, 14, 13), "star": (12, 92, 104), "name": "Deep Secret", "place": "KIZ KULESİ", "scene": scene_tower,
+    {"file": "deep-secret.jpg", "plate": (16, 14, 13), "star": (12, 92, 104), "name": "Deep Secret", "place": "WONDERS OF ISTANBUL", "scene": scene_tower,
      "notes": [("TOP", "Hibiskus · Şakayık · Şeftali"), ("HEART", "Yasemin · Menekşe · Manolya"), ("BASE", "Misk · Amber · Kaşmiran")]},
     {"file": "neco.jpg", "plate": (16, 14, 13), "star": (160, 62, 30), "name": "N.E.C.O", "place": "GALATA · TOPHANE", "scene": scene_galata,
      "notes": [("TOP", "Bergamot · Greyfurt · Ardıç"), ("HEART", "Zencefil · Ahududu · Tarçın"), ("BASE", "Paçuli · Bal · Amber · Sandal")]},

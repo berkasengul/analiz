@@ -21,7 +21,7 @@ export default function Ritual() {
             <p className="ritual__desc">{r.text}</p>
             <p className="mono ritual__can">
               <i className="dot" style={{ background: flavors[r.flavor].color }} />
-              {ui.inCan}: {flavors[r.flavor].name}
+              {ui.inCan}: <span lang="en">{flavors[r.flavor].name}</span>
             </p>
           </div>
           <ol className="ritual__progress" aria-label={ui.steps}>

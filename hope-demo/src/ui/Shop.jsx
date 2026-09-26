@@ -36,7 +36,7 @@ export default function Shop() {
 
         <fieldset className="field">
           <legend className="mono">
-            {ui.flavor} <b>{t.flavorName(flavor)}</b>
+            {ui.flavor} <b lang={flavor === VARIETY ? undefined : "en"}>{t.flavorName(flavor)}</b>
           </legend>
           <div className="swatches">
             {flavors.map((f, i) => (

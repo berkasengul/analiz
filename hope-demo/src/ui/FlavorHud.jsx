@@ -23,7 +23,7 @@ export default function FlavorHud() {
       <div className={`hud__center${moving ? " is-moving" : ""}`}>
         <p className="tag">
           <i className="dot" />
-          {t.specs}
+          {f.family} · <span lang="en">Extrait de Parfum</span>
         </p>
         <button className="hud__name" lang="en" onClick={openDetail} aria-label={ui.discover(f.name)}>
           <SplitChars text={f.name} key={f.name} step={40} />

@@ -10,7 +10,7 @@ export function Marquee() {
     <div className="marquee" aria-hidden="true">
       <div className="marquee__track">
         {row.map((w, i) => (
-          <span key={i}>
+          <span key={i} lang={/Hope|Extrait|Esxence/.test(w) ? "en" : undefined}>
             {w}
             <i>✦</i>
           </span>
@@ -28,7 +28,7 @@ export function Story() {
         <div className="story__main">
           <header className="section__head reveal">
             <p className="mono section__eyebrow">{ui.storyEyebrow}</p>
-            <h2 className="section__title">Hope in a bottle.</h2>
+            <h2 className="section__title" lang="en">Hope in a bottle.</h2>
           </header>
           <p className="story__lead reveal">{story.lead}</p>
           {story.paragraphs.map((t) => (

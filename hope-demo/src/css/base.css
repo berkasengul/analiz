@@ -2903,3 +2903,31 @@ main {
     display: block;
   }
 }
+
+/* Detay: koku ailesi, parfümör, yıl */
+.detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin: 0 0 14px;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.detail__meta div {
+  display: flex;
+  gap: 8px;
+}
+.detail__meta dt {
+  color: var(--muted);
+}
+.detail__meta dd {
+  color: var(--accent, var(--fg));
+}
+@media (max-width: 760px) {
+  .detail__meta {
+    font-size: 0.6rem;
+    gap: 4px 14px;
+    margin-bottom: 8px;
+  }
+}

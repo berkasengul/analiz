@@ -6,24 +6,36 @@
 export const flavors = [
   {
     name: "Han",
+    collection: null,
+    family: "Odunsu baharatlı",
+    year: 2022,
+    perfumer: "Gökhan Şimşek",
     color: "#3fae7e",
     ink: "#155a40",
     theme: { glow: "#1f6a4a", edge: "#020a06", drop: "#9fe0c0", mood: "warm" },
     tagline: "Baharat kokan han avluları.",
     notes: ["Limon", "Tarçın", "Paçuli", "Sedir", "Amber"],
-    description: "Kapalıçarşı'nın taş avlularından ilham alan odunsu, baharatlı bir koku. Limonla açılır, tarçın ve sedirle ısınır, amber ve miskle tende kalır.",
+    description: "Markanın ilk kokularından; eski İstanbul hanlarının taş avlularını anımsatan odunsu, baharatlı bir koku. Limonla açılır, tarçın ve sedirle ısınır, amber ve miskle tende kalır.",
   },
   {
     name: "Queen of Palace",
+    collection: "Two Continents One Love",
+    family: "Çiçeksi meyveli",
+    year: 2025,
+    perfumer: null,
     color: "#e6c46a",
     ink: "#6b4a10",
     theme: { glow: "#a8802e", edge: "#0c0903", drop: "#f3dc98", mood: "warm" },
     tagline: "Sarayın kraliçesi, iki kıtanın aşkı.",
     notes: ["Gül", "Yasemin", "Mango", "Vanilya", "Amber"],
-    description: "Gül, yasemin ve mangoyla açılan görkemli bir çiçek buketi. Vanilya ve amber tabanı kalıcılığı ve sıcaklığı temsil eder.",
+    description: "Gül, yasemin ve mangoyla açılan, ihtişam ve cazibe dolu bir buket. Vanilya ve amber tabanı kalıcılığı ve sıcaklığı temsil eder; iki kıtayı birleştiren bir aşkın kokusu.",
   },
   {
     name: "Narcissus",
+    collection: "Historical Peninsula",
+    family: "Beyaz çiçekli",
+    year: 2022,
+    perfumer: "Gökhan Şimşek",
     color: "#d9506e",
     ink: "#7a1428",
     theme: { glow: "#7a1428", edge: "#0e0305", drop: "#f0a0b0", mood: "warm" },
@@ -33,6 +45,10 @@ export const flavors = [
   },
   {
     name: "Grand Conqueror",
+    collection: null,
+    family: "Pudralı odunsu",
+    year: 2025,
+    perfumer: "Gökhan Şimşek",
     color: "#7f9cf0",
     ink: "#1c2c68",
     theme: { glow: "#2c4596", edge: "#03050e", drop: "#b0c4f5", mood: "cool" },
@@ -42,15 +58,23 @@ export const flavors = [
   },
   {
     name: "Deep Secret",
+    collection: "Wonders of Istanbul",
+    family: "Çiçeksi deniz",
+    year: 2025,
+    perfumer: "Julien Rasquinet",
     color: "#4fc0c8",
     ink: "#0c5c68",
     theme: { glow: "#0f6a74", edge: "#020a0b", drop: "#a0e4ea", mood: "cool" },
     tagline: "Boğaz'ın en derin sırrı.",
     notes: ["Hibiskus", "Şakayık", "Deniz notaları", "Manolya", "Kaşmiran"],
-    description: "Hibiskus, şakayık ve şeftali deniz esintisiyle buluşur; yasemin, menekşe ve manolyadan sonra kaşmiran ve sandal ağacına iner.",
+    description: "İstanbul'un ruhunda saklı hikâyeleri anlatır. Hibiskus, şakayık ve şeftali deniz esintisiyle buluşur; yasemin, menekşe ve manolyadan sonra kaşmiran ve sandal ağacına iner.",
   },
   {
     name: "N.E.C.O",
+    collection: null,
+    family: "Baharatlı ozonik",
+    year: 2022,
+    perfumer: "Gökhan Şimşek",
     color: "#e2764e",
     ink: "#8a3418",
     theme: { glow: "#9a3a1e", edge: "#0e0503", drop: "#f2b090", mood: "warm" },
@@ -60,6 +84,10 @@ export const flavors = [
   },
   {
     name: "Forza",
+    collection: "7 Tepe",
+    family: "Aromatik misk",
+    year: 2024,
+    perfumer: null,
     color: "#a07ae0",
     ink: "#4b2a7a",
     theme: { glow: "#4b2a7a", edge: "#06030e", drop: "#d0bdf2", mood: "cool" },
@@ -69,6 +97,10 @@ export const flavors = [
   },
   {
     name: "Submarine",
+    collection: null,
+    family: "Meyveli odunsu",
+    year: 2024,
+    perfumer: null,
     color: "#5a9af5",
     ink: "#1c54a8",
     theme: { glow: "#1f55a8", edge: "#02050e", drop: "#a8c4f8", mood: "cool" },
@@ -136,10 +168,10 @@ export const ritual = [
     stat: "15 cm",
   },
   {
-    title: "Kalıcılık",
+    title: "Katmanla",
     flavor: 4,
-    text: "Extrait yoğunluğu sayesinde iki sıkım bütün güne yeter.",
-    stat: "12+ saat",
+    text: "Hope Istanbul kokuları birbiriyle özgürce birleştirilebilir. İki kokuyu üst üste sık, kendi imzanı yarat.",
+    stat: "1 + 1",
   },
 ];
 
@@ -160,7 +192,7 @@ export const DEFAULT_SHOP_FLAVOR = 1; // Queen of Palace
 export const stockists = [
   ["İstanbul", "Hope Istanbul by Serimu · resmi satış", "Açık"],
   ["Online", "hopeistanbulofficial.com", "Online"],
-  ["Avrupa", "Lodore ve seçkin niş parfümeriler", "Açık"],
+  ["Uluslararası", "Lodore, Level Perfume ve seçkin niş parfümeriler", "Açık"],
   ["Milano", "Esxence 2024 · dünya lansmanı", "Fuar"],
 ];
 
@@ -169,18 +201,19 @@ export const story = {
   founder: "Gökhan Şimşek · Julien Rasquinet · Hüseyin Erdoğmuş",
   lead: "İstanbul her zaman bir coğrafyadan fazlası oldu: baharat çarşısının kokusu, Boğaz'ın tuzu, şafakta bir caminin sessizliği.",
   paragraphs: [
-    "Hope Istanbul, 2021'de Serimu Kozmetik çatısı altında kurulan bir Türk parfüm evi. Amacı, umudu bir şişeye sığdırmak: Doğu'nun ihtişamını Batı'nın zarafetiyle buluşturan, her biri titizlikle tasarlanmış kokular.",
+    "Hikâye yedi yaşında bir çocuğun kokulara duyduğu merakla başladı ve yıllar içinde bir parfüm evine dönüştü. Markanın adı kurucunun annesinden geliyor: Umut. Hope Istanbul, 2021'de Serimu Kozmetik çatısı altında bu sevgi ve aile bağıyla kuruldu.",
+    "Amaç, umudu bir şişeye sığdırmak. Tarihin kokusunun modern hayatın nabzıyla buluştuğu İstanbul'da doğan her koku, Doğu'nun ihtişamını Batı'nın zarafetiyle harmanlayan, hiç uyumayan şehirden ilham alan bir yolculuk. Her notada bir hikâye, her nefeste yeni bir keşif.",
     "Kokuların arkasında üç isim var: Gökhan Şimşek, Hüseyin Erdoğmuş ve Amouage, Creed, Frederic Malle için de çalışmış parfümör Julien Rasquinet. Marka dünyaya açılışını 2024'te Milano'daki Esxence'ta yaptı.",
   ],
   timeline: [
-    ["2021", "Hope Istanbul, Serimu Kozmetik çatısı altında kuruluyor"],
+    ["2021", "Hope Istanbul, kurucunun annesi Umut'un adıyla kuruluyor"],
     ["2022", "İlk koleksiyon: Han, Narcissus, Queen ve N.E.C.O"],
     ["2024", "Esxence Milano'da dünya lansmanı; Forza ve Submarine"],
     ["2025", "Grand serisi, Queen of Palace ve Deep Secret"],
   ],
   stats: [
     ["%30", "esans oranı"],
-    ["3", "parfümör"],
+    ["20", "koku"],
     ["4", "İstanbul koleksiyonu"],
   ],
   press: ["Esxence Milano", "Fragrantica", "Parfumo", "Lodore", "Level Perfume"],
@@ -189,11 +222,13 @@ export const story = {
 };
 
 export const faqs = [
+  ["Hope adı nereden geliyor?", "Kurucunun annesinin adından: Umut. Yedi yaşında başlayan koku tutkusu, 2021'de annesinin adını taşıyan bir parfüm evine dönüştü."],
   ["Extrait de Parfum ne demek?", "Parfümün en yoğun hali. Hope Istanbul kokuları %30 esans oranıyla hazırlanır; eau de parfum ve eau de toilette'ten çok daha kalıcıdır."],
   ["Hangi kokuyu seçmeliyim?", "Sıcak ve baharatlı sevenler için Han, çiçeksi ve görkemli için Queen of Palace, aydınlık ve tatlı için Narcissus, temiz ve karizmatik için Grand Conqueror, ferah ve denizsi için Deep Secret, baharatlı ve asi için N.E.C.O, lavantalı ve zarif için Forza, meyveli ve derin için Submarine."],
   ["Koleksiyonlar neyi anlatıyor?", "Her koleksiyon İstanbul'un bir yüzünü anlatır: 7 Tepe, Tarihi Yarımada, İki Kıta Bir Aşk ve İstanbul'un Harikaları."],
   ["Koleksiyonda başka hangi kokular var?", "Bu sayfada sekiz koku var. Markanın koleksiyonunda Amber Delight, Mango Crush, Addictive, Rare, Miss Miris ve Grand Han gibi başka kokular da bulunuyor."],
   ["Kokular unisex mi?", "Evet. Hope Istanbul kokuları kadın ve erkek için tasarlanır."],
+  ["Kokuları birleştirebilir miyim?", "Evet. Hope Istanbul kokuları birbiriyle özgürce katmanlanabilir; örneğin Han'ın baharatını Queen of Palace'ın gülüyle birleştirip kendi imzanı yaratabilirsin."],
   ["10 ml seyahat boyu ne işe yarar?", "Kokuyu tende birkaç gün denemek ya da çantada taşımak için. Beğenirsen büyük şişeye geçersin."],
   ["Kargo ve hediye paketi nasıl işliyor?", "Bu demo sayfada örnek akış gösteriliyor: aynı gün kargo, ücretsiz hediye kutusu ve el yazısı not. Gerçek koşullar markayla birlikte belirlenecek."],
 ];

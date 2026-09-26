@@ -20,7 +20,7 @@ export default function Menu() {
       <div className="menu__lang">
         <LangSwitch />
       </div>
-      <p className="menu__foot">Hope in a bottle.</p>
+      <p className="menu__foot" lang="en">Hope in a bottle.</p>
     </div>
   );
 }
