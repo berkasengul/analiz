@@ -1,5 +1,5 @@
 import { flavors, specs } from "../data";
-import { scrollToFlavor } from "../scroll";
+import { scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
 import { SplitChars } from "./Split";
 
@@ -10,7 +10,8 @@ export default function FlavorHud() {
   const active = useStore((s) => s.active);
   const detail = useStore((s) => s.detail);
   const loaded = useStore((s) => s.loaded);
-  const moving = useStore((s) => s.moving);
+  const moving = useStore((s) => s.moving || s.swapping);
+  const order = useStore((s) => s.order);
   const openDetail = useStore((s) => s.openDetail);
   const f = flavors[active];
 
@@ -49,7 +50,7 @@ export default function FlavorHud() {
               aria-current={i === active}
               className={i === active ? "is-active" : ""}
               style={{ "--c": fl.color }}
-              onClick={() => scrollToFlavor(i)}
+              onClick={() => scrollToFlavorOf(order, i)}
             />
           ))}
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { features, flavors, money, packLabel, packPrice } from "../data";
-import { scrollToFlavor } from "../scroll";
+import { scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
 import { Arrow, Close, featureIcons } from "../Icons";
 import { SplitChars, SplitWords } from "./Split";
@@ -10,9 +10,10 @@ const N = flavors.length;
 const pad = (n) => String(n).padStart(2, "0");
 
 export function stepFlavor(dir) {
-  const next = (useStore.getState().active + dir + N) % N;
-  useStore.getState().setActive(next);
-  scrollToFlavor(next, true);
+  const { active, order, setActive } = useStore.getState();
+  const next = (active + dir + N) % N;
+  setActive(next);
+  scrollToFlavorOf(order, next, true);
 }
 
 export function stepFeature(dir) {

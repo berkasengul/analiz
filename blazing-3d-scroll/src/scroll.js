@@ -54,6 +54,13 @@ function yForFlavor(i) {
   return el.offsetTop + (i / (N - 1)) * range;
 }
 
+export const slotIndex = (p) => ((Math.round(p) % N) + N) % N;
+
+// Tatın şu an bulunduğu slota kaydırır.
+export function scrollToFlavorOf(order, flavor, immediate = false) {
+  scrollToFlavor(order.indexOf(flavor), immediate);
+}
+
 export function scrollToFlavor(i, immediate = false, onComplete) {
   const y = yForFlavor(i);
   if (smooth.lenis) {

@@ -23,7 +23,8 @@ function useSmoothScroll() {
     measureScroll();
     const s = useStore.getState();
     const idx = Math.round(scrollState.p);
-    if (idx !== s.active) s.setActive(idx);
+    const flavor = s.order[((idx % s.order.length) + s.order.length) % s.order.length];
+    if (flavor !== s.active) s.setActive(flavor);
     // Carousel iki tat arasındayken başlık gizlenir, durunca harf harf gelir.
     const moving = Math.abs(scrollState.p - idx) > 0.04;
     if (moving !== s.moving) s.setMoving(moving);

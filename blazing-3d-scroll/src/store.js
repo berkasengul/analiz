@@ -35,6 +35,9 @@ export const useStore = create(
       sceneReady: false,
       active: 0,
       moving: false,
+      swapping: false,
+      // Slot → tat eşlemesi. Yan kutuya tıklanınca iki slotun tadı yer değiştirir.
+      order: Array.from({ length: 10 }, (_, i) => i),
       ritualStep: 0,
       detail: false,
       feature: null,
@@ -51,6 +54,13 @@ export const useStore = create(
       setSceneReady: () => set({ sceneReady: true }),
       setActive: (active) => set({ active }),
       setMoving: (moving) => set({ moving }),
+      setSwapping: (swapping) => set({ swapping }),
+      swapSlots: (a, b) =>
+        set((s) => {
+          const order = [...s.order];
+          [order[a], order[b]] = [order[b], order[a]];
+          return { order };
+        }),
       setRitualStep: (ritualStep) => set({ ritualStep }),
       openDetail: () => set((s) => ({ detail: true, feature: null, picked: s.active })),
       closeDetail: () => set({ detail: false, feature: null, spin: false }),
