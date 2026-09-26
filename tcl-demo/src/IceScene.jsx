@@ -1,14 +1,14 @@
 import { useMemo, useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { Color, InstancedMesh, MathUtils, MeshPhysicalMaterial, Object3D, SphereGeometry, Vector3 } from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 
 import { flavors } from "./data";
 import { sceneState } from "./shared";
 
-// Kahve reklamlarındaki sahne: öndeki kutu bir buz bloğunun içinde durur,
-// etrafta buz küpleri ve kahve çekirdekleri süzülür, tat değişince kutudan
-// o tadın renginde (koyu ya da sütlü) kahve sıçrar.
+// Kahve reklamlarındaki sahne: kutuların arasında buz küpleri ve kahve
+// çekirdekleri süzülür, tat değişince öndeki kutudan o tadın renginde
+// (koyu ya da sütlü) kahve sıçrar.
 
 const iceMaterial = () =>
   new MeshPhysicalMaterial({
@@ -23,8 +23,6 @@ const iceMaterial = () =>
     depthWrite: false,
   });
 
-const blockGeo = new RoundedBoxGeometry(3.5, 2.9, 2.7, 4, 0.24);
-const frostGeo = new RoundedBoxGeometry(3.2, 2.6, 2.4, 2, 0.3);
 const cubeGeo = new RoundedBoxGeometry(0.6, 0.6, 0.6, 3, 0.1);
 const beanGeo = new SphereGeometry(0.2, 18, 12);
 const dropGeo = new SphereGeometry(0.1, 12, 10);
@@ -52,23 +50,16 @@ const BEANS = Array.from({ length: 16 }, (_, i) => ({
 const DROPS = 56;
 
 export default function IceScene() {
-  const size = useThree((s) => s.size);
-  const block = useRef();
   const floaters = useRef();
   const drops = useRef();
   const state = useRef({ show: 0, burst: -10, flavor: 0, parts: [] });
 
   const mats = useMemo(() => {
-    const ice = iceMaterial();
-    const frost = iceMaterial();
-    frost.roughness = 0.7;
-    frost.opacity = 0.14;
-    frost.color.set("#ffffff");
     const cube = iceMaterial();
     cube.opacity = 0.42;
     const bean = new MeshPhysicalMaterial({ color: "#3b1e0e", roughness: 0.32, clearcoat: 0.8, clearcoatRoughness: 0.2 });
     const drop = new MeshPhysicalMaterial({ color: "#2a1408", roughness: 0.05, clearcoat: 1, envMapIntensity: 1.6 });
-    return { ice, frost, cube, bean, drop };
+    return { cube, bean, drop };
   }, []);
 
   const dropMesh = useMemo(() => {
@@ -86,16 +77,6 @@ export default function IceScene() {
     const intro = 1 - Math.pow(1 - sceneState.intro, 3);
     st.show = MathUtils.damp(st.show, 1 - sceneState.spread, 4, dt);
     const show = st.show * intro;
-    const wide = size.width / size.height >= 0.9;
-
-    // Buz bloğu: öndeki kutunun alt yarısını sarar.
-    const b = block.current;
-    b.visible = show > 0.02;
-    b.position.set(0, (wide ? -1.35 : -0.6) - (1 - show) * 5, 1.2);
-    b.rotation.set(0.04, 0.5 + Math.sin(t * 0.3) * 0.04, 0.02);
-    b.scale.setScalar(wide ? 1 : 0.78);
-    mats.ice.opacity = 0.3 * show;
-    mats.frost.opacity = 0.14 * show;
 
     // Süzülen buz küpleri ve kahve çekirdekleri.
     const f = floaters.current;
@@ -153,10 +134,6 @@ export default function IceScene() {
 
   return (
     <>
-      <group ref={block} visible={false}>
-        <mesh geometry={frostGeo} material={mats.frost} renderOrder={3} />
-        <mesh geometry={blockGeo} material={mats.ice} renderOrder={4} />
-      </group>
       <group ref={floaters} visible={false}>
         {CUBES.map((c, i) => (
           <mesh key={`c${i}`} geometry={cubeGeo} material={mats.cube} scale={c.s} userData={c} renderOrder={4} />

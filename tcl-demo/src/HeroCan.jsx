@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { MathUtils } from "three";
+import { Color, MathUtils } from "three";
+
+const WHITE = new Color(1, 1, 1);
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -213,6 +215,7 @@ export default function HeroCan() {
     }
     if (want !== s.target) showFlavor(want, visible);
     sceneState.heroFlavor = want;
+    uniforms.u_rim.value.set(flavors[want].theme.glow).lerp(WHITE, 0.25).multiplyScalar(0.5 * (1 - 0.6 * s.spot));
     if (!visible) return;
 
     const wide = size.width / size.height >= 0.9;

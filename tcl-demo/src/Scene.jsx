@@ -37,8 +37,8 @@ export default function Scene() {
       >
         <PerformanceMonitor onDecline={() => setDpr(1)} flipflops={1} />
         <ambientLight intensity={0.25} />
-        <directionalLight position={[-6, 8, 6]} intensity={1.8} />
-        <directionalLight position={[8, -2, 4]} intensity={0.9} color="#9fb4ff" />
+        <directionalLight position={[-6, 8, 6]} intensity={1.1} />
+        <directionalLight position={[8, -2, 4]} intensity={0.55} color="#9fb4ff" />
         <Suspense fallback={null}>
           <Environment files={envMap} />
           <CameraRig />

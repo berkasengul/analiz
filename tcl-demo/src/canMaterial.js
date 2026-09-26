@@ -16,6 +16,7 @@ export function createCanUniforms(flavor) {
     u_ink2: { value: new Color() },
     u_progress: { value: 0.5 },
     u_dim: { value: 1 },
+    u_rim: { value: new Color(0, 0, 0) },
     u_width: { value: 0.8 },
     u_scaleX: { value: 50 },
     u_scaleY: { value: 50 },
@@ -34,6 +35,9 @@ export function setCanFlavor(uniforms, flavor) {
 export function createCanMaterial(base, uniforms) {
   const material = new MeshPhysicalMaterial({
     map: base.map,
+    // Damlacıklar yalnızca vernik katmanında: etiket net kalır, damlalar parlar.
+    clearcoatNormalMap: base.normalMap,
+    clearcoatNormalScale: base.normalScale,
     metalness: 0.55,
     roughness: 0.26,
     clearcoat: 1,
@@ -60,6 +64,7 @@ export function createCanMaterial(base, uniforms) {
         uniform vec3 u_color2;
         uniform float u_progress;
         uniform float u_dim;
+        uniform vec3 u_rim;
         uniform float u_width;
         uniform float u_scaleX;
         uniform float u_scaleY;
@@ -90,7 +95,18 @@ export function createCanMaterial(base, uniforms) {
 
         vec3 c1 = texture2D(u_map1, vCanUv).rgb * u_color1;
         vec3 c2 = texture2D(u_map2, vCanUv).rgb * u_color2;
-        diffuseColor.rgb = mix(c1, c2, mask) * u_dim;
+        diffuseColor.rgb = mix(c1, c2, mask);
+      `
+    );
+
+    // Kenar parıltısı: kutunun kenarlarında tadın renginde ince bir ışık.
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <opaque_fragment>",
+      /* glsl */ `
+        float rimF = pow(1. - abs(dot(normal, normalize(vViewPosition))), 3.);
+        // u_dim tüm ışığı (yansımalar dahil) kısar: yan kutular gerçekten kararır.
+        outgoingLight = outgoingLight * u_dim + u_rim * rimF;
+        #include <opaque_fragment>
       `
     );
   };

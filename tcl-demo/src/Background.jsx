@@ -23,7 +23,7 @@ export default function Background() {
   const edge = useMemo(() => new Color(flavors[0].theme.edge), []);
   const target = useMemo(() => ({ glow: new Color(), edge: new Color() }), []);
   const center = useMemo(() => new Vector2(0.5, 0.6), []);
-  const last = useRef({ key: "", controls: null, at: -10, hover: false });
+  const last = useRef({ key: "", controls: null, at: -10, hover: false, from: null, to: null, mix: 1, stage: 1 });
 
   const pulse = (time) => {
     const l = last.current;
@@ -46,6 +46,24 @@ export default function Background() {
     glow.lerp(target.glow.set(theme.glow), k);
     edge.lerp(target.edge.set(theme.edge), k);
     material.current.u_time = time;
+
+    // Arkadaki şehir resmi tat değişince yumuşakça diğerine geçer.
+    const tex = flavors[sceneState.heroFlavor].texture;
+    if (tex && tex !== l.to) {
+      l.from = l.to ?? tex;
+      l.to = tex;
+      l.mix = 0;
+    }
+    l.mix = Math.min(1, l.mix + Math.min(delta, 0.1) / 1.2);
+    if (l.to) {
+      material.current.u_map1 = l.from;
+      material.current.u_map2 = l.to;
+      material.current.u_mix = l.mix * l.mix * (3 - 2 * l.mix);
+      material.current.u_hasMap = 1;
+    }
+    // Vitrin (ışık huzmesi, şehir) carousel'de tam, detayda ve sonraki bölümlerde söner.
+    l.stage += ((1 - sceneState.spread) - l.stage) * k;
+    material.current.u_stage = l.stage;
     material.current.u_dark = sceneState.spotlight;
     const st = useStore.getState();
 

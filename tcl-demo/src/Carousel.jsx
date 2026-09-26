@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { MathUtils } from "three";
+import { Color, MathUtils } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -12,6 +12,7 @@ import { sceneState } from "./shared";
 import { useStore } from "./store";
 
 const N = flavors.length;
+const WHITE = new Color(1, 1, 1);
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 // ?slowmo=8 adresiyle uçuş ağır çekimde oynar (animasyonu incelemek için).
@@ -52,6 +53,8 @@ export default function Carousel() {
   useEffect(() => useStore.getState().setSceneReady(), []);
 
   const groups = useRef([]);
+  const spot = useRef();
+  const rimColor = useMemo(() => new Color(), []);
   const local = useRef({
     p: scrollState.p,
     detail: 0,
@@ -101,6 +104,18 @@ export default function Carousel() {
     const nearest = order[slotIndex(s.p)];
     sceneState.hoverFocus = s.hovered === nearest && !detail && spread < 0.1 && Math.abs(s.p - Math.round(s.p)) < 0.1;
 
+    // Kenar parıltısı ve spot ışık tadın rengini alır.
+    rimColor.set(flavors[active].theme.glow).lerp(WHITE, 0.25).multiplyScalar(0.55);
+    const L = spot.current;
+    if (L) {
+      const fp = sceneState.focus.position;
+      L.intensity = 7 * (1 - fade) * (1 - spread) * sceneState.intro;
+      L.color.set(flavors[active].theme.glow).lerp(WHITE, 0.65);
+      L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
+      L.target.position.set(fp.x, fp.y + 0.2, fp.z);
+      L.target.updateMatrixWorld();
+    }
+
     groups.current.forEach((g, i) => {
       if (!g) return;
       let d = (((slotOf[i] - s.p) % N) + N) % N;
@@ -147,7 +162,10 @@ export default function Carousel() {
       );
       g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + s.lean * (1 - Math.min(Math.abs(d), 4) * 0.15));
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (1 - 0.15 * fade) * (1 + lift * 0.06));
-      const dim = 1 - fade;
+      // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
+      const lit = 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
+      const dim = (1 - fade) * lit;
+      bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(dim * (0.35 + 0.65 * lit));
       bodies[i].userData.uniforms.u_dim.value = dim;
       bodies[i].envMapIntensity = 1.35 * dim;
       bodies[i].clearcoat = Math.max(dim, 0.01); // 0 olursa shader yeniden derlenir
@@ -200,15 +218,21 @@ export default function Carousel() {
     document.body.style.cursor = "";
   };
 
-  return flavors.map((f, i) => (
-    <group
-      key={f.name}
-      ref={(el) => (groups.current[i] = el)}
-      onClick={onClick(i)}
-      onPointerOver={hover(i)}
-      onPointerOut={unhover(i)}
-    >
-      <CanMesh body={bodies[i]} parts={parts[i]} />
-    </group>
-  ));
+  return (
+    <>
+      {/* Öndeki kutuya düşen vitrin ışığı; ışık sayısı sabit kalsın diye hep sahnede. */}
+      <spotLight ref={spot} intensity={0} angle={0.42} penumbra={1} decay={0} />
+      {flavors.map((f, i) => (
+        <group
+          key={f.name}
+          ref={(el) => (groups.current[i] = el)}
+          onClick={onClick(i)}
+          onPointerOver={hover(i)}
+          onPointerOut={unhover(i)}
+        >
+          <CanMesh body={bodies[i]} parts={parts[i]} />
+        </group>
+      ))}
+    </>
+  );
 }

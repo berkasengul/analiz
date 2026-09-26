@@ -5,7 +5,9 @@ import {
   CylinderGeometry,
   LatheGeometry,
   MeshStandardMaterial,
+  RepeatWrapping,
   SRGBColorSpace,
+  Vector2 as V2,
   TorusGeometry,
   Vector2,
 } from "three";
@@ -16,6 +18,7 @@ import boldIstanbul from "./assets/labels/bold-istanbul.jpg";
 import silkyMardin from "./assets/labels/silky-mardin.jpg";
 import pistachioZeugma from "./assets/labels/pistachio-zeugma.jpg";
 import mintyCappadocia from "./assets/labels/minty-cappadocia.jpg";
+import droplets from "./assets/droplets.png";
 import pineyAegean from "./assets/labels/piney-aegean.jpg";
 
 // data.js'teki tat sırasıyla aynı.
@@ -42,15 +45,20 @@ const tabGeo = new BoxGeometry(0.34, 0.02, 0.2);
 const tabRingGeo = new TorusGeometry(0.08, 0.022, 6, 20);
 
 export function useCanBody() {
-  const maps = useTexture(LABELS);
+  const maps = useTexture([...LABELS, droplets]);
   return useMemo(() => {
-    maps.forEach((map, i) => {
+    const drops = maps[maps.length - 1];
+    maps.slice(0, -1).forEach((map, i) => {
       map.colorSpace = SRGBColorSpace;
       map.anisotropy = 8;
       map.needsUpdate = true;
       flavors[i].texture = map;
     });
-    return new MeshStandardMaterial({ map: maps[0] });
+    // Yoğuşma damlacıkları: kutu çevresinde 4, boyunda 3 kez tekrarlanır.
+    drops.wrapS = drops.wrapT = RepeatWrapping;
+    drops.repeat.set(5, 4);
+    drops.needsUpdate = true;
+    return new MeshStandardMaterial({ map: maps[0], normalMap: drops, normalScale: new V2(0.55, 0.55) });
   }, [maps]);
 }
 
@@ -77,4 +85,4 @@ export default function CanMesh({ body, parts }) {
   );
 }
 
-useTexture.preload(LABELS);
+useTexture.preload([...LABELS, droplets]);
