@@ -1,4 +1,4 @@
-import { Bag, Bottle } from "../Icons";
+import { Bag, BrandIcon } from "../Icons";
 import { useT } from "../i18n";
 import { useStore } from "../store";
 
@@ -37,7 +37,7 @@ export default function Header() {
   return (
     <header className="header">
       <a href="#flavors" className="brand" aria-label={`${brand.name}, ${ui.backToTop}`}>
-        <Bottle />
+        <BrandIcon />
         <span className="brand__name" lang="en">{brand.name}</span>
         <span className="brand__sub" lang="en">{brand.sub}</span>
       </a>

@@ -6,6 +6,8 @@ import { content, flavors } from "./data";
 
 // "leaves": gül yaprağı yerine zeytin yaprağı (content.json → particles).
 const LEAVES = content.particles === "leaves";
+// Kristal parçaları parfüm sahnesine ait; yapraklı sahnede gösterilmez.
+const CRYSTALS = content.crystals ?? !LEAVES;
 import { sceneState } from "./shared";
 
 // Parfüm reklamlarındaki sahne: şişelerin arasında kristal parçaları ve
@@ -143,7 +145,7 @@ export default function IceScene() {
   return (
     <>
       <group ref={floaters} visible={false}>
-        {CUBES.map((c, i) => (
+        {CRYSTALS && CUBES.map((c, i) => (
           <mesh key={`c${i}`} geometry={cubeGeo} material={mats.cube} scale={c.s} userData={c} renderOrder={4} />
         ))}
         {BEANS.map((c, i) => (

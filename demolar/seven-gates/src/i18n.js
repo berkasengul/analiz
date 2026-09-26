@@ -247,9 +247,22 @@ export function getT(lang) {
   if (cache[lang]) return cache[lang];
   const en = lang === "en";
   const P = PRICES[lang];
-  const fmt = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency });
+  // Tam sayılarda kuruş gösterilmez (₺890, $25); kuruşlu fiyatlarda iki hane.
+  const fmt = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, minimumFractionDigits: 0, maximumFractionDigits: 2 });
   const money = (n) => fmt.format(n);
-  const price = (size, plan) => P.packs[size] * (plan === "sub" ? 1 - D.SUB_DISCOUNT : 1);
+  // Fiyat: ürünün kendi fiyatı varsa (content.json → products[].price) adet × fiyat ×
+  // paket indirimi; yoksa markanın paket fiyat tablosu (prices.packs).
+  const factor = Object.fromEntries(C.packs.map((p) => [p.size, p.factor ?? 1]));
+  const own = D.flavors.map((f) => f.price?.[lang]);
+  const avg = own.every(Boolean) ? own.reduce((a, b) => a + b, 0) / own.length : null;
+  const price = (size, plan, flavor) => {
+    const base = flavor === D.VARIETY ? avg : own[flavor];
+    const p = base ? base * size * factor[size] : P.packs[size];
+    const v = p * (plan === "sub" ? 1 - D.SUB_DISCOUNT : 1);
+    // İndirimli set fiyatları yuvarlanır: ₺ 10'luk, $ tam sayı.
+    if (!base || size === 1) return Math.round(v * 100) / 100;
+    return P.currency === "TRY" ? Math.round(v / 10) * 10 : Math.round(v);
+  };
   const packLabel = (size) => D.packLabel(size);
   const flavorText = D.flavors.map((f, i) => (en ? { ...f, ...EN.flavors[i] } : f));
 
@@ -260,7 +273,9 @@ export function getT(lang) {
     price,
     packLabel,
     flavor: (i) => flavorText[i],
-    flavorName: (id) => (id === D.VARIETY ? UI[lang].mix : D.flavors[id].name),
+    flavorName: (id) => (id === D.VARIETY ? t.ui.mix : flavorText[id].name),
+    // Ürün adının dili (İngilizce modda ad İngilizcedir).
+    nameLang: en ? "en" : D.NAME_LANG,
     features: D.features.map((f, i) => (en ? { ...f, ...EN.features[i] } : f)),
     ritual: D.ritual.map((r, i) => (en ? { ...r, ...EN.ritual[i] } : r)),
     stockists: en ? EN.stockists : D.stockists,

@@ -16,7 +16,7 @@ export default function CartDrawer() {
 
   const t = useT();
   const { ui, money } = t;
-  const subtotal = cart.reduce((n, i) => n + t.price(i.pack, i.plan) * i.qty, 0);
+  const subtotal = cart.reduce((n, i) => n + t.price(i.pack, i.plan, i.flavor) * i.qty, 0);
   const shipping = subtotal === 0 || subtotal >= t.freeShipping ? 0 : t.shipping;
   const left = Math.max(0, t.freeShipping - subtotal);
   const tab = open ? 0 : -1;
@@ -94,7 +94,7 @@ export default function CartDrawer() {
                     </div>
                   </div>
                   <div className="line__end">
-                    <p>{money(t.price(i.pack, i.plan) * i.qty)}</p>
+                    <p>{money(t.price(i.pack, i.plan, i.flavor) * i.qty)}</p>
                     <button className="line__remove mono" onClick={() => setQty(i.id, 0)} tabIndex={tab}>
                       {ui.remove}
                     </button>

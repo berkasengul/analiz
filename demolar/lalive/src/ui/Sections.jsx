@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useT } from "../i18n";
-import { Bottle } from "../Icons";
+import { BrandIcon } from "../Icons";
 
 export function Marquee() {
   const words = useT().ui.marquee;
@@ -38,7 +38,7 @@ export function Story() {
           ))}
           <div className="story__founder reveal">
             <span className="story__avatar" aria-hidden="true">
-              <Bottle />
+              <BrandIcon />
             </span>
             <div>
               <p className="story__name">{story.founder}</p>

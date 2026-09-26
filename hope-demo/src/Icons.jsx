@@ -1,3 +1,5 @@
+import { BRAND_ICON } from "./data";
+
 const base = {
   width: 20,
   height: 20,
@@ -123,6 +125,17 @@ export const Bottle = () => (
     <path d="M9.5 2.5h5v3.5h-5zM10.5 6v1.8M13.5 6v1.8" />
     <rect x="5.5" y="8" width="13" height="13.5" rx="3" />
     <path d="M12 11.5c-1.6 0-2.5 1.2-2.5 2.6 0 1.8 2.5 3.6 2.5 3.6s2.5-1.8 2.5-3.6c0-1.4-.9-2.6-2.5-2.6Z" />
+  </svg>
+);
+
+// Markanın simgesi content.json → icon ile seçilir.
+export const BrandIcon = (props) => (BRAND_ICON === "leaf" ? <LeafMark {...props} /> : <Bottle {...props} />);
+
+// Zeytin dalı simgesi.
+export const LeafMark = () => (
+  <svg {...base}>
+    <path d="M5 20c4-4 8-9 13-16" />
+    <path d="M9.5 15.5c-3 .2-4.8-1.3-5-3.6 2.8-.3 4.6.9 5 3.6ZM12.8 11.3c.2-3 2-4.6 4.3-4.6.1 2.8-1.3 4.5-4.3 4.6ZM14.8 8.6c-2.6-.8-3.5-2.6-3-4.6 2.6.6 3.6 2.4 3 4.6Z" />
   </svg>
 );
 

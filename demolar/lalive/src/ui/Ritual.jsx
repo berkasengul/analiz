@@ -7,7 +7,8 @@ const pad = (n) => String(n).padStart(2, "0");
 // Sabitlenen bölüm: kaydırdıkça üç adım sırayla gelir, kutu sağda poz değiştirir.
 export default function Ritual() {
   const step = useStore((s) => s.ritualStep);
-  const { ui, ritual } = useT();
+  const t = useT();
+  const { ui, ritual } = t;
   const r = ritual[step];
 
   return (
@@ -21,7 +22,7 @@ export default function Ritual() {
             <p className="ritual__desc">{r.text}</p>
             <p className="mono ritual__can">
               <i className="dot" style={{ background: flavors[r.flavor].color }} />
-              {ui.inCan}: <span lang="en">{flavors[r.flavor].name}</span>
+              {ui.inCan}: <span lang={t.nameLang}>{t.flavor(r.flavor).name}</span>
             </p>
           </div>
           <ol className="ritual__progress" aria-label={ui.steps}>

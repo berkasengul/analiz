@@ -88,7 +88,7 @@ export default function DetailPanel() {
             N° {pad(shown.active + 1)} — {f.collection ? <span lang="en">{f.collection}</span> : t.brand.specs}
           </p>
           <h2 className="detail__title">
-            <span className="detail__flavor" lang="en">
+            <span className="detail__flavor" lang={t.nameLang}>
               <SplitChars text={f.name} delay={80} step={32} />
             </span>
           </h2>
@@ -133,7 +133,7 @@ export default function DetailPanel() {
           )}
           <div className="buy">
             <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, DETAIL_PACK, "once")}>
-              {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once"))}
+              {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once", shown.active))}
             </button>
             <a href="#shop" className="buy__more mono" tabIndex={tab}>
               {ui.otherPacks}

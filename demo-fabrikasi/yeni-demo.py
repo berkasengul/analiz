@@ -83,6 +83,13 @@ def main(path):
         html = html.replace(tmpl[key], cfg["meta"][key])
     open(index, "w", encoding="utf-8").write(html)
 
+    if cfg.get("icon") == "leaf":
+        open(os.path.join(dst, "public", "favicon.svg"), "w").write(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#16201a"/>'
+            '<g fill="none" stroke="#e8dfc2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">'
+            '<path d="M5 20c4-4 8-9 13-16"/><path d="M9.5 15.5c-3 .2-4.8-1.3-5-3.6 2.8-.3 4.6.9 5 3.6ZM12.8 11.3c.2-3 2-4.6 4.3-4.6.1 2.8-1.3 4.5-4.3 4.6ZM14.8 8.6c-2.6-.8-3.5-2.6-3-4.6 2.6.6 3.6 2.4 3 4.6Z"/></g></svg>'
+        )
+
     readme = os.path.join(dst, "README.md")
     open(readme, "w", encoding="utf-8").write(
         f"# {cfg['brand']['name']} · 3B konsept demo\n\n"

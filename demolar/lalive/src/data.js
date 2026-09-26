@@ -23,6 +23,10 @@ export const SUB_DISCOUNT = C.subDiscount;
 export const FREE_SHIPPING = C.prices.tr.freeShipping;
 export const SHIPPING = C.prices.tr.shipping;
 export const VARIETY = "variety";
+// Ürün adlarının dili: büyük harfe çevirirken doğru kural için ("Güneş Kremi" → tr).
+export const NAME_LANG = C.nameLang ?? "en";
+// Marka simgesi (başlık, yükleme ekranı): "bottle" ya da "leaf".
+export const BRAND_ICON = C.icon ?? "bottle";
 export const DEFAULT_SHOP_FLAVOR = C.defaultShopFlavor;
 // Detaydaki "sepete ekle" düğmesinin boyutu; yoksa en büyük paket.
 export const DETAIL_PACK = C.detailPack ?? C.packs[C.packs.length - 1].size;

@@ -72,8 +72,8 @@
       "color": "#d8cc9c",
       "ink": "#56663a",
       "theme": {
-        "glow": "#6a6a3a",
-        "edge": "#070704",
+        "glow": "#8f865e",
+        "edge": "#0a0905",
         "drop": "#efe6c4",
         "mood": "warm"
       },
@@ -97,7 +97,8 @@
           "Vitamin B",
           "Vitamin E"
         ],
-        "description": "An improved plant-based formula: olive oil, shea, cocoa butter and jojoba nourish hands deeply; aloe vera, panthenol and niacinamide soothe; hyaluronic acid and squalene hydrate for hours without a greasy feel, while vitamin E and vanilla oil protect."
+        "description": "An improved plant-based formula: olive oil, shea, cocoa butter and jojoba nourish hands deeply; aloe vera, panthenol and niacinamide soothe; hyaluronic acid and squalene hydrate for hours without a greasy feel, while vitamin E and vanilla oil protect.",
+        "name": "Hand Cream"
       },
       "label": {
         "plate": [
@@ -174,6 +175,10 @@
             }
           ]
         }
+      },
+      "price": {
+        "tr": 890,
+        "en": 25
       }
     },
     {
@@ -184,12 +189,12 @@
       "family": "Güneş koruma",
       "year": null,
       "perfumer": null,
-      "color": "#e0b77a",
+      "color": "#eee7d6",
       "ink": "#8a6230",
       "theme": {
-        "glow": "#8a6230",
-        "edge": "#0c0703",
-        "drop": "#f5dfb8",
+        "glow": "#a39d8e",
+        "edge": "#0b0a09",
+        "drop": "#f5f1e6",
         "mood": "warm"
       },
       "tagline": "Mineral filtreyle doğal koruma.",
@@ -210,7 +215,8 @@
           "Plant oils",
           "Olive oil"
         ],
-        "description": "Protects skin from the sun's harmful effects with a mineral filter and plant-based ingredients. A 100% natural formula with the nourishing touch of Assos olive oil."
+        "description": "Protects skin from the sun's harmful effects with a mineral filter and plant-based ingredients. A 100% natural formula with the nourishing touch of Assos olive oil.",
+        "name": "Sunscreen SPF 50"
       },
       "label": {
         "plate": [
@@ -285,6 +291,10 @@
       },
       "tube": {
         "color": "#eee7d6"
+      },
+      "price": {
+        "tr": 1512,
+        "en": 42
       }
     },
     {
@@ -298,7 +308,7 @@
       "color": "#7fae88",
       "ink": "#1f3326",
       "theme": {
-        "glow": "#2a4a32",
+        "glow": "#2e5a3c",
         "edge": "#020604",
         "drop": "#c8e0cc",
         "mood": "warm"
@@ -321,7 +331,8 @@
           "Moisture",
           "Protection"
         ],
-        "description": "With its plant-oil-enriched formula it gives lips intense moisture and natural protection. In your bag, in your pocket, always with you."
+        "description": "With its plant-oil-enriched formula it gives lips intense moisture and natural protection. In your bag, in your pocket, always with you.",
+        "name": "Lip Balm"
       },
       "label": {
         "plate": [
@@ -405,6 +416,10 @@
         "capShape": "round",
         "finish": "matte",
         "scale": 1.12
+      },
+      "price": {
+        "tr": 650,
+        "en": 19
       }
     },
     {
@@ -415,11 +430,11 @@
       "family": "Vücut bakımı",
       "year": null,
       "perfumer": null,
-      "color": "#e0a050",
+      "color": "#c98a4a",
       "ink": "#8a5a1a",
       "theme": {
-        "glow": "#8a5a1a",
-        "edge": "#0c0602",
+        "glow": "#8a4a1e",
+        "edge": "#0c0502",
         "drop": "#f5d49a",
         "mood": "warm"
       },
@@ -443,7 +458,8 @@
           "Avocado",
           "Olive oil"
         ],
-        "description": "Carrot seed, coconut oil and cocoa butter give a natural glow and tan; avocado, grape seed and olive oils nourish sun-dried skin and moisturise deeply."
+        "description": "Carrot seed, coconut oil and cocoa butter give a natural glow and tan; avocado, grape seed and olive oils nourish sun-dried skin and moisturise deeply.",
+        "name": "Bronzing Oil"
       },
       "label": {
         "plate": [
@@ -554,6 +570,10 @@
         "tintOpacity": 0.93,
         "scale": 1.08,
         "tilt": -0.04
+      },
+      "price": {
+        "tr": 1290,
+        "en": 36
       }
     },
     {
@@ -590,7 +610,8 @@
           "Aloe vera",
           "Panthenol"
         ],
-        "description": "With hyaluronic acid, plant glycerin and panthenol, enriched with organic aloe vera and rose water. It refreshes skin and supports its moisture balance."
+        "description": "With hyaluronic acid, plant glycerin and panthenol, enriched with organic aloe vera and rose water. It refreshes skin and supports its moisture balance.",
+        "name": "Face Mist"
       },
       "label": {
         "plate": [
@@ -699,6 +720,10 @@
         "tintOpacity": 0.9,
         "scale": 1.05,
         "tilt": -0.04
+      },
+      "price": {
+        "tr": 990,
+        "en": 28
       }
     }
   ],
@@ -844,6 +869,7 @@
   "packs": [
     {
       "size": 1,
+      "factor": 1,
       "label": {
         "tr": "Tek ürün",
         "en": "Single"
@@ -851,16 +877,18 @@
     },
     {
       "size": 2,
+      "factor": 0.95,
       "label": {
-        "tr": "İkili set",
-        "en": "Duo"
+        "tr": "İkili · %5 avantaj",
+        "en": "Duo · save 5%"
       }
     },
     {
       "size": 3,
+      "factor": 0.9,
       "label": {
-        "tr": "Bakım seti",
-        "en": "Care set"
+        "tr": "Üçlü · %10 avantaj",
+        "en": "Trio · save 10%"
       }
     }
   ],
@@ -1206,5 +1234,7 @@
       "Aloe vera": "Soothes and cools.",
       "Panthenol": "Vitamin B5; supports moisture balance."
     }
-  }
+  },
+  "nameLang": "tr",
+  "icon": "leaf"
 }

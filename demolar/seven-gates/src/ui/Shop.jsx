@@ -17,8 +17,8 @@ export default function Shop() {
 
   const t = useT();
   const { ui, money } = t;
-  const unit = t.price(pack, plan);
-  const full = t.price(pack, "once");
+  const unit = t.price(pack, plan, flavor);
+  const full = t.price(pack, "once", flavor);
   const perCan = unit / pack;
 
   return (
@@ -36,7 +36,7 @@ export default function Shop() {
 
         <fieldset className="field">
           <legend className="mono">
-            {ui.flavor} <b lang={flavor === VARIETY ? undefined : "en"}>{t.flavorName(flavor)}</b>
+            {ui.flavor} <b lang={flavor === VARIETY ? undefined : t.nameLang}>{t.flavorName(flavor)}</b>
           </legend>
           <div className="swatches">
             {flavors.map((f, i) => (
@@ -71,7 +71,7 @@ export default function Shop() {
               >
                 <span className="pack__size">{p.size}</span>
                 <span className="pack__cans mono">{ui.cans}</span>
-                <span className="pack__per">{ui.perCan(money(t.price(p.size, plan)))}</span>
+                <span className="pack__per">{ui.perCan(money(t.price(p.size, plan, flavor)))}</span>
                 <span className="pack__label mono">{p.label}</span>
               </button>
             ))}
@@ -92,7 +92,7 @@ export default function Shop() {
                 {ui.subscribe(t.subPct)}
                 <small>{ui.subNote}</small>
               </span>
-              <span className="plan__price">{money(t.price(pack, "sub"))}</span>
+              <span className="plan__price">{t.subPct > 0 ? money(t.price(pack, "sub", flavor)) : ui.free}</span>
             </label>
           </div>
         </fieldset>

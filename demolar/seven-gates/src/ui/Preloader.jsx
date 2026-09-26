@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useProgress } from "@react-three/drei";
 
-import { Bottle } from "../Icons";
+import { BrandIcon } from "../Icons";
 import { useT } from "../i18n";
 import { useStore } from "../store";
 
@@ -31,7 +31,7 @@ export default function Preloader() {
   return (
     <div className={`loader${loaded ? " is-done" : ""}`} aria-hidden={loaded}>
       <div className="loader__mark">
-        <Bottle />
+        <BrandIcon />
         <span className="brand__name" lang="en">{brand.name}</span>
       </div>
       <div className="loader__bar">

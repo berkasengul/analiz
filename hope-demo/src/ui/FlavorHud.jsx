@@ -25,7 +25,7 @@ export default function FlavorHud() {
           <i className="dot" />
           {f.family} · <span lang="en">{f.sub ?? t.brand.sub}</span>
         </p>
-        <button className="hud__name" lang="en" onClick={openDetail} aria-label={ui.discover(f.name)}>
+        <button className="hud__name" lang={t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
           <SplitChars text={f.name} key={f.name} step={40} />
         </button>
         <p className="tagline hud__tagline" key={f.tagline + t.lang}>{f.tagline}</p>
@@ -50,7 +50,7 @@ export default function FlavorHud() {
       </div>
 
       <div className="track" aria-label={ui.flavors}>
-        <p className="track__label mono" lang="en">{f.name}</p>
+        <p className="track__label mono" lang={t.nameLang}>{f.name}</p>
         <div className="track__ticks">
           {flavors.map((fl, i) => (
             <button
