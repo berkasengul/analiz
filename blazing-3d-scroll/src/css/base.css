@@ -267,17 +267,18 @@ button {
   z-index: 0;
 }
 
+/* 3B sahne DOM'un arkasında. main ve sabitlenen bölümler tıklamaları
+   geçirir, böylece kutulara tıklanabilir; etkileşimli parçalar geri açılır. */
 main {
   position: relative;
   z-index: 1;
+  pointer-events: none;
 }
 
-/* 3B sahne DOM'un arkasında; boş alanlara gelen tıklamalar sahneye geçer. */
-.flavors,
-.stage,
-.ritual,
-.ritual__stage {
-  pointer-events: none;
+.shop,
+.section,
+.marquee {
+  pointer-events: auto;
 }
 
 .hud,

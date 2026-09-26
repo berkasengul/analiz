@@ -56,7 +56,7 @@ export default function Carousel() {
   useEffect(() => useStore.getState().setSceneReady(), []);
 
   const groups = useRef([]);
-  const local = useRef({ p: scrollState.p, detail: 0, lean: 0 });
+  const local = useRef({ p: scrollState.p, detail: 0, lean: 0, hovered: -1, hover: flavors.map(() => 0) });
 
   useFrame(({ clock }, delta) => {
     const dt = Math.min(delta, 0.1);
@@ -81,14 +81,16 @@ export default function Carousel() {
       if (d >= N / 2) d -= N;
       const pose = arcPose(d, aspect, t, i);
       const intro = easeOut(MathUtils.clamp(sceneState.intro * 1.8 - Math.abs(d) * 0.16, 0, 1));
+      s.hover[i] = MathUtils.damp(s.hover[i], s.hovered === i && !detail ? 1 : 0, 8, dt);
+      const lift = s.hover[i];
 
       g.position.set(
         pose.x * (1 + 2.2 * spread),
-        pose.y - 2 * spread - (1 - intro) * 9,
+        pose.y - 2 * spread - (1 - intro) * 9 + lift * 0.25,
         pose.z - (1 - intro) * 4
       );
       g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + s.lean * (1 - Math.abs(d) * 0.15));
-      g.scale.setScalar(pose.scale * (1 - 0.5 * spread));
+      g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (1 + lift * 0.06));
 
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {
@@ -102,12 +104,28 @@ export default function Carousel() {
     });
   });
 
+  // Hangi kutuya tıklanırsa tıklansın o tatın detayı açılır; öndeki değilse
+  // önce carousel o kutuya döner.
   const onClick = (i) => (e) => {
     e.stopPropagation();
     const s = useStore.getState();
-    if (s.detail || scrollState.ritualIn > 0.05) return;
+    if (s.detail || !s.loaded || scrollState.ritualIn > 0.05) return;
     if (i === s.active) openDetail();
-    else scrollToFlavor(i);
+    else
+      scrollToFlavor(i, false, () => {
+        const now = useStore.getState();
+        if (now.active === i && !now.detail) openDetail();
+      });
+  };
+
+  const hover = (i) => (e) => {
+    e.stopPropagation();
+    local.current.hovered = i;
+    document.body.style.cursor = useStore.getState().detail ? "" : "pointer";
+  };
+  const unhover = (i) => () => {
+    if (local.current.hovered === i) local.current.hovered = -1;
+    document.body.style.cursor = "";
   };
 
   return flavors.map((f, i) => (
@@ -115,8 +133,8 @@ export default function Carousel() {
       key={f.name}
       ref={(el) => (groups.current[i] = el)}
       onClick={onClick(i)}
-      onPointerOver={() => (document.body.style.cursor = "pointer")}
-      onPointerOut={() => (document.body.style.cursor = "")}
+      onPointerOver={hover(i)}
+      onPointerOut={unhover(i)}
     >
       <CanMesh body={bodies[i]} aluminium={aluminium} />
     </group>

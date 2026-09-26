@@ -54,10 +54,14 @@ function yForFlavor(i) {
   return el.offsetTop + (i / (N - 1)) * range;
 }
 
-export function scrollToFlavor(i, immediate = false) {
+export function scrollToFlavor(i, immediate = false, onComplete) {
   const y = yForFlavor(i);
-  if (smooth.lenis) smooth.lenis.scrollTo(y, { immediate, force: true, duration: 1.4 });
-  else window.scrollTo({ top: y, behavior: immediate ? "instant" : "smooth" });
+  if (smooth.lenis) {
+    smooth.lenis.scrollTo(y, { immediate, force: true, duration: 1.2, onComplete });
+  } else {
+    window.scrollTo({ top: y, behavior: immediate ? "instant" : "smooth" });
+    if (onComplete) setTimeout(onComplete, immediate ? 0 : 900);
+  }
 }
 
 export function scrollToElement(el) {
