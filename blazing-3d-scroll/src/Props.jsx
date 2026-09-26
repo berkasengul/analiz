@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { MathUtils } from "three";
 
-import { useStore } from "./store";
+import { sceneState } from "./shared";
 
 // Üstteki parlak siyah disk ve alttaki cam mercek.
 export default function Props() {
@@ -13,13 +13,15 @@ export default function Props() {
 
   useFrame(({ clock }, delta) => {
     const time = clock.getElapsedTime();
-    t.current = MathUtils.damp(t.current, useStore.getState().detail ? 1 : 0, 4, Math.min(delta, 0.1));
+    // Carousel dağıldığında (detay ya da sonraki bölüm) disk ve mercek çekilir.
+    t.current = MathUtils.damp(t.current, sceneState.spread, 5, Math.min(delta, 0.1));
+    const intro = 1 - Math.pow(1 - sceneState.intro, 3);
     const k = size.width / size.height < 0.9 ? 0.6 : 1;
 
-    top.current.position.y = 6.7 + t.current * 4;
+    top.current.position.y = 6.7 + t.current * 4 + (1 - intro) * 4;
     top.current.rotation.z = time * 0.05;
     top.current.scale.setScalar(k);
-    bottom.current.position.y = -6.1 - t.current * 4;
+    bottom.current.position.y = -6.1 - t.current * 4 - (1 - intro) * 4;
     bottom.current.rotation.z = -time * 0.04;
     bottom.current.scale.setScalar(k);
   });

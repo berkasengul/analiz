@@ -1,43 +1,51 @@
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
+import { Environment, PerformanceMonitor } from "@react-three/drei";
 
 import Background from "./Background";
+import CameraRig from "./CameraRig";
 import Carousel from "./Carousel";
-import DetailCan from "./DetailCan";
+import HeroCan from "./HeroCan";
 import Particles from "./Particles";
 import Props from "./Props";
+import { scrollState } from "./scroll";
 
 import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
 
 export default function Scene() {
-  const ref = useRef();
+  const [dpr, setDpr] = useState(1.75);
   const [onScreen, setOnScreen] = useState(true);
 
-  // Sahne ekran dışındayken çizimi durdur.
+  // Mağaza bölümü ekrandan çıkınca sahneyi çizmeyi bırak.
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting));
-    io.observe(ref.current);
-    return () => io.disconnect();
+    let raf;
+    const check = () => {
+      setOnScreen(scrollState.sceneVisible);
+      raf = requestAnimationFrame(check);
+    };
+    raf = requestAnimationFrame(check);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   return (
-    <div className="canvas" ref={ref}>
+    <div className="canvas" aria-hidden="true" style={{ visibility: onScreen ? "visible" : "hidden" }}>
       <Canvas
         camera={{ position: [0, 0, 18], fov: 35 }}
-        dpr={[1, 2]}
+        dpr={dpr}
         frameloop={onScreen ? "always" : "never"}
       >
+        <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(1.75)} />
         <ambientLight intensity={0.25} />
-        <directionalLight position={[-6, 8, 6]} intensity={1.6} />
-        <directionalLight position={[8, -2, 4]} intensity={0.8} color="#9fb4ff" />
+        <directionalLight position={[-6, 8, 6]} intensity={1.8} />
+        <directionalLight position={[8, -2, 4]} intensity={0.9} color="#9fb4ff" />
         <Suspense fallback={null}>
           <Environment files={envMap} />
+          <CameraRig />
           <Background />
           <Particles />
           <Props />
           <Carousel />
-          <DetailCan />
+          <HeroCan />
         </Suspense>
       </Canvas>
     </div>

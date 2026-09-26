@@ -1,4 +1,4 @@
-import { Color } from "three";
+import { Color, MeshPhysicalMaterial } from "three";
 import { noise } from "./Noise";
 
 // Kutunun gövde malzemesi. Orijinal dokudaki siyah zemin tat rengine,
@@ -26,11 +26,23 @@ export function setCanFlavor(uniforms, flavor) {
   uniforms.u_progress.value = 0.5;
 }
 
+// Modelin dokularını vernikli (clearcoat) bir malzemeye taşır; kutular
+// referanstaki gibi keskin beyaz parlamalar alır.
 export function createCanMaterial(base, uniforms) {
-  const material = base.clone();
-  material.metalness = 0.55;
-  material.roughness = 0.28;
-  material.envMapIntensity = 1.25;
+  const material = new MeshPhysicalMaterial({
+    map: base.map,
+    normalMap: base.normalMap,
+    normalScale: base.normalScale,
+    aoMap: base.aoMap,
+    metalnessMap: base.metalnessMap,
+    roughnessMap: base.roughnessMap,
+    side: base.side,
+    metalness: 0.45,
+    roughness: 0.32,
+    clearcoat: 1,
+    clearcoatRoughness: 0.06,
+    envMapIntensity: 1.35,
+  });
 
   material.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { AdditiveBlending, BufferAttribute, BufferGeometry, ShaderMaterial } from "three";
 
-const COUNT = 420;
+const COUNT = typeof window !== "undefined" && window.innerWidth < 760 ? 180 : 420;
 
 // Havada süzülen, odak dışı buz/kül parçacıkları.
 export default function Particles() {

@@ -5,40 +5,41 @@ import { easeQuadOut } from "d3-ease";
 import { Color } from "three";
 
 import { flavors } from "./data";
+import { scrollState } from "./scroll";
+import { sceneState } from "./shared";
 import { useStore } from "./store";
 
 import "./BackgroundMaterial";
 
-// Her tat değişiminde ortadan o tatın renginde bir halka yayılır.
 export default function Background() {
   const material = useRef();
   const size = useThree((s) => s.size);
   const color = useMemo(() => new Color(flavors[0].color), []);
+  const last = useRef({ flavor: -1, step: -1, controls: null });
 
-  useEffect(() => {
-    let controls;
-    const pulse = () => {
-      controls?.stop();
-      controls = animate(0, 1, {
-        duration: 2.2,
-        ease: easeQuadOut,
-        onUpdate: (v) => material.current && (material.current.u_progress = v),
-      });
-    };
-    pulse();
-    const unsubscribe = useStore.subscribe((s, prev) => {
-      if (s.active === prev.active) return;
-      color.set(flavors[s.active].color);
-      pulse();
+  const pulse = () => {
+    const l = last.current;
+    l.controls?.stop();
+    l.controls = animate(0, 1, {
+      duration: 2.2,
+      ease: easeQuadOut,
+      onUpdate: (v) => material.current && (material.current.u_progress = v),
     });
-    return () => {
-      controls?.stop();
-      unsubscribe();
-    };
-  }, [color]);
+  };
+
+  useEffect(() => () => last.current.controls?.stop(), []);
 
   useFrame(({ clock }) => {
+    const l = last.current;
     material.current.u_time = clock.getElapsedTime();
+    // Tat değiştiğinde ya da Ritual'da adım değiştiğinde halka yayılır.
+    const step = scrollState.ritualIn > 0.5 ? Math.round(scrollState.ritualStep) : -1;
+    if (sceneState.heroFlavor !== l.flavor || step !== l.step) {
+      l.flavor = sceneState.heroFlavor;
+      l.step = step;
+      color.set(flavors[l.flavor].color);
+      if (useStore.getState().loaded) pulse();
+    }
   });
 
   return (

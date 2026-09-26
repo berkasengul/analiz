@@ -57,3 +57,24 @@ export const Arrow = ({ dir = "right" }) => (
     <path d="M4 12h16m-6-6 6 6-6 6" />
   </svg>
 );
+
+export const Bag = () => (
+  <svg {...base} width="18" height="18">
+    <path d="M5 8h14l-1 12.5H6L5 8Z" />
+    <path d="M9 10V6.5a3 3 0 0 1 6 0V10" />
+  </svg>
+);
+
+export const Plus = () => (
+  <svg {...base} width="14" height="14">
+    <path d="M12 5v14M5 12h14" />
+  </svg>
+);
+
+export const Minus = () => (
+  <svg {...base} width="14" height="14">
+    <path d="M5 12h14" />
+  </svg>
+);
+
+export const featureIcons = { bolt: Bolt, leaf: Leaf, cube: Cube, hex: HexB };

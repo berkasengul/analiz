@@ -1,7 +1,10 @@
 import { Euler, Vector3 } from "three";
 
-// Carousel ile detay kutusu arasında paylaşılan kare durumu.
+// Bileşenler arasında her karede paylaşılan sahne durumu.
 export const sceneState = {
-  detailVisible: false,
+  heroVisible: false,
+  heroFlavor: 0, // büyük kutunun o an gösterdiği tat
   focus: { position: new Vector3(), rotation: new Euler(), scale: 1 },
+  intro: 0, // açılış animasyonu 0 → 1
+  spread: 0, // carousel'in dağılma oranı
 };
