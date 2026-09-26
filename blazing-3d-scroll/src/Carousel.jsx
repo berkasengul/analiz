@@ -51,6 +51,8 @@ export default function Carousel() {
     () => flavors.map((f) => createCanMaterial(materials.Body, createCanUniforms(f))),
     [materials]
   );
+  // Her kutunun kendi alüminyumu var; detay açılınca kutular tek tek karartılır.
+  const aluminiums = useMemo(() => flavors.map(() => aluminium.clone()), [aluminium]);
 
   // Bu bileşen render edildiyse model ve doku yüklenmiştir.
   useEffect(() => useStore.getState().setSceneReady(), []);
@@ -70,8 +72,11 @@ export default function Carousel() {
     // Hızlı kaydırınca kutular hafifçe yatar.
     s.lean = MathUtils.damp(s.lean, MathUtils.clamp(scrollState.velocity * 0.012, -0.35, 0.35), 5, dt);
 
-    const spread = Math.max(s.detail, scrollState.ritualIn);
-    sceneState.spread = spread;
+    // Sonraki bölüme geçerken kutular kenarlara dağılır; detay açılınca ise
+    // yerlerinde kalıp karanlığa doğru söner (videodaki gibi).
+    const spread = scrollState.ritualIn;
+    const fade = s.detail;
+    sceneState.spread = Math.max(spread, fade);
     const aspect = size.width / size.height;
     const nearest = ((Math.round(s.p) % N) + N) % N;
     sceneState.hoverFocus = s.hovered === nearest && !detail && spread < 0.1 && Math.abs(s.p - Math.round(s.p)) < 0.1;
@@ -86,12 +91,18 @@ export default function Carousel() {
       const lift = s.hover[i];
 
       g.position.set(
-        pose.x * (1 + 2.2 * spread),
-        pose.y - 2 * spread - (1 - intro) * 9 + lift * 0.25,
-        pose.z - (1 - intro) * 4
+        pose.x * (1 + 2.2 * spread + 0.25 * fade),
+        pose.y - 2 * spread - (1 - intro) * 9 + lift * 0.25 - 0.4 * fade,
+        pose.z - (1 - intro) * 4 - 1.5 * fade
       );
       g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + s.lean * (1 - Math.abs(d) * 0.15));
-      g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (1 + lift * 0.06));
+      g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (1 - 0.15 * fade) * (1 + lift * 0.06));
+      const dim = 1 - fade;
+      bodies[i].userData.uniforms.u_dim.value = dim;
+      bodies[i].envMapIntensity = 1.35 * dim;
+      bodies[i].clearcoat = Math.max(dim, 0.01); // 0 olursa shader yeniden derlenir
+      aluminiums[i].envMapIntensity = 1.3 * dim;
+      aluminiums[i].color.setScalar(dim);
 
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {
@@ -101,7 +112,7 @@ export default function Carousel() {
       }
 
       const hidden = sceneState.heroVisible && i === active;
-      g.visible = pose.scale > 0.001 && !hidden && spread < 0.9;
+      g.visible = pose.scale > 0.001 && !hidden && spread < 0.9 && fade < 0.97;
     });
   });
 
@@ -133,7 +144,7 @@ export default function Carousel() {
       onPointerOver={hover(i)}
       onPointerOut={unhover(i)}
     >
-      <CanMesh body={bodies[i]} aluminium={aluminium} />
+      <CanMesh body={bodies[i]} aluminium={aluminiums[i]} />
     </group>
   ));
 }

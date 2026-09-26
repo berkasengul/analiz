@@ -95,7 +95,7 @@ export const features = [
     title: "Kafein + enerji",
     text: "Taurin ve ginsengle birlikte 160 mg doğal kafein. Yirmi dakikada yükselen, saatlerce süren dengeli bir enerji; ani sıçrama ve ardından gelen düşüş yok.",
     // Kutu yukarı kayar, ön yüzün alt yarısı (ENERGY DRINK, 220 ML) görünür.
-    pose: { rotY: 0.08, rotZ: 0.02, y: 2.8, scale: 2.9 },
+    pose: { rotY: 0.06, rotZ: 0.03, y: 2.1, scale: 3.2 },
   },
   {
     icon: "leaf",
@@ -105,7 +105,7 @@ export const features = [
     title: "Doğal aromalar",
     text: "Meyve suyu ve bitkisel özlerden yapılır. Sentetik hiçbir şey yok; arka yüzdeki içerik listesi tek nefeste okunacak kadar kısa.",
     // Arkaya döner, etiketin alt kısmı ve kutunun dibi görünür.
-    pose: { rotY: Math.PI + 0.12, rotZ: 0.02, y: 2.6, scale: 2.9 },
+    pose: { rotY: Math.PI + 0.1, rotZ: 0.03, y: 4.2, scale: 2.9 },
   },
   {
     icon: "cube",
@@ -115,7 +115,7 @@ export const features = [
     title: "Daha az şeker",
     text: "Kutu başına yarım gramdan az şeker. Tatlılık meyveden ve biraz steviadan gelir; enerji arkasından bir düşüş getirmez.",
     // Aşağı kayar, "Supplement Facts" başlığı görünür.
-    pose: { rotY: Math.PI + 0.02, rotZ: 0.0, y: 0.9, scale: 2.9 },
+    pose: { rotY: Math.PI + 0.02, rotZ: 0.02, y: 0.9, scale: 2.9 },
   },
   {
     icon: "hex",
@@ -125,7 +125,7 @@ export const features = [
     title: "B vitamini kompleksi",
     text: "Günlük ihtiyacın %100'ü kadar B2, B3, B6 ve B12. Besinleri enerjiye dönüştürmene yardım ederler; formülün sessiz ama çalışan kısmı.",
     // Hafifçe dönüp eğilir, vitamin listesine yakınlaşır.
-    pose: { rotY: Math.PI - 0.12, rotZ: -0.06, y: 1.3, scale: 3.3 },
+    pose: { rotY: Math.PI + 0.25, rotZ: 0.09, y: 2.4, scale: 3.1 },
   },
 ];
 

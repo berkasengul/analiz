@@ -40,29 +40,30 @@ export default function Props() {
       </group>
 
       <group ref={bottom} position={[0, -6.1, 1]} rotation={[-1.2, 0, 0]}>
+        {/* Cam görünümü yansımalarla verilir; transmission sahneyi her karede
+            ikinci kez çizdirdiği için kullanılmıyor. */}
         <mesh>
-          <torusGeometry args={[4.3, 0.55, 64, 160]} />
+          <torusGeometry args={[4.3, 0.55, 48, 128]} />
           <meshPhysicalMaterial
-            color="#d9d9ff"
-            metalness={0}
-            roughness={0.04}
-            transmission={1}
-            thickness={1.6}
-            ior={1.45}
+            color="#c9c9ec"
+            metalness={0.9}
+            roughness={0.05}
             clearcoat={1}
-            envMapIntensity={1.4}
+            transparent
+            opacity={0.55}
+            envMapIntensity={2.2}
           />
         </mesh>
         <mesh>
-          <cylinderGeometry args={[4.1, 4.1, 0.25, 128, 1]} />
+          <cylinderGeometry args={[4.1, 4.1, 0.25, 96, 1]} />
           <meshPhysicalMaterial
-            color="#c9c9e6"
-            roughness={0.08}
-            transmission={1}
-            thickness={0.8}
-            ior={1.4}
+            color="#a9a9d8"
+            metalness={0.8}
+            roughness={0.12}
             transparent
-            opacity={0.7}
+            opacity={0.22}
+            envMapIntensity={1.8}
+            depthWrite={false}
           />
         </mesh>
       </group>

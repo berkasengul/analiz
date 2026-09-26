@@ -29,7 +29,6 @@ function useSmoothScroll() {
     if (moving !== s.moving) s.setMoving(moving);
     const step = Math.round(scrollState.ritualStep);
     if (step !== s.ritualStep) s.setRitualStep(step);
-    document.documentElement.style.setProperty("--velocity", scrollState.velocity.toFixed(2));
   }, []);
 
   useEffect(() => {

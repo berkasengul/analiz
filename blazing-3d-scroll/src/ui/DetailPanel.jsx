@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { features, flavors, money, packLabel, packPrice } from "../data";
 import { scrollToFlavor } from "../scroll";
 import { useStore } from "../store";
@@ -26,9 +28,28 @@ export default function DetailPanel() {
   const closeDetail = useStore((s) => s.closeDetail);
   const setFeature = useStore((s) => s.setFeature);
   const addToCart = useStore((s) => s.addToCart);
-  const f = flavors[active];
-  const ft = feature != null ? features[feature] : null;
+  // Yazı değişince önce eskisi yukarı kayıp çıkar, sonra yenisi harf harf gelir.
+  const want = feature != null ? `f-${feature}` : `c-${active}`;
+  const [shown, setShown] = useState({ key: want, feature, active });
+  const [leaving, setLeaving] = useState(false);
+  useEffect(() => {
+    if (want === shown.key) return;
+    if (!detail) {
+      setShown({ key: want, feature, active });
+      return;
+    }
+    setLeaving(true);
+    const id = setTimeout(() => {
+      setShown({ key: want, feature, active });
+      setLeaving(false);
+    }, 320);
+    return () => clearTimeout(id);
+  }, [want, detail, feature, active, shown.key]);
+
+  const f = flavors[shown.active];
+  const ft = shown.feature != null ? features[shown.feature] : null;
   const tab = detail ? 0 : -1;
+  const bodyClass = `detail__body${leaving ? " is-leaving" : ""}`;
 
   return (
     <div className={`detail${detail ? " is-open" : ""}`} aria-hidden={!detail} style={{ "--flavor": f.color }}>
@@ -38,7 +59,7 @@ export default function DetailPanel() {
       </button>
 
       {ft ? (
-        <div className="detail__body" key={`f-${feature}`}>
+        <div className={bodyClass} key={shown.key}>
           <p className="strike">
             <span>{ft.kicker}</span>
             <span className="strike__x" aria-hidden="true">×</span>
@@ -51,14 +72,14 @@ export default function DetailPanel() {
             <SplitWords text={ft.text} delay={260} />
           </p>
           <p className="detail__notes mono">
-            {pad(feature + 1)} / {pad(features.length)}
+            {pad(shown.feature + 1)} / {pad(features.length)}
           </p>
         </div>
       ) : (
-        <div className="detail__body" key={`c-${f.name}`}>
+        <div className={bodyClass} key={shown.key}>
           <p className="tag">
             <i className="dot" />
-            N° {pad(active + 1)} — Sıfır şeker · 160 mg kafein
+            N° {pad(shown.active + 1)} — Sıfır şeker · 160 mg kafein
           </p>
           <h2 className="detail__title">
             <span lang="en">
@@ -74,7 +95,7 @@ export default function DetailPanel() {
           </p>
           <p className="detail__notes mono">{f.notes.join(" · ")}</p>
           <div className="buy">
-            <button className="pill" tabIndex={tab} onClick={() => addToCart(active, 12, "once")}>
+            <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, 12, "once")}>
               {packLabel(12)} paket · {money(packPrice(12, "once"))}
             </button>
             <a href="#shop" className="buy__more mono" tabIndex={tab}>

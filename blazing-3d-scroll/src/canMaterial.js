@@ -12,6 +12,7 @@ export function createCanUniforms(flavor) {
     u_ink1: { value: new Color(flavor.ink) },
     u_ink2: { value: new Color(flavor.ink) },
     u_progress: { value: 0.5 },
+    u_dim: { value: 1 },
     u_width: { value: 0.8 },
     u_scaleX: { value: 50 },
     u_scaleY: { value: 50 },
@@ -62,6 +63,7 @@ export function createCanMaterial(base, uniforms) {
         uniform vec3 u_ink1;
         uniform vec3 u_ink2;
         uniform float u_progress;
+        uniform float u_dim;
         uniform float u_width;
         uniform float u_scaleX;
         uniform float u_scaleY;
@@ -84,19 +86,24 @@ export function createCanMaterial(base, uniforms) {
         float lum = dot(diffuseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
         float inkMask = smoothstep(0.04, 0.3, lum);
 
-        float dt = parabola(u_progress, 1.);
-        float n = 0.5 * (cnoise(vec4(vCanUv.x * u_scaleX + 0.5 * u_time / 3., vCanUv.y * u_scaleY, 0.5 * u_time / 3., 0.)) + 1.);
-        float w = u_width * dt;
-        float maskValue = smoothstep(1. - w, 1., vCanUv.y + mix(-w / 2., 1. - w / 2., u_progress));
-        maskValue += maskValue * n;
-        float mask = smoothstep(1., 1.01, maskValue);
+        // Gürültü yalnızca geçiş sırasında hesaplanır; durağan kutular ucuz kalır.
+        float mask = 0.;
+        if (u_progress > 0.501) {
+          float dt = parabola(u_progress, 1.);
+          float n = 0.5 * (cnoise(vec4(vCanUv.x * u_scaleX + 0.5 * u_time / 3., vCanUv.y * u_scaleY, 0.5 * u_time / 3., 0.)) + 1.);
+          float w = u_width * dt;
+          float maskValue = smoothstep(1. - w, 1., vCanUv.y + mix(-w / 2., 1. - w / 2., u_progress));
+          maskValue += maskValue * n;
+          mask = smoothstep(1., 1.01, maskValue);
+        }
 
         vec3 body = mix(u_color1, u_color2, mask);
         vec3 ink = mix(u_ink1, u_ink2, mask);
-        diffuseColor.rgb = mix(body, ink, inkMask);
+        diffuseColor.rgb = mix(body, ink, inkMask) * u_dim;
       `
     );
   };
   material.customProgramCacheKey = () => "blazing-can";
+  material.userData.uniforms = uniforms;
   return material;
 }

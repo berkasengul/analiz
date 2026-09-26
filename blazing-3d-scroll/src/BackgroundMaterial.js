@@ -10,6 +10,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_progress: 1,
     u_aspect: 1,
     u_color: null,
+    u_center: null,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -23,30 +24,25 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_progress;
     uniform float u_aspect;
     uniform vec3 u_color;
+    uniform vec2 u_center;
 
     varying vec2 vUv;
 
     ${noise}
 
     void main() {
-      vec2 newUv = (vUv - vec2(0.5)) * vec2(u_aspect, 1.);
+      vec2 newUv = (vUv - u_center) * vec2(u_aspect, 1.);
       float dist = length(newUv);
+      float screenDist = length((vUv - vec2(0.5)) * vec2(u_aspect, 1.));
 
       // Taban: ortası hafif açık grafit, kenarlara doğru siyah.
-      vec3 base = mix(vec3(0.05, 0.05, 0.055), vec3(0.004, 0.004, 0.005), smoothstep(0.05, 0.95, dist));
+      vec3 base = mix(vec3(0.05, 0.05, 0.055), vec3(0.004, 0.004, 0.005), smoothstep(0.05, 0.95, screenDist));
       vec2 bl = (vUv - vec2(0.12, -0.08)) * vec2(u_aspect, 1.);
       vec2 br = (vUv - vec2(0.9, -0.08)) * vec2(u_aspect, 1.);
       base += vec3(0.16, 0.025, 0.11) * (1. - smoothstep(0., 0.75, length(bl)));
       base += vec3(0.02, 0.05, 0.14) * (1. - smoothstep(0., 0.75, length(br)));
 
-      float density = 1.8 - dist;
-      float nz = cnoise(vec4(newUv * 40. * density, u_time, 1.));
       float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * 2000.0)) * 43758.5453);
-
-      float facets = nz * 2.;
-      float dots = smoothstep(0.1, 0.15, nz);
-      float n = step(.2, facets) * dots;
-      n = 1. - n;
 
       float radius = 1.5;
       float outerProgress = clamp(1.1 * u_progress, 0., 1.);
@@ -55,7 +51,15 @@ export const BackgroundMaterial = shaderMaterial(
       float outerCircle = 1. - smoothstep((outerProgress - 0.1) * radius, innerProgress * radius, dist);
       float displacement = outerCircle - innerCircle;
 
-      float ring = max(displacement - (n + nz) - grain * 0.3, 0.);
+      // Pahalı gürültü yalnızca halkanın geçtiği piksellerde hesaplanır.
+      float ring = 0.;
+      if (displacement > 0.001) {
+        float density = 1.8 - dist;
+        float nz = cnoise(vec4(newUv * 40. * density, u_time, 1.));
+        float dots = smoothstep(0.1, 0.15, nz);
+        float n = 1. - step(.2, nz * 2.) * dots;
+        ring = max(displacement - (n + nz) - grain * 0.3, 0.);
+      }
       vec3 col = base + ring * u_color * 1.6 + (grain - 0.5) * 0.012;
 
       gl_FragColor = vec4(col, 1.0);

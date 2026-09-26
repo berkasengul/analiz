@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { MathUtils } from "three";
+import { Color, MathUtils } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -47,22 +47,23 @@ function shopPose(wide, time) {
     : { x: 0, y: 2.4, z: 1, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.35, rotZ: -0.08, scale: 0.9 };
 }
 
+// Videodan ölçülen detay kompozisyonu: kutu ekranın ~%58'inde, üstü
+// kesik, altı ekranın dibine yakın. Özelliklerde kutu dönüp kayar.
 function detailPose(feature, wide, time, turn) {
   const f = feature != null ? features[feature].pose : null;
-  const idle = Math.sin(time * 0.5) * 0.25 + pointer.x * 0.2;
+  const idle = Math.sin(time * 0.5) * 0.2 + pointer.x * 0.15;
   const base = wide
-    ? { x: 1.5, y: 0.4, z: 3, rotX: 0.04 + pointer.y * 0.05, rotY: idle, rotZ: 0.06, scale: 2.5 }
+    ? { x: 1.45, y: -0.9, z: 3, rotX: 0.03 + pointer.y * 0.04, rotY: idle, rotZ: 0.05, scale: 2.5 }
     : { x: 0, y: 1.9, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.08, scale: 1.25 };
   if (f) {
-    base.rotY = f.rotY + Math.sin(time * 0.4) * 0.05;
-    base.rotZ = f.rotZ ?? 0.03;
+    base.rotY = f.rotY + Math.sin(time * 0.4) * 0.04 + pointer.x * 0.05;
+    base.rotZ = f.rotZ;
     base.rotX = 0.02;
     if (wide) {
-      base.x = 1.5;
       base.y = f.y;
       base.scale = f.scale;
     } else {
-      base.y = 1.9 + (f.y - 0.4) * 0.35;
+      base.y = 1.9 + (f.y + 0.9) * 0.3;
       base.scale = 1.25 * (f.scale / 2.5);
     }
   }
@@ -82,7 +83,19 @@ export default function HeroCan() {
   const body = useMemo(() => createCanMaterial(materials.Body, uniforms), [materials, uniforms]);
 
   const group = useRef();
-  const l = useRef({ detailT: 0, target: 0, controls: null, drag: 0, dragTarget: 0, dragging: null, feature: null });
+  const l = useRef({
+    detailT: 0,
+    target: 0,
+    controls: null,
+    drag: 0,
+    dragTarget: 0,
+    dragging: null,
+    feature: null,
+    poseFeature: null,
+    featureAt: 0,
+    pose: null,
+    wasDetail: false,
+  });
 
   // Detayda kutuyu sürükleyerek döndürme.
   useEffect(() => {
@@ -125,6 +138,22 @@ export default function HeroCan() {
     });
   };
 
+  const sweep = () => {
+    const s = l.current;
+    const f = flavors[s.target];
+    s.controls?.stop();
+    setCanFlavor(uniforms, f);
+    uniforms.u_color1.value.set(f.color).lerp(new Color("#ffffff"), 0.45);
+    uniforms.u_ink1.value.set(f.ink);
+    s.controls = animate(0.5, 1, {
+      delay: 0.35,
+      duration: 1.3,
+      ease: easeQuadOut,
+      onUpdate: (v) => (uniforms.u_progress.value = v),
+      onComplete: () => setCanFlavor(uniforms, f),
+    });
+  };
+
   useFrame(({ clock }, delta) => {
     const dt = Math.min(delta, 0.1);
     const time = clock.getElapsedTime();
@@ -133,11 +162,17 @@ export default function HeroCan() {
     const st = useStore.getState();
     const s = l.current;
     const r = scrollState;
-    s.detailT = MathUtils.damp(s.detailT, st.detail ? 1 : 0, 3.6, dt);
+    s.detailT = MathUtils.damp(s.detailT, st.detail ? 1 : 0, 4.2, dt);
+    // Özellik değişince önce eski yazı çıkar; kutu kısa bir gecikmeyle hareket eder.
     if (st.feature !== s.feature) {
       s.feature = st.feature;
+      s.featureAt = time;
       s.dragTarget = 0;
     }
+    if (s.poseFeature !== s.feature && time - s.featureAt > 0.22) s.poseFeature = s.feature;
+    // Detay açılınca kutunun yüzeyinden açık renkli bir ışık süpürmesi geçer.
+    if (st.detail && !s.wasDetail) sweep();
+    s.wasDetail = st.detail;
     if (!st.detail) s.dragTarget = 0;
     s.drag = MathUtils.damp(s.drag, s.dragTarget, 6, dt);
 
@@ -173,7 +208,11 @@ export default function HeroCan() {
     pose = lerpPose(pose, ritualPose(r.ritualStep, wide, time), r.ritualIn);
     pose = lerpPose(pose, shopPose(wide, time), r.shopIn);
     pose.y += r.shopOut * 2 * (18 - pose.z) * TAN;
-    pose = lerpPose(pose, detailPose(st.feature, wide, time, s.drag), s.detailT);
+    // Detay içindeki pozlar arasında yumuşak ama hızlı geçiş (~0,7 sn).
+    const target = detailPose(s.poseFeature, wide, time, s.drag);
+    if (!s.pose || !st.detail) s.pose = { ...target };
+    else for (const k of KEYS) s.pose[k] = MathUtils.damp(s.pose[k], target[k], 5.5, dt);
+    pose = lerpPose(pose, s.pose, s.detailT);
 
     group.current.position.set(pose.x, pose.y, pose.z);
     group.current.rotation.set(pose.rotX, pose.rotY, pose.rotZ);
