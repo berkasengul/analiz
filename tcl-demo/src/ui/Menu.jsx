@@ -4,7 +4,8 @@ const links = [
   ["#flavors", "Tatlar"],
   ["#ritual", "Ritüel"],
   ["#shop", "Mağaza"],
-  ["#stockists", "Satış noktaları"],
+  ["#story", "Hikâye"],
+  ["#stockists", "Nerede"],
   ["#faq", "SSS"],
   ["#contact", "İletişim"],
 ];
@@ -21,7 +22,7 @@ export default function Menu() {
           </a>
         ))}
       </nav>
-      <p className="menu__foot">Beş şehir. Beş tat. Konsept demo.</p>
+      <p className="menu__foot">Good coffee. Good fortune.</p>
     </div>
   );
 }

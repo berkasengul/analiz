@@ -19,7 +19,11 @@ export default function Shop() {
   const perCan = unit / pack;
 
   return (
-    <section id="shop" className="shop">
+    <section
+      id="shop"
+      className="shop"
+      style={flavor === VARIETY ? undefined : { "--accent": flavors[flavor].color }}
+    >
       <div className="shop__panel">
         <header className="shop__head">
           <p className="mono section__eyebrow">03 — Mağaza</p>

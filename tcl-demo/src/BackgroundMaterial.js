@@ -21,6 +21,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_mix: 1,
     u_hasMap: 0,
     u_stage: 1,
+    u_focusX: 0.5,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -43,6 +44,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_mix;
     uniform float u_hasMap;
     uniform float u_stage;
+    uniform float u_focusX;
 
     float hash(vec2 p) {
       return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -58,7 +60,7 @@ export const BackgroundMaterial = shaderMaterial(
       float screenDist = length((vUv - vec2(0.5)) * vec2(u_aspect, 1.));
 
       vec2 asp = vec2(u_aspect, 1.);
-      float center = length((vUv - vec2(0.5, 0.55)) * vec2(u_aspect * 0.7, 1.));
+      float center = length((vUv - vec2(mix(0.5, u_focusX, 0.7), 0.55)) * vec2(u_aspect * 0.7, 1.));
       vec3 light = mix(u_glow, vec3(1.), 0.45);
 
       // Taban: ortada tadın ışığı, kenarlarda derin karanlık.
@@ -74,14 +76,14 @@ export const BackgroundMaterial = shaderMaterial(
       }
 
       // Tepeden inen ışık huzmesi.
-      vec2 bp = (vUv - vec2(0.5, 1.08)) * asp;
+      vec2 bp = (vUv - vec2(u_focusX, 1.08)) * asp;
       float depth = -bp.y;
       float width = 0.06 + depth * 0.3;
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(0.6, 1.1, depth));
       base += light * beam * 0.16 * u_stage;
 
       // Kutunun altında yumuşak ışık havuzu.
-      float pool = 1. - smoothstep(0., 0.45, length((vUv - vec2(0.5, 0.1)) * vec2(u_aspect * 0.45, 2.4)));
+      float pool = 1. - smoothstep(0., 0.45, length((vUv - vec2(u_focusX, 0.1)) * vec2(u_aspect * 0.45, 2.4)));
       base += light * pool * 0.12 * u_stage;
 
       // Süzülen bokeh ışıkları (iki derinlik katmanı).

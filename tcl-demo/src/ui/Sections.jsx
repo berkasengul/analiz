@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-import { faqs, stockists } from "../data";
+import { faqs, stockists, story } from "../data";
+import { Cup } from "../Icons";
 import { brand } from "../brand";
 
 export function Marquee() {
-  const words = ["Buzlu Türk kahvesi", "Beş şehir, beş tat", "500 yıllık gelenek", "Dijital fal", "Soğuk iç", "Kırk yıl hatır"];
+  const words = ["Good coffee. Good fortune.", "Dünyanın ilk buzlu Türk kahvesi", "Shake well. Drink cold.", "UNESCO kültürel mirası", "Coffee Sayer AI", "Beş şehir, beş tat"];
   const row = [...words, ...words];
   return (
     <div className="marquee" aria-hidden="true">
@@ -20,21 +21,78 @@ export function Marquee() {
   );
 }
 
+export function Story() {
+  return (
+    <section id="story" className="section story">
+      <div className="story__grid">
+        <div className="story__main">
+          <header className="section__head reveal">
+            <p className="mono section__eyebrow">04 — Hikâye</p>
+            <h2 className="section__title">Good coffee. Good fortune.</h2>
+          </header>
+          <p className="story__lead reveal">{story.lead}</p>
+          {story.paragraphs.map((t) => (
+            <p key={t} className="story__text reveal">
+              {t}
+            </p>
+          ))}
+          <div className="story__founder reveal">
+            <span className="story__avatar" aria-hidden="true">
+              <Cup />
+            </span>
+            <div>
+              <p className="story__name">{story.founder}</p>
+              <p className="mono">Kurucu · Turkish Coffee Lady</p>
+            </div>
+          </div>
+        </div>
+
+        <ol className="timeline reveal" aria-label="Kilometre taşları">
+          {story.timeline.map(([year, text]) => (
+            <li key={year}>
+              <span className="timeline__year">{year}</span>
+              <span className="timeline__text">{text}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <ul className="stats reveal">
+        {story.stats.map(([n, label]) => (
+          <li key={label}>
+            <strong>{n}</strong>
+            <span className="mono">{label}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="press reveal">
+        <p className="mono">Basında</p>
+        <ul>
+          {story.press.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export function Stockists() {
   return (
     <section id="stockists" className="section stockists">
       <header className="section__head reveal">
-        <p className="mono section__eyebrow">04 — Satış noktaları</p>
+        <p className="mono section__eyebrow">05 — Nerede</p>
         <h2 className="section__title">Nerede bulunur</h2>
-        <p className="tagline tagline--static">Örnek liste: satış noktaları bu bölümde gösterilir.</p>
+        <p className="tagline tagline--static">Alexandria'dan İstanbul'a, bir fincanlık mesafede.</p>
       </header>
       <div className="table-wrap reveal">
         <table className="stock">
           <thead>
             <tr>
-              <th scope="col">Şehir</th>
-              <th scope="col">Semtler</th>
-              <th scope="col" className="num">Mağaza</th>
+              <th scope="col">Yer</th>
+              <th scope="col">Nokta</th>
+              <th scope="col" className="num">Durum</th>
             </tr>
           </thead>
           <tbody>
@@ -42,7 +100,9 @@ export function Stockists() {
               <tr key={city}>
                 <th scope="row">{city}</th>
                 <td>{areas}</td>
-                <td className="num">{n || "Yakında"}</td>
+                <td className="num">
+                  <span className="status">{n}</span>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -56,7 +116,7 @@ export function Faq() {
   return (
     <section id="faq" className="section faq">
       <header className="section__head reveal">
-        <p className="mono section__eyebrow">05 — SSS</p>
+        <p className="mono section__eyebrow">06 — SSS</p>
         <h2 className="section__title">Merak edilenler</h2>
       </header>
       <div className="faq__list reveal">
@@ -137,15 +197,29 @@ export function Footer() {
         Kafein içerir. {brand.disclaimer}
       </p>
 
+      <div className="social reveal">
+        <a className="social__card" href={story.instagram} target="_blank" rel="noreferrer">
+          <span className="mono">Instagram</span>
+          <strong>@turkishcoffeelady</strong>
+          <span className="social__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a className="social__card" href={story.website} target="_blank" rel="noreferrer">
+          <span className="mono">Web</span>
+          <strong>turkishcoffeelady.com</strong>
+          <span className="social__arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
       <footer className="footer mono">
-        <span>{brand.name} · konsept demo</span>
+        <span>{brand.name} · Good coffee. Good fortune.</span>
         <nav className="footer__links" aria-label="Alt menü">
           <a href="#shop">Mağaza</a>
           <a href="#faq">SSS</a>
-          <a href="#stockists">Satış noktaları</a>
+          <a href="#story">Hikâye</a>
+          <a href="#stockists">Nerede</a>
           <a href="#contact">İletişim</a>
         </nav>
-        <span>3B kutu koddan üretilmiştir · etiketler konsepttir</span>
+        <span>{brand.name} için hazırlanmış konsept demo</span>
       </footer>
     </section>
   );

@@ -27,8 +27,8 @@ function lerpPose(a, b, t) {
 function ritualPose(step, wide, time) {
   const poses = [
     { x: 3.2, y: 0, z: 2, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.4, rotZ: -0.12, scale: 1.7 },
-    { x: 3.0, y: -0.9, z: 3, rotX: 0.85, rotY: 0.5, rotZ: 0.15, scale: 2.2 },
-    { x: 3.2, y: 0.1, z: 2, rotX: 0.1, rotY: time * 1.6, rotZ: 0.32, scale: 1.9 },
+    { x: 3.1, y: -0.3, z: 2.2, rotX: 0.45, rotY: 0.4, rotZ: 0.12, scale: 1.75 },
+    { x: 3.2, y: 0.1, z: 2, rotX: 0.1, rotY: Math.sin(time * 0.6) * 0.35, rotZ: 0.22, scale: 1.9 },
   ];
   const i = Math.min(Math.floor(step), 1);
   const p = lerpPose(poses[i], poses[i + 1], step - i);
@@ -216,7 +216,10 @@ export default function HeroCan() {
     if (want !== s.target) showFlavor(want, visible);
     sceneState.heroFlavor = want;
     uniforms.u_rim.value.set(flavors[want].theme.glow).lerp(WHITE, 0.25).multiplyScalar(0.5 * (1 - 0.6 * s.spot));
-    if (!visible) return;
+    if (!visible) {
+      s.scrollPose = null;
+      return;
+    }
 
     const wide = size.width / size.height >= 0.9;
     const focus = sceneState.focus;
@@ -232,6 +235,11 @@ export default function HeroCan() {
     pose = lerpPose(pose, ritualPose(r.ritualStep, wide, time), r.ritualIn);
     pose = lerpPose(pose, shopPose(wide, time), r.shopIn);
     pose.y += r.shopOut * 2 * (18 - pose.z) * TAN;
+    // Kaydırmaya bağlı poz yumuşatılır: hızlı kaydırmada kutu savrulmaz,
+    // düzenli ve ağır bir hareketle yeni yerine süzülür.
+    if (!s.scrollPose) s.scrollPose = { ...pose };
+    else for (const k of KEYS) s.scrollPose[k] = MathUtils.damp(s.scrollPose[k], pose[k], 4.5, dt);
+    pose = { ...s.scrollPose };
     // Detay içindeki pozlar arasında yumuşak ama hızlı geçiş (~0,7 sn).
     const target = detailPose(s.poseFeature, wide, time, s.drag);
     if (!s.pose || !st.detail) s.pose = { ...target };

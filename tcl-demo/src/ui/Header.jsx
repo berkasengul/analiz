@@ -19,6 +19,7 @@ export default function Header() {
         <a href="#flavors"><sup>01</sup>Tatlar</a>
         <a href="#ritual"><sup>02</sup>Ritüel</a>
         <a href="#shop"><sup>03</sup>Mağaza</a>
+        <a href="#story"><sup>04</sup>Hikâye</a>
       </nav>
       <div className="header__right">
         <a href="#contact" className="header__contact">İletişim</a>

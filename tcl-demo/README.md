@@ -18,13 +18,17 @@
 - **Premium butonlar:** Cam efekti, tadın renginde ışıltılı kenar, üzerine gelince parlama ve fareye doğru hafif mıknatıs hareketi.
 - **Carousel:** Beş şehir tadı var: Bold Istanbul, Silky Mardin, Pistachio Zeugma, Minty Cappadocia ve Piney Aegean. Kutular scroll ile döner; yan kutuya tıklayınca ortadakiyle yer değiştirir, öndekine tıklayınca detay açılır.
 - **Detay:** Dört hikâye var: 500 yıllık tarif (fincan yakın çekimi), Beş şehir (siluet), Sade içerik (besin değerleri) ve Dijital fal. Her birinde kutu dönüp yakınlaşır, spot ışık vurur.
-- **Diğer bölümler:** Ritüel (Soğut, Çalkala, Paylaş), mağaza, sepet ve SSS.
+- **Mağaza:** Tat seçildikçe arkadaki şehir manzarası, ışık ve butonlar o tadın rengine geçer.
+- **Hikâye:** Kurucu Gizem Şalcıgil White, 2009–2026 kilometre taşları, basın ve Instagram/web bağlantıları (bilgiler basın haberlerinden ve bültenlerden derlendi).
+- **Diğer bölümler:** Ritüel (Soğut, Çalkala, Paylaş), sepet, nerede bulunur (Alexandria Culture House, İstanbul lansmanı, online) ve SSS (Coffee Sayer AI, Hasan Kale, %5 kadın mentorluk).
 
 ![Bold Istanbul](docs/carousel.png)
 ![Silky Mardin](docs/silky-mardin.png)
 ![Detay](docs/detail.png)
 ![Fincan](docs/cup.png)
 ![Besin değerleri](docs/label.png)
+![Mağaza](docs/shop.png)
+![Hikâye](docs/story.png)
 
 ## Çalıştırma
 

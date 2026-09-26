@@ -13,7 +13,7 @@ import Header from "./ui/Header";
 import Menu from "./ui/Menu";
 import Preloader from "./ui/Preloader";
 import Ritual from "./ui/Ritual";
-import { Faq, Footer, Marquee, Stockists } from "./ui/Sections";
+import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
 
 const N = flavors.length;
@@ -134,20 +134,11 @@ function useMagnetic() {
   }, []);
 }
 
-// Aktif tadın rengi tüm arayüzün vurgu rengi olur.
-function useAccent() {
-  const active = useStore((s) => s.active);
-  useEffect(() => {
-    document.documentElement.style.setProperty("--accent", flavors[active].color);
-  }, [active]);
-}
-
 export default function App() {
   useSmoothScroll();
   useKeys();
   useReveal();
   useMagnetic();
-  useAccent();
   const detail = useStore((s) => s.detail);
   const cinema = useStore((s) => s.detail && s.feature != null);
 
@@ -168,6 +159,7 @@ export default function App() {
         <Ritual />
         <Shop />
         <Marquee />
+        <Story />
         <Stockists />
         <Faq />
         <Footer />

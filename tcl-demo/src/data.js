@@ -66,7 +66,7 @@ export const features = [
     kicker: "Yok",
     struck: "Cezve beklemek",
     title: "500 yıllık tarif",
-    text: "Türk kahvesinin beş asırlık geleneği, buz gibi ve kutuda. Nazar boncuğu da cabası: good coffee, good fortune.",
+    text: "UNESCO kültürel mirası 500 yıllık Türk kahvesi, dünyanın ilk hazır buzlu Türk kahvesi olarak kutuda. Nazar boncuğu da cabası.",
     pose: { rotY: 0.04, rotZ: 0.02, y: -2.2, scale: 3.4 },
   },
   {
@@ -93,7 +93,7 @@ export const features = [
     kicker: "Dijital",
     struck: "Telve beklemek",
     title: "Fincanını çevir",
-    text: "Kahveyi bitir, kutudaki kodu okut: yapay zekâ destekli fal deneyimi geleneği dijitale taşıyor.",
+    text: "Kahveyi bitir, kutudaki QR kodu okut: Coffee Sayer AI, 500 yıllık fal geleneğinden ilham alan kişisel bir günlük okuma açar.",
     pose: { rotY: -Math.PI / 2 - 0.04, rotZ: 0.02, y: -3.6, scale: 3.3 },
   },
 ];
@@ -132,21 +132,46 @@ export const SHIPPING = 89.9;
 export const VARIETY = "variety";
 export const DEFAULT_SHOP_FLAVOR = 1; // Silky Mardin
 
+// Nerede bulunur. Üçüncü sütun durum etiketi.
 export const stockists = [
-  ["İstanbul", "Lansman şehri", 0],
-  ["Ankara", "Çankaya", 0],
-  ["İzmir", "Alsancak", 0],
-  ["Washington DC", "Alexandria, VA", 0],
-  ["Kuzey Carolina", "Apex", 0],
+  ["Alexandria, VA", "Turkish Coffee Lady Culture House · Old Town", "Açık"],
+  ["İstanbul", "Lansman · 7 Mayıs 2026", "Lansman"],
+  ["Online", "turkishcoffeelady.com", "Online"],
+  ["Perakende", "ABD market ve kafe dağıtımı", "Yakında"],
 ];
 
+// Marka hikâyesi: haberlerde ve basın bültenlerinde yer alan bilgiler.
+export const story = {
+  founder: "Gizem Şalcıgil White",
+  lead: "Bir fincan kahvenin kırk yıl hatırı vardır. Gizem Şalcıgil White bu hatırı 2009'dan beri dünyaya anlatıyor.",
+  paragraphs: [
+    "Turkish Coffee Lady, kadın liderliğinde kurulmuş, kültürleri bir fincan kahveyle buluşturan bir kahve markası. Kurucusu Gizem Şalcıgil White, Türk kahvesinin gönüllü elçisi olarak gastrodiplomasi çalışmalarıyla tanınıyor.",
+    "UNESCO'nun Somut Olmayan Kültürel Miras listesindeki 500 yıllık gelenek, şimdi dünyanın ilk hazır buzlu Türk kahvesiyle kutuda. Her kutudaki QR kod, Coffee Sayer AI ile kişisel bir kahve falı deneyimi açıyor.",
+  ],
+  timeline: [
+    ["2009", "Türk kahvesi kültürünün gönüllü elçiliği başlıyor"],
+    ["2017", "Turkish Coffee Lady, Inc. kuruluyor"],
+    ["2022", "Old Town Alexandria'da Culture House açılıyor"],
+    ["2025", "InvestBev hızlandırıcı programına seçiliyor"],
+    ["2026", "Dünyanın ilk buzlu Türk kahvesi İstanbul'da tanıtılıyor"],
+  ],
+  stats: [
+    ["500", "yıllık gelenek"],
+    ["5", "şehir, 5 tat"],
+    ["%5", "kadın mentorluk programlarına"],
+  ],
+  press: ["The Washington Post", "BBC", "The New York Times", "Washingtonian", "WUSA9"],
+  instagram: "https://www.instagram.com/turkishcoffeelady/",
+  website: "https://turkishcoffeelady.com/",
+};
+
 export const faqs = [
-  ["Soğuk Türk kahvesi nedir?", "Geleneksel Türk kahvesinin soğuk içime uygun, kutulanmış hali. Telvesi yoktur, açıp hemen içebilirsin."],
-  ["Tatlar neden şehir adı taşıyor?", "Her tat, bir şehrin kahve geleneğinden ilham alıyor: İstanbul'un klasiği, Mardin'in dibeği, Zeugma'nın fıstığı, Kapadokya'nın ferahlığı, Ege'nin sakızı."],
-  ["Dijital fal nasıl çalışır?", "Konsept akış: kahveni bitirdikten sonra etiketteki kodu okutursun, yapay zekâ destekli fal deneyimi telefonunda açılır."],
-  ["Nasıl saklanmalı?", "Serin ve kuru bir yerde saklayın; en iyi tadı için soğuk için. Açıldıktan sonra hemen tüketin."],
-  ["Kargo ne kadar sürer?", "Örnek akış: saat 14:00'e kadar verilen siparişler aynı gün kargoya verilir, 1–3 iş gününde teslim edilir."],
-  ["Abonelik nasıl çalışır?", "Örnek akış: %15 tasarruf edersin, paketin her dört haftada bir gönderilir; istediğin zaman atlayabilir ya da iptal edebilirsin."],
+  ["Buzlu Türk kahvesi nedir?", "Türk kahvesinin soğuk içime uygun, kutulanmış hali: telvesi yoktur, çalkalayıp soğuk içilir. Turkish Coffee Lady bunu dünyanın ilk hazır (RTD) buzlu Türk kahvesi olarak sunuyor."],
+  ["Kutudaki fal nasıl çalışır?", "Her kutuda bir QR kod var. Okuttuğunda Coffee Sayer AI, Türk kahvesi falı geleneğinden ilham alan kişisel bir günlük okuma açar."],
+  ["Tatlar neden şehir adı taşıyor?", "Her tat bir şehrin kahve geleneğinden ilham alıyor: İstanbul'un klasiği, Mardin'in fıstıklı ve kakuleli dibeği, Zeugma'nın menengici, Kapadokya'nın kakulesi, Ege'nin damla sakızı."],
+  ["Kutuların üzerindeki resimler kimin?", "Turkish Coffee Lady ambalajlarında, dünyaca tanınan mikro sanat ustası Hasan Kale'nin eserleri yer alıyor."],
+  ["Satışlar neye katkı sağlıyor?", "Turkish Coffee Lady harmanlarının satışlarının %5'i, Turkish Coffee Lady Foundation'ın kadın mentorluk ve liderlik programlarını destekliyor."],
+  ["Kargo ve abonelik nasıl işliyor?", "Bu demo sayfada örnek akış gösteriliyor: aynı gün kargo, 4 haftada bir abonelik, istediğin zaman atla ya da iptal et. Gerçek koşullar markayla birlikte belirlenecek."],
 ];
 
 export function flavorName(id) {

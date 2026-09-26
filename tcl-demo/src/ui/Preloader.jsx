@@ -39,7 +39,7 @@ export default function Preloader() {
       <p className="mono" role="status">
         {String(Math.round(shown)).padStart(3, "0")} — Kahve köpürüyor
       </p>
-      <p className="mono loader__note">Konsept demo · resmi site değildir</p>
+      <p className="mono loader__note">Gizem Şalcıgil White ve Turkish Coffee Lady için hazırlanmış konsept</p>
     </div>
   );
 }
