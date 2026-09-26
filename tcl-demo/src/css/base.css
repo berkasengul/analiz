@@ -2716,3 +2716,132 @@ main {
     height: 42px;
   }
 }
+
+/* =====================================================================
+   Mobil detay kartı: kutuyu kapatmayacak kadar kompakt
+   ===================================================================== */
+
+@media (max-width: 900px) {
+  .back .mono {
+    display: none;
+  }
+
+  .detail__body {
+    bottom: 88px;
+    gap: 10px;
+    padding: 16px 16px 18px;
+    max-height: 48vh;
+    max-height: 48svh;
+    overflow: hidden;
+  }
+
+  .detail__body .tag {
+    max-width: 100%;
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detail__title {
+    font-size: clamp(1.7rem, 8.5vw, 2.3rem);
+  }
+
+  .detail__desc {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .detail__notes,
+  .detail__notes.chips {
+    padding-top: 10px;
+  }
+
+  .detail__notes.chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .detail__notes.chips li {
+    flex: none;
+    font-size: 0.72rem;
+    padding: 5px 10px 5px 8px;
+  }
+
+  .buy {
+    flex-wrap: nowrap;
+    gap: 14px;
+    margin-top: 2px;
+  }
+
+  .buy .pill {
+    padding: 11px 18px;
+    font-size: 0.86rem;
+    white-space: nowrap;
+  }
+
+  .buy__more {
+    font-size: 0.66rem;
+    white-space: nowrap;
+  }
+
+  .detail__nav {
+    bottom: 26px;
+  }
+
+  .detail__nav .round {
+    width: 42px;
+    height: 42px;
+  }
+
+  .strike {
+    font-size: 0.68rem;
+  }
+}
+
+/* Kısa telefon ekranlarında notalar gizlenir, kart daha da kısalır. */
+@media (max-width: 900px) and (max-height: 760px) {
+  .detail__notes.chips {
+    display: none;
+  }
+
+  .detail__desc {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .features {
+    gap: 6px;
+  }
+
+  .feat__icon {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand {
+    gap: 8px;
+  }
+
+  .brand__name {
+    font-size: 0.9rem;
+  }
+
+  .header__right {
+    gap: 8px;
+  }
+
+  .menu-btn {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+}
