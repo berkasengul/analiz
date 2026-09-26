@@ -6,11 +6,11 @@
 > temsilidir, açıklamalar ve fiyatlar örnektir. Herkese açık yayınlama;
 > yalnızca markayla özel olarak paylaş.
 
-Turkish Coffee Lady demosuyla aynı 3B altyapı, 100 ml parfüm şişeleriyle.
+Turkish Coffee Lady demosuyla aynı 3B altyapı. Şişe, markanın ürün fotoğrafına (docs/reference) göre modellendi: kare kalın cam, parlak altın silindir kapak, altın plaka üzerinde siyah sekiz köşeli yıldız ve ortada siyah pano.
 
-- **Kokular:** Han, Queen of Palace, Narcissus, Grand Conqueror, Deep Secret. Her şişede kokunun rengi, arka yüzüne işlenmiş İstanbul silueti (Kapalıçarşı, Topkapı ve Boğaz köprüsü, Tarihi Yarımada, Rumeli Hisarı, Kız Kulesi) ve altın varaklı Osmanlı kemeri etiketi var.
-- **Detay:** 4 hikâye kartı şişeyi döndürür: %30 esans, İstanbul silueti, koku piramidi (yan yüz), parfümörler (diğer yan yüz).
-- **Mağaza:** 10 / 50 / 100 ml, ücretsiz hediye kutusu seçeneği, keşif seti, sepet.
+- **Kokular (8):** Han, Queen of Palace, Narcissus, Grand Conqueror, Deep Secret, N.E.C.O, Forza, Submarine. Ön etiket fotoğraftaki tasarım; arka etiket (konsept) koku piramidi ve kokunun ilham aldığı yerin altın silüetini taşır.
+- **Detay:** 4 hikâye kartı şişeyi döndürür: %30 esans, sekiz köşeli yıldız, koku piramidi (arka etiket), parfümörler (kapak yakın çekim).
+- **Mağaza:** 10 / 50 / 100 ml (100 ml ₺9.500, markanın sitesindeki fiyat; diğerleri örnek), 5.000 ₺ üzeri ücretsiz kargo, hediye kutusu seçeneği, keşif seti, sepet.
 - **İki dil:** Türkçe (₺) ve İngilizce ($).
 
 ## Çalıştırma
@@ -24,5 +24,5 @@ npm run dev
 
 - `src/data.js`: kokular, özellikler, ritüel, hikâye, SSS (Türkçe).
 - `src/i18n.js`: İngilizce içerik, fiyatlar, arayüz metinleri.
-- `src/CanMesh.jsx`: şişe geometrisi (cam, sıvı, bilezik, sekizgen kapak).
+- `src/CanMesh.jsx`: şişe geometrisi (kare cam, iç sıvı, kalın taban, boyun, altın kapak, ön/arka etiket).
 - `docs/label-generator.py`: şişe dokularını üretir: `python3 docs/label-generator.py src/assets/labels`.

@@ -26,9 +26,9 @@ function lerpPose(a, b, t) {
 
 function ritualPose(step, wide, time) {
   const poses = [
-    { x: 3.2, y: 0, z: 2, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.4, rotZ: -0.12, scale: 1.7 },
-    { x: 3.1, y: -0.3, z: 2.2, rotX: 0.45, rotY: 0.4, rotZ: 0.12, scale: 1.75 },
-    { x: 3.2, y: 0.1, z: 2, rotX: 0.1, rotY: Math.sin(time * 0.6) * 0.35, rotZ: 0.22, scale: 1.9 },
+    { x: 3.2, y: 0, z: 2, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.4, rotZ: -0.08, scale: 1.4 },
+    { x: 3.1, y: -0.3, z: 2.2, rotX: 0.45, rotY: 0.4, rotZ: 0.08, scale: 1.45 },
+    { x: 3.2, y: 0.1, z: 2, rotX: 0.1, rotY: Math.sin(time * 0.6) * 0.35, rotZ: 0.14, scale: 1.55 },
   ];
   const i = Math.min(Math.floor(step), 1);
   const p = lerpPose(poses[i], poses[i + 1], step - i);
@@ -43,8 +43,8 @@ function ritualPose(step, wide, time) {
 
 function shopPose(wide, time) {
   return wide
-    ? { x: 3.5, y: -0.1, z: 2.5, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.35, rotZ: -0.08, scale: 1.75 }
-    : { x: 0, y: 2.4, z: 1, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.35, rotZ: -0.08, scale: 0.9 };
+    ? { x: 3.3, y: -0.1, z: 2.5, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.35, rotZ: -0.05, scale: 1.4 }
+    : { x: 0, y: 2.4, z: 1, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.35, rotZ: -0.05, scale: 0.75 };
 }
 
 // Videodan ölçülen detay kompozisyonu: kutu ekranın ~%58'inde, üstü
@@ -53,8 +53,8 @@ function detailPose(feature, wide, time, turn) {
   const f = feature != null ? features[feature].pose : null;
   const idle = Math.sin(time * 0.5) * 0.2 + pointer.x * 0.15;
   const base = wide
-    ? { x: 1.45, y: -0.9, z: 3, rotX: 0.03 + pointer.y * 0.04, rotY: idle, rotZ: 0.05, scale: 2.5 }
-    : { x: 0, y: 1.9, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.08, scale: 1.25 };
+    ? { x: 1.3, y: -0.7, z: 3, rotX: 0.03 + pointer.y * 0.04, rotY: idle, rotZ: 0.03, scale: 2.05 }
+    : { x: 0, y: 1.9, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.04, scale: 1.05 };
   if (f) {
     base.rotY = f.rotY + Math.sin(time * 0.4) * 0.04 + pointer.x * 0.05;
     base.rotZ = f.rotZ;
@@ -64,7 +64,7 @@ function detailPose(feature, wide, time, turn) {
       base.scale = f.scale;
     } else {
       base.y = 1.9 + (f.y + 0.9) * 0.3;
-      base.scale = 1.25 * (f.scale / 2.5);
+      base.scale = 1.05 * (f.scale / 2.05);
     }
   }
   base.rotY += turn;

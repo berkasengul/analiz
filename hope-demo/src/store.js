@@ -47,7 +47,7 @@ export const useStore = create(
       cartOpen: false,
       shopFlavor: null, // null = detayda en son bakılan tat
       picked: null,
-      shopPack: 50,
+      shopPack: 100,
       shopPlan: "once",
       cart: [],
 

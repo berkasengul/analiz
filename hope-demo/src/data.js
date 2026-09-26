@@ -33,21 +33,48 @@ export const flavors = [
   },
   {
     name: "Grand Conqueror",
-    color: "#b9a9e6",
-    ink: "#4a3d7a",
-    theme: { glow: "#6d5f9a", edge: "#07060e", drop: "#d8d0e8", mood: "cool" },
+    color: "#a9c4b0",
+    ink: "#2f5a46",
+    theme: { glow: "#4e7a66", edge: "#030806", drop: "#d4e6da", mood: "cool" },
     tagline: "Liderliğin zamansız karizması.",
     notes: ["Bergamot", "İris", "Günlük", "Vetiver", "Amber"],
     description: "Bergamot, iris ve günlük ruhu yükselten güçlü akorlar kurar; vetiver ve amberle zamansız bir karizmaya dönüşür.",
   },
   {
     name: "Deep Secret",
-    color: "#6fd0e0",
+    color: "#6fb8e8",
     ink: "#0f4262",
-    theme: { glow: "#237a96", edge: "#020a10", drop: "#78c6d2", mood: "cool" },
+    theme: { glow: "#236a9e", edge: "#020810", drop: "#9fd4f2", mood: "cool" },
     tagline: "Boğaz'ın en derin sırrı.",
     notes: ["Hibiskus", "Şakayık", "Deniz notaları", "Manolya", "Kaşmiran"],
     description: "Hibiskus, şakayık ve şeftali deniz esintisiyle buluşur; yasemin, menekşe ve manolyadan sonra kaşmiran ve sandal ağacına iner.",
+  },
+  {
+    name: "N.E.C.O",
+    color: "#e8795a",
+    ink: "#7a2a18",
+    theme: { glow: "#a8472e", edge: "#0e0504", drop: "#f2a488", mood: "warm" },
+    tagline: "Galata'dan Tophane'ye asi ve zarif.",
+    notes: ["Bergamot", "Ardıç", "Zencefil", "Bal", "Sandal"],
+    description: "Yoğun baharat notaları ve ozonik ferahlık, Galata'dan Tophane'ye uzanan sokakların asi ve zarif ruhunu taşır.",
+  },
+  {
+    name: "Forza",
+    color: "#a99be6",
+    ink: "#3d3278",
+    theme: { glow: "#5d4fa0", edge: "#05040e", drop: "#d6cef5", mood: "cool" },
+    tagline: "Yedi tepenin modern klasiği.",
+    notes: ["Narenciye", "Menekşe", "Lavanta", "Beyaz misk"],
+    description: "Narenciye ve menekşeyle açılan modern bir klasik. Lavanta ve beyaz misk saflığı ve zarafeti bir araya getirir.",
+  },
+  {
+    name: "Submarine",
+    color: "#7fd6a8",
+    ink: "#1d5a40",
+    theme: { glow: "#2a8a66", edge: "#020a06", drop: "#bdf0d4", mood: "cool" },
+    tagline: "Boğaz'ın derinliklerinden.",
+    notes: ["Armut", "Portakal çiçeği", "Zencefil", "Gül", "Vetiver"],
+    description: "Limon, armut ve portakal çiçeğiyle ışıldar; pembe biber, zencefil ve gülle derinleşir, paçuli ve vetiverle tende kalır.",
   },
 ];
 
@@ -63,16 +90,16 @@ export const features = [
     struck: "Eau de toilette",
     title: "Extrait de Parfum",
     text: "Her koku en yüksek yoğunlukta, %30 esans oranıyla hazırlanır. Tende saatlerce, kumaşta günlerce kalır.",
-    pose: { rotY: 0.02, rotZ: 0.02, y: -0.4, scale: 3.1 },
+    pose: { rotY: 0.03, rotZ: 0.02, y: -0.3, scale: 2.3 },
   },
   {
-    icon: "pin",
-    short: "İstanbul silueti",
-    kicker: "Tek",
-    struck: "Sıradan bir şişe",
-    title: "Şişede İstanbul",
-    text: "Her şişenin arka yüzüne kokunun ilham aldığı yer işlenir: Kapalıçarşı, Topkapı, Tarihi Yarımada, Rumeli Hisarı ya da Kız Kulesi.",
-    pose: { rotY: 0.35, rotZ: 0.03, y: 1.7, scale: 3.2 },
+    icon: "star",
+    short: "Sekiz köşeli yıldız",
+    kicker: "Altın",
+    struck: "Sıradan bir etiket",
+    title: "Şişede İstanbul geometrisi",
+    text: "Altın ve siyah etiketteki sekiz köşeli yıldız, İstanbul'un çinilerini ve kündekari kapılarını hatırlatır. Kalın cam, onu bir mücevher gibi taşır.",
+    pose: { rotY: 0.55, rotZ: 0.02, y: 0.1, scale: 2.1 },
   },
   {
     icon: "leaf",
@@ -80,17 +107,17 @@ export const features = [
     kicker: "Üç",
     struck: "Tek boyutlu koku",
     title: "Üç katlı bir hikâye",
-    text: "Üst notalar ilk dakikaları, kalp notaları ilk saatleri, taban notaları günün sonunu anlatır. Şişenin yan yüzünde hepsi yazılı.",
-    pose: { rotY: Math.PI / 2 + 0.04, rotZ: 0.02, y: -0.6, scale: 3.4 },
+    text: "Üst notalar ilk dakikaları, kalp notaları ilk saatleri, taban notaları günün sonunu anlatır. Şişeyi çevir: hepsi arka etikette.",
+    pose: { rotY: Math.PI + 0.04, rotZ: 0.02, y: -0.3, scale: 2.3 },
   },
   {
-    icon: "star",
+    icon: "bottle",
     short: "Parfümörler",
     kicker: "Usta",
     struck: "Seri üretim",
     title: "Usta parfümörler",
     text: "Kokular Gökhan Şimşek ve Amouage, Creed, Frederic Malle için de çalışmış Julien Rasquinet'nin imzasını taşır.",
-    pose: { rotY: -Math.PI / 2 - 0.04, rotZ: 0.02, y: -0.6, scale: 3.4 },
+    pose: { rotY: -0.5, rotZ: 0.02, y: -2.3, scale: 2.3 },
   },
 ];
 
@@ -119,12 +146,12 @@ export const ritual = [
 // Mağaza boyutları: `size` ml cinsinden.
 export const packs = [
   { size: 10, price: 1490, label: "Seyahat" },
-  { size: 50, price: 4290, label: "En popüler" },
-  { size: 100, price: 6490, label: "Koleksiyon" },
+  { size: 50, price: 5900, label: "Günlük" },
+  { size: 100, price: 9500, label: "En popüler" },
 ];
 
 export const SUB_DISCOUNT = 0; // hediye paketi ücretsiz, indirim yok
-export const FREE_SHIPPING = 3000;
+export const FREE_SHIPPING = 5000;
 export const SHIPPING = 99.9;
 export const VARIETY = "variety";
 export const DEFAULT_SHOP_FLAVOR = 1; // Queen of Palace
@@ -148,7 +175,7 @@ export const story = {
   timeline: [
     ["2021", "Hope Istanbul, Serimu Kozmetik çatısı altında kuruluyor"],
     ["2022", "İlk koleksiyon: Han, Narcissus, Queen ve N.E.C.O"],
-    ["2024", "Esxence Milano'da dünya lansmanı"],
+    ["2024", "Esxence Milano'da dünya lansmanı; Forza ve Submarine"],
     ["2025", "Grand serisi, Queen of Palace ve Deep Secret"],
   ],
   stats: [
@@ -163,8 +190,9 @@ export const story = {
 
 export const faqs = [
   ["Extrait de Parfum ne demek?", "Parfümün en yoğun hali. Hope Istanbul kokuları %30 esans oranıyla hazırlanır; eau de parfum ve eau de toilette'ten çok daha kalıcıdır."],
-  ["Hangi kokuyu seçmeliyim?", "Sıcak ve baharatlı sevenler için Han, çiçeksi ve görkemli için Queen of Palace, aydınlık ve tatlı için Narcissus, temiz ve karizmatik için Grand Conqueror, ferah ve denizsi için Deep Secret."],
+  ["Hangi kokuyu seçmeliyim?", "Sıcak ve baharatlı sevenler için Han, çiçeksi ve görkemli için Queen of Palace, aydınlık ve tatlı için Narcissus, temiz ve karizmatik için Grand Conqueror, ferah ve denizsi için Deep Secret, baharatlı ve asi için N.E.C.O, lavantalı ve zarif için Forza, meyveli ve derin için Submarine."],
   ["Koleksiyonlar neyi anlatıyor?", "Her koleksiyon İstanbul'un bir yüzünü anlatır: 7 Tepe, Tarihi Yarımada, İki Kıta Bir Aşk ve İstanbul'un Harikaları."],
+  ["Koleksiyonda başka hangi kokular var?", "Bu sayfada sekiz koku var. Markanın koleksiyonunda Amber Delight, Mango Crush, Addictive, Rare, Miss Miris ve Grand Han gibi başka kokular da bulunuyor."],
   ["Kokular unisex mi?", "Evet. Hope Istanbul kokuları kadın ve erkek için tasarlanır."],
   ["10 ml seyahat boyu ne işe yarar?", "Kokuyu tende birkaç gün denemek ya da çantada taşımak için. Beğenirsen büyük şişeye geçersin."],
   ["Kargo ve hediye paketi nasıl işliyor?", "Bu demo sayfada örnek akış gösteriliyor: aynı gün kargo, ücretsiz hediye kutusu ve el yazısı not. Gerçek koşullar markayla birlikte belirlenecek."],

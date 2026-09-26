@@ -1,9 +1,12 @@
-"""Hope Istanbul konsept şişe dokuları (100 ml Extrait de Parfum).
+"""Hope Istanbul konsept şişe etiketleri (100 ml Extrait de Parfum).
 
-Doku şişenin içini sarar: parfümün rengi, arka yüze işlenmiş İstanbul
-silueti ve ön yüzde altın varaklı, Osmanlı kemeri biçiminde bir etiket.
-u = 0.5 ön yüz (etiket), u = 0.25 koku piramidi, u = 0.75 hikâye paneli.
-Silüet bandı (üstten %44–%78) arka planda bulanık şehir olarak da kullanılır.
+Markanın ürün fotoğrafına göre çizilmiştir (docs/reference): parlak altın
+plaka, siyah sekiz köşeli yıldız, altın geçmeli çizgiler ve ortada siyah
+kare içinde HOPE / ISTANBUL / koku adı / EXTRAIT DE PARFUM.
+
+Doku bir atlas: sol yarı (u 0–0.5) ön etiket, sağ yarı (u 0.5–1) arka etiket
+(koku piramidi, ilham aldığı yer ve İstanbul silueti). Arka etiketin silüet
+bandı (üstten %44–%80) arka planda bulanık şehir olarak da kullanılır.
 
 Çıktı 2048×1024 JPG. Kullanım: python3 label-generator.py <çıktı klasörü>
 """
@@ -18,23 +21,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = os.path.join(HERE, "label-fonts")
 OUT = sys.argv[1] if len(sys.argv) > 1 else "."
 
-W, H = 2048, 1024
-K = 2
-SW, SH = W * K, H * K
-SKY0, SKY1 = 0.44, 0.80  # silüet bandı (üstten oran)
+S = 1024  # bir etiketin kenarı (doku pikseli)
+K = 2  # süper örnekleme
+N = S * K
 
 
 def font(name, size):
     return ImageFont.truetype(os.path.join(FONTS, name), int(size * K))
 
 
-def hexc(h):
-    h = h.lstrip("#")
-    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
-
-
 def text_c(d, cx, y, s, f, fill=255, spacing=0):
-    """Ortalanmış, harf aralıklı yazı. y üst kenar (doku pikseli)."""
+    """Ortalanmış, harf aralıklı yazı. y üst kenar (etiket pikseli)."""
     widths = [d.textlength(ch, font=f) for ch in s]
     total = sum(widths) + spacing * K * (len(s) - 1)
     x = cx * K - total / 2
@@ -47,13 +44,13 @@ def text_c(d, cx, y, s, f, fill=255, spacing=0):
 
 def fit(d, s, name, width, start, spacing=0):
     size = start
-    while size > 10:
+    while size > 8:
         f = font(name, size)
         w = sum(d.textlength(ch, font=f) for ch in s) + spacing * K * (len(s) - 1)
         if w / K <= width:
             return f
         size -= 1
-    return font(name, 10)
+    return font(name, 8)
 
 
 def smooth_noise(w, h, cells, seed, lo=0.0, hi=1.0):
@@ -64,9 +61,8 @@ def smooth_noise(w, h, cells, seed, lo=0.0, hi=1.0):
 
 
 def mask():
-    m = Image.new("L", (SW, SH), 0)
-    d = ImageDraw.Draw(m)
-    return m, d
+    m = Image.new("L", (N, N), 0)
+    return m, ImageDraw.Draw(m)
 
 
 def arr(m, blur=0):
@@ -75,283 +71,287 @@ def arr(m, blur=0):
     return np.asarray(m).astype(np.float32) / 255
 
 
-# ================================================================ sıvı
-def liquid(top, bottom, seed):
-    """Şişenin içi: dikey renk geçişi, cam kırılması çizgileri, hava payı."""
-    ys = np.linspace(0, 1, SH, dtype=np.float32)[:, None]
-    xs = np.linspace(0, 1, SW, dtype=np.float32)[None, :]
-    t, b = np.array(top, np.float32), np.array(bottom, np.float32)
-    k = np.clip((ys - 0.06) / 0.94, 0, 1) ** 0.9
-    img = t * (1 - k[..., None]) + b * k[..., None]
-    img = np.broadcast_to(img, (SH, SW, 3)).copy()
-    # Kalın camın kırdığı ışık: şişe çevresinde yumuşak dikey bantlar.
-    band = 0.5 + 0.5 * np.sin(xs * math.pi * 2 * 6 + 0.6) * np.sin(xs * math.pi * 2 * 2.3 + 1.1)
-    streak = smooth_noise(SW, SH, (48, 2), seed, 0.96, 1.04)
-    img *= (0.95 + 0.08 * band)[..., None] * streak[..., None]
-    # Hava payı: en üstte sıvı biter, cam daha açık görünür.
-    air = np.clip((0.055 - ys) / 0.02, 0, 1)
-    img = img * (1 - air[..., None]) + np.array([232, 230, 226], np.float32) * air[..., None] * 0.9
-    menisc = np.exp(-((ys - 0.058) / 0.006) ** 2)
-    img += menisc[..., None] * 70
-    # Tabana doğru koyulaşma.
-    img *= (1 - 0.25 * np.clip((ys - 0.7) / 0.3, 0, 1))[..., None]
-    img += np.random.default_rng(seed + 1).normal(0, 1.6, img.shape)
-    return np.clip(img, 0, 255)
-
-
-def gold(seed):
-    """Altın varak rengi: yatay parıltı ve kıvrımlı yansıma."""
-    xs = np.linspace(0, 1, SW, dtype=np.float32)[None, :]
-    ys = np.linspace(0, 1, SH, dtype=np.float32)[:, None]
-    s = 0.5 + 0.5 * np.sin(xs * 40 + ys * 9) * np.cos(xs * 13 - ys * 5)
-    s = s * smooth_noise(SW, SH, (40, 20), seed, 0.8, 1.15)
-    lo, hi = np.array([150, 104, 38], np.float32), np.array([255, 226, 150], np.float32)
-    return lo + (hi - lo) * np.clip(s, 0, 1)[..., None]
-
-
 def put(img, a, color):
-    """a maskesiyle rengi karıştırır (color dizi ya da RGB)."""
     col = np.asarray(color, np.float32)
     return img * (1 - a[..., None]) + col * a[..., None]
 
 
-# ================================================================ silüetler
-def sky_y(v):
-    return int((SKY0 + (SKY1 - SKY0) * v) * SH)
+def gold(seed, mirror=True):
+    """Ayna gibi parlatılmış altın: yatay açık-koyu bantlar, hafif dalga."""
+    ys = np.linspace(0, 1, N, dtype=np.float32)[:, None]
+    xs = np.linspace(0, 1, N, dtype=np.float32)[None, :]
+    if mirror:
+        # Fotoğraftaki plakada alt ve üst kenarlar açık, orta sıcak altın.
+        s = 0.55 + 0.35 * np.cos((ys - 0.5) * 5.4) * 0 + 0.3 * np.sin(ys * 7.5 + 0.8) + 0.12 * np.sin(xs * 3 + ys * 2)
+    else:
+        s = 0.5 + 0.5 * np.sin(xs * 40 + ys * 9) * np.cos(xs * 13 - ys * 5)
+    s = np.clip(s * smooth_noise(N, N, (12, 12), seed, 0.9, 1.1), 0, 1)
+    lo, mid, hi = np.array([168, 118, 36], np.float32), np.array([226, 180, 80], np.float32), np.array([255, 236, 170], np.float32)
+    s3 = s[..., None]
+    return np.where(s3 < 0.5, lo + (mid - lo) * s3 * 2, mid + (hi - mid) * (s3 - 0.5) * 2)
 
 
-def dome(d, x, base, r, fill=255):
-    d.pieslice([x - r, base - r, x + r, base + r], 180, 360, fill=fill)
-    d.polygon([(x - r * 0.08, base - r), (x, base - r - r * 0.45), (x + r * 0.08, base - r)], fill=fill)
+BLACK = (14, 12, 11)
 
 
-def minaret(d, x, base, h, w, fill=255):
-    d.rectangle([x - w, base - h, x + w, base], fill=fill)
-    d.rectangle([x - w * 1.6, base - h * 0.72, x + w * 1.6, base - h * 0.69], fill=fill)
-    d.polygon([(x - w, base - h), (x, base - h - w * 7), (x + w, base - h)], fill=fill)
+# ================================================================ ön etiket
+def star_points(c, r):
+    """Sekiz köşeli yıldız: eksen hizalı kare + 45° dönük kare."""
+    sq = [(c - r, c - r), (c + r, c - r), (c + r, c + r), (c - r, c + r)]
+    rr = r * math.sqrt(2)
+    di = [(c, c - rr), (c + rr, c), (c, c + rr), (c - rr, c)]
+    return sq, di
 
 
-def mosque(d, x, base, s, fill=255):
-    dome(d, x, base - 70 * s, 110 * s, fill)
+def front(c, seed):
+    """Fotoğraftaki etiket: altın plaka, siyah yıldız, altın geçme, siyah pano."""
+    img = gold(seed)
+    cx = N / 2
+    # Plakanın kenarında ince koyu çizgi ve iç çerçeve.
+    m, d = mask()
+    d.rectangle([0, 0, N - 1, N - 1], outline=255, width=3 * K)
+    d.rectangle([34 * K, 34 * K, N - 34 * K, N - 34 * K], outline=255, width=3 * K)
+    img = put(img, arr(m, 0.4) * 0.8, (90, 62, 20))
+
+    # Siyah yıldız (iki kare).
+    r = 335 * K
+    sq, di = star_points(cx, r)
+    m, d = mask()
+    d.polygon(sq, fill=255)
+    d.polygon([(x, y) for x, y in di], fill=255)
+    star = arr(m, 0.4)
+    img = put(img, star, BLACK)
+
+    # Altın geçme: yıldızın içinde, kenarlara paralel ince çizgiler ve
+    # merkezden açılan çeyrek daireler.
+    g, d = mask()
+    inset = 22 * K
+    sq_in = [(cx - r + inset, cx - r + inset), (cx + r - inset, cx - r + inset), (cx + r - inset, cx + r - inset), (cx - r + inset, cx + r - inset)]
+    rr = r * math.sqrt(2) - inset * math.sqrt(2)
+    di_in = [(cx, cx - rr), (cx + rr, cx), (cx, cx + rr), (cx - rr, cx)]
+    d.line(sq_in + sq_in[:1], fill=255, width=5 * K)
+    d.line(di_in + di_in[:1], fill=255, width=5 * K)
+    # Yıldız kollarında geçme halkaları (fotoğraftaki kıvrımlı altın şeritler).
+    for k in range(8):
+        a = k * math.pi / 4
+        px, py = cx + math.cos(a) * r * 0.98, cx + math.sin(a) * r * 0.98
+        rad = 130 * K
+        d.ellipse([px - rad, py - rad, px + rad, py + rad], outline=255, width=16 * K)
+        rad2 = 72 * K
+        d.ellipse([px - rad2, py - rad2, px + rad2, py + rad2], outline=255, width=6 * K)
+    geo = arr(g, 0.4) * star
+    # Küçük altın baklavalar: yıldızın dört çapraz ucunda.
+    b, d = mask()
+    for k in range(4):
+        a = math.pi / 4 + k * math.pi / 2
+        px, py = cx + math.cos(a) * r * 1.2, cx + math.sin(a) * r * 1.2
+        s = 26 * K
+        d.polygon([(px, py - s), (px + s, py), (px, py + s), (px - s, py)], fill=255)
+    img = put(img, np.clip(geo + arr(b, 0.4) * star, 0, 1), gold(seed + 3))
+
+    # Ortadaki siyah pano, çift altın çerçeve.
+    half = 238 * K
+    m, d = mask()
+    d.rectangle([cx - half - 26 * K, cx - half - 26 * K, cx + half + 26 * K, cx + half + 26 * K], fill=255)
+    img = put(img, arr(m, 0.4), BLACK)
+    m, d = mask()
+    d.rectangle([cx - half, cx - half, cx + half, cx + half], outline=255, width=5 * K)
+    d.rectangle([cx - half - 26 * K, cx - half - 26 * K, cx + half + 26 * K, cx + half + 26 * K], outline=255, width=3 * K)
+
+    # Yazılar.
+    y = 340
+    y = text_c(d, S / 2, y, "HOPE", font("Cinzel-Medium.ttf", 118), spacing=8) + 24
+    y = text_c(d, S / 2, y, "ISTANBUL", font("OpenSans-Bold.ttf", 30), spacing=10) + 70
+    f = fit(d, c["name"].upper(), "OpenSans-Bold.ttf", 400, 36, spacing=2)
+    y = text_c(d, S / 2, y, c["name"].upper(), f, spacing=2) + 62
+    text_c(d, S / 2, y, "EXTRAIT DE PARFUM", font("OpenSans-SemiBold.ttf", 27), spacing=2)
+    img = put(img, arr(m, 0.35), gold(seed + 5))
+    return img
+
+
+# ================================================================ arka etiket
+def dome(d, x, base, r):
+    d.pieslice([x - r, base - r, x + r, base + r], 180, 360, fill=255)
+    d.polygon([(x - r * 0.08, base - r), (x, base - r - r * 0.45), (x + r * 0.08, base - r)], fill=255)
+
+
+def minaret(d, x, base, h, w):
+    d.rectangle([x - w, base - h, x + w, base], fill=255)
+    d.rectangle([x - w * 1.6, base - h * 0.72, x + w * 1.6, base - h * 0.69], fill=255)
+    d.polygon([(x - w, base - h), (x, base - h - w * 7), (x + w, base - h)], fill=255)
+
+
+def mosque(d, x, base, s):
+    dome(d, x, base - 70 * s, 110 * s)
     for k in (-1, 1):
-        dome(d, x + k * 150 * s, base - 30 * s, 60 * s, fill)
-        dome(d, x + k * 250 * s, base - 5 * s, 38 * s, fill)
-    d.rectangle([x - 300 * s, base - 70 * s, x + 300 * s, base], fill=fill)
+        dome(d, x + k * 150 * s, base - 30 * s, 60 * s)
+    d.rectangle([x - 220 * s, base - 70 * s, x + 220 * s, base], fill=255)
     for k in (-1, 1):
-        minaret(d, x + k * 330 * s, base, 360 * s, 12 * s, fill)
+        minaret(d, x + k * 250 * s, base, 330 * s, 11 * s)
 
 
-def scene_peninsula(d, seed):
-    """Tarihi Yarımada: Ayasofya ve Sultanahmet."""
-    base = sky_y(0.95)
-    for i in range(0, SW + 1, SW // 2):  # dokunun iki yarısında (yan panellerin arkası)
-        mosque(d, i + 360, base, 1.25)
-        mosque(d, i + 1500, base, 0.95)
-        d.rectangle([i, base - 60, i + SW // 2, base], fill=255)
-        for j in range(18):
-            x = i + j * 120 + 20
-            d.rectangle([x, base - 90 - (j * 37 % 60), x + 90, base], fill=255)
+def sky(v):
+    return int((0.44 + 0.36 * v) * N)
 
 
-def scene_han(d, seed):
-    """Kapalıçarşı hanı: kemerli revaklar ve kubbe dizileri."""
-    base = sky_y(0.98)
-    for x in range(0, SW, 240):
-        d.rectangle([x, base - 420, x + 240, base], fill=255)
-        dome(d, x + 120, base - 420, 100)
-    m, dd = mask()
-    for x in range(0, SW, 240):  # kemerleri boşalt
-        dd.rectangle([x + 40, base - 250, x + 200, base], fill=255)
-        dd.pieslice([x + 40, base - 330, x + 200, base - 170], 180, 360, fill=255)
-    d.bitmap((0, 0), m, fill=0)
-    for x in range(120, SW, 480):
-        minaret(d, x, base - 380, 420, 13)
+def scene_han(d):
+    base = sky(0.98)
+    for x in range(0, N, 220):
+        d.rectangle([x, base - 360, x + 220, base], fill=255)
+        dome(d, x + 110, base - 360, 90)
+    for x in range(110, N, 440):
+        minaret(d, x, base - 330, 360, 12)
 
 
-def scene_palace(d, seed):
-    """İki kıta, bir aşk: Topkapı'nın Adalet Kulesi ve Boğaz köprüsü."""
-    base = sky_y(0.9)
-    for i in (0, SW // 2):
-        x = i + 520
-        d.rectangle([x - 45, base - 520, x + 45, base], fill=255)
-        d.rectangle([x - 60, base - 560, x + 60, base - 520], fill=255)
-        d.polygon([(x - 60, base - 560), (x, base - 820), (x + 60, base - 560)], fill=255)
-        d.rectangle([x - 420, base - 150, x + 300, base], fill=255)
-        for k in range(6):
-            dome(d, x - 360 + k * 110, base - 150, 40)
-        # Köprü: iki kule ve sarkan kablo.
-        bx = i + 1450
-        for k in (-1, 1):
-            d.rectangle([bx + k * 330 - 14, base - 480, bx + k * 330 + 14, base + 40], fill=255)
-        d.rectangle([bx - 600, base - 90, bx + 600, base - 70], fill=255)
-        top = base - 480
-        pts = [(bx - 600, base - 90), (bx - 330, top)]
-        pts += [(bx + t, top + 330 * (1 - (t / 330) ** 2) * 0.9) for t in range(-330, 331, 15)]
-        pts += [(bx + 330, top), (bx + 600, base - 90)]
-        d.line(pts, fill=255, width=7)
-    d.rectangle([0, base, SW, SH], fill=0)
+def scene_palace(d):
+    base = sky(0.92)
+    x = 420
+    d.rectangle([x - 45, base - 500, x + 45, base], fill=255)
+    d.rectangle([x - 60, base - 540, x + 60, base - 500], fill=255)
+    d.polygon([(x - 60, base - 540), (x, base - 800), (x + 60, base - 540)], fill=255)
+    d.rectangle([x - 420, base - 150, x + 300, base], fill=255)
+    for k in range(6):
+        dome(d, x - 360 + k * 110, base - 150, 40)
+    bx = 1420
+    top = base - 460
+    for k in (-1, 1):
+        d.rectangle([bx + k * 330 - 14, top, bx + k * 330 + 14, base], fill=255)
+    d.rectangle([bx - 560, base - 90, bx + 560, base - 70], fill=255)
+    pts = [(bx - 560, base - 90), (bx - 330, top)]
+    pts += [(bx + t, top + 330 * (1 - (t / 330) ** 2) * 0.9) for t in range(-330, 331, 15)]
+    pts += [(bx + 330, top), (bx + 560, base - 90)]
+    d.line(pts, fill=255, width=7)
 
 
-def scene_walls(d, seed):
-    """Fatih'in kaleleri: Rumeli Hisarı'nın kuleleri ve mazgallı surlar."""
-    base = sky_y(0.98)
-    for x in range(-100, SW + 100, 520):
-        h = 520 + (x * 7 % 180)
-        r = 110
-        d.rectangle([x - r, base - h, x + r, base], fill=255)
-        d.polygon([(x - r - 10, base - h), (x, base - h - 260), (x + r + 10, base - h)], fill=255)
-        wall = base - 300
-        d.rectangle([x + r, wall, x + 520 - r, base], fill=255)
-        for mx in range(int(x + r), int(x + 520 - r), 44):
-            d.rectangle([mx, wall - 34, mx + 24, wall], fill=255)
+def scene_peninsula(d):
+    base = sky(0.95)
+    mosque(d, 560, base, 1.2)
+    mosque(d, 1480, base, 0.95)
+    d.rectangle([0, base - 50, N, base], fill=255)
 
 
-def scene_tower(d, seed):
-    """Derin sır: denizin ortasında Kız Kulesi."""
-    base = sky_y(0.72)
-    for i in (0, SW // 2):
-        x = i + 1240
-        d.rectangle([x - 260, base - 90, x + 260, base], fill=255)
-        d.rectangle([x - 70, base - 430, x + 70, base - 90], fill=255)
-        d.rectangle([x - 100, base - 450, x + 100, base - 430], fill=255)
-        d.polygon([(x - 90, base - 450), (x, base - 640), (x + 90, base - 450)], fill=255)
-        d.rectangle([x + 70, base - 260, x + 200, base - 90], fill=255)
-        dome(d, x + 135, base - 260, 65)
-    rng = np.random.default_rng(seed)
-    for _ in range(90):  # dalgalar
-        x, y = rng.integers(0, SW), rng.integers(base + 20, sky_y(1.0))
-        d.arc([x - 80, y - 14, x + 80, y + 14], 200, 340, fill=255, width=5)
+def scene_walls(d):
+    base = sky(0.98)
+    for x in range(-100, N + 100, 520):
+        h = 460 + (x * 7 % 160)
+        d.rectangle([x - 100, base - h, x + 100, base], fill=255)
+        d.polygon([(x - 110, base - h), (x, base - h - 240), (x + 110, base - h)], fill=255)
+        wall = base - 280
+        d.rectangle([x + 100, wall, x + 420, base], fill=255)
+        for mx in range(x + 100, x + 420, 44):
+            d.rectangle([mx, wall - 32, mx + 24, wall], fill=255)
 
 
-# ================================================================ etiket
-def arch_path(cx, top, bottom, half):
-    """Sivri Osmanlı kemeri."""
-    pts = []
-    spring = top + half * 1.25
-    for t in np.linspace(0, 1, 40):
-        a = math.pi * 0.5 * t
-        x = cx - half + half * (1 - math.cos(a)) * 0.98
-        y = spring - (spring - top) * math.sin(a) ** 1.4
-        pts.append((x, y))
-    right = [(2 * cx - x, y) for x, y in reversed(pts)]
-    return pts + right + [(cx + half, bottom), (cx - half, bottom)]
+def scene_tower(d):
+    base = sky(0.72)
+    x = N / 2
+    d.rectangle([x - 240, base - 90, x + 240, base], fill=255)
+    d.rectangle([x - 70, base - 420, x + 70, base - 90], fill=255)
+    d.rectangle([x - 100, base - 440, x + 100, base - 420], fill=255)
+    d.polygon([(x - 90, base - 440), (x, base - 620), (x + 90, base - 440)], fill=255)
+    d.rectangle([x + 70, base - 250, x + 200, base - 90], fill=255)
+    dome(d, x + 135, base - 250, 62)
+    rng = np.random.default_rng(4)
+    for _ in range(60):
+        px, py = rng.integers(0, N), rng.integers(base + 20, sky(1.0))
+        d.arc([px - 70, py - 12, px + 70, py + 12], 200, 340, fill=255, width=5)
 
 
-def tulip(d, x, y, s, fill=255, width=3):
-    d.line([(x, y + 38 * s), (x, y + 70 * s)], fill=fill, width=int(width * K))
-    d.polygon([(x, y - 30 * s), (x - 20 * s, y + 10 * s), (x - 8 * s, y + 38 * s), (x + 8 * s, y + 38 * s), (x + 20 * s, y + 10 * s)], fill=fill)
-    d.polygon([(x - 8 * s, y + 38 * s), (x - 36 * s, y - 14 * s), (x - 20 * s, y + 40 * s)], fill=fill)
-    d.polygon([(x + 8 * s, y + 38 * s), (x + 36 * s, y - 14 * s), (x + 20 * s, y + 40 * s)], fill=fill)
+def scene_galata(d):
+    base = sky(0.96)
+    x = 1100
+    d.rectangle([x - 100, base - 440, x + 100, base], fill=255)
+    d.rectangle([x - 120, base - 475, x + 120, base - 440], fill=255)
+    d.polygon([(x - 110, base - 475), (x, base - 650), (x + 110, base - 475)], fill=255)
+    for k in range(-9, 10):
+        if abs(k) < 2:
+            continue
+        h = 180 + (k * 53 % 120)
+        d.rectangle([x + k * 110 - 50, base - h, x + k * 110 + 50, base], fill=255)
+        d.polygon([(x + k * 110 - 56, base - h), (x + k * 110, base - h - 50), (x + k * 110 + 56, base - h)], fill=255)
 
 
-def label(c):
-    """Ön yüz etiketi: koyu mine zemin + altın varak (iki maske)."""
-    cx, top, bottom, half = W * 0.5, 150, 800, 250
-    plate, dp = mask()
-    dp.polygon([(x * K, y * K) for x, y in arch_path(cx, top, bottom, half)], fill=255)
-    ink, d = mask()
-    outer = [(x * K, y * K) for x, y in arch_path(cx, top, bottom, half)]
-    inner = [(x * K, y * K) for x, y in arch_path(cx, top + 22, bottom - 18, half - 18)]
-    d.line(outer + outer[:1], fill=255, width=5 * K)
-    d.line(inner + inner[:1], fill=255, width=2 * K)
-    tulip(d, cx * K, (top + 92) * K, 0.9 * K)
-    y = top + 200
-    y = text_c(d, cx, y, "HOPE", font("Cinzel-Bold.ttf", 96), spacing=16) + 18
-    y = text_c(d, cx, y, "İSTANBUL", font("Cinzel-Medium.ttf", 30), spacing=14) + 36
-    d.line([((cx - 120) * K, y * K), ((cx + 120) * K, y * K)], fill=255, width=2 * K)
-    d.ellipse([(cx - 7) * K, (y - 7) * K, (cx + 7) * K, (y + 7) * K], fill=255)
-    y += 34
-    for line in c["lines"]:
-        f = fit(d, line, "Cinzel-Bold.ttf", 400, 64, spacing=4)
-        y = text_c(d, cx, y, line, f, spacing=4) + 16
-    y += 18
-    text_c(d, cx, y, "EXTRAIT DE PARFUM", font("OpenSans-SemiBold.ttf", 22), spacing=7)
-    text_c(d, cx, bottom - 64, "100 ml e  3.4 FL.OZ", font("OpenSans-SemiBold.ttf", 20), spacing=3)
-    return arr(plate, 0.6), arr(ink, 0.35)
+def scene_hills(d):
+    """7 Tepe: tepelerin üzerinde camiler."""
+    base = sky(1.0)
+    pts = [(0, base)]
+    for i in range(0, N + 1, 32):
+        pts.append((i, base - 160 - 110 * math.sin(i / N * math.pi * 7) ** 2))
+    pts.append((N, base))
+    d.polygon(pts, fill=255)
+    for i in range(7):
+        x = (i + 0.5) / 7 * N
+        mosque(d, x, base - 250, 0.38)
 
 
-def side_panel(c, cx, title, rows):
-    """Arka yüze altın serigrafi ile basılmış yazı paneli."""
-    ink, d = mask()
-    y = 220
-    y = text_c(d, cx, y, title, font("Cinzel-Bold.ttf", 34), spacing=8) + 22
-    d.line([((cx - 90) * K, y * K), ((cx + 90) * K, y * K)], fill=255, width=2 * K)
-    y += 30
-    for head, body in rows:
-        y = text_c(d, cx, y, head, font("OpenSans-SemiBold.ttf", 18), spacing=6) + 10
-        for line in body:
-            y = text_c(d, cx, y, line, font("Gloock-Regular.ttf", 30)) + 8
-        y += 22
-    return arr(ink, 0.3)
+def scene_sea(d):
+    """Denizaltı: dalgaların altında kabarcıklar."""
+    base = sky(0.3)
+    for k in range(10):
+        y = base + k * 40
+        pts = [(x, y + 18 * math.sin(x / 90 + k)) for x in range(0, N + 1, 24)]
+        d.line(pts, fill=255, width=4)
+    rng = np.random.default_rng(9)
+    for _ in range(80):
+        px, py, r = rng.integers(0, N), rng.integers(base + 40, sky(1.0)), rng.integers(6, 26)
+        d.ellipse([px - r, py - r, px + r, py + r], outline=255, width=4)
+
+
+def back(c, seed):
+    """Arka etiket: siyah pano, altın silüet, koku piramidi ve hikâye."""
+    img = np.broadcast_to(np.array(BLACK, np.float32), (N, N, 3)).copy()
+    g = gold(seed, mirror=False)
+    m, d = mask()
+    d.rectangle([14 * K, 14 * K, N - 14 * K, N - 14 * K], outline=255, width=4 * K)
+    d.rectangle([34 * K, 34 * K, N - 34 * K, N - 34 * K], outline=255, width=2 * K)
+    img = put(img, arr(m, 0.4), g)
+    # Silüet: yarı saydam altın.
+    s, d = mask()
+    c["scene"](d)
+    img = put(img, arr(s, 1.0) * 0.28, g)
+    edge = np.clip(arr(s, 0.8) - arr(s.filter(ImageFilter.MinFilter(7)), 0.8), 0, 1)
+    img = put(img, edge * 0.7, g)
+    # Yazılar.
+    m, d = mask()
+    y = 90
+    y = text_c(d, S / 2, y, c["name"].upper(), fit(d, c["name"].upper(), "Cinzel-Bold.ttf", 700, 56, spacing=6), spacing=6) + 16
+    y = text_c(d, S / 2, y, c["place"], font("OpenSans-SemiBold.ttf", 22), spacing=8) + 44
+    for head, body in c["notes"]:
+        y = text_c(d, S / 2, y, head, font("OpenSans-Bold.ttf", 18), spacing=7) + 12
+        y = text_c(d, S / 2, y, body, font("Gloock-Regular.ttf", 32)) + 30
+    text_c(d, S / 2, 930, "HOPE ISTANBUL  ·  EXTRAIT DE PARFUM  ·  100 ml e 3.4 FL.OZ", font("OpenSans-SemiBold.ttf", 17), spacing=3)
+    shade = arr(m, 3)
+    img = img * (1 - np.clip(shade * 1.2, 0, 0.7))[..., None]
+    img = put(img, arr(m, 0.35), g)
+    return img
 
 
 # ================================================================ kokular
 PERFUMES = [
-    {
-        "file": "han.jpg",
-        "lines": ["HAN"],
-        "top": "#d4903f", "bottom": "#6b3210", "plate": "#241006",
-        "scene": scene_han,
-        "notes": [("TOP", ["Limon · Tarçın"]), ("HEART", ["Paçuli · Sedir"]), ("BASE", ["Kuru odun · Amber", "Misk"])],
-        "story": ("KAPALIÇARŞI", [("ESİN", ["Baharat kokan", "han avluları"]), ("PARFÜMÖR", ["Gökhan Şimşek"])]),
-    },
-    {
-        "file": "queen-of-palace.jpg",
-        "lines": ["QUEEN OF", "PALACE"],
-        "top": "#f5c3cc", "bottom": "#b4506d", "plate": "#330b19",
-        "scene": scene_palace,
-        "notes": [("TOP", ["Bergamot · Mango", "Frenk üzümü"]), ("HEART", ["Gül · Yasemin · İris"]), ("BASE", ["Vanilya · Amber", "Sandal ağacı"])],
-        "story": ("İKİ KITA, BİR AŞK", [("KOLEKSİYON", ["Two Continents", "One Love"]), ("ESİN", ["Topkapı'nın", "sultanları"])]),
-    },
-    {
-        "file": "narcissus.jpg",
-        "lines": ["NARCISSUS"],
-        "top": "#f7ecc0", "bottom": "#cfa94c", "plate": "#1f1706",
-        "scene": scene_peninsula,
-        "notes": [("TOP", ["Çarkıfelek · Mandalina", "Bergamot"]), ("HEART", ["Sümbülteber", "Beyaz çiçekler"]), ("BASE", ["Vanilya · Amber", "Beyaz misk"])],
-        "story": ("TARİHİ YARIMADA", [("KOLEKSİYON", ["Historical", "Peninsula"]), ("PARFÜMÖR", ["Gökhan Şimşek"])]),
-    },
-    {
-        "file": "grand-conqueror.jpg",
-        "lines": ["GRAND", "CONQUEROR"],
-        "top": "#d8d0e8", "bottom": "#6f5f98", "plate": "#171228",
-        "scene": scene_walls,
-        "notes": [("TOP", ["Bergamot · Mandalina", "Limon"]), ("HEART", ["İris · Yasemin"]), ("BASE", ["Günlük · Vetiver", "Amber"])],
-        "story": ("FATİH'İN İZİNDE", [("ESİN", ["Liderliğin", "zamansız karizması"]), ("PARFÜMÖR", ["Gökhan Şimşek"])]),
-    },
-    {
-        "file": "deep-secret.jpg",
-        "lines": ["DEEP", "SECRET"],
-        "top": "#78c6d2", "bottom": "#0f4262", "plate": "#04141e",
-        "scene": scene_tower,
-        "notes": [("TOP", ["Hibiskus · Şakayık", "Şeftali · Deniz"]), ("HEART", ["Yasemin · Menekşe", "Manolya"]), ("BASE", ["Misk · Amber", "Kaşmiran"])],
-        "story": ("BOĞAZ'IN SIRRI", [("ESİN", ["Kız Kulesi'nin", "efsanesi"]), ("PARFÜMÖR", ["Julien Rasquinet"])]),
-    },
+    {"file": "han.jpg", "name": "Han", "place": "KAPALIÇARŞI", "scene": scene_han,
+     "notes": [("TOP", "Limon · Tarçın"), ("HEART", "Paçuli · Sedir"), ("BASE", "Kuru odun · Amber · Misk")]},
+    {"file": "queen-of-palace.jpg", "name": "Queen of Palace", "place": "TWO CONTINENTS ONE LOVE", "scene": scene_palace,
+     "notes": [("TOP", "Bergamot · Mango · Frenk üzümü"), ("HEART", "Gül · Yasemin · İris"), ("BASE", "Vanilya · Amber · Sandal")]},
+    {"file": "narcissus.jpg", "name": "Narcissus", "place": "HISTORICAL PENINSULA", "scene": scene_peninsula,
+     "notes": [("TOP", "Çarkıfelek · Mandalina"), ("HEART", "Sümbülteber · Beyaz çiçekler"), ("BASE", "Vanilya · Amber · Beyaz misk")]},
+    {"file": "grand-conqueror.jpg", "name": "Grand Conqueror", "place": "RUMELİ HİSARI", "scene": scene_walls,
+     "notes": [("TOP", "Bergamot · Mandalina · Limon"), ("HEART", "İris · Yasemin"), ("BASE", "Günlük · Vetiver · Amber")]},
+    {"file": "deep-secret.jpg", "name": "Deep Secret", "place": "KIZ KULESİ", "scene": scene_tower,
+     "notes": [("TOP", "Hibiskus · Şakayık · Şeftali"), ("HEART", "Yasemin · Menekşe · Manolya"), ("BASE", "Misk · Amber · Kaşmiran")]},
+    {"file": "neco.jpg", "name": "N.E.C.O", "place": "GALATA · TOPHANE", "scene": scene_galata,
+     "notes": [("TOP", "Bergamot · Greyfurt · Ardıç"), ("HEART", "Zencefil · Ahududu · Tarçın"), ("BASE", "Paçuli · Bal · Amber · Sandal")]},
+    {"file": "forza.jpg", "name": "Forza", "place": "7 TEPE", "scene": scene_hills,
+     "notes": [("TOP", "Narenciye · Menekşe"), ("HEART", "Lavanta · Baharat"), ("BASE", "Sandal · Sedir · Beyaz misk")]},
+    {"file": "submarine.jpg", "name": "Submarine", "place": "BOĞAZ'IN DERİNLİKLERİ", "scene": scene_sea,
+     "notes": [("TOP", "Limon · Armut · Portakal çiçeği"), ("HEART", "Pembe biber · Zencefil · Gül"), ("BASE", "Paçuli · Vetiver · Amber")]},
 ]
 
 
 def render(c, idx):
-    img = liquid(hexc(c["top"]), hexc(c["bottom"]), idx + 10)
-    # Silüet: sıvının içinden görünen koyu, altın kenarlı şehir.
-    sky, d = mask()
-    c["scene"](d, idx)
-    s = arr(sky, 1.2)
-    edge = np.clip(s - arr(sky.filter(ImageFilter.MinFilter(9)), 1.0), 0, 1)
-    img = img * (1 - 0.42 * s[..., None])
-    g = gold(idx)
-    img = put(img, edge * 0.55, g)
-    # Yan paneller ve ön etiket.
-    notes = side_panel(c, W * 0.25, "NOTALAR", c["notes"])
-    title, rows = c["story"]
-    story = side_panel(c, W * 0.75, title, rows)
-    panels = np.clip(notes + story, 0, 1)
-    shade = np.asarray(Image.fromarray((panels * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(5 * K))).astype(np.float32) / 255
-    img = img * (1 - np.clip(shade * 1.4, 0, 0.55))[..., None]
-    img = put(img, panels * 0.95, g)
-    plate, ink = label(c)
-    img = put(img, plate * 0.9, hexc(c["plate"]))
-    img = put(img, ink, g)
-    out = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8), "RGB").resize((W, H), Image.LANCZOS)
+    f = front(c, idx * 7 + 1)
+    b = back(c, idx * 7 + 2)
+    atlas = np.concatenate([f, b], axis=1)
+    out = Image.fromarray(np.clip(atlas, 0, 255).astype(np.uint8), "RGB").resize((S * 2, S), Image.LANCZOS)
     path = os.path.join(OUT, c["file"])
     out.save(path, quality=88, optimize=True)
     return path

@@ -33,8 +33,8 @@ export function arcPose(d, aspect, time, i) {
     z: -0.8 * d * d + focus * 1.2,
     rotX: 0.08,
     rotY: -0.22 * d + (focus > 0 ? Math.sin(time * 0.6) * 0.18 * focus : 0),
-    rotZ: 0.13 * d + 0.3 * focus,
-    scale: base * (1 + 0.24 * focus) * (1 - MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2))),
+    rotZ: 0.1 * d + 0.12 * focus,
+    scale: base * (1 + 0.36 * focus) * (1 - MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2))),
   };
 }
 

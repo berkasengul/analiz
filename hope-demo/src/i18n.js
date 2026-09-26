@@ -33,6 +33,21 @@ const EN = {
       notes: ["Hibiscus", "Peony", "Marine notes", "Magnolia", "Cashmeran"],
       description: "Hibiscus, peony and peach meet a sea breeze, then settle through jasmine, violet and magnolia into cashmeran and sandalwood.",
     },
+    {
+      tagline: "Rebellious and elegant, from Galata to Tophane.",
+      notes: ["Bergamot", "Juniper", "Ginger", "Honey", "Sandalwood"],
+      description: "Intense spice notes and ozonic freshness carry the rebellious, elegant spirit of the streets stretching from Galata to Tophane.",
+    },
+    {
+      tagline: "A modern classic of the seven hills.",
+      notes: ["Citrus", "Violet", "Lavender", "White musk"],
+      description: "A modern classic opening with citrus and violet. Lavender and white musk bring together purity and elegance.",
+    },
+    {
+      tagline: "From the depths of the Bosphorus.",
+      notes: ["Pear", "Orange blossom", "Ginger", "Rose", "Vetiver"],
+      description: "It sparkles with lemon, pear and orange blossom, deepens with pink pepper, ginger and rose, and stays on skin with patchouli and vetiver.",
+    },
   ],
   features: [
     {
@@ -43,18 +58,18 @@ const EN = {
       text: "Every scent is made at the highest concentration, with 30% perfume oil. It lasts for hours on skin and for days on fabric.",
     },
     {
-      short: "Istanbul skyline",
-      kicker: "One",
-      struck: "An ordinary bottle",
-      title: "Istanbul in a bottle",
-      text: "The back of each bottle carries the place that inspired it: the Grand Bazaar, Topkapı, the Historical Peninsula, Rumeli Fortress or the Maiden's Tower.",
+      short: "Eight-point star",
+      kicker: "Gold",
+      struck: "An ordinary label",
+      title: "Istanbul's geometry",
+      text: "The eight-point star on the gold and black label recalls Istanbul's tiles and carved wooden doors. Heavy glass carries it like a jewel.",
     },
     {
       short: "Scent pyramid",
       kicker: "Three",
       struck: "A one-note scent",
       title: "A story in three layers",
-      text: "Top notes tell the first minutes, heart notes the first hours, base notes the end of the day. All of them are printed on the side of the bottle.",
+      text: "Top notes tell the first minutes, heart notes the first hours, base notes the end of the day. Turn the bottle: they're all on the back label.",
     },
     {
       short: "Perfumers",
@@ -84,7 +99,7 @@ const EN = {
     timeline: [
       ["2021", "Hope Istanbul is founded under Serimu Kozmetik"],
       ["2022", "First collection: Han, Narcissus, Queen and N.E.C.O"],
-      ["2024", "Global debut at Esxence Milan"],
+      ["2024", "Global debut at Esxence Milan; Forza and Submarine"],
       ["2025", "The Grand series, Queen of Palace and Deep Secret"],
     ],
     stats: [
@@ -95,8 +110,9 @@ const EN = {
   },
   faqs: [
     ["What does Extrait de Parfum mean?", "The most concentrated form of perfume. Hope Istanbul scents are made with 30% perfume oil and last far longer than eau de parfum or eau de toilette."],
-    ["Which scent should I choose?", "Han for warm and spicy, Queen of Palace for floral and majestic, Narcissus for bright and sweet, Grand Conqueror for clean and charismatic, Deep Secret for fresh and marine."],
+    ["Which scent should I choose?", "Han for warm and spicy, Queen of Palace for floral and majestic, Narcissus for bright and sweet, Grand Conqueror for clean and charismatic, Deep Secret for fresh and marine, N.E.C.O for spicy and rebellious, Forza for lavender and elegant, Submarine for fruity and deep."],
     ["What do the collections tell?", "Each collection tells one face of Istanbul: 7 Hills, Historical Peninsula, Two Continents One Love and Wonders of Istanbul."],
+    ["What other scents are in the collection?", "This page shows eight scents. The house's collection also includes Amber Delight, Mango Crush, Addictive, Rare, Miss Miris and Grand Han."],
     ["Are the scents unisex?", "Yes. Hope Istanbul scents are designed for women and men."],
     ["What is the 10 ml travel size for?", "To wear a scent for a few days or carry it in your bag. If you love it, move up to a full bottle."],
     ["How do shipping and gift wrapping work?", "This demo shows a sample flow: same-day dispatch, a free gift box and a handwritten note. Real terms will be set with the brand."],
@@ -107,13 +123,13 @@ const EN = {
     disclaimer:
       "This page is an independent concept demo prepared for Hope Istanbul and is not affiliated with the brand owner. Bottle designs are illustrative; product copy and prices are examples.",
   },
-  packLabels: { 10: "Travel", 50: "Most popular", 100: "Collector" },
+  packLabels: { 10: "Travel", 50: "Everyday", 100: "Most popular" },
 };
 
 // ---------------------------------------------------------------- fiyatlar
 const PRICES = {
-  tr: { currency: "TRY", locale: "tr-TR", packs: { 10: 1490, 50: 4290, 100: 6490 }, freeShipping: 3000, shipping: 99.9 },
-  en: { currency: "USD", locale: "en-US", packs: { 10: 39, 50: 115, 100: 165 }, freeShipping: 100, shipping: 9.9 },
+  tr: { currency: "TRY", locale: "tr-TR", packs: { 10: 1490, 50: 5900, 100: 9500 }, freeShipping: 5000, shipping: 99.9 },
+  en: { currency: "USD", locale: "en-US", packs: { 10: 39, 50: 139, 100: 219 }, freeShipping: 150, shipping: 9.9 },
 };
 
 // ---------------------------------------------------------------- arayüz metinleri

@@ -99,8 +99,8 @@ export default function DetailPanel() {
             ))}
           </ul>
           <div className="buy">
-            <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, 50, "once")}>
-              {ui.pack(t.packLabel(50))} · {t.money(t.price(50, "once"))}
+            <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, 100, "once")}>
+              {ui.pack(t.packLabel(100))} · {t.money(t.price(100, "once"))}
             </button>
             <a href="#shop" className="buy__more mono" tabIndex={tab}>
               {ui.otherPacks}
