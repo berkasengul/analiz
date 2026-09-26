@@ -86,3 +86,15 @@ hazırla" de → fabrika → Netlify → linki gönder.)*
 ## Son hatırlatma (+7 gün)
 
 > Son kez rahatsız ediyorum 🙏 Şu an uygun değilse hiç sorun değil; ileride yeni bir koleksiyon lansmanı için site düşünürseniz buradayım. Başarılar dilerim!
+
+---
+
+## Seven Gates · demo hazır (linkli mesaj)
+
+> Merhaba Seven Gates ekibi 👋
+>
+> Duality koleksiyonunu Esxence'tan beri takip ediyorum; dijital sanatla kokuyu buluşturma fikriniz çok özel. Bu fikri web'e taşıyan, size özel bir 3D site demosu hazırladım: 10 kokunuz sayfa kaydırdıkça dönüyor, her şişenin eserine göre sahne değişiyor, şişeyi çevirince arka yüzde "ruh" tarafı ve koku piramidi açılıyor. EDP ve Extrait ayrımı, parfümör bilgileri, Türkçe/İngilizce mağaza hazır.
+>
+> 👉 [Netlify linkin]
+>
+> Görseller Cihan Engin'in eserleri yerine geçici çizimler; gerçek illüstrasyonlarınız gelince her şişe kendi eseriyle döner. 1 dakikanızı alır, görüşlerinizi çok merak ediyorum 🙏

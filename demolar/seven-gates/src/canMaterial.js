@@ -1,0 +1,114 @@
+import { Color, MeshPhysicalMaterial } from "three";
+import { noise } from "./Noise";
+
+// Kutunun baskı malzemesi. Her tadın kendi tam renkli etiket görseli var
+// (`flavor.texture`). Tat değişirken iki etiket arasında Codrops projesindeki
+// gürültülü dikey geçiş (u_progress 0.5 → 1) çalışır. u_color1/u_color2
+// etiketi parlatmak için çarpan (normalde beyaz = 1).
+export function createCanUniforms(flavor) {
+  return {
+    u_time: { value: 0 },
+    u_map1: { value: flavor.texture },
+    u_map2: { value: flavor.texture },
+    u_color1: { value: new Color(1, 1, 1) },
+    u_color2: { value: new Color(1, 1, 1) },
+    u_ink1: { value: new Color() },
+    u_ink2: { value: new Color() },
+    u_progress: { value: 0.5 },
+    u_dim: { value: 1 },
+    u_rim: { value: new Color(0, 0, 0) },
+    u_width: { value: 0.8 },
+    u_scaleX: { value: 50 },
+    u_scaleY: { value: 50 },
+  };
+}
+
+export function setCanFlavor(uniforms, flavor) {
+  uniforms.u_map1.value = flavor.texture;
+  uniforms.u_map2.value = flavor.texture;
+  uniforms.u_color1.value.setScalar(1);
+  uniforms.u_color2.value.setScalar(1);
+  uniforms.u_progress.value = 0.5;
+}
+
+// Cam şişenin içindeki parfüm ve etiket.
+export function createCanMaterial(base, uniforms) {
+  const material = new MeshPhysicalMaterial({
+    map: base.map,
+    // Camın arkasındaki parfüm: altın varak etiketin parlaması için hafif metalik.
+    metalness: 0.3,
+    roughness: 0.24,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    envMapIntensity: 1.1,
+  });
+
+  material.onBeforeCompile = (shader) => {
+    Object.assign(shader.uniforms, uniforms);
+
+    shader.vertexShader = shader.vertexShader
+      .replace("#include <common>", "#include <common>\nvarying vec2 vCanUv;")
+      .replace("#include <begin_vertex>", "#include <begin_vertex>\nvCanUv = uv;");
+
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <common>",
+      /* glsl */ `
+        #include <common>
+
+        uniform float u_time;
+        uniform sampler2D u_map1;
+        uniform sampler2D u_map2;
+        uniform vec3 u_color1;
+        uniform vec3 u_color2;
+        uniform float u_progress;
+        uniform float u_dim;
+        uniform vec3 u_rim;
+        uniform float u_width;
+        uniform float u_scaleX;
+        uniform float u_scaleY;
+
+        varying vec2 vCanUv;
+
+        ${noise}
+
+        float parabola(float x, float k) {
+          return pow(4. * x * (1. - x), k);
+        }
+      `
+    );
+
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <map_fragment>",
+      /* glsl */ `
+        // Gürültü yalnızca geçiş sırasında hesaplanır; durağan kutular ucuz kalır.
+        float mask = 0.;
+        if (u_progress > 0.501) {
+          float dt = parabola(u_progress, 1.);
+          float n = 0.5 * (cnoise(vec4(vCanUv.x * u_scaleX + 0.5 * u_time / 3., vCanUv.y * u_scaleY, 0.5 * u_time / 3., 0.)) + 1.);
+          float w = u_width * dt;
+          float maskValue = smoothstep(1. - w, 1., (1. - vCanUv.y) + mix(-w / 2., 1. - w / 2., u_progress));
+          maskValue += maskValue * n;
+          mask = smoothstep(1., 1.01, maskValue);
+        }
+
+        vec3 c1 = texture2D(u_map1, vCanUv).rgb * u_color1;
+        vec3 c2 = texture2D(u_map2, vCanUv).rgb * u_color2;
+        diffuseColor.rgb = mix(c1, c2, mask);
+      `
+    );
+
+    // Kenar parıltısı: kutunun kenarlarında tadın renginde ince bir ışık.
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <opaque_fragment>",
+      /* glsl */ `
+        float rimF = pow(1. - abs(dot(normal, normalize(vViewPosition))), 3.);
+        // u_dim tüm ışığı (yansımalar dahil) kısar: yan kutular gerçekten kararır.
+        outgoingLight = outgoingLight * u_dim + u_rim * rimF;
+        #include <opaque_fragment>
+      `
+    );
+  };
+  material.customProgramCacheKey = () => "hope-bottle";
+  material.userData.uniforms = uniforms;
+  return material;
+}

@@ -1,0 +1,1241 @@
+{
+  "slug": "seven-gates",
+  "meta": {
+    "title": "Seven Gates · Konsept Demo",
+    "description": "Seven Gates için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
+    "og": "Duality Collection: Seven Gates için 3B konsept site."
+  },
+  "brand": {
+    "name": "Seven Gates",
+    "sub": "Duality Collection",
+    "specs": "Sanatla kokuyu buluşturan parfüm evi",
+    "disclaimer": "Bu sayfa Seven Gates için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Şişe ve etiket görselleri temsilidir; Cihan Engin'in orijinal illüstrasyonları yerine geçici çizimler kullanılmıştır. Ürün açıklamaları ve fiyatlar örnektir.",
+    "en": {
+      "specs": "A perfume house where art meets scent",
+      "disclaimer": "This page is an independent concept demo prepared for Seven Gates and is not affiliated with the brand owner. Bottle and label visuals are illustrative placeholders for Cihan Engin's original artworks; product copy and prices are examples."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "SEVEN GATES",
+    "submark": "DUALITY COLLECTION",
+    "concentration": "EAU DE PARFUM",
+    "volume": "100 ml e 3.4 FL.OZ"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.95,
+      "height": 2.85,
+      "depth": 1.1,
+      "corner": 0.06
+    },
+    "label": {
+      "size": 1.72,
+      "y": 0.02,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#2a2a2c"
+    },
+    "cap": {
+      "shape": "box",
+      "radius": 0.6,
+      "height": 0.95,
+      "color": "#121214",
+      "finish": "black"
+    },
+    "scale": 1.02,
+    "tilt": -0.05
+  },
+  "products": [
+    {
+      "name": "Artificial Intelligence",
+      "sub": "Eau de Parfum",
+      "collection": "Duality Collection",
+      "family": "Odunsu çiçeksi",
+      "year": 2024,
+      "perfumer": "Nathalie Feisthauer",
+      "color": "#78e6ff",
+      "ink": "#1d5f8a",
+      "theme": {
+        "glow": "#1d5f8a",
+        "edge": "#02060e",
+        "drop": "#b8f2ff",
+        "mood": "cool"
+      },
+      "tagline": "Teknolojinin doğayla buluştuğu an.",
+      "notes": [
+        "Bergamot",
+        "Greyfurt",
+        "Şam gülü",
+        "Safran",
+        "Ambroxan"
+      ],
+      "description": "Nathalie Feisthauer imzalı bu koku, teknolojinin özünü doğanın cazibesiyle harmanlar. Bergamot ve greyfurtla açılır, Şam gülü ve safranla ısınır, ambroxan ve kaşmiranla dijital bir iz bırakır.",
+      "file": "artificial-intelligence.jpg",
+      "en": {
+        "family": "Floral woody",
+        "tagline": "Where technology meets nature.",
+        "notes": [
+          "Bergamot",
+          "Grapefruit",
+          "Damask rose",
+          "Saffron",
+          "Ambroxan"
+        ],
+        "description": "Signed by Nathalie Feisthauer, it blends the essence of technology with nature's allure. It opens with bergamot and grapefruit, warms with Damask rose and saffron, and leaves a digital trail of ambroxan and cashmeran."
+      },
+      "label": {
+        "style": "art",
+        "motif": "grid",
+        "palette": [
+          [
+            10,
+            16,
+            34
+          ],
+          [
+            44,
+            22,
+            82
+          ],
+          [
+            120,
+            230,
+            255
+          ]
+        ],
+        "concentration": "EAU DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Bergamot · Greyfurt"
+          ],
+          [
+            "HEART",
+            "Şam gülü · Safran · Heliotrop"
+          ],
+          [
+            "BASE",
+            "Ambroxan · Kaşmiran · Sandal · Misk"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Heroine",
+      "sub": "Eau de Parfum",
+      "collection": "Duality Collection",
+      "family": "Pudralı çiçeksi",
+      "year": 2024,
+      "perfumer": null,
+      "color": "#c8a8f0",
+      "ink": "#6a4a9a",
+      "theme": {
+        "glow": "#6a4a9a",
+        "edge": "#07040e",
+        "drop": "#eadcff",
+        "mood": "cool"
+      },
+      "tagline": "Uçucu irisin zengin vanilyayla buluşması.",
+      "notes": [
+        "Konyak",
+        "Menekşe yaprağı",
+        "İris",
+        "Mimoza",
+        "Vanilya"
+      ],
+      "description": "Konyak ve menekşe yaprağıyla cesur bir açılış, iris ve mimozayla yumuşayan bir kalp, misk ve vanilyayla tende kalan bir iz: kendi hikâyesinin kahramanı olanlar için.",
+      "file": "heroine.jpg",
+      "en": {
+        "family": "Powdery floral",
+        "tagline": "Ethereal iris meets rich vanilla.",
+        "notes": [
+          "Cognac",
+          "Violet leaf",
+          "Iris",
+          "Mimosa",
+          "Vanilla"
+        ],
+        "description": "A bold opening of cognac and violet leaf, a heart softened by iris and mimosa, a trail of musk and vanilla: for those who are the heroine of their own story."
+      },
+      "label": {
+        "style": "art",
+        "motif": "halo",
+        "palette": [
+          [
+            40,
+            24,
+            70
+          ],
+          [
+            150,
+            112,
+            205
+          ],
+          [
+            255,
+            236,
+            250
+          ]
+        ],
+        "concentration": "EAU DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Konyak · Menekşe yaprağı · Bergamot"
+          ],
+          [
+            "HEART",
+            "İris · Misk tohumu · Mimoza"
+          ],
+          [
+            "BASE",
+            "Misk · Vanilya · Sandal · Vetiver"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Mood Canvas",
+      "sub": "Eau de Parfum",
+      "collection": "Duality Collection",
+      "family": "Oryantal baharatlı",
+      "year": 2024,
+      "perfumer": "Maïa Lernout",
+      "color": "#e0955a",
+      "ink": "#8a4a20",
+      "theme": {
+        "glow": "#8a4a20",
+        "edge": "#0c0503",
+        "drop": "#f5c898",
+        "mood": "cool"
+      },
+      "tagline": "Ruh halini bir tuvale boya.",
+      "notes": [
+        "Pembe biber",
+        "Kahve",
+        "Kakule",
+        "Tütsü",
+        "Karamel"
+      ],
+      "description": "Maïa Lernout'un fırçasından: pembe biber, kahve ve kakuleyle canlanan bir tuval, tütsü ve labdanumla derinleşir, karamel ve amberle sıcak bir tabloya dönüşür.",
+      "file": "mood-canvas.jpg",
+      "en": {
+        "family": "Oriental spicy",
+        "tagline": "Paint your mood on a canvas.",
+        "notes": [
+          "Pink pepper",
+          "Coffee",
+          "Cardamom",
+          "Incense",
+          "Caramel"
+        ],
+        "description": "From Maïa Lernout's brush: a canvas alive with pink pepper, coffee and cardamom deepens with incense and labdanum and becomes a warm painting of caramel and amber."
+      },
+      "label": {
+        "style": "art",
+        "motif": "strokes",
+        "palette": [
+          [
+            56,
+            28,
+            16
+          ],
+          [
+            196,
+            108,
+            48
+          ],
+          [
+            250,
+            222,
+            172
+          ]
+        ],
+        "concentration": "EAU DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Pembe biber · Kahve · Kakule · Papatya"
+          ],
+          [
+            "HEART",
+            "Tütsü · Labdanum"
+          ],
+          [
+            "BASE",
+            "Karamel · Amber · Sedir"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Neon Nights",
+      "sub": "Eau de Parfum",
+      "collection": "Duality Collection",
+      "family": "Meyveli çiçeksi",
+      "year": 2024,
+      "perfumer": null,
+      "color": "#ff78e0",
+      "ink": "#8a1a7a",
+      "theme": {
+        "glow": "#8a1a7a",
+        "edge": "#0a020c",
+        "drop": "#ffc0f2",
+        "mood": "cool"
+      },
+      "tagline": "Şehrin neon ışıkları altında.",
+      "notes": [
+        "Beyaz şarap",
+        "Şakayık",
+        "Böğürtlen",
+        "İris",
+        "Vanilya"
+      ],
+      "description": "Işıltılı ve hafif, kremsi bir karakter: beyaz şarap, şakayık ve böğürtlenle açılır, iris, manolya ve siyah çayla gece yarısına uzanır, vanilya ve miskle sabaha kalır.",
+      "file": "neon-nights.jpg",
+      "en": {
+        "family": "Fruity floral",
+        "tagline": "Under the city's neon lights.",
+        "notes": [
+          "White wine",
+          "Peony",
+          "Blackberry",
+          "Iris",
+          "Vanilla"
+        ],
+        "description": "Luminous, airy and creamy: it opens with white wine, peony and blackberry, stretches into midnight with iris, magnolia and black tea, and lasts till morning with vanilla and musk."
+      },
+      "label": {
+        "style": "art",
+        "motif": "neon",
+        "palette": [
+          [
+            20,
+            8,
+            40
+          ],
+          [
+            116,
+            20,
+            108
+          ],
+          [
+            255,
+            120,
+            230
+          ]
+        ],
+        "concentration": "EAU DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Beyaz şarap · Şakayık · Böğürtlen"
+          ],
+          [
+            "HEART",
+            "İris · Manolya · Siyah çay"
+          ],
+          [
+            "BASE",
+            "Vanilya · Amber · Misk · Vetiver"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Collithereum",
+      "sub": "Eau de Parfum",
+      "collection": "Duality Collection",
+      "family": "Odunsu aromatik",
+      "year": 2024,
+      "perfumer": null,
+      "color": "#6fd6c8",
+      "ink": "#1d6a66",
+      "theme": {
+        "glow": "#1d6a66",
+        "edge": "#020a0a",
+        "drop": "#bff0e8",
+        "mood": "cool"
+      },
+      "tagline": "Kutsal bir tepede deniz esintisi.",
+      "notes": [
+        "Servi",
+        "Greyfurt",
+        "Deniz yosunu",
+        "Tütsü",
+        "Vetiver"
+      ],
+      "description": "Servi, greyfurt ve deniz yosunuyla ferah bir açılış; tütsü, karabiber ve mürle kutsal bir sessizlik; vetiver, sedir ve amberle toprağa dönen bir iz.",
+      "file": "collithereum.jpg",
+      "en": {
+        "family": "Aromatic woody",
+        "tagline": "A sea breeze on a sacred hill.",
+        "notes": [
+          "Cypress",
+          "Grapefruit",
+          "Seaweed",
+          "Incense",
+          "Vetiver"
+        ],
+        "description": "A fresh opening of cypress, grapefruit and seaweed; a sacred silence of incense, black pepper and myrrh; a trail returning to earth with vetiver, cedar and amber."
+      },
+      "label": {
+        "style": "art",
+        "motif": "waves",
+        "palette": [
+          [
+            6,
+            30,
+            36
+          ],
+          [
+            28,
+            106,
+            106
+          ],
+          [
+            200,
+            245,
+            235
+          ]
+        ],
+        "concentration": "EAU DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Servi · Greyfurt · Deniz yosunu"
+          ],
+          [
+            "HEART",
+            "Tütsü · Karabiber · Mür"
+          ],
+          [
+            "BASE",
+            "Vetiver · Sedir · Paçuli · Amber"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Semazen",
+      "sub": "Extrait de Parfum",
+      "collection": "Duality Collection",
+      "family": "Aromatik fougère",
+      "year": 2024,
+      "perfumer": "Emilie Bouge",
+      "color": "#8fb0ff",
+      "ink": "#2a4a9a",
+      "theme": {
+        "glow": "#2a4a9a",
+        "edge": "#02040e",
+        "drop": "#dbe4ff",
+        "mood": "cool"
+      },
+      "tagline": "Sıcaktan serine dönen bir sema.",
+      "notes": [
+        "Pelin otu",
+        "Lavanta",
+        "Kakule",
+        "Nane",
+        "Tonka"
+      ],
+      "description": "Emilie Bouge imzalı Semazen sıcaktan serine döner: absint, pelin otu, kakule ve lavanta ferahlatır; guayak ve nane dönüşü hızlandırır; tonka, amber ve deri huzurla durdurur.",
+      "file": "semazen.jpg",
+      "en": {
+        "family": "Aromatic fougère",
+        "tagline": "A whirl from warm to cool.",
+        "notes": [
+          "Wormwood",
+          "Lavender",
+          "Cardamom",
+          "Mint",
+          "Tonka"
+        ],
+        "description": "Signed by Emilie Bouge, Semazen whirls from warm to cool: absinthe, wormwood, cardamom and lavender refresh; guaiac and mint quicken the turn; tonka, amber and leather bring it to rest."
+      },
+      "label": {
+        "style": "art",
+        "motif": "spiral",
+        "palette": [
+          [
+            10,
+            20,
+            60
+          ],
+          [
+            40,
+            70,
+            150
+          ],
+          [
+            245,
+            245,
+            255
+          ]
+        ],
+        "concentration": "EXTRAIT DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Absint · Lavanta · Kakule · Pelin"
+          ],
+          [
+            "HEART",
+            "Guayak · Nane · Paçuli · Sedir"
+          ],
+          [
+            "BASE",
+            "Tonka · Amber · Deri · Papirüs"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Immortal Shade",
+      "sub": "Extrait de Parfum",
+      "collection": "Duality Collection",
+      "family": "Amber tütün",
+      "year": 2024,
+      "perfumer": null,
+      "color": "#e0b060",
+      "ink": "#7a5418",
+      "theme": {
+        "glow": "#7a5418",
+        "edge": "#0a0602",
+        "drop": "#f2d8a0",
+        "mood": "cool"
+      },
+      "tagline": "Ölümsüz bir gölge, tütün ve rom.",
+      "notes": [
+        "Rom",
+        "Siyah çay",
+        "İris kökü",
+        "Tütün",
+        "Vanilya"
+      ],
+      "description": "Adaçayı, mür ve romla koyu bir açılış; siyah çay, iris kökü ve ölmez çiçekle derinleşen bir kalp; Madagaskar vanilyası, tütün ve sedirle bitmeyen bir gölge.",
+      "file": "immortal-shade.jpg",
+      "en": {
+        "family": "Amber tobacco",
+        "tagline": "An immortal shade of tobacco and rum.",
+        "notes": [
+          "Rum",
+          "Black tea",
+          "Orris root",
+          "Tobacco",
+          "Vanilla"
+        ],
+        "description": "A dark opening of clary sage, myrrh and rum; a heart deepened by black tea, orris root and immortelle; an endless shade of Madagascar vanilla, tobacco and cedar."
+      },
+      "label": {
+        "style": "art",
+        "motif": "smoke",
+        "palette": [
+          [
+            24,
+            16,
+            8
+          ],
+          [
+            108,
+            70,
+            20
+          ],
+          [
+            240,
+            200,
+            120
+          ]
+        ],
+        "concentration": "EXTRAIT DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Adaçayı · Mür · Rom · Bergamot"
+          ],
+          [
+            "HEART",
+            "Siyah çay · İris kökü · Ölmez çiçek"
+          ],
+          [
+            "BASE",
+            "Vanilya · Amber · Tütün · Sedir"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Satyr",
+      "sub": "Extrait de Parfum",
+      "collection": "Duality Collection",
+      "family": "Dumanlı deri",
+      "year": 2024,
+      "perfumer": "Angéline Leporini",
+      "color": "#9ad890",
+      "ink": "#2e6a36",
+      "theme": {
+        "glow": "#2e6a36",
+        "edge": "#020a04",
+        "drop": "#d4f2c8",
+        "mood": "cool"
+      },
+      "tagline": "Mitolojiden gelen dumanlı bir çağrı.",
+      "notes": [
+        "Kenevir",
+        "Zencefil",
+        "Günlük",
+        "Deri",
+        "Sandal"
+      ],
+      "description": "Angéline Leporini imzalı Satyr klasik kompozisyonlardan ilham alır: dumanlı bir kenevir akoru, kremsi sandal ağacı ve amberli derinin ikili arka planıyla yumuşar.",
+      "file": "satyr.jpg",
+      "en": {
+        "family": "Smoky leather",
+        "tagline": "A smoky call from mythology.",
+        "notes": [
+          "Cannabis",
+          "Ginger",
+          "Olibanum",
+          "Leather",
+          "Sandalwood"
+        ],
+        "description": "Signed by Angéline Leporini, Satyr draws on classic compositions: a smoky cannabis accord softened by a dual background of creamy sandalwood and ambery leather."
+      },
+      "label": {
+        "style": "art",
+        "motif": "smoke",
+        "palette": [
+          [
+            10,
+            24,
+            14
+          ],
+          [
+            40,
+            88,
+            50
+          ],
+          [
+            190,
+            240,
+            170
+          ]
+        ],
+        "concentration": "EXTRAIT DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Kenevir · Zencefil · Lavanta · Pembe biber"
+          ],
+          [
+            "HEART",
+            "Günlük · Duman · Deri · Paçuli"
+          ],
+          [
+            "BASE",
+            "Vetiver · Sandal · Misk · Sedir"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Clean Slate",
+      "sub": "Extrait de Parfum",
+      "collection": "Duality Collection",
+      "family": "Deri aromatik",
+      "year": 2024,
+      "perfumer": "Emilie Bouge",
+      "color": "#d8d0c0",
+      "ink": "#6a6456",
+      "theme": {
+        "glow": "#6a6456",
+        "edge": "#080706",
+        "drop": "#f2ece0",
+        "mood": "cool"
+      },
+      "tagline": "Temiz bir sayfa, taze mürekkep.",
+      "notes": [
+        "Absint",
+        "Mürekkep",
+        "Lavanta",
+        "Viski",
+        "Papirüs"
+      ],
+      "description": "Kunduzun deri sıcaklığı, lavanta ve baharatın mineral ferahlığıyla karşı karşıya: papirüs ve paçulinin toprak dokunuşuyla yeniden başlamak için temiz bir sayfa.",
+      "file": "clean-slate.jpg",
+      "en": {
+        "family": "Aromatic leather",
+        "tagline": "A clean slate, fresh ink.",
+        "notes": [
+          "Absinthe",
+          "Ink",
+          "Lavender",
+          "Whiskey",
+          "Papyrus"
+        ],
+        "description": "The leathery warmth of castoreum against the mineral freshness of lavender and spice: a clean slate to begin again, with papyrus and an earthy touch of patchouli."
+      },
+      "label": {
+        "style": "art",
+        "motif": "ink",
+        "palette": [
+          [
+            238,
+            232,
+            220
+          ],
+          [
+            196,
+            186,
+            168
+          ],
+          [
+            20,
+            18,
+            22
+          ]
+        ],
+        "concentration": "EXTRAIT DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Absint · Mürekkep · Tütsü · Mavi lavanta"
+          ],
+          [
+            "HEART",
+            "Huş · Vetiver · Guayak · Viski"
+          ],
+          [
+            "BASE",
+            "Papirüs · Deri · Kunduz · Paçuli"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Tell Something",
+      "sub": "Extrait de Parfum",
+      "collection": "Duality Collection",
+      "family": "Deniz odunsu",
+      "year": 2024,
+      "perfumer": null,
+      "color": "#7fc0f0",
+      "ink": "#235e8e",
+      "theme": {
+        "glow": "#235e8e",
+        "edge": "#02060c",
+        "drop": "#cfe8fa",
+        "mood": "cool"
+      },
+      "tagline": "Bir şey söyle; kâğıda, denize.",
+      "notes": [
+        "Mürekkep",
+        "Aldehit",
+        "Deniz notaları",
+        "Gül",
+        "Kâğıt"
+      ],
+      "description": "Mürekkep, aquozone ve aldehitlerle başlayan bir mektup; deniz, deri ve gülle yazılan satırlar; kâğıt, deniz odunu ve amberle mühürlenen bir sır.",
+      "file": "tell-something.jpg",
+      "en": {
+        "family": "Marine woody",
+        "tagline": "Tell something, to paper and sea.",
+        "notes": [
+          "Ink",
+          "Aldehydes",
+          "Marine notes",
+          "Rose",
+          "Paper"
+        ],
+        "description": "A letter beginning with ink, aquozone and aldehydes; lines written in sea, leather and rose; a secret sealed with paper, driftwood and amber."
+      },
+      "label": {
+        "style": "art",
+        "motif": "letters",
+        "palette": [
+          [
+            14,
+            34,
+            60
+          ],
+          [
+            58,
+            118,
+            168
+          ],
+          [
+            235,
+            245,
+            255
+          ]
+        ],
+        "concentration": "EXTRAIT DE PARFUM",
+        "collection": "DUALITY",
+        "place": "DUALITY COLLECTION",
+        "scene": "none",
+        "plate": "gold",
+        "pyramid": [
+          [
+            "TOP",
+            "Mürekkep · Aquozone · Aldehit"
+          ],
+          [
+            "HEART",
+            "Deniz · Deri · Gül · Otlar"
+          ],
+          [
+            "BASE",
+            "Kâğıt · Deniz odunu · Amber"
+          ]
+        ]
+      }
+    }
+  ],
+  "specs": {
+    "tr": "Duality Collection · 100 ml",
+    "en": "Duality Collection · 100 ml"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": 0.1,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Madde ve ruh",
+        "kicker": "İki",
+        "struck": "Tek boyutlu",
+        "title": "Madde ve ruh",
+        "text": "Duality koleksiyonu madde ile ruhun ikiliğini anlatır: beş Eau de Parfum, beş Extrait de Parfum, on ayrı tema."
+      },
+      "en": {
+        "short": "Matter and spirit",
+        "kicker": "Two",
+        "struck": "One-dimensional",
+        "title": "Matter and spirit",
+        "text": "The Duality Collection tells the duality of matter and spirit: five eaux de parfum, five extraits, ten themes."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.1,
+        "scale": 2.1
+      },
+      "tr": {
+        "short": "Dijital sanat",
+        "kicker": "Sanat",
+        "struck": "Sıradan bir etiket",
+        "title": "Taşınabilir bir sanat eseri",
+        "text": "Her koku, dijital sanatçı Cihan Engin'in o tema için çizdiği bir illüstrasyonla doğar. Şişeyi taşımak, bir eseri taşımak demek."
+      },
+      "en": {
+        "short": "Digital art",
+        "kicker": "Art",
+        "struck": "An ordinary label",
+        "title": "A work of art to carry",
+        "text": "Every scent is born with an illustration drawn for its theme by digital artist Cihan Engin. Carrying the bottle means carrying an artwork."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": 0.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Koku piramidi",
+        "kicker": "Üç",
+        "struck": "Tek boyutlu koku",
+        "title": "Öbür yüz",
+        "text": "Şişeyi çevir: arka yüzde eserin ters renkli ikizi ve üst, kalp, taban notaları. Ön yüz madde, arka yüz ruh."
+      },
+      "en": {
+        "short": "Scent pyramid",
+        "kicker": "Three",
+        "struck": "A one-note scent",
+        "title": "The other side",
+        "text": "Turn the bottle: the back carries the artwork's inverted twin and the top, heart and base notes. The front is matter, the back is spirit."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.5,
+        "rotZ": 0.02,
+        "y": -2.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Parfümörler",
+        "kicker": "Usta",
+        "struck": "Seri üretim",
+        "title": "Sınırsız özgürlük",
+        "text": "Parfümörlere ve sanatçılara sınırsız yaratıcı özgürlük: Nathalie Feisthauer, Emilie Bouge, Maïa Lernout, Angéline Leporini, Jérôme di Marino ve Koray Sevinç."
+      },
+      "en": {
+        "short": "Perfumers",
+        "kicker": "Master",
+        "struck": "Mass production",
+        "title": "Unlimited freedom",
+        "text": "Unlimited creative freedom for perfumers and artists: Nathalie Feisthauer, Emilie Bouge, Maïa Lernout, Angéline Leporini, Jérôme di Marino and Koray Sevinç."
+      }
+    }
+  ],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Eserini seç",
+        "text": "On tema, on ruh hali. Önce hangi görselin seni çağırdığına bak, sonra kokusuna.",
+        "stat": "10 eser"
+      },
+      "en": {
+        "title": "Choose your work",
+        "text": "Ten themes, ten moods. First see which artwork calls you, then its scent.",
+        "stat": "10 works"
+      }
+    },
+    {
+      "flavor": 5,
+      "tr": {
+        "title": "Yoğunluğu seç",
+        "text": "Günün hafifliği için Eau de Parfum, gecenin derinliği için Extrait de Parfum.",
+        "stat": "EDP · Extrait"
+      },
+      "en": {
+        "title": "Choose the intensity",
+        "text": "Eau de Parfum for the lightness of the day, Extrait de Parfum for the depth of the night.",
+        "stat": "EDP · Extrait"
+      }
+    },
+    {
+      "flavor": 8,
+      "tr": {
+        "title": "İzini bırak",
+        "text": "Nabız noktalarına iki sıkım; bırak koku kendi hikâyesini anlatsın.",
+        "stat": "2 sıkım"
+      },
+      "en": {
+        "title": "Leave your trail",
+        "text": "Two sprays on the pulse points; let the scent tell its own story.",
+        "stat": "2 sprays"
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 10,
+      "label": {
+        "tr": "Seyahat",
+        "en": "Travel"
+      }
+    },
+    {
+      "size": 50,
+      "label": {
+        "tr": "Günlük",
+        "en": "Everyday"
+      }
+    },
+    {
+      "size": 100,
+      "label": {
+        "tr": "En popüler",
+        "en": "Most popular"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "10": 1790,
+        "50": 6900,
+        "100": 10900
+      },
+      "freeShipping": 5000,
+      "shipping": 99.9
+    },
+    "en": {
+      "currency": "USD",
+      "locale": "en-US",
+      "packs": {
+        "10": 45,
+        "50": 159,
+        "100": 249
+      },
+      "freeShipping": 150,
+      "shipping": 9.9
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "stockists": {
+    "tr": [
+      [
+        "Milano",
+        "Esxence 2024 · Duality koleksiyonunun tanıtımı",
+        "Fuar"
+      ],
+      [
+        "Uluslararası",
+        "Silloria, BeautyLIV, Parfum Le Dance ve seçkin niş parfümeriler",
+        "Açık"
+      ],
+      [
+        "Online",
+        "Resmi web sitesi",
+        "Online"
+      ],
+      [
+        "Türkiye",
+        "Seven Gates",
+        "Açık"
+      ]
+    ],
+    "en": [
+      [
+        "Milan",
+        "Esxence 2024 · Duality Collection showcase",
+        "Fair"
+      ],
+      [
+        "International",
+        "Silloria, BeautyLIV, Parfum Le Dance and selected niche perfumeries",
+        "Open"
+      ],
+      [
+        "Online",
+        "Official website",
+        "Online"
+      ],
+      [
+        "Türkiye",
+        "Seven Gates",
+        "Open"
+      ]
+    ]
+  },
+  "story": {
+    "founder": "Muhip Önal · Berkan Başoğlu",
+    "instagram": null,
+    "website": null,
+    "press": [
+      "Esxence Milano",
+      "Fragrantica",
+      "Basenotes",
+      "Parfumo",
+      "BeautyLIV"
+    ],
+    "tr": {
+      "lead": "Duyguları harekete geçiren sanat eserleri, en kaliteli hammaddeleri hak eder.",
+      "paragraphs": [
+        "Seven Gates, 2021'de Muhip Önal tarafından kurulan bir Türk niş parfüm evi. İlhamını modern sanattan ve toplumsal biçimlenmelerden alıyor; amacı dijital sanatı ve koku deneyimini tek bir bütünde buluşturmak.",
+        "Kreatif direktörler Berkan Başoğlu ve Muhip Önal, Duality koleksiyonu için dijital sanatçı Cihan Engin'le on tema çizdi. Her görselin hikâyesini anlatan kokuları, sınırsız yaratıcı özgürlükle dünyaca tanınan parfümörler tasarladı."
+      ],
+      "timeline": [
+        [
+          "2021",
+          "Seven Gates, Muhip Önal tarafından kuruluyor"
+        ],
+        [
+          "2024",
+          "Duality koleksiyonu Esxence Milano'da: 10 koku, 10 eser"
+        ],
+        [
+          "Bugün",
+          "Avrupa ve ABD'de seçkin niş parfümerilerde"
+        ]
+      ],
+      "stats": [
+        [
+          "10",
+          "koku, 10 eser"
+        ],
+        [
+          "2",
+          "yoğunluk: EDP ve Extrait"
+        ],
+        [
+          "7",
+          "parfümör"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Works of art that stir emotions deserve the finest raw materials.",
+      "paragraphs": [
+        "Seven Gates is a Turkish niche perfume house founded by Muhip Önal in 2021. Inspired by modern art and social formations, it aims to bring digital art and the fragrance experience together as one.",
+        "For the Duality Collection, creative directors Berkan Başoğlu and Muhip Önal worked with digital artist Cihan Engin on ten themes. The scents telling each artwork's story were created by world-renowned perfumers with unlimited creative freedom."
+      ],
+      "timeline": [
+        [
+          "2021",
+          "Seven Gates is founded by Muhip Önal"
+        ],
+        [
+          "2024",
+          "The Duality Collection at Esxence Milan: 10 scents, 10 artworks"
+        ],
+        [
+          "Today",
+          "In selected niche perfumeries across Europe and the US"
+        ]
+      ],
+      "stats": [
+        [
+          "10",
+          "scents, 10 artworks"
+        ],
+        [
+          "2",
+          "concentrations: EDP and Extrait"
+        ],
+        [
+          "7",
+          "perfumers"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Duality koleksiyonu nedir?",
+        "Madde ile ruhun ikiliğini anlatan on kokuluk koleksiyon: beş Eau de Parfum ve beş Extrait de Parfum. Her koku, Cihan Engin'in çizdiği bir temayla eşleşir."
+      ],
+      [
+        "Eau de Parfum ile Extrait de Parfum farkı ne?",
+        "Extrait daha yüksek esans oranıyla daha yoğun ve kalıcıdır; Eau de Parfum daha hafif ve ferahtır. Koleksiyonda her ikisinden beşer koku var."
+      ],
+      [
+        "Kokuları kimler yarattı?",
+        "Nathalie Feisthauer, Emilie Bouge, Maïa Lernout, Angéline Leporini, Jérôme di Marino ve Koray Sevinç gibi dünyaca tanınan parfümörler."
+      ],
+      [
+        "Hangi kokuyu seçmeliyim?",
+        "Temiz ve dijital için Artificial Intelligence, pudralı ve zarif için Heroine, baharatlı ve sıcak için Mood Canvas, meyveli ve ışıltılı için Neon Nights, ferah ve odunsu için Collithereum; yoğun bir iz için Extrait'ler: Semazen, Immortal Shade, Satyr, Clean Slate, Tell Something."
+      ],
+      [
+        "Şişelerdeki görseller kimin?",
+        "Koleksiyonun illüstrasyonları dijital sanatçı Cihan Engin'e ait. Bu demodaki görseller geçici çizimlerdir; projede orijinal eserler kullanılacaktır."
+      ],
+      [
+        "Kargo ve hediye paketi nasıl işliyor?",
+        "Bu demo sayfada örnek akış gösteriliyor: aynı gün kargo, ücretsiz hediye kutusu ve el yazısı not. Gerçek koşullar markayla birlikte belirlenecek."
+      ]
+    ],
+    "en": [
+      [
+        "What is the Duality Collection?",
+        "A ten-scent collection on the duality of matter and spirit: five eaux de parfum and five extraits. Each scent pairs with a theme drawn by Cihan Engin."
+      ],
+      [
+        "What's the difference between EDP and Extrait?",
+        "Extrait has a higher perfume oil concentration, so it's denser and longer-lasting; Eau de Parfum is lighter and airier. The collection has five of each."
+      ],
+      [
+        "Who created the scents?",
+        "World-renowned perfumers including Nathalie Feisthauer, Emilie Bouge, Maïa Lernout, Angéline Leporini, Jérôme di Marino and Koray Sevinç."
+      ],
+      [
+        "Which scent should I choose?",
+        "Artificial Intelligence for clean and digital, Heroine for powdery and elegant, Mood Canvas for spicy and warm, Neon Nights for fruity and luminous, Collithereum for fresh and woody; for a deep trail, the extraits: Semazen, Immortal Shade, Satyr, Clean Slate, Tell Something."
+      ],
+      [
+        "Whose artworks are on the bottles?",
+        "The collection's illustrations are by digital artist Cihan Engin. The visuals in this demo are placeholders; the project will use the original works."
+      ],
+      [
+        "How do shipping and gift wrapping work?",
+        "This demo shows a sample flow: same-day dispatch, a free gift box and a handwritten note. Real terms will be set with the brand."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Kapılar açılıyor",
+      "madeFor": "Seven Gates için hazırlanmış konsept",
+      "whereTag": "Milano'dan dünyaya, yedi kapıdan biri.",
+      "recyclable": "Türkiye'de tasarlanır",
+      "founder": "Kurucu ve kreatif direktörler",
+      "contactTag": "Butik, galeri ve sanat iş birlikleri için.",
+      "newsTitle": "Yeni kapılar önce burada açılır.",
+      "marquee": [
+        "Art you can wear",
+        "Madde ve ruh",
+        "Duality Collection",
+        "10 koku, 10 eser",
+        "Esxence Milano 2024",
+        "Eau de Parfum · Extrait de Parfum"
+      ],
+      "slogan": "Art you can wear."
+    },
+    "en": {
+      "loading": "Opening the gates",
+      "madeFor": "A concept made for Seven Gates",
+      "whereTag": "From Milan to the world, one of seven gates.",
+      "recyclable": "Designed in Türkiye",
+      "founder": "Founder and creative directors",
+      "contactTag": "For boutiques, galleries and art collaborations.",
+      "newsTitle": "New gates open here first.",
+      "marquee": [
+        "Art you can wear",
+        "Matter and spirit",
+        "Duality Collection",
+        "10 scents, 10 artworks",
+        "Esxence Milan 2024",
+        "Eau de Parfum · Extrait de Parfum"
+      ],
+      "slogan": "Art you can wear."
+    }
+  }
+}

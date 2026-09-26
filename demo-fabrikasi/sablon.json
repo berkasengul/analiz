@@ -801,7 +801,8 @@
         "Hiç uyumayan şehirden",
         "Extrait de Parfum · %30",
         "Esxence Milano 2024"
-      ]
+      ],
+      "slogan": "Marka sloganı."
     },
     "en": {
       "loading": "Distilling the essence",
@@ -819,7 +820,8 @@
         "From the city that never sleeps",
         "Extrait de Parfum · 30%",
         "Esxence Milan 2024"
-      ]
+      ],
+      "slogan": "Brand slogan."
     }
   }
 }
