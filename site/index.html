@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Football Pulse</title>
+<meta name="description" content="Futbolun nabzı 60 saniyede — Football Pulse Shorts kanalı.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js",
+    "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js"
+  }
+}
+</script>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <div class="loader__ring"></div>
+    <span class="loader__txt">PULSE</span>
+  </div>
+
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="nav__logo" href="#top"><span class="dot"></span>FOOTBALL<b>PULSE</b></a>
+    <nav class="nav__links">
+      <a href="#stats">Rakamlar</a>
+      <a href="#videos">Videolar</a>
+      <a href="#why">Neden Pulse</a>
+    </nav>
+    <a class="btn btn--sm" href="https://www.youtube.com/" target="_blank" rel="noopener">Abone Ol</a>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero panel" data-scene="hero">
+      <p class="eyebrow reveal">Dünya Kupası 2026 · Shorts</p>
+      <h1 class="hero__title">
+        <span class="line"><span class="reveal">FUTBOLUN</span></span>
+        <span class="line"><span class="reveal fire">NABZI</span></span>
+        <span class="line"><span class="reveal outline">60 SANİYEDE</span></span>
+      </h1>
+      <p class="hero__sub reveal">Şok sonuçlar, efsane goller ve inanılmaz rekorlar — kaydırmadan önce 3 saniye yeter.</p>
+      <div class="hero__cta reveal">
+        <a class="btn" href="https://www.youtube.com/" target="_blank" rel="noopener">Kanalı İzle <span>→</span></a>
+        <a class="btn btn--ghost" href="#videos">Son Videolar</a>
+      </div>
+      <div class="scroll-hint"><span></span>Kaydır</div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>GOL</span><i>✦</i><span>REKOR</span><i>✦</i><span>ŞOK SONUÇ</span><i>✦</i><span>DÜNYA KUPASI</span><i>✦</i><span>TRANSFER</span><i>✦</i>
+        <span>GOL</span><i>✦</i><span>REKOR</span><i>✦</i><span>ŞOK SONUÇ</span><i>✦</i><span>DÜNYA KUPASI</span><i>✦</i><span>TRANSFER</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <section class="stats panel panel--right" id="stats" data-scene="stats">
+      <div class="panel__inner">
+        <p class="eyebrow reveal">Son 28 gün</p>
+        <h2 class="h2 reveal">Enerji<br><span class="fire">yükseliyor.</span></h2>
+        <div class="stat-grid">
+          <div class="stat reveal"><b data-count="890">0</b><span>Abone</span></div>
+          <div class="stat reveal"><b data-count="3400" data-suffix="+">0</b><span>Görüntüleme</span></div>
+          <div class="stat reveal"><b data-count="10.5" data-decimals="1">0</b><span>Saat izlenme</span></div>
+          <div class="stat reveal"><b data-count="937">0</b><span>En iyi video / 48s</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="videos panel panel--left" id="videos" data-scene="videos">
+      <div class="panel__inner">
+        <p class="eyebrow reveal">En çok izlenenler</p>
+        <h2 class="h2 reveal">Sahada<br><span class="fire">ne var?</span></h2>
+        <ol class="cards">
+          <li class="card reveal">
+            <span class="card__rank">01</span>
+            <div><h3>3 Saniyede Hayatını Değiştiren Sağlıklı Yaşam Sırları! ✨💧</h3><p>937 görüntüleme</p></div>
+          </li>
+          <li class="card reveal">
+            <span class="card__rank">02</span>
+            <div><h3>ŞOK BAŞLANGIÇ! 🇹🇷 Milli Takım Mağlup! Brezilya Berabere!</h3><p>908 görüntüleme</p></div>
+          </li>
+          <li class="card reveal">
+            <span class="card__rank">03</span>
+            <div><h3>🤯 YOK ARTIK DEDİRTECEK DÜNYA REKORLARI! 🚀</h3><p>561 görüntüleme</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="why panel panel--right" id="why" data-scene="why">
+      <div class="panel__inner">
+        <p class="eyebrow reveal">Formül</p>
+        <h2 class="h2 reveal">Neden<br><span class="fire">Pulse?</span></h2>
+        <ul class="features">
+          <li class="reveal"><b>2 sn</b><span>Hook — ilk kare soru ya da şokla başlar.</span></li>
+          <li class="reveal"><b>1080×1920</b><span>Tam dikey, altyazılı, sessizde bile anlaşılır.</span></li>
+          <li class="reveal"><b>3–5 / hafta</b><span>Düzenli yayın takvimi, trend ses ve hashtag.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="final panel" data-scene="final">
+      <h2 class="final__title">
+        <span class="line"><span class="reveal">OYUNA</span></span>
+        <span class="line"><span class="reveal fire">KATIL</span></span>
+      </h2>
+      <p class="hero__sub reveal">Bir sonraki şok sonucu ilk sen gör.</p>
+      <a class="btn btn--xl reveal" href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube'da Abone Ol <span>→</span></a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© 2026 Football Pulse</span>
+    <span>Futbolun nabzı, 60 saniyede.</span>
+  </footer>
+
+  <script>
+    // If the 3D bundle can't load (offline / blocked CDN), still show the page.
+    setTimeout(() => document.getElementById("loader").classList.add("is-done"), 4000);
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
