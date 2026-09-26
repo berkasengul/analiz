@@ -1,16 +1,19 @@
 import { Color, MeshPhysicalMaterial } from "three";
 import { noise } from "./Noise";
 
-// Kutunun gövde malzemesi. Orijinal dokudaki siyah zemin tat rengine,
-// açık renkli yazılar `ink` rengine boyanır. İki renk arasında Codrops
-// projesindeki gürültülü dikey geçiş (u_progress 0.5 → 1) çalışır.
+// Kutunun baskı malzemesi. Her tadın kendi tam renkli etiket görseli var
+// (`flavor.texture`). Tat değişirken iki etiket arasında Codrops projesindeki
+// gürültülü dikey geçiş (u_progress 0.5 → 1) çalışır. u_color1/u_color2
+// etiketi parlatmak için çarpan (normalde beyaz = 1).
 export function createCanUniforms(flavor) {
   return {
     u_time: { value: 0 },
-    u_color1: { value: new Color(flavor.color) },
-    u_color2: { value: new Color(flavor.color) },
-    u_ink1: { value: new Color(flavor.ink) },
-    u_ink2: { value: new Color(flavor.ink) },
+    u_map1: { value: flavor.texture },
+    u_map2: { value: flavor.texture },
+    u_color1: { value: new Color(1, 1, 1) },
+    u_color2: { value: new Color(1, 1, 1) },
+    u_ink1: { value: new Color() },
+    u_ink2: { value: new Color() },
     u_progress: { value: 0.5 },
     u_dim: { value: 1 },
     u_width: { value: 0.8 },
@@ -20,28 +23,21 @@ export function createCanUniforms(flavor) {
 }
 
 export function setCanFlavor(uniforms, flavor) {
-  uniforms.u_color1.value.set(flavor.color);
-  uniforms.u_color2.value.set(flavor.color);
-  uniforms.u_ink1.value.set(flavor.ink);
-  uniforms.u_ink2.value.set(flavor.ink);
+  uniforms.u_map1.value = flavor.texture;
+  uniforms.u_map2.value = flavor.texture;
+  uniforms.u_color1.value.setScalar(1);
+  uniforms.u_color2.value.setScalar(1);
   uniforms.u_progress.value = 0.5;
 }
 
-// Modelin dokularını vernikli (clearcoat) bir malzemeye taşır; kutular
-// referanstaki gibi keskin beyaz parlamalar alır.
+// Metalik, vernikli kutu baskısı.
 export function createCanMaterial(base, uniforms) {
   const material = new MeshPhysicalMaterial({
     map: base.map,
-    normalMap: base.normalMap,
-    normalScale: base.normalScale,
-    aoMap: base.aoMap,
-    metalnessMap: base.metalnessMap,
-    roughnessMap: base.roughnessMap,
-    side: base.side,
-    metalness: 0.05,
-    roughness: 0.42,
-    clearcoat: 0.6,
-    clearcoatRoughness: 0.12,
+    metalness: 0.55,
+    roughness: 0.26,
+    clearcoat: 1,
+    clearcoatRoughness: 0.08,
     envMapIntensity: 1.35,
   });
 
@@ -58,10 +54,10 @@ export function createCanMaterial(base, uniforms) {
         #include <common>
 
         uniform float u_time;
+        uniform sampler2D u_map1;
+        uniform sampler2D u_map2;
         uniform vec3 u_color1;
         uniform vec3 u_color2;
-        uniform vec3 u_ink1;
-        uniform vec3 u_ink2;
         uniform float u_progress;
         uniform float u_dim;
         uniform float u_width;
@@ -81,29 +77,24 @@ export function createCanMaterial(base, uniforms) {
     shader.fragmentShader = shader.fragmentShader.replace(
       "#include <map_fragment>",
       /* glsl */ `
-        #include <map_fragment>
-
-        float lum = dot(diffuseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
-        float inkMask = smoothstep(0.04, 0.3, lum);
-
         // Gürültü yalnızca geçiş sırasında hesaplanır; durağan kutular ucuz kalır.
         float mask = 0.;
         if (u_progress > 0.501) {
           float dt = parabola(u_progress, 1.);
           float n = 0.5 * (cnoise(vec4(vCanUv.x * u_scaleX + 0.5 * u_time / 3., vCanUv.y * u_scaleY, 0.5 * u_time / 3., 0.)) + 1.);
           float w = u_width * dt;
-          float maskValue = smoothstep(1. - w, 1., vCanUv.y + mix(-w / 2., 1. - w / 2., u_progress));
+          float maskValue = smoothstep(1. - w, 1., (1. - vCanUv.y) + mix(-w / 2., 1. - w / 2., u_progress));
           maskValue += maskValue * n;
           mask = smoothstep(1., 1.01, maskValue);
         }
 
-        vec3 body = mix(u_color1, u_color2, mask);
-        vec3 ink = mix(u_ink1, u_ink2, mask);
-        diffuseColor.rgb = mix(body, ink, inkMask) * u_dim;
+        vec3 c1 = texture2D(u_map1, vCanUv).rgb * u_color1;
+        vec3 c2 = texture2D(u_map2, vCanUv).rgb * u_color2;
+        diffuseColor.rgb = mix(c1, c2, mask) * u_dim;
       `
     );
   };
-  material.customProgramCacheKey = () => "blazing-can";
+  material.customProgramCacheKey = () => "tcl-can";
   material.userData.uniforms = uniforms;
   return material;
 }

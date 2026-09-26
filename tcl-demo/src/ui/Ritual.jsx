@@ -3,7 +3,7 @@ import { useStore } from "../store";
 
 const pad = (n) => String(n).padStart(2, "0");
 
-// Sabitlenen bölüm: kaydırdıkça üç adım sırayla gelir, şişe sağda poz değiştirir.
+// Sabitlenen bölüm: kaydırdıkça üç adım sırayla gelir, kutu sağda poz değiştirir.
 export default function Ritual() {
   const step = useStore((s) => s.ritualStep);
   const r = ritual[step];
@@ -19,7 +19,7 @@ export default function Ritual() {
             <p className="ritual__desc">{r.text}</p>
             <p className="mono ritual__can">
               <i className="dot" style={{ background: flavors[r.flavor].color }} />
-              Şişede: {flavors[r.flavor].name}
+              Kutuda: {flavors[r.flavor].name}
             </p>
           </div>
           <ol className="ritual__progress" aria-label="Adımlar">

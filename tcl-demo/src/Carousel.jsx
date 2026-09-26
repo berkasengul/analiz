@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils } from "three";
+import { MathUtils } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -45,7 +45,7 @@ export default function Carousel() {
     () => flavors.map((f) => createCanMaterial(canBody, createCanUniforms(f))),
     [canBody]
   );
-  // Her şişenin kendi cam/kahve/kapak malzemesi var; detay açılınca tek tek karartılır.
+  // Her kutunun kendi alüminyumu var; detay açılınca tek tek karartılır.
   const parts = useMemo(() => flavors.map((f) => createBottleParts(f)), []);
 
   // Bu bileşen render edildiyse model ve doku yüklenmiştir.
@@ -68,7 +68,7 @@ export default function Carousel() {
     const u = bodies[i].userData.uniforms;
     const f = flavors[i];
     setCanFlavor(u, f);
-    u.u_color1.value.set(f.color).lerp(new Color("#ffffff"), 0.5);
+    u.u_color1.value.setScalar(1.8);
     animate(0.5, 1, {
       duration: 1.2,
       ease: easeQuadOut,

@@ -5,7 +5,7 @@ import { shopFlavorOf, useStore } from "../store";
 import { Minus, Plus } from "../Icons";
 
 // Paketini oluştur: tat, paket boyutu ve abonelik seçimi. Seçilen tat
-// sağdaki 3B şişede gürültülü geçişle görünür.
+// sağdaki 3B kutuda gürültülü geçişle görünür.
 export default function Shop() {
   const flavor = useStore(shopFlavorOf);
   const pack = useStore((s) => s.shopPack);
@@ -63,8 +63,8 @@ export default function Shop() {
                 onClick={() => setShop({ shopPack: p.size })}
               >
                 <span className="pack__size">{p.size}</span>
-                <span className="pack__cans mono">şişe</span>
-                <span className="pack__per">Şişe başı {money(packPrice(p.size, plan) / p.size)}</span>
+                <span className="pack__cans mono">kutu</span>
+                <span className="pack__per">Kutu başı {money(packPrice(p.size, plan) / p.size)}</span>
                 <span className="pack__label mono">{p.label}</span>
               </button>
             ))}
@@ -95,7 +95,7 @@ export default function Shop() {
             <span className="price__now">{money(unit * qty)}</span>
             {plan === "sub" && <s className="price__was">{money(full * qty)}</s>}
             <span className="price__per mono">
-              {packLabel(pack)} paket · şişe başı {money(perCan)}
+              {packLabel(pack)} paket · kutu başı {money(perCan)}
             </span>
           </div>
           <div className="qty" aria-label="Adet">

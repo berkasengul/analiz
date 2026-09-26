@@ -151,7 +151,7 @@ export default function DetailPanel() {
         })}
       </ul>
 
-      <p className="drag-hint mono">Şişeyi çevirmek için sürükle</p>
+      <p className="drag-hint mono">Kutuyu çevirmek için sürükle</p>
     </div>
   );
 }

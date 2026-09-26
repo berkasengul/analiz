@@ -27,7 +27,7 @@ export default function FlavorHud() {
         </button>
         <p className="tagline hud__tagline" key={f.tagline}>{f.tagline}</p>
         <button className="hud__cta mono" onClick={openDetail}>
-          Şişeyi keşfet
+          Kutuyu keşfet
         </button>
       </div>
 

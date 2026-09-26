@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils } from "three";
+import { MathUtils } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -75,7 +75,6 @@ function detailPose(feature, wide, time, turn) {
 export default function HeroCan() {
   const canBody = useCanBody();
   const parts = useMemo(() => createBottleParts(flavors[0]), []);
-  const liquidTarget = useMemo(() => new Color(), []);
   const size = useThree((s) => s.size);
 
   const uniforms = useMemo(() => createCanUniforms(flavors[0]), []);
@@ -130,7 +129,9 @@ export default function HeroCan() {
     }
     uniforms.u_color1.value.copy(uniforms.u_color2.value);
     uniforms.u_ink1.value.copy(uniforms.u_ink2.value);
-    uniforms.u_color2.value.set(f.color);
+    uniforms.u_color2.value.setScalar(1);
+    uniforms.u_map1.value = uniforms.u_map2.value;
+    uniforms.u_map2.value = f.texture;
     uniforms.u_ink2.value.set(f.ink);
     s.controls = animate(0.5, 1, {
       duration: 1.1,
@@ -145,7 +146,7 @@ export default function HeroCan() {
     const f = flavors[s.target];
     s.controls?.stop();
     setCanFlavor(uniforms, f);
-    uniforms.u_color1.value.set(f.color).lerp(new Color("#ffffff"), 0.45);
+    uniforms.u_color1.value.setScalar(1.8);
     uniforms.u_ink1.value.set(f.ink);
     s.controls = animate(0.5, 1, {
       delay: 0.35,
@@ -189,8 +190,7 @@ export default function HeroCan() {
     light.target.updateMatrixWorld();
     // Ortam yansımaları azalır ki spot ışığın kontrastı öne çıksın.
     body.envMapIntensity = 1.35 - 0.75 * s.spot;
-    parts.cap.envMapIntensity = 1.3 - 0.7 * s.spot;
-    parts.glass.envMapIntensity = 2.2 - 1.2 * s.spot;
+    parts.metal.envMapIntensity = 1.3 - 0.7 * s.spot;
     // Detay açılınca kutunun yüzeyinden açık renkli bir ışık süpürmesi geçer.
     if (st.detail && !s.wasDetail) sweep();
     s.wasDetail = st.detail;
@@ -213,9 +213,6 @@ export default function HeroCan() {
     }
     if (want !== s.target) showFlavor(want, visible);
     sceneState.heroFlavor = want;
-    // Şişedeki kahvenin tonu da tata göre yumuşakça değişir.
-    liquidTarget.set(flavors[s.target].liquid);
-    parts.liquid.color.lerp(liquidTarget, 1 - Math.exp(-4 * dt));
     if (!visible) return;
 
     const wide = size.width / size.height >= 0.9;

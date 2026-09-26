@@ -4,7 +4,7 @@ import { faqs, stockists } from "../data";
 import { brand } from "../brand";
 
 export function Marquee() {
-  const words = ["Şişede Türk kahvesi", "Beş şehir, beş tat", "500 yıllık gelenek", "Dijital fal", "Soğuk iç", "Kırk yıl hatır"];
+  const words = ["Buzlu Türk kahvesi", "Beş şehir, beş tat", "500 yıllık gelenek", "Dijital fal", "Soğuk iç", "Kırk yıl hatır"];
   const row = [...words, ...words];
   return (
     <div className="marquee" aria-hidden="true">
@@ -145,7 +145,7 @@ export function Footer() {
           <a href="#stockists">Satış noktaları</a>
           <a href="#contact">İletişim</a>
         </nav>
-        <span>3B şişe koddan üretilmiştir · etiket konsepttir</span>
+        <span>3B kutu koddan üretilmiştir · etiketler konsepttir</span>
       </footer>
     </section>
   );

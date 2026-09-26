@@ -1,20 +1,24 @@
 # Turkish Coffee Lady · 3B konsept demo
 
 > Bu klasör Turkish Coffee Lady'ye sunulmak üzere hazırlanmış **bağımsız bir
-> konsept demodur**. Marka sahibiyle bağlantılı değildir. Şişe, etiket, ürün
-> açıklamaları ve fiyatlar örnektir. Tat isimleri ve notaları basında çıkan
-> lansman haberlerine dayanır. Onay alınmadan herkese açık bir adreste
-> yayınlanmamalıdır. Sayfa `noindex` etiketlidir.
+> konsept demodur**. Marka sahibiyle bağlantılı değildir.
+>
+> - Bold Istanbul ve Silky Mardin kutuları, markanın ürün fotoğraflarından esinlenerek yeniden çizilmiştir.
+> - Diğer üç tadın kutuları aynı tasarım dilinde konsept önerileridir.
+> - Besin değerleri, açıklamalar ve fiyatlar örnektir.
+>
+> Onay alınmadan herkese açık bir adreste yayınlanmamalıdır. Sayfa `noindex` etiketlidir.
 
-**Blazing ile aynı 3B yapı, bu kez şişeyle:**
+**Blazing ile aynı 3B yapı, 250 ml slim kutularla:**
 
-- **Carousel:** Beş şehir tadı var: Bold Istanbul, Silky Mardin, Pistachio Zeugma, Minty Cappadocia ve Piney Aegean. Şişeler scroll ile döner; yan şişeye tıklayınca ortadakiyle yer değiştirir, öndekine tıklayınca detay açılır.
-- **Detay:** Dört hikâye var: 500 yıllık tarif, Beş şehir, Sade içerik ve Dijital fal. Her birinde şişe dönüp etiketin farklı bir yüzüne (ön, boyun, besin değerleri, fal paneli) yakınlaşır, spot ışık vurur.
+- **Carousel:** Beş şehir tadı var: Bold Istanbul (gümüş), Silky Mardin (altın), Pistachio Zeugma, Minty Cappadocia ve Piney Aegean. Kutular scroll ile döner; yan kutuya tıklayınca ortadakiyle yer değiştirir, öndekine tıklayınca detay açılır.
+- **Detay:** Dört hikâye var: 500 yıllık tarif (fincan yakın çekimi), Beş şehir (siluet), Sade içerik (besin değerleri) ve Dijital fal. Her birinde kutu dönüp yakınlaşır, spot ışık vurur.
 - **Diğer bölümler:** Ritüel (Soğut, Çalkala, Paylaş), mağaza, sepet ve SSS.
 
 ![Carousel](docs/carousel.png)
 ![Detay](docs/detail.png)
-![Arka etiket](docs/label.png)
+![Fincan](docs/cup.png)
+![Besin değerleri](docs/label.png)
 ![Dijital fal](docs/fal.png)
 
 ## Çalıştırma
@@ -25,17 +29,17 @@ npm install
 npm run dev
 ```
 
-Tarayıcıda `http://localhost:5173` adresini aç. Yan şişeye tıklama animasyonunu
+Tarayıcıda `http://localhost:5173` adresini aç. Yan kutuya tıklama animasyonunu
 ağır çekimde görmek için adresin sonuna `?slowmo=8` ekle.
 
 ## Nasıl yapıldı
 
-- **Şişe** (`src/CanMesh.jsx`): Ayrı bir 3B dosya yok; şişe koddan üretilir. Cam gövde ve kahve dönen bir profilden (lathe) çıkar, kapak metaldir, etiket şişeyi saran bir banttır. Şişenin şekli koordinat listesinden değiştirilebilir.
-- **Etiket** (`src/assets/labels/tcl-label.png`): `docs/label-generator.py` ile üretilir. Siyah zemin ve beyaz çizimden oluşur; sitede zemin tatın rengine (`color`), yazılar `ink` rengine boyanır. Etiket şişeyi şöyle sarar: u = 0.5 ön yüz (marka), u = 0.25 arka (besin değerleri), u = 0.75 yan (dijital fal).
+- **Kutu** (`src/CanMesh.jsx`): Ayrı bir 3B dosya yok; kutu koddan üretilir. Alüminyum gövde ve kapak dönen bir profilden (lathe) çıkar, açma halkası eklenir, baskı gövdeyi saran bir banttır. Ölçüler slim kutu oranındadır.
+- **Etiketler** (`src/assets/labels/*.jpg`): `docs/label-generator.py` ile tam renkli olarak üretilir (fontlar `docs/label-fonts` altında, SIL OFL). Etiket kutuyu şöyle sarar: u = 0.5 ön yüz, u = 0.25 arka (besin değerleri), u = 0.75 yan (dijital fal). Düz hallerini görmek için: `docs/labels-flat.png`.
+- **Tat geçişi** (`src/canMaterial.js`): Tat değişirken iki etiket görseli arasında Codrops projesindeki gürültülü geçiş oynar.
 - **Marka, tatlar, metinler:** `src/brand.js` ve `src/data.js`.
 
 ## Resmi tasarım gelince
 
-1. **Şişe:** Gerçek şişenin ölçüleri ya da 3B modeli (GLB) alınır; profil ona göre ayarlanır ya da model doğrudan yüklenir.
-2. **Etiket:** Etiketin düz baskı dosyası (PDF/PNG) 2048×836 oranında yerleştirilir. Tam renkli bir etiketse `src/canMaterial.js` içindeki boyama satırı kaldırılır.
-3. **Metinler:** Gerçek ürün açıklamaları, fiyatlar ve satış noktaları `src/data.js` dosyasına yazılır. Ödeme bağlantısı `src/config.js` dosyasına eklenir.
+1. **Etiketler:** Markanın gerçek kutu baskı dosyaları (düz, açılmış etiket; PDF ya da PNG) 2048×1418 oranında `src/assets/labels` altına konur; kod değişmez.
+2. **Metinler:** Gerçek ürün açıklamaları, fiyatlar ve satış noktaları `src/data.js` dosyasına yazılır. Ödeme bağlantısı `src/config.js` dosyasına eklenir.
