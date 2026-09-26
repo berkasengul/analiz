@@ -9,4 +9,5 @@ export const sceneState = {
   spread: 0, // carousel'in dağılma oranı
   hoverFocus: false, // fare öndeki kutunun üzerinde mi
   spotlight: 0, // özellik yakın çekiminde sinematik mod 0 → 1
+  burstAt: 0, // kahve sıçramasının tetiklendiği an
 };

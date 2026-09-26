@@ -2,51 +2,54 @@
 // Beş şehir tadı. Bold Istanbul ve Silky Mardin ürün fotoğraflarından, diğer
 // isim ve notalar basın haberlerinden; açıklamalar örnek. `color` kutunun
 // arayüzdeki rengi (halka, düğmeler). Etiket görselleri assets/labels altında.
+// `color` tadın vurgu rengi (düğmeler, halka). `theme` her tadın kendi
+// sahnesi: `glow` arka plandaki ışık, `edge` kenar karanlığı, `drop`
+// sıçrayan damlaların rengi (koyu kahve ya da sütlü kahve).
 export const flavors = [
   {
     name: "Bold Istanbul",
-    color: "#9db6cf",
+    color: "#6fb0e8",
     ink: "#1e3e84",
-    liquid: "#1a0d07",
-    tagline: "Klasik, koyu, kararlı.",
-    notes: ["Kahve çekirdeği", "Vanilya"],
-    description: "Geleneksel Türk kahvesinin karakteri, buz gibi ve kutuda. Koyu kavrum, vanilya dokunuşu.",
+    theme: { glow: "#3f86c8", edge: "#030a14", drop: "#2a1408", mood: "ice" },
+    tagline: "Koyu ve yoğun, buz gibi.",
+    notes: ["%100 doğal", "Şekersiz", "Düşük kalori"],
+    description: "Geleneksel Türk kahvesinin koyu ve yoğun karakteri, buz gibi ve kutuda. Galata'da gün batımı kadar klasik.",
   },
   {
     name: "Silky Mardin",
-    color: "#d1a24a",
-    ink: "#8c1c24",
-    liquid: "#4a2a17",
-    tagline: "Sütlü, ipeksi, altın sarısı.",
-    notes: ["Kakule", "Badem", "Karamel", "Çikolata"],
-    description: "Dibek kahvesinden ilham alan sütlü, yumuşak içim; kakule, badem, karamel ve çikolata notaları.",
+    color: "#e0b27a",
+    ink: "#2f6db5",
+    theme: { glow: "#b98548", edge: "#0d0703", drop: "#c9a27c", mood: "cream" },
+    tagline: "Sütlü ve kremsi.",
+    notes: ["Antep fıstığı", "Kakao", "Vanilya", "Kakule"],
+    description: "Dibek kahvesinden ilham alan sütlü, kremsi içim; fıstık, kakao, vanilya ve kakule notaları.",
   },
   {
     name: "Pistachio Zeugma",
-    color: "#9fbb6c",
+    color: "#a9c877",
     ink: "#30582a",
-    liquid: "#3d2c16",
-    tagline: "Antep'in yeşil tonu.",
+    theme: { glow: "#6d8f3e", edge: "#050903", drop: "#9c7a4a", mood: "cream" },
+    tagline: "Fıstıklı ve yumuşak.",
     notes: ["Antep fıstığı", "Menengiç"],
-    description: "Menengiç aromasıyla Güneydoğu'nun fıstıklı kahve geleneğine bir selam.",
+    description: "Menengiç aromasıyla Güneydoğu'nun fıstıklı kahve geleneğine bir selam. Yumuşak, sütlü, dengeli.",
   },
   {
     name: "Minty Cappadocia",
-    color: "#86c9b2",
+    color: "#86d6bf",
     ink: "#166860",
-    liquid: "#2a1a10",
-    tagline: "Serin, ferah, kakuleli.",
+    theme: { glow: "#3c9c89", edge: "#030a09", drop: "#2a1810", mood: "ice" },
+    tagline: "Ferah ve serin.",
     notes: ["Nane", "Kakule"],
-    description: "Kakule notalarıyla ferahlayan, peri bacaları kadar sıra dışı bir soğuk kahve.",
+    description: "Kakule ve nane ile ferahlayan, peribacaları kadar sıra dışı bir buzlu Türk kahvesi.",
   },
   {
     name: "Piney Aegean",
-    color: "#4f8cc7",
+    color: "#5aa2e6",
     ink: "#105082",
-    liquid: "#35200f",
-    tagline: "Ege'den sakız kokusu.",
+    theme: { glow: "#2c6fb4", edge: "#020812", drop: "#2a170c", mood: "ice" },
+    tagline: "Hafif ve aromatik.",
     notes: ["Damla sakızı", "Çam"],
-    description: "Damla sakızı aromasıyla Ege'nin reçineli, ferah karakterini taşıyan bir yudum.",
+    description: "Damla sakızı aromasıyla Ege'nin reçineli, ferah karakterini taşıyan hafif bir yudum.",
   },
 ];
 
@@ -63,8 +66,8 @@ export const features = [
     kicker: "Yok",
     struck: "Cezve beklemek",
     title: "500 yıllık tarif",
-    text: "Türk kahvesinin beş asırlık geleneği, buz gibi ve kutuda. Cezveyi beklemeden, istediğin yerde.",
-    pose: { rotY: 0.04, rotZ: 0.02, y: -1.6, scale: 3.5 },
+    text: "Türk kahvesinin beş asırlık geleneği, buz gibi ve kutuda. Nazar boncuğu da cabası: good coffee, good fortune.",
+    pose: { rotY: 0.04, rotZ: 0.02, y: -2.2, scale: 3.4 },
   },
   {
     icon: "pin",
@@ -72,8 +75,8 @@ export const features = [
     kicker: "Beş",
     struck: "Tek tip tat",
     title: "Beş şehir, beş tat",
-    text: "İstanbul'dan Mardin'e, Zeugma'dan Kapadokya'ya ve Ege'ye: her kutu bir şehrin siluetini ve kahve hikâyesini taşır.",
-    pose: { rotY: 0.55, rotZ: 0.03, y: 2.0, scale: 3.3 },
+    text: "İstanbul'dan Mardin'e, Zeugma'dan Kapadokya'ya ve Ege'ye: her kutu bir şehrin gün batımını ve kahve hikâyesini taşır.",
+    pose: { rotY: 0.35, rotZ: 0.03, y: -0.8, scale: 3.1 },
   },
   {
     icon: "cube",
@@ -82,7 +85,7 @@ export const features = [
     struck: "Uzun içerik listesi",
     title: "Sade içerik",
     text: "Su, Türk kahvesi ve doğal aroma. Arka panelde tek nefeste okunacak kadar kısa bir liste.",
-    pose: { rotY: Math.PI / 2 + 0.04, rotZ: 0.02, y: -2.7, scale: 3.3 },
+    pose: { rotY: Math.PI / 2 + 0.04, rotZ: 0.02, y: -3.6, scale: 3.3 },
   },
   {
     icon: "fal",
@@ -91,7 +94,7 @@ export const features = [
     struck: "Telve beklemek",
     title: "Fincanını çevir",
     text: "Kahveyi bitir, kutudaki kodu okut: yapay zekâ destekli fal deneyimi geleneği dijitale taşıyor.",
-    pose: { rotY: -Math.PI / 2 - 0.04, rotZ: 0.02, y: -2.7, scale: 3.3 },
+    pose: { rotY: -Math.PI / 2 - 0.04, rotZ: 0.02, y: -3.6, scale: 3.3 },
   },
 ];
 

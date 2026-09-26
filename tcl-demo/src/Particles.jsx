@@ -1,7 +1,12 @@
 import { useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { sceneState } from "./shared";
-import { AdditiveBlending, BufferAttribute, BufferGeometry, ShaderMaterial } from "three";
+import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, ShaderMaterial } from "three";
+
+import { flavors } from "./data";
+
+const target = new Color();
+const white = new Color(1, 1, 1);
 
 const COUNT = typeof window !== "undefined" && window.innerWidth < 760 ? 180 : 420;
 
@@ -30,7 +35,7 @@ export default function Particles() {
         transparent: true,
         depthWrite: false,
         blending: AdditiveBlending,
-        uniforms: { u_time: { value: 0 }, u_dpr: { value: dpr }, u_dim: { value: 1 } },
+        uniforms: { u_time: { value: 0 }, u_dpr: { value: dpr }, u_dim: { value: 1 }, u_tint: { value: new Color(0.8, 0.82, 0.86) } },
         vertexShader: /* glsl */ `
           uniform float u_time;
           uniform float u_dpr;
@@ -50,6 +55,7 @@ export default function Particles() {
         `,
         fragmentShader: /* glsl */ `
           uniform float u_dim;
+          uniform vec3 u_tint;
           varying float vSeed;
           varying float vDepth;
           void main() {
@@ -62,7 +68,7 @@ export default function Particles() {
             // Yakındakiler daha bulanık ve soluk.
             float near = smoothstep(18., 8., vDepth);
             alpha *= mix(0.16, 0.06, near) * u_dim;
-            gl_FragColor = vec4(vec3(0.8, 0.82, 0.86) * alpha, alpha);
+            gl_FragColor = vec4(u_tint * alpha, alpha);
           }
         `,
       }),
@@ -72,6 +78,9 @@ export default function Particles() {
   useFrame(({ clock }) => {
     material.uniforms.u_time.value = clock.getElapsedTime();
     material.uniforms.u_dim.value = 1 - 0.6 * sceneState.spotlight;
+    // Parçacıklar tadın ışığına doğru hafifçe renklenir.
+    target.set(flavors[sceneState.heroFlavor].theme.glow).lerp(white, 0.55);
+    material.uniforms.u_tint.value.lerp(target, 0.03);
   });
 
   return <points geometry={geometry} material={material} frustumCulled={false} />;

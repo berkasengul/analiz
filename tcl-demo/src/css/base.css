@@ -1947,3 +1947,227 @@ main {
     white-space: nowrap;
   }
 }
+
+/* =====================================================================
+   Premium butonlar
+   Tadın rengi (--accent) App tarafından köke yazılır; tat değişince
+   butonların ışıltısı ve dolgusu da yumuşakça değişir.
+   ===================================================================== */
+
+:root {
+  --accent: #6fb0e8;
+  --glass: rgba(14, 16, 22, 0.42);
+  --glass-edge: rgba(255, 255, 255, 0.22);
+  transition: --accent 0.8s;
+}
+
+.pill,
+.round,
+.menu-btn,
+.cart-btn,
+.hud__cta,
+.back .round {
+  translate: var(--mx, 0) var(--my, 0);
+  transition:
+    translate 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
+    box-shadow 0.4s ease,
+    background 0.6s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Dolgulu ana buton: tadın renginde, cam gibi parlak, üzerine gelince ışık geçer. */
+.pill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 30px;
+  border: 0;
+  border-radius: 999px;
+  color: #0a0a0c;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, #fff), var(--accent));
+  box-shadow:
+    0 14px 34px -14px color-mix(in srgb, var(--accent) 80%, transparent),
+    0 2px 0 rgba(255, 255, 255, 0.55) inset,
+    0 -2px 6px rgba(0, 0, 0, 0.12) inset;
+}
+
+.pill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.75) 48%, transparent 66%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 44px -14px color-mix(in srgb, var(--accent) 95%, transparent),
+    0 2px 0 rgba(255, 255, 255, 0.6) inset,
+    0 -2px 6px rgba(0, 0, 0, 0.12) inset;
+}
+
+.pill:hover::after {
+  transform: translateX(120%);
+}
+
+.pill:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Cam butonlar: bulanık zemin, ışıltılı ince kenar, tadın renginde parıltı. */
+.round,
+.menu-btn,
+.cart-btn,
+.hud__cta {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--glass), var(--glass)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.06) 42%,
+      color-mix(in srgb, var(--accent) 70%, transparent)) border-box;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 12px 30px -16px rgba(0, 0, 0, 0.9);
+}
+
+.round:hover,
+.menu-btn:hover,
+.cart-btn:hover,
+.hud__cta:hover {
+  border-color: transparent;
+  transform: translateY(-2px);
+  background:
+    linear-gradient(color-mix(in srgb, var(--accent) 16%, rgba(14, 16, 22, 0.5)),
+      color-mix(in srgb, var(--accent) 16%, rgba(14, 16, 22, 0.5))) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.8), color-mix(in srgb, var(--accent) 90%, transparent)) border-box;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent),
+    0 16px 36px -14px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.round.is-on {
+  background:
+    radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%) padding-box,
+    linear-gradient(var(--glass), var(--glass)) padding-box,
+    linear-gradient(140deg, #fff, var(--accent)) border-box;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 0 34px -4px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+
+.round--lg.is-on::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  animation: halo 2.4s ease-out infinite;
+}
+
+@keyframes halo {
+  from {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.hud__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  color: #fff;
+}
+
+.hud__cta::after {
+  content: "→";
+  font-family: var(--sans);
+  letter-spacing: 0;
+  transition: transform 0.3s ease;
+}
+
+.hud__cta:hover::after {
+  transform: translateX(4px);
+}
+
+/* İpucu etiketleri de cam olsun. */
+.features__label {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-edge);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Mağaza kartları. */
+.pack,
+.plan {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(14, 16, 22, 0.5), rgba(14, 16, 22, 0.5)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.12)) border-box;
+  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
+}
+
+.pack:hover,
+.plan:hover {
+  transform: translateY(-2px);
+}
+
+.pack.is-on,
+.plan.is-on {
+  background:
+    linear-gradient(color-mix(in srgb, var(--accent) 14%, rgba(14, 16, 22, 0.55)),
+      color-mix(in srgb, var(--accent) 14%, rgba(14, 16, 22, 0.55))) padding-box,
+    linear-gradient(140deg, #fff, var(--accent)) border-box;
+  box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+
+.swatch.is-on {
+  outline-color: var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.track__ticks button.is-active::after {
+  height: 3px;
+  border-radius: 2px;
+}
+
+.dot {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.eyebrow,
+.section__eyebrow {
+  color: color-mix(in srgb, var(--accent) 70%, #fff);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill,
+  .round,
+  .menu-btn,
+  .cart-btn,
+  .hud__cta {
+    translate: none;
+  }
+}

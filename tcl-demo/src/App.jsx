@@ -108,10 +108,46 @@ function useReveal() {
   }, []);
 }
 
+// Butonlar fareye doğru hafifçe çekilir (mıknatıs etkisi).
+function useMagnetic() {
+  useEffect(() => {
+    if (window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches) return;
+    const SEL = ".pill, .round, .menu-btn, .cart-btn, .hud__cta";
+    let current = null;
+    const reset = (el) => {
+      el.style.removeProperty("--mx");
+      el.style.removeProperty("--my");
+    };
+    const onMove = (e) => {
+      const el = e.target.closest?.(SEL);
+      if (current && current !== el) reset(current);
+      current = el;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+      const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+      el.style.setProperty("--mx", `${(dx * 10).toFixed(1)}px`);
+      el.style.setProperty("--my", `${(dy * 8).toFixed(1)}px`);
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
+}
+
+// Aktif tadın rengi tüm arayüzün vurgu rengi olur.
+function useAccent() {
+  const active = useStore((s) => s.active);
+  useEffect(() => {
+    document.documentElement.style.setProperty("--accent", flavors[active].color);
+  }, [active]);
+}
+
 export default function App() {
   useSmoothScroll();
   useKeys();
   useReveal();
+  useMagnetic();
+  useAccent();
   const detail = useStore((s) => s.detail);
   const cinema = useStore((s) => s.detail && s.feature != null);
 

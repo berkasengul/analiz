@@ -18,6 +18,10 @@ export default function Background() {
   const material = useRef();
   const size = useThree((s) => s.size);
   const color = useMemo(() => new Color(flavors[0].color), []);
+  // Her tadın kendi sahne rengi; tat değişince yumuşakça geçer.
+  const glow = useMemo(() => new Color(flavors[0].theme.glow), []);
+  const edge = useMemo(() => new Color(flavors[0].theme.edge), []);
+  const target = useMemo(() => ({ glow: new Color(), edge: new Color() }), []);
   const center = useMemo(() => new Vector2(0.5, 0.6), []);
   const last = useRef({ key: "", controls: null, at: -10, hover: false });
 
@@ -34,9 +38,13 @@ export default function Background() {
 
   useEffect(() => () => last.current.controls?.stop(), []);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     const l = last.current;
     const time = clock.getElapsedTime();
+    const theme = flavors[sceneState.heroFlavor].theme;
+    const k = 1 - Math.exp(-2.2 * Math.min(delta, 0.1));
+    glow.lerp(target.glow.set(theme.glow), k);
+    edge.lerp(target.edge.set(theme.edge), k);
     material.current.u_time = time;
     material.current.u_dark = sceneState.spotlight;
     const st = useStore.getState();
@@ -50,6 +58,8 @@ export default function Background() {
     if (key !== l.key && !st.moving && st.loaded) {
       l.key = key;
       color.set(flavors[sceneState.heroFlavor].color);
+      // Carousel'de yeni tat oturunca kutudan kahve sıçrar.
+      if (step < 0 && !st.detail) sceneState.burstAt = time;
       const hsl = {};
       color.getHSL(hsl);
       if (hsl.l < 0.45) color.setHSL(hsl.h, Math.max(hsl.s, 0.45), 0.45);
@@ -69,6 +79,8 @@ export default function Background() {
         u_aspect={size.width / size.height}
         u_color={color}
         u_center={center}
+        u_glow={glow}
+        u_edge={edge}
       />
     </mesh>
   );

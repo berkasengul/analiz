@@ -12,6 +12,8 @@ export const BackgroundMaterial = shaderMaterial(
     u_color: null,
     u_center: null,
     u_dark: 0,
+    u_glow: null,
+    u_edge: null,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -27,6 +29,8 @@ export const BackgroundMaterial = shaderMaterial(
     uniform vec3 u_color;
     uniform vec2 u_center;
     uniform float u_dark;
+    uniform vec3 u_glow;
+    uniform vec3 u_edge;
 
     varying vec2 vUv;
 
@@ -37,12 +41,16 @@ export const BackgroundMaterial = shaderMaterial(
       float dist = length(newUv);
       float screenDist = length((vUv - vec2(0.5)) * vec2(u_aspect, 1.));
 
-      // Taban: ortası hafif açık grafit, kenarlara doğru siyah.
-      vec3 base = mix(vec3(0.05, 0.05, 0.055), vec3(0.004, 0.004, 0.005), smoothstep(0.05, 0.95, screenDist));
-      vec2 bl = (vUv - vec2(0.12, -0.08)) * vec2(u_aspect, 1.);
-      vec2 br = (vUv - vec2(0.9, -0.08)) * vec2(u_aspect, 1.);
-      base += vec3(0.17, 0.03, 0.05) * (1. - smoothstep(0., 0.75, length(bl)));
-      base += vec3(0.13, 0.09, 0.035) * (1. - smoothstep(0., 0.75, length(br)));
+      // Tadın sahnesi: ortada tadın ışığı, kenarlarda derin karanlık,
+      // yukarıdan süzülen yumuşak bir ışık huzmesi.
+      float center = length((vUv - vec2(0.5, 0.58)) * vec2(u_aspect * 0.8, 1.));
+      vec3 base = mix(u_glow * 0.62, u_edge, smoothstep(0.0, 1.0, center));
+      float beam = 1. - smoothstep(0.0, 0.55, length((vUv - vec2(0.5, 1.1)) * vec2(u_aspect * 0.55, 1.)));
+      base += u_glow * 0.28 * beam;
+      vec2 bl = (vUv - vec2(0.1, -0.1)) * vec2(u_aspect, 1.);
+      vec2 br = (vUv - vec2(0.92, -0.1)) * vec2(u_aspect, 1.);
+      base += u_glow * 0.16 * (1. - smoothstep(0., 0.7, length(bl)));
+      base += u_glow * 0.12 * (1. - smoothstep(0., 0.7, length(br)));
 
       float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * 2000.0)) * 43758.5453);
 

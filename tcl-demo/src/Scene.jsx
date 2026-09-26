@@ -7,7 +7,7 @@ import CameraRig from "./CameraRig";
 import Carousel from "./Carousel";
 import HeroCan from "./HeroCan";
 import Particles from "./Particles";
-import Props from "./Props";
+import IceScene from "./IceScene";
 import { scrollState } from "./scroll";
 
 import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
@@ -44,7 +44,7 @@ export default function Scene() {
           <CameraRig />
           <Background />
           <Particles />
-          <Props />
+          <IceScene />
           <Carousel />
           <HeroCan />
           {/* Tüm shader'ları baştan derle; ilk etkileşimde takılma olmasın. */}
