@@ -1,36 +1,85 @@
+// On tat, halkadaki sırasıyla. `ink`, kutu üzerindeki yazıların rengi.
 export const flavors = [
   {
-    name: "Violet Rush",
-    note: "Böğürtlen & mor üzüm",
-    color: 0x8c75ff,
-    css: "#8c75ff",
+    name: "Chrome",
+    color: "#8e9399",
+    ink: "#141416",
+    tagline: "Polished, never quiet.",
+    notes: ["Citrus peel", "Ginseng"],
+    description: "Our original. Bright citrus over a clean ginseng backbone, finished cold and dry.",
   },
   {
-    name: "Lime Voltage",
-    note: "Misket limonu & nane",
-    color: 0x5cffab,
-    css: "#5cffab",
+    name: "Cherry",
+    color: "#b0121d",
+    ink: "#1a0406",
+    tagline: "Heat, bottled.",
+    notes: ["Black cherry", "Pink pepper"],
+    description: "Dark cherry with a flicker of pink pepper. Sweet up front, warm on the way down.",
   },
   {
-    name: "Cherry Blaze",
-    note: "Vişne & kan portakalı",
-    color: 0xf74a8a,
-    css: "#f74a8a",
+    name: "Lime",
+    color: "#6a9418",
+    ink: "#0f1504",
+    tagline: "Sharp, electric.",
+    notes: ["Key lime", "Yuzu"],
+    description: "Key lime cut with yuzu for a sour snap that wakes up every part of your tongue.",
   },
   {
-    name: "Arctic Surge",
-    note: "Buzlu mavi ahududu",
-    color: 0x3df2f2,
-    css: "#3df2f2",
+    name: "Ice",
+    color: "#1fb4e4",
+    ink: "#04161d",
+    tagline: "Voltage, sub-zero.",
+    notes: ["Glacier mint", "Blue raspberry"],
+    description: "Glacier mint and blue raspberry. The coldest can in the lineup, even at room temperature.",
+  },
+  {
+    name: "Night",
+    color: "#1c1838",
+    ink: "#c9c6de",
+    tagline: "After hours, still on.",
+    notes: ["Blackcurrant", "Concord grape"],
+    description: "Blackcurrant and concord grape, deep and a little tart. Built for the late shift.",
+  },
+  {
+    name: "Mango",
+    color: "#f06510",
+    ink: "#1f0b01",
+    tagline: "Sunrise, carbonated.",
+    notes: ["Alphonso mango", "Blood orange"],
+    description: "Alphonso mango brightened with blood orange. Thick, juicy, and loud.",
+  },
+  {
+    name: "Wave",
+    color: "#1b2ea6",
+    ink: "#d5dbff",
+    tagline: "Tidal, tart.",
+    notes: ["Blueberry", "Sea salt"],
+    description: "Wild blueberry with a pinch of sea salt, so it tastes like the last swim of summer.",
+  },
+  {
+    name: "Gold",
+    color: "#a8760f",
+    ink: "#1a1203",
+    tagline: "Honeyed, high voltage.",
+    notes: ["Pineapple", "Wildflower honey"],
+    description: "Roasted pineapple and a drop of wildflower honey. Rich without the sugar.",
+  },
+  {
+    name: "Pitaya",
+    color: "#df1476",
+    ink: "#fff1f7",
+    tagline: "Neon, after dark.",
+    notes: ["Dragon fruit", "Lychee", "Rose"],
+    description: "Dragon fruit and lychee, lifted by a soft rose-petal finish.",
+  },
+  {
+    name: "Onyx",
+    color: "#121214",
+    ink: "#6d6d74",
+    tagline: "Blackout, full charge.",
+    notes: ["Black grape", "Acai"],
+    description: "Black grape and acai in a matte-black can. The strongest-tasting of the ten.",
   },
 ];
 
-// Kutunun her bölümde duracağı poz. x/y/z dünya birimi, rotY radyan.
-// Mobilde (dikey ekran) x değerleri sıfırlanır, kutu ortada kalır.
-export const poses = [
-  { x: 0, y: -0.2, z: 5, rotX: 0.15, rotY: 0, rotZ: -0.25, scale: 1 }, // hero
-  { x: 3.4, y: 0, z: 4, rotX: 0, rotY: Math.PI, rotZ: 0.18, scale: 1 }, // ignite
-  { x: -3.4, y: 0, z: 4.5, rotX: 0, rotY: Math.PI * 2, rotZ: -0.08, scale: 1 }, // flavors
-  { x: 3.2, y: 0, z: 3, rotX: 0.2, rotY: Math.PI * 3, rotZ: 1.3, scale: 1 }, // ingredients
-  { x: 0, y: -0.4, z: 4.5, rotX: 0, rotY: Math.PI * 4, rotZ: 0, scale: 1 }, // cta
-];
+export const specs = "Zero sugar — 160 mg caffeine";

@@ -1,45 +1,47 @@
-# Blazing Energy: 3B scroll tanıtım sayfası
+# Blazing Energy: 3B scroll carousel
 
-Bir enerji içeceği kutusunun sayfa kaydırıldıkça yer değiştirdiği, döndüğü ve
-tat bölümünde **gürültülü doku geçişiyle** renk değiştirdiği tek sayfalık site.
+On tatlı bir enerji içeceği için tanıtım sayfası. Sayfa kaydırıldıkça kutular
+bir yay üzerinde döner, öndeki kutu büyür ve tat bilgileri değişir. Öndeki kutuya
+ya da tat adına tıklanınca detay görünümü açılır; burada oklarla tat
+değiştirildiğinde kutunun rengi gürültülü bir geçişle değişir.
 
 Temel olarak [mohAmineBrs/codrops-noise-transition](https://github.com/mohAmineBrs/codrops-noise-transition)
 (MIT) projesindeki kutu modeli, doku geçiş shader'ı ve radyal gürültü arka planı kullanıldı.
-Tıklamayla tetiklenen geçiş, scroll ile sürülecek şekilde yeniden yazıldı.
 
-![Hero](docs/hero.png)
-![Tat geçişi](docs/flavor-transition.png)
+![Carousel](docs/carousel.png)
+![Detay](docs/detail.png)
 
 ## Çalıştırma
 
 ```bash
-cd blazing-3d-scroll
+git clone -b claude/charming-dirac-aq3a53 https://github.com/berkasengul/analiz.git
+cd analiz/blazing-3d-scroll
 npm install
 npm run dev      # http://localhost:5173
-npm run build    # dist/ klasörüne çıktı (Netlify'a doğrudan yüklenebilir)
+npm run build    # dist/ klasörü; Netlify Drop'a sürükleyip yayınlayabilirsin
 ```
 
-## Nasıl çalışıyor
+## Yapı
 
 | Dosya | Görevi |
 | --- | --- |
-| `src/scroll.js` | Scroll konumundan iki değer üretir: `section` (hangi bölümdeyiz, kesirli) ve `flavor` (hangi tattayız, kesirli). |
-| `src/data.js` | Tatlar (isim, renk) ve kutunun her bölümdeki pozu (`poses`: konum, dönüş, ölçek). |
-| `src/Model.jsx` | Her karede hedef pozu `section` değerine göre hesaplar ve kutuyu yumuşakça oraya taşır. `flavor` değeri shader'daki `u_progress`'i sürer, böylece renk geçişi scroll ile ileri geri oynatılabilir. |
-| `src/Background.jsx` | Radyal gürültü arka planı. Renk tatla birlikte değişir, her tat değişiminde ortadan bir halka yayılır. |
-| `src/App.jsx` | HTML bölümleri, [Lenis](https://github.com/darkroomengineering/lenis) ile yumuşak kaydırma. |
+| `src/data.js` | On tat: isim, kutu rengi, yazı rengi (`ink`), slogan, içerik notları, açıklama. |
+| `src/scroll.js` | Scroll konumunu kesirli bir tat indeksine (`p`) çevirir. Her tat bir süre yerinde durur. |
+| `src/Carousel.jsx` | On kutuyu sonsuz bir yay üzerine dizer (`arcPose`). Öndeki kutuya tıklamak detayı açar, yandakine tıklamak ona kaydırır. |
+| `src/DetailCan.jsx` | Detay görünümündeki büyük kutu. Tat değişince Codrops gürültü geçişini oynatır. |
+| `src/canMaterial.js` | Kutu shader'ı: dokudaki siyah zemini tat rengine, yazıları `ink` rengine boyar, iki tat arasında gürültülü geçiş yapar. |
+| `src/Background.jsx` | Grafit degrade, alt köşelerde mor/mavi ışık ve her tat değişiminde yayılan renkli halka. |
+| `src/Props.jsx` | Üstteki parlak siyah disk ve alttaki cam mercek. |
+| `src/Particles.jsx` | Havada süzülen odak dışı parçacıklar. |
+| `src/App.jsx` | Arayüz: header, menü, tat bilgileri, detay paneli, Ritual / Stockists / Contact bölümleri. |
 
-Tat bölümü `4 × 100vh` yüksekliğinde ve içeriği `position: sticky`. Kaydırdıkça kutu
-yerinde kalıp sırayla dört tata geçer.
+Klavye: detay görünümünde ← → tat değiştirir, Esc kapatır.
 
 ### Özelleştirme
 
-- **Yeni bölüm:** `App.jsx`'e `data-section` özniteliğiyle bir `<section>` ekle ve `data.js` içindeki `poses` dizisine aynı sırada bir poz ekle.
-- **Yeni tat:** `data.js` içindeki `flavors` dizisine renk ekle. Tat bölümünün yüksekliği otomatik olarak uzar.
-- **Hız:** `Model.jsx` içindeki `MathUtils.damp(..., 3.5, ...)` değeri küçüldükçe kutu daha ağır takip eder.
-
-Dikey ekranlarda kutu ortada kalır, metinler bulanık arka planlı kartlarda altta görünür.
-`prefers-reduced-motion` açıksa yumuşak kaydırma ve metin animasyonları kapanır.
+- **Tat eklemek/değiştirmek:** `src/data.js` içindeki diziyi düzenle. Scroll uzunluğu tat sayısına göre ayarlanır.
+- **Yay şekli:** `src/Carousel.jsx` içindeki `arcPose` fonksiyonu (aralık, derinlik, eğim).
+- **Kutu parlaklığı:** `src/canMaterial.js` içindeki `metalness` / `roughness`.
 
 ![Mobil](docs/mobile.png)
 
