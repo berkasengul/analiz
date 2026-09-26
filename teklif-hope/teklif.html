@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<title>Hope Istanbul · Web Sitesi Teklifi</title>
+<style>
+  @font-face { font-family: "Gloock"; src: url("../hope-demo/docs/label-fonts/Gloock-Regular.ttf"); }
+  @font-face { font-family: "Cinzel"; font-weight: 500; src: url("../hope-demo/docs/label-fonts/Cinzel-Medium.ttf"); }
+  @font-face { font-family: "Cinzel"; font-weight: 700; src: url("../hope-demo/docs/label-fonts/Cinzel-Bold.ttf"); }
+  @font-face { font-family: "Open Sans"; font-weight: 600; src: url("../hope-demo/docs/label-fonts/OpenSans-SemiBold.ttf"); }
+  @font-face { font-family: "Open Sans"; font-weight: 700; src: url("../hope-demo/docs/label-fonts/OpenSans-Bold.ttf"); }
+  @font-face { font-family: "Plex Serif"; src: url("../hope-demo/docs/label-fonts/IBMPlexSerif-Regular.ttf"); }
+  @font-face { font-family: "Plex Mono"; src: url("../hope-demo/docs/label-fonts/IBMPlexMono-Regular.ttf"); }
+  @font-face { font-family: "Instrument"; font-style: italic; src: url("../hope-demo/docs/label-fonts/InstrumentSerif-Italic.ttf"); }
+
+  :root {
+    --ink: #1a1614;
+    --muted: #6b635a;
+    --line: #e4ddd0;
+    --paper: #fbf8f2;
+    --black: #0f0d0c;
+    --gold: #b98a38;
+    --gold-2: #e2c27a;
+    --wine: #7a1428;
+  }
+
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); color: var(--ink); }
+  body { font-family: "Plex Serif", Georgia, serif; font-size: 10.5pt; line-height: 1.55; }
+
+  .page { width: 210mm; height: 297mm; padding: 18mm 18mm 16mm; position: relative; overflow: hidden;
+    page-break-after: always; display: flex; flex-direction: column; }
+  .page:last-child { page-break-after: auto; }
+
+  .band { position: absolute; left: 0; right: 0; height: 9mm; background: var(--black); color: var(--gold-2);
+    font: 500 7.5pt/9mm "Cinzel", serif; letter-spacing: 0.3em; text-align: center; }
+  .band--top { top: 0; }
+  .band--bottom { bottom: 0; }
+  .band::after { content: ""; position: absolute; left: 0; right: 0; height: 0.6mm; background: linear-gradient(90deg, var(--gold), var(--gold-2), var(--gold)); }
+  .band--top::after { bottom: -1.2mm; }
+  .band--bottom::after { top: -1.2mm; }
+
+  .eyebrow { font: 8pt "Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  h1 { font-family: "Gloock", serif; font-weight: 400; font-size: 32pt; line-height: 1.06; color: var(--black); }
+  h2 { font-family: "Gloock", serif; font-weight: 400; font-size: 20pt; line-height: 1.15; color: var(--black); margin-bottom: 4mm; }
+  h3 { font: 700 10.5pt "Open Sans", sans-serif; color: var(--black); }
+  .lead { font-family: "Instrument", serif; font-style: italic; font-size: 15pt; line-height: 1.35; color: var(--wine); }
+  p + p { margin-top: 2.5mm; }
+  .muted { color: var(--muted); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Kapak */
+  .cover { padding-top: 24mm; gap: 6mm; }
+  .logo { font-family: "Cinzel", serif; font-weight: 500; color: var(--black); font-size: 22pt; letter-spacing: 0.16em; line-height: 1; }
+  .logo small { display: block; font: 700 7.5pt "Open Sans", sans-serif; letter-spacing: 0.5em; margin-top: 1.6mm; color: var(--gold); }
+  .cover-img { flex: 1; border-radius: 4mm; overflow: hidden; min-height: 0; background: var(--black); }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; display: block; }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; padding-top: 5mm; border-top: 0.3mm solid var(--line); }
+  .meta dt { font: 7pt "Plex Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .meta dd { font: 600 9.5pt "Open Sans", sans-serif; margin-top: 1mm; }
+
+  .content { padding-top: 22mm; gap: 5.5mm; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; }
+  .list { list-style: none; display: flex; flex-direction: column; gap: 2.4mm; }
+  .list li { padding-left: 5mm; position: relative; }
+  .list li::before { content: ""; position: absolute; left: 0; top: 2mm; width: 2.2mm; height: 2.2mm; transform: rotate(45deg); background: var(--gold); }
+  .shots { display: flex; flex-direction: column; gap: 3mm; width: 68%; align-self: center; }
+  .shots figure { border-radius: 3mm; overflow: hidden; border: 0.3mm solid var(--line); background: var(--black); }
+  .shots img { width: 100%; display: block; }
+  .shots figcaption { font: 7.5pt "Plex Mono", monospace; color: #d9ccb0; padding: 1.6mm 2.5mm; letter-spacing: 0.06em; }
+  .shots .stack { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+
+  .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .pkg { border: 0.3mm solid var(--line); border-radius: 3.5mm; padding: 5mm 4.5mm; background: #fff; display: flex; flex-direction: column; gap: 3mm; position: relative; }
+  .pkg--best { border: 0.6mm solid var(--gold); box-shadow: 0 3mm 8mm -4mm rgba(185, 138, 56, 0.45); }
+  .pkg__badge { position: absolute; top: -3mm; left: 4.5mm; background: var(--black); color: var(--gold-2); font: 700 7pt "Open Sans", sans-serif; letter-spacing: 0.14em; padding: 1mm 2.5mm; border-radius: 2mm; text-transform: uppercase; }
+  .pkg__name { font-family: "Gloock", serif; font-size: 13pt; color: var(--black); line-height: 1.15; }
+  .pkg__price { font: 700 19pt "Open Sans", sans-serif; color: var(--ink); line-height: 1; }
+  .pkg__price small { font-size: 8pt; font-weight: 600; color: var(--muted); }
+  .pkg__time { font: 7.5pt "Plex Mono", monospace; letter-spacing: 0.08em; color: var(--gold); text-transform: uppercase; }
+  .pkg ul { list-style: none; display: flex; flex-direction: column; gap: 1.6mm; font-size: 8.6pt; line-height: 1.4; }
+  .pkg li { padding-left: 4mm; position: relative; }
+  .pkg li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-family: "Open Sans", sans-serif; font-weight: 700; }
+  .pkg li.plus { font-weight: 600; }
+  .pkg li.plus::before { content: "+"; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  th, td { text-align: left; padding: 2.2mm 0; border-bottom: 0.3mm solid var(--line); vertical-align: top; }
+  th { font: 7.5pt "Plex Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  td.r, th.r { text-align: right; white-space: nowrap; }
+  td:first-child { font-weight: 600; font-family: "Open Sans", sans-serif; padding-right: 4mm; }
+
+  .compare td { padding: 2mm 0; }
+  .compare td:nth-child(2) { color: var(--muted); padding-right: 4mm; }
+
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+  .step { border-top: 0.8mm solid var(--gold); padding-top: 2.5mm; }
+  .step b { display: block; font: 7.5pt "Plex Mono", monospace; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; margin-bottom: 1mm; }
+  .step span { font-size: 8.6pt; line-height: 1.4; display: block; }
+
+  .note { background: #f4eee2; border-left: 1mm solid var(--gold); padding: 3.5mm 4.5mm; border-radius: 0 2mm 2mm 0; font-size: 9pt; }
+  .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; margin-top: auto; padding-bottom: 8mm; }
+  .sign div { border-top: 0.3mm solid var(--ink); padding-top: 2mm; font: 8pt "Plex Mono", monospace; color: var(--muted); letter-spacing: 0.06em; }
+  .foot { position: absolute; bottom: 12mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between; font: 7pt "Plex Mono", monospace; color: var(--muted); letter-spacing: 0.08em; }
+</style>
+</head>
+<body>
+
+<!-- ======================= 1. Kapak ======================= -->
+<section class="page cover">
+  <div class="band band--top">HOPE IN A BOTTLE</div>
+  <div class="logo">HOPE<small>ISTANBUL</small></div>
+  <div>
+    <p class="eyebrow">Web sitesi teklifi · HOPE-2026-01</p>
+    <h1 style="margin-top:3mm">Esxence'ta dünyaya açılan<br />bir parfüm evine yakışan<br />3B dijital vitrin</h1>
+  </div>
+  <p class="lead">Her notada bir hikâye, her nefeste yeni bir keşif. Bu hikâyeyi sayfa kaydırdıkça dönen şişeler, her kokuyla değişen ışık ve İstanbul'un geometrisiyle anlatalım.</p>
+  <div class="cover-img"><img src="img/carousel.jpg" alt="Demo: 3B şişe carousel'i" /></div>
+  <dl class="meta">
+    <div><dt>Hazırlanan</dt><dd>Hope Istanbul<br />Serimu Kozmetik</dd></div>
+    <div><dt>Hazırlayan</dt><dd>[Adınız Soyadınız]<br />[Stüdyo adı]</dd></div>
+    <div><dt>Tarih</dt><dd class="num">26 Eylül 2026</dd></div>
+    <div><dt>Geçerlilik</dt><dd class="num">26 Ekim 2026</dd></div>
+  </dl>
+  <div class="band band--bottom">EXTRAIT DE PARFUM · İSTANBUL</div>
+</section>
+
+<!-- ======================= 2. Neden & demo ======================= -->
+<section class="page content" style="gap:4.5mm">
+  <div class="band band--top">HOPE IN A BOTTLE</div>
+  <div>
+    <p class="eyebrow">01 — Neden</p>
+    <h2>Niş parfüm, ekranda da hissedilmeli</h2>
+  </div>
+  <div class="cols">
+    <div>
+      <p>Niş parfüm internetten koklanamıyor; müşteri şişeyi, hikâyeyi ve notaları görerek karar veriyor. Hope Istanbul'un şişesi, altın-mine etiketi ve İstanbul koleksiyonları bu kararı verdirecek kadar güçlü. Bu gücün ekrana da aynı etkiyle taşınması gerekiyor.</p>
+      <p>Hazırladığımız site bunu tek bir akışta yapıyor: ziyaretçi kaydırdıkça şişeler döner, bir kokuya tıkladığında onun dünyasına girer, birkaç saniye içinde sepete ekler.</p>
+    </div>
+    <ul class="list">
+      <li><b>Koku başına bir sahne.</b> Han'da zümrüt, Narcissus'ta bordo, Queen of Palace'ta altın; arka plan, ışık ve butonlar şişenin mine rengine göre değişir.</li>
+      <li><b>Şişeyi anlatan etkileşim.</b> "%30 esans", "Sekiz köşeli yıldız", "Koku piramidi" ve "Parfümörler" hikâyelerinde şişe dönüp yakınlaşır.</li>
+      <li><b>Satışa hazır akış.</b> Koku ve boyut seçimi, hediye paketi, sepet ve ödeme.</li>
+      <li><b>Marka hikâyesi.</b> Umut'tan Hope'a, Esxence Milano'ya yolculuk ve dört İstanbul koleksiyonu.</li>
+      <li><b>İki dil.</b> Türkçe ve İngilizce; ₺ ve $ fiyat.</li>
+    </ul>
+  </div>
+
+  <div>
+    <p class="eyebrow">02 — Hazır demo</p>
+    <h2 style="margin-top:2mm">Bu teklifle birlikte çalışan bir demo sunuyoruz</h2>
+  </div>
+  <div class="shots">
+    <figure><img src="img/detail.jpg" alt="" /><figcaption>Koku detayı: koku ailesi, parfümör, notalar ve 4 hikâye kartı</figcaption></figure>
+    <div class="stack">
+      <figure><img src="img/shop.jpg" alt="" /><figcaption>Mağaza: koku seçtikçe sahne değişir</figcaption></figure>
+      <figure><img src="img/story.jpg" alt="" /><figcaption>Marka hikâyesi ve zaman çizelgesi</figcaption></figure>
+    </div>
+  </div>
+  <p class="muted" style="font-size:8pt">Demodaki şişeler paylaşılan ürün fotoğraflarından yeniden modellenmiştir; Queen of Palace ve Narcissus dışındaki etiket renkleri temsilidir. Projede sizin gerçek etiket dosyalarınız, fotoğraflarınız ve metinleriniz kullanılacaktır.</p>
+  <div class="band band--bottom">EXTRAIT DE PARFUM · İSTANBUL</div>
+</section>
+
+<!-- ======================= 3. Paketler ======================= -->
+<section class="page content">
+  <div class="band band--top">HOPE IN A BOTTLE</div>
+  <div>
+    <p class="eyebrow">03 — Paketler</p>
+    <h2>Üç kapsam, ihtiyacınıza göre</h2>
+    <p class="muted">Fiyatlar Türk lirası cinsindendir, KDV hariçtir. Tüm paketlerde mobil uyum, hız optimizasyonu ve yayın sonrası 30 gün hata desteği vardır.</p>
+  </div>
+
+  <div class="packages">
+    <div class="pkg">
+      <p class="pkg__name">Koku Vitrini</p>
+      <p class="pkg__price num">₺59.000</p>
+      <p class="pkg__time">2 hafta</p>
+      <ul>
+        <li>3B şişe carousel'i, 8 koku sahnesi</li>
+        <li>Koku detayı ve 4 hikâye kartı</li>
+        <li>Gerçek etiket dosyalarınızla şişeler</li>
+        <li>Marka hikâyesi, SSS, iletişim ve bülten</li>
+        <li>Türkçe + İngilizce</li>
+        <li>"Satın al" butonları mevcut mağazanıza bağlanır</li>
+        <li>Alan adına yayın, SEO ve paylaşım görseli</li>
+        <li>2 revizyon turu</li>
+      </ul>
+    </div>
+
+    <div class="pkg pkg--best">
+      <span class="pkg__badge">Önerilen</span>
+      <p class="pkg__name">Vitrin &amp; Mağaza</p>
+      <p class="pkg__price num">₺99.000</p>
+      <p class="pkg__time">4 hafta</p>
+      <ul>
+        <li class="plus">Koku Vitrini'ndeki her şey</li>
+        <li>Shopify ya da ikas ile gerçek sepet ve ödeme</li>
+        <li>Boyut seçimi, keşif seti, hediye paketi</li>
+        <li>Tüm koleksiyon: 20 koku, koleksiyon sayfaları</li>
+        <li>Koku bulucu: "Sana hangi koku uygun?" testi</li>
+        <li>Google Analytics 4 ve Meta Pixel kurulumu</li>
+        <li>Koku ve fiyatları siz güncelleyebilirsiniz</li>
+        <li>3 revizyon turu</li>
+      </ul>
+    </div>
+
+    <div class="pkg">
+      <p class="pkg__name">Premium Koleksiyon</p>
+      <p class="pkg__price num">₺159.000</p>
+      <p class="pkg__time">6 hafta</p>
+      <ul>
+        <li class="plus">Vitrin &amp; Mağaza'daki her şey</li>
+        <li>Şişenizin birebir 3B modeli (fotoğraf ve ölçülerle)</li>
+        <li>Instagram için 4 adet 15 sn dikey ürün videosu</li>
+        <li>Katmanlama önerici: iki kokuyu birleştir</li>
+        <li>Bayi ve uluslararası satış noktası sayfası</li>
+        <li>Kampanya ve indirim kodu altyapısı</li>
+        <li>3 ay bakım ve içerik güncellemesi dahil</li>
+        <li>Sınırsız küçük revizyon (6 hafta boyunca)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <h3 style="margin-bottom:2mm">Opsiyonel eklemeler</h3>
+    <table>
+      <thead><tr><th>Kalem</th><th>Açıklama</th><th class="r">Fiyat</th></tr></thead>
+      <tbody>
+        <tr><td>Aylık bakım</td><td>Barındırma, güvenlik güncellemeleri, ayda 4 saate kadar içerik değişikliği</td><td class="r num">₺4.900 / ay</td></tr>
+        <tr><td>Yeni koku ekleme</td><td>Yeni şişe etiketi, sahne rengi, notalar ve metinler</td><td class="r num">₺3.500 / koku</td></tr>
+        <tr><td>Ürün videosu</td><td>Sitedeki 3B sahneden 15 sn dikey video (Reels / TikTok)</td><td class="r num">₺9.500 / adet</td></tr>
+        <tr><td>Ek dil</td><td>Arapça, Almanca vb. (çeviri metinleri sizden)</td><td class="r num">₺12.000 / dil</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><b>Lansman indirimi:</b> Teklifin 14 gün içinde (10 Ekim 2026'ya kadar) onaylanması halinde paket bedeline %10 indirim uygulanır.</p>
+  <div class="band band--bottom">EXTRAIT DE PARFUM · İSTANBUL</div>
+</section>
+
+<!-- ======================= 4. Süreç & koşullar ======================= -->
+<section class="page content">
+  <div class="band band--top">HOPE IN A BOTTLE</div>
+  <div>
+    <p class="eyebrow">04 — Süreç</p>
+    <h2>Önerilen paket için takvim</h2>
+  </div>
+  <div class="timeline">
+    <div class="step"><b>Hafta 1</b><span>Başlangıç toplantısı; etiket dosyaları, ürün fotoğrafları ve metinlerin toplanması</span></div>
+    <div class="step"><b>Hafta 2</b><span>Gerçek etiketlerle şişeler, koku sahneleri ve ana sayfa</span></div>
+    <div class="step"><b>Hafta 3</b><span>Mağaza, ödeme, koleksiyon sayfaları ve koku bulucu; önizleme bağlantısı</span></div>
+    <div class="step"><b>Hafta 4</b><span>Revizyonlar, son testler, alan adına yayın ve ekip eğitimi</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3 style="margin-bottom:2.5mm">Sizden ihtiyacımız olanlar</h3>
+      <ul class="list">
+        <li>Her kokunun etiket baskı dosyası (PDF ya da yüksek çözünürlüklü PNG)</li>
+        <li>Şişe ölçüleri ve beyaz fonda ürün fotoğrafları</li>
+        <li>Logo, marka renkleri ve yazı tipleri</li>
+        <li>Koku açıklamaları, notalar, koleksiyon bilgileri</li>
+        <li>Fiyatlar, boyutlar, kargo ve iade koşulları</li>
+        <li>Mağaza (Shopify ya da mevcut altyapı) erişimi ve alan adı</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:2.5mm">Koşullar</h3>
+      <table>
+        <tbody>
+          <tr><td>Ödeme</td><td>%40 başlangıçta, %40 önizleme onayında, %20 yayında</td></tr>
+          <tr><td>Hak devri</td><td>Son ödemeyle birlikte kaynak kod ve tasarım size aittir</td></tr>
+          <tr><td>Destek</td><td>Yayından sonra 30 gün ücretsiz hata düzeltme</td></tr>
+          <tr><td>Revizyon</td><td>Paketteki tur sayısının üzerindeki değişiklikler saatlik ₺1.500</td></tr>
+          <tr><td>Barındırma</td><td>Netlify / Vercel ya da sizin sunucunuz; alan adı sizde kalır</td></tr>
+          <tr><td>Geçerlilik</td><td>26 Ekim 2026'ya kadar</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h3 style="margin-bottom:2mm">Sitede neler değişir?</h3>
+    <table class="compare">
+      <thead><tr><th>Konu</th><th>Standart e-ticaret</th><th>Yeni sitede</th></tr></thead>
+      <tbody>
+        <tr><td>Ürün sunumu</td><td>Beyaz fonda ürün fotoğrafı</td><td>Dönen, yakınlaşan 3B şişe; her kokuya özel sahne</td></tr>
+        <tr><td>Hikâye</td><td>Ayrı "Hakkımızda" sayfası</td><td>Umut'tan Esxence'a hikâye, alışverişin içinde</td></tr>
+        <tr><td>Koku bilgisi</td><td>Nota listesi</td><td>Koku ailesi, parfümör, koku piramidi, koleksiyon</td></tr>
+        <tr><td>Yurt dışı</td><td>Tek dil ya da yarım çeviri</td><td>Tam Türkçe/İngilizce, ₺/$ fiyat, doğru SEO başlıkları</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>Sonraki adım:</b> 20 dakikalık bir görüntülü görüşmede demoyu canlı gösterelim, paketi birlikte netleştirelim. Onayınızla birlikte başlangıç toplantısını aynı hafta içinde planlayabiliriz.
+  </div>
+
+  <div class="sign">
+    <div>Hope Istanbul · Serimu Kozmetik<br />Ad, imza, tarih</div>
+    <div>[Stüdyo adı]<br />[Adınız], imza, tarih</div>
+  </div>
+  <div class="foot"><span>[Adınız] · [E-posta] · [Telefon]</span><span>HOPE-2026-01</span></div>
+  <div class="band band--bottom">EXTRAIT DE PARFUM · İSTANBUL</div>
+</section>
+
+</body>
+</html>
