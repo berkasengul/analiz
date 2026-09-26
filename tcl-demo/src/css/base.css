@@ -2845,3 +2845,61 @@ main {
     gap: 10px;
   }
 }
+
+/* ---------- Dil düğmesi ---------- */
+
+.lang {
+  display: inline-flex;
+  padding: 4px;
+  gap: 2px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--glass), var(--glass)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.06) 45%,
+      color-mix(in srgb, var(--accent) 70%, transparent)) border-box;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.lang button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  transition: background 0.3s, color 0.3s;
+}
+
+.lang button small {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.lang button:hover {
+  color: var(--fg);
+}
+
+.lang button.is-on {
+  color: #0a0a0c;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, #fff), var(--accent));
+  box-shadow: 0 6px 18px -8px var(--accent);
+}
+
+.menu__lang {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .header__right > .lang {
+    display: none;
+  }
+
+  .menu__lang {
+    display: block;
+  }
+}

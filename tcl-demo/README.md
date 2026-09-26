@@ -3,13 +3,13 @@
 > Bu klasör Turkish Coffee Lady'ye sunulmak üzere hazırlanmış **bağımsız bir
 > konsept demodur**. Marka sahibiyle bağlantılı değildir.
 >
-> - Kutular, markanın paylaşılan güncel beyaz kutu tasarımından esinlenerek yeniden çizilmiştir (mavi bantlar, TURKISH COFFEE Lady logosu, nazar boncuğu, gün batımında şehir resmi).
+> - Kutular markanın ürün görseline göre yeniden çizilmiştir: altın Silky Mardin (kabartma Mardin), gümüş-mavi Bold Istanbul (suluboya İstanbul), İznik desenli buzlu kahve fincanı ve madalyonda Lady figürü. Diğer üç tat aynı tasarım dilinde konsept önerisidir.
 > - Diğer üç tadın kutuları aynı tasarım dilinde konsept önerileridir.
 > - Besin değerleri, açıklamalar ve fiyatlar örnektir.
 >
 > Onay alınmadan herkese açık bir adreste yayınlanmamalıdır. Sayfa `noindex` etiketlidir.
 
-**Blazing ile aynı 3B yapı, 250 ml slim kutularla:**
+**Blazing ile aynı 3B yapı, 250 ml slim kutularla. İki dilli:** sağ üstteki düğmeyle Türkçe (₺) ve İngilizce ($) arasında geçilir; seçim tarayıcıda hatırlanır. Marka hem Türkiye'de (turkishcoffeelady.com.tr, İstanbul lansmanı) hem ABD'de satış yaptığı için.
 
 - **Her tadın kendi sahnesi:** Bold Istanbul buz mavisi, Silky Mardin karamel, Zeugma fıstık yeşili, Kapadokya mint, Ege derin mavi. Tat değişince arka plan, ışık, parçacıklar ve butonların rengi o tada geçer; kutudan tadın renginde kahve sıçrar (koyu ya da sütlü).
 - **Vitrin ışığı:** Öndeki kutuya tepeden tadın renginde spot ışık düşer, yandaki kutular kademeli olarak kararır. Kutuların kenarlarında tadın renginde ince bir parıltı, yüzeylerinde yoğuşma damlacıkları var.
@@ -47,7 +47,7 @@ ağır çekimde görmek için adresin sonuna `?slowmo=8` ekle.
 - **Etiketler** (`src/assets/labels/*.jpg`): `docs/label-generator.py` ile tam renkli olarak üretilir (fontlar `docs/label-fonts` altında, SIL OFL). Etiket kutuyu şöyle sarar: u = 0.5 ön yüz, u = 0.25 arka (besin değerleri), u = 0.75 yan (dijital fal). Düz hallerini görmek için: `docs/labels-flat.png`.
 - **Tat geçişi** (`src/canMaterial.js`): Tat değişirken iki etiket görseli arasında Codrops projesindeki gürültülü geçiş oynar.
 - **Sahne:** `src/IceScene.jsx` (buz küpleri, çekirdekler, sıçrama), yoğuşma normal haritası `docs/droplets-generator.py`, `src/BackgroundMaterial.js` (tadın ışığı). Her tadın renkleri `src/data.js` içinde `theme` alanındadır.
-- **Marka, tatlar, metinler:** `src/brand.js` ve `src/data.js`.
+- **Marka, tatlar, metinler:** Türkçe içerik `src/brand.js` ve `src/data.js`; İngilizce karşılıklar, ₺/$ fiyatlar ve arayüz metinleri `src/i18n.js`.
 
 ## Resmi tasarım gelince
 

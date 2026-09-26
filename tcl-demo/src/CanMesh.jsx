@@ -51,6 +51,8 @@ export function useCanBody() {
     maps.slice(0, -1).forEach((map, i) => {
       map.colorSpace = SRGBColorSpace;
       map.anisotropy = 8;
+      // Arka plan etiketin fincansız arka yüzünü örnekler; yatayda sarmalı.
+      map.wrapS = RepeatWrapping;
       map.needsUpdate = true;
       flavors[i].texture = map;
     });
@@ -76,7 +78,7 @@ export function dimBottleParts(parts, dim) {
 
 export default function CanMesh({ body, parts }) {
   return (
-    <group rotation={[0, 0, -0.13]} position={[0, 0.1, 0]}>
+    <group rotation={[0, 0, -0.13]} position={[0, 0.1, 0]} scale={[0.92, 1, 0.92]}>
       <mesh geometry={shellGeo} material={parts.metal} />
       <mesh geometry={labelGeo} material={body} position={[0, (LABEL_TOP + LABEL_BOTTOM) / 2, 0]} />
       <mesh geometry={tabGeo} material={parts.metal} position={[0, 2.25, 0.18]} />

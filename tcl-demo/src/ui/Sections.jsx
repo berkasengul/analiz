@@ -1,11 +1,10 @@
 import { useState } from "react";
 
-import { faqs, stockists, story } from "../data";
+import { useT } from "../i18n";
 import { Cup } from "../Icons";
-import { brand } from "../brand";
 
 export function Marquee() {
-  const words = ["Good coffee. Good fortune.", "Dünyanın ilk buzlu Türk kahvesi", "Shake well. Drink cold.", "UNESCO kültürel mirası", "Coffee Sayer AI", "Beş şehir, beş tat"];
+  const words = useT().ui.marquee;
   const row = [...words, ...words];
   return (
     <div className="marquee" aria-hidden="true">
@@ -22,12 +21,13 @@ export function Marquee() {
 }
 
 export function Story() {
+  const { ui, story, stockists, faqs } = useT();
   return (
     <section id="story" className="section story">
       <div className="story__grid">
         <div className="story__main">
           <header className="section__head reveal">
-            <p className="mono section__eyebrow">04 — Hikâye</p>
+            <p className="mono section__eyebrow">{ui.storyEyebrow}</p>
             <h2 className="section__title">Good coffee. Good fortune.</h2>
           </header>
           <p className="story__lead reveal">{story.lead}</p>
@@ -42,12 +42,12 @@ export function Story() {
             </span>
             <div>
               <p className="story__name">{story.founder}</p>
-              <p className="mono">Kurucu · Turkish Coffee Lady</p>
+              <p className="mono">{ui.founder}</p>
             </div>
           </div>
         </div>
 
-        <ol className="timeline reveal" aria-label="Kilometre taşları">
+        <ol className="timeline reveal" aria-label={ui.milestones}>
           {story.timeline.map(([year, text]) => (
             <li key={year}>
               <span className="timeline__year">{year}</span>
@@ -67,7 +67,7 @@ export function Story() {
       </ul>
 
       <div className="press reveal">
-        <p className="mono">Basında</p>
+        <p className="mono">{ui.press}</p>
         <ul>
           {story.press.map((p) => (
             <li key={p}>{p}</li>
@@ -79,20 +79,21 @@ export function Story() {
 }
 
 export function Stockists() {
+  const { ui, story, stockists, faqs } = useT();
   return (
     <section id="stockists" className="section stockists">
       <header className="section__head reveal">
-        <p className="mono section__eyebrow">05 — Nerede</p>
-        <h2 className="section__title">Nerede bulunur</h2>
-        <p className="tagline tagline--static">Alexandria'dan İstanbul'a, bir fincanlık mesafede.</p>
+        <p className="mono section__eyebrow">{ui.whereEyebrow}</p>
+        <h2 className="section__title">{ui.whereTitle}</h2>
+        <p className="tagline tagline--static">{ui.whereTag}</p>
       </header>
       <div className="table-wrap reveal">
         <table className="stock">
           <thead>
             <tr>
-              <th scope="col">Yer</th>
-              <th scope="col">Nokta</th>
-              <th scope="col" className="num">Durum</th>
+              <th scope="col">{ui.place}</th>
+              <th scope="col">{ui.spot}</th>
+              <th scope="col" className="num">{ui.status}</th>
             </tr>
           </thead>
           <tbody>
@@ -113,11 +114,12 @@ export function Stockists() {
 }
 
 export function Faq() {
+  const { ui, story, stockists, faqs } = useT();
   return (
     <section id="faq" className="section faq">
       <header className="section__head reveal">
-        <p className="mono section__eyebrow">06 — SSS</p>
-        <h2 className="section__title">Merak edilenler</h2>
+        <p className="mono section__eyebrow">{ui.faqEyebrow}</p>
+        <h2 className="section__title">{ui.faqTitle}</h2>
       </header>
       <div className="faq__list reveal">
         {faqs.map(([q, a]) => (
@@ -135,6 +137,7 @@ export function Faq() {
 }
 
 export function Footer() {
+  const { ui, story, brand } = useT();
   const [sent, setSent] = useState(false);
   const [joined, setJoined] = useState(false);
 
@@ -142,11 +145,11 @@ export function Footer() {
     <section id="contact" className="section contact">
       <div className="contact__grid">
         <div className="reveal">
-          <p className="mono section__eyebrow">İletişim</p>
-          <h2 className="section__title">Bize yaz</h2>
-          <p className="tagline tagline--static">Kafe, otel ya da market için toptan sipariş.</p>
+          <p className="mono section__eyebrow">{ui.contact}</p>
+          <h2 className="section__title">{ui.contactTitle}</h2>
+          <p className="tagline tagline--static">{ui.contactTag}</p>
           {sent ? (
-            <p className="contact__done">Teşekkürler. İki iş günü içinde dönüş yapacağız.</p>
+            <p className="contact__done">{ui.thanks}</p>
           ) : (
             <form
               className="contact__form"
@@ -156,27 +159,27 @@ export function Footer() {
               }}
             >
               <label>
-                <span className="mono">Ad soyad</span>
+                <span className="mono">{ui.name}</span>
                 <input id="c-name" name="name" required autoComplete="name" />
               </label>
               <label>
-                <span className="mono">E-posta</span>
+                <span className="mono">{ui.email}</span>
                 <input id="c-email" name="email" type="email" required autoComplete="email" />
               </label>
               <label className="contact__wide">
-                <span className="mono">Mesaj</span>
+                <span className="mono">{ui.message}</span>
                 <textarea id="c-msg" name="message" rows={3} required />
               </label>
-              <button type="submit" className="pill">Mesajı gönder</button>
+              <button type="submit" className="pill">{ui.send}</button>
             </form>
           )}
         </div>
 
         <div className="news reveal">
-          <p className="mono section__eyebrow">Bülten</p>
-          <p className="news__title">Yeni tatlar önce burada duyurulur.</p>
+          <p className="mono section__eyebrow">{ui.newsletter}</p>
+          <p className="news__title">{ui.newsTitle}</p>
           {joined ? (
-            <p className="contact__done">Listeye eklendin.</p>
+            <p className="contact__done">{ui.joined}</p>
           ) : (
             <form
               className="news__form"
@@ -185,16 +188,16 @@ export function Footer() {
                 setJoined(true);
               }}
             >
-              <label htmlFor="n-email" className="sr-only">E-posta adresi</label>
-              <input id="n-email" type="email" placeholder="sen@ornek.com" required autoComplete="email" />
-              <button type="submit" className="pill">Katıl</button>
+              <label htmlFor="n-email" className="sr-only">{ui.emailAddress}</label>
+              <input id="n-email" type="email" placeholder={ui.emailPh} required autoComplete="email" />
+              <button type="submit" className="pill">{ui.join}</button>
             </form>
           )}
         </div>
       </div>
 
       <p className="warning">
-        Kafein içerir. {brand.disclaimer}
+        {ui.caffeine} {brand.disclaimer}
       </p>
 
       <div className="social reveal">
@@ -204,7 +207,7 @@ export function Footer() {
           <span className="social__arrow" aria-hidden="true">↗</span>
         </a>
         <a className="social__card" href={story.website} target="_blank" rel="noreferrer">
-          <span className="mono">Web</span>
+          <span className="mono">{ui.web}</span>
           <strong>turkishcoffeelady.com</strong>
           <span className="social__arrow" aria-hidden="true">↗</span>
         </a>
@@ -212,14 +215,14 @@ export function Footer() {
 
       <footer className="footer mono">
         <span>{brand.name} · Good coffee. Good fortune.</span>
-        <nav className="footer__links" aria-label="Alt menü">
-          <a href="#shop">Mağaza</a>
-          <a href="#faq">SSS</a>
-          <a href="#story">Hikâye</a>
-          <a href="#stockists">Nerede</a>
-          <a href="#contact">İletişim</a>
+        <nav className="footer__links" aria-label={ui.footerNav}>
+          <a href="#shop">{ui.nav.shop}</a>
+          <a href="#faq">{ui.nav.faq}</a>
+          <a href="#story">{ui.nav.story}</a>
+          <a href="#stockists">{ui.nav.stockists}</a>
+          <a href="#contact">{ui.nav.contact}</a>
         </nav>
-        <span>{brand.name} için hazırlanmış konsept demo</span>
+        <span>{ui.madeForShort(brand.name)}</span>
       </footer>
     </section>
   );

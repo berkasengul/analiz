@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import { VARIETY, flavorName, flavors, money, packLabel, packPrice, packs, SUB_DISCOUNT, FREE_SHIPPING } from "../data";
+import { VARIETY, flavors } from "../data";
+import { useT } from "../i18n";
 import { shopFlavorOf, useStore } from "../store";
 import { Minus, Plus } from "../Icons";
 
@@ -14,8 +15,10 @@ export default function Shop() {
   const addToCart = useStore((s) => s.addToCart);
   const [qty, setQty] = useState(1);
 
-  const unit = packPrice(pack, plan);
-  const full = packPrice(pack, "once");
+  const t = useT();
+  const { ui, money } = t;
+  const unit = t.price(pack, plan);
+  const full = t.price(pack, "once");
   const perCan = unit / pack;
 
   return (
@@ -26,14 +29,14 @@ export default function Shop() {
     >
       <div className="shop__panel">
         <header className="shop__head">
-          <p className="mono section__eyebrow">03 — Mağaza</p>
-          <h2 className="section__title">Paketini oluştur</h2>
-          <p className="tagline tagline--static">Tadını seç, boyutunu seç. Gerisini soğuk tutarız.</p>
+          <p className="mono section__eyebrow">{ui.shopEyebrow}</p>
+          <h2 className="section__title">{ui.shopTitle}</h2>
+          <p className="tagline tagline--static">{ui.shopTag}</p>
         </header>
 
         <fieldset className="field">
           <legend className="mono">
-            Tat <b>{flavorName(flavor)}</b>
+            {ui.flavor} <b>{t.flavorName(flavor)}</b>
           </legend>
           <div className="swatches">
             {flavors.map((f, i) => (
@@ -51,15 +54,15 @@ export default function Shop() {
               aria-pressed={flavor === VARIETY}
               onClick={() => setShop({ shopFlavor: VARIETY })}
             >
-              Karışık
+              {ui.mix}
             </button>
           </div>
         </fieldset>
 
         <fieldset className="field">
-          <legend className="mono">Paket boyutu</legend>
+          <legend className="mono">{ui.size}</legend>
           <div className="packs">
-            {packs.map((p) => (
+            {t.packs.map((p) => (
               <button
                 key={p.size}
                 className={`pack${pack === p.size ? " is-on" : ""}`}
@@ -67,8 +70,8 @@ export default function Shop() {
                 onClick={() => setShop({ shopPack: p.size })}
               >
                 <span className="pack__size">{p.size}</span>
-                <span className="pack__cans mono">kutu</span>
-                <span className="pack__per">Kutu başı {money(packPrice(p.size, plan) / p.size)}</span>
+                <span className="pack__cans mono">{ui.cans}</span>
+                <span className="pack__per">{ui.perCan(money(t.price(p.size, plan) / p.size))}</span>
                 <span className="pack__label mono">{p.label}</span>
               </button>
             ))}
@@ -76,20 +79,20 @@ export default function Shop() {
         </fieldset>
 
         <fieldset className="field">
-          <legend className="mono">Teslimat</legend>
+          <legend className="mono">{ui.delivery}</legend>
           <div className="plans">
             <label className={`plan${plan === "once" ? " is-on" : ""}`}>
               <input type="radio" name="plan" id="plan-once" checked={plan === "once"} onChange={() => setShop({ shopPlan: "once" })} />
-              <span>Tek seferlik alım</span>
+              <span>{ui.once}</span>
               <span className="plan__price">{money(full)}</span>
             </label>
             <label className={`plan${plan === "sub" ? " is-on" : ""}`}>
               <input type="radio" name="plan" id="plan-sub" checked={plan === "sub"} onChange={() => setShop({ shopPlan: "sub" })} />
               <span>
-                Abone ol, %{Math.round(SUB_DISCOUNT * 100)} tasarruf et
-                <small>4 haftada bir · istediğin zaman atla ya da iptal et</small>
+                {ui.subscribe(t.subPct)}
+                <small>{ui.subNote}</small>
               </span>
-              <span className="plan__price">{money(packPrice(pack, "sub"))}</span>
+              <span className="plan__price">{money(t.price(pack, "sub"))}</span>
             </label>
           </div>
         </fieldset>
@@ -99,23 +102,23 @@ export default function Shop() {
             <span className="price__now">{money(unit * qty)}</span>
             {plan === "sub" && <s className="price__was">{money(full * qty)}</s>}
             <span className="price__per mono">
-              {packLabel(pack)} paket · kutu başı {money(perCan)}
+              {ui.packPerCan(t.packLabel(pack), money(perCan))}
             </span>
           </div>
-          <div className="qty" aria-label="Adet">
-            <button onClick={() => setQty(Math.max(1, qty - 1))} aria-label="Adedi azalt"><Minus /></button>
+          <div className="qty" aria-label={ui.qty}>
+            <button onClick={() => setQty(Math.max(1, qty - 1))} aria-label={ui.dec}><Minus /></button>
             <span aria-live="polite">{qty}</span>
-            <button onClick={() => setQty(qty + 1)} aria-label="Adedi artır"><Plus /></button>
+            <button onClick={() => setQty(qty + 1)} aria-label={ui.inc}><Plus /></button>
           </div>
           <button className="pill pill--wide" onClick={() => addToCart(flavor, pack, plan, qty)}>
-            Sepete ekle
+            {ui.addToCart}
           </button>
         </div>
 
         <ul className="perks mono">
-          <li>{money(FREE_SHIPPING)} üzeri ücretsiz kargo</li>
-          <li>24 saatte kargoda</li>
-          <li>Geri dönüştürülebilir alüminyum</li>
+          <li>{ui.freeOver(money(t.freeShipping))}</li>
+          <li>{ui.ships}</li>
+          <li>{ui.recyclable}</li>
         </ul>
       </div>
     </section>

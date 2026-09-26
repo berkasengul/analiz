@@ -69,7 +69,7 @@ export const BackgroundMaterial = shaderMaterial(
       // Tadın şehri: etiketteki resim, bulanık ve alacakaranlıkta.
       if (u_hasMap > 0.5) {
         float band = smoothstep(0.0, 0.14, vUv.y) * (1. - smoothstep(0.44, 0.6, vUv.y));
-        vec2 tuv = vec2(0.5 + (vUv.x - 0.5) * 0.5, mix(0.25, 0.49, clamp((vUv.y + 0.02) / 0.6, 0., 1.)));
+        vec2 tuv = vec2((vUv.x - 0.5) * 0.45, mix(0.22, 0.56, clamp((vUv.y + 0.02) / 0.6, 0., 1.)));
         vec3 city = mix(texture2D(u_map1, tuv, 4.).rgb, texture2D(u_map2, tuv, 4.).rgb, u_mix);
         city = mix(city, u_glow, 0.3) * 0.27 * (1. - smoothstep(0.25, 1.15, center));
         base = mix(base, city, band * 0.9 * u_stage);

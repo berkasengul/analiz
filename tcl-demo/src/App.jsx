@@ -134,11 +134,20 @@ function useMagnetic() {
   }, []);
 }
 
+// Sayfa dili: büyük harf dönüşümleri (i → İ) ve ekran okuyucular için.
+function useDocLang() {
+  const lang = useStore((s) => s.lang);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+}
+
 export default function App() {
   useSmoothScroll();
   useKeys();
   useReveal();
   useMagnetic();
+  useDocLang();
   const detail = useStore((s) => s.detail);
   const cinema = useStore((s) => s.detail && s.feature != null);
 

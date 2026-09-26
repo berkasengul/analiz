@@ -67,7 +67,7 @@ export const features = [
     struck: "Cezve beklemek",
     title: "500 yıllık tarif",
     text: "UNESCO kültürel mirası 500 yıllık Türk kahvesi, dünyanın ilk hazır buzlu Türk kahvesi olarak kutuda. Nazar boncuğu da cabası.",
-    pose: { rotY: 0.04, rotZ: 0.02, y: -2.2, scale: 3.4 },
+    pose: { rotY: 0.04, rotZ: 0.02, y: -0.9, scale: 3.4 },
   },
   {
     icon: "pin",
@@ -76,7 +76,7 @@ export const features = [
     struck: "Tek tip tat",
     title: "Beş şehir, beş tat",
     text: "İstanbul'dan Mardin'e, Zeugma'dan Kapadokya'ya ve Ege'ye: her kutu bir şehrin gün batımını ve kahve hikâyesini taşır.",
-    pose: { rotY: 0.35, rotZ: 0.03, y: -0.8, scale: 3.1 },
+    pose: { rotY: 0.55, rotZ: 0.03, y: 1.7, scale: 3.1 },
   },
   {
     icon: "cube",

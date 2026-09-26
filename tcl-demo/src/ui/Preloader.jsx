@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useProgress } from "@react-three/drei";
 
 import { Cup } from "../Icons";
-import { brand } from "../brand";
+import { useT } from "../i18n";
 import { useStore } from "../store";
 
 // Model ve ortam haritası yüklenene kadar görünen açılış perdesi.
@@ -12,6 +12,7 @@ export default function Preloader() {
   const loaded = useStore((s) => s.loaded);
   const setLoaded = useStore((s) => s.setLoaded);
   const [shown, setShown] = useState(0);
+  const { ui, brand } = useT();
 
   const target = ready ? 100 : Math.min(progress, 92);
 
@@ -37,9 +38,9 @@ export default function Preloader() {
         <span style={{ transform: `scaleX(${shown / 100})` }} />
       </div>
       <p className="mono" role="status">
-        {String(Math.round(shown)).padStart(3, "0")} — Kahve köpürüyor
+        {String(Math.round(shown)).padStart(3, "0")} — {ui.loading}
       </p>
-      <p className="mono loader__note">Gizem Şalcıgil White ve Turkish Coffee Lady için hazırlanmış konsept</p>
+      <p className="mono loader__note">{ui.madeFor}</p>
     </div>
   );
 }

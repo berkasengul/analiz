@@ -33,6 +33,7 @@ export const useStore = create(
     (set) => ({
       loaded: false,
       sceneReady: false,
+      lang: "tr",
       active: 0,
       moving: false,
       swapping: false,
@@ -52,6 +53,7 @@ export const useStore = create(
 
       setLoaded: () => set({ loaded: true }),
       setSceneReady: () => set({ sceneReady: true }),
+      setLang: (lang) => set({ lang }),
       setActive: (active) => set({ active }),
       setMoving: (moving) => set({ moving }),
       setSwapping: (swapping) => set({ swapping }),
@@ -87,7 +89,7 @@ export const useStore = create(
     {
       name: "blazing-cart",
       storage: createJSONStorage(() => safeStorage),
-      partialize: (s) => ({ cart: s.cart }),
+      partialize: (s) => ({ cart: s.cart, lang: s.lang }),
     }
   )
 );
