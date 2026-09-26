@@ -8,6 +8,7 @@ import Carousel from "./Carousel";
 import HeroCan from "./HeroCan";
 import Particles from "./Particles";
 import Props from "./Props";
+import Splash from "./Splash";
 import { scrollState } from "./scroll";
 
 import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
@@ -44,6 +45,7 @@ export default function Scene() {
           <Background />
           <Particles />
           <Props />
+          <Splash />
           <Carousel />
           <HeroCan />
         </Suspense>

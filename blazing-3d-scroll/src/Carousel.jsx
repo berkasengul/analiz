@@ -31,7 +31,7 @@ export function arcPose(d, aspect, time, i) {
   const spread = MathUtils.clamp(aspect / 1.9, 0.44, 1);
   const base = aspect < 0.9 ? 0.78 : 1;
   return {
-    x: 5.2 * d * (1 + 0.08 * ad) * spread,
+    x: 4.8 * d * (1 + 0.08 * ad) * spread,
     y: 0.5 - 0.22 * Math.min(ad, 3) + 0.4 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07,
     z: -0.8 * d * d + focus * 1.2,
     rotX: 0.08,
@@ -74,6 +74,7 @@ export default function Carousel() {
     sceneState.spread = spread;
     const aspect = size.width / size.height;
     const nearest = ((Math.round(s.p) % N) + N) % N;
+    sceneState.hoverFocus = s.hovered === nearest && !detail && spread < 0.1 && Math.abs(s.p - Math.round(s.p)) < 0.1;
 
     groups.current.forEach((g, i) => {
       if (!g) return;
@@ -104,18 +105,14 @@ export default function Carousel() {
     });
   });
 
-  // Hangi kutuya tıklanırsa tıklansın o tatın detayı açılır; öndeki değilse
-  // önce carousel o kutuya döner.
+  // Öndeki kutuya tıklamak detayı açar; yandaki bir kutuya tıklamak
+  // carousel'i o kutuya döndürür.
   const onClick = (i) => (e) => {
     e.stopPropagation();
     const s = useStore.getState();
     if (s.detail || !s.loaded || scrollState.ritualIn > 0.05) return;
     if (i === s.active) openDetail();
-    else
-      scrollToFlavor(i, false, () => {
-        const now = useStore.getState();
-        if (now.active === i && !now.detail) openDetail();
-      });
+    else scrollToFlavor(i);
   };
 
   const hover = (i) => (e) => {

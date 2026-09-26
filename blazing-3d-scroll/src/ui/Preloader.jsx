@@ -30,13 +30,13 @@ export default function Preloader() {
     <div className={`loader${loaded ? " is-done" : ""}`} aria-hidden={loaded}>
       <div className="loader__mark">
         <Flame />
-        <span className="brand__name">Blazing</span>
+        <span className="brand__name" lang="en">Blazing</span>
       </div>
       <div className="loader__bar">
         <span style={{ transform: `scaleX(${shown / 100})` }} />
       </div>
       <p className="mono" role="status">
-        {String(Math.round(shown)).padStart(3, "0")} — Chilling the cans
+        {String(Math.round(shown)).padStart(3, "0")} — Kutular soğutuluyor
       </p>
     </div>
   );

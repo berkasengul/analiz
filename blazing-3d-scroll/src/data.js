@@ -1,199 +1,203 @@
 // On tat, halkadaki sırasıyla. `ink`, kutu üzerindeki yazıların rengi.
 export const flavors = [
   {
-    name: "Chrome",
+    name: "Krom",
     color: "#8e9399",
     ink: "#141416",
-    tagline: "Polished, never quiet.",
-    notes: ["Citrus peel", "Ginseng"],
-    description: "Our original. Bright citrus over a clean ginseng backbone, finished cold and dry.",
+    tagline: "Parlak, asla sessiz değil.",
+    notes: ["Narenciye kabuğu", "Ginseng"],
+    description: "İlk tadımız. Temiz bir ginseng tabanı üzerinde parlak narenciye; soğuk ve kuru bir bitiş.",
   },
   {
-    name: "Cherry",
+    name: "Kiraz",
     color: "#c0121f",
     ink: "#fff4f4",
-    tagline: "Heat, bottled.",
-    notes: ["Black cherry", "Pink pepper"],
-    description: "Dark cherry with a flicker of pink pepper. Sweet up front, warm on the way down.",
+    tagline: "Kutuda ateş.",
+    notes: ["Kara kiraz", "Pembe biber"],
+    description: "Pembe biberin kıvılcımıyla koyu kiraz. Önce tatlı, yudumun sonunda sıcak.",
   },
   {
-    name: "Lime",
+    name: "Misket",
     color: "#6a9418",
     ink: "#0f1504",
-    tagline: "Sharp, electric.",
-    notes: ["Key lime", "Yuzu"],
-    description: "Key lime cut with yuzu for a sour snap that wakes up every part of your tongue.",
+    tagline: "Keskin, elektrikli.",
+    notes: ["Misket limonu", "Yuzu"],
+    description: "Yuzu ile keskinleşen misket limonu. Dilinin her yerini uyandıran ekşi bir çıtırtı.",
   },
   {
-    name: "Ice",
+    name: "Buz",
     color: "#1fb4e4",
     ink: "#04161d",
-    tagline: "Voltage, sub-zero.",
-    notes: ["Glacier mint", "Blue raspberry"],
-    description: "Glacier mint and blue raspberry. The coldest can in the lineup, even at room temperature.",
+    tagline: "Sıfırın altında voltaj.",
+    notes: ["Buzul nanesi", "Mavi ahududu"],
+    description: "Buzul nanesi ve mavi ahududu. Oda sıcaklığında bile serinin en soğuk kutusu.",
   },
   {
-    name: "Night",
-    color: "#1c1838",
-    ink: "#c9c6de",
-    tagline: "After hours, still on.",
-    notes: ["Blackcurrant", "Concord grape"],
-    description: "Blackcurrant and concord grape, deep and a little tart. Built for the late shift.",
+    name: "Böğürtlen",
+    color: "#2c1a4f",
+    ink: "#d9cff2",
+    tagline: "Gece mesaisinin yakıtı.",
+    notes: ["Frenk üzümü", "Menekşe", "Açai"],
+    description: "Frenk üzümü ve açai, üstünde çiçeksi bir menekşe notası. Derin, biraz ekşi; uzun geceler için.",
   },
   {
     name: "Mango",
     color: "#f06510",
     ink: "#1f0b01",
-    tagline: "Sunrise, carbonated.",
-    notes: ["Alphonso mango", "Blood orange"],
-    description: "Alphonso mango brightened with blood orange. Thick, juicy, and loud.",
+    tagline: "Gazlı gün doğumu.",
+    notes: ["Alphonso mango", "Kan portakalı"],
+    description: "Kan portakalıyla canlanan Alphonso mango. Yoğun, sulu ve gür.",
   },
   {
-    name: "Wave",
+    name: "Dalga",
     color: "#1b2ea6",
     ink: "#d5dbff",
-    tagline: "Tidal, tart.",
-    notes: ["Blueberry", "Sea salt"],
-    description: "Wild blueberry with a pinch of sea salt, so it tastes like the last swim of summer.",
+    tagline: "Gelgit gibi, mayhoş.",
+    notes: ["Yaban mersini", "Deniz tuzu"],
+    description: "Bir tutam deniz tuzuyla yaban mersini. Tadı yazın son yüzüşü gibi.",
   },
   {
-    name: "Gold",
+    name: "Altın",
     color: "#a8760f",
     ink: "#1a1203",
-    tagline: "Honeyed, high voltage.",
-    notes: ["Pineapple", "Wildflower honey"],
-    description: "Roasted pineapple and a drop of wildflower honey. Rich, without the sugar.",
+    tagline: "Sıvı altın.",
+    notes: ["Ananas", "Bal", "Safran"],
+    description: "Közlenmiş ananas ve bir damla bal, üstünde safran. Zengin ama şekersiz.",
   },
   {
     name: "Pitaya",
     color: "#df1476",
     ink: "#fff1f7",
-    tagline: "Neon, after dark.",
-    notes: ["Dragon fruit", "Lychee", "Rose"],
-    description: "Dragon fruit and lychee, lifted by a soft rose-petal finish.",
+    tagline: "Karanlıkta neon.",
+    notes: ["Ejder meyvesi", "Liçi", "Gül"],
+    description: "Ejder meyvesi ve liçi, yumuşak bir gül yaprağı bitişiyle.",
   },
   {
-    name: "Onyx",
+    name: "Oniks",
     color: "#121214",
     ink: "#76767e",
-    tagline: "Blackout, full charge.",
-    notes: ["Black grape", "Acai"],
-    description: "Black grape and acai in a matte-black can. The boldest-tasting of the ten.",
+    tagline: "Karartma, tam şarj.",
+    notes: ["Siyah üzüm", "Açai"],
+    description: "Mat siyah kutuda siyah üzüm ve açai. On tadın en cüretkârı.",
   },
 ];
 
-export const specs = "Zero sugar — 160 mg caffeine";
+export const specs = "Sıfır şeker — 160 mg kafein";
 
 // Detay görünümündeki özellik hikâyeleri. `pose`, kutunun o özellikte
 // nasıl duracağı: rotY = arka etiketi göstermek için döndürme.
 export const features = [
   {
     icon: "bolt",
-    short: "Clean energy",
-    kicker: "No",
-    struck: "Sugar crash",
-    title: "Clean energy",
-    text: "160 mg of caffeine from green coffee beans and guarana. It builds over twenty minutes and holds for hours, instead of spiking and dropping you.",
-    pose: { rotY: 0.12, y: -1.5, scale: 3.1 },
+    short: "Kafein + enerji",
+    kicker: "Sıfır",
+    struck: "Şeker çöküşü",
+    title: "Kafein + enerji",
+    text: "Taurin ve ginsengle birlikte 160 mg doğal kafein. Yirmi dakikada yükselen, saatlerce süren dengeli bir enerji; ani sıçrama ve ardından gelen düşüş yok.",
+    // Kutu yukarı kayar, ön yüzün alt yarısı (ENERGY DRINK, 220 ML) görünür.
+    pose: { rotY: 0.08, rotZ: 0.02, y: 2.8, scale: 2.9 },
   },
   {
     icon: "leaf",
-    short: "Natural flavours",
-    kicker: "No",
-    struck: "Artificial flavours",
-    title: "Natural flavours",
-    text: "Every flavour is built from fruit juice concentrate and botanical extracts. The ingredient list on the back is short enough to read in one breath.",
-    pose: { rotY: Math.PI + 0.1, y: 1.3, scale: 3.0 },
+    short: "Doğal aromalar",
+    kicker: "Sıfır",
+    struck: "Yapay aroma",
+    title: "Doğal aromalar",
+    text: "Meyve suyu ve bitkisel özlerden yapılır. Sentetik hiçbir şey yok; arka yüzdeki içerik listesi tek nefeste okunacak kadar kısa.",
+    // Arkaya döner, etiketin alt kısmı ve kutunun dibi görünür.
+    pose: { rotY: Math.PI + 0.12, rotZ: 0.02, y: 2.6, scale: 2.9 },
   },
   {
     icon: "cube",
-    short: "Zero sugar",
-    kicker: "Zero",
-    struck: "Added sugar",
-    title: "Zero sugar",
-    text: "Sweetened with stevia and the fruit itself. Under half a gram of sugar per can, so the lift arrives without a comedown.",
-    pose: { rotY: Math.PI - 0.05, y: -0.3, scale: 2.5 },
+    short: "Daha az şeker",
+    kicker: "Daha az",
+    struck: "Fazla şeker",
+    title: "Daha az şeker",
+    text: "Kutu başına yarım gramdan az şeker. Tatlılık meyveden ve biraz steviadan gelir; enerji arkasından bir düşüş getirmez.",
+    // Aşağı kayar, "Supplement Facts" başlığı görünür.
+    pose: { rotY: Math.PI + 0.02, rotZ: 0.0, y: 0.9, scale: 2.9 },
   },
   {
     icon: "hex",
-    short: "B-vitamin complex",
-    kicker: "Plus",
-    struck: "Empty calories",
-    title: "Vitamin B complex",
-    text: "B2, B3, B6 and B12 at 100% of your daily value. They help your body turn food into energy, which is the whole point.",
-    pose: { rotY: Math.PI - 0.25, y: -1.2, scale: 3.4 },
+    short: "B vitamini kompleksi",
+    kicker: "Artı",
+    struck: "Boş kalori",
+    title: "B vitamini kompleksi",
+    text: "Günlük ihtiyacın %100'ü kadar B2, B3, B6 ve B12. Besinleri enerjiye dönüştürmene yardım ederler; formülün sessiz ama çalışan kısmı.",
+    // Hafifçe dönüp eğilir, vitamin listesine yakınlaşır.
+    pose: { rotY: Math.PI - 0.12, rotZ: -0.06, y: 1.3, scale: 3.3 },
   },
 ];
 
-// Ritual bölümündeki adımlar. Kutu her adımda farklı bir poza geçer.
+// Ritüel bölümündeki adımlar. Kutu her adımda farklı bir poza ve tada geçer.
 export const ritual = [
   {
-    title: "Chill",
+    title: "Soğut",
     flavor: 3,
-    text: "Fridge-cold, 4 °C. The colder the can, the sharper the first sip.",
+    text: "Buzdolabı soğukluğunda, 4 °C. Kutu ne kadar soğuksa ilk yudum o kadar keskin.",
     stat: "4 °C",
   },
   {
-    title: "Crack",
+    title: "Aç",
     flavor: 1,
-    text: "Wait for the hiss. Pour it over ice, or drink it straight from the can.",
+    text: "Tıslama sesini bekle. Buzun üzerine dök ya da doğrudan kutudan iç.",
     stat: "220 ml",
   },
   {
-    title: "Ignite",
+    title: "Ateşle",
     flavor: 5,
-    text: "Twenty minutes later it kicks in, and it stays with you through the afternoon.",
+    text: "Yirmi dakika sonra etkisini gösterir ve öğleden sonraya kadar seninle kalır.",
     stat: "160 mg",
   },
 ];
 
 export const packs = [
-  { size: 6, price: 15.9, label: "Try it" },
-  { size: 12, price: 28.9, label: "Most popular" },
-  { size: 24, price: 52.9, label: "Best value" },
+  { size: 6, price: 449.9, label: "Dene" },
+  { size: 12, price: 849.9, label: "En popüler" },
+  { size: 24, price: 1549.9, label: "En avantajlı" },
 ];
 
 export const SUB_DISCOUNT = 0.15;
-export const FREE_SHIPPING = 40;
-export const SHIPPING = 4.9;
+export const FREE_SHIPPING = 1000;
+export const SHIPPING = 89.9;
 export const VARIETY = "variety";
 export const DEFAULT_SHOP_FLAVOR = 5; // Mango
 
 export const stockists = [
-  ["Istanbul", "Kadıköy, Beşiktaş, Karaköy", 128],
-  ["Berlin", "Kreuzberg, Neukölln, Mitte", 94],
-  ["London", "Shoreditch, Peckham, Soho", 86],
-  ["Paris", "Le Marais, Belleville, Pigalle", 77],
-  ["Barcelona", "El Born, Gràcia, Poblenou", 52],
-  ["Amsterdam", "De Pijp, Jordaan, Noord", 41],
+  ["İstanbul", "Kadıköy, Beşiktaş, Karaköy", 128],
+  ["Ankara", "Çankaya, Kızılay, Bahçelievler", 74],
+  ["İzmir", "Alsancak, Karşıyaka, Bornova", 61],
+  ["Antalya", "Konyaaltı, Muratpaşa, Kaleiçi", 38],
+  ["Bursa", "Nilüfer, Osmangazi", 27],
+  ["Eskişehir", "Odunpazarı, Tepebaşı", 19],
 ];
 
 export const faqs = [
   [
-    "How much caffeine is in a can?",
-    "160 mg in a 220 ml can, roughly the same as a large filter coffee. We don't recommend more than two cans a day.",
+    "Bir kutuda ne kadar kafein var?",
+    "220 ml'lik bir kutuda 160 mg; büyük bir filtre kahveyle hemen hemen aynı. Günde ikiden fazla kutu önermiyoruz.",
   ],
   [
-    "What is it sweetened with?",
-    "Stevia leaf extract and the fruit juice in each flavour. There is no added sugar and no aspartame or sucralose.",
+    "Neyle tatlandırılıyor?",
+    "Stevia yaprağı özü ve her tattaki meyve suyuyla. İlave şeker, aspartam ya da sukraloz yok.",
   ],
   [
-    "Who shouldn't drink Blazing?",
-    "It's high in caffeine, so it isn't suitable for children, or for anyone pregnant or breastfeeding.",
+    "Kimler Blazing içmemeli?",
+    "Kafein oranı yüksek olduğu için çocuklar, hamile ve emziren kadınlar için uygun değildir.",
   ],
   [
-    "How fast do you ship?",
-    "Orders placed before 2 pm ship the same day and arrive in 1–3 working days across the EU. Shipping is free over €40.",
+    "Kargo ne kadar sürer?",
+    "Saat 14:00'e kadar verilen siparişler aynı gün kargoya verilir ve 1–3 iş gününde Türkiye'nin her yerine ulaşır. ₺1.000 üzeri kargo ücretsiz.",
   ],
   [
-    "How does the subscription work?",
-    "You save 15% and a new box ships every four weeks. You can skip, change flavours or cancel up to two days before it ships.",
+    "Abonelik nasıl çalışır?",
+    "%15 tasarruf edersin ve her dört haftada bir yeni paketin gönderilir. Gönderimden iki gün öncesine kadar atlayabilir, tat değiştirebilir ya da iptal edebilirsin.",
   ],
-  ["Is it vegan?", "Yes. All ten flavours are vegan and gluten-free."],
+  ["Vegan mı?", "Evet. On tadın hepsi vegan ve glütensiz."],
 ];
 
 export function flavorName(id) {
-  return id === VARIETY ? "Variety" : flavors[id].name;
+  return id === VARIETY ? "Karışık" : flavors[id].name;
 }
 
 export function packPrice(size, plan) {
@@ -201,5 +205,11 @@ export function packPrice(size, plan) {
   return pack.price * (plan === "sub" ? 1 - SUB_DISCOUNT : 1);
 }
 
-const fmt = new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" });
+// "6'lı", "12'li", "24'lü" gibi Türkçe sayı ekleri.
+export function packLabel(size) {
+  const suffix = { 6: "lı", 12: "li", 24: "lü" }[size] ?? "li";
+  return `${size}'${suffix}`;
+}
+
+const fmt = new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY" });
 export const money = (n) => fmt.format(n);

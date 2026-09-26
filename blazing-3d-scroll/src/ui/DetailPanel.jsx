@@ -1,7 +1,8 @@
-import { features, flavors, money, packPrice } from "../data";
+import { features, flavors, money, packLabel, packPrice } from "../data";
 import { scrollToFlavor } from "../scroll";
 import { useStore } from "../store";
 import { Arrow, Close, featureIcons } from "../Icons";
+import { SplitChars, SplitWords } from "./Split";
 
 const N = flavors.length;
 const pad = (n) => String(n).padStart(2, "0");
@@ -33,7 +34,7 @@ export default function DetailPanel() {
     <div className={`detail${detail ? " is-open" : ""}`} aria-hidden={!detail} style={{ "--flavor": f.color }}>
       <button className="back" onClick={closeDetail} tabIndex={tab}>
         <span className="round"><Close /></span>
-        <span className="mono">Back to flavors</span>
+        <span className="mono">Tatlara dön</span>
       </button>
 
       {ft ? (
@@ -43,8 +44,12 @@ export default function DetailPanel() {
             <span className="strike__x" aria-hidden="true">×</span>
             <s>{ft.struck}</s>
           </p>
-          <h2 className="detail__title">{ft.title}</h2>
-          <p className="detail__desc">{ft.text}</p>
+          <h2 className="detail__title">
+            <SplitChars text={ft.title} delay={80} />
+          </h2>
+          <p className="detail__desc">
+            <SplitWords text={ft.text} delay={260} />
+          </p>
           <p className="detail__notes mono">
             {pad(feature + 1)} / {pad(features.length)}
           </p>
@@ -53,21 +58,27 @@ export default function DetailPanel() {
         <div className="detail__body" key={`c-${f.name}`}>
           <p className="tag">
             <i className="dot" />
-            N° {pad(active + 1)} — Zero sugar · 160 mg caffeine
+            N° {pad(active + 1)} — Sıfır şeker · 160 mg kafein
           </p>
           <h2 className="detail__title">
-            Blazing
+            <span lang="en">
+              <SplitChars text="Blazing" delay={80} />
+            </span>
             <br />
-            <span className="detail__flavor">{f.name}</span>
+            <span className="detail__flavor">
+              <SplitChars text={f.name} delay={300} />
+            </span>
           </h2>
-          <p className="detail__desc">{f.description}</p>
+          <p className="detail__desc">
+            <SplitWords text={f.description} delay={420} />
+          </p>
           <p className="detail__notes mono">{f.notes.join(" · ")}</p>
           <div className="buy">
             <button className="pill" tabIndex={tab} onClick={() => addToCart(active, 12, "once")}>
-              Add 12-pack · {money(packPrice(12, "once"))}
+              {packLabel(12)} paket · {money(packPrice(12, "once"))}
             </button>
             <a href="#shop" className="buy__more mono" tabIndex={tab}>
-              More pack sizes
+              Diğer paketler
             </a>
           </div>
         </div>
@@ -76,32 +87,32 @@ export default function DetailPanel() {
       <div className="detail__nav">
         {ft ? (
           <>
-            <button className="round" onClick={() => stepFeature(-1)} tabIndex={tab} aria-label="Previous feature">
+            <button className="round" onClick={() => stepFeature(-1)} tabIndex={tab} aria-label="Önceki özellik">
               <Arrow dir="left" />
             </button>
-            <button className="round" onClick={() => stepFeature(1)} tabIndex={tab} aria-label="Next feature">
+            <button className="round" onClick={() => stepFeature(1)} tabIndex={tab} aria-label="Sonraki özellik">
               <Arrow />
             </button>
             <button className="detail__reset mono" onClick={() => setFeature(null)} tabIndex={tab}>
-              Back to {f.name}
+              Tat bilgisine dön
             </button>
           </>
         ) : (
           <>
-            <button className="round" onClick={() => stepFlavor(-1)} tabIndex={tab} aria-label="Previous flavor">
+            <button className="round" onClick={() => stepFlavor(-1)} tabIndex={tab} aria-label="Önceki tat">
               <Arrow dir="left" />
             </button>
             <span className="mono">
               {pad(active + 1)} / {pad(N)}
             </span>
-            <button className="round" onClick={() => stepFlavor(1)} tabIndex={tab} aria-label="Next flavor">
+            <button className="round" onClick={() => stepFlavor(1)} tabIndex={tab} aria-label="Sonraki tat">
               <Arrow />
             </button>
           </>
         )}
       </div>
 
-      <ul className="features" aria-label="What's inside">
+      <ul className="features" aria-label="İçinde ne var">
         {features.map((item, i) => {
           const Icon = featureIcons[item.icon];
           const on = feature === i;
@@ -121,7 +132,7 @@ export default function DetailPanel() {
         })}
       </ul>
 
-      <p className="drag-hint mono">Drag to turn the can</p>
+      <p className="drag-hint mono">Kutuyu çevirmek için sürükle</p>
     </div>
   );
 }

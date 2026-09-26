@@ -1,6 +1,7 @@
 import { flavors, specs } from "../data";
 import { scrollToFlavor } from "../scroll";
 import { useStore } from "../store";
+import { SplitChars } from "./Split";
 
 const N = flavors.length;
 const pad = (n) => String(n).padStart(2, "0");
@@ -9,22 +10,23 @@ export default function FlavorHud() {
   const active = useStore((s) => s.active);
   const detail = useStore((s) => s.detail);
   const loaded = useStore((s) => s.loaded);
+  const moving = useStore((s) => s.moving);
   const openDetail = useStore((s) => s.openDetail);
   const f = flavors[active];
 
   return (
     <div className={`hud${detail ? " is-hidden" : ""}${loaded ? " is-ready" : ""}`} aria-hidden={detail}>
-      <div className="hud__center">
+      <div className={`hud__center${moving ? " is-moving" : ""}`}>
         <p className="tag">
           <i className="dot" />
           {specs}
         </p>
-        <button className="hud__name" key={f.name} onClick={openDetail} aria-label={`Discover ${f.name}`}>
-          {f.name}
+        <button className="hud__name" onClick={openDetail} aria-label={`${f.name} tadını keşfet`}>
+          <SplitChars text={f.name} key={f.name} step={40} />
         </button>
-        <p className="tagline" key={f.tagline}>{f.tagline}</p>
+        <p className="tagline hud__tagline" key={f.tagline}>{f.tagline}</p>
         <button className="hud__cta mono" onClick={openDetail}>
-          Discover the can
+          Kutuyu keşfet
         </button>
       </div>
 
@@ -37,7 +39,7 @@ export default function FlavorHud() {
         <p className="mono">{f.notes.join(" · ")}</p>
       </div>
 
-      <div className="track" aria-label="Flavors">
+      <div className="track" aria-label="Tatlar">
         <p className="track__label mono">{f.name}</p>
         <div className="track__ticks">
           {flavors.map((fl, i) => (
@@ -53,7 +55,7 @@ export default function FlavorHud() {
         </div>
       </div>
 
-      <p className="hud__scroll mono">Scroll to discover</p>
+      <p className="hud__scroll mono">Keşfetmek için kaydır</p>
     </div>
   );
 }

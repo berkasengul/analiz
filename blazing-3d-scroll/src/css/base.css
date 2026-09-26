@@ -6,10 +6,10 @@
   --muted: rgba(242, 239, 233, 0.58);
   --faint: rgba(242, 239, 233, 0.14);
   --glass: rgba(18, 18, 22, 0.55);
-  --wide: "Archivo", "Arial Black", "Helvetica Neue", sans-serif;
-  --serif: "Instrument Serif", "Times New Roman", serif;
-  --sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --wide: "Unbounded", "Arial Black", "Helvetica Neue", sans-serif;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --gutter: clamp(16px, 2.4vw, 44px);
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
 }
@@ -96,8 +96,7 @@ button {
 
 .brand__name {
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.3rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -210,8 +209,7 @@ button {
 
 .menu__links a {
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(2.6rem, 8vw, 6.5rem);
   line-height: 1;
   text-transform: uppercase;
@@ -346,15 +344,13 @@ main {
 
 .hud__name {
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
-  font-size: clamp(3.2rem, 8.6vw, 9rem);
-  line-height: 0.95;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7.4vw, 8rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--fg);
   margin-top: 0.12em;
-  animation: rise 0.8s var(--ease) both;
 }
 
 .tagline {
@@ -516,13 +512,13 @@ main {
   top: 50%;
   left: calc(var(--gutter) + 4vw);
   transform: translateY(-50%);
-  width: min(560px, 42vw);
+  width: min(500px, 34vw);
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.detail.is-open .detail__body > * {
+.detail.is-open .detail__body > :not(.detail__title):not(.detail__desc) {
   animation: rise 0.8s var(--ease) both;
 }
 
@@ -540,10 +536,10 @@ main {
 
 .detail__title {
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
-  font-size: clamp(2.6rem, 5vw, 5.4rem);
-  line-height: 0.95;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.2vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   text-wrap: balance;
 }
@@ -615,10 +611,10 @@ main {
 
 .section__title {
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
-  font-size: clamp(2.6rem, 7vw, 7rem);
-  line-height: 0.95;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5.8vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   text-wrap: balance;
 }
@@ -662,7 +658,6 @@ main {
 
 .stock tbody th {
   font-family: var(--wide);
-  font-stretch: 112%;
   font-weight: 700;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -745,6 +740,61 @@ main {
   padding-top: 24px;
   border-top: 1px solid var(--faint);
   font-size: 0.68rem;
+}
+
+/* ---------- Split text ---------- */
+
+.split__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.split__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.split__char {
+  display: inline-block;
+  animation: char-in 0.9s var(--ease) both;
+  animation-delay: var(--d);
+}
+
+@keyframes char-in {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+/* Carousel başlığı: dönerken harfler aşağı iner, durunca sırayla çıkar. */
+.hud__center .split__char {
+  animation: none;
+  transition: transform 0.85s var(--ease) var(--d);
+}
+
+.hud__center.is-moving .split__char {
+  transform: translateY(115%);
+  transition: transform 0.28s cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+.hud__tagline {
+  transition: opacity 0.6s var(--ease) 0.25s, filter 0.6s var(--ease) 0.25s, transform 0.6s var(--ease) 0.25s;
+}
+
+.hud__center.is-moving .hud__tagline {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(10px);
+  transition-delay: 0s;
+  transition-duration: 0.25s;
+}
+
+.detail__desc .split__mask {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
 }
 
 /* ---------- Loader ---------- */
@@ -1006,8 +1056,7 @@ main {
   right: var(--gutter);
   bottom: 6vh;
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(4rem, 12vw, 12rem);
   line-height: 1;
   color: transparent;
@@ -1127,8 +1176,7 @@ main {
 
 .pack__size {
   font-family: var(--wide);
-  font-stretch: 112%;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.9rem;
   line-height: 1;
 }
@@ -1206,8 +1254,7 @@ main {
 
 .price__now {
   font-family: var(--wide);
-  font-stretch: 112%;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 2rem;
 }
 
@@ -1316,8 +1363,7 @@ main {
 
 .drawer__head h2 {
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.5rem;
   text-transform: uppercase;
 }
@@ -1472,8 +1518,7 @@ main {
   gap: 36px;
   padding-right: 36px;
   font-family: var(--wide);
-  font-stretch: 125%;
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(1.6rem, 3.6vw, 3.2rem);
   text-transform: uppercase;
   white-space: nowrap;

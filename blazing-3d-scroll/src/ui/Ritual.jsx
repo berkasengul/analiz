@@ -12,17 +12,17 @@ export default function Ritual() {
     <section id="ritual" className="ritual" style={{ height: `calc(100vh + ${(ritual.length - 1) * 90}vh)` }}>
       <div className="ritual__stage">
         <div className="ritual__text">
-          <p className="mono section__eyebrow">02 — The ritual</p>
+          <p className="mono section__eyebrow">02 — Ritüel</p>
           <div className="ritual__step" key={step}>
             <p className="ritual__num">{pad(step + 1)}</p>
             <h2 className="section__title">{r.title}</h2>
             <p className="ritual__desc">{r.text}</p>
             <p className="mono ritual__can">
               <i className="dot" style={{ background: flavors[r.flavor].color }} />
-              In the can: {flavors[r.flavor].name}
+              Kutuda: {flavors[r.flavor].name}
             </p>
           </div>
-          <ol className="ritual__progress" aria-label="Steps">
+          <ol className="ritual__progress" aria-label="Adımlar">
             {ritual.map((s, i) => (
               <li key={s.title} className={i === step ? "is-active" : i < step ? "is-done" : ""}>
                 <span className="mono">{pad(i + 1)}</span>

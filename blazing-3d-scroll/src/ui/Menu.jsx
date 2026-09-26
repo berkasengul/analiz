@@ -1,12 +1,12 @@
 import { useStore } from "../store";
 
 const links = [
-  ["#flavors", "Flavors"],
-  ["#ritual", "Ritual"],
-  ["#shop", "Shop"],
-  ["#stockists", "Stockists"],
-  ["#faq", "FAQ"],
-  ["#contact", "Contact"],
+  ["#flavors", "Tatlar"],
+  ["#ritual", "Ritüel"],
+  ["#shop", "Mağaza"],
+  ["#stockists", "Satış noktaları"],
+  ["#faq", "SSS"],
+  ["#contact", "İletişim"],
 ];
 
 export default function Menu() {
@@ -21,7 +21,7 @@ export default function Menu() {
           </a>
         ))}
       </nav>
-      <p className="menu__foot">Zero sugar. 160 mg caffeine. Ten flavours.</p>
+      <p className="menu__foot">Sıfır şeker. 160 mg kafein. On tat.</p>
     </div>
   );
 }

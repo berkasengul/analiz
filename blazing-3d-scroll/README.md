@@ -8,7 +8,10 @@ On tatlı bir enerji içeceği için satışa hazır tanıtım ve mağaza sitesi
 - **Mağaza:** Tat, 6/12/24'lük kutu ve tek seferlik/abonelik seçilir, sepete eklenir. Sepet tarayıcıda saklanır; ücretsiz kargo eşiği gösterilir.
 - **Diğer bölümler:** Stockists, FAQ, iletişim ve bülten formu, zorunlu kafein uyarısı, SEO ve Open Graph etiketleri.
 
-![Carousel](docs/carousel.png)
+Site Türkçedir; fiyatlar ₺ cinsindendir. Yazı tipleri (hepsi Google Fonts, Türkçe karakter destekli):
+**Unbounded** (başlıklar), **Fraunces italik** (sloganlar), **Manrope** (metin), **IBM Plex Mono** (etiketler).
+
+![Özellik anlatımı](docs/carousel.png)
 ![Detay](docs/detail.png)
 ![Mağaza](docs/shop.png)
 
@@ -52,6 +55,7 @@ Klavye: detay görünümünde ← → tat ya da özellik değiştirir, Esc kapat
 
 - **Tat eklemek/değiştirmek:** `src/data.js` içindeki diziyi düzenle. Scroll uzunluğu tat sayısına göre ayarlanır.
 - **Yay şekli:** `src/Carousel.jsx` içindeki `arcPose` fonksiyonu (aralık, derinlik, eğim).
+- **Carousel davranışı:** Öndeki kutuya tıklamak detayı açar, yandaki bir kutuya tıklamak carousel'i o kutuya döndürür. Dönerken tat adı gizlenir, durunca harf harf gelir; öndeki kutunun üzerine gelince arkasında tatın renginde bir sıçrama belirir.
 - **Özellikler:** `src/data.js` içindeki `features` dizisi; her özelliğin `pose` alanı kutunun o özellikte nasıl duracağını belirler.
 - **Ritual adımları:** `src/data.js` içindeki `ritual` dizisi; her adımın `flavor` alanı kutuda hangi tadın görüneceğini belirler.
 - **Kutu parlaklığı:** `src/canMaterial.js` içindeki `metalness`, `roughness`, `clearcoat`.

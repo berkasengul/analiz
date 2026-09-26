@@ -24,6 +24,9 @@ function useSmoothScroll() {
     const s = useStore.getState();
     const idx = Math.round(scrollState.p);
     if (idx !== s.active) s.setActive(idx);
+    // Carousel iki tat arasındayken başlık gizlenir, durunca harf harf gelir.
+    const moving = Math.abs(scrollState.p - idx) > 0.04;
+    if (moving !== s.moving) s.setMoving(moving);
     const step = Math.round(scrollState.ritualStep);
     if (step !== s.ritualStep) s.setRitualStep(step);
     document.documentElement.style.setProperty("--velocity", scrollState.velocity.toFixed(2));

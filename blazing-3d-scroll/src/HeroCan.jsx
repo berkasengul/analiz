@@ -51,18 +51,19 @@ function detailPose(feature, wide, time, turn) {
   const f = feature != null ? features[feature].pose : null;
   const idle = Math.sin(time * 0.5) * 0.25 + pointer.x * 0.2;
   const base = wide
-    ? { x: 3.3, y: -0.4, z: 3, rotX: 0.04 + pointer.y * 0.05, rotY: idle, rotZ: 0.06, scale: 2.35 }
+    ? { x: 1.5, y: 0.4, z: 3, rotX: 0.04 + pointer.y * 0.05, rotY: idle, rotZ: 0.06, scale: 2.5 }
     : { x: 0, y: 1.9, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.08, scale: 1.25 };
   if (f) {
-    base.rotY = f.rotY + Math.sin(time * 0.4) * 0.06;
-    base.rotZ = 0.03;
+    base.rotY = f.rotY + Math.sin(time * 0.4) * 0.05;
+    base.rotZ = f.rotZ ?? 0.03;
+    base.rotX = 0.02;
     if (wide) {
-      base.x = 3.0;
+      base.x = 1.5;
       base.y = f.y;
       base.scale = f.scale;
     } else {
-      base.y = 1.9 + f.y * 0.35;
-      base.scale = 1.25 * (f.scale / 2.35);
+      base.y = 1.9 + (f.y - 0.4) * 0.35;
+      base.scale = 1.25 * (f.scale / 2.5);
     }
   }
   base.rotY += turn;

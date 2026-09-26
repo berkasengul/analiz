@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { CHECKOUT_URL } from "../config";
-import { FREE_SHIPPING, SHIPPING, VARIETY, flavorName, flavors, money, packPrice } from "../data";
+import { FREE_SHIPPING, SHIPPING, VARIETY, flavorName, flavors, money, packLabel, packPrice } from "../data";
 import { scrollToElement } from "../scroll";
 import { useStore } from "../store";
 import { Close, Minus, Plus } from "../Icons";
@@ -29,18 +29,18 @@ export default function CartDrawer() {
 
   return (
     <div className={`drawer${open ? " is-open" : ""}`} aria-hidden={!open}>
-      <button className="drawer__scrim" onClick={() => setCartOpen(false)} tabIndex={-1} aria-label="Close cart" />
-      <aside className="drawer__panel" aria-label="Your box">
+      <button className="drawer__scrim" onClick={() => setCartOpen(false)} tabIndex={-1} aria-label="Sepeti kapat" />
+      <aside className="drawer__panel" aria-label="Sepetin">
         <header className="drawer__head">
-          <h2>Your box</h2>
-          <button className="round" onClick={() => setCartOpen(false)} tabIndex={tab} aria-label="Close cart">
+          <h2>Sepetin</h2>
+          <button className="round" onClick={() => setCartOpen(false)} tabIndex={tab} aria-label="Sepeti kapat">
             <Close />
           </button>
         </header>
 
         {cart.length === 0 ? (
           <div className="drawer__empty">
-            <p className="tagline tagline--static">Nothing in here yet.</p>
+            <p className="tagline tagline--static">Sepetin henüz boş.</p>
             <button
               className="pill"
               tabIndex={tab}
@@ -49,14 +49,14 @@ export default function CartDrawer() {
                 scrollToElement(document.getElementById("shop"));
               }}
             >
-              Build a box
+              Paket oluştur
             </button>
           </div>
         ) : (
           <>
             <div className="ship">
               <p className="mono">
-                {left > 0 ? `${money(left)} away from free shipping` : "Free shipping unlocked"}
+                {left > 0 ? `Ücretsiz kargoya ${money(left)} kaldı` : "Ücretsiz kargo kazandın"}
               </p>
               <div className="ship__bar">
                 <span style={{ transform: `scaleX(${Math.min(1, subtotal / FREE_SHIPPING)})` }} />
@@ -77,15 +77,15 @@ export default function CartDrawer() {
                   />
                   <div className="line__info">
                     <p className="line__name">
-                      {flavorName(i.flavor)} · {i.pack}-pack
+                      {flavorName(i.flavor)} · {packLabel(i.pack)} paket
                     </p>
-                    <p className="mono">{i.plan === "sub" ? "Every 4 weeks · −15%" : "One-time"}</p>
+                    <p className="mono">{i.plan === "sub" ? "4 haftada bir · %15 indirim" : "Tek seferlik"}</p>
                     <div className="qty qty--sm">
-                      <button onClick={() => setQty(i.id, i.qty - 1)} tabIndex={tab} aria-label="Decrease quantity">
+                      <button onClick={() => setQty(i.id, i.qty - 1)} tabIndex={tab} aria-label="Adedi azalt">
                         <Minus />
                       </button>
                       <span>{i.qty}</span>
-                      <button onClick={() => setQty(i.id, i.qty + 1)} tabIndex={tab} aria-label="Increase quantity">
+                      <button onClick={() => setQty(i.id, i.qty + 1)} tabIndex={tab} aria-label="Adedi artır">
                         <Plus />
                       </button>
                     </div>
@@ -93,7 +93,7 @@ export default function CartDrawer() {
                   <div className="line__end">
                     <p>{money(packPrice(i.pack, i.plan) * i.qty)}</p>
                     <button className="line__remove mono" onClick={() => setQty(i.id, 0)} tabIndex={tab}>
-                      Remove
+                      Kaldır
                     </button>
                   </div>
                 </li>
@@ -103,27 +103,27 @@ export default function CartDrawer() {
             <footer className="drawer__foot">
               <dl className="totals">
                 <div>
-                  <dt>Subtotal</dt>
+                  <dt>Ara toplam</dt>
                   <dd>{money(subtotal)}</dd>
                 </div>
                 <div>
-                  <dt>Shipping</dt>
-                  <dd>{shipping === 0 ? "Free" : money(shipping)}</dd>
+                  <dt>Kargo</dt>
+                  <dd>{shipping === 0 ? "Ücretsiz" : money(shipping)}</dd>
                 </div>
                 <div className="totals__total">
-                  <dt>Total</dt>
+                  <dt>Toplam</dt>
                   <dd>{money(subtotal + shipping)}</dd>
                 </div>
               </dl>
               <button className="pill pill--wide" onClick={checkout} tabIndex={tab}>
-                Checkout
+                Ödemeye geç
               </button>
               {notice && (
                 <p className="drawer__notice" role="status">
-                  Online checkout opens soon. Your box is saved on this device until then.
+                  Online ödeme çok yakında açılıyor. Sepetin o zamana kadar bu cihazda saklanır.
                 </p>
               )}
-              <p className="mono drawer__small">Taxes included · EU delivery in 1–3 days</p>
+              <p className="mono drawer__small">KDV dahil · 1–3 iş gününde teslimat</p>
             </footer>
           </>
         )}
