@@ -2991,3 +2991,257 @@ main {
     border-color: var(--accent, var(--fg));
   }
 }
+
+/* ---------------------------------------------------------------- katalog */
+.collection {
+  pointer-events: auto;
+}
+.collection__more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 6vh, 56px);
+}
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+}
+.pcard {
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #111010;
+  border: 1px solid var(--faint);
+  transition: transform 0.5s var(--ease), border-color 0.3s ease;
+}
+.pcard:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+}
+.pcard__media {
+  position: relative;
+  aspect-ratio: 4 / 4.2;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--c) 45%, #111) 0%, #0c0c0c 78%);
+  overflow: hidden;
+}
+.pcard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.pcard:hover .pcard__media img {
+  transform: scale(1.05);
+}
+.pcard__icon {
+  width: 42%;
+  color: color-mix(in srgb, var(--c) 70%, #fff);
+  opacity: 0.9;
+  transition: transform 0.8s var(--ease);
+}
+.pcard:hover .pcard__icon {
+  transform: scale(1.06) rotate(-3deg);
+}
+.pcard__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--faint);
+  color: var(--fg);
+}
+.pcard__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px 18px;
+  flex: 1;
+}
+.pcard__cat {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c) 70%, #fff);
+}
+.pcard__name {
+  font-family: var(--wide);
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.1;
+}
+.pcard__size {
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.pcard__desc {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pcard__foot {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pcard__price {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.pcard__add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--c) 60%, transparent);
+  background: color-mix(in srgb, var(--c) 18%, transparent);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+.pcard__add svg {
+  width: 14px;
+  height: 14px;
+}
+.pcard__add:hover,
+.pcard__add.is-added {
+  background: color-mix(in srgb, var(--c) 45%, transparent);
+}
+
+.catalog {
+  position: relative;
+  z-index: 2;
+  /* Ana sayfada main tıklamaları 3B sahneye bırakır; katalogda sahne yok. */
+  pointer-events: auto;
+  min-height: 100vh;
+  padding: clamp(110px, 16vh, 150px) var(--gutter) 80px;
+  background: radial-gradient(ellipse at 50% -10%, color-mix(in srgb, var(--accent, #7d9152) 22%, transparent), transparent 55%), var(--bg);
+}
+.catalog__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: clamp(32px, 6vh, 56px);
+}
+.catalog__back {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.catalog__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.catalog__tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--faint);
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.catalog__tabs button small {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.catalog__tabs button.is-on {
+  background: var(--fg);
+  color: #0b0b0d;
+}
+.catalog__tabs button.is-on small {
+  color: #0b0b0d;
+}
+.catalog__group {
+  margin-bottom: clamp(40px, 8vh, 72px);
+}
+.catalog__grouphead {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--faint);
+}
+.catalog__grouphead h2 {
+  font-family: var(--wide);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+.catalog__grouphead p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.catalog__note {
+  max-width: 720px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+@media (max-width: 760px) {
+  .pgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .pcard__body {
+    padding: 12px 12px 14px;
+  }
+  .pcard__name {
+    font-size: 1.05rem;
+  }
+  .pcard__desc {
+    -webkit-line-clamp: 2;
+    font-size: 0.78rem;
+  }
+  .pcard__foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pcard__add {
+    justify-content: center;
+  }
+}
+
+/* Görsel logo (content.json → logo) */
+.brand__logo {
+  display: block;
+  height: 30px;
+  width: auto;
+}
+.loader__logo {
+  display: block;
+  height: clamp(56px, 9vw, 96px);
+  width: auto;
+}
+@media (max-width: 760px) {
+  .brand__logo {
+    height: 24px;
+  }
+}

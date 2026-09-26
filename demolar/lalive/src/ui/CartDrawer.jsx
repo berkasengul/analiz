@@ -75,7 +75,7 @@ export default function CartDrawer() {
                       background:
                         i.flavor === VARIETY
                           ? `conic-gradient(${flavors.map((f) => f.color).join(",")})`
-                          : flavors[i.flavor].color,
+                          : t.catalogItem(i.flavor)?.color ?? flavors[i.flavor]?.color ?? "#888",
                     }}
                   />
                   <div className="line__info">

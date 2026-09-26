@@ -1,6 +1,7 @@
 import { Bag, BrandIcon } from "../Icons";
 import { useT } from "../i18n";
 import { useStore } from "../store";
+import { content } from "../data";
 
 export function LangSwitch() {
   const lang = useStore((s) => s.lang);
@@ -37,15 +38,25 @@ export default function Header() {
   return (
     <header className="header">
       <a href="#flavors" className="brand" aria-label={`${brand.name}, ${ui.backToTop}`}>
-        <BrandIcon />
-        <span className="brand__name" lang="en">{brand.name}</span>
-        <span className="brand__sub" lang="en">{brand.sub}</span>
+        {content.logo ? (
+          <img className="brand__logo" src={`${import.meta.env.BASE_URL}${content.logo}`} alt={brand.name} />
+        ) : (
+          <>
+            <BrandIcon />
+            <span className="brand__name" lang="en">{brand.name}</span>
+            <span className="brand__sub" lang="en">{brand.sub}</span>
+          </>
+        )}
       </a>
       <nav className="header__nav" aria-label={ui.sections}>
         <a href="#flavors"><sup>01</sup>{ui.nav.flavors}</a>
         <a href="#ritual"><sup>02</sup>{ui.nav.ritual}</a>
         <a href="#shop"><sup>03</sup>{ui.nav.shop}</a>
-        <a href="#story"><sup>04</sup>{ui.nav.story}</a>
+        {content.catalog ? (
+          <a href="#/urunler"><sup>04</sup>{ui.nav.catalog}</a>
+        ) : (
+          <a href="#story"><sup>04</sup>{ui.nav.story}</a>
+        )}
       </nav>
       <div className="header__right">
         <LangSwitch />

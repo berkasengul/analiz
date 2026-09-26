@@ -98,6 +98,21 @@ def main(path):
         "```bash\nnpm install\nnpm run dev\n```\n"
     )
 
+    # Katalog görselleri (markalar/<slug>-katalog/*.jpg → public/catalog/).
+    shots = os.path.join(os.path.dirname(os.path.abspath(path)), f"{slug}-katalog")
+    if os.path.isdir(shots):
+        shutil.copytree(shots, os.path.join(dst, "public", "catalog"), dirs_exist_ok=True)
+
+    # Marka görselleri (logo vb.): markalar/<slug>-assets/*.png → public/brand/ ve docs/brand/.
+    assets = os.path.join(os.path.dirname(os.path.abspath(path)), f"{slug}-assets")
+    if os.path.isdir(assets):
+        for sub in (("public", "brand"), ("docs", "brand")):
+            out = os.path.join(dst, *sub)
+            os.makedirs(out, exist_ok=True)
+            for n in os.listdir(assets):
+                if n.endswith(".png"):
+                    shutil.copy(os.path.join(assets, n), out)
+
     print("→ Etiketler çiziliyor")
     labels = os.path.join(dst, "src", "assets", "labels")
     env = dict(os.environ, CONTENT=content)

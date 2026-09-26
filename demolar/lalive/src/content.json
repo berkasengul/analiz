@@ -19,7 +19,8 @@
     "wordmark": "lalive",
     "submark": "ASSOS · NATURAL CARE",
     "concentration": "%100 DOĞAL",
-    "volume": "50 ml"
+    "volume": "50 ml",
+    "logoFile": "docs/brand/logo-green.png"
   },
   "bottle": {
     "glass": {
@@ -184,7 +185,7 @@
     {
       "name": "Güneş Kremi SPF 50",
       "form": "tube",
-      "sub": "Mineral filtre",
+      "sub": "100 ml",
       "collection": null,
       "family": "Güneş koruma",
       "year": null,
@@ -294,7 +295,7 @@
       },
       "price": {
         "tr": 1512,
-        "en": 42
+        "en": 38
       }
     },
     {
@@ -315,23 +316,21 @@
       },
       "tagline": "Yoğun nem, doğal koruma.",
       "notes": [
-        "Bitkisel yağlar",
-        "Zeytinyağı",
-        "Nem",
-        "Koruma"
+        "Hindistan cevizi",
+        "Shea",
+        "Zeytinyağı"
       ],
-      "description": "Bitkisel yağlarla zenginleştirilmiş formülüyle dudaklara yoğun nem ve doğal koruma sağlar. Çantada, cepte, her an yanında.",
+      "description": "Hindistan cevizi, shea ve zeytinyağı içeren formülüyle dudakları derinlemesine nemlendirir ve besler; doğal koruma sağlar.",
       "file": "dudak-balmi.jpg",
       "en": {
         "family": "Lip care",
         "tagline": "Intense moisture, natural protection.",
         "notes": [
-          "Plant oils",
-          "Olive oil",
-          "Moisture",
-          "Protection"
+          "Coconut",
+          "Shea",
+          "Olive oil"
         ],
-        "description": "With its plant-oil-enriched formula it gives lips intense moisture and natural protection. In your bag, in your pocket, always with you.",
+        "description": "With coconut oil, shea and olive oil, it deeply moisturises and nourishes lips and gives natural protection.",
         "name": "Lip Balm"
       },
       "label": {
@@ -572,8 +571,8 @@
         "tilt": -0.04
       },
       "price": {
-        "tr": 1290,
-        "en": 36
+        "tr": 1353.9,
+        "en": 34
       }
     },
     {
@@ -1127,7 +1126,8 @@
       ],
       "slogan": "Live well.",
       "nav": {
-        "flavors": "Ürünler"
+        "flavors": "Ürünler",
+        "catalog": "Tüm ürünler"
       },
       "flavors": "Ürünler",
       "notes": "İçerik",
@@ -1170,7 +1170,8 @@
       ],
       "slogan": "Live well.",
       "nav": {
-        "flavors": "Products"
+        "flavors": "Products",
+        "catalog": "All products"
       },
       "flavors": "Products",
       "notes": "Ingredients",
@@ -1211,7 +1212,7 @@
       "SPF 50": "Yüksek güneş koruma faktörü.",
       "Bitkisel yağlar": "Besleyici, doğal kaynaklı yağlar.",
       "Havuç tohumu": "Doğal ışıltı ve bronzluk verir.",
-      "Hindistan cevizi": "Cildi yumuşatır ve besler.",
+      "Hindistan cevizi": "Dudakları yumuşatır ve besler.",
       "Avokado": "Güneşte kuruyan cildi derinlemesine nemlendirir.",
       "Gül suyu": "Ferahlatır ve cildi tazeler.",
       "Aloe vera": "Yatıştırır ve serinletir.",
@@ -1228,7 +1229,7 @@
       "SPF 50": "High sun protection factor.",
       "Plant oils": "Nourishing oils of natural origin.",
       "Carrot seed": "Gives a natural glow and tan.",
-      "Coconut": "Softens and nourishes skin.",
+      "Coconut": "Softens and nourishes lips.",
       "Avocado": "Deeply moisturises sun-dried skin.",
       "Rose water": "Refreshes and revives skin.",
       "Aloe vera": "Soothes and cools.",
@@ -1236,5 +1237,514 @@
     }
   },
   "nameLang": "tr",
-  "icon": "leaf"
+  "icon": "leaf",
+  "catalog": {
+    "homeCount": 8,
+    "categories": [
+      {
+        "id": "el-yuz",
+        "name": {
+          "tr": "El, yüz ve dudak",
+          "en": "Hand, face and lips"
+        },
+        "color": "#d8cc9c",
+        "desc": {
+          "tr": "Günlük bakımın temel adımları.",
+          "en": "The essentials of daily care."
+        }
+      },
+      {
+        "id": "gunes",
+        "name": {
+          "tr": "Güneş",
+          "en": "Sun"
+        },
+        "color": "#c98a4a",
+        "desc": {
+          "tr": "Mineral filtre ve doğal ışıltı.",
+          "en": "Mineral protection and a natural glow."
+        }
+      },
+      {
+        "id": "vucut",
+        "name": {
+          "tr": "Vücut bakımı",
+          "en": "Body care"
+        },
+        "color": "#b98a5a",
+        "desc": {
+          "tr": "Zeytinyağıyla beslenen bir cilt.",
+          "en": "Skin nourished with olive oil."
+        }
+      },
+      {
+        "id": "sac",
+        "name": {
+          "tr": "Saç bakımı",
+          "en": "Hair care"
+        },
+        "color": "#8fae8a",
+        "desc": {
+          "tr": "Saç diplerinden uçlarına doğal bakım.",
+          "en": "Natural care from roots to ends."
+        }
+      },
+      {
+        "id": "sabun",
+        "name": {
+          "tr": "Doğal sabunlar",
+          "en": "Natural soaps"
+        },
+        "color": "#e3dccb",
+        "desc": {
+          "tr": "Bitkisel, vegan ve el yapımı.",
+          "en": "Plant-based, vegan and handmade."
+        }
+      },
+      {
+        "id": "arac",
+        "name": {
+          "tr": "Bakım araçları",
+          "en": "Care tools"
+        },
+        "color": "#a88f6a",
+        "desc": {
+          "tr": "Kuru fırçalama ve lenf masajı ritüelleri için.",
+          "en": "For dry brushing and lymph massage rituals."
+        }
+      },
+      {
+        "id": "set",
+        "name": {
+          "tr": "Bakım setleri",
+          "en": "Care sets"
+        },
+        "color": "#7f9458",
+        "desc": {
+          "tr": "Rutinin tamamı, tek kutuda.",
+          "en": "The whole routine, in one box."
+        }
+      },
+      {
+        "id": "club",
+        "name": {
+          "tr": "Self-Care Club",
+          "en": "Self-Care Club"
+        },
+        "color": "#8a8f9a",
+        "desc": {
+          "tr": "Lalive yaşam tarzı ürünleri.",
+          "en": "Lalive lifestyle pieces."
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "el-kremi",
+        "name": {
+          "tr": "El Kremi",
+          "en": "Hand Cream"
+        },
+        "category": "el-yuz",
+        "size": "50 ml",
+        "price": {
+          "tr": 890,
+          "en": 22
+        },
+        "exactPrice": false,
+        "desc": {
+          "tr": "Zeytinyağı, shea, kakao ve jojoba yağıyla derin besleme; hyalüronik asitle yağsız nem.",
+          "en": "Deep nourishment with olive, shea, cocoa and jojoba; greaseless hydration with hyaluronic acid."
+        },
+        "color": "#d8cc9c",
+        "product": 0,
+        "image": "catalog/el-kremi.jpg"
+      },
+      {
+        "id": "dudak-balmi",
+        "name": {
+          "tr": "Dudak Balmı",
+          "en": "Lip Balm"
+        },
+        "category": "el-yuz",
+        "size": "10 ml",
+        "price": {
+          "tr": 650,
+          "en": 16
+        },
+        "exactPrice": false,
+        "desc": {
+          "tr": "Hindistan cevizi, shea ve zeytinyağıyla dudaklara yoğun nem.",
+          "en": "Intense moisture for lips with coconut, shea and olive oil."
+        },
+        "color": "#d8cc9c",
+        "product": 2,
+        "image": "catalog/dudak-balmi.jpg"
+      },
+      {
+        "id": "yuz-misti",
+        "name": {
+          "tr": "Yüz Misti",
+          "en": "Face Mist"
+        },
+        "category": "el-yuz",
+        "size": null,
+        "price": {
+          "tr": 990,
+          "en": 25
+        },
+        "exactPrice": false,
+        "desc": {
+          "tr": "Gül suyu, aloe vera, hyalüronik asit ve panthenolle ferahlık.",
+          "en": "Freshness with rose water, aloe vera, hyaluronic acid and panthenol."
+        },
+        "color": "#d8cc9c",
+        "product": 4,
+        "image": "catalog/yuz-misti.jpg"
+      },
+      {
+        "id": "gunes-kremi",
+        "name": {
+          "tr": "Mineral Filtreli Güneş Kremi SPF 50",
+          "en": "Mineral Sunscreen SPF 50"
+        },
+        "category": "gunes",
+        "size": "100 ml",
+        "price": {
+          "tr": 1512,
+          "en": 38
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Mineral filtre ve bitki bazlı içeriklerle %100 doğal güneş koruması.",
+          "en": "100% natural sun protection with a mineral filter and plant-based ingredients."
+        },
+        "color": "#c98a4a",
+        "product": 1,
+        "image": "catalog/gunes-kremi.jpg"
+      },
+      {
+        "id": "bronzlastirici-yag",
+        "name": {
+          "tr": "Bronzlaştırıcı Yağ",
+          "en": "Bronzing Oil"
+        },
+        "category": "gunes",
+        "size": "200 ml",
+        "price": {
+          "tr": 1353.9,
+          "en": 34
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Havuç tohumu, kakao ve avokado yağıyla yaz boyu doğal ışıltı.",
+          "en": "A natural summer glow with carrot seed, cocoa and avocado oils."
+        },
+        "color": "#c98a4a",
+        "product": 3,
+        "image": "catalog/bronzlastirici-yag.jpg"
+      },
+      {
+        "id": "vucut-yagi",
+        "name": {
+          "tr": "Vücut Yağı",
+          "en": "Body Oil"
+        },
+        "category": "vucut",
+        "size": null,
+        "price": {
+          "tr": 1333.9,
+          "en": 33
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Zeytinyağı ve E vitaminiyle nemlendirir, elastikiyeti artırır; yağlı his bırakmaz.",
+          "en": "Olive oil and vitamin E moisturise and improve elasticity without a greasy feel."
+        },
+        "color": "#b98a5a",
+        "icon": "dropper"
+      },
+      {
+        "id": "roll-on",
+        "name": {
+          "tr": "Doğal Roll-On",
+          "en": "Natural Roll-On"
+        },
+        "category": "vucut",
+        "size": null,
+        "price": {
+          "tr": 419.9,
+          "en": 10
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Alüminyum klorohidrat içermeyen doğal deodorant.",
+          "en": "A natural deodorant without aluminium chlorohydrate."
+        },
+        "color": "#b98a5a",
+        "icon": "rollon"
+      },
+      {
+        "id": "sac-bakim-suyu",
+        "name": {
+          "tr": "Saç Bakım Suyu",
+          "en": "Hair Care Water"
+        },
+        "category": "sac",
+        "size": "125 ml",
+        "price": {
+          "tr": 796.9,
+          "en": 20
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Biberiye özlü; keratin, biotin ve B vitaminiyle saç diplerine bakım.",
+          "en": "Rosemary extract with keratin, biotin and vitamin B for the scalp."
+        },
+        "color": "#8fae8a",
+        "icon": "spray"
+      },
+      {
+        "id": "sac-bakim-yagi",
+        "name": {
+          "tr": "Saç Bakım Yağı · Vanilya",
+          "en": "Hair Oil · Vanilla"
+        },
+        "category": "sac",
+        "size": null,
+        "price": {
+          "tr": 890,
+          "en": 22
+        },
+        "exactPrice": false,
+        "desc": {
+          "tr": "Nemlendirir, doğal parlaklık verir; kabarma ve elektriklenmeyi önler.",
+          "en": "Moisturises, adds natural shine and tames frizz and static."
+        },
+        "color": "#8fae8a",
+        "icon": "dropper"
+      },
+      {
+        "id": "zeytinyagi-sabun",
+        "name": {
+          "tr": "Zeytinyağı Katı Sabun",
+          "en": "Olive Oil Bar Soap"
+        },
+        "category": "sabun",
+        "size": null,
+        "price": {
+          "tr": 583.9,
+          "en": 15
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Yüz ve vücut için; zeytinyağıyla besler, doğal ışıltı verir.",
+          "en": "For face and body; nourishes with olive oil and adds a natural glow."
+        },
+        "color": "#e3dccb",
+        "icon": "soap"
+      },
+      {
+        "id": "lavanta-sabun",
+        "name": {
+          "tr": "Lavanta Katı Sabun",
+          "en": "Lavender Bar Soap"
+        },
+        "category": "sabun",
+        "size": null,
+        "price": {
+          "tr": 583.9,
+          "en": 15
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Zeytinyağlı, lavantalı doğal sabun.",
+          "en": "A natural olive oil soap with lavender."
+        },
+        "color": "#e3dccb",
+        "icon": "soap"
+      },
+      {
+        "id": "kastil-sabun",
+        "name": {
+          "tr": "Sıvı Kastil Sabunu",
+          "en": "Liquid Castile Soap"
+        },
+        "category": "sabun",
+        "size": null,
+        "price": {
+          "tr": 673.9,
+          "en": 17
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Zeytin ve hindistan cevizi yağları, hint yağı ve gliserinle nemlendirir.",
+          "en": "Moisturises with olive and coconut oils, castor seed oil and glycerin."
+        },
+        "color": "#e3dccb",
+        "icon": "pump"
+      },
+      {
+        "id": "lenf-masaj-aleti",
+        "name": {
+          "tr": "Lenf Masaj Aleti",
+          "en": "Lymph Massage Tool"
+        },
+        "category": "arac",
+        "size": null,
+        "price": {
+          "tr": 489.9,
+          "en": 12
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Ergonomik tasarım; vücudun doğal lenf dolaşımını destekler.",
+          "en": "An ergonomic design that supports the body's natural lymph flow."
+        },
+        "color": "#a88f6a",
+        "icon": "tool"
+      },
+      {
+        "id": "tampiko-firca",
+        "name": {
+          "tr": "Tampiko Otu Fırça",
+          "en": "Tampico Brush"
+        },
+        "category": "arac",
+        "size": null,
+        "price": {
+          "tr": 550.9,
+          "en": 14
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "%100 doğal tampiko kıllarıyla kuru fırçalama.",
+          "en": "Dry brushing with 100% natural tampico bristles."
+        },
+        "color": "#a88f6a",
+        "icon": "brush"
+      },
+      {
+        "id": "kabak-lifi",
+        "name": {
+          "tr": "Doğal Kabak Lifi",
+          "en": "Natural Loofah"
+        },
+        "category": "arac",
+        "size": null,
+        "price": {
+          "tr": 340.9,
+          "en": 9
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Hatay'daki kadın çiftçilerden; ölü deriden arındırır, dolaşımı destekler.",
+          "en": "From women farmers in Hatay; removes dead skin and supports circulation."
+        },
+        "color": "#a88f6a",
+        "icon": "loofah"
+      },
+      {
+        "id": "detoks-set",
+        "name": {
+          "tr": "Detoks Set",
+          "en": "Detox Set"
+        },
+        "category": "set",
+        "size": null,
+        "price": {
+          "tr": 3307.9,
+          "en": 83
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Tampiko fırça, kabak lifi, zeytinyağlı sabun, lenf masaj aleti ve vücut yağı.",
+          "en": "Tampico brush, loofah, olive oil soap, lymph massage tool and body oil."
+        },
+        "color": "#7f9458",
+        "icon": "set"
+      },
+      {
+        "id": "lenf-drenaj-seti",
+        "name": {
+          "tr": "Lenf Drenaj Masaj Seti",
+          "en": "Lymph Drainage Massage Set"
+        },
+        "category": "set",
+        "size": null,
+        "price": {
+          "tr": 1619.9,
+          "en": 40
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Lenf masaj aleti ve vücut yağı; yağın emilimini artırır.",
+          "en": "Lymph massage tool and body oil; improves the oil's absorption."
+        },
+        "color": "#7f9458",
+        "icon": "set"
+      },
+      {
+        "id": "sac-bakim-seti",
+        "name": {
+          "tr": "Saç Bakım Seti",
+          "en": "Hair Care Set"
+        },
+        "category": "set",
+        "size": null,
+        "price": {
+          "tr": 1345.37,
+          "en": 34
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Saç bakım suyu (125 ml) ve saç derisi masaj tarağı.",
+          "en": "Hair care water (125 ml) and a scalp massage comb."
+        },
+        "color": "#7f9458",
+        "icon": "set"
+      },
+      {
+        "id": "self-care-set",
+        "name": {
+          "tr": "Self-Care Set",
+          "en": "Self-Care Set"
+        },
+        "category": "set",
+        "size": null,
+        "price": {
+          "tr": 2490,
+          "en": 62
+        },
+        "exactPrice": false,
+        "desc": {
+          "tr": "Kişisel bakım rutininin her adımı: bronzlaştırıcı yağ, el kremi ve daha fazlası.",
+          "en": "Every step of a self-care routine: bronzing oil, hand cream and more."
+        },
+        "color": "#7f9458",
+        "icon": "set"
+      },
+      {
+        "id": "sweatshirt",
+        "name": {
+          "tr": "Self-Care Club Sweatshirt",
+          "en": "Self-Care Club Sweatshirt"
+        },
+        "category": "club",
+        "size": null,
+        "price": {
+          "tr": 1990,
+          "en": 50
+        },
+        "exactPrice": false,
+        "desc": {
+          "tr": "Lalive'ın Self-Care Club koleksiyonundan.",
+          "en": "From Lalive's Self-Care Club collection."
+        },
+        "color": "#8a8f9a",
+        "icon": "shirt"
+      }
+    ]
+  },
+  "logo": "brand/logo-cream.png"
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useProgress } from "@react-three/drei";
 
 import { BrandIcon } from "../Icons";
+import { content } from "../data";
 import { useT } from "../i18n";
 import { useStore } from "../store";
 
@@ -31,8 +32,14 @@ export default function Preloader() {
   return (
     <div className={`loader${loaded ? " is-done" : ""}`} aria-hidden={loaded}>
       <div className="loader__mark">
-        <BrandIcon />
-        <span className="brand__name" lang="en">{brand.name}</span>
+        {content.logo ? (
+          <img className="loader__logo" src={`${import.meta.env.BASE_URL}${content.logo}`} alt={brand.name} />
+        ) : (
+          <>
+            <BrandIcon />
+            <span className="brand__name" lang="en">{brand.name}</span>
+          </>
+        )}
       </div>
       <div className="loader__bar">
         <span style={{ transform: `scaleX(${shown / 100})` }} />

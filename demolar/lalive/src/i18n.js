@@ -27,7 +27,7 @@ const UI = {
   tr: {
     backToTop: "başa dön",
     sections: "Bölümler",
-    nav: { flavors: "Kokular", ritual: "Ritüel", shop: "Mağaza", story: "Hikâye", stockists: "Nerede", faq: "SSS", contact: "İletişim" },
+    nav: { flavors: "Kokular", ritual: "Ritüel", shop: "Mağaza", story: "Hikâye", stockists: "Nerede", faq: "SSS", contact: "İletişim", catalog: "Tüm ürünler" },
     openCart: (n) => `Sepeti aç, ${n} ürün`,
     menu: "Menü",
     close: "Kapat",
@@ -124,11 +124,20 @@ const UI = {
     madeForShort: (b) => `${b} için hazırlanmış konsept demo`,
     web: "Web",
     langLabel: "Dil",
+    allEyebrow: "Tüm ürünler",
+    allTitle: "Koleksiyonun tamamı",
+    allTag: (n) => `${n} ürün, tek bir doğal rutin.`,
+    byCategory: "Kategorilere göre gör",
+    backHome: "Ana sayfa",
+    catalogTitle: "Ürünler",
+    categories: "Kategoriler",
+    all: "Tümü",
+    added: "Eklendi",
   },
   en: {
     backToTop: "back to top",
     sections: "Sections",
-    nav: { flavors: "Scents", ritual: "Ritual", shop: "Shop", story: "Story", stockists: "Where", faq: "FAQ", contact: "Contact" },
+    nav: { flavors: "Scents", ritual: "Ritual", shop: "Shop", story: "Story", stockists: "Where", faq: "FAQ", contact: "Contact", catalog: "All products" },
     openCart: (n) => `Open cart, ${n} items`,
     menu: "Menu",
     close: "Close",
@@ -225,6 +234,15 @@ const UI = {
     madeForShort: (b) => `Concept demo prepared for ${b}`,
     web: "Web",
     langLabel: "Language",
+    allEyebrow: "All products",
+    allTitle: "The whole collection",
+    allTag: (n) => `${n} products, one natural routine.`,
+    byCategory: "Shop by category",
+    backHome: "Home",
+    catalogTitle: "Products",
+    categories: "Categories",
+    all: "All",
+    added: "Added",
   },
 };
 
@@ -247,15 +265,18 @@ export function getT(lang) {
   if (cache[lang]) return cache[lang];
   const en = lang === "en";
   const P = PRICES[lang];
-  // Tam sayılarda kuruş gösterilmez (₺890, $25); kuruşlu fiyatlarda iki hane.
-  const fmt = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, minimumFractionDigits: 0, maximumFractionDigits: 2 });
-  const money = (n) => fmt.format(n);
+  // Tam sayılarda kuruş gösterilmez (₺890, $25); kuruşlu fiyatlarda iki hane (₺1.333,90).
+  const fmt0 = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  const fmt2 = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const money = (n) => (Math.abs(n - Math.round(n)) < 0.005 ? fmt0 : fmt2).format(n);
   // Fiyat: ürünün kendi fiyatı varsa (content.json → products[].price) adet × fiyat ×
   // paket indirimi; yoksa markanın paket fiyat tablosu (prices.packs).
   const factor = Object.fromEntries(C.packs.map((p) => [p.size, p.factor ?? 1]));
   const own = D.flavors.map((f) => f.price?.[lang]);
   const avg = own.every(Boolean) ? own.reduce((a, b) => a + b, 0) / own.length : null;
+  const catalog = Object.fromEntries((C.catalog?.items ?? []).map((i) => [`c:${i.id}`, i]));
   const price = (size, plan, flavor) => {
+    if (catalog[flavor]) return catalog[flavor].price[lang] * size;
     const base = flavor === D.VARIETY ? avg : own[flavor];
     const p = base ? base * size * factor[size] : P.packs[size];
     const v = p * (plan === "sub" ? 1 - D.SUB_DISCOUNT : 1);
@@ -273,7 +294,8 @@ export function getT(lang) {
     price,
     packLabel,
     flavor: (i) => flavorText[i],
-    flavorName: (id) => (id === D.VARIETY ? t.ui.mix : flavorText[id].name),
+    flavorName: (id) => (id === D.VARIETY ? t.ui.mix : catalog[id] ? catalog[id].name[lang] ?? catalog[id].name.tr : flavorText[id].name),
+    catalogItem: (id) => catalog[id],
     // Ürün adının dili (İngilizce modda ad İngilizcedir).
     nameLang: en ? "en" : D.NAME_LANG,
     features: D.features.map((f, i) => (en ? { ...f, ...EN.features[i] } : f)),

@@ -44,6 +44,8 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 ## 6. Teknik
 
 - [ ] Tarayıcı konsolunda hata yok.
+- [ ] Tıklamalar gerçek fare/dokunma ile test edildi (kodla `.click()` yetmez; `pointer-events` hatalarını gizler).
+- [ ] Ek sayfalar (ör. `#/urunler`) doğrudan linkle açılınca yükleme ekranı kapanıyor mu?
 - [ ] Masaüstü ve telefon: ana sayfa, detay, 4 hikâye kartı, ritüel, mağaza, sepet, hikâye, SSS.
 - [ ] Telefonda detay kartı ürünü kapatmıyor; içerik açıklaması dokununca çıkıyor.
 - [ ] Netlify zip güncel (`yeni-demo.py` en son çalıştırıldı), `noindex` var.
@@ -63,3 +65,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Kremde parfüm kristalleri, şişe ikonu | `particles: "leaves"`, kristaller kapalı, `icon: "leaf"` |
 | Lalive | Tüm ürünler aynı fiyat, ₺1.691,00 | Ürün bazlı fiyat, yuvarlama, kuruşsuz gösterim |
 | Lalive | Hediye kutusu ücretli sanılıyordu | "Ücretsiz" yazısı |
+| Lalive | Katalog sayfasında kartlara tıklanamıyordu (`main` pointer-events) | Gerçek tıklama testi; `.catalog { pointer-events: auto }` |
+| Lalive | `#/urunler` doğrudan açılınca yükleme ekranı kapanmıyordu | Katalog sayfası açılınca yükleme tamamlanır |
+| Lalive | ₺1.333,9 (tek haneli kuruş) | Kuruşlu fiyatlar iki haneli |

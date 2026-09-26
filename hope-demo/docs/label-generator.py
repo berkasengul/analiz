@@ -667,7 +667,16 @@ def sprig(d, x, y, s, fill, ang=-1.2):
 
 
 def logo(img, cx, base, size, fill):
-    """"lalive": Marcellus, i'nin noktası yerine zeytin dalı."""
+    """Marka logosu: labelBrand.logoFile varsa o görsel (renklendirilir), yoksa
+    Marcellus ile yazı ve i'nin noktası yerine zeytin dalı."""
+    if BRAND.get("logoFile"):
+        path = os.path.join(HERE, "..", BRAND["logoFile"])
+        m = Image.open(path).getchannel("A")
+        h = int(size * K * 0.95)
+        m = m.resize((int(m.width * h / m.height), h), Image.LANCZOS)
+        x, y = int(cx - m.width / 2), int(base - h * 0.93)
+        img.paste(Image.new("RGB", m.size, tuple(fill)), (x, y), m)
+        return
     d = ImageDraw.Draw(img)
     f = font("Marcellus-Regular.ttf", size)
     word = "lalıve"

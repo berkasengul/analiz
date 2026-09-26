@@ -1,9 +1,9 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Lenis from "lenis";
 
 import Scene from "./Scene";
-import { flavors } from "./data";
-import { measureScroll, scrollState, scrollToElement, smooth } from "./scroll";
+import { content, flavors } from "./data";
+import { measureScroll, scrollState, scrollToElement, scrollToFlavorOf, smooth } from "./scroll";
 import { useStore } from "./store";
 
 import CartDrawer from "./ui/CartDrawer";
@@ -15,6 +15,7 @@ import Preloader from "./ui/Preloader";
 import Ritual from "./ui/Ritual";
 import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
+import { CatalogPage, CollectionGrid } from "./ui/Catalog";
 
 const N = flavors.length;
 
@@ -40,7 +41,8 @@ function useSmoothScroll() {
 
     const onClick = (e) => {
       const a = e.target.closest("a[href^='#']");
-      if (!a) return;
+      // "#/..." sayfa bağlantılarıdır (ör. #/urunler); tarayıcı hash'i değiştirir.
+      if (!a || a.getAttribute("href").startsWith("#/")) return;
       const el = document.querySelector(a.getAttribute("href"));
       if (!el) return;
       e.preventDefault();
@@ -142,22 +144,68 @@ function useDocLang() {
   }, [lang]);
 }
 
+// Basit sayfa yönlendirmesi: "#/urunler" katalog sayfası, geri kalanı ana sayfa.
+function useRoute() {
+  const read = () => (window.location.hash.startsWith("#/") ? window.location.hash.slice(2) : "");
+  const [route, setRoute] = useState(read);
+  useEffect(() => {
+    const on = () => {
+      const next = read();
+      setRoute(next);
+      const s = useStore.getState();
+      s.setMenu(false);
+      s.setCartOpen(false);
+      s.closeDetail();
+      // Ana sayfaya bir bölüm bağlantısıyla dönüldüyse o bölüme kay.
+      if (!next) {
+        const id = window.location.hash.slice(1);
+        setTimeout(() => {
+          const el = id && document.getElementById(id);
+          if (el && id !== "flavors") scrollToElement(el);
+          else window.scrollTo(0, 0);
+        }, 80);
+      }
+    };
+    window.addEventListener("hashchange", on);
+    return () => window.removeEventListener("hashchange", on);
+  }, []);
+  return route;
+}
+
+// Katalogdan bir 3B ürüne tıklanınca: carousel'de o ürüne kay ve detayı aç.
+function useOpenProduct() {
+  useEffect(() => {
+    const on = (e) => {
+      const s = useStore.getState();
+      scrollToFlavorOf(s.order, e.detail.index, false);
+      setTimeout(() => useStore.getState().openDetail(), 1300);
+    };
+    window.addEventListener("open-product", on);
+    return () => window.removeEventListener("open-product", on);
+  }, []);
+}
+
 export default function App() {
   useSmoothScroll();
   useKeys();
   useReveal();
   useMagnetic();
   useDocLang();
+  useOpenProduct();
+  const route = useRoute();
   const detail = useStore((s) => s.detail);
   const cinema = useStore((s) => s.detail && s.feature != null);
 
   return (
     <>
       <Preloader />
-      <Scene />
+      {route !== "urunler" && <Scene />}
       <Header />
       <Menu />
       <CartDrawer />
+      {route === "urunler" && content.catalog ? (
+        <CatalogPage />
+      ) : (
       <main>
         <section id="flavors" className="flavors" style={{ height: `calc(100vh + ${(N - 1) * 60}vh)` }}>
           <div className={`stage${detail ? " is-detail" : ""}${cinema ? " is-cinema" : ""}`}>
@@ -166,6 +214,7 @@ export default function App() {
           </div>
         </section>
         <Ritual />
+        {content.catalog && <CollectionGrid />}
         <Shop />
         <Marquee />
         <Story />
@@ -173,6 +222,7 @@ export default function App() {
         <Faq />
         <Footer />
       </main>
+      )}
     </>
   );
 }
