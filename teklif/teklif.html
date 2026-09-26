@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<title>Turkish Coffee Lady · Web Sitesi Teklifi</title>
+<style>
+  @font-face { font-family: "Gloock"; src: url("../tcl-demo/docs/label-fonts/Gloock-Regular.ttf"); }
+  @font-face { font-family: "Cinzel"; font-weight: 700; src: url("../tcl-demo/docs/label-fonts/Cinzel-Bold.ttf"); }
+  @font-face { font-family: "Open Sans"; font-weight: 600; src: url("../tcl-demo/docs/label-fonts/OpenSans-SemiBold.ttf"); }
+  @font-face { font-family: "Open Sans"; font-weight: 700; src: url("../tcl-demo/docs/label-fonts/OpenSans-Bold.ttf"); }
+  @font-face { font-family: "Plex Serif"; src: url("../tcl-demo/docs/label-fonts/IBMPlexSerif-Regular.ttf"); }
+  @font-face { font-family: "Plex Mono"; src: url("../tcl-demo/docs/label-fonts/IBMPlexMono-Regular.ttf"); }
+  @font-face { font-family: "Instrument"; font-style: italic; src: url("../tcl-demo/docs/label-fonts/InstrumentSerif-Italic.ttf"); }
+
+  :root {
+    --ink: #1c2230;
+    --muted: #5d6474;
+    --line: #dfe3ea;
+    --paper: #fbfaf7;
+    --blue: #1c4ea0;
+    --navy: #16284e;
+    --brown: #68381c;
+    --gold: #c8a050;
+  }
+
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); color: var(--ink); }
+  body { font-family: "Plex Serif", Georgia, serif; font-size: 10.5pt; line-height: 1.55; }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 18mm 18mm 16mm;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .band { position: absolute; left: 0; right: 0; height: 9mm; background: var(--blue); color: #fff;
+    font: 700 7.5pt/9mm "Open Sans", sans-serif; letter-spacing: 0.22em; text-align: center; }
+  .band--top { top: 0; }
+  .band--bottom { bottom: 0; }
+  .band::after { content: ""; position: absolute; left: 0; right: 0; height: 0.8mm; background: var(--gold); }
+  .band--top::after { bottom: -1.6mm; }
+  .band--bottom::after { top: -1.6mm; }
+
+  .eyebrow { font: 8pt "Plex Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); }
+  h1 { font-family: "Gloock", serif; font-weight: 400; font-size: 34pt; line-height: 1.05; color: var(--navy); }
+  h2 { font-family: "Gloock", serif; font-weight: 400; font-size: 20pt; line-height: 1.15; color: var(--navy); margin-bottom: 4mm; }
+  h3 { font: 700 10.5pt "Open Sans", sans-serif; color: var(--navy); }
+  .lead { font-family: "Instrument", serif; font-style: italic; font-size: 15pt; line-height: 1.35; color: var(--brown); }
+  p + p { margin-top: 2.5mm; }
+  .muted { color: var(--muted); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Kapak */
+  .cover { padding-top: 26mm; gap: 7mm; }
+  .logo { font-family: "Gloock", serif; color: var(--brown); font-size: 15pt; letter-spacing: 0.06em; line-height: 1; }
+  .logo em { font-family: "Instrument", serif; font-size: 17pt; display: block; margin-top: 1mm; }
+  .cover-img { flex: 1; border-radius: 4mm; overflow: hidden; position: relative; min-height: 0; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; padding-top: 5mm; border-top: 0.3mm solid var(--line); }
+  .meta dt { font: 7pt "Plex Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .meta dd { font: 600 9.5pt "Open Sans", sans-serif; margin-top: 1mm; }
+
+  /* İçerik sayfaları */
+  .content { padding-top: 22mm; gap: 6mm; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; }
+  .list { list-style: none; display: flex; flex-direction: column; gap: 2.4mm; }
+  .list li { padding-left: 5mm; position: relative; }
+  .list li::before { content: ""; position: absolute; left: 0; top: 2.2mm; width: 2mm; height: 2mm; border-radius: 50%; background: var(--blue); }
+  .shots { display: flex; flex-direction: column; gap: 3mm; width: 88%; align-self: center; }
+  .shots figure { border-radius: 3mm; overflow: hidden; border: 0.3mm solid var(--line); background: #0b0b0d; }
+  .shots img { width: 100%; display: block; }
+  .shots figcaption { font: 7.5pt "Plex Mono", monospace; color: #c9ccd4; padding: 1.6mm 2.5mm; letter-spacing: 0.06em; }
+  .shots .stack { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+
+  /* Paketler */
+  .packages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .pkg { border: 0.3mm solid var(--line); border-radius: 3.5mm; padding: 5mm 4.5mm; background: #fff; display: flex; flex-direction: column; gap: 3mm; position: relative; }
+  .pkg--best { border: 0.6mm solid var(--blue); box-shadow: 0 3mm 8mm -4mm rgba(28, 78, 160, 0.35); }
+  .pkg__badge { position: absolute; top: -3mm; left: 4.5mm; background: var(--blue); color: #fff; font: 700 7pt "Open Sans", sans-serif; letter-spacing: 0.14em; padding: 1mm 2.5mm; border-radius: 2mm; text-transform: uppercase; }
+  .pkg__name { font-family: "Gloock", serif; font-size: 13pt; color: var(--navy); line-height: 1.15; }
+  .pkg__price { font: 700 20pt "Open Sans", sans-serif; color: var(--ink); line-height: 1; }
+  .pkg__price small { font-size: 8pt; font-weight: 600; color: var(--muted); }
+  .pkg__time { font: 7.5pt "Plex Mono", monospace; letter-spacing: 0.08em; color: var(--blue); text-transform: uppercase; }
+  .pkg ul { list-style: none; display: flex; flex-direction: column; gap: 1.6mm; font-size: 8.6pt; line-height: 1.4; }
+  .pkg li { padding-left: 4mm; position: relative; }
+  .pkg li::before { content: "✓"; position: absolute; left: 0; color: var(--blue); font-family: "Open Sans", sans-serif; font-weight: 700; }
+  .pkg li.plus { font-weight: 600; }
+  .pkg li.plus::before { content: "+"; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  th, td { text-align: left; padding: 2.2mm 0; border-bottom: 0.3mm solid var(--line); vertical-align: top; }
+  th { font: 7.5pt "Plex Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  td.r, th.r { text-align: right; }
+  td:first-child { font-weight: 600; font-family: "Open Sans", sans-serif; padding-right: 4mm; }
+
+  .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; }
+  .step { border-top: 0.8mm solid var(--blue); padding-top: 2.5mm; }
+  .step b { display: block; font: 7.5pt "Plex Mono", monospace; letter-spacing: 0.1em; color: var(--blue); text-transform: uppercase; margin-bottom: 1mm; }
+  .step span { font-size: 8.6pt; line-height: 1.4; display: block; }
+
+  .note { background: #f1f4f9; border-left: 1mm solid var(--blue); padding: 3.5mm 4.5mm; border-radius: 0 2mm 2mm 0; font-size: 9pt; }
+  .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; margin-top: auto; padding-bottom: 8mm; }
+  .sign div { border-top: 0.3mm solid var(--ink); padding-top: 2mm; font: 8pt "Plex Mono", monospace; color: var(--muted); letter-spacing: 0.06em; }
+  .foot { position: absolute; bottom: 12mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between; font: 7pt "Plex Mono", monospace; color: var(--muted); letter-spacing: 0.08em; }
+</style>
+</head>
+<body>
+
+<!-- ======================= 1. Kapak ======================= -->
+<section class="page cover">
+  <div class="band band--top">GOOD COFFEE. GOOD FORTUNE.</div>
+  <div class="logo">TURKISH COFFEE <em>Lady</em></div>
+  <div>
+    <p class="eyebrow">Web sitesi teklifi · TCL-2026-01</p>
+    <h1 style="margin-top:3mm">Dünyanın ilk buzlu<br />Türk kahvesine yakışan<br />bir dijital vitrin</h1>
+  </div>
+  <p class="lead">Beş şehir, beş tat, bir fincan kahvenin kırk yıl hatırı: bu hikâyeyi sayfa kaydırdıkça dönen, ışığı ve rengi her tatla değişen bir 3B deneyimle anlatalım.</p>
+  <div class="cover-img"><img src="img/carousel.jpg" alt="Demo: 3B kutu carousel'i" /></div>
+  <dl class="meta">
+    <div><dt>Hazırlanan</dt><dd>Gizem Şalcıgil White<br />Turkish Coffee Lady, Inc.</dd></div>
+    <div><dt>Hazırlayan</dt><dd>[Adınız Soyadınız]<br />[Stüdyo adı]</dd></div>
+    <div><dt>Tarih</dt><dd class="num">26 Eylül 2026</dd></div>
+    <div><dt>Geçerlilik</dt><dd class="num">26 Ekim 2026</dd></div>
+  </dl>
+  <div class="band band--bottom">SHAKE WELL. DRINK COLD.</div>
+</section>
+
+<!-- ======================= 2. Neden & demo ======================= -->
+<section class="page content" style="gap:4.5mm">
+  <div class="band band--top">GOOD COFFEE. GOOD FORTUNE.</div>
+  <div>
+    <p class="eyebrow">01 — Neden</p>
+    <h2>Yeni bir kategori, yeni bir vitrin ister</h2>
+  </div>
+  <div class="cols">
+    <div>
+      <p>Buzlu Türk kahvesi, raflarda ilk kez görülen bir ürün. Müşterinin onu tanıması için kutuyu elinde çeviriyormuş gibi görmesi, tatların arkasındaki şehirleri hissetmesi ve kutudaki fal deneyimini anlaması gerekiyor.</p>
+      <p>Hazırladığımız site bunu tek bir akışta yapıyor: ziyaretçi kaydırdıkça kutular döner, bir tada tıkladığında o tadın dünyasına girer, birkaç saniye içinde de sepetine ekler.</p>
+    </div>
+    <ul class="list">
+      <li><b>Tat başına bir sahne.</b> Bold Istanbul'da Boğaz'ın mavisi, Silky Mardin'de taş evlerin altını; arka plan, ışık ve butonlar tada göre değişir.</li>
+      <li><b>Kutuyu anlatan etkileşim.</b> "500 yıllık tarif", "Beş şehir", "İçindekiler" ve "Dijital fal" hikâyelerinde kutu dönüp yakınlaşır.</li>
+      <li><b>Satışa hazır akış.</b> Tat, paket boyutu, abonelik, sepet ve ödeme bağlantısı.</li>
+      <li><b>Marka hikâyesi.</b> 2009'dan bugüne yolculuk, basın, Culture House ve Instagram.</li>
+    </ul>
+  </div>
+
+  <div>
+    <p class="eyebrow">02 — Hazır demo</p>
+    <h2 style="margin-top:2mm">Bu teklifle birlikte çalışan bir demo sunuyoruz</h2>
+  </div>
+  <div class="shots">
+    <figure><img src="img/detail.jpg" alt="" /><figcaption>Ürün detayı ve 4 hikâye kartı</figcaption></figure>
+    <div class="stack">
+      <figure><img src="img/shop.jpg" alt="" /><figcaption>Mağaza: tat seçtikçe sahne değişir</figcaption></figure>
+      <figure><img src="img/story.jpg" alt="" /><figcaption>Marka hikâyesi</figcaption></figure>
+    </div>
+  </div>
+  <p class="muted" style="font-size:8pt">Demodaki kutu etiketleri paylaşılan ürün görsellerinden esinlenerek yeniden çizilmiştir; projede sizin gerçek baskı dosyalarınız, fotoğraflarınız ve metinleriniz kullanılacaktır.</p>
+  <div class="band band--bottom">SHAKE WELL. DRINK COLD.</div>
+</section>
+
+<!-- ======================= 3. Paketler ======================= -->
+<section class="page content">
+  <div class="band band--top">GOOD COFFEE. GOOD FORTUNE.</div>
+  <div>
+    <p class="eyebrow">03 — Paketler</p>
+    <h2>Üç kapsam, ihtiyacınıza göre</h2>
+    <p class="muted">Fiyatlar ABD doları cinsindendir, vergiler hariçtir. Tüm paketlerde mobil uyum, hız optimizasyonu ve yayın sonrası 30 gün hata desteği vardır.</p>
+  </div>
+
+  <div class="packages">
+    <div class="pkg">
+      <p class="pkg__name">Lansman Sayfası</p>
+      <p class="pkg__price num">$4,900</p>
+      <p class="pkg__time">3 hafta</p>
+      <ul>
+        <li>3B kutu carousel'i ve 5 tat sahnesi</li>
+        <li>Ürün detayı ve 4 hikâye kartı</li>
+        <li>Gerçek etiket dosyalarınızla kutular</li>
+        <li>Marka hikâyesi, SSS, iletişim ve bülten</li>
+        <li>Tek dil (İngilizce ya da Türkçe)</li>
+        <li>"Satın al" butonu mevcut mağazanıza bağlanır</li>
+        <li>Alan adına yayın, SEO ve paylaşım görseli</li>
+        <li>2 revizyon turu</li>
+      </ul>
+    </div>
+
+    <div class="pkg pkg--best">
+      <span class="pkg__badge">Önerilen</span>
+      <p class="pkg__name">Lansman &amp; Mağaza</p>
+      <p class="pkg__price num">$8,900</p>
+      <p class="pkg__time">5 hafta</p>
+      <ul>
+        <li class="plus">Lansman Sayfası'ndaki her şey</li>
+        <li>Shopify ile gerçek sepet ve ödeme</li>
+        <li>Paket boyutu, karışık paket, abonelik</li>
+        <li>İngilizce + Türkçe dil seçeneği</li>
+        <li>Coffee Sayer AI fal sayfasına QR yönlendirmesi</li>
+        <li>Google Analytics 4 ve Meta Pixel kurulumu</li>
+        <li>Tat ve fiyatları siz güncelleyebilirsiniz</li>
+        <li>3 revizyon turu</li>
+      </ul>
+    </div>
+
+    <div class="pkg">
+      <p class="pkg__name">Premium Kampanya</p>
+      <p class="pkg__price num">$14,500</p>
+      <p class="pkg__time">7 hafta</p>
+      <ul>
+        <li class="plus">Lansman &amp; Mağaza'daki her şey</li>
+        <li>Gerçek kutunuzun birebir 3B modeli</li>
+        <li>Sosyal medya için 3 adet 15 sn ürün videosu</li>
+        <li>Stockist / bayi haritası sayfası</li>
+        <li>Kampanya ve indirim kodu altyapısı</li>
+        <li>A/B testli iki ana sayfa varyasyonu</li>
+        <li>3 ay bakım ve içerik güncellemesi dahil</li>
+        <li>Sınırsız küçük revizyon (7 hafta boyunca)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <h3 style="margin-bottom:2mm">Opsiyonel eklemeler</h3>
+    <table>
+      <thead><tr><th>Kalem</th><th>Açıklama</th><th class="r">Fiyat</th></tr></thead>
+      <tbody>
+        <tr><td>Aylık bakım</td><td>Barındırma, güvenlik güncellemeleri, ayda 4 saate kadar içerik değişikliği</td><td class="r num">$390 / ay</td></tr>
+        <tr><td>Yeni tat ekleme</td><td>Yeni kutu, sahne rengi, şehir manzarası ve metinler</td><td class="r num">$450 / tat</td></tr>
+        <tr><td>Ürün videosu</td><td>Sitedeki 3B sahneden 15 sn dikey video (Reels / TikTok)</td><td class="r num">$950 / adet</td></tr>
+        <tr><td>Ek dil</td><td>Arapça, Almanca vb. (çeviri metinleri sizden)</td><td class="r num">$900 / dil</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note"><b>Lansman indirimi:</b> Teklifin 14 gün içinde (10 Ekim 2026'ya kadar) onaylanması halinde paket bedeline %10 indirim uygulanır.</p>
+  <div class="band band--bottom">SHAKE WELL. DRINK COLD.</div>
+</section>
+
+<!-- ======================= 4. Süreç & koşullar ======================= -->
+<section class="page content">
+  <div class="band band--top">GOOD COFFEE. GOOD FORTUNE.</div>
+  <div>
+    <p class="eyebrow">04 — Süreç</p>
+    <h2>Önerilen paket için takvim</h2>
+  </div>
+  <div class="timeline">
+    <div class="step"><b>Hafta 1</b><span>Başlangıç toplantısı, etiket dosyaları, metinler ve fotoğrafların toplanması</span></div>
+    <div class="step"><b>Hafta 2</b><span>Gerçek etiketlerle kutular, 5 tat sahnesi ve ana sayfa</span></div>
+    <div class="step"><b>Hafta 3</b><span>Shopify mağaza, sepet, abonelik ve dil seçeneği</span></div>
+    <div class="step"><b>Hafta 4</b><span>Önizleme bağlantısı, geri bildirim ve revizyonlar</span></div>
+    <div class="step"><b>Hafta 5</b><span>Son testler, alan adına yayın ve ekip eğitimi</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3 style="margin-bottom:2.5mm">Sizden ihtiyacımız olanlar</h3>
+      <ul class="list">
+        <li>Beş tadın açılmış (düz) kutu baskı dosyaları, PDF ya da yüksek çözünürlüklü PNG</li>
+        <li>Logo, marka renkleri ve yazı tipleri</li>
+        <li>Tat açıklamaları, içindekiler ve besin değerleri</li>
+        <li>Fiyatlar, paket seçenekleri ve kargo koşulları</li>
+        <li>Shopify (ya da mevcut mağaza) erişimi ve alan adı</li>
+        <li>Coffee Sayer AI bağlantısı ve kullanmak istediğiniz basın içerikleri</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:2.5mm">Koşullar</h3>
+      <table>
+        <tbody>
+          <tr><td>Ödeme</td><td>%40 başlangıçta, %40 önizleme onayında, %20 yayında</td></tr>
+          <tr><td>Hak devri</td><td>Son ödemeyle birlikte kaynak kod ve tasarım size aittir</td></tr>
+          <tr><td>Destek</td><td>Yayından sonra 30 gün ücretsiz hata düzeltme</td></tr>
+          <tr><td>Revizyon</td><td>Paketteki tur sayısının üzerindeki değişiklikler saatlik $75</td></tr>
+          <tr><td>Barındırma</td><td>Vercel / Netlify ya da sizin sunucunuz; alan adı sizde kalır</td></tr>
+          <tr><td>Geçerlilik</td><td>26 Ekim 2026'ya kadar</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Sonraki adım:</b> 20 dakikalık bir görüntülü görüşmede demoyu canlı gösterelim, paketi birlikte netleştirelim. Onayınızla birlikte başlangıç toplantısını aynı hafta içinde planlayabiliriz.
+  </div>
+
+  <div class="sign">
+    <div>Turkish Coffee Lady, Inc.<br />Ad, imza, tarih</div>
+    <div>[Stüdyo adı]<br />[Adınız], imza, tarih</div>
+  </div>
+  <div class="foot"><span>[Adınız] · [E-posta] · [Telefon]</span><span>TCL-2026-01</span></div>
+  <div class="band band--bottom">SHAKE WELL. DRINK COLD.</div>
+</section>
+
+</body>
+</html>
