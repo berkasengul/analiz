@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { DEFAULT_SHOP_FLAVOR, VARIETY, content, flavors } from "./data";
+import { DEFAULT_SHOP_FLAVOR, DETAIL_PACK, VARIETY, content, flavors } from "./data";
 
 // Gizli sekme gibi durumlarda localStorage hata verebilir.
 const safeStorage = {
@@ -47,7 +47,7 @@ export const useStore = create(
       cartOpen: false,
       shopFlavor: null, // null = detayda en son bakılan tat
       picked: null,
-      shopPack: 100,
+      shopPack: DETAIL_PACK,
       shopPlan: "once",
       cart: [],
 

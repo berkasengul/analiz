@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useTexture } from "@react-three/drei";
-import { MeshPhysicalMaterial, MeshStandardMaterial, CylinderGeometry, PlaneGeometry, RepeatWrapping, SRGBColorSpace } from "three";
+import { BoxGeometry, MathUtils, MeshPhysicalMaterial, MeshStandardMaterial, CylinderGeometry, PlaneGeometry, RepeatWrapping, SRGBColorSpace } from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 
 import { content, flavors } from "./data";
@@ -28,6 +28,28 @@ const capGeo =
   B.cap.shape === "box"
     ? new RoundedBoxGeometry(B.cap.radius * 2, B.cap.height, B.cap.radius * 2, 3, 0.04)
     : new CylinderGeometry(B.cap.radius, B.cap.radius, B.cap.height, B.cap.shape === "octagon" ? 8 : 96);
+
+// Krem tüpü (content.json → bottle.tube, ürünlerde `form: "tube"`): kapağın
+// üstünde duran, üst ucu yassı kıvrılmış tüp. Doku tüpü sarar: u 0–0.5 ön
+// yüz, 0.5–1 arka yüz (etiket atlasıyla aynı düzen).
+const T = B.tube;
+function makeTube() {
+  const g = new CylinderGeometry(T.radius, T.radius, T.height, 72, 28, true, -Math.PI / 2, Math.PI * 2);
+  const p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const k = MathUtils.smootherstep((p.getY(i) + T.height / 2) / T.height, 0.42, 1);
+    p.setX(i, p.getX(i) * (1 + 0.34 * k));
+    p.setZ(i, p.getZ(i) * (1 - 0.94 * k));
+  }
+  g.computeVertexNormals();
+  return g;
+}
+const tube = T && {
+  body: makeTube(),
+  seal: new BoxGeometry(T.radius * 2 * 1.36, 0.3, 0.1),
+  shoulder: new CylinderGeometry(T.radius, T.capRadius * 0.92, 0.2, 72),
+  cap: new CylinderGeometry(T.capRadius, T.capRadius, T.capHeight, 72),
+};
 
 // Etiket atlası: ön etiket dokunun sol yarısı, arka etiket sağ yarısı.
 function labelGeo(u0) {
@@ -95,20 +117,39 @@ export function createBottleParts() {
   const glass = glassMaterial(0.08);
   const base = glassMaterial(0.3, "#e4ecee");
   const liquid = glassMaterial(0.06, "#f6f1e4");
-  const parts = { metal, cap, glass, base, liquid };
-  for (const m of [metal, cap, glass, base, liquid]) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
+  // Tüpün kıvrık ucu, omuzu ve kapağı.
+  const tubeMat = new MeshPhysicalMaterial({ color: T?.color ?? "#f3eee6", roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.2, envMapIntensity: 0.9 });
+  const tubeCap = new MeshPhysicalMaterial({ color: T?.capColor ?? "#1a1a1a", metalness: T?.capFinish === "gold" ? 1 : 0.1, roughness: T?.capFinish === "gold" ? 0.18 : 0.3, clearcoat: 1, envMapIntensity: 1.2 });
+  const parts = { metal, cap, glass, base, liquid, tube: tubeMat, tubeCap };
+  for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
   return parts;
 }
 
 export function dimBottleParts(parts, dim) {
-  for (const key of ["metal", "cap", "glass", "base", "liquid"]) {
+  for (const key of Object.keys(parts)) {
     const m = parts[key];
     m.color.copy(m.userData.base.color).multiplyScalar(dim);
     m.envMapIntensity = m.userData.base.env * dim;
   }
 }
 
-export default function CanMesh({ body, parts }) {
+function Tube({ body, parts }) {
+  const bottom = -(T.capHeight + 0.2 + T.height) / 2;
+  const yCap = bottom + T.capHeight / 2;
+  const yShoulder = bottom + T.capHeight + 0.1;
+  const yBody = bottom + T.capHeight + 0.2 + T.height / 2;
+  return (
+    <group rotation={[0, 0, B.tilt]} position={[0, -0.1, 0]} scale={T.scale}>
+      <mesh geometry={tube.cap} material={parts.tubeCap} position={[0, yCap, 0]} />
+      <mesh geometry={tube.shoulder} material={parts.tube} position={[0, yShoulder, 0]} />
+      <mesh geometry={tube.body} material={body} position={[0, yBody, 0]} />
+      <mesh geometry={tube.seal} material={parts.tube} position={[0, yBody + T.height / 2 + 0.1, 0]} />
+    </group>
+  );
+}
+
+export default function CanMesh({ body, parts, form }) {
+  if (form === "tube" && tube) return <Tube body={body} parts={parts} />;
   return (
     <group rotation={[0, 0, B.tilt]} position={[0, -0.2, 0]} scale={B.scale}>
       {B.label.back && <mesh geometry={backGeo} material={body} position={[0, LABEL_Y, -D / 2 - 0.004]} rotation={[0, Math.PI, 0]} />}

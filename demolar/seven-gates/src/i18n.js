@@ -231,6 +231,18 @@ const UI = {
 // ---------------------------------------------------------------- yardımcılar
 const cache = {};
 
+// content.json'daki arayüz yazıları varsayılanların üzerine yazılır. Varsayılanı
+// fonksiyon olan metinler JSON'da "{0} ürününü keşfet" gibi kalıpla verilir.
+function mergeUi(base, over = {}) {
+  const out = { ...base };
+  for (const [k, v] of Object.entries(over)) {
+    if (typeof base[k] === "function" && typeof v === "string") out[k] = (...a) => v.replace(/\{(\d)\}/g, (_, i) => a[i]);
+    else if (base[k] && typeof base[k] === "object" && !Array.isArray(base[k]) && typeof v === "object") out[k] = { ...base[k], ...v };
+    else out[k] = v;
+  }
+  return out;
+}
+
 export function getT(lang) {
   if (cache[lang]) return cache[lang];
   const en = lang === "en";
@@ -243,7 +255,7 @@ export function getT(lang) {
 
   const t = {
     lang,
-    ui: { ...UI[lang], ...(C.ui?.[lang] ?? {}) },
+    ui: mergeUi(UI[lang], C.ui?.[lang]),
     money,
     price,
     packLabel,

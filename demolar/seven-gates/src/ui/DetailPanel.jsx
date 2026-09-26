@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { features, flavors } from "../data";
+import { DETAIL_PACK, features, flavors } from "../data";
 import { useT } from "../i18n";
 import { scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
@@ -104,10 +104,12 @@ export default function DetailPanel() {
                 <dd lang={/^[\x00-\x7F]+$/.test(f.perfumer) ? "en" : undefined}>{f.perfumer}</dd>
               </div>
             )}
-            <div>
-              <dt>{ui.year}</dt>
-              <dd>{f.year}</dd>
-            </div>
+            {f.year && (
+              <div>
+                <dt>{ui.year}</dt>
+                <dd>{f.year}</dd>
+              </div>
+            )}
           </dl>
           <ul className="chips detail__notes" aria-label={ui.notes}>
             {f.notes.map((n) => (
@@ -115,8 +117,8 @@ export default function DetailPanel() {
             ))}
           </ul>
           <div className="buy">
-            <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, 100, "once")}>
-              {ui.pack(t.packLabel(100))} · {t.money(t.price(100, "once"))}
+            <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, DETAIL_PACK, "once")}>
+              {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once"))}
             </button>
             <a href="#shop" className="buy__more mono" tabIndex={tab}>
               {ui.otherPacks}

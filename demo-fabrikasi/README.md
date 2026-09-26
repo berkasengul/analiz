@@ -36,13 +36,16 @@ Süre: ~20 saniye (etiket çizimi + derleme).
 | `brand` | Marka adı, `sub` (Extrait de Parfum / Eau de Parfum), sorumluluk notu (TR + `en`) |
 | `labelBrand` | Etiketteki logo yazıları: `wordmark`, `submark`, `concentration`, `volume` |
 | `bottle` | Şişe ölçüleri: `glass` (genişlik, yükseklik, derinlik, `corner` köşe yuvarlaklığı: 0.1 kare, 0.9 yuvarlak), `label` (boyut, konum, arka etiket var mı), `neck`, `cap` (`shape`: cylinder / octagon / box, `finish`: gold / silver / black, renk), `scale`, `tilt` |
+| `products[].form` | Ürünün biçimi: boş (şişe) ya da `"tube"` (krem tüpü, ölçüler `bottle.tube` içinde) |
 | `products[]` | Her koku: `name`, `file` (etiket dosya adı), `color` (arayüz rengi), `theme` (sahne ışığı: glow / edge / drop), `collection`, `family`, `year`, `perfumer`, `tagline`, `notes`, `description`, İngilizcesi `en` içinde |
-| `products[].label` | Etiket: `style` (`star` Hope tarzı ya da `classic` sade), `plate` ("gold" ya da [r,g,b]), `star` / `ink` renkleri, `place` ve `scene` (arka etiket silüeti: han, palace, peninsula, walls, tower, galata, hills, sea, none), `pyramid` (TOP / HEART / BASE notaları) |
+| `products[].label` | Etiket: `style` (`star` Hope tarzı, `art` sanat eseri, `tube` krem/bakım, `classic` sade), `plate` ("gold" ya da [r,g,b]), `star` / `ink` renkleri, `place` ve `scene` (arka etiket silüeti: han, palace, peninsula, walls, tower, galata, hills, sea, none), `pyramid` (TOP / HEART / BASE notaları) |
 | `features` | Detaydaki 4 hikâye kartı (ikon, şişe pozu, TR/EN metin) |
 | `ritual` | 3 adım (hangi koku, TR/EN metin) |
 | `packs`, `prices` | Boyutlar ve ₺ / $ fiyatlar, kargo |
 | `stockists`, `story`, `faqs` | Satış noktaları, marka hikâyesi, SSS (TR/EN) |
-| `ui` | Markaya özel arayüz yazıları: yükleme yazısı, kayan bant, "... için hazırlanmış" vb. |
+| `ui` | Markaya özel arayüz yazıları: yükleme yazısı, kayan bant, slogan, menü adları ("Kokular" yerine "Ürünler"), kalıplı metinler (`"{0} ürününü keşfet"`) |
+| `packUnit`, `detailPack` | Mağaza birimi (ml / adet) ve detaydaki sepete ekle boyutu |
+| `backdrop` | `false` ise arka planda etiketten bulanık manzara gösterilmez |
 
 ## Notlar
 

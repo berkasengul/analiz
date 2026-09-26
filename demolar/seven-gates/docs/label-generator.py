@@ -389,6 +389,13 @@ def load(path=CONTENT):
             "palette": [tuple(x) for x in L.get("palette", [(20, 20, 30), (200, 180, 255), (255, 255, 255)])],
             "concentration": L.get("concentration"),
             "collection": L.get("collection", ""),
+            "sub": L.get("sub", ""),
+            "claims": L.get("claims", []),
+            "ingredients": L.get("ingredients", ""),
+            "usage": L.get("usage", ""),
+            # Tüpte doku yarım çevreye sarılır; şişede kare etikettir.
+            "aspect": (data["bottle"]["tube"]["height"] / (math.pi * data["bottle"]["tube"]["radius"])) if p.get("form") == "tube" else 1,
+            "volume": L.get("volume"),
         })
     return out
 
@@ -543,8 +550,88 @@ def art_back(c, seed):
     return put(img, arr(t, 0.35), (240, 236, 228))
 
 
+# ================================================================ krem tüpü stili
+def olive_branch(d, x, y, s, ang, fill):
+    """Zeytin dalı: ince sap ve karşılıklı yapraklar."""
+    L = 520 * s
+    ex, ey = x + math.cos(ang) * L, y + math.sin(ang) * L
+    d.line([(x, y), (ex, ey)], fill=fill, width=int(6 * s))
+    for k in range(1, 9):
+        t = k / 9
+        px, py = x + (ex - x) * t, y + (ey - y) * t
+        for side in (-1, 1):
+            a = ang + side * 0.9
+            lx, ly = px + math.cos(a) * 110 * s, py + math.sin(a) * 110 * s
+            w = 26 * s
+            nx, ny = -math.sin(a) * w, math.cos(a) * w
+            d.polygon([(px, py), ((px + lx) / 2 + nx, (py + ly) / 2 + ny), (lx, ly), ((px + lx) / 2 - nx, (py + ly) / 2 - ny)], fill=fill)
+    for k in (3, 6):
+        t = k / 9
+        px, py = x + (ex - x) * t, y + (ey - y) * t + 40 * s
+        d.ellipse([px - 22 * s, py - 30 * s, px + 22 * s, py + 30 * s], fill=fill)
+
+
+def tube_panel(c, seed, back=False):
+    """Tüpün yarısı (ön ya da arka). Uzun tuvale çizilir, sonra kareye sıkıştırılır;
+    tüpe sarıldığında oranlar düzelir."""
+    W_, H_ = N, int(N * c["aspect"])
+    plate = np.array(c["plate"] if c["plate"] != "gold" else (236, 226, 204), np.float32)
+    ink = tuple(int(v) for v in c["ink"])
+    accent = tuple(int(v) for v in c["star"])
+    img = Image.new("RGB", (W_, H_), tuple(int(v) for v in plate))
+    tex = (smooth_noise(W_, H_, (8, 14), seed, 0.97, 1.03)[..., None] * np.asarray(img).astype(np.float32))
+    img = Image.fromarray(np.clip(tex, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(img)
+    cx = W_ / 2
+    y = lambda f: int(H_ * f)
+    def tc(text, fy, f, fill, spacing=0):
+        widths = [d.textlength(ch, font=f) for ch in text]
+        total = sum(widths) + spacing * K * (len(text) - 1)
+        x = cx - total / 2
+        for ch, w in zip(text, widths):
+            d.text((x, fy), ch, font=f, fill=fill, anchor="ls")
+            x += w + spacing * K
+    if not back:
+        # Üst kısım (tüpün yassı ucu): renkli bant ve zeytin dalı.
+        d.rectangle([0, 0, W_, y(0.34)], fill=accent)
+        olive_branch(d, cx - 260 * K, y(0.30), 0.9 * K, -0.55, tuple(int(v * 0.8 + 50) for v in plate))
+        d.line([(0, y(0.345)), (W_, y(0.345))], fill=ink, width=3 * K)
+        tc(BRAND["wordmark"], y(0.47), font("Gloock-Regular.ttf", 150), ink, spacing=2)
+        tc(BRAND.get("submark", ""), y(0.505), font("OpenSans-SemiBold.ttf", 26), ink, spacing=12)
+        name = c["name"]
+        f = fit(d, name, "Gloock-Regular.ttf", 820, 96)
+        tc(name, y(0.62), f, accent)
+        if c["sub"]:
+            tc(c["sub"].upper(), y(0.66), font("OpenSans-SemiBold.ttf", 26), ink, spacing=6)
+        for i, claim in enumerate(c["claims"][:3]):
+            tc(claim.upper(), y(0.74 + i * 0.035), font("OpenSans-Bold.ttf", 22), ink, spacing=5)
+        tc(BRAND["volume"] if not c.get("volume") else c["volume"], y(0.93), font("OpenSans-SemiBold.ttf", 24), ink, spacing=4)
+    else:
+        d.rectangle([0, 0, W_, y(0.34)], fill=accent)
+        tc(BRAND["wordmark"], y(0.44), font("Gloock-Regular.ttf", 80), ink, spacing=2)
+        yy = y(0.5)
+        for head, body in (("İÇİNDEKİLER", c["ingredients"]), ("KULLANIM", c["usage"])):
+            tc(head, yy, font("OpenSans-Bold.ttf", 30), accent, spacing=8)
+            yy += 58 * K
+            words, line = body.split(), ""
+            fnt = font("OpenSans-SemiBold.ttf", 32)
+            for w in words:
+                trial = (line + " " + w).strip()
+                if d.textlength(trial, font=fnt) > W_ * 0.8:
+                    tc(line, yy, fnt, ink); yy += 48 * K; line = w
+                else:
+                    line = trial
+            if line:
+                tc(line, yy, fnt, ink); yy += 48 * K
+            yy += 44 * K
+        tc(c["place"], y(0.93), font("OpenSans-SemiBold.ttf", 20), ink, spacing=6)
+    return np.asarray(img.resize((N, N), Image.LANCZOS)).astype(np.float32)
+
+
 def render(c, idx):
-    if c["style"] == "art":
+    if c["style"] == "tube":
+        f, b = tube_panel(c, idx * 7 + 1), tube_panel(c, idx * 7 + 2, back=True)
+    elif c["style"] == "art":
         f, b = art_front(c, idx * 7 + 1), art_back(c, idx * 7 + 2)
     else:
         f = (classic if c["style"] == "classic" else front)(c, idx * 7 + 1)

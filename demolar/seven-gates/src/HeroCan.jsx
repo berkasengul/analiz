@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Color, MathUtils } from "three";
 
@@ -120,9 +120,13 @@ export default function HeroCan() {
     };
   }, []);
 
+  // Ürünlerin biçimi farklı olabilir (şişe / tüp): gösterilen ürünle değişir.
+  const [form, setForm] = useState(flavors[0].form);
+
   const showFlavor = (next, animated) => {
     const s = l.current;
     s.target = next;
+    setForm(flavors[next].form);
     s.controls?.stop();
     const f = flavors[next];
     if (!animated) {
@@ -273,7 +277,7 @@ export default function HeroCan() {
         document.body.style.cursor = "grabbing";
       }}
     >
-      <CanMesh body={body} parts={parts} />
+      <CanMesh body={body} parts={parts} form={form} />
     </group>
     </>
   );

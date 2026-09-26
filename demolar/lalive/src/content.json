@@ -1,0 +1,933 @@
+{
+  "slug": "lalive",
+  "meta": {
+    "title": "Lalive · Konsept Demo",
+    "description": "Lalive doğal bakım ürünleri için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
+    "og": "Assos'tan doğal bakım: Lalive için 3B konsept site."
+  },
+  "brand": {
+    "name": "Lalive",
+    "sub": "Natural care",
+    "specs": "Assos'tan doğal bakım",
+    "disclaimer": "Bu sayfa Lalive için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Ambalaj ve etiket görselleri temsilidir; ürün açıklamaları markanın yayımladığı bilgilerden derlenmiştir, fiyatlar örnektir.",
+    "en": {
+      "specs": "Natural care from Assos",
+      "disclaimer": "This page is an independent concept demo prepared for Lalive and is not affiliated with the brand owner. Packaging and label visuals are illustrative; product copy is compiled from the brand's published information and prices are examples."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "lalive",
+    "submark": "ASSOS · NATURAL CARE",
+    "concentration": "%100 DOĞAL",
+    "volume": "50 ml"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.56,
+      "capHeight": 0.6,
+      "color": "#f1ebdf",
+      "capColor": "#c9ad74",
+      "capFinish": "gold",
+      "scale": 1.0
+    }
+  },
+  "products": [
+    {
+      "name": "El Kremi",
+      "form": "tube",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "El bakımı",
+      "year": null,
+      "perfumer": null,
+      "color": "#9aae6a",
+      "ink": "#56663a",
+      "theme": {
+        "glow": "#56663a",
+        "edge": "#060803",
+        "drop": "#dfe8c4",
+        "mood": "warm"
+      },
+      "tagline": "Zeytinyağıyla derin besleme.",
+      "notes": [
+        "Zeytinyağı",
+        "Shea",
+        "Kakao yağı",
+        "Jojoba",
+        "Niasinamid"
+      ],
+      "description": "Geliştirilmiş bitki bazlı formül: zeytinyağı, shea, kakao ve jojoba yağı elleri derinlemesine besler; aloe vera ve niasinamid yatıştırır, hyalüronik asit yağlı his bırakmadan uzun süre nemlendirir.",
+      "file": "el-kremi.jpg",
+      "en": {
+        "family": "Hand care",
+        "tagline": "Deep nourishment with olive oil.",
+        "notes": [
+          "Olive oil",
+          "Shea",
+          "Cocoa butter",
+          "Jojoba",
+          "Niacinamide"
+        ],
+        "description": "An improved plant-based formula: olive, shea, cocoa and jojoba oils nourish hands deeply; aloe vera and niacinamide soothe; hyaluronic acid hydrates for hours without a greasy feel."
+      },
+      "label": {
+        "plate": [
+          240,
+          234,
+          222
+        ],
+        "ink": [
+          60,
+          52,
+          40
+        ],
+        "star": [
+          96,
+          112,
+          62
+        ],
+        "place": "ASSOS · KORUOBA",
+        "scene": "none",
+        "sub": "50 ml",
+        "claims": [
+          "%100 doğal",
+          "Vegan",
+          "Assos zeytinyağı"
+        ],
+        "ingredients": "Zeytinyağı, shea yağı, kakao yağı, jojoba yağı, aloe vera, niasinamid, hyalüronik asit.",
+        "usage": "Gün içinde ihtiyaç duydukça ellerine sür, emilene kadar masaj yap.",
+        "pyramid": [
+          [
+            "İÇERİK",
+            "Zeytinyağı · shea yağı"
+          ],
+          [
+            "KULLANIM",
+            "Gün içinde ihtiyaç duydukça ellerine sür…"
+          ],
+          [
+            "ÜRETİM",
+            "Assos · Koruoba"
+          ]
+        ],
+        "style": "tube",
+        "volume": "50 ml"
+      }
+    },
+    {
+      "name": "Güneş Kremi SPF 50",
+      "form": "tube",
+      "sub": "Mineral filtre",
+      "collection": null,
+      "family": "Güneş koruma",
+      "year": null,
+      "perfumer": null,
+      "color": "#e0b77a",
+      "ink": "#8a6230",
+      "theme": {
+        "glow": "#8a6230",
+        "edge": "#0c0703",
+        "drop": "#f5dfb8",
+        "mood": "warm"
+      },
+      "tagline": "Mineral filtreyle doğal koruma.",
+      "notes": [
+        "Mineral filtre",
+        "SPF 50",
+        "Bitkisel yağlar",
+        "Zeytinyağı"
+      ],
+      "description": "Mineral filtre ve bitki bazlı içeriklerle cildi güneşin zararlı etkilerine karşı korur. %100 doğal formül, Assos zeytinyağının besleyici dokunuşuyla.",
+      "file": "gunes-kremi.jpg",
+      "en": {
+        "family": "Sun care",
+        "tagline": "Natural protection with a mineral filter.",
+        "notes": [
+          "Mineral filter",
+          "SPF 50",
+          "Plant oils",
+          "Olive oil"
+        ],
+        "description": "Protects skin from the sun's harmful effects with a mineral filter and plant-based ingredients. A 100% natural formula with the nourishing touch of Assos olive oil."
+      },
+      "label": {
+        "plate": [
+          240,
+          234,
+          222
+        ],
+        "ink": [
+          60,
+          52,
+          40
+        ],
+        "star": [
+          176,
+          122,
+          62
+        ],
+        "place": "ASSOS · KORUOBA",
+        "scene": "none",
+        "sub": "Mineral filtre",
+        "claims": [
+          "Mineral filtre",
+          "SPF 50",
+          "%100 doğal"
+        ],
+        "ingredients": "Mineral filtre, bitkisel yağlar, Assos zeytinyağı.",
+        "usage": "Güneşe çıkmadan 15 dakika önce bolca sür; yüzme ve terlemeden sonra yenile.",
+        "pyramid": [
+          [
+            "İÇERİK",
+            "Mineral filtre · bitkisel yağlar"
+          ],
+          [
+            "KULLANIM",
+            "Güneşe çıkmadan 15 dakika önce bolca sür…"
+          ],
+          [
+            "ÜRETİM",
+            "Assos · Koruoba"
+          ]
+        ],
+        "style": "tube",
+        "volume": "50 ml"
+      }
+    },
+    {
+      "name": "Dudak Balmı",
+      "form": "tube",
+      "sub": "Bitkisel yağlar",
+      "collection": null,
+      "family": "Dudak bakımı",
+      "year": null,
+      "perfumer": null,
+      "color": "#d99a95",
+      "ink": "#8a4a48",
+      "theme": {
+        "glow": "#8a4a48",
+        "edge": "#0c0404",
+        "drop": "#f2cdca",
+        "mood": "warm"
+      },
+      "tagline": "Yoğun nem, doğal koruma.",
+      "notes": [
+        "Bitkisel yağlar",
+        "Zeytinyağı",
+        "Nem",
+        "Koruma"
+      ],
+      "description": "Bitkisel yağlarla zenginleştirilmiş formülüyle dudaklara yoğun nem ve doğal koruma sağlar. Çantada, cepte, her an yanında.",
+      "file": "dudak-balmi.jpg",
+      "en": {
+        "family": "Lip care",
+        "tagline": "Intense moisture, natural protection.",
+        "notes": [
+          "Plant oils",
+          "Olive oil",
+          "Moisture",
+          "Protection"
+        ],
+        "description": "With its plant-oil-enriched formula it gives lips intense moisture and natural protection. In your bag, in your pocket, always with you."
+      },
+      "label": {
+        "plate": [
+          240,
+          234,
+          222
+        ],
+        "ink": [
+          60,
+          52,
+          40
+        ],
+        "star": [
+          168,
+          96,
+          92
+        ],
+        "place": "ASSOS · KORUOBA",
+        "scene": "none",
+        "sub": "Bitkisel yağlar",
+        "claims": [
+          "%100 doğal",
+          "Vegan",
+          "Bitkisel yağlar"
+        ],
+        "ingredients": "Bitkisel yağlar, zeytinyağı.",
+        "usage": "Dudaklarına gün boyu ihtiyaç duydukça sür.",
+        "pyramid": [
+          [
+            "İÇERİK",
+            "Bitkisel yağlar · zeytinyağı"
+          ],
+          [
+            "KULLANIM",
+            "Dudaklarına gün boyu ihtiyaç duydukça sü…"
+          ],
+          [
+            "ÜRETİM",
+            "Assos · Koruoba"
+          ]
+        ],
+        "style": "tube",
+        "volume": "50 ml"
+      }
+    },
+    {
+      "name": "Bronzlaştırıcı Yağ",
+      "form": null,
+      "sub": "200 ml",
+      "collection": null,
+      "family": "Vücut bakımı",
+      "year": null,
+      "perfumer": null,
+      "color": "#e0a050",
+      "ink": "#8a5a1a",
+      "theme": {
+        "glow": "#8a5a1a",
+        "edge": "#0c0602",
+        "drop": "#f5d49a",
+        "mood": "warm"
+      },
+      "tagline": "Yaz boyu doğal ışıltı.",
+      "notes": [
+        "Havuç tohumu",
+        "Hindistan cevizi",
+        "Kakao yağı",
+        "Avokado",
+        "Zeytinyağı"
+      ],
+      "description": "Havuç tohumu, hindistan cevizi ve kakao yağı doğal bir ışıltı ve bronzluk verir; avokado, üzüm çekirdeği ve zeytinyağı güneşte kuruyan cildi besler ve derinlemesine nemlendirir.",
+      "file": "bronzlastirici-yag.jpg",
+      "en": {
+        "family": "Body care",
+        "tagline": "A natural glow all summer.",
+        "notes": [
+          "Carrot seed",
+          "Coconut",
+          "Cocoa butter",
+          "Avocado",
+          "Olive oil"
+        ],
+        "description": "Carrot seed, coconut oil and cocoa butter give a natural glow and tan; avocado, grape seed and olive oils nourish sun-dried skin and moisturise deeply."
+      },
+      "label": {
+        "plate": [
+          240,
+          234,
+          222
+        ],
+        "ink": [
+          60,
+          52,
+          40
+        ],
+        "star": [
+          168,
+          104,
+          36
+        ],
+        "place": "ASSOS · KORUOBA",
+        "scene": "none",
+        "sub": "200 ml",
+        "claims": [
+          "Doğal ışıltı",
+          "Zeytinyağlı"
+        ],
+        "ingredients": "Zeytinyağı, ayçiçek yağı, hindistan cevizi yağı, havuç tohumu yağı, avokado yağı, üzüm çekirdeği yağı, kakao yağı, fındık yağı, skualan.",
+        "usage": "Güneşlenmeden önce ve sonra tüm vücuda sür.",
+        "pyramid": [
+          [
+            "İÇERİK",
+            "Zeytinyağı · ayçiçek yağı"
+          ],
+          [
+            "KULLANIM",
+            "Güneşlenmeden önce ve sonra tüm vücuda s…"
+          ],
+          [
+            "ÜRETİM",
+            "Assos · Koruoba"
+          ]
+        ],
+        "style": "tube",
+        "volume": "200 ml"
+      }
+    },
+    {
+      "name": "Yüz Misti",
+      "form": null,
+      "sub": "Gül suyu",
+      "collection": null,
+      "family": "Yüz bakımı",
+      "year": null,
+      "perfumer": null,
+      "color": "#8fb8cc",
+      "ink": "#3a6a80",
+      "theme": {
+        "glow": "#3a6a80",
+        "edge": "#030709",
+        "drop": "#d4e8f2",
+        "mood": "warm"
+      },
+      "tagline": "Gül suyuyla ferahlık.",
+      "notes": [
+        "Hyalüronik asit",
+        "Gül suyu",
+        "Aloe vera",
+        "Panthenol"
+      ],
+      "description": "Hyalüronik asit, bitkisel gliserin ve panthenol içerir; organik aloe vera ve gül suyuyla zenginleştirilmiştir. Cildi ferahlatır ve nem dengesini destekler.",
+      "file": "yuz-misti.jpg",
+      "en": {
+        "family": "Face care",
+        "tagline": "Freshness with rose water.",
+        "notes": [
+          "Hyaluronic acid",
+          "Rose water",
+          "Aloe vera",
+          "Panthenol"
+        ],
+        "description": "With hyaluronic acid, plant glycerin and panthenol, enriched with organic aloe vera and rose water. It refreshes skin and supports its moisture balance."
+      },
+      "label": {
+        "plate": [
+          240,
+          234,
+          222
+        ],
+        "ink": [
+          60,
+          52,
+          40
+        ],
+        "star": [
+          70,
+          120,
+          142
+        ],
+        "place": "ASSOS · KORUOBA",
+        "scene": "none",
+        "sub": "Gül suyu",
+        "claims": [
+          "Gül suyu",
+          "Hyalüronik asit"
+        ],
+        "ingredients": "Hyalüronik asit, bitkisel gliserin, panthenol, organik aloe vera, gül suyu.",
+        "usage": "Gün içinde yüzüne 20 cm uzaktan sık.",
+        "pyramid": [
+          [
+            "İÇERİK",
+            "Hyalüronik asit · bitkisel gliserin"
+          ],
+          [
+            "KULLANIM",
+            "Gün içinde yüzüne 20 cm uzaktan sık."
+          ],
+          [
+            "ÜRETİM",
+            "Assos · Koruoba"
+          ]
+        ],
+        "style": "tube",
+        "volume": "100 ml"
+      }
+    }
+  ],
+  "specs": {
+    "tr": "Assos · %100 doğal",
+    "en": "Assos · 100% natural"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Assos zeytinyağı",
+        "kicker": "Koruoba",
+        "struck": "Sıradan yağlar",
+        "title": "Kendi zeytinliğimizden",
+        "text": "Ürünler, Assos Koruoba Köyü'ndeki zeytin ağaçlarından elde edilen zeytinyağıyla formüle edilir. Kaz Dağları'nın temiz havası, Ege'nin serin suyu."
+      },
+      "en": {
+        "short": "Assos olive oil",
+        "kicker": "Koruoba",
+        "struck": "Ordinary oils",
+        "title": "From our own grove",
+        "text": "Products are formulated with olive oil from the trees of Koruoba Village in Assos. The clean air of Mount Ida, the cool water of the Aegean."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "%100 doğal",
+        "kicker": "Saf",
+        "struck": "Katkı maddeleri",
+        "title": "Doğal, katkısız, vegan",
+        "text": "Tüm formüller tamamen doğal, katkısız ve vegan. Geri dönüştürülebilir ambalajlarla ekolojik ayak izini en aza indirmeyi hedefler."
+      },
+      "en": {
+        "short": "100% natural",
+        "kicker": "Pure",
+        "struck": "Additives",
+        "title": "Natural, pure, vegan",
+        "text": "Every formula is fully natural, additive-free and vegan, with recyclable packaging that aims to minimise the ecological footprint."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "İçindekiler",
+        "kicker": "Açık",
+        "struck": "Gizli içerik",
+        "title": "Ne sürdüğünü bil",
+        "text": "Ürünü çevir: içerik listesi ve kullanım önerisi arka yüzde. Kısa, anlaşılır, doğadan."
+      },
+      "en": {
+        "short": "Ingredients",
+        "kicker": "Open",
+        "struck": "Hidden ingredients",
+        "title": "Know what you apply",
+        "text": "Turn the product: the ingredient list and how to use it are on the back. Short, clear, from nature."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 1.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "El emeği",
+        "kicker": "Kadın",
+        "struck": "Seri üretim",
+        "title": "El emeğiyle, birlikte",
+        "text": "Lalive ürünleri el emeğiyle hazırlanır; kadın üreticilerle iş birliği markanın temel ilkelerinden biri."
+      },
+      "en": {
+        "short": "Handmade",
+        "kicker": "Women",
+        "struck": "Mass production",
+        "title": "Handmade, together",
+        "text": "Lalive products are handmade; working with women producers is one of the brand's core principles."
+      }
+    }
+  ],
+  "ritual": [
+    {
+      "flavor": 4,
+      "tr": {
+        "title": "Ferahla",
+        "text": "Güne gül suyu ve aloe veralı yüz mistiyle başla.",
+        "stat": "20 cm"
+      },
+      "en": {
+        "title": "Refresh",
+        "text": "Start the day with the rose water and aloe vera face mist.",
+        "stat": "20 cm"
+      }
+    },
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Besle",
+        "text": "Zeytinyağlı el kremiyle ellerini gün boyu yumuşak tut.",
+        "stat": "Gün boyu"
+      },
+      "en": {
+        "title": "Nourish",
+        "text": "Keep hands soft all day with the olive oil hand cream.",
+        "stat": "All day"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Koru",
+        "text": "Dışarı çıkmadan mineral filtreli güneş kremi: SPF 50, %100 doğal.",
+        "stat": "SPF 50"
+      },
+      "en": {
+        "title": "Protect",
+        "text": "Before going out, the mineral filter sunscreen: SPF 50, 100% natural.",
+        "stat": "SPF 50"
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "label": {
+        "tr": "Tek ürün",
+        "en": "Single"
+      }
+    },
+    {
+      "size": 2,
+      "label": {
+        "tr": "İkili set",
+        "en": "Duo"
+      }
+    },
+    {
+      "size": 3,
+      "label": {
+        "tr": "Bakım seti",
+        "en": "Care set"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 890,
+        "2": 1690,
+        "3": 2390
+      },
+      "freeShipping": 1500,
+      "shipping": 79.9
+    },
+    "en": {
+      "currency": "USD",
+      "locale": "en-US",
+      "packs": {
+        "1": 29,
+        "2": 55,
+        "3": 78
+      },
+      "freeShipping": 80,
+      "shipping": 7.9
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "stockists": {
+    "tr": [
+      [
+        "Assos",
+        "Koruoba Köyü · zeytinlik ve üretim",
+        "Üretim"
+      ],
+      [
+        "Online",
+        "lalivenatural.com",
+        "Online"
+      ],
+      [
+        "Beymen",
+        "Beymen ve Beymen Beauty",
+        "Açık"
+      ],
+      [
+        "Seçkin satış noktaları",
+        "Vitruta, Hepsiburada ve konsept mağazalar",
+        "Açık"
+      ]
+    ],
+    "en": [
+      [
+        "Assos",
+        "Koruoba Village · olive grove and production",
+        "Production"
+      ],
+      [
+        "Online",
+        "lalivenatural.com",
+        "Online"
+      ],
+      [
+        "Beymen",
+        "Beymen and Beymen Beauty",
+        "Open"
+      ],
+      [
+        "Selected retailers",
+        "Vitruta, Hepsiburada and concept stores",
+        "Open"
+      ]
+    ]
+  },
+  "story": {
+    "founder": "Lal Saran",
+    "instagram": null,
+    "website": "https://www.lalivenatural.com/",
+    "press": [
+      "InStyle",
+      "Fast Company Türkiye",
+      "Beymen",
+      "Wonderflaw"
+    ],
+    "tr": {
+      "lead": "Lalive'in hikâyesi Assos'un Koruoba Köyü'nde başlıyor: yavaşlamak, kendine dönmek ve doğayla yeniden bağ kurmak.",
+      "paragraphs": [
+        "Lal Saran pandemide Türkiye'ye döndü ve Assos'taki zeytinliklerde çalışmaya başladı. Kendi zeytinlerinden ürettiği bakım ürünleri zamanla bir markaya dönüştü: Lalive, yani iyi yaşamak.",
+        "Lalive; doğaya dönüşü, öz bakımı ve kendini sevmeyi merkeze alıyor. Ürünler el emeğiyle, sürdürülebilir bir üretim anlayışıyla ve kadın üreticilerle iş birliği içinde hazırlanıyor."
+      ],
+      "timeline": [
+        [
+          "Pandemi",
+          "Lal Saran Assos'a döner, zeytinliklerde çalışmaya başlar"
+        ],
+        [
+          "Lalive",
+          "Kendi zeytinlerinden ilk bakım ürünleri"
+        ],
+        [
+          "Beymen",
+          "Beymen ve Beymen Beauty'de satışa çıkar"
+        ],
+        [
+          "InStyle",
+          "Dergi tarafından ayın markası seçilir"
+        ]
+      ],
+      "stats": [
+        [
+          "%100",
+          "doğal formül"
+        ],
+        [
+          "Vegan",
+          "tüm ürünler"
+        ],
+        [
+          "1",
+          "köy: Koruoba"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Lalive's story begins in Koruoba Village in Assos: slowing down, returning to yourself and reconnecting with nature.",
+      "paragraphs": [
+        "Lal Saran returned to Türkiye during the pandemic and began working in the olive groves of Assos. The care products she made from her own olives grew into a brand: Lalive, living well.",
+        "Lalive puts a return to nature, self-care and self-love at its centre. Products are handmade with a sustainable approach, in collaboration with women producers."
+      ],
+      "timeline": [
+        [
+          "Pandemic",
+          "Lal Saran returns to Assos and starts working in the groves"
+        ],
+        [
+          "Lalive",
+          "The first care products from her own olives"
+        ],
+        [
+          "Beymen",
+          "On sale at Beymen and Beymen Beauty"
+        ],
+        [
+          "InStyle",
+          "Named brand of the month"
+        ]
+      ],
+      "stats": [
+        [
+          "100%",
+          "natural formulas"
+        ],
+        [
+          "Vegan",
+          "every product"
+        ],
+        [
+          "1",
+          "village: Koruoba"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Lalive ne demek?",
+        "Kurucusu Lal Saran'ın adını da taşıyan Lalive, 'iyi yaşamak' anlamına geliyor: doğaya dönüş, öz bakım ve kendini sevmek."
+      ],
+      [
+        "Zeytinyağı nereden geliyor?",
+        "Assos'un Koruoba Köyü'ndeki zeytin ağaçlarından. Lalive ailesi bahçesindeki her şeyi kendi elleriyle yetiştiriyor."
+      ],
+      [
+        "Ürünler vegan mı?",
+        "Evet. Tüm Lalive bakım ürünleri tamamen doğal, katkısız ve vegan formüllerle üretiliyor."
+      ],
+      [
+        "Güneş kremi hangi filtreyi kullanıyor?",
+        "Mineral filtre ve bitki bazlı içerikler; SPF 50 koruma sağlar."
+      ],
+      [
+        "Ambalajlar geri dönüştürülebilir mi?",
+        "Lalive, ekolojik ayak izini en aza indirmek için geri dönüştürülebilir ambalajlar kullanmayı hedefliyor."
+      ],
+      [
+        "Kargo ve hediye paketi nasıl işliyor?",
+        "Bu demo sayfada örnek akış gösteriliyor: aynı gün kargo ve ücretsiz hediye paketi. Gerçek koşullar markayla birlikte belirlenecek."
+      ]
+    ],
+    "en": [
+      [
+        "What does Lalive mean?",
+        "Carrying founder Lal Saran's name, Lalive means 'living well': a return to nature, self-care and self-love."
+      ],
+      [
+        "Where does the olive oil come from?",
+        "From the olive trees of Koruoba Village in Assos. The Lalive family grows everything in their garden by hand."
+      ],
+      [
+        "Are the products vegan?",
+        "Yes. Every Lalive care product is made with fully natural, additive-free, vegan formulas."
+      ],
+      [
+        "Which filter does the sunscreen use?",
+        "A mineral filter with plant-based ingredients, offering SPF 50 protection."
+      ],
+      [
+        "Is the packaging recyclable?",
+        "Lalive aims to use recyclable packaging to minimise its ecological footprint."
+      ],
+      [
+        "How do shipping and gift wrapping work?",
+        "This demo shows a sample flow: same-day dispatch and free gift wrapping. Real terms will be set with the brand."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Zeytinler toplanıyor",
+      "madeFor": "Lalive için hazırlanmış konsept",
+      "whereTag": "Assos'tan kapına, doğanın saflığıyla.",
+      "recyclable": "Geri dönüştürülebilir ambalaj",
+      "founder": "Kurucu · Lalive",
+      "contactTag": "Otel, spa ve kurumsal hediye siparişleri için.",
+      "newsTitle": "Yeni ürünler ve Assos'tan haberler önce burada.",
+      "marquee": [
+        "Lalive",
+        "İyi yaşamak",
+        "Assos · Koruoba",
+        "%100 doğal",
+        "Vegan",
+        "El emeği",
+        "Zeytinyağıyla bakım"
+      ],
+      "slogan": "Live well.",
+      "nav": {
+        "flavors": "Ürünler"
+      },
+      "flavors": "Ürünler",
+      "notes": "İçerik",
+      "discover": "{0} ürününü keşfet",
+      "discoverCan": "Ürünü keşfet",
+      "backToFlavors": "Ürünlere dön",
+      "prevFlavor": "Önceki ürün",
+      "nextFlavor": "Sonraki ürün",
+      "backToFlavor": "Ürün bilgisine dön",
+      "exploreCan": "Ürünü keşfet · {0} hikâye",
+      "whatsInside": "İçinde ne var",
+      "drag": "Ürünü çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Rutinini oluştur",
+      "shopTag": "Ürününü ve setini seç; gerisini doğal bir hediye gibi paketleriz.",
+      "flavor": "Ürün",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "%100 doğal · {0}",
+      "family": "Kategori",
+      "caffeine": "Yalnızca harici kullanım içindir; göz ile temasından kaçının."
+    },
+    "en": {
+      "loading": "Gathering the olives",
+      "madeFor": "A concept made for Lalive",
+      "whereTag": "From Assos to your door, with nature's purity.",
+      "recyclable": "Recyclable packaging",
+      "founder": "Founder · Lalive",
+      "contactTag": "For hotels, spas and corporate gifting.",
+      "newsTitle": "New products and news from Assos, here first.",
+      "marquee": [
+        "Lalive",
+        "Living well",
+        "Assos · Koruoba",
+        "100% natural",
+        "Vegan",
+        "Handmade",
+        "Care with olive oil"
+      ],
+      "slogan": "Live well.",
+      "nav": {
+        "flavors": "Products"
+      },
+      "flavors": "Products",
+      "notes": "Ingredients",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover the product",
+      "backToFlavors": "Back to products",
+      "prevFlavor": "Previous product",
+      "nextFlavor": "Next product",
+      "backToFlavor": "Back to product",
+      "exploreCan": "Explore the product · {0} stories",
+      "whatsInside": "What's inside",
+      "drag": "Drag to turn the product",
+      "inCan": "In this step",
+      "shopTitle": "Build your routine",
+      "shopTag": "Pick your product and set; we'll wrap it like a natural gift.",
+      "flavor": "Product",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "100% natural · {0}",
+      "family": "Category",
+      "caffeine": "For external use only; avoid contact with eyes."
+    }
+  },
+  "packUnit": "adet",
+  "detailPack": 1,
+  "backdrop": false
+}

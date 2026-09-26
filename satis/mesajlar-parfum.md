@@ -98,3 +98,15 @@ hazırla" de → fabrika → Netlify → linki gönder.)*
 > 👉 [Netlify linkin]
 >
 > Görseller Cihan Engin'in eserleri yerine geçici çizimler; gerçek illüstrasyonlarınız gelince her şişe kendi eseriyle döner. 1 dakikanızı alır, görüşlerinizi çok merak ediyorum 🙏
+
+---
+
+## Lalive · Lal Saran (krem / doğal bakım · demo hazır)
+
+> Merhaba Lal Hanım,
+>
+> Assos'taki zeytinliğinizden çıkan Lalive'in hikâyesini ve InStyle'daki "ayın markası" seçilmenizi büyük keyifle okudum. Doğaya dönüş ve iyi yaşamak fikrini web'de de aynı sıcaklıkla anlatmak için size özel bir 3D site demosu hazırladım: el kremi, güneş kremi ve dudak balmı tüpleri sayfa kaydırdıkça dönüyor; her ürünün kendi rengi, içerikleri ve kullanım önerisi var; Türkçe/İngilizce ve mağazası hazır.
+>
+> 👉 [Netlify linkin]
+>
+> Ambalaj görselleri temsili; ürün fotoğraflarınızla birebir hale getiriyorum. 1 dakikanızı alır, görüşlerinizi çok merak ediyorum 🙏

@@ -4,7 +4,7 @@ import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 import { Color, MathUtils, Vector2 } from "three";
 
-import { flavors } from "./data";
+import { content, flavors } from "./data";
 import { scrollState } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
@@ -66,7 +66,8 @@ export default function Background() {
       material.current.u_map1 = l.from;
       material.current.u_map2 = l.to;
       material.current.u_mix = l.mix * l.mix * (3 - 2 * l.mix);
-      material.current.u_hasMap = 1;
+      // Arka planda etiketin arka yüzünden bulanık manzara (content.json → backdrop: false ile kapanır).
+      material.current.u_hasMap = content.backdrop === false ? 0 : 1;
     }
     // Vitrin (ışık huzmesi, şehir) carousel, ritüel ve mağazada tam; detayda
     // metin okunsun diye kısılır.

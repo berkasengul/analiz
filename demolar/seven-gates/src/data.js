@@ -24,6 +24,8 @@ export const FREE_SHIPPING = C.prices.tr.freeShipping;
 export const SHIPPING = C.prices.tr.shipping;
 export const VARIETY = "variety";
 export const DEFAULT_SHOP_FLAVOR = C.defaultShopFlavor;
+// Detaydaki "sepete ekle" düğmesinin boyutu; yoksa en büyük paket.
+export const DETAIL_PACK = C.detailPack ?? C.packs[C.packs.length - 1].size;
 
 export const stockists = C.stockists.tr;
 
@@ -47,7 +49,7 @@ export function packPrice(size, plan) {
 }
 
 export function packLabel(size) {
-  return `${size} ml`;
+  return `${size} ${C.packUnit ?? "ml"}`;
 }
 
 const fmt = new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY" });
