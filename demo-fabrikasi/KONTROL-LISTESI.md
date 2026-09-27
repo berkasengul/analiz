@@ -111,3 +111,9 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Genel | Render'lar sandbox'ta yedek yazı tipiyle çıkıyordu | Render betiği Google Fonts isteklerini curl ile karşılar (`scratchpad/final.cjs` yöntemi) |
 | Lalive | Uzun açıklamalı/uzun adlı ürünlerde detay metni ekrana sığmıyor, sepet butonu aşağıda kayboluyor ya da oklarla çakışıyordu | Açıklama cümle sonundan kısaltılır, uzun adlar küçük punto, en fazla 6 küçük görsel + "+N", kategori tekrarı çip gösterilmez; alçak ekranda sıkı düzen; yine sığmazsa panel kendi içinde kayar. 1366×700 ve 1900×850'de 16 üründe kaydırmasız doğrulandı |
 | Lalive | Kullanıcının bilgisayarında galeri küçük görselleri kırık göründü (temiz kopyada tekrarlanamadı) | Yüklenemeyen küçük görsel gizlenir; Netlify dosyasında görseller içinde |
+| Türkan | Beyaz şişe beyaz zeminde; zemin yansıması ürüne katılıyordu | Yapay zekâyla kesim (rembg isnet) + alttan yarı saydam/beyaza yakın satırları kesen yansıma temizliği |
+| Türkan | Kapaksız ya da kutulu ön çekim "arka yüz" sanıldı | `foto.backPhotos: false`; aynı yüz korelasyon kontrolü (`same_face`) |
+| Türkan | Küre kapak etiket alanına girdi, arka yazı küçüldü; "Kullanım"a yanlış paragraf düştü | Etiket alanı gövdenin kesintisiz en uzun bölümü; kullanım yalnızca "Kullanım Şekli" satırından |
+| Türkan | Yassı şişe dönen gövde olunca silindir gibi görünüyordu | Yeni `flask` 3B biçimi: kapak dönen gövde, gövde pahlı blok (kalınlık genişliğe oranla) |
+| Türkan | "EXTRAİT DE PARFUM", "HER KOKU BIR HIS": Türkçe/İngilizce büyük harf karışıyordu | `latinTerms` + `termLang`/`wordLang`: yabancı terimler lang="en", Türkçe harfli metin Türkçe |
+| Türkan | İki set aynı adla görünüyordu; Lalive'dan kalma "tek bir doğal rutin" yazısı; boş "Görüldüğü yerler" | `aktar.rename` (markanın koleksiyon adları); `allTag` markaya taşındı; basın listesi boşsa bölüm gizli |

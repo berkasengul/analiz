@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { DETAIL_PACK, PAGE, content, features, flavors } from "../data";
-import { useT } from "../i18n";
+import { useT, termLang } from "../i18n";
 import { scrollToElement, scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
 import { Arrow, Close, featureIcons } from "../Icons";
@@ -156,7 +156,7 @@ export default function DetailPanel() {
             N° {pad(shown.active + 1)} — {f.collection ? <span lang="en">{f.collection}</span> : t.brand.specs}
           </p>
           <h2 className={`detail__title${f.name.length > 32 ? " is-longer" : f.name.length > 20 ? " is-long" : ""}`}>
-            <span className="detail__flavor" lang={f.nameLang ?? t.nameLang}>
+            <span className="detail__flavor" lang={termLang(f.name) ?? f.nameLang ?? t.nameLang}>
               <SplitChars text={f.name} delay={80} step={32} />
             </span>
           </h2>
@@ -166,7 +166,7 @@ export default function DetailPanel() {
           <dl className="detail__meta mono">
             <div>
               <dt>{ui.family}</dt>
-              <dd>{f.family}</dd>
+              <dd lang={termLang(f.family)}>{f.family}</dd>
             </div>
             {f.rating && (
               <div>

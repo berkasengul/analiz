@@ -22,6 +22,14 @@ const EN = {
 // ---------------------------------------------------------------- fiyatlar
 const PRICES = C.prices;
 
+// Yabancı terimler (ör. "Extrait de Parfum", "No/9 Mystique") Türkçe büyük harf kuralıyla
+// yazılmasın (EXTRAİT değil EXTRAIT): content.json → latinTerms düzenli ifadesine uyan metin lang="en".
+const LATIN = C.latinTerms ? new RegExp(C.latinTerms, "i") : null;
+// Türkçe harf içeren metin (ör. "Cologne du Parfumeur Özel Hediye Seti") Türkçe kalır.
+export const termLang = (s) => (LATIN && typeof s === "string" && LATIN.test(s) && !/[çğıöşüÇĞİÖŞÜ]/.test(s) ? "en" : undefined);
+// Slogan ve kayan bant: marka yabancı terimlerini tanımladıysa ona göre; yoksa ASCII metin İngilizce sayılır.
+export const wordLang = (s = "") => (LATIN ? termLang(s) : /^[\x00-\x7F]+$/.test(s.replace(/[·%\d]/g, "")) ? "en" : undefined);
+
 // ---------------------------------------------------------------- arayüz metinleri
 const UI = {
   tr: {
@@ -132,7 +140,7 @@ const UI = {
     langLabel: "Dil",
     allEyebrow: "Tüm ürünler",
     allTitle: "Koleksiyonun tamamı",
-    allTag: (n) => `${n} ürün, tek bir doğal rutin.`,
+    allTag: (n) => `${n} ürün.`,
     byCategory: "Kategorilere göre gör",
     exploreAll: "Tüm ürünleri keşfet",
     search: "Ürün ara",
@@ -263,7 +271,7 @@ const UI = {
     langLabel: "Language",
     allEyebrow: "All products",
     allTitle: "The whole collection",
-    allTag: (n) => `${n} products, one natural routine.`,
+    allTag: (n) => `${n} products.`,
     byCategory: "Shop by category",
     exploreAll: "Explore all products",
     search: "Search products",

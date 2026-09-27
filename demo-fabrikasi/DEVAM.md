@@ -41,6 +41,13 @@ Besleyici Yüz Bakım Yağı elle modellenmiş hâlde kaldı. Aşağıdaki "sır
 - Ürün arama, "Benzer ürünler", sinematik kartlar.
 - Pazarlama görselleri: `satis/lalive-gorseller/1…8`; mail `satis/lalive-mail.md` güncel.
 
+## Güncelleme (27 Eylül): Türkan Fragrances + genel Shopify hattı
+
+- Lalive gönderildi (mail + Instagram, 27 Eylül); takip 1 Ekim, son hatırlatma 4 Ekim.
+- Sıradaki marka Türkan Fragrances (turkan.com.tr, Shopify): demo hazır, `satis/turkan-mail.md`, görseller `satis/turkan-gorseller/`.
+- Yeni genel hat: `araclar/shopify-foto.py`, `araclar/shopify-aktar.py` (+ `markalar/<marka>-kurallar.json`), README'de anlatıldı.
+- Listede Shopify kullanan diğerleri: Attar Al Has (attaralhas.com, 66 ürün, $), Unique'e Luxury (uniqueeluxury.com, 22 ürün, $).
+
 ## Sıradaki iş (önceki not)
 
 1. Ağ erişimi açık yeni oturumda Lalive'ın bütün ürünlerini çek:

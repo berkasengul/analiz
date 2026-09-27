@@ -89,3 +89,21 @@ python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/<slug>.json
 ```
 
 Orijinal görseller ve işlenmiş kopyalar depoya girmez (`.gitignore`); komutlarla yeniden üretilir.
+
+## Shopify markası: genel hat (Türkan ile kuruldu)
+
+Markanın sitesi Shopify ise (adres + `/products.json` açılıyorsa) demo birkaç komutla hazırlanır:
+
+```bash
+pip install "rembg[cpu]"                                      # bir kez: yapay zekâyla arka plan silme
+python3 demo-fabrikasi/araclar/shopify-cek.py turkan.com.tr turkan   # ürünler, fiyatlar, bütün görseller
+python3 demo-fabrikasi/araclar/shopify-foto.py turkan         # kesim, yansıma temizliği, 3B doku atlasları, arka etiket
+python3 demo-fabrikasi/araclar/shopify-aktar.py turkan        # ürünler, kategoriler, notalar, setler → turkan.json
+python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json
+```
+
+Markaya özgü her şey iki dosyada:
+- `markalar/<marka>.json`: marka metinleri (hikâye, SSS, satış noktaları, özellik kartları, arayüz yazıları, `commerce`, `latinTerms`). İskelet olarak bir önceki markanınki kopyalanır, metinler markanın sayfalarından yazılır.
+- `markalar/<marka>-kurallar.json`: `foto` (yapay zekâ kesimi, setlerin içeriği, gerçek boylar, arka fotoğraf kullanılsın mı) ve `aktar` (kategoriler, 3B biçimleri, koku notaları, ana sayfa sırası, ritüel, adlar). Alanlar araçların başındaki açıklamada.
+
+3B biçimler: `round` (dönen gövde), `flat` (pahlı blok), `flask` (küre/silindir kapak dönen gövde + yassı şişe gövdesi; boyun fotoğraftan bulunur), `group` (set: her ürün ayrı parça). Sepet `commerce.shopify` ile markanın kendi ödeme sayfasına gider (`/cart/<varyant>:<adet>`).

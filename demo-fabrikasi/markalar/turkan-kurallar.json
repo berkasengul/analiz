@@ -1,0 +1,364 @@
+{
+  "foto": {
+    "ai": true,
+    "namePrefix": "^Türkan\\s+",
+    "noBackText": "hediye-seti",
+    "flat": "hediye-seti",
+    "heights": [
+      [
+        "150-ml",
+        15.5
+      ],
+      [
+        "100",
+        13.5
+      ],
+      [
+        "15-ml|15ml|seti-1#",
+        12
+      ],
+      [
+        "50-ml",
+        10.5
+      ]
+    ],
+    "sets": {
+      "ozel-hediye-seti": [
+        "turkan-epi̇ce-1-cologne-du-parfumeur-50-ml",
+        "turkan-boi̇se-4-cologne-du-parfumeur-50-ml",
+        "turkan-agrumes-7-cologne-du-parfumeur-50-ml",
+        "turkan-floraison-8-cologne-du-parfumeur-50-ml"
+      ],
+      "ozel-hediye-seti-1": [
+        "ozel-hediye-seti-1#3",
+        "ozel-hediye-seti-1#4",
+        "ozel-hediye-seti-1#5",
+        "ozel-hediye-seti-1#6"
+      ]
+    },
+    "backPhotos": false
+  },
+  "aktar": {
+    "domain": "turkan.com.tr",
+    "namePrefix": "^Türkan\\s+",
+    "idPrefix": "turkan-",
+    "categories": [
+      {
+        "id": "set",
+        "tr": "Hediye setleri",
+        "en": "Gift sets",
+        "color": "#b39277",
+        "descTr": "Dört koku, tek kutuda.",
+        "descEn": "Four scents in one box.",
+        "match": "hediye-seti"
+      },
+      {
+        "id": "extrait",
+        "tr": "Extrait de Parfum",
+        "en": "Extrait de Parfum",
+        "color": "#8f6f63",
+        "descTr": "En yüksek yoğunlukta. Sanat gibi katmanlanmış. İz bırakan.",
+        "descEn": "At the highest concentration. Layered like art. Unforgettable.",
+        "match": "Extrait"
+      },
+      {
+        "id": "edp",
+        "tr": "Eau de Parfum",
+        "en": "Eau de Parfum",
+        "color": "#c9c3bb",
+        "descTr": "İmza kokular No/7 Agrumes ve No/8 Floraison, Eau de Parfum farkıyla.",
+        "descEn": "Signature scents No/7 Agrumes and No/8 Floraison, as Eau de Parfum.",
+        "match": "Eau De Parfum"
+      },
+      {
+        "id": "cologne",
+        "tr": "Cologne du Parfumeur",
+        "en": "Cologne du Parfumeur",
+        "color": "#d2a878",
+        "descTr": "Parfüm ustalarının dokunuşuyla yaratılan, bir parfüm kadar kalıcı kolonya.",
+        "descEn": "A cologne created by master perfumers, as lasting as a perfume.",
+        "match": "Cologne"
+      }
+    ],
+    "family": {
+      "Extrait De Parfum": [
+        "Extrait de Parfum",
+        "Extrait de Parfum"
+      ],
+      "Eau De Parfum": [
+        "Eau de Parfum",
+        "Eau de Parfum"
+      ],
+      "Cologne Du Parfumeur": [
+        "Cologne du Parfumeur",
+        "Cologne du Parfumeur"
+      ]
+    },
+    "profiles": {
+      "flask": ".",
+      "depthRatio": 0.4
+    },
+    "notes": [
+      [
+        "ozel-hediye-seti-1",
+        [
+          [
+            "No/2 Équilibre",
+            "No/2 Équilibre"
+          ],
+          [
+            "No/6 Charme",
+            "No/6 Charme"
+          ],
+          [
+            "No/9 Mystique",
+            "No/9 Mystique"
+          ],
+          [
+            "No/10 Noblesse",
+            "No/10 Noblesse"
+          ]
+        ]
+      ],
+      [
+        "ozel-hediye-seti$",
+        [
+          [
+            "No/1 Épicé",
+            "No/1 Épicé"
+          ],
+          [
+            "No/4 Boisé",
+            "No/4 Boisé"
+          ],
+          [
+            "No/7 Agrumes",
+            "No/7 Agrumes"
+          ],
+          [
+            "No/8 Floraison",
+            "No/8 Floraison"
+          ]
+        ]
+      ],
+      [
+        "ambre",
+        [
+          [
+            "Deri",
+            "Leather"
+          ],
+          [
+            "Vetiver",
+            "Vetiver"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Gri amber",
+            "Ambergris"
+          ],
+          [
+            "Kırmızı meyveler",
+            "Red fruits"
+          ]
+        ]
+      ],
+      [
+        "floraison",
+        [
+          [
+            "Karabiber",
+            "Black pepper"
+          ],
+          [
+            "Müge",
+            "Lily of the valley"
+          ],
+          [
+            "Misk",
+            "Musk"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Amber",
+            "Amber"
+          ]
+        ]
+      ],
+      [
+        "agrumes",
+        [
+          [
+            "Frenk üzümü",
+            "Blackcurrant"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ],
+          [
+            "Lavanta",
+            "Lavender"
+          ],
+          [
+            "Sedir",
+            "Cedar"
+          ],
+          [
+            "Gri amber",
+            "Ambergris"
+          ]
+        ]
+      ],
+      [
+        "epi",
+        [
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Pembe biber",
+            "Pink pepper"
+          ],
+          [
+            "Tarçın",
+            "Cinnamon"
+          ],
+          [
+            "Vetiver",
+            "Vetiver"
+          ]
+        ]
+      ],
+      [
+        "boi",
+        [
+          [
+            "Kenevir",
+            "Hemp"
+          ],
+          [
+            "Kahve",
+            "Coffee"
+          ],
+          [
+            "Tütün",
+            "Tobacco"
+          ],
+          [
+            "Oud",
+            "Oud"
+          ],
+          [
+            "Sandal",
+            "Sandalwood"
+          ]
+        ]
+      ],
+      [
+        "equilibre",
+        [
+          [
+            "Narenciye ailesi",
+            "Citrus family"
+          ]
+        ]
+      ],
+      [
+        "charme",
+        [
+          [
+            "Çiçeksi aile",
+            "Floral family"
+          ]
+        ]
+      ],
+      [
+        "mystique",
+        [
+          [
+            "Baharatlı aile",
+            "Spicy family"
+          ]
+        ]
+      ],
+      [
+        "noblesse",
+        [
+          [
+            "Oryantal aile",
+            "Oriental family"
+          ]
+        ]
+      ]
+    ],
+    "home": [
+      "turkan-no-3-ambre-100ml",
+      "turkan-no-8-floraison-100-ml",
+      "turkan-no-10-noblesse-oriental-family-100ml",
+      "turkan-no-7-agrumes-100-ml",
+      "turkan-no-6-charme-floral-family-100ml",
+      "turkan-epi̇ce-1-cologne-du-parfumeur-150-ml",
+      "turkan-no-9-mystique-spicy-family-100ml",
+      "turkan-no-2-equilibre-citrus-family"
+    ],
+    "ritual": [
+      {
+        "handle": "turkan-epi̇ce-1-cologne-du-parfumeur-150-ml",
+        "tr": {
+          "title": "Tazelen",
+          "text": "Gün boyu kolonya sıklığında, bir parfüm kadar kalıcı: Cologne du Parfumeur.",
+          "stat": "150 ml"
+        },
+        "en": {
+          "title": "Refresh",
+          "text": "As often as a cologne, as lasting as a perfume: Cologne du Parfumeur.",
+          "stat": "150 ml"
+        }
+      },
+      {
+        "handle": "turkan-no-8-floraison-100-ml",
+        "tr": {
+          "title": "İmzala",
+          "text": "İmza kokular No/7 ve No/8, Eau de Parfum farkıyla teninizi sarar.",
+          "stat": "100 ml"
+        },
+        "en": {
+          "title": "Sign",
+          "text": "Signature scents No/7 and No/8 wrap your skin as Eau de Parfum.",
+          "stat": "100 ml"
+        }
+      },
+      {
+        "handle": "turkan-no-3-ambre-100ml",
+        "tr": {
+          "title": "İz bırak",
+          "text": "En yüksek yoğunlukta. Sanat gibi katmanlanmış. İz bırakan: Extrait de Parfum.",
+          "stat": "100 ml"
+        },
+        "en": {
+          "title": "Leave a trace",
+          "text": "At the highest concentration. Layered like art. Unforgettable: Extrait de Parfum.",
+          "stat": "100 ml"
+        }
+      }
+    ],
+    "rename": {
+      "ozel-hediye-seti": [
+        "Cologne du Parfumeur Özel Hediye Seti",
+        "Cologne du Parfumeur Special Gift Set"
+      ],
+      "ozel-hediye-seti-1": [
+        "Extrait de Parfum Özel Hediye Seti",
+        "Extrait de Parfum Special Gift Set"
+      ]
+    }
+  }
+}

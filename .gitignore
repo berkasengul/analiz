@@ -7,3 +7,11 @@ demo-fabrikasi/markalar/lalive-foto/cut/
 demo-fabrikasi/markalar/lalive-foto/labels/
 demolar/lalive-Netlify.zip
 __pycache__/
+
+# Shopify markaları (genel hat): orijinal görseller ve işlenmiş kopyalar yeniden üretilebilir
+# (araclar/shopify-cek.py → araclar/shopify-foto.py)
+demo-fabrikasi/markalar/*-shopify/images/
+demo-fabrikasi/markalar/*-foto/web/
+demo-fabrikasi/markalar/*-foto/cut/
+demo-fabrikasi/markalar/*-foto/labels/
+demolar/turkan-Netlify.zip

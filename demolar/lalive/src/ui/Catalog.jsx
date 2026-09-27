@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { PAGE, SET_KEY, content, flavors } from "../data";
-import { useT } from "../i18n";
+import { useT, termLang } from "../i18n";
 import { useStore } from "../store";
 import { Plus } from "../Icons";
 
@@ -155,8 +155,8 @@ function Card({ item, t, onOpen, index = 0 }) {
         <span className="pcard__dust" aria-hidden="true" />
       </button>
       <div className="pcard__body">
-        <p className="pcard__cat mono">{cat?.name[t.lang]}</p>
-        <h3 className="pcard__name" lang={t.nameLang}>{name}</h3>
+        <p className="pcard__cat mono" lang={termLang(cat?.name[t.lang])}>{cat?.name[t.lang]}</p>
+        <h3 className="pcard__name" lang={termLang(name) ?? t.nameLang}>{name}</h3>
         {item.size && <p className="pcard__size mono">{item.size}</p>}
         <p className="pcard__desc">{item.desc[t.lang] ?? item.desc.tr}</p>
         <div className="pcard__foot">
@@ -205,7 +205,7 @@ function Leaves({ count, front = false }) {
     [count, front]
   );
   return (
-    <div className={`leaves${front ? " leaves--front" : ""}`} aria-hidden="true">
+    <div className={`leaves${front ? " leaves--front" : ""}${content.particles === "leaves" ? "" : " leaves--petals"}`} aria-hidden="true">
       {leaves.map((l, i) => (
         <span
           key={i}
@@ -267,13 +267,13 @@ export function CategoryBar({ id }) {
     <div className="catbar" style={{ "--c": cat.color }}>
       <p className="catbar__title mono">
         <i aria-hidden="true" />
-        {cat.name[t.lang]} · {t.ui.itemsCount ? t.ui.itemsCount(catCount(id)) : catCount(id)}
+        <span lang={termLang(cat.name[t.lang])}>{cat.name[t.lang]}</span> · {t.ui.itemsCount ? t.ui.itemsCount(catCount(id)) : catCount(id)}
       </p>
       <nav className="catbar__chips" ref={ref} aria-label={t.ui.categories}>
         <a href="#/urunler">{t.ui.all}</a>
         {C.categories.map((c) => (
           <a key={c.id} href={`#/urunler/${c.id}`} className={c.id === id ? "is-on" : ""} aria-current={c.id === id ? "page" : undefined} style={{ "--c": c.color }}>
-            {c.name[t.lang]}
+            <span lang={termLang(c.name[t.lang])}>{c.name[t.lang]}</span>
           </a>
         ))}
       </nav>
@@ -292,7 +292,7 @@ export function CategoryGrid({ id }) {
       <Leaves count={10} />
       <header className="catgrid__head">
         <p className="mono section__eyebrow">{t.ui.allEyebrow}</p>
-        <h2 className="catalog__title">{cat.name[t.lang]}</h2>
+        <h2 className="catalog__title" lang={termLang(cat.name[t.lang])}>{cat.name[t.lang]}</h2>
         {cat.desc && <p className="tagline tagline--static">{cat.desc[t.lang]}</p>}
       </header>
       <div className="pgrid">
@@ -306,7 +306,7 @@ export function CategoryGrid({ id }) {
           {others.map((c) => (
             <a key={c.id} href={`#/urunler/${c.id}`} style={{ "--c": c.color }}>
               <i aria-hidden="true" />
-              {c.name[t.lang]}
+              <span lang={termLang(c.name[t.lang])}>{c.name[t.lang]}</span>
               <small>{catCount(c.id)}</small>
             </a>
           ))}
@@ -402,7 +402,7 @@ export function CatalogPage({ cat }) {
               style={{ "--c": c.color }}
             >
               {c.id !== "all" && <i aria-hidden="true" />}
-              {c.name[t.lang]}
+              <span lang={termLang(c.name[t.lang])}>{c.name[t.lang]}</span>
               <small>{c.id === "all" ? C.items.length : C.items.filter((i) => i.category === c.id).length}</small>
             </a>
           ))}
@@ -412,7 +412,7 @@ export function CatalogPage({ cat }) {
         {shown.map((c) => (
           <section key={c.id} className="catalog__group" id={`cat-${c.id}`} style={{ "--c": c.color }}>
             <div className="catalog__grouphead">
-              <h2>{c.name[t.lang]}</h2>
+              <h2 lang={termLang(c.name[t.lang])}>{c.name[t.lang]}</h2>
               {c.desc && <p>{c.desc[t.lang]}</p>}
             </div>
             <div className="pgrid">

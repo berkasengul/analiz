@@ -5077,3 +5077,14 @@ button.buy__more {
     bottom: 26px;
   }
 }
+
+/* Yaprak yerine çiçek yaprağı sahnesi olan markalar (content.particles ≠ "leaves"): sıcak krem ton. */
+.leaves--petals svg {
+  fill: #f0e4d8;
+}
+.leaves--petals .leaves__shade {
+  fill: rgba(160, 118, 100, 0.28);
+}
+.leaves--petals .leaves__vein {
+  stroke: none;
+}

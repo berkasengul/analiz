@@ -1,5 +1,5 @@
 import { flavors } from "../data";
-import { useT } from "../i18n";
+import { useT, termLang } from "../i18n";
 import { scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
 import { SplitChars } from "./Split";
@@ -23,7 +23,7 @@ export default function FlavorHud() {
       <div className={`hud__center${moving ? " is-moving" : ""}`}>
         <p className="tag">
           <i className="dot" />
-          {f.family}
+          <span lang={termLang(f.family)}>{f.family}</span>
           {/* Hacmi olmayan üründe alt yazı kategoriyle aynı olabilir: tekrar yazılmaz. */}
           {(f.sub ?? t.brand.sub) && (f.sub ?? t.brand.sub) !== f.family && (
             <>
@@ -32,7 +32,7 @@ export default function FlavorHud() {
             </>
           )}
         </p>
-        <button className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
+        <button className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={termLang(f.name) ?? f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
           <SplitChars text={f.name} key={f.name} step={40} />
         </button>
         <p className="tagline hud__tagline" key={f.tagline + t.lang}>{f.tagline}</p>
@@ -57,7 +57,7 @@ export default function FlavorHud() {
       </div>
 
       <div className="track" aria-label={ui.flavors}>
-        <p className="track__label mono" lang={f.nameLang ?? t.nameLang}>{f.name}</p>
+        <p className="track__label mono" lang={termLang(f.name) ?? f.nameLang ?? t.nameLang}>{f.name}</p>
         <div className="track__ticks">
           {flavors.map((fl, i) => (
             <button

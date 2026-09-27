@@ -420,12 +420,29 @@ function flatBlock(S) {
   return m;
 }
 
+// Yassı şişe (flask): boynun üstü (küre ya da silindir kapak) dönen gövde, altı ön ve arka
+// yüzü düz, kenarları pahlı blok. Kalınlık gövde genişliğine oranla (depthRatio).
+function flaskGeometry(S) {
+  const N = S.rows.length;
+  const cut = Math.round(S.neck * N);
+  const cap = { ...S, rows: S.rows.map((r, i) => (i < cut ? r : 0)) };
+  const rs = smoothRows(S.rows);
+  const idx = rs.map((r, i) => i).filter((i) => i >= cut && rs[i] > 0);
+  const y = (i) => (i + 0.5) / N;
+  const left = idx.map((i) => [S.axis - rs[i], y(i)]);
+  const right = idx.map((i) => [S.axis + rs[i], y(i)]).reverse();
+  const width = 2 * Math.max(...idx.map((i) => rs[i])) * S.size;
+  const body = { ...S, outline: [[...left, ...right]], depth: S.depth ?? width * (S.depthRatio ?? 0.42) };
+  return { block: flatBlock(body), front: latheHalf(cap, false), back: latheHalf(cap, true) };
+}
+
 function partGeometry(S) {
+  if (S.profile === "flask" && S.neck) return flaskGeometry(S);
   return S.profile === "flat" && S.outline?.length ? { block: flatBlock(S) } : { front: latheHalf(S, false), back: latheHalf(S, true) };
 }
 
 function photoGeometry(S) {
-  const key = `${S.file}|${S.profile}|${S.depth}|${S.zScale}`;
+  const key = `${S.file}|${S.profile}|${S.depth}|${S.zScale}|${S.neck}`;
   if (PHOTO.has(key)) return PHOTO.get(key);
   // Set: her ürün kendi biçimiyle ayrı parça; hepsi aynı doku atlasını paylaşır.
   const list = S.profile === "group" ? S.parts.map((p) => ({ size: S.size, lite: true, ...p })) : [S];
@@ -742,16 +759,13 @@ function Photo({ body, parts, S }) {
   const g = photoGeometry(S);
   return (
     <group rotation={[0, 0, S.tilt]} scale={S.scale}>
-      {g.parts.map((p, i) =>
-        p.block ? (
-          <mesh key={i} geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />
-        ) : (
-          <group key={i}>
-            <mesh geometry={p.front} material={body} />
-            <mesh geometry={p.back} material={body} />
-          </group>
-        )
-      )}
+      {g.parts.map((p, i) => (
+        <group key={i}>
+          {p.block && <mesh geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />}
+          {p.front && <mesh geometry={p.front} material={body} />}
+          {p.back && <mesh geometry={p.back} material={body} />}
+        </group>
+      ))}
       {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. */}
       <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} userData={{ noFit: true }} />
       <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} userData={{ noFit: true }} />

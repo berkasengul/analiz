@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { content } from "../data";
-import { useT } from "../i18n";
+import { useT, termLang } from "../i18n";
 import { openProduct, catalogId } from "./Catalog";
 
 // Ürün arama: üst menüdeki büyüteç, "/" ya da Ctrl/⌘+K ile açılır. Ad, kategori,
@@ -203,7 +203,7 @@ function SearchPanel({ onClose }) {
         <div className="search__cats" role="group" aria-label={ui.categories}>
           {[{ id: null, name: { tr: ui.all, en: ui.all }, color: C.glow }, ...C.categories].map((c) => (
             <button key={c.id ?? "all"} className={cat === c.id ? "is-on" : ""} style={{ "--c": c.color }} aria-pressed={cat === c.id} onClick={() => setCat(c.id)}>
-              {c.name[lang] ?? c.name.tr}
+              <span lang={termLang(c.name[lang] ?? c.name.tr)}>{c.name[lang] ?? c.name.tr}</span>
             </button>
           ))}
         </div>
@@ -233,7 +233,7 @@ function SearchPanel({ onClose }) {
                     <span className="search__name">
                       <Mark text={name} words={words} />
                     </span>
-                    <span className="search__sub mono">
+                    <span className="search__sub mono" lang={termLang(e.cat?.name[lang] ?? e.cat?.name.tr)}>
                       {e.cat?.name[lang] ?? e.cat?.name.tr}
                       {e.item.size ? ` · ${e.item.size}` : ""}
                     </span>

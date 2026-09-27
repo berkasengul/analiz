@@ -1,4 +1,4 @@
-import { useT } from "../i18n";
+import { useT, termLang, wordLang } from "../i18n";
 import { useStore } from "../store";
 import { content } from "../data";
 import { LangSwitch } from "./Header";
@@ -27,7 +27,7 @@ export default function Menu() {
           {content.catalog.categories.map((c, i) => (
             <a key={c.id} href={`#/urunler/${c.id}`} tabIndex={menu ? 0 : -1} style={{ "--c": c.color, "--i": i + links.length }}>
               <i aria-hidden="true" />
-              {c.name[lang] ?? c.name.tr}
+              <span lang={termLang(c.name[lang] ?? c.name.tr)}>{c.name[lang] ?? c.name.tr}</span>
             </a>
           ))}
         </nav>
@@ -35,7 +35,7 @@ export default function Menu() {
       <div className="menu__lang">
         <LangSwitch />
       </div>
-      <p className="menu__foot" lang="en">{ui.slogan}</p>
+      <p className="menu__foot" lang={wordLang(ui.slogan)}>{ui.slogan}</p>
     </div>
   );
 }

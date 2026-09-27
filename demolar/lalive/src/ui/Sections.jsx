@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useT } from "../i18n";
+import { useT, wordLang } from "../i18n";
 import { BrandIcon } from "../Icons";
 
 export function Marquee() {
@@ -10,7 +10,7 @@ export function Marquee() {
     <div className="marquee" aria-hidden="true">
       <div className="marquee__track">
         {row.map((w, i) => (
-          <span key={i} lang={/^[\x00-\x7F]+$/.test(w.replace(/[·%\d]/g, "")) ? "en" : undefined}>
+          <span key={i} lang={wordLang(w)}>
             {w}
             <i>✦</i>
           </span>
@@ -28,7 +28,7 @@ export function Story() {
         <div className="story__main">
           <header className="section__head reveal">
             <p className="mono section__eyebrow">{ui.storyEyebrow}</p>
-            <h2 className="section__title" lang="en">{ui.slogan}</h2>
+            <h2 className="section__title" lang={wordLang(ui.slogan)}>{ui.slogan}</h2>
           </header>
           <p className="story__lead reveal">{story.lead}</p>
           {story.paragraphs.map((t) => (
@@ -66,6 +66,7 @@ export function Story() {
         ))}
       </ul>
 
+      {story.press?.length > 0 && (
       <div className="press reveal">
         <p className="mono">{ui.press}</p>
         <ul>
@@ -74,6 +75,7 @@ export function Story() {
           ))}
         </ul>
       </div>
+      )}
     </section>
   );
 }
@@ -218,7 +220,7 @@ export function Footer() {
       </div>
 
       <footer className="footer mono">
-        <span>{brand.name} · <span lang="en">{ui.slogan}</span></span>
+        <span>{brand.name} · <span lang={wordLang(ui.slogan)}>{ui.slogan}</span></span>
         <nav className="footer__links" aria-label={ui.footerNav}>
           <a href="#shop">{ui.nav.shop}</a>
           <a href="#faq">{ui.nav.faq}</a>

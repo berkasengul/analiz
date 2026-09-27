@@ -89714,7 +89714,8 @@
       "checkoutNote": "Ödeme lalivenatural.com'da güvenle tamamlanır",
       "variant": "Seçenek",
       "related": "Benzer ürünler",
-      "buildBox": "Ürünleri keşfet"
+      "buildBox": "Ürünleri keşfet",
+      "allTag": "{0} ürün, tek bir doğal rutin."
     },
     "en": {
       "loading": "Preparing your natural care ritual",
@@ -89777,7 +89778,8 @@
       "checkoutNote": "Checkout is completed securely on lalivenatural.com",
       "variant": "Option",
       "related": "Similar products",
-      "buildBox": "Explore products"
+      "buildBox": "Explore products",
+      "allTag": "{0} products, one natural routine."
     }
   },
   "packUnit": "adet",

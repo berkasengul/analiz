@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 import { Bag, BrandIcon } from "../Icons";
-import { useT } from "../i18n";
+import { useT, termLang } from "../i18n";
 import { useStore } from "../store";
 import { content } from "../data";
 import { SearchButton } from "./Search";
@@ -99,7 +99,7 @@ function NavBar({ ui }) {
                     <span className="navcat__img" aria-hidden="true">
                       {thumb(c.id) && <img src={BASE + thumb(c.id)} alt="" loading="lazy" />}
                     </span>
-                    <span className="navcat__name">{c.name[lang] ?? c.name.tr}</span>
+                    <span className="navcat__name" lang={termLang(c.name[lang] ?? c.name.tr)}>{c.name[lang] ?? c.name.tr}</span>
                     <small>{count(c.id)}</small>
                   </a>
                 </li>
