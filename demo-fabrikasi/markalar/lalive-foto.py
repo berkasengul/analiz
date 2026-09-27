@@ -138,6 +138,77 @@ def plain_back(F):
     return Image.fromarray(out.clip(0, 255).astype(np.uint8)).transpose(Image.FLIP_LEFT_RIGHT)
 
 
+def accent_of(F, primary):
+    """Ürünün ikinci rengi (arka plan paleti için): baskın renkten en farklı küme."""
+    a = np.asarray(F.resize((160, 160))).reshape(-1, 4)
+    px = a[a[:, 3] > 200][:, :3].astype(np.float32)
+    if len(px) < 50:
+        return primary
+    k = min(4, len(px))
+    _, lab, cen = cv2.kmeans(px, k, None, (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 20, 1.0), 3, cv2.KMEANS_PP_CENTERS)
+    counts = np.bincount(lab.ravel(), minlength=k) / len(px)
+    best, score = None, 0
+    for c, n in zip(cen, counts):
+        d = np.abs(c - np.array(primary)).sum()
+        if n > 0.06 and d * n ** 0.3 > score:
+            best, score = c, d * n ** 0.3
+    if best is None or np.abs(best - np.array(primary)).sum() < 45:
+        best = np.array(primary) * 0.55 + 255 * 0.45 * np.array([1.0, 0.95, 0.85])
+    return [int(v) for v in best]
+
+
+# Setlerde ürünlerin gerçek boyları (cm, yaklaşık): yan yana dizilirken orantılı dursun.
+HEIGHT = [(r"vucut-yagi|dus-jeli|losyon|kastil", 19), (r"lenf-masaj-aleti", 20), (r"at-kili", 22), (r"gunes-kremi", 16),
+          (r"sac-bakim-suyu", 16), (r"bronz", 15), (r"yuz-misti", 14), (r"el-kremi", 13), (r"bakim-cantasi", 13),
+          (r"sapka", 12), (r"sac-bakim-yagi|yuz-bakim-yagi|roll-on|kas-kirpik", 10), (r"dudak-balmi", 9.5),
+          (r"kabak-lifi", 14), (r"kati-sabun", 7.5), (r"tarak", 6.5), (r"lenfatik-yuz", 6), (r"esansiyel", 7)]
+
+
+def real_height(h):
+    import re
+    return next((v for rx, v in HEIGHT if re.search(rx, h)), 12)
+
+
+def compose_set(items, fronts, backs):
+    """Setin ürünlerini kutusuz ve zeminsiz, gerçek boy oranlarıyla yan yana dizer.
+    Dönüş: ön ve arka tuval (S×S RGBA) ve her ürünün tuvaldeki katmanı."""
+    crops = []
+    for h in items:
+        F, Bk = fronts[h], backs[h]
+        x0, y0, x1, y1 = F.getchannel("A").point(lambda v: 255 if v > 12 else 0).getbbox()
+        crops.append((h, F.crop((x0, y0, x1, y1)), Bk.crop((S - x1, y0, S - x0, y1)), real_height(h)))
+    # En büyük ortada, diğerleri sırayla sağa ve sola (kenarlarda küçükler).
+    crops.sort(key=lambda c: -c[3])
+    order = []
+    for i, c in enumerate(crops):
+        order.append(c) if i % 2 == 0 else order.insert(0, c)
+    # Ölçü: ürünün en uzun kenarı gerçek boyuna (cm) eşitlenir (yatay aletler de doğru boyda).
+    dims = [(c[1].width * c[3] / max(c[1].size), c[1].height * c[3] / max(c[1].size)) for c in order]
+    gap = 0.035 * S
+    tw = sum(w for w, _ in dims)
+    mh = max(h for _, h in dims)
+    k = min((0.94 * S - gap * (len(order) - 1)) / tw, 0.8 * S / mh)
+    base = S / 2 + mh * k / 2
+    x = (S - (tw * k + gap * (len(order) - 1))) / 2
+    front = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    back = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    layers = []
+    for (h, fc, bc, _), (dw, dh) in zip(order, dims):
+        W = max(1, int(round(dw * k)))
+        H = max(1, int(round(dh * k)))
+        w = dw * k
+        fi = fc.resize((W, H), Image.LANCZOS)
+        bi = bc.resize((W, H), Image.LANCZOS)
+        px, py = int(round(x)), int(round(base - H))
+        front.alpha_composite(fi, (px, py))
+        back.alpha_composite(bi, (S - px - W, py))
+        layer = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+        layer.alpha_composite(fi, (px, py))
+        layers.append((h, layer))
+        x += w + gap
+    return front, back, layers
+
+
 def mask_iou(a, b):
     a = np.asarray(a.getchannel("A")) > 128
     b = np.asarray(b.getchannel("A")) > 128
@@ -157,6 +228,7 @@ def dominant(im):
 
 def main():
     meta = {}
+    fronts, backs = {}, {}
     for d in sorted(glob.glob(os.path.join(SRC, "images", "*"))):
         handle = os.path.basename(d)
         files = sorted(glob.glob(os.path.join(d, "*")), key=lambda f: int(os.path.basename(f).split(".")[0]))
@@ -211,11 +283,13 @@ def main():
             else:
                 entry["back"] = True
             entry.update(shape_info(F))
+            entry["accent"] = accent_of(F, entry["color"])
             # Arka yarının alfa kanalı ön silüetin aynası: iki yüz aynı sınırda buluşur.
             # Boş kalan pikseller (silüet farkı) bulanık ayna ile doldurulur.
             fill = plain_back(F)
             fill.alpha_composite(back)
             fill.putalpha(mirror.getchannel("A"))
+            fronts[handle], backs[handle] = F, fill
             atlas = Image.new("RGBA", (2 * S, S))
             atlas.paste(F, (0, 0))
             atlas.paste(fill, (S, 0))
@@ -223,6 +297,27 @@ def main():
             atlas.save(os.path.join(OUT, "labels", f"{handle}.webp"), quality=88, method=5)
         meta[handle] = entry
         print(handle, entry["kinds"], "arka" if entry.get("back") else "-")
+    # Setler: kendi ürünlerinden yeniden kurulur (kutu ve zemin yok); her ürün 3B'de ayrı parça.
+    sets = json.load(open(os.path.join(HERE, "lalive-setler.json"), encoding="utf-8"))
+    for set_h, items in sets.items():
+        if set_h.startswith("_") or set_h not in meta or any(i not in fronts for i in items):
+            continue
+        front, back, layers = compose_set(items, fronts, backs)
+        atlas = Image.new("RGBA", (2 * S, S))
+        atlas.paste(front, (0, 0))
+        atlas.paste(back, (S, 0))
+        atlas.save(os.path.join(OUT, "labels", f"{set_h}.webp"), quality=88, method=5)
+        c = cutout(front, "T")
+        c.thumbnail((1200, 1200), Image.LANCZOS)
+        c.save(os.path.join(OUT, "cut", f"{set_h}.webp"), quality=86, method=5)
+        e = meta[set_h]
+        e["aspect"] = round(c.height / c.width, 4)
+        e["color"] = dominant(front)
+        e["accent"] = accent_of(front, e["color"])
+        e["back"] = True
+        e["parts"] = [{"handle": h, **shape_info(layer)} for h, layer in layers]
+        e["lifestyle"] = e["gallery"][0]  # kutulu set fotoğrafı üzerine gelince görünür
+        print("set", set_h, len(items), "ürün")
     json.dump(meta, open(os.path.join(OUT, "meta.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(meta), "ürün hazır")
 

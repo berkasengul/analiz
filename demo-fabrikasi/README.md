@@ -61,6 +61,7 @@ Süre: ~20 saniye (etiket çizimi + derleme).
 | `products[].rating` | Markanın sitesindeki puan (`score`, `count`) |
 | `catalog.items[].photo` | Kartın üzerine gelince 3B görselin yerine gerçek fotoğraf |
 | `products[].form: "photo"` | 3B ürün markanın kendi fotoğrafından: kesilmiş ön/arka fotoğraf (`<slug>-foto/labels/<ürün>.webp`) silüete göre hacimlenir. `photo3d.profile`: `round` (şişe, kavanoz, mum: satır satır silindir) ya da `flat` (kutu, set, sabun, tekstil; `depth` kalınlık) |
+| `products[].photo3d.profile: "group"` | Set: `lalive-setler.json` içeriğinden her ürün kendi biçimiyle ayrı parça (`parts`) |
 | `catalog.items[].cutout`, `compareAt` | Kartta kesilmiş ürün fotoğrafı; indirimde eski fiyat üstü çizili |
 | `products[].nameLang` | Tek ürünün ad dili (ör. İngilizce "Sweatshirt" → `"en"`) |
 | `catalog` | Tüm ürün kataloğu: `categories` (ad, renk, açıklama), `items` (fiyat, kategori, simge ya da görsel, 3B ürüne bağlantı `product`), `homeCount` (ana sayfa vitrini), `glow` (katalog sayfasının ışık rengi). Menüde "Kategoriler" paneli ve `#/urunler/<kategori>` adresleri bundan oluşur |

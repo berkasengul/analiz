@@ -64,7 +64,10 @@ TUBE = r"gunes-kremi|el-kremi|dudak-balmi|losyon"
 
 
 def photo3d(h, m):
-    """3B biçim: yuvarlak ürün fotoğraf silüetinden dönen gövde, düz ürün kenar çizgisinden blok."""
+    """3B biçim: yuvarlak ürün fotoğraf silüetinden dönen gövde, düz ürün kenar çizgisinden blok,
+    set her ürünü ayrı parça (kendi biçimiyle) yan yana."""
+    if m.get("parts"):
+        return {"profile": "group", "parts": [photo3d(p["handle"], p) for p in m["parts"]]}
     shape = {"axis": m.get("axis", 0.5), "rows": m.get("rows", []), "outline": m.get("outline", []), "edge": hexc(m.get("edge", [120, 110, 90]))}
     if re.search(FLAT + r"|kati-sabun", h):
         return {"profile": "flat", "depth": next((d for rx, d in FLAT_DEPTH if re.search(rx, h)), 0.34), **shape}
@@ -155,9 +158,31 @@ def hexc(rgb):
     return "#%02x%02x%02x" % tuple(max(0, min(255, int(v))) for v in rgb)
 
 
-def theme(rgb):
-    return {"glow": hexc([v * 0.42 for v in rgb]), "edge": hexc([v * 0.05 for v in rgb]),
-            "drop": hexc([v + (255 - v) * 0.7 for v in rgb]), "mood": "warm"}
+def hsl(rgb):
+    import colorsys
+    r, g, b = [v / 255 for v in rgb]
+    h, l, s_ = colorsys.rgb_to_hls(r, g, b)
+    return h, s_, l
+
+
+def from_hsl(h, s_, l):
+    import colorsys
+    return hexc([v * 255 for v in colorsys.hls_to_rgb(h, l, max(0, min(1, s_)))])
+
+
+def theme(rgb, accent=None):
+    """Ürünün sahnesi kendi renklerinden: ana renk ışık, ikinci renk yan ışık bulutu."""
+    h, s_, l = hsl(rgb)
+    ah, as_, al = hsl(accent or rgb)
+    return {"glow": from_hsl(h, s_ * 1.1 + 0.08, 0.27), "edge": from_hsl(h, s_ * 0.6, 0.035),
+            "drop": from_hsl(h, s_ * 0.5, 0.86), "accent": from_hsl(ah, as_ * 1.1 + 0.1, 0.34), "mood": "warm"}
+
+
+def dump(c, path):
+    """JSON; sayı dizileri (3B şekil verisi) tek satırda."""
+    text = json.dumps(c, ensure_ascii=False, indent=2)
+    text = re.sub(r"\[\s+([-\d.eE,\s]+?)\s+\]", lambda m: "[" + ", ".join(x.strip() for x in m.group(1).split(",")) + "]", text)
+    open(path, "w", encoding="utf-8").write(text + "\n")
 
 
 def main():
@@ -200,7 +225,7 @@ def main():
         prod = {
             "name": i["name"], "form": "photo", "sub": i["size"] or cat["name"]["tr"], "collection": None,
             "family": cat["name"]["tr"], "year": None, "perfumer": None, "color": hexc(rgb), "ink": "#1f3326",
-            "theme": theme(rgb), "tagline": i["tag"], "notes": [a for a, _ in i["chips"]] or [cat["name"]["tr"]],
+            "theme": theme(rgb, i["m"].get("accent")), "tagline": i["tag"], "notes": [a for a, _ in i["chips"]] or [cat["name"]["tr"]],
             "description": i["desc"], "file": f"{h}.webp",
             "en": {"name": i["en_name"], "family": cat["name"]["en"], "tagline": i["en_tag"],
                    "notes": [b for _, b in i["chips"]] or [cat["name"]["en"]], "description": i["en_desc"],
@@ -225,6 +250,8 @@ def main():
             p["description"] = i["desc"]
             p["en"]["description"] = i["en_desc"]
             p.pop("rating", None)
+            if i["m"].get("color"):
+                p["theme"] = theme(i["m"]["color"], i["m"].get("accent"))
         else:
             p = photo_product(h)
         products.append(p)
@@ -276,8 +303,7 @@ def main():
                                 "Ürün fotoğrafları, açıklamaları ve fiyatları markanın sitesinden (lalivenatural.com) alınmıştır.")
     c["brand"]["en"]["disclaimer"] = ("This page is an independent concept demo prepared for Lalive and is not affiliated with the brand owner. "
                                       "Product photos, copy and prices are taken from the brand's website (lalivenatural.com).")
-    json.dump(c, open(PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    open(PATH, "a").write("\n")
+    dump(c, PATH)
     for k in order_cats:
         n = sum(x["category"] == k for x in items_out)
         if n:

@@ -3,7 +3,10 @@ import { useStore } from "../store";
 import { content } from "../data";
 import { LangSwitch } from "./Header";
 
-const links = ["flavors", ...(content.catalog ? ["catalog"] : []), "ritual", "shop", "story", "stockists", "faq", "contact"];
+// Katalogu olan markalarda: ürünler, setler, hakkımızda, satış noktaları, SSS, iletişim.
+const links = content.catalog
+  ? [["#/urunler", "products"], ...(content.catalog.categories.some((c) => c.id === "set") ? [["#/urunler/set", "sets"]] : []), ["#story", "about"], ["#stockists", "stockists"], ["#faq", "faq"], ["#contact", "contact"]]
+  : ["flavors", "ritual", "shop", "story", "stockists", "faq", "contact"].map((id) => [`#${id}`, id]);
 
 export default function Menu() {
   const menu = useStore((s) => s.menu);
@@ -12,10 +15,9 @@ export default function Menu() {
   return (
     <div id="menu" className={`menu${menu ? " is-open" : ""}`} aria-hidden={!menu}>
       <nav className="menu__links">
-        {links.map((id, i) => (
-          <a key={id} href={id === "catalog" ? "#/urunler" : `#${id}`} tabIndex={menu ? 0 : -1} style={{ "--i": i }}>
-            <sup>{String(i + 1).padStart(2, "0")}</sup>
-            {ui.nav[id]}
+        {links.map(([href, id], i) => (
+          <a key={href} href={href} tabIndex={menu ? 0 : -1} style={{ "--i": i }}>
+            {ui.nav[id] ?? ui.nav.story}
           </a>
         ))}
       </nav>

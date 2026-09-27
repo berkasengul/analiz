@@ -150,7 +150,6 @@ function Card({ item, t, onOpen, index = 0 }) {
         </span>
         {!item.image && <span className="pcard__stage" aria-hidden="true" />}
         <span className="pcard__dust" aria-hidden="true" />
-        {item.product != null && <span className="pcard__badge mono">3D</span>}
       </button>
       <div className="pcard__body">
         <p className="pcard__cat mono">{cat?.name[t.lang]}</p>

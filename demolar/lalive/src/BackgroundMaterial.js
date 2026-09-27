@@ -16,6 +16,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_dark: 0,
     u_glow: null,
     u_edge: null,
+    u_accent: null,
     u_map1: null,
     u_map2: null,
     u_mix: 1,
@@ -39,6 +40,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_dark;
     uniform vec3 u_glow;
     uniform vec3 u_edge;
+    uniform vec3 u_accent;
     uniform sampler2D u_map1;
     uniform sampler2D u_map2;
     uniform float u_mix;
@@ -65,6 +67,18 @@ export const BackgroundMaterial = shaderMaterial(
 
       // Taban: ortada tadın ışığı, kenarlarda derin karanlık.
       vec3 base = mix(u_glow * 0.34, u_edge, smoothstep(0.0, 0.95, center));
+
+      // Ürünün kendi atmosferi: ana ve ikinci renginden iki yumuşak, yavaş salınan
+      // ışık bulutu ve kadife gibi düşük frekanslı doku (her ürün kendi tonlarında).
+      float t = u_time * 0.06;
+      vec2 pa = (vUv - vec2(0.22 + 0.06 * sin(t * 1.7), 0.72 + 0.05 * cos(t * 1.3))) * vec2(u_aspect * 0.8, 1.);
+      vec2 pb = (vUv - vec2(0.8 + 0.05 * cos(t * 1.1), 0.3 + 0.06 * sin(t * 1.9))) * vec2(u_aspect * 0.8, 1.);
+      // Hafif kadife dokusu (ucuz: birkaç sinüs, tam ekran gürültü yerine).
+      vec2 vq = vUv * vec2(u_aspect, 1.);
+      float velvet = 0.5 + 0.25 * sin(vq.x * 3.1 + t * 3.) * sin(vq.y * 2.3 - t * 2.1) + 0.25 * sin((vq.x + vq.y) * 1.7 + t * 1.3);
+      base += u_accent * exp(-dot(pa, pa) * 3.2) * (0.22 + 0.1 * velvet);
+      base += mix(u_glow, vec3(1.), 0.2) * exp(-dot(pb, pb) * 3.8) * (0.14 + 0.08 * velvet);
+      base *= 0.9 + 0.2 * velvet;
 
       // Tadın şehri: etiketteki resim, bulanık ve alacakaranlıkta.
       if (u_hasMap > 0.5) {
@@ -102,23 +116,21 @@ export const BackgroundMaterial = shaderMaterial(
 
       float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * 2000.0)) * 43758.5453);
 
-      float radius = 1.5;
-      float outerProgress = clamp(1.1 * u_progress, 0., 1.);
-      float innerProgress = clamp(1.1 * u_progress - 0.05, 0., 1.);
-      float innerCircle = 1. - smoothstep((innerProgress - 0.4) * radius, innerProgress * radius, dist);
-      float outerCircle = 1. - smoothstep((outerProgress - 0.1) * radius, innerProgress * radius, dist);
-      float displacement = outerCircle - innerCircle;
-
-      // Pahalı gürültü yalnızca halkanın geçtiği piksellerde hesaplanır.
-      float ring = 0.;
-      if (displacement > 0.001) {
-        float density = 1.8 - dist;
-        float nz = cnoise(vec4(newUv * 40. * density, u_time, 1.));
-        float dots = smoothstep(0.1, 0.15, nz);
-        float n = 1. - step(.2, nz * 2.) * dots;
-        ring = max(displacement - (n + nz) - grain * 0.3, 0.);
+      // Ürün değişince: öndeki üründen yayılan yumuşak bir ışık dalgası. Kenarı
+      // düşük frekanslı gürültüyle hafifçe dalgalanır; içinde ürünün renginde bir
+      // parıltı kısa süre kalır ve söner (grenli halka yerine sinematik geçiş).
+      vec3 col = base + (grain - 0.5) * 0.014;
+      if (u_progress < 0.999) {
+        float pr = u_progress;
+        float ang = atan(newUv.y, newUv.x);
+        float wob = 0.035 * sin(ang * 5. + u_time * 0.9) + 0.025 * sin(ang * 9. - u_time * 1.3);
+        float R = pr * 1.55;
+        float d = dist + wob;
+        float wave = exp(-pow((d - R) / (0.07 + 0.16 * pr), 2.)) * pow(1. - pr, 1.3);
+        float fill = (1. - smoothstep(0., max(R, 0.001), d)) * pow(1. - pr, 2.) * 0.5;
+        vec3 wc = mix(u_color, vec3(1.), 0.3);
+        col += wc * (wave * 0.42 + fill * 0.22);
       }
-      vec3 col = base + ring * u_color * 1.6 + (grain - 0.5) * 0.018;
       // Kenar karartması.
       col *= 1. - 0.7 * smoothstep(0.35, 1.2, screenDist);
       // Sinematik mod: sahne kararır, kenarlarda koyu bir vinyet oluşur.

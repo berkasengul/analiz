@@ -21,7 +21,8 @@ export default function Background() {
   // Her tadın kendi sahne rengi; tat değişince yumuşakça geçer.
   const glow = useMemo(() => new Color(flavors[0].theme.glow), []);
   const edge = useMemo(() => new Color(flavors[0].theme.edge), []);
-  const target = useMemo(() => ({ glow: new Color(), edge: new Color() }), []);
+  const accent = useMemo(() => new Color(flavors[0].theme.accent ?? flavors[0].theme.glow), []);
+  const target = useMemo(() => ({ glow: new Color(), edge: new Color(), accent: new Color() }), []);
   const center = useMemo(() => new Vector2(0.5, 0.6), []);
   const last = useRef({ key: "", controls: null, at: -10, hover: false, from: null, to: null, mix: 1, stage: 1 });
 
@@ -30,7 +31,7 @@ export default function Background() {
     l.at = time;
     l.controls?.stop();
     l.controls = animate(0, 1, {
-      duration: 2.4,
+      duration: 2.8,
       ease: easeQuadOut,
       onUpdate: (v) => material.current && (material.current.u_progress = v),
     });
@@ -46,6 +47,7 @@ export default function Background() {
     const k = 1 - Math.exp(-2.2 * Math.min(delta, 0.1));
     glow.lerp(target.glow.set(theme.glow), k);
     edge.lerp(target.edge.set(theme.edge), k);
+    accent.lerp(target.accent.set(theme.accent ?? theme.glow), k);
     material.current.u_time = time;
 
     // Arayüzün vurgu rengi ekrandaki kutunun tadını takip eder.
@@ -117,6 +119,7 @@ export default function Background() {
         u_center={center}
         u_glow={glow}
         u_edge={edge}
+        u_accent={accent}
       />
     </mesh>
   );

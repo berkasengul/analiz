@@ -31,9 +31,11 @@ export function LangSwitch() {
 }
 
 const CAT = content.catalog;
+const BASE = import.meta.env.BASE_URL;
 
-// Üst menü: cam bir kapsül; üzerine gelinen bağlantının arkasında ışıklı bir
-// hap kayar. "Kategoriler" açılınca ürün kategorileri renk noktalarıyla listelenir.
+// Üst menü: ince cam bir bar; üzerine gelinen bağlantının arkasında ışıklı bir
+// hap kayar. Katalogu olan markalarda "Ürünler" açılınca kategoriler ürün
+// görselleriyle bir vitrin olarak açılır.
 function NavBar({ ui }) {
   const nav = useRef(null);
   const [pill, setPill] = useState(null);
@@ -45,13 +47,21 @@ function NavBar({ ui }) {
     const n = nav.current.getBoundingClientRect();
     setPill({ x: a.left - n.left, w: a.width });
   };
-  const links = [
-    ["#flavors", "01", ui.nav.flavors],
-    ["#ritual", "02", ui.nav.ritual],
-    ["#shop", "03", ui.nav.shop],
-  ];
-  if (!CAT) links.push(["#story", "04", ui.nav.story]);
+  const hasSets = CAT?.categories.some((c) => c.id === "set");
+  const links = CAT
+    ? [
+        ...(hasSets ? [["#/urunler/set", ui.nav.sets]] : []),
+        ["#story", ui.nav.about ?? ui.nav.story],
+        ["#contact", ui.nav.contact],
+      ]
+    : [
+        ["#flavors", ui.nav.flavors],
+        ["#shop", ui.nav.shop],
+        ["#story", ui.nav.story],
+        ["#contact", ui.nav.contact],
+      ];
   const count = (id) => CAT.items.filter((i) => i.category === id).length;
+  const thumb = (id) => CAT.items.find((i) => i.category === id && i.image)?.image;
   return (
     <nav
       ref={nav}
@@ -64,17 +74,10 @@ function NavBar({ ui }) {
       }}
     >
       <span className="header__pill" aria-hidden="true" />
-      {links.map(([href, n, label]) => (
-        <a key={href} href={href} onMouseEnter={move} onFocus={move}>
-          <sup>{n}</sup>
-          {label}
-        </a>
-      ))}
       {CAT && (
         <div className={`navcat${open ? " is-open" : ""}`} onMouseEnter={() => setOpen(true)} onFocus={() => setOpen(true)} onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setOpen(false)}>
           <a href="#/urunler" className={page === "catalog" ? "is-current" : ""} onMouseEnter={move} onFocus={move} aria-haspopup="true" aria-expanded={open}>
-            <sup>04</sup>
-            {ui.nav.categories ?? ui.nav.catalog}
+            {ui.nav.products ?? ui.nav.catalog}
             <svg className="navcat__chev" viewBox="0 0 12 12" aria-hidden="true">
               <path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
@@ -88,8 +91,10 @@ function NavBar({ ui }) {
               {CAT.categories.map((c, i) => (
                 <li key={c.id} style={{ "--c": c.color, "--i": i }}>
                   <a href={`#/urunler/${c.id}`} onClick={() => setOpen(false)}>
-                    <i aria-hidden="true" />
-                    <span>{c.name[lang] ?? c.name.tr}</span>
+                    <span className="navcat__img" aria-hidden="true">
+                      {thumb(c.id) && <img src={BASE + thumb(c.id)} alt="" loading="lazy" />}
+                    </span>
+                    <span className="navcat__name">{c.name[lang] ?? c.name.tr}</span>
                     <small>{count(c.id)}</small>
                   </a>
                 </li>
@@ -98,6 +103,11 @@ function NavBar({ ui }) {
           </div>
         </div>
       )}
+      {links.map(([href, label]) => (
+        <a key={href} href={href} className={href === "#/urunler/set" && page === "catalog" && location.hash.startsWith("#/urunler/set") ? "is-current" : ""} onMouseEnter={move} onFocus={move}>
+          {label}
+        </a>
+      ))}
     </nav>
   );
 }

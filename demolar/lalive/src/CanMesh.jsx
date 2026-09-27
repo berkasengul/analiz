@@ -1,7 +1,9 @@
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 import { useTexture } from "@react-three/drei";
 import {
+  Box3,
   BoxGeometry,
+  Matrix4,
   BufferGeometry,
   Float32BufferAttribute,
   ExtrudeGeometry,
@@ -315,9 +317,12 @@ const smoothRows = (rows) => rows.map((r, i) => (r === 0 ? 0 : (rows[i - 1] ?? r
 
 function latheHalf(S, back) {
   const L = S.size;
-  const rows = smoothRows(S.rows);
+  // Performans: satırlar yarıya indirilir (yumuşatılmış profil görüntüyü bozmaz);
+  // setlerde parça başına daha az dilim.
+  const full = smoothRows(S.rows);
+  const rows = full.filter((_, i) => i % 2 === 0).map((r, i) => Math.max(r, full[2 * i + 1] ?? 0) * (r && full[2 * i + 1] ? 1 : r ? 1 : 0));
   const N = rows.length;
-  const seg = 48;
+  const seg = S.lite ? 28 : 40;
   const zs = S.zScale ?? 1;
   const pos = [];
   const uv = [];
@@ -357,10 +362,24 @@ function latheHalf(S, back) {
   return g;
 }
 
+// Fotoğraf kartı yalnızca ürünün sınır kutusu kadar (tüm kareyi kaplamaz: daha az çizim).
 function finPlane(S, back) {
-  const g = new PlaneGeometry(S.size, S.size);
+  const pts = (S.parts ?? [S]).flatMap((p) => p.outline ?? []).flat();
+  let [x0, y0, x1, y1] = [0, 0, 1, 1];
+  if (pts.length) {
+    x0 = Math.max(0, Math.min(...pts.map((p) => p[0])) - 0.01);
+    x1 = Math.min(1, Math.max(...pts.map((p) => p[0])) + 0.01);
+    y0 = Math.max(0, Math.min(...pts.map((p) => p[1])) - 0.01);
+    y1 = Math.min(1, Math.max(...pts.map((p) => p[1])) + 0.01);
+  }
+  const L = S.size;
+  const g = new PlaneGeometry((x1 - x0) * L, (y1 - y0) * L);
+  g.translate(((x0 + x1) / 2 - 0.5) * L * (back ? -1 : 1), (0.5 - (y0 + y1) / 2) * L, 0);
   const uv = g.attributes.uv;
-  for (let i = 0; i < uv.count; i++) uv.setX(i, back ? 0.5 + 0.5 * uv.getX(i) : 0.5 * uv.getX(i));
+  for (let i = 0; i < uv.count; i++) {
+    const u = x0 + uv.getX(i) * (x1 - x0);
+    uv.setXY(i, back ? 0.5 + 0.5 * (1 - (x1 - uv.getX(i) * (x1 - x0))) : 0.5 * u, 1 - (y1 - uv.getY(i) * (y1 - y0)));
+  }
   return g;
 }
 
@@ -401,13 +420,16 @@ function flatBlock(S) {
   return m;
 }
 
+function partGeometry(S) {
+  return S.profile === "flat" && S.outline?.length ? { block: flatBlock(S) } : { front: latheHalf(S, false), back: latheHalf(S, true) };
+}
+
 function photoGeometry(S) {
   const key = `${S.file}|${S.profile}|${S.depth}|${S.zScale}`;
   if (PHOTO.has(key)) return PHOTO.get(key);
-  const out =
-    S.profile === "flat" && S.outline?.length
-      ? { block: flatBlock(S) }
-      : { front: latheHalf(S, false), back: latheHalf(S, true), finF: finPlane(S, false), finB: finPlane(S, true) };
+  // Set: her ürün kendi biçimiyle ayrı parça; hepsi aynı doku atlasını paylaşır.
+  const list = S.profile === "group" ? S.parts.map((p) => ({ size: S.size, lite: true, ...p })) : [S];
+  const out = { parts: list.map(partGeometry), finF: finPlane(S, false), finB: finPlane(S, true) };
   PHOTO.set(key, out);
   return out;
 }
@@ -517,6 +539,10 @@ export function createBottleParts(f = {}) {
     // Düz bloğun kenarları: ürünün kenar rengi.
     parts.side = new MeshStandardMaterial({ color: S.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
     parts.side.color.multiplyScalar(0.78); // kenar ışığı fotoğraftakinden biraz koyu dursun
+    (S.parts ?? []).forEach((p, i) => {
+      parts[`side${i}`] = new MeshStandardMaterial({ color: p.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
+      parts[`side${i}`].color.multiplyScalar(0.78);
+    });
     for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
     return parts;
   }
@@ -715,23 +741,67 @@ function Tool({ body, parts, S }) {
 function Photo({ body, parts, S }) {
   const g = photoGeometry(S);
   return (
-    <group rotation={[0, 0, S.tilt]} position={[0, -0.25, 0]} scale={S.scale}>
-      {g.block ? (
-        <mesh geometry={g.block} material={[body, parts.side]} />
-      ) : (
-        <>
-          <mesh geometry={g.front} material={body} />
-          <mesh geometry={g.back} material={body} />
-          {/* Gövdenin dışında kalan parçalar (pompa ağzı, sap): ince kart. */}
-          <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} />
-          <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} />
-        </>
+    <group rotation={[0, 0, S.tilt]} scale={S.scale}>
+      {g.parts.map((p, i) =>
+        p.block ? (
+          <mesh key={i} geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />
+        ) : (
+          <group key={i}>
+            <mesh geometry={p.front} material={body} />
+            <mesh geometry={p.back} material={body} />
+          </group>
+        )
       )}
+      {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. */}
+      <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} userData={{ noFit: true }} />
+      <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} userData={{ noFit: true }} />
     </group>
   );
 }
 
+// Her ürün ekranda orantılı ve rahat görünsün: gerçek sınır kutusu ölçülür ve ürünler
+// benzer bir görsel alana getirilir (uzun şişe tam boy, geniş çanta ya da set
+// taşmadan); yükseklik ve genişlik sınırı aşılmaz, ürün ortalanır.
+const MAX_H = 3.6;
+const MAX_W = 4.4;
+const AREA = 6.6;
+const _inv = new Matrix4();
+const _m = new Matrix4();
+function Fit({ children, k, wide }) {
+  const ref = useRef();
+  useLayoutEffect(() => {
+    const g = ref.current;
+    g.scale.setScalar(1);
+    g.position.set(0, 0, 0);
+    g.updateWorldMatrix(true, true);
+    _inv.copy(g.matrixWorld).invert();
+    const box = new Box3();
+    g.traverse((o) => {
+      if (!o.isMesh || !o.geometry || o.userData.noFit) return; // fotoğraf kartı tüm kareyi kaplar, ölçülmez
+      if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+      _m.multiplyMatrices(_inv, o.matrixWorld);
+      box.union(o.geometry.boundingBox.clone().applyMatrix4(_m));
+    });
+    if (box.isEmpty()) return;
+    const h = box.max.y - box.min.y;
+    const w = box.max.x - box.min.x;
+    // Setler (birkaç ürün yan yana) daha geniş bir alan kaplar ki içindekiler rahat görünsün.
+    const sc = Math.min(1.6, MAX_H / h, (wide ? 5.2 : MAX_W) / w, Math.sqrt((wide ? 9 : AREA) / (w * h)));
+    g.scale.setScalar(sc);
+    g.position.set(-((box.max.x + box.min.x) / 2) * sc, -((box.max.y + box.min.y) / 2) * sc + 0.1, 0);
+  }, [k]);
+  return <group ref={ref}>{children}</group>;
+}
+
 export default function CanMesh({ body, parts, flavor = 0 }) {
+  return (
+    <Fit k={flavor} wide={flavors[flavor].photo3d?.profile === "group"}>
+      <ProductShape body={body} parts={parts} flavor={flavor} />
+    </Fit>
+  );
+}
+
+function ProductShape({ body, parts, flavor }) {
   const S = shapeOf(flavors[flavor]);
   if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} />;
   if (S.kind === "tube") return <Tube body={body} parts={parts} S={S} />;

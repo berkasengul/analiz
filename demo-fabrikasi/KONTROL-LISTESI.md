@@ -86,3 +86,8 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Fotoğraftan şişirilen ürünler "ortadan yarılmış", kenarları tırtıklı, tüplerde yatay çizgiler | Yuvarlak ürün: silüetten dönen gövde + önden izdüşüm doku; düz ürün: kenar çizgisinden pahlı blok; arka fotoğrafı yoksa yazısız arka |
 | Lalive | Aktarma tekrar çalışınca ana sayfa sırası kaydı; ritüelde fırça çıktı | Ana sayfanın ilk 6 ürünü sabit liste; ritüel kremlerle |
 | Lalive | Başka renk seçeneğinin fotoğrafı arka yüz sanıldı | Arka fotoğraf rengi ön yüze yakın olmalı |
+| Lalive | Setler kutulu fotoğrafın düz bloğuydu; kartta kutu ve zemin görünüyordu | Set içerikleri (`lalive-setler.json`) kendi ürünlerinden kurulur: her ürün ayrı 3B parça, kartta kutusuz |
+| Lalive | Uzun ürünler ekranın tepesinden taştı, geniş ürünler dev, setler küçük | Ürünler ölçülüp benzer görsel alana getirilir (yükseklik/genişlik sınırı, setlere geniş alan) |
+| Lalive | Ürün geçişinde grenli turuncu halka ucuz görünüyordu | Ürün renginde yumuşak ışık dalgası; her ürünün iki renkli kendi atmosferi |
+| Lalive | Menüde numaralar ve "Ritüel" | Ürünler (görselli kategori vitrini), Setler, Hakkımızda, İletişim |
+| Lalive | Uzun ürün adı iki satır olup ürünün üstüne bindi | Uzun adlarda küçük punto, tek satır |
