@@ -3302,7 +3302,7 @@ main {
   min-height: 100vh;
   overflow: hidden;
   padding: clamp(130px, 19vh, 180px) var(--gutter) 80px;
-  background: #040a06;
+  background: #0a0908;
 }
 .catalog > :not(.atmos, .leaves) {
   position: relative;
@@ -3315,9 +3315,10 @@ main {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 60% at 50% 18%, color-mix(in srgb, var(--tint, var(--accent)) 70%, transparent), transparent 70%),
-    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.75)),
-    #040a06;
+    /* sıcak, koyu stüdyo: kategorinin rengi yalnızca bir tutam */
+    radial-gradient(ellipse 70% 60% at 50% 18%, color-mix(in srgb, var(--tint, var(--accent)) 18%, rgba(255, 236, 210, 0.09)), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.8)),
+    #0a0908;
   transition: background 1.2s ease;
 }
 .atmos__beam {
@@ -3338,7 +3339,7 @@ main {
   width: var(--b);
   height: var(--b);
   border-radius: 50%;
-  background: rgba(200, 230, 200, 0.12);
+  background: rgba(255, 236, 210, 0.08);
   filter: blur(calc(var(--b) / 6));
   animation: bokeh var(--d) ease-in-out infinite alternate;
   animation-delay: var(--dl);
@@ -3930,8 +3931,8 @@ main {
   pointer-events: auto;
   padding: clamp(80px, 14vh, 140px) var(--gutter) clamp(60px, 10vh, 100px);
   background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in srgb, var(--c) 22%, transparent), transparent 70%),
-    linear-gradient(rgba(4, 10, 6, 0), #040a06 160px);
+    radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in srgb, var(--c) 10%, rgba(255, 236, 210, 0.06)), transparent 70%),
+    linear-gradient(rgba(10, 9, 8, 0), #0a0908 160px);
 }
 .catgrid > :not(.leaves) {
   position: relative;
@@ -4399,4 +4400,112 @@ main {
 }
 .explore:active {
   transform: scale(0.98);
+}
+
+/* ===================== Ürün kartı: sinematik sahne =====================
+   Yeşil zemin yok: sıcak, koyu bir stüdyo. Üstten yumuşak spot, ürün parlak bir
+   zeminin üstünde durur; ayağının dibinde temas gölgesi, zeminde silik yansıması.
+   Ürünün kendi rengi yalnızca zemindeki ışık havuzuna çok hafif karışır. */
+.pcard {
+  background: linear-gradient(180deg, #121110, #0a0a09 70%);
+  border-color: rgba(255, 240, 220, 0.07);
+}
+.pcard:hover {
+  border-color: rgba(255, 236, 210, 0.2);
+  box-shadow:
+    0 40px 70px -30px rgba(0, 0, 0, 0.95),
+    0 0 60px -26px color-mix(in srgb, var(--c) 45%, rgba(255, 230, 200, 0.5));
+}
+.pcard__cat {
+  color: rgba(236, 222, 200, 0.62);
+}
+.pcard__media.is-cutout {
+  --floor: 83%;
+  isolation: isolate;
+  background:
+    /* spotun tepeden düştüğü ışık */
+    radial-gradient(ellipse 58% 62% at 50% -6%, rgba(255, 238, 214, 0.16), transparent 70%),
+    /* zemindeki ışık havuzu (ürünün renginden bir tutam) */
+    radial-gradient(ellipse 46% 9% at 50% var(--floor), color-mix(in srgb, var(--c) 16%, rgba(255, 236, 212, 0.2)), transparent 72%),
+    /* ufuk: arka duvar biraz açık, zemin koyu */
+    linear-gradient(180deg, #0c0b0a 0%, #171513 calc(var(--floor) - 0.5%), #0b0a09 calc(var(--floor) + 0.5%), #050505 100%);
+}
+/* Kenarlarda sinema karartması. */
+.pcard__media.is-cutout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 75% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+/* Ürünün ayağındaki temas gölgesi. */
+.pcard__media.is-cutout::after {
+  content: "";
+  position: absolute;
+  left: 26%;
+  right: 26%;
+  top: calc(var(--floor) - 1.6%);
+  height: 3.2%;
+  z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent);
+  filter: blur(3px);
+  pointer-events: none;
+}
+.pcard__floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--floor);
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* parlak zeminin ince ışık çizgisi ve derinliğe doğru kararma */
+  background:
+    linear-gradient(90deg, transparent 8%, rgba(255, 236, 210, 0.16) 50%, transparent 92%) top / 100% 1px no-repeat,
+    linear-gradient(180deg, rgba(255, 236, 210, 0.04), transparent 70%);
+}
+.pcard__media.is-cutout .pcard__beam {
+  inset: -12% 16% 14%;
+  background: linear-gradient(180deg, rgba(255, 240, 220, 0.22), rgba(255, 240, 220, 0.05) 62%, transparent);
+  opacity: 0.5;
+}
+.pcard__media.is-cutout .pcard__dust {
+  opacity: 0.45;
+}
+/* Ürün zeminde durur (havada süzülmez); sahne çok yavaş "nefes alır". */
+.pcard__media.is-cutout .pcard__float {
+  animation: none;
+  z-index: 2;
+}
+.pcard__media.is-cutout img:not(.pcard__photo) {
+  padding: 9% 15% calc(100% - var(--floor));
+  object-position: 50% 100%;
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.6));
+  transform-origin: 50% var(--floor);
+  transition: scale 1.1s var(--ease), filter 0.8s ease;
+}
+.pcard:hover .pcard__media.is-cutout img:not(.pcard__photo) {
+  scale: 1.05;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.65)) brightness(1.06);
+}
+.pcard__media.is-cutout img.pcard__reflect {
+  transform: scaleY(-1);
+  opacity: 0.2;
+  filter: blur(1.5px);
+  -webkit-mask-image: linear-gradient(to top, transparent calc(100% - var(--floor)), #000 calc(100% - var(--floor)), transparent calc(100% - var(--floor) + 16%));
+  mask-image: linear-gradient(to top, transparent calc(100% - var(--floor)), #000 calc(100% - var(--floor)), transparent calc(100% - var(--floor) + 16%));
+}
+.pcard:hover .pcard__media.is-cutout img.pcard__reflect {
+  filter: blur(1.5px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pcard__media.is-cutout .pcard__beam {
+    animation: none;
+  }
+}
+/* Sahnedeki ürünün yerine üzerine gelince kutulu/zeminli fotoğraf çıkmasın. */
+.pcard__media.is-cutout .pcard__photo {
+  display: none;
 }

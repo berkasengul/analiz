@@ -98,3 +98,4 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Yükleme yazısı "Zeytinler toplanıyor" anlamsızdı; ana sayfa el kremiyle açılıyordu | "Doğal bakım ritüeliniz hazırlanıyor"; ana sayfa Bronzlaştırıcı Yağ ile açılır |
 | Lalive | Yandan bakınca ön/arka birleşiminde dikiş çizgisi, ön fotoğrafın kenarı yana gerilmiş | Dönen gövdelerde ön ve arka yüzün kenar bandı ambalajın düz rengine geçer (`seal_front`) |
 | Lalive | "Kategorilere göre gör →" sade bir linkti | Cam, ince altın çerçeveli "Tüm ürünleri keşfet" butonu (ürün/kategori sayısıyla) |
+| Lalive | Kartlarda ürünün arkasında yeşil zemin; üzerine gelince kutulu, beyaz zeminli fotoğraf çıkıyordu | Kart sinematik stüdyo: koyu sıcak zemin, üstten spot, parlak zemin çizgisi, temas gölgesi, silik yansıma; ürün zeminde durur; kesilmiş ürünlerde üzerine gelince fotoğraf yok; ürünler sayfası zemini de nötr koyu |

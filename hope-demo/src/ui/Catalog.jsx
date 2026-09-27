@@ -137,10 +137,13 @@ function Card({ item, t, onOpen, index = 0 }) {
     <article className="pcard" style={{ "--c": item.color ?? cat?.color, "--i": index % 4, "--f": index % 5 }} {...motion}>
       <button className={`pcard__media${item.cutout ? " is-cutout" : ""}`} onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
         <span className="pcard__beam" aria-hidden="true" />
+        {item.cutout && <span className="pcard__floor" aria-hidden="true" />}
         <span className="pcard__float">
           {item.image ? (
             <>
               <img src={`${BASE}${item.image}`} alt="" loading="lazy" />
+              {/* Kesilmiş üründe parlak zeminde silik yansıma. */}
+              {item.cutout && <img className="pcard__reflect" src={`${BASE}${item.image}`} alt="" loading="lazy" aria-hidden="true" />}
               {/* Gerçek ürün fotoğrafı: üzerine gelince 3B görselin yerine geçer. */}
               {item.photo && <img className="pcard__photo" src={`${BASE}${item.photo}`} alt="" loading="lazy" />}
             </>
