@@ -1805,7 +1805,8 @@ main {
     display: none;
   }
 
-  .stock td:nth-child(2) {
+  .stock td:nth-child(2),
+  .stock thead th:nth-child(2) {
     display: none;
   }
 
@@ -4890,5 +4891,118 @@ main {
   .search__scrim,
   .search__list li {
     animation: none;
+  }
+}
+
+/* Sepette ürün görseli (renk karesi yerine küçük stüdyo) ve seçenek menüsü. */
+.line__thumb {
+  position: relative;
+  width: 56px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 238, 214, 0.16), transparent 70%),
+    radial-gradient(ellipse 50% 10% at 50% 86%, color-mix(in srgb, var(--c) 20%, rgba(255, 236, 210, 0.18)), transparent 72%),
+    linear-gradient(180deg, #11100f, #1a1816 86%, #0a0909 86%);
+  border: 1px solid rgba(255, 236, 210, 0.08);
+}
+.line__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+  padding: 7px 8px 10px;
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5));
+}
+.line__variant {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.line__variant select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 5px 26px 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 236, 210, 0.16);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%23f2efe9' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E") right 9px center / 10px no-repeat,
+    rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+}
+.line__variant select option {
+  color: #111;
+}
+button.buy__more {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Kayan bant: koyu sitede beyaz şerit yerine ince altın çizgili, sıcak koyu bant. */
+.marquee {
+  padding: 22px 0;
+  background: linear-gradient(180deg, #0f0d0c, #141210 50%, #0f0d0c);
+  color: rgba(242, 232, 214, 0.86);
+  border-top: 1px solid rgba(232, 199, 122, 0.18);
+  border-bottom: 1px solid rgba(232, 199, 122, 0.18);
+}
+.marquee span {
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3vw, 2.6rem);
+  letter-spacing: 0.04em;
+}
+.marquee i {
+  color: #e8c77a;
+  font-size: 0.45em;
+}
+
+/* Masaüstü detay: metin bloğu "Ürünlere dön" ile alttaki gezinme arasında ortalanır;
+   içerik uzunsa yukarı taşıp geri butonunun altına girmez. */
+@media (min-width: 901px) {
+  .detail__body {
+    top: calc(124px + 50px + env(safe-area-inset-top, 0px));
+    bottom: 112px;
+    transform: none;
+    gap: 18px;
+  }
+  .detail__body > :first-child {
+    margin-top: auto;
+  }
+  .detail__body > :last-child {
+    margin-bottom: auto;
+  }
+}
+
+/* Masaüstü kategori dizininin arkasında yumuşak karartma: yandaki 3B ürün listenin
+   altından geçerken yazılar okunur kalır, ürün karanlıkta kaybolur. */
+@media (min-width: 901px) {
+  .catbar::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: calc(-1 * var(--gutter));
+    height: 60vh;
+    top: calc(50% - 30vh);
+    width: calc(260px + 8vw);
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(8, 7, 6, 0.82), rgba(8, 7, 6, 0.55) 55%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
   }
 }

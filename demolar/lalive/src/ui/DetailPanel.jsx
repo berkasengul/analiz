@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { DETAIL_PACK, PAGE, features, flavors } from "../data";
+import { DETAIL_PACK, PAGE, content, features, flavors } from "../data";
 import { useT } from "../i18n";
-import { scrollToFlavorOf } from "../scroll";
+import { scrollToElement, scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
 import { Arrow, Close, featureIcons } from "../Icons";
 import { SplitChars, SplitWords } from "./Split";
@@ -197,11 +197,35 @@ export default function DetailPanel() {
             <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, DETAIL_PACK, "once")}>
               {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once", shown.active))}
             </button>
-            {/* Kategori sayfalarında mağaza bölümü yok. */}
-            {PAGE.kind === "home" && (
-              <a href="#shop" className="buy__more mono" tabIndex={tab}>
-                {ui.otherPacks}
-              </a>
+            {/* Katalogu olan markalarda: aynı kategorideki diğer ürünler. Ana sayfada
+                kategori sayfası açılır; kategori sayfasında detay kapanıp alttaki ürünlere inilir. */}
+            {content.catalog ? (
+              (() => {
+                const cat = content.catalog.items.find((i) => i.product === flavors[shown.active]?.gid)?.category;
+                if (!cat) return null;
+                return PAGE.kind === "category" ? (
+                  <button
+                    className="buy__more mono"
+                    tabIndex={tab}
+                    onClick={() => {
+                      closeDetail();
+                      setTimeout(() => scrollToElement(document.querySelector(".catgrid")), 450);
+                    }}
+                  >
+                    {ui.related} →
+                  </button>
+                ) : (
+                  <a href={`#/urunler/${cat}`} className="buy__more mono" tabIndex={tab}>
+                    {ui.related} →
+                  </a>
+                );
+              })()
+            ) : (
+              PAGE.kind === "home" && (
+                <a href="#shop" className="buy__more mono" tabIndex={tab}>
+                  {ui.otherPacks}
+                </a>
+              )
             )}
           </div>
         </div>

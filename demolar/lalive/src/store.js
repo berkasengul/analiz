@@ -88,6 +88,8 @@ export const useStore = create(
             : [...s.cart, { id, flavor, pack, plan, qty }];
           return { cart, cartOpen: true };
         }),
+      // Çok seçenekli üründe (renk, beden, koku) seçilen Shopify varyantı.
+      setVariant: (id, variant) => set((s) => ({ cart: s.cart.map((i) => (i.id === id ? { ...i, variant } : i)) })),
       setQty: (id, qty) =>
         set((s) => ({
           cart: qty <= 0 ? s.cart.filter((i) => i.id !== id) : s.cart.map((i) => (i.id === id ? { ...i, qty } : i)),

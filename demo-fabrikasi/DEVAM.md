@@ -34,6 +34,13 @@ Besleyici Yüz Bakım Yağı elle modellenmiş hâlde kaldı. Aşağıdaki "sır
   ana sayfadaki buton "Tüm ürünleri keşfet".
 - Kullanıcı siteyi localhost'ta açıp bakacak; sonra satış maili (`satis/lalive-mail.md`).
 
+## Güncelleme (27 Eylül, son analiz)
+
+- Satış koşulları markanın sitesinden (tote hediye 3.500 ₺, ~1 iş günü kargo, 14 gün iade); uydurma indirim/kargo yok.
+- Sepet Shopify'a bağlı: "Ödemeye geç" → `lalivenatural.com/cart/<varyant>:<adet>` (lalive.json → `commerce`).
+- Ürün arama, "Benzer ürünler", sinematik kartlar.
+- Pazarlama görselleri: `satis/lalive-gorseller/1…8`; mail `satis/lalive-mail.md` güncel.
+
 ## Sıradaki iş (önceki not)
 
 1. Ağ erişimi açık yeni oturumda Lalive'ın bütün ürünlerini çek:

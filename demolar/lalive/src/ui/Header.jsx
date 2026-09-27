@@ -6,6 +6,10 @@ import { useStore } from "../store";
 import { content } from "../data";
 import { SearchButton } from "./Search";
 
+// Dil düğmesinde o dilin para birimi simgesi (markanın fiyat ayarından).
+const symbol = (p) => (p ? new Intl.NumberFormat(p.locale, { style: "currency", currency: p.currency, currencyDisplay: "narrowSymbol" }).formatToParts(0).find((x) => x.type === "currency")?.value : "");
+const CUR = { tr: symbol(content.prices?.tr) || "₺", en: symbol(content.prices?.en) || "$" };
+
 export function LangSwitch() {
   const lang = useStore((s) => s.lang);
   const setLang = useStore((s) => s.setLang);
@@ -13,8 +17,8 @@ export function LangSwitch() {
   return (
     <div className="lang" role="group" aria-label={ui.langLabel}>
       {[
-        ["tr", "TR", "₺"],
-        ["en", "EN", "$"],
+        ["tr", "TR", CUR.tr],
+        ["en", "EN", CUR.en],
       ].map(([code, label, cur]) => (
         <button
           key={code}

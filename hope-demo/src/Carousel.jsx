@@ -107,7 +107,7 @@ export default function Carousel() {
     s.lean = MathUtils.damp(s.lean, MathUtils.clamp(scrollState.velocity * 0.012, -0.35, 0.35), 5, dt);
 
     // Sonraki bölüme geçerken kutular kenarlara dağılır; detay açılınca ise
-    // yerlerinde kalıp karanlığa doğru söner (videodaki gibi).
+    // karanlığa doğru sönerek küçülür ve kenarlara çekilir.
     const spread = scrollState.ritualIn;
     const fade = s.detail;
     sceneState.spread = Math.max(spread, fade);
@@ -170,12 +170,13 @@ export default function Carousel() {
       const lift = s.hover[i];
 
       g.position.set(
-        pose.x * (1 + 2.2 * spread + 0.25 * fade),
+        pose.x * (1 + 2.2 * spread + 0.9 * fade),
         pose.y - 2 * spread - (1 - intro) * 9 + lift * 0.25 - 0.4 * fade,
         pose.z - (1 - intro) * 4 - 1.5 * fade
       );
       g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + s.lean * (1 - Math.min(Math.abs(d), 4) * 0.15));
-      g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (1 - 0.15 * fade) * (1 + lift * 0.06));
+      // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
+      g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
       const lit = 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
       const dim = (1 - fade) * lit;

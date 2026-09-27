@@ -180,7 +180,7 @@
       },
       "price": {
         "tr": 1285.0,
-        "en": 32
+        "en": 1285.0
       },
       "photos": [
         "foto/lalive-el-kremi-50-ml/1.webp",
@@ -1013,7 +1013,7 @@
       },
       "price": {
         "tr": 1900.0,
-        "en": 48
+        "en": 1900.0
       },
       "photos": [
         "foto/lalive-mineral-filtreli-gunes-kremi/1.webp",
@@ -1145,7 +1145,7 @@
       },
       "price": {
         "tr": 845.0,
-        "en": 21
+        "en": 845.0
       },
       "photos": [
         "foto/lalive-dudak-balmi/1.webp",
@@ -1305,7 +1305,7 @@
       },
       "price": {
         "tr": 1850.0,
-        "en": 46
+        "en": 1850.0
       },
       "photos": [
         "foto/lalive-bronzlastirici-yag/1.webp",
@@ -1936,7 +1936,7 @@
       },
       "price": {
         "tr": 1200.0,
-        "en": 30
+        "en": 1200.0
       },
       "photos": [
         "foto/lalive-dogal-yuz-misti/1.webp",
@@ -2130,7 +2130,7 @@
       ],
       "price": {
         "tr": 1650.0,
-        "en": 41
+        "en": 1650.0
       },
       "rating": {
         "score": 4.7,
@@ -3143,7 +3143,7 @@
       },
       "price": {
         "tr": 900.0,
-        "en": 22
+        "en": 900.0
       },
       "photos": [
         "foto/lalive-dogal-at-kili-fircasi/1.webp",
@@ -4877,7 +4877,7 @@
       },
       "price": {
         "tr": 500.0,
-        "en": 12
+        "en": 500.0
       },
       "photos": [
         "foto/lalive-dogal-kabak-lifi/1.webp",
@@ -5848,7 +5848,7 @@
       },
       "price": {
         "tr": 690.0,
-        "en": 17
+        "en": 690.0
       },
       "photos": [
         "foto/lalive-lenf-masaj-aleti/1.webp",
@@ -8229,7 +8229,7 @@
       },
       "price": {
         "tr": 845.0,
-        "en": 21
+        "en": 845.0
       },
       "photos": [
         "foto/tampiko-otu-firca/1.webp",
@@ -9246,7 +9246,7 @@
       },
       "price": {
         "tr": 1600.0,
-        "en": 40
+        "en": 1600.0
       },
       "photos": [
         "foto/lalive-bakim-cantasi/1.webp",
@@ -9925,7 +9925,7 @@
       "nameLang": "en",
       "price": {
         "tr": 1950.0,
-        "en": 49
+        "en": 1950.0
       },
       "photos": [
         "foto/lalive-me-time-mug/1.webp",
@@ -10663,7 +10663,7 @@
       },
       "price": {
         "tr": 450.0,
-        "en": 11
+        "en": 450.0
       },
       "photos": [
         "foto/lalive-sac-bandi-kahverengi/1.webp",
@@ -11330,7 +11330,7 @@
       },
       "price": {
         "tr": 450.0,
-        "en": 11
+        "en": 450.0
       },
       "photos": [
         "foto/lalive-sac-bandi-yesil/1.webp",
@@ -12564,7 +12564,7 @@
       },
       "price": {
         "tr": 1250.0,
-        "en": 31
+        "en": 1250.0
       },
       "photos": [
         "foto/lalive-sapka-kahverengi/1.webp",
@@ -13810,7 +13810,7 @@
       },
       "price": {
         "tr": 1250.0,
-        "en": 31
+        "en": 1250.0
       },
       "photos": [
         "foto/lalive-sapka-krem/1.webp",
@@ -15040,7 +15040,7 @@
       },
       "price": {
         "tr": 1250.0,
-        "en": 31
+        "en": 1250.0
       },
       "photos": [
         "foto/lalive-sapka-yesil/1.webp",
@@ -16140,7 +16140,7 @@
       },
       "price": {
         "tr": 1500.0,
-        "en": 38
+        "en": 1500.0
       },
       "photos": [
         "foto/lalive-self-care-club-atlet/1.webp",
@@ -17190,7 +17190,7 @@
       "nameLang": "en",
       "price": {
         "tr": 1500.0,
-        "en": 38
+        "en": 1500.0
       },
       "photos": [
         "foto/lalive-self-care-club-t-shirt/1.webp",
@@ -18282,7 +18282,7 @@
       },
       "price": {
         "tr": 1500.0,
-        "en": 38
+        "en": 1500.0
       },
       "photos": [
         "foto/lalive-slow-down-atlet/1.webp",
@@ -19228,7 +19228,7 @@
       },
       "price": {
         "tr": 1900.0,
-        "en": 48
+        "en": 1900.0
       },
       "photos": [
         "foto/lalive-tote-bag-kahverengi/1.webp",
@@ -20506,7 +20506,7 @@
       "nameLang": "en",
       "price": {
         "tr": 2900.0,
-        "en": 72
+        "en": 2900.0
       },
       "photos": [
         "foto/self-care-club-sweatshirt/1.webp",
@@ -21478,7 +21478,7 @@
       },
       "price": {
         "tr": 2275.0,
-        "en": 57
+        "en": 2275.0
       },
       "photos": [
         "foto/soft-krem-tote-bag-100-cotton/1.webp",
@@ -22389,7 +22389,7 @@
       },
       "price": {
         "tr": 2275.0,
-        "en": 57
+        "en": 2275.0
       },
       "photos": [
         "foto/yesil-tote-bag-100-cotton/1.webp",
@@ -23257,7 +23257,7 @@
       "nameLang": "en",
       "price": {
         "tr": 1950.0,
-        "en": 49
+        "en": 1950.0
       },
       "photos": [
         "foto/lalive-me-time-mum/1.webp",
@@ -24221,7 +24221,7 @@
       "nameLang": "en",
       "price": {
         "tr": 2350.0,
-        "en": 59
+        "en": 2350.0
       },
       "photos": [
         "foto/lalive-me-time-mum-100-gr/1.webp",
@@ -25137,7 +25137,7 @@
       "nameLang": "en",
       "price": {
         "tr": 2900.0,
-        "en": 72
+        "en": 2900.0
       },
       "photos": [
         "foto/lalive-me-time-mum-200-gr/1.webp",
@@ -25872,7 +25872,7 @@
       },
       "price": {
         "tr": 620.0,
-        "en": 16
+        "en": 620.0
       },
       "photos": [
         "foto/sakin-tatli-esansiyel-yag-karisimi/1.webp",
@@ -26571,7 +26571,7 @@
       },
       "price": {
         "tr": 620.0,
-        "en": 16
+        "en": 620.0
       },
       "photos": [
         "foto/taze-aydinlik-esansiyel-yag-karisimi/1.webp",
@@ -28699,7 +28699,7 @@
       },
       "price": {
         "tr": 3775.0,
-        "en": 94
+        "en": 3775.0
       },
       "photos": [
         "foto/dogal-bakim-ve-koklenme-kutusu/1.webp",
@@ -30950,7 +30950,7 @@
       },
       "price": {
         "tr": 4910.0,
-        "en": 123
+        "en": 4910.0
       },
       "photos": [
         "foto/isilti-dogal-guzellik-kutusu/1.webp",
@@ -33301,7 +33301,7 @@
       },
       "price": {
         "tr": 4500.0,
-        "en": 112
+        "en": 4500.0
       },
       "photos": [
         "foto/lalive-hediye-kutusu-birinci-set/1.webp",
@@ -35399,7 +35399,7 @@
       },
       "price": {
         "tr": 3250.0,
-        "en": 81
+        "en": 3250.0
       },
       "photos": [
         "foto/lalive-hediye-kutusu-i̇kinci-set/1.webp",
@@ -36030,7 +36030,7 @@
       },
       "price": {
         "tr": 1550.0,
-        "en": 39
+        "en": 1550.0
       },
       "photos": [
         "foto/lalive-dogal-dus-jeli-lime-nane/1.webp",
@@ -36715,7 +36715,7 @@
       },
       "price": {
         "tr": 1550.0,
-        "en": 39
+        "en": 1550.0
       },
       "photos": [
         "foto/lalive-dogal-dus-jeli-vanilya/1.webp",
@@ -37968,7 +37968,7 @@
       },
       "price": {
         "tr": 850.0,
-        "en": 21
+        "en": 850.0
       },
       "photos": [
         "foto/lalive-lavanta-kati-sabun/1.webp",
@@ -38752,7 +38752,7 @@
       },
       "price": {
         "tr": 950.0,
-        "en": 24
+        "en": 950.0
       },
       "photos": [
         "foto/lalive-sivi-kastil-sabun-portakal/1.webp",
@@ -39597,7 +39597,7 @@
       },
       "price": {
         "tr": 1300.0,
-        "en": 32
+        "en": 1300.0
       },
       "photos": [
         "foto/lalive-sivi-kastil-sabun-portakal-refill-600-ml/1.webp"
@@ -40405,7 +40405,7 @@
       },
       "price": {
         "tr": 1300.0,
-        "en": 32
+        "en": 1300.0
       },
       "photos": [
         "foto/lalive-sivi-kastil-sabun-sandal-agaci-refill-600-ml/1.webp"
@@ -41207,7 +41207,7 @@
       },
       "price": {
         "tr": 950.0,
-        "en": 24
+        "en": 950.0
       },
       "photos": [
         "foto/lalive-sivi-kastil-sabun-sandalagaci/1.webp",
@@ -41982,7 +41982,7 @@
       },
       "price": {
         "tr": 950.0,
-        "en": 24
+        "en": 950.0
       },
       "photos": [
         "foto/lalive-sivi-kastil-sabun-vanilya/1.webp",
@@ -42811,7 +42811,7 @@
       },
       "price": {
         "tr": 1300.0,
-        "en": 32
+        "en": 1300.0
       },
       "photos": [
         "foto/lalive-sivi-kastil-sabun-vanilya-refill-600-ml/1.webp"
@@ -43697,7 +43697,7 @@
       },
       "price": {
         "tr": 850.0,
-        "en": 21
+        "en": 850.0
       },
       "photos": [
         "foto/lalive-zeytinyagi-kati-sabun/1.webp",
@@ -44325,7 +44325,7 @@
       },
       "price": {
         "tr": 1200.0,
-        "en": 30
+        "en": 1200.0
       },
       "photos": [
         "foto/lalive-sac-bakim-suyu-125-ml/1.webp",
@@ -44984,7 +44984,7 @@
       },
       "price": {
         "tr": 900.0,
-        "en": 22
+        "en": 900.0
       },
       "photos": [
         "foto/lalive-sac-bakim-yagi-biberiye-yagi/1.webp",
@@ -45630,7 +45630,7 @@
       },
       "price": {
         "tr": 1200.0,
-        "en": 30
+        "en": 1200.0
       },
       "photos": [
         "foto/lalive-sac-bakim-yagi-vanilya/1.webp",
@@ -46691,7 +46691,7 @@
       },
       "price": {
         "tr": 845.0,
-        "en": 21
+        "en": 845.0
       },
       "photos": [
         "foto/sac-derisi-masaj-tarak-yenileyici-etki/1.webp",
@@ -48977,7 +48977,7 @@
       },
       "price": {
         "tr": 4600.0,
-        "en": 115
+        "en": 4600.0
       },
       "photos": [
         "foto/butunsel-yaz-bakim-ritueli/1.webp"
@@ -50258,7 +50258,7 @@
       },
       "price": {
         "tr": 2635.0,
-        "en": 66
+        "en": 2635.0
       },
       "photos": [
         "foto/dogal-dus-jeli-i̇kili-set/1.webp",
@@ -52273,7 +52273,7 @@
       },
       "price": {
         "tr": 3500.0,
-        "en": 88
+        "en": 3500.0
       },
       "photos": [
         "foto/erkek-bakim-seti/1.webp",
@@ -53539,7 +53539,7 @@
       },
       "price": {
         "tr": 1000.0,
-        "en": 25
+        "en": 1000.0
       },
       "photos": [
         "foto/esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli/1.webp",
@@ -55317,7 +55317,7 @@
       },
       "price": {
         "tr": 2990.0,
-        "en": 75
+        "en": 2990.0
       },
       "photos": [
         "foto/kuru-ciltlere-ozel-set-dogal-nem-takviyesi-parlaklik/1.webp"
@@ -57738,7 +57738,7 @@
       },
       "price": {
         "tr": 4950.0,
-        "en": 124
+        "en": 4950.0
       },
       "photos": [
         "foto/lalive-butunsel-arinma-detoks-set/1.webp",
@@ -59090,7 +59090,7 @@
       },
       "price": {
         "tr": 2500.0,
-        "en": 62
+        "en": 2500.0
       },
       "photos": [
         "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/1.webp",
@@ -60551,7 +60551,7 @@
       },
       "price": {
         "tr": 2250.0,
-        "en": 56
+        "en": 2250.0
       },
       "photos": [
         "foto/lalive-lenf-drenaj-masaj-seti/1.webp",
@@ -61653,7 +61653,7 @@
       },
       "price": {
         "tr": 3250.0,
-        "en": 81
+        "en": 3250.0
       },
       "photos": [
         "foto/lalive-natural-x-lando-esansiyel-yag-seti/1.webp",
@@ -62766,7 +62766,7 @@
       },
       "price": {
         "tr": 1990.0,
-        "en": 50
+        "en": 1990.0
       },
       "photos": [
         "foto/lalive-sac-bakim-masaj-seti/1.webp",
@@ -63876,7 +63876,7 @@
       },
       "price": {
         "tr": 1750.0,
-        "en": 44
+        "en": 1750.0
       },
       "photos": [
         "foto/lalive-sac-bakim-seti/1.webp",
@@ -66326,7 +66326,7 @@
       },
       "price": {
         "tr": 7800.0,
-        "en": 195
+        "en": 7800.0
       },
       "photos": [
         "foto/lalive-self-care-set/1.webp",
@@ -68124,7 +68124,7 @@
       },
       "price": {
         "tr": 3170.0,
-        "en": 79
+        "en": 3170.0
       },
       "photos": [
         "foto/lalive-yaz-seti/1.webp"
@@ -69413,7 +69413,7 @@
       },
       "price": {
         "tr": 2750.0,
-        "en": 69
+        "en": 2750.0
       },
       "photos": [
         "foto/lalive-yazin-i̇kilisi-isilti-koruma-seti/1.webp",
@@ -71175,7 +71175,7 @@
       },
       "price": {
         "tr": 3500.0,
-        "en": 88
+        "en": 3500.0
       },
       "photos": [
         "foto/lalive-yazin-uclusu/1.webp",
@@ -72877,7 +72877,7 @@
       },
       "price": {
         "tr": 3990.0,
-        "en": 100
+        "en": 3990.0
       },
       "photos": [
         "foto/lalive-yuz-bakim-koruma-seti-1/1.webp"
@@ -74086,7 +74086,7 @@
       },
       "price": {
         "tr": 2350.0,
-        "en": 59
+        "en": 2350.0
       },
       "photos": [
         "foto/lalive-yuz-bakim-seti-1/1.webp"
@@ -76007,7 +76007,7 @@
       },
       "price": {
         "tr": 3000.0,
-        "en": 75
+        "en": 3000.0
       },
       "photos": [
         "foto/lenf-drenaj-rituel-seti/1.webp",
@@ -77613,7 +77613,7 @@
       },
       "price": {
         "tr": 2600.0,
-        "en": 65
+        "en": 2600.0
       },
       "photos": [
         "foto/sac-bakim-ritueli-onarici-guclendirici/1.webp"
@@ -79806,7 +79806,7 @@
       },
       "price": {
         "tr": 5790.0,
-        "en": 145
+        "en": 5790.0
       },
       "photos": [
         "foto/tamamlayici-rituel-seti/1.webp",
@@ -81016,7 +81016,7 @@
       },
       "price": {
         "tr": 2800.0,
-        "en": 70
+        "en": 2800.0
       },
       "photos": [
         "foto/temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi/1.webp",
@@ -82902,7 +82902,7 @@
       },
       "price": {
         "tr": 4450.0,
-        "en": 111
+        "en": 4450.0
       },
       "photos": [
         "foto/tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi/1.webp",
@@ -83605,7 +83605,7 @@
       },
       "price": {
         "tr": 1750.0,
-        "en": 44
+        "en": 1750.0
       },
       "photos": [
         "foto/lalive-dogal-vucut-losyonu-yasemin/1.webp",
@@ -84237,7 +84237,7 @@
       },
       "price": {
         "tr": 550.0,
-        "en": 14
+        "en": 550.0
       },
       "photos": [
         "foto/lalive-roll-on/1.webp",
@@ -84780,7 +84780,7 @@
       },
       "price": {
         "tr": 990.0,
-        "en": 25
+        "en": 990.0
       },
       "photos": [
         "foto/lalive-seyahat-boy-vucut-yagi-75-ml/1.webp",
@@ -85593,7 +85593,7 @@
       },
       "price": {
         "tr": 1950.0,
-        "en": 49
+        "en": 1950.0
       },
       "photos": [
         "foto/lalive-vucut-yagi/1.webp",
@@ -86043,7 +86043,7 @@
       },
       "price": {
         "tr": 795.0,
-        "en": 20
+        "en": 795.0
       },
       "photos": [
         "foto/kas-kirpik-bakim-yagi/1.webp",
@@ -86816,7 +86816,7 @@
       },
       "price": {
         "tr": 845.0,
-        "en": 21
+        "en": 845.0
       },
       "photos": [
         "foto/lalive-dogal-dudak-balmi-vanilya/1.webp",
@@ -87853,7 +87853,7 @@
       },
       "price": {
         "tr": 990.0,
-        "en": 25
+        "en": 990.0
       },
       "photos": [
         "foto/lalive-lavanta-goz-bandi/1.webp",
@@ -89264,7 +89264,7 @@
       },
       "price": {
         "tr": 850.0,
-        "en": 21
+        "en": 850.0
       },
       "photos": [
         "foto/lalive-lenfatik-yuz-fircasi/1.webp",
@@ -89423,22 +89423,6 @@
         "tr": "Tek ürün",
         "en": "Single"
       }
-    },
-    {
-      "size": 2,
-      "factor": 0.95,
-      "label": {
-        "tr": "İkili · %5 avantaj",
-        "en": "Duo · save 5%"
-      }
-    },
-    {
-      "size": 3,
-      "factor": 0.9,
-      "label": {
-        "tr": "Üçlü · %10 avantaj",
-        "en": "Trio · save 10%"
-      }
     }
   ],
   "prices": {
@@ -89446,23 +89430,19 @@
       "currency": "TRY",
       "locale": "tr-TR",
       "packs": {
-        "1": 890,
-        "2": 1690,
-        "3": 2390
+        "1": 890
       },
       "freeShipping": 1500,
       "shipping": 79.9
     },
     "en": {
-      "currency": "USD",
-      "locale": "en-US",
+      "currency": "TRY",
+      "locale": "en-GB",
       "packs": {
-        "1": 29,
-        "2": 55,
-        "3": 78
+        "1": 890
       },
-      "freeShipping": 80,
-      "shipping": 7.9
+      "freeShipping": 1500,
+      "shipping": 79.9
     }
   },
   "subDiscount": 0,
@@ -89553,8 +89533,8 @@
           "doğal formül"
         ],
         [
-          "Vegan",
-          "tüm ürünler"
+          "0",
+          "hayvan deneyi (cruelty-free)"
         ],
         [
           "1",
@@ -89589,11 +89569,11 @@
       "stats": [
         [
           "100%",
-          "natural formulas"
+          "natural formula"
         ],
         [
-          "Vegan",
-          "every product"
+          "0",
+          "animal testing (cruelty-free)"
         ],
         [
           "1",
@@ -89614,7 +89594,7 @@
       ],
       [
         "Ürünler vegan mı?",
-        "Evet. Tüm Lalive bakım ürünleri tamamen doğal, katkısız ve vegan formüllerle üretiliyor."
+        "Ürünlerin büyük çoğunluğu vegandır; formüllerde hayvansal kökenli içerik kullanılmaz. Vegan olmayan tek ürün Doğal At Kılı Fırçası'dır; vegan alternatif olarak Tampiko Otu Fırça önerilir. Hiçbir ürün hayvanlar üzerinde test edilmez."
       ],
       [
         "Güneş kremi hangi filtreyi kullanıyor?",
@@ -89622,11 +89602,19 @@
       ],
       [
         "Ambalajlar geri dönüştürülebilir mi?",
-        "Lalive, ekolojik ayak izini en aza indirmek için geri dönüştürülebilir ambalajlar kullanmayı hedefliyor."
+        "Lalive geri dönüştürülmüş, geri dönüştürülebilir ve çevreye dost ambalajları tercih ediyor; kargo ve operasyonda kullanılan tüm materyaller geri dönüştürülebilir kâğıttan."
       ],
       [
-        "Kargo ve hediye paketi nasıl işliyor?",
-        "Bu demo sayfada örnek akış gösteriliyor: aynı gün kargo ve ücretsiz hediye paketi. Gerçek koşullar markayla birlikte belirlenecek."
+        "Sipariş ne zaman kargoya verilir, ne zaman ulaşır?",
+        "Sipariş ortalama 1 iş günü içinde kargoya verilir. İstanbul içine ortalama 3, İstanbul dışına ortalama 5 iş gününde ulaşır; Cuma 16.00'dan sonraki siparişler Pazartesi işleme alınır. 3.500 ₺ ve üzeri alışverişlerde tote çanta hediye."
+      ],
+      [
+        "İade nasıl yapılır?",
+        "Açılmamış ürünler için teslimattan itibaren 14 gün içinde iade talebinde bulunabilirsin (bilgi@lalivenatural.com). Hijyen gereği açılmış ürünlerde iade yalnızca ayıplı ürün ya da alerjik reaksiyon durumunda değerlendirilir."
+      ],
+      [
+        "Ürünler nerede üretiliyor?",
+        "Tüm Lalive ürünleri Türkiye'de geliştirilip üretilir ve T.C. Sağlık Bakanlığı ÜTS'ye kayıtlıdır. Ürünler unisex'tir."
       ]
     ],
     "en": [
@@ -89640,7 +89628,7 @@
       ],
       [
         "Are the products vegan?",
-        "Yes. Every Lalive care product is made with fully natural, additive-free, vegan formulas."
+        "Most products are vegan; no animal-derived ingredients are used in the formulas. The only non-vegan product is the Natural Horsehair Brush (the Tampico Brush is the vegan alternative). Nothing is ever tested on animals."
       ],
       [
         "Which filter does the sunscreen use?",
@@ -89648,11 +89636,19 @@
       ],
       [
         "Is the packaging recyclable?",
-        "Lalive aims to use recyclable packaging to minimise its ecological footprint."
+        "Lalive prefers recycled, recyclable and eco-friendly packaging; all shipping materials are recyclable paper."
       ],
       [
-        "How do shipping and gift wrapping work?",
-        "This demo shows a sample flow: same-day dispatch and free gift wrapping. Real terms will be set with the brand."
+        "When does my order ship and arrive?",
+        "Orders ship within 1 business day on average and arrive in about 3 business days within Istanbul and 5 elsewhere in Türkiye. Orders over ₺3,500 get a free tote bag."
+      ],
+      [
+        "How do returns work?",
+        "Unopened products can be returned within 14 days of delivery (bilgi@lalivenatural.com). For hygiene reasons, opened products are only accepted if faulty or in case of an allergic reaction."
+      ],
+      [
+        "Where are the products made?",
+        "All Lalive products are developed and made in Türkiye and registered in the Ministry of Health's ÜTS system. All products are unisex."
       ]
     ]
   },
@@ -89670,7 +89666,7 @@
         "İyi yaşamak",
         "Assos · Koruoba",
         "%100 doğal",
-        "Vegan",
+        "Cruelty-free",
         "El emeği",
         "Zeytinyağıyla bakım"
       ],
@@ -89698,14 +89694,27 @@
       "drag": "Ürünü çevirmek için sürükle",
       "inCan": "Bu adımda",
       "shopTitle": "Rutinini oluştur",
-      "shopTag": "Ürününü ve setini seç; gerisini doğal bir hediye gibi paketleriz.",
+      "shopTag": "Ürününü seç, adedini belirle; siparişin geri dönüştürülebilir kâğıtla paketlenip yola çıkar.",
       "flavor": "Ürün",
       "mix": "Karışık set",
       "size": "Paket",
       "cans": "adet",
       "packPerCan": "%100 doğal · {0}",
       "family": "Kategori",
-      "caffeine": "Yalnızca harici kullanım içindir; göz ile temasından kaçının."
+      "caffeine": "Yalnızca harici kullanım içindir; göz ile temasından kaçının.",
+      "perks": [
+        "3.500 ₺ üzeri alışverişte tote çanta hediye",
+        "Ortalama 1 iş gününde kargoda",
+        "Geri dönüştürülebilir paketleme"
+      ],
+      "goalLeft": "Tote çanta hediyesine {0} kaldı",
+      "goalDone": "Tote çanta hediyen sepette seçilebilir",
+      "shipLater": "Ödemede hesaplanır",
+      "taxes": "KDV dahil · İstanbul içi ~3, dışı ~5 iş günü · 14 gün iade",
+      "checkoutNote": "Ödeme lalivenatural.com'da güvenle tamamlanır",
+      "variant": "Seçenek",
+      "related": "Benzer ürünler",
+      "buildBox": "Ürünleri keşfet"
     },
     "en": {
       "loading": "Preparing your natural care ritual",
@@ -89720,9 +89729,9 @@
         "Living well",
         "Assos · Koruoba",
         "100% natural",
-        "Vegan",
+        "Cruelty-free",
         "Handmade",
-        "Care with olive oil"
+        "Olive oil care"
       ],
       "slogan": "Live well.",
       "nav": {
@@ -89748,14 +89757,27 @@
       "drag": "Drag to turn the product",
       "inCan": "In this step",
       "shopTitle": "Build your routine",
-      "shopTag": "Pick your product and set; we'll wrap it like a natural gift.",
+      "shopTag": "Pick your product and quantity; your order ships in recyclable paper packaging.",
       "flavor": "Product",
       "mix": "Mixed set",
       "size": "Pack",
       "cans": "pcs",
       "packPerCan": "100% natural · {0}",
       "family": "Category",
-      "caffeine": "For external use only; avoid contact with eyes."
+      "caffeine": "For external use only; avoid contact with eyes.",
+      "perks": [
+        "Free tote bag on orders over ₺3,500",
+        "Ships in 1 business day on average",
+        "Recyclable packaging"
+      ],
+      "goalLeft": "{0} away from a free tote bag",
+      "goalDone": "Your free tote bag can be picked in the cart",
+      "shipLater": "Calculated at checkout",
+      "taxes": "VAT included · ~3 business days in Istanbul, ~5 elsewhere · 14-day returns",
+      "checkoutNote": "Checkout is completed securely on lalivenatural.com",
+      "variant": "Option",
+      "related": "Similar products",
+      "buildBox": "Explore products"
     }
   },
   "packUnit": "adet",
@@ -89931,7 +89953,7 @@
         "size": null,
         "price": {
           "tr": 845.0,
-          "en": 21
+          "en": 845.0
         },
         "exactPrice": true,
         "desc": {
@@ -89942,7 +89964,12 @@
         "product": 2,
         "image": "cut/lalive-dudak-balmi.webp",
         "cutout": true,
-        "photo": "foto/lalive-dudak-balmi/2.webp"
+        "photo": "foto/lalive-dudak-balmi/2.webp",
+        "variants": [
+          {
+            "id": 51895874683198
+          }
+        ]
       },
       {
         "id": "dogal-yuz-misti",
@@ -89954,7 +89981,7 @@
         "size": null,
         "price": {
           "tr": 1200.0,
-          "en": 30
+          "en": 1200.0
         },
         "exactPrice": true,
         "desc": {
@@ -89965,7 +89992,12 @@
         "product": 4,
         "image": "cut/lalive-dogal-yuz-misti.webp",
         "cutout": true,
-        "photo": "foto/lalive-dogal-yuz-misti/2.webp"
+        "photo": "foto/lalive-dogal-yuz-misti/2.webp",
+        "variants": [
+          {
+            "id": 53413652758846
+          }
+        ]
       },
       {
         "id": "besleyici-yuz-bakim-yagi",
@@ -89977,7 +90009,7 @@
         "size": null,
         "price": {
           "tr": 1650.0,
-          "en": 41
+          "en": 1650.0
         },
         "exactPrice": true,
         "desc": {
@@ -89988,7 +90020,12 @@
         "product": 5,
         "image": "cut/lalive-besleyici-yuz-bakim-yagi.webp",
         "cutout": true,
-        "photo": "foto/lalive-besleyici-yuz-bakim-yagi/2.webp"
+        "photo": "foto/lalive-besleyici-yuz-bakim-yagi/2.webp",
+        "variants": [
+          {
+            "id": 53755841446206
+          }
+        ]
       },
       {
         "id": "kas-kirpik-bakim-yagi",
@@ -90000,7 +90037,7 @@
         "size": null,
         "price": {
           "tr": 795.0,
-          "en": 20
+          "en": 795.0
         },
         "exactPrice": true,
         "desc": {
@@ -90011,7 +90048,12 @@
         "product": 73,
         "image": "cut/kas-kirpik-bakim-yagi.webp",
         "cutout": true,
-        "photo": "foto/kas-kirpik-bakim-yagi/2.webp"
+        "photo": "foto/kas-kirpik-bakim-yagi/2.webp",
+        "variants": [
+          {
+            "id": 52585832317246
+          }
+        ]
       },
       {
         "id": "dogal-dudak-balmi-vanilya",
@@ -90023,7 +90065,7 @@
         "size": null,
         "price": {
           "tr": 845.0,
-          "en": 21
+          "en": 845.0
         },
         "exactPrice": true,
         "desc": {
@@ -90034,7 +90076,12 @@
         "product": 74,
         "image": "cut/lalive-dogal-dudak-balmi-vanilya.webp",
         "cutout": true,
-        "photo": "foto/lalive-dogal-dudak-balmi-vanilya/2.webp"
+        "photo": "foto/lalive-dogal-dudak-balmi-vanilya/2.webp",
+        "variants": [
+          {
+            "id": 53422977286462
+          }
+        ]
       },
       {
         "id": "lavanta-goz-bandi",
@@ -90046,7 +90093,7 @@
         "size": null,
         "price": {
           "tr": 990.0,
-          "en": 25
+          "en": 990.0
         },
         "exactPrice": true,
         "desc": {
@@ -90057,7 +90104,12 @@
         "product": 75,
         "image": "cut/lalive-lavanta-goz-bandi.webp",
         "cutout": true,
-        "photo": "foto/lalive-lavanta-goz-bandi/3.webp"
+        "photo": "foto/lalive-lavanta-goz-bandi/3.webp",
+        "variants": [
+          {
+            "id": 53341050896702
+          }
+        ]
       },
       {
         "id": "lenfatik-yuz-fircasi",
@@ -90069,7 +90121,7 @@
         "size": null,
         "price": {
           "tr": 850.0,
-          "en": 21
+          "en": 850.0
         },
         "exactPrice": true,
         "desc": {
@@ -90079,7 +90131,12 @@
         "color": "#723d14",
         "product": 76,
         "image": "cut/lalive-lenfatik-yuz-fircasi.webp",
-        "cutout": true
+        "cutout": true,
+        "variants": [
+          {
+            "id": 54113892139326
+          }
+        ]
       },
       {
         "id": "dogal-bakim-ve-koklenme-kutusu",
@@ -90091,7 +90148,7 @@
         "size": null,
         "price": {
           "tr": 3775.0,
-          "en": 94
+          "en": 3775.0
         },
         "exactPrice": true,
         "desc": {
@@ -90102,7 +90159,17 @@
         "product": 29,
         "image": "cut/dogal-bakim-ve-koklenme-kutusu.webp",
         "cutout": true,
-        "photo": "foto/dogal-bakim-ve-koklenme-kutusu/1.webp"
+        "photo": "foto/dogal-bakim-ve-koklenme-kutusu/1.webp",
+        "variants": [
+          {
+            "id": 52749035209022,
+            "title": "Kırmızı"
+          },
+          {
+            "id": 52749035241790,
+            "title": "Beyaz"
+          }
+        ]
       },
       {
         "id": "isilti-dogal-guzellik-kutusu",
@@ -90114,7 +90181,7 @@
         "size": null,
         "price": {
           "tr": 4910.0,
-          "en": 123
+          "en": 4910.0
         },
         "exactPrice": true,
         "desc": {
@@ -90125,7 +90192,17 @@
         "product": 30,
         "image": "cut/isilti-dogal-guzellik-kutusu.webp",
         "cutout": true,
-        "photo": "foto/isilti-dogal-guzellik-kutusu/1.webp"
+        "photo": "foto/isilti-dogal-guzellik-kutusu/1.webp",
+        "variants": [
+          {
+            "id": 52749036159294,
+            "title": "Kırmızı"
+          },
+          {
+            "id": 52749036192062,
+            "title": "Beyaz"
+          }
+        ]
       },
       {
         "id": "hediye-kutusu-birinci-set",
@@ -90137,7 +90214,7 @@
         "size": null,
         "price": {
           "tr": 4500.0,
-          "en": 112
+          "en": 4500.0
         },
         "exactPrice": true,
         "desc": {
@@ -90148,7 +90225,12 @@
         "product": 31,
         "image": "cut/lalive-hediye-kutusu-birinci-set.webp",
         "cutout": true,
-        "photo": "foto/lalive-hediye-kutusu-birinci-set/1.webp"
+        "photo": "foto/lalive-hediye-kutusu-birinci-set/1.webp",
+        "variants": [
+          {
+            "id": 51001004982590
+          }
+        ]
       },
       {
         "id": "hediye-kutusu-i̇kinci-set",
@@ -90160,7 +90242,7 @@
         "size": null,
         "price": {
           "tr": 3250.0,
-          "en": 81
+          "en": 3250.0
         },
         "exactPrice": true,
         "desc": {
@@ -90171,7 +90253,12 @@
         "product": 32,
         "image": "cut/lalive-hediye-kutusu-i̇kinci-set.webp",
         "cutout": true,
-        "photo": "foto/lalive-hediye-kutusu-i̇kinci-set/1.webp"
+        "photo": "foto/lalive-hediye-kutusu-i̇kinci-set/1.webp",
+        "variants": [
+          {
+            "id": 51001003082046
+          }
+        ]
       },
       {
         "id": "butunsel-yaz-bakim-ritueli",
@@ -90183,7 +90270,7 @@
         "size": null,
         "price": {
           "tr": 4600.0,
-          "en": 115
+          "en": 4600.0
         },
         "exactPrice": true,
         "desc": {
@@ -90196,9 +90283,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 6575.0,
-          "en": 164
+          "en": 6575.0
         },
-        "photo": "foto/butunsel-yaz-bakim-ritueli/1.webp"
+        "photo": "foto/butunsel-yaz-bakim-ritueli/1.webp",
+        "variants": [
+          {
+            "id": 53521307435326
+          }
+        ]
       },
       {
         "id": "dogal-dus-jeli-i̇kili-set",
@@ -90210,7 +90302,7 @@
         "size": null,
         "price": {
           "tr": 2635.0,
-          "en": 66
+          "en": 2635.0
         },
         "exactPrice": true,
         "desc": {
@@ -90223,9 +90315,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 3100.0,
-          "en": 78
+          "en": 3100.0
         },
-        "photo": "foto/dogal-dus-jeli-i̇kili-set/1.webp"
+        "photo": "foto/dogal-dus-jeli-i̇kili-set/1.webp",
+        "variants": [
+          {
+            "id": 53187436216638
+          }
+        ]
       },
       {
         "id": "erkek-bakim-seti",
@@ -90237,7 +90334,7 @@
         "size": null,
         "price": {
           "tr": 3500.0,
-          "en": 88
+          "en": 3500.0
         },
         "exactPrice": true,
         "desc": {
@@ -90250,9 +90347,23 @@
         "cutout": true,
         "compareAt": {
           "tr": 4625.0,
-          "en": 116
+          "en": 4625.0
         },
-        "photo": "foto/erkek-bakim-seti/1.webp"
+        "photo": "foto/erkek-bakim-seti/1.webp",
+        "variants": [
+          {
+            "id": 52305210999102,
+            "title": "Krem"
+          },
+          {
+            "id": 52305211031870,
+            "title": "Yeşil"
+          },
+          {
+            "id": 52305211064638,
+            "title": "Kahverengi"
+          }
+        ]
       },
       {
         "id": "esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli",
@@ -90264,7 +90375,7 @@
         "size": null,
         "price": {
           "tr": 1000.0,
-          "en": 25
+          "en": 1000.0
         },
         "exactPrice": true,
         "desc": {
@@ -90277,9 +90388,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 1400.0,
-          "en": 35
+          "en": 1400.0
         },
-        "photo": "foto/esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli/1.webp"
+        "photo": "foto/esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli/1.webp",
+        "variants": [
+          {
+            "id": 52852229046590
+          }
+        ]
       },
       {
         "id": "kuru-ciltlere-ozel-set-dogal-nem-takviyesi-parlaklik",
@@ -90291,7 +90407,7 @@
         "size": null,
         "price": {
           "tr": 2990.0,
-          "en": 75
+          "en": 2990.0
         },
         "exactPrice": true,
         "desc": {
@@ -90304,9 +90420,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 3250.0,
-          "en": 81
+          "en": 3250.0
         },
-        "photo": "foto/kuru-ciltlere-ozel-set-dogal-nem-takviyesi-parlaklik/1.webp"
+        "photo": "foto/kuru-ciltlere-ozel-set-dogal-nem-takviyesi-parlaklik/1.webp",
+        "variants": [
+          {
+            "id": 52285450748222
+          }
+        ]
       },
       {
         "id": "butunsel-arinma-detoks-set",
@@ -90318,7 +90439,7 @@
         "size": null,
         "price": {
           "tr": 4950.0,
-          "en": 124
+          "en": 4950.0
         },
         "exactPrice": true,
         "desc": {
@@ -90331,9 +90452,19 @@
         "cutout": true,
         "compareAt": {
           "tr": 7090.0,
-          "en": 177
+          "en": 7090.0
         },
-        "photo": "foto/lalive-butunsel-arinma-detoks-set/1.webp"
+        "photo": "foto/lalive-butunsel-arinma-detoks-set/1.webp",
+        "variants": [
+          {
+            "id": 54363891990846,
+            "title": "Lime · Nane · Okaliptüs"
+          },
+          {
+            "id": 54363892023614,
+            "title": "Vanilya · Lavanta · Portakal"
+          }
+        ]
       },
       {
         "id": "canlandirici-yuz-bakim-ritueli-seti",
@@ -90345,7 +90476,7 @@
         "size": null,
         "price": {
           "tr": 2500.0,
-          "en": 62
+          "en": 2500.0
         },
         "exactPrice": true,
         "desc": {
@@ -90356,7 +90487,12 @@
         "product": 53,
         "image": "cut/lalive-canlandirici-yuz-bakim-ritueli-seti.webp",
         "cutout": true,
-        "photo": "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/1.webp"
+        "photo": "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/1.webp",
+        "variants": [
+          {
+            "id": 54346196812094
+          }
+        ]
       },
       {
         "id": "lenf-drenaj-masaj-seti",
@@ -90368,7 +90504,7 @@
         "size": null,
         "price": {
           "tr": 2250.0,
-          "en": 56
+          "en": 2250.0
         },
         "exactPrice": true,
         "desc": {
@@ -90381,9 +90517,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 2500.0,
-          "en": 62
+          "en": 2500.0
         },
-        "photo": "foto/lalive-lenf-drenaj-masaj-seti/1.webp"
+        "photo": "foto/lalive-lenf-drenaj-masaj-seti/1.webp",
+        "variants": [
+          {
+            "id": 50390778773822
+          }
+        ]
       },
       {
         "id": "natural-x-lando-esansiyel-yag-seti",
@@ -90395,7 +90536,7 @@
         "size": null,
         "price": {
           "tr": 3250.0,
-          "en": 81
+          "en": 3250.0
         },
         "exactPrice": true,
         "desc": {
@@ -90408,9 +90549,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 3950.0,
-          "en": 99
+          "en": 3950.0
         },
-        "photo": "foto/lalive-natural-x-lando-esansiyel-yag-seti/2.webp"
+        "photo": "foto/lalive-natural-x-lando-esansiyel-yag-seti/2.webp",
+        "variants": [
+          {
+            "id": 52799432491326
+          }
+        ]
       },
       {
         "id": "sac-bakim-masaj-seti",
@@ -90422,7 +90568,7 @@
         "size": null,
         "price": {
           "tr": 1990.0,
-          "en": 50
+          "en": 1990.0
         },
         "exactPrice": true,
         "desc": {
@@ -90435,9 +90581,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 2350.0,
-          "en": 59
+          "en": 2350.0
         },
-        "photo": "foto/lalive-sac-bakim-masaj-seti/1.webp"
+        "photo": "foto/lalive-sac-bakim-masaj-seti/1.webp",
+        "variants": [
+          {
+            "id": 52023290495294
+          }
+        ]
       },
       {
         "id": "sac-bakim-seti",
@@ -90449,7 +90600,7 @@
         "size": null,
         "price": {
           "tr": 1750.0,
-          "en": 44
+          "en": 1750.0
         },
         "exactPrice": true,
         "desc": {
@@ -90460,7 +90611,12 @@
         "product": 57,
         "image": "cut/lalive-sac-bakim-seti.webp",
         "cutout": true,
-        "photo": "foto/lalive-sac-bakim-seti/1.webp"
+        "photo": "foto/lalive-sac-bakim-seti/1.webp",
+        "variants": [
+          {
+            "id": 51615827394878
+          }
+        ]
       },
       {
         "id": "self-care-set",
@@ -90472,7 +90628,7 @@
         "size": null,
         "price": {
           "tr": 7800.0,
-          "en": 195
+          "en": 7800.0
         },
         "exactPrice": true,
         "desc": {
@@ -90483,7 +90639,12 @@
         "product": 58,
         "image": "cut/lalive-self-care-set.webp",
         "cutout": true,
-        "photo": "foto/lalive-self-care-set/1.webp"
+        "photo": "foto/lalive-self-care-set/1.webp",
+        "variants": [
+          {
+            "id": 50065199890750
+          }
+        ]
       },
       {
         "id": "yaz-seti",
@@ -90495,7 +90656,7 @@
         "size": null,
         "price": {
           "tr": 3170.0,
-          "en": 79
+          "en": 3170.0
         },
         "exactPrice": true,
         "desc": {
@@ -90508,9 +90669,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 4530.0,
-          "en": 113
+          "en": 4530.0
         },
-        "photo": "foto/lalive-yaz-seti/1.webp"
+        "photo": "foto/lalive-yaz-seti/1.webp",
+        "variants": [
+          {
+            "id": 52023246455102
+          }
+        ]
       },
       {
         "id": "yazin-i̇kilisi-isilti-koruma-seti",
@@ -90522,7 +90688,7 @@
         "size": null,
         "price": {
           "tr": 2750.0,
-          "en": 69
+          "en": 2750.0
         },
         "exactPrice": true,
         "desc": {
@@ -90535,9 +90701,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 3980.0,
-          "en": 100
+          "en": 3980.0
         },
-        "photo": "foto/lalive-yazin-i̇kilisi-isilti-koruma-seti/1.webp"
+        "photo": "foto/lalive-yazin-i̇kilisi-isilti-koruma-seti/1.webp",
+        "variants": [
+          {
+            "id": 53814609314110
+          }
+        ]
       },
       {
         "id": "yazin-uclusu",
@@ -90549,7 +90720,7 @@
         "size": null,
         "price": {
           "tr": 3500.0,
-          "en": 88
+          "en": 3500.0
         },
         "exactPrice": true,
         "desc": {
@@ -90562,9 +90733,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 5180.0,
-          "en": 130
+          "en": 5180.0
         },
-        "photo": "foto/lalive-yazin-uclusu/1.webp"
+        "photo": "foto/lalive-yazin-uclusu/1.webp",
+        "variants": [
+          {
+            "id": 53814555738430
+          }
+        ]
       },
       {
         "id": "yuz-bakim-koruma-seti-1",
@@ -90576,7 +90752,7 @@
         "size": null,
         "price": {
           "tr": 3990.0,
-          "en": 100
+          "en": 3990.0
         },
         "exactPrice": true,
         "desc": {
@@ -90589,9 +90765,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 4840.0,
-          "en": 121
+          "en": 4840.0
         },
-        "photo": "foto/lalive-yuz-bakim-koruma-seti-1/1.webp"
+        "photo": "foto/lalive-yuz-bakim-koruma-seti-1/1.webp",
+        "variants": [
+          {
+            "id": 53771227988286
+          }
+        ]
       },
       {
         "id": "yuz-bakim-seti-1",
@@ -90603,7 +90784,7 @@
         "size": null,
         "price": {
           "tr": 2350.0,
-          "en": 59
+          "en": 2350.0
         },
         "exactPrice": true,
         "desc": {
@@ -90616,9 +90797,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 2800.0,
-          "en": 70
+          "en": 2800.0
         },
-        "photo": "foto/lalive-yuz-bakim-seti-1/1.webp"
+        "photo": "foto/lalive-yuz-bakim-seti-1/1.webp",
+        "variants": [
+          {
+            "id": 53771215339838
+          }
+        ]
       },
       {
         "id": "lenf-drenaj-rituel-seti",
@@ -90630,7 +90816,7 @@
         "size": null,
         "price": {
           "tr": 3000.0,
-          "en": 75
+          "en": 3000.0
         },
         "exactPrice": true,
         "desc": {
@@ -90643,9 +90829,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 3790.0,
-          "en": 95
+          "en": 3790.0
         },
-        "photo": "foto/lenf-drenaj-rituel-seti/1.webp"
+        "photo": "foto/lenf-drenaj-rituel-seti/1.webp",
+        "variants": [
+          {
+            "id": 52990088905022
+          }
+        ]
       },
       {
         "id": "sac-bakim-ritueli-onarici-guclendirici",
@@ -90657,7 +90848,7 @@
         "size": null,
         "price": {
           "tr": 2600.0,
-          "en": 65
+          "en": 2600.0
         },
         "exactPrice": true,
         "desc": {
@@ -90670,9 +90861,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 3725.0,
-          "en": 93
+          "en": 3725.0
         },
-        "photo": "foto/sac-bakim-ritueli-onarici-guclendirici/1.webp"
+        "photo": "foto/sac-bakim-ritueli-onarici-guclendirici/1.webp",
+        "variants": [
+          {
+            "id": 53521304715582
+          }
+        ]
       },
       {
         "id": "tamamlayici-rituel-seti",
@@ -90684,7 +90880,7 @@
         "size": null,
         "price": {
           "tr": 5790.0,
-          "en": 145
+          "en": 5790.0
         },
         "exactPrice": true,
         "desc": {
@@ -90697,9 +90893,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 6800.0,
-          "en": 170
+          "en": 6800.0
         },
-        "photo": "foto/tamamlayici-rituel-seti/1.webp"
+        "photo": "foto/tamamlayici-rituel-seti/1.webp",
+        "variants": [
+          {
+            "id": 53187445227838
+          }
+        ]
       },
       {
         "id": "temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi",
@@ -90711,7 +90912,7 @@
         "size": null,
         "price": {
           "tr": 2800.0,
-          "en": 70
+          "en": 2800.0
         },
         "exactPrice": true,
         "desc": {
@@ -90724,9 +90925,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 3300.0,
-          "en": 82
+          "en": 3300.0
         },
-        "photo": "foto/temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi/1.webp"
+        "photo": "foto/temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi/1.webp",
+        "variants": [
+          {
+            "id": 53187389096254
+          }
+        ]
       },
       {
         "id": "tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi",
@@ -90738,7 +90944,7 @@
         "size": null,
         "price": {
           "tr": 4450.0,
-          "en": 111
+          "en": 4450.0
         },
         "exactPrice": true,
         "desc": {
@@ -90751,9 +90957,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 5250.0,
-          "en": 131
+          "en": 5250.0
         },
-        "photo": "foto/tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi/1.webp"
+        "photo": "foto/tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi/1.webp",
+        "variants": [
+          {
+            "id": 53187418063166
+          }
+        ]
       },
       {
         "id": "el-kremi-50-ml",
@@ -90765,7 +90976,7 @@
         "size": null,
         "price": {
           "tr": 1285.0,
-          "en": 32
+          "en": 1285.0
         },
         "exactPrice": true,
         "desc": {
@@ -90776,7 +90987,12 @@
         "product": 0,
         "image": "cut/lalive-el-kremi-50-ml.webp",
         "cutout": true,
-        "photo": "foto/lalive-el-kremi-50-ml/2.webp"
+        "photo": "foto/lalive-el-kremi-50-ml/2.webp",
+        "variants": [
+          {
+            "id": 51799778656574
+          }
+        ]
       },
       {
         "id": "mineral-filtreli-gunes-kremi",
@@ -90788,7 +91004,7 @@
         "size": null,
         "price": {
           "tr": 1900.0,
-          "en": 48
+          "en": 1900.0
         },
         "exactPrice": true,
         "desc": {
@@ -90801,9 +91017,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 2000.0,
-          "en": 50
+          "en": 2000.0
         },
-        "photo": "foto/lalive-mineral-filtreli-gunes-kremi/2.webp"
+        "photo": "foto/lalive-mineral-filtreli-gunes-kremi/2.webp",
+        "variants": [
+          {
+            "id": 51895958438206
+          }
+        ]
       },
       {
         "id": "bronzlastirici-yag",
@@ -90815,7 +91036,7 @@
         "size": null,
         "price": {
           "tr": 1850.0,
-          "en": 46
+          "en": 1850.0
         },
         "exactPrice": true,
         "desc": {
@@ -90828,9 +91049,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 1990.0,
-          "en": 50
+          "en": 1990.0
         },
-        "photo": "foto/lalive-bronzlastirici-yag/2.webp"
+        "photo": "foto/lalive-bronzlastirici-yag/2.webp",
+        "variants": [
+          {
+            "id": 49908323975486
+          }
+        ]
       },
       {
         "id": "dogal-vucut-losyonu-yasemin",
@@ -90842,7 +91068,7 @@
         "size": null,
         "price": {
           "tr": 1750.0,
-          "en": 44
+          "en": 1750.0
         },
         "exactPrice": true,
         "desc": {
@@ -90853,7 +91079,12 @@
         "product": 69,
         "image": "cut/lalive-dogal-vucut-losyonu-yasemin.webp",
         "cutout": true,
-        "photo": "foto/lalive-dogal-vucut-losyonu-yasemin/2.webp"
+        "photo": "foto/lalive-dogal-vucut-losyonu-yasemin/2.webp",
+        "variants": [
+          {
+            "id": 53187238003006
+          }
+        ]
       },
       {
         "id": "roll-on",
@@ -90865,7 +91096,7 @@
         "size": null,
         "price": {
           "tr": 550.0,
-          "en": 14
+          "en": 550.0
         },
         "exactPrice": true,
         "desc": {
@@ -90876,7 +91107,12 @@
         "product": 70,
         "image": "cut/lalive-roll-on.webp",
         "cutout": true,
-        "photo": "foto/lalive-roll-on/2.webp"
+        "photo": "foto/lalive-roll-on/2.webp",
+        "variants": [
+          {
+            "id": 52694835921214
+          }
+        ]
       },
       {
         "id": "seyahat-boy-vucut-yagi-75-ml",
@@ -90888,7 +91124,7 @@
         "size": "75 ml",
         "price": {
           "tr": 990.0,
-          "en": 25
+          "en": 990.0
         },
         "exactPrice": true,
         "desc": {
@@ -90899,7 +91135,12 @@
         "product": 71,
         "image": "cut/lalive-seyahat-boy-vucut-yagi-75-ml.webp",
         "cutout": true,
-        "photo": "foto/lalive-seyahat-boy-vucut-yagi-75-ml/2.webp"
+        "photo": "foto/lalive-seyahat-boy-vucut-yagi-75-ml/2.webp",
+        "variants": [
+          {
+            "id": 53066129670462
+          }
+        ]
       },
       {
         "id": "vucut-yagi",
@@ -90911,7 +91152,7 @@
         "size": "200 ml",
         "price": {
           "tr": 1950.0,
-          "en": 49
+          "en": 1950.0
         },
         "exactPrice": true,
         "desc": {
@@ -90922,7 +91163,12 @@
         "product": 72,
         "image": "cut/lalive-vucut-yagi.webp",
         "cutout": true,
-        "photo": "foto/lalive-vucut-yagi/2.webp"
+        "photo": "foto/lalive-vucut-yagi/2.webp",
+        "variants": [
+          {
+            "id": 48220525297982
+          }
+        ]
       },
       {
         "id": "dogal-dus-jeli-lime-nane",
@@ -90934,7 +91180,7 @@
         "size": null,
         "price": {
           "tr": 1550.0,
-          "en": 39
+          "en": 1550.0
         },
         "exactPrice": true,
         "desc": {
@@ -90945,7 +91191,12 @@
         "product": 33,
         "image": "cut/lalive-dogal-dus-jeli-lime-nane.webp",
         "cutout": true,
-        "photo": "foto/lalive-dogal-dus-jeli-lime-nane/2.webp"
+        "photo": "foto/lalive-dogal-dus-jeli-lime-nane/2.webp",
+        "variants": [
+          {
+            "id": 53187279487294
+          }
+        ]
       },
       {
         "id": "dogal-dus-jeli-vanilya",
@@ -90957,7 +91208,7 @@
         "size": null,
         "price": {
           "tr": 1550.0,
-          "en": 39
+          "en": 1550.0
         },
         "exactPrice": true,
         "desc": {
@@ -90968,7 +91219,12 @@
         "product": 34,
         "image": "cut/lalive-dogal-dus-jeli-vanilya.webp",
         "cutout": true,
-        "photo": "foto/lalive-dogal-dus-jeli-vanilya/2.webp"
+        "photo": "foto/lalive-dogal-dus-jeli-vanilya/2.webp",
+        "variants": [
+          {
+            "id": 53187289940286
+          }
+        ]
       },
       {
         "id": "lavanta-kati-sabun",
@@ -90980,7 +91236,7 @@
         "size": null,
         "price": {
           "tr": 850.0,
-          "en": 21
+          "en": 850.0
         },
         "exactPrice": true,
         "desc": {
@@ -90991,7 +91247,12 @@
         "product": 35,
         "image": "cut/lalive-lavanta-kati-sabun.webp",
         "cutout": true,
-        "photo": "foto/lalive-lavanta-kati-sabun/2.webp"
+        "photo": "foto/lalive-lavanta-kati-sabun/2.webp",
+        "variants": [
+          {
+            "id": 49908598669630
+          }
+        ]
       },
       {
         "id": "sivi-kastil-sabun-portakal",
@@ -91003,7 +91264,7 @@
         "size": "300 ml",
         "price": {
           "tr": 950.0,
-          "en": 24
+          "en": 950.0
         },
         "exactPrice": true,
         "desc": {
@@ -91013,7 +91274,12 @@
         "color": "#252421",
         "product": 36,
         "image": "cut/lalive-sivi-kastil-sabun-portakal.webp",
-        "cutout": true
+        "cutout": true,
+        "variants": [
+          {
+            "id": 53661758914878
+          }
+        ]
       },
       {
         "id": "sivi-kastil-sabun-portakal-refill-600-ml",
@@ -91025,7 +91291,7 @@
         "size": "600 ml",
         "price": {
           "tr": 1300.0,
-          "en": 32
+          "en": 1300.0
         },
         "exactPrice": true,
         "desc": {
@@ -91035,7 +91301,12 @@
         "color": "#dbc8b0",
         "product": 37,
         "image": "cut/lalive-sivi-kastil-sabun-portakal-refill-600-ml.webp",
-        "cutout": true
+        "cutout": true,
+        "variants": [
+          {
+            "id": 53980524871998
+          }
+        ]
       },
       {
         "id": "sivi-kastil-sabun-sandal-agaci-refill-600-ml",
@@ -91047,7 +91318,7 @@
         "size": "600 ml",
         "price": {
           "tr": 1300.0,
-          "en": 32
+          "en": 1300.0
         },
         "exactPrice": true,
         "desc": {
@@ -91057,7 +91328,12 @@
         "color": "#dbc8b0",
         "product": 38,
         "image": "cut/lalive-sivi-kastil-sabun-sandal-agaci-refill-600-ml.webp",
-        "cutout": true
+        "cutout": true,
+        "variants": [
+          {
+            "id": 53980500656446
+          }
+        ]
       },
       {
         "id": "sivi-kastil-sabun-sandalagaci",
@@ -91069,7 +91345,7 @@
         "size": null,
         "price": {
           "tr": 950.0,
-          "en": 24
+          "en": 950.0
         },
         "exactPrice": true,
         "desc": {
@@ -91079,7 +91355,12 @@
         "color": "#252421",
         "product": 39,
         "image": "cut/lalive-sivi-kastil-sabun-sandalagaci.webp",
-        "cutout": true
+        "cutout": true,
+        "variants": [
+          {
+            "id": 53661759832382
+          }
+        ]
       },
       {
         "id": "sivi-kastil-sabun-vanilya",
@@ -91091,7 +91372,7 @@
         "size": "300 ml",
         "price": {
           "tr": 950.0,
-          "en": 24
+          "en": 950.0
         },
         "exactPrice": true,
         "desc": {
@@ -91101,7 +91382,12 @@
         "color": "#252421",
         "product": 40,
         "image": "cut/lalive-sivi-kastil-sabun-vanilya.webp",
-        "cutout": true
+        "cutout": true,
+        "variants": [
+          {
+            "id": 53661758947646
+          }
+        ]
       },
       {
         "id": "sivi-kastil-sabun-vanilya-refill-600-ml",
@@ -91113,7 +91399,7 @@
         "size": "600 ml",
         "price": {
           "tr": 1300.0,
-          "en": 32
+          "en": 1300.0
         },
         "exactPrice": true,
         "desc": {
@@ -91123,7 +91409,12 @@
         "color": "#dbc8b0",
         "product": 41,
         "image": "cut/lalive-sivi-kastil-sabun-vanilya-refill-600-ml.webp",
-        "cutout": true
+        "cutout": true,
+        "variants": [
+          {
+            "id": 53980513042750
+          }
+        ]
       },
       {
         "id": "zeytinyagi-kati-sabun",
@@ -91135,7 +91426,7 @@
         "size": null,
         "price": {
           "tr": 850.0,
-          "en": 21
+          "en": 850.0
         },
         "exactPrice": true,
         "desc": {
@@ -91146,7 +91437,12 @@
         "product": 42,
         "image": "cut/lalive-zeytinyagi-kati-sabun.webp",
         "cutout": true,
-        "photo": "foto/lalive-zeytinyagi-kati-sabun/2.webp"
+        "photo": "foto/lalive-zeytinyagi-kati-sabun/2.webp",
+        "variants": [
+          {
+            "id": 49908615512382
+          }
+        ]
       },
       {
         "id": "sac-bakim-suyu-125-ml",
@@ -91158,7 +91454,7 @@
         "size": null,
         "price": {
           "tr": 1200.0,
-          "en": 30
+          "en": 1200.0
         },
         "exactPrice": true,
         "desc": {
@@ -91169,7 +91465,12 @@
         "product": 43,
         "image": "cut/lalive-sac-bakim-suyu-125-ml.webp",
         "cutout": true,
-        "photo": "foto/lalive-sac-bakim-suyu-125-ml/2.webp"
+        "photo": "foto/lalive-sac-bakim-suyu-125-ml/2.webp",
+        "variants": [
+          {
+            "id": 50108665725246
+          }
+        ]
       },
       {
         "id": "sac-bakim-yagi-biberiye-yagi",
@@ -91181,7 +91482,7 @@
         "size": null,
         "price": {
           "tr": 900.0,
-          "en": 22
+          "en": 900.0
         },
         "exactPrice": true,
         "desc": {
@@ -91192,7 +91493,12 @@
         "product": 44,
         "image": "cut/lalive-sac-bakim-yagi-biberiye-yagi.webp",
         "cutout": true,
-        "photo": "foto/lalive-sac-bakim-yagi-biberiye-yagi/2.webp"
+        "photo": "foto/lalive-sac-bakim-yagi-biberiye-yagi/2.webp",
+        "variants": [
+          {
+            "id": 53418424598846
+          }
+        ]
       },
       {
         "id": "sac-bakim-yagi-vanilya",
@@ -91204,7 +91510,7 @@
         "size": null,
         "price": {
           "tr": 1200.0,
-          "en": 30
+          "en": 1200.0
         },
         "exactPrice": true,
         "desc": {
@@ -91215,7 +91521,12 @@
         "product": 45,
         "image": "cut/lalive-sac-bakim-yagi-vanilya.webp",
         "cutout": true,
-        "photo": "foto/lalive-sac-bakim-yagi-vanilya/2.webp"
+        "photo": "foto/lalive-sac-bakim-yagi-vanilya/2.webp",
+        "variants": [
+          {
+            "id": 53418424697150
+          }
+        ]
       },
       {
         "id": "sac-derisi-masaj-tarak-yenileyici-etki",
@@ -91227,7 +91538,7 @@
         "size": null,
         "price": {
           "tr": 845.0,
-          "en": 21
+          "en": 845.0
         },
         "exactPrice": true,
         "desc": {
@@ -91238,7 +91549,12 @@
         "product": 46,
         "image": "cut/sac-derisi-masaj-tarak-yenileyici-etki.webp",
         "cutout": true,
-        "photo": "foto/sac-derisi-masaj-tarak-yenileyici-etki/2.webp"
+        "photo": "foto/sac-derisi-masaj-tarak-yenileyici-etki/2.webp",
+        "variants": [
+          {
+            "id": 51609793691966
+          }
+        ]
       },
       {
         "id": "me-time-mum",
@@ -91250,7 +91566,7 @@
         "size": null,
         "price": {
           "tr": 1950.0,
-          "en": 49
+          "en": 1950.0
         },
         "exactPrice": true,
         "desc": {
@@ -91261,7 +91577,12 @@
         "product": 24,
         "image": "cut/lalive-me-time-mum.webp",
         "cutout": true,
-        "photo": "foto/lalive-me-time-mum/3.webp"
+        "photo": "foto/lalive-me-time-mum/3.webp",
+        "variants": [
+          {
+            "id": 51152385245502
+          }
+        ]
       },
       {
         "id": "me-time-mum-100-gr",
@@ -91273,7 +91594,7 @@
         "size": "120 g",
         "price": {
           "tr": 2350.0,
-          "en": 59
+          "en": 2350.0
         },
         "exactPrice": true,
         "desc": {
@@ -91284,7 +91605,12 @@
         "product": 25,
         "image": "cut/lalive-me-time-mum-100-gr.webp",
         "cutout": true,
-        "photo": "foto/lalive-me-time-mum-100-gr/3.webp"
+        "photo": "foto/lalive-me-time-mum-100-gr/3.webp",
+        "variants": [
+          {
+            "id": 53311055561022
+          }
+        ]
       },
       {
         "id": "me-time-mum-200-gr",
@@ -91296,7 +91622,7 @@
         "size": "200 g",
         "price": {
           "tr": 2900.0,
-          "en": 72
+          "en": 2900.0
         },
         "exactPrice": true,
         "desc": {
@@ -91307,7 +91633,12 @@
         "product": 26,
         "image": "cut/lalive-me-time-mum-200-gr.webp",
         "cutout": true,
-        "photo": "foto/lalive-me-time-mum-200-gr/3.webp"
+        "photo": "foto/lalive-me-time-mum-200-gr/3.webp",
+        "variants": [
+          {
+            "id": 53311058968894
+          }
+        ]
       },
       {
         "id": "sakin-tatli-esansiyel-yag-karisimi",
@@ -91319,7 +91650,7 @@
         "size": null,
         "price": {
           "tr": 620.0,
-          "en": 16
+          "en": 620.0
         },
         "exactPrice": true,
         "desc": {
@@ -91330,7 +91661,12 @@
         "product": 27,
         "image": "cut/sakin-tatli-esansiyel-yag-karisimi.webp",
         "cutout": true,
-        "photo": "foto/sakin-tatli-esansiyel-yag-karisimi/2.webp"
+        "photo": "foto/sakin-tatli-esansiyel-yag-karisimi/2.webp",
+        "variants": [
+          {
+            "id": 52797206593854
+          }
+        ]
       },
       {
         "id": "taze-aydinlik-esansiyel-yag-karisimi",
@@ -91342,7 +91678,7 @@
         "size": null,
         "price": {
           "tr": 620.0,
-          "en": 16
+          "en": 620.0
         },
         "exactPrice": true,
         "desc": {
@@ -91353,7 +91689,12 @@
         "product": 28,
         "image": "cut/taze-aydinlik-esansiyel-yag-karisimi.webp",
         "cutout": true,
-        "photo": "foto/taze-aydinlik-esansiyel-yag-karisimi/2.webp"
+        "photo": "foto/taze-aydinlik-esansiyel-yag-karisimi/2.webp",
+        "variants": [
+          {
+            "id": 52797246931262
+          }
+        ]
       },
       {
         "id": "dogal-at-kili-fircasi",
@@ -91365,7 +91706,7 @@
         "size": null,
         "price": {
           "tr": 900.0,
-          "en": 22
+          "en": 900.0
         },
         "exactPrice": true,
         "desc": {
@@ -91378,9 +91719,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 1150.0,
-          "en": 29
+          "en": 1150.0
         },
-        "photo": "foto/lalive-dogal-at-kili-fircasi/3.webp"
+        "photo": "foto/lalive-dogal-at-kili-fircasi/3.webp",
+        "variants": [
+          {
+            "id": 52672919601470
+          }
+        ]
       },
       {
         "id": "dogal-kabak-lifi",
@@ -91392,7 +91738,7 @@
         "size": null,
         "price": {
           "tr": 500.0,
-          "en": 12
+          "en": 500.0
         },
         "exactPrice": true,
         "desc": {
@@ -91403,7 +91749,12 @@
         "product": 7,
         "image": "cut/lalive-dogal-kabak-lifi.webp",
         "cutout": true,
-        "photo": "foto/lalive-dogal-kabak-lifi/2.webp"
+        "photo": "foto/lalive-dogal-kabak-lifi/2.webp",
+        "variants": [
+          {
+            "id": 49925553226046
+          }
+        ]
       },
       {
         "id": "lenf-masaj-aleti",
@@ -91415,7 +91766,7 @@
         "size": null,
         "price": {
           "tr": 690.0,
-          "en": 17
+          "en": 690.0
         },
         "exactPrice": true,
         "desc": {
@@ -91426,7 +91777,12 @@
         "product": 8,
         "image": "cut/lalive-lenf-masaj-aleti.webp",
         "cutout": true,
-        "photo": "foto/lalive-lenf-masaj-aleti/2.webp"
+        "photo": "foto/lalive-lenf-masaj-aleti/2.webp",
+        "variants": [
+          {
+            "id": 48220513501502
+          }
+        ]
       },
       {
         "id": "tampiko-otu-firca",
@@ -91438,7 +91794,7 @@
         "size": null,
         "price": {
           "tr": 845.0,
-          "en": 21
+          "en": 845.0
         },
         "exactPrice": true,
         "desc": {
@@ -91449,7 +91805,12 @@
         "product": 9,
         "image": "cut/tampiko-otu-firca.webp",
         "cutout": true,
-        "photo": "foto/tampiko-otu-firca/2.webp"
+        "photo": "foto/tampiko-otu-firca/2.webp",
+        "variants": [
+          {
+            "id": 50353654825278
+          }
+        ]
       },
       {
         "id": "bakim-cantasi",
@@ -91461,7 +91822,7 @@
         "size": null,
         "price": {
           "tr": 1600.0,
-          "en": 40
+          "en": 1600.0
         },
         "exactPrice": true,
         "desc": {
@@ -91472,7 +91833,12 @@
         "product": 10,
         "image": "cut/lalive-bakim-cantasi.webp",
         "cutout": true,
-        "photo": "foto/lalive-bakim-cantasi/2.webp"
+        "photo": "foto/lalive-bakim-cantasi/2.webp",
+        "variants": [
+          {
+            "id": 51826680987966
+          }
+        ]
       },
       {
         "id": "me-time-mug",
@@ -91484,7 +91850,7 @@
         "size": null,
         "price": {
           "tr": 1950.0,
-          "en": 49
+          "en": 1950.0
         },
         "exactPrice": true,
         "desc": {
@@ -91497,9 +91863,14 @@
         "cutout": true,
         "compareAt": {
           "tr": 2250.0,
-          "en": 56
+          "en": 2250.0
         },
-        "photo": "foto/lalive-me-time-mug/2.webp"
+        "photo": "foto/lalive-me-time-mug/2.webp",
+        "variants": [
+          {
+            "id": 52010897113406
+          }
+        ]
       },
       {
         "id": "sac-bandi-kahverengi",
@@ -91511,7 +91882,7 @@
         "size": null,
         "price": {
           "tr": 450.0,
-          "en": 11
+          "en": 450.0
         },
         "exactPrice": true,
         "desc": {
@@ -91522,7 +91893,12 @@
         "product": 12,
         "image": "cut/lalive-sac-bandi-kahverengi.webp",
         "cutout": true,
-        "photo": "foto/lalive-sac-bandi-kahverengi/2.webp"
+        "photo": "foto/lalive-sac-bandi-kahverengi/2.webp",
+        "variants": [
+          {
+            "id": 53715261227326
+          }
+        ]
       },
       {
         "id": "sac-bandi-yesil",
@@ -91534,7 +91910,7 @@
         "size": null,
         "price": {
           "tr": 450.0,
-          "en": 11
+          "en": 450.0
         },
         "exactPrice": true,
         "desc": {
@@ -91545,7 +91921,12 @@
         "product": 13,
         "image": "cut/lalive-sac-bandi-yesil.webp",
         "cutout": true,
-        "photo": "foto/lalive-sac-bandi-yesil/2.webp"
+        "photo": "foto/lalive-sac-bandi-yesil/2.webp",
+        "variants": [
+          {
+            "id": 53715253985598
+          }
+        ]
       },
       {
         "id": "sapka-kahverengi",
@@ -91557,7 +91938,7 @@
         "size": null,
         "price": {
           "tr": 1250.0,
-          "en": 31
+          "en": 1250.0
         },
         "exactPrice": true,
         "desc": {
@@ -91568,7 +91949,12 @@
         "product": 14,
         "image": "cut/lalive-sapka-kahverengi.webp",
         "cutout": true,
-        "photo": "foto/lalive-sapka-kahverengi/2.webp"
+        "photo": "foto/lalive-sapka-kahverengi/2.webp",
+        "variants": [
+          {
+            "id": 52275370819902
+          }
+        ]
       },
       {
         "id": "sapka-krem",
@@ -91580,7 +91966,7 @@
         "size": null,
         "price": {
           "tr": 1250.0,
-          "en": 31
+          "en": 1250.0
         },
         "exactPrice": true,
         "desc": {
@@ -91591,7 +91977,12 @@
         "product": 15,
         "image": "cut/lalive-sapka-krem.webp",
         "cutout": true,
-        "photo": "foto/lalive-sapka-krem/2.webp"
+        "photo": "foto/lalive-sapka-krem/2.webp",
+        "variants": [
+          {
+            "id": 51466268180798
+          }
+        ]
       },
       {
         "id": "sapka-yesil",
@@ -91603,7 +91994,7 @@
         "size": null,
         "price": {
           "tr": 1250.0,
-          "en": 31
+          "en": 1250.0
         },
         "exactPrice": true,
         "desc": {
@@ -91614,7 +92005,12 @@
         "product": 16,
         "image": "cut/lalive-sapka-yesil.webp",
         "cutout": true,
-        "photo": "foto/lalive-sapka-yesil/2.webp"
+        "photo": "foto/lalive-sapka-yesil/2.webp",
+        "variants": [
+          {
+            "id": 51495500054846
+          }
+        ]
       },
       {
         "id": "self-care-club-atlet",
@@ -91626,7 +92022,7 @@
         "size": null,
         "price": {
           "tr": 1500.0,
-          "en": 38
+          "en": 1500.0
         },
         "exactPrice": true,
         "desc": {
@@ -91637,7 +92033,25 @@
         "product": 17,
         "image": "cut/lalive-self-care-club-atlet.webp",
         "cutout": true,
-        "photo": "foto/lalive-self-care-club-atlet/2.webp"
+        "photo": "foto/lalive-self-care-club-atlet/2.webp",
+        "variants": [
+          {
+            "id": 53859217277246,
+            "title": "XS"
+          },
+          {
+            "id": 53859217342782,
+            "title": "M"
+          },
+          {
+            "id": 53859217375550,
+            "title": "L"
+          },
+          {
+            "id": 53859217408318,
+            "title": "XL"
+          }
+        ]
       },
       {
         "id": "self-care-club-t-shirt",
@@ -91649,7 +92063,7 @@
         "size": null,
         "price": {
           "tr": 1500.0,
-          "en": 38
+          "en": 1500.0
         },
         "exactPrice": true,
         "desc": {
@@ -91660,7 +92074,29 @@
         "product": 18,
         "image": "cut/lalive-self-care-club-t-shirt.webp",
         "cutout": true,
-        "photo": "foto/lalive-self-care-club-t-shirt/2.webp"
+        "photo": "foto/lalive-self-care-club-t-shirt/2.webp",
+        "variants": [
+          {
+            "id": 53905099489598,
+            "title": "XS"
+          },
+          {
+            "id": 53905099522366,
+            "title": "S"
+          },
+          {
+            "id": 53905099555134,
+            "title": "M"
+          },
+          {
+            "id": 53905099587902,
+            "title": "L"
+          },
+          {
+            "id": 53905099620670,
+            "title": "XL"
+          }
+        ]
       },
       {
         "id": "slow-down-atlet",
@@ -91672,7 +92108,7 @@
         "size": null,
         "price": {
           "tr": 1500.0,
-          "en": 38
+          "en": 1500.0
         },
         "exactPrice": true,
         "desc": {
@@ -91683,7 +92119,29 @@
         "product": 19,
         "image": "cut/lalive-slow-down-atlet.webp",
         "cutout": true,
-        "photo": "foto/lalive-slow-down-atlet/2.webp"
+        "photo": "foto/lalive-slow-down-atlet/2.webp",
+        "variants": [
+          {
+            "id": 53859225633086,
+            "title": "XS"
+          },
+          {
+            "id": 53859225665854,
+            "title": "S"
+          },
+          {
+            "id": 53859225698622,
+            "title": "M"
+          },
+          {
+            "id": 53859225731390,
+            "title": "L"
+          },
+          {
+            "id": 53859225764158,
+            "title": "XL"
+          }
+        ]
       },
       {
         "id": "tote-bag-kahverengi",
@@ -91695,7 +92153,7 @@
         "size": null,
         "price": {
           "tr": 1900.0,
-          "en": 48
+          "en": 1900.0
         },
         "exactPrice": true,
         "desc": {
@@ -91708,8 +92166,13 @@
         "cutout": true,
         "compareAt": {
           "tr": 2275.0,
-          "en": 57
-        }
+          "en": 2275.0
+        },
+        "variants": [
+          {
+            "id": 52909633700158
+          }
+        ]
       },
       {
         "id": "self-care-club-sweatshirt",
@@ -91721,7 +92184,7 @@
         "size": null,
         "price": {
           "tr": 2900.0,
-          "en": 72
+          "en": 2900.0
         },
         "exactPrice": true,
         "desc": {
@@ -91732,7 +92195,25 @@
         "product": 21,
         "image": "cut/self-care-club-sweatshirt.webp",
         "cutout": true,
-        "photo": "foto/self-care-club-sweatshirt/2.webp"
+        "photo": "foto/self-care-club-sweatshirt/2.webp",
+        "variants": [
+          {
+            "id": 51117147357502,
+            "title": "S"
+          },
+          {
+            "id": 51117147390270,
+            "title": "M"
+          },
+          {
+            "id": 51117147423038,
+            "title": "L"
+          },
+          {
+            "id": 51117147455806,
+            "title": "XL"
+          }
+        ]
       },
       {
         "id": "soft-krem-tote-bag-100-cotton",
@@ -91744,7 +92225,7 @@
         "size": null,
         "price": {
           "tr": 2275.0,
-          "en": 57
+          "en": 2275.0
         },
         "exactPrice": true,
         "desc": {
@@ -91755,7 +92236,12 @@
         "product": 22,
         "image": "cut/soft-krem-tote-bag-100-cotton.webp",
         "cutout": true,
-        "photo": "foto/soft-krem-tote-bag-100-cotton/2.webp"
+        "photo": "foto/soft-krem-tote-bag-100-cotton/2.webp",
+        "variants": [
+          {
+            "id": 49678477295934
+          }
+        ]
       },
       {
         "id": "yesil-tote-bag-100-cotton",
@@ -91767,7 +92253,7 @@
         "size": null,
         "price": {
           "tr": 2275.0,
-          "en": 57
+          "en": 2275.0
         },
         "exactPrice": true,
         "desc": {
@@ -91778,7 +92264,12 @@
         "product": 23,
         "image": "cut/yesil-tote-bag-100-cotton.webp",
         "cutout": true,
-        "photo": "foto/yesil-tote-bag-100-cotton/2.webp"
+        "photo": "foto/yesil-tote-bag-100-cotton/2.webp",
+        "variants": [
+          {
+            "id": 49678481948990
+          }
+        ]
       }
     ],
     "glow": "#2e5a3c"
@@ -91801,5 +92292,13 @@
     "clearcoatRoughness": 0.3,
     "envMapIntensity": 0.75
   },
-  "fillLight": "#e8dcc4"
+  "fillLight": "#e8dcc4",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": 3500,
+    "shippingAtCheckout": true,
+    "shopify": "https://www.lalivenatural.com"
+  }
 }

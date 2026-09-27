@@ -88,6 +88,12 @@ const UI = {
     checkout: "Ödemeye geç",
     checkoutSoon: "Online ödeme çok yakında açılıyor. Sepetin o zamana kadar bu cihazda saklanır.",
     taxes: "KDV dahil · 1–3 iş gününde teslimat",
+    goalLeft: (p) => `Hediyeye ${p} kaldı`,
+    goalDone: "Hediyen sepette",
+    shipLater: "Ödemede hesaplanır",
+    checkoutNote: "",
+    variant: "Seçenek",
+    related: "Benzer ürünler",
     marquee: ["Hope in a bottle", "Her notada bir hikâye", "Her nefeste yeni bir keşif", "Doğu'nun ihtişamı, Batı'nın zarafeti", "Hiç uyumayan şehirden", "Extrait de Parfum · %30", "Esxence Milano 2024"],
     storyEyebrow: "04 — Hikâye",
     founder: "Kurucular ve parfümörler",
@@ -213,6 +219,12 @@ const UI = {
     checkout: "Checkout",
     checkoutSoon: "Online checkout opens soon. Your bag is saved on this device until then.",
     taxes: "Taxes calculated at checkout · delivery in 1–3 business days",
+    goalLeft: (p) => `${p} away from your gift`,
+    goalDone: "Your gift is in the cart",
+    shipLater: "Calculated at checkout",
+    checkoutNote: "",
+    variant: "Option",
+    related: "Similar products",
     marquee: ["Hope in a bottle", "A story in every note", "A new discovery in every breath", "Eastern opulence, Western elegance", "From the city that never sleeps", "Extrait de Parfum · 30%", "Esxence Milan 2024"],
     storyEyebrow: "04 — Story",
     founder: "Founders and perfumers",
@@ -296,8 +308,8 @@ export function getT(lang) {
   const en = lang === "en";
   const P = PRICES[lang];
   // Tam sayılarda kuruş gösterilmez (₺890, $25); kuruşlu fiyatlarda iki hane (₺1.333,90).
-  const fmt0 = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, minimumFractionDigits: 0, maximumFractionDigits: 0 });
-  const fmt2 = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const fmt0 = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, currencyDisplay: "narrowSymbol", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  const fmt2 = new Intl.NumberFormat(P.locale, { style: "currency", currency: P.currency, currencyDisplay: "narrowSymbol", minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const money = (n) => (Math.abs(n - Math.round(n)) < 0.005 ? fmt0 : fmt2).format(n);
   // Fiyat: ürünün kendi fiyatı varsa (content.json → products[].price) adet × fiyat ×
   // paket indirimi; yoksa markanın paket fiyat tablosu (prices.packs).
@@ -337,6 +349,9 @@ export function getT(lang) {
     brand: en ? { ...brandTr, ...EN.brand } : brandTr,
     packs: D.packs.map((p) => ({ ...p, label: en ? EN.packLabels[p.size] : p.label })),
     freeShipping: P.freeShipping,
+    // Markaya özel satış kuralları (content.json → commerce): paket/paketleme seçimi,
+    // sepet hedefi (ör. hediye eşiği), kargonun ödemede hesaplanması, Shopify ödemesi.
+    commerce: C.commerce ?? {},
     shipping: P.shipping,
     subPct: Math.round(D.SUB_DISCOUNT * 100),
   };

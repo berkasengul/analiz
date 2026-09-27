@@ -213,8 +213,10 @@ def main():
         price = float(v["price"])
         cmp_ = float(v["compare_at_price"]) if v.get("compare_at_price") and float(v["compare_at_price"]) > price else None
         m = meta.get(h, {})
+        # Shopify varyantları: sepet, markanın kendi ödeme sayfasına bu kimliklerle gider.
+        variants = [{"id": x["id"], "title": x["title"]} for x in p["variants"] if x.get("available", True)] or [{"id": v["id"], "title": v["title"]}]
         return dict(name=name, en_name=en_name, size=size, desc=desc, en_desc=en_desc, tag=tag.rstrip("."), en_tag=en_tag.rstrip("."),
-                    chips=chips, price=price, compare=cmp_, m=m, cat=cat_of(h))
+                    chips=chips, price=price, compare=cmp_, m=m, cat=cat_of(h), variants=variants)
 
     cats = {k: dict(id=k, name={"tr": n, "en": ne}, color=col, desc={"tr": d, "en": de}) for k, n, ne, col, d, de, _ in CATS}
 
@@ -266,7 +268,8 @@ def main():
     items_out = []
     for idx, (p, h) in enumerate(zip(products, handles)):
         i = info(h)
-        p["price"] = {"tr": i["price"], "en": round(i["price"] / 40)}
+        # Markanın İngilizce sitesi de TL fiyat gösterir: iki dilde aynı fiyat.
+        p["price"] = {"tr": i["price"], "en": i["price"]}
         p["photos"] = i["m"].get("gallery", [])
         if h in RATINGS:
             p["rating"] = {"score": RATINGS[h][0], "count": RATINGS[h][1]}
@@ -277,9 +280,10 @@ def main():
             "image": i["m"].get("cut"), "cutout": True,
         }
         if i["compare"]:
-            item["compareAt"] = {"tr": i["compare"], "en": round(i["compare"] / 40)}
+            item["compareAt"] = {"tr": i["compare"], "en": i["compare"]}
         if i["m"].get("lifestyle"):
             item["photo"] = i["m"]["lifestyle"]
+        item["variants"] = [{"id": x["id"], "title": x["title"]} for x in i["variants"]] if len(i["variants"]) > 1 else [{"id": i["variants"][0]["id"]}]
         items_out.append(item)
 
     order_cats = [k for k, *_ in CATS]

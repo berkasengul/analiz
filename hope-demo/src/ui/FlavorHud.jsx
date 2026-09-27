@@ -23,7 +23,14 @@ export default function FlavorHud() {
       <div className={`hud__center${moving ? " is-moving" : ""}`}>
         <p className="tag">
           <i className="dot" />
-          {f.family} · <span lang="en">{f.sub ?? t.brand.sub}</span>
+          {f.family}
+          {/* Hacmi olmayan üründe alt yazı kategoriyle aynı olabilir: tekrar yazılmaz. */}
+          {(f.sub ?? t.brand.sub) && (f.sub ?? t.brand.sub) !== f.family && (
+            <>
+              {" · "}
+              <span lang="en">{f.sub ?? t.brand.sub}</span>
+            </>
+          )}
         </p>
         <button className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
           <SplitChars text={f.name} key={f.name} step={40} />

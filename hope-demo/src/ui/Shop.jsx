@@ -17,6 +17,7 @@ export default function Shop() {
 
   const t = useT();
   const { ui, money } = t;
+  const C = t.commerce;
   const unit = t.price(pack, plan, flavor);
   const full = t.price(pack, "once", flavor);
   const perCan = unit / pack;
@@ -49,16 +50,19 @@ export default function Shop() {
                 onClick={() => setShop({ shopFlavor: i })}
               />
             ))}
-            <button
-              className={`swatch swatch--variety${flavor === VARIETY ? " is-on" : ""}`}
-              aria-pressed={flavor === VARIETY}
-              onClick={() => setShop({ shopFlavor: VARIETY })}
-            >
-              {ui.mix}
-            </button>
+            {C.variety !== false && (
+              <button
+                className={`swatch swatch--variety${flavor === VARIETY ? " is-on" : ""}`}
+                aria-pressed={flavor === VARIETY}
+                onClick={() => setShop({ shopFlavor: VARIETY })}
+              >
+                {ui.mix}
+              </button>
+            )}
           </div>
         </fieldset>
 
+        {C.packs !== false && (
         <fieldset className="field">
           <legend className="mono">{ui.size}</legend>
           <div className="packs">
@@ -77,7 +81,9 @@ export default function Shop() {
             ))}
           </div>
         </fieldset>
+        )}
 
+        {C.plans !== false && (
         <fieldset className="field">
           <legend className="mono">{ui.delivery}</legend>
           <div className="plans">
@@ -96,6 +102,7 @@ export default function Shop() {
             </label>
           </div>
         </fieldset>
+        )}
 
         <div className="checkout-row">
           <div className="price">
@@ -116,9 +123,9 @@ export default function Shop() {
         </div>
 
         <ul className="perks mono">
-          <li>{ui.freeOver(money(t.freeShipping))}</li>
-          <li>{ui.ships}</li>
-          <li>{ui.recyclable}</li>
+          {(ui.perks ?? [ui.freeOver(money(t.freeShipping)), ui.ships, ui.recyclable]).map((p) => (
+            <li key={p}>{p}</li>
+          ))}
         </ul>
       </div>
     </section>
