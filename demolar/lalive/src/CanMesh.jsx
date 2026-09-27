@@ -56,6 +56,50 @@ function labelGeo(w, h, u0) {
   return g;
 }
 
+// Etiket şişenin gövdesine sarılır: yuvarlak köşeli kutunun kesitinde yay
+// uzunluğuna göre ilerler (köşeleri döner), üst/alt kenar yuvarlaklığına da
+// uyar. Böylece etiket havada duran düz bir yama gibi değil, basılı gibi durur.
+function wrapLabelGeo(S, lw, lh, u0, yc) {
+  const { width: W, height: H, depth: D, corner } = S.glass;
+  const r = Math.min(corner, W / 2, D / 2, H / 2);
+  const a = W / 2 - r;
+  const b = H / 2 - r;
+  const c = D / 2 - r;
+  const g = new PlaneGeometry(lw, lh, 64, 24);
+  const pos = g.attributes.position;
+  const uv = g.attributes.uv;
+  const arc = (Math.PI / 2) * r;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    const y = pos.getY(i) + yc;
+    const sgn = Math.sign(x) || 1;
+    const t = Math.abs(x);
+    // Kesit üzerinde: ön düz yüz → köşe yayı → yan yüz.
+    let X, Z;
+    if (t <= a) [X, Z] = [t, D / 2];
+    else if (t <= a + arc) {
+      const th = (t - a) / Math.max(r, 1e-4);
+      [X, Z] = [a + r * Math.sin(th), c + r * Math.cos(th)];
+    } else [X, Z] = [W / 2, c - (t - a - arc)];
+    // Üst/alt kenar yuvarlaklığı: o yükseklikte kesit daha küçük yarıçaplıdır.
+    const iy = Math.max(0, Math.abs(y) - b);
+    const k = r > 0 ? Math.sqrt(Math.max(0, r * r - Math.min(iy, r * 0.97) ** 2)) / r : 1;
+    const ix = Math.min(X, a);
+    const iz = Math.min(Z, c);
+    let nx = X - ix;
+    let nz = Z - iz;
+    X = ix + nx * k;
+    Z = iz + nz * k;
+    let ny = Math.abs(y) > b ? (Math.abs(y) - b) * Math.sign(y) : 0;
+    const len = Math.hypot(nx * k, ny, nz * k) || 1;
+    const off = 0.006;
+    pos.setXYZ(i, sgn * (X + ((nx * k) / len) * off), pos.getY(i), Z + ((nz * k) / len) * off);
+    uv.setX(i, u0 + uv.getX(i) * 0.5);
+  }
+  g.computeVertexNormals();
+  return g;
+}
+
 // Krem tüpü: kapağın üstünde duran, üst ucu yassı kıvrılmış tüp. Doku tüpü
 // sarar: u 0–0.5 ön yüz, 0.5–1 arka yüz (etiket atlasıyla aynı düzen).
 function tubeBody(T) {
@@ -247,8 +291,10 @@ function geometry(S) {
         S.cap.shape === "box"
           ? new RoundedBoxGeometry(S.cap.radius * 2, S.cap.height, S.cap.radius * 2, 3, 0.04)
           : new CylinderGeometry(S.cap.radius, S.cap.radius, S.cap.height, S.cap.shape === "octagon" ? 8 : 96),
-      front: labelGeo(lw, lh, 0),
-      back: labelGeo(lw, lh, 0.5),
+      // Kumaş (sweatshirt) ve aletlerde etiket düz; kutu gövdelilerde sarılı.
+      front: S.garment || S.kind === "tool" ? labelGeo(lw, lh, 0) : wrapLabelGeo(S, lw, lh, 0, S.label.y),
+      back: S.garment || S.kind === "tool" ? labelGeo(lw, lh, 0.5) : wrapLabelGeo(S, lw, lh, 0.5, S.label.y),
+      wrapped: !(S.garment || S.kind === "tool"),
       ...capGeometry(S.cap),
       ...(S.ribbon ? { ribbonV: new BoxGeometry(0.16, H + 0.03, D + 0.03), ribbonH: new BoxGeometry(W + 0.03, 0.16, D + 0.03), bow: new TorusGeometry(0.2, 0.05, 12, 32) } : {}),
       ...(S.garment ? garmentGeometry(W, H) : {}),
@@ -439,7 +485,7 @@ function Bottle({ body, parts, S }) {
   const top = GY + H / 2;
   return (
     <group rotation={[0, 0, S.tilt]} position={[0, -0.2, 0]} scale={S.scale}>
-      {S.label.back && <mesh geometry={g.back} material={body} position={[0, labelY, -(g.garmentBody ? 0.23 : D / 2) - 0.004]} rotation={[0, Math.PI, 0]} />}
+      {S.label.back && <mesh geometry={g.back} material={body} position={[0, labelY, g.wrapped ? 0 : -(g.garmentBody ? 0.23 : D / 2) - 0.004]} rotation={[0, Math.PI, 0]} />}
       {!solid && <mesh geometry={g.liquid} material={parts.liquid} position={[0, GY + 0.08, 0]} renderOrder={1} />}
       {!solid && <mesh geometry={g.base} material={parts.base} position={[0, GY - H / 2 + 0.15, 0]} renderOrder={2} />}
       {g.garmentBody ? (
@@ -447,7 +493,7 @@ function Bottle({ body, parts, S }) {
       ) : (
         <mesh geometry={g.glass} material={parts.glass} position={[0, GY, 0]} renderOrder={3} />
       )}
-      <mesh geometry={g.front} material={body} position={[0, labelY, (g.garmentBody ? 0.23 : D / 2) + 0.004]} />
+      <mesh geometry={g.front} material={body} position={[0, labelY, g.wrapped ? 0 : (g.garmentBody ? 0.23 : D / 2) + 0.004]} />
       {S.neck.height > 0 && <mesh geometry={g.neck} material={parts.cap} position={[0, top + S.neck.height / 2, 0]} />}
       <Cap g={g} parts={parts} S={S} y0={top + S.neck.height} />
       {g.ribbonV && (

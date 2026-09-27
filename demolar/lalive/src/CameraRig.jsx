@@ -1,18 +1,32 @@
+import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { MathUtils } from "three";
 
 import { pointer } from "./pointer";
 import { scrollState } from "./scroll";
+import { useStore } from "./store";
 
-// Fareye göre hafif paralaks, hızlı kaydırmada hafif geri çekilme.
+// Sinematik kamera: fareye göre hafif paralaks, elde tutulan kamera gibi çok
+// yavaş bir salınım, kaydırırken geri çekilip hızla orantılı hafif yatma;
+// ürün ortaya oturunca yavaşça ürüne yaklaşma (push-in).
 export default function CameraRig() {
-  useFrame(({ camera }, delta) => {
+  const l = useRef({ roll: 0, push: 0 });
+  useFrame(({ camera, clock }, delta) => {
     const dt = Math.min(delta, 0.1);
-    const speed = Math.min(Math.abs(scrollState.velocity) * 0.03, 1.4);
-    camera.position.x = MathUtils.damp(camera.position.x, pointer.x * 0.45, 2.5, dt);
-    camera.position.y = MathUtils.damp(camera.position.y, -pointer.y * 0.3, 2.5, dt);
-    camera.position.z = MathUtils.damp(camera.position.z, 18 + speed, 3, dt);
+    const t = clock.getElapsedTime();
+    const s = l.current;
+    const st = useStore.getState();
+    const v = scrollState.velocity;
+    const speed = Math.min(Math.abs(v) * 0.03, 1.4);
+    // Ürün durduğunda 0 → 1 (yaklaşma), hareket başlayınca hızla geri.
+    const settled = !st.moving && !st.detail && Math.abs(v) < 0.5 ? 1 : 0;
+    s.push = MathUtils.damp(s.push, settled, settled ? 0.6 : 3, dt);
+    s.roll = MathUtils.damp(s.roll, MathUtils.clamp(v * 0.0016, -0.035, 0.035), 3, dt);
+    camera.position.x = MathUtils.damp(camera.position.x, pointer.x * 0.45 + Math.sin(t * 0.21) * 0.1, 2.5, dt);
+    camera.position.y = MathUtils.damp(camera.position.y, -pointer.y * 0.3 + Math.sin(t * 0.27 + 1.3) * 0.07, 2.5, dt);
+    camera.position.z = MathUtils.damp(camera.position.z, 18 + speed - 0.55 * s.push, 3, dt);
     camera.lookAt(0, 0, 0);
+    camera.rotateZ(s.roll);
   });
   return null;
 }

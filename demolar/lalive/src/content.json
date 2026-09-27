@@ -3741,5 +3741,12 @@
     2,
     3,
     4
-  ]
+  ],
+  "labelFinish": {
+    "metalness": 0,
+    "roughness": 0.52,
+    "clearcoat": 0.35,
+    "clearcoatRoughness": 0.3,
+    "envMapIntensity": 0.75
+  }
 }

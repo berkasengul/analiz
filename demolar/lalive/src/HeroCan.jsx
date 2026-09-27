@@ -7,6 +7,7 @@ import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
 import CanMesh, { createBottleParts, useCanBody } from "./CanMesh";
+import { lightOf } from "./Carousel";
 import { createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { VARIETY, features, flavors, ritual } from "./data";
 import { pointer } from "./pointer";
@@ -192,12 +193,12 @@ export default function HeroCan() {
     sceneState.spotlight = s.spot;
     const sweepK = 1 - Math.pow(1 - Math.min(1, (time - s.sweepAt) / 1.4), 3);
     const light = spot.current;
-    light.intensity = s.spot * 9;
+    light.intensity = s.spot * 9 * lightOf(flavors[s.target]);
     light.position.set(group.current.position.x - 2.8 + sweepK * 2.6, group.current.position.y * 0.2 + 2.2, 11);
     light.target.position.set(group.current.position.x, 0.2, group.current.position.z);
     light.target.updateMatrixWorld();
     // Ortam yansımaları azalır ki spot ışığın kontrastı öne çıksın.
-    body.envMapIntensity = 1.35 - 0.75 * s.spot;
+    body.envMapIntensity = (body.userData.finish.envMapIntensity / 1.1) * (1.35 - 0.75 * s.spot);
     parts.metal.envMapIntensity = 1.3 - 0.7 * s.spot;
     // Detay açılınca kutunun yüzeyinden açık renkli bir ışık süpürmesi geçer.
     if (st.detail && !s.wasDetail) sweep();

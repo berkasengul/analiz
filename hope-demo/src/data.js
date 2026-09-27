@@ -25,7 +25,8 @@ export const catalogIdOf = (g) => CID[g];
 
 export const flavors = SET.map((g) => {
   const { en, label, file, ...f } = C.products[g];
-  return { ...f, file, gid: g, cid: CID[g] };
+  const bg = label?.lalive?.bg;
+  return { ...f, file, gid: g, cid: CID[g], labelBg: bg ? `rgb(${bg.join(",")})` : null };
 });
 export const localIndex = (g) => SET.indexOf(g);
 

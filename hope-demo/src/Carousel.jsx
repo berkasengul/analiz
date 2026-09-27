@@ -12,6 +12,13 @@ import { sceneState } from "./shared";
 import { useStore } from "./store";
 
 const N = flavors.length;
+// Açık renkli ambalajlarda (krem beyazı tüp, açık etiket) spot ışığı kısılır ki
+// yazılar parlamada kaybolmasın. `products[].light` ile elle de verilebilir.
+const lum = (hex) => {
+  const c = new Color(hex);
+  return 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
+};
+export const lightOf = (f) => f.light ?? 1 - 0.5 * MathUtils.smoothstep(lum(f.labelBg ?? f.color), 0.3, 0.75);
 // Az ürünlü setlerde (kategori sayfaları) ürünler sonsuz yay yerine yan yana
 // düz bir sırada durur; kaydırdıkça sıradaki ürün ortaya gelir.
 const LINEAR = N < 5;
@@ -113,7 +120,7 @@ export default function Carousel() {
     const L = spot.current;
     if (L) {
       const fp = sceneState.focus.position;
-      L.intensity = 7 * (1 - fade) * (1 - spread) * sceneState.intro;
+      L.intensity = 7 * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
       L.color.set(flavors[active].theme.glow).lerp(WHITE, 0.65);
       L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
       L.target.position.set(fp.x, fp.y + 0.2, fp.z);
@@ -174,8 +181,9 @@ export default function Carousel() {
       const dim = (1 - fade) * lit;
       bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(dim * (0.35 + 0.65 * lit));
       bodies[i].userData.uniforms.u_dim.value = dim;
-      bodies[i].envMapIntensity = 1.35 * dim;
-      bodies[i].clearcoat = Math.max(dim, 0.01); // 0 olursa shader yeniden derlenir
+      const F = bodies[i].userData.finish;
+      bodies[i].envMapIntensity = F.envMapIntensity * 1.23 * dim;
+      bodies[i].clearcoat = Math.max(F.clearcoat * dim, 0.01); // 0 olursa shader yeniden derlenir
       dimBottleParts(parts[i], dim);
 
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.

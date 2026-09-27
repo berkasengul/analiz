@@ -11,6 +11,7 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 - [ ] Her ürün farklı mı görünüyor? (aynı etiketin rengi değişmiş kopyası değil, gerçekteki farklar)
 - [ ] Arka yüz (koku piramidi / içerik) okunuyor mu?
 - [ ] Logo ve yazı tipi markanınkine yakın mı?
+- [ ] Etiket şişenin yüzeyine oturuyor mu (kenarlarda havada kalmıyor)? Açık renkli üründe yazılar ışıkta okunuyor mu?
 
 ## 2. Sahne ve renk
 
@@ -74,3 +75,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Kategori sayfasında üstteki kategori çubuğu ürünün tepesini kapattı | Masaüstünde kategoriler solda dikey dizin |
 | Lalive | Sepette ürün numarası tutuluyordu; sayfalar farklı ürün seti gösterince yanlış ürün çıkardı | Sepet katalog kimliğiyle (`c:<id>`); eski sepetler dönüştürülür |
 | Lalive | Az ürünlü kategoride sonsuz yay yan ürünleri gizliyordu | 5'ten az üründe ürünler yan yana düz sırada |
+| Lalive | Etiketler yuvarlak şişenin önünde düz yama gibi duruyordu | Etiket gövdenin kavisine sarılır (`wrapLabelGeo`) |
+| Lalive | Açık renkli ambalajlarda spot ışığı yazıları siliyordu; etiket parfüm gibi parlaktı | Işık ambalaj rengine göre kısılır; `labelFinish` ile mat kâğıt etiket |
+| Lalive | Ürüne oturma, tekerleği yavaş çevirince kullanıcıyı geri çekiyordu | Oturma kaydırma yönünde ve kaydırma bittikten sonra |

@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
 import Scene from "./Scene";
 import { PAGE, SET_KEY, content, flavors, setKey } from "./data";
-import { measureScroll, scrollState, scrollToElement, scrollToFlavorOf, smooth } from "./scroll";
+import { measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
 import { useStore } from "./store";
 
 import CartDrawer from "./ui/CartDrawer";
@@ -33,11 +33,37 @@ function useSmoothScroll() {
     if (step !== s.ritualStep) s.setRitualStep(step);
   }, []);
 
+  // Kaydırma durunca carousel iki ürün arasında kalmaz: en yakın ürüne süzülür.
+  const snapTimer = useRef(0);
+  const snap = useCallback(() => {
+    const s = useStore.getState();
+    const el = document.getElementById("flavors");
+    if (!el || s.detail || !s.loaded || s.menu || s.cartOpen || s.swapping || N < 2) return;
+    const L = smooth.lenis;
+    // Kaydırma hâlâ sürüyorsa (yavaş cihazda kareler seyrek gelebilir) bekle.
+    if (L?.isScrolling) return void (snapTimer.current = setTimeout(snap, 150));
+    const range = el.offsetHeight - window.innerHeight;
+    if (range <= 0) return;
+    const y = L ? L.targetScroll : window.scrollY;
+    const raw = ((y - el.offsetTop) / range) * (N - 1);
+    if (raw < 0.02 || raw > N - 1 - 0.02) return;
+    // Kullanıcının kaydırdığı yöne oturur: ileri doğru biraz itmek sonraki ürüne
+    // geçirir, hiçbir zaman kullanıcıyı geldiği yere geri çekmez.
+    const dir = L?.direction ?? 0;
+    const idx = dir > 0 ? Math.ceil(raw - 0.1) : dir < 0 ? Math.floor(raw + 0.1) : Math.round(raw);
+    if (Math.abs(raw - idx) > 0.02) scrollToFlavor(Math.min(N - 1, Math.max(0, idx)));
+  }, []);
+  const queueSnap = useCallback(() => {
+    clearTimeout(snapTimer.current);
+    snapTimer.current = setTimeout(snap, window.matchMedia("(pointer: coarse)").matches ? 450 : 380);
+  }, [snap]);
+
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Düşük lerp = daha ağır, film gibi süzülen kaydırma.
     smooth.lenis = reduce ? null : new Lenis({ autoRaf: true, lerp: 0.07, wheelMultiplier: 0.9 });
     smooth.lenis?.on("scroll", handleScroll);
+    smooth.lenis?.on("scroll", queueSnap);
 
     const onClick = (e) => {
       const a = e.target.closest("a[href^='#']");
@@ -67,7 +93,7 @@ function useSmoothScroll() {
       window.removeEventListener("resize", handleScroll);
       document.removeEventListener("click", onClick);
     };
-  }, [handleScroll]);
+  }, [handleScroll, queueSnap]);
 
   // Detay, menü, sepet açıkken ya da açılış bitmeden sayfa kaymasın.
   const locked = useStore((s) => s.detail || s.menu || s.cartOpen || !s.loaded);

@@ -1,5 +1,10 @@
 import { Color, MeshPhysicalMaterial } from "three";
 import { noise } from "./Noise";
+import { content } from "./data";
+
+// Etiket yüzeyi: varsayılan parfüm şişesinin altın varaklı parlak etiketi;
+// content.json → labelFinish ile değişir (ör. kâğıt etiket: mat, az yansıma).
+const FINISH = { metalness: 0.3, roughness: 0.24, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.1, ...content.labelFinish };
 
 // Kutunun baskı malzemesi. Her tadın kendi tam renkli etiket görseli var
 // (`flavor.texture`). Tat değişirken iki etiket arasında Codrops projesindeki
@@ -33,15 +38,9 @@ export function setCanFlavor(uniforms, flavor) {
 
 // Cam şişenin içindeki parfüm ve etiket.
 export function createCanMaterial(base, uniforms) {
-  const material = new MeshPhysicalMaterial({
-    map: base.map,
-    // Camın arkasındaki parfüm: altın varak etiketin parlaması için hafif metalik.
-    metalness: 0.3,
-    roughness: 0.24,
-    clearcoat: 1,
-    clearcoatRoughness: 0.04,
-    envMapIntensity: 1.1,
-  });
+  const material = new MeshPhysicalMaterial({ map: base.map, ...FINISH });
+  // Sahne her karede yansımayı ve cilayı kısar/açar; oranlar bu değerlere göre.
+  material.userData.finish = FINISH;
 
   material.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);
