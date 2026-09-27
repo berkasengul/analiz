@@ -63,6 +63,162 @@
   },
   "products": [
     {
+      "name": "No/8 Floraison",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Eau de Parfum",
+      "year": null,
+      "perfumer": null,
+      "color": "#dbdcdf",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#6b2f4b",
+        "edge": "#0a0306",
+        "drop": "#f0a3bd",
+        "accent": "#f0a3bd",
+        "mood": "warm"
+      },
+      "tagline": "“Çiçekli” anlamına gelen Floraison, 8 rakamıyla bir aradadır…",
+      "notes": [
+        "Karabiber",
+        "Müge",
+        "Misk",
+        "Paçuli",
+        "Amber"
+      ],
+      "description": "“Çiçekli” anlamına gelen Floraison, 8 rakamıyla bir aradadır çünkü birçok efsaneye göre 8, cennete giden yolda geçilmesi gereken “sekiz katlı asil yolu” temsil eder. Vaat edilen yere ulaşmak ve kişinin özgürleşebilmesi için tırmanması gereken 8 kat… Tıpkı bir çiçeğin tacının esansını katmanlarıyla koruması gibi…",
+      "file": "turkan-no-8-floraison-100-ml.webp",
+      "en": {
+        "name": "No/8 Floraison",
+        "family": "Eau de Parfum",
+        "tagline": "Floraison, which is the ‘‘Floral’’ part of our fragrance…",
+        "notes": [
+          "Black pepper",
+          "Lily of the valley",
+          "Musk",
+          "Patchouli",
+          "Amber"
+        ],
+        "description": "Floraison, which is the ‘‘Floral’’ part of our fragrance collection. According to many legends Number 8 represents ‘‘Eight paths of the noble road’’ to heaven that one has to walk. The 8 paths one has to go to reach the promised land, to reach the freedom.",
+        "sub": "100 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.3229,
+        "depthRatio": 0.4,
+        "axis": 0.4992,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.025, 0.0406, 0.0516, 0.0633, 0.0703, 0.0773, 0.0844, 0.0891, 0.0938, 0.0984, 0.1023, 0.1062, 0.1109, 0.1141, 0.1172, 0.1203, 0.1234, 0.1266, 0.1289, 0.1313, 0.1344, 0.1359, 0.1383, 0.1391, 0.1414, 0.143, 0.1437, 0.1453, 0.1461, 0.1477, 0.1484, 0.1484, 0.1492, 0.15, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.15, 0.15, 0.1492, 0.1477, 0.1469, 0.1461, 0.1453, 0.1437, 0.1414, 0.1406, 0.1391, 0.1367, 0.1344, 0.1328, 0.1305, 0.1281, 0.1258, 0.1227, 0.1203, 0.1172, 0.1133, 0.1102, 0.1055, 0.1, 0.0953, 0.0898, 0.082, 0.0758, 0.0797, 0.0891, 0.1, 0.1109, 0.1219, 0.1313, 0.1398, 0.1492, 0.157, 0.1648, 0.1727, 0.1797, 0.1852, 0.1922, 0.1977, 0.2023, 0.2086, 0.2125, 0.2172, 0.2219, 0.225, 0.2266, 0.2273, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2289, 0.2289, 0.2281, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2281, 0.2273, 0.2234, 0.2195, 0.2148, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4641, 0.0328],
+            [0.4578, 0.0359],
+            [0.4484, 0.0375],
+            [0.4234, 0.05],
+            [0.4062, 0.0625],
+            [0.3875, 0.0813],
+            [0.3641, 0.1141],
+            [0.3641, 0.1172],
+            [0.3594, 0.125],
+            [0.3578, 0.1328],
+            [0.3531, 0.1422],
+            [0.3531, 0.1484],
+            [0.3516, 0.15],
+            [0.35, 0.1641],
+            [0.3469, 0.1734],
+            [0.3469, 0.2047],
+            [0.3484, 0.2062],
+            [0.35, 0.2203],
+            [0.3531, 0.2281],
+            [0.3531, 0.2344],
+            [0.3578, 0.2422],
+            [0.3578, 0.2469],
+            [0.3656, 0.2641],
+            [0.3828, 0.2906],
+            [0.3969, 0.3047],
+            [0.4141, 0.3172],
+            [0.4219, 0.3187],
+            [0.4234, 0.3219],
+            [0.4141, 0.3297],
+            [0.4047, 0.3312],
+            [0.3953, 0.3359],
+            [0.3906, 0.3359],
+            [0.3719, 0.3422],
+            [0.3688, 0.3453],
+            [0.3609, 0.3469],
+            [0.3234, 0.3672],
+            [0.2953, 0.3875],
+            [0.275, 0.4078],
+            [0.2703, 0.4188],
+            [0.2703, 0.9578],
+            [0.275, 0.9641],
+            [0.2812, 0.9672],
+            [0.7094, 0.9672],
+            [0.725, 0.9531],
+            [0.7281, 0.9453],
+            [0.7281, 0.8344],
+            [0.7266, 0.8328],
+            [0.7266, 0.8281],
+            [0.7281, 0.8266],
+            [0.7281, 0.8016],
+            [0.7266, 0.8],
+            [0.7266, 0.4141],
+            [0.7063, 0.3922],
+            [0.6781, 0.3719],
+            [0.6625, 0.3641],
+            [0.6594, 0.3609],
+            [0.6562, 0.3609],
+            [0.6531, 0.3578],
+            [0.6359, 0.3516],
+            [0.6297, 0.3469],
+            [0.6219, 0.3453],
+            [0.5953, 0.3328],
+            [0.5859, 0.3312],
+            [0.5766, 0.3234],
+            [0.5781, 0.3203],
+            [0.5891, 0.3187],
+            [0.6031, 0.3094],
+            [0.625, 0.2859],
+            [0.6406, 0.2594],
+            [0.6516, 0.225],
+            [0.6531, 0.2062],
+            [0.6547, 0.2047],
+            [0.6547, 0.1688],
+            [0.6531, 0.1672],
+            [0.6516, 0.15],
+            [0.6422, 0.1234],
+            [0.625, 0.0938],
+            [0.5984, 0.0641],
+            [0.5734, 0.0469],
+            [0.5703, 0.0469],
+            [0.5672, 0.0437],
+            [0.5641, 0.0437],
+            [0.5563, 0.0391],
+            [0.5469, 0.0375],
+            [0.5359, 0.0328],
+            [0.5266, 0.0328],
+            [0.5172, 0.0297],
+            [0.4813, 0.0297],
+            [0.4719, 0.0328]
+          ]
+        ],
+        "edge": "#d9d9db"
+      },
+      "price": {
+        "tr": 8250.0,
+        "en": 8250.0
+      },
+      "photos": [
+        "foto/turkan-no-8-floraison-100-ml/1.webp",
+        "foto/turkan-no-8-floraison-100-ml/2.webp",
+        "foto/turkan-no-8-floraison-100-ml/3.webp",
+        "foto/turkan-no-8-floraison-100-ml/4.webp"
+      ]
+    },
+    {
       "name": "No/3 Ambre",
       "form": "photo",
       "sub": "100 ml",
@@ -73,10 +229,10 @@
       "color": "#746056",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#5c2418",
-        "edge": "#050404",
-        "drop": "#e0914a",
-        "accent": "#e0914a",
+        "glow": "#e8741c",
+        "edge": "#2a0e03",
+        "drop": "#ffc27a",
+        "accent": "#ffc27a",
         "mood": "warm"
       },
       "tagline": "Hiçbir zaman sıkılmayacağınız bir hikâyeye ve yaşam boyu…",
@@ -231,162 +387,6 @@
       ]
     },
     {
-      "name": "No/8 Floraison",
-      "form": "photo",
-      "sub": "100 ml",
-      "collection": null,
-      "family": "Eau de Parfum",
-      "year": null,
-      "perfumer": null,
-      "color": "#dbdcdf",
-      "ink": "#1f1a17",
-      "theme": {
-        "glow": "#5e2a40",
-        "edge": "#050404",
-        "drop": "#f0a3bd",
-        "accent": "#f0a3bd",
-        "mood": "warm"
-      },
-      "tagline": "“Çiçekli” anlamına gelen Floraison, 8 rakamıyla bir aradadır…",
-      "notes": [
-        "Karabiber",
-        "Müge",
-        "Misk",
-        "Paçuli",
-        "Amber"
-      ],
-      "description": "“Çiçekli” anlamına gelen Floraison, 8 rakamıyla bir aradadır çünkü birçok efsaneye göre 8, cennete giden yolda geçilmesi gereken “sekiz katlı asil yolu” temsil eder. Vaat edilen yere ulaşmak ve kişinin özgürleşebilmesi için tırmanması gereken 8 kat… Tıpkı bir çiçeğin tacının esansını katmanlarıyla koruması gibi…",
-      "file": "turkan-no-8-floraison-100-ml.webp",
-      "en": {
-        "name": "No/8 Floraison",
-        "family": "Eau de Parfum",
-        "tagline": "Floraison, which is the ‘‘Floral’’ part of our fragrance…",
-        "notes": [
-          "Black pepper",
-          "Lily of the valley",
-          "Musk",
-          "Patchouli",
-          "Amber"
-        ],
-        "description": "Floraison, which is the ‘‘Floral’’ part of our fragrance collection. According to many legends Number 8 represents ‘‘Eight paths of the noble road’’ to heaven that one has to walk. The 8 paths one has to go to reach the promised land, to reach the freedom.",
-        "sub": "100 ml"
-      },
-      "label": {
-        "style": "photo"
-      },
-      "photo3d": {
-        "profile": "flask",
-        "neck": 0.3229,
-        "depthRatio": 0.4,
-        "axis": 0.4992,
-        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.025, 0.0406, 0.0516, 0.0633, 0.0703, 0.0773, 0.0844, 0.0891, 0.0938, 0.0984, 0.1023, 0.1062, 0.1109, 0.1141, 0.1172, 0.1203, 0.1234, 0.1266, 0.1289, 0.1313, 0.1344, 0.1359, 0.1383, 0.1391, 0.1414, 0.143, 0.1437, 0.1453, 0.1461, 0.1477, 0.1484, 0.1484, 0.1492, 0.15, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.1516, 0.15, 0.15, 0.1492, 0.1477, 0.1469, 0.1461, 0.1453, 0.1437, 0.1414, 0.1406, 0.1391, 0.1367, 0.1344, 0.1328, 0.1305, 0.1281, 0.1258, 0.1227, 0.1203, 0.1172, 0.1133, 0.1102, 0.1055, 0.1, 0.0953, 0.0898, 0.082, 0.0758, 0.0797, 0.0891, 0.1, 0.1109, 0.1219, 0.1313, 0.1398, 0.1492, 0.157, 0.1648, 0.1727, 0.1797, 0.1852, 0.1922, 0.1977, 0.2023, 0.2086, 0.2125, 0.2172, 0.2219, 0.225, 0.2266, 0.2273, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2281, 0.2289, 0.2289, 0.2281, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2289, 0.2281, 0.2273, 0.2234, 0.2195, 0.2148, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        "outline": [
-          [
-            [0.4641, 0.0328],
-            [0.4578, 0.0359],
-            [0.4484, 0.0375],
-            [0.4234, 0.05],
-            [0.4062, 0.0625],
-            [0.3875, 0.0813],
-            [0.3641, 0.1141],
-            [0.3641, 0.1172],
-            [0.3594, 0.125],
-            [0.3578, 0.1328],
-            [0.3531, 0.1422],
-            [0.3531, 0.1484],
-            [0.3516, 0.15],
-            [0.35, 0.1641],
-            [0.3469, 0.1734],
-            [0.3469, 0.2047],
-            [0.3484, 0.2062],
-            [0.35, 0.2203],
-            [0.3531, 0.2281],
-            [0.3531, 0.2344],
-            [0.3578, 0.2422],
-            [0.3578, 0.2469],
-            [0.3656, 0.2641],
-            [0.3828, 0.2906],
-            [0.3969, 0.3047],
-            [0.4141, 0.3172],
-            [0.4219, 0.3187],
-            [0.4234, 0.3219],
-            [0.4141, 0.3297],
-            [0.4047, 0.3312],
-            [0.3953, 0.3359],
-            [0.3906, 0.3359],
-            [0.3719, 0.3422],
-            [0.3688, 0.3453],
-            [0.3609, 0.3469],
-            [0.3234, 0.3672],
-            [0.2953, 0.3875],
-            [0.275, 0.4078],
-            [0.2703, 0.4188],
-            [0.2703, 0.9578],
-            [0.275, 0.9641],
-            [0.2812, 0.9672],
-            [0.7094, 0.9672],
-            [0.725, 0.9531],
-            [0.7281, 0.9453],
-            [0.7281, 0.8344],
-            [0.7266, 0.8328],
-            [0.7266, 0.8281],
-            [0.7281, 0.8266],
-            [0.7281, 0.8016],
-            [0.7266, 0.8],
-            [0.7266, 0.4141],
-            [0.7063, 0.3922],
-            [0.6781, 0.3719],
-            [0.6625, 0.3641],
-            [0.6594, 0.3609],
-            [0.6562, 0.3609],
-            [0.6531, 0.3578],
-            [0.6359, 0.3516],
-            [0.6297, 0.3469],
-            [0.6219, 0.3453],
-            [0.5953, 0.3328],
-            [0.5859, 0.3312],
-            [0.5766, 0.3234],
-            [0.5781, 0.3203],
-            [0.5891, 0.3187],
-            [0.6031, 0.3094],
-            [0.625, 0.2859],
-            [0.6406, 0.2594],
-            [0.6516, 0.225],
-            [0.6531, 0.2062],
-            [0.6547, 0.2047],
-            [0.6547, 0.1688],
-            [0.6531, 0.1672],
-            [0.6516, 0.15],
-            [0.6422, 0.1234],
-            [0.625, 0.0938],
-            [0.5984, 0.0641],
-            [0.5734, 0.0469],
-            [0.5703, 0.0469],
-            [0.5672, 0.0437],
-            [0.5641, 0.0437],
-            [0.5563, 0.0391],
-            [0.5469, 0.0375],
-            [0.5359, 0.0328],
-            [0.5266, 0.0328],
-            [0.5172, 0.0297],
-            [0.4813, 0.0297],
-            [0.4719, 0.0328]
-          ]
-        ],
-        "edge": "#d9d9db"
-      },
-      "price": {
-        "tr": 8250.0,
-        "en": 8250.0
-      },
-      "photos": [
-        "foto/turkan-no-8-floraison-100-ml/1.webp",
-        "foto/turkan-no-8-floraison-100-ml/2.webp",
-        "foto/turkan-no-8-floraison-100-ml/3.webp",
-        "foto/turkan-no-8-floraison-100-ml/4.webp"
-      ]
-    },
-    {
       "name": "No/7 Agrumes",
       "form": "photo",
       "sub": "100 ml",
@@ -397,10 +397,10 @@
       "color": "#dbdcdf",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#34295e",
-        "edge": "#050404",
-        "drop": "#b9a2ee",
-        "accent": "#b9a2ee",
+        "glow": "#8e4fe0",
+        "edge": "#150828",
+        "drop": "#d9c1ff",
+        "accent": "#d9c1ff",
         "mood": "warm"
       },
       "tagline": "Tarihte ve efsanelerde dünyanın 7 harikasından bahsedilir",
@@ -549,10 +549,10 @@
       "color": "#d3b19e",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#5e2d16",
-        "edge": "#050404",
-        "drop": "#f08a4b",
-        "accent": "#f08a4b",
+        "glow": "#e23d2d",
+        "edge": "#2a0605",
+        "drop": "#ffa080",
+        "accent": "#ffa080",
         "mood": "warm"
       },
       "tagline": "1 rakamı başka hiçbir sayı gibi değildir",
@@ -686,10 +686,10 @@
       "color": "#d3bbb2",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#3b2f45",
-        "edge": "#050404",
-        "drop": "#dcb6cf",
-        "accent": "#dcb6cf",
+        "glow": "#b05bd6",
+        "edge": "#1c0726",
+        "drop": "#eac4ff",
+        "accent": "#eac4ff",
         "mood": "warm"
       },
       "tagline": "Cologne du Parfumeur’in merak edilen kokularını sizin için bir…",
@@ -1059,10 +1059,10 @@
       "color": "#86675e",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#3a2419",
-        "edge": "#050404",
-        "drop": "#d4a45a",
-        "accent": "#d4a45a",
+        "glow": "#e0a820",
+        "edge": "#241a02",
+        "drop": "#ffe39a",
+        "accent": "#ffe39a",
         "mood": "warm"
       },
       "tagline": "Zamansız özler ve ikonik kokulardan oluşan Türkan Extrait de…",
@@ -1279,10 +1279,10 @@
       "color": "#7e665f",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#3d1834",
-        "edge": "#050404",
-        "drop": "#d8a85e",
-        "accent": "#d8a85e",
+        "glow": "#3656d8",
+        "edge": "#060c2c",
+        "drop": "#aab8ff",
+        "accent": "#aab8ff",
         "mood": "warm"
       },
       "tagline": "No/10 NOBLESSE adeta parfüm krallığında tacı en çok hak eden…",
@@ -1433,10 +1433,10 @@
       "color": "#80665f",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#3d3a12",
-        "edge": "#050404",
-        "drop": "#ecd062",
-        "accent": "#ecd062",
+        "glow": "#7cc62a",
+        "edge": "#0f1c03",
+        "drop": "#e2ff9e",
+        "accent": "#e2ff9e",
         "mood": "warm"
       },
       "tagline": "Hayat ve evrenin kendisi ikilikler üzerine kuruludur",
@@ -1590,10 +1590,10 @@
       "color": "#91776a",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#5c2418",
-        "edge": "#050404",
-        "drop": "#e0914a",
-        "accent": "#e0914a",
+        "glow": "#e8741c",
+        "edge": "#2a0e03",
+        "drop": "#ffc27a",
+        "accent": "#ffc27a",
         "mood": "warm"
       },
       "tagline": "Deri, vetiver, paçuli, gri amber ve kırmızı meyvelerin dansıyla…",
@@ -1703,10 +1703,10 @@
       "color": "#85695f",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#592639",
-        "edge": "#050404",
-        "drop": "#f2a6be",
-        "accent": "#f2a6be",
+        "glow": "#d93aa6",
+        "edge": "#290620",
+        "drop": "#ffaee6",
+        "accent": "#ffaee6",
         "mood": "warm"
       },
       "tagline": "Gerçek güzelliği koklayabilseydiniz, ona ne ad verirdiniz?",
@@ -1878,10 +1878,10 @@
       "color": "#866c63",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#4a1414",
-        "edge": "#050404",
-        "drop": "#e0673f",
-        "accent": "#e0673f",
+        "glow": "#138f9a",
+        "edge": "#021b1e",
+        "drop": "#8ff0f2",
+        "accent": "#8ff0f2",
         "mood": "warm"
       },
       "tagline": "No/9 MYSTIQUE’in devamlı kendini hatırlatan notaları size ne…",
@@ -2031,10 +2031,10 @@
       "color": "#d7bd93",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#34295e",
-        "edge": "#050404",
-        "drop": "#b9a2ee",
-        "accent": "#b9a2ee",
+        "glow": "#8e4fe0",
+        "edge": "#150828",
+        "drop": "#d9c1ff",
+        "accent": "#d9c1ff",
         "mood": "warm"
       },
       "tagline": "Frenk üzümü, yasemin, lavanta, sedir ve gri amberin…",
@@ -2166,8 +2166,8 @@
       "color": "#d6bd94",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#5e2a40",
-        "edge": "#050404",
+        "glow": "#6b2f4b",
+        "edge": "#0a0306",
         "drop": "#f0a3bd",
         "accent": "#f0a3bd",
         "mood": "warm"
@@ -2277,10 +2277,10 @@
       "color": "#aba2c2",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#34295e",
-        "edge": "#050404",
-        "drop": "#b9a2ee",
-        "accent": "#b9a2ee",
+        "glow": "#8e4fe0",
+        "edge": "#150828",
+        "drop": "#d9c1ff",
+        "accent": "#d9c1ff",
         "mood": "warm"
       },
       "tagline": "Tarihte ve efsanelerde dünyanın 7 harikasından bahsedilir",
@@ -2432,10 +2432,10 @@
       "color": "#b1a3c0",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#34295e",
-        "edge": "#050404",
-        "drop": "#b9a2ee",
-        "accent": "#b9a2ee",
+        "glow": "#8e4fe0",
+        "edge": "#150828",
+        "drop": "#d9c1ff",
+        "accent": "#d9c1ff",
         "mood": "warm"
       },
       "tagline": "Tarihte ve efsanelerde dünyanın 7 harikasından bahsedilir",
@@ -2594,10 +2594,10 @@
       "color": "#d4b494",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#26331f",
-        "edge": "#050404",
-        "drop": "#b9a36a",
-        "accent": "#b9a36a",
+        "glow": "#1f9e6a",
+        "edge": "#03190f",
+        "drop": "#8ee6bb",
+        "accent": "#8ee6bb",
         "mood": "warm"
       },
       "tagline": "Türkan 4, adını Fransızca “Ormansı” anlamına gelen Boise…",
@@ -2757,10 +2757,10 @@
       "color": "#d2b69c",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#26331f",
-        "edge": "#050404",
-        "drop": "#b9a36a",
-        "accent": "#b9a36a",
+        "glow": "#1f9e6a",
+        "edge": "#03190f",
+        "drop": "#8ee6bb",
+        "accent": "#8ee6bb",
         "mood": "warm"
       },
       "tagline": "Türkan 4, adını Fransızca “Ormansı” anlamına gelen Boise…",
@@ -2911,10 +2911,10 @@
       "color": "#d1b3a1",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#5e2d16",
-        "edge": "#050404",
-        "drop": "#f08a4b",
-        "accent": "#f08a4b",
+        "glow": "#e23d2d",
+        "edge": "#2a0605",
+        "drop": "#ffa080",
+        "accent": "#ffa080",
         "mood": "warm"
       },
       "tagline": "1 rakamı başka hiçbir sayı gibi değildir",
@@ -3058,8 +3058,8 @@
       "color": "#d1aba7",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#5e2a40",
-        "edge": "#050404",
+        "glow": "#6b2f4b",
+        "edge": "#0a0306",
         "drop": "#f0a3bd",
         "accent": "#f0a3bd",
         "mood": "warm"
@@ -3208,8 +3208,8 @@
       "color": "#cca9a5",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#5e2a40",
-        "edge": "#050404",
+        "glow": "#6b2f4b",
+        "edge": "#0a0306",
         "drop": "#f0a3bd",
         "accent": "#f0a3bd",
         "mood": "warm"
@@ -3473,7 +3473,7 @@
       }
     },
     {
-      "flavor": 1,
+      "flavor": 0,
       "tr": {
         "title": "İmzala",
         "text": "İmza kokular No/7 ve No/8, Eau de Parfum farkıyla teninizi sarar.",
@@ -3486,7 +3486,7 @@
       }
     },
     {
-      "flavor": 0,
+      "flavor": 1,
       "tr": {
         "title": "İz bırak",
         "text": "En yüksek yoğunlukta. Sanat gibi katmanlanmış. İz bırakan: Extrait de Parfum.",
@@ -3935,8 +3935,8 @@
         "product": 4,
         "image": "cut/ozel-hediye-seti.webp",
         "cutout": true,
-        "bg": "#3b2f45",
-        "bg2": "#dcb6cf",
+        "bg": "#b05bd6",
+        "bg2": "#eac4ff",
         "variants": [
           {
             "id": 43110709231801
@@ -3964,8 +3964,8 @@
         "product": 5,
         "image": "cut/ozel-hediye-seti-1.webp",
         "cutout": true,
-        "bg": "#3a2419",
-        "bg2": "#d4a45a",
+        "bg": "#e0a820",
+        "bg2": "#ffe39a",
         "variants": [
           {
             "id": 43110709526713
@@ -3990,11 +3990,11 @@
           "en": "Are you ready for a story that you'll never get bored of and a magical journey that will last a lifetime?"
         },
         "color": "#746056",
-        "product": 0,
+        "product": 1,
         "image": "cut/turkan-no-3-ambre-100ml.webp",
         "cutout": true,
-        "bg": "#5c2418",
-        "bg2": "#e0914a",
+        "bg": "#e8741c",
+        "bg2": "#ffc27a",
         "variants": [
           {
             "id": 43567711748281
@@ -4022,8 +4022,8 @@
         "product": 6,
         "image": "cut/turkan-no-10-noblesse-oriental-family-100ml.webp",
         "cutout": true,
-        "bg": "#3d1834",
-        "bg2": "#d8a85e",
+        "bg": "#3656d8",
+        "bg2": "#aab8ff",
         "variants": [
           {
             "id": 43064458444985
@@ -4051,8 +4051,8 @@
         "product": 7,
         "image": "cut/turkan-no-2-equilibre-citrus-family.webp",
         "cutout": true,
-        "bg": "#3d3a12",
-        "bg2": "#ecd062",
+        "bg": "#7cc62a",
+        "bg2": "#e2ff9e",
         "variants": [
           {
             "id": 43063557423289
@@ -4080,8 +4080,8 @@
         "product": 8,
         "image": "cut/turkan-no-3-ambre-15-ml.webp",
         "cutout": true,
-        "bg": "#5c2418",
-        "bg2": "#e0914a",
+        "bg": "#e8741c",
+        "bg2": "#ffc27a",
         "variants": [
           {
             "id": 43693162102969
@@ -4109,8 +4109,8 @@
         "product": 9,
         "image": "cut/turkan-no-6-charme-floral-family-100ml.webp",
         "cutout": true,
-        "bg": "#592639",
-        "bg2": "#f2a6be",
+        "bg": "#d93aa6",
+        "bg2": "#ffaee6",
         "variants": [
           {
             "id": 43064457887929
@@ -4138,8 +4138,8 @@
         "product": 10,
         "image": "cut/turkan-no-9-mystique-spicy-family-100ml.webp",
         "cutout": true,
-        "bg": "#4a1414",
-        "bg2": "#e0673f",
+        "bg": "#138f9a",
+        "bg2": "#8ff0f2",
         "variants": [
           {
             "id": 43064454774969
@@ -4164,10 +4164,10 @@
           "en": "Floraison, which is the ‘‘Floral’’ part of our fragrance collection."
         },
         "color": "#dbdcdf",
-        "product": 1,
+        "product": 0,
         "image": "cut/turkan-no-8-floraison-100-ml.webp",
         "cutout": true,
-        "bg": "#5e2a40",
+        "bg": "#6b2f4b",
         "bg2": "#f0a3bd",
         "variants": [
           {
@@ -4196,8 +4196,8 @@
         "product": 2,
         "image": "cut/turkan-no-7-agrumes-100-ml.webp",
         "cutout": true,
-        "bg": "#34295e",
-        "bg2": "#b9a2ee",
+        "bg": "#8e4fe0",
+        "bg2": "#d9c1ff",
         "variants": [
           {
             "id": 43693125468345
@@ -4225,8 +4225,8 @@
         "product": 11,
         "image": "cut/turkan-no-7-agrumes-15-ml.webp",
         "cutout": true,
-        "bg": "#34295e",
-        "bg2": "#b9a2ee",
+        "bg": "#8e4fe0",
+        "bg2": "#d9c1ff",
         "variants": [
           {
             "id": 43693128024249
@@ -4254,7 +4254,7 @@
         "product": 12,
         "image": "cut/turkan-no-8-floraison-15ml.webp",
         "cutout": true,
-        "bg": "#5e2a40",
+        "bg": "#6b2f4b",
         "bg2": "#f0a3bd",
         "variants": [
           {
@@ -4283,8 +4283,8 @@
         "product": 3,
         "image": "cut/turkan-epi̇ce-1-cologne-du-parfumeur-150-ml.webp",
         "cutout": true,
-        "bg": "#5e2d16",
-        "bg2": "#f08a4b",
+        "bg": "#e23d2d",
+        "bg2": "#ffa080",
         "variants": [
           {
             "id": 40164694294713
@@ -4312,8 +4312,8 @@
         "product": 13,
         "image": "cut/turkan-agrumes-7-cologne-du-parfumeur-150-ml.webp",
         "cutout": true,
-        "bg": "#34295e",
-        "bg2": "#b9a2ee",
+        "bg": "#8e4fe0",
+        "bg2": "#d9c1ff",
         "variants": [
           {
             "id": 40164663722169
@@ -4341,8 +4341,8 @@
         "product": 14,
         "image": "cut/turkan-agrumes-7-cologne-du-parfumeur-50-ml.webp",
         "cutout": true,
-        "bg": "#34295e",
-        "bg2": "#b9a2ee",
+        "bg": "#8e4fe0",
+        "bg2": "#d9c1ff",
         "variants": [
           {
             "id": 40164667162809
@@ -4370,8 +4370,8 @@
         "product": 15,
         "image": "cut/turkan-boi̇se-4-cologne-du-parfumeur-150-ml.webp",
         "cutout": true,
-        "bg": "#26331f",
-        "bg2": "#b9a36a",
+        "bg": "#1f9e6a",
+        "bg2": "#8ee6bb",
         "variants": [
           {
             "id": 40164671553721
@@ -4399,8 +4399,8 @@
         "product": 16,
         "image": "cut/turkan-boi̇se-4-cologne-du-parfumeur-50-ml.webp",
         "cutout": true,
-        "bg": "#26331f",
-        "bg2": "#b9a36a",
+        "bg": "#1f9e6a",
+        "bg2": "#8ee6bb",
         "variants": [
           {
             "id": 40164686758073
@@ -4428,8 +4428,8 @@
         "product": 17,
         "image": "cut/turkan-epi̇ce-1-cologne-du-parfumeur-50-ml.webp",
         "cutout": true,
-        "bg": "#5e2d16",
-        "bg2": "#f08a4b",
+        "bg": "#e23d2d",
+        "bg2": "#ffa080",
         "variants": [
           {
             "id": 40164698849465
@@ -4457,7 +4457,7 @@
         "product": 18,
         "image": "cut/turkan-floraison-8-cologne-du-parfumeur-150-ml.webp",
         "cutout": true,
-        "bg": "#5e2a40",
+        "bg": "#6b2f4b",
         "bg2": "#f0a3bd",
         "variants": [
           {
@@ -4486,7 +4486,7 @@
         "product": 19,
         "image": "cut/turkan-floraison-8-cologne-du-parfumeur-50-ml.webp",
         "cutout": true,
-        "bg": "#5e2a40",
+        "bg": "#6b2f4b",
         "bg2": "#f0a3bd",
         "variants": [
           {

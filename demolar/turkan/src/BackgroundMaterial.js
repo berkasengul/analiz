@@ -92,8 +92,9 @@ export const BackgroundMaterial = shaderMaterial(
       }
 
       // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.
-      float spotD = length((vUv - vec2(u_focusX, 0.5)) * vec2(u_aspect * 0.62, 0.9));
-      base *= mix(1., 0.42 + 0.58 * (1. - smoothstep(0.12, 0.85, spotD)), u_studio * u_stage);
+      // Hafif karartma: ürünün çevresi ürünün renginde parlak, kenarlara doğru koyulaşır (telefonda da).
+      float spotD = length((vUv - vec2(u_focusX, 0.52)) * vec2(max(u_aspect * 0.62, 0.85), 0.9));
+      base *= mix(1., 0.3 + 0.7 * (1. - smoothstep(0.1, 0.8, spotD)), u_studio * u_stage);
 
       // Tepeden inen ışık huzmesi (stüdyoda daha dar, daha parlak, içinde yavaş süzülen toz).
       vec2 bp = (vUv - vec2(u_focusX, 1.08)) * asp;

@@ -152,8 +152,8 @@ def main():
                     price=price, compare=cmp_, m=meta.get(h, {}), cat=cat_of(h), fam=fam, variants=variants)
 
     def palette_of(h):
-        """Ürüne özel sahne rengi (kurallar → palette: [["regex", "#ana", "#vurgu"], ...])."""
-        return next(((a, b) for rx, a, b in R.get("palette", []) if re.search(rx, h)), None)
+        """Ürüne özel sahne rengi (kurallar → palette: [["regex", "#zemin", "#vurgu", "#kenar"?], ...])."""
+        return next(((e[1], e[2], e[3] if len(e) > 3 else "#050404") for e in R.get("palette", []) if re.search(e[0], h)), None)
 
     def photo_product(h):
         i = info(h)
@@ -167,7 +167,7 @@ def main():
             "family": fam[0], "year": None, "perfumer": None, "color": hexc(rgb), "ink": "#1f1a17",
             # Sahne ışığının ikinci rengi: markanın tema vurgusu (ör. altın) ya da ürünün kendi rengi.
             # Sahne ışığı: ürüne özel renk (palette) ya da ürün rengi + tema vurgusu.
-            "theme": ({"glow": pal[0], "edge": "#050404", "drop": pal[1], "accent": pal[1], "mood": "warm"} if pal else
+            "theme": ({"glow": pal[0], "edge": pal[2], "drop": pal[1], "accent": pal[1], "mood": "warm"} if pal else
                       theme(rgb, [int(R["themeAccent"][k:k + 2], 16) for k in (1, 3, 5)] if R.get("themeAccent") else i["m"].get("accent"),
                             R.get("themeGlow", 0.27))), "tagline": i["tag"], "notes": [a for a, _ in notes],
             "description": i["desc"], "file": f"{h}.webp",

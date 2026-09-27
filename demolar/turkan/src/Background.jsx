@@ -84,7 +84,7 @@ export default function Background() {
     const wide = size.width / size.height >= 0.9;
     let fx = 0.5;
     // Tek ürün sahnesinde huzme ve ışık havuzu tam öndeki ürünün üstüne düşer.
-    if (SOLO && wide) fx = MathUtils.clamp((P.copy(sceneState.focus.position).project(camera).x + 1) / 2, 0.2, 0.8);
+    if (SOLO) fx = MathUtils.clamp((P.copy(sceneState.focus.position).project(camera).x + 1) / 2, 0.2, 0.8);
     if (wide) {
       fx = MathUtils.lerp(fx, 0.68, scrollState.ritualIn);
       fx = MathUtils.lerp(fx, 0.7, scrollState.shopIn);
@@ -92,7 +92,7 @@ export default function Background() {
     }
     l.fx = MathUtils.damp(l.fx ?? fx, fx, 4, Math.min(delta, 0.1));
     material.current.u_focusX = l.fx;
-    material.current.u_studio = SOLO && wide ? 1 : 0;
+    material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
 
     // Ritüel'de halka ekranın ortasından, carousel'de öndeki kutudan çıkar.

@@ -300,8 +300,8 @@
       ]
     ],
     "home": [
-      "turkan-no-3-ambre-100ml",
       "turkan-no-8-floraison-100-ml",
+      "turkan-no-3-ambre-100ml",
       "turkan-no-7-agrumes-100-ml",
       "turkan-epi̇ce-1-cologne-du-parfumeur-150-ml"
     ],
@@ -361,58 +361,69 @@
     "palette": [
       [
         "ozel-hediye-seti-1",
-        "#3a2419",
-        "#d4a45a"
+        "#e0a820",
+        "#ffe39a",
+        "#241a02"
       ],
       [
         "ozel-hediye-seti$",
-        "#3b2f45",
-        "#dcb6cf"
+        "#b05bd6",
+        "#eac4ff",
+        "#1c0726"
       ],
       [
         "ambre",
-        "#5c2418",
-        "#e0914a"
+        "#e8741c",
+        "#ffc27a",
+        "#2a0e03"
       ],
       [
         "floraison",
-        "#5e2a40",
-        "#f0a3bd"
+        "#6b2f4b",
+        "#f0a3bd",
+        "#0a0306"
       ],
       [
         "agrumes",
-        "#34295e",
-        "#b9a2ee"
+        "#8e4fe0",
+        "#d9c1ff",
+        "#150828"
       ],
       [
         "epi",
-        "#5e2d16",
-        "#f08a4b"
+        "#e23d2d",
+        "#ffa080",
+        "#2a0605"
       ],
       [
         "boi",
-        "#26331f",
-        "#b9a36a"
+        "#1f9e6a",
+        "#8ee6bb",
+        "#03190f"
       ],
       [
         "noblesse",
-        "#3d1834",
-        "#d8a85e"
+        "#3656d8",
+        "#aab8ff",
+        "#060c2c"
       ],
       [
         "charme",
-        "#592639",
-        "#f2a6be"
+        "#d93aa6",
+        "#ffaee6",
+        "#290620"
       ],
       [
         "mystique",
-        "#4a1414",
-        "#e0673f"
+        "#138f9a",
+        "#8ff0f2",
+        "#021b1e"
       ],
       [
         "equilibre",
-        "#3d3a12",
-        "#ecd062"
+        "#7cc62a",
+        "#e2ff9e",
+        "#0f1c03"
       ]
     ]
   }

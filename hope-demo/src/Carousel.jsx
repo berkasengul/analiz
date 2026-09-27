@@ -47,16 +47,17 @@ export function arcPose(d, aspect, time, i) {
   const spread = MathUtils.clamp(aspect / 1.9, 0.44, 1);
   const base = aspect < 0.9 ? 0.78 : 1;
   if (SOLO) {
-    // Tek ürün sahnesi: öndeki ürün sağ-ortada büyük ve ışıkta; diğerleri iki yana geniş
-    // dizilir, geride ve karanlıkta (silüet) bekler. Kaydırınca sıradaki ışığa yürür.
+    // Tek ürün sahnesi: öndeki ürün büyük ve ışıkta; diğerleri iki yanda, geride ve loşta
+    // hafifçe görünür. Telefonda yanlar ekranın kenarından yarım görünür. Kaydırınca sıradaki ışığa yürür.
+    const phone = aspect < 0.9;
     return {
-      x: aspect < 0.9 ? 4.6 * d : (1.6 + 5.4 * d * (1 + 0.08 * ad)) * spread,
-      y: 0.5 + (aspect < 0.9 ? -0.3 : 0.12) * Math.min(ad, 3) + 0.7 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07,
-      z: -2.6 * ad + focus * 1.6,
+      x: phone ? 2.5 * d * (1 + 0.12 * ad) : (1.6 + 5.4 * d * (1 + 0.08 * ad)) * spread,
+      y: 0.5 + (phone ? 0.1 : 0.12) * Math.min(ad, 3) + 0.7 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07,
+      z: (phone ? -2.4 : -2.6) * ad + focus * 1.6,
       rotX: 0.06,
       rotY: -0.3 * d + (focus > 0 ? Math.sin(time * 0.5) * 0.22 * focus : 0),
       rotZ: 0.06 * d + 0.05 * focus,
-      scale: base * (0.6 + 0.7 * focus) * (1 - (LINEAR ? MathUtils.smoothstep(ad, 3.4, 4.4) : MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2)))),
+      scale: base * (phone ? 0.62 + 0.64 * focus : 0.6 + 0.7 * focus) * (1 - (LINEAR ? MathUtils.smoothstep(ad, 3.4, 4.4) : MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2)))),
     };
   }
   return {
@@ -202,13 +203,13 @@ export default function Carousel() {
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
-      // Tek ürün sahnesinde ışık yalnızca öndekine düşer: yanlar neredeyse siyah, yalnızca
-      // ince bir renkli kenar ışığıyla biçimleri seçilir.
+      // Tek ürün sahnesinde ışık öndekine düşer: yanlar loşta kalır ama renkli kenar ışığıyla
+      // biçimleri ve etiketleri hafifçe seçilir.
       const lit = SOLO
-        ? 0.05 + 0.95 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
+        ? 0.24 + 0.76 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
       const dim = (1 - fade) * lit;
-      bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(SOLO ? (1 - fade) * (0.28 + 0.72 * lit * lit) : dim * (0.35 + 0.65 * lit));
+      bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(SOLO ? (1 - fade) * (0.5 + 0.5 * lit * lit) : dim * (0.35 + 0.65 * lit));
       bodies[i].userData.uniforms.u_dim.value = dim;
       if (STUDIO) {
         const U = bodies[i].userData.uniforms;

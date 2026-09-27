@@ -5440,10 +5440,11 @@ button.buy__more {
   background:
     radial-gradient(ellipse 62% 48% at 50% 28%, color-mix(in srgb, var(--bg2) 34%, transparent), transparent 72%),
     radial-gradient(ellipse 44% 8% at 50% var(--floor), color-mix(in srgb, var(--bg2) 55%, transparent), transparent 72%),
-    linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 60%, #000) calc(var(--floor) - 0.5%), #060505 calc(var(--floor) + 0.5%), #030303 100%);
+    linear-gradient(180deg, color-mix(in srgb, var(--bg) 82%, #000) 0%, color-mix(in srgb, var(--bg) 48%, #000) calc(var(--floor) - 0.5%), #060505 calc(var(--floor) + 0.5%), #030303 100%);
 }
+/* Hafif karartma: renk ortada canlı, kenarlara doğru koyulaşır. */
 .pcard--gallery .pcard__media.is-cutout::before {
-  background: radial-gradient(ellipse 85% 80% at 50% 45%, transparent 58%, rgba(0, 0, 0, 0.6) 100%);
+  background: radial-gradient(ellipse 80% 75% at 50% 42%, transparent 40%, rgba(0, 0, 0, 0.72) 100%);
 }
 /* Dev numara: ince altın/ürün rengi çizgi. */
 .pcard__num {

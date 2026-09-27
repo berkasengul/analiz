@@ -127,3 +127,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Türkan | Yan şişeler de ışıkta, öndeki ürün yeterince öne çıkmıyordu; huzme ürünün yanına düşüyordu | Solo sahnede yanlar neredeyse siyah silüet (ince renkli kenar ışığı); huzme ve ışık havuzu öndeki ürünün ekrandaki yerine hizalı, çevre kararır (`u_studio`) |
 | Türkan | Ana sayfada 8 ürün kaydırılıyordu, alt bölüme geç iniliyordu | `aktar.home` 4 koku (Ritüel'deki üçü dahil); 3+ ürünlü solo sahnede halka düzeni (iki yanda silüet) |
 | Türkan | Ritüel'e geçince nota listesi (fixed) ve kaide ekranda kalıyordu | Nota listesi HUD içinde absolute; kaide sahne dağılırken hızla söner |
+| Türkan | Telefonda tek ürün görünüyordu; yan ürünler karanlıkta hiç seçilmiyordu | Telefonda yanlar ekranın kenarından yarım görünür; yanlar loş (%24 ışık) ve renkli kenar ışıklı |
+| Türkan | Zemine denenen baklava kabartma "çikolata" gibi durdu (istenen: hafif karartma) | Kabartma tamamen kaldırıldı; zemin ürünün renginde, kenarlara doğru hafif kararır (telefonda da) |
+| Türkan | Ürün zeminlerinde kahverengi tonu baskındı | `aktar.palette` notalara göre canlı renkler (+ kenar rengi); site Floraison'la, markanın seçtiği gül-mürdüm tonunda açılır |
