@@ -89658,7 +89658,7 @@
   },
   "ui": {
     "tr": {
-      "loading": "Zeytinler toplanıyor",
+      "loading": "Doğal bakım ritüeliniz hazırlanıyor",
       "madeFor": "Lalive için hazırlanmış konsept",
       "whereTag": "Assos'tan kapına, doğanın saflığıyla.",
       "recyclable": "Geri dönüştürülebilir ambalaj",
@@ -89708,7 +89708,7 @@
       "caffeine": "Yalnızca harici kullanım içindir; göz ile temasından kaçının."
     },
     "en": {
-      "loading": "Gathering the olives",
+      "loading": "Preparing your natural care ritual",
       "madeFor": "A concept made for Lalive",
       "whereTag": "From Assos to your door, with nature's purity.",
       "recyclable": "Recyclable packaging",
@@ -91785,10 +91785,10 @@
   },
   "logo": "brand/logo-cream.png",
   "home": [
+    3,
     0,
     1,
     2,
-    3,
     4,
     5,
     72,

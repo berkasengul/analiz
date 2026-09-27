@@ -8,7 +8,7 @@ import { easeQuadOut } from "d3-ease";
 
 import CanMesh, { createBottleParts, useCanBody } from "./CanMesh";
 import { lightOf } from "./Carousel";
-import { createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
+import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor, unlitOf } from "./canMaterial";
 import { VARIETY, features, flavors, ritual } from "./data";
 import { pointer } from "./pointer";
 import { scrollState } from "./scroll";
@@ -55,7 +55,7 @@ function detailPose(feature, wide, time, turn) {
   const idle = Math.sin(time * 0.5) * 0.2 + pointer.x * 0.15;
   const base = wide
     ? { x: 1.3, y: -0.7, z: 3, rotX: 0.03 + pointer.y * 0.04, rotY: idle, rotZ: 0.03, scale: 2.05 }
-    : { x: 0, y: 1.9, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.04, scale: 1.05 };
+    : { x: 0, y: 2.5, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.04, scale: 0.72 };
   if (f) {
     base.rotY = f.rotY + Math.sin(time * 0.4) * 0.04 + pointer.x * 0.05;
     base.rotZ = f.rotZ;
@@ -64,8 +64,9 @@ function detailPose(feature, wide, time, turn) {
       base.y = f.y;
       base.scale = f.scale;
     } else {
-      base.y = 1.9 + (f.y + 0.9) * 0.3;
-      base.scale = 1.05 * (f.scale / 2.05);
+      // Telefonda ürün, alttaki bilgi kartının üstünde tamamen görünür kalır.
+      base.y = 2.2 + (f.y + 0.9) * 0.1;
+      base.scale = 0.78 * Math.min(f.scale / 2.05, 1.15);
     }
   }
   base.rotY += turn;
@@ -142,6 +143,7 @@ export default function HeroCan() {
     uniforms.u_map1.value = uniforms.u_map2.value;
     uniforms.u_map2.value = f.texture;
     uniforms.u_ink2.value.set(f.ink);
+    uniforms.u_unlit.value = unlitOf(f);
     s.controls = animate(0.5, 1, {
       duration: 1.1,
       ease: easeQuadOut,
@@ -193,7 +195,7 @@ export default function HeroCan() {
     sceneState.spotlight = s.spot;
     const sweepK = 1 - Math.pow(1 - Math.min(1, (time - s.sweepAt) / 1.4), 3);
     const light = spot.current;
-    light.intensity = s.spot * 9 * lightOf(flavors[s.target]);
+    light.intensity = s.spot * 9 * lightOf(flavors[s.target]) * (MOBILE ? 0.35 : 1);
     light.position.set(group.current.position.x - 2.8 + sweepK * 2.6, group.current.position.y * 0.2 + 2.2, 11);
     light.target.position.set(group.current.position.x, 0.2, group.current.position.z);
     light.target.updateMatrixWorld();

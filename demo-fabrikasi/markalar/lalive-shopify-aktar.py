@@ -294,7 +294,7 @@ def main():
         {"flavor": 2, "tr": {"title": "Koru", "text": "Dudaklarını gün boyu doğal dudak balmıyla koru.", "stat": "10 ml"},
          "en": {"title": "Protect", "text": "Protect your lips all day with the natural lip balm.", "stat": "10 ml"}},
     ]
-    c["home"] = [0, 1, 2, 3, 4, 5] + [handles.index(h) for h in HOME_EXTRA if h in handles]
+    c["home"] = [3, 0, 1, 2, 4, 5] + [handles.index(h) for h in HOME_EXTRA if h in handles]
     c["catalog"]["categories"] = [cats[k] for k in order_cats if any(x["category"] == k for x in items_out)]
     c["catalog"]["items"] = items_out
     c["defaultShopFlavor"] = 0

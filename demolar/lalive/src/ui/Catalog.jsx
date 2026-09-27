@@ -339,8 +339,16 @@ export function CollectionGrid() {
         ))}
       </div>
       <div className="collection__more reveal">
-        <a className="pill" href="#/urunler">
-          {t.ui.byCategory} →
+        <a className="explore" href="#/urunler">
+          <span className="explore__text">
+            <span className="explore__label">{t.ui.exploreAll}</span>
+            <span className="explore__sub">{t.ui.exploreSub(C.items.length, C.categories.length)}</span>
+          </span>
+          <span className="explore__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
         </a>
       </div>
     </section>

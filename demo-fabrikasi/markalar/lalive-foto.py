@@ -11,6 +11,7 @@ Kullanım: python3 demo-fabrikasi/markalar/lalive-foto.py
 """
 import glob
 import json
+import re
 import os
 
 import cv2
@@ -116,26 +117,163 @@ def shape_info(F):
     return {"axis": round(cx / S, 4), "rows": rows, "outline": outline, "edge": [int(v) for v in edge]}
 
 
-def plain_back(F):
-    """Arka fotoğrafı olmayan ürünün arkası: yazısız, her satırda ön yüzün gövde rengi."""
+def _soft(F, sigma):
+    """Alfaya duyarlı bulanıklık (kenarda kararma olmadan)."""
+    a = np.asarray(F).astype(np.float32)
+    al = a[..., 3:4] / 255
+    num = cv2.GaussianBlur(a[..., :3] * al, (0, 0), sigma)
+    den = cv2.GaussianBlur(al, (0, 0), sigma)[..., None]
+    return num / np.maximum(den, 1e-3)
+
+
+def _edge_weight(F):
+    """0 silüet kenarında, 1 içeride (kenardan ~38 px, yumuşak): arka yüz kenarda ön yüzle birleşsin."""
+    m = (np.asarray(F)[..., 3] > 128).astype(np.uint8)
+    d = cv2.distanceTransform(m, cv2.DIST_L2, 5)
+    t = np.clip(d / (0.03 * S), 0, 1)
+    return (t * t * (3 - 2 * t))[..., None], d
+
+
+def _row_fill(F):
+    """Ambalajın yazısız rengi, satır satır: her satır için çevresindeki ±%5 yükseklikteki
+    bütün ürün piksellerinin ortancası. Logo ve yazı bu alanın küçük bir kısmı olduğu için
+    arkaya hayalet ya da şerit olarak geçmez; kapak/gövde gibi keskin geçişler korunur."""
     a = np.asarray(F).astype(np.float32)
     m = a[..., 3] > 128
-    out = np.zeros_like(a)
-    cols = np.zeros((S, 3), np.float32)
-    have = np.zeros(S, bool)
-    for y in range(S):
-        px = a[y, m[y], :3]
-        if len(px):
-            cols[y] = np.median(px, 0)
-            have[y] = True
-    if have.any():
-        idx = np.arange(S)
-        for k in range(3):
-            cols[:, k] = np.interp(idx, idx[have], cols[have, k])
-        cols = cv2.GaussianBlur(cols[:, None, :], (1, 31), 0)[:, 0, :]
-    out[..., :3] = cols[:, None, :]
-    out[..., 3] = a[..., 3]
-    return Image.fromarray(out.clip(0, 255).astype(np.uint8)).transpose(Image.FLIP_LEFT_RIGHT)
+    H = a.shape[0]
+    R = max(8, int(H * 0.05))
+    step = max(1, a.shape[1] // 120)
+    sub, msub = a[:, ::step, :3], m[:, ::step]
+    rows = np.zeros((H, 3), np.float32)
+    ok = np.zeros(H, bool)
+    for y in range(0, H, 2):
+        if not m[y].any():
+            continue
+        lo, hi = max(0, y - R), min(H, y + R + 1)
+        px = sub[lo:hi][msub[lo:hi]]
+        if len(px) >= 5:
+            rows[y] = np.median(px, axis=0)
+            ok[y] = True
+    if not ok.any():
+        return _soft(F, S * 0.05)
+    idx = np.where(ok)[0]
+    for c in range(3):
+        rows[:, c] = np.interp(np.arange(H), idx, rows[idx, c])
+    rows = cv2.GaussianBlur(rows[:, None, :], (0, 0), sigmaX=0.1, sigmaY=S * 0.004)[:, 0, :]
+    return np.repeat(rows[:, None, :], a.shape[1], axis=1)
+
+
+def seal_front(F):
+    """Ön yüzün silüet kenarındaki bant ambalajın düz rengine yumuşakça geçer.
+    Dönen gövdede bu bant ürünün yan tarafına gerilir; kenardaki parlama,
+    gölge ve yazı yanda uzamış çizgi gibi görünmez, arka yüzle dikişsiz birleşir."""
+    a = np.asarray(F).astype(np.float32)
+    w, _ = _edge_weight(F)
+    rgb = _row_fill(F) * (1 - w) + a[..., :3] * w
+    return Image.fromarray(np.concatenate([rgb, a[..., 3:4]], axis=2).clip(0, 255).astype(np.uint8))
+
+
+def plain_back(F, back_photo=None, text=None):
+    """Arka yüz (arkadan bakana göre çizilir, sonra aynalanmış ön yüz hizasında):
+    - arka fotoğraf varsa o; yoksa ön yüzün yazısız, yumuşak renkleri,
+    - kenarlarda ön fotoğrafın kenar renkleriyle kaynaşır (yanda dikiş görünmez),
+    - arka fotoğrafı olmayan kozmetiklerde okunur bir içerik/kullanım etiketi."""
+    a = np.asarray(F).astype(np.float32)
+    w, _ = _edge_weight(F)
+    base = _row_fill(F)
+    inner = base
+    if back_photo is not None:  # ön yüz hizasında verilir; boş kalan yerler yumuşak renkle dolar
+        bp = np.asarray(back_photo).astype(np.float32)
+        ab = bp[..., 3:4] / 255
+        inner = base * (1 - ab) + bp[..., :3] * ab
+    # Kenarda iki yüz de aynı düz renkte buluşur (seal_front ile aynı bant): yanda dikiş yok.
+    rgb = base * (1 - w) + inner * w
+    out = np.concatenate([rgb, a[..., 3:4]], axis=2).clip(0, 255).astype(np.uint8)
+    img = Image.fromarray(out).transpose(Image.FLIP_LEFT_RIGHT)
+    if text and back_photo is None:
+        draw_back_label(img, text)
+    return img
+
+
+FONTS = os.path.join(HERE, "..", "..", "hope-demo", "docs", "label-fonts")
+
+
+def _font(name, size):
+    from PIL import ImageFont
+    return ImageFont.truetype(os.path.join(FONTS, name), max(8, int(size)))
+
+
+def draw_back_label(img, text):
+    """Arka etiket: ürün adı, kısa açıklama, özellikler, kullanım, hacim (markanın metinlerinden).
+
+    Metin yalnızca gövdenin düz (en geniş) kısmına yazılır, omuza ve kapağa taşmaz;
+    blok o alanda dikeyde ortalanır."""
+    from PIL import ImageDraw
+    m = np.asarray(img)[..., 3] > 128
+    rows = m.sum(1)
+    if rows.max() < 60:
+        return
+    body = np.where(rows >= rows.max() * 0.72)[0]
+    top, bot = body[0], body[-1]
+    y0, y1 = int(top + (bot - top) * 0.1), int(bot - (bot - top) * 0.06)
+    if y1 - y0 < 80:
+        return
+    left = max(np.where(m[y])[0][0] for y in range(y0, y1, 4) if m[y].any())
+    right = min(np.where(m[y])[0][-1] for y in range(y0, y1, 4) if m[y].any())
+    W = (right - left) * 0.8
+    if W < 110:
+        return
+    cx = (left + right) / 2
+    region = np.asarray(img)[y0:y1, int(cx - W / 2):int(cx + W / 2), :3]
+    dark = region.mean() < 128
+    ink = (246, 239, 224) if dark else (34, 28, 22)
+    d = ImageDraw.Draw(img)
+
+    def wrap(t, f, width):
+        out, line = [], ""
+        for word in t.split():
+            test = (line + " " + word).strip()
+            if d.textlength(test, font=f) > width and line:
+                out.append(line)
+                line = word
+            else:
+                line = test
+        return out + ([line] if line else [])
+
+    # Yazı alana sığana kadar küçült (okunaklı bir alt sınırla).
+    variants = [text, {**text, "usage": None}, {**text, "usage": None, "chips": []}]
+    for base, text in [(b, v) for v in variants for b in np.linspace(W / 12, W / 15.5, 4)]:
+        f_head = _font("Lato-Bold.ttf", base * 0.6)
+        f_title = _font("Marcellus-Regular.ttf", base * 1.05)
+        f_body = _font("Lato-Bold.ttf", base * 0.7)
+        items = []  # (metin, yazı tipi, satır yüksekliği)
+        for line in wrap(text["name"].upper(), f_title, W)[:3]:
+            items.append((line, f_title, base * 1.3))
+        items.append((None, None, base * 0.45))
+        blocks = [(None, text["desc"])]
+        if text.get("chips"):
+            blocks.append(("ÖZELLİKLER", " · ".join(text["chips"])))
+        if text.get("usage"):
+            blocks.append(("KULLANIM", text["usage"]))
+        for head, bodytxt in blocks:
+            if head:
+                items.append((head, f_head, base * 0.95))
+            for line in wrap(bodytxt, f_body, W):
+                items.append((line, f_body, base * 0.95))
+            items.append((None, None, base * 0.5))
+        total = sum(h for _, _, h in items) + (base * 1.4 if text.get("size") else 0)
+        if total <= y1 - y0:
+            break
+    else:
+        items = items[: max(1, int((y1 - y0) / (base * 0.95)))]
+        total = sum(h for _, _, h in items)
+    y = y0 + max(0, (y1 - y0 - total) / 2)
+    for line, f, h in items:
+        if line:
+            d.text((cx, y), line, font=f, fill=ink, anchor="mt")
+        y += h
+    if text.get("size"):
+        d.text((cx, min(y1, y + base * 0.6)), text["size"], font=f_head, fill=ink, anchor="mt")
 
 
 def accent_of(F, primary):
@@ -226,6 +364,33 @@ def dominant(im):
     return [int(v) for v in np.median(pick if len(pick) > 50 else a, 0)]
 
 
+_AKTAR = None
+
+
+def back_text(handle):
+    """Arka etiket metni markanın ürün sayfasından (lalive-shopify-aktar.py yardımcılarıyla)."""
+    global _AKTAR
+    import importlib.util
+    import re
+    if re.search(r"tote|atlet|t-shirt|sweatshirt|bandi|sapka|canta|firca|tarak|kabak|masaj-aleti|mug|set|seti|rituel|kutu|yazin|goz-bandi", handle):
+        return None
+    if _AKTAR is None:
+        spec = importlib.util.spec_from_file_location("aktar", os.path.join(HERE, "lalive-shopify-aktar.py"))
+        _AKTAR = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_AKTAR)
+        _AKTAR._tr = {p["handle"]: p for p in json.load(open(os.path.join(SRC, "products-tr.json"), encoding="utf-8"))}
+    A = _AKTAR
+    p = A._tr.get(handle)
+    if not p:
+        return None
+    name, size = A.split_name(p["title"])
+    ps = [x for x in A.paras(p["body_html"]) if len(x) > 30]
+    desc = A.clip(A.lead(ps[0]) if ps else name, 170)
+    usage = next((x for x in ps if re.search(r"uygula|kullan|masaj yap|sürün|sıkın", x, re.I) and x != ps[0]), None)
+    chips = [A.TAGS[t][0] for t in p["tags"] if t in A.TAGS][:5]
+    return {"name": name, "size": size, "desc": desc, "chips": chips, "usage": A.clip(usage, 150) if usage else None}
+
+
 def main():
     meta = {}
     fronts, backs = {}, {}
@@ -278,7 +443,7 @@ def main():
                 if iou > best:
                     back, best = cand, iou
             if back is None or best < 0.86:
-                back = plain_back(F)
+                back = None
                 entry["back"] = False
             else:
                 entry["back"] = True
@@ -286,12 +451,14 @@ def main():
             entry["accent"] = accent_of(F, entry["color"])
             # Arka yarının alfa kanalı ön silüetin aynası: iki yüz aynı sınırda buluşur.
             # Boş kalan pikseller (silüet farkı) bulanık ayna ile doldurulur.
-            fill = plain_back(F)
-            fill.alpha_composite(back)
+            # Arka fotoğraf ön yüzün aynası hizasında; yoksa metinli, yazısız-renkli arka.
+            fill = plain_back(F, back.transpose(Image.FLIP_LEFT_RIGHT) if back is not None else None, back_text(handle))
             fill.putalpha(mirror.getchannel("A"))
             fronts[handle], backs[handle] = F, fill
             atlas = Image.new("RGBA", (2 * S, S))
-            atlas.paste(F, (0, 0))
+            # Dönen gövdeli ürünler (düz bloklar hariç; kural lalive-shopify-aktar.py FLAT ile aynı).
+            flat = re.search(r"set|rituel|yazin|kutu|tote|canta|sapka|atlet|t-shirt|sweatshirt|bandi|firca|kabak|tarak|seti|kati-sabun", handle)
+            atlas.paste(F if flat else seal_front(F), (0, 0))
             atlas.paste(fill, (S, 0))
             os.makedirs(os.path.join(OUT, "labels"), exist_ok=True)
             atlas.save(os.path.join(OUT, "labels", f"{handle}.webp"), quality=88, method=5)

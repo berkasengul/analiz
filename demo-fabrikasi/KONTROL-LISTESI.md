@@ -91,3 +91,10 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Ürün geçişinde grenli turuncu halka ucuz görünüyordu | Ürün renginde yumuşak ışık dalgası; her ürünün iki renkli kendi atmosferi |
 | Lalive | Menüde numaralar ve "Ritüel" | Ürünler (görselli kategori vitrini), Setler, Hakkımızda, İletişim |
 | Lalive | Uzun ürün adı iki satır olup ürünün üstüne bindi | Uzun adlarda küçük punto, tek satır |
+| Lalive | Telefonda ürünlere çok ışık vuruyordu; arka yazılar parlamada kayboluyordu | Fotoğraflı ürünlerde ışığın bir kısmı fotoğrafın kendi rengiyle karışır (`u_unlit`, telefonda daha fazla); telefonda spot ışık yarıya iner |
+| Lalive | Telefonda ürün detayı açılınca ürünün üstü/altı kesiliyordu | Telefon detay pozu küçük ve bilgi kartının üstünde; özellik pozları da bu alanda kalır |
+| Lalive | Vücut yağı / yüz misti arkasında ön logonun hayaleti ve yatay şeritler | Arka yüz rengi ±%5 yükseklikteki piksellerin ortancasıyla; kenar bandı 28 px, bantta yazı pikselleri alınmaz |
+| Lalive | Arka yüzü fotoğrafsız ürünlerde içerik yazısı yoktu ya da okunmuyordu | Markanın metninden arka etiket (ad, açıklama, özellikler, kullanım, hacim), gövdenin düz kısmında ortalı; sığmazsa önce metin kısalır |
+| Lalive | Yükleme yazısı "Zeytinler toplanıyor" anlamsızdı; ana sayfa el kremiyle açılıyordu | "Doğal bakım ritüeliniz hazırlanıyor"; ana sayfa Bronzlaştırıcı Yağ ile açılır |
+| Lalive | Yandan bakınca ön/arka birleşiminde dikiş çizgisi, ön fotoğrafın kenarı yana gerilmiş | Dönen gövdelerde ön ve arka yüzün kenar bandı ambalajın düz rengine geçer (`seal_front`) |
+| Lalive | "Kategorilere göre gör →" sade bir linkti | Cam, ince altın çerçeveli "Tüm ürünleri keşfet" butonu (ürün/kategori sayısıyla) |

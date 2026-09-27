@@ -4,6 +4,14 @@ import { content } from "./data";
 
 // Etiket yüzeyi: varsayılan parfüm şişesinin altın varaklı parlak etiketi;
 // content.json → labelFinish ile değişir (ör. kâğıt etiket: mat, az yansıma).
+// Telefon ekranı: küçük ve parlak; ışıklar ve yansımalar burada daha yumuşak tutulur.
+export const MOBILE = typeof window !== "undefined" && window.matchMedia("(max-width: 820px)").matches;
+
+// Fotoğraftan yapılan ürünlerde ışığın bir kısmı fotoğrafın kendi rengiyle
+// karışır: renk ve arka etiket yazıları gerçek fotoğraftaki gibi net kalır,
+// spot ışık yüzeyi beyazlatmaz.
+export const unlitOf = (f) => (f.form === "photo" ? (MOBILE ? 0.62 : 0.4) : 0);
+
 const FINISH = { metalness: 0.3, roughness: 0.24, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.1, ...content.labelFinish };
 
 // Kutunun baskı malzemesi. Her tadın kendi tam renkli etiket görseli var
@@ -21,6 +29,7 @@ export function createCanUniforms(flavor) {
     u_ink2: { value: new Color() },
     u_progress: { value: 0.5 },
     u_dim: { value: 1 },
+    u_unlit: { value: unlitOf(flavor) },
     u_rim: { value: new Color(0, 0, 0) },
     u_width: { value: 0.8 },
     u_scaleX: { value: 50 },
@@ -34,6 +43,7 @@ export function setCanFlavor(uniforms, flavor) {
   uniforms.u_color1.value.setScalar(1);
   uniforms.u_color2.value.setScalar(1);
   uniforms.u_progress.value = 0.5;
+  uniforms.u_unlit.value = unlitOf(flavor);
 }
 
 // Cam şişenin içindeki parfüm ve etiket.
@@ -61,6 +71,7 @@ export function createCanMaterial(base, uniforms) {
         uniform vec3 u_color2;
         uniform float u_progress;
         uniform float u_dim;
+        uniform float u_unlit;
         uniform vec3 u_rim;
         uniform float u_width;
         uniform float u_scaleX;
@@ -104,7 +115,7 @@ export function createCanMaterial(base, uniforms) {
       /* glsl */ `
         float rimF = pow(1. - abs(dot(normal, normalize(vViewPosition))), 3.);
         // u_dim tüm ışığı (yansımalar dahil) kısar: yan kutular gerçekten kararır.
-        outgoingLight = outgoingLight * u_dim + u_rim * rimF;
+        outgoingLight = mix(outgoingLight, diffuseColor.rgb, u_unlit) * u_dim + u_rim * rimF * (1. - 0.6 * u_unlit);
         #include <opaque_fragment>
       `
     );

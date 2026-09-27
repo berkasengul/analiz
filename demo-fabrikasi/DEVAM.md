@@ -25,6 +25,15 @@ Ağ erişimi açıldı; `lalive-shopify/` içine markanın 77 ürünü (TR+EN me
 fotoğraflı 3B (form "photo"), galeri, gerçek fiyat ve indirimli fiyat. El Kremi, Dudak Balmı, Bronzlaştırıcı Yağ ve
 Besleyici Yüz Bakım Yağı elle modellenmiş hâlde kaldı. Aşağıdaki "sıradaki iş" maddeleri 1–3 tamamlandı.
 
+## Güncelleme (27 Eylül, son tur)
+
+- Telefonda ışık yumuşadı (`u_unlit`, spot ışıkları telefonda kısık); telefon detay pozu ürünü kartın üstünde tam gösterir.
+- Arka yüzler: yazısız ambalaj rengi (±%5 yükseklik ortancası), arka fotoğrafı olmayan kozmetiklerde markanın
+  metninden okunur arka etiket; kenarlarda ön/arka dikişsiz (`seal_front`).
+- Ana sayfa Bronzlaştırıcı Yağ ile açılır; yükleme yazısı "Doğal bakım ritüeliniz hazırlanıyor";
+  ana sayfadaki buton "Tüm ürünleri keşfet".
+- Kullanıcı siteyi localhost'ta açıp bakacak; sonra satış maili (`satis/lalive-mail.md`).
+
 ## Sıradaki iş (önceki not)
 
 1. Ağ erişimi açık yeni oturumda Lalive'ın bütün ürünlerini çek:

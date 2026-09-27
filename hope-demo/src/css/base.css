@@ -4313,3 +4313,90 @@ main {
     font-size: clamp(1.3rem, 6vw, 2.2rem);
   }
 }
+
+/* "Tüm ürünleri keşfet": ince altın çerçeveli cam buton; üzerine gelince
+   zemin ürünün renginde dolar, ok dairesi sağa kayar. */
+.explore {
+  --edge: color-mix(in srgb, var(--accent, #c9a86a) 70%, #fff);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 34px);
+  padding: 12px 12px 12px clamp(26px, 3vw, 38px);
+  border-radius: 999px;
+  color: var(--fg);
+  text-decoration: none;
+  background:
+    linear-gradient(rgba(14, 14, 16, 0.62), rgba(14, 14, 16, 0.62)) padding-box,
+    linear-gradient(120deg, color-mix(in srgb, var(--edge) 85%, transparent), rgba(255, 255, 255, 0.08) 45%, color-mix(in srgb, var(--edge) 70%, transparent)) border-box;
+  border: 1px solid transparent;
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 24px 60px -28px color-mix(in srgb, var(--accent, #c9a86a) 70%, transparent);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), color 0.5s var(--ease);
+}
+.explore::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent, #c9a86a) 40%, #fff), var(--accent, #c9a86a));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.7s var(--ease);
+}
+.explore__text {
+  display: grid;
+  gap: 3px;
+  text-align: left;
+}
+.explore__label {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.1vw, 28px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+.explore__sub {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.5s var(--ease);
+}
+.explore__arrow {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  color: #0c0a09;
+  background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--accent, #c9a86a) 45%, #fff));
+  box-shadow: 0 8px 22px -8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.6s var(--ease), background 0.5s var(--ease);
+}
+.explore:hover {
+  transform: translateY(-2px);
+  color: #0c0a09;
+  box-shadow: 0 30px 70px -26px color-mix(in srgb, var(--accent, #c9a86a) 95%, transparent);
+}
+.explore:hover::before {
+  transform: scaleX(1);
+}
+.explore:hover .explore__sub {
+  color: rgba(12, 10, 9, 0.7);
+}
+.explore:hover .explore__arrow {
+  transform: translateX(4px) rotate(-45deg);
+  background: #0c0a09;
+  color: #fff;
+}
+.explore:focus-visible {
+  outline: 2px solid var(--edge);
+  outline-offset: 4px;
+}
+.explore:active {
+  transform: scale(0.98);
+}

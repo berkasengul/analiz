@@ -5,7 +5,7 @@ import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
-import { createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
+import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { flavors } from "./data";
 import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
@@ -120,7 +120,7 @@ export default function Carousel() {
     const L = spot.current;
     if (L) {
       const fp = sceneState.focus.position;
-      L.intensity = 7 * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
+      L.intensity = 7 * (MOBILE ? 0.55 : 1) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
       L.color.set(flavors[active].theme.glow).lerp(WHITE, 0.65);
       L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
       L.target.position.set(fp.x, fp.y + 0.2, fp.z);
