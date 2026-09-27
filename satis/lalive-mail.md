@@ -8,56 +8,55 @@
 
 ## Konu (birini seç)
 
-1. Lalive için bir site hazırladım
-2. Lalive ürünleri 3D'de: size özel hazırladığım site
-3. Lal Hanım, Lalive için küçük bir sürprizim var
+1. Lalive için hazırlanmış 3D web sitesi
+2. Lalive ürünleri 3D'de: size özel site önerisi
 
-## Mail
+## Mail (firmaya)
 
-Merhaba Lal Hanım,
+Merhaba Lalive ekibi,
 
-Ben Berka. Markalar için 3D ürün siteleri hazırlıyorum. Lalive'ın Koruoba'daki zeytinliklerden başlayan hikâyesini okuyunca, bu ürünlerin internette de elde tutuluyormuş gibi görünmesi gerektiğini düşündüm ve size bir site hazırladım:
+Lalive için ürünlerinizi 3D olarak sergileyen bir web sitesi hazırladım, incelemeniz için paylaşıyorum:
 
 👉 [DEMO LİNKİ]
 
-Telefondan açıp bir dakika kaydırmanız yeterli. Kısaca neler var:
+Neler sunuyor:
 
-- Ürünleriniz kendi fotoğraflarınızdan 3D hâle getirildi. Sayfayı kaydırdıkça sırayla öne çıkıyorlar; ürünü parmağınızla çevirince arka etiketi okunuyor.
-- Sitenizdeki 77 ürünün tamamı; fiyatlar, açıklamalar ve kategoriler sizin sitenizden.
-- Ürün arama, Türkçe/İngilizce ve telefona özel tasarım.
-- Sepet mevcut Shopify mağazanıza bağlı. "Ödemeye geç" dediğinizde ürünler lalivenatural.com'daki kendi ödeme sayfanıza geçiyor. Yani yeni bir altyapı ya da ek bir sistem gerekmiyor.
+- **Ürünleriniz 3D:** Kendi fotoğraflarınızdan hazırlandı. Ziyaretçi ürünü kaydırarak inceliyor, çevirip arka etiketini okuyabiliyor.
+- **Tüm ürünleriniz hazır:** 77 ürün, 9 kategori; fiyat ve açıklamalar sitenizden alındı.
+- **Mevcut mağazanızla çalışıyor:** Sepet Shopify'ınıza bağlı; "Ödemeye geç" müşteriyi doğrudan lalivenatural.com'daki ödeme sayfanıza götürüyor. Yeni bir altyapı gerekmiyor.
+- **Telefona özel tasarım**, ürün arama ve Türkçe/İngilizce.
 
-Derdim şu: Lalive'ın ürünleri çok güzel ama internette hâlâ düz fotoğraflarla, diğer markalarla aynı şekilde sergileniyor. Bu site, ziyaretçinin ürünü mağazadaki gibi yakından görmesini ve Lalive'ı ilk bakışta ayırt etmesini sağlıyor.
+Amaç, ürünlerinizi diğer doğal bakım markalarından ayıran, mağazada inceler gibi bir alışveriş deneyimi sunmak.
 
-Beğenirseniz siteyi kendi alan adınıza kurar, son rötuşları sizin isteklerinize göre yaparım. Fiyat ve süre bilgisini isterseniz hemen iletirim. Beğenmezseniz de kısa bir "şimdilik değil" cevabı benim için yeterli.
+Beğenirseniz siteyi kendi alan adınıza kurup isteklerinize göre son hâline getirebilirim. Fiyat ve süre bilgisini bu maile yanıt olarak hemen iletirim.
 
-Sevgiler,
+İyi çalışmalar,
 Berka [Soyadın]
 [Telefon] · [Instagram / portfolyo]
 
-_Not: Bu site size özel ve bağımsız olarak hazırlandı. Arama motorlarına kapalı, yalnızca bu linkle açılıyor ve siz istediğiniz an kaldırılır._
+_Site size özel hazırlandı; arama motorlarına kapalıdır, yalnızca bu linkle açılır._
 
-## Instagram mesajı (DM)
+## Instagram mesajı (DM, firmaya)
 
-Merhaba Lal Hanım 🌿
+Merhaba Lalive ekibi 🌿
 
-Ben Berka, markalar için 3D ürün siteleri yapıyorum. Lalive için size özel bir site hazırladım: ürünleriniz kendi fotoğraflarınızdan 3D, kaydırdıkça sırayla öne çıkıyor, sepet de mevcut Shopify mağazanıza bağlı.
+Lalive için ürünlerinizi 3D olarak sergileyen bir web sitesi hazırladım. Ürünler kendi fotoğraflarınızdan 3D, 77 ürünün tamamı hazır ve sepet mevcut Shopify mağazanıza bağlı; yeni bir altyapı gerekmiyor.
 
-Telefondan bir dakikada bakabilirsiniz: [DEMO LİNKİ]
+Telefondan bir dakikada inceleyebilirsiniz: [DEMO LİNKİ]
 
-Beğenirseniz kendi alan adınıza kurarım; detayları mailinize de yazdım (bilgi@lalivenatural.com). Görüşünüzü duymak çok sevindirir 🙏
+Detayları bilgi@lalivenatural.com adresine de gönderdim. Beğenirseniz kendi alan adınıza kurabilirim 🙏
 
 ## Takip (cevap gelmezse 4 gün sonra, aynı mail zincirinde "Yanıtla")
 
-Merhaba Lal Hanım,
+Merhaba Lalive ekibi,
 
-Geçen hafta Lalive için hazırladığım siteyi paylaşmıştım, gözünüzden kaçmış olabilir diye kısaca tekrar yazıyorum:
+Geçen hafta Lalive için hazırladığım 3D web sitesini paylaşmıştım; gözden kaçmış olabileceği için tekrar iletiyorum:
 
 👉 [DEMO LİNKİ]
 
-Bir dakikalık bir bakış yeter. İlgilenmezseniz bir satırlık cevap bile benim için değerli.
+Kısa bir geri dönüşünüz bile benim için değerli.
 
-Sevgiler,
+İyi çalışmalar,
 Berka
 
 ## Göndermeden önce
