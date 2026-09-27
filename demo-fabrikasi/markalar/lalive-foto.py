@@ -405,13 +405,13 @@ def main():
         gallery = []
         for i, (im, k) in enumerate(zip(ims, kinds), 1):
             g = im.convert("RGBA")
-            g.thumbnail((1400, 1400), Image.LANCZOS)
+            g.thumbnail((1200, 1200), Image.LANCZOS)
             if k == "T":
                 bg = Image.new("RGBA", g.size, BG + (255,))
                 bg.alpha_composite(g)
                 g = bg
             path = f"foto/{handle}/{i}.webp"
-            g.convert("RGB").save(os.path.join(OUT, "web", handle, f"{i}.webp"), quality=82, method=5)
+            g.convert("RGB").save(os.path.join(OUT, "web", handle, f"{i}.webp"), quality=78, method=5)
             gallery.append(path)
 
         # Ana (ön) fotoğraf: ilk şeffaf ya da beyaz zeminli çekim.
