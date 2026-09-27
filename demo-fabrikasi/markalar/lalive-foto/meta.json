@@ -1,0 +1,1352 @@
+{
+ "butunsel-yaz-bakim-ritueli": {
+  "gallery": [
+   "foto/butunsel-yaz-bakim-ritueli/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 0.6767,
+  "color": [
+   145,
+   118,
+   96
+  ],
+  "cut": "cut/butunsel-yaz-bakim-ritueli.webp",
+  "back": false
+ },
+ "dogal-bakim-ve-koklenme-kutusu": {
+  "gallery": [
+   "foto/dogal-bakim-ve-koklenme-kutusu/1.webp",
+   "foto/dogal-bakim-ve-koklenme-kutusu/2.webp",
+   "foto/dogal-bakim-ve-koklenme-kutusu/3.webp"
+  ],
+  "lifestyle": "foto/dogal-bakim-ve-koklenme-kutusu/3.webp",
+  "kinds": "TTL",
+  "aspect": 1.0054,
+  "color": [
+   175,
+   164,
+   130
+  ],
+  "cut": "cut/dogal-bakim-ve-koklenme-kutusu.webp",
+  "back": true
+ },
+ "dogal-dus-jeli-i̇kili-set": {
+  "gallery": [
+   "foto/dogal-dus-jeli-i̇kili-set/1.webp",
+   "foto/dogal-dus-jeli-i̇kili-set/2.webp",
+   "foto/dogal-dus-jeli-i̇kili-set/3.webp"
+  ],
+  "lifestyle": "foto/dogal-dus-jeli-i̇kili-set/2.webp",
+  "kinds": "TLL",
+  "aspect": 1.3452,
+  "color": [
+   87,
+   65,
+   58
+  ],
+  "cut": "cut/dogal-dus-jeli-i̇kili-set.webp",
+  "back": false
+ },
+ "erkek-bakim-seti": {
+  "gallery": [
+   "foto/erkek-bakim-seti/1.webp",
+   "foto/erkek-bakim-seti/2.webp",
+   "foto/erkek-bakim-seti/3.webp",
+   "foto/erkek-bakim-seti/4.webp",
+   "foto/erkek-bakim-seti/5.webp",
+   "foto/erkek-bakim-seti/6.webp"
+  ],
+  "lifestyle": "foto/erkek-bakim-seti/2.webp",
+  "kinds": "TLTTLL",
+  "aspect": 0.7267,
+  "color": [
+   99,
+   57,
+   37
+  ],
+  "cut": "cut/erkek-bakim-seti.webp",
+  "back": false
+ },
+ "esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli": {
+  "gallery": [
+   "foto/esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli/1.webp",
+   "foto/esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli/2.webp"
+  ],
+  "lifestyle": "foto/esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli/2.webp",
+  "kinds": "TL",
+  "aspect": 1.2209,
+  "color": [
+   154,
+   140,
+   117
+  ],
+  "cut": "cut/esansiyel-yag-i̇kili-set-taze-aydinlik-sakin-tatli.webp",
+  "back": false
+ },
+ "isilti-dogal-guzellik-kutusu": {
+  "gallery": [
+   "foto/isilti-dogal-guzellik-kutusu/1.webp",
+   "foto/isilti-dogal-guzellik-kutusu/2.webp",
+   "foto/isilti-dogal-guzellik-kutusu/3.webp"
+  ],
+  "lifestyle": "foto/isilti-dogal-guzellik-kutusu/3.webp",
+  "kinds": "TTL",
+  "aspect": 0.9964,
+  "color": [
+   199,
+   181,
+   156
+  ],
+  "cut": "cut/isilti-dogal-guzellik-kutusu.webp",
+  "back": true
+ },
+ "kas-kirpik-bakim-yagi": {
+  "gallery": [
+   "foto/kas-kirpik-bakim-yagi/1.webp",
+   "foto/kas-kirpik-bakim-yagi/2.webp",
+   "foto/kas-kirpik-bakim-yagi/3.webp",
+   "foto/kas-kirpik-bakim-yagi/4.webp",
+   "foto/kas-kirpik-bakim-yagi/5.webp",
+   "foto/kas-kirpik-bakim-yagi/6.webp"
+  ],
+  "lifestyle": "foto/kas-kirpik-bakim-yagi/2.webp",
+  "kinds": "TLLLTT",
+  "aspect": 6.4107,
+  "color": [
+   195,
+   195,
+   197
+  ],
+  "cut": "cut/kas-kirpik-bakim-yagi.webp",
+  "back": false
+ },
+ "kuru-ciltlere-ozel-set-dogal-nem-takviyesi-parlaklik": {
+  "gallery": [
+   "foto/kuru-ciltlere-ozel-set-dogal-nem-takviyesi-parlaklik/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 1.0559,
+  "color": [
+   198,
+   184,
+   138
+  ],
+  "cut": "cut/kuru-ciltlere-ozel-set-dogal-nem-takviyesi-parlaklik.webp",
+  "back": false
+ },
+ "lalive-bakim-cantasi": {
+  "gallery": [
+   "foto/lalive-bakim-cantasi/1.webp",
+   "foto/lalive-bakim-cantasi/2.webp",
+   "foto/lalive-bakim-cantasi/3.webp"
+  ],
+  "lifestyle": "foto/lalive-bakim-cantasi/2.webp",
+  "kinds": "TLT",
+  "aspect": 0.5448,
+  "color": [
+   70,
+   97,
+   81
+  ],
+  "cut": "cut/lalive-bakim-cantasi.webp",
+  "back": true
+ },
+ "lalive-besleyici-yuz-bakim-yagi": {
+  "gallery": [
+   "foto/lalive-besleyici-yuz-bakim-yagi/1.webp",
+   "foto/lalive-besleyici-yuz-bakim-yagi/2.webp",
+   "foto/lalive-besleyici-yuz-bakim-yagi/3.webp",
+   "foto/lalive-besleyici-yuz-bakim-yagi/4.webp",
+   "foto/lalive-besleyici-yuz-bakim-yagi/5.webp",
+   "foto/lalive-besleyici-yuz-bakim-yagi/6.webp",
+   "foto/lalive-besleyici-yuz-bakim-yagi/7.webp"
+  ],
+  "lifestyle": "foto/lalive-besleyici-yuz-bakim-yagi/2.webp",
+  "kinds": "TLLWLLT",
+  "aspect": 2.5236,
+  "color": [
+   221,
+   162,
+   81
+  ],
+  "cut": "cut/lalive-besleyici-yuz-bakim-yagi.webp",
+  "back": true
+ },
+ "lalive-bronzlastirici-yag": {
+  "gallery": [
+   "foto/lalive-bronzlastirici-yag/1.webp",
+   "foto/lalive-bronzlastirici-yag/2.webp",
+   "foto/lalive-bronzlastirici-yag/3.webp",
+   "foto/lalive-bronzlastirici-yag/4.webp"
+  ],
+  "lifestyle": "foto/lalive-bronzlastirici-yag/2.webp",
+  "kinds": "TLLL",
+  "aspect": 1.822,
+  "color": [
+   80,
+   48,
+   43
+  ],
+  "cut": "cut/lalive-bronzlastirici-yag.webp",
+  "back": false
+ },
+ "lalive-butunsel-arinma-detoks-set": {
+  "gallery": [
+   "foto/lalive-butunsel-arinma-detoks-set/1.webp",
+   "foto/lalive-butunsel-arinma-detoks-set/2.webp",
+   "foto/lalive-butunsel-arinma-detoks-set/3.webp",
+   "foto/lalive-butunsel-arinma-detoks-set/4.webp",
+   "foto/lalive-butunsel-arinma-detoks-set/5.webp",
+   "foto/lalive-butunsel-arinma-detoks-set/6.webp",
+   "foto/lalive-butunsel-arinma-detoks-set/7.webp",
+   "foto/lalive-butunsel-arinma-detoks-set/8.webp"
+  ],
+  "lifestyle": "foto/lalive-butunsel-arinma-detoks-set/2.webp",
+  "kinds": "TLLLLLLL",
+  "aspect": 0.6522,
+  "color": [
+   212,
+   162,
+   93
+  ],
+  "cut": "cut/lalive-butunsel-arinma-detoks-set.webp",
+  "back": false
+ },
+ "lalive-canlandirici-yuz-bakim-ritueli-seti": {
+  "gallery": [
+   "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/1.webp",
+   "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/2.webp",
+   "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/3.webp",
+   "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/4.webp",
+   "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/5.webp"
+  ],
+  "lifestyle": "foto/lalive-canlandirici-yuz-bakim-ritueli-seti/2.webp",
+  "kinds": "TLLLL",
+  "aspect": 0.7048,
+  "color": [
+   136,
+   90,
+   41
+  ],
+  "cut": "cut/lalive-canlandirici-yuz-bakim-ritueli-seti.webp",
+  "back": false
+ },
+ "lalive-dogal-at-kili-fircasi": {
+  "gallery": [
+   "foto/lalive-dogal-at-kili-fircasi/1.webp",
+   "foto/lalive-dogal-at-kili-fircasi/2.webp",
+   "foto/lalive-dogal-at-kili-fircasi/3.webp"
+  ],
+  "lifestyle": "foto/lalive-dogal-at-kili-fircasi/3.webp",
+  "kinds": "TTL",
+  "aspect": 2.7169,
+  "color": [
+   228,
+   195,
+   159
+  ],
+  "cut": "cut/lalive-dogal-at-kili-fircasi.webp",
+  "back": false
+ },
+ "lalive-dogal-dudak-balmi-vanilya": {
+  "gallery": [
+   "foto/lalive-dogal-dudak-balmi-vanilya/1.webp",
+   "foto/lalive-dogal-dudak-balmi-vanilya/2.webp",
+   "foto/lalive-dogal-dudak-balmi-vanilya/3.webp",
+   "foto/lalive-dogal-dudak-balmi-vanilya/4.webp",
+   "foto/lalive-dogal-dudak-balmi-vanilya/5.webp",
+   "foto/lalive-dogal-dudak-balmi-vanilya/6.webp"
+  ],
+  "lifestyle": "foto/lalive-dogal-dudak-balmi-vanilya/2.webp",
+  "kinds": "TLLLLL",
+  "aspect": 3.735,
+  "color": [
+   21,
+   61,
+   44
+  ],
+  "cut": "cut/lalive-dogal-dudak-balmi-vanilya.webp",
+  "back": false
+ },
+ "lalive-dogal-dus-jeli-lime-nane": {
+  "gallery": [
+   "foto/lalive-dogal-dus-jeli-lime-nane/1.webp",
+   "foto/lalive-dogal-dus-jeli-lime-nane/2.webp",
+   "foto/lalive-dogal-dus-jeli-lime-nane/3.webp",
+   "foto/lalive-dogal-dus-jeli-lime-nane/4.webp"
+  ],
+  "lifestyle": "foto/lalive-dogal-dus-jeli-lime-nane/2.webp",
+  "kinds": "TLLT",
+  "aspect": 2.9146,
+  "color": [
+   94,
+   72,
+   64
+  ],
+  "cut": "cut/lalive-dogal-dus-jeli-lime-nane.webp",
+  "back": true
+ },
+ "lalive-dogal-dus-jeli-vanilya": {
+  "gallery": [
+   "foto/lalive-dogal-dus-jeli-vanilya/1.webp",
+   "foto/lalive-dogal-dus-jeli-vanilya/2.webp",
+   "foto/lalive-dogal-dus-jeli-vanilya/3.webp",
+   "foto/lalive-dogal-dus-jeli-vanilya/4.webp"
+  ],
+  "lifestyle": "foto/lalive-dogal-dus-jeli-vanilya/2.webp",
+  "kinds": "TLLT",
+  "aspect": 2.9686,
+  "color": [
+   92,
+   66,
+   59
+  ],
+  "cut": "cut/lalive-dogal-dus-jeli-vanilya.webp",
+  "back": true
+ },
+ "lalive-dogal-kabak-lifi": {
+  "gallery": [
+   "foto/lalive-dogal-kabak-lifi/1.webp",
+   "foto/lalive-dogal-kabak-lifi/2.webp"
+  ],
+  "lifestyle": "foto/lalive-dogal-kabak-lifi/2.webp",
+  "kinds": "TL",
+  "aspect": 0.7138,
+  "color": [
+   217,
+   198,
+   164
+  ],
+  "cut": "cut/lalive-dogal-kabak-lifi.webp",
+  "back": false
+ },
+ "lalive-dogal-vucut-losyonu-yasemin": {
+  "gallery": [
+   "foto/lalive-dogal-vucut-losyonu-yasemin/1.webp",
+   "foto/lalive-dogal-vucut-losyonu-yasemin/2.webp",
+   "foto/lalive-dogal-vucut-losyonu-yasemin/3.webp"
+  ],
+  "lifestyle": "foto/lalive-dogal-vucut-losyonu-yasemin/2.webp",
+  "kinds": "TLT",
+  "aspect": 2.958,
+  "color": [
+   126,
+   110,
+   98
+  ],
+  "cut": "cut/lalive-dogal-vucut-losyonu-yasemin.webp",
+  "back": true
+ },
+ "lalive-dogal-yuz-misti": {
+  "gallery": [
+   "foto/lalive-dogal-yuz-misti/1.webp",
+   "foto/lalive-dogal-yuz-misti/2.webp",
+   "foto/lalive-dogal-yuz-misti/3.webp",
+   "foto/lalive-dogal-yuz-misti/4.webp",
+   "foto/lalive-dogal-yuz-misti/5.webp",
+   "foto/lalive-dogal-yuz-misti/6.webp",
+   "foto/lalive-dogal-yuz-misti/7.webp",
+   "foto/lalive-dogal-yuz-misti/8.webp"
+  ],
+  "lifestyle": "foto/lalive-dogal-yuz-misti/2.webp",
+  "kinds": "TLLLLLLT",
+  "aspect": 3.2857,
+  "color": [
+   118,
+   61,
+   19
+  ],
+  "cut": "cut/lalive-dogal-yuz-misti.webp",
+  "back": true
+ },
+ "lalive-dudak-balmi": {
+  "gallery": [
+   "foto/lalive-dudak-balmi/1.webp",
+   "foto/lalive-dudak-balmi/2.webp",
+   "foto/lalive-dudak-balmi/3.webp"
+  ],
+  "lifestyle": "foto/lalive-dudak-balmi/2.webp",
+  "kinds": "TLL",
+  "aspect": 3.7291,
+  "color": [
+   21,
+   61,
+   44
+  ],
+  "cut": "cut/lalive-dudak-balmi.webp",
+  "back": false
+ },
+ "lalive-el-kremi-50-ml": {
+  "gallery": [
+   "foto/lalive-el-kremi-50-ml/1.webp",
+   "foto/lalive-el-kremi-50-ml/2.webp",
+   "foto/lalive-el-kremi-50-ml/3.webp",
+   "foto/lalive-el-kremi-50-ml/4.webp",
+   "foto/lalive-el-kremi-50-ml/5.webp",
+   "foto/lalive-el-kremi-50-ml/6.webp"
+  ],
+  "lifestyle": "foto/lalive-el-kremi-50-ml/2.webp",
+  "kinds": "TLLLTT",
+  "aspect": 2.6231,
+  "color": [
+   208,
+   196,
+   151
+  ],
+  "cut": "cut/lalive-el-kremi-50-ml.webp",
+  "back": true
+ },
+ "lalive-hediye-kutusu-birinci-set": {
+  "gallery": [
+   "foto/lalive-hediye-kutusu-birinci-set/1.webp",
+   "foto/lalive-hediye-kutusu-birinci-set/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 1.3126,
+  "color": [
+   207,
+   187,
+   137
+  ],
+  "cut": "cut/lalive-hediye-kutusu-birinci-set.webp",
+  "back": false
+ },
+ "lalive-hediye-kutusu-i̇kinci-set": {
+  "gallery": [
+   "foto/lalive-hediye-kutusu-i̇kinci-set/1.webp",
+   "foto/lalive-hediye-kutusu-i̇kinci-set/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 1.2623,
+  "color": [
+   194,
+   172,
+   146
+  ],
+  "cut": "cut/lalive-hediye-kutusu-i̇kinci-set.webp",
+  "back": false
+ },
+ "lalive-lavanta-goz-bandi": {
+  "gallery": [
+   "foto/lalive-lavanta-goz-bandi/1.webp",
+   "foto/lalive-lavanta-goz-bandi/2.webp",
+   "foto/lalive-lavanta-goz-bandi/3.webp",
+   "foto/lalive-lavanta-goz-bandi/4.webp"
+  ],
+  "lifestyle": "foto/lalive-lavanta-goz-bandi/3.webp",
+  "kinds": "TTLL",
+  "aspect": 0.439,
+  "color": [
+   67,
+   50,
+   30
+  ],
+  "cut": "cut/lalive-lavanta-goz-bandi.webp",
+  "back": true
+ },
+ "lalive-lavanta-kati-sabun": {
+  "gallery": [
+   "foto/lalive-lavanta-kati-sabun/1.webp",
+   "foto/lalive-lavanta-kati-sabun/2.webp",
+   "foto/lalive-lavanta-kati-sabun/3.webp"
+  ],
+  "lifestyle": "foto/lalive-lavanta-kati-sabun/2.webp",
+  "kinds": "TLT",
+  "aspect": 1.0264,
+  "color": [
+   169,
+   147,
+   138
+  ],
+  "cut": "cut/lalive-lavanta-kati-sabun.webp",
+  "back": false
+ },
+ "lalive-lenf-drenaj-masaj-seti": {
+  "gallery": [
+   "foto/lalive-lenf-drenaj-masaj-seti/1.webp",
+   "foto/lalive-lenf-drenaj-masaj-seti/2.webp",
+   "foto/lalive-lenf-drenaj-masaj-seti/3.webp"
+  ],
+  "lifestyle": "foto/lalive-lenf-drenaj-masaj-seti/2.webp",
+  "kinds": "TLL",
+  "aspect": 1.001,
+  "color": [
+   171,
+   129,
+   88
+  ],
+  "cut": "cut/lalive-lenf-drenaj-masaj-seti.webp",
+  "back": false
+ },
+ "lalive-lenf-masaj-aleti": {
+  "gallery": [
+   "foto/lalive-lenf-masaj-aleti/1.webp",
+   "foto/lalive-lenf-masaj-aleti/2.webp",
+   "foto/lalive-lenf-masaj-aleti/3.webp",
+   "foto/lalive-lenf-masaj-aleti/4.webp"
+  ],
+  "lifestyle": "foto/lalive-lenf-masaj-aleti/2.webp",
+  "kinds": "TLLL",
+  "aspect": 0.4761,
+  "color": [
+   195,
+   148,
+   116
+  ],
+  "cut": "cut/lalive-lenf-masaj-aleti.webp",
+  "back": false
+ },
+ "lalive-lenfatik-yuz-fircasi": {
+  "gallery": [
+   "foto/lalive-lenfatik-yuz-fircasi/1.webp",
+   "foto/lalive-lenfatik-yuz-fircasi/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 0.6617,
+  "color": [
+   114,
+   61,
+   20
+  ],
+  "cut": "cut/lalive-lenfatik-yuz-fircasi.webp",
+  "back": true
+ },
+ "lalive-me-time-mug": {
+  "gallery": [
+   "foto/lalive-me-time-mug/1.webp",
+   "foto/lalive-me-time-mug/2.webp",
+   "foto/lalive-me-time-mug/3.webp"
+  ],
+  "lifestyle": "foto/lalive-me-time-mug/2.webp",
+  "kinds": "TLT",
+  "aspect": 1.1756,
+  "color": [
+   201,
+   180,
+   150
+  ],
+  "cut": "cut/lalive-me-time-mug.webp",
+  "back": true
+ },
+ "lalive-me-time-mum": {
+  "gallery": [
+   "foto/lalive-me-time-mum/1.webp",
+   "foto/lalive-me-time-mum/2.webp",
+   "foto/lalive-me-time-mum/3.webp",
+   "foto/lalive-me-time-mum/4.webp"
+  ],
+  "lifestyle": "foto/lalive-me-time-mum/3.webp",
+  "kinds": "TTLL",
+  "aspect": 1.117,
+  "color": [
+   94,
+   72,
+   60
+  ],
+  "cut": "cut/lalive-me-time-mum.webp",
+  "back": true
+ },
+ "lalive-me-time-mum-100-gr": {
+  "gallery": [
+   "foto/lalive-me-time-mum-100-gr/1.webp",
+   "foto/lalive-me-time-mum-100-gr/2.webp",
+   "foto/lalive-me-time-mum-100-gr/3.webp",
+   "foto/lalive-me-time-mum-100-gr/4.webp"
+  ],
+  "lifestyle": "foto/lalive-me-time-mum-100-gr/3.webp",
+  "kinds": "TTLL",
+  "aspect": 1.1626,
+  "color": [
+   106,
+   82,
+   67
+  ],
+  "cut": "cut/lalive-me-time-mum-100-gr.webp",
+  "back": true
+ },
+ "lalive-me-time-mum-200-gr": {
+  "gallery": [
+   "foto/lalive-me-time-mum-200-gr/1.webp",
+   "foto/lalive-me-time-mum-200-gr/2.webp",
+   "foto/lalive-me-time-mum-200-gr/3.webp",
+   "foto/lalive-me-time-mum-200-gr/4.webp"
+  ],
+  "lifestyle": "foto/lalive-me-time-mum-200-gr/3.webp",
+  "kinds": "TTLL",
+  "aspect": 1.1863,
+  "color": [
+   98,
+   76,
+   63
+  ],
+  "cut": "cut/lalive-me-time-mum-200-gr.webp",
+  "back": true
+ },
+ "lalive-mineral-filtreli-gunes-kremi": {
+  "gallery": [
+   "foto/lalive-mineral-filtreli-gunes-kremi/1.webp",
+   "foto/lalive-mineral-filtreli-gunes-kremi/2.webp",
+   "foto/lalive-mineral-filtreli-gunes-kremi/3.webp",
+   "foto/lalive-mineral-filtreli-gunes-kremi/4.webp",
+   "foto/lalive-mineral-filtreli-gunes-kremi/5.webp",
+   "foto/lalive-mineral-filtreli-gunes-kremi/6.webp"
+  ],
+  "lifestyle": "foto/lalive-mineral-filtreli-gunes-kremi/2.webp",
+  "kinds": "TLLLLT",
+  "aspect": 3.0368,
+  "color": [
+   166,
+   143,
+   120
+  ],
+  "cut": "cut/lalive-mineral-filtreli-gunes-kremi.webp",
+  "back": true
+ },
+ "lalive-natural-x-lando-esansiyel-yag-seti": {
+  "gallery": [
+   "foto/lalive-natural-x-lando-esansiyel-yag-seti/1.webp",
+   "foto/lalive-natural-x-lando-esansiyel-yag-seti/2.webp",
+   "foto/lalive-natural-x-lando-esansiyel-yag-seti/3.webp",
+   "foto/lalive-natural-x-lando-esansiyel-yag-seti/4.webp",
+   "foto/lalive-natural-x-lando-esansiyel-yag-seti/5.webp"
+  ],
+  "lifestyle": "foto/lalive-natural-x-lando-esansiyel-yag-seti/2.webp",
+  "kinds": "TLTTT",
+  "aspect": 0.7482,
+  "color": [
+   208,
+   193,
+   166
+  ],
+  "cut": "cut/lalive-natural-x-lando-esansiyel-yag-seti.webp",
+  "back": false
+ },
+ "lalive-roll-on": {
+  "gallery": [
+   "foto/lalive-roll-on/1.webp",
+   "foto/lalive-roll-on/2.webp",
+   "foto/lalive-roll-on/3.webp",
+   "foto/lalive-roll-on/4.webp",
+   "foto/lalive-roll-on/5.webp",
+   "foto/lalive-roll-on/6.webp"
+  ],
+  "lifestyle": "foto/lalive-roll-on/2.webp",
+  "kinds": "TLLLTT",
+  "aspect": 2.9668,
+  "color": [
+   102,
+   55,
+   36
+  ],
+  "cut": "cut/lalive-roll-on.webp",
+  "back": true
+ },
+ "lalive-sac-bakim-masaj-seti": {
+  "gallery": [
+   "foto/lalive-sac-bakim-masaj-seti/1.webp",
+   "foto/lalive-sac-bakim-masaj-seti/2.webp"
+  ],
+  "lifestyle": "foto/lalive-sac-bakim-masaj-seti/2.webp",
+  "kinds": "TL",
+  "aspect": 1.0422,
+  "color": [
+   180,
+   133,
+   82
+  ],
+  "cut": "cut/lalive-sac-bakim-masaj-seti.webp",
+  "back": false
+ },
+ "lalive-sac-bakim-seti": {
+  "gallery": [
+   "foto/lalive-sac-bakim-seti/1.webp",
+   "foto/lalive-sac-bakim-seti/2.webp"
+  ],
+  "lifestyle": "foto/lalive-sac-bakim-seti/2.webp",
+  "kinds": "TL",
+  "aspect": 1.4054,
+  "color": [
+   164,
+   109,
+   71
+  ],
+  "cut": "cut/lalive-sac-bakim-seti.webp",
+  "back": false
+ },
+ "lalive-sac-bakim-suyu-125-ml": {
+  "gallery": [
+   "foto/lalive-sac-bakim-suyu-125-ml/1.webp",
+   "foto/lalive-sac-bakim-suyu-125-ml/2.webp",
+   "foto/lalive-sac-bakim-suyu-125-ml/3.webp",
+   "foto/lalive-sac-bakim-suyu-125-ml/4.webp"
+  ],
+  "lifestyle": "foto/lalive-sac-bakim-suyu-125-ml/2.webp",
+  "kinds": "TLLL",
+  "aspect": 4.5415,
+  "color": [
+   81,
+   72,
+   39
+  ],
+  "cut": "cut/lalive-sac-bakim-suyu-125-ml.webp",
+  "back": false
+ },
+ "lalive-sac-bakim-yagi-biberiye-yagi": {
+  "gallery": [
+   "foto/lalive-sac-bakim-yagi-biberiye-yagi/1.webp",
+   "foto/lalive-sac-bakim-yagi-biberiye-yagi/2.webp",
+   "foto/lalive-sac-bakim-yagi-biberiye-yagi/3.webp",
+   "foto/lalive-sac-bakim-yagi-biberiye-yagi/4.webp",
+   "foto/lalive-sac-bakim-yagi-biberiye-yagi/5.webp",
+   "foto/lalive-sac-bakim-yagi-biberiye-yagi/6.webp",
+   "foto/lalive-sac-bakim-yagi-biberiye-yagi/7.webp"
+  ],
+  "lifestyle": "foto/lalive-sac-bakim-yagi-biberiye-yagi/2.webp",
+  "kinds": "TLLLLLL",
+  "aspect": 2.5627,
+  "color": [
+   121,
+   111,
+   66
+  ],
+  "cut": "cut/lalive-sac-bakim-yagi-biberiye-yagi.webp",
+  "back": false
+ },
+ "lalive-sac-bakim-yagi-vanilya": {
+  "gallery": [
+   "foto/lalive-sac-bakim-yagi-vanilya/1.webp",
+   "foto/lalive-sac-bakim-yagi-vanilya/2.webp",
+   "foto/lalive-sac-bakim-yagi-vanilya/3.webp",
+   "foto/lalive-sac-bakim-yagi-vanilya/4.webp",
+   "foto/lalive-sac-bakim-yagi-vanilya/5.webp",
+   "foto/lalive-sac-bakim-yagi-vanilya/6.webp"
+  ],
+  "lifestyle": "foto/lalive-sac-bakim-yagi-vanilya/2.webp",
+  "kinds": "TLLLLL",
+  "aspect": 2.5492,
+  "color": [
+   150,
+   89,
+   50
+  ],
+  "cut": "cut/lalive-sac-bakim-yagi-vanilya.webp",
+  "back": false
+ },
+ "lalive-sac-bandi-kahverengi": {
+  "gallery": [
+   "foto/lalive-sac-bandi-kahverengi/1.webp",
+   "foto/lalive-sac-bandi-kahverengi/2.webp",
+   "foto/lalive-sac-bandi-kahverengi/3.webp",
+   "foto/lalive-sac-bandi-kahverengi/4.webp"
+  ],
+  "lifestyle": "foto/lalive-sac-bandi-kahverengi/2.webp",
+  "kinds": "TLLT",
+  "aspect": 0.2759,
+  "color": [
+   57,
+   38,
+   31
+  ],
+  "cut": "cut/lalive-sac-bandi-kahverengi.webp",
+  "back": true
+ },
+ "lalive-sac-bandi-yesil": {
+  "gallery": [
+   "foto/lalive-sac-bandi-yesil/1.webp",
+   "foto/lalive-sac-bandi-yesil/2.webp",
+   "foto/lalive-sac-bandi-yesil/3.webp"
+  ],
+  "lifestyle": "foto/lalive-sac-bandi-yesil/2.webp",
+  "kinds": "TLT",
+  "aspect": 0.2773,
+  "color": [
+   10,
+   55,
+   46
+  ],
+  "cut": "cut/lalive-sac-bandi-yesil.webp",
+  "back": true
+ },
+ "lalive-sapka-kahverengi": {
+  "gallery": [
+   "foto/lalive-sapka-kahverengi/1.webp",
+   "foto/lalive-sapka-kahverengi/2.webp",
+   "foto/lalive-sapka-kahverengi/3.webp"
+  ],
+  "lifestyle": "foto/lalive-sapka-kahverengi/2.webp",
+  "kinds": "TLT",
+  "aspect": 0.8586,
+  "color": [
+   72,
+   44,
+   29
+  ],
+  "cut": "cut/lalive-sapka-kahverengi.webp",
+  "back": false
+ },
+ "lalive-sapka-krem": {
+  "gallery": [
+   "foto/lalive-sapka-krem/1.webp",
+   "foto/lalive-sapka-krem/2.webp",
+   "foto/lalive-sapka-krem/3.webp"
+  ],
+  "lifestyle": "foto/lalive-sapka-krem/2.webp",
+  "kinds": "TLT",
+  "aspect": 0.8847,
+  "color": [
+   248,
+   235,
+   212
+  ],
+  "cut": "cut/lalive-sapka-krem.webp",
+  "back": false
+ },
+ "lalive-sapka-yesil": {
+  "gallery": [
+   "foto/lalive-sapka-yesil/1.webp",
+   "foto/lalive-sapka-yesil/2.webp",
+   "foto/lalive-sapka-yesil/3.webp",
+   "foto/lalive-sapka-yesil/4.webp",
+   "foto/lalive-sapka-yesil/5.webp"
+  ],
+  "lifestyle": "foto/lalive-sapka-yesil/2.webp",
+  "kinds": "TLLLT",
+  "aspect": 0.8915,
+  "color": [
+   22,
+   66,
+   51
+  ],
+  "cut": "cut/lalive-sapka-yesil.webp",
+  "back": false
+ },
+ "lalive-self-care-club-atlet": {
+  "gallery": [
+   "foto/lalive-self-care-club-atlet/1.webp",
+   "foto/lalive-self-care-club-atlet/2.webp",
+   "foto/lalive-self-care-club-atlet/3.webp",
+   "foto/lalive-self-care-club-atlet/4.webp",
+   "foto/lalive-self-care-club-atlet/5.webp",
+   "foto/lalive-self-care-club-atlet/6.webp"
+  ],
+  "lifestyle": "foto/lalive-self-care-club-atlet/2.webp",
+  "kinds": "TLLLLW",
+  "aspect": 1.5744,
+  "color": [
+   34,
+   60,
+   56
+  ],
+  "cut": "cut/lalive-self-care-club-atlet.webp",
+  "back": false
+ },
+ "lalive-self-care-club-t-shirt": {
+  "gallery": [
+   "foto/lalive-self-care-club-t-shirt/1.webp",
+   "foto/lalive-self-care-club-t-shirt/2.webp",
+   "foto/lalive-self-care-club-t-shirt/3.webp",
+   "foto/lalive-self-care-club-t-shirt/4.webp",
+   "foto/lalive-self-care-club-t-shirt/5.webp",
+   "foto/lalive-self-care-club-t-shirt/6.webp",
+   "foto/lalive-self-care-club-t-shirt/7.webp",
+   "foto/lalive-self-care-club-t-shirt/8.webp",
+   "foto/lalive-self-care-club-t-shirt/9.webp"
+  ],
+  "lifestyle": "foto/lalive-self-care-club-t-shirt/2.webp",
+  "kinds": "TLLLLLLTW",
+  "aspect": 1.0023,
+  "color": [
+   228,
+   222,
+   222
+  ],
+  "cut": "cut/lalive-self-care-club-t-shirt.webp",
+  "back": true
+ },
+ "lalive-self-care-set": {
+  "gallery": [
+   "foto/lalive-self-care-set/1.webp",
+   "foto/lalive-self-care-set/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 1.2271,
+  "color": [
+   43,
+   76,
+   51
+  ],
+  "cut": "cut/lalive-self-care-set.webp",
+  "back": false
+ },
+ "lalive-seyahat-boy-vucut-yagi-75-ml": {
+  "gallery": [
+   "foto/lalive-seyahat-boy-vucut-yagi-75-ml/1.webp",
+   "foto/lalive-seyahat-boy-vucut-yagi-75-ml/2.webp",
+   "foto/lalive-seyahat-boy-vucut-yagi-75-ml/3.webp",
+   "foto/lalive-seyahat-boy-vucut-yagi-75-ml/4.webp"
+  ],
+  "lifestyle": "foto/lalive-seyahat-boy-vucut-yagi-75-ml/2.webp",
+  "kinds": "TLTT",
+  "aspect": 3.1176,
+  "color": [
+   67,
+   29,
+   29
+  ],
+  "cut": "cut/lalive-seyahat-boy-vucut-yagi-75-ml.webp",
+  "back": true
+ },
+ "lalive-sivi-kastil-sabun-portakal": {
+  "gallery": [
+   "foto/lalive-sivi-kastil-sabun-portakal/1.webp",
+   "foto/lalive-sivi-kastil-sabun-portakal/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 2.6395,
+  "color": [
+   37,
+   36,
+   33
+  ],
+  "cut": "cut/lalive-sivi-kastil-sabun-portakal.webp",
+  "back": true
+ },
+ "lalive-sivi-kastil-sabun-portakal-refill-600-ml": {
+  "gallery": [
+   "foto/lalive-sivi-kastil-sabun-portakal-refill-600-ml/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 1.877,
+  "color": [
+   219,
+   200,
+   176
+  ],
+  "cut": "cut/lalive-sivi-kastil-sabun-portakal-refill-600-ml.webp",
+  "back": false
+ },
+ "lalive-sivi-kastil-sabun-sandal-agaci-refill-600-ml": {
+  "gallery": [
+   "foto/lalive-sivi-kastil-sabun-sandal-agaci-refill-600-ml/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 1.877,
+  "color": [
+   219,
+   200,
+   176
+  ],
+  "cut": "cut/lalive-sivi-kastil-sabun-sandal-agaci-refill-600-ml.webp",
+  "back": false
+ },
+ "lalive-sivi-kastil-sabun-sandalagaci": {
+  "gallery": [
+   "foto/lalive-sivi-kastil-sabun-sandalagaci/1.webp",
+   "foto/lalive-sivi-kastil-sabun-sandalagaci/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 2.6395,
+  "color": [
+   37,
+   36,
+   33
+  ],
+  "cut": "cut/lalive-sivi-kastil-sabun-sandalagaci.webp",
+  "back": true
+ },
+ "lalive-sivi-kastil-sabun-vanilya": {
+  "gallery": [
+   "foto/lalive-sivi-kastil-sabun-vanilya/1.webp",
+   "foto/lalive-sivi-kastil-sabun-vanilya/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 2.6395,
+  "color": [
+   37,
+   36,
+   33
+  ],
+  "cut": "cut/lalive-sivi-kastil-sabun-vanilya.webp",
+  "back": true
+ },
+ "lalive-sivi-kastil-sabun-vanilya-refill-600-ml": {
+  "gallery": [
+   "foto/lalive-sivi-kastil-sabun-vanilya-refill-600-ml/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 1.877,
+  "color": [
+   219,
+   200,
+   176
+  ],
+  "cut": "cut/lalive-sivi-kastil-sabun-vanilya-refill-600-ml.webp",
+  "back": false
+ },
+ "lalive-slow-down-atlet": {
+  "gallery": [
+   "foto/lalive-slow-down-atlet/1.webp",
+   "foto/lalive-slow-down-atlet/2.webp",
+   "foto/lalive-slow-down-atlet/3.webp",
+   "foto/lalive-slow-down-atlet/4.webp",
+   "foto/lalive-slow-down-atlet/5.webp",
+   "foto/lalive-slow-down-atlet/6.webp",
+   "foto/lalive-slow-down-atlet/7.webp"
+  ],
+  "lifestyle": "foto/lalive-slow-down-atlet/2.webp",
+  "kinds": "TLLLLLW",
+  "aspect": 1.5155,
+  "color": [
+   227,
+   221,
+   211
+  ],
+  "cut": "cut/lalive-slow-down-atlet.webp",
+  "back": false
+ },
+ "lalive-tote-bag-kahverengi": {
+  "gallery": [
+   "foto/lalive-tote-bag-kahverengi/1.webp",
+   "foto/lalive-tote-bag-kahverengi/2.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "TT",
+  "aspect": 1.0509,
+  "color": [
+   57,
+   32,
+   24
+  ],
+  "cut": "cut/lalive-tote-bag-kahverengi.webp",
+  "back": true
+ },
+ "lalive-vucut-yagi": {
+  "gallery": [
+   "foto/lalive-vucut-yagi/1.webp",
+   "foto/lalive-vucut-yagi/2.webp",
+   "foto/lalive-vucut-yagi/3.webp",
+   "foto/lalive-vucut-yagi/4.webp",
+   "foto/lalive-vucut-yagi/5.webp",
+   "foto/lalive-vucut-yagi/6.webp",
+   "foto/lalive-vucut-yagi/7.webp"
+  ],
+  "lifestyle": "foto/lalive-vucut-yagi/2.webp",
+  "kinds": "TLLLLLL",
+  "aspect": 2.8517,
+  "color": [
+   99,
+   71,
+   51
+  ],
+  "cut": "cut/lalive-vucut-yagi.webp",
+  "back": false
+ },
+ "lalive-yaz-seti": {
+  "gallery": [
+   "foto/lalive-yaz-seti/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 0.9121,
+  "color": [
+   155,
+   130,
+   107
+  ],
+  "cut": "cut/lalive-yaz-seti.webp",
+  "back": false
+ },
+ "lalive-yazin-i̇kilisi-isilti-koruma-seti": {
+  "gallery": [
+   "foto/lalive-yazin-i̇kilisi-isilti-koruma-seti/1.webp",
+   "foto/lalive-yazin-i̇kilisi-isilti-koruma-seti/2.webp"
+  ],
+  "lifestyle": "foto/lalive-yazin-i̇kilisi-isilti-koruma-seti/2.webp",
+  "kinds": "TL",
+  "aspect": 1.1976,
+  "color": [
+   165,
+   142,
+   118
+  ],
+  "cut": "cut/lalive-yazin-i̇kilisi-isilti-koruma-seti.webp",
+  "back": false
+ },
+ "lalive-yazin-uclusu": {
+  "gallery": [
+   "foto/lalive-yazin-uclusu/1.webp",
+   "foto/lalive-yazin-uclusu/2.webp"
+  ],
+  "lifestyle": "foto/lalive-yazin-uclusu/2.webp",
+  "kinds": "TL",
+  "aspect": 0.8817,
+  "color": [
+   155,
+   130,
+   108
+  ],
+  "cut": "cut/lalive-yazin-uclusu.webp",
+  "back": false
+ },
+ "lalive-yuz-bakim-koruma-seti-1": {
+  "gallery": [
+   "foto/lalive-yuz-bakim-koruma-seti-1/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 0.9951,
+  "color": [
+   165,
+   141,
+   102
+  ],
+  "cut": "cut/lalive-yuz-bakim-koruma-seti-1.webp",
+  "back": false
+ },
+ "lalive-yuz-bakim-seti-1": {
+  "gallery": [
+   "foto/lalive-yuz-bakim-seti-1/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 1.4151,
+  "color": [
+   146,
+   116,
+   67
+  ],
+  "cut": "cut/lalive-yuz-bakim-seti-1.webp",
+  "back": false
+ },
+ "lalive-zeytinyagi-kati-sabun": {
+  "gallery": [
+   "foto/lalive-zeytinyagi-kati-sabun/1.webp",
+   "foto/lalive-zeytinyagi-kati-sabun/2.webp",
+   "foto/lalive-zeytinyagi-kati-sabun/3.webp"
+  ],
+  "lifestyle": "foto/lalive-zeytinyagi-kati-sabun/2.webp",
+  "kinds": "TLT",
+  "aspect": 1.0666,
+  "color": [
+   182,
+   148,
+   106
+  ],
+  "cut": "cut/lalive-zeytinyagi-kati-sabun.webp",
+  "back": false
+ },
+ "lenf-drenaj-rituel-seti": {
+  "gallery": [
+   "foto/lenf-drenaj-rituel-seti/1.webp",
+   "foto/lenf-drenaj-rituel-seti/2.webp"
+  ],
+  "lifestyle": "foto/lenf-drenaj-rituel-seti/2.webp",
+  "kinds": "TL",
+  "aspect": 0.6606,
+  "color": [
+   175,
+   120,
+   75
+  ],
+  "cut": "cut/lenf-drenaj-rituel-seti.webp",
+  "back": false
+ },
+ "sac-bakim-ritueli-onarici-guclendirici": {
+  "gallery": [
+   "foto/sac-bakim-ritueli-onarici-guclendirici/1.webp"
+  ],
+  "lifestyle": null,
+  "kinds": "T",
+  "aspect": 0.9213,
+  "color": [
+   178,
+   132,
+   82
+  ],
+  "cut": "cut/sac-bakim-ritueli-onarici-guclendirici.webp",
+  "back": false
+ },
+ "sac-derisi-masaj-tarak-yenileyici-etki": {
+  "gallery": [
+   "foto/sac-derisi-masaj-tarak-yenileyici-etki/1.webp",
+   "foto/sac-derisi-masaj-tarak-yenileyici-etki/2.webp"
+  ],
+  "lifestyle": "foto/sac-derisi-masaj-tarak-yenileyici-etki/2.webp",
+  "kinds": "TL",
+  "aspect": 0.5462,
+  "color": [
+   194,
+   153,
+   122
+  ],
+  "cut": "cut/sac-derisi-masaj-tarak-yenileyici-etki.webp",
+  "back": false
+ },
+ "sakin-tatli-esansiyel-yag-karisimi": {
+  "gallery": [
+   "foto/sakin-tatli-esansiyel-yag-karisimi/1.webp",
+   "foto/sakin-tatli-esansiyel-yag-karisimi/2.webp",
+   "foto/sakin-tatli-esansiyel-yag-karisimi/3.webp",
+   "foto/sakin-tatli-esansiyel-yag-karisimi/4.webp"
+  ],
+  "lifestyle": "foto/sakin-tatli-esansiyel-yag-karisimi/2.webp",
+  "kinds": "TLLT",
+  "aspect": 2.6194,
+  "color": [
+   194,
+   176,
+   161
+  ],
+  "cut": "cut/sakin-tatli-esansiyel-yag-karisimi.webp",
+  "back": false
+ },
+ "self-care-club-sweatshirt": {
+  "gallery": [
+   "foto/self-care-club-sweatshirt/1.webp",
+   "foto/self-care-club-sweatshirt/2.webp",
+   "foto/self-care-club-sweatshirt/3.webp",
+   "foto/self-care-club-sweatshirt/4.webp",
+   "foto/self-care-club-sweatshirt/5.webp"
+  ],
+  "lifestyle": "foto/self-care-club-sweatshirt/2.webp",
+  "kinds": "TLTLW",
+  "aspect": 0.9232,
+  "color": [
+   38,
+   65,
+   48
+  ],
+  "cut": "cut/self-care-club-sweatshirt.webp",
+  "back": true
+ },
+ "soft-krem-tote-bag-100-cotton": {
+  "gallery": [
+   "foto/soft-krem-tote-bag-100-cotton/1.webp",
+   "foto/soft-krem-tote-bag-100-cotton/2.webp",
+   "foto/soft-krem-tote-bag-100-cotton/3.webp",
+   "foto/soft-krem-tote-bag-100-cotton/4.webp"
+  ],
+  "lifestyle": "foto/soft-krem-tote-bag-100-cotton/2.webp",
+  "kinds": "TLLT",
+  "aspect": 1.0572,
+  "color": [
+   227,
+   211,
+   185
+  ],
+  "cut": "cut/soft-krem-tote-bag-100-cotton.webp",
+  "back": true
+ },
+ "tamamlayici-rituel-seti": {
+  "gallery": [
+   "foto/tamamlayici-rituel-seti/1.webp",
+   "foto/tamamlayici-rituel-seti/2.webp"
+  ],
+  "lifestyle": "foto/tamamlayici-rituel-seti/2.webp",
+  "kinds": "TL",
+  "aspect": 0.6605,
+  "color": [
+   97,
+   71,
+   52
+  ],
+  "cut": "cut/tamamlayici-rituel-seti.webp",
+  "back": false
+ },
+ "tampiko-otu-firca": {
+  "gallery": [
+   "foto/tampiko-otu-firca/1.webp",
+   "foto/tampiko-otu-firca/2.webp"
+  ],
+  "lifestyle": "foto/tampiko-otu-firca/2.webp",
+  "kinds": "TL",
+  "aspect": 0.6237,
+  "color": [
+   180,
+   135,
+   106
+  ],
+  "cut": "cut/tampiko-otu-firca.webp",
+  "back": false
+ },
+ "taze-aydinlik-esansiyel-yag-karisimi": {
+  "gallery": [
+   "foto/taze-aydinlik-esansiyel-yag-karisimi/1.webp",
+   "foto/taze-aydinlik-esansiyel-yag-karisimi/2.webp",
+   "foto/taze-aydinlik-esansiyel-yag-karisimi/3.webp",
+   "foto/taze-aydinlik-esansiyel-yag-karisimi/4.webp"
+  ],
+  "lifestyle": "foto/taze-aydinlik-esansiyel-yag-karisimi/2.webp",
+  "kinds": "TLLT",
+  "aspect": 2.5927,
+  "color": [
+   195,
+   176,
+   160
+  ],
+  "cut": "cut/taze-aydinlik-esansiyel-yag-karisimi.webp",
+  "back": false
+ },
+ "temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi": {
+  "gallery": [
+   "foto/temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi/1.webp",
+   "foto/temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi/2.webp"
+  ],
+  "lifestyle": "foto/temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi/2.webp",
+  "kinds": "TL",
+  "aspect": 1.3545,
+  "color": [
+   94,
+   72,
+   63
+  ],
+  "cut": "cut/temizlik-ve-arinma-ritueli-vanilya-yasemin-cicegi.webp",
+  "back": false
+ },
+ "tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi": {
+  "gallery": [
+   "foto/tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi/1.webp",
+   "foto/tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi/2.webp"
+  ],
+  "lifestyle": "foto/tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi/2.webp",
+  "kinds": "TL",
+  "aspect": 0.9016,
+  "color": [
+   99,
+   71,
+   52
+  ],
+  "cut": "cut/tum-vucut-bakim-ritueli-vanilya-yasemin-cicegi.webp",
+  "back": false
+ },
+ "yesil-tote-bag-100-cotton": {
+  "gallery": [
+   "foto/yesil-tote-bag-100-cotton/1.webp",
+   "foto/yesil-tote-bag-100-cotton/2.webp",
+   "foto/yesil-tote-bag-100-cotton/3.webp",
+   "foto/yesil-tote-bag-100-cotton/4.webp"
+  ],
+  "lifestyle": "foto/yesil-tote-bag-100-cotton/2.webp",
+  "kinds": "TLLT",
+  "aspect": 1.0491,
+  "color": [
+   36,
+   63,
+   47
+  ],
+  "cut": "cut/yesil-tote-bag-100-cotton.webp",
+  "back": true
+ }
+}

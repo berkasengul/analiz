@@ -103,6 +103,17 @@ def main(path):
     if os.path.isdir(shots):
         shutil.copytree(shots, os.path.join(dst, "public", "catalog"), dirs_exist_ok=True)
 
+    # Markanın gerçek ürün fotoğrafları (markalar/<slug>-foto/, <slug>-foto.py ile hazırlanır):
+    # galeri → public/foto, kesitler → public/cut, 3B doku atlasları → src/assets/labels.
+    foto = os.path.join(os.path.dirname(os.path.abspath(path)), f"{slug}-foto")
+    if os.path.isdir(foto):
+        shutil.copytree(os.path.join(foto, "web"), os.path.join(dst, "public", "foto"), dirs_exist_ok=True)
+        shutil.copytree(os.path.join(foto, "cut"), os.path.join(dst, "public", "cut"), dirs_exist_ok=True)
+        used = {p["file"] for p in cfg["products"]}
+        for n in os.listdir(os.path.join(foto, "labels")):
+            if n in used:
+                shutil.copy(os.path.join(foto, "labels", n), os.path.join(dst, "src", "assets", "labels"))
+
     # Marka görselleri (logo vb.): markalar/<slug>-assets/*.png → public/brand/ ve docs/brand/.
     assets = os.path.join(os.path.dirname(os.path.abspath(path)), f"{slug}-assets")
     if os.path.isdir(assets):

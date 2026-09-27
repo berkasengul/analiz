@@ -18,7 +18,14 @@ Kullanıcı Türkçe yazar; cevaplar Türkçe. Çalışma dalı: `claude/charmin
   alfa kesimli fotoğraf düzlemi + alt yumrular. Kullanım adımları ürün sayfasında 6 adım (Hazırla, Çene, Yanaklar,
   Göz çevresi & alın, Boyun & dekolte, Besle).
 
-## Sıradaki iş (kullanıcının son isteği)
+## Güncelleme (27 Eylül)
+
+Ağ erişimi açıldı; `lalive-shopify/` içine markanın 77 ürünü (TR+EN metin, fiyat, 272 orijinal görsel) çekildi,
+`lalive-foto.py` ile işlendi, `lalive-shopify-aktar.py` ile siteye aktarıldı: 9 kategori, 77 ürün, hepsi gerçek
+fotoğraflı 3B (form "photo"), galeri, gerçek fiyat ve indirimli fiyat. El Kremi, Dudak Balmı, Bronzlaştırıcı Yağ ve
+Besleyici Yüz Bakım Yağı elle modellenmiş hâlde kaldı. Aşağıdaki "sıradaki iş" maddeleri 1–3 tamamlandı.
+
+## Sıradaki iş (önceki not)
 
 1. Ağ erişimi açık yeni oturumda Lalive'ın bütün ürünlerini çek:
    `python3 demo-fabrikasi/araclar/shopify-cek.py www.lalivenatural.com lalive`

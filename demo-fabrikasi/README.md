@@ -59,6 +59,8 @@ Süre: ~20 saniye (etiket çizimi + derleme).
 | `products[].photos` | Markanın gerçek ürün fotoğrafları: detayda küçük resimler, tıklayınca büyük görünüm |
 | `products[].rating` | Markanın sitesindeki puan (`score`, `count`) |
 | `catalog.items[].photo` | Kartın üzerine gelince 3B görselin yerine gerçek fotoğraf |
+| `products[].form: "photo"` | 3B ürün markanın kendi fotoğrafından: kesilmiş ön/arka fotoğraf (`<slug>-foto/labels/<ürün>.webp`) silüete göre hacimlenir. `photo3d.profile`: `round` (şişe, kavanoz, mum: satır satır silindir) ya da `flat` (kutu, set, sabun, tekstil; `depth` kalınlık) |
+| `catalog.items[].cutout`, `compareAt` | Kartta kesilmiş ürün fotoğrafı; indirimde eski fiyat üstü çizili |
 | `products[].nameLang` | Tek ürünün ad dili (ör. İngilizce "Sweatshirt" → `"en"`) |
 | `catalog` | Tüm ürün kataloğu: `categories` (ad, renk, açıklama), `items` (fiyat, kategori, simge ya da görsel, 3B ürüne bağlantı `product`), `homeCount` (ana sayfa vitrini), `glow` (katalog sayfasının ışık rengi). Menüde "Kategoriler" paneli ve `#/urunler/<kategori>` adresleri bundan oluşur |
 
@@ -72,3 +74,16 @@ Süre: ~20 saniye (etiket çizimi + derleme).
   bir kez `npm install` yapılmış olmalı.
 - Demolar gerçek marka adı ve tasarım içerir: herkese açık yayınlama, yalnızca
   markaya özel gönder.
+
+## Shopify markaları: bütün ürünleri gerçek fotoğraflarıyla aktarma
+
+Marka Shopify kullanıyorsa (sitenin altında "Powered by Shopify") bütün katalog tek seferde aktarılır:
+
+```bash
+python3 demo-fabrikasi/araclar/shopify-cek.py www.marka.com <slug>     # metin, fiyat, kategori, orijinal görseller
+python3 demo-fabrikasi/markalar/lalive-foto.py                          # galeri, kesit, 3B doku atlası (Lalive örneği)
+python3 demo-fabrikasi/markalar/lalive-shopify-aktar.py                 # ayar dosyasına ürünler ve kategoriler
+python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/<slug>.json
+```
+
+Orijinal görseller ve işlenmiş kopyalar depoya girmez (`.gitignore`); komutlarla yeniden üretilir.

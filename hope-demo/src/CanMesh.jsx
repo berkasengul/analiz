@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import { useTexture } from "@react-three/drei";
 import {
   BoxGeometry,
+  BufferGeometry,
+  Float32BufferAttribute,
   ExtrudeGeometry,
   Shape,
   CanvasTexture,
@@ -24,7 +26,7 @@ import { RoundedBoxGeometry } from "three-stdlib";
 import { content, flavors } from "./data";
 
 // Etiket dokuları: content.json'daki her ürünün `file` adıyla eşleşir.
-const FILES = import.meta.glob("./assets/labels/*.jpg", { eager: true, import: "default" });
+const FILES = import.meta.glob("./assets/labels/*.{jpg,webp}", { eager: true, import: "default" });
 const LABELS = flavors.map((f) => FILES[`./assets/labels/${f.file}`]);
 
 // Ürün ambalajı content.json → bottle ölçüleriyle koddan üretilir. Her ürün
@@ -43,7 +45,9 @@ const merge = (a = {}, b = {}) => {
 // geri kalanı kutu gövdeli ambalaj: şişe (pompa, sprey, damlalık, roll-on
 // kapakları), sabun kalıbı, hediye kutusu, katlanmış sweatshirt.
 export const shapeOf = (f) =>
-  f.form === "tube" && B.tube
+  f.form === "photo"
+    ? { kind: "photo", size: 3.3, profile: "round", depth: 0.85, tilt: -0.03, scale: 1, ...f.photo3d, file: f.file }
+    : f.form === "tube" && B.tube
     ? { kind: "tube", ...merge(B.tube, f.tube) }
     : { kind: f.form === "tool" ? "tool" : "bottle", ...merge(B, f.bottle) };
 
@@ -300,6 +304,124 @@ function toolGeometry(S) {
   return { ...tag, main: lathe(pts, 48) };
 }
 
+// Fotoğraftan 3B: ürünün kesilmiş fotoğrafı (atlas sol yarısı, alfa = silüet)
+// bir ızgaraya oturtulur ve silüetin kenarına uzaklığa göre şişirilir; ön ve
+// arka yüz silüet sınırında birleşir. "round" şişe/tüp gibi tam hacim, "flat"
+// kutu, set ve tekstil gibi düz yüzlü ve yuvarlak kenarlı.
+const PHOTO = new Map();
+function photoGeometry(S, texture) {
+  const key = `${S.file}|${S.size}|${S.profile}|${S.depth}`;
+  if (PHOTO.has(key)) return PHOTO.get(key);
+  const G = 128;
+  const img = texture.image;
+  const cv = document.createElement("canvas");
+  cv.width = cv.height = G;
+  const cx = cv.getContext("2d", { willReadFrequently: true });
+  cx.drawImage(img, 0, 0, img.width / 2, img.height, 0, 0, G, G);
+  const px = cx.getImageData(0, 0, G, G).data;
+  const inside = new Uint8Array(G * G);
+  for (let i = 0; i < G * G; i++) inside[i] = px[i * 4 + 3] > 110 ? 1 : 0;
+  // Kenara uzaklık (3-4 chamfer, iki geçiş).
+  const INF = 1e9;
+  const d = new Float32Array(G * G);
+  for (let i = 0; i < G * G; i++) d[i] = inside[i] ? INF : 0;
+  const at = (x, y) => (x < 0 || y < 0 || x >= G || y >= G ? 0 : d[y * G + x]);
+  for (let y = 0; y < G; y++)
+    for (let x = 0; x < G; x++) {
+      const i = y * G + x;
+      if (!inside[i]) continue;
+      d[i] = Math.min(d[i], at(x - 1, y) + 3, at(x, y - 1) + 3, at(x - 1, y - 1) + 4, at(x + 1, y - 1) + 4);
+    }
+  for (let y = G - 1; y >= 0; y--)
+    for (let x = G - 1; x >= 0; x--) {
+      const i = y * G + x;
+      if (!inside[i]) continue;
+      d[i] = Math.min(d[i], at(x + 1, y) + 3, at(x, y + 1) + 3, at(x + 1, y + 1) + 4, at(x - 1, y + 1) + 4);
+    }
+  let maxd = 0;
+  for (let i = 0; i < G * G; i++) maxd = Math.max(maxd, d[i] / 3);
+  const cell = S.size / G;
+  const hpx = new Float32Array(G * G);
+  if (S.profile === "flat") {
+    // Kutu, set, tekstil: düz yüz, kenara doğru yuvarlanan ince hacim.
+    const R = Math.min(maxd, G * 0.05);
+    for (let i = 0; i < G * G; i++) {
+      const k = Math.min(1, d[i] / 3 / Math.max(R, 1e-3));
+      hpx[i] = inside[i] ? S.depth * Math.sqrt(Math.max(0, 1 - (1 - k) * (1 - k))) : 0;
+    }
+  } else {
+    // Şişe, kavanoz, mum: her satır kendi genişliğinde bir silindir kesiti
+    // (yan yana duran ürünler ayrı ayrı yuvarlanır); üst/alt kenar hafifçe yuvarlanır.
+    const Rv = 5;
+    const dv = new Float32Array(G * G);
+    for (let x = 0; x < G; x++) {
+      let run = 0;
+      for (let y = 0; y < G; y++) dv[y * G + x] = inside[y * G + x] ? ++run : (run = 0);
+      run = 0;
+      for (let y = G - 1; y >= 0; y--) {
+        const i = y * G + x;
+        run = inside[i] ? run + 1 : 0;
+        dv[i] = Math.min(dv[i], run);
+      }
+    }
+    for (let y = 0; y < G; y++) {
+      let x = 0;
+      while (x < G) {
+        if (!inside[y * G + x]) {
+          x++;
+          continue;
+        }
+        let e = x;
+        while (e < G && inside[y * G + e]) e++;
+        const w = (e - x) / 2;
+        const c = (x + e - 1) / 2;
+        for (let k = x; k < e; k++) {
+          const u = (k - c) / Math.max(w, 0.5);
+          const kv = Math.min(1, dv[y * G + k] / Rv);
+          hpx[y * G + k] = S.depth * w * cell * Math.sqrt(Math.max(0, 1 - u * u)) * Math.sqrt(Math.max(0, 1 - (1 - kv) * (1 - kv)));
+        }
+        x = e;
+      }
+    }
+  }
+  const T = 1;
+  // Köşe noktalarındaki yükseklik: çevresindeki 4 pikselin ortalaması (yumuşak).
+  const N1 = G + 1;
+  const h = new Float32Array(N1 * N1);
+  const hp = (x, y) => (x < 0 || y < 0 || x >= G || y >= G ? 0 : hpx[y * G + x]);
+  for (let y = 0; y <= G; y++) for (let x = 0; x <= G; x++) h[y * N1 + x] = (hp(x - 1, y - 1) + hp(x, y - 1) + hp(x - 1, y) + hp(x, y)) / 4;
+  const build = (back) => {
+    const pos = [];
+    const uv = [];
+    for (let y = 0; y <= G; y++)
+      for (let x = 0; x <= G; x++) {
+        const z = T * h[y * N1 + x] * (back ? -1 : 1);
+        pos.push((x / G - 0.5) * S.size, (0.5 - y / G) * S.size, z);
+        uv.push(back ? 0.5 + 0.5 * (1 - x / G) : 0.5 * (x / G), 1 - y / G);
+      }
+    const idx = [];
+    for (let y = 0; y < G; y++)
+      for (let x = 0; x < G; x++) {
+        if (!inside[y * G + x] && !(x > 0 && inside[y * G + x - 1]) && !(y > 0 && inside[(y - 1) * G + x])) continue;
+        const a = y * N1 + x;
+        const b = a + 1;
+        const c = a + N1;
+        const e = c + 1;
+        if (back) idx.push(a, b, c, b, e, c);
+        else idx.push(a, c, b, b, c, e);
+      }
+    const g = new BufferGeometry();
+    g.setAttribute("position", new Float32BufferAttribute(pos, 3));
+    g.setAttribute("uv", new Float32BufferAttribute(uv, 2));
+    g.setIndex(idx);
+    g.computeVertexNormals();
+    return g;
+  };
+  const out = { front: build(false), back: build(true) };
+  PHOTO.set(key, out);
+  return out;
+}
+
 const cache = new Map();
 function geometry(S) {
   const key = JSON.stringify(S);
@@ -399,6 +521,12 @@ function capMaterial(color, finish) {
 export function createBottleParts(f = {}) {
   const S = shapeOf(f);
   const parts = {};
+  if (S.kind === "photo") {
+    // Fotoğraflı üründe yalnızca etiket malzemesi var; sahne "metal"e dokunduğu için boş bir malzeme.
+    parts.metal = new MeshStandardMaterial({ color: "#000000" });
+    parts.metal.userData.base = { color: parts.metal.color.clone(), env: 1 };
+    return parts;
+  }
   if (S.kind === "tube") {
     const matte = S.finish === "matte";
     parts.tube = new MeshPhysicalMaterial({
@@ -591,8 +719,19 @@ function Tool({ body, parts, S }) {
   );
 }
 
+function Photo({ body, S, flavor }) {
+  const g = photoGeometry(S, flavors[flavor].texture);
+  return (
+    <group rotation={[0, 0, S.tilt]} position={[0, -0.25, 0]} scale={S.scale}>
+      <mesh geometry={g.front} material={body} />
+      <mesh geometry={g.back} material={body} />
+    </group>
+  );
+}
+
 export default function CanMesh({ body, parts, flavor = 0 }) {
   const S = shapeOf(flavors[flavor]);
+  if (S.kind === "photo") return <Photo body={body} S={S} flavor={flavor} />;
   if (S.kind === "tube") return <Tube body={body} parts={parts} S={S} />;
   if (S.kind === "tool") return <Tool body={body} parts={parts} S={S} />;
   return <Bottle body={body} parts={parts} S={S} />;

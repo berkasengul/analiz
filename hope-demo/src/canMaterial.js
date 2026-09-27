@@ -38,7 +38,7 @@ export function setCanFlavor(uniforms, flavor) {
 
 // Cam şişenin içindeki parfüm ve etiket.
 export function createCanMaterial(base, uniforms) {
-  const material = new MeshPhysicalMaterial({ map: base.map, ...FINISH });
+  const material = new MeshPhysicalMaterial({ map: base.map, alphaTest: 0.5, ...FINISH });
   // Sahne her karede yansımayı ve cilayı kısar/açar; oranlar bu değerlere göre.
   material.userData.finish = FINISH;
 
@@ -90,9 +90,11 @@ export function createCanMaterial(base, uniforms) {
           mask = smoothstep(1., 1.01, maskValue);
         }
 
-        vec3 c1 = texture2D(u_map1, vCanUv).rgb * u_color1;
-        vec3 c2 = texture2D(u_map2, vCanUv).rgb * u_color2;
-        diffuseColor.rgb = mix(c1, c2, mask);
+        vec4 t1 = texture2D(u_map1, vCanUv);
+        vec4 t2 = texture2D(u_map2, vCanUv);
+        diffuseColor.rgb = mix(t1.rgb * u_color1, t2.rgb * u_color2, mask);
+        // Fotoğraflı ürünlerde doku alfası ürünün silüetidir (alphaTest ile kesilir).
+        diffuseColor.a *= mix(t1.a, t2.a, mask);
       `
     );
 

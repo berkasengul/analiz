@@ -382,6 +382,8 @@ def load(path=CONTENT):
     out = []
     for p in data["products"]:
         L = p["label"]
+        if L.get("style") == "photo":
+            continue  # doku atlası ürün fotoğrafından (markalar/<slug>-foto.py)
         out.append({
             "file": p["file"],
             "name": p["name"],

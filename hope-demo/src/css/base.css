@@ -4146,3 +4146,25 @@ main {
     bottom: 14px;
   }
 }
+/* Kesilmiş ürün fotoğrafı: sahnedeki gibi ışığın altında süzülür. */
+.pcard__media.is-cutout .pcard__float {
+  position: absolute;
+  inset: 0;
+}
+.pcard__media.is-cutout img:not(.pcard__photo) {
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+  padding: 11% 12% 13%;
+  scale: 1;
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.55));
+}
+.pcard:hover .pcard__media.is-cutout img:not(.pcard__photo) {
+  scale: 1.06;
+}
+.pcard__was {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+}

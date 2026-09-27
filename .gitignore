@@ -1,1 +1,8 @@
 demolar/ornek-marka*
+
+# Lalive: orijinal Shopify görselleri ve işlenmiş kopyalar yeniden üretilebilir (araclar/shopify-cek.py, markalar/lalive-foto.py)
+demo-fabrikasi/markalar/lalive-shopify/images/
+demo-fabrikasi/markalar/lalive-foto/web/
+demo-fabrikasi/markalar/lalive-foto/cut/
+demo-fabrikasi/markalar/lalive-foto/labels/
+demolar/lalive-Netlify.zip

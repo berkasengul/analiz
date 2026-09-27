@@ -81,3 +81,5 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Ürüne oturma, tekerleği yavaş çevirince kullanıcıyı geri çekiyordu | Oturma kaydırma yönünde ve kaydırma bittikten sonra |
 | Lalive | 15 ürün fotoğrafsız, tahminle çizildi; basit görünüyordu | Marka sitesine erişim yoksa kullanıcıdan ürün sayfası fotoğrafları istenir; ilk ürün (Yüz Bakım Yağı) fotoğraftan birebir |
 | Lalive | Fiyatlar eski arama sonuçlarındandı | Markanın ürün sayfasındaki güncel fiyatlar |
+| Lalive | Kategori yuvarlak hacimde köşeli ürünler (mum, sabun) yastık gibi "X" gölgeli | Yuvarlak ürünlerde satır satır silindir kesiti; kalıp sabun ve kutular düz profil |
+| Lalive | Kart görseli kesit fotoğrafı büyütüp kırpıyordu | Kesitli kartta görsel mutlak konumlu, `contain` |

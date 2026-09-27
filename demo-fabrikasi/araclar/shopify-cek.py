@@ -9,7 +9,7 @@ gerekmez (yalnızca Python 3). Kendi bilgisayarında çalıştır:
     products-tr.json, products-en.json   ürünler (başlık, açıklama, fiyat, görseller)
     collections.json                     kategoriler
     collection-<ad>.json                 her kategorideki ürünler
-    images/<ürün>/<n>.<uzantı>           ürün görselleri (en fazla 1600 px)
+    images/<ürün>/<n>.<uzantı>           ürünün bütün görselleri, orijinal boyutta
 """
 import json
 import os
@@ -78,7 +78,7 @@ def main():
             path = os.path.join(folder, f"{i}{ext}")
             if os.path.exists(path):
                 continue
-            data = get(f"{src}?width=1600", raw=True)
+            data = get(src, raw=True)  # orijinal boyut, küçültmeden
             if data:
                 open(path, "wb").write(data)
                 n += 1

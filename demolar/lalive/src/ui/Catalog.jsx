@@ -135,7 +135,7 @@ function Card({ item, t, onOpen, index = 0 }) {
   const motion = useCardMotion();
   return (
     <article className="pcard" style={{ "--c": item.color ?? cat?.color, "--i": index % 4, "--f": index % 5 }} {...motion}>
-      <button className="pcard__media" onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
+      <button className={`pcard__media${item.cutout ? " is-cutout" : ""}`} onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
         <span className="pcard__beam" aria-hidden="true" />
         <span className="pcard__float">
           {item.image ? (
@@ -158,7 +158,10 @@ function Card({ item, t, onOpen, index = 0 }) {
         {item.size && <p className="pcard__size mono">{item.size}</p>}
         <p className="pcard__desc">{item.desc[t.lang] ?? item.desc.tr}</p>
         <div className="pcard__foot">
-          <span className="pcard__price">{t.money(t.price(1, "once", catalogId(item.id)))}</span>
+          <span className="pcard__price">
+            {t.money(t.price(1, "once", catalogId(item.id)))}
+            {item.compareAt && <s className="pcard__was">{t.money(item.compareAt[t.lang])}</s>}
+          </span>
           <button
             className={`pcard__add${added ? " is-added" : ""}`}
             onClick={() => {
