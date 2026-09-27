@@ -19,7 +19,8 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "ritual": [{"handle", "tr": {title, text, stat}, "en": {...}}]
     "rename": {"handle": ["tr", "en"]}
     "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
-    "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
+    "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)
+    "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
 Uydurma içerik yok: metin, fiyat, görsel markanın sitesinden.
 """
 import html
@@ -150,9 +151,14 @@ def main():
         return dict(name=name, en_name=en_name, size=size, desc=desc, en_desc=en_desc, tag=first_sentence(desc), en_tag=first_sentence(en_desc),
                     price=price, compare=cmp_, m=meta.get(h, {}), cat=cat_of(h), fam=fam, variants=variants)
 
+    def palette_of(h):
+        """Ürüne özel sahne rengi (kurallar → palette: [["regex", "#ana", "#vurgu"], ...])."""
+        return next(((a, b) for rx, a, b in R.get("palette", []) if re.search(rx, h)), None)
+
     def photo_product(h):
         i = info(h)
         rgb = i["m"].get("color", [150, 120, 90])
+        pal = palette_of(h)
         cat = cats[i["cat"]]
         fam = i["fam"] or [cat["name"]["tr"], cat["name"]["en"]]
         notes = notes_of(h) or [[cat["name"]["tr"], cat["name"]["en"]]]
@@ -160,8 +166,10 @@ def main():
             "name": i["name"], "form": "photo", "sub": i["size"] or fam[0], "collection": None,
             "family": fam[0], "year": None, "perfumer": None, "color": hexc(rgb), "ink": "#1f1a17",
             # Sahne ışığının ikinci rengi: markanın tema vurgusu (ör. altın) ya da ürünün kendi rengi.
-            "theme": theme(rgb, [int(R["themeAccent"][k:k + 2], 16) for k in (1, 3, 5)] if R.get("themeAccent") else i["m"].get("accent"),
-                           R.get("themeGlow", 0.27)), "tagline": i["tag"], "notes": [a for a, _ in notes],
+            # Sahne ışığı: ürüne özel renk (palette) ya da ürün rengi + tema vurgusu.
+            "theme": ({"glow": pal[0], "edge": "#050404", "drop": pal[1], "accent": pal[1], "mood": "warm"} if pal else
+                      theme(rgb, [int(R["themeAccent"][k:k + 2], 16) for k in (1, 3, 5)] if R.get("themeAccent") else i["m"].get("accent"),
+                            R.get("themeGlow", 0.27))), "tagline": i["tag"], "notes": [a for a, _ in notes],
             "description": i["desc"], "file": f"{h}.webp",
             "en": {"name": i["en_name"], "family": fam[1], "tagline": i["en_tag"], "notes": [b for _, b in notes],
                    "description": i["en_desc"], "sub": i["size"] or fam[1]},
@@ -184,6 +192,7 @@ def main():
             "category": i["cat"], "size": i["size"], "price": p["price"], "exactPrice": True,
             "desc": {"tr": clip(i["desc"], 120), "en": clip(i["en_desc"], 120)}, "color": p["color"], "product": idx,
             "image": i["m"].get("cut"), "cutout": True,
+            **({"bg": palette_of(h)[0], "bg2": palette_of(h)[1]} if palette_of(h) else {}),
             "variants": [{"id": x["id"], "title": x["title"]} for x in i["variants"]] if len(i["variants"]) > 1 else [{"id": i["variants"][0]["id"]}],
         }
         if i["compare"]:

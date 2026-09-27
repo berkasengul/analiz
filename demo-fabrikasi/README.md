@@ -119,8 +119,14 @@ Markaya özgü her şey iki dosyada:
   "particles": "gold",              // altın toz parçacıkları
   "numerals": {"font": "fonts/Italiana-Regular.ttf"},  // kokunun numarası sahnede dev altın sayı
   "intro": "portal",                // açılış: kapı çizilir, sayılar akar, kapı açılır
-  "fonts": {"href": "<Google Fonts bağlantısı>", "display": "...", "serif": "...", "sans": "..."}
+  "fonts": {"href": "<Google Fonts bağlantısı>", "display": "...", "serif": "...", "sans": "..."},
+  "studio": true,                   // stüdyo ışığı: ürün rengine göre kenar ışığı + gövdede gezen ışık süpürmesi
+  "pedestal": true,                 // öndeki ürün altın halkalı parlak bir kaidede durur (ürünün altına göre ölçülür)
+  "carousel": "solo",               // tek ürün sahnesi: ürün sağda büyük, diğerleri arkada karanlığa dizilir
+  "cards": "gallery"                // ürün kartları: her ürün kendi renginde dikey vitrin, notalar ve ışık huzmesi
 }
 ```
+
+Ürün başına arka plan rengi aktarım kurallarından gelir: `aktar.palette: [["<handle regex>", "#zemin", "#vurgu"], ...]`. Zemin rengi ana sayfada o ürün öndeyken sahneyi, kartta vitrini boyar; vurgu rengi ışığı ve kaide parıltısını. `solo` düzeninde sahnedeki dev numara kapalıdır (sol üstteki sayaç aynı işi görür).
 
 `"particles": "none"` kristal/yaprak sahnesini kapatır. Aktarım kurallarında `themeAccent` ve `themeGlow` sahne ışığının rengini ve parlaklığını ayarlar. İlk tema: Türkan · "Sayıların Kapısı".

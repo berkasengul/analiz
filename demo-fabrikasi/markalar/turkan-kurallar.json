@@ -361,6 +361,63 @@
       ]
     },
     "themeAccent": "#b8903f",
-    "themeGlow": 0.17
+    "themeGlow": 0.17,
+    "palette": [
+      [
+        "ozel-hediye-seti-1",
+        "#3a2419",
+        "#d4a45a"
+      ],
+      [
+        "ozel-hediye-seti$",
+        "#3b2f45",
+        "#dcb6cf"
+      ],
+      [
+        "ambre",
+        "#5c2418",
+        "#e0914a"
+      ],
+      [
+        "floraison",
+        "#5e2a40",
+        "#f0a3bd"
+      ],
+      [
+        "agrumes",
+        "#34295e",
+        "#b9a2ee"
+      ],
+      [
+        "epi",
+        "#5e2d16",
+        "#f08a4b"
+      ],
+      [
+        "boi",
+        "#26331f",
+        "#b9a36a"
+      ],
+      [
+        "noblesse",
+        "#3d1834",
+        "#d8a85e"
+      ],
+      [
+        "charme",
+        "#592639",
+        "#f2a6be"
+      ],
+      [
+        "mystique",
+        "#4a1414",
+        "#e0673f"
+      ],
+      [
+        "equilibre",
+        "#3d3a12",
+        "#ecd062"
+      ]
+    ]
   }
 }

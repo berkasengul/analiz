@@ -10,6 +10,7 @@ import CanMesh, { createBottleParts, useCanBody } from "./CanMesh";
 import { lightOf } from "./Carousel";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor, unlitOf } from "./canMaterial";
 import { VARIETY, features, flavors, ritual } from "./data";
+import { THEME } from "./theme";
 import { pointer } from "./pointer";
 import { scrollState } from "./scroll";
 import { sceneState } from "./shared";
@@ -224,7 +225,11 @@ export default function HeroCan() {
     }
     if (want !== s.target) showFlavor(want, visible);
     sceneState.heroFlavor = want;
-    uniforms.u_rim.value.set(flavors[want].theme.glow).lerp(WHITE, 0.25).multiplyScalar(0.5 * (1 - 0.6 * s.spot));
+    if (THEME.studio) {
+      uniforms.u_rim.value.set(flavors[want].theme.accent).lerp(WHITE, 0.15).multiplyScalar(1.05 * (1 - 0.4 * s.spot));
+      uniforms.u_sweep.value = 0.8;
+      uniforms.u_sweepColor.value.set(flavors[want].theme.accent).lerp(WHITE, 0.55);
+    } else uniforms.u_rim.value.set(flavors[want].theme.glow).lerp(WHITE, 0.25).multiplyScalar(0.5 * (1 - 0.6 * s.spot));
     if (!visible) {
       s.scrollPose = null;
       return;

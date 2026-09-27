@@ -30,6 +30,8 @@ export function createCanUniforms(flavor) {
     u_progress: { value: 0.5 },
     u_dim: { value: 1 },
     u_unlit: { value: unlitOf(flavor) },
+    u_sweep: { value: 0 },
+    u_sweepColor: { value: new Color(1, 0.9, 0.7) },
     u_rim: { value: new Color(0, 0, 0) },
     u_width: { value: 0.8 },
     u_scaleX: { value: 50 },
@@ -72,6 +74,8 @@ export function createCanMaterial(base, uniforms) {
         uniform float u_progress;
         uniform float u_dim;
         uniform float u_unlit;
+        uniform float u_sweep;
+        uniform vec3 u_sweepColor;
         uniform vec3 u_rim;
         uniform float u_width;
         uniform float u_scaleX;
@@ -116,6 +120,13 @@ export function createCanMaterial(base, uniforms) {
         float rimF = pow(1. - abs(dot(normal, normalize(vViewPosition))), 3.);
         // u_dim tüm ışığı (yansımalar dahil) kısar: yan kutular gerçekten kararır.
         outgoingLight = mix(outgoingLight, diffuseColor.rgb, u_unlit) * u_dim + u_rim * rimF * (1. - 0.6 * u_unlit);
+        // Stüdyo ışık süpürmesi (tema): yüzeyden çapraz, yumuşak bir ışık bandı periyodik geçer.
+        if (u_sweep > 0.001) {
+          float sx = -vViewPosition.x * 0.85 - vViewPosition.y * 0.5;
+          float ph = mod(u_time * 1.6, 14.) - 6.;
+          float band = exp(-pow((sx - ph) / 0.55, 2.));
+          outgoingLight += u_sweepColor * band * u_sweep * (0.35 + 0.65 * rimF);
+        }
         #include <opaque_fragment>
       `
     );

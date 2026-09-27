@@ -4,6 +4,11 @@ import { PAGE, SET_KEY, content, flavors } from "../data";
 import { useT, termLang } from "../i18n";
 import { useStore } from "../store";
 import { Plus } from "../Icons";
+import { THEME, numeralOf } from "../theme";
+
+// "gallery" kartları (content.theme.cards): ürünün kendi renginde zemin, arkada dev numara,
+// ışıklı kaide, açıklama yerine koku notaları.
+const GALLERY = THEME.cards === "gallery";
 
 // Markanın tüm ürün kataloğu (content.json → catalog). Ana sayfada karışık bir
 // vitrin, ayrı sayfada (#/urunler) kategorilere ayrılmış liste. Ürünlerin
@@ -133,10 +138,22 @@ function Card({ item, t, onOpen, index = 0 }) {
   const name = item.name[t.lang] ?? item.name.tr;
   const [added, setAdded] = useState(false);
   const motion = useCardMotion();
+  const num = GALLERY ? numeralOf(item.name.tr) : null;
+  const prod = GALLERY && item.product != null ? content.products[item.product] : null;
+  const notes = prod ? (t.lang === "en" ? prod.en?.notes : null) ?? prod.notes : null;
   return (
-    <article className="pcard" style={{ "--c": item.color ?? cat?.color, "--i": index % 4, "--f": index % 5 }} {...motion}>
+    <article
+      className={`pcard${GALLERY ? " pcard--gallery" : ""}`}
+      style={{ "--c": item.color ?? cat?.color, "--i": index % 4, "--f": index % 5, ...(item.bg ? { "--bg": item.bg, "--bg2": item.bg2 } : {}) }}
+      {...motion}
+    >
       <button className={`pcard__media${item.cutout ? " is-cutout" : ""}`} onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
         <span className="pcard__beam" aria-hidden="true" />
+        {num && (
+          <span className="pcard__num" aria-hidden="true">
+            {num}
+          </span>
+        )}
         {item.cutout && <span className="pcard__floor" aria-hidden="true" />}
         <span className="pcard__float">
           {item.image ? (
@@ -158,7 +175,11 @@ function Card({ item, t, onOpen, index = 0 }) {
         <p className="pcard__cat mono" lang={termLang(cat?.name[t.lang])}>{cat?.name[t.lang]}</p>
         <h3 className="pcard__name" lang={termLang(name) ?? t.nameLang}>{name}</h3>
         {item.size && <p className="pcard__size mono">{item.size}</p>}
-        <p className="pcard__desc">{item.desc[t.lang] ?? item.desc.tr}</p>
+        {notes?.length ? (
+          <p className="pcard__notes">{notes.slice(0, 5).join(" · ")}</p>
+        ) : (
+          <p className="pcard__desc">{item.desc[t.lang] ?? item.desc.tr}</p>
+        )}
         <div className="pcard__foot">
           <span className="pcard__price">
             {t.money(t.price(1, "once", catalogId(item.id)))}

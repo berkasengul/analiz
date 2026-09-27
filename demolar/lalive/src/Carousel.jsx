@@ -1,11 +1,20 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils } from "three";
+import { Color, MathUtils, Vector3 } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
+import { THEME } from "./theme";
+
+// Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
+const STUDIO = !!THEME.studio;
+// "solo": yan ürünler küçülüp geriye çekilir; sahne tek ürün odaklı.
+const SOLO = THEME.carousel === "solo";
+// Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
+const BOTTOM = [];
+const V = new Vector3();
 import { flavors } from "./data";
 import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
@@ -36,6 +45,19 @@ export function arcPose(d, aspect, time, i) {
   const focus = Math.max(0, 1 - ad);
   const spread = MathUtils.clamp(aspect / 1.9, 0.44, 1);
   const base = aspect < 0.9 ? 0.78 : 1;
+  if (SOLO) {
+    // Tek ürün sahnesi: öndeki ürün büyük ve sahnenin sağ-ortasında; diğerleri arkasında,
+    // karanlığa doğru uzanan bir sıra hâlinde bekler (başlık ve nota listesinin üstüne binmez).
+    return {
+      x: aspect < 0.9 ? 4.6 * d : (1.8 + 2.1 * d) * spread,
+      y: 0.7 + (aspect < 0.9 ? -0.3 : 0.6) * Math.min(ad, 3) + 0.6 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07,
+      z: (aspect < 0.9 ? -2.2 : -4.4) * ad + focus * 1.6,
+      rotX: 0.06,
+      rotY: -0.3 * d + (focus > 0 ? Math.sin(time * 0.5) * 0.22 * focus : 0),
+      rotZ: 0.06 * d + 0.05 * focus,
+      scale: base * (0.42 + 0.82 * focus) * (1 - (LINEAR ? MathUtils.smoothstep(ad, 3.4, 4.4) : MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2)))),
+    };
+  }
   return {
     x: 4.8 * d * (1 + 0.08 * ad) * spread,
     // Öndeki kutu yukarıda durur; altındaki başlık için yer kalır.
@@ -116,12 +138,13 @@ export default function Carousel() {
     sceneState.hoverFocus = s.hovered === nearest && !detail && spread < 0.1 && Math.abs(s.p - Math.round(s.p)) < 0.1;
 
     // Kenar parıltısı ve spot ışık tadın rengini alır.
-    rimColor.set(flavors[active].theme.glow).lerp(WHITE, 0.25).multiplyScalar(0.55);
+    if (STUDIO) rimColor.set(flavors[active].theme.accent).lerp(WHITE, 0.15).multiplyScalar(1.15);
+    else rimColor.set(flavors[active].theme.glow).lerp(WHITE, 0.25).multiplyScalar(0.55);
     const L = spot.current;
     if (L) {
       const fp = sceneState.focus.position;
       L.intensity = 7 * (MOBILE ? 0.55 : 1) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
-      L.color.set(flavors[active].theme.glow).lerp(WHITE, 0.65);
+      L.color.set(STUDIO ? flavors[active].theme.accent : flavors[active].theme.glow).lerp(WHITE, STUDIO ? 0.5 : 0.65);
       L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
       L.target.position.set(fp.x, fp.y + 0.2, fp.z);
       L.target.updateMatrixWorld();
@@ -176,12 +199,18 @@ export default function Carousel() {
       );
       g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + s.lean * (1 - Math.min(Math.abs(d), 4) * 0.15));
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
-      g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (1 - 0.7 * fade) * (1 + lift * 0.06));
+      g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
       const lit = 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
       const dim = (1 - fade) * lit;
       bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(dim * (0.35 + 0.65 * lit));
       bodies[i].userData.uniforms.u_dim.value = dim;
+      if (STUDIO) {
+        const U = bodies[i].userData.uniforms;
+        U.u_time.value = t;
+        U.u_sweep.value = dim * lit * lit * 0.6;
+        U.u_sweepColor.value.set(flavors[i].theme.accent).lerp(WHITE, 0.55);
+      }
       const F = bodies[i].userData.finish;
       bodies[i].envMapIntensity = F.envMapIntensity * 1.23 * dim;
       bodies[i].clearcoat = Math.max(F.clearcoat * dim, 0.01); // 0 olursa shader yeniden derlenir
@@ -192,6 +221,26 @@ export default function Carousel() {
         sceneState.focus.position.set(pose.x, pose.y - (1 - intro) * 9, pose.z - (1 - intro) * 4);
         sceneState.focus.rotation.copy(g.rotation);
         sceneState.focus.scale = pose.scale;
+        if (BOTTOM[i] == null && intro > 0.999 && fade < 0.001 && spread < 0.001) {
+          // Kenar düzlemleri (fin) fotoğrafın boş alanını da kapsar; yalnızca gövde parçaları ölçülür.
+          // Şişe (flask) biçiminde gövde ayrı bir hacim; kapak tornası fotoğrafın tüm boyunu
+          // kaplar ama gövdenin altında görünmez. Gövde varsa yalnızca o ölçülür; yoksa eksendeki
+          // boş satırlar ve kenar düzlemleri dışarıda bırakılır.
+          let low = Infinity;
+          g.updateWorldMatrix(true, true);
+          const meshes = [];
+          g.traverse((o) => o.isMesh && o.geometry.type !== "PlaneGeometry" && meshes.push(o));
+          const bodies = meshes.filter((o) => o.geometry.type === "ExtrudeGeometry");
+          for (const o of bodies.length ? bodies : meshes) {
+            const P = o.geometry.attributes.position;
+            for (let k = 0; k < P.count; k += 3) {
+              if (P.getX(k) ** 2 + P.getZ(k) ** 2 < 1e-6) continue;
+              low = Math.min(low, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
+            }
+          }
+          if (low < Infinity) BOTTOM[i] = (low - g.position.y) / g.scale.y;
+        }
+        sceneState.focus.bottom = BOTTOM[i];
       }
 
       const hidden = sceneState.heroVisible && i === active;

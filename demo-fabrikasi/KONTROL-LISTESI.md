@@ -120,3 +120,7 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Genel | Bütün demolar aynı şablonun renk değiştirilmiş hâliydi | `theme` sahne kimliği: yazı tipleri, vurgu rengi, parçacık, dev sayılar, açılış sahnesi, arayüz stili markaya özel (ilk: Türkan "portal") |
 | Türkan | Kapı çizgisi ters ve eksik çiziliyordu (`pathLength` + `non-scaling-stroke`) | Gerçek çevre uzunluğuyla `strokeDasharray/offset` özniteliği |
 | Türkan | Açılış sayacı her değişimde baştan animasyona girip görünmüyordu | Sayı sabit, yalnızca rakam kısa "tık" hareketiyle değişir; sayaç en az ~2,5 sn akar |
+| Türkan | Tasarım hâlâ şablona benziyordu; ürün kartları sade; ışık düz | `carousel: "solo"` editoryal sahne, `pedestal`, `studio` ışık süpürmesi, `cards: "gallery"` ve `aktar.palette` ile ürün başına renk |
+| Türkan | Yan şişeler başlığın ve nota listesinin üstüne biniyordu | Yanlar öndeki ürünün arkasında derinliğe dizilir; detayda tamamen kaybolur |
+| Türkan | Kaide sette ürünün çok altında kalıyordu (kapak tornası fotoğrafın tüm boyunu kaplıyor) | Alt kenar yalnızca gövde hacminden ölçülür (`BOTTOM`), kaide ona oturur |
+| Türkan | Sol kategori dizini uzun ürün adının üstüne biniyordu | Portal temasında kategori dizini üstte yatay ince satır |

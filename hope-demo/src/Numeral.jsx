@@ -49,7 +49,7 @@ export default function Numeral() {
       const inn = S.dir[i] > 0;
       const a = (inn ? e : 1 - e) * S.vis;
       const y = inn ? (1 - e) * -1.6 : e * 1.8;
-      txt.position.set(f.x * 0.35, 1.5 + y, -8);
+      txt.position.set(f.x * (THEME.carousel === "solo" ? 1 : 0.35), 2.1 + y, -8);
       txt.strokeOpacity = 0.85 * a;
       txt.fillOpacity = 0.07 * a;
       txt.visible = a > 0.002;
@@ -63,7 +63,7 @@ export default function Numeral() {
           key={i}
           ref={refs[i]}
           font={FONT}
-          fontSize={16}
+          fontSize={12}
           anchorX="center"
           anchorY="middle"
           letterSpacing={-0.02}
