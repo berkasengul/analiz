@@ -192,6 +192,8 @@ const rnd = (i, k) => {
 const LEAF = "M12 .5C7 5 5.5 12 7.5 19c.8 2.8 2.6 4.5 4.5 4.5s3.7-1.7 4.5-4.5C18.5 12 17 5 12 .5Z";
 const SHADE = "M12 .5v23c-1.9 0-3.7-1.7-4.5-4.5C5.5 12 7 5 12 .5Z";
 function Leaves({ count, front = false }) {
+  // Tema parçacıkları olan markada (content.particles "none") yaprak yağmuru yok.
+  if (content.particles === "none") count = 0;
   const leaves = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({

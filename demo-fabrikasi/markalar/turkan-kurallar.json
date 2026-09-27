@@ -359,6 +359,8 @@
         "Extrait de Parfum Özel Hediye Seti",
         "Extrait de Parfum Special Gift Set"
       ]
-    }
+    },
+    "themeAccent": "#b8903f",
+    "themeGlow": 0.17
   }
 }

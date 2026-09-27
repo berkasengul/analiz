@@ -5088,3 +5088,232 @@ button.buy__more {
 .leaves--petals .leaves__vein {
   stroke: none;
 }
+
+/* ===================== Tema: "portal" (Türkan · Sayıların Kapısı) =====================
+   Siyah kadife, altın kıl çizgiler, keskin köşeler; başlıklar ince ve geniş aralıklı.
+   Açılışta kemerli bir kapı çizilir ve açılarak sahneyi gösterir. */
+:root[data-theme="portal"] {
+  --gold: var(--theme-accent, #c9a55c);
+  --gold-soft: color-mix(in srgb, var(--gold) 55%, #fff);
+  --gold-line: color-mix(in srgb, var(--gold) 38%, transparent);
+  --bg: #070605;
+  --portal-bg: #070605;
+  font-synthesis: none;
+}
+[data-theme="portal"] body {
+  background: #070605;
+}
+/* Başlıklar: tek kalınlıkta ince yazı, geniş harf aralığı (logodaki gibi). */
+[data-theme="portal"] :is(.hud__name, .detail__title, .section__title, .catalog__title, .catgrid__head h2, .pcard__name, .search__name, .explore__label, .ritual__title, .menu__links a, .marquee span, h1, h2) {
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+[data-theme="portal"] .hud__name {
+  letter-spacing: 0.1em;
+}
+[data-theme="portal"] .section__title {
+  letter-spacing: 0.04em;
+}
+/* Vurgu: altın. */
+[data-theme="portal"] :is(.section__eyebrow, .pcard__cat, .catbar__title, .features__hint, .tag) {
+  color: var(--gold-soft);
+}
+[data-theme="portal"] .dot,
+[data-theme="portal"] .tag .dot {
+  background: var(--gold) !important;
+  box-shadow: 0 0 12px var(--gold);
+}
+/* Keskin köşeler ve altın kıl çizgiler. */
+[data-theme="portal"] :is(.pill, .hud__cta, .explore, .pcard, .pcard__media, .pcard__add, .chips li, .header__nav, .navcat__panel, .search__panel, .search__cats button, .search__item, .search__thumb, .detail__body, .feat, .drawer__panel, .gallery__thumb, .catalog__chips, .catbar__chips, .catbar__chips a, .line__thumb, .qty, .stat, .contact input, .contact textarea, .news input, .lang, .lang button) {
+  border-radius: 2px;
+}
+[data-theme="portal"] :is(.header__nav, .pcard, .feat, .search__panel, .explore, .catalog__chips, .hud__cta, .chips li, .pcard__add, .stat) {
+  border-color: var(--gold-line);
+}
+[data-theme="portal"] .header__pill {
+  border-radius: 1px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--gold) 22%, transparent), color-mix(in srgb, var(--gold) 8%, transparent));
+}
+/* Ana buton: altın varak. */
+[data-theme="portal"] .pill {
+  color: #120e09;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(120deg, #f1dfb2, var(--gold) 55%, #9c7735);
+  box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--gold) 90%, transparent), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+[data-theme="portal"] .hud__cta {
+  border: 1px solid var(--gold-line);
+  background: rgba(10, 8, 6, 0.4);
+}
+[data-theme="portal"] .hud__cta:hover {
+  border-color: var(--gold);
+  color: var(--gold-soft);
+}
+[data-theme="portal"] :is(.round, .menu-btn, .cart-btn, .search-btn) {
+  border-color: var(--gold-line);
+}
+[data-theme="portal"] .explore__arrow {
+  border-radius: 2px;
+  background: linear-gradient(120deg, #f1dfb2, var(--gold));
+}
+[data-theme="portal"] .explore::before {
+  background: linear-gradient(120deg, #f1dfb2, var(--gold));
+}
+/* Kayan bant: altın. */
+[data-theme="portal"] .marquee {
+  color: var(--gold-soft);
+  border-color: var(--gold-line);
+  background: #0a0806;
+}
+/* Kartlar: altın spot ve zemin çizgisi. */
+[data-theme="portal"] .pcard__media.is-cutout {
+  background:
+    radial-gradient(ellipse 58% 62% at 50% -6%, color-mix(in srgb, var(--gold) 20%, transparent), transparent 70%),
+    radial-gradient(ellipse 46% 9% at 50% var(--floor), color-mix(in srgb, var(--gold) 26%, transparent), transparent 72%),
+    linear-gradient(180deg, #0a0907 0%, #131110 calc(var(--floor) - 0.5%), #090807 calc(var(--floor) + 0.5%), #040404 100%);
+}
+[data-theme="portal"] .pcard__floor {
+  background:
+    linear-gradient(90deg, transparent 8%, color-mix(in srgb, var(--gold) 55%, transparent) 50%, transparent 92%) top / 100% 1px no-repeat,
+    linear-gradient(180deg, color-mix(in srgb, var(--gold) 6%, transparent), transparent 70%);
+}
+/* Katalog ve kategori zemini: kadife siyah, altın ışık. */
+[data-theme="portal"] .atmos {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 18%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.85)),
+    #070605;
+}
+[data-theme="portal"] .atmos__bokeh i {
+  background: color-mix(in srgb, var(--gold) 40%, transparent);
+}
+
+/* ---- Kapı açılışı ---- */
+.portal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  color: var(--gold, #c9a55c);
+  transition: visibility 0s 2.4s;
+}
+.portal.is-open {
+  visibility: hidden;
+  pointer-events: none;
+}
+.portal__veil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.portal__hole,
+.portal__arch {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(0.001);
+  transition: transform 2.2s cubic-bezier(0.75, 0, 0.18, 1);
+}
+.portal__arch {
+  transform: none;
+  fill: none;
+  stroke: var(--gold, #c9a55c);
+  stroke-width: 0.9;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gold, #c9a55c) 60%, transparent));
+  transition: stroke-dashoffset 0.35s linear, transform 2.2s cubic-bezier(0.75, 0, 0.18, 1), opacity 1.4s ease 0.6s;
+}
+.portal.is-open .portal__hole {
+  transform: scale(16);
+}
+.portal.is-open .portal__arch {
+  transform: scale(16);
+  opacity: 0;
+}
+.portal__num {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -42%;
+  font-family: var(--wide);
+  font-size: clamp(72px, 9vw, 128px);
+  line-height: 1;
+  color: var(--gold-soft, #e3cc96);
+  text-shadow: 0 0 30px color-mix(in srgb, var(--gold, #c9a55c) 45%, transparent);
+  animation: portalNum 0.9s var(--ease) both;
+  transition: opacity 0.5s ease;
+}
+/* Sayı değişirken kısa bir "tık": rakam aşağıdan kayarak gelir, hiç kaybolmaz. */
+.portal__num b {
+  display: inline-block;
+  font-weight: 400;
+  animation: portalTick 0.22s var(--ease) both;
+}
+@keyframes portalTick {
+  from {
+    opacity: 0.35;
+    transform: translateY(0.12em);
+  }
+}
+.portal__num {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+.portal__num span {
+  font-size: 0.24em;
+  letter-spacing: 0.3em;
+  margin-bottom: 0.1em;
+  padding-left: 0.3em;
+  opacity: 0.75;
+}
+@keyframes portalNum {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+}
+.portal__foot {
+  position: absolute;
+  left: 50%;
+  bottom: 9vh;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  color: rgba(242, 234, 216, 0.6);
+  transition: opacity 0.5s ease;
+}
+.portal__logo {
+  height: 22px;
+  width: auto;
+}
+.portal__foot .mono {
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.portal.is-open :is(.portal__num, .portal__foot) {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal__hole,
+  .portal__arch {
+    transition-duration: 0.01s;
+  }
+}
+[data-theme="portal"] .lang button.is-on {
+  color: #120e09;
+  background: linear-gradient(120deg, #f1dfb2, var(--gold));
+  box-shadow: none;
+}
+[data-theme="portal"] :is(.menu-btn, .cart-btn, .search-btn, .lang) {
+  background: rgba(10, 8, 6, 0.55);
+  box-shadow: none;
+}
+[data-theme="portal"] :is(.menu-btn, .cart-btn, .search-btn):hover {
+  border-color: var(--gold);
+}

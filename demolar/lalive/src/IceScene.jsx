@@ -54,7 +54,15 @@ const BEANS = Array.from({ length: 14 }, (_, i) => ({
 }));
 const DROPS = 56;
 
+// content.particles "none": kristal, yaprak ve buğu yok (sahneyi tema parçacıkları taşır).
+const NONE = content.particles === "none";
+
 export default function IceScene() {
+  if (NONE) return null;
+  return <IceSceneInner />;
+}
+
+function IceSceneInner() {
   const floaters = useRef();
   const drops = useRef();
   const state = useRef({ show: 0, burst: -10, flavor: 0, parts: [] });

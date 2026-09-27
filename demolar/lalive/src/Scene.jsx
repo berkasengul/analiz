@@ -8,6 +8,8 @@ import Carousel from "./Carousel";
 import HeroCan from "./HeroCan";
 import Particles from "./Particles";
 import IceScene from "./IceScene";
+import Numeral from "./Numeral";
+import { THEME } from "./theme";
 import { scrollState } from "./scroll";
 import { content } from "./data";
 
@@ -45,6 +47,7 @@ export default function Scene() {
           <CameraRig />
           <Background />
           <Particles />
+          {THEME.numerals && <Numeral />}
           <IceScene />
           <Carousel />
           <HeroCan />

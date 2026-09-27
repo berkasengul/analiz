@@ -117,3 +117,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Türkan | Yassı şişe dönen gövde olunca silindir gibi görünüyordu | Yeni `flask` 3B biçimi: kapak dönen gövde, gövde pahlı blok (kalınlık genişliğe oranla) |
 | Türkan | "EXTRAİT DE PARFUM", "HER KOKU BIR HIS": Türkçe/İngilizce büyük harf karışıyordu | `latinTerms` + `termLang`/`wordLang`: yabancı terimler lang="en", Türkçe harfli metin Türkçe |
 | Türkan | İki set aynı adla görünüyordu; Lalive'dan kalma "tek bir doğal rutin" yazısı; boş "Görüldüğü yerler" | `aktar.rename` (markanın koleksiyon adları); `allTag` markaya taşındı; basın listesi boşsa bölüm gizli |
+| Genel | Bütün demolar aynı şablonun renk değiştirilmiş hâliydi | `theme` sahne kimliği: yazı tipleri, vurgu rengi, parçacık, dev sayılar, açılış sahnesi, arayüz stili markaya özel (ilk: Türkan "portal") |
+| Türkan | Kapı çizgisi ters ve eksik çiziliyordu (`pathLength` + `non-scaling-stroke`) | Gerçek çevre uzunluğuyla `strokeDasharray/offset` özniteliği |
+| Türkan | Açılış sayacı her değişimde baştan animasyona girip görünmüyordu | Sayı sabit, yalnızca rakam kısa "tık" hareketiyle değişir; sayaç en az ~2,5 sn akar |

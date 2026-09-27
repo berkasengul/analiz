@@ -107,3 +107,20 @@ Markaya özgü her şey iki dosyada:
 - `markalar/<marka>-kurallar.json`: `foto` (yapay zekâ kesimi, setlerin içeriği, gerçek boylar, arka fotoğraf kullanılsın mı) ve `aktar` (kategoriler, 3B biçimleri, koku notaları, ana sayfa sırası, ritüel, adlar). Alanlar araçların başındaki açıklamada.
 
 3B biçimler: `round` (dönen gövde), `flat` (pahlı blok), `flask` (küre/silindir kapak dönen gövde + yassı şişe gövdesi; boyun fotoğraftan bulunur), `group` (set: her ürün ayrı parça). Sepet `commerce.shopify` ile markanın kendi ödeme sayfasına gider (`/cart/<varyant>:<adet>`).
+
+## Sahne kimliği (tema): her marka kendine özgü
+
+`markalar/<marka>.json` → `theme` ile şablonun görünümü markaya özelleşir (yoksa varsayılan kalır):
+
+```json
+"theme": {
+  "name": "portal",                 // <html data-theme="portal">: base.css'teki tema kuralları
+  "accent": "#c9a55c",              // vurgu rengi (altın)
+  "particles": "gold",              // altın toz parçacıkları
+  "numerals": {"font": "fonts/Italiana-Regular.ttf"},  // kokunun numarası sahnede dev altın sayı
+  "intro": "portal",                // açılış: kapı çizilir, sayılar akar, kapı açılır
+  "fonts": {"href": "<Google Fonts bağlantısı>", "display": "...", "serif": "...", "sans": "..."}
+}
+```
+
+`"particles": "none"` kristal/yaprak sahnesini kapatır. Aktarım kurallarında `themeAccent` ve `themeGlow` sahne ışığının rengini ve parlaklığını ayarlar. İlk tema: Türkan · "Sayıların Kapısı".

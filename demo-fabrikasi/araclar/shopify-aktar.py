@@ -17,7 +17,9 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "notes": [["regex", [["tr", "en"], ...]]]   ürün çipleri (markanın metninden)
     "home": ["handle", ...]                 ana sayfanın 3B akışı (sırayla)
     "ritual": [{"handle", "tr": {title, text, stat}, "en": {...}}]
-    "rename": {"handle": ["tr", "en"]}      aynı adlı ürünleri ayırt etmek için markanın kendi adları
+    "rename": {"handle": ["tr", "en"]}
+    "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
+    "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
 Uydurma içerik yok: metin, fiyat, görsel markanın sitesinden.
 """
 import html
@@ -76,7 +78,7 @@ def hexc(rgb):
     return "#%02x%02x%02x" % tuple(max(0, min(255, int(v))) for v in rgb)
 
 
-def theme(rgb, accent=None):
+def theme(rgb, accent=None, glow_l=0.27):
     import colorsys
 
     def hsl(c):
@@ -88,7 +90,7 @@ def theme(rgb, accent=None):
 
     h, s_, _ = hsl(rgb)
     ah, as_, _ = hsl(accent or rgb)
-    return {"glow": from_hsl(h, s_ * 1.1 + 0.08, 0.27), "edge": from_hsl(h, s_ * 0.6, 0.035),
+    return {"glow": from_hsl(h, s_ * 1.1 + 0.08, glow_l), "edge": from_hsl(h, s_ * 0.6, 0.035),
             "drop": from_hsl(h, s_ * 0.5, 0.86), "accent": from_hsl(ah, as_ * 1.1 + 0.1, 0.34), "mood": "warm"}
 
 
@@ -157,7 +159,9 @@ def main():
         return {
             "name": i["name"], "form": "photo", "sub": i["size"] or fam[0], "collection": None,
             "family": fam[0], "year": None, "perfumer": None, "color": hexc(rgb), "ink": "#1f1a17",
-            "theme": theme(rgb, i["m"].get("accent")), "tagline": i["tag"], "notes": [a for a, _ in notes],
+            # Sahne ışığının ikinci rengi: markanın tema vurgusu (ör. altın) ya da ürünün kendi rengi.
+            "theme": theme(rgb, [int(R["themeAccent"][k:k + 2], 16) for k in (1, 3, 5)] if R.get("themeAccent") else i["m"].get("accent"),
+                           R.get("themeGlow", 0.27)), "tagline": i["tag"], "notes": [a for a, _ in notes],
             "description": i["desc"], "file": f"{h}.webp",
             "en": {"name": i["en_name"], "family": fam[1], "tagline": i["en_tag"], "notes": [b for _, b in notes],
                    "description": i["en_desc"], "sub": i["size"] or fam[1]},
