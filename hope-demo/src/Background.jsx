@@ -2,12 +2,16 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
-import { Color, MathUtils, Vector2 } from "three";
+import { Color, MathUtils, Vector2, Vector3 } from "three";
 
 import { content, flavors } from "./data";
 import { scrollState } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
+import { THEME } from "./theme";
+
+const SOLO = THEME.carousel === "solo";
+const P = new Vector3();
 
 import "./BackgroundMaterial";
 
@@ -17,6 +21,7 @@ import "./BackgroundMaterial";
 export default function Background() {
   const material = useRef();
   const size = useThree((s) => s.size);
+  const camera = useThree((s) => s.camera);
   const color = useMemo(() => new Color(flavors[0].color), []);
   // Her tadın kendi sahne rengi; tat değişince yumuşakça geçer.
   const glow = useMemo(() => new Color(flavors[0].theme.glow), []);
@@ -78,13 +83,16 @@ export default function Background() {
     // Işık huzmesi ve ışık havuzu kutunun ekrandaki yerini takip eder.
     const wide = size.width / size.height >= 0.9;
     let fx = 0.5;
+    // Tek ürün sahnesinde huzme ve ışık havuzu tam öndeki ürünün üstüne düşer.
+    if (SOLO && wide) fx = MathUtils.clamp((P.copy(sceneState.focus.position).project(camera).x + 1) / 2, 0.2, 0.8);
     if (wide) {
-      fx = MathUtils.lerp(0.5, 0.68, scrollState.ritualIn);
+      fx = MathUtils.lerp(fx, 0.68, scrollState.ritualIn);
       fx = MathUtils.lerp(fx, 0.7, scrollState.shopIn);
       if (st.detail) fx = 0.59;
     }
     l.fx = MathUtils.damp(l.fx ?? fx, fx, 4, Math.min(delta, 0.1));
     material.current.u_focusX = l.fx;
+    material.current.u_studio = SOLO && wide ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
 
     // Ritüel'de halka ekranın ortasından, carousel'de öndeki kutudan çıkar.

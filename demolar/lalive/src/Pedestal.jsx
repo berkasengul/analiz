@@ -43,7 +43,7 @@ export default function Pedestal() {
     const dt = Math.min(delta, 0.1);
     const st = useStore.getState();
     const S = s.current;
-    const target = (1 - sceneState.spread) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
+    const target = (1 - Math.min(1, sceneState.spread * 3)) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
     S.vis = MathUtils.damp(S.vis, target, 3, dt);
     const f = sceneState.focus;
     const sc = f.scale || 1;

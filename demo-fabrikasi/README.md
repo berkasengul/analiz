@@ -122,11 +122,11 @@ Markaya özgü her şey iki dosyada:
   "fonts": {"href": "<Google Fonts bağlantısı>", "display": "...", "serif": "...", "sans": "..."},
   "studio": true,                   // stüdyo ışığı: ürün rengine göre kenar ışığı + gövdede gezen ışık süpürmesi
   "pedestal": true,                 // öndeki ürün altın halkalı parlak bir kaidede durur (ürünün altına göre ölçülür)
-  "carousel": "solo",               // tek ürün sahnesi: ürün sağda büyük, diğerleri arkada karanlığa dizilir
+  "carousel": "solo",               // tek ürün sahnesi: huzme yalnızca öndeki ürüne düşer, yanlar karanlıkta silüet
   "cards": "gallery"                // ürün kartları: her ürün kendi renginde dikey vitrin, notalar ve ışık huzmesi
 }
 ```
 
-Ürün başına arka plan rengi aktarım kurallarından gelir: `aktar.palette: [["<handle regex>", "#zemin", "#vurgu"], ...]`. Zemin rengi ana sayfada o ürün öndeyken sahneyi, kartta vitrini boyar; vurgu rengi ışığı ve kaide parıltısını. `solo` düzeninde sahnedeki dev numara kapalıdır (sol üstteki sayaç aynı işi görür).
+Ürün başına arka plan rengi aktarım kurallarından gelir: `aktar.palette: [["<handle regex>", "#zemin", "#vurgu"], ...]`. Zemin rengi ana sayfada o ürün öndeyken sahneyi, kartta vitrini boyar; vurgu rengi ışığı ve kaide parıltısını. Ana sayfada kaç ürün kaydırılacağı `aktar.home` listesidir (Türkan'da 4; Ritüel'deki ürünler bu listede olmalı). `solo` düzeninde sahnedeki dev numara kapalıdır (sol üstteki sayaç aynı işi görür).
 
 `"particles": "none"` kristal/yaprak sahnesini kapatır. Aktarım kurallarında `themeAccent` ve `themeGlow` sahne ışığının rengini ve parlaklığını ayarlar. İlk tema: Türkan · "Sayıların Kapısı".

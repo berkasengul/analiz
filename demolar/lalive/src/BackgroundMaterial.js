@@ -23,6 +23,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_hasMap: 0,
     u_stage: 1,
     u_focusX: 0.5,
+    u_studio: 0,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -47,6 +48,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_hasMap;
     uniform float u_stage;
     uniform float u_focusX;
+    uniform float u_studio;
 
     float hash(vec2 p) {
       return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -89,16 +91,21 @@ export const BackgroundMaterial = shaderMaterial(
         base = mix(base, city, band * 0.9 * u_stage);
       }
 
-      // Tepeden inen ışık huzmesi.
+      // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.
+      float spotD = length((vUv - vec2(u_focusX, 0.5)) * vec2(u_aspect * 0.62, 0.9));
+      base *= mix(1., 0.42 + 0.58 * (1. - smoothstep(0.12, 0.85, spotD)), u_studio * u_stage);
+
+      // Tepeden inen ışık huzmesi (stüdyoda daha dar, daha parlak, içinde yavaş süzülen toz).
       vec2 bp = (vUv - vec2(u_focusX, 1.08)) * asp;
       float depth = -bp.y;
-      float width = 0.06 + depth * 0.3;
-      float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(0.6, 1.1, depth));
-      base += light * beam * 0.16 * u_stage;
+      float width = mix(0.06 + depth * 0.3, 0.05 + depth * 0.2, u_studio);
+      float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
+      float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
+      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage;
 
       // Kutunun altında yumuşak ışık havuzu.
-      float pool = 1. - smoothstep(0., 0.45, length((vUv - vec2(u_focusX, 0.1)) * vec2(u_aspect * 0.45, 2.4)));
-      base += light * pool * 0.12 * u_stage;
+      float pool = 1. - smoothstep(0., mix(0.45, 0.3, u_studio), length((vUv - vec2(u_focusX, mix(0.1, 0.37, u_studio))) * vec2(u_aspect * 0.45, 2.4)));
+      base += light * pool * mix(0.12, 0.16, u_studio) * u_stage;
 
       // Süzülen bokeh ışıkları (iki derinlik katmanı).
       for (int L = 0; L < 2; L++) {

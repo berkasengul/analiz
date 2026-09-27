@@ -124,3 +124,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Türkan | Yan şişeler başlığın ve nota listesinin üstüne biniyordu | Yanlar öndeki ürünün arkasında derinliğe dizilir; detayda tamamen kaybolur |
 | Türkan | Kaide sette ürünün çok altında kalıyordu (kapak tornası fotoğrafın tüm boyunu kaplıyor) | Alt kenar yalnızca gövde hacminden ölçülür (`BOTTOM`), kaide ona oturur |
 | Türkan | Sol kategori dizini uzun ürün adının üstüne biniyordu | Portal temasında kategori dizini üstte yatay ince satır |
+| Türkan | Yan şişeler de ışıkta, öndeki ürün yeterince öne çıkmıyordu; huzme ürünün yanına düşüyordu | Solo sahnede yanlar neredeyse siyah silüet (ince renkli kenar ışığı); huzme ve ışık havuzu öndeki ürünün ekrandaki yerine hizalı, çevre kararır (`u_studio`) |
+| Türkan | Ana sayfada 8 ürün kaydırılıyordu, alt bölüme geç iniliyordu | `aktar.home` 4 koku (Ritüel'deki üçü dahil); 3+ ürünlü solo sahnede halka düzeni (iki yanda silüet) |
+| Türkan | Ritüel'e geçince nota listesi (fixed) ve kaide ekranda kalıyordu | Nota listesi HUD içinde absolute; kaide sahne dağılırken hızla söner |

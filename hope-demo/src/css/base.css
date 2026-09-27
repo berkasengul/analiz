@@ -5358,11 +5358,13 @@ button.buy__more {
     padding: 14px 26px;
   }
   /* Sayaç: sol üstte ince, büyük. */
+  /* Sayaç kutusu HUD'u kaplar: nota listesi sabit (fixed) değil, HUD ile birlikte kayar ve
+     Ritüel'e geçerken sahneden çıkar. */
   [data-theme="portal"] .hud__count {
-    left: calc(var(--gutter) + 3vw);
-    right: auto;
-    top: 19vh;
-    bottom: auto;
+    inset: 0;
+    padding: 19vh 0 0 calc(var(--gutter) + 3vw);
+    justify-content: flex-start;
+    pointer-events: none;
   }
   [data-theme="portal"] .count__now {
     font-weight: 400;
@@ -5374,7 +5376,7 @@ button.buy__more {
   }
   /* Notalar: sağda dikey liste, altın kıl çizgi ile. */
   [data-theme="portal"] .hud__count .chips {
-    position: fixed;
+    position: absolute;
     right: calc(var(--gutter) + 2vw);
     top: 50%;
     transform: translateY(-50%);
