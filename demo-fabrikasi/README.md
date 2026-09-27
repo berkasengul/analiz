@@ -53,6 +53,7 @@ Süre: ~20 saniye (etiket çizimi + derleme).
 | `products[].form: "tool"` | Ahşap/lif bakım aleti (`bottle.tool`: `lymph`, `brush`, `loofah`), etiket askılı kartta (`bottle.tag`) |
 | `bottle.cap.shape` | `cylinder`, `octagon`, `box`, `pump` (pompa), `spray`, `dropper` (damlalık), `ball` (roll-on), `none` |
 | `bottle.finish: "matte"` | Opak gövde (sabun, kutu, kumaş); `ribbon` hediye kurdelesi, `garment` sweatshirt silüeti, `liquid` şeffaf şişede içerik rengi |
+| `fillLight` | Sahnedeki yan dolgu ışığının rengi (varsayılan soğuk mavi; doğal bakım markalarında sıcak ton) |
 | `labelFinish` | Etiket yüzeyi: `metalness`, `roughness`, `clearcoat`, `envMapIntensity` (kâğıt etiket için mat; boşsa parfüm tarzı parlak) |
 | `products[].light` | Spot ışık çarpanı (boşsa etiket rengine göre otomatik) |
 | `bottle.glass.shape: "cylinder"` | Yuvarlak şişe (ör. damlalıklı yüz yağı); etiket çevreye sarılır. Damlalıkta `cap.collar`, `bulbRadius`, `bulbHeight` |

@@ -56,13 +56,19 @@ CATS = [
 FLAT = r"set|rituel|yazin|kutu|tote|canta|sapka|atlet|t-shirt|sweatshirt|bandi|goz-bandi|firca|kabak|tarak|seti"
 
 # Düz ürünlerin kalınlığı (3B birim): kalıp sabun kalın, tekstil ince.
-FLAT_DEPTH = [(r"kati-sabun", 0.75), (r"kutu", 0.6), (r"tote|atlet|t-shirt|sweatshirt|bandi", 0.14), (r"sapka|canta", 0.35)]
+FLAT_DEPTH = [(r"kati-sabun", 0.75), (r"firca|tarak", 0.75), (r"kutu", 0.6), (r"tote|atlet|t-shirt|sweatshirt|bandi", 0.14), (r"canta", 0.9), (r"sapka", 0.5)]
 
 
-def photo3d(h):
+# Tüpler yandan basıktır (elips kesit).
+TUBE = r"gunes-kremi|el-kremi|dudak-balmi|losyon"
+
+
+def photo3d(h, m):
+    """3B biçim: yuvarlak ürün fotoğraf silüetinden dönen gövde, düz ürün kenar çizgisinden blok."""
+    shape = {"axis": m.get("axis", 0.5), "rows": m.get("rows", []), "outline": m.get("outline", []), "edge": hexc(m.get("edge", [120, 110, 90]))}
     if re.search(FLAT + r"|kati-sabun", h):
-        return {"profile": "flat", "depth": next((d for rx, d in FLAT_DEPTH if re.search(rx, h)), 0.34)}
-    return {"profile": "round", "depth": 0.8}
+        return {"profile": "flat", "depth": next((d for rx, d in FLAT_DEPTH if re.search(rx, h)), 0.34), **shape}
+    return {"profile": "round", "zScale": 0.72 if re.search(TUBE, h) else 1, **shape}
 
 
 # Shopify etiketlerinden içerik çipleri (yalnızca anlamı net olanlar).
@@ -187,12 +193,7 @@ def main():
 
     cats = {k: dict(id=k, name={"tr": n, "en": ne}, color=col, desc={"tr": d, "en": de}) for k, n, ne, col, d, de, _ in CATS}
 
-    base = [p for p in c["products"] if p["file"] in MODELED or p["file"] in REPLACE][:6]
-    order = ["el-kremi.jpg", "gunes-kremi.jpg", "dudak-balmi.jpg", "bronzlastirici-yag.jpg", "yuz-misti.jpg", "yuz-yagi.jpg"]
-    base.sort(key=lambda p: order.index(p["file"]))
-    products, handles = [], []
-
-    def photo_product(h, keep=None):
+    def photo_product(h):
         i = info(h)
         rgb = i["m"].get("color", [150, 120, 90])
         cat = cats[i["cat"]]
@@ -205,23 +206,27 @@ def main():
                    "notes": [b for _, b in i["chips"]] or [cat["name"]["en"]], "description": i["en_desc"],
                    "sub": i["size"] or cat["name"]["en"]},
             "label": {"style": "photo"},
-            "photo3d": photo3d(h),
+            "photo3d": photo3d(h, i["m"]),
         }
         if name_lang(i["name"]):
             prod["nameLang"] = "en"
-        if keep:  # ana sayfa ritüelindeki yeri korunur
-            prod["theme"] = keep.get("theme", prod["theme"])
         return prod
 
-    for p in base:
-        h = MODELED.get(p["file"]) or REPLACE[p["file"]]
-        if p["file"] in REPLACE:
-            p = photo_product(h, keep=p)
-        else:
+    # Ana sayfanın ilk 6 ürünü sabit sırada (ritüel ve mağaza bu sıraya bakar). Program tekrar
+    # çalıştırıldığında da aynı sonuç: elle modellenenler dosya adından, diğerleri Shopify'dan.
+    BASE = ["lalive-el-kremi-50-ml", "lalive-mineral-filtreli-gunes-kremi", "lalive-dudak-balmi",
+            "lalive-bronzlastirici-yag", "lalive-dogal-yuz-misti", "lalive-besleyici-yuz-bakim-yagi"]
+    modeled = {MODELED[p["file"]]: p for p in c["products"] if p["file"] in MODELED}
+    products, handles = [], []
+    for h in BASE:
+        if h in modeled:
+            p = modeled[h]
             i = info(h)
             p["description"] = i["desc"]
             p["en"]["description"] = i["en_desc"]
             p.pop("rating", None)
+        else:
+            p = photo_product(h)
         products.append(p)
         handles.append(h)
     for h in sorted(tr, key=lambda x: (cat_of(x), x)):
@@ -253,6 +258,15 @@ def main():
     order_cats = [k for k, *_ in CATS]
     items_out.sort(key=lambda x: order_cats.index(x["category"]))
     c["products"] = products
+    # Ritüel: elle modellenmiş kremler ve yağ (sırası BASE'e göre: 0 el kremi, 5 yüz yağı, 2 dudak balmı).
+    c["ritual"] = [
+        {"flavor": 0, "tr": {"title": "Ferahla", "text": "Güne zeytinyağlı el kremiyle ferah ve yumuşak bir başlangıç yap.", "stat": "50 ml"},
+         "en": {"title": "Refresh", "text": "Start the day fresh and soft with the olive oil hand cream.", "stat": "50 ml"}},
+        {"flavor": 5, "tr": {"title": "Besle", "text": "Akşam birkaç damla yüz bakım yağıyla cildini besle.", "stat": "30 ml"},
+         "en": {"title": "Nourish", "text": "In the evening, nourish your skin with a few drops of face oil.", "stat": "30 ml"}},
+        {"flavor": 2, "tr": {"title": "Koru", "text": "Dudaklarını gün boyu doğal dudak balmıyla koru.", "stat": "10 ml"},
+         "en": {"title": "Protect", "text": "Protect your lips all day with the natural lip balm.", "stat": "10 ml"}},
+    ]
     c["home"] = [0, 1, 2, 3, 4, 5] + [handles.index(h) for h in HOME_EXTRA if h in handles]
     c["catalog"]["categories"] = [cats[k] for k in order_cats if any(x["category"] == k for x in items_out)]
     c["catalog"]["items"] = items_out

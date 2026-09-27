@@ -21,7 +21,7 @@ import {
   Vector2,
   Vector3,
 } from "three";
-import { RoundedBoxGeometry } from "three-stdlib";
+import { RoundedBoxGeometry, mergeVertices } from "three-stdlib";
 
 import { content, flavors } from "./data";
 
@@ -304,120 +304,110 @@ function toolGeometry(S) {
   return { ...tag, main: lathe(pts, 48) };
 }
 
-// Fotoğraftan 3B: ürünün kesilmiş fotoğrafı (atlas sol yarısı, alfa = silüet)
-// bir ızgaraya oturtulur ve silüetin kenarına uzaklığa göre şişirilir; ön ve
-// arka yüz silüet sınırında birleşir. "round" şişe/tüp gibi tam hacim, "flat"
-// kutu, set ve tekstil gibi düz yüzlü ve yuvarlak kenarlı.
+// Fotoğraftan 3B. Doku atlası: sol yarı ürünün kesilmiş ön fotoğrafı, sağ yarı arka yüzü
+// (aynalı hizada). Fotoğraf kare tuvale oturtulmuştur; x, y ∈ [0, 1] tuval koordinatı.
+//  - "round": silüetin her satırındaki simetrik yarıçaptan dönen gövde (şişe, tüp, kavanoz);
+//    ön yarıya ön fotoğraf, arka yarıya arka yüz önden izdüşümle giydirilir. Eksene simetrik
+//    olmayan parçalar (pompa ağzı) gövdenin arkasındaki ince bir kartta kalır.
+//  - "flat": silüetin kenar çizgisinden pahlı blok (kutu, set, sabun, fırça, tekstil).
 const PHOTO = new Map();
-function photoGeometry(S, texture) {
-  const key = `${S.file}|${S.size}|${S.profile}|${S.depth}`;
-  if (PHOTO.has(key)) return PHOTO.get(key);
-  const G = 128;
-  const img = texture.image;
-  const cv = document.createElement("canvas");
-  cv.width = cv.height = G;
-  const cx = cv.getContext("2d", { willReadFrequently: true });
-  cx.drawImage(img, 0, 0, img.width / 2, img.height, 0, 0, G, G);
-  const px = cx.getImageData(0, 0, G, G).data;
-  const inside = new Uint8Array(G * G);
-  for (let i = 0; i < G * G; i++) inside[i] = px[i * 4 + 3] > 110 ? 1 : 0;
-  // Kenara uzaklık (3-4 chamfer, iki geçiş).
-  const INF = 1e9;
-  const d = new Float32Array(G * G);
-  for (let i = 0; i < G * G; i++) d[i] = inside[i] ? INF : 0;
-  const at = (x, y) => (x < 0 || y < 0 || x >= G || y >= G ? 0 : d[y * G + x]);
-  for (let y = 0; y < G; y++)
-    for (let x = 0; x < G; x++) {
-      const i = y * G + x;
-      if (!inside[i]) continue;
-      d[i] = Math.min(d[i], at(x - 1, y) + 3, at(x, y - 1) + 3, at(x - 1, y - 1) + 4, at(x + 1, y - 1) + 4);
-    }
-  for (let y = G - 1; y >= 0; y--)
-    for (let x = G - 1; x >= 0; x--) {
-      const i = y * G + x;
-      if (!inside[i]) continue;
-      d[i] = Math.min(d[i], at(x + 1, y) + 3, at(x, y + 1) + 3, at(x + 1, y + 1) + 4, at(x - 1, y + 1) + 4);
-    }
-  let maxd = 0;
-  for (let i = 0; i < G * G; i++) maxd = Math.max(maxd, d[i] / 3);
-  const cell = S.size / G;
-  const hpx = new Float32Array(G * G);
-  if (S.profile === "flat") {
-    // Kutu, set, tekstil: düz yüz, kenara doğru yuvarlanan ince hacim.
-    const R = Math.min(maxd, G * 0.05);
-    for (let i = 0; i < G * G; i++) {
-      const k = Math.min(1, d[i] / 3 / Math.max(R, 1e-3));
-      hpx[i] = inside[i] ? S.depth * Math.sqrt(Math.max(0, 1 - (1 - k) * (1 - k))) : 0;
-    }
-  } else {
-    // Şişe, kavanoz, mum: her satır kendi genişliğinde bir silindir kesiti
-    // (yan yana duran ürünler ayrı ayrı yuvarlanır); üst/alt kenar hafifçe yuvarlanır.
-    const Rv = 5;
-    const dv = new Float32Array(G * G);
-    for (let x = 0; x < G; x++) {
-      let run = 0;
-      for (let y = 0; y < G; y++) dv[y * G + x] = inside[y * G + x] ? ++run : (run = 0);
-      run = 0;
-      for (let y = G - 1; y >= 0; y--) {
-        const i = y * G + x;
-        run = inside[i] ? run + 1 : 0;
-        dv[i] = Math.min(dv[i], run);
-      }
-    }
-    for (let y = 0; y < G; y++) {
-      let x = 0;
-      while (x < G) {
-        if (!inside[y * G + x]) {
-          x++;
-          continue;
-        }
-        let e = x;
-        while (e < G && inside[y * G + e]) e++;
-        const w = (e - x) / 2;
-        const c = (x + e - 1) / 2;
-        for (let k = x; k < e; k++) {
-          const u = (k - c) / Math.max(w, 0.5);
-          const kv = Math.min(1, dv[y * G + k] / Rv);
-          hpx[y * G + k] = S.depth * w * cell * Math.sqrt(Math.max(0, 1 - u * u)) * Math.sqrt(Math.max(0, 1 - (1 - kv) * (1 - kv)));
-        }
-        x = e;
-      }
+const smoothRows = (rows) => rows.map((r, i) => (r === 0 ? 0 : (rows[i - 1] ?? r) * 0.25 + r * 0.5 + (rows[i + 1] ?? r) * 0.25));
+
+function latheHalf(S, back) {
+  const L = S.size;
+  const rows = smoothRows(S.rows);
+  const N = rows.length;
+  const seg = 48;
+  const zs = S.zScale ?? 1;
+  const pos = [];
+  const uv = [];
+  const idx = [];
+  // Üst ve alt uçları kapatmak için ilk/son satırın dışına yarıçapı 0 olan satır.
+  const R = [0, ...rows, 0];
+  const Y = [0, ...rows.map((_, i) => (i + 0.5) / N), 1];
+  for (let j = 0; j < R.length; j++) {
+    const r = R[j];
+    const y = Y[j];
+    for (let k = 0; k <= seg; k++) {
+      const t = -Math.PI / 2 + (k / seg) * Math.PI; // ön yarı: -90°..90°
+      const sx = Math.sin(t) * r;
+      const cz = Math.cos(t) * r;
+      const xw = back ? -sx : sx;
+      pos.push((S.axis + xw - 0.5) * L, (0.5 - y) * L, (back ? -cz : cz) * L * zs);
+      // Silüet kenarında şeffaf piksele düşmemek için izdüşüm biraz içeriden alınır.
+      const xn = S.axis + xw * 0.97;
+      uv.push(back ? 0.5 + 0.5 * (1 - xn) : 0.5 * xn, 1 - y);
     }
   }
-  const T = 1;
-  // Köşe noktalarındaki yükseklik: çevresindeki 4 pikselin ortalaması (yumuşak).
-  const N1 = G + 1;
-  const h = new Float32Array(N1 * N1);
-  const hp = (x, y) => (x < 0 || y < 0 || x >= G || y >= G ? 0 : hpx[y * G + x]);
-  for (let y = 0; y <= G; y++) for (let x = 0; x <= G; x++) h[y * N1 + x] = (hp(x - 1, y - 1) + hp(x, y - 1) + hp(x - 1, y) + hp(x, y)) / 4;
-  const build = (back) => {
-    const pos = [];
-    const uv = [];
-    for (let y = 0; y <= G; y++)
-      for (let x = 0; x <= G; x++) {
-        const z = T * h[y * N1 + x] * (back ? -1 : 1);
-        pos.push((x / G - 0.5) * S.size, (0.5 - y / G) * S.size, z);
-        uv.push(back ? 0.5 + 0.5 * (1 - x / G) : 0.5 * (x / G), 1 - y / G);
-      }
-    const idx = [];
-    for (let y = 0; y < G; y++)
-      for (let x = 0; x < G; x++) {
-        if (!inside[y * G + x] && !(x > 0 && inside[y * G + x - 1]) && !(y > 0 && inside[(y - 1) * G + x])) continue;
-        const a = y * N1 + x;
-        const b = a + 1;
-        const c = a + N1;
-        const e = c + 1;
-        if (back) idx.push(a, b, c, b, e, c);
-        else idx.push(a, c, b, b, c, e);
-      }
-    const g = new BufferGeometry();
-    g.setAttribute("position", new Float32BufferAttribute(pos, 3));
-    g.setAttribute("uv", new Float32BufferAttribute(uv, 2));
-    g.setIndex(idx);
-    g.computeVertexNormals();
-    return g;
+  const W = seg + 1;
+  for (let j = 0; j < R.length - 1; j++)
+    for (let k = 0; k < seg; k++) {
+      const a = j * W + k;
+      const b = a + 1;
+      const c = a + W;
+      const d = c + 1;
+      // Önden bakan için de arkadan bakan için de k soldan sağa ilerler: aynı sarım.
+      idx.push(a, c, b, b, c, d);
+    }
+  const g = new BufferGeometry();
+  g.setAttribute("position", new Float32BufferAttribute(pos, 3));
+  g.setAttribute("uv", new Float32BufferAttribute(uv, 2));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  return g;
+}
+
+function finPlane(S, back) {
+  const g = new PlaneGeometry(S.size, S.size);
+  const uv = g.attributes.uv;
+  for (let i = 0; i < uv.count; i++) uv.setX(i, back ? 0.5 + 0.5 * uv.getX(i) : 0.5 * uv.getX(i));
+  return g;
+}
+
+function flatBlock(S) {
+  const L = S.size;
+  // Fotoğraf kenarındaki küçük girinti çıkıntılar yumuşatılır (yanlarda basamak görünmesin).
+  const soften = (pts) => {
+    let p = pts;
+    for (let pass = 0; pass < 3; pass++)
+      p = p.map((q, i) => {
+        const a = p[(i - 1 + p.length) % p.length];
+        const b = p[(i + 1) % p.length];
+        return [(a[0] + 2 * q[0] + b[0]) / 4, (a[1] + 2 * q[1] + b[1]) / 4];
+      });
+    return p;
   };
-  const out = { front: build(false), back: build(true) };
+  const shapes = S.outline.map(soften).map((pts) => {
+    const sh = new Shape();
+    pts.forEach(([x, y], i) => (i ? sh.lineTo((x - 0.5) * L, (0.5 - y) * L) : sh.moveTo((x - 0.5) * L, (0.5 - y) * L)));
+    return sh;
+  });
+  const bevel = Math.min(0.05, S.depth * 0.3);
+  const g = new ExtrudeGeometry(shapes, { depth: Math.max(0.01, S.depth - 2 * bevel), bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel * 0.6, bevelSegments: 3, curveSegments: 4 });
+  g.translate(0, 0, -(S.depth - 2 * bevel) / 2);
+  // Ön/arka yüz dokusu: tuval koordinatından atlas yarısına izdüşüm.
+  const pos = g.attributes.position;
+  const uv = g.attributes.uv;
+  for (let i = 0; i < pos.count; i++) {
+    const xn = pos.getX(i) / L + 0.5;
+    const yn = 0.5 - pos.getY(i) / L;
+    const front = pos.getZ(i) >= 0;
+    uv.setXY(i, front ? 0.5 * xn : 0.5 + 0.5 * (1 - xn), 1 - yn);
+  }
+  // Kenar parçaları arasında yumuşak geçiş (basamaklı çizgiler görünmesin).
+  g.deleteAttribute("normal");
+  const m = mergeVertices(g, 1e-4);
+  m.computeVertexNormals();
+  return m;
+}
+
+function photoGeometry(S) {
+  const key = `${S.file}|${S.profile}|${S.depth}|${S.zScale}`;
+  if (PHOTO.has(key)) return PHOTO.get(key);
+  const out =
+    S.profile === "flat" && S.outline?.length
+      ? { block: flatBlock(S) }
+      : { front: latheHalf(S, false), back: latheHalf(S, true), finF: finPlane(S, false), finB: finPlane(S, true) };
   PHOTO.set(key, out);
   return out;
 }
@@ -524,7 +514,10 @@ export function createBottleParts(f = {}) {
   if (S.kind === "photo") {
     // Fotoğraflı üründe yalnızca etiket malzemesi var; sahne "metal"e dokunduğu için boş bir malzeme.
     parts.metal = new MeshStandardMaterial({ color: "#000000" });
-    parts.metal.userData.base = { color: parts.metal.color.clone(), env: 1 };
+    // Düz bloğun kenarları: ürünün kenar rengi.
+    parts.side = new MeshStandardMaterial({ color: S.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
+    parts.side.color.multiplyScalar(0.78); // kenar ışığı fotoğraftakinden biraz koyu dursun
+    for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
     return parts;
   }
   if (S.kind === "tube") {
@@ -719,19 +712,28 @@ function Tool({ body, parts, S }) {
   );
 }
 
-function Photo({ body, S, flavor }) {
-  const g = photoGeometry(S, flavors[flavor].texture);
+function Photo({ body, parts, S }) {
+  const g = photoGeometry(S);
   return (
     <group rotation={[0, 0, S.tilt]} position={[0, -0.25, 0]} scale={S.scale}>
-      <mesh geometry={g.front} material={body} />
-      <mesh geometry={g.back} material={body} />
+      {g.block ? (
+        <mesh geometry={g.block} material={[body, parts.side]} />
+      ) : (
+        <>
+          <mesh geometry={g.front} material={body} />
+          <mesh geometry={g.back} material={body} />
+          {/* Gövdenin dışında kalan parçalar (pompa ağzı, sap): ince kart. */}
+          <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} />
+          <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} />
+        </>
+      )}
     </group>
   );
 }
 
 export default function CanMesh({ body, parts, flavor = 0 }) {
   const S = shapeOf(flavors[flavor]);
-  if (S.kind === "photo") return <Photo body={body} S={S} flavor={flavor} />;
+  if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} />;
   if (S.kind === "tube") return <Tube body={body} parts={parts} S={S} />;
   if (S.kind === "tool") return <Tool body={body} parts={parts} S={S} />;
   return <Bottle body={body} parts={parts} S={S} />;

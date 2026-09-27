@@ -83,3 +83,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Fiyatlar eski arama sonuçlarındandı | Markanın ürün sayfasındaki güncel fiyatlar |
 | Lalive | Kategori yuvarlak hacimde köşeli ürünler (mum, sabun) yastık gibi "X" gölgeli | Yuvarlak ürünlerde satır satır silindir kesiti; kalıp sabun ve kutular düz profil |
 | Lalive | Kart görseli kesit fotoğrafı büyütüp kırpıyordu | Kesitli kartta görsel mutlak konumlu, `contain` |
+| Lalive | Fotoğraftan şişirilen ürünler "ortadan yarılmış", kenarları tırtıklı, tüplerde yatay çizgiler | Yuvarlak ürün: silüetten dönen gövde + önden izdüşüm doku; düz ürün: kenar çizgisinden pahlı blok; arka fotoğrafı yoksa yazısız arka |
+| Lalive | Aktarma tekrar çalışınca ana sayfa sırası kaydı; ritüelde fırça çıktı | Ana sayfanın ilk 6 ürünü sabit liste; ritüel kremlerle |
+| Lalive | Başka renk seçeneğinin fotoğrafı arka yüz sanıldı | Arka fotoğraf rengi ön yüze yakın olmalı |
