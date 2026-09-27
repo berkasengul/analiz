@@ -1,0 +1,41 @@
+# Devir notu: Lalive demosu (yeni oturum buradan devam eder)
+
+Kullanıcı Türkçe yazar; cevaplar Türkçe. Çalışma dalı: `claude/charming-dirac-aq3a53`.
+
+## Durum
+
+- Şablon: `hope-demo/` (Vite + React + three.js). Lalive demosu `demolar/lalive/`, ayar dosyası
+  `demo-fabrikasi/markalar/lalive.json`, üretim: `python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/lalive.json`.
+- 3B ürünlerin çoğu `demo-fabrikasi/markalar/lalive-urunler.py` ile eklenir (tekrar çalıştırmak güvenli).
+- Ana sayfa + her kategori (`#/urunler/<kategori>`) kendi 3B kaydırma akışında; `#/urunler` tüm ürünler listesi.
+- Gerçek fotoğraftan birebir yapılanlar: El Kremi, Dudak Balmı, Bronzlaştırıcı Yağ (ilk 5 ürün) ve
+  **Besleyici Yüz Bakım Yağı** (fotoğraflar `markalar/lalive-referans/yuz-yagi-*`, galeri + puan + gerçek fiyat).
+- **Diğer 15 ürünün ambalajı tahmini (temsili)**: kullanıcı bunu "basit" buldu; hepsi gerçek fotoğraflarla yenilenecek.
+- Lenfatik Yüz Fırçası (yeni ürün, ₺850, 4,67/5 · 3 değerlendirme) fotoğrafları kaydedildi:
+  `markalar/lalive-referans/yuz-fircasi-{on,arka,model}.webp` (ön/arka şeffaf zeminli PNG/WebP, 1200×1800;
+  ahşap yarım ay x 144–1075, y 584–970; kıllar ve alt yumrular y 970–1199). Henüz siteye eklenmedi.
+  Plan: ahşap gövde ExtrudeGeometry (yarım elips), ön/arka yüze fotoğrafın kendisi doku olarak; kıllar kutu +
+  alfa kesimli fotoğraf düzlemi + alt yumrular. Kullanım adımları ürün sayfasında 6 adım (Hazırla, Çene, Yanaklar,
+  Göz çevresi & alın, Boyun & dekolte, Besle).
+
+## Sıradaki iş (kullanıcının son isteği)
+
+1. Ağ erişimi açık yeni oturumda Lalive'ın bütün ürünlerini çek:
+   `python3 demo-fabrikasi/araclar/shopify-cek.py www.lalivenatural.com lalive`
+   (Shopify `products.json`; TR + EN metin, fiyat, kategoriler, bütün görseller → `markalar/lalive-shopify/`).
+2. Sitedeki bütün ürünleri gerçek fotoğraf, açıklama ve fiyatlarla aktar; bizde olmayanları ekle
+   (ör. Lenfatik Yüz Fırçası, Yüz Bakım Seti, Yüz Bakım & Koruma Seti, Yasemin Vücut Losyonu).
+   Kategorileri markanın koleksiyonlarına göre düzenle.
+3. Her ürünün 3B modelini fotoğrafa göre birebir yap (Yüz Bakım Yağı örneğindeki gibi: biçim, kapak, renk,
+   etiket yazıları); gerçek fotoğrafları `products[].photos` galerisine, kartta `photo` üzerine gelince.
+   Kart görselleri: `scratchpad` altında `rend2.cjs` benzeri Playwright + swiftshader ile kategori sayfasından çekilir.
+4. **Netlify zip verme.** Kullanıcı hepsi bitince siteyi dosya olarak isteyecek ve kendi bilgisayarında
+   `cd analiz/demolar/lalive && npm install && npm run dev` ile localhost'ta açacak.
+
+## Kurallar
+
+- Gerçek marka demosu herkese açık yayınlanmaz (artifact yok); yalnızca markaya özel.
+- Uydurma bilgi, yorum, fiyat yok; kaynak markanın sitesi. Fotoğrafı olmayan ambalaj "temsili" diye belirtilir.
+- Her değişiklikten sonra gerçek tıklama testi (masaüstü + telefon), `KONTROL-LISTESI.md` hata günlüğüne yeni
+  hatalar eklenir. Commit sonuna oturumun attribution satırları.
+- Satış maili: `satis/lalive-mail.md` (site güncellenince gönderilecek).
