@@ -4,6 +4,7 @@ import { Bag, BrandIcon } from "../Icons";
 import { useT } from "../i18n";
 import { useStore } from "../store";
 import { content } from "../data";
+import { SearchButton } from "./Search";
 
 export function LangSwitch() {
   const lang = useStore((s) => s.lang);
@@ -134,6 +135,7 @@ export default function Header() {
       </a>
       <NavBar ui={ui} />
       <div className="header__right">
+        <SearchButton />
         <LangSwitch />
         <button className="cart-btn" onClick={() => setCartOpen(true)} aria-label={ui.openCart(count)}>
           <Bag />

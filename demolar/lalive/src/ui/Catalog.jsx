@@ -239,7 +239,7 @@ function Atmosphere() {
 
 // 3B ürüne tıklanınca: ürün bu sayfanın 3B setindeyse akışta ona kayıp
 // detayı açar; değilse ürünün kategori sayfası o ürünle açılır.
-function openProduct(item) {
+export function openProduct(item) {
   if (item.product == null) return;
   const index = flavors.findIndex((f) => f.gid === item.product);
   if (index < 0) {
