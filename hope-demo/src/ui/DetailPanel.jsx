@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
-import { DETAIL_PACK, features, flavors } from "../data";
+import { DETAIL_PACK, PAGE, features, flavors } from "../data";
 import { useT } from "../i18n";
 import { scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
@@ -15,6 +16,58 @@ export function stepFlavor(dir) {
   const next = (active + dir + N) % N;
   setActive(next);
   scrollToFlavorOf(order, next, true);
+}
+
+// Markanın gerçek ürün fotoğrafları: küçük resimler, tıklayınca büyük görünüm.
+function Gallery({ photos, name, label, tab }) {
+  const [open, setOpen] = useState(null);
+  const base = import.meta.env.BASE_URL;
+  useEffect(() => {
+    if (open == null) return;
+    // Açıkken ok ve Esc tuşları yalnızca fotoğraflar arasında gezinir.
+    const on = (e) => {
+      if (!["Escape", "ArrowRight", "ArrowLeft"].includes(e.key)) return;
+      e.stopPropagation();
+      if (e.key === "Escape") setOpen(null);
+      if (e.key === "ArrowRight") setOpen((i) => (i + 1) % photos.length);
+      if (e.key === "ArrowLeft") setOpen((i) => (i - 1 + photos.length) % photos.length);
+    };
+    window.addEventListener("keydown", on, true);
+    return () => window.removeEventListener("keydown", on, true);
+  }, [open, photos.length]);
+  return (
+    <>
+      <div className="gallery" aria-label={label}>
+        <p className="gallery__label mono">{label}</p>
+        <div className="gallery__row">
+          {photos.map((src, i) => (
+            <button key={src} className="gallery__thumb" tabIndex={tab} onClick={() => setOpen(i)} aria-label={`${name} ${i + 1}`}>
+              <img src={base + src} alt="" loading="lazy" />
+            </button>
+          ))}
+        </div>
+      </div>
+      {open != null &&
+        createPortal(
+        <div className="lightbox" role="dialog" aria-label={name} onClick={() => setOpen(null)}>
+          <img src={base + photos[open]} alt={name} onClick={(e) => e.stopPropagation()} />
+          <button className="round lightbox__close" onClick={() => setOpen(null)} aria-label="×">
+            <Close />
+          </button>
+          <button className="round lightbox__prev" onClick={(e) => (e.stopPropagation(), setOpen((open - 1 + photos.length) % photos.length))} aria-label="‹">
+            <Arrow dir="left" />
+          </button>
+          <button className="round lightbox__next" onClick={(e) => (e.stopPropagation(), setOpen((open + 1) % photos.length))} aria-label="›">
+            <Arrow />
+          </button>
+          <p className="lightbox__count mono">
+            {open + 1} / {photos.length}
+          </p>
+        </div>,
+          document.body
+        )}
+    </>
+  );
 }
 
 export function stepFeature(dir) {
@@ -100,6 +153,14 @@ export default function DetailPanel() {
               <dt>{ui.family}</dt>
               <dd>{f.family}</dd>
             </div>
+            {f.rating && (
+              <div>
+                <dt>{ui.rating}</dt>
+                <dd>
+                  <span className="stars" aria-hidden="true" style={{ "--r": f.rating.score / 5 }} /> {f.rating.score.toLocaleString(t.lang === "en" ? "en-US" : "tr-TR")} · {ui.reviews(f.rating.count)}
+                </dd>
+              </div>
+            )}
             {f.perfumer && (
               <div>
                 <dt>{ui.perfumer}</dt>
@@ -126,6 +187,7 @@ export default function DetailPanel() {
               </li>
             ))}
           </ul>
+          {f.photos?.length > 0 && <Gallery photos={f.photos} name={f.name} label={ui.photos} tab={tab} />}
           {tip && t.glossary[tip] && f.notes.includes(tip) && (
             <p className="detail__tip">
               <b>{tip}</b> {t.glossary[tip]}
@@ -135,9 +197,12 @@ export default function DetailPanel() {
             <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, DETAIL_PACK, "once")}>
               {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once", shown.active))}
             </button>
-            <a href="#shop" className="buy__more mono" tabIndex={tab}>
-              {ui.otherPacks}
-            </a>
+            {/* Kategori sayfalarında mağaza bölümü yok. */}
+            {PAGE.kind === "home" && (
+              <a href="#shop" className="buy__more mono" tabIndex={tab}>
+                {ui.otherPacks}
+              </a>
+            )}
           </div>
         </div>
       )}

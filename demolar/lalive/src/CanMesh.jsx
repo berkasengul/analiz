@@ -5,7 +5,6 @@ import {
   ExtrudeGeometry,
   Shape,
   CanvasTexture,
-  CapsuleGeometry,
   CylinderGeometry,
   LatheGeometry,
   MathUtils,
@@ -61,6 +60,20 @@ function labelGeo(w, h, u0) {
 // uyar. Böylece etiket havada duran düz bir yama gibi değil, basılı gibi durur.
 function wrapLabelGeo(S, lw, lh, u0, yc) {
   const { width: W, height: H, depth: D, corner } = S.glass;
+  if (S.glass.shape === "cylinder") {
+    // Yuvarlak şişe: etiket çevre boyunca açıyla sarılır (baskılı cam gibi).
+    const R = W / 2 + 0.006;
+    const g = new PlaneGeometry(lw, lh, 96, 4);
+    const pos = g.attributes.position;
+    const uv = g.attributes.uv;
+    for (let i = 0; i < pos.count; i++) {
+      const a = pos.getX(i) / R;
+      pos.setXYZ(i, R * Math.sin(a), pos.getY(i), R * Math.cos(a));
+      uv.setX(i, u0 + uv.getX(i) * 0.5);
+    }
+    g.computeVertexNormals();
+    return g;
+  }
   const r = Math.min(corner, W / 2, D / 2, H / 2);
   const a = W / 2 - r;
   const b = H / 2 - r;
@@ -122,8 +135,19 @@ function capGeometry(c) {
       return { capA: new CylinderGeometry(r, r, 0.34, 48), capB: new CylinderGeometry(0.08, 0.08, 0.4, 16), capC: new RoundedBoxGeometry(0.62, 0.22, 0.42, 3, 0.08), capD: new CylinderGeometry(0.055, 0.055, 0.5, 12) };
     case "spray":
       return { capA: new CylinderGeometry(r, r, 0.3, 48), capB: new CylinderGeometry(r * 0.72, r * 0.72, 0.42, 48), capD: new CylinderGeometry(0.05, 0.05, 0.06, 12) };
-    case "dropper":
-      return { capA: new CylinderGeometry(r, r * 1.02, 0.38, 48), capB: new CapsuleGeometry(r * 0.6, c.height * 0.5, 8, 24) };
+    case "dropper": {
+      // Damlalık: parlak boğaz halkası ve üstte hafif daralan, yuvarlak uçlu lastik.
+      const ch = c.collar ?? 0.38;
+      const br = c.bulbRadius ?? r * 0.6;
+      const bh = c.bulbHeight ?? c.height * 0.8;
+      const pts = [[0.001, 0], [br, 0]];
+      for (let i = 0; i <= 10; i++) pts.push([br * (1 - 0.14 * (i / 10)), (bh - br * 0.86) * (i / 10)]);
+      for (let i = 1; i <= 10; i++) {
+        const a = (i / 10) * (Math.PI / 2);
+        pts.push([Math.max(0.001, br * 0.86 * Math.cos(a)), bh - br * 0.86 + br * 0.86 * Math.sin(a)]);
+      }
+      return { capA: new CylinderGeometry(r, r, ch, 64), capB: lathe(pts, 48), collarH: ch };
+    }
     case "ball":
       return { capA: new CylinderGeometry(r, r, c.height, 64), capB: new SphereGeometry(r, 48, 24, 0, Math.PI * 2, 0, Math.PI / 2) };
     default:
@@ -222,6 +246,21 @@ function garmentGeometry(W, H) {
   };
 }
 
+// Yuvarlak şişe gövdesi: düz yan, yumuşak omuz ve taban kenarı.
+function cylinderBody(R, H, rs, rb, neck) {
+  const pts = [[0.001, -H / 2]];
+  for (let i = 0; i <= 8; i++) {
+    const a = -Math.PI / 2 + (i / 8) * (Math.PI / 2);
+    pts.push([R - rb + rb * Math.cos(a), -H / 2 + rb + rb * Math.sin(a)]);
+  }
+  for (let i = 0; i <= 8; i++) {
+    const a = (i / 8) * (Math.PI / 2);
+    pts.push([R - rs + rs * Math.cos(a), H / 2 - rs + rs * Math.sin(a)]);
+  }
+  pts.push([neck, H / 2], [0.001, H / 2]);
+  return lathe(pts, 96);
+}
+
 function lathe(points, segments = 64) {
   return new LatheGeometry(points.map(([r, y]) => new Vector2(r, y)), segments);
 }
@@ -282,7 +321,7 @@ function geometry(S) {
     const lw = S.label.width ?? S.label.size;
     const lh = S.label.height ?? S.label.size;
     g = {
-      glass: new RoundedBoxGeometry(W, H, D, 4, corner),
+      glass: S.glass.shape === "cylinder" ? cylinderBody(W / 2, H, S.glass.shoulder ?? 0.1, S.glass.base ?? 0.12, S.neck.radius) : new RoundedBoxGeometry(W, H, D, 4, corner),
       liquid: new RoundedBoxGeometry(W - 0.3, H - 0.42, D - 0.3, 3, Math.max(0.06, corner - 0.15)),
       // Kalın taban: köşeleri yuvarlak şişelerde camın içinde kalacak kadar küçülür.
       base: new RoundedBoxGeometry(W - 0.08 - corner * 0.9, 0.26, D - 0.08 - corner * 0.9, 2, 0.05),
@@ -463,8 +502,8 @@ function Cap({ g, parts, S, y0 }) {
   if (c.shape === "dropper")
     return (
       <group position={[0, y0, 0]}>
-        <mesh geometry={g.capA} material={parts.metal} position={[0, 0.19, 0]} />
-        <mesh geometry={g.capB} material={parts.rubber} position={[0, 0.38 + c.radius * 0.6 + c.height * 0.25, 0]} />
+        <mesh geometry={g.capA} material={parts.metal} position={[0, g.collarH / 2, 0]} />
+        <mesh geometry={g.capB} material={parts.rubber} position={[0, g.collarH - 0.01, 0]} />
       </group>
     );
   if (c.shape === "ball")
@@ -481,7 +520,7 @@ function Bottle({ body, parts, S }) {
   const g = geometry(S);
   const { width: W, height: H, depth: D } = S.glass;
   const labelY = GY + S.label.y;
-  const solid = S.finish === "matte";
+  const solid = S.finish === "matte" || S.glass.shape === "cylinder";
   const top = GY + H / 2;
   return (
     <group rotation={[0, 0, S.tilt]} position={[0, -0.2, 0]} scale={S.scale}>

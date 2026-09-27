@@ -294,8 +294,8 @@
         "color": "#eee7d6"
       },
       "price": {
-        "tr": 1512,
-        "en": 38
+        "tr": 1900,
+        "en": 48
       }
     },
     {
@@ -571,8 +571,8 @@
         "tilt": -0.04
       },
       "price": {
-        "tr": 1353.9,
-        "en": 34
+        "tr": 1850,
+        "en": 46
       }
     },
     {
@@ -721,8 +721,8 @@
         "tilt": -0.04
       },
       "price": {
-        "tr": 990,
-        "en": 28
+        "tr": 1200,
+        "en": 30
       }
     },
     {
@@ -994,8 +994,8 @@
         "roughness": 0.5
       },
       "price": {
-        "tr": 419.9,
-        "en": 10
+        "tr": 550,
+        "en": 14
       }
     },
     {
@@ -2694,6 +2694,191 @@
         "tr": 1990,
         "en": 50
       }
+    },
+    {
+      "name": "Besleyici Yüz Bakım Yağı",
+      "form": null,
+      "sub": "30 ml",
+      "collection": null,
+      "family": "Yüz bakımı",
+      "year": null,
+      "perfumer": null,
+      "color": "#e9a049",
+      "ink": "#1f3326",
+      "theme": {
+        "glow": "#8a4a12",
+        "edge": "#0b0502",
+        "drop": "#f7d9a8",
+        "mood": "warm"
+      },
+      "tagline": "Doğal ışıltı, derin besleme.",
+      "notes": [
+        "Kuşburnu yağı",
+        "C vitamini",
+        "Koenzim Q10",
+        "Squalane"
+      ],
+      "description": "Cildin doğal ışıltısını desteklemek için geliştirilen hafif ve ipeksi yüz bakım yağı; kuşburnu yağı, C vitamini, koenzim Q10 ve squalane ile formüle edilmiştir. Cildi besler, nemlendirir ve cilt bariyerini destekler; hızlı emilir, ağırlık hissi bırakmaz.",
+      "file": "yuz-yagi.jpg",
+      "en": {
+        "name": "Nourishing Face Oil",
+        "family": "Face care",
+        "tagline": "Natural glow, deep nourishment.",
+        "notes": [
+          "Rosehip oil",
+          "Vitamin C",
+          "Coenzyme Q10",
+          "Squalane"
+        ],
+        "description": "A light, silky face oil made to support skin's natural glow, formulated with rosehip oil, vitamin C, coenzyme Q10 and squalane. It nourishes, moisturises and supports the skin barrier; absorbs fast without a heavy feel.",
+        "sub": "30 ml"
+      },
+      "label": {
+        "plate": [
+          240,
+          234,
+          222
+        ],
+        "ink": [
+          60,
+          52,
+          40
+        ],
+        "star": [
+          120,
+          110,
+          80
+        ],
+        "place": "ASSOS · KORUOBA",
+        "scene": "none",
+        "style": "lalive",
+        "lalive": {
+          "bg": [
+            236,
+            158,
+            58
+          ],
+          "ink": [
+            30,
+            20,
+            14
+          ],
+          "layout": "bottle",
+          "en": "NOURISHING FACE OIL",
+          "tr": "besleyici yüz bakım yağı",
+          "lines": [
+            "Rosehip Oil · Vitamin C · Coenzyme Q10 · Squalane"
+          ],
+          "volume": "30 ml e 1,014 oz",
+          "back": [
+            {
+              "text": "Natural Glow · Deep Nourishment · Barrier Support · Fast Absorption"
+            },
+            {
+              "text": "doğal ışıltı · yoğun besleyici bakım · cilt bariyeri desteği · hızlı emilim"
+            },
+            {
+              "head": "KULLANIM",
+              "text": "Temiz cilde birkaç damla uygulanır. Sabah ve/veya gece rutininde tek başına ya da nemlendirici öncesi bakım adımı olarak kullanılabilir. Yüz ve boyun bölgesine nazik masaj hareketleriyle uygulanması önerilir."
+            }
+          ],
+          "backTop": 0.18,
+          "lineSize": 15,
+          "badge": false,
+          "top": "NATURAL GLOW",
+          "topY": 0.13,
+          "topSize": 20,
+          "logoY": 0.47,
+          "logoSize": 150,
+          "enY": 0.58,
+          "enFont": "sans",
+          "enSize": 24,
+          "enSpacing": 3,
+          "trY": 0.635,
+          "trFont": "sans",
+          "trSize": 22,
+          "trSpacing": 2,
+          "linesY": 0.79,
+          "lines2": [
+            "kuşburnu yağı · c vitamini · koenzim Q10 · skualen"
+          ],
+          "smallSize": 13,
+          "bgBottom": [
+            236,
+            190,
+            146
+          ],
+          "bgFrom": 0.88,
+          "backSize": 19,
+          "backWidth": 0.4,
+          "frontVolume": false,
+          "backVolumeY": 0.86,
+          "backVolumeSize": 26
+        },
+        "sub": "30 ml",
+        "claims": [
+          "Kuşburnu yağı",
+          "C vitamini",
+          "Koenzim Q10"
+        ],
+        "ingredients": "",
+        "usage": "",
+        "pyramid": [],
+        "volume": "30 ml"
+      },
+      "bottle": {
+        "glass": {
+          "shape": "cylinder",
+          "width": 1.5,
+          "height": 2.3,
+          "depth": 1.5,
+          "corner": 0.1,
+          "shoulder": 0.1,
+          "base": 0.14
+        },
+        "label": {
+          "width": 2.36,
+          "height": 2.06,
+          "y": -0.01,
+          "back": true
+        },
+        "neck": {
+          "radius": 0.3,
+          "height": 0.02,
+          "color": "#101010"
+        },
+        "cap": {
+          "shape": "dropper",
+          "radius": 0.5,
+          "height": 1.0,
+          "collar": 0.62,
+          "bulbRadius": 0.29,
+          "bulbHeight": 0.9,
+          "color": "#0c0c0c",
+          "finish": "black",
+          "bulb": "#0e0e0e"
+        },
+        "tint": "#e39a45",
+        "finish": "matte",
+        "roughness": 0.45,
+        "scale": 1.15,
+        "tilt": -0.04
+      },
+      "rating": {
+        "score": 4.7,
+        "count": 72
+      },
+      "photos": [
+        "catalog/yuz-yagi-model.jpg",
+        "catalog/yuz-yagi-damlalik.jpg",
+        "catalog/yuz-yagi-doku.jpg",
+        "catalog/yuz-yagi-icerik.jpg",
+        "catalog/yuz-yagi-arka.jpg"
+      ],
+      "price": {
+        "tr": 1650,
+        "en": 41
+      }
     }
   ],
   "specs": {
@@ -3188,7 +3373,11 @@
       "Avokado": "Güneşte kuruyan cildi derinlemesine nemlendirir.",
       "Gül suyu": "Ferahlatır ve cildi tazeler.",
       "Aloe vera": "Yatıştırır ve serinletir.",
-      "Panthenol": "B5 vitamini; nem dengesini destekler."
+      "Panthenol": "B5 vitamini; nem dengesini destekler.",
+      "Kuşburnu yağı": "Cilt görünümünü yenilemeye ve doğal ışıltıyı desteklemeye yardımcı olur.",
+      "C vitamini": "Daha aydınlık ve eşit görünümlü bir cilt için güçlü bir antioksidan destek sağlar.",
+      "Koenzim Q10": "Çevresel stres faktörlerine karşı cildi desteklemeye yardımcı olur.",
+      "Squalane": "Cildin doğal nem bariyerini destekler, nem kaybını azaltır; hafif dokusuyla ağırlık bırakmadan emilir."
     },
     "en": {
       "Olive oil": "From the olive trees of Koruoba, Assos; nourishes and softens.",
@@ -3205,7 +3394,11 @@
       "Avocado": "Deeply moisturises sun-dried skin.",
       "Rose water": "Refreshes and revives skin.",
       "Aloe vera": "Soothes and cools.",
-      "Panthenol": "Vitamin B5; supports moisture balance."
+      "Panthenol": "Vitamin B5; supports moisture balance.",
+      "Rosehip oil": "Helps renew the look of skin and support its natural glow.",
+      "Vitamin C": "Strong antioxidant support for brighter, more even-looking skin.",
+      "Coenzyme Q10": "Helps support skin against environmental stressors.",
+      "Squalane": "Supports the skin's moisture barrier and reduces moisture loss; light and fast-absorbing."
     }
   },
   "nameLang": "tr",
@@ -3312,6 +3505,28 @@
     ],
     "items": [
       {
+        "id": "yuz-yagi",
+        "name": {
+          "tr": "Besleyici Yüz Bakım Yağı",
+          "en": "Nourishing Face Oil"
+        },
+        "category": "el-yuz",
+        "size": "30 ml",
+        "price": {
+          "tr": 1650,
+          "en": 41
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Cildin doğal ışıltısını desteklemek için geliştirilen hafif ve ipeksi yüz bakım yağı.",
+          "en": "A light, silky face oil made to support skin's natural glow, formulated with rosehip oil, vitamin C, coenzyme Q10 and squalane. It nourishes, moisturises and supports the skin barrier."
+        },
+        "color": "#e9a049",
+        "product": 20,
+        "image": "catalog/yuz-yagi.jpg",
+        "photo": "catalog/yuz-yagi-model.jpg"
+      },
+      {
         "id": "el-kremi",
         "name": {
           "tr": "El Kremi",
@@ -3362,10 +3577,10 @@
         "category": "el-yuz",
         "size": null,
         "price": {
-          "tr": 990,
-          "en": 25
+          "tr": 1200,
+          "en": 30
         },
-        "exactPrice": false,
+        "exactPrice": true,
         "desc": {
           "tr": "Gül suyu, aloe vera, hyalüronik asit ve panthenolle ferahlık.",
           "en": "Freshness with rose water, aloe vera, hyaluronic acid and panthenol."
@@ -3383,8 +3598,8 @@
         "category": "gunes",
         "size": "100 ml",
         "price": {
-          "tr": 1512,
-          "en": 38
+          "tr": 1900,
+          "en": 48
         },
         "exactPrice": true,
         "desc": {
@@ -3404,8 +3619,8 @@
         "category": "gunes",
         "size": "200 ml",
         "price": {
-          "tr": 1353.9,
-          "en": 34
+          "tr": 1850,
+          "en": 46
         },
         "exactPrice": true,
         "desc": {
@@ -3446,8 +3661,8 @@
         "category": "vucut",
         "size": null,
         "price": {
-          "tr": 419.9,
-          "en": 10
+          "tr": 550,
+          "en": 14
         },
         "exactPrice": true,
         "desc": {
@@ -3740,7 +3955,8 @@
     1,
     2,
     3,
-    4
+    4,
+    20
   ],
   "labelFinish": {
     "metalness": 0,

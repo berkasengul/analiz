@@ -716,6 +716,12 @@ def lalive_panel(c, seed, back=False):
     ink = tuple(L.get("ink", (30, 56, 40)))
     layout = L.get("layout", "tube")
     img = Image.new("RGB", (W_, H_), bg)
+    if L.get("bgBottom"):
+        # Buzlu camın dibi: alt kısım daha açık ve sütlü.
+        a = np.asarray(img).astype(np.float32)
+        t = np.clip((np.arange(H_) / H_ - L.get("bgFrom", 0.86)) / (1 - L.get("bgFrom", 0.86)), 0, 1)[:, None, None]
+        a = a * (1 - t) + np.array(L["bgBottom"], np.float32) * t
+        img = Image.fromarray(a.astype(np.uint8))
     noise = smooth_noise(W_, H_, (6, 10), seed, 0.985, 1.015)[..., None]
     img = Image.fromarray(np.clip(np.asarray(img).astype(np.float32) * noise, 0, 255).astype(np.uint8))
     d = ImageDraw.Draw(img)
@@ -731,12 +737,12 @@ def lalive_panel(c, seed, back=False):
             if head:
                 ctext(d, cx, y, head, font("Lato-Bold.ttf", L.get("backSize", 30)), ink, spacing=2)
                 y += 44 * K
-            for line in wrap(d, block["text"], f_body, W_ * 0.82):
+            for line in wrap(d, block["text"], f_body, W_ * L.get("backWidth", 0.82)):
                 ctext(d, cx, y, line, f_body, ink)
                 y += L.get("backSize", 30) * 1.32 * K
             y += 26 * K
         if L.get("volume"):
-            ctext(d, cx, Y(0.95), L["volume"], font(sans, 30), ink)
+            ctext(d, cx, Y(L.get("backVolumeY", 0.95)), L["volume"], font(sans, L.get("backVolumeSize", 30)), ink)
         return np.asarray(img.resize((N, N), Image.LANCZOS)).astype(np.float32)
 
     badge_y = Y(L.get("badgeY", 0.3))
@@ -773,18 +779,28 @@ def front_body(img, L, cx, Y, bg, ink, H_, W_, serif, sans):
         mask_ = Image.fromarray((np.clip(diff * 4, 0, 255)).astype(np.uint8))
         img.paste(side, (0, 0), mask_)
     else:
+        d = ImageDraw.Draw(img)
+        if L.get("top"):
+            # Üstteki küçük başlık (ör. NATURAL GLOW).
+            ctext(d, cx, Y(L.get("topY", 0.12)), L["top"], font(sans, L.get("topSize", 30)), ink, spacing=5)
         logo(img, cx, Y(L.get("logoY", 0.52)), L.get("logoSize", 230), ink)
         d = ImageDraw.Draw(img)
-        y = Y(L.get("logoY", 0.52)) + 90 * K
-        ctext(d, cx, y, L["en"], font(serif, L.get("enSize", 44)), ink, spacing=5)
-        y += 58 * K
-        ctext(d, cx, y, L["tr"], font(serif, L.get("trSize", 38)), ink, spacing=3)
-        y += 110 * K
+        y = Y(L["enY"]) if L.get("enY") else Y(L.get("logoY", 0.52)) + 90 * K
+        f_en = font(sans if L.get("enFont") == "sans" else serif, L.get("enSize", 44))
+        ctext(d, cx, y, L["en"], f_en, ink, spacing=L.get("enSpacing", 5))
+        y = Y(L["trY"]) if L.get("trY") else y + 58 * K
+        f_tr = font(sans if L.get("trFont") == "sans" else serif, L.get("trSize", 38))
+        ctext(d, cx, y, L["tr"], f_tr, ink, spacing=L.get("trSpacing", 3))
+        y = Y(L["linesY"]) if L.get("linesY") else y + 110 * K
         f_lines = font(sans, L.get("lineSize", 44))
         for line in L.get("lines", []):
             ctext(d, cx, y, line, f_lines, ink)
             y += L.get("lineSize", 44) * 1.35 * K
-        if L.get("volume"):
+        f_small = font(sans, L.get("smallSize", 24))
+        for line in L.get("lines2", []):
+            ctext(d, cx, y, line, f_small, ink)
+            y += L.get("smallSize", 24) * 1.4 * K
+        if L.get("volume") and L.get("frontVolume", True):
             ctext(d, cx, Y(L.get("volumeY", 0.88)), L["volume"], font("Lato-Bold.ttf", 42), ink)
     return np.asarray(img.resize((N, N), Image.LANCZOS)).astype(np.float32)
 

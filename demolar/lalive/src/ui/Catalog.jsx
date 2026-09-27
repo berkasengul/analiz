@@ -139,7 +139,11 @@ function Card({ item, t, onOpen, index = 0 }) {
         <span className="pcard__beam" aria-hidden="true" />
         <span className="pcard__float">
           {item.image ? (
-            <img src={`${BASE}${item.image}`} alt="" loading="lazy" />
+            <>
+              <img src={`${BASE}${item.image}`} alt="" loading="lazy" />
+              {/* Gerçek ürün fotoğrafı: üzerine gelince 3B görselin yerine geçer. */}
+              {item.photo && <img className="pcard__photo" src={`${BASE}${item.photo}`} alt="" loading="lazy" />}
+            </>
           ) : (
             <span className="pcard__icon">{ICONS[item.icon] ?? ICONS.set}</span>
           )}

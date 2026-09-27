@@ -55,6 +55,10 @@ Süre: ~20 saniye (etiket çizimi + derleme).
 | `bottle.finish: "matte"` | Opak gövde (sabun, kutu, kumaş); `ribbon` hediye kurdelesi, `garment` sweatshirt silüeti, `liquid` şeffaf şişede içerik rengi |
 | `labelFinish` | Etiket yüzeyi: `metalness`, `roughness`, `clearcoat`, `envMapIntensity` (kâğıt etiket için mat; boşsa parfüm tarzı parlak) |
 | `products[].light` | Spot ışık çarpanı (boşsa etiket rengine göre otomatik) |
+| `bottle.glass.shape: "cylinder"` | Yuvarlak şişe (ör. damlalıklı yüz yağı); etiket çevreye sarılır. Damlalıkta `cap.collar`, `bulbRadius`, `bulbHeight` |
+| `products[].photos` | Markanın gerçek ürün fotoğrafları: detayda küçük resimler, tıklayınca büyük görünüm |
+| `products[].rating` | Markanın sitesindeki puan (`score`, `count`) |
+| `catalog.items[].photo` | Kartın üzerine gelince 3B görselin yerine gerçek fotoğraf |
 | `products[].nameLang` | Tek ürünün ad dili (ör. İngilizce "Sweatshirt" → `"en"`) |
 | `catalog` | Tüm ürün kataloğu: `categories` (ad, renk, açıklama), `items` (fiyat, kategori, simge ya da görsel, 3B ürüne bağlantı `product`), `homeCount` (ana sayfa vitrini), `glow` (katalog sayfasının ışık rengi). Menüde "Kategoriler" paneli ve `#/urunler/<kategori>` adresleri bundan oluşur |
 

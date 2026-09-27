@@ -8,6 +8,7 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 
 - [ ] Ambalaj markanın gerçek ürün fotoğrafına göre yapıldı mı? (biçim, renk, kapak, etiket düzeni)
 - [ ] Fotoğrafı olmayan ürünler sayfadaki notta "temsili" diye belirtildi mi?
+- [ ] Fotoğrafı olan ürünlerde gerçek fotoğraflar detay galerisinde ve kartta görünüyor mu?
 - [ ] Her ürün farklı mı görünüyor? (aynı etiketin rengi değişmiş kopyası değil, gerçekteki farklar)
 - [ ] Arka yüz (koku piramidi / içerik) okunuyor mu?
 - [ ] Logo ve yazı tipi markanınkine yakın mı?
@@ -78,3 +79,5 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Lalive | Etiketler yuvarlak şişenin önünde düz yama gibi duruyordu | Etiket gövdenin kavisine sarılır (`wrapLabelGeo`) |
 | Lalive | Açık renkli ambalajlarda spot ışığı yazıları siliyordu; etiket parfüm gibi parlaktı | Işık ambalaj rengine göre kısılır; `labelFinish` ile mat kâğıt etiket |
 | Lalive | Ürüne oturma, tekerleği yavaş çevirince kullanıcıyı geri çekiyordu | Oturma kaydırma yönünde ve kaydırma bittikten sonra |
+| Lalive | 15 ürün fotoğrafsız, tahminle çizildi; basit görünüyordu | Marka sitesine erişim yoksa kullanıcıdan ürün sayfası fotoğrafları istenir; ilk ürün (Yüz Bakım Yağı) fotoğraftan birebir |
+| Lalive | Fiyatlar eski arama sonuçlarındandı | Markanın ürün sayfasındaki güncel fiyatlar |

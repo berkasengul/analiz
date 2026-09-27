@@ -214,6 +214,44 @@ P.append(dict(id="sweatshirt", name="Self-Care Club Sweatshirt", en_name="Self-C
                           [{"text": "Lalive Self-Care Club koleksiyonu."}], badge=False, logoY=0.5, logoSize=200, enSize=44, trSize=30, backTop=0.4)))
 
 
+# Markanın ürün sayfasından (kullanıcının gönderdiği fotoğraflar ve metin):
+# Lalive Besleyici Yüz Bakım Yağı, 30 ml, 1.650 TL, 4,7/5 (72 değerlendirme).
+FACE_OIL_BG = [236, 158, 58]
+P.append(dict(
+    id="yuz-yagi", name="Besleyici Yüz Bakım Yağı", en_name="Nourishing Face Oil", sub="30 ml", en_sub="30 ml",
+    family="Yüz bakımı", en_family="Face care", color="#e9a049", category="el-yuz", home=True,
+    theme={"glow": "#8a4a12", "edge": "#0b0502", "drop": "#f7d9a8", "mood": "warm"},
+    tagline="Doğal ışıltı, derin besleme.", en_tagline="Natural glow, deep nourishment.",
+    notes=["Kuşburnu yağı", "C vitamini", "Koenzim Q10", "Squalane"],
+    en_notes=["Rosehip oil", "Vitamin C", "Coenzyme Q10", "Squalane"],
+    desc="Cildin doğal ışıltısını desteklemek için geliştirilen hafif ve ipeksi yüz bakım yağı; kuşburnu yağı, C vitamini, koenzim Q10 ve squalane ile formüle edilmiştir. Cildi besler, nemlendirir ve cilt bariyerini destekler; hızlı emilir, ağırlık hissi bırakmaz.",
+    en_desc="A light, silky face oil made to support skin's natural glow, formulated with rosehip oil, vitamin C, coenzyme Q10 and squalane. It nourishes, moisturises and supports the skin barrier; absorbs fast without a heavy feel.",
+    rating={"score": 4.7, "count": 72},
+    photos=["catalog/yuz-yagi-model.jpg", "catalog/yuz-yagi-damlalik.jpg", "catalog/yuz-yagi-doku.jpg", "catalog/yuz-yagi-icerik.jpg", "catalog/yuz-yagi-arka.jpg"],
+    photo="catalog/yuz-yagi-model.jpg",
+    price={"tr": 1650, "en": 41},
+    bottle={"glass": {"shape": "cylinder", "width": 1.5, "height": 2.3, "depth": 1.5, "corner": 0.1, "shoulder": 0.1, "base": 0.14},
+            "label": {"width": 2.36, "height": 2.06, "y": -0.01, "back": True},
+            "neck": {"radius": 0.3, "height": 0.02, "color": "#101010"},
+            "cap": {"shape": "dropper", "radius": 0.5, "height": 1.0, "collar": 0.62, "bulbRadius": 0.29, "bulbHeight": 0.9, "color": "#0c0c0c", "finish": "black", "bulb": "#0e0e0e"},
+            "tint": "#e39a45", "finish": "matte", "roughness": 0.45, "scale": 1.15, "tilt": -0.04},
+    label={**label(FACE_OIL_BG, [30, 20, 14], "NOURISHING FACE OIL", "besleyici yüz bakım yağı",
+                   ["Rosehip Oil · Vitamin C · Coenzyme Q10 · Squalane"], "",
+                   [{"text": "Natural Glow · Deep Nourishment · Barrier Support · Fast Absorption"},
+                    {"text": "doğal ışıltı · yoğun besleyici bakım · cilt bariyeri desteği · hızlı emilim"},
+                    {"head": "KULLANIM", "text": "Temiz cilde birkaç damla uygulanır. Sabah ve/veya gece rutininde tek başına ya da nemlendirici öncesi bakım adımı olarak kullanılabilir. Yüz ve boyun bölgesine nazik masaj hareketleriyle uygulanması önerilir."}],
+                   badge=False, top="NATURAL GLOW", topY=0.13, topSize=20, logoY=0.47, logoSize=150,
+                   enY=0.58, enFont="sans", enSize=24, enSpacing=3, trY=0.635, trFont="sans", trSize=22, trSpacing=2,
+                   linesY=0.79, lineSize=15, lines2=["kuşburnu yağı · c vitamini · koenzim Q10 · skualen"], smallSize=13,
+                   bgBottom=[236, 190, 146], bgFrom=0.88, backTop=0.18, backSize=19, backWidth=0.4,
+                   frontVolume=False, backVolumeY=0.86, backVolumeSize=26),
+           }))
+P[-1]["label"]["lalive"]["volume"] = "30 ml e 1,014 oz"
+
+# Markanın sitesindeki güncel fiyatlar (kullanıcının gönderdiği ürün sayfası, Eylül 2026).
+REAL_PRICES = {"yuz-misti": 1200, "roll-on": 550, "bronzlastirici-yag": 1850, "gunes-kremi": 1900}
+
+
 def product(p):
     L = p["label"]
     L.update({"sub": p["sub"], "claims": p["notes"][:3], "ingredients": "", "usage": "", "pyramid": [], "volume": p["sub"]})
@@ -227,6 +265,9 @@ def product(p):
     }
     if p.get("nameLang"):
         out["nameLang"] = p["nameLang"]
+    for k in ("rating", "photos"):
+        if p.get(k):
+            out[k] = p[k]
     return out
 
 
@@ -236,13 +277,47 @@ BASE = 5  # ilk 5 ürün ana sayfanın 3B ürünleri
 c["products"] = c["products"][:BASE]
 c["home"] = list(range(BASE))
 for p in P:
+    if p["id"] not in items:
+        # Katalogda olmayan yeni ürün: kategorisinin başına eklenir.
+        item = {"id": p["id"], "name": {"tr": p["name"], "en": p["en_name"]}, "category": p["category"], "size": p["sub"],
+                "price": p["price"], "exactPrice": True, "desc": {"tr": p["desc"].split(";")[0] + ".", "en": p["en_desc"].split(";")[0] + "."},
+                "color": p["color"]}
+        at = next(i for i, x in enumerate(c["catalog"]["items"]) if x["category"] == p["category"])
+        c["catalog"]["items"].insert(at, item)
+        items[p["id"]] = item
     item = items[p["id"]]
     prod = product(p)
     prod["price"] = item["price"]
     c["products"].append(prod)
     item["product"] = len(c["products"]) - 1
     item["image"] = f"catalog/{p['id']}.jpg"
+    if p.get("photo"):
+        item["photo"] = p["photo"]
     item.pop("icon", None)
+    if p.get("home"):
+        c["home"].append(item["product"])
+
+# İçerik sözlüğü: markanın ürün sayfasındaki açıklamalar.
+c["glossary"]["tr"].update({
+    "Kuşburnu yağı": "Cilt görünümünü yenilemeye ve doğal ışıltıyı desteklemeye yardımcı olur.",
+    "C vitamini": "Daha aydınlık ve eşit görünümlü bir cilt için güçlü bir antioksidan destek sağlar.",
+    "Koenzim Q10": "Çevresel stres faktörlerine karşı cildi desteklemeye yardımcı olur.",
+    "Squalane": "Cildin doğal nem bariyerini destekler, nem kaybını azaltır; hafif dokusuyla ağırlık bırakmadan emilir.",
+})
+c["glossary"]["en"].update({
+    "Rosehip oil": "Helps renew the look of skin and support its natural glow.",
+    "Vitamin C": "Strong antioxidant support for brighter, more even-looking skin.",
+    "Coenzyme Q10": "Helps support skin against environmental stressors.",
+    "Squalane": "Supports the skin's moisture barrier and reduces moisture loss; light and fast-absorbing.",
+})
+
+# Güncel fiyatlar: hem 3B ürüne hem katalog kaydına.
+for cid, tr in REAL_PRICES.items():
+    item = items[cid]
+    item["price"] = {"tr": tr, "en": round(tr / 40)}
+    item["exactPrice"] = True
+    if item.get("product") is not None:
+        c["products"][item["product"]]["price"] = item["price"]
 json.dump(c, open(PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 open(PATH, "a").write("\n")
 print(len(c["products"]), "ürün")
