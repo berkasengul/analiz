@@ -7,7 +7,7 @@ import { content } from "./data";
 //   accent      vurgu rengi (altın vb.): arayüz ve parçacıklar
 //   particles   "gold": altın toz (varsayılan: buz/kül)
 //   numerals    { font }: kokunun numarası sahnede dev ve ince bir sayı olarak durur
-//   intro       "portal": açılışta kapı çizilir ve açılarak sahneyi gösterir
+//   intro       "mark": sade ve hızlı açılış (logo + ince yükleme çizgisi), oturumda bir kez
 export const THEME = content.theme ?? {};
 
 export function applyTheme() {

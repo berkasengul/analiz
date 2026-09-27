@@ -27,9 +27,17 @@ export function stepFlavor(dir) {
   scrollToFlavorOf(order, next, true);
 }
 
-// Markanın gerçek ürün fotoğrafları: küçük resimler, tıklayınca büyük görünüm.
-function Gallery({ photos, name, label, tab }) {
+// Markanın gerçek ürün fotoğrafları: küçük resimler. 3B görünümü olan çekime tıklayınca sahnedeki
+// ürün o modele döner (kapaksız şişe, kutusunda şişe, kutu…); olmayanlar büyük görünümde açılır.
+function Gallery({ photos, views, hero = 0, name, label, tab }) {
   const [open, setOpen] = useState(null);
+  const view = useStore((s) => s.view);
+  const setView = useStore((s) => s.setView);
+  const current = view ?? hero;
+  const pick = (i) => {
+    if (views && (views[i] || i === hero)) setView(i === hero ? null : i);
+    else setOpen(i);
+  };
   const base = import.meta.env.BASE_URL;
   useEffect(() => {
     if (open == null) return;
@@ -50,7 +58,14 @@ function Gallery({ photos, name, label, tab }) {
         <p className="gallery__label mono">{label}</p>
         <div className="gallery__row">
           {photos.slice(0, THUMBS).map((src, i) => (
-            <button key={src} className="gallery__thumb" tabIndex={tab} onClick={() => setOpen(i)} aria-label={`${name} ${i + 1}`}>
+            <button
+              key={src}
+              className={`gallery__thumb${views && current === i ? " is-on" : ""}${views?.[i] || (views && i === hero) ? " is-3d" : ""}`}
+              tabIndex={tab}
+              onClick={() => pick(i)}
+              aria-label={`${name} ${i + 1}`}
+              aria-pressed={views && (views[i] || i === hero) ? current === i : undefined}
+            >
               {/* Yüklenemeyen görsel kırık simge göstermez, küçük kare gizlenir. */}
               <img src={base + src} alt="" loading="lazy" onError={(e) => (e.currentTarget.parentElement.style.display = "none")} />
             </button>
@@ -205,7 +220,7 @@ export default function DetailPanel() {
             ))}
           </ul>
           )}
-          {f.photos?.length > 0 && <Gallery photos={f.photos} name={f.name} label={ui.photos} tab={tab} />}
+          {f.photos?.length > 0 && <Gallery photos={f.photos} views={f.views} hero={f.heroPhoto} name={f.name} label={ui.photos} tab={tab} />}
           {tip && t.glossary[tip] && f.notes.includes(tip) && (
             <p className="detail__tip">
               <b>{tip}</b> {t.glossary[tip]}

@@ -5192,117 +5192,69 @@ button.buy__more {
   background: color-mix(in srgb, var(--gold) 40%, transparent);
 }
 
-/* ---- Kapı açılışı ---- */
-.portal {
+/* ---- Hızlı açılış (temalı markalar): logo + ince altın yükleme çizgisi ---- */
+.mark {
   position: fixed;
   inset: 0;
   z-index: 50;
-  color: var(--gold, #c9a55c);
-  transition: visibility 0s 2.4s;
+  display: grid;
+  place-items: center;
+  background: #070605;
+  transition: opacity 0.7s ease, visibility 0s linear 0.7s;
 }
-.portal.is-open {
+.mark.is-quick {
+  transition-duration: 0.35s, 0s;
+  transition-delay: 0s, 0.35s;
+}
+.mark.is-done {
+  opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
-.portal__veil {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.mark__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  animation: mark-in 0.6s ease both;
 }
-.portal__hole,
-.portal__arch {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  transform: scale(0.001);
-  transition: transform 2.2s cubic-bezier(0.75, 0, 0.18, 1);
+.mark.is-done .mark__inner {
+  transform: translateY(-8px) scale(0.98);
+  transition: transform 0.7s ease;
 }
-.portal__arch {
-  transform: none;
-  fill: none;
-  stroke: var(--gold, #c9a55c);
-  stroke-width: 0.9;
-  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gold, #c9a55c) 60%, transparent));
-  transition: stroke-dashoffset 0.35s linear, transform 2.2s cubic-bezier(0.75, 0, 0.18, 1), opacity 1.4s ease 0.6s;
-}
-.portal.is-open .portal__hole {
-  transform: scale(16);
-}
-.portal.is-open .portal__arch {
-  transform: scale(16);
-  opacity: 0;
-}
-.portal__num {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -42%;
-  font-family: var(--wide);
-  font-size: clamp(72px, 9vw, 128px);
-  line-height: 1;
-  color: var(--gold-soft, #e3cc96);
-  text-shadow: 0 0 30px color-mix(in srgb, var(--gold, #c9a55c) 45%, transparent);
-  animation: portalNum 0.9s var(--ease) both;
-  transition: opacity 0.5s ease;
-}
-/* Sayı değişirken kısa bir "tık": rakam aşağıdan kayarak gelir, hiç kaybolmaz. */
-.portal__num b {
-  display: inline-block;
-  font-weight: 400;
-  animation: portalTick 0.22s var(--ease) both;
-}
-@keyframes portalTick {
-  from {
-    opacity: 0.35;
-    transform: translateY(0.12em);
-  }
-}
-.portal__num {
-  display: grid;
-  justify-items: center;
-  text-align: center;
-}
-.portal__num span {
-  font-size: 0.24em;
-  letter-spacing: 0.3em;
-  margin-bottom: 0.1em;
-  padding-left: 0.3em;
-  opacity: 0.75;
-}
-@keyframes portalNum {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-    filter: blur(6px);
-  }
-}
-.portal__foot {
-  position: absolute;
-  left: 50%;
-  bottom: 9vh;
-  translate: -50% 0;
-  display: grid;
-  justify-items: center;
-  gap: 16px;
-  color: rgba(242, 234, 216, 0.6);
-  transition: opacity 0.5s ease;
-}
-.portal__logo {
-  height: 22px;
+.mark__logo {
+  height: clamp(28px, 4.2vw, 40px);
   width: auto;
 }
-.portal__foot .mono {
-  font-size: 0.62rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+.mark__name {
+  font-family: var(--wide);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.3em;
+  color: #f2ead8;
 }
-.portal.is-open :is(.portal__num, .portal__foot) {
-  opacity: 0;
+.mark__line {
+  position: relative;
+  width: 140px;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(201, 165, 92, 0.18);
+}
+.mark__line span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--gold, #c9a55c), #f1dfb2);
+  transform-origin: left;
+  transition: transform 0.2s linear;
+}
+@keyframes mark-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .portal__hole,
-  .portal__arch {
-    transition-duration: 0.01s;
+  .mark__inner {
+    animation: none;
   }
 }
 [data-theme="portal"] .lang button.is-on {
@@ -5582,4 +5534,104 @@ button.buy__more {
   [data-theme="portal"] .hud__name.is-longer {
     font-size: clamp(2rem, 3.1vw, 3.6rem);
   }
+}
+
+/* ===================== Telefon: ürün sayfası =====================
+   Ürün ekranın üst yarısını doldurur; bilgi kartı altta kısa ve sade, ürünün üstüne binmez.
+   Hikâye butonları sağ kenarda küçük bir sütun. */
+@media (max-width: 900px) {
+  .detail__body {
+    bottom: 80px;
+    gap: 8px;
+    padding: 14px 16px 16px;
+    max-height: 38vh;
+    max-height: 38svh;
+  }
+  .detail__body .tag,
+  .detail__body .strike {
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+  }
+  .detail__title,
+  .detail__title.is-long,
+  .detail__title.is-longer {
+    font-size: clamp(1.25rem, 6vw, 1.6rem);
+    line-height: 1.08;
+  }
+  .detail__desc {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .detail__meta {
+    display: none;
+  }
+  .detail__body .gallery {
+    margin-top: 0;
+  }
+  .detail__body .gallery__label {
+    display: none;
+  }
+  .detail__body .gallery__thumb {
+    width: 42px;
+    height: 42px;
+  }
+  .detail__body .buy .pill {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
+  .features {
+    top: calc(92px + env(safe-area-inset-top, 0px));
+    right: 10px;
+    gap: 6px;
+  }
+  .feat__icon {
+    width: 36px;
+    height: 36px;
+  }
+  .feat {
+    padding: 3px;
+  }
+  .detail__nav {
+    bottom: 20px;
+  }
+  .detail__nav .round {
+    width: 40px;
+    height: 40px;
+  }
+  .back {
+    top: calc(92px + env(safe-area-inset-top, 0px));
+  }
+  .back .round {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Portal temasında kategori dizini üstte yatay: soldaki karartma bandı gerekmez. */
+[data-theme="portal"] .catbar::before {
+  display: none;
+}
+
+/* Galeri: 3B görünümü olan çekimler sahnedeki ürünü değiştirir; seçili olan altın çerçeveli. */
+.gallery__thumb.is-3d {
+  position: relative;
+}
+.gallery__thumb.is-3d::after {
+  content: "3B";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  padding: 1px 4px;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: #120e09;
+  background: var(--gold, #c9a55c);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.gallery__thumb.is-on {
+  outline: 1px solid var(--gold, #c9a55c);
+  outline-offset: 2px;
 }

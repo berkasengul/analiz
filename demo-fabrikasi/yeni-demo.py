@@ -109,7 +109,7 @@ def main(path):
     if os.path.isdir(foto):
         shutil.copytree(os.path.join(foto, "web"), os.path.join(dst, "public", "foto"), dirs_exist_ok=True)
         shutil.copytree(os.path.join(foto, "cut"), os.path.join(dst, "public", "cut"), dirs_exist_ok=True)
-        used = {p["file"] for p in cfg["products"]}
+        used = {p["file"] for p in cfg["products"]} | {v["file"] for p in cfg["products"] for v in (p.get("views") or []) if v}
         for n in os.listdir(os.path.join(foto, "labels")):
             if n in used:
                 shutil.copy(os.path.join(foto, "labels", n), os.path.join(dst, "src", "assets", "labels"))

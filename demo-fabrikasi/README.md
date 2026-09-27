@@ -118,7 +118,7 @@ Markaya özgü her şey iki dosyada:
   "accent": "#c9a55c",              // vurgu rengi (altın)
   "particles": "gold",              // altın toz parçacıkları
   "numerals": {"font": "fonts/Italiana-Regular.ttf"},  // kokunun numarası sahnede dev altın sayı
-  "intro": "portal",                // açılış: kapı çizilir, sayılar akar, kapı açılır
+  "intro": "mark",                  // sade ve hızlı açılış (logo + ince yükleme çizgisi); oturumda yalnızca ilk açılışta
   "fonts": {"href": "<Google Fonts bağlantısı>", "display": "...", "serif": "...", "sans": "..."},
   "studio": true,                   // stüdyo ışığı: ürün rengine göre kenar ışığı + gövdede gezen ışık süpürmesi
   "pedestal": true,                 // öndeki ürün altın halkalı parlak bir kaidede durur (ürünün altına göre ölçülür)
@@ -130,3 +130,18 @@ Markaya özgü her şey iki dosyada:
 Ürün başına arka plan rengi aktarım kurallarından gelir: `aktar.palette: [["<handle regex>", "#zemin", "#vurgu"], ...]`. Zemin rengi ana sayfada o ürün öndeyken sahneyi, kartta vitrini boyar; vurgu rengi ışığı ve kaide parıltısını. Ana sayfada kaç ürün kaydırılacağı `aktar.home` listesidir (Türkan'da 4; Ritüel'deki ürünler bu listede olmalı). `solo` düzeninde sahnedeki dev numara kapalıdır (sol üstteki sayaç aynı işi görür).
 
 `"particles": "none"` kristal/yaprak sahnesini kapatır. Aktarım kurallarında `themeAccent` ve `themeGlow` sahne ışığının rengini ve parlaklığını ayarlar. İlk tema: Türkan · "Sayıların Kapısı".
+
+## Galeri çekimlerinden 3B görünümler
+
+Kurallarda `foto.views: true` olursa `shopify-foto.py` galerideki diğer ürün çekimlerini de (kapaksız şişe, kutusunda
+şişe, kutu) 3B'ye çevirir: `labels/<handle>~<n>.webp` ve `meta.json → views`. Kutu dikdörtgen silüetten tanınır
+(yansıma tam genişlikteki son satırın altından kesilir, beyaz zeminle karışan yerler dışbükey zarfla geri gelir);
+şişenin üstü dar olduğundan şişe biçimi alır. Silüeti düzgün çıkmayan çekim atlanır ve sitede fotoğraf olarak açılır.
+
+```bash
+python3 demo-fabrikasi/araclar/shopify-foto.py turkan --views   # yalnızca görünümleri yeniden üret (~2 dk)
+python3 demo-fabrikasi/araclar/shopify-aktar.py turkan          # products[].views + heroPhoto
+```
+
+Sitede küçük görsele (üzerinde "3B") tıklayınca ürün kendi etrafında dönerek o modele geçer. Ürün sayfasında
+fare tekerleğiyle ya da parmakla aşağı kaydırmak sağdaki dört hikâyeyi sırayla açar.

@@ -130,3 +130,9 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Türkan | Telefonda tek ürün görünüyordu; yan ürünler karanlıkta hiç seçilmiyordu | Telefonda yanlar ekranın kenarından yarım görünür; yanlar loş (%24 ışık) ve renkli kenar ışıklı |
 | Türkan | Zemine denenen baklava kabartma "çikolata" gibi durdu (istenen: hafif karartma) | Kabartma tamamen kaldırıldı; zemin ürünün renginde, kenarlara doğru hafif kararır (telefonda da) |
 | Türkan | Ürün zeminlerinde kahverengi tonu baskındı | `aktar.palette` notalara göre canlı renkler (+ kenar rengi); site Floraison'la, markanın seçtiği gül-mürdüm tonunda açılır |
+| Türkan | Telefonda ürün sayfasında şişe küçük, yazı kartı üstüne biniyordu | Telefonda şişe ekranın üst yarısını doldurur; kart kısa (2 satır açıklama, küçük başlık ve görseller) |
+| Türkan | Ürün sayfasında sağdaki 4 hikâyeye yalnızca tıklanarak geçiliyordu | Tekerlek/parmakla aşağı kaydırma hikâyeleri sırayla açar, yukarı kaydırma geri döner |
+| Türkan | Galeri görselleri yalnızca fotoğraf olarak açılıyordu | `foto.views`: kapaksız şişe, kutulu şişe, kutu 3B; tıklayınca ürün dönerek o modele geçer |
+| Türkan | Beyaz kutunun beyaz alt kısmı yansıma sanılıp kesildi; beyaz yerler silindi, siyah doldu | Kutu kipinde yansıma tam genişlikteki son satırın altından; dışbükey zarf + opak piksellerden doldurma |
+| Türkan | Kategori sayfasında solda siyah bant kalıyordu (eski dikey dizinin karartması) | Portal temasında o karartma kapalı; sahne kategori satırının altına iner |
+| Türkan | Kapı açılışı uzundu ve her sayfa geçişinde tekrar görünüyordu | Sade logo + çizgi açılışı; oturumda bir kez, sonraki geçişlerde yalnızca kısa kararma |

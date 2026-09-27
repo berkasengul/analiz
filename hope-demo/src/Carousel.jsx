@@ -15,7 +15,7 @@ const SOLO = THEME.carousel === "solo";
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
 const V = new Vector3();
-import { flavors } from "./data";
+import { PAGE, flavors } from "./data";
 import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
@@ -32,6 +32,8 @@ export const lightOf = (f) => f.light ?? 1 - 0.5 * MathUtils.smoothstep(lum(f.la
 // düz bir sırada durur; kaydırdıkça sıradaki ürün ortaya gelir.
 // Az ürünlü sette düz sıra; tek ürün sahnesinde 3+ üründe halka (öndekinin iki yanında da silüet olsun).
 const LINEAR = N < 5 && !(SOLO && N >= 3);
+// Kategori sayfasında üstte kategori satırı var: masaüstünde sahne biraz aşağıda durur.
+const CAT_DROP = SOLO && PAGE.kind === "category" ? 0.45 : 0;
 const WHITE = new Color(1, 1, 1);
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -52,7 +54,7 @@ export function arcPose(d, aspect, time, i) {
     const phone = aspect < 0.9;
     return {
       x: phone ? 2.5 * d * (1 + 0.12 * ad) : (1.6 + 5.4 * d * (1 + 0.08 * ad)) * spread,
-      y: 0.5 + (phone ? 0.1 : 0.12) * Math.min(ad, 3) + 0.7 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07,
+      y: 0.5 + (phone ? 0.1 : 0.12) * Math.min(ad, 3) + 0.7 * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07 - (phone ? 0 : CAT_DROP),
       z: (phone ? -2.4 : -2.6) * ad + focus * 1.6,
       rotX: 0.06,
       rotY: -0.3 * d + (focus > 0 ? Math.sin(time * 0.5) * 0.22 * focus : 0),

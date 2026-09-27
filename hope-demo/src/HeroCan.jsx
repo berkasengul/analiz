@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils } from "three";
+import { Color, MathUtils, RepeatWrapping, SRGBColorSpace, TextureLoader } from "three";
 
 const WHITE = new Color(1, 1, 1);
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
-import CanMesh, { createBottleParts, useCanBody } from "./CanMesh";
+import CanMesh, { createBottleParts, useCanBody, viewOf, viewUrl } from "./CanMesh";
 import { lightOf } from "./Carousel";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor, unlitOf } from "./canMaterial";
 import { VARIETY, features, flavors, ritual } from "./data";
@@ -17,6 +17,37 @@ import { sceneState } from "./shared";
 import { shopFlavorOf, useStore } from "./store";
 
 const N = flavors.length;
+
+// Galeri çekimlerinin 3B görünümleri: doku ilk seçildiğinde yüklenir, sonra önbellekte kalır.
+const VIEW_TEX = new Map();
+const VIEW_PARTS = new Map();
+const loader = new TextureLoader();
+function viewTexture(file) {
+  if (!VIEW_TEX.has(file))
+    VIEW_TEX.set(
+      file,
+      new Promise((done) =>
+        loader.load(
+          viewUrl(file),
+          (t) => {
+            t.colorSpace = SRGBColorSpace;
+            t.anisotropy = 8;
+            t.wrapS = RepeatWrapping;
+            done(t);
+          },
+          undefined,
+          () => done(null)
+        )
+      )
+    );
+  return VIEW_TEX.get(file);
+}
+function viewParts(flavor, view) {
+  const key = `${flavor}:${view}`;
+  if (!VIEW_PARTS.has(key)) VIEW_PARTS.set(key, createBottleParts(viewOf(flavor, view)));
+  return VIEW_PARTS.get(key);
+}
+const SWAP = 0.9; // saniye: ürün kendi etrafında dönerken yeni görünüme geçer
 const TAN = Math.tan(MathUtils.degToRad(35 / 2));
 const KEYS = ["x", "y", "z", "rotX", "rotY", "rotZ", "scale"];
 
@@ -56,7 +87,7 @@ function detailPose(feature, wide, time, turn) {
   const idle = Math.sin(time * 0.5) * 0.2 + pointer.x * 0.15;
   const base = wide
     ? { x: 1.3, y: -0.7, z: 3, rotX: 0.03 + pointer.y * 0.04, rotY: idle, rotZ: 0.03, scale: 2.05 }
-    : { x: 0, y: 2.5, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.04, scale: 0.72 };
+    : { x: 0, y: 1.55, z: 2, rotX: 0.04, rotY: idle, rotZ: 0.04, scale: 1.2 };
   if (f) {
     base.rotY = f.rotY + Math.sin(time * 0.4) * 0.04 + pointer.x * 0.05;
     base.rotZ = f.rotZ;
@@ -65,9 +96,9 @@ function detailPose(feature, wide, time, turn) {
       base.y = f.y;
       base.scale = f.scale;
     } else {
-      // Telefonda ürün, alttaki bilgi kartının üstünde tamamen görünür kalır.
-      base.y = 2.2 + (f.y + 0.9) * 0.1;
-      base.scale = 0.78 * Math.min(f.scale / 2.05, 1.15);
+      // Telefonda ürün ekranın üst yarısını doldurur; alttaki kısa bilgi kartına binmez.
+      base.y = 1.5 + (f.y + 0.9) * 0.1;
+      base.scale = 1.2 * Math.min(f.scale / 2.05, 1.1);
     }
   }
   base.rotY += turn;
@@ -126,12 +157,17 @@ export default function HeroCan() {
 
   // Ürünlerin biçimi farklı olabilir (şişe / tüp): gösterilen ürünle değişir.
   const [shown, setShown] = useState(0);
-  const parts = allParts[shown];
+  const [shownView, setShownView] = useState(null);
+  const parts = shownView != null ? viewParts(shown, shownView) : allParts[shown];
 
   const showFlavor = (next, animated) => {
     const s = l.current;
     s.target = next;
     setShown(next);
+    // Başka ürüne geçince galeri görünümü bırakılır.
+    s.swap = null;
+    s.viewWant = null;
+    setShownView(null);
     s.controls?.stop();
     const f = flavors[next];
     if (!animated) {
@@ -224,6 +260,26 @@ export default function HeroCan() {
       want = ritual[Math.round(r.ritualStep)].flavor;
     }
     if (want !== s.target) showFlavor(want, visible);
+
+    // Galeri görünümü seçildi: doku yüklenince ürün kendi etrafında döner, arkası dönükken
+    // yeni biçime ve dokuya geçer.
+    const wantView = st.detail ? st.view : null;
+    if (wantView !== (s.viewWant ?? null) && !s.swapLoading) {
+      s.viewWant = wantView;
+      const target = s.target;
+      const file = wantView != null ? flavors[target].views?.[wantView]?.file : null;
+      const go = (tex) => {
+        if (s.target !== target) return;
+        s.swap = { t0: -1, to: wantView, tex, applied: false };
+      };
+      if (file) {
+        s.swapLoading = true;
+        viewTexture(file).then((tex) => {
+          s.swapLoading = false;
+          tex ? go(tex) : (s.viewWant = null);
+        });
+      } else go(flavors[target].texture);
+    }
     sceneState.heroFlavor = want;
     if (THEME.studio) {
       uniforms.u_rim.value.set(flavors[want].theme.accent).lerp(WHITE, 0.15).multiplyScalar(1.05 * (1 - 0.4 * s.spot));
@@ -260,6 +316,21 @@ export default function HeroCan() {
     else for (const k of KEYS) s.pose[k] = MathUtils.damp(s.pose[k], target[k], 5.5, dt);
     pose = lerpPose(pose, s.pose, s.detailT);
 
+    if (s.swap) {
+      if (s.swap.t0 < 0) s.swap.t0 = time;
+      const k = visible ? Math.min(1, (time - s.swap.t0) / SWAP) : 1;
+      if (k >= 0.5 && !s.swap.applied) {
+        s.swap.applied = true;
+        s.controls?.stop();
+        setShownView(s.swap.to);
+        setCanFlavor(uniforms, { ...flavors[s.target], texture: s.swap.tex });
+      }
+      const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      pose.rotY += e * Math.PI * 2;
+      pose.scale *= 1 - 0.3 * Math.sin(Math.PI * k);
+      if (k >= 1) s.swap = null;
+    }
+
     group.current.position.set(pose.x, pose.y, pose.z);
     group.current.rotation.set(pose.rotX, pose.rotY, pose.rotZ);
     group.current.scale.setScalar(pose.scale);
@@ -287,7 +358,7 @@ export default function HeroCan() {
         document.body.style.cursor = "grabbing";
       }}
     >
-      <CanMesh body={body} parts={parts} flavor={shown} />
+      <CanMesh body={body} parts={parts} flavor={shown} view={shownView} />
     </group>
     </>
   );

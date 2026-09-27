@@ -107,6 +107,21 @@ def photo3d(h, m):
     return {"profile": "round", "zScale": 0.72 if P.get("tube") and re.search(P["tube"], h) else 1, **shape}
 
 
+def views3d(h, m):
+    """Galeri çekimlerinin 3B görünümleri (shopify-foto → views): galeri sırasıyla, olmayan yerde None."""
+    V = m.get("views") or {}
+    out = []
+    for i in range(len(m.get("gallery", []))):
+        v = V.get(str(i))
+        if not v:
+            out.append(None)
+            continue
+        shape = {"axis": v.get("axis", 0.5), "rows": v.get("rows", []), "outline": v.get("outline", []), "edge": hexc(v.get("edge", [120, 110, 90]))}
+        p3 = {"profile": "flat", "depth": 0.32, **shape} if v.get("flat") else photo3d(h, v)
+        out.append({"file": v["file"], "photo3d": p3})
+    return out if any(out) else None
+
+
 def dump(c, path):
     s = json.dumps(c, ensure_ascii=False, indent=2)
     s = re.sub(r"\[\s+([-\d.eE,\s]+?)\s+\]", lambda m: "[" + ", ".join(x.strip() for x in m.group(1).split(",")) + "]", s)
@@ -187,6 +202,10 @@ def main():
         i = info(h)
         p["price"] = {"tr": i["price"], "en": i["price"]}
         p["photos"] = i["m"].get("gallery", [])
+        views = views3d(h, i["m"])
+        if views:
+            p["views"] = views
+            p["heroPhoto"] = i["m"].get("hero", 0)
         item = {
             "id": re.sub("^" + re.escape(R.get("idPrefix", "")), "", h), "name": {"tr": p["name"], "en": p["en"]["name"]},
             "category": i["cat"], "size": i["size"], "price": p["price"], "exactPrice": True,

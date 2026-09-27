@@ -36,7 +36,9 @@
         "ozel-hediye-seti-1#6"
       ]
     },
-    "backPhotos": false
+    "backPhotos": false,
+    "views": true,
+    "noViews": "hediye-seti"
   },
   "aktar": {
     "domain": "turkan.com.tr",

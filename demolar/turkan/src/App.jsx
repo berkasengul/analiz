@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
 import Scene from "./Scene";
-import { PAGE, SET_KEY, content, flavors, setKey } from "./data";
+import { PAGE, SET_KEY, content, features, flavors, setKey } from "./data";
 import { measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
 import { useStore } from "./store";
 
@@ -104,6 +104,67 @@ function useSmoothScroll() {
     }
     locked ? smooth.lenis.stop() : smooth.lenis.start();
   }, [locked]);
+}
+
+// Ürün sayfasında aşağı kaydırmak (fare tekerleği ya da parmakla yukarı çekmek) sağdaki
+// hikâyeleri sırayla açar; şişe her birinde kendi pozuna döner. Yukarı kaydırmak geri götürür,
+// ilk hikâyeden yukarı kaydırınca koku bilgisine dönülür.
+function useDetailScroll() {
+  useEffect(() => {
+    let acc = 0;
+    let lockUntil = 0;
+    let touchY = null;
+    const step = (dir) => {
+      const s = useStore.getState();
+      if (!s.detail || s.menu || s.cartOpen) return false;
+      const now = performance.now();
+      if (now < lockUntil) return true;
+      const last = features.length - 1;
+      const cur = s.feature;
+      let next = cur;
+      if (dir > 0) next = cur == null ? 0 : Math.min(cur + 1, last);
+      else next = cur == null ? null : cur === 0 ? null : cur - 1;
+      if (next !== cur) {
+        s.setFeature(next);
+        lockUntil = now + 900;
+      }
+      return true;
+    };
+    // İçinde kendi kaydırması olan bir panelde (uzun açıklama vb.) kaydırma o panele kalır.
+    const scrollsInside = (el, dir) => {
+      const box = el?.closest?.("[data-lenis-prevent]");
+      if (!box || box.scrollHeight <= box.clientHeight + 2) return false;
+      return dir > 0 ? box.scrollTop + box.clientHeight < box.scrollHeight - 1 : box.scrollTop > 0;
+    };
+    const onWheel = (e) => {
+      const s = useStore.getState();
+      if (!s.detail || s.menu || s.cartOpen) return;
+      const dir = Math.sign(e.deltaY);
+      if (!dir || scrollsInside(e.target, dir)) return;
+      acc = Math.sign(acc) === dir ? acc + e.deltaY : e.deltaY;
+      if (Math.abs(acc) < 40) return;
+      acc = 0;
+      step(dir);
+    };
+    const onTouchStart = (e) => {
+      touchY = useStore.getState().detail ? e.touches[0].clientY : null;
+    };
+    const onTouchEnd = (e) => {
+      if (touchY == null) return;
+      const dy = touchY - e.changedTouches[0].clientY;
+      touchY = null;
+      if (Math.abs(dy) < 50 || scrollsInside(e.target, Math.sign(dy))) return;
+      step(Math.sign(dy));
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, []);
 }
 
 function useKeys() {
@@ -243,6 +304,7 @@ function useOpenProduct() {
 export default function App() {
   useSmoothScroll();
   useKeys();
+  useDetailScroll();
   useMagnetic();
   useDocLang();
   useOpenProduct();

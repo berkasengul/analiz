@@ -46,6 +46,8 @@ export const useStore = create(
       ritualStep: 0,
       detail: false,
       feature: null,
+      // Ürün sayfasında seçilen galeri çekiminin 3B görünümü (null = ana ürün).
+      view: null,
       spin: false,
       menu: false,
       page: "home",
@@ -60,7 +62,7 @@ export const useStore = create(
       setSceneReady: () => set({ sceneReady: true }),
       setLang: (lang) => set({ lang }),
       setPage: (page) => set({ page }),
-      setActive: (active) => set({ active }),
+      setActive: (active) => set((s) => (s.active === active ? {} : { active, view: null })),
       setMoving: (moving) => set({ moving }),
       setSwapping: (swapping) => set({ swapping }),
       swapSlots: (a, b) =>
@@ -70,10 +72,11 @@ export const useStore = create(
           return { order };
         }),
       setRitualStep: (ritualStep) => set({ ritualStep }),
-      openDetail: () => set((s) => ({ detail: true, feature: null, picked: s.active })),
-      closeDetail: () => set({ detail: false, feature: null, spin: false }),
-      setFeature: (feature) => set({ feature, spin: false }),
-      toggleSpin: () => set((s) => ({ spin: !s.spin, feature: null })),
+      openDetail: () => set((s) => ({ detail: true, feature: null, view: null, picked: s.active })),
+      closeDetail: () => set({ detail: false, feature: null, view: null, spin: false }),
+      setFeature: (feature) => set({ feature, spin: false, view: null }),
+      setView: (view) => set({ view, feature: null, spin: false }),
+      toggleSpin: () => set((s) => ({ spin: !s.spin, feature: null, view: null })),
       setMenu: (menu) => set({ menu }),
       setCartOpen: (cartOpen) => set({ cartOpen, menu: false }),
       setShop: (patch) => set(patch),

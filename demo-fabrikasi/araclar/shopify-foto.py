@@ -7,11 +7,15 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
     "noBackText": "regex"           arka etiket yazılmayacak ürünler (kutu, tekstil…)
     "flat": "regex"                 düz yüzlü ürünler (kenar bandı düz renge bağlanmaz)
     "backPhotos": false             markanın fotoğraflarında arka yüz yok: arka etiket metinden üretilir
+    "views": true                   galerideki diğer ürün çekimleri (kapaksız şişe, kutu…) de 3B'ye çevrilir;
+                                     sitede küçük görsele tıklayınca sahnedeki ürün o modele döner
+    "noViews": "regex"              3B görünüm üretilmeyecek ürünler (ör. setler)
     "sets": {"set-handle": ["ürün-handle", "başka-handle#3", ...]}
                                      setin içindekiler; "#n" o ürünün n. fotoğrafı (setin kendisi de olabilir)
 Çıktı: markalar/<marka>-foto/{web,cut,labels,meta.json}
 
 Kullanım: python3 demo-fabrikasi/araclar/shopify-foto.py turkan
+          python3 demo-fabrikasi/araclar/shopify-foto.py turkan --views   (yalnızca galeri 3B görünümleri)
 """
 import glob
 import json
@@ -50,9 +54,11 @@ def kind(im):
 _SESSION = None
 
 
-def ai_alpha(im):
+def ai_alpha(im, box=False):
     """Yapay zekâyla ürün maskesi (rembg · isnet). Zemindeki silik yansıma ve gölge atılır:
-    yarı saydam pikseller kesilir, ana gövdeye bağlı olmayan küçük parçalar silinir."""
+    yarı saydam pikseller kesilir, ana gövdeye bağlı olmayan küçük parçalar silinir.
+    box=True: dikdörtgen kutu; tam genişlikteki son satırın altı yansımadır (beyaz kutunun
+    açık renkli alt kısmı yansıma sanılıp kesilmez)."""
     global _SESSION
     from rembg import new_session, remove
     if _SESSION is None:
@@ -66,7 +72,12 @@ def ai_alpha(im):
     px = np.asarray(small).astype(np.float32)
     m0 = raw > 0.5
     rows = np.where(m0.any(1))[0]
-    if len(rows) > 20:
+    if box and len(rows) > 20:
+        widths = m0.sum(1)
+        med = np.median(widths[rows[0] + (rows[-1] - rows[0]) // 4 : rows[-1] - (rows[-1] - rows[0]) // 4])
+        full = np.where(widths >= 0.9 * med)[0]
+        raw[full[-1] + 1 :] = 0
+    elif len(rows) > 20:
         top, bot = rows[0], rows[-1]
         alpha = np.array([raw[y][m0[y]].mean() if m0[y].any() else 0 for y in range(len(raw))])
         dark = np.array([(255 - px[y][m0[y]].min(1)).mean() if m0[y].any() else 0 for y in range(len(raw))])
@@ -87,12 +98,12 @@ def ai_alpha(im):
     return (a * 255).astype(np.uint8)
 
 
-def cutout(im, k):
+def cutout(im, k, box=False):
     """RGBA ürün kesiti (beyaz zemin kenardan başlayarak şeffaflaştırılır)."""
     im = im.convert("RGBA")
     if k in "WL" and RULES.get("ai"):
         a = np.asarray(im).copy()
-        a[..., 3] = ai_alpha(im)
+        a[..., 3] = ai_alpha(im, box)
         im = Image.fromarray(a)
     elif k == "W":
         a = np.asarray(im).copy()
@@ -487,6 +498,133 @@ def back_text(handle):
     return {"name": name, "size": size, "desc": desc, "chips": [], "usage": _clip(usage, 150) if usage else None}
 
 
+def largest_part(F):
+    """Yalnızca en büyük parça kalır (şişenin yanında kalan kutu/yansıma kırıntıları silinir)."""
+    a = np.asarray(F).copy()
+    a[..., 3] = np.where(a[..., 3] >= 110, a[..., 3], 0)  # yarı saydam kutu/zemin kalıntısı
+    m = (a[..., 3] > 0).astype(np.uint8)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(m, 8)
+    if n > 2:
+        big = 1 + int(np.argmax(st[1:, cv2.CC_STAT_AREA]))
+        a[..., 3] = np.where(lab == big, a[..., 3], 0)
+    return Image.fromarray(a)
+
+
+def box_alpha(F):
+    """Kutu: silüet dışbükey dikdörtgendir; beyaz kutunun beyaz zeminle karışıp silinen
+    yerleri (renkleri kesimde durur) dışbükey zarfla geri gelir. Zarf dikdörtgene benzemiyorsa
+    ya da maske çok delikliyse None (bu çekim 3B'ye çevrilmez)."""
+    a = np.asarray(F).copy()
+    m = (a[..., 3] > 128).astype(np.uint8)
+    cs, _ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if not cs:
+        return None
+    hull = cv2.convexHull(np.concatenate(cs))
+    hm = np.zeros_like(m)
+    cv2.fillPoly(hm, [hull], 1)
+    x, y, w, h = cv2.boundingRect(hull)
+    if hm.sum() / (w * h) < 0.9 or m.sum() / max(1, hm.sum()) < 0.7:
+        return None
+    # Geri gelen yerlerin rengi kesimde yok (saydam = siyah): çevresinden doldurulur.
+    # Kaynak yalnızca kutunun sağlam (opak) pikselleri; dışarıdaki saydam siyah sızmasın.
+    hole = ((hm == 1) & (a[..., 3] < 200)).astype(np.uint8) * 255
+    if hole.any():
+        known = (a[..., 3] >= 200).astype(np.uint8) * 255
+        small = cv2.resize(np.ascontiguousarray(a[..., :3]), (320, 320), interpolation=cv2.INTER_AREA)
+        ks = cv2.resize(known, (320, 320), interpolation=cv2.INTER_NEAREST)
+        fill = cv2.inpaint(small, 255 - ks, 5, cv2.INPAINT_TELEA)
+        fill = cv2.resize(fill, (a.shape[1], a.shape[0]), interpolation=cv2.INTER_CUBIC)
+        a[..., :3] = np.where(hole[..., None] > 0, fill, a[..., :3])
+    soft = cv2.GaussianBlur(hm.astype(np.float32), (3, 3), 0)
+    a[..., 3] = np.maximum(a[..., 3], (soft * 255).astype(np.uint8))
+    return Image.fromarray(a)
+
+
+def solid(F):
+    """Silüetin dolgunluğu (alan / dışbükey zarf): şişe ve kutu ~1, parçalı kesim düşük."""
+    m = (np.asarray(F)[..., 3] > 128).astype(np.uint8)
+    cs, _ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if not cs:
+        return 0
+    hull = cv2.convexHull(np.concatenate(cs))
+    return m.sum() / max(1.0, cv2.contourArea(hull))
+
+
+def view_neck(rows):
+    """Kapaksız şişe: dar sprey başlığının bittiği, gövdenin genişlediği satır."""
+    nz = [i for i, r in enumerate(rows) if r > 0]
+    if not nz:
+        return None
+    body = max(rows)
+    top = nz[0]
+    for i in range(top, top + (nz[-1] - top) // 2):
+        if rows[i] >= 0.55 * body:
+            return round((i + 0.5) / len(rows), 4) if i - top > 4 else None
+    return None
+
+
+def make_views(meta):
+    """Galerideki diğer ürün çekimlerinden 3B görünümler: aynı kesim ve biçim bilgisiyle
+    (kutu ve kutulu şişe düz blok, kapaksız şişe şişe biçimi). Doku: labels/<handle>~<n>.webp."""
+    if not RULES.get("views"):
+        return
+    skip = RULES.get("noViews")
+    for handle, entry in meta.items():
+        if entry.get("parts") or (skip and re.search(skip, handle)):
+            continue
+        d = os.path.join(SRC, "images", handle)
+        files = sorted(glob.glob(os.path.join(d, "*")), key=lambda f: int(os.path.basename(f).split(".")[0]))
+        kinds = entry.get("kinds", "")
+        hero = next((i for i, k in enumerate(kinds) if k in "TW"), None)
+        if hero is None:
+            continue
+        views = {}
+        for i, (f, k) in enumerate(zip(files, kinds)):
+            if i == hero or k not in "TW":
+                continue
+            im = Image.open(f)
+            F = fit(cutout(im, k), S)
+            m = np.asarray(F)[..., 3] > 128
+            if not m.any():
+                continue
+            # Şişe mi kutu mu: şişenin üstü (kapak ya da sprey başlığı) gövdeden belirgin dar.
+            ys, xs = np.where(m)
+            y0, y1 = ys.min(), ys.max()
+            widths = m.sum(1)
+            top = widths[y0 + int(0.06 * (y1 - y0))]
+            flat = bool(top > 0.6 * widths.max())
+            if flat:
+                F = box_alpha(fit(cutout(im, k, box=True), S))
+                if F is None:
+                    print("  görünüm atlandı (kutu silüeti düzgün değil):", handle, i + 1)
+                    continue
+            else:
+                F = largest_part(F)
+                if solid(F) < 0.8:
+                    print("  görünüm atlandı (silüet parçalı):", handle, i + 1)
+                    continue
+            info = shape_info(F)
+            if not info:
+                continue
+            if not flat and not info.get("neck"):
+                info["neck"] = view_neck(info["rows"])
+            if flat:
+                # Kutunun arkası: kenar renginde düz yüzey (satır şeritleri yok).
+                back = Image.new("RGBA", F.size, tuple(info["edge"]) + (255,))
+            else:
+                back = plain_back(F, None, None)
+            back.putalpha(F.transpose(Image.FLIP_LEFT_RIGHT).getchannel("A"))
+            atlas = Image.new("RGBA", (2 * S, S))
+            atlas.paste(F if flat else seal_front(F), (0, 0))
+            atlas.paste(back, (S, 0))
+            name = f"{handle}~{i + 1}.webp"
+            atlas.save(os.path.join(OUT, "labels", name), quality=88, method=5)
+            views[str(i)] = {"file": name, "flat": flat, **info}
+        entry["views"] = views
+        entry["hero"] = hero
+        print("görünüm", handle, sorted(int(k) + 1 for k in views))
+
+
 def main():
     meta = {}
     fronts, backs = {}, {}
@@ -600,9 +738,16 @@ def main():
         e["parts"] = [{"handle": h.split("#")[0], **shape_info(layer)} for h, layer in layers]
         e["lifestyle"] = e["gallery"][0]  # kutulu set fotoğrafı üzerine gelince görünür
         print("set", set_h, len(items), "ürün")
+    make_views(meta)
     json.dump(meta, open(os.path.join(OUT, "meta.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(len(meta), "ürün hazır")
 
 
 if __name__ == "__main__":
-    main()
+    if "--views" in sys.argv:
+        _meta_path = os.path.join(OUT, "meta.json")
+        _meta = json.load(open(_meta_path, encoding="utf-8"))
+        make_views(_meta)
+        json.dump(_meta, open(_meta_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    else:
+        main()

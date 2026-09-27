@@ -807,16 +807,24 @@ function Fit({ children, k, wide }) {
   return <group ref={ref}>{children}</group>;
 }
 
-export default function CanMesh({ body, parts, flavor = 0 }) {
+// Galeri çekiminin 3B görünümü: ürünün kendisi, yalnızca biçim ve doku o çekimden.
+export const viewOf = (flavor, view) => {
+  const v = view != null ? flavors[flavor].views?.[view] : null;
+  return v ? { ...flavors[flavor], photo3d: v.photo3d, file: v.file } : flavors[flavor];
+};
+export const viewUrl = (file) => FILES[`./assets/labels/${file}`];
+
+export default function CanMesh({ body, parts, flavor = 0, view = null }) {
+  const f = viewOf(flavor, view);
   return (
-    <Fit k={flavor} wide={flavors[flavor].photo3d?.profile === "group"}>
-      <ProductShape body={body} parts={parts} flavor={flavor} />
+    <Fit k={`${flavor}:${view}`} wide={f.photo3d?.profile === "group"}>
+      <ProductShape body={body} parts={parts} f={f} />
     </Fit>
   );
 }
 
-function ProductShape({ body, parts, flavor }) {
-  const S = shapeOf(flavors[flavor]);
+function ProductShape({ body, parts, f }) {
+  const S = shapeOf(f);
   if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} />;
   if (S.kind === "tube") return <Tube body={body} parts={parts} S={S} />;
   if (S.kind === "tool") return <Tool body={body} parts={parts} S={S} />;
