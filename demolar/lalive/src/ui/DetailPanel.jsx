@@ -9,6 +9,15 @@ import { Arrow, Close, featureIcons } from "../Icons";
 import { SplitChars, SplitWords } from "./Split";
 
 const N = flavors.length;
+const THUMBS = 6;
+
+// Detaydaki açıklama ekrana sığsın: uzunsa cümle sonundan (yoksa kelimeden) kısaltılır.
+function brief(text = "", max = 190) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const dot = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("! "));
+  return dot > max * 0.5 ? cut.slice(0, dot + 1) : `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:]$/, "")}…`;
+}
 const pad = (n) => String(n).padStart(2, "0");
 
 export function stepFlavor(dir) {
@@ -40,11 +49,17 @@ function Gallery({ photos, name, label, tab }) {
       <div className="gallery" aria-label={label}>
         <p className="gallery__label mono">{label}</p>
         <div className="gallery__row">
-          {photos.map((src, i) => (
+          {photos.slice(0, THUMBS).map((src, i) => (
             <button key={src} className="gallery__thumb" tabIndex={tab} onClick={() => setOpen(i)} aria-label={`${name} ${i + 1}`}>
-              <img src={base + src} alt="" loading="lazy" />
+              {/* Yüklenemeyen görsel kırık simge göstermez, küçük kare gizlenir. */}
+              <img src={base + src} alt="" loading="lazy" onError={(e) => (e.currentTarget.parentElement.style.display = "none")} />
             </button>
           ))}
+          {photos.length > THUMBS && (
+            <button className="gallery__thumb gallery__more mono" tabIndex={tab} onClick={() => setOpen(THUMBS)} aria-label={`${name} +${photos.length - THUMBS}`}>
+              +{photos.length - THUMBS}
+            </button>
+          )}
         </div>
       </div>
       {open != null &&
@@ -118,7 +133,7 @@ export default function DetailPanel() {
       </button>
 
       {ft ? (
-        <div className={bodyClass} key={shown.key + t.lang}>
+        <div className={bodyClass} key={shown.key + t.lang} data-lenis-prevent>
           <p className="strike">
             <span>{ft.kicker}</span>
             <span className="strike__x" aria-hidden="true">×</span>
@@ -135,18 +150,18 @@ export default function DetailPanel() {
           </p>
         </div>
       ) : (
-        <div className={bodyClass} key={shown.key + t.lang}>
+        <div className={bodyClass} key={shown.key + t.lang} data-lenis-prevent>
           <p className="tag">
             <i className="dot" />
             N° {pad(shown.active + 1)} — {f.collection ? <span lang="en">{f.collection}</span> : t.brand.specs}
           </p>
-          <h2 className="detail__title">
+          <h2 className={`detail__title${f.name.length > 32 ? " is-longer" : f.name.length > 20 ? " is-long" : ""}`}>
             <span className="detail__flavor" lang={f.nameLang ?? t.nameLang}>
               <SplitChars text={f.name} delay={80} step={32} />
             </span>
           </h2>
           <p className="detail__desc">
-            <SplitWords text={f.description} delay={420} />
+            <SplitWords text={brief(f.description)} delay={420} />
           </p>
           <dl className="detail__meta mono">
             <div>
@@ -174,6 +189,8 @@ export default function DetailPanel() {
               </div>
             )}
           </dl>
+          {/* İçerik notu yoksa tek çip kategorinin tekrarı olur: gösterilmez. */}
+          {!(f.notes.length === 1 && f.notes[0] === f.family) && (
           <ul className="chips detail__notes" aria-label={ui.notes}>
             {f.notes.map((n) => (
               <li
@@ -187,6 +204,7 @@ export default function DetailPanel() {
               </li>
             ))}
           </ul>
+          )}
           {f.photos?.length > 0 && <Gallery photos={f.photos} name={f.name} label={ui.photos} tab={tab} />}
           {tip && t.glossary[tip] && f.notes.includes(tip) && (
             <p className="detail__tip">
