@@ -13,7 +13,10 @@ const ROUTE = /^#\/urunler\/([^/?#]+)(?:\/([^/?#]+))?/.exec(typeof window !== "u
 const catItems = ROUTE && C.catalog ? C.catalog.items.filter((i) => i.category === ROUTE[1] && i.product != null) : [];
 export const PAGE = catItems.length ? { kind: "category", id: ROUTE[1], focus: ROUTE[2] ?? null } : { kind: "home" };
 export const HOME_SET = C.home ?? C.products.map((_, i) => i);
-export const SET = PAGE.kind === "category" ? catItems.map((i) => i.product) : HOME_SET;
+// ?still=<n>: kart görseli çekimi (Still.jsx) yalnızca o ürünü yükler.
+const STILL = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("still") : null;
+export const SET =
+  STILL != null ? [Math.max(0, Math.min(C.products.length - 1, Number(STILL) || 0))] : PAGE.kind === "category" ? catItems.map((i) => i.product) : HOME_SET;
 export const setKey = (hash) => {
   const m = /^#\/urunler\/([^/?#]+)/.exec(hash);
   return m && C.catalog?.items.some((i) => i.category === m[1] && i.product != null) ? m[1] : "home";

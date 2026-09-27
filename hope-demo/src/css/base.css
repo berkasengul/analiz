@@ -5439,7 +5439,7 @@ button.buy__more {
   opacity: 0.55;
 }
 .pcard--gallery .pcard__media.is-cutout img:not(.pcard__photo) {
-  padding: 12% 20% calc(100% - var(--floor) + 1.5%);
+  padding: 22% 22% calc(100% - var(--floor) + 1.5%);
   filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 22px color-mix(in srgb, var(--bg2) 25%, transparent));
 }
 .pcard--gallery .pcard__media.is-cutout img.pcard__reflect {

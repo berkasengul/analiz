@@ -145,3 +145,18 @@ python3 demo-fabrikasi/araclar/shopify-aktar.py turkan          # products[].vie
 
 Sitede küçük görsele (üzerinde "3B") tıklayınca ürün kendi etrafında dönerek o modele geçer. Ürün sayfasında
 fare tekerleğiyle ya da parmakla aşağı kaydırmak sağdaki dört hikâyeyi sırayla açar.
+
+## Kart görselleri: sitenin 3B modelinden
+
+Ürün kartları, arama ve sepet küçük resimleri düz fotoğraf yerine sitenin kendi 3B modelinden çekilebilir
+(saydam zemin, stüdyo ışığı, hafif yan açı). Site `?still=<n>` ile yalnızca o ürünü çizer; araç bunu çeker:
+
+```bash
+python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json   # önce derle
+python3 demo-fabrikasi/araclar/kart-3b.py turkan                           # → turkan-foto/render3d/<handle>.webp (~10 dk)
+python3 demo-fabrikasi/araclar/shopify-aktar.py turkan                     # kart görseli r3d/<handle>.webp olur
+python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json   # yeniden derle
+```
+
+Telefonda ürün akışı sayfa sayfadır: her kaydırma hareketi tam bir ürün ilerler ya da geri gider; son üründen
+sonra sayfa doğal kaydırmayla alt bölümlere iner.

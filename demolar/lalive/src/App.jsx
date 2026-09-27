@@ -106,6 +106,64 @@ function useSmoothScroll() {
   }, [locked]);
 }
 
+// Telefonda ürün akışı sayfa sayfa: her kaydırma hareketi tam bir ürün ileri ya da geri götürür,
+// iki ürün arasında takılı kalınmaz. Son üründen sonra sayfa doğal kaydırmayla alt bölümlere iner.
+function useTouchPaging() {
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: coarse)").matches || N < 2) return;
+    let t = null;
+    let last = { idx: -1, at: -1e9 }; // hâlâ kayan bir geçiş varsa yeni hareket onun hedefinden sayılır
+    const where = () => {
+      const el = document.getElementById("flavors");
+      if (!el) return null;
+      const range = el.offsetHeight - window.innerHeight;
+      if (range <= 0) return null;
+      return ((window.scrollY - el.offsetTop) / range) * (N - 1);
+    };
+    const onStart = (e) => {
+      const s = useStore.getState();
+      t = null;
+      if (e.touches.length !== 1 || s.detail || s.menu || s.cartOpen || !s.loaded || e.target.closest?.("[data-lenis-prevent]")) return;
+      const raw = where();
+      if (raw == null || raw < -0.05 || raw > N - 1 + 0.02) return;
+      const busy = performance.now() - last.at < 1000;
+      const idx = busy ? last.idx : Math.max(0, Math.min(N - 1, Math.round(raw)));
+      t = { y: e.touches[0].clientY, idx, raw: busy ? idx : raw, held: false };
+    };
+    const onMove = (e) => {
+      if (!t) return;
+      const dy = t.y - e.touches[0].clientY;
+      if (!t.held && Math.abs(dy) < 6) return;
+      // Son üründe ileri, ilk üründe geri kaydırma doğal akar (alt bölümlere / sayfa başına).
+      const free = (dy > 0 && t.idx >= N - 1 && t.raw >= N - 1 - 0.05) || (dy < 0 && t.idx <= 0 && t.raw <= 0.05);
+      if (free && !t.held) {
+        t = null;
+        return;
+      }
+      t.held = true;
+      e.preventDefault();
+    };
+    const onEnd = (e) => {
+      if (!t?.held) return (t = null);
+      const dy = t.y - e.changedTouches[0].clientY;
+      const next = Math.max(0, Math.min(N - 1, Math.abs(dy) > 28 ? t.idx + Math.sign(dy) : t.idx));
+      t = null;
+      last = { idx: next, at: performance.now() };
+      scrollToFlavor(next);
+    };
+    window.addEventListener("touchstart", onStart, { passive: true });
+    window.addEventListener("touchmove", onMove, { passive: false });
+    window.addEventListener("touchend", onEnd, { passive: true });
+    window.addEventListener("touchcancel", onEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onStart);
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+      window.removeEventListener("touchcancel", onEnd);
+    };
+  }, []);
+}
+
 // Ürün sayfasında aşağı kaydırmak (fare tekerleği ya da parmakla yukarı çekmek) sağdaki
 // hikâyeleri sırayla açar; şişe her birinde kendi pozuna döner. Yukarı kaydırmak geri götürür,
 // ilk hikâyeden yukarı kaydırınca koku bilgisine dönülür.
@@ -305,6 +363,7 @@ export default function App() {
   useSmoothScroll();
   useKeys();
   useDetailScroll();
+  useTouchPaging();
   useMagnetic();
   useDocLang();
   useOpenProduct();

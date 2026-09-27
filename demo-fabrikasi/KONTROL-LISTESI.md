@@ -136,3 +136,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Türkan | Beyaz kutunun beyaz alt kısmı yansıma sanılıp kesildi; beyaz yerler silindi, siyah doldu | Kutu kipinde yansıma tam genişlikteki son satırın altından; dışbükey zarf + opak piksellerden doldurma |
 | Türkan | Kategori sayfasında solda siyah bant kalıyordu (eski dikey dizinin karartması) | Portal temasında o karartma kapalı; sahne kategori satırının altına iner |
 | Türkan | Kapı açılışı uzundu ve her sayfa geçişinde tekrar görünüyordu | Sade logo + çizgi açılışı; oturumda bir kez, sonraki geçişlerde yalnızca kısa kararma |
+| Genel | Telefonda kaydırma iki ürün arasında takılıyordu, bazen iki ürün birden geçiyordu | Dokunmatikte ürün akışı sayfa sayfa: her hareket tam bir ürün; son üründen sonra doğal kaydırma |
+| Türkan | Ürün kartlarında düz fotoğraf vardı, sitenin 3B görünümüyle uyumsuzdu | `araclar/kart-3b.py`: kartlar sitenin 3B modelinden saydam zeminde çekilir (`?still=<n>`) |
+| Türkan | Çekim sayfası ana sayfanın 4 ürünlük setini kullandığı için 4'ten sonrası hep aynı ürün çıktı | `?still=<n>` sayfası yalnızca o ürünü yükler (data.js); her ürün ayrı sekmede, dış istekler kapalı |
