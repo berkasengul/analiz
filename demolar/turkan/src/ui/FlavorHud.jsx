@@ -21,6 +21,12 @@ export default function FlavorHud() {
   return (
     <div className={`hud${detail ? " is-hidden" : ""}${loaded ? " is-ready" : ""}`} aria-hidden={detail}>
       <div className={`hud__center${moving ? " is-moving" : ""}`}>
+        {/* Sayaç başlık bloğunun üstünde (portal temasında gösterilir; diğerlerinde sağ üstteki sayaç). */}
+        <p className="count count--inline" aria-hidden="true">
+          <span className="count__now">{pad(active + 1)}</span>
+          <span className="count__line" />
+          <span className="count__total">{pad(N)}</span>
+        </p>
         <p className="tag">
           <i className="dot" />
           <span lang={termLang(f.family)}>{f.family}</span>
@@ -33,7 +39,7 @@ export default function FlavorHud() {
           )}
         </p>
         <button className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={termLang(f.name) ?? f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
-          <SplitChars text={f.name} key={f.name} step={40} />
+          <SplitChars text={f.name.replace(/\s*\/\s*/, "\u2009/\u2009")} key={f.name} step={40} />
         </button>
         <p className="tagline hud__tagline" key={f.tagline + t.lang}>{f.tagline}</p>
         <button className="hud__cta mono" onClick={openDetail}>

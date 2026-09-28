@@ -6041,3 +6041,105 @@ button.buy__more {
   background: rgba(6, 5, 4, 0.55);
   backdrop-filter: blur(6px);
 }
+
+/* ---------------------------------------------------------------- Portal: başlık bloğu (tasarım yönergesi)
+   Solda tek blok: altın sayaç (01 — 04), altın koleksiyon etiketi, krem-beyaz başlık, krem italik
+   kısa açıklama ve ince çerçeveli düğme. Sağda altın "NOTALAR" ve krem italik nota listesi.
+   Renkler: altın #D4B06A, açık altın #C9A87E, krem #F5E6D8. */
+.count--inline {
+  display: none;
+}
+[data-theme="portal"] {
+  --cream: #f5e6d8;
+  --gold-ink: #d4b06a;
+}
+[data-theme="portal"] .tag {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .hud__name {
+  color: var(--cream);
+  -webkit-text-stroke: 0.5px currentColor;
+}
+[data-theme="portal"] .hud__tagline {
+  color: var(--cream);
+}
+[data-theme="portal"] .hud__count .chips li {
+  color: var(--cream);
+}
+[data-theme="portal"] .hud__count .chips::before {
+  color: var(--gold-ink);
+}
+@media (min-width: 901px) {
+  [data-theme="portal"] .hud__count .count {
+    display: none;
+  }
+  [data-theme="portal"] .count--inline {
+    order: -2;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 14px;
+  }
+  [data-theme="portal"] .count--inline .count__now {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 3.6vw, 3.6rem);
+    line-height: 1;
+    color: var(--gold-ink);
+  }
+  [data-theme="portal"] .count--inline .count__line {
+    width: 38px;
+    height: 1px;
+    background: var(--gold-line);
+  }
+  [data-theme="portal"] .count--inline .count__total {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: rgba(245, 230, 216, 0.6);
+  }
+  [data-theme="portal"] .hud__center {
+    bottom: 13%;
+    width: min(40vw, 640px);
+  }
+  [data-theme="portal"] .hud__center .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 12px;
+  }
+  [data-theme="portal"] .hud__name {
+    font-size: clamp(2.8rem, 5.3vw, 6rem);
+    line-height: 1.02;
+    letter-spacing: 0.06em;
+  }
+  [data-theme="portal"] .hud__name.is-long {
+    font-size: clamp(2.5rem, 4.6vw, 5.2rem);
+  }
+  [data-theme="portal"] .hud__name.is-longer {
+    font-size: clamp(2rem, 3.4vw, 3.8rem);
+  }
+  [data-theme="portal"] .hud__tagline {
+    max-width: 21em;
+    margin-top: 14px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.35;
+  }
+  [data-theme="portal"] .hud__cta {
+    margin-top: 24px;
+    padding: 13px 24px;
+    border: 1px solid rgba(245, 230, 216, 0.55);
+    color: var(--cream);
+    letter-spacing: 0.22em;
+  }
+  [data-theme="portal"] .hud__cta:hover {
+    border-color: var(--gold-ink);
+    color: var(--gold-ink);
+  }
+  [data-theme="portal"] .hud__count .chips li {
+    font-size: 1.22rem;
+  }
+}
+[data-theme="portal"] .count__now {
+  color: var(--gold-ink);
+}
