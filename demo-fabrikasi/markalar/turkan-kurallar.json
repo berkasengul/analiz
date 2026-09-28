@@ -108,6 +108,13 @@
     ],
     "backdropArt": [
       {
+        "match": "agrumes",
+        "file": "mor-duman-orkide.webp",
+        "cx": 968,
+        "base": 508,
+        "h": 400
+      },
+      {
         "match": "boi",
         "file": "yesil-orkide.webp",
         "cx": 543,

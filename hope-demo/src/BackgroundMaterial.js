@@ -99,6 +99,24 @@ export const BackgroundMaterial = shaderMaterial(
       return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
     }
 
+    // Ucuz değer gürültüsü ve fbm (duman için).
+    float vnoise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      f = f * f * (3. - 2. * f);
+      return mix(mix(hash(i), hash(i + vec2(1., 0.)), f.x), mix(hash(i + vec2(0., 1.)), hash(i + vec2(1., 1.)), f.x), f.y);
+    }
+    float fbm(vec2 p) {
+      float v = 0.;
+      float a = 0.5;
+      for (int k = 0; k < 4; k++) {
+        v += a * vnoise(p);
+        p = p * 2.03 + vec2(1.7, 9.2);
+        a *= 0.5;
+      }
+      return v;
+    }
+
     ${noise}
 
     void main() {
@@ -175,6 +193,45 @@ export const BackgroundMaterial = shaderMaterial(
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
       float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
       base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. + 0.25 * u_sceneOn);
+
+      // Sahneli üründe atmosfer: kaidenin arkasından yükselen, ürünün renginde yavaş duman ve ekranda
+      // süzülerek düşen yapraklar (iki derinlik: arkadakiler küçük ve yumuşak).
+      if (u_sceneOn > 0.001) {
+        vec3 tint = u_glow / max(max(u_glow.r, max(u_glow.g, u_glow.b)), 0.001);
+        float bw = max(u_bottleH, 0.2);
+        float sdx = (vUv.x - u_sceneX) * u_aspect;
+        float sy = vUv.y - u_baseY;
+        vec2 sp_ = vec2(sdx * 2.4, sy * 2.2 - u_time * 0.045);
+        float sm = fbm(sp_ + vec2(fbm(sp_ * 1.3 + u_time * 0.02), 0.) * 1.4);
+        float smMask = exp(-pow(sdx / (bw * 1.6), 2.)) * smoothstep(-0.12, 0.02, sy) * (1. - smoothstep(0.1, bw * 1.5, sy));
+        float smoke = smoothstep(0.38, 0.85, sm) * smMask;
+        base += mix(tint, vec3(1.), 0.35) * smoke * 0.2 * u_sceneOn * mix(0.5, 1., u_sceneLight);
+
+        vec3 petalCol = mix(tint, vec3(1., 0.78, 0.86), 0.45);
+        for (int L = 0; L < 2; L++) {
+          float fl = float(L);
+          float cells = 4.5 - fl * 1.6;
+          vec2 pp = vUv * asp * cells + vec2(fl * 5.3, u_time * (0.05 + 0.04 * fl));
+          vec2 id = floor(pp);
+          vec2 f = fract(pp) - 0.5;
+          float h = hash(id + fl * 13.1);
+          if (h > 0.76) {
+            float h2 = hash(id + 4.7);
+            vec2 off = vec2((hash(id + 1.3) - 0.5) * 0.5 + 0.14 * sin(u_time * (0.6 + h2) + h * 6.28), (hash(id + 2.9) - 0.5) * 0.4);
+            float ang = u_time * (0.4 + 0.6 * h2) + h * 6.28;
+            vec2 q = f - off;
+            q = mat2(cos(ang), -sin(ang), sin(ang), cos(ang)) * q;
+            // Yaprak biçimi: bir ucu yuvarlak, öbür ucu sivri; telefonda daha küçük.
+            vec2 r = vec2(0.075, 0.04) * (0.7 + 0.6 * h2) * (u_aspect < 1. ? 0.7 : 1.);
+            r.y *= 0.45 + 0.55 * smoothstep(-1.1, 0.6, q.x / r.x);
+            float e = length(q / r);
+            float edge = mix(0.12, 0.3, 1. - fl);
+            float petal = 1. - smoothstep(1. - edge, 1., e);
+            float shade = 0.65 + 0.35 * clamp(q.x / r.x * 0.5 + 0.5, 0., 1.);
+            base = mix(base, petalCol * shade * mix(0.55, 0.95, fl), petal * mix(0.4, 0.7, fl) * u_sceneOn);
+          }
+        }
+      }
 
       // Kutunun altında yumuşak ışık havuzu.
       float pool = 1. - smoothstep(0., mix(0.45, 0.3, u_studio), length((vUv - vec2(u_focusX, mix(0.1, 0.37, u_studio))) * vec2(u_aspect * 0.45, 2.4)));
