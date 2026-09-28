@@ -253,7 +253,7 @@ function Stage() {
   const floorY = PED_TOP - PED.h;
   const archW = 4.6;
   // Osmanlı kemerinde tepe ve alem kadraja sığsın.
-  const archH = OTTOMAN ? 6.15 : 7.6;
+  const archH = OTTOMAN ? 5.75 : 7.6;
   const archZ = -3.2;
   const frame = useMemo(() => (OTTOMAN ? ogeeCurve : archCurve)(archW, archH, archZ + 0.02), []);
   const frame2 = useMemo(() => (OTTOMAN ? ogeeCurve : archCurve)(archW + 0.5, archH + 0.25, archZ - 0.05), []);
