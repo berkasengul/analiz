@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
 import Scene from "./Scene";
-import { PAGE, SET_KEY, content, features, flavors, setKey } from "./data";
+import { HIDDEN, PAGE, SET_KEY, content, features, flavors, setKey } from "./data";
 import { measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
 import { useStore } from "./store";
 
@@ -416,7 +416,7 @@ export default function App() {
           {content.catalog && <CollectionGrid />}
           <Shop />
           <Marquee />
-          <Story />
+          {!HIDDEN.has("story") && <Story />}
           <Stockists />
           <Faq />
           <Footer />
