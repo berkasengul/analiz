@@ -149,9 +149,12 @@ export default function Carousel() {
     const L = spot.current;
     if (L) {
       const fp = sceneState.focus.position;
-      L.intensity = 7 * (MOBILE ? 0.55 : 1) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
+      // Sahne fotoğraflı üründe ışık tepeden, huzmeyle aynı yönden ve biraz daha güçlü vurur.
+      const staged = flavors[active].stage ? 1 : 0;
+      L.intensity = 7 * (MOBILE ? 0.55 : 1) * (1 + 0.35 * staged) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
       L.color.set(STUDIO ? flavors[active].theme.accent : flavors[active].theme.glow).lerp(WHITE, STUDIO ? 0.5 : 0.65);
-      L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
+      if (staged) L.position.set(fp.x - 0.4, fp.y + 9.5, fp.z + 3.2);
+      else L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
       L.target.position.set(fp.x, fp.y + 0.2, fp.z);
       L.target.updateMatrixWorld();
     }

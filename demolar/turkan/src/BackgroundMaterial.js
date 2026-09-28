@@ -70,41 +70,25 @@ export const BackgroundMaterial = shaderMaterial(
 
     varying vec2 vUv;
 
-    // Sahne fotoğrafı ekranda: fotoğraftaki kaide çizgisi ürünün ayağına, ortası ürünün ortasına gelir;
-    // boyu, fotoğrafta ürüne ayrılan yer (sp.w) 3B ürünün ekrandaki boyuna eşit olacak şekilde.
+    // Sahne fotoğrafı tek parça, ekranın tamamında: fotoğraftaki kaide çizgisi ürünün ayağına, kaidenin
+    // ortası ürünün ortasına gelir. Boyu, en az ürünün ekrandaki boyuna uyacak kadar; ekranın dört kenarı da
+    // dolacak kadar büyütülür (hiçbir yerde kenar ya da boşluk kalmaz).
     // sp = (en/boy, kaide çizgisi (üstten), orta (soldan), ürün boyu) — hepsi fotoğrafa oranla.
-    vec4 sceneAt(sampler2D map, vec4 sp, float zoom) {
-      float sH = max(u_bottleH / max(sp.w, 0.05), 1.02) * zoom;
-      float v = (1. - sp.y) + (vUv.y - u_baseY) / sH;
+    vec3 sceneCover(sampler2D map, vec4 sp) {
+      float b = sp.y;
+      // Boy: ürünün ekrandaki boyuna uyar; üst ve alt kenar dolacak kadar büyütülür.
+      float sH = u_bottleH / max(sp.w, 0.05);
+      sH = max(sH, u_baseY / max(1. - b, 0.05));
+      sH = max(sH, (1. - u_baseY) / max(b, 0.05));
+      sH *= 1.01;
+      float v = (1. - b) + (vUv.y - u_baseY) / sH;
       float u = sp.z + (vUv.x - u_focusX) * u_aspect / (sH * sp.x);
-      float m = smoothstep(0., 0.18, u) * smoothstep(1., 0.82, u) * smoothstep(0., 0.14, v) * smoothstep(1., 0.88, v);
-      // Hafif alan derinliği: sahne ürünün arkasında biraz yumuşak, odak üründe.
-      return vec4(texture2D(map, vec2(clamp(u, 0., 1.), clamp(v, 0., 1.)), 0.9).rgb, m);
-    }
-
-    // Ekranın tamamı: aynı sahne ekranı kaplayacak kadar büyütülür, çok bulanık ve koyu (alan derinliği).
-    // Keskin sahnenin kenarları buna karışır; ekranda hiç boş yer kalmaz.
-    vec3 sceneFill(sampler2D map, vec4 sp, float zoom) {
-      float sC = max(1.0, u_aspect / sp.x) * 1.06 * zoom;
-      vec2 c = vec2(mix(0.5, sp.z, 0.5), mix(0.5, 1. - sp.y, 0.4));
-      vec2 uv = c + (vUv - vec2(u_focusX, 0.5)) * vec2(u_aspect / (sC * sp.x), 1. / sC);
-      uv = clamp(uv, 0.001, 0.999);
-      vec3 f = vec3(0.);
-      f += texture2D(map, uv, 5.).rgb * 0.36;
-      f += texture2D(map, uv + vec2(0.035, 0.02), 5.).rgb * 0.16;
-      f += texture2D(map, uv - vec2(0.035, 0.02), 5.).rgb * 0.16;
-      f += texture2D(map, uv + vec2(-0.02, 0.035), 5.).rgb * 0.16;
-      f += texture2D(map, uv - vec2(-0.02, 0.035), 5.).rgb * 0.16;
-      return f;
-    }
-
-    // Tek sahne: bulanık tam ekran dolgu + ürünün arkasında keskin sahne.
-    vec3 sceneLayer(sampler2D map, vec4 sp, float zoom) {
-      // Çevre dolgusu ürünün kendi renginde hafifçe boyanır: her ürünün sahnesi kendi renginde nefes alır.
-      vec3 tint = u_glow / max(max(u_glow.r, max(u_glow.g, u_glow.b)), 0.001);
-      vec3 fill = sceneFill(map, sp, zoom) * mix(vec3(1.), tint * 1.25, 0.4) * 0.62;
-      vec4 sharp = sceneAt(map, sp, zoom);
-      return mix(fill, sharp.rgb, sharp.a);
+      // Yanlar: fotoğraf genişliği yetmezse sahnenin ayna yansımasıyla devam eder; kenara doğru daha
+      // bulanık (alan derinliği), böylece dikiş görünmez ve ekranın her yeri dolar.
+      float out_ = max(0., abs(u - 0.5) - 0.5);
+      u = 1. - abs(mod(u, 2.) - 1.);
+      float blur = 1.1 + 3.2 * smoothstep(0.0, 0.35, out_) + 1.2 * smoothstep(0.25, 0.5, abs(u - 0.5)) * step(0.0001, out_);
+      return texture2D(map, clamp(vec2(u, v), 0.002, 0.998), blur).rgb * (1. - 0.35 * smoothstep(0., 0.5, out_));
     }
 
     float hash(vec2 p) {
@@ -146,25 +130,36 @@ export const BackgroundMaterial = shaderMaterial(
         base = mix(base, city, band * 0.9 * u_stage);
       }
 
-      // Ürünün sahne fotoğrafı: ürün fotoğraftaki kaidenin üstünde durur; kenarları karanlığa karışır.
+      // Ürünün sahne fotoğrafı: stüdyo gibi hafif karanlık; tepeden inen ışık huzmesi ortadaki ürüne ve
+      // kaideye vurur, ışığın düştüğü yerde sahne aydınlanır. Ürün değişince sahneler yumuşakça birbirine
+      // karışır ve sahnenin tonu ürünün rengine doğru akar (renk geçişi).
       if (u_sceneOn > 0.001) {
-        // Sinematik geçiş: giden sahne öne doğru hafifçe yaklaşır, gelen sahne biraz yakından başlayıp
-        // yerine oturur; ortada kısa bir kararma (sahneler arası karanlıktan geçiş).
-        float k = u_sceneMix;
-        vec3 s1 = k < 0.999 ? sceneLayer(u_scene1, u_sp1, 1. + 0.07 * k) : vec3(0.);
-        vec3 s2 = sceneLayer(u_scene2, u_sp2, 1. + 0.09 * (1. - k) * (1. - k));
-        vec3 scol = mix(s1, s2, smoothstep(0.25, 0.75, k)) * (1. - 0.55 * sin(3.14159 * k));
-        // Geniş ekranda soldaki başlık okunsun diye fotoğraf sola doğru kararır.
-        float read = u_aspect > 1. ? mix(0.5, 1., smoothstep(0.08, 0.52, vUv.x)) : mix(0.62, 1., smoothstep(0.08, 0.5, vUv.y));
-        base = mix(base, scol * 0.86 * read, u_sceneOn);
+        float k = smoothstep(0., 1., u_sceneMix);
+        vec3 s2 = sceneCover(u_scene2, u_sp2);
+        vec3 sc = k < 0.999 ? mix(sceneCover(u_scene1, u_sp1), s2, k) : s2;
+        vec3 tint = u_glow / max(max(u_glow.r, max(u_glow.g, u_glow.b)), 0.001);
+        float lum = dot(sc, vec3(0.299, 0.587, 0.114));
+        sc = mix(sc, lum * tint * 1.35, 0.3);
+        // Işık huzmesi: tepeden ürüne doğru genişleyen koni.
+        float dx = (vUv.x - u_focusX) * u_aspect;
+        float tt = clamp((1.12 - vUv.y) / max(1.12 - u_baseY, 0.1), 0., 1.4);
+        float hw = 0.06 + tt * max(u_bottleH, 0.2) * 0.62;
+        float cone = (1. - smoothstep(hw * 0.45, hw, abs(dx))) * smoothstep(0.05, 0.4, tt) * (1. - smoothstep(1.02, 1.3, tt));
+        // Kaidede ışık havuzu (ürünün ayağının çevresi).
+        vec2 q = vec2(dx, vUv.y - u_baseY) / vec2(max(u_bottleH, 0.2) * 0.95, max(u_bottleH, 0.2) * 0.3);
+        float pool = exp(-dot(q, q) * 1.6);
+        // Ürünün arkasında yumuşak parlaklık.
+        vec2 g = vec2(dx, vUv.y - u_baseY - u_bottleH * 0.5) / vec2(max(u_bottleH, 0.2) * 0.9, max(u_bottleH, 0.2) * 0.8);
+        float halo = exp(-dot(g, g) * 1.2);
+        float read = u_aspect > 1. ? mix(0.62, 1., smoothstep(0.08, 0.5, vUv.x)) : mix(0.7, 1., smoothstep(0.08, 0.5, vUv.y));
+        float lit = 0.3 + 0.5 * cone + 0.45 * pool + 0.3 * halo;
+        base = mix(base, sc * lit * read, u_sceneOn);
       }
 
       // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.
       // Hafif karartma: ürünün çevresi ürünün renginde parlak, kenarlara doğru koyulaşır (telefonda da).
       float spotD = length((vUv - vec2(u_focusX, 0.52)) * vec2(max(u_aspect * 0.62, 0.85), 0.9));
       base *= mix(1., 0.3 + 0.7 * (1. - smoothstep(0.1, 0.8, spotD)), u_studio * u_stage);
-      // Sahne fotoğrafı varken odak tamamen üründe: ürünün çevresi dışı biraz daha kararır.
-      base *= mix(1., 0.55 + 0.45 * (1. - smoothstep(0.12, 0.7, spotD)), u_sceneOn);
 
       // Tepeden inen ışık huzmesi (stüdyoda daha dar, daha parlak, içinde yavaş süzülen toz).
       vec2 bp = (vUv - vec2(u_focusX, 1.08)) * asp;
@@ -172,7 +167,7 @@ export const BackgroundMaterial = shaderMaterial(
       float width = mix(0.06 + depth * 0.3, 0.05 + depth * 0.2, u_studio);
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
       float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
-      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.6 * u_sceneOn);
+      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. + 0.25 * u_sceneOn);
 
       // Kutunun altında yumuşak ışık havuzu.
       float pool = 1. - smoothstep(0., mix(0.45, 0.3, u_studio), length((vUv - vec2(u_focusX, mix(0.1, 0.37, u_studio))) * vec2(u_aspect * 0.45, 2.4)));
