@@ -288,23 +288,26 @@ export const BackgroundMaterial = shaderMaterial(
         if (u_tunnel > 0.001) {
           vec2 vp = vec2(fdx, fy - bw * 0.42);
           float fr = fract(u_tp);
+          // Dar (telefon) ekranda kemerler küçülür; zeminin altında kalan kısımlar çizilmez.
+          float fit = mix(0.52, 1., smoothstep(0.5, 1.25, u_aspect));
+          float aboveFloor = smoothstep(-0.05, 0.0, fy);
           for (int i = 0; i < 6; i++) {
-            float s = 0.5 * pow(1.62, float(i) - fr);
+            float s = 0.5 * fit * pow(1.62, float(i) - fr);
             vec2 q = vp / s;
             vec2 a = vec2(abs(q.x), q.y + 0.42);
             float hs = 0.58, w = 0.6;
             float d = (a.y < hs ? max(a.x - w, -a.y) : length(vec2(a.x, a.y - hs)) - w) * s;
             float th = 0.05 * s;
             float band = smoothstep(-0.003, 0.002, d) * (1. - smoothstep(th - 0.003, th + 0.002, d));
-            float near = 1. - smoothstep(1.7, 2.7, s);
-            float far = smoothstep(0.14, 0.34, s);
+            float near = 1. - smoothstep(1.7 * fit, 2.7 * fit, s);
+            float far = smoothstep(0.14 * fit, 0.34 * fit, s);
             float lit = 1. - clamp(d / max(th, 0.001), 0., 1.);
-            float depthC = 0.3 + 0.7 * smoothstep(0.2, 1.6, s);
+            float depthC = 0.3 + 0.7 * smoothstep(0.2 * fit, 1.6 * fit, s);
             vec3 stone = vec3(0.74, 0.58, 0.39) * depthC * (0.55 + 0.6 * lit) + tint * lit * 0.12;
             // Taş dokusu: ince blok derzleri.
             float joint = smoothstep(0.93, 0.99, abs(fract(atan(a.y - hs, a.x) * 3.2 + (a.y < hs ? a.y * 5. : 0.)) * 2. - 1.));
             stone *= 1. - joint * 0.28;
-            base = mix(base, stone, band * near * far * 0.92 * u_tunnel);
+            base = mix(base, stone, band * near * far * aboveFloor * 0.92 * u_tunnel);
             // Kemerin içi biraz daha aydınlık (derinlikte ışık).
             base += tint * (1. - smoothstep(-0.02, 0.0, d)) * 0.012 * far * u_tunnel;
           }

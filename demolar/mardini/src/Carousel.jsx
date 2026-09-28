@@ -81,12 +81,12 @@ export function arcPose(d, aspect, time, i) {
       const idle = focus > 0 ? Math.sin(time * 0.4) * 0.07 * focus : 0;
       if (d >= 0) {
         const t = Math.min(d, 1.4);
-        const vis = 1 - MathUtils.smoothstep(d, 0.55, 0.8);
+        const vis = 1 - MathUtils.smoothstep(d, 0.4, 0.62);
         return { x: cx + t * (phone ? 0.3 : 0.9), y: y0 + t * 0.7, z: -t * 13, rotX: 0.01, rotY: 0.12 * focus + t * 0.6 + idle, rotZ: 0, scale: sc0 * vis };
       }
       const t = Math.min(-d, 1.4);
-      const vis = 1 - MathUtils.smoothstep(t, 0.3, 0.62);
-      return { x: cx - t * (phone ? 2.6 : 5.5), y: y0 - t * 0.6, z: t * 4.5, rotX: 0.01, rotY: 0.12 * focus - t * 0.9 + idle, rotZ: 0, scale: sc0 * vis };
+      const vis = 1 - MathUtils.smoothstep(t, 0.15, 0.45);
+      return { x: cx - t * (phone ? 3.4 : 8), y: y0 - t * 0.6, z: t * 3, rotX: 0.01, rotY: 0.12 * focus - t * 0.9 + idle, rotZ: 0, scale: sc0 * vis };
     }
     if (GLIDE) {
       // Komşu şişe yalnızca geçişte görünür; yerindeyken kemerde tek şişe.
