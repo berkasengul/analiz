@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { HIDDEN } from "../data";
 import { useT, wordLang } from "../i18n";
 import { BrandIcon } from "../Icons";
 
@@ -224,7 +225,7 @@ export function Footer() {
         <nav className="footer__links" aria-label={ui.footerNav}>
           <a href="#shop">{ui.nav.shop}</a>
           <a href="#faq">{ui.nav.faq}</a>
-          <a href="#story">{ui.nav.story}</a>
+          {!HIDDEN.has("story") && <a href="#story">{ui.nav.story}</a>}
           <a href="#stockists">{ui.nav.stockists}</a>
           <a href="#contact">{ui.nav.contact}</a>
         </nav>

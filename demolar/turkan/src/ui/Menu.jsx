@@ -1,12 +1,15 @@
 import { useT, termLang, wordLang } from "../i18n";
 import { useStore } from "../store";
-import { content } from "../data";
+import { HIDDEN, content } from "../data";
 import { LangSwitch } from "./Header";
 
 // Katalogu olan markalarda: ürünler, setler, hakkımızda, satış noktaları, SSS, iletişim.
-const links = content.catalog
-  ? [["#/urunler", "products"], ...(content.catalog.categories.some((c) => c.id === "set") ? [["#/urunler/set", "sets"]] : []), ["#story", "about"], ["#stockists", "stockists"], ["#faq", "faq"], ["#contact", "contact"]]
-  : ["flavors", "ritual", "shop", "story", "stockists", "faq", "contact"].map((id) => [`#${id}`, id]);
+// Markanın kapattığı bölümler (content.hide) menüde görünmez.
+const links = (
+  content.catalog
+    ? [["#/urunler", "products"], ...(content.catalog.categories.some((c) => c.id === "set") ? [["#/urunler/set", "sets"]] : []), ["#story", "about"], ["#stockists", "stockists"], ["#faq", "faq"], ["#contact", "contact"]]
+    : ["flavors", "ritual", "shop", "story", "stockists", "faq", "contact"].map((id) => [`#${id}`, id])
+).filter(([href]) => !HIDDEN.has(href.slice(1)));
 
 export default function Menu() {
   const menu = useStore((s) => s.menu);

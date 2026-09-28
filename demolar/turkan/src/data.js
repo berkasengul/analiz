@@ -5,6 +5,8 @@
 import C from "./content.json";
 
 export const content = C;
+// Markanın kapattığı ana sayfa bölümleri (content.hide, ör. ["story"]): sayfada, menüde ve altlıkta görünmez.
+export const HIDDEN = new Set(C.hide ?? []);
 
 // Sayfanın ürün seti. Ana sayfa öne çıkan ürünleri (`home`), bir kategori sayfası
 // (#/urunler/<kategori>) yalnızca o kategorinin ürünlerini 3B akışta gösterir.

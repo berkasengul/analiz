@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { Bag, BrandIcon } from "../Icons";
 import { useT, termLang } from "../i18n";
 import { useStore } from "../store";
-import { content } from "../data";
+import { HIDDEN, content } from "../data";
 import { SearchButton } from "./Search";
 
 // Dil düğmesinde o dilin para birimi simgesi (markanın fiyat ayarından).
@@ -56,13 +56,13 @@ function NavBar({ ui }) {
   const links = CAT
     ? [
         ...(hasSets ? [["#/urunler/set", ui.nav.sets]] : []),
-        ["#story", ui.nav.about ?? ui.nav.story],
+        ...(HIDDEN.has("story") ? [] : [["#story", ui.nav.about ?? ui.nav.story]]),
         ["#contact", ui.nav.contact],
       ]
     : [
         ["#flavors", ui.nav.flavors],
         ["#shop", ui.nav.shop],
-        ["#story", ui.nav.story],
+        ...(HIDDEN.has("story") ? [] : [["#story", ui.nav.story]]),
         ["#contact", ui.nav.contact],
       ];
   const count = (id) => CAT.items.filter((i) => i.category === id).length;
