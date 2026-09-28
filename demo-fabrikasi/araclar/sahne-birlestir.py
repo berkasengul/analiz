@@ -9,7 +9,8 @@ Kurallar: markalar/<marka>-kurallar.json → "foto.sceneArt":
     "cx": 590, "base": 812,         # kaidenin üst yüzünün ortası: ürünün ayağı buraya oturur
     "h": 470,                        # 13,5 cm'lik (100 ml) şişenin boyu; diğer boylar foto.heights oranıyla
     "w": 560,                        # setler (yan yana birkaç ürün) için genişlik
-    "glow": [255, 190, 120]}]        # ürünün arkasındaki hâle rengi (sahnenin ışığı)
+    "glow": [255, 190, 120],         # ürünün arkasındaki hâle rengi (sahnenin ışığı)
+    "dim": 0.42}]                    # spot dışında sahnenin parlaklığı (1 = karartma yok)
 Çıktı: markalar/<marka>-foto/sahne/<handle>.webp (kart-3b.py --stage çıktısının yerine geçer).
 
 Kullanım: python3 demo-fabrikasi/araclar/sahne-birlestir.py turkan
@@ -38,37 +39,64 @@ def height_cm(handle):
 
 
 def warm(im, scene_rgb):
-    """Ürün sahnenin ışığına uyar: rengi sahnenin ortalama tonuna doğru hafifçe çekilir."""
+    """Ürün spot ışığının altında: üstten aydınlık, sahnenin altın tonunda, kenarlarında ince ışık çizgisi."""
     a = np.asarray(im).astype(np.float32)
     tint = np.array(scene_rgb, np.float32) / max(1.0, max(scene_rgb))
-    tint = 0.86 + 0.14 * tint  # hafif; ürünün kendi rengi baskın kalır
-    tint = tint * np.array([1.0, 0.96, 0.88], np.float32)  # sahnelerin altın ışığı
-    # Sahnedeki üstten gelen spot: ürün yanlara ve aşağıya doğru hafifçe kararır (yapıştırılmış
-    # düz görüntü yerine hacimli durur).
+    tint = (0.93 + 0.07 * tint) * np.array([1.0, 0.975, 0.93], np.float32)  # ürünün kendi rengi baskın kalır
     hh, ww = a.shape[:2]
     xs = np.abs(np.linspace(-1, 1, ww))[None, :]
     ys = np.linspace(0, 1, hh)[:, None]
-    shade = (0.82 + 0.18 * (1 - xs**2)) * (1.0 - 0.16 * ys**1.5)
-    a[..., :3] = np.clip(a[..., :3] * tint[None, None, :] * shade[..., None], 0, 255)
-    return Image.fromarray(a.astype(np.uint8))
+    # Tepeden vuran spot: üst parlak, alt ve yanlar hafif gölgede (hacim).
+    shade = (0.88 + 0.12 * (1 - xs**2)) * (1.02 - 0.18 * ys**1.4)
+    a[..., :3] = a[..., :3] * tint[None, None, :] * shade[..., None]
+    # Kenar ışığı: saydamlığın iç kenarında ince sıcak çizgi, ürün koyu zeminden ayrılır.
+    al = Image.fromarray(a[..., 3].astype(np.uint8))
+    er = al.filter(ImageFilter.MinFilter(max(3, (ww // 90) | 1)))
+    rim = np.clip(np.asarray(al, np.float32) - np.asarray(er, np.float32), 0, 255) / 255
+    rim = np.asarray(Image.fromarray((rim * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.2)), np.float32) / 255
+    a[..., :3] += rim[..., None] * np.array([70, 60, 42], np.float32) * (1.1 - 0.6 * ys[..., None])
+    out = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+    return out
 
 
-def place(scene, prod, cx, base, target_h=None, target_w=None, glow=None):
-    """Ürünü kaideye oturtur: temas gölgesi, ürün ve üst yüzde silik yansıma."""
+def spotlight(scene, cx, cy, pw, ph, base, dim):
+    """Sahne kararır, ışık yalnızca ürüne ve kaidedeki ayak izine düşer; tepeden ince bir ışık konisi iner."""
+    a = np.asarray(scene).astype(np.float32)
+    H, W = a.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    rx, ry = max(pw * 1.45, W * 0.2), ph * 0.95
+    d = np.sqrt(((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2)
+    t = np.clip((d - 0.5) / 0.8, 0, 1)
+    spot = 1 - t * t * (3 - 2 * t)
+    k = dim + (1 - dim) * spot
+    # Işık konisi: tepeden ürüne doğru genişleyen yumuşak huzme.
+    half = pw * 0.35 + (pw * 0.75) * np.clip(yy / max(1, base), 0, 1)
+    cone = np.clip(1 - np.abs(xx - cx) / half, 0, 1) ** 1.6 * np.clip(yy / max(1, base), 0, 1) ** 0.7 * (yy < base)
+    # Kaidede ışık havuzu.
+    pool = np.clip(1 - np.sqrt(((xx - cx) / (pw * 1.05)) ** 2 + ((yy - base) / (pw * 0.2)) ** 2), 0, 1) ** 1.5
+    light = np.array([255, 226, 180], np.float32)
+    a[..., :3] = a[..., :3] * k[..., None] + (cone * 0.07 + pool * 0.22)[..., None] * light
+    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+
+
+def place(scene, prod, cx, base, target_h=None, target_w=None, glow=None, dim=0.42):
+    """Ürünü kaideye oturtur: sahne kararır ve spot ürüne vurur; temas gölgesi, ürün, silik yansıma."""
     if target_w:
         k = target_w / prod.width
     else:
         k = target_h / prod.height
     p = prod.resize((max(1, round(prod.width * k)), max(1, round(prod.height * k))), Image.LANCZOS)
+    p = p.filter(ImageFilter.UnsharpMask(radius=1.2, percent=60, threshold=2))
     x = round(cx - p.width / 2)
     y = round(base - p.height)
+    scene = spotlight(scene, cx, base - p.height * 0.45, p.width, p.height, base, dim)
     if glow:
-        # Arka ışık: ürünün çevresinde sahnenin renginde yumuşak hâle (kenar ışığı).
+        # Arka ışık: ürünün çevresinde sahnenin renginde yumuşak hâle.
         g = Image.new("L", scene.size, 0)
         g.paste(p.getchannel("A"), (x, y))
-        g = g.filter(ImageFilter.GaussianBlur(p.width * 0.12))
+        g = g.filter(ImageFilter.GaussianBlur(p.width * 0.14))
         halo = Image.new("RGBA", scene.size, tuple(glow) + (255,))
-        halo.putalpha(g.point(lambda v: int(v * 0.28)))
+        halo.putalpha(g.point(lambda v: int(v * 0.32)))
         scene.alpha_composite(halo)
     # Temas gölgesi: ürünün ayağında koyu, yumuşak elips.
     sh = Image.new("L", scene.size, 0)
@@ -92,7 +120,9 @@ def place(scene, prod, cx, base, target_h=None, target_w=None, glow=None):
 
 def main():
     arts = RULES.get("sceneArt", [])
+    # Net ürün için yüksek çözünürlüklü çekim (kart-3b.py --hd) varsa o kullanılır.
     renders = sorted(glob.glob(os.path.join(FOTO, "render3d", "*.webp")))
+    hd = os.path.join(FOTO, "render3d-hd")
     os.makedirs(os.path.join(FOTO, "sahne"), exist_ok=True)
     done = 0
     for path in renders:
@@ -102,15 +132,16 @@ def main():
             continue
         scene = Image.open(os.path.join(FOTO, "sahne-kaynak", art["file"])).convert("RGBA")
         mean = np.asarray(scene.convert("RGB").resize((64, 64))).reshape(-1, 3).mean(0)
-        prod = warm(Image.open(path).convert("RGBA"), mean)
+        src = os.path.join(hd, f"{h}.webp")
+        prod = warm(Image.open(src if os.path.exists(src) else path).convert("RGBA"), mean)
         group = re.search(RULES.get("noViews", "$^"), h)  # setler: yan yana birkaç ürün
         if group and art.get("w"):
-            scene = place(scene, prod, art["cx"], art["base"], target_w=art["w"], glow=art.get("glow"))
+            scene = place(scene, prod, art["cx"], art["base"], target_w=art["w"], glow=art.get("glow"), dim=art.get("dim", 0.42))
         else:
-            scene = place(scene, prod, art["cx"], art["base"], target_h=art["h"] * height_cm(h) / 13.5, glow=art.get("glow"))
+            scene = place(scene, prod, art["cx"], art["base"], target_h=art["h"] * height_cm(h) / 13.5, glow=art.get("glow"), dim=art.get("dim", 0.42))
         x0, y0, x1, y1 = art.get("crop", [0, 0, scene.width, scene.height])
         out = scene.crop((x0, y0, x1, y1)).convert("RGB").resize((OUT_W, OUT_H), Image.LANCZOS)
-        out.save(os.path.join(FOTO, "sahne", f"{h}.webp"), quality=86, method=5)
+        out.save(os.path.join(FOTO, "sahne", f"{h}.webp"), quality=90, method=5)
         done += 1
         print("sahne", h, "←", art["file"])
     print(done, "kart sahnesi hazır")

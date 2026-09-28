@@ -175,8 +175,10 @@ Hazır bir sahne fotoğrafı (ör. içerik notalarıyla çekilmiş) aynı dosya 
 Markanın (ya da yapay zekâyla üretilmiş) ürünsüz sahne fotoğrafları `<marka>-foto/sahne-kaynak/` klasörüne konur;
 `kurallar.json → foto.sceneArt` hangi ürünün hangi sahneye gideceğini ve kaidenin yerini söyler (`match` regex,
 `file`, 3:4 `crop`, kaide üst yüzünün ortası `cx`/`base`, 100 ml şişenin piksel boyu `h`, arka hâle rengi `glow`).
-`araclar/sahne-birlestir.py <marka>` ürünün 3B görüntüsünü (render3d) kaideye oturtur: gerçek boy oranı
-(`foto.heights`), sahnenin altın ışığına göre renk, üstten spot gölgelemesi, temas gölgesi, kaidede silik yansıma.
+`araclar/sahne-birlestir.py <marka>` ürünün 3B görüntüsünü kaideye oturtur: gerçek boy oranı (`foto.heights`),
+sahne spot dışında kararır (`dim`, varsayılan 0.42), tepeden ürüne ışık konisi ve kaidede ışık havuzu, ürün üstten
+aydınlık, kenarında ince sıcak ışık çizgisi, temas gölgesi, silik yansıma. Net ürün için önce yüksek çözünürlüklü
+çekim: `kart-3b.py <marka> --hd --only "floraison|agrumes|boi"` → `render3d-hd/` (varsa o kullanılır).
 Çıktı `sahne/<handle>.webp` olur (3B sergi görselinin yerine geçer); sonra aktarım + derleme.
 
 ```bash
