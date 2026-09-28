@@ -6143,3 +6143,217 @@ button.buy__more {
 [data-theme="portal"] .count__now {
   color: var(--gold-ink);
 }
+
+/* ---------------------------------------------------------------- Portal: premium üst menü
+   Logonun inceliğinde: çerçeve, hap, cam düğme yok. İnce, geniş aralıklı büyük harfler; üzerine
+   gelince ortadan açılan altın kıl çizgi. Arama ve sepet sade ince ikon, dil "TR | EN", menü düğmesi
+   yazı ve iki ince çizgi. Altta yumuşak karartma ve ince altın ayırıcı çizgi. */
+[data-theme="portal"] .header::before {
+  background: linear-gradient(rgba(5, 4, 3, 0.86), rgba(5, 4, 3, 0.5) 62%, rgba(5, 4, 3, 0));
+}
+[data-theme="portal"] .header::after {
+  content: "";
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 6px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(212, 176, 106, 0.28) 18%, rgba(212, 176, 106, 0.28) 82%, transparent);
+}
+[data-theme="portal"] .header__nav {
+  gap: clamp(26px, 2.8vw, 52px);
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="portal"] .header__pill {
+  display: none;
+}
+[data-theme="portal"] .header__nav > a,
+[data-theme="portal"] .navcat > a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-radius: 0;
+  background: none !important;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 216, 0.84);
+  transition: color 0.35s ease;
+}
+[data-theme="portal"] .header__nav > a::after,
+[data-theme="portal"] .navcat > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0.34em;
+  bottom: 2px;
+  width: auto;
+  height: 1px;
+  margin-left: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: linear-gradient(90deg, transparent, var(--gold-ink), transparent);
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+[data-theme="portal"] :is(.header__nav > a, .navcat > a):is(:hover, :focus-visible, .is-current) {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] :is(.header__nav > a, .navcat > a):is(:hover, :focus-visible, .is-current)::after {
+  transform: scaleX(1);
+}
+[data-theme="portal"] .navcat__chev {
+  width: 9px;
+  height: 9px;
+  opacity: 0.7;
+}
+[data-theme="portal"] .header__right {
+  gap: clamp(18px, 1.8vw, 30px);
+}
+[data-theme="portal"] :is(.search-btn, .cart-btn, .menu-btn),
+[data-theme="portal"] :is(.search-btn, .cart-btn, .menu-btn):hover {
+  width: auto;
+  height: auto;
+  padding: 8px 2px;
+  border: 0 !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transform: none;
+  color: rgba(245, 230, 216, 0.86);
+}
+[data-theme="portal"] :is(.search-btn, .cart-btn, .menu-btn):is(:hover, :focus-visible) {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] :is(.search-btn, .cart-btn) svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.2;
+}
+[data-theme="portal"] .cart-btn__count {
+  top: 0;
+  right: -10px;
+  min-width: 0;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--gold-ink);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+[data-theme="portal"] .menu-btn {
+  gap: 14px;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+[data-theme="portal"] .menu-btn__icon {
+  width: 22px;
+  height: 6px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+[data-theme="portal"] .lang,
+[data-theme="portal"] .lang:hover {
+  padding: 0;
+  gap: 0;
+  border: 0 !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="portal"] .lang button,
+[data-theme="portal"] .lang button.is-on {
+  padding: 8px 10px;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  font-weight: 300;
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  color: rgba(245, 230, 216, 0.5);
+}
+[data-theme="portal"] .lang button small {
+  display: none;
+}
+[data-theme="portal"] .lang button + button {
+  border-left: 1px solid rgba(212, 176, 106, 0.35);
+}
+[data-theme="portal"] .lang button.is-on {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .lang button:hover {
+  color: var(--cream);
+}
+
+/* Ürünler sayfasının kategori sekmeleri: hap ve beyaz dolgu yerine üst menüyle aynı dil
+   (ince geniş harf, altın sayı, seçili sekmede altın kıl çizgi). */
+[data-theme="portal"] .catalog__tabs {
+  gap: clamp(18px, 2.6vw, 44px);
+  padding: 4px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="portal"] .catalog__tabs a,
+[data-theme="portal"] .catalog__tabs a:hover,
+[data-theme="portal"] .catalog__tabs a.is-on {
+  position: relative;
+  padding: 10px 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 216, 0.78);
+}
+[data-theme="portal"] .catalog__tabs a i {
+  display: none;
+}
+[data-theme="portal"] .catalog__tabs a small,
+[data-theme="portal"] .catalog__tabs a.is-on small {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-ink);
+  opacity: 0.8;
+}
+[data-theme="portal"] .catalog__tabs a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-ink), transparent);
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+[data-theme="portal"] .catalog__tabs a:is(:hover, .is-on) {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .catalog__tabs a:is(:hover, .is-on)::after {
+  transform: scaleX(1);
+}

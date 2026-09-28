@@ -56,20 +56,18 @@
   "h": 0.2417
  },
  "turkan-floraison-8-cologne-du-parfumeur-150-ml": {
-  "src": "fon/altin-halka-orkide.webp",
-  "aspect": 2.2551,
-  "base": 0.776,
-  "cx": 0.589,
-  "h": 0.7384,
-  "vivid": 1
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3568
  },
  "turkan-floraison-8-cologne-du-parfumeur-50-ml": {
-  "src": "fon/altin-halka-orkide.webp",
-  "aspect": 2.2551,
-  "base": 0.776,
-  "cx": 0.589,
-  "h": 0.5002,
-  "vivid": 1
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2417
  },
  "turkan-no-10-noblesse-oriental-family-100ml": {
   "src": "fon/yesil-orkide-3656d8.webp",
@@ -121,20 +119,18 @@
   "h": 0.2762
  },
  "turkan-no-8-floraison-100-ml": {
-  "src": "fon/altin-halka-orkide.webp",
-  "aspect": 2.2551,
-  "base": 0.776,
-  "cx": 0.589,
-  "h": 0.6431,
-  "vivid": 1
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
  },
  "turkan-no-8-floraison-15ml": {
-  "src": "fon/altin-halka-orkide.webp",
-  "aspect": 2.2551,
-  "base": 0.776,
-  "cx": 0.589,
-  "h": 0.5717,
-  "vivid": 1
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2762
  },
  "turkan-no-9-mystique-spicy-family-100ml": {
   "src": "fon/yesil-orkide-138f9a.webp",

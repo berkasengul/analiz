@@ -16,6 +16,8 @@ const SOLO = THEME.carousel === "solo";
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
 const TOP = [];
+// Sahne fotoğraflı ürünlerin ortak ayak çizgisi: ilk ölçülen ürünün alt kenarı.
+const FOOT = { ref: null };
 const V = new Vector3();
 import { PAGE, flavors } from "./data";
 import { scrollState, slotIndex } from "./scroll";
@@ -54,14 +56,18 @@ export function arcPose(d, aspect, time, i) {
     // Tek ürün sahnesi: öndeki ürün büyük ve ışıkta; diğerleri iki yanda, geride ve loşta
     // hafifçe görünür. Telefonda yanlar ekranın kenarından yarım görünür. Kaydırınca sıradaki ışığa yürür.
     const phone = aspect < 0.9;
+    const scale = base * (phone ? 0.62 + 0.72 * focus : 0.6 + 0.84 * focus) * (1 - (LINEAR ? MathUtils.smoothstep(ad, 3.4, 4.4) : MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2))));
+    // Sahne fotoğraflı üründe öndeki ürünün ayağı hep aynı çizgide (ilk ölçülen ürünün ayağı):
+    // arka plandaki kaide hiç kıpırdamaz, farklı boydaki her ürün ona oturur.
+    const lift = flavors[i]?.stage && FOOT.ref != null && BOTTOM[i] != null ? (FOOT.ref - BOTTOM[i]) * scale * focus : 0;
     return {
       x: phone ? 2.5 * d * (1 + 0.12 * ad) : (1.6 + 5.4 * d * (1 + 0.08 * ad)) * spread,
-      y: 0.5 + (phone ? 0.1 : 0.12) * Math.min(ad, 3) + (phone ? 0.7 : -0.14) * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07 * (flavors[i]?.stage ? 1 - focus : 1) - (phone ? 0 : CAT_DROP),
+      y: 0.5 + (phone ? 0.1 : 0.12) * Math.min(ad, 3) + (phone ? 0.7 : 0.58) * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07 * (flavors[i]?.stage ? 1 - focus : 1) - (phone ? 0 : CAT_DROP) + lift,
       z: (phone ? -2.4 : -2.6) * ad + focus * 1.6,
       rotX: 0.06,
       rotY: -0.3 * d + (focus > 0 ? Math.sin(time * 0.5) * 0.22 * focus : 0),
       rotZ: 0.06 * d + 0.05 * focus,
-      scale: base * (phone ? 0.62 + 0.72 * focus : 0.6 + 1.24 * focus) * (1 - (LINEAR ? MathUtils.smoothstep(ad, 3.4, 4.4) : MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2)))),
+      scale,
     };
   }
   return {
@@ -260,6 +266,7 @@ export default function Carousel() {
             for (let k = 0; k < P.count; k += 3) high = Math.max(high, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
           }
           if (low < Infinity) BOTTOM[i] = (low - g.position.y) / g.scale.y;
+          if (FOOT.ref == null && BOTTOM[i] != null && flavors[i]?.stage) FOOT.ref = BOTTOM[i];
           if (high > -Infinity) TOP[i] = (high - g.position.y) / g.scale.y;
         }
         sceneState.focus.bottom = BOTTOM[i];

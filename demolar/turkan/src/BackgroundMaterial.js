@@ -89,12 +89,11 @@ export const BackgroundMaterial = shaderMaterial(
       float b = sp.y;
       // Boy: ürünün ekrandaki boyuna uyar; üst ve alt kenar dolacak kadar büyütülür.
       float sH = u_bottleH / max(sp.w, 0.05);
+      sH = max(sH, u_baseY / max(1. - b, 0.05));
       sH = max(sH, (1. - u_baseY) / max(b, 0.05));
       sH *= 1.01;
       float v = (1. - b) + (vUv.y - u_baseY) / sH;
-      // Alt: fotoğrafın altı yetmezse su yansıması aynalanarak devam eder (görsel aşırı büyümez).
-      float outv = max(0., -v);
-      v = abs(v);
+      float outv = 0.;
       float u = sp.z + (vUv.x - u_sceneX) * u_aspect / (sH * sp.x);
       // Kaidenin altındaki su: yansıma yavaşça dalgalanır.
       float below = smoothstep(0.02, 0.12, (1. - b) - v);

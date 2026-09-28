@@ -139,16 +139,20 @@ export default function Background() {
     const dt = Math.min(delta, 0.1);
     // Sahne ürüne sabitlenir ama ürünle birlikte hareket etmez: yalnızca öndeki ürün yerine oturmuşken
     // (akış durmuş, detay kapalı) ürünün dinlenme pozuna göre konumlanır; geçişte ve detayda yerinde kalır.
-    if (f.bottom != null && f.top != null && (sceneState.settled || l.baseY == null) && scrollState.ritualIn < 0.02) {
+    // Konum bir kez (ilk ürün yerine oturunca) alınır ve sabit kalır; yalnızca pencere boyutu değişince
+    // yeniden hesaplanır. Ürünler bu kaideye oturur (Carousel: ortak ayak çizgisi), sahne hiç oynamaz.
+    const sizeKey = `${size.width}x${size.height}`;
+    const fresh = l.baseY == null || l.sizeKey !== sizeKey;
+    if (f.bottom != null && f.top != null && fresh && (sceneState.settled || l.baseY == null) && scrollState.ritualIn < 0.02) {
+      l.sizeKey = sizeKey;
       const sc = f.scale || 1;
       const r = f.rest;
       const yb = (P.set(r.x, r.y + f.bottom * sc, r.z).project(camera).y + 1) / 2;
       const yt = (Q.set(r.x, r.y + f.top * sc, r.z).project(camera).y + 1) / 2;
       const sx = MathUtils.clamp((P.set(r.x, r.y, r.z).project(camera).x + 1) / 2, 0.2, 0.8);
-      const first = l.baseY == null;
-      l.baseY = first ? yb : MathUtils.damp(l.baseY, yb, 3, dt);
-      l.bottleH = first ? yt - yb : MathUtils.damp(l.bottleH, yt - yb, 3, dt);
-      l.sceneX = first ? sx : MathUtils.damp(l.sceneX, sx, 3, dt);
+      l.baseY = yb;
+      l.bottleH = yt - yb;
+      l.sceneX = sx;
       m.u_baseY = l.baseY;
       m.u_bottleH = Math.max(0.05, l.bottleH);
       m.u_sceneX = l.sceneX;
