@@ -14,6 +14,7 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
     "studio": true                  renkli/gri stüdyo zeminindeki ürün çekimleri de ürün fotoğrafı sayılır (yapay zekâyla kesilir)
     "pedestal": true                ürün bir kaide üstünde çekilmiş (zeminde yansıma yok): şeffaf camın açık renkli
                                      tabanı yansıma sanılıp kesilmez
+    "convex": true                  silüet dışbükey zarfla doldurulur (şeffaf cam tabanında kalan çentikler)
     "solidTop": 0.25                ürünün üst bölümü (oran) delik bırakılmadan dolu kesilir (zemine yakın renkli kapak)
     "glassBack": {"label": [x0, y0, x1, y1], "labels": [["regex", [x0, y0, x1, y1]]], "lines": ["...", ...]}
                                      renkli cam şişe: arka yüz ön fotoğrafın aynası (cam ve renk net), ön etiketin
@@ -128,6 +129,14 @@ def cutout(im, k, box=False):
                     xs = np.where(al[y] > 128)[0]
                     if len(xs) > 1:
                         al[y, xs[0]:xs[-1] + 1] = 255
+        # Şeffaf cam tabanı yer yer zeminle karışır: silüet dışbükey zarfla doldurulur (convex).
+        if RULES.get("convex"):
+            al = a[..., 3]
+            pts = cv2.findNonZero((al > 128).astype(np.uint8))
+            if pts is not None:
+                hull = np.zeros_like(al)
+                cv2.fillConvexPoly(hull, cv2.convexHull(pts), 255)
+                a[..., 3] = np.maximum(al, hull)
         im = Image.fromarray(a)
     elif k == "W":
         a = np.asarray(im).copy()

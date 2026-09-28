@@ -6,7 +6,8 @@
     "views": false,
     "studio": true,
     "pedestal": true,
-    "solidTop": 0.24
+    "solidTop": 0.24,
+    "convex": true
   },
   "aktar": {
     "domain": "attaralhas.com",
