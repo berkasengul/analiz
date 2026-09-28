@@ -1,5 +1,6 @@
 import { shaderMaterial } from "@react-three/drei";
 import { extend } from "@react-three/fiber";
+import { Vector4 } from "three";
 import { noise } from "./Noise";
 
 // Ekranı kaplayan sinematik sahne: tadın şehir resmi arkada bulanık bir
@@ -24,6 +25,15 @@ export const BackgroundMaterial = shaderMaterial(
     u_stage: 1,
     u_focusX: 0.5,
     u_studio: 0,
+    // Ürünün sahne fotoğrafı (content → products[].stage): kaidesi 3B ürünün ayağına hizalanır.
+    u_scene1: null,
+    u_scene2: null,
+    u_sp1: new Vector4(1, 0.6, 0.5, 0.35),
+    u_sp2: new Vector4(1, 0.6, 0.5, 0.35),
+    u_sceneMix: 1,
+    u_sceneOn: 0,
+    u_baseY: 0.4,
+    u_bottleH: 0.35,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -49,12 +59,31 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_stage;
     uniform float u_focusX;
     uniform float u_studio;
+    uniform sampler2D u_scene1;
+    uniform sampler2D u_scene2;
+    uniform vec4 u_sp1;
+    uniform vec4 u_sp2;
+    uniform float u_sceneMix;
+    uniform float u_sceneOn;
+    uniform float u_baseY;
+    uniform float u_bottleH;
+
+    varying vec2 vUv;
+
+    // Sahne fotoğrafı ekranda: fotoğraftaki kaide çizgisi ürünün ayağına, ortası ürünün ortasına gelir;
+    // boyu, fotoğrafta ürüne ayrılan yer (sp.w) 3B ürünün ekrandaki boyuna eşit olacak şekilde.
+    // sp = (en/boy, kaide çizgisi (üstten), orta (soldan), ürün boyu) — hepsi fotoğrafa oranla.
+    vec4 sceneAt(sampler2D map, vec4 sp) {
+      float sH = u_bottleH / max(sp.w, 0.05);
+      float v = (1. - sp.y) + (vUv.y - u_baseY) / sH;
+      float u = sp.z + (vUv.x - u_focusX) * u_aspect / (sH * sp.x);
+      float m = smoothstep(0., 0.16, u) * smoothstep(1., 0.84, u) * smoothstep(0., 0.12, v) * smoothstep(1., 0.9, v);
+      return vec4(texture2D(map, vec2(clamp(u, 0., 1.), clamp(v, 0., 1.))).rgb, m);
+    }
 
     float hash(vec2 p) {
       return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
     }
-
-    varying vec2 vUv;
 
     ${noise}
 
@@ -91,6 +120,16 @@ export const BackgroundMaterial = shaderMaterial(
         base = mix(base, city, band * 0.9 * u_stage);
       }
 
+      // Ürünün sahne fotoğrafı: ürün fotoğraftaki kaidenin üstünde durur; kenarları karanlığa karışır.
+      if (u_sceneOn > 0.001) {
+        vec4 s1 = sceneAt(u_scene1, u_sp1);
+        vec4 s2 = sceneAt(u_scene2, u_sp2);
+        vec4 sc = mix(s1, s2, u_sceneMix);
+        // Geniş ekranda soldaki başlık okunsun diye fotoğraf sola doğru kararır.
+        float read = u_aspect > 1. ? mix(0.5, 1., smoothstep(0.08, 0.52, vUv.x)) : mix(0.62, 1., smoothstep(0.08, 0.5, vUv.y));
+        base = mix(base, sc.rgb * 0.84 * read, sc.a * u_sceneOn);
+      }
+
       // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.
       // Hafif karartma: ürünün çevresi ürünün renginde parlak, kenarlara doğru koyulaşır (telefonda da).
       float spotD = length((vUv - vec2(u_focusX, 0.52)) * vec2(max(u_aspect * 0.62, 0.85), 0.9));
@@ -102,11 +141,11 @@ export const BackgroundMaterial = shaderMaterial(
       float width = mix(0.06 + depth * 0.3, 0.05 + depth * 0.2, u_studio);
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
       float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
-      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage;
+      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.6 * u_sceneOn);
 
       // Kutunun altında yumuşak ışık havuzu.
       float pool = 1. - smoothstep(0., mix(0.45, 0.3, u_studio), length((vUv - vec2(u_focusX, mix(0.1, 0.37, u_studio))) * vec2(u_aspect * 0.45, 2.4)));
-      base += light * pool * mix(0.12, 0.16, u_studio) * u_stage;
+      base += light * pool * mix(0.12, 0.16, u_studio) * u_stage * (1. - u_sceneOn);
 
       // Süzülen bokeh ışıkları (iki derinlik katmanı).
       for (int L = 0; L < 2; L++) {

@@ -14,6 +14,8 @@ const STUDIO = !!THEME.studio;
 const SOLO = THEME.carousel === "solo";
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
+// Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
+const TOP = [];
 const V = new Vector3();
 import { PAGE, flavors } from "./data";
 import { scrollState, slotIndex } from "./scroll";
@@ -235,6 +237,7 @@ export default function Carousel() {
           // kaplar ama gövdenin altında görünmez. Gövde varsa yalnızca o ölçülür; yoksa eksendeki
           // boş satırlar ve kenar düzlemleri dışarıda bırakılır.
           let low = Infinity;
+          let high = -Infinity;
           g.updateWorldMatrix(true, true);
           const meshes = [];
           g.traverse((o) => o.isMesh && o.geometry.type !== "PlaneGeometry" && meshes.push(o));
@@ -246,9 +249,15 @@ export default function Carousel() {
               low = Math.min(low, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
             }
           }
+          for (const o of meshes) {
+            const P = o.geometry.attributes.position;
+            for (let k = 0; k < P.count; k += 3) high = Math.max(high, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
+          }
           if (low < Infinity) BOTTOM[i] = (low - g.position.y) / g.scale.y;
+          if (high > -Infinity) TOP[i] = (high - g.position.y) / g.scale.y;
         }
         sceneState.focus.bottom = BOTTOM[i];
+        sceneState.focus.top = TOP[i];
       }
 
       const hidden = sceneState.heroVisible && i === active;

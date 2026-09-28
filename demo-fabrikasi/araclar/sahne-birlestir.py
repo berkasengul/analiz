@@ -185,6 +185,39 @@ def main():
         done += 1
         print("sahne", h, "←", art["file"])
     print(done, "kart sahnesi hazır")
+    backdrops([os.path.basename(r)[:-5] for r in renders])
+
+
+def backdrops(handles):
+    """Ana sayfadaki 3B serginin arka planı: ürünsüz sahne fotoğrafı (foto.backdropArt), gerekirse ürünün
+    rengine boyanmış. fon/<ad>.webp + fon/fon.json (ürün → görsel, en-boy oranı, kaide çizgisi, orta, ürün boyu).
+    Site ürünü bu kaidenin üstüne oturtur (Background.jsx)."""
+    arts = RULES.get("backdropArt", [])
+    if not arts:
+        return
+    out = os.path.join(FOTO, "fon")
+    os.makedirs(out, exist_ok=True)
+    meta, made = {}, {}
+    for h in handles:
+        art = next((a for a in arts if re.search(a["match"], h)), None)
+        if not art:
+            continue
+        color = None
+        if art.get("tint"):
+            pal = next((c for c in PALETTE if re.search(c[0], h)), None)
+            color = pal[1] if art["tint"] == "palette" and pal else (None if art["tint"] == "palette" else art["tint"])
+        name = os.path.splitext(art["file"])[0] + (f"-{color[1:].lower()}" if color else "")
+        if name not in made:
+            im = Image.open(os.path.join(FOTO, "sahne-kaynak", art["file"])).convert("RGBA")
+            if color:
+                im = recolor(im, color, tuple(art.get("tintHue", (40, 115))))
+            im.convert("RGB").save(os.path.join(out, f"{name}.webp"), quality=84, method=5)
+            made[name] = im.size
+        W, H = made[name]
+        meta[h] = {"src": f"fon/{name}.webp", "aspect": round(W / H, 4), "base": round(art["base"] / H, 4),
+                   "cx": round(art["cx"] / W, 4), "h": round(art["h"] * height_cm(h) / 13.5 / H, 4)}
+    json.dump(meta, open(os.path.join(out, "fon.json"), "w"), indent=1)
+    print(len(made), "arka plan sahnesi →", len(meta), "ürün")
 
 
 if __name__ == "__main__":

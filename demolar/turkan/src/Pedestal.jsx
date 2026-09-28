@@ -43,7 +43,8 @@ export default function Pedestal() {
     const dt = Math.min(delta, 0.1);
     const st = useStore.getState();
     const S = s.current;
-    const target = (1 - Math.min(1, sceneState.spread * 3)) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
+    // Ürünün sahne fotoğrafı varsa ürün fotoğraftaki kaidede durur; 3B kaide gizlenir.
+    const target = (flavors[st.active]?.stage ? 0 : 1) * (1 - Math.min(1, sceneState.spread * 3)) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
     S.vis = MathUtils.damp(S.vis, target, 3, dt);
     const f = sceneState.focus;
     const sc = f.scale || 1;

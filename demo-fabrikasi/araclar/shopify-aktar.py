@@ -193,6 +193,8 @@ def main():
         }
 
     order = [k["id"] for k in CATS]
+    fon_json = os.path.join(FOTO, "fon", "fon.json")
+    FON = json.load(open(fon_json)) if os.path.exists(fon_json) else {}
     handles = [h for h in R.get("home", []) if h in meta and "cut" in meta[h]]
     handles += [h for h in sorted(tr, key=lambda x: (order.index(cat_of(x)), x)) if h not in handles and h in meta and "cut" in meta[h]]
     products = [photo_product(h) for h in handles]
@@ -202,6 +204,9 @@ def main():
         i = info(h)
         p["price"] = {"tr": i["price"], "en": i["price"]}
         p["photos"] = i["m"].get("gallery", [])
+        # Ana sayfa sergisinin arka planı: ürünsüz sahne fotoğrafı (araclar/sahne-birlestir.py → fon/fon.json).
+        if h in FON:
+            p["stage"] = FON[h]
         views = views3d(h, i["m"])
         if views:
             p["views"] = views

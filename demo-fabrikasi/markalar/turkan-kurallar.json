@@ -42,39 +42,18 @@
     "sceneArt": [
       {
         "match": "floraison",
-        "file": "pembe-gul.webp",
+        "file": "yesil-orkide.webp",
         "crop": [
-          152,
           0,
-          1069,
-          1223
-        ],
-        "cx": 610,
-        "base": 814,
-        "h": 440,
-        "glow": [
-          255,
-          170,
-          150
-        ]
-      },
-      {
-        "match": "agrumes",
-        "file": "mor-lavanta-limon.webp",
-        "crop": [
-          142,
           0,
-          1059,
-          1223
+          1086,
+          1448
         ],
-        "cx": 600,
-        "base": 817,
-        "h": 440,
-        "glow": [
-          200,
-          150,
-          255
-        ]
+        "cx": 543,
+        "base": 866,
+        "h": 450,
+        "tint": "#d4588c",
+        "dim": 0.5
       },
       {
         "match": "boi",
@@ -125,6 +104,37 @@
         "tint": "palette",
         "w": 430,
         "dim": 0.5
+      }
+    ],
+    "backdropArt": [
+      {
+        "match": "floraison",
+        "file": "pembe-gul.webp",
+        "cx": 610,
+        "base": 814,
+        "h": 440
+      },
+      {
+        "match": "agrumes",
+        "file": "mor-lavanta-limon.webp",
+        "cx": 600,
+        "base": 817,
+        "h": 440
+      },
+      {
+        "match": "boi",
+        "file": "yesil-orkide.webp",
+        "cx": 543,
+        "base": 866,
+        "h": 450
+      },
+      {
+        "match": ".",
+        "file": "yesil-orkide.webp",
+        "cx": 543,
+        "base": 866,
+        "h": 450,
+        "tint": "palette"
       }
     ]
   },

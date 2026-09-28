@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
-import { Color, MathUtils, Vector2, Vector3 } from "three";
+import { Color, MathUtils, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vector4 } from "three";
 
 import { content, flavors } from "./data";
 import { scrollState } from "./scroll";
@@ -12,6 +12,19 @@ import { THEME } from "./theme";
 
 const SOLO = THEME.carousel === "solo";
 const P = new Vector3();
+const Q = new Vector3();
+// Ürünlerin sahne fotoğrafları (products[].stage): bir kez yüklenir, ürünler arasında paylaşılır.
+const SCENES = {};
+const loader = new TextureLoader();
+function sceneTex(src) {
+  if (!SCENES[src]) {
+    SCENES[src] = loader.load(src);
+    SCENES[src].colorSpace = SRGBColorSpace;
+    SCENES[src].anisotropy = 4;
+  }
+  return SCENES[src];
+}
+const spOf = (st, v) => v.set(st.aspect, st.base, st.cx, st.h);
 
 import "./BackgroundMaterial";
 
@@ -29,7 +42,9 @@ export default function Background() {
   const accent = useMemo(() => new Color(flavors[0].theme.accent ?? flavors[0].theme.glow), []);
   const target = useMemo(() => ({ glow: new Color(), edge: new Color(), accent: new Color() }), []);
   const center = useMemo(() => new Vector2(0.5, 0.6), []);
-  const last = useRef({ key: "", controls: null, at: -10, hover: false, from: null, to: null, mix: 1, stage: 1 });
+  const last = useRef({ key: "", controls: null, at: -10, hover: false, from: null, to: null, mix: 1, stage: 1, scene: null, sceneOn: 0, sceneMix: 1 });
+  const sp1 = useMemo(() => new Vector4(1, 0.6, 0.5, 0.35), []);
+  const sp2 = useMemo(() => new Vector4(1, 0.6, 0.5, 0.35), []);
 
   const pulse = (time) => {
     const l = last.current;
@@ -92,6 +107,49 @@ export default function Background() {
     }
     l.fx = MathUtils.damp(l.fx ?? fx, fx, 4, Math.min(delta, 0.1));
     material.current.u_focusX = l.fx;
+
+    // Ürünün sahne fotoğrafı: kaidesi öndeki ürünün ayağına hizalanır, ürün değişince yumuşakça
+    // diğerine geçer. Detayda, Ritüel'de ve mağazada söner (orada ürün kaideden kalkar).
+    const stageOf = flavors[sceneState.heroFlavor].stage;
+    const m = material.current;
+    if (stageOf && stageOf !== l.scene) {
+      const prev = l.scene;
+      l.scene = stageOf;
+      if (prev) {
+        m.u_scene1 = sceneTex(prev.src);
+        spOf(prev, sp1);
+        l.sceneMix = 0;
+      } else {
+        m.u_scene1 = sceneTex(stageOf.src);
+        spOf(stageOf, sp1);
+        l.sceneMix = 1;
+      }
+      m.u_scene2 = sceneTex(stageOf.src);
+      spOf(stageOf, sp2);
+      m.u_sp1 = sp1;
+      m.u_sp2 = sp2;
+    }
+    l.sceneMix = Math.min(1, l.sceneMix + Math.min(delta, 0.1) / 1.1);
+    m.u_sceneMix = l.sceneMix * l.sceneMix * (3 - 2 * l.sceneMix);
+    const f = sceneState.focus;
+    const onTarget =
+      (SOLO && stageOf && f.bottom != null && f.top != null ? 1 : 0) *
+      (st.detail ? 0 : 1) *
+      (1 - scrollState.ritualIn) *
+      (1 - scrollState.shopIn) *
+      Math.min(1, sceneState.intro * 1.3) *
+      (1 - Math.min(1, sceneState.spread * 3));
+    l.sceneOn = MathUtils.damp(l.sceneOn, onTarget, 3, Math.min(delta, 0.1));
+    m.u_sceneOn = l.sceneOn;
+    if (f.bottom != null && f.top != null) {
+      const sc = f.scale || 1;
+      const yb = (P.set(f.position.x, f.position.y + f.bottom * sc, f.position.z).project(camera).y + 1) / 2;
+      const yt = (Q.set(f.position.x, f.position.y + f.top * sc, f.position.z).project(camera).y + 1) / 2;
+      l.baseY = MathUtils.damp(l.baseY ?? yb, yb, 6, Math.min(delta, 0.1));
+      l.bottleH = MathUtils.damp(l.bottleH ?? yt - yb, yt - yb, 6, Math.min(delta, 0.1));
+      m.u_baseY = l.baseY;
+      m.u_bottleH = Math.max(0.05, l.bottleH);
+    }
     material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
 

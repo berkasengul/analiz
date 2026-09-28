@@ -191,3 +191,13 @@ python3 demo-fabrikasi/araclar/sahne-birlestir.py turkan
 python3 demo-fabrikasi/araclar/shopify-aktar.py turkan
 python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json
 ```
+
+### Ana sayfa sergisinin arka planında sahne fotoğrafı
+
+`foto.backdropArt` (sceneArt ile aynı alanlar, `crop` yok) her ürüne bir ürünsüz sahne fotoğrafı atar;
+`sahne-birlestir.py` bunları `fon/` klasörüne yazar (gerekirse ürünün rengine boyar) ve `fon/fon.json` üretir.
+Aktarım ürüne `stage` alanını ekler (`src`, en/boy, kaide çizgisi, orta, ürün boyu). Site (Background.jsx)
+fotoğrafı öndeki 3B ürünün arkasına koyar: fotoğraftaki kaide ürünün ayağına hizalanır, boyu ürünün ekrandaki
+boyuna göre ölçeklenir, kenarları karanlığa karışır, ürün değişince yumuşakça geçer; 3B kaide gizlenir.
+Detayda, Ritüel'de ve mağazada söner. Türkan: Floraison pembe gül, Agrumes mor lavanta-limon, Boisé yeşil orkide,
+diğerleri orkide sahnesinin kendi renklerine boyanmış hâli. Kartların hepsi kemerli orkide sergisinde.

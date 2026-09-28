@@ -218,6 +218,13 @@
         "foto/turkan-no-8-floraison-100-ml/3.webp",
         "foto/turkan-no-8-floraison-100-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/pembe-gul.webp",
+        "aspect": 1.0515,
+        "base": 0.6656,
+        "cx": 0.4743,
+        "h": 0.3598
+      },
       "views": [
         null,
         {
@@ -573,6 +580,13 @@
         "foto/turkan-no-3-ambre-100ml/3.webp",
         "foto/turkan-no-3-ambre-100ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-e8741c.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      },
       "views": [
         null,
         {
@@ -880,6 +894,13 @@
         "foto/turkan-no-7-agrumes-100-ml/4.webp",
         "foto/turkan-no-7-agrumes-100-ml/5.webp"
       ],
+      "stage": {
+        "src": "fon/mor-lavanta-limon.webp",
+        "aspect": 1.0515,
+        "base": 0.668,
+        "cx": 0.4666,
+        "h": 0.3598
+      },
       "views": [
         null,
         {
@@ -1194,6 +1215,13 @@
         "foto/turkan-epi̇ce-1-cologne-du-parfumeur-150-ml/3.webp",
         "foto/turkan-epi̇ce-1-cologne-du-parfumeur-150-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-e23d2d.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3568
+      },
       "views": [
         null,
         {
@@ -1906,7 +1934,14 @@
         "foto/ozel-hediye-seti/4.webp",
         "foto/ozel-hediye-seti/5.webp",
         "foto/ozel-hediye-seti/6.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-b05bd6.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Extrait de Parfum Özel Hediye Seti",
@@ -2127,7 +2162,14 @@
         "foto/ozel-hediye-seti-1/4.webp",
         "foto/ozel-hediye-seti-1/5.webp",
         "foto/ozel-hediye-seti-1/6.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-e0a820.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "No/10 Noblesse",
@@ -2283,6 +2325,13 @@
         "foto/turkan-no-10-noblesse-oriental-family-100ml/3.webp",
         "foto/turkan-no-10-noblesse-oriental-family-100ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-3656d8.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      },
       "views": [
         null,
         {
@@ -2545,6 +2594,13 @@
         "foto/turkan-no-2-equilibre-citrus-family/3.webp",
         "foto/turkan-no-2-equilibre-citrus-family/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-7cc62a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      },
       "views": [
         null,
         {
@@ -2759,6 +2815,13 @@
         "foto/turkan-no-3-ambre-15-ml/2.webp",
         "foto/turkan-no-3-ambre-15-ml/3.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-e8741c.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.2762
+      },
       "views": [
         null,
         {
@@ -3025,6 +3088,13 @@
         "foto/turkan-no-6-charme-floral-family-100ml/3.webp",
         "foto/turkan-no-6-charme-floral-family-100ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-d93aa6.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      },
       "views": [
         null,
         {
@@ -3289,6 +3359,13 @@
         "foto/turkan-no-9-mystique-spicy-family-100ml/3.webp",
         "foto/turkan-no-9-mystique-spicy-family-100ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-138f9a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      },
       "views": [
         null,
         {
@@ -3530,6 +3607,13 @@
         "foto/turkan-no-7-agrumes-15-ml/2.webp",
         "foto/turkan-no-7-agrumes-15-ml/3.webp"
       ],
+      "stage": {
+        "src": "fon/mor-lavanta-limon.webp",
+        "aspect": 1.0515,
+        "base": 0.668,
+        "cx": 0.4666,
+        "h": 0.3198
+      },
       "views": [
         null,
         {
@@ -3740,6 +3824,13 @@
         "foto/turkan-no-8-floraison-15ml/2.webp",
         "foto/turkan-no-8-floraison-15ml/3.webp"
       ],
+      "stage": {
+        "src": "fon/pembe-gul.webp",
+        "aspect": 1.0515,
+        "base": 0.6656,
+        "cx": 0.4743,
+        "h": 0.3198
+      },
       "views": [
         null,
         {
@@ -4005,6 +4096,13 @@
         "foto/turkan-agrumes-7-cologne-du-parfumeur-150-ml/3.webp",
         "foto/turkan-agrumes-7-cologne-du-parfumeur-150-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/mor-lavanta-limon.webp",
+        "aspect": 1.0515,
+        "base": 0.668,
+        "cx": 0.4666,
+        "h": 0.4131
+      },
       "views": [
         null,
         {
@@ -4433,6 +4531,13 @@
         "foto/turkan-agrumes-7-cologne-du-parfumeur-50-ml/3.webp",
         "foto/turkan-agrumes-7-cologne-du-parfumeur-50-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/mor-lavanta-limon.webp",
+        "aspect": 1.0515,
+        "base": 0.668,
+        "cx": 0.4666,
+        "h": 0.2798
+      },
       "views": [
         null,
         {
@@ -4785,6 +4890,13 @@
         "foto/turkan-boi̇se-4-cologne-du-parfumeur-150-ml/3.webp",
         "foto/turkan-boi̇se-4-cologne-du-parfumeur-150-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3568
+      },
       "views": [
         null,
         {
@@ -5217,6 +5329,13 @@
         "foto/turkan-boi̇se-4-cologne-du-parfumeur-50-ml/3.webp",
         "foto/turkan-boi̇se-4-cologne-du-parfumeur-50-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.2417
+      },
       "views": [
         null,
         {
@@ -5540,6 +5659,13 @@
         "foto/turkan-epi̇ce-1-cologne-du-parfumeur-50-ml/3.webp",
         "foto/turkan-epi̇ce-1-cologne-du-parfumeur-50-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/yesil-orkide-e23d2d.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.2417
+      },
       "views": [
         null,
         {
@@ -5851,6 +5977,13 @@
         "foto/turkan-floraison-8-cologne-du-parfumeur-150-ml/3.webp",
         "foto/turkan-floraison-8-cologne-du-parfumeur-150-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/pembe-gul.webp",
+        "aspect": 1.0515,
+        "base": 0.6656,
+        "cx": 0.4743,
+        "h": 0.4131
+      },
       "views": [
         null,
         {
@@ -6570,6 +6703,13 @@
         "foto/turkan-floraison-8-cologne-du-parfumeur-50-ml/3.webp",
         "foto/turkan-floraison-8-cologne-du-parfumeur-50-ml/4.webp"
       ],
+      "stage": {
+        "src": "fon/pembe-gul.webp",
+        "aspect": 1.0515,
+        "base": 0.6656,
+        "cx": 0.4743,
+        "h": 0.2798
+      },
       "views": [
         null,
         {
