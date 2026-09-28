@@ -48,7 +48,7 @@ export default function Scene() {
           <CameraRig />
           <Background />
           <Particles />
-          {THEME.numerals && THEME.carousel !== "solo" && <Numeral />}
+          {THEME.numerals && !["solo", "orbit"].includes(THEME.carousel) && <Numeral />}
           {THEME.pedestal && <Pedestal />}
           <IceScene />
           <Carousel />

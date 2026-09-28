@@ -7,7 +7,7 @@
 **Telefon:** +90 850 532 44 21 (hafta içi 09.00–18.00, GMT+3; sitede yazıyor)
 **Instagram:** @uniquee_luxury (DM)
 **Adres:** Erzene Mah. 17 Sk. No:1/1, İzmir (gizlilik politikasında)
-**Ekler (mail):** `unique-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg` (zip ekleme)
+**Ekler (mail):** `unique-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg`, `5-sise-arkasi.jpg` (zip ekleme)
 **Ne zaman:** Salı–Perşembe, 10:00–11:00 (Türkiye saati)
 
 ## Nasıl satılır (sıra)
@@ -34,7 +34,8 @@ Unique'e Luxury için kokularınızı 3D olarak sergileyen bir web sitesi hazır
 
 Kısaca neler var:
 
-- **Şişeleriniz 3D ve kendi renginde:** 19 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Her koku, şişesinin renginde bir sahnede duruyor: Crush On Me kırmızı, Ocean The Rive lacivert, Mangonifiscent yeşil. Aşağı kaydırdıkça kokular sırayla sahneye geliyor; şişe çevrilebiliyor.
+- **Şişeleriniz 3D, döner bir vitrinde:** 19 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada şişeler altın halkalı, parlak siyah bir döner platformda duruyor; aşağı kaydırdıkça platform dönüyor, sıradaki koku öne ve ışığa geliyor. Sahne her kokunun renginde: Crush On Me kırmızı, Ocean The Rive lacivert, Mangonifiscent yeşil.
+- **Şişe çevrilebiliyor:** Arkada kokunun adı, notaları ve hacmiyle etiket var.
 - **Her kokunun notaları ve hikâyesi:** Ürüne girince ana notalar, kokunun hikâyesi ve markanızı anlatan 4 kısa bölüm açılıyor.
 - **Tüm koleksiyon hazır:** İkonlar, yeni kokular ve koleksiyon; fiyatlar ve metinler sitenizden alındı.
 - **Mevcut mağazanızla çalışıyor:** Sepet Shopify mağazanıza bağlı; "Ödemeye geç" müşteriyi doğrudan uniqueeluxury.com'daki ödeme sayfasına götürüyor. Yeni bir altyapı gerekmiyor.

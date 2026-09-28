@@ -2,7 +2,6 @@
   "foto": {
     "ai": true,
     "skip": "discovery-set|travel-set|wooden-box",
-    "noBackText": ".",
     "backPhotos": false,
     "views": false,
     "sceneArt": [
@@ -22,15 +21,36 @@
         "dim": 0.5
       }
     ],
-    "backdropArt": [
-      {
-        "match": ".",
-        "file": "yesil-orkide.webp",
-        "cx": 543,
-        "base": 866,
-        "h": 450,
-        "tint": "palette"
-      }
+    "glassBack": {
+      "label": [
+        0.37,
+        0.34,
+        0.63,
+        0.8
+      ],
+      "labels": [
+        [
+          "chicelle",
+          [
+            0.375,
+            0.355,
+            0.625,
+            0.79
+          ]
+        ]
+      ],
+      "brand": "UNIQUE'E LUXURY",
+      "family": "Extrait de Parfum",
+      "lines": [
+        "DESIGNED IN CALIFORNIA",
+        "MADE IN TÜRKİYE"
+      ]
+    },
+    "heights": [
+      [
+        "chicelle",
+        11.5
+      ]
     ]
   },
   "aktar": {
@@ -478,7 +498,9 @@
       "uniquee-luxury-crush-on-me",
       "ocean-the-rive-100-ml",
       "mangonifiscent",
-      "uniquee-luxury-kutay"
+      "uniquee-luxury-kutay",
+      "chicelle",
+      "zengi"
     ],
     "ritual": [
       {
@@ -736,6 +758,12 @@
         "#230c02"
       ]
     ],
-    "tagline": "notes"
+    "tagline": "notes",
+    "sizes": [
+      [
+        "chicelle",
+        "50 ml"
+      ]
+    ]
   }
 }

@@ -20,6 +20,7 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "rename": {"handle": ["tr", "en"]}
     "tagline": "notes"                     kısa alt yazı: ürünün ilk üç notası (uzun açıklama cümlesi yerine)
     "defaultSize": "100 ml"                 ürün adında hacim yoksa (bütün ürünler aynı hacimde)
+    "sizes": [["regex", "50 ml"]]           tek tek ürünlerin hacmi (defaultSize'dan önce)
     "trText": {"handle": "Türkçe açıklama"}   mağaza yalnızca İngilizceyse: markanın metninin Türkçe çevirisi
                                              (İngilizce metin mağazadan olduğu gibi kalır)
     "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
@@ -157,7 +158,7 @@ def main():
         p = tr[h]
         q = en.get(h) or en_by_id.get(p["id"], {})
         name, size = split_name(p["title"])
-        size = size or R.get("defaultSize")
+        size = size or next((v for rx, v in R.get("sizes", []) if re.search(rx, h)), None) or R.get("defaultSize")
         en_name, _ = split_name(q.get("title") or p["title"])
         if h in R.get("rename", {}):
             name, en_name = R["rename"][h]

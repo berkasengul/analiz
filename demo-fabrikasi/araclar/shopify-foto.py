@@ -11,6 +11,11 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      sitede küçük görsele tıklayınca sahnedeki ürün o modele döner
     "noViews": "regex"              3B görünüm üretilmeyecek ürünler (ör. setler)
     "skip": "regex"                 demoya alınmayacak ürünler (ör. deneme setleri, kutu ürünleri)
+    "glassBack": {"label": [x0, y0, x1, y1], "labels": [["regex", [x0, y0, x1, y1]]], "lines": ["...", ...]}
+                                     renkli cam şişe: arka yüz ön fotoğrafın aynası (cam ve renk net), ön etiketin
+                                     yerine markanın etiket stilinde arka etiket (ad, aile, notalar, hacim; notalar ve
+                                     hacim aktar kurallarından: aktar.notes, aktar.sizes/defaultSize). Koordinatlar
+                                     ön yüz karesine oranla.
     "sets": {"set-handle": ["ürün-handle", "başka-handle#3", ...]}
                                      setin içindekiler; "#n" o ürünün n. fotoğrafı (setin kendisi de olabilir)
 Çıktı: markalar/<marka>-foto/{web,cut,labels,meta.json}
@@ -36,7 +41,8 @@ MARKA = os.path.join(HERE, "..", "markalar")
 SRC = os.path.join(MARKA, f"{SLUG}-shopify")
 OUT = os.path.join(MARKA, f"{SLUG}-foto")
 _rules = os.path.join(MARKA, f"{SLUG}-kurallar.json")
-RULES = json.load(open(_rules, encoding="utf-8")).get("foto", {}) if os.path.exists(_rules) else {}
+_ALL = json.load(open(_rules, encoding="utf-8")) if os.path.exists(_rules) else {}
+RULES = _ALL.get("foto", {})
 S = 1280  # atlasın bir yarısı (yazılar okunur kalsın diye yüksek)
 BG = (244, 241, 234)  # galeride şeffaf fotoğrafların zemini
 
@@ -506,6 +512,82 @@ def back_text(handle):
     return {"name": name, "size": size, "desc": desc, "chips": [], "usage": _clip(usage, 150) if usage else None}
 
 
+def glass_back(F, handle):
+    """Renkli cam şişenin arka yüzü: ön fotoğrafın aynası (arkadan bakınca cam ve parfümün rengi görünür)
+    ve ön etiketin yerinde, etiketin kendi renkleriyle çizilmiş okunur bir arka etiket."""
+    from PIL import ImageDraw
+    G = RULES["glassBack"]
+    x0, y0, x1, y1 = next((r for rx, r in G.get("labels", []) if re.search(rx, handle)), G["label"])
+    img = F.transpose(Image.FLIP_LEFT_RIGHT).copy()
+    W, H = img.size
+    # Aynada etiket x ekseninde yansır.
+    L, T, Rr, B = int((1 - x1) * W), int(y0 * H), int((1 - x0) * W), int(y1 * H)
+    fa = np.asarray(F)[int(y0 * H):int(y1 * H), int(x0 * W):int(x1 * W), :3].reshape(-1, 3).astype(float)
+    lum = fa.mean(1)
+    paper = np.median(fa[lum > np.percentile(lum, 60)], 0)
+    ink = np.median(fa[lum < np.percentile(lum, 4)], 0)
+    # Koyu etikette (ör. bronz) yazı açık altın: etiketin en parlak pikselleri (ön yüzdeki altın baskı).
+    if paper.mean() < 120:
+        paper = np.median(fa[lum < np.percentile(lum, 40)], 0)
+        ink = np.median(fa[lum > np.percentile(lum, 97)], 0)
+    d = ImageDraw.Draw(img)
+    r = int((Rr - L) * 0.04)
+    top, bot = np.array(paper) * 1.02, np.array(paper) * 0.9
+    for yy in range(T, B):
+        t = (yy - T) / max(1, B - T)
+        c = tuple(int(min(255, v)) for v in top * (1 - t) + bot * t)
+        d.line([(L, yy), (Rr, yy)], fill=c + (255,))
+    inkc = tuple(int(v) for v in ink) + (255,)
+    m1, m2 = int((Rr - L) * 0.035), int((Rr - L) * 0.06)
+    d.rectangle([L + m1, T + m1, Rr - m1, B - m1], outline=inkc, width=max(2, int((Rr - L) * 0.008)))
+    d.rectangle([L + m2, T + m2, Rr - m2, B - m2], outline=inkc, width=1)
+    A = _ALL.get("aktar", {})
+    name = next((v[1] for k, v in A.get("rename", {}).items() if k == handle), None) or re.sub(RULES.get("namePrefix", r"^$"), "", _TR_title(handle))
+    notes = next((n for rx, n in A.get("notes", []) if re.search(rx, handle)), [])
+    size = next((v for rx, v in A.get("sizes", []) if re.search(rx, handle)), None) or A.get("defaultSize") or ""
+    wide = Rr - L - 2 * m2 - int((Rr - L) * 0.08)
+    cx = (L + Rr) / 2
+
+    def fit_font(t, name_, size_, width):
+        f = _font(name_, size_)
+        while d.textlength(t, font=f) > width and size_ > 10:
+            size_ *= 0.94
+            f = _font(name_, size_)
+        return f
+
+    u = (Rr - L) / 7.2
+    # Uzun ad küçülmesin: iki satıra bölünür.
+    title = [name.upper()]
+    if d.textlength(title[0], font=_font("Cinzel-Bold.ttf", u * 0.95)) > wide * 1.15 and " " in name:
+        words = name.upper().split()
+        k = min(range(1, len(words)), key=lambda i: abs(len(" ".join(words[:i])) - len(" ".join(words[i:]))))
+        title = [" ".join(words[:k]), " ".join(words[k:])]
+    blocks = [(G.get("brand", "UNIQUE'E LUXURY"), "Cinzel-Medium.ttf", u * 0.62), ("", None, u * 0.35)]
+    blocks += [(t, "Cinzel-Bold.ttf", u * 0.95) for t in title]
+    blocks += [(G.get("family", "Extrait de Parfum"), "Marcellus-Regular.ttf", u * 0.62),
+              ("—", "Marcellus-Regular.ttf", u * 0.6)]
+    blocks += [(n[1], "Marcellus-Regular.ttf", u * 0.56) for n in notes[:5]]
+    ml = re.sub(r"\s*ml", "", size)
+    oz = {"100": "3.4", "50": "1.7", "30": "1.0"}.get(ml)
+    blocks += [("", None, u * 0.35), (f"e {ml}ml" + (f"  ·  {oz} fl.oz" if oz else ""), "Lato-Bold.ttf", u * 0.5)]
+    blocks += [(line, "Lato-Regular.ttf", u * 0.42) for line in G.get("lines", [])]
+    fonts = [(t, fit_font(t, fn, sz, wide) if fn else None, sz) for t, fn, sz in blocks]
+    heights = [(f.getbbox("Hg")[3] - f.getbbox("Hg")[1]) * 1.45 if f else sz for t, f, sz in fonts]
+    y = T + (B - T - sum(heights)) / 2
+    for (t, f, _), hgt in zip(fonts, heights):
+        if f and t:
+            d.text((cx, y + hgt / 2), t, font=f, fill=inkc, anchor="mm")
+        y += hgt
+    return img
+
+
+def _TR_title(handle):
+    global _TR
+    if _TR is None:
+        _TR = {p["handle"]: p for p in json.load(open(os.path.join(SRC, "products-tr.json"), encoding="utf-8"))}
+    return (_TR.get(handle) or {}).get("title", handle)
+
+
 def largest_part(F):
     """Yalnızca en büyük parça kalır (şişenin yanında kalan kutu/yansıma kırıntıları silinir)."""
     a = np.asarray(F).copy()
@@ -695,11 +777,22 @@ def main():
             else:
                 entry["back"] = True
             entry.update(shape_info(F))
+            if RULES.get("glassBack"):
+                # Renkli cam: yan yüzler parfümün rengini taşır (kenardaki beyaz parlama değil).
+                fa = np.asarray(F)
+                x0, y0, x1, y1 = RULES["glassBack"]["label"]
+                reg = fa[int(0.45 * S):int(0.72 * S), int((x0 - 0.1) * S):int((x0 - 0.02) * S)]
+                reg = reg[reg[..., 3] > 200][:, :3]
+                if len(reg):
+                    entry["edge"] = [int(v) for v in np.median(reg, 0)]
             entry["accent"] = accent_of(F, entry["color"])
             # Arka yarının alfa kanalı ön silüetin aynası: iki yüz aynı sınırda buluşur.
             # Boş kalan pikseller (silüet farkı) bulanık ayna ile doldurulur.
             # Arka fotoğraf ön yüzün aynası hizasında; yoksa metinli, yazısız-renkli arka.
-            fill = plain_back(F, back.transpose(Image.FLIP_LEFT_RIGHT) if back is not None else None, back_text(handle))
+            if RULES.get("glassBack"):
+                fill = glass_back(F, handle)
+            else:
+                fill = plain_back(F, back.transpose(Image.FLIP_LEFT_RIGHT) if back is not None else None, back_text(handle))
             fill.putalpha(mirror.getchannel("A"))
             fronts[handle], backs[handle] = F, fill
             atlas = Image.new("RGBA", (2 * S, S))

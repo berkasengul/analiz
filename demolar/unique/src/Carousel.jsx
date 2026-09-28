@@ -11,7 +11,10 @@ import { THEME } from "./theme";
 // Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
 const STUDIO = !!THEME.studio;
 // "solo": yan ürünler küçülüp geriye çekilir; sahne tek ürün odaklı.
-const SOLO = THEME.carousel === "solo";
+// "orbit": tek ürün sahnesinin döner vitrin çeşidi: ürünler büyük bir döner platformun kenarında
+// halka olarak durur, kaydırınca platform döner ve sıradaki ürün öne, ışığa gelir.
+export const ORBIT = THEME.carousel === "orbit";
+const SOLO = THEME.carousel === "solo" || ORBIT;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
@@ -46,6 +49,12 @@ const SLOWMO = typeof window !== "undefined" ? Number(new URLSearchParams(window
 const FLIGHT = 1.15 * SLOWMO; // saniye
 const KEYS = ["x", "y", "z", "rotX", "rotY", "rotZ", "scale"];
 
+// Döner vitrinin yarıçapı ve platform yüksekliği (ekran oranına göre).
+export const orbitRadius = (aspect) => (aspect < 0.9 ? 2.9 : 4.5);
+export const orbitFloor = (aspect) => (aspect < 0.9 ? -1.25 : -1.75);
+// Masaüstünde halka sağa kayar: soldaki başlığa yer kalır.
+export const orbitX = (aspect) => (aspect < 0.9 ? 0 : 2.3 * MathUtils.clamp(aspect / 1.9, 0.44, 1));
+
 // Kutular sonsuz bir yay üzerinde dizilir. d = kutunun aktif tata uzaklığı.
 export function arcPose(d, aspect, time, i) {
   const ad = Math.abs(d);
@@ -56,6 +65,21 @@ export function arcPose(d, aspect, time, i) {
     // Tek ürün sahnesi: öndeki ürün büyük ve ışıkta; diğerleri iki yanda, geride ve loşta
     // hafifçe görünür. Telefonda yanlar ekranın kenarından yarım görünür. Kaydırınca sıradaki ışığa yürür.
     const phone = aspect < 0.9;
+    if (ORBIT) {
+      // Döner vitrin: halka üzerinde açı; bütün ürünlerin ayağı platformun yüzeyinde.
+      const a = (d / N) * Math.PI * 2;
+      const R = orbitRadius(aspect);
+      const sc = base * (phone ? 0.5 + 0.78 * focus : 0.5 + 0.95 * focus);
+      return {
+        x: orbitX(aspect) + R * Math.sin(a),
+        y: orbitFloor(aspect) - (BOTTOM[i] ?? -1.9) * sc,
+        z: R * (Math.cos(a) - 1) + focus * (phone ? 1.1 : 1.6),
+        rotX: 0.02,
+        rotY: -a * 0.55 + (focus > 0 ? Math.sin(time * 0.5) * 0.16 * focus : 0),
+        rotZ: 0,
+        scale: sc,
+      };
+    }
     const scale = base * (phone ? 0.62 + 0.72 * focus : 0.6 + 0.84 * focus) * (1 - (LINEAR ? MathUtils.smoothstep(ad, 3.4, 4.4) : MathUtils.smoothstep(ad, Math.min(3.6, N / 2 - 0.6), Math.min(4.6, N / 2))));
     // Sahne fotoğraflı üründe öndeki ürünün ayağı hep aynı çizgide (ilk ölçülen ürünün ayağı):
     // arka plandaki kaide hiç kıpırdamaz, farklı boydaki her ürün ona oturur.
@@ -147,6 +171,7 @@ export default function Carousel() {
     sceneState.spread = Math.max(spread, fade);
     const aspect = size.width / size.height;
     const nearest = order[slotIndex(s.p)];
+    sceneState.ringAngle = (s.p / N) * Math.PI * 2;
     sceneState.settled = !detail && spread < 0.02 && Math.abs(s.p - Math.round(s.p)) < 0.01;
     sceneState.hoverFocus = s.hovered === nearest && !detail && spread < 0.1 && Math.abs(s.p - Math.round(s.p)) < 0.1;
 

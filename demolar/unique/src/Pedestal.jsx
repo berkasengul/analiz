@@ -1,11 +1,12 @@
 import { useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { AdditiveBlending, Color, MathUtils, ShaderMaterial } from "three";
 
 import { flavors } from "./data";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { THEME } from "./theme";
+import { ORBIT, orbitFloor, orbitRadius, orbitX } from "./Carousel";
 
 const GOLD = new Color(THEME.accent ?? "#c9a55c");
 const tmp = new Color();
@@ -39,6 +40,7 @@ export default function Pedestal() {
     []
   );
 
+  const size = useThree((s) => s.size);
   useFrame(({ clock }, delta) => {
     const dt = Math.min(delta, 0.1);
     const st = useStore.getState();
@@ -48,13 +50,31 @@ export default function Pedestal() {
     S.vis = MathUtils.damp(S.vis, target, 3, dt);
     const f = sceneState.focus;
     const sc = f.scale || 1;
-    group.current.position.set(f.position.x, f.position.y + (f.bottom != null ? f.bottom * sc - 0.04 : -1.95 * sc + 0.15), f.position.z);
-    group.current.scale.setScalar(sc);
+    if (ORBIT) {
+      // Döner vitrin: halkanın merkezinde, bütün ürünleri taşıyan büyük platform; kaydırmayla döner.
+      const asp = size.width / size.height;
+      const R = orbitRadius(asp);
+      group.current.position.set(orbitX(asp), orbitFloor(asp) - 0.02, -R);
+      group.current.scale.setScalar((R + 1.15) / 1.4);
+      group.current.rotation.y = -(sceneState.ringAngle ?? 0);
+    } else {
+      group.current.position.set(f.position.x, f.position.y + (f.bottom != null ? f.bottom * sc - 0.04 : -1.95 * sc + 0.15), f.position.z);
+      group.current.scale.setScalar(sc);
+    }
     group.current.visible = S.vis > 0.01;
     tmp.set(flavors[st.active].theme.accent);
     S.color.lerp(tmp, 0.06);
     glowMat.uniforms.u_color.value.copy(S.color);
-    glowMat.uniforms.u_alpha.value = 0.75 * S.vis;
+    glowMat.uniforms.u_alpha.value = (ORBIT ? 0.55 : 0.75) * S.vis;
+    if (ORBIT) {
+      // Işık havuzu platformla dönmez: öndeki ürünün altında durur.
+      const k = group.current.scale.x;
+      const ry = group.current.rotation.y;
+      const r = orbitRadius(size.width / size.height) / k;
+      glow.current.position.set(r * Math.sin(-ry), 0.012, r * Math.cos(-ry));
+      glow.current.rotation.set(-Math.PI / 2, 0, 0);
+      glow.current.scale.setScalar(0.55);
+    }
     glowMat.uniforms.u_time.value = clock.getElapsedTime();
     ring.current.material.opacity = 0.9 * S.vis;
     disc.current.material.opacity = 0.92 * S.vis;

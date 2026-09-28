@@ -209,3 +209,15 @@ Sergi kartlı temada (`theme.cards: "gallery"`) `#/urunler` sayfası 3B bir kapa
 ürünler kayar (sahne 250vh boyunca sabit kalır), kendiliğinden birkaç saniyede bir ilerler (fare üstündeyken
 durur, hareket azaltma ayarında hiç ilerlemez). Altta öndeki ürünün kategorisi, adı, fiyatı, sepet ve ürüne
 git düğmeleri; ardından kategori çipleri ve ürün ızgarası gelir.
+
+### Döner vitrin (`theme.carousel: "orbit"`) ve renkli cam şişenin arka yüzü
+
+Her marka kendi 3B kaydırma düzenini seçer. `"solo"` (Türkan): öndeki ürün ışıkta, yanlar silüet, arkada
+sahne fotoğrafı. `"orbit"` (Unique'e Luxury): ana sayfa ürünleri büyük, parlak siyah bir döner platformun
+(altın halkalı) kenarında halka olarak durur; kaydırınca platform döner, sıradaki ürün öne ve ışığa gelir;
+kamera hafif yukarıdan bakar, masaüstünde halka sağa kayar (başlığa yer kalır). Arka plan ürün renginde kadife.
+
+`foto.glassBack` (renkli cam şişe): arka yüz ön fotoğrafın aynası (cam ve renk net); ön etiketin yerine etiketin
+kendi renkleriyle arka etiket (marka, ad, aile, notalar, hacim, `lines`); yan yüzler parfümün rengi.
+Aktarımda `sizes` (ürün başına hacim), `defaultSize`, `trText` (İngilizce mağaza için Türkçe çeviri),
+`tagline: "notes"` (kısa alt yazı notalardan); fotoğrafta `skip` (demoya alınmayacak ürünler).
