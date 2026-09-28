@@ -159,4 +159,13 @@ python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json   # yeni
 ```
 
 Telefonda ürün akışı sayfa sayfadır: her kaydırma hareketi tam bir ürün ilerler ya da geri gider; son üründen
-sonra sayfa doğal kaydırmayla alt bölümlere iner.
+sonra sayfa doğal kaydırmayla alt bölümlere iner (son ürün konuma değil sıraya göre tanınır: adres çubuğu
+açılıp kapanınca takılmaz).
+
+### Sergi kartları (sinematik sahne)
+
+`kart-3b.py <marka> --stage` her ürünü sitenin 3B motorunda bir sergide çeker: altın çerçeveli kemerli niş
+(arkası kokunun renginde ışık), siyah mermer kaide, koyu zemin, tepeden spot ışığı, ışık konisi ve altın toz.
+Çıktı `<marka>-foto/sahne/<handle>.webp` (3:4). Aktarım bunu ürünün `scene` alanına yazar; galeri teması
+(`theme.cards: "gallery"`) bu görseli tam kart olarak gösterir: ince altın çerçeve, altta yazı, sepet ve ok düğmesi.
+Hazır bir sahne fotoğrafı (ör. içerik notalarıyla çekilmiş) aynı dosya adıyla `sahne/` klasörüne konursa o kullanılır.

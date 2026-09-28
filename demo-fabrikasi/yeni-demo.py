@@ -111,6 +111,8 @@ def main(path):
         shutil.copytree(os.path.join(foto, "cut"), os.path.join(dst, "public", "cut"), dirs_exist_ok=True)
         if os.path.isdir(os.path.join(foto, "render3d")):  # kart görselleri: 3B modelden çekim (araclar/kart-3b.py)
             shutil.copytree(os.path.join(foto, "render3d"), os.path.join(dst, "public", "r3d"), dirs_exist_ok=True)
+        if os.path.isdir(os.path.join(foto, "sahne")):  # kart sahneleri: 3B sergi (araclar/kart-3b.py --stage)
+            shutil.copytree(os.path.join(foto, "sahne"), os.path.join(dst, "public", "sahne"), dirs_exist_ok=True)
         used = {p["file"] for p in cfg["products"]} | {v["file"] for p in cfg["products"] for v in (p.get("views") or []) if v}
         for n in os.listdir(os.path.join(foto, "labels")):
             if n in used:

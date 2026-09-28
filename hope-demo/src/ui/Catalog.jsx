@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PAGE, SET_KEY, content, flavors } from "../data";
 import { useT, termLang } from "../i18n";
 import { useStore } from "../store";
-import { Plus } from "../Icons";
+import { Arrow, Bag, Plus } from "../Icons";
 import { THEME, numeralOf } from "../theme";
 
 // "gallery" kartları (content.theme.cards): ürünün kendi renginde zemin, arkada dev numara,
@@ -141,6 +141,39 @@ function Card({ item, t, onOpen, index = 0 }) {
   const num = GALLERY ? numeralOf(item.name.tr) : null;
   const prod = GALLERY && item.product != null ? content.products[item.product] : null;
   const notes = prod ? (t.lang === "en" ? prod.en?.notes : null) ?? prod.notes : null;
+  const add = () => {
+    addToCart(catalogId(item.id), 1, "once", 1);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1400);
+    setTimeout(() => setCartOpen(true), 250);
+  };
+  // Sergi kartı: ürün 3B sahnede (kemerli niş, mermer kaide, spot ışığı); yazı görselin
+  // altındaki karartmanın üstünde, sağda sepet ve ürünü açan yuvarlak düğmeler.
+  if (GALLERY && item.scene)
+    return (
+      <article className="pcard pcard--scene" style={{ "--i": index % 4 }} {...motion}>
+        <button className="pcard__scene" onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
+          <img src={`${BASE}${item.scene}`} alt="" loading="lazy" />
+          <span className="pcard__dust" aria-hidden="true" />
+        </button>
+        <div className="pcard__over">
+          <p className="pcard__cat mono" lang={termLang(cat?.name[t.lang])}>{cat?.name[t.lang]}</p>
+          <h3 className="pcard__name" lang={termLang(name) ?? t.nameLang}>{name}</h3>
+          <p className="pcard__size mono">
+            {item.size ? `${item.size} · ` : ""}
+            {t.money(t.price(1, "once", catalogId(item.id)))}
+          </p>
+          <div className="pcard__acts">
+            <button className={`pcard__round${added ? " is-added" : ""}`} onClick={add} aria-label={t.ui.addToCart} title={t.ui.addToCart}>
+              {added ? <Plus /> : <Bag />}
+            </button>
+            <button className="pcard__round pcard__round--go" onClick={() => onOpen?.(item)} aria-label={name}>
+              <Arrow />
+            </button>
+          </div>
+        </div>
+      </article>
+    );
   return (
     <article
       className={`pcard${GALLERY ? " pcard--gallery" : ""}`}
@@ -187,12 +220,7 @@ function Card({ item, t, onOpen, index = 0 }) {
           </span>
           <button
             className={`pcard__add${added ? " is-added" : ""}`}
-            onClick={() => {
-              addToCart(catalogId(item.id), 1, "once", 1);
-              setAdded(true);
-              setTimeout(() => setAdded(false), 1400);
-              setTimeout(() => setCartOpen(true), 250);
-            }}
+            onClick={add}
             aria-label={t.ui.addToCart}
           >
             <Plus />

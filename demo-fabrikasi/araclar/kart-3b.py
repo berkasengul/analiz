@@ -9,6 +9,10 @@ markalar/<marka>-foto/render3d/<handle>.webp olarak kaydeder. Sonra aktarım ve 
     python3 demo-fabrikasi/araclar/shopify-aktar.py turkan      # kart görselleri r3d/…
     python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json
 
+    python3 demo-fabrikasi/araclar/kart-3b.py turkan --stage     # sinematik sergi sahnesi → <marka>-foto/sahne/
+
+--stage: ürün altın çerçeveli kemerli nişte, mermer kaidenin üstünde, spot ışığı altında (tam kare, 3:4).
+
 Gerekenler: node + playwright (Chromium), Pillow.
 """
 import json
@@ -26,23 +30,25 @@ if len(sys.argv) < 2:
     sys.exit(__doc__)
 SLUG = sys.argv[1]
 MARKA = os.path.join(HERE, "..", "markalar")
-OUT = os.path.join(MARKA, f"{SLUG}-foto", "render3d")
+STAGE = "--stage" in sys.argv
+OUT = os.path.join(MARKA, f"{SLUG}-foto", "sahne" if STAGE else "render3d")
 
 SHOT = r"""
 const pw = (() => { try { return require('playwright'); } catch { return require(process.env.PLAYWRIGHT || '/opt/node22/lib/node_modules/playwright'); } })();
-const [url, n, dir] = process.argv.slice(2);
+const [url, n, dir, stage] = process.argv.slice(2);
 (async () => {
   const b = await pw.chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   for (let i = 0; i < +n; i++) {
     // Her ürün ayrı sekmede; dış istekler (yazı tipi vb.) çekimi bekletmesin diye kapalı.
-    const p = await b.newPage({ viewport: { width: 640, height: 800 }, deviceScaleFactor: 1 });
+    const p = await b.newPage(stage ? { viewport: { width: 600, height: 800 }, deviceScaleFactor: 1.5 } : { viewport: { width: 640, height: 800 }, deviceScaleFactor: 1 });
     await p.route((u) => !u.href.startsWith(url), (r) => r.abort());
     for (let k = 0; k < 10; k++) {
-      try { await p.goto(`${url}/?still=${i}`, { waitUntil: 'domcontentloaded' }); break; } catch { await new Promise((r) => setTimeout(r, 500)); }
+      try { await p.goto(`${url}/?still=${i}${stage ? '&stage=1' : ''}`, { waitUntil: 'domcontentloaded' }); break; } catch { await new Promise((r) => setTimeout(r, 500)); }
     }
     await p.waitForFunction(() => window.__still, null, { timeout: 180000 });
     const h = await p.evaluate(() => window.__still);
-    await p.screenshot({ path: `${dir}/${h}.png`, omitBackground: true });
+    await p.waitForTimeout(stage ? 800 : 0);
+    await p.screenshot({ path: `${dir}/${h}.png`, omitBackground: !stage, timeout: 180000 });
     console.log(i, h);
     await p.close();
   }
@@ -64,11 +70,14 @@ def main():
     js = os.path.join(tmp, "_shot.cjs")
     open(js, "w").write(SHOT)
     try:
-        subprocess.run(["node", js, f"http://127.0.0.1:{port}", str(n), shots], check=True)
+        subprocess.run(["node", js, f"http://127.0.0.1:{port}", str(n), shots] + (["1"] if STAGE else []), check=True)
     finally:
         srv.terminate()
     os.makedirs(OUT, exist_ok=True)
     for f in sorted(os.listdir(shots)):
+        if STAGE:
+            Image.open(os.path.join(shots, f)).convert("RGB").save(os.path.join(OUT, f[:-4] + ".webp"), quality=84, method=5)
+            continue
         im = Image.open(os.path.join(shots, f)).convert("RGBA")
         box = im.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox()
         if not box:

@@ -211,6 +211,8 @@ def main():
             "category": i["cat"], "size": i["size"], "price": p["price"], "exactPrice": True,
             "desc": {"tr": clip(i["desc"], 120), "en": clip(i["en_desc"], 120)}, "color": p["color"], "product": idx,
             # Kart görseli: sitenin 3B modelinden çekilen görüntü (araclar/kart-3b.py) varsa o, yoksa fotoğraf kesiti.
+            # Kart sahnesi: ürün 3B sergide (kart-3b.py --stage) — varsa kart bu tam kare görseli kullanır.
+            **({"scene": f"sahne/{h}.webp"} if os.path.exists(os.path.join(FOTO, "sahne", f"{h}.webp")) else {}),
             "image": f"r3d/{h}.webp" if os.path.exists(os.path.join(FOTO, "render3d", f"{h}.webp")) else i["m"].get("cut"), "cutout": True,
             **({"bg": palette_of(h)[0], "bg2": palette_of(h)[1]} if palette_of(h) else {}),
             "variants": [{"id": x["id"], "title": x["title"]} for x in i["variants"]] if len(i["variants"]) > 1 else [{"id": i["variants"][0]["id"]}],

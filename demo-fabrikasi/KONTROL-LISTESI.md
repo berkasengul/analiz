@@ -139,3 +139,6 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Genel | Telefonda kaydırma iki ürün arasında takılıyordu, bazen iki ürün birden geçiyordu | Dokunmatikte ürün akışı sayfa sayfa: her hareket tam bir ürün; son üründen sonra doğal kaydırma |
 | Türkan | Ürün kartlarında düz fotoğraf vardı, sitenin 3B görünümüyle uyumsuzdu | `araclar/kart-3b.py`: kartlar sitenin 3B modelinden saydam zeminde çekilir (`?still=<n>`) |
 | Türkan | Çekim sayfası ana sayfanın 4 ürünlük setini kullandığı için 4'ten sonrası hep aynı ürün çıktı | `?still=<n>` sayfası yalnızca o ürünü yükler (data.js); her ürün ayrı sekmede, dış istekler kapalı |
+| Genel | Telefonda adres çubuğu açılıp kapanınca son ürün tanınmıyor, Ritüel'e inilemiyordu | Serbest kaydırma konuma göre değil ürün sırasına göre: son üründe ileri, ilk üründe geri her zaman doğal |
+| Türkan | Ürün kartları hâlâ sade; renkli zeminler istenmedi, sinematik sergi istendi | `kart-3b.py --stage`: 3B sergi sahnesi (kemerli niş, mermer kaide, spot); kart tam görsel + altta yazı, ok ve sepet |
+| Türkan | Sergi zemini gri çıktı (parlak yüzey dar açıda ışığı ayna gibi yansıttı); çekim çok yavaştı | Zemin mat koyu; sahne çiziminde piksel oranı 1 (ürün başına ~40 sn) |

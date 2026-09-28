@@ -5653,3 +5653,103 @@ button.buy__more {
   outline: 1px solid var(--gold, #c9a55c);
   outline-offset: 2px;
 }
+
+/* ===================== Sergi kartları (ürün 3B sahnede; kart-3b.py --stage) =====================
+   Görsel kartın tamamı; ince altın çerçeve, altta yazı için karartma, ok ve sepet düğmeleri. */
+.pgrid:has(.pcard--scene) {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 340px));
+  justify-content: center;
+  gap: clamp(18px, 2vw, 28px);
+}
+.pcard.pcard--scene {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #060504;
+  border: 1px solid rgba(201, 165, 92, 0.38);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  transition: border-color 0.5s ease, box-shadow 0.6s ease, opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.pcard.pcard--scene:hover {
+  border-color: rgba(217, 180, 106, 0.8);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.95), 0 0 40px -12px rgba(201, 165, 92, 0.35);
+}
+.pcard__scene {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.pcard__scene img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  transition: scale 1.4s var(--ease), filter 0.8s ease;
+}
+.pcard--scene:hover .pcard__scene img {
+  scale: 1.05;
+  filter: brightness(1.08);
+}
+.pcard__over {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 70px 18px 20px;
+  text-align: center;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(5, 4, 3, 0.78) 45%, rgba(5, 4, 3, 0.94));
+}
+.pcard__over > * {
+  pointer-events: auto;
+}
+.pcard--scene .pcard__cat {
+  color: var(--gold-soft, #d9bf85);
+  letter-spacing: 0.26em;
+  font-size: 0.64rem;
+}
+.pcard--scene .pcard__name {
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  letter-spacing: 0.05em;
+  color: #f2ead8;
+}
+.pcard--scene .pcard__size {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: rgba(242, 234, 216, 0.7);
+}
+.pcard__acts {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.pcard__round {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(217, 180, 106, 0.7);
+  background: rgba(8, 6, 4, 0.4);
+  color: var(--gold-soft, #d9bf85);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.pcard__round svg {
+  width: 17px;
+  height: 17px;
+}
+.pcard__round:hover,
+.pcard__round.is-added {
+  color: #120e09;
+  background: linear-gradient(120deg, #f1dfb2, var(--gold, #c9a55c) 55%, #9c7735);
+  transform: translateY(-2px);
+}
