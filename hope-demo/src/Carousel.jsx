@@ -73,11 +73,13 @@ export function arcPose(d, aspect, time, i) {
     if (GLIDE) {
       // Komşu şişe yalnızca geçişte görünür; yerindeyken kemerde tek şişe.
       const vis = 1 - MathUtils.smoothstep(ad, 0.66, 0.95);
-      const sc = base * (phone ? 1.5 : 1.8) * (1 - 0.3 * Math.min(ad, 1)) * vis;
+      // Kategori sayfasında üstte kategori sekmeleri var: şişe (ve kemer) biraz küçülüp aşağı iner.
+      const cat = PAGE.kind === "category" ? 1 : 0;
+      const sc = base * (phone ? 1.5 : 1.8) * (1 - 0.12 * cat) * (1 - 0.3 * Math.min(ad, 1)) * vis;
       const cx = phone ? 0 : 2.55 * MathUtils.clamp(aspect / 1.9, 0.44, 1);
       return {
         x: cx + d * (phone ? 4.2 : 7.5),
-        y: (phone ? 0.35 : -0.55) - Math.min(ad, 1) * 0.35 + Math.sin(time * 0.7) * 0.04 * focus,
+        y: (phone ? 0.35 : -0.55) - 0.3 * cat - Math.min(ad, 1) * 0.35 + Math.sin(time * 0.7) * 0.04 * focus,
         z: -Math.min(ad, 1.5) * 3,
         rotX: 0.01,
         // Yerindeyken hafifçe sola dönük: fotoğraftaki yan panelin yanında 3B kalınlık da görünür.
