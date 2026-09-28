@@ -142,3 +142,4 @@ Her demo markaya gönderilmeden önce bu liste baştan sona kontrol edilir. List
 | Genel | Telefonda adres çubuğu açılıp kapanınca son ürün tanınmıyor, Ritüel'e inilemiyordu | Serbest kaydırma konuma göre değil ürün sırasına göre: son üründe ileri, ilk üründe geri her zaman doğal |
 | Türkan | Ürün kartları hâlâ sade; renkli zeminler istenmedi, sinematik sergi istendi | `kart-3b.py --stage`: 3B sergi sahnesi (kemerli niş, mermer kaide, spot); kart tam görsel + altta yazı, ok ve sepet |
 | Türkan | Sergi zemini gri çıktı (parlak yüzey dar açıda ışığı ayna gibi yansıttı); çekim çok yavaştı | Zemin mat koyu; sahne çiziminde piksel oranı 1 (ürün başına ~40 sn) |
+| Türkan | Kullanıcı ürünsüz sahne görselleri verdi (pembe gül, mor lavanta-limon, yeşil orkide) | `araclar/sahne-birlestir.py`: ürünün 3B görüntüsü kaideye oturtulur (boy oranı, sıcak ton, spot gölgesi, temas gölgesi, yansıma, arka hâle); Floraison/Agrumes/Boisé kartları bu sahnelerde |

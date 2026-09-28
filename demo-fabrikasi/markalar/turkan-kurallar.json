@@ -38,7 +38,51 @@
     },
     "backPhotos": false,
     "views": true,
-    "noViews": "hediye-seti"
+    "noViews": "hediye-seti",
+    "sceneArt": [
+      {
+        "match": "floraison",
+        "file": "pembe-gul.webp",
+        "crop": [
+          152,
+          0,
+          1069,
+          1223
+        ],
+        "cx": 610,
+        "base": 814,
+        "h": 440,
+        "glow": [255, 170, 150]
+      },
+      {
+        "match": "agrumes",
+        "file": "mor-lavanta-limon.webp",
+        "crop": [
+          142,
+          0,
+          1059,
+          1223
+        ],
+        "cx": 600,
+        "base": 817,
+        "h": 440,
+        "glow": [200, 150, 255]
+      },
+      {
+        "match": "boi",
+        "file": "yesil-orkide.webp",
+        "crop": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "cx": 543,
+        "base": 866,
+        "h": 450,
+        "glow": [190, 255, 170]
+      }
+    ]
   },
   "aktar": {
     "domain": "turkan.com.tr",

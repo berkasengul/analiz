@@ -169,3 +169,18 @@ açılıp kapanınca takılmaz).
 Çıktı `<marka>-foto/sahne/<handle>.webp` (3:4). Aktarım bunu ürünün `scene` alanına yazar; galeri teması
 (`theme.cards: "gallery"`) bu görseli tam kart olarak gösterir: ince altın çerçeve, altta yazı, sepet ve ok düğmesi.
 Hazır bir sahne fotoğrafı (ör. içerik notalarıyla çekilmiş) aynı dosya adıyla `sahne/` klasörüne konursa o kullanılır.
+
+### Hazır sahne fotoğrafına ürün yerleştirme
+
+Markanın (ya da yapay zekâyla üretilmiş) ürünsüz sahne fotoğrafları `<marka>-foto/sahne-kaynak/` klasörüne konur;
+`kurallar.json → foto.sceneArt` hangi ürünün hangi sahneye gideceğini ve kaidenin yerini söyler (`match` regex,
+`file`, 3:4 `crop`, kaide üst yüzünün ortası `cx`/`base`, 100 ml şişenin piksel boyu `h`, arka hâle rengi `glow`).
+`araclar/sahne-birlestir.py <marka>` ürünün 3B görüntüsünü (render3d) kaideye oturtur: gerçek boy oranı
+(`foto.heights`), sahnenin altın ışığına göre renk, üstten spot gölgelemesi, temas gölgesi, kaidede silik yansıma.
+Çıktı `sahne/<handle>.webp` olur (3B sergi görselinin yerine geçer); sonra aktarım + derleme.
+
+```bash
+python3 demo-fabrikasi/araclar/sahne-birlestir.py turkan
+python3 demo-fabrikasi/araclar/shopify-aktar.py turkan
+python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json
+```
