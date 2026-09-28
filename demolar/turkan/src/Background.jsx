@@ -58,6 +58,10 @@ export default function Background() {
   };
 
   useEffect(() => () => last.current.controls?.stop(), []);
+  // Sahne fotoğrafları site açılırken hemen yüklenir: ilk ürün gelince arka planı hazır olur.
+  useEffect(() => {
+    flavors.forEach((f) => f.stage && sceneTex(f.stage.src));
+  }, []);
 
   useFrame(({ clock }, delta) => {
     const l = last.current;
@@ -132,24 +136,33 @@ export default function Background() {
     l.sceneMix = Math.min(1, l.sceneMix + Math.min(delta, 0.1) / 1.3);
     m.u_sceneMix = l.sceneMix;
     const f = sceneState.focus;
-    const onTarget =
-      (SOLO && stageOf && f.bottom != null && f.top != null ? 1 : 0) *
-      (st.detail ? 0 : 1) *
-      (1 - scrollState.ritualIn) *
-      (1 - scrollState.shopIn) *
-      Math.min(1, sceneState.intro * 1.3) *
-      (1 - Math.min(1, sceneState.spread * 3));
-    l.sceneOn = MathUtils.damp(l.sceneOn, onTarget, 3, Math.min(delta, 0.1));
-    m.u_sceneOn = l.sceneOn;
-    if (f.bottom != null && f.top != null) {
+    const dt = Math.min(delta, 0.1);
+    // Sahne ürüne sabitlenir ama ürünle birlikte hareket etmez: yalnızca öndeki ürün yerine oturmuşken
+    // (akış durmuş, detay kapalı) ürünün dinlenme pozuna göre konumlanır; geçişte ve detayda yerinde kalır.
+    if (f.bottom != null && f.top != null && (sceneState.settled || l.baseY == null) && scrollState.ritualIn < 0.02) {
       const sc = f.scale || 1;
-      const yb = (P.set(f.position.x, f.position.y + f.bottom * sc, f.position.z).project(camera).y + 1) / 2;
-      const yt = (Q.set(f.position.x, f.position.y + f.top * sc, f.position.z).project(camera).y + 1) / 2;
-      l.baseY = MathUtils.damp(l.baseY ?? yb, yb, 6, Math.min(delta, 0.1));
-      l.bottleH = MathUtils.damp(l.bottleH ?? yt - yb, yt - yb, 6, Math.min(delta, 0.1));
+      const r = f.rest;
+      const yb = (P.set(r.x, r.y + f.bottom * sc, r.z).project(camera).y + 1) / 2;
+      const yt = (Q.set(r.x, r.y + f.top * sc, r.z).project(camera).y + 1) / 2;
+      const sx = MathUtils.clamp((P.set(r.x, r.y, r.z).project(camera).x + 1) / 2, 0.2, 0.8);
+      const first = l.baseY == null;
+      l.baseY = first ? yb : MathUtils.damp(l.baseY, yb, 3, dt);
+      l.bottleH = first ? yt - yb : MathUtils.damp(l.bottleH, yt - yb, 3, dt);
+      l.sceneX = first ? sx : MathUtils.damp(l.sceneX, sx, 3, dt);
       m.u_baseY = l.baseY;
       m.u_bottleH = Math.max(0.05, l.bottleH);
+      m.u_sceneX = l.sceneX;
     }
+    const onTarget =
+      (SOLO && stageOf && l.baseY != null ? 1 : 0) *
+      (1 - scrollState.ritualIn) *
+      (1 - scrollState.shopIn) *
+      Math.min(1, 0.35 + sceneState.intro);
+    l.sceneOn = MathUtils.damp(l.sceneOn, onTarget, 3, dt);
+    m.u_sceneOn = l.sceneOn;
+    // Detayda sahne kalır (ürünün kendi arka planı) ama yazılar okunsun diye kararır; ışık huzmesi söner.
+    l.sceneLight = MathUtils.damp(l.sceneLight ?? 1, st.detail ? 0 : 1, 3, dt);
+    m.u_sceneLight = l.sceneLight;
     material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
 

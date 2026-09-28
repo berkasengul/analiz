@@ -56,7 +56,7 @@ export function arcPose(d, aspect, time, i) {
     const phone = aspect < 0.9;
     return {
       x: phone ? 2.5 * d * (1 + 0.12 * ad) : (1.6 + 5.4 * d * (1 + 0.08 * ad)) * spread,
-      y: 0.5 + (phone ? 0.1 : 0.12) * Math.min(ad, 3) + (phone ? 0.7 : 0.58) * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07 - (phone ? 0 : CAT_DROP),
+      y: 0.5 + (phone ? 0.1 : 0.12) * Math.min(ad, 3) + (phone ? 0.7 : 0.58) * focus + Math.sin(time * 0.9 + i * 1.7) * 0.07 * (flavors[i]?.stage ? 1 - focus : 1) - (phone ? 0 : CAT_DROP),
       z: (phone ? -2.4 : -2.6) * ad + focus * 1.6,
       rotX: 0.06,
       rotY: -0.3 * d + (focus > 0 ? Math.sin(time * 0.5) * 0.22 * focus : 0),
@@ -141,6 +141,7 @@ export default function Carousel() {
     sceneState.spread = Math.max(spread, fade);
     const aspect = size.width / size.height;
     const nearest = order[slotIndex(s.p)];
+    sceneState.settled = !detail && spread < 0.02 && Math.abs(s.p - Math.round(s.p)) < 0.01;
     sceneState.hoverFocus = s.hovered === nearest && !detail && spread < 0.1 && Math.abs(s.p - Math.round(s.p)) < 0.1;
 
     // Kenar parıltısı ve spot ışık tadın rengini alır.
@@ -232,9 +233,10 @@ export default function Carousel() {
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {
         sceneState.focus.position.set(pose.x, pose.y - (1 - intro) * 9, pose.z - (1 - intro) * 4);
+        sceneState.focus.rest.set(pose.x, pose.y, pose.z);
         sceneState.focus.rotation.copy(g.rotation);
         sceneState.focus.scale = pose.scale;
-        if (BOTTOM[i] == null && intro > 0.999 && fade < 0.001 && spread < 0.001) {
+        if (BOTTOM[i] == null && fade < 0.001 && spread < 0.001) {
           // Kenar düzlemleri (fin) fotoğrafın boş alanını da kapsar; yalnızca gövde parçaları ölçülür.
           // Şişe (flask) biçiminde gövde ayrı bir hacim; kapak tornası fotoğrafın tüm boyunu
           // kaplar ama gövdenin altında görünmez. Gövde varsa yalnızca o ölçülür; yoksa eksendeki

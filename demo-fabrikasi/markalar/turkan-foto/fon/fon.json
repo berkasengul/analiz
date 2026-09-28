@@ -14,18 +14,18 @@
   "h": 0.3108
  },
  "turkan-agrumes-7-cologne-du-parfumeur-150-ml": {
-  "src": "fon/mor-lavanta-limon.webp",
-  "aspect": 1.0515,
-  "base": 0.668,
-  "cx": 0.4666,
-  "h": 0.4131
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3568
  },
  "turkan-agrumes-7-cologne-du-parfumeur-50-ml": {
-  "src": "fon/mor-lavanta-limon.webp",
-  "aspect": 1.0515,
-  "base": 0.668,
-  "cx": 0.4666,
-  "h": 0.2798
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2417
  },
  "turkan-boi\u0307se-4-cologne-du-parfumeur-150-ml": {
   "src": "fon/yesil-orkide.webp",
@@ -56,18 +56,18 @@
   "h": 0.2417
  },
  "turkan-floraison-8-cologne-du-parfumeur-150-ml": {
-  "src": "fon/pembe-gul.webp",
-  "aspect": 1.0515,
-  "base": 0.6656,
-  "cx": 0.4743,
-  "h": 0.4131
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3568
  },
  "turkan-floraison-8-cologne-du-parfumeur-50-ml": {
-  "src": "fon/pembe-gul.webp",
-  "aspect": 1.0515,
-  "base": 0.6656,
-  "cx": 0.4743,
-  "h": 0.2798
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2417
  },
  "turkan-no-10-noblesse-oriental-family-100ml": {
   "src": "fon/yesil-orkide-3656d8.webp",
@@ -105,32 +105,32 @@
   "h": 0.3108
  },
  "turkan-no-7-agrumes-100-ml": {
-  "src": "fon/mor-lavanta-limon.webp",
-  "aspect": 1.0515,
-  "base": 0.668,
-  "cx": 0.4666,
-  "h": 0.3598
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
  },
  "turkan-no-7-agrumes-15-ml": {
-  "src": "fon/mor-lavanta-limon.webp",
-  "aspect": 1.0515,
-  "base": 0.668,
-  "cx": 0.4666,
-  "h": 0.3198
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2762
  },
  "turkan-no-8-floraison-100-ml": {
-  "src": "fon/pembe-gul.webp",
-  "aspect": 1.0515,
-  "base": 0.6656,
-  "cx": 0.4743,
-  "h": 0.3598
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
  },
  "turkan-no-8-floraison-15ml": {
-  "src": "fon/pembe-gul.webp",
-  "aspect": 1.0515,
-  "base": 0.6656,
-  "cx": 0.4743,
-  "h": 0.3198
+  "src": "fon/yesil-orkide-d4588c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2762
  },
  "turkan-no-9-mystique-spicy-family-100ml": {
   "src": "fon/yesil-orkide-138f9a.webp",

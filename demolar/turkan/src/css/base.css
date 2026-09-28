@@ -6017,3 +6017,27 @@ button.buy__more {
     font-size: clamp(2.2rem, 11vw, 3rem);
   }
 }
+
+/* ---------------------------------------------------------------- Sahne fotoğraflı ana sayfa: yazılar net */
+/* Arka planda desenli sahne varken başlık, açıklama, notalar ve kategori çubuğu koyu bir gölgeyle
+   zeminden ayrılır; ince yazılar biraz daha dolgun ve parlak. */
+[data-theme="portal"] :is(.hud__name, .hud__tagline, .tag, .count, .hud__count .chips li, .catbar__title, .catbar__chips a, .hud__scroll, .track__label, .hud__cta) {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 2px 18px rgba(0, 0, 0, 0.85);
+}
+[data-theme="portal"] .hud__name {
+  font-weight: 500;
+}
+[data-theme="portal"] .hud__tagline {
+  color: rgba(252, 248, 240, 0.94);
+  font-weight: 500;
+}
+[data-theme="portal"] .hud__count .chips li {
+  color: rgba(252, 248, 240, 0.95);
+}
+[data-theme="portal"] .catbar__chips a {
+  color: rgba(252, 248, 240, 0.86);
+}
+[data-theme="portal"] .hud__cta {
+  background: rgba(6, 5, 4, 0.55);
+  backdrop-filter: blur(6px);
+}

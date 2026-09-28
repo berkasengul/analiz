@@ -34,6 +34,8 @@ export const BackgroundMaterial = shaderMaterial(
     u_sceneOn: 0,
     u_baseY: 0.4,
     u_bottleH: 0.35,
+    u_sceneX: 0.5,
+    u_sceneLight: 1,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -67,6 +69,8 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_sceneOn;
     uniform float u_baseY;
     uniform float u_bottleH;
+    uniform float u_sceneX;
+    uniform float u_sceneLight;
 
     varying vec2 vUv;
 
@@ -82,7 +86,7 @@ export const BackgroundMaterial = shaderMaterial(
       sH = max(sH, (1. - u_baseY) / max(b, 0.05));
       sH *= 1.01;
       float v = (1. - b) + (vUv.y - u_baseY) / sH;
-      float u = sp.z + (vUv.x - u_focusX) * u_aspect / (sH * sp.x);
+      float u = sp.z + (vUv.x - u_sceneX) * u_aspect / (sH * sp.x);
       // Yanlar: fotoğraf genişliği yetmezse sahnenin ayna yansımasıyla devam eder; kenara doğru daha
       // bulanık (alan derinliği), böylece dikiş görünmez ve ekranın her yeri dolar.
       float out_ = max(0., abs(u - 0.5) - 0.5);
@@ -141,7 +145,7 @@ export const BackgroundMaterial = shaderMaterial(
         float lum = dot(sc, vec3(0.299, 0.587, 0.114));
         sc = mix(sc, lum * tint * 1.35, 0.3);
         // Işık huzmesi: tepeden ürüne doğru genişleyen koni.
-        float dx = (vUv.x - u_focusX) * u_aspect;
+        float dx = (vUv.x - u_sceneX) * u_aspect;
         float tt = clamp((1.12 - vUv.y) / max(1.12 - u_baseY, 0.1), 0., 1.4);
         float hw = 0.06 + tt * max(u_bottleH, 0.2) * 0.62;
         float cone = (1. - smoothstep(hw * 0.45, hw, abs(dx))) * smoothstep(0.05, 0.4, tt) * (1. - smoothstep(1.02, 1.3, tt));
@@ -151,8 +155,11 @@ export const BackgroundMaterial = shaderMaterial(
         // Ürünün arkasında yumuşak parlaklık.
         vec2 g = vec2(dx, vUv.y - u_baseY - u_bottleH * 0.5) / vec2(max(u_bottleH, 0.2) * 0.9, max(u_bottleH, 0.2) * 0.8);
         float halo = exp(-dot(g, g) * 1.2);
-        float read = u_aspect > 1. ? mix(0.62, 1., smoothstep(0.08, 0.5, vUv.x)) : mix(0.7, 1., smoothstep(0.08, 0.5, vUv.y));
-        float lit = 0.3 + 0.5 * cone + 0.45 * pool + 0.3 * halo;
+        // Yazıların arkası (solda başlık, sağda notalar; telefonda altta) biraz daha koyu: yazılar net okunur.
+        float read = u_aspect > 1.
+          ? mix(0.5, 1., smoothstep(0.06, 0.46, vUv.x)) * mix(0.62, 1., smoothstep(0.97, 0.8, vUv.x))
+          : mix(0.55, 1., smoothstep(0.06, 0.42, vUv.y));
+        float lit = mix(0.36, 0.3 + 0.5 * cone + 0.45 * pool + 0.3 * halo, u_sceneLight);
         base = mix(base, sc * lit * read, u_sceneOn);
       }
 

@@ -108,25 +108,19 @@
     ],
     "backdropArt": [
       {
-        "match": "floraison",
-        "file": "pembe-gul.webp",
-        "cx": 610,
-        "base": 814,
-        "h": 440
-      },
-      {
-        "match": "agrumes",
-        "file": "mor-lavanta-limon.webp",
-        "cx": 600,
-        "base": 817,
-        "h": 440
-      },
-      {
         "match": "boi",
         "file": "yesil-orkide.webp",
         "cx": 543,
         "base": 866,
         "h": 450
+      },
+      {
+        "match": "floraison",
+        "file": "yesil-orkide.webp",
+        "cx": 543,
+        "base": 866,
+        "h": 450,
+        "tint": "#d4588c"
       },
       {
         "match": ".",
