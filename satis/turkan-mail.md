@@ -1,15 +1,24 @@
-# Türkan Fragrances: mail ve Instagram mesajı
+# Türkan Fragrances: satış mesajları
 
-**Mail:** teams@turkan.com.tr (sitedeki kurumsal/iletişim adresi)
-**Instagram:** @turkanfragrances (DM) · pazarlamayı Beste Yazman yönetiyor; ulaşabilirsen mesajı ona da ilet
-**Ekler (mail):** `turkan-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg` (zip ekleme)
+**Mail:** teams@turkan.com.tr (turkan.com.tr'deki gizlilik politikasında yazan iletişim adresi; 28 Eylül'de kontrol edildi)
+**Instagram:** @turkanfragrances (DM). Pazarlama Beste Yazman'da; ulaşabilirsen mesajı ona da ilet.
+**Ekler (mail):** `turkan-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg` (zip ekleme)
 **Instagram'a:** önce `3-telefon.jpg`, sonra mesaj
 **Ne zaman:** Salı–Perşembe, 10:00–11:00 arası
 
+## Nasıl satılır (sıra)
+
+1. **Linki hazırla:** `demolar/turkan-Netlify.zip` → app.netlify.com/drop. Site adını `turkan-3d` gibi sade bir şey yap. Linki telefonda ve bilgisayarda aç, sepete bir ürün ekleyip "Ödemeye geç"e bas (turkan.com.tr ödeme sayfası açılmalı; ödeme yapma).
+2. **Kısa ekran videosu çek (20–30 sn):** telefonda aşağı kaydır → ürünler tek tek gelsin → birine gir, şişeyi çevir. Instagram'da görselden çok daha etkili.
+3. **Maili gönder** (aşağıda), aynı gün **Instagram DM'i** at, videoyu DM'e ekle.
+4. **4 gün sonra** aynı mail zincirinde takip, **7 gün sonra** son kısa hatırlatma.
+5. Cevap gelirse **15 dakikalık görüntülü görüşme** iste: siteyi canlı gezdir, fiyatı görüşmede ver.
+6. Gönderdiğin tarihi `satis/parfum-firmalari.csv` dosyasında Türkan satırına yaz.
+
 ## Konu (birini seç)
 
-1. Türkan için hazırlanmış 3D web sitesi
-2. Her koku bir his: Türkan kokuları 3D'de
+1. Türkan için hazırladığım 3D web sitesi
+2. Her koku bir his: Türkan kokuları 3D sahnede
 
 ## Mail (firmaya)
 
@@ -19,16 +28,17 @@ Türkan için kokularınızı 3D olarak sergileyen bir web sitesi hazırladım, 
 
 👉 [DEMO LİNKİ]
 
-Neler sunuyor:
+Kısaca neler var:
 
-- **Şişeleriniz 3D:** Kendi fotoğraflarınızdan hazırlandı. Küre kapaklı ikonik şişe kaydırdıkça öne geliyor; çevirince arka yüzde kokunun hikâyesi okunuyor.
-- **Tüm koleksiyon hazır:** Extrait de Parfum, Eau de Parfum, Cologne du Parfumeur ve hediye setleri; 20 ürün, fiyatlar ve metinler sitenizden. Setler içindeki şişelerle 3D kuruldu.
-- **Mevcut mağazanızla çalışıyor:** Sepet Shopify'ınıza bağlı; "Ödemeye geç" müşteriyi doğrudan turkan.com.tr'deki ödeme sayfanıza götürüyor. Yeni bir altyapı gerekmiyor.
+- **Şişeleriniz 3D ve kendi sahnesinde:** Küre kapaklı şişeleriniz kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Her koku mermer kaide üzerinde, kendi renginde bir sahnede duruyor: Floraison pembe, Ambre amber, Agrumes mor. Aşağı kaydırdıkça kokular sırayla sahneye geliyor.
+- **Her kokunun hikâyesi:** Ürüne girince notalar, kokunun hikâyesi ve 4 kısa bölüm açılıyor. Şişe çevrilebiliyor. Ürün fotoğraflarınız da 3D görünüme dönüşüyor.
+- **Tüm koleksiyon hazır:** Extrait de Parfum, Eau de Parfum, Cologne du Parfumeur ve hediye setleri. 20 ürün, fiyatlar ve metinler sitenizden alındı.
+- **Mevcut mağazanızla çalışıyor:** Sepet Shopify mağazanıza bağlı. "Ödemeye geç" müşteriyi doğrudan turkan.com.tr'deki ödeme sayfanıza götürüyor; yeni bir altyapı gerekmiyor.
 - **Telefona özel tasarım**, koku ve nota araması, Türkçe/İngilizce.
 
 Amaç, "her koku bir his, her his bir sayı" dünyasını ziyaretçiye mağazada şişeyi elinde tutuyormuş gibi yaşatmak.
 
-Beğenirseniz siteyi kendi alan adınıza kurup isteklerinize göre son hâline getirebilirim. Fiyat ve süre bilgisini bu maile yanıt olarak hemen iletirim.
+Beğenirseniz siteyi kendi alan adınıza kurup isteklerinize göre son hâline getirebilirim. Uygun olursanız 15 dakikalık kısa bir görüntülü görüşmede canlı olarak da gösterebilirim.
 
 İyi çalışmalar,
 Berka [Soyadın]
@@ -40,13 +50,13 @@ _Site size özel hazırlandı; arama motorlarına kapalıdır, yalnızca bu link
 
 Merhaba Türkan ekibi ✨
 
-Türkan için kokularınızı 3D olarak sergileyen bir web sitesi hazırladım. İkonik şişeleriniz kendi fotoğraflarınızdan 3D, tüm koleksiyon ve setler hazır, sepet de mevcut Shopify mağazanıza bağlı; yeni bir altyapı gerekmiyor.
+Türkan için kokularınızı 3D olarak sergileyen bir web sitesi hazırladım. Şişeleriniz kendi fotoğraflarınızdan 3D; her koku mermer kaide üzerinde, kendi renginde bir sahnede. Tüm koleksiyon ve setler hazır, sepet de mevcut Shopify mağazanıza bağlı.
 
 Telefondan bir dakikada inceleyebilirsiniz: [DEMO LİNKİ]
 
 Detayları teams@turkan.com.tr adresine de gönderdim. Beğenirseniz kendi alan adınıza kurabilirim 🙏
 
-## Takip (cevap gelmezse 4 gün sonra, aynı mail zincirinde "Yanıtla")
+## Takip 1 (cevap gelmezse 4 gün sonra, aynı mail zincirinde "Yanıtla")
 
 Merhaba Türkan ekibi,
 
@@ -54,19 +64,30 @@ Geçen hafta Türkan için hazırladığım 3D web sitesini paylaşmıştım; g�
 
 👉 [DEMO LİNKİ]
 
-Kısa bir geri dönüşünüz bile benim için değerli.
+Telefondan açıp aşağı kaydırmanız yeterli. Kısa bir geri dönüşünüz bile benim için değerli.
+
+İyi çalışmalar,
+Berka
+
+## Takip 2 (7 gün sonra, son mesaj)
+
+Merhaba,
+
+Son kez yazıyorum: Türkan için hazırladığım 3D site bu linkte duruyor: [DEMO LİNKİ]
+
+Şu an için uygun değilse sorun değil; ileride ilgilenirseniz bu adresten bana ulaşabilirsiniz.
 
 İyi çalışmalar,
 Berka
 
 ## Göndermeden önce
 
-- [ ] `demolar/turkan-Netlify.zip`'i Netlify Drop'a yükle (app.netlify.com/drop), linki telefonda ve bilgisayarda aç.
+- [ ] Zip'i Netlify Drop'a yükle, linki telefonda ve bilgisayarda aç.
 - [ ] Sepete bir koku ekleyip "Ödemeye geç"e bas: turkan.com.tr ödeme sayfası açılmalı (ödeme yapma).
 - [ ] `[DEMO LİNKİ]`, soyadını, telefonunu ve Instagram/portfolyo linkini doldur.
-- [ ] Mailde üç görseli ekle; Instagram'da önce telefon görselini, sonra mesajı at.
-- [ ] Gönderdikten sonra `satis/parfum-firmalari.csv` dosyasında Türkan satırına tarihi yaz.
+- [ ] Maile dört görseli ekle; Instagram'da önce telefon görselini ya da videoyu, sonra mesajı at.
+- [ ] `satis/parfum-firmalari.csv` dosyasında Türkan satırına tarihi yaz.
 
 ## Fiyat sorarlarsa
 
-Hope Istanbul teklifindeki paketler temel alınır (₺59.000 / ₺99.000 / ₺159.000).
+Fiyatı ilk mailde yazma; soran olursa ya da görüşmede ver. Hope Istanbul teklifindeki paketler temel alınır (₺59.000 / ₺99.000 / ₺159.000).
