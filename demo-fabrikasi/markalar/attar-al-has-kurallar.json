@@ -7,7 +7,8 @@
     "studio": true,
     "pedestal": true,
     "solidTop": 0.24,
-    "convex": true
+    "convex": 0.3,
+    "backLang": "en"
   },
   "aktar": {
     "domain": "attaralhas.com",

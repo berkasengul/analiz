@@ -14,7 +14,9 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
     "studio": true                  renkli/gri stüdyo zeminindeki ürün çekimleri de ürün fotoğrafı sayılır (yapay zekâyla kesilir)
     "pedestal": true                ürün bir kaide üstünde çekilmiş (zeminde yansıma yok): şeffaf camın açık renkli
                                      tabanı yansıma sanılıp kesilmez
-    "convex": true                  silüet dışbükey zarfla doldurulur (şeffaf cam tabanında kalan çentikler)
+    "convex": 0.3                   silüet dışbükey zarfla doldurulur (şeffaf cam tabanında kalan çentikler); sayı
+                                     verilirse yalnızca ürünün o orandan aşağısı (gövde; kapak çevresi boş kalır)
+    "backLang": "en"                arka etiket metni İngilizce mağazadan (mağazanın varsayılan dili Türkçe değilse)
     "solidTop": 0.25                ürünün üst bölümü (oran) delik bırakılmadan dolu kesilir (zemine yakın renkli kapak)
     "glassBack": {"label": [x0, y0, x1, y1], "labels": [["regex", [x0, y0, x1, y1]]], "lines": ["...", ...]}
                                      renkli cam şişe: arka yüz ön fotoğrafın aynası (cam ve renk net), ön etiketin
@@ -130,13 +132,18 @@ def cutout(im, k, box=False):
                     if len(xs) > 1:
                         al[y, xs[0]:xs[-1] + 1] = 255
         # Şeffaf cam tabanı yer yer zeminle karışır: silüet dışbükey zarfla doldurulur (convex).
+        # Sayı verilirse (ör. 0.3) yalnızca ürünün o orandan aşağısı (gövde) doldurulur; kapak ve boyun çevresi boş kalır.
         if RULES.get("convex"):
             al = a[..., 3]
-            pts = cv2.findNonZero((al > 128).astype(np.uint8))
+            rows = np.where((al > 128).any(1))[0]
+            y0 = 0
+            if len(rows) and not isinstance(RULES["convex"], bool):
+                y0 = rows[0] + int((rows[-1] - rows[0]) * RULES["convex"])
+            pts = cv2.findNonZero((al[y0:] > 128).astype(np.uint8))
             if pts is not None:
-                hull = np.zeros_like(al)
+                hull = np.zeros_like(al[y0:])
                 cv2.fillConvexPoly(hull, cv2.convexHull(pts), 255)
-                a[..., 3] = np.maximum(al, hull)
+                al[y0:] = np.maximum(al[y0:], hull)
         im = Image.fromarray(a)
     elif k == "W":
         a = np.asarray(im).copy()
@@ -529,7 +536,9 @@ def back_text(handle):
     if RULES.get("noBackText") and re.search(RULES["noBackText"], handle):
         return None
     if _TR is None:
-        _TR = {p["handle"]: p for p in json.load(open(os.path.join(SRC, "products-tr.json"), encoding="utf-8"))}
+        # backLang: "en" → mağazanın varsayılan dili Türkçe değilse (ör. Fransızca) arka etiket İngilizce.
+        src = "products-en.json" if RULES.get("backLang") == "en" else "products-tr.json"
+        _TR = {p["handle"]: p for p in json.load(open(os.path.join(SRC, src), encoding="utf-8"))}
     p = _TR.get(handle)
     if not p:
         return None
