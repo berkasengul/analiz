@@ -757,7 +757,14 @@
       "photos": [
         "foto/uniquee-luxury-crush-on-me/1.webp",
         "foto/uniquee-luxury-crush-on-me/2.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-c8202e.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Ocean The Rive",
@@ -1509,7 +1516,14 @@
         "foto/ocean-the-rive-100-ml/1.webp",
         "foto/ocean-the-rive-100-ml/2.webp",
         "foto/ocean-the-rive-100-ml/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-2448c8.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Mangonifiscent",
@@ -2235,7 +2249,14 @@
         "foto/mangonifiscent/1.webp",
         "foto/mangonifiscent/2.webp",
         "foto/mangonifiscent/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-1f9e5a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Kutay",
@@ -2983,7 +3004,14 @@
         "foto/uniquee-luxury-kutay/1.webp",
         "foto/uniquee-luxury-kutay/2.webp",
         "foto/uniquee-luxury-kutay/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-b8621c.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Akdeniz",
@@ -3669,7 +3697,14 @@
         "foto/uniquee-luxury-akdeniz/1.webp",
         "foto/uniquee-luxury-akdeniz/2.webp",
         "foto/uniquee-luxury-akdeniz/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-16a0a0.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Beverly Hills Exclusive",
@@ -4353,7 +4388,14 @@
         "foto/uniquee-luxury-beverly-hills-exclusive/1.webp",
         "foto/uniquee-luxury-beverly-hills-exclusive/2.webp",
         "foto/uniquee-luxury-beverly-hills-exclusive/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-c9922e.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Chocolate Makes Me Happy",
@@ -5039,7 +5081,14 @@
         "foto/uniquee-luxury-chocolate-makes-me-happy/1.webp",
         "foto/uniquee-luxury-chocolate-makes-me-happy/2.webp",
         "foto/uniquee-luxury-chocolate-makes-me-happy/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-8a4a26.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "İstanbul",
@@ -5723,7 +5772,14 @@
         "foto/uniquee-luxury-istanbul/1.webp",
         "foto/uniquee-luxury-istanbul/2.webp",
         "foto/uniquee-luxury-istanbul/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-e0601c.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "SoScentific",
@@ -6409,7 +6465,14 @@
         "foto/uniquee-luxury-soscentific/1.webp",
         "foto/uniquee-luxury-soscentific/2.webp",
         "foto/uniquee-luxury-soscentific/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-e8804a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "D'olcezza",
@@ -7097,7 +7160,14 @@
         "foto/dolcezza/1.webp",
         "foto/dolcezza/2.webp",
         "foto/dolcezza/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-d9a520.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Mashumaro",
@@ -7799,7 +7869,14 @@
         "foto/mashumaro/1.webp",
         "foto/mashumaro/2.webp",
         "foto/mashumaro/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-d62f3a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Woud & Mood Absolute",
@@ -8509,7 +8586,14 @@
         "foto/woud-mood-absolute-100-ml/1.webp",
         "foto/woud-mood-absolute-100-ml/2.webp",
         "foto/woud-mood-absolute-100-ml/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-8a6a3a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Zen'gi",
@@ -9261,7 +9345,14 @@
         "foto/zengi/1.webp",
         "foto/zengi/2.webp",
         "foto/zengi/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-d49a1a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Chicelle",
@@ -9951,7 +10042,14 @@
         "foto/chicelle/1.webp",
         "foto/chicelle/2.webp",
         "foto/chicelle/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-d9679a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Aphrodisiac Touch",
@@ -10635,7 +10733,14 @@
         "foto/uniquee-luxury-aphrodisiac-touch/1.webp",
         "foto/uniquee-luxury-aphrodisiac-touch/2.webp",
         "foto/uniquee-luxury-aphrodisiac-touch/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-7d3fc8.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Beril",
@@ -11321,7 +11426,14 @@
         "foto/uniquee-luxury-beril/1.webp",
         "foto/uniquee-luxury-beril/2.webp",
         "foto/uniquee-luxury-beril/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-d69a2e.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Chypre Toscano",
@@ -12009,7 +12121,14 @@
         "foto/uniquee-luxury-chypre-toscano/1.webp",
         "foto/uniquee-luxury-chypre-toscano/2.webp",
         "foto/uniquee-luxury-chypre-toscano/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-6f8a3a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "Hidden Accords",
@@ -12697,7 +12816,14 @@
         "foto/uniquee-luxury-hidden-accords/1.webp",
         "foto/uniquee-luxury-hidden-accords/2.webp",
         "foto/uniquee-luxury-hidden-accords/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-9a6a3a.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     },
     {
       "name": "İzmir",
@@ -13381,7 +13507,14 @@
         "foto/uniquee-luxury-izmir/1.webp",
         "foto/uniquee-luxury-izmir/2.webp",
         "foto/uniquee-luxury-izmir/3.webp"
-      ]
+      ],
+      "stage": {
+        "src": "fon/yesil-orkide-3a9ee0.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
+      }
     }
   ],
   "specs": {
@@ -13953,7 +14086,8 @@
         },
         "color": "#e26962",
         "product": 0,
-        "image": "cut/uniquee-luxury-crush-on-me.webp",
+        "scene": "sahne/uniquee-luxury-crush-on-me.webp",
+        "image": "r3d/uniquee-luxury-crush-on-me.webp",
         "cutout": true,
         "bg": "#c8202e",
         "bg2": "#ff9aa0",
@@ -13982,7 +14116,8 @@
         },
         "color": "#e9d8a8",
         "product": 3,
-        "image": "cut/uniquee-luxury-kutay.webp",
+        "scene": "sahne/uniquee-luxury-kutay.webp",
+        "image": "r3d/uniquee-luxury-kutay.webp",
         "cutout": true,
         "bg": "#b8621c",
         "bg2": "#f0a860",
@@ -14011,7 +14146,8 @@
         },
         "color": "#f1e7b7",
         "product": 4,
-        "image": "cut/uniquee-luxury-akdeniz.webp",
+        "scene": "sahne/uniquee-luxury-akdeniz.webp",
+        "image": "r3d/uniquee-luxury-akdeniz.webp",
         "cutout": true,
         "bg": "#16a0a0",
         "bg2": "#9eeef2",
@@ -14040,7 +14176,8 @@
         },
         "color": "#f2d277",
         "product": 5,
-        "image": "cut/uniquee-luxury-beverly-hills-exclusive.webp",
+        "scene": "sahne/uniquee-luxury-beverly-hills-exclusive.webp",
+        "image": "r3d/uniquee-luxury-beverly-hills-exclusive.webp",
         "cutout": true,
         "bg": "#c9922e",
         "bg2": "#ffdf98",
@@ -14069,7 +14206,8 @@
         },
         "color": "#f3d97a",
         "product": 6,
-        "image": "cut/uniquee-luxury-chocolate-makes-me-happy.webp",
+        "scene": "sahne/uniquee-luxury-chocolate-makes-me-happy.webp",
+        "image": "r3d/uniquee-luxury-chocolate-makes-me-happy.webp",
         "cutout": true,
         "bg": "#8a4a26",
         "bg2": "#e0a070",
@@ -14098,7 +14236,8 @@
         },
         "color": "#fc9b6a",
         "product": 7,
-        "image": "cut/uniquee-luxury-istanbul.webp",
+        "scene": "sahne/uniquee-luxury-istanbul.webp",
+        "image": "r3d/uniquee-luxury-istanbul.webp",
         "cutout": true,
         "bg": "#e0601c",
         "bg2": "#ffb070",
@@ -14127,7 +14266,8 @@
         },
         "color": "#efe191",
         "product": 8,
-        "image": "cut/uniquee-luxury-soscentific.webp",
+        "scene": "sahne/uniquee-luxury-soscentific.webp",
+        "image": "r3d/uniquee-luxury-soscentific.webp",
         "cutout": true,
         "bg": "#e8804a",
         "bg2": "#ffc4a0",
@@ -14156,7 +14296,8 @@
         },
         "color": "#8391b5",
         "product": 1,
-        "image": "cut/ocean-the-rive-100-ml.webp",
+        "scene": "sahne/ocean-the-rive-100-ml.webp",
+        "image": "r3d/ocean-the-rive-100-ml.webp",
         "cutout": true,
         "bg": "#2448c8",
         "bg2": "#9fc0ff",
@@ -14185,7 +14326,8 @@
         },
         "color": "#4cb764",
         "product": 2,
-        "image": "cut/mangonifiscent.webp",
+        "scene": "sahne/mangonifiscent.webp",
+        "image": "r3d/mangonifiscent.webp",
         "cutout": true,
         "bg": "#1f9e5a",
         "bg2": "#9fe6b9",
@@ -14214,7 +14356,8 @@
         },
         "color": "#ebd982",
         "product": 9,
-        "image": "cut/dolcezza.webp",
+        "scene": "sahne/dolcezza.webp",
+        "image": "r3d/dolcezza.webp",
         "cutout": true,
         "bg": "#d9a520",
         "bg2": "#ffe08a",
@@ -14243,7 +14386,8 @@
         },
         "color": "#e02230",
         "product": 10,
-        "image": "cut/mashumaro.webp",
+        "scene": "sahne/mashumaro.webp",
+        "image": "r3d/mashumaro.webp",
         "cutout": true,
         "bg": "#d62f3a",
         "bg2": "#ffa0a8",
@@ -14272,7 +14416,8 @@
         },
         "color": "#6f654d",
         "product": 11,
-        "image": "cut/woud-mood-absolute-100-ml.webp",
+        "scene": "sahne/woud-mood-absolute-100-ml.webp",
+        "image": "r3d/woud-mood-absolute-100-ml.webp",
         "cutout": true,
         "bg": "#8a6a3a",
         "bg2": "#e0c48e",
@@ -14301,7 +14446,8 @@
         },
         "color": "#f6d17e",
         "product": 12,
-        "image": "cut/zengi.webp",
+        "scene": "sahne/zengi.webp",
+        "image": "r3d/zengi.webp",
         "cutout": true,
         "bg": "#d49a1a",
         "bg2": "#ffe39a",
@@ -14330,7 +14476,8 @@
         },
         "color": "#feabb5",
         "product": 13,
-        "image": "cut/chicelle.webp",
+        "scene": "sahne/chicelle.webp",
+        "image": "r3d/chicelle.webp",
         "cutout": true,
         "bg": "#d9679a",
         "bg2": "#ffb8d4",
@@ -14359,7 +14506,8 @@
         },
         "color": "#eed698",
         "product": 14,
-        "image": "cut/uniquee-luxury-aphrodisiac-touch.webp",
+        "scene": "sahne/uniquee-luxury-aphrodisiac-touch.webp",
+        "image": "r3d/uniquee-luxury-aphrodisiac-touch.webp",
         "cutout": true,
         "bg": "#7d3fc8",
         "bg2": "#d0b0ff",
@@ -14388,7 +14536,8 @@
         },
         "color": "#ebd981",
         "product": 15,
-        "image": "cut/uniquee-luxury-beril.webp",
+        "scene": "sahne/uniquee-luxury-beril.webp",
+        "image": "r3d/uniquee-luxury-beril.webp",
         "cutout": true,
         "bg": "#d69a2e",
         "bg2": "#ffd890",
@@ -14417,7 +14566,8 @@
         },
         "color": "#eee5b8",
         "product": 16,
-        "image": "cut/uniquee-luxury-chypre-toscano.webp",
+        "scene": "sahne/uniquee-luxury-chypre-toscano.webp",
+        "image": "r3d/uniquee-luxury-chypre-toscano.webp",
         "cutout": true,
         "bg": "#6f8a3a",
         "bg2": "#cfe39a",
@@ -14446,7 +14596,8 @@
         },
         "color": "#f6e07e",
         "product": 17,
-        "image": "cut/uniquee-luxury-hidden-accords.webp",
+        "scene": "sahne/uniquee-luxury-hidden-accords.webp",
+        "image": "r3d/uniquee-luxury-hidden-accords.webp",
         "cutout": true,
         "bg": "#9a6a3a",
         "bg2": "#e8c89a",
@@ -14475,7 +14626,8 @@
         },
         "color": "#f6e99c",
         "product": 18,
-        "image": "cut/uniquee-luxury-izmir.webp",
+        "scene": "sahne/uniquee-luxury-izmir.webp",
+        "image": "r3d/uniquee-luxury-izmir.webp",
         "cutout": true,
         "bg": "#3a9ee0",
         "bg2": "#a8d8ff",

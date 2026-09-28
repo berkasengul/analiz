@@ -1,1 +1,135 @@
-{}
+{
+ "chicelle": {
+  "src": "fon/yesil-orkide-d9679a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "dolcezza": {
+  "src": "fon/yesil-orkide-d9a520.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "mangonifiscent": {
+  "src": "fon/yesil-orkide-1f9e5a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "mashumaro": {
+  "src": "fon/yesil-orkide-d62f3a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "ocean-the-rive-100-ml": {
+  "src": "fon/yesil-orkide-2448c8.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-akdeniz": {
+  "src": "fon/yesil-orkide-16a0a0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-aphrodisiac-touch": {
+  "src": "fon/yesil-orkide-7d3fc8.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-beril": {
+  "src": "fon/yesil-orkide-d69a2e.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-beverly-hills-exclusive": {
+  "src": "fon/yesil-orkide-c9922e.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-chocolate-makes-me-happy": {
+  "src": "fon/yesil-orkide-8a4a26.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-chypre-toscano": {
+  "src": "fon/yesil-orkide-6f8a3a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-crush-on-me": {
+  "src": "fon/yesil-orkide-c8202e.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-hidden-accords": {
+  "src": "fon/yesil-orkide-9a6a3a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-istanbul": {
+  "src": "fon/yesil-orkide-e0601c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-izmir": {
+  "src": "fon/yesil-orkide-3a9ee0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-kutay": {
+  "src": "fon/yesil-orkide-b8621c.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "uniquee-luxury-soscentific": {
+  "src": "fon/yesil-orkide-e8804a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "woud-mood-absolute-100-ml": {
+  "src": "fon/yesil-orkide-8a6a3a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ },
+ "zengi": {
+  "src": "fon/yesil-orkide-d49a1a.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
+ }
+}
