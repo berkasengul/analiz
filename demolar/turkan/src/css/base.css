@@ -5843,3 +5843,177 @@ button.buy__more {
     grid-row: auto;
   }
 }
+
+/* ---------------------------------------------------------------- Ürünler sayfası: 3B dönen sergi girişi */
+/* Sabitlenen sahne için katalog kaydırma kabı olmamalı (overflow: hidden sticky'yi bozar). */
+.catalog:has(.cathero) {
+  overflow: clip;
+}
+.cathero {
+  --cw: clamp(150px, 16.5vw, 270px);
+  --r: calc(var(--cw) * var(--n) * 0.168);
+  --p: 0;
+  position: relative;
+  height: 250vh;
+  margin: calc(-1 * clamp(130px, 19vh, 180px)) calc(-1 * var(--gutter)) 0;
+}
+.cathero__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  padding: clamp(92px, 13vh, 128px) var(--gutter) clamp(22px, 4vh, 40px);
+}
+.cathero__beam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 34% 30% at 50% 62%, color-mix(in srgb, var(--accent, #c9a55c) 22%, transparent), transparent 70%),
+    conic-gradient(from 180deg at 50% -8%, transparent 172deg, rgba(255, 236, 200, 0.1) 177deg, rgba(255, 236, 200, 0.16) 180deg, rgba(255, 236, 200, 0.1) 183deg, transparent 188deg);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 88%);
+}
+.cathero__head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  transform: translateY(calc(var(--p) * -24px));
+  opacity: calc(1 - var(--p) * 0.35);
+}
+.cathero__head .catalog__title {
+  font-size: clamp(2.4rem, 5.6vw, 5.2rem);
+}
+.cathero__head .tagline {
+  margin: 0;
+}
+.cathero__stage {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  perspective: 1300px;
+  perspective-origin: 50% 45%;
+  min-height: calc(var(--cw) * 1.45);
+  margin-bottom: clamp(10px, 3vh, 34px);
+}
+.cathero__ring {
+  position: relative;
+  width: var(--cw);
+  aspect-ratio: 3 / 4;
+  transform-style: preserve-3d;
+  transform: rotateX(4deg);
+  scale: calc(0.96 + var(--p) * 0.1);
+}
+.cathero__card {
+  --lit: 1;
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, #d8b46a calc(20% + var(--lit) * 45%), transparent);
+  border-radius: 3px;
+  background: #050403;
+  overflow: hidden;
+  cursor: pointer;
+  will-change: transform;
+  filter: brightness(calc(0.28 + var(--lit) * 0.8)) saturate(calc(0.6 + var(--lit) * 0.4));
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9), 0 0 calc(var(--lit) * 40px) color-mix(in srgb, #e8c27a calc(var(--lit) * 18%), transparent);
+  -webkit-box-reflect: below 8px linear-gradient(transparent 68%, rgba(255, 255, 255, 0.16));
+  transition: border-color 0.3s;
+}
+.cathero__card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+.cathero__card:hover img,
+.cathero__card:focus-visible img {
+  transform: scale(1.05);
+}
+.cathero__floor {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: min(1100px, 130vw);
+  height: 38%;
+  translate: -50% 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 50% at 50% 30%, rgba(232, 194, 122, 0.12), transparent 70%);
+  filter: blur(8px);
+}
+.cathero__now {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  text-align: center;
+  animation: nowIn 0.6s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.cathero__now > p:first-child {
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold, #d8b46a);
+}
+.cathero__now h2 {
+  font-family: var(--wide);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+  line-height: 1.1;
+  margin: 0;
+}
+.cathero__price {
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+.cathero__now .pcard__acts {
+  margin-top: 8px;
+}
+@keyframes nowIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(6px);
+  }
+}
+.cathero__hint {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(22px, 4vh, 40px);
+  font-size: 0.66rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: calc(1 - var(--p) * 3);
+}
+.catalog__head--tabs {
+  margin-top: clamp(24px, 5vh, 48px);
+}
+@media (max-width: 700px) {
+  .cathero {
+    height: 220vh;
+  }
+  .cathero {
+    --cw: min(56vw, 250px);
+  }
+  .cathero__stage {
+    perspective: 900px;
+  }
+  .cathero__hint {
+    display: none;
+  }
+  .cathero__head .catalog__title {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+  }
+}

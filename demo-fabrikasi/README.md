@@ -201,3 +201,11 @@ fotoğrafı öndeki 3B ürünün arkasına koyar: fotoğraftaki kaide ürünün 
 boyuna göre ölçeklenir, kenarları karanlığa karışır, ürün değişince yumuşakça geçer; 3B kaide gizlenir.
 Detayda, Ritüel'de ve mağazada söner. Türkan: Floraison pembe gül, Agrumes mor lavanta-limon, Boisé yeşil orkide,
 diğerleri orkide sahnesinin kendi renklerine boyanmış hâli. Kartların hepsi kemerli orkide sergisinde.
+
+### Ürünler sayfasının 3B girişi
+
+Sergi kartlı temada (`theme.cards: "gallery"`) `#/urunler` sayfası 3B bir kapak akışıyla açılır: bütün
+ürünler sergi görselleriyle yan yana, öndeki dik ve aydınlık, yandakiler açılı ve kararmış. Sayfa kaydıkça
+ürünler kayar (sahne 250vh boyunca sabit kalır), kendiliğinden birkaç saniyede bir ilerler (fare üstündeyken
+durur, hareket azaltma ayarında hiç ilerlemez). Altta öndeki ürünün kategorisi, adı, fiyatı, sepet ve ürüne
+git düğmeleri; ardından kategori çipleri ve ürün ızgarası gelir.

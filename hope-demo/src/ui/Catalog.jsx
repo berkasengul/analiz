@@ -409,6 +409,134 @@ export function CollectionGrid() {
   );
 }
 
+// Ürünler sayfasının girişi (sergi kartlı temalar): bütün ürünler kemerli sergi görselleriyle 3B bir
+// kapak akışında (coverflow) durur. Sayfa kaydıkça ürünler kayar; öndeki ürün aydınlık ve dik, yandakiler
+// açılı ve kararmış. Öndeki ürünün adı, fiyatı ve düğmeleri altta yazar. Hareket azaltma ayarında
+// kendiliğinden ilerlemez.
+function CatalogHero({ items, t, title, children }) {
+  const sec = useRef(null);
+  const ring = useRef(null);
+  const [front, setFront] = useState(0);
+  const addToCart = useStore((s) => s.addToCart);
+  const setCartOpen = useStore((s) => s.setCartOpen);
+  const N = items.length;
+  useEffect(() => {
+    const el = sec.current;
+    const cards = [...ring.current.children];
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf;
+    let last = performance.now();
+    let cur = -1;
+    let hover = false;
+    // Kendiliğinden ilerleme: her birkaç saniyede bir sonraki ürün yumuşakça öne gelir
+    // (fare sergideyken durur); kaydırma bunun üstüne ürünleri ilerletir.
+    let goal = 0;
+    let auto = 0;
+    let wait = 3.2;
+    const on = () => (hover = true);
+    const off = () => (hover = false);
+    ring.current.addEventListener("pointerenter", on);
+    ring.current.addEventListener("pointerleave", off);
+    const tick = (now) => {
+      raf = requestAnimationFrame(tick);
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      if (!still && !hover && (wait -= dt) <= 0) {
+        goal += 1;
+        wait = 3.2;
+      }
+      auto += (goal - auto) * (1 - Math.exp(-dt * 3.2));
+      const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - window.innerHeight)));
+      el.style.setProperty("--p", p.toFixed(4));
+      const pos = auto + p * 8;
+      const cw = cards[0].offsetWidth;
+      cards.forEach((c, i) => {
+        // Öndeki ürüne uzaklık (halka gibi başa sarar): -N/2 … N/2.
+        let d = (((i - pos) % N) + N) % N;
+        if (d > N / 2) d -= N;
+        const ad = Math.abs(d);
+        const sg = Math.sign(d);
+        const near = Math.min(ad, 1);
+        const far = Math.max(0, ad - 1);
+        const x = sg * (near * 0.86 + far * 0.5) * cw;
+        const z = -(near * 0.62 + far * 0.3) * cw;
+        const ry = -sg * near * 42;
+        c.style.transform = `translate3d(${x.toFixed(1)}px, 0, ${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg)`;
+        c.style.zIndex = String(100 - Math.round(ad * 10));
+        c.style.opacity = String(Math.max(0, Math.min(1, 4.6 - ad)).toFixed(3));
+        c.style.visibility = ad > 4.7 ? "hidden" : "visible";
+        c.style.setProperty("--lit", (0.16 + 0.84 * Math.max(0, 1 - ad) ** 1.6).toFixed(3));
+      });
+      const best = ((Math.round(pos) % N) + N) % N;
+      if (best !== cur) {
+        cur = best;
+        setFront(best);
+      }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      ring.current?.removeEventListener("pointerenter", on);
+      ring.current?.removeEventListener("pointerleave", off);
+    };
+  }, [N]);
+  const item = items[front];
+  const cat = C.categories.find((c) => c.id === item.category);
+  const name = item.name[t.lang] ?? item.name.tr;
+  return (
+    <section className="cathero" ref={sec} style={{ "--n": N }}>
+      <div className="cathero__pin">
+        <div className="cathero__beam" aria-hidden="true" />
+        <div className="cathero__head">{children}</div>
+        <div className="cathero__stage">
+          <div className="cathero__ring" ref={ring}>
+            {items.map((it, i) => (
+              <button
+                key={it.id}
+                className="cathero__card"
+                style={{ "--i": i }}
+                onClick={() => openProduct(it)}
+                aria-label={it.name[t.lang] ?? it.name.tr}
+                tabIndex={i === front ? 0 : -1}
+              >
+                <img src={`${BASE}${it.scene}`} alt="" loading={i < 6 || i > N - 4 ? "eager" : "lazy"} />
+              </button>
+            ))}
+          </div>
+          <div className="cathero__floor" aria-hidden="true" />
+        </div>
+        <div className="cathero__now" key={item.id}>
+          <p className="mono" lang={termLang(cat?.name[t.lang])}>{cat?.name[t.lang]}</p>
+          <h2 lang={termLang(name) ?? t.nameLang}>{name}</h2>
+          <p className="cathero__price mono">
+            {item.size ? `${item.size} · ` : ""}
+            {t.money(t.price(1, "once", catalogId(item.id)))}
+          </p>
+          <div className="pcard__acts">
+            <button
+              className="pcard__round"
+              onClick={() => {
+                addToCart(catalogId(item.id), 1, "once", 1);
+                setTimeout(() => setCartOpen(true), 250);
+              }}
+              aria-label={t.ui.addToCart}
+              title={t.ui.addToCart}
+            >
+              <Bag />
+            </button>
+            <button className="pcard__round pcard__round--go" onClick={() => openProduct(item)} aria-label={name}>
+              <Arrow />
+            </button>
+          </div>
+        </div>
+        <p className="cathero__hint mono" aria-hidden="true">{title}</p>
+      </div>
+    </section>
+  );
+}
+
 // Ayrı sayfa: kategoriler başlık başlık, üstte hızlı geçiş çipleri. Seçili
 // kategori adreste durur (#/urunler/sac), üst menüden doğrudan açılabilir.
 export function CatalogPage({ cat }) {
@@ -433,32 +561,51 @@ export function CatalogPage({ cat }) {
   const shown = active === "all" ? cats : cats.filter((c) => c.id === active);
   const tint = active === "all" ? C.glow ?? content.products[0]?.theme?.glow : cats.find((c) => c.id === active)?.color;
   let n = 0;
+  // Sergi kartlı temada girişte 3B dönen sergi (yalnızca "tümü" görünümünde).
+  const showcase = GALLERY ? C.items.filter((i) => i.scene) : [];
+  const intro = (
+    <>
+      <a className="catalog__back mono" href="#flavors">
+        ← {t.ui.backHome}
+      </a>
+      <p className="mono section__eyebrow">{t.ui.allEyebrow}</p>
+      <h1 className="catalog__title">{active === "all" ? t.ui.catalogTitle : cats.find((c) => c.id === active).name[t.lang]}</h1>
+      <p className="tagline tagline--static">{t.ui.allTag(C.items.length)}</p>
+    </>
+  );
+  const tabsNav = (
+      <nav className="catalog__tabs" aria-label={t.ui.categories} ref={tabs}>
+        {[{ id: "all", color: C.glow, name: { tr: t.ui.all, en: t.ui.all } }, ...cats].map((c) => (
+          <a
+            key={c.id}
+            href={c.id === "all" ? "#/urunler" : `#/urunler/${c.id}`}
+            className={active === c.id ? "is-on" : ""}
+            aria-current={active === c.id ? "page" : undefined}
+            style={{ "--c": c.color }}
+          >
+            {c.id !== "all" && <i aria-hidden="true" />}
+            <span lang={termLang(c.name[t.lang])}>{c.name[t.lang]}</span>
+            <small>{c.id === "all" ? C.items.length : C.items.filter((i) => i.category === c.id).length}</small>
+          </a>
+        ))}
+      </nav>
+  );
   return (
     <main className="catalog" style={{ "--accent": C.glow ?? content.products[0]?.color, "--tint": tint }}>
       <Atmosphere />
-      <header className="catalog__head">
-        <a className="catalog__back mono" href="#flavors">
-          ← {t.ui.backHome}
-        </a>
-        <p className="mono section__eyebrow">{t.ui.allEyebrow}</p>
-        <h1 className="catalog__title">{active === "all" ? t.ui.catalogTitle : cats.find((c) => c.id === active).name[t.lang]}</h1>
-        <p className="tagline tagline--static">{t.ui.allTag(C.items.length)}</p>
-        <nav className="catalog__tabs" aria-label={t.ui.categories} ref={tabs}>
-          {[{ id: "all", color: C.glow, name: { tr: t.ui.all, en: t.ui.all } }, ...cats].map((c) => (
-            <a
-              key={c.id}
-              href={c.id === "all" ? "#/urunler" : `#/urunler/${c.id}`}
-              className={active === c.id ? "is-on" : ""}
-              aria-current={active === c.id ? "page" : undefined}
-              style={{ "--c": c.color }}
-            >
-              {c.id !== "all" && <i aria-hidden="true" />}
-              <span lang={termLang(c.name[t.lang])}>{c.name[t.lang]}</span>
-              <small>{c.id === "all" ? C.items.length : C.items.filter((i) => i.category === c.id).length}</small>
-            </a>
-          ))}
-        </nav>
-      </header>
+      {showcase.length > 2 && active === "all" ? (
+        <>
+          <CatalogHero items={showcase} t={t} title={t.ui.scroll}>
+            {intro}
+          </CatalogHero>
+          <header className="catalog__head catalog__head--tabs">{tabsNav}</header>
+        </>
+      ) : (
+        <header className="catalog__head">
+          {intro}
+          {tabsNav}
+        </header>
+      )}
       <div className="catalog__groups" key={active}>
         {shown.map((c) => (
           <section key={c.id} className="catalog__group" id={`cat-${c.id}`} style={{ "--c": c.color }}>
