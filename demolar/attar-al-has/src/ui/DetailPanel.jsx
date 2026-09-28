@@ -240,7 +240,8 @@ export default function DetailPanel() {
               )}
             </details>
           )}
-          {f.photos?.length > 0 && <Gallery photos={f.photos} views={f.views} hero={f.heroPhoto} name={f.name} label={ui.photos} tab={tab} />}
+          {/* Tek fotoğraf sahnedeki 3B modelin aynısı: galeri yalnızca birden çok çekim varsa. */}
+          {f.photos?.length > 1 && <Gallery photos={f.photos} views={f.views} hero={f.heroPhoto} name={f.name} label={ui.photos} tab={tab} />}
           {tip && t.glossary[tip] && f.notes.includes(tip) && (
             <p className="detail__tip">
               <b>{tip}</b> {t.glossary[tip]}
