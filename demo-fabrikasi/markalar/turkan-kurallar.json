@@ -108,6 +108,14 @@
     ],
     "backdropArt": [
       {
+        "match": "floraison",
+        "file": "altin-halka-orkide.webp",
+        "cx": 1109,
+        "base": 648,
+        "h": 537,
+        "vivid": true
+      },
+      {
         "match": "boi",
         "file": "yesil-orkide.webp",
         "cx": 543,

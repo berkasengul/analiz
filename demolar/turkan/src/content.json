@@ -727,11 +727,12 @@
         "foto/turkan-no-8-floraison-100-ml/4.webp"
       ],
       "stage": {
-        "src": "fon/yesil-orkide-d4588c.webp",
-        "aspect": 0.75,
-        "base": 0.5981,
-        "cx": 0.5,
-        "h": 0.3108
+        "src": "fon/altin-halka-orkide.webp",
+        "aspect": 2.2551,
+        "base": 0.776,
+        "cx": 0.589,
+        "h": 0.6431,
+        "vivid": 1
       },
       "views": [
         null,
@@ -20276,11 +20277,12 @@
         "foto/turkan-no-8-floraison-15ml/3.webp"
       ],
       "stage": {
-        "src": "fon/yesil-orkide-d4588c.webp",
-        "aspect": 0.75,
-        "base": 0.5981,
-        "cx": 0.5,
-        "h": 0.2762
+        "src": "fon/altin-halka-orkide.webp",
+        "aspect": 2.2551,
+        "base": 0.776,
+        "cx": 0.589,
+        "h": 0.5717,
+        "vivid": 1
       },
       "views": [
         null,
@@ -32280,11 +32282,12 @@
         "foto/turkan-floraison-8-cologne-du-parfumeur-150-ml/4.webp"
       ],
       "stage": {
-        "src": "fon/yesil-orkide-d4588c.webp",
-        "aspect": 0.75,
-        "base": 0.5981,
-        "cx": 0.5,
-        "h": 0.3568
+        "src": "fon/altin-halka-orkide.webp",
+        "aspect": 2.2551,
+        "base": 0.776,
+        "cx": 0.589,
+        "h": 0.7384,
+        "vivid": 1
       },
       "views": [
         null,
@@ -35773,11 +35776,12 @@
         "foto/turkan-floraison-8-cologne-du-parfumeur-50-ml/4.webp"
       ],
       "stage": {
-        "src": "fon/yesil-orkide-d4588c.webp",
-        "aspect": 0.75,
-        "base": 0.5981,
-        "cx": 0.5,
-        "h": 0.2417
+        "src": "fon/altin-halka-orkide.webp",
+        "aspect": 2.2551,
+        "base": 0.776,
+        "cx": 0.589,
+        "h": 0.5002,
+        "vivid": 1
       },
       "views": [
         null,

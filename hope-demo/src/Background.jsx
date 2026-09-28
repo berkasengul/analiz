@@ -163,6 +163,9 @@ export default function Background() {
     // Detayda sahne kalır (ürünün kendi arka planı) ama yazılar okunsun diye kararır; ışık huzmesi söner.
     l.sceneLight = MathUtils.damp(l.sceneLight ?? 1, st.detail ? 0 : 1, 3, dt);
     m.u_sceneLight = l.sceneLight;
+    // Canlı sahne (stage.vivid): fotoğraf olduğu gibi net ve parlak; karartma ve bulanıklık kalkar.
+    l.vivid = MathUtils.damp(l.vivid ?? 0, stageOf?.vivid ? 1 : 0, 2.5, dt);
+    m.u_vivid = l.vivid;
     material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
 

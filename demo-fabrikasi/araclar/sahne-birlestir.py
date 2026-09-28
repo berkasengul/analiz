@@ -211,11 +211,12 @@ def backdrops(handles):
             im = Image.open(os.path.join(FOTO, "sahne-kaynak", art["file"])).convert("RGBA")
             if color:
                 im = recolor(im, color, tuple(art.get("tintHue", (40, 115))))
-            im.convert("RGB").save(os.path.join(out, f"{name}.webp"), quality=84, method=5)
+            im.convert("RGB").save(os.path.join(out, f"{name}.webp"), quality=92 if art.get("vivid") else 84, method=5)
             made[name] = im.size
         W, H = made[name]
         meta[h] = {"src": f"fon/{name}.webp", "aspect": round(W / H, 4), "base": round(art["base"] / H, 4),
-                   "cx": round(art["cx"] / W, 4), "h": round(art["h"] * height_cm(h) / 13.5 / H, 4)}
+                   "cx": round(art["cx"] / W, 4), "h": round(art["h"] * height_cm(h) / 13.5 / H, 4),
+                   **({"vivid": 1} if art.get("vivid") else {})}
     json.dump(meta, open(os.path.join(out, "fon.json"), "w"), indent=1)
     print(len(made), "arka plan sahnesi →", len(meta), "ürün")
 

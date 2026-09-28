@@ -330,9 +330,15 @@ function latheHalf(S, back) {
   // Üst ve alt uçları kapatmak için ilk/son satırın dışına yarıçapı 0 olan satır.
   const R = [0, ...rows, 0];
   const Y = [0, ...rows.map((_, i) => (i + 0.5) / N), 1];
+  // Tepe ve dip noktası silüetin tam kenarına düşer: oradaki yarı saydam, koyu kenar pikselleri
+  // kapağın tepesinde leke gibi görünür. Doku o bölgede biraz içeriden alınır.
+  const lit = R.map((r, j) => (r > 0 ? j : -1)).filter((j) => j >= 0);
+  const yTop = lit.length ? Y[lit[0]] + 0.014 : 0;
+  const yBot = lit.length ? Y[lit[lit.length - 1]] - 0.014 : 1;
   for (let j = 0; j < R.length; j++) {
     const r = R[j];
     const y = Y[j];
+    const yv = Math.min(Math.max(y, yTop), Math.max(yTop, yBot));
     for (let k = 0; k <= seg; k++) {
       const t = -Math.PI / 2 + (k / seg) * Math.PI; // ön yarı: -90°..90°
       const sx = Math.sin(t) * r;
@@ -341,7 +347,7 @@ function latheHalf(S, back) {
       pos.push((S.axis + xw - 0.5) * L, (0.5 - y) * L, (back ? -cz : cz) * L * zs);
       // Silüet kenarında şeffaf piksele düşmemek için izdüşüm biraz içeriden alınır.
       const xn = S.axis + xw * 0.97;
-      uv.push(back ? 0.5 + 0.5 * (1 - xn) : 0.5 * xn, 1 - y);
+      uv.push(back ? 0.5 + 0.5 * (1 - xn) : 0.5 * xn, 1 - yv);
     }
   }
   const W = seg + 1;
