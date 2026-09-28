@@ -135,7 +135,9 @@ function useTouchPaging() {
       const dy = t.y - e.touches[0].clientY;
       if (!t.held && Math.abs(dy) < 6) return;
       // Son üründe ileri, ilk üründe geri kaydırma doğal akar (alt bölümlere / sayfa başına).
-      const free = (dy > 0 && t.idx >= N - 1 && t.raw >= N - 1 - 0.05) || (dy < 0 && t.idx <= 0 && t.raw <= 0.05);
+      // (Adres çubuğu açılıp kapanınca ekran yüksekliği değişir; konuma değil ürün sırasına bakılır,
+      // yoksa son üründe takılıp Ritüel'e inilemez.)
+      const free = (dy > 0 && t.idx >= N - 1) || (dy < 0 && t.idx <= 0);
       if (free && !t.held) {
         t = null;
         return;

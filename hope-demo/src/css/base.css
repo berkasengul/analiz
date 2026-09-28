@@ -5663,7 +5663,7 @@ button.buy__more {
 }
 .pcard.pcard--scene {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 4.35;
   border-radius: 4px;
   overflow: hidden;
   background: #060504;
@@ -5683,11 +5683,17 @@ button.buy__more {
   background: none;
   cursor: pointer;
 }
+/* Sahne kartın üst kısmında (kemerin tepesi biraz kırpılır); kaidenin altı yazıya kalır. */
 .pcard__scene img {
+  position: absolute;
+  left: 0;
+  top: -9%;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 30%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  transform-origin: 50% 40%;
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 97%);
+  mask-image: linear-gradient(180deg, #000 72%, transparent 97%);
   transition: scale 1.4s var(--ease), filter 0.8s ease;
 }
 .pcard--scene:hover .pcard__scene img {
@@ -5703,10 +5709,10 @@ button.buy__more {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 70px 18px 20px;
+  padding: 36px 18px 20px;
   text-align: center;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(5, 4, 3, 0.78) 45%, rgba(5, 4, 3, 0.94));
+  background: linear-gradient(180deg, transparent, rgba(5, 4, 3, 0.7) 30%, rgba(5, 4, 3, 0.92));
 }
 .pcard__over > * {
   pointer-events: auto;
