@@ -10,7 +10,9 @@ Kurallar: markalar/<marka>-kurallar.json → "foto.sceneArt":
     "h": 470,                        # 13,5 cm'lik (100 ml) şişenin boyu; diğer boylar foto.heights oranıyla
     "w": 560,                        # setler (yan yana birkaç ürün) için genişlik
     "glow": [255, 190, 120],         # ürünün arkasındaki hâle rengi (sahnenin ışığı)
-    "dim": 0.42}]                    # spot dışında sahnenin parlaklığı (1 = karartma yok)
+    "dim": 0.42,                     # spot dışında sahnenin parlaklığı (1 = karartma yok)
+    "tint": "palette",               # sahnenin renkli bölümünü ürünün rengine boya ("palette" ya da "#rrggbb")
+    "tintHue": [40, 115]}]           # boyanacak renk aralığı (PIL HSV; yeşil ≈ 40-115)
 Çıktı: markalar/<marka>-foto/sahne/<handle>.webp (kart-3b.py --stage çıktısının yerine geçer).
 
 Kullanım: python3 demo-fabrikasi/araclar/sahne-birlestir.py turkan
@@ -30,7 +32,9 @@ if len(sys.argv) < 2:
 SLUG = sys.argv[1]
 MARKA = os.path.join(HERE, "..", "markalar")
 FOTO = os.path.join(MARKA, f"{SLUG}-foto")
-RULES = json.load(open(os.path.join(MARKA, f"{SLUG}-kurallar.json"), encoding="utf-8")).get("foto", {})
+_R = json.load(open(os.path.join(MARKA, f"{SLUG}-kurallar.json"), encoding="utf-8"))
+RULES = _R.get("foto", {})
+PALETTE = _R.get("aktar", {}).get("palette", [])
 OUT_W, OUT_H = 900, 1200
 
 
@@ -57,6 +61,32 @@ def warm(im, scene_rgb):
     a[..., :3] += rim[..., None] * np.array([70, 60, 42], np.float32) * (1.1 - 0.6 * ys[..., None])
     out = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
     return out
+
+
+def hexrgb(h):
+    return np.array([int(h[i:i + 2], 16) for i in (1, 3, 5)], np.float32)
+
+
+def recolor(scene, color, hue=(40, 115)):
+    """Sahnenin renkli bölümü (ör. kemerin içi) ürünün rengine boyanır; desen, doku ve ışık aynı kalır.
+    `hue`: boyanacak renk aralığı (PIL HSV, 0-255; yeşil ≈ 40-115). Altın, mermer, beyaz çiçek dokunulmaz."""
+    rgb = scene.convert("RGB")
+    a = np.asarray(rgb).astype(np.float32) / 255
+    hsv = np.asarray(rgb.convert("HSV")).astype(np.float32)
+    H, S = hsv[..., 0], hsv[..., 1]
+    lo, hi = hue
+    m = np.clip((H - lo + 10) / 10, 0, 1) * np.clip((hi + 10 - H) / 10, 0, 1) * np.clip((S - 20) / 40, 0, 1)
+    m = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(2)), np.float32) / 255
+    L = a.max(-1)
+    t = hexrgb(color) / 255
+    t = t / max(t.max(), 1e-3)
+    col = t[None, None, :] * np.clip(L[..., None] * 1.45, 0, 1)
+    # Parlak yerler (spot) renkten sıcak beyaza döner: ışık hâlâ altın ışığı gibi durur.
+    top = np.clip((L - 0.55) / 0.45, 0, 1)[..., None] ** 1.5
+    col = col * (1 - top * 0.6) + np.array([1, 0.93, 0.8], np.float32) * L[..., None] * top * 0.6
+    out = a * (1 - m[..., None]) + col * m[..., None]
+    img = Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8)).convert("RGBA")
+    return img
 
 
 def spotlight(scene, cx, cy, pw, ph, base, dim):
@@ -131,14 +161,24 @@ def main():
         if not art:
             continue
         scene = Image.open(os.path.join(FOTO, "sahne-kaynak", art["file"])).convert("RGBA")
+        glow = art.get("glow")
+        if art.get("tint"):
+            # "tint": "palette" → ürünün sitedeki rengi (aktar.palette), ya da doğrudan "#rrggbb".
+            pal = next((c for c in PALETTE if re.search(c[0], h)), None)
+            color = pal[1] if art["tint"] == "palette" and pal else art["tint"]
+            if art["tint"] == "palette" and not pal:
+                print("renk yok, atlandı:", h)
+                continue
+            scene = recolor(scene, color, tuple(art.get("tintHue", (40, 115))))
+            glow = glow or (list(hexrgb(pal[2]).astype(int)) if pal else None)
         mean = np.asarray(scene.convert("RGB").resize((64, 64))).reshape(-1, 3).mean(0)
         src = os.path.join(hd, f"{h}.webp")
         prod = warm(Image.open(src if os.path.exists(src) else path).convert("RGBA"), mean)
         group = re.search(RULES.get("noViews", "$^"), h)  # setler: yan yana birkaç ürün
         if group and art.get("w"):
-            scene = place(scene, prod, art["cx"], art["base"], target_w=art["w"], glow=art.get("glow"), dim=art.get("dim", 0.42))
+            scene = place(scene, prod, art["cx"], art["base"], target_w=art["w"], glow=glow, dim=art.get("dim", 0.42))
         else:
-            scene = place(scene, prod, art["cx"], art["base"], target_h=art["h"] * height_cm(h) / 13.5, glow=art.get("glow"), dim=art.get("dim", 0.42))
+            scene = place(scene, prod, art["cx"], art["base"], target_h=art["h"] * height_cm(h) / 13.5, glow=glow, dim=art.get("dim", 0.42))
         x0, y0, x1, y1 = art.get("crop", [0, 0, scene.width, scene.height])
         out = scene.crop((x0, y0, x1, y1)).convert("RGB").resize((OUT_W, OUT_H), Image.LANCZOS)
         out.save(os.path.join(FOTO, "sahne", f"{h}.webp"), quality=90, method=5)

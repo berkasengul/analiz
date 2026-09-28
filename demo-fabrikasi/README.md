@@ -181,6 +181,11 @@ aydınlık, kenarında ince sıcak ışık çizgisi, temas gölgesi, silik yans�
 çekim: `kart-3b.py <marka> --hd --only "floraison|agrumes|boi"` → `render3d-hd/` (varsa o kullanılır).
 Çıktı `sahne/<handle>.webp` olur (3B sergi görselinin yerine geçer); sonra aktarım + derleme.
 
+Her ürüne kendi renginde sahne: `"tint": "palette"` olan bir kural, sahnenin renkli bölümünü (ör. yeşil orkide
+sahnesinde kemerin içi, `tintHue` aralığı) ürünün sitedeki rengine (`aktar.palette`) boyar; desen, doku, altın,
+mermer ve çiçekler aynı kalır. Türkan'da Floraison/Agrumes/Boisé kendi sahnelerinde, diğer bütün ürünler
+(`"match": "."`) yeşil orkide sahnesinin kendi renklerine boyanmış hâlinde.
+
 ```bash
 python3 demo-fabrikasi/araclar/sahne-birlestir.py turkan
 python3 demo-fabrikasi/araclar/shopify-aktar.py turkan
