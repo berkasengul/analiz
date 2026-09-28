@@ -129,8 +129,8 @@ export default function Background() {
       m.u_sp1 = sp1;
       m.u_sp2 = sp2;
     }
-    l.sceneMix = Math.min(1, l.sceneMix + Math.min(delta, 0.1) / 1.1);
-    m.u_sceneMix = l.sceneMix * l.sceneMix * (3 - 2 * l.sceneMix);
+    l.sceneMix = Math.min(1, l.sceneMix + Math.min(delta, 0.1) / 1.6);
+    m.u_sceneMix = l.sceneMix;
     const f = sceneState.focus;
     const onTarget =
       (SOLO && stageOf && f.bottom != null && f.top != null ? 1 : 0) *
