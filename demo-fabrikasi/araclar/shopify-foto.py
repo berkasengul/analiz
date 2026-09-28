@@ -11,6 +11,10 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      sitede küçük görsele tıklayınca sahnedeki ürün o modele döner
     "noViews": "regex"              3B görünüm üretilmeyecek ürünler (ör. setler)
     "skip": "regex"                 demoya alınmayacak ürünler (ör. deneme setleri, kutu ürünleri)
+    "studio": true                  renkli/gri stüdyo zeminindeki ürün çekimleri de ürün fotoğrafı sayılır (yapay zekâyla kesilir)
+    "pedestal": true                ürün bir kaide üstünde çekilmiş (zeminde yansıma yok): şeffaf camın açık renkli
+                                     tabanı yansıma sanılıp kesilmez
+    "solidTop": 0.25                ürünün üst bölümü (oran) delik bırakılmadan dolu kesilir (zemine yakın renkli kapak)
     "glassBack": {"label": [x0, y0, x1, y1], "labels": [["regex", [x0, y0, x1, y1]]], "lines": ["...", ...]}
                                      renkli cam şişe: arka yüz ön fotoğrafın aynası (cam ve renk net), ön etiketin
                                      yerine markanın etiket stilinde arka etiket (ad, aile, notalar, hacim; notalar ve
@@ -84,7 +88,8 @@ def ai_alpha(im, box=False):
         med = np.median(widths[rows[0] + (rows[-1] - rows[0]) // 4 : rows[-1] - (rows[-1] - rows[0]) // 4])
         full = np.where(widths >= 0.9 * med)[0]
         raw[full[-1] + 1 :] = 0
-    elif len(rows) > 20:
+    elif len(rows) > 20 and not RULES.get("pedestal"):
+        # Kaide üstündeki çekimde zeminde yansıma yok: şeffaf camın açık renkli tabanı kesilmez.
         top, bot = rows[0], rows[-1]
         alpha = np.array([raw[y][m0[y]].mean() if m0[y].any() else 0 for y in range(len(raw))])
         dark = np.array([(255 - px[y][m0[y]].min(1)).mean() if m0[y].any() else 0 for y in range(len(raw))])
@@ -111,6 +116,18 @@ def cutout(im, k, box=False):
     if k in "WL" and RULES.get("ai"):
         a = np.asarray(im).copy()
         a[..., 3] = ai_alpha(im, box)
+        # Kapak zemine yakın renkteyse maskede delik kalır: üst bölümde (solidTop oranı) her satır
+        # soldan sağa dolu sayılır.
+        if RULES.get("solidTop"):
+            al = a[..., 3]
+            rows = np.where((al > 128).any(1))[0]
+            if len(rows):
+                y0 = rows[0]
+                y1 = y0 + int((rows[-1] - y0) * RULES["solidTop"])
+                for y in range(y0, y1):
+                    xs = np.where(al[y] > 128)[0]
+                    if len(xs) > 1:
+                        al[y, xs[0]:xs[-1] + 1] = 255
         im = Image.fromarray(a)
     elif k == "W":
         a = np.asarray(im).copy()
@@ -207,6 +224,15 @@ def shape_info(F):
             jump = next((i for i in upper[:-2] if 0 < rows[i] < 0.6 * body and rows[i + 2] > 1.8 * rows[i]), None)
             if jump is not None and jump - top > 8:
                 neck = round((jump + 1.5) / N, 4)
+        # Taç kapaklı şişe (geniş kapak, dar boyun, omuzdan yavaşça genişleyen gövde): kapak ile gövde
+        # arasındaki en dar satır; üstünde kapak ondan belirgin geniş, altında gövde en az iki katı.
+        if neck is None:
+            span = bot - top
+            mid = [i for i in range(top + span // 10, top + span * 45 // 100) if rows[i] > 0.02 * body]
+            if mid:
+                low = min(mid, key=lambda i: rows[i])
+                if max(rows[top:low]) > 1.5 * rows[low] and body > 2 * rows[low]:
+                    neck = round((low + 0.5) / N, 4)
     return {"axis": round(cx / S, 4), "rows": rows, "outline": outline, "edge": [int(v) for v in edge], "neck": neck}
 
 
@@ -727,6 +753,8 @@ def main():
             continue
         ims = [Image.open(f) for f in files]
         kinds = [kind(im) for im in ims]
+        if RULES.get("studio"):
+            kinds = ["W" if k == "L" else k for k in kinds]
         os.makedirs(os.path.join(OUT, "web", handle), exist_ok=True)
         gallery = []
         for i, (im, k) in enumerate(zip(ims, kinds), 1):

@@ -1,0 +1,3665 @@
+[
+ {
+  "id": 16018864439626,
+  "title": "Liberty’s Way — 11 ml",
+  "handle": "liberty-s-way-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Liberty’s Way accompagne chaque instant d’une élégance estivale. Entre fleur d’oranger lumineuse, douceur florale et sensualité boisée, il révèle une empreinte gracieuse, féminine et magnétique.</p>",
+  "published_at": "2026-09-07T14:12:28+02:00",
+  "created_at": "2026-09-07T14:12:27+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450977337674,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018864439626,
+    "created_at": "2026-09-07T14:12:27+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949696360778,
+    "created_at": "2026-09-07T14:11:22+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T14:11:56+02:00",
+    "product_id": 16018864439626,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/LIBERTYS_WAY_-_11ml.jpg?v=1788783116",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018859327818,
+  "title": "Yellow Splash — 11 ml",
+  "handle": "yellow-splash-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Yellow Splash accompagne chaque instant d’une fraîcheur méditerranéenne. Entre brise marine, énergie solaire et éclat estival, il révèle une empreinte lumineuse, vibrante et élégante.</p>",
+  "published_at": "2026-09-07T14:10:13+02:00",
+  "created_at": "2026-09-07T14:10:12+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450913145162,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018859327818,
+    "created_at": "2026-09-07T14:10:12+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949674275146,
+    "created_at": "2026-09-07T14:09:01+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T14:09:33+02:00",
+    "product_id": 16018859327818,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/YELLOW_SPLASH_-_11ml.jpg?v=1788782973",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018855166282,
+  "title": "Wild Emerald — 11 ml",
+  "handle": "wild-emerald-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Wild Emerald accompagne chaque instant d’une intensité végétale. Entre puissance terrestre, vitalité des forêts et élégance sauvage, il révèle une empreinte profonde, verte et magnétique.</p>",
+  "published_at": "2026-09-07T14:07:34+02:00",
+  "created_at": "2026-09-07T14:07:33+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450903839050,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018855166282,
+    "created_at": "2026-09-07T14:07:33+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949655236938,
+    "created_at": "2026-09-07T14:06:46+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T14:07:21+02:00",
+    "product_id": 16018855166282,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/WILD_EMERALD_-_11ml.jpg?v=1788782841",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018853953866,
+  "title": "Velvet Morganite — 11 ml",
+  "handle": "velvet-morganite-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Velvet Morganite accompagne chaque instant d’une douceur veloutée. Entre éclat pêche rosé, jardin secret et tendresse florale, il révèle une empreinte lumineuse, intime et apaisante.</p>",
+  "published_at": "2026-09-07T14:05:28+02:00",
+  "created_at": "2026-09-07T14:05:27+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450897973578,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018853953866,
+    "created_at": "2026-09-07T14:05:27+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949635805514,
+    "created_at": "2026-09-07T14:04:40+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T14:05:19+02:00",
+    "product_id": 16018853953866,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/VELVET_MORGANITE_-_11ml.jpg?v=1788782719",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018851823946,
+  "title": "Tiger’s Eye — 11 ml",
+  "handle": "tiger-s-eye-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Tiger’s Eye accompagne chaque instant d’une force magnétique. Entre chaleur épicée, profondeur boisée et caractère minéral, il révèle une empreinte masculine, puissante et affirmée.</p>",
+  "published_at": "2026-09-07T14:03:24+02:00",
+  "created_at": "2026-09-07T14:03:22+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450892370250,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018851823946,
+    "created_at": "2026-09-07T14:03:23+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949616800074,
+    "created_at": "2026-09-07T14:02:40+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T14:03:03+02:00",
+    "product_id": 16018851823946,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/TIGERS_EYE_-_11ml.jpg?v=1788782583",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018847039818,
+  "title": "Radiant Peridot — 11 ml",
+  "handle": "radiant-peridot-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Radiant Peridot accompagne chaque instant d’une énergie solaire. Entre fruits éclatants, nature luxuriante et chaleur tropicale, il révèle une empreinte lumineuse, joyeuse et vivifiante.</p>",
+  "published_at": "2026-09-07T14:00:03+02:00",
+  "created_at": "2026-09-07T14:00:02+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450831389002,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018847039818,
+    "created_at": "2026-09-07T14:00:03+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949583212874,
+    "created_at": "2026-09-07T13:59:07+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T13:59:27+02:00",
+    "product_id": 16018847039818,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/RADIANT_PERIDOT_-_11ml.jpg?v=1788782367",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018843074890,
+  "title": "Harmonic Tourmaline — 11 ml",
+  "handle": "harmonic-tourmaline-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Harmonic Tourmaline accompagne chaque instant d’une douceur lumineuse. Entre harmonie florale, chaleur miellée et équilibre naturel, il révèle une empreinte vivante, apaisante et délicate.</p>",
+  "published_at": "2026-09-07T13:57:26+02:00",
+  "created_at": "2026-09-07T13:57:25+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450809008458,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018843074890,
+    "created_at": "2026-09-07T13:57:25+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949555458378,
+    "created_at": "2026-09-07T13:56:21+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T13:56:37+02:00",
+    "product_id": 16018843074890,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/HARMONIC_TOURMALINE_-_11ml.jpg?v=1788782197",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018840355146,
+  "title": "Ethereal Moonstone — 11 ml",
+  "handle": "ethereal-moonstone-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Ethereal Moonstone accompagne chaque instant d’une élégance nocturne. Entre fraîcheur lunaire, profondeur boisée et sensualité discrète, il révèle une aura énigmatique, raffinée et magnétique.</p>",
+  "published_at": "2026-09-07T13:54:51+02:00",
+  "created_at": "2026-09-07T13:54:50+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450797539658,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018840355146,
+    "created_at": "2026-09-07T13:54:50+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949536321866,
+    "created_at": "2026-09-07T13:53:51+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T13:54:15+02:00",
+    "product_id": 16018840355146,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/ETHEREAL_MOONSTONE_-_11ml.jpg?v=1788782055",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16018836160842,
+  "title": "Anatolian Rose — 11 ml",
+  "handle": "anatolian-rose-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Anatolian Rose accompagne chaque instant d’une élégance solaire. Entre rose éclatant, chaleur épicée et fond boisé, il révèle une empreinte romantique, vibrante et durable.</p>",
+  "published_at": "2026-09-07T13:51:59+02:00",
+  "created_at": "2026-09-07T13:51:58+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63450784727370,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16018836160842,
+    "created_at": "2026-09-07T13:51:58+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73949521051978,
+    "created_at": "2026-09-07T13:51:08+02:00",
+    "position": 1,
+    "updated_at": "2026-09-07T13:51:30+02:00",
+    "product_id": 16018836160842,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/ANATOLIAN_ROSE_-_11ml.jpg?v=1788781890",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012568691018,
+  "title": "Yellow Splash — 2ml",
+  "handle": "yellow-splash-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Yellow Splash invite à découvrir une brise méditerranéenne vivifiante, entre fraîcheur solaire, énergie estivale et élégance lumineuse.</p>",
+  "published_at": "2026-09-03T14:39:50+02:00",
+  "created_at": "2026-09-03T14:39:49+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414939517258,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012568691018,
+    "created_at": "2026-09-03T14:39:49+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864885338442,
+    "created_at": "2026-09-03T14:39:06+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:39:30+02:00",
+    "product_id": 16012568691018,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/YELLOW_SPLASH_-_2ml.jpg?v=1788439170",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012566856010,
+  "title": "Wonderful Tonka — 2ml",
+  "handle": "wonderful-tonka-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Wonderful Tonka invite à découvrir la chaleur de la forêt amazonienne, entre richesse de la fève tonka, profondeur boisée et sensualité enveloppante.</p>",
+  "published_at": "2026-09-03T14:37:35+02:00",
+  "created_at": "2026-09-03T14:37:34+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414934765898,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012566856010,
+    "created_at": "2026-09-03T14:37:34+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864870592842,
+    "created_at": "2026-09-03T14:36:57+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:37:16+02:00",
+    "product_id": 16012566856010,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/WONDERFULL_TONKA_-_2ml.jpg?v=1788439036",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012562235722,
+  "title": "Wild Emerald — 2ml",
+  "handle": "wild-emerald-2ml",
+  "body_html": "<p><meta charset=\"utf-8\">Le format 2 ml de Wild Emerald invite à découvrir une nature dense et fertile, entre puissance terrestre, vitalité végétale et élégance sauvage.</p>",
+  "published_at": "2026-09-03T14:33:24+02:00",
+  "created_at": "2026-09-03T14:33:23+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414912090442,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012562235722,
+    "created_at": "2026-09-03T14:33:23+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864812429642,
+    "created_at": "2026-09-03T14:32:41+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:33:18+02:00",
+    "product_id": 16012562235722,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/WILD_EMERALD_-_2ml.jpg?v=1788438798",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012558565706,
+  "title": "Velvet Morganite — 2ml",
+  "handle": "velvet-morganite-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Velvet Morganite invite à découvrir un jardin secret baigné de soleil, entre tendresse florale, féminité veloutée et douceur apaisante.</p>",
+  "published_at": "2026-09-03T14:30:52+02:00",
+  "created_at": "2026-09-03T14:30:51+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414903767370,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012558565706,
+    "created_at": "2026-09-03T14:30:51+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864791851338,
+    "created_at": "2026-09-03T14:30:05+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:30:25+02:00",
+    "product_id": 16012558565706,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/VELVET_MORGANITE_-_2ml.jpg?v=1788438625",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012555190602,
+  "title": "Tiger’s Eye — 2ml",
+  "handle": "tiger-s-eye-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Tiger’s Eye invite à découvrir une force brute et magnétique, entre chaleur minérale, présence masculine et puissance indomptable.</p>",
+  "published_at": "2026-09-03T14:28:12+02:00",
+  "created_at": "2026-09-03T14:28:11+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414896623946,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012555190602,
+    "created_at": "2026-09-03T14:28:11+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864773763402,
+    "created_at": "2026-09-03T14:27:19+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:27:53+02:00",
+    "product_id": 16012555190602,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/TIGERS_EYE_-_2ml.jpg?v=1788438473",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012553847114,
+  "title": "Spice Rose — 2ml",
+  "handle": "spice-rose-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Spice Rose invite à découvrir les marchés vibrants d’Istanbul, entre rose épicée, profondeur boisée et mystère oriental.</p>",
+  "published_at": "2026-09-03T14:26:05+02:00",
+  "created_at": "2026-09-03T14:26:04+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414889414986,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012553847114,
+    "created_at": "2026-09-03T14:26:04+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864690860362,
+    "created_at": "2026-09-03T14:25:15+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:25:37+02:00",
+    "product_id": 16012553847114,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/SPICE_ROSE_-_2ml.jpg?v=1788438337",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012539035978,
+  "title": "Skin Musk — 2ml",
+  "handle": "skin-musk-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Skin Musk invite à découvrir la douceur d’une peau chauffée par le soleil, entre fraîcheur lumineuse, confort musqué et sérénité estivale.</p>",
+  "published_at": "2026-09-03T14:22:05+02:00",
+  "created_at": "2026-09-03T14:22:04+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414869918026,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012539035978,
+    "created_at": "2026-09-03T14:22:05+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864656126282,
+    "created_at": "2026-09-03T14:21:20+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:21:38+02:00",
+    "product_id": 16012539035978,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/SKIN_MUSK_-_2ml.jpg?v=1788438098",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012534088010,
+  "title": "Radiant Peridot — 2ml",
+  "handle": "radiant-peridot-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Radiant Peridot invite à découvrir un paradis tropical lumineux, entre fruits éclatants, chaleur solaire et énergie vivifiante.</p>",
+  "published_at": "2026-09-03T14:16:56+02:00",
+  "created_at": "2026-09-03T14:16:55+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414854451530,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012534088010,
+    "created_at": "2026-09-03T14:16:55+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864608940362,
+    "created_at": "2026-09-03T14:16:06+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:16:44+02:00",
+    "product_id": 16012534088010,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/RADIANT_PERIDOT_-_2ml.jpg?v=1788437804",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012531466570,
+  "title": "Passion Oud — 2ml",
+  "handle": "passion-oud-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Passion Oud invite à découvrir la magie des nuits d’Arabie, entre oud profond, rose précieuse et chaleur ambrée.</p>",
+  "published_at": "2026-09-03T14:13:27+02:00",
+  "created_at": "2026-09-03T14:13:26+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414841147722,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012531466570,
+    "created_at": "2026-09-03T14:13:26+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864584134986,
+    "created_at": "2026-09-03T14:12:24+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:12:53+02:00",
+    "product_id": 16012531466570,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/PASSION_OUD_-_2ml.jpg?v=1788437573",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012529598794,
+  "title": "My Magic — 2ml",
+  "handle": "my-magic-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de My Magic invite à découvrir une séduction intense et gourmande, entre chaleur miellée, richesse du tabac et profondeur boisée.</p>",
+  "published_at": "2026-09-03T14:10:41+02:00",
+  "created_at": "2026-09-03T14:10:40+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414835413322,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012529598794,
+    "created_at": "2026-09-03T14:10:40+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864565817674,
+    "created_at": "2026-09-03T14:10:01+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:10:24+02:00",
+    "product_id": 16012529598794,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/MY_MAGIC_-_2ml.jpg?v=1788437424",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012528386378,
+  "title": "Metallic Oud — 2ml",
+  "handle": "metallic-oud-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Metallic Oud invite à découvrir une féminité lumineuse et inattendue, entre oud naturel du Laos, accord ambré-boisé et raffinement délicat.</p>",
+  "published_at": "2026-09-03T14:08:15+02:00",
+  "created_at": "2026-09-03T14:08:14+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414831186250,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012528386378,
+    "created_at": "2026-09-03T14:08:15+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864548712778,
+    "created_at": "2026-09-03T14:07:21+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:07:42+02:00",
+    "product_id": 16012528386378,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/METALLIC_OUD_-_2ml.jpg?v=1788437262",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012526485834,
+  "title": "Liberty’s Way — 2ml",
+  "handle": "liberty-s-way-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Liberty’s Way invite à découvrir l’élégance d’une nuit d’été, entre fleur d’oranger lumineuse, grâce féminine et sillage magnétique.</p>",
+  "published_at": "2026-09-03T14:05:32+02:00",
+  "created_at": "2026-09-03T14:05:31+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414818799946,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012526485834,
+    "created_at": "2026-09-03T14:05:31+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864529969482,
+    "created_at": "2026-09-03T14:04:50+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:05:07+02:00",
+    "product_id": 16012526485834,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/LIBERTYS_WAY_-_2ml.jpg?v=1788437107",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012523471178,
+  "title": "Leather Effecto — 2ml",
+  "handle": "leather-effecto-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\"><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Leather Effecto invite à découvrir une chaleur épicée et liquoreuse, entre jasmin profond, notes ambrées et sensualité enveloppante.</p>",
+  "published_at": "2026-09-03T14:02:56+02:00",
+  "created_at": "2026-09-03T14:02:55+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414808379722,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012523471178,
+    "created_at": "2026-09-03T14:02:55+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864503820618,
+    "created_at": "2026-09-03T14:02:06+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T14:02:23+02:00",
+    "product_id": 16012523471178,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/LEATHER_EFFECTO_-_2ml.jpg?v=1788436943",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012519866698,
+  "title": "Kamuthraa — 2ml",
+  "handle": "kamuthraa-2ml",
+  "body_html": "<p> Le format 2 ml de Kamuthraa invite à découvrir les plages de Marmaris, entre fraîcheur aquatique, éclat fruité et richesse orientale.</p>",
+  "published_at": "2026-09-03T14:00:06+02:00",
+  "created_at": "2026-09-03T14:00:05+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414795305290,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012519866698,
+    "created_at": "2026-09-03T14:00:05+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864396374346,
+    "created_at": "2026-09-03T13:59:05+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:59:54+02:00",
+    "product_id": 16012519866698,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/KAMUTHRAA_-_2ml.jpg?v=1788436794",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012515377482,
+  "title": "Harmonic Tourmaline — 2ml",
+  "handle": "harmonic-tourmaline-2ml",
+  "body_html": "<p><meta charset=\"utf-8\">Le format 2 ml d’Harmonic Tourmaline invite à découvrir une nature lumineuse et apaisante, entre harmonie florale, douceur miellée et équilibre vivant.</p>",
+  "published_at": "2026-09-03T13:56:02+02:00",
+  "created_at": "2026-09-03T13:56:01+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414777676106,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012515377482,
+    "created_at": "2026-09-03T13:56:01+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864343781706,
+    "created_at": "2026-09-03T13:50:52+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:53:20+02:00",
+    "product_id": 16012515377482,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/HARMONIC_TOURMALINE_-_2ml.jpg?v=1788436400",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012503318858,
+  "title": "Golden Ice — 2ml",
+  "handle": "golden-ice-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Golden Ice invite à découvrir une fraîcheur fruitée et magnétique, entre rose turque, pivoine délicate et sensualité lumineuse.</p>",
+  "published_at": "2026-09-03T13:47:45+02:00",
+  "created_at": "2026-09-03T13:47:44+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414727082314,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012503318858,
+    "created_at": "2026-09-03T13:47:44+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864315208010,
+    "created_at": "2026-09-03T13:47:03+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:48:03+02:00",
+    "product_id": 16012503318858,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/GOLDEN_ICE_-_2ml.jpg?v=1788436083",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012500533578,
+  "title": "Gold Sunset — 2ml",
+  "handle": "gold-sunset-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml de Gold Sunset invite à découvrir un coucher de soleil caribéen, entre ciel doré, chaleur solaire et sérénité tropicale.</p>",
+  "published_at": "2026-09-03T13:45:14+02:00",
+  "created_at": "2026-09-03T13:45:13+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414717481290,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012500533578,
+    "created_at": "2026-09-03T13:45:13+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864293744970,
+    "created_at": "2026-09-03T13:44:23+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:44:39+02:00",
+    "product_id": 16012500533578,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/GOLD_SUNSET_-_2ml.jpg?v=1788435879",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012472615242,
+  "title": "Fleur de tabac — 2ml",
+  "handle": "fleur-de-tabac-2ml",
+  "body_html": "<p><meta charset=\"utf-8\">Le format 2 ml de Fleur de Tabac invite à découvrir une masculinité sèche et envoûtante, entre douceur balsamique, vanille profonde et mystère intrigant.</p>",
+  "published_at": "2026-09-03T13:19:15+02:00",
+  "created_at": "2026-09-03T13:19:13+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414624813386,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012472615242,
+    "created_at": "2026-09-03T13:19:14+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864058143050,
+    "created_at": "2026-09-03T13:18:27+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:18:48+02:00",
+    "product_id": 16012472615242,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/FLEUR_DE_TABAC_-_2ml.jpg?v=1788434328",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012470092106,
+  "title": "Exquisite — 2ml",
+  "handle": "exquisite-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml d’Exquisite invite à découvrir une gourmandise raffinée et séduisante, entre douceurs orientales, opulence ottomane et sillage délicieusement addictif.</p>",
+  "published_at": "2026-09-03T13:16:09+02:00",
+  "created_at": "2026-09-03T13:16:08+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414609674570,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012470092106,
+    "created_at": "2026-09-03T13:16:08+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73864035270986,
+    "created_at": "2026-09-03T13:15:31+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:15:50+02:00",
+    "product_id": 16012470092106,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/EXQUISITE_2ml.jpg?v=1788434150",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012466356554,
+  "title": "Ethereal Moonstone — 2ml",
+  "handle": "ethereal-moonstone-2ml",
+  "body_html": "<p><meta charset=\"utf-8\">Le format 2 ml d’Ethereal Moonstone invite à découvrir une nuit mystérieuse et élégante, entre fraîcheur lunaire, profondeur boisée et sensualité discrète.</p>",
+  "published_at": "2026-09-03T13:13:18+02:00",
+  "created_at": "2026-09-03T13:13:17+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414577004874,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012466356554,
+    "created_at": "2026-09-03T13:13:18+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73863976976714,
+    "created_at": "2026-09-03T13:12:43+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:13:01+02:00",
+    "product_id": 16012466356554,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/ETHEREAL_MOONSTONE_-_2ml.jpg?v=1788433981",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 16012449546570,
+  "title": "Anatolia's Rose — 2ml",
+  "handle": "anatolias-rose-2ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 2 ml d’Anatolia’s Rose invite à découvrir un jardin d’été baigné de soleil, entre douceur florale, chaleur épicée et charme lumineux de l’Anatolie.<br></p>",
+  "published_at": "2026-09-03T13:05:17+02:00",
+  "created_at": "2026-09-03T13:05:15+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 63414500163914,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "7.50",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 16012449546570,
+    "created_at": "2026-09-03T13:05:16+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73863859241290,
+    "created_at": "2026-09-03T13:03:54+02:00",
+    "position": 1,
+    "updated_at": "2026-09-03T13:04:31+02:00",
+    "product_id": 16012449546570,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/anatolia_s_rose_-_2_ml.jpg?v=1788433471",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849588293962,
+  "title": "Wonderful Tonka — 11 ml",
+  "handle": "wonderful-tonka-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Wonderful Tonka invite au cœur d’une nature chaude et enveloppante. Entre bergamote, bois de cachemire et accord ambré-boisé, il révèle une élégance profonde, exotique et sensuelle.</p>",
+  "published_at": "2026-06-29T12:39:52+02:00",
+  "created_at": "2026-06-29T12:39:51+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560366133578,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849588293962,
+    "created_at": "2026-06-29T12:39:51+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848896389450,
+    "created_at": "2026-09-02T18:05:50+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T18:06:12+02:00",
+    "product_id": 15849588293962,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/WONDERFULL_TONKA_-_11ml.jpg?v=1788365172",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849585836362,
+  "title": "Gold Sunset — 11 ml",
+  "handle": "gold-sunset-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Gold Sunset capture la douceur d’un coucher de soleil caribéen. Entre fleur d’oranger, thé, vanille et musc, il offre un sillage solaire, élégant et réconfortant.</p>",
+  "published_at": "2026-06-29T12:38:22+02:00",
+  "created_at": "2026-06-29T12:38:21+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560361316682,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849585836362,
+    "created_at": "2026-06-29T12:38:22+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848880562506,
+    "created_at": "2026-09-02T18:04:22+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T18:04:44+02:00",
+    "product_id": 15849585836362,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/GOLD_SUNSET_-_11ml.jpg?v=1788365084",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849573548362,
+  "title": "Leather Effecto — 11 ml",
+  "handle": "leather-effecto-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Leather Effecto révèle une chaleur épicée et ambrée, sublimée par le jasmin, l’ambre et la vanille. Un parfum profond, sensuel et intensément enveloppant.</p>",
+  "published_at": "2026-06-29T12:31:59+02:00",
+  "created_at": "2026-06-29T12:31:37+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560326418762,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849573548362,
+    "created_at": "2026-06-29T12:31:37+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848864375114,
+    "created_at": "2026-09-02T18:02:50+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T18:03:27+02:00",
+    "product_id": 15849573548362,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/LEATHER_EFFECTO_-_11ml.jpg?v=1788365007",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849555460426,
+  "title": "Golden Ice — 11 ml",
+  "handle": "golden-ice-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Golden Ice associe fraîcheur fruitée, rose turque et chaleur boisée. Un parfum lumineux, moderne et magnétique, à porter partout avec élégance.</p>",
+  "published_at": "2026-06-29T12:28:21+02:00",
+  "created_at": "2026-06-29T12:28:20+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560312262986,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849555460426,
+    "created_at": "2026-06-29T12:28:20+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848835604810,
+    "created_at": "2026-09-02T18:00:27+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T18:00:52+02:00",
+    "product_id": 15849555460426,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/GOLDEN_ICE_-_11ml.jpg?v=1788364852",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849522069834,
+  "title": "Exquisite — 11 ml",
+  "handle": "exquisite",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Exquisite dévoile une gourmandise raffinée, inspirée des douceurs orientales. Entre fruits éclatants, loukoum et vanille, il signe un sillage séduisant, sucré et sophistiqué.</p>",
+  "published_at": "2026-06-29T12:17:33+02:00",
+  "created_at": "2026-06-29T12:17:32+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560247611722,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849522069834,
+    "created_at": "2026-06-29T12:17:32+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848819581258,
+    "created_at": "2026-09-02T17:59:06+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:59:22+02:00",
+    "product_id": 15849522069834,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/EXQUISITE_-_11ml.jpg?v=1788364762",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849494774090,
+  "title": "Spice Rose — 11 ml",
+  "handle": "spice-rose-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Spice Rose transporte au cœur d’un Orient vibrant, entre rose, épices et profondeur boisée. Un parfum intense et raffiné, au sillage captivant et mystérieux.</p>",
+  "published_at": "2026-06-29T12:04:10+02:00",
+  "created_at": "2026-06-29T12:04:09+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560203899210,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849494774090,
+    "created_at": "2026-06-29T12:04:09+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848812306762,
+    "created_at": "2026-09-02T17:58:04+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:58:22+02:00",
+    "product_id": 15849494774090,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/SPICE_ROSE_-_11ml.jpg?v=1788364702",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849485664586,
+  "title": "Skin Musk — 11 ml",
+  "handle": "skin-musk-11-ml",
+  "body_html": "<p dir=\"ltr\"><span>Le format 11 ml de l’emblématique Skin Musk évoque la douceur d’une peau réchauffée par le soleil. Un parfum tendre, musqué et réconfortant, idéal pour une élégance intime et lumineuse au quotidien.</span></p>",
+  "published_at": "2026-06-29T12:01:19+02:00",
+  "created_at": "2026-06-29T12:01:17+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560184828234,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "38.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849485664586,
+    "created_at": "2026-06-29T12:01:18+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848795136330,
+    "created_at": "2026-09-02T17:57:13+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:57:32+02:00",
+    "product_id": 15849485664586,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/SKIN_MUSK_-_11ml.jpg?v=1788364652",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849464168778,
+  "title": "My Magic — 11 ml",
+  "handle": "my-magic-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique My Magic révèle une sensualité gourmande et profonde, entre vanille, sucre, rose et oud. Un parfum enveloppant et addictif, pensé pour accompagner chaque moment avec intensité.</p>",
+  "published_at": "2026-06-29T11:51:55+02:00",
+  "created_at": "2026-06-29T11:51:54+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560160612682,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849464168778,
+    "created_at": "2026-06-29T11:51:55+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848789369162,
+    "created_at": "2026-09-02T17:56:22+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:56:39+02:00",
+    "product_id": 15849464168778,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/MY_MAGIC_-_11ml.jpg?v=1788364599",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849458139466,
+  "title": "Kamuthraa — 11 ml",
+  "handle": "kamuthraa-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Kamuthraa capture la fraîcheur des plages de Marmaris dans une version nomade. Entre notes aquatiques, cassis et fond oriental, il offre un sillage contrasté, exclusif et vibrant.</p>",
+  "published_at": "2026-06-29T11:48:56+02:00",
+  "created_at": "2026-06-29T11:48:55+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560139575626,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849458139466,
+    "created_at": "2026-06-29T11:48:55+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848771248458,
+    "created_at": "2026-09-02T17:54:55+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:55:26+02:00",
+    "product_id": 15849458139466,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/KAMUTHRAA_-_11ml.jpg?v=1788364526",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849454043466,
+  "title": "Fleur de Tabac — 11 ml",
+  "handle": "fleur-de-tabac-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Fleur de Tabac dévoile une élégance sèche et balsamique, où le tabac rencontre la vanille et les notes épicées. Un parfum de caractère, raffiné et intrigant, à emporter partout.</p>",
+  "published_at": "2026-06-29T11:46:47+02:00",
+  "created_at": "2026-06-29T11:46:46+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560125092170,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849454043466,
+    "created_at": "2026-06-29T11:46:47+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848764236106,
+    "created_at": "2026-09-02T17:53:55+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:54:20+02:00",
+    "product_id": 15849454043466,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/FLEUR_DE_TABAC_-_11ml.jpg?v=1788364460",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849408364874,
+  "title": "Passion Oud — 11 ml",
+  "handle": "passion-oud-1",
+  "body_html": "<p dir=\"ltr\"><span><meta charset=\"utf-8\"> <meta charset=\"utf-8\"> Le format 11 ml de l’emblématique Passion Oud révèle un sillage oriental profond, inspiré des contes des Mille et Une Nuits. Entre oud, rose et ambre, il enveloppe la peau d’une chaleur boisée, mystérieuse et envoûtante.</span></p>\n<p> </p>",
+  "published_at": "2026-06-29T11:40:03+02:00",
+  "created_at": "2026-06-29T11:40:02+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62560065716554,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849408364874,
+    "created_at": "2026-06-29T11:40:03+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848756240714,
+    "created_at": "2026-09-02T17:52:50+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:53:14+02:00",
+    "product_id": 15849408364874,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/PASSION_OUD_-_11ml.jpg?v=1788364394",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15849320972618,
+  "title": "Metallic Oud — 11 ml",
+  "handle": "metallic-oud-11-ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Le format 11 ml de l’emblématique Metallic Oud révèle l’intensité précieuse de l’oud naturel du Laos dans une version nomade. Son accord ambré-boisé illumine la peau d’un sillage délicat, contrasté et raffiné.</p>",
+  "published_at": "2026-06-29T11:34:54+02:00",
+  "created_at": "2026-06-29T11:34:53+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 62559952372042,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "36.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15849320972618,
+    "created_at": "2026-06-29T11:34:53+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 73848701223242,
+    "created_at": "2026-09-02T17:46:45+02:00",
+    "position": 1,
+    "updated_at": "2026-09-02T17:50:59+02:00",
+    "product_id": 15849320972618,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/METALLIC_OUD_-_11ml.jpg?v=1788364259",
+    "width": 3300,
+    "height": 3300
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698922307914,
+  "title": "Discovery Set Terra Mysteria",
+  "handle": "discovery-set-terra-mysteria",
+  "body_html": "<p><span><meta charset=\"utf-8\">Le Discovery Set Terra Mysteria invite à découvrir les six fragrances de la collection, entre terre, matière et mystère : Tiger’s Eye, Wild Emerald, Ethereal Moonstone, Harmonic Tourmaline, Radiant Peridot et Velvet Morganite.</span></p>\n<p> </p>",
+  "published_at": "2026-06-01T16:04:49+02:00",
+  "created_at": "2026-06-01T16:04:49+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970606457162,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "55.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698922307914,
+    "created_at": "2026-06-01T16:04:49+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70876937584970,
+    "created_at": "2026-06-03T14:07:47+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T14:21:28+02:00",
+    "product_id": 15698922307914,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/DiscoverySet_TerraMysteriaCo.jpg?v=1780489288",
+    "width": 1318,
+    "height": 1320
+   },
+   {
+    "id": 70828544098634,
+    "created_at": "2026-06-01T16:20:40+02:00",
+    "position": 2,
+    "updated_at": "2026-06-03T12:47:57+02:00",
+    "product_id": 15698922307914,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/DiscoverySet_Terra-Mysteria-co2.png?v=1780483677",
+    "width": 1512,
+    "height": 1508
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698916999498,
+  "title": "Discovery Set Summer",
+  "handle": "discovery-set-summer",
+  "body_html": "<p><meta charset=\"utf-8\">Le Discovery Set Summer invite à découvrir les six fragrances de la collection, entre lumière, éclat et mouvement : Yellow Splash, Skin Musk, Gold Sunset, Liberty’s Way, Wonderful Tonka et Anatolian Rose.</p>",
+  "published_at": "2026-06-01T16:01:27+02:00",
+  "created_at": "2026-06-01T16:01:26+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970550260042,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "60.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698916999498,
+    "created_at": "2026-06-01T16:01:26+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70876944433482,
+    "created_at": "2026-06-03T14:08:15+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T14:08:19+02:00",
+    "product_id": 15698916999498,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/1.3.jpg?v=1780488499",
+    "width": 1318,
+    "height": 1320
+   },
+   {
+    "id": 70828125389130,
+    "created_at": "2026-06-01T16:00:18+02:00",
+    "position": 2,
+    "updated_at": "2026-06-03T12:47:02+02:00",
+    "product_id": 15698916999498,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/DiscoverySet_Summer-co_2.jpg?v=1780483622",
+    "width": 2000,
+    "height": 2000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698911592778,
+  "title": "Discovery Set Exclusive",
+  "handle": "discovery-set-exclusive",
+  "body_html": "<p dir=\"ltr\"><meta charset=\"utf-8\">Le Discovery Set Exclusive invite à découvrir les neuf fragrances de la collection, entre faste impérial, mystère et imaginaire des Mille et Une Nuits : Exquisite, My Magic, Fleur de Tabac, Metallic Oud, Passion Oud, Leather Effecto, Kamuthraa, Golden Ice et Spice Rose.</p>\n<p> </p>",
+  "published_at": "2026-06-01T15:56:59+02:00",
+  "created_at": "2026-06-01T15:56:59+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970542985546,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "75.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698911592778,
+    "created_at": "2026-06-01T15:56:59+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70876947906890,
+    "created_at": "2026-06-03T14:08:41+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T14:21:02+02:00",
+    "product_id": 15698911592778,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/Discoveryset_ExclusiveCo.jpg?v=1780489262",
+    "width": 1318,
+    "height": 1320
+   },
+   {
+    "id": 70859996332362,
+    "created_at": "2026-06-02T16:24:21+02:00",
+    "position": 2,
+    "updated_at": "2026-06-02T16:24:24+02:00",
+    "product_id": 15698911592778,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/discovery-set_exclusive-collection_2.jpg?v=1780410264",
+    "width": 1063,
+    "height": 1063
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698907332938,
+  "title": "Skin Musk",
+  "handle": "skin-musk",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Skin Musk évoque la douceur d’une peau réchauffée par le soleil, entre fraîcheur lumineuse et confort enveloppant. Un parfum tendre, apaisant et sensuel, pensé comme un moment de sérénité estivale.</p>",
+  "published_at": "2026-06-01T15:51:18+02:00",
+  "created_at": "2026-06-01T15:51:17+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970530795850,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "295.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698907332938,
+    "created_at": "2026-06-01T15:51:17+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874875560266,
+    "created_at": "2026-06-03T11:49:52+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:45:22+02:00",
+    "product_id": 15698907332938,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/SkinMusk_Summer.jpg?v=1780483522",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698906153290,
+  "title": "Gold Sunset",
+  "handle": "gold-sunset",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Gold Sunset évoque la douceur d’un coucher de soleil caribéen, entre ciel doré, sable chaud et sérénité tropicale. Un parfum solaire, élégant et enveloppant, pensé comme une échappée vers un paradis lumineux.</p>",
+  "published_at": "2026-06-01T15:50:01+02:00",
+  "created_at": "2026-06-01T15:50:01+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970529288522,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "295.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698906153290,
+    "created_at": "2026-06-01T15:50:01+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874886078794,
+    "created_at": "2026-06-03T11:50:13+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:45:00+02:00",
+    "product_id": 15698906153290,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/GoldSunset_Summer.jpg?v=1780483500",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698905334090,
+  "title": "Wonderful Tonka",
+  "handle": "wonderful-tonka",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Wonderful Tonka invite au cœur de la forêt amazonienne, là où la fève tonka révèle toute sa richesse sous la chaleur du soleil. Un parfum profond, exotique et enveloppant, inspiré par la puissance boisée et sensuelle de la nature.</p>",
+  "published_at": "2026-06-01T15:49:12+02:00",
+  "created_at": "2026-06-01T15:49:11+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970527650122,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "295.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698905334090,
+    "created_at": "2026-06-01T15:49:12+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874897842506,
+    "created_at": "2026-06-03T11:50:41+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:44:34+02:00",
+    "product_id": 15698905334090,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/WonderfullTonka_Summer.jpg?v=1780483474",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698904351050,
+  "title": "Anatolian Rose",
+  "handle": "anatolian-rose",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Anatolian Rose évoque une promenade dans un jardin d’été baigné de soleil, où la douceur florale rencontre une chaleur épicée et vibrante. Un parfum lumineux, romantique et captivant, pensé comme une escapade sensorielle au cœur de l’Anatolie.</p>",
+  "published_at": "2026-06-01T15:48:08+02:00",
+  "created_at": "2026-06-01T15:48:07+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970525815114,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "295.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698904351050,
+    "created_at": "2026-06-01T15:48:07+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874906984778,
+    "created_at": "2026-06-03T11:51:01+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:44:05+02:00",
+    "product_id": 15698904351050,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/AnatolianRose_Summer.jpg?v=1780483445",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698902974794,
+  "title": "Liberty’s Way",
+  "handle": "liberty-s-way",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Liberty’s Way évoque l’élégance d’une nuit d’été, portée par la douceur lumineuse de la fleur d’oranger. Un parfum gracieux, féminin et magnétique, qui laisse derrière lui un sillage raffiné et irrésistible.</p>",
+  "published_at": "2026-06-01T15:46:51+02:00",
+  "created_at": "2026-06-01T15:46:50+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970521882954,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "295.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698902974794,
+    "created_at": "2026-06-01T15:46:50+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874918814026,
+    "created_at": "2026-06-03T11:51:23+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:43:40+02:00",
+    "product_id": 15698902974794,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/LibertyWay_Summer.jpg?v=1780483420",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698901664074,
+  "title": "Yellow Splash",
+  "handle": "yellow-splash",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Yellow Splash évoque la fraîcheur vivifiante d’une brise méditerranéenne, entre journées d’été, rivages ensoleillés et ciel marin. Un parfum lumineux, énergique et rafraîchissant, pensé pour laisser une empreinte vibrante et élégante.</p>",
+  "published_at": "2026-06-01T15:45:30+02:00",
+  "created_at": "2026-06-01T15:45:29+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970519032138,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "295.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698901664074,
+    "created_at": "2026-06-01T15:45:29+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874869170506,
+    "created_at": "2026-06-03T11:49:32+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:43:17+02:00",
+    "product_id": 15698901664074,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/YellowSplash_Summer.jpg?v=1780483397",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698897862986,
+  "title": "Kamuthraa",
+  "handle": "kamuthraa",
+  "body_html": "<p><meta charset=\"utf-8\">Kamuthraa s’inspire des plages de Marmaris, entre fraîcheur aquatique, éclat fruité et mystère oriental. Ce parfum unisexe révèle une composition ambrée, boisée et florale, pensée comme une rencontre entre horizons marins et diversité vibrante de la nature.</p>",
+  "published_at": "2026-06-01T15:42:05+02:00",
+  "created_at": "2026-06-01T15:42:04+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970508022090,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698897862986,
+    "created_at": "2026-06-01T15:42:04+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875413414218,
+    "created_at": "2026-06-03T12:09:07+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:41:58+02:00",
+    "product_id": 15698897862986,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/Kaamuthraa_Exclusive.jpg?v=1780483318",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698894717258,
+  "title": "Passion Oud",
+  "handle": "passion-oud",
+  "body_html": "<p><meta charset=\"utf-8\">Passion Oud s’inspire des contes des Mille et Une Nuits, entre mystère oriental, chaleur et élégance haute couture. Un parfum profond, envoûtant et majestueux, qui évoque la magie des nuits arabes.</p>",
+  "published_at": "2026-06-01T15:38:29+02:00",
+  "created_at": "2026-06-01T15:38:28+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970501566794,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698894717258,
+    "created_at": "2026-06-01T15:38:28+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875421802826,
+    "created_at": "2026-06-03T12:09:28+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:41:20+02:00",
+    "product_id": 15698894717258,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/PassionOud_Exclusive.jpg?v=1780483280",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698829574474,
+  "title": "Spice Rose",
+  "handle": "spice-rose",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Spice Rose transporte au cœur des marchés vibrants d’Istanbul, entre richesse ottomane, mystère oriental et effervescence des épices. Un parfum intense et raffiné, où la rose se mêle à une profondeur boisée et ambrée pour créer un sillage captivant.</p>",
+  "published_at": "2026-06-01T14:55:30+02:00",
+  "created_at": "2026-06-01T14:55:29+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970078892362,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698829574474,
+    "created_at": "2026-06-01T14:55:30+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875427733834,
+    "created_at": "2026-06-03T12:09:48+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:40:51+02:00",
+    "product_id": 15698829574474,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/SpiceRose_Exclusive.jpg?v=1780483251",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698827018570,
+  "title": "Metallic Oud",
+  "handle": "metallic-oud",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Metallic Oud dévoile une féminité lumineuse et inattendue, portée par un oud naturel du Laos et un accord ambré-boisé éclatant. Un parfum contrasté, intime et délicat, entre surprise, magie et enchantement.</p>",
+  "published_at": "2026-06-01T14:54:11+02:00",
+  "created_at": "2026-06-01T14:54:10+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970069848394,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698827018570,
+    "created_at": "2026-06-01T14:54:10+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875430388042,
+    "created_at": "2026-06-03T12:10:08+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:40:22+02:00",
+    "product_id": 15698827018570,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/MetallicOud_Exclusive.jpg?v=1780483222",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15698813452618,
+  "title": "My Magic",
+  "handle": "my-magic",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">My Magic incarne la séduction dans sa forme la plus intense : un parfum profond, gourmand et sensuel, où la chaleur miellée rencontre la richesse du tabac, des bois et des résines. Un sillage puissant, enveloppant et affirmé.</p>",
+  "published_at": "2026-06-01T14:42:03+02:00",
+  "created_at": "2026-06-01T14:42:02+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61970034065738,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15698813452618,
+    "created_at": "2026-06-01T14:42:03+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875434254666,
+    "created_at": "2026-06-03T12:10:31+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:35:41+02:00",
+    "product_id": 15698813452618,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/MyMagic_Exclusive.jpg?v=1780482941",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15680264929610,
+  "title": "Leather Effecto",
+  "handle": "leather-effecto",
+  "body_html": "<p><meta charset=\"utf-8\">Leather Effecto s’ouvre sur une chaleur épicée et liquoreuse, avant de révéler un cœur floral dominé par le jasmin. En fond, les notes ambrées, boisées et vanillées créent un sillage profond, sensuel et intensément enveloppant.</p>",
+  "published_at": "2026-05-27T15:39:09+02:00",
+  "created_at": "2026-05-27T15:39:08+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61927360594250,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15680264929610,
+    "created_at": "2026-05-27T15:39:09+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875437826378,
+    "created_at": "2026-06-03T12:10:50+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:35:08+02:00",
+    "product_id": 15680264929610,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/LeatherEffecto_Exclusive.jpg?v=1780482908",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15680258965834,
+  "title": "Golden Ice",
+  "handle": "golden-ice",
+  "body_html": "<p><meta charset=\"utf-8\">Golden Ice s’ouvre sur une fraîcheur fruitée, vive et acidulée, avant de révéler une élégance florale douce et magnétique. Entre rose turque, pivoine, vanille et chaleur cachemire, ce parfum exprime une sensualité moderne, lumineuse et intemporelle.</p>",
+  "published_at": "2026-05-27T15:32:10+02:00",
+  "created_at": "2026-05-27T15:32:09+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61927327170890,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15680258965834,
+    "created_at": "2026-05-27T15:32:09+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875443429706,
+    "created_at": "2026-06-03T12:11:14+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:29:40+02:00",
+    "product_id": 15680258965834,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/GoldenIce_Exclusive.jpg?v=1780482580",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15680256213322,
+  "title": "Exquisite",
+  "handle": "excuisite",
+  "body_html": "<p><meta charset=\"utf-8\">Exquisite évoque une gourmandise raffinée et séduisante, inspirée des douceurs orientales et de l’opulence ottomane. Un parfum vibrant, sophistiqué et délicieusement addictif.</p>",
+  "published_at": "2026-05-27T15:30:13+02:00",
+  "created_at": "2026-05-27T15:30:12+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61927311966538,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15680256213322,
+    "created_at": "2026-05-27T15:30:12+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875446935882,
+    "created_at": "2026-06-03T12:11:36+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:28:44+02:00",
+    "product_id": 15680256213322,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/Exquisite_Exclusive.jpg?v=1780482524",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15672545837386,
+  "title": "Tiger’s eye",
+  "handle": "tiger-s-eye",
+  "body_html": "<p><meta charset=\"utf-8\">Tiger’s Eye incarne une force brute et magnétique, inspirée des paysages arides façonnés par le feu et la pierre. À l’image de l’œil-de-tigre, ce parfum affirme une présence masculine, chaude et indomptable, symbole de courage, de puissance et de confiance.</p>",
+  "published_at": "2026-05-22T13:27:08+02:00",
+  "created_at": "2026-05-22T13:27:07+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61895436763466,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "275.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15672545837386,
+    "created_at": "2026-05-22T13:27:07+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874468909386,
+    "created_at": "2026-06-03T11:34:31+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:27:31+02:00",
+    "product_id": 15672545837386,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/TigerEye_TerraMysteria.jpg?v=1780482451",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15671882973514,
+  "title": "Harmonic Tourmaline",
+  "handle": "harmonic-tourmaline",
+  "body_html": "<p><meta charset=\"utf-8\">Harmonic Tourmaline célèbre l’harmonie sacrée entre les abeilles et les fleurs, symbole d’interdépendance et d’équilibre naturel. Inspiré par les reflets multiples de la tourmaline, ce parfum évoque une nature lumineuse, vivante et profondément apaisante.</p>",
+  "published_at": "2026-05-22T10:12:07+02:00",
+  "created_at": "2026-05-22T10:12:06+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61893967151434,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "275.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15671882973514,
+    "created_at": "2026-05-22T10:12:06+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874481557834,
+    "created_at": "2026-06-03T11:35:31+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:26:38+02:00",
+    "product_id": 15671882973514,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/HarmonicTourmaline_TerraMysteria.jpg?v=1780482398",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15671859872074,
+  "title": "Wild Emerald",
+  "handle": "wild-emerald",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\"><meta charset=\"utf-8\"><meta charset=\"utf-8\">Emerald évoque une traversée au cœur d’une nature dense, fertile et indomptée. Inspiré par l’émeraude, ce parfum célèbre la puissance de la terre, la vitalité des forêts et l’élégance sauvage des paysages verdoyants.</p>",
+  "published_at": "2026-05-22T10:08:00+02:00",
+  "created_at": "2026-05-22T10:07:59+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61893936251210,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "275.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15671859872074,
+    "created_at": "2026-05-22T10:07:59+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874454163786,
+    "created_at": "2026-06-03T11:33:26+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:25:53+02:00",
+    "product_id": 15671859872074,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/WildEmerald_TerraMysteria.jpg?v=1780482353",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15671817863498,
+  "title": "Ethereal Moonstone",
+  "handle": "ethereal-moonstone",
+  "body_html": "<p><meta charset=\"utf-8\">Ethereal Moonstone évoque l’élégance mystérieuse de la nuit, entre fraîcheur lunaire, profondeur boisée et sensualité discrète. Inspiré par la pierre de lune, ce parfum révèle une aura énigmatique, raffinée et magnétique.</p>",
+  "published_at": "2026-05-22T09:58:57+02:00",
+  "created_at": "2026-05-22T09:58:56+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61893886378314,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "275.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15671817863498,
+    "created_at": "2026-05-22T09:58:56+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874486341962,
+    "created_at": "2026-06-03T11:35:54+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:25:13+02:00",
+    "product_id": 15671817863498,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/EtherealMoonstone_TerraMysteria.jpg?v=1780482313",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15670716989770,
+  "title": "Fleur De Tabac",
+  "handle": "fleur-de-tabac",
+  "body_html": "<div class=\"qMYqUG_convSearchResultHighlightRoot\">\n<div class=\"\" data-turn-id-container=\"request-WEB:3efa864b-41d5-4604-b498-56f80c09955b-28\" data-is-intersecting=\"true\">\n<section class=\"text-token-text-primary w-full focus:outline-none has-data-writing-block:pointer-events-none [&amp;:has([data-writing-block])&gt;*]:pointer-events-auto R6Vx5W_threadScrollVars scroll-mb-[calc(var(--scroll-root-safe-area-inset-bottom,0px)+var(--thread-response-height))] scroll-mt-[calc(var(--header-height)+min(200px,max(70px,20svh)))]\" dir=\"auto\" data-turn-id=\"request-WEB:3efa864b-41d5-4604-b498-56f80c09955b-28\" data-turn-id-container=\"request-WEB:3efa864b-41d5-4604-b498-56f80c09955b-28\" data-testid=\"conversation-turn-56\" data-scroll-anchor=\"false\" data-turn=\"assistant\">\n<div class=\"text-base my-auto mx-auto pb-10 [--thread-content-margin:var(--thread-content-margin-xs,calc(var(--spacing)*4))] @w-sm/main:[--thread-content-margin:var(--thread-content-margin-sm,calc(var(--spacing)*6))] @w-lg/main:[--thread-content-margin:var(--thread-content-margin-lg,calc(var(--spacing)*16))] px-(--thread-content-margin)\">\n<div class=\"[--thread-content-max-width:40rem] @w-lg/main:[--thread-content-max-width:48rem] mx-auto max-w-(--thread-content-max-width) flex-1 group/turn-messages focus-visible:outline-hidden relative flex w-full min-w-0 flex-col agent-turn\">\n<div class=\"flex max-w-full flex-col gap-4 grow\">\n<div data-message-author-role=\"assistant\" data-message-id=\"f914b61e-3488-46e5-a130-d51499315a2b\" dir=\"auto\" data-message-model-slug=\"gpt-5-5-thinking\" class=\"min-h-8 text-message relative flex w-full flex-col items-end gap-2 text-start break-words whitespace-normal outline-none keyboard-focused:focus-ring [.text-message+&amp;]:mt-1\" data-turn-start-message=\"true\" tabindex=\"0\">\n<div class=\"flex w-full flex-col gap-1 empty:hidden\">\n<div class=\"markdown prose dark:prose-invert wrap-break-word w-full dark markdown-new-styling\">\n<p data-start=\"0\" data-end=\"209\" data-is-last-node=\"\" data-is-only-node=\"\">Un parfum qui équilibre avec maîtrise la douceur balsamique et la vanille avec une masculinité plus sèche. Il offre une expérience envoûtante, transformant celui qui le porte en homme de mystère et d’intrigue.</p>\n</div>\n</div>\n</div>\n</div>\n<div class=\"z-0 flex min-h-[46px] justify-start\"><br></div>\n</div>\n</div>\n</section>\n</div>\n</div>",
+  "published_at": "2026-05-21T16:53:53+02:00",
+  "created_at": "2026-05-21T16:53:52+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61889333330250,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "285.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15670716989770,
+    "created_at": "2026-05-21T16:53:52+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70875472724298,
+    "created_at": "2026-06-03T12:12:32+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:22:40+02:00",
+    "product_id": 15670716989770,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/FleurdeTabac_Exclusive.jpg?v=1780482160",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15670627533130,
+  "title": "Radiant Peridot",
+  "handle": "radiant-peridot",
+  "body_html": "<p><meta charset=\"utf-8\">Radiant Peridot évoque l’énergie lumineuse d’un paradis tropical, entre nature luxuriante, fruits éclatants et chaleur solaire. Inspiré par le péridot, ce parfum célèbre la vitalité, la joie et le renouveau.</p>",
+  "published_at": "2026-05-21T16:12:08+02:00",
+  "created_at": "2026-05-21T16:12:07+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61888953221450,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "275.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15670627533130,
+    "created_at": "2026-05-21T16:12:08+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874473529674,
+    "created_at": "2026-06-03T11:34:57+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:21:54+02:00",
+    "product_id": 15670627533130,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/RadiantPeridot_TerraMysteria.jpg?v=1780482114",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15670624125258,
+  "title": "Velvet Morganite",
+  "handle": "velvet-morganite",
+  "body_html": "<p><meta charset=\"utf-8\">Velvet Morganite évoque la douceur d’un jardin secret baigné de soleil, où l’amour se révèle avec tendresse, intimité et délicatesse. Inspiré par l’éclat pêche rosé de la morganite, ce parfum célèbre une féminité veloutée, lumineuse et profondément apaisante.</p>",
+  "published_at": "2026-05-21T16:10:16+02:00",
+  "created_at": "2026-05-21T16:10:14+02:00",
+  "updated_at": "2026-09-28T19:21:15+02:00",
+  "vendor": "Attar al has",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 61888945520970,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "275.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15670624125258,
+    "created_at": "2026-05-21T16:10:15+02:00",
+    "updated_at": "2026-09-28T19:21:15+02:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 70874461929802,
+    "created_at": "2026-06-03T11:34:02+02:00",
+    "position": 1,
+    "updated_at": "2026-06-03T12:21:06+02:00",
+    "product_id": 15670624125258,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/1039/1083/4506/files/VelvetMorganite_TerraMysteria.jpg?v=1780482066",
+    "width": 1360,
+    "height": 1360
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ }
+]

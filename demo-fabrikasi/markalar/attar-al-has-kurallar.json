@@ -1,0 +1,1115 @@
+{
+  "foto": {
+    "ai": true,
+    "skip": "-2ml$|-11-ml$|^exquisite$|^passion-oud-1$|discovery-set",
+    "backPhotos": false,
+    "views": false,
+    "studio": true,
+    "pedestal": true,
+    "solidTop": 0.24
+  },
+  "aktar": {
+    "domain": "attaralhas.com",
+    "namePrefix": "^$",
+    "idPrefix": "",
+    "defaultSize": "100 ml",
+    "categories": [
+      {
+        "id": "exclusive",
+        "tr": "Exclusive",
+        "en": "Exclusive",
+        "color": "#c9a15c",
+        "descTr": "Osmanlı saraylarının ihtişamı: zenginlik, Doğu'nun gizemi ve Binbir Gece Masalları'nın şiiri.",
+        "descEn": "The splendour of Ottoman palaces, between opulence, Oriental mystery and the poetry of One Thousand and One Nights.",
+        "match": "kamuthraa|passion-oud|spice-rose|metallic-oud|my-magic|leather-effecto|golden-ice|excuisite|fleur-de-tabac"
+      },
+      {
+        "id": "summer",
+        "tr": "Summer",
+        "en": "Summer",
+        "color": "#e0a86a",
+        "descTr": "Güneşle yıkanmış bir manzaranın ışıltısı: parlak narenciye, çiçeksi hafiflik ve odunsu yumuşaklık.",
+        "descEn": "The radiance of a sun-drenched landscape, between bright citrus notes, floral lightness and woody softness.",
+        "match": "yellow-splash|wonderful-tonka|skin-musk|liberty-s-way|gold-sunset|anatolian-rose"
+      },
+      {
+        "id": "terra",
+        "tr": "Terra Mysteria",
+        "en": "Terra Mysteria",
+        "color": "#5fa08a",
+        "descTr": "Değerli taşlardan ilham alan kokular: turmalin, zümrüt, ay taşı, kaplan gözü, peridot ve morganit.",
+        "descEn": "Fragrances inspired by precious stones: tourmaline, emerald, moonstone, tiger's eye, peridot and morganite.",
+        "match": "."
+      }
+    ],
+    "family": {
+      "Attar al has": [
+        "Extrait de Parfum",
+        "Extrait de Parfum"
+      ]
+    },
+    "profiles": {
+      "flask": ".",
+      "depthRatio": 0.5
+    },
+    "home": [
+      "passion-oud",
+      "excuisite",
+      "spice-rose",
+      "harmonic-tourmaline",
+      "golden-ice",
+      "my-magic"
+    ],
+    "ritual": [
+      {
+        "handle": "passion-oud",
+        "tr": {
+          "title": "Exclusive",
+          "text": "Osmanlı saraylarının ihtişamı: Passion Oud, Spice Rose, My Magic ve Exquisite.",
+          "stat": "9 koku"
+        },
+        "en": {
+          "title": "Exclusive",
+          "text": "The splendour of Ottoman palaces: Passion Oud, Spice Rose, My Magic and Exquisite.",
+          "stat": "9 scents"
+        }
+      },
+      {
+        "handle": "golden-ice",
+        "tr": {
+          "title": "Attar",
+          "text": "Osmanlı kültüründe kökleşmiş geleneksel yağla damıtma: güçlü, cömert ve kalıcı kokular.",
+          "stat": "2019'dan beri"
+        },
+        "en": {
+          "title": "Attar",
+          "text": "Traditional oil distillation rooted in Ottoman culture: powerful, generous and lasting fragrances.",
+          "stat": "Since 2019"
+        }
+      },
+      {
+        "handle": "harmonic-tourmaline",
+        "tr": {
+          "title": "Terra Mysteria",
+          "text": "Değerli taşlardan ilham: turmalin, zümrüt, ay taşı, kaplan gözü, peridot ve morganit.",
+          "stat": "6 koku"
+        },
+        "en": {
+          "title": "Terra Mysteria",
+          "text": "Inspired by precious stones: tourmaline, emerald, moonstone, tiger's eye, peridot and morganite.",
+          "stat": "6 scents"
+        }
+      }
+    ],
+    "rename": {
+      "excuisite": [
+        "Exquisite",
+        "Exquisite"
+      ],
+      "tiger-s-eye": [
+        "Tiger's Eye",
+        "Tiger's Eye"
+      ],
+      "liberty-s-way": [
+        "Liberty's Way",
+        "Liberty's Way"
+      ]
+    },
+    "trText": {
+      "skin-musk": "Skin Musk, güneşle ısınmış tenin yumuşaklığını anlatıyor: ışıltılı bir tazelikle saran bir konfor arasında. Yaz dinginliğinin bir anı gibi düşünülmüş yumuşak, yatıştırıcı ve duygusal bir koku.",
+      "gold-sunset": "Gold Sunset, bir Karayip gün batımının yumuşaklığını anlatıyor: altın rengi gökyüzü, sıcak kum ve tropik dinginlik arasında. Işıltılı bir cennete kaçış gibi düşünülmüş güneşli, zarif ve saran bir koku.",
+      "wonderful-tonka": "Wonderful Tonka sizi Amazon ormanının kalbine davet ediyor; tonka fasulyesi güneşin sıcaklığında bütün zenginliğini ortaya koyuyor. Doğanın odunsu ve duygusal gücünden ilham alan derin, egzotik ve saran bir koku.",
+      "anatolian-rose": "Anatolian Rose, güneşle yıkanmış bir yaz bahçesinde yürüyüşü anlatıyor; çiçeksi yumuşaklık baharatlı ve canlı bir sıcaklıkla buluşuyor. Anadolu'nun kalbine duyusal bir kaçış gibi düşünülmüş ışıltılı, romantik ve büyüleyici bir koku.",
+      "liberty-s-way": "Liberty's Way, bir yaz gecesinin zarafetini portakal çiçeğinin ışıltılı yumuşaklığıyla anlatıyor. Arkasında rafine ve karşı konulmaz bir iz bırakan zarif, feminen ve çekici bir koku.",
+      "yellow-splash": "Yellow Splash, bir Akdeniz esintisinin canlandırıcı tazeliğini anlatıyor: yaz günleri, güneşli kıyılar ve deniz göğü arasında. Canlı ve zarif bir iz bırakmak için tasarlanmış ışıltılı, enerjik ve ferahlatıcı bir koku.",
+      "kamuthraa": "Kamuthraa, Marmaris plajlarından ilham alıyor: suyun tazeliği, meyvemsi ışıltı ve Doğu'nun zenginliği arasında. Deniz ufukları ile Afrika doğasının canlı çeşitliliğinin buluşması gibi düşünülmüş, zıtlıklarla dolu ve özel bir koku.",
+      "passion-oud": "Passion Oud, Binbir Gece Masalları'nın Arap hikâyelerinden ilham alıyor: Doğu'nun gizemi, baharatlı sıcaklık ve odunsu zarafet arasında. Ud, gül ve amberin Arap gecelerinin büyüsünü anlattığı derin ve büyüleyici bir haute couture kokusu.",
+      "spice-rose": "Spice Rose sizi İstanbul'un canlı çarşılarının kalbine götürüyor: Osmanlı zenginliği, Doğu'nun gizemi ve baharatların coşkusu arasında. Gülün odunsu ve amber bir derinlikle buluşup büyüleyici bir iz bıraktığı yoğun ve rafine bir koku.",
+      "metallic-oud": "Metallic Oud, Laos'tan gelen doğal ud ve parlak amber-odunsu bir akortla ışıltılı ve beklenmedik bir feminenliği ortaya koyuyor. Sürpriz, büyü ve hayranlık arasında zıtlıklarla dolu, samimi ve narin bir koku.",
+      "my-magic": "My Magic baştan çıkarıcılığın en yoğun hâli: ballı sıcaklığın tütün, odunlar ve reçinelerin zenginliğiyle buluştuğu derin, gurme ve duygusal bir koku. Güçlü, saran ve kendinden emin bir iz.",
+      "leather-effecto": "Leather Effecto baharatlı ve likörümsü bir sıcaklıkla açılıyor, ardından yaseminin öne çıktığı çiçeksi bir kalbi ortaya koyuyor. Dipte amber, odunsu ve vanilyalı notalar derin, duygusal ve yoğun biçimde saran bir iz bırakıyor.",
+      "golden-ice": "Golden Ice taze, canlı ve ekşimsi bir meyvemsilikle açılıyor, ardından yumuşak ve çekici bir çiçek zarafetine dönüşüyor. Türk gülü, şakayık, vanilya ve kaşmir sıcaklığı arasında modern, ışıltılı ve zamansız bir duygusallık.",
+      "excuisite": "Exquisite, Doğu tatlılarından ve Osmanlı ihtişamından ilham alan rafine ve baştan çıkarıcı bir gurmeliği anlatıyor. Canlı, sofistike ve lezzetli biçimde bağımlılık yapan bir koku.",
+      "tiger-s-eye": "Tiger's Eye, ateş ve taşla şekillenmiş kurak topraklardan ilham alan ham ve çekici bir gücü temsil ediyor. Kaplan gözü taşı gibi bu koku da sıcak, maskülen ve dizginlenemez bir varlık ortaya koyuyor: cesaretin, gücün ve özgüvenin simgesi.",
+      "harmonic-tourmaline": "Harmonic Tourmaline, arılar ile çiçekler arasındaki kutsal uyumu kutluyor: karşılıklı bağlılığın ve doğal dengenin simgesi. Turmalinin çok renkli yansımalarından ilham alan bu koku ışıltılı, canlı ve derinden yatıştırıcı bir doğayı anlatıyor.",
+      "wild-emerald": "Wild Emerald, yoğun, verimli ve dizginlenmemiş bir doğanın kalbinde bir yolculuğu anlatıyor. Zümrütten ilham alan bu koku toprağın gücünü, ormanların canlılığını ve yeşil manzaraların vahşi zarafetini kutluyor.",
+      "ethereal-moonstone": "Ethereal Moonstone gecenin gizemli zarafetini anlatıyor: ay ışığı tazeliği, odunsu derinlik ve ölçülü bir duygusallık arasında. Ay taşından ilham alan bu koku gizemli, rafine ve çekici bir aura ortaya koyuyor.",
+      "fleur-de-tabac": "Fleur de Tabac, balsamik tatlılığı ve vanilyayı daha kuru bir maskülenlikle ustalıkla dengeleyen bir koku. Büyüleyici bir deneyim sunuyor ve onu süreni gizem ve merak uyandıran bir adama dönüştürüyor.",
+      "radiant-peridot": "Radiant Peridot, tropik bir cennetin ışıltılı enerjisini anlatıyor: yemyeşil doğa, parlak meyveler ve güneşin sıcaklığı arasında. Peridottan ilham alan bu koku canlılığı, neşeyi ve yenilenmeyi kutluyor.",
+      "velvet-morganite": "Velvet Morganite, güneşle yıkanmış gizli bir bahçenin yumuşaklığını anlatıyor; aşk burada şefkat, samimiyet ve incelikle kendini gösteriyor. Morganitin şeftali-pembe ışıltısından ilham alan bu koku kadifemsi, ışıltılı ve derinden yatıştırıcı bir feminenliği kutluyor."
+    },
+    "tagline": "notes",
+    "palette": [
+      [
+        "^passion-oud$",
+        "#7a3d1c",
+        "#e6a86e",
+        "#130804"
+      ],
+      [
+        "^excuisite$",
+        "#1f43b8",
+        "#9ab8ff",
+        "#040818"
+      ],
+      [
+        "^spice-rose$",
+        "#b3141e",
+        "#ff9a92",
+        "#1a0304"
+      ],
+      [
+        "^harmonic-tourmaline$",
+        "#8a1630",
+        "#7fd6aa",
+        "#0b0406"
+      ],
+      [
+        "^golden-ice$",
+        "#a8842a",
+        "#f3d98a",
+        "#130e04"
+      ],
+      [
+        "^my-magic$",
+        "#4b30b8",
+        "#b8a6ff",
+        "#0a0618"
+      ],
+      [
+        "^leather-effecto$",
+        "#34343c",
+        "#d6d6de",
+        "#050506"
+      ],
+      [
+        "^metallic-oud$",
+        "#6c7686",
+        "#e2e8f2",
+        "#07080b"
+      ],
+      [
+        "^fleur-de-tabac$",
+        "#6c5fb0",
+        "#d8caff",
+        "#0a0812"
+      ],
+      [
+        "^kamuthraa$",
+        "#b85a78",
+        "#ffc8d6",
+        "#15060b"
+      ],
+      [
+        "^anatolian-rose$",
+        "#b0664a",
+        "#ffd0b4",
+        "#140905"
+      ],
+      [
+        "^gold-sunset$",
+        "#b8762c",
+        "#ffd48e",
+        "#150b03"
+      ],
+      [
+        "^skin-musk$",
+        "#aa7f5e",
+        "#ffe2c8",
+        "#130b07"
+      ],
+      [
+        "^liberty-s-way$",
+        "#aa7448",
+        "#ffd8ac",
+        "#130a05"
+      ],
+      [
+        "^wonderful-tonka$",
+        "#94663a",
+        "#f2cc96",
+        "#110a04"
+      ],
+      [
+        "^yellow-splash$",
+        "#b89420",
+        "#ffe688",
+        "#151004"
+      ],
+      [
+        "^ethereal-moonstone$",
+        "#3a6cc0",
+        "#bed8ff",
+        "#050a16"
+      ],
+      [
+        "^tiger-s-eye$",
+        "#7a2612",
+        "#ffb478",
+        "#120502"
+      ],
+      [
+        "^velvet-morganite$",
+        "#b8642a",
+        "#ffc8a0",
+        "#150803"
+      ],
+      [
+        "^wild-emerald$",
+        "#10585a",
+        "#86e4d6",
+        "#021010"
+      ],
+      [
+        "^radiant-peridot$",
+        "#146e48",
+        "#94f2bc",
+        "#021008"
+      ]
+    ],
+    "notes": [
+      [
+        "^anatolian-rose$",
+        [
+          [
+            "Baharatlı meyveler",
+            "Spicy Berries"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Sedir ağacı",
+            "Cedarwood"
+          ],
+          [
+            "Karabiber",
+            "Black Pepper"
+          ],
+          [
+            "Portakal çiçeği",
+            "Orange Blossom"
+          ]
+        ]
+      ],
+      [
+        "^ethereal-moonstone$",
+        [
+          [
+            "Limon",
+            "Lemon"
+          ],
+          [
+            "Mimoza",
+            "Mimosa"
+          ],
+          [
+            "Nagarmotha",
+            "Nagarmotha"
+          ],
+          [
+            "Baharatlar",
+            "Spices"
+          ],
+          [
+            "Müge",
+            "Lily of the Valley"
+          ]
+        ]
+      ],
+      [
+        "^excuisite$",
+        [
+          [
+            "Pembe greyfurt",
+            "Pink Grapefruit"
+          ],
+          [
+            "Pembe gül yaprakları",
+            "Pink Rose Leaves"
+          ],
+          [
+            "Odunsu notalar",
+            "Woody Notes"
+          ],
+          [
+            "Frenk üzümü",
+            "Blackcurrant"
+          ],
+          [
+            "Kiraz çiçeği",
+            "Cherry Blossom"
+          ]
+        ]
+      ],
+      [
+        "^fleur-de-tabac$",
+        [
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Tütün yaprakları",
+            "Tobacco Leaves"
+          ],
+          [
+            "Beyaz misk",
+            "White Musk"
+          ],
+          [
+            "Çay",
+            "Tea"
+          ],
+          [
+            "Tütün çiçekleri",
+            "Tobacco Flowers"
+          ]
+        ]
+      ],
+      [
+        "^gold-sunset$",
+        [
+          [
+            "Mandalina",
+            "Mandarin"
+          ],
+          [
+            "Portakal çiçeği",
+            "Orange Blossom"
+          ],
+          [
+            "Amber-odunsu akor",
+            "Amber Woody Accord"
+          ],
+          [
+            "Frenk üzümü",
+            "Blackcurrant"
+          ],
+          [
+            "Çay",
+            "Tea"
+          ]
+        ]
+      ],
+      [
+        "^golden-ice$",
+        [
+          [
+            "Liçi",
+            "Lychee"
+          ],
+          [
+            "Türk gülü",
+            "Turkish Rose"
+          ],
+          [
+            "Kaşmeran",
+            "Cashmeran"
+          ],
+          [
+            "Ravent",
+            "Rhubarb"
+          ],
+          [
+            "Şakayık",
+            "Peony"
+          ]
+        ]
+      ],
+      [
+        "^harmonic-tourmaline$",
+        [
+          [
+            "Bal",
+            "Honey"
+          ],
+          [
+            "Kakao",
+            "Cocoa"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ],
+          [
+            "Ananas",
+            "Pineapple"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ]
+        ]
+      ],
+      [
+        "^kamuthraa$",
+        [
+          [
+            "Su notaları",
+            "Aquatic Notes"
+          ],
+          [
+            "Portakal çiçeği",
+            "Orange Blossom"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Frenk üzümü şurubu",
+            "Blackcurrant Syrup"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ]
+        ]
+      ],
+      [
+        "^leather-effecto$",
+        [
+          [
+            "Muskat",
+            "Nutmeg"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ],
+          [
+            "Amber",
+            "Amber"
+          ],
+          [
+            "Safran",
+            "Saffron"
+          ],
+          [
+            "Misk",
+            "Musk"
+          ]
+        ]
+      ],
+      [
+        "^liberty-s-way$",
+        [
+          [
+            "Mandalina",
+            "Mandarin"
+          ],
+          [
+            "Portakal çiçeği",
+            "Orange Blossom"
+          ],
+          [
+            "Amber-odunsu akor",
+            "Amber Woody Accord"
+          ],
+          [
+            "Frenk üzümü",
+            "Blackcurrant"
+          ],
+          [
+            "Çay",
+            "Tea"
+          ]
+        ]
+      ],
+      [
+        "^metallic-oud$",
+        [
+          [
+            "Ahududu",
+            "Raspberry"
+          ],
+          [
+            "Bulgar gülü",
+            "Bulgarian Rose"
+          ],
+          [
+            "Ud ağacı",
+            "Agarwood/Oud"
+          ],
+          [
+            "Armut",
+            "Pear"
+          ],
+          [
+            "Portakal çiçeği",
+            "Orange Blossom"
+          ]
+        ]
+      ],
+      [
+        "^my-magic$",
+        [
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Osmanthus",
+            "Osmanthus"
+          ],
+          [
+            "Şeker",
+            "Sugar"
+          ],
+          [
+            "Odunsu notalar",
+            "Woody Notes"
+          ]
+        ]
+      ],
+      [
+        "^passion-oud$",
+        [
+          [
+            "Frenk üzümü şurubu",
+            "Blackcurrant Syrup"
+          ],
+          [
+            "Mayıs gülü",
+            "May Rose"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Frezya",
+            "Freesia"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ]
+        ]
+      ],
+      [
+        "^radiant-peridot$",
+        [
+          [
+            "Liçi",
+            "Lychee"
+          ],
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Kırmızı meyveler",
+            "Red Fruits"
+          ],
+          [
+            "Müge",
+            "Lily of the Valley"
+          ]
+        ]
+      ],
+      [
+        "^skin-musk$",
+        [
+          [
+            "Baharatlı meyveler",
+            "Spicy Berries"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Sedir ağacı",
+            "Cedarwood"
+          ],
+          [
+            "Karabiber",
+            "Black Pepper"
+          ],
+          [
+            "Portakal çiçeği",
+            "Orange Blossom"
+          ]
+        ]
+      ],
+      [
+        "^spice-rose$",
+        [
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Günlük",
+            "Olibanum"
+          ],
+          [
+            "Vetiver",
+            "Vetiver"
+          ],
+          [
+            "Pembe biber",
+            "Pink Pepper"
+          ],
+          [
+            "Misk adaçayı",
+            "Clary Sage"
+          ]
+        ]
+      ],
+      [
+        "^tiger-s-eye$",
+        [
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Frezya",
+            "Freesia"
+          ],
+          [
+            "Yosun",
+            "Moss"
+          ],
+          [
+            "Baharatlar",
+            "Spices"
+          ],
+          [
+            "Süsen",
+            "Iris"
+          ]
+        ]
+      ],
+      [
+        "^velvet-morganite$",
+        [
+          [
+            "Şeftali",
+            "Peach"
+          ],
+          [
+            "Osmanthus",
+            "Osmanthus"
+          ],
+          [
+            "Sedir",
+            "Cedar"
+          ],
+          [
+            "Hindistan cevizi",
+            "Coconut"
+          ],
+          [
+            "Misk",
+            "Musk"
+          ]
+        ]
+      ],
+      [
+        "^wild-emerald$",
+        [
+          [
+            "Safran",
+            "Saffron"
+          ],
+          [
+            "Labdanum",
+            "Labdanum"
+          ],
+          [
+            "Beyaz misk",
+            "White Musk"
+          ],
+          [
+            "Kimyon",
+            "Cumin"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ]
+        ]
+      ],
+      [
+        "^wonderful-tonka$",
+        [
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Kaşmir ağacı",
+            "Cashmere Wood"
+          ],
+          [
+            "Amber-odunsu akor",
+            "Amber Woody Accord"
+          ],
+          [
+            "Kakule",
+            "Cardamom"
+          ],
+          [
+            "Manolya",
+            "Magnolia"
+          ]
+        ]
+      ],
+      [
+        "^yellow-splash$",
+        [
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Kaşmir ağacı",
+            "Cashmere Wood"
+          ],
+          [
+            "Amber-odunsu akor",
+            "Amber Woody Accord"
+          ],
+          [
+            "Kakule",
+            "Cardamom"
+          ],
+          [
+            "Manolya",
+            "Magnolia"
+          ]
+        ]
+      ]
+    ],
+    "library": [
+      {
+        "match": "^anatolian-rose$",
+        "composition": {
+          "tr": [
+            "Üst: Baharatlı meyveler, Karabiber, Elma, Safran",
+            "Kalp: Gül, Portakal çiçeği, Katır tırnağı, Amber akoru",
+            "Alt: Sedir ağacı, Paçuli, Opoponaks, Ud ağacı, Vanilya, Misk"
+          ],
+          "en": [
+            "Top: Spicy Berries, Black Pepper, Apple, Saffron",
+            "Heart: Rose, Orange Blossom, Broom, Amber Accord",
+            "Base: Cedarwood, Patchouli, Opoponax, Agarwood/Oud, Vanilla, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^ethereal-moonstone$",
+        "composition": {
+          "tr": [
+            "Üst: Limon, Baharatlar",
+            "Kalp: Mimoza, Müge, Misk, Paçuli, Amber, Gül",
+            "Alt: Nagarmotha, Sandal ağacı"
+          ],
+          "en": [
+            "Top: Lemon, Spices",
+            "Heart: Mimosa, Lily of the Valley, Musk, Patchouli, Amber, Rose",
+            "Base: Nagarmotha, Sandalwood"
+          ]
+        }
+      },
+      {
+        "match": "^excuisite$",
+        "composition": {
+          "tr": [
+            "Üst: Pembe greyfurt, Frenk üzümü, Buzlu ahududu, Lokum, Şekerlenmiş meyveler",
+            "Kalp: Pembe gül yaprakları, Kiraz çiçeği, Dulce de leche, Safran",
+            "Alt: Odunsu notalar, Vanilya, Antep fıstığı, Beyaz misk"
+          ],
+          "en": [
+            "Top: Pink Grapefruit, Blackcurrant, Iced Raspberry, Turkish Delight, Candied Fruits",
+            "Heart: Pink Rose Leaves, Cherry Blossom, Dulce de Leche, Saffron",
+            "Base: Woody Notes, Vanilla, Pistachio, White Musk"
+          ]
+        }
+      },
+      {
+        "match": "^fleur-de-tabac$",
+        "composition": {
+          "tr": [
+            "Üst: Bergamot, Çay, Beyaz armut, Yeşil elma, Safran, Muskat, Tarçın kabuğu, Kekik, Davana",
+            "Kalp: Tütün yaprakları, Tütün çiçekleri, Çiçeksi notalar",
+            "Alt: Beyaz misk, Vanilya absolü, Tonka fasulyesi, Amber, Tütsü"
+          ],
+          "en": [
+            "Top: Bergamot, Tea, White Pear, Green Apple, Saffron, Nutmeg, Cinnamon Bark, Thyme, Davana",
+            "Heart: Tobacco Leaves, Tobacco Flowers, Floral Notes",
+            "Base: White Musk, Vanilla Absolute, Tonka Bean, Amber, Incense"
+          ]
+        }
+      },
+      {
+        "match": "^gold-sunset$",
+        "composition": {
+          "tr": [
+            "Üst: Mandalina, Frenk üzümü, Lavanta",
+            "Kalp: Portakal çiçeği, Çay, Sambak yasemini",
+            "Alt: Amber-odunsu akor, Vetiver, Vanilya, Misk"
+          ],
+          "en": [
+            "Top: Mandarin, Blackcurrant, Lavender",
+            "Heart: Orange Blossom, Tea, Sambac Jasmine",
+            "Base: Amber Woody Accord, Vetiver, Vanilla, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^golden-ice$",
+        "composition": {
+          "tr": [
+            "Üst: Liçi, Ravent, Bergamot, Muskat",
+            "Kalp: Türk gülü, Şakayık, Misk, Petalia, Vanilya",
+            "Alt: Kaşmeran, Sedir, Haiti vetiveri, Tütsü"
+          ],
+          "en": [
+            "Top: Lychee, Rhubarb, Bergamot, Nutmeg",
+            "Heart: Turkish Rose, Peony, Musk, Petalia, Vanilla",
+            "Base: Cashmeran, Cedar, Haitian Vetiver, Incense"
+          ]
+        }
+      },
+      {
+        "match": "^harmonic-tourmaline$",
+        "composition": {
+          "tr": [
+            "Üst: Bal, Ananas",
+            "Kalp: Kakao, Gül, Manolya, Paçuli, Amber, Vetiver",
+            "Alt: Yasemin, Sandal ağacı"
+          ],
+          "en": [
+            "Top: Honey, Pineapple",
+            "Heart: Cocoa, Rose, Magnolia, Patchouli, Amber, Vetiver",
+            "Base: Jasmine, Sandalwood"
+          ]
+        }
+      },
+      {
+        "match": "^kamuthraa$",
+        "composition": {
+          "tr": [
+            "Üst: Su notaları, Frenk üzümü şurubu, Pembe biber",
+            "Kalp: Portakal çiçeği, Gül, Siklamen, Nergis, Sambak yasemini",
+            "Alt: Vanilya, Ud ağacı, Tütsü, Paçuli, Benzoin, Tonka fasulyesi"
+          ],
+          "en": [
+            "Top: Aquatic Notes, Blackcurrant Syrup, Pink Pepper",
+            "Heart: Orange Blossom, Rose, Cyclamen, Narcissus, Sambac Jasmine",
+            "Base: Vanilla, Agarwood/Oud, Incense, Patchouli, Benzoin, Tonka Bean"
+          ]
+        }
+      },
+      {
+        "match": "^leather-effecto$",
+        "composition": {
+          "tr": [
+            "Üst: Muskat, Safran, Rom",
+            "Kalp: Yasemin",
+            "Alt: Amber, Misk, Labdanum, Sandal ağacı, Vanilya"
+          ],
+          "en": [
+            "Top: Nutmeg, Saffron, Rum",
+            "Heart: Jasmine",
+            "Base: Amber, Musk, Labdanum, Sandalwood, Vanilla"
+          ]
+        }
+      },
+      {
+        "match": "^liberty-s-way$",
+        "composition": {
+          "tr": [
+            "Üst: Mandalina, Frenk üzümü, Lavanta",
+            "Kalp: Portakal çiçeği, Çay, Sambak yasemini",
+            "Alt: Amber-odunsu akor, Vetiver, Vanilya, Misk"
+          ],
+          "en": [
+            "Top: Mandarin, Blackcurrant, Lavender",
+            "Heart: Orange Blossom, Tea, Sambac Jasmine",
+            "Base: Amber Woody Accord, Vetiver, Vanilla, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^metallic-oud$",
+        "composition": {
+          "tr": [
+            "Üst: Ahududu, Armut, Portakal, Elemi reçinesi, Limon, Safran",
+            "Kalp: Bulgar gülü, Portakal çiçeği, Amber, Biber, Pembe biber",
+            "Alt: Ud ağacı, Paçuli, Amber köknar, Sedir, Madagaskar vetiveri, Meşe yosunu, Misk"
+          ],
+          "en": [
+            "Top: Raspberry, Pear, Orange, Elemi Resin, Lemon, Saffron",
+            "Heart: Bulgarian Rose, Orange Blossom, Amber, Pepper, Pink Pepper",
+            "Base: Agarwood/Oud, Patchouli, Amber Fir, Cedar, Madagascar Vetiver, Oakmoss, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^my-magic$",
+        "composition": {
+          "tr": [
+            "Üst: Vanilya, Osmanthus, Odunsu notalar, Limon, Su notaları",
+            "Kalp: Gül, Şeker",
+            "Alt: Vanilya, Şeker, Beyaz misk, Paçuli, Sedir ağacı, Prachin udu"
+          ],
+          "en": [
+            "Top: Vanilla, Osmanthus, Woody Notes, Lemon, Aquatic Notes",
+            "Heart: Rose, Sugar",
+            "Base: Vanilla, Sugar, White Musk, Patchouli, Cedarwood, Prachin Oud"
+          ]
+        }
+      },
+      {
+        "match": "^passion-oud$",
+        "composition": {
+          "tr": [
+            "Üst: Frenk üzümü şurubu",
+            "Kalp: Mayıs gülü, Frezya",
+            "Alt: Vanilya, Paçuli, Ambroksan, Sandal ağacı notaları"
+          ],
+          "en": [
+            "Top: Blackcurrant Syrup",
+            "Heart: May Rose, Freesia",
+            "Base: Vanilla, Patchouli, Ambroxan, Sandalwood Notes"
+          ]
+        }
+      },
+      {
+        "match": "^radiant-peridot$",
+        "composition": {
+          "tr": [
+            "Üst: Liçi, Kırmızı meyveler, Pralin",
+            "Kalp: Portakal, Müge, Yuzu, Yasemin, Sedir ağacı, Tonka fasulyesi, Misk",
+            "Alt: Vanilya, Amber, Benzoin, Sandal ağacı"
+          ],
+          "en": [
+            "Top: Lychee, Red Fruits, Praline",
+            "Heart: Orange, Lily of the Valley, Yuzu, Jasmine, Cedarwood, Tonka Bean, Musk",
+            "Base: Vanilla, Amber, Benzoin, Sandalwood"
+          ]
+        }
+      },
+      {
+        "match": "^skin-musk$",
+        "composition": {
+          "tr": [
+            "Üst: Baharatlı meyveler, Karabiber, Elma, Safran",
+            "Kalp: Gül, Portakal çiçeği, Katır tırnağı, Amber akoru",
+            "Alt: Sedir ağacı, Paçuli, Opoponaks, Ud ağacı, Vanilya, Misk"
+          ],
+          "en": [
+            "Top: Spicy Berries, Black Pepper, Apple, Saffron",
+            "Heart: Rose, Orange Blossom, Broom, Amber Accord",
+            "Base: Cedarwood, Patchouli, Opoponax, Agarwood/Oud, Vanilla, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^spice-rose$",
+        "composition": {
+          "tr": [
+            "Üst: Bergamot, Pembe biber, Greyfurt",
+            "Kalp: Günlük, Misk adaçayı",
+            "Alt: Vetiver, Sedir ağacı, Paçuli, Misk"
+          ],
+          "en": [
+            "Top: Bergamot, Pink Pepper, Grapefruit",
+            "Heart: Olibanum, Clary Sage",
+            "Base: Vetiver, Cedarwood, Patchouli, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^tiger-s-eye$",
+        "composition": {
+          "tr": [
+            "Üst: Bergamot, Baharatlar",
+            "Kalp: Frezya, Süsen, Müge, Sedir ağacı, Kaşmir ağacı, Misk",
+            "Alt: Yosun, Amber, Tütün"
+          ],
+          "en": [
+            "Top: Bergamot, Spices",
+            "Heart: Freesia, Iris, Lily of the Valley, Cedarwood, Cashmere Wood, Musk",
+            "Base: Moss, Amber, Tobacco"
+          ]
+        }
+      },
+      {
+        "match": "^velvet-morganite$",
+        "composition": {
+          "tr": [
+            "Üst: Şeftali, Hindistan cevizi, Gül",
+            "Kalp: Osmanthus, Misk, Müge, Frezya, Vanilya, Pralin",
+            "Alt: Sedir, Amber, Sandal ağacı"
+          ],
+          "en": [
+            "Top: Peach, Coconut, Rose",
+            "Heart: Osmanthus, Musk, Lily of the Valley, Freesia, Vanilla, Praline",
+            "Base: Cedar, Amber, Sandalwood"
+          ]
+        }
+      },
+      {
+        "match": "^wild-emerald$",
+        "composition": {
+          "tr": [
+            "Üst: Safran, Kimyon, Patates",
+            "Kalp: Labdanum, Gül, Vanilya, Paçuli, Amber, Tonka fasulyesi",
+            "Alt: Beyaz misk, Sandal ağacı"
+          ],
+          "en": [
+            "Top: Saffron, Cumin, Potato",
+            "Heart: Labdanum, Rose, Vanilla, Patchouli, Amber, Tonka Bean",
+            "Base: White Musk, Sandalwood"
+          ]
+        }
+      },
+      {
+        "match": "^wonderful-tonka$",
+        "composition": {
+          "tr": [
+            "Üst: Bergamot, Kakule, Pembe meyveler",
+            "Kalp: Kaşmir ağacı, Manolya, Çay",
+            "Alt: Amber-odunsu akor, Vetiver, Ambroksan"
+          ],
+          "en": [
+            "Top: Bergamot, Cardamom, Pink Berries",
+            "Heart: Cashmere Wood, Magnolia, Tea",
+            "Base: Amber Woody Accord, Vetiver, Ambroxan"
+          ]
+        }
+      },
+      {
+        "match": "^yellow-splash$",
+        "composition": {
+          "tr": [
+            "Üst: Bergamot, Kakule, Pembe meyveler",
+            "Kalp: Kaşmir ağacı, Manolya, Çay",
+            "Alt: Amber-odunsu akor, Vetiver, Ambroksan"
+          ],
+          "en": [
+            "Top: Bergamot, Cardamom, Pink Berries",
+            "Heart: Cashmere Wood, Magnolia, Tea",
+            "Base: Amber Woody Accord, Vetiver, Ambroxan"
+          ]
+        }
+      }
+    ]
+  }
+}

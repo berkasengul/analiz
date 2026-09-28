@@ -50,7 +50,8 @@ def copy_template(dst):
 def check(cfg):
     need = ["slug", "meta", "brand", "labelBrand", "bottle", "products", "specs", "features", "ritual",
             "packs", "prices", "stockists", "story", "faqs", "ui"]
-    missing = [k for k in need if k not in cfg]
+    # Satış noktası listesi olmayan marka "hide": ["stockists"] ile bölümü gizler.
+    missing = [k for k in need if k not in cfg and not (k == "stockists" and "stockists" in cfg.get("hide", []))]
     if missing:
         sys.exit(f"Ayar dosyasında eksik alanlar: {', '.join(missing)}")
     if len(cfg["features"]) != 4:
