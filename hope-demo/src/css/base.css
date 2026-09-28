@@ -6511,3 +6511,229 @@ button.buy__more {
     box-shadow: none;
   }
 }
+
+/* ===================== Mağaza bulucu (content.locator) ===================== */
+.locator {
+  --loc-line: color-mix(in srgb, var(--gold, var(--accent, #c9a55c)) 34%, transparent);
+  --loc-ink: var(--gold-ink, var(--gold, var(--accent, #c9a55c)));
+}
+.locator__bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  margin: 0 0 28px;
+}
+.locator__search input,
+.locator__select select {
+  width: 100%;
+  height: 52px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--loc-line);
+  border-radius: 0;
+  color: var(--fg);
+  font: 400 0.98rem/1 var(--sans);
+  letter-spacing: 0.02em;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.3s, background 0.3s;
+}
+.locator__select select {
+  padding-right: 44px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--loc-ink) 50%), linear-gradient(135deg, var(--loc-ink) 50%, transparent 50%);
+  background-position: calc(100% - 22px) 23px, calc(100% - 17px) 23px;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.locator__select option {
+  background: #120f0d;
+  color: var(--fg);
+}
+.locator__search input::placeholder {
+  color: var(--muted);
+}
+.locator__search input:focus,
+.locator__select select:focus {
+  outline: none;
+  border-color: var(--loc-ink);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+.locator__count {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--loc-ink);
+  white-space: nowrap;
+}
+.locator__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 0;
+  padding: 1px 0 0 1px;
+}
+.store {
+  margin: -1px 0 0 -1px;
+  border: 1px solid var(--loc-line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 26px 26px 24px;
+  background: var(--portal-bg, var(--bg));
+  transition: background 0.4s var(--ease);
+}
+.store:hover {
+  background: color-mix(in srgb, var(--portal-bg, var(--bg)) 88%, var(--loc-ink));
+}
+.store__type {
+  margin: 0 0 4px;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--loc-ink);
+}
+.store__name {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  color: var(--cream, var(--fg));
+}
+.store__place {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.08rem;
+  color: var(--fg);
+  opacity: 0.86;
+}
+.store__addr {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.store__links {
+  margin: auto 0 0;
+  padding-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+.store__links a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--loc-line);
+  padding-bottom: 2px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.store__links a:hover {
+  color: var(--loc-ink);
+  border-color: var(--loc-ink);
+}
+.locator__more {
+  display: block;
+  margin: 28px auto 0;
+}
+.locator__empty {
+  padding: 40px 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+.locator__src {
+  margin: 18px 0 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.7;
+}
+@media (max-width: 760px) {
+  .locator__bar {
+    grid-template-columns: 1fr;
+  }
+  .store {
+    padding: 22px 20px;
+  }
+}
+
+/* İletişim bilgileri (content.contactInfo) */
+.contact__info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 28px 40px;
+  margin: 56px 0 36px;
+  padding: 32px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--gold, var(--accent, #c9a55c)) 34%, transparent);
+}
+.contact__info dt {
+  margin: 0 0 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-ink, var(--gold, var(--accent)));
+}
+.contact__info dd {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--fg);
+}
+.contact__info a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.contact__info a:hover {
+  border-color: currentColor;
+}
+
+/* Ürün sayfası: tam kompozisyon (content.products[].composition); kapalı başlar, yer kaplamaz. */
+.detail__comp {
+  margin: 12px 0 0;
+  max-width: 34em;
+}
+.detail__comp summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-ink, var(--gold, var(--accent)));
+}
+.detail__comp summary::-webkit-details-marker {
+  display: none;
+}
+.detail__comp summary::after {
+  content: "+";
+  font-size: 1rem;
+  letter-spacing: 0;
+  transition: transform 0.3s var(--ease);
+}
+.detail__comp[open] summary::after {
+  transform: rotate(45deg);
+}
+.detail__comp p {
+  margin: 8px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--fg);
+  opacity: 0.9;
+}

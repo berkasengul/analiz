@@ -37,7 +37,7 @@ export const useStore = create(
     (set) => ({
       loaded: false,
       sceneReady: false,
-      lang: "tr",
+      lang: content.defaultLang ?? "tr",
       active: 0,
       moving: false,
       swapping: false,
@@ -103,8 +103,10 @@ export const useStore = create(
       storage: createJSONStorage(() => safeStorage),
       partialize: (s) => ({ cart: s.cart, lang: s.lang }),
       // Eski sepetlerdeki ürün numaraları katalog kimliğine çevrilir.
-      version: 1,
-      migrate: (state) => {
+      // v2: varsayılan dili değişen markalarda eski ziyaretçinin kayıtlı dili de varsayılana döner.
+      version: 2,
+      migrate: (state, from) => {
+        if (from < 2 && content.defaultLang) state = { ...state, lang: content.defaultLang };
         const cart = (state?.cart ?? []).map((i) => {
           const cid = typeof i.flavor === "number" ? catalogIdOf(i.flavor) : null;
           return cid ? { ...i, flavor: `c:${cid}`, id: `c:${cid}-${i.pack}-${i.plan}` } : i;

@@ -10,16 +10,19 @@ import { SearchButton } from "./Search";
 const symbol = (p) => (p ? new Intl.NumberFormat(p.locale, { style: "currency", currency: p.currency, currencyDisplay: "narrowSymbol" }).formatToParts(0).find((x) => x.type === "currency")?.value : "");
 const CUR = { tr: symbol(content.prices?.tr) || "₺", en: symbol(content.prices?.en) || "$" };
 
+// Varsayılan dil önce gelir (content.defaultLang).
+const LANGS = [
+  ["tr", "TR", CUR.tr],
+  ["en", "EN", CUR.en],
+].sort((a) => (a[0] === (content.defaultLang ?? "tr") ? -1 : 1));
+
 export function LangSwitch() {
   const lang = useStore((s) => s.lang);
   const setLang = useStore((s) => s.setLang);
   const { ui } = useT();
   return (
     <div className="lang" role="group" aria-label={ui.langLabel}>
-      {[
-        ["tr", "TR", CUR.tr],
-        ["en", "EN", CUR.en],
-      ].map(([code, label, cur]) => (
+      {LANGS.map(([code, label, cur]) => (
         <button
           key={code}
           className={lang === code ? "is-on" : ""}
@@ -57,6 +60,8 @@ function NavBar({ ui }) {
     ? [
         ...(hasSets ? [["#/urunler/set", ui.nav.sets]] : []),
         ...(HIDDEN.has("story") ? [] : [["#story", ui.nav.about ?? ui.nav.story]]),
+        // Mağaza bulucusu olan markalarda üst menüde "Mağaza bul".
+        ...(content.locator ? [["#stockists", ui.nav.stockists]] : []),
         ["#contact", ui.nav.contact],
       ]
     : [

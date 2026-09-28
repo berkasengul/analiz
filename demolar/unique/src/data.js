@@ -80,8 +80,10 @@ export function packPrice(size, plan) {
   return pack.price * (plan === "sub" ? 1 - SUB_DISCOUNT : 1);
 }
 
-export function packLabel(size) {
-  return `${size} ${C.packUnit ?? "ml"}`;
+// packUnit: "ml" ya da dile göre {"tr": "adet", "en": "pc"}.
+export function packLabel(size, lang = "tr") {
+  const u = C.packUnit ?? "ml";
+  return `${size} ${typeof u === "object" ? u[lang] ?? u.tr : u}`;
 }
 
 const fmt = new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY" });

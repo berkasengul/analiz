@@ -220,6 +220,12 @@ export default function DetailPanel() {
             ))}
           </ul>
           )}
+          {f.composition?.length > 0 && (
+            <details className="detail__comp">
+              <summary className="mono">{ui.composition}</summary>
+              <p>{f.composition.join(" · ")}</p>
+            </details>
+          )}
           {f.photos?.length > 0 && <Gallery photos={f.photos} views={f.views} hero={f.heroPhoto} name={f.name} label={ui.photos} tab={tab} />}
           {tip && t.glossary[tip] && f.notes.includes(tip) && (
             <p className="detail__tip">

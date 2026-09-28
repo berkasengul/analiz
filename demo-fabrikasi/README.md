@@ -218,6 +218,13 @@ süzülür; kaydırınca şişe yarım tur dönerek yukarı çıkar, sıradaki a
 yalnızca geçişte görünür, kaide yok, hiçbir şey üst üste binmez. `"orbit"`: döner platform (denendi, ürünler
 iç içe göründüğü için Unique'te bırakıldı). Arka plan ürün renginde kadife.
 
+Markanın sitesindeki önemli bilgiler (marka json'ında, aktarım bunları korur):
+`defaultLang: "en"` site İngilizce açılır (dil düğmesinde önce gelir; eski ziyaretçinin kayıtlı dili de sıfırlanır).
+`locator: {countries: {"Italy": "İtalya"}, stores: [{name, country, city, address, phone, web, type}]}` "Mağaza bul"
+bölümü (ülke seçimi, arama, yol tarifi) ve üst menüde bağlantısı; Shopify mağaza bulucusundaki
+`data-store-locator-source` JSON'undan alınır. `contactInfo: {tr: [["Adres", [satırlar]]], en: [...]}` iletişimde
+adres, telefon (tıklanır), WhatsApp, e-posta, saatler. `packUnit: {"tr": "adet", "en": "bottle"}` dile göre.
+
 `foto.glassBack` (renkli cam şişe): arka yüz ön fotoğrafın aynası (cam ve renk net); ön etiketin yerine etiketin
 kendi renkleriyle arka etiket (marka, ad, aile, notalar, hacim, `lines`); yan yüzler parfümün rengi.
 Aktarımda `sizes` (ürün başına hacim), `defaultSize`, `trText` (İngilizce mağaza için Türkçe çeviri),

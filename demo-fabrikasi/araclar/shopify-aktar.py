@@ -23,6 +23,8 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "sizes": [["regex", "50 ml"]]           tek tek ürünlerin hacmi (defaultSize'dan önce)
     "trText": {"handle": "Türkçe açıklama"}   mağaza yalnızca İngilizceyse: markanın metninin Türkçe çevirisi
                                              (İngilizce metin mağazadan olduğu gibi kalır)
+    "library": [{"match": "regex", "composition": {"tr": [..], "en": [..]}, "year": {"tr": "Ocak 2026", "en": "January 2026"}}]
+                                             markanın koku kütüphanesi: tam kompozisyon ve çıkış tarihi (ürün sayfasında)
     "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
     "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)
     "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
@@ -217,6 +219,12 @@ def main():
         # Ana sayfa sergisinin arka planı: ürünsüz sahne fotoğrafı (araclar/sahne-birlestir.py → fon/fon.json).
         if h in FON:
             p["stage"] = FON[h]
+        # Markanın koku kütüphanesinden: tam kompozisyon ve çıkış tarihi (kurallar → library).
+        lib = next((e for e in R.get("library", []) if re.search(e["match"], h)), None)
+        if lib:
+            for k in ("composition", "year"):
+                if k in lib:
+                    p[k], p["en"][k] = lib[k]["tr"], lib[k]["en"]
         views = views3d(h, i["m"])
         if views:
             p["views"] = views

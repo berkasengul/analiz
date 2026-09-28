@@ -764,6 +764,634 @@
         "chicelle",
         "50 ml"
       ]
+    ],
+    "library": [
+      {
+        "match": "^uniquee\\-luxury\\-crush\\-on\\-me$",
+        "composition": {
+          "en": [
+            "Lime",
+            "Ginger",
+            "Orris",
+            "Magnolia",
+            "Saffron",
+            "Rose",
+            "Caramel",
+            "Patchouli",
+            "Woody notes",
+            "Musk",
+            "Amber"
+          ],
+          "tr": [
+            "Misket limonu",
+            "Zencefil",
+            "Süsen",
+            "Manolya",
+            "Safran",
+            "Gül",
+            "Karamel",
+            "Paçuli",
+            "Odunsu notalar",
+            "Misk",
+            "Amber"
+          ]
+        }
+      },
+      {
+        "match": "^ocean\\-the\\-rive\\-100\\-ml$",
+        "composition": {
+          "en": [
+            "Bergamot",
+            "Mandarin",
+            "Grapefruit",
+            "Sea breeze",
+            "Armoise",
+            "Basil",
+            "Blue chamomile",
+            "Cashmere wood",
+            "Patchouli",
+            "Vanilla",
+            "Musk",
+            "Amber"
+          ],
+          "tr": [
+            "Bergamot",
+            "Mandalina",
+            "Greyfurt",
+            "Deniz esintisi",
+            "Pelin otu",
+            "Fesleğen",
+            "Mavi papatya",
+            "Kaşmir ağacı",
+            "Paçuli",
+            "Vanilya",
+            "Misk",
+            "Amber"
+          ]
+        },
+        "year": {
+          "en": "February 2025",
+          "tr": "Şubat 2025"
+        }
+      },
+      {
+        "match": "^mangonifiscent$",
+        "composition": {
+          "en": [
+            "Mango",
+            "Bergamot",
+            "Geranium",
+            "Vanilla",
+            "Honey",
+            "Rose",
+            "Jasmine",
+            "Sandalwood",
+            "Patchouli",
+            "Mossy notes",
+            "Musk",
+            "Amber"
+          ],
+          "tr": [
+            "Mango",
+            "Bergamot",
+            "Sardunya",
+            "Vanilya",
+            "Bal",
+            "Gül",
+            "Yasemin",
+            "Sandal ağacı",
+            "Paçuli",
+            "Yosun notaları",
+            "Misk",
+            "Amber"
+          ]
+        },
+        "year": {
+          "en": "April 2023",
+          "tr": "Nisan 2023"
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-kutay$",
+        "composition": {
+          "en": [
+            "Bergamot",
+            "Lemon",
+            "Whiskey",
+            "Davana",
+            "Nagarmotha",
+            "Agarwood",
+            "Caramel",
+            "Sandalwood",
+            "Tobacco",
+            "Amber",
+            "Vanilla"
+          ],
+          "tr": [
+            "Bergamot",
+            "Limon",
+            "Viski",
+            "Davana",
+            "Nagarmotha",
+            "Ud ağacı",
+            "Karamel",
+            "Sandal ağacı",
+            "Tütün",
+            "Amber",
+            "Vanilya"
+          ]
+        }
+      },
+      {
+        "match": "^zengi$",
+        "composition": {
+          "en": [
+            "Grapefruit",
+            "Bergamot",
+            "Olibanum",
+            "Vanilla",
+            "Honey",
+            "Wine",
+            "Ginger",
+            "Pink pepper",
+            "Patchouli",
+            "Cedarwood",
+            "Vetiver",
+            "Amber"
+          ],
+          "tr": [
+            "Greyfurt",
+            "Bergamot",
+            "Günlük",
+            "Vanilya",
+            "Bal",
+            "Şarap",
+            "Zencefil",
+            "Pembe biber",
+            "Paçuli",
+            "Sedir",
+            "Vetiver",
+            "Amber"
+          ]
+        },
+        "year": {
+          "en": "Late August 2023",
+          "tr": "Ağustos 2023 sonu"
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-akdeniz$",
+        "composition": {
+          "en": [
+            "Marine",
+            "Lemon",
+            "Grapefruit",
+            "Lavandin",
+            "Thyme",
+            "Apple",
+            "Pineapple",
+            "Myrtle",
+            "White florals",
+            "Patchouli",
+            "Cedarwood",
+            "Sandalwood",
+            "Amber",
+            "Leather",
+            "Musk",
+            "Vanilla"
+          ],
+          "tr": [
+            "Deniz notaları",
+            "Limon",
+            "Greyfurt",
+            "Lavanden",
+            "Kekik",
+            "Elma",
+            "Ananas",
+            "Mersin",
+            "Beyaz çiçekler",
+            "Paçuli",
+            "Sedir",
+            "Sandal ağacı",
+            "Amber",
+            "Deri",
+            "Misk",
+            "Vanilya"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-beverly\\-hills\\-exclusive$",
+        "composition": {
+          "en": [
+            "Bergamot",
+            "Clary sage",
+            "Cardamom",
+            "Rose",
+            "Orris",
+            "Honey",
+            "Tobacco",
+            "Tonka bean",
+            "Ambergris",
+            "Sandalwood"
+          ],
+          "tr": [
+            "Bergamot",
+            "Misk adaçayı",
+            "Kakule",
+            "Gül",
+            "Süsen",
+            "Bal",
+            "Tütün",
+            "Tonka fasulyesi",
+            "Amber gris",
+            "Sandal ağacı"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-chocolate\\-makes\\-me\\-happy$",
+        "composition": {
+          "en": [
+            "Dark chocolate",
+            "Cacao",
+            "Grapefruit",
+            "Mandarin",
+            "Lavender",
+            "Ginger",
+            "Cinnamon",
+            "Labdanum",
+            "Olibanum",
+            "Vetiver",
+            "Sandalwood",
+            "Caramel",
+            "Coffee",
+            "Musk",
+            "Amber"
+          ],
+          "tr": [
+            "Bitter çikolata",
+            "Kakao",
+            "Greyfurt",
+            "Mandalina",
+            "Lavanta",
+            "Zencefil",
+            "Tarçın",
+            "Labdanum",
+            "Günlük",
+            "Vetiver",
+            "Sandal ağacı",
+            "Karamel",
+            "Kahve",
+            "Misk",
+            "Amber"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-istanbul$",
+        "composition": {
+          "en": [
+            "Citrus",
+            "Cilantro",
+            "Lemon tea",
+            "Grape",
+            "Neroli",
+            "Jasmine",
+            "Pink pepper",
+            "Geranium",
+            "Woody musk",
+            "Vanilla",
+            "Toffee"
+          ],
+          "tr": [
+            "Narenciye",
+            "Kişniş yaprağı",
+            "Limonlu çay",
+            "Üzüm",
+            "Neroli",
+            "Yasemin",
+            "Pembe biber",
+            "Sardunya",
+            "Odunsu misk",
+            "Vanilya",
+            "Tofi"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-soscentific$",
+        "composition": {
+          "en": [
+            "Osmanthus",
+            "Grapefruit",
+            "Orange blossom",
+            "Cherry",
+            "Pink pepper",
+            "Jasmine",
+            "Plum",
+            "Peach",
+            "Strawberry",
+            "Cedarwood",
+            "Amber",
+            "Musk",
+            "Vanilla"
+          ],
+          "tr": [
+            "Osmanthus",
+            "Greyfurt",
+            "Portakal çiçeği",
+            "Kiraz",
+            "Pembe biber",
+            "Yasemin",
+            "Erik",
+            "Şeftali",
+            "Çilek",
+            "Sedir",
+            "Amber",
+            "Misk",
+            "Vanilya"
+          ]
+        }
+      },
+      {
+        "match": "^dolcezza$",
+        "composition": {
+          "en": [
+            "Cacao",
+            "Coconut milk",
+            "Pimento",
+            "Red berries",
+            "Jasmine",
+            "Olibanum",
+            "Vanilla",
+            "Praline",
+            "Amber",
+            "Musk"
+          ],
+          "tr": [
+            "Kakao",
+            "Hindistan cevizi sütü",
+            "Yenibahar",
+            "Kırmızı meyveler",
+            "Yasemin",
+            "Günlük",
+            "Vanilya",
+            "Pralin",
+            "Amber",
+            "Misk"
+          ]
+        },
+        "year": {
+          "en": "January 2026",
+          "tr": "Ocak 2026"
+        }
+      },
+      {
+        "match": "^mashumaro$",
+        "composition": {
+          "en": [
+            "Marshmallow",
+            "Cashmere wood",
+            "Milk",
+            "Incense",
+            "Caramel",
+            "Musk",
+            "Muguet",
+            "Rose",
+            "Praline",
+            "Vanilla"
+          ],
+          "tr": [
+            "Marşmelov",
+            "Kaşmir ağacı",
+            "Süt",
+            "Tütsü",
+            "Karamel",
+            "Misk",
+            "Müge",
+            "Gül",
+            "Pralin",
+            "Vanilya"
+          ]
+        },
+        "year": {
+          "en": "December 2022",
+          "tr": "Aralık 2022"
+        }
+      },
+      {
+        "match": "^woud\\-mood\\-absolute\\-100\\-ml$",
+        "composition": {
+          "en": [
+            "Citrusy notes",
+            "Herbal notes",
+            "Saffron",
+            "Labdanum",
+            "Benzoin",
+            "Patchouli",
+            "Guaiac wood",
+            "Leather",
+            "Oudy notes",
+            "Nagarmotha",
+            "Musk",
+            "Amber"
+          ],
+          "tr": [
+            "Narenciye notaları",
+            "Bitkisel notalar",
+            "Safran",
+            "Labdanum",
+            "Benzoin",
+            "Paçuli",
+            "Gayak ağacı",
+            "Deri",
+            "Ud notaları",
+            "Nagarmotha",
+            "Misk",
+            "Amber"
+          ]
+        },
+        "year": {
+          "en": "October 2024",
+          "tr": "Ekim 2024"
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-aphrodisiac\\-touch$",
+        "composition": {
+          "en": [
+            "Bergamot",
+            "Muguet",
+            "Lilac",
+            "Saffron",
+            "Clove",
+            "Cinnamon",
+            "Cardamom",
+            "Rose",
+            "Geranium",
+            "Cedarwood",
+            "Patchouli",
+            "Orris",
+            "Sandalwood",
+            "Musk",
+            "Animalic amber",
+            "Sweet vanilla"
+          ],
+          "tr": [
+            "Bergamot",
+            "Müge",
+            "Leylak",
+            "Safran",
+            "Karanfil",
+            "Tarçın",
+            "Kakule",
+            "Gül",
+            "Sardunya",
+            "Sedir",
+            "Paçuli",
+            "Süsen",
+            "Sandal ağacı",
+            "Misk",
+            "Hayvansı amber",
+            "Tatlı vanilya"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-beril$",
+        "composition": {
+          "en": [
+            "Mandarin",
+            "Lemon",
+            "Pink pepper",
+            "Coriander",
+            "Cardamom",
+            "Thyme",
+            "Nutmeg",
+            "Cinnamon",
+            "Rose",
+            "Jasmine",
+            "Patchouli",
+            "Vetiver",
+            "Amber",
+            "Musk"
+          ],
+          "tr": [
+            "Mandalina",
+            "Limon",
+            "Pembe biber",
+            "Kişniş",
+            "Kakule",
+            "Kekik",
+            "Muskat",
+            "Tarçın",
+            "Gül",
+            "Yasemin",
+            "Paçuli",
+            "Vetiver",
+            "Amber",
+            "Misk"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-chypre\\-toscano$",
+        "composition": {
+          "en": [
+            "Violet",
+            "Thyme",
+            "Lavender",
+            "Saffron",
+            "Clove",
+            "Cinnamon",
+            "Black tea",
+            "Smoky leather",
+            "Styrax",
+            "Cedarwood",
+            "Patchouli",
+            "Woody musk",
+            "Olibanum",
+            "Sweet vanilla"
+          ],
+          "tr": [
+            "Menekşe",
+            "Kekik",
+            "Lavanta",
+            "Safran",
+            "Karanfil",
+            "Tarçın",
+            "Siyah çay",
+            "İsli deri",
+            "Sığla",
+            "Sedir",
+            "Paçuli",
+            "Odunsu misk",
+            "Günlük",
+            "Tatlı vanilya"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-hidden\\-accords$",
+        "composition": {
+          "en": [
+            "Pink pepper",
+            "Orange blossom",
+            "Pear",
+            "Coffee",
+            "Jasmine",
+            "Vanilla",
+            "Patchouli",
+            "Cedarwood"
+          ],
+          "tr": [
+            "Pembe biber",
+            "Portakal çiçeği",
+            "Armut",
+            "Kahve",
+            "Yasemin",
+            "Vanilya",
+            "Paçuli",
+            "Sedir"
+          ]
+        }
+      },
+      {
+        "match": "^uniquee\\-luxury\\-izmir$",
+        "composition": {
+          "en": [
+            "Citrus",
+            "Bergamot",
+            "Lemon",
+            "Mandarin",
+            "Pineapple",
+            "Rose",
+            "Orris",
+            "Clove",
+            "Tonka bean",
+            "Vanilla",
+            "Patchouli",
+            "Sandalwood",
+            "Oakmoss"
+          ],
+          "tr": [
+            "Narenciye",
+            "Bergamot",
+            "Limon",
+            "Mandalina",
+            "Ananas",
+            "Gül",
+            "Süsen",
+            "Karanfil",
+            "Tonka fasulyesi",
+            "Vanilya",
+            "Paçuli",
+            "Sandal ağacı",
+            "Meşe yosunu"
+          ]
+        }
+      }
     ]
   }
 }

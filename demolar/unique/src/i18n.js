@@ -111,6 +111,18 @@ const UI = {
     collection: "Koleksiyon",
     milestones: "Kilometre taşları",
     press: "Görüldüğü yerler",
+    locator: {
+      search: "Ülke, şehir ya da mağaza ara",
+      country: "Ülke",
+      allCountries: (n) => `Tüm ülkeler (${n})`,
+      count: (n) => `${n} satış noktası`,
+      none: "Seçiminize uyan satış noktası yok.",
+      showAll: (n) => `Tümünü göster (${n})`,
+      directions: "Yol tarifi",
+      source: "Liste markanın mağaza bulucusundan alınmıştır.",
+      types: { "Physical Store": "Mağaza", "Online Store": "Online mağaza", "Physical + Online": "Mağaza + online", "Retail Partner": "Satış ortağı", Distributor: "Distribütör", Warehouse: "Depo" },
+    },
+    composition: "Tam kompozisyon",
     whereEyebrow: "05 — Nerede",
     whereTitle: "Nerede bulunur",
     whereTag: "İstanbul'dan Milano'ya, bir sıkım uzaklıkta.",
@@ -242,6 +254,18 @@ const UI = {
     collection: "Collection",
     milestones: "Milestones",
     press: "As seen at",
+    locator: {
+      search: "Search country, city or store",
+      country: "Country",
+      allCountries: (n) => `All countries (${n})`,
+      count: (n) => `${n} location${n === 1 ? "" : "s"}`,
+      none: "No partners match your selection.",
+      showAll: (n) => `Show all (${n})`,
+      directions: "Directions",
+      source: "List taken from the brand's store locator.",
+      types: { "Physical Store": "Store", "Online Store": "Online store", "Physical + Online": "Store + online", "Retail Partner": "Retail partner", Distributor: "Distributor", Warehouse: "Warehouse" },
+    },
+    composition: "Full composition",
     whereEyebrow: "05 — Where",
     whereTitle: "Where to find us",
     whereTag: "From Istanbul to Milan, one spray away.",
@@ -333,11 +357,12 @@ export function getT(lang) {
     if (!base || size === 1) return Math.round(v * 100) / 100;
     return P.currency === "TRY" ? Math.round(v / 10) * 10 : Math.round(v);
   };
-  const packLabel = (size) => D.packLabel(size);
+  const packLabel = (size) => D.packLabel(size, lang);
   const flavorText = D.flavors.map((f, i) => (en ? { ...f, ...EN.flavors[i] } : f));
 
   const t = {
     lang,
+    contactInfo: C.contactInfo?.[lang] ?? null,
     ui: mergeUi(UI[lang], C.ui?.[lang]),
     money,
     price,

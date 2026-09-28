@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-import { HIDDEN } from "../data";
+import { HIDDEN, content } from "../data";
 import { useT, wordLang } from "../i18n";
 import { BrandIcon } from "../Icons";
 
@@ -81,8 +81,103 @@ export function Story() {
   );
 }
 
+// Mağaza bulucu (content.locator): markanın yetkili satış noktaları; ülke seçimi ve arama.
+const LOC = content.locator;
+const mapsUrl = (s) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.name}, ${s.address}`)}`;
+const host = (u) => {
+  try {
+    const h = new URL(u).hostname.replace(/^www\./, "");
+    return h === "instagram.com" ? "@" + u.replace(/\/$/, "").split("/").pop() : h;
+  } catch {
+    return u;
+  }
+};
+
+function StoreLocator() {
+  const { ui, lang } = useT();
+  const L = ui.locator;
+  const [country, setCountry] = useState("");
+  const [q, setQ] = useState("");
+  const [all, setAll] = useState(false);
+  const cname = (c) => (lang === "tr" ? LOC.countries[c] ?? c : c);
+  const countries = useMemo(() => {
+    const n = {};
+    LOC.stores.forEach((s) => (n[s.country] = (n[s.country] ?? 0) + 1));
+    return Object.entries(n).sort((a, b) => cname(a[0]).localeCompare(cname(b[0]), lang));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
+  const needle = q.trim().toLocaleLowerCase(lang);
+  const hits = LOC.stores.filter(
+    (s) =>
+      (!country || s.country === country) &&
+      (!needle || [s.name, s.city, s.address, s.country, cname(s.country)].some((v) => v && v.toLocaleLowerCase(lang).includes(needle)))
+  );
+  const shown = all || needle || country ? hits : hits.slice(0, 9);
+  return (
+    <section id="stockists" className="section stockists locator">
+      <header className="section__head reveal">
+        <p className="mono section__eyebrow">{ui.whereEyebrow}</p>
+        <h2 className="section__title">{ui.whereTitle}</h2>
+        <p className="tagline tagline--static">{ui.whereTag}</p>
+      </header>
+      <div className="locator__bar reveal">
+        <label className="locator__search">
+          <span className="sr-only">{L.search}</span>
+          <input type="search" value={q} placeholder={L.search} onChange={(e) => setQ(e.target.value)} />
+        </label>
+        <label className="locator__select">
+          <span className="sr-only">{L.country}</span>
+          <select value={country} onChange={(e) => setCountry(e.target.value)}>
+            <option value="">{L.allCountries(LOC.stores.length)}</option>
+            {countries.map(([c, n]) => (
+              <option key={c} value={c}>
+                {cname(c)} ({n})
+              </option>
+            ))}
+          </select>
+        </label>
+        <p className="locator__count mono">{L.count(hits.length)}</p>
+      </div>
+      {hits.length ? (
+        <ul className="locator__grid">
+          {shown.map((s) => (
+            <li key={s.name + s.address} className="store">
+              <p className="store__type mono">{L.types[s.type] ?? s.type}</p>
+              <h3 className="store__name">{s.name}</h3>
+              <p className="store__place">{[s.city, cname(s.country)].filter(Boolean).join(" · ")}</p>
+              {s.address && <p className="store__addr">{s.address}</p>}
+              <p className="store__links">
+                {s.address && (
+                  <a href={mapsUrl(s)} target="_blank" rel="noreferrer">
+                    {L.directions} ↗
+                  </a>
+                )}
+                {s.phone && <a href={`tel:${s.phone.replace(/[^+\d]/g, "")}`}>{s.phone}</a>}
+                {s.web && (
+                  <a href={s.web} target="_blank" rel="noreferrer">
+                    {host(s.web)} ↗
+                  </a>
+                )}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="locator__empty">{L.none}</p>
+      )}
+      {!all && !needle && !country && hits.length > shown.length && (
+        <button className="pill locator__more" onClick={() => setAll(true)}>
+          {L.showAll(hits.length)}
+        </button>
+      )}
+      <p className="locator__src mono">{L.source}</p>
+    </section>
+  );
+}
+
 export function Stockists() {
   const { ui, story, stockists, faqs } = useT();
+  if (LOC) return <StoreLocator />;
   return (
     <section id="stockists" className="section stockists">
       <header className="section__head reveal">
@@ -139,8 +234,17 @@ export function Faq() {
   );
 }
 
+// İletişim satırı: e-posta ve telefonlar tıklanabilir.
+function infoLine(l) {
+  const mail = l.match(/\S+@\S+/);
+  if (mail) return <a href={`mailto:${mail[0]}`}>{l}</a>;
+  const tel = l.match(/\+[\d ()-]{7,}/);
+  if (tel) return <a href={`${/whatsapp/i.test(l) ? "https://wa.me/" : "tel:+"}${tel[0].replace(/\D/g, "")}`}>{l}</a>;
+  return l;
+}
+
 export function Footer() {
-  const { ui, story, brand } = useT();
+  const { ui, story, brand, contactInfo } = useT();
   const [sent, setSent] = useState(false);
   const [joined, setJoined] = useState(false);
 
@@ -198,6 +302,19 @@ export function Footer() {
           )}
         </div>
       </div>
+
+      {contactInfo && (
+        <dl className="contact__info reveal">
+          {contactInfo.map(([k, lines]) => (
+            <div key={k}>
+              <dt className="mono">{k}</dt>
+              {lines.map((l) => (
+                <dd key={l}>{infoLine(l)}</dd>
+              ))}
+            </div>
+          ))}
+        </dl>
+      )}
 
       <p className="warning">
         {ui.caffeine} {brand.disclaimer}

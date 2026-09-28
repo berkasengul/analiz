@@ -7,7 +7,7 @@
 **Telefon:** +90 850 532 44 21 (hafta içi 09.00–18.00, GMT+3; sitede yazıyor)
 **Instagram:** @uniquee_luxury (DM)
 **Adres:** Erzene Mah. 17 Sk. No:1/1, İzmir (gizlilik politikasında)
-**Ekler (mail):** `unique-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg`, `5-sise-arkasi.jpg` (zip ekleme)
+**Ekler (mail):** `unique-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg`, `5-sise-arkasi.jpg`, `6-magaza-bul.jpg` (zip ekleme)
 **Ne zaman:** Salı–Perşembe, 10:00–11:00 (Türkiye saati)
 
 ## Nasıl satılır (sıra)
@@ -37,9 +37,11 @@ Kısaca neler var:
 - **Şişeleriniz 3D ve tek başına sahnede:** 19 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada her seferinde tek bir şişe, yukarıdan vuran bir ışık huzmesinin altında süzülüyor; aşağı kaydırdıkça şişe dönerek yukarı çıkıyor, sıradaki koku aşağıdan dönerek ışığa geliyor. Sahne her kokunun renginde: Crush On Me kırmızı, Ocean The Rive lacivert, Mangonifiscent yeşil.
 - **Şişe çevrilebiliyor:** Arkada kokunun adı, notaları ve hacmiyle etiket var.
 - **Her kokunun notaları ve hikâyesi:** Ürüne girince ana notalar, kokunun hikâyesi ve markanızı anlatan 4 kısa bölüm açılıyor.
+- **Mağaza bulucunuz sitede:** 24 ülkedeki 68 yetkili satış noktanızın tamamı; ülkeye göre filtre, arama, yol tarifi, telefon ve web bağlantıları. ABD ve Türkiye iletişim bilgileriniz, WhatsApp ve çalışma saatleri de sayfanın sonunda.
+- **Koku kütüphanesi:** Her kokunun tam kompozisyonu ve çıkış tarihi ürün sayfasında.
 - **Tüm koleksiyon hazır:** İkonlar, yeni kokular ve koleksiyon; fiyatlar ve metinler sitenizden alındı.
 - **Mevcut mağazanızla çalışıyor:** Sepet Shopify mağazanıza bağlı; "Ödemeye geç" müşteriyi doğrudan uniqueeluxury.com'daki ödeme sayfasına götürüyor. Yeni bir altyapı gerekmiyor.
-- **Türkçe ve İngilizce**, telefona özel tasarım, koku ve nota araması.
+- **Site İngilizce açılıyor** (36'dan fazla ülkeye satış yaptığınız için), tek tıkla Türkçe; telefona özel tasarım, koku ve nota araması.
 
 Amaç, dünyanın sevdiği kokularınızı ziyaretçiye mağazada şişeyi elinde tutuyormuş gibi yaşatmak.
 
@@ -90,7 +92,7 @@ Berka
 - [ ] Zip'i Netlify Drop'a yükle, linki telefonda ve bilgisayarda aç.
 - [ ] Sepete bir koku ekleyip "Ödemeye geç"e bas: uniqueeluxury.com ödeme sayfası açılmalı (ödeme yapma).
 - [ ] `[DEMO LİNKİ]`, soyadını, telefonunu ve Instagram/portfolyo linkini doldur.
-- [ ] Maile beş görseli ekle; kurucunun adresini CC'ye koy.
+- [ ] Maile altı görseli ekle; kurucunun adresini CC'ye koy.
 - [ ] `satis/parfum-firmalari.csv` dosyasında Unique'e Luxury satırına tarihi yaz.
 
 ## Fiyat sorarlarsa

@@ -1,9 +1,9 @@
 {
   "slug": "unique",
   "meta": {
-    "title": "Unique'e Luxury · Konsept Demo",
-    "description": "Unique'e Luxury için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
-    "og": "Unique'e Luxury: İzmir'den dünyaya extrait de parfum, 3B sahnede."
+    "title": "Unique'e Luxury · Concept Demo",
+    "description": "A 3D concept demo for Unique'e Luxury. Not affiliated with the brand owner.",
+    "og": "Unique'e Luxury: extrait de parfum from Izmir to the world, on a 3D stage."
   },
   "brand": {
     "name": "Unique'e Luxury",
@@ -96,7 +96,20 @@
           "Patchouli"
         ],
         "description": "Rich caramel, earthy patchouli and bright citrus give CRUSH ON ME its bold, modern character, leaving an irresistible and addictive signature.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Lime",
+          "Ginger",
+          "Orris",
+          "Magnolia",
+          "Saffron",
+          "Rose",
+          "Caramel",
+          "Patchouli",
+          "Woody notes",
+          "Musk",
+          "Amber"
+        ]
       },
       "label": {
         "style": "photo"
@@ -757,6 +770,19 @@
       "photos": [
         "foto/uniquee-luxury-crush-on-me/1.webp",
         "foto/uniquee-luxury-crush-on-me/2.webp"
+      ],
+      "composition": [
+        "Misket limonu",
+        "Zencefil",
+        "Süsen",
+        "Manolya",
+        "Safran",
+        "Gül",
+        "Karamel",
+        "Paçuli",
+        "Odunsu notalar",
+        "Misk",
+        "Amber"
       ]
     },
     {
@@ -765,7 +791,7 @@
       "sub": "100 ml",
       "collection": null,
       "family": "Extrait de Parfum",
-      "year": null,
+      "year": "Şubat 2025",
       "perfumer": null,
       "color": "#8391b5",
       "ink": "#1f1a17",
@@ -799,7 +825,22 @@
           "Cashmere wood"
         ],
         "description": "Vibrant citrus, sea breeze and cashmere woods capture OCEAN THE RIVE’s coastal sophistication, clean, effortless and inspired by the deep blue.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Bergamot",
+          "Mandarin",
+          "Grapefruit",
+          "Sea breeze",
+          "Armoise",
+          "Basil",
+          "Blue chamomile",
+          "Cashmere wood",
+          "Patchouli",
+          "Vanilla",
+          "Musk",
+          "Amber"
+        ],
+        "year": "February 2025"
       },
       "label": {
         "style": "photo"
@@ -1509,6 +1550,20 @@
         "foto/ocean-the-rive-100-ml/1.webp",
         "foto/ocean-the-rive-100-ml/2.webp",
         "foto/ocean-the-rive-100-ml/3.webp"
+      ],
+      "composition": [
+        "Bergamot",
+        "Mandalina",
+        "Greyfurt",
+        "Deniz esintisi",
+        "Pelin otu",
+        "Fesleğen",
+        "Mavi papatya",
+        "Kaşmir ağacı",
+        "Paçuli",
+        "Vanilya",
+        "Misk",
+        "Amber"
       ]
     },
     {
@@ -1517,7 +1572,7 @@
       "sub": "100 ml",
       "collection": null,
       "family": "Extrait de Parfum",
-      "year": null,
+      "year": "Nisan 2023",
       "perfumer": null,
       "color": "#4cb764",
       "ink": "#1f1a17",
@@ -1549,7 +1604,22 @@
           "Jasmine"
         ],
         "description": "Juicy mango, elegant florals and creamy woods give MANGONIFISCENT its tropical radiance, balancing addictive brightness with refined depth.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Mango",
+          "Bergamot",
+          "Geranium",
+          "Vanilla",
+          "Honey",
+          "Rose",
+          "Jasmine",
+          "Sandalwood",
+          "Patchouli",
+          "Mossy notes",
+          "Musk",
+          "Amber"
+        ],
+        "year": "April 2023"
       },
       "label": {
         "style": "photo"
@@ -2235,6 +2305,20 @@
         "foto/mangonifiscent/1.webp",
         "foto/mangonifiscent/2.webp",
         "foto/mangonifiscent/3.webp"
+      ],
+      "composition": [
+        "Mango",
+        "Bergamot",
+        "Sardunya",
+        "Vanilya",
+        "Bal",
+        "Gül",
+        "Yasemin",
+        "Sandal ağacı",
+        "Paçuli",
+        "Yosun notaları",
+        "Misk",
+        "Amber"
       ]
     },
     {
@@ -2273,7 +2357,20 @@
           "Vanilla"
         ],
         "description": "Rich whiskey, dark tobacco and smoky woods give KUTAY its commanding, boozy character, softened by warm caramel, amber and vanilla.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Bergamot",
+          "Lemon",
+          "Whiskey",
+          "Davana",
+          "Nagarmotha",
+          "Agarwood",
+          "Caramel",
+          "Sandalwood",
+          "Tobacco",
+          "Amber",
+          "Vanilla"
+        ]
       },
       "label": {
         "style": "photo"
@@ -2983,6 +3080,19 @@
         "foto/uniquee-luxury-kutay/1.webp",
         "foto/uniquee-luxury-kutay/2.webp",
         "foto/uniquee-luxury-kutay/3.webp"
+      ],
+      "composition": [
+        "Bergamot",
+        "Limon",
+        "Viski",
+        "Davana",
+        "Nagarmotha",
+        "Ud ağacı",
+        "Karamel",
+        "Sandal ağacı",
+        "Tütün",
+        "Amber",
+        "Vanilya"
       ]
     },
     {
@@ -3681,7 +3791,7 @@
       "sub": "100 ml",
       "collection": null,
       "family": "Extrait de Parfum",
-      "year": null,
+      "year": "Ağustos 2023 sonu",
       "perfumer": null,
       "color": "#f6d17e",
       "ink": "#1f1a17",
@@ -3715,7 +3825,22 @@
           "Wine"
         ],
         "description": "Sparkling citrus, golden honey and warm woods give ZEN’GI its balance of energy and depth, with an elegant, unexpectedly refined signature.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Grapefruit",
+          "Bergamot",
+          "Olibanum",
+          "Vanilla",
+          "Honey",
+          "Wine",
+          "Ginger",
+          "Pink pepper",
+          "Patchouli",
+          "Cedarwood",
+          "Vetiver",
+          "Amber"
+        ],
+        "year": "Late August 2023"
       },
       "label": {
         "style": "photo"
@@ -4425,6 +4550,20 @@
         "foto/zengi/1.webp",
         "foto/zengi/2.webp",
         "foto/zengi/3.webp"
+      ],
+      "composition": [
+        "Greyfurt",
+        "Bergamot",
+        "Günlük",
+        "Vanilya",
+        "Bal",
+        "Şarap",
+        "Zencefil",
+        "Pembe biber",
+        "Paçuli",
+        "Sedir",
+        "Vetiver",
+        "Amber"
       ]
     },
     {
@@ -4465,7 +4604,25 @@
           "Leather"
         ],
         "description": "Marine notes, vibrant citrus and aromatic herbs capture AKDENIZ, a radiant Mediterranean escape with a fresh, refined and distinctive signature.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Marine",
+          "Lemon",
+          "Grapefruit",
+          "Lavandin",
+          "Thyme",
+          "Apple",
+          "Pineapple",
+          "Myrtle",
+          "White florals",
+          "Patchouli",
+          "Cedarwood",
+          "Sandalwood",
+          "Amber",
+          "Leather",
+          "Musk",
+          "Vanilla"
+        ]
       },
       "label": {
         "style": "photo"
@@ -5111,6 +5268,24 @@
         "foto/uniquee-luxury-akdeniz/1.webp",
         "foto/uniquee-luxury-akdeniz/2.webp",
         "foto/uniquee-luxury-akdeniz/3.webp"
+      ],
+      "composition": [
+        "Deniz notaları",
+        "Limon",
+        "Greyfurt",
+        "Lavanden",
+        "Kekik",
+        "Elma",
+        "Ananas",
+        "Mersin",
+        "Beyaz çiçekler",
+        "Paçuli",
+        "Sedir",
+        "Sandal ağacı",
+        "Amber",
+        "Deri",
+        "Misk",
+        "Vanilya"
       ]
     },
     {
@@ -5149,7 +5324,19 @@
           "Tonka bean"
         ],
         "description": "Golden honey, smooth tobacco and creamy tonka define BEVERLY HILLS EXCLUSIVE, a polished signature of warmth, elegance and quiet confidence.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Bergamot",
+          "Clary sage",
+          "Cardamom",
+          "Rose",
+          "Orris",
+          "Honey",
+          "Tobacco",
+          "Tonka bean",
+          "Ambergris",
+          "Sandalwood"
+        ]
       },
       "label": {
         "style": "photo"
@@ -5795,6 +5982,18 @@
         "foto/uniquee-luxury-beverly-hills-exclusive/1.webp",
         "foto/uniquee-luxury-beverly-hills-exclusive/2.webp",
         "foto/uniquee-luxury-beverly-hills-exclusive/3.webp"
+      ],
+      "composition": [
+        "Bergamot",
+        "Misk adaçayı",
+        "Kakule",
+        "Gül",
+        "Süsen",
+        "Bal",
+        "Tütün",
+        "Tonka fasulyesi",
+        "Amber gris",
+        "Sandal ağacı"
       ]
     },
     {
@@ -5835,7 +6034,24 @@
           "Caramel"
         ],
         "description": "Dark chocolate, cacao and aromatic spices define CHOCOLATE MAKES ME HAPPY, a refined gourmand with a warm, sensual and addictive depth.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Dark chocolate",
+          "Cacao",
+          "Grapefruit",
+          "Mandarin",
+          "Lavender",
+          "Ginger",
+          "Cinnamon",
+          "Labdanum",
+          "Olibanum",
+          "Vetiver",
+          "Sandalwood",
+          "Caramel",
+          "Coffee",
+          "Musk",
+          "Amber"
+        ]
       },
       "label": {
         "style": "photo"
@@ -6481,6 +6697,23 @@
         "foto/uniquee-luxury-chocolate-makes-me-happy/1.webp",
         "foto/uniquee-luxury-chocolate-makes-me-happy/2.webp",
         "foto/uniquee-luxury-chocolate-makes-me-happy/3.webp"
+      ],
+      "composition": [
+        "Bitter çikolata",
+        "Kakao",
+        "Greyfurt",
+        "Mandalina",
+        "Lavanta",
+        "Zencefil",
+        "Tarçın",
+        "Labdanum",
+        "Günlük",
+        "Vetiver",
+        "Sandal ağacı",
+        "Karamel",
+        "Kahve",
+        "Misk",
+        "Amber"
       ]
     },
     {
@@ -6519,7 +6752,20 @@
           "Toffee"
         ],
         "description": "Bright citrus, aromatic tea and warm toffee reflect ISTANBUL’s meeting of old and new, with vibrant energy and a memorable, elegant trail.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Citrus",
+          "Cilantro",
+          "Lemon tea",
+          "Grape",
+          "Neroli",
+          "Jasmine",
+          "Pink pepper",
+          "Geranium",
+          "Woody musk",
+          "Vanilla",
+          "Toffee"
+        ]
       },
       "label": {
         "style": "photo"
@@ -7165,6 +7411,19 @@
         "foto/uniquee-luxury-istanbul/1.webp",
         "foto/uniquee-luxury-istanbul/2.webp",
         "foto/uniquee-luxury-istanbul/3.webp"
+      ],
+      "composition": [
+        "Narenciye",
+        "Kişniş yaprağı",
+        "Limonlu çay",
+        "Üzüm",
+        "Neroli",
+        "Yasemin",
+        "Pembe biber",
+        "Sardunya",
+        "Odunsu misk",
+        "Vanilya",
+        "Tofi"
       ]
     },
     {
@@ -7205,7 +7464,22 @@
           "Osmanthus"
         ],
         "description": "Ripe fruits, luminous florals and soft vanilla flow through SOSCENTIFIC with graceful ease, leaving a smooth and irresistibly elegant trail.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Osmanthus",
+          "Grapefruit",
+          "Orange blossom",
+          "Cherry",
+          "Pink pepper",
+          "Jasmine",
+          "Plum",
+          "Peach",
+          "Strawberry",
+          "Cedarwood",
+          "Amber",
+          "Musk",
+          "Vanilla"
+        ]
       },
       "label": {
         "style": "photo"
@@ -7851,6 +8125,21 @@
         "foto/uniquee-luxury-soscentific/1.webp",
         "foto/uniquee-luxury-soscentific/2.webp",
         "foto/uniquee-luxury-soscentific/3.webp"
+      ],
+      "composition": [
+        "Osmanthus",
+        "Greyfurt",
+        "Portakal çiçeği",
+        "Kiraz",
+        "Pembe biber",
+        "Yasemin",
+        "Erik",
+        "Şeftali",
+        "Çilek",
+        "Sedir",
+        "Amber",
+        "Misk",
+        "Vanilya"
       ]
     },
     {
@@ -7859,7 +8148,7 @@
       "sub": "100 ml",
       "collection": null,
       "family": "Extrait de Parfum",
-      "year": null,
+      "year": "Ocak 2026",
       "perfumer": null,
       "color": "#ebd982",
       "ink": "#1f1a17",
@@ -7893,7 +8182,20 @@
           "Vanilla"
         ],
         "description": "Luminous red berries, creamy coconut and soft vanilla unfold through D’OLCEZZA, a refined gourmand inspired by intimate Italian sweetness.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Cacao",
+          "Coconut milk",
+          "Pimento",
+          "Red berries",
+          "Jasmine",
+          "Olibanum",
+          "Vanilla",
+          "Praline",
+          "Amber",
+          "Musk"
+        ],
+        "year": "January 2026"
       },
       "label": {
         "style": "photo"
@@ -8539,6 +8841,18 @@
         "foto/dolcezza/1.webp",
         "foto/dolcezza/2.webp",
         "foto/dolcezza/3.webp"
+      ],
+      "composition": [
+        "Kakao",
+        "Hindistan cevizi sütü",
+        "Yenibahar",
+        "Kırmızı meyveler",
+        "Yasemin",
+        "Günlük",
+        "Vanilya",
+        "Pralin",
+        "Amber",
+        "Misk"
       ]
     },
     {
@@ -8547,7 +8861,7 @@
       "sub": "100 ml",
       "collection": null,
       "family": "Extrait de Parfum",
-      "year": null,
+      "year": "Aralık 2022",
       "perfumer": null,
       "color": "#e02230",
       "ink": "#1f1a17",
@@ -8579,7 +8893,20 @@
           "Muguet"
         ],
         "description": "Soft marshmallow, creamy milk and cashmere woods wrap MASHUMARO in comforting sweetness, with delicate florals and a softly addictive trail.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Marshmallow",
+          "Cashmere wood",
+          "Milk",
+          "Incense",
+          "Caramel",
+          "Musk",
+          "Muguet",
+          "Rose",
+          "Praline",
+          "Vanilla"
+        ],
+        "year": "December 2022"
       },
       "label": {
         "style": "photo"
@@ -9241,6 +9568,18 @@
         "foto/mashumaro/1.webp",
         "foto/mashumaro/2.webp",
         "foto/mashumaro/3.webp"
+      ],
+      "composition": [
+        "Marşmelov",
+        "Kaşmir ağacı",
+        "Süt",
+        "Tütsü",
+        "Karamel",
+        "Misk",
+        "Müge",
+        "Gül",
+        "Pralin",
+        "Vanilya"
       ]
     },
     {
@@ -9249,7 +9588,7 @@
       "sub": "100 ml",
       "collection": null,
       "family": "Extrait de Parfum",
-      "year": null,
+      "year": "Ekim 2024",
       "perfumer": null,
       "color": "#6f654d",
       "ink": "#1f1a17",
@@ -9281,7 +9620,22 @@
           "Oud"
         ],
         "description": "Precious woods, warm resins and refined leather build WOUD & MOOD ABSOLUTE with smoky depth, powerful character and a magnetic signature.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Citrusy notes",
+          "Herbal notes",
+          "Saffron",
+          "Labdanum",
+          "Benzoin",
+          "Patchouli",
+          "Guaiac wood",
+          "Leather",
+          "Oudy notes",
+          "Nagarmotha",
+          "Musk",
+          "Amber"
+        ],
+        "year": "October 2024"
       },
       "label": {
         "style": "photo"
@@ -9951,6 +10305,20 @@
         "foto/woud-mood-absolute-100-ml/1.webp",
         "foto/woud-mood-absolute-100-ml/2.webp",
         "foto/woud-mood-absolute-100-ml/3.webp"
+      ],
+      "composition": [
+        "Narenciye notaları",
+        "Bitkisel notalar",
+        "Safran",
+        "Labdanum",
+        "Benzoin",
+        "Paçuli",
+        "Gayak ağacı",
+        "Deri",
+        "Ud notaları",
+        "Nagarmotha",
+        "Misk",
+        "Amber"
       ]
     },
     {
@@ -9989,7 +10357,25 @@
           "Vanilla"
         ],
         "description": "Radiant florals, sacred spices and warm woods shape APHRODISIAC TOUCH with sensual depth, leaving a rich, contemplative warmth behind.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Bergamot",
+          "Muguet",
+          "Lilac",
+          "Saffron",
+          "Clove",
+          "Cinnamon",
+          "Cardamom",
+          "Rose",
+          "Geranium",
+          "Cedarwood",
+          "Patchouli",
+          "Orris",
+          "Sandalwood",
+          "Musk",
+          "Animalic amber",
+          "Sweet vanilla"
+        ]
       },
       "label": {
         "style": "photo"
@@ -10635,6 +11021,24 @@
         "foto/uniquee-luxury-aphrodisiac-touch/1.webp",
         "foto/uniquee-luxury-aphrodisiac-touch/2.webp",
         "foto/uniquee-luxury-aphrodisiac-touch/3.webp"
+      ],
+      "composition": [
+        "Bergamot",
+        "Müge",
+        "Leylak",
+        "Safran",
+        "Karanfil",
+        "Tarçın",
+        "Kakule",
+        "Gül",
+        "Sardunya",
+        "Sedir",
+        "Paçuli",
+        "Süsen",
+        "Sandal ağacı",
+        "Misk",
+        "Hayvansı amber",
+        "Tatlı vanilya"
       ]
     },
     {
@@ -10675,7 +11079,23 @@
           "Musk"
         ],
         "description": "Vibrant mandarin, delicate spice and soft florals bring BERIL to life with radiant freshness, polished warmth and quiet sophistication.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Mandarin",
+          "Lemon",
+          "Pink pepper",
+          "Coriander",
+          "Cardamom",
+          "Thyme",
+          "Nutmeg",
+          "Cinnamon",
+          "Rose",
+          "Jasmine",
+          "Patchouli",
+          "Vetiver",
+          "Amber",
+          "Musk"
+        ]
       },
       "label": {
         "style": "photo"
@@ -11321,6 +11741,22 @@
         "foto/uniquee-luxury-beril/1.webp",
         "foto/uniquee-luxury-beril/2.webp",
         "foto/uniquee-luxury-beril/3.webp"
+      ],
+      "composition": [
+        "Mandalina",
+        "Limon",
+        "Pembe biber",
+        "Kişniş",
+        "Kakule",
+        "Kekik",
+        "Muskat",
+        "Tarçın",
+        "Gül",
+        "Yasemin",
+        "Paçuli",
+        "Vetiver",
+        "Amber",
+        "Misk"
       ]
     },
     {
@@ -11363,7 +11799,23 @@
           "Musk"
         ],
         "description": "Lavender, black tea and smoky leather shape CHYPRE TOSCANO with timeless Tuscan elegance, deepened by warm spices, resins and dark woods.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Violet",
+          "Thyme",
+          "Lavender",
+          "Saffron",
+          "Clove",
+          "Cinnamon",
+          "Black tea",
+          "Smoky leather",
+          "Styrax",
+          "Cedarwood",
+          "Patchouli",
+          "Woody musk",
+          "Olibanum",
+          "Sweet vanilla"
+        ]
       },
       "label": {
         "style": "photo"
@@ -12009,6 +12461,22 @@
         "foto/uniquee-luxury-chypre-toscano/1.webp",
         "foto/uniquee-luxury-chypre-toscano/2.webp",
         "foto/uniquee-luxury-chypre-toscano/3.webp"
+      ],
+      "composition": [
+        "Menekşe",
+        "Kekik",
+        "Lavanta",
+        "Safran",
+        "Karanfil",
+        "Tarçın",
+        "Siyah çay",
+        "İsli deri",
+        "Sığla",
+        "Sedir",
+        "Paçuli",
+        "Odunsu misk",
+        "Günlük",
+        "Tatlı vanilya"
       ]
     },
     {
@@ -12051,7 +12519,17 @@
           "Vanilla"
         ],
         "description": "Luminous pear, dark coffee and smooth vanilla reveal the contrasts within HIDDEN ACCORDS, a sophisticated composition with concealed depth.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Pink pepper",
+          "Orange blossom",
+          "Pear",
+          "Coffee",
+          "Jasmine",
+          "Vanilla",
+          "Patchouli",
+          "Cedarwood"
+        ]
       },
       "label": {
         "style": "photo"
@@ -12697,6 +13175,16 @@
         "foto/uniquee-luxury-hidden-accords/1.webp",
         "foto/uniquee-luxury-hidden-accords/2.webp",
         "foto/uniquee-luxury-hidden-accords/3.webp"
+      ],
+      "composition": [
+        "Pembe biber",
+        "Portakal çiçeği",
+        "Armut",
+        "Kahve",
+        "Yasemin",
+        "Vanilya",
+        "Paçuli",
+        "Sedir"
       ]
     },
     {
@@ -12735,7 +13223,22 @@
           "Tonka bean"
         ],
         "description": "Juicy pineapple, sparkling citrus and elegant woods capture IZMIR’s radiant Aegean character, warm, uplifting and touched by Mediterranean light.",
-        "sub": "100 ml"
+        "sub": "100 ml",
+        "composition": [
+          "Citrus",
+          "Bergamot",
+          "Lemon",
+          "Mandarin",
+          "Pineapple",
+          "Rose",
+          "Orris",
+          "Clove",
+          "Tonka bean",
+          "Vanilla",
+          "Patchouli",
+          "Sandalwood",
+          "Oakmoss"
+        ]
       },
       "label": {
         "style": "photo"
@@ -13381,6 +13884,21 @@
         "foto/uniquee-luxury-izmir/1.webp",
         "foto/uniquee-luxury-izmir/2.webp",
         "foto/uniquee-luxury-izmir/3.webp"
+      ],
+      "composition": [
+        "Narenciye",
+        "Bergamot",
+        "Limon",
+        "Mandalina",
+        "Ananas",
+        "Gül",
+        "Süsen",
+        "Karanfil",
+        "Tonka fasulyesi",
+        "Vanilya",
+        "Paçuli",
+        "Sandal ağacı",
+        "Meşe yosunu"
       ]
     }
   ],
@@ -13763,10 +14281,10 @@
     "tr": {
       "loading": "Kokular hazırlanıyor",
       "madeFor": "Unique'e Luxury için hazırlanmış konsept",
-      "whereTag": "İzmir'den 36'dan fazla ülkeye.",
+      "whereTag": "Size en yakın yetkili satış noktasını bulun: 24 ülkede 68 mağaza ve iş ortağı.",
       "recyclable": "Extrait de Parfum · 100 ml",
       "founder": "Kurucular · Serhat Okyay & Selim Özen",
-      "contactTag": "Toptan satış ve sipariş soruları için.",
+      "contactTag": "Genel sorular, sipariş durumu ve kokularımız için bize yazın; en kısa sürede dönüş yaparız.",
       "newsTitle": "Yeni kokular önce burada.",
       "marquee": [
         "Unique'e Luxury",
@@ -13785,7 +14303,7 @@
         "sets": "Yeni kokular",
         "about": "Hakkımızda",
         "contact": "İletişim",
-        "stockists": "Satış noktaları"
+        "stockists": "Mağaza bul"
       },
       "flavors": "Kokular",
       "notes": "Notalar",
@@ -13819,15 +14337,19 @@
       "related": "Benzer kokular",
       "buildBox": "Kokuları keşfet",
       "freeUnlocked": "ABD ve İngiltere'de ücretsiz kargo",
-      "allTag": "{0} koku; hepsi unisex, hepsi extrait."
+      "allTag": "{0} koku; hepsi unisex, hepsi extrait.",
+      "year": "Çıkış",
+      "composition": "Tam kompozisyon",
+      "whereEyebrow": "Yetkili satış noktaları",
+      "whereTitle": "Mağaza bul"
     },
     "en": {
       "loading": "Preparing the scents",
       "madeFor": "Concept prepared for Unique'e Luxury",
-      "whereTag": "From Izmir to more than 36 countries.",
+      "whereTag": "Discover Unique'e Luxury at an authorized partner near you: 68 stores and partners in 24 countries.",
       "recyclable": "Extrait de Parfum · 100 ml",
       "founder": "Founders · Serhat Okyay & Selim Ozen",
-      "contactTag": "For wholesale and order questions.",
+      "contactTag": "For general inquiries and questions about your order status or our fragrances, send us a message.",
       "newsTitle": "New scents, first here.",
       "marquee": [
         "Unique'e Luxury",
@@ -13846,7 +14368,7 @@
         "sets": "New releases",
         "about": "About us",
         "contact": "Contact",
-        "stockists": "Stockists"
+        "stockists": "Find a store"
       },
       "flavors": "Scents",
       "notes": "Notes",
@@ -13880,10 +14402,17 @@
       "related": "Similar scents",
       "buildBox": "Explore the scents",
       "freeUnlocked": "Free shipping in the USA and UK",
-      "allTag": "{0} scents; all unisex, all extrait."
+      "allTag": "{0} scents; all unisex, all extrait.",
+      "year": "Launched",
+      "composition": "Full composition",
+      "whereEyebrow": "Authorized retailers",
+      "whereTitle": "Find a store"
     }
   },
-  "packUnit": "adet",
+  "packUnit": {
+    "tr": "adet",
+    "en": "bottle"
+  },
   "detailPack": 1,
   "backdrop": false,
   "particles": "none",
@@ -14551,5 +15080,711 @@
     "pedestal": true,
     "carousel": "rise",
     "cards": "gallery"
-  }
+  },
+  "locator": {
+    "source": "https://uniqueeluxury.com/pages/store-locator",
+    "countries": {
+      "Australia": "Avustralya",
+      "Austria": "Avusturya",
+      "Paraguay": "Paraguay",
+      "Albania": "Arnavutluk",
+      "Brazil": "Brezilya",
+      "United Arab Emirates": "Birleşik Arap Emirlikleri",
+      "United Kingdom": "Birleşik Krallık",
+      "Netherlands": "Hollanda",
+      "Germany": "Almanya",
+      "Hungary": "Macaristan",
+      "Italy": "İtalya",
+      "Belgium": "Belçika",
+      "Bosnia and Herzegovina": "Bosna-Hersek",
+      "Ghana": "Gana",
+      "Mexico": "Meksika",
+      "Oman": "Umman",
+      "Saudi Arabia": "Suudi Arabistan",
+      "France": "Fransa",
+      "United States": "ABD",
+      "Israel": "İsrail",
+      "Nigeria": "Nijerya",
+      "Kuwait": "Kuveyt",
+      "Libya": "Libya",
+      "Türkiye": "Türkiye"
+    },
+    "stores": [
+      {
+        "name": "LaParfumerie.au",
+        "country": "Australia",
+        "phone": "+61 478 816 040",
+        "web": "https://www.instagram.com/laparfumerie.au/",
+        "type": "Online Store"
+      },
+      {
+        "name": "Kussmund Wien",
+        "country": "Austria",
+        "city": "Vienna",
+        "address": "Habsburgergasse 14, 1010 Wien, Austria",
+        "phone": "+43 1 5355195",
+        "web": "https://www.kussmund.wien/",
+        "type": "Physical + Online",
+        "lat": "48.207721",
+        "lng": "16.367639"
+      },
+      {
+        "name": "Official South America Distributor",
+        "country": "Paraguay",
+        "type": "Distributor"
+      },
+      {
+        "name": "Flowers Elixir Store",
+        "country": "Albania",
+        "city": "Tirana",
+        "address": "Hasan Alla nr 35, 1046 Tirana, Albania",
+        "phone": "+355 69 270 7370",
+        "email": "info@flowerselixirstore.al",
+        "web": "https://flowerselixirstore.al/elm-contact-us/",
+        "type": "Physical + Online",
+        "lat": "41.313638",
+        "lng": "19.799599"
+      },
+      {
+        "name": "HAUTT - Alta Perfumaria (Shopping Miramar)",
+        "country": "Brazil",
+        "city": "Santos",
+        "address": "Shopping Miramar, Santos, SP, Brazil",
+        "phone": "+55 13 3284-0119",
+        "email": "gabriel@hautt.com.br",
+        "web": "https://www.instagram.com/hauttaltaperfumaria/",
+        "type": "Physical Store",
+        "lat": "-23.966580",
+        "lng": "-46.334587"
+      },
+      {
+        "name": "HAUTT - Alta Perfumaria (Shopping Praiamar)",
+        "country": "Brazil",
+        "city": "Santos",
+        "address": "Shopping Praiamar, Santos, SP, Brazil",
+        "phone": "+55 13 3877-8687",
+        "email": "gabriel@hautt.com.br",
+        "web": "https://www.instagram.com/hauttaltaperfumaria/",
+        "type": "Physical Store",
+        "lat": "-23.977457",
+        "lng": "-46.309325"
+      },
+      {
+        "name": "Atelier Perfumery - Mirdif City Centre",
+        "country": "United Arab Emirates",
+        "city": "Dubai",
+        "address": "Mirdif City Centre, Dubai, UAE",
+        "type": "Physical Store",
+        "lat": "25.216272",
+        "lng": "55.407424"
+      },
+      {
+        "name": "Atelier Perfumery - Galleria Mall",
+        "country": "United Arab Emirates",
+        "city": "Dubai",
+        "address": "Galleria Mall, Dubai, UAE",
+        "type": "Physical Store",
+        "lat": "25.207901",
+        "lng": "55.254753"
+      },
+      {
+        "name": "Atelier Perfumery - Four Seasons Hotel",
+        "country": "United Arab Emirates",
+        "city": "Dubai",
+        "address": "Four Seasons Hotel, Dubai, UAE",
+        "type": "Physical Store",
+        "lat": "25.202366",
+        "lng": "55.239792"
+      },
+      {
+        "name": "Atelier Perfumery - City Centre Al Zahia",
+        "country": "United Arab Emirates",
+        "city": "Sharjah",
+        "address": "City Centre Al Zahia, Sharjah, UAE",
+        "type": "Physical Store",
+        "lat": "25.316653",
+        "lng": "55.455701"
+      },
+      {
+        "name": "Atelier Perfumery - Yas Mall",
+        "country": "United Arab Emirates",
+        "city": "Abu Dhabi",
+        "address": "Yas Mall, Abu Dhabi, UAE",
+        "type": "Physical Store",
+        "lat": "24.487263",
+        "lng": "54.609593"
+      },
+      {
+        "name": "Atelier Perfumery - Dalma Mall",
+        "country": "United Arab Emirates",
+        "city": "Abu Dhabi",
+        "address": "Dalma Mall, Abu Dhabi, UAE",
+        "type": "Physical Store",
+        "lat": "24.333123",
+        "lng": "54.524638"
+      },
+      {
+        "name": "Europian Perfumery",
+        "country": "United Arab Emirates",
+        "city": "Dubai",
+        "address": "Dubai, UAE",
+        "web": "https://levelperfume.com/collections/uniquee-luxury",
+        "type": "Retail Partner"
+      },
+      {
+        "name": "Exotix Perfumery",
+        "country": "United Arab Emirates",
+        "city": "Dubai",
+        "address": "19A, 40 Street, Deira, Dubai, United Arab Emirates",
+        "web": "https://levelperfume.com/collections/uniquee-luxury",
+        "type": "Retail Partner",
+        "lat": "25.272226",
+        "lng": "55.301872"
+      },
+      {
+        "name": "Unique'e Luxury UK Warehouse",
+        "country": "United Kingdom",
+        "web": "https://uniqueeluxury.com/",
+        "type": "Warehouse"
+      },
+      {
+        "name": "MaxValue BV",
+        "country": "Netherlands",
+        "email": "milad@maxvaluebv.com",
+        "type": "Distributor"
+      },
+      {
+        "name": "Parfümerie Heudorf GmbH",
+        "country": "Germany",
+        "city": "Stuttgart",
+        "address": "Büchsenstrasse 10, 70173 Stuttgart, Germany",
+        "phone": "+49 711 297177",
+        "web": "https://www.parfuemerie-heudorf-shop.de/marken/unique-e-luxury/",
+        "type": "Physical + Online",
+        "lat": "48.776900",
+        "lng": "9.175161"
+      },
+      {
+        "name": "Aromi-Nischen Parfümerie",
+        "country": "Germany",
+        "city": "Ulm",
+        "address": "Pfluggasse 1, 89073 Ulm, Germany",
+        "phone": "+49 731 94580193",
+        "type": "Physical Store",
+        "lat": "48.399602",
+        "lng": "9.994012"
+      },
+      {
+        "name": "PUA PUA Duftkonzept",
+        "country": "Germany",
+        "city": "Karlsruhe",
+        "address": "Lammstraße 7, 76133 Karlsruhe, Germany",
+        "phone": "+49 721 96316088",
+        "type": "Physical Store",
+        "lat": "49.009207",
+        "lng": "8.402690"
+      },
+      {
+        "name": "Parfümerie Brückner",
+        "country": "Germany",
+        "city": "München",
+        "address": "Marienplatz 8, 80331 München, Germany",
+        "phone": "+49 89 223874",
+        "type": "Physical Store",
+        "lat": "48.137846",
+        "lng": "11.575319"
+      },
+      {
+        "name": "STEPHAN Parfums & Kosmetik",
+        "country": "Germany",
+        "city": "Weil am Rhein",
+        "address": "Hauptstraße 435, 79576 Weil am Rhein, Germany",
+        "phone": "+49 7621 4242888",
+        "type": "Physical Store",
+        "lat": "47.591032",
+        "lng": "7.592556"
+      },
+      {
+        "name": "Parfümerie Butsch-Rühl",
+        "country": "Germany",
+        "city": "Tübingen",
+        "address": "Neue St. 11, 72070 Tübingen, Germany",
+        "phone": "+49 7071 551115",
+        "type": "Physical Store",
+        "lat": "48.521423",
+        "lng": "9.056541"
+      },
+      {
+        "name": "Essence Garden Parfum Boutique",
+        "country": "Germany",
+        "city": "Mannheim",
+        "address": "Seckenheimer Str. 50, 68165 Mannheim, Germany",
+        "type": "Physical Store",
+        "lat": "49.479774",
+        "lng": "8.480557"
+      },
+      {
+        "name": "Parfümerie Kern",
+        "country": "Germany",
+        "city": "Freiburg im Breisgau",
+        "address": "Kaiser-Joseph-Strasse 241, 79098 Freiburg im Breisgau, Germany",
+        "phone": "+49 761 34706",
+        "web": "https://www.parfumerie-kern.de/",
+        "type": "Physical + Online",
+        "lat": "47.993515",
+        "lng": "7.849043"
+      },
+      {
+        "name": "NEROLI Luxury Perfumery",
+        "country": "Hungary",
+        "city": "Budapest",
+        "address": "Andrassy ut 26, Budapest, Hungary",
+        "phone": "+36 1 394 6351",
+        "web": "https://www.neroli.hu/perfumery/",
+        "type": "Physical + Online",
+        "lat": "47.502953",
+        "lng": "19.059569"
+      },
+      {
+        "name": "Zhor Perfumery",
+        "country": "Italy",
+        "city": "Milano",
+        "address": "Via Monte Napoleone 14, 20121 Milano, Italy",
+        "type": "Retail Partner",
+        "lat": "45.468756",
+        "lng": "9.194806"
+      },
+      {
+        "name": "Testaccio Luxury Fragrances",
+        "country": "Italy",
+        "type": "Retail Partner",
+        "lat": "41.879861",
+        "lng": "12.478084"
+      },
+      {
+        "name": "NEOS 1911",
+        "country": "Italy",
+        "type": "Retail Partner",
+        "lat": "41.071848",
+        "lng": "14.333896"
+      },
+      {
+        "name": "Neroom",
+        "country": "Italy",
+        "type": "Retail Partner",
+        "lat": "45.000377",
+        "lng": "7.683867"
+      },
+      {
+        "name": "Naso di Nicchia",
+        "country": "Italy",
+        "type": "Retail Partner",
+        "lat": "38.821485",
+        "lng": "16.615951"
+      },
+      {
+        "name": "Marina Parfums",
+        "country": "Italy",
+        "type": "Retail Partner"
+      },
+      {
+        "name": "Mai Senza Profumo",
+        "country": "Italy",
+        "city": "Forio",
+        "address": "Via Giovanni Castellaccio 35/37, 80075 Forio NA, Italy",
+        "type": "Retail Partner",
+        "lat": "40.736343",
+        "lng": "13.863669"
+      },
+      {
+        "name": "Brame Profumeria Artistica",
+        "country": "Italy",
+        "type": "Retail Partner",
+        "lat": "45.366453",
+        "lng": "10.220047"
+      },
+      {
+        "name": "Art Et Parfum",
+        "country": "Italy",
+        "city": "San Benedetto del Tronto",
+        "address": "Via San Martino 11, 63074 San Benedetto del Tronto AP, Italy",
+        "type": "Retail Partner",
+        "lat": "42.951982",
+        "lng": "13.880765"
+      },
+      {
+        "name": "I'O Profumo",
+        "country": "Italy",
+        "email": "mail@loprofumo.com",
+        "type": "Retail Partner",
+        "lat": "43.771500",
+        "lng": "11.265000"
+      },
+      {
+        "name": "Absoluta Niche Perfumery",
+        "country": "Italy",
+        "email": "absolutaperfumery@gmail.com",
+        "type": "Retail Partner",
+        "lat": "43.300509",
+        "lng": "13.450917"
+      },
+      {
+        "name": "NALDI PROFUMERIA",
+        "country": "Italy",
+        "city": "Bologna",
+        "address": "Via dell'Indipendenza 52/B, 40121 Bologna, Italy",
+        "type": "Physical Store",
+        "lat": "44.499601",
+        "lng": "11.343807"
+      },
+      {
+        "name": "Steam Perfume",
+        "country": "Italy",
+        "city": "Cagliari",
+        "address": "Via Arcangelo Corelli 8, Cagliari, Italy",
+        "phone": "+39 375 556 0270",
+        "type": "Physical Store",
+        "lat": "39.223042",
+        "lng": "9.128073"
+      },
+      {
+        "name": "Papillon Profumeria",
+        "country": "Italy",
+        "city": "Vinovo",
+        "address": "Viale Francia 1, Vinovo, Turin, Italy",
+        "phone": "+39 011 9621005",
+        "web": "https://profumeriapapillon.it/contatti/",
+        "type": "Physical + Online",
+        "lat": "44.969724",
+        "lng": "7.618447"
+      },
+      {
+        "name": "Bottega delle Muse",
+        "country": "Italy",
+        "city": "Trani",
+        "address": "Corso Vittorio Emanuele 218, 76125 Trani BT, Italy",
+        "phone": "+39 0883 414883 / +39 376 2488277",
+        "web": "https://bottegadellemuse.it/",
+        "type": "Physical + Online",
+        "lat": "41.275431",
+        "lng": "16.419127"
+      },
+      {
+        "name": "Profumeria NiLU",
+        "country": "Italy",
+        "web": "https://www.profumerianilu.com/",
+        "type": "Online Store"
+      },
+      {
+        "name": "LUSSO PROFUMI",
+        "country": "Italy",
+        "city": "Rome",
+        "address": "Viale Appio Claudio 267, Rome, Italy",
+        "web": "https://www.lussoprofumi.it/",
+        "type": "Physical + Online",
+        "lat": "41.853510",
+        "lng": "12.562354"
+      },
+      {
+        "name": "LAATII",
+        "country": "Belgium",
+        "type": "Retail Partner"
+      },
+      {
+        "name": "G&S Parfimerije",
+        "country": "Bosnia and Herzegovina",
+        "type": "Retail Partner"
+      },
+      {
+        "name": "La Belle Perfumery",
+        "country": "Ghana",
+        "city": "Accra",
+        "address": "10 Ars Lane, Obodjo, Accra, Ghana",
+        "web": "https://www.instagram.com/labelleperfumery_gh/",
+        "type": "Retail Partner",
+        "lat": "5.640866",
+        "lng": "-0.160266"
+      },
+      {
+        "name": "Prekese Mall",
+        "country": "Ghana",
+        "web": "https://prekesemall.com/",
+        "type": "Online Store"
+      },
+      {
+        "name": "The Collector Society",
+        "country": "Mexico",
+        "city": "San Pedro Garza García",
+        "address": "Rio de la Plata 125, Del Valle, 66220 San Pedro Garza García, Nuevo León, Mexico",
+        "type": "Retail Partner",
+        "lat": "25.659056",
+        "lng": "-100.371954"
+      },
+      {
+        "name": "Elyzee Perfumes",
+        "country": "Oman",
+        "city": "Muscat",
+        "address": "Muscat, Oman",
+        "type": "Retail Partner"
+      },
+      {
+        "name": "Royal Boutique",
+        "country": "Saudi Arabia",
+        "city": "Riyadh",
+        "address": "Eastern Ring Road, Ar Rawabi, Riyadh 14215, Saudi Arabia",
+        "type": "Retail Partner",
+        "lat": "24.686264",
+        "lng": "46.776810"
+      },
+      {
+        "name": "Nobles Scent",
+        "country": "Saudi Arabia",
+        "city": "Al Khobar",
+        "address": "Prince Turki Street, Al Khobar Al Shamalia, Al Khobar 34446, Saudi Arabia",
+        "type": "Retail Partner",
+        "lat": "26.291227",
+        "lng": "50.219804"
+      },
+      {
+        "name": "Najd Al Atheyah",
+        "country": "Saudi Arabia",
+        "type": "Retail Partner"
+      },
+      {
+        "name": "Sayhar Parfums",
+        "country": "France",
+        "city": "Paris",
+        "address": "27 Rue de Marignan, 75008 Paris, France",
+        "type": "Physical Store",
+        "lat": "48.869501",
+        "lng": "2.306422"
+      },
+      {
+        "name": "BEAUTYLIV",
+        "country": "United States",
+        "city": "New York",
+        "web": "https://www.beautyliv.com/",
+        "type": "Online Store"
+      },
+      {
+        "name": "Beverly Hills Perfumery",
+        "country": "United States",
+        "city": "Beverly Hills",
+        "address": "264 North Beverly Drive, Beverly Hills, CA 90210, USA",
+        "web": "https://www.beverlyhillsperfumery.com/",
+        "type": "Physical + Online",
+        "lat": "34.068571",
+        "lng": "-118.399899"
+      },
+      {
+        "name": "LuckyScent - Scent Bar Hollywood",
+        "country": "United States",
+        "city": "Los Angeles",
+        "address": "7405 Beverly Blvd, Los Angeles, CA 90036, USA",
+        "phone": "+1 323 782-8300",
+        "web": "https://www.luckyscent.com/",
+        "type": "Physical + Online",
+        "lat": "34.076317",
+        "lng": "-118.351338"
+      },
+      {
+        "name": "LuckyScent - Scent Bar DTLA",
+        "country": "United States",
+        "city": "Los Angeles",
+        "address": "777 S Alameda St, Los Angeles, CA 90021, USA",
+        "phone": "+1 323 782-8300",
+        "web": "https://www.luckyscent.com/",
+        "type": "Physical + Online",
+        "lat": "34.033963",
+        "lng": "-118.241180"
+      },
+      {
+        "name": "LuckyScent - Scent Bar NYC",
+        "country": "United States",
+        "city": "New York",
+        "address": "244 Elizabeth St, New York, NY 10012, USA",
+        "phone": "+1 323 782-8300",
+        "web": "https://www.luckyscent.com/",
+        "type": "Physical + Online",
+        "lat": "40.723408",
+        "lng": "-73.993682"
+      },
+      {
+        "name": "MAXAROMA - The Edit Store",
+        "country": "United States",
+        "city": "New York",
+        "address": "455 West Broadway, New York, NY 10012, USA",
+        "web": "https://www.maxaroma.com/p4u/key-unique'e/view",
+        "type": "Physical + Online",
+        "lat": "40.726076",
+        "lng": "-74.000461"
+      },
+      {
+        "name": "Scent Split",
+        "country": "United States",
+        "city": "Houston",
+        "address": "10333 Harwin Dr, Suite 600, Houston, TX 77036, USA",
+        "type": "Retail Partner",
+        "lat": "29.716229",
+        "lng": "-95.547893"
+      },
+      {
+        "name": "Essence Perfume",
+        "country": "Israel",
+        "city": "Kiryat Ata",
+        "address": "Derech Haifa 30, Kiryat Ata, Israel",
+        "phone": "+972 50-955-5727",
+        "web": "https://essenceboutique.co.il/",
+        "type": "Physical + Online",
+        "lat": "32.806107",
+        "lng": "35.075408"
+      },
+      {
+        "name": "Reeds & Scents - Lekki Phase 1",
+        "country": "Nigeria",
+        "city": "Lagos",
+        "address": "11A Victoria Arobieke Street, Lekki Phase 1, Lagos, Nigeria",
+        "phone": "+234 818 000 4852",
+        "type": "Physical Store",
+        "lat": "6.446802",
+        "lng": "3.472597"
+      },
+      {
+        "name": "Reeds & Scents - Victoria Island",
+        "country": "Nigeria",
+        "city": "Lagos",
+        "address": "Castle Pride Arcade, 226 Muri Okunola Street, Victoria Island, Lagos, Nigeria",
+        "phone": "+234 818 000 4852 / +234 818 000 4853 / +234 809 564 8399",
+        "type": "Physical Store",
+        "lat": "6.432673",
+        "lng": "3.439073"
+      },
+      {
+        "name": "Reeds & Scents - Admiralty Way",
+        "country": "Nigeria",
+        "city": "Lagos",
+        "address": "Vintage Mall, Plot 44, Admiralty Way, Lekki Phase 1, Lagos, Nigeria",
+        "phone": "+234 818 000 4852 / +234 818 000 4853 / +234 809 564 8399",
+        "type": "Physical Store",
+        "lat": "6.451136",
+        "lng": "3.470393"
+      },
+      {
+        "name": "FGC Parfumerie",
+        "country": "Kuwait",
+        "city": "Salmiya",
+        "address": "Zahra Complex, Salem Al Mubarak Street, Salmiya, Kuwait",
+        "phone": "+965 55550640",
+        "type": "Physical Store",
+        "lat": "29.341120",
+        "lng": "48.071719"
+      },
+      {
+        "name": "Niche Perfumes Libya",
+        "country": "Libya",
+        "city": "Tripoli",
+        "address": "Independence Street, Tripoli, Libya",
+        "phone": "+218 91 939 6969",
+        "email": "info@nicheperfumeslibya.com",
+        "type": "Retail Partner",
+        "lat": "32.886730",
+        "lng": "13.190767"
+      },
+      {
+        "name": "Nokta Cosmetics - Bağdat Caddesi",
+        "country": "Türkiye",
+        "city": "İstanbul",
+        "address": "Suadiye Mahallesi, Bağdat Caddesi No:371, Kazım Kulan Çarşısı No:55, 34740 Kadıköy, İstanbul, Türkiye",
+        "phone": "+90 535 321 5335",
+        "web": "https://noktacosmetics.com/our-stores/",
+        "type": "Physical + Online",
+        "lat": "40.962888",
+        "lng": "29.076348"
+      },
+      {
+        "name": "Nokta Cosmetics - Nişantaşı",
+        "country": "Türkiye",
+        "city": "İstanbul",
+        "address": "Teşvikiye, Güzelbahçe Sk. No:10, 34365 Şişli, İstanbul, Türkiye",
+        "phone": "+90 535 321 5335",
+        "web": "https://noktacosmetics.com/our-stores/",
+        "type": "Physical + Online",
+        "lat": "41.052681",
+        "lng": "28.993942"
+      },
+      {
+        "name": "TRIO - İstanbul Airport",
+        "country": "Türkiye",
+        "city": "İstanbul",
+        "address": "İstanbul Airport, Domestic Departures Airside, İstanbul, Türkiye",
+        "web": "https://www.triostore.com.tr/",
+        "type": "Physical + Online",
+        "lat": "41.262900",
+        "lng": "28.742420"
+      }
+    ]
+  },
+  "contactInfo": {
+    "tr": [
+      [
+        "Adres",
+        [
+          "ABD: 7301 Miramonte, Irvine, CA 92618",
+          "Türkiye: SNS Kozmetik, Kemalpaşa OSB Mahallesi 639 Sokak No:8, Kemalpaşa, İzmir"
+        ]
+      ],
+      [
+        "Telefon",
+        [
+          "ABD: +1 949 735 5648",
+          "Türkiye: +90 850 532 44 21",
+          "WhatsApp: +1 949 735 5648"
+        ]
+      ],
+      [
+        "E-posta",
+        [
+          "info@uniqueeluxury.com"
+        ]
+      ],
+      [
+        "Çalışma saatleri",
+        [
+          "Hafta içi 09.00–18.00",
+          "Hafta sonu 10.00–15.00"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "Address",
+        [
+          "USA: 7301 Miramonte, Irvine, CA 92618",
+          "Türkiye: SNS Kozmetik, Kemalpaşa OSB Mahallesi 639 Sokak No:8, Kemalpaşa, Izmir"
+        ]
+      ],
+      [
+        "Phone",
+        [
+          "USA: +1 949 735 5648",
+          "Türkiye: +90 850 532 44 21",
+          "WhatsApp: +1 949 735 5648"
+        ]
+      ],
+      [
+        "Email",
+        [
+          "info@uniqueeluxury.com"
+        ]
+      ],
+      [
+        "Open hours",
+        [
+          "Weekdays 9 am – 6 pm",
+          "Weekends 10 am – 3 pm"
+        ]
+      ]
+    ]
+  },
+  "defaultLang": "en"
 }
