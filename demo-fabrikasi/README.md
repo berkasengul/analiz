@@ -224,6 +224,15 @@ boyuna göre çizilir (BackgroundMaterial → `u_arch`). Satış noktası listes
 Fotoğraf kuralları: `studio` (gri/renkli stüdyo zemini), `pedestal` (kaide üstü çekim; cam tabanı kesilmez),
 `solidTop` (kapak bölgesi delik bırakılmadan kesilir).
 
+`"dolly"` (Mardini): Mardin taşından iç içe yuvarlak kemerlerin oluşturduğu koridor (BackgroundMaterial → `u_tunnel`,
+`u_tp` = kesirli ürün sırası); kaydırınca kemerler yaklaşır, öndeki ürün yana ve öne çıkıp söner, sıradaki koridorun
+derinliğinden gelir; havada gül yaprakları. Dar ekranda kemerler küçülür.
+
+**ikas mağazaları:** `python3 demo-fabrikasi/araclar/ikas-cek.py <alan-adı> <marka> --only "regex"` ürünleri sayfaların
+`__NEXT_DATA__` verisinden Shopify biçiminde çeker (products-tr/en.json, ikas-raw.json: özellikler, nota piramidi).
+Aktarımda `"platform": "ikas"`: sepette "Ödemeye geç" tek ürünse ürünün mağazadaki sayfasını, değilse mağazayı açar.
+Fotoğrafta `"hero": [["regex", n]]`: ürünün n. görseli ana (ön) görsel (ilk görselde ürün kutusuyla birlikteyse).
+
 Markanın sitesindeki önemli bilgiler (marka json'ında, aktarım bunları korur):
 `defaultLang: "en"` site İngilizce açılır (dil düğmesinde önce gelir; eski ziyaretçinin kayıtlı dili de sıfırlanır).
 `locator: {countries: {"Italy": "İtalya"}, stores: [{name, country, city, address, phone, web, type}]}` "Mağaza bul"
