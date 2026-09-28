@@ -1,0 +1,52 @@
+[
+ {
+  "id": 347379531949,
+  "title": "Home last",
+  "handle": "home-last",
+  "description": null,
+  "published_at": "2026-08-14T00:17:47-07:00",
+  "updated_at": "2026-09-15T05:59:54-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 340408729773,
+  "title": "Junior Collection",
+  "handle": "junior-collection",
+  "description": "",
+  "published_at": "2026-05-01T16:20:46-07:00",
+  "updated_at": "2026-08-19T00:34:58-07:00",
+  "image": null,
+  "products_count": 1
+ },
+ {
+  "id": 348007792813,
+  "title": "Luxury Extrait de Parfum Collection",
+  "handle": "all",
+  "description": "<p><span>Explore Unique'e Luxury extrait de parfum, from luminous florals and rich gourmands to distinctive woody and amber signatures.</span></p>",
+  "published_at": "2026-08-21T01:04:25-07:00",
+  "updated_at": "2026-09-26T04:04:04-07:00",
+  "image": null,
+  "products_count": 22
+ },
+ {
+  "id": 22089760799,
+  "title": "Unique Luxury Best Sellers",
+  "handle": "frontpage",
+  "description": "<p>Extrait de Perfume Collection - Unique Luxury</p>",
+  "published_at": "2018-01-29T11:17:15-08:00",
+  "updated_at": "2026-09-26T04:04:04-07:00",
+  "image": null,
+  "products_count": 25
+ },
+ {
+  "id": 347760754861,
+  "title": "Unique Luxury Extrait de Perfume",
+  "handle": "home-first",
+  "description": "<p>Extrait de Perfume Collection - Unique Luxury</p>",
+  "published_at": "2026-08-17T05:26:18-07:00",
+  "updated_at": "2026-09-24T04:04:31-07:00",
+  "image": null,
+  "products_count": 4
+ }
+]

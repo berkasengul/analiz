@@ -18,6 +18,10 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "home": ["handle", ...]                 ana sayfanın 3B akışı (sırayla)
     "ritual": [{"handle", "tr": {title, text, stat}, "en": {...}}]
     "rename": {"handle": ["tr", "en"]}
+    "tagline": "notes"                     kısa alt yazı: ürünün ilk üç notası (uzun açıklama cümlesi yerine)
+    "defaultSize": "100 ml"                 ürün adında hacim yoksa (bütün ürünler aynı hacimde)
+    "trText": {"handle": "Türkçe açıklama"}   mağaza yalnızca İngilizceyse: markanın metninin Türkçe çevirisi
+                                             (İngilizce metin mağazadan olduğu gibi kalır)
     "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
     "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)
     "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
@@ -41,7 +45,9 @@ R = json.load(open(os.path.join(MARKA, f"{SLUG}-kurallar.json"), encoding="utf-8
 
 
 def text(h):
-    h = re.sub(r"<(br|/p|/li|/h\d|/div)[^>]*>", "\n", h or "")
+    # Açıklamaya gömülü stil ve betik blokları (ör. tema CSS'i) metne karışmasın.
+    h = re.sub(r"(?is)<(style|script)\b.*?</\1>", "", h or "")
+    h = re.sub(r"<(br|/p|/li|/h\d|/div)[^>]*>", "\n", h)
     return html.unescape(re.sub(r"<[^>]+>", "", h))
 
 
@@ -151,6 +157,7 @@ def main():
         p = tr[h]
         q = en.get(h) or en_by_id.get(p["id"], {})
         name, size = split_name(p["title"])
+        size = size or R.get("defaultSize")
         en_name, _ = split_name(q.get("title") or p["title"])
         if h in R.get("rename", {}):
             name, en_name = R["rename"][h]
@@ -158,6 +165,8 @@ def main():
         qs = [x for x in paras(q.get("body_html")) if len(x) > 40]
         desc = clip(ps[0] if ps else name, 330)
         en_desc = clip(qs[0] if qs else desc, 330)
+        if h in R.get("trText", {}):
+            desc = clip(R["trText"][h], 330)
         v = p["variants"][0]
         price = float(v["price"])
         cmp_ = float(v["compare_at_price"]) if v.get("compare_at_price") and float(v["compare_at_price"]) > price else None
@@ -184,9 +193,9 @@ def main():
             # Sahne ışığı: ürüne özel renk (palette) ya da ürün rengi + tema vurgusu.
             "theme": ({"glow": pal[0], "edge": pal[2], "drop": pal[1], "accent": pal[1], "mood": "warm"} if pal else
                       theme(rgb, [int(R["themeAccent"][k:k + 2], 16) for k in (1, 3, 5)] if R.get("themeAccent") else i["m"].get("accent"),
-                            R.get("themeGlow", 0.27))), "tagline": i["tag"], "notes": [a for a, _ in notes],
+                            R.get("themeGlow", 0.27))), "tagline": " · ".join(a for a, _ in notes[:3]) if R.get("tagline") == "notes" and notes_of(h) else i["tag"], "notes": [a for a, _ in notes],
             "description": i["desc"], "file": f"{h}.webp", "handle": h,
-            "en": {"name": i["en_name"], "family": fam[1], "tagline": i["en_tag"], "notes": [b for _, b in notes],
+            "en": {"name": i["en_name"], "family": fam[1], "tagline": " · ".join(b for _, b in notes[:3]) if R.get("tagline") == "notes" and notes_of(h) else i["en_tag"], "notes": [b for _, b in notes],
                    "description": i["en_desc"], "sub": i["size"] or fam[1]},
             "label": {"style": "photo"},
             "photo3d": photo3d(h, i["m"]),

@@ -10,6 +10,7 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
     "views": true                   galerideki diğer ürün çekimleri (kapaksız şişe, kutu…) de 3B'ye çevrilir;
                                      sitede küçük görsele tıklayınca sahnedeki ürün o modele döner
     "noViews": "regex"              3B görünüm üretilmeyecek ürünler (ör. setler)
+    "skip": "regex"                 demoya alınmayacak ürünler (ör. deneme setleri, kutu ürünleri)
     "sets": {"set-handle": ["ürün-handle", "başka-handle#3", ...]}
                                      setin içindekiler; "#n" o ürünün n. fotoğrafı (setin kendisi de olabilir)
 Çıktı: markalar/<marka>-foto/{web,cut,labels,meta.json}
@@ -194,6 +195,12 @@ def shape_info(F):
                 low = min(after, key=lambda i: rows[i])
                 if rows[low] < 0.8 * rows[peak] and rows[low] < 0.6 * body:
                     neck = round((low + 0.5) / N, 4)
+        # Köşeli omuzlu şişe (dar boyun halkasından gövde birden genişler): genişliğin birden
+        # ~2 katına çıktığı satır boyundur.
+        if neck is None:
+            jump = next((i for i in upper[:-2] if 0 < rows[i] < 0.6 * body and rows[i + 2] > 1.8 * rows[i]), None)
+            if jump is not None and jump - top > 8:
+                neck = round((jump + 1.5) / N, 4)
     return {"axis": round(cx / S, 4), "rows": rows, "outline": outline, "edge": [int(v) for v in edge], "neck": neck}
 
 
@@ -461,7 +468,8 @@ _TR = None
 
 def _paras(h):
     import html as _h
-    t = re.sub(r"<(br|/p|/li|/h\d|/div)[^>]*>", "\n", h or "")
+    t = re.sub(r"(?is)<(style|script)\b.*?</\1>", "", h or "")
+    t = re.sub(r"<(br|/p|/li|/h\d|/div)[^>]*>", "\n", t)
     t = _h.unescape(re.sub(r"<[^>]+>", "", t))
     return [re.sub(r"\s+", " ", p).strip() for p in t.split("\n") if p.strip()]
 
@@ -630,6 +638,8 @@ def main():
     fronts, backs = {}, {}
     for d in sorted(glob.glob(os.path.join(SRC, "images", "*"))):
         handle = os.path.basename(d)
+        if RULES.get("skip") and re.search(RULES["skip"], handle):
+            continue
         files = sorted(glob.glob(os.path.join(d, "*")), key=lambda f: int(os.path.basename(f).split(".")[0]))
         if not files:
             continue

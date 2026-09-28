@@ -1,0 +1,741 @@
+{
+  "foto": {
+    "ai": true,
+    "skip": "discovery-set|travel-set|wooden-box",
+    "noBackText": ".",
+    "backPhotos": false,
+    "views": false,
+    "sceneArt": [
+      {
+        "match": ".",
+        "file": "yesil-orkide.webp",
+        "crop": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "cx": 543,
+        "base": 866,
+        "h": 450,
+        "tint": "palette",
+        "dim": 0.5
+      }
+    ],
+    "backdropArt": [
+      {
+        "match": ".",
+        "file": "yesil-orkide.webp",
+        "cx": 543,
+        "base": 866,
+        "h": 450,
+        "tint": "palette"
+      }
+    ]
+  },
+  "aktar": {
+    "domain": "uniqueeluxury.com",
+    "namePrefix": "^$",
+    "idPrefix": "uniquee-luxury-",
+    "defaultSize": "100 ml",
+    "categories": [
+      {
+        "id": "ikon",
+        "tr": "İkonlar",
+        "en": "Icons",
+        "color": "#c9a55c",
+        "descTr": "Dünyanın sevdiği başyapıtlar ve çok satanlar.",
+        "descEn": "Globally loved masterpieces and best sellers.",
+        "match": "crush-on-me|kutay|beverly-hills|akdeniz|chocolate|soscentific|istanbul"
+      },
+      {
+        "id": "yeni",
+        "tr": "Yeni kokular",
+        "en": "New releases",
+        "color": "#d9a520",
+        "descTr": "2022'den bu yana koleksiyona katılan kokular.",
+        "descEn": "Scents added to the collection since 2022.",
+        "match": "dolcezza|ocean|woud|zengi|mangonifiscent|mashumaro"
+      },
+      {
+        "id": "koleksiyon",
+        "tr": "Koleksiyon",
+        "en": "Collection",
+        "color": "#b39277",
+        "descTr": "Hepsi unisex, hepsi Extrait de Parfum.",
+        "descEn": "All unisex, all Extrait de Parfum.",
+        "match": "."
+      }
+    ],
+    "family": {
+      "Unique'e Luxury Perfumes": [
+        "Extrait de Parfum",
+        "Extrait de Parfum"
+      ],
+      "UNIQUE'E LUXURY": [
+        "Extrait de Parfum",
+        "Extrait de Parfum"
+      ]
+    },
+    "profiles": {
+      "flask": ".",
+      "depthRatio": 0.42
+    },
+    "notes": [
+      [
+        "chicelle",
+        [
+          [
+            "Çilek",
+            "Strawberry"
+          ],
+          [
+            "Şakayık",
+            "Peony"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ]
+        ]
+      ],
+      [
+        "dolcezza",
+        [
+          [
+            "Kırmızı meyveler",
+            "Red berries"
+          ],
+          [
+            "Yenibahar",
+            "Pimento"
+          ],
+          [
+            "Hindistan cevizi sütü",
+            "Coconut milk"
+          ],
+          [
+            "Kakao",
+            "Cacao"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ]
+        ]
+      ],
+      [
+        "ocean-the-rive-100-ml",
+        [
+          [
+            "Deniz esintisi",
+            "Sea breeze"
+          ],
+          [
+            "Fesleğen",
+            "Basil"
+          ],
+          [
+            "Mavi papatya",
+            "Blue chamomile"
+          ],
+          [
+            "Pelin otu",
+            "Armoise"
+          ],
+          [
+            "Kaşmir ağacı",
+            "Cashmere wood"
+          ]
+        ]
+      ],
+      [
+        "woud-mood-absolute-100-ml",
+        [
+          [
+            "Safran",
+            "Saffron"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Deri",
+            "Leather"
+          ],
+          [
+            "Ud",
+            "Oud"
+          ]
+        ]
+      ],
+      [
+        "zengi",
+        [
+          [
+            "Greyfurt",
+            "Grapefruit"
+          ],
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Bal",
+            "Honey"
+          ],
+          [
+            "Pembe biber",
+            "Pink pepper"
+          ],
+          [
+            "Şarap",
+            "Wine"
+          ]
+        ]
+      ],
+      [
+        "mangonifiscent",
+        [
+          [
+            "Mango",
+            "Mango"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ]
+        ]
+      ],
+      [
+        "mashumaro",
+        [
+          [
+            "Marşmelov",
+            "Marshmallow"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Kaşmir ağacı",
+            "Cashmere wood"
+          ],
+          [
+            "Müge",
+            "Muguet"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-beverly-hills-exclusive",
+        [
+          [
+            "Bal",
+            "Honey"
+          ],
+          [
+            "Tütün",
+            "Tobacco"
+          ],
+          [
+            "Tonka fasulyesi",
+            "Tonka bean"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-crush-on-me",
+        [
+          [
+            "Karamel",
+            "Caramel"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-akdeniz",
+        [
+          [
+            "Deniz notaları",
+            "Marine"
+          ],
+          [
+            "Greyfurt",
+            "Grapefruit"
+          ],
+          [
+            "Ananas",
+            "Pineapple"
+          ],
+          [
+            "Deri",
+            "Leather"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-soscentific",
+        [
+          [
+            "Çilek",
+            "Strawberry"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Şeftali",
+            "Peach"
+          ],
+          [
+            "Osmanthus",
+            "Osmanthus"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-chocolate-makes-me-happy",
+        [
+          [
+            "Bitter çikolata",
+            "Dark chocolate"
+          ],
+          [
+            "Kakao",
+            "Cacao"
+          ],
+          [
+            "Kahve",
+            "Coffee"
+          ],
+          [
+            "Karamel",
+            "Caramel"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-beril",
+        [
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ],
+          [
+            "Amber",
+            "Amber"
+          ],
+          [
+            "Misk",
+            "Musk"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-kutay$",
+        [
+          [
+            "Viski",
+            "Whiskey"
+          ],
+          [
+            "Nagarmotha",
+            "Nagarmotha"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-hidden-accords",
+        [
+          [
+            "Pembe biber",
+            "Pink pepper"
+          ],
+          [
+            "Armut",
+            "Pear"
+          ],
+          [
+            "Kahve",
+            "Coffee"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-aphrodisiac-touch",
+        [
+          [
+            "Kakule",
+            "Cardamom"
+          ],
+          [
+            "Sardunya",
+            "Geranium"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-chypre-toscano",
+        [
+          [
+            "Safran",
+            "Saffron"
+          ],
+          [
+            "Karanfil",
+            "Clove"
+          ],
+          [
+            "İsli deri",
+            "Smoky leather"
+          ],
+          [
+            "Günlük",
+            "Olibanum"
+          ],
+          [
+            "Misk",
+            "Musk"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-izmir",
+        [
+          [
+            "Ananas",
+            "Pineapple"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Tonka fasulyesi",
+            "Tonka bean"
+          ]
+        ]
+      ],
+      [
+        "uniquee-luxury-istanbul",
+        [
+          [
+            "Pembe biber",
+            "Pink pepper"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ],
+          [
+            "Tofi",
+            "Toffee"
+          ]
+        ]
+      ]
+    ],
+    "home": [
+      "uniquee-luxury-crush-on-me",
+      "ocean-the-rive-100-ml",
+      "mangonifiscent",
+      "uniquee-luxury-kutay"
+    ],
+    "ritual": [
+      {
+        "handle": "uniquee-luxury-crush-on-me",
+        "tr": {
+          "title": "İkon",
+          "text": "Dünyanın sevdiği başyapıtlardan: Crush On Me, Kutay, Beverly Hills Exclusive ve Akdeniz.",
+          "stat": "Çok satan"
+        },
+        "en": {
+          "title": "Icon",
+          "text": "Among the globally loved masterpieces: Crush On Me, Kutay, Beverly Hills Exclusive and Akdeniz.",
+          "stat": "Best seller"
+        }
+      },
+      {
+        "handle": "ocean-the-rive-100-ml",
+        "tr": {
+          "title": "Unisex",
+          "text": "Koleksiyondaki bütün kokular unisex; en kaliteli malzemelerle, el işçiliğiyle özenle hazırlanır.",
+          "stat": "19 koku"
+        },
+        "en": {
+          "title": "Unisex",
+          "text": "Every scent in the collection is unisex, made of top-quality ingredients by hand with extreme care.",
+          "stat": "19 scents"
+        }
+      },
+      {
+        "handle": "uniquee-luxury-kutay",
+        "tr": {
+          "title": "Extrait",
+          "text": "Bütün parfümler Extrait de Parfum yoğunluğunda ve 100 ml.",
+          "stat": "100 ml"
+        },
+        "en": {
+          "title": "Extrait",
+          "text": "Every perfume is Extrait de Parfum and comes in 100 ml.",
+          "stat": "100 ml"
+        }
+      }
+    ],
+    "rename": {
+      "chicelle": [
+        "Chicelle",
+        "Chicelle"
+      ],
+      "dolcezza": [
+        "D'olcezza",
+        "D'olcezza"
+      ],
+      "ocean-the-rive-100-ml": [
+        "Ocean The Rive",
+        "Ocean The Rive"
+      ],
+      "woud-mood-absolute-100-ml": [
+        "Woud & Mood Absolute",
+        "Woud & Mood Absolute"
+      ],
+      "zengi": [
+        "Zen'gi",
+        "Zen'gi"
+      ],
+      "mangonifiscent": [
+        "Mangonifiscent",
+        "Mangonifiscent"
+      ],
+      "mashumaro": [
+        "Mashumaro",
+        "Mashumaro"
+      ],
+      "uniquee-luxury-beverly-hills-exclusive": [
+        "Beverly Hills Exclusive",
+        "Beverly Hills Exclusive"
+      ],
+      "uniquee-luxury-crush-on-me": [
+        "Crush On Me",
+        "Crush On Me"
+      ],
+      "uniquee-luxury-akdeniz": [
+        "Akdeniz",
+        "Akdeniz"
+      ],
+      "uniquee-luxury-soscentific": [
+        "SoScentific",
+        "SoScentific"
+      ],
+      "uniquee-luxury-chocolate-makes-me-happy": [
+        "Chocolate Makes Me Happy",
+        "Chocolate Makes Me Happy"
+      ],
+      "uniquee-luxury-beril": [
+        "Beril",
+        "Beril"
+      ],
+      "uniquee-luxury-kutay": [
+        "Kutay",
+        "Kutay"
+      ],
+      "uniquee-luxury-hidden-accords": [
+        "Hidden Accords",
+        "Hidden Accords"
+      ],
+      "uniquee-luxury-aphrodisiac-touch": [
+        "Aphrodisiac Touch",
+        "Aphrodisiac Touch"
+      ],
+      "uniquee-luxury-chypre-toscano": [
+        "Chypre Toscano",
+        "Chypre Toscano"
+      ],
+      "uniquee-luxury-izmir": [
+        "İzmir",
+        "Izmir"
+      ],
+      "uniquee-luxury-istanbul": [
+        "İstanbul",
+        "Istanbul"
+      ]
+    },
+    "trText": {
+      "chicelle": "Parlak çilek, narin çiçekler ve sıcak vanilya CHICELLE'i şekillendiriyor: yumuşak ve kendine özgü bir imzası olan, oyunbaz ama zarif bir koku.",
+      "dolcezza": "Işıltılı kırmızı meyveler, kremsi hindistan cevizi ve yumuşak vanilya, İtalyan tatlılığından ilham alan zarif bir gurme olan D'OLCEZZA'da açılıyor.",
+      "ocean-the-rive-100-ml": "Canlı narenciye, deniz esintisi ve kaşmir ağacı, derin maviden ilham alan OCEAN THE RIVE'ın temiz ve zahmetsiz kıyı zarafetini yakalıyor.",
+      "woud-mood-absolute-100-ml": "Değerli ağaçlar, sıcak reçineler ve zarif deri, WOUD & MOOD ABSOLUTE'u isli derinliği, güçlü karakteri ve çekici imzasıyla kuruyor.",
+      "zengi": "Işıldayan narenciye, altın bal ve sıcak ağaçlar ZEN'GI'ye enerji ile derinlik arasındaki dengesini ve beklenmedik ölçüde zarif imzasını veriyor.",
+      "mangonifiscent": "Sulu mango, zarif çiçekler ve kremsi ağaçlar MANGONIFISCENT'e tropik ışıltısını veriyor; bağımlılık yapan parlaklığı rafine bir derinlikle dengeliyor.",
+      "mashumaro": "Yumuşak marşmelov, kremsi süt ve kaşmir ağacı MASHUMARO'yu rahatlatıcı bir tatlılıkla sarıyor; narin çiçekler ve yumuşakça bağımlılık yapan bir iz bırakıyor.",
+      "uniquee-luxury-beverly-hills-exclusive": "Altın bal, yumuşak tütün ve kremsi tonka BEVERLY HILLS EXCLUSIVE'i tanımlıyor: sıcaklığın, zarafetin ve sessiz özgüvenin cilalı imzası.",
+      "uniquee-luxury-crush-on-me": "Zengin karamel, topraksı paçuli ve parlak narenciye CRUSH ON ME'ye cesur ve modern karakterini veriyor; karşı konulmaz, bağımlılık yapan bir imza bırakıyor.",
+      "uniquee-luxury-akdeniz": "Deniz notaları, canlı narenciye ve aromatik otlar AKDENİZ'i yakalıyor: taze, rafine ve kendine özgü imzasıyla ışıltılı bir Akdeniz kaçamağı.",
+      "uniquee-luxury-soscentific": "Olgun meyveler, ışıltılı çiçekler ve yumuşak vanilya SOSCENTIFIC'te zarifçe akıyor; pürüzsüz ve karşı konulmaz zarafette bir iz bırakıyor.",
+      "uniquee-luxury-chocolate-makes-me-happy": "Bitter çikolata, kakao ve aromatik baharatlar CHOCOLATE MAKES ME HAPPY'yi tanımlıyor: sıcak, duyusal ve bağımlılık yapan derinlikte rafine bir gurme.",
+      "uniquee-luxury-beril": "Canlı mandalina, narin baharat ve yumuşak çiçekler BERİL'e hayat veriyor: ışıltılı bir ferahlık, cilalı bir sıcaklık ve sessiz bir zarafet.",
+      "uniquee-luxury-kutay": "Zengin viski, koyu tütün ve isli ağaçlar KUTAY'a buyurgan, sert içki karakterini veriyor; sıcak karamel, amber ve vanilyayla yumuşuyor.",
+      "uniquee-luxury-hidden-accords": "Işıltılı armut, koyu kahve ve yumuşak vanilya HIDDEN ACCORDS'un içindeki zıtlıkları ortaya çıkarıyor: gizli bir derinliği olan sofistike bir kompozisyon.",
+      "uniquee-luxury-aphrodisiac-touch": "Işıltılı çiçekler, kutsal baharatlar ve sıcak ağaçlar APHRODISIAC TOUCH'ı duyusal bir derinlikle şekillendiriyor; ardında zengin, dingin bir sıcaklık bırakıyor.",
+      "uniquee-luxury-chypre-toscano": "Lavanta, siyah çay ve isli deri, sıcak baharatlar, reçineler ve koyu ağaçlarla derinleşen CHYPRE TOSCANO'yu zamansız bir Toskana zarafetiyle şekillendiriyor.",
+      "uniquee-luxury-izmir": "Sulu ananas, ışıldayan narenciye ve zarif ağaçlar İZMİR'in ışıltılı Ege karakterini yakalıyor: sıcak, ferahlatıcı ve Akdeniz ışığıyla dokunulmuş.",
+      "uniquee-luxury-istanbul": "Parlak narenciye, aromatik çay ve sıcak tofi İSTANBUL'un eskiyle yeninin buluşmasını yansıtıyor: canlı bir enerji ve akılda kalan zarif bir iz."
+    },
+    "palette": [
+      [
+        "chicelle",
+        "#d9679a",
+        "#ffb8d4",
+        "#1c0611"
+      ],
+      [
+        "dolcezza",
+        "#d9a520",
+        "#ffe08a",
+        "#1f1503"
+      ],
+      [
+        "ocean-the-rive-100-ml",
+        "#2448c8",
+        "#9fc0ff",
+        "#050c2a"
+      ],
+      [
+        "woud-mood-absolute-100-ml",
+        "#8a6a3a",
+        "#e0c48e",
+        "#120c05"
+      ],
+      [
+        "zengi",
+        "#d49a1a",
+        "#ffe39a",
+        "#1f1402"
+      ],
+      [
+        "mangonifiscent",
+        "#1f9e5a",
+        "#9fe6b9",
+        "#031a0d"
+      ],
+      [
+        "mashumaro",
+        "#d62f3a",
+        "#ffa0a8",
+        "#240406"
+      ],
+      [
+        "uniquee-luxury-beverly-hills-exclusive",
+        "#c9922e",
+        "#ffdf98",
+        "#1c1203"
+      ],
+      [
+        "uniquee-luxury-crush-on-me",
+        "#c8202e",
+        "#ff9aa0",
+        "#220305"
+      ],
+      [
+        "uniquee-luxury-akdeniz",
+        "#16a0a0",
+        "#9eeef2",
+        "#021b1c"
+      ],
+      [
+        "uniquee-luxury-soscentific",
+        "#e8804a",
+        "#ffc4a0",
+        "#231006"
+      ],
+      [
+        "uniquee-luxury-chocolate-makes-me-happy",
+        "#8a4a26",
+        "#e0a070",
+        "#150a04"
+      ],
+      [
+        "uniquee-luxury-beril",
+        "#d69a2e",
+        "#ffd890",
+        "#1f1404"
+      ],
+      [
+        "uniquee-luxury-kutay$",
+        "#b8621c",
+        "#f0a860",
+        "#1c0d03"
+      ],
+      [
+        "uniquee-luxury-hidden-accords",
+        "#9a6a3a",
+        "#e8c89a",
+        "#160e06"
+      ],
+      [
+        "uniquee-luxury-aphrodisiac-touch",
+        "#7d3fc8",
+        "#d0b0ff",
+        "#12062a"
+      ],
+      [
+        "uniquee-luxury-chypre-toscano",
+        "#6f8a3a",
+        "#cfe39a",
+        "#0f1405"
+      ],
+      [
+        "uniquee-luxury-izmir",
+        "#3a9ee0",
+        "#a8d8ff",
+        "#04142a"
+      ],
+      [
+        "uniquee-luxury-istanbul",
+        "#e0601c",
+        "#ffb070",
+        "#230c02"
+      ]
+    ],
+    "tagline": "notes"
+  }
+}
