@@ -19,11 +19,12 @@ function Product({ index }) {
   const parts = useMemo(() => createBottleParts(f), [f]);
   useEffect(() => {
     setCanFlavor(uniforms, f);
-    uniforms.u_rim.value.set(f.theme.accent ?? f.theme.glow).multiplyScalar(0.5);
+    uniforms.u_rim.value.set("#fff1dc").multiplyScalar(0.45);
+    body.envMapIntensity = body.userData.finish.envMapIntensity * 1.35;
     let n = 0;
     const tick = () => (++n > 40 ? (window.__still = f.handle ?? String(index)) : requestAnimationFrame(tick));
     requestAnimationFrame(tick);
-  }, [f, index, uniforms]);
+  }, [f, index, uniforms, body]);
   const group = f.photo3d?.profile === "group";
   return (
     <group rotation={[0.03, group ? -0.18 : -0.42, 0]}>
@@ -36,11 +37,19 @@ export default function Still() {
   const index = 0;
   return (
     <div style={{ position: "fixed", inset: 0 }}>
-      <Canvas gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }} camera={{ position: [0, 0, 10.5], fov: 35 }} dpr={2}>
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[-6, 8, 6]} intensity={1.2} />
-        <directionalLight position={[8, -2, 4]} intensity={0.5} color={content.fillLight ?? "#9fb4ff"} />
-        <spotLight position={[-2, 9, 8]} angle={0.5} penumbra={1} decay={0} intensity={2.2} color="#fff1dc" />
+      <Canvas
+        gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
+        camera={{ position: [0, 0, 10.5], fov: 35 }}
+        dpr={2}
+        onCreated={({ gl }) => (gl.toneMappingExposure = 1.25)}
+      >
+        {/* Stüdyo: önden yumuşak ana ışık, üstten sıcak spot, yanlardan kenar ışığı; ürün aydınlık. */}
+        <ambientLight intensity={0.55} />
+        <directionalLight position={[-5, 7, 8]} intensity={1.6} />
+        <directionalLight position={[0, 2, 10]} intensity={0.7} />
+        <directionalLight position={[7, 1, -3]} intensity={0.9} color="#ffe2c0" />
+        <directionalLight position={[8, -2, 4]} intensity={0.35} color={content.fillLight ?? "#9fb4ff"} />
+        <spotLight position={[-1, 10, 7]} angle={0.45} penumbra={1} decay={0} intensity={3.2} color="#fff3e2" />
         <Suspense fallback={null}>
           <Environment files={envMap} />
           <Product index={index} />

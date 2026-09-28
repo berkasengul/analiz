@@ -5368,92 +5368,104 @@ button.buy__more {
 }
 
 /* ===================== Galeri kartları (theme.cards = "gallery") =====================
-   Her ürün kendi renginde bir vitrin: zemin ürünün rengi, arkada dev ince numara,
-   ürün ışıklı bir kaidenin üzerinde; altta ince yazılı ad ve koku notaları. */
+   Sergi: kutu ve renkli zemin yok; ürün sitenin karanlık zemininde, tepeden inen sıcak beyaz
+   bir spot ışığın altında durur. Zeminde ışık havuzu, ayağında temas gölgesi ve hafif yansıma;
+   arkada ince altın çizgiyle kokunun numarası. */
 .pgrid:has(.pcard--gallery) {
-  grid-template-columns: repeat(auto-fit, minmax(290px, 350px));
-  gap: clamp(20px, 2.4vw, 34px);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 310px));
+  justify-content: center;
+  max-width: 1320px;
+  margin-inline: auto;
+  gap: clamp(36px, 5vw, 72px) clamp(12px, 2vw, 28px);
 }
 .pcard--gallery {
   --bg: #2a211c;
   --bg2: #c9a55c;
-  border-radius: 2px;
-  border: 1px solid color-mix(in srgb, var(--bg2) 22%, transparent);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, #0a0807), #080706 70%);
-  box-shadow: 0 40px 80px -46px color-mix(in srgb, var(--bg2) 55%, #000);
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
 }
 .pcard--gallery:hover {
-  border-color: color-mix(in srgb, var(--bg2) 55%, transparent);
-  box-shadow: 0 50px 90px -40px color-mix(in srgb, var(--bg2) 70%, #000);
+  box-shadow: none;
 }
 .pcard--gallery .pcard__media.is-cutout {
-  --floor: 80%;
-  aspect-ratio: 4 / 5;
+  --floor: 84%;
+  aspect-ratio: 3 / 4;
+  overflow: visible;
   background:
-    radial-gradient(ellipse 62% 48% at 50% 28%, color-mix(in srgb, var(--bg2) 34%, transparent), transparent 72%),
-    radial-gradient(ellipse 44% 8% at 50% var(--floor), color-mix(in srgb, var(--bg2) 55%, transparent), transparent 72%),
-    linear-gradient(180deg, color-mix(in srgb, var(--bg) 82%, #000) 0%, color-mix(in srgb, var(--bg) 48%, #000) calc(var(--floor) - 0.5%), #060505 calc(var(--floor) + 0.5%), #030303 100%);
+    radial-gradient(ellipse 36% 5.5% at 50% var(--floor), rgba(255, 238, 212, 0.34), transparent 72%),
+    radial-gradient(ellipse 44% 40% at 50% 54%, rgba(255, 236, 208, 0.09), transparent 72%);
 }
-/* Hafif karartma: renk ortada canlı, kenarlara doğru koyulaşır. */
-.pcard--gallery .pcard__media.is-cutout::before {
-  background: radial-gradient(ellipse 80% 75% at 50% 42%, transparent 40%, rgba(0, 0, 0, 0.72) 100%);
+.pcard--gallery .pcard__media.is-cutout::before,
+.pcard--gallery .pcard__media.is-cutout::after {
+  display: none;
 }
-/* Dev numara: ince altın/ürün rengi çizgi. */
+/* Spot ışığı: tepeden ürüne inen yumuşak koni. */
+.pcard--gallery .pcard__beam {
+  inset: -16% 12% calc(100% - var(--floor) - 1%);
+  background: linear-gradient(180deg, rgba(255, 244, 224, 0.36), rgba(255, 242, 220, 0.12) 55%, rgba(255, 242, 220, 0.03));
+  clip-path: polygon(43% 0, 57% 0, 100% 100%, 0 100%);
+  filter: blur(10px);
+  opacity: 0.8;
+  transition: opacity 0.8s ease;
+}
+.pcard--gallery:hover .pcard__beam {
+  opacity: 1;
+}
+/* Dev numara: arkada ince altın çizgi. */
 .pcard__num {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   left: 0;
   right: 0;
-  top: 4%;
+  top: 6%;
   text-align: center;
   font-family: var(--wide);
-  font-size: clamp(9rem, 14vw, 13rem);
+  font-size: clamp(8rem, 13vw, 12rem);
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px color-mix(in srgb, var(--bg2) 75%, #fff);
-  opacity: 0.45;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--gold, #c9a55c) 70%, transparent);
+  opacity: 0.2;
   pointer-events: none;
   transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
 }
 .pcard--gallery:hover .pcard__num {
-  opacity: 0.8;
+  opacity: 0.38;
   transform: translateY(-6px) scale(1.03);
 }
-/* Kaide: ürün renginde ışıklı elips ve altın kenar. */
+/* Ürünün ayağındaki temas gölgesi. */
 .pcard--gallery .pcard__floor {
-  left: 20%;
-  right: 20%;
-  top: calc(var(--floor) - 3.2%);
+  left: 22%;
+  right: 22%;
+  top: calc(var(--floor) - 1.8%);
   bottom: auto;
-  height: 6.4%;
+  height: 3.6%;
   border-radius: 50%;
-  background:
-    radial-gradient(closest-side, color-mix(in srgb, var(--bg2) 60%, transparent), transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold, #c9a55c) 45%, transparent);
-}
-.pcard--gallery .pcard__media.is-cutout::after {
-  display: none;
-}
-.pcard--gallery .pcard__beam {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg2) 45%, transparent), transparent 70%);
-  opacity: 0.55;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), transparent);
+  box-shadow: none;
 }
 .pcard--gallery .pcard__media.is-cutout img:not(.pcard__photo) {
-  padding: 22% 22% calc(100% - var(--floor) + 1.5%);
-  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 22px color-mix(in srgb, var(--bg2) 25%, transparent));
+  padding: 16% 17% calc(100% - var(--floor));
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.75)) brightness(1.06);
+}
+.pcard--gallery:hover .pcard__media.is-cutout img:not(.pcard__photo) {
+  filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.8)) brightness(1.14);
 }
 .pcard--gallery .pcard__media.is-cutout img.pcard__reflect {
-  opacity: 0.14;
+  opacity: 0.12;
 }
 /* Gövde: ortalı, ince yazı, notalar italik. */
 .pcard--gallery .pcard__body {
   align-items: center;
   text-align: center;
   gap: 8px;
-  padding: 22px 22px 24px;
+  padding: 6px 10px 0;
+  background: none;
 }
 .pcard--gallery .pcard__cat {
-  color: color-mix(in srgb, var(--bg2) 70%, #fff);
+  color: var(--gold-soft, #d9bf85);
   letter-spacing: 0.26em;
 }
 .pcard--gallery .pcard__name {
@@ -5473,7 +5485,7 @@ button.buy__more {
   width: 100%;
   gap: 14px;
   padding-top: 16px;
-  border-top: 1px solid color-mix(in srgb, var(--bg2) 20%, transparent);
+  border-top: 1px solid rgba(201, 165, 92, 0.22);
 }
 .pcard--gallery .pcard__price {
   font-family: var(--wide);
@@ -5489,8 +5501,14 @@ button.buy__more {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-size: 0.72rem;
+  color: var(--gold-soft, #d9bf85);
+  border: 1px solid rgba(201, 165, 92, 0.55);
+  background: transparent;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+.pcard--gallery .pcard__add:hover,
+.pcard--gallery .pcard__add.is-added {
   color: #120e09;
-  border: 0;
   background: linear-gradient(120deg, #f1dfb2, var(--gold, #c9a55c) 55%, #9c7735);
 }
 .pcard--gallery .pcard__add svg {
