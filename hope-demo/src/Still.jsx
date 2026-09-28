@@ -19,6 +19,7 @@ import {
 import CanMesh, { createBottleParts, useCanBody } from "./CanMesh";
 import { createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { content, flavors } from "./data";
+import { THEME } from "./theme";
 
 import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
 
@@ -150,6 +151,96 @@ function archShape(w, h) {
   return s;
 }
 
+// Osmanlı (sivri) kemeri: iki yay tepede birleşir. hw yarım genişlik, h toplam yükseklik; yay yarıçapı 1,45·hw.
+const OTTOMAN = THEME.carousel === "glide";
+function ogeePoints(w, h, n = 48) {
+  const hw = w / 2;
+  const r = hw * 1.45;
+  const rise = Math.sqrt(r * r - (r - hw) ** 2);
+  const hs = h - rise;
+  const a1 = Math.acos((r - hw) / r);
+  const right = [];
+  for (let i = 0; i <= n; i++) {
+    const a = (a1 * i) / n;
+    right.push([hw - r + r * Math.cos(a), hs + r * Math.sin(a)]);
+  }
+  return { hs, right };
+}
+function ogeeCurve(w, h, z) {
+  const { hs, right } = ogeePoints(w, h);
+  const hw = w / 2;
+  const pts = [[-hw, 0], [-hw, hs], ...[...right].map(([x, y]) => [-x, y]).slice(1), ...[...right].reverse().slice(1), [hw, 0]];
+  const path = new CurvePath();
+  for (let i = 1; i < pts.length; i++) path.add(new LineCurve3(new Vector3(pts[i - 1][0], pts[i - 1][1], z), new Vector3(pts[i][0], pts[i][1], z)));
+  return path;
+}
+function ogeeShape(w, h) {
+  const { hs, right } = ogeePoints(w, h);
+  const hw = w / 2;
+  const s = new Shape();
+  s.moveTo(-hw, 0);
+  s.lineTo(-hw, hs);
+  [...right].map(([x, y]) => [-x, y]).slice(1).forEach(([x, y]) => s.lineTo(x, y));
+  [...right].reverse().slice(1).forEach(([x, y]) => s.lineTo(x, y));
+  s.lineTo(hw, 0);
+  s.lineTo(-hw, 0);
+  return s;
+}
+// Sekiz köşeli yıldız (iki dönük kare).
+function starShape(r) {
+  const s = new Shape();
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2 + Math.PI / 8;
+    const rr = i % 2 ? r * 0.62 : r;
+    i ? s.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : s.moveTo(Math.cos(a) * rr, Math.sin(a) * rr);
+  }
+  return s;
+}
+
+// Osmanlı kemerinin süsleri: çerçeve boyunca yıldızlar, ayak başlıkları ve tepede hilalli alem.
+function OttomanTrim({ w, h, z, floorY }) {
+  const gold = useMemo(() => ({ color: "#d9b46a", metalness: 1, roughness: 0.26, envMapIntensity: 1.4 }), []);
+  const star = useMemo(() => starShape(0.075), []);
+  const places = useMemo(() => {
+    const c = ogeeCurve(w + 0.26, h + 0.13, 0);
+    const n = 38;
+    return Array.from({ length: n }, (_, i) => c.getPointAt(0.04 + (0.92 * i) / (n - 1)));
+  }, [w, h]);
+  const { hs } = useMemo(() => ogeePoints(w, h), [w, h]);
+  return (
+    <group position={[0, floorY, z]}>
+      {places.map((p, i) => (
+        <mesh key={i} position={[p.x, p.y, 0.03]} rotation={[0, 0, (i * Math.PI) / 8]}>
+          <shapeGeometry args={[star]} />
+          <meshStandardMaterial {...gold} />
+        </mesh>
+      ))}
+      {[-1, 1].map((sgn) =>
+        [hs, 0.06].map((y, k) => (
+          <mesh key={`${sgn}${k}`} position={[sgn * (w / 2 + 0.13), y, 0.04]}>
+            <boxGeometry args={[0.4, k ? 0.1 : 0.07, 0.06]} />
+            <meshStandardMaterial {...gold} />
+          </mesh>
+        ))
+      )}
+      <group position={[0, h + 0.2, 0.04]}>
+        <mesh position={[0, 0.12, 0]}>
+          <sphereGeometry args={[0.1, 24, 16]} />
+          <meshStandardMaterial {...gold} />
+        </mesh>
+        <mesh position={[0, 0.36, 0]}>
+          <cylinderGeometry args={[0.022, 0.022, 0.4, 12]} />
+          <meshStandardMaterial {...gold} />
+        </mesh>
+        <mesh position={[0, 0.72, 0]} rotation={[0, 0, Math.PI * 0.62]}>
+          <torusGeometry args={[0.16, 0.035, 12, 40, Math.PI * 1.35]} />
+          <meshStandardMaterial {...gold} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
 function Stage() {
   const f = flavors[0];
   const accent = useMemo(() => new Color(f.theme?.accent ?? "#c9a55c"), [f]);
@@ -161,11 +252,12 @@ function Stage() {
   }, [camera]);
   const floorY = PED_TOP - PED.h;
   const archW = 4.6;
-  const archH = 7.6;
+  // Osmanlı kemerinde tepe ve alem kadraja sığsın.
+  const archH = OTTOMAN ? 5.75 : 7.6;
   const archZ = -3.2;
-  const frame = useMemo(() => archCurve(archW, archH, archZ + 0.02), []);
-  const frame2 = useMemo(() => archCurve(archW + 0.5, archH + 0.25, archZ - 0.05), []);
-  const niche = useMemo(() => archShape(archW, archH), []);
+  const frame = useMemo(() => (OTTOMAN ? ogeeCurve : archCurve)(archW, archH, archZ + 0.02), []);
+  const frame2 = useMemo(() => (OTTOMAN ? ogeeCurve : archCurve)(archW + 0.5, archH + 0.25, archZ - 0.05), []);
+  const niche = useMemo(() => (OTTOMAN ? ogeeShape : archShape)(archW, archH), []);
   // Nişin içi: ürünün renginde, tepeden aşağı yumuşak ışık.
   const nicheMat = useMemo(
     () => ({
@@ -224,6 +316,7 @@ function Stage() {
         <tubeGeometry args={[frame2, 400, 0.018, 8, false]} />
         <meshStandardMaterial color="#b8903f" metalness={1} roughness={0.35} />
       </mesh>
+      {OTTOMAN && <OttomanTrim w={archW} h={archH} z={archZ} floorY={floorY} />}
       {/* Mermer kaide ve altın kenar */}
       <mesh position={[0, PED_TOP - PED.h / 2, 0]}>
         <boxGeometry args={[PED.w, PED.h, PED.d]} />
