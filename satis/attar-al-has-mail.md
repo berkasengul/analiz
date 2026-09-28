@@ -6,7 +6,7 @@
 **LinkedIn:** Ersin Baş, Directeur général (linkedin.com/in/ersinbas). Maili gönderdikten sonra kısa bir bağlantı isteği at.
 **Facebook:** facebook.com/attaralhasofficial (Instagram hesabını sitede bulamadım; göndermeden önce doğrula.)
 **Adres:** Luscento OÜ, Lõõtsa tn 5, 11415 Tallinn, Estonya
-**Ekler (mail):** `attar-al-has-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg` (zip ekleme)
+**Ekler (mail):** `attar-al-has-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg`, `5-seffaf-sise.jpg` (zip ekleme)
 **Ne zaman:** Salı–Perşembe, 10:00–11:00 (Türkiye saati; Paris'te 09:00–10:00)
 
 ## Nasıl satılır (sıra)
@@ -33,7 +33,7 @@ Attar al Has için kokularınızı 3D olarak sergileyen bir web sitesi hazırlad
 
 Kısaca neler var:
 
-- **Şişeleriniz 3D, altın bir kemerin içinde:** 21 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada her koku, Osmanlı kemerini andıran altın çizgili bir nişte duruyor. Aşağı kaydırdıkça şişe yana süzülüp dönüyor, sıradaki koku öbür yandan kemere geliyor. Sahne her kokunun renginde: Passion Oud bakır, Exquisite lacivert, Spice Rose kırmızı.
+- **Şişeleriniz 3D, altın bir kemerin içinde:** 21 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada her koku, yıldız desenli altın bir Osmanlı kemerinin içinde duruyor; şeffaf şişelerde içindeki parfüm görünüyor. Aşağı kaydırdıkça şişe yana süzülüp dönüyor, sıradaki koku öbür yandan kemere geliyor. Sahne her kokunun renginde: Passion Oud bakır, Exquisite lacivert, Spice Rose kırmızı.
 - **Nota piramidi:** Her kokunun üst, kalp ve alt notaları ürün sayfasında; şişe çevrilebiliyor.
 - **Koleksiyonlarınız:** Exclusive, Summer ve Terra Mysteria. Fiyatlar ve metinler sitenizden alındı.
 - **Mevcut mağazanızla çalışıyor:** Sepet Shopify mağazanıza bağlı; "Ödemeye geç" müşteriyi doğrudan attaralhas.com'daki ödeme sayfasına götürüyor. Yeni bir altyapı gerekmiyor.
@@ -83,7 +83,7 @@ Berka
 - [ ] Sepete bir koku ekleyip "Ödemeye geç"e bas: attaralhas.com ödeme sayfası açılmalı (ödeme yapma).
 - [ ] Sitelerindeki açıklama ve nota hatasını göndermeden önce bir kez daha kontrol et (düzeltmiş olabilirler; düzelttilerse o paragrafı sil).
 - [ ] `[DEMO LİNKİ]`, soyadını, telefonunu ve Instagram/portfolyo linkini doldur.
-- [ ] Maile dört görseli ekle.
+- [ ] Maile beş görseli ekle.
 - [ ] `satis/parfum-firmalari.csv` dosyasında Attar Al Has satırına tarihi yaz.
 
 ## Fiyat sorarlarsa
