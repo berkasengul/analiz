@@ -80,7 +80,8 @@ export function arcPose(d, aspect, time, i) {
         y: (phone ? 0.35 : -0.55) - Math.min(ad, 1) * 0.35 + Math.sin(time * 0.7) * 0.04 * focus,
         z: -Math.min(ad, 1.5) * 3,
         rotX: 0.01,
-        rotY: -d * 1.35 + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
+        // Yerindeyken hafifçe sola dönük: fotoğraftaki yan panelin yanında 3B kalınlık da görünür.
+        rotY: -d * 1.35 + 0.16 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.07 * focus : 0),
         rotZ: 0,
         scale: sc,
       };

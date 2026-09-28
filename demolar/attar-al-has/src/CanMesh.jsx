@@ -9,6 +9,7 @@ import {
   ExtrudeGeometry,
   Shape,
   CanvasTexture,
+  Color,
   CylinderGeometry,
   LatheGeometry,
   MathUtils,
@@ -426,6 +427,31 @@ function flatBlock(S) {
   return m;
 }
 
+// Şeffaf camlı şişe: kalınlık yüzlerinde parfüm görünür. Köşe renkleri (malzeme rengi sıvının rengi):
+// omuzun hemen altındaki sıvı yüzeyinde parlak bir çizgi (menisküs), üstünde soluk cam (hava payı),
+// altta derinleşen sıvı.
+function liquidColors(g, S, top, bottom) {
+  const N = S.rows.length;
+  const L = S.size;
+  const level = (top + 0.07 * (bottom - top)) / N;
+  const base = (bottom + 0.5) / N;
+  const liq = new Color(S.liquid ?? S.edge);
+  const glass = new Color("#efe9dc");
+  const air = [glass.r / Math.max(liq.r, 0.05), glass.g / Math.max(liq.g, 0.05), glass.b / Math.max(liq.b, 0.05)].map((v) => Math.min(v, 3.2) * 0.8);
+  const pos = g.attributes.position;
+  const col = new Float32Array(pos.count * 3);
+  for (let i = 0; i < pos.count; i++) {
+    const yn = 0.5 - pos.getY(i) / L;
+    const t = Math.min(1, Math.max(0, (yn - level) / Math.max(base - level, 0.01)));
+    const deep = 1.08 - 0.3 * t; // aşağıda koyulaşan sıvı
+    const z = ((yn - level) * N) / 1.6;
+    const men = Math.exp(-z * z) * 0.55; // sıvı yüzeyi
+    const k = yn < level - 0.004 ? 0 : yn < level + 0.004 ? (yn - level + 0.004) / 0.008 : 1;
+    for (let c = 0; c < 3; c++) col[i * 3 + c] = air[c] * (1 - k) + (deep + men) * k;
+  }
+  g.setAttribute("color", new Float32BufferAttribute(col, 3));
+}
+
 // Yassı şişe (flask): boynun üstü (küre ya da silindir kapak) dönen gövde, altı ön ve arka
 // yüzü düz, kenarları pahlı blok. Kalınlık gövde genişliğine oranla (depthRatio).
 function flaskGeometry(S) {
@@ -439,7 +465,9 @@ function flaskGeometry(S) {
   const right = idx.map((i) => [S.axis + rs[i], y(i)]).reverse();
   const width = 2 * Math.max(...idx.map((i) => rs[i])) * S.size;
   const body = { ...S, outline: [[...left, ...right]], depth: S.depth ?? width * (S.depthRatio ?? 0.42) };
-  return { block: flatBlock(body), front: latheHalf(cap, false), back: latheHalf(cap, true) };
+  const block = flatBlock(body);
+  if (S.clear) liquidColors(block, S, cut, idx[idx.length - 1] ?? N - 1);
+  return { block, front: latheHalf(cap, false), back: latheHalf(cap, true) };
 }
 
 function partGeometry(S) {
@@ -560,8 +588,20 @@ export function createBottleParts(f = {}) {
     // Fotoğraflı üründe yalnızca etiket malzemesi var; sahne "metal"e dokunduğu için boş bir malzeme.
     parts.metal = new MeshStandardMaterial({ color: "#000000" });
     // Düz bloğun kenarları: ürünün kenar rengi.
-    parts.side = new MeshStandardMaterial({ color: S.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
-    parts.side.color.multiplyScalar(0.78); // kenar ışığı fotoğraftakinden biraz koyu dursun
+    parts.side = S.clear
+      ? // Şeffaf cam içinde parfüm: parlak, ışığı içinde taşıyan sıvı rengi (köşe renkleri: hava payı, sıvı yüzeyi).
+        new MeshPhysicalMaterial({
+          color: S.liquid ?? S.edge,
+          vertexColors: true,
+          roughness: 0.08,
+          metalness: 0,
+          clearcoat: 1,
+          clearcoatRoughness: 0.04,
+          envMapIntensity: 1.5,
+          emissive: new Color(S.liquid ?? S.edge).multiplyScalar(0.22),
+        })
+      : new MeshStandardMaterial({ color: S.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
+    if (!S.clear) parts.side.color.multiplyScalar(0.78); // kenar ışığı fotoğraftakinden biraz koyu dursun
     (S.parts ?? []).forEach((p, i) => {
       parts[`side${i}`] = new MeshStandardMaterial({ color: p.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
       parts[`side${i}`].color.multiplyScalar(0.78);

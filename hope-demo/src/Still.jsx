@@ -74,7 +74,8 @@ function Product() {
   const scale = STAGE ? (group3 ? 0.95 : 0.92) : 1;
   return (
     <group ref={group}>
-      <group rotation={[0.03, group3 ? -0.18 : -0.42, 0]} scale={scale}>
+      {/* Kart açısı: content.theme.cardAngle (fotoğrafı 3/4 açıdan çekilmiş markada yan yüz fotoğraftakiyle aynı tarafta). */}
+      <group rotation={[0.03, group3 ? -0.18 : content.theme?.cardAngle ?? -0.42, 0]} scale={scale}>
         <CanMesh body={body} parts={parts} flavor={0} />
       </group>
     </group>

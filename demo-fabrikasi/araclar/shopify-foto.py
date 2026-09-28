@@ -16,6 +16,9 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      tabanı yansıma sanılıp kesilmez
     "convex": 0.3                   silüet dışbükey zarfla doldurulur (şeffaf cam tabanında kalan çentikler); sayı
                                      verilirse yalnızca ürünün o orandan aşağısı (gövde; kapak çevresi boş kalır)
+    "clear": "regex"                şeffaf camlı şişeler: 3B'de kalınlık yüzleri içindeki parfümün renginde sıvı dolu cam
+                                     (omuz altında hava payı ve sıvı yüzeyinde parlak çizgi)
+    "edgeFrom": "side"              3B kalınlık yüzlerinin rengi fotoğraftaki yan panelden (kesim kenarından değil)
     "backLang": "en"                arka etiket metni İngilizce mağazadan (mağazanın varsayılan dili Türkçe değilse)
     "solidTop": 0.25                ürünün üst bölümü (oran) delik bırakılmadan dolu kesilir (zemine yakın renkli kapak)
     "glassBack": {"label": [x0, y0, x1, y1], "labels": [["regex", [x0, y0, x1, y1]]], "lines": ["...", ...]}
@@ -823,6 +826,55 @@ def main():
             else:
                 entry["back"] = True
             entry.update(shape_info(F))
+            # edgeFrom: "side" → 3B gövdenin kalınlık yüzleri fotoğraftaki yan panelin renginden (gövdenin
+            # içinden, sol kenara yakın); kesim kenarına karışan stüdyo zemini yan yüzleri bej yapmaz.
+            if RULES.get("edgeFrom") == "side":
+                fa = np.asarray(F)
+                m = fa[..., 3] > 200
+                rows = np.where(m.any(1))[0]
+                if len(rows):
+                    t, b = rows[0], rows[-1]
+                    y0 = int(max(entry.get("neck") or 0.3, 0.3) * S) + int(0.05 * (b - t))
+                    y1 = t + int(0.9 * (b - t))
+                    px = []
+                    for y in range(y0, y1, 4):
+                        xs = np.where(m[y])[0]
+                        if len(xs) > 20:
+                            w = xs[-1] - xs[0]
+                            px.append(fa[y, xs[0] + int(0.04 * w): xs[0] + int(0.1 * w), :3])
+                    if px:
+                        entry["edge"] = [int(v) for v in np.median(np.concatenate(px), 0)]
+            # clear: şeffaf camlı şişe → içindeki parfümün rengi (gövdenin sağ kenarına yakın, cam içinden
+            # görünen sıvı); 3B'de kalınlık yüzleri bu renkte sıvı dolu cam olur.
+            if RULES.get("clear") and re.search(RULES["clear"], handle):
+                fa = np.asarray(F)
+                m = fa[..., 3] > 200
+                rows = np.where(m.any(1))[0]
+                nk = int((entry.get("neck") or 0.3) * S)
+                b = rows[-1]
+                # Birkaç dikey şerit (sol yan basamaklar, sağ cam kenarı) ölçülür; etiket ve cam parlaması
+                # yerine sıvıyı bulmak için en doygun şerit seçilir.
+                best = None
+                for a0, a1 in ((0.04, 0.1), (0.1, 0.17), (0.83, 0.9), (0.9, 0.96)):
+                    px = []
+                    for y in range(nk + int(0.35 * (b - nk)), nk + int(0.85 * (b - nk)), 4):
+                        xs = np.where(m[y])[0]
+                        if len(xs) > 20:
+                            w = xs[-1] - xs[0]
+                            px.append(fa[y, xs[0] + int(a0 * w): xs[0] + int(a1 * w), :3])
+                    if not px:
+                        continue
+                    c = np.concatenate(px).astype(np.float32)
+                    sat = c.max(1) - c.min(1)
+                    c = c[sat >= np.median(sat)]
+                    med = np.median(c, 0)
+                    score = (med.max() - med.min()) * (0.4 + med.mean() / 255)
+                    if best is None or score > best[0]:
+                        best = (score, med)
+                if best is not None:
+                    entry["liquid"] = [int(v) for v in best[1]]
+                    entry["edge"] = entry["liquid"]
+                    entry["clear"] = True
             if RULES.get("glassBack"):
                 # Renkli cam: yan yüzler parfümün rengini taşır (kenardaki beyaz parlama değil).
                 fa = np.asarray(F)

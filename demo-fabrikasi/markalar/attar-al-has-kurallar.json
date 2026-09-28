@@ -8,7 +8,9 @@
     "pedestal": true,
     "solidTop": 0.24,
     "convex": 0.3,
-    "backLang": "en"
+    "backLang": "en",
+    "edgeFrom": "side",
+    "clear": "^(anatolian-rose|ethereal-moonstone|gold-sunset|harmonic-tourmaline|liberty-s-way|radiant-peridot|skin-musk|tiger-s-eye|velvet-morganite|wild-emerald|wonderful-tonka|yellow-splash)$"
   },
   "aktar": {
     "domain": "attaralhas.com",
@@ -52,7 +54,7 @@
     },
     "profiles": {
       "flask": ".",
-      "depthRatio": 0.5
+      "depthRatio": 0.36
     },
     "home": [
       "passion-oud",

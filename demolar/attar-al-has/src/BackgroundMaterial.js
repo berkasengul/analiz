@@ -287,27 +287,65 @@ export const BackgroundMaterial = shaderMaterial(
         float hz = exp(-pow(fy / 0.006, 2.)) * exp(-pow(fdx / (bw * 1.3), 2.));
         base += mix(tint, vec3(1.), 0.6) * hz * 0.1 * u_floor * u_stage;
 
-        // Osmanlı kemeri ("glide"): ürünün çevresinde sivri kemerli bir niş. İçi ürünün renginde
-        // yumuşak ışıkla dolar; kenarında iki ince altın çizgi ve tepesinde küçük bir alem.
+        // Osmanlı kemeri ("glide"): ürünün çevresinde sivri kemerli bir niş. İçi ürünün renginde ışıkla
+        // dolar, tepesinde mukarnası andıran ince oluklar; kenarında iki altın çizgi ve aralarında sekiz
+        // köşeli yıldız dizisi; çizgilerde yavaşça yukarı süzülen bir parıltı, kemer ayaklarında başlıklar,
+        // tepede hilalli alem.
         if (u_arch > 0.001) {
-          float w = bw * 0.46;
+          float w = bw * 0.45;
           float r = w * 1.45;
-          float h0 = bw * 0.6;
+          float h0 = bw * 0.5;
+          float peak = h0 + 1.38 * w;
           float ax = abs(fdx);
           float dArc = length(vec2(ax - (w - r), fy - h0)) - r;
           float dSide = ax - w;
           float dA = fy < h0 ? max(dSide, -fy - 0.02) : dArc;
           float inside = 1. - smoothstep(-0.03, 0.004, dA);
-          vec3 gold = vec3(0.86, 0.68, 0.4);
-          float top = fy / (h0 + 1.38 * w);
-          base = mix(base, base * 0.72 + tint * (0.1 + 0.16 * (1. - top)) , inside * 0.55 * u_arch);
-          float line1 = exp(-pow(dA / 0.0022, 2.));
-          float line2 = exp(-pow((dA - 0.016) / 0.0014, 2.));
+          float top = clamp(fy / peak, 0., 1.);
           float fadeB = smoothstep(-0.03, 0.05, fy);
-          base += gold * (line1 * 0.55 + line2 * 0.3) * fadeB * u_arch * u_stage;
-          vec2 fin = vec2(fdx, fy - (h0 + 1.38 * w + 0.03));
-          float alem = exp(-dot(fin / vec2(0.006, 0.018), fin / vec2(0.006, 0.018)));
-          base += gold * alem * 0.6 * u_arch * u_stage;
+
+          // Nişin içi: üstte daha derin, ürünün renginde yumuşak ışık; tepede ince dikey oluklar.
+          float flute = (0.5 + 0.5 * cos(fdx / w * 3.14159 * 7.)) * smoothstep(h0 * 0.9, peak, fy);
+          base = mix(base, base * 0.68 + tint * (0.09 + 0.17 * (1. - top)) + tint * flute * 0.05, inside * 0.6 * u_arch);
+          // İç kenarda ince ışık (nişin derinliği).
+          base += tint * exp(-pow((dA + 0.012) / 0.01, 2.)) * 0.12 * inside * u_arch * u_stage;
+
+          // Metalik altın: dikeyde koyudan açığa, zamanla çizgi boyunca yukarı süzülen parıltı.
+          vec3 goldD = vec3(0.55, 0.38, 0.17);
+          vec3 goldL = vec3(1., 0.86, 0.58);
+          float glint = exp(-pow((top - fract(u_time * 0.06) * 1.25 + 0.1) / 0.06, 2.));
+          vec3 gold = mix(goldD, goldL, 0.45 + 0.35 * sin(fy * 38. + fdx * 9.) * 0.5 + 0.3 * top) + goldL * glint * 1.6;
+
+          float band = 0.022;
+          float line1 = exp(-pow(dA / 0.0024, 2.));
+          float line2 = exp(-pow((dA - band) / 0.0016, 2.));
+          float line0 = exp(-pow((dA + 0.009) / 0.0009, 2.)) * 0.5;
+          // Çizgiler arasında sekiz köşeli yıldızlar (iki dönük kare) ve aralarında küçük noktalar.
+          float inBand = smoothstep(0.003, 0.006, dA) * (1. - smoothstep(band - 0.006, band - 0.003, dA));
+          vec2 sp = vec2(fdx, fy) / (band * 0.95);
+          vec2 cell = fract(sp) - 0.5;
+          vec2 q1 = abs(cell);
+          vec2 q2 = abs(mat2(0.7071, -0.7071, 0.7071, 0.7071) * cell);
+          float star = 1. - smoothstep(0.2, 0.26, min(max(q1.x, q1.y), max(q2.x, q2.y)));
+          float starEdge = star - (1. - smoothstep(0.12, 0.18, min(max(q1.x, q1.y), max(q2.x, q2.y))));
+          float pattern = inBand * (starEdge * 0.8 + star * 0.12);
+          float bloom = exp(-abs(dA) / 0.018) * 0.08;
+          base += gold * (line1 * 0.7 + line2 * 0.45 + line0 + pattern * 0.55 + bloom) * fadeB * u_arch * u_stage;
+
+          // Kemer ayaklarında başlıklar (kemerin başladığı yerde ve zeminde).
+          for (int k = 0; k < 2; k++) {
+            float yy = k == 0 ? h0 : 0.004;
+            vec2 cp = vec2(ax - (w + band * 0.5), fy - yy);
+            float capital = 1. - smoothstep(0., 0.0018, max(abs(cp.x) - band * 0.62, abs(cp.y) - 0.0026));
+            base += gold * capital * 0.4 * u_arch * u_stage;
+          }
+
+          // Alem: tepede küçük bir top, ince çubuk ve hilal.
+          vec2 al = vec2(fdx, fy - peak - band);
+          float ball = 1. - smoothstep(0.003, 0.0045, length(al - vec2(0., 0.009)));
+          float rod = (1. - smoothstep(0.0009, 0.0018, abs(al.x))) * step(0., al.y) * step(al.y, 0.028);
+          float moon = (1. - smoothstep(0.0065, 0.0078, length(al - vec2(0., 0.036)))) * smoothstep(0.0052, 0.0066, length(al - vec2(0.003, 0.039)));
+          base += gold * max(max(ball, rod * 0.8), moon) * 0.8 * u_arch * u_stage;
         }
       }
 

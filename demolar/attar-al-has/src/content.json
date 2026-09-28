@@ -1165,10 +1165,10 @@
   ],
   "labelFinish": {
     "metalness": 0,
-    "roughness": 0.42,
-    "clearcoat": 0.5,
-    "clearcoatRoughness": 0.25,
-    "envMapIntensity": 0.8
+    "roughness": 0.5,
+    "clearcoat": 0.25,
+    "clearcoatRoughness": 0.3,
+    "envMapIntensity": 0.55
   },
   "fillLight": "#efe4d6",
   "commerce": {
@@ -1197,7 +1197,8 @@
     "studio": true,
     "pedestal": true,
     "carousel": "glide",
-    "cards": "gallery"
+    "cards": "gallery",
+    "cardAngle": 0.32
   },
   "contactInfo": {
     "tr": [
@@ -1317,7 +1318,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2646,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -2257,7 +2258,7 @@
             ]
           ]
         ],
-        "edge": "#937a69"
+        "edge": "#5c3225"
       },
       "price": {
         "tr": 285.0,
@@ -2325,7 +2326,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2646,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5,
         "rows": [
           0.0,
@@ -3389,7 +3390,7 @@
             ]
           ]
         ],
-        "edge": "#4579b4"
+        "edge": "#013e86"
       },
       "price": {
         "tr": 285.0,
@@ -3457,7 +3458,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2646,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4992,
         "rows": [
           0.0,
@@ -4573,7 +4574,7 @@
             ]
           ]
         ],
-        "edge": "#ac6a68"
+        "edge": "#781c20"
       },
       "price": {
         "tr": 285.0,
@@ -4641,7 +4642,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2271,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5,
         "rows": [
           0.0,
@@ -5721,7 +5722,9 @@
             ]
           ]
         ],
-        "edge": "#cbc0ae"
+        "edge": "#d9bd3c",
+        "clear": true,
+        "liquid": "#d9bd3c"
       },
       "price": {
         "tr": 275.0,
@@ -5789,7 +5792,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2646,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4992,
         "rows": [
           0.0,
@@ -6921,7 +6924,7 @@
             ]
           ]
         ],
-        "edge": "#c4a16f"
+        "edge": "#a67a3c"
       },
       "price": {
         "tr": 285.0,
@@ -6989,7 +6992,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2646,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4992,
         "rows": [
           0.0,
@@ -8021,7 +8024,7 @@
             ]
           ]
         ],
-        "edge": "#8a7c90"
+        "edge": "#4d467d"
       },
       "price": {
         "tr": 285.0,
@@ -8089,7 +8092,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2562,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -9145,7 +9148,7 @@
             ]
           ]
         ],
-        "edge": "#aaa1af"
+        "edge": "#6287b5"
       },
       "price": {
         "tr": 285.0,
@@ -9213,7 +9216,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2646,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -10261,7 +10264,7 @@
             ]
           ]
         ],
-        "edge": "#cba190"
+        "edge": "#dc844e"
       },
       "price": {
         "tr": 285.0,
@@ -10329,7 +10332,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2646,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4992,
         "rows": [
           0.0,
@@ -11445,7 +11448,7 @@
             ]
           ]
         ],
-        "edge": "#363637"
+        "edge": "#3e3e3d"
       },
       "price": {
         "tr": 285.0,
@@ -11513,7 +11516,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2396,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5109,
         "rows": [
           0.0,
@@ -12513,7 +12516,7 @@
             ]
           ]
         ],
-        "edge": "#d1cdcb"
+        "edge": "#ddd8d4"
       },
       "price": {
         "tr": 285.0,
@@ -12581,7 +12584,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2562,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -13653,7 +13656,9 @@
             ]
           ]
         ],
-        "edge": "#c8ae99"
+        "edge": "#c5933b",
+        "clear": true,
+        "liquid": "#c5933b"
       },
       "price": {
         "tr": 295.0,
@@ -13721,7 +13726,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2562,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -14797,7 +14802,9 @@
             ]
           ]
         ],
-        "edge": "#cdb39f"
+        "edge": "#c5943b",
+        "clear": true,
+        "liquid": "#c5943b"
       },
       "price": {
         "tr": 295.0,
@@ -14865,7 +14872,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2562,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -15845,7 +15852,9 @@
             ]
           ]
         ],
-        "edge": "#ccb39e"
+        "edge": "#c5943b",
+        "clear": true,
+        "liquid": "#c5943b"
       },
       "price": {
         "tr": 295.0,
@@ -15913,7 +15922,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2562,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -16897,7 +16906,9 @@
             ]
           ]
         ],
-        "edge": "#ceb49f"
+        "edge": "#c5943b",
+        "clear": true,
+        "liquid": "#c5943b"
       },
       "price": {
         "tr": 295.0,
@@ -16965,7 +16976,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2562,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -17949,7 +17960,9 @@
             ]
           ]
         ],
-        "edge": "#cab09c"
+        "edge": "#c5943b",
+        "clear": true,
+        "liquid": "#c5943b"
       },
       "price": {
         "tr": 295.0,
@@ -18017,7 +18030,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2562,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.4984,
         "rows": [
           0.0,
@@ -18997,7 +19010,9 @@
             ]
           ]
         ],
-        "edge": "#ccb39e"
+        "edge": "#c5943b",
+        "clear": true,
+        "liquid": "#c5943b"
       },
       "price": {
         "tr": 295.0,
@@ -19065,7 +19080,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2271,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5,
         "rows": [
           0.0,
@@ -20069,7 +20084,9 @@
             ]
           ]
         ],
-        "edge": "#c8c7c8"
+        "edge": "#dcdacb",
+        "clear": true,
+        "liquid": "#dcdacb"
       },
       "price": {
         "tr": 275.0,
@@ -20137,7 +20154,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2271,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5008,
         "rows": [
           0.0,
@@ -21177,7 +21194,9 @@
             ]
           ]
         ],
-        "edge": "#c0bab5"
+        "edge": "#d1c6a1",
+        "clear": true,
+        "liquid": "#d1c6a1"
       },
       "price": {
         "tr": 275.0,
@@ -21245,7 +21264,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2271,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5,
         "rows": [
           0.0,
@@ -22277,7 +22296,9 @@
             ]
           ]
         ],
-        "edge": "#c4c0b2"
+        "edge": "#d0c46e",
+        "clear": true,
+        "liquid": "#d0c46e"
       },
       "price": {
         "tr": 275.0,
@@ -22345,7 +22366,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2271,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5,
         "rows": [
           0.0,
@@ -23389,7 +23410,9 @@
             ]
           ]
         ],
-        "edge": "#c5b6ab"
+        "edge": "#daa820",
+        "clear": true,
+        "liquid": "#daa820"
       },
       "price": {
         "tr": 275.0,
@@ -23457,7 +23480,7 @@
       "photo3d": {
         "profile": "flask",
         "neck": 0.2271,
-        "depthRatio": 0.5,
+        "depthRatio": 0.36,
         "axis": 0.5,
         "rows": [
           0.0,
@@ -24461,7 +24484,9 @@
             ]
           ]
         ],
-        "edge": "#cbc4bd"
+        "edge": "#c0b27f",
+        "clear": true,
+        "liquid": "#c0b27f"
       },
       "price": {
         "tr": 275.0,

@@ -109,6 +109,8 @@ def photo3d(h, m):
     if m.get("parts"):
         return {"profile": "group", "parts": [photo3d(p["handle"], p) for p in m["parts"]]}
     shape = {"axis": m.get("axis", 0.5), "rows": m.get("rows", []), "outline": m.get("outline", []), "edge": hexc(m.get("edge", [120, 110, 90]))}
+    if m.get("clear"):
+        shape.update(clear=True, liquid=hexc(m["liquid"]))
     if P.get("flask") and re.search(P["flask"], h) and m.get("neck"):
         return {"profile": "flask", "neck": m["neck"], "depthRatio": P.get("depthRatio", 0.42), **shape}
     if P.get("flat") and re.search(P["flat"], h):
