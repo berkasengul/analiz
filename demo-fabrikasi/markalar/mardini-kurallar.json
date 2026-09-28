@@ -1,0 +1,1237 @@
+{
+  "foto": {
+    "ai": true,
+    "studio": true,
+    "backPhotos": false,
+    "views": false,
+    "hero": [
+      [
+        "assyria",
+        3
+      ],
+      [
+        "babel",
+        2
+      ],
+      [
+        "brown-garden",
+        1
+      ],
+      [
+        "buselik",
+        2
+      ],
+      [
+        "dogal-gul-serumu",
+        3
+      ],
+      [
+        "ezmira",
+        2
+      ],
+      [
+        "gul-kolonyasi",
+        2
+      ],
+      [
+        "gul-kuru-yag",
+        1
+      ],
+      [
+        "gul-suyu",
+        2
+      ],
+      [
+        "hicaz",
+        2
+      ],
+      [
+        "kurdi",
+        2
+      ],
+      [
+        "larsa",
+        2
+      ],
+      [
+        "neva",
+        2
+      ],
+      [
+        "nihavend",
+        2
+      ],
+      [
+        "rast",
+        2
+      ],
+      [
+        "roj",
+        2
+      ],
+      [
+        "rusa",
+        2
+      ],
+      [
+        "saba",
+        2
+      ],
+      [
+        "saf-gul-yagi",
+        3
+      ],
+      [
+        "saf-lavanta",
+        2
+      ],
+      [
+        "tushpa",
+        2
+      ],
+      [
+        "ussak",
+        2
+      ],
+      [
+        "zal",
+        2
+      ]
+    ],
+    "edgeFrom": "side",
+    "clear": "edp-unisex-parfum|gul-kolonyasi|gul-suyu|gul-kuru-yag|dogal-gul-serumu|saf-lavanta"
+  },
+  "aktar": {
+    "domain": "mardinikozmetik.com",
+    "namePrefix": "^$",
+    "idPrefix": "",
+    "defaultSize": "100 ml",
+    "categories": [
+      {
+        "id": "gold",
+        "tr": "Gold Seri",
+        "en": "Gold Series",
+        "color": "#d4a64a",
+        "descTr": "Makamların adını taşıyan kokular: Hicaz, Rast, Kürdi, Uşşak, Saba, Neva, Nihavend, Buselik.",
+        "descEn": "Fragrances named after the makams of Turkish music: Hicaz, Rast, Kurdi, Ussak, Saba, Neva, Nihavend, Buselik.",
+        "match": "^(buselik|hicaz|kurdi|neva|nihavend|rast|saba|ussak)-edp"
+      },
+      {
+        "id": "silver",
+        "tr": "Silver Seri",
+        "en": "Silver Series",
+        "color": "#b9c0cc",
+        "descTr": "Mezopotamya'nın kadim uygarlıklarından ilham alan kokular: Assyria, Babel, Larsa, Tushpa, Rusa, Zal, Roj, Ezmira.",
+        "descEn": "Fragrances inspired by the ancient civilisations of Mesopotamia: Assyria, Babel, Larsa, Tushpa, Rusa, Zal, Roj, Ezmira.",
+        "match": "^(assyria|babel|ezmira|larsa|roj|rusa|tushpa|zal)-edp"
+      },
+      {
+        "id": "gul",
+        "tr": "Gül & Bakım",
+        "en": "Rose & Care",
+        "color": "#e39aab",
+        "descTr": "Mardin'deki kendi tarlalarımızda yetişen Rosa Damascena ve lavantadan.",
+        "descEn": "From the Rosa Damascena and lavender grown in our own fields in Mardin.",
+        "match": "."
+      }
+    ],
+    "profiles": {
+      "flask": "edp-unisex-parfum",
+      "depthRatio": 0.4
+    },
+    "sizes": [
+      [
+        "serumu",
+        "30 ml"
+      ],
+      [
+        "gul-yagi",
+        "10 ml"
+      ],
+      [
+        "lavanta-yagi",
+        "50 ml"
+      ],
+      [
+        "body-mist",
+        "250 ml"
+      ]
+    ],
+    "home": [
+      "kurdi-edp-unisex-parfum-100-ml",
+      "babel-edp-unisex-parfum-100-ml",
+      "hicaz-edp-unisex-parfum-100-ml",
+      "saf-gul-yagi-10-ml",
+      "assyria-edp-unisex-parfum-100-ml",
+      "roj-edp-unisex-parfum-100-ml"
+    ],
+    "ritual": [
+      {
+        "handle": "kurdi-edp-unisex-parfum-100-ml",
+        "tr": {
+          "title": "Tarla",
+          "text": "Mardin Yaylabaşı'nda 700 dönüm gül ve lavanta bahçesi. Zirai ilaç yok, hasat elle yapılıyor.",
+          "stat": "700 dönüm"
+        },
+        "en": {
+          "title": "Field",
+          "text": "700 decares of rose and lavender gardens in Yaylabaşı, Mardin. No pesticides; every harvest is picked by hand.",
+          "stat": "700 decares"
+        }
+      },
+      {
+        "handle": "saf-gul-yagi-10-ml",
+        "tr": {
+          "title": "Damıtma",
+          "text": "Bahçelerin hemen yanındaki 10.000 m² fabrikada gül ve lavanta; gül yağı, gül suyu ve lavanta yağına dönüşüyor.",
+          "stat": "10.000 m²"
+        },
+        "en": {
+          "title": "Distillation",
+          "text": "In the 10,000 m² factory right next to the gardens, rose and lavender become rose oil, rose water and lavender oil.",
+          "stat": "10,000 m²"
+        }
+      },
+      {
+        "handle": "babel-edp-unisex-parfum-100-ml",
+        "tr": {
+          "title": "Kadın emeği",
+          "text": "Tarladan fabrikaya, üretimin her aşamasında kadın istihdamı: emeğin, özgüvenin ve hayata yeniden katılmanın alanı.",
+          "stat": "Mardin"
+        },
+        "en": {
+          "title": "Women's work",
+          "text": "From field to factory, women are employed at every stage of production: a space for work, confidence and taking part in life again.",
+          "stat": "Mardin"
+        }
+      }
+    ],
+    "tagline": "notes",
+    "palette": [
+      [
+        "^kurdi",
+        "#b5872c",
+        "#f5d98f",
+        "#140e04"
+      ],
+      [
+        "^hicaz",
+        "#b98128",
+        "#f7cf86",
+        "#150d03"
+      ],
+      [
+        "^rast",
+        "#8e7236",
+        "#e9d09a",
+        "#100c05"
+      ],
+      [
+        "^neva",
+        "#ad8732",
+        "#f2d58c",
+        "#130e04"
+      ],
+      [
+        "^nihavend",
+        "#9f8a36",
+        "#eadb92",
+        "#110f05"
+      ],
+      [
+        "^saba",
+        "#a2682a",
+        "#f4c58c",
+        "#140a03"
+      ],
+      [
+        "^ussak",
+        "#c1981e",
+        "#ffe08a",
+        "#161103"
+      ],
+      [
+        "^buselik",
+        "#9c9236",
+        "#e9e396",
+        "#111005"
+      ],
+      [
+        "^assyria",
+        "#7f8698",
+        "#dfe4ee",
+        "#08090c"
+      ],
+      [
+        "^babel",
+        "#c07c8e",
+        "#ffc6d4",
+        "#15080b"
+      ],
+      [
+        "^ezmira",
+        "#4f86a0",
+        "#bfe2f2",
+        "#050b0e"
+      ],
+      [
+        "^larsa",
+        "#8a6f98",
+        "#e2cff0",
+        "#0b080d"
+      ],
+      [
+        "^roj",
+        "#b8742e",
+        "#ffcf92",
+        "#150b03"
+      ],
+      [
+        "^rusa",
+        "#6f8270",
+        "#d2e6d0",
+        "#070a07"
+      ],
+      [
+        "^tushpa",
+        "#a8606e",
+        "#ffc2cc",
+        "#130608"
+      ],
+      [
+        "^zal",
+        "#6f9a96",
+        "#cdeeea",
+        "#060b0b"
+      ],
+      [
+        "saf-gul-yagi",
+        "#c05a76",
+        "#ffbfd0",
+        "#16060a"
+      ],
+      [
+        "gul-suyu",
+        "#b8788a",
+        "#ffd0dc",
+        "#14080b"
+      ],
+      [
+        "gul-serumu",
+        "#c86a82",
+        "#ffc4d2",
+        "#16070a"
+      ],
+      [
+        "gul-kuru-yag",
+        "#b08470",
+        "#f6d6c6",
+        "#130a07"
+      ],
+      [
+        "gul-kolonyasi",
+        "#a8889a",
+        "#f0dce6",
+        "#0f0a0c"
+      ],
+      [
+        "lavanta",
+        "#6e5ca8",
+        "#d6cbff",
+        "#09070f"
+      ],
+      [
+        "brown-garden",
+        "#9c6a44",
+        "#f2c79e",
+        "#120a05"
+      ]
+    ],
+    "rename": {
+      "assyria-edp-unisex-parfum-100-ml": [
+        "Assyria",
+        "Assyria"
+      ],
+      "babel-edp-unisex-parfum-100-ml": [
+        "Babel",
+        "Babel"
+      ],
+      "berdan-mardini-brown-garden-250-ml-body-mist": [
+        "Brown Garden",
+        "Brown Garden"
+      ],
+      "buselik-edp-unisex-parfum-100-ml": [
+        "Buselik",
+        "Buselik"
+      ],
+      "dogal-gul-serumu-30-ml": [
+        "Gül Serumu",
+        "Rose Face Serum"
+      ],
+      "ezmira-edp-unisex-parfum-100-ml": [
+        "Ezmira",
+        "Ezmira"
+      ],
+      "gul-kolonyasi-100-ml": [
+        "Gül Kolonyası",
+        "Rose Cologne"
+      ],
+      "gul-kuru-yag-100-ml": [
+        "Gül Kuru Yağı",
+        "Rose Dry Oil"
+      ],
+      "gul-suyu-100-ml": [
+        "Gül Suyu",
+        "Rose Water"
+      ],
+      "hicaz-edp-unisex-parfum-100-ml": [
+        "Hicaz",
+        "Hicaz"
+      ],
+      "kurdi-edp-unisex-parfum-100-ml": [
+        "Kürdi",
+        "Kurdi"
+      ],
+      "larsa-edp-unisex-parfum-100-ml": [
+        "Larsa",
+        "Larsa"
+      ],
+      "neva-edp-unisex-parfum-100-ml": [
+        "Neva",
+        "Neva"
+      ],
+      "nihavend-edp-unisex-parfum-100-ml": [
+        "Nihavend",
+        "Nihavend"
+      ],
+      "rast-edp-unisex-parfum-100-ml": [
+        "Rast",
+        "Rast"
+      ],
+      "roj-edp-unisex-parfum-100-ml": [
+        "Roj",
+        "Roj"
+      ],
+      "rusa-edp-unisex-parfum-100-ml": [
+        "Rusa",
+        "Rusa"
+      ],
+      "saba-edp-unisex-parfum-100-ml": [
+        "Saba",
+        "Saba"
+      ],
+      "saf-gul-yagi-10-ml": [
+        "Saf Gül Yağı",
+        "Pure Rose Oil"
+      ],
+      "saf-lavanta-yagi-50-ml": [
+        "Saf Lavanta Yağı",
+        "Pure Lavender Oil"
+      ],
+      "tushpa-edp-unisex-parfum-100-ml": [
+        "Tushpa",
+        "Tushpa"
+      ],
+      "ussak-edp-unisex-parfum-100-ml": [
+        "Uşşak",
+        "Ussak"
+      ],
+      "zal-edp-unisex-parfum-100-ml": [
+        "Zal",
+        "Zal"
+      ]
+    },
+    "notes": [
+      [
+        "^assyria\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Karabiber",
+            "Black Pepper"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Sedir Ağacı",
+            "Cedarwood"
+          ],
+          [
+            "Galbanum",
+            "Galbanum"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ]
+        ]
+      ],
+      [
+        "^babel\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Limon",
+            "Lemon"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Misk",
+            "Musk"
+          ],
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Sardunya",
+            "Geranium"
+          ]
+        ]
+      ],
+      [
+        "^berdan\\-mardini\\-brown\\-garden\\-250\\-ml\\-body\\-mist$",
+        [
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Hindistan Cevizi Akoru",
+            "Coconut Accord"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Şeftali",
+            "Peach"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ]
+        ]
+      ],
+      [
+        "^buselik\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Kakule",
+            "Cardamom"
+          ],
+          [
+            "Çiçeksi Notalar (Sümbül",
+            "Floral Accords"
+          ],
+          [
+            "Sedir Ağacı",
+            "Cedarwood"
+          ],
+          [
+            "Okaliptüs",
+            "Eucalyptus"
+          ],
+          [
+            "Yasemin",
+            "Lily of the Valley"
+          ]
+        ]
+      ],
+      [
+        "^dogal\\-gul\\-serumu\\-30\\-ml$",
+        [
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Nemlendirici",
+            "Moisturising"
+          ],
+          [
+            "Işıltı",
+            "Radiance"
+          ]
+        ]
+      ],
+      [
+        "^ezmira\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Limon",
+            "Lemon"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ]
+        ]
+      ],
+      [
+        "^gul\\-kolonyasi\\-100\\-ml$",
+        [
+          [
+            "Gül",
+            "Rose"
+          ]
+        ]
+      ],
+      [
+        "^gul\\-kuru\\-yag\\-100\\-ml$",
+        [
+          [
+            "Gül yağı",
+            "Rose oil"
+          ],
+          [
+            "Hızlı emilim",
+            "Fast absorbing"
+          ],
+          [
+            "Parlaklık",
+            "Glow"
+          ]
+        ]
+      ],
+      [
+        "^gul\\-suyu\\-100\\-ml$",
+        [
+          [
+            "Gül suyu",
+            "Rose water"
+          ],
+          [
+            "Gül yağı",
+            "Rose oil"
+          ]
+        ]
+      ],
+      [
+        "^hicaz\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Zencefil",
+            "Ginger"
+          ],
+          [
+            "İğne Yapraklı Notalar",
+            "Coniferous Accords"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Kafur",
+            "Camphor"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ]
+        ]
+      ],
+      [
+        "^kurdi\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Elma",
+            "Apple"
+          ],
+          [
+            "Müge",
+            "Lily of the Valley"
+          ]
+        ]
+      ],
+      [
+        "^larsa\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Mandalina",
+            "Mandarin"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ],
+          [
+            "Mür",
+            "Myrrh"
+          ],
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Beyaz Çiçekler",
+            "White Florals"
+          ]
+        ]
+      ],
+      [
+        "^neva\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Yeşil Mandalina",
+            "Green Tangerine"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Sedir Ağacı",
+            "Cedar Wood"
+          ],
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ]
+        ]
+      ],
+      [
+        "^nihavend\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Selvi",
+            "Cypress"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ],
+          [
+            "Sedir Yaprağı",
+            "Cedar Leaf"
+          ],
+          [
+            "Zencefil",
+            "Ginger"
+          ],
+          [
+            "Karabiber",
+            "Black Pepper"
+          ]
+        ]
+      ],
+      [
+        "^rast\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Yeşil Yapraklar",
+            "Green leaves"
+          ],
+          [
+            "Virjinya Sediri",
+            "Virginia Cedar"
+          ],
+          [
+            "Misk",
+            "Musk"
+          ],
+          [
+            "Tütün",
+            "Tobacco"
+          ],
+          [
+            "Vanilya",
+            "Vanilla"
+          ]
+        ]
+      ],
+      [
+        "^roj\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Karabiber",
+            "Black Pepper"
+          ],
+          [
+            "Sedir Ağacı",
+            "Cedarwood"
+          ],
+          [
+            "Limon",
+            "Lemon"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ]
+        ]
+      ],
+      [
+        "^rusa\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Mandalina",
+            "Mandarin"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Misk Notaları",
+            "Musky Notes"
+          ],
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ]
+        ]
+      ],
+      [
+        "^saba\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Tütsü",
+            "Incense"
+          ],
+          [
+            "Frambuaz",
+            "Raspberry"
+          ],
+          [
+            "Öd Ağacı",
+            "Aloe"
+          ],
+          [
+            "Sardunya",
+            "Geranium"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ]
+        ]
+      ],
+      [
+        "^saf\\-gul\\-yagi\\-10\\-ml$",
+        [
+          [
+            "Rosa Damascena",
+            "Rosa Damascena"
+          ],
+          [
+            "%100 saf",
+            "100% pure"
+          ]
+        ]
+      ],
+      [
+        "^saf\\-lavanta\\-yagi\\-50\\-ml$",
+        [
+          [
+            "Lavanta",
+            "Lavender"
+          ],
+          [
+            "%100 saf",
+            "100% pure"
+          ]
+        ]
+      ],
+      [
+        "^tushpa\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Portakal",
+            "Orange"
+          ],
+          [
+            "Sardunya",
+            "Geranium"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Bergamot",
+            "Bergamot"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ]
+        ]
+      ],
+      [
+        "^ussak\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Hindistan Cevizi",
+            "Coconut"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Odunsu Notalar",
+            "Woody"
+          ],
+          [
+            "Biber",
+            "Pepper"
+          ],
+          [
+            "Yasemin",
+            "Jasmine"
+          ]
+        ]
+      ],
+      [
+        "^zal\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        [
+          [
+            "Okaliptüs",
+            "Eucalyptus"
+          ],
+          [
+            "Gül",
+            "Rose"
+          ],
+          [
+            "Paçuli",
+            "Patchouli"
+          ],
+          [
+            "Galbanum",
+            "Galbanum"
+          ],
+          [
+            "Çiçeksi Notalar",
+            "Floral Accords"
+          ]
+        ]
+      ]
+    ],
+    "library": [
+      {
+        "match": "^assyria\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Karabiber, Galbanum, Limon, Portakal",
+            "Kalp: Gül, Çiçeksi Notalar, Menekşe, Karanfil",
+            "Alt: Sedir Ağacı, Olibanum (Günnük Reçinesi), Vetiver, Vanilya"
+          ],
+          "en": [
+            "Top: Black Pepper, Galbanum, Lemon, Orange",
+            "Heart: Rose, Floral Accords, Violet, Clove",
+            "Base: Cedarwood, Olibanum (Frankincense), Vetiver, Vanilla"
+          ]
+        }
+      },
+      {
+        "match": "^babel\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Limon, Portakal, Elma, Okaliptus",
+            "Kalp: Gül, Sardunya, Erik",
+            "Alt: Misk"
+          ],
+          "en": [
+            "Top: Lemon, Orange, Apple, Eucalyptus",
+            "Heart: Rose, Geranium, Plum",
+            "Base: Musk"
+          ]
+        }
+      },
+      {
+        "match": "^berdan\\-mardini\\-brown\\-garden\\-250\\-ml\\-body\\-mist$",
+        "composition": {
+          "tr": [
+            "Üst: Portakal, Şeftali, Verbena, Badem Akoru",
+            "Kalp: Hindistan Cevizi Akoru, Çiçeksi Notalar, Müge (İnci Çiçeği), Beyaz Çiçekler",
+            "Alt: Paçuli, Misk Notaları, Vanilya, Sedir Ağacı"
+          ],
+          "en": [
+            "Top: Orange, Peach, Verbena, Almond Accord",
+            "Heart: Coconut Accord, Floral Accords, Lily of the Valley, White Florals",
+            "Base: Patchouli, Musky Notes, Vanilla, Cedarwood"
+          ]
+        }
+      },
+      {
+        "match": "^buselik\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Kakule, Okaliptüs, Derimsi Akorlar, Limon",
+            "Kalp: Çiçeksi Notalar (Sümbül, Yasemin, Menekşe), Müge, Karabiber, Gül",
+            "Alt: Sedir Ağacı, Misk Notaları, Olibanum (Günnük Reçinesi), Styrax (Balsamik Notalar)"
+          ],
+          "en": [
+            "Top: Cardamom, Eucalyptus, Leathery Accords, Lemon",
+            "Heart: Floral Accords, Lily of the Valley, Black Pepper, Rose",
+            "Base: Cedarwood, Musky Notes, Olibanum (Frankincense), Styrax (Resinous Balsamic Notes)"
+          ]
+        }
+      },
+      {
+        "match": "^ezmira\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Limon, Portakal, Greyfurt, Yeşil Yaprak Notaları",
+            "Kalp: Yasemin, Çiçeksi Notalar, Gül, İğne Yapraklı Notalar",
+            "Alt: Paçuli, Sedir Ağacı, Misk Notaları, Guaiac Ağacı (Dumanlı Notalar)"
+          ],
+          "en": [
+            "Top: Lemon, Orange, Grapefruit, Green Leaf Accords",
+            "Heart: Jasmine, Floral Accords, Rose, Coniferous Accords",
+            "Base: Patchouli, Cedarwood, Musky Notes, Guaiac Wood (Smoky Woody Nuances)"
+          ]
+        }
+      },
+      {
+        "match": "^hicaz\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Zencefil, Kafur, Elma, Safran",
+            "Kalp: İğne Yapraklı Notalar, Gül, Beyaz Çiçekler, Çiçeksi Akorlar",
+            "Alt: Paçuli, Amberimsi Notalar, Civet, Helyotrop"
+          ],
+          "en": [
+            "Top: Ginger, Camphor, Apple, Saffron",
+            "Heart: Coniferous Accords, Rose, White Florals, Floral Accords",
+            "Base: Patchouli, Ambery Notes, Civet Nuances, Heliotrope"
+          ]
+        }
+      },
+      {
+        "match": "^kurdi\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Portakal, Elma, Erik, Meyvemsi Akorlar",
+            "Kalp: Gül, Müge (İnci Çiçeği), Menekşe, Çiçeksi Akorlar",
+            "Alt: Paçuli, Sandal Ağacı, Amberimsi ve Odunsu Notalar"
+          ],
+          "en": [
+            "Top: Orange, Apple, Plum, Fruity Accords",
+            "Heart: Rose, Lily of the Valley, Violet, Floral Accords",
+            "Base: Patchouli, Sandalwood, Ambery and Woody Notes"
+          ]
+        }
+      },
+      {
+        "match": "^larsa\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Mandalina, Portakal, Erik, Bergamot",
+            "Kalp: Çiçeksi Notalar, Beyaz Çiçekler, Manolya, Helyotrop",
+            "Alt: Mür, Sedir Ağacı, Guaiac Ağacı, Vanilya"
+          ],
+          "en": [
+            "Top: Mandarin, Orange, Plum, Bergamot",
+            "Heart: Floral Accords, White Florals, Magnolia, Heliotrope",
+            "Base: Myrrh, Cedarwood, Guaiac Wood, Vanilla"
+          ]
+        }
+      },
+      {
+        "match": "^neva\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Yeşil Mandalina, Portakal, Karabiber, Elma",
+            "Kalp: Gül, Yasemin, Safran, Tarçın",
+            "Alt: Sedir Ağacı, Paçuli, Ud, Amber, Misk"
+          ],
+          "en": [
+            "Top: Green Tangerine, Orange, Black Pepper, Apple",
+            "Heart: Rose, Jasmine, Saffron, Cinnamon",
+            "Base: Cedar Wood, Patchouli, Oud, Amber, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^nihavend\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Selvi, Zencefil, Portakal, Bergamot",
+            "Kalp: Çiçeksi Notalar, Karabiber, Portakal Çiçeği, Yeşil Yaprak Notaları",
+            "Alt: Sedir Yaprağı, Sedir Ağacı, Misk Notaları, Amberimsi Notalar"
+          ],
+          "en": [
+            "Top: Cypress, Ginger, Orange, Bergamot",
+            "Heart: Floral Accords, Black Pepper, Orange Blossom, Green Leaf Accords",
+            "Base: Cedar Leaf, Cedarwood, Musky Notes, Ambery Notes"
+          ]
+        }
+      },
+      {
+        "match": "^rast\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Yeşil Yapraklar",
+            "Kalp: Virjinya Sediri",
+            "Alt: Misk, Tütün, Vanilya"
+          ],
+          "en": [
+            "Top: Green leaves",
+            "Heart: Virginia Cedar",
+            "Base: Musk, Tobacco, Vanilla"
+          ]
+        }
+      },
+      {
+        "match": "^roj\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Portakal, Limon, Bergamot",
+            "Kalp: Karabiber, Çiçeksi Notalar, Gül",
+            "Alt: Sedir Ağacı, Labdanum (Reçinemsi Balsamik Nota), Paçuli, Misk Notaları"
+          ],
+          "en": [
+            "Top: Orange, Lemon, Bergamot",
+            "Heart: Black Pepper, Floral Accords, Rose",
+            "Base: Cedarwood, Labdanum (Resinous Balsamic Notes), Patchouli, Musky Notes"
+          ]
+        }
+      },
+      {
+        "match": "^rusa\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Mandalina, Bergamot, Okaliptüs, Verbena",
+            "Kalp: Gül, Çiçeksi Notalar, İğne Yapraklı Notalar, Şeftali Akoru",
+            "Alt: Misk Notaları, Kuru Odunsu Notalar, Mür, Amberimsi Notalar"
+          ],
+          "en": [
+            "Top: Mandarin, Bergamot, Eucalyptus, Verbena",
+            "Heart: Rose, Floral Accords, Coniferous Accords, Peach Accord",
+            "Base: Musky Notes, Dry Woody Accords, Myrrh, Ambery Notes"
+          ]
+        }
+      },
+      {
+        "match": "^saba\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Tütsü, Sardunya, Safran",
+            "Kalp: Frambuaz, Gül",
+            "Alt: Öd Ağacı (Agarwood), Amber Ağacı (Amberwood)"
+          ],
+          "en": [
+            "Top: Incense, Geranium, Saffron",
+            "Heart: Raspberry, Rose",
+            "Base: Aloe, Amber Tree"
+          ]
+        }
+      },
+      {
+        "match": "^tushpa\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Portakal, Bergamot, Elma, Safran",
+            "Kalp: Sardunya, Gül, Çiçeksi Notalar, Ahududu Akoru",
+            "Alt: Paçuli, Sandal Ağacı, Sedir Ağacı, Misk Notaları"
+          ],
+          "en": [
+            "Top: Orange, Bergamot, Apple, Saffron",
+            "Heart: Geranium, Rose, Floral Accords, Raspberry Accord",
+            "Base: Patchouli, Sandalwood, Cedarwood, Musky Notes"
+          ]
+        }
+      },
+      {
+        "match": "^ussak\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Hindistan Cevizi, Biber, Kimyon",
+            "Kalp: Gül, Yasemin",
+            "Alt: Odunsu Notalar, Misk"
+          ],
+          "en": [
+            "Top: Coconut, Pepper, Cumin",
+            "Heart: Rose, Jasmine",
+            "Base: Woody, Musk"
+          ]
+        }
+      },
+      {
+        "match": "^zal\\-edp\\-unisex\\-parfum\\-100\\-ml$",
+        "composition": {
+          "tr": [
+            "Üst: Okaliptüs, Galbanum, Limon, Portakal",
+            "Kalp: Gül, Çiçeksi Notalar, Menekşe, Beyaz Çiçekler",
+            "Alt: Paçuli, Sedir Ağacı, Vetiver, Misk Notaları"
+          ],
+          "en": [
+            "Top: Eucalyptus, Galbanum, Lemon, Orange",
+            "Heart: Rose, Floral Accords, Violet, White Florals",
+            "Base: Patchouli, Cedarwood, Vetiver, Musky Notes"
+          ]
+        }
+      }
+    ],
+    "trText": {
+      "assyria-edp-unisex-parfum-100-ml": "Assyria Unisex Parfüm, yeryüzünün en eski ve en zengin medeniyetlerinden biri olan Asur uygarlığının botanik hafızasından ilham alır. Gülün ana vatanı olan bu kadim toprakların binlerce yıllık çiçek ve ağaç mirasını modern parfümeriyle buluşturan Assyria, teninizde tarihin en zarif izlerini taşır.",
+      "babel-edp-unisex-parfum-100-ml": "Babel Unisex Parfüm, Mezopotamya’nın kalbinde yükselen Babil Krallığı’nın efsanevi asma bahçelerinden ilham alır. Çamurun doğanın bin bir rengiyle buluştuğu o mucizevi anı şişeleyen bu koku, kadim toprakların botanik hafızasını modern bir zarafetle teninize taşır.",
+      "berdan-mardini-brown-garden-250-ml-body-mist": "Brown Garden Vücut Spreyi, meyve bahçelerinin canlı enerjisini gurme bir sıcaklıkla buluşturur. İlk fısta hissedilen meyvemsi parlaklık, teninize yerleştikçe kremamsı ve konforlu bir huzura dönüşür. Gün boyu size eşlik edecek bu özel formül, hem ferahlık hem de tatlı bir imza arayanlar için tasarlandı.",
+      "buselik-edp-unisex-parfum-100-ml": "Buselik Unisex Parfüm, Akdeniz’in uçsuz buçaksız limon bahçelerinden ilham alan, geleneksel Türk müziğinin en zarif makamlarından biri gibi ruhu dinlendiren bir sanat eseridir. Havaya karışan egzotik notaların ananas ferahlığıyla buluştuğu bu koku, bir \"buse\" kadar nazik ama bir o kadar da derin bir iz bırakır.",
+      "dogal-gul-serumu-30-ml": "Gül, yüzyıllardır zarafetin ve kusursuz güzelliğin sembolü olmuştur. Berdan Mardini Doğal Gül Serumu, Mezopotamya’nın bereketli topraklarında yetişen en üstün kalitedeki güllerden elde edilen saf gül yağı ile bu kadim mirası modern cilt bakımıyla buluşturuyor.",
+      "ezmira-edp-unisex-parfum-100-ml": "Ezmira, Mardini Silver serisinin en asil ve hayranlık uyandıran tasarımlarından biridir. İsmini kadim zamanların efsanevi prenseslerinden alan bu koku, sadece bir parfüm değil; kudretin, temizliğin ve mistik bir iyileştirici gücün temsilidir.",
+      "gul-kolonyasi-100-ml": "Mardini Gül Kolonyası, parfümörler tarafından özel olarak geliştirilen eşsiz esansıyla, klasik gül kokusunu modern ve seçkin bir yorumla yeniden tanımlıyor. Mezopotamya’nın bereketli topraklarındaki gül bahçelerinden ilham alan bu özel kompozisyon, her kullanımda sizi taze güllerle çevrili bir bahçe yürüyüşüne çıkarır.",
+      "gul-kuru-yag-100-ml": "Cilt bakımında yoğun nem ile hafifliği bir arada arayanlar için özel olarak formüle edilen Mardini Gül Kuru Vücut Yağı, günlük bakım rutininize konfor katıyor. İçeriğindeki gül yağı ve besleyici yağ kompleksi sayesinde cildinizi derinlemesine nemlendirirken, geleneksel yağların aksine ciltte yapışkan bir tabaka bırakmaz.",
+      "gul-suyu-100-ml": "Mardini Gül Suyu, Mezopotamya’nın 1200 rakımlı mistik yaylalarında, güneşin ilk ışıkları toprağa düşmeden el hasadı ile toplanan nadide Rosa Damascena güllerinden üretilmiştir.",
+      "hicaz-edp-unisex-parfum-100-ml": "Hicaz Unisex Parfüm, Doğu Asya’nın egzotik bahçelerinden başlayıp Hicaz’ın mistik topraklarında son bulan kokusal bir yolculuktur. Hicaz makamının o kendine has zarafetini ve hayal gücünü bir parfüm şişesine sığdıran bu özel kompozisyon, safran ve osmanthus çiçeğinin büyüleyici eşliğiyle açılır.",
+      "kurdi-edp-unisex-parfum-100-ml": "Kürdi Unisex Parfüm, insanlık tarihinin en eski koku hafızasını, Kürdi makamının o asil ve huzur veren melodisiyle birleştiriyor. Kadim zamanlardan süzülüp gelen elma, erik ve portakalın ferahlığıyla başlayan bu yolculuk; çiçek bahçelerinin zarafeti ve kadim ağaçların serinliğiyle son bulur.",
+      "larsa-edp-unisex-parfum-100-ml": "Larsa Unisex Parfüm, Basra’dan Çin’e uzanan kadim bir imparatorluğun görkeminden ve temizliği bir şifa kaynağı olarak gören ticaret merkezlerinin kokusal hafızasından ilham alır. Döneminin en etkili medeniyetlerinden biri olan Larsa’da, güzel kokular sadece bir aksesuar değil, ruhu ve bedeni arındıran bir mucizeydi.",
+      "neva-edp-unisex-parfum-100-ml": "Mardini Neva Unisex Parfüm, ismini aldığı o huzur veren melodi gibi teninizde zarif bir iz bırakmak için tasarlandı. Yeşil mandalinanın afrodizyak etkisi yaratan enerjisi ve portakalın büyüleyici notalarıyla başlayan bu serüven, elmanın canlılığıyla ferah bir açılış yapar. Neva, sadece bir koku değil;",
+      "nihavend-edp-unisex-parfum-100-ml": "Mardini Nihavend Unisex Parfüm, Nihavend makamının insana huzur, aşk ve yaşam enerjisi veren o eşsiz tınılarını teninizde sihirli bir dokunuşa dönüştürüyor. Zencefilin fütüristik enerjisi ve bergamotun aydınlık ferahlığıyla başlayan bu baş döndürücü dans, selvi ağaçlarının mistik gölgesinden geçerek ruhunuza dokunur.",
+      "rast-edp-unisex-parfum-100-ml": "Mardini Rast Unisex Parfüm, sizi sonsuz bir yeşilliğin ortasında, kadim sedir ağaçlarının gölgesinde derin bir yürüyüşe davet ediyor. Rast makamının o sağlam ve düzgün tınılarını kokusal bir forma dönüştüren bu özel kompozisyon, paçulinin keskin dokunuşlarıyla zihni açan bir başlangıç yapar.",
+      "roj-edp-unisex-parfum-100-ml": "Roj Unisex Parfüm, güneşin binlerce yıldır medeniyetlere beşiklik etmiş Anadolu ve Mezopotamya toprakları üzerine en cömert ışınlarını sunduğu o kutsal andan ilham alır. İsmini güneşin ve günün aydınlığından alan bu koku, güneş ışınlarının dik indiği topraklarda yetişen çiçeklerin o yoğun ve benzersiz aromasını teninize taşır.",
+      "rusa-edp-unisex-parfum-100-ml": "Mardini Rusa Unisex Parfüm, adını Urartu Krallığı’nı barışla yöneten ve topraklarını çiçek bahçelerine dönüştüren efsanevi Kral Rusa’dan alır. İnsanın doğayla buluştuğu o kadim ve huzurlu zaman dilimini bir şişeye sığdıran bu özel koku; bir medeniyetin gelişimini, asaletini ve doğaya olan tutkusunu temsil eder.",
+      "saba-edp-unisex-parfum-100-ml": "Mardini Saba Unisex Parfüm, günün ilk ışıklarında Mezopotamya ovasına açılan bir pencereden içeri süzülen o eşsiz atmosferi teninize taşıyor. Pencere önündeki sardunyaların ferahlığına karışan tütsü ve safranın mistik kokusu, ovadan esen rüzgarın getirdiği gül bahçelerinin asaletli kokusuyla buluşuyor.",
+      "saf-gul-yagi-10-ml": "Mardini Saf Gül Yağı, Mardin’in 1200 rakımlı eşsiz yaylalarında, sabahın ilk ışıkları henüz yeryüzüne düşmeden el hasadı ile toplanan Rosa Damascena güllerinden elde edilir.",
+      "saf-lavanta-yagi-50-ml": "Mardini Saf Lavanta Yağı, Anadolu’nun 1200 rakımlı bereketli yaylalarında, doğanın kalbinde yetiştirdiğimiz en seçkin lavantalardan geleneksel damıtma yöntemleriyle elde edilmiştir. Toprağın enerjisini ve güneşin sıcaklığını bünyesinde barındıran bu saf yağ, sadece bir koku değil;",
+      "tushpa-edp-unisex-parfum-100-ml": "Mardini Tushpa, insanlığa mimariyi miras bırakan kadim Urartu başkentinin taş işçiliğindeki ustalığı gibi, sevgi ve özenle yontulmuş bir koku profilidir. Gücü ve güzelliği temsil eden bu özel EDP, tarihin tozlu sayfalarından modern hayatın güçlü bireylerine uzanan bir köprü kurar.",
+      "ussak-edp-unisex-parfum-100-ml": "Mardini Uşşak Unisex Parfüm, sizi Doğu’nun gizemli kapılarını aralamaya, kadim zamanlardan gelen efsanevi bir seranada davet ediyor. Uşşak makamının o derin, olağanüstü ve ruhu dinlendiren nağmelerinden ilham alan bu koku;",
+      "zal-edp-unisex-parfum-100-ml": "Zal Unisex Parfüm, adını saflığı ve temizliği temsil eden bembeyaz saçlarıyla doğan efsanevi kahraman Zal’dan alır. Simurg kuşunun kanatları altında, yüksek dağların doruklarında nergisler ve süsenler arasında büyüyen Zal’ın hikayesi; beyaz güllerin, lalelerin ve zambakların asil kokusuyla teninizde hayat buluyor."
+    },
+    "platform": "ikas"
+  }
+}

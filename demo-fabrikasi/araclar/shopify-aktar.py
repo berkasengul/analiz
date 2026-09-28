@@ -23,6 +23,7 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "sizes": [["regex", "50 ml"]]           tek tek ürünlerin hacmi (defaultSize'dan önce)
     "trText": {"handle": "Türkçe açıklama"}   mağaza yalnızca İngilizceyse: markanın metninin Türkçe çevirisi
                                              (İngilizce metin mağazadan olduğu gibi kalır)
+    "platform": "ikas"              mağaza ikas (ikas-cek.py ile çekildi): sepette ödeme, ürünün mağazadaki sayfasında tamamlanır
     "library": [{"match": "regex", "composition": {"tr": [..], "en": [..]}, "year": {"tr": "Ocak 2026", "en": "January 2026"}}]
                                              markanın koku kütüphanesi: tam kompozisyon ve çıkış tarihi (ürün sayfasında)
     "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
@@ -241,6 +242,7 @@ def main():
             "image": f"r3d/{h}.webp" if os.path.exists(os.path.join(FOTO, "render3d", f"{h}.webp")) else i["m"].get("cut"), "cutout": True,
             **({"bg": palette_of(h)[0], "bg2": palette_of(h)[1]} if palette_of(h) else {}),
             "variants": [{"id": x["id"], "title": x["title"]} for x in i["variants"]] if len(i["variants"]) > 1 else [{"id": i["variants"][0]["id"]}],
+            "url": f"https://{R['domain']}/{h}" if R.get("platform") == "ikas" else f"https://{R['domain']}/products/{h}",
         }
         if i["compare"]:
             item["compareAt"] = {"tr": i["compare"], "en": i["compare"]}
@@ -258,7 +260,12 @@ def main():
     c["catalog"]["categories"] = [cats[k] for k in order if any(x["category"] == k for x in items_out)]
     c["catalog"]["items"] = items_out
     c["defaultShopFlavor"] = 0
-    c.setdefault("commerce", {})["shopify"] = f"https://{R['domain']}"
+    # Mağaza altyapısı: Shopify (sepet bağlantısı) ya da ikas (sepet bağlantısı yok: ürün sayfası açılır).
+    if R.get("platform") == "ikas":
+        c.setdefault("commerce", {}).pop("shopify", None)
+        c["commerce"]["ikas"] = f"https://{R['domain']}"
+    else:
+        c.setdefault("commerce", {})["shopify"] = f"https://{R['domain']}"
     dump(c, PATH)
     for k in order:
         n = sum(x["category"] == k for x in items_out)

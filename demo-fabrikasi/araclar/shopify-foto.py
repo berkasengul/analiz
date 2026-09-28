@@ -10,6 +10,7 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
     "views": true                   galerideki diğer ürün çekimleri (kapaksız şişe, kutu…) de 3B'ye çevrilir;
                                      sitede küçük görsele tıklayınca sahnedeki ürün o modele döner
     "noViews": "regex"              3B görünüm üretilmeyecek ürünler (ör. setler)
+    "hero": [["regex", 2]]          ana (ön) fotoğraf: o ürünün n. görseli (ilk görselde ürün kutusuyla birlikteyse)
     "skip": "regex"                 demoya alınmayacak ürünler (ör. deneme setleri, kutu ürünleri)
     "studio": true                  renkli/gri stüdyo zeminindeki ürün çekimleri de ürün fotoğrafı sayılır (yapay zekâyla kesilir)
     "pedestal": true                ürün bir kaide üstünde çekilmiş (zeminde yansıma yok): şeffaf camın açık renkli
@@ -791,6 +792,12 @@ def main():
 
         # Ana (ön) fotoğraf: ilk şeffaf ya da beyaz zeminli çekim.
         hero_i = next((i for i, k in enumerate(kinds) if k in "TW"), None)
+        # hero: [["regex", n]] → ana (ön) fotoğraf o ürünün n. görseli (ör. ilk görselde ürün kutusuyla birlikteyse).
+        pick = next((n for rx, n in RULES.get("hero", []) if re.search(rx, handle)), None)
+        if pick and pick <= len(ims):
+            hero_i = pick - 1
+            if kinds[hero_i] not in "TW":
+                kinds[hero_i] = "W"
         life_i = next((i for i, k in enumerate(kinds) if k == "L"), None)
         entry = {"gallery": gallery, "lifestyle": gallery[life_i] if life_i is not None else None, "kinds": "".join(kinds)}
         if hero_i is not None:
