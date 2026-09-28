@@ -11,6 +11,7 @@ import { useStore } from "./store";
 import { THEME } from "./theme";
 
 const SOLO = ["solo", "orbit", "rise"].includes(THEME.carousel);
+const RISE = THEME.carousel === "rise";
 const P = new Vector3();
 const Q = new Vector3();
 // Ürünlerin sahne fotoğrafları (products[].stage): bir kez yüklenir, ürünler arasında paylaşılır.
@@ -170,6 +171,10 @@ export default function Background() {
     // Canlı sahne (stage.vivid): fotoğraf olduğu gibi net ve parlak; karartma ve bulanıklık kalkar.
     l.vivid = MathUtils.damp(l.vivid ?? 0, stageOf?.vivid ? 1 : 0, 2.5, dt);
     m.u_vivid = l.vivid;
+    // Parlak zemin (rise): vitrinde tam; detayda (ürün başka yere geçer), Ritüel ve mağazada söner.
+    const floorT = RISE && l.baseY != null ? (st.detail ? 0 : 1) * (1 - scrollState.ritualIn) * (1 - scrollState.shopIn) : 0;
+    l.floor = MathUtils.damp(l.floor ?? 0, floorT, 3, dt);
+    m.u_floor = l.floor;
     material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
 

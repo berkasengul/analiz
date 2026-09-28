@@ -72,13 +72,14 @@ export function arcPose(d, aspect, time, i) {
       const ad2 = Math.min(ad, 1.5);
       // Komşu şişe yalnızca geçişte görünür; yerine oturunca ekran kenarında yarım şişe kalmaz.
       const vis = 1 - MathUtils.smoothstep(ad, 0.62, 0.9);
-      const sc = base * (phone ? 1.32 : 1.78) * (1 - 0.22 * Math.min(ad, 1)) * vis;
+      const sc = base * (phone ? 1.85 : 2.55) * (1 - 0.22 * Math.min(ad, 1)) * vis;
       return {
-        x: phone ? 0 : 2.1 * MathUtils.clamp(aspect / 1.9, 0.44, 1),
-        y: (phone ? 0.9 : 0.3) - d * (phone ? 9.5 : 8.6) + Math.sin(time * 0.8) * 0.06 * focus,
+        x: phone ? 0 : 2.75 * MathUtils.clamp(aspect / 1.9, 0.44, 1),
+        y: (phone ? 0.55 : -0.28) - d * (phone ? 12.5 : 12) + Math.sin(time * 0.8) * 0.05 * focus,
         z: -ad2 * 2.2,
-        rotX: 0.03,
-        rotY: d * Math.PI + (focus > 0 ? Math.sin(time * 0.45) * 0.2 * focus : 0),
+        rotX: 0.01,
+        // Yerindeyken neredeyse tam karşıdan: etiket düz ve okunur.
+        rotY: d * Math.PI + (focus > 0 ? Math.sin(time * 0.45) * 0.09 * focus : 0),
         rotZ: -0.08 * d,
         scale: sc,
       };

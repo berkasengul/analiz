@@ -33,6 +33,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_sceneMix: 1,
     u_sceneOn: 0,
     u_baseY: 0.4,
+    u_floor: 0,
     u_bottleH: 0.35,
     u_sceneX: 0.5,
     u_sceneLight: 1,
@@ -69,6 +70,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_sceneMix;
     uniform float u_sceneOn;
     uniform float u_baseY;
+    uniform float u_floor;
     uniform float u_bottleH;
     uniform float u_sceneX;
     uniform float u_sceneLight;
@@ -260,7 +262,29 @@ export const BackgroundMaterial = shaderMaterial(
 
       // Kutunun altında yumuşak ışık havuzu.
       float pool = 1. - smoothstep(0., mix(0.45, 0.3, u_studio), length((vUv - vec2(u_focusX, mix(0.1, 0.37, u_studio))) * vec2(u_aspect * 0.45, 2.4)));
-      base += light * pool * mix(0.12, 0.16, u_studio) * u_stage * (1. - u_sceneOn);
+      base += light * pool * mix(0.12, 0.16, u_studio) * u_stage * (1. - u_sceneOn) * (1. - u_floor);
+
+      // Parlak zemin (theme.carousel "rise"): ürünün arkasında renginde ışık patlaması, ayağının altında
+      // koyu, cilalı bir zemin; ayakta ışık havuzu, zeminde ürünün renginde yumuşak yansıma ve ufuk parıltısı.
+      if (u_floor > 0.001) {
+        vec3 tint = u_glow / max(max(u_glow.r, max(u_glow.g, u_glow.b)), 0.001);
+        float bw = max(u_bottleH, 0.2);
+        float fdx = (vUv.x - u_sceneX) * u_aspect;
+        float fy = vUv.y - u_baseY;
+        vec2 c = vec2(fdx, fy - bw * 0.52);
+        float ang = atan(c.y, c.x);
+        float rays = 0.6 + 0.4 * (0.5 + 0.5 * sin(ang * 9. + 1.7 * sin(ang * 4. + u_time * 0.08)));
+        float burst = exp(-pow(length(c / vec2(1.05, 1.2)) / (bw * 0.78), 2.)) * rays;
+        base += mix(tint, vec3(1.), 0.2) * burst * 0.2 * u_floor * u_stage;
+        float below = 1. - smoothstep(-0.02, 0.012, fy);
+        base *= mix(1., 0.5 + 0.5 * smoothstep(-0.4, 0., fy), below * u_floor * exp(-pow(fdx / (bw * 3.), 2.)));
+        vec2 q = vec2(fdx / (bw * 0.95), (fy + 0.018) / (bw * 0.1));
+        base += mix(tint, vec3(1.), 0.45) * exp(-dot(q, q)) * 0.3 * u_floor * u_stage;
+        float refl = exp(-pow(fdx / (bw * 0.24), 4.)) * below * exp(fy / (bw * 0.3));
+        base += tint * refl * 0.14 * u_floor * u_stage;
+        float hz = exp(-pow(fy / 0.006, 2.)) * exp(-pow(fdx / (bw * 1.3), 2.));
+        base += mix(tint, vec3(1.), 0.6) * hz * 0.1 * u_floor * u_stage;
+      }
 
       // Süzülen bokeh ışıkları (iki derinlik katmanı).
       for (int L = 0; L < 2; L++) {

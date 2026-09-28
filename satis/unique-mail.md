@@ -34,7 +34,7 @@ Unique'e Luxury için kokularınızı 3D olarak sergileyen bir web sitesi hazır
 
 Kısaca neler var:
 
-- **Şişeleriniz 3D ve tek başına sahnede:** 19 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada her seferinde tek bir şişe, yukarıdan vuran bir ışık huzmesinin altında süzülüyor; aşağı kaydırdıkça şişe dönerek yukarı çıkıyor, sıradaki koku aşağıdan dönerek ışığa geliyor. Sahne her kokunun renginde: Crush On Me kırmızı, Ocean The Rive lacivert, Mangonifiscent yeşil.
+- **Şişeleriniz 3D ve tek başına sahnede:** 19 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada her seferinde tek bir şişe ekranı dolduracak büyüklükte, etiketinin her detayı okunur şekilde, arkasında kokunun renginde bir ışık patlaması ve altında parlak bir zeminle sahnede duruyor; aşağı kaydırdıkça şişe dönerek yukarı çıkıyor, sıradaki koku aşağıdan dönerek ışığa geliyor. Sahne her kokunun renginde: Crush On Me kırmızı, Ocean The Rive lacivert, Mangonifiscent yeşil.
 - **Şişe çevrilebiliyor:** Arkada kokunun adı, notaları ve hacmiyle etiket var.
 - **Her kokunun notaları ve hikâyesi:** Ürüne girince ana notalar, kokunun hikâyesi ve markanızı anlatan 4 kısa bölüm açılıyor.
 - **Mağaza bulucunuz sitede:** 24 ülkedeki 68 yetkili satış noktanızın tamamı; ülkeye göre filtre, arama, yol tarifi, telefon ve web bağlantıları. ABD ve Türkiye iletişim bilgileriniz, WhatsApp ve çalışma saatleri de sayfanın sonunda.
