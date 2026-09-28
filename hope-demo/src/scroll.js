@@ -51,7 +51,11 @@ export function measureScroll() {
   // Masaüstünde kutu mağaza bölümünün altı ekrana gelince, mobilde üstü
   // ekranın tepesini geçince bölümle birlikte yukarı kayar.
   scrollState.shopOut = Math.max(0, wide ? (vh - sr.bottom) / vh : -sr.top / vh);
-  scrollState.sceneVisible = sr.bottom > 0;
+  // Ürün vitrini (#all, opak zemin) ekranı tamamen kaplarken arkadaki 3B sahne çizilmez: telefonda
+  // kaydırma ve kartların açılması takılmasın.
+  const ar = document.getElementById("all")?.getBoundingClientRect();
+  const covered = !!ar && ar.top <= 0 && ar.bottom >= vh;
+  scrollState.sceneVisible = sr.bottom > 0 && !covered;
   scrollState.velocity = smooth.lenis ? smooth.lenis.velocity : 0;
 }
 

@@ -6357,3 +6357,141 @@ button.buy__more {
 [data-theme="portal"] .catalog__tabs a:is(:hover, .is-on)::after {
   transform: scaleX(1);
 }
+
+/* ---------------------------------------------------------------- Portal: premium düğmeler (mobil dahil)
+   Cam, parlak gradyan ve dolgulu beyaz daireler yerine: koyu zemin, altın kıl çizgi, krem/altın ince ikon. */
+[data-theme="portal"] .round,
+[data-theme="portal"] .round:hover {
+  border: 1px solid rgba(212, 176, 106, 0.42) !important;
+  background: rgba(8, 6, 5, 0.55) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transform: none;
+  color: var(--cream);
+}
+[data-theme="portal"] .round:is(:hover, :focus-visible, .is-on) {
+  border-color: var(--gold-ink) !important;
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .round svg {
+  stroke-width: 1.2;
+}
+/* Özellik düğmeleri (ürün sayfası): altın halkalı koyu daire, altın ikon; seçili olan altın dolgulu. */
+[data-theme="portal"] .feat {
+  background: rgba(8, 6, 5, 0.5);
+  border: 1px solid rgba(212, 176, 106, 0.28);
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+[data-theme="portal"] .feat__icon {
+  color: var(--gold-ink);
+  background: rgba(8, 6, 5, 0.6);
+  border: 1px solid rgba(212, 176, 106, 0.6);
+  box-shadow: none;
+}
+[data-theme="portal"] .feat__icon svg {
+  stroke-width: 1.2;
+}
+[data-theme="portal"] .feat.is-on .feat__icon {
+  color: #120e09;
+  background: linear-gradient(135deg, #f1dfb2, var(--gold-ink));
+  border-color: transparent;
+}
+[data-theme="portal"] .feat:not(.is-on) .feat__icon::after {
+  border-color: rgba(212, 176, 106, 0.6);
+}
+@media (max-width: 900px) {
+  [data-theme="portal"] .feat {
+    padding: 0;
+    border: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  [data-theme="portal"] .feat__icon {
+    width: 42px;
+    height: 42px;
+  }
+}
+/* Notalar (ürün sayfası): noktasız, ince altın çerçeveli sade etiketler. */
+[data-theme="portal"] .detail__notes.chips li {
+  padding: 7px 14px;
+  border: 1px solid rgba(212, 176, 106, 0.3);
+  background: rgba(8, 6, 5, 0.35);
+  box-shadow: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+}
+[data-theme="portal"] .detail__notes.chips li::before {
+  display: none;
+}
+
+/* Açılır menü: kategoriler hap yerine altın kıl çizgili liste; menü düğmesi açıkken ince X. */
+[data-theme="portal"] .menu__cats {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+[data-theme="portal"] .menu__cats p {
+  margin-bottom: 6px;
+  color: var(--gold-ink);
+  letter-spacing: 0.3em;
+}
+[data-theme="portal"] .menu__cats a {
+  justify-content: space-between;
+  padding: 13px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(212, 176, 106, 0.18);
+  border-radius: 0;
+  background: none;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.74rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 216, 0.86);
+}
+[data-theme="portal"] .menu__cats a::after {
+  content: "→";
+  color: var(--gold-ink);
+  letter-spacing: 0;
+}
+[data-theme="portal"] .menu__cats a i {
+  display: none;
+}
+[data-theme="portal"] .menu-btn__icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  border-top: 1px solid currentColor;
+  opacity: 0;
+  transition: transform 0.3s var(--ease), opacity 0.2s;
+}
+[data-theme="portal"] .menu-btn__icon.is-open::after {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/* Kart ızgarası kendisi solmaz (kartların kendi girişi var): iki animasyon üst üste binip geç açılmasın. */
+.pgrid.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.pcard.is-in {
+  animation-duration: 0.7s;
+}
+@media (max-width: 900px) {
+  /* Telefonda kartlar tek sütun: sıra gecikmesi yok, ekrana girer girmez açılır. */
+  .pcard.is-in {
+    animation-delay: 0s;
+    animation-duration: 0.55s;
+  }
+}

@@ -253,7 +253,8 @@ function useReveal(route) {
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("is-in")),
-      { threshold: 0.15 }
+      // Eşik oran değil kenar: uzun öğeler (telefonda alt alta kart ızgarası) ekrana girer girmez açılır.
+      { threshold: 0, rootMargin: "0px 0px -6% 0px" }
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     return () => io.disconnect();

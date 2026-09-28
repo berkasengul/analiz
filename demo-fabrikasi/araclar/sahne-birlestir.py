@@ -35,7 +35,7 @@ FOTO = os.path.join(MARKA, f"{SLUG}-foto")
 _R = json.load(open(os.path.join(MARKA, f"{SLUG}-kurallar.json"), encoding="utf-8"))
 RULES = _R.get("foto", {})
 PALETTE = _R.get("aktar", {}).get("palette", [])
-OUT_W, OUT_H = 900, 1200
+OUT_W, OUT_H = 720, 960
 
 
 def height_cm(handle):
@@ -181,7 +181,7 @@ def main():
             scene = place(scene, prod, art["cx"], art["base"], target_h=art["h"] * height_cm(h) / 13.5, glow=glow, dim=art.get("dim", 0.42))
         x0, y0, x1, y1 = art.get("crop", [0, 0, scene.width, scene.height])
         out = scene.crop((x0, y0, x1, y1)).convert("RGB").resize((OUT_W, OUT_H), Image.LANCZOS)
-        out.save(os.path.join(FOTO, "sahne", f"{h}.webp"), quality=90, method=5)
+        out.save(os.path.join(FOTO, "sahne", f"{h}.webp"), quality=84, method=6)
         done += 1
         print("sahne", h, "←", art["file"])
     print(done, "kart sahnesi hazır")

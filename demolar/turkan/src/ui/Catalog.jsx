@@ -107,7 +107,8 @@ function useCardMotion() {
         el.classList.add("is-in");
         io.disconnect();
       },
-      { threshold: 0.12 }
+      // Kart ekrana girmeden biraz önce hazırlanır (telefonda kaydırırken beklemesin).
+      { threshold: 0, rootMargin: "0px 0px 12% 0px" }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -375,9 +376,13 @@ export function CategoryGrid({ id }) {
 export function CollectionGrid() {
   const t = useT();
   const mixed = useMemo(() => {
-    const groups = C.categories.map((c) => C.items.filter((i) => i.category === c.id));
+    // Vitrin tek ürünlerle: birkaç şişenin yan yana durduğu setler (group) burada gösterilmez,
+    // kendi kategori sayfalarında kalır.
+    const single = (i) => content.products[i.product]?.photo3d?.profile !== "group";
+    const groups = C.categories.map((c) => C.items.filter((i) => i.category === c.id && single(i))).filter((g) => g.length);
+    const total = groups.reduce((n, g) => n + g.length, 0);
     const out = [];
-    for (let k = 0; out.length < C.items.length; k++) groups.forEach((g) => g[k] && out.push(g[k]));
+    for (let k = 0; out.length < total; k++) groups.forEach((g) => g[k] && out.push(g[k]));
     return out;
   }, []);
   return (
