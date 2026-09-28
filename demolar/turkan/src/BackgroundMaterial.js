@@ -78,6 +78,11 @@ export const BackgroundMaterial = shaderMaterial(
     // ortası ürünün ortasına gelir. Boyu, en az ürünün ekrandaki boyuna uyacak kadar; ekranın dört kenarı da
     // dolacak kadar büyütülür (hiçbir yerde kenar ya da boşluk kalmaz).
     // sp = (en/boy, kaide çizgisi (üstten), orta (soldan), ürün boyu) — hepsi fotoğrafa oranla.
+    // Sinematik sahne: kademeli alan derinliği (ürünün çevresi keskin, uzağı yumuşak), suda canlı
+    // dalgalanma, parlak altın detaylarda hafif ışıltı ve film tonu.
+    float hash1(vec2 p) {
+      return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+    }
     vec3 sceneCover(sampler2D map, vec4 sp) {
       float b = sp.y;
       // Boy: ürünün ekrandaki boyuna uyar; üst ve alt kenar dolacak kadar büyütülür.
@@ -87,12 +92,24 @@ export const BackgroundMaterial = shaderMaterial(
       sH *= 1.01;
       float v = (1. - b) + (vUv.y - u_baseY) / sH;
       float u = sp.z + (vUv.x - u_sceneX) * u_aspect / (sH * sp.x);
-      // Yanlar: fotoğraf genişliği yetmezse sahnenin ayna yansımasıyla devam eder; kenara doğru daha
-      // bulanık (alan derinliği), böylece dikiş görünmez ve ekranın her yeri dolar.
+      // Kaidenin altındaki su: yansıma yavaşça dalgalanır.
+      float below = smoothstep(0.02, 0.12, (1. - b) - v);
+      u += below * (sin(v * 140. + u_time * 1.3) * 0.0022 + sin(v * 57. - u_time * 0.8) * 0.0016);
+      // Yanlar: fotoğraf genişliği yetmezse ayna yansımasıyla devam eder (kenara doğru daha bulanık).
       float out_ = max(0., abs(u - 0.5) - 0.5);
       u = 1. - abs(mod(u, 2.) - 1.);
-      float blur = 1.1 + 3.2 * smoothstep(0.0, 0.35, out_) + 1.2 * smoothstep(0.25, 0.5, abs(u - 0.5)) * step(0.0001, out_);
-      return texture2D(map, clamp(vec2(u, v), 0.002, 0.998), blur).rgb * (1. - 0.35 * smoothstep(0., 0.5, out_));
+      vec2 uv = clamp(vec2(u, v), 0.002, 0.998);
+      // Alan derinliği: ürüne uzaklığa göre bulanıklık.
+      float fd = length(vec2((vUv.x - u_sceneX) * u_aspect, vUv.y - u_baseY - u_bottleH * 0.3)) / max(u_bottleH * 2.2, 0.3);
+      float blur = mix(0.3, 2.3, smoothstep(0.25, 1.1, fd)) + 3.2 * smoothstep(0.0, 0.35, out_);
+      vec3 c = texture2D(map, uv, blur).rgb;
+      // Işıltı: parlak altın detayların çevresine yumuşak ışık taşar.
+      vec3 glow = texture2D(map, uv, blur + 3.5).rgb;
+      c += max(glow - 0.32, 0.) * 0.55;
+      // Film tonu: gölgeler derin, ışıklar sıcak.
+      c = pow(max(c, 0.), vec3(1.12)) * 1.08;
+      c *= vec3(1.03, 1.0, 0.95);
+      return c * (1. - 0.35 * smoothstep(0., 0.5, out_));
     }
 
     float hash(vec2 p) {
@@ -167,6 +184,9 @@ export const BackgroundMaterial = shaderMaterial(
         float tt = clamp((1.12 - vUv.y) / max(1.12 - u_baseY, 0.1), 0., 1.4);
         float hw = 0.06 + tt * max(u_bottleH, 0.2) * 0.62;
         float cone = (1. - smoothstep(hw * 0.45, hw, abs(dx))) * smoothstep(0.05, 0.4, tt) * (1. - smoothstep(1.02, 1.3, tt));
+        // Huzmenin içinde ışık çizgileri (tepeden inen ince ışınlar), yavaşça kıpırdar.
+        float rx = dx / max(hw, 0.02);
+        cone *= 0.8 + 0.2 * sin(rx * 21. + sin(u_time * 0.3) * 2.) * sin(rx * 8.3 - u_time * 0.25);
         // Kaidede ışık havuzu (ürünün ayağının çevresi).
         vec2 q = vec2(dx, vUv.y - u_baseY) / vec2(max(u_bottleH, 0.2) * 0.95, max(u_bottleH, 0.2) * 0.3);
         float pool = exp(-dot(q, q) * 1.6);
@@ -177,7 +197,7 @@ export const BackgroundMaterial = shaderMaterial(
         float read = u_aspect > 1.
           ? mix(0.5, 1., smoothstep(0.06, 0.46, vUv.x)) * mix(0.62, 1., smoothstep(0.97, 0.8, vUv.x))
           : mix(0.55, 1., smoothstep(0.06, 0.42, vUv.y));
-        float lit = mix(0.36, 0.3 + 0.5 * cone + 0.45 * pool + 0.3 * halo, u_sceneLight);
+        float lit = mix(0.36, 0.32 + 0.45 * cone + 0.4 * pool + 0.14 * halo, u_sceneLight);
         base = mix(base, sc * lit * read, u_sceneOn);
       }
 
@@ -192,7 +212,7 @@ export const BackgroundMaterial = shaderMaterial(
       float width = mix(0.06 + depth * 0.3, 0.05 + depth * 0.2, u_studio);
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
       float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
-      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. + 0.25 * u_sceneOn);
+      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.4 * u_sceneOn);
 
       // Sahneli üründe atmosfer: kaidenin arkasından yükselen, ürünün renginde yavaş duman ve ekranda
       // süzülerek düşen yapraklar (iki derinlik: arkadakiler küçük ve yumuşak).

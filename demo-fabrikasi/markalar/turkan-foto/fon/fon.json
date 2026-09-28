@@ -14,18 +14,18 @@
   "h": 0.3108
  },
  "turkan-agrumes-7-cologne-du-parfumeur-150-ml": {
-  "src": "fon/mor-duman-orkide.webp",
-  "aspect": 2.383,
-  "base": 0.6256,
-  "cx": 0.5003,
-  "h": 0.5656
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3568
  },
  "turkan-agrumes-7-cologne-du-parfumeur-50-ml": {
-  "src": "fon/mor-duman-orkide.webp",
-  "aspect": 2.383,
-  "base": 0.6256,
-  "cx": 0.5003,
-  "h": 0.3831
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2417
  },
  "turkan-boi\u0307se-4-cologne-du-parfumeur-150-ml": {
   "src": "fon/yesil-orkide.webp",
@@ -105,18 +105,18 @@
   "h": 0.3108
  },
  "turkan-no-7-agrumes-100-ml": {
-  "src": "fon/mor-duman-orkide.webp",
-  "aspect": 2.383,
-  "base": 0.6256,
-  "cx": 0.5003,
-  "h": 0.4926
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.3108
  },
  "turkan-no-7-agrumes-15-ml": {
-  "src": "fon/mor-duman-orkide.webp",
-  "aspect": 2.383,
-  "base": 0.6256,
-  "cx": 0.5003,
-  "h": 0.4379
+  "src": "fon/yesil-orkide-8e4fe0.webp",
+  "aspect": 0.75,
+  "base": 0.5981,
+  "cx": 0.5,
+  "h": 0.2762
  },
  "turkan-no-8-floraison-100-ml": {
   "src": "fon/yesil-orkide-d4588c.webp",

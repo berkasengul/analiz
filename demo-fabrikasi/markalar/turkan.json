@@ -895,11 +895,11 @@
         "foto/turkan-no-7-agrumes-100-ml/5.webp"
       ],
       "stage": {
-        "src": "fon/mor-duman-orkide.webp",
-        "aspect": 2.383,
-        "base": 0.6256,
-        "cx": 0.5003,
-        "h": 0.4926
+        "src": "fon/yesil-orkide-8e4fe0.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3108
       },
       "views": [
         null,
@@ -3608,11 +3608,11 @@
         "foto/turkan-no-7-agrumes-15-ml/3.webp"
       ],
       "stage": {
-        "src": "fon/mor-duman-orkide.webp",
-        "aspect": 2.383,
-        "base": 0.6256,
-        "cx": 0.5003,
-        "h": 0.4379
+        "src": "fon/yesil-orkide-8e4fe0.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.2762
       },
       "views": [
         null,
@@ -4097,11 +4097,11 @@
         "foto/turkan-agrumes-7-cologne-du-parfumeur-150-ml/4.webp"
       ],
       "stage": {
-        "src": "fon/mor-duman-orkide.webp",
-        "aspect": 2.383,
-        "base": 0.6256,
-        "cx": 0.5003,
-        "h": 0.5656
+        "src": "fon/yesil-orkide-8e4fe0.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.3568
       },
       "views": [
         null,
@@ -4532,11 +4532,11 @@
         "foto/turkan-agrumes-7-cologne-du-parfumeur-50-ml/4.webp"
       ],
       "stage": {
-        "src": "fon/mor-duman-orkide.webp",
-        "aspect": 2.383,
-        "base": 0.6256,
-        "cx": 0.5003,
-        "h": 0.3831
+        "src": "fon/yesil-orkide-8e4fe0.webp",
+        "aspect": 0.75,
+        "base": 0.5981,
+        "cx": 0.5,
+        "h": 0.2417
       },
       "views": [
         null,

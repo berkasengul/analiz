@@ -152,7 +152,7 @@ export default function Carousel() {
       const fp = sceneState.focus.position;
       // Sahne fotoğraflı üründe ışık tepeden, huzmeyle aynı yönden ve biraz daha güçlü vurur.
       const staged = flavors[active].stage ? 1 : 0;
-      L.intensity = 7 * (MOBILE ? 0.55 : 1) * (1 + 0.35 * staged) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
+      L.intensity = 7 * (MOBILE ? 0.55 : 1) * (1 - 0.4 * staged) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
       L.color.set(STUDIO ? flavors[active].theme.accent : flavors[active].theme.glow).lerp(WHITE, STUDIO ? 0.5 : 0.65);
       if (staged) L.position.set(fp.x - 0.4, fp.y + 9.5, fp.z + 3.2);
       else L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
@@ -217,7 +217,7 @@ export default function Carousel() {
         ? 0.16 + 0.84 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
       const dim = (1 - fade) * lit;
-      bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(SOLO ? (1 - fade) * (0.5 + 0.5 * lit * lit) : dim * (0.35 + 0.65 * lit));
+      bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(SOLO ? (1 - fade) * (0.5 + 0.5 * lit * lit) * (flavors[i]?.stage ? 0.55 : 1) : dim * (0.35 + 0.65 * lit));
       bodies[i].userData.uniforms.u_dim.value = dim;
       if (STUDIO) {
         const U = bodies[i].userData.uniforms;
@@ -226,7 +226,8 @@ export default function Carousel() {
         U.u_sweepColor.value.set(flavors[i].theme.accent).lerp(WHITE, 0.55);
       }
       const F = bodies[i].userData.finish;
-      bodies[i].envMapIntensity = F.envMapIntensity * 1.23 * dim;
+      // Sahne fotoğraflı üründe yansıma biraz kısık: beyaz şişe parlamadan net görünür.
+      bodies[i].envMapIntensity = F.envMapIntensity * 1.23 * dim * (flavors[i]?.stage ? 0.8 : 1);
       bodies[i].clearcoat = Math.max(F.clearcoat * dim, 0.01); // 0 olursa shader yeniden derlenir
       dimBottleParts(parts[i], dim);
 
