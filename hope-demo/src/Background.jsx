@@ -10,7 +10,7 @@ import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { THEME } from "./theme";
 
-const SOLO = THEME.carousel === "solo" || THEME.carousel === "orbit";
+const SOLO = ["solo", "orbit", "rise"].includes(THEME.carousel);
 const P = new Vector3();
 const Q = new Vector3();
 // Ürünlerin sahne fotoğrafları (products[].stage): bir kez yüklenir, ürünler arasında paylaşılır.

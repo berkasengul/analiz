@@ -13,7 +13,7 @@
 ## Nasıl satılır (sıra)
 
 1. **Linki hazırla:** `demolar/unique-Netlify.zip` → app.netlify.com/drop. Site adı: `uniquee-3d` gibi. Linki telefonda ve bilgisayarda aç, sepete bir koku ekleyip "Ödemeye geç"e bas (uniqueeluxury.com ödeme sayfası açılmalı; ödeme yapma).
-2. **20–30 sn ekran videosu çek:** telefonda aşağı kaydır, renkli şişeler sırayla sahneye gelsin, birine gir ve şişeyi çevir.
+2. **20–30 sn ekran videosu çek:** telefonda yavaşça aşağı kaydır, şişeler dönerek sırayla ışığa gelsin, birine gir ve şişeyi çevir.
 3. **Maili gönder** (info@ + CC kurucu), aynı gün **Instagram DM**'e videoyu ekle.
 4. **4 gün sonra** takip, **7 gün sonra** son hatırlatma. Cevap gelmezse telefonla kısa bir arama yapabilirsin.
 5. Cevap gelirse **15 dakikalık görüntülü görüşme** iste; fiyatı görüşmede ver.
@@ -34,7 +34,7 @@ Unique'e Luxury için kokularınızı 3D olarak sergileyen bir web sitesi hazır
 
 Kısaca neler var:
 
-- **Şişeleriniz 3D, döner bir vitrinde:** 19 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada şişeler altın halkalı, parlak siyah bir döner platformda duruyor; aşağı kaydırdıkça platform dönüyor, sıradaki koku öne ve ışığa geliyor. Sahne her kokunun renginde: Crush On Me kırmızı, Ocean The Rive lacivert, Mangonifiscent yeşil.
+- **Şişeleriniz 3D ve tek başına sahnede:** 19 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada her seferinde tek bir şişe, yukarıdan vuran bir ışık huzmesinin altında süzülüyor; aşağı kaydırdıkça şişe dönerek yukarı çıkıyor, sıradaki koku aşağıdan dönerek ışığa geliyor. Sahne her kokunun renginde: Crush On Me kırmızı, Ocean The Rive lacivert, Mangonifiscent yeşil.
 - **Şişe çevrilebiliyor:** Arkada kokunun adı, notaları ve hacmiyle etiket var.
 - **Her kokunun notaları ve hikâyesi:** Ürüne girince ana notalar, kokunun hikâyesi ve markanızı anlatan 4 kısa bölüm açılıyor.
 - **Tüm koleksiyon hazır:** İkonlar, yeni kokular ve koleksiyon; fiyatlar ve metinler sitenizden alındı.
@@ -90,7 +90,7 @@ Berka
 - [ ] Zip'i Netlify Drop'a yükle, linki telefonda ve bilgisayarda aç.
 - [ ] Sepete bir koku ekleyip "Ödemeye geç"e bas: uniqueeluxury.com ödeme sayfası açılmalı (ödeme yapma).
 - [ ] `[DEMO LİNKİ]`, soyadını, telefonunu ve Instagram/portfolyo linkini doldur.
-- [ ] Maile dört görseli ekle; kurucunun adresini CC'ye koy.
+- [ ] Maile beş görseli ekle; kurucunun adresini CC'ye koy.
 - [ ] `satis/parfum-firmalari.csv` dosyasında Unique'e Luxury satırına tarihi yaz.
 
 ## Fiyat sorarlarsa

@@ -6,7 +6,7 @@ import { flavors } from "./data";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { THEME } from "./theme";
-import { ORBIT, orbitFloor, orbitRadius, orbitX } from "./Carousel";
+import { ORBIT, RISE, orbitFloor, orbitRadius, orbitX } from "./Carousel";
 
 const GOLD = new Color(THEME.accent ?? "#c9a55c");
 const tmp = new Color();
@@ -46,7 +46,7 @@ export default function Pedestal() {
     const st = useStore.getState();
     const S = s.current;
     // Ürünün sahne fotoğrafı varsa ürün fotoğraftaki kaidede durur; 3B kaide gizlenir.
-    const target = (flavors[st.active]?.stage ? 0 : 1) * (1 - Math.min(1, sceneState.spread * 3)) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
+    const target = (RISE ? 0 : 1) * (flavors[st.active]?.stage ? 0 : 1) * (1 - Math.min(1, sceneState.spread * 3)) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
     S.vis = MathUtils.damp(S.vis, target, 3, dt);
     const f = sceneState.focus;
     const sc = f.scale || 1;

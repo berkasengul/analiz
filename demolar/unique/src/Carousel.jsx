@@ -14,7 +14,10 @@ const STUDIO = !!THEME.studio;
 // "orbit": tek ürün sahnesinin döner vitrin çeşidi: ürünler büyük bir döner platformun kenarında
 // halka olarak durur, kaydırınca platform döner ve sıradaki ürün öne, ışığa gelir.
 export const ORBIT = THEME.carousel === "orbit";
-const SOLO = THEME.carousel === "solo" || ORBIT;
+// "rise": ışık sütununda tek ürün; kaydırınca ürün yarım tur dönerek yukarı çıkar, sıradaki aşağıdan
+// dönerek yükselip yerine oturur. Ekranda aynı anda yalnızca biri (geçişte ikisi) görünür.
+export const RISE = THEME.carousel === "rise";
+const SOLO = THEME.carousel === "solo" || ORBIT || RISE;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
@@ -65,6 +68,21 @@ export function arcPose(d, aspect, time, i) {
     // Tek ürün sahnesi: öndeki ürün büyük ve ışıkta; diğerleri iki yanda, geride ve loşta
     // hafifçe görünür. Telefonda yanlar ekranın kenarından yarım görünür. Kaydırınca sıradaki ışığa yürür.
     const phone = aspect < 0.9;
+    if (RISE) {
+      const ad2 = Math.min(ad, 1.5);
+      // Komşu şişe yalnızca geçişte görünür; yerine oturunca ekran kenarında yarım şişe kalmaz.
+      const vis = 1 - MathUtils.smoothstep(ad, 0.62, 0.9);
+      const sc = base * (phone ? 1.12 : 1.36) * (1 - 0.22 * Math.min(ad, 1)) * vis;
+      return {
+        x: phone ? 0 : 2.1 * MathUtils.clamp(aspect / 1.9, 0.44, 1),
+        y: (phone ? 0.95 : 0.45) - d * (phone ? 8.5 : 7.4) + Math.sin(time * 0.8) * 0.06 * focus,
+        z: -ad2 * 2.2,
+        rotX: 0.03,
+        rotY: d * Math.PI + (focus > 0 ? Math.sin(time * 0.45) * 0.2 * focus : 0),
+        rotZ: -0.08 * d,
+        scale: sc,
+      };
+    }
     if (ORBIT) {
       // Döner vitrin: halka üzerinde açı; bütün ürünlerin ayağı platformun yüzeyinde.
       const a = (d / N) * Math.PI * 2;
