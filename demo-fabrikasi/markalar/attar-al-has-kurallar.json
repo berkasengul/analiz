@@ -92,16 +92,16 @@
         }
       },
       {
-        "handle": "harmonic-tourmaline",
+        "handle": "leather-effecto",
         "tr": {
-          "title": "Terra Mysteria",
-          "text": "Değerli taşlardan ilham: turmalin, zümrüt, ay taşı, kaplan gözü, peridot ve morganit.",
-          "stat": "6 koku"
+          "title": "Şişe",
+          "text": "Heykel gibi, ağır ve kusursuz şişe; mühür gibi kazınmış hat sanatı. Her detay kalıcı olmak için düşünüldü.",
+          "stat": "100 ml"
         },
         "en": {
-          "title": "Terra Mysteria",
-          "text": "Inspired by precious stones: tourmaline, emerald, moonstone, tiger's eye, peridot and morganite.",
-          "stat": "6 scents"
+          "title": "Flacon",
+          "text": "A sculptural, heavy and precise bottle with calligraphy engraved like a seal. Every detail is made to last.",
+          "stat": "100 ml"
         }
       }
     ],

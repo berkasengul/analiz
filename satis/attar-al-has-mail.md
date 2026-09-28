@@ -35,7 +35,7 @@ Kısaca neler var:
 
 - **Şişeleriniz 3D, altın bir kemerin içinde:** 21 kokunun tamamı kendi ürün fotoğraflarınızdan 3D olarak hazırlandı. Ana sayfada her koku, yıldız desenli altın bir Osmanlı kemerinin içinde duruyor; şeffaf şişelerde içindeki parfüm görünüyor. Aşağı kaydırdıkça şişe yana süzülüp dönüyor, sıradaki koku öbür yandan kemere geliyor. Sahne her kokunun renginde: Passion Oud bakır, Exquisite lacivert, Spice Rose kırmızı.
 - **Nota piramidi:** Her kokunun üst, kalp ve alt notaları ürün sayfasında; şişe çevrilebiliyor.
-- **Koleksiyonlarınız:** Exclusive, Summer ve Terra Mysteria. Fiyatlar ve metinler sitenizden alındı.
+- **Koleksiyonlarınız:** Exclusive, Summer ve Terra Mysteria; tüm kokular 3D olarak, her biri kendi renginde altın kemerli bir nişte ve mermer kaide üzerinde sergileniyor. Fiyatlar ve metinler sitenizden alındı.
 - **Mevcut mağazanızla çalışıyor:** Sepet Shopify mağazanıza bağlı; "Ödemeye geç" müşteriyi doğrudan attaralhas.com'daki ödeme sayfasına götürüyor. Yeni bir altyapı gerekmiyor.
 - **İngilizce ve Türkçe**, telefona özel tasarım, koku ve nota araması. Fransızca da eklenebilir.
 

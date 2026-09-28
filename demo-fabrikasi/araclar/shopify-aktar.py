@@ -249,7 +249,12 @@ def main():
 
     c["products"] = products
     c["home"] = list(range(len(R.get("home", [])))) if R.get("home") else list(range(min(8, len(products))))
-    c["ritual"] = [{"flavor": handles.index(r["handle"]), "tr": r["tr"], "en": r["en"]} for r in R.get("ritual", []) if r["handle"] in handles]
+    # Ritüel adımları yalnızca ana sayfadaki ürünleri gösterebilir (sahnede yalnızca onlar var).
+    n_home = len(c["home"])
+    for r in R.get("ritual", []):
+        if r["handle"] not in handles[:n_home]:
+            print(f"! ritüel adımı ana sayfada olmayan ürünü gösteriyor, atlandı: {r['handle']}")
+    c["ritual"] = [{"flavor": handles.index(r["handle"]), "tr": r["tr"], "en": r["en"]} for r in R.get("ritual", []) if r["handle"] in handles[:n_home]]
     c["catalog"]["categories"] = [cats[k] for k in order if any(x["category"] == k for x in items_out)]
     c["catalog"]["items"] = items_out
     c["defaultShopFlavor"] = 0
