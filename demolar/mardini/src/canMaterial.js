@@ -50,7 +50,8 @@ export function setCanFlavor(uniforms, flavor) {
 
 // Cam şişenin içindeki parfüm ve etiket.
 export function createCanMaterial(base, uniforms) {
-  const material = new MeshPhysicalMaterial({ map: base.map, alphaTest: 0.5, ...FINISH });
+  // content.glass: şeffaf cam şişeler; dokunun alfası yarı saydam camdır, malzeme saydam çizilir.
+  const material = new MeshPhysicalMaterial({ map: base.map, alphaTest: content.glass ? 0.02 : 0.5, transparent: !!content.glass, ...FINISH });
   // Sahne her karede yansımayı ve cilayı kısar/açar; oranlar bu değerlere göre.
   material.userData.finish = FINISH;
 

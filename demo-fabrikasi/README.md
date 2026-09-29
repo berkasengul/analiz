@@ -106,6 +106,8 @@ Markaya özgü her şey iki dosyada:
 - `markalar/<marka>.json`: marka metinleri (hikâye, SSS, satış noktaları, özellik kartları, arayüz yazıları, `commerce`, `latinTerms`). İskelet olarak bir önceki markanınki kopyalanır, metinler markanın sayfalarından yazılır.
 - `markalar/<marka>-kurallar.json`: `foto` (yapay zekâ kesimi, setlerin içeriği, gerçek boylar, arka fotoğraf kullanılsın mı) ve `aktar` (kategoriler, 3B biçimleri, koku notaları, ana sayfa sırası, ritüel, adlar). Alanlar araçların başındaki açıklamada.
 
+Şeffaf cam şişeler beyaz zeminde çekildiyse 3B'de opak beyaz blok gibi görünür: `foto.glassAlpha: "<handle regex>"` ve marka dosyasında `"glass": true` ile camın içinden görünen stüdyo beyazı yarı saydam (sıvı renginde) olur, etiket (en büyük dikdörtgen kontur), kapak ve cam kenarı olduğu gibi kalır; sahne camın içinden görünür (örnek: Mardini).
+
 3B biçimler: `round` (dönen gövde), `flat` (pahlı blok), `flask` (küre/silindir kapak dönen gövde + yassı şişe gövdesi; boyun fotoğraftan bulunur), `group` (set: her ürün ayrı parça). Sepet `commerce.shopify` ile markanın kendi ödeme sayfasına gider (`/cart/<varyant>:<adet>`).
 
 ## Sahne kimliği (tema): her marka kendine özgü

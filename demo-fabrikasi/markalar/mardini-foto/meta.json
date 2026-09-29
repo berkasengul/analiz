@@ -796,7 +796,8 @@
    10,
    11,
    14
-  ]
+  ],
+  "glass": true
  },
  "babel-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -1491,7 +1492,8 @@
    200,
    173,
    88
-  ]
+  ],
+  "glass": true
  },
  "berdan-mardini-brown-garden-250-ml-body-mist": {
   "gallery": [
@@ -2892,7 +2894,8 @@
    192,
    175,
    79
-  ]
+  ],
+  "glass": true
  },
  "dogal-gul-serumu-30-ml": {
   "gallery": [
@@ -4370,7 +4373,8 @@
    218,
    220,
    210
-  ]
+  ],
+  "glass": true
  },
  "gul-kolonyasi-100-ml": {
   "gallery": [
@@ -6930,7 +6934,8 @@
    190,
    170,
    76
-  ]
+  ],
+  "glass": true
  },
  "kurdi-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -7769,7 +7774,8 @@
    233,
    233,
    229
-  ]
+  ],
+  "glass": true
  },
  "larsa-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -8463,7 +8469,8 @@
    217,
    218,
    210
-  ]
+  ],
+  "glass": true
  },
  "neva-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -9270,7 +9277,8 @@
    194,
    176,
    75
-  ]
+  ],
+  "glass": true
  },
  "nihavend-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -10093,7 +10101,8 @@
    241,
    242,
    235
-  ]
+  ],
+  "glass": true
  },
  "rast-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -10968,7 +10977,8 @@
    243,
    243,
    240
-  ]
+  ],
+  "glass": true
  },
  "roj-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -11805,7 +11815,8 @@
    11,
    11,
    13
-  ]
+  ],
+  "glass": true
  },
  "rusa-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -12535,7 +12546,8 @@
    215,
    217,
    209
-  ]
+  ],
+  "glass": true
  },
  "saba-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -13285,7 +13297,8 @@
    187,
    166,
    74
-  ]
+  ],
+  "glass": true
  },
  "saf-gul-yagi-10-ml": {
   "gallery": [
@@ -15187,7 +15200,8 @@
    217,
    218,
    209
-  ]
+  ],
+  "glass": true
  },
  "ussak-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -16018,7 +16032,8 @@
    183,
    165,
    63
-  ]
+  ],
+  "glass": true
  },
  "zal-edp-unisex-parfum-100-ml": {
   "gallery": [
@@ -16804,6 +16819,7 @@
    127,
    115,
    105
-  ]
+  ],
+  "glass": true
  }
 }

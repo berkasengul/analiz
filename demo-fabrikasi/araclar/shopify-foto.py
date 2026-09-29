@@ -19,6 +19,8 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      verilirse yalnızca ürünün o orandan aşağısı (gövde; kapak çevresi boş kalır)
     "clear": "regex"                şeffaf camlı şişeler: 3B'de kalınlık yüzleri içindeki parfümün renginde sıvı dolu cam
                                      (omuz altında hava payı ve sıvı yüzeyinde parlak çizgi)
+    "glassAlpha": "regex"           şeffaf cam şişe: camın içinden görünen stüdyo beyazı yarı saydam; etiket (en büyük
+                                     dikdörtgen kontur), kapak ve cam kenarı olduğu gibi kalır (marka dosyasında "glass": true)
     "edgeFrom": "side"              3B kalınlık yüzlerinin rengi fotoğraftaki yan panelden (kesim kenarından değil)
     "backLang": "en"                arka etiket metni İngilizce mağazadan (mağazanın varsayılan dili Türkçe değilse)
     "solidTop": 0.25                ürünün üst bölümü (oran) delik bırakılmadan dolu kesilir (zemine yakın renkli kapak)
@@ -310,6 +312,72 @@ def seal_front(F):
     w, _ = _edge_weight(F)
     rgb = _row_fill(F) * (1 - w) + a[..., :3] * w
     return Image.fromarray(np.concatenate([rgb, a[..., 3:4]], axis=2).clip(0, 255).astype(np.uint8))
+
+
+def label_rect(F, top):
+    """Şişenin ön etiketi: gövdedeki (boyun altı) en büyük dikdörtgen kontur (etiket çerçevesi).
+    Dönen: (x0, y0, x1, y1) ya da None."""
+    a = np.asarray(F)
+    g = cv2.cvtColor(a[..., :3], cv2.COLOR_RGB2GRAY)
+    m = a[..., 3] > 128
+    rows = np.where(m.any(1))[0]
+    if not len(rows):
+        return None
+    y0 = max(top, rows[0])
+    ed = cv2.Canny(cv2.GaussianBlur(g, (3, 3), 0), 40, 110)
+    ed[:y0] = 0
+    ed = cv2.dilate(ed, np.ones((3, 3), np.uint8))
+    cs, _ = cv2.findContours(ed, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    body = m[y0:].sum()
+    best = None
+    for c in cs:
+        x, y, w, h = cv2.boundingRect(c)
+        area = w * h
+        if not (0.1 * body < area < 0.7 * body) or h < w * 0.6:
+            continue
+        # Dikdörtgene yakın mı (kontur alanı kutunun büyük kısmı)
+        if cv2.contourArea(cv2.convexHull(c)) < 0.8 * area:
+            continue
+        if best is None or area > best[4]:
+            best = (x, y, x + w, y + h, area)
+    return best[:4] if best else None
+
+
+def glass_front(F, neck, liquid=None):
+    """Şeffaf cam (glassAlpha): beyaz stüdyo zemininde çekilmiş şişede camın içinden görünen beyaz
+    zemin yarı saydam olur (sahne camın içinden görünür). Etiket, kapak, cam kenarlarındaki koyu
+    çizgiler ve parlamalar olduğu gibi kalır; sıvının hafif rengi korunur."""
+    a = np.asarray(F).astype(np.float32)
+    rgb, al = a[..., :3], a[..., 3]
+    top = int((neck or 0.3) * S) + int(0.02 * S)
+    lab = label_rect(F, top)
+    m = al > 128
+    # Kesimin dış saçağı (stüdyo beyazı) 2 px içeri alınır; silüet kenarında çok ince bir bant cam
+    # kenarı olarak daha az saydamlaşır.
+    d = cv2.distanceTransform(m.astype(np.uint8), cv2.DIST_L2, 5)
+    al = np.where(d < 2, 0, al)
+    edge = np.clip(d / (0.006 * S), 0, 1)
+    region = (d > 0).astype(np.float32) * (0.45 + 0.55 * edge)
+    region[:top] = 0
+    if lab:
+        x0, y0, x1, y1 = lab
+        pad = int(0.008 * S)
+        region[max(0, y0 - pad):y1 + pad, max(0, x0 - pad):x1 + pad] = 0
+    L = rgb.mean(2)
+    sat = rgb.max(2) - rgb.min(2)
+    see = np.clip((L - 150) / 85, 0, 1) * np.clip(1 - (sat - 25) / 60, 0, 1)
+    see = cv2.GaussianBlur(see.astype(np.float32), (0, 0), 1.2) * region
+    tint = np.array(liquid if liquid else [236, 228, 200], np.float32)
+    rgb2 = rgb * (1 - 0.55 * see[..., None]) + tint * 0.55 * see[..., None]
+    al2 = al * (1 - 0.8 * see)
+    # Açık altın kapak 3B ışıkta beyaza kaçmasın: kapaktaki renkli (altın) piksellerin rengi biraz
+    # doygunlaşır ve koyulaşır; gümüş/siyah kapaklar (renksiz) değişmez.
+    cap = np.zeros_like(L)
+    cap[:top] = np.clip((sat[:top] - 12) / 30, 0, 1)
+    Lc = L[..., None]
+    rgb2 = rgb2 * (1 - cap[..., None]) + (Lc + (rgb2 - Lc) * 2.1) * 0.8 * cap[..., None]
+    out = np.concatenate([rgb2, al2[..., None]], 2).clip(0, 255).astype(np.uint8)
+    return Image.fromarray(out), lab
 
 
 def plain_back(F, back_photo=None, text=None):
@@ -903,7 +971,12 @@ def main():
             atlas = Image.new("RGBA", (2 * S, S))
             # Dönen gövdeli ürünler (düz bloklar hariç; kural <marka>-kurallar.json → foto.flat).
             flat = RULES.get("flat") and re.search(RULES["flat"], handle)
-            atlas.paste(F if flat else seal_front(F), (0, 0))
+            front = F if flat else seal_front(F)
+            # glassAlpha: şeffaf cam şişede camın içinden görünen stüdyo beyazı yarı saydam olur (sahne camdan görünür).
+            if RULES.get("glassAlpha") and re.search(RULES["glassAlpha"], handle):
+                front, _ = glass_front(front, entry.get("neck"), entry.get("liquid"))
+                entry["glass"] = True
+            atlas.paste(front, (0, 0))
             atlas.paste(fill, (S, 0))
             os.makedirs(os.path.join(OUT, "labels"), exist_ok=True)
             atlas.save(os.path.join(OUT, "labels", f"{handle}.webp"), quality=88, method=5)

@@ -478,6 +478,7 @@
     "ikas": "https://mardinikozmetik.com"
   },
   "latinTerms": "Parfum|Eau de Parfum|Gold|Silver|Rosa Damascena|Body Mist|Brown Garden",
+  "glass": true,
   "theme": {
     "name": "portal",
     "accent": "#d9b27a",
@@ -1629,7 +1630,8 @@
         ],
         "edge": "#f1f1ec",
         "clear": true,
-        "liquid": "#f1f1ec"
+        "liquid": "#f1f1ec",
+        "glass": true
       },
       "price": {
         "tr": 4500.0,
@@ -1813,7 +1815,8 @@
         ],
         "edge": "#e8dbd2",
         "clear": true,
-        "liquid": "#e8dbd2"
+        "liquid": "#e8dbd2",
+        "glass": true
       },
       "price": {
         "tr": 2300.0,
@@ -2022,7 +2025,8 @@
         ],
         "edge": "#f6eeac",
         "clear": true,
-        "liquid": "#f6eeac"
+        "liquid": "#f6eeac",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -2356,7 +2360,8 @@
         ],
         "edge": "#e2d49e",
         "clear": true,
-        "liquid": "#e2d49e"
+        "liquid": "#e2d49e",
+        "glass": true
       },
       "price": {
         "tr": 2300.0,
@@ -2576,7 +2581,8 @@
         ],
         "edge": "#dcd2a0",
         "clear": true,
-        "liquid": "#dcd2a0"
+        "liquid": "#dcd2a0",
+        "glass": true
       },
       "price": {
         "tr": 2300.0,
@@ -2781,7 +2787,8 @@
         ],
         "edge": "#f5f3e3",
         "clear": true,
-        "liquid": "#f5f3e3"
+        "liquid": "#f5f3e3",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -2993,7 +3000,8 @@
         ],
         "edge": "#f3f2db",
         "clear": true,
-        "liquid": "#f3f2db"
+        "liquid": "#f3f2db",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -3209,7 +3217,8 @@
         ],
         "edge": "#f8f9f2",
         "clear": true,
-        "liquid": "#f8f9f2"
+        "liquid": "#f8f9f2",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -3438,7 +3447,8 @@
         ],
         "edge": "#f7f8f4",
         "clear": true,
-        "liquid": "#f7f8f4"
+        "liquid": "#f7f8f4",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -3636,7 +3646,8 @@
         ],
         "edge": "#f2eab0",
         "clear": true,
-        "liquid": "#f2eab0"
+        "liquid": "#f2eab0",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -3853,7 +3864,8 @@
         ],
         "edge": "#f4ef9b",
         "clear": true,
-        "liquid": "#f4ef9b"
+        "liquid": "#f4ef9b",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -4055,7 +4067,8 @@
         ],
         "edge": "#d9dacc",
         "clear": true,
-        "liquid": "#d9dacc"
+        "liquid": "#d9dacc",
+        "glass": true
       },
       "price": {
         "tr": 2300.0,
@@ -4240,7 +4253,8 @@
         ],
         "edge": "#d9dbce",
         "clear": true,
-        "liquid": "#d9dbce"
+        "liquid": "#d9dbce",
+        "glass": true
       },
       "price": {
         "tr": 2300.0,
@@ -4432,7 +4446,8 @@
         ],
         "edge": "#d9dbd0",
         "clear": true,
-        "liquid": "#d9dbd0"
+        "liquid": "#d9dbd0",
+        "glass": true
       },
       "price": {
         "tr": 3300.0,
@@ -4631,7 +4646,8 @@
         ],
         "edge": "#d8d9cc",
         "clear": true,
-        "liquid": "#d8d9cc"
+        "liquid": "#d8d9cc",
+        "glass": true
       },
       "price": {
         "tr": 2300.0,
@@ -4837,7 +4853,8 @@
         ],
         "edge": "#e8deb1",
         "clear": true,
-        "liquid": "#e8deb1"
+        "liquid": "#e8deb1",
+        "glass": true
       },
       "price": {
         "tr": 2300.0,

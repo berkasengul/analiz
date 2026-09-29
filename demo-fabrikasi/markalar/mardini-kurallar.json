@@ -99,7 +99,8 @@
       ]
     ],
     "edgeFrom": "side",
-    "clear": "edp-unisex-parfum|gul-kolonyasi|gul-suyu|gul-kuru-yag|dogal-gul-serumu|saf-lavanta"
+    "clear": "edp-unisex-parfum|gul-kolonyasi|gul-suyu|gul-kuru-yag|dogal-gul-serumu|saf-lavanta",
+    "glassAlpha": "edp-unisex-parfum"
   },
   "aktar": {
     "domain": "mardinikozmetik.com",

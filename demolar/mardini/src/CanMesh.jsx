@@ -599,6 +599,9 @@ export function createBottleParts(f = {}) {
           clearcoatRoughness: 0.04,
           envMapIntensity: 1.5,
           emissive: new Color(S.liquid ?? S.edge).multiplyScalar(0.22),
+          // Saydam cam (glass): kalınlık yüzlerinden de arkadaki sahne görünür.
+          transparent: !!S.glass,
+          opacity: S.glass ? 0.32 : 1,
         })
       : new MeshStandardMaterial({ color: S.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
     if (!S.clear) parts.side.color.multiplyScalar(0.78); // kenar ışığı fotoğraftakinden biraz koyu dursun
