@@ -240,7 +240,11 @@ arka planı kaplar (`markalar/<marka>-assets/` içine konur, `brand/…` olarak 
 (ör. kemerin ortası) öndeki ürüne gelir; dikeyde fotoğraf ekranı tam kaplar; telefonda küçülür, kemerin tamamı
 görünür (üstü karanlığa karışır, zemin aynalanır). Fotoğraflı modda 3B duvar ve yansıtıcı zemin gizlidir; kaidelerin
 altında temas gölgesi ve zeminde soluk yansımaları çizilir. Masaüstünde komşular 16 birim geride aynı boyda durur
-(Mardini: `butik.jpg`, `x: 0.541`, `floor: 0.658`). Fotoğraf kaydırmada hiç oynamaz. Kaide tek: ortada sabit durur,
+Hazır fotoğraf yerine çizilmiş bir sahne de verilebilir: `araclar/desen-arkaplan.py <çıktı.jpg> [--duvar --altin
+--oniks --tile]` bordo (ya da verilen renkte) duvarda altın kakmalı sekiz köşeli yıldız / haç deseni, ortada sivri
+kemerli niş (içi arkadan aydınlatılmış yivli cam) ve deseni yansıtan siyah mermer zemin çizer (3000×1140, `x: 0.5`,
+`floor: 0.658`). Fotoğraf ürünlerden ayrı bir dünya gibi durduğunda bu kullanılır (Mardini: `desen.jpg`; eski
+salon fotoğrafı `markalar/mardini-kaynak/`). Fotoğraf kaydırmada hiç oynamaz. Kaide tek: ortada sabit durur,
 öndeki ürün onun üstündedir; komşular doğrudan zeminde (temas gölgesiyle), ortaya gelen ürün hafif bir kavisle
 kaideye konar. Sinematik düzen: fotoğraf hafif flu (sığ alan derinliği) ve film tonunda; tepeden kaideye ışık
 huzmesi, kaidenin dibinde ışık havuzu, zeminde ince sis, güçlü vinyet. Geçişte odak kayar (arka plan daha flu,

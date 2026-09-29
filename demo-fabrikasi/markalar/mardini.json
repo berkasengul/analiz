@@ -500,9 +500,9 @@
     "pedestal": true,
     "carousel": "dolly",
     "plate": {
-      "src": "brand/butik.jpg",
+      "src": "brand/desen.jpg",
       "aspect": 2.632,
-      "x": 0.541,
+      "x": 0.5,
       "floor": 0.658
     },
     "cards": "gallery"

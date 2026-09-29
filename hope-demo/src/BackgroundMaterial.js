@@ -289,8 +289,8 @@ export const BackgroundMaterial = shaderMaterial(
         }
         // Film renk düzeni: hafif soluk, derin gölgeler; ışıklar sıcak kalır.
         float pl = dot(pc, vec3(0.299, 0.587, 0.114));
-        pc = mix(vec3(pl), pc, 0.86);
-        pc = pow(pc, vec3(1.22)) * 0.95;
+        pc = mix(vec3(pl), pc, 0.94);
+        pc = pow(pc, vec3(1.08));
         pc *= mix(0.08, 1., topFade);
         // Tepeden kaideye inen ışık huzmesi (içinde süzülen toz), kaidenin çevresinde zeminde ışık havuzu
         // ve zeminde yavaşça akan ince sis. Işık ürünün renginden ılık beyaza.

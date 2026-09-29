@@ -34,7 +34,7 @@ Mardini için ürünlerinizi 3D olarak sergileyen bir web sitesi hazırladım, i
 
 Kısaca neler var:
 
-- **3D bir butik:** Ana sayfada kokularınız yivli bronz bir duvarın önünde, her biri altın kenarlı siyah kaidesinde yan yana duruyor; cilalı zemin şişeleri yansıtıyor, duvara her kokunun renginde ışık düşüyor. Aşağı kaydırdıkça sıra kayıyor ve odak sıradaki şişeye geçiyor.
+- **3D bir butik:** Ana sayfada Mardin taş işçiliğinden esinli bir sahne var: bordo duvarda altın kakmalı sekiz köşeli yıldız deseni, ortada arkadan aydınlatılmış sivri kemerli bir niş ve deseni yansıtan siyah mermer zemin. Öndeki koku nişin içinde, altın kenarlı kaidede duruyor; tek kaydırmayla sıradaki şişe süzülüp kaideye konuyor.
 - **Parfümü sık:** Ziyaretçi "Parfümü sık" düğmesine basınca şişenin kapağı kalkıyor, sprey başlığına basılıyor ve ağızdan ışıltılı bir parfüm buğusu ekrana yayılıyor.
 - **Şişeleriniz 3D:** Gold Seri, Silver Seri ve gül ürünlerinden 23 ürün kendi ürün fotoğraflarınızdan 3D olarak hazırlandı: etiketler ve altın kapaklar fotoğraftaki gibi, şeffaf camın içinden sahne ve parfümün rengi görünüyor. Ürün sayfasında şişe çevrilebiliyor.
 - **Nota piramidi:** Her parfümün üst, kalp ve alt notaları ürün sayfasında.
@@ -56,7 +56,7 @@ _Site size özel hazırlandı; arama motorlarına kapalıdır, yalnızca bu link
 
 Merhaba Mardini ekibi 🌹
 
-Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler 3D bir butikte, her biri kendi kaidesinde; kaydırdıkça odak sıradaki kokuya geçiyor; "Parfümü sık"a basınca kapak kalkıp buğu ekrana yayılıyor. 23 ürün kendi fotoğraflarınızdan 3D.
+Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler Mardin taş işçiliğinden esinli 3D bir butikte, kemerli nişin içindeki kaidede; her kaydırmada sıradaki koku kaideye geliyor; "Parfümü sık"a basınca kapak kalkıp buğu ekrana yayılıyor. 23 ürün kendi fotoğraflarınızdan 3D.
 
 Telefondan bir dakikada inceleyebilirsiniz: [DEMO LİNKİ]
 
