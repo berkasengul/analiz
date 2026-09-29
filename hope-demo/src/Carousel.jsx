@@ -74,9 +74,9 @@ export function arcPose(d, aspect, time, i) {
     // hafifçe görünür. Telefonda yanlar ekranın kenarından yarım görünür. Kaydırınca sıradaki ışığa yürür.
     const phone = aspect < 0.9;
     if (DOLLY) {
-      // Butik sırası: her ürün kendi kaidesinde, yan yana bir sırada. Öndeki ürün ortada ve önde; komşular
-      // iki yanda, biraz geride ve loşta. Kaydırınca sıra yana kayar, komşu öne ve ortaya gelir (odak ona
-      // geçer). Bütün kaideler aynı zeminde: ürünün ayağı (BOTTOM) kaidenin üst yüzüne oturur.
+      // Butik sırası: ortada tek, sabit bir kaide; öndeki ürün onun üstünde. Komşular iki yanda, biraz
+      // geride, doğrudan mermer zeminde. Kaydırınca sağdaki ürün süzülerek ortaya gelir ve hafif bir
+      // kavisle kaidenin üstüne konar; öndeki ürün kaideden inip yana çekilir.
       // Masaüstü (butik fotoğrafıyla ölçülmüş): öndeki ürün ekranın ortasında (fotoğraftaki kemerin içinde),
       // komşular kemerin iki yanında, çiçeklerin önünde, 12 birim geride (aynı boyda; perspektifle küçük görünür).
       const cx = 0;
@@ -91,9 +91,12 @@ export function arcPose(d, aspect, time, i) {
       // Uzaktakiler (ikinci komşudan öte) karanlıkta söner.
       const alpha = 1 - MathUtils.smoothstep(ad, 1.45, 1.95);
       const idle = focus > 0 ? Math.sin(time * 0.4) * 0.07 * focus : 0;
+      // Kaidenin üstü (ortada) ile zemin (yanlarda) arası; kaideye yaklaşırken ürün yükselir, yolda hafif kavis.
+      const up = 1 - MathUtils.smoothstep(ad, 0.14, 0.6);
+      const hop = ad < 0.85 ? Math.sin((Math.PI * ad) / 0.85) * 0.2 * sc0 : 0;
       return {
         x: cx + d * sp,
-        y: dollyTop(aspect) - (BOTTOM[i] ?? -1.8) * scale,
+        y: dollyTop(aspect) - PLINTH_H * sc0 * (1 - up) + hop - (BOTTOM[i] ?? -1.8) * scale,
         z,
         rotX: 0.01,
         // Komşular hafifçe ortaya dönük.
@@ -101,6 +104,7 @@ export function arcPose(d, aspect, time, i) {
         rotZ: 0,
         scale: alpha > 0.004 ? scale : 0,
         alpha,
+        up,
       };
     }
     if (GLIDE) {
@@ -296,7 +300,8 @@ export default function Carousel() {
   useEffect(() => useStore.getState().setSceneReady(), []);
 
   const groups = useRef([]);
-  const plinths = useRef([]);
+  const shadows = useRef([]);
+  const plinth = useRef();
   const spot = useRef();
   const rimColor = useMemo(() => new Color(), []);
   const local = useRef({
@@ -347,7 +352,10 @@ export default function Carousel() {
     sceneState.spread = Math.max(spread, fade);
     const aspect = size.width / size.height;
     // Butik zemini (Boutique) kaidelerin altında.
-    if (DOLLY) sceneState.floorY = dollyTop(aspect) - PLINTH_H * dollyScale(aspect);
+    if (DOLLY) {
+      sceneState.floorY = dollyTop(aspect) - PLINTH_H * dollyScale(aspect);
+      sceneState.plinthTop = dollyTop(aspect);
+    }
     const nearest = order[slotIndex(s.p)];
     sceneState.ringAngle = (s.p / N) * Math.PI * 2;
     sceneState.settled = !detail && spread < 0.02 && Math.abs(s.p - Math.round(s.p)) < 0.01;
@@ -367,6 +375,16 @@ export default function Carousel() {
       else L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
       L.target.position.set(fp.x, fp.y + 0.2, fp.z);
       L.target.updateMatrixWorld();
+    }
+
+    // Ortadaki sabit kaide: kaydırmada yerinden oynamaz; Ritüel'e geçerken ve detayda karanlığa söner.
+    const pl = plinth.current;
+    if (pl) {
+      const a = Math.min(1, sceneState.intro * 1.3) * (1 - spread) * (1 - MathUtils.smoothstep(fade, 0, 0.5));
+      pl.position.set(0, dollyTop(aspect) - 2 * spread - 0.4 * fade, 0);
+      pl.scale.setScalar(dollyScale(aspect) * (1 - 0.5 * spread));
+      pl.visible = a > 0.01;
+      for (const m of pl.userData.mats) m.opacity = a * m.userData.base;
     }
 
     groups.current.forEach((g, i) => {
@@ -449,12 +467,13 @@ export default function Carousel() {
       // Butik sırasında (DOLLY) her ürün kendi kaidesinde: ayağı ölçülür, kaide ayağın altına oturur.
       if (DOLLY) {
         if (BOTTOM[i] == null && pose.scale > 0.01 && fade < 0.001 && spread < 0.001) measure(g, i);
-        const pl = plinths.current[i];
-        if (pl) {
-          pl.position.y = BOTTOM[i] ?? -1.8;
-          const a = pose.alpha ?? 1;
-          pl.visible = BOTTOM[i] != null && a > 0.01;
-          for (const m of pl.userData.mats) m.opacity = a * m.userData.base;
+        // Ayağın altında yumuşak temas gölgesi: zemindeki komşularda koyu, kaidedeki üründe hafif.
+        const sh = shadows.current[i];
+        if (sh) {
+          sh.position.y = (BOTTOM[i] ?? -1.8) + 0.004;
+          const a = (pose.alpha ?? 1) * (0.3 + 0.6 * (1 - (pose.up ?? 0))) * (1 - fade);
+          sh.visible = BOTTOM[i] != null && a > 0.01;
+          sh.material.opacity = a;
         }
       }
 
@@ -518,6 +537,8 @@ export default function Carousel() {
     <>
       {/* Öndeki kutuya düşen vitrin ışığı; ışık sayısı sabit kalsın diye hep sahnede. */}
       <spotLight ref={spot} intensity={0} angle={0.42} penumbra={1} decay={0} />
+      {/* Butikte tek kaide: ortada sabit; ürünler sırayla üstüne gelir. */}
+      {DOLLY && <Plinth refFn={(el) => (plinth.current = el)} />}
       {flavors.map((f, i) => (
         <group
           key={f.name}
@@ -527,7 +548,12 @@ export default function Carousel() {
           onPointerOut={unhover(i)}
         >
           <CanMesh body={bodies[i]} parts={parts[i]} flavor={i} />
-          {DOLLY && <Plinth refFn={(el) => (plinths.current[i] = el)} />}
+          {DOLLY && (
+            <mesh ref={(el) => (shadows.current[i] = el)} rotation={[-Math.PI / 2, 0, 0]} visible={false} userData={{ noMeasure: true }} renderOrder={-1}>
+              <planeGeometry args={[2.3, 2.3]} />
+              <meshBasicMaterial map={SHADOW_TEX} color="#000000" transparent depthWrite={false} />
+            </mesh>
+          )}
         </group>
       ))}
     </>

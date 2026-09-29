@@ -208,6 +208,21 @@ export default function Background() {
       m.u_sceneX = sx;
       // Ürünler değişirken arka plan sabit kalır.
       m.u_plateShift = 0;
+      // Sinematik ışık: huzme kaidenin üstüne iner, havuz kaidenin dibinde. Geçişte (kesirli sıra) huzme
+      // kısılır ve arka planın odağı kayar (daha flu); yeni ürün kaideye konunca huzme kısa bir an parlar.
+      const zemin = (P.set(0, fy, 0).project(camera).y + 1) / 2;
+      const ust = (Q.set(0, sceneState.plinthTop ?? fy, 0).project(camera).y + 1) / 2;
+      const fr = scrollState.p - Math.floor(scrollState.p);
+      const trans = Math.sin(Math.PI * fr);
+      if (sceneState.settled && l.landKey !== st.active) {
+        if (l.landKey != null) l.landAt = time;
+        l.landKey = st.active;
+      }
+      const flash = l.landAt != null ? Math.exp(-(time - l.landAt) * 2.2) : 0;
+      l.beam = MathUtils.damp(l.beam ?? 0, (1 - 0.65 * trans) * (st.detail ? 0.2 : 1) * (phone ? 0.5 : 1) * Math.min(1, sceneState.intro * 1.3), 4, dt);
+      m.u_plateFx.set(zemin, ust, l.beam, flash);
+      l.blur = MathUtils.damp(l.blur ?? 2.4, (phone ? 1.6 : 2.4) + 7 * trans, 6, dt);
+      m.u_plateBlur = l.blur;
       l.plateOn = MathUtils.damp(l.plateOn ?? 0, (1 - scrollState.ritualIn) * (1 - scrollState.shopIn), 3, dt);
       m.u_plateOn = l.plateOn;
     }

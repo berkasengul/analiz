@@ -42,6 +42,11 @@ export const BackgroundMaterial = shaderMaterial(
     u_plateSp: new Vector4(2.63, 0.54, 0.66, 0.5),
     u_plateShift: 0,
     u_plateScale: 0,
+    // Sinematik butik: x = zemin (kaidenin altı), y = kaidenin üstü (ekran v, alttan), z = ışık huzmesi gücü,
+    // w = ürün kaideye konunca kısa ışık parlaması.
+    u_plateFx: new Vector4(0.2, 0.3, 0, 0),
+    // Arka planın flulüğü (fotoğraf pikseli): ürün keskin, arka plan yumuşak; geçişte odak kayar.
+    u_plateBlur: 0,
     u_tp: 0,
     u_bottleH: 0.35,
     u_sceneX: 0.5,
@@ -88,6 +93,8 @@ export const BackgroundMaterial = shaderMaterial(
     uniform vec4 u_plateSp;
     uniform float u_plateShift;
     uniform float u_plateScale;
+    uniform vec4 u_plateFx;
+    uniform float u_plateBlur;
     uniform float u_tp;
     uniform float u_bottleH;
     uniform float u_sceneX;
@@ -270,7 +277,40 @@ export const BackgroundMaterial = shaderMaterial(
         // Kenara taşarsa sınırda kalır (boşluk yok).
         u = clamp(u, 0.002, 0.998);
         v = clamp(v, 0.002, 0.998);
-        vec3 pc = texture2D(u_plate, vec2(u, 1. - v)).rgb * mix(0.08, 1., topFade);
+        vec2 puv = vec2(u, 1. - v);
+        // Sığ alan derinliği: iki halka örnek (merkez + 8 + 8); fotoğrafın 2000 px'lik eni ölçü.
+        vec2 tx = vec2(1., ia) / 2000. * u_plateBlur;
+        vec3 pc = texture2D(u_plate, puv).rgb * 0.12;
+        for (int k = 0; k < 8; k++) {
+          float an = float(k) * 0.7853982;
+          vec2 o = vec2(cos(an), sin(an));
+          pc += texture2D(u_plate, puv + o * tx).rgb * 0.055;
+          pc += texture2D(u_plate, puv + vec2(o.y, -o.x) * tx * 0.5 + o * tx * 0.12).rgb * 0.055;
+        }
+        // Film renk düzeni: hafif soluk, derin gölgeler; ışıklar sıcak kalır.
+        float pl = dot(pc, vec3(0.299, 0.587, 0.114));
+        pc = mix(vec3(pl), pc, 0.86);
+        pc = pow(pc, vec3(1.22)) * 0.95;
+        pc *= mix(0.08, 1., topFade);
+        // Tepeden kaideye inen ışık huzmesi (içinde süzülen toz), kaidenin çevresinde zeminde ışık havuzu
+        // ve zeminde yavaşça akan ince sis. Işık ürünün renginden ılık beyaza.
+        {
+          vec3 warm = mix(light, vec3(1., 0.86, 0.66), 0.55);
+          float bx = (vUv.x - u_sceneX) * u_aspect;
+          float by = clamp((1.04 - vUv.y) / max(1.04 - u_plateFx.y, 0.05), 0., 1.3);
+          float hw = mix(0.05, 0.3, by);
+          float cone = (1. - smoothstep(hw * 0.35, hw, abs(bx))) * smoothstep(0.02, 0.2, by) * (1. - smoothstep(0.96, 1.1, by));
+          float dust = 0.7 + 0.3 * fbm(vec2(bx * 7., vUv.y * 4. + u_time * 0.07));
+          float beam = u_plateFx.z * (1. + 0.9 * u_plateFx.w);
+          pc += warm * cone * dust * 0.14 * beam;
+          vec2 pq = vec2(bx / 0.62, (vUv.y - u_plateFx.x) / 0.075);
+          pc += warm * exp(-dot(pq, pq)) * 0.2 * beam;
+          float band = smoothstep(u_plateFx.x + 0.16, u_plateFx.x - 0.02, vUv.y);
+          float fog = fbm(vec2(vUv.x * u_aspect * 1.4 + u_time * 0.025, vUv.y * 6. - u_time * 0.015));
+          pc += vec3(0.55, 0.45, 0.36) * band * smoothstep(0.35, 0.85, fog) * 0.07;
+          // Alt kenar ve köşeler koyu: göz ortadaki ürüne gider.
+          pc *= mix(0.5, 1., smoothstep(0.0, 0.22, vUv.y));
+        }
         // Yazıların arkası hafif koyu, kenarlar kararır.
         float read = u_aspect > 1. ? mix(0.62, 1., smoothstep(0.02, 0.42, vUv.x)) * mix(0.75, 1., smoothstep(0.99, 0.82, vUv.x)) : mix(0.55, 1., smoothstep(0.05, 0.45, vUv.y));
         // Detayda (u_stage kısılır) fotoğraf kararır: soldaki açıklama ve sağdaki kartlar rahat okunur.
@@ -471,6 +511,8 @@ export const BackgroundMaterial = shaderMaterial(
       }
       // Kenar karartması.
       col *= 1. - 0.7 * (1. - 0.6 * u_vivid * u_sceneOn) * (1. - 0.5 * u_plateOn) * smoothstep(0.35, 1.2, screenDist);
+      // Butik fotoğrafında sinematik vinyet: kenarlar yumuşakça kararır.
+      col *= 1. - 0.38 * u_plateOn * smoothstep(0.45, 1.25, screenDist);
       // Sinematik mod: sahne kararır, kenarlarda koyu bir vinyet oluşur.
       col *= mix(1., 0.35 + 0.65 * (1. - smoothstep(0.25, 1.0, screenDist)), u_dark);
 

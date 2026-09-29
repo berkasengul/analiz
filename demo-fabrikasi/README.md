@@ -239,8 +239,15 @@ aynı dilde: yivli duvar, ışık havuzu, yansıyan zemin, yuvarlak obsidyen kai
 arka planı kaplar (`markalar/<marka>-assets/` içine konur, `brand/…` olarak yayınlanır). `x`: fotoğraftaki odak noktası
 (ör. kemerin ortası) öndeki ürüne gelir; dikeyde fotoğraf ekranı tam kaplar; telefonda küçülür, kemerin tamamı
 görünür (üstü karanlığa karışır, zemin aynalanır). Fotoğraflı modda 3B duvar ve yansıtıcı zemin gizlidir; kaidelerin
-altında temas gölgesi ve zeminde soluk yansımaları çizilir. Masaüstünde komşular 12 birim geride aynı boyda durur
-(Mardini: `butik.jpg`, `x: 0.541`, `floor: 0.658`).
+altında temas gölgesi ve zeminde soluk yansımaları çizilir. Masaüstünde komşular 16 birim geride aynı boyda durur
+(Mardini: `butik.jpg`, `x: 0.541`, `floor: 0.658`). Fotoğraf kaydırmada hiç oynamaz. Kaide tek: ortada sabit durur,
+öndeki ürün onun üstündedir; komşular doğrudan zeminde (temas gölgesiyle), ortaya gelen ürün hafif bir kavisle
+kaideye konar. Sinematik düzen: fotoğraf hafif flu (sığ alan derinliği) ve film tonunda; tepeden kaideye ışık
+huzmesi, kaidenin dibinde ışık havuzu, zeminde ince sis, güçlü vinyet. Geçişte odak kayar (arka plan daha flu,
+huzme kısılır), ürün kaideye konunca huzme bir an parlar (Background → `u_plateFx`, `u_plateBlur`).
+
+Ürün ürün geçiş (`theme.paging`, "dolly"da varsayılan açık): masaüstünde tek tekerlek / dokunmatik yüzey hareketi
+sıradaki ürünü doğrudan ortaya getirir (App → `pagingWheel`; atalet olayları yutulur). Telefonda zaten sayfa sayfa.
 
 Saydam cam şişelerde ışık: `"photoUnlit": 0.8` (fotoğrafın kendi ışığının payı) ve `"photoExact": true` (etiket ton
 eşlemeden geçmez) ile etiket fotoğraftaki gibi net; `foto.glassAlpha` etiketin yazısını koyulaştırır. Kalınlık yüzleri
