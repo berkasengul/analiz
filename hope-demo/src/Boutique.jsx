@@ -115,7 +115,7 @@ export default function Boutique() {
     // Duman: ürünün önünde; geçişte (kesirli kaydırma) kabarır, yerindeyken çok hafif.
     const fr = scrollState.p - Math.floor(scrollState.p);
     // Fotoğraflı butikte geçişte duman kabarmaz: arka plan sabit görünür.
-    const trans = THEME.plate ? 0 : Math.sin(Math.PI * fr);
+    const trans = THEME.plate || THEME.fresh ? 0 : Math.sin(Math.PI * fr);
     smoke.current.position.set(r.x, r.y + 0.6, r.z + 1.4);
     smoke.current.scale.setScalar(r.scale / 2);
     smokeMat.uniforms.u_time.value = clock.getElapsedTime();
@@ -123,8 +123,10 @@ export default function Boutique() {
     smokeMat.uniforms.u_color.value.copy(S.tint);
     // Butik fotoğrafı (theme.plate) varsa duvar ve zemin fotoğraftan gelir: 3B duvar, zemin ve duvar ışığı gizli.
     // Fotoğraflı butikte duvar ve zemin fotoğraftan gelir (3B duvar ve yansıtıcı zemin gizli).
-    root.current.visible = on > 0.01 && !THEME.plate;
-    if (THEME.plate) L.intensity = 0;
+    // Ferah sahnede (theme.fresh) duvar ve zemin shader'dan gelir: 3B butik de gizli.
+    root.current.visible = on > 0.01 && !THEME.plate && !THEME.fresh;
+    if (THEME.plate || THEME.fresh) L.intensity = 0;
+    if (THEME.fresh) smokeMat.uniforms.u_amount.value = 0;
   });
 
   return (

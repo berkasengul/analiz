@@ -19,6 +19,8 @@ const TUNNEL = THEME.carousel === "dolly";
 const PLATE = THEME.plate;
 const plateTex = PLATE ? new TextureLoader().load(`${import.meta.env.BASE_URL}${PLATE.src}`, (t) => (t.colorSpace = SRGBColorSpace)) : null;
 if (plateTex) plateTex.colorSpace = SRGBColorSpace;
+// Ferah sahne (theme.fresh: true): fotoğraf yerine her kokunun kendi renginde aydınlık fon ve parlak zemin.
+const FRESH = !!THEME.fresh && !PLATE;
 const ARCH = THEME.carousel === "glide";
 const P = new Vector3();
 const Q = new Vector3();
@@ -190,8 +192,8 @@ export default function Background() {
     // "dolly": arka plan gerçek 3B butik sahnesi (Boutique); shader yalnızca karanlık zemin rengini verir.
     m.u_tunnel = 0;
     m.u_noir = TUNNEL ? 1 : 0;
-    if (PLATE) {
-      m.u_plate = plateTex;
+    if (PLATE || FRESH) {
+      if (PLATE) m.u_plate = plateTex;
       const asp = size.width / size.height;
       // Duvar dibi: kaidelerin zemini, komşuların biraz arkasında.
       const fy = sceneState.floorY ?? -4.5;
@@ -203,7 +205,7 @@ export default function Background() {
       // Fotoğraf dikeyde ekranı tam kaplar (kaydırılmaz); yatayda odak noktası (kemerin ortası) öndeki ürüne gelir.
       const phone = asp < 0.9;
       // Telefonda duvar dibi kaidelerin arkasına (ekranın üstten ~%63'ü) gelir.
-      m.u_plateSp.set(PLATE.aspect ?? 2.63, PLATE.x ?? 0.5, PLATE.floor ?? 0.66, phone ? 0.63 : PLATE.floor ?? 0.66);
+      if (PLATE) m.u_plateSp.set(PLATE.aspect ?? 2.63, PLATE.x ?? 0.5, PLATE.floor ?? 0.66, phone ? 0.63 : PLATE.floor ?? 0.66);
       m.u_plateScale = phone ? 0.62 : 0;
       m.u_sceneX = sx;
       // Ürünler değişirken arka plan sabit kalır.
@@ -224,7 +226,8 @@ export default function Background() {
       l.blur = MathUtils.damp(l.blur ?? 1.1, (phone ? 0.8 : 1.1) + 7 * trans, 6, dt);
       m.u_plateBlur = l.blur;
       l.plateOn = MathUtils.damp(l.plateOn ?? 0, (1 - scrollState.ritualIn) * (1 - scrollState.shopIn), 3, dt);
-      m.u_plateOn = l.plateOn;
+      m.u_plateOn = PLATE ? l.plateOn : 0;
+      m.u_fresh = FRESH ? l.plateOn : 0;
     }
     m.u_tp = scrollState.p;
     material.current.u_studio = SOLO ? 1 : 0;

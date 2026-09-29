@@ -34,6 +34,13 @@ export default function CartDrawer() {
       window.location.href = `${C.shopify.replace(/\/$/, "")}/cart/${lines}`;
       return;
     }
+    // WooCommerce mağazası: tek ürün markanın kendi sepetine eklenip sepet sayfası açılır; birden çok ürün
+    // için ilk ürün eklenir (WooCommerce adresle tek ürün ekleyebiliyor), gerisi mağazada tamamlanır.
+    if (C.woo && cart.length && variantOf(cart[0])) {
+      const i = cart[0];
+      window.location.href = `${C.woo.replace(/\/$/, "")}/${C.wooCart ?? "cart"}/?add-to-cart=${variantOf(i)}&quantity=${i.qty * i.pack}`;
+      return;
+    }
     // ikas mağazası: sepet bağlantısı yok; tek ürün varsa ürünün mağazadaki sayfası, yoksa mağaza açılır.
     if (C.ikas) {
       const one = cart.length === 1 ? itemOf(cart[0])?.url : null;
@@ -167,7 +174,7 @@ export default function CartDrawer() {
                 </p>
               )}
               <p className="mono drawer__small">{ui.taxes}</p>
-              {(C.shopify || C.ikas) && ui.checkoutNote && <p className="mono drawer__small">{ui.checkoutNote}</p>}
+              {(C.shopify || C.ikas || C.woo) && ui.checkoutNote && <p className="mono drawer__small">{ui.checkoutNote}</p>}
             </footer>
           </>
         )}

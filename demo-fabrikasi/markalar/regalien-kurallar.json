@@ -1,0 +1,1557 @@
+{
+ "cek": {
+  "cleanShot": {
+   "aurora": "https://regalien.com/wp-content/uploads/2026/06/AURORA_1500x1750.png",
+   "clubs-of-iris-reverie": "https://regalien.com/wp-content/uploads/2026/06/Club-Of-Iris_1500x1500.png"
+  }
+ },
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "clear": ".",
+  "glassBack": {
+   "label": [
+    0.332,
+    0.405,
+    0.668,
+    0.855
+   ],
+   "brand": "RÉGALIEN",
+   "family": "Extrait de Parfum"
+  }
+ },
+ "aktar": {
+  "domain": "regalien.com",
+  "platform": "woo",
+  "wooCart": "sepet",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "80 ml",
+  "categories": [
+   {
+    "id": "hidden",
+    "tr": "Hidden Origins",
+    "en": "Hidden Origins",
+    "color": "#b8863a",
+    "descTr": "Anadolu’nun saklı hikâyelerinden: Halfeti, Kapadokya ve Haliç.",
+    "descEn": "From Anatolia’s hidden stories: Halfeti, Cappadocia and the Golden Horn.",
+    "match": "Hidden Origins"
+   },
+   {
+    "id": "heritage",
+    "tr": "Heritage",
+    "en": "Heritage",
+    "color": "#2fb3a8",
+    "descTr": "Heritage koleksiyonu: Turkuaz, Şah, Hatır, Nazen, Meftun ve Ala.",
+    "descEn": "The Heritage collection: Turkuaz, Şah, Hatır, Nazen, Meftun and Ala.",
+    "match": "Heritage"
+   },
+   {
+    "id": "hammam",
+    "tr": "Turkish Bath Rituals",
+    "en": "Turkish Bath Rituals",
+    "color": "#c9b8d8",
+    "descTr": "Hamam ritüelinden: Hammam, Dem ve Efil.",
+    "descEn": "From the hammam ritual: Hammam, Dem and Efil.",
+    "match": "Turkish Bath"
+   },
+   {
+    "id": "lucky",
+    "tr": "Lucky",
+    "en": "Lucky",
+    "color": "#d8453a",
+    "descTr": "Heart of Rose, Heart of Rose Exotic, Clubs of Iris Reverie ve Diamond of Velvet.",
+    "descEn": "Heart of Rose, Heart of Rose Exotic, Clubs of Iris Reverie and Diamond of Velvet.",
+    "match": "Lucky"
+   },
+   {
+    "id": "exclusive",
+    "tr": "Exclusive",
+    "en": "Exclusive",
+    "color": "#8a4fb0",
+    "descTr": "Markanın özel koleksiyonu: Ceremony, Châtelain 22, Vanity Oud, Marrakesh ve diğerleri.",
+    "descEn": "The house’s exclusive line: Ceremony, Châtelain 22, Vanity Oud, Marrakesh and more.",
+    "match": "Exclusive"
+   }
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.42
+  },
+  "home": [
+   "turkuaz",
+   "meftun",
+   "heart-of-rose",
+   "sah",
+   "aurora",
+   "hammam"
+  ],
+  "notes": [
+   [
+    "^aurora$",
+    [
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Ebegümeci",
+      "Mallow"
+     ],
+     [
+      "Vadideki Zambak",
+      "Lily of the Valley"
+     ],
+     [
+      "Nagarmotha",
+      "Nagarmotha"
+     ],
+     [
+      "Siyah Gül",
+      "Black Rose"
+     ],
+     [
+      "Ambrette",
+      "Ambrette"
+     ]
+    ]
+   ],
+   [
+    "^anemos$",
+    [
+     [
+      "Bergamot (İtalya)",
+      "Bergamot (Italy)"
+     ],
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Elemi (Filipinler)",
+      "Elemi (Philippines)"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Saffiano Deri",
+      "Saffiano Leather"
+     ],
+     [
+      "Sardunya (Mısır)",
+      "Geranium (Egypt)"
+     ]
+    ]
+   ],
+   [
+    "^agora$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Kakule (Guatemala)",
+      "Cardamom (Guatemala)"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Nagarmotha",
+      "Nagarmotha"
+     ],
+     [
+      "Pimento Meyvesi",
+      "Pimento Berry"
+     ]
+    ]
+   ],
+   [
+    "^clubs\\-of\\-iris\\-reverie$",
+    [
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Muskat",
+      "Nutmeg"
+     ],
+     [
+      "Ylang Ylang",
+      "Ylang Ylang"
+     ],
+     [
+      "Karmaflor",
+      "Karmaflor"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ],
+     [
+      "Tonka Fasülyesi",
+      "Tonka"
+     ]
+    ]
+   ],
+   [
+    "^heart\\-of\\-rose\\-exotic$",
+    [
+     [
+      "Türk Gülü",
+      "Turkish Rose"
+     ],
+     [
+      "Çarkıfelek Meyvesi",
+      "Passion Fruit"
+     ],
+     [
+      "Mangostan",
+      "Mangosteen"
+     ],
+     [
+      "Armut",
+      "Pear"
+     ],
+     [
+      "Siyah Frenk Üzümü",
+      "Black Currant"
+     ],
+     [
+      "Jackfruit",
+      "Jackfruit"
+     ]
+    ]
+   ],
+   [
+    "^chatelain22$",
+    [
+     [
+      "Adaçayı",
+      "Clarysage"
+     ],
+     [
+      "Badem",
+      "Almond"
+     ],
+     [
+      "Gül Ağacı",
+      "Rosewood"
+     ],
+     [
+      "Saman",
+      "Hay"
+     ],
+     [
+      "Tonka Fasulyesi",
+      "Tonka Bean"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^marrakesh$",
+    [
+     [
+      "Petitgrain (Turunç Yaprağı)",
+      "Petitgrain (Bitter Orange Leaf)"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Sedir Yaprağı",
+      "Cedar Leaf"
+     ],
+     [
+      "Kişniş",
+      "Coriander"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ]
+    ]
+   ],
+   [
+    "^musk\\-barrel$",
+    [
+     [
+      "Kimyon",
+      "Cumin"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Hanımeli",
+      "Honeysuckle"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^vanity\\-oud$",
+    [
+     [
+      "Liçi",
+      "Lychee"
+     ],
+     [
+      "Erik",
+      "Plum"
+     ],
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Lotus Çiçeği",
+      "Lotus Flower"
+     ],
+     [
+      "Orkide",
+      "Orchid"
+     ]
+    ]
+   ],
+   [
+    "^regularly\\-irregular$",
+    [
+     [
+      "Ananas",
+      "Pineapple"
+     ],
+     [
+      "Elma",
+      "Apple"
+     ],
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Seçuan Biberi",
+      "Sichuan Pepper"
+     ]
+    ]
+   ],
+   [
+    "^mystic$",
+    [
+     [
+      "Sedir Yaprağı",
+      "Cedar Leaf"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Adaçayı",
+      "Sage"
+     ],
+     [
+      "Pelesenk Ağacı",
+      "Rosewood"
+     ],
+     [
+      "Biberiye",
+      "Rosemary"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ]
+    ]
+   ],
+   [
+    "^antidote$",
+    [
+     [
+      "Sardunya",
+      "Geranium"
+     ],
+     [
+      "Muskat",
+      "Nutmeg"
+     ],
+     [
+      "Kırmızı Gül Yaprakları",
+      "Red Rose Petals"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Mimoza",
+      "Mimosa"
+     ],
+     [
+      "Bal",
+      "Honey"
+     ]
+    ]
+   ],
+   [
+    "^kashmeran$",
+    [
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "Kırmızı Meyveler",
+      "Red Berries"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Labdanum",
+      "Labdanum"
+     ]
+    ]
+   ],
+   [
+    "^ceremony\\-flu$",
+    [
+     [
+      "Tik ağacının topraksı tonlarıyla derinleşen bu kompozisyon",
+      "This composition deepens with the earthy tones of teak wood"
+     ],
+     [
+      "beyaz miskin yumuşatan",
+      "balanced by the soft white musk"
+     ],
+     [
+      "ıhlamur çiçeğinin çiçeksi dokunuşuyla dengelenir",
+      "floral touch of linden blossom"
+     ],
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Ambrette Tohumu",
+      "Ambrette Seed"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ]
+    ]
+   ],
+   [
+    "^ceremony\\-bold$",
+    [
+     [
+      "Meşe yosunun zengin",
+      "The rich"
+     ],
+     [
+      "topraksı yapısı; eski ormanları anımsatan gizemli bir dokunuşla kokuya derin bir zenginlik verir",
+      "earthy structure of oakmoss lends the fragrance a deep opulence"
+     ],
+     [
+      "Tagette",
+      "evoking the mysterious allure of ancient forests"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Tagette"
+     ],
+     [
+      "Mandalina",
+      "Orange Blossom"
+     ],
+     [
+      "Sümbülteber",
+      "Mandarin"
+     ]
+    ]
+   ],
+   [
+    "^hazz$",
+    [
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Mimoza",
+      "Mimosa"
+     ],
+     [
+      "Tonka Fasulyesi",
+      "Tonka Bean"
+     ],
+     [
+      "Meyan Kökü",
+      "Licorice Root"
+     ]
+    ]
+   ],
+   [
+    "^heart\\-of\\-rose$",
+    [
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Ananas",
+      "Pineapple"
+     ],
+     [
+      "Karpuz",
+      "Watermelon"
+     ],
+     [
+      "Kişniş",
+      "Coriander"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ]
+    ]
+   ],
+   [
+    "^ceremony$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Orange Blossom"
+     ],
+     [
+      "Armut",
+      "Pear"
+     ],
+     [
+      "Haiti Gardenyası",
+      "Tiare"
+     ],
+     [
+      "Heliotrop",
+      "Heliotrope"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ]
+    ]
+   ],
+   [
+    "^diamonfofvelvet$",
+    [
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Orange Blossom"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Menekşe Yaprağı",
+      "Violet Leaf"
+     ],
+     [
+      "İris Çiçeği",
+      "Iris Flower"
+     ],
+     [
+      "Heliotrope",
+      "Heliotrope"
+     ]
+    ]
+   ],
+   [
+    "^dem$",
+    [
+     [
+      "Beyaz Çay",
+      "White Tea"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Mate",
+      "Mate"
+     ],
+     [
+      "Yeşil çay",
+      "Green Tea"
+     ]
+    ]
+   ],
+   [
+    "^efil$",
+    [
+     [
+      "İspanyol Limonu",
+      "Spanish Lemon"
+     ],
+     [
+      "Pink Lady Elması",
+      "Pink Lady Apple"
+     ],
+     [
+      "Siyah Frenk Üzümü",
+      "Blackcurrant"
+     ],
+     [
+      "Ozonik Çiçekler",
+      "Ozonic Flowers"
+     ],
+     [
+      "Okka Gülü",
+      "Rose Centifolia Influsion"
+     ],
+     [
+      "Kırmızı Karanfil",
+      "Red Carnation"
+     ]
+    ]
+   ],
+   [
+    "^hammam$",
+    [
+     [
+      "Beyaz Sabun",
+      "Turkish White Soap"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Ozonik Notalar",
+      "Ozonic Notes"
+     ],
+     [
+      "Okaliptüs",
+      "Eucalyptus"
+     ],
+     [
+      "Geranyum",
+      "Geranium"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Orange Blossom"
+     ]
+    ]
+   ],
+   [
+    "^ala$",
+    [
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Konyak",
+      "Cognac"
+     ],
+     [
+      "Kayısı",
+      "Apricot"
+     ],
+     [
+      "Kişniş",
+      "Coriander"
+     ],
+     [
+      "Viski",
+      "Whiskey"
+     ],
+     [
+      "Bal",
+      "Honey"
+     ]
+    ]
+   ],
+   [
+    "^meftun$",
+    [
+     [
+      "Güç ve zarafeti bir arada taşıyan zengin",
+      "A rich"
+     ],
+     [
+      "sıcak ve unutulmaz bir kompozisyon",
+      "warm"
+     ],
+     [
+      "Tarçın",
+      "and lingering composition—crafted for those who embrace power and presence"
+     ],
+     [
+      "Kişniş",
+      "Cinnamon"
+     ],
+     [
+      "Rom",
+      "Coriander"
+     ],
+     [
+      "Konyak",
+      "Rum"
+     ]
+    ]
+   ],
+   [
+    "^sah$",
+    [
+     [
+      "Ozonik Notalar",
+      "Ozonic Notes"
+     ],
+     [
+      "Mineral Notalar",
+      "Mineral Notes"
+     ],
+     [
+      "Türk Gülü",
+      "Turkish Rose"
+     ],
+     [
+      "Küçük Hindistan Cevizi",
+      "Nutmeg"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^hatir$",
+    [
+     [
+      "Türk Kahvesi",
+      "Turkish Coffee"
+     ],
+     [
+      "Galbanum",
+      "Galbanum"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Vetiver",
+      "Vetiver"
+     ],
+     [
+      "Beyaz Çikolata",
+      "White Chocolate"
+     ]
+    ]
+   ],
+   [
+    "^nazen$",
+    [
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Yeşil Notalar",
+      "Green Notes"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Sümbülteber",
+      "Tuberose"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Gardenya",
+      "Gardenia"
+     ]
+    ]
+   ],
+   [
+    "^turkuaz$",
+    [
+     [
+      "Marin Notalar",
+      "Marine Notes"
+     ],
+     [
+      "Ozonik Notalar",
+      "Ozonic Notes"
+     ],
+     [
+      "Pelin Çiçeği",
+      "Artemisia"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Deniz Yosunu",
+      "Seaweed"
+     ],
+     [
+      "Frenk Üzümü",
+      "Blackcurrant"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^aurora$",
+    "composition": {
+     "tr": [
+      "Üst: Pembe Biber, Ebegümeci, Vadideki Zambak",
+      "Kalp: Nagarmotha, Siyah Gül, Ambrette",
+      "Alt: Paçuli (Endonezya), Meşe Yosunu, Amber, Tahiti Vanilyası"
+     ],
+     "en": [
+      "Top: Pink Pepper, Mallow, Lily of the Valley",
+      "Heart: Nagarmotha, Black Rose, Ambrette",
+      "Base: Patchouli (Indonesia), Oakmoss, Amber, Tahitian Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^anemos$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot (İtalya), Pembe Biber, Elemi (Filipinler), Greyfurt",
+      "Kalp: Saffiano Deri, Sardunya (Mısır), Davana, Nagarmotha",
+      "Alt: Pralin, Cistus (Endonezya), Oakmoss, Agarwood, Ambrettolide"
+     ],
+     "en": [
+      "Top: Bergamot (Italy), Pink Pepper, Elemi (Philippines), Grapefruit",
+      "Heart: Saffiano Leather, Geranium (Egypt), Davana, Nagarmotha",
+      "Base: Praline, Cistus (Indonesia), Oakmoss, Agarwood, Ambrettolide"
+     ]
+    }
+   },
+   {
+    "match": "^agora$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Kakule (Guatemala), Safran, Karabiber",
+      "Kalp: Nagarmotha, Pimento Meyvesi, Olibanum",
+      "Alt: Vanilya Bourbon, Sedir Ağacı (Virginia), Vetiver (Haiti), Guaiacwood, Labdanum (İspanya), Sandal Ağacı, Pralin"
+     ],
+     "en": [
+      "Top: Bergamot, Cardamom (Guatemala), Saffron, Black Pepper",
+      "Heart: Nagarmotha, Pimento Berry, Olibanum",
+      "Base: Bourbon Vanilla, Cedarwood (Virginia), Vetiver (Haiti), Guaiacwood, Labdanum (Spain), Sandalwood, Praline"
+     ]
+    }
+   },
+   {
+    "match": "^clubs\\-of\\-iris\\-reverie$",
+    "composition": {
+     "tr": [
+      "Üst: İris, Muskat, Ylang Ylang",
+      "Kalp: Karmaflor, Misk, Tonka Fasülyesi, Mahonial",
+      "Alt: Mimoza, Sedir Ağacı, Vanilya"
+     ],
+     "en": [
+      "Top: Iris, Nutmeg, Ylang Ylang",
+      "Heart: Karmaflor, Musk, Tonka, Mahonial",
+      "Base: Mimosa, Cedarwood, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^heart\\-of\\-rose\\-exotic$",
+    "composition": {
+     "tr": [
+      "Üst: Türk Gülü, Çarkıfelek Meyvesi, Mangostan",
+      "Kalp: Armut, Siyah Frenk Üzümü, Jackfruit, Paradisone, Muskat",
+      "Alt: İris, Benjoin, Beyaz Çikolata, Beyaz Misk"
+     ],
+     "en": [
+      "Top: Turkish Rose, Passion Fruit, Mangosteen",
+      "Heart: Pear, Black Currant, Jackfruit, Paradisone, Nutmeg",
+      "Base: Iris, Benjoin, White Chocolate, White Musk"
+     ]
+    }
+   },
+   {
+    "match": "^chatelain22$",
+    "composition": {
+     "tr": [
+      "Üst: Adaçayı, Badem",
+      "Kalp: Gül Ağacı, Saman, Tonka Fasulyesi",
+      "Alt: Vanilya, Tütün, Misk"
+     ],
+     "en": [
+      "Top: Clarysage, Almond",
+      "Heart: Rosewood, Hay, Tonka Bean",
+      "Base: Vanilla, Tobacco, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^marrakesh$",
+    "composition": {
+     "tr": [
+      "Üst: Petitgrain (Turunç Yaprağı), Limon, Sedir Yaprağı, Kişniş",
+      "Kalp: Lavanta, Yasemin, Kimyon",
+      "Alt: Amber, Paçuli, Sedir Ağacı, Tütsü"
+     ],
+     "en": [
+      "Top: Petitgrain (Bitter Orange Leaf), Lemon, Cedar Leaf, Coriander",
+      "Heart: Lavender, Jasmine, Cumin",
+      "Base: Amber, Patchouli, Cedarwood, Incense"
+     ]
+    }
+   },
+   {
+    "match": "^musk\\-barrel$",
+    "composition": {
+     "tr": [
+      "Üst: Kimyon, Safran, Karabiber",
+      "Kalp: Yasemin, Hanımeli",
+      "Alt: Amber, Paçuli, Atlas Sediri, Misk, Sandal Ağacı"
+     ],
+     "en": [
+      "Top: Cumin, Saffron, Black Pepper",
+      "Heart: Jasmine, Honeysuckle",
+      "Base: Amber, Patchouli, Atlas Cedar, Musk, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^vanity\\-oud$",
+    "composition": {
+     "tr": [
+      "Üst: Liçi, Erik, Ahududu",
+      "Kalp: Yasemin, Lotus Çiçeği, Orkide, Frangipani",
+      "Alt: Vanilya, Ambergris, Agar Ağacı, Sedir Ağacı"
+     ],
+     "en": [
+      "Top: Lychee, Plum, Raspberry",
+      "Heart: Jasmine, Lotus Flower, Orchid, Frangipani",
+      "Base: Vanilla, Ambergris, Agarwood, Cedarwood"
+     ]
+    }
+   },
+   {
+    "match": "^regularly\\-irregular$",
+    "composition": {
+     "tr": [
+      "Üst: Ananas, Elma, Ahududu, Limon, Bergamot",
+      "Kalp: Seçuan Biberi, Gül, Müge, Huş Ağacı",
+      "Alt: Meşe Yosunu, Paçuli, Ambroksan, Amber, Beyaz Misk"
+     ],
+     "en": [
+      "Top: Pineapple, Apple, Raspberry, Lemon, Bergamot",
+      "Heart: Sichuan Pepper, Rose, Lilly of the Valley, Birch",
+      "Base: Oakmoss, Patchouli, Ambroksan, Amber, White Musk"
+     ]
+    }
+   },
+   {
+    "match": "^mystic$",
+    "composition": {
+     "tr": [
+      "Üst: Sedir Yaprağı, Bergamot, Adaçayı, Pelesenk Ağacı",
+      "Kalp: Biberiye, Lavanta",
+      "Alt: Sandal Ağacı, Tonka Fasülyesi, Agar Ağacı, Beyaz Misk, Amber, Gurjun Balsamı, Vaniya"
+     ],
+     "en": [
+      "Top: Cedar Leaf, Bergamot, Sage, Rosewood",
+      "Heart: Rosemary, Lavender",
+      "Base: Sandalwood, Tonka Bean, Agarwood (Oud), White Musk, Amber, Gurjun Balsam, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^antidote$",
+    "composition": {
+     "tr": [
+      "Üst: Sardunya, Muskat, Kırmızı Gül Yaprakları",
+      "Kalp: Yasemin, Mimoza, Bal, Adaçayı",
+      "Alt: Tütün Yaprağı, Vanilya, Amber, Misk, Paçuli"
+     ],
+     "en": [
+      "Top: Geranium, Nutmeg, Red Rose Petals",
+      "Heart: Jasmine, Mimosa, Honey, Clary Sage",
+      "Base: Tobacco Leaf, Vanilla, Amber, Musk, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^kashmeran$",
+    "composition": {
+     "tr": [
+      "Üst: Ahududu, Kırmızı Meyveler",
+      "Kalp: Gül, Menekşe, İris, Labdanum",
+      "Alt: Benzoin, Paçuli, Agar Ağacı, Amber, Pamuk Şeker, Misk"
+     ],
+     "en": [
+      "Top: Raspberry, Red Berries",
+      "Heart: Rose, Violet, Iris, Labdanum",
+      "Base: Benzoin, Patchouli, Agarwood, Amber, Cotton Candy, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^ceremony\\-flu$",
+    "composition": {
+     "tr": [
+      "Üst: Tik ağacının topraksı tonlarıyla derinleşen bu kompozisyon, beyaz miskin yumuşatan, ıhlamur çiçeğinin çiçeksi dokunuşuyla dengelenir",
+      "Kalp: Pembe Biber, Ambrette Tohumu, Bergamot",
+      "Alt: İris, Tik Ağacı, Ihlamur Çiçeği, Pudra Notaları"
+     ],
+     "en": [
+      "Top: This composition deepens with the earthy tones of teak wood, balanced by the soft white musk, floral touch of linden blossom",
+      "Heart: Pink Pepper, Ambrette Seed, Bergamot",
+      "Base: Iris, Teakwood, Linden Blossom, Powdery Notes"
+     ]
+    }
+   },
+   {
+    "match": "^ceremony\\-bold$",
+    "composition": {
+     "tr": [
+      "Üst: Meşe yosunun zengin, topraksı yapısı; eski ormanları anımsatan gizemli bir dokunuşla kokuya derin bir zenginlik verir",
+      "Kalp: Tagette, Portakal Çiçeği, Mandalina",
+      "Alt: Sümbülteber, Yasemin, Gül, Şeftali"
+     ],
+     "en": [
+      "Top: The rich, earthy structure of oakmoss lends the fragrance a deep opulence, evoking the mysterious allure of ancient forests",
+      "Heart: Tagette, Orange Blossom, Mandarin",
+      "Base: Tuberose, Jasmine, Rose, Peach"
+     ]
+    }
+   },
+   {
+    "match": "^hazz$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal, Limon, Greyfurt",
+      "Kalp: Mimoza, Tonka Fasulyesi, Meyan Kökü",
+      "Alt: Karamel, Pralin, Vanilya Fasulyesi Absolütü, Sandal Ağacı"
+     ],
+     "en": [
+      "Top: Orange, Lemon, Grapefruit",
+      "Heart: Mimosa, Tonka Bean, Licorice Root",
+      "Base: Caramel, Praline, Vanilla Bean Absolute, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^heart\\-of\\-rose$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal, Ananas, Karpuz",
+      "Kalp: Kişniş, Menekşe, Neroli, Muskat, Tarçın, Zambak, Türk Gülü",
+      "Alt: Paçuli Kalbi, Beyaz Çikolata, Amber, Misk, Vetiver"
+     ],
+     "en": [
+      "Top: Orange, Pineapple, Watermelon",
+      "Heart: Coriander, Violet, Neroli, Nutmeg, Cinnamon, Lily, Turkish Rose",
+      "Base: Patchouli Heart, White Chocolate, Amber, Musk, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^ceremony$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Portakal Çiçeği, Armut",
+      "Kalp: Haiti Gardenyası, Heliotrop, Yasemin, Gardenya, Sümbülteber, Ylang Ylang",
+      "Alt: Amber, Misk, Hindistan Cevizi, Vanilya, Paçuli"
+     ],
+     "en": [
+      "Top: Bergamot, Orange Blossom, Pear",
+      "Heart: Tiare, Heliotrope, Jasmine, Gardenia, Tuberose, Ylang Ylang",
+      "Base: Amber, Musk, Coconut, Vanilla, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^diamonfofvelvet$",
+    "composition": {
+     "tr": [
+      "Üst: Şeftali, Portakal Çiçeği, Safran, Menekşe Yaprağı",
+      "Kalp: İris Çiçeği, Heliotrope, Osmantus, Hint Sümbülü, Zencefil",
+      "Alt: Tonka Fasulyesi, Paçuli, Ambrette Tohumu, Deri, Styrax Reçinesi, Birch Katranı"
+     ],
+     "en": [
+      "Top: Peach, Orange Blossom, Saffron, Violet Leaf",
+      "Heart: Iris Flower, Heliotrope, Osmanthus, Jatamansi, Ginger",
+      "Base: Tonka Bean, Patchouli, Ambrette Seed, Leather, Styrax Resin, Birch Tar"
+     ]
+    }
+   },
+   {
+    "match": "^dem$",
+    "composition": {
+     "tr": [
+      "Üst: Beyaz Çay, Bergamot, Neroli, Pembe Biber",
+      "Kalp: Mate, Yeşil çay, Siyah çay, Zencefil",
+      "Alt: Paçuli, Ambrette Tohumu, Beyaz Misk"
+     ],
+     "en": [
+      "Top: White Tea, Bergamot, Neroli, Pink Pepper",
+      "Heart: Mate, Green Tea, Black Tea, Ginger",
+      "Base: Patchouli, Ambrette Seed, White Musk"
+     ]
+    }
+   },
+   {
+    "match": "^efil$",
+    "composition": {
+     "tr": [
+      "Üst: İspanyol Limonu, Pink Lady Elması, Siyah Frenk Üzümü, Ozonik Çiçekler",
+      "Kalp: Okka Gülü, Kırmızı Karanfil, Leylak, Paçuli",
+      "Alt: Sentetik Misk, Muskarom, Ambergris, Kırmızı Meyveler"
+     ],
+     "en": [
+      "Top: Spanish Lemon, Pink Lady Apple, Blackcurrant, Ozonic Flowers",
+      "Heart: Rose Centifolia Influsion, Red Carnation, Lilac, Patchouli",
+      "Base: Muscenone Musk, Muscarome, Ambergris, Red Berries"
+     ]
+    }
+   },
+   {
+    "match": "^hammam$",
+    "composition": {
+     "tr": [
+      "Üst: Beyaz Sabun, Bergamot, Ozonik Notalar",
+      "Kalp: Okaliptüs, Geranyum, Portakal Çiçeği, Lavanta",
+      "Alt: Sedir Ağacı, Haiti Vetiveri, Buhar Notaları"
+     ],
+     "en": [
+      "Top: Turkish White Soap, Bergamot, Ozonic Notes",
+      "Heart: Eucalyptus, Geranium, Orange Blossom, Lavender",
+      "Base: Cedarwood, Haitian Vetiver, Steam Notes"
+     ]
+    }
+   },
+   {
+    "match": "^ala$",
+    "composition": {
+     "tr": [
+      "Üst: Tarçın, Konyak, Kayısı, Kişniş, Viski",
+      "Kalp: Bal, Geranyum, Biberiye, Türk Gülü",
+      "Alt: Tonka Fasülyesi, Vanilya, Benzoin, Labdanum, Amber, Misk"
+     ],
+     "en": [
+      "Top: Cinnamon, Cognac, Apricot, Coriander, Whiskey",
+      "Heart: Honey, Geranium, Rosemary, Turkish Rose",
+      "Base: Tonka Bean, Vanilla, Benzoin, Labdanum, Amber, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^meftun$",
+    "composition": {
+     "tr": [
+      "Üst: Güç ve zarafeti bir arada taşıyan zengin, sıcak ve unutulmaz bir kompozisyon",
+      "Kalp: Tarçın, Kişniş, Rom, Konyak",
+      "Alt: Zencefil, Pelin Otu, Kırmızı Meyveler, Huş Yaprağı, Angelica Tohumu"
+     ],
+     "en": [
+      "Top: A rich, warm, and lingering composition—crafted for those who embrace power and presence",
+      "Heart: Cinnamon, Coriander, Rum, Cognac",
+      "Base: Ginger, Wormwood, Red Berries, Birch Leaf, Angelica Seed"
+     ]
+    }
+   },
+   {
+    "match": "^sah$",
+    "composition": {
+     "tr": [
+      "Üst: Ozonik Notalar, Mineral Notalar",
+      "Kalp: Türk Gülü, Küçük Hindistan Cevizi, Karanfil, Safran, Itır",
+      "Alt: Kamboçya Oud’u, Paçuli, Sedir Ağacı"
+     ],
+     "en": [
+      "Top: Ozonic Notes, Mineral Notes",
+      "Heart: Turkish Rose, Nutmeg, Clove, Saffron, Geranium",
+      "Base: Cambodian Oud, Patchouli, Cedarwood"
+     ]
+    }
+   },
+   {
+    "match": "^hatir$",
+    "composition": {
+     "tr": [
+      "Üst: Türk Kahvesi, Galbanum, Zencefil",
+      "Kalp: İris, Vetiver, Beyaz Çikolata",
+      "Alt: Karamel, Vanilya, Tonka Fasulyesi"
+     ],
+     "en": [
+      "Top: Turkish Coffee, Galbanum, Ginger",
+      "Heart: Iris, Vetiver, White Chocolate",
+      "Base: Caramel, Vanilla, Tonka Bean"
+     ]
+    }
+   },
+   {
+    "match": "^nazen$",
+    "composition": {
+     "tr": [
+      "Üst: Şeftali, Yeşil Notalar, Bergamot",
+      "Kalp: Sümbülteber, Yasemin, Gardenya, Ylang Ylang, Zambak",
+      "Alt: Hindistan Cevizi Yağı, Vanilya, Beyaz Misk"
+     ],
+     "en": [
+      "Top: Peach, Green Notes, Bergamot",
+      "Heart: Tuberose, Jasmine, Gardenia, Ylang Ylang, Lily",
+      "Base: Coconut Butter, Vanilla, White Musk"
+     ]
+    }
+   },
+   {
+    "match": "^turkuaz$",
+    "composition": {
+     "tr": [
+      "Üst: Marin Notalar, Ozonik Notalar, Pelin Çiçeği, Safran",
+      "Kalp: Deniz Yosunu, Frenk Üzümü, Türk Gülü",
+      "Alt: Ambroksan, Amber, Meşe Yosunu"
+     ],
+     "en": [
+      "Top: Marine Notes, Ozonic Notes, Artemisia, Saffron",
+      "Heart: Seaweed, Blackcurrant, Turkish Rose",
+      "Base: Ambroxan, Amber, Oakmoss"
+     ]
+    }
+   }
+  ],
+  "families": {
+   "aurora": [
+    "Çiçeksi, Pudralı, Gizemli",
+    "Floral, Powdery, Mysterious"
+   ],
+   "anemos": [
+    "Odunsu, Deri, Mineral",
+    "Woody, Leathery, Mineral"
+   ],
+   "agora": [
+    "Baharatlı, Tütsülü, Gurme",
+    "Spicy, Smoky, Gourmand"
+   ],
+   "clubs-of-iris-reverie": [
+    "Iris, Krema, Misk",
+    "Iris, Cream, Musk"
+   ],
+   "heart-of-rose-exotic": [
+    "Çiçeksi, Egzotik Meyveler, Misk",
+    "Flowery, Exotic Fruits, Musky"
+   ],
+   "chatelain22": [
+    "Sıcak, Pudralı, Gurme",
+    "Warm, Powdery, Gourmand"
+   ],
+   "marrakesh": [
+    "Baharatlı, Oryantal, Odunsu",
+    "Spicy, Oriental, Woody"
+   ],
+   "musk-barrel": [
+    "Baharatlı, Odunsu, Amber",
+    "Spicy, Woody, Amber"
+   ],
+   "vanity-oud": [
+    "Meyvemsi, Çiçeksi, Oryantal",
+    "Fruity, Floral, Oriental"
+   ],
+   "regularly-irregular": [
+    "Meyvemsi, Baharatlı, Odunsu",
+    "Fruity, Spicy, Woody"
+   ],
+   "mystic": [
+    "Odunsu, Aromatik, Oryantal",
+    "Woody, Aromatic, Oriental"
+   ],
+   "antidote": [
+    "Tatlı, Baharatlı, Tütünsü",
+    "Sweet, Spicy, Smoky"
+   ],
+   "kashmeran": [
+    "Oryantal, Çiçeksi, Odunsu",
+    "Oriental, Floral, Woody"
+   ],
+   "ceremony-flu": [
+    "Pudralı, Ferah, Çiçeksi",
+    "Powdery, Fresh, Floral"
+   ],
+   "ceremony-bold": [
+    "Oryantal, Çiçeksi, Odunsu",
+    "Oriental, Floral, Woody"
+   ],
+   "hazz": [
+    "Tatlı, Meyvemsi, Gurmand",
+    "Sweet, Fruity, Gourmand"
+   ],
+   "heart-of-rose": [
+    "Çiçeksi, Gurme, Baharatlı",
+    "Floral, Gourmet, Spicy"
+   ],
+   "ceremony": [
+    "Oryantal, Çiçeksi, Meyvemsi",
+    "Oriental, Floral, Fruity"
+   ],
+   "diamonfofvelvet": [
+    "Oryantal, Çiçeksi, Deri",
+    "Oriental, Floral, Leather"
+   ],
+   "dem": [
+    "Temiz, Aromatik, Odunsu",
+    "Clean, Aromatic, Woody"
+   ],
+   "efil": [
+    "Çiçeksi, Soft, Ferah",
+    "Floral, Soft, Fresh"
+   ],
+   "hammam": [
+    "Sabunsu, Ferah, Aromatik",
+    "Soapy, Fresh, Aromatic"
+   ],
+   "ala": [
+    "Baharatlı, Balsamik, Pudramsı",
+    "Spicy, Balsamic, Powdery"
+   ],
+   "meftun": [
+    "Baharatlı, Tatlı, Odunsu",
+    "Spicy, Sweet, Woody"
+   ],
+   "sah": [
+    "Odunsu, Baharatlı ve Topraksı",
+    "Woody, Spicy, Earthy"
+   ],
+   "hatir": [
+    "Gurme, Baharatlı, Tatlı",
+    "Gourmet, Spicy, Sweet"
+   ],
+   "nazen": [
+    "Çiçeksi, Meyveli, Kremalı",
+    "Floral, Fruity, Creamy"
+   ],
+   "turkuaz": [
+    "Marin, Topraksı, Baharatlı",
+    "Marine, Earthy, Spicy"
+   ]
+  },
+  "taglines": {
+   "aurora": [
+    "Sular altındaki şehir Halfeti’den, efsanevi Karagül’den ve şafağın o ince anından ilham alan bir imza koku.",
+    "A signature scent inspired by the sunken city, Halfeti, the legendary Black Rose, and the fleeting moment of dawn."
+   ],
+   "anemos": [
+    "Kapadokya’nın rüzgarla şekillenen vadilerinin, volkanik taşlarının ve özgürce koşan Yılkı atlarının imza kokusu.",
+    "The signature scent of Cappadocia’s wind-shaped valleys, volcanic stones, and the freely-running Yılkı horses."
+   ],
+   "agora": [
+    "Haliç’in eriyen altını, Baharat Çarşısı’nın baharatları ve imparatorluğun sönmeyen ihtişamını taşıyan bir imza koku.",
+    "A signature scent carrying the molten gold of the Golden Horn, the spices of the Spice Bazaar, and the unfading splendor of empire."
+   ],
+   "clubs-of-iris-reverie": [
+    "İrisin yumuşak ışıltısıyla şekillenen, tene karışarak görünmez bir hâle gibi yayılan, sakin ve zarif bir imza.",
+    "A calm and elegant signature shaped by the soft glow of iris, spreading like an invisible aura that blends with the skin."
+   ],
+   "heart-of-rose-exotic": [
+    "Egzotik meyvelerin canlı enerjisinden doğan, sorbe ferahlığında modern bir imza",
+    "Born from the vibrant energy of exotic fruits, a modern signature with a sorbet-like freshness."
+   ],
+   "chatelain22": [
+    "Sofistike, rafine ve baştan çıkarıcı. Gündüzden geceye, şehir hayatının modern ritmini yansıtan bir imza koku.",
+    "Sophisticated, refined, and irresistibly seductive. A signature scent that captures the modern rhythm of city life — from day to night."
+   ],
+   "marrakesh": [
+    "Etkili, tensel ve saf…",
+    "Powerful, sensual and pure…"
+   ],
+   "musk-barrel": [
+    "Musk Barrel, amber ve odun notalarının cazibesini baharatlı dokunuşlarla buluşturarak hem Doğu’nun büyüsünü hem de Batı’nın zarif modernliğini teninizde bir araya getiriyor.",
+    "Musk Barrel combines the allure of amber and woody notes with spicy touches, bringing together the enchantment of the East and the elegant modernity of the West on your skin."
+   ],
+   "vanity-oud": [
+    "Çiçeksi ve meyvemsi özlerden oluşan notaları ile farklı ara katmanlar taşır.",
+    "With floral and fruity essence notes, it carries distinct intermediate layers."
+   ],
+   "regularly-irregular": [
+    "Adeta bir meyve patlaması..",
+    "Almost a burst of fruit.."
+   ],
+   "mystic": [
+    "İlk temasta aşk. Gösterişli ve asil.",
+    "Love at first touch. Glamorous and noble."
+   ],
+   "antidote": [
+    "İhtiraslı, davetkar ve hipnotik çekiciliğiyle birleşen ballı tütün aroması…",
+    "The honeyed tobacco aroma combined with passionate, inviting, and hypnotic allure…"
+   ],
+   "kashmeran": [
+    "Teninizde narin bir ipek gibi süzülür, geride sessiz ama unutulmaz bir iz bırakır.",
+    "It glides on your skin like delicate silk, leaving behind a subtle yet unforgettable trail."
+   ],
+   "ceremony-flu": [
+    "Huzurun, zarafetin ve şıklığın kokusu. Tekrar tekrar koklamak isteyeceğiniz, yumuşak ama etkileyici bir iz bırakır.",
+    "The scent of peace, elegance, and sophistication. A soft yet captivating trail that you'll want to experience again and again."
+   ],
+   "ceremony-bold": [
+    "Ceremony Bold, etkileyici, güçlü ve unutulmaz bir imza arayanlar için tasarlandı. Cüretkar ve çarpıcı bir deneyime hazır olun.",
+    "Ceremony Bold was designed for those seeking a powerful, unforgettable signature. Get ready for a bold and striking experience."
+   ],
+   "hazz": [
+    "Sıcak ve tatlı notaların, sulu taze meyvelerin ve uyuşturan mısır yasemini ile muhteşem bir romantik oluşumundaki giz…",
+    "The mystery within a warm and sweet blend of juicy fresh fruits and intoxicating corn jasmine, creating a magnificent romantic composition..."
+   ],
+   "heart-of-rose": [
+    "Alışılmışın dışında farklı bir Gül akoruna sahip bu parfüm Türk Gülünü farklı normlarda yorumluyor.",
+    "This perfume features an unusual and unique rose accord, interpreting the Turkish Rose in different dimensions."
+   ],
+   "ceremony": [
+    "Oryantal bahçe cazibesinin muhteşem bir yansıması. Hazırsanız Ceremony ile duyularınızı bir senfoniye davet edin. Baş döndürücü çiçeklerin ve baharın sıcaklığının zarafetle buluştuğu bir imza…",
+    "A magnificent reflection of oriental garden allure. If you’re ready, let Ceremony invite your senses to a symphony. A signature where dizzying florals and the warmth of spring meet with elegance…"
+   ],
+   "diamonfofvelvet": [
+    "Kadifenin yumuşak ve ihtişamlı dokusunu olfaktif olarak yansıttığımız bu koku, Menekşe ve Deri Notaları etrafında şekilleniyor.",
+    "This fragrance, which olfactively reflects the soft and magnificent texture of velvet, is shaped around Violet and Leather Notes."
+   ],
+   "dem": [
+    "Özenle seçilen çayların; paçuli, amber, misk ile birleşerek dönüştüğü efsanevi koku.",
+    "The legendary fragrance born from carefully selected teas blended with patchouli, amber, and musk."
+   ],
+   "efil": [
+    "Dünya üzerinde varolan ve sizin için seçilen en mükemmel gülü koklamak nasıl olurdu sorusunun derinden etkileyen yanıtı…",
+    "The deeply moving answer to the question: What would it be like to smell the most perfect rose in the world, chosen just for you…"
+   ],
+   "hammam": [
+    "Beyaz sabunun; lavanta, bergamot ve vetiverle eşleşmesinin her damlasına hayran kalınacak saf kokusu.",
+    "The pure scent of white soap matched with lavender, bergamot, and vetiver- each drop is truly admirable."
+   ],
+   "ala": [
+    "Görkemli saray kokularından olan amber, dünyanın en pahalı absolütleriyle yeniden yorumlanıyor.",
+    "Amber, one of the magnificent palace fragrances, is reinterpreted with the world’s most expensive absolutes."
+   ],
+   "meftun": [
+    "Saray koridorlarında dolaşırken haremden gelen tutkulu çağrıya kulak verin. Osmanlı hareminin yüksek bir asaletle dolup taşan bu etkileyici geçmişinin izinde, tutkuyu ve gizemi yansıtan Meftun ’u ustalıkla yarattık.",
+    "As you walk through the palace corridors, listen to the passionate call from the harem. Inspired by the captivating past of the Ottoman harem, filled with regal elegance, we masterfully created Meftun Meftun, a fragrance that reflects passion and mystery."
+   ],
+   "sah": [
+    "Tarihin görkemli liderlerinin taşıdığı seçkin kokulardan ilham aldık. En değerli özlerin derin armonisi, modern bir oryantal.",
+    "We were inspired by the distinguished scents worn by the great leaders of history. A deep harmony of the most precious essences, a modern oriental."
+   ],
+   "hatir": [
+    "Hiç aklınızda yokken, tatlı bir sabah esintisiyle burnunuza geldiğinde, size muazzam bir haz verecek, gurme bir koku! Kahvenin bu muhteşem karışımına asla hayır diyemeyeceksiniz…",
+    "When you least expect it, a sweet morning breeze will carry this gourmand scent to your nose, delivering an incredible delight! You’ll never be able to say no to this magnificent blend of coffee…"
+   ],
+   "nazen": [
+    "Baharın gelişini müjdeleyen saray bahçelerinde, beyaz zambakları izleyin.",
+    "In the palace gardens heralding the arrival of spring, watch the white lilies bloom."
+   ],
+   "turkuaz": [
+    "Yazlık sarayın denize açılan kapısından esen ılık rüzgârı hissedin.",
+    "Feel the warm breeze drifting through the seaside gates of the summer palace."
+   ]
+  }
+ }
+}

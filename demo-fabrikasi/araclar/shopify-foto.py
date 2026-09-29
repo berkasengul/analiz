@@ -675,12 +675,13 @@ def glass_back(F, handle):
     L, T, Rr, B = int((1 - x1) * W), int(y0 * H), int((1 - x0) * W), int(y1 * H)
     fa = np.asarray(F)[int(y0 * H):int(y1 * H), int(x0 * W):int(x1 * W), :3].reshape(-1, 3).astype(float)
     lum = fa.mean(1)
-    paper = np.median(fa[lum > np.percentile(lum, 60)], 0)
-    ink = np.median(fa[lum < np.percentile(lum, 4)], 0)
+    # Eşitlikli seçim (>=, <=): düz renkli etikette katı eşitsizlik boş küme verebilir.
+    paper = np.median(fa[lum >= np.percentile(lum, 60)], 0)
+    ink = np.median(fa[lum <= np.percentile(lum, 4)], 0)
     # Koyu etikette (ör. bronz) yazı açık altın: etiketin en parlak pikselleri (ön yüzdeki altın baskı).
     if paper.mean() < 120:
-        paper = np.median(fa[lum < np.percentile(lum, 40)], 0)
-        ink = np.median(fa[lum > np.percentile(lum, 97)], 0)
+        paper = np.median(fa[lum <= np.percentile(lum, 40)], 0)
+        ink = np.median(fa[lum >= np.percentile(lum, 97)], 0)
     d = ImageDraw.Draw(img)
     r = int((Rr - L) * 0.04)
     top, bot = np.array(paper) * 1.02, np.array(paper) * 0.9
@@ -719,7 +720,7 @@ def glass_back(F, handle):
               ("—", "Marcellus-Regular.ttf", u * 0.6)]
     blocks += [(n[1], "Marcellus-Regular.ttf", u * 0.56) for n in notes[:5]]
     ml = re.sub(r"\s*ml", "", size)
-    oz = {"100": "3.4", "50": "1.7", "30": "1.0"}.get(ml)
+    oz = {"100": "3.4", "80": "2.7", "50": "1.7", "30": "1.0"}.get(ml)
     blocks += [("", None, u * 0.35), (f"e {ml}ml" + (f"  ·  {oz} fl.oz" if oz else ""), "Lato-Bold.ttf", u * 0.5)]
     blocks += [(line, "Lato-Regular.ttf", u * 0.42) for line in G.get("lines", [])]
     fonts = [(t, fit_font(t, fn, sz, wide) if fn else None, sz) for t, fn, sz in blocks]

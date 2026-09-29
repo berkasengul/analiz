@@ -24,10 +24,14 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "trText": {"handle": "Türkçe açıklama"}   mağaza yalnızca İngilizceyse: markanın metninin Türkçe çevirisi
                                              (İngilizce metin mağazadan olduğu gibi kalır)
     "platform": "ikas"              mağaza ikas (ikas-cek.py ile çekildi): sepette ödeme, ürünün mağazadaki sayfasında tamamlanır
+    "platform": "woo"               mağaza WooCommerce (woo-cek.py ile çekildi): sepetteki ürün markanın sepetine eklenir
+    "wooCart": "sepet"              WooCommerce sepet sayfasının adresi (varsayılan "cart")
     "library": [{"match": "regex", "composition": {"tr": [..], "en": [..]}, "year": {"tr": "Ocak 2026", "en": "January 2026"}}]
                                              markanın koku kütüphanesi: tam kompozisyon ve çıkış tarihi (ürün sayfasında)
     "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
     "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)
+    "families": {"handle": ["tr", "en"]}     ürüne özel koku ailesi (ör. WooCommerce kısa açıklamasından)
+    "taglines": {"handle": ["tr", "en"]}     ürüne özel kısa alt yazı (markanın kendi cümlesi)
     "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
 Uydurma içerik yok: metin, fiyat, görsel markanın sitesinden.
 """
@@ -178,9 +182,10 @@ def main():
         v = p["variants"][0]
         price = float(v["price"])
         cmp_ = float(v["compare_at_price"]) if v.get("compare_at_price") and float(v["compare_at_price"]) > price else None
-        fam = R.get("family", {}).get(p.get("vendor") or p.get("product_type") or "")
+        fam = R.get("families", {}).get(h) or R.get("family", {}).get(p.get("vendor") or p.get("product_type") or "")
         variants = [{"id": x["id"], "title": x["title"]} for x in p["variants"] if x.get("available", True)] or [{"id": v["id"], "title": v["title"]}]
-        return dict(name=name, en_name=en_name, size=size, desc=desc, en_desc=en_desc, tag=first_sentence(desc), en_tag=first_sentence(en_desc),
+        tl = R.get("taglines", {}).get(h) or ["", ""]
+        return dict(name=name, en_name=en_name, size=size, desc=desc, en_desc=en_desc, tag=tl[0] or first_sentence(desc), en_tag=tl[1] or first_sentence(en_desc),
                     price=price, compare=cmp_, m=meta.get(h, {}), cat=cat_of(h), fam=fam, variants=variants)
 
     def palette_of(h):
@@ -244,7 +249,7 @@ def main():
             "image": f"r3d/{h}.webp" if os.path.exists(os.path.join(FOTO, "render3d", f"{h}.webp")) else i["m"].get("cut"), "cutout": True,
             **({"bg": palette_of(h)[0], "bg2": palette_of(h)[1]} if palette_of(h) else {}),
             "variants": [{"id": x["id"], "title": x["title"]} for x in i["variants"]] if len(i["variants"]) > 1 else [{"id": i["variants"][0]["id"]}],
-            "url": f"https://{R['domain']}/{h}" if R.get("platform") == "ikas" else f"https://{R['domain']}/products/{h}",
+            "url": f"https://{R['domain']}/{h}" if R.get("platform") == "ikas" else tr[h].get("permalink") if R.get("platform") == "woo" else f"https://{R['domain']}/products/{h}",
         }
         if i["compare"]:
             item["compareAt"] = {"tr": i["compare"], "en": i["compare"]}
@@ -263,7 +268,11 @@ def main():
     c["catalog"]["items"] = items_out
     c["defaultShopFlavor"] = 0
     # Mağaza altyapısı: Shopify (sepet bağlantısı) ya da ikas (sepet bağlantısı yok: ürün sayfası açılır).
-    if R.get("platform") == "ikas":
+    if R.get("platform") == "woo":
+        c.setdefault("commerce", {}).pop("shopify", None)
+        c["commerce"]["woo"] = f"https://{R['domain']}"
+        c["commerce"]["wooCart"] = R.get("wooCart", "cart")
+    elif R.get("platform") == "ikas":
         c.setdefault("commerce", {}).pop("shopify", None)
         c["commerce"]["ikas"] = f"https://{R['domain']}"
     else:

@@ -37,6 +37,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_arch: 0,
     u_tunnel: 0,
     u_noir: 0,
+    u_fresh: 0,
     u_plate: null,
     u_plateOn: 0,
     u_plateSp: new Vector4(2.63, 0.54, 0.66, 0.5),
@@ -88,6 +89,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_arch;
     uniform float u_tunnel;
     uniform float u_noir;
+    uniform float u_fresh;
     uniform sampler2D u_plate;
     uniform float u_plateOn;
     uniform vec4 u_plateSp;
@@ -318,10 +320,48 @@ export const BackgroundMaterial = shaderMaterial(
         base = mix(base, pc * read * dimD, u_plateOn);
       }
 
+      // Ferah sahne (theme.fresh): her koku kendi şişesinin renginde aydınlık bir fonda. Şişenin arkasında
+      // yumuşak bir ışık halesi, fonda yavaşça akan açık renkli ipek dalgalar; alt tarafta fonu yansıtan
+      // parlak zemin ve ürünün dibinde ışık havuzu. Renkler ürünle birlikte akar (u_glow / u_accent / u_edge).
+      if (u_fresh > 0.001) {
+        float fy = u_plateFx.x;
+        vec3 mid = u_glow;
+        vec3 hi = mix(u_accent, vec3(1.), 0.25);
+        vec3 deep = u_edge;
+        float bx = (vUv.x - u_sceneX) * u_aspect;
+        // Duvar (yansımada da aynı fonksiyon: y aynalanır).
+        float wy = vUv.y > fy ? vUv.y : fy + (fy - vUv.y) * 1.25;
+        float rr = length(vec2(bx * 0.72, (wy - (fy + 0.3)) * 1.05));
+        vec3 wall = mix(mix(mid, hi, 0.3), mix(mid, deep, 0.6), smoothstep(0.05, 1.05, rr));
+        // İpek dalgalar: iki geniş, yumuşak şerit yavaşça kayar.
+        float t = u_time * 0.05;
+        float w1 = sin(bx * 1.6 + wy * 2.4 + t * 2. + sin(bx * 0.9 - t) * 1.2);
+        float w2 = sin(bx * 1.1 - wy * 3.1 - t * 1.4 + 1.7);
+        wall += hi * (smoothstep(0.55, 0.98, w1) * 0.16 + smoothstep(0.7, 1., w2) * 0.1) * (1. - smoothstep(0.2, 1.1, rr) * 0.5);
+        wall *= 0.92 + 0.08 * (0.5 + 0.5 * sin(bx * 0.8 + wy * 1.3 - t));
+        // Şişenin arkasında hale.
+        wall += mix(hi, vec3(1.), 0.4) * exp(-rr * rr * 9.) * 0.42;
+        vec3 fc = wall;
+        if (vUv.y < fy) {
+          // Parlak zemin: fonun soluk yansıması, derinleşen ton, ürünün dibinde ışık havuzu.
+          float d = (fy - vUv.y) / max(fy, 0.05);
+          vec3 fl = mix(mix(mid, deep, 0.35), deep, smoothstep(0., 1., d));
+          fc = mix(fl, wall * 0.85, 0.42 * (1. - smoothstep(0., 0.9, d)));
+          vec2 pq = vec2(bx / 0.55, (vUv.y - fy + 0.015) / 0.06);
+          fc += mix(hi, vec3(1.), 0.5) * exp(-dot(pq, pq)) * 0.3;
+        }
+        // Zemin çizgisi yumuşak (keskin ufuk yok).
+        fc = mix(fc, mix(wall, fc, 0.5), (1. - smoothstep(0., 0.012, abs(vUv.y - fy))) * 0.5);
+        // Yazıların arkası biraz koyu; kenarlar derin renkte.
+        float read = u_aspect > 1. ? mix(0.7, 1., smoothstep(0.02, 0.42, vUv.x)) * mix(0.82, 1., smoothstep(0.99, 0.8, vUv.x)) : mix(0.62, 1., smoothstep(0.05, 0.45, vUv.y));
+        float dimD = mix(0.55, 1., clamp((u_stage - 0.45) / 0.55, 0., 1.));
+        base = mix(base, fc * read * dimD, u_fresh);
+      }
+
       // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.
       // Hafif karartma: ürünün çevresi ürünün renginde parlak, kenarlara doğru koyulaşır (telefonda da).
       float spotD = length((vUv - vec2(u_focusX, 0.52)) * vec2(max(u_aspect * 0.62, 0.85), 0.9));
-      base *= mix(1., 0.3 + 0.7 * (1. - smoothstep(0.1, 0.8, spotD)), u_studio * u_stage * (1. - 0.8 * u_vivid * u_sceneOn) * (1. - 0.8 * u_plateOn));
+      base *= mix(1., 0.3 + 0.7 * (1. - smoothstep(0.1, 0.8, spotD)), u_studio * u_stage * (1. - 0.8 * u_vivid * u_sceneOn) * (1. - 0.8 * max(u_plateOn, u_fresh)));
 
       // Tepeden inen ışık huzmesi (stüdyoda daha dar, daha parlak, içinde yavaş süzülen toz).
       vec2 bp = (vUv - vec2(u_focusX, 1.08)) * asp;
@@ -510,7 +550,7 @@ export const BackgroundMaterial = shaderMaterial(
         col += wc * (wave * 0.42 + fill * 0.22) * (1. - u_noir);
       }
       // Kenar karartması.
-      col *= 1. - 0.7 * (1. - 0.6 * u_vivid * u_sceneOn) * (1. - 0.5 * u_plateOn) * smoothstep(0.35, 1.2, screenDist);
+      col *= 1. - 0.7 * (1. - 0.6 * u_vivid * u_sceneOn) * (1. - 0.5 * u_plateOn - 0.3 * u_fresh) * smoothstep(0.35, 1.2, screenDist);
       // Butik fotoğrafında sinematik vinyet: kenarlar yumuşakça kararır.
       col *= 1. - 0.38 * u_plateOn * smoothstep(0.45, 1.25, screenDist);
       // Sinematik mod: sahne kararır, kenarlarda koyu bir vinyet oluşur.

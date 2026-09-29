@@ -213,7 +213,10 @@ function measure(g, i) {
 // grubunun biriminde; üst yüzü ürünün ayağında.
 export const PLINTH_H = 0.26;
 const PLINTH_GOLD = new MeshStandardMaterial({ color: THEME.accent ?? "#d4b06a", metalness: 1, roughness: 0.22, envMapIntensity: 1.6 });
-const PLINTH_BODY = new MeshStandardMaterial({ color: "#050404", roughness: 0.9, metalness: 0, envMapIntensity: 0.05 });
+// theme.plinthColor: ferah sahnede açık renkli (ör. fildişi) cilalı kaide.
+const PLINTH_BODY = THEME.plinthColor
+  ? new MeshStandardMaterial({ color: THEME.plinthColor, roughness: 0.35, metalness: 0, envMapIntensity: 0.5 })
+  : new MeshStandardMaterial({ color: "#050404", roughness: 0.9, metalness: 0, envMapIntensity: 0.05 });
 // Kaidenin altında yumuşak temas gölgesi (fotoğraflı zeminde kaide havada durmasın).
 const SHADOW_TEX = (() => {
   if (typeof document === "undefined") return null;
@@ -248,7 +251,7 @@ function Plinth({ refFn }) {
     return { body, gold, rBody, rGold, shadow, list: [body, gold, rBody, rGold, shadow] };
   }, []);
   const H = PLINTH_H;
-  const plate = !!THEME.plate;
+  const plate = !!THEME.plate || !!THEME.fresh;
   return (
     <group ref={refFn} visible={false} userData={{ mats: mats.list }}>
       <mesh material={mats.body} position={[0, -H / 2, 0]} userData={{ noMeasure: true }}>
