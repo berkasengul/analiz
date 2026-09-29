@@ -98,7 +98,7 @@ export default function Spray() {
             float nearCam = smoothstep(1.5, 5., -mv.z);
             // Büyüyen buğu aynı ölçüde soluklaşır (üst üste binince beyaz leke olmaz).
             float spreadFade = aKind > 1.5 ? 1. / (1. + 2.2 * a) : aKind > 0.5 ? 1. : 1. / (1. + 1.4 * a);
-            vAlpha = fadeIn * fadeOut * nearCam * spreadFade * (aKind > 1.5 ? 0.05 : aKind > 0.5 ? 0.95 : 0.16);
+            vAlpha = fadeIn * fadeOut * nearCam * spreadFade * (aKind > 1.5 ? 0.11 : aKind > 0.5 ? 1. : 0.32);
             vTw = 0.4 + 0.6 * pow(0.5 + 0.5 * sin(u_time * (9. + aSeed.y * 14.) + aSeed.z * 50.), 3.);
           }
         `,
@@ -121,7 +121,8 @@ export default function Spray() {
             } else {
               // Sis ve bulut: yumuşak, kenara doğru eriyen leke.
               a = exp(-d * d * 9.) * (1. - smoothstep(0.35, 0.5, d));
-              col = mix(u_col, vec3(1.), vKind > 1.5 ? 0.35 : 0.6);
+              // Açık (fotoğraflı) zeminde de seçilsin: buğu beyaza yakın.
+              col = mix(u_col, vec3(1.), vKind > 1.5 ? 0.55 : 0.75);
             }
             a *= vAlpha;
             gl_FragColor = vec4(col * a, a);
@@ -141,7 +142,8 @@ export default function Spray() {
     }
     const sp = sceneState.spray;
     // Buğu, başlığa basıldığı anda ağzın o anki konumundan ve yönünden çıkar.
-    if (t - sp.t0 >= SPRAY.emit && U.u_t0.value !== sp.t0 + SPRAY.emit && t - sceneState.nozzleAt < 0.2 / SPRAY_SLOW) {
+    // (Başlığın konumu bu sıkma sırasında okunduysa; kare hızından bağımsız.)
+    if (t - sp.t0 >= SPRAY.emit && U.u_t0.value !== sp.t0 + SPRAY.emit && sceneState.nozzleAt >= sp.t0) {
       U.u_t0.value = sp.t0 + SPRAY.emit;
       U.u_origin.value.copy(sceneState.nozzle);
       U.u_dir.value.copy(sceneState.nozzleDir);
