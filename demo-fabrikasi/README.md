@@ -279,3 +279,23 @@ adres, telefon (tıklanır), WhatsApp, e-posta, saatler. `packUnit: {"tr": "adet
 kendi renkleriyle arka etiket (marka, ad, aile, notalar, hacim, `lines`); yan yüzler parfümün rengi.
 Aktarımda `sizes` (ürün başına hacim), `defaultSize`, `trText` (İngilizce mağaza için Türkçe çeviri),
 `tagline: "notes"` (kısa alt yazı notalardan); fotoğrafta `skip` (demoya alınmayacak ürünler).
+
+## WooCommerce markaları (Régalien)
+
+`araclar/woo-cek.py <alan-adı> <marka>` WooCommerce'in herkese açık Store API'sinden bütün ürünleri (TR ve `/en`
+önekli İngilizce) Shopify biçiminde kaydeder; sonraki adımlar (`shopify-foto.py`, `shopify-aktar.py`) aynen çalışır.
+Mağaza görselinde şişenin çevresinde malzemeler (çiçek, meyve, su) varsa araç sitenin medya arşivinde aynı adlı
+sade çekimi (`<Ad>_1500x1500.png`; `v4_`, `_v5`, `KUTU` olmadan) bulup ilk görsel yapar; yanlış eşleşeni
+`<marka>-kurallar.json → cek.cleanShot` ile elle seç. Açıklamadaki üç kısa virgüllü satır nota piramidi (üst / kalp /
+alt) olarak `woo-raw.json`'a yazılır; iki dilin aynı açıklamada durduğu ürünlerde (`class="pp-tr"` / `"pp-en"`)
+diller ayrılır. Aktarım kuralları: `"platform": "woo"`, `"wooCart": "sepet"` (sepete ekle bağlantısı
+`/<wooCart>/?add-to-cart=<id>`), ürüne özel `"families"` ve `"taglines"`.
+
+Beyaz etiketli şeffaf şişelerde yapay zekâ kesimi etiketin beyazını delebilir: `"foto": {"convex": 0.3}` gövdenin
+silüetini doldurur (kapak bölgesine dokunmaz). Renkli cam şişelerde `"glassBack": {"label": [...], "brand": "..."}`
+arka yüzü ön yüzün aynası yapar, etiketin yerine markanın stilinde arka etiket çizer.
+
+**Ferah sahne** (`theme.fresh: true`, `theme.plinthColor`): fotoğraf yerine her kokunun kendi renginde aydınlık fon,
+şişenin arkasında hale, yavaşça akan ipek dalgalar ve fonu yansıtan parlak zemin (BackgroundMaterial → `u_fresh`).
+Renkler kurallar → `palette` ([regex, orta, açık, koyu]); fotoğraftan çıkan renk altın etikete kayıyorsa şişenin
+rengine bakarak elle seçilir (Régalien). Kaide açık renkli ve cilalı.

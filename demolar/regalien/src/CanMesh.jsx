@@ -881,7 +881,9 @@ function Photo({ body, parts, S, flavor }) {
       {g.parts[0]?.liquid && <Liquid L={g.parts[0].liquid} S={S} body={body} />}
       {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. Saydam camda kart camın
           içinden görünürdü (ikinci bir etiket gibi); orada çizilmez. */}
-      {!S.glass && (
+      {/* Parfüm sıkmada (pivot) kart çizilmez: kapağın fotoğrafı kartta kalır ve kapak kalkınca yerinde
+          ikinci bir kapak gibi görünürdü; sprey başlığını Sprayer çizer. */}
+      {!S.glass && !pivot && (
         <>
           <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} userData={{ noFit: true }} />
           <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} userData={{ noFit: true }} />
