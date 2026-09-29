@@ -21,7 +21,8 @@
    ],
    "brand": "RÉGALIEN",
    "family": "Extrait de Parfum"
-  }
+  },
+  "convex": 0.3
  },
  "aktar": {
   "domain": "regalien.com",
@@ -471,18 +472,6 @@
     "^ceremony\\-flu$",
     [
      [
-      "Tik ağacının topraksı tonlarıyla derinleşen bu kompozisyon",
-      "This composition deepens with the earthy tones of teak wood"
-     ],
-     [
-      "beyaz miskin yumuşatan",
-      "balanced by the soft white musk"
-     ],
-     [
-      "ıhlamur çiçeğinin çiçeksi dokunuşuyla dengelenir",
-      "floral touch of linden blossom"
-     ],
-     [
       "Pembe Biber",
       "Pink Pepper"
      ],
@@ -493,6 +482,18 @@
      [
       "Bergamot",
       "Bergamot"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Tik Ağacı",
+      "Teakwood"
+     ],
+     [
+      "Ihlamur Çiçeği",
+      "Linden Blossom"
      ]
     ]
    ],
@@ -500,28 +501,28 @@
     "^ceremony\\-bold$",
     [
      [
-      "Meşe yosunun zengin",
-      "The rich"
-     ],
-     [
-      "topraksı yapısı; eski ormanları anımsatan gizemli bir dokunuşla kokuya derin bir zenginlik verir",
-      "earthy structure of oakmoss lends the fragrance a deep opulence"
-     ],
-     [
       "Tagette",
-      "evoking the mysterious allure of ancient forests"
-     ],
-     [
-      "Portakal Çiçeği",
       "Tagette"
      ],
      [
-      "Mandalina",
+      "Portakal Çiçeği",
       "Orange Blossom"
      ],
      [
-      "Sümbülteber",
+      "Mandalina",
       "Mandarin"
+     ],
+     [
+      "Sümbülteber",
+      "Tuberose"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Gül",
+      "Rose"
      ]
     ]
    ],
@@ -761,28 +762,28 @@
     "^meftun$",
     [
      [
-      "Güç ve zarafeti bir arada taşıyan zengin",
-      "A rich"
-     ],
-     [
-      "sıcak ve unutulmaz bir kompozisyon",
-      "warm"
-     ],
-     [
       "Tarçın",
-      "and lingering composition—crafted for those who embrace power and presence"
-     ],
-     [
-      "Kişniş",
       "Cinnamon"
      ],
      [
-      "Rom",
+      "Kişniş",
       "Coriander"
      ],
      [
-      "Konyak",
+      "Rom",
       "Rum"
+     ],
+     [
+      "Konyak",
+      "Cognac"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "Pelin Otu",
+      "Wormwood"
      ]
     ]
    ],
@@ -1103,14 +1104,14 @@
     "match": "^ceremony\\-flu$",
     "composition": {
      "tr": [
-      "Üst: Tik ağacının topraksı tonlarıyla derinleşen bu kompozisyon, beyaz miskin yumuşatan, ıhlamur çiçeğinin çiçeksi dokunuşuyla dengelenir",
-      "Kalp: Pembe Biber, Ambrette Tohumu, Bergamot",
-      "Alt: İris, Tik Ağacı, Ihlamur Çiçeği, Pudra Notaları"
+      "Üst: Pembe Biber, Ambrette Tohumu, Bergamot",
+      "Kalp: İris, Tik Ağacı, Ihlamur Çiçeği, Pudra Notaları",
+      "Alt: Misk, Ambroksan, Amber, Haiti Vetiveri"
      ],
      "en": [
-      "Top: This composition deepens with the earthy tones of teak wood, balanced by the soft white musk, floral touch of linden blossom",
-      "Heart: Pink Pepper, Ambrette Seed, Bergamot",
-      "Base: Iris, Teakwood, Linden Blossom, Powdery Notes"
+      "Top: Pink Pepper, Ambrette Seed, Bergamot",
+      "Heart: Iris, Teakwood, Linden Blossom, Powdery Notes",
+      "Base: Musk, Ambroxan, Amber, Haitian Vetiver"
      ]
     }
    },
@@ -1118,14 +1119,14 @@
     "match": "^ceremony\\-bold$",
     "composition": {
      "tr": [
-      "Üst: Meşe yosunun zengin, topraksı yapısı; eski ormanları anımsatan gizemli bir dokunuşla kokuya derin bir zenginlik verir",
-      "Kalp: Tagette, Portakal Çiçeği, Mandalina",
-      "Alt: Sümbülteber, Yasemin, Gül, Şeftali"
+      "Üst: Tagette, Portakal Çiçeği, Mandalina",
+      "Kalp: Sümbülteber, Yasemin, Gül, Şeftali",
+      "Alt: Meşe Yosunu, Labdanum, Paçuli"
      ],
      "en": [
-      "Top: The rich, earthy structure of oakmoss lends the fragrance a deep opulence, evoking the mysterious allure of ancient forests",
-      "Heart: Tagette, Orange Blossom, Mandarin",
-      "Base: Tuberose, Jasmine, Rose, Peach"
+      "Top: Tagette, Orange Blossom, Mandarin",
+      "Heart: Tuberose, Jasmine, Rose, Peach",
+      "Base: Oakmoss, Labdanum, Patchouli"
      ]
     }
    },
@@ -1253,14 +1254,14 @@
     "match": "^meftun$",
     "composition": {
      "tr": [
-      "Üst: Güç ve zarafeti bir arada taşıyan zengin, sıcak ve unutulmaz bir kompozisyon",
-      "Kalp: Tarçın, Kişniş, Rom, Konyak",
-      "Alt: Zencefil, Pelin Otu, Kırmızı Meyveler, Huş Yaprağı, Angelica Tohumu"
+      "Üst: Tarçın, Kişniş, Rom, Konyak",
+      "Kalp: Zencefil, Pelin Otu, Kırmızı Meyveler, Huş Yaprağı, Angelica Tohumu",
+      "Alt: Paçuli, Tütsü, Ambrette Misk, Sandal Ağacı"
      ],
      "en": [
-      "Top: A rich, warm, and lingering composition—crafted for those who embrace power and presence",
-      "Heart: Cinnamon, Coriander, Rum, Cognac",
-      "Base: Ginger, Wormwood, Red Berries, Birch Leaf, Angelica Seed"
+      "Top: Cinnamon, Coriander, Rum, Cognac",
+      "Heart: Ginger, Wormwood, Red Berries, Birch Leaf, Angelica Seed",
+      "Base: Patchouli, Incense, Ambrette Musk, Sandalwood"
      ]
     }
    },
@@ -1552,6 +1553,217 @@
     "Yazlık sarayın denize açılan kapısından esen ılık rüzgârı hissedin.",
     "Feel the warm breeze drifting through the seaside gates of the summer palace."
    ]
-  }
+  },
+  "palette": [
+   [
+    "^agora$",
+    "#b34226",
+    "#e6c4bb",
+    "#311710"
+   ],
+   [
+    "^ala$",
+    "#dd9b0f",
+    "#eddbb4",
+    "#37290b"
+   ],
+   [
+    "^anemos$",
+    "#bb4228",
+    "#e6c3bb",
+    "#311610"
+   ],
+   [
+    "^antidote$",
+    "#2186aa",
+    "#bbdbe6",
+    "#102931"
+   ],
+   [
+    "^aurora$",
+    "#9a3173",
+    "#e1c0d5",
+    "#2e1424"
+   ],
+   [
+    "^ceremony$",
+    "#bc4264",
+    "#e0c1ca",
+    "#2d151b"
+   ],
+   [
+    "^ceremony-bold$",
+    "#d43027",
+    "#e7bcba",
+    "#32110f"
+   ],
+   [
+    "^ceremony-flu$",
+    "#8357a7",
+    "#d2c6db",
+    "#221929"
+   ],
+   [
+    "^chatelain22$",
+    "#c68238",
+    "#e3d1be",
+    "#2f2113"
+   ],
+   [
+    "^clubs-of-iris-reverie$",
+    "#6254aa",
+    "#c9c5dc",
+    "#1b1829"
+   ],
+   [
+    "^dem$",
+    "#6b9965",
+    "#cbd7ca",
+    "#1d261c"
+   ],
+   [
+    "^diamonfofvelvet$",
+    "#a42e27",
+    "#e5bfbc",
+    "#301311"
+   ],
+   [
+    "^efil$",
+    "#3e7dc0",
+    "#c0d0e1",
+    "#14202e"
+   ],
+   [
+    "^hammam$",
+    "#634cb2",
+    "#c9c4de",
+    "#1b172b"
+   ],
+   [
+    "^hatir$",
+    "#a35d28",
+    "#e4cebd",
+    "#301e11"
+   ],
+   [
+    "^hazz$",
+    "#db6723",
+    "#e8cab9",
+    "#331c0e"
+   ],
+   [
+    "^heart-of-rose$",
+    "#e02c1e",
+    "#eabbb8",
+    "#34100d"
+   ],
+   [
+    "^heart-of-rose-exotic$",
+    "#319a50",
+    "#c0e2ca",
+    "#142e1b"
+   ],
+   [
+    "^kashmeran$",
+    "#a82338",
+    "#e6bbc2",
+    "#311015"
+   ],
+   [
+    "^marrakesh$",
+    "#b4894a",
+    "#ded3c3",
+    "#2b2316"
+   ],
+   [
+    "^meftun$",
+    "#7838c6",
+    "#cfbee3",
+    "#1f132f"
+   ],
+   [
+    "^musk-barrel$",
+    "#5e6e80",
+    "#ccd0d6",
+    "#1d2125"
+   ],
+   [
+    "^mystic$",
+    "#495982",
+    "#c8cdda",
+    "#1a1d28"
+   ],
+   [
+    "^nazen$",
+    "#de4420",
+    "#e9c1b8",
+    "#33150e"
+   ],
+   [
+    "^regularly-irregular$",
+    "#b99945",
+    "#dfd7c2",
+    "#2c2615"
+   ],
+   [
+    "^sah$",
+    "#a5a526",
+    "#e5e5bc",
+    "#303011"
+   ],
+   [
+    "^turkuaz$",
+    "#0ebdae",
+    "#b5ede8",
+    "#0b3633"
+   ],
+   [
+    "^vanity-oud$",
+    "#c3269b",
+    "#e7bbdb",
+    "#321029"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "aurora",
+    "tr": {
+     "title": "Hidden Origins",
+     "text": "Sular altındaki şehir Halfeti’den, efsanevi Karagül’den ve şafağın o ince anından ilham alan bir imza koku.",
+     "stat": "Halfeti"
+    },
+    "en": {
+     "title": "Hidden Origins",
+     "text": "A signature scent inspired by the sunken city, Halfeti, the legendary Black Rose, and the fleeting moment of dawn.",
+     "stat": "Halfeti"
+    }
+   },
+   {
+    "handle": "turkuaz",
+    "tr": {
+     "title": "Heritage",
+     "text": "Yazlık sarayın denize açılan kapısından esen ılık rüzgârı hissedin.",
+     "stat": "Turkuaz"
+    },
+    "en": {
+     "title": "Heritage",
+     "text": "Feel the warm breeze drifting through the seaside gates of the summer palace.",
+     "stat": "Turkuaz"
+    }
+   },
+   {
+    "handle": "hammam",
+    "tr": {
+     "title": "Turkish Bath Rituals",
+     "text": "Beyaz sabunun; lavanta, bergamot ve vetiverle eşleşmesinin her damlasına hayran kalınacak saf kokusu.",
+     "stat": "Hammam"
+    },
+    "en": {
+     "title": "Turkish Bath Rituals",
+     "text": "The pure scent of white soap matched with lavender, bergamot and vetiver.",
+     "stat": "Hammam"
+    }
+   }
+  ]
  }
 }

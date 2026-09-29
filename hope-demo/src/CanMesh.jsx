@@ -861,10 +861,12 @@ function Photo({ body, parts, S, flavor }) {
     <group rotation={[0, 0, S.tilt]} scale={S.scale}>
       {g.parts.map((p, i) => (
         <group key={i}>
-          {p.block && <mesh geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />}
+          {p.block && !(pivot && i === 0) && <mesh geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />}
           {pivot && i === 0 ? (
             <group ref={cap} position={[pivot.x, pivot.y, 0]}>
               <group position={[-pivot.x, -pivot.y, 0]}>
+                {/* Kapağın kalınlık yüzleri de kapakla birlikte kalkar (renkli camda yan yüzler görünür). */}
+                {p.block && <mesh geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />}
                 {p.front && <mesh geometry={p.front} material={body} />}
                 {p.back && <mesh geometry={p.back} material={body} />}
               </group>
