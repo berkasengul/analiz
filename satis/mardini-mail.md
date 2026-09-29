@@ -35,7 +35,7 @@ Mardini için ürünlerinizi 3D olarak sergileyen bir web sitesi hazırladım, i
 Kısaca neler var:
 
 - **Mardin taşından bir koridor:** Ana sayfada her koku, Mardin'in taş kemerlerini andıran bir koridorda, kendi renginde ışık altında duruyor; havada gül yaprakları süzülüyor. Aşağı kaydırdıkça kemerlerin arasından ileri yürünüyor ve sıradaki şişe koridorun derinliğinden yaklaşıyor.
-- **Şişeleriniz 3D:** Gold Seri, Silver Seri ve gül ürünlerinden 23 ürün kendi ürün fotoğraflarınızdan 3D olarak hazırlandı; ürün sayfasında şişe çevrilebiliyor.
+- **Şişeleriniz 3D:** Gold Seri, Silver Seri ve gül ürünlerinden 23 ürün kendi ürün fotoğraflarınızdan 3D olarak hazırlandı: etiketler ve altın kapaklar fotoğraftaki gibi, şeffaf camın içinden sahne ve parfümün rengi görünüyor. Ürün sayfasında şişe çevrilebiliyor.
 - **Nota piramidi:** Her parfümün üst, kalp ve alt notaları ürün sayfasında.
 - **Hikâyeniz:** Yaylabaşı'ndaki 700 dönümlük gül ve lavanta tarlaları, tarlaların yanındaki fabrika ve kadın istihdamı; tarladan şişeye üç adımda anlatılıyor.
 - **Mağazanızla bağlantılı:** "Ödemeye geç", ürünün mardinikozmetik.com'daki sayfasını açıyor. Gerçek projede ikas sepetinizle doğrudan bağlanabilir.
