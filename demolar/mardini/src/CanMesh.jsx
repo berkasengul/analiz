@@ -13,6 +13,7 @@ import {
   CylinderGeometry,
   LatheGeometry,
   MathUtils,
+  MeshBasicMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   PlaneGeometry,
@@ -916,16 +917,14 @@ function Liquid({ L, S, body }) {
   const plane = useMemo(() => new Plane(), []);
   const mats = useMemo(() => {
     const tint = liquidTint(S.liquid);
-    const volume = new MeshPhysicalMaterial({
-      color: tint,
-      roughness: 0.08,
-      metalness: 0,
+    // Sıvı ışıksız (MeshBasic): her sahnede kendi amber tonunda; güçlü sergi ışığında krem blok olmaz.
+    const volume = new MeshBasicMaterial({
+      color: tint.clone().multiplyScalar(0.75),
       transparent: true,
       opacity: 0.42,
       depthWrite: false,
       side: DoubleSide,
-      emissive: tint.clone().multiplyScalar(0.05),
-      envMapIntensity: 0.18,
+      toneMapped: false,
     });
     // Yüzeyin üstü kendi shader'ımızda atılır (dünya uzayında düzlem: u_liq.xyz normal, u_liq.w sabit).
     volume.userData.plane = { value: new Vector4(0, -1, 0, 0) };
@@ -936,25 +935,17 @@ function Liquid({ L, S, body }) {
         .replace("#include <worldpos_vertex>", "#include <worldpos_vertex>\nvLiqW = (modelMatrix * vec4(transformed, 1.0)).xyz;");
       sh.fragmentShader = sh.fragmentShader
         .replace("#include <common>", "#include <common>\nuniform vec4 u_liq;\nvarying vec3 vLiqW;")
-        .replace("void main() {", "void main() {\n  float liqD = dot(u_liq.xyz, vLiqW) + u_liq.w;\n  if (liqD < 0.0) discard;")
-        // Menisküs: yüzeyin hemen altında parlak, daha yoğun bir şerit (çalkalanınca eğimi net görünür).
-        .replace(
-          "#include <opaque_fragment>",
-          "float men = 1.0 - smoothstep(0.0, 0.07, liqD);\noutgoingLight += vec3(1.0, 0.88, 0.6) * men * 0.45;\ndiffuseColor.a = min(1.0, diffuseColor.a + men * 0.35);\n#include <opaque_fragment>"
-        );
+        .replace("void main() {", "void main() {\n  if (dot(u_liq.xyz, vLiqW) + u_liq.w < 0.0) discard;");
+
     };
     volume.customProgramCacheKey = () => "mardini-liquid";
-    const top = new MeshPhysicalMaterial({
-      color: tint.clone().lerp(new Color(1, 1, 1), 0.35),
-      roughness: 0.05,
-      metalness: 0,
+    const top = new MeshBasicMaterial({
+      color: tint.clone().lerp(new Color(1, 0.95, 0.85), 0.45),
       transparent: true,
       opacity: 0.55,
       depthWrite: false,
       side: DoubleSide,
-      emissive: tint.clone().multiplyScalar(0.25),
-      clearcoat: 1,
-      envMapIntensity: 1.2,
+      toneMapped: false,
     });
     return { volume, top };
   }, [S.liquid, plane]);
