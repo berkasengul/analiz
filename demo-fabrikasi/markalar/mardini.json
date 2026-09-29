@@ -499,7 +499,12 @@
     "studio": true,
     "pedestal": true,
     "carousel": "dolly",
-    "plate": { "src": "brand/butik.jpg", "aspect": 2.632, "x": 0.541, "floor": 0.658 },
+    "plate": {
+      "src": "brand/butik.jpg",
+      "aspect": 2.632,
+      "x": 0.541,
+      "floor": 0.658
+    },
     "cards": "gallery"
   },
   "defaultLang": "tr",
