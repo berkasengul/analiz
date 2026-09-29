@@ -36,6 +36,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_floor: 0,
     u_arch: 0,
     u_tunnel: 0,
+    u_noir: 0,
     u_tp: 0,
     u_bottleH: 0.35,
     u_sceneX: 0.5,
@@ -76,6 +77,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_floor;
     uniform float u_arch;
     uniform float u_tunnel;
+    uniform float u_noir;
     uniform float u_tp;
     uniform float u_bottleH;
     uniform float u_sceneX;
@@ -214,6 +216,15 @@ export const BackgroundMaterial = shaderMaterial(
         base = mix(base, sc * lit * read, u_sceneOn);
       }
 
+      // Sinematik karanlık stüdyo ("dolly"): sahnenin tamamı neredeyse siyah; yalnızca ürünün olduğu yerde
+      // ürünün renginde çok hafif bir ışık kalır. Odak her zaman üründe (detayda da).
+      if (u_noir > 0.001) {
+        vec3 tn = u_glow / max(max(u_glow.r, max(u_glow.g, u_glow.b)), 0.001);
+        float c2 = length((vUv - vec2(u_focusX, 0.52)) * vec2(max(u_aspect * 0.55, 0.7), 0.85));
+        vec3 nb = vec3(0.018, 0.015, 0.013) + mix(tn, vec3(1.), 0.3) * 0.07 * exp(-c2 * c2 * 6.);
+        base = mix(base, nb, u_noir);
+      }
+
       // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.
       // Hafif karartma: ürünün çevresi ürünün renginde parlak, kenarlara doğru koyulaşır (telefonda da).
       float spotD = length((vUv - vec2(u_focusX, 0.52)) * vec2(max(u_aspect * 0.62, 0.85), 0.9));
@@ -225,7 +236,7 @@ export const BackgroundMaterial = shaderMaterial(
       float width = mix(0.06 + depth * 0.3, 0.05 + depth * 0.2, u_studio);
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
       float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
-      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.4 * u_sceneOn - 0.45 * u_vivid * u_sceneOn);
+      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.4 * u_sceneOn - 0.45 * u_vivid * u_sceneOn) * (1. - 0.75 * u_noir);
 
       // Sahneli üründe atmosfer: kaidenin arkasından yükselen, ürünün renginde yavaş duman ve ekranda
       // süzülerek düşen yapraklar (iki derinlik: arkadakiler küçük ve yumuşak).
@@ -281,57 +292,41 @@ export const BackgroundMaterial = shaderMaterial(
         float ang = atan(c.y, c.x);
         float rays = 0.6 + 0.4 * (0.5 + 0.5 * sin(ang * 9. + 1.7 * sin(ang * 4. + u_time * 0.08)));
         float burst = exp(-pow(length(c / vec2(1.05, 1.2)) / (bw * 0.78), 2.)) * rays;
-        base += mix(tint, vec3(1.), 0.2) * burst * 0.2 * u_floor * u_stage;
-        // Mardin taşından kemerli koridor ("dolly"): iç içe yuvarlak kemerler ürünün ardındaki kaçış
-        // noktasına doğru küçülür; kaydırınca (u_tp) bir sonraki kemer yaklaşır, en yakını kameranın
-        // yanından geçip söner. Taş bal renginde; iç kenarı ürünün renginde ışık alır. Havada gül yaprakları.
+        base += mix(tint, vec3(1.), 0.2) * burst * 0.2 * u_floor * u_stage * (1. - u_noir);
+        // Sinematik stüdyo ("dolly"): şişenin arkasında dikey, yumuşak bir ışık paneli; şeffaf cam, silüeti ve
+        // kenarlarıyla bu ışığın önünde net okunur. İki yanda odak dışı ince ışık şeritleri, cilalı siyah zeminde
+        // panelin yansıması. Geçişte (u_tp kesirli) panel kararır, önünden ince bir ışık bıçağı geçer ve sıradaki
+        // ürünle yeniden yanar.
         if (u_tunnel > 0.001) {
-          vec2 vp = vec2(fdx, fy - bw * 0.42);
           float fr = fract(u_tp);
-          // Dar (telefon) ekranda kemerler küçülür; zeminin altında kalan kısımlar çizilmez.
-          float fit = mix(0.52, 1., smoothstep(0.5, 1.25, u_aspect));
-          float aboveFloor = smoothstep(-0.05, 0.0, fy);
-          for (int i = 0; i < 6; i++) {
-            float s = 0.5 * fit * pow(1.62, float(i) - fr);
-            vec2 q = vp / s;
-            vec2 a = vec2(abs(q.x), q.y + 0.42);
-            float hs = 0.58, w = 0.6;
-            float d = (a.y < hs ? max(a.x - w, -a.y) : length(vec2(a.x, a.y - hs)) - w) * s;
-            float th = 0.05 * s;
-            float band = smoothstep(-0.003, 0.002, d) * (1. - smoothstep(th - 0.003, th + 0.002, d));
-            float near = 1. - smoothstep(1.7 * fit, 2.7 * fit, s);
-            float far = smoothstep(0.14 * fit, 0.34 * fit, s);
-            float lit = 1. - clamp(d / max(th, 0.001), 0., 1.);
-            float depthC = 0.3 + 0.7 * smoothstep(0.2 * fit, 1.6 * fit, s);
-            vec3 stone = vec3(0.74, 0.58, 0.39) * depthC * (0.55 + 0.6 * lit) + tint * lit * 0.12;
-            // Taş dokusu: ince blok derzleri.
-            float joint = smoothstep(0.93, 0.99, abs(fract(atan(a.y - hs, a.x) * 3.2 + (a.y < hs ? a.y * 5. : 0.)) * 2. - 1.));
-            stone *= 1. - joint * 0.28;
-            base = mix(base, stone, band * near * far * aboveFloor * 0.92 * u_tunnel);
-            // Kemerin içi biraz daha aydınlık (derinlikte ışık).
-            base += tint * (1. - smoothstep(-0.02, 0.0, d)) * 0.012 * far * u_tunnel;
+          float trans = sin(3.14159 * fr);
+          vec3 pc = mix(tint, vec3(1.), 0.3);
+          float up = smoothstep(-0.015, 0.02, fy);
+          // Panel şişeden biraz geniş ve orta parlaklıkta: cam koyu kenarlarıyla ve saydamlığıyla okunur;
+          // üste doğru karanlığa karışır.
+          // Işık yukarıdan-arkadan gelir: panel üstte parlak, şişenin gövdesine doğru kısılır (cam düz bir
+          // parlaklığın önünde buzlu görünmesin; içinden geçen ışık değişimi camı cam gibi gösterir).
+          vec2 pq = vec2(fdx / (bw * 0.52), (fy - bw * 0.55) / (bw * 0.8));
+          float panel = exp(-pow(abs(pq.x), 2.2) - pow(abs(pq.y), 2.6));
+          float grad = 0.45 + 0.55 * smoothstep(bw * 0.1, bw * 1.1, fy);
+          float pb = 1. - 0.7 * trans;
+          vec3 add = pc * panel * grad * 0.2 * pb * up;
+          // Odak dışı yan şeritler (stüdyo softbox'ları).
+          for (int k = 0; k < 2; k++) {
+            float sx = fdx - (float(k) * 2. - 1.) * bw * 1.1;
+            float strip = exp(-pow(sx / (bw * 0.045), 2.)) * smoothstep(0.0, bw * 0.15, fy) * (1. - smoothstep(bw * 0.8, bw * 1.25, fy));
+            add += pc * strip * 0.05 * pb;
           }
-          // Gül yaprakları: yavaşça süzülüp dönen, ürünün renginde ve pembe.
-          vec3 petalC = mix(tint, vec3(1., 0.72, 0.8), 0.55);
-          for (int L = 0; L < 2; L++) {
-            float fl = float(L);
-            float cells = 5. - fl * 1.8;
-            vec2 pp = vUv * asp * cells + vec2(fl * 4.1, u_time * (0.05 + 0.035 * fl));
-            vec2 id = floor(pp);
-            vec2 f = fract(pp) - 0.5;
-            float h = hash(id + fl * 9.7);
-            if (h > 0.8) {
-              float h2 = hash(id + 3.3);
-              vec2 off = vec2((hash(id + 1.7) - 0.5) * 0.5 + 0.12 * sin(u_time * (0.5 + h2) + h * 6.28), (hash(id + 2.3) - 0.5) * 0.4);
-              float ang = u_time * (0.35 + 0.5 * h2) + h * 6.28;
-              vec2 q = mat2(cos(ang), -sin(ang), sin(ang), cos(ang)) * (f - off);
-              vec2 r = vec2(0.07, 0.042) * (0.7 + 0.5 * h2) * (u_aspect < 1. ? 0.7 : 1.);
-              r.y *= 0.45 + 0.55 * smoothstep(-1.1, 0.6, q.x / r.x);
-              float e = length(q / r);
-              float petal = 1. - smoothstep(0.75, 1., e);
-              base = mix(base, petalC * (0.6 + 0.4 * clamp(q.x / r.x * 0.5 + 0.5, 0., 1.)) * mix(0.5, 0.9, fl), petal * mix(0.35, 0.65, fl) * u_tunnel);
-            }
-          }
+          // Geçişte soldan sağa süzülen ince ışık bıçağı.
+          float bx = mix(-2.2, 2.2, fr) * bw;
+          float blade = exp(-pow((fdx - bx) / (bw * 0.05), 2.)) * trans * up * (1. - smoothstep(bw * 0.9, bw * 1.5, fy));
+          add += mix(pc, vec3(1.), 0.4) * blade * 0.22;
+          // Cilalı siyah zemin: panelin ve şeritlerin yumuşak yansıması.
+          float dn = 1. - up;
+          vec2 rq = vec2(fdx / (bw * 0.42), (-fy - bw * 0.1) / (bw * 0.45));
+          float rp = exp(-pow(abs(rq.x), 2.2) - pow(abs(rq.y), 2.)) * exp(fy / (bw * 0.35));
+          add += pc * rp * 0.08 * pb * dn;
+          base += add * u_tunnel * u_stage;
         }
         float below = 1. - smoothstep(-0.02, 0.012, fy);
         base *= mix(1., 0.5 + 0.5 * smoothstep(-0.4, 0., fy), below * u_floor * exp(-pow(fdx / (bw * 3.), 2.)));
@@ -415,7 +410,7 @@ export const BackgroundMaterial = shaderMaterial(
         vec2 off = (vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5) * 0.45;
         float r = 0.1 + 0.16 * hash(id + 11.9);
         float bok = (1. - smoothstep(r * 0.55, r, length(f - off))) * step(0.7, h);
-        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center);
+        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center) * (1. - u_noir);
       }
 
       float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * 2000.0)) * 43758.5453);
@@ -433,7 +428,7 @@ export const BackgroundMaterial = shaderMaterial(
         float wave = exp(-pow((d - R) / (0.07 + 0.16 * pr), 2.)) * pow(1. - pr, 1.3);
         float fill = (1. - smoothstep(0., max(R, 0.001), d)) * pow(1. - pr, 2.) * 0.5;
         vec3 wc = mix(u_color, vec3(1.), 0.3);
-        col += wc * (wave * 0.42 + fill * 0.22);
+        col += wc * (wave * 0.42 + fill * 0.22) * (1. - u_noir);
       }
       // Kenar karartması.
       col *= 1. - 0.7 * (1. - 0.6 * u_vivid * u_sceneOn) * smoothstep(0.35, 1.2, screenDist);

@@ -601,7 +601,7 @@ export function createBottleParts(f = {}) {
           emissive: new Color(S.liquid ?? S.edge).multiplyScalar(0.22),
           // Saydam cam (glass): kalınlık yüzlerinden de arkadaki sahne görünür.
           transparent: !!S.glass,
-          opacity: S.glass ? 0.32 : 1,
+          opacity: S.glass ? 0.22 : 1,
         })
       : new MeshStandardMaterial({ color: S.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
     if (!S.clear) parts.side.color.multiplyScalar(0.78); // kenar ışığı fotoğraftakinden biraz koyu dursun
@@ -609,7 +609,9 @@ export function createBottleParts(f = {}) {
       parts[`side${i}`] = new MeshStandardMaterial({ color: p.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
       parts[`side${i}`].color.multiplyScalar(0.78);
     });
-    for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
+    // Saydam camlı markada (content.glass) bütün parçalar saydam çizilir: geçişte şişe bütünüyle çözülür.
+    if (content.glass) for (const m of Object.values(parts)) m.transparent = true;
+    for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity, opacity: m.opacity };
     return parts;
   }
   if (S.kind === "tube") {
@@ -658,14 +660,15 @@ export function createBottleParts(f = {}) {
     // Şeffaf şişede içeriğin rengi (ör. altın sarısı sıvı sabun): `liquid`.
     parts.liquid = glassMaterial(S.tint ? 0 : (S.liquidOpacity ?? 0.06), S.liquid ?? "#f6f1e4");
   }
-  for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
+  for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity, opacity: m.opacity };
   return parts;
 }
 
-export function dimBottleParts(parts, dim) {
+export function dimBottleParts(parts, dim, alpha = 1) {
   for (const m of Object.values(parts)) {
     m.color.copy(m.userData.base.color).multiplyScalar(dim);
     m.envMapIntensity = m.userData.base.env * dim;
+    if (m.transparent) m.opacity = m.userData.base.opacity * alpha;
   }
 }
 

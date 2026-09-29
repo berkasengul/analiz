@@ -368,8 +368,9 @@ def glass_front(F, neck, liquid=None):
     see = np.clip((L - 150) / 85, 0, 1) * np.clip(1 - (sat - 25) / 60, 0, 1)
     see = cv2.GaussianBlur(see.astype(np.float32), (0, 0), 1.2) * region
     tint = np.array(liquid if liquid else [236, 228, 200], np.float32)
-    rgb2 = rgb * (1 - 0.55 * see[..., None]) + tint * 0.55 * see[..., None]
-    al2 = al * (1 - 0.8 * see)
+    # Cam ışığı yaymaz, geçirir: içinden görünen yerler çok saydam ve sıvının renginde (biraz koyu).
+    rgb2 = rgb * (1 - 0.7 * see[..., None]) + tint * 0.6 * see[..., None]
+    al2 = al * (1 - 0.9 * see)
     # Açık altın kapak 3B ışıkta beyaza kaçmasın: kapaktaki renkli (altın) piksellerin rengi biraz
     # doygunlaşır ve koyulaşır; gümüş/siyah kapaklar (renksiz) değişmez.
     cap = np.zeros_like(L)
@@ -976,6 +977,12 @@ def main():
             if RULES.get("glassAlpha") and re.search(RULES["glassAlpha"], handle):
                 front, _ = glass_front(front, entry.get("neck"), entry.get("liquid"))
                 entry["glass"] = True
+                # Arka yüz de cam: ön camın aynası (etiketin arkası kağıt beyazı); camın içinden görünen yerler
+                # daha da saydam. Opak arka doku ön camın içinden sütlü görünüyordu.
+                bk = np.asarray(front.transpose(Image.FLIP_LEFT_RIGHT)).astype(np.float32)
+                ba = bk[..., 3]
+                bk[..., 3] = np.where(ba < 235, ba * 0.55, ba)
+                fill = Image.fromarray(bk.clip(0, 255).astype(np.uint8))
             atlas.paste(front, (0, 0))
             atlas.paste(fill, (S, 0))
             os.makedirs(os.path.join(OUT, "labels"), exist_ok=True)

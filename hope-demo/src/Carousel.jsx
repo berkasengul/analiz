@@ -19,7 +19,7 @@ export const ORBIT = THEME.carousel === "orbit";
 export const RISE = THEME.carousel === "rise";
 // "glide": tek şişe altın bir Osmanlı kemerinin içinde; kaydırınca yana süzülüp döner, sıradaki öbür yandan girer.
 export const GLIDE = THEME.carousel === "glide";
-// "dolly": Mardin taşından kemerlerin oluşturduğu koridorda ileri yürüyüş; sıradaki ürün derinlikten yaklaşır.
+// "dolly": karanlık sinematik stüdyo; şişe arkasındaki ışık panelinin önünde, geçişte karanlıkta çözülüp belirir.
 export const DOLLY = THEME.carousel === "dolly";
 const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
@@ -73,20 +73,27 @@ export function arcPose(d, aspect, time, i) {
     // hafifçe görünür. Telefonda yanlar ekranın kenarından yarım görünür. Kaydırınca sıradaki ışığa yürür.
     const phone = aspect < 0.9;
     if (DOLLY) {
-      // Kemerli koridor: öndeki ürün yerinde; sıradaki derinlikte (yalnızca geçişte görünür) kameraya yaklaşır,
-      // geçen ürün yana ve öne çıkıp söner. Ürünler hiçbir anda üst üste binmez.
+      // Sinematik stüdyo: tek şişe ışık panelinin önünde. Kaydırınca şişe dönerek geriye ve yana çekilip
+      // karanlıkta çözülür (alpha), kısa bir karanlık anın ardından sıradaki öbür yandan dönerek belirip
+      // yerine oturur. Ürünler hiçbir anda üst üste binmez; boyutları değişmez (odak hep üründe).
       const cx = phone ? 0 : 2.45 * MathUtils.clamp(aspect / 1.9, 0.44, 1);
       const y0 = phone ? 0.35 : -0.5;
-      const sc0 = base * (phone ? 1.55 : 1.9);
-      const idle = focus > 0 ? Math.sin(time * 0.4) * 0.07 * focus : 0;
-      if (d >= 0) {
-        const t = Math.min(d, 1.4);
-        const vis = 1 - MathUtils.smoothstep(d, 0.4, 0.62);
-        return { x: cx + t * (phone ? 0.3 : 0.9), y: y0 + t * 0.7, z: -t * 13, rotX: 0.01, rotY: 0.12 * focus + t * 0.6 + idle, rotZ: 0, scale: sc0 * vis };
-      }
-      const t = Math.min(-d, 1.4);
-      const vis = 1 - MathUtils.smoothstep(t, 0.15, 0.45);
-      return { x: cx - t * (phone ? 3.4 : 8), y: y0 - t * 0.6, z: t * 3, rotX: 0.01, rotY: 0.12 * focus - t * 0.9 + idle, rotZ: 0, scale: sc0 * vis };
+      const sc0 = base * (phone ? 1.6 : 2.02);
+      const idle = focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0;
+      const inc = d >= 0;
+      const t = Math.min(Math.abs(d), 1.4);
+      const alpha = inc ? 1 - MathUtils.smoothstep(d, 0.3, 0.6) : 1 - MathUtils.smoothstep(t, 0.06, 0.46);
+      const dir = inc ? 1 : -1;
+      return {
+        x: cx + dir * t * (phone ? 0.55 : 1.2),
+        y: y0 + (inc ? 0.12 : -0.08) * t,
+        z: -t * (inc ? 3.2 : 2.4),
+        rotX: 0.01,
+        rotY: 0.12 * focus + dir * t * 1.15 + idle,
+        rotZ: 0,
+        scale: alpha > 0.004 ? sc0 * (0.94 + 0.06 * alpha) : 0,
+        alpha,
+      };
     }
     if (GLIDE) {
       // Komşu şişe yalnızca geçişte görünür; yerindeyken kemerde tek şişe.
@@ -317,7 +324,9 @@ export default function Carousel() {
       // Sahne fotoğraflı üründe yansıma biraz kısık: beyaz şişe parlamadan net görünür.
       bodies[i].envMapIntensity = F.envMapIntensity * 1.23 * dim * (flavors[i]?.stage ? 0.8 : 1);
       bodies[i].clearcoat = Math.max(F.clearcoat * dim, 0.01); // 0 olursa shader yeniden derlenir
-      dimBottleParts(parts[i], dim);
+      dimBottleParts(parts[i], dim, pose.alpha ?? 1);
+      // Saydam camlı ürünlerde (content.glass) geçişte şişe karanlıkta çözülür.
+      if (bodies[i].transparent) bodies[i].opacity = pose.alpha ?? 1;
 
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {

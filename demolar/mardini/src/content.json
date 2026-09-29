@@ -482,7 +482,7 @@
   "theme": {
     "name": "portal",
     "accent": "#d9b27a",
-    "particles": "gold",
+    "particles": "dust",
     "numerals": {
       "font": "fonts/Italiana-Regular.ttf"
     },

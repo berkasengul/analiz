@@ -226,9 +226,13 @@ boyuna göre çizilir (BackgroundMaterial → `u_arch`). Satış noktası listes
 Fotoğraf kuralları: `studio` (gri/renkli stüdyo zemini), `pedestal` (kaide üstü çekim; cam tabanı kesilmez),
 `solidTop` (kapak bölgesi delik bırakılmadan kesilir).
 
-`"dolly"` (Mardini): Mardin taşından iç içe yuvarlak kemerlerin oluşturduğu koridor (BackgroundMaterial → `u_tunnel`,
-`u_tp` = kesirli ürün sırası); kaydırınca kemerler yaklaşır, öndeki ürün yana ve öne çıkıp söner, sıradaki koridorun
-derinliğinden gelir; havada gül yaprakları. Dar ekranda kemerler küçülür.
+`"dolly"` (Mardini): karanlık sinematik stüdyo (BackgroundMaterial → `u_noir` her yerde, `u_tunnel` vitrinde;
+`u_tp` = kesirli ürün sırası). Sahne neredeyse siyah; şişenin arkasında üstte parlak, gövdeye doğru kısılan dikey
+ışık paneli (şeffaf cam bu ışıkta cam gibi okunur), iki yanda odak dışı ince ışık şeritleri, cilalı siyah zeminde
+yansıma. Kaydırınca şişe dönerek geri ve yana çekilip karanlıkta çözülür (saydam malzemede `alpha`), panel kararır,
+önünden ince bir ışık bıçağı geçer; sıradaki şişe öbür yandan dönerek belirir. Bokeh, halka dalgası ve kemer yok;
+parçacıklar `"particles": "dust"` (uzakta çok ince altın toz). Kart sergisi (`kart-3b.py --stage`) aynı dilde:
+kemer yerine ışık paneli.
 
 **ikas mağazaları:** `python3 demo-fabrikasi/araclar/ikas-cek.py <alan-adı> <marka> --only "regex"` ürünleri sayfaların
 `__NEXT_DATA__` verisinden Shopify biçiminde çeker (products-tr/en.json, ikas-raw.json: özellikler, nota piramidi).

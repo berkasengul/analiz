@@ -13,7 +13,7 @@
 ## Nasıl satılır (sıra)
 
 1. **Linki hazırla:** `demolar/mardini-Netlify.zip` → app.netlify.com/drop. Site adı `mardini-3d` gibi olsun. Linki telefonda ve bilgisayarda aç. Bir ürünü sepete ekleyip "Ödemeye geç"e bas: ürünün mardinikozmetik.com'daki sayfası açılmalı.
-2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır. Kemerli koridorda ileri yürüyüş ve sıradaki şişenin derinlikten gelişi en etkileyici an; sonra bir şişeye girip çevir.
+2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır. Şişenin karanlıkta çözülüp sıradakinin ışıkta belirmesi en etkileyici an; sonra bir şişeye girip çevir.
 3. **Maili gönder**, aynı gün Instagram DM'e videoyu ekle. Berdan Mardini'ye değil, markanın hesabına yaz.
 4. **4 gün sonra** takip, **7 gün sonra** son hatırlatma. Cevap yoksa telefonla kısa bir arama yapabilirsin.
 5. Cevap gelirse **15 dakikalık görüntülü görüşme** iste; fiyatı görüşmede ver.
@@ -34,7 +34,7 @@ Mardini için ürünlerinizi 3D olarak sergileyen bir web sitesi hazırladım, i
 
 Kısaca neler var:
 
-- **Mardin taşından bir koridor:** Ana sayfada her koku, Mardin'in taş kemerlerini andıran bir koridorda, kendi renginde ışık altında duruyor; havada gül yaprakları süzülüyor. Aşağı kaydırdıkça kemerlerin arasından ileri yürünüyor ve sıradaki şişe koridorun derinliğinden yaklaşıyor.
+- **Sinematik bir stüdyo:** Ana sayfada her koku, karanlık bir stüdyoda arkasından kendi renginde ışık alarak duruyor; bütün dikkat şişede. Aşağı kaydırdıkça şişe dönerek karanlıkta çözülüyor, önünden ince bir ışık geçiyor ve sıradaki koku öbür yandan ışığa çıkıyor.
 - **Şişeleriniz 3D:** Gold Seri, Silver Seri ve gül ürünlerinden 23 ürün kendi ürün fotoğraflarınızdan 3D olarak hazırlandı: etiketler ve altın kapaklar fotoğraftaki gibi, şeffaf camın içinden sahne ve parfümün rengi görünüyor. Ürün sayfasında şişe çevrilebiliyor.
 - **Nota piramidi:** Her parfümün üst, kalp ve alt notaları ürün sayfasında.
 - **Hikâyeniz:** Yaylabaşı'ndaki 700 dönümlük gül ve lavanta tarlaları, tarlaların yanındaki fabrika ve kadın istihdamı; tarladan şişeye üç adımda anlatılıyor.
@@ -55,7 +55,7 @@ _Site size özel hazırlandı; arama motorlarına kapalıdır, yalnızca bu link
 
 Merhaba Mardini ekibi 🌹
 
-Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler Mardin taşından kemerli bir koridorda, gül yaprakları arasında; kaydırdıkça sıradaki koku derinlikten geliyor. 23 ürün kendi fotoğraflarınızdan 3D.
+Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler karanlık, sinematik bir stüdyoda kendi renginde ışıkla; kaydırdıkça biri karanlıkta çözülüyor, sıradaki ışığa çıkıyor. 23 ürün kendi fotoğraflarınızdan 3D.
 
 Telefondan bir dakikada inceleyebilirsiniz: [DEMO LİNKİ]
 

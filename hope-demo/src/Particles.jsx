@@ -7,13 +7,15 @@ import { flavors } from "./data";
 import { THEME } from "./theme";
 
 // Tema "gold": yuvarlak, ışıldayan altın toz (her tanecik kendi ritminde parlar).
-const GOLD = THEME.particles === "gold";
+// Tema "dust": sinematik sahne için çok ince, uzakta asılı altın toz (yakında büyük, bulanık yuvarlaklar olmaz).
+const DUST = THEME.particles === "dust";
+const GOLD = THEME.particles === "gold" || DUST;
 const goldColor = new Color(THEME.accent ?? "#c9a55c");
 
 const target = new Color();
 const white = new Color(1, 1, 1);
 
-const COUNT = (typeof window !== "undefined" && window.innerWidth < 760 ? 180 : 420) * (GOLD ? 1.6 : 1);
+const COUNT = (typeof window !== "undefined" && window.innerWidth < 760 ? 180 : 420) * (DUST ? 0.7 : GOLD ? 1.6 : 1);
 
 // Havada süzülen, odak dışı buz/kül parçacıkları.
 export default function Particles() {
@@ -40,11 +42,12 @@ export default function Particles() {
         transparent: true,
         depthWrite: false,
         blending: AdditiveBlending,
-        uniforms: { u_time: { value: 0 }, u_dpr: { value: dpr }, u_dim: { value: 1 }, u_tint: { value: new Color(0.8, 0.82, 0.86) }, u_gold: { value: GOLD ? 1 : 0 } },
+        uniforms: { u_time: { value: 0 }, u_dpr: { value: dpr }, u_dim: { value: 1 }, u_tint: { value: new Color(0.8, 0.82, 0.86) }, u_gold: { value: GOLD ? 1 : 0 }, u_dust: { value: DUST ? 1 : 0 } },
         vertexShader: /* glsl */ `
           uniform float u_time;
           uniform float u_dpr;
           uniform float u_gold;
+          uniform float u_dust;
           attribute float aSeed;
           varying float vSeed;
           varying float vDepth;
@@ -55,6 +58,7 @@ export default function Particles() {
             vec4 mv = modelViewMatrix * vec4(p, 1.);
             gl_Position = projectionMatrix * mv;
             gl_PointSize = (14. + aSeed * 26.) * u_dpr * (12. / -mv.z) * (u_gold > 0.5 ? 0.45 : 1.);
+            if (u_dust > 0.5) gl_PointSize = (2. + aSeed * 3.) * u_dpr;
             vSeed = aSeed;
             vDepth = -mv.z;
           }
@@ -62,6 +66,7 @@ export default function Particles() {
         fragmentShader: /* glsl */ `
           uniform float u_dim;
           uniform float u_gold;
+          uniform float u_dust;
           uniform float u_time;
           uniform vec3 u_tint;
           varying float vSeed;
@@ -82,6 +87,8 @@ export default function Particles() {
               float core = smoothstep(0.5, 0.0, r);
               float tw = 0.35 + 0.65 * pow(0.5 + 0.5 * sin(u_time * (1.2 + vSeed * 2.5) + vSeed * 60.), 3.);
               alpha = core * core * mix(0.9, 0.35, near) * tw * u_dim;
+              // İnce toz: yakındakiler hiç görünmez, uzaktakiler soluk ışıltı.
+              if (u_dust > 0.5) alpha = core * mix(0.55, 0., near) * tw * u_dim;
             }
             gl_FragColor = vec4(u_tint * alpha, alpha);
           }

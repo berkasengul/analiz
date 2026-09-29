@@ -25,7 +25,7 @@ import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
 
 // Kart görselleri için tek ürün çekimi (data.js ?still=<n> ile yalnızca o ürünü yükler).
 //   ?still=<n>          saydam zeminde ürün (arama, sepet küçük resimleri)
-//   ?still=<n>&stage=1  sinematik sergi: altın çerçeveli kemerli niş, mermer kaide, yansıtıcı
+//   ?still=<n>&stage=1  sinematik sergi: altın çerçeveli kemerli niş (dolly: ışık paneli), mermer kaide, yansıtıcı
 //                       siyah zemin, tepeden spot ışığı ve ışık konisi; ürün kaidenin üstünde.
 // demo-fabrikasi/araclar/kart-3b.py bu sayfanın ekran görüntüsünü alır.
 const STAGE = new URLSearchParams(location.search).has("stage");
@@ -153,6 +153,9 @@ function archShape(w, h) {
 
 // Osmanlı (sivri) kemeri: iki yay tepede birleşir. hw yarım genişlik, h toplam yükseklik; yay yarıçapı 1,45·hw.
 const OTTOMAN = THEME.carousel === "glide";
+// Karanlık sinematik stüdyo ("dolly", ana sayfayla aynı dil): kemer yok; ürünün arkasında dikey, yumuşak bir
+// ışık paneli, iki yanda odak dışı ince ışık şeritleri.
+const NOIR = THEME.carousel === "dolly";
 function ogeePoints(w, h, n = 48) {
   const hw = w / 2;
   const r = hw * 1.45;
@@ -268,6 +271,16 @@ function Stage() {
     }),
     [glow, accent]
   );
+  // Işık paneli (NOIR): üstte parlak, gövdeye doğru kısılan dikey ışık; iki yanda ince şeritler.
+  const panelMat = useMemo(
+    () => ({
+      uniforms: { u_a: { value: glow.clone().lerp(accent, 0.25).lerp(new Color(1, 1, 1), 0.2) } },
+      vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }",
+      fragmentShader:
+        "uniform vec3 u_a; varying vec2 vUv; void main(){ float x = (vUv.x - 0.5) * 8.; float y = vUv.y * 9.; float panel = exp(-pow(abs(x) / 1.5, 2.2) - pow(abs(y - 3.2) / 2.9, 2.6)); float grad = 0.5 + 0.5 * smoothstep(1., 5.5, y); float strip = exp(-pow((abs(x) - 2.6) / 0.06, 2.)) * smoothstep(0.3, 1.5, y) * (1. - smoothstep(4.5, 6.5, y)); vec3 c = vec3(0.02, 0.017, 0.015) + u_a * (panel * grad * 1.05 + strip * 0.28); gl_FragColor = vec4(c, 1.); }",
+    }),
+    [glow, accent]
+  );
   // Işık konisi: spotun havada görünen izi.
   const coneMat = useMemo(
     () => ({
@@ -304,18 +317,27 @@ function Stage() {
         <planeGeometry args={[30, 20]} />
         <meshStandardMaterial color="#0d0b0a" roughness={0.9} />
       </mesh>
-      <mesh position={[0, floorY, archZ]}>
-        <shapeGeometry args={[niche, 48]} />
-        <shaderMaterial args={[nicheMat]} />
-      </mesh>
-      <mesh position={[0, floorY, 0]}>
-        <tubeGeometry args={[frame, 400, 0.035, 8, false]} />
-        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.28} />
-      </mesh>
-      <mesh position={[0, floorY, 0]}>
-        <tubeGeometry args={[frame2, 400, 0.018, 8, false]} />
-        <meshStandardMaterial color="#b8903f" metalness={1} roughness={0.35} />
-      </mesh>
+      {NOIR ? (
+        <mesh position={[0, floorY + 4.5, archZ]}>
+          <planeGeometry args={[8, 9]} />
+          <shaderMaterial args={[panelMat]} />
+        </mesh>
+      ) : (
+        <>
+          <mesh position={[0, floorY, archZ]}>
+            <shapeGeometry args={[niche, 48]} />
+            <shaderMaterial args={[nicheMat]} />
+          </mesh>
+          <mesh position={[0, floorY, 0]}>
+            <tubeGeometry args={[frame, 400, 0.035, 8, false]} />
+            <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.28} />
+          </mesh>
+          <mesh position={[0, floorY, 0]}>
+            <tubeGeometry args={[frame2, 400, 0.018, 8, false]} />
+            <meshStandardMaterial color="#b8903f" metalness={1} roughness={0.35} />
+          </mesh>
+        </>
+      )}
       {OTTOMAN && <OttomanTrim w={archW} h={archH} z={archZ} floorY={floorY} />}
       {/* Mermer kaide ve altın kenar */}
       <mesh position={[0, PED_TOP - PED.h / 2, 0]}>

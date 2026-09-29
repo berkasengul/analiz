@@ -11,7 +11,7 @@ import { useStore } from "./store";
 import { THEME } from "./theme";
 
 const SOLO = ["solo", "orbit", "rise", "glide", "dolly"].includes(THEME.carousel);
-// Parlak zemin: "rise", "glide" ve "dolly"; altın kemer yalnızca "glide", taş kemerli koridor "dolly".
+// Parlak zemin: "rise", "glide" ve "dolly"; altın kemer yalnızca "glide", "dolly"de karanlık sinematik stüdyo.
 const FLOOR = ["rise", "glide", "dolly"].includes(THEME.carousel);
 const TUNNEL = THEME.carousel === "dolly";
 const ARCH = THEME.carousel === "glide";
@@ -181,6 +181,7 @@ export default function Background() {
     m.u_arch = ARCH ? l.floor : 0;
     // Koridor kemerleri kaydırmayla birlikte yaklaşır (scrollState.p: kesirli ürün sırası).
     m.u_tunnel = TUNNEL ? l.floor : 0;
+    m.u_noir = TUNNEL ? 1 : 0;
     m.u_tp = scrollState.p;
     material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
