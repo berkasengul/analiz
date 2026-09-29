@@ -79,7 +79,7 @@ export function arcPose(d, aspect, time, i) {
       // geçer). Bütün kaideler aynı zeminde: ürünün ayağı (BOTTOM) kaidenin üst yüzüne oturur.
       const cx = phone ? 0 : 0.8 * MathUtils.clamp(aspect / 1.9, 0.44, 1);
       const sp = phone ? 3.5 : 5.8 * MathUtils.clamp(aspect / 1.9, 0.6, 1.15);
-      const sc0 = phone ? 1.6 * base : 2.02;
+      const sc0 = dollyScale(aspect);
       const a1 = Math.min(ad, 1);
       const z = -5 * a1 - 3 * Math.max(0, ad - 1);
       const scale = sc0 * (1 - 0.12 * a1);
@@ -206,15 +206,17 @@ export const PLINTH_H = 0.26;
 const PLINTH_GOLD = new MeshStandardMaterial({ color: THEME.accent ?? "#d4b06a", metalness: 1, roughness: 0.22, envMapIntensity: 1.6 });
 const PLINTH_BODY = new MeshStandardMaterial({ color: "#050404", roughness: 0.9, metalness: 0, envMapIntensity: 0.05 });
 function Plinth({ refFn }) {
+  // Her kaidenin kendi malzemesi: uzaktaki ürünle birlikte kaidesi de soluklaşır (userData.mats).
+  const [body, gold] = useMemo(() => [PLINTH_BODY.clone(), PLINTH_GOLD.clone()].map((m) => ((m.transparent = true), m)), []);
   return (
-    <group ref={refFn} visible={false}>
-      <mesh material={PLINTH_BODY} position={[0, -PLINTH_H / 2, 0]} userData={{ noMeasure: true }}>
+    <group ref={refFn} visible={false} userData={{ mats: [body, gold] }}>
+      <mesh material={body} position={[0, -PLINTH_H / 2, 0]} userData={{ noMeasure: true }}>
         <cylinderGeometry args={[1.18, 1.22, PLINTH_H, 96]} />
       </mesh>
-      <mesh material={PLINTH_GOLD} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.004, 0]} userData={{ noMeasure: true }}>
+      <mesh material={gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.004, 0]} userData={{ noMeasure: true }}>
         <torusGeometry args={[1.185, 0.014, 12, 128]} />
       </mesh>
-      <mesh material={PLINTH_GOLD} rotation={[Math.PI / 2, 0, 0]} position={[0, -PLINTH_H + 0.02, 0]} userData={{ noMeasure: true }}>
+      <mesh material={gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -PLINTH_H + 0.02, 0]} userData={{ noMeasure: true }}>
         <torusGeometry args={[1.222, 0.006, 8, 128]} />
       </mesh>
     </group>
@@ -222,8 +224,8 @@ function Plinth({ refFn }) {
 }
 
 // Butik sırasında kaidelerin üst yüzü (dünya y) ve öndeki ürünün ölçeği.
-export const dollyTop = (aspect) => (aspect < 0.9 ? -2.45 : -3.95);
-export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.6 : 2.02);
+export const dollyTop = (aspect) => (aspect < 0.9 ? -1.35 : -3.95);
+export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.45 : 2.02);
 
 export default function Carousel() {
   const canBody = useCanBody();
@@ -397,7 +399,9 @@ export default function Carousel() {
         const pl = plinths.current[i];
         if (pl) {
           pl.position.y = BOTTOM[i] ?? -1.8;
-          pl.visible = BOTTOM[i] != null;
+          const a = pose.alpha ?? 1;
+          pl.visible = BOTTOM[i] != null && a > 0.01;
+          for (const m of pl.userData.mats) m.opacity = a;
         }
       }
 
