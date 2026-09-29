@@ -340,7 +340,30 @@ def label_rect(F, top):
             continue
         if best is None or area > best[4]:
             best = (x, y, x + w, y + h, area)
-    return best[:4] if best else None
+    if not best:
+        return None
+    return refine_label(a, best[:4])
+
+
+def refine_label(a, rect):
+    """Etiketin çerçevesi (koyu ya da altın ince çizgi) bulunur; dikdörtgen çerçeveye, çerçevenin dışındaki
+    ince kâğıt payıyla daraltılır. Kaba kontur etiketin çevresindeki camı da kapsayıp opak bir krem kutu
+    bırakıyordu."""
+    x0, y0, x1, y1 = rect
+    m = int(0.03 * S)
+    X0, Y0, X1, Y1 = max(0, x0 - m), max(0, y0 - m), min(S, x1 + m), min(S, y1 + m)
+    c = a[Y0:Y1, X0:X1, :3].astype(np.float32)
+    L = c.mean(2)
+    sat = c.max(2) - c.min(2)
+    ink = ((L < 150) | (sat > 70)).astype(np.float32)
+    cols = ink.mean(0)
+    rows_ = ink.mean(1)
+    cx = np.where(cols > 0.45)[0]
+    ry = np.where(rows_ > 0.45)[0]
+    if len(cx) < 2 or len(ry) < 2 or cx[-1] - cx[0] < 0.4 * (x1 - x0) or ry[-1] - ry[0] < 0.4 * (y1 - y0):
+        return rect
+    pad = int(0.004 * S)
+    return (X0 + cx[0] - pad, Y0 + ry[0] - pad, X0 + cx[-1] + pad, Y0 + ry[-1] + pad)
 
 
 def glass_front(F, neck, liquid=None):
@@ -355,13 +378,14 @@ def glass_front(F, neck, liquid=None):
     # Kesimin dış saçağı (stüdyo beyazı) 2 px içeri alınır; silüet kenarında çok ince bir bant cam
     # kenarı olarak daha az saydamlaşır.
     d = cv2.distanceTransform(m.astype(np.uint8), cv2.DIST_L2, 5)
-    al = np.where(d < 2, 0, al)
-    edge = np.clip(d / (0.006 * S), 0, 1)
-    region = (d > 0).astype(np.float32) * (0.45 + 0.55 * edge)
+    # Kesimin dış saçağı (stüdyo beyazı) 3 px içeri alınır; silüet kenarında beyaz hale kalmaz. Camın
+    # kendi kenar çizgileri koyu olduğundan (see≈0) olduğu gibi kalır.
+    al = np.where(d < 3, 0, al)
+    region = (d > 0).astype(np.float32)
     region[:top] = 0
     if lab:
         x0, y0, x1, y1 = lab
-        pad = int(0.008 * S)
+        pad = int(0.002 * S)
         region[max(0, y0 - pad):y1 + pad, max(0, x0 - pad):x1 + pad] = 0
     L = rgb.mean(2)
     sat = rgb.max(2) - rgb.min(2)
@@ -985,13 +1009,29 @@ def main():
             front = F if flat else seal_front(F)
             # glassAlpha: şeffaf cam şişede camın içinden görünen stüdyo beyazı yarı saydam olur (sahne camdan görünür).
             if RULES.get("glassAlpha") and re.search(RULES["glassAlpha"], handle):
-                front, _ = glass_front(front, entry.get("neck"), entry.get("liquid"))
+                front, lab = glass_front(front, entry.get("neck"), entry.get("liquid"))
                 entry["glass"] = True
                 # Arka yüz de cam: ön camın aynası (etiketin arkası kağıt beyazı); camın içinden görünen yerler
                 # daha da saydam. Opak arka doku ön camın içinden sütlü görünüyordu.
                 bk = np.asarray(front.transpose(Image.FLIP_LEFT_RIGHT)).astype(np.float32)
                 ba = bk[..., 3]
                 bk[..., 3] = np.where(ba < 235, ba * 0.55, ba)
+                # Arkada etiket yok: ön etiketin aynası camın içinden ikinci bir etiket gibi görünürdü.
+                # Etiketin arkası da cam (sıvı renginde, çok saydam).
+                if lab:
+                    x0, y0, x1, y1 = lab
+                    p_ = int(0.01 * S)
+                    sl = (slice(max(0, y0 - p_), y1 + p_), slice(max(0, S - x1 - p_), S - x0 + p_))
+                    # Etiketin yeri çevresindeki camdan doldurulur: her sütunda üst ve alt kenardaki cam
+                    # arasında dikey geçiş (cam dikey olarak kesintisiz sürer; iz kalmaz).
+                    ys, xs = sl
+                    ya, yb = max(0, ys.start - 2), min(S - 1, ys.stop + 1)
+                    top_, bot_ = bk[ya, xs].copy(), bk[yb, xs].copy()
+                    n_ = ys.stop - ys.start
+                    t_ = ((np.arange(n_) + 1) / (n_ + 1))[:, None, None]
+                    fillv = top_[None] * (1 - t_) + bot_[None] * t_
+                    body_ = bk[sl][..., 3:4] > 0
+                    bk[sl] = np.where(body_, fillv, bk[sl])
                 fill = Image.fromarray(bk.clip(0, 255).astype(np.uint8))
             atlas.paste(front, (0, 0))
             atlas.paste(fill, (S, 0))

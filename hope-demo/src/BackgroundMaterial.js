@@ -37,6 +37,10 @@ export const BackgroundMaterial = shaderMaterial(
     u_arch: 0,
     u_tunnel: 0,
     u_noir: 0,
+    u_plate: null,
+    u_plateOn: 0,
+    u_plateSp: new Vector4(2.63, 0.54, 0.66, 0.5),
+    u_plateShift: 0,
     u_tp: 0,
     u_bottleH: 0.35,
     u_sceneX: 0.5,
@@ -78,6 +82,10 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_arch;
     uniform float u_tunnel;
     uniform float u_noir;
+    uniform sampler2D u_plate;
+    uniform float u_plateOn;
+    uniform vec4 u_plateSp;
+    uniform float u_plateShift;
     uniform float u_tp;
     uniform float u_bottleH;
     uniform float u_sceneX;
@@ -245,10 +253,27 @@ export const BackgroundMaterial = shaderMaterial(
         base = mix(base, nb, u_noir);
       }
 
+      // Butik fotoğrafı (theme.plate): ekranı kaplar; fotoğraftaki odak (kemerin ortası) öndeki ürünün
+      // ekrandaki yerine, duvar dibi (zemin çizgisi) ürünlerin zeminine hizalanır. Kaydırınca çok hafif kayar.
+      if (u_plateOn > 0.001) {
+        float ia = u_plateSp.x;
+        // Boy: ekranın tamamını kaplayacak kadar (en ve boy).
+        float sH = max(1., u_aspect / ia);
+        float v = u_plateSp.z + (1. - vUv.y - u_plateSp.w) / sH;
+        float u = u_plateSp.y + ((vUv.x - u_sceneX) * u_aspect) / (sH * ia) + u_plateShift;
+        // Kenara taşarsa sınırda kalır (boşluk yok).
+        u = clamp(u, 0.002, 0.998);
+        v = clamp(v, 0.002, 0.998);
+        vec3 pc = texture2D(u_plate, vec2(u, 1. - v)).rgb;
+        // Yazıların arkası hafif koyu, kenarlar kararır.
+        float read = u_aspect > 1. ? mix(0.62, 1., smoothstep(0.02, 0.42, vUv.x)) * mix(0.75, 1., smoothstep(0.99, 0.82, vUv.x)) : mix(0.55, 1., smoothstep(0.05, 0.45, vUv.y));
+        base = mix(base, pc * read, u_plateOn);
+      }
+
       // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.
       // Hafif karartma: ürünün çevresi ürünün renginde parlak, kenarlara doğru koyulaşır (telefonda da).
       float spotD = length((vUv - vec2(u_focusX, 0.52)) * vec2(max(u_aspect * 0.62, 0.85), 0.9));
-      base *= mix(1., 0.3 + 0.7 * (1. - smoothstep(0.1, 0.8, spotD)), u_studio * u_stage * (1. - 0.8 * u_vivid * u_sceneOn));
+      base *= mix(1., 0.3 + 0.7 * (1. - smoothstep(0.1, 0.8, spotD)), u_studio * u_stage * (1. - 0.8 * u_vivid * u_sceneOn) * (1. - 0.8 * u_plateOn));
 
       // Tepeden inen ışık huzmesi (stüdyoda daha dar, daha parlak, içinde yavaş süzülen toz).
       vec2 bp = (vUv - vec2(u_focusX, 1.08)) * asp;
@@ -437,7 +462,7 @@ export const BackgroundMaterial = shaderMaterial(
         col += wc * (wave * 0.42 + fill * 0.22) * (1. - u_noir);
       }
       // Kenar karartması.
-      col *= 1. - 0.7 * (1. - 0.6 * u_vivid * u_sceneOn) * smoothstep(0.35, 1.2, screenDist);
+      col *= 1. - 0.7 * (1. - 0.6 * u_vivid * u_sceneOn) * (1. - 0.5 * u_plateOn) * smoothstep(0.35, 1.2, screenDist);
       // Sinematik mod: sahne kararır, kenarlarda koyu bir vinyet oluşur.
       col *= mix(1., 0.35 + 0.65 * (1. - smoothstep(0.25, 1.0, screenDist)), u_dark);
 

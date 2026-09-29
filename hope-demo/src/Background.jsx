@@ -14,6 +14,11 @@ const SOLO = ["solo", "orbit", "rise", "glide", "dolly"].includes(THEME.carousel
 // Parlak zemin: "rise", "glide" ve "dolly"; altın kemer yalnızca "glide", "dolly"de karanlık sinematik stüdyo.
 const FLOOR = ["rise", "glide", "dolly"].includes(THEME.carousel);
 const TUNNEL = THEME.carousel === "dolly";
+// Butik fotoğrafı (theme.plate = { src, aspect, x, floor }): arka planı kaplar; odak noktası (x) öndeki ürüne,
+// duvar dibi (floor, fotoğrafın üstünden oran) ürünlerin zeminine hizalanır.
+const PLATE = THEME.plate;
+const plateTex = PLATE ? new TextureLoader().load(`${import.meta.env.BASE_URL}${PLATE.src}`, (t) => (t.colorSpace = SRGBColorSpace)) : null;
+if (plateTex) plateTex.colorSpace = SRGBColorSpace;
 const ARCH = THEME.carousel === "glide";
 const P = new Vector3();
 const Q = new Vector3();
@@ -185,6 +190,21 @@ export default function Background() {
     // "dolly": arka plan gerçek 3B butik sahnesi (Boutique); shader yalnızca karanlık zemin rengini verir.
     m.u_tunnel = 0;
     m.u_noir = TUNNEL ? 1 : 0;
+    if (PLATE) {
+      m.u_plate = plateTex;
+      const asp = size.width / size.height;
+      // Duvar dibi: kaidelerin zemini, komşuların biraz arkasında.
+      const fy = sceneState.floorY ?? -4.5;
+      const cxw = sceneState.focus.rest.x;
+      const sy = 1 - (P.set(cxw, fy, -8).project(camera).y + 1) / 2;
+      const sx = (Q.set(cxw, fy, 0).project(camera).x + 1) / 2;
+      m.u_plateSp.set(PLATE.aspect ?? 2.63, PLATE.x ?? 0.5, PLATE.floor ?? 0.66, sy);
+      m.u_sceneX = sx;
+      const n = flavors.length;
+      m.u_plateShift = ((((scrollState.p % n) + n) % n) / n - 0.5) * (asp < 0.9 ? 0.02 : 0.05);
+      l.plateOn = MathUtils.damp(l.plateOn ?? 0, (1 - scrollState.ritualIn) * (1 - scrollState.shopIn), 3, dt);
+      m.u_plateOn = l.plateOn;
+    }
     m.u_tp = scrollState.p;
     material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;

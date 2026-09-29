@@ -106,7 +106,9 @@ export default function Boutique() {
     smokeMat.uniforms.u_time.value = clock.getElapsedTime();
     smokeMat.uniforms.u_amount.value = MathUtils.damp(smokeMat.uniforms.u_amount.value, (0.05 + 0.5 * trans) * on * (st.detail ? 0 : 1), 5, dt);
     smokeMat.uniforms.u_color.value.copy(S.tint);
-    root.current.visible = on > 0.01;
+    // Butik fotoğrafı (theme.plate) varsa duvar ve zemin fotoğraftan gelir: 3B duvar, zemin ve duvar ışığı gizli.
+    root.current.visible = on > 0.01 && !THEME.plate;
+    if (THEME.plate) L.intensity = 0;
   });
 
   return (

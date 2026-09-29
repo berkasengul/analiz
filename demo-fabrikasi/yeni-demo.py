@@ -123,14 +123,14 @@ def main(path):
             if n in used:
                 shutil.copy(os.path.join(foto, "labels", n), os.path.join(dst, "src", "assets", "labels"))
 
-    # Marka görselleri (logo vb.): markalar/<slug>-assets/*.png → public/brand/ ve docs/brand/.
+    # Marka görselleri (logo, butik fotoğrafı vb.): markalar/<slug>-assets/*.png|jpg|webp → public/brand/ ve docs/brand/.
     assets = os.path.join(os.path.dirname(os.path.abspath(path)), f"{slug}-assets")
     if os.path.isdir(assets):
         for sub in (("public", "brand"), ("docs", "brand")):
             out = os.path.join(dst, *sub)
             os.makedirs(out, exist_ok=True)
             for n in os.listdir(assets):
-                if n.endswith(".png"):
+                if n.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
                     shutil.copy(os.path.join(assets, n), out)
 
     print("→ Etiketler çiziliyor")
