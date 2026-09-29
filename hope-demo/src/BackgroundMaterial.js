@@ -256,7 +256,7 @@ export const BackgroundMaterial = shaderMaterial(
       }
 
       // Butik fotoğrafı (theme.plate): ekranı kaplar; fotoğraftaki odak (kemerin ortası) öndeki ürünün
-      // ekrandaki yerine, duvar dibi (zemin çizgisi) ürünlerin zeminine hizalanır. Kaydırınca çok hafif kayar.
+      // ekrandaki yerine, duvar dibi (zemin çizgisi) ürünlerin zeminine hizalanır. Kaydırınca sabit kalır.
       if (u_plateOn > 0.001) {
         float ia = u_plateSp.x;
         // Boy: ekranın tamamını kaplayacak kadar (en ve boy).

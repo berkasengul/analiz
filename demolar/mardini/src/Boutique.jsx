@@ -114,7 +114,8 @@ export default function Boutique() {
     if (floorMat.current) floorMat.current.mixStrength = (THEME.plate ? 1.4 : 2.2) * on;
     // Duman: ürünün önünde; geçişte (kesirli kaydırma) kabarır, yerindeyken çok hafif.
     const fr = scrollState.p - Math.floor(scrollState.p);
-    const trans = Math.sin(Math.PI * fr);
+    // Fotoğraflı butikte geçişte duman kabarmaz: arka plan sabit görünür.
+    const trans = THEME.plate ? 0 : Math.sin(Math.PI * fr);
     smoke.current.position.set(r.x, r.y + 0.6, r.z + 1.4);
     smoke.current.scale.setScalar(r.scale / 2);
     smokeMat.uniforms.u_time.value = clock.getElapsedTime();
