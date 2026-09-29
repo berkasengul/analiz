@@ -235,6 +235,13 @@ kayar, odak komşuya geçer; duvar daha yavaş kayar (derinlik), geçişte ürü
 tıklamak sırayı ona kaydırır. Parçacıklar `"particles": "dust"`. Kart sergisi (`kart-3b.py --stage`, Still → `NoirSet`)
 aynı dilde: yivli duvar, ışık havuzu, yansıyan zemin, yuvarlak obsidyen kaide.
 
+**Butik fotoğrafı** (`theme.plate: { src, aspect, x, floor }`): markanın (ya da müşterinin verdiği) salon görseli
+arka planı kaplar (`markalar/<marka>-assets/` içine konur, `brand/…` olarak yayınlanır). `x`: fotoğraftaki odak noktası
+(ör. kemerin ortası) öndeki ürüne gelir; dikeyde fotoğraf ekranı tam kaplar; telefonda küçülür, kemerin tamamı
+görünür (üstü karanlığa karışır, zemin aynalanır). Fotoğraflı modda 3B duvar ve yansıtıcı zemin gizlidir; kaidelerin
+altında temas gölgesi ve zeminde soluk yansımaları çizilir. Masaüstünde komşular 12 birim geride aynı boyda durur
+(Mardini: `butik.jpg`, `x: 0.541`, `floor: 0.658`).
+
 Saydam cam şişelerde ışık: `"photoUnlit": 0.8` (fotoğrafın kendi ışığının payı) ve `"photoExact": true` (etiket ton
 eşlemeden geçmez) ile etiket fotoğraftaki gibi net; `foto.glassAlpha` etiketin yazısını koyulaştırır. Kalınlık yüzleri
 ışığı kıran gerçek cam (transmission; telefonda yarı saydam cam). `?shot` açılış animasyonunu atlar (yavaş test
