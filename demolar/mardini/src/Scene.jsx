@@ -10,6 +10,7 @@ import Particles from "./Particles";
 import IceScene from "./IceScene";
 import Numeral from "./Numeral";
 import Pedestal from "./Pedestal";
+import Spray from "./Spray";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
 import { content } from "./data";
@@ -53,6 +54,7 @@ export default function Scene() {
           <IceScene />
           <Carousel />
           <HeroCan />
+          {content.spray && <Spray />}
           {/* Tüm shader'ları baştan derle; ilk etkileşimde takılma olmasın. */}
           <Preload all />
         </Suspense>

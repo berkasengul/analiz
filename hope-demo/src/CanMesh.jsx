@@ -25,8 +25,10 @@ import {
   Vector3,
 } from "three";
 import { RoundedBoxGeometry, mergeVertices } from "three-stdlib";
+import { useFrame } from "@react-three/fiber";
 
 import { content, flavors } from "./data";
+import { SPRAY, SPRAY_SLOW, sceneState } from "./shared";
 
 // Etiket dokuları: content.json'daki her ürünün `file` adıyla eşleşir.
 const FILES = import.meta.glob("./assets/labels/*.{jpg,webp}", { eager: true, import: "default" });
@@ -807,20 +809,136 @@ function Tool({ body, parts, S }) {
   );
 }
 
-function Photo({ body, parts, S }) {
+function Photo({ body, parts, S, flavor }) {
   const g = photoGeometry(S);
+  const cap = useRef();
+  // Parfüm sıkma (content.spray): yassı şişede kapak (boynun üstündeki torna) ayrı bir grupta kalkar.
+  const spray = content.spray && S.profile === "flask" && S.neck;
+  const pivot = useMemo(() => (spray ? capPivot(S) : null), [spray, S]);
   return (
     <group rotation={[0, 0, S.tilt]} scale={S.scale}>
       {g.parts.map((p, i) => (
         <group key={i}>
           {p.block && <mesh geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />}
-          {p.front && <mesh geometry={p.front} material={body} />}
-          {p.back && <mesh geometry={p.back} material={body} />}
+          {pivot && i === 0 ? (
+            <group ref={cap} position={[pivot.x, pivot.y, 0]}>
+              <group position={[-pivot.x, -pivot.y, 0]}>
+                {p.front && <mesh geometry={p.front} material={body} />}
+                {p.back && <mesh geometry={p.back} material={body} />}
+              </group>
+            </group>
+          ) : (
+            <>
+              {p.front && <mesh geometry={p.front} material={body} />}
+              {p.back && <mesh geometry={p.back} material={body} />}
+            </>
+          )}
         </group>
       ))}
-      {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. */}
-      <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} userData={{ noFit: true }} />
-      <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} userData={{ noFit: true }} />
+      {pivot && <Sprayer S={S} pivot={pivot} cap={cap} flavor={flavor} />}
+      {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. Saydam camda kart camın
+          içinden görünürdü (ikinci bir etiket gibi); orada çizilmez. */}
+      {!S.glass && (
+        <>
+          <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} userData={{ noFit: true }} />
+          <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} userData={{ noFit: true }} />
+        </>
+      )}
+    </group>
+  );
+}
+
+// Kapağın ölçüleri (yerel birim): tepesi, boyu, ortası ve boyundaki halkanın yarıçapı.
+function capPivot(S) {
+  const L = S.size;
+  const N = S.rows.length;
+  const cut = Math.round(S.neck * N);
+  let top0 = S.rows.findIndex((r) => r > 0);
+  if (top0 < 0 || top0 >= cut) top0 = Math.max(0, cut - Math.round(0.15 * N));
+  const neckR = Math.max(...S.rows.slice(Math.max(top0, cut - 4), cut)) * L;
+  const capR = Math.max(...S.rows.slice(top0, cut)) * L;
+  return {
+    x: (S.axis - 0.5) * L,
+    y: (0.5 - (top0 + cut) / 2 / N) * L,
+    h: ((cut - top0) / N) * L,
+    r: capR,
+    neckTop: (0.5 - S.neck) * L,
+    collar: MathUtils.clamp(neckR * 0.9, 0.035 * L, 0.09 * L),
+    L,
+  };
+}
+
+const easeOutC = (t) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
+const easeIO = (t) => {
+  const x = Math.min(1, Math.max(0, t));
+  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+};
+const GOLD_M = new MeshStandardMaterial({ color: "#d9b66c", metalness: 1, roughness: 0.2, envMapIntensity: 1.7 });
+const STEEL_M = new MeshStandardMaterial({ color: "#c9c9c9", metalness: 1, roughness: 0.25, envMapIntensity: 1.4 });
+const HOLE_M = new MeshStandardMaterial({ color: "#050505", roughness: 0.6 });
+const _q = new Quaternion();
+const _d = new Vector3();
+const shownInScene = (o) => {
+  for (let x = o; x; x = x.parent) if (!x.visible) return false;
+  return true;
+};
+
+// Sprey başlığı: kapak kalkınca görünen altın boyun halkası, ince sap ve basmalı başlık (önünde püskürtme
+// deliği). Sıkma zaman çizelgesi (SPRAY): kapak kalkıp yana döner, başlığa basılır, buğu çıkar, kapak kapanır.
+function Sprayer({ S, pivot, cap, flavor }) {
+  const group = useRef();
+  const act = useRef();
+  const nozzle = useRef();
+  const P = pivot;
+  const L = P.L;
+  const actR = P.collar * 0.62;
+  const actY = P.neckTop + 0.095 * L;
+  // Püskürtme yönü (yerel): masaüstünde şişe sağda, buğu sola ve öne; telefonda öne.
+  const wide = typeof window !== "undefined" && window.innerWidth / window.innerHeight >= 0.9;
+  const dir = useMemo(() => new Vector3(wide ? -0.8 : -0.72, wide ? 0.1 : 0.04, wide ? 0.6 : 0.68).normalize(), [wide]);
+  const hole = Math.atan2(dir.x, dir.z);
+  useFrame(({ clock }) => {
+    const sp = sceneState.spray;
+    const now = clock.getElapsedTime() / SPRAY_SLOW;
+    const t = sp.flavor === flavor ? now - sp.t0 : 99;
+    const lift = t < SPRAY.lift ? easeOutC(t / SPRAY.lift) : t < SPRAY.back ? 1 : t < SPRAY.end ? 1 - easeIO((t - SPRAY.back) / (SPRAY.end - SPRAY.back)) : 0;
+    const c = cap.current;
+    if (c) {
+      const bob = lift > 0.99 ? Math.sin(t * 2.2) * 0.012 * L : 0;
+      // Kapak görünmez bir elle kaldırılmış gibi: biraz yukarı ve yana, hafifçe eğik havada asılı kalır.
+      c.position.set(P.x + lift * P.r * 0.75, P.y + lift * P.h * 0.75 + bob, lift * 0.06 * L);
+      c.rotation.set(0, -0.35 * lift, -0.3 * lift);
+    }
+    group.current.visible = lift > 0.02;
+    // Basma: başlık kısa bir an aşağı iner, buğu bitince kalkar.
+    const down = t > SPRAY.press && t < SPRAY.emit + SPRAY.emitDur ? Math.min(1, (t - SPRAY.press) / 0.08) : 0;
+    act.current.position.y = actY - down * 0.014 * L;
+    if (t < SPRAY.end && group.current.visible && shownInScene(group.current)) {
+      nozzle.current.getWorldPosition(sceneState.nozzle);
+      nozzle.current.getWorldQuaternion(_q);
+      sceneState.nozzleDir.copy(_d.copy(dir).applyQuaternion(_q).normalize());
+      sceneState.nozzleAt = now;
+    }
+  });
+  return (
+    <group ref={group} visible={false}>
+      <mesh material={GOLD_M} position={[P.x, P.neckTop + 0.024 * L, 0]}>
+        <cylinderGeometry args={[P.collar, P.collar * 1.04, 0.048 * L, 48]} />
+      </mesh>
+      <mesh material={STEEL_M} position={[P.x, P.neckTop + 0.058 * L, 0]}>
+        <cylinderGeometry args={[P.collar * 0.16, P.collar * 0.16, 0.022 * L, 16]} />
+      </mesh>
+      <group ref={act} position={[P.x, actY, 0]}>
+        <mesh material={GOLD_M}>
+          <cylinderGeometry args={[actR, actR, 0.055 * L, 40]} />
+        </mesh>
+        <group rotation={[0, hole, 0]}>
+          <mesh material={HOLE_M} position={[0, 0.006 * L, actR * 0.99]} rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[actR * 0.16, actR * 0.16, 0.004 * L, 16]} />
+          </mesh>
+          <object3D ref={nozzle} position={[0, 0.006 * L, actR * 1.05]} />
+        </group>
+      </group>
     </group>
   );
 }
@@ -870,14 +988,14 @@ export default function CanMesh({ body, parts, flavor = 0, view = null }) {
   const f = viewOf(flavor, view);
   return (
     <Fit k={`${flavor}:${view}`} wide={f.photo3d?.profile === "group"}>
-      <ProductShape body={body} parts={parts} f={f} />
+      <ProductShape body={body} parts={parts} f={f} flavor={flavor} />
     </Fit>
   );
 }
 
-function ProductShape({ body, parts, f }) {
+function ProductShape({ body, parts, f, flavor }) {
   const S = shapeOf(f);
-  if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} />;
+  if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} flavor={flavor} />;
   if (S.kind === "tube") return <Tube body={body} parts={parts} S={S} />;
   if (S.kind === "tool") return <Tool body={body} parts={parts} S={S} />;
   return <Bottle body={body} parts={parts} S={S} />;

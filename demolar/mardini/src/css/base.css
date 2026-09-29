@@ -6753,3 +6753,80 @@ button.buy__more {
   text-transform: uppercase;
   color: var(--gold-ink, var(--gold, var(--accent)));
 }
+
+/* ---------------------------------------------------------------- Parfümü sık (content.spray)
+   Başlık bloğundaki düğmenin yanında altın çizgili ikinci düğme; nabız gibi atan ince bir halka. */
+.hud__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.hud__center .hud__actions .hud__cta {
+  margin-top: 0;
+}
+.hud__spray {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid color-mix(in srgb, var(--gold, #d4b06a) 70%, transparent);
+  background: rgba(6, 5, 4, 0.55);
+  backdrop-filter: blur(6px);
+  color: var(--gold-soft, #e9d3a3);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+.hud__spray::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid color-mix(in srgb, var(--gold, #d4b06a) 45%, transparent);
+  animation: spray-halo 2.6s ease-out infinite;
+  pointer-events: none;
+}
+.hud__spray:hover {
+  color: #fff;
+  border-color: var(--gold, #d4b06a);
+  transform: translateY(-2px);
+}
+.hud__spray:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+@keyframes spray-halo {
+  from {
+    transform: scale(0.96);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.14);
+    opacity: 0;
+  }
+}
+@media (max-width: 760px) {
+  .hud__actions {
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .hud__spray {
+    padding: 12px;
+  }
+  .hud__spray span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud__spray::after {
+    animation: none;
+  }
+}

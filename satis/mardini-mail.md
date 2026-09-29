@@ -7,13 +7,13 @@
 **Instagram:** @mardinikozmetikbm (DM)
 **LinkedIn:** linkedin.com/company/mardinikozmetik (şirket sayfası; oradan pazarlama/e-ticaret sorumlusunu bulup kısa not atabilirsin)
 **Adres:** Koza Mah. 1638 Sok. Begonya G1/3 Blok 52 No'lu Dükkan, Esenyurt / İstanbul
-**Ekler (mail):** `mardini-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg` (zip ekleme)
+**Ekler (mail):** `mardini-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`, `4-koleksiyon.jpg`, `5-parfum-sik.jpg` (zip ekleme)
 **Ne zaman:** Salı–Perşembe, 10:00–11:00
 
 ## Nasıl satılır (sıra)
 
 1. **Linki hazırla:** `demolar/mardini-Netlify.zip` → app.netlify.com/drop. Site adı `mardini-3d` gibi olsun. Linki telefonda ve bilgisayarda aç. Bir ürünü sepete ekleyip "Ödemeye geç"e bas: ürünün mardinikozmetik.com'daki sayfası açılmalı.
-2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır. Şişenin karanlıkta çözülüp sıradakinin ışıkta belirmesi en etkileyici an; sonra bir şişeye girip çevir.
+2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır. Şişenin dumanda çözülüp sıradakinin belirmesi ve "Parfümü sık" düğmesi (kapak kalkıyor, buğu ekrana yayılıyor) en etkileyici anlar; sonra bir şişeye girip çevir.
 3. **Maili gönder**, aynı gün Instagram DM'e videoyu ekle. Berdan Mardini'ye değil, markanın hesabına yaz.
 4. **4 gün sonra** takip, **7 gün sonra** son hatırlatma. Cevap yoksa telefonla kısa bir arama yapabilirsin.
 5. Cevap gelirse **15 dakikalık görüntülü görüşme** iste; fiyatı görüşmede ver.
@@ -34,7 +34,8 @@ Mardini için ürünlerinizi 3D olarak sergileyen bir web sitesi hazırladım, i
 
 Kısaca neler var:
 
-- **Sinematik bir stüdyo:** Ana sayfada her koku, karanlık bir stüdyoda arkasından kendi renginde ışık alarak duruyor; bütün dikkat şişede. Aşağı kaydırdıkça şişe dönerek karanlıkta çözülüyor, önünden ince bir ışık geçiyor ve sıradaki koku öbür yandan ışığa çıkıyor.
+- **Sinematik bir stüdyo:** Ana sayfada her koku, karanlık bir stüdyoda, kendi renginde ışık alan saten bir perdenin önünde, altın kenarlı siyah bir kaidede duruyor; bütün dikkat şişede. Aşağı kaydırdıkça şişe dönerek dumanın içinde çözülüyor ve sıradaki koku öbür yandan beliriyor.
+- **Parfümü sık:** Ziyaretçi "Parfümü sık" düğmesine basınca şişenin kapağı kalkıyor, sprey başlığına basılıyor ve ağızdan ışıltılı bir parfüm buğusu ekrana yayılıyor.
 - **Şişeleriniz 3D:** Gold Seri, Silver Seri ve gül ürünlerinden 23 ürün kendi ürün fotoğraflarınızdan 3D olarak hazırlandı: etiketler ve altın kapaklar fotoğraftaki gibi, şeffaf camın içinden sahne ve parfümün rengi görünüyor. Ürün sayfasında şişe çevrilebiliyor.
 - **Nota piramidi:** Her parfümün üst, kalp ve alt notaları ürün sayfasında.
 - **Hikâyeniz:** Yaylabaşı'ndaki 700 dönümlük gül ve lavanta tarlaları, tarlaların yanındaki fabrika ve kadın istihdamı; tarladan şişeye üç adımda anlatılıyor.
@@ -55,7 +56,7 @@ _Site size özel hazırlandı; arama motorlarına kapalıdır, yalnızca bu link
 
 Merhaba Mardini ekibi 🌹
 
-Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler karanlık, sinematik bir stüdyoda kendi renginde ışıkla; kaydırdıkça biri karanlıkta çözülüyor, sıradaki ışığa çıkıyor. 23 ürün kendi fotoğraflarınızdan 3D.
+Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler karanlık, sinematik bir stüdyoda kendi renginde ışıkla; kaydırdıkça biri dumanda çözülüyor, sıradaki beliriyor; "Parfümü sık"a basınca kapak kalkıp buğu ekrana yayılıyor. 23 ürün kendi fotoğraflarınızdan 3D.
 
 Telefondan bir dakikada inceleyebilirsiniz: [DEMO LİNKİ]
 
@@ -91,7 +92,7 @@ Berka
 - [ ] Bir ürünü sepete ekleyip "Ödemeye geç"e bas: ürünün mardinikozmetik.com'daki sayfası açılmalı.
 - [ ] Gül Şampuanı sayfa adresindeki hatayı göndermeden önce bir kez daha kontrol et (düzeltmişlerse o paragrafı sil).
 - [ ] `[DEMO LİNKİ]`, soyadını, telefonunu ve Instagram/portfolyo linkini doldur.
-- [ ] Maile dört görseli ekle.
+- [ ] Maile beş görseli ekle.
 - [ ] `satis/parfum-firmalari.csv` dosyasında Mardini satırına tarihi yaz.
 
 ## Fiyat sorarlarsa

@@ -7,6 +7,8 @@ import { scrollToElement, scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
 import { Arrow, Close, featureIcons } from "../Icons";
 import { SplitChars, SplitWords } from "./Split";
+import { SprayIcon } from "./FlavorHud";
+import { sceneState } from "../shared";
 
 const N = flavors.length;
 const THUMBS = 6;
@@ -251,6 +253,12 @@ export default function DetailPanel() {
             <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, DETAIL_PACK, "once")}>
               {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once", shown.active))}
             </button>
+            {content.spray && flavors[shown.active]?.photo3d?.profile === "flask" && (
+              <button className="hud__spray mono" tabIndex={tab} onClick={() => (sceneState.sprayReq = shown.active)} aria-label={ui.spray}>
+                <SprayIcon />
+                <span>{ui.spray}</span>
+              </button>
+            )}
             {/* Katalogu olan markalarda: aynı kategorideki diğer ürünler. Ana sayfada
                 kategori sayfası açılır; kategori sayfasında detay kapanıp alttaki ürünlere inilir. */}
             {content.catalog ? (

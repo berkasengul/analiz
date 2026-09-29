@@ -479,6 +479,7 @@
   },
   "latinTerms": "Parfum|Eau de Parfum|Gold|Silver|Rosa Damascena|Body Mist|Brown Garden",
   "glass": true,
+  "spray": true,
   "theme": {
     "name": "portal",
     "accent": "#d9b27a",

@@ -31,6 +31,7 @@ function sceneTex(src) {
 const spOf = (st, v) => v.set(st.aspect, st.base, st.cx, st.h);
 
 import "./BackgroundMaterial";
+import { PLINTH_H } from "./Pedestal";
 
 // Carousel yeni bir kutuya oturduğunda (ya da fare öndeki kutuya
 // geldiğinde) kutunun etrafından o tatın renginde gürültülü bir halka
@@ -151,7 +152,8 @@ export default function Background() {
       l.sizeKey = sizeKey;
       const sc = f.scale || 1;
       const r = f.rest;
-      const yb = (P.set(r.x, r.y + f.bottom * sc, r.z).project(camera).y + 1) / 2;
+      // "dolly": ürün kaidenin üstünde; zemin kaidenin altında.
+      const yb = (P.set(r.x, r.y + (f.bottom - PLINTH_H) * sc, r.z).project(camera).y + 1) / 2;
       const yt = (Q.set(r.x, r.y + f.top * sc, r.z).project(camera).y + 1) / 2;
       const sx = MathUtils.clamp((P.set(r.x, r.y, r.z).project(camera).x + 1) / 2, 0.2, 0.8);
       l.baseY = yb;

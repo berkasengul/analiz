@@ -227,12 +227,18 @@ Fotoğraf kuralları: `studio` (gri/renkli stüdyo zemini), `pedestal` (kaide ü
 `solidTop` (kapak bölgesi delik bırakılmadan kesilir).
 
 `"dolly"` (Mardini): karanlık sinematik stüdyo (BackgroundMaterial → `u_noir` her yerde, `u_tunnel` vitrinde;
-`u_tp` = kesirli ürün sırası). Sahne neredeyse siyah; şişenin arkasında üstte parlak, gövdeye doğru kısılan dikey
-ışık paneli (şeffaf cam bu ışıkta cam gibi okunur), iki yanda odak dışı ince ışık şeritleri, cilalı siyah zeminde
-yansıma. Kaydırınca şişe dönerek geri ve yana çekilip karanlıkta çözülür (saydam malzemede `alpha`), panel kararır,
-önünden ince bir ışık bıçağı geçer; sıradaki şişe öbür yandan dönerek belirir. Bokeh, halka dalgası ve kemer yok;
+`u_tp` = kesirli ürün sırası). Sahne neredeyse siyah; şişenin arkasında ürünün renginde ışık alan saten perde
+(düzensiz dikey kıvrımlar, sırtlarında ipek parıltısı), önünde yavaşça süzülen duman, cilalı siyah zeminde perdenin
+yansıması. Şişe altın kenarlı obsidyen bir kaidede durur (Pedestal → `PLINTH_H`; kaide yerinde kalır, zemin kaidenin
+altına hizalanır). Kaydırınca şişe dönerek geri ve yana çekilip karanlıkta çözülür (saydam malzemede `alpha`), ışık
+kısılır ve duman kabarır; sıradaki şişe öbür yandan dumanın içinden belirir. Bokeh, halka dalgası, kemer, ışık huzmesi yok;
 parçacıklar `"particles": "dust"` (uzakta çok ince altın toz). Kart sergisi (`kart-3b.py --stage`) aynı dilde:
 kemer yerine ışık paneli.
+
+**Parfümü sık** (`"spray": true`, yassı `flask` şişelerde): başlık bloğunda ve ürün sayfasında düğme. Basınca kapak
+(boynun üstündeki torna, CanMesh → `Sprayer`) kalkıp yana eğilerek havada durur, altın boyun halkası ve sprey başlığı
+görünür, başlığa basılır ve deliğinden parfüm buğusu çıkar (Spray.jsx: ince sis, ışıltılı damlacıklar, yavaş açılan
+bulut; hareket tamamen shader'da). Zaman çizelgesi `shared.js → SPRAY`; `?slowmo=10` ile ağır çekim.
 
 **ikas mağazaları:** `python3 demo-fabrikasi/araclar/ikas-cek.py <alan-adı> <marka> --only "regex"` ürünleri sayfaların
 `__NEXT_DATA__` verisinden Shopify biçiminde çeker (products-tr/en.json, ikas-raw.json: özellikler, nota piramidi).
