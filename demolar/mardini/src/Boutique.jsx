@@ -21,6 +21,9 @@ const COUNT = 170;
 const WALL_Z = -10;
 const GOLD = new Color(THEME.accent ?? "#d4b06a");
 const WHITE = new Color(1, 1, 1);
+// Butik fotoğrafında (theme.plate) zemin fotoğraftan gelir: 3B zemin yalnızca ürünlerin ve kaidelerin
+// yansımasını fotoğraftaki mermerin üstüne ekler (toplamalı karışım; boş yerler fotoğrafı değiştirmez).
+const PLATE_FLOOR = { transparent: true, depthWrite: false, blending: AdditiveBlending, color: "#ffffff", envMapIntensity: 0, roughness: 1, metalness: 0, mirror: 1 };
 
 const smokeMaterial = () =>
   new ShaderMaterial({
@@ -62,6 +65,17 @@ export default function Boutique() {
   const smokeMat = useMemo(smokeMaterial, []);
   const fluteGeo = useMemo(() => new CylinderGeometry(FLUTE_R, FLUTE_R, 30, 20, 1, true, -Math.PI / 2, Math.PI), []);
 
+  // Fotoğraflı butikte zemin yalnızca yansımayı ekler (toplamalı karışım); özellik olarak verilince
+  // malzemeye işlenmiyordu, burada doğrudan ayarlanır.
+  useEffect(() => {
+    const m = floorMat.current;
+    if (!THEME.plate || !m) return;
+    m.transparent = true;
+    m.depthWrite = false;
+    m.blending = AdditiveBlending;
+    m.needsUpdate = true;
+  }, []);
+
   // Oluklar: yarım silindirler yan yana, yüzleri kameraya dönük.
   useEffect(() => {
     const o = new Object3D();
@@ -97,7 +111,7 @@ export default function Boutique() {
     fill.current.color.copy(S.tint);
     fill.current.intensity = 1.4 * on;
     fill.current.position.set(r.x, 2.5, r.z + WALL_Z + 2.5);
-    if (floorMat.current) floorMat.current.mixStrength = 2.2 * on;
+    if (floorMat.current) floorMat.current.mixStrength = (THEME.plate ? 1.4 : 2.2) * on;
     // Duman: ürünün önünde; geçişte (kesirli kaydırma) kabarır, yerindeyken çok hafif.
     const fr = scrollState.p - Math.floor(scrollState.p);
     const trans = Math.sin(Math.PI * fr);
@@ -107,6 +121,7 @@ export default function Boutique() {
     smokeMat.uniforms.u_amount.value = MathUtils.damp(smokeMat.uniforms.u_amount.value, (0.05 + 0.5 * trans) * on * (st.detail ? 0 : 1), 5, dt);
     smokeMat.uniforms.u_color.value.copy(S.tint);
     // Butik fotoğrafı (theme.plate) varsa duvar ve zemin fotoğraftan gelir: 3B duvar, zemin ve duvar ışığı gizli.
+    // Fotoğraflı butikte duvar ve zemin fotoğraftan gelir (3B duvar ve yansıtıcı zemin gizli).
     root.current.visible = on > 0.01 && !THEME.plate;
     if (THEME.plate) L.intensity = 0;
   });
@@ -132,6 +147,7 @@ export default function Boutique() {
             envMapIntensity={0.55}
             color="#3d2e22"
             mirror={0.96}
+            {...(THEME.plate ? PLATE_FLOOR : {})}
           />
         </mesh>
         <group ref={wall}>

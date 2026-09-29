@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils, MeshStandardMaterial, Vector3 } from "three";
+import { CanvasTexture, Color, DoubleSide, MathUtils, MeshBasicMaterial, MeshStandardMaterial, Vector3 } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -205,20 +205,68 @@ function measure(g, i) {
 export const PLINTH_H = 0.26;
 const PLINTH_GOLD = new MeshStandardMaterial({ color: THEME.accent ?? "#d4b06a", metalness: 1, roughness: 0.22, envMapIntensity: 1.6 });
 const PLINTH_BODY = new MeshStandardMaterial({ color: "#050404", roughness: 0.9, metalness: 0, envMapIntensity: 0.05 });
+// Kaidenin altında yumuşak temas gölgesi (fotoğraflı zeminde kaide havada durmasın).
+const SHADOW_TEX = (() => {
+  if (typeof document === "undefined") return null;
+  const c = document.createElement("canvas");
+  c.width = c.height = 128;
+  const g = c.getContext("2d");
+  const r = g.createRadialGradient(64, 64, 10, 64, 64, 64);
+  r.addColorStop(0, "rgba(0,0,0,0.85)");
+  r.addColorStop(0.55, "rgba(0,0,0,0.45)");
+  r.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = r;
+  g.fillRect(0, 0, 128, 128);
+  return new CanvasTexture(c);
+})();
+
 function Plinth({ refFn }) {
-  // Her kaidenin kendi malzemesi: uzaktaki ürünle birlikte kaidesi de soluklaşır (userData.mats).
-  const [body, gold] = useMemo(() => [PLINTH_BODY.clone(), PLINTH_GOLD.clone()].map((m) => ((m.transparent = true), m)), []);
+  // Her kaidenin kendi malzemesi: uzaktaki ürünle birlikte kaidesi de soluklaşır (userData.mats; oran
+  // userData.base). Fotoğraflı butikte (theme.plate) altında temas gölgesi ve zeminde soluk yansıması.
+  const mats = useMemo(() => {
+    const body = PLINTH_BODY.clone();
+    const gold = PLINTH_GOLD.clone();
+    const rBody = PLINTH_BODY.clone();
+    const rGold = PLINTH_GOLD.clone();
+    const shadow = new MeshBasicMaterial({ map: SHADOW_TEX, transparent: true, depthWrite: false, color: "#000000" });
+    for (const m of [body, gold, rBody, rGold, shadow]) m.transparent = true;
+    for (const m of [rBody, rGold]) m.side = DoubleSide;
+    body.userData.base = 1;
+    gold.userData.base = 1;
+    rBody.userData.base = 0.35;
+    rGold.userData.base = 0.3;
+    shadow.userData.base = 0.9;
+    return { body, gold, rBody, rGold, shadow, list: [body, gold, rBody, rGold, shadow] };
+  }, []);
+  const H = PLINTH_H;
+  const plate = !!THEME.plate;
   return (
-    <group ref={refFn} visible={false} userData={{ mats: [body, gold] }}>
-      <mesh material={body} position={[0, -PLINTH_H / 2, 0]} userData={{ noMeasure: true }}>
-        <cylinderGeometry args={[1.18, 1.22, PLINTH_H, 96]} />
+    <group ref={refFn} visible={false} userData={{ mats: mats.list }}>
+      <mesh material={mats.body} position={[0, -H / 2, 0]} userData={{ noMeasure: true }}>
+        <cylinderGeometry args={[1.18, 1.22, H, 96]} />
       </mesh>
-      <mesh material={gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.004, 0]} userData={{ noMeasure: true }}>
+      <mesh material={mats.gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.004, 0]} userData={{ noMeasure: true }}>
         <torusGeometry args={[1.185, 0.014, 12, 128]} />
       </mesh>
-      <mesh material={gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -PLINTH_H + 0.02, 0]} userData={{ noMeasure: true }}>
+      <mesh material={mats.gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -H + 0.02, 0]} userData={{ noMeasure: true }}>
         <torusGeometry args={[1.222, 0.006, 8, 128]} />
       </mesh>
+      {plate && (
+        <>
+          <mesh material={mats.shadow} rotation={[-Math.PI / 2, 0, 0]} position={[0, -H + 0.004, 0]} userData={{ noMeasure: true }}>
+            <planeGeometry args={[3.6, 3.6]} />
+          </mesh>
+          {/* Zemindeki yansıma: kaidenin zemin düzlemine göre aynası */}
+          <group position={[0, -2 * H, 0]} scale={[1, -1, 1]}>
+            <mesh material={mats.rBody} position={[0, -H / 2, 0]} userData={{ noMeasure: true }}>
+              <cylinderGeometry args={[1.18, 1.22, H, 96]} />
+            </mesh>
+            <mesh material={mats.rGold} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.004, 0]} userData={{ noMeasure: true }}>
+              <torusGeometry args={[1.185, 0.014, 12, 128]} />
+            </mesh>
+          </group>
+        </>
+      )}
     </group>
   );
 }
@@ -401,7 +449,7 @@ export default function Carousel() {
           pl.position.y = BOTTOM[i] ?? -1.8;
           const a = pose.alpha ?? 1;
           pl.visible = BOTTOM[i] != null && a > 0.01;
-          for (const m of pl.userData.mats) m.opacity = a;
+          for (const m of pl.userData.mats) m.opacity = a * m.userData.base;
         }
       }
 
