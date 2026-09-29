@@ -66,7 +66,8 @@ export default function Pedestal() {
       const r = arcPose(0, size.width / size.height, 0, st.active);
       const y = r.y + (f.bottom != null ? f.bottom * r.scale : -1.9 * r.scale);
       S.y = S.y == null ? y : MathUtils.damp(S.y, y, 4, dt);
-      // Opak kaide: detaya geçerken ve açılışta yumuşakça küçülüp büyür (saydamlık yerine).
+      // Butik zemini (Boutique) kaidenin altında.
+      sceneState.floorY = S.y - PLINTH_H * r.scale;      // Opak kaide: detaya geçerken ve açılışta yumuşakça küçülüp büyür (saydamlık yerine).
       group.current.position.set(r.x, S.y, r.z);
       group.current.scale.setScalar(r.scale * MathUtils.smootherstep(S.vis, 0, 1));
     } else {

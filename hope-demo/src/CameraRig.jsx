@@ -16,6 +16,7 @@ const HIGH = THEME.carousel === "orbit" ? 2.3 : 0;
 export default function CameraRig() {
   const l = useRef({ roll: 0, push: 0 });
   useFrame(({ camera, clock }, delta) => {
+    camera.layers.enable(1); // arka plan katmanı (Background)
     const dt = Math.min(delta, 0.1);
     const t = clock.getElapsedTime();
     const s = l.current;

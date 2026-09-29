@@ -13,7 +13,7 @@
 ## Nasıl satılır (sıra)
 
 1. **Linki hazırla:** `demolar/mardini-Netlify.zip` → app.netlify.com/drop. Site adı `mardini-3d` gibi olsun. Linki telefonda ve bilgisayarda aç. Bir ürünü sepete ekleyip "Ödemeye geç"e bas: ürünün mardinikozmetik.com'daki sayfası açılmalı.
-2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır. Şişenin dumanda çözülüp sıradakinin belirmesi ve "Parfümü sık" düğmesi (kapak kalkıyor, buğu ekrana yayılıyor) en etkileyici anlar; sonra bir şişeye girip çevir.
+2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır. Kaideli sıranın kayıp odağın sıradaki şişeye geçmesi ve "Parfümü sık" düğmesi (kapak kalkıyor, buğu ekrana yayılıyor) en etkileyici anlar; sonra bir şişeye girip çevir.
 3. **Maili gönder**, aynı gün Instagram DM'e videoyu ekle. Berdan Mardini'ye değil, markanın hesabına yaz.
 4. **4 gün sonra** takip, **7 gün sonra** son hatırlatma. Cevap yoksa telefonla kısa bir arama yapabilirsin.
 5. Cevap gelirse **15 dakikalık görüntülü görüşme** iste; fiyatı görüşmede ver.
@@ -34,7 +34,7 @@ Mardini için ürünlerinizi 3D olarak sergileyen bir web sitesi hazırladım, i
 
 Kısaca neler var:
 
-- **Sinematik bir stüdyo:** Ana sayfada her koku, karanlık bir stüdyoda, kendi renginde ışık alan saten bir perdenin önünde, altın kenarlı siyah bir kaidede duruyor; bütün dikkat şişede. Aşağı kaydırdıkça şişe dönerek dumanın içinde çözülüyor ve sıradaki koku öbür yandan beliriyor.
+- **3D bir butik:** Ana sayfada kokularınız yivli bronz bir duvarın önünde, her biri altın kenarlı siyah kaidesinde yan yana duruyor; cilalı zemin şişeleri yansıtıyor, duvara her kokunun renginde ışık düşüyor. Aşağı kaydırdıkça sıra kayıyor ve odak sıradaki şişeye geçiyor.
 - **Parfümü sık:** Ziyaretçi "Parfümü sık" düğmesine basınca şişenin kapağı kalkıyor, sprey başlığına basılıyor ve ağızdan ışıltılı bir parfüm buğusu ekrana yayılıyor.
 - **Şişeleriniz 3D:** Gold Seri, Silver Seri ve gül ürünlerinden 23 ürün kendi ürün fotoğraflarınızdan 3D olarak hazırlandı: etiketler ve altın kapaklar fotoğraftaki gibi, şeffaf camın içinden sahne ve parfümün rengi görünüyor. Ürün sayfasında şişe çevrilebiliyor.
 - **Nota piramidi:** Her parfümün üst, kalp ve alt notaları ürün sayfasında.
@@ -56,7 +56,7 @@ _Site size özel hazırlandı; arama motorlarına kapalıdır, yalnızca bu link
 
 Merhaba Mardini ekibi 🌹
 
-Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler karanlık, sinematik bir stüdyoda kendi renginde ışıkla; kaydırdıkça biri dumanda çözülüyor, sıradaki beliriyor; "Parfümü sık"a basınca kapak kalkıp buğu ekrana yayılıyor. 23 ürün kendi fotoğraflarınızdan 3D.
+Mardini için ürünlerinizi 3D sergileyen bir web sitesi hazırladım. Şişeler 3D bir butikte, her biri kendi kaidesinde; kaydırdıkça odak sıradaki kokuya geçiyor; "Parfümü sık"a basınca kapak kalkıp buğu ekrana yayılıyor. 23 ürün kendi fotoğraflarınızdan 3D.
 
 Telefondan bir dakikada inceleyebilirsiniz: [DEMO LİNKİ]
 

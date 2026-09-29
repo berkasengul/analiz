@@ -377,6 +377,16 @@ def glass_front(F, neck, liquid=None):
     cap[:top] = np.clip((sat[:top] - 12) / 30, 0, 1)
     Lc = L[..., None]
     rgb2 = rgb2 * (1 - cap[..., None]) + (Lc + (rgb2 - Lc) * 2.1) * 0.8 * cap[..., None]
+    # Etiket: 3B ışıkta açık altın yazılar beyazda kaybolmasın; beyaz olduğu gibi kalır, yazı ve çerçeve
+    # koyulaşıp doygunlaşır (fotoğraftaki baskının rengi korunur, yalnızca kontrastı artar).
+    if lab:
+        x0, y0, x1, y1 = lab
+        pad = int(0.004 * S)
+        sl = (slice(max(0, y0 - pad), y1 + pad), slice(max(0, x0 - pad), x1 + pad))
+        c = rgb2[sl]
+        c = 255 - np.clip((255 - c) * 1.6, 0, 255)
+        m = c.mean(2, keepdims=True)
+        rgb2[sl] = m + (c - m) * 1.12
     out = np.concatenate([rgb2, al2[..., None]], 2).clip(0, 255).astype(np.uint8)
     return Image.fromarray(out), lab
 

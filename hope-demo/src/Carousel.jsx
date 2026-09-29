@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils, Vector3 } from "three";
+import { Color, MathUtils, MeshStandardMaterial, Vector3 } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -29,8 +29,8 @@ const TOP = [];
 // Sahne fotoğraflı ürünlerin ortak ayak çizgisi: ilk ölçülen ürünün alt kenarı.
 const FOOT = { ref: null };
 const V = new Vector3();
-import { PAGE, flavors } from "./data";
-import { scrollState, slotIndex } from "./scroll";
+import { PAGE, content, flavors } from "./data";
+import { scrollState, scrollToFlavorOf, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 
@@ -54,6 +54,7 @@ const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) 
 // ?slowmo=8 adresiyle uçuş ağır çekimde oynar (animasyonu incelemek için).
 const SLOWMO = typeof window !== "undefined" ? Number(new URLSearchParams(window.location.search).get("slowmo")) || 1 : 1;
 const FLIGHT = 1.15 * SLOWMO; // saniye
+const SHOT = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("shot");
 const KEYS = ["x", "y", "z", "rotX", "rotY", "rotZ", "scale"];
 
 // Döner vitrinin yarıçapı ve platform yüksekliği (ekran oranına göre).
@@ -73,25 +74,27 @@ export function arcPose(d, aspect, time, i) {
     // hafifçe görünür. Telefonda yanlar ekranın kenarından yarım görünür. Kaydırınca sıradaki ışığa yürür.
     const phone = aspect < 0.9;
     if (DOLLY) {
-      // Sinematik stüdyo: tek şişe ışık panelinin önünde. Kaydırınca şişe dönerek geriye ve yana çekilip
-      // karanlıkta çözülür (alpha), kısa bir karanlık anın ardından sıradaki öbür yandan dönerek belirip
-      // yerine oturur. Ürünler hiçbir anda üst üste binmez; boyutları değişmez (odak hep üründe).
-      const cx = phone ? 0 : 2.45 * MathUtils.clamp(aspect / 1.9, 0.44, 1);
-      const y0 = phone ? 0.35 : -0.5;
-      const sc0 = base * (phone ? 1.6 : 2.02);
-      const idle = focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0;
-      const inc = d >= 0;
-      const t = Math.min(Math.abs(d), 1.4);
-      const alpha = inc ? 1 - MathUtils.smoothstep(d, 0.3, 0.6) : 1 - MathUtils.smoothstep(t, 0.06, 0.46);
-      const dir = inc ? 1 : -1;
+      // Butik sırası: her ürün kendi kaidesinde, yan yana bir sırada. Öndeki ürün ortada ve önde; komşular
+      // iki yanda, biraz geride ve loşta. Kaydırınca sıra yana kayar, komşu öne ve ortaya gelir (odak ona
+      // geçer). Bütün kaideler aynı zeminde: ürünün ayağı (BOTTOM) kaidenin üst yüzüne oturur.
+      const cx = phone ? 0 : 0.8 * MathUtils.clamp(aspect / 1.9, 0.44, 1);
+      const sp = phone ? 3.5 : 5.8 * MathUtils.clamp(aspect / 1.9, 0.6, 1.15);
+      const sc0 = phone ? 1.6 * base : 2.02;
+      const a1 = Math.min(ad, 1);
+      const z = -5 * a1 - 3 * Math.max(0, ad - 1);
+      const scale = sc0 * (1 - 0.12 * a1);
+      // Uzaktakiler (ikinci komşudan öte) karanlıkta söner.
+      const alpha = 1 - MathUtils.smoothstep(ad, 1.45, 1.95);
+      const idle = focus > 0 ? Math.sin(time * 0.4) * 0.07 * focus : 0;
       return {
-        x: cx + dir * t * (phone ? 0.55 : 1.2),
-        y: y0 + (inc ? 0.12 : -0.08) * t,
-        z: -t * (inc ? 3.2 : 2.4),
+        x: cx + d * sp,
+        y: dollyTop(aspect) - (BOTTOM[i] ?? -1.8) * scale,
+        z,
         rotX: 0.01,
-        rotY: 0.12 * focus + dir * t * 1.15 + idle,
+        // Komşular hafifçe ortaya dönük.
+        rotY: 0.1 * focus - 0.22 * MathUtils.clamp(d, -1, 1) + idle,
         rotZ: 0,
-        scale: alpha > 0.004 ? sc0 * (0.94 + 0.06 * alpha) : 0,
+        scale: alpha > 0.004 ? scale : 0,
         alpha,
       };
     }
@@ -170,6 +173,58 @@ export function arcPose(d, aspect, time, i) {
   };
 }
 
+// Ürünün yerel alt ve üst kenarı (ürün grubu biriminde). Kenar düzlemleri (fin) fotoğrafın boş alanını da
+// kapsar; yalnızca gövde parçaları ölçülür. Şişe (flask) biçiminde gövde ayrı bir hacim; kapak tornası
+// fotoğrafın tüm boyunu kaplar ama gövdenin altında görünmez. Gövde varsa yalnızca o ölçülür; yoksa
+// eksendeki boş satırlar ve kenar düzlemleri dışarıda bırakılır. Kaide (noMeasure) ölçülmez.
+function measure(g, i) {
+  let low = Infinity;
+  let high = -Infinity;
+  g.updateWorldMatrix(true, true);
+  const meshes = [];
+  g.traverse((o) => o.isMesh && o.geometry.type !== "PlaneGeometry" && !o.userData.noMeasure && meshes.push(o));
+  const bodies = meshes.filter((o) => o.geometry.type === "ExtrudeGeometry");
+  for (const o of bodies.length ? bodies : meshes) {
+    const P = o.geometry.attributes.position;
+    for (let k = 0; k < P.count; k += 3) {
+      if (P.getX(k) ** 2 + P.getZ(k) ** 2 < 1e-6) continue;
+      low = Math.min(low, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
+    }
+  }
+  for (const o of meshes) {
+    const P = o.geometry.attributes.position;
+    for (let k = 0; k < P.count; k += 3) high = Math.max(high, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
+  }
+  if (low < Infinity) BOTTOM[i] = (low - g.position.y) / g.scale.y;
+  if (FOOT.ref == null && BOTTOM[i] != null && flavors[i]?.stage) FOOT.ref = BOTTOM[i];
+  if (high > -Infinity) TOP[i] = (high - g.position.y) / g.scale.y;
+}
+
+// Butik kaidesi (DOLLY): cilalı siyah silindir, üst kenarda altın halka, altta ince altın çizgi. Ürün
+// grubunun biriminde; üst yüzü ürünün ayağında.
+export const PLINTH_H = 0.26;
+const PLINTH_GOLD = new MeshStandardMaterial({ color: THEME.accent ?? "#d4b06a", metalness: 1, roughness: 0.22, envMapIntensity: 1.6 });
+const PLINTH_BODY = new MeshStandardMaterial({ color: "#050404", roughness: 0.9, metalness: 0, envMapIntensity: 0.05 });
+function Plinth({ refFn }) {
+  return (
+    <group ref={refFn} visible={false}>
+      <mesh material={PLINTH_BODY} position={[0, -PLINTH_H / 2, 0]} userData={{ noMeasure: true }}>
+        <cylinderGeometry args={[1.18, 1.22, PLINTH_H, 96]} />
+      </mesh>
+      <mesh material={PLINTH_GOLD} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.004, 0]} userData={{ noMeasure: true }}>
+        <torusGeometry args={[1.185, 0.014, 12, 128]} />
+      </mesh>
+      <mesh material={PLINTH_GOLD} rotation={[Math.PI / 2, 0, 0]} position={[0, -PLINTH_H + 0.02, 0]} userData={{ noMeasure: true }}>
+        <torusGeometry args={[1.222, 0.006, 8, 128]} />
+      </mesh>
+    </group>
+  );
+}
+
+// Butik sırasında kaidelerin üst yüzü (dünya y) ve öndeki ürünün ölçeği.
+export const dollyTop = (aspect) => (aspect < 0.9 ? -2.45 : -3.95);
+export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.6 : 2.02);
+
 export default function Carousel() {
   const canBody = useCanBody();
   const size = useThree((s) => s.size);
@@ -186,6 +241,7 @@ export default function Carousel() {
   useEffect(() => useStore.getState().setSceneReady(), []);
 
   const groups = useRef([]);
+  const plinths = useRef([]);
   const spot = useRef();
   const rimColor = useMemo(() => new Color(), []);
   const local = useRef({
@@ -222,7 +278,8 @@ export default function Carousel() {
     const slotOf = [];
     order.forEach((flavor, slot) => (slotOf[flavor] = slot));
 
-    if (loaded) sceneState.intro = Math.min(1, sceneState.intro + dt / 2.6);
+    // ?shot: açılış animasyonu atlanır (yavaş test tarayıcısında ekran görüntüsü için).
+    if (loaded) sceneState.intro = SHOT ? 1 : Math.min(1, sceneState.intro + dt / 2.6);
     s.p = MathUtils.damp(s.p, scrollState.p, 6, dt);
     s.detail = MathUtils.damp(s.detail, detail ? 1 : 0, 4, dt);
     // Hızlı kaydırınca kutular hafifçe yatar.
@@ -234,6 +291,8 @@ export default function Carousel() {
     const fade = s.detail;
     sceneState.spread = Math.max(spread, fade);
     const aspect = size.width / size.height;
+    // Butik zemini (Boutique) kaidelerin altında.
+    if (DOLLY) sceneState.floorY = dollyTop(aspect) - PLINTH_H * dollyScale(aspect);
     const nearest = order[slotIndex(s.p)];
     sceneState.ringAngle = (s.p / N) * Math.PI * 2;
     sceneState.settled = !detail && spread < 0.02 && Math.abs(s.p - Math.round(s.p)) < 0.01;
@@ -247,7 +306,7 @@ export default function Carousel() {
       const fp = sceneState.focus.position;
       // Sahne fotoğraflı üründe ışık tepeden, huzmeyle aynı yönden ve biraz daha güçlü vurur.
       const staged = flavors[active].stage ? 1 : 0;
-      L.intensity = 7 * (MOBILE ? 0.55 : 1) * (1 - 0.4 * staged) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
+      L.intensity = 7 * (MOBILE ? 0.55 : 1) * (content.glass ? 0.45 : 1) * (1 - 0.4 * staged) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
       L.color.set(STUDIO ? flavors[active].theme.accent : flavors[active].theme.glow).lerp(WHITE, STUDIO ? 0.5 : 0.65);
       if (staged) L.position.set(fp.x - 0.4, fp.y + 9.5, fp.z + 3.2);
       else L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
@@ -302,13 +361,16 @@ export default function Carousel() {
         pose.y - 2 * spread - (1 - intro) * 9 + lift * 0.25 - 0.4 * fade,
         pose.z - (1 - intro) * 4 - 1.5 * fade
       );
-      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + s.lean * (1 - Math.min(Math.abs(d), 4) * 0.15));
+      // Butik sırasında ürünler kaidede durur: kaydırırken yatmaz.
+      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
       // Tek ürün sahnesinde ışık öndekine düşer: yanlar loşta kalır ama renkli kenar ışığıyla
       // biçimleri ve etiketleri hafifçe seçilir.
-      const lit = SOLO
+      const lit = DOLLY
+        ? 0.5 + 0.5 * Math.max(0, 1 - Math.abs(d))
+        : SOLO
         ? 0.16 + 0.84 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
       const dim = (1 - fade) * lit;
@@ -317,7 +379,8 @@ export default function Carousel() {
       if (STUDIO) {
         const U = bodies[i].userData.uniforms;
         U.u_time.value = t;
-        U.u_sweep.value = dim * lit * lit * 0.6;
+        // Saydam camlı markada süpürme çok hafif: etiket beyazlamasın.
+        U.u_sweep.value = dim * lit * lit * (content.glass ? 0.15 : 0.6);
         U.u_sweepColor.value.set(flavors[i].theme.accent).lerp(WHITE, 0.55);
       }
       const F = bodies[i].userData.finish;
@@ -328,38 +391,23 @@ export default function Carousel() {
       // Saydam camlı ürünlerde (content.glass) geçişte şişe karanlıkta çözülür.
       if (bodies[i].transparent) bodies[i].opacity = pose.alpha ?? 1;
 
+      // Butik sırasında (DOLLY) her ürün kendi kaidesinde: ayağı ölçülür, kaide ayağın altına oturur.
+      if (DOLLY) {
+        if (BOTTOM[i] == null && pose.scale > 0.01 && fade < 0.001 && spread < 0.001) measure(g, i);
+        const pl = plinths.current[i];
+        if (pl) {
+          pl.position.y = BOTTOM[i] ?? -1.8;
+          pl.visible = BOTTOM[i] != null;
+        }
+      }
+
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {
         sceneState.focus.position.set(pose.x, pose.y - (1 - intro) * 9, pose.z - (1 - intro) * 4);
         sceneState.focus.rest.set(pose.x, pose.y, pose.z);
         sceneState.focus.rotation.copy(g.rotation);
         sceneState.focus.scale = pose.scale;
-        if (BOTTOM[i] == null && fade < 0.001 && spread < 0.001) {
-          // Kenar düzlemleri (fin) fotoğrafın boş alanını da kapsar; yalnızca gövde parçaları ölçülür.
-          // Şişe (flask) biçiminde gövde ayrı bir hacim; kapak tornası fotoğrafın tüm boyunu
-          // kaplar ama gövdenin altında görünmez. Gövde varsa yalnızca o ölçülür; yoksa eksendeki
-          // boş satırlar ve kenar düzlemleri dışarıda bırakılır.
-          let low = Infinity;
-          let high = -Infinity;
-          g.updateWorldMatrix(true, true);
-          const meshes = [];
-          g.traverse((o) => o.isMesh && o.geometry.type !== "PlaneGeometry" && meshes.push(o));
-          const bodies = meshes.filter((o) => o.geometry.type === "ExtrudeGeometry");
-          for (const o of bodies.length ? bodies : meshes) {
-            const P = o.geometry.attributes.position;
-            for (let k = 0; k < P.count; k += 3) {
-              if (P.getX(k) ** 2 + P.getZ(k) ** 2 < 1e-6) continue;
-              low = Math.min(low, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
-            }
-          }
-          for (const o of meshes) {
-            const P = o.geometry.attributes.position;
-            for (let k = 0; k < P.count; k += 3) high = Math.max(high, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
-          }
-          if (low < Infinity) BOTTOM[i] = (low - g.position.y) / g.scale.y;
-          if (FOOT.ref == null && BOTTOM[i] != null && flavors[i]?.stage) FOOT.ref = BOTTOM[i];
-          if (high > -Infinity) TOP[i] = (high - g.position.y) / g.scale.y;
-        }
+        if (BOTTOM[i] == null && fade < 0.001 && spread < 0.001) measure(g, i);
         sceneState.focus.bottom = BOTTOM[i];
         sceneState.focus.top = TOP[i];
       }
@@ -377,6 +425,11 @@ export default function Carousel() {
     if (st.detail || !st.loaded || st.swapping || scrollState.ritualIn > 0.05) return;
     if (i === st.active) {
       openDetail();
+      return;
+    }
+    // Butik sırasında yandaki ürüne tıklamak sırayı ona kaydırır.
+    if (DOLLY) {
+      scrollToFlavorOf(st.order, i);
       return;
     }
     // Carousel iki tat arasındayken yer değiştirme yapılmaz.
@@ -417,6 +470,7 @@ export default function Carousel() {
           onPointerOut={unhover(i)}
         >
           <CanMesh body={bodies[i]} parts={parts[i]} flavor={i} />
+          {DOLLY && <Plinth refFn={(el) => (plinths.current[i] = el)} />}
         </group>
       ))}
     </>

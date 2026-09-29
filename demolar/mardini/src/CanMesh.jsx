@@ -30,6 +30,8 @@ import { useFrame } from "@react-three/fiber";
 import { content, flavors } from "./data";
 import { SPRAY, SPRAY_SLOW, sceneState } from "./shared";
 
+const MOBILE_GL = typeof window !== "undefined" && window.matchMedia("(max-width: 820px)").matches;
+
 // Etiket dokuları: content.json'daki her ürünün `file` adıyla eşleşir.
 const FILES = import.meta.glob("./assets/labels/*.{jpg,webp}", { eager: true, import: "default" });
 const LABELS = flavors.map((f) => FILES[`./assets/labels/${f.file}`]);
@@ -590,7 +592,24 @@ export function createBottleParts(f = {}) {
     // Fotoğraflı üründe yalnızca etiket malzemesi var; sahne "metal"e dokunduğu için boş bir malzeme.
     parts.metal = new MeshStandardMaterial({ color: "#000000" });
     // Düz bloğun kenarları: ürünün kenar rengi.
-    parts.side = S.clear
+    // Telefonda gerçek kırılma (ek çizim geçişi) kapalı: yarı saydam cam.
+    parts.side = S.glass && !MOBILE_GL
+      ? // Saydam cam (glass): kalınlık yüzleri ışığı gerçekten kıran cam; arkadaki sahne kırılarak görünür,
+        // parfümün rengi camın derinliğinde koyulaşır (attenuation). Kenarlarda ortam yansıması.
+        new MeshPhysicalMaterial({
+          color: new Color(S.liquid ?? "#f2ead8").lerp(new Color(1, 1, 1), 0.55),
+          transmission: 1,
+          thickness: 0.9,
+          ior: 1.5,
+          roughness: 0.05,
+          metalness: 0,
+          clearcoat: 1,
+          clearcoatRoughness: 0.03,
+          envMapIntensity: 1.3,
+          attenuationColor: new Color(S.liquid ?? "#f2ead8"),
+          attenuationDistance: 2.2,
+        })
+      : S.clear
       ? // Şeffaf cam içinde parfüm: parlak, ışığı içinde taşıyan sıvı rengi (köşe renkleri: hava payı, sıvı yüzeyi).
         new MeshPhysicalMaterial({
           color: S.liquid ?? S.edge,
@@ -601,7 +620,6 @@ export function createBottleParts(f = {}) {
           clearcoatRoughness: 0.04,
           envMapIntensity: 1.5,
           emissive: new Color(S.liquid ?? S.edge).multiplyScalar(0.22),
-          // Saydam cam (glass): kalınlık yüzlerinden de arkadaki sahne görünür.
           transparent: !!S.glass,
           opacity: S.glass ? 0.22 : 1,
         })

@@ -11,6 +11,7 @@ import IceScene from "./IceScene";
 import Numeral from "./Numeral";
 import Pedestal from "./Pedestal";
 import Spray from "./Spray";
+import Boutique from "./Boutique";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
 import { content } from "./data";
@@ -50,7 +51,9 @@ export default function Scene() {
           <Background />
           <Particles />
           {THEME.numerals && !["solo", "orbit", "rise", "glide", "dolly"].includes(THEME.carousel) && <Numeral />}
-          {THEME.pedestal && <Pedestal />}
+          {/* "dolly": her ürünün kendi kaidesi var (Carousel → Plinth). */}
+          {THEME.pedestal && THEME.carousel !== "dolly" && <Pedestal />}
+          {THEME.carousel === "dolly" && <Boutique />}
           <IceScene />
           <Carousel />
           <HeroCan />

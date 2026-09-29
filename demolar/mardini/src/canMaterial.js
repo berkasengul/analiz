@@ -10,7 +10,8 @@ export const MOBILE = typeof window !== "undefined" && window.matchMedia("(max-w
 // Fotoğraftan yapılan ürünlerde ışığın bir kısmı fotoğrafın kendi rengiyle
 // karışır: renk ve arka etiket yazıları gerçek fotoğraftaki gibi net kalır,
 // spot ışık yüzeyi beyazlatmaz.
-export const unlitOf = (f) => (f.form === "photo" ? (MOBILE ? 0.62 : 0.4) : 0);
+// content.photoUnlit: fotoğrafın kendi ışığının payı (etiketler ışıkta beyazlamasın, yazılar net okunsun).
+export const unlitOf = (f) => (f.form === "photo" ? content.photoUnlit ?? (MOBILE ? 0.62 : 0.4) : 0);
 
 const FINISH = { metalness: 0.3, roughness: 0.24, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.1, ...content.labelFinish };
 
@@ -54,6 +55,8 @@ export function createCanMaterial(base, uniforms) {
   const material = new MeshPhysicalMaterial({ map: base.map, alphaTest: content.glass ? 0.02 : 0.5, transparent: !!content.glass, ...FINISH });
   // Sahne her karede yansımayı ve cilayı kısar/açar; oranlar bu değerlere göre.
   material.userData.finish = FINISH;
+  // content.photoExact: ürün fotoğrafının renkleri ton eşlemeden geçmez (beyaz etiket gri, altın yazı soluk kalmaz).
+  if (content.photoExact) material.toneMapped = false;
 
   material.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);

@@ -182,7 +182,8 @@ export default function Background() {
     m.u_floor = l.floor;
     m.u_arch = ARCH ? l.floor : 0;
     // Koridor kemerleri kaydırmayla birlikte yaklaşır (scrollState.p: kesirli ürün sırası).
-    m.u_tunnel = TUNNEL ? l.floor : 0;
+    // "dolly": arka plan gerçek 3B butik sahnesi (Boutique); shader yalnızca karanlık zemin rengini verir.
+    m.u_tunnel = 0;
     m.u_noir = TUNNEL ? 1 : 0;
     m.u_tp = scrollState.p;
     material.current.u_studio = SOLO ? 1 : 0;
@@ -210,7 +211,8 @@ export default function Background() {
   });
 
   return (
-    <mesh renderOrder={-1} frustumCulled={false}>
+    // Katman 1: zemin yansıması (Boutique) arka plan katmanını yansıtmaz; ana kamera 1. katmanı da görür.
+    <mesh renderOrder={-1} frustumCulled={false} layers={1}>
       <planeGeometry args={[2, 2]} />
       <backgroundMaterial
         ref={material}

@@ -96,7 +96,9 @@ export default function Spray() {
             float fadeOut = 1. - smoothstep(life * (aKind > 1.5 ? 0.35 : 0.4), life, a);
             // Kameraya çok yaklaşan buğu soluklaşır.
             float nearCam = smoothstep(1.5, 5., -mv.z);
-            vAlpha = fadeIn * fadeOut * nearCam * (aKind > 1.5 ? 0.045 : aKind > 0.5 ? 0.95 : 0.17);
+            // Büyüyen buğu aynı ölçüde soluklaşır (üst üste binince beyaz leke olmaz).
+            float spreadFade = aKind > 1.5 ? 1. / (1. + 2.2 * a) : aKind > 0.5 ? 1. : 1. / (1. + 1.4 * a);
+            vAlpha = fadeIn * fadeOut * nearCam * spreadFade * (aKind > 1.5 ? 0.05 : aKind > 0.5 ? 0.95 : 0.16);
             vTw = 0.4 + 0.6 * pow(0.5 + 0.5 * sin(u_time * (9. + aSeed.y * 14.) + aSeed.z * 50.), 3.);
           }
         `,

@@ -226,14 +226,19 @@ boyuna göre çizilir (BackgroundMaterial → `u_arch`). Satış noktası listes
 Fotoğraf kuralları: `studio` (gri/renkli stüdyo zemini), `pedestal` (kaide üstü çekim; cam tabanı kesilmez),
 `solidTop` (kapak bölgesi delik bırakılmadan kesilir).
 
-`"dolly"` (Mardini): karanlık sinematik stüdyo (BackgroundMaterial → `u_noir` her yerde, `u_tunnel` vitrinde;
-`u_tp` = kesirli ürün sırası). Sahne neredeyse siyah; şişenin arkasında ürünün renginde ışık alan saten perde
-(düzensiz dikey kıvrımlar, sırtlarında ipek parıltısı), önünde yavaşça süzülen duman, cilalı siyah zeminde perdenin
-yansıması. Şişe altın kenarlı obsidyen bir kaidede durur (Pedestal → `PLINTH_H`; kaide yerinde kalır, zemin kaidenin
-altına hizalanır). Kaydırınca şişe dönerek geri ve yana çekilip karanlıkta çözülür (saydam malzemede `alpha`), ışık
-kısılır ve duman kabarır; sıradaki şişe öbür yandan dumanın içinden belirir. Bokeh, halka dalgası, kemer, ışık huzmesi yok;
-parçacıklar `"particles": "dust"` (uzakta çok ince altın toz). Kart sergisi (`kart-3b.py --stage`) aynı dilde:
-kemer yerine ışık paneli.
+`"dolly"` (Mardini): gerçek 3B butik (Boutique.jsx). Yivli koyu bronz duvar (yarım silindir oluklar), tepeden
+duvara ürünün renginde düşen ışık havuzu, ürünleri ve kaideleri gerçekten yansıtan cilalı taş zemin
+(MeshReflectorMaterial; arka plan shader'ı 1. katmanda, yansımaya girmez). Ürünler bir sırada, her biri kendi altın
+kenarlı obsidyen kaidesinde (Carousel → `Plinth`, `PLINTH_H`; ürünün ayağı `BOTTOM` ölçülüp kaidenin üst yüzüne
+oturur, bütün kaideler aynı zeminde). Öndeki ürün ortada, komşular iki yanda geride ve loşta; kaydırınca sıra yana
+kayar, odak komşuya geçer; duvar daha yavaş kayar (derinlik), geçişte ürünün önünde ince duman kabarır. Yandaki ürüne
+tıklamak sırayı ona kaydırır. Parçacıklar `"particles": "dust"`. Kart sergisi (`kart-3b.py --stage`, Still → `NoirSet`)
+aynı dilde: yivli duvar, ışık havuzu, yansıyan zemin, yuvarlak obsidyen kaide.
+
+Saydam cam şişelerde ışık: `"photoUnlit": 0.8` (fotoğrafın kendi ışığının payı) ve `"photoExact": true` (etiket ton
+eşlemeden geçmez) ile etiket fotoğraftaki gibi net; `foto.glassAlpha` etiketin yazısını koyulaştırır. Kalınlık yüzleri
+ışığı kıran gerçek cam (transmission; telefonda yarı saydam cam). `?shot` açılış animasyonunu atlar (yavaş test
+tarayıcısında ekran görüntüsü için).
 
 **Parfümü sık** (`"spray": true`, yassı `flask` şişelerde): başlık bloğunda ve ürün sayfasında düğme. Basınca kapak
 (boynun üstündeki torna, CanMesh → `Sprayer`) kalkıp yana eğilerek havada durur, altın boyun halkası ve sprey başlığı
