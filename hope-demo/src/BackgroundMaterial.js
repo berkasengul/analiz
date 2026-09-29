@@ -41,6 +41,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_plateOn: 0,
     u_plateSp: new Vector4(2.63, 0.54, 0.66, 0.5),
     u_plateShift: 0,
+    u_plateScale: 0,
     u_tp: 0,
     u_bottleH: 0.35,
     u_sceneX: 0.5,
@@ -86,6 +87,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_plateOn;
     uniform vec4 u_plateSp;
     uniform float u_plateShift;
+    uniform float u_plateScale;
     uniform float u_tp;
     uniform float u_bottleH;
     uniform float u_sceneX;
@@ -258,13 +260,17 @@ export const BackgroundMaterial = shaderMaterial(
       if (u_plateOn > 0.001) {
         float ia = u_plateSp.x;
         // Boy: ekranın tamamını kaplayacak kadar (en ve boy).
-        float sH = max(1., u_aspect / ia);
+        // Telefonda (u_plateScale) fotoğraf küçülür: kemerin tamamı görünür; üstü karanlığa karışır, altında
+        // mermer zemin aynalanarak sürer.
+        float sH = u_plateScale > 0. ? u_plateScale : max(1., u_aspect / ia);
         float v = u_plateSp.z + (1. - vUv.y - u_plateSp.w) / sH;
+        float topFade = smoothstep(-0.12, 0.03, v);
+        v = v > 1. ? 2. - v : v;
         float u = u_plateSp.y + ((vUv.x - u_sceneX) * u_aspect) / (sH * ia) + u_plateShift;
         // Kenara taşarsa sınırda kalır (boşluk yok).
         u = clamp(u, 0.002, 0.998);
         v = clamp(v, 0.002, 0.998);
-        vec3 pc = texture2D(u_plate, vec2(u, 1. - v)).rgb;
+        vec3 pc = texture2D(u_plate, vec2(u, 1. - v)).rgb * mix(0.08, 1., topFade);
         // Yazıların arkası hafif koyu, kenarlar kararır.
         float read = u_aspect > 1. ? mix(0.62, 1., smoothstep(0.02, 0.42, vUv.x)) * mix(0.75, 1., smoothstep(0.99, 0.82, vUv.x)) : mix(0.55, 1., smoothstep(0.05, 0.45, vUv.y));
         base = mix(base, pc * read, u_plateOn);

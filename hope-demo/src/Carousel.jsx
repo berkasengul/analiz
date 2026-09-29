@@ -77,12 +77,15 @@ export function arcPose(d, aspect, time, i) {
       // Butik sırası: her ürün kendi kaidesinde, yan yana bir sırada. Öndeki ürün ortada ve önde; komşular
       // iki yanda, biraz geride ve loşta. Kaydırınca sıra yana kayar, komşu öne ve ortaya gelir (odak ona
       // geçer). Bütün kaideler aynı zeminde: ürünün ayağı (BOTTOM) kaidenin üst yüzüne oturur.
-      const cx = phone ? 0 : 0.8 * MathUtils.clamp(aspect / 1.9, 0.44, 1);
-      const sp = phone ? 3.5 : 5.8 * MathUtils.clamp(aspect / 1.9, 0.6, 1.15);
+      // Masaüstü (butik fotoğrafıyla ölçülmüş): öndeki ürün ekranın ortasında (fotoğraftaki kemerin içinde),
+      // komşular kemerin iki yanında, çiçeklerin önünde, 12 birim geride (aynı boyda; perspektifle küçük görünür).
+      const cx = 0;
+      // Daha dar ekranda (16:9) komşular ortaya yaklaşır: başlığa ve nota listesine binmez.
+      const sp = phone ? 3.5 : 9.6 * MathUtils.clamp(aspect / 2.63, 0.62, 1);
       const sc0 = dollyScale(aspect);
       const a1 = Math.min(ad, 1);
-      const z = -5 * a1 - 3 * Math.max(0, ad - 1);
-      const scale = sc0 * (1 - 0.12 * a1);
+      const z = phone ? -5 * a1 - 3 * Math.max(0, ad - 1) : -12 * a1 - 6 * Math.max(0, ad - 1);
+      const scale = sc0 * (phone ? 1 - 0.12 * a1 : 1);
       // Uzaktakiler (ikinci komşudan öte) karanlıkta söner.
       const alpha = 1 - MathUtils.smoothstep(ad, 1.45, 1.95);
       const idle = focus > 0 ? Math.sin(time * 0.4) * 0.07 * focus : 0;
@@ -92,7 +95,7 @@ export function arcPose(d, aspect, time, i) {
         z,
         rotX: 0.01,
         // Komşular hafifçe ortaya dönük.
-        rotY: 0.1 * focus - 0.22 * MathUtils.clamp(d, -1, 1) + idle,
+        rotY: 0.1 * focus - 0.1 * MathUtils.clamp(d, -1, 1) + idle,
         rotZ: 0,
         scale: alpha > 0.004 ? scale : 0,
         alpha,
@@ -272,8 +275,8 @@ function Plinth({ refFn }) {
 }
 
 // Butik sırasında kaidelerin üst yüzü (dünya y) ve öndeki ürünün ölçeği.
-export const dollyTop = (aspect) => (aspect < 0.9 ? -1.35 : -3.95);
-export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.45 : 2.02);
+export const dollyTop = (aspect) => (aspect < 0.9 ? -1.35 : -3.4);
+export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.45 : 2.15 * MathUtils.clamp(aspect / 2.3, 0.88, 1));
 
 export default function Carousel() {
   const canBody = useCanBody();

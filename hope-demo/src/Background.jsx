@@ -196,12 +196,15 @@ export default function Background() {
       // Duvar dibi: kaidelerin zemini, komşuların biraz arkasında.
       const fy = sceneState.floorY ?? -4.5;
       const cxw = sceneState.focus.rest.x;
-      const sy = 1 - (P.set(cxw, fy, -8).project(camera).y + 1) / 2;
       const sx = (Q.set(cxw, fy, 0).project(camera).x + 1) / 2;
-      m.u_plateSp.set(PLATE.aspect ?? 2.63, PLATE.x ?? 0.5, PLATE.floor ?? 0.66, sy);
+      // Fotoğraf dikeyde ekranı tam kaplar (kaydırılmaz); yatayda odak noktası (kemerin ortası) öndeki ürüne gelir.
+      const phone = asp < 0.9;
+      // Telefonda duvar dibi kaidelerin arkasına (ekranın üstten ~%63'ü) gelir.
+      m.u_plateSp.set(PLATE.aspect ?? 2.63, PLATE.x ?? 0.5, PLATE.floor ?? 0.66, phone ? 0.63 : PLATE.floor ?? 0.66);
+      m.u_plateScale = phone ? 0.62 : 0;
       m.u_sceneX = sx;
       const n = flavors.length;
-      m.u_plateShift = ((((scrollState.p % n) + n) % n) / n - 0.5) * (asp < 0.9 ? 0.02 : 0.05);
+      m.u_plateShift = ((((scrollState.p % n) + n) % n) / n - 0.5) * (asp < 0.9 ? 0.01 : 0.02);
       l.plateOn = MathUtils.damp(l.plateOn ?? 0, (1 - scrollState.ritualIn) * (1 - scrollState.shopIn), 3, dt);
       m.u_plateOn = l.plateOn;
     }
