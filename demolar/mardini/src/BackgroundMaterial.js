@@ -273,7 +273,9 @@ export const BackgroundMaterial = shaderMaterial(
         vec3 pc = texture2D(u_plate, vec2(u, 1. - v)).rgb * mix(0.08, 1., topFade);
         // Yazıların arkası hafif koyu, kenarlar kararır.
         float read = u_aspect > 1. ? mix(0.62, 1., smoothstep(0.02, 0.42, vUv.x)) * mix(0.75, 1., smoothstep(0.99, 0.82, vUv.x)) : mix(0.55, 1., smoothstep(0.05, 0.45, vUv.y));
-        base = mix(base, pc * read, u_plateOn);
+        // Detayda (u_stage kısılır) fotoğraf kararır: soldaki açıklama ve sağdaki kartlar rahat okunur.
+        float dimD = mix(0.42, 1., clamp((u_stage - 0.45) / 0.55, 0., 1.));
+        base = mix(base, pc * read * dimD, u_plateOn);
       }
 
       // Stüdyo: sahne ürünün çevresi dışında kararır; ışık yalnızca öndeki ürünün olduğu yerde.

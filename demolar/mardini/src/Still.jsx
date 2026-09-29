@@ -9,7 +9,9 @@ import {
   Color,
   CurvePath,
   CylinderGeometry,
+  MeshBasicMaterial,
   Object3D,
+  TextureLoader,
   DoubleSide,
   LineCurve3,
   EllipseCurve,
@@ -304,6 +306,63 @@ function NoirSet({ floorY, z, glow }) {
   );
 }
 
+// Butik fotoğraflı marka (theme.plate): kart, ana sayfadaki salon fotoğrafının önünde çekilir. Fotoğraf
+// kemerin ortası ürünün arkasına, duvar dibi kaidenin altına gelecek biçimde sisten etkilenmeyen bir düzlemde;
+// ürün ana sayfadaki gibi ince, altın kenarlı yuvarlak obsidyen kaidede, altında temas gölgesi.
+const PLATE = THEME.plate;
+const PLINTH = 0.32;
+function PlateSet() {
+  const tex = useMemo(() => {
+    const t = new TextureLoader().load(`${import.meta.env.BASE_URL}${PLATE.src}`);
+    t.colorSpace = SRGBColorSpace;
+    return t;
+  }, []);
+  const mat = useMemo(() => new MeshBasicMaterial({ map: tex, fog: false, toneMapped: false }), [tex]);
+  const shadow = useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d");
+    const r = g.createRadialGradient(64, 64, 10, 64, 64, 64);
+    r.addColorStop(0, "rgba(0,0,0,0.85)");
+    r.addColorStop(0.55, "rgba(0,0,0,0.4)");
+    r.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = r;
+    g.fillRect(0, 0, 128, 128);
+    return new CanvasTexture(c);
+  }, []);
+  // Düzlem: z = -6, genişlik 30 (kemer kartın ~%90'ı); duvar dibi (floor) kaidenin altındaki zeminle aynı hizada.
+  const W = 30;
+  const H = W / (PLATE.aspect ?? 2.63);
+  const floorY = PED_TOP - PLINTH;
+  const camY = 0.55;
+  const yFloorPlane = camY + (floorY - camY) * (18.5 / 12.5);
+  const cy = yFloorPlane + ((PLATE.floor ?? 0.66) - 0.5) * H;
+  const cx = (0.5 - (PLATE.x ?? 0.5)) * W;
+  return (
+    <>
+      <mesh position={[cx, cy, -6]} material={mat}>
+        <planeGeometry args={[W, H]} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY + 0.004, 0]}>
+        <planeGeometry args={[4.4, 4.4]} />
+        <meshBasicMaterial map={shadow} transparent depthWrite={false} color="#000000" fog={false} />
+      </mesh>
+      <mesh position={[0, PED_TOP - PLINTH / 2, 0]}>
+        <cylinderGeometry args={[1.5, 1.55, PLINTH, 96]} />
+        <meshStandardMaterial color="#050404" roughness={0.9} metalness={0} envMapIntensity={0.05} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, PED_TOP - 0.004, 0]}>
+        <torusGeometry args={[1.505, 0.018, 12, 160]} />
+        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.22} envMapIntensity={1.6} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, floorY + 0.03, 0]}>
+        <torusGeometry args={[1.552, 0.008, 8, 160]} />
+        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.3} envMapIntensity={1.2} />
+      </mesh>
+    </>
+  );
+}
+
 function Stage() {
   const f = flavors[0];
   const accent = useMemo(() => new Color(f.theme?.accent ?? "#c9a55c"), [f]);
@@ -372,12 +431,16 @@ function Stage() {
     <>
       <color attach="background" args={["#060504"]} />
       <fog attach="fog" args={["#050403", 12.5, 19]} />
-      {/* Arka duvar ve kemerli niş */}
-      <mesh position={[0, 2, archZ - 0.3]}>
-        <planeGeometry args={[30, 20]} />
-        <meshStandardMaterial color="#0d0b0a" roughness={0.9} />
-      </mesh>
-      {NOIR ? (
+      {/* Arka duvar ve kemerli niş (butik fotoğrafında duvar fotoğraftan gelir) */}
+      {!PLATE && (
+        <mesh position={[0, 2, archZ - 0.3]}>
+          <planeGeometry args={[30, 20]} />
+          <meshStandardMaterial color="#0d0b0a" roughness={0.9} />
+        </mesh>
+      )}
+      {PLATE ? (
+        <PlateSet />
+      ) : NOIR ? (
         <NoirSet floorY={floorY} z={archZ} glow={glow} />
       ) : (
         <>
