@@ -1,0 +1,6832 @@
+:root {
+  color-scheme: dark;
+  --bg: #0c0a09;
+  --bg-2: #121216;
+  --fg: #f2efe9;
+  --muted: rgba(242, 239, 233, 0.58);
+  --faint: rgba(242, 239, 233, 0.14);
+  --glass: rgba(18, 18, 22, 0.55);
+  --wide: "Cormorant Garamond", "Didot", Georgia, serif;
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Jost", "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(16px, 2.4vw, 44px);
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--bg);
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 1px solid var(--fg);
+  outline-offset: 4px;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Header ---------- */
+
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: calc(22px + env(safe-area-inset-top, 0px)) var(--gutter) 22px;
+  pointer-events: none;
+}
+
+.header > * {
+  pointer-events: auto;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  justify-self: start;
+}
+
+.brand__name {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.brand__sub {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-left: 12px;
+  border-left: 1px solid var(--faint);
+}
+
+.header__nav {
+  display: flex;
+  gap: 3rem;
+}
+
+.header__nav a,
+.header__contact {
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: rgba(242, 239, 233, 0.8);
+  transition: color 0.2s;
+}
+
+.header__nav a:hover,
+.header__contact:hover {
+  color: var(--fg);
+}
+
+.header__nav sup {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  margin-right: 6px;
+  vertical-align: 0.6em;
+}
+
+.header__right {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 22px;
+  border: 1px solid var(--faint);
+  border-radius: 999px;
+  background: rgba(10, 10, 12, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-weight: 500;
+  transition: border-color 0.2s;
+}
+
+.menu-btn:hover {
+  border-color: rgba(242, 239, 233, 0.4);
+}
+
+.menu-btn__icon {
+  position: relative;
+  width: 18px;
+  height: 7px;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transition: transform 0.3s var(--ease), height 0.3s var(--ease);
+}
+
+.menu-btn__icon.is-open {
+  height: 0;
+  border-bottom: 0;
+  transform: rotate(45deg);
+}
+
+/* ---------- Menu ---------- */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+  padding: 120px var(--gutter) 48px;
+  background: rgba(8, 8, 10, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--ease), visibility 0.4s;
+}
+
+.menu.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+
+.menu__links a {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 8vw, 6.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(24px);
+  opacity: 0;
+  transition: transform 0.6s var(--ease), opacity 0.6s var(--ease), color 0.2s;
+  transition-delay: calc(var(--i) * 60ms);
+}
+
+.menu.is-open .menu__links a {
+  transform: none;
+  opacity: 1;
+}
+
+.menu__links a:hover {
+  color: var(--muted);
+}
+
+.menu__links sup {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.8rem;
+  vertical-align: 2.5em;
+  margin-right: 12px;
+  color: var(--muted);
+}
+
+.menu__foot {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--muted);
+}
+
+/* ---------- Flavors stage ---------- */
+
+.flavors {
+  position: relative;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* 3B sahne DOM'un arkasında. main ve sabitlenen bölümler tıklamaları
+   geçirir, böylece kutulara tıklanabilir; etkileşimli parçalar geri açılır. */
+main {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shop,
+.section,
+.marquee {
+  pointer-events: auto;
+}
+
+.hud,
+.detail {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease), visibility 0.6s;
+}
+
+.hud button,
+.detail button,
+.detail a,
+.ritual a,
+.ritual button {
+  pointer-events: auto;
+}
+
+.hud {
+  opacity: 0;
+}
+
+.hud.is-ready {
+  opacity: 1;
+  transition-delay: 0.9s;
+}
+
+.hud.is-ready.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition-delay: 0s;
+}
+
+.hud__center {
+  position: absolute;
+  left: 50%;
+  bottom: 13%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100% - 2 * var(--gutter));
+  text-align: center;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 233, 0.75);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fg);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.hud__name {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5.6vw, 6.2rem);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin-top: 0.12em;
+}
+
+.tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: rgba(242, 239, 233, 0.85);
+  margin-top: 0.1em;
+  animation: rise 0.8s 0.08s var(--ease) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(8px);
+  }
+}
+
+.hud__count {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.count__now {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.count__line {
+  width: 36px;
+  height: 1px;
+  background: var(--muted);
+}
+
+.count__total {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.track {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: min(580px, 40vw);
+}
+
+.track__label {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.track__ticks {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.track__ticks button {
+  flex: 1;
+  height: 18px;
+  position: relative;
+}
+
+.track__ticks button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--faint);
+  transition: background 0.3s, height 0.3s;
+}
+
+.track__ticks button:hover::after {
+  background: var(--muted);
+}
+
+.track__ticks button.is-active::after {
+  background: var(--fg);
+  height: 2px;
+}
+
+.hud__scroll {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 40px;
+  padding-right: 14px;
+  border-right: 1px solid var(--faint);
+}
+
+/* ---------- Detail ---------- */
+
+.detail {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.detail.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.2s;
+}
+
+.round {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--faint);
+  background: rgba(10, 10, 12, 0.35);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.round:hover,
+.round.is-on {
+  border-color: rgba(242, 239, 233, 0.6);
+  background: rgba(242, 239, 233, 0.08);
+}
+
+.round--lg {
+  width: 64px;
+  height: 64px;
+  position: relative;
+}
+
+.back {
+  position: absolute;
+  top: calc(124px + env(safe-area-inset-top, 0px));
+  left: var(--gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.detail__body {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--gutter) + 4vw);
+  transform: translateY(-50%);
+  width: min(500px, 34vw);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail.is-open .detail__body > :not(.detail__title):not(.detail__desc) {
+  animation: rise 0.8s var(--ease) both;
+}
+
+.detail.is-open .detail__body > :nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.detail.is-open .detail__body > :nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.detail.is-open .detail__body > :nth-child(4) {
+  animation-delay: 0.18s;
+}
+
+.detail__title {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.2vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.detail__desc {
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: rgba(242, 239, 233, 0.85);
+  max-width: 26em;
+}
+
+.detail__notes {
+  padding-top: 22px;
+  border-top: 1px solid var(--faint);
+}
+
+.detail__nav {
+  position: absolute;
+  left: calc(var(--gutter) + 4vw);
+  bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.features {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.features__label {
+  position: absolute;
+  right: calc(100% + 16px);
+  top: 50%;
+  transform: translate(8px, -50%);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  color: var(--fg);
+  transition: opacity 0.2s, transform 0.2s var(--ease);
+}
+
+.round--lg:hover .features__label,
+.round--lg:focus-visible .features__label {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  position: relative;
+  padding: clamp(96px, 14vh, 160px) var(--gutter);
+  background: var(--bg);
+}
+
+.section__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: clamp(48px, 8vh, 88px);
+}
+
+.section__title {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5.8vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.tagline--static {
+  animation: none;
+  margin: 0;
+}
+
+.stockists {
+  background: var(--bg-2);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.stock {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.stock th,
+.stock td {
+  text-align: left;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--faint);
+  vertical-align: baseline;
+}
+
+.stock thead th {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0;
+}
+
+.stock tbody th {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding-right: 24px;
+}
+
+.stock td {
+  color: var(--muted);
+  padding-right: 24px;
+}
+
+.stock .num {
+  text-align: right;
+  font-family: var(--mono);
+  color: var(--fg);
+  padding-right: 0;
+}
+
+.contact__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  max-width: 900px;
+}
+
+.contact__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact__wide {
+  grid-column: 1 / -1;
+}
+
+.contact__form input,
+.contact__form textarea {
+  font: inherit;
+  font-size: 1.1rem;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--faint);
+  padding: 10px 0;
+  resize: vertical;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+  outline: none;
+  border-bottom-color: var(--fg);
+}
+
+.pill {
+  justify-self: start;
+  padding: 16px 28px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: #0b0b0d;
+  font-weight: 600;
+  transition: transform 0.2s var(--ease);
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+}
+
+.contact__done {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 2rem;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 32px;
+  margin-top: clamp(80px, 14vh, 140px);
+  padding-top: 24px;
+  border-top: 1px solid var(--faint);
+  font-size: 0.68rem;
+}
+
+/* ---------- Split text ---------- */
+
+.split__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.split__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.split__char {
+  display: inline-block;
+  animation: char-in 0.9s var(--ease) both;
+  animation-delay: var(--d);
+}
+
+@keyframes char-in {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+/* Carousel başlığı: dönerken harfler aşağı iner, durunca sırayla çıkar. */
+.hud__center .split__char {
+  animation: none;
+  transition: transform 0.85s var(--ease) var(--d);
+}
+
+.hud__center.is-moving .split__char {
+  transform: translateY(115%);
+  transition: transform 0.28s cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+.hud__tagline {
+  transition: opacity 0.6s var(--ease) 0.25s, filter 0.6s var(--ease) 0.25s, transform 0.6s var(--ease) 0.25s;
+}
+
+.hud__center.is-moving .hud__tagline {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(10px);
+  transition-delay: 0s;
+  transition-duration: 0.25s;
+}
+
+.detail__desc .split__mask {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+/* Detayda yazı değişirken eskisi yukarı kayarak çıkar. */
+.detail__body.is-leaving .split__char {
+  animation: char-out 0.3s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  animation-delay: calc(var(--d) * 0.15);
+}
+
+.detail__body.is-leaving > :not(.detail__title) {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@keyframes char-out {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateY(-110%);
+  }
+}
+
+/* ---------- Loader ---------- */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 22px;
+  background: var(--bg);
+  transition: opacity 0.9s var(--ease), visibility 0.9s;
+}
+
+.loader.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader__mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.6rem;
+}
+
+.loader__mark .brand__name {
+  font-size: 2rem;
+}
+
+.loader__bar {
+  width: 220px;
+  height: 1px;
+  background: var(--faint);
+  overflow: hidden;
+}
+
+.loader__bar span {
+  display: block;
+  height: 100%;
+  background: var(--fg);
+  transform-origin: left;
+}
+
+/* ---------- Header additions ---------- */
+
+.cart-btn {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--faint);
+  background: rgba(10, 10, 12, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.2s;
+}
+
+.cart-btn:hover {
+  border-color: rgba(242, 239, 233, 0.4);
+}
+
+.cart-btn__count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--fg);
+  color: #0b0b0d;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  line-height: 20px;
+  text-align: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- HUD additions ---------- */
+
+.hud__cta {
+  margin-top: 18px;
+  padding: 10px 18px;
+  border: 1px solid var(--faint);
+  border-radius: 999px;
+  color: var(--fg);
+  background: rgba(10, 10, 12, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.hud__cta:hover {
+  border-color: rgba(242, 239, 233, 0.6);
+  background: rgba(242, 239, 233, 0.08);
+}
+
+.track__ticks button.is-active::after {
+  background: var(--c);
+  box-shadow: 0 0 12px var(--c);
+}
+
+/* ---------- Detail additions ---------- */
+
+.detail .dot {
+  background: var(--flavor);
+  box-shadow: 0 0 12px var(--flavor);
+}
+
+.strike {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.strike__x {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  background: var(--fg);
+  color: #0b0b0d;
+  font-size: 0.8rem;
+}
+
+.strike s {
+  padding: 3px 8px;
+  background: var(--fg);
+  color: #0b0b0d;
+  text-decoration-thickness: 1.5px;
+}
+
+.buy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 6px;
+}
+
+.buy__more {
+  color: var(--fg);
+  text-underline-offset: 4px;
+}
+
+.detail__reset {
+  margin-left: 8px;
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.drag-hint {
+  position: absolute;
+  right: calc(var(--gutter) + 90px);
+  bottom: 40px;
+}
+
+.detail.is-open .detail__body .strike {
+  animation: rise 0.8s var(--ease) both;
+}
+
+/* ---------- Ritual ---------- */
+
+.ritual {
+  position: relative;
+}
+
+.ritual__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gutter);
+  overflow: hidden;
+}
+
+.ritual__text {
+  width: min(560px, 44vw);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-left: 4vw;
+}
+
+.ritual__step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ritual__step > * {
+  animation: rise 0.9s var(--ease) both;
+}
+
+.ritual__step > :nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.ritual__step > :nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.ritual__num {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.ritual__desc {
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: rgba(242, 239, 233, 0.85);
+  max-width: 28em;
+}
+
+.ritual__progress {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding-top: 22px;
+  border-top: 1px solid var(--faint);
+}
+
+.ritual__progress li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 0.95rem;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+.ritual__progress li.is-active {
+  color: var(--fg);
+}
+
+.ritual__stat {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 6vh;
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: clamp(4rem, 12vw, 12rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(242, 239, 233, 0.35);
+  animation: rise 1s var(--ease) both;
+  pointer-events: none;
+}
+
+/* ---------- Shop ---------- */
+
+.shop {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px var(--gutter) 64px;
+}
+
+.shop__panel {
+  width: min(600px, 48vw);
+  margin-left: 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.shop__head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field legend {
+  margin-bottom: 12px;
+}
+
+.field legend b {
+  color: var(--fg);
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  outline: 1px solid transparent;
+  outline-offset: 3px;
+  transition: outline-color 0.2s, transform 0.2s var(--ease);
+}
+
+.swatch:hover {
+  transform: scale(1.08);
+}
+
+.swatch.is-on {
+  outline-color: var(--fg);
+}
+
+.swatch--variety {
+  width: auto;
+  padding: 0 14px;
+  border-radius: 17px;
+  background: conic-gradient(#6b1420, #b5653a, #7d9446, #8cc3ae, #1f4f8a, #6b1420);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.packs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.pack {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 2px 8px;
+  padding: 16px;
+  text-align: left;
+  border: 1px solid var(--faint);
+  border-radius: 14px;
+  background: rgba(10, 10, 12, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.pack:hover {
+  border-color: rgba(242, 239, 233, 0.4);
+}
+
+.pack.is-on {
+  border-color: var(--fg);
+  background: rgba(242, 239, 233, 0.08);
+}
+
+.pack__size {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.pack__per {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pack__label {
+  grid-column: 1 / -1;
+  font-size: 0.64rem;
+}
+
+.plans {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plan {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--faint);
+  border-radius: 14px;
+  background: rgba(10, 10, 12, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.plan.is-on {
+  border-color: var(--fg);
+}
+
+.plan input {
+  accent-color: #f2efe9;
+  width: 16px;
+  height: 16px;
+}
+
+.plan small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.plan__price {
+  font-variant-numeric: tabular-nums;
+}
+
+.checkout-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+  padding-top: 22px;
+  border-top: 1px solid var(--faint);
+}
+
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-right: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.price__now {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.price__was {
+  color: var(--muted);
+}
+
+.price__per {
+  width: 100%;
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--faint);
+  border-radius: 999px;
+}
+
+.qty button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 48px;
+}
+
+.qty span {
+  min-width: 24px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.qty--sm button {
+  width: 34px;
+  height: 34px;
+}
+
+.pill--wide {
+  padding-inline: 36px;
+}
+
+.perks {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  font-size: 0.66rem;
+}
+
+.perks li::before {
+  content: "✓ ";
+  color: var(--fg);
+}
+
+/* ---------- Cart drawer ---------- */
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  visibility: hidden;
+  transition: visibility 0.5s;
+}
+
+.drawer.is-open {
+  visibility: visible;
+}
+
+.drawer__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  cursor: default;
+  transition: opacity 0.5s var(--ease);
+}
+
+.drawer.is-open .drawer__scrim {
+  opacity: 1;
+}
+
+.drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(440px, 100%);
+  display: flex;
+  flex-direction: column;
+  padding: calc(24px + env(safe-area-inset-top, 0px)) 24px calc(24px + env(safe-area-inset-bottom, 0px));
+  background: #111114;
+  border-left: 1px solid var(--faint);
+  transform: translateX(100%);
+  transition: transform 0.6s var(--ease);
+}
+
+.drawer.is-open .drawer__panel {
+  transform: none;
+}
+
+.drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.drawer__head h2 {
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.drawer__empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+}
+
+.ship {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--faint);
+}
+
+.ship .mono {
+  color: var(--fg);
+}
+
+.ship__bar {
+  height: 3px;
+  background: var(--faint);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ship__bar span {
+  display: block;
+  height: 100%;
+  background: var(--fg);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease);
+}
+
+.lines {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--faint);
+}
+
+.line__swatch {
+  width: 44px;
+  height: 64px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.line__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.line__name {
+  font-weight: 500;
+}
+
+.line__end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-variant-numeric: tabular-nums;
+}
+
+.line__remove {
+  font-size: 0.64rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.drawer__foot {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 18px;
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.totals div {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+
+.totals .totals__total {
+  color: var(--fg);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.drawer__foot .pill {
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+.drawer__notice {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(242, 239, 233, 0.08);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.drawer__small {
+  font-size: 0.62rem;
+  text-align: center;
+}
+
+/* ---------- Marquee ---------- */
+
+.marquee {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 26px 0;
+  background: var(--fg);
+  color: #0b0b0d;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.marquee span {
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+  padding-right: 36px;
+  font-family: var(--wide);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3.6vw, 3.2rem);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.marquee i {
+  font-style: normal;
+  font-size: 0.6em;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- FAQ ---------- */
+
+.faq {
+  border-top: 1px solid var(--faint);
+}
+
+.faq__list {
+  max-width: 900px;
+  border-top: 1px solid var(--faint);
+}
+
+.faq details {
+  border-bottom: 1px solid var(--faint);
+}
+
+.faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary span {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+
+.faq summary span::before,
+.faq summary span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease);
+}
+
+.faq summary span::after {
+  transform: rotate(90deg);
+}
+
+.faq details[open] summary span::after {
+  transform: rotate(0);
+}
+
+.faq details p {
+  padding-bottom: 24px;
+  max-width: 60ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ---------- Contact / footer ---------- */
+
+.contact {
+  border-top: 1px solid var(--faint);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(48px, 8vw, 120px);
+}
+
+.contact__grid .section__title {
+  margin: 12px 0;
+}
+
+.contact__form {
+  margin-top: 40px;
+}
+
+.news {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-self: end;
+}
+
+.news__title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.news__form {
+  display: flex;
+  gap: 10px;
+}
+
+.news__form input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--faint);
+  border-radius: 999px;
+  padding: 0 20px;
+}
+
+.news__form input:focus {
+  outline: none;
+  border-color: var(--fg);
+}
+
+.warning {
+  margin-top: clamp(64px, 10vh, 110px);
+  max-width: 70ch;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.footer__links {
+  display: flex;
+  gap: 22px;
+}
+
+.footer__links a {
+  text-decoration: none;
+}
+
+.footer {
+  margin-top: 28px;
+}
+
+/* ---------- Reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 900px) {
+  .header__nav,
+  .header__contact,
+  .hud__scroll {
+    display: none;
+  }
+
+  .header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .brand__sub {
+    display: none;
+  }
+
+  .menu-btn {
+    padding: 11px 18px;
+  }
+
+  .hud__center {
+    bottom: 104px;
+  }
+
+  .hud__name {
+    font-size: clamp(2.6rem, 14vw, 5rem);
+  }
+
+  .hud__count {
+    top: calc(96px + env(safe-area-inset-top, 0px));
+    bottom: auto;
+    gap: 8px;
+  }
+
+  .hud__count .mono {
+    display: none;
+  }
+
+  .count__now {
+    font-size: 1.8rem;
+  }
+
+  .track {
+    width: calc(100% - 2 * var(--gutter));
+  }
+
+  .back {
+    top: calc(96px + env(safe-area-inset-top, 0px));
+  }
+
+  .detail__body {
+    top: auto;
+    bottom: 104px;
+    left: var(--gutter);
+    right: var(--gutter);
+    width: auto;
+    transform: none;
+    gap: 14px;
+    padding: 20px;
+    border-radius: 18px;
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--faint);
+  }
+
+  .detail__desc {
+    font-size: 1rem;
+  }
+
+  .detail__notes {
+    padding-top: 14px;
+  }
+
+  .detail__nav {
+    left: var(--gutter);
+    bottom: 36px;
+  }
+
+  .features {
+    top: calc(96px + env(safe-area-inset-top, 0px));
+    transform: none;
+    gap: 10px;
+  }
+
+  .round--lg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .features__label {
+    display: none;
+  }
+
+  .stock td:nth-child(2),
+  .stock thead th:nth-child(2) {
+    display: none;
+  }
+
+  .contact__form {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .cart-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .header__right {
+    gap: 10px;
+  }
+
+  .hud__cta {
+    display: none;
+  }
+
+  .drag-hint {
+    display: none;
+  }
+
+  .buy .pill {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .detail__body .buy {
+    margin-top: 0;
+  }
+
+  .ritual__stage {
+    align-items: flex-end;
+    padding-bottom: 48px;
+  }
+
+  .ritual__text {
+    width: 100%;
+    margin-left: 0;
+    gap: 18px;
+  }
+
+  .ritual__desc {
+    font-size: 1rem;
+  }
+
+  .ritual__progress {
+    gap: 14px;
+    font-size: 0.85rem;
+  }
+
+  .ritual__stat {
+    top: 96px;
+    bottom: auto;
+    font-size: 16vw;
+  }
+
+  .shop {
+    display: block;
+    padding-top: 52vh;
+  }
+
+  .shop__panel {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .packs {
+    gap: 8px;
+  }
+
+  .pack {
+    padding: 12px;
+  }
+
+  .pack__size {
+    font-size: 1.5rem;
+  }
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.ritual__can {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Sinematik mod: özellik yakın çekiminde ekranın kenarları kararır. */
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 58% 50%, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+  opacity: 0;
+  transition: opacity 1s var(--ease);
+}
+
+.stage.is-cinema::before {
+  opacity: 1;
+}
+
+.loader__note {
+  opacity: 0.6;
+  font-size: 0.62rem;
+}
+
+/* Uzun marka adı: alt başlık yalnızca geniş ekranlarda görünür. */
+@media (max-width: 1600px) {
+  .brand__sub {
+    display: none;
+  }
+}
+
+.brand__name {
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 900px) {
+  .brand__name {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+}
+
+/* =====================================================================
+   Premium butonlar
+   Tadın rengi (--accent) App tarafından köke yazılır; tat değişince
+   butonların ışıltısı ve dolgusu da yumuşakça değişir.
+   ===================================================================== */
+
+:root {
+  --accent: #6fb0e8;
+  --glass: rgba(14, 16, 22, 0.42);
+  --glass-edge: rgba(255, 255, 255, 0.22);
+  transition: --accent 0.8s;
+}
+
+.pill,
+.round,
+.menu-btn,
+.cart-btn,
+.hud__cta,
+.back .round {
+  translate: var(--mx, 0) var(--my, 0);
+  transition:
+    translate 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.1, 1),
+    box-shadow 0.4s ease,
+    background 0.6s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Dolgulu ana buton: tadın renginde, cam gibi parlak, üzerine gelince ışık geçer. */
+.pill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 30px;
+  border: 0;
+  border-radius: 999px;
+  color: #0a0a0c;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, #fff), var(--accent));
+  box-shadow:
+    0 14px 34px -14px color-mix(in srgb, var(--accent) 80%, transparent),
+    0 2px 0 rgba(255, 255, 255, 0.55) inset,
+    0 -2px 6px rgba(0, 0, 0, 0.12) inset;
+}
+
+.pill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.75) 48%, transparent 66%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 44px -14px color-mix(in srgb, var(--accent) 95%, transparent),
+    0 2px 0 rgba(255, 255, 255, 0.6) inset,
+    0 -2px 6px rgba(0, 0, 0, 0.12) inset;
+}
+
+.pill:hover::after {
+  transform: translateX(120%);
+}
+
+.pill:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Cam butonlar: bulanık zemin, ışıltılı ince kenar, tadın renginde parıltı. */
+.round,
+.menu-btn,
+.cart-btn,
+.hud__cta {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--glass), var(--glass)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.06) 42%,
+      color-mix(in srgb, var(--accent) 70%, transparent)) border-box;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 12px 30px -16px rgba(0, 0, 0, 0.9);
+}
+
+.round:hover,
+.menu-btn:hover,
+.cart-btn:hover,
+.hud__cta:hover {
+  border-color: transparent;
+  transform: translateY(-2px);
+  background:
+    linear-gradient(color-mix(in srgb, var(--accent) 16%, rgba(14, 16, 22, 0.5)),
+      color-mix(in srgb, var(--accent) 16%, rgba(14, 16, 22, 0.5))) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.8), color-mix(in srgb, var(--accent) 90%, transparent)) border-box;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent),
+    0 16px 36px -14px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.round.is-on {
+  background:
+    radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%) padding-box,
+    linear-gradient(var(--glass), var(--glass)) padding-box,
+    linear-gradient(140deg, #fff, var(--accent)) border-box;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 0 34px -4px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+
+.round--lg.is-on::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  animation: halo 2.4s ease-out infinite;
+}
+
+@keyframes halo {
+  from {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.hud__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  color: #fff;
+}
+
+.hud__cta::after {
+  content: "→";
+  font-family: var(--sans);
+  letter-spacing: 0;
+  transition: transform 0.3s ease;
+}
+
+.hud__cta:hover::after {
+  transform: translateX(4px);
+}
+
+/* İpucu etiketleri de cam olsun. */
+.features__label {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-edge);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Mağaza kartları. */
+.pack,
+.plan {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(14, 16, 22, 0.5), rgba(14, 16, 22, 0.5)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.12)) border-box;
+  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
+}
+
+.pack:hover,
+.plan:hover {
+  transform: translateY(-2px);
+}
+
+.pack.is-on,
+.plan.is-on {
+  background:
+    linear-gradient(color-mix(in srgb, var(--accent) 14%, rgba(14, 16, 22, 0.55)),
+      color-mix(in srgb, var(--accent) 14%, rgba(14, 16, 22, 0.55))) padding-box,
+    linear-gradient(140deg, #fff, var(--accent)) border-box;
+  box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+
+.swatch.is-on {
+  outline-color: var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.track__ticks button.is-active::after {
+  height: 3px;
+  border-radius: 2px;
+}
+
+.dot {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.eyebrow,
+.section__eyebrow {
+  color: color-mix(in srgb, var(--accent) 70%, #fff);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill,
+  .round,
+  .menu-btn,
+  .cart-btn,
+  .hud__cta {
+    translate: none;
+  }
+}
+
+/* =====================================================================
+   Başlık okunurluğu: içerik üst menünün altına kayarken yumuşak karartma
+   ===================================================================== */
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -40px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(rgba(6, 6, 9, 0.9), rgba(6, 6, 9, 0.55) 60%, rgba(6, 6, 9, 0));
+}
+
+/* =====================================================================
+   Alt bölümler: düz siyah yerine tadın rengine göre ışıyan zemin
+   ===================================================================== */
+
+.story,
+.stockists,
+.faq,
+.contact {
+  background:
+    radial-gradient(70% 55% at 85% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(60% 50% at 0% 100%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+    #0a0a0d;
+  transition: background 0.8s ease;
+}
+
+.stockists {
+  background:
+    radial-gradient(60% 60% at 15% 10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+    #0c0c10;
+}
+
+/* ---------- Hikâye ---------- */
+
+.story__grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(40px, 7vw, 110px);
+  align-items: start;
+}
+
+.story__main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.story__main .section__head {
+  margin-bottom: 8px;
+}
+
+.story__lead {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.4vw, 2.3rem);
+  line-height: 1.3;
+  color: var(--fg);
+  max-width: 30ch;
+}
+
+.story__text {
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: rgba(242, 239, 233, 0.78);
+  max-width: 62ch;
+}
+
+.story__founder {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 22px;
+  border-top: 1px solid var(--faint);
+}
+
+.story__avatar {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: #0a0a0c;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 40%, #fff), var(--accent));
+  box-shadow: 0 10px 30px -10px var(--accent);
+}
+
+.story__name {
+  font-family: var(--wide);
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+.timeline {
+  list-style: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 8px 0 8px 30px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: linear-gradient(var(--accent), rgba(242, 239, 233, 0.08));
+}
+
+.timeline li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 9px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #0a0a0d;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.timeline__year {
+  font-family: var(--wide);
+  font-size: 1.8rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline__text {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.stats {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: clamp(56px, 9vh, 96px);
+}
+
+.stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 24px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(16, 16, 22, 0.7), rgba(16, 16, 22, 0.7)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.03) 50%,
+      color-mix(in srgb, var(--accent) 50%, transparent)) border-box;
+}
+
+.stats strong {
+  font-family: var(--wide);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--accent) 45%, #fff);
+}
+
+.press {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 36px;
+  margin-top: 44px;
+  padding-top: 28px;
+  border-top: 1px solid var(--faint);
+}
+
+.press ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 40px;
+}
+
+.press li {
+  font-family: var(--wide);
+  font-size: 1.25rem;
+  color: rgba(242, 239, 233, 0.55);
+}
+
+/* ---------- Durum etiketi ---------- */
+
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* ---------- Sosyal kartlar ---------- */
+
+.social {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: clamp(56px, 9vh, 96px);
+}
+
+.social__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px;
+  border-radius: 20px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(16, 16, 22, 0.75), rgba(16, 16, 22, 0.75)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.04) 50%,
+      color-mix(in srgb, var(--accent) 60%, transparent)) border-box;
+  transition: transform 0.35s var(--ease), box-shadow 0.4s ease;
+}
+
+.social__card strong {
+  font-family: var(--wide);
+  font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+  font-weight: 600;
+}
+
+.social__arrow {
+  position: absolute;
+  top: 24px;
+  right: 26px;
+  font-size: 1.4rem;
+  transition: transform 0.3s var(--ease);
+}
+
+.social__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 50px -24px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+
+.social__card:hover .social__arrow {
+  transform: translate(3px, -3px);
+}
+
+@media (max-width: 900px) {
+  .story__grid,
+  .social {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .press li {
+    font-size: 1rem;
+  }
+}
+
+/* =====================================================================
+   Carousel başlığı: kutuyla çakışmasın, her zeminde okunsun
+   ===================================================================== */
+
+.hud__center {
+  bottom: max(64px, 8vh);
+}
+
+.hud__center::before {
+  content: "";
+  position: absolute;
+  inset: -18% -22% -10%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(4, 4, 8, 0.55), transparent);
+  filter: blur(8px);
+}
+
+.hud__name {
+  font-size: clamp(2.2rem, min(5.2vw, 8.5vh), 6rem);
+  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.55);
+}
+
+.hud__center .tagline {
+  font-size: clamp(1.2rem, min(1.9vw, 3.4vh), 1.9rem);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+}
+
+.hud__center .tag {
+  color: rgba(242, 239, 233, 0.92);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.hud__cta {
+  margin-top: min(18px, 2vh);
+}
+
+.track__label {
+  display: none;
+}
+
+/* ---------- Nota etiketleri ---------- */
+
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px 7px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--fg);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(14, 16, 22, 0.55), rgba(14, 16, 22, 0.55)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.3), color-mix(in srgb, var(--accent) 60%, transparent)) border-box;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: rise 0.7s var(--ease) both;
+}
+
+.chips li:nth-child(2) { animation-delay: 0.06s; }
+.chips li:nth-child(3) { animation-delay: 0.12s; }
+.chips li:nth-child(4) { animation-delay: 0.18s; }
+
+.chips li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.detail__notes.chips {
+  padding-top: 20px;
+}
+
+/* =====================================================================
+   Özellik kartları (detay ekranı, sağ taraf)
+   ===================================================================== */
+
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  width: 244px;
+}
+
+.features ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.features__hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fg);
+  padding-left: 4px;
+}
+
+.features__pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.features__pulse::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  animation: halo 1.8s ease-out infinite;
+}
+
+.feat {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 999px;
+  text-align: left;
+  color: var(--fg);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(14, 16, 22, 0.55), rgba(14, 16, 22, 0.55)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05) 45%,
+      color-mix(in srgb, var(--accent) 70%, transparent)) border-box;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.9);
+  translate: var(--mx, 0) var(--my, 0);
+  animation: feat-in 0.7s var(--ease) both;
+  animation-delay: calc(0.35s + var(--i) * 0.08s);
+  transition: transform 0.35s var(--ease), box-shadow 0.4s ease, background 0.4s ease, translate 0.35s var(--ease);
+}
+
+@keyframes feat-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+.feat__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: #0a0a0c;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 40%, #fff), var(--accent));
+  box-shadow: 0 6px 18px -6px var(--accent), 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+}
+
+/* Tıklanmamış kartlar sırayla hafifçe nabız atar. */
+.feat:not(.is-on) .feat__icon::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  animation: halo 3.2s ease-out infinite;
+  animation-delay: calc(var(--i) * 0.8s + 1s);
+}
+
+.feat__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.feat__num {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--accent) 60%, #fff);
+}
+
+.feat__title {
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.2;
+}
+
+.feat__arrow {
+  font-size: 1.05rem;
+  opacity: 0.7;
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+}
+
+.feat:hover {
+  transform: translateX(-6px);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent),
+    0 18px 40px -16px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.feat:hover .feat__arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.feat.is-on {
+  color: #0a0a0c;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, #fff), var(--accent)) padding-box,
+    linear-gradient(140deg, #fff, var(--accent)) border-box;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 20px 44px -14px color-mix(in srgb, var(--accent) 90%, transparent);
+  transform: translateX(-10px);
+}
+
+.feat.is-on .feat__icon {
+  color: var(--fg);
+  background: #0e1016;
+  box-shadow: none;
+}
+
+.feat.is-on .feat__num {
+  color: rgba(10, 10, 12, 0.6);
+}
+
+@media (max-width: 900px) {
+  .features {
+    width: auto;
+    gap: 8px;
+  }
+
+  .features__hint,
+  .feat__text,
+  .feat__arrow,
+  .hud__count .chips {
+    display: none;
+  }
+
+  .feat {
+    grid-template-columns: auto;
+    padding: 4px;
+  }
+
+  .feat.is-on {
+    transform: none;
+  }
+
+  .feat__icon {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* =====================================================================
+   Mobil detay kartı: kutuyu kapatmayacak kadar kompakt
+   ===================================================================== */
+
+@media (max-width: 900px) {
+  .back .mono {
+    display: none;
+  }
+
+  .detail__body {
+    bottom: 88px;
+    gap: 10px;
+    padding: 16px 16px 18px;
+    max-height: 48vh;
+    max-height: 48svh;
+    overflow: hidden;
+  }
+
+  .detail__body .tag {
+    max-width: 100%;
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detail__title {
+    font-size: clamp(1.7rem, 8.5vw, 2.3rem);
+  }
+
+  .detail__desc {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .detail__notes,
+  .detail__notes.chips {
+    padding-top: 10px;
+  }
+
+  .detail__notes.chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .detail__notes.chips li {
+    flex: none;
+    font-size: 0.72rem;
+    padding: 5px 10px 5px 8px;
+  }
+
+  .buy {
+    flex-wrap: nowrap;
+    gap: 14px;
+    margin-top: 2px;
+  }
+
+  .buy .pill {
+    padding: 11px 18px;
+    font-size: 0.86rem;
+    white-space: nowrap;
+  }
+
+  .buy__more {
+    font-size: 0.66rem;
+    white-space: nowrap;
+  }
+
+  .detail__nav {
+    bottom: 26px;
+  }
+
+  .detail__nav .round {
+    width: 42px;
+    height: 42px;
+  }
+
+  .strike {
+    font-size: 0.68rem;
+  }
+}
+
+/* Kısa telefon ekranlarında notalar gizlenir, kart daha da kısalır. */
+@media (max-width: 900px) and (max-height: 760px) {
+  .detail__notes.chips {
+    display: none;
+  }
+
+  .detail__desc {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .features {
+    gap: 6px;
+  }
+
+  .feat__icon {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand {
+    gap: 8px;
+  }
+
+  .brand__name {
+    font-size: 0.9rem;
+  }
+
+  .header__right {
+    gap: 8px;
+  }
+
+  .menu-btn {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+}
+
+/* ---------- Dil düğmesi ---------- */
+
+.lang {
+  display: inline-flex;
+  padding: 4px;
+  gap: 2px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--glass), var(--glass)) padding-box,
+    linear-gradient(140deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.06) 45%,
+      color-mix(in srgb, var(--accent) 70%, transparent)) border-box;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.lang button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  transition: background 0.3s, color 0.3s;
+}
+
+.lang button small {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.lang button:hover {
+  color: var(--fg);
+}
+
+.lang button.is-on {
+  color: #0a0a0c;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, #fff), var(--accent));
+  box-shadow: 0 6px 18px -8px var(--accent);
+}
+
+.menu__lang {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .header__right > .lang {
+    display: none;
+  }
+
+  .menu__lang {
+    display: block;
+  }
+}
+
+/* Detay: koku ailesi, parfümör, yıl */
+.detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin: 0 0 14px;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.detail__meta div {
+  display: flex;
+  gap: 8px;
+}
+.detail__meta dt {
+  color: var(--muted);
+}
+.detail__meta dd {
+  color: var(--accent, var(--fg));
+}
+@media (max-width: 760px) {
+  .detail__meta {
+    font-size: 0.6rem;
+    gap: 4px 14px;
+    margin-bottom: 8px;
+  }
+}
+
+/* İçerik sözlüğü: nota/içerik çipinin üstüne gelince kısa açıklama */
+.chips li[data-tip] {
+  position: relative;
+  cursor: help;
+  pointer-events: auto;
+}
+.chips li[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: 240px;
+  transform: translate(-50%, 6px);
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(14, 14, 16, 0.92);
+  border: 1px solid var(--faint);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s var(--ease);
+  z-index: 20;
+}
+.chips li[data-tip]:hover::after,
+.chips li[data-tip]:focus-visible::after,
+.chips li[data-tip]:focus::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.detail__tip {
+  display: none;
+  margin: -4px 0 12px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.detail__tip b {
+  color: var(--accent, var(--fg));
+  font-weight: 600;
+}
+@media (hover: none), (max-width: 760px) {
+  .detail__tip {
+    display: block;
+  }
+  .chips li[data-tip]::after {
+    display: none;
+  }
+  .chips li.is-on {
+    border-color: var(--accent, var(--fg));
+  }
+}
+
+/* ---------------------------------------------------------------- katalog */
+/* Ana sayfadaki 3B sahnenin havası: koyu yeşil ışık huzmesi, süzülen yapraklar,
+   havada asılı gibi hafifçe salınan ürünler. */
+.collection {
+  pointer-events: auto;
+}
+.collection__more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 6vh, 56px);
+}
+/* Az ürünlü satırlar ortada, dengeli dursun. */
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  justify-content: center;
+  gap: clamp(16px, 1.8vw, 26px);
+  perspective: 1400px;
+}
+.pcard {
+  --rx: 0deg;
+  --ry: 0deg;
+  --lx: 50%;
+  --ly: 30%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 10%, rgba(14, 26, 18, 0.7)), rgba(6, 12, 8, 0.86));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  transform: translateY(46px) scale(0.96);
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.1, 1),
+    border-color 0.4s ease,
+    box-shadow 0.5s ease;
+}
+.pcard.is-in {
+  opacity: 1;
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+  animation: pcardIn 1s cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+  animation-delay: calc(var(--i) * 90ms);
+}
+@keyframes pcardIn {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.96);
+    filter: blur(6px);
+  }
+}
+/* Işık fareyi izler. */
+.pcard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--lx) var(--ly), rgba(255, 255, 255, 0.1), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.pcard:hover {
+  border-color: color-mix(in srgb, var(--c) 50%, transparent);
+  box-shadow:
+    0 40px 70px -30px rgba(0, 0, 0, 0.95),
+    0 0 50px -20px color-mix(in srgb, var(--c) 60%, transparent);
+}
+.pcard:hover::after {
+  opacity: 1;
+}
+.pcard__media {
+  position: relative;
+  aspect-ratio: 4 / 4.2;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 42%, color-mix(in srgb, var(--c) 30%, #1d3b27) 0%, transparent 70%),
+    radial-gradient(ellipse at 50% 120%, #020604, transparent 60%),
+    #07120b;
+}
+.pcard__media > * {
+  grid-area: 1 / 1;
+}
+/* Ürünün üstünden inen ışık huzmesi (sahnedeki spot). */
+.pcard__beam {
+  position: absolute;
+  inset: -10% 18% 20%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04) 60%, transparent);
+  clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  animation: beam 7s ease-in-out infinite;
+  animation-delay: calc(var(--f) * -1.3s);
+}
+@keyframes beam {
+  50% {
+    opacity: 0.85;
+  }
+}
+/* Ürün havada asılı gibi salınır; kartlar farklı fazlarda. */
+.pcard__float {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  animation: hover 6.5s ease-in-out infinite;
+  animation-delay: calc(var(--f) * -1.3s);
+}
+@keyframes hover {
+  0%,
+  100% {
+    transform: translateY(-5px) rotate(-0.8deg);
+  }
+  50% {
+    transform: translateY(6px) rotate(0.8deg);
+  }
+}
+.pcard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.12;
+  transition: scale 0.9s var(--ease);
+}
+.pcard:hover .pcard__media img {
+  scale: 1.18;
+}
+.pcard__icon {
+  position: relative;
+  z-index: 2;
+  width: 42%;
+  color: color-mix(in srgb, var(--c) 55%, #f3efe4);
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--c) 70%, transparent));
+  transition: transform 0.9s var(--ease);
+}
+.pcard__icon svg {
+  display: block;
+  width: 100%;
+}
+.pcard:hover .pcard__icon {
+  transform: scale(1.08) rotate(-4deg);
+}
+/* Simgeli ürünlerde ışığın düştüğü zemin. */
+.pcard__stage {
+  align-self: end;
+  justify-self: center;
+  width: 58%;
+  height: 16%;
+  margin-bottom: 11%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--c) 45%, rgba(255, 255, 255, 0.25)), transparent);
+  filter: blur(6px);
+  animation: stage 6.5s ease-in-out infinite;
+  animation-delay: calc(var(--f) * -1.3s);
+}
+@keyframes stage {
+  0%,
+  100% {
+    transform: scale(1.06);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(0.88);
+    opacity: 0.55;
+  }
+}
+/* Işıkta uçuşan tozlar. */
+.pcard__dust {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 85% 60%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 55% 45%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 10% 80%, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 100% 100%;
+  animation: dust 14s linear infinite;
+  animation-delay: calc(var(--f) * -2.5s);
+  opacity: 0.7;
+}
+@keyframes dust {
+  from {
+    transform: translateY(8%);
+    opacity: 0;
+  }
+  15%,
+  80% {
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(-12%);
+    opacity: 0;
+  }
+}
+.pcard__badge {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  right: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--fg);
+  backdrop-filter: blur(8px);
+}
+.pcard__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px 18px;
+  flex: 1;
+}
+.pcard__cat {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c) 70%, #fff);
+}
+.pcard__name {
+  font-family: var(--wide);
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+.pcard__size {
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.pcard__desc {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pcard__foot {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pcard__price {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.pcard__add {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 15px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--c) 60%, transparent);
+  background: color-mix(in srgb, var(--c) 16%, rgba(255, 255, 255, 0.03));
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+.pcard__add svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.4s var(--ease);
+}
+.pcard__add:hover,
+.pcard__add.is-added {
+  background: color-mix(in srgb, var(--c) 75%, #fff);
+  color: #0b0f0c;
+}
+.pcard__add:hover svg {
+  transform: rotate(90deg);
+}
+
+/* ---- Katalog sayfası ---- */
+.catalog {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  /* Ana sayfada main tıklamaları 3B sahneye bırakır; katalogda sahne yok. */
+  pointer-events: auto;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: clamp(130px, 19vh, 180px) var(--gutter) 80px;
+  background: #0a0908;
+}
+.catalog > :not(.atmos, .leaves) {
+  position: relative;
+  z-index: 2;
+}
+/* Sabit arka plan katmanı: ışık, bokeh, yapraklar, film greni. */
+.atmos {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    /* sıcak, koyu stüdyo: kategorinin rengi yalnızca bir tutam */
+    radial-gradient(ellipse 70% 60% at 50% 18%, color-mix(in srgb, var(--tint, var(--accent)) 18%, rgba(255, 236, 210, 0.09)), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.8)),
+    #0a0908;
+  transition: background 1.2s ease;
+}
+.atmos__beam {
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  width: min(60vw, 720px);
+  height: 95%;
+  translate: -50% 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 55%, transparent 85%);
+  clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%);
+  filter: blur(30px);
+  mix-blend-mode: screen;
+  animation: beam 9s ease-in-out infinite;
+}
+.atmos__bokeh i {
+  position: absolute;
+  width: var(--b);
+  height: var(--b);
+  border-radius: 50%;
+  background: rgba(255, 236, 210, 0.08);
+  filter: blur(calc(var(--b) / 6));
+  animation: bokeh var(--d) ease-in-out infinite alternate;
+  animation-delay: var(--dl);
+}
+@keyframes bokeh {
+  to {
+    transform: translate(40px, -60px);
+    opacity: 0.35;
+  }
+}
+.atmos__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+/* Yapraklar: yukarıdan salınarak, dönerek düşer. */
+.leaves {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.leaves--front {
+  position: fixed;
+  z-index: 4;
+}
+.leaves span {
+  position: absolute;
+  top: -8%;
+  width: var(--s);
+  height: var(--s);
+  animation: leafFall var(--d) linear infinite;
+  animation-delay: var(--dl);
+}
+.leaves svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: #dfe4d0;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+  animation: leafSpin calc(var(--d) / 3) ease-in-out infinite alternate;
+  animation-delay: var(--dl);
+}
+.leaves--front svg {
+  fill: #eef0e2;
+  opacity: 0.9;
+}
+.leaves__shade {
+  fill: rgba(96, 116, 78, 0.38);
+}
+.leaves__vein {
+  fill: none;
+  stroke: rgba(80, 100, 70, 0.35);
+  stroke-width: 0.8;
+}
+@keyframes leafFall {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  25% {
+    transform: translate(var(--sw), 28vh);
+  }
+  50% {
+    transform: translate(calc(var(--sw) * -0.4), 56vh);
+  }
+  75% {
+    transform: translate(var(--sw), 84vh);
+  }
+  92% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(0, 112vh);
+    opacity: 0;
+  }
+}
+@keyframes leafSpin {
+  from {
+    transform: rotate(calc(var(--sp) * -40deg)) rotateX(10deg);
+  }
+  to {
+    transform: rotate(calc(var(--sp) * 160deg)) rotateX(65deg);
+  }
+}
+.catalog__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  margin-bottom: clamp(40px, 7vh, 64px);
+}
+.catalog__back {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.catalog__back:hover {
+  color: var(--fg);
+}
+.catalog__title {
+  font-family: var(--wide);
+  font-weight: 500;
+  font-size: clamp(2.8rem, 7.5vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: titleIn 1.1s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+@keyframes titleIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+    filter: blur(10px);
+    letter-spacing: 0.08em;
+  }
+}
+.catalog__tabs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.catalog__tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: rgba(242, 239, 233, 0.78);
+  text-decoration: none;
+  font-size: 0.86rem;
+  transition:
+    background 0.35s ease,
+    color 0.3s ease,
+    box-shadow 0.4s ease;
+}
+.catalog__tabs a i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 10px var(--c);
+}
+.catalog__tabs a small {
+  font-size: 0.66rem;
+  color: var(--muted);
+}
+.catalog__tabs a:hover {
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.07);
+}
+.catalog__tabs a.is-on {
+  color: #0b0f0c;
+  background: linear-gradient(180deg, #fbf8f0, #dcd6c6);
+  box-shadow:
+    0 8px 24px -10px color-mix(in srgb, var(--c, #fff) 80%, transparent),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+.catalog__tabs a.is-on small {
+  color: rgba(11, 15, 12, 0.6);
+}
+.catalog__group {
+  margin-bottom: clamp(48px, 9vh, 84px);
+}
+.catalog__grouphead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  margin-bottom: 26px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, color-mix(in srgb, var(--c) 70%, transparent), transparent) 1;
+}
+
+.catalog__grouphead h2 {
+  font-family: var(--wide);
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+}
+.catalog__grouphead p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.catalog__note {
+  max-width: 720px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+/* Katalogda içerik üst menünün altına kayınca buzlu cam bant. */
+[data-page="catalog"] .header::before {
+  background: linear-gradient(rgba(4, 10, 6, 0.82), rgba(4, 10, 6, 0.5));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  inset: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+@media (max-width: 760px) {
+  .pgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .pcard {
+    border-radius: 18px;
+  }
+  .pcard__body {
+    padding: 12px 12px 14px;
+  }
+  .pcard__name {
+    font-size: 1.05rem;
+  }
+  .pcard__desc {
+    -webkit-line-clamp: 2;
+    font-size: 0.78rem;
+  }
+  .pcard__foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pcard__add {
+    justify-content: center;
+  }
+  .catalog {
+    padding-top: 110px;
+  }
+  .catalog__tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    max-width: 100%;
+    border-radius: 20px;
+    scrollbar-width: none;
+  }
+  .catalog__tabs a {
+    flex: none;
+  }
+  .leaves--front span:nth-child(n + 3) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .leaves,
+  .atmos__bokeh {
+    display: none;
+  }
+  .pcard__float,
+  .pcard__stage,
+  .pcard__dust,
+  .pcard__beam {
+    animation: none;
+  }
+}
+
+/* ---- Üst menü: cam kapsül, kayan ışık hap, kategori paneli ---- */
+.header__nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 12px 30px -18px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+.header__nav > a,
+.navcat > a {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  color: rgba(242, 239, 233, 0.78);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+.header__nav > a:hover,
+.navcat > a:hover,
+.navcat > a.is-current {
+  color: var(--fg);
+}
+.navcat > a.is-current {
+  background: rgba(255, 255, 255, 0.08);
+}
+.header__nav sup {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  margin-right: 6px;
+  vertical-align: 0.7em;
+  color: color-mix(in srgb, var(--accent) 60%, #fff);
+  opacity: 0.8;
+}
+.header__pill {
+  position: absolute;
+  z-index: 0;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  width: var(--pw, 0);
+  translate: var(--px, 0) 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+    color-mix(in srgb, var(--accent) 28%, transparent);
+  box-shadow:
+    0 0 24px -6px color-mix(in srgb, var(--accent) 70%, transparent),
+    0 1px 0 rgba(255, 255, 255, 0.25) inset;
+  opacity: 0;
+  transition:
+    translate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.3s ease;
+}
+.header__nav.has-pill .header__pill {
+  opacity: 1;
+}
+.navcat {
+  position: relative;
+}
+.navcat__chev {
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+  transition: transform 0.35s var(--ease);
+}
+.navcat.is-open .navcat__chev {
+  transform: rotate(180deg);
+}
+.navcat__panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -6px;
+  width: 300px;
+  padding: 10px;
+  border-radius: 22px;
+  background: rgba(10, 18, 13, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top right;
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0.3s;
+}
+/* Kapsül ile panel arasındaki boşlukta fare kaybolmasın. */
+.navcat__panel::before {
+  content: "";
+  position: absolute;
+  inset: -14px 0 auto;
+  height: 14px;
+}
+.navcat.is-open .navcat__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.navcat__panel a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  color: rgba(242, 239, 233, 0.85);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    padding 0.35s var(--ease);
+}
+.navcat__panel a small {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--muted);
+}
+.navcat__panel a:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--fg);
+  padding-left: 18px;
+}
+.navcat__all {
+  margin-bottom: 6px;
+  font-family: var(--wide);
+  font-size: 1.15rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px 14px 6px 6px !important;
+}
+.navcat__panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navcat__panel li {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.4s var(--ease);
+  transition-delay: calc(var(--i) * 30ms);
+}
+.navcat.is-open .navcat__panel li {
+  opacity: 1;
+  transform: none;
+}
+.navcat__panel li i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 10px var(--c);
+}
+/* Telefon menüsünde kategoriler */
+.menu {
+  justify-content: safe center;
+  overflow-y: auto;
+}
+.menu__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.menu__cats p {
+  width: 100%;
+  margin-bottom: 4px;
+}
+.menu__cats a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  text-decoration: none;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.5s var(--ease),
+    background 0.2s;
+  transition-delay: calc(var(--i) * 40ms);
+}
+.menu.is-open .menu__cats a {
+  opacity: 1;
+  transform: none;
+}
+.menu__cats a i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c);
+}
+@media (max-width: 900px) {
+  .header__nav {
+    display: none;
+  }
+}
+@media (max-width: 1100px) {
+  .header__nav > a,
+  .navcat > a {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Görsel logo (content.json → logo) */
+.brand__logo {
+  display: block;
+  height: 30px;
+  width: auto;
+}
+.loader__logo {
+  display: block;
+  height: clamp(56px, 9vw, 96px);
+  width: auto;
+}
+@media (max-width: 760px) {
+  .brand__logo {
+    height: 24px;
+  }
+}
+
+/* ---- Kategori sayfası: 3B akışın üstünde kategori çubuğu, altında kartlar ---- */
+.catbar {
+  position: absolute;
+  z-index: 3;
+  top: calc(96px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 2 * var(--gutter));
+  pointer-events: auto;
+  transition: opacity 0.5s ease;
+}
+.stage.is-detail .catbar {
+  opacity: 0;
+  pointer-events: none;
+}
+.catbar__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: color-mix(in srgb, var(--c) 55%, #fff);
+}
+.catbar__title i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 10px var(--c);
+}
+.catbar__chips {
+  display: flex;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.catbar__chips::-webkit-scrollbar {
+  display: none;
+}
+.catbar__chips a {
+  flex: none;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: rgba(242, 239, 233, 0.72);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.catbar__chips a:hover {
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.08);
+}
+.catbar__chips a.is-on {
+  color: #0b0f0c;
+  background: linear-gradient(180deg, #fbf8f0, #dcd6c6);
+  box-shadow: 0 6px 20px -8px color-mix(in srgb, var(--c) 80%, transparent);
+}
+.catgrid {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: auto;
+  padding: clamp(80px, 14vh, 140px) var(--gutter) clamp(60px, 10vh, 100px);
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in srgb, var(--c) 10%, rgba(255, 236, 210, 0.06)), transparent 70%),
+    linear-gradient(rgba(10, 9, 8, 0), #0a0908 160px);
+}
+.catgrid > :not(.leaves) {
+  position: relative;
+  z-index: 1;
+}
+.catgrid__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: clamp(32px, 6vh, 56px);
+}
+.catgrid__others {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(48px, 9vh, 84px);
+}
+@media (max-width: 900px) {
+  .catbar {
+    top: calc(84px + env(safe-area-inset-top, 0px));
+    gap: 6px;
+  }
+  .catbar__chips a {
+    padding: 6px 11px;
+    font-size: 0.74rem;
+  }
+  main.is-category .hud__count {
+    top: calc(170px + env(safe-area-inset-top, 0px));
+  }
+}
+/* Masaüstünde kategori listesi solda dikey bir dizin; ürünlerin üstünü kapatmaz. */
+@media (min-width: 901px) {
+  .catbar {
+    top: 50%;
+    left: var(--gutter);
+    translate: 0 -50%;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .catbar__chips {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .catbar__chips a,
+  .catbar__chips a.is-on {
+    position: relative;
+    padding: 7px 0 7px 20px;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    font-size: 0.84rem;
+    transition: color 0.3s ease, padding 0.4s var(--ease);
+  }
+  .catbar__chips a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 8px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.45;
+    transition: width 0.4s var(--ease), opacity 0.3s ease;
+  }
+  .catbar__chips a:hover {
+    background: none;
+    padding-left: 26px;
+  }
+  .catbar__chips a.is-on {
+    color: var(--fg);
+    padding-left: 28px;
+  }
+  .catbar__chips a.is-on::before,
+  .catbar__chips a:hover::before {
+    width: 18px;
+    opacity: 1;
+    background: var(--c, currentColor);
+  }
+}
+
+/* ---- Gerçek ürün fotoğrafları: detayda küçük resimler, büyük görünüm ---- */
+.gallery {
+  margin-top: 14px;
+}
+.gallery__label {
+  font-size: 0.62rem;
+  margin-bottom: 8px;
+}
+.gallery__row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.gallery__thumb {
+  flex: none;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #111;
+  cursor: zoom-in;
+  transition: transform 0.3s var(--ease), border-color 0.3s ease;
+}
+.gallery__thumb:hover {
+  transform: translateY(-2px);
+  border-color: var(--flavor, #fff);
+}
+.gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 60px 70px;
+  background: rgba(6, 6, 8, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: lbIn 0.35s ease both;
+  cursor: zoom-out;
+}
+@keyframes lbIn {
+  from {
+    opacity: 0;
+  }
+}
+.lightbox img {
+  max-width: min(100%, calc(100vw - 140px));
+  max-height: calc(100vh - 120px);
+  max-height: calc(100svh - 120px);
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9);
+  cursor: default;
+  animation: lbImg 0.5s var(--ease) both;
+}
+@keyframes lbImg {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+}
+.lightbox .round {
+  position: absolute;
+}
+.lightbox__close {
+  top: 20px;
+  right: 20px;
+}
+.lightbox__prev {
+  left: 16px;
+  top: 50%;
+}
+.lightbox__next {
+  right: 16px;
+  top: 50%;
+}
+.lightbox__count {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  translate: -50% 0;
+}
+.stars {
+  display: inline-block;
+  width: 62px;
+  height: 11px;
+  vertical-align: -1px;
+  background: linear-gradient(90deg, #e8c77a calc(var(--r) * 100%), rgba(255, 255, 255, 0.2) 0);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 11'%3E%3Cg%3E%3Cpath id='s' d='M5.5 0l1.6 3.5 3.9.4-2.9 2.6.8 3.8-3.4-2-3.4 2 .8-3.8L0 3.9l3.9-.4z'/%3E%3Cuse href='%23s' x='12.7'/%3E%3Cuse href='%23s' x='25.4'/%3E%3Cuse href='%23s' x='38.1'/%3E%3Cuse href='%23s' x='50.8'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 11'%3E%3Cg%3E%3Cpath id='s' d='M5.5 0l1.6 3.5 3.9.4-2.9 2.6.8 3.8-3.4-2-3.4 2 .8-3.8L0 3.9l3.9-.4z'/%3E%3Cuse href='%23s' x='12.7'/%3E%3Cuse href='%23s' x='25.4'/%3E%3Cuse href='%23s' x='38.1'/%3E%3Cuse href='%23s' x='50.8'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+/* Kartta gerçek fotoğraf: üzerine gelince 3B görselin üstünde belirir. */
+.pcard__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.6s ease, scale 0.9s var(--ease) !important;
+}
+.pcard:hover .pcard__photo {
+  opacity: 1;
+}
+@media (max-width: 760px) {
+  .lightbox {
+    padding: 70px 12px;
+  }
+  .lightbox img {
+    max-width: 100%;
+    max-height: calc(100svh - 160px);
+  }
+  .lightbox__prev,
+  .lightbox__next {
+    top: auto;
+    bottom: 14px;
+  }
+}
+/* Kesilmiş ürün fotoğrafı: sahnedeki gibi ışığın altında süzülür. */
+.pcard__media.is-cutout .pcard__float {
+  position: absolute;
+  inset: 0;
+}
+.pcard__media.is-cutout img:not(.pcard__photo) {
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+  padding: 11% 12% 13%;
+  scale: 1;
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.55));
+}
+.pcard:hover .pcard__media.is-cutout img:not(.pcard__photo) {
+  scale: 1.06;
+}
+.pcard__was {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* ===================== Üst menü: premium, numarasız ===================== */
+.header__nav {
+  gap: 0;
+  padding: 5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)), rgba(10, 12, 10, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 18px 40px -24px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+}
+.header__nav > a,
+.navcat > a {
+  padding: 11px 22px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 233, 0.72);
+  transition: color 0.35s ease, letter-spacing 0.5s var(--ease);
+}
+.header__nav > a:hover,
+.navcat > a:hover,
+.header__nav > a.is-current,
+.navcat > a.is-current {
+  color: #fff;
+}
+.header__nav > a.is-current,
+.navcat > a.is-current {
+  background: none;
+}
+/* Etkin sayfa: altında küçük ışıklı nokta. */
+.header__nav > a.is-current::after,
+.navcat > a.is-current::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+.header__pill {
+  background:
+    radial-gradient(120% 140% at 50% 0%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 8px 24px -10px color-mix(in srgb, var(--accent) 80%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+.header__nav sup {
+  display: none;
+}
+/* Ürünler vitrini: kategoriler ürün görselleriyle. */
+.navcat__panel {
+  left: -8px;
+  right: auto;
+  width: 540px;
+  padding: 14px;
+  border-radius: 24px;
+  transform-origin: top left;
+  background: linear-gradient(180deg, rgba(20, 24, 20, 0.94), rgba(8, 10, 8, 0.96));
+}
+.navcat__panel ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.navcat__panel li a {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 8px 8px 12px;
+  border-radius: 16px;
+  font-size: 0.84rem;
+}
+.navcat__panel li a:hover {
+  padding-left: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.navcat__img {
+  display: grid;
+  place-items: center;
+  height: 86px;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 60%, color-mix(in srgb, var(--c) 45%, #1a1f1a), #0b0d0b 75%);
+  overflow: hidden;
+}
+.navcat__img img {
+  max-height: 76px;
+  max-width: 80%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.5));
+  transition: transform 0.6s var(--ease);
+}
+.navcat__panel li a:hover .navcat__img img {
+  transform: translateY(-3px) scale(1.06);
+}
+.navcat__name {
+  line-height: 1.2;
+}
+.navcat__panel li small {
+  margin-left: 0;
+}
+.navcat__panel li i {
+  display: none;
+}
+.navcat__all {
+  font-size: 0.8rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-family: var(--sans, inherit) !important;
+  margin-bottom: 10px;
+}
+/* Telefon menüsü: numarasız, zarif satırlar. */
+.menu__links a {
+  font-size: clamp(2.2rem, 7vw, 5rem);
+}
+.menu__links sup {
+  display: none;
+}
+/* Uzun ürün adları tek satırda kalsın, ürünün üstüne binmesin. */
+.hud__name.is-long {
+  font-size: clamp(1.9rem, min(3.6vw, 6.4vh), 4.4rem);
+}
+.hud__name.is-longer {
+  font-size: clamp(1.5rem, min(2.6vw, 5vh), 3.2rem);
+  max-width: 92vw;
+}
+@media (max-width: 900px) {
+  .hud__name.is-long {
+    font-size: clamp(1.6rem, 8vw, 3rem);
+  }
+  .hud__name.is-longer {
+    font-size: clamp(1.3rem, 6vw, 2.2rem);
+  }
+}
+
+/* "Tüm ürünleri keşfet": ince altın çerçeveli cam buton; üzerine gelince
+   zemin ürünün renginde dolar, ok dairesi sağa kayar. */
+.explore {
+  --edge: color-mix(in srgb, var(--accent, #c9a86a) 70%, #fff);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 34px);
+  padding: 12px 12px 12px clamp(26px, 3vw, 38px);
+  border-radius: 999px;
+  color: var(--fg);
+  text-decoration: none;
+  background:
+    linear-gradient(rgba(14, 14, 16, 0.62), rgba(14, 14, 16, 0.62)) padding-box,
+    linear-gradient(120deg, color-mix(in srgb, var(--edge) 85%, transparent), rgba(255, 255, 255, 0.08) 45%, color-mix(in srgb, var(--edge) 70%, transparent)) border-box;
+  border: 1px solid transparent;
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 24px 60px -28px color-mix(in srgb, var(--accent, #c9a86a) 70%, transparent);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), color 0.5s var(--ease);
+}
+.explore::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent, #c9a86a) 40%, #fff), var(--accent, #c9a86a));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.7s var(--ease);
+}
+.explore__text {
+  display: grid;
+  gap: 3px;
+  text-align: left;
+}
+.explore__label {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.1vw, 28px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+.explore__sub {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.5s var(--ease);
+}
+.explore__arrow {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  color: #0c0a09;
+  background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--accent, #c9a86a) 45%, #fff));
+  box-shadow: 0 8px 22px -8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.6s var(--ease), background 0.5s var(--ease);
+}
+.explore:hover {
+  transform: translateY(-2px);
+  color: #0c0a09;
+  box-shadow: 0 30px 70px -26px color-mix(in srgb, var(--accent, #c9a86a) 95%, transparent);
+}
+.explore:hover::before {
+  transform: scaleX(1);
+}
+.explore:hover .explore__sub {
+  color: rgba(12, 10, 9, 0.7);
+}
+.explore:hover .explore__arrow {
+  transform: translateX(4px) rotate(-45deg);
+  background: #0c0a09;
+  color: #fff;
+}
+.explore:focus-visible {
+  outline: 2px solid var(--edge);
+  outline-offset: 4px;
+}
+.explore:active {
+  transform: scale(0.98);
+}
+
+/* ===================== Ürün kartı: sinematik sahne =====================
+   Yeşil zemin yok: sıcak, koyu bir stüdyo. Üstten yumuşak spot, ürün parlak bir
+   zeminin üstünde durur; ayağının dibinde temas gölgesi, zeminde silik yansıması.
+   Ürünün kendi rengi yalnızca zemindeki ışık havuzuna çok hafif karışır. */
+.pcard {
+  background: linear-gradient(180deg, #121110, #0a0a09 70%);
+  border-color: rgba(255, 240, 220, 0.07);
+}
+.pcard:hover {
+  border-color: rgba(255, 236, 210, 0.2);
+  box-shadow:
+    0 40px 70px -30px rgba(0, 0, 0, 0.95),
+    0 0 60px -26px color-mix(in srgb, var(--c) 45%, rgba(255, 230, 200, 0.5));
+}
+.pcard__cat {
+  color: rgba(236, 222, 200, 0.62);
+}
+.pcard__media.is-cutout {
+  --floor: 83%;
+  isolation: isolate;
+  background:
+    /* spotun tepeden düştüğü ışık */
+    radial-gradient(ellipse 58% 62% at 50% -6%, rgba(255, 238, 214, 0.16), transparent 70%),
+    /* zemindeki ışık havuzu (ürünün renginden bir tutam) */
+    radial-gradient(ellipse 46% 9% at 50% var(--floor), color-mix(in srgb, var(--c) 16%, rgba(255, 236, 212, 0.2)), transparent 72%),
+    /* ufuk: arka duvar biraz açık, zemin koyu */
+    linear-gradient(180deg, #0c0b0a 0%, #171513 calc(var(--floor) - 0.5%), #0b0a09 calc(var(--floor) + 0.5%), #050505 100%);
+}
+/* Kenarlarda sinema karartması. */
+.pcard__media.is-cutout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 75% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+/* Ürünün ayağındaki temas gölgesi. */
+.pcard__media.is-cutout::after {
+  content: "";
+  position: absolute;
+  left: 26%;
+  right: 26%;
+  top: calc(var(--floor) - 1.6%);
+  height: 3.2%;
+  z-index: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent);
+  filter: blur(3px);
+  pointer-events: none;
+}
+.pcard__floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--floor);
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* parlak zeminin ince ışık çizgisi ve derinliğe doğru kararma */
+  background:
+    linear-gradient(90deg, transparent 8%, rgba(255, 236, 210, 0.16) 50%, transparent 92%) top / 100% 1px no-repeat,
+    linear-gradient(180deg, rgba(255, 236, 210, 0.04), transparent 70%);
+}
+.pcard__media.is-cutout .pcard__beam {
+  inset: -12% 16% 14%;
+  background: linear-gradient(180deg, rgba(255, 240, 220, 0.22), rgba(255, 240, 220, 0.05) 62%, transparent);
+  opacity: 0.5;
+}
+.pcard__media.is-cutout .pcard__dust {
+  opacity: 0.45;
+}
+/* Ürün zeminde durur (havada süzülmez); sahne çok yavaş "nefes alır". */
+.pcard__media.is-cutout .pcard__float {
+  animation: none;
+  z-index: 2;
+}
+.pcard__media.is-cutout img:not(.pcard__photo) {
+  padding: 9% 15% calc(100% - var(--floor));
+  object-position: 50% 100%;
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.6));
+  transform-origin: 50% var(--floor);
+  transition: scale 1.1s var(--ease), filter 0.8s ease;
+}
+.pcard:hover .pcard__media.is-cutout img:not(.pcard__photo) {
+  scale: 1.05;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.65)) brightness(1.06);
+}
+.pcard__media.is-cutout img.pcard__reflect {
+  transform: scaleY(-1);
+  opacity: 0.2;
+  filter: blur(1.5px);
+  -webkit-mask-image: linear-gradient(to top, transparent calc(100% - var(--floor)), #000 calc(100% - var(--floor)), transparent calc(100% - var(--floor) + 16%));
+  mask-image: linear-gradient(to top, transparent calc(100% - var(--floor)), #000 calc(100% - var(--floor)), transparent calc(100% - var(--floor) + 16%));
+}
+.pcard:hover .pcard__media.is-cutout img.pcard__reflect {
+  filter: blur(1.5px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pcard__media.is-cutout .pcard__beam {
+    animation: none;
+  }
+}
+/* Sahnedeki ürünün yerine üzerine gelince kutulu/zeminli fotoğraf çıkmasın. */
+.pcard__media.is-cutout .pcard__photo {
+  display: none;
+}
+
+/* ===================== Ürün arama ===================== */
+.search-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--faint);
+  color: var(--fg);
+  background: rgba(10, 10, 12, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.35s var(--ease), background 0.4s ease;
+}
+.search-btn:hover {
+  border-color: rgba(242, 239, 233, 0.4);
+  background: rgba(255, 240, 220, 0.08);
+}
+.search-btn:hover svg {
+  transform: rotate(-12deg) scale(1.08);
+}
+.search-btn svg {
+  transition: transform 0.4s var(--ease);
+}
+@media (max-width: 900px) {
+  .search-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media (max-width: 560px) {
+  .header__right .lang {
+    display: none;
+  }
+}
+
+.search {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  padding: clamp(70px, 12vh, 120px) 16px 24px;
+}
+.search__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255, 236, 210, 0.08), transparent 70%),
+    rgba(5, 5, 5, 0.72);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  animation: searchFade 0.35s ease both;
+}
+.search__panel {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: calc(100svh - clamp(70px, 12vh, 120px) - 24px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 236, 210, 0.12);
+  background: linear-gradient(180deg, rgba(24, 22, 20, 0.92), rgba(12, 11, 10, 0.96));
+  box-shadow:
+    0 50px 120px -40px rgba(0, 0, 0, 0.95),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  overflow: hidden;
+  animation: searchIn 0.55s var(--ease) both;
+}
+.search.is-closing .search__scrim {
+  animation: searchFade 0.26s ease reverse both;
+}
+.search.is-closing .search__panel {
+  animation: searchOut 0.26s ease both;
+}
+@keyframes searchFade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes searchIn {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.98);
+    filter: blur(6px);
+  }
+}
+@keyframes searchOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+.search__field {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 20px 18px 24px;
+  border-bottom: 1px solid rgba(255, 236, 210, 0.08);
+  color: rgba(236, 222, 200, 0.7);
+}
+.search__field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--fg);
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.6vw, 30px);
+  letter-spacing: 0.01em;
+  caret-color: #e8c77a;
+}
+.search__field input::placeholder {
+  color: rgba(242, 239, 233, 0.32);
+}
+.search__clear {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.search__clear:hover {
+  color: var(--fg);
+}
+.search__close {
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--fg);
+  cursor: pointer;
+}
+.search__x {
+  display: none;
+}
+.search kbd {
+  display: inline-block;
+  min-width: 22px;
+  padding: 3px 7px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 236, 210, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(242, 239, 233, 0.7);
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  line-height: 1.3;
+  text-align: center;
+}
+.search__cats {
+  display: flex;
+  gap: 8px;
+  padding: 14px 20px 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.search__cats::-webkit-scrollbar {
+  display: none;
+}
+.search__cats button {
+  flex: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 236, 210, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(242, 239, 233, 0.72);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.search__cats button:hover {
+  border-color: rgba(255, 236, 210, 0.28);
+  color: var(--fg);
+}
+.search__cats button.is-on {
+  color: #0c0a09;
+  border-color: transparent;
+  background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--c) 40%, #f3e6d0));
+}
+.search__meta {
+  padding: 12px 24px 6px;
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(236, 222, 200, 0.5);
+}
+.search__list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 10px 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.search__list li {
+  animation: searchRow 0.5s var(--ease) both;
+  animation-delay: calc(var(--i) * 28ms);
+}
+@keyframes searchRow {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.search__item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 14px 8px 8px;
+  border: 0;
+  border-radius: 16px;
+  background: none;
+  color: var(--fg);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+.search__item.is-active {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c) 14%, rgba(255, 236, 210, 0.07)), rgba(255, 236, 210, 0.02));
+}
+/* Küçük stüdyo: kartlardaki sahnenin minyatürü. */
+.search__thumb {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 238, 214, 0.16), transparent 70%),
+    radial-gradient(ellipse 50% 12% at 50% 86%, color-mix(in srgb, var(--c) 20%, rgba(255, 236, 210, 0.18)), transparent 72%),
+    linear-gradient(180deg, #11100f, #1a1816 84%, #0a0909 84%);
+  border: 1px solid rgba(255, 236, 210, 0.07);
+}
+.search__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+  padding: 8px 10px 10px;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.55));
+  transition: scale 0.5s var(--ease);
+}
+.search__item.is-active .search__thumb img {
+  scale: 1.08;
+}
+.search__text {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.search__name {
+  font-family: var(--wide);
+  font-size: 1.12rem;
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.search__name mark {
+  color: #f0d59a;
+  background: none;
+  box-shadow: inset 0 -1px 0 rgba(240, 213, 154, 0.55);
+}
+.search__sub {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(236, 222, 200, 0.5);
+}
+.search__price {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: rgba(242, 239, 233, 0.85);
+}
+.search__price svg {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s ease, transform 0.4s var(--ease);
+}
+.search__item.is-active .search__price svg {
+  opacity: 1;
+  transform: none;
+}
+.search__empty {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 26px 20px 30px;
+  text-align: center;
+}
+.search__emptyTitle {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  color: rgba(242, 239, 233, 0.8);
+}
+.search__emptyLink {
+  color: #e8c77a;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.search__keys {
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  padding: 12px 20px 14px;
+  border-top: 1px solid rgba(255, 236, 210, 0.07);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: rgba(236, 222, 200, 0.45);
+}
+.search__keys span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+@media (max-width: 640px) {
+  .search {
+    padding: 10px 10px 0;
+  }
+  .search__panel {
+    max-height: calc(100svh - 10px);
+    border-radius: 22px 22px 0 0;
+    height: calc(100svh - 10px);
+  }
+  .search__field {
+    padding: 16px 14px 14px 18px;
+  }
+  .search__field input {
+    font-size: 19px;
+  }
+  .search__item {
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+  }
+  .search__thumb {
+    width: 56px;
+    height: 56px;
+  }
+  .search__name {
+    font-size: 1rem;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .search__price {
+    font-size: 0.85rem;
+  }
+  .search__price svg,
+  .search__keys,
+  .search .search__esc {
+    display: none;
+  }
+  .search__x {
+    display: block;
+  }
+  .search__close {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 236, 210, 0.14);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .search__panel,
+  .search__scrim,
+  .search__list li {
+    animation: none;
+  }
+}
+
+/* Sepette ürün görseli (renk karesi yerine küçük stüdyo) ve seçenek menüsü. */
+.line__thumb {
+  position: relative;
+  width: 56px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 238, 214, 0.16), transparent 70%),
+    radial-gradient(ellipse 50% 10% at 50% 86%, color-mix(in srgb, var(--c) 20%, rgba(255, 236, 210, 0.18)), transparent 72%),
+    linear-gradient(180deg, #11100f, #1a1816 86%, #0a0909 86%);
+  border: 1px solid rgba(255, 236, 210, 0.08);
+}
+.line__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+  padding: 7px 8px 10px;
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5));
+}
+.line__variant {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.line__variant select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 5px 26px 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 236, 210, 0.16);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' fill='none' stroke='%23f2efe9' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E") right 9px center / 10px no-repeat,
+    rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+}
+.line__variant select option {
+  color: #111;
+}
+button.buy__more {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Kayan bant: koyu sitede beyaz şerit yerine ince altın çizgili, sıcak koyu bant. */
+.marquee {
+  padding: 22px 0;
+  background: linear-gradient(180deg, #0f0d0c, #141210 50%, #0f0d0c);
+  color: rgba(242, 232, 214, 0.86);
+  border-top: 1px solid rgba(232, 199, 122, 0.18);
+  border-bottom: 1px solid rgba(232, 199, 122, 0.18);
+}
+.marquee span {
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3vw, 2.6rem);
+  letter-spacing: 0.04em;
+}
+.marquee i {
+  color: #e8c77a;
+  font-size: 0.45em;
+}
+
+/* Masaüstü detay: metin bloğu "Ürünlere dön" ile alttaki gezinme arasında ortalanır;
+   içerik uzunsa yukarı taşıp geri butonunun altına girmez. */
+@media (min-width: 901px) {
+  .detail__body {
+    top: calc(124px + 50px + env(safe-area-inset-top, 0px));
+    bottom: 112px;
+    transform: none;
+    gap: 18px;
+  }
+  .detail__body > :first-child {
+    margin-top: auto;
+  }
+  .detail__body > :last-child {
+    margin-bottom: auto;
+  }
+}
+
+/* Masaüstü kategori dizininin arkasında yumuşak karartma: yandaki 3B ürün listenin
+   altından geçerken yazılar okunur kalır, ürün karanlıkta kaybolur. */
+@media (min-width: 901px) {
+  .catbar::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: calc(-1 * var(--gutter));
+    height: 60vh;
+    top: calc(50% - 30vh);
+    width: calc(260px + 8vw);
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(8, 7, 6, 0.82), rgba(8, 7, 6, 0.55) 55%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+  }
+}
+
+/* Detay: uzun adlar küçülür, başlık ekran yüksekliğine göre ölçeklenir; içerik yine de
+   sığmazsa panel kendi içinde kayar (sepet butonu hiçbir zaman aşağıda kaybolmaz). */
+.detail__title {
+  font-size: clamp(2rem, min(4.2vw, 7.4vh), 4.6rem);
+}
+.detail__title.is-long {
+  font-size: clamp(1.8rem, min(3.4vw, 6vh), 3.6rem);
+}
+.detail__title.is-longer {
+  font-size: clamp(1.6rem, min(2.7vw, 4.8vh), 2.8rem);
+  line-height: 1.04;
+}
+@media (min-width: 901px) {
+  .detail__body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    padding-right: 8px;
+    pointer-events: auto;
+  }
+  .detail__body::-webkit-scrollbar {
+    display: none;
+  }
+  .detail__desc {
+    font-size: clamp(1rem, 1.9vh, 1.15rem);
+  }
+}
+.gallery__more {
+  display: grid;
+  place-items: center;
+  color: var(--fg);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.06);
+}
+/* Alçak laptop ekranları: detay paneli sıkışır, sepet butonu kaydırmadan görünür. */
+@media (min-width: 901px) and (max-height: 800px) {
+  .detail__body {
+    top: calc(124px + 36px);
+    bottom: 96px;
+    gap: 12px;
+  }
+  .detail__notes {
+    padding-top: 12px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .detail__notes li {
+    flex: none;
+  }
+  .gallery {
+    margin-top: 0;
+  }
+  .gallery__label {
+    display: none;
+  }
+  .gallery__thumb {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+  }
+  .detail__desc {
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+  .detail__nav {
+    bottom: 26px;
+  }
+}
+
+/* Yaprak yerine çiçek yaprağı sahnesi olan markalar (content.particles ≠ "leaves"): sıcak krem ton. */
+.leaves--petals svg {
+  fill: #f0e4d8;
+}
+.leaves--petals .leaves__shade {
+  fill: rgba(160, 118, 100, 0.28);
+}
+.leaves--petals .leaves__vein {
+  stroke: none;
+}
+
+/* ===================== Tema: "portal" (Türkan · Sayıların Kapısı) =====================
+   Siyah kadife, altın kıl çizgiler, keskin köşeler; başlıklar ince ve geniş aralıklı.
+   Açılışta kemerli bir kapı çizilir ve açılarak sahneyi gösterir. */
+:root[data-theme="portal"] {
+  --gold: var(--theme-accent, #c9a55c);
+  --gold-soft: color-mix(in srgb, var(--gold) 55%, #fff);
+  --gold-line: color-mix(in srgb, var(--gold) 38%, transparent);
+  --bg: #070605;
+  --portal-bg: #070605;
+  font-synthesis: none;
+}
+[data-theme="portal"] body {
+  background: #070605;
+}
+/* Başlıklar: tek kalınlıkta ince yazı, geniş harf aralığı (logodaki gibi). */
+[data-theme="portal"] :is(.hud__name, .detail__title, .section__title, .catalog__title, .catgrid__head h2, .pcard__name, .search__name, .explore__label, .ritual__title, .menu__links a, .marquee span, h1, h2) {
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+[data-theme="portal"] .hud__name {
+  letter-spacing: 0.1em;
+}
+[data-theme="portal"] .section__title {
+  letter-spacing: 0.04em;
+}
+/* Vurgu: altın. */
+[data-theme="portal"] :is(.section__eyebrow, .pcard__cat, .catbar__title, .features__hint, .tag) {
+  color: var(--gold-soft);
+}
+[data-theme="portal"] .dot,
+[data-theme="portal"] .tag .dot {
+  background: var(--gold) !important;
+  box-shadow: 0 0 12px var(--gold);
+}
+/* Keskin köşeler ve altın kıl çizgiler. */
+[data-theme="portal"] :is(.pill, .hud__cta, .explore, .pcard, .pcard__media, .pcard__add, .chips li, .header__nav, .navcat__panel, .search__panel, .search__cats button, .search__item, .search__thumb, .detail__body, .feat, .drawer__panel, .gallery__thumb, .catalog__chips, .catbar__chips, .catbar__chips a, .line__thumb, .qty, .stat, .contact input, .contact textarea, .news input, .lang, .lang button) {
+  border-radius: 2px;
+}
+[data-theme="portal"] :is(.header__nav, .pcard, .feat, .search__panel, .explore, .catalog__chips, .hud__cta, .chips li, .pcard__add, .stat) {
+  border-color: var(--gold-line);
+}
+[data-theme="portal"] .header__pill {
+  border-radius: 1px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--gold) 22%, transparent), color-mix(in srgb, var(--gold) 8%, transparent));
+}
+/* Ana buton: altın varak. */
+[data-theme="portal"] .pill {
+  color: #120e09;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(120deg, #f1dfb2, var(--gold) 55%, #9c7735);
+  box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--gold) 90%, transparent), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+[data-theme="portal"] .hud__cta {
+  border: 1px solid var(--gold-line);
+  background: rgba(10, 8, 6, 0.4);
+}
+[data-theme="portal"] .hud__cta:hover {
+  border-color: var(--gold);
+  color: var(--gold-soft);
+}
+[data-theme="portal"] :is(.round, .menu-btn, .cart-btn, .search-btn) {
+  border-color: var(--gold-line);
+}
+[data-theme="portal"] .explore__arrow {
+  border-radius: 2px;
+  background: linear-gradient(120deg, #f1dfb2, var(--gold));
+}
+[data-theme="portal"] .explore::before {
+  background: linear-gradient(120deg, #f1dfb2, var(--gold));
+}
+/* Kayan bant: altın. */
+[data-theme="portal"] .marquee {
+  color: var(--gold-soft);
+  border-color: var(--gold-line);
+  background: #0a0806;
+}
+/* Kartlar: altın spot ve zemin çizgisi. */
+[data-theme="portal"] .pcard__media.is-cutout {
+  background:
+    radial-gradient(ellipse 58% 62% at 50% -6%, color-mix(in srgb, var(--gold) 20%, transparent), transparent 70%),
+    radial-gradient(ellipse 46% 9% at 50% var(--floor), color-mix(in srgb, var(--gold) 26%, transparent), transparent 72%),
+    linear-gradient(180deg, #0a0907 0%, #131110 calc(var(--floor) - 0.5%), #090807 calc(var(--floor) + 0.5%), #040404 100%);
+}
+[data-theme="portal"] .pcard__floor {
+  background:
+    linear-gradient(90deg, transparent 8%, color-mix(in srgb, var(--gold) 55%, transparent) 50%, transparent 92%) top / 100% 1px no-repeat,
+    linear-gradient(180deg, color-mix(in srgb, var(--gold) 6%, transparent), transparent 70%);
+}
+/* Katalog ve kategori zemini: kadife siyah, altın ışık. */
+[data-theme="portal"] .atmos {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 18%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.85)),
+    #070605;
+}
+[data-theme="portal"] .atmos__bokeh i {
+  background: color-mix(in srgb, var(--gold) 40%, transparent);
+}
+
+/* ---- Hızlı açılış (temalı markalar): logo + ince altın yükleme çizgisi ---- */
+.mark {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: #070605;
+  transition: opacity 0.7s ease, visibility 0s linear 0.7s;
+}
+.mark.is-quick {
+  transition-duration: 0.35s, 0s;
+  transition-delay: 0s, 0.35s;
+}
+.mark.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mark__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  animation: mark-in 0.6s ease both;
+}
+.mark.is-done .mark__inner {
+  transform: translateY(-8px) scale(0.98);
+  transition: transform 0.7s ease;
+}
+.mark__logo {
+  height: clamp(28px, 4.2vw, 40px);
+  width: auto;
+}
+.mark__name {
+  font-family: var(--wide);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.3em;
+  color: #f2ead8;
+}
+.mark__line {
+  position: relative;
+  width: 140px;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(201, 165, 92, 0.18);
+}
+.mark__line span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--gold, #c9a55c), #f1dfb2);
+  transform-origin: left;
+  transition: transform 0.2s linear;
+}
+@keyframes mark-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mark__inner {
+    animation: none;
+  }
+}
+[data-theme="portal"] .lang button.is-on {
+  color: #120e09;
+  background: linear-gradient(120deg, #f1dfb2, var(--gold));
+  box-shadow: none;
+}
+[data-theme="portal"] :is(.menu-btn, .cart-btn, .search-btn, .lang) {
+  background: rgba(10, 8, 6, 0.55);
+  box-shadow: none;
+}
+[data-theme="portal"] :is(.menu-btn, .cart-btn, .search-btn):hover {
+  border-color: var(--gold);
+}
+
+/* ---- Portal: editoryal kahraman düzeni (masaüstü) ----
+   Ad dev ve sola hizalı (dergi kapağı), sayaç sol üstte ince büyük rakam, notalar sağda
+   dikey liste; ürün sağ-ortada kaidesinde, arkasında numarası. */
+@media (min-width: 901px) {
+  [data-theme="portal"] .hud__center {
+    left: calc(var(--gutter) + 3vw);
+    bottom: 21%;
+    transform: none;
+    align-items: flex-start;
+    text-align: left;
+    width: min(46vw, 760px);
+    max-width: none;
+  }
+  [data-theme="portal"] .hud__center .tag {
+    order: -1;
+    margin-bottom: 6px;
+  }
+  [data-theme="portal"] .hud__name {
+    font-size: clamp(3rem, 6.4vw, 7.2rem);
+    line-height: 0.95;
+    text-align: left;
+    letter-spacing: 0.04em;
+  }
+  [data-theme="portal"] .hud__name.is-long {
+    font-size: clamp(2.6rem, 5vw, 5.6rem);
+  }
+  [data-theme="portal"] .hud__name.is-longer {
+    font-size: clamp(2rem, 3.6vw, 4rem);
+  }
+  [data-theme="portal"] .hud__tagline {
+    max-width: 30em;
+    margin-top: 10px;
+    font-size: 1.25rem;
+    color: rgba(242, 234, 216, 0.72);
+  }
+  [data-theme="portal"] .hud__cta {
+    margin-top: 26px;
+    padding: 14px 26px;
+  }
+  /* Sayaç: sol üstte ince, büyük. */
+  /* Sayaç kutusu HUD'u kaplar: nota listesi sabit (fixed) değil, HUD ile birlikte kayar ve
+     Ritüel'e geçerken sahneden çıkar. */
+  [data-theme="portal"] .hud__count {
+    inset: 0;
+    padding: 19vh 0 0 calc(var(--gutter) + 3vw);
+    justify-content: flex-start;
+    pointer-events: none;
+  }
+  [data-theme="portal"] .count__now {
+    font-weight: 400;
+    font-size: 4.2rem;
+    color: var(--gold-soft);
+  }
+  [data-theme="portal"] .count__line {
+    background: var(--gold-line);
+  }
+  /* Notalar: sağda dikey liste, altın kıl çizgi ile. */
+  [data-theme="portal"] .hud__count .chips {
+    position: absolute;
+    right: calc(var(--gutter) + 2vw);
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    padding-right: 18px;
+    border-right: 1px solid var(--gold-line);
+  }
+  [data-theme="portal"] .hud__count .chips::before {
+    content: attr(aria-label);
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: 6px;
+  }
+  [data-theme="portal"] .hud__count .chips li {
+    border: 0;
+    background: none;
+    padding: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: rgba(242, 234, 216, 0.82);
+  }
+  [data-theme="portal"] .hud__count .chips li::before {
+    display: none;
+  }
+  /* Alttaki koku çizgisi: ince altın segmentler. */
+  [data-theme="portal"] .track {
+    left: calc(var(--gutter) + 3vw);
+    transform: none;
+    align-items: flex-start;
+    width: min(420px, 30vw);
+  }
+}
+
+/* ===================== Galeri kartları (theme.cards = "gallery") =====================
+   Sergi: kutu ve renkli zemin yok; ürün sitenin karanlık zemininde, tepeden inen sıcak beyaz
+   bir spot ışığın altında durur. Zeminde ışık havuzu, ayağında temas gölgesi ve hafif yansıma;
+   arkada ince altın çizgiyle kokunun numarası. */
+.pgrid:has(.pcard--gallery) {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 310px));
+  justify-content: center;
+  max-width: 1320px;
+  margin-inline: auto;
+  gap: clamp(36px, 5vw, 72px) clamp(12px, 2vw, 28px);
+}
+.pcard--gallery {
+  --bg: #2a211c;
+  --bg2: #c9a55c;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+.pcard--gallery:hover {
+  box-shadow: none;
+}
+.pcard--gallery .pcard__media.is-cutout {
+  --floor: 84%;
+  aspect-ratio: 3 / 4;
+  overflow: visible;
+  background:
+    radial-gradient(ellipse 36% 5.5% at 50% var(--floor), rgba(255, 238, 212, 0.34), transparent 72%),
+    radial-gradient(ellipse 44% 40% at 50% 54%, rgba(255, 236, 208, 0.09), transparent 72%);
+}
+.pcard--gallery .pcard__media.is-cutout::before,
+.pcard--gallery .pcard__media.is-cutout::after {
+  display: none;
+}
+/* Spot ışığı: tepeden ürüne inen yumuşak koni. */
+.pcard--gallery .pcard__beam {
+  inset: -16% 12% calc(100% - var(--floor) - 1%);
+  background: linear-gradient(180deg, rgba(255, 244, 224, 0.36), rgba(255, 242, 220, 0.12) 55%, rgba(255, 242, 220, 0.03));
+  clip-path: polygon(43% 0, 57% 0, 100% 100%, 0 100%);
+  filter: blur(10px);
+  opacity: 0.8;
+  transition: opacity 0.8s ease;
+}
+.pcard--gallery:hover .pcard__beam {
+  opacity: 1;
+}
+/* Dev numara: arkada ince altın çizgi. */
+.pcard__num {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 6%;
+  text-align: center;
+  font-family: var(--wide);
+  font-size: clamp(8rem, 13vw, 12rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--gold, #c9a55c) 70%, transparent);
+  opacity: 0.2;
+  pointer-events: none;
+  transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
+}
+.pcard--gallery:hover .pcard__num {
+  opacity: 0.38;
+  transform: translateY(-6px) scale(1.03);
+}
+/* Ürünün ayağındaki temas gölgesi. */
+.pcard--gallery .pcard__floor {
+  left: 22%;
+  right: 22%;
+  top: calc(var(--floor) - 1.8%);
+  bottom: auto;
+  height: 3.6%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), transparent);
+  box-shadow: none;
+}
+.pcard--gallery .pcard__media.is-cutout img:not(.pcard__photo) {
+  padding: 16% 17% calc(100% - var(--floor));
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.75)) brightness(1.06);
+}
+.pcard--gallery:hover .pcard__media.is-cutout img:not(.pcard__photo) {
+  filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.8)) brightness(1.14);
+}
+.pcard--gallery .pcard__media.is-cutout img.pcard__reflect {
+  opacity: 0.12;
+}
+/* Gövde: ortalı, ince yazı, notalar italik. */
+.pcard--gallery .pcard__body {
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 6px 10px 0;
+  background: none;
+}
+.pcard--gallery .pcard__cat {
+  color: var(--gold-soft, #d9bf85);
+  letter-spacing: 0.26em;
+}
+.pcard--gallery .pcard__name {
+  font-size: 1.7rem;
+  letter-spacing: 0.06em;
+}
+.pcard__notes {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.45;
+  color: rgba(242, 234, 216, 0.66);
+  min-height: 2.9em;
+}
+.pcard--gallery .pcard__foot {
+  flex-direction: column;
+  width: 100%;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(201, 165, 92, 0.22);
+}
+.pcard--gallery .pcard__price {
+  font-family: var(--wide);
+  font-weight: 400;
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+}
+.pcard--gallery .pcard__add {
+  width: 100%;
+  justify-content: center;
+  border-radius: 2px;
+  padding: 13px 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--gold-soft, #d9bf85);
+  border: 1px solid rgba(201, 165, 92, 0.55);
+  background: transparent;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+.pcard--gallery .pcard__add:hover,
+.pcard--gallery .pcard__add.is-added {
+  color: #120e09;
+  background: linear-gradient(120deg, #f1dfb2, var(--gold, #c9a55c) 55%, #9c7735);
+}
+.pcard--gallery .pcard__add svg {
+  display: none;
+}
+
+/* Portal: kategori dizini solda başlığın üstüne binmesin; üstte ince yatay satır. */
+@media (min-width: 901px) {
+  [data-theme="portal"] .catbar {
+    top: calc(118px + env(safe-area-inset-top, 0px));
+    left: 50%;
+    translate: -50% 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+  }
+  [data-theme="portal"] .catbar__chips {
+    flex-direction: row;
+    gap: 22px;
+  }
+  [data-theme="portal"] .catbar__title {
+    white-space: nowrap;
+  }
+  [data-theme="portal"] .catbar__chips a,
+  [data-theme="portal"] .catbar__chips a.is-on {
+    padding: 6px 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(242, 234, 216, 0.55);
+    border-bottom: 1px solid transparent;
+  }
+  [data-theme="portal"] .catbar__chips a:is(.is-on, :hover) {
+    padding: 6px 0;
+    color: var(--gold-soft);
+    border-bottom-color: var(--gold-line);
+  }
+  [data-theme="portal"] .catbar__chips a::before {
+    display: none;
+  }
+  [data-theme="portal"] .hud__name.is-longer {
+    font-size: clamp(2rem, 3.1vw, 3.6rem);
+  }
+}
+
+/* ===================== Telefon: ürün sayfası =====================
+   Ürün ekranın üst yarısını doldurur; bilgi kartı altta kısa ve sade, ürünün üstüne binmez.
+   Hikâye butonları sağ kenarda küçük bir sütun. */
+@media (max-width: 900px) {
+  .detail__body {
+    bottom: 80px;
+    gap: 8px;
+    padding: 14px 16px 16px;
+    max-height: 38vh;
+    max-height: 38svh;
+  }
+  .detail__body .tag,
+  .detail__body .strike {
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+  }
+  .detail__title,
+  .detail__title.is-long,
+  .detail__title.is-longer {
+    font-size: clamp(1.25rem, 6vw, 1.6rem);
+    line-height: 1.08;
+  }
+  .detail__desc {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .detail__meta {
+    display: none;
+  }
+  .detail__body .gallery {
+    margin-top: 0;
+  }
+  .detail__body .gallery__label {
+    display: none;
+  }
+  .detail__body .gallery__thumb {
+    width: 42px;
+    height: 42px;
+  }
+  .detail__body .buy .pill {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
+  .features {
+    top: calc(92px + env(safe-area-inset-top, 0px));
+    right: 10px;
+    gap: 6px;
+  }
+  .feat__icon {
+    width: 36px;
+    height: 36px;
+  }
+  .feat {
+    padding: 3px;
+  }
+  .detail__nav {
+    bottom: 20px;
+  }
+  .detail__nav .round {
+    width: 40px;
+    height: 40px;
+  }
+  .back {
+    top: calc(92px + env(safe-area-inset-top, 0px));
+  }
+  .back .round {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Portal temasında kategori dizini üstte yatay: soldaki karartma bandı gerekmez. */
+[data-theme="portal"] .catbar::before {
+  display: none;
+}
+
+/* Galeri: 3B görünümü olan çekimler sahnedeki ürünü değiştirir; seçili olan altın çerçeveli. */
+.gallery__thumb.is-3d {
+  position: relative;
+}
+.gallery__thumb.is-3d::after {
+  content: "3B";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  padding: 1px 4px;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: #120e09;
+  background: var(--gold, #c9a55c);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.gallery__thumb.is-on {
+  outline: 1px solid var(--gold, #c9a55c);
+  outline-offset: 2px;
+}
+
+/* ===================== Sergi kartları (ürün 3B sahnede; kart-3b.py --stage) =====================
+   Görsel kartın tamamı; ince altın çerçeve, altta yazı için karartma, ok ve sepet düğmeleri. */
+.pgrid:has(.pcard--scene) {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 340px));
+  justify-content: center;
+  gap: clamp(18px, 2vw, 28px);
+}
+.pcard.pcard--scene {
+  position: relative;
+  aspect-ratio: 3 / 4.35;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #060504;
+  border: 1px solid rgba(201, 165, 92, 0.38);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  transition: border-color 0.5s ease, box-shadow 0.6s ease, opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.pcard.pcard--scene:hover {
+  border-color: rgba(217, 180, 106, 0.8);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.95), 0 0 40px -12px rgba(201, 165, 92, 0.35);
+}
+.pcard__scene {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+/* Sahne kartın üst kısmında (kemerin tepesi biraz kırpılır); kaidenin altı yazıya kalır. */
+.pcard__scene img {
+  position: absolute;
+  left: 0;
+  top: -9%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  transform-origin: 50% 40%;
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 97%);
+  mask-image: linear-gradient(180deg, #000 72%, transparent 97%);
+  transition: scale 1.4s var(--ease), filter 0.8s ease;
+}
+.pcard--scene:hover .pcard__scene img {
+  scale: 1.05;
+  filter: brightness(1.08);
+}
+.pcard__over {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 36px 18px 20px;
+  text-align: center;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(5, 4, 3, 0.7) 30%, rgba(5, 4, 3, 0.92));
+}
+.pcard__over > * {
+  pointer-events: auto;
+}
+.pcard--scene .pcard__cat {
+  color: var(--gold-soft, #d9bf85);
+  letter-spacing: 0.26em;
+  font-size: 0.64rem;
+}
+.pcard--scene .pcard__name {
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  letter-spacing: 0.05em;
+  color: #f2ead8;
+}
+.pcard--scene .pcard__size {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: rgba(242, 234, 216, 0.7);
+}
+.pcard__acts {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.pcard__round {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(217, 180, 106, 0.7);
+  background: rgba(8, 6, 4, 0.4);
+  color: var(--gold-soft, #d9bf85);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.pcard__round svg {
+  width: 17px;
+  height: 17px;
+}
+.pcard__round:hover,
+.pcard__round.is-added {
+  color: #120e09;
+  background: linear-gradient(120deg, #f1dfb2, var(--gold, #c9a55c) 55%, #9c7735);
+  transform: translateY(-2px);
+}
+
+/* ===================== Portal: sıkı alt bölümler =====================
+   Hakkımızda, satış noktaları, SSS ve iletişim: dev başlık ve geniş boşluk yerine ölçülü başlık,
+   ortalı içerik genişliği. Hakkımızda'da sağ sütun zaman çizelgesi + rakamlar (boş alan kalmaz). */
+[data-theme="portal"] .section {
+  padding-block: clamp(64px, 9vh, 112px);
+  padding-inline: max(var(--gutter), calc((100vw - 1240px) / 2));
+}
+[data-theme="portal"] .section__head {
+  margin-bottom: clamp(22px, 4vh, 40px);
+  gap: 8px;
+}
+[data-theme="portal"] .section .section__title {
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+}
+[data-theme="portal"] .story {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(36px, 6vw, 96px);
+  row-gap: 18px;
+  align-items: start;
+}
+[data-theme="portal"] .story__grid {
+  display: contents;
+}
+[data-theme="portal"] .story__main {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  gap: 16px;
+}
+[data-theme="portal"] .story__lead {
+  font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+  max-width: 36ch;
+}
+[data-theme="portal"] .story__text {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+[data-theme="portal"] .timeline {
+  grid-column: 2;
+  grid-row: 1;
+  gap: 18px;
+  padding: 26px 26px 26px 56px;
+  border: 1px solid var(--gold-line, rgba(201, 165, 92, 0.3));
+  background: rgba(255, 255, 255, 0.02);
+}
+[data-theme="portal"] .timeline::before {
+  left: 32px;
+  top: 34px;
+  bottom: 34px;
+}
+[data-theme="portal"] .timeline__year {
+  font-size: 1.45rem;
+}
+[data-theme="portal"] .stats {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 0;
+  gap: 10px;
+}
+[data-theme="portal"] .stats li {
+  padding: 16px 16px;
+  border-radius: 2px;
+  gap: 6px;
+}
+[data-theme="portal"] .stats strong {
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+}
+[data-theme="portal"] .press {
+  grid-column: 1 / -1;
+}
+@media (max-width: 900px) {
+  [data-theme="portal"] .story {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  [data-theme="portal"] .story__main,
+  [data-theme="portal"] .timeline,
+  [data-theme="portal"] .stats {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+/* ---------------------------------------------------------------- Ürünler sayfası: 3B dönen sergi girişi */
+/* Sabitlenen sahne için katalog kaydırma kabı olmamalı (overflow: hidden sticky'yi bozar). */
+.catalog:has(.cathero) {
+  overflow: clip;
+}
+.cathero {
+  --cw: clamp(150px, 16.5vw, 270px);
+  --r: calc(var(--cw) * var(--n) * 0.168);
+  --p: 0;
+  position: relative;
+  height: 250vh;
+  margin: calc(-1 * clamp(130px, 19vh, 180px)) calc(-1 * var(--gutter)) 0;
+}
+.cathero__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  padding: clamp(92px, 13vh, 128px) var(--gutter) clamp(22px, 4vh, 40px);
+}
+.cathero__beam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 34% 30% at 50% 62%, color-mix(in srgb, var(--accent, #c9a55c) 22%, transparent), transparent 70%),
+    conic-gradient(from 180deg at 50% -8%, transparent 172deg, rgba(255, 236, 200, 0.1) 177deg, rgba(255, 236, 200, 0.16) 180deg, rgba(255, 236, 200, 0.1) 183deg, transparent 188deg);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 88%);
+}
+.cathero__head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  transform: translateY(calc(var(--p) * -24px));
+  opacity: calc(1 - var(--p) * 0.35);
+}
+.cathero__head .catalog__title {
+  font-size: clamp(2.4rem, 5.6vw, 5.2rem);
+}
+.cathero__head .tagline {
+  margin: 0;
+}
+.cathero__stage {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  perspective: 1300px;
+  perspective-origin: 50% 45%;
+  min-height: calc(var(--cw) * 1.45);
+  margin-bottom: clamp(10px, 3vh, 34px);
+}
+.cathero__ring {
+  position: relative;
+  width: var(--cw);
+  aspect-ratio: 3 / 4;
+  transform-style: preserve-3d;
+  transform: rotateX(4deg);
+  scale: calc(0.96 + var(--p) * 0.1);
+}
+.cathero__card {
+  --lit: 1;
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, #d8b46a calc(20% + var(--lit) * 45%), transparent);
+  border-radius: 3px;
+  background: #050403;
+  overflow: hidden;
+  cursor: pointer;
+  will-change: transform;
+  filter: brightness(calc(0.28 + var(--lit) * 0.8)) saturate(calc(0.6 + var(--lit) * 0.4));
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9), 0 0 calc(var(--lit) * 40px) color-mix(in srgb, #e8c27a calc(var(--lit) * 18%), transparent);
+  -webkit-box-reflect: below 8px linear-gradient(transparent 68%, rgba(255, 255, 255, 0.16));
+  transition: border-color 0.3s;
+}
+.cathero__card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+.cathero__card:hover img,
+.cathero__card:focus-visible img {
+  transform: scale(1.05);
+}
+.cathero__floor {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: min(1100px, 130vw);
+  height: 38%;
+  translate: -50% 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 50% at 50% 30%, rgba(232, 194, 122, 0.12), transparent 70%);
+  filter: blur(8px);
+}
+.cathero__now {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  text-align: center;
+  animation: nowIn 0.6s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.cathero__now > p:first-child {
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold, #d8b46a);
+}
+.cathero__now h2 {
+  font-family: var(--wide);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+  line-height: 1.1;
+  margin: 0;
+}
+.cathero__price {
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+.cathero__now .pcard__acts {
+  margin-top: 8px;
+}
+@keyframes nowIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(6px);
+  }
+}
+.cathero__hint {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(22px, 4vh, 40px);
+  font-size: 0.66rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: calc(1 - var(--p) * 3);
+}
+.catalog__head--tabs {
+  margin-top: clamp(24px, 5vh, 48px);
+}
+@media (max-width: 700px) {
+  .cathero {
+    height: 220vh;
+  }
+  .cathero {
+    --cw: min(56vw, 250px);
+  }
+  .cathero__stage {
+    perspective: 900px;
+  }
+  .cathero__hint {
+    display: none;
+  }
+  .cathero__head .catalog__title {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+  }
+}
+
+/* ---------------------------------------------------------------- Sahne fotoğraflı ana sayfa: yazılar net */
+/* Arka planda desenli sahne varken başlık, açıklama, notalar ve kategori çubuğu koyu bir gölgeyle
+   zeminden ayrılır; ince yazılar biraz daha dolgun ve parlak. */
+[data-theme="portal"] :is(.hud__name, .hud__tagline, .tag, .count, .hud__count .chips li, .catbar__title, .catbar__chips a, .hud__scroll, .track__label, .hud__cta) {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 2px 18px rgba(0, 0, 0, 0.85);
+}
+[data-theme="portal"] .hud__name {
+  font-weight: 500;
+}
+[data-theme="portal"] .hud__tagline {
+  color: rgba(252, 248, 240, 0.94);
+  font-weight: 500;
+}
+[data-theme="portal"] .hud__count .chips li {
+  color: rgba(252, 248, 240, 0.95);
+}
+[data-theme="portal"] .catbar__chips a {
+  color: rgba(252, 248, 240, 0.86);
+}
+[data-theme="portal"] .hud__cta {
+  background: rgba(6, 5, 4, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+/* ---------------------------------------------------------------- Portal: başlık bloğu (tasarım yönergesi)
+   Solda tek blok: altın sayaç (01 — 04), altın koleksiyon etiketi, krem-beyaz başlık, krem italik
+   kısa açıklama ve ince çerçeveli düğme. Sağda altın "NOTALAR" ve krem italik nota listesi.
+   Renkler: altın #D4B06A, açık altın #C9A87E, krem #F5E6D8. */
+.count--inline {
+  display: none;
+}
+[data-theme="portal"] {
+  --cream: #f5e6d8;
+  --gold-ink: #d4b06a;
+}
+[data-theme="portal"] .tag {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .hud__name {
+  color: var(--cream);
+  -webkit-text-stroke: 0.5px currentColor;
+}
+[data-theme="portal"] .hud__tagline {
+  color: var(--cream);
+}
+[data-theme="portal"] .hud__count .chips li {
+  color: var(--cream);
+}
+[data-theme="portal"] .hud__count .chips::before {
+  color: var(--gold-ink);
+}
+@media (min-width: 901px) {
+  [data-theme="portal"] .hud__count .count {
+    display: none;
+  }
+  [data-theme="portal"] .count--inline {
+    order: -2;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 14px;
+  }
+  [data-theme="portal"] .count--inline .count__now {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 3.6vw, 3.6rem);
+    line-height: 1;
+    color: var(--gold-ink);
+  }
+  [data-theme="portal"] .count--inline .count__line {
+    width: 38px;
+    height: 1px;
+    background: var(--gold-line);
+  }
+  [data-theme="portal"] .count--inline .count__total {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: rgba(245, 230, 216, 0.6);
+  }
+  [data-theme="portal"] .hud__center {
+    bottom: 13%;
+    width: min(40vw, 640px);
+  }
+  [data-theme="portal"] .hud__center .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 12px;
+  }
+  [data-theme="portal"] .hud__name {
+    font-size: clamp(2.8rem, 5.3vw, 6rem);
+    line-height: 1.02;
+    letter-spacing: 0.06em;
+  }
+  [data-theme="portal"] .hud__name.is-long {
+    font-size: clamp(2.5rem, 4.6vw, 5.2rem);
+  }
+  [data-theme="portal"] .hud__name.is-longer {
+    font-size: clamp(2rem, 3.4vw, 3.8rem);
+  }
+  [data-theme="portal"] .hud__tagline {
+    max-width: 21em;
+    margin-top: 14px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.35;
+  }
+  [data-theme="portal"] .hud__cta {
+    margin-top: 24px;
+    padding: 13px 24px;
+    border: 1px solid rgba(245, 230, 216, 0.55);
+    color: var(--cream);
+    letter-spacing: 0.22em;
+  }
+  [data-theme="portal"] .hud__cta:hover {
+    border-color: var(--gold-ink);
+    color: var(--gold-ink);
+  }
+  [data-theme="portal"] .hud__count .chips li {
+    font-size: 1.22rem;
+  }
+}
+[data-theme="portal"] .count__now {
+  color: var(--gold-ink);
+}
+
+/* ---------------------------------------------------------------- Portal: premium üst menü
+   Logonun inceliğinde: çerçeve, hap, cam düğme yok. İnce, geniş aralıklı büyük harfler; üzerine
+   gelince ortadan açılan altın kıl çizgi. Arama ve sepet sade ince ikon, dil "TR | EN", menü düğmesi
+   yazı ve iki ince çizgi. Altta yumuşak karartma ve ince altın ayırıcı çizgi. */
+[data-theme="portal"] .header::before {
+  background: linear-gradient(rgba(5, 4, 3, 0.86), rgba(5, 4, 3, 0.5) 62%, rgba(5, 4, 3, 0));
+}
+[data-theme="portal"] .header::after {
+  content: "";
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 6px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(212, 176, 106, 0.28) 18%, rgba(212, 176, 106, 0.28) 82%, transparent);
+}
+[data-theme="portal"] .header__nav {
+  gap: clamp(26px, 2.8vw, 52px);
+  padding: 0;
+  border: 0 !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="portal"] .header__pill {
+  display: none;
+}
+[data-theme="portal"] .header__nav > a,
+[data-theme="portal"] .navcat > a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-radius: 0;
+  background: none !important;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 216, 0.84);
+  transition: color 0.35s ease;
+}
+[data-theme="portal"] .header__nav > a::after,
+[data-theme="portal"] .navcat > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0.34em;
+  bottom: 2px;
+  width: auto;
+  height: 1px;
+  margin-left: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: linear-gradient(90deg, transparent, var(--gold-ink), transparent);
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+[data-theme="portal"] :is(.header__nav > a, .navcat > a):is(:hover, :focus-visible, .is-current) {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] :is(.header__nav > a, .navcat > a):is(:hover, :focus-visible, .is-current)::after {
+  transform: scaleX(1);
+}
+[data-theme="portal"] .navcat__chev {
+  width: 9px;
+  height: 9px;
+  opacity: 0.7;
+}
+[data-theme="portal"] .header__right {
+  gap: clamp(18px, 1.8vw, 30px);
+}
+[data-theme="portal"] :is(.search-btn, .cart-btn, .menu-btn),
+[data-theme="portal"] :is(.search-btn, .cart-btn, .menu-btn):hover {
+  width: auto;
+  height: auto;
+  padding: 8px 2px;
+  border: 0 !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transform: none;
+  color: rgba(245, 230, 216, 0.86);
+}
+[data-theme="portal"] :is(.search-btn, .cart-btn, .menu-btn):is(:hover, :focus-visible) {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] :is(.search-btn, .cart-btn) svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.2;
+}
+[data-theme="portal"] .cart-btn__count {
+  top: 0;
+  right: -10px;
+  min-width: 0;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--gold-ink);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+[data-theme="portal"] .menu-btn {
+  gap: 14px;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+[data-theme="portal"] .menu-btn__icon {
+  width: 22px;
+  height: 6px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+[data-theme="portal"] .lang,
+[data-theme="portal"] .lang:hover {
+  padding: 0;
+  gap: 0;
+  border: 0 !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="portal"] .lang button,
+[data-theme="portal"] .lang button.is-on {
+  padding: 8px 10px;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  font-weight: 300;
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  color: rgba(245, 230, 216, 0.5);
+}
+[data-theme="portal"] .lang button small {
+  display: none;
+}
+[data-theme="portal"] .lang button + button {
+  border-left: 1px solid rgba(212, 176, 106, 0.35);
+}
+[data-theme="portal"] .lang button.is-on {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .lang button:hover {
+  color: var(--cream);
+}
+
+/* Ürünler sayfasının kategori sekmeleri: hap ve beyaz dolgu yerine üst menüyle aynı dil
+   (ince geniş harf, altın sayı, seçili sekmede altın kıl çizgi). */
+[data-theme="portal"] .catalog__tabs {
+  gap: clamp(18px, 2.6vw, 44px);
+  padding: 4px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="portal"] .catalog__tabs a,
+[data-theme="portal"] .catalog__tabs a:hover,
+[data-theme="portal"] .catalog__tabs a.is-on {
+  position: relative;
+  padding: 10px 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 216, 0.78);
+}
+[data-theme="portal"] .catalog__tabs a i {
+  display: none;
+}
+[data-theme="portal"] .catalog__tabs a small,
+[data-theme="portal"] .catalog__tabs a.is-on small {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-ink);
+  opacity: 0.8;
+}
+[data-theme="portal"] .catalog__tabs a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-ink), transparent);
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+[data-theme="portal"] .catalog__tabs a:is(:hover, .is-on) {
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .catalog__tabs a:is(:hover, .is-on)::after {
+  transform: scaleX(1);
+}
+
+/* ---------------------------------------------------------------- Portal: premium düğmeler (mobil dahil)
+   Cam, parlak gradyan ve dolgulu beyaz daireler yerine: koyu zemin, altın kıl çizgi, krem/altın ince ikon. */
+[data-theme="portal"] .round,
+[data-theme="portal"] .round:hover {
+  border: 1px solid rgba(212, 176, 106, 0.42) !important;
+  background: rgba(8, 6, 5, 0.55) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transform: none;
+  color: var(--cream);
+}
+[data-theme="portal"] .round:is(:hover, :focus-visible, .is-on) {
+  border-color: var(--gold-ink) !important;
+  color: var(--gold-ink);
+}
+[data-theme="portal"] .round svg {
+  stroke-width: 1.2;
+}
+/* Özellik düğmeleri (ürün sayfası): altın halkalı koyu daire, altın ikon; seçili olan altın dolgulu. */
+[data-theme="portal"] .feat {
+  background: rgba(8, 6, 5, 0.5);
+  border: 1px solid rgba(212, 176, 106, 0.28);
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+[data-theme="portal"] .feat__icon {
+  color: var(--gold-ink);
+  background: rgba(8, 6, 5, 0.6);
+  border: 1px solid rgba(212, 176, 106, 0.6);
+  box-shadow: none;
+}
+[data-theme="portal"] .feat__icon svg {
+  stroke-width: 1.2;
+}
+[data-theme="portal"] .feat.is-on .feat__icon {
+  color: #120e09;
+  background: linear-gradient(135deg, #f1dfb2, var(--gold-ink));
+  border-color: transparent;
+}
+[data-theme="portal"] .feat:not(.is-on) .feat__icon::after {
+  border-color: rgba(212, 176, 106, 0.6);
+}
+@media (max-width: 900px) {
+  [data-theme="portal"] .feat {
+    padding: 0;
+    border: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  [data-theme="portal"] .feat__icon {
+    width: 42px;
+    height: 42px;
+  }
+}
+/* Notalar (ürün sayfası): noktasız, ince altın çerçeveli sade etiketler. */
+[data-theme="portal"] .detail__notes.chips li {
+  padding: 7px 14px;
+  border: 1px solid rgba(212, 176, 106, 0.3);
+  background: rgba(8, 6, 5, 0.35);
+  box-shadow: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+}
+[data-theme="portal"] .detail__notes.chips li::before {
+  display: none;
+}
+
+/* Açılır menü: kategoriler hap yerine altın kıl çizgili liste; menü düğmesi açıkken ince X. */
+[data-theme="portal"] .menu__cats {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+[data-theme="portal"] .menu__cats p {
+  margin-bottom: 6px;
+  color: var(--gold-ink);
+  letter-spacing: 0.3em;
+}
+[data-theme="portal"] .menu__cats a {
+  justify-content: space-between;
+  padding: 13px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(212, 176, 106, 0.18);
+  border-radius: 0;
+  background: none;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-size: 0.74rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 216, 0.86);
+}
+[data-theme="portal"] .menu__cats a::after {
+  content: "→";
+  color: var(--gold-ink);
+  letter-spacing: 0;
+}
+[data-theme="portal"] .menu__cats a i {
+  display: none;
+}
+[data-theme="portal"] .menu-btn__icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  border-top: 1px solid currentColor;
+  opacity: 0;
+  transition: transform 0.3s var(--ease), opacity 0.2s;
+}
+[data-theme="portal"] .menu-btn__icon.is-open::after {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/* Kart ızgarası kendisi solmaz (kartların kendi girişi var): iki animasyon üst üste binip geç açılmasın. */
+.pgrid.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.pcard.is-in {
+  animation-duration: 0.7s;
+}
+@media (max-width: 900px) {
+  /* Telefonda kartlar tek sütun: sıra gecikmesi yok, ekrana girer girmez açılır. */
+  .pcard.is-in {
+    animation-delay: 0s;
+    animation-duration: 0.55s;
+  }
+}
+/* Seçili özellik: koyu zeminde altın çerçeve, krem yazı (önceki açık dolgu portal teması koyu zemininde okunmuyordu). */
+[data-theme="portal"] .feat.is-on {
+  color: var(--cream);
+  background: linear-gradient(135deg, rgba(212, 176, 106, 0.22), rgba(8, 6, 5, 0.6));
+  border-color: var(--gold-ink);
+  box-shadow: 0 0 0 4px rgba(212, 176, 106, 0.12), 0 18px 40px -16px rgba(0, 0, 0, 0.9);
+}
+[data-theme="portal"] .feat.is-on .feat__num {
+  color: var(--gold-ink);
+}
+@media (max-width: 900px) {
+  [data-theme="portal"] .feat.is-on {
+    background: none;
+    box-shadow: none;
+  }
+}
+
+/* ===================== Mağaza bulucu (content.locator) ===================== */
+.locator {
+  --loc-line: color-mix(in srgb, var(--gold, var(--accent, #c9a55c)) 34%, transparent);
+  --loc-ink: var(--gold-ink, var(--gold, var(--accent, #c9a55c)));
+}
+.locator__bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  margin: 0 0 28px;
+}
+.locator__search input,
+.locator__select select {
+  width: 100%;
+  height: 52px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--loc-line);
+  border-radius: 0;
+  color: var(--fg);
+  font: 400 0.98rem/1 var(--sans);
+  letter-spacing: 0.02em;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.3s, background 0.3s;
+}
+.locator__select select {
+  padding-right: 44px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--loc-ink) 50%), linear-gradient(135deg, var(--loc-ink) 50%, transparent 50%);
+  background-position: calc(100% - 22px) 23px, calc(100% - 17px) 23px;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.locator__select option {
+  background: #120f0d;
+  color: var(--fg);
+}
+.locator__search input::placeholder {
+  color: var(--muted);
+}
+.locator__search input:focus,
+.locator__select select:focus {
+  outline: none;
+  border-color: var(--loc-ink);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+.locator__count {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--loc-ink);
+  white-space: nowrap;
+}
+.locator__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 0;
+  padding: 1px 0 0 1px;
+}
+.store {
+  margin: -1px 0 0 -1px;
+  border: 1px solid var(--loc-line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 26px 26px 24px;
+  background: var(--portal-bg, var(--bg));
+  transition: background 0.4s var(--ease);
+}
+.store:hover {
+  background: color-mix(in srgb, var(--portal-bg, var(--bg)) 88%, var(--loc-ink));
+}
+.store__type {
+  margin: 0 0 4px;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--loc-ink);
+}
+.store__name {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  color: var(--cream, var(--fg));
+}
+.store__place {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.08rem;
+  color: var(--fg);
+  opacity: 0.86;
+}
+.store__addr {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.store__links {
+  margin: auto 0 0;
+  padding-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+.store__links a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--loc-line);
+  padding-bottom: 2px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.store__links a:hover {
+  color: var(--loc-ink);
+  border-color: var(--loc-ink);
+}
+.locator__more {
+  display: block;
+  margin: 28px auto 0;
+}
+.locator__empty {
+  padding: 40px 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+.locator__src {
+  margin: 18px 0 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.7;
+}
+@media (max-width: 760px) {
+  .locator__bar {
+    grid-template-columns: 1fr;
+  }
+  .store {
+    padding: 22px 20px;
+  }
+}
+
+/* İletişim bilgileri (content.contactInfo) */
+.contact__info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 28px 40px;
+  margin: 56px 0 36px;
+  padding: 32px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--gold, var(--accent, #c9a55c)) 34%, transparent);
+}
+.contact__info dt {
+  margin: 0 0 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-ink, var(--gold, var(--accent)));
+}
+.contact__info dd {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--fg);
+}
+.contact__info a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.contact__info a:hover {
+  border-color: currentColor;
+}
+
+/* Ürün sayfası: tam kompozisyon (content.products[].composition); kapalı başlar, yer kaplamaz. */
+.detail__comp {
+  margin: 12px 0 0;
+  max-width: 34em;
+}
+.detail__comp summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-ink, var(--gold, var(--accent)));
+}
+.detail__comp summary::-webkit-details-marker {
+  display: none;
+}
+.detail__comp summary::after {
+  content: "+";
+  font-size: 1rem;
+  letter-spacing: 0;
+  transition: transform 0.3s var(--ease);
+}
+.detail__comp[open] summary::after {
+  transform: rotate(45deg);
+}
+.detail__comp p {
+  margin: 8px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--fg);
+  opacity: 0.9;
+}
+.detail__layers span {
+  display: block;
+  margin-bottom: 4px;
+}
+.detail__layers b {
+  display: inline-block;
+  min-width: 3.4em;
+  margin-right: 6px;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-ink, var(--gold, var(--accent)));
+}
+
+/* ---------------------------------------------------------------- Parfümü sık (content.spray)
+   Başlık bloğundaki düğmenin yanında altın çizgili ikinci düğme; nabız gibi atan ince bir halka. */
+.hud__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.hud__center .hud__actions .hud__cta {
+  margin-top: 0;
+}
+.hud__spray {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid color-mix(in srgb, var(--gold, #d4b06a) 70%, transparent);
+  background: rgba(6, 5, 4, 0.55);
+  backdrop-filter: blur(6px);
+  color: var(--gold-soft, #e9d3a3);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+.hud__spray::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid color-mix(in srgb, var(--gold, #d4b06a) 45%, transparent);
+  animation: spray-halo 2.6s ease-out infinite;
+  pointer-events: none;
+}
+.hud__spray:hover {
+  color: #fff;
+  border-color: var(--gold, #d4b06a);
+  transform: translateY(-2px);
+}
+.hud__spray:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+@keyframes spray-halo {
+  from {
+    transform: scale(0.96);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.14);
+    opacity: 0;
+  }
+}
+@media (max-width: 760px) {
+  .hud__actions {
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .hud__spray {
+    padding: 12px;
+  }
+  .hud__spray span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hud__spray::after {
+    animation: none;
+  }
+}

@@ -4,6 +4,7 @@
 |---|---|
 | `parfum-firmalari.csv` | 14 firmalık takip tablosu (Excel / Google Sheets ile açılır) |
 | `mesajlar-parfum.md` | Her firmaya özel ilk mesaj, cevap ve hatırlatma metinleri |
+| `../portfolyo/` | Tek sayfalık portfolyo + hayali Selvi Atelier canlı örneği (`demolar/portfolyo-Netlify.zip`); mesaj imzasına linkini koy |
 | `kisa-mesajlar.md` | **Yeni yöntem:** kişiye özel kısa mesajlar, 15 sn video senaryosu, 7 günlük gönderim planı |
 | `../demo-fabrikasi/` | Marka ayar dosyasından 3B demo üreten sistem |
 | `../teklif-hope/` | Teklif PDF'i şablonu (marka adı ve görseller değiştirilerek kullanılır) |

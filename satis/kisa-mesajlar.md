@@ -168,7 +168,7 @@ Göndermeden önce hatanın hâlâ durduğunu kontrol et; düzelttilerse ilk par
 - [ ] **Spam testi:** mail-tester.com'daki adrese bir kopya gönder; puan 8/10'un altındaysa nedenine bak. Başka bir adresine de gönderip spama düşüp düşmediğini kontrol et.
 - [ ] **Ek:** yalnızca video (15 MB altı) ya da tek görsel. 5 görseli birden ekleme.
 - [ ] **İmza:** ad-soyad, telefon, portfolyo. Mümkünse kendi alan adında bir mail adresi (ör. berka@alanadin.com).
-- [ ] **Portfolyo:** en az bir sayfa, 2–3 demodan kısa videolar. Yalnızca demosu gönderilen markanın linki o markaya gider; portfolyoda gerçek marka adı yerine "konsept" yaz.
+- [ ] **Portfolyo:** `portfolyo/` hazır (hayali Selvi Atelier örneğiyle). `KISI` bilgilerini doldur, `demolar/portfolyo-Netlify.zip`'i Netlify'a yükle, linkini imzaya ekle. Gerçek markaların demolarını portfolyoya koyma; her demo yalnızca kendi markasına gider.
 - [ ] **Instagram hesabın:** profil fotoğrafı, açıklama ve 3–4 gönderi (demo videoları) olsun. Boş hesaptan gelen DM okunmuyor.
 
 ## 5. Önümüzdeki 7 gün

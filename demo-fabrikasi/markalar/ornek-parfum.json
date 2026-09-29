@@ -1,0 +1,815 @@
+{
+  "slug": "ornek-parfum",
+  "meta": {
+    "title": "Selvi Atelier · 3D konsept",
+    "description": "Hayali bir parfüm markası için hazırlanmış 3D konsept site.",
+    "og": "Hayali bir parfüm markası için 3D konsept site."
+  },
+  "brand": {
+    "name": "Selvi Atelier",
+    "sub": "Eau de Parfum",
+    "specs": "İstanbul’dan hayali bir parfüm atölyesi",
+    "disclaimer": "Selvi Atelier, portfolyo için tasarlanmış hayali bir markadır. Ürünler, metinler ve fiyatlar örnektir; gerçek bir marka ya da kişiyle bağlantılı değildir.",
+    "en": {
+      "specs": "An imaginary perfume atelier from Istanbul",
+      "disclaimer": "Selvi Atelier is a fictional brand designed for a portfolio. Products, copy and prices are examples and are not affiliated with any real brand or person."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "SELVİ",
+    "submark": "ATELIER",
+    "concentration": "EAU DE PARFUM",
+    "volume": "100 ml e 3.4 FL.OZ"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.75,
+      "height": 2.5,
+      "depth": 1.2,
+      "corner": 0.3
+    },
+    "label": {
+      "size": 1.3,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.28,
+      "height": 0.16,
+      "color": "#c9a45c"
+    },
+    "cap": {
+      "shape": "octagon",
+      "radius": 0.5,
+      "height": 0.72,
+      "color": "#c9a45c",
+      "finish": "gold"
+    },
+    "finish": "liquid",
+    "scale": 1.1,
+    "tilt": -0.03
+  },
+  "products": [
+    {
+      "file": "urun-1.jpg",
+      "name": "Ayna",
+      "collection": null,
+      "family": "Çiçeksi odunsu",
+      "year": 2026,
+      "perfumer": null,
+      "color": "#e6b98a",
+      "ink": "#6b4a10",
+      "theme": {
+        "glow": "#c98a5a",
+        "edge": "#0b0604",
+        "drop": "#f6d2b0",
+        "mood": "warm"
+      },
+      "tagline": "Sabahın ilk ışığında bir gül.",
+      "notes": [
+        "Bergamot",
+        "Pembe biber",
+        "Gül",
+        "İris",
+        "Misk"
+      ],
+      "description": "Ayna, güne yeni başlayan bir evin sessizliğinden ilham alır. Bergamot ve pembe biberle parlak açılır, kalbinde gül ile iris yumuşakça buluşur; tende temiz bir misk izi bırakır.",
+      "en": {
+        "family": "Floral woody",
+        "tagline": "A rose in the first light of morning.",
+        "notes": [
+          "Bergamot",
+          "Pink pepper",
+          "Rose",
+          "Iris",
+          "Musk"
+        ],
+        "description": "Ayna is inspired by the quiet of a house just waking up. It opens bright with bergamot and pink pepper; rose and iris meet softly at its heart, leaving a clean trace of musk on skin."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          244,
+          238,
+          226
+        ],
+        "ink": [
+          46,
+          38,
+          28
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Bergamot · Pembe biber"
+          ],
+          [
+            "HEART",
+            "Gül · İris"
+          ],
+          [
+            "BASE",
+            "Misk"
+          ]
+        ]
+      },
+      "bottle": {
+        "liquid": "#e6b98a",
+        "liquidOpacity": 0.32
+      }
+    },
+    {
+      "file": "urun-2.jpg",
+      "name": "Lodos",
+      "collection": null,
+      "family": "Deniz aromatik",
+      "year": 2026,
+      "perfumer": null,
+      "color": "#8fb8c9",
+      "ink": "#6b4a10",
+      "theme": {
+        "glow": "#4f8fa8",
+        "edge": "#02070a",
+        "drop": "#bfe4f2",
+        "mood": "cool"
+      },
+      "tagline": "Güneyden esen tuzlu bir rüzgâr.",
+      "notes": [
+        "Deniz tuzu",
+        "Limon",
+        "Adaçayı",
+        "Sedir",
+        "Amber"
+      ],
+      "description": "Lodos, kıyıya vuran dalganın ve güneşte ısınmış taşın kokusu. Deniz tuzu ve limonla ferah açılır, adaçayıyla aromatikleşir, sedir ve amberle sıcak bir akşama döner.",
+      "en": {
+        "family": "Aquatic aromatic",
+        "tagline": "A salty wind from the south.",
+        "notes": [
+          "Sea salt",
+          "Lemon",
+          "Sage",
+          "Cedar",
+          "Amber"
+        ],
+        "description": "Lodos is the scent of a wave breaking on the shore and sun-warmed stone. It opens fresh with sea salt and lemon, turns aromatic with sage and settles into a warm evening of cedar and amber."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          244,
+          238,
+          226
+        ],
+        "ink": [
+          46,
+          38,
+          28
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Deniz tuzu · Limon"
+          ],
+          [
+            "HEART",
+            "Adaçayı"
+          ],
+          [
+            "BASE",
+            "Sedir · Amber"
+          ]
+        ]
+      },
+      "bottle": {
+        "liquid": "#8fb8c9",
+        "liquidOpacity": 0.32
+      }
+    },
+    {
+      "file": "urun-3.jpg",
+      "name": "Kehribar",
+      "collection": null,
+      "family": "Amber baharatlı",
+      "year": 2026,
+      "perfumer": null,
+      "color": "#d9923e",
+      "ink": "#6b4a10",
+      "theme": {
+        "glow": "#c47a26",
+        "edge": "#0c0602",
+        "drop": "#f5cf8e",
+        "mood": "warm"
+      },
+      "tagline": "Eski bir çarşıda sıcak bir akşamüstü.",
+      "notes": [
+        "Tarçın",
+        "Safran",
+        "Kehribar",
+        "Vanilya",
+        "Benzoin"
+      ],
+      "description": "Kehribar, baharatçıların arasından geçen uzun bir yürüyüş. Tarçın ve safranla sıcak açılır, kalbinde yoğun bir kehribar yanar; vanilya ve benzoinle tende saatlerce kalır.",
+      "en": {
+        "family": "Amber spicy",
+        "tagline": "A warm afternoon in an old bazaar.",
+        "notes": [
+          "Cinnamon",
+          "Saffron",
+          "Amber",
+          "Vanilla",
+          "Benzoin"
+        ],
+        "description": "Kehribar is a long walk through the spice sellers. It opens warm with cinnamon and saffron, a dense amber glows at its heart, and vanilla and benzoin keep it on skin for hours."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          244,
+          238,
+          226
+        ],
+        "ink": [
+          46,
+          38,
+          28
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Tarçın · Safran"
+          ],
+          [
+            "HEART",
+            "Kehribar"
+          ],
+          [
+            "BASE",
+            "Vanilya · Benzoin"
+          ]
+        ]
+      },
+      "bottle": {
+        "liquid": "#d9923e",
+        "liquidOpacity": 0.32
+      }
+    },
+    {
+      "file": "urun-4.jpg",
+      "name": "Mürver",
+      "collection": null,
+      "family": "Meyveli çiçeksi",
+      "year": 2026,
+      "perfumer": null,
+      "color": "#b27fc4",
+      "ink": "#6b4a10",
+      "theme": {
+        "glow": "#8a5aa8",
+        "edge": "#07040a",
+        "drop": "#e2c6f0",
+        "mood": "cool"
+      },
+      "tagline": "Yaz sonunda bir bahçe.",
+      "notes": [
+        "Böğürtlen",
+        "Mürver çiçeği",
+        "Yasemin",
+        "Paçuli",
+        "Misk"
+      ],
+      "description": "Mürver, yaz sonunun olgun meyvelerini toplar. Böğürtlenle tatlı açılır, mürver çiçeği ve yaseminle çiçeklenir; paçuli ve miskle derin ve sıcak kapanır.",
+      "en": {
+        "family": "Fruity floral",
+        "tagline": "A garden at the end of summer.",
+        "notes": [
+          "Blackberry",
+          "Elderflower",
+          "Jasmine",
+          "Patchouli",
+          "Musk"
+        ],
+        "description": "Mürver gathers the ripe fruit of late summer. It opens sweet with blackberry, blossoms with elderflower and jasmine, and closes deep and warm with patchouli and musk."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          244,
+          238,
+          226
+        ],
+        "ink": [
+          46,
+          38,
+          28
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "Böğürtlen"
+          ],
+          [
+            "HEART",
+            "Mürver çiçeği · Yasemin"
+          ],
+          [
+            "BASE",
+            "Paçuli · Misk"
+          ]
+        ]
+      },
+      "bottle": {
+        "liquid": "#b27fc4",
+        "liquidOpacity": 0.32
+      }
+    },
+    {
+      "file": "urun-5.jpg",
+      "name": "Çınar",
+      "collection": null,
+      "family": "Yeşil odunsu",
+      "year": 2026,
+      "perfumer": null,
+      "color": "#9cc08a",
+      "ink": "#6b4a10",
+      "theme": {
+        "glow": "#5f9a5a",
+        "edge": "#030803",
+        "drop": "#cfe8c2",
+        "mood": "cool"
+      },
+      "tagline": "Yüz yıllık bir ağacın gölgesi.",
+      "notes": [
+        "İncir yaprağı",
+        "Yeşil çay",
+        "Vetiver",
+        "Sedir",
+        "Yosun"
+      ],
+      "description": "Çınar, eski bir meydanın ortasındaki ağacın serinliği. İncir yaprağı ve yeşil çayla yeşil açılır, vetiverle topraklanır; sedir ve yosunla sakin bir gölgede kalır.",
+      "en": {
+        "family": "Green woody",
+        "tagline": "The shade of a hundred-year-old tree.",
+        "notes": [
+          "Fig leaf",
+          "Green tea",
+          "Vetiver",
+          "Cedar",
+          "Moss"
+        ],
+        "description": "Çınar is the cool shade of the old tree in the middle of the square. It opens green with fig leaf and green tea, grounds itself with vetiver and rests in a calm shade of cedar and moss."
+      },
+      "label": {
+        "style": "classic",
+        "plate": [
+          244,
+          238,
+          226
+        ],
+        "ink": [
+          46,
+          38,
+          28
+        ],
+        "place": "İSTANBUL",
+        "scene": "none",
+        "pyramid": [
+          [
+            "TOP",
+            "İncir yaprağı · Yeşil çay"
+          ],
+          [
+            "HEART",
+            "Vetiver"
+          ],
+          [
+            "BASE",
+            "Sedir · Yosun"
+          ]
+        ]
+      },
+      "bottle": {
+        "liquid": "#9cc08a",
+        "liquidOpacity": 0.32
+      }
+    }
+  ],
+  "specs": {
+    "tr": "Extrait de Parfum · 100 ml",
+    "en": "Extrait de Parfum · 100 ml"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Eau de Parfum",
+        "kicker": "%20",
+        "struck": "Eau de toilette",
+        "title": "Kalıcı bir iz",
+        "text": "Her koku yüksek esans oranıyla hazırlanır; gün boyu tende kalır."
+      },
+      "en": {
+        "short": "Eau de Parfum",
+        "kicker": "20%",
+        "struck": "Eau de toilette",
+        "title": "A lasting trail",
+        "text": "Every scent is made with a high perfume oil concentration and stays on skin all day."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.55,
+        "rotZ": 0.02,
+        "y": 0.1,
+        "scale": 2.1
+      },
+      "tr": {
+        "short": "Şişe tasarımı",
+        "kicker": "Özel",
+        "struck": "Sıradan bir şişe",
+        "title": "Elde tutulan bir obje",
+        "text": "Sekizgen altın kapak ve selvi gibi ince, uzun bir gövde: şişe masada duran bir obje."
+      },
+      "en": {
+        "short": "Bottle design",
+        "kicker": "Signature",
+        "struck": "An ordinary bottle",
+        "title": "An object to hold",
+        "text": "An octagonal gold cap and a slim body like a cypress: a bottle made to stand on the table."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.181592653589793,
+        "rotZ": 0.02,
+        "y": -0.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Koku piramidi",
+        "kicker": "Üç",
+        "struck": "Tek boyutlu koku",
+        "title": "Üç katlı bir hikâye",
+        "text": "Üst notalar ilk dakikaları, kalp notaları ilk saatleri, taban notaları günün sonunu anlatır. Şişeyi çevir: hepsi arka etikette."
+      },
+      "en": {
+        "short": "Scent pyramid",
+        "kicker": "Three",
+        "struck": "A one-note scent",
+        "title": "A story in three layers",
+        "text": "Top notes tell the first minutes, heart notes the first hours, base notes the end of the day. Turn the bottle: they're all on the back label."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.5,
+        "rotZ": 0.02,
+        "y": -2.3,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Atölye",
+        "kicker": "El",
+        "struck": "Seri üretim",
+        "title": "Küçük partiler",
+        "text": "Her koku atölyede küçük partiler hâlinde hazırlanır ve elle doldurulur."
+      },
+      "en": {
+        "short": "Atelier",
+        "kicker": "Hand",
+        "struck": "Mass production",
+        "title": "Small batches",
+        "text": "Every scent is made in small batches in the atelier and filled by hand."
+      }
+    }
+  ],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Nabız noktaları",
+        "text": "Bilek içi, boyun ve kulak arkası: sıcak noktalar kokuyu gün boyu yayar.",
+        "stat": "3 nokta"
+      },
+      "en": {
+        "title": "Pulse points",
+        "text": "Inner wrists, neck and behind the ears: warm spots carry the scent all day.",
+        "stat": "3 points"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Ovuşturma",
+        "text": "Sıktıktan sonra bileklerini birbirine sürtme; üst notalar kendi hızında açılsın.",
+        "stat": "15 cm"
+      },
+      "en": {
+        "title": "Don't rub",
+        "text": "After spraying, don't rub your wrists together; let the top notes open at their own pace.",
+        "stat": "15 cm"
+      }
+    },
+    {
+      "flavor": 4,
+      "tr": {
+        "title": "Katmanla",
+        "text": "Selvi Atelier kokuları birbiriyle birleştirilebilir. İki kokuyu üst üste sık, kendi imzanı yarat.",
+        "stat": "1 + 1"
+      },
+      "en": {
+        "title": "Layer",
+        "text": "Selvi Atelier scents are made to be combined. Spray two on top of each other and create your own signature.",
+        "stat": "1 + 1"
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 10,
+      "label": {
+        "tr": "Seyahat",
+        "en": "Travel"
+      }
+    },
+    {
+      "size": 50,
+      "label": {
+        "tr": "Günlük",
+        "en": "Everyday"
+      }
+    },
+    {
+      "size": 100,
+      "label": {
+        "tr": "En popüler",
+        "en": "Most popular"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "10": 1490,
+        "50": 5900,
+        "100": 9500
+      },
+      "freeShipping": 5000,
+      "shipping": 99.9
+    },
+    "en": {
+      "currency": "USD",
+      "locale": "en-US",
+      "packs": {
+        "10": 39,
+        "50": 139,
+        "100": 219
+      },
+      "freeShipping": 150,
+      "shipping": 9.9
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "stockists": {
+    "tr": [
+      [
+        "İstanbul",
+        "Selvi Atelier · örnek butik",
+        "Açık"
+      ],
+      [
+        "Online",
+        "Hayali marka · örnek mağaza",
+        "Online"
+      ]
+    ],
+    "en": [
+      [
+        "Istanbul",
+        "Selvi Atelier · sample boutique",
+        "Open"
+      ],
+      [
+        "Online",
+        "Fictional brand · sample store",
+        "Online"
+      ]
+    ]
+  },
+  "story": {
+    "founder": "Selvi Atelier",
+    "instagram": "",
+    "website": "",
+    "press": [],
+    "tr": {
+      "lead": "Selvi, İstanbul’un eski bahçelerinde yüzyıllardır dimdik duran ağaç. Atölye adını ondan alıyor: sakin, uzun ömürlü ve iz bırakan.",
+      "paragraphs": [
+        "Selvi Atelier hayali bir marka: 3D ürün deneyimlerinin bir parfüm evinde nasıl görüneceğini göstermek için tasarlandı. Kokular, şişeler ve metinler bu örnek için yazıldı.",
+        "Her koku bir yerin, bir anın hikâyesini anlatır: sabah ışığında bir ev, lodosta bir kıyı, eski bir çarşı, yaz sonunda bir bahçe ve yüz yıllık bir çınarın gölgesi.",
+        "Bu sayfadaki her şişe 3D olarak çizildi. Aşağı kaydır: kokular sırayla kaideye gelir. Bir kokuya girip şişeyi çevir: notalar arka etikette."
+      ],
+      "timeline": [
+        [
+          "I",
+          "Sabah: Ayna"
+        ],
+        [
+          "II",
+          "Kıyı: Lodos"
+        ],
+        [
+          "III",
+          "Çarşı: Kehribar"
+        ],
+        [
+          "IV",
+          "Bahçe ve ağaç: Mürver ve Çınar"
+        ]
+      ],
+      "stats": [
+        [
+          "5",
+          "koku"
+        ],
+        [
+          "%20",
+          "esans oranı"
+        ],
+        [
+          "100 ml",
+          "şişe"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "The cypress has stood tall in Istanbul’s old gardens for centuries. The atelier takes its name from it: calm, long-lived and leaving a trace.",
+      "paragraphs": [
+        "Selvi Atelier is a fictional brand, designed to show how 3D product experiences look for a perfume house. The scents, bottles and copy were written for this example.",
+        "Each scent tells the story of a place and a moment: a house in morning light, a shore in the south wind, an old bazaar, a garden at summer’s end and the shade of an old plane tree.",
+        "Every bottle on this page is drawn in 3D. Scroll down: the scents come to the plinth one by one. Open one and turn the bottle: the notes are on the back label."
+      ],
+      "timeline": [
+        [
+          "I",
+          "Morning: Ayna"
+        ],
+        [
+          "II",
+          "Shore: Lodos"
+        ],
+        [
+          "III",
+          "Bazaar: Kehribar"
+        ],
+        [
+          "IV",
+          "Garden and tree: Mürver and Çınar"
+        ]
+      ],
+      "stats": [
+        [
+          "5",
+          "scents"
+        ],
+        [
+          "20%",
+          "perfume oil"
+        ],
+        [
+          "100 ml",
+          "bottle"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Selvi Atelier gerçek bir marka mı?",
+        "Hayır. Selvi Atelier, 3D ürün sitelerinin bir parfüm markasında nasıl görüneceğini göstermek için tasarlanmış hayali bir markadır. Ürünler, metinler ve fiyatlar örnektir."
+      ],
+      [
+        "Şişeler nasıl 3D oldu?",
+        "Bu örnekte şişeler doğrudan 3D çizildi. Gerçek projelerde 3D şişe, markanın kendi ürün fotoğraflarından hazırlanır; etiket ve kapak fotoğraftaki gibi görünür."
+      ],
+      [
+        "Sepet çalışıyor mu?",
+        "Bu örnekte sepet yalnızca gösterim içindir. Gerçek projelerde sepet markanın mevcut mağazasına (Shopify, ikas vb.) bağlanır; ödeme markanın kendi sayfasında yapılır."
+      ],
+      [
+        "Telefonda da çalışıyor mu?",
+        "Evet. Site telefona özel tasarlandı: her kaydırmada sıradaki koku kaideye gelir."
+      ]
+    ],
+    "en": [
+      [
+        "Is Selvi Atelier a real brand?",
+        "No. Selvi Atelier is a fictional brand designed to show how 3D product sites look for a perfume brand. Products, copy and prices are examples."
+      ],
+      [
+        "How were the bottles made 3D?",
+        "In this example the bottles were drawn directly in 3D. In real projects the 3D bottle is made from the brand’s own product photos, with the label and cap as in the photo."
+      ],
+      [
+        "Does the cart work?",
+        "In this example the cart is for demonstration only. In real projects it connects to the brand’s existing store (Shopify, ikas etc.), and payment happens on the brand’s own checkout."
+      ],
+      [
+        "Does it work on phones?",
+        "Yes. The site is designed for phones: every swipe brings the next scent to the plinth."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Esans damıtılıyor",
+      "madeFor": "Hayali bir marka için hazırlanmış 3D konsept",
+      "whereTag": "İstanbul’dan, bir sıkım uzaklıkta.",
+      "recyclable": "Konsept çalışma · hayali marka",
+      "founder": "Atölye",
+      "contactTag": "Bu bir portfolyo örneğidir.",
+      "newsTitle": "Yeni kokular önce burada duyurulur.",
+      "marquee": [
+        "Selvi Atelier",
+        "Her şişe 3D",
+        "Beş koku, beş an",
+        "Eau de Parfum · %20",
+        "Hayali bir marka için konsept"
+      ],
+      "slogan": "Beş koku, beş an."
+    },
+    "en": {
+      "loading": "Distilling the essence",
+      "madeFor": "A 3D concept made for a fictional brand",
+      "whereTag": "From Istanbul, one spray away.",
+      "recyclable": "Concept work · fictional brand",
+      "founder": "Atelier",
+      "contactTag": "This is a portfolio example.",
+      "newsTitle": "New scents are announced here first.",
+      "marquee": [
+        "Selvi Atelier",
+        "Every bottle in 3D",
+        "Five scents, five moments",
+        "Eau de Parfum · 20%",
+        "A concept for a fictional brand"
+      ],
+      "slogan": "Five scents, five moments."
+    }
+  },
+  "theme": {
+    "name": "portal",
+    "accent": "#d9b27a",
+    "particles": "dust",
+    "numerals": {
+      "font": "fonts/Italiana-Regular.ttf"
+    },
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
+      "display": "\"Cinzel\", \"Cormorant Garamond\", Georgia, serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "dolly",
+    "plate": {
+      "src": "brand/desen.jpg",
+      "aspect": 2.632,
+      "x": 0.5,
+      "floor": 0.658
+    }
+  },
+  "fillLight": "#efe4d6",
+  "particles": "none",
+  "backdrop": false,
+  "labelFinish": {
+    "metalness": 0,
+    "roughness": 0.45,
+    "clearcoat": 0.35,
+    "clearcoatRoughness": 0.25,
+    "envMapIntensity": 0.6
+  },
+  "hide": [
+    "stockists"
+  ],
+  "defaultLang": "tr"
+}
