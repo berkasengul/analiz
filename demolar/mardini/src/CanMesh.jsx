@@ -16,6 +16,9 @@ import {
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   PlaneGeometry,
+  Plane,
+  Vector4,
+  DoubleSide,
   RepeatWrapping,
   SRGBColorSpace,
   Quaternion,
@@ -471,7 +474,27 @@ function flaskGeometry(S) {
   const body = { ...S, outline: [[...left, ...right]], depth: S.depth ?? width * (S.depthRatio ?? 0.42) };
   const block = flatBlock(body);
   if (S.clear) liquidColors(block, S, cut, idx[idx.length - 1] ?? N - 1);
-  return { block, front: latheHalf(cap, false), back: latheHalf(cap, true) };
+  // Saydam camda (glass) içteki parfüm: gövdenin biraz içeride kalan kopyası (camın kalınlığı kadar), dolum
+  // hizası gövdenin üstünden %15 aşağıda. Yüzey Liquid bileşeninde hareketle çalkalanır.
+  let liquid = null;
+  if (S.glass && idx.length) {
+    const top = idx[0] / N;
+    const bot = (idx[idx.length - 1] + 1) / N;
+    const yc = (top + bot) / 2;
+    const shrink = (pts) => pts.map(([x, y]) => [S.axis + (x - S.axis) * 0.86, yc + (y - yc) * 0.93]);
+    const lBody = { ...body, outline: [shrink([...left, ...right])], depth: body.depth * 0.78 };
+    const level = top + 0.2 * (bot - top);
+    const li = Math.min(idx.length - 1, Math.max(0, Math.round(level * N) - cut));
+    liquid = {
+      geo: flatBlock(lBody),
+      axisX: (S.axis - 0.5) * S.size,
+      levelY: (0.5 - (top + 0.07 * (bot - top) + 0.93 * (level - top))) * S.size,
+      width: 2 * rs[idx[li]] * 0.86 * S.size,
+      depth: lBody.depth,
+      height: (bot - top) * 0.93 * S.size,
+    };
+  }
+  return { block, front: latheHalf(cap, false), back: latheHalf(cap, true), liquid };
 }
 
 function partGeometry(S) {
@@ -854,6 +877,7 @@ function Photo({ body, parts, S, flavor }) {
         </group>
       ))}
       {pivot && <Sprayer S={S} pivot={pivot} cap={cap} flavor={flavor} />}
+      {g.parts[0]?.liquid && <Liquid L={g.parts[0].liquid} S={S} body={body} />}
       {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. Saydam camda kart camın
           içinden görünürdü (ikinci bir etiket gibi); orada çizilmez. */}
       {!S.glass && (
@@ -863,6 +887,140 @@ function Photo({ body, parts, S, flavor }) {
         </>
       )}
     </group>
+  );
+}
+
+// Şişedeki parfüm: gövdenin içinde yarı saydam, ürünün renginde sıvı ve yüzeyi. Şişe hareket ettikçe
+// (kaydırma, dönme, detayda sürükleme) yüzey eylemsizlikle ters yöne yatar, yay-sönüm ile sağa sola çalkalanıp
+// durulur. Sıvının üstü, eğik yüzey düzlemiyle kırpılır (sıvının shader'ında, dünya uzayındaki düzlemle).
+const _p = new Vector3();
+const _v = new Vector3();
+const _a = new Vector3();
+const _qi = new Quaternion();
+const _n = new Vector3();
+const _up = new Vector3(0, 1, 0);
+const _qx = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI / 2);
+function liquidTint(hex) {
+  // Fotoğraftaki sıvı rengi çok açık (neredeyse beyaz): sahnede seçilsin diye doygunlaşır ve koyulaşır.
+  // Rengi belirgin olanın tonu korunur (Hicaz sarı, Babel pembe); neredeyse renksiz olan altın-amber olur.
+  const c = new Color(hex ?? "#e9dcb0");
+  const hsl = {};
+  c.getHSL(hsl);
+  const colored = hsl.s > 0.25 && hsl.l < 0.97;
+  return c.setHSL(colored ? hsl.h : 0.1, colored ? Math.min(0.9, hsl.s * 1.6 + 0.2) : 0.75, 0.42);
+}
+function Liquid({ L, S, body }) {
+  const vol = useRef();
+  const surf = useRef();
+  const st = useRef({ init: false, prev: new Vector3(), vel: new Vector3(), yaw: 0, tx: 0, vx: 0, tz: 0, vz: 0 });
+  const plane = useMemo(() => new Plane(), []);
+  const mats = useMemo(() => {
+    const tint = liquidTint(S.liquid);
+    const volume = new MeshPhysicalMaterial({
+      color: tint,
+      roughness: 0.08,
+      metalness: 0,
+      transparent: true,
+      opacity: 0.42,
+      depthWrite: false,
+      side: DoubleSide,
+      emissive: tint.clone().multiplyScalar(0.05),
+      envMapIntensity: 0.18,
+    });
+    // Yüzeyin üstü kendi shader'ımızda atılır (dünya uzayında düzlem: u_liq.xyz normal, u_liq.w sabit).
+    volume.userData.plane = { value: new Vector4(0, -1, 0, 0) };
+    volume.onBeforeCompile = (sh) => {
+      sh.uniforms.u_liq = volume.userData.plane;
+      sh.vertexShader = sh.vertexShader
+        .replace("#include <common>", "#include <common>\nvarying vec3 vLiqW;")
+        .replace("#include <worldpos_vertex>", "#include <worldpos_vertex>\nvLiqW = (modelMatrix * vec4(transformed, 1.0)).xyz;");
+      sh.fragmentShader = sh.fragmentShader
+        .replace("#include <common>", "#include <common>\nuniform vec4 u_liq;\nvarying vec3 vLiqW;")
+        .replace("void main() {", "void main() {\n  float liqD = dot(u_liq.xyz, vLiqW) + u_liq.w;\n  if (liqD < 0.0) discard;")
+        // Menisküs: yüzeyin hemen altında parlak, daha yoğun bir şerit (çalkalanınca eğimi net görünür).
+        .replace(
+          "#include <opaque_fragment>",
+          "float men = 1.0 - smoothstep(0.0, 0.07, liqD);\noutgoingLight += vec3(1.0, 0.88, 0.6) * men * 0.45;\ndiffuseColor.a = min(1.0, diffuseColor.a + men * 0.35);\n#include <opaque_fragment>"
+        );
+    };
+    volume.customProgramCacheKey = () => "mardini-liquid";
+    const top = new MeshPhysicalMaterial({
+      color: tint.clone().lerp(new Color(1, 1, 1), 0.35),
+      roughness: 0.05,
+      metalness: 0,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+      side: DoubleSide,
+      emissive: tint.clone().multiplyScalar(0.25),
+      clearcoat: 1,
+      envMapIntensity: 1.2,
+    });
+    return { volume, top };
+  }, [S.liquid, plane]);
+  useFrame(({ clock }, delta) => {
+    const m = vol.current;
+    if (!m) return;
+    const dt = Math.min(Math.max(delta, 1 / 240), 1 / 20);
+    const s = st.current;
+    m.updateWorldMatrix(true, false);
+    m.getWorldPosition(_p);
+    m.getWorldQuaternion(_qi);
+    // Yerel eksen etrafındaki dönüş (yaw) de sıvıyı sallar.
+    _n.set(0, 0, 1).applyQuaternion(_qi);
+    const yaw = Math.atan2(_n.x, _n.z);
+    if (!s.init) {
+      s.prev.copy(_p);
+      s.yaw = yaw;
+      s.init = true;
+    }
+    _v.copy(_p).sub(s.prev).divideScalar(dt);
+    _a.copy(_v).sub(s.vel).divideScalar(dt);
+    s.prev.copy(_p);
+    s.vel.copy(_v);
+    let dyaw = yaw - s.yaw;
+    if (dyaw > Math.PI) dyaw -= 2 * Math.PI;
+    if (dyaw < -Math.PI) dyaw += 2 * Math.PI;
+    s.yaw = yaw;
+    // İvme yerel eksenlere çevrilir (dünya ölçeğine göre normalize).
+    _a.applyQuaternion(_qi.invert());
+    const scale = m.matrixWorld.getMaxScaleOnAxis() || 1;
+    const ax = MathUtils.clamp(_a.x / scale, -60, 60);
+    const az = MathUtils.clamp(_a.z / scale, -60, 60);
+    // Yay-sönüm: yüzey ivmenin tersine yatar, sonra salınarak durulur.
+    const k = 55;
+    const c = 3.2;
+    s.vx += (-k * s.tx - c * s.vx - ax * 0.9 - (dyaw / dt) * 0.35) * dt;
+    s.vz += (-k * s.tz - c * s.vz + az * 0.9) * dt;
+    s.tx = MathUtils.clamp(s.tx + s.vx * dt, -0.45, 0.45);
+    s.tz = MathUtils.clamp(s.tz + s.vz * dt, -0.35, 0.35);
+    // Çok hafif, sürekli canlılık (durgun sıvıda da ışık oynar).
+    const t = clock.getElapsedTime();
+    const wob = 0.012 * Math.sin(t * 1.7);
+    const sx = Math.tan(s.tx + wob);
+    const sz = Math.tan(s.tz);
+    // Yerel yüzey: y = level - sx·(x - axis) - sz·z; normal (sx, 1, sz).
+    _n.set(sx, 1, sz).normalize();
+    const p0 = _v.set(L.axisX, L.levelY, 0);
+    plane.setFromNormalAndCoplanarPoint(_n.clone().negate(), p0);
+    plane.applyMatrix4(m.matrixWorld);
+    mats.volume.userData.plane.value.set(plane.normal.x, plane.normal.y, plane.normal.z, plane.constant);
+    const q = surf.current.quaternion.setFromUnitVectors(_up, _n);
+    q.multiply(_qx);
+    surf.current.position.copy(p0);
+    // Geçişte şişeyle birlikte soluklaşır.
+    const o = body.transparent ? body.opacity : 1;
+    mats.volume.opacity = 0.42 * o;
+    mats.top.opacity = 0.55 * o;
+  });
+  return (
+    <>
+      {/* Sıvı camdan önce çizilir (cam derinliğe yazar; sonra çizilirse camın arkasında kalırdı). */}
+      <mesh ref={vol} geometry={L.geo} material={mats.volume} renderOrder={-2} userData={{ noMeasure: true, noFit: true }} />
+      <mesh ref={surf} material={mats.top} renderOrder={-1} userData={{ noMeasure: true, noFit: true }}>
+        <planeGeometry args={[L.width, L.depth]} />
+      </mesh>
+    </>
   );
 }
 

@@ -80,11 +80,13 @@ export function arcPose(d, aspect, time, i) {
       // Masaüstü (butik fotoğrafıyla ölçülmüş): öndeki ürün ekranın ortasında (fotoğraftaki kemerin içinde),
       // komşular kemerin iki yanında, çiçeklerin önünde, 12 birim geride (aynı boyda; perspektifle küçük görünür).
       const cx = 0;
-      // Daha dar ekranda (16:9) komşular ortaya yaklaşır: başlığa ve nota listesine binmez.
-      const sp = phone ? 3.5 : 9.6 * MathUtils.clamp(aspect / 2.63, 0.62, 1);
+      // Komşular kemerin dışında: kemerin ekrandaki yarı genişliği (fotoğrafın %12,4'ü; fotoğraf ekran boyunca
+      // uzandığından 0,326/en-boy) + %12 pay; 16 birim geride (kamera 18 birim önde) ekrana izdüşümü.
+      const offset = 0.326 / aspect + 0.09;
+      const sp = phone ? 3.5 : offset * 11.35 * aspect * (34 / 18);
       const sc0 = dollyScale(aspect);
       const a1 = Math.min(ad, 1);
-      const z = phone ? -5 * a1 - 3 * Math.max(0, ad - 1) : -12 * a1 - 6 * Math.max(0, ad - 1);
+      const z = phone ? -5 * a1 - 3 * Math.max(0, ad - 1) : -16 * a1 - 6 * Math.max(0, ad - 1);
       const scale = sc0 * (phone ? 1 - 0.12 * a1 : 1);
       // Uzaktakiler (ikinci komşudan öte) karanlıkta söner.
       const alpha = 1 - MathUtils.smoothstep(ad, 1.45, 1.95);

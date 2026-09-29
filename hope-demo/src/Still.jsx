@@ -501,7 +501,9 @@ export default function Still() {
         gl={{ alpha: !STAGE, antialias: true, preserveDrawingBuffer: true }}
         camera={STAGE ? { position: [0, 0.55, 12.5], fov: 33 } : { position: [0, 0, 10.5], fov: 35 }}
         dpr={STAGE ? 1 : 2}
-        onCreated={({ gl }) => (gl.toneMappingExposure = STAGE ? 1.15 : 1.25)}
+        onCreated={({ gl }) => {
+          gl.toneMappingExposure = STAGE ? 1.15 : 1.25;
+        }}
       >
         {/* Stüdyo: önden yumuşak ana ışık, üstten sıcak spot, yanlardan kenar ışığı; ürün aydınlık. */}
         <ambientLight intensity={STAGE ? 0.35 : 0.55} />
