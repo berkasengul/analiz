@@ -4,13 +4,13 @@
   "studio": true,
   "backPhotos": false,
   "views": false,
-  "skip": "^(?!(erba\\-pura\\-7|good\\-girl\\-gone\\-bad\\-182|aventus\\-477|kirke\\-460|hacivat\\-72|naxos\\-89|mansa\\-420|akigala\\-mandarino\\-761|la\\-capitale\\-70|balle\\-rouge\\-536|angels\\-share\\-458|mandorle\\-483|jany\\-479|gladiator\\-487|erba\\-gold\\-428|fenice\\-670|adele\\-921|apollonia\\-20|borabora\\-862|celeste\\-858|crazy\\-in\\-love\\-748|dahab\\-693|dark\\-purple\\-261|dolce\\-amalfi\\-31|fresa\\-blanca\\-1326|good\\-girl\\-gone\\-bad\\-extreme\\-185|gossip\\-night\\-919|love\\-in\\-black\\-551|love\\-in\\-white\\-548|lucky\\-candy\\-663|opera\\-95|roses\\-greedy\\-581|secret\\-love\\-1056|shabby\\-chic\\-994|wardasina\\-116|green\\-irish\\-tweed\\-501|himalaya\\-509|midas\\-touch\\-1244|oud\\-dream\\-275|red\\-tobacco\\-217|the\\-one\\-and\\-only\\-1048|torino\\-22\\-1032)$)",
+  "skip": "^(?!(erba\\-pura\\-7|hacivat\\-72|mansa\\-420|red\\-tobacco\\-217|wardasina\\-116|good\\-girl\\-gone\\-bad\\-182|aventus\\-477|kirke\\-460|naxos\\-89|akigala\\-mandarino\\-761|la\\-capitale\\-70|balle\\-rouge\\-536|angels\\-share\\-458|mandorle\\-483|jany\\-479|gladiator\\-487|erba\\-gold\\-428|fenice\\-670|adele\\-921|apollonia\\-20|borabora\\-862|celeste\\-858|crazy\\-in\\-love\\-748|dahab\\-693|dark\\-purple\\-261|dolce\\-amalfi\\-31|fresa\\-blanca\\-1326|good\\-girl\\-gone\\-bad\\-extreme\\-185|gossip\\-night\\-919|love\\-in\\-black\\-551|love\\-in\\-white\\-548|lucky\\-candy\\-663|opera\\-95|roses\\-greedy\\-581|secret\\-love\\-1056|shabby\\-chic\\-994|green\\-irish\\-tweed\\-501|himalaya\\-509|midas\\-touch\\-1244|oud\\-dream\\-275|the\\-one\\-and\\-only\\-1048|torino\\-22\\-1032)$)",
   "backHead": "ILLATJEGYEK"
  },
  "aktar": {
   "domain": "www.parfumorult.hu",
   "platform": "merx",
-  "namePrefix": "^(Giardini\\ di\\ Toscana|Tiziana\\ Terenzi|Acqua\\ di\\ Parma|Maiora\\ Parfum|Kilian\\ Paris|Mes\\ Bisous|Casamorati|New\\ Notes|SORA\\ DORA|Pernoire|Xerjoff|Nishane|Majouri|Montale|Sospiro|Mancera|Gritti|Byredo|Creed|Kajal|Argos|THoO)\\s+",
+  "namePrefix": "^(Giardini\\ di\\ Toscana|Tiziana\\ Terenzi|Acqua\\ di\\ Parma|Maiora\\ Parfum|Kilian\\ Paris|Casamorati|Mes\\ Bisous|New\\ Notes|SORA\\ DORA|Pernoire|Nishane|Majouri|Mancera|Sospiro|Montale|Xerjoff|Gritti|Byredo|Creed|Kajal|Argos|THoO)\\s+",
   "idPrefix": "",
   "defaultSize": "50 ml",
   "categories": [
@@ -48,7 +48,7 @@
     "color": "#8a5a34",
     "descTr": "Fűszeres, fás, dohányos és oudos illatok.",
     "descEn": "Fűszeres, fás, dohányos és oudos illatok.",
-    "match": "^(hacivat\\-72|naxos\\-89|mansa\\-420|la\\-capitale\\-70|angels\\-share\\-458|dolce\\-amalfi\\-31|opera\\-95|wardasina\\-116|midas\\-touch\\-1244|oud\\-dream\\-275|red\\-tobacco\\-217|torino\\-22\\-1032) "
+    "match": "^(hacivat\\-72|mansa\\-420|red\\-tobacco\\-217|wardasina\\-116|naxos\\-89|la\\-capitale\\-70|angels\\-share\\-458|dolce\\-amalfi\\-31|opera\\-95|midas\\-touch\\-1244|oud\\-dream\\-275|torino\\-22\\-1032) "
    }
   ],
   "profiles": {
@@ -57,12 +57,29 @@
   },
   "home": [
    "erba-pura-7",
-   "good-girl-gone-bad-182",
-   "aventus-477",
-   "kirke-460"
+   "hacivat-72",
+   "mansa-420",
+   "red-tobacco-217",
+   "wardasina-116"
   ],
   "families": {
    "erba-pura-7": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "hacivat-72": [
+    "Nishane",
+    "Nishane"
+   ],
+   "mansa-420": [
+    "Pernoire",
+    "Pernoire"
+   ],
+   "red-tobacco-217": [
+    "Mancera",
+    "Mancera"
+   ],
+   "wardasina-116": [
     "Xerjoff",
     "Xerjoff"
    ],
@@ -78,17 +95,9 @@
     "Tiziana Terenzi",
     "Tiziana Terenzi"
    ],
-   "hacivat-72": [
-    "Nishane",
-    "Nishane"
-   ],
    "naxos-89": [
     "Xerjoff",
     "Xerjoff"
-   ],
-   "mansa-420": [
-    "Pernoire",
-    "Pernoire"
    ],
    "akigala-mandarino-761": [
     "New Notes",
@@ -198,10 +207,6 @@
     "Giardini di Toscana",
     "Giardini di Toscana"
    ],
-   "wardasina-116": [
-    "Xerjoff",
-    "Xerjoff"
-   ],
    "green-irish-tweed-501": [
     "Creed",
     "Creed"
@@ -217,10 +222,6 @@
    "oud-dream-275": [
     "Montale",
     "Montale"
-   ],
-   "red-tobacco-217": [
-    "Mancera",
-    "Mancera"
    ],
    "the-one-and-only-1048": [
     "Majouri",
@@ -250,6 +251,90 @@
      [
       "Mediterrán gyümölcsök",
       "Mediterrán gyümölcsök"
+     ]
+    ]
+   ],
+   [
+    "^hacivat\\-72$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Ananász",
+      "Ananász"
+     ],
+     [
+      "Grapefruit",
+      "Grapefruit"
+     ],
+     [
+      "Jázmin",
+      "Jázmin"
+     ]
+    ]
+   ],
+   [
+    "^mansa\\-420$",
+    [
+     [
+      "Fekete ribizli",
+      "Fekete ribizli"
+     ],
+     [
+      "Rózsabors",
+      "Rózsabors"
+     ],
+     [
+      "Orris gyökér",
+      "Orris gyökér"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^red\\-tobacco\\-217$",
+    [
+     [
+      "Sáfrány",
+      "Sáfrány"
+     ],
+     [
+      "Fahéj",
+      "Fahéj"
+     ],
+     [
+      "Tömjén",
+      "Tömjén"
+     ],
+     [
+      "Szerecsendió",
+      "Szerecsendió"
+     ]
+    ]
+   ],
+   [
+    "^wardasina\\-116$",
+    [
+     [
+      "Gyógynövényes jegyek",
+      "Gyógynövényes jegyek"
+     ],
+     [
+      "Spanyol Sáfrány",
+      "Spanyol Sáfrány"
+     ],
+     [
+      "Cédrusfa",
+      "Cédrusfa"
+     ],
+     [
+      "Pacsuli",
+      "Pacsuli"
      ]
     ]
    ],
@@ -317,27 +402,6 @@
     ]
    ],
    [
-    "^hacivat\\-72$",
-    [
-     [
-      "Bergamot",
-      "Bergamot"
-     ],
-     [
-      "Ananász",
-      "Ananász"
-     ],
-     [
-      "Grapefruit",
-      "Grapefruit"
-     ],
-     [
-      "Jázmin",
-      "Jázmin"
-     ]
-    ]
-   ],
-   [
     "^naxos\\-89$",
     [
      [
@@ -355,27 +419,6 @@
      [
       "Jázmin",
       "Jázmin"
-     ]
-    ]
-   ],
-   [
-    "^mansa\\-420$",
-    [
-     [
-      "Fekete ribizli",
-      "Fekete ribizli"
-     ],
-     [
-      "Rózsabors",
-      "Rózsabors"
-     ],
-     [
-      "Orris gyökér",
-      "Orris gyökér"
-     ],
-     [
-      "Oud",
-      "Oud"
      ]
     ]
    ],
@@ -943,27 +986,6 @@
     ]
    ],
    [
-    "^wardasina\\-116$",
-    [
-     [
-      "Gyógynövényes jegyek",
-      "Gyógynövényes jegyek"
-     ],
-     [
-      "Spanyol Sáfrány",
-      "Spanyol Sáfrány"
-     ],
-     [
-      "Cédrusfa",
-      "Cédrusfa"
-     ],
-     [
-      "Pacsuli",
-      "Pacsuli"
-     ]
-    ]
-   ],
-   [
     "^green\\-irish\\-tweed\\-501$",
     [
      [
@@ -1048,27 +1070,6 @@
     ]
    ],
    [
-    "^red\\-tobacco\\-217$",
-    [
-     [
-      "Sáfrány",
-      "Sáfrány"
-     ],
-     [
-      "Fahéj",
-      "Fahéj"
-     ],
-     [
-      "Tömjén",
-      "Tömjén"
-     ],
-     [
-      "Szerecsendió",
-      "Szerecsendió"
-     ]
-    ]
-   ],
-   [
     "^the\\-one\\-and\\-only\\-1048$",
     [
      [
@@ -1128,6 +1129,62 @@
     }
    },
    {
+    "match": "^hacivat\\-72$",
+    "composition": {
+     "tr": [
+      "Fej: Bergamot, Ananász, Grapefruit",
+      "Szív: Jázmin, Pacsuli, Cédrusfa",
+      "Alap: Tölgymoha, Fás jegyek"
+     ],
+     "en": [
+      "Fej: Bergamot, Ananász, Grapefruit",
+      "Szív: Jázmin, Pacsuli, Cédrusfa",
+      "Alap: Tölgymoha, Fás jegyek"
+     ]
+    }
+   },
+   {
+    "match": "^mansa\\-420$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Fekete ribizli, Rózsabors, Orris gyökér, Oud, Rózsa, Ámbra, Sáfrány, Pacsuli, Heliotróp, Moha, Pézsma"
+     ],
+     "en": [
+      "Illatjegyek: Fekete ribizli, Rózsabors, Orris gyökér, Oud, Rózsa, Ámbra, Sáfrány, Pacsuli, Heliotróp, Moha, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^red\\-tobacco\\-217$",
+    "composition": {
+     "tr": [
+      "Fej: Sáfrány, Fahéj, Tömjén, Szerecsendió, Zöldalma, Barack, Oud",
+      "Szív: Pacsuli, Jázmin",
+      "Alap: Cubai dohány, Ámbra, Fás jegyek, Vanília, Pézsma"
+     ],
+     "en": [
+      "Fej: Sáfrány, Fahéj, Tömjén, Szerecsendió, Zöldalma, Barack, Oud",
+      "Szív: Pacsuli, Jázmin",
+      "Alap: Cubai dohány, Ámbra, Fás jegyek, Vanília, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^wardasina\\-116$",
+    "composition": {
+     "tr": [
+      "Fej: Gyógynövényes jegyek",
+      "Szív: Spanyol Sáfrány, Cédrusfa, Pacsuli, Bolgár rózsa",
+      "Alap: Vanília, Pézsma, Dohány"
+     ],
+     "en": [
+      "Fej: Gyógynövényes jegyek",
+      "Szív: Spanyol Sáfrány, Cédrusfa, Pacsuli, Bolgár rózsa",
+      "Alap: Vanília, Pézsma, Dohány"
+     ]
+    }
+   },
+   {
     "match": "^good\\-girl\\-gone\\-bad\\-182$",
     "composition": {
      "tr": [
@@ -1167,21 +1224,6 @@
     }
    },
    {
-    "match": "^hacivat\\-72$",
-    "composition": {
-     "tr": [
-      "Fej: Bergamot, Ananász, Grapefruit",
-      "Szív: Jázmin, Pacsuli, Cédrusfa",
-      "Alap: Tölgymoha, Fás jegyek"
-     ],
-     "en": [
-      "Fej: Bergamot, Ananász, Grapefruit",
-      "Szív: Jázmin, Pacsuli, Cédrusfa",
-      "Alap: Tölgymoha, Fás jegyek"
-     ]
-    }
-   },
-   {
     "match": "^naxos\\-89$",
     "composition": {
      "tr": [
@@ -1193,17 +1235,6 @@
       "Fej: Bergamott, Citrom, Levendula",
       "Szív: Jázmin, Fahéj, Méz, Kasmír",
       "Alap: Dohány, Tonkabab, Vanília"
-     ]
-    }
-   },
-   {
-    "match": "^mansa\\-420$",
-    "composition": {
-     "tr": [
-      "Illatjegyek: Fekete ribizli, Rózsabors, Orris gyökér, Oud, Rózsa, Ámbra, Sáfrány, Pacsuli, Heliotróp, Moha, Pézsma"
-     ],
-     "en": [
-      "Illatjegyek: Fekete ribizli, Rózsabors, Orris gyökér, Oud, Rózsa, Ámbra, Sáfrány, Pacsuli, Heliotróp, Moha, Pézsma"
      ]
     }
    },
@@ -1589,21 +1620,6 @@
     }
    },
    {
-    "match": "^wardasina\\-116$",
-    "composition": {
-     "tr": [
-      "Fej: Gyógynövényes jegyek",
-      "Szív: Spanyol Sáfrány, Cédrusfa, Pacsuli, Bolgár rózsa",
-      "Alap: Vanília, Pézsma, Dohány"
-     ],
-     "en": [
-      "Fej: Gyógynövényes jegyek",
-      "Szív: Spanyol Sáfrány, Cédrusfa, Pacsuli, Bolgár rózsa",
-      "Alap: Vanília, Pézsma, Dohány"
-     ]
-    }
-   },
-   {
     "match": "^green\\-irish\\-tweed\\-501$",
     "composition": {
      "tr": [
@@ -1660,21 +1676,6 @@
     }
    },
    {
-    "match": "^red\\-tobacco\\-217$",
-    "composition": {
-     "tr": [
-      "Fej: Sáfrány, Fahéj, Tömjén, Szerecsendió, Zöldalma, Barack, Oud",
-      "Szív: Pacsuli, Jázmin",
-      "Alap: Cubai dohány, Ámbra, Fás jegyek, Vanília, Pézsma"
-     ],
-     "en": [
-      "Fej: Sáfrány, Fahéj, Tömjén, Szerecsendió, Zöldalma, Barack, Oud",
-      "Szív: Pacsuli, Jázmin",
-      "Alap: Cubai dohány, Ámbra, Fás jegyek, Vanília, Pézsma"
-     ]
-    }
-   },
-   {
     "match": "^the\\-one\\-and\\-only\\-1048$",
     "composition": {
      "tr": [
@@ -1713,6 +1714,30 @@
     "#0e1e22"
    ],
    [
+    "^hacivat\\-72$",
+    "#c69b52",
+    "#efe3ce",
+    "#271e10"
+   ],
+   [
+    "^mansa\\-420$",
+    "#3a3440",
+    "#c7c6c9",
+    "#0b0a0c"
+   ],
+   [
+    "^red\\-tobacco\\-217$",
+    "#c63d31",
+    "#efc8c5",
+    "#270c09"
+   ],
+   [
+    "^wardasina\\-116$",
+    "#c5423c",
+    "#eecac8",
+    "#270d0b"
+   ],
+   [
     "^good\\-girl\\-gone\\-bad\\-182$",
     "#c69f6d",
     "#efe4d6",
@@ -1731,22 +1756,10 @@
     "#272015"
    ],
    [
-    "^hacivat\\-72$",
-    "#c69b52",
-    "#efe3ce",
-    "#271e10"
-   ],
-   [
     "^naxos\\-89$",
     "#c6b46d",
     "#efead6",
     "#272315"
-   ],
-   [
-    "^mansa\\-420$",
-    "#3a3440",
-    "#c7c6c9",
-    "#0b0a0c"
    ],
    [
     "^akigala\\-mandarino\\-761$",
@@ -1911,12 +1924,6 @@
     "#1d1012"
    ],
    [
-    "^wardasina\\-116$",
-    "#c5423c",
-    "#eecac8",
-    "#270d0b"
-   ],
-   [
     "^green\\-irish\\-tweed\\-501$",
     "#3a3440",
     "#c7c6c9",
@@ -1941,12 +1948,6 @@
     "#272014"
    ],
    [
-    "^red\\-tobacco\\-217$",
-    "#c63d31",
-    "#efc8c5",
-    "#270c09"
-   ],
-   [
     "^the\\-one\\-and\\-only\\-1048$",
     "#7f5e46",
     "#dbd1cb",
@@ -1965,6 +1966,22 @@
     "50 ml"
    ],
    [
+    "^hacivat\\-72$",
+    "50 ml"
+   ],
+   [
+    "^mansa\\-420$",
+    "50 ml"
+   ],
+   [
+    "^red\\-tobacco\\-217$",
+    "60 ml"
+   ],
+   [
+    "^wardasina\\-116$",
+    "100 ml"
+   ],
+   [
     "^good\\-girl\\-gone\\-bad\\-182$",
     "50 ml"
    ],
@@ -1977,16 +1994,8 @@
     "100 ml"
    ],
    [
-    "^hacivat\\-72$",
-    "50 ml"
-   ],
-   [
     "^naxos\\-89$",
     "100 ml"
-   ],
-   [
-    "^mansa\\-420$",
-    "50 ml"
    ],
    [
     "^akigala\\-mandarino\\-761$",
@@ -2097,10 +2106,6 @@
     "100 ml"
    ],
    [
-    "^wardasina\\-116$",
-    "100 ml"
-   ],
-   [
     "^green\\-irish\\-tweed\\-501$",
     "50 ml"
    ],
@@ -2115,10 +2120,6 @@
    [
     "^oud\\-dream\\-275$",
     "100 ml"
-   ],
-   [
-    "^red\\-tobacco\\-217$",
-    "60 ml"
    ],
    [
     "^the\\-one\\-and\\-only\\-1048$",
@@ -2144,29 +2145,29 @@
     }
    },
    {
-    "handle": "good-girl-gone-bad-182",
+    "handle": "hacivat-72",
     "tr": {
      "title": "Parfümőrült kedvencei",
      "text": "Olyan illatok, amiket mi is nagy megelégedéssel használunk a mindennapokban.",
-     "stat": "Kilian Paris · Good Girl Gone Bad"
+     "stat": "Nishane · Hacivat"
     },
     "en": {
      "title": "Parfümőrült kedvencei",
      "text": "Olyan illatok, amiket mi is nagy megelégedéssel használunk a mindennapokban.",
-     "stat": "Kilian Paris · Good Girl Gone Bad"
+     "stat": "Nishane · Hacivat"
     }
    },
    {
-    "handle": "aventus-477",
+    "handle": "mansa-420",
     "tr": {
      "title": "Szűrők illatcsaládokra",
      "text": "Az illatokat olyan szűrőkkel kategorizáltuk, mint pl.: édes, fűszeres vagy éppen fás illatok.",
-     "stat": "Creed · Aventus"
+     "stat": "Pernoire · Mansa"
     },
     "en": {
      "title": "Szűrők illatcsaládokra",
      "text": "Az illatokat olyan szűrőkkel kategorizáltuk, mint pl.: édes, fűszeres vagy éppen fás illatok.",
-     "stat": "Creed · Aventus"
+     "stat": "Pernoire · Mansa"
     }
    }
   ]

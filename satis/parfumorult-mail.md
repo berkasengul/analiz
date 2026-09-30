@@ -98,7 +98,7 @@
 
 - [ ] Son zip'i (`demolar/parfumorult-Netlify.zip`) Netlify Drop'a yükle; linki telefonda ve bilgisayarda aç. Açılış sahnesi yalnızca ilk açılışta oynar: kontrol için gizli sekmede aç.
 - [ ] Bir parfümü sepete ekleyip "Tovább a pénztárhoz"a bas: parfumorult.hu'daki ürün sayfası açılmalı (sepette tek ürün varken; birden çok üründe mağazanın ana sayfası açılır).
-- [ ] 15 saniyelik dikey video: açılış (logo → Erba Pura kaideye iner), kaydırıp Good Girl Gone Bad'e geç, sonra "Fújd be" (ses açık). İsteğe bağlı ikinci video: illatkereső (koku bulucu).
+- [ ] 15 saniyelik dikey video: açılış (logo → Erba Pura kaideye iner), kaydırıp Hacivat ve Mansa'ya geç, sonra "Fújd be" (ses açık). İsteğe bağlı ikinci video: illatkereső (koku bulucu).
 - [ ] `[DEMO LINK]` ve imzayı doldur; `parfum-firmalari.csv`'de tarihi yaz.
 - [ ] Macaristan saatiyle (Türkiye'den 1 saat geri) Salı–Perşembe, 10:00–11:00 arasında gönder.
 
@@ -109,7 +109,7 @@ Fiyatı ilk mesajda yazma. Çok markalı bir mağaza: tam siteyi (400+ ürünün
 ## Demoda neler var (sorulursa)
 
 - **Açılış:** karanlıkta Signature by Parfümőrült logosu altın ışıkla belirir, slogan ("Találjuk meg a Signature illatodat!"), perde açılır; Erba Pura yukarıdan kaideye iner.
-- **Ana sayfa:** Xerjoff Erba Pura, Kilian Good Girl Gone Bad, Creed Aventus, Tiziana Terenzi Kirké; her biri kendi renginde sahnede, ortadaki şişeye tepeden yumuşak ışık, altın kenarlı mermer kaide.
+- **Ana sayfa:** Xerjoff Erba Pura, Nishane Hacivat, Pernoire Mansa, Mancera Red Tobacco, Xerjoff Wardasina; her biri kendi renginde sahnede, ortadaki şişeye tepeden yumuşak ışık, altın kenarlı mermer kaide.
 - **Miért tőlünk?:** sitedeki "neden biz" metinlerinden üç adım; özellik kartları: orijinal ürün garantisi, 5 ml numune, Macarca açıklama + TikTok, 50.000 Ft üzeri hediye numune.
 - **Illatkereső (koku bulucu):** 3 soru (Macarca); sonuç kendi renginde kaideye iner, iki alternatif.
 - **Tüm parfümler:** 42 parfüm, 4 koku ailesi (sitenin kendi filtre adlarıyla); her parfüm küçük bir sahnede markası, notaları ve fiyatıyla.
