@@ -10,6 +10,7 @@ gibi, "v4_"/"v5"/"KUTU" ekleri olmadan) ve bulursa ilk görsel olarak koyar.
 
     python3 demo-fabrikasi/araclar/woo-cek.py regalien.com regalien
     python3 demo-fabrikasi/araclar/woo-cek.py regalien.com regalien --en /en   (İngilizce mağaza öneki; varsayılan /en)
+    python3 demo-fabrikasi/araclar/woo-cek.py parfumane.com parfumane --only "^(galiya-oud|ahbab)" --no-clean --no-en
 
 Yanlış eşleşen sade çekim markalar/<slug>-kurallar.json → "cek": {"cleanShot": {"<handle>": "<görsel adresi>"}}
 ile elle seçilir.
@@ -140,18 +141,30 @@ def main():
     kpath = os.path.join(here, "..", "markalar", f"{slug}-kurallar.json")
     PICK = (json.load(open(kpath, encoding="utf-8")).get("cek", {}).get("cleanShot", {}) if os.path.exists(kpath) else {})
     tr_raw = products(base)
-    en_raw = {p["id"]: p for p in products(base + en_prefix)}
+    # --only "regex": yalnızca adresi (slug) uyan ürünler (büyük mağazada bütün görselleri indirmemek için).
+    if "--only" in sys.argv:
+        rx = re.compile(sys.argv[sys.argv.index("--only") + 1])
+        tr_raw = [p for p in tr_raw if rx.search(p["slug"])]
+    en_list = products(base + en_prefix) if "--no-en" not in sys.argv else []
+    en_raw = {p["id"]: p for p in en_list}
+    # WPML gibi çeviri eklentilerinde İngilizce ürünün numarası ve adresi farklı: stok koduyla (SKU) eşleşir.
+    en_sku = {p["sku"]: p for p in en_list if p.get("sku")}
+    for p in tr_raw:
+        if p["id"] not in en_raw and p.get("sku") in en_sku:
+            en_raw[p["id"]] = en_sku[p["sku"]]
     print(len(tr_raw), "ürün,", len(en_raw), "İngilizce")
     tr, en, raw = [], [], []
     for p in tr_raw:
         it = item(p)
-        shot = PICK.get(p["slug"]) or clean_shot(base, p)
+        # --no-clean: medya arşivinde sade çekim aranmaz (arşivde "<Ad>_1500x1500" düzeni olmayan mağazalar).
+        shot = PICK.get(p["slug"]) or (None if "--no-clean" in sys.argv else clean_shot(base, p))
         if shot:
             it["images"].insert(0, {"src": shot})
         tr.append(it)
         q = en_raw.get(p["id"])
         e = item(q, "en") if q else dict(it)
         e["images"] = it["images"]
+        e["handle"] = it["handle"]  # çeviride adres farklı olabilir (galiya-oud-50ml-perfume); ürün Türkçe adresle eşleşir
         en.append(e)
         raw.append({"handle": it["handle"], "categories": [c["name"] for c in p.get("categories", [])],
                     "short": lines(only_lang(p.get("short_description"), "tr")), "shortEn": lines(only_lang((q or {}).get("short_description"), "en")),

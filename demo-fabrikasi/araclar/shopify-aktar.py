@@ -23,6 +23,7 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "sizes": [["regex", "50 ml"]]           tek tek ürünlerin hacmi (defaultSize'dan önce)
     "trText": {"handle": "Türkçe açıklama"}   mağaza yalnızca İngilizceyse: markanın metninin Türkçe çevirisi
                                              (İngilizce metin mağazadan olduğu gibi kalır)
+    "enText": {"handle": "English text"}   İngilizce açıklama (ör. mağazanın İngilizce sayfasındaki ikinci paragraf)
     "platform": "ikas"              mağaza ikas (ikas-cek.py ile çekildi): sepette ödeme, ürünün mağazadaki sayfasında tamamlanır
     "platform": "woo"               mağaza WooCommerce (woo-cek.py ile çekildi): sepetteki ürün markanın sepetine eklenir
     "platform": "merx"              mağaza merxwebshop.hu (merx-cek.py ile çekildi): ödeme ürünün mağazadaki sayfasında
@@ -187,6 +188,8 @@ def main():
             desc = clip(R["trText"][h], 330)
             if not qs:  # İngilizce mağaza yoksa İngilizce alan da aynı metin
                 en_desc = desc
+        if h in R.get("enText", {}):  # İngilizce mağazanın açıklamasından elle seçilen paragraf
+            en_desc = clip(R["enText"][h], 330)
         v = p["variants"][0]
         price = float(v["price"])
         cmp_ = float(v["compare_at_price"]) if v.get("compare_at_price") and float(v["compare_at_price"]) > price else None

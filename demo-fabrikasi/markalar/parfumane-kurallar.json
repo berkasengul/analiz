@@ -1,0 +1,2152 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "hero": [
+   [
+    ".",
+    2
+   ]
+  ],
+  "skip": "^(?!(rah\\-i\\-ask\\-parfum\\-75ml\\-edp|galiya\\-oud\\-50ml\\-parfum|desert\\-prince\\-parfum\\-90ml\\-edp|nar\\-i\\-ask\\-50ml\\-extrait\\-de\\-parfum|cevherbaha\\-parfum\\-75ml\\-edp|lalezar\\-parfum\\-75ml\\-edp|great\\-oud\\-50ml\\-parfum|romantic\\-oud\\-50ml\\-parfum|basha\\-oud\\-50ml\\-parfum|oud\\-u\\-farah\\-50ml\\-parfum|silky\\-oud\\-50ml\\-parfum|mystic\\-oud\\-50ml\\-parfum|sukkar\\-oud\\-50ml\\-parfum|bouquet\\-oud\\-50ml\\-parfum|oud\\-u\\-sehriyar\\-50ml\\-parfum|golden\\-wonder\\-parfum\\-90ml\\-edp|neyl\\-u\\-fer\\-50ml\\-extrait\\-de\\-parfum|baharistan\\-50ml\\-extrait\\-de\\-parfum|zadegan\\-50ml\\-extrait\\-de\\-parfum|hawasat\\-50ml\\-extrait\\-de\\-parfum|zumrud\\-u\\-anka\\-50ml\\-extrait\\-de\\-parfum|topaz\\-50ml\\-extrait\\-de\\-parfum|hazarat\\-50ml\\-extrait\\-de\\-parfum|murr\\-u\\-baha\\-50ml\\-extrait\\-de\\-parfum|amak\\-i\\-hayal\\-50ml\\-extrait\\-de\\-parfum|ahbab\\-50ml\\-extrait\\-de\\-parfum|ates\\-beste\\-50ml\\-extrait\\-de\\-parfum|feyz\\-i\\-safa\\-50ml\\-extrait\\-de\\-parfum|majesty\\-50ml\\-extrait\\-de\\-parfum|pera\\-istanbul\\-50ml\\-extrait\\-de\\-parfum|rosa\\-musk\\-50ml\\-extrait\\-de\\-parfum|sarayli\\-50ml\\-extrait\\-de\\-parfum|savor\\-50ml\\-extrait\\-de\\-parfum|white\\-lotus\\-hamra\\-50ml\\-extrait\\-de\\-parfum)$)"
+ },
+ "aktar": {
+  "themeGlow": 0.3,
+  "domain": "parfumane.com",
+  "platform": "woo",
+  "wooCart": "sepet",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "categories": [
+   {
+    "id": "dolmabahce",
+    "tr": "Dolmabahçe Palace Koleksiyonu",
+    "en": "Dolmabahçe Palace Collection",
+    "color": "#b8863c",
+    "descTr": "Bir insana alınabilecek en güzel hediye parfümdür. Bu koleksiyondaki parfümlerin adeta el yapımı şeklinde kristal işlemeli şişe tasarımı, Fransız ikonu sprey pompası, yeniden doldurulabilir şişesi, kutu tasarımı ve genel beğeniye hitap eden eşsiz güzellikte parfümleriyle Osmanlı Saray Sultanlarını bile kıskandıracak cazibeye sahiptir.",
+    "descEn": "The most beautiful gift one can give is perfume. This collection features handcrafted crystal-engraved bottle designs, iconic French-style spray pumps, refillable bottles, elegant packaging, and exquisitely beautiful fragrances that appeal to refined tastes — possessing a charm that could even make the Ottoman palace sultans envious.",
+    "match": "^(rah\\-i\\-ask\\-parfum\\-75ml\\-edp|cevherbaha\\-parfum\\-75ml\\-edp|lalezar\\-parfum\\-75ml\\-edp) "
+   },
+   {
+    "id": "oud",
+    "tr": "Oud Koleksiyonu",
+    "en": "Oud Collection",
+    "color": "#6b3f22",
+    "descTr": "Oud Koleksiyonu, zamansız bir lüksün ve doğanın güçlü dokunuşlarının harmanlandığı, seçkin kokuların yer aldığı özel bir koleksiyondur. Orta Doğu’nun en değerli ve mistik esanslarından biri olan oud (agarwood)‘un başrolde olduğu bu koleksiyon, zarafet ve gizemin buluştuğu benzersiz bir parfüm deneyimi sunar.",
+    "descEn": "The Oud Collection is a special selection where timeless luxury is blended with the powerful touch of nature. Centered around oud (agarwood), one of the most precious and mystical essences of the Middle East, this collection offers a unique perfume experience where elegance and mystery unite.",
+    "match": "^(galiya\\-oud\\-50ml\\-parfum|great\\-oud\\-50ml\\-parfum|romantic\\-oud\\-50ml\\-parfum|basha\\-oud\\-50ml\\-parfum|oud\\-u\\-farah\\-50ml\\-parfum|silky\\-oud\\-50ml\\-parfum|mystic\\-oud\\-50ml\\-parfum|sukkar\\-oud\\-50ml\\-parfum|bouquet\\-oud\\-50ml\\-parfum|oud\\-u\\-sehriyar\\-50ml\\-parfum) "
+   },
+   {
+    "id": "oriental",
+    "tr": "Oriental Koleksiyonu",
+    "en": "Oriental Collection",
+    "color": "#1d1e26",
+    "descTr": "Koleksiyondaki her bir parfüm Orta Doğu’nun zengin kültürü ve eşsiz lezzetlerinin bir araya gelmesiyle oluşmuştur. Sizleri adeta zamanda yolculuğa çıkarırcasına geçmişin izlerini taşıyan, modern dünya ile tarihin harmanlandığı, derin ve yoğun notalara sahip parfümler, dünya üzerinde eşi benzeri görülmemiş kokulara sahiptir.",
+    "descEn": "Each perfume in the collection is created through the fusion of the Middle East’s rich culture and unique aromas. These fragrances take you on a journey through time — carrying traces of the past, blending history with the modern world — offering deep, intense notes and scents unlike anything else in the world.",
+    "match": "^(desert\\-prince\\-parfum\\-90ml\\-edp|golden\\-wonder\\-parfum\\-90ml\\-edp) "
+   },
+   {
+    "id": "attar",
+    "tr": "Attar Koleksiyonu",
+    "en": "Attar Collection",
+    "color": "#c49a45",
+    "descTr": "Parfumane Attar Koleksiyonu, zarif ve karakterli kokuların modern yorumuyla oluşturulmuş özel bir sprey parfüm serisidir. Zengin esans yapısı ve kalıcı formülüyle her zevke hitap eden sofistike bir koku deneyimi sunar.",
+    "descEn": "The Parfumane Attar Collection is a special spray perfume series created through a modern interpretation of elegant and distinctive scents. With its rich essence composition and long-lasting formula, it offers a sophisticated fragrance experience that appeals to every taste.",
+    "match": "^(nar\\-i\\-ask\\-50ml\\-extrait\\-de\\-parfum|neyl\\-u\\-fer\\-50ml\\-extrait\\-de\\-parfum|baharistan\\-50ml\\-extrait\\-de\\-parfum|zadegan\\-50ml\\-extrait\\-de\\-parfum|hawasat\\-50ml\\-extrait\\-de\\-parfum|zumrud\\-u\\-anka\\-50ml\\-extrait\\-de\\-parfum|topaz\\-50ml\\-extrait\\-de\\-parfum|hazarat\\-50ml\\-extrait\\-de\\-parfum|murr\\-u\\-baha\\-50ml\\-extrait\\-de\\-parfum|amak\\-i\\-hayal\\-50ml\\-extrait\\-de\\-parfum) "
+   },
+   {
+    "id": "selective",
+    "tr": "Selective Koleksiyonu",
+    "en": "Selective Collection",
+    "color": "#d6c29a",
+    "descTr": "Parfumane Selective Koleksiyonu, seçkin koku notalarının özenle bir araya getirildiği, zarif ve modern bir parfüm serisidir. Her biri özgün karaktere sahip olan bu özel kokular; kalıcılığı, dengeyi ve sofistike aromatik yapısıyla fark yaratır.",
+    "descEn": "The Parfumane Selective Collection is an elegant and modern perfume series carefully crafted from refined fragrance notes. Each scent in this collection carries its own unique character, distinguished by lasting power, balance, and sophisticated aromatic structure.",
+    "match": "^(ahbab\\-50ml\\-extrait\\-de\\-parfum|ates\\-beste\\-50ml\\-extrait\\-de\\-parfum|feyz\\-i\\-safa\\-50ml\\-extrait\\-de\\-parfum|majesty\\-50ml\\-extrait\\-de\\-parfum|pera\\-istanbul\\-50ml\\-extrait\\-de\\-parfum|rosa\\-musk\\-50ml\\-extrait\\-de\\-parfum|sarayli\\-50ml\\-extrait\\-de\\-parfum|savor\\-50ml\\-extrait\\-de\\-parfum|white\\-lotus\\-hamra\\-50ml\\-extrait\\-de\\-parfum) "
+   }
+  ],
+  "profiles": {
+   "flask": "^(?!(rah-i-ask|cevherbaha|lalezar))",
+   "depthRatio": 0.42,
+   "flat": "^(rah-i-ask|cevherbaha|lalezar)",
+   "flatDepth": [
+    [
+     ".",
+     0.5
+    ]
+   ]
+  },
+  "home": [
+   "rah-i-ask-parfum-75ml-edp",
+   "galiya-oud-50ml-parfum",
+   "desert-prince-parfum-90ml-edp",
+   "nar-i-ask-50ml-extrait-de-parfum"
+  ],
+  "rename": {
+   "rah-i-ask-parfum-75ml-edp": [
+    "RAH-I AŞK",
+    "RAH-I AŞK"
+   ],
+   "galiya-oud-50ml-parfum": [
+    "GALIYA OUD",
+    "GALIYA OUD"
+   ],
+   "desert-prince-parfum-90ml-edp": [
+    "DESERT PRINCE",
+    "DESERT PRINCE"
+   ],
+   "nar-i-ask-50ml-extrait-de-parfum": [
+    "NAR-I AŞK",
+    "NAR-I AŞK"
+   ],
+   "cevherbaha-parfum-75ml-edp": [
+    "CEVHERBAHA",
+    "CEVHERBAHA"
+   ],
+   "lalezar-parfum-75ml-edp": [
+    "LALEZAR",
+    "LALEZAR"
+   ],
+   "great-oud-50ml-parfum": [
+    "GREAT OUD",
+    "GREAT OUD"
+   ],
+   "romantic-oud-50ml-parfum": [
+    "ROMANTIC OUD",
+    "ROMANTIC OUD"
+   ],
+   "basha-oud-50ml-parfum": [
+    "BASHA OUD",
+    "BASHA OUD"
+   ],
+   "oud-u-farah-50ml-parfum": [
+    "OUD-U FARAH",
+    "OUD-U FARAH"
+   ],
+   "silky-oud-50ml-parfum": [
+    "SILKY OUD",
+    "SILKY OUD"
+   ],
+   "mystic-oud-50ml-parfum": [
+    "MYSTIC OUD",
+    "MYSTIC OUD"
+   ],
+   "sukkar-oud-50ml-parfum": [
+    "SUKKAR OUD",
+    "SUKKAR OUD"
+   ],
+   "bouquet-oud-50ml-parfum": [
+    "BOUQUET OUD",
+    "BOUQUET OUD"
+   ],
+   "oud-u-sehriyar-50ml-parfum": [
+    "OUD-U ŞEHRİYAR",
+    "OUD-U ŞEHRİYAR"
+   ],
+   "golden-wonder-parfum-90ml-edp": [
+    "GOLDEN WONDER",
+    "GOLDEN WONDER"
+   ],
+   "neyl-u-fer-50ml-extrait-de-parfum": [
+    "NEYL-Ü FER",
+    "NEYL-Ü FER"
+   ],
+   "baharistan-50ml-extrait-de-parfum": [
+    "BAHARİSTAN",
+    "BAHARISTAN"
+   ],
+   "zadegan-50ml-extrait-de-parfum": [
+    "ZADEGAN",
+    "ZADEGAN"
+   ],
+   "hawasat-50ml-extrait-de-parfum": [
+    "HAWASAT",
+    "HAWASAT"
+   ],
+   "zumrud-u-anka-50ml-extrait-de-parfum": [
+    "ZÜMRÜD-Ü ANKA",
+    "ZÜMRÜD-Ü ANKA"
+   ],
+   "topaz-50ml-extrait-de-parfum": [
+    "TOPAZ",
+    "TOPAZ"
+   ],
+   "hazarat-50ml-extrait-de-parfum": [
+    "HAZARAT",
+    "HAZARAT"
+   ],
+   "murr-u-baha-50ml-extrait-de-parfum": [
+    "MÜRR-Ü BAHA",
+    "MÜRR-Ü BAHA"
+   ],
+   "amak-i-hayal-50ml-extrait-de-parfum": [
+    "AMAK-I HAYAL",
+    "AMAK-I HAYAL"
+   ],
+   "ahbab-50ml-extrait-de-parfum": [
+    "AHBAB",
+    "AHBAB"
+   ],
+   "ates-beste-50ml-extrait-de-parfum": [
+    "ATEŞ BESTE",
+    "ATEŞ BESTE"
+   ],
+   "feyz-i-safa-50ml-extrait-de-parfum": [
+    "FEYZ-İ SAFA",
+    "FEYZ-İ SAFA"
+   ],
+   "majesty-50ml-extrait-de-parfum": [
+    "MAJESTY",
+    "MAJESTY"
+   ],
+   "pera-istanbul-50ml-extrait-de-parfum": [
+    "PERA İSTANBUL",
+    "PERA ISTANBUL"
+   ],
+   "rosa-musk-50ml-extrait-de-parfum": [
+    "ROSA MUSK",
+    "ROSA MUSK"
+   ],
+   "sarayli-50ml-extrait-de-parfum": [
+    "SARAYLI",
+    "SARAYLI"
+   ],
+   "savor-50ml-extrait-de-parfum": [
+    "SAVOR",
+    "SAVOR"
+   ],
+   "white-lotus-hamra-50ml-extrait-de-parfum": [
+    "WHITE LOTUS",
+    "WHITE LOTUS"
+   ]
+  },
+  "families": {
+   "rah-i-ask-parfum-75ml-edp": [
+    "Dolmabahçe Palace Koleksiyonu",
+    "Dolmabahçe Palace Collection"
+   ],
+   "galiya-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "desert-prince-parfum-90ml-edp": [
+    "Oriental Koleksiyonu",
+    "Oriental Collection"
+   ],
+   "nar-i-ask-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "cevherbaha-parfum-75ml-edp": [
+    "Dolmabahçe Palace Koleksiyonu",
+    "Dolmabahçe Palace Collection"
+   ],
+   "lalezar-parfum-75ml-edp": [
+    "Dolmabahçe Palace Koleksiyonu",
+    "Dolmabahçe Palace Collection"
+   ],
+   "great-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "romantic-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "basha-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "oud-u-farah-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "silky-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "mystic-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "sukkar-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "bouquet-oud-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "oud-u-sehriyar-50ml-parfum": [
+    "Oud Koleksiyonu",
+    "Oud Collection"
+   ],
+   "golden-wonder-parfum-90ml-edp": [
+    "Oriental Koleksiyonu",
+    "Oriental Collection"
+   ],
+   "neyl-u-fer-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "baharistan-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "zadegan-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "hawasat-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "zumrud-u-anka-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "topaz-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "hazarat-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "murr-u-baha-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "amak-i-hayal-50ml-extrait-de-parfum": [
+    "Attar Koleksiyonu",
+    "Attar Collection"
+   ],
+   "ahbab-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "ates-beste-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "feyz-i-safa-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "majesty-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "pera-istanbul-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "rosa-musk-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "sarayli-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "savor-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ],
+   "white-lotus-hamra-50ml-extrait-de-parfum": [
+    "Selective Koleksiyonu",
+    "Selective Collection"
+   ]
+  },
+  "taglines": {
+   "rah-i-ask-parfum-75ml-edp": [
+    "Aşkın Yolculuğunda Kalıcı Koku",
+    "A Long-Lasting Fragrance on the Journey of Love"
+   ],
+   "galiya-oud-50ml-parfum": [
+    "Oryantal Zarafetle Zenginleşen Oud",
+    "Oud Enriched with Oriental Elegance"
+   ],
+   "desert-prince-parfum-90ml-edp": [
+    "Yoğun ve Büyüleyici Derinlik",
+    "Deep and Captivating Intensity"
+   ],
+   "nar-i-ask-50ml-extrait-de-parfum": [
+    "Ferah Meyvemsi & Baharatlı Çiçeksi Parfüm",
+    "Fresh Fruity & Spicy Floral Perfume"
+   ],
+   "cevherbaha-parfum-75ml-edp": [
+    "Değerli Taşların Işıltılı Esintisiyle",
+    "A Shimmering Breeze Inspired by Precious Gems"
+   ],
+   "lalezar-parfum-75ml-edp": [
+    "Çiçek Bahçelerinin Zarafetiyle",
+    "Çiçek Bahçelerinin Zarafetiyle"
+   ],
+   "great-oud-50ml-parfum": [
+    "Güçlü ve Büyüleyici Oud Deneyimi",
+    "A Powerful and Captivating Oud Experience"
+   ],
+   "romantic-oud-50ml-parfum": [
+    "Aşkın ve Tutkunun Oud Esintisi",
+    "The Oud Breeze of Love and Passion"
+   ],
+   "basha-oud-50ml-parfum": [
+    "Kudretli ve Maskülen Oud Deneyimi",
+    "A Powerful and Masculine Oud Experience"
+   ],
+   "oud-u-farah-50ml-parfum": [
+    "Neşe ve Lüks Oud Esintisi",
+    "The Joyful and Luxurious Oud Breeze"
+   ],
+   "silky-oud-50ml-parfum": [
+    "İpeksi ve Yumuşak Oud Deneyimi",
+    "A Silky and Smooth Oud Experience"
+   ],
+   "mystic-oud-50ml-parfum": [
+    "Gizemli ve Büyüleyici Oud Kompozisyonu",
+    "Mysterious and Enchanting Oud Composition"
+   ],
+   "sukkar-oud-50ml-parfum": [
+    "Tatlı ve Zengin Oud Esintisi",
+    "Sweet and Rich Oud Essence"
+   ],
+   "bouquet-oud-50ml-parfum": [
+    "Çiçeksi ve Oryantal Oud Harmanı",
+    "A Floral and Oriental Oud Harmony"
+   ],
+   "oud-u-sehriyar-50ml-parfum": [
+    "Sarayların İhtişamlı Oud Esintisi",
+    "The Majestic Oud Essence of Royal Palaces"
+   ],
+   "golden-wonder-parfum-90ml-edp": [
+    "Baharatlı ve Zarif Uyumu",
+    "Spicy and Elegant Harmony"
+   ],
+   "neyl-u-fer-50ml-extrait-de-parfum": [
+    "Doğal ve Yoğun Attar Esanslarıyla Kalıcı Koku",
+    "A Long-Lasting Fragrance with Natural and Intense Attar Essences"
+   ],
+   "baharistan-50ml-extrait-de-parfum": [
+    "Doğal ve Yoğun Attar Esanslarıyla Kalıcı Koku",
+    "Long-Lasting Fragrance with Natural and Intense Attar Essences"
+   ],
+   "zadegan-50ml-extrait-de-parfum": [
+    "Meyvemsi ve Çiçeksi Zarafetin Sofistike Buluşması",
+    "A Sophisticated Fusion of Fruity Sweetness and Floral Elegance"
+   ],
+   "hawasat-50ml-extrait-de-parfum": [
+    "Meyvemsi, Tatlı ve Baştan Çıkarıcı Bir Dokunuş",
+    "A Fruity, Sweet, and Seductively Warm Touch"
+   ],
+   "zumrud-u-anka-50ml-extrait-de-parfum": [
+    "Gizemli ve Asil Bir Koku Yolculuğu",
+    "A Mysterious and Noble Fragrance Journey"
+   ],
+   "topaz-50ml-extrait-de-parfum": [
+    "Baharatlı, Reçineli ve Yoğun Bir İmza",
+    "A Spicy, Resinous, and Intense Signature"
+   ],
+   "hazarat-50ml-extrait-de-parfum": [
+    "Baharatlı, Çiçeksi ve Odunsu Derinlik",
+    "Spicy, Floral, and Woody Depth"
+   ],
+   "murr-u-baha-50ml-extrait-de-parfum": [
+    "Oryantal, Odunsu ve Baharatlı Bir Derinlik",
+    "Oriental, Woody, and Spicy Depth"
+   ],
+   "amak-i-hayal-50ml-extrait-de-parfum": [
+    "Tatlı, Baharatlı ve Düşsel Bir Koku Yolculuğu",
+    "A Sweet, Spicy, and Dreamlike Fragrance Journey"
+   ],
+   "ahbab-50ml-extrait-de-parfum": [
+    "Dinginlik, zarafet ve içtenlik taşıyan bir parfüm…",
+    "A perfume that embodies calmness, elegance, and sincerity…"
+   ],
+   "ates-beste-50ml-extrait-de-parfum": [
+    "Tutuşan baharatlar, sıcaklık veren odunlarla buluşuyor…",
+    "Ignited spices meeting the warmth of woods…"
+   ],
+   "feyz-i-safa-50ml-extrait-de-parfum": [
+    "Derin Deri Dokunuşu ve Tatlı Baharat Uyumu",
+    "The Harmony of Deep Leather and Sweet Spices"
+   ],
+   "majesty-50ml-extrait-de-parfum": [
+    "Derin, karizmatik ve etkileyici bir parfüm yorumu…",
+    "Deep, charismatic, and captivating…"
+   ],
+   "pera-istanbul-50ml-extrait-de-parfum": [
+    "Eski İstanbul’un büyüsünü taşıyan oryantal bir imza…",
+    "An oriental signature carrying the charm of old Istanbul…"
+   ],
+   "rosa-musk-50ml-extrait-de-parfum": [
+    "Saf, kadınsı ve zamansız bir yorum…",
+    "Pure, feminine, and timeless…"
+   ],
+   "sarayli-50ml-extrait-de-parfum": [
+    "Görkemli ve narin bir koku deneyimi…",
+    "A magnificent yet delicate fragrance experience…"
+   ],
+   "savor-50ml-extrait-de-parfum": [
+    "Modern, zarif ve duyuları canlandıran bir koku…",
+    "Modern, elegant, and uplifting…"
+   ],
+   "white-lotus-hamra-50ml-extrait-de-parfum": [
+    "Ferah, Çiçeksi ve Temiz Bir Koku Deneyimi",
+    "A Fresh, Floral, and Clean Fragrance Experience"
+   ]
+  },
+  "notes": [
+   [
+    "^rah\\-i\\-ask\\-parfum\\-75ml\\-edp$",
+    [
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Biber",
+      "Pepper"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ]
+    ]
+   ],
+   [
+    "^galiya\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Muskat",
+      "Nutmeg"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^desert\\-prince\\-parfum\\-90ml\\-edp$",
+    [
+     [
+      "Bitkisel notalar",
+      "Herbal Notes"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Ambroxan",
+      "Ambroxan"
+     ],
+     [
+      "Sedir ağacı",
+      "Cedarwood"
+     ]
+    ]
+   ],
+   [
+    "^nar\\-i\\-ask\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Fesleğen",
+      "Basil"
+     ],
+     [
+      "Narenciye",
+      "Citrus"
+     ],
+     [
+      "Elma",
+      "Apple"
+     ],
+     [
+      "Armut",
+      "Pear"
+     ]
+    ]
+   ],
+   [
+    "^cevherbaha\\-parfum\\-75ml\\-edp$",
+    [
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Tatlı",
+      "Sweet Accord"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Labdanum",
+      "Labdanum"
+     ]
+    ]
+   ],
+   [
+    "^lalezar\\-parfum\\-75ml\\-edp$",
+    [
+     [
+      "Gül Ağacı",
+      "Gül Ağacı"
+     ],
+     [
+      "Şeftali",
+      "Şeftali"
+     ],
+     [
+      "Yasemin",
+      "Yasemin"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ]
+    ]
+   ],
+   [
+    "^great\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Muskat",
+      "Nutmeg"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^romantic\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Kırmızı Meyveler",
+      "Red Berries"
+     ],
+     [
+      "Meyvemsi Notalar",
+      "Fruity Notes"
+     ],
+     [
+      "Karamel",
+      "Caramel"
+     ],
+     [
+      "Badem",
+      "Almond"
+     ]
+    ]
+   ],
+   [
+    "^basha\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Agarwood",
+      "Agarwood"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ]
+    ]
+   ],
+   [
+    "^oud\\-u\\-farah\\-50ml\\-parfum$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ]
+    ]
+   ],
+   [
+    "^silky\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^mystic\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Limon",
+      "Limon"
+     ],
+     [
+      "Portakal",
+      "Portakal"
+     ],
+     [
+      "Armut",
+      "Armut"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandal Ağacı"
+     ]
+    ]
+   ],
+   [
+    "^sukkar\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Kırmızı Meyveler",
+      "Red Fruits"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Zambak",
+      "Muguet (Lily of the Valley)"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ]
+    ]
+   ],
+   [
+    "^bouquet\\-oud\\-50ml\\-parfum$",
+    [
+     [
+      "Agarwood (Oud)",
+      "Agarwood (Oud)"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ]
+    ]
+   ],
+   [
+    "^oud\\-u\\-sehriyar\\-50ml\\-parfum$",
+    [
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Muskat",
+      "Nutmeg"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^golden\\-wonder\\-parfum\\-90ml\\-edp$",
+    [
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Cypriol",
+      "Cypriol"
+     ]
+    ]
+   ],
+   [
+    "^neyl\\-u\\-fer\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Elma",
+      "Apple"
+     ],
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Kumarin",
+      "Coumarin"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ]
+    ]
+   ],
+   [
+    "^baharistan\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Baharatlı notalar",
+      "Spicy notes"
+     ],
+     [
+      "Kasya",
+      "Cassia"
+     ],
+     [
+      "Pudramsı",
+      "Powdery"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ]
+    ]
+   ],
+   [
+    "^zadegan\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Meyvemsi notalar",
+      "Fruity notes"
+     ],
+     [
+      "Tatlı notalar",
+      "Sweet notes"
+     ],
+     [
+      "Yeşil notalar",
+      "Green notes"
+     ],
+     [
+      "Kaşmir",
+      "Cashmere"
+     ]
+    ]
+   ],
+   [
+    "^hawasat\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Gourmand",
+      "Gourmand"
+     ],
+     [
+      "Çilek",
+      "Strawberry"
+     ]
+    ]
+   ],
+   [
+    "^zumrud\\-u\\-anka\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^topaz\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Elemi Reçinesi",
+      "Elemi Resin"
+     ],
+     [
+      "Olibanum",
+      "Olibanum"
+     ],
+     [
+      "Gourmand",
+      "Gourmand"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^hazarat\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Elma",
+      "Apple"
+     ]
+    ]
+   ],
+   [
+    "^murr\\-u\\-baha\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Kenevir",
+      "Hemp"
+     ],
+     [
+      "Sedir",
+      "Cedar Leaf"
+     ],
+     [
+      "Acı adaçayı",
+      "Clary Sage"
+     ]
+    ]
+   ],
+   [
+    "^amak\\-i\\-hayal\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Baharatlı",
+      "Spicy Notes"
+     ],
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Kumarin",
+      "Coumarin"
+     ]
+    ]
+   ],
+   [
+    "^ahbab\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Sedir",
+      "Cedar"
+     ],
+     [
+      "İris",
+      "Iris"
+     ]
+    ]
+   ],
+   [
+    "^ates\\-beste\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "İris",
+      "Iris"
+     ]
+    ]
+   ],
+   [
+    "^feyz\\-i\\-safa\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Deri",
+      "Leather"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Styrax",
+      "Styrax"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ]
+    ]
+   ],
+   [
+    "^majesty\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Labdanum",
+      "Labdanum"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^pera\\-istanbul\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Armut",
+      "Pear"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ]
+    ]
+   ],
+   [
+    "^rosa\\-musk\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^sarayli\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Çilek",
+      "Strawberry"
+     ],
+     [
+      "Böğürtlen",
+      "Blackberry"
+     ],
+     [
+      "Siyah Frenk Üzümü",
+      "Blackcurrant"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ]
+    ]
+   ],
+   [
+    "^savor\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Kumarin",
+      "Coumarin"
+     ],
+     [
+      "Aldehit",
+      "Aldehyde"
+     ],
+     [
+      "Hedione",
+      "Hedione"
+     ]
+    ]
+   ],
+   [
+    "^white\\-lotus\\-hamra\\-50ml\\-extrait\\-de\\-parfum$",
+    [
+     [
+      "Citronellol",
+      "Citronellol"
+     ],
+     [
+      "Kumarin",
+      "Coumarin"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Aldehit",
+      "Aldehyde"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^rah\\-i\\-ask\\-parfum\\-75ml\\-edp$",
+    "composition": {
+     "tr": [
+      "Üst: Mandalina, Biber, İris",
+      "Orta: Gül, Yasemin, Sedir Ağacı",
+      "Alt: Amber, Vanilya, Misk"
+     ],
+     "en": [
+      "Top: Mandarin, Pepper, Iris",
+      "Heart: Rose, Jasmine, Cedarwood",
+      "Base: Amber, Vanilla, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^galiya\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Sandal Ağacı, Lavanta, Muskat, Safran, Neroli",
+      "Orta: Sandal Ağacı, Vetiver, Pembe Biber, Baharatlı Notalar",
+      "Alt: Sandal Ağacı, Paçuli, Misk, Odunsu Notalar, Deri, Dumanlı Notalar"
+     ],
+     "en": [
+      "Top: Sandalwood, Lavender, Nutmeg, Saffron, Neroli",
+      "Heart: Sandalwood, Vetiver, Pink Pepper, Spicy Notes",
+      "Base: Sandalwood, Patchouli, Musk, Woody Notes, Leather, Smoky Accords"
+     ]
+    }
+   },
+   {
+    "match": "^desert\\-prince\\-parfum\\-90ml\\-edp$",
+    "composition": {
+     "tr": [
+      "Üst: Bitkisel notalar, Paçuli",
+      "Orta: Paçuli, Ambroxan, Sedir ağacı",
+      "Alt: Paçuli, Yosun, Deri"
+     ],
+     "en": [
+      "Top: Herbal Notes, Patchouli",
+      "Heart: Patchouli, Ambroxan, Cedarwood",
+      "Base: Patchouli, Moss, Leather"
+     ]
+    }
+   },
+   {
+    "match": "^nar\\-i\\-ask\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Fesleğen, Narenciye, Elma, Armut",
+      "Orta: Gül, Gardenya, Zencefil, Yasemin",
+      "Alt: Misk, Paçuli, Sedir ağacı, Amber"
+     ],
+     "en": [
+      "Top: Basil, Citrus, Apple, Pear",
+      "Heart: Rose, Gardenia, Ginger, Jasmine",
+      "Base: Musk, Patchouli, Cedarwood, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^cevherbaha\\-parfum\\-75ml\\-edp$",
+    "composition": {
+     "tr": [
+      "Üst: Mandalina",
+      "Orta: Tatlı, Oud, Labdanum, Yasemin",
+      "Alt: Odunsu Notalar, Sandal Ağacı, Vanilya, Benzoin"
+     ],
+     "en": [
+      "Top: Mandarin",
+      "Heart: Sweet Accord, Oud, Labdanum, Jasmine",
+      "Base: Woody Notes, Sandalwood, Vanilla, Benzoin"
+     ]
+    }
+   },
+   {
+    "match": "^lalezar\\-parfum\\-75ml\\-edp$",
+    "composition": {
+     "tr": [
+      "Üst: Gül Ağacı, Şeftali",
+      "Orta: Yasemin, Gül, İris",
+      "Alt: Tonka Fasulyesi, Vanilya, Animalic, Misk"
+     ],
+     "en": [
+      "Top: Gül Ağacı, Şeftali",
+      "Heart: Yasemin, Gül, İris",
+      "Base: Tonka Fasulyesi, Vanilya, Animalic, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^great\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Sandal Ağacı, Lavanta, Muskat, Safran",
+      "Orta: Sandal Ağacı, Vetiver Otu",
+      "Alt: Paçuli, Misk"
+     ],
+     "en": [
+      "Top: Sandalwood, Lavender, Nutmeg, Saffron",
+      "Heart: Sandalwood, Vetiver",
+      "Base: Patchouli, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^romantic\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Kırmızı Meyveler, Meyvemsi Notalar, Karamel, Badem",
+      "Orta: Hindistan Cevizi, Yasemin, Şakayık, Menekşe, Likör Notaları",
+      "Alt: Amber, Misk, Paçuli, Vanilya, Sandal Ağacı"
+     ],
+     "en": [
+      "Top: Red Berries, Fruity Notes, Caramel, Almond",
+      "Heart: Coconut, Jasmine, Peony, Violet, Liqueur Notes",
+      "Base: Amber, Musk, Patchouli, Vanilla, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^basha\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Karanfil, Agarwood",
+      "Orta: Paçuli, Vetiver, Baharatlı Notalar",
+      "Alt: Amber, Deri, Misk, Agarwood"
+     ],
+     "en": [
+      "Top: Lemon, Clove, Agarwood",
+      "Heart: Patchouli, Vetiver, Spicy Accords",
+      "Base: Amber, Leather, Musk, Agarwood"
+     ]
+    }
+   },
+   {
+    "match": "^oud\\-u\\-farah\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Neroli, Sandal Ağacı, Lavanta, Muskat, Safran",
+      "Orta: Gül, Karanfil, Vanilya, Sandal Ağacı, Vetiver",
+      "Alt: Ylang Ylang, Amber, Agarwood, Paçuli, Misk"
+     ],
+     "en": [
+      "Top: Bergamot, Neroli, Sandalwood, Lavender, Nutmeg, Saffron",
+      "Heart: Rose, Clove, Vanilla, Sandalwood, Vetiver",
+      "Base: Ylang Ylang, Amber, Agarwood, Patchouli, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^silky\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Sandal Ağacı, Limon, Neroli",
+      "Orta: Vanilya, Hayvansı Notalar",
+      "Alt: Sedir, Paçuli, Misk, Guaiac Ağacı"
+     ],
+     "en": [
+      "Top: Sandalwood, Lemon, Neroli",
+      "Heart: Vanilla, Animalic Notes",
+      "Base: Cedarwood, Patchouli, Musk, Guaiac Wood"
+     ]
+    }
+   },
+   {
+    "match": "^mystic\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Portakal, Armut, Sandal Ağacı, Kakule, Kahve, Mandalina, Bergamot, Lavanta",
+      "Orta: Zencefil, Karabiber, Gül, Gardenya, Sandal Ağacı, Mango, Amber, Selvi, Kimyon, Kişniş, Gül, Sardunya",
+      "Alt: Paçuli, Sandal Ağacı, Amber, Misk, Vetiver, Şeftali"
+     ],
+     "en": [
+      "Top: Lemon, Orange, Pear, Sandalwood, Cardamom, Coffee, Mandarin, Bergamot, Lavender",
+      "Heart: Ginger, Black Pepper, Rose, Gardenia, Sandalwood, Mango, Amber, Cypress, Cumin, Coriander, Geranium",
+      "Base: Patchouli, Sandalwood, Amber, Musk, Vetiver, Peach"
+     ]
+    }
+   },
+   {
+    "match": "^sukkar\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Kırmızı Meyveler, Mandalina",
+      "Orta: Zambak, Menekşe, Safran",
+      "Alt: Vanilya, Sandal Ağacı, Deri"
+     ],
+     "en": [
+      "Top: Red Fruits, Mandarin",
+      "Heart: Muguet (Lily of the Valley), Violet, Saffron",
+      "Base: Vanilla, Sandalwood, Leather"
+     ]
+    }
+   },
+   {
+    "match": "^bouquet\\-oud\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Agarwood (Oud)",
+      "Orta: Gül, Safran",
+      "Alt: Sandal Ağacı, Amber, Vanilya, Şeker Kamışı"
+     ],
+     "en": [
+      "Top: Agarwood (Oud)",
+      "Heart: Rose, Saffron",
+      "Base: Sandalwood, Amber, Vanilla, Sugar Cane"
+     ]
+    }
+   },
+   {
+    "match": "^oud\\-u\\-sehriyar\\-50ml\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Sandal Ağacı, Lavanta, Muskat, Safran",
+      "Orta: Vetiver Otu, Sandal Ağacı",
+      "Alt: Paçuli, Misk, Sandal Ağacı"
+     ],
+     "en": [
+      "Top: Sandalwood, Lavender, Nutmeg, Saffron",
+      "Heart: Vetiver, Sandalwood",
+      "Base: Patchouli, Musk, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^golden\\-wonder\\-parfum\\-90ml\\-edp$",
+    "composition": {
+     "tr": [
+      "Üst: Safran, Greyfurt, Yasemin, Cypriol",
+      "Orta: Sandal ağacı, Deri, Vanilya, Gül",
+      "Alt: Oud, Amber, Paçuli, Guaiacwood, Misk"
+     ],
+     "en": [
+      "Top: Saffron, Grapefruit, Jasmine, Cypriol",
+      "Heart: Sandalwood, Leather, Vanilla, Rose",
+      "Base: Oud, Amber, Patchouli, Guaiac Wood, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^neyl\\-u\\-fer\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Elma, Şeftali, Kumarin, Limon",
+      "Orta: Yasemin, Müge çiçeği, Aldehit",
+      "Alt: Sandal ağacı, Misk, Vanilya"
+     ],
+     "en": [
+      "Top: Apple, Peach, Coumarin, Lemon",
+      "Heart: Jasmine, Lily of the Valley, Aldehyde",
+      "Base: Sandalwood, Musk, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^baharistan\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Baharatlı notalar, Kasya, Pudramsı",
+      "Orta: Gül, Yasemin, Mimoza, Misk",
+      "Alt: Sandal ağacı, Misk, Vanilya, Amber, Yasemin"
+     ],
+     "en": [
+      "Top: Spicy notes, Cassia, Powdery",
+      "Heart: Rose, Jasmine, Mimosa, Musk",
+      "Base: Sandalwood, Musk, Vanilla, Amber, Jasmine"
+     ]
+    }
+   },
+   {
+    "match": "^zadegan\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Meyvemsi notalar, Tatlı notalar, Yeşil notalar",
+      "Orta: Kaşmir, Yasemin, Paçuli, Mimoza, Gül",
+      "Alt: Portakal, Ambergris, Misk, Civet, Marshmallow"
+     ],
+     "en": [
+      "Top: Fruity notes, Sweet notes, Green notes",
+      "Heart: Cashmere, Jasmine, Patchouli, Mimosa, Rose",
+      "Base: Orange Blossom, Ambergris, Musk, Civet, Marshmallow"
+     ]
+    }
+   },
+   {
+    "match": "^hawasat\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal, Bergamot",
+      "Orta: Gourmand, Çilek, Vanilya, Yasemin",
+      "Alt: Vanilya, Sedir ağacı, Labdanum Reçinesi, Misk"
+     ],
+     "en": [
+      "Top: Orange, Bergamot",
+      "Heart: Gourmand, Strawberry, Vanilla, Jasmine",
+      "Base: Vanilla, Cedarwood, Labdanum Resin, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^zumrud\\-u\\-anka\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Yasemin, Safran, Mandalina, Oud",
+      "Orta: Amber, Menekşe, Müge çiçeği, Safran",
+      "Alt: Köknar, Sedir ağacı, Vanilya, Oud, Deri"
+     ],
+     "en": [
+      "Top: Jasmine, Saffron, Mandarin, Oud",
+      "Heart: Amber, Violet, Lily of the Valley, Saffron",
+      "Base: Fir Balsam, Cedarwood, Vanilla, Oud, Leather"
+     ]
+    }
+   },
+   {
+    "match": "^topaz\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Elemi Reçinesi, Olibanum, Gourmand, Amber, Oud",
+      "Orta: Geranium, Gül, Paçuli, Vanilya",
+      "Alt: Cypriol, Aymris Ağacı, Amber, Misk"
+     ],
+     "en": [
+      "Top: Elemi Resin, Olibanum, Gourmand, Amber, Oud",
+      "Heart: Geranium, Rose, Patchouli, Vanilla",
+      "Base: Cypriol, Amyris Wood, Amber, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^hazarat\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Karabiber, Kakule, Elma",
+      "Orta: Labdanum Reçinesi, Çiçek, İris, Muskat, Yasemin",
+      "Alt: Sedir ağacı, Paçuli, Misk, Vanilya, Sandal ağacı, Vetiver"
+     ],
+     "en": [
+      "Top: Bergamot, Black Pepper, Cardamom, Apple",
+      "Heart: Labdanum Resin, Floral Notes, Iris, Nutmeg, Jasmine",
+      "Base: Cedarwood, Patchouli, Musk, Vanilla, Sandalwood, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^murr\\-u\\-baha\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Greyfurt, Kenevir, Sedir, Acı adaçayı",
+      "Orta: Karabiber, Kekik, Olibanum, Labdanum Reçinesi",
+      "Alt: Sandal ağacı, Sedir ağacı, Paçuli, Oud, Misk, Yosun"
+     ],
+     "en": [
+      "Top: Grapefruit, Hemp, Cedar Leaf, Clary Sage",
+      "Heart: Black Pepper, Thyme, Olibanum, Labdanum Resin",
+      "Base: Sandalwood, Cedarwood, Patchouli, Oud, Musk, Moss"
+     ]
+    }
+   },
+   {
+    "match": "^amak\\-i\\-hayal\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Baharatlı, Şeftali, Kumarin",
+      "Orta: Marshmallow, Yasemin, Yeşil çay, Safran",
+      "Alt: Vanilya, Tonka fasulyesi, Amber, Misk, Paçuli, Oud"
+     ],
+     "en": [
+      "Top: Lemon, Spicy Notes, Peach, Coumarin",
+      "Heart: Marshmallow, Jasmine, Green Tea, Saffron",
+      "Base: Vanilla, Tonka Bean, Amber, Musk, Patchouli, Oud"
+     ]
+    }
+   },
+   {
+    "match": "^ahbab\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Gül",
+      "Orta: Sedir, İris, Yasemin",
+      "Alt: Misk"
+     ],
+     "en": [
+      "Top: Bergamot, Rose",
+      "Heart: Cedar, Iris, Jasmine",
+      "Base: Musk"
+     ]
+    }
+   },
+   {
+    "match": "^ates\\-beste\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Karabiber, Bergamot, Zencefil",
+      "Orta: İris, Ardıç, Manolya, Kakule",
+      "Alt: Odun, Misk, Amber, Tonka Fasulyesi"
+     ],
+     "en": [
+      "Top: Black Pepper, Bergamot, Ginger",
+      "Heart: Iris, Juniper, Magnolia, Cardamom",
+      "Base: Wood, Musk, Amber, Tonka Bean"
+     ]
+    }
+   },
+   {
+    "match": "^feyz\\-i\\-safa\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Deri, Neroli, Styrax, Bergamot",
+      "Orta: Deri, Paçuli, Benzoe, Karamel",
+      "Alt: Deri, Sandal Ağacı, Misk, Vetiver Otu"
+     ],
+     "en": [
+      "Top: Leather, Neroli, Styrax, Bergamot",
+      "Heart: Leather, Patchouli, Benzoin, Caramel",
+      "Base: Leather, Sandalwood, Musk, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^majesty\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Tarçın",
+      "Orta: Paçuli, Labdanum",
+      "Alt: Amber, Sedir ağacı, Oud"
+     ],
+     "en": [
+      "Top: Cinnamon",
+      "Heart: Patchouli, Labdanum",
+      "Base: Amber, Cedarwood, Oud"
+     ]
+    }
+   },
+   {
+    "match": "^pera\\-istanbul\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Portakal, Armut, Yasemin",
+      "Orta: Zencefil, Karabiber, Gül, Gardenya, Yasemin",
+      "Alt: Paçuli, Sedir ağacı, Amber, Misk, Yasemin"
+     ],
+     "en": [
+      "Top: Lemon, Orange, Pear, Jasmine",
+      "Heart: Ginger, Black Pepper, Rose, Gardenia, Jasmine",
+      "Base: Patchouli, Cedarwood, Amber, Musk, Jasmine"
+     ]
+    }
+   },
+   {
+    "match": "^rosa\\-musk\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal, Gül",
+      "Orta: Gül, Yasemin",
+      "Alt: Misk"
+     ],
+     "en": [
+      "Top: Orange, Rose",
+      "Heart: Rose, Jasmine",
+      "Base: Musk"
+     ]
+    }
+   },
+   {
+    "match": "^sarayli\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Çilek, Böğürtlen, Siyah Frenk Üzümü",
+      "Orta: Gül, Ylang Ylang, Şakayık",
+      "Alt: Odunsu notalar, Misk, Vanilya"
+     ],
+     "en": [
+      "Top: Strawberry, Blackberry, Blackcurrant",
+      "Heart: Rose, Ylang-Ylang, Peony",
+      "Base: Woody Notes, Musk, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^savor\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Kumarin",
+      "Orta: Aldehit, Hedione, Vanilya",
+      "Alt: Sedir ağacı, Misk, Paçuli, Ylang ylang"
+     ],
+     "en": [
+      "Top: Lemon, Coumarin",
+      "Heart: Aldehyde, Hedione, Vanilla",
+      "Base: Cedarwood, Musk, Patchouli, Ylang-Ylang"
+     ]
+    }
+   },
+   {
+    "match": "^white\\-lotus\\-hamra\\-50ml\\-extrait\\-de\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Citronellol, Kumarin, Limon",
+      "Orta: Aldehit, Hedione, Yasemin",
+      "Alt: Misk, Vanilya"
+     ],
+     "en": [
+      "Top: Citronellol, Coumarin, Lemon",
+      "Heart: Aldehyde, Hedione, Jasmine",
+      "Base: Musk, Vanilla"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^rah\\-i\\-ask\\-parfum\\-75ml\\-edp$",
+    "#7a1f2b",
+    "#b67c5f"
+   ],
+   [
+    "^galiya\\-oud\\-50ml\\-parfum$",
+    "#7a4420",
+    "#b68d5a"
+   ],
+   [
+    "^desert\\-prince\\-parfum\\-90ml\\-edp$",
+    "#1f3a4a",
+    "#8d886d"
+   ],
+   [
+    "^nar\\-i\\-ask\\-50ml\\-extrait\\-de\\-parfum$",
+    "#8e2432",
+    "#bf7e62"
+   ],
+   [
+    "^cevherbaha\\-parfum\\-75ml\\-edp$",
+    "#1f3f7a",
+    "#8d8a82"
+   ],
+   [
+    "^lalezar\\-parfum\\-75ml\\-edp$",
+    "#a8562a",
+    "#cb955e"
+   ],
+   [
+    "^great\\-oud\\-50ml\\-parfum$",
+    "#2f4a2a",
+    "#948f5e"
+   ],
+   [
+    "^romantic\\-oud\\-50ml\\-parfum$",
+    "#6e2a5a",
+    "#b18174"
+   ],
+   [
+    "^basha\\-oud\\-50ml\\-parfum$",
+    "#1f5e4a",
+    "#8d986d"
+   ],
+   [
+    "^oud\\-u\\-farah\\-50ml\\-parfum$",
+    "#1f5a60",
+    "#8d9777"
+   ],
+   [
+    "^silky\\-oud\\-50ml\\-parfum$",
+    "#6a4a6e",
+    "#af8f7d"
+   ],
+   [
+    "^mystic\\-oud\\-50ml\\-parfum$",
+    "#2a2e5e",
+    "#928376"
+   ],
+   [
+    "^sukkar\\-oud\\-50ml\\-parfum$",
+    "#9a5f2a",
+    "#c4995e"
+   ],
+   [
+    "^bouquet\\-oud\\-50ml\\-parfum$",
+    "#7a3350",
+    "#b6856f"
+   ],
+   [
+    "^oud\\-u\\-sehriyar\\-50ml\\-parfum$",
+    "#4a2a6a",
+    "#a0817b"
+   ],
+   [
+    "^golden\\-wonder\\-parfum\\-90ml\\-edp$",
+    "#5e2a1f",
+    "#a98159"
+   ],
+   [
+    "^neyl\\-u\\-fer\\-50ml\\-extrait\\-de\\-parfum$",
+    "#2a5a7e",
+    "#929784"
+   ],
+   [
+    "^baharistan\\-50ml\\-extrait\\-de\\-parfum$",
+    "#3f6a3a",
+    "#9b9e66"
+   ],
+   [
+    "^zadegan\\-50ml\\-extrait\\-de\\-parfum$",
+    "#22345e",
+    "#8e8576"
+   ],
+   [
+    "^hawasat\\-50ml\\-extrait\\-de\\-parfum$",
+    "#7a5a2a",
+    "#b6975e"
+   ],
+   [
+    "^zumrud\\-u\\-anka\\-50ml\\-extrait\\-de\\-parfum$",
+    "#146050",
+    "#88996f"
+   ],
+   [
+    "^topaz\\-50ml\\-extrait\\-de\\-parfum$",
+    "#9a6a1f",
+    "#c49e59"
+   ],
+   [
+    "^hazarat\\-50ml\\-extrait\\-de\\-parfum$",
+    "#5a5a2a",
+    "#a8975e"
+   ],
+   [
+    "^murr\\-u\\-baha\\-50ml\\-extrait\\-de\\-parfum$",
+    "#6e3a2a",
+    "#b1885e"
+   ],
+   [
+    "^amak\\-i\\-hayal\\-50ml\\-extrait\\-de\\-parfum$",
+    "#4e3a6e",
+    "#a2887d"
+   ],
+   [
+    "^ahbab\\-50ml\\-extrait\\-de\\-parfum$",
+    "#a0506a",
+    "#c7927b"
+   ],
+   [
+    "^ates\\-beste\\-50ml\\-extrait\\-de\\-parfum$",
+    "#a0381f",
+    "#c78759"
+   ],
+   [
+    "^feyz\\-i\\-safa\\-50ml\\-extrait\\-de\\-parfum$",
+    "#6a3f2a",
+    "#af8a5e"
+   ],
+   [
+    "^majesty\\-50ml\\-extrait\\-de\\-parfum$",
+    "#24407a",
+    "#8f8b82"
+   ],
+   [
+    "^pera\\-istanbul\\-50ml\\-extrait\\-de\\-parfum$",
+    "#1f5f6e",
+    "#8d997d"
+   ],
+   [
+    "^rosa\\-musk\\-50ml\\-extrait\\-de\\-parfum$",
+    "#a05a6a",
+    "#c7977b"
+   ],
+   [
+    "^sarayli\\-50ml\\-extrait\\-de\\-parfum$",
+    "#6a2f5a",
+    "#af8374"
+   ],
+   [
+    "^savor\\-50ml\\-extrait\\-de\\-parfum$",
+    "#a07a1f",
+    "#c7a559"
+   ],
+   [
+    "^white\\-lotus\\-hamra\\-50ml\\-extrait\\-de\\-parfum$",
+    "#3f6a62",
+    "#9b9e78"
+   ]
+  ],
+  "sizes": [
+   [
+    "^rah\\-i\\-ask\\-parfum\\-75ml\\-edp$",
+    "75 ml"
+   ],
+   [
+    "^galiya\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^desert\\-prince\\-parfum\\-90ml\\-edp$",
+    "90 ml"
+   ],
+   [
+    "^nar\\-i\\-ask\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^cevherbaha\\-parfum\\-75ml\\-edp$",
+    "75 ml"
+   ],
+   [
+    "^lalezar\\-parfum\\-75ml\\-edp$",
+    "75 ml"
+   ],
+   [
+    "^great\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^romantic\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^basha\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^oud\\-u\\-farah\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^silky\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^mystic\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^sukkar\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^bouquet\\-oud\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^oud\\-u\\-sehriyar\\-50ml\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^golden\\-wonder\\-parfum\\-90ml\\-edp$",
+    "90 ml"
+   ],
+   [
+    "^neyl\\-u\\-fer\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^baharistan\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^zadegan\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^hawasat\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^zumrud\\-u\\-anka\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^topaz\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^hazarat\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^murr\\-u\\-baha\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^amak\\-i\\-hayal\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^ahbab\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^ates\\-beste\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^feyz\\-i\\-safa\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^majesty\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^pera\\-istanbul\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^rosa\\-musk\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^sarayli\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^savor\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ],
+   [
+    "^white\\-lotus\\-hamra\\-50ml\\-extrait\\-de\\-parfum$",
+    "50 ml"
+   ]
+  ],
+  "trText": {
+   "rah-i-ask-parfum-75ml-edp": "RAH-I AŞK 75ml Eau de Parfum, Parfumane’in zarif Dolmabahçe Koleksiyonu’na ait, aşkın duygusal derinliğini koku sanatıyla ifade eden özel bir eserdir. Bu parfüm, sadece bir koku değil; bir duygu yolculuğudur. Her notası, aşkın bir evresini anlatır — tutku, zarafet, sadakat ve sonsuzluk. Mandalina ve biberin canlılığıyla başlayan bu kompozisyon, gül ve yaseminin çiçeksi zarafetiyle dengelenir, amber, vanilya ve miskin kalıcılığıyla son bulur.",
+   "galiya-oud-50ml-parfum": "GALIYA OUD 50ml Extrait De Parfüm, Parfumane Oud Koleksiyonu’nun en seçkin ve derin kompozisyonlarından biridir. Doğunun zamansız esanslarını modern parfüm estetiğiyle bir araya getiren bu eser, baharatların sıcaklığıyla zenginleşen oryantal bir oud deneyimi sunar. Lavanta’nın ferahlığı, safranın zarafeti, muskatın keskinliği ve agarwood’un mistik derinliğiyle birleşerek kalıcı, büyüleyici ve karizmatik bir koku profili ortaya çıkarır.",
+   "desert-prince-parfum-90ml-edp": "Parfüm, üst notalarda aromatik bitkisel (herbal) tonlar ve yoğun paçuli (patchouli) ile açılıyor. Orta notalarda derinleşen paçuli, modern ambroxan ve odunsu sedir ağacı (cedarwood) ile zenginleşiyor. Alt notalarda ise yeniden öne çıkan paçuli, nemli yosun (moss), deri ve derin dokularla tamamlanıyor.",
+   "nar-i-ask-50ml-extrait-de-parfum": "Attar Nar-ı Aşk Sprey, adını nar gibi tutkulu ve duygusal bir aşkın simgesinden alır. Bu özel attar parfüm, doğanın canlı tonları ile zarif çiçeklerin bütünleştiği etkileyici bir kompozisyon sunar. Günlük kullanıma uygun olan bu koku, enerjik, ferah ve aynı zamanda zarif bir etki yaratmak isteyenler için tasarlanmıştır.",
+   "cevherbaha-parfum-75ml-edp": "CEVHERBAHA 75ml Eau de Parfum, Parfumane Dolmabahçe Koleksiyonu’nun göz kamaştırıcı bir üyesidir. Adını “değerli taşların parıltısı” anlamına gelen Cevherbaha kelimesinden alan bu parfüm, Doğu’nun sıcaklığı ile Batı’nın zarafetini tek bir şişede buluşturur. Mandalina’nın taze enerjisi, oud ve labdanumun zengin karakteriyle birleşir; yasemin, sandal ağacı ve vanilya notalarıyla büyüleyici bir sıcaklık kazanır. Bu parfüm, bir mücevher kadar nadir ve kalıcıdır.",
+   "lalezar-parfum-75ml-edp": "LALEZAR 75ml Eau de Parfum, Parfumane Dolmabahçe Koleksiyonu’nun zarif ve romantik ruhunu temsil eden özel bir eserdir. İsmini, Osmanlı döneminde “çiçeklerle dolu bahçe” anlamına gelen Lalezar kelimesinden alan bu parfüm, zarafet, zariflik ve huzurun kokuya dönüştüğü bir şiirdir. Gül ağacı, şeftali, yasemin, gül ve iris gibi çiçeksi notalarla açılırken, alt tabanda tonka, vanilya ve misk birleşerek sıcak, duygusal bir derinlik kazandırır. Her püskürtmede adeta bahar sabahının tazeliğini hissettirir.",
+   "great-oud-50ml-parfum": "GREAT OUD 50ml Extrait De Parfüm, Parfumane Oud Koleksiyonu’nun güçlü, sofistike ve derin karakterli üyesidir. Adını, oud’un (öd ağacı) ihtişamından ve kalıcılığından alır. Lavanta, safran ve muskat gibi sıcak baharat notalarının odunsu vetiver ve paçuli ile birleştiği bu özel koku, modern bir erkeksilik anlayışını zarafetle harmanlar. Oud’un dumanlı derinliğiyle başlayan koku yolculuğu, zamanla sakin ama güçlü bir karizmaya dönüşür. “GREAT OUD”, yalnızca bir parfüm değil, bir güç sembolüdür.",
+   "romantic-oud-50ml-parfum": "ROMANTIC OUD 50ml Extrait De Parfüm, Parfumane Oud Koleksiyonu’nun en duygusal ve büyüleyici eserlerinden biridir. Aşkın tutkusunu, kırmızı meyvelerin tatlı enerjisini ve oud’un gizemli sıcaklığını bir araya getiren bu parfüm; hem modern hem de oryantal bir kompozisyonla kalplere dokunur. Karamel ve bademin yumuşak tatlılığıyla açılır, hindistan cevizi ve yaseminin egzotik zarafetiyle büyür, oud ve amberin kalıcı derinliğiyle son bulur.",
+   "basha-oud-50ml-parfum": "BASHA OUD 50ml Extrait De Parfüm, Parfumane’in Oud Koleksiyonu’nun en güçlü ve karizmatik üyelerinden biridir. Kudreti, asaleti ve derinliği bir araya getiren bu özel parfüm, erkeksi zarafetin en rafine hâlidir. Limon, karanfil ve agarwood notalarının ustaca harmanlandığı bu koku, ilk nefeste sizi etkisi altına alır ve saatler boyunca kalıcılığını korur. Basha Oud, sadece bir parfüm değil, bir karakterin, bir duruşun ifadesidir.",
+   "oud-u-farah-50ml-parfum": "OUD-U FARAH 50ml Extrait De Parfüm, Parfumane’in Oud Koleksiyonu’nda neşe, zarafet ve lüksün kokusal buluşmasıdır. Adını Arapça “mutluluk” anlamına gelen Farah kelimesinden alan bu parfüm, ferah narenciyeler, baharatlı dokular ve zengin oud (öd ağacı) katmanlarıyla harmanlanmıştır. Doğu’nun mistik kokularını Batı’nın zarif kompozisyon anlayışıyla bir araya getirir. Bu parfüm, duyulara hem huzur hem de enerji veren, dengeli ve büyüleyici bir deneyim sunar.",
+   "silky-oud-50ml-parfum": "SILKY OUD 50ml Extrait De Parfüm, Parfumane’in Oud Koleksiyonu’nun en zarif ve dokusal parfümlerinden biridir. İsminin de çağrıştırdığı gibi, “Silky” yani “ipeksi” doku, bu parfümün ruhunu tanımlar. Agarwood (oud)’un güçlü karakteri, vanilyanın yumuşak tatlılığı ve miskin narin dokunuşuyla birleşerek hem zarif hem de derin bir koku deneyimi yaratır. Bu parfüm, hem kadınlar hem erkekler için tasarlanmış unisex bir zarafet sembolüdür — sessiz ama kalıcı bir iz bırakır.",
+   "mystic-oud-50ml-parfum": "MYSTIC OUD 50ml Extrait De Parfüm, Parfumane’in Oud Koleksiyonu’nun en büyüleyici üyelerinden biridir. Adından da anlaşılacağı üzere “Mystic”, yani gizemli ve spiritüel bir koku deneyimi sunar. Bu parfüm, doğunun mistik baharatlarını tropikal meyvelerle harmanlayarak oud’un büyüleyici derinliğini bambaşka bir boyuta taşır. Egzotik, zengin ve katmanlı yapısıyla Mystic Oud, her bir nefeste yeni bir yönünü ortaya çıkarır — hem sıcak hem ferah, hem baharatlı hem tatlı bir dengenin kusursuz ifadesidir.",
+   "sukkar-oud-50ml-parfum": "SUKKAR OUD 50ml Extrait De Parfüm, Parfumane’in Oud Koleksiyonu içinde tatlılığın zarafetle buluştuğu en büyüleyici parfümlerden biridir. Arapça’da “şeker” anlamına gelen Sukkar kelimesi, bu parfümün doğasını mükemmel biçimde özetler: sıcak, çekici ve baştan çıkarıcı. Kırmızı meyveler ve mandalina notalarıyla başlayan bu koku, vanilya ve oud’un derinliğiyle tamamlanır. Tatlı ama zarif, yoğun ama yumuşak bir deneyim sunar — tıpkı ipek gibi tende kayar ve kalıcı bir iz bırakır.",
+   "bouquet-oud-50ml-parfum": "BOUQUET OUD 50ml Extrait De Parfüm, Parfumane’in Oud Koleksiyonu’nun en zarif, en dengeli ve en büyüleyici kompozisyonlarından biridir. Adını, çiçeklerin bir araya gelerek oluşturduğu görkemli bir “bouquet” (buketten) alır. Bu parfüm, gülün romantik zarafeti, safranın sıcak baharatlı tonu ve oud’un mistik derinliğiyle benzersiz bir uyum yakalar. Tatlı, odunsu ve oryantal dokularla zenginleşen koku profili, kullanıcıya unutulmaz bir zarafet deneyimi yaşatır.",
+   "oud-u-sehriyar-50ml-parfum": "OUD-U ŞEHRİYAR 50ml Extrait De Parfüm, adını “şehriyar” kelimesinden alır — hükümdar, lider ve zarafetin sembolü. Parfumane’in Oud Koleksiyonu’nun en güçlü ve karizmatik üyelerinden biridir. Bu özel eser, oud’un asil dokusunu lavanta ve safran’ın büyüleyici sıcaklığıyla birleştirir. Geleneksel doğu parfümeri sanatının ihtişamını modern bir yorumla yeniden yaşatır. Derin, baharatlı ve odunsu yapısıyla, saray atmosferini andıran etkileyici bir deneyim sunar.",
+   "golden-wonder-parfum-90ml-edp": "Parfüm, üst notalarda egzotik safran (saffron), ferah greyfurt (grapefruit), zarif yasemin (jasmine) ve topraksı cypriol ile açılıyor. Orta notalarda yumuşak sandal ağacı (sandalwood), deri dokusu, tatlı vanilya ve romantik gül (rose) yer alıyor. Alt notalarda ise güçlü oud, sıcak amber, topraksı paçuli (patchouli), odunsu guaiacwood ve miskin kalıcılığı bulunuyor.",
+   "neyl-u-fer-50ml-extrait-de-parfum": "Attar Neyl-ü Fer Sprey 50ml, Parfumane Attar Koleksiyonu’nun canlı ve zarif karakterini yansıtan, çiçeksi ve meyvemsi notaların uyumuyla tasarlanmış özel bir attar parfümdür. Günlük kullanımda tazelik ve zarafet arayanlar için ideal olan bu parfüm, etkileyici yapısıyla gün boyu üzerinizde ferah bir iz bırakır.",
+   "baharistan-50ml-extrait-de-parfum": "Attar Baharistan Sprey 50ml, Parfumane Attar Koleksiyonu’nun sofistike ve duygusal yönünü yansıtan, baharatlı ve pudramsı dokunuşlarla şekillenen eşsiz bir attar parfümdür. Zarif çiçek notalarıyla birleşen sıcak baharatlar, teninizde baş döndürücü bir armoni yaratır.",
+   "zadegan-50ml-extrait-de-parfum": "Attar Zadegan Sprey 50ml, Parfumane Attar Koleksiyonu’nun modern ve özgün ruhunu yansıtan, meyvemsi tatlılık ile çiçeksi zarafetin etkileyici şekilde harmanlandığı özel bir attar parfümdür. Taze doğa esintilerini taşıyan yeşil notalarla açılır, ardından derin ve duygusal çiçek kalbiyle sizi sarar ve nihayetinde sıra dışı bir alt notayla kalıcılık kazanır.",
+   "hawasat-50ml-extrait-de-parfum": "Attar Hawasat Sprey 50ml, enerjik turunçgil başlangıcı, gourmand meyve notaları ve sıcak alt tonlarıyla öne çıkan çarpıcı bir attar parfümdür. Canlandırıcı etkisiyle sabahları taze bir başlangıç sunarken, çiçeksi ve odunsu izleriyle gün boyunca sofistike bir etki bırakır.",
+   "zumrud-u-anka-50ml-extrait-de-parfum": "Attar Zümrüd-ü Anka Sprey 50ml, mistik oryantal notalarla zenginleşmiş, çiçeksi ve odunsu bileşenlerin uyum içinde dans ettiği eşsiz bir attar parfümdür. Efsanevi Anka kuşundan ilham alan bu parfüm, zarafeti ve gücü aynı anda yansıtır.",
+   "topaz-50ml-extrait-de-parfum": "Attar Topaz Sprey 50ml, baharatlı, reçineli ve odunsu notaların başrolde olduğu; derin, gizemli ve etkileyici bir attar parfümdür. Topaz taşının enerjisinden ilham alan bu özel koku, güçlü ve sofistike bir duruş sergiler.",
+   "hazarat-50ml-extrait-de-parfum": "Attar Hazarat Sprey 50ml, baharatlı tazelik ile çiçeksi zarafeti ve odunsu notaları harmanlayan, katmanlı ve etkileyici bir attar parfümdür. Modern bir oryantal kompozisyon sunan bu koku, rafine ve güçlü bir iz bırakmak isteyenler için özel olarak tasarlanmıştır.",
+   "murr-u-baha-50ml-extrait-de-parfum": "Attar Mürr-ü Baha Sprey 50ml, doğadan gelen güçlü özlerle bezenmiş, erkeksi ve rafine bir karakter taşıyan oryantal bir attar parfümdür. Baharatlı nüanslar ve odunsu derinliklerle şekillenen bu özel kompozisyon, güçlü ve özgün izler bırakmak isteyenler için tasarlanmıştır.",
+   "amak-i-hayal-50ml-extrait-de-parfum": "Attar Amak-ı Hayal Sprey 50ml, adından da anlaşılacağı gibi sizi hayallerin derinliğine davet eden tatlı, baharatlı ve aromatik bir attar parfümdür. Taze narenciyeler, yumuşak baharatlar ve derin odunsu notaların birleşimiyle, hem enerjik hem de mistik bir atmosfer yaratır.",
+   "ahbab-50ml-extrait-de-parfum": "Ahbab Spray, tanıdık ve güven veren bir atmosferi, yumuşak çiçeklerle ve miskin temiz dokunuşuyla buluşturan sade ama etkileyici bir esanstır. Ferah açılışı, çiçeksi kalbi ve tenle bütünleşen misk bazıyla huzurlu bir imza bırakır.",
+   "ates-beste-50ml-extrait-de-parfum": "Ateş Beste, ismini aldığı ateşten ilhamla güçlü, enerjik ve derin bir koku dünyası sunar. Baharatlı notaların etkileyici açılışı; odunsu ve sıcak alt tonlarla birleşerek, dengeli ve çarpıcı bir parfüm deneyimi yaratır.",
+   "feyz-i-safa-50ml-extrait-de-parfum": "Feyzi Safa, güçlü, sofistike ve karakterli bir imza arayanlar için özel olarak tasarlanmış uniseks bir kokudur. Deri teması etrafında şekillenen bu eşsiz kompozisyon; tatlı, baharatlı ve odunsu notaların dikkat çekici uyumunu yansıtır.",
+   "majesty-50ml-extrait-de-parfum": "Majesty Spray, güçlü baharat notalarının ve zengin odunsu dokuların bir araya geldiği, baskın ama dengeli bir parfüm kompozisyonudur. Kendine güvenen ve iz bırakmak isteyenler için tasarlanmış bu özel koku, oryantal ve reçineli katmanlarıyla dikkat çeker.",
+   "pera-istanbul-50ml-extrait-de-parfum": "Pera İstanbul Spray, Parfumane Selective Koleksiyonu’nun dikkat çeken üyelerinden biri olarak, tarihi dokuyu modern zarafetle harmanlayan sofistike bir parfümdür. Narenciyeden baharata, çiçekten odunsu akorlara kadar uzanan katmanlı yapısıyla şehrin ruhunu yansıtır.",
+   "rosa-musk-50ml-extrait-de-parfum": "Rosa Musk, çiçeklerin en zarifi olan gül ile miskin huzur veren dokusunu birleştiren özel bir parfümdür. Parfumane Selective Koleksiyonu’nun bu romantik üyesi, sade ama etkileyici karakteriyle dikkat çeker.",
+   "sarayli-50ml-extrait-de-parfum": "Parfumane’nin özel koleksiyonlarından biri olan Saraylı Spray, çiçeksi ve meyvemsi notaların ihtişamlı bir uyum içinde birleştiği, feminen ve büyüleyici bir parfümdür.",
+   "savor-50ml-extrait-de-parfum": "Savor Spray, citrus notaların canlı enerjisini, aldehitlerin pudramsı saflığıyla buluşturarak sofistike bir parfüm deneyimi sunar. Ferah ve yumuşak yapısıyla hem gündelik hem de özel anlar için ideal bir seçimdir.",
+   "white-lotus-hamra-50ml-extrait-de-parfum": "White Lotus Spray, zarafeti ve saflığı yansıtan, taze ve çiçeksi notalarla tasarlanmış modern bir parfümdür. Temiz ve doğal kokulara ilgi duyanlar için geliştirilen bu kompozisyon, yumuşak geçişleri ve ferah yapısıyla günlük kullanıma mükemmel uyum sağlar."
+  },
+  "enText": {
+   "rah-i-ask-parfum-75ml-edp": "RAH-I AŞK 75ml Eau de Parfum from Parfumane’s Dolmabahçe Collection is a poetic interpretation of love — its passion, elegance, and eternity — expressed through the art of perfumery. Meaning “The Path of Love” in Ottoman Turkish, this fragrance captures the essence of an emotional journey, from the first spark of attraction to the serene comfort of lasting devotion. Crafted with mandarin, pepper, rose, jasmine, amber, vanilla, and musk, it is both vibrant and deeply soulful.",
+   "galiya-oud-50ml-parfum": "GALIYA OUD 50ml Extrait De Parfum from the Parfumane Oud Collection stands as a masterpiece of oriental sophistication. It merges the ancient power of agarwood (oud) with the captivating warmth of saffron, lavender, and spices, creating a timeless fragrance that balances intensity and refinement. This is a scent for those who appreciate luxury with character — deep, mysterious, and undeniably elegant.",
+   "desert-prince-parfum-90ml-edp": "The perfume opens with aromatic herbal tones and rich patchouli. The heart reveals deep patchouli, modern ambroxan, and woody cedarwood. The base brings back patchouli once more, complemented by moist moss, leather, and deep earthy textures.",
+   "nar-i-ask-50ml-extrait-de-parfum": "Attar Nar-i Ashq Spray takes its name from the pomegranate — a symbol of passionate and heartfelt love. This exquisite attar perfume offers an enchanting composition where the vibrant tones of nature meet the elegance of flowers. Designed for daily use, it’s ideal for those who seek an energetic, refreshing, yet graceful scent.",
+   "cevherbaha-parfum-75ml-edp": "CEVHERBAHA 75ml Eau de Parfum from Parfumane’s Dolmabahçe Collection is a true masterpiece that blends the warmth of the East with the refined elegance of the West. Named after the Turkish word “Cevherbaha,” meaning “the brilliance of precious gems,” this fragrance shines with a luminous balance between mandarin freshness, deep oud, and golden labdanum, all softened by the silky touch of jasmine, sandalwood, and vanilla. It is a fragrance that glows like a jewel — rare, timeless, and deeply captivating.",
+   "lalezar-parfum-75ml-edp": "LALEZAR 75ml Eau de Parfum, Parfumane Dolmabahçe Koleksiyonu’nun zarif ve romantik ruhunu temsil eden özel bir eserdir. İsmini, Osmanlı döneminde “çiçeklerle dolu bahçe” anlamına gelen Lalezar kelimesinden alan bu parfüm, zarafet, zariflik ve huzurun kokuya dönüştüğü bir şiirdir. Gül ağacı, şeftali, yasemin, gül ve iris gibi çiçeksi notalarla açılırken, alt tabanda tonka, vanilya ve misk birleşerek sıcak, duygusal bir derinlik kazandırır. Her püskürtmede adeta bahar sabahının tazeliğini hissettirir.",
+   "great-oud-50ml-parfum": "GREAT OUD 50ml Extrait De Parfum from the Parfumane Oud Collection embodies raw strength and refined elegance. This fragrance is a tribute to the timeless charm of agarwood (oud)—mysterious, deep, and captivating. Infused with lavender, nutmeg, and saffron, it combines aromatic freshness with a warm, spicy character. GREAT OUD is not just a scent; it is the embodiment of confidence, sophistication, and heritage.",
+   "romantic-oud-50ml-parfum": "ROMANTIC OUD 50ml Extrait De Parfum from the Parfumane Oud Collection captures the spirit of love and desire in a warm, seductive blend of sweet red fruits, soft caramel, and mystical oud. This fragrance tells a story — a tale of passion, emotion, and elegance. Each layer reveals a new depth, from the playful sweetness of the top notes to the smoky sensuality of its oud base.",
+   "basha-oud-50ml-parfum": "BASHA OUD 50ml Extrait De Parfum from the Parfumane Oud Collection stands as a symbol of strength, refinement, and timeless masculinity. Crafted for those who embrace both authority and elegance, this bold composition blends lemon, clove, amber, leather, and agarwood (oud) in perfect harmony. The result is a fragrance that commands attention, leaves a deep impression, and lasts from dawn till dusk. Basha Oud is not just a perfume — it is a statement of power and character.",
+   "oud-u-farah-50ml-parfum": "OUD-U FARAH 50ml Extrait De Parfum from Parfumane’s Oud Collection is a radiant celebration of happiness, refinement, and luxury. Inspired by the Arabic word “Farah” — meaning joy — this perfume intertwines the freshness of bergamot and neroli with the depth of oud, amber, and spices. It represents a perfect harmony between Eastern sensuality and Western sophistication, creating a fragrance that uplifts the spirit while exuding timeless elegance.",
+   "silky-oud-50ml-parfum": "SILKY OUD 50ml Extrait De Parfum from Parfumane’s Oud Collection is a refined fragrance that embraces the duality of softness and strength. The name “Silky” perfectly reflects its essence — smooth, luxurious, and effortlessly elegant. It combines the deep intensity of agarwood (oud) with the creamy sweetness of vanilla and the delicate warmth of musk, creating an olfactory experience that feels like silk on skin. Crafted as a unisex masterpiece, Silky Oud is designed for those who seek serenity, sophistication, and long-lasting depth.",
+   "mystic-oud-50ml-parfum": "MYSTIC OUD 50ml Extrait De Parfum from Parfumane’s Oud Collection embodies the spirit of mystery and allure. The word “Mystic” captures its essence perfectly — a perfume that reveals new dimensions with every breath. It blends Middle Eastern spices with tropical fruits, surrounding the rich heart of agarwood (oud) in a mesmerizing dance of warmth and brightness. This fragrance is both exotic and sophisticated, crafted for those who appreciate depth, complexity, and sensual beauty.",
+   "sukkar-oud-50ml-parfum": "SUKKAR OUD 50ml Extrait De Parfum from Parfumane’s Oud Collection is a captivating blend where sweetness meets sophistication. The name “Sukkar,” meaning “sugar” in Arabic, perfectly defines its essence — warm, luscious, and irresistibly charming. This fragrance opens with red fruits and mandarin, revealing a vibrant sweetness that melts into the elegant depth of vanilla and oud. The result is a perfume that feels like liquid gold on the skin — smooth, creamy, and endlessly addictive.",
+   "bouquet-oud-50ml-parfum": "BOUQUET OUD 50ml Extrait De Parfum is one of the most enchanting creations from Parfumane’s Oud Collection. Inspired by the beauty of a floral bouquet, this perfume captures the poetic meeting of rose, saffron, and oud — blending sweetness, depth, and oriental warmth into a single elegant composition. It is a fragrance of contrast and balance: floral yet woody, delicate yet lasting. Each drop reflects the timeless craftsmanship of oriental perfumery, reinterpreted through Parfumane’s refined touch.",
+   "oud-u-sehriyar-50ml-parfum": "OUD-U ŞEHRİYAR 50ml Extrait De Parfüm is the fragrance of majesty — a perfume that evokes the grandeur of palaces, the elegance of noble courts, and the timeless depth of oriental craftsmanship. Created within Parfumane’s Oud Collection, this exquisite blend unites oud, lavender, saffron, and musky woods to form a scent that reflects power, serenity, and refinement. It is a fragrance born from silence and strength — one that speaks in the language of prestige.",
+   "golden-wonder-parfum-90ml-edp": "Each perfume in this collection is crafted by blending the Middle East’s rich culture with distinctive essences. These fragrances whisk you on a journey through time—carrying traces of the past and harmonizing history with the modern world. With deep, intense notes, they offer scents unlike any others in the world.",
+   "neyl-u-fer-50ml-extrait-de-parfum": "Attar Neyl-ü Fer Spray 50ml is a special attar perfume that reflects the vibrant and elegant character of the Parfumane Attar line, designed with a harmonious blend of floral and fruity notes. Ideal for those seeking freshness and elegance in daily wear, this fragrance leaves a light and refreshing impression that lasts throughout the day.",
+   "baharistan-50ml-extrait-de-parfum": "Attar Baharistan Spray 50ml is a unique attar perfume that reflects the sophisticated and emotional character of the Parfumane Attar Collection, shaped with spicy and powdery touches. Warm spices blended with elegant floral notes create a mesmerizing harmony on your skin.",
+   "zadegan-50ml-extrait-de-parfum": "Attar Zadegan Spray 50ml is a unique attar perfume that reflects the modern and distinctive spirit of the Parfumane Attar Collection. It beautifully blends fruity sweetness with floral elegance, opening with refreshing green notes inspired by nature, followed by an emotional floral heart, and finally settling into a distinctive base that ensures remarkable longevity.",
+   "hawasat-50ml-extrait-de-parfum": "Attar Hawasat Spray 50ml is a striking attar perfume that stands out with its energetic citrus opening, gourmand fruity notes, and warm undertones. Its refreshing effect offers a lively start to the day, while its floral and woody traces leave a sophisticated impression that lasts all day long.",
+   "zumrud-u-anka-50ml-extrait-de-parfum": "Attar Zumrud-u Anka Spray 50ml is a unique attar perfume enriched with mystical oriental notes, where floral and woody accords dance in perfect harmony. Inspired by the legendary Phoenix, this fragrance embodies both elegance and strength.",
+   "topaz-50ml-extrait-de-parfum": "Attar Topaz Spray 50ml is a captivating attar perfume where spicy, resinous, and woody notes take the spotlight. Inspired by the energy of the Topaz gemstone, this exceptional fragrance exudes strength, depth, and sophistication.",
+   "hazarat-50ml-extrait-de-parfum": "Attar Hazarat Spray 50ml is a layered and captivating attar perfume that harmoniously blends spicy freshness, floral elegance, and woody depth. Offering a modern oriental composition, this fragrance is designed for those who wish to leave a refined and powerful impression.",
+   "murr-u-baha-50ml-extrait-de-parfum": "Attar Murr-u Baha Spray 50ml is an oriental attar perfume imbued with powerful natural essences, carrying a masculine and refined character. Shaped by spicy nuances and woody depth, this exclusive composition is designed for those who seek to leave a strong and distinctive impression.",
+   "amak-i-hayal-50ml-extrait-de-parfum": "Attar Amak-i Hayal Spray 50ml is a sweet, spicy, and aromatic attar perfume that, as its name suggests, invites you into the depths of dreams. Blending fresh citrus, soft spices, and deep woody notes, it creates an atmosphere that is both energetic and mystical.",
+   "ahbab-50ml-extrait-de-parfum": "Ahbab Spray blends a familiar and comforting aura with soft florals and the clean touch of musk, creating a simple yet captivating essence. Its fresh opening, floral heart, and musky base leave a serene and refined signature on the skin.",
+   "ates-beste-50ml-extrait-de-parfum": "Ates Beste takes inspiration from its fiery name, offering a bold, energetic, and deeply captivating fragrance experience. The striking opening of spicy notes blends seamlessly with woody and warm undertones, creating a balanced and sophisticated perfume composition.",
+   "feyz-i-safa-50ml-extrait-de-parfum": "Feyz-i Safa is a unisex fragrance specially designed for those seeking a powerful, sophisticated, and distinctive signature scent. Centered around a refined leather theme, this unique composition reflects a captivating balance of sweet, spicy, and woody notes.",
+   "majesty-50ml-extrait-de-parfum": "Majesty Spray is a bold yet balanced fragrance composition where powerful spicy notes meet rich woody textures. Designed for those who seek confidence and distinction, this special scent stands out with its oriental and resinous layers.",
+   "pera-istanbul-50ml-extrait-de-parfum": "Pera Istanbul Spray is one of the standout members of the Parfumane Selective Collection, a sophisticated fragrance that blends historical texture with modern elegance. With its layered structure ranging from citrus to spice, from floral to woody accords, it reflects the spirit of the city.",
+   "rosa-musk-50ml-extrait-de-parfum": "Rosa Musk is a unique fragrance that unites the serene texture of musk with the most graceful of flowers — the rose. As a romantic member of the Parfumane Selective Collection, it stands out with its simple yet captivating character.",
+   "sarayli-50ml-extrait-de-parfum": "Saraylı Spray, one of Parfumane’s exclusive creations, is a feminine and enchanting perfume where floral and fruity notes blend in perfect harmony.",
+   "savor-50ml-extrait-de-parfum": "Savor Spray combines the vibrant energy of citrus notes with the powdery purity of aldehydes, offering a sophisticated fragrance experience. With its fresh yet soft composition, it is ideal for both daily wear and special occasions.",
+   "white-lotus-hamra-50ml-extrait-de-parfum": "White Lotus Spray is a modern perfume designed with fresh and floral notes that embody elegance and purity. Created for those who appreciate clean and natural scents, this composition offers smooth transitions and a refreshing character, making it perfect for everyday use."
+  },
+  "ritual": [
+   {
+    "handle": "rah-i-ask-parfum-75ml-edp",
+    "tr": {
+     "title": "Dolmabahçe Koleksiyonu",
+     "text": "El işçiliğiyle hazırlanmış kristal işlemeli şişe, Fransız ikonu sprey pompası ve yeniden doldurulabilir tasarım.",
+     "stat": "Rah-ı Aşk"
+    },
+    "en": {
+     "title": "Dolmabahçe Collection",
+     "text": "Crystal detailing, a French-style bulb atomizer and a refillable glass design.",
+     "stat": "Rah-i Aşk"
+    }
+   },
+   {
+    "handle": "galiya-oud-50ml-parfum",
+    "tr": {
+     "title": "Oud Koleksiyonu",
+     "text": "Doğanın en değerli armağanlarından biri olan oud (öd ağacı), yüzyıllardır süregelen Doğu parfüm geleneğiyle.",
+     "stat": "Galiya Oud"
+    },
+    "en": {
+     "title": "Oud Collection",
+     "text": "Oud, the world’s most revered aromatic treasure, harmonized through modern craftsmanship.",
+     "stat": "Galiya Oud"
+    }
+   },
+   {
+    "handle": "desert-prince-parfum-90ml-edp",
+    "tr": {
+     "title": "Oriental Koleksiyonu",
+     "text": "Koleksiyondaki her bir parfüm Orta Doğu’nun zengin kültürü ve eşsiz lezzetlerinin bir araya gelmesiyle oluşmuştur.",
+     "stat": "Desert Prince"
+    },
+    "en": {
+     "title": "Oriental Collection",
+     "text": "Each perfume in the collection is crafted through the fusion of the Middle East’s rich culture and unique essences.",
+     "stat": "Desert Prince"
+    }
+   }
+  ]
+ }
+}
