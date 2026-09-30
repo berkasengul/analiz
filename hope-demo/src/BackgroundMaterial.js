@@ -340,7 +340,8 @@ export const BackgroundMaterial = shaderMaterial(
         wall += hi * (smoothstep(0.55, 0.98, w1) * 0.11 + smoothstep(0.7, 1., w2) * 0.07) * (1. - smoothstep(0.2, 1.1, rr) * 0.5);
         wall *= 0.92 + 0.08 * (0.5 + 0.5 * sin(bx * 0.8 + wy * 1.3 - t));
         // Şişenin arkasında hale.
-        wall += mix(hi, vec3(1.), 0.3) * exp(-rr * rr * 10.) * 0.26;
+        // Hale; yeni ürün kaideye konunca kısa bir an parlar (u_plateFx.w).
+        wall += mix(hi, vec3(1.), 0.3) * exp(-rr * rr * 10.) * (0.26 + 0.45 * u_plateFx.w);
         vec3 fc = wall;
         if (vUv.y < fy) {
           // Parlak zemin: fonun soluk yansıması, derinleşen ton, ürünün dibinde ışık havuzu.
@@ -348,7 +349,7 @@ export const BackgroundMaterial = shaderMaterial(
           vec3 fl = mix(mix(mid, deep, 0.35), deep, smoothstep(0., 1., d));
           fc = mix(fl, wall * 0.85, 0.42 * (1. - smoothstep(0., 0.9, d)));
           vec2 pq = vec2(bx / 0.55, (vUv.y - fy + 0.015) / 0.06);
-          fc += mix(hi, vec3(1.), 0.5) * exp(-dot(pq, pq)) * 0.3;
+          fc += mix(hi, vec3(1.), 0.5) * exp(-dot(pq, pq)) * (0.3 + 0.7 * u_plateFx.w);
         }
         // Zemin çizgisi yumuşak (keskin ufuk yok).
         fc = mix(fc, mix(wall, fc, 0.5), (1. - smoothstep(0., 0.012, abs(vUv.y - fy))) * 0.5);

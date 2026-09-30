@@ -30,7 +30,7 @@ const TOP = [];
 const FOOT = { ref: null };
 const V = new Vector3();
 import { PAGE, content, flavors } from "./data";
-import { scrollState, scrollToFlavorOf, slotIndex } from "./scroll";
+import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 
@@ -53,7 +53,7 @@ const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 // ?slowmo=8 adresiyle uçuş ağır çekimde oynar (animasyonu incelemek için).
 const SLOWMO = typeof window !== "undefined" ? Number(new URLSearchParams(window.location.search).get("slowmo")) || 1 : 1;
-const FLIGHT = 1.15 * SLOWMO; // saniye
+const FLIGHT = (THEME.carousel === "dolly" ? 1.45 : 1.15) * SLOWMO; // saniye
 const SHOT = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("shot");
 const KEYS = ["x", "y", "z", "rotX", "rotY", "rotZ", "scale"];
 
@@ -408,7 +408,27 @@ export default function Carousel() {
         const arc = Math.sin(Math.PI * k);
         const out = {};
         for (const key of KEYS) out[key] = MathUtils.lerp(flight.from[key], pose[key], e);
-        if (flight.kind === "in") {
+        out.alpha = pose.alpha;
+        out.up = MathUtils.lerp(flight.from.up ?? 0, pose.up ?? 0, e);
+        if (DOLLY) {
+          // Butikte (videodaki gibi): gelen şişe büyüyerek öne doğru geniş bir kavis çizer, kendi etrafında
+          // bir tur döner ve hafif yatarak kaideye konar; giden şişe küçülüp geriye, boşalan yana çekilir.
+          const sc = dollyScale(aspect);
+          if (flight.kind === "in") {
+            out.z += 4.2 * arc;
+            out.y += 0.25 * sc * arc;
+            out.rotY += Math.PI * 2 * easeInOut(Math.min(1, k * 1.08));
+            out.rotZ += 0.32 * arc;
+            out.rotX += 0.12 * arc;
+            out.scale *= 1 + 0.12 * arc;
+          } else {
+            out.z -= 3 * arc;
+            out.y += 0.2 * sc * arc;
+            out.rotY -= Math.PI * e;
+            out.rotZ -= 0.22 * arc;
+            out.scale *= 1 - 0.18 * arc;
+          }
+        } else if (flight.kind === "in") {
           out.z += 3.2 * arc;
           out.y += 0.9 * arc;
           out.rotY += Math.PI * 2 * e;
@@ -424,7 +444,11 @@ export default function Carousel() {
         pose = out;
         if (k >= 1) {
           delete s.flights[i];
-          if (flight.kind === "in") sweep(i);
+          if (flight.kind === "in") {
+            sweep(i);
+            // Kaideye iniş: arka planda kısa bir ışık patlaması (Background → landAt).
+            sceneState.landAt = t;
+          }
         }
       }
       s.last[i] = pose;
@@ -506,11 +530,7 @@ export default function Carousel() {
       openDetail();
       return;
     }
-    // Butik sırasında yandaki ürüne tıklamak sırayı ona kaydırır.
-    if (DOLLY) {
-      scrollToFlavorOf(st.order, i);
-      return;
-    }
+    // Butikte yalnızca iki yandaki komşuya tıklanır (uzaktakiler karanlıkta); onlar uçarak ortaya gelir.
     // Carousel iki tat arasındayken yer değiştirme yapılmaz.
     if (Math.abs(scrollState.p - Math.round(scrollState.p)) > 0.05) return;
     const l = local.current;
@@ -523,6 +543,8 @@ export default function Carousel() {
     st.swapSlots(from, center);
     st.setActive(i);
     st.setSwapping(true);
+    // Geçişte duman bulutu (Boutique).
+    sceneState.swapAt = l.now;
     setTimeout(() => useStore.getState().setSwapping(false), FLIGHT * 850);
   };
 

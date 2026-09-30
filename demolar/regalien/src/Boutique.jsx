@@ -18,6 +18,8 @@ import { THEME } from "./theme";
 const FLUTE_R = 0.2;
 const PITCH = 0.44;
 const COUNT = 170;
+// ?slowmo=N: uçuş ve duman N kat yavaş (yavaş test tarayıcısında ara kareleri görmek için).
+const SLOWMO = typeof window !== "undefined" ? Number(new URLSearchParams(window.location.search).get("slowmo")) || 1 : 1;
 const WALL_Z = -10;
 const GOLD = new Color(THEME.accent ?? "#d4b06a");
 const WHITE = new Color(1, 1, 1);
@@ -116,17 +118,22 @@ export default function Boutique() {
     const fr = scrollState.p - Math.floor(scrollState.p);
     // Fotoğraflı butikte geçişte duman kabarmaz: arka plan sabit görünür.
     const trans = THEME.plate || THEME.fresh ? 0 : Math.sin(Math.PI * fr);
-    smoke.current.position.set(r.x, r.y + 0.6, r.z + 1.4);
-    smoke.current.scale.setScalar(r.scale / 2);
-    smokeMat.uniforms.u_time.value = clock.getElapsedTime();
-    smokeMat.uniforms.u_amount.value = MathUtils.damp(smokeMat.uniforms.u_amount.value, (0.05 + 0.5 * trans) * on * (st.detail ? 0 : 1), 5, dt);
-    smokeMat.uniforms.u_color.value.copy(S.tint);
+    // Yandaki ürüne tıklanınca (Carousel → swapAt) uçuş boyunca ekranı yumuşak bir duman bulutu sarar,
+    // şişe kaideye konarken dağılır.
+    const time = clock.getElapsedTime();
+    const sw = sceneState.swapAt != null ? MathUtils.clamp((time - sceneState.swapAt) / (1.6 * SLOWMO), 0, 1) : 1;
+    const puff = sw < 1 ? Math.pow(Math.sin(Math.PI * sw), 0.7) : 0;
+    smoke.current.position.set(r.x, r.y + 0.6 + 0.8 * puff, r.z + 1.4 + 2 * puff);
+    smoke.current.scale.setScalar((r.scale / 2) * (1 + 0.9 * puff));
+    smokeMat.uniforms.u_time.value = time;
+    const base = (THEME.fresh ? 0 : 0.05 + 0.5 * trans) * on * (st.detail ? 0 : 1);
+    smokeMat.uniforms.u_amount.value = puff > 0.001 ? Math.max(base, 1.25 * puff * on) : MathUtils.damp(smokeMat.uniforms.u_amount.value, base, 5, dt);
+    smokeMat.uniforms.u_color.value.copy(S.tint).lerp(WHITE, 0.25 + 0.4 * puff);
     // Butik fotoğrafı (theme.plate) varsa duvar ve zemin fotoğraftan gelir: 3B duvar, zemin ve duvar ışığı gizli.
     // Fotoğraflı butikte duvar ve zemin fotoğraftan gelir (3B duvar ve yansıtıcı zemin gizli).
     // Ferah sahnede (theme.fresh) duvar ve zemin shader'dan gelir: 3B butik de gizli.
     root.current.visible = on > 0.01 && !THEME.plate && !THEME.fresh;
     if (THEME.plate || THEME.fresh) L.intensity = 0;
-    if (THEME.fresh) smokeMat.uniforms.u_amount.value = 0;
   });
 
   return (

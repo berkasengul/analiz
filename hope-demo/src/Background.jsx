@@ -216,11 +216,13 @@ export default function Background() {
       const ust = (Q.set(0, sceneState.plinthTop ?? fy, 0).project(camera).y + 1) / 2;
       const fr = scrollState.p - Math.floor(scrollState.p);
       const trans = Math.sin(Math.PI * fr);
+      // Kaydırmayla gelen ürün oturunca ya da tıklanan ürün uçup kaideye konunca (Carousel → landAt) kısa parlama.
       if (sceneState.settled && l.landKey !== st.active) {
-        if (l.landKey != null) l.landAt = time;
+        if (l.landKey != null && !st.swapping) l.landAt = time;
         l.landKey = st.active;
       }
-      const flash = l.landAt != null ? Math.exp(-(time - l.landAt) * 2.2) : 0;
+      const landAt = Math.max(l.landAt ?? -1e9, sceneState.landAt ?? -1e9);
+      const flash = landAt > -1e8 ? Math.exp(-(time - landAt) * 2.2) : 0;
       l.beam = MathUtils.damp(l.beam ?? 0, (1 - 0.65 * trans) * (st.detail ? 0.2 : 1) * (phone ? 0.5 : 1) * Math.min(1, sceneState.intro * 1.3), 4, dt);
       m.u_plateFx.set(zemin, ust, l.beam, flash);
       l.blur = MathUtils.damp(l.blur ?? 1.1, (phone ? 0.8 : 1.1) + 7 * trans, 6, dt);
