@@ -7,47 +7,49 @@
 - **Mail:** info@regalien.com (sitenin mesafeli satış sözleşmesinde ve iade politikasında yazıyor).
 - **Instagram:** @regalienparfum (DM).
 
-**Yakalama noktası (30 Eylül'de kontrol edildi, hâlâ duruyor):** Sitenin İngilizce Hammam sayfasında (regalien.com/en/product/hammam/) kısa açıklamanın başında "ChatGPT said:" yazıyor; yapay zekâ çıktısı temizlenmeden yayınlanmış. Göndermeden önce hâlâ durduğunu kontrol et; düzelttilerse o cümleyi sil.
-
 **Ek:** Yalnızca 15 saniyelik dikey video (senaryo `kisa-mesajlar.md`'de) ya da tek görsel (`regalien-gorseller/1-anasayfa.jpg`). Zip ekleme.
 
 ## Mail (kuruculara)
 
-**Konu:** İngilizce Hammam sayfanızda küçük bir hata (ve Régalien için 3D bir site)
+**Kime:** info@regalien.com
+**Konu:** Régalien kokuları için 3D satış sitesi: 28 koku hazır
 
 > Merhaba Bilen Bey, Varol Bey,
 >
-> Sitenizin İngilizce Hammam sayfasında açıklamanın başında "ChatGPT said:" yazısı kalmış; bilginiz olsun istedim.
+> Régalien için 3D bir satış sitesi hazırladım; canlı olarak buradan inceleyebilirsiniz: [DEMO LİNKİ]
 >
-> Bu arada Régalien için 3D bir site hazırladım: her koku kendi şişesinin renginde bir sahneye geliyor (Turkuaz turkuazda, Meftun morda), yandaki şişeye tıklayınca dönerek kaideye konuyor. 28 kokunun hepsi notalarıyla hazır, sepet regalien.com'a bağlı. 15 saniyelik videosu ekte, link: [DEMO LİNKİ]
+> Ziyaretçi şişeleri mağazada elinde tutuyormuş gibi görüyor: her koku kendi şişesinin renginde bir sahneye geliyor, dönerek kaideye konuyor, "Parfümü sık"a basınca kapak kalkıyor. 28 kokunun hepsi notaları ve fiyatlarıyla hazır, Türkçe ve İngilizce. Sepet regalien.com'a bağlı; mevcut sitenizi değiştirmeden satışa geçer.
 >
-> 10 dakikalık bir görüşmede canlı gösterebilir miyim?
+> 40 ülkeye satan bir marka için ürünü ekranda en güçlü şekilde göstermek, reklamdan gelen ziyaretçiyi satışa çevirmenin en kısa yolu. Hidden Origins gibi yeni koleksiyonlar için tek sayfalık lansman versiyonu da yapılabilir.
 >
-> [İmza]
+> Bu hafta 10 dakikalık bir görüşmede canlı gösterebilir miyim?
+>
+> Berka [Soyadın]
+> [Telefon] · [Portfolyo]
 
-## Instagram DM (aynı gün, videoyla)
+## Instagram DM (@regalienparfum, aynı gün, videoyla)
 
-> Merhaba Régalien ekibi ✨ Kokularınız için 3D bir site hazırladım; her şişe kendi renginde bir sahnede, yandakine tıklayınca dönerek ortaya geliyor, "Parfümü sık"a basınca kapak kalkıp buğu çıkıyor. Videoda kısaca görebilirsiniz: [DEMO LİNKİ]. Detayları info@regalien.com adresine de ilettim.
+> Merhaba Régalien ekibi ✨ Kokularınız için 3D bir satış sitesi hazırladım: her şişe kendi renginde bir sahnede dönerek kaideye konuyor, 28 kokunun hepsi hazır ve sepet regalien.com'a bağlı. Kısa videosu ekte, canlı link: [DEMO LİNKİ]. Detayları info@regalien.com adresine ilettim; uygun olursanız 10 dakikada gösterebilirim.
 
-## LinkedIn bağlantı notu (300 karakter altı)
+## LinkedIn bağlantı notu (Bilen ya da Varol Besen, 300 karakter altı)
 
-> Merhaba [Ad] Bey, Régalien için 3D bir web sitesi hazırladım (28 koku, her biri kendi renginde) ve İngilizce sitenizde küçük bir hata fark ettim. Detayları mail ile ilettim; bağlantı kurabilir miyiz?
+> Merhaba [Ad] Bey, Régalien için 3D bir satış sitesi hazırladım: 28 koku, her biri kendi renginde bir sahnede, sepet regalien.com'a bağlı. Linki mail ile ilettim; 10 dakikalık bir görüşmeye açık olur musunuz?
 
 ## Takip 1 (4. gün, maile "Yanıtla")
 
-> Merhaba, geçen hafta Régalien için hazırladığım 3D siteyi göndermiştim. Telefondan açıp yukarı kaydırmanız yeterli: [DEMO LİNKİ]. Hidden Origins için tek sayfalık bir lansman sayfası da hazırlayabilirim.
+> Merhaba, Régalien için hazırladığım 3D siteyi geçen hafta göndermiştim: [DEMO LİNKİ]. Telefondan açıp kaydırmanız yeterli. Bu hafta 10 dakikanız olursa canlı gösterip sorularınızı yanıtlayabilirim.
 
 ## Takip 2 (7. gün, son)
 
-> Son kez yazıyorum: Régalien'in 3D sitesi bu linkte duruyor: [DEMO LİNKİ]. Şu an gündeminizde değilse, aynı 3D şişelerden Instagram için kısa videolar da hazırlayabilirim.
+> Merhaba, son kez yazıyorum: Régalien'in 3D sitesi bu linkte duruyor: [DEMO LİNKİ]. Tam site şu an gündeminizde değilse, Hidden Origins için tek sayfalık bir lansman sayfasıyla ya da Instagram için 3D ürün videolarıyla başlayabiliriz.
 
 ## Göndermeden önce
 
 - [ ] Zip'i (`demolar/regalien-Netlify.zip`) Netlify Drop'a yükle; linki telefonda ve bilgisayarda aç.
 - [ ] Bir kokuyu sepete ekleyip "Ödemeye geç"e bas: regalien.com'un sepet sayfası o ürünle açılmalı (ödeme yapma).
-- [ ] "ChatGPT said:" hatasının hâlâ durduğunu kontrol et.
 - [ ] 15 saniyelik videoyu çek: Turkuaz'dayken sağdaki Meftun'a tıkla (dönerek ortaya gelir), sonra "Parfümü sık".
 - [ ] `[DEMO LİNKİ]` ve imzayı doldur; `parfum-firmalari.csv`'de tarihleri yaz.
+- [ ] Salı–Perşembe, 10:00–11:00 arasında gönder.
 
 ## Fiyat sorarlarsa
 
