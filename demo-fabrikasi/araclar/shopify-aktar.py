@@ -264,7 +264,8 @@ def main():
     items_out.sort(key=lambda x: order.index(x["category"]))
 
     c["products"] = products
-    c["home"] = list(range(len(R.get("home", [])))) if R.get("home") else list(range(min(8, len(products))))
+    # Ana sayfanın 3B akışı: kurallardaki "home" ya da ilk 4 ürün (4 üründen sonra sayfa alt bölümlere geçer).
+    c["home"] = list(range(len(R.get("home", [])))) if R.get("home") else list(range(min(4, len(products))))
     # Ritüel adımları yalnızca ana sayfadaki ürünleri gösterebilir (sahnede yalnızca onlar var).
     n_home = len(c["home"])
     for r in R.get("ritual", []):

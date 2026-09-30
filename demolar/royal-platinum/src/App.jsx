@@ -4,6 +4,7 @@ import Lenis from "lenis";
 import Scene from "./Scene";
 import { HIDDEN, PAGE, SET_KEY, content, features, flavors, setKey } from "./data";
 import { measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
+import { startSound } from "./sound";
 import { useStore } from "./store";
 import { THEME } from "./theme";
 
@@ -16,6 +17,7 @@ import Preloader from "./ui/Preloader";
 import Ritual from "./ui/Ritual";
 import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
+import { EPILOGUE, EpilogueStage } from "./ui/Epilogue";
 import { CatalogPage, CategoryBar, CategoryGrid, CollectionGrid } from "./ui/Catalog";
 
 const N = flavors.length;
@@ -418,6 +420,7 @@ export default function App() {
   useMagnetic();
   useDocLang();
   useOpenProduct();
+  useEffect(() => startSound(), []);
   const route = useRoute();
   useReveal(route);
   useLanding();
@@ -464,11 +467,14 @@ export default function App() {
           <Ritual />
           {content.catalog && <CollectionGrid />}
           <Shop />
-          <Marquee />
-          {!HIDDEN.has("story") && <Story />}
-          {!HIDDEN.has("stockists") && <Stockists />}
-          <Faq />
-          <Footer />
+          <div className={`epilogue${EPILOGUE ? " epilogue--stage" : ""}`}>
+            {EPILOGUE && <EpilogueStage />}
+            <Marquee />
+            {!HIDDEN.has("story") && <Story />}
+            {!HIDDEN.has("stockists") && <Stockists />}
+            <Faq />
+            <Footer />
+          </div>
         </main>
       )}
     </>

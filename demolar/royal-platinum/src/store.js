@@ -57,7 +57,9 @@ export const useStore = create(
       shopPack: DETAIL_PACK,
       shopPlan: "once",
       cart: [],
+      sound: true, // ürün geçiş sesleri (sound.js); tercih saklanır
 
+      setSound: (sound) => set({ sound }),
       setLoaded: () => set({ loaded: true }),
       setSceneReady: () => set({ sceneReady: true }),
       setLang: (lang) => set({ lang }),
@@ -101,7 +103,7 @@ export const useStore = create(
     {
       name: `${content.slug}-cart`,
       storage: createJSONStorage(() => safeStorage),
-      partialize: (s) => ({ cart: s.cart, lang: s.lang }),
+      partialize: (s) => ({ cart: s.cart, lang: s.lang, sound: s.sound }),
       // Markanın desteklemediği kayıtlı dil (content.langs) varsayılana döner.
       merge: (saved, cur) => {
         const m = { ...cur, ...saved };

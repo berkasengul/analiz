@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Bag, BrandIcon } from "../Icons";
 import { useT, termLang } from "../i18n";
 import { useStore } from "../store";
 import { HIDDEN, content } from "../data";
 import { SearchButton } from "./Search";
+import { onSoundChange, setSound, soundState } from "../sound";
 
 // Dil düğmesinde o dilin para birimi simgesi (markanın fiyat ayarından).
 const symbol = (p) => (p ? new Intl.NumberFormat(p.locale, { style: "currency", currency: p.currency, currencyDisplay: "narrowSymbol" }).formatToParts(0).find((x) => x.type === "currency")?.value : "");
@@ -37,6 +38,33 @@ export function LangSwitch() {
         </button>
       ))}
     </div>
+  );
+}
+
+// Ses düğmesi: çalarken üç çubuk dalgalanır; kapalıyken düz çizgi. İlk tıklamada tarayıcının ses kilidi açılır.
+function SoundButton() {
+  const on = useStore((s) => s.sound);
+  const { lang, ui } = useT();
+  const [, bump] = useState(0);
+  useEffect(() => onSoundChange(() => bump((n) => n + 1)), []);
+  if (content.sound === false) return null;
+  const playing = on && soundState.unlocked;
+  const label = ui.sound ?? (lang === "en" ? "Sound" : "Ses");
+  return (
+    <button
+      className={`sound-btn mono${playing ? " is-on" : ""}`}
+      onClick={() => setSound(!playing)}
+      aria-pressed={playing}
+      aria-label={playing ? (lang === "en" ? "Turn sound off" : "Sesi kapat") : lang === "en" ? "Turn sound on" : "Sesi aç"}
+    >
+      <span className="sound-btn__bars" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <span className="sound-btn__label">{label}</span>
+    </button>
   );
 }
 
@@ -146,6 +174,7 @@ export default function Header() {
       </a>
       <NavBar ui={ui} />
       <div className="header__right">
+        <SoundButton />
         <SearchButton />
         <LangSwitch />
         <button className="cart-btn" onClick={() => setCartOpen(true)} aria-label={ui.openCart(count)}>

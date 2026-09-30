@@ -1,0 +1,565 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "hero": [
+   [
+    ".",
+    3
+   ]
+  ],
+  "skip": "^discovery$",
+  "backLang": "en",
+  "neckAt": [
+   [
+    "^oud-hypnotique$",
+    0.2229
+   ]
+  ],
+  "backSolid": "."
+ },
+ "aktar": {
+  "domain": "mesbisous.com",
+  "platform": "woo",
+  "wooCart": "cart",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "categories": [
+   {
+    "id": "stories",
+    "tr": "The Stories",
+    "en": "The Stories",
+    "color": "#c5a948",
+    "descTr": "Inspired by the novels that we immerse ourselves in, we created captivating stories in which you are the lead character.",
+    "descEn": "Inspired by the novels that we immerse ourselves in, we created captivating stories in which you are the lead character.",
+    "match": "."
+   }
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.36
+  },
+  "home": [
+   "balle-rouge",
+   "one-night-only",
+   "a-wondrous-flight",
+   "passion-island"
+  ],
+  "families": {
+   "balle-rouge": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "one-night-only": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "a-wondrous-flight": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "passion-island": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "amberique": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "oud-hypnotique": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "crumble-me-softly": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "tobacco-flirting-with-vanilla": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ],
+   "out-of-reach": [
+    "Extrait de Parfum",
+    "Extrait de Parfum"
+   ]
+  },
+  "taglines": {
+   "balle-rouge": [
+    "Red lipstick is her fame, setting hearts to flame.",
+    "Red lipstick is her fame, setting hearts to flame."
+   ],
+   "one-night-only": [
+    "Like a perfect pitch, pillows on top of each.",
+    "Like a perfect pitch, pillows on top of each."
+   ],
+   "a-wondrous-flight": [
+    "Infatuation’s dance, an enchanting trance.",
+    "Infatuation’s dance, an enchanting trance."
+   ],
+   "passion-island": [
+    "In a realm of golden sands and sea, Passion Island sets you free.",
+    "In a realm of golden sands and sea, Passion Island sets you free."
+   ],
+   "amberique": [
+    "…and she knew she was a thing, like he knew he was a king.",
+    "…and she knew she was a thing, like he knew he was a king."
+   ],
+   "oud-hypnotique": [
+    "Touch me with your power, caress me with your mind.",
+    "Touch me with your power, caress me with your mind."
+   ],
+   "crumble-me-softly": [
+    "Sweet enough to tempt, strong enough to last.",
+    "Sweet enough to tempt, strong enough to last."
+   ],
+   "tobacco-flirting-with-vanilla": [
+    "“Talk smoky to me!” she said, his tobacco lips",
+    "“Talk smoky to me!” she said, his tobacco lips"
+   ],
+   "out-of-reach": [
+    "We sailed without a plan. Just you, me & the sea.",
+    "We sailed without a plan. Just you, me & the sea."
+   ]
+  },
+  "notes": [
+   [
+    "^balle-rouge$",
+    [
+     [
+      "Lemon",
+      "Lemon"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Pink Pepper",
+      "Pink Pepper"
+     ],
+     [
+      "Iris",
+      "Iris"
+     ]
+    ]
+   ],
+   [
+    "^one-night-only$",
+    [
+     [
+      "Cardamom",
+      "Cardamom"
+     ],
+     [
+      "Violet Leaf",
+      "Violet Leaf"
+     ],
+     [
+      "Cedarwood",
+      "Cedarwood"
+     ],
+     [
+      "Papyrus",
+      "Papyrus"
+     ]
+    ]
+   ],
+   [
+    "^a-wondrous-flight$",
+    [
+     [
+      "Mandarin",
+      "Mandarin"
+     ],
+     [
+      "Grapefruit",
+      "Grapefruit"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Lemon",
+      "Lemon"
+     ]
+    ]
+   ],
+   [
+    "^passion-island$",
+    [
+     [
+      "Lemon",
+      "Lemon"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Lime",
+      "Lime"
+     ],
+     [
+      "Ginger",
+      "Ginger"
+     ]
+    ]
+   ],
+   [
+    "^amberique$",
+    [
+     [
+      "Grapefruit",
+      "Grapefruit"
+     ],
+     [
+      "Pink Pepper",
+      "Pink Pepper"
+     ],
+     [
+      "Cinnamon",
+      "Cinnamon"
+     ],
+     [
+      "Rose",
+      "Rose"
+     ]
+    ]
+   ],
+   [
+    "^oud-hypnotique$",
+    [
+     [
+      "Cinnamon",
+      "Cinnamon"
+     ],
+     [
+      "Saffron",
+      "Saffron"
+     ],
+     [
+      "Black Pepper",
+      "Black Pepper"
+     ],
+     [
+      "Turkish Rose",
+      "Turkish Rose"
+     ]
+    ]
+   ],
+   [
+    "^crumble-me-softly$",
+    [
+     [
+      "Chocolate Chip Cookie",
+      "Chocolate Chip Cookie"
+     ],
+     [
+      "Caramel",
+      "Caramel"
+     ],
+     [
+      "Nutmeg",
+      "Nutmeg"
+     ],
+     [
+      "Saffron",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^tobacco-flirting-with-vanilla$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Cherry",
+      "Cherry"
+     ],
+     [
+      "Lilac",
+      "Lilac"
+     ],
+     [
+      "Cinnamon",
+      "Cinnamon"
+     ]
+    ]
+   ],
+   [
+    "^out-of-reach$",
+    [
+     [
+      "Lemon",
+      "Lemon"
+     ],
+     [
+      "Zesty Lime",
+      "Zesty Lime"
+     ],
+     [
+      "Mandarin",
+      "Mandarin"
+     ],
+     [
+      "Ginger",
+      "Ginger"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^balle-rouge$",
+    "composition": {
+     "tr": [
+      "Top: Lemon, Bergamot, Pink Pepper",
+      "Heart: Iris, Rose, Amber",
+      "Base: Vanilla, Tonka Bean, Musk, Cedarwood, Patchouli"
+     ],
+     "en": [
+      "Top: Lemon, Bergamot, Pink Pepper",
+      "Heart: Iris, Rose, Amber",
+      "Base: Vanilla, Tonka Bean, Musk, Cedarwood, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^one-night-only$",
+    "composition": {
+     "tr": [
+      "Top: Cardamom, Violet Leaf",
+      "Heart: Cedarwood, Papyrus, Iris",
+      "Base: Sandalwood, Leather"
+     ],
+     "en": [
+      "Top: Cardamom, Violet Leaf",
+      "Heart: Cedarwood, Papyrus, Iris",
+      "Base: Sandalwood, Leather"
+     ]
+    }
+   },
+   {
+    "match": "^a-wondrous-flight$",
+    "composition": {
+     "tr": [
+      "Top: Mandarin, Grapefruit, Bergamot, Lemon",
+      "Heart: Pink Pepper, Ginger, Jasmin, Iris",
+      "Base: Patchouli, Vetiver, Mossy Notes, Leather, Amber, Musk"
+     ],
+     "en": [
+      "Top: Mandarin, Grapefruit, Bergamot, Lemon",
+      "Heart: Pink Pepper, Ginger, Jasmin, Iris",
+      "Base: Patchouli, Vetiver, Mossy Notes, Leather, Amber, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^passion-island$",
+    "composition": {
+     "tr": [
+      "Top: Lemon, Bergamot, Lime, Ginger, Pink Pepper",
+      "Heart: Mango, Passion Fruit, Pineapple, Nectarine, Blackcurrant",
+      "Base: Vanilla, Patchouli, Cedarwood, Sandalwood, Amber, Musk"
+     ],
+     "en": [
+      "Top: Lemon, Bergamot, Lime, Ginger, Pink Pepper",
+      "Heart: Mango, Passion Fruit, Pineapple, Nectarine, Blackcurrant",
+      "Base: Vanilla, Patchouli, Cedarwood, Sandalwood, Amber, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^amberique$",
+    "composition": {
+     "tr": [
+      "Top: Grapefruit, Pink Pepper, Cinnamon",
+      "Heart: Rose, Rum, Cacao",
+      "Base: Amber, Patchouli"
+     ],
+     "en": [
+      "Top: Grapefruit, Pink Pepper, Cinnamon",
+      "Heart: Rose, Rum, Cacao",
+      "Base: Amber, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^oud-hypnotique$",
+    "composition": {
+     "tr": [
+      "Top: Cinnamon, Saffron, Black Pepper",
+      "Heart: Turkish Rose, Grapefruit",
+      "Base: Oud, Agarwood, Patchouli, Vanilla"
+     ],
+     "en": [
+      "Top: Cinnamon, Saffron, Black Pepper",
+      "Heart: Turkish Rose, Grapefruit",
+      "Base: Oud, Agarwood, Patchouli, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^crumble-me-softly$",
+    "composition": {
+     "tr": [
+      "Top: Chocolate Chip Cookie, Caramel",
+      "Heart: Nutmeg, Saffron, Lavender",
+      "Base: Amber, Patchouli, Oud, Cypriol, Mossy Notes"
+     ],
+     "en": [
+      "Top: Chocolate Chip Cookie, Caramel",
+      "Heart: Nutmeg, Saffron, Lavender",
+      "Base: Amber, Patchouli, Oud, Cypriol, Mossy Notes"
+     ]
+    }
+   },
+   {
+    "match": "^tobacco-flirting-with-vanilla$",
+    "composition": {
+     "tr": [
+      "Top: Bergamot, Cherry",
+      "Heart: Lilac, Cinnamon",
+      "Base: Vanilla, Tobacco, Vetiver"
+     ],
+     "en": [
+      "Top: Bergamot, Cherry",
+      "Heart: Lilac, Cinnamon",
+      "Base: Vanilla, Tobacco, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^out-of-reach$",
+    "composition": {
+     "tr": [
+      "Top: Lemon, Zesty Lime, Mandarin, Ginger, Pink Pepper, Pear Gelato",
+      "Heart: Ice, Aquatic Notes, Freesia, Sea Salt Accord",
+      "Base: Cashmere Wood, Sandalwood, Amber, Musk, Mossy Notes, Vanilla Absolute"
+     ],
+     "en": [
+      "Top: Lemon, Zesty Lime, Mandarin, Ginger, Pink Pepper, Pear Gelato",
+      "Heart: Ice, Aquatic Notes, Freesia, Sea Salt Accord",
+      "Base: Cashmere Wood, Sandalwood, Amber, Musk, Mossy Notes, Vanilla Absolute"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^balle-rouge$",
+    "#c92a3a",
+    "#efc3c7",
+    "#28080b"
+   ],
+   [
+    "^one-night-only$",
+    "#2f6e4c",
+    "#c4d6cc",
+    "#09150f"
+   ],
+   [
+    "^a-wondrous-flight$",
+    "#d9a514",
+    "#f4e5bd",
+    "#2b2003"
+   ],
+   [
+    "^passion-island$",
+    "#23a896",
+    "#c1e6e1",
+    "#06211d"
+   ],
+   [
+    "^amberique$",
+    "#d98672",
+    "#f4ddd7",
+    "#2b1a16"
+   ],
+   [
+    "^oud-hypnotique$",
+    "#8a5a2e",
+    "#ded0c4",
+    "#1b1109"
+   ],
+   [
+    "^crumble-me-softly$",
+    "#a86a5a",
+    "#e6d5d0",
+    "#211511"
+   ],
+   [
+    "^tobacco-flirting-with-vanilla$",
+    "#2b44a8",
+    "#c3cae6",
+    "#080d21"
+   ],
+   [
+    "^out-of-reach$",
+    "#3f8ccc",
+    "#c9def0",
+    "#0c1b28"
+   ]
+  ],
+  "trText": {
+   "balle-rouge": "Red lipstick is her fame, / Setting hearts to flame. / Screaming / “My name is trouble!” Like her tyranny’s on fire.",
+   "one-night-only": "Like a perfect pitch, pillows on top of each. / A black leather dark room, with a wondrous moan. / A ritual-like night and day, an irresistible game. / “I don’t want to know your name.” is his fame.",
+   "a-wondrous-flight": "Infatuation’s dance, / An enchanting trance. / You are my sun, / Ever shining, ever light. / Enchanted by you, / Our souls take flight.",
+   "passion-island": "In a realm of golden sands and sea, / Passion Island sets you free. / A place where dreams and desires ignite, / In a glow so soft, so light. / Exotic scents in breezes chanted, / Whispers promise, “Your wish is granted.” / Reality fades, desire’s command, / In this paradise, where fantasies expand.",
+   "amberique": "…and she knew she was a thing, / like he knew he was a king. / a tiger today, / filling the room with her roar… / a pleaser yesterday, / moaning / “you’re gonna fall in love soon.”…",
+   "oud-hypnotique": "Touch me with your power, / Caress me with your mind. / Surrendered to an old spell, / I seek no escape.",
+   "crumble-me-softly": "Sweet enough to tempt, strong enough to last. / Such a sweet conquest… / A bite in the dark, baked to tease. / “Oh, that aftertaste!” / I want more..",
+   "tobacco-flirting-with-vanilla": "“Talk smoky to me!” she said, / his tobacco lips / and her vanilla soul / blending into each other…",
+   "out-of-reach": "We sailed without a plan. / Just you, me & the sea. / Ice in our drinks, salt on the lip, / A frozen dream upon a golden ship. / No drama promised, no maps to reach, / Far from the world, / Far from the beach. / A cold sweetness that never ends— / Where the azure begins, / And the story melts."
+  },
+  "ritual": [
+   {
+    "handle": "balle-rouge",
+    "tr": {
+     "title": "Lead Your Own Story",
+     "text": "Inspired by the novels that we immerse ourselves in, we created captivating stories in which you are the lead character.",
+     "stat": "Balle Rouge"
+    },
+    "en": {
+     "title": "Lead Your Own Story",
+     "text": "Inspired by the novels that we immerse ourselves in, we created captivating stories in which you are the lead character.",
+     "stat": "Balle Rouge"
+    }
+   },
+   {
+    "handle": "one-night-only",
+    "tr": {
+     "title": "Seduction is a Form of Art",
+     "text": "Hand-embroidered illustrations depicting various forms of flirting on boxes that look like books.",
+     "stat": "One Night Only"
+    },
+    "en": {
+     "title": "Seduction is a Form of Art",
+     "text": "Hand-embroidered illustrations depicting various forms of flirting on boxes that look like books.",
+     "stat": "One Night Only"
+    }
+   },
+   {
+    "handle": "a-wondrous-flight",
+    "tr": {
+     "title": "Discover Your Life Force Energy",
+     "text": "Mes Bisous is a brand dedicated to your self-discovery about seduction.",
+     "stat": "A Wondrous Flight"
+    },
+    "en": {
+     "title": "Discover Your Life Force Energy",
+     "text": "Mes Bisous is a brand dedicated to your self-discovery about seduction.",
+     "stat": "A Wondrous Flight"
+    }
+   }
+  ]
+ }
+}

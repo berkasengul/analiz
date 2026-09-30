@@ -33,6 +33,8 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
     "parts": [["regex", [[x0, y0, x1, y1], ...]]]
                                      ana fotoğrafta yalnızca bu kutular (fotoğrafa oranla; ör. kapak ve gövde) ürün sayılır:
                                      dışları zemin rengine boyanır (şişenin yanındaki meyve, çiçek, yazı ve şeritler)
+    "backSolid": "regex"            arka yüz gövdenin düz yan renginde (opak, önü illüstrasyonlu şişeler)
+    "neckAt": [["regex", 0.22]]     boyun (kapağın bittiği satır, ürün boyuna oranla) elle
     "badges": "regex"               ana fotoğraftaki kırmızı rozetler ("YENİ") silinir (çevresinden doldurulur)
     "sets": {"set-handle": ["ürün-handle", "başka-handle#3", ...]}
                                      setin içindekiler; "#n" o ürünün n. fotoğrafı (setin kendisi de olabilir)
@@ -477,7 +479,7 @@ def glass_front(F, neck, liquid=None):
     return Image.fromarray(out), lab
 
 
-def plain_back(F, back_photo=None, text=None):
+def plain_back(F, back_photo=None, text=None, solid=None, neck=None):
     """Arka yüz (arkadan bakana göre çizilir, sonra aynalanmış ön yüz hizasında):
     - arka fotoğraf varsa o; yoksa ön yüzün yazısız, yumuşak renkleri,
     - kenarlarda ön fotoğrafın kenar renkleriyle kaynaşır (yanda dikiş görünmez),
@@ -485,6 +487,12 @@ def plain_back(F, back_photo=None, text=None):
     a = np.asarray(F).astype(np.float32)
     w, _ = _edge_weight(F)
     base = _row_fill(F)
+    # backSolid: opak renkli şişenin arkası düz (ön yüzdeki illüstrasyonun kenar renkleri yatay şerit olmasın):
+    # boyundan aşağısı gövdenin yan rengi.
+    if solid is not None:
+        y = int((neck or 0.3) * base.shape[0]) + 2
+        base = base.copy()
+        base[y:] = np.array(solid, np.float32)
     inner = base
     if back_photo is not None:  # ön yüz hizasında verilir; boş kalan yerler yumuşak renkle dolar
         bp = np.asarray(back_photo).astype(np.float32)
@@ -559,7 +567,7 @@ def draw_back_label(img, text):
         items.append((None, None, base * 0.45))
         blocks = [(None, text["desc"])]
         if text.get("chips"):
-            blocks.append(("ÖZELLİKLER", " · ".join(text["chips"])))
+            blocks.append(("NOTES" if RULES.get("backLang") == "en" else "ÖZELLİKLER", " · ".join(text["chips"])))
         if text.get("usage"):
             blocks.append(("KULLANIM", text["usage"]))
         for head, bodytxt in blocks:
@@ -722,7 +730,19 @@ def back_text(handle):
         (x for x in ps if re.search(r"\b(uygulayın|uygulanır|püskürtün|sürün|masaj yap)", x, re.I) and x != ps[0]), None)
     if usage:
         usage = re.split(r"\s*Uyarılar:", re.sub(r"^Kullanım Şekli:\s*", "", usage, flags=re.I))[0]
-    return {"name": name, "size": size, "desc": desc, "chips": [], "usage": _clip(usage, 150) if usage else None}
+    chips = []
+    # WooCommerce mağazasında açıklama kısa açıklamadaysa (ör. şiir + notalar): woo-raw.json'dan.
+    raw_p = os.path.join(SRC, "woo-raw.json")
+    if not ps and os.path.exists(raw_p):
+        r = next((x for x in json.load(open(raw_p, encoding="utf-8")) if x["handle"] == handle), None)
+        L = [x.replace("“", "").replace("”", "").strip() for x in (r or {}).get("short", [])]
+        k = next((i for i, x in enumerate(L) if x.lower().rstrip(":") == "notes"), len(L))
+        poem = [x for x in L[1:k] if x]
+        if poem:
+            desc = _clip(" ".join(poem[:4]), 140)
+        chips = [x for x in L[k + 1:] if not x.endswith(":")]
+    size = size or _ALL.get("aktar", {}).get("defaultSize")
+    return {"name": name, "size": size, "desc": desc, "chips": chips, "usage": _clip(usage, 150) if usage else None}
 
 
 def glass_back(F, handle):
@@ -1000,6 +1020,10 @@ def main():
             else:
                 entry["back"] = True
             entry.update(shape_info(F))
+            # neckAt: [["regex", oran]] boyun (kapağın bittiği yer) elle; koyu şişede kapak halkası gövdeye karışınca.
+            nk = next((v for rx, v in RULES.get("neckAt", []) if re.search(rx, handle)), None)
+            if nk:
+                entry["neck"] = nk
             # edgeFrom: "side" → 3B gövdenin kalınlık yüzleri fotoğraftaki yan panelin renginden (gövdenin
             # içinden, sol kenara yakın); kesim kenarına karışan stüdyo zemini yan yüzleri bej yapmaz.
             if RULES.get("edgeFrom") == "side":
@@ -1064,7 +1088,23 @@ def main():
             if RULES.get("glassBack"):
                 fill = glass_back(F, handle)
             else:
-                fill = plain_back(F, back.transpose(Image.FLIP_LEFT_RIGHT) if back is not None else None, back_text(handle))
+                solid = None
+                if RULES.get("backSolid") and re.search(RULES["backSolid"], handle):
+                    # Gövdenin rengi: boyunun hemen altındaki düz omuz bandı (illüstrasyonlu panelin üstü), ortada.
+                    fa = np.asarray(F)
+                    m = fa[..., 3] > 200
+                    rows = np.where(m.any(1))[0]
+                    nk = int((entry.get("neck") or 0.3) * S)
+                    h_ = rows[-1] - nk
+                    px = []
+                    for y in range(nk + int(0.025 * h_), nk + int(0.06 * h_), 2):
+                        xs = np.where(m[y])[0]
+                        if len(xs) > 20:
+                            w = xs[-1] - xs[0]
+                            px.append(fa[y, xs[0] + int(0.3 * w): xs[0] + int(0.7 * w), :3])
+                    if px:
+                        solid = [int(v) for v in np.median(np.concatenate(px), 0)]
+                fill = plain_back(F, back.transpose(Image.FLIP_LEFT_RIGHT) if back is not None else None, back_text(handle), solid, entry.get("neck"))
             fill.putalpha(mirror.getchannel("A"))
             fronts[handle], backs[handle] = F, fill
             atlas = Image.new("RGBA", (2 * S, S))

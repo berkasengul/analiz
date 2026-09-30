@@ -1,0 +1,399 @@
+[
+ {
+  "id": 542,
+  "handle": "one-night-only",
+  "title": "One Night Only",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/one-night-only/",
+  "variants": [
+   {
+    "id": 542,
+    "title": "Default Title",
+    "price": "250.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": "8683052177016"
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/ONE-NIGHT-ONLY-006.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/ONE-NIGHT-ONLY-001.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/ONE-NIGHT-ONLY-004.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/ONE-NIGHT-ONLY-002.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/ONE-NIGHT-ONLY-007.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/ONE-NIGHT-ONLY-008.jpg"
+   }
+  ]
+ },
+ {
+  "id": 524,
+  "handle": "balle-rouge",
+  "title": "Balle Rouge",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/balle-rouge/",
+  "variants": [
+   {
+    "id": 524,
+    "title": "Default Title",
+    "price": "250.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/BALLE-ROUGE-006.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/BALLE-ROUGE-002.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/BALLE-ROUGE-004.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/BALLE-ROUGE-001.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/BALLE-ROUGE-007.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/BALLE-ROUGE-008.jpg"
+   }
+  ]
+ },
+ {
+  "id": 515,
+  "handle": "oud-hypnotique",
+  "title": "Oud Hypnotique",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/oud-hypnotique/",
+  "variants": [
+   {
+    "id": 515,
+    "title": "Default Title",
+    "price": "270.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Oud-Hypotique-006.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Oud-Hypotique-008.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Oud-Hypotique-004.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Oud-Hypotique-002.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Oud-Hypotique-007.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Oud-Hypotique-001.jpg"
+   }
+  ]
+ },
+ {
+  "id": 452,
+  "handle": "amberique",
+  "title": "Amberique",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/amberique/",
+  "variants": [
+   {
+    "id": 452,
+    "title": "Default Title",
+    "price": "250.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Amberique-004.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Amberique-000.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Amberique-002.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Amberique-007.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Amberique-005.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Amberique-006.jpg"
+   }
+  ]
+ },
+ {
+  "id": 420,
+  "handle": "crumble-me-softly",
+  "title": "Crumble Me Softly",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/crumble-me-softly/",
+  "variants": [
+   {
+    "id": 420,
+    "title": "Default Title",
+    "price": "180.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/001-Crumble-Me-Softly-1.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/1-Crumble-Me-Softly.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/005-Crumble-Me-Softly.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/006-Crumble-Me-Softly.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/003-Crumble-Me-Softly.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/004-Crumble-Me-Softly.jpg"
+   }
+  ]
+ },
+ {
+  "id": 533,
+  "handle": "tobacco-flirting-with-vanilla",
+  "title": "Tobacco Flirting With Vanilla",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/tobacco-flirting-with-vanilla/",
+  "variants": [
+   {
+    "id": 533,
+    "title": "Default Title",
+    "price": "170.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/TOBACCO-FLIRTING-WITH-VANILLA-005.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/TOBACCO-FLIRTING-WITH-VANILLA-001.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/TOBACCO-FLIRTING-WITH-VANILLA-003.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/TOBACCO-FLIRTING-WITH-VANILLA-008.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/TOBACCO-FLIRTING-WITH-VANILLA-006.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/TOBACCO-FLIRTING-WITH-VANILLA-007.jpg"
+   }
+  ]
+ },
+ {
+  "id": 451,
+  "handle": "a-wondrous-flight",
+  "title": "A Wondrous Flight",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/a-wondrous-flight/",
+  "variants": [
+   {
+    "id": 451,
+    "title": "Default Title",
+    "price": "180.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/a-Wondrous-Flight-008.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/a-Wondrous-Flight-001.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/a-Wondrous-Flight-004.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/a-Wondrous-Flight-002.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/a-Wondrous-Flight-006.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/a-Wondrous-Flight-007.jpg"
+   }
+  ]
+ },
+ {
+  "id": 450,
+  "handle": "passion-island",
+  "title": "Passion Island",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/passion-island/",
+  "variants": [
+   {
+    "id": 450,
+    "title": "Default Title",
+    "price": "180.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Passion-Island-008.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Passion-Island-003.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Passion-Island-005.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Passion-Island-001.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Passion-Island-009.jpg"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2025/11/Passion-Island-002.jpg"
+   }
+  ]
+ },
+ {
+  "id": 1566,
+  "handle": "out-of-reach",
+  "title": "Out Of Reach",
+  "body_html": "",
+  "vendor": "",
+  "product_type": "",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/out-of-reach/",
+  "variants": [
+   {
+    "id": 1566,
+    "title": "Default Title",
+    "price": "180.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Out-of-Reach-1.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Out-of-Reach-2.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Out-Of-Reach-3.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Out-of-Reach-4.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Out-of-Reach-Box-14.48.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Out-of-Reach-6.webp"
+   }
+  ]
+ },
+ {
+  "id": 775,
+  "handle": "discovery",
+  "title": "Discovery Set",
+  "body_html": "<p><b><img class=\"alignright wp-image-787 size-medium\" src=\"//mesbisous.com/wp-content/uploads/2026/04/Book-of-Discovery-2.webp\" /></b></p>\n<p><strong>Nine Stories in The Book of Discovery.</strong></p>\n<p>Mes Bisous is designed to unveil the most intimate desires you hold within and start your authentic story of temptation. As the unbreakable connection between memories and scents is made in the human brain, each perfume is crafted to evoke and invigorate different ways of your being.</p>\n<p>Our Discovery Set invites you to experience the full soul of Mes Bisous through nine of 3 ML fragrances.</p>\n<div>\n<p><strong>What’s in the Box:</strong></p>\n<p>9 x 3 ml glass vials of our core collection:</p>\n<div>     * A Wondrous Flight</div>\n<div>     * Amberique</div>\n<div>     * Balle Rouge</div>\n<div>     * Crumble Me Softly</div>\n<div>     * One Night Only</div>\n<div>     * Oud Hypnotique</div>\n<div>     * Out Of Reach</div>\n<div>     * Passion Island</div>\n<div>     * Tobacco Flirting With Vanilla</div>\n</div>",
+  "vendor": "",
+  "product_type": "Samples",
+  "tags": [],
+  "permalink": "https://mesbisous.com/product/discovery/",
+  "variants": [
+   {
+    "id": 775,
+    "title": "Default Title",
+    "price": "75.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": ""
+   }
+  ],
+  "images": [
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Book-of-Discovery-1.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Book-of-Discovery-5.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Book-of-Discovery-4.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Book-of-Discovery-3.webp"
+   },
+   {
+    "src": "https://mesbisous.com/wp-content/uploads/2026/04/Book-of-Discovery-2.webp"
+   }
+  ]
+ }
+]

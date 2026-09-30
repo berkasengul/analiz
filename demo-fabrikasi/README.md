@@ -295,6 +295,23 @@ Beyaz etiketli şeffaf şişelerde yapay zekâ kesimi etiketin beyazını delebi
 silüetini doldurur (kapak bölgesine dokunmaz). Renkli cam şişelerde `"glassBack": {"label": [...], "brand": "..."}`
 arka yüzü ön yüzün aynası yapar, etiketin yerine markanın stilinde arka etiket çizer.
 
+**Ana sayfa akışı 4 ürün:** kurallarda `home` yoksa 3B akışta ilk 4 ürün gösterilir; 4 üründen sonra sayfa alt
+bölümlere geçer. Diğer ürünler koleksiyonda ve alt bölümlerin sahnesinde görünür.
+
+**Alt bölümler 3B vitrinin devamı** (`ui/Epilogue.jsx`, ferah sahne ve butikte varsayılan; `theme.epilogue: false`
+kapatır): hikâye, satış noktaları, SSS ve iletişimin arkasında ekrana sabit bir oda var: ürün renginde duvar, ipek
+ışıklar, parlak zemin, fildişi kaide. Her bölümde kaideye başka bir ürün iner (önce ana sayfada gösterilmeyenler);
+bölüm değişince şişe uçarak çıkar, yenisi iner, duvar onun rengine döner. İçerik şişenin karşı tarafında cam kartlarda.
+
+**Ses** (`sound.js`, dosyasız, Web Audio): ürün değişirken yöne göre hava hışırtısı, şişe kaideye inince her ürünün
+kendi notasında cam tınısı (pentatonik: art arda müzikal), sprey fısıltısı ve çok alçak bir ortam tonu. Tarayıcılar
+sesi ilk tıklama/dokunmadan sonra açar; üst menüde ses düğmesi ("Ses"/"Sound"), tercih saklanır. `content.sound: false`
+sesi, `content.ambient: false` yalnızca ortam tonunu kapatır. Tanı için adrese `?sounddebug`.
+
+**Opak, önü illüstrasyonlu şişeler (Mes Bisous):** `"foto": {"backSolid": "."}` arka yüzü gövdenin düz renginde
+(boyun altındaki omuz bandından) çizer; arka etikete kokunun şiiri ve notaları yazılır (WooCommerce kısa açıklaması).
+`"neckAt": [["regex", 0.22]]` boynu elle verir (koyu şişede kapak halkası gövdeye karışınca).
+
 **Malzemeli ürün fotoğrafları (Royal Platinum):** şişenin yanında meyve, çiçek, yazı ya da şerit varsa
 `"foto": {"parts": [["^handle$", [[x0, y0, x1, y1], ...]]]}` ana fotoğrafta yalnızca bu kutuları (fotoğrafa oranla;
 kapak ve gövde ayrı kutu) ürün sayar, dışını zemin rengine boyar. `"badges": "regex"` kırmızı "YENİ" rozetlerini siler

@@ -97,7 +97,9 @@ def clean_shot(base, p):
         media += got if isinstance(got, list) else []
     best = None
     for m in media:
-        u = m.get("source_url", "")
+        u = m.get("source_url") or ""
+        if not isinstance(u, str):
+            continue
         g = re.search(r"/([^/]+)_(1500x1500|1500x1750)(-\d)?\.(png|jpg|webp)$", u)
         if not g or re.match(r"v\d+_", g.group(1)) or re.search(r"kutu|_v\d", u, re.I):
             continue
