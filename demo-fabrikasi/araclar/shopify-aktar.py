@@ -242,6 +242,9 @@ def main():
             for k in ("composition", "year"):
                 if k in lib:
                     p[k], p["en"][k] = lib[k]["tr"], lib[k]["en"]
+        # Nota malzemeleri (araclar/garnish.py): şişenin iki yanında süzülen katmanlar.
+        if i["m"].get("garnish", {}).get("parts"):
+            p["garnish"] = i["m"]["garnish"]["parts"]
         views = views3d(h, i["m"])
         if views:
             p["views"] = views

@@ -603,7 +603,25 @@
    219,
    209,
    168
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/a-wondrous-flight-L.webp",
+     "x": -0.3802,
+     "y": 0.4157,
+     "w": 0.3127,
+     "h": 0.9107
+    },
+    {
+     "file": "garnish/a-wondrous-flight-R.webp",
+     "x": 0.4284,
+     "y": 0.4365,
+     "w": 0.4071,
+     "h": 0.997
+    }
+   ]
+  }
  },
  "amberique": {
   "gallery": [
@@ -1213,7 +1231,25 @@
    226,
    123,
    105
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/amberique-L.webp",
+     "x": -0.362,
+     "y": 0.2085,
+     "w": 0.259,
+     "h": 0.393
+    },
+    {
+     "file": "garnish/amberique-R.webp",
+     "x": 0.3785,
+     "y": 0.2385,
+     "w": 0.29,
+     "h": 0.567
+    }
+   ]
+  }
  },
  "balle-rouge": {
   "gallery": [
@@ -1811,7 +1847,25 @@
    244,
    219,
    184
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/balle-rouge-L.webp",
+     "x": -0.3642,
+     "y": 0.4744,
+     "w": 0.255,
+     "h": 0.9425
+    },
+    {
+     "file": "garnish/balle-rouge-R.webp",
+     "x": 0.361,
+     "y": 0.4295,
+     "w": 0.2466,
+     "h": 0.907
+    }
+   ]
+  }
  },
  "crumble-me-softly": {
   "gallery": [
@@ -2353,7 +2407,18 @@
    125,
    80,
    67
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/crumble-me-softly-L.webp",
+     "x": -0.4566,
+     "y": 0.1581,
+     "w": 0.4514,
+     "h": 0.4504
+    }
+   ]
+  }
  },
  "one-night-only": {
   "gallery": [
@@ -2919,7 +2984,25 @@
    239,
    221,
    192
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/one-night-only-L.webp",
+     "x": -0.4024,
+     "y": 0.2772,
+     "w": 0.338,
+     "h": 0.6066
+    },
+    {
+     "file": "garnish/one-night-only-R.webp",
+     "x": 0.4034,
+     "y": 0.3179,
+     "w": 0.338,
+     "h": 0.6761
+    }
+   ]
+  }
  },
  "oud-hypnotique": {
   "gallery": [
@@ -3505,7 +3588,10 @@
    33,
    31,
    32
-  ]
+  ],
+  "garnish": {
+   "parts": []
+  }
  },
  "out-of-reach": {
   "gallery": [
@@ -4175,7 +4261,25 @@
    45,
    63,
    106
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/out-of-reach-L.webp",
+     "x": -0.3386,
+     "y": 0.4726,
+     "w": 0.2092,
+     "h": 0.9631
+    },
+    {
+     "file": "garnish/out-of-reach-R.webp",
+     "x": 0.3755,
+     "y": 0.4358,
+     "w": 0.2809,
+     "h": 0.8416
+    }
+   ]
+  }
  },
  "passion-island": {
   "gallery": [
@@ -4789,7 +4893,25 @@
    225,
    115,
    79
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/passion-island-L.webp",
+     "x": -0.3892,
+     "y": 0.2073,
+     "w": 0.314,
+     "h": 0.4675
+    },
+    {
+     "file": "garnish/passion-island-R.webp",
+     "x": 0.342,
+     "y": 0.1905,
+     "w": 0.2175,
+     "h": 0.4787
+    }
+   ]
+  }
  },
  "tobacco-flirting-with-vanilla": {
   "gallery": [
@@ -5407,6 +5529,24 @@
    158,
    198,
    234
-  ]
+  ],
+  "garnish": {
+   "parts": [
+    {
+     "file": "garnish/tobacco-flirting-with-vanilla-L.webp",
+     "x": -0.3634,
+     "y": 0.4745,
+     "w": 0.285,
+     "h": 1.049
+    },
+    {
+     "file": "garnish/tobacco-flirting-with-vanilla-R.webp",
+     "x": 0.3178,
+     "y": 0.3727,
+     "w": 0.192,
+     "h": 0.7689
+    }
+   ]
+  }
  }
 }

@@ -2,19 +2,19 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { HOME_SET, content } from "../data";
 import { useT } from "../i18n";
-import { chime, whoosh } from "../sound";
 import { THEME } from "../theme";
 
 // Alt bölümlerin (hikâye, satış noktaları, SSS, iletişim) arkasındaki sahne: 3B vitrinin devamı.
 // Ekrana sabitlenmiş bir "oda": ürünün renginde duvar, yavaşça akan ipek ışıklar, parlak zemin ve
 // 3B sahnedeki fildişi kaide. Her bölümde kaideye başka bir ürün konur (vitrinde gösterilmeyenlerden
-// başlayarak): bölüm değişince şişe uçarak çıkar, yenisi kaideye iner, duvar onun rengine döner ve
-// geçiş sesi çalar. Bölümün içeriği cam kartlarda, şişenin karşı tarafında durur.
+// başlayarak): bölüm değişince şişe sağa uçarak çıkar, yenisi soldan süzülüp kaideye iner, duvar onun
+// rengine döner. Bölümün içeriği solda cam kartlarda durur.
 // theme.epilogue === false ile kapanır (varsayılan: ferah sahne ve butik).
 export const EPILOGUE = THEME.epilogue ?? (!!THEME.fresh || THEME.carousel === "dolly");
 
 // Bölüm → şişenin tarafı ("none": geniş bölüm, şişe sahneden çekilir).
-const SIDES = { top: "right", story: "right", stockists: "none", faq: "left", contact: "right" };
+// Şişe hep sağda (yazılar solda, üstüne binmez); yeni şişe soldan süzülerek gelir.
+const SIDES = { top: "right", story: "right", stockists: "none", faq: "right", contact: "right" };
 const BASE = import.meta.env.BASE_URL;
 
 function exhibits() {
@@ -40,27 +40,34 @@ export function EpilogueStage() {
     if (!list.length) return;
     const ids = Object.keys(SIDES);
     const els = ids.map((id) => (id === "top" ? document.querySelector(".epilogue > .marquee") : document.getElementById(id))).filter(Boolean);
-    const io = new IntersectionObserver(
-      (entries) => {
-        const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!hit) return;
-        const id = hit.target.id || "top";
-        const order = els.map((e) => e.id || "top").filter((x) => SIDES[x] !== "none");
-        const side = SIDES[id] ?? "right";
-        const k = side === "none" ? last.current.k : Math.max(0, order.indexOf(id)) % list.length;
-        if (k === last.current.k && side === last.current.side) return;
-        const changed = k !== last.current.k;
-        setState({ k, side, prev: changed ? last.current.k : null });
-        if (changed) {
-          whoosh(k > last.current.k ? 1 : -1, 0.9);
-          setTimeout(() => chime(list[k].gid ?? k, 0.9), 720);
-        }
-        last.current = { k, side };
-      },
-      { rootMargin: "-42% 0px -42% 0px", threshold: [0, 0.01] }
-    );
-    els.forEach((e) => io.observe(e));
-    return () => io.disconnect();
+    // Ekranın ortasındaki bölüm (kesişme oranı uzun bölümde yanıltır: orta çizgiyi içeren bölüm seçilir).
+    let raf = 0;
+    const pick = () => {
+      raf = 0;
+      const mid = window.innerHeight * 0.5;
+      const el = els.find((e) => {
+        const r = e.getBoundingClientRect();
+        return r.top <= mid && r.bottom > mid;
+      });
+      if (!el) return;
+      const id = el.id || "top";
+      const order = els.map((e) => e.id || "top").filter((x) => SIDES[x] !== "none");
+      const side = SIDES[id] ?? "right";
+      const k = side === "none" ? last.current.k : Math.max(0, order.indexOf(id)) % list.length;
+      if (k === last.current.k && side === last.current.side) return;
+      const changed = k !== last.current.k;
+      setState({ k, side, prev: changed ? last.current.k : null });
+      last.current = { k, side };
+    };
+    const on = () => raf || (raf = requestAnimationFrame(pick));
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    pick();
+    return () => {
+      window.removeEventListener("scroll", on);
+      window.removeEventListener("resize", on);
+      cancelAnimationFrame(raf);
+    };
   }, [list]);
 
   if (!list.length) return null;

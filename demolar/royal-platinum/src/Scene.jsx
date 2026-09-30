@@ -12,6 +12,7 @@ import Numeral from "./Numeral";
 import Pedestal from "./Pedestal";
 import Spray from "./Spray";
 import Boutique from "./Boutique";
+import Garnish from "./Garnish";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
 import { content } from "./data";
@@ -56,6 +57,7 @@ export default function Scene() {
           {THEME.carousel === "dolly" && <Boutique />}
           <IceScene />
           <Carousel />
+          <Garnish />
           <HeroCan />
           {content.spray && <Spray />}
           {/* Tüm shader'ları baştan derle; ilk etkileşimde takılma olmasın. */}

@@ -19,7 +19,13 @@
     0.2229
    ]
   ],
-  "backSolid": "."
+  "backSolid": ".",
+  "garnish": [
+   [
+    ".",
+    2
+   ]
+  ]
  },
  "aktar": {
   "domain": "mesbisous.com",

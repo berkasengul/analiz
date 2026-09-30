@@ -3,15 +3,14 @@ import { scrollState, slotIndex } from "./scroll";
 import { sceneState, SPRAY, SPRAY_SLOW } from "./shared";
 import { useStore } from "./store";
 
-// Sahnenin sesleri: dosya yok, hepsi Web Audio ile üretilir (sayfa hafif kalır).
-//   geçiş  : ürün değişirken havada süzülen yumuşak bir hışırtı (yöne göre soldan sağa ya da tersi)
-//   iniş   : şişe kaideye konunca cam tınısı; her ürünün kendi notası (pentatonik dizi: art arda müzikal)
-//   sprey  : kapak kalkınca "tık", basınca buğu fısıltısı, kapanınca "tık"
-//   ortam  : çok alçak bir ses tabakası; ürün değişince onun notasına kayar
-// Tarayıcılar sesi ancak bir tıklama/dokunmadan sonra başlatır: ilk etkileşimde açılır. Tercih saklanır
-// (üst menüdeki ses düğmesi). content.sound === false ise hiç çalışmaz.
+// Sahnenin sesleri: dosya yok, Web Audio ile üretilir (sayfa hafif kalır). Yalnızca "Parfümü sık":
+// kapak kalkınca "tık", basınca buğu fısıltısı, kapanınca "tık". Geçiş, iniş ve ortam sesleri
+// (whoosh, chime, ortam tonu) hazır dursa da kendiliğinden çalmaz: content.sceneSounds === true açar.
+// Tarayıcılar sesi ancak bir tıklama/dokunmadan sonra başlatır; sprey düğmesine basmak bu tıklamadır.
+// content.sound === false ise hiç çalışmaz.
 
 const ENABLED = content.sound !== false;
+const SCENE = content.sceneSounds === true;
 // A minör pentatonik (A3'ten yukarı): ürün sırasına göre nota.
 const SCALE = [220, 261.63, 293.66, 329.63, 392, 440, 523.25, 587.33, 659.25, 783.99];
 export const noteOf = (i) => SCALE[((i % SCALE.length) + SCALE.length) % SCALE.length];
@@ -71,7 +70,7 @@ export function unlock() {
     soundState.unlocked = ctx.state === "running";
     if (soundState.unlocked) {
       setMaster(true);
-      startPad();
+      if (SCENE) startPad();
     }
     notify();
   };
@@ -256,7 +255,7 @@ export function startSound() {
     requestAnimationFrame(loop);
     const st = useStore.getState();
     if (!st.loaded) return;
-    if (st.active !== active) {
+    if (SCENE && st.active !== active) {
       const now = performance.now();
       const dir = Math.sign(st.order.indexOf(st.active) - st.order.indexOf(active)) || 1;
       if (now - lastWhoosh > 260) whoosh(dir, st.swapping ? 1.25 : 1);
@@ -266,9 +265,9 @@ export function startSound() {
     }
     if (sceneState.landAt !== land) {
       land = sceneState.landAt;
-      if (land) chime(active, 1.1);
+      if (land && SCENE) chime(active, 1.1);
       pending = -1;
-    } else if (pending >= 0 && !st.swapping && Math.abs(scrollState.p - Math.round(scrollState.p)) < 0.012 && Math.abs(scrollState.velocity) < 0.4) {
+    } else if (SCENE && pending >= 0 && !st.swapping && Math.abs(scrollState.p - Math.round(scrollState.p)) < 0.012 && Math.abs(scrollState.velocity) < 0.4) {
       if (st.order[slotIndex(scrollState.p)] === pending) chime(pending);
       pending = -1;
     }

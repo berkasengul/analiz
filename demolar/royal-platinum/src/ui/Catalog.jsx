@@ -9,6 +9,10 @@ import { THEME, numeralOf } from "../theme";
 // "gallery" kartları (content.theme.cards): ürünün kendi renginde zemin, arkada dev numara,
 // ışıklı kaide, açıklama yerine koku notaları.
 const GALLERY = THEME.cards === "gallery";
+// "stage" kartları (ferah sahnede varsayılan): her kart 3B vitrinin küçük bir kopyası: ürünün renginde duvar,
+// ipek ışık, parlak zemin, fildişi kaide, şişe ve iki yanında nota malzemeleri (garnish). theme.cards
+// "gallery-dark" eski karanlık sergiyi geri getirir.
+const STAGE = THEME.cards === "stage" || (!!THEME.fresh && THEME.cards !== "gallery-dark");
 
 // Markanın tüm ürün kataloğu (content.json → catalog). Ana sayfada karışık bir
 // vitrin, ayrı sayfada (#/urunler) kategorilere ayrılmış liste. Ürünlerin
@@ -148,6 +152,7 @@ function Card({ item, t, onOpen, index = 0 }) {
     setTimeout(() => setAdded(false), 1400);
     setTimeout(() => setCartOpen(true), 250);
   };
+  if (STAGE && item.image) return <StageCard item={item} t={t} onOpen={onOpen} index={index} add={add} added={added} motion={motion} cat={cat} name={name} />;
   // Sergi kartı: ürün 3B sahnede (kemerli niş, mermer kaide, spot ışığı); yazı görselin
   // altındaki karartmanın üstünde, sağda sepet ve ürünü açan yuvarlak düğmeler.
   if (GALLERY && item.scene)
@@ -225,6 +230,67 @@ function Card({ item, t, onOpen, index = 0 }) {
             aria-label={t.ui.addToCart}
           >
             <Plus />
+            <span>{added ? t.ui.added : t.ui.addToCart}</span>
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function StageCard({ item, t, onOpen, index, add, added, motion, cat, name }) {
+  const prod = item.product != null ? content.products[item.product] : null;
+  const L = t.lang === "en" && prod?.en ? prod.en : prod;
+  const theme = prod?.theme ?? {};
+  const glow = item.bg ?? theme.glow ?? "#6b4a3a";
+  const drop = item.bg2 ?? theme.drop ?? "#e8d8c8";
+  const edge = theme.edge ?? "#120c0a";
+  const garnish = prod?.garnish ?? [];
+  return (
+    <article className="scard" style={{ "--glow": glow, "--drop": drop, "--edge": edge, "--i": index % 3, "--plinth": THEME.plinthColor ?? "#f1ebe3" }} {...motion}>
+      <button className="scard__room" onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
+        <span className="scard__wall" aria-hidden="true" />
+        <span className="scard__silk" aria-hidden="true">
+          <i />
+          <i />
+        </span>
+        <span className="scard__floor" aria-hidden="true" />
+        <span className="scard__exhibit" aria-hidden="true">
+          {garnish.map((g, k) => (
+            <img
+              key={g.file}
+              className="scard__garnish"
+              src={`${BASE}${g.file}`}
+              alt=""
+              loading="lazy"
+              style={{ "--gx": g.x, "--gy": g.y, "--gw": g.w, "--gh": g.h, "--gs": Math.sign(g.x) || 1, "--gk": k }}
+            />
+          ))}
+          <span className="scard__plinth">
+            <span />
+          </span>
+          <img className="scard__bottle" src={`${BASE}${item.image}`} alt="" loading="lazy" />
+        </span>
+        <span className="scard__cta mono" aria-hidden="true">
+          {t.ui.discoverCan ?? t.ui.discover}
+          <Arrow />
+        </span>
+      </button>
+      <div className="scard__body">
+        <p className="scard__cat mono" lang={termLang(cat?.name[t.lang])}>
+          {cat?.name[t.lang]}
+          {item.size ? ` · ${item.size}` : ""}
+        </p>
+        <h3 className="scard__name" lang={termLang(name) ?? t.nameLang}>{name}</h3>
+        {L?.tagline && <p className="scard__tag">{L.tagline}</p>}
+        {L?.notes?.length > 0 && <p className="scard__notes mono">{L.notes.slice(0, 4).join(" · ")}</p>}
+        <div className="scard__foot">
+          <span className="scard__price">
+            {t.money(t.price(1, "once", catalogId(item.id)))}
+            {item.compareAt && <s className="pcard__was">{t.money(item.compareAt[t.lang])}</s>}
+          </span>
+          <button className={`scard__add${added ? " is-added" : ""}`} onClick={add} aria-label={t.ui.addToCart}>
+            {added ? <Plus /> : <Bag />}
             <span>{added ? t.ui.added : t.ui.addToCart}</span>
           </button>
         </div>

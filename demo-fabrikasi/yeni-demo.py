@@ -116,6 +116,8 @@ def main(path):
             shutil.copytree(os.path.join(foto, "render3d"), os.path.join(dst, "public", "r3d"), dirs_exist_ok=True)
         if os.path.isdir(os.path.join(foto, "sahne")):  # kart sahneleri: 3B sergi (araclar/kart-3b.py --stage)
             shutil.copytree(os.path.join(foto, "sahne"), os.path.join(dst, "public", "sahne"), dirs_exist_ok=True)
+        if os.path.isdir(os.path.join(foto, "garnish")):  # nota malzemeleri (araclar/garnish.py)
+            shutil.copytree(os.path.join(foto, "garnish"), os.path.join(dst, "public", "garnish"), dirs_exist_ok=True)
         if os.path.isdir(os.path.join(foto, "fon")):  # ana sayfa sergisinin arka plan sahneleri (araclar/sahne-birlestir.py)
             shutil.copytree(os.path.join(foto, "fon"), os.path.join(dst, "public", "fon"), dirs_exist_ok=True, ignore=shutil.ignore_patterns("*.json"))
         used = {p["file"] for p in cfg["products"]} | {v["file"] for p in cfg["products"] for v in (p.get("views") or []) if v}

@@ -174,7 +174,7 @@ export default function Header() {
       </a>
       <NavBar ui={ui} />
       <div className="header__right">
-        <SoundButton />
+        {content.sceneSounds && <SoundButton />}
         <SearchButton />
         <LangSwitch />
         <button className="cart-btn" onClick={() => setCartOpen(true)} aria-label={ui.openCart(count)}>

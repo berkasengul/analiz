@@ -301,12 +301,19 @@ bölümlere geçer. Diğer ürünler koleksiyonda ve alt bölümlerin sahnesinde
 **Alt bölümler 3B vitrinin devamı** (`ui/Epilogue.jsx`, ferah sahne ve butikte varsayılan; `theme.epilogue: false`
 kapatır): hikâye, satış noktaları, SSS ve iletişimin arkasında ekrana sabit bir oda var: ürün renginde duvar, ipek
 ışıklar, parlak zemin, fildişi kaide. Her bölümde kaideye başka bir ürün iner (önce ana sayfada gösterilmeyenler);
-bölüm değişince şişe uçarak çıkar, yenisi iner, duvar onun rengine döner. İçerik şişenin karşı tarafında cam kartlarda.
+bölüm değişince şişe sağa uçarak çıkar, yenisi soldan süzülüp iner, duvar onun rengine döner. Şişe hep sağda, içerik solda cam kartlarda.
 
-**Ses** (`sound.js`, dosyasız, Web Audio): ürün değişirken yöne göre hava hışırtısı, şişe kaideye inince her ürünün
-kendi notasında cam tınısı (pentatonik: art arda müzikal), sprey fısıltısı ve çok alçak bir ortam tonu. Tarayıcılar
-sesi ilk tıklama/dokunmadan sonra açar; üst menüde ses düğmesi ("Ses"/"Sound"), tercih saklanır. `content.sound: false`
-sesi, `content.ambient: false` yalnızca ortam tonunu kapatır. Tanı için adrese `?sounddebug`.
+**Ses** (`sound.js`, dosyasız, Web Audio): yalnızca "Parfümü sık" (kapak tıkı, buğu fısıltısı). Geçiş hışırtısı,
+kaideye iniş tınısı ve ortam tonu hazır ama kapalı: `content.sceneSounds: true` açar (üst menüde ses düğmesi de gelir).
+`content.sound: false` bütün sesi kapatır. Tanı için adrese `?sounddebug`.
+
+**Nota malzemeleri** (`araclar/garnish.py`, `src/Garnish.jsx`): markanın malzemeli ürün fotoğrafından
+(`"foto": {"garnish": [["regex", n]]}`, n: ürünün kaçıncı görseli) şişe çıkarılır, iki yandaki çiçek/meyve/baharat
+saydam katman olarak kesilir. 3B sahnede şişe kaideye oturunca fotoğraftaki yerlerinde iki yandan süzülerek gelir,
+fareyle derinlik kazanır; koleksiyon kartlarında da görünür. `shopify-foto.py` sonrası çalıştırılır.
+
+**Sahne kartları** (ferah sahnede varsayılan; `theme.cards: "gallery-dark"` eski karanlık sergi): koleksiyonda her
+ürün 3B vitrinin küçük kopyasında: ürün renginde duvar, ipek ışık, parlak zemin, fildişi kaide, şişe ve notalar.
 
 **Opak, önü illüstrasyonlu şişeler (Mes Bisous):** `"foto": {"backSolid": "."}` arka yüzü gövdenin düz renginde
 (boyun altındaki omuz bandından) çizer; arka etikete kokunun şiiri ve notaları yazılır (WooCommerce kısa açıklaması).
