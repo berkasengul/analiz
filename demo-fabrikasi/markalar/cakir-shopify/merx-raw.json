@@ -1,0 +1,204 @@
+[
+ {
+  "handle": "sultan-i-hunkar",
+  "notes": [
+   "Konyak",
+   "Sıcak Baharatlar",
+   "Egzotik Çiçekler",
+   "Bergamot",
+   "Ylang-Ylang",
+   "Bulgar Gülü",
+   "Hedione"
+  ],
+  "comp": [
+   [
+    "Notalar",
+    "Konyak, Sıcak Baharatlar, Egzotik Çiçekler, Bergamot, Ylang-Ylang, Bulgar Gülü, Hedione"
+   ]
+  ],
+  "compEn": [
+   [
+    "Notes",
+    "Cognac, Warm Spices, Exotic Flowers, Bergamot, Ylang-Ylang, Bulgarian Rose, Hedione"
+   ]
+  ],
+  "desc": "Sıkmadığınız zamanlarda kendinizde eksiklik hissedeceğiniz şekilde özel olarak tasarlanmıştır. Konyak, sıcak baharatların baş döndürücü yapısı, egzotik çiçeklerin dikkat çeken zarif kokusu, bergamot, ylang-ylang, Bulgar gülü ve hedione gibi içeriklere sahip lüks ve zengin, dikkat çeken özel bir koku.",
+  "descEn": "Designed so that you will feel something is missing on the days you do not wear it. Cognac, the heady character of warm spices, the striking, elegant scent of exotic flowers, bergamot, ylang-ylang, Bulgarian rose and hedione: a luxurious, rich and striking signature scent."
+ },
+ {
+  "handle": "vanilya-oud-elixir",
+  "notes": [
+   "Safran",
+   "Bergamot",
+   "Ravent",
+   "Ud",
+   "Yasemin",
+   "Gül",
+   "Menekşe",
+   "Siklamen",
+   "Vanilya",
+   "Sandal",
+   "Paçuli",
+   "Vetiver"
+  ],
+  "comp": [
+   [
+    "Üst",
+    "Safran, Bergamot, Ravent"
+   ],
+   [
+    "Orta",
+    "Ud, Yasemin, Gül, Menekşe, Siklamen"
+   ],
+   [
+    "Dip",
+    "Vanilya, Sandal, Paçuli, Vetiver"
+   ]
+  ],
+  "compEn": [
+   [
+    "Top",
+    "Saffron, Bergamot, Rhubarb"
+   ],
+   [
+    "Heart",
+    "Oud, Jasmine, Rose, Violet, Cyclamen"
+   ],
+   [
+    "Base",
+    "Vanilla, Sandalwood, Patchouli, Vetiver"
+   ]
+  ],
+  "desc": "Lüksü teninde hissetmek ve unutulmaz izlenim bırakmak isteyenler için özel olarak tasarlanmıştır.",
+  "descEn": "Designed for those who want to feel luxury on their skin and leave an unforgettable impression."
+ },
+ {
+  "handle": "afrodit",
+  "notes": [
+   "Bergamot",
+   "Portakal Çiçeği",
+   "Mimoza",
+   "Şipre",
+   "Beyaz Misk",
+   "Opopanaks",
+   "Vetiver",
+   "Paçuli"
+  ],
+  "comp": [
+   [
+    "Üst",
+    "Bergamot, Portakal Çiçeği, Mimoza, Şipre"
+   ],
+   [
+    "Orta",
+    "Beyaz Misk, Opopanaks"
+   ],
+   [
+    "Dip",
+    "Vetiver, Paçuli"
+   ]
+  ],
+  "compEn": [
+   [
+    "Top",
+    "Bergamot, Orange Blossom, Mimosa, Chypre"
+   ],
+   [
+    "Heart",
+    "White Musk, Opopanax"
+   ],
+   [
+    "Base",
+    "Vetiver, Patchouli"
+   ]
+  ],
+  "desc": "",
+  "descEn": ""
+ },
+ {
+  "handle": "meditasyon",
+  "notes": [
+   "Bergamot",
+   "Narenciye",
+   "Lavanta",
+   "Odunsu Notalar",
+   "Sedir",
+   "Paçuli",
+   "Hedione",
+   "Guaiac Ağacı",
+   "Misk",
+   "Balzamik Notalar"
+  ],
+  "comp": [
+   [
+    "Notalar",
+    "Bergamot, Narenciye, Lavanta, Odunsu Notalar, Sedir, Paçuli, Hedione, Guaiac Ağacı, Misk, Balzamik Notalar"
+   ]
+  ],
+  "compEn": [
+   [
+    "Notes",
+    "Bergamot, Citrus, Lavender, Woody Notes, Cedar, Patchouli, Hedione, Guaiac Wood, Musk, Balsamic Notes"
+   ]
+  ],
+  "desc": "Otantik bir kulübede, tütsü ve sakin bir melodi eşliğinde hayallerinizi canlandırabilirsiniz. Doğadan ilham almış notalarla harmanlanmış, kokladıkça koklamak isteyeceğiniz, kullanıcısına huzur ve dinginlik veren özel tasarım kokumuzdur.",
+  "descEn": "Bring your dreams to life in an authentic cabin, with incense and a calm melody. Blended with notes inspired by nature, it is our signature design that you will want to smell again and again, and that gives its wearer peace and calm."
+ },
+ {
+  "handle": "afrodizyak-elixir",
+  "notes": [
+   "Akdeniz Meyveleri",
+   "Şipre",
+   "Narenciye",
+   "Akasya",
+   "Vanilya",
+   "Sicilya Portakalı",
+   "Frenk Üzümü",
+   "Beyaz Misk",
+   "Ahududu",
+   "Ambroksan"
+  ],
+  "comp": [
+   [
+    "Notalar",
+    "Akdeniz Meyveleri, Şipre, Narenciye, Akasya, Vanilya, Sicilya Portakalı, Frenk Üzümü, Beyaz Misk, Ahududu, Ambroksan"
+   ]
+  ],
+  "compEn": [
+   [
+    "Notes",
+    "Mediterranean Fruits, Chypre, Citrus, Acacia, Vanilla, Sicilian Orange, Blackcurrant, White Musk, Raspberry, Ambroxan"
+   ]
+  ],
+  "desc": "Afrodizyak Elixir ile özel anlarınıza romantik bir dokunuş yapın. Büyüleyici ve çekiciliği üst seviyede tuttuğumuz özel tasarım kokumuzdur.",
+  "descEn": "Add a romantic touch to your special moments with Afrodizyak Elixir. Our signature design: bewitching, with its allure kept at the highest level."
+ },
+ {
+  "handle": "high-patchouli",
+  "notes": [
+   "Paçuli"
+  ],
+  "comp": [
+   [
+    "Notalar",
+    "Paçuli"
+   ]
+  ],
+  "compEn": [
+   [
+    "Notes",
+    "Patchouli"
+   ]
+  ],
+  "desc": "Yoğun ve sert paçuli içerikli, hissedilirliği yüksek özel tasarım kokumuzdur.",
+  "descEn": "Our signature design with an intense, bold patchouli character and a strong presence."
+ },
+ {
+  "handle": "gozyasi",
+  "notes": [],
+  "comp": [],
+  "compEn": [],
+  "desc": "Bu tasarım parfüm, seçkin zevklerin cazibe ve zarafetin formülü ile özel olarak tasarlanmıştır. Zarif ve iç dünyanızı yansıtacak, romantik ve estetik anlarınıza şahitlik edecektir.",
+  "descEn": "This design perfume is crafted with a formula of allure and elegance for refined tastes. Graceful and reflecting your inner world, it will accompany your romantic and aesthetic moments."
+ }
+]

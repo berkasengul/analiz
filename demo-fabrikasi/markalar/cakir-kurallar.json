@@ -1,0 +1,423 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "backHead": "NOTALAR",
+  "solidTop": 0.36
+ },
+ "aktar": {
+  "domain": "cakirparfumeri.com.tr",
+  "platform": "merx",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "sultan-i-hunkar",
+   "vanilya-oud-elixir",
+   "afrodit",
+   "meditasyon"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.62
+  },
+  "categories": [
+   {
+    "id": "ozel",
+    "tr": "Özel Seri Kokular",
+    "en": "Signature Collection",
+    "color": "#c9a15c",
+    "descTr": "Parfümör Tuğrul Çakır'ın özel tasarım kokuları; hepsi 50 ml, taç kapaklı imza şişede.",
+    "descEn": "Signature designs by perfumer Tuğrul Çakır; all 50 ml, in the crown-capped signature bottle.",
+    "match": "."
+   }
+  ],
+  "rename": {
+   "sultan-i-hunkar": [
+    "Sultan-ı Hünkar",
+    "Sultan-ı Hünkar"
+   ],
+   "vanilya-oud-elixir": [
+    "Vanilya Oud Elixir",
+    "Vanilla Oud Elixir"
+   ],
+   "afrodit": [
+    "Afrodit",
+    "Afrodit"
+   ],
+   "meditasyon": [
+    "Meditasyon",
+    "Meditasyon"
+   ],
+   "afrodizyak-elixir": [
+    "Afrodizyak Elixir",
+    "Afrodizyak Elixir"
+   ],
+   "high-patchouli": [
+    "High Patchouli",
+    "High Patchouli"
+   ],
+   "gozyasi": [
+    "Gözyaşı",
+    "Gözyaşı"
+   ]
+  },
+  "families": {
+   "sultan-i-hunkar": [
+    "Özel Tasarım · Unisex",
+    "Signature · Unisex"
+   ],
+   "vanilya-oud-elixir": [
+    "Özel Tasarım · Unisex",
+    "Signature · Unisex"
+   ],
+   "afrodit": [
+    "Özel Tasarım · Kadın",
+    "Signature · Women"
+   ],
+   "meditasyon": [
+    "Özel Tasarım · Unisex",
+    "Signature · Unisex"
+   ],
+   "afrodizyak-elixir": [
+    "Özel Tasarım · Unisex",
+    "Signature · Unisex"
+   ],
+   "high-patchouli": [
+    "Özel Tasarım · Unisex",
+    "Signature · Unisex"
+   ],
+   "gozyasi": [
+    "Özel Tasarım · Unisex",
+    "Signature · Unisex"
+   ]
+  },
+  "taglines": {
+   "sultan-i-hunkar": [
+    "Sıkmadığınız zamanlarda kendinizde eksiklik hissedeceğiniz şekilde özel olarak tasarlanmıştır.",
+    "Designed so that you will feel something is missing on the days you do not wear it."
+   ],
+   "vanilya-oud-elixir": [
+    "Lüksü teninde hissetmek ve unutulmaz izlenim bırakmak isteyenler için özel olarak tasarlanmıştır.",
+    "Designed for those who want to feel luxury on their skin and leave an unforgettable impression."
+   ],
+   "afrodit": [
+    "Bergamot · Portakal Çiçeği · Mimoza",
+    "Bergamot · Orange Blossom · Mimosa"
+   ],
+   "meditasyon": [
+    "Otantik bir kulübede, tütsü ve sakin bir melodi eşliğinde hayallerinizi canlandırabilirsiniz.",
+    "Bring your dreams to life in an authentic cabin, with incense and a calm melody."
+   ],
+   "afrodizyak-elixir": [
+    "Afrodizyak Elixir ile özel anlarınıza romantik bir dokunuş yapın.",
+    "Add a romantic touch to your special moments with Afrodizyak Elixir."
+   ],
+   "high-patchouli": [
+    "Yoğun ve sert paçuli içerikli, hissedilirliği yüksek özel tasarım kokumuzdur.",
+    "Our signature design with an intense, bold patchouli character and a strong presence."
+   ],
+   "gozyasi": [
+    "Bu tasarım parfüm, seçkin zevklerin cazibe ve zarafetin formülü ile özel olarak tasarlanmıştır.",
+    "This design perfume is crafted with a formula of allure and elegance for refined tastes."
+   ]
+  },
+  "notes": [
+   [
+    "^sultan\\-i\\-hunkar$",
+    [
+     [
+      "Konyak",
+      "Cognac"
+     ],
+     [
+      "Sıcak Baharatlar",
+      "Warm Spices"
+     ],
+     [
+      "Egzotik Çiçekler",
+      "Exotic Flowers"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ]
+    ]
+   ],
+   [
+    "^vanilya\\-oud\\-elixir$",
+    [
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Ravent",
+      "Rhubarb"
+     ],
+     [
+      "Ud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^afrodit$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Orange Blossom"
+     ],
+     [
+      "Mimoza",
+      "Mimosa"
+     ],
+     [
+      "Şipre",
+      "Chypre"
+     ]
+    ]
+   ],
+   [
+    "^meditasyon$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Narenciye",
+      "Citrus"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Odunsu Notalar",
+      "Woody Notes"
+     ]
+    ]
+   ],
+   [
+    "^afrodizyak\\-elixir$",
+    [
+     [
+      "Akdeniz Meyveleri",
+      "Mediterranean Fruits"
+     ],
+     [
+      "Şipre",
+      "Chypre"
+     ],
+     [
+      "Narenciye",
+      "Citrus"
+     ],
+     [
+      "Akasya",
+      "Acacia"
+     ]
+    ]
+   ],
+   [
+    "^high\\-patchouli$",
+    [
+     [
+      "Paçuli",
+      "Patchouli"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^sultan\\-i\\-hunkar$",
+    "composition": {
+     "tr": [
+      "Notalar: Konyak, Sıcak Baharatlar, Egzotik Çiçekler, Bergamot, Ylang-Ylang, Bulgar Gülü, Hedione"
+     ],
+     "en": [
+      "Notes: Cognac, Warm Spices, Exotic Flowers, Bergamot, Ylang-Ylang, Bulgarian Rose, Hedione"
+     ]
+    }
+   },
+   {
+    "match": "^vanilya\\-oud\\-elixir$",
+    "composition": {
+     "tr": [
+      "Üst: Safran, Bergamot, Ravent",
+      "Orta: Ud, Yasemin, Gül, Menekşe, Siklamen",
+      "Dip: Vanilya, Sandal, Paçuli, Vetiver"
+     ],
+     "en": [
+      "Top: Saffron, Bergamot, Rhubarb",
+      "Heart: Oud, Jasmine, Rose, Violet, Cyclamen",
+      "Base: Vanilla, Sandalwood, Patchouli, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^afrodit$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Portakal Çiçeği, Mimoza, Şipre",
+      "Orta: Beyaz Misk, Opopanaks",
+      "Dip: Vetiver, Paçuli"
+     ],
+     "en": [
+      "Top: Bergamot, Orange Blossom, Mimosa, Chypre",
+      "Heart: White Musk, Opopanax",
+      "Base: Vetiver, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^meditasyon$",
+    "composition": {
+     "tr": [
+      "Notalar: Bergamot, Narenciye, Lavanta, Odunsu Notalar, Sedir, Paçuli, Hedione, Guaiac Ağacı, Misk, Balzamik Notalar"
+     ],
+     "en": [
+      "Notes: Bergamot, Citrus, Lavender, Woody Notes, Cedar, Patchouli, Hedione, Guaiac Wood, Musk, Balsamic Notes"
+     ]
+    }
+   },
+   {
+    "match": "^afrodizyak\\-elixir$",
+    "composition": {
+     "tr": [
+      "Notalar: Akdeniz Meyveleri, Şipre, Narenciye, Akasya, Vanilya, Sicilya Portakalı, Frenk Üzümü, Beyaz Misk, Ahududu, Ambroksan"
+     ],
+     "en": [
+      "Notes: Mediterranean Fruits, Chypre, Citrus, Acacia, Vanilla, Sicilian Orange, Blackcurrant, White Musk, Raspberry, Ambroxan"
+     ]
+    }
+   },
+   {
+    "match": "^high\\-patchouli$",
+    "composition": {
+     "tr": [
+      "Notalar: Paçuli"
+     ],
+     "en": [
+      "Notes: Patchouli"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^sultan\\-i\\-hunkar$",
+    "#5a1622",
+    "#a8785b"
+   ],
+   [
+    "^vanilya\\-oud\\-elixir$",
+    "#6e3a18",
+    "#b18856"
+   ],
+   [
+    "^afrodit$",
+    "#8a3552",
+    "#bd8670"
+   ],
+   [
+    "^meditasyon$",
+    "#3f4a6a",
+    "#9b8f7b"
+   ],
+   [
+    "^afrodizyak\\-elixir$",
+    "#8e1f3a",
+    "#bf7c66"
+   ],
+   [
+    "^high\\-patchouli$",
+    "#2f4226",
+    "#948c5d"
+   ],
+   [
+    "^gozyasi$",
+    "#2c5468",
+    "#93947a"
+   ]
+  ],
+  "trText": {
+   "sultan-i-hunkar": "Sıkmadığınız zamanlarda kendinizde eksiklik hissedeceğiniz şekilde özel olarak tasarlanmıştır. Konyak, sıcak baharatların baş döndürücü yapısı, egzotik çiçeklerin dikkat çeken zarif kokusu, bergamot, ylang-ylang, Bulgar gülü ve hedione gibi içeriklere sahip lüks ve zengin, dikkat çeken özel bir koku.",
+   "vanilya-oud-elixir": "Lüksü teninde hissetmek ve unutulmaz izlenim bırakmak isteyenler için özel olarak tasarlanmıştır.",
+   "afrodit": "Notalar: Bergamot, Portakal Çiçeği, Mimoza, Şipre, Beyaz Misk, Opopanaks, Vetiver, Paçuli",
+   "meditasyon": "Otantik bir kulübede, tütsü ve sakin bir melodi eşliğinde hayallerinizi canlandırabilirsiniz. Doğadan ilham almış notalarla harmanlanmış, kokladıkça koklamak isteyeceğiniz, kullanıcısına huzur ve dinginlik veren özel tasarım kokumuzdur.",
+   "afrodizyak-elixir": "Afrodizyak Elixir ile özel anlarınıza romantik bir dokunuş yapın. Büyüleyici ve çekiciliği üst seviyede tuttuğumuz özel tasarım kokumuzdur.",
+   "high-patchouli": "Yoğun ve sert paçuli içerikli, hissedilirliği yüksek özel tasarım kokumuzdur.",
+   "gozyasi": "Bu tasarım parfüm, seçkin zevklerin cazibe ve zarafetin formülü ile özel olarak tasarlanmıştır. Zarif ve iç dünyanızı yansıtacak, romantik ve estetik anlarınıza şahitlik edecektir."
+  },
+  "enText": {
+   "sultan-i-hunkar": "Designed so that you will feel something is missing on the days you do not wear it. Cognac, the heady character of warm spices, the striking, elegant scent of exotic flowers, bergamot, ylang-ylang, Bulgarian rose and hedione: a luxurious, rich and striking signature scent.",
+   "vanilya-oud-elixir": "Designed for those who want to feel luxury on their skin and leave an unforgettable impression.",
+   "afrodit": "Notes: Bergamot, Orange Blossom, Mimosa, Chypre, White Musk, Opopanax, Vetiver, Patchouli",
+   "meditasyon": "Bring your dreams to life in an authentic cabin, with incense and a calm melody. Blended with notes inspired by nature, it is our signature design that you will want to smell again and again, and that gives its wearer peace and calm.",
+   "afrodizyak-elixir": "Add a romantic touch to your special moments with Afrodizyak Elixir. Our signature design: bewitching, with its allure kept at the highest level.",
+   "high-patchouli": "Our signature design with an intense, bold patchouli character and a strong presence.",
+   "gozyasi": "This design perfume is crafted with a formula of allure and elegance for refined tastes. Graceful and reflecting your inner world, it will accompany your romantic and aesthetic moments."
+  },
+  "ritual": [
+   {
+    "handle": "sultan-i-hunkar",
+    "tr": {
+     "title": "Özel Seri · Sultan-ı Hünkar",
+     "text": "Sıkmadığınız zamanlarda kendinizde eksiklik hissedeceğiniz şekilde özel olarak tasarlanmıştır.",
+     "stat": "Konyak · Bulgar gülü"
+    },
+    "en": {
+     "title": "Signature · Sultan-ı Hünkar",
+     "text": "Designed so that you will feel something is missing on the days you do not wear it.",
+     "stat": "Cognac · Bulgarian rose"
+    }
+   },
+   {
+    "handle": "vanilya-oud-elixir",
+    "tr": {
+     "title": "Özel Seri · Vanilya Oud Elixir",
+     "text": "Lüksü teninde hissetmek ve unutulmaz izlenim bırakmak isteyenler için özel olarak tasarlanmıştır.",
+     "stat": "Safran · Ud · Vanilya"
+    },
+    "en": {
+     "title": "Signature · Vanilla Oud Elixir",
+     "text": "Designed for those who want to feel luxury on their skin and leave an unforgettable impression.",
+     "stat": "Saffron · Oud · Vanilla"
+    }
+   },
+   {
+    "handle": "afrodit",
+    "tr": {
+     "title": "Özel Seri · Afrodit",
+     "text": "Bergamot, portakal çiçeği ve mimozayla açılır; beyaz misk ve opopanaksla ısınır, vetiver ve paçuliyle iz bırakır.",
+     "stat": "Kadın · 50 ml"
+    },
+    "en": {
+     "title": "Signature · Afrodit",
+     "text": "Opens with bergamot, orange blossom and mimosa; warms with white musk and opopanax, and lingers with vetiver and patchouli.",
+     "stat": "Women · 50 ml"
+    }
+   }
+  ]
+ }
+}

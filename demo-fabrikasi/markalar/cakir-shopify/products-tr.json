@@ -1,0 +1,163 @@
+[
+ {
+  "id": 700,
+  "handle": "sultan-i-hunkar",
+  "vendor": "Çakır Parfümeri",
+  "product_type": "Özel Seri Kokular",
+  "permalink": "https://cakirparfumeri.com.tr/sultan-i-hunkar-unisex-ozel-tasarim-50-ml-P678",
+  "variants": [
+   {
+    "id": 700,
+    "title": "50 ml",
+    "price": "1750.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://cakirparfumeri.com.tr/sultan-i-hunkar-unisex-ozel-tasarim-50-ml-P678"
+   }
+  ],
+  "title": "Sultan-ı Hünkar 50 ml",
+  "body_html": "<p>Sıkmadığınız zamanlarda kendinizde eksiklik hissedeceğiniz şekilde özel olarak tasarlanmıştır. Konyak, sıcak baharatların baş döndürücü yapısı, egzotik çiçeklerin dikkat çeken zarif kokusu, bergamot, ylang-ylang, Bulgar gülü ve hedione gibi içeriklere sahip lüks ve zengin, dikkat çeken özel bir koku.</p><p>Notalar: Konyak, Sıcak Baharatlar, Egzotik Çiçekler, Bergamot, Ylang-Ylang, Bulgar Gülü, Hedione</p>"
+ },
+ {
+  "id": 701,
+  "handle": "vanilya-oud-elixir",
+  "vendor": "Çakır Parfümeri",
+  "product_type": "Özel Seri Kokular",
+  "permalink": "https://cakirparfumeri.com.tr/vanya-oud-unisex-ozel-tasarim-P675",
+  "variants": [
+   {
+    "id": 701,
+    "title": "50 ml",
+    "price": "1350.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://cakirparfumeri.com.tr/vanya-oud-unisex-ozel-tasarim-P675"
+   }
+  ],
+  "title": "Vanilya Oud Elixir 50 ml",
+  "body_html": "<p>Lüksü teninde hissetmek ve unutulmaz izlenim bırakmak isteyenler için özel olarak tasarlanmıştır.</p><p>Üst: Safran, Bergamot, Ravent</p><p>Orta: Ud, Yasemin, Gül, Menekşe, Siklamen</p><p>Dip: Vanilya, Sandal, Paçuli, Vetiver</p>"
+ },
+ {
+  "id": 702,
+  "handle": "afrodit",
+  "vendor": "Çakır Parfümeri",
+  "product_type": "Özel Seri Kokular",
+  "permalink": "https://cakirparfumeri.com.tr/afrodit-kadin-ozel-tasarim-P680",
+  "variants": [
+   {
+    "id": 702,
+    "title": "50 ml",
+    "price": "1250.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://cakirparfumeri.com.tr/afrodit-kadin-ozel-tasarim-P680"
+   }
+  ],
+  "title": "Afrodit 50 ml",
+  "body_html": "<p>Üst: Bergamot, Portakal Çiçeği, Mimoza, Şipre</p><p>Orta: Beyaz Misk, Opopanaks</p><p>Dip: Vetiver, Paçuli</p>"
+ },
+ {
+  "id": 703,
+  "handle": "meditasyon",
+  "vendor": "Çakır Parfümeri",
+  "product_type": "Özel Seri Kokular",
+  "permalink": "https://cakirparfumeri.com.tr/st506-meditasyon-ozel-tasarim-P685",
+  "variants": [
+   {
+    "id": 703,
+    "title": "50 ml",
+    "price": "1450.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://cakirparfumeri.com.tr/st506-meditasyon-ozel-tasarim-P685"
+   }
+  ],
+  "title": "Meditasyon 50 ml",
+  "body_html": "<p>Otantik bir kulübede, tütsü ve sakin bir melodi eşliğinde hayallerinizi canlandırabilirsiniz. Doğadan ilham almış notalarla harmanlanmış, kokladıkça koklamak isteyeceğiniz, kullanıcısına huzur ve dinginlik veren özel tasarım kokumuzdur.</p><p>Notalar: Bergamot, Narenciye, Lavanta, Odunsu Notalar, Sedir, Paçuli, Hedione, Guaiac Ağacı, Misk, Balzamik Notalar</p>"
+ },
+ {
+  "id": 704,
+  "handle": "afrodizyak-elixir",
+  "vendor": "Çakır Parfümeri",
+  "product_type": "Özel Seri Kokular",
+  "permalink": "https://cakirparfumeri.com.tr/afrodizyak-elixir-unisex-ozel-tasarim-P677",
+  "variants": [
+   {
+    "id": 704,
+    "title": "50 ml",
+    "price": "1300.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://cakirparfumeri.com.tr/afrodizyak-elixir-unisex-ozel-tasarim-P677"
+   }
+  ],
+  "title": "Afrodizyak Elixir 50 ml",
+  "body_html": "<p>Afrodizyak Elixir ile özel anlarınıza romantik bir dokunuş yapın. Büyüleyici ve çekiciliği üst seviyede tuttuğumuz özel tasarım kokumuzdur.</p><p>Notalar: Akdeniz Meyveleri, Şipre, Narenciye, Akasya, Vanilya, Sicilya Portakalı, Frenk Üzümü, Beyaz Misk, Ahududu, Ambroksan</p>"
+ },
+ {
+  "id": 705,
+  "handle": "high-patchouli",
+  "vendor": "Çakır Parfümeri",
+  "product_type": "Özel Seri Kokular",
+  "permalink": "https://cakirparfumeri.com.tr/st507-high-patchouli-ozel-tasarim-P684",
+  "variants": [
+   {
+    "id": 705,
+    "title": "50 ml",
+    "price": "4000.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://cakirparfumeri.com.tr/st507-high-patchouli-ozel-tasarim-P684"
+   }
+  ],
+  "title": "High Patchouli 50 ml",
+  "body_html": "<p>Yoğun ve sert paçuli içerikli, hissedilirliği yüksek özel tasarım kokumuzdur.</p><p>Notalar: Paçuli</p>"
+ },
+ {
+  "id": 706,
+  "handle": "gozyasi",
+  "vendor": "Çakır Parfümeri",
+  "product_type": "Özel Seri Kokular",
+  "permalink": "https://cakirparfumeri.com.tr/gozyasi-unisex-ozel-tasarim-50-ml-P679",
+  "variants": [
+   {
+    "id": 706,
+    "title": "50 ml",
+    "price": "1250.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://cakirparfumeri.com.tr/gozyasi-unisex-ozel-tasarim-50-ml-P679"
+   }
+  ],
+  "title": "Gözyaşı 50 ml",
+  "body_html": "<p>Bu tasarım parfüm, seçkin zevklerin cazibe ve zarafetin formülü ile özel olarak tasarlanmıştır. Zarif ve iç dünyanızı yansıtacak, romantik ve estetik anlarınıza şahitlik edecektir.</p>"
+ }
+]
