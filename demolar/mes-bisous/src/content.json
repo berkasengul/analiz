@@ -594,6 +594,7 @@
     "items": [
       {
         "id": "balle-rouge",
+        "handle": "balle-rouge",
         "name": {
           "tr": "Balle Rouge",
           "en": "Balle Rouge"
@@ -624,6 +625,7 @@
       },
       {
         "id": "one-night-only",
+        "handle": "one-night-only",
         "name": {
           "tr": "One Night Only",
           "en": "One Night Only"
@@ -654,6 +656,7 @@
       },
       {
         "id": "a-wondrous-flight",
+        "handle": "a-wondrous-flight",
         "name": {
           "tr": "A Wondrous Flight",
           "en": "A Wondrous Flight"
@@ -684,6 +687,7 @@
       },
       {
         "id": "passion-island",
+        "handle": "passion-island",
         "name": {
           "tr": "Passion Island",
           "en": "Passion Island"
@@ -714,6 +718,7 @@
       },
       {
         "id": "amberique",
+        "handle": "amberique",
         "name": {
           "tr": "Amberique",
           "en": "Amberique"
@@ -744,6 +749,7 @@
       },
       {
         "id": "crumble-me-softly",
+        "handle": "crumble-me-softly",
         "name": {
           "tr": "Crumble Me Softly",
           "en": "Crumble Me Softly"
@@ -774,6 +780,7 @@
       },
       {
         "id": "oud-hypnotique",
+        "handle": "oud-hypnotique",
         "name": {
           "tr": "Oud Hypnotique",
           "en": "Oud Hypnotique"
@@ -804,6 +811,7 @@
       },
       {
         "id": "out-of-reach",
+        "handle": "out-of-reach",
         "name": {
           "tr": "Out Of Reach",
           "en": "Out Of Reach"
@@ -834,6 +842,7 @@
       },
       {
         "id": "tobacco-flirting-with-vanilla",
+        "handle": "tobacco-flirting-with-vanilla",
         "name": {
           "tr": "Tobacco Flirting With Vanilla",
           "en": "Tobacco Flirting With Vanilla"
@@ -861,6 +870,35 @@
           }
         ],
         "url": "https://mesbisous.com/product/tobacco-flirting-with-vanilla/"
+      },
+      {
+        "id": "discovery",
+        "name": {
+          "tr": "Discovery Set",
+          "en": "Discovery Set"
+        },
+        "category": "stories",
+        "size": "9 × 3 ml",
+        "price": {
+          "tr": 75.0,
+          "en": 75.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Our Discovery Set invites you to experience the full soul of Mes Bisous through nine of 3 ML fragrances.",
+          "en": "Our Discovery Set invites you to experience the full soul of Mes Bisous through nine of 3 ML fragrances."
+        },
+        "color": "#8a6a2a",
+        "image": "kesif/full.webp",
+        "cutout": true,
+        "bg": "#8a6a2a",
+        "bg2": "#f1dfb2",
+        "variants": [
+          {
+            "id": 775
+          }
+        ],
+        "url": "https://mesbisous.com/product/discovery/"
       }
     ]
   },
@@ -7842,5 +7880,133 @@
   "stockists": {
     "tr": [],
     "en": []
+  },
+  "discovery": {
+    "id": "discovery",
+    "title": "Discovery Set",
+    "tagline": "Nine Stories in The Book of Discovery.",
+    "text": "Our Discovery Set invites you to experience the full soul of Mes Bisous through nine of 3 ML fragrances.",
+    "points": [
+      "9 × 3 ml glass vials of our core collection",
+      "Worldwide free shipping"
+    ],
+    "size": "9 × 3 ml",
+    "book": "kesif/book.webp",
+    "bbox": [
+      0.08416666666666667,
+      0.15,
+      0.9225,
+      0.8341666666666666
+    ],
+    "boxes": [
+      {
+        "file": "kesif/box-0.webp",
+        "handle": "a-wondrous-flight",
+        "x": 0.2025,
+        "y": 0.5975,
+        "w": 0.07833333333333334,
+        "h": 0.23416666666666666,
+        "name": {
+          "tr": "A Wondrous Flight",
+          "en": "A Wondrous Flight"
+        }
+      },
+      {
+        "file": "kesif/box-1.webp",
+        "handle": "amberique",
+        "x": 0.28583333333333333,
+        "y": 0.5975,
+        "w": 0.075,
+        "h": 0.23333333333333334,
+        "name": {
+          "tr": "Amberique",
+          "en": "Amberique"
+        }
+      },
+      {
+        "file": "kesif/box-2.webp",
+        "handle": "balle-rouge",
+        "x": 0.36583333333333334,
+        "y": 0.5975,
+        "w": 0.07416666666666667,
+        "h": 0.23333333333333334,
+        "name": {
+          "tr": "Balle Rouge",
+          "en": "Balle Rouge"
+        }
+      },
+      {
+        "file": "kesif/box-3.webp",
+        "handle": "crumble-me-softly",
+        "x": 0.4475,
+        "y": 0.5975,
+        "w": 0.07083333333333333,
+        "h": 0.23333333333333334,
+        "name": {
+          "tr": "Crumble Me Softly",
+          "en": "Crumble Me Softly"
+        }
+      },
+      {
+        "file": "kesif/box-4.webp",
+        "handle": "one-night-only",
+        "x": 0.5325,
+        "y": 0.6158333333333333,
+        "w": 0.06416666666666666,
+        "h": 0.215,
+        "name": {
+          "tr": "One Night Only",
+          "en": "One Night Only"
+        }
+      },
+      {
+        "file": "kesif/box-5.webp",
+        "handle": "oud-hypnotique",
+        "x": 0.6133333333333333,
+        "y": 0.6166666666666667,
+        "w": 0.065,
+        "h": 0.21333333333333335,
+        "name": {
+          "tr": "Oud Hypnotique",
+          "en": "Oud Hypnotique"
+        }
+      },
+      {
+        "file": "kesif/box-6.webp",
+        "handle": "out-of-reach",
+        "x": 0.6916666666666667,
+        "y": 0.6158333333333333,
+        "w": 0.06833333333333333,
+        "h": 0.21333333333333335,
+        "name": {
+          "tr": "Out Of Reach",
+          "en": "Out Of Reach"
+        }
+      },
+      {
+        "file": "kesif/box-7.webp",
+        "handle": "passion-island",
+        "x": 0.77,
+        "y": 0.6133333333333333,
+        "w": 0.07166666666666667,
+        "h": 0.21916666666666668,
+        "name": {
+          "tr": "Passion Island",
+          "en": "Passion Island"
+        }
+      },
+      {
+        "file": "kesif/box-8.webp",
+        "handle": "tobacco-flirting-with-vanilla",
+        "x": 0.8491666666666666,
+        "y": 0.6158333333333333,
+        "w": 0.07333333333333333,
+        "h": 0.21666666666666667,
+        "name": {
+          "tr": "Tobacco Flirting With Vanilla",
+          "en": "Tobacco Flirting With Vanilla"
+        }
+      }
+    ]
   }
 }

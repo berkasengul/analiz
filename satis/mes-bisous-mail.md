@@ -20,7 +20,7 @@
 >
 > Ziyaretçi şişeleri elinde tutuyormuş gibi görüyor: Balle Rouge, One Night Only, A Wondrous Flight ve Passion Island kendi renklerinde bir sahnede dönerek kaideye konuyor; şişe oturunca kendi çekimlerinizdeki notalar (iris, gül, kozalak, mango…) iki yanında süzülüyor. "Spray it"e basınca kapak kalkıp parfüm sesiyle buğu çıkıyor, şişeyi çevirince arkasında kokunun şiiri ve notaları yazıyor. Site bir açılış sahnesiyle başlıyor (logo, sonra ilk şişe kaideye iniyor) ve üç soruluk bir koku bulucusu var: ziyaretçinin cevaplarını kokularınızın notalarıyla eşleştirip onun hikâyesini kaideye koyuyor. 9 hikâyenin hepsi şiirleri, notaları ve fiyatlarıyla hazır; 28 ülkedeki 137 satış noktası aranabilir bir mağaza bulucuda. Sepet mesbisous.com'a bağlı, mevcut sitenizi değiştirmeden satışa geçer.
 >
-> Şişelerinizin illüstrasyonları ekranda bu kadar büyük ve canlı görününce, reklamdan gelen ziyaretçi kokuyu koklamadan önce hikâyesine bağlanıyor. Yeni bir koku için tek sayfalık lansman versiyonu ya da distribütörlerinize gönderebileceğiniz bir sunum sayfası da yapılabilir.
+> Şişelerinizin illüstrasyonları ekranda bu kadar büyük ve canlı görününce, reklamdan gelen ziyaretçi kokuyu koklamadan önce hikâyesine bağlanıyor. Keşif setiniz de kitap kutusundan dizilen dokuz hikâyeyle ayrı bir bantta satışta. Yeni bir koku için tek sayfalık lansman versiyonu ya da distribütörlerinize gönderebileceğiniz bir sunum sayfası da yapılabilir.
 >
 > Bu hafta 10 dakikalık bir görüşmede canlı gösterebilir miyim?
 >
@@ -60,6 +60,8 @@ Fiyatı ilk mesajda yazma. 28 ülkede satan, görsele çok önem veren bir marka
 - **Ana sayfa:** Balle Rouge, One Night Only, A Wondrous Flight, Passion Island; her biri kendi renginde sahne, tek kaydırmada bir sonraki koku, şişenin iki yanında markanın çekimlerinden nota malzemeleri.
 - **Koku bulucu:** 3 soru (dünya, zaman, his); cevaplar kokuların notalarıyla eşleşir, sonuç kendi renginde kaideye iner, iki alternatif önerilir.
 - **Açılış:** karanlıkta logo altın ışıkla belirir, slogan, perde açılır ve Balle Rouge kaideye iner.
+- **Keşif seti bandı:** altın "Book of Discovery" kaidede belirir, 9 küçük kutu sırayla yükselip önüne dizilir; kutuya gelince kokunun adı çıkar, tıklayınca o koku açılır; 75 $ ve sepete ekle. Koku bulucuda "karar veremedin mi? dokuzunu da dene" bağlantısı.
+- **Kaide ve ışık:** ortadaki şişe tepeden gelen yumuşak ışıkla öne çıkar (yazılar parlamadan net), altın kenarlı mermer kaide.
 - **Koleksiyon:** her koku kendi renginde küçük bir sahnede, kaidede, notalarıyla; şiirin ilk dizesi ve fiyatıyla.
 - **Alt bölümler:** About us, Where to find us (137 satış noktası, ülkeye göre filtre), sorular ve iletişim; arkada kaideye sırayla (soldan süzülerek) Crumble Me Softly, Oud Hypnotique, Out Of Reach gibi diğer kokular iniyor.
 - **İçerik:** şiirler, notalar, fiyatlar, hakkımızda ve kurucu metni mesbisous.com'dan.

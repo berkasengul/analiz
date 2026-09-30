@@ -9,8 +9,9 @@ import { sceneState } from "./shared";
 import { useStore } from "./store";
 
 // Nota malzemeleri (demo-fabrikasi/araclar/garnish.py): markanın malzemeli ürün fotoğrafındaki çiçek, meyve,
-// baharat… şişenin iki yanında, fotoğraftaki yerlerinde süzülür. Şişe kaideye oturunca iki yandan kayarak
-// gelir, hafifçe nefes alır ve fareyle derinlik kazanır; ürün değişirken çekilip yenisininkiler gelir.
+// baharat… şişenin iki yanında, fotoğraftaki yerlerinde süzülür. Şişe kaideye oturunca (açılışta inerken)
+// iki yandan, kameraya yakın bir yerden dönerek sırayla gelir ve hafif taşmayla yerine oturur; nefes alır,
+// fareyle derinlik kazanır. Kaydırınca kaydırmaya bağlı olarak dışarı ve kameraya doğru açılıp kaybolur.
 const BASE = import.meta.env.BASE_URL;
 const loader = new TextureLoader();
 const cache = {};
@@ -23,60 +24,69 @@ const tex = (file) => {
   return cache[file];
 };
 const HAS = flavors.some((f) => f.garnish?.length);
-const DEBUG = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("sounddebug");
 
 export default function Garnish() {
   const meshes = [useRef(), useRef(), useRef(), useRef()];
-  const s = useRef({ shown: -1, alpha: 0, parts: [] });
+  const s = useRef({ shown: -1, enter: 0, out: 1, parts: [] });
   // Dokular baştan yüklenir: ürün değişince beklemeden görünsün.
   useMemo(() => flavors.forEach((f) => f.garnish?.forEach((p) => tex(p.file))), []);
 
   useFrame(({ clock }, delta) => {
     const S = s.current;
     const st = useStore.getState();
-    if (DEBUG) window.__garnish = { alpha: S.alpha, shown: S.shown, settled: sceneState.settled, intro: sceneState.intro, swapping: st.swapping, detail: st.detail, bottom: sceneState.focus.bottom, ritual: scrollState.ritualIn, shop: scrollState.shopIn };
+    const dt = Math.min(delta, 0.1);
     const active = st.active;
     const f = sceneState.focus;
-    const ok =
-      st.loaded && !st.detail && !st.swapping && sceneState.settled && sceneState.intro > 0.95 && scrollState.ritualIn < 0.05 && scrollState.shopIn < 0.05 && f.bottom != null;
-    if (S.shown !== active) {
-      // Önce eskiler çekilir, sonra yeni ürünün malzemeleri yüklenir.
-      S.alpha = MathUtils.damp(S.alpha, 0, 9, delta);
-      if (S.alpha < 0.02) {
-        S.shown = active;
-        S.parts = flavors[active]?.garnish ?? [];
-        S.alpha = 0;
-        meshes.forEach((m, k) => {
-          const p = S.parts[k];
-          if (!m.current) return;
-          m.current.visible = !!p;
-          if (p) {
-            m.current.material.map = tex(p.file);
-            m.current.material.needsUpdate = true;
-          }
-        });
-      }
-    } else S.alpha = MathUtils.damp(S.alpha, ok ? 1 : 0, ok ? 2.2 : 7, delta);
+    // Çıkış kaydırmaya bağlı: gösterilen ürünün yerinden uzaklaştıkça notalar dışarı ve kameraya doğru açılır
+    // (geri kaydırınca geri gelir). Detay, yan ürüne tıklama, ritüel ve mağaza bölümünde hızla çekilir.
+    const block = !st.loaded || st.detail || st.swapping || scrollState.ritualIn > 0.05 || scrollState.shopIn > 0.05 || sceneState.intro < 0.5 || f.bottom == null;
+    const slot = S.shown >= 0 ? st.order.indexOf(S.shown) : -1;
+    const dist = slot >= 0 ? Math.abs(scrollState.p - slot) : 1;
+    const outT = block ? 1 : MathUtils.clamp(dist * 2.4, 0, 1);
+    S.out = MathUtils.damp(S.out, outT, block ? 5 : 16, dt);
+    if (S.shown !== active && (S.out > 0.97 || S.shown < 0)) {
+      S.shown = active;
+      S.parts = flavors[active]?.garnish ?? [];
+      S.enter = 0;
+      S.out = MathUtils.clamp(Math.abs(scrollState.p - st.order.indexOf(active)) * 2.4, 0, 1);
+      meshes.forEach((m, k) => {
+        const p = S.parts[k];
+        if (!m.current) return;
+        m.current.visible = false;
+        if (p) {
+          m.current.material.map = tex(p.file);
+          m.current.material.needsUpdate = true;
+        }
+      });
+    }
+    // Giriş zamana bağlı: ürün yerine oturunca (açılışta şişe kaideye inerken) iki yandan sırayla süzülür.
+    if (!block && S.shown === active && Math.abs(scrollState.p - st.order.indexOf(active)) < 0.03) S.enter = Math.min(1, S.enter + dt / 1.7);
 
     const H = (f.top - f.bottom) * f.scale;
     const y0 = f.position.y + f.bottom * f.scale;
     const t = clock.getElapsedTime();
-    const e = 1 - Math.pow(1 - S.alpha, 3);
+    const o = Math.pow(S.out, 1.3);
     meshes.forEach((m, k) => {
       const p = S.parts[k];
       if (!m.current || !p || !isFinite(H)) return;
       const side = Math.sign(p.x) || 1;
       const depth = 0.6 + 0.4 * (k % 2);
+      // Sırayla giriş: her katman biraz gecikir; hafif taşma ile yerine oturur (easeOutBack).
+      const ek = MathUtils.clamp(S.enter * 1.5 - k * 0.22, 0, 1);
+      const c1 = 1.25;
+      const e = ek <= 0 ? 0 : 1 + (c1 + 1) * Math.pow(ek - 1, 3) + c1 * Math.pow(ek - 1, 2);
+      const inv = 1 - e;
       m.current.position.set(
-        f.position.x + p.x * H + side * (1 - e) * 0.45 * H + pointer.x * 0.035 * H * depth,
-        y0 + p.y * H + Math.sin(t * 0.8 + k * 2.1) * 0.012 * H - pointer.y * 0.02 * H * depth + (1 - e) * 0.08 * H,
-        f.position.z - 0.35
+        f.position.x + p.x * H + side * (inv * 1.25 + o * 1.5) * H + pointer.x * 0.035 * H * depth,
+        y0 + p.y * H - inv * 0.22 * H + o * 0.3 * H + Math.sin(t * 0.8 + k * 2.1) * 0.012 * H - pointer.y * 0.02 * H * depth,
+        f.position.z - 0.35 + inv * 2.4 + o * 2.8
       );
-      m.current.rotation.z = Math.sin(t * 0.55 + k * 1.3) * 0.025 - side * (1 - e) * 0.18;
-      const sc = 0.92 + 0.08 * e;
+      m.current.rotation.z = Math.sin(t * 0.55 + k * 1.3) * 0.025 + side * (inv * 0.65 - o * 0.45);
+      const sc = 1 + inv * 0.3 + o * 0.45;
       m.current.scale.set(p.w * H * sc, p.h * H * sc, 1);
-      m.current.material.opacity = e;
-      m.current.visible = e > 0.01;
+      const a = MathUtils.smoothstep(ek, 0, 0.35) * Math.pow(1 - S.out, 1.2);
+      m.current.material.opacity = a;
+      m.current.visible = a > 0.01;
     });
   });
 

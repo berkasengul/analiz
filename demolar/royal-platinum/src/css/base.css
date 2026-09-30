@@ -7627,3 +7627,148 @@ html .finder {
 @media (prefers-reduced-motion: reduce) {
   .mark--cine.is-done::before, .mark--cine.is-done .mark__inner { animation-duration: 0.01s; animation-delay: 0.3s; }
 }
+
+/* =====================================================================
+   Keşif seti bandı (ui/Discovery.jsx): altın oda, kaide üstünde set; kutular sırayla yükselip dizilir.
+   ===================================================================== */
+html .disco {
+  --glow: #7a5c22;
+  --drop: #f3dfa8;
+  --edge: #0d0906;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: clamp(28px, 4vw, 72px);
+  min-height: 92vh;
+  background: var(--edge);
+}
+.disco__room { position: absolute; inset: 0; z-index: 0; pointer-events: none; --sx: 30%; }
+.disco__room .epi-vignette {
+  background: linear-gradient(270deg, rgba(6, 6, 8, 0.72) 0%, rgba(6, 6, 8, 0.4) 38%, rgba(6, 6, 8, 0) 60%),
+    linear-gradient(180deg, rgba(6, 6, 8, 0.5), rgba(6, 6, 8, 0) 22%, rgba(6, 6, 8, 0) 80%, rgba(6, 6, 8, 0.6));
+}
+.disco__stage { position: relative; z-index: 1; padding: 6vh 2vw 4vh; }
+.disco__set { position: relative; width: min(100%, 640px); margin: 0 auto; z-index: 2; }
+.disco__book {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 30px 34px rgba(0, 0, 0, 0.5));
+  opacity: 0;
+  transform: translateY(24px) scale(0.96);
+  transition: opacity 1.1s ease, transform 1.3s var(--ease);
+}
+.disco.is-in .disco__book { opacity: 1; transform: none; }
+.disco__sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 248, 225, 0.85) 48%, rgba(255, 236, 180, 0.5) 52%, transparent 65%);
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.disco.is-in .disco__sweep { animation: disco-sweep 2.2s ease 0.6s both, disco-sweep 2.2s ease 7s infinite; }
+@keyframes disco-sweep { 0% { opacity: 1; background-position: 130% 0; } 60%, 100% { opacity: 1; background-position: -30% 0; } }
+.disco__box {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(70%);
+  transition: opacity 0.7s ease calc(1.1s + var(--k) * 0.12s), transform 0.9s cubic-bezier(0.25, 1.4, 0.4, 1) calc(1.1s + var(--k) * 0.12s);
+}
+.disco__box img { display: block; width: 100%; height: 100%; object-fit: fill; filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.45)); }
+.disco.is-in .disco__box { opacity: 1; transform: none; }
+.disco.is-in .disco__box:hover { transform: translateY(-14%); transition-delay: 0s; transition-duration: 0.4s; }
+.disco__tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  translate: -50% 0;
+  padding: 6px 10px;
+  white-space: nowrap;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(8, 8, 10, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.disco__box:hover .disco__tip, .disco__box:focus-visible .disco__tip { opacity: 1; transform: none; }
+.disco__plinth {
+  position: absolute;
+  left: 50%;
+  top: calc(100% - 1.2%);
+  width: 108%;
+  height: 12%;
+  translate: -50% 0;
+  z-index: -1;
+  border-radius: 0 0 50% 50% / 0 0 30% 30%;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--plinth) 70%, #000) 0%, var(--plinth) 26%, #fff 50%, var(--plinth) 72%, color-mix(in oklab, var(--plinth) 62%, #000) 100%);
+  box-shadow: 0 2px 0 #c9a45a, 0 14px 18px -8px rgba(255, 214, 140, 0.45), 0 40px 60px -20px rgba(0, 0, 0, 0.75);
+}
+.disco__plinth span {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 70%;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 40%, #fff, var(--plinth) 62%, color-mix(in oklab, var(--plinth) 80%, #000));
+  box-shadow: inset 0 -2px 0 #d8b56a;
+}
+.disco__hint {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 8vh;
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 240, 210, 0.6);
+}
+.disco__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 560px;
+  padding: clamp(24px, 3vw, 44px);
+  border: 1px solid rgba(255, 230, 180, 0.2);
+  border-radius: 4px;
+  background: linear-gradient(160deg, rgba(10, 8, 6, 0.55), rgba(10, 8, 6, 0.3));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease 0.4s, transform 1s var(--ease) 0.4s;
+}
+.disco.is-in .disco__card { opacity: 1; transform: none; }
+.disco__title { font-family: var(--display, var(--wide)); font-weight: 400; font-size: clamp(2rem, 3.6vw, 3.4rem); line-height: 1.05; }
+.disco__text { font-family: var(--serif); font-style: italic; font-size: clamp(1.1rem, 1.5vw, 1.35rem); color: rgba(255, 255, 255, 0.84); }
+.disco__points { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.disco__points li { display: flex; gap: 10px; align-items: baseline; font-size: 0.95rem; color: rgba(255, 255, 255, 0.78); }
+.disco__points li::before { content: "✦"; color: #e3c77e; font-size: 0.7rem; }
+.disco__buy { display: flex; align-items: center; gap: 18px; padding-top: 16px; border-top: 1px solid rgba(255, 230, 180, 0.18); }
+.disco__price { font-family: var(--display, var(--wide)); font-size: 2rem; letter-spacing: 0.02em; }
+@media (max-width: 900px) {
+  html .disco { grid-template-columns: 1fr; min-height: 0; }
+  .disco__stage { padding: 2vh 0 8vh; }
+  .disco__hint { margin-top: 5vh; }
+  .disco__room { --sx: 50%; }
+  .disco__room .epi-vignette { background: rgba(6, 6, 8, 0.35); }
+  .disco__card { max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) { .disco__sweep { animation: none !important; } }
+.finder__disco { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: #f3dfa8; text-decoration: none; }
+.finder__disco span { font-family: var(--sans); font-style: normal; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); margin-right: 6px; }
+.finder__disco:hover { color: #fff; }

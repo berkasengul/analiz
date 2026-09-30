@@ -205,6 +205,11 @@ export default function Finder() {
                 ))}
               </div>
             )}
+            {content.discovery && (
+              <a className="finder__disco" href="#discovery">
+                <span className="mono">{L === "en" ? "Can’t decide?" : "Karar veremedin mi?"}</span> {L === "en" ? "Try all nine" : "Dokuzunu da dene"} · {content.discovery.title} →
+              </a>
+            )}
             <button className="finder__back mono" onClick={() => setAnswers([])}>
               ↺ {T.again}
             </button>

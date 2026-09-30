@@ -309,8 +309,8 @@ kaideye iniş tınısı ve ortam tonu hazır ama kapalı: `content.sceneSounds: 
 
 **Nota malzemeleri** (`araclar/garnish.py`, `src/Garnish.jsx`): markanın malzemeli ürün fotoğrafından
 (`"foto": {"garnish": [["regex", n]]}`, n: ürünün kaçıncı görseli) şişe çıkarılır, iki yandaki çiçek/meyve/baharat
-saydam katman olarak kesilir. 3B sahnede şişe kaideye oturunca fotoğraftaki yerlerinde iki yandan süzülerek gelir,
-fareyle derinlik kazanır; koleksiyon kartlarında da görünür. `shopify-foto.py` sonrası çalıştırılır.
+saydam katman olarak kesilir. 3B sahnede şişe kaideye oturunca (açılışta inerken) iki yandan, kameraya yakından
+dönerek sırayla gelip yerine oturur; kaydırınca kaydırmaya bağlı olarak dışarı ve kameraya doğru açılıp kaybolur; koleksiyon kartlarında da görünür. `shopify-foto.py` sonrası çalıştırılır.
 
 **Koku bulucu** (`ui/Finder.jsx`, notası olan en az 3 üründe açık; `content.finder: false` kapatır,
 `{"categories": [...]}` öneriyi o kategorilerle sınırlar): üç soru; cevaplar koku ailelerine (ferah, çiçeksi, tatlı,
@@ -321,6 +321,17 @@ renginde kaideye yukarıdan iner, notaları süzülür; iki alternatif, sepete e
 **Sinematik açılış** (`theme.opening`, ferah sahnede varsayılan; oturumun ilk açılışında, `?shot` adresinde yok):
 yüklenirken karanlıkta logo ve altın çizgi; yüklenince altın ışık logonun üstünden geçer, slogan belirir, perde
 ortadan dairesel açılır, ilk şişe yukarıdan kaideye iner (inişte ışık patlaması ve duman), ardından notalar gelir.
+
+**Keşif seti bandı** (`araclar/kesif-seti.py`, `ui/Discovery.jsx`; kurallar → `foto`dışında `"kesif"` ve aktar →
+`"discovery"`): setin fotoğrafındaki büyük kutu ve önündeki küçük koku kutuları ayrı katmanlara kesilir (kutuların
+yatay aralıkları, sıra yüksekliği ve büyük kutunun alanı kurallarda). Sitede büyük kutu kaidede belirir, üzerinden
+altın ışık geçer, küçük kutular sırayla yükselip dizilir; üzerine gelince kokunun adı, tıklayınca o koku. Set katalogda
+da ürün olur (sepete eklenir).
+
+**Premium kaide ve tepe ışığı** (ferah sahnede varsayılan; `theme.plinthStyle: "classic"` eskisi): kalın, damarlı
+cilalı mermer disk (üst ve alt kenarı altın), altında içeri çekik boşluktan sızan ışık, ince koyu ayak; tepeden inen
+ışık huzmesi (yalnızca arka iç yüzü: şişenin önünü puslandırmaz) ve kaidede ışık havuzu. Ortadaki ürün çarpımsal
+tepe ışığıyla aydınlanır (`u_key`: renk ve yazı kontrastı korunur), yanlar loşlaşır.
 
 **Sahne kartları** (ferah sahnede varsayılan; `theme.cards: "gallery-dark"` eski karanlık sergi): koleksiyonda her
 ürün 3B vitrinin küçük kopyasında: ürün renginde duvar, ipek ışık, parlak zemin, fildişi kaide, şişe ve notalar.

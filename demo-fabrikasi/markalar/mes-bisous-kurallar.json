@@ -566,6 +566,83 @@
      "stat": "A Wondrous Flight"
     }
    }
+  ],
+  "discovery": {
+   "handle": "discovery",
+   "title": "Discovery Set",
+   "category": "stories",
+   "size": "9 × 3 ml",
+   "tagline": "Nine Stories in The Book of Discovery.",
+   "text": "Our Discovery Set invites you to experience the full soul of Mes Bisous through nine of 3 ML fragrances.",
+   "points": [
+    "9 × 3 ml glass vials of our core collection",
+    "Worldwide free shipping"
+   ],
+   "bg": "#8a6a2a",
+   "bg2": "#f1dfb2"
+  }
+ },
+ "kesif": {
+  "handle": "discovery",
+  "image": 1,
+  "boxes": [
+   [
+    0.203,
+    0.281
+   ],
+   [
+    0.286,
+    0.361
+   ],
+   [
+    0.366,
+    0.44
+   ],
+   [
+    0.448,
+    0.519
+   ],
+   [
+    0.53,
+    0.6
+   ],
+   [
+    0.61,
+    0.68
+   ],
+   [
+    0.688,
+    0.762
+   ],
+   [
+    0.769,
+    0.844
+   ],
+   [
+    0.848,
+    0.925
+   ]
+  ],
+  "y": [
+   0.598,
+   0.845
+  ],
+  "book": [
+   0.08,
+   0.05,
+   0.485,
+   0.835
+  ],
+  "names": [
+   "a-wondrous-flight",
+   "amberique",
+   "balle-rouge",
+   "crumble-me-softly",
+   "one-night-only",
+   "oud-hypnotique",
+   "out-of-reach",
+   "passion-island",
+   "tobacco-flirting-with-vanilla"
   ]
  }
 }

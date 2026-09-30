@@ -34,6 +34,9 @@ export function createCanUniforms(flavor) {
     u_sweep: { value: 0 },
     u_sweepColor: { value: new Color(1, 0.9, 0.7) },
     u_rim: { value: new Color(0, 0, 0) },
+    // Tepe ışığı (odaktaki ürün): üstten inen ışık; çarpımsal (renk ve yazı kontrastı korunur, parlama yok).
+    u_key: { value: 0 },
+    u_keyColor: { value: new Color(1, 0.94, 0.84) },
     u_width: { value: 0.8 },
     u_scaleX: { value: 50 },
     u_scaleY: { value: 50 },
@@ -81,6 +84,8 @@ export function createCanMaterial(base, uniforms) {
         uniform float u_sweep;
         uniform vec3 u_sweepColor;
         uniform vec3 u_rim;
+        uniform float u_key;
+        uniform vec3 u_keyColor;
         uniform float u_width;
         uniform float u_scaleX;
         uniform float u_scaleY;
@@ -124,6 +129,13 @@ export function createCanMaterial(base, uniforms) {
         float rimF = pow(1. - abs(dot(normal, normalize(vViewPosition))), 3.);
         // u_dim tüm ışığı (yansımalar dahil) kısar: yan kutular gerçekten kararır.
         outgoingLight = mix(outgoingLight, diffuseColor.rgb, u_unlit) * u_dim + u_rim * rimF * (1. - 0.6 * u_unlit);
+        // Tepe ışığı: üst kısım biraz aydınlanır, alt kısım hafif gölgede kalır (çarpımsal: yazılar beyazlamaz);
+        // yukarı bakan yüzeylerde (kapak üstü, omuz) sıcak, ince bir parıltı.
+        if (u_key > 0.001) {
+          float kh = smoothstep(0.08, 0.92, vCanUv.y);
+          outgoingLight *= mix(1., mix(0.86, 1.14, kh), u_key);
+          outgoingLight += u_keyColor * pow(max(normal.y, 0.), 5.) * 0.16 * u_key;
+        }
         // Stüdyo ışık süpürmesi (tema): yüzeyden çapraz, yumuşak bir ışık bandı periyodik geçer.
         if (u_sweep > 0.001) {
           float sx = -vViewPosition.x * 0.85 - vViewPosition.y * 0.5;

@@ -250,7 +250,7 @@ def main():
             p["views"] = views
             p["heroPhoto"] = i["m"].get("hero", 0)
         item = {
-            "id": re.sub("^" + re.escape(R.get("idPrefix", "")), "", h), "name": {"tr": p["name"], "en": p["en"]["name"]},
+            "id": re.sub("^" + re.escape(R.get("idPrefix", "")), "", h), "handle": h, "name": {"tr": p["name"], "en": p["en"]["name"]},
             "category": i["cat"], "size": i["size"], "price": p["price"], "exactPrice": True,
             "desc": {"tr": clip(i["desc"], 120), "en": clip(i["en_desc"], 120)}, "color": p["color"], "product": idx,
             # Kart görseli: sitenin 3B modelinden çekilen görüntü (araclar/kart-3b.py) varsa o, yoksa fotoğraf kesiti.
@@ -265,6 +265,29 @@ def main():
             item["compareAt"] = {"tr": i["compare"], "en": i["compare"]}
         items_out.append(item)
     items_out.sort(key=lambda x: order.index(x["category"]))
+    # Keşif seti (kurallar → discovery; araclar/kesif-seti.py katmanları): katalogda en sonda bir ürün ve ana
+    # sayfada kutuları sırayla dizilen bant (ui/Discovery.jsx).
+    D = R.get("discovery")
+    kpath = os.path.join(FOTO, "kesif.json")
+    if D and D["handle"] in tr and os.path.exists(kpath):
+        K = json.load(open(kpath, encoding="utf-8"))
+        p = tr[D["handle"]]
+        v = p["variants"][0]
+        price = float(v["price"])
+        names = {x["handle"]: x for x in items_out}
+        items_out.append({
+            "id": D["handle"], "name": {"tr": D["title"], "en": D["title"]}, "category": D["category"], "size": D.get("size"),
+            "price": {"tr": price, "en": price}, "exactPrice": True, "desc": {"tr": D["text"], "en": D["text"]}, "color": D.get("bg", "#c9a55c"),
+            "image": K["full"], "cutout": True, "bg": D.get("bg", "#8a6a2a"), "bg2": D.get("bg2", "#f1dfb2"),
+            "variants": [{"id": v["id"]}], "url": p.get("permalink") or f"https://{R['domain']}/products/{D['handle']}",
+        })
+        c["discovery"] = {
+            "id": D["handle"], "title": D["title"], "tagline": D.get("tagline"), "text": D["text"], "points": D.get("points", []),
+            "size": D.get("size"), "book": K["book"], "bbox": K["bbox"],
+            "boxes": [{**b, "name": names[b["handle"]]["name"] if b["handle"] in names else {"tr": b["handle"], "en": b["handle"]}} for b in K["boxes"]],
+        }
+    else:
+        c.pop("discovery", None)
 
     c["products"] = products
     # Ana sayfanın 3B akışı: kurallardaki "home" ya da ilk 4 ürün (4 üründen sonra sayfa alt bölümlere geçer).

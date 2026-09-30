@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { CanvasTexture, Color, DoubleSide, MathUtils, MeshBasicMaterial, MeshStandardMaterial, Vector3 } from "three";
+import { AdditiveBlending, BackSide, CanvasTexture, Color, DoubleSide, MathUtils, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial, ShaderMaterial, SRGBColorSpace, Vector3 } from "three";
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
@@ -211,7 +211,9 @@ function measure(g, i) {
 
 // Butik kaidesi (DOLLY): cilalı siyah silindir, üst kenarda altın halka, altta ince altın çizgi. Ürün
 // grubunun biriminde; üst yüzü ürünün ayağında.
-export const PLINTH_H = 0.26;
+// Premium kaide (ferah sahnede varsayılan; theme.plinthStyle "classic" eskisi): iki katlı.
+const PREMIUM = !!THEME.fresh && THEME.plinthStyle !== "classic";
+export const PLINTH_H = PREMIUM ? 0.265 : 0.26;
 const PLINTH_GOLD = new MeshStandardMaterial({ color: THEME.accent ?? "#d4b06a", metalness: 1, roughness: 0.22, envMapIntensity: 1.6 });
 // theme.plinthColor: ferah sahnede açık renkli (ör. fildişi) cilalı kaide.
 const PLINTH_BODY = THEME.plinthColor
@@ -279,6 +281,157 @@ function Plinth({ refFn }) {
           </group>
         </>
       )}
+    </group>
+  );
+}
+
+// ---------------------------------------------------------------- Premium kaide ve tepe ışığı
+// Üstte damarlı, cilalı fildişi mermer disk; altında fırçalanmış altın bant ve bandın altından sızan sıcak
+// gömme ışık çizgisi; altta daha geniş koyu lake taban, üzerinde ince altın kakma. Tepeden inen ışık huzmesi
+// (yalnızca iç arka yüzü çizilir: şişenin arkasında kalır, önünü puslandırmaz) ve kaidenin üstünde ışık havuzu.
+const MARBLE_TEX = (() => {
+  if (typeof document === "undefined") return null;
+  const c = document.createElement("canvas");
+  c.width = c.height = 512;
+  const g = c.getContext("2d");
+  g.fillStyle = "#ffffff";
+  g.fillRect(0, 0, 512, 512);
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  g.filter = "blur(1.2px)";
+  for (let k = 0; k < 26; k++) {
+    let x = rnd() * 512, y = rnd() * 512, a = rnd() * Math.PI * 2;
+    g.strokeStyle = `rgba(120,108,96,${0.05 + rnd() * 0.12})`;
+    g.lineWidth = 0.6 + rnd() * 2.2;
+    g.beginPath();
+    g.moveTo(x, y);
+    for (let i = 0; i < 40; i++) {
+      a += (rnd() - 0.5) * 0.6;
+      x += Math.cos(a) * 9;
+      y += Math.sin(a) * 9;
+      g.lineTo(x, y);
+    }
+    g.stroke();
+  }
+  const t = new CanvasTexture(c);
+  t.colorSpace = SRGBColorSpace;
+  t.anisotropy = 4;
+  return t;
+})();
+const POOL_TEX = (() => {
+  if (typeof document === "undefined") return null;
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const g = c.getContext("2d");
+  const r = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+  r.addColorStop(0, "rgba(255,246,228,1)");
+  r.addColorStop(0.45, "rgba(255,240,215,0.5)");
+  r.addColorStop(1, "rgba(255,236,210,0)");
+  g.fillStyle = r;
+  g.fillRect(0, 0, 256, 256);
+  return new CanvasTexture(c);
+})();
+const beamMaterial = () =>
+  new ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: AdditiveBlending,
+    side: BackSide,
+    uniforms: { u_op: { value: 0 }, u_color: { value: new Color(1, 0.95, 0.86) }, u_time: { value: 0 } },
+    vertexShader: /* glsl */ `
+      varying float vY; varying vec3 vN; varying vec3 vV; varying vec2 vUv;
+      void main() {
+        vY = uv.y; vUv = uv;
+        vec4 mv = modelViewMatrix * vec4(position, 1.);
+        vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz);
+        gl_Position = projectionMatrix * mv;
+      }`,
+    fragmentShader: /* glsl */ `
+      uniform float u_op; uniform vec3 u_color; uniform float u_time;
+      varying float vY; varying vec3 vN; varying vec3 vV; varying vec2 vUv;
+      void main() {
+        float edge = 1. - abs(dot(vN, vV));
+        float a = u_op * smoothstep(0., 0.12, vY) * (1. - smoothstep(0.55, 1., vY)) * (0.25 + 0.75 * pow(edge, 1.6));
+        // İnce, yavaş kayan toz şeritleri
+        a *= 0.85 + 0.15 * sin(vUv.x * 40. + u_time * 0.6 + vY * 6.);
+        gl_FragColor = vec4(u_color * a, a);
+      }`,
+  });
+
+function PremiumTiers({ m }) {
+  // Kalın mermer disk (üst ve alt kenarında altın çizgi), altında içeri çekik koyu bir boşluk ve oradan
+  // sızan sıcak ışık (mermer havada asılı gibi), en altta ince koyu lake ayak.
+  return (
+    <>
+      <mesh material={m.top} position={[0, -0.085, 0]} userData={{ noMeasure: true }}>
+        <cylinderGeometry args={[1.14, 1.14, 0.17, 128]} />
+      </mesh>
+      <mesh material={m.gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.003, 0]} userData={{ noMeasure: true }}>
+        <torusGeometry args={[1.14, 0.011, 12, 160]} />
+      </mesh>
+      <mesh material={m.gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.168, 0]} userData={{ noMeasure: true }}>
+        <torusGeometry args={[1.14, 0.009, 12, 160]} />
+      </mesh>
+      <mesh material={m.base} position={[0, -0.205, 0]} userData={{ noMeasure: true }}>
+        <cylinderGeometry args={[0.98, 0.98, 0.07, 96]} />
+      </mesh>
+      <mesh material={m.glow} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.185, 0]} userData={{ noMeasure: true }}>
+        <torusGeometry args={[0.99, 0.018, 10, 160]} />
+      </mesh>
+      <mesh material={m.base} position={[0, -0.2475, 0]} userData={{ noMeasure: true }}>
+        <cylinderGeometry args={[1.2, 1.22, 0.035, 128]} />
+      </mesh>
+      <mesh material={m.gold} rotation={[Math.PI / 2, 0, 0]} position={[0, -0.23, 0]} userData={{ noMeasure: true }}>
+        <torusGeometry args={[1.2, 0.005, 8, 160]} />
+      </mesh>
+    </>
+  );
+}
+
+function PremiumPlinth({ refFn }) {
+  const mats = useMemo(() => {
+    const top = new MeshPhysicalMaterial({ color: THEME.plinthColor ?? "#f3ede4", map: MARBLE_TEX, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 0.7 });
+    const gold = new MeshStandardMaterial({ color: THEME.accent ?? "#d4b06a", metalness: 1, roughness: 0.3, envMapIntensity: 1.5 });
+    const glow = new MeshBasicMaterial({ color: new Color(1, 0.86, 0.62), blending: AdditiveBlending, depthWrite: false, toneMapped: false });
+    const base = new MeshPhysicalMaterial({ color: "#16110d", roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.12, envMapIntensity: 0.9 });
+    const refl = { top: top.clone(), gold: gold.clone(), glow: glow.clone(), base: base.clone() };
+    const shadow = new MeshBasicMaterial({ map: SHADOW_TEX, transparent: true, depthWrite: false, color: "#000000" });
+    const pool = new MeshBasicMaterial({ map: POOL_TEX, transparent: true, depthWrite: false, blending: AdditiveBlending, toneMapped: false });
+    const list = [top, gold, glow, base, ...Object.values(refl), shadow, pool];
+    for (const x of list) x.transparent = true;
+    for (const x of Object.values(refl)) x.side = DoubleSide;
+    [top, gold, glow, base].forEach((x) => (x.userData.base = 1));
+    Object.values(refl).forEach((x) => (x.userData.base = 0.3));
+    shadow.userData.base = 0.9;
+    pool.userData.base = 0.32;
+    return { main: { top, gold, glow, base }, refl, shadow, pool, list };
+  }, []);
+  const beam = useMemo(beamMaterial, []);
+  useFrame(({ clock }) => {
+    const st = useStore.getState();
+    const f = flavors[st.active];
+    const o = mats.main.top.opacity;
+    beam.uniforms.u_time.value = clock.getElapsedTime();
+    beam.uniforms.u_op.value = MathUtils.damp(beam.uniforms.u_op.value, o * (st.detail ? 0.25 : 1) * 0.32, 3, 1 / 60);
+    if (f) beam.uniforms.u_color.value.set(f.theme.drop ?? "#fff4e0").lerp(WHITE, 0.55);
+    if (f) mats.main.glow.color.set(f.theme.drop ?? "#ffd9a0").lerp(WHITE, 0.35);
+  });
+  const H = PLINTH_H;
+  return (
+    <group ref={refFn} visible={false} userData={{ mats: mats.list }}>
+      <PremiumTiers m={mats.main} />
+      <mesh material={mats.pool} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.003, 0]} userData={{ noMeasure: true }}>
+        <planeGeometry args={[2.3, 2.3]} />
+      </mesh>
+      <mesh material={beam} position={[0, 4.2, 0]} userData={{ noMeasure: true }} renderOrder={2}>
+        <cylinderGeometry args={[0.32, 1.2, 8.4, 64, 1, true]} />
+      </mesh>
+      <mesh material={mats.shadow} rotation={[-Math.PI / 2, 0, 0]} position={[0, -H + 0.004, 0]} userData={{ noMeasure: true }}>
+        <planeGeometry args={[3.8, 3.8]} />
+      </mesh>
+      <group position={[0, -2 * H, 0]} scale={[1, -1, 1]}>
+        <PremiumTiers m={mats.refl} />
+      </group>
     </group>
   );
 }
@@ -477,13 +630,15 @@ export default function Carousel() {
       // Tek ürün sahnesinde ışık öndekine düşer: yanlar loşta kalır ama renkli kenar ışığıyla
       // biçimleri ve etiketleri hafifçe seçilir.
       const lit = DOLLY
-        ? 0.5 + 0.5 * Math.max(0, 1 - Math.abs(d))
+        ? (PREMIUM ? 0.4 : 0.5) + (PREMIUM ? 0.6 : 0.5) * Math.max(0, 1 - Math.abs(d))
         : SOLO
         ? 0.16 + 0.84 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
       const dim = (1 - fade) * lit;
       bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(SOLO ? (1 - fade) * (0.5 + 0.5 * lit * lit) * (flavors[i]?.stage ? 0.55 : 1) : dim * (0.35 + 0.65 * lit));
       bodies[i].userData.uniforms.u_dim.value = dim;
+      // Tepe ışığı yalnızca odaktaki (ortadaki) üründe.
+      bodies[i].userData.uniforms.u_key.value = PREMIUM ? Math.pow(Math.max(0, 1 - Math.abs(d)), 2) * (1 - fade) * (1 - spread) * Math.min(1, sceneState.intro * 1.4) : 0;
       if (STUDIO) {
         const U = bodies[i].userData.uniforms;
         U.u_time.value = t;
@@ -571,7 +726,7 @@ export default function Carousel() {
       {/* Öndeki kutuya düşen vitrin ışığı; ışık sayısı sabit kalsın diye hep sahnede. */}
       <spotLight ref={spot} intensity={0} angle={0.42} penumbra={1} decay={0} />
       {/* Butikte tek kaide: ortada sabit; ürünler sırayla üstüne gelir. */}
-      {DOLLY && <Plinth refFn={(el) => (plinth.current = el)} />}
+      {DOLLY && (PREMIUM ? <PremiumPlinth refFn={(el) => (plinth.current = el)} /> : <Plinth refFn={(el) => (plinth.current = el)} />)}
       {flavors.map((f, i) => (
         <group
           key={f.name}
