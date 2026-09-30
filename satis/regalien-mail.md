@@ -7,7 +7,7 @@
 - **Mail:** info@regalien.com (sitenin mesafeli satış sözleşmesinde ve iade politikasında yazıyor).
 - **Instagram:** @regalienparfum (DM).
 
-**Yakalama noktası:** Sitenin İngilizce Hammam sayfasında (regalien.com/en/product/hammam/) kısa açıklamanın başında "ChatGPT said:" yazıyor; yapay zekâ çıktısı temizlenmeden yayınlanmış. Göndermeden önce hâlâ durduğunu kontrol et; düzelttilerse o cümleyi sil.
+**Yakalama noktası (30 Eylül'de kontrol edildi, hâlâ duruyor):** Sitenin İngilizce Hammam sayfasında (regalien.com/en/product/hammam/) kısa açıklamanın başında "ChatGPT said:" yazıyor; yapay zekâ çıktısı temizlenmeden yayınlanmış. Göndermeden önce hâlâ durduğunu kontrol et; düzelttilerse o cümleyi sil.
 
 **Ek:** Yalnızca 15 saniyelik dikey video (senaryo `kisa-mesajlar.md`'de) ya da tek görsel (`regalien-gorseller/1-anasayfa.jpg`). Zip ekleme.
 
@@ -19,7 +19,7 @@
 >
 > Sitenizin İngilizce Hammam sayfasında açıklamanın başında "ChatGPT said:" yazısı kalmış; bilginiz olsun istedim.
 >
-> Bu arada Régalien için 3D bir site hazırladım: her koku kendi şişesinin renginde bir sahneye geliyor (Turkuaz turkuazda, Meftun morda), 28 kokunun hepsi notalarıyla hazır, sepet regalien.com'a bağlı. 15 saniyelik videosu ekte, link: [DEMO LİNKİ]
+> Bu arada Régalien için 3D bir site hazırladım: her koku kendi şişesinin renginde bir sahneye geliyor (Turkuaz turkuazda, Meftun morda), yandaki şişeye tıklayınca dönerek kaideye konuyor. 28 kokunun hepsi notalarıyla hazır, sepet regalien.com'a bağlı. 15 saniyelik videosu ekte, link: [DEMO LİNKİ]
 >
 > 10 dakikalık bir görüşmede canlı gösterebilir miyim?
 >
@@ -27,7 +27,7 @@
 
 ## Instagram DM (aynı gün, videoyla)
 
-> Merhaba Régalien ekibi ✨ Kokularınız için 3D bir site hazırladım; her şişe kendi renginde bir sahnede, "Parfümü sık"a basınca kapak kalkıp buğu çıkıyor. Videoda kısaca görebilirsiniz: [DEMO LİNKİ]. Detayları info@regalien.com adresine de ilettim.
+> Merhaba Régalien ekibi ✨ Kokularınız için 3D bir site hazırladım; her şişe kendi renginde bir sahnede, yandakine tıklayınca dönerek ortaya geliyor, "Parfümü sık"a basınca kapak kalkıp buğu çıkıyor. Videoda kısaca görebilirsiniz: [DEMO LİNKİ]. Detayları info@regalien.com adresine de ilettim.
 
 ## LinkedIn bağlantı notu (300 karakter altı)
 
@@ -46,7 +46,7 @@
 - [ ] Zip'i (`demolar/regalien-Netlify.zip`) Netlify Drop'a yükle; linki telefonda ve bilgisayarda aç.
 - [ ] Bir kokuyu sepete ekleyip "Ödemeye geç"e bas: regalien.com'un sepet sayfası o ürünle açılmalı (ödeme yapma).
 - [ ] "ChatGPT said:" hatasının hâlâ durduğunu kontrol et.
-- [ ] 15 saniyelik videoyu çek (Turkuaz → Meftun → Heart of Rose geçişi, sonra "Parfümü sık").
+- [ ] 15 saniyelik videoyu çek: Turkuaz'dayken sağdaki Meftun'a tıkla (dönerek ortaya gelir), sonra "Parfümü sık".
 - [ ] `[DEMO LİNKİ]` ve imzayı doldur; `parfum-firmalari.csv`'de tarihleri yaz.
 
 ## Fiyat sorarlarsa
