@@ -1,0 +1,2174 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "skip": "^(?!(erba\\-pura\\-7|good\\-girl\\-gone\\-bad\\-182|aventus\\-477|kirke\\-460|hacivat\\-72|naxos\\-89|mansa\\-420|akigala\\-mandarino\\-761|la\\-capitale\\-70|balle\\-rouge\\-536|angels\\-share\\-458|mandorle\\-483|jany\\-479|gladiator\\-487|erba\\-gold\\-428|fenice\\-670|adele\\-921|apollonia\\-20|borabora\\-862|celeste\\-858|crazy\\-in\\-love\\-748|dahab\\-693|dark\\-purple\\-261|dolce\\-amalfi\\-31|fresa\\-blanca\\-1326|good\\-girl\\-gone\\-bad\\-extreme\\-185|gossip\\-night\\-919|love\\-in\\-black\\-551|love\\-in\\-white\\-548|lucky\\-candy\\-663|opera\\-95|roses\\-greedy\\-581|secret\\-love\\-1056|shabby\\-chic\\-994|wardasina\\-116|green\\-irish\\-tweed\\-501|himalaya\\-509|midas\\-touch\\-1244|oud\\-dream\\-275|red\\-tobacco\\-217|the\\-one\\-and\\-only\\-1048|torino\\-22\\-1032)$)",
+  "backHead": "ILLATJEGYEK"
+ },
+ "aktar": {
+  "domain": "www.parfumorult.hu",
+  "platform": "merx",
+  "namePrefix": "^(Giardini\\ di\\ Toscana|Tiziana\\ Terenzi|Acqua\\ di\\ Parma|Maiora\\ Parfum|Kilian\\ Paris|Mes\\ Bisous|Casamorati|New\\ Notes|SORA\\ DORA|Pernoire|Xerjoff|Nishane|Majouri|Montale|Sospiro|Mancera|Gritti|Byredo|Creed|Kajal|Argos|THoO)\\s+",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "categories": [
+   {
+    "id": "friss",
+    "tr": "Friss és citrusos",
+    "en": "Friss és citrusos",
+    "color": "#3f9a8c",
+    "descTr": "Citrusos, friss és zöld illatok.",
+    "descEn": "Citrusos, friss és zöld illatok.",
+    "match": "^(erba\\-pura\\-7|akigala\\-mandarino\\-761|balle\\-rouge\\-536|gladiator\\-487|erba\\-gold\\-428|celeste\\-858|crazy\\-in\\-love\\-748|love\\-in\\-white\\-548|lucky\\-candy\\-663|roses\\-greedy\\-581|green\\-irish\\-tweed\\-501|himalaya\\-509|the\\-one\\-and\\-only\\-1048) "
+   },
+   {
+    "id": "viragos",
+    "tr": "Virágos",
+    "en": "Virágos",
+    "color": "#c46a8a",
+    "descTr": "Virágos illatok.",
+    "descEn": "Virágos illatok.",
+    "match": "^(good\\-girl\\-gone\\-bad\\-182|fenice\\-670|adele\\-921|apollonia\\-20|borabora\\-862|dark\\-purple\\-261|good\\-girl\\-gone\\-bad\\-extreme\\-185|love\\-in\\-black\\-551|secret\\-love\\-1056|shabby\\-chic\\-994) "
+   },
+   {
+    "id": "edes",
+    "tr": "Gyümölcsös és gourmand",
+    "en": "Gyümölcsös és gourmand",
+    "color": "#d08a3a",
+    "descTr": "Gyümölcsös, édes és gourmand illatok.",
+    "descEn": "Gyümölcsös, édes és gourmand illatok.",
+    "match": "^(aventus\\-477|kirke\\-460|mandorle\\-483|jany\\-479|dahab\\-693|fresa\\-blanca\\-1326|gossip\\-night\\-919) "
+   },
+   {
+    "id": "fuszeres",
+    "tr": "Fűszeres, fás és oudos",
+    "en": "Fűszeres, fás és oudos",
+    "color": "#8a5a34",
+    "descTr": "Fűszeres, fás, dohányos és oudos illatok.",
+    "descEn": "Fűszeres, fás, dohányos és oudos illatok.",
+    "match": "^(hacivat\\-72|naxos\\-89|mansa\\-420|la\\-capitale\\-70|angels\\-share\\-458|dolce\\-amalfi\\-31|opera\\-95|wardasina\\-116|midas\\-touch\\-1244|oud\\-dream\\-275|red\\-tobacco\\-217|torino\\-22\\-1032) "
+   }
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.4
+  },
+  "home": [
+   "erba-pura-7",
+   "good-girl-gone-bad-182",
+   "aventus-477",
+   "kirke-460"
+  ],
+  "families": {
+   "erba-pura-7": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "good-girl-gone-bad-182": [
+    "Kilian Paris",
+    "Kilian Paris"
+   ],
+   "aventus-477": [
+    "Creed",
+    "Creed"
+   ],
+   "kirke-460": [
+    "Tiziana Terenzi",
+    "Tiziana Terenzi"
+   ],
+   "hacivat-72": [
+    "Nishane",
+    "Nishane"
+   ],
+   "naxos-89": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "mansa-420": [
+    "Pernoire",
+    "Pernoire"
+   ],
+   "akigala-mandarino-761": [
+    "New Notes",
+    "New Notes"
+   ],
+   "la-capitale-70": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "balle-rouge-536": [
+    "Mes Bisous",
+    "Mes Bisous"
+   ],
+   "angels-share-458": [
+    "Kilian Paris",
+    "Kilian Paris"
+   ],
+   "mandorle-483": [
+    "SORA DORA",
+    "SORA DORA"
+   ],
+   "jany-479": [
+    "SORA DORA",
+    "SORA DORA"
+   ],
+   "gladiator-487": [
+    "SORA DORA",
+    "SORA DORA"
+   ],
+   "erba-gold-428": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "fenice-670": [
+    "Gritti",
+    "Gritti"
+   ],
+   "adele-921": [
+    "Gritti",
+    "Gritti"
+   ],
+   "apollonia-20": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "borabora-862": [
+    "Giardini di Toscana",
+    "Giardini di Toscana"
+   ],
+   "celeste-858": [
+    "Giardini di Toscana",
+    "Giardini di Toscana"
+   ],
+   "crazy-in-love-748": [
+    "Montale",
+    "Montale"
+   ],
+   "dahab-693": [
+    "Kajal",
+    "Kajal"
+   ],
+   "dark-purple-261": [
+    "Montale",
+    "Montale"
+   ],
+   "dolce-amalfi-31": [
+    "Casamorati",
+    "Casamorati"
+   ],
+   "fresa-blanca-1326": [
+    "Maiora Parfum",
+    "Maiora Parfum"
+   ],
+   "good-girl-gone-bad-extreme-185": [
+    "Kilian Paris",
+    "Kilian Paris"
+   ],
+   "gossip-night-919": [
+    "Gritti",
+    "Gritti"
+   ],
+   "love-in-black-551": [
+    "Creed",
+    "Creed"
+   ],
+   "love-in-white-548": [
+    "Creed",
+    "Creed"
+   ],
+   "lucky-candy-663": [
+    "Montale",
+    "Montale"
+   ],
+   "opera-95": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "roses-greedy-581": [
+    "Mancera",
+    "Mancera"
+   ],
+   "secret-love-1056": [
+    "Majouri",
+    "Majouri"
+   ],
+   "shabby-chic-994": [
+    "Giardini di Toscana",
+    "Giardini di Toscana"
+   ],
+   "wardasina-116": [
+    "Xerjoff",
+    "Xerjoff"
+   ],
+   "green-irish-tweed-501": [
+    "Creed",
+    "Creed"
+   ],
+   "himalaya-509": [
+    "Creed",
+    "Creed"
+   ],
+   "midas-touch-1244": [
+    "Argos",
+    "Argos"
+   ],
+   "oud-dream-275": [
+    "Montale",
+    "Montale"
+   ],
+   "red-tobacco-217": [
+    "Mancera",
+    "Mancera"
+   ],
+   "the-one-and-only-1048": [
+    "Majouri",
+    "Majouri"
+   ],
+   "torino-22-1032": [
+    "Xerjoff",
+    "Xerjoff"
+   ]
+  },
+  "notes": [
+   [
+    "^erba\\-pura\\-7$",
+    [
+     [
+      "Szicíliai Bergamott",
+      "Szicíliai Bergamott"
+     ],
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Narancs",
+      "Narancs"
+     ],
+     [
+      "Mediterrán gyümölcsök",
+      "Mediterrán gyümölcsök"
+     ]
+    ]
+   ],
+   [
+    "^good\\-girl\\-gone\\-bad\\-182$",
+    [
+     [
+      "Tubarózsa abszolút",
+      "Tubarózsa abszolút"
+     ],
+     [
+      "Jázmin",
+      "Jázmin"
+     ],
+     [
+      "Nárcisz",
+      "Nárcisz"
+     ],
+     [
+      "Rózsa",
+      "Rózsa"
+     ]
+    ]
+   ],
+   [
+    "^aventus\\-477$",
+    [
+     [
+      "Alma",
+      "Alma"
+     ],
+     [
+      "Bergamott",
+      "Bergamott"
+     ],
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Fekete ribizli",
+      "Fekete ribizli"
+     ]
+    ]
+   ],
+   [
+    "^kirke\\-460$",
+    [
+     [
+      "Maracuja",
+      "Maracuja"
+     ],
+     [
+      "Barack",
+      "Barack"
+     ],
+     [
+      "Körte",
+      "Körte"
+     ],
+     [
+      "Málna",
+      "Málna"
+     ]
+    ]
+   ],
+   [
+    "^hacivat\\-72$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Ananász",
+      "Ananász"
+     ],
+     [
+      "Grapefruit",
+      "Grapefruit"
+     ],
+     [
+      "Jázmin",
+      "Jázmin"
+     ]
+    ]
+   ],
+   [
+    "^naxos\\-89$",
+    [
+     [
+      "Bergamott",
+      "Bergamott"
+     ],
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Levendula",
+      "Levendula"
+     ],
+     [
+      "Jázmin",
+      "Jázmin"
+     ]
+    ]
+   ],
+   [
+    "^mansa\\-420$",
+    [
+     [
+      "Fekete ribizli",
+      "Fekete ribizli"
+     ],
+     [
+      "Rózsabors",
+      "Rózsabors"
+     ],
+     [
+      "Orris gyökér",
+      "Orris gyökér"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^akigala\\-mandarino\\-761$",
+    [
+     [
+      "Mandarin",
+      "Mandarin"
+     ],
+     [
+      "Maracuja",
+      "Maracuja"
+     ],
+     [
+      "Málna",
+      "Málna"
+     ],
+     [
+      "Alma",
+      "Alma"
+     ]
+    ]
+   ],
+   [
+    "^la\\-capitale\\-70$",
+    [
+     [
+      "Eper",
+      "Eper"
+     ],
+     [
+      "Őszibarack",
+      "Őszibarack"
+     ],
+     [
+      "Labdanum",
+      "Labdanum"
+     ],
+     [
+      "Karamell",
+      "Karamell"
+     ]
+    ]
+   ],
+   [
+    "^balle\\-rouge\\-536$",
+    [
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Rózsabors",
+      "Rózsabors"
+     ],
+     [
+      "Irisz",
+      "Irisz"
+     ]
+    ]
+   ],
+   [
+    "^angels\\-share\\-458$",
+    [
+     [
+      "Konyak",
+      "Konyak"
+     ],
+     [
+      "Tonkabab",
+      "Tonkabab"
+     ],
+     [
+      "Tölgyfa",
+      "Tölgyfa"
+     ],
+     [
+      "Vanília",
+      "Vanília"
+     ]
+    ]
+   ],
+   [
+    "^mandorle\\-483$",
+    [
+     [
+      "Mandula",
+      "Mandula"
+     ],
+     [
+      "Cserenye",
+      "Cserenye"
+     ],
+     [
+      "Tonkabab",
+      "Tonkabab"
+     ],
+     [
+      "Kakaó",
+      "Kakaó"
+     ]
+    ]
+   ],
+   [
+    "^jany\\-479$",
+    [
+     [
+      "Sült alma",
+      "Sült alma"
+     ],
+     [
+      "Őszibarack",
+      "Őszibarack"
+     ],
+     [
+      "Sárgabarack",
+      "Sárgabarack"
+     ],
+     [
+      "Ceyloni fahéj esszencia",
+      "Ceyloni fahéj esszencia"
+     ]
+    ]
+   ],
+   [
+    "^gladiator\\-487$",
+    [
+     [
+      "Alma",
+      "Alma"
+     ],
+     [
+      "Ananász",
+      "Ananász"
+     ],
+     [
+      "Bergamott",
+      "Bergamott"
+     ],
+     [
+      "Borsmenta",
+      "Borsmenta"
+     ]
+    ]
+   ],
+   [
+    "^erba\\-gold\\-428$",
+    [
+     [
+      "Amalfi citrom",
+      "Amalfi citrom"
+     ],
+     [
+      "Brazíl narancs",
+      "Brazíl narancs"
+     ],
+     [
+      "Gyömbér",
+      "Gyömbér"
+     ],
+     [
+      "Bergamott",
+      "Bergamott"
+     ]
+    ]
+   ],
+   [
+    "^fenice\\-670$",
+    [
+     [
+      "Barack",
+      "Barack"
+     ],
+     [
+      "Maracuja",
+      "Maracuja"
+     ],
+     [
+      "Narancsvirág",
+      "Narancsvirág"
+     ],
+     [
+      "Liliom",
+      "Liliom"
+     ]
+    ]
+   ],
+   [
+    "^adele\\-921$",
+    [
+     [
+      "Jázmin",
+      "Jázmin"
+     ],
+     [
+      "Rose de Mai",
+      "Rose de Mai"
+     ],
+     [
+      "Osmanthus",
+      "Osmanthus"
+     ],
+     [
+      "Tubarózsa",
+      "Tubarózsa"
+     ]
+    ]
+   ],
+   [
+    "^apollonia\\-20$",
+    [
+     [
+      "Fehér virágok",
+      "Fehér virágok"
+     ],
+     [
+      "Orris gyökér",
+      "Orris gyökér"
+     ],
+     [
+      "Pézsma",
+      "Pézsma"
+     ]
+    ]
+   ],
+   [
+    "^borabora\\-862$",
+    [
+     [
+      "Tiaré",
+      "Tiaré"
+     ],
+     [
+      "Ylang-Ylang",
+      "Ylang-Ylang"
+     ],
+     [
+      "Jázmin",
+      "Jázmin"
+     ],
+     [
+      "Őszibarack",
+      "Őszibarack"
+     ]
+    ]
+   ],
+   [
+    "^celeste\\-858$",
+    [
+     [
+      "Tengeri jegyek",
+      "Tengeri jegyek"
+     ],
+     [
+      "Dihidromircenol - (egy frissen citrusos - inkább limera hajazó trópusi virágos oldalú akkord)",
+      "Dihidromircenol - (egy frissen citrusos - inkább limera hajazó trópusi virágos oldalú akkord)"
+     ],
+     [
+      "Ibolya",
+      "Ibolya"
+     ],
+     [
+      "Málna",
+      "Málna"
+     ]
+    ]
+   ],
+   [
+    "^crazy\\-in\\-love\\-748$",
+    [
+     [
+      "Kardamom",
+      "Kardamom"
+     ],
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Sáfràny",
+      "Sáfràny"
+     ],
+     [
+      "Rózsa",
+      "Rózsa"
+     ]
+    ]
+   ],
+   [
+    "^dahab\\-693$",
+    [
+     [
+      "Granny Smith alma",
+      "Granny Smith alma"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Maracuja",
+      "Maracuja"
+     ],
+     [
+      "Cédrusfa",
+      "Cédrusfa"
+     ]
+    ]
+   ],
+   [
+    "^dark\\-purple\\-261$",
+    [
+     [
+      "Narancs",
+      "Narancs"
+     ],
+     [
+      "Szilva",
+      "Szilva"
+     ],
+     [
+      "Piros gyümölcsök",
+      "Piros gyümölcsök"
+     ],
+     [
+      "Rózsa",
+      "Rózsa"
+     ]
+    ]
+   ],
+   [
+    "^dolce\\-amalfi\\-31$",
+    [
+     [
+      "Birsalma",
+      "Birsalma"
+     ],
+     [
+      "Kardamom",
+      "Kardamom"
+     ],
+     [
+      "Sáfrány",
+      "Sáfrány"
+     ],
+     [
+      "Tömjén",
+      "Tömjén"
+     ]
+    ]
+   ],
+   [
+    "^fresa\\-blanca\\-1326$",
+    [
+     [
+      "Tejkrém",
+      "Tejkrém"
+     ],
+     [
+      "Trópusi Gyümölcsök",
+      "Trópusi Gyümölcsök"
+     ],
+     [
+      "Krémes Eper",
+      "Krémes Eper"
+     ],
+     [
+      "Fagylalt Akkord",
+      "Fagylalt Akkord"
+     ]
+    ]
+   ],
+   [
+    "^good\\-girl\\-gone\\-bad\\-extreme\\-185$",
+    [
+     [
+      "Tubarózsa",
+      "Tubarózsa"
+     ],
+     [
+      "Narancsvirág",
+      "Narancsvirág"
+     ],
+     [
+      "Tej",
+      "Tej"
+     ],
+     [
+      "Jázmin",
+      "Jázmin"
+     ]
+    ]
+   ],
+   [
+    "^gossip\\-night\\-919$",
+    [
+     [
+      "Mangóvirág",
+      "Mangóvirág"
+     ],
+     [
+      "Licsi",
+      "Licsi"
+     ],
+     [
+      "Heliotróp",
+      "Heliotróp"
+     ],
+     [
+      "Fehér barack",
+      "Fehér barack"
+     ]
+    ]
+   ],
+   [
+    "^love\\-in\\-black\\-551$",
+    [
+     [
+      "Ibolya",
+      "Ibolya"
+     ],
+     [
+      "Fekete ribizli",
+      "Fekete ribizli"
+     ],
+     [
+      "Mezei virágok",
+      "Mezei virágok"
+     ],
+     [
+      "Orris gyökér",
+      "Orris gyökér"
+     ]
+    ]
+   ],
+   [
+    "^love\\-in\\-white\\-548$",
+    [
+     [
+      "Spanyol narancs héja",
+      "Spanyol narancs héja"
+     ],
+     [
+      "Barack",
+      "Barack"
+     ],
+     [
+      "Nárcisz",
+      "Nárcisz"
+     ],
+     [
+      "Egyiptomi írisz",
+      "Egyiptomi írisz"
+     ]
+    ]
+   ],
+   [
+    "^lucky\\-candy\\-663$",
+    [
+     [
+      "Méz",
+      "Méz"
+     ],
+     [
+      "Pillecukor",
+      "Pillecukor"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Kakaó",
+      "Kakaó"
+     ]
+    ]
+   ],
+   [
+    "^opera\\-95$",
+    [
+     [
+      "Gyümölcskosár",
+      "Gyümölcskosár"
+     ],
+     [
+      "Török ​​rózsa",
+      "Török ​​rózsa"
+     ],
+     [
+      "Ilang-ilang",
+      "Ilang-ilang"
+     ],
+     [
+      "Szerecsendió",
+      "Szerecsendió"
+     ]
+    ]
+   ],
+   [
+    "^roses\\-greedy\\-581$",
+    [
+     [
+      "Citrusok",
+      "Citrusok"
+     ],
+     [
+      "Barack",
+      "Barack"
+     ],
+     [
+      "Kókusz",
+      "Kókusz"
+     ],
+     [
+      "Fekete ribizli",
+      "Fekete ribizli"
+     ]
+    ]
+   ],
+   [
+    "^secret\\-love\\-1056$",
+    [
+     [
+      "Mandarinvirág",
+      "Mandarinvirág"
+     ],
+     [
+      "Szeder",
+      "Szeder"
+     ],
+     [
+      "Kiwi",
+      "Kiwi"
+     ],
+     [
+      "Vízililiom",
+      "Vízililiom"
+     ]
+    ]
+   ],
+   [
+    "^shabby\\-chic\\-994$",
+    [
+     [
+      "Pünkösdi rózsa",
+      "Pünkösdi rózsa"
+     ],
+     [
+      "Fehér virágok",
+      "Fehér virágok"
+     ],
+     [
+      "Bolgár rózsa",
+      "Bolgár rózsa"
+     ],
+     [
+      "Pézsma",
+      "Pézsma"
+     ]
+    ]
+   ],
+   [
+    "^wardasina\\-116$",
+    [
+     [
+      "Gyógynövényes jegyek",
+      "Gyógynövényes jegyek"
+     ],
+     [
+      "Spanyol Sáfrány",
+      "Spanyol Sáfrány"
+     ],
+     [
+      "Cédrusfa",
+      "Cédrusfa"
+     ],
+     [
+      "Pacsuli",
+      "Pacsuli"
+     ]
+    ]
+   ],
+   [
+    "^green\\-irish\\-tweed\\-501$",
+    [
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Verbéna",
+      "Verbéna"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Borsmenta",
+      "Borsmenta"
+     ]
+    ]
+   ],
+   [
+    "^himalaya\\-509$",
+    [
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Mandarin",
+      "Mandarin"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Puskapor",
+      "Puskapor"
+     ]
+    ]
+   ],
+   [
+    "^midas\\-touch\\-1244$",
+    [
+     [
+      "bergamott",
+      "bergamott"
+     ],
+     [
+      "gurjum balzsam",
+      "gurjum balzsam"
+     ],
+     [
+      "tubarózsa",
+      "tubarózsa"
+     ],
+     [
+      "rózsa",
+      "rózsa"
+     ]
+    ]
+   ],
+   [
+    "^oud\\-dream\\-275$",
+    [
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Pacsuli",
+      "Pacsuli"
+     ],
+     [
+      "Rózsa",
+      "Rózsa"
+     ],
+     [
+      "Bors",
+      "Bors"
+     ]
+    ]
+   ],
+   [
+    "^red\\-tobacco\\-217$",
+    [
+     [
+      "Sáfrány",
+      "Sáfrány"
+     ],
+     [
+      "Fahéj",
+      "Fahéj"
+     ],
+     [
+      "Tömjén",
+      "Tömjén"
+     ],
+     [
+      "Szerecsendió",
+      "Szerecsendió"
+     ]
+    ]
+   ],
+   [
+    "^the\\-one\\-and\\-only\\-1048$",
+    [
+     [
+      "Citrom",
+      "Citrom"
+     ],
+     [
+      "Mandarin",
+      "Mandarin"
+     ],
+     [
+      "Bergamott",
+      "Bergamott"
+     ],
+     [
+      "Rozmaring",
+      "Rozmaring"
+     ]
+    ]
+   ],
+   [
+    "^torino\\-22\\-1032$",
+    [
+     [
+      "Bergamott",
+      "Bergamott"
+     ],
+     [
+      "Eukaliptusz",
+      "Eukaliptusz"
+     ],
+     [
+      "Sáfrány",
+      "Sáfrány"
+     ],
+     [
+      "Mate",
+      "Mate"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^erba\\-pura\\-7$",
+    "composition": {
+     "tr": [
+      "Fej: Szicíliai Bergamott, Citrom, Narancs",
+      "Szív: Mediterrán gyümölcsök",
+      "Alap: Ámbra, Pézsma, Madagaszkári Vanília"
+     ],
+     "en": [
+      "Fej: Szicíliai Bergamott, Citrom, Narancs",
+      "Szív: Mediterrán gyümölcsök",
+      "Alap: Ámbra, Pézsma, Madagaszkári Vanília"
+     ]
+    }
+   },
+   {
+    "match": "^good\\-girl\\-gone\\-bad\\-182$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Tubarózsa abszolút, Jázmin, Nárcisz, Rózsa, Osmanthus, Ámbra"
+     ],
+     "en": [
+      "Illatjegyek: Tubarózsa abszolút, Jázmin, Nárcisz, Rózsa, Osmanthus, Ámbra"
+     ]
+    }
+   },
+   {
+    "match": "^aventus\\-477$",
+    "composition": {
+     "tr": [
+      "Fej: Alma, Bergamott, Citrom, Fekete ribizli",
+      "Alap: Nyírfa, Cédrusfa, Tölgymoha, Pézsma"
+     ],
+     "en": [
+      "Fej: Alma, Bergamott, Citrom, Fekete ribizli",
+      "Alap: Nyírfa, Cédrusfa, Tölgymoha, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^kirke\\-460$",
+    "composition": {
+     "tr": [
+      "Fej: Maracuja, Barack, Körte, Málna, Meleg homok",
+      "Szív: Liliom",
+      "Alap: Szantálfa, Vanília, Pacsuli, Pézsma, Heliotróp"
+     ],
+     "en": [
+      "Fej: Maracuja, Barack, Körte, Málna, Meleg homok",
+      "Szív: Liliom",
+      "Alap: Szantálfa, Vanília, Pacsuli, Pézsma, Heliotróp"
+     ]
+    }
+   },
+   {
+    "match": "^hacivat\\-72$",
+    "composition": {
+     "tr": [
+      "Fej: Bergamot, Ananász, Grapefruit",
+      "Szív: Jázmin, Pacsuli, Cédrusfa",
+      "Alap: Tölgymoha, Fás jegyek"
+     ],
+     "en": [
+      "Fej: Bergamot, Ananász, Grapefruit",
+      "Szív: Jázmin, Pacsuli, Cédrusfa",
+      "Alap: Tölgymoha, Fás jegyek"
+     ]
+    }
+   },
+   {
+    "match": "^naxos\\-89$",
+    "composition": {
+     "tr": [
+      "Fej: Bergamott, Citrom, Levendula",
+      "Szív: Jázmin, Fahéj, Méz, Kasmír",
+      "Alap: Dohány, Tonkabab, Vanília"
+     ],
+     "en": [
+      "Fej: Bergamott, Citrom, Levendula",
+      "Szív: Jázmin, Fahéj, Méz, Kasmír",
+      "Alap: Dohány, Tonkabab, Vanília"
+     ]
+    }
+   },
+   {
+    "match": "^mansa\\-420$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Fekete ribizli, Rózsabors, Orris gyökér, Oud, Rózsa, Ámbra, Sáfrány, Pacsuli, Heliotróp, Moha, Pézsma"
+     ],
+     "en": [
+      "Illatjegyek: Fekete ribizli, Rózsabors, Orris gyökér, Oud, Rózsa, Ámbra, Sáfrány, Pacsuli, Heliotróp, Moha, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^akigala\\-mandarino\\-761$",
+    "composition": {
+     "tr": [
+      "Fej: Mandarin, Maracuja, Málna, Alma",
+      "Szív: Frézia, Jázmin, Gyöngyvirág",
+      "Alap: Akigalawood, Ámbra"
+     ],
+     "en": [
+      "Fej: Mandarin, Maracuja, Málna, Alma",
+      "Szív: Frézia, Jázmin, Gyöngyvirág",
+      "Alap: Akigalawood, Ámbra"
+     ]
+    }
+   },
+   {
+    "match": "^la\\-capitale\\-70$",
+    "composition": {
+     "tr": [
+      "Fej: Eper, Őszibarack, Labdanum, Karamell",
+      "Szív: Rózsa, Bőr, Iráni sáfrány, Ámbra, Gyömbér",
+      "Alap: Benzoin, Bourbon vanília"
+     ],
+     "en": [
+      "Fej: Eper, Őszibarack, Labdanum, Karamell",
+      "Szív: Rózsa, Bőr, Iráni sáfrány, Ámbra, Gyömbér",
+      "Alap: Benzoin, Bourbon vanília"
+     ]
+    }
+   },
+   {
+    "match": "^balle\\-rouge\\-536$",
+    "composition": {
+     "tr": [
+      "Fej: Citrom, Bergamot, Rózsabors",
+      "Szív: Irisz, Rózsa, Ámbra",
+      "Alap: Vanília, Tonkabab, Pézsma, Cédrusfa, Pacsuli"
+     ],
+     "en": [
+      "Fej: Citrom, Bergamot, Rózsabors",
+      "Szív: Irisz, Rózsa, Ámbra",
+      "Alap: Vanília, Tonkabab, Pézsma, Cédrusfa, Pacsuli"
+     ]
+    }
+   },
+   {
+    "match": "^angels\\-share\\-458$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Konyak, Tonkabab, Tölgyfa, Vanília, Fahéj, Praliné, Szantálfa"
+     ],
+     "en": [
+      "Illatjegyek: Konyak, Tonkabab, Tölgyfa, Vanília, Fahéj, Praliné, Szantálfa"
+     ]
+    }
+   },
+   {
+    "match": "^mandorle\\-483$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Mandula, Cserenye, Tonkabab, Kakaó, Rum, Vanília, Velúrbőr, Pézsma"
+     ],
+     "en": [
+      "Illatjegyek: Mandula, Cserenye, Tonkabab, Kakaó, Rum, Vanília, Velúrbőr, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^jany\\-479$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Sült alma, Őszibarack, Sárgabarack, Ceyloni fahéj esszencia, Leveles tészta, Osmanthus abszolút, Szilva, Dió, Karamell, Mandula, Vanília"
+     ],
+     "en": [
+      "Illatjegyek: Sült alma, Őszibarack, Sárgabarack, Ceyloni fahéj esszencia, Leveles tészta, Osmanthus abszolút, Szilva, Dió, Karamell, Mandula, Vanília"
+     ]
+    }
+   },
+   {
+    "match": "^gladiator\\-487$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Alma, Ananász, Bergamott, Borsmenta, Cédrusfa, Fehér virágok, Geránium, Grapefruit"
+     ],
+     "en": [
+      "Illatjegyek: Alma, Ananász, Bergamott, Borsmenta, Cédrusfa, Fehér virágok, Geránium, Grapefruit"
+     ]
+    }
+   },
+   {
+    "match": "^erba\\-gold\\-428$",
+    "composition": {
+     "tr": [
+      "Fej: Amalfi citrom, Brazíl narancs, Gyömbér, Bergamott",
+      "Szív: Zöldalma, Sárgadinnye, Körte, Guatamalai kardamom, Madagaszkári fahéj",
+      "Alap: Fehér pézsma, Madagaszkári vanília, Ámbra, Fás jegyek"
+     ],
+     "en": [
+      "Fej: Amalfi citrom, Brazíl narancs, Gyömbér, Bergamott",
+      "Szív: Zöldalma, Sárgadinnye, Körte, Guatamalai kardamom, Madagaszkári fahéj",
+      "Alap: Fehér pézsma, Madagaszkári vanília, Ámbra, Fás jegyek"
+     ]
+    }
+   },
+   {
+    "match": "^fenice\\-670$",
+    "composition": {
+     "tr": [
+      "Fej: Barack, Maracuja",
+      "Szív: Narancsvirág, Liliom, Magnólia, Jázmin",
+      "Alap: Pézsma, Ámbra, Fás jegyek"
+     ],
+     "en": [
+      "Fej: Barack, Maracuja",
+      "Szív: Narancsvirág, Liliom, Magnólia, Jázmin",
+      "Alap: Pézsma, Ámbra, Fás jegyek"
+     ]
+    }
+   },
+   {
+    "match": "^adele\\-921$",
+    "composition": {
+     "tr": [
+      "Fej: Jázmin, Rose de Mai, Osmanthus",
+      "Szív: Tubarózsa, Dohányvirág, Nárcisz",
+      "Alap: Ámbra, Cédrusfa, Pézsma"
+     ],
+     "en": [
+      "Fej: Jázmin, Rose de Mai, Osmanthus",
+      "Szív: Tubarózsa, Dohányvirág, Nárcisz",
+      "Alap: Ámbra, Cédrusfa, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^apollonia\\-20$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Fehér virágok, Orris gyökér, Pézsma"
+     ],
+     "en": [
+      "Illatjegyek: Fehér virágok, Orris gyökér, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^borabora\\-862$",
+    "composition": {
+     "tr": [
+      "Fej: Tiaré, Ylang-Ylang, Jázmin, Őszibarack",
+      "Szív: Kókusztej, Fehér Pézsma, Jasmolactone -(Jázminos-barackos- kókusztejes egyedi akkord)",
+      "Alap: Vanília, Ámbra, Fehér Pézsma, Karamell"
+     ],
+     "en": [
+      "Fej: Tiaré, Ylang-Ylang, Jázmin, Őszibarack",
+      "Szív: Kókusztej, Fehér Pézsma, Jasmolactone -(Jázminos-barackos- kókusztejes egyedi akkord)",
+      "Alap: Vanília, Ámbra, Fehér Pézsma, Karamell"
+     ]
+    }
+   },
+   {
+    "match": "^celeste\\-858$",
+    "composition": {
+     "tr": [
+      "Fej: Tengeri jegyek, Dihidromircenol - (egy frissen citrusos - inkább limera hajazó trópusi virágos oldalú akkord)",
+      "Szív: Ibolya, Málna, Egzotikus virágok",
+      "Alap: Vanillin, Ambroxan"
+     ],
+     "en": [
+      "Fej: Tengeri jegyek, Dihidromircenol - (egy frissen citrusos - inkább limera hajazó trópusi virágos oldalú akkord)",
+      "Szív: Ibolya, Málna, Egzotikus virágok",
+      "Alap: Vanillin, Ambroxan"
+     ]
+    }
+   },
+   {
+    "match": "^crazy\\-in\\-love\\-748$",
+    "composition": {
+     "tr": [
+      "Fej: Kardamom, Citrom, Sáfràny, Rózsa",
+      "Szív: Ibolya, Szantálfa",
+      "Alap: Ámbra, Barna cukor, Pézsma, Vanília"
+     ],
+     "en": [
+      "Fej: Kardamom, Citrom, Sáfràny, Rózsa",
+      "Szív: Ibolya, Szantálfa",
+      "Alap: Ámbra, Barna cukor, Pézsma, Vanília"
+     ]
+    }
+   },
+   {
+    "match": "^dahab\\-693$",
+    "composition": {
+     "tr": [
+      "Fej: Granny Smith alma, Bergamot",
+      "Szív: Maracuja, Cédrusfa, Koriander",
+      "Alap: Ámbra, Pézsma, Pacsuli"
+     ],
+     "en": [
+      "Fej: Granny Smith alma, Bergamot",
+      "Szív: Maracuja, Cédrusfa, Koriander",
+      "Alap: Ámbra, Pézsma, Pacsuli"
+     ]
+    }
+   },
+   {
+    "match": "^dark\\-purple\\-261$",
+    "composition": {
+     "tr": [
+      "Fej: Narancs, Szilva",
+      "Szív: Piros gyümölcsök, Rózsa, Geránium",
+      "Alap: Pézsma, Pacsuli, Tikfa"
+     ],
+     "en": [
+      "Fej: Narancs, Szilva",
+      "Szív: Piros gyümölcsök, Rózsa, Geránium",
+      "Alap: Pézsma, Pacsuli, Tikfa"
+     ]
+    }
+   },
+   {
+    "match": "^dolce\\-amalfi\\-31$",
+    "composition": {
+     "tr": [
+      "Fej: Birsalma, Kardamom, Sáfrány",
+      "Szív: Tömjén, Szegfűszeg, Tolu balzsam",
+      "Alap: Vanília, Tonkabab, Pézsma, Cédrus, Ámbra, Vanília"
+     ],
+     "en": [
+      "Fej: Birsalma, Kardamom, Sáfrány",
+      "Szív: Tömjén, Szegfűszeg, Tolu balzsam",
+      "Alap: Vanília, Tonkabab, Pézsma, Cédrus, Ámbra, Vanília"
+     ]
+    }
+   },
+   {
+    "match": "^fresa\\-blanca\\-1326$",
+    "composition": {
+     "tr": [
+      "Fej: Tejkrém, Trópusi Gyümölcsök, Krémes Eper",
+      "Szív: Fagylalt Akkord, Vanília, Vaj",
+      "Alap: Vanília, Tonkabab, Tej"
+     ],
+     "en": [
+      "Fej: Tejkrém, Trópusi Gyümölcsök, Krémes Eper",
+      "Szív: Fagylalt Akkord, Vanília, Vaj",
+      "Alap: Vanília, Tonkabab, Tej"
+     ]
+    }
+   },
+   {
+    "match": "^good\\-girl\\-gone\\-bad\\-extreme\\-185$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Tubarózsa, Narancsvirág, Tej, Jázmin, Nárcisz, Rózsa, Osmanthus, Ámbra"
+     ],
+     "en": [
+      "Illatjegyek: Tubarózsa, Narancsvirág, Tej, Jázmin, Nárcisz, Rózsa, Osmanthus, Ámbra"
+     ]
+    }
+   },
+   {
+    "match": "^gossip\\-night\\-919$",
+    "composition": {
+     "tr": [
+      "Fej: Mangóvirág, Licsi, Heliotróp",
+      "Szív: Fehér barack, Krém, Karamell",
+      "Alap: Madagaszkári vanília, Fehér pézsma, Kasmír"
+     ],
+     "en": [
+      "Fej: Mangóvirág, Licsi, Heliotróp",
+      "Szív: Fehér barack, Krém, Karamell",
+      "Alap: Madagaszkári vanília, Fehér pézsma, Kasmír"
+     ]
+    }
+   },
+   {
+    "match": "^love\\-in\\-black\\-551$",
+    "composition": {
+     "tr": [
+      "Fej: Ibolya, Fekete ribizli, Mezei virágok",
+      "Szív: Orris gyökér, Bolgár rózsa, Jázmin",
+      "Alap: Cédrusfa, Pézsma, Bőr"
+     ],
+     "en": [
+      "Fej: Ibolya, Fekete ribizli, Mezei virágok",
+      "Szív: Orris gyökér, Bolgár rózsa, Jázmin",
+      "Alap: Cédrusfa, Pézsma, Bőr"
+     ]
+    }
+   },
+   {
+    "match": "^love\\-in\\-white\\-548$",
+    "composition": {
+     "tr": [
+      "Fej: Spanyol narancs héja, Barack",
+      "Szív: Nárcisz, Egyiptomi írisz, Jázmin, Magnólia, Rózsa",
+      "Alap: Pézsma, Rizses jegy, Cédrusfa"
+     ],
+     "en": [
+      "Fej: Spanyol narancs héja, Barack",
+      "Szív: Nárcisz, Egyiptomi írisz, Jázmin, Magnólia, Rózsa",
+      "Alap: Pézsma, Rizses jegy, Cédrusfa"
+     ]
+    }
+   },
+   {
+    "match": "^lucky\\-candy\\-663$",
+    "composition": {
+     "tr": [
+      "Fej: Méz, Pillecukor, Bergamot, Kakaó",
+      "Szív: Neroli, Kókusz, Liliom, Frangipáni virág",
+      "Alap: Pézsma, Vanília, Ámbra, Karamell"
+     ],
+     "en": [
+      "Fej: Méz, Pillecukor, Bergamot, Kakaó",
+      "Szív: Neroli, Kókusz, Liliom, Frangipáni virág",
+      "Alap: Pézsma, Vanília, Ámbra, Karamell"
+     ]
+    }
+   },
+   {
+    "match": "^opera\\-95$",
+    "composition": {
+     "tr": [
+      "Fej: Gyümölcskosár, Török ​​rózsa",
+      "Szív: Ilang-ilang, Szerecsendió, Bőr, Ámbra",
+      "Alap: Vanília, pacsuli, Haiti vetiver, Pézsma, Virginiai cédrus"
+     ],
+     "en": [
+      "Fej: Gyümölcskosár, Török ​​rózsa",
+      "Szív: Ilang-ilang, Szerecsendió, Bőr, Ámbra",
+      "Alap: Vanília, pacsuli, Haiti vetiver, Pézsma, Virginiai cédrus"
+     ]
+    }
+   },
+   {
+    "match": "^roses\\-greedy\\-581$",
+    "composition": {
+     "tr": [
+      "Fej: Citrusok, Barack, Kókusz, Fekete ribizli",
+      "Szív: Francia Rózsa, Jázmin",
+      "Alap: Ámbra, Vanília, Pézsma, Benzoin"
+     ],
+     "en": [
+      "Fej: Citrusok, Barack, Kókusz, Fekete ribizli",
+      "Szív: Francia Rózsa, Jázmin",
+      "Alap: Ámbra, Vanília, Pézsma, Benzoin"
+     ]
+    }
+   },
+   {
+    "match": "^secret\\-love\\-1056$",
+    "composition": {
+     "tr": [
+      "Fej: Mandarinvirág, Szeder, Kiwi",
+      "Szív: Vízililiom, Frézia, Orchidea",
+      "Alap: Szantálfa, Mahagóni, Pézsma"
+     ],
+     "en": [
+      "Fej: Mandarinvirág, Szeder, Kiwi",
+      "Szív: Vízililiom, Frézia, Orchidea",
+      "Alap: Szantálfa, Mahagóni, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^shabby\\-chic\\-994$",
+    "composition": {
+     "tr": [
+      "Fej: Pünkösdi rózsa",
+      "Szív: Fehér virágok, Bolgár rózsa",
+      "Alap: Pézsma, Szantálfa, Cédrusfa"
+     ],
+     "en": [
+      "Fej: Pünkösdi rózsa",
+      "Szív: Fehér virágok, Bolgár rózsa",
+      "Alap: Pézsma, Szantálfa, Cédrusfa"
+     ]
+    }
+   },
+   {
+    "match": "^wardasina\\-116$",
+    "composition": {
+     "tr": [
+      "Fej: Gyógynövényes jegyek",
+      "Szív: Spanyol Sáfrány, Cédrusfa, Pacsuli, Bolgár rózsa",
+      "Alap: Vanília, Pézsma, Dohány"
+     ],
+     "en": [
+      "Fej: Gyógynövényes jegyek",
+      "Szív: Spanyol Sáfrány, Cédrusfa, Pacsuli, Bolgár rózsa",
+      "Alap: Vanília, Pézsma, Dohány"
+     ]
+    }
+   },
+   {
+    "match": "^green\\-irish\\-tweed\\-501$",
+    "composition": {
+     "tr": [
+      "Fej: Citrom, Verbéna, Bergamot, Borsmenta",
+      "Szív: Egyiptomi muskátli, Levendula, Ibolya",
+      "Alap: Indiai szantálfa, Cédrusfa, Ámbra, Tölgymoha"
+     ],
+     "en": [
+      "Fej: Citrom, Verbéna, Bergamot, Borsmenta",
+      "Szív: Egyiptomi muskátli, Levendula, Ibolya",
+      "Alap: Indiai szantálfa, Cédrusfa, Ámbra, Tölgymoha"
+     ]
+    }
+   },
+   {
+    "match": "^himalaya\\-509$",
+    "composition": {
+     "tr": [
+      "Fej: Citrom, Mandarin, Bergamot",
+      "Szív: Puskapor, Borókabogyó, Szerecsendió, Bors, Levendula, Jázmin",
+      "Alap: Szantálfa, Vetiver, Cédrusfa"
+     ],
+     "en": [
+      "Fej: Citrom, Mandarin, Bergamot",
+      "Szív: Puskapor, Borókabogyó, Szerecsendió, Bors, Levendula, Jázmin",
+      "Alap: Szantálfa, Vetiver, Cédrusfa"
+     ]
+    }
+   },
+   {
+    "match": "^midas\\-touch\\-1244$",
+    "composition": {
+     "tr": [
+      "Fej: bergamott, gurjum balzsam, tubarózsa",
+      "Szív: rózsa, osmanthus, labdanum, bőr",
+      "Alap: pacsuli, cypriol, sziámi benzoé, oud"
+     ],
+     "en": [
+      "Fej: bergamott, gurjum balzsam, tubarózsa",
+      "Szív: rózsa, osmanthus, labdanum, bőr",
+      "Alap: pacsuli, cypriol, sziámi benzoé, oud"
+     ]
+    }
+   },
+   {
+    "match": "^oud\\-dream\\-275$",
+    "composition": {
+     "tr": [
+      "Illatjegyek: Oud, Pacsuli, Rózsa, Bors, Kardamom, Bergamot, Cédrusfa"
+     ],
+     "en": [
+      "Illatjegyek: Oud, Pacsuli, Rózsa, Bors, Kardamom, Bergamot, Cédrusfa"
+     ]
+    }
+   },
+   {
+    "match": "^red\\-tobacco\\-217$",
+    "composition": {
+     "tr": [
+      "Fej: Sáfrány, Fahéj, Tömjén, Szerecsendió, Zöldalma, Barack, Oud",
+      "Szív: Pacsuli, Jázmin",
+      "Alap: Cubai dohány, Ámbra, Fás jegyek, Vanília, Pézsma"
+     ],
+     "en": [
+      "Fej: Sáfrány, Fahéj, Tömjén, Szerecsendió, Zöldalma, Barack, Oud",
+      "Szív: Pacsuli, Jázmin",
+      "Alap: Cubai dohány, Ámbra, Fás jegyek, Vanília, Pézsma"
+     ]
+    }
+   },
+   {
+    "match": "^the\\-one\\-and\\-only\\-1048$",
+    "composition": {
+     "tr": [
+      "Fej: Citrom, Mandarin, Bergamott",
+      "Szív: Rozmaring, Gyöngyvirág, Szerecsendió",
+      "Alap: Pézsma, Cédrusfa, Vanília"
+     ],
+     "en": [
+      "Fej: Citrom, Mandarin, Bergamott",
+      "Szív: Rozmaring, Gyöngyvirág, Szerecsendió",
+      "Alap: Pézsma, Cédrusfa, Vanília"
+     ]
+    }
+   },
+   {
+    "match": "^torino\\-22\\-1032$",
+    "composition": {
+     "tr": [
+      "Fej: Bergamott, Eukaliptusz, Sáfrány",
+      "Szív: Mate, Zsálya, Muskotályzsálya, Guajakfa",
+      "Alap: Ciprus, Vetiver, Cédrus, Pézsma"
+     ],
+     "en": [
+      "Fej: Bergamott, Eukaliptusz, Sáfrány",
+      "Szív: Mate, Zsálya, Muskotályzsálya, Guajakfa",
+      "Alap: Ciprus, Vetiver, Cédrus, Pézsma"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^erba\\-pura\\-7$",
+    "#4b9aab",
+    "#cce2e7",
+    "#0e1e22"
+   ],
+   [
+    "^good\\-girl\\-gone\\-bad\\-182$",
+    "#c69f6d",
+    "#efe4d6",
+    "#271f15"
+   ],
+   [
+    "^aventus\\-477$",
+    "#3a3440",
+    "#c7c6c9",
+    "#0b0a0c"
+   ],
+   [
+    "^kirke\\-460$",
+    "#c6a26d",
+    "#efe4d6",
+    "#272015"
+   ],
+   [
+    "^hacivat\\-72$",
+    "#c69b52",
+    "#efe3ce",
+    "#271e10"
+   ],
+   [
+    "^naxos\\-89$",
+    "#c6b46d",
+    "#efead6",
+    "#272315"
+   ],
+   [
+    "^mansa\\-420$",
+    "#3a3440",
+    "#c7c6c9",
+    "#0b0a0c"
+   ],
+   [
+    "^akigala\\-mandarino\\-761$",
+    "#813c32",
+    "#dbc8c5",
+    "#190b09"
+   ],
+   [
+    "^la\\-capitale\\-70$",
+    "#c6ab6d",
+    "#efe7d6",
+    "#272215"
+   ],
+   [
+    "^balle\\-rouge\\-536$",
+    "#c6313a",
+    "#efc5c7",
+    "#27090b"
+   ],
+   [
+    "^angels\\-share\\-458$",
+    "#b48b51",
+    "#eadece",
+    "#231b10"
+   ],
+   [
+    "^mandorle\\-483$",
+    "#46647f",
+    "#cbd3db",
+    "#0d1319"
+   ],
+   [
+    "^jany\\-479$",
+    "#b89a6a",
+    "#ebe2d5",
+    "#241e15"
+   ],
+   [
+    "^gladiator\\-487$",
+    "#46657f",
+    "#cbd3db",
+    "#0d1419"
+   ],
+   [
+    "^erba\\-gold\\-428$",
+    "#c6a331",
+    "#efe5c5",
+    "#272009"
+   ],
+   [
+    "^fenice\\-670$",
+    "#b9342e",
+    "#ebc6c4",
+    "#240a09"
+   ],
+   [
+    "^adele\\-921$",
+    "#c69948",
+    "#efe2cb",
+    "#271e0e"
+   ],
+   [
+    "^apollonia\\-20$",
+    "#c6ab6d",
+    "#efe7d6",
+    "#272215"
+   ],
+   [
+    "^borabora\\-862$",
+    "#c6ac3b",
+    "#efe7c8",
+    "#27220b"
+   ],
+   [
+    "^celeste\\-858$",
+    "#6395b5",
+    "#d3e1ea",
+    "#131d24"
+   ],
+   [
+    "^crazy\\-in\\-love\\-748$",
+    "#bd2f86",
+    "#ecc4dd",
+    "#25091a"
+   ],
+   [
+    "^dahab\\-693$",
+    "#a8875c",
+    "#e6ddd1",
+    "#211a12"
+   ],
+   [
+    "^dark\\-purple\\-261$",
+    "#7f466b",
+    "#dbcbd5",
+    "#190d15"
+   ],
+   [
+    "^dolce\\-amalfi\\-31$",
+    "#c6a938",
+    "#efe6c7",
+    "#27210b"
+   ],
+   [
+    "^fresa\\-blanca\\-1326$",
+    "#bf6976",
+    "#edd4d8",
+    "#261417"
+   ],
+   [
+    "^good\\-girl\\-gone\\-bad\\-extreme\\-185$",
+    "#c6a06d",
+    "#efe4d6",
+    "#271f15"
+   ],
+   [
+    "^gossip\\-night\\-919$",
+    "#c69b50",
+    "#efe3ce",
+    "#271e0f"
+   ],
+   [
+    "^love\\-in\\-black\\-551$",
+    "#3a3440",
+    "#c7c6c9",
+    "#0b0a0c"
+   ],
+   [
+    "^love\\-in\\-white\\-548$",
+    "#b89a6a",
+    "#ebe2d5",
+    "#241e15"
+   ],
+   [
+    "^lucky\\-candy\\-663$",
+    "#c64f83",
+    "#efcddc",
+    "#270f1a"
+   ],
+   [
+    "^opera\\-95$",
+    "#c6ac6d",
+    "#efe7d6",
+    "#272215"
+   ],
+   [
+    "^roses\\-greedy\\-581$",
+    "#a18854",
+    "#e4ddcf",
+    "#201b10"
+   ],
+   [
+    "^secret\\-love\\-1056$",
+    "#7f5e46",
+    "#dbd1cb",
+    "#19120d"
+   ],
+   [
+    "^shabby\\-chic\\-994$",
+    "#94515f",
+    "#e1ced2",
+    "#1d1012"
+   ],
+   [
+    "^wardasina\\-116$",
+    "#c5423c",
+    "#eecac8",
+    "#270d0b"
+   ],
+   [
+    "^green\\-irish\\-tweed\\-501$",
+    "#3a3440",
+    "#c7c6c9",
+    "#0b0a0c"
+   ],
+   [
+    "^himalaya\\-509$",
+    "#b89a6a",
+    "#ebe2d5",
+    "#241e15"
+   ],
+   [
+    "^midas\\-touch\\-1244$",
+    "#ae8c5f",
+    "#e8ded2",
+    "#221b12"
+   ],
+   [
+    "^oud\\-dream\\-275$",
+    "#c6a369",
+    "#efe5d4",
+    "#272014"
+   ],
+   [
+    "^red\\-tobacco\\-217$",
+    "#c63d31",
+    "#efc8c5",
+    "#270c09"
+   ],
+   [
+    "^the\\-one\\-and\\-only\\-1048$",
+    "#7f5e46",
+    "#dbd1cb",
+    "#19120d"
+   ],
+   [
+    "^torino\\-22\\-1032$",
+    "#202f82",
+    "#c0c4dc",
+    "#060919"
+   ]
+  ],
+  "sizes": [
+   [
+    "^erba\\-pura\\-7$",
+    "50 ml"
+   ],
+   [
+    "^good\\-girl\\-gone\\-bad\\-182$",
+    "50 ml"
+   ],
+   [
+    "^aventus\\-477$",
+    "50 ml"
+   ],
+   [
+    "^kirke\\-460$",
+    "100 ml"
+   ],
+   [
+    "^hacivat\\-72$",
+    "50 ml"
+   ],
+   [
+    "^naxos\\-89$",
+    "100 ml"
+   ],
+   [
+    "^mansa\\-420$",
+    "50 ml"
+   ],
+   [
+    "^akigala\\-mandarino\\-761$",
+    "50 ml"
+   ],
+   [
+    "^la\\-capitale\\-70$",
+    "50 ml"
+   ],
+   [
+    "^balle\\-rouge\\-536$",
+    "100 ml"
+   ],
+   [
+    "^angels\\-share\\-458$",
+    "50 ml"
+   ],
+   [
+    "^mandorle\\-483$",
+    "50 ml"
+   ],
+   [
+    "^jany\\-479$",
+    "50 ml"
+   ],
+   [
+    "^gladiator\\-487$",
+    "50 ml"
+   ],
+   [
+    "^erba\\-gold\\-428$",
+    "50 ml"
+   ],
+   [
+    "^fenice\\-670$",
+    "100 ml"
+   ],
+   [
+    "^adele\\-921$",
+    "100 ml"
+   ],
+   [
+    "^apollonia\\-20$",
+    "50 ml"
+   ],
+   [
+    "^borabora\\-862$",
+    "100 ml"
+   ],
+   [
+    "^celeste\\-858$",
+    "100 ml"
+   ],
+   [
+    "^crazy\\-in\\-love\\-748$",
+    "100 ml"
+   ],
+   [
+    "^dahab\\-693$",
+    "100 ml"
+   ],
+   [
+    "^dark\\-purple\\-261$",
+    "100 ml"
+   ],
+   [
+    "^dolce\\-amalfi\\-31$",
+    "30 ml"
+   ],
+   [
+    "^fresa\\-blanca\\-1326$",
+    "30 ml"
+   ],
+   [
+    "^good\\-girl\\-gone\\-bad\\-extreme\\-185$",
+    "50 ml"
+   ],
+   [
+    "^gossip\\-night\\-919$",
+    "100 ml"
+   ],
+   [
+    "^love\\-in\\-black\\-551$",
+    "75 ml"
+   ],
+   [
+    "^love\\-in\\-white\\-548$",
+    "75 ml"
+   ],
+   [
+    "^lucky\\-candy\\-663$",
+    "100 ml"
+   ],
+   [
+    "^opera\\-95$",
+    "50 ml"
+   ],
+   [
+    "^roses\\-greedy\\-581$",
+    "120 ml"
+   ],
+   [
+    "^secret\\-love\\-1056$",
+    "75 ml"
+   ],
+   [
+    "^shabby\\-chic\\-994$",
+    "100 ml"
+   ],
+   [
+    "^wardasina\\-116$",
+    "100 ml"
+   ],
+   [
+    "^green\\-irish\\-tweed\\-501$",
+    "50 ml"
+   ],
+   [
+    "^himalaya\\-509$",
+    "50 ml"
+   ],
+   [
+    "^midas\\-touch\\-1244$",
+    "30 ml"
+   ],
+   [
+    "^oud\\-dream\\-275$",
+    "100 ml"
+   ],
+   [
+    "^red\\-tobacco\\-217$",
+    "60 ml"
+   ],
+   [
+    "^the\\-one\\-and\\-only\\-1048$",
+    "75 ml"
+   ],
+   [
+    "^torino\\-22\\-1032$",
+    "50 ml"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "erba-pura-7",
+    "tr": {
+     "title": "Mi a célunk?",
+     "text": "Azon dolgozunk, hogy minél több emberrel megismertessük a luxusparfümök világát.",
+     "stat": "Xerjoff · Erba Pura"
+    },
+    "en": {
+     "title": "Mi a célunk?",
+     "text": "Azon dolgozunk, hogy minél több emberrel megismertessük a luxusparfümök világát.",
+     "stat": "Xerjoff · Erba Pura"
+    }
+   },
+   {
+    "handle": "good-girl-gone-bad-182",
+    "tr": {
+     "title": "Parfümőrült kedvencei",
+     "text": "Olyan illatok, amiket mi is nagy megelégedéssel használunk a mindennapokban.",
+     "stat": "Kilian Paris · Good Girl Gone Bad"
+    },
+    "en": {
+     "title": "Parfümőrült kedvencei",
+     "text": "Olyan illatok, amiket mi is nagy megelégedéssel használunk a mindennapokban.",
+     "stat": "Kilian Paris · Good Girl Gone Bad"
+    }
+   },
+   {
+    "handle": "aventus-477",
+    "tr": {
+     "title": "Szűrők illatcsaládokra",
+     "text": "Az illatokat olyan szűrőkkel kategorizáltuk, mint pl.: édes, fűszeres vagy éppen fás illatok.",
+     "stat": "Creed · Aventus"
+    },
+    "en": {
+     "title": "Szűrők illatcsaládokra",
+     "text": "Az illatokat olyan szűrőkkel kategorizáltuk, mint pl.: édes, fűszeres vagy éppen fás illatok.",
+     "stat": "Creed · Aventus"
+    }
+   }
+  ]
+ }
+}

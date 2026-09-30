@@ -24,6 +24,7 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      dikdörtgen kontur), kapak ve cam kenarı olduğu gibi kalır (marka dosyasında "glass": true)
     "edgeFrom": "side"              3B kalınlık yüzlerinin rengi fotoğraftaki yan panelden (kesim kenarından değil)
     "backLang": "en"                arka etiket metni İngilizce mağazadan (mağazanın varsayılan dili Türkçe değilse)
+    "backHead": "ILLATJEGYEK"       arka etiketteki notalar başlığı (başka dildeki mağaza için)
     "solidTop": 0.25                ürünün üst bölümü (oran) delik bırakılmadan dolu kesilir (zemine yakın renkli kapak)
     "glassBack": {"label": [x0, y0, x1, y1], "labels": [["regex", [x0, y0, x1, y1]]], "lines": ["...", ...]}
                                      renkli cam şişe: arka yüz ön fotoğrafın aynası (cam ve renk net), ön etiketin
@@ -567,7 +568,7 @@ def draw_back_label(img, text):
         items.append((None, None, base * 0.45))
         blocks = [(None, text["desc"])]
         if text.get("chips"):
-            blocks.append(("NOTES" if RULES.get("backLang") == "en" else "ÖZELLİKLER", " · ".join(text["chips"])))
+            blocks.append((RULES.get("backHead") or ("NOTES" if RULES.get("backLang") == "en" else "ÖZELLİKLER"), " · ".join(text["chips"])))
         if text.get("usage"):
             blocks.append(("KULLANIM", text["usage"]))
         for head, bodytxt in blocks:
@@ -741,6 +742,11 @@ def back_text(handle):
         if poem:
             desc = _clip(" ".join(poem[:4]), 140)
         chips = [x for x in L[k + 1:] if not x.endswith(":")]
+    # merxwebshop mağazası (merx-cek.py): notalar merx-raw.json'da (üst ve kalp notaları önce).
+    merx_p = os.path.join(SRC, "merx-raw.json")
+    if not chips and os.path.exists(merx_p):
+        r = next((x for x in json.load(open(merx_p, encoding="utf-8")) if x["handle"] == handle), None)
+        chips = (r or {}).get("notes", [])[:6]
     size = size or _ALL.get("aktar", {}).get("defaultSize")
     return {"name": name, "size": size, "desc": desc, "chips": chips, "usage": _clip(usage, 150) if usage else None}
 

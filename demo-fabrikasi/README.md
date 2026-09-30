@@ -291,6 +291,20 @@ alt) olarak `woo-raw.json`'a yazılır; iki dilin aynı açıklamada durduğu ü
 diller ayrılır. Aktarım kuralları: `"platform": "woo"`, `"wooCart": "sepet"` (sepete ekle bağlantısı
 `/<wooCart>/?add-to-cart=<id>`), ürüne özel `"families"` ve `"taglines"`.
 
+## merxwebshop.hu mağazaları ve başka diller (Parfümőrült)
+
+`araclar/merx-cek.py <alan-adı> <marka> <kategori-yolu> [--only id,id,…]` merxwebshop.hu altyapılı mağazanın (API yok)
+kategori listesini sayfa sayfa okur (`list.json`), seçilen ürünlerin sayfalarından marka, ad, fiyat, boyutlar, koku
+ailesi (Illatcsalád), açıklama ve koku piramidini (Fej / Szív / Alap ya da "Illatjegyek") alır; açıklamaya gömülü
+TikTok videosunun artıkları (@hesap, #etiket, video başlığı) atılır. Çıktı Shopify biçiminde, sayfalar `pages/`
+önbelleğinde. Aktarımda `"platform": "merx"`: sepetteki tek ürün mağazadaki sayfasını açar. Arka etikette notalar
+`merx-raw.json`'dan, başlık `"foto": {"backHead": "ILLATJEGYEK"}`.
+
+**Başka dilde arayüz:** metinler `ui.en` yuvasına o dilde yazılır (`langs: ["en"]`), `htmlLang: "hu"` sayfanın dilini
+verir; koku bulucunun metinleri ve soruları `ui.<dil>.finder` (`{eyebrow, title, lead, …, questions}`), kaide yazısı
+`ui.onPlinth`, keşif seti `ui.discoveryUi`. Koku bulucu Macarca nota adlarını ve ürünün koku ailesini de tanır.
+Çok markalı mağazada `theme.cardFamily: true` koleksiyon kartlarında kategori yerine markayı (ürün ailesi) yazar.
+
 Beyaz etiketli şeffaf şişelerde yapay zekâ kesimi etiketin beyazını delebilir: `"foto": {"convex": 0.3}` gövdenin
 silüetini doldurur (kapak bölgesine dokunmaz). Renkli cam şişelerde `"glassBack": {"label": [...], "brand": "..."}`
 arka yüzü ön yüzün aynası yapar, etiketin yerine markanın stilinde arka etiket çizer.

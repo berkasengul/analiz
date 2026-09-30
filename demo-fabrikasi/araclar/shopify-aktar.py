@@ -25,6 +25,7 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
                                              (İngilizce metin mağazadan olduğu gibi kalır)
     "platform": "ikas"              mağaza ikas (ikas-cek.py ile çekildi): sepette ödeme, ürünün mağazadaki sayfasında tamamlanır
     "platform": "woo"               mağaza WooCommerce (woo-cek.py ile çekildi): sepetteki ürün markanın sepetine eklenir
+    "platform": "merx"              mağaza merxwebshop.hu (merx-cek.py ile çekildi): ödeme ürünün mağazadaki sayfasında
     "wooCart": "sepet"              WooCommerce sepet sayfasının adresi (varsayılan "cart")
     "library": [{"match": "regex", "composition": {"tr": [..], "en": [..]}, "year": {"tr": "Ocak 2026", "en": "January 2026"}}]
                                              markanın koku kütüphanesi: tam kompozisyon ve çıkış tarihi (ürün sayfasında)
@@ -68,14 +69,16 @@ def clip(s, n):
         return s
     cut = s[:n]
     # Önce tam cümle sonu (metin noktalı virgülde yarım kalmasın), yoksa noktalı virgül, yoksa kelime sınırı.
-    m = max(cut.rfind(". "), cut.rfind("… "), cut.rfind("? "))
+    # Sıra sayısından sonraki nokta ("a 20. században") cümle sonu sayılmaz.
+    m = max([e.start() for e in re.finditer(r"(?<=[^\d])[.…?] ", cut)] or [-1])
     if m <= n * 0.3:
         m = max(m, cut.rfind("; ")) if cut.rfind("; ") > n * 0.5 else m
     return (cut[: m + 1] if m > n * 0.3 else cut.rsplit(" ", 1)[0] + "…").strip()
 
 
 def first_sentence(s, n=64):
-    first = re.split(r"(?<=[.!?…])\s", s)[0]
+    # Sıra sayısından sonraki nokta cümle sonu değil (Macarca "a 13. században", Türkçe "19. yüzyıl").
+    first = re.split(r"(?<=[^\d][.!?…])\s", s)[0]
     return clip(first, n).rstrip(".")
 
 
@@ -259,7 +262,7 @@ def main():
             "image": f"r3d/{h}.webp" if os.path.exists(os.path.join(FOTO, "render3d", f"{h}.webp")) else i["m"].get("cut"), "cutout": True,
             **({"bg": palette_of(h)[0], "bg2": palette_of(h)[1]} if palette_of(h) else {}),
             "variants": [{"id": x["id"], "title": x["title"]} for x in i["variants"]] if len(i["variants"]) > 1 else [{"id": i["variants"][0]["id"]}],
-            "url": f"https://{R['domain']}/{h}" if R.get("platform") == "ikas" else tr[h].get("permalink") if R.get("platform") == "woo" else f"https://{R['domain']}/products/{h}",
+            "url": f"https://{R['domain']}/{h}" if R.get("platform") == "ikas" else tr[h].get("permalink") if R.get("platform") in ("woo", "merx") else f"https://{R['domain']}/products/{h}",
         }
         if i["compare"]:
             item["compareAt"] = {"tr": i["compare"], "en": i["compare"]}
@@ -306,7 +309,7 @@ def main():
         c.setdefault("commerce", {}).pop("shopify", None)
         c["commerce"]["woo"] = f"https://{R['domain']}"
         c["commerce"]["wooCart"] = R.get("wooCart", "cart")
-    elif R.get("platform") == "ikas":
+    elif R.get("platform") in ("ikas", "merx"):
         c.setdefault("commerce", {}).pop("shopify", None)
         c["commerce"]["ikas"] = f"https://{R['domain']}"
     else:

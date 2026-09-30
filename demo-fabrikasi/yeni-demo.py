@@ -82,8 +82,8 @@ def main(path):
     tmpl = json.load(open(os.path.join(TEMPLATE, "src", "content.json"), encoding="utf-8"))["meta"]
     for key in ("title", "description", "og"):
         html = html.replace(tmpl[key], cfg["meta"][key])
-    if cfg.get("defaultLang"):
-        html = html.replace('<html lang="tr">', f'<html lang="{cfg["defaultLang"]}">')
+    if cfg.get("htmlLang") or cfg.get("defaultLang"):
+        html = html.replace('<html lang="tr">', f'<html lang="{cfg.get("htmlLang") or cfg["defaultLang"]}">')
     open(index, "w", encoding="utf-8").write(html)
 
     if cfg.get("icon") == "leaf":
