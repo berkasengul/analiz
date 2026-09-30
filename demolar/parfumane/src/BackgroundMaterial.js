@@ -349,7 +349,8 @@ export const BackgroundMaterial = shaderMaterial(
           vec3 gold = mix(vec3(0.86, 0.72, 0.45), hi, 0.35);
           // Zemindeki yansımada çerçeve ve desen soluk ve kısa.
           float refl = vUv.y > fy ? 1. : 0.35 * (1. - smoothstep(0., 0.12, fy - vUv.y));
-          float hw = 0.2 * max(1., 0.9 / max(u_aspect, 0.45));
+          // Nişin yarı genişliği: masaüstünde sabit, dar ekranda (telefon) ekranın ~%55i.
+          float hw = 0.2 * min(1., u_aspect / 0.75);
           float ys = fy + 0.38;
           float Rr = hw * 1.7;
           vec2 ap = vec2(abs(bx), wy - ys);

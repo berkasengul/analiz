@@ -1764,7 +1764,7 @@
       "form": "photo",
       "sub": "75 ml",
       "collection": null,
-      "family": "Dolmabahçe Palace Koleksiyonu",
+      "family": "Dolmabahçe Palace",
       "year": null,
       "perfumer": null,
       "color": "#cbad87",
@@ -1788,7 +1788,7 @@
       "handle": "rah-i-ask-parfum-75ml-edp",
       "en": {
         "name": "RAH-I AŞK",
-        "family": "Dolmabahçe Palace Collection",
+        "family": "Dolmabahçe Palace",
         "tagline": "A Long-Lasting Fragrance on the Journey of Love",
         "notes": [
           "Mandarin",
@@ -2163,7 +2163,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#af8752",
@@ -2187,7 +2187,7 @@
       "handle": "galiya-oud-50ml-parfum",
       "en": {
         "name": "GALIYA OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "Oud Enriched with Oriental Elegance",
         "notes": [
           "Sandalwood",
@@ -2360,7 +2360,7 @@
       "form": "photo",
       "sub": "90 ml",
       "collection": null,
-      "family": "Oriental Koleksiyonu",
+      "family": "Oriental",
       "year": null,
       "perfumer": null,
       "color": "#a49179",
@@ -2384,7 +2384,7 @@
       "handle": "desert-prince-parfum-90ml-edp",
       "en": {
         "name": "DESERT PRINCE",
-        "family": "Oriental Collection",
+        "family": "Oriental",
         "tagline": "Deep and Captivating Intensity",
         "notes": [
           "Herbal Notes",
@@ -2545,7 +2545,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#d9bc8a",
@@ -2569,7 +2569,7 @@
       "handle": "nar-i-ask-50ml-extrait-de-parfum",
       "en": {
         "name": "NAR-I AŞK",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "Fresh Fruity & Spicy Floral Perfume",
         "notes": [
           "Basil",
@@ -2709,7 +2709,7 @@
       "form": "photo",
       "sub": "75 ml",
       "collection": null,
-      "family": "Dolmabahçe Palace Koleksiyonu",
+      "family": "Dolmabahçe Palace",
       "year": null,
       "perfumer": null,
       "color": "#c07f62",
@@ -2733,7 +2733,7 @@
       "handle": "cevherbaha-parfum-75ml-edp",
       "en": {
         "name": "CEVHERBAHA",
-        "family": "Dolmabahçe Palace Collection",
+        "family": "Dolmabahçe Palace",
         "tagline": "A Shimmering Breeze Inspired by Precious Gems",
         "notes": [
           "Mandarin",
@@ -3023,7 +3023,7 @@
       "form": "photo",
       "sub": "75 ml",
       "collection": null,
-      "family": "Dolmabahçe Palace Koleksiyonu",
+      "family": "Dolmabahçe Palace",
       "year": null,
       "perfumer": null,
       "color": "#c89256",
@@ -3047,7 +3047,7 @@
       "handle": "lalezar-parfum-75ml-edp",
       "en": {
         "name": "LALEZAR",
-        "family": "Dolmabahçe Palace Collection",
+        "family": "Dolmabahçe Palace",
         "tagline": "Çiçek Bahçelerinin Zarafetiyle",
         "notes": [
           "Gül Ağacı",
@@ -3326,7 +3326,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#b08453",
@@ -3350,7 +3350,7 @@
       "handle": "basha-oud-50ml-parfum",
       "en": {
         "name": "BASHA OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "A Powerful and Masculine Oud Experience",
         "notes": [
           "Lemon",
@@ -3512,7 +3512,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#b28c59",
@@ -3536,7 +3536,7 @@
       "handle": "bouquet-oud-50ml-parfum",
       "en": {
         "name": "BOUQUET OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "A Floral and Oriental Oud Harmony",
         "notes": [
           "Agarwood (Oud)",
@@ -3697,7 +3697,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#b58a54",
@@ -3721,7 +3721,7 @@
       "handle": "great-oud-50ml-parfum",
       "en": {
         "name": "GREAT OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "A Powerful and Captivating Oud Experience",
         "notes": [
           "Sandalwood",
@@ -3896,7 +3896,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#a87b50",
@@ -3920,7 +3920,7 @@
       "handle": "mystic-oud-50ml-parfum",
       "en": {
         "name": "MYSTIC OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "Mysterious and Enchanting Oud Composition",
         "notes": [
           "Limon",
@@ -4070,7 +4070,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#ab834f",
@@ -4094,7 +4094,7 @@
       "handle": "oud-u-farah-50ml-parfum",
       "en": {
         "name": "OUD-U FARAH",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "The Joyful and Luxurious Oud Breeze",
         "notes": [
           "Bergamot",
@@ -4223,7 +4223,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#af8450",
@@ -4247,7 +4247,7 @@
       "handle": "oud-u-sehriyar-50ml-parfum",
       "en": {
         "name": "OUD-U ŞEHRİYAR",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "The Majestic Oud Essence of Royal Palaces",
         "notes": [
           "Sandalwood",
@@ -4415,7 +4415,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#b28f61",
@@ -4439,7 +4439,7 @@
       "handle": "romantic-oud-50ml-parfum",
       "en": {
         "name": "ROMANTIC OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "The Oud Breeze of Love and Passion",
         "notes": [
           "Red Berries",
@@ -4611,7 +4611,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#b38459",
@@ -4635,7 +4635,7 @@
       "handle": "silky-oud-50ml-parfum",
       "en": {
         "name": "SILKY OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "A Silky and Smooth Oud Experience",
         "notes": [
           "Sandalwood",
@@ -4779,7 +4779,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Oud Koleksiyonu",
+      "family": "Oud",
       "year": null,
       "perfumer": null,
       "color": "#bc8e59",
@@ -4803,7 +4803,7 @@
       "handle": "sukkar-oud-50ml-parfum",
       "en": {
         "name": "SUKKAR OUD",
-        "family": "Oud Collection",
+        "family": "Oud",
         "tagline": "Sweet and Rich Oud Essence",
         "notes": [
           "Red Fruits",
@@ -4960,7 +4960,7 @@
       "form": "photo",
       "sub": "90 ml",
       "collection": null,
-      "family": "Oriental Koleksiyonu",
+      "family": "Oriental",
       "year": null,
       "perfumer": null,
       "color": "#a28e76",
@@ -4984,7 +4984,7 @@
       "handle": "golden-wonder-parfum-90ml-edp",
       "en": {
         "name": "GOLDEN WONDER",
-        "family": "Oriental Collection",
+        "family": "Oriental",
         "tagline": "Spicy and Elegant Harmony",
         "notes": [
           "Saffron",
@@ -5196,7 +5196,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#dfbc7b",
@@ -5220,7 +5220,7 @@
       "handle": "amak-i-hayal-50ml-extrait-de-parfum",
       "en": {
         "name": "AMAK-I HAYAL",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "A Sweet, Spicy, and Dreamlike Fragrance Journey",
         "notes": [
           "Lemon",
@@ -5340,7 +5340,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#ddba7f",
@@ -5364,7 +5364,7 @@
       "handle": "baharistan-50ml-extrait-de-parfum",
       "en": {
         "name": "BAHARISTAN",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "Long-Lasting Fragrance with Natural and Intense Attar Essences",
         "notes": [
           "Spicy notes",
@@ -5493,7 +5493,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#deba83",
@@ -5517,7 +5517,7 @@
       "handle": "hawasat-50ml-extrait-de-parfum",
       "en": {
         "name": "HAWASAT",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "A Fruity, Sweet, and Seductively Warm Touch",
         "notes": [
           "Orange",
@@ -5650,7 +5650,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#d4b37b",
@@ -5674,7 +5674,7 @@
       "handle": "hazarat-50ml-extrait-de-parfum",
       "en": {
         "name": "HAZARAT",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "Spicy, Floral, and Woody Depth",
         "notes": [
           "Bergamot",
@@ -5823,7 +5823,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#d9bb7f",
@@ -5847,7 +5847,7 @@
       "handle": "murr-u-baha-50ml-extrait-de-parfum",
       "en": {
         "name": "MÜRR-Ü BAHA",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "Oriental, Woody, and Spicy Depth",
         "notes": [
           "Grapefruit",
@@ -6013,7 +6013,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#d4b381",
@@ -6037,7 +6037,7 @@
       "handle": "neyl-u-fer-50ml-extrait-de-parfum",
       "en": {
         "name": "NEYL-Ü FER",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "A Long-Lasting Fragrance with Natural and Intense Attar Essences",
         "notes": [
           "Apple",
@@ -6182,7 +6182,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#dabd87",
@@ -6206,7 +6206,7 @@
       "handle": "topaz-50ml-extrait-de-parfum",
       "en": {
         "name": "TOPAZ",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "A Spicy, Resinous, and Intense Signature",
         "notes": [
           "Elemi Resin",
@@ -6345,7 +6345,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#d8b983",
@@ -6369,7 +6369,7 @@
       "handle": "zadegan-50ml-extrait-de-parfum",
       "en": {
         "name": "ZADEGAN",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "A Sophisticated Fusion of Fruity Sweetness and Floral Elegance",
         "notes": [
           "Fruity notes",
@@ -6512,7 +6512,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Attar Koleksiyonu",
+      "family": "Attar",
       "year": null,
       "perfumer": null,
       "color": "#dbba79",
@@ -6536,7 +6536,7 @@
       "handle": "zumrud-u-anka-50ml-extrait-de-parfum",
       "en": {
         "name": "ZÜMRÜD-Ü ANKA",
-        "family": "Attar Collection",
+        "family": "Attar",
         "tagline": "A Mysterious and Noble Fragrance Journey",
         "notes": [
           "Jasmine",
@@ -6711,7 +6711,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#dbca94",
@@ -6735,7 +6735,7 @@
       "handle": "ahbab-50ml-extrait-de-parfum",
       "en": {
         "name": "AHBAB",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "A perfume that embodies calmness, elegance, and sincerity…",
         "notes": [
           "Bergamot",
@@ -6965,7 +6965,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#d1c9a2",
@@ -6989,7 +6989,7 @@
       "handle": "ates-beste-50ml-extrait-de-parfum",
       "en": {
         "name": "ATEŞ BESTE",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "Ignited spices meeting the warmth of woods…",
         "notes": [
           "Black Pepper",
@@ -7197,7 +7197,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#d7cd9a",
@@ -7221,7 +7221,7 @@
       "handle": "feyz-i-safa-50ml-extrait-de-parfum",
       "en": {
         "name": "FEYZ-İ SAFA",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "The Harmony of Deep Leather and Sweet Spices",
         "notes": [
           "Leather",
@@ -7471,7 +7471,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#ccbe96",
@@ -7495,7 +7495,7 @@
       "handle": "majesty-50ml-extrait-de-parfum",
       "en": {
         "name": "MAJESTY",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "Deep, charismatic, and captivating…",
         "notes": [
           "Cinnamon",
@@ -7755,7 +7755,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#e2cb88",
@@ -7779,7 +7779,7 @@
       "handle": "pera-istanbul-50ml-extrait-de-parfum",
       "en": {
         "name": "PERA ISTANBUL",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "An oriental signature carrying the charm of old Istanbul…",
         "notes": [
           "Lemon",
@@ -8132,7 +8132,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#ceb78c",
@@ -8156,7 +8156,7 @@
       "handle": "rosa-musk-50ml-extrait-de-parfum",
       "en": {
         "name": "ROSA MUSK",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "Pure, feminine, and timeless…",
         "notes": [
           "Orange",
@@ -8404,7 +8404,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#cdb68b",
@@ -8428,7 +8428,7 @@
       "handle": "sarayli-50ml-extrait-de-parfum",
       "en": {
         "name": "SARAYLI",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "A magnificent yet delicate fragrance experience…",
         "notes": [
           "Strawberry",
@@ -8682,7 +8682,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#dab362",
@@ -8706,7 +8706,7 @@
       "handle": "savor-50ml-extrait-de-parfum",
       "en": {
         "name": "SAVOR",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "Modern, elegant, and uplifting…",
         "notes": [
           "Lemon",
@@ -8947,7 +8947,7 @@
       "form": "photo",
       "sub": "50 ml",
       "collection": null,
-      "family": "Selective Koleksiyonu",
+      "family": "Selective",
       "year": null,
       "perfumer": null,
       "color": "#ccba95",
@@ -8971,7 +8971,7 @@
       "handle": "white-lotus-hamra-50ml-extrait-de-parfum",
       "en": {
         "name": "WHITE LOTUS",
-        "family": "Selective Collection",
+        "family": "Selective",
         "tagline": "A Fresh, Floral, and Clean Fragrance Experience",
         "notes": [
           "Citronellol",

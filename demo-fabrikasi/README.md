@@ -291,6 +291,18 @@ alt) olarak `woo-raw.json`'a yazılır; iki dilin aynı açıklamada durduğu ü
 diller ayrılır. Aktarım kuralları: `"platform": "woo"`, `"wooCart": "sepet"` (sepete ekle bağlantısı
 `/<wooCart>/?add-to-cart=<id>`), ürüne özel `"families"` ve `"taglines"`.
 
+**Premium duvar** (`theme.decor: {"niche": true, "pattern": true}`, ferah sahnede; Parfumane): şişenin arkasında
+sivri kemerli bir niş (içi ürünün renginde bir ton derin, tepeden ışık süzülür, altın çift çerçeve), nişin dışındaki
+duvarda ince altın sekiz köşeli yıldız örgüsü ve kadife doku. Aynı dil koleksiyon kartlarında, koku bulucuda ve alt
+bölümlerin sahnesinde de (`html.decor`): kemerli niş, desen, altın kenarlı damarlı mermer kaide ve altın ışık sızan
+koyu ayak. Şişelerin hepsi aynı tondaysa (altın/amber) fotoğraftan çıkan renkler birbirine benzer: aktarım
+kurallarında `palette` ile her ürüne kendi mücevher tonu verilir (bordo, safir, zümrüt…), `themeGlow: 0.3`.
+Yanında puarlı pompa gibi eksenden taşan parçası olan şişeler dönen profil yerine tam silüetle (`profiles.flat`) gösterilir.
+
+**WooCommerce, büyük mağaza:** `woo-cek.py … --only "regex" --no-clean --no-en` yalnızca seçilen ürünleri indirir,
+medya arşivinde sade çekim aramaz; İngilizce ürün (WPML) stok koduyla (SKU) eşleşir. İngilizce açıklama
+`aktar.enText` ile elle seçilir.
+
 ## merxwebshop.hu mağazaları ve başka diller (Parfümőrült)
 
 `araclar/merx-cek.py <alan-adı> <marka> <kategori-yolu> [--only id,id,…]` merxwebshop.hu altyapılı mağazanın (API yok)

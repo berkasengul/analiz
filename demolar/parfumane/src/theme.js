@@ -8,12 +8,16 @@ import { content } from "./data";
 //   particles   "gold": altın toz (varsayılan: buz/kül)
 //   numerals    { font }: kokunun numarası sahnede dev ve ince bir sayı olarak durur
 //   intro       "mark": sade ve hızlı açılış (logo + ince yükleme çizgisi), oturumda bir kez
+//   decor       { niche, pattern }: premium duvar (kemerli niş, altın yıldız deseni, mermer ve altın kaide)
 export const THEME = content.theme ?? {};
 
 export function applyTheme() {
   const root = document.documentElement;
   if (THEME.name) root.dataset.theme = THEME.name;
   if (THEME.accent) root.style.setProperty("--theme-accent", THEME.accent);
+  // theme.decor: 3B sahnedeki kemerli niş, altın desen ve mermer kaide koleksiyon kartlarında, koku bulucuda ve
+  // alt bölümlerin sahnesinde de (css/base.css → html.decor).
+  if (THEME.decor) root.classList.add("decor");
   const f = THEME.fonts;
   if (f?.href && !document.querySelector(`link[href="${f.href}"]`)) {
     const l = document.createElement("link");
