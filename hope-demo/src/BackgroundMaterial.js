@@ -40,6 +40,8 @@ export const BackgroundMaterial = shaderMaterial(
     u_fresh: 0,
     // Ferah sahnede premium duvar: x = kemerli niş (mihrap gibi) şişenin arkasında, y = ince altın geometrik desen.
     u_decor: new Vector2(0, 0),
+    // Öndeki ürünün ekrandaki tepesi (v) ve yarı genişliği (en-boy oranıyla ölçekli x): niş ürünü içine alır.
+    u_decorBox: new Vector2(0, 0),
     u_plate: null,
     u_plateOn: 0,
     u_plateSp: new Vector4(2.63, 0.54, 0.66, 0.5),
@@ -93,6 +95,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_noir;
     uniform float u_fresh;
     uniform vec2 u_decor;
+    uniform vec2 u_decorBox;
     uniform sampler2D u_plate;
     uniform float u_plateOn;
     uniform vec4 u_plateSp;
@@ -352,6 +355,11 @@ export const BackgroundMaterial = shaderMaterial(
           // Nişin yarı genişliği: masaüstünde sabit, dar ekranda (telefon) ekranın ~%55i.
           float hw = 0.2 * min(1., u_aspect / 0.75);
           float ys = fy + 0.38;
+          // Ürün ölçüldüyse niş onu içine alır: yanlarda pay, sivri tepe ürünün (açık kapak dahil) üstünde.
+          if (u_decorBox.x > 0.) {
+            hw = max(hw * 0.8, u_decorBox.y * 1.3 + 0.025);
+            ys = max(fy + 0.12, u_decorBox.x + 0.07 - 1.549 * hw);
+          }
           float Rr = hw * 1.7;
           vec2 ap = vec2(abs(bx), wy - ys);
           float sd = wy < ys ? abs(bx) - hw : length(ap - vec2(hw - Rr, 0.)) - Rr;

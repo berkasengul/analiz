@@ -26,6 +26,8 @@ const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY;
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
 const TOP = [];
+// Ürünün yarı genişliği (yerel): premium duvarın kemerli nişi ürünü içine alacak kadar genişler.
+const HALF = [];
 // Sahne fotoğraflı ürünlerin ortak ayak çizgisi: ilk ölçülen ürünün alt kenarı.
 const FOOT = { ref: null };
 const V = new Vector3();
@@ -200,10 +202,16 @@ function measure(g, i) {
       low = Math.min(low, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
     }
   }
+  let half = 0;
   for (const o of meshes) {
     const P = o.geometry.attributes.position;
-    for (let k = 0; k < P.count; k += 3) high = Math.max(high, V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld).y);
+    for (let k = 0; k < P.count; k += 3) {
+      V.fromBufferAttribute(P, k).applyMatrix4(o.matrixWorld);
+      high = Math.max(high, V.y);
+      half = Math.max(half, Math.abs(V.x - g.position.x));
+    }
   }
+  if (half > 0) HALF[i] = half / g.scale.x;
   if (low < Infinity) BOTTOM[i] = (low - g.position.y) / g.scale.y;
   if (FOOT.ref == null && BOTTOM[i] != null && flavors[i]?.stage) FOOT.ref = BOTTOM[i];
   if (high > -Infinity) TOP[i] = (high - g.position.y) / g.scale.y;
@@ -676,6 +684,7 @@ export default function Carousel() {
         if (BOTTOM[i] == null && fade < 0.001 && spread < 0.001) measure(g, i);
         sceneState.focus.bottom = BOTTOM[i];
         sceneState.focus.top = TOP[i];
+        sceneState.focus.half = HALF[i];
       }
 
       const hidden = sceneState.heroVisible && i === active;

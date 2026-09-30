@@ -38,7 +38,7 @@ const TXT = {
   tr: { eyebrow: "Koku bulucu", title: "Kokunu bul", lead: "Üç soru. Her kokunun notalarını okuyup seninkini kaideye koyuyoruz.", empty: "Kokun buraya inecek", result: "Senin kokun", discover: "Kokuyu keşfet", add: "Sepete ekle", added: "Eklendi", again: "Baştan başla", also: "Bunları da dene", back: "Geri" },
 };
 
-function profile(prod) {
+export function profile(prod) {
   const lines = [...(prod.composition ?? []), ...(prod.en?.composition ?? []), ...(prod.notes ?? []), ...(prod.en?.notes ?? []), prod.en?.family ?? prod.family ?? "", ""].join(", ").toLocaleLowerCase("tr");
   const v = {};
   let n = 0;

@@ -11,6 +11,7 @@ import { THEME } from "./theme";
 import CartDrawer from "./ui/CartDrawer";
 import DetailPanel, { stepFeature, stepFlavor } from "./ui/DetailPanel";
 import FlavorHud from "./ui/FlavorHud";
+import SprayNote from "./ui/SprayNote";
 import Header from "./ui/Header";
 import Menu from "./ui/Menu";
 import Preloader from "./ui/Preloader";
@@ -445,6 +446,7 @@ export default function App() {
         {isCategory && <CategoryBar id={PAGE.id} />}
         <FlavorHud />
         <DetailPanel />
+        {content.spray && <SprayNote />}
       </div>
     </section>
   );

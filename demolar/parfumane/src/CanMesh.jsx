@@ -1062,9 +1062,8 @@ function Sprayer({ S, pivot, cap, flavor }) {
   const L = P.L;
   const actR = P.collar * 0.62;
   const actY = P.neckTop + 0.095 * L;
-  // Püskürtme yönü (yerel): masaüstünde şişe sağda, buğu sola ve öne; telefonda öne.
-  const wide = typeof window !== "undefined" && window.innerWidth / window.innerHeight >= 0.9;
-  const dir = useMemo(() => new Vector3(wide ? -0.8 : -0.72, wide ? 0.1 : 0.04, wide ? 0.6 : 0.68).normalize(), [wide]);
+  // Püskürtme yönü (yerel): buğu ekrana doğru, ortaya (izleyicinin yüzüne) üflenir; hafifçe yukarı.
+  const dir = useMemo(() => new Vector3(0, 0.14, 1).normalize(), []);
   const hole = Math.atan2(dir.x, dir.z);
   useFrame(({ clock }) => {
     const sp = sceneState.spray;

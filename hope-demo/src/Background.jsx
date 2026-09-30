@@ -6,7 +6,7 @@ import { Color, MathUtils, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vect
 
 import { content, flavors } from "./data";
 import { scrollState } from "./scroll";
-import { sceneState } from "./shared";
+import { SPRAY, SPRAY_SLOW, sceneState } from "./shared";
 import { useStore } from "./store";
 import { THEME } from "./theme";
 
@@ -233,7 +233,22 @@ export default function Background() {
       m.u_plateOn = PLATE ? l.plateOn : 0;
       m.u_fresh = FRESH ? l.plateOn : 0;
       // theme.decor: {niche: true, pattern: true} → kemerli niş ve geometrik desen (ferah sahnede).
-      if (FRESH && THEME.decor) m.u_decor.set(THEME.decor.niche === false ? 0 : 1, THEME.decor.pattern === false ? 0 : 1);
+      if (FRESH && THEME.decor) {
+        m.u_decor.set(THEME.decor.niche === false ? 0 : 1, THEME.decor.pattern === false ? 0 : 1);
+        // Niş öndeki ürünün boyunu izler (ürün değişince yumuşakça büyüyüp küçülür; sprey kapağı açılınca da sığar).
+        const fo = sceneState.focus;
+        if (fo.top != null && fo.bottom != null && fo.half && !st.detail) {
+          const sc = fo.scale || 1;
+          const r = fo.rest;
+          const lift = sceneState.spray && time / SPRAY_SLOW - sceneState.spray.t0 < SPRAY.end ? 0.12 * (fo.top - fo.bottom) : 0;
+          const yt = (P.set(r.x, r.y + (fo.top + lift) * sc, r.z).project(camera).y + 1) / 2;
+          const cx = P.set(r.x, r.y + ((fo.top + fo.bottom) / 2) * sc, r.z).project(camera).x;
+          const hx = ((Q.set(r.x + fo.half * sc, r.y + ((fo.top + fo.bottom) / 2) * sc, r.z).project(camera).x - cx) / 2) * asp;
+          l.nTop = l.nTop == null ? yt : MathUtils.damp(l.nTop, yt, 3, dt);
+          l.nHalf = l.nHalf == null ? hx : MathUtils.damp(l.nHalf, hx, 3, dt);
+          m.u_decorBox.set(l.nTop, l.nHalf);
+        }
+      }
     }
     m.u_tp = scrollState.p;
     material.current.u_studio = SOLO ? 1 : 0;
