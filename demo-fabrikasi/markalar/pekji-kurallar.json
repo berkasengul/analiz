@@ -1,0 +1,569 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "pekji.com/en",
+  "platform": "woo",
+  "wooCart": "cart",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "black-light",
+   "flesh",
+   "yes-please",
+   "purpl"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.36
+  },
+  "categories": [
+   {
+    "id": "reset",
+    "tr": "Reset",
+    "en": "Reset",
+    "color": "#55287e",
+    "descTr": "İkinci koleksiyon olan Reset (2021), farkındalık, yenilenme ve özdüşünüm temalarına dayanan dört kokudan oluşuyor.",
+    "descEn": "The second collection, Reset (2021) has four fragrances, based on the themes of mindfulness, renewal and self reflection.",
+    "match": "^(black-light|flesh|yes-please|purpl) "
+   },
+   {
+    "id": "rere",
+    "tr": "Re:Re:Collection",
+    "en": "Re:Re:Collection",
+    "color": "#94431c",
+    "descTr": "“Re:Collection”(2018) isimli lansman koleksiyonumuzda, hafıza ve kimlik temasından yola çıkan beş koku bulunuyor; şimdi ikinci baskısında.",
+    "descEn": "The launch collection named “Re:Collection”(2018) had five fragrances, based on the theme of memory and identity; now on its second edition.",
+    "match": "^(eaumer|ruh|odoon|battaniye|zeybek) "
+   }
+  ],
+  "rename": {
+   "black-light": [
+    "Blacklight",
+    "Blacklight"
+   ],
+   "flesh": [
+    "Flesh",
+    "Flesh"
+   ],
+   "yes-please": [
+    "Yes, Please",
+    "Yes, Please"
+   ],
+   "purpl": [
+    "Purpl",
+    "Purpl"
+   ],
+   "eaumer": [
+    "Eaumer",
+    "Eaumer"
+   ],
+   "ruh": [
+    "Ruh",
+    "Ruh"
+   ],
+   "odoon": [
+    "Odoon",
+    "Odoon"
+   ],
+   "battaniye": [
+    "Battaniye",
+    "Battaniye"
+   ],
+   "zeybek": [
+    "Zeybek",
+    "Zeybek"
+   ]
+  },
+  "families": {
+   "black-light": [
+    "Reset",
+    "Reset"
+   ],
+   "flesh": [
+    "Reset",
+    "Reset"
+   ],
+   "yes-please": [
+    "Reset",
+    "Reset"
+   ],
+   "purpl": [
+    "Reset",
+    "Reset"
+   ],
+   "eaumer": [
+    "Re:Re:Collection",
+    "Re:Re:Collection"
+   ],
+   "ruh": [
+    "Re:Re:Collection",
+    "Re:Re:Collection"
+   ],
+   "odoon": [
+    "Re:Re:Collection",
+    "Re:Re:Collection"
+   ],
+   "battaniye": [
+    "Re:Re:Collection",
+    "Re:Re:Collection"
+   ],
+   "zeybek": [
+    "Re:Re:Collection",
+    "Re:Re:Collection"
+   ]
+  },
+  "taglines": {
+   "black-light": [
+    "Karanlık, topraksı bir atmosfer üzerinde, keskin ve parlak bir mavi yeşil.",
+    "A sharp and saturated blue-green note over an earthy, inky ambience."
+   ],
+   "flesh": [
+    "Tensel bir süsen.",
+    "A corporeal iris."
+   ],
+   "yes-please": [
+    "Dikenli bir pamuk şeker dokusunda alacalı bir gül ve armut şerbeti.",
+    "A kaleidoscopic rose and pear sherbet with an exaggerated prickly cotton candy texture."
+   ],
+   "purpl": [
+    "Tezat hisler tetikleyen kaotik ve bazıları için tanıdık bir karışım.",
+    "A chaotic mixture of contrasting suggestions with sweet, salty, natural and synthetic notes under a purple haze."
+   ],
+   "eaumer": [
+    "“Sucul” temasının güncel bir yorumu olan Eaumer oyuncu ve genç bir parfüm.",
+    "A contemporary eau in an ”aquatic” theme, Eaumer is playful and young."
+   ],
+   "ruh": [
+    "Ruh, parfüm dünyasındaki “oryantal” temasının bir yeniden yorumu.",
+    "Ruh, meaning spirit, is a reconstruction of the oriental theme to make it contemporary."
+   ],
+   "odoon": [
+    "Odoon, odunun figüran değil ana karakter olduğu bir parfüm.",
+    "A homophone of the Turkish word for wood, Odoon is an ode to wood where it becomes the main character, front, and center."
+   ],
+   "battaniye": [
+    "Battaniye yakınlığı, tanıdıklığı ve konforu temsil eden bir parfüm.",
+    "Meaning blanket in Turkish, Battaniye represents intimacy, familiarity, and comfort."
+   ],
+   "zeybek": [
+    "Zeybek ismini aldığı dans ve o dansı yapan kültür gibi utanmasız, tutkulu ve gururlu bir parfüm.",
+    "Taking its name from an expressive Aegean dance for a solo male, Zeybek is shameless and proud with uninhibited passion."
+   ]
+  },
+  "notes": [
+   [
+    "^black\\-light$",
+    [
+     [
+      "Aldehitler",
+      "Aldehydes"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Kişniş",
+      "Coriander"
+     ],
+     [
+      "Süsen",
+      "Iris"
+     ]
+    ]
+   ],
+   [
+    "^flesh$",
+    [
+     [
+      "Amber Hatmisi",
+      "Ambrette"
+     ],
+     [
+      "Kayisi",
+      "Apricot"
+     ],
+     [
+      "Civet",
+      "Civet"
+     ],
+     [
+      "Süsen",
+      "Iris"
+     ]
+    ]
+   ],
+   [
+    "^yes\\-please$",
+    [
+     [
+      "Konyak Yağı",
+      "Cognac"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Süsen",
+      "Iris"
+     ],
+     [
+      "Günnük",
+      "Frankincense"
+     ]
+    ]
+   ],
+   [
+    "^purpl$",
+    [
+     [
+      "Karanfil",
+      "Carnation"
+     ],
+     [
+      "Üzüm Kabuğu",
+      "Grape Skin"
+     ],
+     [
+      "Süsen",
+      "Iris"
+     ],
+     [
+      "Yosun",
+      "Moss"
+     ]
+    ]
+   ],
+   [
+    "^eaumer$",
+    [
+     [
+      "Ambergris",
+      "Ambergris"
+     ],
+     [
+      "Anason",
+      "Anise"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Haiti vetiver",
+      "Haiti vetiver"
+     ]
+    ]
+   ],
+   [
+    "^ruh$",
+    [
+     [
+      "Hint amberi",
+      "Amber"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Kahve",
+      "Coffee"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ]
+    ]
+   ],
+   [
+    "^odoon$",
+    [
+     [
+      "Ash",
+      "Ash"
+     ],
+     [
+      "Sedir",
+      "Cedar"
+     ],
+     [
+      "Peygamberağacı",
+      "Guaiac wood"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^battaniye$",
+    [
+     [
+      "Hint amberi",
+      "Amber"
+     ],
+     [
+      "Hanımeli",
+      "Honeysuckle"
+     ],
+     [
+      "Java vetiver",
+      "Java vetiver"
+     ],
+     [
+      "Laden",
+      "Labdanum"
+     ]
+    ]
+   ],
+   [
+    "^zeybek$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Saman",
+      "Hay"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^black\\-light$",
+    "composition": {
+     "tr": [
+      "Notalar: Aldehitler, Karabiber, Kişniş, Süsen, Deri, Meyankökü, Duman"
+     ],
+     "en": [
+      "Notes: Aldehydes, Black Pepper, Coriander, Iris, Leather, Licorice, Smoke"
+     ]
+    }
+   },
+   {
+    "match": "^flesh$",
+    "composition": {
+     "tr": [
+      "Notalar: Amber Hatmisi, Kayisi, Civet, Süsen, Misk, Osmanthus, Boya, Sandalağacı, Vanilya"
+     ],
+     "en": [
+      "Notes: Ambrette, Apricot, Civet, Iris, Musks, Osmanthus, Paint, Sandalwood, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^yes\\-please$",
+    "composition": {
+     "tr": [
+      "Notalar: Konyak Yağı, Greyfurt, Süsen, Günnük, Armut, Pembe, Gül, Sichuan Biberi, Vanilya"
+     ],
+     "en": [
+      "Notes: Cognac, Grapefruit, Iris, Frankincense, Pear, Pink, Rose, Sichuan Pepper, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^purpl$",
+    "composition": {
+     "tr": [
+      "Notalar: Karanfil, Üzüm Kabuğu, Süsen, Yosun, Misk, Çilek, Işıklar, Ter, Vinil"
+     ],
+     "en": [
+      "Notes: Carnation, Grape Skin, Iris, Moss, Musk, Strawberry, Strobes, Sweat, Vinyl"
+     ]
+    }
+   },
+   {
+    "match": "^eaumer$",
+    "composition": {
+     "tr": [
+      "Notalar: Ambergris, Anason, Bergamot, Haiti vetiver, Aromatik otlar, Yasemin, Lavanta, Misket limonu, Damla sakızı, Misk"
+     ],
+     "en": [
+      "Notes: Ambergris, Anise, Bergamot, Haiti vetiver, Herbs, Jasmine, Lavender, Lime, Mastic, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^ruh$",
+    "composition": {
+     "tr": [
+      "Notalar: Hint amberi, Kakule, Kahve, Yasemin, Misk, Oud, Tefarik, Gül, Safran, Sandalağacı"
+     ],
+     "en": [
+      "Notes: Amber, Cardamom, Coffee, Jasmine, Musk, Oud, Patchouli, Rose, Saffron, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^odoon$",
+    "composition": {
+     "tr": [
+      "Notalar: Ash, Sedir, Peygamberağacı, Misk, Meşe, Karabiber, Çam, Reçine, Sandalağacı, Vanilya 50ML Extrait"
+     ],
+     "en": [
+      "Notes: Ash, Cedar, Guaiac wood, Musk, Oak, Pepper, Pine, Resins, Sandalwood, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^battaniye$",
+    "composition": {
+     "tr": [
+      "Notalar: Hint amberi, Hanımeli, Java vetiver, Laden, Misk, Tefarik, Toprak, Kurum, Yün"
+     ],
+     "en": [
+      "Notes: Amber, Honeysuckle, Java vetiver, Labdanum, Musk, Patchouli, Soil, Soot, Wool"
+     ]
+    }
+   },
+   {
+    "match": "^zeybek$",
+    "composition": {
+     "tr": [
+      "Notalar: Bergamot, Saman, Lavanta, Deri, Limon, Misk, Nergis, Tütün, Tonka, Vetiver"
+     ],
+     "en": [
+      "Notes: Bergamot, Hay, Lavender, Leather, Lemon, Musk, Narcissus, Tobacco, Tonka, Vetiver"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^black\\-light$",
+    "#1b6a66",
+    "#8b9e79"
+   ],
+   [
+    "^flesh$",
+    "#a8705e",
+    "#cba076"
+   ],
+   [
+    "^yes\\-please$",
+    "#a8416a",
+    "#cb8b7b"
+   ],
+   [
+    "^purpl$",
+    "#55287e",
+    "#a58084"
+   ],
+   [
+    "^eaumer$",
+    "#255f80",
+    "#909985"
+   ],
+   [
+    "^ruh$",
+    "#8a5a1f",
+    "#bd9759"
+   ],
+   [
+    "^odoon$",
+    "#5a3c26",
+    "#a8895d"
+   ],
+   [
+    "^battaniye$",
+    "#94431c",
+    "#c28c58"
+   ],
+   [
+    "^zeybek$",
+    "#4a6628",
+    "#a09c5d"
+   ]
+  ],
+  "trText": {
+   "black-light": "Karanlık, topraksı bir atmosfer üzerinde, keskin ve parlak bir mavi yeşil. Anason ve karabiberli aldehitler deri, süsen ve vetiver notalarına kontrast oluşturuyor. Parlak üst notalar ve koyu alt notalar arasındaki boşluk parfümün ana teması.",
+   "flesh": "Tensel bir süsen. Yoğun ve karakteristik açılışın ardından meyve ve çiçek detaylarıyla devam eden parfüm; misk, vanilya, amber hatmisi tohumu ve civet notalarından oluşan bir bitişe varıyor.",
+   "yes-please": "Dikenli bir pamuk şeker dokusunda alacalı bir gül ve armut şerbeti. Oldukça yoğun başlayan parfüm hızla sakinleşip farklı duyuları gıdıklayarak devam ediyor.",
+   "purpl": "Tezat hisler tetikleyen kaotik ve bazıları için tanıdık bir karışım. Mor bir sis perdesi içinde tatlı, tuzlu, hayvansı ve sentetik notalar. Hayatın saçmalığına karşı kendi saçmalığımız. Blacklight’ın estetik ve kavramsal bir karşıtı.",
+   "eaumer": "“Sucul” temasının güncel bir yorumu olan Eaumer oyuncu ve genç bir parfüm. Vetiver ve anason’un yarattığı tuzlu etki denizi hatırlatırken, kompozisyondaki diğer materyaller Ege rüzgarının değdiği kokuları taşıyor.",
+   "ruh": "Ruh, parfüm dünyasındaki “oryantal” temasının bir yeniden yorumu. Dışarıdan bakan, karikatürize eden ve objeleştiren bir oryantalizmle değil, saygıyla ve içeriden bir bakışla. Kadim bir klasiğin bugünün detaylarıyla güncelleşmiş bir hali. Doğunun kompleks ve dramatik karakterinin indirgenemez ruhuna dair.",
+   "odoon": "Odoon, odunun figüran değil ana karakter olduğu bir parfüm. Odunu olduğundan daha güzel göstermeye çalışmadan, bin yıllardır tanıdığımız basit ve derin güzelliğini saygıyla çerçevelemekten ibaret. Odoon odun kokuyor ve içimizdeki derin bir hatırayı kolayca uyandırıyor.",
+   "battaniye": "Battaniye yakınlığı, tanıdıklığı ve konforu temsil eden bir parfüm. Yoğun, kucaklayıcı ve havadar bir tefarik notasının baş rolü oynadığı bu dokunsal parfüm, yıpratıcı dış etkenlerden koruyan bir sığınak gibi. Tekrar dışarı çıkmadan önce kısa bir istirahat.",
+   "zeybek": "Zeybek ismini aldığı dans ve o dansı yapan kültür gibi utanmasız, tutkulu ve gururlu bir parfüm. Parfüme rengini veren ve direğini oluşturan lavanta absolusü, ortamı oluşturan sigara, at, içki ve uzaktaki bir denizin notalarıyla bir oraya bir buraya dansediyor. Yerinde durmayan, ne yapacağı belli olmayan, ben varım diyen bir parfüm."
+  },
+  "enText": {
+   "black-light": "A sharp and saturated blue-green note over an earthy, inky ambience. Anisic and peppery aldehydes with contrasting notes of leather, iris and vetiver. Lack of heart notes between the bright opening and the stoic base creates a hollow, pulsating sensation.",
+   "flesh": "A corporeal iris. An uncanny fatty iris opening progresses with shimmering fruity and floral details leading into a warm fond of musk, vanilla, ambrette seed and civet.",
+   "yes-please": "A kaleidoscopic rose and pear sherbet with an exaggerated prickly cotton candy texture. The scent quickly transitions from being overpowering to comfortable with a variety of sensations phasing in and out.",
+   "purpl": "A chaotic mixture of contrasting suggestions with sweet, salty, natural and synthetic notes under a purple haze. A crowded opening bordering on vulgar, transitions into a vulnerable skin scent. An aesthetic and conceptual counterpart to Blacklight.",
+   "eaumer": "A contemporary eau in an ”aquatic” theme, Eaumer is playful and young. An interplay of vetiver and anise merely suggests the sea and the rest of the composition conjures the breeze carrying the scent and sound of everything it touches.",
+   "ruh": "Ruh, meaning spirit, is a reconstruction of the oriental theme to make it contemporary. A fresh take on an ancient style reveals the irreducible complexity and the dramatic character of the East.",
+   "odoon": "A homophone of the Turkish word for wood, Odoon is an ode to wood where it becomes the main character, front, and center. Reflecting the simple beauty inherent in wood without prettifying it, Odoon effortlessly triggers the memory and awakens an instinctive respect.",
+   "battaniye": "Meaning blanket in Turkish, Battaniye represents intimacy, familiarity, and comfort. The rich but aerated patchouli is the star of this tactile fragrance, offering a respite from the elements and a moment to recollect yourself.",
+   "zeybek": "Taking its name from an expressive Aegean dance for a solo male, Zeybek is shameless and proud with uninhibited passion. The exquisite lavender absolute at the heart sways in all directions with ambient notes of horses, cigarette, booze and the sea far away."
+  },
+  "ritual": [
+   {
+    "handle": "black-light",
+    "tr": {
+     "title": "Reset · 1. aşama",
+     "text": "Reset’in ilk aşaması. Sonsuz bir boşluktaki bilinç.",
+     "stat": "Blacklight"
+    },
+    "en": {
+     "title": "Reset · phase 1",
+     "text": "The first phase of reset introduces mental consciousness inside an infinite dissociative space.",
+     "stat": "Blacklight"
+    }
+   },
+   {
+    "handle": "flesh",
+    "tr": {
+     "title": "Reset · 2. aşama",
+     "text": "Reset’in ikinci aşaması. Vücut ile tanışma.",
+     "stat": "Flesh"
+    },
+    "en": {
+     "title": "Reset · phase 2",
+     "text": "The second phase of reset introduces the body. Transition from a mental consciousness into a corporeal consciousness.",
+     "stat": "Flesh"
+    }
+   },
+   {
+    "handle": "yes-please",
+    "tr": {
+     "title": "Reset · 3. aşama",
+     "text": "Reset’in üçüncü aşaması. Çekici ve yer çekimsiz bir atmosferde bilinç duygu ile tanışıyor.",
+     "stat": "Yes, Please"
+    },
+    "en": {
+     "title": "Reset · phase 3",
+     "text": "The third phase of reset introduces the emotional layer to consciousness in an enticing, weightless atmosphere.",
+     "stat": "Yes, Please"
+    }
+   }
+  ]
+ }
+}

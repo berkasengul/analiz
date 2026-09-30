@@ -1,0 +1,5686 @@
+{
+  "slug": "pekji",
+  "meta": {
+    "title": "Pekji · Concept Demo",
+    "description": "A 3D concept demo for Pekji. Not affiliated with the brand owner.",
+    "og": "Pekji: perfume is a portal. Istanbul, since 2018."
+  },
+  "brand": {
+    "name": "Pekji",
+    "sub": "Istanbul · 2018",
+    "specs": "Ömer İpekçi · İstanbul · 2018",
+    "disclaimer": "Bu sayfa Pekji için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Ürün fotoğrafları, açıklamaları ve fiyatları markanın mağazasından (pekji.com) alınmıştır.",
+    "en": {
+      "specs": "Omer Ipekci · Istanbul · 2018",
+      "disclaimer": "This page is an independent concept demo prepared for Pekji and is not affiliated with the brand owner. Product photos, copy and prices are taken from the brand's store (pekji.com)."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "PEKJI",
+    "submark": "ISTANBUL",
+    "concentration": "EXTRAIT",
+    "volume": "50 ml",
+    "logoFile": "docs/brand/logo-white.png"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "50 ml Extrait",
+    "en": "50 ml Extrait"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Zanaatkâr üretim",
+        "kicker": "2018",
+        "struck": "Pazarlama önce",
+        "title": "Sanatsal süreç, zanaatkâr üretim",
+        "text": "Sanatsal bir yaratıcı süreç ve zanaatkar bir üretim sürecinin ardından doğan parfümlerimiz kişisel bir vizyon ve tutkunun sonucu."
+      },
+      "en": {
+        "short": "Artisanal",
+        "kicker": "2018",
+        "struck": "Marketing first",
+        "title": "An artistic and artisanal process",
+        "text": "The perfumes are the result of an artistic creative process and an artisanal production process."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "Eklektik palet",
+        "kicker": "Ömer İpekçi",
+        "struck": "Kısıtlı palet",
+        "title": "Eklektik ve kapsayıcı bir palet",
+        "text": "Parfüm paletim, maliyet, doğallık veya nadirlik gibi konularda kısıtlayıcı olmayan, eklektik ve kapsayıcı bir palet."
+      },
+      "en": {
+        "short": "Eclectic palette",
+        "kicker": "Omer Ipekci",
+        "struck": "A narrow palette",
+        "title": "An eclectic and inclusive palette",
+        "text": "My perfume pallette is an eclectic and inclusive one that doesn’t exclude based on cost, naturality or rarity."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Hafıza ve kimlik",
+        "kicker": "Re:Re:Collection",
+        "struck": "Sıradan tür",
+        "title": "Kişisel hatıranın süzgecinden",
+        "text": "Hafıza ve kimlik temasından yola çıkan beş koku: kişisel hatıranın süzgecinden geçirilmiş tanıdık parfüm formları."
+      },
+      "en": {
+        "short": "Memory & identity",
+        "kicker": "Re:Re:Collection",
+        "struck": "A generic genre",
+        "title": "Through the filter of personal memory",
+        "text": "Five fragrances based on the theme of memory and identity: familiar genres through the filter of personal memory."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Farkındalık",
+        "kicker": "Reset",
+        "struck": "Tanıdık kalıplar",
+        "title": "Farkındalık, yenilenme, özdüşünüm",
+        "text": "Reset çağdaş bir dile sahip ve mevcut parfüm türlerinden herhangi birine atıfta bulunmuyor."
+      },
+      "en": {
+        "short": "Mindfulness",
+        "kicker": "Reset",
+        "struck": "Familiar formulas",
+        "title": "Mindfulness, renewal, self reflection",
+        "text": "Reset has a contemporary language and doesn’t reference existing perfume genres."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "Tek ürün",
+        "en": "Single"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "USD",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 165
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "USD",
+      "locale": "en-US",
+      "packs": {
+        "1": 165
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "Ömer İpekçi",
+    "instagram": "https://www.instagram.com/pekji_parfum/",
+    "website": "https://pekji.com/",
+    "press": [],
+    "tr": {
+      "lead": "Pazarlama ve trendlerin ötesinde.",
+      "paragraphs": [
+        "Yıllar boyunca sadece arkadaşların ve en meraklı parfümseverlerin bildiği bir marka olarak doğan Pekji, 2018 yılında Ömer İpekçi tarafından resmen kuruldu. Sanatsal bir yaratıcı süreç ve zanaatkar bir üretim sürecinin ardından doğan parfümlerimiz kişisel bir vizyon ve tutkunun sonucu. Bağımsız bir parfümör markası olan Pekji, bizim gibi parfümden daha fazlasını bekleyen, pazarlama ve trendlerin ötesinde parfümleri arayan bir kitle tarafından destekleniyor.",
+        "İstanbul’da orta sınıf bir ailenin çocuğu olarak doğdum ve çocukluğumu birbirinden çok farklı çevre ve kültürlerde geçirdim. Sırtımda inek gübresi taşıdım, masmavi Ege’de yüzdüm, lise yurdunu terk ettikten sonra saat 2’ye kadar atari salonlarında kaldım ve gaz lambasının altında İtalyan çizgi romanları okudum.",
+        "Normallik ve aidiyet kavramlarını erken yaşta kaybederken, etrafımdaki şeyleri olduğu gibi takdir etmeyi ve onları ilham alabileceğim zengin kaynaklar olarak görmeyi öğrendim. Parfümden önce grafik tasarımcı ve illüstratör olarak çalıştım ve çocukluğumdan beri birçok medyumda farklı ifade biçimleri aradım. Bana ifadeyi form ve işlevin altına gizleme imkanı sağlayan parfüm oldu."
+      ],
+      "timeline": [
+        [
+          "2018",
+          "Pekji, Ömer İpekçi tarafından kuruldu; ilk koleksiyon Re:Collection"
+        ],
+        [
+          "2021",
+          "Reset: farkındalık, yenilenme ve özdüşünüm"
+        ],
+        [
+          "Bugün",
+          "Re:Re:Collection, ilk koleksiyonun ikinci baskısı"
+        ],
+        [
+          "Dünyada",
+          "ABD, Avrupa, Avustralya ve Türkiye'de 22 satış noktası"
+        ]
+      ],
+      "stats": [
+        [
+          "2018",
+          "kuruluş"
+        ],
+        [
+          "9",
+          "parfüm, iki koleksiyon"
+        ],
+        [
+          "22",
+          "satış noktası"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Substance before marketing.",
+      "paragraphs": [
+        "Pekji was founded in 2018 by Omer Ipekci following years of underground existence, known only to friends and the most dedicated perfume lovers. The perfumes are the result of an artistic creative process and an artisanal production process. We are supported and encouraged by a likeminded audience who looks for substance before marketing and expects more from perfume.",
+        "I was born in Istanbul to a middle class family and I spent my childhood in wildly different environment and cultures. I carried cow dung on my back, swam in the azure Mediterranean, stayed in the arcade salons until 2 AM after ditching the high school dorm and I read Italian comics under a gas lamp.",
+        "While I lost my sense of normalcy and belonging early on, I learned to appreciate things for what they are and as rich sources to draw inspiration from. Before perfumery, I worked as a graphic designer and an illustrator and I privately sought expression in many mediums since childhood. Perfume finally gave me the medium where I could hide the expression underneath the form and function."
+      ],
+      "timeline": [
+        [
+          "2018",
+          "Pekji founded by Omer Ipekci; launch collection Re:Collection"
+        ],
+        [
+          "2021",
+          "Reset: mindfulness, renewal and self reflection"
+        ],
+        [
+          "Today",
+          "Re:Re:Collection, the second edition of the first collection"
+        ],
+        [
+          "Worldwide",
+          "22 stockists in the US, Europe, Australia and Turkey"
+        ]
+      ],
+      "stats": [
+        [
+          "2018",
+          "founded"
+        ],
+        [
+          "9",
+          "perfumes, two collections"
+        ],
+        [
+          "22",
+          "stockists"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Parfümler tamamen doğal mı?",
+        "Tamamen doğal olmak aradığımız bir kısıtlama değil. Yani hayır. Ama büyük miktarda doğal materyal içeriyorlar."
+      ],
+      [
+        "Bu parfümler ne işe yarar?",
+        "Takdir, dikkat dağıtma, peşinizi bırakmama, tefekkür, yeni bir hatıraya bağlanma, eski bir hatırayı tetikleme, kişisel ritüeller ve düpedüz güzel kokmak."
+      ],
+      [
+        "Parfümler IFRA uyumlu mu?",
+        "Evet. Öyle olmak mümkündü."
+      ],
+      [
+        "Numune gönderebilir misiniz?",
+        "Değerlendirme için seçenekleriniz keşif setini satın almak ya da satış noktalarımızın numune programlarını kullanmak."
+      ],
+      [
+        "Parfümler değişti mi?",
+        "Eaumer ve Ruh belirgin bir yeniden düzenlemeden geçti. Diğer değişiklikler, kullandığımız hammaddelerde doğal olarak oluşan standartlaşma ve “parti farkından” kaynaklanıyor."
+      ],
+      [
+        "Yurt dışına gönderim var mı?",
+        "Şu an yalnızca Türkiye içine gönderim yapabiliyoruz. Yurt dışından alım için satış noktası listemize bakın."
+      ]
+    ],
+    "en": [
+      [
+        "Are the perfumes all natural?",
+        "All natural is not a limitation we seek. So, no. But they do contain large amounts of naturals."
+      ],
+      [
+        "What are these perfumes good for?",
+        "Appreciation, distraction, haunting, contemplation, tethering to a new memory, triggering an old memory, personal rituals and plain old smelling good."
+      ],
+      [
+        "Are the perfumes IFRA compliant?",
+        "Yes. It was possible to be so."
+      ],
+      [
+        "Can you send me samples?",
+        "For evaluation purposes, your options are either purchasing the discovery set or using the sample programs of our retailers."
+      ],
+      [
+        "Did the perfumes change?",
+        "Eaumer and Ruh went through identifiable remastering. Other changes are mainly due to standardization and “batch variation” that naturally occur with raw materials we use."
+      ],
+      [
+        "Do you ship internationally?",
+        "Currently we can only ship within Turkey. Visit our stockist list for international purchases."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Portal açılıyor",
+      "madeFor": "Pekji için hazırlanmış konsept",
+      "recyclable": "50 ml Extrait · İstanbul",
+      "founder": "Kurucu ve parfümör · Ömer İpekçi",
+      "contactTag": "Sorular, iş birlikleri ve toptan satış için bize yazın.",
+      "newsTitle": "Yeni parfümler önce burada.",
+      "marquee": [
+        "Pekji",
+        "İstanbul · 2018",
+        "Re:Re:Collection",
+        "Reset",
+        "Parfüm bir portal",
+        "Luckyscent · Galeries Lafayette · Brandroom"
+      ],
+      "slogan": "Parfüm bir portal.",
+      "nav": {
+        "flavors": "Öne çıkanlar",
+        "catalog": "Tüm kokular",
+        "categories": "Kategoriler",
+        "products": "Kokular",
+        "sets": "Koleksiyonlar",
+        "about": "Hakkımızda",
+        "contact": "İletişim"
+      },
+      "flavors": "Kokular",
+      "notes": "Notalar",
+      "discover": "{0} kokusunu keşfet",
+      "discoverCan": "Kokuyu keşfet",
+      "backToFlavors": "Kokulara dön",
+      "prevFlavor": "Önceki koku",
+      "nextFlavor": "Sonraki koku",
+      "backToFlavor": "Koku bilgisine dön",
+      "exploreCan": "Kokuyu keşfet · {0} hikâye",
+      "whatsInside": "Notalar",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Kokunu seç",
+      "shopTag": "Parfümünü seç; ödeme pekji.com'da tamamlanır.",
+      "flavor": "Koku",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "Pekji · {0}",
+      "family": "Koleksiyon",
+      "caffeine": "Yalnızca harici kullanım içindir.",
+      "perks": [
+        "İlk kez kayıt olanlara ücretsiz kargo",
+        "Keşif setleri: 4×3 ml ve 5×3 ml",
+        "IFRA uyumlu"
+      ],
+      "taxes": "Şu an yalnızca Türkiye içine gönderim",
+      "checkoutNote": "Ödeme pekji.com'da tamamlanır",
+      "variant": "Seçenek",
+      "related": "Benzer kokular",
+      "buildBox": "Kokuları keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} parfüm; iki koleksiyon.",
+      "year": "Çıkış",
+      "composition": "Nota piramidi",
+      "whereEyebrow": "Satış noktaları",
+      "whereTitle": "Pekji'yi nerede bulursunuz",
+      "whereTag": "ABD, Avrupa, Avustralya ve Türkiye'de 22 satış noktası.",
+      "place": "Bölge",
+      "spot": "Satış noktası",
+      "status": "Web"
+    },
+    "en": {
+      "loading": "Opening the portal",
+      "madeFor": "Concept prepared for Pekji",
+      "recyclable": "50 ml Extrait · Istanbul",
+      "founder": "Founder and perfumer · Omer Ipekci",
+      "contactTag": "Write to us for questions, collaborations and wholesale.",
+      "newsTitle": "New perfumes, first here.",
+      "marquee": [
+        "Pekji",
+        "Istanbul · 2018",
+        "Re:Re:Collection",
+        "Reset",
+        "Perfume is a portal",
+        "Luckyscent · Galeries Lafayette · Brandroom"
+      ],
+      "slogan": "Perfume is a portal.",
+      "nav": {
+        "flavors": "Featured",
+        "catalog": "All scents",
+        "categories": "Categories",
+        "products": "Scents",
+        "sets": "Collections",
+        "about": "About us",
+        "contact": "Contact"
+      },
+      "flavors": "Scents",
+      "notes": "Notes",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover the scent",
+      "backToFlavors": "Back to scents",
+      "prevFlavor": "Previous scent",
+      "nextFlavor": "Next scent",
+      "backToFlavor": "Back to scent",
+      "exploreCan": "Explore the scent · {0} stories",
+      "whatsInside": "Notes",
+      "drag": "Drag to turn the bottle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your scent",
+      "shopTag": "Choose your perfume; checkout completes on pekji.com.",
+      "flavor": "Scent",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "Pekji · {0}",
+      "family": "Collection",
+      "caffeine": "For external use only.",
+      "perks": [
+        "Free shipping for first-time registered users",
+        "Discovery sets: 4×3 ml and 5×3 ml",
+        "IFRA compliant"
+      ],
+      "taxes": "Currently shipping within Turkey only",
+      "checkoutNote": "Checkout completes on pekji.com",
+      "variant": "Option",
+      "related": "Similar scents",
+      "buildBox": "Explore the scents",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} perfumes; two collections.",
+      "year": "Launched",
+      "composition": "Fragrance pyramid",
+      "whereEyebrow": "Stockists",
+      "whereTitle": "Where to find Pekji",
+      "whereTag": "22 stockists in the US, Europe, Australia and Turkey.",
+      "place": "Region",
+      "spot": "Stockist",
+      "status": "Web"
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "item"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "bottle",
+  "logo": "brand/logo-white.png",
+  "labelFinish": {
+    "metalness": 0,
+    "roughness": 0.45,
+    "clearcoat": 0.35,
+    "clearcoatRoughness": 0.25,
+    "envMapIntensity": 0.6
+  },
+  "fillLight": "#efe4d6",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "woo": "https://pekji.com/en",
+    "wooCart": "cart"
+  },
+  "latinTerms": "Extrait de Parfum|Hidden Origins|Heritage|Lucky|Exclusive|Turkish Bath Rituals|Régalien",
+  "glass": false,
+  "spray": true,
+  "photoUnlit": 0.8,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#d8c3a0",
+    "particles": "dust",
+    "numerals": {
+      "font": "fonts/Italiana-Regular.ttf"
+    },
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Syne:wght@400..700&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
+      "display": "\"Syne\", \"Jost\", \"Helvetica Neue\", Arial, sans-serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "dolly",
+    "cards": "gallery",
+    "fresh": true,
+    "plinthColor": "#f1ece6",
+    "decor": {
+      "niche": true,
+      "pattern": false,
+      "shape": "rect"
+    }
+  },
+  "defaultLang": "en",
+  "hide": [],
+  "contactInfo": {
+    "tr": [
+      [
+        "Telefon",
+        [
+          "+90 544 845 5474"
+        ]
+      ],
+      [
+        "E-posta",
+        [
+          "contact@pekji.com"
+        ]
+      ],
+      [
+        "Ofis",
+        [
+          "Perpa Ticaret Merkezi B Blok Kat 11 No.1565",
+          "Şişli / İstanbul"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@pekji_parfum"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "Phone",
+        [
+          "+90 544 845 5474"
+        ]
+      ],
+      [
+        "Email",
+        [
+          "contact@pekji.com"
+        ]
+      ],
+      [
+        "Office",
+        [
+          "Perpa Ticaret Merkezi B Blok Kat 11 No.1565",
+          "Şişli / Istanbul"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@pekji_parfum"
+        ]
+      ]
+    ]
+  },
+  "catalog": {
+    "homeCount": 8,
+    "glow": "#2a1e28",
+    "categories": [
+      {
+        "id": "reset",
+        "name": {
+          "tr": "Reset",
+          "en": "Reset"
+        },
+        "color": "#55287e",
+        "desc": {
+          "tr": "İkinci koleksiyon olan Reset (2021), farkındalık, yenilenme ve özdüşünüm temalarına dayanan dört kokudan oluşuyor.",
+          "en": "The second collection, Reset (2021) has four fragrances, based on the themes of mindfulness, renewal and self reflection."
+        }
+      },
+      {
+        "id": "rere",
+        "name": {
+          "tr": "Re:Re:Collection",
+          "en": "Re:Re:Collection"
+        },
+        "color": "#94431c",
+        "desc": {
+          "tr": "“Re:Collection”(2018) isimli lansman koleksiyonumuzda, hafıza ve kimlik temasından yola çıkan beş koku bulunuyor; şimdi ikinci baskısında.",
+          "en": "The launch collection named “Re:Collection”(2018) had five fragrances, based on the theme of memory and identity; now on its second edition."
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "black-light",
+        "handle": "black-light",
+        "name": {
+          "tr": "Blacklight",
+          "en": "Blacklight"
+        },
+        "category": "reset",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Karanlık, topraksı bir atmosfer üzerinde, keskin ve parlak bir mavi yeşil.",
+          "en": "A sharp and saturated blue-green note over an earthy, inky ambience."
+        },
+        "color": "#6f778c",
+        "product": 0,
+        "image": "cut/black-light.webp",
+        "cutout": true,
+        "bg": "#1b6a66",
+        "bg2": "#8b9e79",
+        "variants": [
+          {
+            "id": 19310
+          }
+        ],
+        "url": "https://pekji.com/tr/product/blacklight/"
+      },
+      {
+        "id": "flesh",
+        "handle": "flesh",
+        "name": {
+          "tr": "Flesh",
+          "en": "Flesh"
+        },
+        "category": "reset",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Tensel bir süsen. Yoğun ve karakteristik açılışın ardından meyve ve çiçek detaylarıyla devam eden parfüm;",
+          "en": "A corporeal iris. An uncanny fatty iris opening progresses with shimmering fruity and floral details leading into a…"
+        },
+        "color": "#deceb5",
+        "product": 1,
+        "image": "cut/flesh.webp",
+        "cutout": true,
+        "bg": "#a8705e",
+        "bg2": "#cba076",
+        "variants": [
+          {
+            "id": 19340
+          }
+        ],
+        "url": "https://pekji.com/tr/product/flesh-2/"
+      },
+      {
+        "id": "yes-please",
+        "handle": "yes-please",
+        "name": {
+          "tr": "Yes, Please",
+          "en": "Yes, Please"
+        },
+        "category": "reset",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Dikenli bir pamuk şeker dokusunda alacalı bir gül ve armut şerbeti.",
+          "en": "A kaleidoscopic rose and pear sherbet with an exaggerated prickly cotton candy texture."
+        },
+        "color": "#dbacc6",
+        "product": 2,
+        "image": "cut/yes-please.webp",
+        "cutout": true,
+        "bg": "#a8416a",
+        "bg2": "#cb8b7b",
+        "variants": [
+          {
+            "id": 19341
+          }
+        ],
+        "url": "https://pekji.com/tr/product/yesplease/"
+      },
+      {
+        "id": "purpl",
+        "handle": "purpl",
+        "name": {
+          "tr": "Purpl",
+          "en": "Purpl"
+        },
+        "category": "reset",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Tezat hisler tetikleyen kaotik ve bazıları için tanıdık bir karışım.",
+          "en": "A chaotic mixture of contrasting suggestions with sweet, salty, natural and synthetic notes under a purple haze."
+        },
+        "color": "#cd973a",
+        "product": 3,
+        "image": "cut/purpl.webp",
+        "cutout": true,
+        "bg": "#55287e",
+        "bg2": "#a58084",
+        "variants": [
+          {
+            "id": 19332
+          }
+        ],
+        "url": "https://pekji.com/tr/product/purple/"
+      },
+      {
+        "id": "battaniye",
+        "handle": "battaniye",
+        "name": {
+          "tr": "Battaniye",
+          "en": "Battaniye"
+        },
+        "category": "rere",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Battaniye yakınlığı, tanıdıklığı ve konforu temsil eden bir parfüm.",
+          "en": "Meaning blanket in Turkish, Battaniye represents intimacy, familiarity, and comfort."
+        },
+        "color": "#a13900",
+        "product": 4,
+        "image": "cut/battaniye.webp",
+        "cutout": true,
+        "bg": "#94431c",
+        "bg2": "#c28c58",
+        "variants": [
+          {
+            "id": 19333
+          }
+        ],
+        "url": "https://pekji.com/tr/product/battaniye-tr/"
+      },
+      {
+        "id": "eaumer",
+        "handle": "eaumer",
+        "name": {
+          "tr": "Eaumer",
+          "en": "Eaumer"
+        },
+        "category": "rere",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "“Sucul” temasının güncel bir yorumu olan Eaumer oyuncu ve genç bir parfüm.",
+          "en": "A contemporary eau in an ”aquatic” theme, Eaumer is playful and young."
+        },
+        "color": "#a2a19b",
+        "product": 5,
+        "image": "cut/eaumer.webp",
+        "cutout": true,
+        "bg": "#255f80",
+        "bg2": "#909985",
+        "variants": [
+          {
+            "id": 19344
+          }
+        ],
+        "url": "https://pekji.com/tr/product/eaumer-tr/"
+      },
+      {
+        "id": "odoon",
+        "handle": "odoon",
+        "name": {
+          "tr": "Odoon",
+          "en": "Odoon"
+        },
+        "category": "rere",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Odoon, odunun figüran değil ana karakter olduğu bir parfüm.",
+          "en": "A homophone of the Turkish word for wood, Odoon is an ode to wood where it becomes the main character, front, and…"
+        },
+        "color": "#b3a994",
+        "product": 6,
+        "image": "cut/odoon.webp",
+        "cutout": true,
+        "bg": "#5a3c26",
+        "bg2": "#a8895d",
+        "variants": [
+          {
+            "id": 19342
+          }
+        ],
+        "url": "https://pekji.com/tr/product/odoon-2/"
+      },
+      {
+        "id": "ruh",
+        "handle": "ruh",
+        "name": {
+          "tr": "Ruh",
+          "en": "Ruh"
+        },
+        "category": "rere",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Ruh, parfüm dünyasındaki “oryantal” temasının bir yeniden yorumu.",
+          "en": "Ruh, meaning spirit, is a reconstruction of the oriental theme to make it contemporary."
+        },
+        "color": "#ad7f13",
+        "product": 7,
+        "image": "cut/ruh.webp",
+        "cutout": true,
+        "bg": "#8a5a1f",
+        "bg2": "#bd9759",
+        "variants": [
+          {
+            "id": 19779
+          }
+        ],
+        "url": "https://pekji.com/tr/product/ruh-tr/"
+      },
+      {
+        "id": "zeybek",
+        "handle": "zeybek",
+        "name": {
+          "tr": "Zeybek",
+          "en": "Zeybek"
+        },
+        "category": "rere",
+        "size": "50 ml",
+        "price": {
+          "tr": 165.0,
+          "en": 165.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Zeybek ismini aldığı dans ve o dansı yapan kültür gibi utanmasız, tutkulu ve gururlu bir parfüm.",
+          "en": "Taking its name from an expressive Aegean dance for a solo male, Zeybek is shameless and proud with uninhibited…"
+        },
+        "color": "#9cb562",
+        "product": 8,
+        "image": "cut/zeybek.webp",
+        "cutout": true,
+        "bg": "#4a6628",
+        "bg2": "#a09c5d",
+        "variants": [
+          {
+            "id": 19481
+          }
+        ],
+        "url": "https://pekji.com/tr/product/zeybek-tr/"
+      }
+    ]
+  },
+  "stockists": {
+    "en": [
+      [
+        "US",
+        "Luckyscent",
+        "luckyscent.com"
+      ],
+      [
+        "US",
+        "Impossible Color",
+        "impossible-color.com"
+      ],
+      [
+        "US",
+        "Mon Oeil",
+        "monoeil-monoeil.com"
+      ],
+      [
+        "US",
+        "ZGO",
+        "zgoperfumery.com"
+      ],
+      [
+        "Europe",
+        "Stefano Saccani",
+        "saccani.com"
+      ],
+      [
+        "Europe",
+        "Sacro Cuore",
+        "sacrocuoreprofumi.it"
+      ],
+      [
+        "Europe",
+        "Profumo Emozioni Olfattive",
+        "profumopoerio33.it"
+      ],
+      [
+        "Europe",
+        "Profumix",
+        "profumixluxurybrands.it"
+      ],
+      [
+        "Europe",
+        "Profumeria Caleri",
+        "caleri.com"
+      ],
+      [
+        "Europe",
+        "Centro Estetico Eri",
+        "centroesteticoeri.com"
+      ],
+      [
+        "Europe",
+        "Etualy",
+        "etualy.com"
+      ],
+      [
+        "Europe",
+        "Createur 5 (C5DE)",
+        "c5de.com"
+      ],
+      [
+        "Europe",
+        "Perfumeria Lulua",
+        "lulua.pl"
+      ],
+      [
+        "Europe",
+        "The Perfumery Barcelona",
+        "theperfumerybarcelona.com"
+      ],
+      [
+        "Europe",
+        "Hyrv Concept",
+        "hyrv.co"
+      ],
+      [
+        "Europe",
+        "Parfum d'Ambre",
+        "parfumdambre.be"
+      ],
+      [
+        "Europe",
+        "Duftkunsthandlung",
+        "duftkunsthandlung.enfore.com"
+      ],
+      [
+        "Australia",
+        "LKNU",
+        "lknu.com.au"
+      ],
+      [
+        "Turkey",
+        "Galeries Lafayette",
+        "galerieslafayette.com.tr"
+      ],
+      [
+        "Turkey",
+        "Brandroom",
+        "brandroom.com.tr"
+      ],
+      [
+        "Turkey",
+        "Nokta",
+        "noktacosmetics.com"
+      ]
+    ],
+    "tr": [
+      [
+        "ABD",
+        "Luckyscent",
+        "luckyscent.com"
+      ],
+      [
+        "ABD",
+        "Impossible Color",
+        "impossible-color.com"
+      ],
+      [
+        "ABD",
+        "Mon Oeil",
+        "monoeil-monoeil.com"
+      ],
+      [
+        "ABD",
+        "ZGO",
+        "zgoperfumery.com"
+      ],
+      [
+        "Avrupa",
+        "Stefano Saccani",
+        "saccani.com"
+      ],
+      [
+        "Avrupa",
+        "Sacro Cuore",
+        "sacrocuoreprofumi.it"
+      ],
+      [
+        "Avrupa",
+        "Profumo Emozioni Olfattive",
+        "profumopoerio33.it"
+      ],
+      [
+        "Avrupa",
+        "Profumix",
+        "profumixluxurybrands.it"
+      ],
+      [
+        "Avrupa",
+        "Profumeria Caleri",
+        "caleri.com"
+      ],
+      [
+        "Avrupa",
+        "Centro Estetico Eri",
+        "centroesteticoeri.com"
+      ],
+      [
+        "Avrupa",
+        "Etualy",
+        "etualy.com"
+      ],
+      [
+        "Avrupa",
+        "Createur 5 (C5DE)",
+        "c5de.com"
+      ],
+      [
+        "Avrupa",
+        "Perfumeria Lulua",
+        "lulua.pl"
+      ],
+      [
+        "Avrupa",
+        "The Perfumery Barcelona",
+        "theperfumerybarcelona.com"
+      ],
+      [
+        "Avrupa",
+        "Hyrv Concept",
+        "hyrv.co"
+      ],
+      [
+        "Avrupa",
+        "Parfum d'Ambre",
+        "parfumdambre.be"
+      ],
+      [
+        "Avrupa",
+        "Duftkunsthandlung",
+        "duftkunsthandlung.enfore.com"
+      ],
+      [
+        "Avustralya",
+        "LKNU",
+        "lknu.com.au"
+      ],
+      [
+        "Türkiye",
+        "Galeries Lafayette",
+        "galerieslafayette.com.tr"
+      ],
+      [
+        "Türkiye",
+        "Brandroom",
+        "brandroom.com.tr"
+      ],
+      [
+        "Türkiye",
+        "Nokta",
+        "noktacosmetics.com"
+      ]
+    ]
+  },
+  "finder": {},
+  "products": [
+    {
+      "name": "Blacklight",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Reset",
+      "year": null,
+      "perfumer": null,
+      "color": "#6f778c",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#1b6a66",
+        "edge": "#050404",
+        "drop": "#8b9e79",
+        "accent": "#8b9e79",
+        "mood": "warm"
+      },
+      "tagline": "Karanlık, topraksı bir atmosfer üzerinde, keskin ve parlak bir mavi yeşil.",
+      "notes": [
+        "Aldehitler",
+        "Karabiber",
+        "Kişniş",
+        "Süsen"
+      ],
+      "description": "Karanlık, topraksı bir atmosfer üzerinde, keskin ve parlak bir mavi yeşil. Anason ve karabiberli aldehitler deri, süsen ve vetiver notalarına kontrast oluşturuyor. Parlak üst notalar ve koyu alt notalar arasındaki boşluk parfümün ana teması.",
+      "file": "black-light.webp",
+      "handle": "black-light",
+      "en": {
+        "name": "Blacklight",
+        "family": "Reset",
+        "tagline": "A sharp and saturated blue-green note over an earthy, inky ambience.",
+        "notes": [
+          "Aldehydes",
+          "Black Pepper",
+          "Coriander",
+          "Iris"
+        ],
+        "description": "A sharp and saturated blue-green note over an earthy, inky ambience. Anisic and peppery aldehydes with contrasting notes of leather, iris and vetiver. Lack of heart notes between the bright opening and the stoic base creates a hollow, pulsating sensation.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Aldehydes, Black Pepper, Coriander, Iris, Leather, Licorice, Smoke"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2188,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0352,
+          0.0641,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1453,
+          0.1375,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4344,
+              0.0578
+            ],
+            [
+              0.4344,
+              0.0641
+            ],
+            [
+              0.4328,
+              0.0656
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9563
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3578,
+              0.9672
+            ],
+            [
+              0.3625,
+              0.9688
+            ],
+            [
+              0.6359,
+              0.9688
+            ],
+            [
+              0.6406,
+              0.9672
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5703,
+              0.0656
+            ],
+            [
+              0.5719,
+              0.0641
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.5625,
+              0.0344
+            ],
+            [
+              0.5609,
+              0.0328
+            ],
+            [
+              0.5578,
+              0.0344
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#a7aaaf"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/black-light/1.webp",
+        "foto/black-light/2.webp",
+        "foto/black-light/3.webp"
+      ],
+      "composition": [
+        "Notalar: Aldehitler, Karabiber, Kişniş, Süsen, Deri, Meyankökü, Duman"
+      ]
+    },
+    {
+      "name": "Flesh",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Reset",
+      "year": null,
+      "perfumer": null,
+      "color": "#deceb5",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#a8705e",
+        "edge": "#050404",
+        "drop": "#cba076",
+        "accent": "#cba076",
+        "mood": "warm"
+      },
+      "tagline": "Tensel bir süsen.",
+      "notes": [
+        "Amber Hatmisi",
+        "Kayisi",
+        "Civet",
+        "Süsen"
+      ],
+      "description": "Tensel bir süsen. Yoğun ve karakteristik açılışın ardından meyve ve çiçek detaylarıyla devam eden parfüm; misk, vanilya, amber hatmisi tohumu ve civet notalarından oluşan bir bitişe varıyor.",
+      "file": "flesh.webp",
+      "handle": "flesh",
+      "en": {
+        "name": "Flesh",
+        "family": "Reset",
+        "tagline": "A corporeal iris.",
+        "notes": [
+          "Ambrette",
+          "Apricot",
+          "Civet",
+          "Iris"
+        ],
+        "description": "A corporeal iris. An uncanny fatty iris opening progresses with shimmering fruity and floral details leading into a warm fond of musk, vanilla, ambrette seed and civet.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Ambrette, Apricot, Civet, Iris, Musks, Osmanthus, Paint, Sandalwood, Vanilla"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0391,
+          0.0648,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1461,
+          0.1383,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0484
+            ],
+            [
+              0.4328,
+              0.05
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4328,
+              0.1297
+            ],
+            [
+              0.4313,
+              0.1313
+            ],
+            [
+              0.4328,
+              0.1328
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9578
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3609,
+              0.9688
+            ],
+            [
+              0.6375,
+              0.9688
+            ],
+            [
+              0.6438,
+              0.9656
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.55,
+              0.0328
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#b29b90"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/flesh/1.webp",
+        "foto/flesh/2.webp",
+        "foto/flesh/3.webp"
+      ],
+      "composition": [
+        "Notalar: Amber Hatmisi, Kayisi, Civet, Süsen, Misk, Osmanthus, Boya, Sandalağacı, Vanilya"
+      ]
+    },
+    {
+      "name": "Yes, Please",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Reset",
+      "year": null,
+      "perfumer": null,
+      "color": "#dbacc6",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#a8416a",
+        "edge": "#050404",
+        "drop": "#cb8b7b",
+        "accent": "#cb8b7b",
+        "mood": "warm"
+      },
+      "tagline": "Dikenli bir pamuk şeker dokusunda alacalı bir gül ve armut şerbeti.",
+      "notes": [
+        "Konyak Yağı",
+        "Greyfurt",
+        "Süsen",
+        "Günnük"
+      ],
+      "description": "Dikenli bir pamuk şeker dokusunda alacalı bir gül ve armut şerbeti. Oldukça yoğun başlayan parfüm hızla sakinleşip farklı duyuları gıdıklayarak devam ediyor.",
+      "file": "yes-please.webp",
+      "handle": "yes-please",
+      "en": {
+        "name": "Yes, Please",
+        "family": "Reset",
+        "tagline": "A kaleidoscopic rose and pear sherbet with an exaggerated prickly cotton candy texture.",
+        "notes": [
+          "Cognac",
+          "Grapefruit",
+          "Iris",
+          "Frankincense"
+        ],
+        "description": "A kaleidoscopic rose and pear sherbet with an exaggerated prickly cotton candy texture. The scent quickly transitions from being overpowering to comfortable with a variety of sensations phasing in and out.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Cognac, Grapefruit, Iris, Frankincense, Pear, Pink, Rose, Sichuan Pepper, Vanilla"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0422,
+          0.0648,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1461,
+          0.1383,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0484
+            ],
+            [
+              0.4328,
+              0.05
+            ],
+            [
+              0.4328,
+              0.1297
+            ],
+            [
+              0.4313,
+              0.1313
+            ],
+            [
+              0.4328,
+              0.1328
+            ],
+            [
+              0.4313,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9578
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3609,
+              0.9688
+            ],
+            [
+              0.6375,
+              0.9688
+            ],
+            [
+              0.6438,
+              0.9656
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0688
+            ],
+            [
+              0.5719,
+              0.0672
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.55,
+              0.0328
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4969,
+              0.0312
+            ],
+            [
+              0.4953,
+              0.0297
+            ],
+            [
+              0.4938,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#cdaab8"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/yes-please/1.webp",
+        "foto/yes-please/2.webp",
+        "foto/yes-please/3.webp"
+      ],
+      "composition": [
+        "Notalar: Konyak Yağı, Greyfurt, Süsen, Günnük, Armut, Pembe, Gül, Sichuan Biberi, Vanilya"
+      ]
+    },
+    {
+      "name": "Purpl",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Reset",
+      "year": null,
+      "perfumer": null,
+      "color": "#cd973a",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#55287e",
+        "edge": "#050404",
+        "drop": "#a58084",
+        "accent": "#a58084",
+        "mood": "warm"
+      },
+      "tagline": "Tezat hisler tetikleyen kaotik ve bazıları için tanıdık bir karışım.",
+      "notes": [
+        "Karanfil",
+        "Üzüm Kabuğu",
+        "Süsen",
+        "Yosun"
+      ],
+      "description": "Tezat hisler tetikleyen kaotik ve bazıları için tanıdık bir karışım. Mor bir sis perdesi içinde tatlı, tuzlu, hayvansı ve sentetik notalar. Hayatın saçmalığına karşı kendi saçmalığımız. Blacklight’ın estetik ve kavramsal bir karşıtı.",
+      "file": "purpl.webp",
+      "handle": "purpl",
+      "en": {
+        "name": "Purpl",
+        "family": "Reset",
+        "tagline": "A chaotic mixture of contrasting suggestions with sweet, salty, natural and synthetic notes under a purple haze.",
+        "notes": [
+          "Carnation",
+          "Grape Skin",
+          "Iris",
+          "Moss"
+        ],
+        "description": "A chaotic mixture of contrasting suggestions with sweet, salty, natural and synthetic notes under a purple haze. A crowded opening bordering on vulgar, transitions into a vulnerable skin scent. An aesthetic and conceptual counterpart to Blacklight.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Carnation, Grape Skin, Iris, Moss, Musk, Strawberry, Strobes, Sweat, Vinyl"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2188,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0352,
+          0.0641,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1453,
+          0.1375,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4344,
+              0.0578
+            ],
+            [
+              0.4344,
+              0.0641
+            ],
+            [
+              0.4328,
+              0.0656
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9563
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3578,
+              0.9672
+            ],
+            [
+              0.3625,
+              0.9688
+            ],
+            [
+              0.6359,
+              0.9688
+            ],
+            [
+              0.6406,
+              0.9672
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5703,
+              0.0656
+            ],
+            [
+              0.5719,
+              0.0641
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.5625,
+              0.0344
+            ],
+            [
+              0.5609,
+              0.0328
+            ],
+            [
+              0.5578,
+              0.0344
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#a5876c"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/purpl/1.webp",
+        "foto/purpl/2.webp",
+        "foto/purpl/3.webp"
+      ],
+      "composition": [
+        "Notalar: Karanfil, Üzüm Kabuğu, Süsen, Yosun, Misk, Çilek, Işıklar, Ter, Vinil"
+      ]
+    },
+    {
+      "name": "Battaniye",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Re:Re:Collection",
+      "year": null,
+      "perfumer": null,
+      "color": "#a13900",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#94431c",
+        "edge": "#050404",
+        "drop": "#c28c58",
+        "accent": "#c28c58",
+        "mood": "warm"
+      },
+      "tagline": "Battaniye yakınlığı, tanıdıklığı ve konforu temsil eden bir parfüm.",
+      "notes": [
+        "Hint amberi",
+        "Hanımeli",
+        "Java vetiver",
+        "Laden"
+      ],
+      "description": "Battaniye yakınlığı, tanıdıklığı ve konforu temsil eden bir parfüm. Yoğun, kucaklayıcı ve havadar bir tefarik notasının baş rolü oynadığı bu dokunsal parfüm, yıpratıcı dış etkenlerden koruyan bir sığınak gibi. Tekrar dışarı çıkmadan önce kısa bir istirahat.",
+      "file": "battaniye.webp",
+      "handle": "battaniye",
+      "en": {
+        "name": "Battaniye",
+        "family": "Re:Re:Collection",
+        "tagline": "Meaning blanket in Turkish, Battaniye represents intimacy, familiarity, and comfort.",
+        "notes": [
+          "Amber",
+          "Honeysuckle",
+          "Java vetiver",
+          "Labdanum"
+        ],
+        "description": "Meaning blanket in Turkish, Battaniye represents intimacy, familiarity, and comfort. The rich but aerated patchouli is the star of this tactile fragrance, offering a respite from the elements and a moment to recollect yourself.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Amber, Honeysuckle, Java vetiver, Labdanum, Musk, Patchouli, Soil, Soot, Wool"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0391,
+          0.0648,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1461,
+          0.1383,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0484
+            ],
+            [
+              0.4328,
+              0.05
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4328,
+              0.1297
+            ],
+            [
+              0.4313,
+              0.1313
+            ],
+            [
+              0.4328,
+              0.1328
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9578
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3609,
+              0.9688
+            ],
+            [
+              0.6375,
+              0.9688
+            ],
+            [
+              0.6438,
+              0.9656
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.55,
+              0.0328
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#19191f"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/battaniye/1.webp",
+        "foto/battaniye/2.webp",
+        "foto/battaniye/3.webp"
+      ],
+      "composition": [
+        "Notalar: Hint amberi, Hanımeli, Java vetiver, Laden, Misk, Tefarik, Toprak, Kurum, Yün"
+      ]
+    },
+    {
+      "name": "Eaumer",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Re:Re:Collection",
+      "year": null,
+      "perfumer": null,
+      "color": "#a2a19b",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#255f80",
+        "edge": "#050404",
+        "drop": "#909985",
+        "accent": "#909985",
+        "mood": "warm"
+      },
+      "tagline": "“Sucul” temasının güncel bir yorumu olan Eaumer oyuncu ve genç bir parfüm.",
+      "notes": [
+        "Ambergris",
+        "Anason",
+        "Bergamot",
+        "Haiti vetiver"
+      ],
+      "description": "“Sucul” temasının güncel bir yorumu olan Eaumer oyuncu ve genç bir parfüm. Vetiver ve anason’un yarattığı tuzlu etki denizi hatırlatırken, kompozisyondaki diğer materyaller Ege rüzgarının değdiği kokuları taşıyor.",
+      "file": "eaumer.webp",
+      "handle": "eaumer",
+      "en": {
+        "name": "Eaumer",
+        "family": "Re:Re:Collection",
+        "tagline": "A contemporary eau in an ”aquatic” theme, Eaumer is playful and young.",
+        "notes": [
+          "Ambergris",
+          "Anise",
+          "Bergamot",
+          "Haiti vetiver"
+        ],
+        "description": "A contemporary eau in an ”aquatic” theme, Eaumer is playful and young. An interplay of vetiver and anise merely suggests the sea and the rest of the composition conjures the breeze carrying the scent and sound of everything it touches.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Ambergris, Anise, Bergamot, Haiti vetiver, Herbs, Jasmine, Lavender, Lime, Mastic, Musk"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0391,
+          0.0648,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1461,
+          0.1383,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0484
+            ],
+            [
+              0.4328,
+              0.05
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4328,
+              0.1297
+            ],
+            [
+              0.4313,
+              0.1313
+            ],
+            [
+              0.4328,
+              0.1328
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9578
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3609,
+              0.9688
+            ],
+            [
+              0.6375,
+              0.9688
+            ],
+            [
+              0.6438,
+              0.9656
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.55,
+              0.0328
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#1a1a1e"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/eaumer/1.webp",
+        "foto/eaumer/2.webp",
+        "foto/eaumer/3.webp"
+      ],
+      "composition": [
+        "Notalar: Ambergris, Anason, Bergamot, Haiti vetiver, Aromatik otlar, Yasemin, Lavanta, Misket limonu, Damla sakızı, Misk"
+      ]
+    },
+    {
+      "name": "Odoon",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Re:Re:Collection",
+      "year": null,
+      "perfumer": null,
+      "color": "#b3a994",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#5a3c26",
+        "edge": "#050404",
+        "drop": "#a8895d",
+        "accent": "#a8895d",
+        "mood": "warm"
+      },
+      "tagline": "Odoon, odunun figüran değil ana karakter olduğu bir parfüm.",
+      "notes": [
+        "Ash",
+        "Sedir",
+        "Peygamberağacı",
+        "Misk"
+      ],
+      "description": "Odoon, odunun figüran değil ana karakter olduğu bir parfüm. Odunu olduğundan daha güzel göstermeye çalışmadan, bin yıllardır tanıdığımız basit ve derin güzelliğini saygıyla çerçevelemekten ibaret. Odoon odun kokuyor ve içimizdeki derin bir hatırayı kolayca uyandırıyor.",
+      "file": "odoon.webp",
+      "handle": "odoon",
+      "en": {
+        "name": "Odoon",
+        "family": "Re:Re:Collection",
+        "tagline": "A homophone of the Turkish word for wood, Odoon is an ode to wood where it becomes the main character, front, and center.",
+        "notes": [
+          "Ash",
+          "Cedar",
+          "Guaiac wood",
+          "Musk"
+        ],
+        "description": "A homophone of the Turkish word for wood, Odoon is an ode to wood where it becomes the main character, front, and center. Reflecting the simple beauty inherent in wood without prettifying it, Odoon effortlessly triggers the memory and awakens an instinctive respect.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Ash, Cedar, Guaiac wood, Musk, Oak, Pepper, Pine, Resins, Sandalwood, Vanilla"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0391,
+          0.0648,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1461,
+          0.1383,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0484
+            ],
+            [
+              0.4328,
+              0.05
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4328,
+              0.1297
+            ],
+            [
+              0.4313,
+              0.1313
+            ],
+            [
+              0.4328,
+              0.1328
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9578
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3609,
+              0.9688
+            ],
+            [
+              0.6375,
+              0.9688
+            ],
+            [
+              0.6438,
+              0.9656
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.55,
+              0.0328
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#1a191f"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/odoon/1.webp",
+        "foto/odoon/2.webp",
+        "foto/odoon/3.webp"
+      ],
+      "composition": [
+        "Notalar: Ash, Sedir, Peygamberağacı, Misk, Meşe, Karabiber, Çam, Reçine, Sandalağacı, Vanilya 50ML Extrait"
+      ]
+    },
+    {
+      "name": "Ruh",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Re:Re:Collection",
+      "year": null,
+      "perfumer": null,
+      "color": "#ad7f13",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#8a5a1f",
+        "edge": "#050404",
+        "drop": "#bd9759",
+        "accent": "#bd9759",
+        "mood": "warm"
+      },
+      "tagline": "Ruh, parfüm dünyasındaki “oryantal” temasının bir yeniden yorumu.",
+      "notes": [
+        "Hint amberi",
+        "Kakule",
+        "Kahve",
+        "Yasemin"
+      ],
+      "description": "Ruh, parfüm dünyasındaki “oryantal” temasının bir yeniden yorumu. Dışarıdan bakan, karikatürize eden ve objeleştiren bir oryantalizmle değil, saygıyla ve içeriden bir bakışla. Kadim bir klasiğin bugünün detaylarıyla güncelleşmiş bir hali. Doğunun kompleks ve dramatik karakterinin indirgenemez ruhuna dair.",
+      "file": "ruh.webp",
+      "handle": "ruh",
+      "en": {
+        "name": "Ruh",
+        "family": "Re:Re:Collection",
+        "tagline": "Ruh, meaning spirit, is a reconstruction of the oriental theme to make it contemporary.",
+        "notes": [
+          "Amber",
+          "Cardamom",
+          "Coffee",
+          "Jasmine"
+        ],
+        "description": "Ruh, meaning spirit, is a reconstruction of the oriental theme to make it contemporary. A fresh take on an ancient style reveals the irreducible complexity and the dramatic character of the East.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Amber, Cardamom, Coffee, Jasmine, Musk, Oud, Patchouli, Rose, Saffron, Sandalwood"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0391,
+          0.0648,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1461,
+          0.1383,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0484
+            ],
+            [
+              0.4328,
+              0.05
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4328,
+              0.1297
+            ],
+            [
+              0.4313,
+              0.1313
+            ],
+            [
+              0.4328,
+              0.1328
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9578
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3609,
+              0.9688
+            ],
+            [
+              0.6375,
+              0.9688
+            ],
+            [
+              0.6438,
+              0.9656
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.55,
+              0.0328
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#1a191f"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/ruh/1.webp",
+        "foto/ruh/2.webp",
+        "foto/ruh/3.webp"
+      ],
+      "composition": [
+        "Notalar: Hint amberi, Kakule, Kahve, Yasemin, Misk, Oud, Tefarik, Gül, Safran, Sandalağacı"
+      ]
+    },
+    {
+      "name": "Zeybek",
+      "form": "photo",
+      "sub": "50 ml",
+      "collection": null,
+      "family": "Re:Re:Collection",
+      "year": null,
+      "perfumer": null,
+      "color": "#9cb562",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#4a6628",
+        "edge": "#050404",
+        "drop": "#a09c5d",
+        "accent": "#a09c5d",
+        "mood": "warm"
+      },
+      "tagline": "Zeybek ismini aldığı dans ve o dansı yapan kültür gibi utanmasız, tutkulu ve gururlu bir parfüm.",
+      "notes": [
+        "Bergamot",
+        "Saman",
+        "Lavanta",
+        "Deri"
+      ],
+      "description": "Zeybek ismini aldığı dans ve o dansı yapan kültür gibi utanmasız, tutkulu ve gururlu bir parfüm. Parfüme rengini veren ve direğini oluşturan lavanta absolusü, ortamı oluşturan sigara, at, içki ve uzaktaki bir denizin notalarıyla bir oraya bir buraya dansediyor.",
+      "file": "zeybek.webp",
+      "handle": "zeybek",
+      "en": {
+        "name": "Zeybek",
+        "family": "Re:Re:Collection",
+        "tagline": "Taking its name from an expressive Aegean dance for a solo male, Zeybek is shameless and proud with uninhibited passion.",
+        "notes": [
+          "Bergamot",
+          "Hay",
+          "Lavender",
+          "Leather"
+        ],
+        "description": "Taking its name from an expressive Aegean dance for a solo male, Zeybek is shameless and proud with uninhibited passion. The exquisite lavender absolute at the heart sways in all directions with ambient notes of horses, cigarette, booze and the sea far away.",
+        "sub": "50 ml",
+        "composition": [
+          "Notes: Bergamot, Hay, Lavender, Leather, Lemon, Musk, Narcissus, Tobacco, Tonka, Vetiver"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.36,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0391,
+          0.0648,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0656,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0664,
+          0.0672,
+          0.0664,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.0672,
+          0.068,
+          0.0672,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.068,
+          0.0688,
+          0.0578,
+          0.0578,
+          0.0578,
+          0.1437,
+          0.1469,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1484,
+          0.1469,
+          0.1461,
+          0.1383,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4422,
+              0.0328
+            ],
+            [
+              0.4344,
+              0.0359
+            ],
+            [
+              0.4344,
+              0.0484
+            ],
+            [
+              0.4328,
+              0.05
+            ],
+            [
+              0.4344,
+              0.0516
+            ],
+            [
+              0.4328,
+              0.0531
+            ],
+            [
+              0.4328,
+              0.1297
+            ],
+            [
+              0.4313,
+              0.1313
+            ],
+            [
+              0.4328,
+              0.1328
+            ],
+            [
+              0.4328,
+              0.1375
+            ],
+            [
+              0.4313,
+              0.1391
+            ],
+            [
+              0.4313,
+              0.2031
+            ],
+            [
+              0.4406,
+              0.2031
+            ],
+            [
+              0.4422,
+              0.2047
+            ],
+            [
+              0.4422,
+              0.2141
+            ],
+            [
+              0.4406,
+              0.2156
+            ],
+            [
+              0.3609,
+              0.2156
+            ],
+            [
+              0.3578,
+              0.2188
+            ],
+            [
+              0.3547,
+              0.2188
+            ],
+            [
+              0.35,
+              0.2266
+            ],
+            [
+              0.35,
+              0.9578
+            ],
+            [
+              0.3516,
+              0.9609
+            ],
+            [
+              0.3609,
+              0.9688
+            ],
+            [
+              0.6375,
+              0.9688
+            ],
+            [
+              0.6438,
+              0.9656
+            ],
+            [
+              0.6484,
+              0.9578
+            ],
+            [
+              0.6484,
+              0.2266
+            ],
+            [
+              0.6469,
+              0.2219
+            ],
+            [
+              0.6375,
+              0.2156
+            ],
+            [
+              0.5625,
+              0.2156
+            ],
+            [
+              0.5609,
+              0.2141
+            ],
+            [
+              0.5609,
+              0.2047
+            ],
+            [
+              0.5625,
+              0.2031
+            ],
+            [
+              0.5641,
+              0.2047
+            ],
+            [
+              0.5656,
+              0.2031
+            ],
+            [
+              0.5672,
+              0.2047
+            ],
+            [
+              0.5703,
+              0.2031
+            ],
+            [
+              0.5703,
+              0.0703
+            ],
+            [
+              0.5719,
+              0.0688
+            ],
+            [
+              0.5719,
+              0.0469
+            ],
+            [
+              0.5703,
+              0.0453
+            ],
+            [
+              0.5719,
+              0.0422
+            ],
+            [
+              0.5687,
+              0.0344
+            ],
+            [
+              0.55,
+              0.0328
+            ],
+            [
+              0.5484,
+              0.0312
+            ],
+            [
+              0.4531,
+              0.0312
+            ],
+            [
+              0.4516,
+              0.0328
+            ]
+          ]
+        ],
+        "edge": "#1a191f"
+      },
+      "price": {
+        "tr": 165.0,
+        "en": 165.0
+      },
+      "photos": [
+        "foto/zeybek/1.webp",
+        "foto/zeybek/2.webp",
+        "foto/zeybek/3.webp"
+      ],
+      "composition": [
+        "Notalar: Bergamot, Saman, Lavanta, Deri, Limon, Misk, Nergis, Tütün, Tonka, Vetiver"
+      ]
+    }
+  ],
+  "home": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Reset · 1. aşama",
+        "text": "Reset’in ilk aşaması. Sonsuz bir boşluktaki bilinç.",
+        "stat": "Blacklight"
+      },
+      "en": {
+        "title": "Reset · phase 1",
+        "text": "The first phase of reset introduces mental consciousness inside an infinite dissociative space.",
+        "stat": "Blacklight"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Reset · 2. aşama",
+        "text": "Reset’in ikinci aşaması. Vücut ile tanışma.",
+        "stat": "Flesh"
+      },
+      "en": {
+        "title": "Reset · phase 2",
+        "text": "The second phase of reset introduces the body. Transition from a mental consciousness into a corporeal consciousness.",
+        "stat": "Flesh"
+      }
+    },
+    {
+      "flavor": 2,
+      "tr": {
+        "title": "Reset · 3. aşama",
+        "text": "Reset’in üçüncü aşaması. Çekici ve yer çekimsiz bir atmosferde bilinç duygu ile tanışıyor.",
+        "stat": "Yes, Please"
+      },
+      "en": {
+        "title": "Reset · phase 3",
+        "text": "The third phase of reset introduces the emotional layer to consciousness in an enticing, weightless atmosphere.",
+        "stat": "Yes, Please"
+      }
+    }
+  ]
+}

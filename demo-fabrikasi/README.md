@@ -299,6 +299,14 @@ koyu ayak. Şişelerin hepsi aynı tondaysa (altın/amber) fotoğraftan çıkan 
 kurallarında `palette` ile her ürüne kendi mücevher tonu verilir (bordo, safir, zümrüt…), `themeGlow: 0.3`.
 Yanında puarlı pompa gibi eksenden taşan parçası olan şişeler dönen profil yerine tam silüetle (`profiles.flat`) gösterilir.
 
+Minimal, çağdaş markalarda kemer yerine `decor.shape: "rect"`: ince altın çift çerçeveli dikey ışık panosu (Pekji);
+`decor.pattern: false` deseni kapatır. Niş, öndeki ürünün ölçülen boyunu ve genişliğini izler (şişe hep içinde kalır).
+
+**Sprey notu** (`ui/SprayNote.jsx`, `content.spray`): "Parfümü sık"a basınca buğu ekrana doğru üflenir; ardından sağdaki
+nota listesinin yerinde koku profili (notalardan ve markanın açıklamasındaki koku kelimelerinden hesaplanan akorlar,
+baskınlığa göre dolan altın çubuklar; sayı yok) ve nota katmanları belirir, birkaç saniye sonra dağılır. Başka dilde
+başlık ve akor adları `ui.<dil>.sprayNote`.
+
 **WooCommerce, büyük mağaza:** `woo-cek.py … --only "regex" --no-clean --no-en` yalnızca seçilen ürünleri indirir,
 medya arşivinde sade çekim aramaz; İngilizce ürün (WPML) stok koduyla (SKU) eşleşir. İngilizce açıklama
 `aktar.enText` ile elle seçilir.

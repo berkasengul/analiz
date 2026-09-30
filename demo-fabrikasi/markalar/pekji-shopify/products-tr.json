@@ -1,0 +1,257 @@
+[
+ {
+  "id": 20168,
+  "handle": "black-light",
+  "title": "Blacklight",
+  "body_html": "<p>Blacklight içimizdeki karanlık ve yalnız yerin aydınlatılmış bir hali. İnandığı hikayelerden, öğrendiği dillerden arınmış bir şekilde kendiyle başbaşa kalmış bir bilinç. Dışarı çıktığınızda &#8220;yahu bırak bunları dümdüz rakı kokuyor işte&#8221; sesini duymanız mümkün.</p>",
+  "vendor": "Pekji",
+  "product_type": "RESET",
+  "permalink": "https://pekji.com/tr/product/blacklight/",
+  "variants": [
+   {
+    "id": 19310,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/blacklight-on.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/blacklight-siyah-1.jpg"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/blacklightbox-1.png"
+   }
+  ]
+ },
+ {
+  "id": 20156,
+  "handle": "flesh",
+  "title": "Flesh",
+  "body_html": "<p>Vücuda bak. Kokla. Hareket et. Esne. Yalpala.</p>\n<p>Flesh, dikkati vücuda yönlendiren bir parfüm. Açılışındaki endüstriyel ve kozmetik notalarla bir &#8220;yeni&#8221; algısı oluşturuyor. Parfüm kullanıldıkça bu his yavaşça yok olup yerini tanıdık ve insani bir hisse bırakıyor. Uzun bir tatilden sonra vücutla yeniden tanışmak gibi.</p>\n<p>Bu parfümü bir aynaya sıkıp, kendinize bakarken aynayı koklamayı deneyebilirsiniz.</p>",
+  "vendor": "Pekji",
+  "product_type": "RESET",
+  "permalink": "https://pekji.com/tr/product/flesh-2/",
+  "variants": [
+   {
+    "id": 19340,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/flesh-on.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/flesh-siyah-1.jpg"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/fleshbox-1.png"
+   }
+  ]
+ },
+ {
+  "id": 20160,
+  "handle": "yes-please",
+  "title": "Yes,Please",
+  "body_html": "<pre>Bu proje sırasında çalıştığım dansçılardan biri bu parfüm hakkında: \"Sanki içimde çiçek açıyor gibi hissediyorum.\" demişti. \r\nBu benim en sevdiğim tanım. \r\n\r\nİlk kullanışınızı şekerli bir şarkı eşliğinde ve normalde sıkacağınızdan fazla parfüm sıkarak yapmanızı tavsiye ederim. \r\nNormalde sinir bozucu derecede akılcı ve gıcık biri olsanız bile.\r\n🖤</pre>",
+  "vendor": "Pekji",
+  "product_type": "RESET",
+  "permalink": "https://pekji.com/tr/product/yesplease/",
+  "variants": [
+   {
+    "id": 19341,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/yesplease-on.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/yesplease-siyah-1.jpg"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/yespleasebox-1.png"
+   }
+  ]
+ },
+ {
+  "id": 20172,
+  "handle": "purpl",
+  "title": "Purpl",
+  "body_html": "<p>#vaporwave #dionysian #theiamania #absurd #istikrarlihayal</p>\n<p>Bu hashtagler anlayan için sivrisinek işlevi görüyor olmalı. Görmüyorsa şöyle anlatabilirim. Bu bir sanal gerçeklikteki dans klübü, bir efsanenin yaratılışı, Babil&#8217;de dillerin patlaması, yarı gerçek bir parti, salkım hanımın üzümleri ya da oyuna başlamadan önceki tutorial. Dilimin ucunda ama ancak purpl diyebiliyorum.</p>",
+  "vendor": "Pekji",
+  "product_type": "RESET",
+  "permalink": "https://pekji.com/tr/product/purple/",
+  "variants": [
+   {
+    "id": 19332,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/purpl-on.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/purpl-siyah-1.jpg"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/purplbox-1.png"
+   }
+  ]
+ },
+ {
+  "id": 20176,
+  "handle": "eaumer",
+  "title": "Eaumer",
+  "body_html": "<p>Denizin kalbimde özel bir yeri var. Deniz temalı parfümler ise sentetik-temiz notalarıyla beni hep hayal kırıklığına uğratmıştır. Bu temayı ele alırken o tanıdık sucul notaları kullanmak yerine, hatırladığım bir rüzgarın kokusunu tekrar yaratmaya çalıştım. Mazot, çiçek, yabani ot kokuları arasından hayali ve kusursuz bir deniz yaratan bu parfüm bana hala sonsuza demir attığım bir anı hatırlatıyor.</p>",
+  "vendor": "Pekji",
+  "product_type": "RE:RE:COLLECTION",
+  "permalink": "https://pekji.com/tr/product/eaumer-tr/",
+  "variants": [
+   {
+    "id": 19344,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/eaumeron.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/eaumer-iso-1.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/eaumerbox-1.png"
+   }
+  ]
+ },
+ {
+  "id": 20076,
+  "handle": "ruh",
+  "title": "Ruh",
+  "body_html": "<blockquote><p>&#8220;Oryantal&#8221; parfüm dünyasında yeni yeni vazgeçilmeye başlanmış bir koku temasının ismi. Bu temayı güncelleştirmek, mitleştirilmiş  halinden yaşayan haline yaklaştırma amacıyla yaptığım bir parfüm. Sürekli taze bir Türk gülü. Kakuleli kahve. Artık klimalandırılmış çelik ve cam çarşılarda attarların, parfümlerin, tütsülerin ve baharatların sindiği hava.</p></blockquote>",
+  "vendor": "Pekji",
+  "product_type": "RE:RE:COLLECTION",
+  "permalink": "https://pekji.com/tr/product/ruh-tr/",
+  "variants": [
+   {
+    "id": 19779,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/ruhon.png"
+   }
+  ]
+ },
+ {
+  "id": 20164,
+  "handle": "odoon",
+  "title": "Odoon",
+  "body_html": "<p>Odoon sade ve meditatif bir parfüm olduğu için üzerinde konuşmaktan çok hoşlanmıyorum. Kalabalıksız, cilasız, detaylı bir odun. Benim hafızamda nasılsa öyle.</p>",
+  "vendor": "Pekji",
+  "product_type": "RE:RE:COLLECTION",
+  "permalink": "https://pekji.com/tr/product/odoon-2/",
+  "variants": [
+   {
+    "id": 19342,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/odoonon.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/odoon-iso-1.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/odoonbox-1.png"
+   }
+  ]
+ },
+ {
+  "id": 20208,
+  "handle": "battaniye",
+  "title": "Battani̇ye",
+  "body_html": "<p>Battaniye&#8217;yi yapmadan önce bir çok amber denemesi yapmıştım.<br />\nGüzel olsalar da var olmayı hakedecek kadar özgün bulmamıştım ve deneme yapmayı bırakmıştım.<br />\nNew York&#8217;tan bunalıp Kaliforniya kırsalında daha dingin bir hayatı tercih eden bir arkadaşıma parfüm yaptığımda ise o yapamadığım amberi karşımda buldum.<br />\nTrabzon&#8217;da yağmurdan sırılsıklam bir şekilde eve gelip, sıcak eski bir yün battaniye&#8217;ye sarılarak balkondan yağmuru izlediğim bir günün koku hatırası.<br />\nİçindeyken bunaltan o fırtına, güvenli bir yerden izlerken yalnızca bir eğlenceye dönüşmüştü</p>",
+  "vendor": "Pekji",
+  "product_type": "RE:RE:COLLECTION",
+  "permalink": "https://pekji.com/tr/product/battaniye-tr/",
+  "variants": [
+   {
+    "id": 19333,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/battaniyeon.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/battaniye-iso-1.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/battaniyebox-1.png"
+   }
+  ]
+ },
+ {
+  "id": 20180,
+  "handle": "zeybek",
+  "title": "Zeybek",
+  "body_html": "<p>Bir &#8220;erkek parfümü&#8221; olmaktan çok uzak olsa da, Zeybek&#8217;i yaparken aklımda bir erkek karakter vardı. Ege&#8217;nin harika bir kültürel mirası olan Zeybek, tekniğinden çok tavrıyla zor olan bir dans. Parfümünün de çiçeksi, aromatik, hayvansı notalar arasında salınarak zengin karakterini gururla göstermesi gerekiyordu.</p>",
+  "vendor": "Pekji",
+  "product_type": "RE:RE:COLLECTION",
+  "permalink": "https://pekji.com/tr/product/zeybek-tr/",
+  "variants": [
+   {
+    "id": 19481,
+    "title": "Default Title",
+    "price": "165.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/zeybekon.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/zeybek-iso-1.png"
+   },
+   {
+    "src": "https://pekji.com/wp-content/uploads/2021/06/zeybekbox-1.png"
+   }
+  ]
+ }
+]
