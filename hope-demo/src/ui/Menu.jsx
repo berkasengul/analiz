@@ -2,12 +2,13 @@ import { useT, termLang, wordLang } from "../i18n";
 import { useStore } from "../store";
 import { HIDDEN, content } from "../data";
 import { LangSwitch } from "./Header";
+import { FINDER } from "./Finder";
 
 // Katalogu olan markalarda: ürünler, setler, hakkımızda, satış noktaları, SSS, iletişim.
 // Markanın kapattığı bölümler (content.hide) menüde görünmez.
 const links = (
   content.catalog
-    ? [["#/urunler", "products"], ...(content.catalog.categories.some((c) => c.id === "set") ? [["#/urunler/set", "sets"]] : []), ["#story", "about"], ...(HIDDEN.has("stockists") ? [] : [["#stockists", "stockists"]]), ["#faq", "faq"], ["#contact", "contact"]]
+    ? [["#/urunler", "products"], ...(content.catalog.categories.some((c) => c.id === "set") ? [["#/urunler/set", "sets"]] : []), ...(FINDER ? [["#finder", "finder"]] : []), ["#story", "about"], ...(HIDDEN.has("stockists") ? [] : [["#stockists", "stockists"]]), ["#faq", "faq"], ["#contact", "contact"]]
     : ["flavors", "ritual", "shop", "story", "stockists", "faq", "contact"].filter((id) => !HIDDEN.has(id)).map((id) => [`#${id}`, id])
 ).filter(([href]) => !HIDDEN.has(href.slice(1)));
 
@@ -20,7 +21,7 @@ export default function Menu() {
       <nav className="menu__links">
         {links.map(([href, id], i) => (
           <a key={href} href={href} tabIndex={menu ? 0 : -1} style={{ "--i": i }}>
-            {ui.nav[id] ?? ui.nav.story}
+            {ui.nav[id] ?? (id === "finder" ? (lang === "en" ? "Scent finder" : "Koku bulucu") : ui.nav.story)}
           </a>
         ))}
       </nav>

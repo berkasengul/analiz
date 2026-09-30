@@ -342,7 +342,15 @@ export default function Carousel() {
     order.forEach((flavor, slot) => (slotOf[flavor] = slot));
 
     // ?shot: açılış animasyonu atlanır (yavaş test tarayıcısında ekran görüntüsü için).
-    if (loaded) sceneState.intro = SHOT ? 1 : Math.min(1, sceneState.intro + dt / 2.6);
+    // Sinematik açılışta (Preloader → introAt) şişeler perde açılırken iner; inişte ışık ve duman.
+    if (loaded && performance.now() >= (sceneState.introAt ?? 0)) {
+      const was = sceneState.intro;
+      sceneState.intro = SHOT ? 1 : Math.min(1, sceneState.intro + dt / (sceneState.introAt ? 1.6 : 2.6));
+      if (sceneState.introAt && was < 0.56 && sceneState.intro >= 0.56) {
+        sceneState.landAt = t;
+        sceneState.swapAt = t - 0.5 * SLOWMO;
+      }
+    }
     s.p = MathUtils.damp(s.p, scrollState.p, 6, dt);
     s.detail = MathUtils.damp(s.detail, detail ? 1 : 0, 4, dt);
     // Hızlı kaydırınca kutular hafifçe yatar.
@@ -458,7 +466,7 @@ export default function Carousel() {
 
       g.position.set(
         pose.x * (1 + 2.2 * spread + 0.9 * fade),
-        pose.y - 2 * spread - (1 - intro) * 9 + lift * 0.25 - 0.4 * fade,
+        pose.y - 2 * spread + (1 - intro) * (sceneState.introAt ? 7 : -9) + lift * 0.25 - 0.4 * fade,
         pose.z - (1 - intro) * 4 - 1.5 * fade
       );
       // Butik sırasında ürünler kaidede durur: kaydırırken yatmaz.
@@ -506,7 +514,7 @@ export default function Carousel() {
 
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {
-        sceneState.focus.position.set(pose.x, pose.y - (1 - intro) * 9, pose.z - (1 - intro) * 4);
+        sceneState.focus.position.set(pose.x, pose.y + (1 - intro) * (sceneState.introAt ? 7 : -9), pose.z - (1 - intro) * 4);
         sceneState.focus.rest.set(pose.x, pose.y, pose.z);
         sceneState.focus.rotation.copy(g.rotation);
         sceneState.focus.scale = pose.scale;

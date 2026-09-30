@@ -23,6 +23,7 @@ const tex = (file) => {
   return cache[file];
 };
 const HAS = flavors.some((f) => f.garnish?.length);
+const DEBUG = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("sounddebug");
 
 export default function Garnish() {
   const meshes = [useRef(), useRef(), useRef(), useRef()];
@@ -33,6 +34,7 @@ export default function Garnish() {
   useFrame(({ clock }, delta) => {
     const S = s.current;
     const st = useStore.getState();
+    if (DEBUG) window.__garnish = { alpha: S.alpha, shown: S.shown, settled: sceneState.settled, intro: sceneState.intro, swapping: st.swapping, detail: st.detail, bottom: sceneState.focus.bottom, ritual: scrollState.ritualIn, shop: scrollState.shopIn };
     const active = st.active;
     const f = sceneState.focus;
     const ok =

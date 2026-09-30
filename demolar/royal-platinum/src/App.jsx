@@ -18,6 +18,7 @@ import Ritual from "./ui/Ritual";
 import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
 import { EPILOGUE, EpilogueStage } from "./ui/Epilogue";
+import Finder, { FINDER } from "./ui/Finder";
 import { CatalogPage, CategoryBar, CategoryGrid, CollectionGrid } from "./ui/Catalog";
 
 const N = flavors.length;
@@ -465,6 +466,7 @@ export default function App() {
         <main>
           {stage}
           <Ritual />
+          {FINDER && <Finder />}
           {content.catalog && <CollectionGrid />}
           <Shop />
           <div className={`epilogue${EPILOGUE ? " epilogue--stage" : ""}`}>

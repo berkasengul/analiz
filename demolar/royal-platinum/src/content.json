@@ -25378,5 +25378,13 @@
         "stat": "Venezia"
       }
     }
-  ]
+  ],
+  "finder": {
+    "categories": [
+      "premium",
+      "niche",
+      "kadin",
+      "erkek"
+    ]
+  }
 }

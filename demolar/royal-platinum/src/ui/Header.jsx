@@ -6,6 +6,7 @@ import { useStore } from "../store";
 import { HIDDEN, content } from "../data";
 import { SearchButton } from "./Search";
 import { onSoundChange, setSound, soundState } from "../sound";
+import { FINDER } from "./Finder";
 
 // Dil düğmesinde o dilin para birimi simgesi (markanın fiyat ayarından).
 const symbol = (p) => (p ? new Intl.NumberFormat(p.locale, { style: "currency", currency: p.currency, currencyDisplay: "narrowSymbol" }).formatToParts(0).find((x) => x.type === "currency")?.value : "");
@@ -89,6 +90,8 @@ function NavBar({ ui }) {
   const links = CAT
     ? [
         ...(hasSets ? [["#/urunler/set", ui.nav.sets]] : []),
+        // Koku bulucu (ui/Finder.jsx) üst menüde.
+        ...(FINDER ? [["#finder", ui.nav.finder ?? (lang === "en" ? "Scent finder" : "Koku bulucu")]] : []),
         ...(HIDDEN.has("story") ? [] : [["#story", ui.nav.about ?? ui.nav.story]]),
         // Mağaza bulucusu olan markalarda üst menüde "Mağaza bul".
         ...(content.locator ? [["#stockists", ui.nav.stockists]] : []),

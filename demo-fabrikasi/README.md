@@ -312,6 +312,16 @@ kaideye iniş tınısı ve ortam tonu hazır ama kapalı: `content.sceneSounds: 
 saydam katman olarak kesilir. 3B sahnede şişe kaideye oturunca fotoğraftaki yerlerinde iki yandan süzülerek gelir,
 fareyle derinlik kazanır; koleksiyon kartlarında da görünür. `shopify-foto.py` sonrası çalıştırılır.
 
+**Koku bulucu** (`ui/Finder.jsx`, notası olan en az 3 üründe açık; `content.finder: false` kapatır,
+`{"categories": [...]}` öneriyi o kategorilerle sınırlar): üç soru; cevaplar koku ailelerine (ferah, çiçeksi, tatlı,
+sıcak) ağırlık verir, her ürünün ailesi kendi notalarından (Türkçe/İngilizce nota adları) hesaplanır. Sonuç kendi
+renginde kaideye yukarıdan iner, notaları süzülür; iki alternatif, sepete ekle ve "Kokuyu keşfet" (3B vitrinde açar).
+Üst menüde ve açılır menüde "Koku bulucu".
+
+**Sinematik açılış** (`theme.opening`, ferah sahnede varsayılan; oturumun ilk açılışında, `?shot` adresinde yok):
+yüklenirken karanlıkta logo ve altın çizgi; yüklenince altın ışık logonun üstünden geçer, slogan belirir, perde
+ortadan dairesel açılır, ilk şişe yukarıdan kaideye iner (inişte ışık patlaması ve duman), ardından notalar gelir.
+
 **Sahne kartları** (ferah sahnede varsayılan; `theme.cards: "gallery-dark"` eski karanlık sergi): koleksiyonda her
 ürün 3B vitrinin küçük kopyasında: ürün renginde duvar, ipek ışık, parlak zemin, fildişi kaide, şişe ve notalar.
 

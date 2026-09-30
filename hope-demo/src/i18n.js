@@ -35,7 +35,7 @@ const UI = {
   tr: {
     backToTop: "başa dön",
     sections: "Bölümler",
-    nav: { flavors: "Kokular", ritual: "Ritüel", shop: "Mağaza", story: "Hikâye", stockists: "Nerede", faq: "SSS", contact: "İletişim", catalog: "Tüm ürünler", categories: "Kategoriler", products: "Ürünler", sets: "Setler", about: "Hakkımızda" },
+    nav: { flavors: "Kokular", ritual: "Ritüel", shop: "Mağaza", story: "Hikâye", stockists: "Nerede", faq: "SSS", contact: "İletişim", catalog: "Tüm ürünler", categories: "Kategoriler", products: "Ürünler", sets: "Setler", about: "Hakkımızda", finder: "Koku bulucu" },
     openCart: (n) => `Sepeti aç, ${n} ürün`,
     menu: "Menü",
     close: "Kapat",
@@ -179,7 +179,7 @@ const UI = {
   en: {
     backToTop: "back to top",
     sections: "Sections",
-    nav: { flavors: "Scents", ritual: "Ritual", shop: "Shop", story: "Story", stockists: "Where", faq: "FAQ", contact: "Contact", catalog: "All products", categories: "Categories", products: "Products", sets: "Sets", about: "About us" },
+    nav: { flavors: "Scents", ritual: "Ritual", shop: "Shop", story: "Story", stockists: "Where", faq: "FAQ", contact: "Contact", catalog: "All products", categories: "Categories", products: "Products", sets: "Sets", about: "About us", finder: "Scent finder" },
     openCart: (n) => `Open cart, ${n} items`,
     menu: "Menu",
     close: "Close",

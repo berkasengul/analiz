@@ -7424,3 +7424,206 @@ html .epilogue--stage .news { align-self: stretch; }
 }
 @media (hover: none) { .scard__cta { display: none; } }
 @media (prefers-reduced-motion: reduce) { .scard__garnish, .scard__silk i { animation: none; } }
+
+/* =====================================================================
+   Koku bulucu (ui/Finder.jsx): 3B vitrinin odası; solda cam kartta sorular, sağda kaide. Sonuçta
+   koku kendi renginde kaideye yukarıdan iner, iki yanında notaları süzülür.
+   ===================================================================== */
+html .finder {
+  --glow: #4a3530;
+  --drop: #e8d4c2;
+  --edge: #0e0a09;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-right: max(var(--gutter), 46vw);
+  background: var(--edge);
+  transition: --glow 1.4s ease, --drop 1.4s ease, --edge 1.4s ease;
+}
+.finder__room { position: absolute; inset: 0; z-index: 0; pointer-events: none; --sx: 74%; }
+.finder__room .epi-wall,
+.finder__room .epi-floor { --sx: 74%; }
+.finder__exhibit { left: 74%; container-type: size; }
+.finder__empty {
+  position: absolute;
+  left: 50%;
+  bottom: 30%;
+  translate: -50% 0;
+  width: max-content;
+  font-size: 0.64rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--drop) 70%, #fff);
+  opacity: 0.8;
+  animation: epi-breathe 3s ease-in-out infinite;
+}
+.finder__drop { position: absolute; inset: 0; }
+.finder__bottle {
+  position: absolute;
+  left: 50%;
+  bottom: 13cqh;
+  height: 80cqh;
+  max-width: 120%;
+  translate: -50% 0;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.45));
+  animation: finder-drop 1.25s cubic-bezier(0.3, 0.7, 0.2, 1) both;
+}
+@keyframes finder-drop {
+  0% { opacity: 0; transform: translateY(-70cqh) rotate(-8deg) scale(0.9); filter: blur(8px); }
+  55% { opacity: 1; transform: translateY(2cqh) rotate(2deg); filter: blur(0); }
+  75% { transform: translateY(-1.2cqh) rotate(-0.6deg); }
+  100% { opacity: 1; transform: none; }
+}
+.finder__garnish {
+  position: absolute;
+  width: calc(var(--gw) * 80cqh);
+  height: calc(var(--gh) * 80cqh);
+  left: calc(50% + (var(--gx) - var(--gw) / 2) * 80cqh);
+  bottom: calc(13cqh + (var(--gy) - var(--gh) / 2) * 80cqh);
+  object-fit: contain;
+  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.35));
+  animation: finder-garnish 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) calc(0.9s + var(--gk) * 0.15s) both, scard-float 6s ease-in-out calc(2s + var(--gk) * -2.4s) infinite;
+}
+@keyframes finder-garnish {
+  from { opacity: 0; transform: translateX(calc(var(--gs) * 30cqh)) rotate(calc(var(--gs) * 10deg)) scale(0.85); }
+  to { opacity: 1; transform: none; }
+}
+.finder .epi-puff { animation: epi-puff 1.5s ease-out 0.55s both; }
+.finder__card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 720px;
+  padding: clamp(26px, 3vw, 46px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 4px;
+  background: linear-gradient(160deg, rgba(10, 10, 12, 0.52), rgba(10, 10, 12, 0.3));
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+.finder__step { display: flex; flex-direction: column; gap: 16px; animation: finder-step 0.6s var(--ease) both; }
+@keyframes finder-step { from { opacity: 0; transform: translateY(14px); } }
+.finder__lead { font-family: var(--serif); font-style: italic; font-size: clamp(1.1rem, 1.5vw, 1.35rem); color: rgba(255, 255, 255, 0.84); max-width: 40ch; }
+.finder__q { font-family: var(--display, var(--wide)); font-weight: 400; font-size: clamp(1.5rem, 2.4vw, 2.2rem); line-height: 1.15; margin-top: 8px; }
+.finder__opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.finder__opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  text-align: left;
+  font-size: 1rem;
+  color: var(--fg);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease);
+}
+.finder__opt span {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--accent, #d9b27a) 60%, transparent);
+  color: var(--accent, #d9b27a);
+  font-size: 0.7rem;
+}
+.finder__opt:hover { background: color-mix(in oklab, var(--drop) 16%, transparent); border-color: color-mix(in oklab, var(--drop) 55%, transparent); transform: translateY(-2px); }
+.finder__bar { display: flex; gap: 6px; margin-top: 6px; }
+.finder__bar i { flex: 1; height: 2px; background: rgba(255, 255, 255, 0.16); }
+.finder__bar i.is-on { background: var(--accent, #d9b27a); }
+.finder__bar i.is-cur { background: linear-gradient(90deg, var(--accent, #d9b27a) 40%, rgba(255, 255, 255, 0.16) 40%); }
+.finder__back { align-self: flex-start; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); background: none; border: 0; padding: 4px 0; }
+.finder__back:hover { color: #fff; }
+.finder__name { font-family: var(--display, var(--wide)); font-weight: 400; font-size: clamp(2.4rem, 4.6vw, 4.4rem); line-height: 1; text-transform: uppercase; letter-spacing: 0.01em; }
+.finder__notes { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+.finder__notes li { padding: 7px 14px; border: 1px solid rgba(255, 255, 255, 0.2); font-family: var(--serif); font-style: italic; font-size: 1rem; background: rgba(0, 0, 0, 0.18); }
+.finder__price { font-family: var(--display, var(--wide)); font-size: 1.4rem; letter-spacing: 0.04em; }
+.finder__acts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.finder__add {
+  padding: 14px 20px;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg);
+  border: 1px solid color-mix(in oklab, var(--drop) 55%, transparent);
+  background: color-mix(in oklab, var(--glow) 25%, transparent);
+  border-radius: 2px;
+}
+.finder__add:hover, .finder__add.is-added { background: var(--drop); color: #111; }
+.finder__also { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.finder__also p { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); margin-right: 6px; }
+.finder__also button { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.04); color: var(--fg); border-radius: 999px; font-size: 0.9rem; }
+.finder__also img { width: 30px; height: 30px; object-fit: contain; }
+.finder__also button:hover { border-color: rgba(255, 255, 255, 0.4); }
+@media (max-width: 900px) {
+  html .finder { padding: calc(56vh) var(--gutter) 48px; align-items: flex-end; }
+  .finder__room { --sx: 50%; }
+  .finder__room .epi-wall, .finder__room .epi-floor { --sx: 50%; }
+  .finder__exhibit { left: 50%; top: 9vh; bottom: auto; height: 46vh; width: 30vh; }
+  .finder__room .epi-vignette { background: linear-gradient(180deg, rgba(6, 6, 8, 0.4), rgba(6, 6, 8, 0) 20%, rgba(6, 6, 8, 0.2) 55%, rgba(6, 6, 8, 0.75)); }
+  .finder__opts { grid-template-columns: 1fr; }
+  .finder__opt { padding: 13px 14px; }
+}
+
+/* ---- Sinematik açılış (Preloader → Mark, mark--cine) ----
+   Yükleme: karanlıkta logo + altın çizgi. Yüklenince (is-done): altın ışık logonun üstünden geçer, slogan
+   belirir; 1.2 sn sonra logo büyüyüp söner ve perde ortadan dairesel açılır (şişe o sırada kaideye iner). */
+@property --reveal { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+.mark__logowrap { position: relative; display: inline-block; line-height: 0; }
+.mark__sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 246, 220, 0.95) 48%, #e8c77a 52%, transparent 70%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+  opacity: 0;
+}
+.mark__slogan {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: rgba(242, 234, 216, 0.85);
+  opacity: 0;
+  transform: translateY(8px);
+}
+.mark--cine .mark__logo { height: clamp(34px, 5vw, 56px); }
+.mark--cine.is-done {
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s linear 2.5s;
+  background: transparent;
+}
+.mark--cine.is-done::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #070605;
+  -webkit-mask: radial-gradient(circle at 50% 58%, transparent var(--reveal), #000 calc(var(--reveal) + 14%));
+  mask: radial-gradient(circle at 50% 58%, transparent var(--reveal), #000 calc(var(--reveal) + 14%));
+  animation: mark-reveal 1.25s cubic-bezier(0.7, 0, 0.25, 1) 1.2s both;
+}
+@keyframes mark-reveal { to { --reveal: 140%; } }
+.mark--cine.is-done .mark__inner {
+  position: relative;
+  z-index: 1;
+  transform: none;
+  animation: mark-out 1s cubic-bezier(0.6, 0, 0.3, 1) 1.2s both;
+}
+@keyframes mark-out { to { opacity: 0; transform: scale(1.18); filter: blur(6px); } }
+.mark--cine.is-done .mark__line { opacity: 0; transition: opacity 0.3s ease; }
+.mark--cine.is-done .mark__sweep { animation: mark-sweep 1.1s ease 0.05s both; }
+@keyframes mark-sweep { 0% { opacity: 1; background-position: 120% 0; } 100% { opacity: 1; background-position: -20% 0; } }
+.mark--cine.is-done .mark__slogan { animation: mark-slogan 0.8s ease 0.25s both; }
+@keyframes mark-slogan { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .mark--cine.is-done::before, .mark--cine.is-done .mark__inner { animation-duration: 0.01s; animation-delay: 0.3s; }
+}

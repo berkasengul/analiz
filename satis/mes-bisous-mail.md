@@ -18,7 +18,7 @@
 >
 > Mes Bisous için 3D bir satış sitesi hazırladım; canlı olarak buradan inceleyebilirsiniz: [DEMO LİNKİ]
 >
-> Ziyaretçi şişeleri elinde tutuyormuş gibi görüyor: Balle Rouge, One Night Only, A Wondrous Flight ve Passion Island kendi renklerinde bir sahnede dönerek kaideye konuyor; şişe oturunca kendi çekimlerinizdeki notalar (iris, gül, kozalak, mango…) iki yanında süzülüyor. "Spray it"e basınca kapak kalkıp parfüm sesiyle buğu çıkıyor, şişeyi çevirince arkasında kokunun şiiri ve notaları yazıyor. 9 hikâyenin hepsi şiirleri, notaları ve fiyatlarıyla hazır; 28 ülkedeki 137 satış noktası aranabilir bir mağaza bulucuda. Sepet mesbisous.com'a bağlı, mevcut sitenizi değiştirmeden satışa geçer.
+> Ziyaretçi şişeleri elinde tutuyormuş gibi görüyor: Balle Rouge, One Night Only, A Wondrous Flight ve Passion Island kendi renklerinde bir sahnede dönerek kaideye konuyor; şişe oturunca kendi çekimlerinizdeki notalar (iris, gül, kozalak, mango…) iki yanında süzülüyor. "Spray it"e basınca kapak kalkıp parfüm sesiyle buğu çıkıyor, şişeyi çevirince arkasında kokunun şiiri ve notaları yazıyor. Site bir açılış sahnesiyle başlıyor (logo, sonra ilk şişe kaideye iniyor) ve üç soruluk bir koku bulucusu var: ziyaretçinin cevaplarını kokularınızın notalarıyla eşleştirip onun hikâyesini kaideye koyuyor. 9 hikâyenin hepsi şiirleri, notaları ve fiyatlarıyla hazır; 28 ülkedeki 137 satış noktası aranabilir bir mağaza bulucuda. Sepet mesbisous.com'a bağlı, mevcut sitenizi değiştirmeden satışa geçer.
 >
 > Şişelerinizin illüstrasyonları ekranda bu kadar büyük ve canlı görününce, reklamdan gelen ziyaretçi kokuyu koklamadan önce hikâyesine bağlanıyor. Yeni bir koku için tek sayfalık lansman versiyonu ya da distribütörlerinize gönderebileceğiniz bir sunum sayfası da yapılabilir.
 >
@@ -58,6 +58,8 @@ Fiyatı ilk mesajda yazma. 28 ülkede satan, görsele çok önem veren bir marka
 ## Demoda neler var (sorulursa)
 
 - **Ana sayfa:** Balle Rouge, One Night Only, A Wondrous Flight, Passion Island; her biri kendi renginde sahne, tek kaydırmada bir sonraki koku, şişenin iki yanında markanın çekimlerinden nota malzemeleri.
+- **Koku bulucu:** 3 soru (dünya, zaman, his); cevaplar kokuların notalarıyla eşleşir, sonuç kendi renginde kaideye iner, iki alternatif önerilir.
+- **Açılış:** karanlıkta logo altın ışıkla belirir, slogan, perde açılır ve Balle Rouge kaideye iner.
 - **Koleksiyon:** her koku kendi renginde küçük bir sahnede, kaidede, notalarıyla; şiirin ilk dizesi ve fiyatıyla.
 - **Alt bölümler:** About us, Where to find us (137 satış noktası, ülkeye göre filtre), sorular ve iletişim; arkada kaideye sırayla (soldan süzülerek) Crumble Me Softly, Oud Hypnotique, Out Of Reach gibi diğer kokular iniyor.
 - **İçerik:** şiirler, notalar, fiyatlar, hakkımızda ve kurucu metni mesbisous.com'dan.
