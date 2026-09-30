@@ -17,6 +17,7 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      tabanı yansıma sanılıp kesilmez
     "convex": 0.3                   silüet dışbükey zarfla doldurulur (şeffaf cam tabanında kalan çentikler); sayı
                                      verilirse yalnızca ürünün o orandan aşağısı (gövde; kapak çevresi boş kalır)
+    "convexOnly": "regex"           convex yalnızca bu ürünlere (çubuklu difüzör, tetikli sprey gibi girintili ürünler hariç)
     "clear": "regex"                şeffaf camlı şişeler: 3B'de kalınlık yüzleri içindeki parfümün renginde sıvı dolu cam
                                      (omuz altında hava payı ve sıvı yüzeyinde parlak çizgi)
     "glassAlpha": "regex"           şeffaf cam şişe: camın içinden görünen stüdyo beyazı yarı saydam; etiket (en büyük
@@ -29,6 +30,10 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      yerine markanın etiket stilinde arka etiket (ad, aile, notalar, hacim; notalar ve
                                      hacim aktar kurallarından: aktar.notes, aktar.sizes/defaultSize). Koordinatlar
                                      ön yüz karesine oranla.
+    "parts": [["regex", [[x0, y0, x1, y1], ...]]]
+                                     ana fotoğrafta yalnızca bu kutular (fotoğrafa oranla; ör. kapak ve gövde) ürün sayılır:
+                                     dışları zemin rengine boyanır (şişenin yanındaki meyve, çiçek, yazı ve şeritler)
+    "badges": "regex"               ana fotoğraftaki kırmızı rozetler ("YENİ") silinir (çevresinden doldurulur)
     "sets": {"set-handle": ["ürün-handle", "başka-handle#3", ...]}
                                      setin içindekiler; "#n" o ürünün n. fotoğrafı (setin kendisi de olabilir)
 Çıktı: markalar/<marka>-foto/{web,cut,labels,meta.json}
@@ -119,6 +124,53 @@ def ai_alpha(im, box=False):
     return (a * 255).astype(np.uint8)
 
 
+_HANDLE = [""]  # işlenen ürün (convexOnly gibi ürüne özel kurallar için)
+
+
+def isolate(im, handle):
+    """parts/badges kuralları: ana fotoğrafta kırmızı rozetleri siler, kutuların dışını zemin rengine boyar."""
+    boxes = next((b for rx, b in RULES.get("parts", []) if re.search(rx, handle)), None)
+    badges = RULES.get("badges") and re.search(RULES["badges"], handle)
+    if not boxes and not badges:
+        return im
+    a = np.asarray(im.convert("RGB")).copy()
+    h, w = a.shape[:2]
+    if badges:
+        r, g, b = (a[..., i].astype(int) for i in range(3))
+        # Rozetin yumuşak kenarlı kırmızı halesi de dahil (şişenin kendisi kırmızı olmayan ürünlerde kullanılır).
+        red = ((r > 140) & (g < 120) & (b < 120) & (r - g > 60) & (r - b > 60)).astype(np.uint8) * 255
+        red = cv2.morphologyEx(red, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))
+        cs, _ = cv2.findContours(red, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        m = np.zeros((h, w), np.uint8)
+        for c in cs:
+            if cv2.contourArea(c) > 0.0008 * h * w:
+                cv2.drawContours(m, [c], -1, 255, -1)
+        if m.any():
+            m = cv2.dilate(m, np.ones((25, 25), np.uint8))
+            a = cv2.inpaint(a, m, 9, cv2.INPAINT_TELEA)
+            # Rozet şişenin üstüne biniyorsa: kutunun içindeki kısmı şişenin simetrik öbür yanından kopyalanır
+            # (inpaint çevredeki meyve/zemin rengini şişeye bulaştırmasın).
+            for x0, y0, x1, y1 in boxes or []:
+                X0, X1, Y0, Y1 = int(x0 * w), int(x1 * w), int(y0 * h), int(y1 * h)
+                ys, xs = np.nonzero(m[Y0:Y1, X0:X1])
+                ys, xs = ys + Y0, xs + X0
+                mx = X0 + X1 - 1 - xs
+                ok = (mx >= X0) & (mx < X1) & (m[ys, np.clip(mx, 0, w - 1)] == 0)
+                a[ys[ok], xs[ok]] = a[ys[ok], mx[ok]]
+    if boxes:
+        keep = np.zeros((h, w), np.uint8)
+        for x0, y0, x1, y1 in boxes:
+            keep[int(y0 * h):int(y1 * h), int(x0 * w):int(x1 * w)] = 255
+        # Zemin rengi: kutuların hemen üstündeki şerit (kapağın üstü hep boş zemin).
+        top = min(bx[1] for bx in boxes)
+        xa, xb = int(min(bx[0] for bx in boxes) * w), int(max(bx[2] for bx in boxes) * w)
+        ya = max(0, int((top - 0.03) * h))
+        bg = np.median(a[ya:max(ya + 2, int(top * h) - 2), xa:xb].reshape(-1, 3), 0)
+        soft = cv2.GaussianBlur(keep, (0, 0), 2).astype(np.float32)[..., None] / 255
+        a = (a * soft + bg * (1 - soft)).astype(np.uint8)
+    return Image.fromarray(a)
+
+
 def cutout(im, k, box=False):
     """RGBA ürün kesiti (beyaz zemin kenardan başlayarak şeffaflaştırılır)."""
     im = im.convert("RGBA")
@@ -139,7 +191,7 @@ def cutout(im, k, box=False):
                         al[y, xs[0]:xs[-1] + 1] = 255
         # Şeffaf cam tabanı yer yer zeminle karışır: silüet dışbükey zarfla doldurulur (convex).
         # Sayı verilirse (ör. 0.3) yalnızca ürünün o orandan aşağısı (gövde) doldurulur; kapak ve boyun çevresi boş kalır.
-        if RULES.get("convex"):
+        if RULES.get("convex") and re.search(RULES.get("convexOnly", "."), _HANDLE[0]):
             al = a[..., 3]
             rows = np.where((al > 128).any(1))[0]
             y0 = 0
@@ -255,6 +307,16 @@ def shape_info(F):
                 low = min(mid, key=lambda i: rows[i])
                 if max(rows[top:low]) > 1.5 * rows[low] and body > 2 * rows[low]:
                     neck = round((low + 0.5) / N, 4)
+        # Düz kapaklı dikdörtgen şişe (kapak doğrudan gövdeye oturur, cam omuz birkaç satırda genişler):
+        # kapak genişliğinin belirgin aşıldığı ilk satır boyundur.
+        if neck is None:
+            span = bot - top
+            sh = next((i for i in range(top, top + span * 6 // 10) if rows[i] > 0.7 * body), None)
+            if sh is not None and sh - top > span // 10:
+                capw = float(np.median(rows[top + (sh - top) // 4 : sh - (sh - top) // 4 + 1]))
+                if 0 < capw < 0.6 * body:
+                    st = next(i for i in range(top + (sh - top) // 2, sh + 1) if rows[i] > 1.15 * capw)
+                    neck = round((st + 0.5) / N, 4)
     return {"axis": round(cx / S, 4), "rows": rows, "outline": outline, "edge": [int(v) for v in edge], "neck": neck}
 
 
@@ -905,7 +967,8 @@ def main():
         life_i = next((i for i, k in enumerate(kinds) if k == "L"), None)
         entry = {"gallery": gallery, "lifestyle": gallery[life_i] if life_i is not None else None, "kinds": "".join(kinds)}
         if hero_i is not None:
-            front = cutout(ims[hero_i], kinds[hero_i])
+            _HANDLE[0] = handle
+            front = cutout(isolate(ims[hero_i], handle), kinds[hero_i])
             entry["aspect"] = round(front.height / front.width, 4)
             entry["color"] = dominant(front)
             c = front.copy()

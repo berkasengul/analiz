@@ -1,0 +1,242 @@
+[
+ {
+  "id": 489601794288,
+  "title": "Bambu Çubuklu Oda Kokusu",
+  "handle": "bambu-cubuklu-oda-kokusu",
+  "description": "Yaşam alanlarına karakter, denge ve kalıcı ferahlık kazandıran bambu çubuklu oda kokusu koleksiyonu.",
+  "published_at": "2026-08-28T15:22:28+03:00",
+  "updated_at": "2026-09-25T13:11:18+03:00",
+  "image": null,
+  "products_count": 15
+ },
+ {
+  "id": 489601827056,
+  "title": "BLACK SERIES",
+  "handle": "black-series",
+  "description": "Zamansız şehirlerin karakteristik kokularını yaşam alanlarına taşıyan özel oda kokusu koleksiyonu. Londra, İstanbul ve New York'tan ilham alır.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-09-21T00:04:17+03:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 489601925360,
+  "title": "BODY MIST",
+  "handle": "body-mist",
+  "description": "Gün boyu ferah ve hafif bir koku deneyimi sunan vücut spreyleri.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-09-29T14:14:04+03:00",
+  "image": null,
+  "products_count": 6
+ },
+ {
+  "id": 490478633200,
+  "title": "En Çok Beğenilenler",
+  "handle": "en-cok-begenilenler",
+  "description": "Royal Platinum müşterilerinin en çok favorilediği ürünler.",
+  "published_at": "2026-09-14T11:25:09+03:00",
+  "updated_at": "2026-09-29T14:14:04+03:00",
+  "image": null,
+  "products_count": 12
+ },
+ {
+  "id": 489601630448,
+  "title": "Erkek",
+  "handle": "erkek",
+  "description": "Royal Platinum erkek parfümleri — Niche ve Selective koleksiyonları.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-09-03T11:11:52+03:00",
+  "image": null,
+  "products_count": 0
+ },
+ {
+  "id": 489601728752,
+  "title": "Ev Kokuları",
+  "handle": "ev-kokulari",
+  "description": "Yaşam alanlarını dönüştüren oda kokusu, bambu çubuklu difüzör ve Black Series koleksiyonu.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-09-25T13:11:18+03:00",
+  "image": null,
+  "products_count": 31
+ },
+ {
+  "id": 490757980400,
+  "title": "FERAH KOLEKSİYON",
+  "handle": "ferah-koleksi̇yon",
+  "description": null,
+  "published_at": "2026-09-23T01:16:14+03:00",
+  "updated_at": "2026-09-25T11:40:48+03:00",
+  "image": null,
+  "products_count": 1
+ },
+ {
+  "id": 486658703600,
+  "title": "Home page",
+  "handle": "frontpage",
+  "description": null,
+  "published_at": "2026-08-06T11:08:57+03:00",
+  "updated_at": "2026-09-24T11:15:40+03:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 489601597680,
+  "title": "Kadın",
+  "handle": "kadin",
+  "description": "Royal Platinum kadın parfümleri — Niche ve Selective koleksiyonları.",
+  "published_at": "2026-08-28T15:22:18+03:00",
+  "updated_at": "2026-09-03T11:10:08+03:00",
+  "image": null,
+  "products_count": 0
+ },
+ {
+  "id": 489601958128,
+  "title": "Kampanya Setleri",
+  "handle": "kampanya-setleri",
+  "description": "Royal Platinum kampanya ve set ürünleri.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-09-25T12:29:24+03:00",
+  "image": null,
+  "products_count": 0
+ },
+ {
+  "id": 489601892592,
+  "title": "Keşif Setleri",
+  "handle": "kesif-setleri",
+  "description": "Royal Platinum'un farklı koku karakterlerini deneyimlemek isteyenler için özel olarak hazırlanan keşif setleri.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-08-28T15:22:29+03:00",
+  "image": null,
+  "products_count": 0
+ },
+ {
+  "id": 489601859824,
+  "title": "Kolonya",
+  "handle": "kolonya",
+  "description": "Üstün kalite anlayışı ve özenle seçilmiş içerikleriyle günlük kullanıma zarif bir tazelik kazandıran kolonya serisi.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-08-28T15:22:29+03:00",
+  "image": null,
+  "products_count": 0
+ },
+ {
+  "id": 490084925680,
+  "title": "n",
+  "handle": "n",
+  "description": null,
+  "published_at": "2026-09-02T09:52:39+03:00",
+  "updated_at": "2026-09-14T15:30:03+03:00",
+  "image": null,
+  "products_count": 1
+ },
+ {
+  "id": 489601695984,
+  "title": "NICHE COLLECTION",
+  "handle": "niche-collection",
+  "description": "Dünyanın farklı noktalarından ilham alan hikayeleri kokuyla buluşturan Royal Platinum Niche Collection.",
+  "published_at": "2026-08-28T15:22:29+03:00",
+  "updated_at": "2026-09-23T14:16:17+03:00",
+  "image": null,
+  "products_count": 29
+ },
+ {
+  "id": 489601761520,
+  "title": "Ortam Spreyi",
+  "handle": "ortam-spreyi",
+  "description": "Yaşam alanlarını anında yenileyen, kalıcı ve karakterli ortam spreyleri.",
+  "published_at": "2026-08-28T15:22:30+03:00",
+  "updated_at": "2026-09-24T11:15:40+03:00",
+  "image": null,
+  "products_count": 13
+ },
+ {
+  "id": 490758013168,
+  "title": "ORYANTAL KOLEKSİYON",
+  "handle": "oryantal-koleksi̇yon",
+  "description": null,
+  "published_at": "2026-09-23T01:17:19+03:00",
+  "updated_at": "2026-09-23T01:17:19+03:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 489645572336,
+  "title": "Parfüm",
+  "handle": "parfum",
+  "description": "Royal Platinum parfüm koleksiyonu — Niche ve Selective serileri bir arada.",
+  "published_at": "2026-09-01T11:15:25+03:00",
+  "updated_at": "2026-09-29T14:14:04+03:00",
+  "image": null,
+  "products_count": 183
+ },
+ {
+  "id": 490758045936,
+  "title": "PREMIUM KOLEKSİYON",
+  "handle": "premium-koleksi̇yon",
+  "description": null,
+  "published_at": "2026-09-23T01:18:16+03:00",
+  "updated_at": "2026-09-23T01:18:16+03:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 489645605104,
+  "title": "Saç & Vücut",
+  "handle": "sac-vucut",
+  "description": "Günlük kullanıma zarif bir tazelik kazandıran kolonya ve vücut spreyi ürünleri.",
+  "published_at": "2026-09-01T11:15:26+03:00",
+  "updated_at": "2026-09-29T14:14:04+03:00",
+  "image": null,
+  "products_count": 6
+ },
+ {
+  "id": 489601663216,
+  "title": "SELECTIVE COLLECTION",
+  "handle": "selective-collection",
+  "description": "Selective Serisi, tarzını kokusuyla tamamlamak isteyen kadın ve erkekler için tasarlandı. Yüzlerce farklı koku seçeneğiyle geniş bir dünya sunar.",
+  "published_at": "2026-08-28T15:22:30+03:00",
+  "updated_at": "2026-09-29T14:14:04+03:00",
+  "image": null,
+  "products_count": 154
+ },
+ {
+  "id": 489645637872,
+  "title": "Setler",
+  "handle": "setler",
+  "description": "Keşif setleri ve kampanya setleriyle Royal Platinum dünyasını keşfedin.",
+  "published_at": "2026-09-01T11:15:27+03:00",
+  "updated_at": "2026-09-29T23:29:29+03:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 489664774384,
+  "title": "Yeni Gelenler",
+  "handle": "yeni-gelenler-koleksiyonu",
+  "description": "Royal Platinum katalogundaki en yeni eklenen ürünler.",
+  "published_at": "2026-08-29T13:55:46+03:00",
+  "updated_at": "2026-09-25T13:11:18+03:00",
+  "image": null,
+  "products_count": 12
+ },
+ {
+  "id": 490718986480,
+  "title": "YENİLER VE FAVORİLER",
+  "handle": "yeni̇ler-ve-favori̇ler",
+  "description": null,
+  "published_at": "2026-09-21T01:46:34+03:00",
+  "updated_at": "2026-09-29T14:14:04+03:00",
+  "image": null,
+  "products_count": 35
+ },
+ {
+  "id": 489515352304,
+  "title": "Çok Satanlar",
+  "handle": "cok-satanlar",
+  "description": null,
+  "published_at": "2026-08-26T10:50:44+03:00",
+  "updated_at": "2026-09-15T16:54:15+03:00",
+  "image": null,
+  "products_count": 0
+ }
+]

@@ -1,0 +1,2389 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "skip": "^(?!(venezia\\-100\\-ml\\-niche\\-parfum|san\\-pietro\\-100\\-ml\\-niche\\-parfum|portofino\\-100\\-ml\\-niche\\-parfum|san\\-marco\\-100\\-ml\\-niche\\-parfum|blue\\-stone\\-100\\-ml\\-niche\\-parfum|red\\-island\\-100\\-ml\\-niche\\-parfum|bosphorus\\-100\\-ml\\-niche\\-parfum|troy\\-100\\-ml\\-niche\\-parfum|anatolian\\-100\\-ml\\-niche\\-parfum|montenegro\\-100\\-ml\\-unisex\\-niche\\-parfum\\-sakayik\\-misk\\-ferah|moon\\-light\\-100\\-ml\\-niche\\-parfum|brown\\-mountain\\-100\\-ml\\-niche\\-parfum|m500\\-erkek\\-parfum|m600\\-erkek\\-parfum|m555\\-erkek\\-parfum|m561\\-erkek\\-parfum|erkek\\-parfum\\-edp\\-50ml\\-ferah\\-gurme\\-portakal\\-uzum\\-amber\\-m575|royal\\-platinum\\-w240\\-kadin\\-parfum\\-ciceksi\\-gul\\-misk|royal\\-platinum\\-w113\\-kadin\\-parfum\\-ciceksi\\-sumbulteber\\-vanilya|royal\\-platinum\\-w175\\-kadin\\-parfum\\-gurme\\-bal\\-karamel|royal\\-platinum\\-w227\\-kadin\\-parfum\\-ciceksi\\-vanilya\\-lavanta|royal\\-platinum\\-w171\\-kadin\\-parfum\\-gurme\\-vanilya\\-pralin|royal\\-platinum\\-w333\\-kadin\\-parfum\\-safran\\-amber|royal\\-platinum\\-w388\\-kadin\\-parfum\\-meyvemsi\\-fresh|body\\-mist\\-coconut\\-milk|body\\-mist\\-cacao\\-w443|body\\-mist\\-berry\\-w388|body\\-mist\\-pear\\-vanilla|ci̇nnamon\\-ci̇nger\\-120\\-ml\\-oda\\-kokusu|vanilla\\-120\\-ml\\-oda\\-kokusu|ocean\\-breeze\\-500\\-ml\\-oda\\-spreyi̇|powder\\-500\\-ml\\-oda\\-spreyi̇|mango\\-500\\-ml\\-oda\\-spreyi̇)$)",
+  "parts": [
+   [
+    "^venezia\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.425,
+      0.27,
+      0.645,
+      0.425
+     ],
+     [
+      0.31,
+      0.415,
+      0.755,
+      0.725
+     ]
+    ]
+   ],
+   [
+    "^san\\-pietro\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.455,
+      0.285,
+      0.665,
+      0.435
+     ],
+     [
+      0.35,
+      0.42,
+      0.775,
+      0.73
+     ]
+    ]
+   ],
+   [
+    "^portofino\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.46,
+      0.275,
+      0.665,
+      0.42
+     ],
+     [
+      0.37,
+      0.42,
+      0.8,
+      0.73
+     ]
+    ]
+   ],
+   [
+    "^san\\-marco\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.465,
+      0.28,
+      0.67,
+      0.43
+     ],
+     [
+      0.37,
+      0.42,
+      0.785,
+      0.73
+     ]
+    ]
+   ],
+   [
+    "^blue\\-stone\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.48,
+      0.245,
+      0.62,
+      0.37
+     ],
+     [
+      0.428,
+      0.36,
+      0.72,
+      0.73
+     ]
+    ]
+   ],
+   [
+    "^red\\-island\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.48,
+      0.245,
+      0.62,
+      0.37
+     ],
+     [
+      0.42,
+      0.36,
+      0.73,
+      0.73
+     ]
+    ]
+   ],
+   [
+    "^bosphorus\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.39,
+      0.23,
+      0.615,
+      0.34
+     ],
+     [
+      0.36,
+      0.33,
+      0.645,
+      0.72
+     ]
+    ]
+   ],
+   [
+    "^troy\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.43,
+      0.33,
+      0.57,
+      0.44
+     ],
+     [
+      0.385,
+      0.45,
+      0.635,
+      0.785
+     ]
+    ]
+   ],
+   [
+    "^anatolian\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.62,
+      0.39,
+      0.845,
+      0.75
+     ]
+    ]
+   ],
+   [
+    "^montenegro\\-100\\-ml\\-unisex\\-niche\\-parfum\\-sakayik\\-misk\\-ferah$",
+    [
+     [
+      0.59,
+      0.35,
+      0.9,
+      0.745
+     ]
+    ]
+   ],
+   [
+    "^moon\\-light\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.47,
+      0.27,
+      0.58,
+      0.36
+     ],
+     [
+      0.425,
+      0.35,
+      0.72,
+      0.73
+     ]
+    ]
+   ],
+   [
+    "^brown\\-mountain\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      0.4,
+      0.225,
+      0.54,
+      0.36
+     ],
+     [
+      0.385,
+      0.35,
+      0.69,
+      0.73
+     ]
+    ]
+   ],
+   [
+    "^m500\\-erkek\\-parfum$",
+    [
+     [
+      0.44,
+      0.225,
+      0.6,
+      0.37
+     ],
+     [
+      0.29,
+      0.36,
+      0.725,
+      0.735
+     ]
+    ]
+   ],
+   [
+    "^m600\\-erkek\\-parfum$",
+    [
+     [
+      0.44,
+      0.225,
+      0.6,
+      0.37
+     ],
+     [
+      0.29,
+      0.36,
+      0.72,
+      0.735
+     ]
+    ]
+   ],
+   [
+    "^m555\\-erkek\\-parfum$",
+    [
+     [
+      0.44,
+      0.225,
+      0.6,
+      0.37
+     ],
+     [
+      0.29,
+      0.36,
+      0.71,
+      0.735
+     ]
+    ]
+   ],
+   [
+    "^m561\\-erkek\\-parfum$",
+    [
+     [
+      0.44,
+      0.225,
+      0.6,
+      0.37
+     ],
+     [
+      0.305,
+      0.36,
+      0.69,
+      0.735
+     ]
+    ]
+   ],
+   [
+    "^erkek\\-parfum\\-edp\\-50ml\\-ferah\\-gurme\\-portakal\\-uzum\\-amber\\-m575$",
+    [
+     [
+      0.44,
+      0.225,
+      0.6,
+      0.37
+     ],
+     [
+      0.3,
+      0.36,
+      0.725,
+      0.735
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w240\\-kadin\\-parfum\\-ciceksi\\-gul\\-misk$",
+    [
+     [
+      0.42,
+      0.15,
+      0.655,
+      0.365
+     ],
+     [
+      0.2,
+      0.355,
+      0.815,
+      0.77
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w113\\-kadin\\-parfum\\-ciceksi\\-sumbulteber\\-vanilya$",
+    [
+     [
+      0.42,
+      0.15,
+      0.655,
+      0.365
+     ],
+     [
+      0.2,
+      0.355,
+      0.815,
+      0.77
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w175\\-kadin\\-parfum\\-gurme\\-bal\\-karamel$",
+    [
+     [
+      0.42,
+      0.15,
+      0.655,
+      0.365
+     ],
+     [
+      0.2,
+      0.355,
+      0.815,
+      0.77
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w227\\-kadin\\-parfum\\-ciceksi\\-vanilya\\-lavanta$",
+    [
+     [
+      0.42,
+      0.15,
+      0.655,
+      0.365
+     ],
+     [
+      0.2,
+      0.355,
+      0.815,
+      0.77
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w171\\-kadin\\-parfum\\-gurme\\-vanilya\\-pralin$",
+    [
+     [
+      0.42,
+      0.15,
+      0.655,
+      0.365
+     ],
+     [
+      0.2,
+      0.355,
+      0.815,
+      0.77
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w333\\-kadin\\-parfum\\-safran\\-amber$",
+    [
+     [
+      0.42,
+      0.15,
+      0.655,
+      0.365
+     ],
+     [
+      0.2,
+      0.355,
+      0.815,
+      0.77
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w388\\-kadin\\-parfum\\-meyvemsi\\-fresh$",
+    [
+     [
+      0.43,
+      0.24,
+      0.61,
+      0.37
+     ],
+     [
+      0.29,
+      0.36,
+      0.69,
+      0.735
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-coconut\\-milk$",
+    [
+     [
+      0.43,
+      0.19,
+      0.605,
+      0.74
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-cacao\\-w443$",
+    [
+     [
+      0.418,
+      0.17,
+      0.582,
+      0.78
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-berry\\-w388$",
+    [
+     [
+      0.43,
+      0.17,
+      0.605,
+      0.74
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-pear\\-vanilla$",
+    [
+     [
+      0.415,
+      0.18,
+      0.595,
+      0.85
+     ]
+    ]
+   ],
+   [
+    "^ci̇nnamon\\-ci̇nger\\-120\\-ml\\-oda\\-kokusu$",
+    [
+     [
+      0.44,
+      0.22,
+      0.99,
+      0.7
+     ],
+     [
+      0.57,
+      0.66,
+      0.81,
+      0.85
+     ]
+    ]
+   ],
+   [
+    "^vanilla\\-120\\-ml\\-oda\\-kokusu$",
+    [
+     [
+      0.44,
+      0.22,
+      0.99,
+      0.7
+     ],
+     [
+      0.57,
+      0.66,
+      0.81,
+      0.85
+     ]
+    ]
+   ],
+   [
+    "^sea\\-salt\\-120\\-ml\\-oda\\-kokusu$",
+    [
+     [
+      0.3,
+      0.17,
+      0.78,
+      0.47
+     ],
+     [
+      0.36,
+      0.45,
+      0.73,
+      0.77
+     ]
+    ]
+   ],
+   [
+    "^ocean\\-breeze\\-500\\-ml\\-oda\\-spreyi̇$",
+    [
+     [
+      0.28,
+      0.13,
+      0.68,
+      0.3
+     ],
+     [
+      0.28,
+      0.3,
+      0.59,
+      0.375
+     ],
+     [
+      0.33,
+      0.37,
+      0.71,
+      0.8
+     ]
+    ]
+   ],
+   [
+    "^powder\\-500\\-ml\\-oda\\-spreyi̇$",
+    [
+     [
+      0.28,
+      0.13,
+      0.68,
+      0.3
+     ],
+     [
+      0.28,
+      0.3,
+      0.59,
+      0.375
+     ],
+     [
+      0.33,
+      0.37,
+      0.71,
+      0.8
+     ]
+    ]
+   ],
+   [
+    "^mango\\-500\\-ml\\-oda\\-spreyi̇$",
+    [
+     [
+      0.28,
+      0.13,
+      0.68,
+      0.3
+     ],
+     [
+      0.28,
+      0.3,
+      0.59,
+      0.375
+     ],
+     [
+      0.33,
+      0.37,
+      0.71,
+      0.8
+     ]
+    ]
+   ]
+  ],
+  "badges": "^(blue-stone|troy)-100",
+  "hero": [
+   [
+    "^montenegro-100|^anatolian-100",
+    4
+   ]
+  ],
+  "edgeFrom": "side",
+  "clear": "^(?!troy|blue-stone|red-island|moon-light|brown-mountain|body-mist|ci̇nnamon|vanilla-120|ocean|powder|mango)",
+  "convex": 0.3,
+  "convexOnly": "^(?!body-mist|ci̇nnamon|vanilla-120|ocean|powder|mango)"
+ },
+ "aktar": {
+  "domain": "royalplatinumstore.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "sizes": [
+   [
+    "-100-ml|100ml|^(portofino|san-marco|venezia|san-pietro)",
+    "100 ml"
+   ],
+   [
+    "body-mist",
+    "250 ml"
+   ],
+   [
+    "120-ml",
+    "120 ml"
+   ],
+   [
+    "500-ml",
+    "500 ml"
+   ],
+   [
+    ".",
+    "50 ml"
+   ]
+  ],
+  "categories": [
+   {
+    "id": "premium",
+    "tr": "Premium Seri",
+    "en": "Premium Series",
+    "color": "#8e1a2e",
+    "descTr": "İyi kokmak işin masum tarafı. Her biri kendine özgü bir karakter sunan Premium Seri ile seni yansıtan kokuyu keşfet.",
+    "descEn": "İyi kokmak işin masum tarafı. Her biri kendine özgü bir karakter sunan Premium Seri ile seni yansıtan kokuyu keşfet.",
+    "match": "^(portofino|san-marco|venezia|san-pietro)-100"
+   },
+   {
+    "id": "niche",
+    "tr": "Niche Collection",
+    "en": "Niche Collection",
+    "color": "#2c4a66",
+    "descTr": "Dünyanın farklı noktalarından ilham alan hikayeleri kokuyla buluşturan Royal Platinum Niche Collection.",
+    "descEn": "Dünyanın farklı noktalarından ilham alan hikayeleri kokuyla buluşturan Royal Platinum Niche Collection.",
+    "match": "Niche Parfum"
+   },
+   {
+    "id": "kadin",
+    "tr": "Selective Kadın",
+    "en": "Selective Women",
+    "color": "#c4607e",
+    "descTr": "Selective Serisi, tarzını kokusuyla tamamlamak isteyen kadın ve erkekler için tasarlandı. Yüzlerce farklı koku seçeneğiyle geniş bir dünya sunar.",
+    "descEn": "Selective Serisi, tarzını kokusuyla tamamlamak isteyen kadın ve erkekler için tasarlandı. Yüzlerce farklı koku seçeneğiyle geniş bir dünya sunar.",
+    "match": "Selective Kadin"
+   },
+   {
+    "id": "erkek",
+    "tr": "Selective Erkek",
+    "en": "Selective Men",
+    "color": "#8b5a3a",
+    "descTr": "Selective Serisi, tarzını kokusuyla tamamlamak isteyen kadın ve erkekler için tasarlandı. Yüzlerce farklı koku seçeneğiyle geniş bir dünya sunar.",
+    "descEn": "Selective Serisi, tarzını kokusuyla tamamlamak isteyen kadın ve erkekler için tasarlandı. Yüzlerce farklı koku seçeneğiyle geniş bir dünya sunar.",
+    "match": "Selective Erkek"
+   },
+   {
+    "id": "vucut",
+    "tr": "Saç & Vücut",
+    "en": "Hair & Body",
+    "color": "#6e1838",
+    "descTr": "Gün boyu ferah ve hafif bir koku deneyimi sunan vücut spreyleri.",
+    "descEn": "Gün boyu ferah ve hafif bir koku deneyimi sunan vücut spreyleri.",
+    "match": "Body Mist"
+   },
+   {
+    "id": "cubuklu",
+    "tr": "Bambu Çubuklu Oda Kokusu",
+    "en": "Reed Diffuser",
+    "color": "#a0452a",
+    "descTr": "Yaşam alanlarına karakter, denge ve kalıcı ferahlık kazandıran bambu çubuklu oda kokusu koleksiyonu.",
+    "descEn": "Yaşam alanlarına karakter, denge ve kalıcı ferahlık kazandıran bambu çubuklu oda kokusu koleksiyonu.",
+    "match": "Bambu"
+   },
+   {
+    "id": "sprey",
+    "tr": "Ortam Spreyi",
+    "en": "Home Fragrance",
+    "color": "#3f86a8",
+    "descTr": "Yaşam alanlarını anında yenileyen, kalıcı ve karakterli ortam spreyleri.",
+    "descEn": "Yaşam alanlarını anında yenileyen, kalıcı ve karakterli ortam spreyleri.",
+    "match": "Oda Spreyi"
+   }
+  ],
+  "profiles": {
+   "flask": "^(?!troy)(.*(-100-ml|100ml|m500|m600|m555|m561|m575|w\\d{3}-kadin))",
+   "depthRatio": 0.42
+  },
+  "home": [
+   "portofino-100-ml-niche-parfum",
+   "san-marco-100-ml-niche-parfum",
+   "venezia-100-ml-niche-parfum",
+   "san-pietro-100-ml-niche-parfum",
+   "red-island-100-ml-niche-parfum",
+   "blue-stone-100-ml-niche-parfum",
+   "bosphorus-100-ml-niche-parfum",
+   "montenegro-100-ml-unisex-niche-parfum-sakayik-misk-ferah"
+  ],
+  "rename": {
+   "portofino-100-ml-niche-parfum": [
+    "Portofino",
+    "Portofino"
+   ],
+   "san-marco-100-ml-niche-parfum": [
+    "San Marco",
+    "San Marco"
+   ],
+   "venezia-100-ml-niche-parfum": [
+    "Venezia",
+    "Venezia"
+   ],
+   "san-pietro-100-ml-niche-parfum": [
+    "San Pietro",
+    "San Pietro"
+   ],
+   "red-island-100-ml-niche-parfum": [
+    "Red Island",
+    "Red Island"
+   ],
+   "blue-stone-100-ml-niche-parfum": [
+    "Blue Stone",
+    "Blue Stone"
+   ],
+   "bosphorus-100-ml-niche-parfum": [
+    "Bosphorus",
+    "Bosphorus"
+   ],
+   "montenegro-100-ml-unisex-niche-parfum-sakayik-misk-ferah": [
+    "Montenegro",
+    "Montenegro"
+   ],
+   "troy-100-ml-niche-parfum": [
+    "Troy",
+    "Troy"
+   ],
+   "anatolian-100-ml-niche-parfum": [
+    "Anatolian",
+    "Anatolian"
+   ],
+   "moon-light-100-ml-niche-parfum": [
+    "Moon Light",
+    "Moon Light"
+   ],
+   "brown-mountain-100-ml-niche-parfum": [
+    "Brown Mountain",
+    "Brown Mountain"
+   ],
+   "royal-platinum-w240-kadin-parfum-ciceksi-gul-misk": [
+    "W240",
+    "W240"
+   ],
+   "royal-platinum-w113-kadin-parfum-ciceksi-sumbulteber-vanilya": [
+    "W113",
+    "W113"
+   ],
+   "royal-platinum-w175-kadin-parfum-gurme-bal-karamel": [
+    "W175",
+    "W175"
+   ],
+   "royal-platinum-w227-kadin-parfum-ciceksi-vanilya-lavanta": [
+    "W227",
+    "W227"
+   ],
+   "royal-platinum-w171-kadin-parfum-gurme-vanilya-pralin": [
+    "W171",
+    "W171"
+   ],
+   "royal-platinum-w333-kadin-parfum-safran-amber": [
+    "W333",
+    "W333"
+   ],
+   "royal-platinum-w388-kadin-parfum-meyvemsi-fresh": [
+    "W388",
+    "W388"
+   ],
+   "m500-erkek-parfum": [
+    "M500",
+    "M500"
+   ],
+   "m600-erkek-parfum": [
+    "M600",
+    "M600"
+   ],
+   "m555-erkek-parfum": [
+    "M555",
+    "M555"
+   ],
+   "m561-erkek-parfum": [
+    "M561",
+    "M561"
+   ],
+   "erkek-parfum-edp-50ml-ferah-gurme-portakal-uzum-amber-m575": [
+    "M575",
+    "M575"
+   ],
+   "body-mist-coconut-milk": [
+    "Coconut Milk",
+    "Coconut Milk"
+   ],
+   "body-mist-cacao-w443": [
+    "W443 Cacao",
+    "W443 Cacao"
+   ],
+   "body-mist-berry-w388": [
+    "W388 Berry",
+    "W388 Berry"
+   ],
+   "body-mist-pear-vanilla": [
+    "Pear Vanilla",
+    "Pear Vanilla"
+   ],
+   "ci̇nnamon-ci̇nger-120-ml-oda-kokusu": [
+    "Cinnamon & Ginger",
+    "Cinnamon & Ginger"
+   ],
+   "vanilla-120-ml-oda-kokusu": [
+    "Vanilla",
+    "Vanilla"
+   ],
+   "ocean-breeze-500-ml-oda-spreyi̇": [
+    "Ocean Breeze",
+    "Ocean Breeze"
+   ],
+   "powder-500-ml-oda-spreyi̇": [
+    "Powder",
+    "Powder"
+   ],
+   "mango-500-ml-oda-spreyi̇": [
+    "Mango",
+    "Mango"
+   ]
+  },
+  "families": {
+   "portofino-100-ml-niche-parfum": [
+    "Unisex · Pudralı Odunsu",
+    "Unisex · Pudralı Odunsu"
+   ],
+   "san-marco-100-ml-niche-parfum": [
+    "Narenciyeli · Amberimsi",
+    "Narenciyeli · Amberimsi"
+   ],
+   "venezia-100-ml-niche-parfum": [
+    "Unisex · Çiçeksi",
+    "Unisex · Çiçeksi"
+   ],
+   "san-pietro-100-ml-niche-parfum": [
+    "Unisex · Amberimsi",
+    "Unisex · Amberimsi"
+   ],
+   "red-island-100-ml-niche-parfum": [
+    "Extrait de Parfum · Tatlı, Kremsi",
+    "Extrait de Parfum · Tatlı, Kremsi"
+   ],
+   "blue-stone-100-ml-niche-parfum": [
+    "Aromatik · Fougère · Meyveli",
+    "Aromatik · Fougère · Meyveli"
+   ],
+   "bosphorus-100-ml-niche-parfum": [
+    "Ferah · Akuatik · Maskülen",
+    "Ferah · Akuatik · Maskülen"
+   ],
+   "montenegro-100-ml-unisex-niche-parfum-sakayik-misk-ferah": [
+    "Extrait de Parfum · Çiçeksi, Meyvemsi",
+    "Extrait de Parfum · Çiçeksi, Meyvemsi"
+   ],
+   "troy-100-ml-niche-parfum": [
+    "Oryantal · Baharatlı",
+    "Oryantal · Baharatlı"
+   ],
+   "anatolian-100-ml-niche-parfum": [
+    "Gurme · Baharatlı",
+    "Gurme · Baharatlı"
+   ],
+   "moon-light-100-ml-niche-parfum": [
+    "Unisex · Oryantal, Gurme",
+    "Unisex · Oryantal, Gurme"
+   ],
+   "brown-mountain-100-ml-niche-parfum": [
+    "Meyveli · Şekerli · Oryantal",
+    "Meyveli · Şekerli · Oryantal"
+   ],
+   "royal-platinum-w240-kadin-parfum-ciceksi-gul-misk": [
+    "Çiçeksi Seri",
+    "Çiçeksi Seri"
+   ],
+   "royal-platinum-w113-kadin-parfum-ciceksi-sumbulteber-vanilya": [
+    "Çiçeksi Seri",
+    "Çiçeksi Seri"
+   ],
+   "royal-platinum-w175-kadin-parfum-gurme-bal-karamel": [
+    "Tatlı Seri",
+    "Tatlı Seri"
+   ],
+   "royal-platinum-w227-kadin-parfum-ciceksi-vanilya-lavanta": [
+    "Çiçeksi Seri",
+    "Çiçeksi Seri"
+   ],
+   "royal-platinum-w171-kadin-parfum-gurme-vanilya-pralin": [
+    "Tatlı Seri",
+    "Tatlı Seri"
+   ],
+   "royal-platinum-w333-kadin-parfum-safran-amber": [
+    "Odunsu Seri",
+    "Odunsu Seri"
+   ],
+   "royal-platinum-w388-kadin-parfum-meyvemsi-fresh": [
+    "Meyveli Seri",
+    "Meyveli Seri"
+   ],
+   "m500-erkek-parfum": [
+    "Aromatik Seri",
+    "Aromatik Seri"
+   ],
+   "m600-erkek-parfum": [
+    "Odunsu Seri",
+    "Odunsu Seri"
+   ],
+   "m555-erkek-parfum": [
+    "Ferah Seri",
+    "Ferah Seri"
+   ],
+   "m561-erkek-parfum": [
+    "Meyveli Seri",
+    "Meyveli Seri"
+   ],
+   "erkek-parfum-edp-50ml-ferah-gurme-portakal-uzum-amber-m575": [
+    "Ferah Seri",
+    "Ferah Seri"
+   ],
+   "body-mist-coconut-milk": [
+    "Hair & Body Mist",
+    "Hair & Body Mist"
+   ],
+   "body-mist-cacao-w443": [
+    "Hair & Body Mist · Tatlı Seri",
+    "Hair & Body Mist · Tatlı Seri"
+   ],
+   "body-mist-berry-w388": [
+    "Hair & Body Mist · Meyveli Seri",
+    "Hair & Body Mist · Meyveli Seri"
+   ],
+   "body-mist-pear-vanilla": [
+    "Hair & Body Mist",
+    "Hair & Body Mist"
+   ],
+   "ci̇nnamon-ci̇nger-120-ml-oda-kokusu": [
+    "Reed Diffuser · Oryantal Seri",
+    "Reed Diffuser · Oryantal Seri"
+   ],
+   "vanilla-120-ml-oda-kokusu": [
+    "Reed Diffuser · Tatlı Seri",
+    "Reed Diffuser · Tatlı Seri"
+   ],
+   "ocean-breeze-500-ml-oda-spreyi̇": [
+    "Home Fragrance · Ferah Seri",
+    "Home Fragrance · Ferah Seri"
+   ],
+   "powder-500-ml-oda-spreyi̇": [
+    "Home Fragrance · Çiçeksi Seri",
+    "Home Fragrance · Çiçeksi Seri"
+   ],
+   "mango-500-ml-oda-spreyi̇": [
+    "Home Fragrance · Meyveli Seri",
+    "Home Fragrance · Meyveli Seri"
+   ]
+  },
+  "taglines": {
+   "portofino-100-ml-niche-parfum": [
+    "Ardıç Meyvesi, Yasemin & Sedir Ağacı",
+    "Ardıç Meyvesi, Yasemin & Sedir Ağacı"
+   ],
+   "san-marco-100-ml-niche-parfum": [
+    "Greyfurt, Zencefil & Ambroksan",
+    "Greyfurt, Zencefil & Ambroksan"
+   ],
+   "venezia-100-ml-niche-parfum": [
+    "Ihlamur Çiçeği, Yasemin & Bal",
+    "Ihlamur Çiçeği, Yasemin & Bal"
+   ],
+   "san-pietro-100-ml-niche-parfum": [
+    "Amber & Misk",
+    "Amber & Misk"
+   ],
+   "red-island-100-ml-niche-parfum": [
+    "Tatlı • Kremsi • Pudralı • Yumuşak",
+    "Tatlı • Kremsi • Pudralı • Yumuşak"
+   ],
+   "blue-stone-100-ml-niche-parfum": [
+    "Aromatik • Fougère • Meyveli",
+    "Aromatik • Fougère • Meyveli"
+   ],
+   "bosphorus-100-ml-niche-parfum": [
+    "Ferah & Akuatik & Maskülen",
+    "Ferah & Akuatik & Maskülen"
+   ],
+   "montenegro-100-ml-unisex-niche-parfum-sakayik-misk-ferah": [
+    "Çiçeksi, Meyvemsi, Ferah",
+    "Çiçeksi, Meyvemsi, Ferah"
+   ],
+   "troy-100-ml-niche-parfum": [
+    "Oryantal, Baharatlı, Odunsu, Çiçeksi",
+    "Oryantal, Baharatlı, Odunsu, Çiçeksi"
+   ],
+   "anatolian-100-ml-niche-parfum": [
+    "Gurme • Baharatlı",
+    "Gurme • Baharatlı"
+   ],
+   "moon-light-100-ml-niche-parfum": [
+    "Unisex • Oryantal • Vanilya • Gurme • Çiçeksi",
+    "Unisex • Oryantal • Vanilya • Gurme • Çiçeksi"
+   ],
+   "brown-mountain-100-ml-niche-parfum": [
+    "Meyveli • Şekerli • Oryantal",
+    "Meyveli • Şekerli • Oryantal"
+   ],
+   "royal-platinum-w240-kadin-parfum-ciceksi-gul-misk": [
+    "Zarif, modern, temiz ve feminen.",
+    "Zarif, modern, temiz ve feminen."
+   ],
+   "royal-platinum-w113-kadin-parfum-ciceksi-sumbulteber-vanilya": [
+    "Zarif, temiz, feminen ve sofistike.",
+    "Zarif, temiz, feminen ve sofistike."
+   ],
+   "royal-platinum-w175-kadin-parfum-gurme-bal-karamel": [
+    "Tatlı, bal-karamelli, yoğun ve iddialı.",
+    "Tatlı, bal-karamelli, yoğun ve iddialı."
+   ],
+   "royal-platinum-w227-kadin-parfum-ciceksi-vanilya-lavanta": [
+    "Modern, özgüvenli, çiçeksi ve hafif tatlı.",
+    "Modern, özgüvenli, çiçeksi ve hafif tatlı."
+   ],
+   "royal-platinum-w171-kadin-parfum-gurme-vanilya-pralin": [
+    "Tatlı, gurme, pudralı ve baştan çıkarıcı.",
+    "Tatlı, gurme, pudralı ve baştan çıkarıcı."
+   ],
+   "royal-platinum-w333-kadin-parfum-safran-amber": [
+    "Yoğun, amberli, reçineli ve karizmatik.",
+    "Yoğun, amberli, reçineli ve karizmatik."
+   ],
+   "royal-platinum-w388-kadin-parfum-meyvemsi-fresh": [
+    "Enerjik, fresh, feminen ve dikkat çekici.",
+    "Enerjik, fresh, feminen ve dikkat çekici."
+   ],
+   "m500-erkek-parfum": [
+    "Sıcak, çekici, modern ve kalıcı.",
+    "Sıcak, çekici, modern ve kalıcı."
+   ],
+   "m600-erkek-parfum": [
+    "Odunsu • Gece • Gündüz",
+    "Odunsu • Gece • Gündüz"
+   ],
+   "m555-erkek-parfum": [
+    "Güçlü, enerjik, modern ve dikkat çekici.",
+    "Güçlü, enerjik, modern ve dikkat çekici."
+   ],
+   "m561-erkek-parfum": [
+    "Ferah, sportif, enerjik ve maskülen.",
+    "Ferah, sportif, enerjik ve maskülen."
+   ],
+   "erkek-parfum-edp-50ml-ferah-gurme-portakal-uzum-amber-m575": [
+    "Meyveli • Şekerli • Gündüz",
+    "Meyveli • Şekerli • Gündüz"
+   ],
+   "body-mist-coconut-milk": [
+    "Kremsi • Tatlı • Çiçeksi • Ferah",
+    "Kremsi • Tatlı • Çiçeksi • Ferah"
+   ],
+   "body-mist-cacao-w443": [
+    "Tatlı • Kremsi • Gurme • Sıcak",
+    "Tatlı • Kremsi • Gurme • Sıcak"
+   ],
+   "body-mist-berry-w388": [
+    "Meyvemsi • Tatlı • Çiçeksi • Ferah",
+    "Meyvemsi • Tatlı • Çiçeksi • Ferah"
+   ],
+   "body-mist-pear-vanilla": [
+    "Meyvemsi • Kremsi • Tatlı • Ferah",
+    "Meyvemsi • Kremsi • Tatlı • Ferah"
+   ],
+   "ci̇nnamon-ci̇nger-120-ml-oda-kokusu": [
+    "Gurme • Baharatlı",
+    "Gurme • Baharatlı"
+   ],
+   "vanilla-120-ml-oda-kokusu": [
+    "Vanilya",
+    "Vanilya"
+   ],
+   "ocean-breeze-500-ml-oda-spreyi̇": [
+    "Akuatik • Aromatik",
+    "Akuatik • Aromatik"
+   ],
+   "powder-500-ml-oda-spreyi̇": [
+    "Pudramsı",
+    "Pudramsı"
+   ],
+   "mango-500-ml-oda-spreyi̇": [
+    "Meyveli",
+    "Meyveli"
+   ]
+  },
+  "notes": [
+   [
+    "^portofino\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Ardıç Meyvesi",
+      "Ardıç Meyvesi"
+     ],
+     [
+      "Yasemin",
+      "Yasemin"
+     ],
+     [
+      "Sedir Ağacı",
+      "Sedir Ağacı"
+     ],
+     [
+      "Tonka Fasulyesi",
+      "Tonka Fasulyesi"
+     ]
+    ]
+   ],
+   [
+    "^san\\-marco\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Greyfurt",
+      "Greyfurt"
+     ],
+     [
+      "Zencefil",
+      "Zencefil"
+     ],
+     [
+      "Ambroksan",
+      "Ambroksan"
+     ],
+     [
+      "Vetiver",
+      "Vetiver"
+     ]
+    ]
+   ],
+   [
+    "^venezia\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Ihlamur Çiçeği",
+      "Ihlamur Çiçeği"
+     ],
+     [
+      "Yasemin",
+      "Yasemin"
+     ],
+     [
+      "Bal",
+      "Bal"
+     ],
+     [
+      "Sedir Ağacı",
+      "Sedir Ağacı"
+     ]
+    ]
+   ],
+   [
+    "^san\\-pietro\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^red\\-island\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Orkide",
+      "Orkide"
+     ],
+     [
+      "Heliotrop",
+      "Heliotrop"
+     ],
+     [
+      "Tropikal Meyveler",
+      "Tropikal Meyveler"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^blue\\-stone\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Ananas",
+      "Ananas"
+     ],
+     [
+      "Granny Smith Elması",
+      "Granny Smith Elması"
+     ],
+     [
+      "Mandalina",
+      "Mandalina"
+     ],
+     [
+      "Sedir Ağacı",
+      "Sedir Ağacı"
+     ]
+    ]
+   ],
+   [
+    "^bosphorus\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Deniz Yosunu",
+      "Deniz Yosunu"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^montenegro\\-100\\-ml\\-unisex\\-niche\\-parfum\\-sakayik\\-misk\\-ferah$",
+    [
+     [
+      "Liçi",
+      "Liçi"
+     ],
+     [
+      "Şeftali",
+      "Şeftali"
+     ],
+     [
+      "Şakayık",
+      "Şakayık"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^troy\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Safran",
+      "Safran"
+     ],
+     [
+      "Zencefil",
+      "Zencefil"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Paçuli",
+      "Paçuli"
+     ]
+    ]
+   ],
+   [
+    "^anatolian\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Konyak",
+      "Konyak"
+     ],
+     [
+      "Tarçın",
+      "Tarçın"
+     ],
+     [
+      "Tonka Fasulyesi",
+      "Tonka Fasulyesi"
+     ],
+     [
+      "Pralin",
+      "Pralin"
+     ]
+    ]
+   ],
+   [
+    "^moon\\-light\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Gardenya",
+      "Gardenya"
+     ],
+     [
+      "Paçuli",
+      "Paçuli"
+     ],
+     [
+      "Karamel",
+      "Karamel"
+     ],
+     [
+      "Kahve",
+      "Kahve"
+     ]
+    ]
+   ],
+   [
+    "^brown\\-mountain\\-100\\-ml\\-niche\\-parfum$",
+    [
+     [
+      "Çarkıfelek Meyvesi",
+      "Çarkıfelek Meyvesi"
+     ],
+     [
+      "Şeftali",
+      "Şeftali"
+     ],
+     [
+      "Ahududu",
+      "Ahududu"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w240\\-kadin\\-parfum\\-ciceksi\\-gul\\-misk$",
+    [
+     [
+      "Armut",
+      "Armut"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ],
+     [
+      "Yasemin",
+      "Yasemin"
+     ],
+     [
+      "Beyaz Misk",
+      "Beyaz Misk"
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w113\\-kadin\\-parfum\\-ciceksi\\-sumbulteber\\-vanilya$",
+    [
+     [
+      "Portakal Çiçeği",
+      "Portakal Çiçeği"
+     ],
+     [
+      "Sümbülteber",
+      "Sümbülteber"
+     ],
+     [
+      "Hint Yasemini",
+      "Hint Yasemini"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w175\\-kadin\\-parfum\\-gurme\\-bal\\-karamel$",
+    [
+     [
+      "Kan Portakalı",
+      "Kan Portakalı"
+     ],
+     [
+      "Bal",
+      "Bal"
+     ],
+     [
+      "Karamel",
+      "Karamel"
+     ],
+     [
+      "Meyan Kökü",
+      "Meyan Kökü"
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w227\\-kadin\\-parfum\\-ciceksi\\-vanilya\\-lavanta$",
+    [
+     [
+      "Lavanta",
+      "Lavanta"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Portakal Çiçeği"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w171\\-kadin\\-parfum\\-gurme\\-vanilya\\-pralin$",
+    [
+     [
+      "Siyah Frenk Üzümü",
+      "Siyah Frenk Üzümü"
+     ],
+     [
+      "İris",
+      "İris"
+     ],
+     [
+      "Pralin",
+      "Pralin"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w333\\-kadin\\-parfum\\-safran\\-amber$",
+    [
+     [
+      "Safran",
+      "Safran"
+     ],
+     [
+      "Yasemin",
+      "Yasemin"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Köknar Reçinesi",
+      "Köknar Reçinesi"
+     ]
+    ]
+   ],
+   [
+    "^royal\\-platinum\\-w388\\-kadin\\-parfum\\-meyvemsi\\-fresh$",
+    [
+     [
+      "Greyfurt",
+      "Greyfurt"
+     ],
+     [
+      "Ananas",
+      "Ananas"
+     ],
+     [
+      "Şakayık",
+      "Şakayık"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^m500\\-erkek\\-parfum$",
+    [
+     [
+      "Kestane",
+      "Kestane"
+     ],
+     [
+      "Adaçayı",
+      "Adaçayı"
+     ],
+     [
+      "Lavanta",
+      "Lavanta"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^m600\\-erkek\\-parfum$",
+    [
+     [
+      "Erik",
+      "Erik"
+     ],
+     [
+      "Fındık",
+      "Fındık"
+     ],
+     [
+      "Bal",
+      "Bal"
+     ],
+     [
+      "Sedir Ağacı",
+      "Sedir Ağacı"
+     ]
+    ]
+   ],
+   [
+    "^m555\\-erkek\\-parfum$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Lavanta",
+      "Lavanta"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Sedir",
+      "Sedir"
+     ]
+    ]
+   ],
+   [
+    "^m561\\-erkek\\-parfum$",
+    [
+     [
+      "Deniz",
+      "Deniz"
+     ],
+     [
+      "Greyfurt",
+      "Greyfurt"
+     ],
+     [
+      "Defne Yaprağı",
+      "Defne Yaprağı"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^erkek\\-parfum\\-edp\\-50ml\\-ferah\\-gurme\\-portakal\\-uzum\\-amber\\-m575$",
+    [
+     [
+      "Sicilya Portakalı",
+      "Sicilya Portakalı"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Beyaz Misk",
+      "Beyaz Misk"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-coconut\\-milk$",
+    [
+     [
+      "Hindistan Cevizi",
+      "Hindistan Cevizi"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ],
+     [
+      "Aloe Vera",
+      "Aloe Vera"
+     ],
+     [
+      "Papatya",
+      "Papatya"
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-cacao\\-w443$",
+    [
+     [
+      "Şeker",
+      "Şeker"
+     ],
+     [
+      "Kırmızı Meyveler",
+      "Kırmızı Meyveler"
+     ],
+     [
+      "Kakao",
+      "Kakao"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-berry\\-w388$",
+    [
+     [
+      "Çarkıfelek Meyvesi",
+      "Çarkıfelek Meyvesi"
+     ],
+     [
+      "Çilek",
+      "Çilek"
+     ],
+     [
+      "Şakayık",
+      "Şakayık"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^body\\-mist\\-pear\\-vanilla$",
+    [
+     [
+      "Vanilya",
+      "Vanilya"
+     ],
+     [
+      "Armut",
+      "Armut"
+     ]
+    ]
+   ],
+   [
+    "^ci̇nnamon\\-ci̇nger\\-120\\-ml\\-oda\\-kokusu$",
+    [
+     [
+      "Tarçın",
+      "Tarçın"
+     ],
+     [
+      "Karanfil",
+      "Karanfil"
+     ],
+     [
+      "Muskat",
+      "Muskat"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^vanilla\\-120\\-ml\\-oda\\-kokusu$",
+    [
+     [
+      "Vanilya",
+      "Vanilya"
+     ],
+     [
+      "Armut",
+      "Armut"
+     ],
+     [
+      "Çikolata",
+      "Çikolata"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ]
+    ]
+   ],
+   [
+    "^ocean\\-breeze\\-500\\-ml\\-oda\\-spreyi̇$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Deniz Notaları",
+      "Deniz Notaları"
+     ],
+     [
+      "Lavanta",
+      "Lavanta"
+     ],
+     [
+      "Sedir Ağacı",
+      "Sedir Ağacı"
+     ]
+    ]
+   ],
+   [
+    "^powder\\-500\\-ml\\-oda\\-spreyi̇$",
+    [
+     [
+      "Nergis",
+      "Nergis"
+     ],
+     [
+      "Aldehitler",
+      "Aldehitler"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^mango\\-500\\-ml\\-oda\\-spreyi̇$",
+    [
+     [
+      "Mango",
+      "Mango"
+     ],
+     [
+      "Ananas",
+      "Ananas"
+     ],
+     [
+      "Elma",
+      "Elma"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^portofino\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Ardıç Meyvesi",
+      "Orta: Yasemin",
+      "Alt: Sedir Ağacı, Tonka Fasulyesi"
+     ],
+     "en": [
+      "Üst: Ardıç Meyvesi",
+      "Orta: Yasemin",
+      "Alt: Sedir Ağacı, Tonka Fasulyesi"
+     ]
+    }
+   },
+   {
+    "match": "^san\\-marco\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Greyfurt",
+      "Orta: Zencefil",
+      "Alt: Ambroksan, Vetiver"
+     ],
+     "en": [
+      "Üst: Greyfurt",
+      "Orta: Zencefil",
+      "Alt: Ambroksan, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^venezia\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Ihlamur Çiçeği, Yasemin",
+      "Orta: Vetiver, Portakal Çiçeği",
+      "Alt: Amber, Sedir Ağacı"
+     ],
+     "en": [
+      "Üst: Ihlamur Çiçeği, Yasemin",
+      "Orta: Vetiver, Portakal Çiçeği",
+      "Alt: Amber, Sedir Ağacı"
+     ]
+    }
+   },
+   {
+    "match": "^san\\-pietro\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Amber",
+      "Orta: Amber",
+      "Alt: Amber, Misk"
+     ],
+     "en": [
+      "Üst: Amber",
+      "Orta: Amber",
+      "Alt: Amber, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^red\\-island\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Orkide, Heliotrop",
+      "Orta: Tropikal Meyveler",
+      "Alt: Vanilya, Misk, Sandal Ağacı"
+     ],
+     "en": [
+      "Üst: Orkide, Heliotrop",
+      "Orta: Tropikal Meyveler",
+      "Alt: Vanilya, Misk, Sandal Ağacı"
+     ]
+    }
+   },
+   {
+    "match": "^bosphorus\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Deniz Yosunu",
+      "Orta: Amber",
+      "Dip: Misk"
+     ],
+     "en": [
+      "Üst: Deniz Yosunu",
+      "Orta: Amber",
+      "Dip: Misk"
+     ]
+    }
+   },
+   {
+    "match": "^montenegro\\-100\\-ml\\-unisex\\-niche\\-parfum\\-sakayik\\-misk\\-ferah$",
+    "composition": {
+     "tr": [
+      "Üst: Liçi, Bergamot, Şeftali",
+      "Orta: Şakayık, Portakal Çiçeği, Yasemin, Petalyalar",
+      "Dip: Misk, Yosun, Odunsu Notalar"
+     ],
+     "en": [
+      "Üst: Liçi, Bergamot, Şeftali",
+      "Orta: Şakayık, Portakal Çiçeği, Yasemin, Petalyalar",
+      "Dip: Misk, Yosun, Odunsu Notalar"
+     ]
+    }
+   },
+   {
+    "match": "^troy\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Safran, Zencefil, Mandalina, Bergamot",
+      "Orta: Amber, Gül, Yasemin",
+      "Alt: Paçuli, Vanilya, Beyaz Misk, Sandal Ağacı, Meşe Likeni"
+     ],
+     "en": [
+      "Üst: Safran, Zencefil, Mandalina, Bergamot",
+      "Orta: Amber, Gül, Yasemin",
+      "Alt: Paçuli, Vanilya, Beyaz Misk, Sandal Ağacı, Meşe Likeni"
+     ]
+    }
+   },
+   {
+    "match": "^moon\\-light\\-100\\-ml\\-niche\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Gardenya, Karanfil Çiçeği, Yasemin, Deniz Notaları",
+      "Orta: Paçuli, Çiçek Notaları",
+      "Dip: Karamel, Kahve, Sandal Ağacı"
+     ],
+     "en": [
+      "Üst: Gardenya, Karanfil Çiçeği, Yasemin, Deniz Notaları",
+      "Orta: Paçuli, Çiçek Notaları",
+      "Dip: Karamel, Kahve, Sandal Ağacı"
+     ]
+    }
+   },
+   {
+    "match": "^royal\\-platinum\\-w240\\-kadin\\-parfum\\-ciceksi\\-gul\\-misk$",
+    "composition": {
+     "tr": [
+      "Üst: Armut, Bergamot",
+      "Orta: Gül, Yasemin",
+      "Alt: Beyaz Misk, Vanilya, Paçuli"
+     ],
+     "en": [
+      "Üst: Armut, Bergamot",
+      "Orta: Gül, Yasemin",
+      "Alt: Beyaz Misk, Vanilya, Paçuli"
+     ]
+    }
+   },
+   {
+    "match": "^royal\\-platinum\\-w113\\-kadin\\-parfum\\-ciceksi\\-sumbulteber\\-vanilya$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal Çiçeği, Bergamot",
+      "Orta: Sümbülteber, Hint Yasemini",
+      "Alt: Madagaskar Vanilyası, Beyaz Misk, Sedir"
+     ],
+     "en": [
+      "Üst: Portakal Çiçeği, Bergamot",
+      "Orta: Sümbülteber, Hint Yasemini",
+      "Alt: Madagaskar Vanilyası, Beyaz Misk, Sedir"
+     ]
+    }
+   },
+   {
+    "match": "^royal\\-platinum\\-w175\\-kadin\\-parfum\\-gurme\\-bal\\-karamel$",
+    "composition": {
+     "tr": [
+      "Üst: Kan Portakalı, Mandalina",
+      "Orta: Bal, Gardenya, Yasemin",
+      "Alt: Karamel, Paçuli, Meyan Kökü"
+     ],
+     "en": [
+      "Üst: Kan Portakalı, Mandalina",
+      "Orta: Bal, Gardenya, Yasemin",
+      "Alt: Karamel, Paçuli, Meyan Kökü"
+     ]
+    }
+   },
+   {
+    "match": "^royal\\-platinum\\-w227\\-kadin\\-parfum\\-ciceksi\\-vanilya\\-lavanta$",
+    "composition": {
+     "tr": [
+      "Üst: Lavanta, Mandalina, Siyah Frenk Üzümü",
+      "Orta: Portakal Çiçeği, Yasemin",
+      "Alt: Madagaskar Vanilyası, Misk, Sedir"
+     ],
+     "en": [
+      "Üst: Lavanta, Mandalina, Siyah Frenk Üzümü",
+      "Orta: Portakal Çiçeği, Yasemin",
+      "Alt: Madagaskar Vanilyası, Misk, Sedir"
+     ]
+    }
+   },
+   {
+    "match": "^royal\\-platinum\\-w171\\-kadin\\-parfum\\-gurme\\-vanilya\\-pralin$",
+    "composition": {
+     "tr": [
+      "Üst: Siyah Frenk Üzümü, Armut",
+      "Orta: İris, Yasemin, Portakal Çiçeği",
+      "Alt: Pralin, Vanilya, Paçuli, Tonka Fasulyesi"
+     ],
+     "en": [
+      "Üst: Siyah Frenk Üzümü, Armut",
+      "Orta: İris, Yasemin, Portakal Çiçeği",
+      "Alt: Pralin, Vanilya, Paçuli, Tonka Fasulyesi"
+     ]
+    }
+   },
+   {
+    "match": "^royal\\-platinum\\-w333\\-kadin\\-parfum\\-safran\\-amber$",
+    "composition": {
+     "tr": [
+      "Üst: Safran, Yasemin",
+      "Orta: Amber",
+      "Alt: Köknar Reçinesi, Sedir"
+     ],
+     "en": [
+      "Üst: Safran, Yasemin",
+      "Orta: Amber",
+      "Alt: Köknar Reçinesi, Sedir"
+     ]
+    }
+   },
+   {
+    "match": "^royal\\-platinum\\-w388\\-kadin\\-parfum\\-meyvemsi\\-fresh$",
+    "composition": {
+     "tr": [
+      "Üst: Greyfurt, Ananas, Mandalina",
+      "Orta: Şakayık, Vanilya Orkidesi",
+      "Alt: Misk, Meşe Yosunu"
+     ],
+     "en": [
+      "Üst: Greyfurt, Ananas, Mandalina",
+      "Orta: Şakayık, Vanilya Orkidesi",
+      "Alt: Misk, Meşe Yosunu"
+     ]
+    }
+   },
+   {
+    "match": "^m500\\-erkek\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Kestane, Şeker",
+      "Orta: Adaçayı, Lavanta",
+      "Alt: Vanilya"
+     ],
+     "en": [
+      "Üst: Kestane, Şeker",
+      "Orta: Adaçayı, Lavanta",
+      "Alt: Vanilya"
+     ]
+    }
+   },
+   {
+    "match": "^m555\\-erkek\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Biber",
+      "Orta: Lavanta, Baharatlı Akorlar",
+      "Alt: Amber, Sedir, Labdanum"
+     ],
+     "en": [
+      "Üst: Bergamot, Biber",
+      "Orta: Lavanta, Baharatlı Akorlar",
+      "Alt: Amber, Sedir, Labdanum"
+     ]
+    }
+   },
+   {
+    "match": "^m561\\-erkek\\-parfum$",
+    "composition": {
+     "tr": [
+      "Üst: Deniz, Greyfurt",
+      "Orta: Defne Yaprağı, Yasemin",
+      "Alt: Amber, Paçuli, Meşe Yosunu"
+     ],
+     "en": [
+      "Üst: Deniz, Greyfurt",
+      "Orta: Defne Yaprağı, Yasemin",
+      "Alt: Amber, Paçuli, Meşe Yosunu"
+     ]
+    }
+   },
+   {
+    "match": "^body\\-mist\\-coconut\\-milk$",
+    "composition": {
+     "tr": [
+      "Üst: Hindistan Cevizi",
+      "Orta: Vanilya, Aloe Vera",
+      "Alt: Papatya"
+     ],
+     "en": [
+      "Üst: Hindistan Cevizi",
+      "Orta: Vanilya, Aloe Vera",
+      "Alt: Papatya"
+     ]
+    }
+   },
+   {
+    "match": "^body\\-mist\\-cacao\\-w443$",
+    "composition": {
+     "tr": [
+      "Üst: Şeker, Kırmızı Meyveler",
+      "Orta: Vanilya, Kakao, Gül",
+      "Alt: Kehribar, Misk"
+     ],
+     "en": [
+      "Üst: Şeker, Kırmızı Meyveler",
+      "Orta: Vanilya, Kakao, Gül",
+      "Alt: Kehribar, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^body\\-mist\\-berry\\-w388$",
+    "composition": {
+     "tr": [
+      "Üst: Çarkıfelek Meyvesi, Çilek",
+      "Orta: Şakayık, Vanilya Orkidesi",
+      "Alt: Misk, Kırmızı Meyveler"
+     ],
+     "en": [
+      "Üst: Çarkıfelek Meyvesi, Çilek",
+      "Orta: Şakayık, Vanilya Orkidesi",
+      "Alt: Misk, Kırmızı Meyveler"
+     ]
+    }
+   },
+   {
+    "match": "^body\\-mist\\-pear\\-vanilla$",
+    "composition": {
+     "tr": [
+      "Üst: Vanilya",
+      "Orta: Armut",
+      "Alt: Vanilya"
+     ],
+     "en": [
+      "Üst: Vanilya",
+      "Orta: Armut",
+      "Alt: Vanilya"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^portofino\\-100\\-ml\\-niche\\-parfum$",
+    "#a3152a",
+    "#e5bdc3",
+    "#230409"
+   ],
+   [
+    "^san\\-marco\\-100\\-ml\\-niche\\-parfum$",
+    "#7a4128",
+    "#d9c9c2",
+    "#1a0e08"
+   ],
+   [
+    "^venezia\\-100\\-ml\\-niche\\-parfum$",
+    "#8e1a2e",
+    "#dfbec4",
+    "#1f050a"
+   ],
+   [
+    "^san\\-pietro\\-100\\-ml\\-niche\\-parfum$",
+    "#5c3a2a",
+    "#d1c7c3",
+    "#140c09"
+   ],
+   [
+    "^red\\-island\\-100\\-ml\\-niche\\-parfum$",
+    "#c2455a",
+    "#edcad0",
+    "#2a0f13"
+   ],
+   [
+    "^blue\\-stone\\-100\\-ml\\-niche\\-parfum$",
+    "#2f7f95",
+    "#c4dbe1",
+    "#0a1b20"
+   ],
+   [
+    "^bosphorus\\-100\\-ml\\-niche\\-parfum$",
+    "#2c4a66",
+    "#c3ccd4",
+    "#091016"
+   ],
+   [
+    "^montenegro\\-100\\-ml\\-unisex\\-niche\\-parfum\\-sakayik\\-misk\\-ferah$",
+    "#6e1838",
+    "#d6bec7",
+    "#18050c"
+   ],
+   [
+    "^troy\\-100\\-ml\\-niche\\-parfum$",
+    "#6d6258",
+    "#d6d3d0",
+    "#171513"
+   ],
+   [
+    "^anatolian\\-100\\-ml\\-niche\\-parfum$",
+    "#c0702a",
+    "#edd6c3",
+    "#2a1809"
+   ],
+   [
+    "^moon\\-light\\-100\\-ml\\-niche\\-parfum$",
+    "#6f7378",
+    "#d6d7d9",
+    "#18191a"
+   ],
+   [
+    "^brown\\-mountain\\-100\\-ml\\-niche\\-parfum$",
+    "#9a6a5a",
+    "#e2d5d0",
+    "#211713"
+   ],
+   [
+    "^royal\\-platinum\\-w240\\-kadin\\-parfum\\-ciceksi\\-gul\\-misk$",
+    "#c4607e",
+    "#eed2da",
+    "#2b151b"
+   ],
+   [
+    "^royal\\-platinum\\-w113\\-kadin\\-parfum\\-ciceksi\\-sumbulteber\\-vanilya$",
+    "#b08a4e",
+    "#e8decd",
+    "#261e11"
+   ],
+   [
+    "^royal\\-platinum\\-w175\\-kadin\\-parfum\\-gurme\\-bal\\-karamel$",
+    "#c47a26",
+    "#eed9c2",
+    "#2b1a08"
+   ],
+   [
+    "^royal\\-platinum\\-w227\\-kadin\\-parfum\\-ciceksi\\-vanilya\\-lavanta$",
+    "#8470ae",
+    "#dcd6e8",
+    "#1d1826"
+   ],
+   [
+    "^royal\\-platinum\\-w171\\-kadin\\-parfum\\-gurme\\-vanilya\\-pralin$",
+    "#6a3f6e",
+    "#d5c9d6",
+    "#170d18"
+   ],
+   [
+    "^royal\\-platinum\\-w333\\-kadin\\-parfum\\-safran\\-amber$",
+    "#a8482a",
+    "#e6cbc3",
+    "#240f09"
+   ],
+   [
+    "^royal\\-platinum\\-w388\\-kadin\\-parfum\\-meyvemsi\\-fresh$",
+    "#d65a52",
+    "#f3d0ce",
+    "#2f1312"
+   ],
+   [
+    "^m500\\-erkek\\-parfum$",
+    "#8b5a3a",
+    "#ded0c7",
+    "#1e130c"
+   ],
+   [
+    "^m600\\-erkek\\-parfum$",
+    "#7a3f5a",
+    "#d9c9d0",
+    "#1a0d13"
+   ],
+   [
+    "^m555\\-erkek\\-parfum$",
+    "#5e66a0",
+    "#d1d4e4",
+    "#141623"
+   ],
+   [
+    "^m561\\-erkek\\-parfum$",
+    "#2f86a6",
+    "#c4dde6",
+    "#0a1d24"
+   ],
+   [
+    "^erkek\\-parfum\\-edp\\-50ml\\-ferah\\-gurme\\-portakal\\-uzum\\-amber\\-m575$",
+    "#d0782e",
+    "#f1d9c4",
+    "#2d1a0a"
+   ],
+   [
+    "^body\\-mist\\-coconut\\-milk$",
+    "#a2825e",
+    "#e4dcd1",
+    "#231c14"
+   ],
+   [
+    "^body\\-mist\\-cacao\\-w443$",
+    "#6b3a2a",
+    "#d5c7c3",
+    "#170c09"
+   ],
+   [
+    "^body\\-mist\\-berry\\-w388$",
+    "#c23a5a",
+    "#edc7d0",
+    "#2a0c13"
+   ],
+   [
+    "^body\\-mist\\-pear\\-vanilla$",
+    "#8f9a3e",
+    "#dfe2c8",
+    "#1f210d"
+   ],
+   [
+    "^ci̇nnamon\\-ci̇nger\\-120\\-ml\\-oda\\-kokusu$",
+    "#a0452a",
+    "#e4cac3",
+    "#230f09"
+   ],
+   [
+    "^vanilla\\-120\\-ml\\-oda\\-kokusu$",
+    "#b98c52",
+    "#ebdece",
+    "#281e12"
+   ],
+   [
+    "^ocean\\-breeze\\-500\\-ml\\-oda\\-spreyi̇$",
+    "#3f86a8",
+    "#c9dde6",
+    "#0d1d24"
+   ],
+   [
+    "^powder\\-500\\-ml\\-oda\\-spreyi̇$",
+    "#c98a9c",
+    "#efdee3",
+    "#2c1e22"
+   ],
+   [
+    "^mango\\-500\\-ml\\-oda\\-spreyi̇$",
+    "#d9962a",
+    "#f4e1c3",
+    "#2f2009"
+   ]
+  ],
+  "trText": {
+   "portofino-100-ml-niche-parfum": "Portofino, temiz, pudralı ve modern odunsu karakteriyle hem kadınların hem erkeklerin kullanımına uygun, dengeli bir unisex niche parfümdür. Ardıç meyvesinin aromatik ve ferah dokusu, yaseminin zarif çiçeksi karakteriyle birleşirken; sedir ağacı, tonka fasulyesi ve pudramsı notalar parfüme sıcak, yumuşak ve sofistike bir derinlik kazandırır.",
+   "san-marco-100-ml-niche-parfum": "San Marco, narenciyeli, amberimsi, ferah ve güçlü karakteriyle modern erkek stilini tamamlayan bir niche parfümdür. Greyfurtun canlı ve enerjik dokusu, zencefilin keskin ve dinamik karakteriyle birleşirken; ambroksan ve vetiver parfüme temiz, modern ve odunsu bir derinlik kazandırır.",
+   "venezia-100-ml-niche-parfum": "Venezia, çiçeksi, doğal ve zarif karakteriyle hem kadınların hem erkeklerin kullanımına uygun, dengeli bir unisex niche parfümdür. Ihlamur çiçeği ve yaseminin aydınlık çiçeksi dokusu, balın yumuşak ve doğal tatlılığıyla birleşirken; vetiver, Ambrofix ve Georgywood parfüme modern, hafif odunsu ve sofistike bir derinlik kazandırır.",
+   "san-pietro-100-ml-niche-parfum": "San Pietro, sıcak, amberimsi ve yumuşak karakteriyle hem kadınların hem erkeklerin kullanımına uygun, dengeli bir unisex niche parfümdür. Amberin zengin ve sıcak dokusu, miskin temiz ve tenle bütünleşen yapısıyla birleşerek sade fakat etkileyici bir koku deneyimi sunar.",
+   "red-island-100-ml-niche-parfum": "Orkide ve heliotropun yumuşak, pudralı dokusuyla açılan koku; tropikal meyvelerin hafif tatlı ve canlı karakteriyle zenginleşir. Vanilya, misk ve sandal ağacından oluşan sıcak alt notalar ise tende kremsi, yumuşak ve kalıcı bir his bırakır.",
+   "blue-stone-100-ml-niche-parfum": "Aromatik, fougère ve meyveli bir niche parfüm. Notalar: ananas, Granny Smith elması ve mandalina; meşe yosunu, sedir ağacı ve vanilya; kuru odun, ambergris, karamel ve misk. İlkbahar, yaz, sonbahar ve kış; gece ve gündüz.",
+   "bosphorus-100-ml-niche-parfum": "Deniz esintisinin ferahlığını amberin sıcak dokunuşuyla buluşturan Royal Platinum Bosphorus, modern ve güçlü erkekler için tasarlanmış akuatik maskülen bir parfümdür. Gün boyu temiz, enerjik ve karizmatik bir etki bırakırken ferah yapısıyla dört mevsim kullanıma uygundur.",
+   "montenegro-100-ml-unisex-niche-parfum-sakayik-misk-ferah": "Montenegro, canlı meyve dokunuşlarını zarif beyaz çiçeklerle buluşturan, ferah ve sofistike karaktere sahip özel bir kokudur. Açılışta liçi, bergamot ve şeftalinin enerjik uyumu taze, meyvemsi ve aydınlık bir başlangıç sunar. Kalp notalarında şakayık, portakal çiçeği, yasemin ve yumuşak petalyalar feminen, romantik ve zarif bir çiçek bahçesi hissi oluşturur. Dip notalarda misk, yosun ve odunsu notalar kompozisyona doğal bir sıcaklık, derinlik ve gün boyu kalıcı bir iz kazandırır.",
+   "troy-100-ml-niche-parfum": "Troy, safran, zencefil, mandalina ve bergamotun baharatlı ve ferah açılışıyla dikkat çeken, güçlü karakterli bir niche parfümdür. Kalbinde amber, gül ve yasemin notalarıyla sıcak ve sofistike bir çiçeksi dokunuş kazanırken; paçuli, vanilya, beyaz misk, sandal ağacı ve meşe likeni alt notalarda derin, sıcak ve etkileyici bir iz bırakır.",
+   "anatolian-100-ml-niche-parfum": "Gurme ve baharatlı bir niche parfüm. Notalar: konyak, tarçın, tonka fasulyesi, meşe, pralin, vanilya ve sandal ağacı. Sonbahar ve kış; gece.",
+   "moon-light-100-ml-niche-parfum": "Moon Light; gardenya çiçeğinin zarif dokusunu paçulinin derin karakteri ve karamelin sıcak, gurme hissiyle buluşturan özel seri bir niche parfümdür. Yumuşak ama dikkat çekici yapısıyla gün boyu etkileyici bir kullanım sunar. Unisex karaktere sahip olan bu özel koku; feminen zarafet ile maskülen derinliği dengeli şekilde bir araya getirir.",
+   "brown-mountain-100-ml-niche-parfum": "Meyveli, şekerli ve oryantal bir niche parfüm. Notalar: çarkıfelek meyvesi, şeftali, armut, ahududu, cassis, zambak, misk, sandal ağacı, vanilya, paçuli ve heliotrop çiçeği. Dört mevsim; gece ve gündüz.",
+   "royal-platinum-w240-kadin-parfum-ciceksi-gul-misk": "Royal Platinum W240 Kadın Parfüm, modern ve ışıltılı çiçeksi karakteriyle zarif bir feminenlik sunar. Üst notalarda armut ve bergamot ferah ve hafif tatlı bir açılış yapar. Orta notalarda gül ve yasemin romantik ve sofistike bir çiçek kalbi oluşturur. Dip notalarda beyaz misk, vanilya ve paçuli temiz, sıcak ve kalıcı bir imza bırakır.",
+   "royal-platinum-w113-kadin-parfum-ciceksi-sumbulteber-vanilya": "Royal Platinum W113 Kadın Parfüm, modern ve zarif çiçeksi karakteriyle feminen bir imza sunar. Üst notalarda portakal çiçeği ve bergamot ferah bir başlangıç yapar. Orta notalarda sümbülteber ve Hint yasemini yoğun beyaz çiçek etkisi oluşturur. Dip notalarda Madagaskar vanilyası, beyaz misk ve sedir sıcak ve kalıcı bir iz bırakır.",
+   "royal-platinum-w175-kadin-parfum-gurme-bal-karamel": "Royal Platinum W175 Kadın Parfüm, yoğun ve baştan çıkarıcı gurme karakteriyle dikkat çeker. Üst notalarda kan portakalı ve mandalina enerjik ve tatlı bir açılış sunar. Orta notalarda bal, gardenya ve yasemin feminen ve yoğun bir çiçek tatlılığı oluşturur. Dip notalarda karamel, paçuli ve meyan kökü sıcak, şekerli ve kalıcı bir imza bırakır.",
+   "royal-platinum-w227-kadin-parfum-ciceksi-vanilya-lavanta": "Royal Platinum W227 Kadın Parfüm, lavantanın aromatik zarafeti ve vanilyanın sıcak dokunuşuyla modern ve güçlü bir feminenlik sunar. Üst notalarda lavanta, mandalina ve siyah frenk üzümü ferah ve enerjik bir açılış yapar. Orta notalarda portakal çiçeği ve yasemin çiçeksi bir derinlik kazandırır. Dip notalarda Madagaskar vanilyası, misk ve sedir sıcak, kremsi ve kalıcı bir imza bırakır.",
+   "royal-platinum-w171-kadin-parfum-gurme-vanilya-pralin": "Royal Platinum W171 Kadın Parfüm, tatlı ve gurme karakteriyle feminen ve etkileyici bir imza sunar. Üst notalarda siyah frenk üzümü ve armut meyvemsi ve canlı bir açılış yapar. Orta notalarda iris, yasemin ve portakal çiçeği zarif bir çiçek dokusu oluşturur. Dip notalarda pralin, vanilya, paçuli ve tonka fasulyesi sıcak, tatlı ve kalıcı bir etki bırakır.",
+   "royal-platinum-w333-kadin-parfum-safran-amber": "Royal Platinum W333 Kadın Parfüm, safranın baharatlı ışıltısını amberin sıcak derinliğiyle buluşturan sofistike bir odunsu kompozisyondur. Üst notalarda safran ve yasemin dikkat çekici ve zarif bir açılış yapar. Orta notada amber yoğun ve lüks bir karakter sunar. Dip notalarda köknar reçinesi ve sedir odunsu, reçineli ve kalıcı bir imza bırakır.",
+   "royal-platinum-w388-kadin-parfum-meyvemsi-fresh": "Royal Platinum W388 Kadın Parfüm, çarkıfelek meyvesinin tropikal enerjisini şakayığın feminen zarafetiyle buluşturan dinamik bir meyvemsi çiçeksi kompozisyondur. Üst notalarda greyfurt, ananas ve mandalina canlı ve enerjik bir açılış yapar. Orta notalarda şakayık ve vanilya orkidesi romantik bir dokunuş sunar. Dip notalarda misk ve meşe yosunu temiz, hafif odunsu ve kalıcı bir imza bırakır.",
+   "m500-erkek-parfum": "Royal Platinum M500 Erkek Parfüm, kestanenin sıcak ve hafif tatlı karakterini aromatik adaçayı ile buluşturan modern ve karizmatik bir erkek parfümüdür. Üst notalarda kestane ve şeker sıcak ve dikkat çekici bir açılış sunar. Orta notalarda adaçayı ve lavanta aromatik bir denge sağlar. Dip notada vanilya yumuşak, maskülen ve kalıcı bir imza bırakır.",
+   "m600-erkek-parfum": "Odunsu bir erkek parfümü. Notalar: erik, ozon notaları, greyfurt, bergamot, fındık, bal, sedir ağacı, kaşmir ağacı, yasemin, portakal çiçeği, amber, paçuli, meşe yosunu ve vetiver. İlkbahar, sonbahar ve kış; gece ve gündüz.",
+   "m555-erkek-parfum": "Royal Platinum M555 Erkek Parfüm, Calabria bergamotunun ferah ve enerjik açılışını lavantanın aromatik karakteri ve amber (ambroksan) notalarının sıcak derinliği ile buluşturan modern bir erkek parfümüdür. Üst notada bergamot ve biber canlı bir başlangıç sunar. Orta notalarda lavanta ve baharatlı akorlar maskülen bir dinamizm kazandırır. Dip notalarda amber, sedir ve labdanum güçlü, kalıcı ve karizmatik bir imza bırakır.",
+   "m561-erkek-parfum": "Royal Platinum M561 Erkek Parfüm, greyfurtun enerjik narenciye açılışını deniz notalarının ferahlığı ve ambergris’in maskülen derinliği ile buluşturan akuatik bir erkek parfümüdür. Üst notalarda deniz ve greyfurt canlı bir başlangıç sunar. Orta notada defne yaprağı ve yasemin dengeli ve aromatik bir yapı oluşturur. Dip notalarda amber, paçuli ve meşe yosunu kalıcı, temiz ve güçlü bir imza bırakır.",
+   "erkek-parfum-edp-50ml-ferah-gurme-portakal-uzum-amber-m575": "Meyveli ve şekerli bir erkek parfümü. Notalar: Sicilya portakalı, Kalabriya bergamotu ve Sicilya limonu; mandalina, greyfurt; beyaz misk, Madagaskar vanilyası ve amber. İlkbahar ve yaz; gündüz.",
+   "body-mist-coconut-milk": "Hindistan cevizinin kremsi ve yumuşak dokusuyla açılan CocoNut Milk, vanilyanın sıcak ve tatlı karakterini Aloe Vera’nın ferahlatıcı dokunuşuyla bir araya getirir. Alt notalardaki papatya ise kokuya zarif ve huzurlu bir çiçeksi hava kazandırır.",
+   "body-mist-cacao-w443": "Şeker ve kırmızı meyvelerin canlı tatlılığıyla açılan W443, vanilyanın kremsi dokusunu kakaonun dolgun karakteriyle bir araya getirir. Orta notadaki gül, bu gurme yapıya zarif bir çiçeksi dokunuş katar. Alt notalardaki kehribar ve misk ise tende sıcak, yumuşak ve sarmalayıcı bir iz bırakır.",
+   "body-mist-berry-w388": "Çarkıfelek meyvesinin tropikal canlılığı ve çileğin sulu tatlılığıyla açılan W388, şakayığın zarif çiçeksiliğini vanilya orkidesinin yumuşak dokusuyla buluşturur. Alt notalardaki kırmızı meyveler, kokunun enerjik karakterini sürdürürken misk tende temiz ve kadifemsi bir iz bırakır.",
+   "body-mist-pear-vanilla": "Vanilyanın sıcak ve kremsi dokunuşuyla açılan Pear Vanilla, armudun sulu ve canlı karakteriyle meyvemsi bir ferahlık kazanır. Alt notada yeniden hissedilen vanilya, bu canlılığı yumuşak bir tatlılıkla tamamlayarak tende zarif ve dengeli bir iz bırakır.",
+   "ci̇nnamon-ci̇nger-120-ml-oda-kokusu": "Gurme ve baharatlı bambu çubuklu oda kokusu. Notalar: limon, karanfil, mandalina, tarçın, muskat, vanilya ve tonka fasulyesi.",
+   "vanilla-120-ml-oda-kokusu": "Vanilyalı bambu çubuklu oda kokusu. Notalar: mandalina, limon, armut, çikolata, gül, yasemin, pudramsı notalar ve vanilya.",
+   "ocean-breeze-500-ml-oda-spreyi̇": "Akuatik ve aromatik oda spreyi. Notalar: bergamot, limon, portakal, deniz notaları, lavanta, zambak, süsen, sedir ağacı, paçuli ve amber.",
+   "powder-500-ml-oda-spreyi̇": "Pudramsı oda spreyi. Notalar: nergis, aldehitler, gül, ıtır, sümbül, leylak, misk ve tonka fasulyesi.",
+   "mango-500-ml-oda-spreyi̇": "Meyveli oda spreyi. Notalar: mango, ananas, limon, portakal, elma, aloe vera, menekşe, beyaz çiçekler, papatya ve misk."
+  },
+  "ritual": [
+   {
+    "handle": "portofino-100-ml-niche-parfum",
+    "tr": {
+     "title": "Premium Seri",
+     "text": "Biraz kıyı. Biraz kural dışı.",
+     "stat": "Portofino"
+    },
+    "en": {
+     "title": "Premium Seri",
+     "text": "Biraz kıyı. Biraz kural dışı.",
+     "stat": "Portofino"
+    }
+   },
+   {
+    "handle": "san-marco-100-ml-niche-parfum",
+    "tr": {
+     "title": "Premium Seri",
+     "text": "Rahat tavır, ciddi etki.",
+     "stat": "San Marco"
+    },
+    "en": {
+     "title": "Premium Seri",
+     "text": "Rahat tavır, ciddi etki.",
+     "stat": "San Marco"
+    }
+   },
+   {
+    "handle": "venezia-100-ml-niche-parfum",
+    "tr": {
+     "title": "Premium Seri",
+     "text": "İyi kokmak işin masum tarafı.",
+     "stat": "Venezia"
+    },
+    "en": {
+     "title": "Premium Seri",
+     "text": "İyi kokmak işin masum tarafı.",
+     "stat": "Venezia"
+    }
+   }
+  ]
+ }
+}

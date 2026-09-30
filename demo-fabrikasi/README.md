@@ -295,6 +295,13 @@ Beyaz etiketli şeffaf şişelerde yapay zekâ kesimi etiketin beyazını delebi
 silüetini doldurur (kapak bölgesine dokunmaz). Renkli cam şişelerde `"glassBack": {"label": [...], "brand": "..."}`
 arka yüzü ön yüzün aynası yapar, etiketin yerine markanın stilinde arka etiket çizer.
 
+**Malzemeli ürün fotoğrafları (Royal Platinum):** şişenin yanında meyve, çiçek, yazı ya da şerit varsa
+`"foto": {"parts": [["^handle$", [[x0, y0, x1, y1], ...]]]}` ana fotoğrafta yalnızca bu kutuları (fotoğrafa oranla;
+kapak ve gövde ayrı kutu) ürün sayar, dışını zemin rengine boyar. `"badges": "regex"` kırmızı "YENİ" rozetlerini siler
+(şişenin üstüne binen kısmı şişenin simetrik öbür yanından kopyalanır). `"convexOnly": "regex"` dışbükey dolguyu
+yalnızca şişelere uygular (çubuklu difüzör ve tetikli spreyin girintileri dolmasın). Mağazanın yalnızca Türkçe
+olduğu markalarda marka dosyasına `"langs": ["tr"]` yazılır: dil düğmesi gizlenir.
+
 **Ferah sahne** (`theme.fresh: true`, `theme.plinthColor`): fotoğraf yerine her kokunun kendi renginde aydınlık fon,
 şişenin arkasında hale, yavaşça akan ipek dalgalar ve fonu yansıtan parlak zemin (BackgroundMaterial → `u_fresh`).
 Renkler kurallar → `palette` ([regex, orta, açık, koyu]); fotoğraftan çıkan renk altın etikete kayıyorsa şişenin

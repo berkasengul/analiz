@@ -67,8 +67,11 @@ def clip(s, n):
     if len(s) <= n:
         return s
     cut = s[:n]
-    m = max(cut.rfind(". "), cut.rfind("; "), cut.rfind("… "), cut.rfind("? "))
-    return (cut[: m + 1] if m > n * 0.5 else cut.rsplit(" ", 1)[0] + "…").strip()
+    # Önce tam cümle sonu (metin noktalı virgülde yarım kalmasın), yoksa noktalı virgül, yoksa kelime sınırı.
+    m = max(cut.rfind(". "), cut.rfind("… "), cut.rfind("? "))
+    if m <= n * 0.3:
+        m = max(m, cut.rfind("; ")) if cut.rfind("; ") > n * 0.5 else m
+    return (cut[: m + 1] if m > n * 0.3 else cut.rsplit(" ", 1)[0] + "…").strip()
 
 
 def first_sentence(s, n=64):
@@ -179,6 +182,8 @@ def main():
         en_desc = clip(qs[0] if qs else desc, 330)
         if h in R.get("trText", {}):
             desc = clip(R["trText"][h], 330)
+            if not qs:  # İngilizce mağaza yoksa İngilizce alan da aynı metin
+                en_desc = desc
         v = p["variants"][0]
         price = float(v["price"])
         cmp_ = float(v["compare_at_price"]) if v.get("compare_at_price") and float(v["compare_at_price"]) > price else None
@@ -218,7 +223,9 @@ def main():
     fon_json = os.path.join(FOTO, "fon", "fon.json")
     FON = json.load(open(fon_json)) if os.path.exists(fon_json) else {}
     handles = [h for h in R.get("home", []) if h in meta and "cut" in meta[h]]
-    handles += [h for h in sorted(tr, key=lambda x: (order.index(cat_of(x)), x)) if h not in handles and h in meta and "cut" in meta[h]]
+    # Yalnızca fotoğrafı işlenen ürünler (mağazanın geri kalanı demoya alınmaz; kategorisi de olmayabilir).
+    done = [h for h in tr if h in meta and "cut" in meta[h]]
+    handles += [h for h in sorted(done, key=lambda x: (order.index(cat_of(x)), x)) if h not in handles]
     products = [photo_product(h) for h in handles]
 
     items_out = []
