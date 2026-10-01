@@ -24,6 +24,8 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 | Ephemeral Dyadic | Giden | E-posta | Berka → info@ephemeraldyadic.com (Sinan Saul'a hitaben) | İlk satış maili (TR + EN): her koku kendi kutu deseninin önünde siyah-beyaz sinematik sahne, şişe çevirme ve arka etiket, şiirler, manifesto, koku bulucu, satış noktaları; 15 dakikalık görüntülü görüşme önerildi | `yazismalar/ephemeraldyadic/2026-10-01-giden-ilk-mail.md` |
 | 01.10.2026 | Pekji | Giden | E-posta | Berka → contact@pekji.com (Ömer İpekçi'ye hitaben) | İlk satış maili: Reset'in dört aşaması için 3D satış sitesi, şişe çevirme ve sprey, koku bulucu, 9 parfüm ve 22 satış noktası; 10 dakikalık görüşme önerildi | `yazismalar/pekji/2026-10-01-giden-ilk-mail.md` |
 | 01.10.2026 | ANYMO Paris | Giden | bilinmiyor | Berka → ANYMO Paris (taslakta info@anymoparfum.com ve @anymoparis) | İlk satış mesajı: kendi etiketli 12 extrait koku için 3D satış sitesi, sprey, kaideye inen koku bulucu; Nişantaşı mağazasında 10 dakikalık gösterim önerildi | `yazismalar/anymo/2026-10-01-giden-ilk-mesaj.md` |
+| bilinmiyor (22:48) | Çakır Parfümeri | Giden | WhatsApp | Berka → Çakır Parfümeri | 4 satış görseli + "ürünleriniz için 3D web sitesi tasarımı yaptım"; mevcut sitenin yerine daha profesyonel sunum ve sipariş önerildi. Demo linki gönderildi mi: bilinmiyor | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-ilk-gorusme.md` |
+| bilinmiyor (22:52–22:58) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Güzel bir çalışma olmuş"; "sitemiz yaklaşık 1 yıl oldu kuralı"; maliyet soruldu | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-ilk-gorusme.md` |
 
 ---
 
@@ -105,12 +107,18 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
   - Son takip: 05.10.2026 (Instagram videoları ya da boş "Hakkımızda" sayfası için 3D marka sayfası önerilir).
   - Fiyat sorulursa: ilk mesajda fiyat yok (`anymo-mail.md` → "Fiyat sorarlarsa").
 
+### Çakır Parfümeri (cakirparfumeri.com.tr)
+- **İletişim:** WhatsApp 0541 748 64 84 (işletme hesabı) · info@cakirparfumeri.com.tr · @parfumor_st. Yazan kişinin adı belli değil (kurucu Tuğrul Çakır olabilir; doğrulanmadı). Berka'ya "Berkay bey" diye hitap ediyor.
+- **Altyapı:** ikas (sitesi yaklaşık 1 yıllık, kendi ifadesi).
+- **Durum:** İlgili; maliyet sordu, cevap bekliyor.
+- **Dikkat:** Sitesini yeni yaptırmış; "mevcut sitenin yerine" yaklaşımı yerine "mevcut ikas sitesi kalır, 3D vitrin üstüne eklenir, satın alma ikas'ta" anlatılmalı.
+- **Sırada:** Fiyat cevabı (fiyatları Berka belirler) + 15 dakikalık görüntülü görüşme ya da mağazada gösterim önerisi.
+
 ### Diğer firmalar (demo hazır, gönderim kaydı yok)
 Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kayıt yok. Gönderdikçe yukarıdaki tabloya satır ekle.
 
 | Firma | Demo | Mesaj taslağı | Not |
 |---|---|---|---|
-| Çakır Parfümeri | `demolar/cakir-Netlify.zip` | `cakir-mail.md` | WhatsApp öncelikli |
 | MAD Parfumeur | `demolar/mad-Netlify.zip` | `mad-mail.md` | LinkedIn öncelikli |
 | Parfümőrült | `demolar/parfumorult-Netlify.zip` | `parfumorult-mail.md` | Macarca |
 | Mes Bisous, Regalien, Royal Platinum, Türkan, Unique, Mardini, Attar Al Has, Lalive | `demolar/` | `*-mail.md` | Önceki dönem demoları |
