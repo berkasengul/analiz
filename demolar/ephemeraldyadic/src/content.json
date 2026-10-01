@@ -737,7 +737,7 @@
   "photoExact": true,
   "theme": {
     "name": "portal",
-    "accent": "#d9d4c8",
+    "accent": "#ece8e1",
     "particles": "none",
     "fonts": {
       "href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
@@ -821,7 +821,7 @@
           "tr": "Eau de Parfum",
           "en": "Eau de Parfum"
         },
-        "color": "#d9c47a",
+        "color": "#d8d4cc",
         "desc": {
           "tr": "50 ml Eau de Parfum; her koku bir ruh hâli, bir hatıra.",
           "en": "50 ml Eau de Parfum; every scent a feeling, a memory."
@@ -852,8 +852,8 @@
         "scene": "sahne/dark-dreams.webp",
         "image": "cut/dark-dreams.webp",
         "cutout": true,
-        "bg": "#35342c",
-        "bg2": "#e3dca0",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/dark-dreams-sergi.webp",
         "wall": "fon/dark-dreams-duvar.webp",
         "variants": [
@@ -886,8 +886,8 @@
         "scene": "sahne/ozymandias.webp",
         "image": "cut/ozymandias.webp",
         "cutout": true,
-        "bg": "#332e1e",
-        "bg2": "#d9b84a",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/ozymandias-sergi.webp",
         "wall": "fon/ozymandias-duvar.webp",
         "variants": [
@@ -920,8 +920,8 @@
         "scene": "sahne/liquid-skin.webp",
         "image": "cut/liquid-skin.webp",
         "cutout": true,
-        "bg": "#332f1c",
-        "bg2": "#d8c23c",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/liquid-skin-sergi.webp",
         "wall": "fon/liquid-skin-duvar.webp",
         "variants": [
@@ -954,8 +954,8 @@
         "scene": "sahne/psychic-vibrations.webp",
         "image": "cut/psychic-vibrations.webp",
         "cutout": true,
-        "bg": "#332c1a",
-        "bg2": "#d6b030",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/psychic-vibrations-sergi.webp",
         "wall": "fon/psychic-vibrations-duvar.webp",
         "variants": [
@@ -988,8 +988,8 @@
         "scene": "sahne/another-world.webp",
         "image": "cut/another-world.webp",
         "cutout": true,
-        "bg": "#33342d",
-        "bg2": "#d9dcaa",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/another-world-sergi.webp",
         "wall": "fon/another-world-duvar.webp",
         "variants": [
@@ -1022,8 +1022,8 @@
         "scene": "sahne/acid-aqua.webp",
         "image": "cut/acid-aqua.webp",
         "cutout": true,
-        "bg": "#353223",
-        "bg2": "#e8d36a",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/acid-aqua-sergi.webp",
         "wall": "fon/acid-aqua-duvar.webp",
         "variants": [
@@ -1056,8 +1056,8 @@
         "scene": "sahne/bodhi-utah.webp",
         "image": "cut/bodhi-utah.webp",
         "cutout": true,
-        "bg": "#31301e",
-        "bg2": "#cfc34a",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/bodhi-utah-sergi.webp",
         "wall": "fon/bodhi-utah-duvar.webp",
         "variants": [
@@ -1090,8 +1090,8 @@
         "scene": "sahne/lost-chemistry.webp",
         "image": "cut/lost-chemistry.webp",
         "cutout": true,
-        "bg": "#352a16",
-        "bg2": "#e8a018",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/lost-chemistry-sergi.webp",
         "wall": "fon/lost-chemistry-duvar.webp",
         "variants": [
@@ -1124,8 +1124,8 @@
         "scene": "sahne/missing-feeling.webp",
         "image": "cut/missing-feeling.webp",
         "cutout": true,
-        "bg": "#363532",
-        "bg2": "#e9e4c8",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/missing-feeling-sergi.webp",
         "wall": "fon/missing-feeling-duvar.webp",
         "variants": [
@@ -1158,8 +1158,8 @@
         "scene": "sahne/no-taboos.webp",
         "image": "cut/no-taboos.webp",
         "cutout": true,
-        "bg": "#363532",
-        "bg2": "#ece6c9",
+        "bg": "#171717",
+        "bg2": "#ece8e1",
         "exhibit": "fon/no-taboos-sergi.webp",
         "wall": "fon/no-taboos-duvar.webp",
         "variants": [
@@ -1314,10 +1314,10 @@
       "color": "#c1c09f",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#35342c",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#e3dca0",
-        "accent": "#e3dca0",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Neonlar ve sigaralar, kiralık odalar.",
@@ -2080,10 +2080,10 @@
       "color": "#cac090",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#332e1e",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#d9b84a",
-        "accent": "#d9b84a",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Eserlerime bakın, ey kudretliler, ve umudu kesin!",
@@ -2790,10 +2790,10 @@
       "color": "#d6ce89",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#332f1c",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#d8c23c",
-        "accent": "#d8c23c",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "İki ay ve bin düşünce arasında sıkışmış.",
@@ -3512,10 +3512,10 @@
       "color": "#d4b229",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#332c1a",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#d6b030",
-        "accent": "#d6b030",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Hissedebiliyor musun?",
@@ -4250,10 +4250,10 @@
       "color": "#cdceaf",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#33342d",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#d9dcaa",
-        "accent": "#d9dcaa",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Ağaçlar baş aşağı, su siyah mürekkep.",
@@ -4988,10 +4988,10 @@
       "color": "#e9cb74",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#353223",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#e8d36a",
-        "accent": "#e8d36a",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Bir örümcek gelmiş, yanına oturmuş.",
@@ -5658,10 +5658,10 @@
       "color": "#c3bc4f",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#31301e",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#cfc34a",
-        "accent": "#cfc34a",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Kanunun hizmetkârı olmak neden, efendisi olabilecekken?",
@@ -6292,10 +6292,10 @@
       "color": "#f8b70e",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#352a16",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#e8a018",
-        "accent": "#e8a018",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Çılgın, deli bir aşk.",
@@ -7034,10 +7034,10 @@
       "color": "#b8bab7",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#363532",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#e9e4c8",
-        "accent": "#e9e4c8",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Şeftali ağaçlarının altında bir ağustos esintisi.",
@@ -7704,10 +7704,10 @@
       "color": "#c0bea0",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#363532",
+        "glow": "#171717",
         "edge": "#050404",
-        "drop": "#ece6c9",
-        "accent": "#ece6c9",
+        "drop": "#ece8e1",
+        "accent": "#ece8e1",
         "mood": "warm"
       },
       "tagline": "Hiç tabum yok.",
