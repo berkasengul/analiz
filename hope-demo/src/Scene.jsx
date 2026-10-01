@@ -20,7 +20,9 @@ import { content } from "./data";
 import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
 
 export default function Scene() {
-  const [dpr, setDpr] = useState(Math.min(1.5, window.devicePixelRatio || 1));
+  // theme.cinema: masaüstünde piksel oranı en fazla 2, telefonda 1.5 (sinematik ürün ışığında kenar keskinliği).
+  const maxDpr = THEME.cinema ? (window.matchMedia("(max-width: 900px)").matches ? 1.5 : 2) : 1.5;
+  const [dpr, setDpr] = useState(Math.min(maxDpr, window.devicePixelRatio || 1));
   const [onScreen, setOnScreen] = useState(true);
 
   // Mağaza bölümü ekrandan çıkınca sahneyi çizmeyi bırak.

@@ -16,3 +16,12 @@ altın damarlı parlak siyah mermer zemin (yansımalı), çelik basamaklı gri t
 çerçeveli baskılar (kokunun ve komşu kokunun kutu deseni), iki yanda kaya heykeller. `?mask=1` ön planı (kaide + şişe)
 ayrı çeker; `cine2.py <kip>` arka planı bulanıklaştırır (alan derinliği), hacimsel ışık huzmesi, parlama, sıcak renk
 ayarı ve vinyet ekler. `K="koku:renk:komşu,…"`.
+
+## Sinematik ürün reklamı ışığı (güncel)
+
+`render/sergi.html`: tepe spotu (şişe + kaide üstü), kameranın sol üstünden büyük yumuşak alan ışığı, arkadan sıcak beyaz
+(~4000K) kenar ışığı, sağdan düşük dolgu; kaide taş dokusu kabartmalı (roughness ~0.7, düşük parlaklık), zemin ~%15 yansıma.
+`cine3.py <kip>`: arka plan pozlaması ~%18 düşük ve çok hafif yumuşak (desen okunur), dünya nötr siyah-beyaz, renk yalnız
+şişede; tepeden yumuşak ışık huzmesi, hafif pus ve toz; cam kenarlarında ince kontur; düşük bloom, +%10 kontrast, ~%10 vinyet.
+Sitede (`theme.cinema`): şişe shader'ında ince kenar ışığı, sol üst ana ışık ve speküler, fırçalanmış kapak, cam taban
+parıltısı; piksel oranı masaüstünde 2, telefonda 1.5.

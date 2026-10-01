@@ -48,7 +48,7 @@
     "id": "edp",
     "tr": "Eau de Parfum",
     "en": "Eau de Parfum",
-    "color": "#d9c47a",
+    "color": "#d8d4cc",
     "descTr": "50 ml Eau de Parfum; her koku bir ruh hâli, bir hatıra.",
     "descEn": "50 ml Eau de Parfum; every scent a feeling, a memory.",
     "match": "."
@@ -579,53 +579,53 @@
   "palette": [
    [
     "^dark-dreams$",
-    "#35342c",
-    "#e3dca0"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^ozymandias$",
-    "#332e1e",
-    "#d9b84a"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^liquid-skin$",
-    "#332f1c",
-    "#d8c23c"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^psychic-vibrations$",
-    "#332c1a",
-    "#d6b030"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^another-world$",
-    "#33342d",
-    "#d9dcaa"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^lost-chemistry$",
-    "#352a16",
-    "#e8a018"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^acid-aqua$",
-    "#353223",
-    "#e8d36a"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^bodhi-utah$",
-    "#31301e",
-    "#cfc34a"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^missing-feeling$",
-    "#363532",
-    "#e9e4c8"
+    "#171717",
+    "#ece8e1"
    ],
    [
     "^no-taboos$",
-    "#363532",
-    "#ece6c9"
+    "#171717",
+    "#ece8e1"
    ]
   ],
   "trText": {

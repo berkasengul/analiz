@@ -219,10 +219,11 @@ c["icon"] = "drop"
 c["labelBrand"] = {"wordmark": "EPHEMERAL DYADIC", "submark": "", "concentration": "EAU DE PARFUM", "volume": "50 ml", "logoFile": "docs/brand/logo-white.png"}
 c["commerce"] = {"packs": False, "plans": False, "variety": False, "goal": None, "shippingAtCheckout": True, "ikas": "https://www.ephemeraldyadic.com/category/all-products"}
 c["spray"] = True
+c["fillLight"] = "#f3f1ee"  # nötr dolgu (sinematik ışıkta mavi ton yok)
 c["finder"] = {}
 t = c["theme"]
 for k in ("decor", "fresh", "plinthColor", "numerals"): t.pop(k, None)
-t.update({"accent": "#ece8e1", "carousel": "glide", "arch": False, "brightWalls": True, "particles": "none", "petals": False, "epilogue": True, "plinthImage": "fon/kaide.webp", "pedestal": True, "studio": True,
+t.update({"accent": "#ece8e1", "carousel": "glide", "arch": False, "brightWalls": True, "cinema": True, "particles": "none", "petals": False, "epilogue": True, "plinthImage": "fon/kaide.webp", "pedestal": True, "studio": True,
           "fonts": {"href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
                     "display": "\"Oswald\", \"Helvetica Neue\", Arial, sans-serif", "serif": "\"Cormorant Garamond\", Georgia, serif", "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"}})
 c["catalog"] = {"homeCount": 10, "glow": "#1a1a1c", "categories": [], "items": []}
