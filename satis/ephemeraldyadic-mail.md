@@ -28,7 +28,7 @@
 >
 > Kısaca neler var:
 >
-> - **Atölyede bir sergi:** Her koku, kendi kutusundaki mürekkep deseninin dev bir baskı olarak asılı olduğu beton bir duvarın önünde, ham beton bir kaidede duruyor. Kaidenin üstündeki çelik plaka şişe kapağıyla aynı malzeme. Dark Dreams'den Ozymandias'a geçince duvar ve ışık değişiyor.
+> - **Her koku kendi deseninin önünde:** Kutularınızdaki siyah-beyaz mürekkep desenleri, her kokunun arkasında dev bir duvar resmi olarak duruyor. Sahne tamamen siyah-beyaz; tek renk şişedeki parfüm. Şişe, spot ışığının altında gri taş bir kaidede. Dark Dreams'den Psychic Vibrations'a geçince desen ve ışık değişiyor.
 > - **Şişe elde tutulur gibi:** Şişe parmakla çevrilebiliyor; arkasında notalarıyla birlikte etiket var. "Parfümü sık"a basınca buğu ekrana doğru üfleniyor ve kokunun profili beliriyor.
 > - **Her kokunun kendi metni:** Sitenizdeki şiirler ve alıntılar (Ozymandias, Another World, Psychic Vibrations…) ürünün yanında duruyor, nota piramidiyle birlikte.
 > - **Ephemeral · Dyadic · How it made you feel:** Manifestonuz kaydırdıkça üç adımda anlatılıyor; her adımda bir koku sahnede.
@@ -55,7 +55,7 @@
 >
 > In short:
 >
-> - **An exhibition in the studio:** Every scent stands on a raw concrete plinth in front of a concrete wall where the ink artwork from its own box hangs as a large print. The steel plate on the plinth matches the bottle's cap. Moving from Dark Dreams to Ozymandias, the wall and the light change.
+> - **Every scent in front of its own artwork:** The black-and-white ink artwork from each box becomes a large mural behind its scent. The whole scene is black and white; the only colour is the perfume in the bottle, standing on a grey stone plinth under a spotlight. Moving from Dark Dreams to Psychic Vibrations, the artwork and the light change.
 > - **The bottle in your hand:** You can turn the bottle with a finger; its back label carries the notes. "Spray it" sends a mist towards the screen and reveals the scent's profile.
 > - **Each scent's own words:** The poems and quotes from your site (Ozymandias, Another World, Psychic Vibrations…) sit next to each scent, with its notes pyramid.
 > - **Ephemeral · Dyadic · How it made you feel:** Your manifesto unfolds in three steps as you scroll, each with a scent on stage.
@@ -98,8 +98,9 @@
 
 - **Ana sayfa:** Dark Dreams, Ozymandias, Liquid Skin, Psychic Vibrations, Another World. Diğer beş koku koleksiyonda, koku bulucuda ve alt bölümlerin sahnesinde.
 - **Sahne:**
-  - Koyu beton duvar, kokunun kutu deseni dev baskı olarak (kutu fotoğraflarından kırpıldı).
-  - Ham beton kaide ve çelik plaka; plakanın ön kenarında kokunun renginde ince bir hat. Tepeden spot ışığı.
+  - Kokunun kutu deseni arka duvarda dev bir duvar resmi olarak (kutu fotoğraflarından kırpıldı).
+  - Sahne siyah-beyaz, renk yalnızca şişede; gri taş kaide, siyah çelik basamak, parlak siyah zemin.
+  - Spot ışığı, ışık huzmesi ve arka planda alan derinliği.
 - **Şişe:**
   - Ön yüz sitenin ürün fotoğrafı.
   - Arka yüz, ön fotoğrafın aynası. Ön etiketin yerine aynı stilde bir arka etiket çizildi: marka, ad, Eau de Parfum, notalar, 50 ML / 1.7 OZ, "Created and produced in Istanbul".

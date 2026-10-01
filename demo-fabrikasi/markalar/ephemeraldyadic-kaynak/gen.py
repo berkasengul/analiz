@@ -66,7 +66,7 @@ def mix(h, k, base="#141416"):
 
 A = {"domain": "www.ephemeraldyadic.com", "platform": "merx", "namePrefix": "^$", "idPrefix": "", "defaultSize": "50 ml",
      "themeGlow": 0.26, "gallery": True, "home": HOME, "profiles": {},
-     "categories": [{"id": "edp", "tr": "Eau de Parfum", "en": "Eau de Parfum", "color": "#d9c47a",
+     "categories": [{"id": "edp", "tr": "Eau de Parfum", "en": "Eau de Parfum", "color": "#d8d4cc",
                      "descTr": "50 ml Eau de Parfum; her koku bir ruh hâli, bir hatıra.", "descEn": "50 ml Eau de Parfum; every scent a feeling, a memory.", "match": "."}],
      "rename": {}, "families": {}, "taglines": {}, "notes": [], "library": [], "palette": [], "trText": {}, "enText": {}}
 for h in KEYS:
@@ -81,7 +81,8 @@ for h in KEYS:
     A["library"].append({"match": f"^{h}$", "composition": {
         "tr": [f"Üst notalar: {j(p['top'], 0)}", f"Orta notalar: {j(p['mid'], 0)}", f"Alt notalar: {j(p['base'], 0)}"],
         "en": [f"Top notes: {j(p['top'], 1)}", f"Middle notes: {j(p['mid'], 1)}", f"Base notes: {j(p['base'], 1)}"]}})
-    A["palette"].append([f"^{h}$", mix(p["juice"], 0.16), p["juice"]])
+    # siyah-beyaz dünya (markanın kutuları gibi): sahne nötr koyu, vurgu kırık beyaz; renk yalnızca şişede
+    A["palette"].append([f"^{h}$", "#171717", "#ece8e1"])
 A["ritual"] = [
     {"handle": "dark-dreams", "tr": {"title": "Ephemeral", "text": "Kısa süren şey. Koku gibi dışımızdaki her şey geçicidir; duygularımız ve anılarımız kalıcıdır.", "stat": "Geçici"},
      "en": {"title": "Ephemeral", "text": "Something that lasts for a short time. External objects such as scents are ephemeral, while our emotions and memories are permanent.", "stat": "Ephemeral"}},
@@ -221,7 +222,7 @@ c["spray"] = True
 c["finder"] = {}
 t = c["theme"]
 for k in ("decor", "fresh", "plinthColor", "numerals"): t.pop(k, None)
-t.update({"accent": "#d9d4c8", "carousel": "glide", "arch": False, "brightWalls": True, "particles": "none", "petals": False, "epilogue": True, "plinthImage": "fon/kaide.webp", "pedestal": True, "studio": True,
+t.update({"accent": "#ece8e1", "carousel": "glide", "arch": False, "brightWalls": True, "particles": "none", "petals": False, "epilogue": True, "plinthImage": "fon/kaide.webp", "pedestal": True, "studio": True,
           "fonts": {"href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
                     "display": "\"Oswald\", \"Helvetica Neue\", Arial, sans-serif", "serif": "\"Cormorant Garamond\", Georgia, serif", "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"}})
 c["catalog"] = {"homeCount": 10, "glow": "#1a1a1c", "categories": [], "items": []}
