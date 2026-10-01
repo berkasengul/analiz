@@ -6,6 +6,7 @@ import { useT } from "../i18n";
 import { scrollToElement } from "../scroll";
 import { useStore } from "../store";
 import { Close, Minus, Plus } from "../Icons";
+import { SHOP } from "../shopifyLive";
 
 export default function CartDrawer() {
   const open = useStore((s) => s.cartOpen);
@@ -38,6 +39,18 @@ export default function CartDrawer() {
   };
 
   const checkout = () => {
+    // Vitrin mağazanın kendi sayfasındaysa ürünler mağazanın sepetine eklenir (sepetteki diğer ürünler kalır),
+    // sonra ödeme sayfası açılır.
+    if (SHOP && cart.every((i) => variantOf(i))) {
+      fetch(`${SHOP}/cart/add.js`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ items: cart.map((i) => ({ id: variantOf(i), quantity: i.qty * i.pack })) }),
+      })
+        .then((r) => go(r.ok ? `${SHOP}/checkout` : `${SHOP}/cart`))
+        .catch(() => go(`${SHOP}/cart`));
+      return;
+    }
     // Shopify mağazası: ürünler markanın kendi sepetine eklenip ödeme sayfası açılır.
     if (C.shopify && cart.every((i) => variantOf(i))) {
       const lines = cart.map((i) => `${variantOf(i)}:${i.qty * i.pack}`).join(",");

@@ -1,0 +1,22 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ page.title }} · {{ shop.name }}</title>
+  <meta name="description" content="{{ page.content | strip_html | truncate: 150 | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="vitrin-shopify" content="{{ shop.permanent_domain }}">
+  <base href="https://cakir-3d-vitrin.netlify.app/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500..700;1,400..600&family=Jost:wght@300..600&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="./assets/index-BYhTmFqV.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-JP1ryj9i.css">
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
