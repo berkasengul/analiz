@@ -22,6 +22,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 | JOURE Perfume | Giden | bilinmiyor | Berka → JOURE (kanal bilinmiyor; taslakta WhatsApp, Instagram, LinkedIn) | İlk satış mesajı: NO Serisi için 3D vitrin sitesi, WhatsApp'tan sorma; 10 dakikalık gösterim önerildi | `yazismalar/joure/2026-10-01-giden-ilk-mesaj.md` |
 | 01.10.2026 | ILLUSIONE | Giden | bilinmiyor | Berka → ILLUSIONE (kanal bilinmiyor; taslakta hello@illusioneperfume.com ve Instagram) | İlk satış mesajı: 15 koku, 15 renk; 3D satış sitesi | `yazismalar/illusione/2026-10-01-giden-ilk-mesaj.md` |
 | 01.10.2026 | Ephemeral Dyadic | Giden | E-posta | Berka → info@ephemeraldyadic.com (Sinan Saul'a hitaben) | İlk satış maili (TR + EN): her koku kendi kutu deseninin önünde siyah-beyaz sinematik sahne, şişe çevirme ve arka etiket, şiirler, manifesto, koku bulucu, satış noktaları; 15 dakikalık görüntülü görüşme önerildi | `yazismalar/ephemeraldyadic/2026-10-01-giden-ilk-mail.md` |
+| 01.10.2026 | Pekji | Giden | E-posta | Berka → contact@pekji.com (Ömer İpekçi'ye hitaben) | İlk satış maili: Reset'in dört aşaması için 3D satış sitesi, şişe çevirme ve sprey, koku bulucu, 9 parfüm ve 22 satış noktası; 10 dakikalık görüşme önerildi | `yazismalar/pekji/2026-10-01-giden-ilk-mail.md` |
 
 ---
 
@@ -81,6 +82,19 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
   - Takip 2: 08.10.2026 (son; tek sayfalık lansman sayfası ya da Instagram için 3D videolar önerilir).
   - Fiyat sorulursa: ilk mesajda fiyat yok; önce mevcut mağazanın önüne 3D vitrin önerilir (`ephemeraldyadic-mail.md` → "Fiyat sorarlarsa").
 
+### Pekji (pekji.com)
+- **Kişi:** Ömer İpekçi (kurucu, parfümör; eski grafik tasarımcı). Mail contact@pekji.com adresine. Telefon +90 544 845 5474, Instagram @pekji_parfum.
+- **Durum:** İlk mail gönderildi (01.10.2026); dönüş bekleniyor. Instagram DM ve LinkedIn notunun gönderilip gönderilmediği bilinmiyor.
+- **Mailde söylenenler:**
+  - Reset'in dört aşaması sırasıyla, her şişe kendi renginde.
+  - Şişe çevrilebiliyor, "Spray it" ve koku profili, koku bulucu.
+  - 9 parfüm kendi metinleri, notaları ve fiyatlarıyla; EN/TR; 22 satış noktası.
+  - Sepet pekji.com'a bağlı, mevcut site değişmiyor.
+- **Sırada:**
+  - Takip 1: 05.10.2026 (maile "Yanıtla").
+  - Takip 2: 08.10.2026 (son; yeni koleksiyon için tek sayfalık lansman sayfası ya da satış noktalarına 3D şişe videoları önerilir).
+  - Fiyat sorulursa: ilk mesajda fiyat yok (`pekji-mail.md` → "Fiyat sorarlarsa").
+
 ### Diğer firmalar (demo hazır, gönderim kaydı yok)
 Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kayıt yok. Gönderdikçe yukarıdaki tabloya satır ekle.
 
@@ -89,7 +103,6 @@ Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kay�
 | Çakır Parfümeri | `demolar/cakir-Netlify.zip` | `cakir-mail.md` | WhatsApp öncelikli |
 | MAD Parfumeur | `demolar/mad-Netlify.zip` | `mad-mail.md` | LinkedIn öncelikli |
 | ANYMO Paris | `demolar/anymo-Netlify.zip` | `anymo-mail.md` | Yalnızca kendi adını taşıyan 12 koku |
-| Pekji | `demolar/pekji-Netlify.zip` | `pekji-mail.md` | |
 | Parfümőrült | `demolar/parfumorult-Netlify.zip` | `parfumorult-mail.md` | Macarca |
 | Mes Bisous, Regalien, Royal Platinum, Türkan, Unique, Mardini, Attar Al Has, Lalive | `demolar/` | `*-mail.md` | Önceki dönem demoları |
 
