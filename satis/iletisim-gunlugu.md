@@ -21,6 +21,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 | Turkish Coffee Lady | Giden | E-posta | Berka → hello@turkishcoffeelady.com (taslaktaki adres) | İlk satış maili (TR + EN): Aralık ABD lansmanı için buzlu Türk kahvesi sitesi, beş şehir sahnesi, lansman listesi; 20 dakikalık görüşme önerildi | `yazismalar/turkishcoffeelady/2026-10-01-giden-ilk-mail.md` |
 | 01.10.2026 | JOURE Perfume | Giden | bilinmiyor | Berka → JOURE (kanal bilinmiyor; taslakta WhatsApp, Instagram, LinkedIn) | İlk satış mesajı: NO Serisi için 3D vitrin sitesi, WhatsApp'tan sorma; 10 dakikalık gösterim önerildi | `yazismalar/joure/2026-10-01-giden-ilk-mesaj.md` |
 | 01.10.2026 | ILLUSIONE | Giden | bilinmiyor | Berka → ILLUSIONE (kanal bilinmiyor; taslakta hello@illusioneperfume.com ve Instagram) | İlk satış mesajı: 15 koku, 15 renk; 3D satış sitesi | `yazismalar/illusione/2026-10-01-giden-ilk-mesaj.md` |
+| 01.10.2026 | Ephemeral Dyadic | Giden | E-posta | Berka → info@ephemeraldyadic.com (Sinan Saul'a hitaben) | İlk satış maili (TR + EN): her koku kendi kutu deseninin önünde siyah-beyaz sinematik sahne, şişe çevirme ve arka etiket, şiirler, manifesto, koku bulucu, satış noktaları; 15 dakikalık görüntülü görüşme önerildi | `yazismalar/ephemeraldyadic/2026-10-01-giden-ilk-mail.md` |
 
 ---
 
@@ -67,6 +68,19 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 - **Durum:** İlk mesaj gönderildi (01.10.2026, kanal bilinmiyor); dönüş bekleniyor.
 - **Sırada:** Takip 1: 05.10.2026. Takip 2: 08.10.2026 (son).
 
+### Ephemeral Dyadic (ephemeraldyadic.com)
+- **Kişi:** Sinan Saul (kurucu, sanatçı). Mail info@ephemeraldyadic.com adresine (sitenin alt kısmı). Instagram adresi bilinmiyor.
+- **Durum:** İlk mail gönderildi (01.10.2026); dönüş bekleniyor.
+- **Mailde söylenenler:**
+  - Kutu desenleri her kokunun arkasında duvar resmi; sahne siyah-beyaz, renk yalnız şişede.
+  - Şişe çevrilebiliyor, arka etikette notalar; sprey ve koku profili.
+  - Şiirler, manifesto, koku bulucu, satış noktaları ve SSS; EN/TR, telefonda da çalışıyor.
+  - Sepet ephemeraldyadic.com'daki ürün sayfasına bağlı; mevcut Wix mağazası değişmiyor.
+- **Sırada:**
+  - Takip 1: 05.10.2026 (maile "Yanıtla").
+  - Takip 2: 08.10.2026 (son; tek sayfalık lansman sayfası ya da Instagram için 3D videolar önerilir).
+  - Fiyat sorulursa: ilk mesajda fiyat yok; önce mevcut mağazanın önüne 3D vitrin önerilir (`ephemeraldyadic-mail.md` → "Fiyat sorarlarsa").
+
 ### Diğer firmalar (demo hazır, gönderim kaydı yok)
 Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kayıt yok. Gönderdikçe yukarıdaki tabloya satır ekle.
 
@@ -75,7 +89,6 @@ Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kay�
 | Çakır Parfümeri | `demolar/cakir-Netlify.zip` | `cakir-mail.md` | WhatsApp öncelikli |
 | MAD Parfumeur | `demolar/mad-Netlify.zip` | `mad-mail.md` | LinkedIn öncelikli |
 | ANYMO Paris | `demolar/anymo-Netlify.zip` | `anymo-mail.md` | Yalnızca kendi adını taşıyan 12 koku |
-| Ephemeral Dyadic | `demolar/ephemeraldyadic-Netlify.zip` | `ephemeraldyadic-mail.md` | Sinan Saul; info@ephemeraldyadic.com |
 | Pekji | `demolar/pekji-Netlify.zip` | `pekji-mail.md` | |
 | Parfümőrült | `demolar/parfumorult-Netlify.zip` | `parfumorult-mail.md` | Macarca |
 | Mes Bisous, Regalien, Royal Platinum, Türkan, Unique, Mardini, Attar Al Has, Lalive | `demolar/` | `*-mail.md` | Önceki dönem demoları |
