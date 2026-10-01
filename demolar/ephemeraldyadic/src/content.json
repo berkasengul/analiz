@@ -750,6 +750,7 @@
     "carousel": "glide",
     "cards": "gallery",
     "arch": false,
+    "brightWalls": true,
     "petals": false,
     "epilogue": true,
     "plinthImage": "fon/kaide.webp"
@@ -2058,6 +2059,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/dark-dreams-duvar.webp",
         "exhibit": "fon/dark-dreams-sergi.webp"
       },
@@ -2767,6 +2769,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/ozymandias-duvar.webp",
         "exhibit": "fon/ozymandias-sergi.webp"
       },
@@ -3488,6 +3491,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/liquid-skin-duvar.webp",
         "exhibit": "fon/liquid-skin-sergi.webp"
       },
@@ -4225,6 +4229,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/psychic-vibrations-duvar.webp",
         "exhibit": "fon/psychic-vibrations-sergi.webp"
       },
@@ -4962,6 +4967,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/another-world-duvar.webp",
         "exhibit": "fon/another-world-sergi.webp"
       },
@@ -5631,6 +5637,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/acid-aqua-duvar.webp",
         "exhibit": "fon/acid-aqua-sergi.webp"
       },
@@ -6264,6 +6271,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/bodhi-utah-duvar.webp",
         "exhibit": "fon/bodhi-utah-sergi.webp"
       },
@@ -7005,6 +7013,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/lost-chemistry-duvar.webp",
         "exhibit": "fon/lost-chemistry-sergi.webp"
       },
@@ -7674,6 +7683,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/missing-feeling-duvar.webp",
         "exhibit": "fon/missing-feeling-sergi.webp"
       },
@@ -8339,6 +8349,7 @@
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
+        "vivid": 1,
         "wall": "fon/no-taboos-duvar.webp",
         "exhibit": "fon/no-taboos-sergi.webp"
       },

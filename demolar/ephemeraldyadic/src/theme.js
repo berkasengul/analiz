@@ -17,6 +17,8 @@ export function applyTheme() {
   // Vitrin modu (content.commerce.showcase): sepet düğmesi ve boş fiyat alanları gizlenir.
   if (content.commerce?.showcase) root.classList.add("showcase");
   if (THEME.accent) root.style.setProperty("--theme-accent", THEME.accent);
+  // theme.brightWalls: aydınlık sahne duvarları (tat bulucu, alt bölümler) karartılmadan gösterilir.
+  if (THEME.brightWalls) root.classList.add("bright-walls");
   // theme.decor: 3B sahnedeki kemerli niş, altın desen ve mermer kaide koleksiyon kartlarında, koku bulucuda ve
   // alt bölümlerin sahnesinde de (css/base.css → html.decor).
   if (THEME.decor) {
