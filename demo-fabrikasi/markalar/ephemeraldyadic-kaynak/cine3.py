@@ -29,7 +29,7 @@ for f in sorted(glob.glob(f"render/out/{mode}-*.png")):
     except FileNotFoundError:
         m = np.zeros((H, W, 1)); bottle = np.zeros((H, W, 1)); bm = None
     # arka plan: çok hafif yumuşama + pozlama -%18 (desen okunur kalır)
-    soft = np.asarray(im.filter(ImageFilter.GaussianBlur(max(1.2, W * 0.0022)))).astype(float) / 255
+    soft = np.asarray(im.filter(ImageFilter.GaussianBlur(max(0.8, W * 0.0005)))).astype(float) / 255
     a = a * m + soft * 0.82 * (1 - m)
     # nötr: dünya siyah-beyaz, renk yalnızca şişede
     g_ = a.mean(2, keepdims=True)
@@ -56,6 +56,10 @@ for f in sorted(glob.glob(f"render/out/{mode}-*.png")):
     dust[ys, xs] = vs
     dust = np.asarray(Image.fromarray((dust * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.7))).astype(float)[..., None] / 255 * 3
     a = a + dust * beam * WARM * 0.9 * (1 - bottle)
+    # kaide: üst yüzeyin parlak ışığı sıkıştırılır (hiyerarşi: kaide < şişe; taş dokusu kaybolmaz)
+    pl = (m - bottle).clip(0, 1)
+    lum = a.mean(2, keepdims=True)
+    a = a * (1 - pl * 0.2 * np.clip((lum - 0.66) / 0.26, 0, 1))
     # şişe: sahnenin en parlak objesi (hafif pozlama), sıvıdan içten çok hafif sıcak parıltı (neon değil)
     a = a * (1 + 0.1 * bottle)
     lum_b = a.mean(2, keepdims=True)
@@ -68,8 +72,8 @@ for f in sorted(glob.glob(f"render/out/{mode}-*.png")):
         side = np.clip(gx / (gx.max() + 1e-6) * 3, 0, 1)
         edge = np.asarray(Image.fromarray((np.clip(edge * side, 0, 1) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.6))).astype(float)[..., None] / 255
         a = a + edge * WARM * 0.5
-    # düşük bloom (yalnız en parlak yerler)
-    hi = np.clip(a.max(2, keepdims=True) - 0.86, 0, 1) * 6
+    # düşük bloom (yalnız ön planın en parlak kenarları; duvar resminin beyaz kâğıdı hale yapmaz)
+    hi = np.clip(a.max(2, keepdims=True) - 0.86, 0, 1) * 6 * m
     bl = np.asarray(Image.fromarray((np.clip(hi[..., 0], 0, 1) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(W * 0.012))).astype(float)[..., None] / 255
     a = a + bl * WARM * 0.12
     # kontrast +%10, siyahlar hafif aşağı, vinyet ~%10

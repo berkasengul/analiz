@@ -14,7 +14,7 @@ RectAreaLightUniformsLib.init();
 const q = new URLSearchParams(location.search);
 const key = q.get('k'); const other = q.get('o') || key; const juice = new THREE.Color(q.get('c') || '#d9c47a'); const mode = q.get('m') || 'stage';
 const MASK = q.has('mask');
-const [W, H] = { stage: [1086, 1448], card: [900, 1200], exhibit: [1000, 1400], plinth: [1000, 1400], wall: [1600, 1000] }[mode];
+const [W, H] = { stage: [2400, 1350], card: [900, 1200], exhibit: [1000, 1400], plinth: [1000, 1400], wall: [1600, 1000] }[mode];
 const SHOW = mode === 'card' || mode === 'exhibit'; const CLEAR = mode === 'exhibit' || mode === 'plinth';
 const r = new THREE.WebGLRenderer({ antialias: true, alpha: CLEAR, preserveDrawingBuffer: true });
 r.setSize(W, H); r.setPixelRatio(1); r.outputColorSpace = THREE.SRGBColorSpace;
@@ -75,7 +75,7 @@ if (!CLEAR) {
   const fl = new THREE.Mesh(new THREE.PlaneGeometry(22, 14), new THREE.MeshPhysicalMaterial({ map: tex(marble(), [3, 2]), roughness: 0.42, clearcoat: 0.5, clearcoatRoughness: 0.3, transparent: true, opacity: 0.85 }));
   fl.rotation.x = -Math.PI / 2; fl.position.set(0, FL, 1.6); fl.receiveShadow = true; scene.add(fl);
   // kokunun kutu deseni: arka duvarı kaplayan dev mürekkep duvar resmi (kâğıt gibi mat; ışık düştüğü yerde parlar)
-  const mural = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 6.4), new THREE.MeshStandardMaterial({ map: load(`art/${key}.png`), roughness: 0.92 }));
+  const mural = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 6.4), new THREE.MeshStandardMaterial({ map: load(`art2k/${key}.png`), roughness: 0.92 }));
   mural.position.set(0, 1.85, -4.45); mural.receiveShadow = true; scene.add(mural);
   // duvar resmini aydınlatan geniş ve sert spot (kenarlara doğru söner)
   const wash = new THREE.SpotLight(0xf4f1ec, 150, 16, 0.36, 0.85, 1.2); wash.position.set(0.8, 7.0, 2.2); wash.target.position.set(0, 1.6, -4.45); scene.add(wash, wash.target);
@@ -125,7 +125,7 @@ if (SHOW) {
 
 // ---- ışık (sinematik ürün reklamı): parlaklık sırası arka plan < kaide < şişe
 // tepe spotu: şişe ve kaidenin üst yüzeyinde toplanır, gölge düşürür
-const key1 = new THREE.SpotLight(0xfff3e4, 38, 20, 0.2, 0.75, 1.2); key1.position.set(0.3, 8.6, 1.6); key1.target.position.set(0, 0.2, 0);
+const key1 = new THREE.SpotLight(0xfff3e4, 28, 20, 0.2, 0.75, 1.2); key1.position.set(0.3, 8.6, 1.6); key1.target.position.set(0, 0.2, 0);
 key1.castShadow = true; key1.shadow.mapSize.set(2048, 2048); key1.shadow.radius = 6; key1.shadow.bias = -0.0003; scene.add(key1, key1.target);
 // ana ışık: kameranın sol üstünden (~40°) büyük alan ışığı, yumuşak
 const area = new THREE.RectAreaLight(0xfff6ec, 2.6, 4.0, 3.0); area.position.set(-4.6, 4.4, 6.4); area.lookAt(0, 0.6, 0); scene.add(area);

@@ -3,7 +3,7 @@ const fs = require('fs');
 // K="bold-istanbul:1f2d5e,..." M="stage,card,exhibit" → out/<m>-<k>.png (+ out/stage.json)
 (async () => {
   const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
-  const sizes = { stage: [1086, 1448], card: [900, 1200], exhibit: [1000, 1400], plinth: [1000, 1400], wall: [1600, 1000] };
+  const sizes = { stage: [2400, 1350], card: [900, 1200], exhibit: [1000, 1400], plinth: [1000, 1400], wall: [1600, 1000] };
   const meta = fs.existsSync('out/stage.json') ? JSON.parse(fs.readFileSync('out/stage.json')) : {};
   for (const m of (process.env.M || 'stage').split(',')) {
     const p = await b.newPage({ viewport: { width: sizes[m][0], height: sizes[m][1] } });

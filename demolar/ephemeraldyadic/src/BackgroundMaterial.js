@@ -264,7 +264,8 @@ export const BackgroundMaterial = shaderMaterial(
           ? mix(0.5, 1., smoothstep(0.06, 0.46, vUv.x)) * mix(0.62, 1., smoothstep(0.97, 0.8, vUv.x))
           : mix(0.55, 1., smoothstep(0.06, 0.42, vUv.y));
         float lit = mix(0.36, 0.32 + 0.45 * cone + 0.4 * pool + 0.14 * halo, u_sceneLight);
-        lit = mix(lit, mix(0.6, 0.97 + 0.08 * cone + 0.1 * pool, u_sceneLight), u_vivid);
+        // Sinematik temada huzme ve havuz sahne fotoğrafında hazır: üstüne ikinci kez eklenmez (kaide patlamaz).
+        lit = mix(lit, mix(0.6, 0.97 + (0.08 * cone + 0.1 * pool) * (1. - u_cine), u_sceneLight), u_vivid);
         // Aydınlık (vivid) sahnede de yazıların arkası gölgede kalır (kenarlar sinematik yarı gölge); orta ışıkta.
         read = mix(read, read * mix(0.82, 1., smoothstep(0.08, 0.5, vUv.x)), u_vivid * step(1., u_aspect));
         base = mix(base, sc * lit * read, u_sceneOn);
@@ -430,7 +431,7 @@ export const BackgroundMaterial = shaderMaterial(
       float width = mix(0.06 + depth * 0.3, 0.05 + depth * 0.2, u_studio);
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
       float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
-      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.4 * u_sceneOn - 0.45 * u_vivid * u_sceneOn) * (1. - u_noir);
+      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.4 * u_sceneOn - 0.45 * u_vivid * u_sceneOn) * (1. - u_noir) * (1. - u_cine * u_sceneOn);
 
       // Sahneli üründe atmosfer: kaidenin arkasından yükselen, ürünün renginde yavaş duman ve ekranda
       // süzülerek düşen yapraklar (iki derinlik: arkadakiler küçük ve yumuşak).
@@ -580,7 +581,7 @@ export const BackgroundMaterial = shaderMaterial(
         }
       }
 
-      // Süzülen bokeh ışıkları (iki derinlik katmanı).
+      // Süzülen bokeh ışıkları (iki derinlik katmanı; sinematik temada yok: iri bulanık lekeler ürünle yarışır).
       for (int L = 0; L < 2; L++) {
         float fl = float(L);
         float sc = 7. + fl * 7.;
@@ -591,7 +592,7 @@ export const BackgroundMaterial = shaderMaterial(
         vec2 off = (vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5) * 0.45;
         float r = 0.1 + 0.16 * hash(id + 11.9);
         float bok = (1. - smoothstep(r * 0.55, r, length(f - off))) * step(0.7, h);
-        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center) * (1. - u_noir);
+        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center) * (1. - u_noir) * (1. - u_cine);
       }
 
       float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * 2000.0)) * 43758.5453);

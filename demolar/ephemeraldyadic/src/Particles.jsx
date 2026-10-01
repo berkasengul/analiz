@@ -17,8 +17,13 @@ const white = new Color(1, 1, 1);
 
 const COUNT = (typeof window !== "undefined" && window.innerWidth < 760 ? 180 : 420) * (DUST ? 0.7 : GOLD ? 1.6 : 1);
 
-// Havada süzülen, odak dışı buz/kül parçacıkları.
+// Tema "none": parçacık yok (toz, sahne fotoğrafının ışık huzmesinde).
 export default function Particles() {
+  return THEME.particles === "none" ? null : <FloatingParticles />;
+}
+
+// Havada süzülen, odak dışı buz/kül parçacıkları.
+function FloatingParticles() {
   const dpr = useThree((s) => s.viewport.dpr);
 
   const geometry = useMemo(() => {

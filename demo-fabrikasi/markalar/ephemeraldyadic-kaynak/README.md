@@ -25,3 +25,12 @@ ayarı ve vinyet ekler. `K="koku:renk:komşu,…"`.
 şişede; tepeden yumuşak ışık huzmesi, hafif pus ve toz; cam kenarlarında ince kontur; düşük bloom, +%10 kontrast, ~%10 vinyet.
 Sitede (`theme.cinema`): şişe shader'ında ince kenar ışığı, sol üst ana ışık ve speküler, fırçalanmış kapak, cam taban
 parıltısı; piksel oranı masaüstünde 2, telefonda 1.5.
+
+Ek ayrıntılar:
+- `art2k.py`: ~700 px'lik kutu desenleri → `render/art2k/` (2048 px, Lanczos + kenar keskinleştirme; desen aynı).
+  Sahne bunları kullanır.
+- Ana sayfa fonu geniş (2400x1350): ekranın yanlarında ayna/bulanık tekrar olmaz.
+- Bloom yalnızca ön planda (duvar resminin beyaz kâğıdı hale yapmaz).
+- Kaide üst yüzeyinin parlak ışığı sıkıştırılır (kaide < şişe).
+- Motor (`theme.cinema`): fonda ek parıltı, sıcak filtre, ikinci huzme/ışık havuzu ve bokeh yok; duman %20.
+- `particles: "none"` parçacıkları tamamen kapatır.
