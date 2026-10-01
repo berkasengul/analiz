@@ -28,7 +28,7 @@
 >
 > Kısaca neler var:
 >
-> - **Her koku kendi deseninin önünde:** Kutularınızdaki siyah-beyaz mürekkep desenleri, her kokunun arkasında dev bir duvar resmi olarak duruyor. Sahne tamamen siyah-beyaz; tek renk şişedeki parfüm. Şişe, spot ışığının altında gri taş bir kaidede. Dark Dreams'den Psychic Vibrations'a geçince desen ve ışık değişiyor.
+> - **Her koku kendi deseninin önünde:** Kutularınızdaki siyah-beyaz mürekkep desenleri, her kokunun arkasında dev bir duvar resmi olarak duruyor. Sahne tamamen siyah-beyaz; tek renk şişedeki parfüm. Şişe, tepeden düşen ışık huzmesinin altında gri taş bir kaidede; bir parfüm reklamı gibi sahnenin en parlak noktası. Dark Dreams'den Psychic Vibrations'a geçince desen ve ışık değişiyor.
 > - **Şişe elde tutulur gibi:** Şişe parmakla çevrilebiliyor; arkasında notalarıyla birlikte etiket var. "Parfümü sık"a basınca buğu ekrana doğru üfleniyor ve kokunun profili beliriyor.
 > - **Her kokunun kendi metni:** Sitenizdeki şiirler ve alıntılar (Ozymandias, Another World, Psychic Vibrations…) ürünün yanında duruyor, nota piramidiyle birlikte.
 > - **Ephemeral · Dyadic · How it made you feel:** Manifestonuz kaydırdıkça üç adımda anlatılıyor; her adımda bir koku sahnede.
@@ -55,7 +55,7 @@
 >
 > In short:
 >
-> - **Every scent in front of its own artwork:** The black-and-white ink artwork from each box becomes a large mural behind its scent. The whole scene is black and white; the only colour is the perfume in the bottle, standing on a grey stone plinth under a spotlight. Moving from Dark Dreams to Psychic Vibrations, the artwork and the light change.
+> - **Every scent in front of its own artwork:** The black-and-white ink artwork from each box becomes a large mural behind its scent. The whole scene is black and white; the only colour is the perfume in the bottle. It stands on a grey stone plinth under a beam of light from above and, like in a fragrance campaign, it is the brightest thing on screen. Moving from Dark Dreams to Psychic Vibrations, the artwork and the light change.
 > - **The bottle in your hand:** You can turn the bottle with a finger; its back label carries the notes. "Spray it" sends a mist towards the screen and reveals the scent's profile.
 > - **Each scent's own words:** The poems and quotes from your site (Ozymandias, Another World, Psychic Vibrations…) sit next to each scent, with its notes pyramid.
 > - **Ephemeral · Dyadic · How it made you feel:** Your manifesto unfolds in three steps as you scroll, each with a scent on stage.
