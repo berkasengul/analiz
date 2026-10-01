@@ -1,0 +1,992 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "backHead": "NOTALAR",
+  "parts": [
+   [
+    ".",
+    [
+     [
+      0.22,
+      0.08,
+      0.78,
+      0.735
+     ]
+    ]
+   ]
+  ],
+  "skip": "seyahat|deneme-seti"
+ },
+ "aktar": {
+  "domain": "illusioneperfume.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "themeGlow": 0.3,
+  "home": [
+   "illusione-lumiere-edp-kadin-parfum-50-ml",
+   "illusione-arwen-edp-erkek-parfum-100-ml",
+   "illusione-idylle-edp-kadin-parfum-50-ml",
+   "illusione-nuage-edp-erkek-parfum-100-ml"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.5
+  },
+  "categories": [
+   {
+    "id": "kadin",
+    "tr": "Kadın Parfümleri",
+    "en": "Women's Perfumes",
+    "color": "#e19d90",
+    "descTr": "On kadın parfümü, her biri kendi renginde; 50 ml Eau de Parfum.",
+    "descEn": "Ten women's perfumes, each in its own colour; 50 ml Eau de Parfum.",
+    "match": "-kadin-"
+   },
+   {
+    "id": "erkek",
+    "tr": "Erkek Parfümleri",
+    "en": "Men's Perfumes",
+    "color": "#6e3f2a",
+    "descTr": "Beş erkek parfümü, her biri kendi renginde; 100 ml Eau de Parfum.",
+    "descEn": "Five men's perfumes, each in its own colour; 100 ml Eau de Parfum.",
+    "match": "-erkek-"
+   }
+  ],
+  "rename": {
+   "illusione-lumiere-edp-kadin-parfum-50-ml": [
+    "Lumière",
+    "Lumière"
+   ],
+   "illusione-arwen-edp-erkek-parfum-100-ml": [
+    "Arwen",
+    "Arwen"
+   ],
+   "illusione-idylle-edp-kadin-parfum-50-ml": [
+    "Idylle",
+    "Idylle"
+   ],
+   "illusione-nuage-edp-erkek-parfum-100-ml": [
+    "Nuage",
+    "Nuage"
+   ],
+   "illusione-aerien-edp-kadin-parfum-50-ml": [
+    "Aérien",
+    "Aérien"
+   ],
+   "illusione-ambre-edp-kadin-parfum-50-ml": [
+    "Ambre",
+    "Ambre"
+   ],
+   "illusione-ameline-edp-kadin-parfum-50-ml": [
+    "Améline",
+    "Améline"
+   ],
+   "illusione-dore-edp-kadin-parfum-50-ml": [
+    "Doré",
+    "Doré"
+   ],
+   "illusione-fortune-edp-kadin-parfum-50-ml": [
+    "Fortune",
+    "Fortune"
+   ],
+   "illusione-mirage-edp-kadin-parfum-50-ml": [
+    "Mirage",
+    "Mirage"
+   ],
+   "illusione-roselie-edp-kadin-parfum-50-ml": [
+    "Roselie",
+    "Roselie"
+   ],
+   "illusione-solena-edp-kadin-parfum-50-ml": [
+    "Soléna",
+    "Soléna"
+   ],
+   "illusione-austin-edp-erkek-parfum-100-ml": [
+    "Austin",
+    "Austin"
+   ],
+   "illusione-elan-edp-erkek-parfum-100-ml": [
+    "Élan",
+    "Élan"
+   ],
+   "illusione-oceane-edp-erkek-parfum-100-ml": [
+    "Océane",
+    "Océane"
+   ]
+  },
+  "families": {
+   "illusione-lumiere-edp-kadin-parfum-50-ml": [
+    "Kadın · Meyveli",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-arwen-edp-erkek-parfum-100-ml": [
+    "Erkek · Aromatik",
+    "Men · Eau de Parfum"
+   ],
+   "illusione-idylle-edp-kadin-parfum-50-ml": [
+    "Kadın · Meyveli",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-nuage-edp-erkek-parfum-100-ml": [
+    "Erkek · Aromatik",
+    "Men · Eau de Parfum"
+   ],
+   "illusione-aerien-edp-kadin-parfum-50-ml": [
+    "Kadın · Çiçeksi",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-ambre-edp-kadin-parfum-50-ml": [
+    "Kadın · Aromatik",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-ameline-edp-kadin-parfum-50-ml": [
+    "Kadın · Çiçeksi",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-dore-edp-kadin-parfum-50-ml": [
+    "Kadın · Şekerli",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-fortune-edp-kadin-parfum-50-ml": [
+    "Kadın · Aromatik",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-mirage-edp-kadin-parfum-50-ml": [
+    "Kadın · Odunsu",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-roselie-edp-kadin-parfum-50-ml": [
+    "Kadın · Çiçeksi",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-solena-edp-kadin-parfum-50-ml": [
+    "Kadın · Aromatik",
+    "Women · Eau de Parfum"
+   ],
+   "illusione-austin-edp-erkek-parfum-100-ml": [
+    "Erkek · Odunsu",
+    "Men · Eau de Parfum"
+   ],
+   "illusione-elan-edp-erkek-parfum-100-ml": [
+    "Erkek · Aromatik",
+    "Men · Eau de Parfum"
+   ],
+   "illusione-oceane-edp-erkek-parfum-100-ml": [
+    "Erkek · Aromatik",
+    "Men · Eau de Parfum"
+   ]
+  },
+  "taglines": {
+   "illusione-lumiere-edp-kadin-parfum-50-ml": [
+    "Tatlı · Vanilya · Gurme",
+    "Tatlı · Vanilya · Gurme"
+   ],
+   "illusione-arwen-edp-erkek-parfum-100-ml": [
+    "Vanilya · Odunsu · Baharatlı",
+    "Vanilya · Odunsu · Baharatlı"
+   ],
+   "illusione-idylle-edp-kadin-parfum-50-ml": [
+    "Meyveli · Şekerli · Çiçeksi",
+    "Meyveli · Şekerli · Çiçeksi"
+   ],
+   "illusione-nuage-edp-erkek-parfum-100-ml": [
+    "Narenciye · Marin · Fresh",
+    "Narenciye · Marin · Fresh"
+   ],
+   "illusione-aerien-edp-kadin-parfum-50-ml": [
+    "Çiçeksi · Pudralı · Misk",
+    "Çiçeksi · Pudralı · Misk"
+   ],
+   "illusione-ambre-edp-kadin-parfum-50-ml": [
+    "Amber · Paçuli · Gül",
+    "Amber · Paçuli · Gül"
+   ],
+   "illusione-ameline-edp-kadin-parfum-50-ml": [
+    "Pudramsı · Çiçeksi · Ferah",
+    "Pudramsı · Çiçeksi · Ferah"
+   ],
+   "illusione-dore-edp-kadin-parfum-50-ml": [
+    "Tatlı · Gurme · Çiçeksi",
+    "Tatlı · Gurme · Çiçeksi"
+   ],
+   "illusione-fortune-edp-kadin-parfum-50-ml": [
+    "Vanilya · Çiçeksi · Amber",
+    "Vanilya · Çiçeksi · Amber"
+   ],
+   "illusione-mirage-edp-kadin-parfum-50-ml": [
+    "Çiçeksi · Odunsu · Kremsi",
+    "Çiçeksi · Odunsu · Kremsi"
+   ],
+   "illusione-roselie-edp-kadin-parfum-50-ml": [
+    "Kremsi · Misk · Pudramsı",
+    "Kremsi · Misk · Pudramsı"
+   ],
+   "illusione-solena-edp-kadin-parfum-50-ml": [
+    "Baharatlı · Tatlı · Vanilya",
+    "Baharatlı · Tatlı · Vanilya"
+   ],
+   "illusione-austin-edp-erkek-parfum-100-ml": [
+    "Odunsu · Baharatlı · Amber",
+    "Odunsu · Baharatlı · Amber"
+   ],
+   "illusione-elan-edp-erkek-parfum-100-ml": [
+    "Aromatik · Fresh · Füjer",
+    "Aromatik · Fresh · Füjer"
+   ],
+   "illusione-oceane-edp-erkek-parfum-100-ml": [
+    "Ferah · Deniz · Narenciye",
+    "Ferah · Deniz · Narenciye"
+   ]
+  },
+  "notes": [
+   [
+    "^illusione\\-lumiere\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Şeftali",
+      "Şeftali"
+     ],
+     [
+      "Mandalina",
+      "Mandalina"
+     ],
+     [
+      "Hindistan Cevizi",
+      "Hindistan Cevizi"
+     ],
+     [
+      "Erik",
+      "Erik"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-arwen\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    [
+     [
+      "Lavanta",
+      "Lavanta"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Paçuli",
+      "Paçuli"
+     ],
+     [
+      "Safran",
+      "Safran"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-idylle\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Frenk Üzümü",
+      "Frenk Üzümü"
+     ],
+     [
+      "Vişne",
+      "Vişne"
+     ],
+     [
+      "Böğürtlen",
+      "Böğürtlen"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-nuage\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    [
+     [
+      "Litchi",
+      "Litchi"
+     ],
+     [
+      "Portakal",
+      "Portakal"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Mandalina",
+      "Mandalina"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-aerien\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Portakal",
+      "Portakal"
+     ],
+     [
+      "Mandalina",
+      "Mandalina"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Pembe Biber",
+      "Pembe Biber"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-ambre\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Karanfil",
+      "Karanfil"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ],
+     [
+      "Pembe Biber",
+      "Pembe Biber"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-ameline\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Kivi",
+      "Kivi"
+     ],
+     [
+      "Erik",
+      "Erik"
+     ],
+     [
+      "Şeftali",
+      "Şeftali"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-dore\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Karamel",
+      "Karamel"
+     ],
+     [
+      "Şeker",
+      "Şeker"
+     ],
+     [
+      "Yasemin",
+      "Yasemin"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-fortune\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Ylang-ylang",
+      "Ylang-ylang"
+     ],
+     [
+      "Mango",
+      "Mango"
+     ],
+     [
+      "Erik",
+      "Erik"
+     ],
+     [
+      "Şeftali",
+      "Şeftali"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-mirage\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Portakal Çiçeği",
+      "Portakal Çiçeği"
+     ],
+     [
+      "Mandalina",
+      "Mandalina"
+     ],
+     [
+      "Yeşil Notalar",
+      "Yeşil Notalar"
+     ],
+     [
+      "Sümbülteber",
+      "Sümbülteber"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-roselie\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Erik",
+      "Erik"
+     ],
+     [
+      "Şeftali",
+      "Şeftali"
+     ],
+     [
+      "Misk",
+      "Misk"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-solena\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    [
+     [
+      "Elma",
+      "Elma"
+     ],
+     [
+      "Erik",
+      "Erik"
+     ],
+     [
+      "Mandalina",
+      "Mandalina"
+     ],
+     [
+      "Yaprak",
+      "Yaprak"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-austin\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    [
+     [
+      "Pembe Biber",
+      "Pembe Biber"
+     ],
+     [
+      "Menekşe Yaprakları",
+      "Menekşe Yaprakları"
+     ],
+     [
+      "Galbanum",
+      "Galbanum"
+     ],
+     [
+      "Gül",
+      "Gül"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-elan\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    [
+     [
+      "Greyfurt",
+      "Greyfurt"
+     ],
+     [
+      "Ananas",
+      "Ananas"
+     ],
+     [
+      "Su Notaları",
+      "Su Notaları"
+     ],
+     [
+      "Limon",
+      "Limon"
+     ]
+    ]
+   ],
+   [
+    "^illusione\\-oceane\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Okaliptüs",
+      "Okaliptüs"
+     ],
+     [
+      "Limon",
+      "Limon"
+     ],
+     [
+      "Nane",
+      "Nane"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^illusione\\-lumiere\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Şeftali, Mandalina, Hindistan Cevizi, Erik",
+      "Orta: Muguet, Orkide, Heliotrope",
+      "Alt: Sandal Ağacı, Vanilya, Amber, Misk"
+     ],
+     "en": [
+      "Üst: Şeftali, Mandalina, Hindistan Cevizi, Erik",
+      "Orta: Muguet, Orkide, Heliotrope",
+      "Alt: Sandal Ağacı, Vanilya, Amber, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-arwen\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Lavanta, Bergamot",
+      "Orta: Paçuli, Safran, Zencefil",
+      "Alt: Amber, Sedir Ağacı, Vanilya, Zencefil"
+     ],
+     "en": [
+      "Üst: Lavanta, Bergamot",
+      "Orta: Paçuli, Safran, Zencefil",
+      "Alt: Amber, Sedir Ağacı, Vanilya, Zencefil"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-idylle\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Frenk Üzümü, Vişne, Böğürtlen",
+      "Orta: Gül, Yasemin, Pelin",
+      "Alt: Paçuli, Vanilya, Amber"
+     ],
+     "en": [
+      "Üst: Frenk Üzümü, Vişne, Böğürtlen",
+      "Orta: Gül, Yasemin, Pelin",
+      "Alt: Paçuli, Vanilya, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-nuage\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Litchi, Portakal, Bergamot, Mandalina",
+      "Orta: Deniz Notaları, Brezilya Gül Ağacı, Lotus",
+      "Alt: Amber, Misk"
+     ],
+     "en": [
+      "Üst: Litchi, Portakal, Bergamot, Mandalina",
+      "Orta: Deniz Notaları, Brezilya Gül Ağacı, Lotus",
+      "Alt: Amber, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-aerien\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal, Mandalina, Bergamot, Pembe Biber",
+      "Orta: Sümbülteber, Pudra",
+      "Alt: Sedir Ağacı, Vanilya, Amber, Misk"
+     ],
+     "en": [
+      "Üst: Portakal, Mandalina, Bergamot, Pembe Biber",
+      "Orta: Sümbülteber, Pudra",
+      "Alt: Sedir Ağacı, Vanilya, Amber, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-ambre\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Karanfil, Bergamot",
+      "Orta: Gül, Pembe Biber",
+      "Alt: Paçuli, Amber, Sedir Ağacı"
+     ],
+     "en": [
+      "Üst: Karanfil, Bergamot",
+      "Orta: Gül, Pembe Biber",
+      "Alt: Paçuli, Amber, Sedir Ağacı"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-ameline\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Kivi, Erik, Şeftali",
+      "Orta: Gül, Yasemin, Muguet",
+      "Alt: Sedir, Odunsu, Amber, Misk"
+     ],
+     "en": [
+      "Üst: Kivi, Erik, Şeftali",
+      "Orta: Gül, Yasemin, Muguet",
+      "Alt: Sedir, Odunsu, Amber, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-dore\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Karamel, Şeker",
+      "Orta: Yasemin",
+      "Alt: Vanilya, Amber, Misk"
+     ],
+     "en": [
+      "Üst: Karamel, Şeker",
+      "Orta: Yasemin",
+      "Alt: Vanilya, Amber, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-fortune\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Ylang-ylang, Mango, Erik, Şeftali",
+      "Orta: Gül, Beyaz Çiçekler, Zambak",
+      "Alt: Odunsu Notalar, Vanilya, Hindistan Cevizi, Misk"
+     ],
+     "en": [
+      "Üst: Ylang-ylang, Mango, Erik, Şeftali",
+      "Orta: Gül, Beyaz Çiçekler, Zambak",
+      "Alt: Odunsu Notalar, Vanilya, Hindistan Cevizi, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-mirage\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal Çiçeği, Mandalina",
+      "Orta: Yeşil Notalar, Sümbülteber, Ylang-ylang",
+      "Alt: Sandal Ağacı, Sedir Ağacı, Amber, Misk"
+     ],
+     "en": [
+      "Üst: Portakal Çiçeği, Mandalina",
+      "Orta: Yeşil Notalar, Sümbülteber, Ylang-ylang",
+      "Alt: Sandal Ağacı, Sedir Ağacı, Amber, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-roselie\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Erik, Şeftali, Misk",
+      "Orta: Muguet, Gül, Beyaz Çiçekler",
+      "Alt: Paçuli, Vetiver, Balzamik"
+     ],
+     "en": [
+      "Üst: Bergamot, Erik, Şeftali, Misk",
+      "Orta: Muguet, Gül, Beyaz Çiçekler",
+      "Alt: Paçuli, Vetiver, Balzamik"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-solena\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Elma, Erik, Mandalina, Yaprak",
+      "Orta: Gül, Floral, İğne Yaprak, Muguet",
+      "Alt: Kuru Odun, Sedir Ağacı, Vanilya, Misk"
+     ],
+     "en": [
+      "Üst: Elma, Erik, Mandalina, Yaprak",
+      "Orta: Gül, Floral, İğne Yaprak, Muguet",
+      "Alt: Kuru Odun, Sedir Ağacı, Vanilya, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-austin\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Pembe Biber, Menekşe Yaprakları, Galbanum",
+      "Orta: Gül, Erik, Zambak",
+      "Alt: Misk, Oud, Amber, Deri, Sedir Ağacı, Yosun"
+     ],
+     "en": [
+      "Üst: Pembe Biber, Menekşe Yaprakları, Galbanum",
+      "Orta: Gül, Erik, Zambak",
+      "Alt: Misk, Oud, Amber, Deri, Sedir Ağacı, Yosun"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-elan\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Greyfurt, Ananas, Su Notaları, Limon",
+      "Orta: Menekşe, Beyaz Çiçekler, Sedir Ağacı",
+      "Alt: Paçuli, Amber, Olibanum, Misk"
+     ],
+     "en": [
+      "Üst: Greyfurt, Ananas, Su Notaları, Limon",
+      "Orta: Menekşe, Beyaz Çiçekler, Sedir Ağacı",
+      "Alt: Paçuli, Amber, Olibanum, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^illusione\\-oceane\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Okaliptüs, Limon, Nane",
+      "Orta: Floral, Muguet, Heliotrope, Gül",
+      "Alt: Odunsu, Labdanum, Misk"
+     ],
+     "en": [
+      "Üst: Bergamot, Okaliptüs, Limon, Nane",
+      "Orta: Floral, Muguet, Heliotrope, Gül",
+      "Alt: Odunsu, Labdanum, Misk"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^illusione\\-lumiere\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#935858",
+    "#ee8e8f"
+   ],
+   [
+    "^illusione\\-arwen\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "#6e3f2a",
+    "#b06443"
+   ],
+   [
+    "^illusione\\-idylle\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#7d273a",
+    "#ca3f5e"
+   ],
+   [
+    "^illusione\\-nuage\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "#2f6e66",
+    "#4bb0a3"
+   ],
+   [
+    "^illusione\\-aerien\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#76716a",
+    "#bfb7ab"
+   ],
+   [
+    "^illusione\\-ambre\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#6d3a1a",
+    "#b05e2a"
+   ],
+   [
+    "^illusione\\-ameline\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#606e6c",
+    "#9bb3af"
+   ],
+   [
+    "^illusione\\-dore\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#6f452b",
+    "#b47046"
+   ],
+   [
+    "^illusione\\-fortune\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#8f6d5a",
+    "#e8b092"
+   ],
+   [
+    "^illusione\\-mirage\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#8d7156",
+    "#e4b78b"
+   ],
+   [
+    "^illusione\\-roselie\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#8b6159",
+    "#e19d90"
+   ],
+   [
+    "^illusione\\-solena\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "#795e4f",
+    "#c49881"
+   ],
+   [
+    "^illusione\\-austin\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "#7a2238",
+    "#c33659"
+   ],
+   [
+    "^illusione\\-elan\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "#4e4278",
+    "#7c69c0"
+   ],
+   [
+    "^illusione\\-oceane\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "#2a7a78",
+    "#43c3c0"
+   ]
+  ],
+  "trText": {
+   "illusione-lumiere-edp-kadin-parfum-50-ml": "Narenciye ile açılıp müge ve orkide ile devam eden, misk ve vanilyanın öne çıktığı tatlı, gurme bir koku. Sıcak, enerjik ve belirgin tatlı parfümleri modern ve dengeli sevenler için yoğun bir karakter sunar.",
+   "illusione-arwen-edp-erkek-parfum-100-ml": "Lavanta ve bergamotla açılan, baharat ve zencefil kalbiyle gelişen; safran, amber, paçuli ve vanilya ile tamamlanan vanilya-odunsu, baharatlı bir kompozisyon. Sıcak, derin ve akılda kalıcı. Modern vanilya ve baharat dengesini sevenler için karakterli bir koku sunar.",
+   "illusione-idylle-edp-kadin-parfum-50-ml": "Vişne ve ahududu ile başlayan yasemin ve gül ile yumuşayan, paçuliyle dengelenen meyvemsi-çiçeksi bir koku. Neşeli, enerjik ve romantik kırmızı meyve ağırlıklı modern bir parfüm arayanlar için canlı bir karakter sunar.",
+   "illusione-nuage-edp-erkek-parfum-100-ml": "Liçi, mandalina, lotus ve bergamotla açılan deniz akorları ve amberle dengelenen narenciye-marin, ferah bir koku. Hafif, enerjik ve serinletici deniz esintisini sevenler için modern bir ferahlık sunar.",
+   "illusione-aerien-edp-kadin-parfum-50-ml": "Melek otu ve sümbülteberin eşlik ettiği, amber ve vanilya ile yuvarlanan çiçeksi-pudralı, miskli bir kompozisyon. Huzurlu, sade ve zarif \"temiz pudra\" hissini sevenler için dingin bir koku.",
+   "illusione-ambre-edp-kadin-parfum-50-ml": "Bergamot ve gül ile açılan sedir, karanfil, paçuli ve vetiverle derinleşen amber-odunsu bir yapı. Olgun, sofistike ve karakterli klasik amber dokusunu modern bir yorumla sunar.",
+   "illusione-ameline-edp-kadin-parfum-50-ml": "İnce beyaz çiçekler ve yumuşak pudra dokunuşları etrafında şekillenen, hafif odunsu altyapıyla desteklenen ferah bir çiçeksi-pudralı kompozisyon. Zarif, sade ve aydınlık. Temiz ve düzenli kokuları sevenler için hafif ama şık bir koku.",
+   "illusione-dore-edp-kadin-parfum-50-ml": "Karamelimsi tatlı notalar ve kremsi vanilya ile sarmalanan, çiçeksi dokunuşlar taşıyan gurme bir kompozisyon. Sıcak, konforlu ve keyifli. Tatlı kokuları modern ve dengeli sevenler için yumuşak ama belirgin bir koku.",
+   "illusione-fortune-edp-kadin-parfum-50-ml": "Narenciye ve mango ile açılan beyaz çiçekler, şeftali, paçuli, sedir ve sandal ağacıyla zenginleşen vanilya-amber uyumu. Işıltılı, feminen ve güçlü sıcak vanilya dokusuyla rafine bir duruş sergiler.",
+   "illusione-mirage-edp-kadin-parfum-50-ml": "Portakal çiçeği ve sümbülteberle açılan, vanilya ve miskle yumuşayan çiçeksi-odunsu, kremsi bir koku. Sakin, zarif ve sıcak temiz ama sıradan olmayan bir etki bırakır.",
+   "illusione-roselie-edp-kadin-parfum-50-ml": "Yumuşak çiçek yaprakları, kremsi dokunuşlar ve tenle bütünleşen misk tabanı üzerine kurulu, pudramsı bir kompozisyon. Konforlu, zarif ve yakın; tene yakın yayılan, \"temiz ten kokusu\" hissini sevenler için sakin bir koku.",
+   "illusione-solena-edp-kadin-parfum-50-ml": "Sıcak baharat dokunuşlarını, tatlı nüanslar ve kremsi vanilya tabanıyla buluşturan baharatlı-gurme bir koku profili. Güçlü, sıcak ve karakterli. Baharatlı tatlı kokulardan hoşlananlar için dikkat çekici ama rafine bir seçenek.",
+   "illusione-austin-edp-erkek-parfum-100-ml": "Erik ve baharat dokunuşlarıyla açılan sedir, paçuli, misk ve amberle derinleşen odunsu-baharatlı bir yapı. Karizmatik, yoğun ve sıcak belirgin ve güçlü parfümlerden hoşlananlar için uyumlu bir karaktere sahiptir.",
+   "illusione-elan-edp-erkek-parfum-100-ml": "Aromatik-Fresh-Füjer yapısına sahip bergamot, greyfurt, sedir, paçuli ve miskin maskülen ve modern bir uyumla birleşimini sunar. Karizmatik, güçlü ve ferah bir parfüm sofistike ve dinamik bir hava yakalamak isteyen erkekler için ideal.",
+   "illusione-oceane-edp-erkek-parfum-100-ml": "Deniz esintisini çağrıştıran akorlar, canlı narenciye notaları ve hafif çiçek dokunuşlarıyla birleşen ferah bir kompozisyon. Taze, hareketli ve dinamik. Gün boyu ferahlık hissi arayanlar için enerjik bir koku."
+  },
+  "sizes": [
+   [
+    "^illusione\\-lumiere\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-arwen\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "100 ml"
+   ],
+   [
+    "^illusione\\-idylle\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-nuage\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "100 ml"
+   ],
+   [
+    "^illusione\\-aerien\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-ambre\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-ameline\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-dore\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-fortune\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-mirage\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-roselie\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-solena\\-edp\\-kadin\\-parfum\\-50\\-ml$",
+    "50 ml"
+   ],
+   [
+    "^illusione\\-austin\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "100 ml"
+   ],
+   [
+    "^illusione\\-elan\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "100 ml"
+   ],
+   [
+    "^illusione\\-oceane\\-edp\\-erkek\\-parfum\\-100\\-ml$",
+    "100 ml"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "illusione-lumiere-edp-kadin-parfum-50-ml",
+    "tr": {
+     "title": "Her kokunun kendi rengi",
+     "text": "On beş koku, on beş renk: Lumière mercan, Idylle kırmızı, Arwen kahve, Nuage deniz yeşili. Şişeyi rengiyle tanırsınız.",
+     "stat": "Lumière · Tatlı · Vanilya · Gurme"
+    },
+    "en": {
+     "title": "Every scent has its colour",
+     "text": "Fifteen scents, fifteen colours: Lumière coral, Idylle red, Arwen brown, Nuage sea green. You know the bottle by its colour.",
+     "stat": "Lumière · Sweet · Vanilla · Gourmand"
+    }
+   },
+   {
+    "handle": "illusione-arwen-edp-erkek-parfum-100-ml",
+    "tr": {
+     "title": "Eau de Parfum yoğunluğu",
+     "text": "%15–25 esans, 6–8 saat kalıcılık. Birkaç fısta güçlü yayılım; ten ve kıyafette uzun süre hissedilir.",
+     "stat": "Arwen · Vanilya · Odunsu · Baharatlı"
+    },
+    "en": {
+     "title": "Eau de Parfum strength",
+     "text": "15–25% essence, 6–8 hours. Strong projection in a few sprays; lingers on skin and clothes.",
+     "stat": "Arwen · Vanilla · Woody · Spicy"
+    }
+   },
+   {
+    "handle": "illusione-idylle-edp-kadin-parfum-50-ml",
+    "tr": {
+     "title": "Önce dene",
+     "text": "Kadın deneme seti 10×2 ml, erkek deneme seti 5×2 ml; her koku 10 ml seyahat boyunda da var.",
+     "stat": "Idylle · Meyveli · Tatlı · Çiçeksi"
+    },
+    "en": {
+     "title": "Try first",
+     "text": "Women's tester set 10×2 ml, men's tester set 5×2 ml; every scent also comes in a 10 ml travel size.",
+     "stat": "Idylle · Fruity · Sweet · Floral"
+    }
+   }
+  ]
+ }
+}
