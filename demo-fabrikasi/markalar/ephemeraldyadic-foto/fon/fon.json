@@ -1,7 +1,7 @@
 {
  "acid-aqua": {
   "src": "fon/acid-aqua.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -11,7 +11,7 @@
  },
  "another-world": {
   "src": "fon/another-world.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -21,7 +21,7 @@
  },
  "bodhi-utah": {
   "src": "fon/bodhi-utah.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -31,7 +31,7 @@
  },
  "dark-dreams": {
   "src": "fon/dark-dreams.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -41,7 +41,7 @@
  },
  "liquid-skin": {
   "src": "fon/liquid-skin.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -51,7 +51,7 @@
  },
  "lost-chemistry": {
   "src": "fon/lost-chemistry.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -61,7 +61,7 @@
  },
  "missing-feeling": {
   "src": "fon/missing-feeling.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -71,7 +71,7 @@
  },
  "no-taboos": {
   "src": "fon/no-taboos.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -81,7 +81,7 @@
  },
  "ozymandias": {
   "src": "fon/ozymandias.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,
@@ -91,7 +91,7 @@
  },
  "psychic-vibrations": {
   "src": "fon/psychic-vibrations.webp",
-  "aspect": 0.75,
+  "aspect": 1.7778,
   "base": 0.6616,
   "cx": 0.5,
   "h": 0.4781,

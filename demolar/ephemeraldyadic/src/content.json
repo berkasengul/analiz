@@ -2056,7 +2056,7 @@
       ],
       "stage": {
         "src": "fon/dark-dreams.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -2766,7 +2766,7 @@
       ],
       "stage": {
         "src": "fon/ozymandias.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -3488,7 +3488,7 @@
       ],
       "stage": {
         "src": "fon/liquid-skin.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -4226,7 +4226,7 @@
       ],
       "stage": {
         "src": "fon/psychic-vibrations.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -4964,7 +4964,7 @@
       ],
       "stage": {
         "src": "fon/another-world.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -5634,7 +5634,7 @@
       ],
       "stage": {
         "src": "fon/acid-aqua.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -6268,7 +6268,7 @@
       ],
       "stage": {
         "src": "fon/bodhi-utah.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -7010,7 +7010,7 @@
       ],
       "stage": {
         "src": "fon/lost-chemistry.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -7680,7 +7680,7 @@
       ],
       "stage": {
         "src": "fon/missing-feeling.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,
@@ -8346,7 +8346,7 @@
       ],
       "stage": {
         "src": "fon/no-taboos.webp",
-        "aspect": 0.75,
+        "aspect": 1.7778,
         "base": 0.6616,
         "cx": 0.5,
         "h": 0.4781,

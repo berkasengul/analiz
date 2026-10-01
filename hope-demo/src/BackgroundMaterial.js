@@ -580,7 +580,7 @@ export const BackgroundMaterial = shaderMaterial(
         }
       }
 
-      // Süzülen bokeh ışıkları (iki derinlik katmanı).
+      // Süzülen bokeh ışıkları (iki derinlik katmanı; sinematik temada yok: iri bulanık lekeler ürünle yarışır).
       for (int L = 0; L < 2; L++) {
         float fl = float(L);
         float sc = 7. + fl * 7.;
@@ -591,7 +591,7 @@ export const BackgroundMaterial = shaderMaterial(
         vec2 off = (vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5) * 0.45;
         float r = 0.1 + 0.16 * hash(id + 11.9);
         float bok = (1. - smoothstep(r * 0.55, r, length(f - off))) * step(0.7, h);
-        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center) * (1. - u_noir);
+        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center) * (1. - u_noir) * (1. - u_cine);
       }
 
       float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * 2000.0)) * 43758.5453);
