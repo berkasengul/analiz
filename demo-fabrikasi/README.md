@@ -398,3 +398,19 @@ Aynı şişeyle satılan seriler (Çakır'ın taç kapaklı şişesi, Joure NO S
 (`palette`) kokunun karakterinden seçilir. Yaşam tarzı fotoğrafında şişe önce kırpılır (çevresindeki kutu ve çiçek kesime
 girmesin); kapağın zemine yakın renkli bölümleri (taçtaki siyah mine) `solidTop` ile dolu kalır. Şeffaf cam tabanı
 yansıma sanılıp kesiliyorsa `"pedestal": true` ve `"convex": 0.22`.
+
+Vitrin modunda Mağaza bölümü yoktur; Ritüel yine çalışır (ürün Ritüel'de sağda kendi adımında döner) ve 3B sahne
+Ritüel bitince kaybolur (`scroll.js`). Kategori sayfalarında Ritüel de yoktur.
+
+## Henüz satışta olmayan ürün: render edilmiş kutular ve şehir sahneleri (Turkish Coffee Lady)
+
+Ürünün fotoğrafı yoksa (yeni seri, yalnızca duyuru görseli var) kutu markanın kendi çizimlerinden yeniden çizilip
+render edilir ve hatta fotoğraf gibi girer (`markalar/turkishcoffeelady-kaynak/README.md`). Her ürünün kendi sahnesi
+(`foto/fon/fon.json`: şehir çizimi + taş kaide) ana sayfada ve detayda ürünün arkasında durur.
+
+- `theme.carousel: "glide"` + sahne: ürün sağda Osmanlı kemerinin içinde, solda başlık; komşu ürün yalnızca geçişte.
+- `theme.petals: false`: sahneli üründe süzülen yapraklar kapanır (içecek markası); kaidenin arkasındaki duman kalır.
+- `aktar.gallery: false`: ürün detayında fotoğraf galerisi gösterilmez (render ön/arka görselleri 3B ürünün aynısı);
+  panel kısalır, vitrin düğmesi ekrana sığar.
+- `content.finder.keys`: tat bulucunun aileleri (`warm`, `sweet`, `fresh`, `floral`) markanın kendi sözcükleriyle
+  genişler (ör. `"fresh": ["mint", "nane", "cardamom"]`); parfüm notası olmayan ürünler için.

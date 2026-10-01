@@ -17,6 +17,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 | Parfumane | Gelen | E-posta | Parfumane ("PARFUMANE" imzalı) → Berka | Demo için teşekkür; teknik sorular: altyapı, WooCommerce entegrasyonu, PayTR, TRY/USD, WPML/WCML, SEO, performans, 3D doğruluğu, kaynak kod ve model hakları, bakım | `yazismalar/parfumane/2026-10-01-gelen-teknik-sorular.md` |
 | 01.10.2026 | Parfumane | Not | — | — | Sitelerinde Woodmart teması + Elementor + WPML + LiteSpeed Cache olduğu tespit edildi. Karar: yeni site değil, Woodmart üzerine alt tema; WooCommerce olduğu gibi kalır, staging'de pilot | — |
 | 01.10.2026 | Parfumane | Giden | E-posta | Berka → Parfumane (gelen maile yanıt) | Teknik cevap: mevcut site ve alan adı korunur, alt tema yaklaşımı, staging'de kurulum ve tek tıkla geri dönüş; her soruda demo ile canlı kurulum ayrımı; demonun eksikleri açıkça yazıldı; kaynak kod ve 3D modellerin teslimde devredileceği söylendi; bakım paketi kapsam ve ücretinin teklifte sunulacağı yazıldı; pilot önerildi | `yazismalar/parfumane/2026-10-01-giden-teknik-cevap.txt` |
+| 01.10.2026 | Turkish Coffee Lady | Not | — | — | Yeni buzlu Türk kahvesi serisi için premium demo hazırlandı (her tat kendi şehir sahnesinde); eski demo ve teklif hiç gönderilmemişti. Mail taslağı hazır, gönderilmedi | `turkishcoffeelady-mail.md` |
 
 ---
 
@@ -51,6 +52,7 @@ Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kay�
 | ILLUSIONE | `demolar/illusione-Netlify.zip` | `illusione-mail.md` | |
 | MAD Parfumeur | `demolar/mad-Netlify.zip` | `mad-mail.md` | LinkedIn öncelikli |
 | ANYMO Paris | `demolar/anymo-Netlify.zip` | `anymo-mail.md` | Yalnızca kendi adını taşıyan 12 koku |
+| Turkish Coffee Lady | `demolar/turkishcoffeelady-Netlify.zip` (turkishcoffeelady.netlify.app'e yüklenecek) | `turkishcoffeelady-mail.md` | Buzlu Türk kahvesi serisi, Aralık ABD lansmanı; hello@turkishcoffeelady.com. Eski demo ve teklif hiç gönderilmedi |
 | Pekji | `demolar/pekji-Netlify.zip` | `pekji-mail.md` | |
 | Parfümőrült | `demolar/parfumorult-Netlify.zip` | `parfumorult-mail.md` | Macarca |
 | Mes Bisous, Regalien, Royal Platinum, Türkan, Unique, Mardini, Attar Al Has, Lalive | `demolar/` | `*-mail.md` | Önceki dönem demoları |

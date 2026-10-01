@@ -34,6 +34,7 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)
     "families": {"handle": ["tr", "en"]}     ürüne özel koku ailesi (ör. WooCommerce kısa açıklamasından)
     "taglines": {"handle": ["tr", "en"]}     ürüne özel kısa alt yazı (markanın kendi cümlesi)
+    "gallery": false                         ürün detayında fotoğraf galerisi gösterilmez
     "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
 Uydurma içerik yok: metin, fiyat, görsel markanın sitesinden.
 """
@@ -238,7 +239,8 @@ def main():
     for idx, (p, h) in enumerate(zip(products, handles)):
         i = info(h)
         p["price"] = {"tr": i["price"], "en": i["price"]}
-        p["photos"] = i["m"].get("gallery", [])
+        # "gallery": false → ürün detayında fotoğraf galerisi yok (yalnızca 3B ürün; kısa panel).
+        p["photos"] = i["m"].get("gallery", []) if R.get("gallery", True) else []
         # Ana sayfa sergisinin arka planı: ürünsüz sahne fotoğrafı (araclar/sahne-birlestir.py → fon/fon.json).
         if h in FON:
             p["stage"] = FON[h]

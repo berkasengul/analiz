@@ -1,0 +1,347 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "views": false,
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "backHead": "NOTES",
+  "pedestal": true
+ },
+ "aktar": {
+  "domain": "turkishcoffeelady.com",
+  "platform": "merx",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "250 ml",
+  "themeGlow": 0.3,
+  "gallery": false,
+  "home": [
+   "bold-istanbul",
+   "silky-mardin",
+   "piney-aegean",
+   "minty-cappadocia",
+   "pistachio-zeugma"
+  ],
+  "profiles": {},
+  "categories": [
+   {
+    "id": "iced",
+    "tr": "Buzlu Türk Kahvesi",
+    "en": "Iced Turkish Coffee",
+    "color": "#9c4a36",
+    "descTr": "Beş şehir, beş tat; 250 ml, çalkala ve soğuk iç.",
+    "descEn": "Five cities, five flavors; 250 ml, shake well and drink cold.",
+    "match": "."
+   }
+  ],
+  "rename": {
+   "bold-istanbul": [
+    "Bold Istanbul",
+    "Bold Istanbul"
+   ],
+   "silky-mardin": [
+    "Silky Mardin",
+    "Silky Mardin"
+   ],
+   "piney-aegean": [
+    "Piney Aegean",
+    "Piney Aegean"
+   ],
+   "minty-cappadocia": [
+    "Minty Cappadocia",
+    "Minty Cappadocia"
+   ],
+   "pistachio-zeugma": [
+    "Pistachio Zeugma",
+    "Pistachio Zeugma"
+   ]
+  },
+  "families": {
+   "bold-istanbul": [
+    "Buzlu Türk Kahvesi · İstanbul",
+    "Iced Turkish Coffee · Istanbul"
+   ],
+   "silky-mardin": [
+    "Buzlu Türk Kahvesi · Mardin",
+    "Iced Turkish Coffee · Mardin"
+   ],
+   "piney-aegean": [
+    "Buzlu Türk Kahvesi · Ege",
+    "Iced Turkish Coffee · Aegean"
+   ],
+   "minty-cappadocia": [
+    "Buzlu Türk Kahvesi · Kapadokya",
+    "Iced Turkish Coffee · Cappadocia"
+   ],
+   "pistachio-zeugma": [
+    "Buzlu Türk Kahvesi · Zeugma",
+    "Iced Turkish Coffee · Zeugma"
+   ]
+  },
+  "taglines": {
+   "bold-istanbul": [
+    "Koyu ve yoğun. %100 doğal, sıfır şeker, düşük kalori.",
+    "Dark & rich. 100% natural, zero sugar, low calories."
+   ],
+   "silky-mardin": [
+    "Sütlü ve kremsi: fıstık, kakao, vanilya, kakule, damla sakızı.",
+    "Milky & creamy: pistachio, cacao, vanilla, cardamom, mastic gum."
+   ],
+   "piney-aegean": [
+    "Damla sakızı ve Akdeniz otları.",
+    "Mastic gum & Mediterranean herbs."
+   ],
+   "minty-cappadocia": [
+    "Nane ve kakule.",
+    "Mint & cardamom."
+   ],
+   "pistachio-zeugma": [
+    "Sütlü ve kafeinsiz, yabani fıstıkla.",
+    "Milky & decaf, with wild pistachio."
+   ]
+  },
+  "notes": [
+   [
+    "^bold-istanbul$",
+    [
+     [
+      "Koyu & yoğun",
+      "Dark & rich"
+     ],
+     [
+      "%100 doğal",
+      "100% natural"
+     ],
+     [
+      "Sıfır şeker",
+      "Zero sugar"
+     ],
+     [
+      "Düşük kalori",
+      "Low calories"
+     ]
+    ]
+   ],
+   [
+    "^silky-mardin$",
+    [
+     [
+      "Sütlü & kremsi",
+      "Milky & creamy"
+     ],
+     [
+      "Fıstık",
+      "Pistachio"
+     ],
+     [
+      "Kakao",
+      "Cacao"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^piney-aegean$",
+    [
+     [
+      "Damla sakızı",
+      "Mastic gum"
+     ],
+     [
+      "Akdeniz otları",
+      "Mediterranean herbs"
+     ]
+    ]
+   ],
+   [
+    "^minty-cappadocia$",
+    [
+     [
+      "Nane",
+      "Mint"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ]
+    ]
+   ],
+   [
+    "^pistachio-zeugma$",
+    [
+     [
+      "Sütlü & kafeinsiz",
+      "Milky & decaf"
+     ],
+     [
+      "Yabani fıstık",
+      "Wild pistachio"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^bold-istanbul$",
+    "composition": {
+     "tr": [
+      "Şehir: İstanbul · Galata, Kız Kulesi, Boğaz",
+      "Profil: Koyu & yoğun",
+      "%100 doğal · sıfır şeker · düşük kalori"
+     ],
+     "en": [
+      "City: Istanbul · Galata, Maiden's Tower, the Bosphorus",
+      "Profile: Dark & rich",
+      "100% natural · zero sugar · low calories"
+     ]
+    }
+   },
+   {
+    "match": "^silky-mardin$",
+    "composition": {
+     "tr": [
+      "Şehir: Mardin · taş evler ve kemerler",
+      "Profil: Sütlü & kremsi",
+      "Fıstık · Kakao · Vanilya · Kakule · Damla sakızı"
+     ],
+     "en": [
+      "City: Mardin · stone houses and arches",
+      "Profile: Milky & creamy",
+      "Pistachio · Cacao · Vanilla · Cardamom · Mastic gum"
+     ]
+    }
+   },
+   {
+    "match": "^piney-aegean$",
+    "composition": {
+     "tr": [
+      "Şehir: Ege · İzmir Saat Kulesi ve antik kemerler",
+      "Profil: Damla sakızı & Akdeniz otları"
+     ],
+     "en": [
+      "City: Aegean · İzmir Clock Tower and ancient arches",
+      "Profile: Mastic gum & Mediterranean herbs"
+     ]
+    }
+   },
+   {
+    "match": "^minty-cappadocia$",
+    "composition": {
+     "tr": [
+      "Şehir: Kapadokya · peri bacaları ve balonlar",
+      "Profil: Nane & kakule"
+     ],
+     "en": [
+      "City: Cappadocia · fairy chimneys and balloons",
+      "Profile: Mint & cardamom"
+     ]
+    }
+   },
+   {
+    "match": "^pistachio-zeugma$",
+    "composition": {
+     "tr": [
+      "Şehir: Zeugma · Çingene Kızı mozaiği, Gaziantep Kalesi",
+      "Profil: Sütlü & kafeinsiz",
+      "Yabani fıstık"
+     ],
+     "en": [
+      "City: Zeugma · the Gypsy Girl mosaic, Gaziantep Castle",
+      "Profile: Milky & decaf",
+      "Wild pistachio"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^bold-istanbul$",
+    "#1f2d5e",
+    "#7fb2e6"
+   ],
+   [
+    "^silky-mardin$",
+    "#1d5d7d",
+    "#f6c434"
+   ],
+   [
+    "^piney-aegean$",
+    "#7f3955",
+    "#7fd0e6"
+   ],
+   [
+    "^minty-cappadocia$",
+    "#80631a",
+    "#7fd8b0"
+   ],
+   [
+    "^pistachio-zeugma$",
+    "#586832",
+    "#e9d27a"
+   ]
+  ],
+  "trText": {
+   "bold-istanbul": "Bu kadim harmanın zengin, aromatik lezzetini Bold Istanbul ile yaşayın. Elle seçilmiş en iyi kahve çekirdeklerinden yapılan bu seçkin harman, sizi Türkiye'nin hareketli şehrinin canlı sokaklarında bir yolculuğa çıkarıyor. Aralık'ta ABD lansmanının yıldızı.",
+   "silky-mardin": "Silky Mardin'in lüks kucaklayışını yaşayın: sizi Mardin'in büyüleyici manzaralarına taşıyan, rafine ve kadifemsi bir kahve. Mardin ile dinler, diller ve medeniyetler arasında bir yolculuğa çıkacaksınız.",
+   "piney-aegean": "Ege bölgesi lezzetli tatlılarıyla bilinir; Piney Aegean, turkuaz cennetin damla sakızı lezzetini size getiriyor. Egzotik baharat dokunuşlarıyla tatlı lezzetlerin narin dengesi, onu geleneksel Türk tatlıları ve hamur işleri için mükemmel bir eşlikçi yapıyor.",
+   "minty-cappadocia": "Minty Cappadocia ile duyusal bir yolculuğa çıkın: kakulenin serinleten kucaklayışı Türk kahvesinin zenginliğiyle uyum içinde buluşuyor. Gelenekten ve yenilikten bir tat sunan ferahlatıcı bir karışım.",
+   "pistachio-zeugma": "Pistachio Zeugma'nın tadına varmak yalnızca farklı bir lezzet deneyimi değil; Akdeniz mirası boyunca bir yolculuk. Yüzyıllık fıstık geleneğinin sizi zarafet ve ihtişam dolu bir dünyaya taşımasına izin verin."
+  },
+  "enText": {
+   "bold-istanbul": "Experience the rich, aromatic flavors of this ancient blend with Bold Istanbul. Made from the finest handpicked coffee beans, this exquisite blend takes you on a journey through the vibrant streets of Türkiye's bustling city. The star of the US launch this December.",
+   "silky-mardin": "Experience the luxurious embrace of Silky Mardin, a truly refined and velvety coffee blend that transports you to the enchanting landscapes of Mardin. Immerse yourself in the opulence and elegance of this exceptional coffee.",
+   "piney-aegean": "The Aegean region is known for its delicious sweets, and Piney Aegean brings the mastic gum flavor of the turquoise paradise to you. The delicate balance of sweet flavors infused with hints of exotic spices makes it a perfect complement to traditional Turkish desserts and pastries.",
+   "minty-cappadocia": "Embark on a sensory journey with Minty Cappadocia, where the cooling embrace of cardamom mingles harmoniously with the richness of Turkish coffee. This refreshing infusion offers a taste of tradition and innovation.",
+   "pistachio-zeugma": "Savoring Pistachio Zeugma isn't just about experiencing a different flavor; it's about embarking on a journey through Mediterranean heritage. Let the centuries-old tradition of pistachio indulgence transport you to a world of elegance and opulence."
+  },
+  "ritual": [
+   {
+    "handle": "bold-istanbul",
+    "tr": {
+     "title": "Aralık · ABD",
+     "text": "Yeniden markalaştırılan buzlu Türk kahvesi serisi, Aralık'ta ABD'de sıfır şekerli Bold Istanbul ile raflarda.",
+     "stat": "Bold Istanbul · sıfır şeker"
+    },
+    "en": {
+     "title": "December · USA",
+     "text": "The rebranded iced Turkish coffee line launches in the US this December, led by zero-sugar Bold Istanbul.",
+     "stat": "Bold Istanbul · zero sugar"
+    }
+   },
+   {
+    "handle": "silky-mardin",
+    "tr": {
+     "title": "500 yıllık miras, buzlu",
+     "text": "500 yıllık Türk kahvesi mirasını yeni zirvelere taşıyor; Türk kahvesini her zaman, her yerde erişilebilir kılıyoruz.",
+     "stat": "Silky Mardin · sütlü & kremsi"
+    },
+    "en": {
+     "title": "500 years, iced",
+     "text": "Taking the 500-year heritage of Turkish coffee to new heights, and making Turkish coffee accessible anytime, anywhere.",
+     "stat": "Silky Mardin · milky & creamy"
+    }
+   },
+   {
+    "handle": "piney-aegean",
+    "tr": {
+     "title": "Anadolu'nun Türk Kahvesi Öyküleri",
+     "text": "500 yıllık Türk kahvesinin zengin kültürel mirası, 8 farklı şehirde, farklı kültürlerle anlatılıyor. Belgesel 5 Aralık Dünya Türk Kahvesi Günü'nde Amerika'dan yola çıkıyor.",
+     "stat": "Piney Aegean · damla sakızı"
+    },
+    "en": {
+     "title": "Turkish Coffee Tales of Anatolia",
+     "text": "The rich cultural heritage of 500-year-old Turkish coffee, told across 8 cities and cultures. The documentary premieres from the US on December 5, World Turkish Coffee Day.",
+     "stat": "Piney Aegean · mastic gum"
+    }
+   }
+  ]
+ }
+}

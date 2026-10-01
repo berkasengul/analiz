@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./three/build/three.module.js","three/addons/":"./three/examples/jsm/"}}</script></head><body>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const q = new URLSearchParams(location.search);
+const key = q.get('k'), rot = parseFloat(q.get('r') || '0');
+const W = 1000, H = 1800;
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+r.setSize(W, H); r.setPixelRatio(1); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
+document.body.appendChild(r.domElement);
+const scene = new THREE.Scene();
+const pm = new THREE.PMREMGenerator(r); scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+const cam = new THREE.PerspectiveCamera(16, W / H, 0.1, 100); cam.position.set(0, 0, 11.6); cam.lookAt(0, 0, 0);
+// İnce kutu 250 ml: çap 53 mm, boy 134 mm → R=0.53, Hc=2.68 (birim 0.1 m)
+const R = 0.53, HC = 2.68, y0 = -HC / 2;
+const pts = [[0, 0.06], [0.30, 0.055], [0.40, 0.02], [0.47, 0.0], [0.50, 0.012], [0.525, 0.05], [R, 0.11], [R, HC * 0.895], [0.515, HC * 0.925], [0.47, HC * 0.958], [0.46, HC * 0.975], [0.468, HC * 0.99], [0.472, HC], [0.455, HC * 1.003], [0.44, HC * 0.99], [0.43, HC * 0.982], [0, HC * 0.982]];
+const lathe = new THREE.LatheGeometry(pts.map(([x, y]) => new THREE.Vector2(x, y + y0)), 128);
+const metal = new THREE.MeshPhysicalMaterial({ color: 0xd9dde2, metalness: 1, roughness: 0.28, clearcoat: 0.3 });
+const body = new THREE.Mesh(lathe, metal); scene.add(body);
+const tex = new THREE.TextureLoader().load(`labels/${key}.png`, () => { draw(); });
+tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+const lb = 0.115, lt = HC * 0.893;
+const lg = new THREE.CylinderGeometry(R + 0.002, R + 0.002, lt - lb, 192, 1, true, Math.PI, Math.PI * 2);
+const lm = new THREE.MeshPhysicalMaterial({ map: tex, metalness: 0.25, roughness: 0.38, clearcoat: 0.7, clearcoatRoughness: 0.15 });
+const label = new THREE.Mesh(lg, lm); label.position.y = y0 + (lb + lt) / 2; scene.add(label);
+// Açacak dili
+const tab = new THREE.Mesh(new THREE.CapsuleGeometry(0.07, 0.16, 6, 16), metal); tab.rotation.x = -Math.PI / 2; tab.rotation.z = Math.PI / 2; tab.scale.set(1, 1, 0.12);
+tab.position.set(0, y0 + HC * 0.985, 0.12); scene.add(tab);
+const g = new THREE.Group(); [body, label, tab].forEach((m) => g.add(m)); scene.add(g);
+g.rotation.y = rot; g.rotation.x = 0.0;
+const key1 = new THREE.DirectionalLight(0xffffff, 1.6); key1.position.set(-3, 3, 5); scene.add(key1);
+const rim = new THREE.DirectionalLight(0xffffff, 1.2); rim.position.set(4, 1, -2); scene.add(rim);
+scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+function draw() { r.render(scene, cam); window.__done = true; }
+</script></body></html>

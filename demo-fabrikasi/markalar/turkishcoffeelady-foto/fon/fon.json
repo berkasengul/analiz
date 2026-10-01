@@ -1,0 +1,37 @@
+{
+ "bold-istanbul": {
+  "src": "fon/bold-istanbul.webp",
+  "aspect": 0.75,
+  "base": 0.678,
+  "cx": 0.5,
+  "h": 0.5842
+ },
+ "silky-mardin": {
+  "src": "fon/silky-mardin.webp",
+  "aspect": 0.75,
+  "base": 0.678,
+  "cx": 0.5,
+  "h": 0.5842
+ },
+ "piney-aegean": {
+  "src": "fon/piney-aegean.webp",
+  "aspect": 0.75,
+  "base": 0.678,
+  "cx": 0.5,
+  "h": 0.5842
+ },
+ "minty-cappadocia": {
+  "src": "fon/minty-cappadocia.webp",
+  "aspect": 0.75,
+  "base": 0.678,
+  "cx": 0.5,
+  "h": 0.5842
+ },
+ "pistachio-zeugma": {
+  "src": "fon/pistachio-zeugma.webp",
+  "aspect": 0.75,
+  "base": 0.678,
+  "cx": 0.5,
+  "h": 0.5842
+ }
+}

@@ -34,7 +34,8 @@ export function measureScroll() {
   scrollState.p = Math.min(magnet(clamp01(-fr.top / range) * (N - 1)), N - 1);
 
   // Kategori sayfalarında Ritüel ve Mağaza yok: sahne akış bitince kaybolur.
-  if (!ritualEl || !shopEl) {
+  // Vitrin modunda (commerce.showcase) yalnızca Mağaza yok: Ritüel çalışır, sahne Ritüel bitince kaybolur.
+  if (!ritualEl) {
     scrollState.ritualIn = scrollState.ritualStep = scrollState.shopIn = scrollState.shopOut = 0;
     scrollState.sceneVisible = fr.bottom > 0;
     scrollState.velocity = smooth.lenis ? smooth.lenis.velocity : 0;
@@ -45,6 +46,13 @@ export function measureScroll() {
   const steps = 3;
   scrollState.ritualStep = Math.min(magnet(clamp01(-rr.top / Math.max(1, rr.height - vh)) * (steps - 1)), steps - 1);
 
+  if (!shopEl) {
+    scrollState.shopIn = scrollState.shopOut = 0;
+    const ar = document.getElementById("all")?.getBoundingClientRect();
+    scrollState.sceneVisible = rr.bottom > 0 && !(ar && ar.top <= 0 && ar.bottom >= vh);
+    scrollState.velocity = smooth.lenis ? smooth.lenis.velocity : 0;
+    return;
+  }
   const sr = shopEl.getBoundingClientRect();
   scrollState.shopIn = ease(clamp01(1 - sr.top / vh));
   const wide = window.innerWidth / vh >= 0.9;

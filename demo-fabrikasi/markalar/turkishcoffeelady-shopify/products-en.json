@@ -1,0 +1,132 @@
+[
+ {
+  "id": 1000,
+  "handle": "bold-istanbul",
+  "vendor": "Turkish Coffee Lady",
+  "product_type": "Iced Turkish Coffee",
+  "permalink": "https://turkishcoffeelady.com/",
+  "variants": [
+   {
+    "id": 1000,
+    "title": "250 ml",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "bold-istanbul",
+  "body_html": ""
+ },
+ {
+  "id": 1001,
+  "handle": "silky-mardin",
+  "vendor": "Turkish Coffee Lady",
+  "product_type": "Iced Turkish Coffee",
+  "permalink": "https://turkishcoffeelady.com/",
+  "variants": [
+   {
+    "id": 1001,
+    "title": "250 ml",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "silky-mardin",
+  "body_html": ""
+ },
+ {
+  "id": 1002,
+  "handle": "piney-aegean",
+  "vendor": "Turkish Coffee Lady",
+  "product_type": "Iced Turkish Coffee",
+  "permalink": "https://turkishcoffeelady.com/",
+  "variants": [
+   {
+    "id": 1002,
+    "title": "250 ml",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "piney-aegean",
+  "body_html": ""
+ },
+ {
+  "id": 1003,
+  "handle": "minty-cappadocia",
+  "vendor": "Turkish Coffee Lady",
+  "product_type": "Iced Turkish Coffee",
+  "permalink": "https://turkishcoffeelady.com/",
+  "variants": [
+   {
+    "id": 1003,
+    "title": "250 ml",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "minty-cappadocia",
+  "body_html": ""
+ },
+ {
+  "id": 1004,
+  "handle": "pistachio-zeugma",
+  "vendor": "Turkish Coffee Lady",
+  "product_type": "Iced Turkish Coffee",
+  "permalink": "https://turkishcoffeelady.com/",
+  "variants": [
+   {
+    "id": 1004,
+    "title": "250 ml",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "pistachio-zeugma",
+  "body_html": ""
+ }
+]
