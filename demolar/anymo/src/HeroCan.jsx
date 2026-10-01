@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils, RepeatWrapping, SRGBColorSpace, TextureLoader } from "three";
+import { Color, MathUtils, RepeatWrapping, SRGBColorSpace, TextureLoader, Vector3 } from "three";
 
 const WHITE = new Color(1, 1, 1);
 import { animate } from "framer-motion";
 import { easeQuadOut } from "d3-ease";
 
 import CanMesh, { createBottleParts, useCanBody, viewOf, viewUrl } from "./CanMesh";
-import { lightOf } from "./Carousel";
+import { BOUNDS, lightOf } from "./Carousel";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor, unlitOf } from "./canMaterial";
 import { VARIETY, features, flavors, ritual } from "./data";
 import { THEME } from "./theme";
@@ -80,6 +80,29 @@ function shopPose(wide, time) {
     : { x: 0, y: 2.4, z: 1, rotX: 0.05, rotY: Math.sin(time * 0.5) * 0.35, rotZ: -0.05, scale: 0.75 };
 }
 
+// Koku bulucu kaidesi (#finder-seat): kutunun ekrandaki yeri 3B dünyaya taşınır; şişenin ayağı kaidenin
+// üstüne, boyu kutunun boyuna oturur. Kamera her karede değiştiği için ışın z düzlemiyle kesiştirilir.
+const SEAT_Z = 1.6;
+const R0 = new Vector3();
+const R1 = new Vector3();
+function screenToWorld(camera, x, y, out) {
+  R0.set(x * 2 - 1, 1 - y * 2, 0.5).unproject(camera).sub(camera.position).normalize();
+  return out.copy(camera.position).addScaledVector(R0, (SEAT_Z - camera.position.z) / R0.z);
+}
+function finderPose(camera, size, flavor, time) {
+  const el = document.getElementById("finder-seat");
+  const bottom = BOUNDS.bottom[flavor];
+  const top = BOUNDS.top[flavor];
+  if (!el || bottom == null || top == null) return null;
+  const r = el.getBoundingClientRect();
+  const cx = (r.left + r.width / 2) / size.width;
+  screenToWorld(camera, cx, r.bottom / size.height, R1);
+  const foot = R1.clone();
+  screenToWorld(camera, cx, r.top / size.height, R1);
+  const scale = (R1.y - foot.y) / Math.max(top - bottom, 0.1);
+  return { x: foot.x, y: foot.y - bottom * scale, z: SEAT_Z, rotX: 0.02, rotY: Math.sin(time * 0.45) * 0.3, rotZ: 0, scale };
+}
+
 // Videodan ölçülen detay kompozisyonu: kutu ekranın ~%58'inde, üstü
 // kesik, altı ekranın dibine yakın. Özelliklerde kutu dönüp kayar.
 function detailPose(feature, wide, time, turn) {
@@ -113,6 +136,7 @@ export default function HeroCan() {
   // Her ürünün kendi ambalaj malzemeleri; gösterilen ürüne göre seçilir.
   const allParts = useMemo(() => flavors.map((f) => createBottleParts(f)), []);
   const size = useThree((s) => s.size);
+  const camera = useThree((s) => s.camera);
 
   const uniforms = useMemo(() => createCanUniforms(flavors[0]), []);
   const body = useMemo(() => createCanMaterial(canBody, uniforms), [canBody, uniforms]);
@@ -245,7 +269,9 @@ export default function HeroCan() {
     if (!st.detail) s.dragTarget = 0;
     s.drag = MathUtils.damp(s.drag, s.dragTarget, 6, dt);
 
-    const visible = r.ritualIn > 0.002 || s.detailT > 0.01;
+    // Koku bulucuda sonuç seçilince şişe kaideden kalkar (sonucun görseli iner).
+    const away = !r.finderHold && r.finderIn > 0.5 && !st.detail;
+    const visible = (r.ritualIn > 0.002 || s.detailT > 0.01) && !away;
     sceneState.heroVisible = visible;
     group.current.visible = visible;
 
@@ -310,6 +336,16 @@ export default function HeroCan() {
     if (!s.scrollPose) s.scrollPose = { ...pose };
     else for (const k of KEYS) s.scrollPose[k] = MathUtils.damp(s.scrollPose[k], pose[k], 4.5, dt);
     pose = { ...s.scrollPose };
+    // Ritüel'den koku bulucuya: şişe aşağıdaki kutunun kaidesine iner ve kutuyla birlikte kayar
+    // (yumuşatmasız: bölümle aynı anda hareket eder, havada kalmaz).
+    if (r.finderIn > 0.001 && r.finderHold && !st.detail) {
+      const fp = finderPose(camera, size, s.target, time);
+      if (fp) {
+        const k = r.finderIn;
+        pose = lerpPose(pose, fp, k);
+        pose.y += Math.sin(Math.PI * k) * 0.25 * fp.scale;
+      }
+    }
     // Detay içindeki pozlar arasında yumuşak ama hızlı geçiş (~0,7 sn).
     const target = detailPose(s.poseFeature, wide, time, s.drag);
     if (!s.pose || !st.detail) s.pose = { ...target };

@@ -98,6 +98,7 @@ Markanın sitesi Shopify ise (adres + `/products.json` açılıyorsa) demo birka
 pip install "rembg[cpu]"                                      # bir kez: yapay zekâyla arka plan silme
 python3 demo-fabrikasi/araclar/shopify-cek.py turkan.com.tr turkan   # ürünler, fiyatlar, bütün görseller
 python3 demo-fabrikasi/araclar/shopify-foto.py turkan         # kesim, yansıma temizliği, 3B doku atlasları, arka etiket
+python3 demo-fabrikasi/araclar/foto-onar.py turkan           # (gerekirse) camda delik kalan kesimleri onarır, şişe profilini yeniden çıkarır
 python3 demo-fabrikasi/araclar/shopify-aktar.py turkan        # ürünler, kategoriler, notalar, setler → turkan.json
 python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkan.json
 ```
@@ -422,3 +423,18 @@ render edilir ve hatta fotoğraf gibi girer (`markalar/turkishcoffeelady-kaynak/
 - Koleksiyon kartı: `<marka>-foto/sahne/<handle>.webp` (3:4) ürün, kaide ve şehir fonuyla sinematik render
   (`turkishcoffeelady-kaynak/render/sergi.html`, kip `card` + `grade.py`).
 - Ritüeldeki dev kontur yazı (`ritual[].stat`) sağ yarıyla sınırlıdır; kısa tutulur ("Aralık", "500", "8 şehir").
+
+## Şişe dokusu onarımı (foto-onar.py)
+
+Arka plan silme şeffaf camın içini (cam taban, boyun halkası) bazen zemin sanıp siler; 3B şişe kopuk görünür
+(kapak havada, tabanda çentik). `foto-onar.py <marka> [ürün …]` atlasın iki yüzünde silüetin içindeki delikleri
+çevredeki camla doldurur, profili yeniden çıkarır, yassı şişede boyunu gövdenin başladığı satıra alır (kapak ve
+boyun halkası birlikte döner, omuz köşeli) ve kalınlık yüzlerinin rengini camdan alır. Sonra `shopify-aktar.py`
+ve `yeni-demo.py` yeniden çalıştırılır.
+
+## Koku bulucuya iniş
+
+Koku bulucu CSS kaideli olduğunda (sergi görseli yoksa) Ritüel'deki 3B şişe kaydırdıkça aşağıdaki kutunun kaidesine
+iner ve bölümle birlikte kayar. Bölüm ekrandayken (`html.finder-seat`) 3B sahne odanın önüne, soru kartının arkasına
+alınır; fon bölümün üst kenarında biter. Sonuç seçilince şişe kalkar ve sonucun görseli kendi renginde iner; "Baştan
+başla" şişeyi geri getirir.

@@ -3,6 +3,8 @@ import { useT } from "../i18n";
 import { useStore } from "../store";
 
 const pad = (n) => String(n).padStart(2, "0");
+// En uzun kelimenin harf sayısı: başlık bu kelime sütuna sığacak kadar küçülür (şişenin üstüne taşmaz).
+const longest = (s = "") => Math.max(4, ...s.split(/\s+/).map((w) => w.length));
 
 // Sabitlenen bölüm: kaydırdıkça üç adım sırayla gelir, kutu sağda poz değiştirir.
 export default function Ritual() {
@@ -18,7 +20,7 @@ export default function Ritual() {
           <p className="mono section__eyebrow">{ui.ritual}</p>
           <div className="ritual__step" key={`${step}-${ui.ritual}`}>
             <p className="ritual__num">{pad(step + 1)}</p>
-            <h2 className="section__title">{r.title}</h2>
+            <h2 className="section__title" style={{ "--lw": longest(r.title) }}>{r.title}</h2>
             <p className="ritual__desc">{r.text}</p>
             <p className="mono ritual__can">
               <i className="dot" style={{ background: flavors[r.flavor].color }} />
@@ -34,7 +36,7 @@ export default function Ritual() {
             ))}
           </ol>
         </div>
-        <p className="ritual__stat" aria-hidden="true" key={`s-${step}`}>
+        <p className="ritual__stat" aria-hidden="true" key={`s-${step}`} style={{ "--n": Math.max(6, (r.stat ?? "").length) }}>
           {r.stat}
         </p>
       </div>

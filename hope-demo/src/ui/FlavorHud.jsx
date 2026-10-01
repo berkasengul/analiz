@@ -55,7 +55,7 @@ export default function FlavorHud() {
             </>
           )}
         </p>
-        <button className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={termLang(f.name) ?? f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
+        <button style={{ "--lw": Math.max(4, ...f.name.split(/\s+/).map((w) => w.length)) }} className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={termLang(f.name) ?? f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
           <SplitChars text={f.name.replace(/\s*\/\s*/, "\u2009/\u2009")} key={f.name} step={40} />
         </button>
         <p className="tagline hud__tagline" key={f.tagline + t.lang}>{f.tagline}</p>

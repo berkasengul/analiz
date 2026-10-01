@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { sceneState } from "./shared";
+import { scrollState } from "./scroll";
 import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, ShaderMaterial } from "three";
 
 import { flavors } from "./data";
@@ -17,8 +18,13 @@ const white = new Color(1, 1, 1);
 
 const COUNT = (typeof window !== "undefined" && window.innerWidth < 760 ? 180 : 420) * (DUST ? 0.7 : GOLD ? 1.6 : 1);
 
-// Havada süzülen, odak dışı buz/kül parçacıkları.
+// Tema "none": parçacık yok (toz, sahne fotoğrafının ışık huzmesinde).
 export default function Particles() {
+  return THEME.particles === "none" ? null : <FloatingParticles />;
+}
+
+// Havada süzülen, odak dışı buz/kül parçacıkları.
+function FloatingParticles() {
   const dpr = useThree((s) => s.viewport.dpr);
 
   const geometry = useMemo(() => {
@@ -99,7 +105,8 @@ export default function Particles() {
 
   useFrame(({ clock }) => {
     material.uniforms.u_time.value = clock.getElapsedTime();
-    material.uniforms.u_dim.value = 1 - 0.6 * sceneState.spotlight;
+    // Koku bulucuda parçacıklar odanın önüne düşmesin.
+    material.uniforms.u_dim.value = (1 - 0.6 * sceneState.spotlight) * (scrollState.finderOn ? 1 - scrollState.finderIn : 1);
     // Parçacıklar tadın ışığına doğru hafifçe renklenir.
     if (GOLD) target.copy(goldColor).lerp(white, 0.15);
     else target.set(flavors[sceneState.heroFlavor].theme.glow).lerp(white, 0.55);

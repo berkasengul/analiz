@@ -60,6 +60,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_sceneLight: 1,
     u_vivid: 0,
     u_cine: 0,
+    u_clip: -1,
     u_petals: 1,
   },
   /* glsl */ `
@@ -114,6 +115,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_sceneLight;
     uniform float u_vivid;
     uniform float u_cine;
+    uniform float u_clip;
     uniform float u_petals;
 
     varying vec2 vUv;
@@ -203,6 +205,7 @@ export const BackgroundMaterial = shaderMaterial(
     }
 
     void main() {
+      if (vUv.y < u_clip) discard;
       vec2 newUv = (vUv - u_center) * vec2(u_aspect, 1.);
       float dist = length(newUv);
       float screenDist = length((vUv - vec2(0.5)) * vec2(u_aspect, 1.));

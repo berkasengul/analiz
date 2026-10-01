@@ -14,6 +14,7 @@ export const THEME = content.theme ?? {};
 export function applyTheme() {
   const root = document.documentElement;
   if (THEME.name) root.dataset.theme = THEME.name;
+  if (THEME.carousel) root.dataset.carousel = THEME.carousel;
   // Vitrin modu (content.commerce.showcase): sepet düğmesi ve boş fiyat alanları gizlenir.
   if (content.commerce?.showcase) root.classList.add("showcase");
   if (THEME.accent) root.style.setProperty("--theme-accent", THEME.accent);

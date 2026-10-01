@@ -28,6 +28,8 @@ const BOTTOM = [];
 const TOP = [];
 // Ürünün yarı genişliği (yerel): premium duvarın kemerli nişi ürünü içine alacak kadar genişler.
 const HALF = [];
+// Ürünün yerel alt/üst kenarı (HeroCan: koku bulucu kaidesine oturtma).
+export const BOUNDS = { bottom: BOTTOM, top: TOP };
 // Sahne fotoğraflı ürünlerin ortak ayak çizgisi: ilk ölçülen ürünün alt kenarı.
 const FOOT = { ref: null };
 const V = new Vector3();

@@ -10,7 +10,7 @@
 - **Instagram:** @anymoparis (DM, videoyla).
 - **Mağaza:** Nişantaşı İş Merkezi, Halaskargazi, Rumeli Cd. No:1 Kat 1, Şişli (yüz yüze gösterme şansı var).
 
-**Ek:** 15 saniyelik dikey video ya da tek görsel (`anymo-gorseller/1-anasayfa.jpg`). Zip ekleme, linki gönder.
+**Ek:** 15 saniyelik dikey video ya da görseller (`anymo-gorseller/1-anasayfa.jpg`; istersen `4-sprey.jpg`, `7-kaideye-inis.jpg`). Zip ekleme, linki gönder.
 
 ---
 
@@ -27,7 +27,7 @@
 >
 > - **Kendi şişeleriniz öne çıkıyor:** Desert Dance, Homme Noir, Lioness ve Sweet Sintra ana sayfada sırayla kaideye iniyor; her biri kendi etiketinin renginde bir sahnede (Desert Dance kahve, Homme Noir yeşil). Şişe parmakla çevrilebiliyor.
 > - **Parfümü sık:** kapak kalkıyor, buğu ekrana doğru üfleniyor ve kokunun profili ile piramidi beliriyor.
-> - **Koku bulucu:** sitenizdeki "bana uygun koku" sorusunu üç soruya çeviriyor; cevaplar kokularınızın notalarıyla eşleşiyor.
+> - **Koku bulucu:** kaydırdıkça şişe yukarıdan koku bulucunun kaidesine iniyor; sitenizdeki "bana uygun koku" sorusu üç soruya dönüşüyor, cevaplar kokularınızın notalarıyla eşleşiyor ve sonuç kendi renginde kaideye iniyor.
 >
 > 12 koku sizin metinleriniz, karakter etiketleriniz, notalarınız ve fiyatlarınızla hazır; extrait konsantrasyonu, ücretsiz kargo, 3 tester ve Nişantaşı mağazanız da sayfada. Sepet anymoparfum.com'a bağlı; mevcut ikas mağazanızı değiştirmeden satışa geçer.
 >

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { content, flavors } from "../data";
 import { useT, termLang } from "../i18n";
-import { scrollToElement } from "../scroll";
+import { measureScroll, scrollState, scrollToElement } from "../scroll";
 import { useStore } from "../store";
 import { THEME } from "../theme";
 
@@ -21,6 +21,9 @@ export const FAM = {
   sweet: ["vanília", "karamell", "csokoládé", "kakaó", "praliné", "méz", "cseresznye", "meggy", "cukor", "mangó", "maracuja", "ananász", "barack", "bogyó", "eper", "kókusz", "ribizli", "málna", "gyümölcs", "licsi", "mandula", "pisztácia", "gourmand", "édes", "vanilla", "vanilya", "caramel", "karamel", "chocolate", "çikolata", "cookie", "kurabiye", "cacao", "kakao", "praline", "pralin", "tonka", "honey", "bal", "rum", "cherry", "kiraz", "sugar", "şeker", "mango", "passion", "çarkıfelek", "pineapple", "ananas", "nectarine", "peach", "şeftali", "berry", "çilek", "strawberry", "coconut", "hindistan", "gelato", "candy", "cassis", "frenk üzümü", "raspberry", "ahududu", "fruit", "meyve", "liçi", "lychee"],
   warm: ["günnük", "frankincense", "tefarik", "laden", "kurum", "soot", "duman", "smoke", "bőr", "dohány", "ámbra", "pacsuli", "szantál", "cédrus", "sáfrány", "fahéj", "bors", "szerecsendió", "tömjén", "fás", "fa,", "pézsma", "moha", "kasmír", "szegfűszeg", "fenyő", "gyanta", "tölgy", "fűszer", "keleti", "orientális", "oud", "leather", "deri", "tobacco", "tütün", "amber", "patchouli", "paçuli", "sandal", "cedar", "sedir", "vetiver", "saffron", "safran", "cinnamon", "tarçın", "pepper", "biber", "nutmeg", "muskat", "incense", "tütsü", "wood", "odun", "musk", "misk", "moss", "yosun", "agarwood", "cypriol", "cashmere", "kaşmir", "cognac", "konyak", "labdanum", "kehribar", "ambergris", "clove", "karanfil", "köknar", "reçine", "resin", "meşe"],
 };
+// Markaya özel eşleşmeler (content.finder.keys: {fresh: [...], ...}): kahve, çay gibi parfüm dışı ürünlerde
+// tat sözcükleri ("koyu", "sütlü", "sakız") ailelere bağlanır; parfüm sözcüklerine eklenir.
+for (const [f, keys] of Object.entries(content.finder?.keys ?? {})) FAM[f] = [...(FAM[f] ?? []), ...keys];
 const Q = {
   en: [
     ["Which world pulls you in?", [["Citrus and a sea breeze", { fresh: 1 }], ["A bouquet of flowers", { floral: 1 }], ["Something sweet", { sweet: 1 }], ["Wood, spice and smoke", { warm: 1 }]]],
@@ -61,6 +64,9 @@ const ITEMS = (C?.items ?? [])
   .map((i) => ({ item: i, prod: content.products[i.product], vec: profile(content.products[i.product]) }))
   .filter((x) => Object.values(x.vec).some((v) => v > 0));
 export const FINDER = content.finder !== false && ITEMS.length >= 3;
+// 3B sergi görselleri (catalog.items[].exhibit: ürün kaidesiyle birlikte, şeffaf zemin; wall: ürünün sahne duvarı;
+// theme.plinthImage: boş kaide): CSS kaide yerine bunlar kullanılır, ürün kaidenin tam üstünde durur.
+const EXHIBIT = ITEMS.some((x) => x.item.exhibit);
 
 export default function Finder() {
   const t = useT();
@@ -84,6 +90,12 @@ export default function Finder() {
     });
     return ITEMS.map((x) => ({ ...x, score: Object.keys(want).reduce((s, f) => s + want[f] * x.vec[f], 0) })).sort((a, b) => b.score - a.score);
   }, [done, answers, qs]);
+
+  // Sonuç yokken Ritüel'deki 3B şişe kaidede durur; sonuç seçilince kalkar, sonucun görseli iner.
+  useEffect(() => {
+    scrollState.finderHold = !done;
+    measureScroll();
+  }, [done]);
 
   // Telefonda sonuç çıkınca kaide ekrana gelsin (şişe iniyor).
   useEffect(() => {
@@ -113,13 +125,14 @@ export default function Finder() {
     <section id="finder" className={`section finder${done ? " is-done" : ""}`} style={{ "--plinth": THEME.plinthColor ?? "#f1ebe3", ...pal }}>
       <div className="finder__room" aria-hidden="true">
         <div className="epi-wall" />
+        {EXHIBIT && win?.item.wall && <div key={`w-${win.item.id}`} className="epi-photo" style={{ backgroundImage: `url(${BASE}${win.item.wall})` }} />}
         <div className="epi-silk">
           <i />
           <i />
           <i />
         </div>
         <div className="epi-floor" />
-        <div className="epi-exhibit finder__exhibit">
+        <div className={`epi-exhibit finder__exhibit${EXHIBIT ? " has-img" : ""}`}>
           <div className="epi-halo" />
           {win && (
             <div key={win.item.id} className="finder__drop">
@@ -132,14 +145,29 @@ export default function Finder() {
                   style={{ "--gx": g.x, "--gy": g.y, "--gw": g.w, "--gh": g.h, "--gs": Math.sign(g.x) || 1, "--gk": k }}
                 />
               ))}
-              <img className="finder__bottle" src={`${BASE}${win.item.image}`} alt="" />
+              {EXHIBIT && win.item.exhibit ? (
+                <img className="epi-img finder__set" src={`${BASE}${win.item.exhibit}`} alt="" />
+              ) : (
+                <img className="finder__bottle" src={`${BASE}${win.item.image}`} alt="" />
+              )}
               <div className="epi-puff" />
             </div>
           )}
-          <div className="epi-plinth">
-            <span />
-          </div>
+          {EXHIBIT ? (
+            !win && THEME.plinthImage && <img className="epi-img" src={`${BASE}${THEME.plinthImage}`} alt="" />
+          ) : (
+            <div className="epi-plinth">
+              <span />
+            </div>
+          )}
           {!win && <p className="finder__empty mono">{T.empty}</p>}
+          {/* 3B şişenin oturacağı yer (HeroCan ölçer) ve kaidedeki temas gölgesi. */}
+          {!EXHIBIT && !win && (
+            <>
+              <i id="finder-seat" className="finder__seat" aria-hidden="true" />
+              <i className="finder__contact" aria-hidden="true" />
+            </>
+          )}
         </div>
         <div className="epi-vignette" />
       </div>

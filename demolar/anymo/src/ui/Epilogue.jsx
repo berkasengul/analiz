@@ -27,7 +27,12 @@ function exhibits() {
   // Önce ana sayfa vitrininde gösterilmeyen ürünler: ziyaretçi yeni kokular görsün.
   const rest = items.filter((i) => i.product == null || !home.has(i.product));
   const list = (rest.length >= 3 ? rest : items).slice();
-  return list.map((i) => ({ id: i.id, name: i.name, family: { tr: content.products[i.product]?.family, en: content.products[i.product]?.en?.family }, image: `${BASE}${i.image}`, gid: i.product, ...pal(i) }));
+  return list.map((i) => ({
+    id: i.id, name: i.name, family: { tr: content.products[i.product]?.family, en: content.products[i.product]?.en?.family }, image: `${BASE}${i.image}`, gid: i.product, ...pal(i),
+    // 3B sergi görseli (ürün kaidesiyle) ve ürünün sahne duvarı: varsa CSS kaide ve renk duvarı yerine.
+    ...(i.exhibit ? { exhibit: `${BASE}${i.exhibit}` } : {}),
+    ...(i.wall ? { wall: `${BASE}${i.wall}` } : {}),
+  }));
 }
 
 export function EpilogueStage() {
@@ -80,26 +85,29 @@ export function EpilogueStage() {
       style={{ "--glow": cur.glow, "--drop": cur.drop, "--edge": cur.edge, "--plinth": THEME.plinthColor ?? "#f1ebe3" }}
     >
       <div className="epi-wall" />
+      {cur.wall && <div key={`w-${state.k}`} className="epi-photo" style={{ backgroundImage: `url(${cur.wall})` }} />}
       <div className="epi-silk">
         <i />
         <i />
         <i />
       </div>
       <div className="epi-floor" />
-      <div className="epi-exhibit">
+      <div className={`epi-exhibit${cur.exhibit ? " has-img" : ""}`}>
         <div className="epi-halo" />
         {prev && (
           <div key={`out-${state.prev}-${state.k}`} className="epi-bottle is-out">
-            <img src={prev.image} alt="" />
+            <img src={prev.exhibit ?? prev.image} alt="" />
           </div>
         )}
         <div key={`in-${state.k}`} className="epi-bottle is-in">
-          <img src={cur.image} alt="" />
+          <img src={cur.exhibit ?? cur.image} alt="" />
         </div>
         <div key={`puff-${state.k}`} className="epi-puff" />
-        <div className="epi-plinth">
-          <span />
-        </div>
+        {!cur.exhibit && (
+          <div className="epi-plinth">
+            <span />
+          </div>
+        )}
         <p key={`cap-${state.k}`} className="epi-caption mono">
           <span>{ui.onPlinth ?? (lang === "en" ? "On the plinth" : "Kaidede")}</span>
           <strong lang="en">{cur.name[lang] ?? cur.name.tr}</strong>

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { content, flavors } from "../data";
 import { useT, termLang } from "../i18n";
-import { scrollToElement } from "../scroll";
+import { measureScroll, scrollState, scrollToElement } from "../scroll";
 import { useStore } from "../store";
 import { THEME } from "../theme";
 
@@ -91,6 +91,12 @@ export default function Finder() {
     return ITEMS.map((x) => ({ ...x, score: Object.keys(want).reduce((s, f) => s + want[f] * x.vec[f], 0) })).sort((a, b) => b.score - a.score);
   }, [done, answers, qs]);
 
+  // Sonuç yokken Ritüel'deki 3B şişe kaidede durur; sonuç seçilince kalkar, sonucun görseli iner.
+  useEffect(() => {
+    scrollState.finderHold = !done;
+    measureScroll();
+  }, [done]);
+
   // Telefonda sonuç çıkınca kaide ekrana gelsin (şişe iniyor).
   useEffect(() => {
     if (done && window.matchMedia("(max-width: 900px)").matches) scrollToElement(document.getElementById("finder"));
@@ -155,6 +161,13 @@ export default function Finder() {
             </div>
           )}
           {!win && <p className="finder__empty mono">{T.empty}</p>}
+          {/* 3B şişenin oturacağı yer (HeroCan ölçer) ve kaidedeki temas gölgesi. */}
+          {!EXHIBIT && !win && (
+            <>
+              <i id="finder-seat" className="finder__seat" aria-hidden="true" />
+              <i className="finder__contact" aria-hidden="true" />
+            </>
+          )}
         </div>
         <div className="epi-vignette" />
       </div>

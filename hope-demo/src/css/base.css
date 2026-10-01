@@ -1090,6 +1090,14 @@ main {
   z-index: 0;
 }
 .ritual__text { position: relative; z-index: 1; }
+/* Uzun başlık (ör. "KONSANTRASYONU") metin sütununa sığar: en uzun kelimenin harf sayısına göre küçülür.
+   Büyük dış hatlı yazı uzunluğuna göre küçülür, en çok iki satır olur (başlığın ve şişenin üstüne yayılmaz). */
+.ritual__step .section__title {
+  font-size: min(clamp(2.2rem, 5.8vw, 6rem), calc(min(560px, 44vw) / (var(--lw, 8) * 0.74)));
+}
+.ritual__stat {
+  font-size: clamp(2.6rem, min(12vw, calc(150vw / var(--n, 8))), 12rem);
+}
 
 /* ---------- Shop ---------- */
 
@@ -1870,7 +1878,7 @@ main {
   .ritual__stat {
     top: 96px;
     bottom: auto;
-    font-size: 16vw;
+    font-size: min(16vw, calc(190vw / var(--n, 8)));
     max-width: none;
   }
 
@@ -8048,3 +8056,55 @@ html.bright-walls .finder__room .epi-vignette { opacity: 0.6; }
 html.bright-walls .hud :is(.count, .tag, .chips, .track__label, .hud__scroll, .tagline) { text-shadow: 0 1px 2px rgba(20, 16, 12, 0.55), 0 0 18px rgba(20, 16, 12, 0.55); }
 html.bright-walls .hud :is(.count__now, .count__total, .tag, .chips li, .chips) { color: #fff7e8; }
 html.bright-walls .hud .hud__name { text-shadow: 0 2px 30px rgba(20, 16, 12, 0.5); }
+
+/* Ortada kaideli ürün ("dolly"): masaüstünde başlık bloğu kaidenin solunda kalır; uzun ad iki satıra iner,
+   tek uzun kelime sütuna sığacak kadar küçülür (şişenin üstüne binmez). */
+@media (min-width: 901px) {
+  [data-theme="portal"][data-carousel="dolly"] .hud__center {
+    width: min(33vw, 600px);
+  }
+  [data-theme="portal"][data-carousel="dolly"] .hud__name,
+  [data-theme="portal"][data-carousel="dolly"] .hud__name.is-long {
+    font-size: min(clamp(2.4rem, 5vw, 6rem), calc(min(33vw, 600px) / (var(--lw, 6) * 0.8)));
+    text-wrap: balance;
+  }
+}
+
+/* ---------------------------------------------------------------- Koku bulucu: 3B şişe kaidede
+   Ritüel'deki şişe kaydırdıkça aşağıdaki kutunun kaidesine iner (HeroCan → #finder-seat). Bölüm ekrandayken
+   (html.finder-seat) oda 3B sahnenin arkasına, soru kartı önüne alınır; fon bölümün üst kenarında biter. */
+.finder__seat {
+  position: absolute;
+  left: 50%;
+  bottom: 13cqh;
+  width: 1px;
+  height: 74cqh;
+  pointer-events: none;
+  visibility: hidden;
+}
+.finder__contact {
+  position: absolute;
+  left: 50%;
+  bottom: 11.4cqh;
+  width: 58cqw;
+  height: 5cqh;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.18) 60%, transparent);
+  filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+html.finder-seat main { z-index: auto; }
+html.finder-seat .finder { isolation: auto; background: transparent; }
+html.finder-seat .finder__room { z-index: -1; background: var(--edge); }
+html.finder-seat .finder__empty { opacity: 0; animation: none; }
+html.finder-seat .finder__contact { opacity: 1; }
+/* Gövdenin zemini negatif katmanın (oda) üstüne boyanır: bu sırada zemin html'de kalır. */
+html.finder-seat body { background: transparent; }
+@media (max-width: 900px) {
+  .ritual__step .section__title {
+    font-size: min(clamp(1.9rem, 8vw, 3rem), calc((100vw - 2 * var(--gutter)) / (var(--lw, 8) * 0.74)));
+  }
+}

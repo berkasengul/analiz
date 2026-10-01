@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { sceneState } from "./shared";
+import { scrollState } from "./scroll";
 import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, ShaderMaterial } from "three";
 
 import { flavors } from "./data";
@@ -104,7 +105,8 @@ function FloatingParticles() {
 
   useFrame(({ clock }) => {
     material.uniforms.u_time.value = clock.getElapsedTime();
-    material.uniforms.u_dim.value = 1 - 0.6 * sceneState.spotlight;
+    // Koku bulucuda parçacıklar odanın önüne düşmesin.
+    material.uniforms.u_dim.value = (1 - 0.6 * sceneState.spotlight) * (scrollState.finderOn ? 1 - scrollState.finderIn : 1);
     // Parçacıklar tadın ışığına doğru hafifçe renklenir.
     if (GOLD) target.copy(goldColor).lerp(white, 0.15);
     else target.set(flavors[sceneState.heroFlavor].theme.glow).lerp(white, 0.55);

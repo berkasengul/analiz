@@ -187,6 +187,8 @@ export default function Background() {
     l.vivid = MathUtils.damp(l.vivid ?? 0, stageOf?.vivid ? 1 : 0, 2.5, dt);
     m.u_vivid = l.vivid;
     m.u_cine = THEME.cinema ? 1 : 0;
+    // Koku bulucu ekrandayken fon bölümün üst kenarında biter (altında oda görünür, şişe odanın önünde).
+    m.u_clip = scrollState.finderOn ? 1 - scrollState.finderTop : -1;
     // Süzülen yapraklar (theme.petals: false ile kapanır; ör. içecek markası).
     m.u_petals = THEME.petals === false ? 0 : 1;
     // Parlak zemin (rise): vitrinde tam; detayda (ürün başka yere geçer), Ritüel ve mağazada söner.
