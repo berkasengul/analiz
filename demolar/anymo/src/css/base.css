@@ -8108,3 +8108,12 @@ html.finder-seat body { background: transparent; }
     font-size: min(clamp(1.9rem, 8vw, 3rem), calc((100vw - 2 * var(--gutter)) / (var(--lw, 8) * 0.74)));
   }
 }
+
+/* Şişe kaidenin üst yüzeyinin ortasına oturur ve kaidenin önünde çizilir (arkasında kalmaz):
+   üst yüzeyin ön yarısı şişenin altında görünür. */
+html .epi-exhibit .epi-bottle { bottom: 15%; z-index: 2; }
+html .epi-exhibit > .finder__drop { z-index: 2; }
+.finder__bottle { bottom: 15cqh; object-position: 50% 100%; }
+.finder__garnish { bottom: calc(15cqh + (var(--gy) - var(--gh) / 2) * 80cqh); }
+.finder__seat { bottom: 15cqh; }
+.finder__contact { bottom: 13.2cqh; }

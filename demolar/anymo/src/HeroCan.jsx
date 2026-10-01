@@ -270,7 +270,7 @@ export default function HeroCan() {
     s.drag = MathUtils.damp(s.drag, s.dragTarget, 6, dt);
 
     // Koku bulucuda sonuç seçilince şişe kaideden kalkar (sonucun görseli iner).
-    const away = !r.finderHold && r.finderIn > 0.5 && !st.detail;
+    const away = !r.finderHold && r.finderIn > 0.5 && !r.finderPast && !st.detail;
     const visible = (r.ritualIn > 0.002 || s.detailT > 0.01) && !away;
     sceneState.heroVisible = visible;
     group.current.visible = visible;
@@ -338,7 +338,8 @@ export default function HeroCan() {
     pose = { ...s.scrollPose };
     // Ritüel'den koku bulucuya: şişe aşağıdaki kutunun kaidesine iner ve kutuyla birlikte kayar
     // (yumuşatmasız: bölümle aynı anda hareket eder, havada kalmaz).
-    if (r.finderIn > 0.001 && r.finderHold && !st.detail) {
+    // Bölüm yukarıda kalınca (mağaza ve sonrası) şişe kendi pozlarına döner.
+    if (r.finderIn > 0.001 && r.finderHold && !r.finderPast && !st.detail) {
       const fp = finderPose(camera, size, s.target, time);
       if (fp) {
         const k = r.finderIn;

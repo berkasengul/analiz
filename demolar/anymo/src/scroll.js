@@ -16,6 +16,7 @@ export const scrollState = {
   finderTop: 2, // bölümün üst kenarı (ekran yüksekliği cinsinden)
   finderOn: false, // bölüm ekranda ve şişe kaidede (sonuç seçilmemiş)
   finderHold: true, // Finder: sonuç yokken true (şişe kaidede durur)
+  finderPast: false, // bölüm yukarıda kaldı (sonraki bölümlerde şişe kendi yerine döner)
   sceneVisible: true,
   velocity: 0,
 };
@@ -84,9 +85,11 @@ function measureFinder(vh) {
     scrollState.finderTop = r.top / vh;
     scrollState.finderIn = ease(clamp01((vh - r.top) / (vh * 0.85)));
     scrollState.finderOn = !!seat && scrollState.finderHold && r.top < vh && r.bottom > 0;
+    scrollState.finderPast = r.bottom <= 0;
   } else {
     scrollState.finderIn = 0;
     scrollState.finderOn = false;
+    scrollState.finderPast = false;
   }
   document.documentElement.classList.toggle("finder-seat", scrollState.finderOn);
 }
