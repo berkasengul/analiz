@@ -78,3 +78,10 @@ Fiyatı ilk mesajda yazma. Tek mağazalı, kendi markasını büyüten bir parf�
 - **Alt bölümler:** Hikâye (hakkımızda sayfasından), mağaza adresi ve saatleri, SSS (sitenin kargo, ödeme ve tester set bilgilerinden), iletişim.
 - **İçerik:** açıklamalar, notalar, fiyatlar, şişe fotoğrafı ve logo cakirparfumeri.com.tr'den (logo şişe etiketinden alındı; sitedeki logo dosyası çok küçük). Türkçe ve İngilizce (İngilizcesi sitedeki metinlerin çevirisi).
 - **Eksik:** "Muadil" ST serisi (başka markaların adlarıyla satılıyor) ve naturel ürünler (ud, amber, misk) demoya alınmadı. Afrodit'in sitede açıklaması yok, yalnızca notaları var; Gözyaşı'nın notaları yok.
+
+## Teklif (Berka'nın belirlediği fiyatlar, WhatsApp cevabı için)
+
+- **Paket 1:** 3D vitrin sitesi 8.500 ₺ + 3 ay bakım hediye.
+- **Paket 2:** 12.000 ₺, 1 yıl bakım ve sınırsız revize.
+- "Sınırsız revize" kapsamı: yeni koku ekleme, fiyat, metin, fotoğraf ve renk değişiklikleri. Yeni bölüm ya da tamamen yeni tasarım kapsam dışı (ayrıca fiyatlanır).
+- Gönderilince iletişim günlüğüne "Giden" olarak işlenecek.
