@@ -1,0 +1,730 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "backHead": "NOTALAR",
+  "skip": "^(?!(desert-dance|homme-noir|lioness|sweet-sintra|cosmic-crystal|sacred-palace|rosa-majestica|volcanic-salt|interstellar|fire-god-aztec|noir-rose|pure-paragon)$)"
+ },
+ "aktar": {
+  "domain": "anymoparfum.com",
+  "platform": "ikas",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "themeGlow": 0.3,
+  "home": [
+   "desert-dance",
+   "homme-noir",
+   "lioness",
+   "sweet-sintra"
+  ],
+  "defaultSize": "55 ml",
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.5
+  },
+  "categories": [
+   {
+    "id": "unisex",
+    "tr": "Unisex",
+    "en": "Unisex",
+    "color": "#c9a15c",
+    "descTr": "Extrait de Parfum · 55 ml.",
+    "descEn": "Extrait de Parfum · 55 ml.",
+    "match": "^(desert-dance|sweet-sintra|sacred-palace|interstellar|noir-rose|pure-paragon) "
+   },
+   {
+    "id": "kadin",
+    "tr": "Kadın",
+    "en": "Kadın",
+    "color": "#b0506a",
+    "descTr": "Extrait de Parfum · 55 ml.",
+    "descEn": "Extrait de Parfum · 55 ml.",
+    "match": "^(lioness|cosmic-crystal|rosa-majestica) "
+   },
+   {
+    "id": "erkek",
+    "tr": "Erkek",
+    "en": "Erkek",
+    "color": "#3b5796",
+    "descTr": "Extrait de Parfum · 55 ml.",
+    "descEn": "Extrait de Parfum · 55 ml.",
+    "match": "^(homme-noir|volcanic-salt|fire-god-aztec) "
+   }
+  ],
+  "rename": {
+   "desert-dance": [
+    "Desert Dance",
+    "Desert Dance"
+   ],
+   "homme-noir": [
+    "Homme Noir",
+    "Homme Noir"
+   ],
+   "lioness": [
+    "Lioness",
+    "Lioness"
+   ],
+   "sweet-sintra": [
+    "Sweet Sintra",
+    "Sweet Sintra"
+   ],
+   "cosmic-crystal": [
+    "Cosmic Crystal",
+    "Cosmic Crystal"
+   ],
+   "sacred-palace": [
+    "Sacred Palace",
+    "Sacred Palace"
+   ],
+   "rosa-majestica": [
+    "Rosa Majestica",
+    "Rosa Majestica"
+   ],
+   "volcanic-salt": [
+    "Volcanic Salt",
+    "Volcanic Salt"
+   ],
+   "interstellar": [
+    "Interstellar",
+    "Interstellar"
+   ],
+   "fire-god-aztec": [
+    "Fire God Aztec",
+    "Fire God Aztec"
+   ],
+   "noir-rose": [
+    "Noir Rose",
+    "Noir Rose"
+   ],
+   "pure-paragon": [
+    "Pure Paragon",
+    "Pure Paragon"
+   ]
+  },
+  "families": {
+   "desert-dance": [
+    "Unisex · Deri & Baharat",
+    "Unisex · Deri & Baharat"
+   ],
+   "homme-noir": [
+    "Erkek · Tatlı & Gurme",
+    "Erkek · Tatlı & Gurme"
+   ],
+   "lioness": [
+    "Kadın · Çiçeksi",
+    "Kadın · Çiçeksi"
+   ],
+   "sweet-sintra": [
+    "Unisex · Tatlı & Gurme",
+    "Unisex · Tatlı & Gurme"
+   ],
+   "cosmic-crystal": [
+    "Kadın · Odunsu",
+    "Kadın · Odunsu"
+   ],
+   "sacred-palace": [
+    "Unisex · Amber & Oryantal",
+    "Unisex · Amber & Oryantal"
+   ],
+   "rosa-majestica": [
+    "Kadın · Çiçeksi",
+    "Kadın · Çiçeksi"
+   ],
+   "volcanic-salt": [
+    "Erkek · Aromatik & Yeşil",
+    "Erkek · Aromatik & Yeşil"
+   ],
+   "interstellar": [
+    "Unisex · Amber & Oryantal",
+    "Unisex · Amber & Oryantal"
+   ],
+   "fire-god-aztec": [
+    "Erkek · Meyveli",
+    "Erkek · Meyveli"
+   ],
+   "noir-rose": [
+    "Unisex · Deri & Baharat",
+    "Unisex · Deri & Baharat"
+   ],
+   "pure-paragon": [
+    "Unisex · Ferah & Narenciye",
+    "Unisex · Ferah & Narenciye"
+   ]
+  },
+  "taglines": {
+   "desert-dance": [
+    "Yoğun · Sıcak · Tatlı · Baharatlı · Deri",
+    "Yoğun · Sıcak · Tatlı · Baharatlı · Deri"
+   ],
+   "homme-noir": [
+    "Maskülen · Hafif · Sofistike · Sıcak · Gurme",
+    "Maskülen · Hafif · Sofistike · Sıcak · Gurme"
+   ],
+   "lioness": [
+    "Feminen · Yoğun · Sıcak · Tatlı · Vanilya",
+    "Feminen · Yoğun · Sıcak · Tatlı · Vanilya"
+   ],
+   "sweet-sintra": [
+    "Hafif · Enerjik · Sıcak · Gurme · Tatlı",
+    "Hafif · Enerjik · Sıcak · Gurme · Tatlı"
+   ],
+   "cosmic-crystal": [
+    "Feminen · Yoğun · Sıcak · Odunsu · Çiçeksi",
+    "Feminen · Yoğun · Sıcak · Odunsu · Çiçeksi"
+   ],
+   "sacred-palace": [
+    "Yoğun · Sofistike · Sıcak · Tazeleyici · Tatlı",
+    "Yoğun · Sofistike · Sıcak · Tazeleyici · Tatlı"
+   ],
+   "rosa-majestica": [
+    "Feminen · Hafif · Tazeleyici · Vanilya · Misk",
+    "Feminen · Hafif · Tazeleyici · Vanilya · Misk"
+   ],
+   "volcanic-salt": [
+    "Maskülen · Yoğun · Sofistike · Tazeleyici · Deri",
+    "Maskülen · Yoğun · Sofistike · Tazeleyici · Deri"
+   ],
+   "interstellar": [
+    "Sıcak · Tazeleyici · Baharatlı · Deri · Dumanlı",
+    "Sıcak · Tazeleyici · Baharatlı · Deri · Dumanlı"
+   ],
+   "fire-god-aztec": [
+    "Maskülen · Yoğun · Sıcak · Tazeleyici · Baharatlı",
+    "Maskülen · Yoğun · Sıcak · Tazeleyici · Baharatlı"
+   ],
+   "noir-rose": [
+    "Yoğun · Gurme · Baharatlı · Deri · Odunsu",
+    "Yoğun · Gurme · Baharatlı · Deri · Odunsu"
+   ],
+   "pure-paragon": [
+    "Hafif · Enerjik · Temiz · Tazeleyici · Gurme",
+    "Hafif · Enerjik · Temiz · Tazeleyici · Gurme"
+   ]
+  },
+  "notes": [
+   [
+    "^desert-dance$",
+    [
+     [
+      "Sıcak",
+      "Sıcak"
+     ],
+     [
+      "Tatlı",
+      "Tatlı"
+     ],
+     [
+      "Baharatlı",
+      "Baharatlı"
+     ],
+     [
+      "Deri",
+      "Deri"
+     ]
+    ]
+   ],
+   [
+    "^homme-noir$",
+    [
+     [
+      "Sıcak",
+      "Sıcak"
+     ],
+     [
+      "Gurme",
+      "Gurme"
+     ]
+    ]
+   ],
+   [
+    "^lioness$",
+    [
+     [
+      "Lavanta",
+      "Lavanta"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ],
+     [
+      "Tonka",
+      "Tonka"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^sweet-sintra$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Kırmızı meyveler",
+      "Kırmızı meyveler"
+     ],
+     [
+      "Petitgrain",
+      "Petitgrain"
+     ],
+     [
+      "Portakal çiçeği",
+      "Portakal çiçeği"
+     ]
+    ]
+   ],
+   [
+    "^cosmic-crystal$",
+    [
+     [
+      "Yasemin",
+      "Yasemin"
+     ],
+     [
+      "Odunsu notalar",
+      "Odunsu notalar"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^sacred-palace$",
+    [
+     [
+      "Tarçın",
+      "Tarçın"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Vanilya",
+      "Vanilya"
+     ],
+     [
+      "Praline",
+      "Praline"
+     ]
+    ]
+   ],
+   [
+    "^rosa-majestica$",
+    [
+     [
+      "Lychee",
+      "Lychee"
+     ],
+     [
+      "Ravent",
+      "Ravent"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Hindistan cevizi",
+      "Hindistan cevizi"
+     ]
+    ]
+   ],
+   [
+    "^volcanic-salt$",
+    [
+     [
+      "Deniz notaları",
+      "Deniz notaları"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Biberiye",
+      "Biberiye"
+     ],
+     [
+      "Adaçayı",
+      "Adaçayı"
+     ]
+    ]
+   ],
+   [
+    "^interstellar$",
+    [
+     [
+      "Mandarin",
+      "Mandarin"
+     ],
+     [
+      "Menekşe",
+      "Menekşe"
+     ],
+     [
+      "Safran",
+      "Safran"
+     ],
+     [
+      "Osmanthus",
+      "Osmanthus"
+     ]
+    ]
+   ],
+   [
+    "^fire-god-aztec$",
+    [
+     [
+      "Mango",
+      "Mango"
+     ],
+     [
+      "Limon",
+      "Limon"
+     ],
+     [
+      "Zencefil",
+      "Zencefil"
+     ],
+     [
+      "Biber",
+      "Biber"
+     ]
+    ]
+   ],
+   [
+    "^noir-rose$",
+    [
+     [
+      "Gurme",
+      "Gurme"
+     ],
+     [
+      "Baharatlı",
+      "Baharatlı"
+     ],
+     [
+      "Deri",
+      "Deri"
+     ],
+     [
+      "Odunsu",
+      "Odunsu"
+     ]
+    ]
+   ],
+   [
+    "^pure-paragon$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Beyaz adaçayı",
+      "Beyaz adaçayı"
+     ],
+     [
+      "Lavanta",
+      "Lavanta"
+     ],
+     [
+      "Palo santo",
+      "Palo santo"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^desert-dance$",
+    "composition": {
+     "tr": [],
+     "en": []
+    }
+   },
+   {
+    "match": "^homme-noir$",
+    "composition": {
+     "tr": [],
+     "en": []
+    }
+   },
+   {
+    "match": "^lioness$",
+    "composition": {
+     "tr": [
+      "Üst: Lavanta",
+      "Kalp: Vanilya",
+      "Dip: Tonka, Amber"
+     ],
+     "en": [
+      "Üst: Lavanta",
+      "Kalp: Vanilya",
+      "Dip: Tonka, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^sweet-sintra$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Kırmızı meyveler, Petitgrain",
+      "Kalp: Portakal çiçeği, Tarçın, Gül",
+      "Dip: Bourbon vanilyası, Karamel, Marshmallow misk"
+     ],
+     "en": [
+      "Üst: Bergamot, Kırmızı meyveler, Petitgrain",
+      "Kalp: Portakal çiçeği, Tarçın, Gül",
+      "Dip: Bourbon vanilyası, Karamel, Marshmallow misk"
+     ]
+    }
+   },
+   {
+    "match": "^cosmic-crystal$",
+    "composition": {
+     "tr": [
+      "Üst: Yasemin",
+      "Kalp: Odunsu notalar",
+      "Dip: Amber"
+     ],
+     "en": [
+      "Üst: Yasemin",
+      "Kalp: Odunsu notalar",
+      "Dip: Amber"
+     ]
+    }
+   },
+   {
+    "match": "^sacred-palace$",
+    "composition": {
+     "tr": [
+      "Üst: Tarçın, Bergamot",
+      "Kalp: Vanilya, Praline",
+      "Dip: Amber, Odunsu notalar"
+     ],
+     "en": [
+      "Üst: Tarçın, Bergamot",
+      "Kalp: Vanilya, Praline",
+      "Dip: Amber, Odunsu notalar"
+     ]
+    }
+   },
+   {
+    "match": "^rosa-majestica$",
+    "composition": {
+     "tr": [
+      "Üst: Lychee, Ravent, Bergamot, Hindistan cevizi",
+      "Kalp: Gül, Şakayık",
+      "Dip: Misk, Vanilya, Kaşmir ağacı"
+     ],
+     "en": [
+      "Üst: Lychee, Ravent, Bergamot, Hindistan cevizi",
+      "Kalp: Gül, Şakayık",
+      "Dip: Misk, Vanilya, Kaşmir ağacı"
+     ]
+    }
+   },
+   {
+    "match": "^volcanic-salt$",
+    "composition": {
+     "tr": [
+      "Üst: Deniz notaları, Bergamot",
+      "Kalp: Biberiye, Adaçayı",
+      "Dip: Paçuli, Tütsü"
+     ],
+     "en": [
+      "Üst: Deniz notaları, Bergamot",
+      "Kalp: Biberiye, Adaçayı",
+      "Dip: Paçuli, Tütsü"
+     ]
+    }
+   },
+   {
+    "match": "^interstellar$",
+    "composition": {
+     "tr": [
+      "Üst: Mandarin, Menekşe",
+      "Kalp: Safran, Osmanthus",
+      "Dip: Akigalawood, Deri, Misk"
+     ],
+     "en": [
+      "Üst: Mandarin, Menekşe",
+      "Kalp: Safran, Osmanthus",
+      "Dip: Akigalawood, Deri, Misk"
+     ]
+    }
+   },
+   {
+    "match": "^fire-god-aztec$",
+    "composition": {
+     "tr": [
+      "Üst: Mango, Limon",
+      "Kalp: Zencefil, Biber",
+      "Dip: Odunsu notalar, Amber"
+     ],
+     "en": [
+      "Üst: Mango, Limon",
+      "Kalp: Zencefil, Biber",
+      "Dip: Odunsu notalar, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^noir-rose$",
+    "composition": {
+     "tr": [],
+     "en": []
+    }
+   },
+   {
+    "match": "^pure-paragon$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Beyaz adaçayı, Lavanta",
+      "Kalp: Palo santo, Karabiber",
+      "Dip: Sandal ağacı, Oud"
+     ],
+     "en": [
+      "Üst: Bergamot, Beyaz adaçayı, Lavanta",
+      "Kalp: Palo santo, Karabiber",
+      "Dip: Sandal ağacı, Oud"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^desert-dance$",
+    "#6b3c24",
+    "#ce8d6d"
+   ],
+   [
+    "^homme-noir$",
+    "#0d532d",
+    "#59e397"
+   ],
+   [
+    "^lioness$",
+    "#762e2c",
+    "#ce6f6d"
+   ],
+   [
+    "^sweet-sintra$",
+    "#76622c",
+    "#ceb46d"
+   ],
+   [
+    "^cosmic-crystal$",
+    "#4a3626",
+    "#a0865d"
+   ],
+   [
+    "^sacred-palace$",
+    "#7a3d1c",
+    "#b68a58"
+   ],
+   [
+    "^rosa-majestica$",
+    "#8a3a5a",
+    "#bd8874"
+   ],
+   [
+    "^volcanic-salt$",
+    "#2f5a3a",
+    "#949766"
+   ],
+   [
+    "^interstellar$",
+    "#7a3d1c",
+    "#b68a58"
+   ],
+   [
+    "^fire-god-aztec$",
+    "#8a2f40",
+    "#bd8368"
+   ],
+   [
+    "^noir-rose$",
+    "#6a3220",
+    "#af855a"
+   ],
+   [
+    "^pure-paragon$",
+    "#2a6070",
+    "#92997e"
+   ]
+  ],
+  "trText": {
+   "desert-dance": "Baharatlı ve sıcak bir açılışla dikkat çeker. Kalpte kum, amber ve hafif tatlı dokular egzotik bir his yaratır. Dipte odunsu ve reçineli notalarla kalıcı ve yoğun bir iz bırakır. Kalıcılık: 8+ saat, gün boyu. Yayılım: Odayı doldurur. Mevsim: Sonbahar · Kış.",
+   "homme-noir": "İris ve hafif tatlı notalarla zarif bir açılış yapar. Kalpte pudramsı ve kremsi dokular öne çıkar. Dipte amber ve odunsu notalarla maskülen ve sofistike bir derinlik kazanır. Kalıcılık: 6–8 saat. Yayılım: Çevrende hissedilir. Mevsim: Sonbahar · Kış.",
+   "lioness": "Meyve ve çiçeklerle açılır. Kalpte gül ile zenginleşir. Dipte vanilya ile tatlı bir iz bırakır. Kalıcılık: 6–8 saat. Yayılım: Odayı doldurur. Mevsim: İlkbahar · Yaz.",
+   "sweet-sintra": "Bergamot ile açılır. Kalpte portakal çiçeği ile derinleşir. Dipte bourbon vanilyası ile kalıcı bir iz bırakır. Kalıcılık: 8+ saat, gün boyu. Yayılım: Odayı doldurur. Mevsim: Sonbahar · Kış.",
+   "cosmic-crystal": "Yasemin ile çiçeksi açılır. Kalpte amber ile zenginleşir. Dipte odunsu ile yoğun bir iz bırakır. Kalıcılık: 8+ saat, gün boyu. Yayılım: Odayı doldurur. Mevsim: Sonbahar · Kış.",
+   "sacred-palace": "Baharat ve safran ile zengin açılır. Kalpte çiçeklerle yumuşar. Dipte vanilya ve odunsu ile yoğun bir iz bırakır. Kalıcılık: 8+ saat, gün boyu. Yayılım: Arkanda iz bırakır. Mevsim: Sonbahar · Kış.",
+   "rosa-majestica": "Lychee ve gül ile açılır. Kalpte çiçeksi zarafet artar. Dipte vanilya ve misk ile yumuşak bir iz bırakır. Kalıcılık: 4–6 saat. Yayılım: Çevrende hissedilir. Mevsim: İlkbahar · Yaz.",
+   "volcanic-salt": "Deniz notalarıyla ferah açılır. Kalpte aromatik dokularla dengelenir. Dipte tütsü ve paçuli ile derin ve maskülen bir iz bırakır. Kalıcılık: 6–8 saat. Yayılım: Odayı doldurur. Mevsim: İlkbahar · Yaz.",
+   "interstellar": "Mandarin ile taze açılır. Kalpte safran ile zenginleşir. Dipte süet ile mineral bir iz bırakır. Kalıcılık: 8+ saat, gün boyu. Yayılım: Arkanda iz bırakır. Mevsim: Sonbahar · Kış.",
+   "fire-god-aztec": "Baharat ile güçlü açılır. Kalpte reçine ile zenginleşir. Dipte odunsu notalarla yoğun bir iz bırakır. Kalıcılık: 6–8 saat. Yayılım: Odayı doldurur. Mevsim: İlkbahar · Yaz.",
+   "noir-rose": "Yoğun gül ve karanlık dokunuşlarla açılır. Kalpte çikolata ve baharat hissi belirginleşir. Dipte paçuli ve oud ile derin, gizemli ve baştan çıkarıcı bir karakter kazanır. Kalıcılık: 8+ saat, gün boyu. Yayılım: Arkanda iz bırakır. Mevsim: Sonbahar · Kış.",
+   "pure-paragon": "Bergamot ile açılır. Kalpte palo santo ile derinleşir. Dipte sandal ağacı ile kalıcı bir iz bırakır. Kalıcılık: 2–4 saat. Yayılım: Kol mesafesi. Mevsim: İlkbahar · Yaz."
+  },
+  "ritual": [
+   {
+    "handle": "desert-dance",
+    "tr": {
+     "title": "Extrait konsantrasyonu",
+     "text": "Tüm kokularımız extrait (parfüm) formundadır. Bu konsantrasyon çok daha yoğun esans içerir; hem yayılımı hem de kalıcılığı belirgin biçimde artırır.",
+     "stat": "Desert Dance · Deri & Baharat"
+    },
+    "en": {
+     "title": "Extrait konsantrasyonu",
+     "text": "Tüm kokularımız extrait (parfüm) formundadır. Bu konsantrasyon çok daha yoğun esans içerir; hem yayılımı hem de kalıcılığı belirgin biçimde artırır.",
+     "stat": "Desert Dance · Deri & Baharat"
+    }
+   },
+   {
+    "handle": "homme-noir",
+    "tr": {
+     "title": "6–12 saat kalıcılık",
+     "text": "Extrait formülümüz sayesinde ortalama kalıcılık 6–8 saat, yoğun esanslı kokularımızda ise 8–12 saate kadar çıkabilmektedir.",
+     "stat": "Homme Noir"
+    },
+    "en": {
+     "title": "6–12 saat kalıcılık",
+     "text": "Extrait formülümüz sayesinde ortalama kalıcılık 6–8 saat, yoğun esanslı kokularımızda ise 8–12 saate kadar çıkabilmektedir.",
+     "stat": "Homme Noir"
+    }
+   },
+   {
+    "handle": "lioness",
+    "tr": {
+     "title": "Her siparişte 3 tester",
+     "text": "Her siparişin yanına hediye olarak genellikle 3 adet tester ekliyoruz; kargo tamamen ücretsiz.",
+     "stat": "Lioness"
+    },
+    "en": {
+     "title": "Her siparişte 3 tester",
+     "text": "Her siparişin yanına hediye olarak genellikle 3 adet tester ekliyoruz; kargo tamamen ücretsiz.",
+     "stat": "Lioness"
+    }
+   }
+  ]
+ }
+}

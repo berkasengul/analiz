@@ -7,6 +7,7 @@ aracının (shopify-cek.py) çıktısıyla aynı biçimde kaydeder; böylece son
 
     python3 demo-fabrikasi/araclar/ikas-cek.py mardinikozmetik.com mardini
     python3 demo-fabrikasi/araclar/ikas-cek.py mardinikozmetik.com mardini --only "regex"   (görseller yalnızca bu ürünler için)
+    python3 demo-fabrikasi/araclar/ikas-cek.py anymoparfum.com anymo --only "regex" --pages   (büyük mağaza: yalnızca bu ürünlerin sayfaları da)
 
 Çıktı: demo-fabrikasi/markalar/<slug>-shopify/
     products-tr.json, products-en.json   ürünler (Shopify biçiminde: handle, title, body_html, variants, images)
@@ -52,6 +53,10 @@ def main():
     base = f"https://{domain}"
 
     urls = re.findall(r"<loc>([^<]+)</loc>", get(f"{base}/products.xml") or "")
+    # --pages: yüzlerce ürünlü mağazada yalnızca --only'ye uyan ürünlerin sayfaları indirilir.
+    if "--pages" in sys.argv and "--only" in sys.argv:
+        rx = sys.argv[sys.argv.index("--only") + 1]
+        urls = [u for u in urls if re.search(rx, u.rstrip("/").rsplit("/", 1)[-1])]
     print(len(urls), "ürün adresi")
     tr, en, raw = [], [], []
     for n, url in enumerate(urls, 1):
