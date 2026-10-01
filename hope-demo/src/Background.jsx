@@ -21,7 +21,8 @@ const plateTex = PLATE ? new TextureLoader().load(`${import.meta.env.BASE_URL}${
 if (plateTex) plateTex.colorSpace = SRGBColorSpace;
 // Ferah sahne (theme.fresh: true): fotoğraf yerine her kokunun kendi renginde aydınlık fon ve parlak zemin.
 const FRESH = !!THEME.fresh && !PLATE;
-const ARCH = THEME.carousel === "glide";
+// Ürünün arkasındaki süslü kemer ("glide" düzeninde); theme.arch: false ile kapanır (ör. sade, endüstriyel sahne).
+const ARCH = THEME.carousel === "glide" && THEME.arch !== false;
 const P = new Vector3();
 const Q = new Vector3();
 // Ürünlerin sahne fotoğrafları (products[].stage): bir kez yüklenir, ürünler arasında paylaşılır.

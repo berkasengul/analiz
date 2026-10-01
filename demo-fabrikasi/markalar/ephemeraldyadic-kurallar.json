@@ -1,0 +1,697 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "views": false,
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "backPhotos": false,
+  "pedestal": true,
+  "backHead": "NOTES",
+  "glassBack": {
+   "label": [
+    0.315,
+    0.47,
+    0.687,
+    0.69
+   ],
+   "style": "plain",
+   "brand": "EPHEMERAL DYADIC",
+   "family": "Eau de Parfum",
+   "lines": [
+    "Created and produced in Istanbul"
+   ]
+  }
+ },
+ "aktar": {
+  "domain": "www.ephemeraldyadic.com",
+  "platform": "merx",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "themeGlow": 0.26,
+  "gallery": true,
+  "home": [
+   "dark-dreams",
+   "ozymandias",
+   "liquid-skin",
+   "psychic-vibrations",
+   "another-world"
+  ],
+  "profiles": {},
+  "categories": [
+   {
+    "id": "edp",
+    "tr": "Eau de Parfum",
+    "en": "Eau de Parfum",
+    "color": "#d9c47a",
+    "descTr": "50 ml Eau de Parfum; her koku bir ruh hâli, bir hatıra.",
+    "descEn": "50 ml Eau de Parfum; every scent a feeling, a memory.",
+    "match": "."
+   }
+  ],
+  "rename": {
+   "dark-dreams": [
+    "Dark Dreams",
+    "Dark Dreams"
+   ],
+   "ozymandias": [
+    "Ozymandias",
+    "Ozymandias"
+   ],
+   "liquid-skin": [
+    "Liquid Skin",
+    "Liquid Skin"
+   ],
+   "psychic-vibrations": [
+    "Psychic Vibrations",
+    "Psychic Vibrations"
+   ],
+   "another-world": [
+    "Another World",
+    "Another World"
+   ],
+   "lost-chemistry": [
+    "Lost Chemistry",
+    "Lost Chemistry"
+   ],
+   "acid-aqua": [
+    "Acid Aqua",
+    "Acid Aqua"
+   ],
+   "bodhi-utah": [
+    "Bodhi & Utah",
+    "Bodhi & Utah"
+   ],
+   "missing-feeling": [
+    "Missing Feeling",
+    "Missing Feeling"
+   ],
+   "no-taboos": [
+    "No Taboos",
+    "No Taboos"
+   ]
+  },
+  "families": {
+   "dark-dreams": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "ozymandias": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "liquid-skin": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "psychic-vibrations": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "another-world": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "lost-chemistry": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "acid-aqua": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "bodhi-utah": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "missing-feeling": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ],
+   "no-taboos": [
+    "Eau de Parfum · 50 ml",
+    "Eau de Parfum · 50 ml"
+   ]
+  },
+  "taglines": {
+   "dark-dreams": [
+    "Neonlar ve sigaralar, kiralık odalar.",
+    "The neon's and the cigarettes, rented rooms."
+   ],
+   "ozymandias": [
+    "Eserlerime bakın, ey kudretliler, ve umudu kesin!",
+    "Look on my Works, ye Mighty, and despair!"
+   ],
+   "liquid-skin": [
+    "İki ay ve bin düşünce arasında sıkışmış.",
+    "Stuck between two moons and a thousand thoughts."
+   ],
+   "psychic-vibrations": [
+    "Hissedebiliyor musun?",
+    "Can you feel it?"
+   ],
+   "another-world": [
+    "Ağaçlar baş aşağı, su siyah mürekkep.",
+    "Trees are upside down and water is black ink."
+   ],
+   "lost-chemistry": [
+    "Çılgın, deli bir aşk.",
+    "Crazy crazy mad love."
+   ],
+   "acid-aqua": [
+    "Bir örümcek gelmiş, yanına oturmuş.",
+    "Along came a spider, who sat down beside her."
+   ],
+   "bodhi-utah": [
+    "Kanunun hizmetkârı olmak neden, efendisi olabilecekken?",
+    "Why be a servant to the law, when you can be its master?"
+   ],
+   "missing-feeling": [
+    "Şeftali ağaçlarının altında bir ağustos esintisi.",
+    "An August breeze, under peach trees."
+   ],
+   "no-taboos": [
+    "Hiç tabum yok.",
+    "I got no taboos."
+   ]
+  },
+  "notes": [
+   [
+    "^dark-dreams$",
+    [
+     [
+      "Sardunya",
+      "Geranium"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Benzin",
+      "Gasoline"
+     ]
+    ]
+   ],
+   [
+    "^ozymandias$",
+    [
+     [
+      "Elemi",
+      "Elemi"
+     ],
+     [
+      "Karabiber",
+      "Black pepper"
+     ],
+     [
+      "Labdanum",
+      "Labdanum"
+     ],
+     [
+      "Kaşmir ağacı",
+      "Cashmere wood"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^liquid-skin$",
+    [
+     [
+      "Labdanum",
+      "Labdanum"
+     ],
+     [
+      "Nagarmotha",
+      "Nagarmotha"
+     ],
+     [
+      "Kırmızı tarçın",
+      "Red cinnamon"
+     ],
+     [
+      "Vetiver",
+      "Vetiver"
+     ],
+     [
+      "Kuru tütün",
+      "Dried tobacco"
+     ]
+    ]
+   ],
+   [
+    "^psychic-vibrations$",
+    [
+     [
+      "Kenevir",
+      "Cannabis"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Müge",
+      "Muguet"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Yanık vanilya",
+      "Burned vanilla"
+     ]
+    ]
+   ],
+   [
+    "^another-world$",
+    [
+     [
+      "Mürekkep",
+      "Ink"
+     ],
+     [
+      "Karabiber",
+      "Black pepper"
+     ],
+     [
+      "Çam",
+      "Pine"
+     ],
+     [
+      "Sedir",
+      "Cedarwood"
+     ],
+     [
+      "Beyaz misk",
+      "White musk"
+     ]
+    ]
+   ],
+   [
+    "^lost-chemistry$",
+    [
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Kırmızı misk",
+      "Red musk"
+     ],
+     [
+      "Ud ağacı",
+      "Agarwood"
+     ],
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "İncir",
+      "Fig"
+     ]
+    ]
+   ],
+   [
+    "^acid-aqua$",
+    [
+     [
+      "Armut",
+      "Pear"
+     ],
+     [
+      "Kumkat",
+      "Kumquat"
+     ],
+     [
+      "Pembe biber",
+      "Pink pepper"
+     ],
+     [
+      "Müge",
+      "Muguet"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ]
+    ]
+   ],
+   [
+    "^bodhi-utah$",
+    [
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Adaçayı",
+      "Sage tea"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Tonka",
+      "Tonka"
+     ],
+     [
+      "Mavi amber",
+      "Blue amber"
+     ]
+    ]
+   ],
+   [
+    "^missing-feeling$",
+    [
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Beyaz misk",
+      "White musk"
+     ],
+     [
+      "Şampanya",
+      "Champagne"
+     ]
+    ]
+   ],
+   [
+    "^no-taboos$",
+    [
+     [
+      "Süt",
+      "Milk"
+     ],
+     [
+      "Feromon karışımı",
+      "Pheromone mix"
+     ],
+     [
+      "Siyah yasemin",
+      "Black jasmine"
+     ],
+     [
+      "Kırmızı amber",
+      "Red amber"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^dark-dreams$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Sardunya, Safran",
+      "Orta notalar: Mandalina, Bergamot",
+      "Alt notalar: Benzin"
+     ],
+     "en": [
+      "Top notes: Geranium, Saffron",
+      "Middle notes: Mandarin, Bergamot",
+      "Base notes: Gasoline"
+     ]
+    }
+   },
+   {
+    "match": "^ozymandias$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Elemi, Karabiber",
+      "Orta notalar: Labdanum, Kaşmir ağacı",
+      "Alt notalar: Amber, Vanilya"
+     ],
+     "en": [
+      "Top notes: Elemi, Black pepper",
+      "Middle notes: Labdanum, Cashmere wood",
+      "Base notes: Amber, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^liquid-skin$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Labdanum, Nagarmotha",
+      "Orta notalar: Kırmızı tarçın",
+      "Alt notalar: Vetiver, Kuru tütün"
+     ],
+     "en": [
+      "Top notes: Labdanum, Nagarmotha",
+      "Middle notes: Red cinnamon",
+      "Base notes: Vetiver, Dried tobacco"
+     ]
+    }
+   },
+   {
+    "match": "^psychic-vibrations$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Kenevir, Tütsü",
+      "Orta notalar: Müge, İris",
+      "Alt notalar: Yanık vanilya"
+     ],
+     "en": [
+      "Top notes: Cannabis, Incense",
+      "Middle notes: Muguet, Iris",
+      "Base notes: Burned vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^another-world$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Mürekkep, Karabiber",
+      "Orta notalar: Çam",
+      "Alt notalar: Sedir, Beyaz misk"
+     ],
+     "en": [
+      "Top notes: Ink, Black pepper",
+      "Middle notes: Pine",
+      "Base notes: Cedarwood, White musk"
+     ]
+    }
+   },
+   {
+    "match": "^lost-chemistry$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Amber, Kırmızı misk, Ud ağacı",
+      "Orta notalar: Ahududu, İncir",
+      "Alt notalar: Sandal ağacı"
+     ],
+     "en": [
+      "Top notes: Amber, Red musk, Agarwood",
+      "Middle notes: Raspberry, Fig",
+      "Base notes: Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^acid-aqua$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Armut, Kumkat",
+      "Orta notalar: Pembe biber, Müge, Kakule",
+      "Alt notalar: Sandal ağacı, Ambroksan, Beyaz misk"
+     ],
+     "en": [
+      "Top notes: Pear, Kumquat",
+      "Middle notes: Pink pepper, Muguet, Cardamom",
+      "Base notes: Sandalwood, Ambroxan, White musk"
+     ]
+    }
+   },
+   {
+    "match": "^bodhi-utah$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Kakule, Adaçayı",
+      "Orta notalar: İris, Tonka",
+      "Alt notalar: Mavi amber, Tütsü"
+     ],
+     "en": [
+      "Top notes: Cardamom, Sage tea",
+      "Middle notes: Iris, Tonka",
+      "Base notes: Blue amber, Incense"
+     ]
+    }
+   },
+   {
+    "match": "^missing-feeling$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Şeftali",
+      "Orta notalar: Beyaz misk",
+      "Alt notalar: Şampanya"
+     ],
+     "en": [
+      "Top notes: Peach",
+      "Middle notes: White musk",
+      "Base notes: Champagne"
+     ]
+    }
+   },
+   {
+    "match": "^no-taboos$",
+    "composition": {
+     "tr": [
+      "Üst notalar: Süt, Feromon karışımı",
+      "Orta notalar: Siyah yasemin, Kırmızı amber",
+      "Alt notalar: Misk, Amber, Paçuli"
+     ],
+     "en": [
+      "Top notes: Milk, Pheromone mix",
+      "Middle notes: Black jasmine, Red amber",
+      "Base notes: Musk, Amber, Patchouli"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^dark-dreams$",
+    "#35342c",
+    "#e3dca0"
+   ],
+   [
+    "^ozymandias$",
+    "#332e1e",
+    "#d9b84a"
+   ],
+   [
+    "^liquid-skin$",
+    "#332f1c",
+    "#d8c23c"
+   ],
+   [
+    "^psychic-vibrations$",
+    "#332c1a",
+    "#d6b030"
+   ],
+   [
+    "^another-world$",
+    "#33342d",
+    "#d9dcaa"
+   ],
+   [
+    "^lost-chemistry$",
+    "#352a16",
+    "#e8a018"
+   ],
+   [
+    "^acid-aqua$",
+    "#353223",
+    "#e8d36a"
+   ],
+   [
+    "^bodhi-utah$",
+    "#31301e",
+    "#cfc34a"
+   ],
+   [
+    "^missing-feeling$",
+    "#363532",
+    "#e9e4c8"
+   ],
+   [
+    "^no-taboos$",
+    "#363532",
+    "#ece6c9"
+   ]
+  ],
+  "trText": {
+   "dark-dreams": "Neonlar ve sigaralar / Kiralık odalar, kiralık arabalar / Kalabalık sokaklar, boş barlar / Bacalar ve trompetler",
+   "ozymandias": "Kadim bir diyardan gelen bir yolcuyla karşılaştım… Kaidede şu sözler yazılı: “Adım Ozymandias, krallar kralı; / Eserlerime bakın, ey kudretliler, ve umudu kesin!” / Yanında hiçbir şey kalmamış.",
+   "liquid-skin": "İki ay ve bin düşünce arasında sıkışmış.",
+   "psychic-vibrations": "Bilinçaltı duyguların gölgeleri / Elektrik dalgaları altında yankılanan sesler / Seğiren gözler, bedenin akışkanları / Sessizlikte büyüyen sonsuzluk / Hissedebiliyor musun?",
+   "another-world": "Başka bir dünyaya gitsen bile, / ağaçların baş aşağı / ve suyun siyah mürekkep olduğu bir yere. / Parmaklar ona batırılmış. / DNA değişmiş. / Ne ses ne müzik. / Gölgeler sana ihanet etmez, / çünkü onlar hep senindi.",
+   "lost-chemistry": "Her şeyden çok aşkı hayal ediyorum, çılgın, deli bir aşkı. Kalpleri kıran, savaşlar başlatan, hayatları mahveden, ruhuna kazınan; kalbin her attığında hissettiğin, hafızanı yakan ve yalnız kaldığında, ortalık sessizleşip dünya uzaklaştığında geri gelen aşkı.",
+   "acid-aqua": "Küçük Hanım Muffet / tabureye oturmuş, / lor peyniri ve peynir altı suyu yerken; / bir örümcek gelmiş, / yanına oturmuş / ve Hanım Muffet'i korkutup kaçırmış.",
+   "bodhi-utah": "“90 saniye, Johnny. Tek istediğim bu, hayatından sadece 90 saniye.” … “İstediğini yapabilir, kendi kurallarını koyabilirsin. Kanunun hizmetkârı olmak neden, efendisi olabilecekken?”",
+   "missing-feeling": "Bir ağustos esintisi; şeftali ağaçlarının altında Akdeniz düşleri.",
+   "no-taboos": "Bahanem yok, sadece beni kullanmanı istiyorum / Al beni, hırpala beni / Hiç tabum yok, seninle takas ederim / Ne istersen yaparım"
+  },
+  "enText": {
+   "dark-dreams": "The neon's and the cigarettes / Rented rooms and rented cars / The crowded streets, the empty bars / Chimney tops and trumpets",
+   "ozymandias": "I met a traveller from an antique land… And on the pedestal, these words appear: / My name is Ozymandias, King of Kings; / Look on my Works, ye Mighty, and despair! / Nothing beside remains.",
+   "liquid-skin": "Stuck between two moons and a thousand thoughts.",
+   "psychic-vibrations": "Shadows of subconcious sentiments / Sounds echoeing under electric waves / Eyes twitching, fluids of body flux / Infinity growing in silence / Can you feel it?",
+   "another-world": "Even if you go to another world, / where trees are upside down / and water is black ink. / Fingers dipped in it. / DNA mutated. / No sound no music. / Shadows will not betray you, / cause they always belonged to you.",
+   "lost-chemistry": "More than anything, I dream of love, crazy crazy mad love. The love that breaks hearts, starts wars, ruins lives, the love that sears itself into your soul, that you can feel every time your heart beats, that scorches your memory and comes back to you whenever you're alone and it's quiet and the world falls away.",
+   "acid-aqua": "Little Miss Muffet / Sat on a tuffet, / Eating her curds and whey; / Along came a spider, / Who sat down beside her, / And frightened Miss Muffet away.",
+   "bodhi-utah": "“90 seconds Johnny. That's all I ask for, just 90 seconds of your life.” … “You can do what you want, and make up your own rules. Why be a servant to the law, when you can be its master?”",
+   "missing-feeling": "An August breeze, under peach trees and Mediterranean daydreams.",
+   "no-taboos": "I've no excuse, I just want you to use me / Take me and abuse me / I got no taboos, I'll make trade with you / Do anything you want me to"
+  },
+  "ritual": [
+   {
+    "handle": "dark-dreams",
+    "tr": {
+     "title": "Ephemeral",
+     "text": "Kısa süren şey. Koku gibi dışımızdaki her şey geçicidir; duygularımız ve anılarımız kalıcıdır.",
+     "stat": "Geçici"
+    },
+    "en": {
+     "title": "Ephemeral",
+     "text": "Something that lasts for a short time. External objects such as scents are ephemeral, while our emotions and memories are permanent.",
+     "stat": "Ephemeral"
+    }
+   },
+   {
+    "handle": "liquid-skin",
+    "tr": {
+     "title": "Dyadic",
+     "text": "İkiye dayanan, iki yanlı. Koku ile onu taşıyan arasındaki bağ.",
+     "stat": "İki"
+    },
+    "en": {
+     "title": "Dyadic",
+     "text": "Relating to or based on two; twofold. The bond between the fragrance and the wearer.",
+     "stat": "Twofold"
+    }
+   },
+   {
+    "handle": "ozymandias",
+    "tr": {
+     "title": "Nasıl hissettirdiği",
+     "text": "Teninizdeki kimyasalı hatırlamayacaksınız; ama size nasıl hissettirdiğini ve bütün anılarını hatırlayacaksınız.",
+     "stat": "His"
+    },
+    "en": {
+     "title": "How it made you feel",
+     "text": "You will not remember the chemical on your skin, but you will remember how it made you feel, and all the memories of it.",
+     "stat": "Feel"
+    }
+   }
+  ]
+ }
+}

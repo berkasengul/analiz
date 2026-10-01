@@ -780,8 +780,11 @@ def glass_back(F, handle):
         d.line([(L, yy), (Rr, yy)], fill=c + (255,))
     inkc = tuple(int(v) for v in ink) + (255,)
     m1, m2 = int((Rr - L) * 0.035), int((Rr - L) * 0.06)
-    d.rectangle([L + m1, T + m1, Rr - m1, B - m1], outline=inkc, width=max(2, int((Rr - L) * 0.008)))
-    d.rectangle([L + m2, T + m2, Rr - m2, B - m2], outline=inkc, width=1)
+    # style "plain": markanın sade etiketi gibi (çerçevesiz, dar kalın harfler); varsayılan: çift çerçeveli klasik.
+    PLAIN = G.get("style") == "plain"
+    if not PLAIN:
+        d.rectangle([L + m1, T + m1, Rr - m1, B - m1], outline=inkc, width=max(2, int((Rr - L) * 0.008)))
+        d.rectangle([L + m2, T + m2, Rr - m2, B - m2], outline=inkc, width=1)
     A = _ALL.get("aktar", {})
     name = next((v[1] for k, v in A.get("rename", {}).items() if k == handle), None) or re.sub(RULES.get("namePrefix", r"^$"), "", _TR_title(handle))
     notes = next((n for rx, n in A.get("notes", []) if re.search(rx, handle)), [])
@@ -799,21 +802,36 @@ def glass_back(F, handle):
     u = (Rr - L) / 7.2
     # Uzun ad küçülmesin: iki satıra bölünür.
     title = [name.upper()]
-    if d.textlength(title[0], font=_font("Cinzel-Bold.ttf", u * 0.95)) > wide * 1.15 and " " in name:
+    if G.get("style") != "plain" and d.textlength(title[0], font=_font("Cinzel-Bold.ttf", u * 0.95)) > wide * 1.15 and " " in name:
         words = name.upper().split()
         k = min(range(1, len(words)), key=lambda i: abs(len(" ".join(words[:i])) - len(" ".join(words[i:]))))
         title = [" ".join(words[:k]), " ".join(words[k:])]
-    blocks = [(G.get("brand", "UNIQUE'E LUXURY"), "Cinzel-Medium.ttf", u * 0.62), ("", None, u * 0.35)]
-    blocks += [(t, "Cinzel-Bold.ttf", u * 0.95) for t in title]
-    blocks += [(G.get("family", "Extrait de Parfum"), "Marcellus-Regular.ttf", u * 0.62),
-              ("—", "Marcellus-Regular.ttf", u * 0.6)]
-    blocks += [(n[1], "Marcellus-Regular.ttf", u * 0.56) for n in notes[:5]]
+    # Marka ve konsantrasyon kurallardan gelir (glassBack.brand / family); yoksa yazılmaz (başka markanın adı kalmasın).
+    fb, fs, fr, fl, fll = (("Oswald-SemiBold.ttf",) * 2 + ("Oswald-Medium.ttf",) * 3) if PLAIN else ("Cinzel-Medium.ttf", "Cinzel-Bold.ttf", "Marcellus-Regular.ttf", "Lato-Bold.ttf", "Lato-Regular.ttf")
+    case = (lambda t: t.upper()) if PLAIN else (lambda t: t)
+    blocks = [(G.get("brand", ""), fb, u * 0.62), ("", None, u * 0.35)]
+    blocks += [(t, fs, u * 0.95) for t in title]
+    blocks += [(case(G.get("family", "")), fr, u * 0.62)] + ([] if PLAIN else [("—", fr, u * 0.6)])
+    blocks += [("", None, u * 0.2)] if PLAIN else []
+    if PLAIN:  # geniş, kısa etiket: notalar yan yana, en fazla iki satır
+        items = [n[1].upper() for n in notes[:6]]
+        half = (len(items) + 1) // 2
+        rows = [" · ".join(items)] if len(items) <= 3 else [" · ".join(items[:half]), " · ".join(items[half:])]
+        blocks += [(r_, fr, u * 0.5) for r_ in rows]
+    else:
+        blocks += [(n[1], fr, u * 0.56) for n in notes[:5]]
     ml = re.sub(r"\s*ml", "", size)
     oz = {"100": "3.4", "80": "2.7", "50": "1.7", "30": "1.0"}.get(ml)
-    blocks += [("", None, u * 0.35), (f"e {ml}ml" + (f"  ·  {oz} fl.oz" if oz else ""), "Lato-Bold.ttf", u * 0.5)]
-    blocks += [(line, "Lato-Regular.ttf", u * 0.42) for line in G.get("lines", [])]
+    blocks += [("", None, u * 0.35), ((f"{ml} ML" + (f" / {oz} OZ" if oz else "")) if PLAIN else (f"e {ml}ml" + (f"  ·  {oz} fl.oz" if oz else "")), fl, u * 0.5)]
+    blocks += [(case(line), fll, u * 0.42) for line in G.get("lines", [])]
     fonts = [(t, fit_font(t, fn, sz, wide) if fn else None, sz) for t, fn, sz in blocks]
     heights = [(f.getbbox("Hg")[3] - f.getbbox("Hg")[1]) * 1.45 if f else sz for t, f, sz in fonts]
+    # Yazı bloğu etiketten taşmasın: gerekirse bütün satırlar orantılı küçülür.
+    k = min(1.0, (B - T) * 0.9 / max(1, sum(heights)))
+    if k < 1:
+        blocks = [(t, fn, sz * k) for t, fn, sz in blocks]
+        fonts = [(t, fit_font(t, fn, sz, wide) if fn else None, sz) for t, fn, sz in blocks]
+        heights = [(f.getbbox("Hg")[3] - f.getbbox("Hg")[1]) * 1.45 if f else sz for t, f, sz in fonts]
     y = T + (B - T - sum(heights)) / 2
     for (t, f, _), hgt in zip(fonts, heights):
         if f and t:

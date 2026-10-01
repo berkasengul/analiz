@@ -1,0 +1,262 @@
+[
+ {
+  "id": 2000,
+  "handle": "acid-aqua",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/acid-aqua",
+  "variants": [
+   {
+    "id": 2000,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Acid Aqua",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>Little Miss Muffet</p><p>Sat on a tuffet,</p><p>Eating her curds and whey;</p><p>Along came a spider,</p><p>Who sat down beside her,</p><p>And frightened Miss Muffet away.</p><p>TOP NOTES: PEAR,KUMQUAT</p><p>MIDDLE NOTES: PINK PEPPER,MUGUET,CARDAMOM</p><p>BASE NOTES:SANDALWOOD,AMBROXAN,WHITE MUSK</p>"
+ },
+ {
+  "id": 2001,
+  "handle": "another-world",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/another-world",
+  "variants": [
+   {
+    "id": 2001,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Another World",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>Even if you go to another world,</p><p>where trees are upside down</p><p>and water is black ink. </p><p>Fingers dipped in it.</p><p>DNA mutated.</p><p>No sound no music.</p><p>Shadows will not betray you,</p><p>cause they always belonged to you.</p><p>TOP NOTES: INK, BLACK PEPPER</p><p>MIDDLE NOTES: PINE</p><p>BASE NOTES: CEDARWOOD, WHITE MUSK</p>"
+ },
+ {
+  "id": 2002,
+  "handle": "bodhi-utah",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/bodhi-utah",
+  "variants": [
+   {
+    "id": 2002,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Bodhi & Utah",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>-Bodhi: [getting ready for their next robbery] 90 seconds Johnny. That's all I ask for, just 90 seconds of your life Johnny, that's it. This is our tactic, is we strike fear. Once you get them peeing down their leg, they submit. Also about fear, fear causes hesitation, and hesitation, causes your worst fears to come true.</p><p>[hands Johnny a shot gun]</p><p>-Johnny Utah: I can't do this.</p><p>-Bodhi: Yes you can, who knows, you might like it.</p><p>-Johnny Utah: Bodhi, this is your fucking wake-up call man. I am an F, B, I, Agent!</p><p>-Bodhi: Yeah, I know man. Ain't it wild? That's what makes it so interesting. You can do what you want, and make up your own rules. Why be a servant to the law, when you can be its master?</p><p>TOP NOTES: CARDAMOM,SAGE TEA</p><p>MIDDLE NOTES: IRIS, TONKA</p><p>BASE NOTES: BLUE AMBER, INCENSE</p>"
+ },
+ {
+  "id": 2003,
+  "handle": "dark-dreams",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/dark-dreams",
+  "variants": [
+   {
+    "id": 2003,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Dark Dreams",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>The neon's and the cigarettes</p><p>Rented rooms and rented cars</p><p>The crowded streets, the empty bars</p><p>Chimney tops and trumpets </p><p>TOP NOTES: GERANIUM, SAFFRON</p><p>MIDDLE NOTES:  MANDARIN, BERGAMOT</p><p>BASE NOTES:  GASOLINE</p>"
+ },
+ {
+  "id": 2004,
+  "handle": "liquid-skin",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/liquid-skin",
+  "variants": [
+   {
+    "id": 2004,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Liquid Skin",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>STUCK BETWEEN TWO MOONS AND A THOUSAND THOUGHTS</p><p>TOP NOTES: LABDANUM, NAGARMOTHA</p><p>MIDDLE NOTES: RED CINNAMON</p><p>BASE NOTES: VETIVER, DRIED TOBACCO</p>"
+ },
+ {
+  "id": 2005,
+  "handle": "lost-chemistry",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/lost-chemistry",
+  "variants": [
+   {
+    "id": 2005,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Lost Chemistry",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>More than anything, I dream of love, crazy crazy mad love. The love that breaks hearts, starts wars, ruins lives, the love that sears itself into your soul, that you can feel every time your heart beats, that scorches your memory and comes back to you whenever you’re alone and it’s quiet and the world falls away, the love that still hurts, that makes you sit and stare at the floor and wonder what the fuck happened and why</p><p>TOP NOTES:  AMBER,RED MUSC,AGARWOOD </p><p>MIDDLE NOTES:  RASBERRY,FIG</p><p>BASE NOTES:  SANDALWOOD</p>"
+ },
+ {
+  "id": 2006,
+  "handle": "missing-feeling",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/missing-feeling",
+  "variants": [
+   {
+    "id": 2006,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Missing Feeling",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>AN AUGUST BREEZE, UNDER PEACH TREES AND MEDITERRANEAN DAYDREAMS</p><p>TOP NOTES: PEACH </p><p>MIDDLE NOTES: WHITE MUSK</p><p>BASE NOTES: CHAMPAGNE</p>"
+ },
+ {
+  "id": 2007,
+  "handle": "no-taboos",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/no-taboos",
+  "variants": [
+   {
+    "id": 2007,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "No Taboos",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>I'VE NO EXCUSE, I JUST WANT YOU TO USE ME</p><p>TAKE ME AND ABUSE ME</p><p>I GOT NO TABOOS, I'LL MAKE TRADE WITH YOU</p><p>DO ANYTHING YOU WANT ME TO</p><p>TOP NOTES: MILK, PHEROMONE MIX</p><p>MIDDLE NOTES: BLACK JASMINE, RED AMBER</p><p>BASE NOTES: MUSC, AMBER, PATCHOULI</p>"
+ },
+ {
+  "id": 2008,
+  "handle": "ozymandias",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/ozymandias",
+  "variants": [
+   {
+    "id": 2008,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Ozymandias",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>I met a traveller from an antique land,</p><p>Who said—“Two vast and trunkless legs of stone</p><p>Stand in the desert. . . . Near them, on the sand,</p><p>Half sunk a shattered visage lies, whose frown,</p><p>And wrinkled lip, and sneer of cold command,</p><p>Tell that its sculptor well those passions read</p><p>Which yet survive, stamped on these lifeless things,</p><p>The hand that mocked them, and the heart that fed;</p><p>And on the pedestal, these words appear:</p><p>My name is Ozymandias, King of Kings;</p><p>Look on my Works, ye Mighty, and despair!</p><p>Nothing beside remains. Round the decay</p><p>Of that colossal Wreck, boundless and bare</p><p>The lone and level sands stretch far away.</p><p>TOP NOTES: ELEMI, BLACK PEPPER</p><p>MIDDLE NOTES: LABDANUM, CASHMERE WOOD</p><p>BASE NOTES: AMBER, VANILLA</p>"
+ },
+ {
+  "id": 2009,
+  "handle": "psychic-vibrations",
+  "vendor": "Ephemeral Dyadic",
+  "product_type": "Eau de Parfum",
+  "permalink": "https://www.ephemeraldyadic.com/product-page/psychic-vibrations",
+  "variants": [
+   {
+    "id": 2009,
+    "title": "50 ml",
+    "price": "170",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   },
+   {
+    "src": ""
+   }
+  ],
+  "title": "Psychic Vibrations",
+  "body_html": "<p>50 ML / 1.7 OZ EAU DE PARFUM</p><p>Shadows of subconcious sentiments</p><p>Sounds echoeing under electric waves</p><p>Eyes twitching ,  fluids of body flux</p><p>Infinity growing in silence</p><p>Can you feel it?</p><p>TOP NOTES: CANNABIS,INCENSE</p><p>MIDDLE NOTES: MUGUET,IRIS</p><p>BASE NOTES: BURNED VANILLA</p>"
+ }
+]

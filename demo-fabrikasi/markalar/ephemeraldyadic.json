@@ -1,0 +1,950 @@
+{
+  "slug": "ephemeraldyadic",
+  "meta": {
+    "title": "Ephemeral Dyadic · Concept Demo",
+    "description": "A 3D concept demo for Ephemeral Dyadic. Not affiliated with the brand owner.",
+    "og": "Ephemeral Dyadic: you will remember how it made you feel."
+  },
+  "brand": {
+    "name": "Ephemeral Dyadic",
+    "sub": "Created and produced in Istanbul",
+    "specs": "Eau de Parfum · 50 ml",
+    "disclaimer": "Bu sayfa Ephemeral Dyadic için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Metinler, notalar, fiyatlar ve fotoğraflar ephemeraldyadic.com'dan alınmıştır; ödeme markanın kendi mağazasında tamamlanır. Türkçe metinler çeviridir.",
+    "en": {
+      "sub": "Created and produced in Istanbul",
+      "specs": "Eau de Parfum · 50 ml",
+      "disclaimer": "This page is an independent concept demo prepared for Ephemeral Dyadic and is not affiliated with the brand owner. Texts, notes, prices and photos are taken from ephemeraldyadic.com; checkout happens on the brand's own store."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "EPHEMERAL DYADIC",
+    "submark": "",
+    "concentration": "EAU DE PARFUM",
+    "volume": "50 ml",
+    "logoFile": "docs/brand/logo-white.png"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "Eau de Parfum · 50 ml",
+    "en": "Eau de Parfum · 50 ml / 1.7 oz"
+  },
+  "features": [
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Ephemeral",
+        "kicker": "Ad",
+        "struck": "Kalıcı koku",
+        "title": "Ephemeral · Dyadic",
+        "text": "‘Ephemeral’ geçici demek, ‘Dyadic’ iki şey arasındaki ilişkiyi anlatır: koku ile onu taşıyan arasındaki bağ."
+      },
+      "en": {
+        "short": "Ephemeral",
+        "kicker": "The name",
+        "struck": "A lasting scent",
+        "title": "Ephemeral · Dyadic",
+        "text": "‘Ephemeral’ means temporary; ‘Dyadic’ represents the relationship between two subjects: the bond between the fragrance and the wearer."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "Manifesto",
+        "kicker": "Manifesto",
+        "struck": "Taklit, beklenen",
+        "title": "Gölgede özgürlük",
+        "text": "“Bir sonraki büyük şey olmak için kendini kaybetmeye değer mi? Aşkın ve içtenliğin anları bir daha yaşanamaz.”"
+      },
+      "en": {
+        "short": "Manifesto",
+        "kicker": "Manifesto",
+        "struck": "Imitated, expected",
+        "title": "Freedom of obscurity",
+        "text": "“Is it worth losing yourself to be the next big thing? The moments of love and sincerity can never be relived.”"
+      }
+    },
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "İstanbul",
+        "kicker": "Atölye",
+        "struck": "Fabrika",
+        "title": "İstanbul'da tasarlandı ve üretildi",
+        "text": "Sanatçı Sinan Saul'un İstanbul'un sanayi bölgesindeki küçük sanat atölyesinde kurduğu bir parfüm projesi."
+      },
+      "en": {
+        "short": "Istanbul",
+        "kicker": "Studio",
+        "struck": "Factory",
+        "title": "Created and produced in Istanbul",
+        "text": "A perfume project founded by artist Sinan Saul in a small art studio in the industrial area of Istanbul."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Dünyaya kargo",
+        "kicker": "Kargo",
+        "struck": "Sınırlar",
+        "title": "Dünyanın her yerine ücretsiz kargo",
+        "text": "Her kutunun kendi siyah-beyaz deseni var; 50 ml Eau de Parfum ve 10 x 2 ml keşif seti."
+      },
+      "en": {
+        "short": "Free shipping",
+        "kicker": "Shipping",
+        "struck": "Borders",
+        "title": "Free shipping worldwide",
+        "text": "Every box carries its own black-and-white artwork; 50 ml Eau de Parfum and a 10 x 2 ml discovery set."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "Tek ürün",
+        "en": "Single"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "EUR",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 170
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "EUR",
+      "locale": "en-IE",
+      "packs": {
+        "1": 170
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "Sinan Saul",
+    "instagram": "",
+    "website": "https://www.ephemeraldyadic.com/",
+    "press": [],
+    "tr": {
+      "lead": "Kokuyu değil, size nasıl hissettirdiğini hatırlarsınız.",
+      "paragraphs": [
+        "Ephemeral Dyadic, sanatçı Sinan Saul'un İstanbul'un sanayi bölgesindeki küçük bir sanat atölyesinde kurduğu bir parfüm projesi.",
+        "Ana fikir şu: koku gibi dışımızdaki şeyler geçicidir, duygularımız ve anılarımız gibi içimizdekiler kalıcıdır. ‘Ephemeral’ geçici demek; ‘Dyadic’ iki özne arasındaki ilişkiyi, koku ile onu taşıyan arasındaki bağı anlatır.",
+        "Her koku bu iç duyguları ve anıları derin bir anlamla uyandırmayı ve hayatımızdaki önemlerini hatırlatmayı amaçlıyor."
+      ],
+      "timeline": [
+        [
+          "İstanbul",
+          "Sanayi bölgesinde küçük bir sanat atölyesi"
+        ],
+        [
+          "Manifesto",
+          "Gölgede özgürlük"
+        ],
+        [
+          "Dünyada",
+          "Avrupa, ABD, Körfez ve Avustralya'da satış noktaları"
+        ]
+      ],
+      "stats": [
+        [
+          "50 ml",
+          "Eau de Parfum"
+        ],
+        [
+          "10 x 2 ml",
+          "keşif seti"
+        ],
+        [
+          "Ücretsiz",
+          "dünyaya kargo"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "You will not remember the chemical on your skin, but you will remember how it made you feel.",
+      "paragraphs": [
+        "Ephemeral Dyadic is a perfume project founded by artist Sinan Saul in a small art studio in the industrial area of Istanbul.",
+        "The main idea behind the project is that external objects such as scents are ephemeral, while internal events such as our emotions and memories are permanent. ‘Ephemeral’ means temporary; ‘Dyadic’ represents the relationship between two subjects: the bond between the fragrance and the wearer.",
+        "Ephemeral Dyadic aims to evoke these inner feelings and memories in a profoundly meaningful way and remind us of their importance in our lives."
+      ],
+      "timeline": [
+        [
+          "Istanbul",
+          "A small art studio in the industrial area"
+        ],
+        [
+          "Manifesto",
+          "Freedom of obscurity"
+        ],
+        [
+          "Worldwide",
+          "Stockists across Europe, the US, the Gulf and Australia"
+        ]
+      ],
+      "stats": [
+        [
+          "50 ml",
+          "Eau de Parfum"
+        ],
+        [
+          "10 x 2 ml",
+          "discovery set"
+        ],
+        [
+          "Free",
+          "shipping worldwide"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Kargo ücretli mi?",
+        "Hayır. Ephemeral Dyadic dünyanın her yerine ücretsiz kargo gönderiyor."
+      ],
+      [
+        "Şişeler kaç ml?",
+        "Her koku 50 ml (1.7 oz) Eau de Parfum; fiyatı 170 €."
+      ],
+      [
+        "Kokuları önce deneyebilir miyim?",
+        "Evet: keşif seti 10 kokunun 2 ml'lik şişelerini içeriyor (80 €)."
+      ],
+      [
+        "Mağazada nerede bulunur?",
+        "Türkiye'de Shopigo ve Wunder; İtalya, Almanya, ABD, İspanya, Avusturya, Macaristan, Suudi Arabistan, Katar, BAE, Avustralya ve daha birçok ülkede seçkin parfümerilerde."
+      ],
+      [
+        "Nerede üretiliyor?",
+        "İstanbul'da tasarlanıp üretiliyor."
+      ],
+      [
+        "İletişim",
+        "info@ephemeraldyadic.com"
+      ]
+    ],
+    "en": [
+      [
+        "Is shipping free?",
+        "Yes. Ephemeral Dyadic ships worldwide free of charge."
+      ],
+      [
+        "What size are the bottles?",
+        "Each scent is 50 ml (1.7 oz) Eau de Parfum, priced at €170."
+      ],
+      [
+        "Can I try the scents first?",
+        "Yes: the discovery set holds 2 ml vials of all 10 scents (€80)."
+      ],
+      [
+        "Where can I find it in store?",
+        "Shopigo and Wunder in Türkiye; selected perfumeries in Italy, Germany, the US, Spain, Austria, Hungary, Saudi Arabia, Qatar, the UAE, Australia and more."
+      ],
+      [
+        "Where is it made?",
+        "Created and produced in Istanbul."
+      ],
+      [
+        "Contact",
+        "info@ephemeraldyadic.com"
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Ephemeral Dyadic",
+      "madeFor": "Ephemeral Dyadic için hazırlanmış konsept",
+      "recyclable": "Eau de Parfum · 50 ml",
+      "founder": "Kurucu · sanatçı",
+      "contactTag": "Soru, sipariş ve satış noktaları için info@ephemeraldyadic.com.",
+      "newsTitle": "Yeni kokular önce burada.",
+      "marquee": [
+        "Ephemeral Dyadic",
+        "İstanbul'da üretildi",
+        "Gölgede özgürlük",
+        "Eau de Parfum",
+        "Dünyaya ücretsiz kargo"
+      ],
+      "slogan": "Nasıl hissettirdiğini hatırlayacaksın.",
+      "nav": {
+        "flavors": "Kokular",
+        "catalog": "Tüm kokular",
+        "categories": "Kategoriler",
+        "products": "Kokular",
+        "sets": "Koleksiyon",
+        "about": "Manifesto",
+        "contact": "İletişim",
+        "finder": "Koku bulucu",
+        "story": "Manifesto",
+        "faq": "SSS",
+        "stockists": "Satış noktaları",
+        "ritual": "Ephemeral"
+      },
+      "flavors": "Kokular",
+      "notes": "Notalar",
+      "discover": "{0} kokusunu keşfet",
+      "discoverCan": "Kokuyu keşfet",
+      "backToFlavors": "Kokulara dön",
+      "prevFlavor": "Önceki koku",
+      "nextFlavor": "Sonraki koku",
+      "backToFlavor": "Koku bilgisine dön",
+      "exploreCan": "Kokuyu keşfet · {0} hikâye",
+      "whatsInside": "Notalar",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Kokunu seç",
+      "shopTag": "Ödeme ephemeraldyadic.com'da tamamlanır.",
+      "flavor": "Koku",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "Ephemeral Dyadic · {0}",
+      "family": "Seri",
+      "caffeine": "Yalnızca harici kullanım içindir.",
+      "perks": [
+        "Dünyaya ücretsiz kargo",
+        "50 ml Eau de Parfum",
+        "İstanbul'da üretildi"
+      ],
+      "taxes": "Dünyaya ücretsiz kargo",
+      "checkoutNote": "Ödeme ephemeraldyadic.com'da tamamlanır",
+      "variant": "Seçenek",
+      "related": "Benzer kokular",
+      "buildBox": "Kokuları keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} koku; her biri bir ruh hâli.",
+      "year": "Çıkış",
+      "composition": "Nota piramidi",
+      "ships": "Ücretsiz kargo",
+      "whereEyebrow": "Satış noktaları",
+      "whereTitle": "Ephemeral Dyadic'i nerede bulursunuz",
+      "whereTag": "Dünyanın dört bir yanında seçkin parfümerilerde.",
+      "place": "Ülke",
+      "spot": "Mağaza",
+      "status": "Web",
+      "ritual": "Ephemeral · Dyadic",
+      "storyEyebrow": "Manifesto",
+      "perfumer": "Kurucu",
+      "finder": {
+        "eyebrow": "Koku bulucu",
+        "title": "Ruh hâlini bul",
+        "lead": "Üç soru; cevaplarına göre kokun kaideye iniyor.",
+        "empty": "Kokun buraya inecek",
+        "result": "Senin kokun",
+        "discover": "Kokuyu keşfet",
+        "add": "Sepete ekle",
+        "added": "Eklendi",
+        "again": "Baştan başla",
+        "also": "Bunları da dene",
+        "back": "Geri",
+        "questions": [
+          [
+            "Hangi an?",
+            [
+              [
+                "Sabaha karşı, neonların altında",
+                {
+                  "warm": 1
+                }
+              ],
+              [
+                "Ağustos, şeftali ağaçlarının altında",
+                {
+                  "fresh": 0.6,
+                  "sweet": 0.4
+                }
+              ],
+              [
+                "Atölyede, mürekkep ve ahşap",
+                {
+                  "warm": 0.6,
+                  "fresh": 0.4
+                }
+              ],
+              [
+                "Bir sırrın içinde",
+                {
+                  "floral": 0.6,
+                  "sweet": 0.4
+                }
+              ]
+            ]
+          ],
+          [
+            "Seni ne çeker?",
+            [
+              [
+                "Deli bir aşk",
+                {
+                  "sweet": 1
+                }
+              ],
+              [
+                "Kuralları kendin koymak",
+                {
+                  "warm": 0.7,
+                  "fresh": 0.3
+                }
+              ],
+              [
+                "Sessizlikte büyüyen sonsuzluk",
+                {
+                  "floral": 0.6,
+                  "warm": 0.4
+                }
+              ],
+              [
+                "Başka bir dünya",
+                {
+                  "fresh": 1
+                }
+              ]
+            ]
+          ],
+          [
+            "Tende ne kalsın?",
+            [
+              [
+                "Amber ve vanilya",
+                {
+                  "sweet": 0.6,
+                  "warm": 0.4
+                }
+              ],
+              [
+                "Tütsü ve tütün",
+                {
+                  "warm": 1
+                }
+              ],
+              [
+                "Beyaz misk",
+                {
+                  "fresh": 0.5,
+                  "floral": 0.5
+                }
+              ],
+              [
+                "Sandal ağacı",
+                {
+                  "warm": 0.5,
+                  "sweet": 0.5
+                }
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    "en": {
+      "loading": "Ephemeral Dyadic",
+      "madeFor": "Concept prepared for Ephemeral Dyadic",
+      "recyclable": "Eau de Parfum · 50 ml",
+      "founder": "Founder · artist",
+      "contactTag": "Questions, orders and stockists: info@ephemeraldyadic.com.",
+      "newsTitle": "New scents land here first.",
+      "marquee": [
+        "Ephemeral Dyadic",
+        "Created and produced in Istanbul",
+        "Freedom of obscurity",
+        "Eau de Parfum",
+        "Free shipping worldwide"
+      ],
+      "slogan": "You will remember how it made you feel.",
+      "nav": {
+        "flavors": "Scents",
+        "catalog": "All scents",
+        "categories": "Categories",
+        "products": "Scents",
+        "sets": "Collection",
+        "about": "Manifesto",
+        "contact": "Contact",
+        "finder": "Scent finder",
+        "story": "Manifesto",
+        "faq": "FAQ",
+        "stockists": "Stockists",
+        "ritual": "Ephemeral"
+      },
+      "flavors": "Scents",
+      "notes": "Notes",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover the scent",
+      "backToFlavors": "Back to scents",
+      "prevFlavor": "Previous scent",
+      "nextFlavor": "Next scent",
+      "backToFlavor": "Back to scent",
+      "exploreCan": "Explore · {0} stories",
+      "whatsInside": "Notes",
+      "drag": "Drag to turn the bottle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your scent",
+      "shopTag": "Checkout completes on ephemeraldyadic.com.",
+      "flavor": "Scent",
+      "mix": "Discovery set",
+      "size": "Size",
+      "cans": "item",
+      "packPerCan": "Ephemeral Dyadic · {0}",
+      "family": "Series",
+      "caffeine": "For external use only.",
+      "perks": [
+        "Free shipping worldwide",
+        "50 ml Eau de Parfum",
+        "Created and produced in Istanbul"
+      ],
+      "taxes": "Free shipping worldwide",
+      "checkoutNote": "Checkout completes on ephemeraldyadic.com",
+      "variant": "Option",
+      "related": "Similar scents",
+      "buildBox": "Explore the scents",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} scents; every one a feeling.",
+      "year": "Launch",
+      "composition": "Notes pyramid",
+      "ships": "Free shipping",
+      "whereEyebrow": "Stockists",
+      "whereTitle": "Where to find Ephemeral Dyadic",
+      "whereTag": "Selected perfumeries around the world.",
+      "place": "Country",
+      "spot": "Store",
+      "status": "Web",
+      "perfumer": "Founder",
+      "ritual": "Ephemeral · Dyadic",
+      "storyEyebrow": "Manifesto",
+      "allEyebrow": "All scents",
+      "allTitle": "The collection",
+      "exploreAll": "Explore all scents",
+      "catalogTitle": "Scents",
+      "searchPlaceholder": "Search a scent or a note",
+      "scroll": "Scroll to discover",
+      "faqTitle": "Good questions",
+      "contactTitle": "Write to us",
+      "finder": {
+        "eyebrow": "Scent finder",
+        "title": "Find your feeling",
+        "lead": "Three questions; your scent lands on the plinth.",
+        "empty": "Your scent will land here",
+        "result": "Your scent",
+        "discover": "Discover the scent",
+        "add": "Add to bag",
+        "added": "Added",
+        "again": "Start over",
+        "also": "Also try",
+        "back": "Back",
+        "questions": [
+          [
+            "Which moment?",
+            [
+              [
+                "Before dawn, under neon",
+                {
+                  "warm": 1
+                }
+              ],
+              [
+                "August, under peach trees",
+                {
+                  "fresh": 0.6,
+                  "sweet": 0.4
+                }
+              ],
+              [
+                "In the studio, ink and wood",
+                {
+                  "warm": 0.6,
+                  "fresh": 0.4
+                }
+              ],
+              [
+                "Inside a secret",
+                {
+                  "floral": 0.6,
+                  "sweet": 0.4
+                }
+              ]
+            ]
+          ],
+          [
+            "What pulls you?",
+            [
+              [
+                "Crazy mad love",
+                {
+                  "sweet": 1
+                }
+              ],
+              [
+                "Making your own rules",
+                {
+                  "warm": 0.7,
+                  "fresh": 0.3
+                }
+              ],
+              [
+                "Infinity growing in silence",
+                {
+                  "floral": 0.6,
+                  "warm": 0.4
+                }
+              ],
+              [
+                "Another world",
+                {
+                  "fresh": 1
+                }
+              ]
+            ]
+          ],
+          [
+            "What should stay on skin?",
+            [
+              [
+                "Amber and vanilla",
+                {
+                  "sweet": 0.6,
+                  "warm": 0.4
+                }
+              ],
+              [
+                "Incense and tobacco",
+                {
+                  "warm": 1
+                }
+              ],
+              [
+                "White musk",
+                {
+                  "fresh": 0.5,
+                  "floral": 0.5
+                }
+              ],
+              [
+                "Sandalwood",
+                {
+                  "warm": 0.5,
+                  "sweet": 0.5
+                }
+              ]
+            ]
+          ]
+        ]
+      }
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "item"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "drop",
+  "logo": "brand/logo-white.png",
+  "labelFinish": {
+    "metalness": 0,
+    "roughness": 0.45,
+    "clearcoat": 0.35,
+    "clearcoatRoughness": 0.25,
+    "envMapIntensity": 0.6
+  },
+  "fillLight": "#efe4d6",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "ikas": "https://www.ephemeraldyadic.com/category/all-products"
+  },
+  "latinTerms": "Dark Dreams|Ozymandias|Liquid Skin|Psychic Vibrations|Another World|Lost Chemistry|Acid Aqua|Bodhi & Utah|Missing Feeling|No Taboos|Ephemeral Dyadic|Eau de Parfum|Ephemeral|Dyadic|Manifesto",
+  "glass": false,
+  "spray": true,
+  "photoUnlit": 0.8,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#d9d4c8",
+    "particles": "none",
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
+      "display": "\"Oswald\", \"Helvetica Neue\", Arial, sans-serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "glide",
+    "cards": "gallery",
+    "arch": false,
+    "petals": false,
+    "epilogue": true,
+    "plinthImage": "fon/kaide.webp"
+  },
+  "defaultLang": "en",
+  "hide": [],
+  "contactInfo": {
+    "tr": [
+      [
+        "E-posta",
+        [
+          "info@ephemeraldyadic.com"
+        ]
+      ],
+      [
+        "Web",
+        [
+          "ephemeraldyadic.com"
+        ]
+      ],
+      [
+        "Kargo",
+        [
+          "Dünyaya ücretsiz"
+        ]
+      ],
+      [
+        "Atölye",
+        [
+          "İstanbul"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "Email",
+        [
+          "info@ephemeraldyadic.com"
+        ]
+      ],
+      [
+        "Web",
+        [
+          "ephemeraldyadic.com"
+        ]
+      ],
+      [
+        "Shipping",
+        [
+          "Free worldwide"
+        ]
+      ],
+      [
+        "Studio",
+        [
+          "Istanbul"
+        ]
+      ]
+    ]
+  },
+  "catalog": {
+    "homeCount": 10,
+    "glow": "#1a1a1c",
+    "categories": [],
+    "items": []
+  },
+  "stockists": {
+    "tr": [
+      [
+        "Türkiye",
+        "Shopigo · Wunder",
+        "shopigo.com · wunder.com.tr"
+      ],
+      [
+        "İtalya",
+        "Antonioli (Milano), Profumi di Nicchia (Napoli), Valtellini (Rovato), Profumix (Modena), Poetry / Venom (Ravenna) ve diğerleri",
+        ""
+      ],
+      [
+        "Almanya",
+        "Voo Store Berlin · 15 West Berlin · Woodberg Darmstadt",
+        "voostore.com · 15west.de · woodberg.de"
+      ],
+      [
+        "ABD",
+        "The Scentroom (Dallas, LA) · ZGO San Francisco · LRCHQEV NYC",
+        "beautyliv.com"
+      ],
+      [
+        "İspanya",
+        "Linda Vuela a Río",
+        "lindavuelaario.com"
+      ],
+      [
+        "Avusturya",
+        "Osmotheca",
+        ""
+      ],
+      [
+        "Macaristan",
+        "Epic Perfumes",
+        "epicperfumery.com"
+      ],
+      [
+        "Suudi Arabistan",
+        "Lomary Boutique",
+        "lomaryboutique.com"
+      ],
+      [
+        "Katar · BAE",
+        "Jovoy",
+        ""
+      ],
+      [
+        "Avustralya",
+        "The Garden of Spring",
+        ""
+      ],
+      [
+        "Baltık",
+        "Creme de la Creme (Estonya, Letonya, Litvanya)",
+        ""
+      ],
+      [
+        "Diğer",
+        "Createur 5 d'Emotions (Romanya) · Footshop (Çekya) · Crime Passionel (Danimarka) · Mood Scent Bar (Polonya) · Perfumist (Belarus)",
+        ""
+      ]
+    ],
+    "en": [
+      [
+        "Turkey",
+        "Shopigo · Wunder",
+        "shopigo.com · wunder.com.tr"
+      ],
+      [
+        "Italy",
+        "Antonioli (Milano), Profumi di Nicchia (Napoli), Valtellini (Rovato), Profumix (Modena), Poetry / Venom (Ravenna) and more",
+        ""
+      ],
+      [
+        "Germany",
+        "Voo Store Berlin · 15 West Berlin · Woodberg Darmstadt",
+        "voostore.com · 15west.de · woodberg.de"
+      ],
+      [
+        "U.S.A.",
+        "The Scentroom (Dallas, LA) · ZGO San Francisco · LRCHQEV NYC",
+        "beautyliv.com"
+      ],
+      [
+        "Spain",
+        "Linda Vuela a Río",
+        "lindavuelaario.com"
+      ],
+      [
+        "Austria",
+        "Osmotheca",
+        ""
+      ],
+      [
+        "Hungary",
+        "Epic Perfumes",
+        "epicperfumery.com"
+      ],
+      [
+        "KSA",
+        "Lomary Boutique",
+        "lomaryboutique.com"
+      ],
+      [
+        "Qatar · UAE",
+        "Jovoy",
+        ""
+      ],
+      [
+        "Australia",
+        "The Garden of Spring",
+        ""
+      ],
+      [
+        "Baltics",
+        "Creme de la Creme (Estonia, Latvia, Lithuania)",
+        ""
+      ],
+      [
+        "More",
+        "Createur 5 d'Emotions (Romania) · Footshop (Czech Republic) · Crime Passionel (Denmark) · Mood Scent Bar (Poland) · Perfumist (Belarus)",
+        ""
+      ]
+    ]
+  },
+  "finder": {},
+  "langs": [
+    "en",
+    "tr"
+  ]
+}
