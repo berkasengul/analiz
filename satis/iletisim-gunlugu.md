@@ -27,6 +27,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | bilinmiyor (22:48) | Çakır Parfümeri | Giden | WhatsApp | Berka → Çakır Parfümeri | 4 satış görseli + "ürünleriniz için 3D web sitesi tasarımı yaptım"; mevcut sitenin yerine daha profesyonel sunum ve sipariş önerildi. Demo linki gönderildi mi: bilinmiyor | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-ilk-gorusme.md` |
 | bilinmiyor (22:52–22:58) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Güzel bir çalışma olmuş"; "sitemiz yaklaşık 1 yıl oldu kuralı"; maliyet soruldu | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-ilk-gorusme.md` |
 | bilinmiyor (22:58 sonrası) | Çakır Parfümeri | Giden | WhatsApp | Berka → Çakır Parfümeri | Teklif: 3D vitrin 8.500 ₺ (3 ay bakım ve revize hediye) ya da yıllık paket 12.000 ₺ (1 yıl bakım, sınırsız revize); mevcut ikas sitesi kalır; dosyalar teslim edilecek; Instagram @mkyreklam paylaşıldı | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-giden-teklif.md` |
+| bilinmiyor | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | Teklife cevap: "Yaptığınız bir site var mı inceleyebileceğimiz" (referans istiyor) | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-giden-teklif.md` |
 
 ---
 
@@ -111,7 +112,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 ### Çakır Parfümeri (cakirparfumeri.com.tr)
 - **İletişim:** WhatsApp 0541 748 64 84 (işletme hesabı) · info@cakirparfumeri.com.tr · @parfumor_st. Yazan kişinin adı belli değil (kurucu Tuğrul Çakır olabilir; doğrulanmadı). Berka'ya "Berkay bey" diye hitap ediyor.
 - **Altyapı:** ikas (sitesi yaklaşık 1 yıllık, kendi ifadesi).
-- **Durum:** Teklif gönderildi (WhatsApp, tarih bilinmiyor); cevap bekleniyor.
+- **Durum:** Teklif gönderildi (WhatsApp, tarih bilinmiyor); referans site istedi, cevap verilecek.
 - **Teklif:** 3D vitrin 8.500 ₺ + 3 ay bakım ve revize hediye · Yıllık paket 12.000 ₺ (1 yıl bakım, sınırsız revize).
 - **Verdiğimiz sözler (mesajda yazılı):**
   - Mevcut ikas sitesi değişmez; 3D vitrin önüne eklenir, sepet/ödeme/stok/kargo ikas'ta kalır.

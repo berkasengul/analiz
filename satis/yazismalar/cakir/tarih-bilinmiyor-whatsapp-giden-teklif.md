@@ -10,3 +10,9 @@
 > * 3D vitrin sitesi: 8.500 ₺ 3 ay bakım ve revize hediye.
 > * Yıllık paket: 12.000 ₺
 > Aynı site + 1 yıl bakım ve sınırsız revize: yeni koku ekleme, fiyat, metin ve fotoğraf değişikliklerini siz söyleyin, ben güncelleyeyim. dosyaları da size teslim edeceğim eğer hizmetimizden memnun kalmazsanız aynı tasarımı siz veya başka bir web tasarımcısına da yaptırabilirsiniz  İnstagram adresimiz incelemek isterseniz : https://www.instagram.com/mkyreklam/
+
+## Gelen cevap
+
+- **Tarih:** bilinmiyor
+- **Kimden:** Çakır Parfümeri (WhatsApp)
+- **Metin (kullanıcının aktardığı hâliyle):** Yaptığınız bir site var mı inceleyebileceğimiz
