@@ -385,3 +385,16 @@ olduğu markalarda marka dosyasına `"langs": ["tr"]` yazılır: dil düğmesi g
 şişenin arkasında hale, yavaşça akan ipek dalgalar ve fonu yansıtan parlak zemin (BackgroundMaterial → `u_fresh`).
 Renkler kurallar → `palette` ([regex, orta, açık, koyu]); fotoğraftan çıkan renk altın etikete kayıyorsa şişenin
 rengine bakarak elle seçilir (Régalien). Kaide açık renkli ve cilalı.
+
+## Online satışı olmayan markalar: vitrin modu (Joure)
+
+Marka mağaza/bayi ağıyla satıyor, sitesinde fiyat ve sepet yoksa marka dosyasında
+`"commerce": {"showcase": {"href": "https://wa.me/90…?text={text}", "message": {"tr": "Merhaba, JOURE {0} hakkında…", "en": "…"}}}`.
+Fiyatlar gösterilmez (`t.money` boş, `t.tagPrice` yalnızca hacim), sepet düğmesi ve paket bölümü kalkar; kartlardaki,
+detaydaki ve koku bulucudaki düğme (`ui.addToCart`, `ui.finder.add`: "WhatsApp'tan sor") ürünün adıyla markanın hattını açar.
+Ürün verisi fiyatsız (`"price": "0"`) `products-tr/en.json` olarak yazılır, `"platform": "merx"` ile aktarılır.
+
+Aynı şişeyle satılan seriler (Çakır'ın taç kapaklı şişesi, Joure NO Serisi): her ürüne aynı fotoğraf verilir, sahne rengi
+(`palette`) kokunun karakterinden seçilir. Yaşam tarzı fotoğrafında şişe önce kırpılır (çevresindeki kutu ve çiçek kesime
+girmesin); kapağın zemine yakın renkli bölümleri (taçtaki siyah mine) `solidTop` ile dolu kalır. Şeffaf cam tabanı
+yansıma sanılıp kesiliyorsa `"pedestal": true` ve `"convex": 0.22`.

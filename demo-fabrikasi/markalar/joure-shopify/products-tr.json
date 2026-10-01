@@ -1,0 +1,324 @@
+[
+ {
+  "id": 901,
+  "handle": "joure-no-1",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 901,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:1",
+  "body_html": "<p>Üst: Sicilya Mandalinası</p><p>Orta: Şam Gülü, Şakayık, Kayısı</p><p>Dip: Beyaz Misk</p>"
+ },
+ {
+  "id": 902,
+  "handle": "joure-no-2",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 902,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:2",
+  "body_html": "<p>Üst: Bergamot, Armut</p><p>Orta: Portakal Çiçeği, Yasemin, Sümbülteber</p><p>Dip: Vetiver, Paçuli, Vanilya, Ambroxan</p>"
+ },
+ {
+  "id": 904,
+  "handle": "joure-no-4",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 904,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:4",
+  "body_html": "<p>Üst: Acı Badem, Vanilya</p><p>Orta: Vanilya Tentürü</p><p>Dip: Tonka Fasulyesi, Sandal Ağacı, Vanilya Absolüsü</p>"
+ },
+ {
+  "id": 905,
+  "handle": "joure-no-5",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 905,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:5",
+  "body_html": "<p>Üst: Bergamot, Şeftali, Liçi</p><p>Orta: Yasemin, Şakayık, Portakal Çiçeği</p><p>Dip: Misk, Odunsu Notalar, Meşe Yosunu</p>"
+ },
+ {
+  "id": 906,
+  "handle": "joure-no-6",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 906,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:6",
+  "body_html": "<p>Üst: Çarkıfelek Meyvesi, Şeftali, Armut, Ahududu, Frenk Üzümü, Kumkuat</p><p>Orta: Müge</p><p>Dip: Vanilya, Misk, Sandal Ağacı, Paçuli</p>"
+ },
+ {
+  "id": 907,
+  "handle": "joure-no-7",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 907,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:7",
+  "body_html": "<p>Üst: Tarçın, Kakule, Portakal Çiçeği, Bergamot</p><p>Orta: Bourbon Vanilya</p><p>Dip: Tonka Fasulyesi, Amber, Pralin, Misk</p>"
+ },
+ {
+  "id": 908,
+  "handle": "joure-no-8",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 908,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:8",
+  "body_html": "<p>Üst: Kalabriya Bergamotu, Sicilya Portakalı, Sicilya Limonu</p><p>Orta: Nijerya Zencefili, Seylan Tarçını, Çin Siyah Çayı</p><p>Dip: Ambroksan, Tütsü, Guaiac Ağacı</p>"
+ },
+ {
+  "id": 909,
+  "handle": "joure-no-9",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 909,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:9",
+  "body_html": "<p>Üst: Lavanta, Kakule, Karabiber</p><p>Orta: Tütsü, Paçuli</p><p>Dip: Vanilya, Tonka Fasulyesi</p>"
+ },
+ {
+  "id": 910,
+  "handle": "joure-no-10",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 910,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:10",
+  "body_html": "<p>Üst: Lavanta, Nane</p><p>Orta: Vanilya, Benzoin</p><p>Dip: Bal, Tonka Fasulyesi, Tütün</p>"
+ },
+ {
+  "id": 911,
+  "handle": "joure-no-11",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 911,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:11",
+  "body_html": "<p>Üst: Pembe Biber, Ardıç</p><p>Orta: Tarçın, Lavanta, Adaçayı</p><p>Dip: Vanilya, Tonka Fasulyesi, Amber, Süet</p>"
+ },
+ {
+  "id": 912,
+  "handle": "joure-no-12",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 912,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:12",
+  "body_html": "<p>Üst: Nane, Limon, Fesleğen, Kekik</p><p>Orta: Lavanta</p><p>Dip: Misk, Mine Çiçeği</p>"
+ },
+ {
+  "id": 913,
+  "handle": "joure-no-13",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 913,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:13",
+  "body_html": "<p>Üst: Zencefil, Safran, Bergamot, Mandalina</p><p>Orta: Portakal Çiçeği, Lavanta</p><p>Dip: Vanilya, Bal, Vetiver</p>"
+ },
+ {
+  "id": 914,
+  "handle": "joure-no-14",
+  "vendor": "JOURE",
+  "product_type": "NO Serisi",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 914,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "JOURE NO:14",
+  "body_html": "<p>Üst: Mandalina, Kırmızı Meyveler</p><p>Orta: Portakal Çiçeği, Bademli Tatlı Akor</p><p>Dip: Vanilya, Kakao, Misk</p>"
+ },
+ {
+  "id": 950,
+  "handle": "oud-exclusive",
+  "vendor": "JOURE",
+  "product_type": "Oud Exclusive",
+  "permalink": "https://joureperfume.com/urunler/",
+  "variants": [
+   {
+    "id": 950,
+    "title": "Default Title",
+    "price": "0",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": ""
+   }
+  ],
+  "title": "Oud Exclusive",
+  "body_html": "<p>Daha derin, yoğun ve karakterli bir koku dünyası arayanlar için.</p>"
+ }
+]

@@ -1,0 +1,514 @@
+[
+ {
+  "handle": "joure-no-1",
+  "no": 1,
+  "k": "Hafif Çiçeksi Pudramsı",
+  "kEn": "Soft Floral Powdery",
+  "season": "İlkbahar – Yaz",
+  "seasonEn": "Spring – Summer",
+  "s": "ilk",
+  "comp": [
+   "Üst: Sicilya Mandalinası",
+   "Orta: Şam Gülü, Şakayık, Kayısı",
+   "Dip: Beyaz Misk"
+  ],
+  "compEn": [
+   "Top: Sicilian Mandarin",
+   "Heart: Damask Rose, Peony, Apricot",
+   "Base: White Musk"
+  ],
+  "notes": [
+   "Sicilya Mandalinası",
+   "Şam Gülü",
+   "Şakayık",
+   "Kayısı",
+   "Beyaz Misk"
+  ],
+  "notesEn": [
+   "Sicilian Mandarin",
+   "Damask Rose",
+   "Peony",
+   "Apricot",
+   "White Musk"
+  ]
+ },
+ {
+  "handle": "joure-no-2",
+  "no": 2,
+  "k": "Beyaz Çiçeksi Odunsu",
+  "kEn": "White Floral Woody",
+  "season": "4 Mevsim",
+  "seasonEn": "All Seasons",
+  "s": "dort",
+  "comp": [
+   "Üst: Bergamot, Armut",
+   "Orta: Portakal Çiçeği, Yasemin, Sümbülteber",
+   "Dip: Vetiver, Paçuli, Vanilya, Ambroxan"
+  ],
+  "compEn": [
+   "Top: Bergamot, Pear",
+   "Heart: Orange Blossom, Jasmine, Tuberose",
+   "Base: Vetiver, Patchouli, Vanilla, Ambroxan"
+  ],
+  "notes": [
+   "Bergamot",
+   "Armut",
+   "Portakal Çiçeği",
+   "Yasemin",
+   "Sümbülteber",
+   "Vetiver",
+   "Paçuli",
+   "Vanilya",
+   "Ambroxan"
+  ],
+  "notesEn": [
+   "Bergamot",
+   "Pear",
+   "Orange Blossom",
+   "Jasmine",
+   "Tuberose",
+   "Vetiver",
+   "Patchouli",
+   "Vanilla",
+   "Ambroxan"
+  ]
+ },
+ {
+  "handle": "joure-no-4",
+  "no": 4,
+  "k": "Vanilyalı, Tatlı, Sıcak",
+  "kEn": "Vanilla, Sweet, Warm",
+  "season": "Sonbahar – Kış",
+  "seasonEn": "Autumn – Winter",
+  "s": "kis",
+  "comp": [
+   "Üst: Acı Badem, Vanilya",
+   "Orta: Vanilya Tentürü",
+   "Dip: Tonka Fasulyesi, Sandal Ağacı, Vanilya Absolüsü"
+  ],
+  "compEn": [
+   "Top: Bitter Almond, Vanilla",
+   "Heart: Vanilla Tincture",
+   "Base: Tonka Bean, Sandalwood, Vanilla Absolute"
+  ],
+  "notes": [
+   "Acı Badem",
+   "Vanilya",
+   "Vanilya Tentürü",
+   "Tonka Fasulyesi",
+   "Sandal Ağacı",
+   "Vanilya Absolüsü"
+  ],
+  "notesEn": [
+   "Bitter Almond",
+   "Vanilla",
+   "Vanilla Tincture",
+   "Tonka Bean",
+   "Sandalwood",
+   "Vanilla Absolute"
+  ]
+ },
+ {
+  "handle": "joure-no-5",
+  "no": 5,
+  "k": "Meyveli Çiçeksi",
+  "kEn": "Fruity Floral",
+  "season": "İlkbahar – Yaz",
+  "seasonEn": "Spring – Summer",
+  "s": "ilk",
+  "comp": [
+   "Üst: Bergamot, Şeftali, Liçi",
+   "Orta: Yasemin, Şakayık, Portakal Çiçeği",
+   "Dip: Misk, Odunsu Notalar, Meşe Yosunu"
+  ],
+  "compEn": [
+   "Top: Bergamot, Peach, Lychee",
+   "Heart: Jasmine, Peony, Orange Blossom",
+   "Base: Musk, Woody Notes, Oakmoss"
+  ],
+  "notes": [
+   "Bergamot",
+   "Şeftali",
+   "Liçi",
+   "Yasemin",
+   "Şakayık",
+   "Portakal Çiçeği",
+   "Misk",
+   "Odunsu Notalar",
+   "Meşe Yosunu"
+  ],
+  "notesEn": [
+   "Bergamot",
+   "Peach",
+   "Lychee",
+   "Jasmine",
+   "Peony",
+   "Orange Blossom",
+   "Musk",
+   "Woody Notes",
+   "Oakmoss"
+  ]
+ },
+ {
+  "handle": "joure-no-6",
+  "no": 6,
+  "k": "Tropikal Meyvemsi, Tatlı Amber",
+  "kEn": "Tropical Fruity, Sweet Amber",
+  "season": "4 Mevsim",
+  "seasonEn": "All Seasons",
+  "s": "dort",
+  "comp": [
+   "Üst: Çarkıfelek Meyvesi, Şeftali, Armut, Ahududu, Frenk Üzümü, Kumkuat",
+   "Orta: Müge",
+   "Dip: Vanilya, Misk, Sandal Ağacı, Paçuli"
+  ],
+  "compEn": [
+   "Top: Passion Fruit, Peach, Pear, Raspberry, Blackcurrant, Kumquat",
+   "Heart: Lily of the Valley",
+   "Base: Vanilla, Musk, Sandalwood, Patchouli"
+  ],
+  "notes": [
+   "Çarkıfelek Meyvesi",
+   "Şeftali",
+   "Armut",
+   "Ahududu",
+   "Frenk Üzümü",
+   "Kumkuat",
+   "Müge",
+   "Vanilya",
+   "Misk",
+   "Sandal Ağacı",
+   "Paçuli"
+  ],
+  "notesEn": [
+   "Passion Fruit",
+   "Peach",
+   "Pear",
+   "Raspberry",
+   "Blackcurrant",
+   "Kumquat",
+   "Lily of the Valley",
+   "Vanilla",
+   "Musk",
+   "Sandalwood",
+   "Patchouli"
+  ]
+ },
+ {
+  "handle": "joure-no-7",
+  "no": 7,
+  "k": "Vanilya, Baharat, Amber",
+  "kEn": "Vanilla, Spice, Amber",
+  "season": "Sonbahar – Kış",
+  "seasonEn": "Autumn – Winter",
+  "s": "kis",
+  "comp": [
+   "Üst: Tarçın, Kakule, Portakal Çiçeği, Bergamot",
+   "Orta: Bourbon Vanilya",
+   "Dip: Tonka Fasulyesi, Amber, Pralin, Misk"
+  ],
+  "compEn": [
+   "Top: Cinnamon, Cardamom, Orange Blossom, Bergamot",
+   "Heart: Bourbon Vanilla",
+   "Base: Tonka Bean, Amber, Praline, Musk"
+  ],
+  "notes": [
+   "Tarçın",
+   "Kakule",
+   "Portakal Çiçeği",
+   "Bergamot",
+   "Bourbon Vanilya",
+   "Tonka Fasulyesi",
+   "Amber",
+   "Pralin",
+   "Misk"
+  ],
+  "notesEn": [
+   "Cinnamon",
+   "Cardamom",
+   "Orange Blossom",
+   "Bergamot",
+   "Bourbon Vanilla",
+   "Tonka Bean",
+   "Amber",
+   "Praline",
+   "Musk"
+  ]
+ },
+ {
+  "handle": "joure-no-8",
+  "no": 8,
+  "k": "Narenciye Aromatik",
+  "kEn": "Citrus Aromatic",
+  "season": "İlkbahar – Yaz",
+  "seasonEn": "Spring – Summer",
+  "s": "ilk",
+  "comp": [
+   "Üst: Kalabriya Bergamotu, Sicilya Portakalı, Sicilya Limonu",
+   "Orta: Nijerya Zencefili, Seylan Tarçını, Çin Siyah Çayı",
+   "Dip: Ambroksan, Tütsü, Guaiac Ağacı"
+  ],
+  "compEn": [
+   "Top: Calabrian Bergamot, Sicilian Orange, Sicilian Lemon",
+   "Heart: Nigerian Ginger, Ceylon Cinnamon, Chinese Black Tea",
+   "Base: Ambroxan, Incense, Guaiac Wood"
+  ],
+  "notes": [
+   "Kalabriya Bergamotu",
+   "Sicilya Portakalı",
+   "Sicilya Limonu",
+   "Nijerya Zencefili",
+   "Seylan Tarçını",
+   "Çin Siyah Çayı",
+   "Ambroksan",
+   "Tütsü",
+   "Guaiac Ağacı"
+  ],
+  "notesEn": [
+   "Calabrian Bergamot",
+   "Sicilian Orange",
+   "Sicilian Lemon",
+   "Nigerian Ginger",
+   "Ceylon Cinnamon",
+   "Chinese Black Tea",
+   "Ambroxan",
+   "Incense",
+   "Guaiac Wood"
+  ]
+ },
+ {
+  "handle": "joure-no-9",
+  "no": 9,
+  "k": "Baharatlı, Tatlı Amber",
+  "kEn": "Spicy, Sweet Amber",
+  "season": "Sonbahar – Kış",
+  "seasonEn": "Autumn – Winter",
+  "s": "kis",
+  "comp": [
+   "Üst: Lavanta, Kakule, Karabiber",
+   "Orta: Tütsü, Paçuli",
+   "Dip: Vanilya, Tonka Fasulyesi"
+  ],
+  "compEn": [
+   "Top: Lavender, Cardamom, Black Pepper",
+   "Heart: Incense, Patchouli",
+   "Base: Vanilla, Tonka Bean"
+  ],
+  "notes": [
+   "Lavanta",
+   "Kakule",
+   "Karabiber",
+   "Tütsü",
+   "Paçuli",
+   "Vanilya",
+   "Tonka Fasulyesi"
+  ],
+  "notesEn": [
+   "Lavender",
+   "Cardamom",
+   "Black Pepper",
+   "Incense",
+   "Patchouli",
+   "Vanilla",
+   "Tonka Bean"
+  ]
+ },
+ {
+  "handle": "joure-no-10",
+  "no": 10,
+  "k": "Tatlı, Aromatik Amber",
+  "kEn": "Sweet, Aromatic Amber",
+  "season": "Sonbahar – Kış",
+  "seasonEn": "Autumn – Winter",
+  "s": "kis",
+  "comp": [
+   "Üst: Lavanta, Nane",
+   "Orta: Vanilya, Benzoin",
+   "Dip: Bal, Tonka Fasulyesi, Tütün"
+  ],
+  "compEn": [
+   "Top: Lavender, Mint",
+   "Heart: Vanilla, Benzoin",
+   "Base: Honey, Tonka Bean, Tobacco"
+  ],
+  "notes": [
+   "Lavanta",
+   "Nane",
+   "Vanilya",
+   "Benzoin",
+   "Bal",
+   "Tonka Fasulyesi",
+   "Tütün"
+  ],
+  "notesEn": [
+   "Lavender",
+   "Mint",
+   "Vanilla",
+   "Benzoin",
+   "Honey",
+   "Tonka Bean",
+   "Tobacco"
+  ]
+ },
+ {
+  "handle": "joure-no-11",
+  "no": 11,
+  "k": "Tatlı, Baharatlı, Odunsu",
+  "kEn": "Sweet, Spicy, Woody",
+  "season": "Sonbahar – Kış",
+  "seasonEn": "Autumn – Winter",
+  "s": "kis",
+  "comp": [
+   "Üst: Pembe Biber, Ardıç",
+   "Orta: Tarçın, Lavanta, Adaçayı",
+   "Dip: Vanilya, Tonka Fasulyesi, Amber, Süet"
+  ],
+  "compEn": [
+   "Top: Pink Pepper, Juniper",
+   "Heart: Cinnamon, Lavender, Sage",
+   "Base: Vanilla, Tonka Bean, Amber, Suede"
+  ],
+  "notes": [
+   "Pembe Biber",
+   "Ardıç",
+   "Tarçın",
+   "Lavanta",
+   "Adaçayı",
+   "Vanilya",
+   "Tonka Fasulyesi",
+   "Amber",
+   "Süet"
+  ],
+  "notesEn": [
+   "Pink Pepper",
+   "Juniper",
+   "Cinnamon",
+   "Lavender",
+   "Sage",
+   "Vanilla",
+   "Tonka Bean",
+   "Amber",
+   "Suede"
+  ]
+ },
+ {
+  "handle": "joure-no-12",
+  "no": 12,
+  "k": "Aromatik, Ferah Narenciyeli",
+  "kEn": "Aromatic, Fresh Citrus",
+  "season": "İlkbahar – Yaz",
+  "seasonEn": "Spring – Summer",
+  "s": "ilk",
+  "comp": [
+   "Üst: Nane, Limon, Fesleğen, Kekik",
+   "Orta: Lavanta",
+   "Dip: Misk, Mine Çiçeği"
+  ],
+  "compEn": [
+   "Top: Mint, Lemon, Basil, Thyme",
+   "Heart: Lavender",
+   "Base: Musk, Immortelle"
+  ],
+  "notes": [
+   "Nane",
+   "Limon",
+   "Fesleğen",
+   "Kekik",
+   "Lavanta",
+   "Misk",
+   "Mine Çiçeği"
+  ],
+  "notesEn": [
+   "Mint",
+   "Lemon",
+   "Basil",
+   "Thyme",
+   "Lavender",
+   "Musk",
+   "Immortelle"
+  ]
+ },
+ {
+  "handle": "joure-no-13",
+  "no": 13,
+  "k": "Çiçeksi, Sıcak, Amberli",
+  "kEn": "Floral, Warm, Ambery",
+  "season": "Sonbahar – Kış",
+  "seasonEn": "Autumn – Winter",
+  "s": "kis",
+  "comp": [
+   "Üst: Zencefil, Safran, Bergamot, Mandalina",
+   "Orta: Portakal Çiçeği, Lavanta",
+   "Dip: Vanilya, Bal, Vetiver"
+  ],
+  "compEn": [
+   "Top: Ginger, Saffron, Bergamot, Mandarin",
+   "Heart: Orange Blossom, Lavender",
+   "Base: Vanilla, Honey, Vetiver"
+  ],
+  "notes": [
+   "Zencefil",
+   "Safran",
+   "Bergamot",
+   "Mandalina",
+   "Portakal Çiçeği",
+   "Lavanta",
+   "Vanilya",
+   "Bal",
+   "Vetiver"
+  ],
+  "notesEn": [
+   "Ginger",
+   "Saffron",
+   "Bergamot",
+   "Mandarin",
+   "Orange Blossom",
+   "Lavender",
+   "Vanilla",
+   "Honey",
+   "Vetiver"
+  ]
+ },
+ {
+  "handle": "joure-no-14",
+  "no": 14,
+  "k": "Karamelli, Tatlı",
+  "kEn": "Caramel, Sweet",
+  "season": "Sonbahar – Kış",
+  "seasonEn": "Autumn – Winter",
+  "s": "kis",
+  "comp": [
+   "Üst: Mandalina, Kırmızı Meyveler",
+   "Orta: Portakal Çiçeği, Bademli Tatlı Akor",
+   "Dip: Vanilya, Kakao, Misk"
+  ],
+  "compEn": [
+   "Top: Mandarin, Red Berries",
+   "Heart: Orange Blossom, Sweet Almond Accord",
+   "Base: Vanilla, Cocoa, Musk"
+  ],
+  "notes": [
+   "Mandalina",
+   "Kırmızı Meyveler",
+   "Portakal Çiçeği",
+   "Bademli Tatlı Akor",
+   "Vanilya",
+   "Kakao",
+   "Misk"
+  ],
+  "notesEn": [
+   "Mandarin",
+   "Red Berries",
+   "Orange Blossom",
+   "Sweet Almond Accord",
+   "Vanilla",
+   "Cocoa",
+   "Musk"
+  ]
+ },
+ {
+  "handle": "oud-exclusive",
+  "notes": [],
+  "notesEn": []
+ }
+]
