@@ -75,8 +75,9 @@ Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kay�
 | Çakır Parfümeri | `demolar/cakir-Netlify.zip` | `cakir-mail.md` | WhatsApp öncelikli |
 | MAD Parfumeur | `demolar/mad-Netlify.zip` | `mad-mail.md` | LinkedIn öncelikli |
 | ANYMO Paris | `demolar/anymo-Netlify.zip` | `anymo-mail.md` | Yalnızca kendi adını taşıyan 12 koku |
+| Ephemeral Dyadic | `demolar/ephemeraldyadic-Netlify.zip` | `ephemeraldyadic-mail.md` | Sinan Saul; info@ephemeraldyadic.com |
 | Pekji | `demolar/pekji-Netlify.zip` | `pekji-mail.md` | |
 | Parfümőrült | `demolar/parfumorult-Netlify.zip` | `parfumorult-mail.md` | Macarca |
 | Mes Bisous, Regalien, Royal Platinum, Türkan, Unique, Mardini, Attar Al Has, Lalive | `demolar/` | `*-mail.md` | Önceki dönem demoları |
 
-**Atlananlar ve bekleyenler** (gerekçeleri `parfum-firmalari.csv`'de): Marko Parfüm, Buse Parfümeri ve Suyu Parfüm atlandı; Parfumoriaa ve Kız Kulesi Parfüm veri alınamadığı için bekliyor.
+**Atlananlar ve bekleyenler** (gerekçeleri `parfum-firmalari.csv`'de): Marko Parfüm, Buse Parfümeri ve Suyu Parfüm atlandı; Parfumoriaa ve Kız Kulesi Parfüm veri alınamadığı için bekliyor. Anatoline, Nicheend ve Amigdala Sentimentals'ın resmi sitesi yok ya da yanıt vermiyor; Osmassino Rusya pazarına dönük (karar bekliyor).

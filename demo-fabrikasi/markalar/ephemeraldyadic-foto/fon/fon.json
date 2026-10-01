@@ -1,0 +1,92 @@
+{
+ "acid-aqua": {
+  "src": "fon/acid-aqua.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/acid-aqua-duvar.webp",
+  "exhibit": "fon/acid-aqua-sergi.webp"
+ },
+ "another-world": {
+  "src": "fon/another-world.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/another-world-duvar.webp",
+  "exhibit": "fon/another-world-sergi.webp"
+ },
+ "bodhi-utah": {
+  "src": "fon/bodhi-utah.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/bodhi-utah-duvar.webp",
+  "exhibit": "fon/bodhi-utah-sergi.webp"
+ },
+ "dark-dreams": {
+  "src": "fon/dark-dreams.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/dark-dreams-duvar.webp",
+  "exhibit": "fon/dark-dreams-sergi.webp"
+ },
+ "liquid-skin": {
+  "src": "fon/liquid-skin.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/liquid-skin-duvar.webp",
+  "exhibit": "fon/liquid-skin-sergi.webp"
+ },
+ "lost-chemistry": {
+  "src": "fon/lost-chemistry.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/lost-chemistry-duvar.webp",
+  "exhibit": "fon/lost-chemistry-sergi.webp"
+ },
+ "missing-feeling": {
+  "src": "fon/missing-feeling.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/missing-feeling-duvar.webp",
+  "exhibit": "fon/missing-feeling-sergi.webp"
+ },
+ "no-taboos": {
+  "src": "fon/no-taboos.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/no-taboos-duvar.webp",
+  "exhibit": "fon/no-taboos-sergi.webp"
+ },
+ "ozymandias": {
+  "src": "fon/ozymandias.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/ozymandias-duvar.webp",
+  "exhibit": "fon/ozymandias-sergi.webp"
+ },
+ "psychic-vibrations": {
+  "src": "fon/psychic-vibrations.webp",
+  "aspect": 0.75,
+  "base": 0.6616,
+  "cx": 0.5,
+  "h": 0.4781,
+  "wall": "fon/psychic-vibrations-duvar.webp",
+  "exhibit": "fon/psychic-vibrations-sergi.webp"
+ }
+}

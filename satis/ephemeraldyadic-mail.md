@@ -13,7 +13,7 @@
 - **Instagram:** sitede bağlantı yok, adres bilinmiyor. Göndermeden önce doğrula.
 - Marka uluslararası satıyor ama kurucu İstanbul'da: Türkçe yaz, altına İngilizcesini ekle.
 
-**Ek:** `ephemeraldyadic-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`. Zip ekleme, linki gönder.
+**Ek:** `ephemeraldyadic-gorseller/1-anasayfa.jpg`, `2-urun-detay.jpg`, `3-telefon.jpg`; istersen `4-manifesto.jpg`, `5-sise-arka.jpg` (arka etiket), `6-koleksiyon.jpg`. Zip ekleme, linki gönder.
 
 ---
 
