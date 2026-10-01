@@ -117,12 +117,12 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 
 ### Çakır Parfümeri (cakirparfumeri.com.tr)
 - **İletişim:** WhatsApp 0541 748 64 84 (işletme hesabı) · info@cakirparfumeri.com.tr · @parfumor_st. Yazan kişinin adı belli değil (kurucu Tuğrul Çakır olabilir; doğrulanmadı). Berka'ya "Berkay bey" diye hitap ediyor.
-- **Altyapı:** ikas (sitesi yaklaşık 1 yıllık, kendi ifadesi).
+- **Altyapı:** ikas DEĞİL: UK Ajans'ın yaptığı özel (PHP) mağaza (sitenin alt kısmında "UK Ajans"; demo verisi de buradan çekildi). Sitesi yaklaşık 1 yıllık (kendi ifadesi). Teklif mesajında ve önerilen metinlerde yanlışlıkla "ikas" dendi; düzeltilmeli.
 - **Durum:** Teklif gönderildi; 12.000 ₺'yi yıllık sandı (itiraz); 01.10.2026 23:50'de "yarın dönüş sağlayacağım" dedi. Düzeltme mesajının (tek seferlik ödeme, tema değil, otomatik fiyat yok) gönderilip gönderilmediği bilinmiyor.
 - **Takip:** 02.10.2026'da dönüş bekleniyor; gelmezse 03.10.2026 öğleden sonra kısa hatırlatma.
 - **Teklif:** 3D vitrin 8.500 ₺ + 3 ay bakım ve revize hediye · Yıllık paket 12.000 ₺ (1 yıl bakım, sınırsız revize).
 - **Verdiğimiz sözler (mesajda yazılı):**
-  - Mevcut ikas sitesi değişmez; 3D vitrin önüne eklenir, sepet/ödeme/stok/kargo ikas'ta kalır.
+  - Mevcut site değişmez; 3D vitrin önüne eklenir, sepet/ödeme/stok/kargo mevcut sitede kalır (mesajda "ikas" dendi; site ikas değil).
   - Yıllık pakette 1 yıl boyunca yeni koku ekleme, fiyat, metin ve fotoğraf güncellemeleri.
   - Dosyalar müşteriye teslim edilecek (memnun kalmazsa tasarımı kendisi ya da başka bir tasarımcı sürdürebilir).
 - **Bizim hesap:** Instagram @mkyreklam (mesajda paylaşıldı).
