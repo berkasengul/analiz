@@ -721,7 +721,7 @@
     "clearcoatRoughness": 0.25,
     "envMapIntensity": 0.6
   },
-  "fillLight": "#efe4d6",
+  "fillLight": "#f3f1ee",
   "commerce": {
     "packs": false,
     "plans": false,
@@ -751,6 +751,7 @@
     "cards": "gallery",
     "arch": false,
     "brightWalls": true,
+    "cinema": true,
     "petals": false,
     "epilogue": true,
     "plinthImage": "fon/kaide.webp"

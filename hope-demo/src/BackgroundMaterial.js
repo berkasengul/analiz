@@ -59,6 +59,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_sceneX: 0.5,
     u_sceneLight: 1,
     u_vivid: 0,
+    u_cine: 0,
     u_petals: 1,
   },
   /* glsl */ `
@@ -112,6 +113,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_sceneX;
     uniform float u_sceneLight;
     uniform float u_vivid;
+    uniform float u_cine;
     uniform float u_petals;
 
     varying vec2 vUv;
@@ -148,10 +150,11 @@ export const BackgroundMaterial = shaderMaterial(
       vec3 c = texture2D(map, uv, blur).rgb;
       // Işıltı: parlak altın detayların çevresine yumuşak ışık taşar.
       vec3 glow = texture2D(map, uv, blur + 3.5).rgb;
-      c += max(glow - 0.32, 0.) * mix(0.55, 0.3, u_vivid);
+      // Sinematik tema (u_cine): fotoğraf kendi ışığıyla gelir; ek parıltı ve sıcak ton yok (renk filtresi yok).
+      c += max(glow - 0.32, 0.) * mix(0.55, 0.3, u_vivid) * (1. - u_cine);
       // Film tonu: gölgeler derin, ışıklar sıcak (canlı sahnede fotoğrafın kendi tonu).
       c = pow(max(c, 0.), vec3(mix(1.12, 1.02, u_vivid))) * 1.08;
-      c *= vec3(1.03, 1.0, 0.95);
+      c *= mix(vec3(1.03, 1.0, 0.95), vec3(1.), u_cine);
       return c * (1. - 0.35 * smoothstep(0., 0.5, out_));
     }
 
@@ -440,7 +443,7 @@ export const BackgroundMaterial = shaderMaterial(
         float sm = fbm(sp_ + vec2(fbm(sp_ * 1.3 + u_time * 0.02), 0.) * 1.4);
         float smMask = exp(-pow(sdx / (bw * 1.6), 2.)) * smoothstep(-0.12, 0.02, sy) * (1. - smoothstep(0.1, bw * 1.5, sy));
         float smoke = smoothstep(0.38, 0.85, sm) * smMask;
-        base += mix(tint, vec3(1.), 0.35) * smoke * 0.2 * u_sceneOn * mix(0.5, 1., u_sceneLight);
+        base += mix(tint, vec3(1.), 0.35) * smoke * 0.2 * u_sceneOn * mix(0.5, 1., u_sceneLight) * (1. - 0.8 * u_cine);
 
         vec3 petalCol = mix(tint, vec3(1., 0.78, 0.86), 0.45);
         for (int L = 0; L < 2; L++) {
