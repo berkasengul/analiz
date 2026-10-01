@@ -23,6 +23,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 | ILLUSIONE | Giden | bilinmiyor | Berka → ILLUSIONE (kanal bilinmiyor; taslakta hello@illusioneperfume.com ve Instagram) | İlk satış mesajı: 15 koku, 15 renk; 3D satış sitesi | `yazismalar/illusione/2026-10-01-giden-ilk-mesaj.md` |
 | 01.10.2026 | Ephemeral Dyadic | Giden | E-posta | Berka → info@ephemeraldyadic.com (Sinan Saul'a hitaben) | İlk satış maili (TR + EN): her koku kendi kutu deseninin önünde siyah-beyaz sinematik sahne, şişe çevirme ve arka etiket, şiirler, manifesto, koku bulucu, satış noktaları; 15 dakikalık görüntülü görüşme önerildi | `yazismalar/ephemeraldyadic/2026-10-01-giden-ilk-mail.md` |
 | 01.10.2026 | Pekji | Giden | E-posta | Berka → contact@pekji.com (Ömer İpekçi'ye hitaben) | İlk satış maili: Reset'in dört aşaması için 3D satış sitesi, şişe çevirme ve sprey, koku bulucu, 9 parfüm ve 22 satış noktası; 10 dakikalık görüşme önerildi | `yazismalar/pekji/2026-10-01-giden-ilk-mail.md` |
+| 01.10.2026 | ANYMO Paris | Giden | bilinmiyor | Berka → ANYMO Paris (taslakta info@anymoparfum.com ve @anymoparis) | İlk satış mesajı: kendi etiketli 12 extrait koku için 3D satış sitesi, sprey, kaideye inen koku bulucu; Nişantaşı mağazasında 10 dakikalık gösterim önerildi | `yazismalar/anymo/2026-10-01-giden-ilk-mesaj.md` |
 
 ---
 
@@ -95,6 +96,15 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
   - Takip 2: 08.10.2026 (son; yeni koleksiyon için tek sayfalık lansman sayfası ya da satış noktalarına 3D şişe videoları önerilir).
   - Fiyat sorulursa: ilk mesajda fiyat yok (`pekji-mail.md` → "Fiyat sorarlarsa").
 
+### ANYMO Paris (anymoparfum.com)
+- **İletişim:** info@anymoparfum.com · WhatsApp +90 533 303 74 14 · @anymoparis · Mağaza: Nişantaşı İş Merkezi, Halaskargazi, Rumeli Cd. No:1 Kat 1, Şişli.
+- **Durum:** İlk mesaj gönderildi (01.10.2026, kanal bilinmiyor); dönüş bekleniyor.
+- **Dikkat:** Demoda yalnızca kendi adını taşıyan 12 koku var; Royal serisi ve karşılaştırma görselleri bilerek alınmadı.
+- **Sırada:**
+  - WhatsApp: 02.10.2026 (taslaktaki 2. gün mesajı).
+  - Son takip: 05.10.2026 (Instagram videoları ya da boş "Hakkımızda" sayfası için 3D marka sayfası önerilir).
+  - Fiyat sorulursa: ilk mesajda fiyat yok (`anymo-mail.md` → "Fiyat sorarlarsa").
+
 ### Diğer firmalar (demo hazır, gönderim kaydı yok)
 Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kayıt yok. Gönderdikçe yukarıdaki tabloya satır ekle.
 
@@ -102,7 +112,6 @@ Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kay�
 |---|---|---|---|
 | Çakır Parfümeri | `demolar/cakir-Netlify.zip` | `cakir-mail.md` | WhatsApp öncelikli |
 | MAD Parfumeur | `demolar/mad-Netlify.zip` | `mad-mail.md` | LinkedIn öncelikli |
-| ANYMO Paris | `demolar/anymo-Netlify.zip` | `anymo-mail.md` | Yalnızca kendi adını taşıyan 12 koku |
 | Parfümőrült | `demolar/parfumorult-Netlify.zip` | `parfumorult-mail.md` | Macarca |
 | Mes Bisous, Regalien, Royal Platinum, Türkan, Unique, Mardini, Attar Al Has, Lalive | `demolar/` | `*-mail.md` | Önceki dönem demoları |
 
