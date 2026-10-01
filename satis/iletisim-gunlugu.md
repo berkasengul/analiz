@@ -32,6 +32,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 (23:27) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | Site olduğu gibi kalıyor mu, müşteriyi direkt 3D mi karşılıyor yoksa ayrı bir yerden mi giriliyor? | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 | 01.10.2026 (23:28–23:31) | Çakır Parfümeri | Giden | WhatsApp | Berka → Çakır Parfümeri | Ödeme altyapısı aynı kalıyor; ikas panelinde fiyat değişince 3D'de otomatik güncellendiği ve siteye tema yüklendiği söylendi (ikisi de mevcut altyapıyla örtüşmüyor; düzeltilecek) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 | 01.10.2026 (23:36) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Tema ödemesi tek seferlik değil mi 12 bin" (12.000 ₺'nin tek seferlik olup olmadığını soruyor) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
+| 01.10.2026 (23:39) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Temayı 1 kez oluşturursunuz yıllık 12 bin fazla değil mi? Alt yapı bizim sonuçta" (12.000 ₺'yi yıllık ödeme sanıyor; fiyat itirazı) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 
 ---
 
