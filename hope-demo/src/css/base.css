@@ -8117,3 +8117,15 @@ html .epi-exhibit > .finder__drop { z-index: 2; }
 .finder__garnish { bottom: calc(15cqh + (var(--gy) - var(--gh) / 2) * 80cqh); }
 .finder__seat { bottom: 15cqh; }
 .finder__contact { bottom: 13.2cqh; }
+
+.nowrap { white-space: nowrap; }
+/* Ritüel'in dış hatlı büyük yazısı: ekranın alt bandında tek satır (şişenin altında kalır, üstüne binmez). */
+.ritual__stat {
+  bottom: 3vh;
+  white-space: nowrap;
+  max-width: none;
+  font-size: clamp(2.2rem, min(7.5vh, calc(92vw / (var(--n, 8) * 0.62))), 7rem);
+}
+@media (max-width: 900px) {
+  .ritual__stat { font-size: min(9vw, calc(94vw / (var(--n, 8) * 0.62))); }
+}

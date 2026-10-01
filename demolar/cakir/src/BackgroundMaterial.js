@@ -59,6 +59,9 @@ export const BackgroundMaterial = shaderMaterial(
     u_sceneX: 0.5,
     u_sceneLight: 1,
     u_vivid: 0,
+    u_cine: 0,
+    u_clip: -1,
+    u_petals: 1,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -111,6 +114,9 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_sceneX;
     uniform float u_sceneLight;
     uniform float u_vivid;
+    uniform float u_cine;
+    uniform float u_clip;
+    uniform float u_petals;
 
     varying vec2 vUv;
 
@@ -146,10 +152,11 @@ export const BackgroundMaterial = shaderMaterial(
       vec3 c = texture2D(map, uv, blur).rgb;
       // Işıltı: parlak altın detayların çevresine yumuşak ışık taşar.
       vec3 glow = texture2D(map, uv, blur + 3.5).rgb;
-      c += max(glow - 0.32, 0.) * mix(0.55, 0.3, u_vivid);
+      // Sinematik tema (u_cine): fotoğraf kendi ışığıyla gelir; ek parıltı ve sıcak ton yok (renk filtresi yok).
+      c += max(glow - 0.32, 0.) * mix(0.55, 0.3, u_vivid) * (1. - u_cine);
       // Film tonu: gölgeler derin, ışıklar sıcak (canlı sahnede fotoğrafın kendi tonu).
       c = pow(max(c, 0.), vec3(mix(1.12, 1.02, u_vivid))) * 1.08;
-      c *= vec3(1.03, 1.0, 0.95);
+      c *= mix(vec3(1.03, 1.0, 0.95), vec3(1.), u_cine);
       return c * (1. - 0.35 * smoothstep(0., 0.5, out_));
     }
 
@@ -198,6 +205,7 @@ export const BackgroundMaterial = shaderMaterial(
     }
 
     void main() {
+      if (vUv.y < u_clip) discard;
       vec2 newUv = (vUv - u_center) * vec2(u_aspect, 1.);
       float dist = length(newUv);
       float screenDist = length((vUv - vec2(0.5)) * vec2(u_aspect, 1.));
@@ -259,8 +267,10 @@ export const BackgroundMaterial = shaderMaterial(
           ? mix(0.5, 1., smoothstep(0.06, 0.46, vUv.x)) * mix(0.62, 1., smoothstep(0.97, 0.8, vUv.x))
           : mix(0.55, 1., smoothstep(0.06, 0.42, vUv.y));
         float lit = mix(0.36, 0.32 + 0.45 * cone + 0.4 * pool + 0.14 * halo, u_sceneLight);
-        lit = mix(lit, mix(0.6, 0.97 + 0.08 * cone + 0.1 * pool, u_sceneLight), u_vivid);
-        read = mix(read, sqrt(read), u_vivid * step(1., u_aspect));
+        // Sinematik temada huzme ve havuz sahne fotoğrafında hazır: üstüne ikinci kez eklenmez (kaide patlamaz).
+        lit = mix(lit, mix(0.6, 0.97 + (0.08 * cone + 0.1 * pool) * (1. - u_cine), u_sceneLight), u_vivid);
+        // Aydınlık (vivid) sahnede de yazıların arkası gölgede kalır (kenarlar sinematik yarı gölge); orta ışıkta.
+        read = mix(read, read * mix(0.82, 1., smoothstep(0.08, 0.5, vUv.x)), u_vivid * step(1., u_aspect));
         base = mix(base, sc * lit * read, u_sceneOn);
       }
 
@@ -424,7 +434,7 @@ export const BackgroundMaterial = shaderMaterial(
       float width = mix(0.06 + depth * 0.3, 0.05 + depth * 0.2, u_studio);
       float beam = (1. - smoothstep(width * 0.35, width, abs(bp.x))) * smoothstep(0.0, 0.3, depth) * (1. - smoothstep(mix(0.6, 0.5, u_studio), mix(1.1, 0.74, u_studio), depth));
       float haze = 0.75 + 0.25 * sin(bp.y * 9. + u_time * 0.35) * sin(bp.x * 23. - u_time * 0.2);
-      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.4 * u_sceneOn - 0.45 * u_vivid * u_sceneOn) * (1. - u_noir);
+      base += light * beam * mix(0.16, 0.3 * haze, u_studio) * u_stage * (1. - 0.4 * u_sceneOn - 0.45 * u_vivid * u_sceneOn) * (1. - u_noir) * (1. - u_cine * u_sceneOn);
 
       // Sahneli üründe atmosfer: kaidenin arkasından yükselen, ürünün renginde yavaş duman ve ekranda
       // süzülerek düşen yapraklar (iki derinlik: arkadakiler küçük ve yumuşak).
@@ -437,10 +447,11 @@ export const BackgroundMaterial = shaderMaterial(
         float sm = fbm(sp_ + vec2(fbm(sp_ * 1.3 + u_time * 0.02), 0.) * 1.4);
         float smMask = exp(-pow(sdx / (bw * 1.6), 2.)) * smoothstep(-0.12, 0.02, sy) * (1. - smoothstep(0.1, bw * 1.5, sy));
         float smoke = smoothstep(0.38, 0.85, sm) * smMask;
-        base += mix(tint, vec3(1.), 0.35) * smoke * 0.2 * u_sceneOn * mix(0.5, 1., u_sceneLight);
+        base += mix(tint, vec3(1.), 0.35) * smoke * 0.2 * u_sceneOn * mix(0.5, 1., u_sceneLight) * (1. - 0.8 * u_cine);
 
         vec3 petalCol = mix(tint, vec3(1., 0.78, 0.86), 0.45);
         for (int L = 0; L < 2; L++) {
+          if (u_petals < 0.5) break;
           float fl = float(L);
           float cells = 4.5 - fl * 1.6;
           vec2 pp = vUv * asp * cells + vec2(fl * 5.3, u_time * (0.05 + 0.04 * fl));
@@ -573,7 +584,7 @@ export const BackgroundMaterial = shaderMaterial(
         }
       }
 
-      // Süzülen bokeh ışıkları (iki derinlik katmanı).
+      // Süzülen bokeh ışıkları (iki derinlik katmanı; sinematik temada yok: iri bulanık lekeler ürünle yarışır).
       for (int L = 0; L < 2; L++) {
         float fl = float(L);
         float sc = 7. + fl * 7.;
@@ -584,7 +595,7 @@ export const BackgroundMaterial = shaderMaterial(
         vec2 off = (vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5) * 0.45;
         float r = 0.1 + 0.16 * hash(id + 11.9);
         float bok = (1. - smoothstep(r * 0.55, r, length(f - off))) * step(0.7, h);
-        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center) * (1. - u_noir);
+        base += light * bok * (0.07 - 0.03 * fl) * smoothstep(0.15, 0.75, center) * (1. - u_noir) * (1. - u_cine);
       }
 
       float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * 2000.0)) * 43758.5453);

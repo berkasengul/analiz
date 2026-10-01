@@ -5,7 +5,7 @@ import { content } from "./data";
 //   name        "portal" gibi bir ad: <html data-theme> olur, CSS bu adla özelleşir
 //   fonts       { href, display, serif, sans }: Google Fonts bağlantısı ve yazı ailesi
 //   accent      vurgu rengi (altın vb.): arayüz ve parçacıklar
-//   particles   "gold": altın toz (varsayılan: buz/kül)
+//   particles   "gold": altın toz, "dust": ince toz, "none": yok (varsayılan: buz/kül)
 //   numerals    { font }: kokunun numarası sahnede dev ve ince bir sayı olarak durur
 //   intro       "mark": sade ve hızlı açılış (logo + ince yükleme çizgisi), oturumda bir kez
 //   decor       { niche, pattern, shape }: premium duvar (kemerli ya da dikdörtgen niş, altın yıldız deseni, mermer ve altın kaide)
@@ -14,7 +14,12 @@ export const THEME = content.theme ?? {};
 export function applyTheme() {
   const root = document.documentElement;
   if (THEME.name) root.dataset.theme = THEME.name;
+  if (THEME.carousel) root.dataset.carousel = THEME.carousel;
+  // Vitrin modu (content.commerce.showcase): sepet düğmesi ve boş fiyat alanları gizlenir.
+  if (content.commerce?.showcase) root.classList.add("showcase");
   if (THEME.accent) root.style.setProperty("--theme-accent", THEME.accent);
+  // theme.brightWalls: aydınlık sahne duvarları (tat bulucu, alt bölümler) karartılmadan gösterilir.
+  if (THEME.brightWalls) root.classList.add("bright-walls");
   // theme.decor: 3B sahnedeki kemerli niş, altın desen ve mermer kaide koleksiyon kartlarında, koku bulucuda ve
   // alt bölümlerin sahnesinde de (css/base.css → html.decor).
   if (THEME.decor) {

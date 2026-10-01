@@ -165,10 +165,7 @@ function Card({ item, t, onOpen, index = 0 }) {
         <div className="pcard__over">
           <p className="pcard__cat mono" lang={termLang(cat?.name[t.lang])}>{cat?.name[t.lang]}</p>
           <h3 className="pcard__name" lang={termLang(name) ?? t.nameLang}>{name}</h3>
-          <p className="pcard__size mono">
-            {item.size ? `${item.size} · ` : ""}
-            {t.money(t.price(1, "once", catalogId(item.id)))}
-          </p>
+          <p className="pcard__size mono">{t.tagPrice(item.size, catalogId(item.id))}</p>
           <div className="pcard__acts">
             <button className={`pcard__round${added ? " is-added" : ""}`} onClick={add} aria-label={t.ui.addToCart} title={t.ui.addToCart}>
               {added ? <Plus /> : <Bag />}
@@ -582,10 +579,7 @@ function CatalogHero({ items, t, title, children }) {
         <div className="cathero__now" key={item.id}>
           <p className="mono" lang={termLang(cat?.name[t.lang])}>{cat?.name[t.lang]}</p>
           <h2 lang={termLang(name) ?? t.nameLang}>{name}</h2>
-          <p className="cathero__price mono">
-            {item.size ? `${item.size} · ` : ""}
-            {t.money(t.price(1, "once", catalogId(item.id)))}
-          </p>
+          <p className="cathero__price mono">{t.tagPrice(item.size, catalogId(item.id))}</p>
           <div className="pcard__acts">
             <button
               className="pcard__round"

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { DEFAULT_SHOP_FLAVOR, DETAIL_PACK, VARIETY, catalogIdOf, content, flavors } from "./data";
+import { DEFAULT_SHOP_FLAVOR, DETAIL_PACK, SHOWCASE, VARIETY, catalogIdOf, content, flavors, inquire } from "./data";
 
 // Sepette 3B ürünler katalog kimliğiyle tutulur ("c:el-kremi"): sayfalar farklı
 // ürün setleri gösterse de sepet aynı kalır.
@@ -86,6 +86,13 @@ export const useStore = create(
       addToCart: (flavor, pack, plan, qty = 1) =>
         set((s) => {
           flavor = cartKey(flavor);
+          // Vitrin modu: sepet yok; ürünün adıyla markanın hattı açılır.
+          if (SHOWCASE) {
+            const it = content.catalog?.items?.find((i) => `c:${i.id}` === flavor);
+            const f = typeof flavor === "number" ? flavors[flavor] : null;
+            inquire(it ? it.name[s.lang] ?? it.name.tr : s.lang === "en" ? f?.en?.name ?? f?.name : f?.name, s.lang);
+            return {};
+          }
           const id = `${flavor}-${pack}-${plan}`;
           const found = s.cart.find((i) => i.id === id);
           const cart = found

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
 import Scene from "./Scene";
-import { HIDDEN, PAGE, SET_KEY, content, features, flavors, setKey } from "./data";
+import { HIDDEN, PAGE, SET_KEY, SHOWCASE, content, features, flavors, setKey } from "./data";
 import { measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
 import { startSound } from "./sound";
 import { useStore } from "./store";
@@ -473,7 +473,7 @@ export default function App() {
           {FINDER && <Finder />}
           {content.catalog && <CollectionGrid />}
           {DISCOVERY && <Discovery />}
-          <Shop />
+          {!SHOWCASE && <Shop />}
           <div className={`epilogue${EPILOGUE ? " epilogue--stage" : ""}`}>
             {EPILOGUE && <EpilogueStage />}
             <Marquee />

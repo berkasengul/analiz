@@ -251,7 +251,7 @@ export default function DetailPanel() {
           )}
           <div className="buy">
             <button className="pill" tabIndex={tab} onClick={() => addToCart(shown.active, DETAIL_PACK, "once")}>
-              {ui.pack(t.packLabel(DETAIL_PACK))} · {t.money(t.price(DETAIL_PACK, "once", shown.active))}
+              {t.showcase ? ui.addToCart : `${ui.pack(t.packLabel(DETAIL_PACK))} · ${t.money(t.price(DETAIL_PACK, "once", shown.active))}`}
             </button>
             {content.spray && flavors[shown.active]?.photo3d?.profile === "flask" && (
               <button className="hud__spray mono" tabIndex={tab} onClick={() => (sceneState.sprayReq = shown.active)} aria-label={ui.spray}>

@@ -1084,6 +1084,19 @@ main {
   -webkit-text-stroke: 1px rgba(242, 239, 233, 0.35);
   animation: rise 1s var(--ease) both;
   pointer-events: none;
+  /* Uzun yazı sol sütundaki başlığın üstüne taşmasın: sağ yarıda kalır. */
+  max-width: 50vw;
+  text-align: right;
+  z-index: 0;
+}
+.ritual__text { position: relative; z-index: 1; }
+/* Uzun başlık (ör. "KONSANTRASYONU") metin sütununa sığar: en uzun kelimenin harf sayısına göre küçülür.
+   Büyük dış hatlı yazı uzunluğuna göre küçülür, en çok iki satır olur (başlığın ve şişenin üstüne yayılmaz). */
+.ritual__step .section__title {
+  font-size: min(clamp(2.2rem, 5.8vw, 6rem), calc(min(560px, 44vw) / (var(--lw, 8) * 0.74)));
+}
+.ritual__stat {
+  font-size: clamp(2.6rem, min(12vw, calc(150vw / var(--n, 8))), 12rem);
 }
 
 /* ---------- Shop ---------- */
@@ -1865,7 +1878,8 @@ main {
   .ritual__stat {
     top: 96px;
     bottom: auto;
-    font-size: 16vw;
+    font-size: min(16vw, calc(190vw / var(--n, 8)));
+    max-width: none;
   }
 
   .shop {
@@ -3855,6 +3869,10 @@ main {
 @media (max-width: 760px) {
   .brand__logo {
     height: 24px;
+    /* Geniş yazı logosu (ör. tek satır uzun marka adı) arama ve menü düğmelerinin üstüne binmesin. */
+    max-width: 46vw;
+    object-fit: contain;
+    object-position: left center;
   }
 }
 
@@ -7563,7 +7581,7 @@ html .finder {
 .finder__also img { width: 30px; height: 30px; object-fit: contain; }
 .finder__also button:hover { border-color: rgba(255, 255, 255, 0.4); }
 @media (max-width: 900px) {
-  html .finder { padding: calc(56vh) var(--gutter) 48px; align-items: flex-end; }
+  html .finder.section { padding: 56vh var(--gutter) 48px; align-items: flex-end; }
   .finder__room { --sx: 50%; }
   .finder__room .epi-wall, .finder__room .epi-floor { --sx: 50%; }
   .finder__exhibit { left: 50%; top: 9vh; bottom: auto; height: 46vh; width: 30vh; }
@@ -7969,3 +7987,145 @@ html.decor-rect .scard__exhibit::before {
 }
 html.decor-rect .epi-exhibit::after,
 html.decor-rect .scard__exhibit::after { background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 140' preserveAspectRatio='none'><g fill='none' stroke='%23e2c386'><path d='M6.6 140V0.8H93.4V140' stroke-width='1.6' vector-effect='non-scaling-stroke'/><path d='M11 140V6H89V140' stroke-width='0.8' opacity='.7' vector-effect='non-scaling-stroke'/></g></svg>"); }
+
+/* Vitrin modu (content.commerce.showcase): online satış yok. Sepet düğmesi ve boş fiyat alanları gizlenir;
+   kartlardaki düğme ürünün adıyla markanın hattını (WhatsApp) açar. */
+html.showcase .cart-btn,
+html.showcase .pcard__price:empty,
+html.showcase .scard__price:empty,
+html.showcase .search__price:empty {
+  display: none;
+}
+html.showcase .scard__foot,
+html.showcase .pcard__foot {
+  justify-content: flex-end;
+}
+
+/* ===================== 3B sergi görselleri (catalog.items[].exhibit / wall, theme.plinthImage) =====================
+   Ürün premium kaidesiyle birlikte render edilmiş tek görsel: CSS kaide yerine geçer, ürün kaidenin tam üstündedir.
+   Duvar: ürünün kendi sahnesi (şehir), odakta aydınlık, kenarlarda karanlık. */
+.epi-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: var(--sx) 42%;
+  filter: brightness(0.62) saturate(0.92);
+  -webkit-mask-image: radial-gradient(62% 78% at var(--sx) 46%, #000 25%, rgba(0, 0, 0, 0.25) 100%);
+  mask-image: radial-gradient(62% 78% at var(--sx) 46%, #000 25%, rgba(0, 0, 0, 0.25) 100%);
+  animation: epi-photo-in 1.4s ease both;
+}
+@keyframes epi-photo-in { from { opacity: 0; scale: 1.04; } to { opacity: 1; scale: 1; } }
+.epi-exhibit.has-img { width: min(58vh, 40vw); height: 70%; bottom: 9%; }
+.epi-exhibit.has-img .epi-bottle { bottom: 0; height: 100%; }
+.epi-exhibit.has-img .epi-bottle img { filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); }
+.epi-exhibit.has-img .epi-bottle.is-in { animation: epi-set-in 1.3s cubic-bezier(0.25, 0.7, 0.2, 1) 0.25s both; }
+.epi-exhibit.has-img .epi-bottle.is-out { animation: epi-set-out 0.7s ease both; }
+@keyframes epi-set-in {
+  0% { opacity: 0; transform: translateY(6%) scale(0.96); filter: blur(8px) brightness(0.6); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+@keyframes epi-set-out { to { opacity: 0; transform: translateY(-3%) scale(1.02); filter: blur(8px); } }
+.epi-exhibit.has-img .epi-halo { bottom: 42%; width: 150%; }
+.epi-img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 100%;
+  max-width: 130%;
+  translate: -50% 0;
+  object-fit: contain;
+  object-position: 50% 100%;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5));
+}
+.finder__exhibit.has-img .finder__set { animation: finder-set 1.2s cubic-bezier(0.25, 0.7, 0.2, 1) both; }
+@keyframes finder-set {
+  0% { opacity: 0; transform: translateY(5cqh) scale(0.97); filter: blur(8px) brightness(0.6) drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); }
+  100% { opacity: 1; transform: none; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); }
+}
+.finder__exhibit.has-img .finder__empty { bottom: 64%; }
+@media (max-width: 900px) {
+  .epi-exhibit.has-img { width: min(46vh, 86vw); }
+  .finder__exhibit.has-img { width: min(42vh, 80vw); height: 46vh; }
+}
+/* Sahne duvarı (şehir) varken düz renkli zemin bandı yok: duvarın kendi koyu zemini kaideyi taşır. */
+.epi-photo ~ .epi-floor { display: none; }
+/* theme.brightWalls: ferah (aydınlık) sahne duvarları; kenarlar yine hafif söner, yazı kartları cam üstünde okunur. */
+html.bright-walls .epi-photo { filter: brightness(0.92) saturate(1); -webkit-mask-image: radial-gradient(70% 85% at var(--sx) 46%, #000 35%, rgba(0, 0, 0, 0.55) 100%); mask-image: radial-gradient(70% 85% at var(--sx) 46%, #000 35%, rgba(0, 0, 0, 0.55) 100%); }
+html.bright-walls .finder__room .epi-vignette { opacity: 0.6; }
+/* Aydınlık (vivid) sahnede ana sayfa yazıları: yumuşak koyu gölge, sayaç ve etiketler daha koyu altın; açık duvarda okunur. */
+html.bright-walls .hud :is(.count, .tag, .chips, .track__label, .hud__scroll, .tagline) { text-shadow: 0 1px 2px rgba(20, 16, 12, 0.55), 0 0 18px rgba(20, 16, 12, 0.55); }
+html.bright-walls .hud :is(.count__now, .count__total, .tag, .chips li, .chips) { color: #fff7e8; }
+html.bright-walls .hud .hud__name { text-shadow: 0 2px 30px rgba(20, 16, 12, 0.5); }
+
+/* Ortada kaideli ürün ("dolly"): masaüstünde başlık bloğu kaidenin solunda kalır; uzun ad iki satıra iner,
+   tek uzun kelime sütuna sığacak kadar küçülür (şişenin üstüne binmez). */
+@media (min-width: 901px) {
+  [data-theme="portal"][data-carousel="dolly"] .hud__center {
+    width: min(33vw, 600px);
+  }
+  [data-theme="portal"][data-carousel="dolly"] .hud__name,
+  [data-theme="portal"][data-carousel="dolly"] .hud__name.is-long {
+    font-size: min(clamp(2.4rem, 5vw, 6rem), calc(min(33vw, 600px) / (var(--lw, 6) * 0.8)));
+    text-wrap: balance;
+  }
+}
+
+/* ---------------------------------------------------------------- Koku bulucu: 3B şişe kaidede
+   Ritüel'deki şişe kaydırdıkça aşağıdaki kutunun kaidesine iner (HeroCan → #finder-seat). Bölüm ekrandayken
+   (html.finder-seat) oda 3B sahnenin arkasına, soru kartı önüne alınır; fon bölümün üst kenarında biter. */
+.finder__seat {
+  position: absolute;
+  left: 50%;
+  bottom: 13cqh;
+  width: 1px;
+  height: 74cqh;
+  pointer-events: none;
+  visibility: hidden;
+}
+.finder__contact {
+  position: absolute;
+  left: 50%;
+  bottom: 11.4cqh;
+  width: 58cqw;
+  height: 5cqh;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.18) 60%, transparent);
+  filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+html.finder-seat main { z-index: auto; }
+html.finder-seat .finder { isolation: auto; background: transparent; }
+html.finder-seat .finder__room { z-index: -1; background: var(--edge); }
+html.finder-seat .finder__empty { opacity: 0; animation: none; }
+html.finder-seat .finder__contact { opacity: 1; }
+/* Gövdenin zemini negatif katmanın (oda) üstüne boyanır: bu sırada zemin html'de kalır. */
+html.finder-seat body { background: transparent; }
+@media (max-width: 900px) {
+  .ritual__step .section__title {
+    font-size: min(clamp(1.9rem, 8vw, 3rem), calc((100vw - 2 * var(--gutter)) / (var(--lw, 8) * 0.74)));
+  }
+}
+
+/* Şişe kaidenin üst yüzeyinin ortasına oturur ve kaidenin önünde çizilir (arkasında kalmaz):
+   üst yüzeyin ön yarısı şişenin altında görünür. */
+html .epi-exhibit .epi-bottle { bottom: 15%; z-index: 2; }
+html .epi-exhibit > .finder__drop { z-index: 2; }
+.finder__bottle { bottom: 15cqh; object-position: 50% 100%; }
+.finder__garnish { bottom: calc(15cqh + (var(--gy) - var(--gh) / 2) * 80cqh); }
+.finder__seat { bottom: 15cqh; }
+.finder__contact { bottom: 13.2cqh; }
+
+.nowrap { white-space: nowrap; }
+/* Ritüel'in dış hatlı büyük yazısı: ekranın alt bandında tek satır (şişenin altında kalır, üstüne binmez). */
+.ritual__stat {
+  bottom: 3vh;
+  white-space: nowrap;
+  max-width: none;
+  font-size: clamp(2.2rem, min(7.5vh, calc(92vw / (var(--n, 8) * 0.62))), 7rem);
+}
+@media (max-width: 900px) {
+  .ritual__stat { font-size: min(9vw, calc(94vw / (var(--n, 8) * 0.62))); }
+}

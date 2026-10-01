@@ -366,8 +366,11 @@ export function getT(lang) {
     lang,
     contactInfo: C.contactInfo?.[lang] ?? null,
     ui: mergeUi(UI[lang], C.ui?.[lang]),
-    money,
+    money: C.commerce?.showcase ? () => "" : money,
     price,
+    // "50 ml · ₺1.350"; vitrin modunda yalnızca hacim.
+    tagPrice: (size, id) => [size, C.commerce?.showcase ? null : money(price(1, "once", id))].filter(Boolean).join(" · "),
+    showcase: !!C.commerce?.showcase,
     packLabel,
     flavor: (i) => flavorText[i],
     flavorName: (id) => (id === D.VARIETY ? t.ui.mix : catalog[id] ? catalog[id].name[lang] ?? catalog[id].name.tr : flavorText[id].name),

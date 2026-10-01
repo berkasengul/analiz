@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { flavors } from "../data";
 import { useT } from "../i18n";
 import { useStore } from "../store";
@@ -20,7 +21,15 @@ export default function Ritual() {
           <p className="mono section__eyebrow">{ui.ritual}</p>
           <div className="ritual__step" key={`${step}-${ui.ritual}`}>
             <p className="ritual__num">{pad(step + 1)}</p>
-            <h2 className="section__title" style={{ "--lw": longest(r.title) }}>{r.title}</h2>
+            <h2 className="section__title" style={{ "--lw": longest(r.title) }}>
+              {/* Kelimeler bölünmez (ör. "Sultan-ı" tirede kırılmaz), "·" önceki kelimeyle kalır. */}
+              {r.title.replace(/ · /g, "\u00a0· ").split(" ").map((w, i) => (
+                <Fragment key={i}>
+                  {i ? " " : ""}
+                  <span className="nowrap">{w}</span>
+                </Fragment>
+              ))}
+            </h2>
             <p className="ritual__desc">{r.text}</p>
             <p className="mono ritual__can">
               <i className="dot" style={{ background: flavors[r.flavor].color }} />
