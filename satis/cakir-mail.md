@@ -7,7 +7,7 @@
 - **Mail:** info@cakirparfumeri.com.tr.
 - **Instagram:** @parfumor_st (DM, videoyla).
 
-**Ek:** 15 saniyelik dikey video ya da tek görsel (`cakir-gorseller/1-anasayfa.jpg`). Zip ekleme, linki gönder.
+**Ek:** 15 saniyelik dikey video ya da görseller (`cakir-gorseller/1-anasayfa.jpg`; istersen `4-sprey.jpg`, `7-kaideye-inis.jpg`). Zip ekleme, linki gönder.
 
 ---
 
@@ -29,7 +29,7 @@
 > - **Şişe elde tutulur gibi:** taç kapak, siyah mineli detayları ve çizgili cam olduğu gibi görünüyor; şişe parmakla çevrilebiliyor. Sultan-ı Hünkar, Vanilya Oud Elixir, Afrodit ve Meditasyon ana sayfada sırayla altın kenarlı kaideye iniyor.
 > - **Her koku kendi renginde:** aynı şişe, yedi ayrı sahne (Sultan-ı Hünkar bordo, Vanilya Oud konyak, Afrodit gül, Meditasyon gece mavisi…). Ziyaretçi kokuları fotoğraftan değil karakterinden ayırt ediyor.
 > - **Parfümü sık:** taç kalkıyor, buğu ekrana doğru üfleniyor ve yanında kokunun profili (ör. "Odunsu ve baharatlı, çiçeksi") ile notaları beliriyor.
-> - **Koku bulucu:** üç soru, cevaplar kokularınızın notalarıyla eşleşiyor ve ziyaretçinin kokusu kaideye iniyor.
+> - **Koku bulucu:** kaydırdıkça şişe yukarıdan koku bulucunun kaidesine iniyor; üç soru, cevaplar kokularınızın notalarıyla eşleşiyor ve ziyaretçinin kokusu kendi renginde kaideye iniyor.
 >
 > Yedi özel tasarım koku kendi açıklamaları, notaları ve fiyatlarıyla hazır; 24 saatte kargo, 2.000 ₺ üzeri ücretsiz kargo ve havalede %5 indirim de sayfada. Site Türkçe ve İngilizce. Sepetteki ürün cakirparfumeri.com.tr'deki sayfasına bağlı; mevcut sitenizi değiştirmeden satışa geçer.
 >
