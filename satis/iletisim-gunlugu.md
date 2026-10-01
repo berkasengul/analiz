@@ -26,6 +26,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 | ANYMO Paris | Giden | bilinmiyor | Berka → ANYMO Paris (taslakta info@anymoparfum.com ve @anymoparis) | İlk satış mesajı: kendi etiketli 12 extrait koku için 3D satış sitesi, sprey, kaideye inen koku bulucu; Nişantaşı mağazasında 10 dakikalık gösterim önerildi | `yazismalar/anymo/2026-10-01-giden-ilk-mesaj.md` |
 | bilinmiyor (22:48) | Çakır Parfümeri | Giden | WhatsApp | Berka → Çakır Parfümeri | 4 satış görseli + "ürünleriniz için 3D web sitesi tasarımı yaptım"; mevcut sitenin yerine daha profesyonel sunum ve sipariş önerildi. Demo linki gönderildi mi: bilinmiyor | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-ilk-gorusme.md` |
 | bilinmiyor (22:52–22:58) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Güzel bir çalışma olmuş"; "sitemiz yaklaşık 1 yıl oldu kuralı"; maliyet soruldu | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-ilk-gorusme.md` |
+| bilinmiyor (22:58 sonrası) | Çakır Parfümeri | Giden | WhatsApp | Berka → Çakır Parfümeri | Teklif: 3D vitrin 8.500 ₺ (3 ay bakım ve revize hediye) ya da yıllık paket 12.000 ₺ (1 yıl bakım, sınırsız revize); mevcut ikas sitesi kalır; dosyalar teslim edilecek; Instagram @mkyreklam paylaşıldı | `yazismalar/cakir/tarih-bilinmiyor-whatsapp-giden-teklif.md` |
 
 ---
 
@@ -110,9 +111,14 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 ### Çakır Parfümeri (cakirparfumeri.com.tr)
 - **İletişim:** WhatsApp 0541 748 64 84 (işletme hesabı) · info@cakirparfumeri.com.tr · @parfumor_st. Yazan kişinin adı belli değil (kurucu Tuğrul Çakır olabilir; doğrulanmadı). Berka'ya "Berkay bey" diye hitap ediyor.
 - **Altyapı:** ikas (sitesi yaklaşık 1 yıllık, kendi ifadesi).
-- **Durum:** İlgili; maliyet sordu, cevap bekliyor.
-- **Dikkat:** Sitesini yeni yaptırmış; "mevcut sitenin yerine" yaklaşımı yerine "mevcut ikas sitesi kalır, 3D vitrin üstüne eklenir, satın alma ikas'ta" anlatılmalı.
-- **Sırada:** Fiyat cevabı (fiyatları Berka belirler) + 15 dakikalık görüntülü görüşme ya da mağazada gösterim önerisi.
+- **Durum:** Teklif gönderildi (WhatsApp, tarih bilinmiyor); cevap bekleniyor.
+- **Teklif:** 3D vitrin 8.500 ₺ + 3 ay bakım ve revize hediye · Yıllık paket 12.000 ₺ (1 yıl bakım, sınırsız revize).
+- **Verdiğimiz sözler (mesajda yazılı):**
+  - Mevcut ikas sitesi değişmez; 3D vitrin önüne eklenir, sepet/ödeme/stok/kargo ikas'ta kalır.
+  - Yıllık pakette 1 yıl boyunca yeni koku ekleme, fiyat, metin ve fotoğraf güncellemeleri.
+  - Dosyalar müşteriye teslim edilecek (memnun kalmazsa tasarımı kendisi ya da başka bir tasarımcı sürdürebilir).
+- **Bizim hesap:** Instagram @mkyreklam (mesajda paylaşıldı).
+- **Sırada:** Cevap gelirse: paket seçimi, alan adı/alt alan adı (ör. vitrin.cakirparfumeri.com.tr), ödeme (önerilen: yarısı başta, yarısı teslimde), kurulum. Cevap gelmezse 2–3 gün sonra kısa hatırlatma.
 
 ### Diğer firmalar (demo hazır, gönderim kaydı yok)
 Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kayıt yok. Gönderdikçe yukarıdaki tabloya satır ekle.
