@@ -91,7 +91,7 @@ function Mark({ shown, loaded, ui, brand, cine }) {
             ) : (
               <span className="mark__name" lang="en">{brand.name}</span>
             )}
-            {cine && logo && <span className="mark__sweep" style={{ "--logo": `url("${logo}")` }} aria-hidden="true" />}
+            {cine && logo && <span className="mark__sweep" style={{ "--logo": `url("${new URL(logo, document.baseURI).href}")` }} aria-hidden="true" />}
           </span>
           {cine && ui.slogan && <p className="mark__slogan">{ui.slogan}</p>}
           <span className="mark__line" role="progressbar" aria-label={ui.loading} aria-valuenow={Math.round(shown)}>
