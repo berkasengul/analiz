@@ -82,7 +82,7 @@ Demonun bugünkü hâli SEO için tasarlanmadı. Canlı kurulumda SEO yapınız 
 
 - **Demodaki yöntem:** Şişeler sitenizdeki ürün fotoğraflarından üretildi. Fotoğrafın arka planı yapay zekâ ile ayrılıyor, şişenin silüetinden 3D bir form oluşturuluyor ve fotoğraf bu formun üzerine giydiriliyor. Hızlı bir yöntem ama ölçüye dayalı değil; fark ettiğiniz şişe, kapak ve form farklılıkları bundan kaynaklanıyor (özellikle Dolmabahçe serisinin puarlı pompası gibi simetrik olmayan formlarda).
 - **Canlı kurulumda:** Her şişe ailesi gerçek ölçüler ve referans fotoğraflar üzerinden ayrıca modellenir (GLB). Ölçüleri paylaşmanız ya da her şişe ailesinden birer numune göndermeniz en doğru sonucu verir. Aynı şişeyi kullanan ürünler aynı modeli paylaşır; etiket ve renk ürüne göre değişir. Demodaki tüm farklılıklar birebir modellerle değiştirilir.
-- **Kaynak dosyalar ve haklar:** Proje tesliminde 3D model kaynak dosyaları ve kullanım hakları Parfumane'ye devredilir. [Kontrol et.]
+- **Kaynak dosyalar ve haklar:** Proje tesliminde 3D model kaynak dosyaları ve kullanım hakları Parfumane'ye devredilir.
 
 ## 6. Yönetim ve sürdürülebilirlik
 
@@ -90,8 +90,8 @@ Demonun bugünkü hâli SEO için tasarlanmadı. Canlı kurulumda SEO yapınız 
 - **Yazılımcı ihtiyacı:** Mevcut bir şişeyle yeni bir koku eklemek için yazılımcıya gerek yoktur. Yalnızca yeni bir şişe formu geldiğinde o şişenin modellenmesi gerekir.
 - **Yönetim paneli:** Ayrı bir panel yok; bilinçli olarak alıştığınız WordPress/WooCommerce paneli kullanılır.
 - **GA4, GTM, Meta Pixel, Merchant Center:** Mevcut kurulumlarınız aynen çalışır. 3D etkileşimleri (ürün görüntüleme, sepete ekleme, "parfümü sık", koku bulucu sonucu) GTM'e olay olarak gönderilir; GA4 ve Meta'da ölçülebilir. Merchant Center ürün akışı WooCommerce'tan geldiği için etkilenmez.
-- **Kaynak kod:** Proje tesliminde temanın kaynak kodu size teslim edilir; ileride farklı bir ekip de devam edebilir. [Kontrol et.]
-- **Bakım ve destek:** [Aylık bakım paketi: WordPress/WooCommerce güncellemelerine uyum, yeni şişe modelleri, teknik destek; kapsam ve ücret.]
+- **Kaynak kod:** Proje tesliminde temanın kaynak kodu size teslim edilir; ileride farklı bir ekip de devam edebilir.
+- **Bakım ve destek:** Kurulum sonrasında aylık bakım paketiyle WordPress/WooCommerce güncellemelerine uyum, yeni şişe modelleri ve teknik destek sağlanır. Paketlerin kapsamını ve ücretlerini teklifimde ayrıca sunacağım.
 - **Domain ve frontend:** Ayrı bir domain ya da frontend gerekmez; çalışma doğrudan parfumane.com üzerinde yapılır.
 
 ## Sonraki adım
