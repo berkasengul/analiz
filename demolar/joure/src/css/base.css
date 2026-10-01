@@ -1084,7 +1084,12 @@ main {
   -webkit-text-stroke: 1px rgba(242, 239, 233, 0.35);
   animation: rise 1s var(--ease) both;
   pointer-events: none;
+  /* Uzun yazı sol sütundaki başlığın üstüne taşmasın: sağ yarıda kalır. */
+  max-width: 50vw;
+  text-align: right;
+  z-index: 0;
 }
+.ritual__text { position: relative; z-index: 1; }
 
 /* ---------- Shop ---------- */
 
@@ -1866,6 +1871,7 @@ main {
     top: 96px;
     bottom: auto;
     font-size: 16vw;
+    max-width: none;
   }
 
   .shop {
@@ -7563,7 +7569,7 @@ html .finder {
 .finder__also img { width: 30px; height: 30px; object-fit: contain; }
 .finder__also button:hover { border-color: rgba(255, 255, 255, 0.4); }
 @media (max-width: 900px) {
-  html .finder { padding: calc(56vh) var(--gutter) 48px; align-items: flex-end; }
+  html .finder.section { padding: 56vh var(--gutter) 48px; align-items: flex-end; }
   .finder__room { --sx: 50%; }
   .finder__room .epi-wall, .finder__room .epi-floor { --sx: 50%; }
   .finder__exhibit { left: 50%; top: 9vh; bottom: auto; height: 46vh; width: 30vh; }
@@ -7982,3 +7988,52 @@ html.showcase .scard__foot,
 html.showcase .pcard__foot {
   justify-content: flex-end;
 }
+
+/* ===================== 3B sergi görselleri (catalog.items[].exhibit / wall, theme.plinthImage) =====================
+   Ürün premium kaidesiyle birlikte render edilmiş tek görsel: CSS kaide yerine geçer, ürün kaidenin tam üstündedir.
+   Duvar: ürünün kendi sahnesi (şehir), odakta aydınlık, kenarlarda karanlık. */
+.epi-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: var(--sx) 42%;
+  filter: brightness(0.62) saturate(0.92);
+  -webkit-mask-image: radial-gradient(62% 78% at var(--sx) 46%, #000 25%, rgba(0, 0, 0, 0.25) 100%);
+  mask-image: radial-gradient(62% 78% at var(--sx) 46%, #000 25%, rgba(0, 0, 0, 0.25) 100%);
+  animation: epi-photo-in 1.4s ease both;
+}
+@keyframes epi-photo-in { from { opacity: 0; scale: 1.04; } to { opacity: 1; scale: 1; } }
+.epi-exhibit.has-img { width: min(58vh, 40vw); height: 70%; bottom: 9%; }
+.epi-exhibit.has-img .epi-bottle { bottom: 0; height: 100%; }
+.epi-exhibit.has-img .epi-bottle img { filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); }
+.epi-exhibit.has-img .epi-bottle.is-in { animation: epi-set-in 1.3s cubic-bezier(0.25, 0.7, 0.2, 1) 0.25s both; }
+.epi-exhibit.has-img .epi-bottle.is-out { animation: epi-set-out 0.7s ease both; }
+@keyframes epi-set-in {
+  0% { opacity: 0; transform: translateY(6%) scale(0.96); filter: blur(8px) brightness(0.6); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+@keyframes epi-set-out { to { opacity: 0; transform: translateY(-3%) scale(1.02); filter: blur(8px); } }
+.epi-exhibit.has-img .epi-halo { bottom: 42%; width: 150%; }
+.epi-img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 100%;
+  max-width: 130%;
+  translate: -50% 0;
+  object-fit: contain;
+  object-position: 50% 100%;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5));
+}
+.finder__exhibit.has-img .finder__set { animation: finder-set 1.2s cubic-bezier(0.25, 0.7, 0.2, 1) both; }
+@keyframes finder-set {
+  0% { opacity: 0; transform: translateY(5cqh) scale(0.97); filter: blur(8px) brightness(0.6) drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); }
+  100% { opacity: 1; transform: none; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); }
+}
+.finder__exhibit.has-img .finder__empty { bottom: 64%; }
+@media (max-width: 900px) {
+  .epi-exhibit.has-img { width: min(46vh, 86vw); }
+  .finder__exhibit.has-img { width: min(42vh, 80vw); height: 46vh; }
+}
+/* Sahne duvarı (şehir) varken düz renkli zemin bandı yok: duvarın kendi koyu zemini kaideyi taşır. */
+.epi-photo ~ .epi-floor { display: none; }

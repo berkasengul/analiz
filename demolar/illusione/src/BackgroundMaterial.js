@@ -59,6 +59,7 @@ export const BackgroundMaterial = shaderMaterial(
     u_sceneX: 0.5,
     u_sceneLight: 1,
     u_vivid: 0,
+    u_petals: 1,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -111,6 +112,7 @@ export const BackgroundMaterial = shaderMaterial(
     uniform float u_sceneX;
     uniform float u_sceneLight;
     uniform float u_vivid;
+    uniform float u_petals;
 
     varying vec2 vUv;
 
@@ -441,6 +443,7 @@ export const BackgroundMaterial = shaderMaterial(
 
         vec3 petalCol = mix(tint, vec3(1., 0.78, 0.86), 0.45);
         for (int L = 0; L < 2; L++) {
+          if (u_petals < 0.5) break;
           float fl = float(L);
           float cells = 4.5 - fl * 1.6;
           vec2 pp = vUv * asp * cells + vec2(fl * 5.3, u_time * (0.05 + 0.04 * fl));

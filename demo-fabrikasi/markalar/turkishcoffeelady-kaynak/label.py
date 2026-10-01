@@ -21,6 +21,26 @@ CANS = {
                          lines=["MILKY & DECAF", "WILD PISTACHIO"]),
 }
 AB = json.load(open("artbox.json"))
+# Arka yüz: markanın kendi ürün metninden (turkishcoffeelady.com, aynı adlı paketler) kısa bir pasaj ve şehir.
+STORY = {
+ "bold-istanbul": ("ISTANBUL", "Made from the finest handpicked coffee beans, this exquisite blend takes you on a journey through the vibrant streets of Türkiye's bustling city."),
+ "silky-mardin": ("MARDİN", "A truly refined and velvety coffee blend that transports you to the enchanting landscapes of Mardin."),
+ "piney-aegean": ("THE AEGEAN", "Piney Aegean brings the mastic gum flavor of the turquoise paradise to you, a perfect complement to traditional Turkish desserts."),
+ "minty-cappadocia": ("CAPPADOCIA", "The cooling embrace of cardamom mingles harmoniously with the richness of Turkish coffee: a taste of tradition and innovation."),
+ "pistachio-zeugma": ("ZEUGMA", "A journey through Mediterranean heritage: let the centuries-old tradition of pistachio indulgence transport you to a world of elegance."),
+}
+
+
+def wrap(d, txt, fnt, width):
+    out, cur = [], ""
+    for w in txt.split():
+        t = (cur + " " + w).strip()
+        if d.textlength(t, font=fnt) > width and cur:
+            out.append(cur)
+            cur = w
+        else:
+            cur = t
+    return out + ([cur] if cur else [])
 
 
 def font(f, s):
@@ -107,17 +127,51 @@ def make(key):
     P = Image.new("RGB", (int(W * 0.34), H), (252, 250, 246))
     pd = ImageDraw.Draw(P)
     pcx = P.width // 2
-    pa = feather(art_layer(key, P.width - 40).crop((0, 0, P.width - 40, int(H * 0.30))), top=0.3, bottom=0.25, side=0.15)
-    multiply(P, pa, (20, int(H * 0.52)))
-    ctext(pd, pcx, int(H * 0.10), "TURKISH COFFEE", font("Nunito_wght_900.ttf", int(H * 0.034)), BROWN, track=2)
-    ctext(pd, pcx, int(H * 0.145), "Lady", font("Great_Vibes.ttf", int(H * 0.03)), BROWN)
-    fq = font("Playfair_Display_ital_wght_1_500.ttf", int(H * 0.05))
-    ctext(pd, pcx, int(H * 0.22), "Good Coffee.", fq, C["title"])
-    ctext(pd, pcx, int(H * 0.285), "Good Fortune.", fq, C["title"])
-    fs = font("Oswald_wght_500.ttf", int(H * 0.026))
-    ctext(pd, pcx, int(H * 0.38), "500 YEARS OF TURKISH COFFEE HERITAGE", fs, DARK, track=2)
-    ctext(pd, pcx, int(H * 0.415), "ICED · READY TO DRINK", fs, DARK, track=2)
-    ctext(pd, pcx, int(H * 0.86), "turkishcoffeelady.com", font("Oswald_wght_500.ttf", int(H * 0.028)), C["title"], track=1)
+    city, story = STORY[key]
+    pa = feather(art_layer(key, P.width - 40).crop((0, 0, P.width - 40, int(H * 0.25))), top=0.35, bottom=0.3, side=0.18)
+    multiply(P, pa, (20, int(H * 0.535)))
+    # Marka ve tat
+    eye(pd, pcx, int(H * 0.098), int(H * 0.022), C["ring"])
+    ctext(pd, pcx, int(H * 0.130), "TURKISH COFFEE", font("Nunito_wght_900.ttf", int(H * 0.026)), BROWN, track=3)
+    ctext(pd, pcx + 4, int(H * 0.160), "Lady", font("Great_Vibes.ttf", int(H * 0.026)), BROWN)
+    fn = font("Oswald_wght_600.ttf", int(H * 0.040))
+    while pd.textlength(C["name"], font=fn) > P.width * 0.74:
+        fn = font("Oswald_wght_600.ttf", fn.size - 2)
+    ctext(pd, pcx, int(H * 0.205), C["name"], fn, C["title"], track=3)
+    fc = font("Oswald_wght_500.ttf", int(H * 0.017))
+    lab = f"A JOURNEY THROUGH {city}"
+    ctext(pd, pcx, int(H * 0.262), lab, fc, DARK, track=4)
+    lw = pd.textlength(lab, font=fc) + 4 * len(lab)
+    for k in (-1, 1):
+        x0 = pcx + k * (lw / 2 + 18)
+        pd.line((x0, int(H * 0.272), x0 + k * 70, int(H * 0.272)), fill=C["title"], width=2)
+    # Hikâye (markanın metninden)
+    fs = font("Playfair_Display_ital_wght_1_500.ttf", int(H * 0.0215))
+    y = int(H * 0.305)
+    for ln in wrap(pd, story, fs, P.width * 0.78):
+        ctext(pd, pcx, y, ln, fs, DARK)
+        y += int(H * 0.030)
+    # Tat profili
+    y += int(H * 0.012)
+    pd.line((pcx - 60, y, pcx + 60, y), fill=C["title"], width=2)
+    y += int(H * 0.014)
+    ctext(pd, pcx, y, "FLAVOR PROFILE", font("Oswald_wght_500.ttf", int(H * 0.015)), C["title"], track=5)
+    y += int(H * 0.026)
+    prof = " · ".join(l for l in C["lines"] if l).replace(" | ", " · ").replace("& ·", "&")
+    fp = font("Oswald_wght_500.ttf", int(H * 0.019))
+    items = prof.upper().split(" · ")
+    rows = [" · ".join(items)] if pd.textlength(" · ".join(items), font=fp) < P.width * 0.8 else [" · ".join(items[:(len(items) + 1) // 2]), " · ".join(items[(len(items) + 1) // 2:])]
+    for ln in rows:
+        ctext(pd, pcx, y, ln, fp, DARK, track=2)
+        y += int(H * 0.026)
+    # Alt: imza, miras, hacim, adres
+    fq = font("Playfair_Display_ital_wght_1_500.ttf", int(H * 0.036))
+    ctext(pd, pcx, int(H * 0.775), "Good Coffee. Good Fortune.", fq, C["title"])
+    fm = font("Oswald_wght_500.ttf", int(H * 0.0165))
+    ctext(pd, pcx, int(H * 0.828), "500 YEARS OF TURKISH COFFEE HERITAGE", fm, DARK, track=3)
+    ctext(pd, pcx, int(H * 0.852), "ICED  ·  READY TO DRINK  ·  8.5 FL OZ (250 ml)", fm, DARK, track=2)
+    pd.line((pcx - 150, int(H * 0.884), pcx + 150, int(H * 0.884)), fill=(200, 190, 175), width=1)
+    ctext(pd, pcx, int(H * 0.895), "turkishcoffeelady.com  ·  @turkishcoffeelady", font("Oswald_wght_500.ttf", int(H * 0.018)), C["title"], track=1)
     half = P.width // 2
     L.paste(P.crop((half, 0, P.width, H)), (0, 0))
     L.paste(P.crop((0, 0, half, H)), (W - half, 0))

@@ -185,6 +185,8 @@ export default function Background() {
     // Canlı sahne (stage.vivid): fotoğraf olduğu gibi net ve parlak; karartma ve bulanıklık kalkar.
     l.vivid = MathUtils.damp(l.vivid ?? 0, stageOf?.vivid ? 1 : 0, 2.5, dt);
     m.u_vivid = l.vivid;
+    // Süzülen yapraklar (theme.petals: false ile kapanır; ör. içecek markası).
+    m.u_petals = THEME.petals === false ? 0 : 1;
     // Parlak zemin (rise): vitrinde tam; detayda (ürün başka yere geçer), Ritüel ve mağazada söner.
     const floorT = FLOOR && l.baseY != null ? (st.detail ? 0 : 1) * (1 - scrollState.ritualIn) * (1 - scrollState.shopIn) : 0;
     l.floor = MathUtils.damp(l.floor ?? 0, floorT, 3, dt);

@@ -776,7 +776,9 @@
     "pedestal": true,
     "carousel": "glide",
     "cards": "gallery",
-    "petals": false
+    "petals": false,
+    "epilogue": true,
+    "plinthImage": "fon/kaide.webp"
   },
   "defaultLang": "en",
   "hide": [],
@@ -874,10 +876,13 @@
         },
         "color": "#786a6f",
         "product": 0,
+        "scene": "sahne/bold-istanbul.webp",
         "image": "cut/bold-istanbul.webp",
         "cutout": true,
         "bg": "#1f2d5e",
         "bg2": "#7fb2e6",
+        "exhibit": "fon/bold-istanbul-sergi.webp",
+        "wall": "fon/bold-istanbul-duvar.webp",
         "variants": [
           {
             "id": 1000
@@ -905,10 +910,13 @@
         },
         "color": "#97a295",
         "product": 1,
+        "scene": "sahne/silky-mardin.webp",
         "image": "cut/silky-mardin.webp",
         "cutout": true,
         "bg": "#1d5d7d",
         "bg2": "#f6c434",
+        "exhibit": "fon/silky-mardin-sergi.webp",
+        "wall": "fon/silky-mardin-duvar.webp",
         "variants": [
           {
             "id": 1001
@@ -936,10 +944,13 @@
         },
         "color": "#d18ea2",
         "product": 2,
+        "scene": "sahne/piney-aegean.webp",
         "image": "cut/piney-aegean.webp",
         "cutout": true,
         "bg": "#7f3955",
         "bg2": "#7fd0e6",
+        "exhibit": "fon/piney-aegean-sergi.webp",
+        "wall": "fon/piney-aegean-duvar.webp",
         "variants": [
           {
             "id": 1002
@@ -967,10 +978,13 @@
         },
         "color": "#ccad77",
         "product": 3,
+        "scene": "sahne/minty-cappadocia.webp",
         "image": "cut/minty-cappadocia.webp",
         "cutout": true,
         "bg": "#80631a",
         "bg2": "#7fd8b0",
+        "exhibit": "fon/minty-cappadocia-sergi.webp",
+        "wall": "fon/minty-cappadocia-duvar.webp",
         "variants": [
           {
             "id": 1003
@@ -998,10 +1012,13 @@
         },
         "color": "#aeab82",
         "product": 4,
+        "scene": "sahne/pistachio-zeugma.webp",
         "image": "cut/pistachio-zeugma.webp",
         "cutout": true,
         "bg": "#586832",
         "bg2": "#e9d27a",
+        "exhibit": "fon/pistachio-zeugma-sergi.webp",
+        "wall": "fon/pistachio-zeugma-duvar.webp",
         "variants": [
           {
             "id": 1004
@@ -1163,8 +1180,8 @@
             [0.3234, 0.1297],
             [0.3234, 0.1391],
             [0.3203, 0.1469],
-            [0.3203, 0.5],
-            [0.3219, 0.5016],
+            [0.3203, 0.4984],
+            [0.3219, 0.5],
             [0.3219, 0.5094],
             [0.3203, 0.5109],
             [0.3203, 0.9109],
@@ -1172,12 +1189,16 @@
             [0.3234, 0.9344],
             [0.3328, 0.9484],
             [0.35, 0.9563],
-            [0.3781, 0.9609],
-            [0.3797, 0.9625],
+            [0.3547, 0.9563],
+            [0.3625, 0.9594],
+            [0.3703, 0.9594],
+            [0.3719, 0.9609],
+            [0.3797, 0.9609],
+            [0.3812, 0.9625],
             [0.3937, 0.9625],
             [0.3953, 0.9641],
-            [0.4094, 0.9641],
-            [0.4109, 0.9656],
+            [0.4078, 0.9641],
+            [0.4094, 0.9656],
             [0.4359, 0.9656],
             [0.4375, 0.9672],
             [0.5609, 0.9672],
@@ -1241,7 +1262,9 @@
         "aspect": 0.75,
         "base": 0.678,
         "cx": 0.5,
-        "h": 0.5842
+        "h": 0.5842,
+        "wall": "fon/bold-istanbul-duvar.webp",
+        "exhibit": "fon/bold-istanbul-sergi.webp"
       },
       "composition": [
         "Şehir: İstanbul · Galata, Kız Kulesi, Boğaz",
@@ -1391,7 +1414,9 @@
         "aspect": 0.75,
         "base": 0.678,
         "cx": 0.5,
-        "h": 0.5842
+        "h": 0.5842,
+        "wall": "fon/silky-mardin-duvar.webp",
+        "exhibit": "fon/silky-mardin-sergi.webp"
       },
       "composition": [
         "Şehir: Mardin · taş evler ve kemerler",
@@ -1538,7 +1563,9 @@
         "aspect": 0.75,
         "base": 0.678,
         "cx": 0.5,
-        "h": 0.5842
+        "h": 0.5842,
+        "wall": "fon/piney-aegean-duvar.webp",
+        "exhibit": "fon/piney-aegean-sergi.webp"
       },
       "composition": [
         "Şehir: Ege · İzmir Saat Kulesi ve antik kemerler",
@@ -1681,7 +1708,9 @@
         "aspect": 0.75,
         "base": 0.678,
         "cx": 0.5,
-        "h": 0.5842
+        "h": 0.5842,
+        "wall": "fon/minty-cappadocia-duvar.webp",
+        "exhibit": "fon/minty-cappadocia-sergi.webp"
       },
       "composition": [
         "Şehir: Kapadokya · peri bacaları ve balonlar",
@@ -1828,7 +1857,9 @@
         "aspect": 0.75,
         "base": 0.678,
         "cx": 0.5,
-        "h": 0.5842
+        "h": 0.5842,
+        "wall": "fon/pistachio-zeugma-duvar.webp",
+        "exhibit": "fon/pistachio-zeugma-sergi.webp"
       },
       "composition": [
         "Şehir: Zeugma · Çingene Kızı mozaiği, Gaziantep Kalesi",
@@ -1844,12 +1875,12 @@
       "tr": {
         "title": "Aralık · ABD",
         "text": "Yeniden markalaştırılan buzlu Türk kahvesi serisi, Aralık'ta ABD'de sıfır şekerli Bold Istanbul ile raflarda.",
-        "stat": "Bold Istanbul · sıfır şeker"
+        "stat": "Aralık"
       },
       "en": {
         "title": "December · USA",
         "text": "The rebranded iced Turkish coffee line launches in the US this December, led by zero-sugar Bold Istanbul.",
-        "stat": "Bold Istanbul · zero sugar"
+        "stat": "December"
       }
     },
     {
@@ -1857,12 +1888,12 @@
       "tr": {
         "title": "500 yıllık miras, buzlu",
         "text": "500 yıllık Türk kahvesi mirasını yeni zirvelere taşıyor; Türk kahvesini her zaman, her yerde erişilebilir kılıyoruz.",
-        "stat": "Silky Mardin · sütlü & kremsi"
+        "stat": "500"
       },
       "en": {
         "title": "500 years, iced",
         "text": "Taking the 500-year heritage of Turkish coffee to new heights, and making Turkish coffee accessible anytime, anywhere.",
-        "stat": "Silky Mardin · milky & creamy"
+        "stat": "500"
       }
     },
     {
@@ -1870,12 +1901,12 @@
       "tr": {
         "title": "Anadolu'nun Türk Kahvesi Öyküleri",
         "text": "500 yıllık Türk kahvesinin zengin kültürel mirası, 8 farklı şehirde, farklı kültürlerle anlatılıyor. Belgesel 5 Aralık Dünya Türk Kahvesi Günü'nde Amerika'dan yola çıkıyor.",
-        "stat": "Piney Aegean · damla sakızı"
+        "stat": "8 şehir"
       },
       "en": {
         "title": "Turkish Coffee Tales of Anatolia",
         "text": "The rich cultural heritage of 500-year-old Turkish coffee, told across 8 cities and cultures. The documentary premieres from the US on December 5, World Turkish Coffee Day.",
-        "stat": "Piney Aegean · mastic gum"
+        "stat": "8 cities"
       }
     }
   ]

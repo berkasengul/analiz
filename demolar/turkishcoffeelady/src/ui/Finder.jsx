@@ -64,6 +64,9 @@ const ITEMS = (C?.items ?? [])
   .map((i) => ({ item: i, prod: content.products[i.product], vec: profile(content.products[i.product]) }))
   .filter((x) => Object.values(x.vec).some((v) => v > 0));
 export const FINDER = content.finder !== false && ITEMS.length >= 3;
+// 3B sergi görselleri (catalog.items[].exhibit: ürün kaidesiyle birlikte, şeffaf zemin; wall: ürünün sahne duvarı;
+// theme.plinthImage: boş kaide): CSS kaide yerine bunlar kullanılır, ürün kaidenin tam üstünde durur.
+const EXHIBIT = ITEMS.some((x) => x.item.exhibit);
 
 export default function Finder() {
   const t = useT();
@@ -116,13 +119,14 @@ export default function Finder() {
     <section id="finder" className={`section finder${done ? " is-done" : ""}`} style={{ "--plinth": THEME.plinthColor ?? "#f1ebe3", ...pal }}>
       <div className="finder__room" aria-hidden="true">
         <div className="epi-wall" />
+        {EXHIBIT && win?.item.wall && <div key={`w-${win.item.id}`} className="epi-photo" style={{ backgroundImage: `url(${BASE}${win.item.wall})` }} />}
         <div className="epi-silk">
           <i />
           <i />
           <i />
         </div>
         <div className="epi-floor" />
-        <div className="epi-exhibit finder__exhibit">
+        <div className={`epi-exhibit finder__exhibit${EXHIBIT ? " has-img" : ""}`}>
           <div className="epi-halo" />
           {win && (
             <div key={win.item.id} className="finder__drop">
@@ -135,13 +139,21 @@ export default function Finder() {
                   style={{ "--gx": g.x, "--gy": g.y, "--gw": g.w, "--gh": g.h, "--gs": Math.sign(g.x) || 1, "--gk": k }}
                 />
               ))}
-              <img className="finder__bottle" src={`${BASE}${win.item.image}`} alt="" />
+              {EXHIBIT && win.item.exhibit ? (
+                <img className="epi-img finder__set" src={`${BASE}${win.item.exhibit}`} alt="" />
+              ) : (
+                <img className="finder__bottle" src={`${BASE}${win.item.image}`} alt="" />
+              )}
               <div className="epi-puff" />
             </div>
           )}
-          <div className="epi-plinth">
-            <span />
-          </div>
+          {EXHIBIT ? (
+            !win && THEME.plinthImage && <img className="epi-img" src={`${BASE}${THEME.plinthImage}`} alt="" />
+          ) : (
+            <div className="epi-plinth">
+              <span />
+            </div>
+          )}
           {!win && <p className="finder__empty mono">{T.empty}</p>}
         </div>
         <div className="epi-vignette" />

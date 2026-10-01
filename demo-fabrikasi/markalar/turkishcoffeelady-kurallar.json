@@ -9,6 +9,12 @@
     1
    ]
   ],
+  "backAt": [
+   [
+    ".",
+    2
+   ]
+  ],
   "backHead": "NOTES",
   "pedestal": true
  },
@@ -308,12 +314,12 @@
     "tr": {
      "title": "Aralık · ABD",
      "text": "Yeniden markalaştırılan buzlu Türk kahvesi serisi, Aralık'ta ABD'de sıfır şekerli Bold Istanbul ile raflarda.",
-     "stat": "Bold Istanbul · sıfır şeker"
+     "stat": "Aralık"
     },
     "en": {
      "title": "December · USA",
      "text": "The rebranded iced Turkish coffee line launches in the US this December, led by zero-sugar Bold Istanbul.",
-     "stat": "Bold Istanbul · zero sugar"
+     "stat": "December"
     }
    },
    {
@@ -321,12 +327,12 @@
     "tr": {
      "title": "500 yıllık miras, buzlu",
      "text": "500 yıllık Türk kahvesi mirasını yeni zirvelere taşıyor; Türk kahvesini her zaman, her yerde erişilebilir kılıyoruz.",
-     "stat": "Silky Mardin · sütlü & kremsi"
+     "stat": "500"
     },
     "en": {
      "title": "500 years, iced",
      "text": "Taking the 500-year heritage of Turkish coffee to new heights, and making Turkish coffee accessible anytime, anywhere.",
-     "stat": "Silky Mardin · milky & creamy"
+     "stat": "500"
     }
    },
    {
@@ -334,12 +340,12 @@
     "tr": {
      "title": "Anadolu'nun Türk Kahvesi Öyküleri",
      "text": "500 yıllık Türk kahvesinin zengin kültürel mirası, 8 farklı şehirde, farklı kültürlerle anlatılıyor. Belgesel 5 Aralık Dünya Türk Kahvesi Günü'nde Amerika'dan yola çıkıyor.",
-     "stat": "Piney Aegean · damla sakızı"
+     "stat": "8 şehir"
     },
     "en": {
      "title": "Turkish Coffee Tales of Anatolia",
      "text": "The rich cultural heritage of 500-year-old Turkish coffee, told across 8 cities and cultures. The documentary premieres from the US on December 5, World Turkish Coffee Day.",
-     "stat": "Piney Aegean · mastic gum"
+     "stat": "8 cities"
     }
    }
   ]

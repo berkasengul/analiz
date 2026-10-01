@@ -29,3 +29,16 @@ python3 demo-fabrikasi/yeni-demo.py demo-fabrikasi/markalar/turkishcoffeelady.js
 ```
 
 Sahne kaidesi `fon.json` → `base` ile kutunun ayağına hizalanır (0.678).
+
+## Premium sergi (render/sergi.html)
+
+Tek araç, dört kip (`render/sergishot.cjs`, `K="tat:renk,…" M="stage,card,exhibit"`, boş kaide için `K=gold:c9a15c M=plinth`):
+
+- `stage`: şehir fonu (`cine.py` → `bdc-<tat>.jpg`: kenarlar karanlık, kaidenin arkasında sıcak hale, koyu zemin) + kaide;
+  kutu yok (sitedeki 3B kutu üstüne oturur).
+- `card`: aynı sahne + kutu; `grade.py` vinyet, huzme ve alt karartma ekler → koleksiyon kartı.
+- `exhibit`: şeffaf zeminde kutu + kaide → tat bulucu ve hikâye sahnesi. `plinth`: boş kaide.
+
+Kaide: yivli krem mermer gövde, pirinç başlık ve bilezik, tadın renginde mine halka, iki basamak, çevrede kahve
+çekirdekleri; tepeden spot ışığı ve tadın renginde arka kenar ışıkları. `pull.py` hepsini `-foto/fon/` ve
+`-foto/sahne/` klasörlerine yazar.

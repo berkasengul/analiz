@@ -4,34 +4,44 @@
   "aspect": 0.75,
   "base": 0.678,
   "cx": 0.5,
-  "h": 0.5842
+  "h": 0.5842,
+  "wall": "fon/bold-istanbul-duvar.webp",
+  "exhibit": "fon/bold-istanbul-sergi.webp"
  },
  "silky-mardin": {
   "src": "fon/silky-mardin.webp",
   "aspect": 0.75,
   "base": 0.678,
   "cx": 0.5,
-  "h": 0.5842
+  "h": 0.5842,
+  "wall": "fon/silky-mardin-duvar.webp",
+  "exhibit": "fon/silky-mardin-sergi.webp"
  },
  "piney-aegean": {
   "src": "fon/piney-aegean.webp",
   "aspect": 0.75,
   "base": 0.678,
   "cx": 0.5,
-  "h": 0.5842
+  "h": 0.5842,
+  "wall": "fon/piney-aegean-duvar.webp",
+  "exhibit": "fon/piney-aegean-sergi.webp"
  },
  "minty-cappadocia": {
   "src": "fon/minty-cappadocia.webp",
   "aspect": 0.75,
   "base": 0.678,
   "cx": 0.5,
-  "h": 0.5842
+  "h": 0.5842,
+  "wall": "fon/minty-cappadocia-duvar.webp",
+  "exhibit": "fon/minty-cappadocia-sergi.webp"
  },
  "pistachio-zeugma": {
   "src": "fon/pistachio-zeugma.webp",
   "aspect": 0.75,
   "base": 0.678,
   "cx": 0.5,
-  "h": 0.5842
+  "h": 0.5842,
+  "wall": "fon/pistachio-zeugma-duvar.webp",
+  "exhibit": "fon/pistachio-zeugma-sergi.webp"
  }
 }

@@ -266,6 +266,8 @@ def main():
             **({"scene": f"sahne/{h}.webp"} if os.path.exists(os.path.join(FOTO, "sahne", f"{h}.webp")) else {}),
             "image": f"r3d/{h}.webp" if os.path.exists(os.path.join(FOTO, "render3d", f"{h}.webp")) else i["m"].get("cut"), "cutout": True,
             **({"bg": palette_of(h)[0], "bg2": palette_of(h)[1]} if palette_of(h) else {}),
+            # Sergi görseli (ürün kaidesiyle, şeffaf) ve sahne duvarı (fon.json → exhibit, wall): tat bulucu ve alt bölümler.
+            **({k: FON[h][k] for k in ("exhibit", "wall") if k in FON[h]} if h in FON else {}),
             "variants": [{"id": x["id"], "title": x["title"]} for x in i["variants"]] if len(i["variants"]) > 1 else [{"id": i["variants"][0]["id"]}],
             "url": f"https://{R['domain']}/{h}" if R.get("platform") == "ikas" else tr[h].get("permalink") if R.get("platform") in ("woo", "merx") else f"https://{R['domain']}/products/{h}",
         }

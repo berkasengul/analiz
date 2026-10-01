@@ -68,14 +68,14 @@ for h in KEYS:
     A["library"].append({"match": f"^{h}$", "composition": {"tr": p["comp"][0], "en": p["comp"][1]}})
     A["palette"].append([f"^{h}$", dark(p["band"], 0.55 if h != "bold-istanbul" else 1.0), p["acc"]])
 A["ritual"] = [
-    {"handle": "bold-istanbul", "tr": {"title": "Aralık · ABD", "text": "Yeniden markalaştırılan buzlu Türk kahvesi serisi, Aralık'ta ABD'de sıfır şekerli Bold Istanbul ile raflarda.", "stat": "Bold Istanbul · sıfır şeker"},
-     "en": {"title": "December · USA", "text": "The rebranded iced Turkish coffee line launches in the US this December, led by zero-sugar Bold Istanbul.", "stat": "Bold Istanbul · zero sugar"}},
-    {"handle": "silky-mardin", "tr": {"title": "500 yıllık miras, buzlu", "text": "500 yıllık Türk kahvesi mirasını yeni zirvelere taşıyor; Türk kahvesini her zaman, her yerde erişilebilir kılıyoruz.", "stat": "Silky Mardin · sütlü & kremsi"},
-     "en": {"title": "500 years, iced", "text": "Taking the 500-year heritage of Turkish coffee to new heights, and making Turkish coffee accessible anytime, anywhere.", "stat": "Silky Mardin · milky & creamy"}},
-    {"handle": "piney-aegean", "tr": {"title": "Anadolu'nun Türk Kahvesi Öyküleri", "text": "500 yıllık Türk kahvesinin zengin kültürel mirası, 8 farklı şehirde, farklı kültürlerle anlatılıyor. Belgesel 5 Aralık Dünya Türk Kahvesi Günü'nde Amerika'dan yola çıkıyor.", "stat": "Piney Aegean · damla sakızı"},
-     "en": {"title": "Turkish Coffee Tales of Anatolia", "text": "The rich cultural heritage of 500-year-old Turkish coffee, told across 8 cities and cultures. The documentary premieres from the US on December 5, World Turkish Coffee Day.", "stat": "Piney Aegean · mastic gum"}},
+    {"handle": "bold-istanbul", "tr": {"title": "Aralık · ABD", "text": "Yeniden markalaştırılan buzlu Türk kahvesi serisi, Aralık'ta ABD'de sıfır şekerli Bold Istanbul ile raflarda.", "stat": "Aralık"},
+     "en": {"title": "December · USA", "text": "The rebranded iced Turkish coffee line launches in the US this December, led by zero-sugar Bold Istanbul.", "stat": "December"}},
+    {"handle": "silky-mardin", "tr": {"title": "500 yıllık miras, buzlu", "text": "500 yıllık Türk kahvesi mirasını yeni zirvelere taşıyor; Türk kahvesini her zaman, her yerde erişilebilir kılıyoruz.", "stat": "500"},
+     "en": {"title": "500 years, iced", "text": "Taking the 500-year heritage of Turkish coffee to new heights, and making Turkish coffee accessible anytime, anywhere.", "stat": "500"}},
+    {"handle": "piney-aegean", "tr": {"title": "Anadolu'nun Türk Kahvesi Öyküleri", "text": "500 yıllık Türk kahvesinin zengin kültürel mirası, 8 farklı şehirde, farklı kültürlerle anlatılıyor. Belgesel 5 Aralık Dünya Türk Kahvesi Günü'nde Amerika'dan yola çıkıyor.", "stat": "8 şehir"},
+     "en": {"title": "Turkish Coffee Tales of Anatolia", "text": "The rich cultural heritage of 500-year-old Turkish coffee, told across 8 cities and cultures. The documentary premieres from the US on December 5, World Turkish Coffee Day.", "stat": "8 cities"}},
 ]
-K = {"foto": {"ai": True, "studio": True, "views": False, "hero": [[".", 1]], "backHead": "NOTES", "pedestal": True}, "aktar": A}
+K = {"foto": {"ai": True, "studio": True, "views": False, "hero": [[".", 1]], "backAt": [[".", 2]], "backHead": "NOTES", "pedestal": True}, "aktar": A}
 json.dump(K, open(M + "turkishcoffeelady-kurallar.json", "w"), ensure_ascii=False, indent=1)
 
 c = json.load(open(M + "illusione.json"))
@@ -210,7 +210,7 @@ c["finder"] = {"keys": {"warm": ["dark", "koyu", "rich", "yoğun", "zero sugar",
                         "fresh": ["mint", "nane", "cardamom", "kakule"], "floral": ["mastic", "sakız", "herbs", "otları"]}}
 t = c["theme"]
 for k in ("decor", "fresh", "plinthColor", "numerals"): t.pop(k, None)
-t.update({"accent": "#e8c79a", "carousel": "glide", "particles": "none", "petals": False, "pedestal": True, "studio": True,
+t.update({"accent": "#e8c79a", "carousel": "glide", "particles": "none", "petals": False, "epilogue": True, "plinthImage": "fon/kaide.webp", "pedestal": True, "studio": True,
           "fonts": {"href": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Nunito:wght@600;800;900&family=Jost:wght@300..500&display=swap",
                     "display": "\"Playfair Display\", Georgia, serif", "serif": "\"Playfair Display\", Georgia, serif", "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"}})
 c["catalog"] = {"homeCount": 8, "glow": "#2a2220", "categories": [], "items": []}

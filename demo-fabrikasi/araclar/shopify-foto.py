@@ -35,6 +35,7 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
                                      ana fotoğrafta yalnızca bu kutular (fotoğrafa oranla; ör. kapak ve gövde) ürün sayılır:
                                      dışları zemin rengine boyanır (şişenin yanındaki meyve, çiçek, yazı ve şeritler)
     "backSolid": "regex"            arka yüz gövdenin düz yan renginde (opak, önü illüstrasyonlu şişeler)
+    "backAt": [["regex", 2]]        arka yüz elle: ürünün n. görseli (otomatik eşleştirme yerine)
     "neckAt": [["regex", 0.22]]     boyun (kapağın bittiği satır, ürün boyuna oranla) elle
     "badges": "regex"               ana fotoğraftaki kırmızı rozetler ("YENİ") silinir (çevresinden doldurulur)
     "sets": {"set-handle": ["ürün-handle", "başka-handle#3", ...]}
@@ -1020,6 +1021,10 @@ def main():
                     continue
                 if iou > best:
                     back, best = cand, iou
+            # backAt: [["regex", n]] arka yüz elle: ürünün n. görseli (render edilmiş ön/arka çiftleri gibi).
+            bn = next((v for rx, v in RULES.get("backAt", []) if re.search(rx, handle)), None)
+            if bn and bn - 1 < len(ims) and bn - 1 != hero_i:
+                back, best = fit(cutout(ims[bn - 1], kinds[bn - 1]), S), 1.0
             if back is None or best < 0.86:
                 back = None
                 entry["back"] = False

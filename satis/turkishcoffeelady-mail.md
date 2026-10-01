@@ -21,6 +21,8 @@
 - `turkishcoffeelady-gorseller/2-urun-detay.jpg` (Minty Cappadocia, Kapadokya sahnesi)
 - `turkishcoffeelady-gorseller/3-telefon.jpg` (Piney Aegean, telefon)
 - İstersen `4-lansman.jpg` (Aralık lansmanı ve belgesel bölümü)
+- İstersen `5-kutu-arka.jpg` (kutu dönünce arka yüz: şehrin hikâyesi, tat profili)
+- İstersen `6-koleksiyon.jpg` (koleksiyon kartları, her kutu kendi şehrinde)
 
 Zip ekleme; linki gönder.
 
@@ -122,6 +124,11 @@ Teklif dokümanı gerekirse yeni hazırlanacak; eski `teklif/Turkish-Coffee-Lady
   - Beş kutu: Bold Istanbul, Silky Mardin, Piney Aegean, Minty Cappadocia, Pistachio Zeugma.
   - Her biri kendi şehrinin suluboya sahnesinde, Osmanlı kemeri içinde, taş kaidede; sahnenin rengi tadın bandından.
   - Sağda tat profili (kutunun üstündeki tanımlar).
+- **Premium kaide:**
+  - Yivli krem mermer gövde, pirinç halkalar, tadın renginde mine halka.
+  - Çevresinde kahve çekirdekleri, tepeden spot ışığı.
+  - Ana sayfada, koleksiyon kartlarında, tat bulucuda ve hikâye bölümünde aynı kaide var.
+- **Kutunun arka yüzü:** marka, tat adı, "A journey through <şehir>", markanın kendi ürün metninden bir cümle, tat profili, şehir çizimi, "Good Coffee. Good Fortune." ve adres.
 - **Kutu detayı:** Markanın Shopify'daki metni (her şehrin kendi hikâyesi), tat profili, "Şehir ve tat" (şehrin simgeleri, profil, içerik) ve 4 hikâye kartı:
   - Good Fortune / nazar
   - Aralık lansmanı

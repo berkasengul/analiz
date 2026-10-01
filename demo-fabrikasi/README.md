@@ -414,3 +414,11 @@ render edilir ve hatta fotoğraf gibi girer (`markalar/turkishcoffeelady-kaynak/
   panel kısalır, vitrin düğmesi ekrana sığar.
 - `content.finder.keys`: tat bulucunun aileleri (`warm`, `sweet`, `fresh`, `floral`) markanın kendi sözcükleriyle
   genişler (ör. `"fresh": ["mint", "nane", "cardamom"]`); parfüm notası olmayan ürünler için.
+- `foto.backAt: [["regex", n]]`: arka yüz olarak ürünün n. görseli (otomatik eşleştirme yerine; render edilmiş ön/arka çiftleri).
+- **3B sergi görselleri** (`fon/fon.json` → `exhibit`, `wall`; aktarım bunları `catalog.items[]`'a yazar): ürün premium
+  kaidesiyle birlikte render edilmiş şeffaf görsel ve ürünün sahne duvarı. Tat bulucu ve alt bölümler (`theme.epilogue: true`)
+  CSS kaide yerine bunları kullanır; ürün kaidenin tam üstündedir, duvar ürünün şehri olur. `theme.plinthImage`: tat
+  bulucunun boş hâlindeki kaide (sergi görselleriyle aynı çerçevede kırpılır).
+- Koleksiyon kartı: `<marka>-foto/sahne/<handle>.webp` (3:4) ürün, kaide ve şehir fonuyla sinematik render
+  (`turkishcoffeelady-kaynak/render/sergi.html`, kip `card` + `grade.py`).
+- Ritüeldeki dev kontur yazı (`ritual[].stat`) sağ yarıyla sınırlıdır; kısa tutulur ("Aralık", "500", "8 şehir").
