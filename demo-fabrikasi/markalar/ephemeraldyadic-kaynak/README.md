@@ -11,5 +11,8 @@ Mağaza Wix (ephemeraldyadic.com): ürün sayfalarındaki JSON-LD ve medya liste
    `grade.py` (kart son işlemi), `fon.py` → `-foto/fon/` ve `-foto/sahne/`.
 4. `shopify-aktar.py ephemeraldyadic`, `yeni-demo.py`.
 
-Sahne: koyu beton atölye duvarı, kokunun kutu deseni dev baskı olarak; ham beton kaide, şişe kapağıyla aynı
-fırçalanmış çelik plaka, ön kenarda kokunun renginde ince hat; tepeden spot ışığı.
+Sahne (sinematik galeri, `render/sergi.html`): karanlık, sıcak altın ışık; köşedeki lambadan kaideye spot ışığı,
+altın damarlı parlak siyah mermer zemin (yansımalı), çelik basamaklı gri taş silindir kaide, duvarda gölgede kalan
+çerçeveli baskılar (kokunun ve komşu kokunun kutu deseni), iki yanda kaya heykeller. `?mask=1` ön planı (kaide + şişe)
+ayrı çeker; `cine2.py <kip>` arka planı bulanıklaştırır (alan derinliği), hacimsel ışık huzmesi, parlama, sıcak renk
+ayarı ve vinyet ekler. `K="koku:renk:komşu,…"`.

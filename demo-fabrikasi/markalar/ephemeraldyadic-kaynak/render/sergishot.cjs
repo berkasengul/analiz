@@ -9,10 +9,12 @@ const fs = require('fs');
     const p = await b.newPage({ viewport: { width: sizes[m][0], height: sizes[m][1] } });
     p.on('pageerror', (e) => console.log('ERR', e.message));
     for (const kc of process.env.K.split(',')) {
-      const [k, c] = kc.split(':');
-      await p.goto(`http://127.0.0.1:5220/sergi.html?m=${m}&k=${k}&c=${encodeURIComponent('#' + c)}`);
+      const [k, c, o] = kc.split(':');
+      const url = `http://127.0.0.1:5220/sergi.html?m=${m}&k=${k}&o=${o || k}&c=${encodeURIComponent('#' + c)}`;
+      await p.goto(url);
       await p.waitForFunction(() => window.__done, null, { timeout: 240000 });
       await p.screenshot({ path: `out/${m}-${k}.png`, omitBackground: m === 'exhibit' || m === 'plinth' });
+      if (['stage', 'card', 'wall'].includes(m) && process.env.MASK !== '0') { await p.goto(url + '&mask=1'); await p.waitForFunction(() => window.__done, null, { timeout: 240000 }); await p.screenshot({ path: `out/${m}-${k}-mask.png` }); }
       if (m === 'stage') meta[k] = await p.evaluate(() => window.__meta);
       console.log(m, k, m === 'stage' ? JSON.stringify(meta[k]) : '');
     }

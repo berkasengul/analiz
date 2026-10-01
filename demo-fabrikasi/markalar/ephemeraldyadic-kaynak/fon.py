@@ -21,11 +21,12 @@ def trim(im):
 
 fon = {}
 for h in KEYS:
-    Image.open(R + f"stage-{h}.png").convert("RGB").save(F + f"{h}.webp", quality=88, method=5)
-    Image.open(R + f"wall-{h}.png").convert("RGB").save(F + f"{h}-duvar.webp", quality=84, method=5)
+    Image.open(R + f"stageg-{h}.jpg").convert("RGB").save(F + f"{h}.webp", quality=90, method=5)
+    Image.open(R + f"wallg-{h}.jpg").convert("RGB").save(F + f"{h}-duvar.webp", quality=86, method=5)
     trim(EX[h]).save(F + f"{h}-sergi.webp", quality=88, method=5)
     Image.open(R + f"cardg-{h}.jpg").convert("RGB").save(SAHNE + f"{h}.webp", quality=88, method=5)
-    fon[h] = {"src": f"fon/{h}.webp", **meta[h], "wall": f"fon/{h}-duvar.webp", "exhibit": f"fon/{h}-sergi.webp"}
+    # vivid: aydınlık galeri fotoğrafı sitede karartılmadan, net gösterilir
+    fon[h] = {"src": f"fon/{h}.webp", **meta[h], "vivid": 1, "wall": f"fon/{h}-duvar.webp", "exhibit": f"fon/{h}-sergi.webp"}
 trim(PL).save(F + "kaide.webp", quality=88, method=5)
 json.dump(fon, open(F + "fon.json", "w"), indent=1)
 print("ok", fon[KEYS[0]])

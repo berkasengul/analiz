@@ -1,106 +1,160 @@
 <!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style>
 <script type="importmap">{"imports":{"three":"./three/build/three.module.js","three/addons/":"./three/examples/jsm/"}}</script></head><body>
 <script type="module">
-// Ephemeral Dyadic sergisi: İstanbul'daki sanayi atölyesi. Koyu beton duvar, kokunun kutu deseni duvarda dev bir
-// baskı; şişe ham beton bir kaidede (üstte şişe kapağıyla aynı fırçalanmış çelik plaka), tepeden tek spot ışığı.
-// Kipler: stage (kaide, şişesiz; site 3B şişeyi koyar) · card (3:4, şişe fotoğrafı kaidede) · exhibit / plinth (şeffaf)
+// Ephemeral Dyadic sergisi (sinematik galeri): karanlık, sıcak altın ışık. Köşedeki lambadan kaideye spot ışığı;
+// altın damarlı parlak siyah mermer zemin (yansımalı); çelik basamaklı gri taş silindir kaide; duvarda gölgede kalan
+// çerçeveli mürekkep baskılar (kokunun kutu deseni), iki yanda sıcak ışığın yaladığı kaya heykeller.
+// ?mask=1: yalnızca ön plan (kaide + şişe) beyaz, gerisi siyah → son işlemde arka plan bulanıklığı (alan derinliği).
+// Kipler: stage (kaide, şişesiz) · card (3:4, şişe kaidede) · exhibit / plinth (şeffaf) · wall (kaidesiz duvar)
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
 const q = new URLSearchParams(location.search);
-const key = q.get('k'); const juice = new THREE.Color(q.get('c') || '#d9c47a'); const mode = q.get('m') || 'stage';
+const key = q.get('k'); const other = q.get('o') || key; const juice = new THREE.Color(q.get('c') || '#d9c47a'); const mode = q.get('m') || 'stage';
+const MASK = q.has('mask');
 const [W, H] = { stage: [1086, 1448], card: [900, 1200], exhibit: [1000, 1400], plinth: [1000, 1400], wall: [1600, 1000] }[mode];
 const SHOW = mode === 'card' || mode === 'exhibit'; const CLEAR = mode === 'exhibit' || mode === 'plinth';
 const r = new THREE.WebGLRenderer({ antialias: true, alpha: CLEAR, preserveDrawingBuffer: true });
-r.setSize(W, H); r.setPixelRatio(1); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.0;
+r.setSize(W, H); r.setPixelRatio(1); r.outputColorSpace = THREE.SRGBColorSpace;
+r.toneMapping = MASK ? THREE.NoToneMapping : THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.15;
 r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(r.domElement);
 const scene = new THREE.Scene();
-const pm = new THREE.PMREMGenerator(r); scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture; scene.environmentIntensity = 0.35;
+const pm = new THREE.PMREMGenerator(r); scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture; scene.environmentIntensity = CLEAR ? 0.45 : 0.12;
 const cam = new THREE.PerspectiveCamera(30, W / H, 0.1, 100);
 if (mode === 'stage') { cam.position.set(0, 1.2, 8.6); cam.lookAt(0, 0.75, 0); }
-if (mode === 'wall') { cam.position.set(0, 1.4, 9.5); cam.lookAt(0, 1.3, 0); }
-if (mode === 'card') { cam.position.set(0, 1.45, 9.2); cam.lookAt(0, 0.62, 0); }
-if (CLEAR) { cam.fov = 24; cam.updateProjectionMatrix(); cam.position.set(0, 1.4, 10.6); cam.lookAt(0, 0.55, 0); }
-let pending = 0; const done = () => { if (--pending === 0) setTimeout(draw, 80); };
-const load = (u, srgb = true) => { pending++; const t = new THREE.TextureLoader().load(u, done); if (srgb) t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+if (mode === 'wall') { cam.position.set(0, 1.3, 9.5); cam.lookAt(0, 1.2, 0); }
+if (mode === 'card') { cam.position.set(0, 0.95, 8.6); cam.lookAt(0, 0.7, 0); }
+if (CLEAR) { cam.fov = 24; cam.updateProjectionMatrix(); cam.position.set(0, 1.5, 10.6); cam.lookAt(0, 0.5, 0); }
+let pending = 0; const done = () => { if (--pending === 0) setTimeout(draw, 120); };
+const load = (u) => { pending++; const t = new THREE.TextureLoader().load(u, done); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; };
+let s0 = 11; const rnd = () => (s0 = (s0 * 16807) % 2147483647) / 2147483647;
+const tex = (c, rep = [1, 1]) => { const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(...rep); t.anisotropy = 8; return t; };
+const FG = [];  // ön plan (alan derinliği maskesi)
 
-// ---- beton dokusu (gözenekli, lekeli)
-function concrete(seed, base, size = 1024) {
+// ---- dokular
+function stone(base, size = 1024, pores = 2200) {  // gri taş / beton: ince gözenek ve leke
   const c = document.createElement('canvas'); c.width = c.height = size; const g = c.getContext('2d');
   g.fillStyle = `rgb(${base})`; g.fillRect(0, 0, size, size);
-  let s = seed; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
-  for (let i = 0; i < 2400; i++) { const v = rnd() > 0.5 ? 255 : 0; g.fillStyle = `rgba(${v},${v},${v},${0.012 + rnd() * 0.02})`; g.beginPath(); g.arc(rnd() * size, rnd() * size, 3 + rnd() * 26, 0, 7); g.fill(); }
+  for (let i = 0; i < 1600; i++) { const v = rnd() > 0.5 ? 255 : 0; g.fillStyle = `rgba(${v},${v},${v},${0.01 + rnd() * 0.025})`; g.beginPath(); g.arc(rnd() * size, rnd() * size, 3 + rnd() * 30, 0, 7); g.fill(); }
+  for (let i = 0; i < pores; i++) { g.fillStyle = `rgba(30,26,22,${0.2 + rnd() * 0.4})`; g.beginPath(); g.arc(rnd() * size, rnd() * size, 0.5 + rnd() * 1.8, 0, 7); g.fill(); }
   const img = g.getImageData(0, 0, size, size); const d = img.data;
-  for (let i = 0; i < d.length; i += 4) { const n = (rnd() - 0.5) * 18; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
-  g.putImageData(img, 0, 0);
-  for (let i = 0; i < 700; i++) { g.fillStyle = `rgba(30,30,30,${0.2 + rnd() * 0.35})`; g.beginPath(); g.arc(rnd() * size, rnd() * size, 0.5 + rnd() * 1.6, 0, 7); g.fill(); }
-  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; return t;
+  for (let i = 0; i < d.length; i += 4) { const n = (rnd() - 0.5) * 14; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
+  g.putImageData(img, 0, 0); return c;
+}
+function marble() {  // siyah mermer, altın ve gri damarlar
+  const c = document.createElement('canvas'); c.width = c.height = 2048; const g = c.getContext('2d');
+  g.fillStyle = '#0d0c0b'; g.fillRect(0, 0, 2048, 2048);
+  for (let i = 0; i < 500; i++) { g.fillStyle = `rgba(60,52,44,${0.03 + rnd() * 0.05})`; g.beginPath(); g.arc(rnd() * 2048, rnd() * 2048, 20 + rnd() * 140, 0, 7); g.fill(); }
+  for (let v = 0; v < 46; v++) {
+    let x = rnd() * 2048, y = rnd() * 2048; const ang = rnd() * 6.28; const gold = rnd() > 0.45;
+    g.strokeStyle = gold ? `rgba(196,150,82,${0.35 + rnd() * 0.45})` : `rgba(150,140,128,${0.2 + rnd() * 0.3})`; g.lineWidth = 0.6 + rnd() * 2.6;
+    g.beginPath(); g.moveTo(x, y);
+    for (let k = 0; k < 60; k++) { x += Math.cos(ang + Math.sin(k * 0.3 + v) * 0.6) * (18 + rnd() * 22); y += Math.sin(ang + Math.sin(k * 0.3 + v) * 0.6) * (18 + rnd() * 22); g.lineTo(x, y); }
+    g.stroke();
+  }
+  return c;
+}
+function plaster() {  // koyu, sıcak sıva duvar
+  const c = document.createElement('canvas'); c.width = c.height = 1024; const g = c.getContext('2d');
+  g.fillStyle = '#3a322a'; g.fillRect(0, 0, 1024, 1024);
+  for (let i = 0; i < 300; i++) { const v = rnd() > 0.5 ? 255 : 0; g.fillStyle = `rgba(${v},${v},${v},${0.012 + rnd() * 0.02})`; g.beginPath(); g.ellipse(rnd() * 1024, rnd() * 1024, 30 + rnd() * 120, 10 + rnd() * 40, rnd() * 3, 0, 7); g.fill(); }
+  return c;
 }
 
 if (!CLEAR) {
-  // duvar ve zemin
-  const wall = new THREE.Mesh(new THREE.PlaneGeometry(16, 10), new THREE.MeshStandardMaterial({ map: concrete(5, [44, 43, 42]), roughness: 0.92 }));
-  wall.position.set(0, 2.6, -4.2); wall.receiveShadow = true; scene.add(wall);
-  const ft = concrete(9, [34, 33, 32]); ft.repeat.set(3, 3);
-  const fl = new THREE.Mesh(new THREE.PlaneGeometry(16, 12), new THREE.MeshPhysicalMaterial({ map: ft, roughness: 0.42, clearcoat: 0.5, clearcoatRoughness: 0.3 }));
-  fl.rotation.x = -Math.PI / 2; fl.position.set(0, -1.02, 1.6); fl.receiveShadow = true; scene.add(fl);
-  // kokunun kutu deseni: duvarda dev baskı (ince siyah kenar, duvardan biraz önde, gölge düşürür)
-  const art = load(`art/${key}.png`);
-  const print = new THREE.Mesh(new THREE.BoxGeometry(3.5, 3.5, 0.05), [0, 0, 0, 0, 0, 0].map((_, i) => i === 4 ? new THREE.MeshStandardMaterial({ map: art, roughness: 0.85 }) : new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.6 })));
-  print.position.set(0, 2.55, -4.05); print.castShadow = true; print.receiveShadow = true; scene.add(print);
-  // baskıyı aydınlatan geniş, yumuşak ışık
-  const wash = new THREE.SpotLight(0xfff4e6, 70, 14, 0.42, 0.85, 1.2); wash.position.set(0, 6.5, 2.5); wash.target.position.set(0, 2.55, -4.05); scene.add(wash, wash.target);
-  scene.fog = new THREE.Fog(0x161615, 10, 18);
+  scene.background = new THREE.Color(0x0b0907);
+  const wall = new THREE.Mesh(new THREE.PlaneGeometry(22, 12), new THREE.MeshStandardMaterial({ map: tex(plaster(), [2, 1.2]), roughness: 0.95 }));
+  wall.position.set(0, 3, -4.6); wall.receiveShadow = true; scene.add(wall);
+  // zemin: siyah mermer + altında yansıtıcı (yarı saydam mermerden yansıma görünür)
+  const FL = -1.13;
+  const refl = new Reflector(new THREE.PlaneGeometry(22, 14), { textureWidth: W, textureHeight: H, color: 0x8a8580 });
+  refl.rotation.x = -Math.PI / 2; refl.position.set(0, FL - 0.004, 1.6); scene.add(refl);
+  const fl = new THREE.Mesh(new THREE.PlaneGeometry(22, 14), new THREE.MeshPhysicalMaterial({ map: tex(marble(), [3, 2]), roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.08, transparent: true, opacity: 0.86 }));
+  fl.rotation.x = -Math.PI / 2; fl.position.set(0, FL, 1.6); fl.receiveShadow = true; scene.add(fl);
+  // duvarda çerçeveli baskılar (kokunun deseni ortada-solda, bir başka kokununki sağda), gölgede
+  const frame = (artKey, w, x, y) => {
+    const g = new THREE.Group();
+    g.add(new THREE.Mesh(new THREE.BoxGeometry(w, w * 1.18, 0.08), new THREE.MeshStandardMaterial({ color: 0x14110e, roughness: 0.45 })));
+    const mt = new THREE.Mesh(new THREE.PlaneGeometry(w * 0.92, w * 1.1), new THREE.MeshStandardMaterial({ color: 0xd8d2c6, roughness: 0.9 })); mt.position.z = 0.041; g.add(mt);
+    const pic = new THREE.Mesh(new THREE.PlaneGeometry(w * 0.72, w * 0.72), new THREE.MeshStandardMaterial({ map: load(`art/${artKey}.png`), roughness: 0.85 })); pic.position.set(0, w * 0.05, 0.043); g.add(pic);
+    g.position.set(x, y, -4.5); g.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } }); scene.add(g);
+    const pl = new THREE.SpotLight(0xffc888, 18, 6, 0.5, 0.9, 1.6); pl.position.set(x, y + w * 0.9, -3.6); pl.target.position.set(x, y - w * 0.1, -4.5); scene.add(pl, pl.target);
+  };
+  frame(key, 2.3, -1.35, 2.5);
+  frame(other, 1.5, 2.15, 2.15);
+  // kaya heykeller: iki yanda, sıcak ışığın yaladığı pürüzlü taş
+  const rock = (x, z, s, seed) => {
+    const geo = new THREE.IcosahedronGeometry(1, 5); const p = geo.attributes.position; let ss = seed;
+    const rr = () => (ss = (ss * 48271) % 2147483647) / 2147483647; const f = [rr() * 9, rr() * 9, rr() * 9];
+    for (let i = 0; i < p.count; i++) {
+      const v = new THREE.Vector3().fromBufferAttribute(p, i);
+      const n = 0.22 * Math.sin(v.x * 3.1 + f[0]) * Math.sin(v.y * 2.7 + f[1]) + 0.14 * Math.sin(v.z * 5.3 + f[2]) + 0.06 * Math.sin(v.x * 11 + v.y * 9);
+      v.multiplyScalar(1 + n); p.setXYZ(i, v.x, v.y * 1.25, v.z);
+    }
+    geo.computeVertexNormals();
+    const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: tex(stone([92, 80, 66], 512, 1800)), roughness: 0.92 }));
+    m.scale.setScalar(s); m.position.set(x, FL + s * 0.9, z); m.rotation.set(rr(), rr() * 6, rr() * 0.4); m.castShadow = true; m.receiveShadow = true; scene.add(m);
+  };
+  rock(-2.75, -1.9, 0.85, 7); rock(2.85, -1.4, 0.75, 19); rock(-2.0, -3.2, 0.55, 31);
+  const graze = new THREE.SpotLight(0xffb870, 40, 14, 0.5, 0.8, 1.4); graze.position.set(-1.2, 3.5, 1.5); graze.target.position.set(-2.75, -0.4, -1.9); scene.add(graze, graze.target);
+  const graze2 = new THREE.SpotLight(0xffb870, 30, 14, 0.5, 0.8, 1.4); graze2.position.set(1.6, 3.2, 2.0); graze2.target.position.set(2.85, -0.4, -1.4); scene.add(graze2, graze2.target);
+  scene.fog = new THREE.Fog(0x0b0907, 9, 17);
 }
 
-// ---- kaide: ham beton blok, üstte fırçalanmış çelik plaka (şişe kapağıyla aynı malzeme); üst yüz y=0
+// ---- kaide: gri taş silindir, altında koyu çelik basamak; üst yüz y=0
 const P = new THREE.Group(); scene.add(P);
-const BW = 1.9, BH = 1.0;
-const cTex = concrete(17, [168, 165, 160]); cTex.repeat.set(1.4, 0.8);
-const block = new THREE.Mesh(new RoundedBoxGeometry(BW, BH, BW * 0.82, 4, 0.03), new THREE.MeshStandardMaterial({ map: cTex, roughness: 0.88 }));
-block.position.y = -0.045 - BH / 2; P.add(block);
-const steel = new THREE.MeshPhysicalMaterial({ color: 0x8a8d90, metalness: 1, roughness: 0.38, clearcoat: 0.2 });
-const plate = new THREE.Mesh(new RoundedBoxGeometry(BW * 0.98, 0.045, BW * 0.8, 3, 0.01), steel); plate.position.y = -0.0225; P.add(plate);
-// kokunun renginde ince bir çizgi (plakanın ön kenarı)
-const line = new THREE.Mesh(new THREE.BoxGeometry(BW * 0.98, 0.008, 0.008), new THREE.MeshStandardMaterial({ color: juice, emissive: juice, emissiveIntensity: 0.4 }));
-line.position.set(0, -0.046, BW * 0.4 + 0.004); P.add(line);
-P.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } });
-if (mode === 'wall') P.visible = false;  // hikâye bölümünün duvarı: kaide sayfada ayrı (exhibit)
-const FLOOR = -0.045 - BH;
-const sh = new THREE.Mesh(new THREE.PlaneGeometry(30, 20), new THREE.ShadowMaterial({ opacity: CLEAR ? 0.4 : 0.5 }));
-sh.rotation.x = -Math.PI / 2; sh.position.y = FLOOR + 0.002; sh.receiveShadow = true; scene.add(sh);
+const PR = 1.0, BH = 0.86;
+const st = new THREE.MeshPhysicalMaterial({ map: tex(stone([72, 76, 82]), [2.4, 0.9]), roughness: 0.7, clearcoat: 0.12 });
+const stTop = new THREE.MeshPhysicalMaterial({ map: tex(stone([86, 89, 94]), [1, 1]), roughness: 0.4, clearcoat: 0.5, clearcoatRoughness: 0.2 });
+const drum = new THREE.Mesh(new THREE.CylinderGeometry(PR, PR, BH, 160), [st, stTop, st]); drum.position.y = -BH / 2; P.add(drum);
+const lip = new THREE.Mesh(new THREE.TorusGeometry(PR - 0.015, 0.016, 12, 200), stTop); lip.rotation.x = Math.PI / 2; lip.position.y = -0.016; P.add(lip);
+const steel = new THREE.MeshPhysicalMaterial({ color: 0x55585c, metalness: 1, roughness: 0.3, clearcoat: 0.4 });
+const step1 = new THREE.Mesh(new THREE.CylinderGeometry(PR * 1.08, PR * 1.1, 0.12, 160), steel); step1.position.y = -BH - 0.06; P.add(step1);
+const step2 = new THREE.Mesh(new THREE.CylinderGeometry(PR * 1.2, PR * 1.22, 0.08, 160), new THREE.MeshPhysicalMaterial({ color: 0x1c1b1a, metalness: 0.6, roughness: 0.35, clearcoat: 0.6 }));
+step2.position.y = -BH - 0.16; P.add(step2);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.01, 16, 160), new THREE.MeshPhysicalMaterial({ color: 0xc9a46a, metalness: 1, roughness: 0.28 }));
+ring.rotation.x = Math.PI / 2; ring.position.y = 0.004; P.add(ring);
+P.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; FG.push(m); } });
+if (mode === 'wall') P.visible = false;
+if (CLEAR) { const sh = new THREE.Mesh(new THREE.PlaneGeometry(30, 20), new THREE.ShadowMaterial({ opacity: 0.4 })); sh.rotation.x = -Math.PI / 2; sh.position.y = -BH - 0.2; sh.receiveShadow = true; scene.add(sh); }
 
-// ---- şişe (card/exhibit): fotoğraftan kesilmiş şişe, kaidede (ışığı fotoğrafın kendi ışığı), altta temas gölgesi
+// ---- şişe (card/exhibit): fotoğraftan kesilmiş şişe, kaidede; sıcak ışık tonu
 const BOT = 2.2;
+let bottleTex = null;
 if (SHOW) {
-  const ct = load(`cut/${key}.webp`);
+  bottleTex = load(`cut/${key}.webp`);
   pending++; const im = new Image(); im.onload = () => {
     const w = BOT * im.width / im.height;
-    const bottle = new THREE.Mesh(new THREE.PlaneGeometry(w, BOT), new THREE.MeshBasicMaterial({ map: ct, transparent: true, alphaTest: 0.02, toneMapped: false }));
-    bottle.position.set(0, BOT / 2, 0.05); scene.add(bottle);
-    // gölge için aynı silüette görünmez bir yüzey
-    const caster = new THREE.Mesh(new THREE.PlaneGeometry(w, BOT), new THREE.MeshBasicMaterial({ map: ct, alphaTest: 0.5, colorWrite: false, depthWrite: false }));
-    caster.position.copy(bottle.position); caster.castShadow = true; scene.add(caster);
-    caster.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: ct, alphaTest: 0.5 });
-    done();
+    const bottle = new THREE.Mesh(new THREE.PlaneGeometry(w, BOT), new THREE.MeshBasicMaterial({ map: bottleTex, transparent: true, alphaTest: 0.02, toneMapped: false, color: new THREE.Color(1.0, 0.95, 0.86) }));
+    bottle.position.set(0, BOT / 2, 0.05); bottle.userData.bottle = true; scene.add(bottle); FG.push(bottle);
+    const caster = new THREE.Mesh(new THREE.PlaneGeometry(w, BOT), new THREE.MeshBasicMaterial({ map: bottleTex, alphaTest: 0.5, colorWrite: false, depthWrite: false }));
+    caster.position.copy(bottle.position); caster.castShadow = true;
+    caster.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: bottleTex, alphaTest: 0.5 });
+    scene.add(caster); done();
   }; im.src = `cut/${key}.webp`;
-  const blob = new THREE.Mesh(new THREE.CircleGeometry(0.5, 48), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.45, depthWrite: false }));
-  blob.rotation.x = -Math.PI / 2; blob.scale.set(1, 0.35, 1); blob.position.set(0, 0.002, 0.05); scene.add(blob);
 }
 
-// ---- ışık: tepeden dar spot (kaide ve şişe), kokunun renginde arka kenar ışığı
-const spot = new THREE.SpotLight(0xfff1e0, 95, 16, 0.26, 0.5, 1.3); spot.position.set(0.4, 7.8, 2.6); spot.target.position.set(0, 0, 0);
-spot.castShadow = true; spot.shadow.mapSize.set(2048, 2048); spot.shadow.radius = 5; scene.add(spot, spot.target);
-const rim = new THREE.PointLight(juice.clone().lerp(new THREE.Color(1, 1, 1), 0.3), 10, 8); rim.position.set(0, 1.4, -2.2); scene.add(rim);
-scene.add(new THREE.HemisphereLight(0xf2efe8, 0x2a2826, CLEAR ? 0.55 : 0.2));
-const fill = new THREE.DirectionalLight(0xffffff, CLEAR ? 0.7 : 0.25); fill.position.set(-4, 3, 6); scene.add(fill);
+// ---- ışık: köşedeki lambadan sıcak spot (sağ üst), arka kenar ışıkları, çok az dolgu
+const key1 = new THREE.SpotLight(0xfff1de, 110, 22, 0.22, 0.6, 1.2); key1.position.set(3.6, 8.2, 3.4); key1.target.position.set(0, 0.6, 0);
+key1.castShadow = true; key1.shadow.mapSize.set(2048, 2048); key1.shadow.radius = 4; key1.shadow.bias = -0.0003; scene.add(key1, key1.target);
+// zeminde kaidenin çevresinde geniş, yumuşak ışık havuzu (mermer damarları ve parıltı görünür)
+if (!CLEAR) { const pool = new THREE.SpotLight(0xffc98a, 90, 16, 0.55, 0.95, 1.3); pool.position.set(1.8, 6.5, 4.5); pool.target.position.set(0, -1.1, 0.6); scene.add(pool, pool.target); }
+const rimL = new THREE.PointLight(0xffb066, 12, 6); rimL.position.set(-2.2, 1.2, -1.6); scene.add(rimL);
+const rimR = new THREE.PointLight(0xffc888, 9, 6); rimR.position.set(2.4, 0.4, -1.2); scene.add(rimR);
+scene.add(new THREE.HemisphereLight(0xfff0dc, 0x1a1410, CLEAR ? 0.55 : 0.08));
+if (CLEAR) { const f = new THREE.DirectionalLight(0xfff2e2, 1.2); f.position.set(-3, 3, 6); scene.add(f); }
 
 function draw() {
+  if (MASK) {
+    scene.background = new THREE.Color(0x000000); scene.fog = null;
+    scene.traverse((o) => { if (o.isMesh && !FG.includes(o)) o.visible = false; });
+    for (const m of FG) m.material = m.userData.bottle ? new THREE.MeshBasicMaterial({ map: bottleTex, alphaTest: 0.3, transparent: false, toneMapped: false }) : new THREE.MeshBasicMaterial({ color: 0xffffff });
+  }
   r.render(scene, cam);
   const p = (y) => { const v = new THREE.Vector3(0, y, 0).project(cam); return (1 - v.y) / 2; };
   window.__meta = { aspect: +(W / H).toFixed(4), base: +p(0).toFixed(4), cx: 0.5, h: +(p(0) - p(BOT)).toFixed(4) };
   window.__done = true;
 }
-if (pending === 0) setTimeout(draw, 80);
+if (pending === 0) setTimeout(draw, 120);
 </script></body></html>
