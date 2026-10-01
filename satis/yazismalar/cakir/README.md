@@ -10,3 +10,4 @@ Dosya adı: `YYYY-AA-GG-gelen|giden-konu` . Metinler geldiği / gönderildiği h
 | 01.10.2026 (23:22–23:31) | Giden + Gelen | `2026-10-01-whatsapp-altyapi-sorusu.md` (örnek demo görselleri; "müşteriyi direkt 3D mi karşılıyor?" sorusu; otomatik fiyat ve tema cevabı) |
 | 01.10.2026 (23:36) | Gelen | `2026-10-01-whatsapp-altyapi-sorusu.md` ("Tema ödemesi tek seferlik değil mi 12 bin") |
 | 01.10.2026 (23:39) | Gelen | `2026-10-01-whatsapp-altyapi-sorusu.md` ("yıllık 12 bin fazla değil mi? Alt yapı bizim") |
+| 01.10.2026 (23:50) | Gelen | `2026-10-01-whatsapp-altyapi-sorusu.md` ("Size yarın dönüş sağlayacağım", "Teşekkür ediyorum") |

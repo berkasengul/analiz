@@ -33,6 +33,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 (23:28–23:31) | Çakır Parfümeri | Giden | WhatsApp | Berka → Çakır Parfümeri | Ödeme altyapısı aynı kalıyor; ikas panelinde fiyat değişince 3D'de otomatik güncellendiği ve siteye tema yüklendiği söylendi (ikisi de mevcut altyapıyla örtüşmüyor; düzeltilecek) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 | 01.10.2026 (23:36) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Tema ödemesi tek seferlik değil mi 12 bin" (12.000 ₺'nin tek seferlik olup olmadığını soruyor) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 | 01.10.2026 (23:39) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Temayı 1 kez oluşturursunuz yıllık 12 bin fazla değil mi? Alt yapı bizim sonuçta" (12.000 ₺'yi yıllık ödeme sanıyor; fiyat itirazı) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
+| 01.10.2026 (23:50) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Size yarın dönüş sağlayacağım" · "Teşekkür ediyorum" | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 
 ---
 
@@ -117,7 +118,8 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 ### Çakır Parfümeri (cakirparfumeri.com.tr)
 - **İletişim:** WhatsApp 0541 748 64 84 (işletme hesabı) · info@cakirparfumeri.com.tr · @parfumor_st. Yazan kişinin adı belli değil (kurucu Tuğrul Çakır olabilir; doğrulanmadı). Berka'ya "Berkay bey" diye hitap ediyor.
 - **Altyapı:** ikas (sitesi yaklaşık 1 yıllık, kendi ifadesi).
-- **Durum:** Teklif gönderildi; örnek demolar gösterildi; müşteriyi nasıl karşıladığını sordu. Otomatik fiyat güncelleme ve "tema" ifadeleri düzeltilmeli.
+- **Durum:** Teklif gönderildi; 12.000 ₺'yi yıllık sandı (itiraz); 01.10.2026 23:50'de "yarın dönüş sağlayacağım" dedi. Düzeltme mesajının (tek seferlik ödeme, tema değil, otomatik fiyat yok) gönderilip gönderilmediği bilinmiyor.
+- **Takip:** 02.10.2026'da dönüş bekleniyor; gelmezse 03.10.2026 öğleden sonra kısa hatırlatma.
 - **Teklif:** 3D vitrin 8.500 ₺ + 3 ay bakım ve revize hediye · Yıllık paket 12.000 ₺ (1 yıl bakım, sınırsız revize).
 - **Verdiğimiz sözler (mesajda yazılı):**
   - Mevcut ikas sitesi değişmez; 3D vitrin önüne eklenir, sepet/ödeme/stok/kargo ikas'ta kalır.
