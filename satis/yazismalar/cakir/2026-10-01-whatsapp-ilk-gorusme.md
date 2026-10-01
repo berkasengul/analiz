@@ -1,6 +1,6 @@
 # Çakır Parfümeri: WhatsApp ilk görüşme
 
-- **Tarih:** bilinmiyor (ekran görüntüsünde yalnızca saat var: 22:48–22:58)
+- **Tarih:** 01.10.2026 (WhatsApp ekran görüntüsündeki görev çubuğu tarihi) (ekran görüntüsünde yalnızca saat var: 22:48–22:58)
 - **Kanal:** WhatsApp (Çakır Parfümeri işletme hesabı)
 - **Kimden → Kime:** Berka ↔ Çakır Parfümeri (yazan kişinin adı belli değil; Berka'ya "Berkay bey" diye hitap ediyor)
 - **Demo linki gönderildi mi:** bilinmiyor (ekranda yalnızca 4 görsel görünüyor)

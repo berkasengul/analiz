@@ -1,6 +1,6 @@
 # Çakır Parfümeri: WhatsApp teklif (giden)
 
-- **Tarih:** bilinmiyor (maliyet sorusuna, 22:58'den sonra verilen cevap)
+- **Tarih:** 01.10.2026 (WhatsApp ekran görüntüsündeki görev çubuğu tarihi) (maliyet sorusuna, 22:58'den sonra verilen cevap)
 - **Kanal:** WhatsApp
 - **Kimden → Kime:** Berka → Çakır Parfümeri
 
@@ -13,6 +13,6 @@
 
 ## Gelen cevap
 
-- **Tarih:** bilinmiyor
+- **Tarih:** 01.10.2026 (WhatsApp ekran görüntüsündeki görev çubuğu tarihi)
 - **Kimden:** Çakır Parfümeri (WhatsApp)
 - **Metin (kullanıcının aktardığı hâliyle):** Yaptığınız bir site var mı inceleyebileceğimiz
