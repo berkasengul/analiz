@@ -8041,3 +8041,6 @@ html.showcase .pcard__foot {
 }
 /* Sahne duvarı (şehir) varken düz renkli zemin bandı yok: duvarın kendi koyu zemini kaideyi taşır. */
 .epi-photo ~ .epi-floor { display: none; }
+/* theme.brightWalls: ferah (aydınlık) sahne duvarları; kenarlar yine hafif söner, yazı kartları cam üstünde okunur. */
+html.bright-walls .epi-photo { filter: brightness(0.92) saturate(1); -webkit-mask-image: radial-gradient(70% 85% at var(--sx) 46%, #000 35%, rgba(0, 0, 0, 0.55) 100%); mask-image: radial-gradient(70% 85% at var(--sx) 46%, #000 35%, rgba(0, 0, 0, 0.55) 100%); }
+html.bright-walls .finder__room .epi-vignette { opacity: 0.6; }
