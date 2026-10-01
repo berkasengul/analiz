@@ -262,7 +262,8 @@ export const BackgroundMaterial = shaderMaterial(
           : mix(0.55, 1., smoothstep(0.06, 0.42, vUv.y));
         float lit = mix(0.36, 0.32 + 0.45 * cone + 0.4 * pool + 0.14 * halo, u_sceneLight);
         lit = mix(lit, mix(0.6, 0.97 + 0.08 * cone + 0.1 * pool, u_sceneLight), u_vivid);
-        read = mix(read, sqrt(read), u_vivid * step(1., u_aspect));
+        // Aydınlık (vivid) sahnede de yazıların arkası gölgede kalır (kenarlar sinematik yarı gölge); orta ışıkta.
+        read = mix(read, read * mix(0.82, 1., smoothstep(0.08, 0.5, vUv.x)), u_vivid * step(1., u_aspect));
         base = mix(base, sc * lit * read, u_sceneOn);
       }
 
