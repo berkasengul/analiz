@@ -13,10 +13,14 @@ Nasıl çalışır:
   fiyat, varyant ve stok her açılışta /products/<handle>.js'den okunur; "Ödemeye geç" ürünleri Shopify sepetine
   ekleyip Shopify ödemesini açar (hope-demo/src/shopifyLive.js).
 - layout/sade.liquid: sepet, arama, sayfa, hesap ve parola sayfaları için sade, markaya uygun Liquid sayfalar
-  (Shopify'ın kendi formları; ödemeye dokunulmaz)."""
+  (Shopify'ın kendi formları; ödemeye dokunulmaz).
+- Yazılar: sitedeki Türkçe yazıların hepsi tema ayarı olur. Mağaza sahibi Shopify → Temalar → Özelleştir →
+  Tema ayarları'nda (bölüm bölüm, ürün ürün) değiştirir; tema bunları <script id="vitrin-metin"> ile vitrine verir
+  (hope-demo/src/textOverride.js). Boş bırakılan alan sitedeki ilk yazıyı gösterir."""
 import json
 import os
 import re
+import subprocess
 import sys
 import zipfile
 
@@ -47,6 +51,134 @@ for n in files:
         data = text.encode("utf-8")
     out.writestr(f"assets/{flat(n)}", data)
 
+# ------------------------------------------------------------------ düzenlenebilir yazılar
+# Yazı olmayanlar (renk, dosya, adres, kimlik, 3B ayarı) ve İngilizce sürüm (en) ayar olmaz.
+NOTEXT = {"slug", "en", "color", "ink", "theme", "file", "handle", "icon", "pose", "bottle", "labelBrand", "labelFinish",
+          "fillLight", "commerce", "prices", "glow", "form", "logo", "href", "id", "url", "image", "images", "photo",
+          "photos", "photo3d", "label", "backdrop", "particles", "nameLang", "latinTerms", "defaultLang", "hide", "home",
+          "meta", "instagram", "website", "variants", "category", "cutout", "bg", "bg2", "flavor", "product", "size"}
+WORD = {"name": "Ad", "sub": "Alt yazı", "title": "Başlık", "text": "Metin", "description": "Açıklama", "desc": "Açıklama",
+        "tagline": "Kısa tanıtım", "notes": "Nota", "composition": "Bileşim", "family": "Aile", "short": "Kısa ad",
+        "kicker": "Üst yazı", "struck": "Çizili yazı", "stat": "Alt bilgi", "lead": "Giriş", "paragraphs": "Paragraf",
+        "timeline": "Kronoloji", "founder": "Kurucu", "specs": "Özellik", "disclaimer": "Bilgi notu", "quote": "Alıntı",
+        "marquee": "Kayan yazı", "perks": "Avantaj", "nav": "Menü", "packUnit": "Birim", "packs": "Paket",
+        "categories": "Kategori", "features": "Özellik", "ritual": "Adım", "faqs": "", "ui": "", "brand": "", "story": "",
+        "catalog": "", "contactInfo": "", "stockists": "", "finder": ""}
+GROUPS = [("brand", "Marka"), ("specs", "Marka"), ("ui", "Menü ve genel yazılar"), ("features", "Öne çıkanlar"),
+          ("ritual", "Ritüel"), ("story", "Hakkımızda"), ("faqs", "Sık sorulanlar"), ("contactInfo", "İletişim"),
+          ("stockists", "İletişim"), ("catalog", "Kategoriler")]
+texts = {}  # grup → {yazı-anahtarı: [yollar, etiket, yazı]}
+
+
+def visible(v):
+    return bool(re.search(r"[A-Za-zÇĞİÖŞÜçğıöşü]{2}", v)) and not re.match(r"^(#|https?:|/|\./|[\w./-]+\.\w{3,4}$)", v)
+
+
+def label(path, value):
+    keys = [k for k in path if k != "tr"]
+    snip = (value[:38] + "…") if len(value) > 40 else value
+    # Arayüz yazılarının kod adları (ui.prevFlavor) anlamsız: etiket yazının başı olur.
+    if keys[0] == "ui":
+        return ("Menü: " + snip) if "nav" in keys else snip
+    words = []
+    for i, k in enumerate(keys):
+        if isinstance(k, int):
+            if keys[0] == "faqs" and i == len(keys) - 1:
+                words[-1:] = [("Soru " if k == 0 else "Cevap ") + words[-1]] if words else []
+                continue
+            words.append(str(k + 1))
+        elif k in WORD:
+            words.append(WORD[k])
+        else:
+            # Kod adı olan yazı (ör. ui.prevFlavor): etiket yazının başı olur.
+            return (value[:38] + "…") if len(value) > 40 else value
+    text = " ".join(w for w in words if w)
+    # Yalnızca sıra numarası kaldıysa (ör. iletişim satırı) etiket yazının başı olur.
+    return text if re.search(r"[^\d ]", text) else ((value[:38] + "…") if len(value) > 40 else value)
+
+
+def engine_ui():
+    """Motorun Türkçe arayüz yazıları (hope-demo/src/i18n.js → UI.tr): markada yazılmamış olanlar da düzenlenebilsin.
+    Fonksiyon olan metinler "{0} ürün" kalıbına çevrilir (i18n.js mergeUi bu kalıbı kabul eder)."""
+    src = open(os.path.join(ROOT, "hope-demo", "src", "i18n.js"), encoding="utf-8").read()
+    a = src.index("const UI = {")
+    js = src[a : src.index("\n};", a) + 3] + r"""
+const pat = (f) => {
+  const m = f.toString().match(/^\(?([\w,\s]*)\)?\s*=>\s*`([^`]*)`$/);
+  if (!m) return null;
+  const args = m[1].split(",").map((x) => x.trim()).filter(Boolean);
+  let ok = true;
+  const t = m[2].replace(/\$\{(\w+)\}/g, (_, v) => { const i = args.indexOf(v); if (i < 0) ok = false; return `{${i}}`; });
+  return ok ? t : null;
+};
+const out = {};
+for (const [k, v] of Object.entries(UI.tr)) {
+  if (typeof v === "string") out[k] = v;
+  else if (typeof v === "function") { const p = pat(v); if (p) out[k] = p; }
+  else if (v && typeof v === "object" && !Array.isArray(v))
+    out[k] = Object.fromEntries(Object.entries(v).filter(([, x]) => typeof x === "string"));
+}
+console.log(JSON.stringify(out));"""
+    try:
+        return json.loads(subprocess.run(["node", "--input-type=module", "-e", js], capture_output=True, text=True, check=True).stdout)
+    except Exception as e:  # node yoksa yalnızca markanın yazıları düzenlenir
+        print("! motor yazıları okunamadı:", e)
+        return {}
+
+
+def collect(x, path, group, key, skip=NOTEXT):
+    if isinstance(x, str):
+        if visible(x):
+            k = (key, x) if key is not None else tuple(path)
+            e = texts.setdefault(group, {}).setdefault(k, [[], None, x])
+            e[0].append(path)
+            if e[1] is None:
+                e[1] = label(path if key is None else path[2:], x)
+    elif isinstance(x, dict):
+        for k, v in x.items():
+            if k not in skip:
+                collect(v, path + [k], group, key, skip)
+    elif isinstance(x, list):
+        for i, v in enumerate(x):
+            collect(v, path + [i], group, key, skip)
+
+
+prods = cfg.get("products") or []
+for top, grp in GROUPS:
+    if top == "catalog":
+        for i, c in enumerate(cfg.get("catalog", {}).get("categories", [])):
+            collect(c, ["catalog", "categories", i], grp, None)
+    elif top == "ui":
+        # Markanın yazısı motorun varsayılanının önüne geçer (i18n.js mergeUi gibi, iç nesnelerde bir düzey).
+        ui = engine_ui()
+        for k, v in ((cfg.get("ui") or {}).get("tr") or {}).items():
+            ui[k] = {**ui[k], **v} if isinstance(ui.get(k), dict) and isinstance(v, dict) else v
+        collect(ui, ["ui", "tr"], grp, None, set())
+    elif top in cfg:
+        collect(cfg[top], [top], grp, None)
+# Ürün başına bir grup; katalog kartındaki aynı yazı (ad, açıklama) tek alandan değişir.
+for i, pr in enumerate(prods):
+    collect(pr, ["products", i], f"Ürün: {pr.get('name', i + 1)}", i)
+for j, it in enumerate(cfg.get("catalog", {}).get("items", [])):
+    i = it.get("product")
+    grp = f"Ürün: {prods[i].get('name', i + 1)}" if isinstance(i, int) and i < len(prods) else f"Ürün: {it.get('handle', j + 1)}"
+    collect(it, ["catalog", "items", j], grp, i if isinstance(i, int) else f"c{j}")
+for top in ("packs", "packUnit", "finder"):
+    if top in cfg:
+        collect(cfg[top], [top], "Diğer yazılar", None)
+
+schema, pairs, n = [], [], 0
+for grp, entries in texts.items():
+    sets = [{"type": "paragraph", "content": "Boş bırakılan alan sitedeki ilk yazıyı gösterir."}]
+    for paths, lab, value in entries.values():
+        sid = f"m{n}"
+        n += 1
+        sets.append({"type": "text" if len(value) <= 60 and "\n" not in value else "textarea", "id": sid,
+                     "label": lab, "default": value})
+        pairs.append(f"[{json.dumps(paths)},{{{{ settings.{sid} | json }}}}]")
+    schema.append({"name": grp if len(grp) <= 50 else grp[:49] + "…", "settings": sets})
+METIN = '<script type="application/json" id="vitrin-metin">[' + ",".join(pairs) + "]</script>"
+
 HEAD = """  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{% if template.name == 'index' %}{{ shop.name }}{% else %}{{ page_title }} · {{ shop.name }}{% endif %}</title>
@@ -66,6 +198,7 @@ out.writestr("layout/theme.liquid", f"""<!doctype html>
   <script type="module" src="{{{{ '{js}' | asset_url }}}}"></script>
 </head>
 <body>
+  {METIN}
   <div id="root"></div>
   <div hidden>{{{{ content_for_layout }}}}</div>
 </body>
@@ -132,9 +265,9 @@ for k, v in T.items():
 out.writestr("config/settings_schema.json", json.dumps([{
     "name": "theme_info", "theme_name": name, "theme_version": "1.0.0", "theme_author": "MKY Reklam",
     "theme_documentation_url": "https://www.instagram.com/mkyreklam/", "theme_support_url": "https://www.instagram.com/mkyreklam/",
-}], ensure_ascii=False, indent=2))
+}] + schema, ensure_ascii=False, indent=2))
 out.writestr("config/settings_data.json", json.dumps({"current": "Default", "presets": {"Default": {}}}, indent=2))
 out.writestr("locales/tr.default.json", json.dumps({"general": {"3d": "3D Koleksiyon"}}, ensure_ascii=False, indent=2))
 out.writestr("locales/en.json", json.dumps({"general": {"3d": "3D Collection"}}, indent=2))
 out.close()
-print("✓", f"demolar/{slug}-tema.zip", len(files), "dosya")
+print("✓", f"demolar/{slug}-tema.zip", len(files), "dosya,", n, "düzenlenebilir yazı,", len(schema), "grup")

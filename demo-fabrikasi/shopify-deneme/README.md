@@ -21,3 +21,10 @@ Akış:
 Shopify → Online Mağaza → Temalar → Tema yükle → zip. Önizle, sonra Yayınla. Mağazanın ana sayfası 3D vitrin olur;
 fiyat/stok Shopify'dan canlı, sepet ve ödeme Shopify'ın kendisi. Sepet, arama, hesap ve parola sayfaları sade
 Liquid şablonlar. Netlify gerekmez.
+
+## Yazıları müşteri değiştirir
+
+Temadaki bütün Türkçe yazılar (menü, başlıklar, hakkımızda, SSS, iletişim, ürün adı/açıklama/notalar) tema ayarıdır:
+Shopify → Online Mağaza → Temalar → **Özelleştir** → sol alttaki **Tema ayarları** (fırça/çark simgesi) → bölüm
+seçilir, yazı değiştirilir, **Kaydet**. Boş bırakılan alan ilk yazıyı gösterir. `{0}` geçen yazılarda `{0}` yerine
+sayı/ad gelir, silinmemeli. Fiyat ve stok zaten Shopify ürün sayfasından gelir. İngilizce sürüm ve 3B ürün eklemek bizde.
