@@ -28,3 +28,6 @@ Temadaki bütün Türkçe yazılar (menü, başlıklar, hakkımızda, SSS, ileti
 Shopify → Online Mağaza → Temalar → **Özelleştir** → sol alttaki **Tema ayarları** (fırça/çark simgesi) → bölüm
 seçilir, yazı değiştirilir, **Kaydet**. Boş bırakılan alan ilk yazıyı gösterir. `{0}` geçen yazılarda `{0}` yerine
 sayı/ad gelir, silinmemeli. Fiyat ve stok zaten Shopify ürün sayfasından gelir. İngilizce sürüm ve 3B ürün eklemek bizde.
+
+**02.10.2026:** Deneme mağazasında (dsgdgsd-tbp7g1us.myshopify.com) doğrulandı: tema yüklendi, 3D vitrin açıldı,
+fiyat ve yazılar Shopify panelinden değiştirilebiliyor.
