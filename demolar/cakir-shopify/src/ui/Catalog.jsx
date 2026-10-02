@@ -6,6 +6,7 @@ import { useStore } from "../store";
 import { Arrow, Bag, Plus } from "../Icons";
 import { THEME, numeralOf } from "../theme";
 
+import { assetUrl } from "../shared";
 // "gallery" kartları (content.theme.cards): ürünün kendi renginde zemin, arkada dev numara,
 // ışıklı kaide, açıklama yerine koku notaları.
 const GALLERY = THEME.cards === "gallery";
@@ -18,7 +19,6 @@ const STAGE = THEME.cards === "stage" || (!!THEME.fresh && THEME.cards !== "gall
 // vitrin, ayrı sayfada (#/urunler) kategorilere ayrılmış liste. Ürünlerin
 // bir kısmı 3B sahnedeki ürünlerle aynıdır (`product`); diğerleri kartla gösterilir.
 const C = content.catalog;
-const BASE = import.meta.env.BASE_URL;
 
 export const catalogId = (id) => `c:${id}`;
 
@@ -152,14 +152,14 @@ function Card({ item, t, onOpen, index = 0 }) {
     setTimeout(() => setAdded(false), 1400);
     setTimeout(() => setCartOpen(true), 250);
   };
-  if (STAGE && item.image) return <StageCard item={item} t={t} onOpen={onOpen} index={index} add={add} added={added} motion={motion} cat={cat} name={name} />;
+  if (STAGE && item.image && !item.shop) return <StageCard item={item} t={t} onOpen={onOpen} index={index} add={add} added={added} motion={motion} cat={cat} name={name} />;
   // Sergi kartı: ürün 3B sahnede (kemerli niş, mermer kaide, spot ışığı); yazı görselin
   // altındaki karartmanın üstünde, sağda sepet ve ürünü açan yuvarlak düğmeler.
   if (GALLERY && item.scene)
     return (
       <article className="pcard pcard--scene" style={{ "--i": index % 4 }} {...motion}>
         <button className="pcard__scene" onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>
-          <img src={`${BASE}${item.scene}`} alt="" loading="lazy" />
+          <img src={`${assetUrl(item.scene)}`} alt="" loading="lazy" />
           <span className="pcard__dust" aria-hidden="true" />
         </button>
         <div className="pcard__over">
@@ -179,7 +179,7 @@ function Card({ item, t, onOpen, index = 0 }) {
     );
   return (
     <article
-      className={`pcard${GALLERY ? " pcard--gallery" : ""}`}
+      className={`pcard${GALLERY ? " pcard--gallery" : ""}${item.shop ? " pcard--shop" : ""}`}
       style={{ "--c": item.color ?? cat?.color, "--i": index % 4, "--f": index % 5, ...(item.bg ? { "--bg": item.bg, "--bg2": item.bg2 } : {}) }}
       {...motion}
     >
@@ -194,11 +194,11 @@ function Card({ item, t, onOpen, index = 0 }) {
         <span className="pcard__float">
           {item.image ? (
             <>
-              <img src={`${BASE}${item.image}`} alt="" loading="lazy" />
+              <img src={`${assetUrl(item.image)}`} alt="" loading="lazy" />
               {/* Kesilmiş üründe parlak zeminde silik yansıma. */}
-              {item.cutout && <img className="pcard__reflect" src={`${BASE}${item.image}`} alt="" loading="lazy" aria-hidden="true" />}
+              {item.cutout && <img className="pcard__reflect" src={`${assetUrl(item.image)}`} alt="" loading="lazy" aria-hidden="true" />}
               {/* Gerçek ürün fotoğrafı: üzerine gelince 3B görselin yerine geçer. */}
-              {item.photo && <img className="pcard__photo" src={`${BASE}${item.photo}`} alt="" loading="lazy" />}
+              {item.photo && <img className="pcard__photo" src={`${assetUrl(item.photo)}`} alt="" loading="lazy" />}
             </>
           ) : (
             <span className="pcard__icon">{ICONS[item.icon] ?? ICONS.set}</span>
@@ -257,7 +257,7 @@ function StageCard({ item, t, onOpen, index, add, added, motion, cat, name }) {
             <img
               key={g.file}
               className="scard__garnish"
-              src={`${BASE}${g.file}`}
+              src={`${assetUrl(g.file)}`}
               alt=""
               loading="lazy"
               style={{ "--gx": g.x, "--gy": g.y, "--gw": g.w, "--gh": g.h, "--gs": Math.sign(g.x) || 1, "--gk": k }}
@@ -266,7 +266,7 @@ function StageCard({ item, t, onOpen, index, add, added, motion, cat, name }) {
           <span className="scard__plinth">
             <span />
           </span>
-          <img className="scard__bottle" src={`${BASE}${item.image}`} alt="" loading="lazy" />
+          <img className="scard__bottle" src={`${assetUrl(item.image)}`} alt="" loading="lazy" />
         </span>
         <span className="scard__cta mono" aria-hidden="true">
           {t.ui.discoverCan ?? t.ui.discover}
@@ -570,7 +570,7 @@ function CatalogHero({ items, t, title, children }) {
                 aria-label={it.name[t.lang] ?? it.name.tr}
                 tabIndex={i === front ? 0 : -1}
               >
-                <img src={`${BASE}${it.scene}`} alt="" loading={i < 6 || i > N - 4 ? "eager" : "lazy"} />
+                <img src={`${assetUrl(it.scene)}`} alt="" loading={i < 6 || i > N - 4 ? "eager" : "lazy"} />
               </button>
             ))}
           </div>

@@ -4,6 +4,7 @@ import { HOME_SET, content } from "../data";
 import { useT } from "../i18n";
 import { THEME } from "../theme";
 
+import { assetUrl } from "../shared";
 // Alt bölümlerin (hikâye, satış noktaları, SSS, iletişim) arkasındaki sahne: 3B vitrinin devamı.
 // Ekrana sabitlenmiş bir "oda": ürünün renginde duvar, yavaşça akan ipek ışıklar, parlak zemin ve
 // 3B sahnedeki fildişi kaide. Her bölümde kaideye başka bir ürün konur (vitrinde gösterilmeyenlerden
@@ -15,7 +16,6 @@ export const EPILOGUE = THEME.epilogue ?? (!!THEME.fresh || THEME.carousel === "
 // Bölüm → şişenin tarafı ("none": geniş bölüm, şişe sahneden çekilir).
 // Şişe hep sağda (yazılar solda, üstüne binmez); yeni şişe soldan süzülerek gelir.
 const SIDES = { top: "right", story: "right", stockists: "none", faq: "right", contact: "right" };
-const BASE = import.meta.env.BASE_URL;
 
 function exhibits() {
   const items = (content.catalog?.items ?? []).filter((i) => i.image && i.cutout !== false);
@@ -28,10 +28,10 @@ function exhibits() {
   const rest = items.filter((i) => i.product == null || !home.has(i.product));
   const list = (rest.length >= 3 ? rest : items).slice();
   return list.map((i) => ({
-    id: i.id, name: i.name, family: { tr: content.products[i.product]?.family, en: content.products[i.product]?.en?.family }, image: `${BASE}${i.image}`, gid: i.product, ...pal(i),
+    id: i.id, name: i.name, family: { tr: content.products[i.product]?.family, en: content.products[i.product]?.en?.family }, image: `${assetUrl(i.image)}`, gid: i.product, ...pal(i),
     // 3B sergi görseli (ürün kaidesiyle) ve ürünün sahne duvarı: varsa CSS kaide ve renk duvarı yerine.
-    ...(i.exhibit ? { exhibit: `${BASE}${i.exhibit}` } : {}),
-    ...(i.wall ? { wall: `${BASE}${i.wall}` } : {}),
+    ...(i.exhibit ? { exhibit: `${assetUrl(i.exhibit)}` } : {}),
+    ...(i.wall ? { wall: `${assetUrl(i.wall)}` } : {}),
   }));
 }
 

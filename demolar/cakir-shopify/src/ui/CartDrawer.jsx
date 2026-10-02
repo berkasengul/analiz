@@ -8,6 +8,7 @@ import { useStore } from "../store";
 import { Close, Minus, Plus } from "../Icons";
 import { SHOP } from "../shopifyLive";
 
+import { assetUrl } from "../shared";
 export default function CartDrawer() {
   const open = useStore((s) => s.cartOpen);
   const cart = useStore((s) => s.cart);
@@ -122,7 +123,7 @@ export default function CartDrawer() {
                 <li key={i.id} className="line">
                   {itemOf(i)?.image ? (
                     <span className="line__thumb" style={{ "--c": itemOf(i).color }}>
-                      <img src={import.meta.env.BASE_URL + itemOf(i).image} alt="" />
+                      <img src={assetUrl(itemOf(i).image)} alt="" />
                     </span>
                   ) : (
                     <span

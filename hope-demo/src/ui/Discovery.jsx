@@ -5,12 +5,12 @@ import { useT } from "../i18n";
 import { useStore } from "../store";
 import { THEME } from "../theme";
 
+import { assetUrl } from "../shared";
 // Keşif seti bandı (content.discovery; demo-fabrikasi/araclar/kesif-seti.py): markanın set fotoğrafındaki
 // büyük kutu (ör. altın "kitap") kaidede belirir, üzerinden altın ışık geçer; küçük koku kutuları sırayla
 // yükselip önüne dizilir. Kutunun üzerine gelince kokunun adı çıkar, tıklayınca o koku açılır.
 // Sağda markanın metni, fiyat ve sepete ekle.
 const D = content.discovery;
-const BASE = import.meta.env.BASE_URL;
 export const DISCOVERY = !!D;
 
 export default function Discovery() {
@@ -33,11 +33,11 @@ export default function Discovery() {
   const bh = y1 - y0;
   // Büyük kutu tam kare görselden (kesif/book.webp) kırpılır; ışık süzmesi aynı görselle maskelenir.
   const bookBg = (k) => ({
-    [`${k}Image`]: `url("${BASE}${D.book}")`,
+    [`${k}Image`]: `url("${assetUrl(D.book)}")`,
     [`${k}Size`]: `${100 / bw}% ${100 / bh}%`,
     [`${k}Position`]: `${(x0 / (1 - bw)) * 100}% ${(y0 / (1 - bh)) * 100}%`,
     [`${k}Repeat`]: "no-repeat",
-    ...(k === "mask" ? { WebkitMaskImage: `url("${BASE}${D.book}")`, WebkitMaskSize: `${100 / bw}% ${100 / bh}%`, WebkitMaskPosition: `${(x0 / (1 - bw)) * 100}% ${(y0 / (1 - bh)) * 100}%`, WebkitMaskRepeat: "no-repeat" } : {}),
+    ...(k === "mask" ? { WebkitMaskImage: `url("${assetUrl(D.book)}")`, WebkitMaskSize: `${100 / bw}% ${100 / bh}%`, WebkitMaskPosition: `${(x0 / (1 - bw)) * 100}% ${(y0 / (1 - bh)) * 100}%`, WebkitMaskRepeat: "no-repeat" } : {}),
   });
   const pos = (b) => ({ left: `${((b.x - x0) / bw) * 100}%`, top: `${((b.y - y0) / bh) * 100}%`, width: `${(b.w / bw) * 100}%`, height: `${(b.h / bh) * 100}%` });
   const open = (b) => {
@@ -72,7 +72,7 @@ export default function Discovery() {
           </span>
           {D.boxes.map((b, k) => (
             <button key={b.file} className="disco__box" style={{ ...pos(b), "--k": k }} onClick={() => open(b)} aria-label={b.name[L] ?? b.name.tr}>
-              <img src={`${BASE}${b.file}`} alt="" loading="lazy" />
+              <img src={`${assetUrl(b.file)}`} alt="" loading="lazy" />
               <span className="disco__tip mono">{b.name[L] ?? b.name.tr}</span>
             </button>
           ))}

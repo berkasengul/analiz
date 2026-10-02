@@ -1,5 +1,5 @@
-import { useLayoutEffect, useMemo, useRef } from "react";
-import { useTexture } from "@react-three/drei";
+import { Component, Suspense, useLayoutEffect, useMemo, useRef } from "react";
+import { useGLTF, useTexture } from "@react-three/drei";
 import {
   Box3,
   BoxGeometry,
@@ -1154,11 +1154,40 @@ export const viewUrl = (file) => FILES[`./assets/labels/${file}`];
 
 export default function CanMesh({ body, parts, flavor = 0, view = null }) {
   const f = viewOf(flavor, view);
-  return (
+  const own = (
     <Fit k={`${flavor}:${view}`} wide={f.photo3d?.profile === "group"}>
       <ProductShape body={body} parts={parts} f={f} flavor={flavor} />
     </Fit>
   );
+  // Mağazanın yüklediği 3B model (Shopify ürün medyası, GLB: shopifyLive.js → products[].glb): yüklenene kadar ve
+  // yüklenemezse vitrinin kendi şişesi görünür.
+  if (!f.glb || view != null) return own;
+  return (
+    <Fallback key={f.glb} fallback={own}>
+      <Suspense fallback={own}>
+        <Fit k={`${flavor}:glb`}>
+          <Glb url={f.glb} />
+        </Fit>
+      </Suspense>
+    </Fallback>
+  );
+}
+
+class Fallback extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
+
+function Glb({ url }) {
+  const { scene } = useGLTF(url);
+  // Aynı model birden çok yerde (akış, detay) kullanılır: her biri kendi kopyası.
+  const obj = useMemo(() => scene.clone(true), [scene]);
+  return <primitive object={obj} />;
 }
 
 function ProductShape({ body, parts, f, flavor }) {

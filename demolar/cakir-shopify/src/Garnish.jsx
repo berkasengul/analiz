@@ -5,19 +5,18 @@ import { DoubleSide, MathUtils, SRGBColorSpace, TextureLoader } from "three";
 import { flavors } from "./data";
 import { pointer } from "./pointer";
 import { scrollState } from "./scroll";
-import { sceneState } from "./shared";
+import { sceneState, assetUrl } from "./shared";
 import { useStore } from "./store";
 
 // Nota malzemeleri (demo-fabrikasi/araclar/garnish.py): markanın malzemeli ürün fotoğrafındaki çiçek, meyve,
 // baharat… şişenin iki yanında, fotoğraftaki yerlerinde süzülür. Şişe kaideye oturunca (açılışta inerken)
 // iki yandan, kameraya yakın bir yerden dönerek sırayla gelir ve hafif taşmayla yerine oturur; nefes alır,
 // fareyle derinlik kazanır. Kaydırınca kaydırmaya bağlı olarak dışarı ve kameraya doğru açılıp kaybolur.
-const BASE = import.meta.env.BASE_URL;
 const loader = new TextureLoader();
 const cache = {};
 const tex = (file) => {
   if (!cache[file]) {
-    cache[file] = loader.load(`${BASE}${file}`);
+    cache[file] = loader.load(`${assetUrl(file)}`);
     cache[file].colorSpace = SRGBColorSpace;
     cache[file].anisotropy = 4;
   }

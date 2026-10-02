@@ -8,6 +8,7 @@ import { SearchButton } from "./Search";
 import { onSoundChange, setSound, soundState } from "../sound";
 import { FINDER } from "./Finder";
 
+import { assetUrl } from "../shared";
 // Dil düğmesinde o dilin para birimi simgesi (markanın fiyat ayarından).
 const symbol = (p) => (p ? new Intl.NumberFormat(p.locale, { style: "currency", currency: p.currency, currencyDisplay: "narrowSymbol" }).formatToParts(0).find((x) => x.type === "currency")?.value : "");
 const CUR = { tr: symbol(content.prices?.tr) || "₺", en: symbol(content.prices?.en) || "$" };
@@ -70,7 +71,6 @@ function SoundButton() {
 }
 
 const CAT = content.catalog;
-const BASE = import.meta.env.BASE_URL;
 
 // Üst menü: ince cam bir bar; üzerine gelinen bağlantının arkasında ışıklı bir
 // hap kayar. Katalogu olan markalarda "Ürünler" açılınca kategoriler ürün
@@ -135,7 +135,7 @@ function NavBar({ ui }) {
                 <li key={c.id} style={{ "--c": c.color, "--i": i }}>
                   <a href={`#/urunler/${c.id}`} onClick={() => setOpen(false)}>
                     <span className="navcat__img" aria-hidden="true">
-                      {thumb(c.id) && <img src={BASE + thumb(c.id)} alt="" loading="lazy" />}
+                      {thumb(c.id) && <img src={assetUrl(thumb(c.id))} alt="" loading="lazy" />}
                     </span>
                     <span className="navcat__name" lang={termLang(c.name[lang] ?? c.name.tr)}>{c.name[lang] ?? c.name.tr}</span>
                     <small>{count(c.id)}</small>

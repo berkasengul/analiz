@@ -5,6 +5,7 @@ import { content } from "../data";
 import { useT, termLang } from "../i18n";
 import { openProduct, catalogId } from "./Catalog";
 
+import { assetUrl } from "../shared";
 // Ürün arama: üst menüdeki büyüteç, "/" ya da Ctrl/⌘+K ile açılır. Ad, kategori,
 // içerik notları, açıklama ve hacimde arar; Türkçe harflere duyarsızdır
 // ("gunes" → "Güneş"). Sonuca tıklayınca ürün 3B akışta açılır.
@@ -227,7 +228,7 @@ function SearchPanel({ onClose }) {
                   tabIndex={-1}
                 >
                   <span className="search__thumb" aria-hidden="true">
-                    {e.item.image && <img src={BASE + e.item.image} alt="" loading="lazy" />}
+                    {e.item.image && <img src={assetUrl(e.item.image)} alt="" loading="lazy" />}
                   </span>
                   <span className="search__text">
                     <span className="search__name">

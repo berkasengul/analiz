@@ -16,12 +16,16 @@ Nasıl çalışır:
   (Shopify'ın kendi formları; ödemeye dokunulmaz).
 - Yazılar: sitedeki Türkçe yazıların hepsi tema ayarı olur. Mağaza sahibi Shopify → Temalar → Özelleştir →
   Tema ayarları'nda (bölüm bölüm, ürün ürün) değiştirir; tema bunları <script id="vitrin-metin"> ile vitrine verir
-  (hope-demo/src/textOverride.js). Boş bırakılan alan sitedeki ilk yazıyı gösterir."""
+  (hope-demo/src/textOverride.js). Boş bırakılan alan sitedeki ilk yazıyı gösterir.
+- Görsel ve 3B model: ürüne Shopify'da yüklenen GLB model vitrinin şişesinin yerine geçer; temanın kurulduğu andan
+  (<meta name="vitrin-built">) sonra yüklenen fotoğraflar galeride ve kartta görünür; vitrinde olmayan yeni ürünler
+  "Tüm ürünler"e fotoğraflı kartla eklenir (hope-demo/src/shopifyLive.js)."""
 import json
 import os
 import re
 import subprocess
 import sys
+import time
 import zipfile
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
@@ -191,6 +195,7 @@ out.writestr("layout/theme.liquid", f"""<!doctype html>
 {HEAD}
   {{{{ content_for_header }}}}
   <meta name="vitrin-shopify" content="{{{{ shop.permanent_domain }}}}">
+  <meta name="vitrin-built" content="{int(time.time())}">
   <base href="{{{{ '{js}' | asset_url | split: '{js}' | first }}}}">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   {fonts}

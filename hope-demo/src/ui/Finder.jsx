@@ -6,12 +6,12 @@ import { measureScroll, scrollState, scrollToElement } from "../scroll";
 import { useStore } from "../store";
 import { THEME } from "../theme";
 
+import { assetUrl } from "../shared";
 // Koku bulucu: üç soru, cevaplar her kokunun kendi notalarına (markanın sitesinden) göre puanlanır.
 // Sonuçta o koku kendi renginde bir sahnede kaideye iner, iki yanında notaları (garnish) süzülür;
 // "Keşfet" 3B vitrinde açar (vitrinde yoksa ürün sayfasına gider), sepete eklenebilir, iki alternatif önerilir.
 // content.finder === false kapatır ({categories: [...]} öneriyi o kategorilerle sınırlar); notası olan en az 3 ürün gerekir.
 const C = content.catalog;
-const BASE = import.meta.env.BASE_URL;
 
 // Nota → koku ailesi (Türkçe, İngilizce ve Macarca nota adları; parça eşleşmesi). Ürünün koku ailesi
 // (ör. Macarca "virágos", "fás") da sayılır.
@@ -125,7 +125,7 @@ export default function Finder() {
     <section id="finder" className={`section finder${done ? " is-done" : ""}`} style={{ "--plinth": THEME.plinthColor ?? "#f1ebe3", ...pal }}>
       <div className="finder__room" aria-hidden="true">
         <div className="epi-wall" />
-        {EXHIBIT && win?.item.wall && <div key={`w-${win.item.id}`} className="epi-photo" style={{ backgroundImage: `url(${BASE}${win.item.wall})` }} />}
+        {EXHIBIT && win?.item.wall && <div key={`w-${win.item.id}`} className="epi-photo" style={{ backgroundImage: `url(${assetUrl(win.item.wall)})` }} />}
         <div className="epi-silk">
           <i />
           <i />
@@ -140,21 +140,21 @@ export default function Finder() {
                 <img
                   key={g.file}
                   className="finder__garnish"
-                  src={`${BASE}${g.file}`}
+                  src={`${assetUrl(g.file)}`}
                   alt=""
                   style={{ "--gx": g.x, "--gy": g.y, "--gw": g.w, "--gh": g.h, "--gs": Math.sign(g.x) || 1, "--gk": k }}
                 />
               ))}
               {EXHIBIT && win.item.exhibit ? (
-                <img className="epi-img finder__set" src={`${BASE}${win.item.exhibit}`} alt="" />
+                <img className="epi-img finder__set" src={`${assetUrl(win.item.exhibit)}`} alt="" />
               ) : (
-                <img className="finder__bottle" src={`${BASE}${win.item.image}`} alt="" />
+                <img className="finder__bottle" src={`${assetUrl(win.item.image)}`} alt="" />
               )}
               <div className="epi-puff" />
             </div>
           )}
           {EXHIBIT ? (
-            !win && THEME.plinthImage && <img className="epi-img" src={`${BASE}${THEME.plinthImage}`} alt="" />
+            !win && THEME.plinthImage && <img className="epi-img" src={`${assetUrl(THEME.plinthImage)}`} alt="" />
           ) : (
             <div className="epi-plinth">
               <span />
@@ -230,7 +230,7 @@ export default function Finder() {
                 <p className="mono">{T.also}</p>
                 {ranked.slice(1, 3).map((r) => (
                   <button key={r.item.id} onClick={() => open(r.item)}>
-                    <img src={`${BASE}${r.item.image}`} alt="" loading="lazy" />
+                    <img src={`${assetUrl(r.item.image)}`} alt="" loading="lazy" />
                     <span>{r.item.name[L] ?? r.item.name.tr}</span>
                   </button>
                 ))}

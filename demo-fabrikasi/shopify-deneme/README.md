@@ -31,3 +31,13 @@ sayı/ad gelir, silinmemeli. Fiyat ve stok zaten Shopify ürün sayfasından gel
 
 **02.10.2026:** Deneme mağazasında (dsgdgsd-tbp7g1us.myshopify.com) doğrulandı: tema yüklendi, 3D vitrin açıldı,
 fiyat ve yazılar Shopify panelinden değiştirilebiliyor.
+
+## Görsel ve 3D model
+
+- **3D model:** Shopify → Ürünler → ürün → Medya → `.glb` dosyası yükle. Vitrinde (ana sayfa dahil) o ürünün şişesinin
+  yerine bu model döner. Model yüklenene kadar ve yüklenemezse bizim şişemiz görünür.
+- **Fotoğraf:** Tema kurulduktan sonra ürüne yüklenen fotoğraflar ürünün kartında ve galerisinde görünür. Ana
+  sayfadaki 3D şişe fotoğraftan otomatik değişmez: ya GLB yüklenir ya da biz yeni fotoğraftan 3D şişeyi yaparız (bakım).
+- **Yeni ürün:** Shopify'a eklenen, vitrinde olmayan ürün "Tüm ürünler"de fotoğraflı kartla çıkar, sepete eklenir.
+  Kategorisi: ürün türü (product type) bir kategori adıyla aynıysa o, değilse ilk kategori. Ana sayfaya ve 3D
+  akışa bizim eklememiz gerekir.

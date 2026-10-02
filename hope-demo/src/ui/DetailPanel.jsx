@@ -8,7 +8,7 @@ import { useStore } from "../store";
 import { Arrow, Close, featureIcons } from "../Icons";
 import { SplitChars, SplitWords } from "./Split";
 import { SprayIcon } from "./FlavorHud";
-import { sceneState } from "../shared";
+import { sceneState, assetUrl } from "../shared";
 
 const N = flavors.length;
 const THUMBS = 6;
@@ -40,7 +40,6 @@ function Gallery({ photos, views, hero = 0, name, label, tab }) {
     if (views && (views[i] || i === hero)) setView(i === hero ? null : i);
     else setOpen(i);
   };
-  const base = import.meta.env.BASE_URL;
   useEffect(() => {
     if (open == null) return;
     // Açıkken ok ve Esc tuşları yalnızca fotoğraflar arasında gezinir.
@@ -69,7 +68,7 @@ function Gallery({ photos, views, hero = 0, name, label, tab }) {
               aria-pressed={views && (views[i] || i === hero) ? current === i : undefined}
             >
               {/* Yüklenemeyen görsel kırık simge göstermez, küçük kare gizlenir. */}
-              <img src={base + src} alt="" loading="lazy" onError={(e) => (e.currentTarget.parentElement.style.display = "none")} />
+              <img src={assetUrl(src)} alt="" loading="lazy" onError={(e) => (e.currentTarget.parentElement.style.display = "none")} />
             </button>
           ))}
           {photos.length > THUMBS && (
@@ -82,7 +81,7 @@ function Gallery({ photos, views, hero = 0, name, label, tab }) {
       {open != null &&
         createPortal(
         <div className="lightbox" role="dialog" aria-label={name} onClick={() => setOpen(null)}>
-          <img src={base + photos[open]} alt={name} onClick={(e) => e.stopPropagation()} />
+          <img src={assetUrl(photos[open])} alt={name} onClick={(e) => e.stopPropagation()} />
           <button className="round lightbox__close" onClick={() => setOpen(null)} aria-label="×">
             <Close />
           </button>
