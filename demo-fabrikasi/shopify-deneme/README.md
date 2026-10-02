@@ -14,3 +14,10 @@ Akış:
 4. Vitrinde "Sepete ekle" → "Ödemeye geç": Shopify sepeti seçilen ürünlerle açılır (`/cart/<varyant>:<adet>`).
 5. Shopify'da Online Store → Navigation: "3D Koleksiyon" bağlantısı; isterseniz Pages → yeni sayfa → HTML ile
    vitrin iframe olarak gömülür.
+
+## Tema olarak yükleme (önerilen)
+
+`python3 demo-fabrikasi/araclar/shopify-tema.py <slug> "<tema adı>"` → `demolar/<slug>-tema.zip`.
+Shopify → Online Mağaza → Temalar → Tema yükle → zip. Önizle, sonra Yayınla. Mağazanın ana sayfası 3D vitrin olur;
+fiyat/stok Shopify'dan canlı, sepet ve ödeme Shopify'ın kendisi. Sepet, arama, hesap ve parola sayfaları sade
+Liquid şablonlar. Netlify gerekmez.
