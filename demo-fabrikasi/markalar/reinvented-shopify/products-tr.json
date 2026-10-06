@@ -1,0 +1,1850 @@
+[
+ {
+  "id": 9147500789923,
+  "title": "Aether Aura",
+  "handle": "aether-aura",
+  "body_html": "<div>\n<b>Aether Aura</b><br> <br>Aether Aura captures the invisible glow that lingers long after presence becomes memory. Radiant citrus notes of bergamot and sparkling lemon open with an electric freshness, illuminated by ginger and pink pepper for a vibrant lift.</div>\n<div>At the heart, luminous kiwi and golden pineapple intertwine with soft iris and geranium, creating a textured floral-fruity accord that feels both modern and instinctively sensual. As the fragrance settles, warm amber, smooth musk, and earthy vetiver create a refined trail that glows softly against the skin.</div>\n<div><br></div>\n<div><br></div>\n<div>Fresh, magnetic, and quietly addictive, Aether Aura explores the feeling of inner light becoming visible. An aura shaped by glow, rhythm, and emotion.</div>\n<div><br></div>\n<div><br></div>\n<p>Aether Aura is a luminous extrait de parfum inspired by the invisible energy that lingers long after presence becomes memory. Fresh yet sensual, vibrant yet refined, the fragrance unfolds like an illuminated aura suspended between emotion and atmosphere. Radiating with warmth, rhythm and fluidity, Aether Aura explores the quiet magnetism of inner light becoming visible; a glowing trail of energy felt rather than seen.</p>\n<p> </p>\n<p>The fragrance opens with an electrifying fusion of bergamot and sparkling lemon, immediately flooding the senses with radiant freshness. Bright and vibrant, the citrus notes create a sensation of movement and clarity, like sunlight breaking through endless horizons. Ginger introduces a textured warmth beneath the freshness, bringing energy and subtle spice, while pink pepper sharpens the composition with a luminous vibrancy that feels both modern and instinctively addictive. Together, the opening feels alive with momentum;  sparkling, uplifting and impossible to ignore.</p>\n<p> </p>\n<p>As the scent evolves, kiwi and golden pineapple emerge at the heart, creating a textured fruity accord filled with brightness and sensuality. Juicy yet refined, the fruits unfold with fluid softness rather than overt sweetness, blending naturally into delicate floral nuances of iris and geranium. Iris introduces a smooth powdery elegance that softens the vibrant fruits, while geranium adds an aromatic freshness that keeps the composition balanced and airy. The heart moves with remarkable fluidity, creating a luminous contrast between freshness, warmth and softness that feels contemporary and emotionally expressive.</p>\n<p> </p>\n<p>In the base, amber, musk and vetiver reveal themselves slowly, grounding the fragrance in a refined and glowing warmth. Amber creates a soft golden depth that lingers beautifully against the skin, while musk enhances the fragrance’s intimate and addictive character with a clean sensual softness. Vetiver introduces an earthy elegance that anchors the brighter fruity facets, adding subtle texture and sophistication beneath the radiant surface. Together, the base notes create a smooth and magnetic dry down that feels warm, atmospheric and endlessly wearable.</p>\n<p> </p>\n<p>Aether Aura is a genderless fruity citrus fragrance designed for those drawn to luminous compositions with energy, elegance and emotional depth. Fresh yet comforting, vibrant yet understated, the fragrance evolves naturally with the skin, leaving behind a glowing and unforgettable presence that feels instinctive, modern and quietly hypnotic.</p>",
+  "published_at": "2026-06-09T10:27:36+04:00",
+  "created_at": "2026-06-09T10:03:49+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [
+   "new"
+  ],
+  "variants": [
+   {
+    "id": 47757475840163,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-010",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": {
+     "id": 52373219115171,
+     "product_id": 9147500789923,
+     "position": 4,
+     "created_at": "2026-09-02T00:59:22+04:00",
+     "updated_at": "2026-09-02T00:59:24+04:00",
+     "alt": null,
+     "width": 3553,
+     "height": 4441,
+     "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/AETHER_AURA_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296364",
+     "variant_ids": [
+      47757475840163
+     ]
+    },
+    "available": true,
+    "price": "198.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9147500789923,
+    "created_at": "2026-06-09T11:30:22+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373218033827,
+    "created_at": "2026-09-02T00:59:20+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:22+04:00",
+    "product_id": 9147500789923,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/AETHER_AURA_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296362",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155979997347,
+    "created_at": "2026-06-09T11:27:58+04:00",
+    "position": 2,
+    "updated_at": "2026-08-25T18:16:25+04:00",
+    "product_id": 9147500789923,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Aether_aura_reinvented_editorial_1.png?v=1787667385",
+    "width": 1357,
+    "height": 1697
+   },
+   {
+    "id": 52373219442851,
+    "created_at": "2026-09-02T00:59:23+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:27+04:00",
+    "product_id": 9147500789923,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/AETHER_AURA_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296367",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373219115171,
+    "created_at": "2026-09-02T00:59:22+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:24+04:00",
+    "product_id": 9147500789923,
+    "variant_ids": [
+     47757475840163
+    ],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/AETHER_AURA_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296364",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220720803,
+    "created_at": "2026-09-02T00:59:31+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:38+04:00",
+    "product_id": 9147500789923,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/AETHER_AURA_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296378",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52117490630819,
+    "created_at": "2026-08-25T05:43:08+04:00",
+    "position": 6,
+    "updated_at": "2026-08-25T18:19:32+04:00",
+    "product_id": 9147500789923,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/E-reinvented-cap.jpg?v=1787667572",
+    "width": 4000,
+    "height": 5000
+   },
+   {
+    "id": 50155988975779,
+    "created_at": "2026-06-09T11:28:35+04:00",
+    "position": 7,
+    "updated_at": "2026-08-25T18:20:27+04:00",
+    "product_id": 9147500789923,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Aether_aura-reinvented-editorial-2.png?v=1787667627",
+    "width": 1141,
+    "height": 1427
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054618288291,
+  "title": "Lucid Dream S",
+  "handle": "lucid-dream-sample",
+  "body_html": "<p>Lucid-Dream-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:34+04:00",
+  "created_at": "2026-03-16T19:07:34+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640951971,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S008",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054618288291,
+    "created_at": "2026-03-16T19:07:34+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054618288291,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054618255523,
+  "title": "Ode to Psyche S",
+  "handle": "ode-to-psyche-sample",
+  "body_html": "<p>Ode-To-Psyche-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:32+04:00",
+  "created_at": "2026-03-16T19:07:33+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640919203,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S007",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054618255523,
+    "created_at": "2026-03-16T19:07:33+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 47990109667491,
+    "created_at": "2026-04-11T18:45:30+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:17:19+04:00",
+    "product_id": 9054618255523,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ODE_TO_PSYCHE_H_3.png?v=1775920639",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054618255523,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054618222755,
+  "title": "Ethearal Soul S",
+  "handle": "ethearal-soul-sample",
+  "body_html": "<p>Ethearal-Soul-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:31+04:00",
+  "created_at": "2026-03-16T19:07:31+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640886435,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S006",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054618222755,
+    "created_at": "2026-03-16T19:07:32+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 47990110617763,
+    "created_at": "2026-04-11T18:45:33+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:17:47+04:00",
+    "product_id": 9054618222755,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ETHEREAL_SOUL_H_3.png?v=1775920667",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054618222755,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054618189987,
+  "title": "Sacred Bond S",
+  "handle": "sacred-bond-sample",
+  "body_html": "<p>Sacred-Bond-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:30+04:00",
+  "created_at": "2026-03-16T19:07:30+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640853667,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S005",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054618189987,
+    "created_at": "2026-03-16T19:07:30+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 47990110519459,
+    "created_at": "2026-04-11T18:45:32+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:18:23+04:00",
+    "product_id": 9054618189987,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/SACRED_BOND_H_3.png?v=1775920703",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054618189987,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054618124451,
+  "title": "Eureka S",
+  "handle": "eureka-sample",
+  "body_html": "<p>Eureka-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:29+04:00",
+  "created_at": "2026-03-16T19:07:29+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640788131,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S004",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054618124451,
+    "created_at": "2026-03-16T19:07:29+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 47990110584995,
+    "created_at": "2026-04-11T18:45:32+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:18:43+04:00",
+    "product_id": 9054618124451,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EUREKA_H_3.png?v=1775920723",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054618124451,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054618091683,
+  "title": "Pheromones S",
+  "handle": "pheromones-sample",
+  "body_html": "<p>Pheromones-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:28+04:00",
+  "created_at": "2026-03-16T19:07:28+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640722595,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S003",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054618091683,
+    "created_at": "2026-03-16T19:07:28+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 47990110552227,
+    "created_at": "2026-04-11T18:45:32+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:19:06+04:00",
+    "product_id": 9054618091683,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/PHEROMONES_H_3.png?v=1775920746",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054618091683,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054618026147,
+  "title": "Illusion S",
+  "handle": "illusion-sample",
+  "body_html": "<p>Illusion-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:26+04:00",
+  "created_at": "2026-03-16T19:07:26+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640657059,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S002",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054618026147,
+    "created_at": "2026-03-16T19:07:26+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 47990110322851,
+    "created_at": "2026-04-11T18:45:31+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:19:27+04:00",
+    "product_id": 9054618026147,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ILLUSION_H_3.png?v=1775920767",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054618026147,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054617993379,
+  "title": "Epiphany S",
+  "handle": "epiphany-sample",
+  "body_html": "<p>Epiphany-sample-sample</p>",
+  "published_at": "2026-03-16T19:07:25+04:00",
+  "created_at": "2026-03-16T19:07:25+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Sample",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640624291,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-S001",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "5.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054617993379,
+    "created_at": "2026-03-16T19:07:25+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 47990110060707,
+    "created_at": "2026-04-11T18:45:31+04:00",
+    "position": 1,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054617993379,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EPIPHANY_H_3.png?v=1775920826",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 46430759026851,
+    "created_at": "2026-03-16T19:12:10+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:20:26+04:00",
+    "product_id": 9054617993379,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/IMG_1808.jpg?v=1775920826",
+    "width": 4000,
+    "height": 6000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054617960611,
+  "title": "Discovery Set",
+  "handle": "discovery-set",
+  "body_html": "",
+  "published_at": "2026-03-16T19:07:24+04:00",
+  "created_at": "2026-03-16T19:07:24+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Discovery Set",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47465640591523,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-DISC",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "55.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054617960611,
+    "created_at": "2026-03-16T19:07:24+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 49814644523171,
+    "created_at": "2026-05-28T14:45:32+04:00",
+    "position": 1,
+    "updated_at": "2026-05-28T14:45:34+04:00",
+    "product_id": 9054617960611,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Discovery_Set_1.jpg?v=1779965134",
+    "width": 1066,
+    "height": 1600
+   },
+   {
+    "id": 49814644588707,
+    "created_at": "2026-05-28T14:45:32+04:00",
+    "position": 2,
+    "updated_at": "2026-05-28T14:45:34+04:00",
+    "product_id": 9054617960611,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Discovery_Set_2.jpg?v=1779965134",
+    "width": 1066,
+    "height": 1600
+   },
+   {
+    "id": 49814644555939,
+    "created_at": "2026-05-28T14:45:32+04:00",
+    "position": 3,
+    "updated_at": "2026-05-28T14:45:34+04:00",
+    "product_id": 9054617960611,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Discovery_Set_4.jpg?v=1779965134",
+    "width": 1066,
+    "height": 1600
+   },
+   {
+    "id": 49814644850851,
+    "created_at": "2026-05-28T14:45:33+04:00",
+    "position": 4,
+    "updated_at": "2026-05-28T14:45:35+04:00",
+    "product_id": 9054617960611,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Discovery_Set_3.jpg?v=1779965135",
+    "width": 1066,
+    "height": 1600
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054617927843,
+  "title": "Enigmatic Aura",
+  "handle": "enigmatic-aura",
+  "body_html": "<p data-start=\"157\" data-end=\"643\"><strong>Enigmatic Aura</strong> is an atmospheric extrait de parfum shaped by contrast — luminous yet grounded, sensual yet distant, familiar yet impossible to fully grasp. Inspired by the silent vastness of the cosmos, the fragrance unfolds like a slow-moving constellation, revealing textured warmth, earthy depth and an almost magnetic softness against the skin. Mysterious and immersive, it evokes the feeling of drifting through infinite space guided only by instinct, memory and invisible gravity.</p>\n<p data-start=\"157\" data-end=\"643\"> </p>\n<p data-start=\"645\" data-end=\"1202\">The composition opens with the radiant glow of saffron, immediately diffusing a golden warmth that feels both refined and rare. Spiced yet airy, the note introduces the fragrance with a luminous energy, like the first flicker of starlight cutting through darkness. As the scent develops, jatamansi and nagarmotha emerge at its centre, bringing an earthy complexity that grounds the composition in textured shadow. Dry, woody and slightly smoky, these notes create a quiet tension between light and darkness, warmth and mineral depth, softness and structure.</p>\n<p data-start=\"645\" data-end=\"1202\"> </p>\n<p data-start=\"1204\" data-end=\"1751\">As <strong>Enigmatic Aura</strong> settles onto the skin, amber, musk, cashmere wood and vanilla slowly reveal themselves in a smooth and enveloping base. The warmth becomes softer, more intimate and almost skin-like, wrapping the wearer in a sensual trail that feels effortless yet deeply addictive. Cashmere wood adds a velvety texture, while vanilla softens the darker facets of the fragrance without overpowering its elegant restraint. The result is sophisticated, modern and quietly hypnotic; a fragrance that lingers like a distant memory suspended in time.</p>\n<p data-start=\"1204\" data-end=\"1751\"> </p>\n<p data-start=\"1753\" data-end=\"2065\">Both expansive and intimate, <strong>Enigmatic Aura</strong> moves with subtle confidence. It is designed for those drawn to atmospheric scents with depth, emotion and understated intensity. Genderless in its expression, the fragrance adapts naturally to the skin, evolving throughout the day with a smooth and magnetic presence.</p>",
+  "published_at": "2026-03-16T19:07:22+04:00",
+  "created_at": "2026-03-16T19:07:23+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [
+   "Limited Edition"
+  ],
+  "variants": [
+   {
+    "id": 47727730491555,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN009-LIMITED",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": {
+     "id": 52373219508387,
+     "product_id": 9054617927843,
+     "position": 4,
+     "created_at": "2026-09-02T00:59:24+04:00",
+     "updated_at": "2026-09-02T00:59:26+04:00",
+     "alt": null,
+     "width": 3553,
+     "height": 4441,
+     "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATIC_AURA_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296366",
+     "variant_ids": [
+      47727730491555
+     ]
+    },
+    "available": true,
+    "price": "230.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054617927843,
+    "created_at": "2026-06-02T03:53:30+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52608035586211,
+    "created_at": "2026-09-09T14:00:50+04:00",
+    "position": 1,
+    "updated_at": "2026-09-09T14:00:53+04:00",
+    "product_id": 9054617927843,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATIC_AURA_-_REINVENTED_PARFUMS_-_PORTRAIT_d78b23b9-e195-43d8-b1de-8a8326929486.png?v=1788948053",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990124249251,
+    "created_at": "2026-04-11T18:45:52+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T18:45:54+04:00",
+    "product_id": 9054617927843,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATIC_AURA_H_2.png?v=1775918754",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373220360355,
+    "created_at": "2026-09-02T00:59:30+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:33+04:00",
+    "product_id": 9054617927843,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATIC_AURA_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296373",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373219508387,
+    "created_at": "2026-09-02T00:59:24+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:26+04:00",
+    "product_id": 9054617927843,
+    "variant_ids": [
+     47727730491555
+    ],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATIC_AURA_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296366",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220458659,
+    "created_at": "2026-09-02T00:59:30+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:33+04:00",
+    "product_id": 9054617927843,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATIC_AURA_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296373",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155045093539,
+    "created_at": "2026-06-09T10:38:45+04:00",
+    "position": 6,
+    "updated_at": "2026-06-09T10:38:47+04:00",
+    "product_id": 9054617927843,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATIC_AURA_H_edited.png?v=1780987127",
+    "width": 2000,
+    "height": 2500
+   },
+   {
+    "id": 50155017175203,
+    "created_at": "2026-06-09T10:37:41+04:00",
+    "position": 7,
+    "updated_at": "2026-06-09T10:37:45+04:00",
+    "product_id": 9054617927843,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ENIGMATICAURAH_2.png?v=1780987065",
+    "width": 4061,
+    "height": 5076
+   }
+  ],
+  "options": [
+   {
+    "name": "size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054617862307,
+  "title": "Lucid Dream",
+  "handle": "lucid-dream",
+  "body_html": "<p data-start=\"154\" data-end=\"634\"><strong>Lucid Dream</strong> is an extrait de parfum suspended between consciousness and imagination; soft, radiant and impossibly fluid. Inspired by the surreal clarity of dreams where time dissolves and emotion moves freely, the fragrance unfolds with a weightless elegance that feels both intimate and infinite. Delicate yet deeply immersive, it captures the sensation of floating through shifting light, where memories blur into fantasy and every movement feels suspended in silence.</p>\n<p data-start=\"154\" data-end=\"634\"> </p>\n<p data-start=\"636\" data-end=\"1168\">The composition opens with an unexpected luminosity as saffron, raspberry and plum emerge in translucent harmony. The saffron introduces a refined golden warmth, softened by the juicy depth of plum and the subtle brightness of raspberry. Airy and fleeting, the opening feels almost untouchable, like fragments of memory appearing briefly before dissolving again into light. The fruity nuances never become overpowering; instead, they shimmer gently across the skin, creating a sensation that is smooth, modern and quietly addictive.</p>\n<p data-start=\"636\" data-end=\"1168\"> </p>\n<p data-start=\"1170\" data-end=\"1748\">At its heart, <strong>Lucid Dream</strong> reveals a hypnotic floral dimension shaped by rose, white flowers and saffron blossom. The floral accord unfolds slowly and gracefully, expanding like ripples across still water. Rose adds softness and emotional depth, while white florals introduce a clean luminosity that keeps the fragrance airy and transparent. Saffron blossom continues the thread of golden warmth introduced in the opening, weaving through the composition with subtle elegance. The result feels fluid and dreamlike with floral notes in constant motion, never static, always evolving.</p>\n<p data-start=\"1170\" data-end=\"1748\"> </p>\n<p data-start=\"1750\" data-end=\"2304\">As the fragrance settles, sandalwood, patchouli and soft oud create a gentle and grounding contrast beneath the airy composition. Creamy sandalwood wraps the skin in a velvety warmth, while patchouli introduces a textured earthiness that gives the fragrance quiet depth and structure. A soft whisper of oud lingers in the background, smooth rather than smoky, anchoring the fragrance without interrupting its delicate rhythm. The base remains refined and weightless, allowing the scent to retain its floating, atmospheric character from beginning to end.</p>\n<p data-start=\"1750\" data-end=\"2304\"> </p>\n<p data-start=\"2306\" data-end=\"2585\"><strong>Lucid Dream</strong> is a modern genderless fragrance designed for those drawn to softness, emotion and quiet sensuality. Elegant yet unconventional, the composition moves with subtle fluidity, leaving behind a delicate luminous trail that feels deeply personal and endlessly captivating.</p>",
+  "published_at": "2026-03-16T19:07:21+04:00",
+  "created_at": "2026-03-16T19:07:21+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47727739535523,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-008",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": {
+     "id": 52373219410083,
+     "product_id": 9054617862307,
+     "position": 4,
+     "created_at": "2026-09-02T00:59:23+04:00",
+     "updated_at": "2026-09-02T00:59:26+04:00",
+     "alt": null,
+     "width": 3553,
+     "height": 4441,
+     "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296366",
+     "variant_ids": [
+      47727739535523
+     ]
+    },
+    "available": true,
+    "price": "198.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054617862307,
+    "created_at": "2026-06-02T03:56:45+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373220130979,
+    "created_at": "2026-09-02T00:59:29+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:32+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296372",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990124970147,
+    "created_at": "2026-04-11T18:45:56+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T18:50:18+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_H_2.png?v=1775919018",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373220229283,
+    "created_at": "2026-09-02T00:59:29+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:32+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296372",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373219410083,
+    "created_at": "2026-09-02T00:59:23+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:26+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [
+     47727739535523
+    ],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296366",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220819107,
+    "created_at": "2026-09-02T00:59:32+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:36+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296376",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155233149091,
+    "created_at": "2026-06-09T10:47:45+04:00",
+    "position": 6,
+    "updated_at": "2026-06-09T10:47:47+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_H_2__edited.png?v=1780987667",
+    "width": 2000,
+    "height": 2500
+   },
+   {
+    "id": 50155233116323,
+    "created_at": "2026-06-09T10:47:44+04:00",
+    "position": 7,
+    "updated_at": "2026-06-09T10:47:47+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_H_edited.png?v=1780987667",
+    "width": 2000,
+    "height": 2500
+   },
+   {
+    "id": 50155233083555,
+    "created_at": "2026-06-09T10:47:44+04:00",
+    "position": 8,
+    "updated_at": "2026-06-09T10:47:46+04:00",
+    "product_id": 9054617862307,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/LUCID_DREAM_H_3__edited.png?v=1780987666",
+    "width": 1000,
+    "height": 1250
+   }
+  ],
+  "options": [
+   {
+    "name": "size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054617829539,
+  "title": "Ode To Psyche",
+  "handle": "ode-to-psyche",
+  "body_html": "<p><strong>Ode To Psyche </strong>is a deeply introspective extrait de parfum exploring the fragile connection between memory, identity and reinvention. Inspired by the infinite movement of the cosmos and the cyclical rhythms of nature, the fragrance unfolds like a quiet meditation on transformation; familiar yet constantly evolving, grounded yet infinitely expansive. Atmospheric and emotionally charged, it captures the sensation of revisiting distant memories while moving gently toward something new.</p>\n<p> </p>\n<p>The composition opens with the aromatic clarity of geranium, juniper and pink pepper, creating a refined and subtly vibrant introduction. Geranium brings a soft green freshness balanced by the cool, almost crystalline texture of juniper, while pink pepper adds a delicate spark of warmth and movement. Together, the opening feels nostalgic yet luminous, evoking fleeting recollections suspended between past and present. Airy and elegant, these notes create an immediate sense of depth without heaviness, introducing the fragrance with quiet sophistication.</p>\n<p> </p>\n<p>As the scent evolves, cashmere wood, patchouli and cedarwood emerge at its heart, revealing a textured woody core that feels smooth, contemplative and grounding. Cashmere wood wraps the composition in a velvety softness, while cedarwood introduces structure and subtle dryness. Patchouli deepens the fragrance with earthy warmth, adding complexity and emotional resonance without overwhelming the airy composition above it. </p>\n<p>In the base, white musk, vetiver and amber settle into an intimate and enduring warmth. White musk softens the composition into a skin-like sensuality, while vetiver introduces a dry earthy elegance that connects the fragrance back to nature. Amber adds a smooth golden depth that lingers gently on the skin, creating a refined and comforting trail. Together, the base notes evoke roots sinking deep into the earth; grounding the fragrance while allowing its luminous emotional character to remain intact.</p>\n<p> </p>\n<p>Elegant and quietly expressive, <strong>Ode To Psyche</strong> is a genderless fragrance designed for those drawn to contemplative scents with emotional depth and understated sophistication. Both grounding and expansive, it moves with a calm confidence, leaving behind a soft yet unforgettable presence.</p>\n<p> </p>\n<p>As a limited edition release,<strong> Ode To Psyche</strong> exists as a fleeting expression of memory and transformation. A moment suspended in time.</p>",
+  "published_at": "2026-03-16T19:07:20+04:00",
+  "created_at": "2026-03-16T19:07:20+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [
+   "Limited Edition"
+  ],
+  "variants": [
+   {
+    "id": 47757402276003,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-007-LIMITED",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "209.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054617829539,
+    "created_at": "2026-06-09T10:53:06+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52608053739683,
+    "created_at": "2026-09-09T14:01:04+04:00",
+    "position": 1,
+    "updated_at": "2026-09-09T14:01:08+04:00",
+    "product_id": 9054617829539,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ODE_TO_PSYCHE_-_REINVENTED_PARFUMS_-_PORTRAIT_83ecafc8-2966-412b-8009-b1728a4a423a.png?v=1788948068",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990106325155,
+    "created_at": "2026-04-11T18:45:18+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T18:52:02+04:00",
+    "product_id": 9054617829539,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ODE_TO_PSYCHE_H_2.png?v=1775919122",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373219836067,
+    "created_at": "2026-09-02T00:59:25+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:28+04:00",
+    "product_id": 9054617829539,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ODE_TO_PSYCHE_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296368",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373219639459,
+    "created_at": "2026-09-02T00:59:24+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:27+04:00",
+    "product_id": 9054617829539,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ODE_TO_PSYCHE_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296367",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220655267,
+    "created_at": "2026-09-02T00:59:31+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:34+04:00",
+    "product_id": 9054617829539,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ODE_TO_PSYCHE_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296374",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155310547107,
+    "created_at": "2026-06-09T10:50:56+04:00",
+    "position": 6,
+    "updated_at": "2026-06-09T10:50:58+04:00",
+    "product_id": 9054617829539,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/image00001_1.png?v=1780987858",
+    "width": 2688,
+    "height": 3360
+   },
+   {
+    "id": 50155347837091,
+    "created_at": "2026-06-09T10:52:11+04:00",
+    "position": 7,
+    "updated_at": "2026-06-09T10:52:13+04:00",
+    "product_id": 9054617829539,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ODE_TO_PSYCHE_-_01_2__edited_07269b53-1f51-4e38-a686-4c8a872d1b65.png?v=1780987933",
+    "width": 2000,
+    "height": 2500
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9054617796771,
+  "title": "Ethereal Soul",
+  "handle": "ethereal-soul",
+  "body_html": "<p data-end=\"615\" data-start=\"165\"><strong>Ethereal Soul</strong> is a radiant extrait de parfum inspired by the infinite connection between mind, body and soul. Expansive yet intimate, the fragrance unfolds like a celestial journey through light and shadow, where emotions drift freely beyond the limits of time and space. Dreamlike and atmospheric, it captures the sensation of moving through the cosmos suspended between memory, imagination and reality. It is weightless, luminous and endlessly evolving.</p>\n<p data-end=\"615\" data-start=\"165\"> </p>\n<p data-end=\"1159\" data-start=\"617\">The composition opens with an immediate burst of brightness as bergamot, lemon and cherry illuminate the fragrance with vibrant energy. Bergamot and lemon introduce a sparkling citrus freshness that feels crisp and uplifting, while cherry adds a soft fruity depth that glows gently beneath the surface. The opening moves like the luminous trail of a comet across a darkened sky;  radiant, fluid and impossible to hold onto completely. Airy yet expressive, these notes create an introduction that feels joyful, emotional and quietly addictive.</p>\n<p data-end=\"1159\" data-start=\"617\"> </p>\n<p data-end=\"1865\" data-start=\"1161\">As the fragrance expands, blackcurrant and raspberry begin to orbit through the composition, adding a textured sweetness balanced by delicate floral nuances. Freesia, iris and jasmine unfold at the heart in soft fluid motion, creating a floral accord that feels transparent and celestial rather than traditionally opulent. Freesia introduces a luminous freshness, while iris adds a velvety powdery elegance that softens the brighter fruity facets. Jasmine weaves through the composition with subtle sensuality, bringing warmth and emotional depth without disrupting the fragrance’s airy structure. Together, the floral and fruity notes create a hypnotic movement that feels alive and constantly evolving.</p>\n<p data-end=\"1865\" data-start=\"1161\"> </p>\n<p data-end=\"2438\" data-start=\"1867\">In the base, amber, musk and mossy notes settle gently into the skin, grounding the fragrance in a smooth and atmospheric warmth. Amber introduces a golden softness that lingers quietly beneath the brighter notes, while musk creates an intimate skin-like sensuality that enhances the fragrance’s ethereal character. Mossy undertones add a subtle earthy contrast, giving the composition depth and balance while preserving its floating, celestial quality. </p>\n<p data-end=\"2438\" data-start=\"1867\"> </p>\n<p data-end=\"2727\" data-start=\"2440\"><strong>Ethereal Soul</strong> is a genderless fragrance created for those drawn to luminous compositions with emotional resonance and soft sensuality. Elegant yet unconventional, the scent moves with quiet fluidity, leaving behind a radiant trail that feels comforting, atmospheric and profoundly human.</p>",
+  "published_at": "2026-03-16T19:07:19+04:00",
+  "created_at": "2026-03-16T19:07:19+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47757405749411,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-006",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": {
+     "id": 52373218984099,
+     "product_id": 9054617796771,
+     "position": 4,
+     "created_at": "2026-09-02T00:59:21+04:00",
+     "updated_at": "2026-09-02T00:59:23+04:00",
+     "alt": null,
+     "width": 3553,
+     "height": 4441,
+     "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ETHEREAL_SOUL_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296363",
+     "variant_ids": [
+      47757405749411
+     ]
+    },
+    "available": true,
+    "price": "198.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9054617796771,
+    "created_at": "2026-06-09T10:54:36+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373219147939,
+    "created_at": "2026-09-02T00:59:22+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:25+04:00",
+    "product_id": 9054617796771,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ETHEREAL_SOUL_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296365",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990124740771,
+    "created_at": "2026-04-11T18:45:55+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:07:55+04:00",
+    "product_id": 9054617796771,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ETHEREAL_SOUL_H_2.png?v=1775920075",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373220196515,
+    "created_at": "2026-09-02T00:59:29+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:32+04:00",
+    "product_id": 9054617796771,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ETHEREAL_SOUL_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296372",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373218984099,
+    "created_at": "2026-09-02T00:59:21+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:23+04:00",
+    "product_id": 9054617796771,
+    "variant_ids": [
+     47757405749411
+    ],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ETHEREAL_SOUL_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296363",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220098211,
+    "created_at": "2026-09-02T00:59:29+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:32+04:00",
+    "product_id": 9054617796771,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ETHEREAL_SOUL_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296372",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47692148015267,
+    "created_at": "2026-04-03T00:51:00+04:00",
+    "position": 6,
+    "updated_at": "2026-04-03T00:51:05+04:00",
+    "product_id": 9054617796771,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Ethereal_Soul_4.png?v=1775163065",
+    "width": 4061,
+    "height": 5076
+   },
+   {
+    "id": 47692146606243,
+    "created_at": "2026-04-03T00:50:56+04:00",
+    "position": 7,
+    "updated_at": "2026-04-03T00:51:01+04:00",
+    "product_id": 9054617796771,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Ethereal_Soul_6.png?v=1775163061",
+    "width": 4061,
+    "height": 5076
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8308941553827,
+  "title": "Epiphany",
+  "handle": "epiphany",
+  "body_html": "<p data-start=\"165\" data-end=\"656\"><strong>Epiphany </strong>is an expressive extrait de parfum capturing the electric moment when memory and emotion collide without warning. Vibrant, sensual and deeply immersive, the fragrance unfolds like a sudden awakening of the senses. A fleeting instant of clarity suspended between past and present. Inspired by the emotional force of recollection, Epiphany moves through luminous citrus, textured spices and mystical woods to create a composition that feels euphoric, atmospheric and intensely alive.</p>\n<p data-start=\"165\" data-end=\"656\"> </p>\n<p data-start=\"658\" data-end=\"1255\">The fragrance opens with an immediate surge of brightness as green lemon, bergamot and saffron awaken the composition with radiant energy. Green lemon introduces a vivid citrus freshness that feels sharp, sparkling and almost tactile, while bergamot softens the opening with a refined luminosity. Saffron adds warmth and textured depth beneath the citrus notes, creating a tension between freshness and sensuality that feels both modern and addictive. The opening radiates with movement and clarity, like light flooding suddenly into darkness, rekindling dormant sensations and forgotten memories.</p>\n<p data-start=\"1257\" data-end=\"1886\">As the scent evolves, the heart reveals a sophisticated floral and spicy accord shaped by rose, cananga, orris, cardamom and black pepper. Rose brings emotional richness and softness, while cananga introduces an exotic floral warmth that gives the composition a smooth and fluid elegance. Orris adds a velvety powdery texture that softens the sharper spices and enhances the fragrance’s refined sensuality. Cardamom and black pepper weave through the florals with subtle intensity, creating a rhythmic warmth that feels magnetic and alive. The heart remains luminous and expansive, constantly unfolding with depth and complexity.</p>\n<p data-start=\"1257\" data-end=\"1886\"> </p>\n<p data-start=\"1888\" data-end=\"2423\">In the base, patchouli, incense and cedarwood emerge slowly, grounding the fragrance in a mystical and enveloping warmth. Patchouli introduces an earthy richness that deepens the composition, while incense creates a soft balsamic smokiness that moves gently through the scent like drifting smoke. Cedarwood provides structure and dry woody elegance, anchoring the fragrance without interrupting its fluid emotional character. Together, the base notes create a lingering warmth that feels intimate, contemplative and profoundly sensual.</p>\n<p data-start=\"1888\" data-end=\"2423\"> </p>\n<p data-start=\"2425\" data-end=\"2736\"><strong>Epiphany </strong>is a genderless fragrance designed for those drawn to expressive compositions filled with movement, contrast and emotional depth. Both luminous and grounding, the scent evolves with remarkable fluidity, leaving behind a radiant and unforgettable trail that feels instinctive, magnetic and deeply human.</p>",
+  "published_at": "2024-04-07T01:34:42+04:00",
+  "created_at": "2024-04-07T01:34:42+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47757411582115,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-001",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "198.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8308941553827,
+    "created_at": "2026-06-09T10:57:20+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373219344547,
+    "created_at": "2026-09-02T00:59:23+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:25+04:00",
+    "product_id": 8308941553827,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EPIPHANY_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296365",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990098952355,
+    "created_at": "2026-04-11T18:44:58+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:11:30+04:00",
+    "product_id": 8308941553827,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EPIPHANY_H_2.png?v=1775920290",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373219901603,
+    "created_at": "2026-09-02T00:59:26+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:28+04:00",
+    "product_id": 8308941553827,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EPIPHANY_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296368",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373218001059,
+    "created_at": "2026-09-02T00:59:19+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:22+04:00",
+    "product_id": 8308941553827,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EPIPHANY_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296362",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220622499,
+    "created_at": "2026-09-02T00:59:31+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:34+04:00",
+    "product_id": 8308941553827,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EPIPHANY_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296374",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155624759459,
+    "created_at": "2026-06-09T11:03:45+04:00",
+    "position": 6,
+    "updated_at": "2026-06-09T11:03:47+04:00",
+    "product_id": 8308941553827,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EPIPHANY_H_edited.png?v=1780988627",
+    "width": 2000,
+    "height": 2500
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8308938145955,
+  "title": "Eureka",
+  "handle": "eureka",
+  "body_html": "<p data-start=\"174\" data-end=\"714\"><strong>Eureka </strong>is an intense and atmospheric extrait de parfum capturing the electrifying moment of sudden clarity. That instant when intuition awakens and hidden ideas emerge into light. Inspired by flashes of inspiration and creative revelation, the fragrance unfolds through vibrant spices, unexpected contrasts and enveloping woods to create a composition that feels instinctive, magnetic and deeply transformative. Bold yet refined, Eureka exists in the space between mystery and illumination, where emotion, imagination and sensation collide.</p>\n<p data-start=\"174\" data-end=\"714\"> </p>\n<p data-start=\"716\" data-end=\"1300\">The fragrance opens with an unexpected interplay of bergamot, coffee and violet leaf, immediately creating a contrast between brightness, depth and softness. Bergamot introduces a sharp citrus luminosity that cuts through the darkness with vibrant energy, while coffee adds an addictive roasted warmth that feels textured, rich and quietly sensual. Violet leaf softens the composition with a cool green nuance that introduces fluidity and elegance beneath the darker facets. Together, the opening feels dynamic and unconventional with a sudden spark of creativity unfolding in real time.</p>\n<p data-start=\"716\" data-end=\"1300\"> </p>\n<p data-start=\"1302\" data-end=\"1915\">As the scent evolves, jasmine, black pepper, nutmeg and cardamom reveal a richly layered spicy floral heart filled with movement and intensity. Jasmine introduces a luminous floral softness that balances the darker warmth of the spices, while black pepper sharpens the composition with subtle heat and energy. Nutmeg and cardamom deepen the fragrance with aromatic warmth, adding complexity and emotional depth without overwhelming its refined structure. The heart feels alive and constantly shifting, mirroring the unpredictable rhythm of intuition itself; spontaneous, hypnotic and impossible to fully control.</p>\n<p data-start=\"1302\" data-end=\"1915\"> </p>\n<p data-start=\"1917\" data-end=\"2469\">In the base, styrax, patchouli, tolu balm and sandalwood emerge slowly, grounding the fragrance in a warm resinous depth that lingers beautifully on the skin. Styrax introduces a smoky balsamic richness that feels mysterious and enveloping, while patchouli adds earthy texture and sensual warmth. Tolu balm softens the composition with a smooth resinous sweetness, creating a velvety contrast against the dry creaminess of sandalwood. Together, the base creates an intimate and magnetic trail that feels sophisticated, atmospheric and deeply addictive.</p>\n<p data-start=\"1917\" data-end=\"2469\"> </p>\n<p data-start=\"2471\" data-end=\"2873\"><strong>Eureka </strong>is a genderless oriental spicy fragrance designed for those drawn to bold compositions with emotional intensity and artistic depth. Both luminous and shadowed, the fragrance evolves continuously on the skin, revealing new facets with time and movement. Elegant yet instinctive, it leaves behind a powerful and unforgettable presence; like the lingering trace of an idea that changes everything.</p>",
+  "published_at": "2024-04-07T01:27:58+04:00",
+  "created_at": "2024-04-07T01:27:58+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47757458505891,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-004",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "198.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8308938145955,
+    "created_at": "2026-06-09T11:20:19+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373219377315,
+    "created_at": "2026-09-02T00:59:23+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:26+04:00",
+    "product_id": 8308938145955,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EUREKA_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296366",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990098919587,
+    "created_at": "2026-04-11T18:44:57+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:10:10+04:00",
+    "product_id": 8308938145955,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EUREKA_H_2.png?v=1775920210",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373219934371,
+    "created_at": "2026-09-02T00:59:27+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:30+04:00",
+    "product_id": 8308938145955,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EUREKA_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296370",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373218066595,
+    "created_at": "2026-09-02T00:59:20+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:23+04:00",
+    "product_id": 8308938145955,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EUREKA_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296363",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220786339,
+    "created_at": "2026-09-02T00:59:32+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:35+04:00",
+    "product_id": 8308938145955,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EUREKA_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296375",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155787092131,
+    "created_at": "2026-06-09T11:11:31+04:00",
+    "position": 6,
+    "updated_at": "2026-06-09T11:11:33+04:00",
+    "product_id": 8308938145955,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/EUREKA_H_edited.png?v=1780989093",
+    "width": 2000,
+    "height": 2500
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8271680667811,
+  "title": "Pheromones",
+  "handle": "pheromones",
+  "body_html": "<p data-start=\"173\" data-end=\"677\"><strong>Pheromones </strong>is an intensely sensual extrait de parfum inspired by the invisible chemistry that draws bodies, emotions and energies together. Deeply magnetic and instinctive, the fragrance unfolds like an intimate encounter suspended between desire and emotion. A subtle yet powerful force moving beneath the surface of consciousness. Both sophisticated and primal, Pheromones explores the tension between softness and intensity, creating a composition that feels hypnotic, addictive and profoundly human.</p>\n<p data-start=\"173\" data-end=\"677\"> </p>\n<p data-start=\"679\" data-end=\"1209\">The fragrance opens with a luminous burst of bergamot, saffron and pink pepper, immediately igniting the senses with vibrant energy and warmth. Bergamot introduces a crisp citrus brightness that feels elegant and refined, while saffron adds a textured golden warmth beneath the surface. Pink pepper sharpens the opening with a sparkling spicy tension, creating movement and sensuality from the very first moment. The result is radiant yet mysterious almost like an introduction that feels alive with anticipation and instinctive attraction.</p>\n<p data-start=\"679\" data-end=\"1209\"> </p>\n<p data-start=\"1211\" data-end=\"1820\">As the scent evolves, cardamom, jasmine, rose, orris and elemi emerge in a fluid and seductive heart. Cardamom introduces aromatic warmth that enhances the fragrance’s magnetic character, while jasmine and rose soften the composition with emotional depth and floral sensuality. Orris adds a velvety powdery texture that wraps the florals in quiet sophistication, while elemi introduces a luminous resinous freshness that keeps the fragrance dynamic and modern. The heart moves in constant rhythm between warmth and softness, intimacy and projection, creating an atmosphere that feels effortlessly captivating.</p>\n<p data-start=\"1211\" data-end=\"1820\"> </p>\n<p data-start=\"1822\" data-end=\"2507\">In the base, vanilla beans, cistus labdanum, vetiver, cypriol, sandalwood, musk and the signature pheromone accord reveal themselves slowly, grounding the fragrance in an enveloping and deeply sensual warmth. Vanilla softens the darker facets of the composition with creamy richness, while cistus labdanum introduces an amber-like resinous depth filled with warmth and texture. Vetiver and cypriol bring earthy smoky nuances that add mystery and intensity beneath the smoother woods. Sandalwood creates a velvety foundation, while musk and the pheromone accord melt seamlessly into the skin, creating an intimate trail that feels instinctive, addictive and almost impossible to define.</p>\n<p data-start=\"1822\" data-end=\"2507\"> </p>\n<p data-start=\"2509\" data-end=\"2924\"><strong>Pheromones </strong>is a genderless woody spicy fragrance designed for those drawn to compositions with emotional intensity, sensual depth and magnetic presence. Sophisticated yet primal, the fragrance evolves continuously on the skin, revealing layers of warmth, texture and intimacy with every movement. Both seductive and refined, it leaves behind a lingering aura that feels deeply personal and undeniably unforgettable.</p>",
+  "published_at": "2024-03-20T04:17:01+04:00",
+  "created_at": "2024-03-20T04:17:01+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47757458243747,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-003",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "209.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8271680667811,
+    "created_at": "2026-06-09T11:19:24+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373219606691,
+    "created_at": "2026-09-02T00:59:24+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:27+04:00",
+    "product_id": 8271680667811,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/PHEROMONES_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296367",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990108094627,
+    "created_at": "2026-04-11T18:45:23+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:12:44+04:00",
+    "product_id": 8271680667811,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/PHEROMONES_H_2.png?v=1775920364",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373220262051,
+    "created_at": "2026-09-02T00:59:30+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:33+04:00",
+    "product_id": 8271680667811,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/PHEROMONES_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296373",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373219016867,
+    "created_at": "2026-09-02T00:59:22+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:24+04:00",
+    "product_id": 8271680667811,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/PHEROMONES_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296364",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220589731,
+    "created_at": "2026-09-02T00:59:31+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:34+04:00",
+    "product_id": 8271680667811,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/PHEROMONES_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296374",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155837030563,
+    "created_at": "2026-06-09T11:14:03+04:00",
+    "position": 6,
+    "updated_at": "2026-06-09T11:14:06+04:00",
+    "product_id": 8271680667811,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Pheromones_28d10a9a-3cb6-431a-8b33-58cd35cf6a51.png?v=1780989246",
+    "width": 4000,
+    "height": 5001
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8217536692387,
+  "title": "Sacred Bond",
+  "handle": "sacred-bond",
+  "body_html": "<p data-end=\"671\" data-start=\"179\"><strong>Sacred Bond</strong> is a sensual and enveloping extrait de parfum exploring the invisible connections that unite souls beyond time and distance. Inspired by the idea of elective affinities  and the instinctive harmony between mind, body and spirit.  this fragrance unfolds as a warm and magnetic composition filled with softness, emotion and luminous depth. Both comforting and hypnotic, Sacred Bond captures the feeling of intimacy suspended in time, where memory, desire and emotion become inseparable.</p>\n<p data-end=\"671\" data-start=\"179\"> </p>\n<p data-end=\"1297\" data-start=\"673\">The fragrance opens with a radiant fusion of mandarin, bergamot and raspberry, creating an introduction that feels vibrant, joyful and immediately addictive. Mandarin and bergamot bring a sparkling citrus luminosity that energises the composition with freshness and clarity, while raspberry adds a smooth fruity sweetness that softens the brighter notes with sensual warmth. The opening feels alive with emotion and bright, yet playful and deeply elegant. Together, the citrus and fruity accords create a glowing first impression that draws the senses inward like the beginning of an unspoken connection.</p>\n<p data-end=\"1297\" data-start=\"673\"> </p>\n<p data-end=\"1969\" data-start=\"1299\">As the scent evolves, jasmine, gardenia and rose emerge in a luminous white floral heart filled with softness and emotional depth. Jasmine introduces a creamy sensuality that feels fluid and expressive, while gardenia adds velvety richness and a subtle solar warmth. Rose brings refinement and romance, balancing the sweeter gourmand facets beneath the surface with graceful elegance. The floral accord blooms gradually against the warmth of sandalwood and saffron, creating a hypnotic contrast between airy florals and textured spice. Smooth and magnetic, the heart of Sacred Bond moves with remarkable harmony, unfolding gently across the skin like a lingering memory.</p>\n<p data-end=\"1969\" data-start=\"1299\"> </p>\n<p data-end=\"2618\" data-start=\"1971\">In the base, sandalwood, benzoin, caramel, vanilla, white musk and amber create a warm and enveloping trail that feels both intimate and infinite. Creamy sandalwood introduces a soft woody depth, while benzoin adds balsamic warmth and subtle resinous texture. Caramel and vanilla melt into the composition with addictive gourmand richness, balanced by the glowing warmth of amber and the clean sensuality of white musk. Saffron threads quietly through the base, enhancing the fragrance with refined spice and luminous warmth. The result is smooth, comforting and profoundly magnetic. A fragrance that lingers like the echo of an inseparable bond.</p>\n<p data-end=\"2618\" data-start=\"1971\"> </p>\n<p data-end=\"2943\" data-start=\"2620\"><strong>Sacred Bond</strong> is a unisex floriental gourmand fragrance designed for those drawn to emotional warmth, sensual softness and refined intensity. Elegant yet deeply comforting, the composition evolves with fluidity and grace, leaving behind a luminous and unforgettable presence that feels instinctive, intimate and timeless.</p>",
+  "published_at": "2024-02-09T15:32:29+04:00",
+  "created_at": "2024-02-09T15:32:29+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47757466697891,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-005",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "198.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8217536692387,
+    "created_at": "2026-06-09T11:27:05+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373219475619,
+    "created_at": "2026-09-02T00:59:24+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:26+04:00",
+    "product_id": 8217536692387,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/SACRED_BOND_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296366",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990104719523,
+    "created_at": "2026-04-11T18:45:13+04:00",
+    "position": 2,
+    "updated_at": "2026-04-11T19:13:16+04:00",
+    "product_id": 8217536692387,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/SACRED_BOND_H_2.png?v=1775920396",
+    "width": 2538,
+    "height": 3172
+   },
+   {
+    "id": 52373220032675,
+    "created_at": "2026-09-02T00:59:27+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:31+04:00",
+    "product_id": 8217536692387,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/SACRED_BOND_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296371",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373218492579,
+    "created_at": "2026-09-02T00:59:21+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:23+04:00",
+    "product_id": 8217536692387,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/SACRED_BOND_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296363",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220688035,
+    "created_at": "2026-09-02T00:59:31+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:35+04:00",
+    "product_id": 8217536692387,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/SACRED_BOND_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296375",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 49918791712931,
+    "created_at": "2026-06-02T03:13:32+04:00",
+    "position": 6,
+    "updated_at": "2026-06-02T03:13:33+04:00",
+    "product_id": 8217536692387,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Studio_Session-804_edited.jpg?v=1780355613",
+    "width": 2250,
+    "height": 3000
+   },
+   {
+    "id": 47954699714723,
+    "created_at": "2026-04-10T21:07:39+04:00",
+    "position": 7,
+    "updated_at": "2026-08-25T20:09:19+04:00",
+    "product_id": 8217536692387,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Sacred_Bond_5__edited_6d4e5ae2-b7fd-4d87-97be-0645088ba1dc.jpg?v=1787674159",
+    "width": 4000,
+    "height": 5000
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8217510740131,
+  "title": "Illusion",
+  "handle": "illusion",
+  "body_html": "<p data-start=\"175\" data-end=\"682\"><strong>Illusion </strong>is a mesmerizing extrait de parfum inspired by the fragile space between dream and reality. A suspended moment where perception dissolves and emotion becomes luminous. Ethereal yet deeply sensual, the fragrance unfolds like a waking hallucination, blurring the boundaries between memory, fantasy and instinct. Mysterious, addictive and emotionally charged, Illusion invites the senses into parallel worlds filled with shifting colours, textures and sensations that feel both intimate and infinite.</p>\n<p data-start=\"175\" data-end=\"682\"> </p>\n<p data-start=\"684\" data-end=\"1359\">The fragrance opens with the textured sweetness of dried fruits, cotton sugar and juniper berries, creating an introduction that feels simultaneously playful, mysterious and unexpectedly sophisticated. Dried fruits bring a rich and velvety sweetness that immediately envelops the senses, while cotton sugar introduces an airy softness that diffuses gently through the composition like drifting light. Juniper berries add a cool aromatic freshness that cuts through the sweetness with clarity and movement, creating a fascinating tension between brightness and warmth. The opening feels dreamlike and immersively comforting yet surreal, familiar yet impossible to fully grasp.</p>\n<p data-start=\"684\" data-end=\"1359\"> </p>\n<p data-start=\"1361\" data-end=\"1973\">As the scent evolves, rose, saffron and clove buds emerge through the sweetness in a hypnotic floral-spicy heart filled with warmth and emotional intensity. Rose introduces a smooth sensual elegance that softens the darker facets of the composition, while saffron threads through the fragrance with luminous golden warmth. Clove buds deepen the heart with a textured spicy richness that adds mystery and subtle heat without overpowering the airy sweetness surrounding it. The floral and spice accords move together in fluid rhythm, creating an atmosphere that feels expansive, intoxicating and suspended in time.</p>\n<p data-start=\"1361\" data-end=\"1973\"> </p>\n<p data-start=\"1975\" data-end=\"2623\">In the base, sweet vanilla, amber, gurjum balm, cabreuva and cedarwood create a warm and enveloping foundation that grounds the fragrance in soft sensuality and atmospheric depth. Vanilla melts into the skin with creamy addictive warmth, while amber introduces a glowing resinous richness that lingers beautifully throughout the dry down. Gurjum balm adds balsamic softness and subtle smokiness, enhancing the fragrance’s dreamlike character, while cabreuva and cedarwood provide woody structure and smooth elegance beneath the sweeter facets. A fragrance that feels fluid, hypnotic and endlessly evolving.</p>\n<p data-start=\"1975\" data-end=\"2623\"> </p>\n<p data-start=\"2625\" data-end=\"2949\"><strong>Illusion </strong>is a genderless oriental fruity fragrance designed for those drawn to expressive compositions filled with emotion, fantasy and sensual depth. Both radiant and shadowed, the fragrance unfolds continuously on the skin, leaving behind a warm and magnetic trail that feels surreal, addictive and profoundly captivating.</p>",
+  "published_at": "2024-02-09T15:05:24+04:00",
+  "created_at": "2024-02-09T15:05:24+04:00",
+  "updated_at": "2026-10-06T17:18:18+04:00",
+  "vendor": "Reinvented",
+  "product_type": "Extrait de Parfum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 47757462503587,
+    "title": "75ml",
+    "option1": "75ml",
+    "option2": null,
+    "option3": null,
+    "sku": "REIN-002",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "209.00",
+    "grams": 0,
+    "compare_at_price": "0.00",
+    "position": 1,
+    "product_id": 8217510740131,
+    "created_at": "2026-06-09T11:24:44+04:00",
+    "updated_at": "2026-10-06T17:18:18+04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 52373218558115,
+    "created_at": "2026-09-02T00:59:21+04:00",
+    "position": 1,
+    "updated_at": "2026-09-02T00:59:24+04:00",
+    "product_id": 8217510740131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ILLUSION_-_REINVENTED_PARFUMS_-_PORTRAIT.png?v=1788296364",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 50155924684963,
+    "created_at": "2026-06-09T11:22:43+04:00",
+    "position": 2,
+    "updated_at": "2026-06-09T11:22:45+04:00",
+    "product_id": 8217510740131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/Illusion_edited.png?v=1780989765",
+    "width": 1143,
+    "height": 1428
+   },
+   {
+    "id": 52373220163747,
+    "created_at": "2026-09-02T00:59:29+04:00",
+    "position": 3,
+    "updated_at": "2026-09-02T00:59:32+04:00",
+    "product_id": 8217510740131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ILLUSION_-_REINVENTED_PARFUMS_-_PACKAGING.png?v=1788296372",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373218525347,
+    "created_at": "2026-09-02T00:59:21+04:00",
+    "position": 4,
+    "updated_at": "2026-09-02T00:59:23+04:00",
+    "product_id": 8217510740131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ILLUSION_-_REINVENTED_PARFUMS_-_DETAIL.png?v=1788296363",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 52373220753571,
+    "created_at": "2026-09-02T00:59:32+04:00",
+    "position": 5,
+    "updated_at": "2026-09-02T00:59:39+04:00",
+    "product_id": 8217510740131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ILLUSION_-_REINVENTED_PARFUMS_-_PYRAMID.png?v=1788296379",
+    "width": 3553,
+    "height": 4441
+   },
+   {
+    "id": 47990101049507,
+    "created_at": "2026-04-11T18:45:03+04:00",
+    "position": 6,
+    "updated_at": "2026-04-11T19:14:37+04:00",
+    "product_id": 8217510740131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0639/0353/1171/files/ILLUSION_H_2.png?v=1775920477",
+    "width": 2538,
+    "height": 3172
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "75ml"
+    ]
+   }
+  ]
+ }
+]
