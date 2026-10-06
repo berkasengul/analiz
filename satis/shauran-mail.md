@@ -19,13 +19,13 @@ Gazete Birlik "Altay Oransal kimdir", vgcharme.com ve scentsangel.com ürün say
   + kısa not en olası kanal.
 - Hiçbiri olmazsa: VG Charme'a (İtalya) markanın iletişim adresini sorabilirsin.
 
-**Ekler:** demo ekran görüntüleri (Netlify linki açılınca telefonda çek)
+**Demo linki:** https://shauran.netlify.app/ (06.10.2026'da Netlify'de yayınlandı)
+**Ekler:** demo ekran görüntüleri (telefonda çek)
 **Ne zaman:** Salı–Perşembe, 10:00–11:00
 
 ## Nasıl satılır (sıra)
 
-1. **Linki hazırla:** `demolar/shauran-Netlify.zip` → app.netlify.com/drop. Site adı `shauran-3d` gibi olsun.
-   Telefonda ve bilgisayarda aç.
+1. **Link hazır:** https://shauran.netlify.app/ (telefonda ve bilgisayarda bir kez aç).
 2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır, şişelerin sırayla kaideye gelişini ve birine girip
    çevirmeyi göster.
 3. **LinkedIn'den Altay Bey'e** bağlantı isteği + aşağıdaki not. Instagram hesabını bulursan oradan da mesaj.
@@ -35,7 +35,7 @@ Gazete Birlik "Altay Oransal kimdir", vgcharme.com ve scentsangel.com ürün say
 
 ## LinkedIn notu (bağlantı isteğiyle; 300 karakter sınırı)
 
-Merhaba Altay Bey, Shauran'ın 10 kokusunu 3D sergileyen bir web sitesi hazırladım. Fark ettim ki shauran.com şu an açılmıyor; bu site doğrudan yerine geçebilir. Link: [DEMO LİNKİ]
+Merhaba Altay Bey, Shauran'ın 10 kokusunu 3D sergileyen bir web sitesi hazırladım. Fark ettim ki shauran.com şu an açılmıyor; bu site doğrudan yerine geçebilir. Link: https://shauran.netlify.app/
 
 ## Mesaj (LinkedIn / Instagram DM / e-posta; Türkçe)
 
@@ -43,7 +43,7 @@ Merhaba Altay Bey, İsmail Bey,
 
 Shauran Paris için kokularınızı 3D olarak sergileyen bir web sitesi hazırladım, incelemeniz için paylaşıyorum:
 
-👉 [DEMO LİNKİ]
+👉 https://shauran.netlify.app/
 
 Hazırlarken shauran.com'un şu an açılmadığını gördüm (sunucuya ulaşılamıyor hatası veriyor). Marka şu an internette
 yalnızca satıcıların sayfalarında görünüyor; bu site doğrudan yeni siteniz olabilir.
@@ -75,7 +75,7 @@ kısa bir yanıt yeterli._
 Merhaba Altay Bey,
 
 Geçen hafta Shauran Paris için hazırladığım 3D web sitesini paylaşmıştım; gözden kaçmış olabileceği için tekrar
-iletiyorum: [DEMO LİNKİ]
+iletiyorum: https://shauran.netlify.app/
 
 Telefondan açıp aşağı kaydırmanız yeterli. Kısa bir geri dönüşünüz bile benim için değerli.
 
@@ -86,7 +86,7 @@ Berka
 
 Merhaba,
 
-Son kez yazıyorum: Shauran Paris için hazırladığım 3D site bu linkte duruyor: [DEMO LİNKİ]
+Son kez yazıyorum: Shauran Paris için hazırladığım 3D site bu linkte duruyor: https://shauran.netlify.app/
 
 Şu an için uygun değilse sorun değil; ileride ilgilenirseniz bana buradan ulaşabilirsiniz.
 
@@ -96,8 +96,8 @@ Berka
 ## Göndermeden önce
 
 - [ ] shauran.com'u bir kez daha aç: hâlâ kapalıysa "açılmıyor" cümlesi kalsın, açılmışsa çıkar.
-- [ ] Zip'i Netlify Drop'a yükle, linki telefonda ve bilgisayarda aç.
-- [ ] `[DEMO LİNKİ]` ve telefonunu doldur.
+- [x] Netlify'de yayınlandı: https://shauran.netlify.app/
+- [ ] `[Telefon]` kısmını doldur.
 
 ## Fiyat sorarlarsa
 
