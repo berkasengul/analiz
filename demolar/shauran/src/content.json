@@ -666,7 +666,7 @@
         },
         "color": "#c09072",
         "product": 0,
-        "image": "cut/baroque.webp",
+        "image": "r3d/baroque.webp",
         "cutout": true,
         "bg": "#5a1620",
         "bg2": "#d08a7a",
@@ -697,7 +697,7 @@
         },
         "color": "#c08f72",
         "product": 1,
-        "image": "cut/mesopotamia.webp",
+        "image": "r3d/mesopotamia.webp",
         "cutout": true,
         "bg": "#1f3a1c",
         "bg2": "#c2d873",
@@ -728,7 +728,7 @@
         },
         "color": "#b98464",
         "product": 2,
-        "image": "cut/reverie.webp",
+        "image": "r3d/reverie.webp",
         "cutout": true,
         "bg": "#4a2a0a",
         "bg2": "#dcaa58",
@@ -759,7 +759,7 @@
         },
         "color": "#c09173",
         "product": 3,
-        "image": "cut/renaissance.webp",
+        "image": "r3d/renaissance.webp",
         "cutout": true,
         "bg": "#4a200e",
         "bg2": "#e6914a",
@@ -790,7 +790,7 @@
         },
         "color": "#bf8e71",
         "product": 4,
-        "image": "cut/capella.webp",
+        "image": "r3d/capella.webp",
         "cutout": true,
         "bg": "#22361f",
         "bg2": "#cdb98c",
@@ -821,7 +821,7 @@
         },
         "color": "#bf8f71",
         "product": 5,
-        "image": "cut/cuir-dose.webp",
+        "image": "r3d/cuir-dose.webp",
         "cutout": true,
         "bg": "#3e1b14",
         "bg2": "#c08058",
@@ -852,7 +852,7 @@
         },
         "color": "#bf8f71",
         "product": 6,
-        "image": "cut/dynasty.webp",
+        "image": "r3d/dynasty.webp",
         "cutout": true,
         "bg": "#5a2a0c",
         "bg2": "#e8a457",
@@ -883,7 +883,7 @@
         },
         "color": "#c09074",
         "product": 7,
-        "image": "cut/eclipse.webp",
+        "image": "r3d/eclipse.webp",
         "cutout": true,
         "bg": "#2c1a42",
         "bg2": "#b996d8",
@@ -914,7 +914,7 @@
         },
         "color": "#c39373",
         "product": 8,
-        "image": "cut/escapade.webp",
+        "image": "r3d/escapade.webp",
         "cutout": true,
         "bg": "#3a1642",
         "bg2": "#dcaee6",
@@ -945,7 +945,7 @@
         },
         "color": "#bf8f72",
         "product": 9,
-        "image": "cut/patchouli-vision.webp",
+        "image": "r3d/patchouli-vision.webp",
         "cutout": true,
         "bg": "#1b2342",
         "bg2": "#93a0dc",
@@ -1552,7 +1552,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7117
       },
       "price": {
         "tr": 175.0,
@@ -2091,7 +2091,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7117
       },
       "price": {
         "tr": 175.0,
@@ -3270,7 +3270,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7109
       },
       "price": {
         "tr": 175.0,
@@ -3828,7 +3828,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7117
       },
       "price": {
         "tr": 175.0,
@@ -4398,7 +4398,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7117
       },
       "price": {
         "tr": 175.0,
@@ -4972,7 +4972,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7109
       },
       "price": {
         "tr": 175.0,
@@ -5538,7 +5538,7 @@
         "clear": true,
         "liquid": "#fefefe",
         "glass": true,
-        "liquidBottom": 0.7328
+        "liquidBottom": 0.7305
       },
       "price": {
         "tr": 175.0,
@@ -6175,7 +6175,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7117
       },
       "price": {
         "tr": 200.0,
@@ -6765,7 +6765,7 @@
         "clear": true,
         "liquid": "#ffffff",
         "glass": true,
-        "liquidBottom": 0.7156
+        "liquidBottom": 0.7109
       },
       "price": {
         "tr": 175.0,
