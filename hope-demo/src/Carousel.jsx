@@ -112,11 +112,13 @@ export function arcPose(d, aspect, time, i) {
       };
     }
     if (GLIDE) {
-      // Komşu şişe yalnızca geçişte görünür; yerindeyken kemerde tek şişe.
-      const vis = 1 - MathUtils.smoothstep(ad, 0.66, 0.95);
+      // Komşu şişe yalnızca geçişte görünür; yerindeyken kemerde tek şişe. Sayfa ürünün tam üstünde durmasa da
+      // (ör. sıra 2,06) yandaki şişe uzakta minik bir silüet olarak kalmaz.
+      const vis = 1 - MathUtils.smoothstep(ad, 0.55, 0.84);
       // Kategori sayfasında üstte kategori sekmeleri var: şişe (ve kemer) biraz küçülüp aşağı iner.
       const cat = PAGE.kind === "category" ? 1 : 0;
-      const sc = base * (phone ? 1.5 : 1.8) * (1 - 0.12 * cat) * (1 - 0.3 * Math.min(ad, 1)) * vis;
+      // theme.glideScale: şişenin boyu (kemersiz sahnede şişe daha büyük durabilir).
+      const sc = base * (phone ? 1.5 : 1.8) * (THEME.glideScale ?? 1) * (1 - 0.12 * cat) * (1 - 0.3 * Math.min(ad, 1)) * vis;
       const cx = phone ? 0 : 2.55 * MathUtils.clamp(aspect / 1.9, 0.44, 1);
       return {
         x: cx + d * (phone ? 4.2 : 7.5),

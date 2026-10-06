@@ -506,10 +506,12 @@
   },
   "studio": true,
   "pedestal": true,
-  "carousel": "rise",
+  "carousel": "glide",
   "cards": "gallery",
   "pyramid": true,
-  "cosmos": true
+  "cosmos": true,
+  "arch": false,
+  "glideScale": 1.25
  },
  "defaultLang": "tr",
  "hide": [
