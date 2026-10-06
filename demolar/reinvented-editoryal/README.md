@@ -14,3 +14,15 @@ bölümünde arkasını gösterir; ardından siyah manifesto, kampanya fotoğraf
 
 Çalıştırma: `npm install && npm run dev` (ya da `../../hope-demo/node_modules` bağlantısıyla doğrudan).
 Yayın: `npm run build` → `dist/` (zip: `demolar/reinvented-editoryal-Netlify.zip`).
+
+## Kaydırmalı vitrin ve canlı sahne (2. tur)
+
+- Açılış vitrini ekrana sabit; kaydırdıkça öne çıkan dört koku (`state.js → HOME`) sırayla gelir: şişe
+  kaideden yükselir, havada yarım tur döner, tam yan dönükken yeni kokuya geçer ve kaideye oturur. Solda
+  kokunun sırası, ailesi, adı, nota piramidi, fiyatı; altta ilerleme çubuklu şerit. Dördüncü kokudan sonra
+  şişe ürün kartındaki kaideye iner.
+- `src/Backdrop.jsx`: sayfanın arkasında ayrı bir WebGL katmanı. Kokunun renginde aydınlık fon (renk akarak
+  geçer), şişenin ardında hale, tepeden ışık huzmesi, akan ipek dalgalar, vitrinde fonu yansıtan parlak
+  zemin ve ufuk ışığı, vinyet, film greni, süzülen altın tozları.
+- Altın kenarlı fildişi mermer kaideler (vitrin ve kart); kart cam gibi (bulanık, kokunun renginde iç ışık,
+  ince altın çerçeve, ışık konisi). Manifesto ve alt bölümler kokunun tonuna boyanır.

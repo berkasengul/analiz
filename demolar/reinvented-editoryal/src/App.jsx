@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
+import Backdrop from "./Backdrop";
 import Stage from "./Stage";
 import GALLERY from "./gallery.json";
-import { PRODUCTS, setCurrent, spin, state, useCurrent } from "./state";
+import { HOME, PRODUCTS, setCurrent, spin, state, useCurrent } from "./state";
 
 const BASE = import.meta.env.BASE_URL;
 const STORE = "https://www.reinventedparfums.com";
@@ -91,28 +92,60 @@ function Header({ p }) {
   );
 }
 
+// Açılış vitrini: bölüm uzun, içi ekrana sabit. Kaydırdıkça öne çıkan dört koku sırayla gelir (şişe yan
+// dönerek değişir); solda kokunun adı, ailesi ve notaları, altta ilerleme. Sonuncusundan sonra sayfa
+// aşağı akar ve şişe ürün kartına iner.
 function Hero({ cur }) {
+  const k = Math.max(0, HOME.indexOf(cur));
+  const p = PRODUCTS[HOME[k]];
+  const go = (i) => {
+    const el = document.getElementById("top");
+    window.__lenis?.scrollTo(el.offsetTop + i * window.innerHeight + 2);
+  };
   return (
-    <section className="hero" id="top">
-      <div className="hero__meta mono">
-        <span>Extrait de Parfum · 75 ml</span>
-        <span>10 koku · Unisex</span>
+    <section className="hero" id="top" style={{ height: `${HOME.length * 100}svh` }}>
+      <div className="hero__pin">
+        <div className="hero__meta mono">
+          <span>Extrait de Parfum · 75 ml</span>
+          <span>10 koku · Unisex</span>
+        </div>
+        <h1 className="hero__title display">
+          <Scramble text="beyond the" className="line" delay={300} />
+          <Scramble text="tangible" className="line" delay={650} />
+        </h1>
+        <div className="hero__info" key={p.handle}>
+          <p className="mono hero__count">
+            <b>{String(k + 1).padStart(2, "0")}</b> / {String(HOME.length).padStart(2, "0")}
+          </p>
+          <p className="eyebrow mono">{p.family}</p>
+          <Scramble as="h2" text={p.name.toLowerCase()} className="display hero__name" />
+          <ul className="hero__notes">
+            {(p.composition?.tr ?? []).map((l) => (
+              <li key={l}>
+                <span className="mono">{l.split(":")[0]}</span>
+                {l.split(":")[1]}
+              </li>
+            ))}
+          </ul>
+          <div className="row">
+            <span className="hero__price mono">${Math.round(p.price)}</span>
+            <a className="pill" href={cartUrl(p)} target="_blank" rel="noreferrer">
+              Sepete ekle
+            </a>
+          </div>
+        </div>
+        <div id="seat-hero" className="seat seat--hero" />
+        <div className="hero__strip">
+          {HOME.map((i, j) => (
+            <button key={PRODUCTS[i].handle} className={`chip${j === k ? " is-on" : ""}`} onClick={() => go(j)} style={{ "--c": PRODUCTS[i].color }}>
+              <i />
+              {PRODUCTS[i].name}
+              <em className="chip__bar" />
+            </button>
+          ))}
+        </div>
+        <div className="hero__scroll mono">Kaydır ↓</div>
       </div>
-      <h1 className="hero__title display">
-        <Scramble text="beyond the" className="line" delay={300} />
-        <Scramble text="tangible" className="line" delay={650} />
-      </h1>
-      <p className="hero__lead">Somut olanın ötesini görmeye bir davet: on extrait de parfum, her biri bir anının, bir rüyanın kokusu.</p>
-      <div id="seat-hero" className="seat seat--hero" />
-      <div className="hero__strip">
-        {PRODUCTS.map((p, i) => (
-          <button key={p.handle} className={`chip${i === cur ? " is-on" : ""}`} onClick={() => setCurrent(i)} style={{ "--c": p.color }}>
-            <i />
-            {p.name}
-          </button>
-        ))}
-      </div>
-      <div className="hero__scroll mono">Kaydır ↓</div>
     </section>
   );
 }
@@ -331,16 +364,38 @@ function Cursor() {
   return <div ref={ref} className="cursor" aria-hidden="true" />;
 }
 
+// Vitrinin kesirli sırası: bölümün sabit kaldığı aralıkta her ekran boyu bir koku. Sıra değişince koku
+// anında değişir (şişe o an yan dönük); vitrinden çıkınca son kokuda kalır.
+let lastK = 0;
+function heroProgress() {
+  const el = document.getElementById("top");
+  if (!el) return;
+  const vh = window.innerHeight;
+  const raw = (window.scrollY - el.offsetTop) / vh;
+  state.heroP = Math.max(0, Math.min(HOME.length - 1, raw));
+  const k = Math.round(state.heroP);
+  if (raw < HOME.length - 0.5 && k !== lastK) {
+    lastK = k;
+    setCurrent(HOME[k], { instant: true });
+  } else if (raw >= HOME.length - 0.5) lastK = -1;
+  document.querySelectorAll(".chip__bar").forEach((b, j) => (b.style.transform = `scaleX(${Math.max(0, Math.min(1, state.heroP - j + 0.5))})`));
+}
+
 export default function App() {
   const cur = useCurrent();
   const p = PRODUCTS[cur];
   useEffect(() => {
     document.documentElement.style.setProperty("--accent", PRODUCTS[state.current].color);
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      addEventListener("scroll", heroProgress, { passive: true });
+      return () => removeEventListener("scroll", heroProgress);
+    }
     const lenis = new Lenis({ lerp: 0.1 });
+    window.__lenis = lenis;
     let raf;
     const loop = (t) => {
       lenis.raf(t);
+      heroProgress();
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
@@ -355,6 +410,7 @@ export default function App() {
   }, []);
   return (
     <>
+      <Backdrop />
       <Stage />
       <Header p={p} />
       <main>
