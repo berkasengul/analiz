@@ -451,3 +451,12 @@ dalgalanan ipek, üzerinde markanın adı dokunmuş (ThreeUI Community, MIT: `ho
            "caption": { "tr": "Varlıkların ruhu kokularıdır.", "en": "The soul of the beings is their smell." } }
 ```
 `filter` kumaşın gökkuşağı yanardönerini markanın rengine çeker (yoksa mor-yeşil ipek). Uzun ad tek satıra sığdırılır.
+
+## Nota piramidi (katman katman açılan şişe)
+
+`theme.pyramid: true` → ana sayfada Ritüel'den sonra uzun bir bölüm (`ui/NotePyramid.jsx`). Kaydırdıkça şişe dört
+dilime ayrılır: kapak (ad + koku ailesi), üst, kalp ve dip notalar; dilimler arasında markanın vurgu renginde halka,
+her dilimin yanında notaları. Bölüm sonunda şişe yeniden birleşir; alttaki düğmelerle ana sayfadaki diğer kokulara
+geçilir. Notalar ürünün `composition` satırlarından ("Üst: …", "Kalp: …", "Dip: …"; aktarım kuralları → `library`),
+yoksa `notes` üçe bölünür. Şişe dört kez çizilir, her kopya kesme düzlemleriyle (clipping) yalnızca kendi dilimini
+gösterir. Telefonda şişe solda, etiketler sağında.

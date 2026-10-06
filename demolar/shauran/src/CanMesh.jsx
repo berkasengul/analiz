@@ -859,7 +859,7 @@ function Tool({ body, parts, S }) {
   );
 }
 
-function Photo({ body, parts, S, flavor }) {
+function Photo({ body, parts, S, flavor, noLiquid }) {
   const g = photoGeometry(S);
   const cap = useRef();
   // Parfüm sıkma (content.spray): yassı şişede kapak (boynun üstündeki torna) ayrı bir grupta kalkar.
@@ -886,7 +886,7 @@ function Photo({ body, parts, S, flavor }) {
         </group>
       ))}
       {pivot && <Sprayer S={S} pivot={pivot} cap={cap} flavor={flavor} />}
-      {g.parts[0]?.liquid && <Liquid L={g.parts[0].liquid} S={S} body={body} />}
+      {g.parts[0]?.liquid && !noLiquid && <Liquid L={g.parts[0].liquid} S={S} body={body} />}
       {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. Saydam camda kart camın
           içinden görünürdü (ikinci bir etiket gibi); orada çizilmez. */}
       {/* Parfüm sıkmada (pivot) kart çizilmez: kapağın fotoğrafı kartta kalır ve kapak kalkınca yerinde
@@ -1160,11 +1160,12 @@ export const viewOf = (flavor, view) => {
 };
 export const viewUrl = (file) => FILES[`./assets/labels/${file}`];
 
-export default function CanMesh({ body, parts, flavor = 0, view = null }) {
+// noLiquid: şişenin içindeki hareketli sıvı çizilmez (nota piramidinde şişe dilimlere kesilir; sıvı kesilemez).
+export default function CanMesh({ body, parts, flavor = 0, view = null, noLiquid = false }) {
   const f = viewOf(flavor, view);
   const own = (
     <Fit k={`${flavor}:${view}`} wide={f.photo3d?.profile === "group"}>
-      <ProductShape body={body} parts={parts} f={f} flavor={flavor} />
+      <ProductShape body={body} parts={parts} f={f} flavor={flavor} noLiquid={noLiquid} />
     </Fit>
   );
   // Mağazanın yüklediği 3B model (Shopify ürün medyası, GLB: shopifyLive.js → products[].glb): yüklenene kadar ve
@@ -1198,9 +1199,9 @@ function Glb({ url }) {
   return <primitive object={obj} />;
 }
 
-function ProductShape({ body, parts, f, flavor }) {
+function ProductShape({ body, parts, f, flavor, noLiquid }) {
   const S = shapeOf(f);
-  if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} flavor={flavor} />;
+  if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} flavor={flavor} noLiquid={noLiquid} />;
   if (S.kind === "tube") return <Tube body={body} parts={parts} S={S} />;
   if (S.kind === "tool") return <Tool body={body} parts={parts} S={S} />;
   return <Bottle body={body} parts={parts} S={S} />;

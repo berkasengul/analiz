@@ -555,7 +555,8 @@
       },
       "filter": "sepia(0.85) saturate(1.25) hue-rotate(-14deg) brightness(1.05)"
     },
-    "fx": true
+    "fx": true,
+    "pyramid": true
   },
   "defaultLang": "tr",
   "hide": [],

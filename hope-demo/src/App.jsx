@@ -20,6 +20,7 @@ import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
 import { EPILOGUE, EpilogueStage } from "./ui/Epilogue";
 import BrandCloth, { CLOTH } from "./ui/BrandCloth";
+import NotePyramid, { PYRAMID } from "./ui/NotePyramid";
 import Finder, { FINDER } from "./ui/Finder";
 import Discovery, { DISCOVERY } from "./ui/Discovery";
 import { CatalogPage, CategoryBar, CategoryGrid, CollectionGrid } from "./ui/Catalog";
@@ -471,6 +472,7 @@ export default function App() {
         <main>
           {stage}
           <Ritual />
+          {PYRAMID && <NotePyramid />}
           {FINDER && <Finder />}
           {content.catalog && <CollectionGrid />}
           {DISCOVERY && <Discovery />}
