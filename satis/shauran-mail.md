@@ -13,8 +13,9 @@ Göndermeden önce bir kez daha kontrol et; düzelmişse o cümleyi çıkar.
 Gazete Birlik "Altay Oransal kimdir", vgcharme.com ve scentsangel.com ürün sayfaları.
 
 **İletişim:**
-- **E-posta:** bilinmiyor (site kapalı olduğu için okunamadı).
-- **Instagram:** bilinmiyor. Instagram'da "shauran" ya da "shauranparis" ara; resmi hesabı bulursan DM at.
+- **E-posta:** çalışan adres bilinmiyor. Bir arama sonucunda `info@shauran.com` geçiyor, ama shauran.com'un
+  mail sunucusu (MX kaydı) yok (06.10.2026 kontrol): bu adrese giden mail büyük olasılıkla geri döner.
+- **Instagram:** [@shauran](https://www.instagram.com/shauran/) ("Shauran Paris"; arama sonucundan, hesabın içi açılamadı). En olası kanal: DM.
 - **LinkedIn:** Altay Oransal (AmCham'ın ilk küresel gençlik örgütünü kuran kişi olarak da geçiyor). Bağlantı isteği
   + kısa not en olası kanal.
 - Hiçbiri olmazsa: VG Charme'a (İtalya) markanın iletişim adresini sorabilirsin.
@@ -28,7 +29,7 @@ Gazete Birlik "Altay Oransal kimdir", vgcharme.com ve scentsangel.com ürün say
 1. **Link hazır:** https://shauran.netlify.app/ (telefonda ve bilgisayarda bir kez aç).
 2. **20–30 sn ekran videosu çek:** yavaşça aşağı kaydır, şişelerin sırayla kaideye gelişini ve birine girip
    çevirmeyi göster.
-3. **LinkedIn'den Altay Bey'e** bağlantı isteği + aşağıdaki not. Instagram hesabını bulursan oradan da mesaj.
+3. **Instagram @shauran'a DM** (aşağıdaki mesaj) + **LinkedIn'den Altay Bey'e** bağlantı isteği ve not.
 4. **4 gün sonra** takip, **7 gün sonra** son hatırlatma.
 5. Cevap gelirse **15 dakikalık görüntülü görüşme** iste; fiyatı görüşmede ver.
 6. Gönderdiğin tarihi ve kanalı bana söyle; kayıtlara işleyeyim.
