@@ -460,3 +460,12 @@ her dilimin yanında notaları. Bölüm sonunda şişe yeniden birleşir; alttak
 geçilir. Notalar ürünün `composition` satırlarından ("Üst: …", "Kalp: …", "Dip: …"; aktarım kuralları → `library`),
 yoksa `notes` üçe bölünür. Şişe dört kez çizilir, her kopya kesme düzlemleriyle (clipping) yalnızca kendi dilimini
 gösterir. Telefonda şişe solda, etiketler sağında.
+
+## Lüks arayüz (`theme.lux`)
+
+`"lux": true` → arayüz 3B sahneyle aynı kalitede (css/base.css → `html.lux`): ana düğme (`.pill`) dövme altın
+(üstte parlak bant, ortada koyu kuşak, kazınmış yazı, üzerine gelince ışık süpürür); ikincil düğmeler (Kokuyu
+keşfet, Sepete ekle kartta, nota piramidi seçimleri…) altın degrade kenarlı koyu cam, köşelerde altın köşebent;
+simge düğmeleri altın halkalı koyu cam; büyük başlıklar fildişiden altına metal degrade (her harf ayrı canlandığı
+için degrade harfe uygulanır, bölünmemiş başlıklar düz fildişi); etiketlerde elmas işaret, sayaç altın. İlk: Reinvented
+(kemerli "glide", Cinzel/Cormorant).

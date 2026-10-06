@@ -493,14 +493,14 @@
   "theme": {
     "name": "portal",
     "accent": "#d6aa5c",
-    "particles": "none",
+    "particles": "gold",
     "numerals": {
       "font": "fonts/Italiana-Regular.ttf"
     },
     "intro": "mark",
     "fonts": {
-      "href": "https://fonts.googleapis.com/css2?family=Syne:wght@400..700&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
-      "display": "\"Syne\", \"Jost\", \"Helvetica Neue\", Arial, sans-serif",
+      "href": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
+      "display": "\"Cinzel\", \"Cormorant Garamond\", Georgia, serif",
       "serif": "\"Cormorant Garamond\", Georgia, serif",
       "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
     },
@@ -509,9 +509,9 @@
     "carousel": "glide",
     "cards": "gallery",
     "pyramid": true,
-    "cosmos": true,
-    "arch": false,
-    "glideScale": 1.25
+    "glideScale": 1.1,
+    "cardAngle": 0.32,
+    "lux": true
   },
   "defaultLang": "tr",
   "hide": [

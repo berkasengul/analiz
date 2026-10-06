@@ -20,6 +20,9 @@ export function applyTheme() {
   if (THEME.accent) root.style.setProperty("--theme-accent", THEME.accent);
   // theme.brightWalls: aydınlık sahne duvarları (tat bulucu, alt bölümler) karartılmadan gösterilir.
   if (THEME.brightWalls) root.classList.add("bright-walls");
+  // theme.lux: 3B sahneyle aynı kalitede arayüz: metal altın düğmeler, altın kenarlı cam düğmeler, altın-fildişi
+  // ışıltılı başlıklar (css/base.css → html.lux).
+  if (THEME.lux) root.classList.add("lux");
   // theme.decor: 3B sahnedeki kemerli niş, altın desen ve mermer kaide koleksiyon kartlarında, koku bulucuda ve
   // alt bölümlerin sahnesinde de (css/base.css → html.decor).
   if (THEME.decor) {
