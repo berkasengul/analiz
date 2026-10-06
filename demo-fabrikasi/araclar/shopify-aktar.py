@@ -35,7 +35,10 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "families": {"handle": ["tr", "en"]}     ürüne özel koku ailesi (ör. WooCommerce kısa açıklamasından)
     "taglines": {"handle": ["tr", "en"]}     ürüne özel kısa alt yazı (markanın kendi cümlesi)
     "gallery": false                         ürün detayında fotoğraf galerisi gösterilmez
-    "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)      aynı adlı ürünleri ayırt etmek için markanın kendi adları
+    "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)
+    "liquidBottom": true                     şeffaf, kalın tabanlı şişe: parfümün bittiği satır atlastan bulunur (camın
+                                             içinden görünen stüdyo beyazı glassAlpha ile saydamlaşmış olmalı); 3B'de
+                                             sıvı orada biter, altı cam      aynı adlı ürünleri ayırt etmek için markanın kendi adları
 Uydurma içerik yok: metin, fiyat, görsel markanın sitesinden.
 """
 import html
@@ -126,6 +129,16 @@ def photo3d(h, m):
         shape.update(clear=True, liquid=hexc(m["liquid"]))
     if m.get("glass"):
         shape["glass"] = True
+    if R.get("liquidBottom") and os.path.exists(os.path.join(FOTO, "labels", f"{h}.webp")):
+        from PIL import Image
+        a = Image.open(os.path.join(FOTO, "labels", f"{h}.webp")).convert("RGBA")
+        S = a.height
+        col = [sum(a.getpixel((x, y))[3] for x in range(int(S * 0.45), int(S * 0.55), 4)) / len(range(int(S * 0.45), int(S * 0.55), 4)) for y in range(S)]
+        ends = [y for y in range(S // 2, S) if col[y] > 200]
+        nz = [i for i, r in enumerate(m.get("rows", [])) if r > 0]
+        last = (nz[-1] + 1) / len(m["rows"]) * S if nz else S
+        if ends and max(ends) < last - S * 0.03:
+            shape["liquidBottom"] = round((max(ends) + 1) / S, 4)
     if P.get("flask") and re.search(P["flask"], h) and m.get("neck"):
         return {"profile": "flask", "neck": m["neck"], "depthRatio": P.get("depthRatio", 0.42), **shape}
     if P.get("flat") and re.search(P["flat"], h):

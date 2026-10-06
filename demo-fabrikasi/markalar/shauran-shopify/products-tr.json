@@ -1,0 +1,289 @@
+[
+ {
+  "id": 1,
+  "handle": "baroque",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 1,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/baroque/1"
+   },
+   {
+    "src": "images/baroque/2"
+   },
+   {
+    "src": "images/baroque/3"
+   },
+   {
+    "src": "images/baroque/4"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/baroque-shauran",
+  "title": "Baroque 50 ml",
+  "body_html": "<p>Baroque, Barok üslubun ihtişamını ve zenginliğini kokuyla yeniden yorumlayan unisex bir parfüm. Gül ve neroli; labdanum, oud ve mür gibi zengin notalarla birleşerek görkemli, etkileyici bir iz bırakıyor.</p>"
+ },
+ {
+  "id": 2,
+  "handle": "capella",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 2,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/capella/1"
+   },
+   {
+    "src": "images/capella/2"
+   },
+   {
+    "src": "images/capella/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/capella-shauran",
+  "title": "Capella 50 ml",
+  "body_html": "<p>2021'de çıkan Capella, deniz ferahlığını yeşil aromatik notalarla birleştiren; odunlar, paçuli ve amberden derin bir dibe oturan rafine bir unisex koku.</p>"
+ },
+ {
+  "id": 3,
+  "handle": "cuir-dose",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 3,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/cuir-dose/1"
+   },
+   {
+    "src": "images/cuir-dose/2"
+   },
+   {
+    "src": "images/cuir-dose/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/cuir-dose-shauran",
+  "title": "Cuir Dose 50 ml",
+  "body_html": "<p>Cuir Dose, deri akorunu tüm yoğunluğu ve asaletiyle kutlayan cesur ve rafine bir unisex koku. Ferah narenciye açılışın ardından deri sıcak baharatlar ve çiçeksi dokunuşlarla iç içe geçiyor; odunsu, misk dip kalıcı bir iz bırakıyor.</p>"
+ },
+ {
+  "id": 4,
+  "handle": "dynasty",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 4,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/dynasty/1"
+   },
+   {
+    "src": "images/dynasty/2"
+   },
+   {
+    "src": "images/dynasty/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/dynasty-shauran",
+  "title": "Dynasty 50 ml",
+  "body_html": "<p>Dynasty asaleti, gücü ve duyusallığı çağrıştırıyor; bir sarayın kapılarından içeri adım atar gibi. Narenciye ve frenk üzümüyle açılıyor, ylang-ylang, yasemin ve gülle çiçekleniyor, değerli odunlar ve amberle derinleşiyor.</p>"
+ },
+ {
+  "id": 5,
+  "handle": "eclipse",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 5,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/eclipse/1"
+   },
+   {
+    "src": "images/eclipse/2"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/eclipse-shauran",
+  "title": "Eclipse 50 ml",
+  "body_html": "<p>Eclipse kokusal bir tutulma anını yakalıyor: paçuli ve vetiver; reçineler, vanilya ve menekşeyle iç içe geçerek gizemli ve yoğun bir hava yaratıyor.</p>"
+ },
+ {
+  "id": 6,
+  "handle": "escapade",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 6,
+    "title": "50 ml",
+    "price": "200.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/escapade/1"
+   },
+   {
+    "src": "images/escapade/2"
+   },
+   {
+    "src": "images/escapade/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/escapade-shauran",
+  "title": "Escapade 50 ml",
+  "body_html": "<p>Escapade kaçışa bir davet: baharatlar ve meyvemsi dokunuşlarla sarılmış deri, odunlar ve vanilya arasında bir koku yolculuğu.</p>"
+ },
+ {
+  "id": 7,
+  "handle": "mesopotamia",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 7,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/mesopotamia/1"
+   },
+   {
+    "src": "images/mesopotamia/2"
+   },
+   {
+    "src": "images/mesopotamia/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/mesopotamia-shauran",
+  "title": "Mesopotamia 50 ml",
+  "body_html": "<p>Mesopotamia medeniyetlerin kadim topraklarını çağrıştırıyor; derinliği, zarafeti ve gizemi bir araya getiren bir koku krallığı. Deniz notaları bergamot, gül ve miskle buluşuyor.</p>"
+ },
+ {
+  "id": 8,
+  "handle": "patchouli-vision",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 8,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/patchouli-vision/1"
+   },
+   {
+    "src": "images/patchouli-vision/2"
+   },
+   {
+    "src": "images/patchouli-vision/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/patchoulivision-shauran",
+  "title": "Patchouli Vision 50 ml",
+  "body_html": "<p>Patchouli Vision değerli paçulinin büyüleyici bir yorumu: paçulinin her akorda öne çıktığı; sedir, misk, amber ve bir dokunuş deriyle sarılmış bir kompozisyon.</p>"
+ },
+ {
+  "id": 9,
+  "handle": "renaissance",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 9,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/renaissance/1"
+   },
+   {
+    "src": "images/renaissance/2"
+   },
+   {
+    "src": "images/renaissance/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/renaissance-shauran",
+  "title": "Renaissance 50 ml",
+  "body_html": "<p>Renaissance yeniden doğuşu ve modernliği zarafetle kutluyor. Beyaz biber, pembe biber, ardıç ve kakuleyle baharatlı açılıyor; oud, deri, iris ve gülden zengin bir kalbe, tütün, sedir, vanilya ve paçuliden bir dibe iniyor.</p>"
+ },
+ {
+  "id": 10,
+  "handle": "reverie",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 10,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/reverie/1"
+   },
+   {
+    "src": "images/reverie/2"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/reverie-shauran",
+  "title": "Réverie 50 ml",
+  "body_html": "<p>Réverie zengin ve sofistike bir koku yolculuğu: rafine içkiler, tatlılık ve derin odunlardan örülü dekadan bir rüya.</p>"
+ }
+]

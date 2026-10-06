@@ -1,0 +1,589 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "clear": ".",
+  "convex": 0.3,
+  "solidTop": 0.3,
+  "glassAlpha": ".",
+  "neckAt": [
+   [
+    ".",
+    0.25
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "vgcharme.com",
+  "platform": "woo",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "baroque",
+   "mesopotamia",
+   "reverie",
+   "renaissance"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.5
+  },
+  "categories": [
+   {
+    "id": "koleksiyon",
+    "tr": "İlk Koleksiyon",
+    "en": "Inaugural Collection",
+    "color": "#c69a7a",
+    "descTr": "On koku, uluslararası parfümörlerin nadir ve doğal hammaddelerle imzası. Araştırma ve üretim Paris'te.",
+    "descEn": "Ten fragrances signed by international perfumers with rare, natural materials. Researched and produced in Paris.",
+    "match": "."
+   }
+  ],
+  "families": {
+   "baroque": [
+    "Oryantal · Çiçeksi",
+    "Oriental · Floral"
+   ],
+   "capella": [
+    "Odunsu · Aromatik",
+    "Woody · Aromatic"
+   ],
+   "cuir-dose": [
+    "Oryantal · Deri",
+    "Oriental · Leather"
+   ],
+   "dynasty": [
+    "Oryantal · Çiçeksi",
+    "Oriental · Floral"
+   ],
+   "eclipse": [
+    "Pudralı",
+    "Powdery"
+   ],
+   "escapade": [
+    "Deri · Odunsu",
+    "Leather · Woody"
+   ],
+   "mesopotamia": [
+    "Oryantal · Amber",
+    "Oriental · Amber"
+   ],
+   "patchouli-vision": [
+    "Odunsu · Yeşil",
+    "Woody · Green"
+   ],
+   "renaissance": [
+    "Odunsu · Oryantal",
+    "Woody · Oriental"
+   ],
+   "reverie": [
+    "Oryantal · Gurme",
+    "Oriental · Gourmand"
+   ]
+  },
+  "notes": [
+   [
+    "^baroque$",
+    [
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Labdanum",
+      "Cistus"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Orange Blossom"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^capella$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Deniz Notaları",
+      "Marine Notes"
+     ],
+     [
+      "Elemi",
+      "Elemi"
+     ],
+     [
+      "Nane",
+      "Mint"
+     ],
+     [
+      "Lavanta",
+      "Lavender"
+     ]
+    ]
+   ],
+   [
+    "^cuir-dose$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^dynasty$",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Frenk Üzümü",
+      "Blackcurrant"
+     ],
+     [
+      "Deniz Notaları",
+      "Marine Accents"
+     ],
+     [
+      "Ylang-Ylang",
+      "Ylang-Ylang"
+     ]
+    ]
+   ],
+   [
+    "^eclipse$",
+    [
+     [
+      "Menekşe",
+      "Violet"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Reçineler",
+      "Resins"
+     ],
+     [
+      "Vetiver",
+      "Vetiver"
+     ]
+    ]
+   ],
+   [
+    "^escapade$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ],
+     [
+      "Labdanum",
+      "Cistus"
+     ]
+    ]
+   ],
+   [
+    "^mesopotamia$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Deniz Notaları",
+      "Marine Notes"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Müge",
+      "Lily of the Valley"
+     ]
+    ]
+   ],
+   [
+    "^patchouli-vision$",
+    [
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Otsu Notalar",
+      "Herbal Notes"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Sedir",
+      "Cedar"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^renaissance$",
+    [
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Beyaz Biber",
+      "White Pepper"
+     ],
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Ardıç",
+      "Juniper"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^reverie$",
+    [
+     [
+      "Konyak",
+      "Cognac"
+     ],
+     [
+      "Rom",
+      "Rum"
+     ],
+     [
+      "Davana",
+      "Davana"
+     ],
+     [
+      "Kadife Çiçeği",
+      "Tagetes"
+     ],
+     [
+      "Belçika Çikolatası",
+      "Belgian Chocolate"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^baroque$",
+    "composition": {
+     "tr": [
+      "Üst: Gül, Neroli, Labdanum",
+      "Kalp: Portakal Çiçeği, Oud, Mür",
+      "Dip: Amber, Sedir, Vanilya"
+     ],
+     "en": [
+      "Top: Rose, Neroli, Cistus",
+      "Heart: Orange Blossom, Oud, Myrrh",
+      "Base: Amber, Cedar, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^capella$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Deniz Notaları, Elemi, Nane",
+      "Kalp: Lavanta, Adaçayı, Yasemin, Balsam Köknarı",
+      "Dip: Ambergris, Deri, Sandal Ağacı, Paçuli, Misk"
+     ],
+     "en": [
+      "Top: Bergamot, Marine Notes, Elemi, Mint",
+      "Heart: Lavender, Sage, Jasmine, Balsam Fir",
+      "Base: Ambergris, Leather, Sandalwood, Patchouli, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^cuir-dose$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Limon, Pembe Biber",
+      "Kalp: Deri, Safran, Heliotrop, Yasemin",
+      "Dip: Sedir, Tik Ağacı, Misk, Yosun"
+     ],
+     "en": [
+      "Top: Bergamot, Lemon, Pink Pepper",
+      "Heart: Leather, Saffron, Heliotrope, Jasmine",
+      "Base: Cedar, Teak Wood, Musk, Moss"
+     ]
+    }
+   },
+   {
+    "match": "^dynasty$",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Mandalina, Frenk Üzümü, Deniz Notaları",
+      "Kalp: Ylang-Ylang, Yasemin, Gül, Heliotrop, Tarçın",
+      "Dip: Sandal Ağacı, Değerli Odunlar, Ambergris, Misk"
+     ],
+     "en": [
+      "Top: Lemon, Mandarin, Blackcurrant, Marine Accents",
+      "Heart: Ylang-Ylang, Jasmine, Rose, Heliotrope, Cinnamon",
+      "Base: Sandalwood, Precious Woods, Ambergris, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^eclipse$",
+    "composition": {
+     "tr": [
+      "Üst: Menekşe, İris, Paçuli",
+      "Kalp: Paçuli, Reçineler, Vetiver",
+      "Dip: Paçuli, Amber, Vanilya"
+     ],
+     "en": [
+      "Top: Violet, Iris, Patchouli",
+      "Heart: Patchouli, Resins, Vetiver",
+      "Base: Patchouli, Amber, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^escapade$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Zencefil",
+      "Kalp: Safran, Deri, Labdanum, Sandal Ağacı, Ahududu",
+      "Dip: Paçuli, Tik Ağacı, Vanilya, Tonka Fasulyesi, Misk"
+     ],
+     "en": [
+      "Top: Bergamot, Ginger",
+      "Heart: Saffron, Leather, Cistus, Sandalwood, Raspberry",
+      "Base: Patchouli, Teak Wood, Vanilla, Tonka Bean, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^mesopotamia$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Deniz Notaları",
+      "Kalp: Gül, Safran, Müge",
+      "Dip: Ambergris, Misk, Benzoin, Yosun"
+     ],
+     "en": [
+      "Top: Bergamot, Marine Notes",
+      "Heart: Rose, Saffron, Lily of the Valley",
+      "Base: Ambergris, Musk, Benzoin, Moss"
+     ]
+    }
+   },
+   {
+    "match": "^patchouli-vision$",
+    "composition": {
+     "tr": [
+      "Üst: Paçuli, Otsu Notalar",
+      "Kalp: Paçuli, Amber, Sedir",
+      "Dip: Paçuli, Amber, Misk, Deri"
+     ],
+     "en": [
+      "Top: Patchouli, Herbal Notes",
+      "Heart: Patchouli, Amber, Cedar",
+      "Base: Patchouli, Amber, Musk, Leather"
+     ]
+    }
+   },
+   {
+    "match": "^renaissance$",
+    "composition": {
+     "tr": [
+      "Üst: Kakule, Beyaz Biber, Pembe Biber, Ardıç",
+      "Kalp: Oud, Deri, İris, Gül",
+      "Dip: Tütün, Sedir, Vanilya, Paçuli"
+     ],
+     "en": [
+      "Top: Cardamom, White Pepper, Pink Pepper, Juniper",
+      "Heart: Oud, Leather, Iris, Rose",
+      "Base: Tobacco, Cedar, Vanilla, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^reverie$",
+    "composition": {
+     "tr": [
+      "Üst: Konyak, Rom, Davana, Kadife Çiçeği",
+      "Kalp: Belçika Çikolatası, Çilek, Safran",
+      "Dip: Deri, Paçuli, Tik Ağacı, Vanilya, Misk"
+     ],
+     "en": [
+      "Top: Cognac, Rum, Davana, Tagetes",
+      "Heart: Belgian Chocolate, Strawberry, Saffron",
+      "Base: Leather, Patchouli, Teak Wood, Vanilla, Musk"
+     ]
+    }
+   }
+  ],
+  "tagline": "notes",
+  "palette": [
+   [
+    "^baroque$",
+    "#5a1620",
+    "#d08a7a"
+   ],
+   [
+    "^capella$",
+    "#22361f",
+    "#cdb98c"
+   ],
+   [
+    "^cuir-dose$",
+    "#3e1b14",
+    "#c08058"
+   ],
+   [
+    "^dynasty$",
+    "#5a2a0c",
+    "#e8a457"
+   ],
+   [
+    "^eclipse$",
+    "#2c1a42",
+    "#b996d8"
+   ],
+   [
+    "^escapade$",
+    "#3a1642",
+    "#dcaee6"
+   ],
+   [
+    "^mesopotamia$",
+    "#1f3a1c",
+    "#c2d873"
+   ],
+   [
+    "^patchouli-vision$",
+    "#1b2342",
+    "#93a0dc"
+   ],
+   [
+    "^renaissance$",
+    "#4a200e",
+    "#e6914a"
+   ],
+   [
+    "^reverie$",
+    "#4a2a0a",
+    "#dcaa58"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "baroque",
+    "tr": {
+     "title": "Barok ihtişam",
+     "text": "Gül ve neroli; labdanum, oud ve mürle birleşiyor: görkemli, etkileyici bir iz.",
+     "stat": "Gül · Oud · Mür"
+    },
+    "en": {
+     "title": "Baroque splendour",
+     "text": "Rose and neroli meet labdanum, oud and myrrh: a sumptuous, striking trail.",
+     "stat": "Rose · Oud · Myrrh"
+    }
+   },
+   {
+    "handle": "mesopotamia",
+    "tr": {
+     "title": "Kadim topraklar",
+     "text": "Medeniyetlerin beşiğinden ilham: deniz notaları bergamot, gül ve miskle buluşuyor.",
+     "stat": "Bergamot · Gül · Ambergris"
+    },
+    "en": {
+     "title": "Ancient lands",
+     "text": "Inspired by the cradle of civilisations: marine notes merge with bergamot, rose and musk.",
+     "stat": "Bergamot · Rose · Ambergris"
+    }
+   },
+   {
+    "handle": "reverie",
+    "tr": {
+     "title": "Dekadan bir rüya",
+     "text": "Konyak ve rom; Belçika çikolatası ve çilekle tatlanıyor, deri ve vanilyayla derinleşiyor.",
+     "stat": "Konyak · Çikolata · Vanilya"
+    },
+    "en": {
+     "title": "A decadent dream",
+     "text": "Cognac and rum, sweetened with Belgian chocolate and strawberry, deepened with leather and vanilla.",
+     "stat": "Cognac · Chocolate · Vanilla"
+    }
+   }
+  ],
+  "liquidBottom": true
+ }
+}

@@ -1,0 +1,289 @@
+[
+ {
+  "id": 1,
+  "handle": "baroque",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 1,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/baroque/1"
+   },
+   {
+    "src": "images/baroque/2"
+   },
+   {
+    "src": "images/baroque/3"
+   },
+   {
+    "src": "images/baroque/4"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/baroque-shauran",
+  "title": "Baroque 50 ml",
+  "body_html": "<p>Baroque is a unisex perfume that embodies the splendour and opulence of the Baroque style, reinterpreted in scent. Rose and neroli meet rich notes of labdanum, oud and myrrh for a sumptuous, striking trail.</p>"
+ },
+ {
+  "id": 2,
+  "handle": "capella",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 2,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/capella/1"
+   },
+   {
+    "src": "images/capella/2"
+   },
+   {
+    "src": "images/capella/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/capella-shauran",
+  "title": "Capella 50 ml",
+  "body_html": "<p>Launched in 2021, Capella is a refined unisex blend of marine freshness and green aromatic notes over a deep base of woods, patchouli and amber.</p>"
+ },
+ {
+  "id": 3,
+  "handle": "cuir-dose",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 3,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/cuir-dose/1"
+   },
+   {
+    "src": "images/cuir-dose/2"
+   },
+   {
+    "src": "images/cuir-dose/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/cuir-dose-shauran",
+  "title": "Cuir Dose 50 ml",
+  "body_html": "<p>Cuir Dose is a bold, refined unisex fragrance that celebrates the leather accord in all its intensity and nobility. After a fresh citrus opening, leather intertwines with warm spices and floral touches, while a woody, musky base leaves a lasting trail.</p>"
+ },
+ {
+  "id": 4,
+  "handle": "dynasty",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 4,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/dynasty/1"
+   },
+   {
+    "src": "images/dynasty/2"
+   },
+   {
+    "src": "images/dynasty/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/dynasty-shauran",
+  "title": "Dynasty 50 ml",
+  "body_html": "<p>Dynasty evokes nobility, power and sensuality, like stepping through the gates of a palace. It opens with citrus and blackcurrant, blooms with ylang-ylang, jasmine and rose, and deepens into precious woods and ambergris.</p>"
+ },
+ {
+  "id": 5,
+  "handle": "eclipse",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 5,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/eclipse/1"
+   },
+   {
+    "src": "images/eclipse/2"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/eclipse-shauran",
+  "title": "Eclipse 50 ml",
+  "body_html": "<p>Eclipse captures a moment of olfactory eclipse: patchouli and vetiver intertwine with resins, vanilla and violet, creating an aura of mystery and intensity.</p>"
+ },
+ {
+  "id": 6,
+  "handle": "escapade",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 6,
+    "title": "50 ml",
+    "price": "200.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/escapade/1"
+   },
+   {
+    "src": "images/escapade/2"
+   },
+   {
+    "src": "images/escapade/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/escapade-shauran",
+  "title": "Escapade 50 ml",
+  "body_html": "<p>Escapade is an invitation to escape: a journey through leather, woods and vanilla, wrapped in spices and fruity accents.</p>"
+ },
+ {
+  "id": 7,
+  "handle": "mesopotamia",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 7,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/mesopotamia/1"
+   },
+   {
+    "src": "images/mesopotamia/2"
+   },
+   {
+    "src": "images/mesopotamia/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/mesopotamia-shauran",
+  "title": "Mesopotamia 50 ml",
+  "body_html": "<p>Mesopotamia evokes the ancient land of civilisations, a realm of scent uniting depth, elegance and mystery. Marine notes merge with bergamot, rose and musk.</p>"
+ },
+ {
+  "id": 8,
+  "handle": "patchouli-vision",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 8,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/patchouli-vision/1"
+   },
+   {
+    "src": "images/patchouli-vision/2"
+   },
+   {
+    "src": "images/patchouli-vision/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/patchoulivision-shauran",
+  "title": "Patchouli Vision 50 ml",
+  "body_html": "<p>Patchouli Vision is an enchanting vision of precious patchouli: a composition in which the iconic patchouli note leads every accord, wrapped in cedar, musk, amber and a touch of leather.</p>"
+ },
+ {
+  "id": 9,
+  "handle": "renaissance",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 9,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/renaissance/1"
+   },
+   {
+    "src": "images/renaissance/2"
+   },
+   {
+    "src": "images/renaissance/3"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/renaissance-shauran",
+  "title": "Renaissance 50 ml",
+  "body_html": "<p>Renaissance celebrates rebirth and modernity with elegance. A spicy opening of white pepper, pink pepper, juniper and cardamom leads to a rich heart of oud, leather, iris and rose, over tobacco, cedar, vanilla and patchouli.</p>"
+ },
+ {
+  "id": 10,
+  "handle": "reverie",
+  "vendor": "Shauran Paris",
+  "product_type": "Eau de Parfum",
+  "variants": [
+   {
+    "id": 10,
+    "title": "50 ml",
+    "price": "175.00",
+    "compare_at_price": null,
+    "available": true
+   }
+  ],
+  "images": [
+   {
+    "src": "images/reverie/1"
+   },
+   {
+    "src": "images/reverie/2"
+   }
+  ],
+  "permalink": "https://vgcharme.com/products/reverie-shauran",
+  "title": "Réverie 50 ml",
+  "body_html": "<p>Réverie is a rich, sophisticated olfactory journey, evoking a decadent dream of fine spirits, sweetness and deep woods.</p>"
+ }
+]
