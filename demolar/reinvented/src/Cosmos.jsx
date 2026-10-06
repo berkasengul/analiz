@@ -182,7 +182,7 @@ function Nebula() {
             float r = length((v_uv - vec2(0.56, 0.52)) * vec2(u_aspect * 0.8, 1.0));
             float fall = smoothstep(1.15, 0.1, r);
             float gas = smoothstep(0.35, 0.95, d) * fall;
-            vec3 col = mix(u_a * 1.8, u_b, smoothstep(0.45, 0.9, d)) * gas * 0.55;
+            vec3 col = mix(u_a * 2.2, u_b, smoothstep(0.42, 0.9, d)) * gas * 0.9;
             // Koyu toz şeritleri gazı keser (derinlik).
             col *= 0.55 + 0.45 * smoothstep(0.25, 0.65, dust);
             // Şişenin ardında yumuşak ışık (kapağın rengi).
