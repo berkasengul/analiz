@@ -8145,3 +8145,37 @@ html .epi-exhibit > .finder__drop { z-index: 2; }
 .pcard--shop:hover .pcard__media img {
   scale: 0.86;
 }
+
+/* Marka kumaşı (ui/BrandCloth.jsx, ThreeUI "Woven Cloth"): tam genişlik bant, iframe'in içinde kendi sahnesi. */
+.cloth {
+  position: relative;
+  z-index: 2;
+  height: min(78vh, 720px);
+  overflow: hidden;
+}
+.cloth__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  pointer-events: none;
+}
+.cloth__caption {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+  margin: 0;
+  max-width: min(90vw, 640px);
+  text-align: center;
+  font-family: var(--serif, Georgia, serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  color: rgba(255, 244, 232, 0.86);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+}
+@media (max-width: 760px) {
+  .cloth { height: 62vh; }
+}

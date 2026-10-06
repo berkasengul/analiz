@@ -438,3 +438,16 @@ Koku bulucu CSS kaideli olduğunda (sergi görseli yoksa) Ritüel'deki 3B şişe
 iner ve bölümle birlikte kayar. Bölüm ekrandayken (`html.finder-seat`) 3B sahne odanın önüne, soru kartının arkasına
 alınır; fon bölümün üst kenarında biter. Sonuç seçilince şişe kalkar ve sonucun görseli kendi renginde iner; "Baştan
 başla" şişeyi geri getirir.
+
+## Marka kumaşı (ThreeUI "Woven Cloth")
+
+`theme.cloth` verilirse ana sayfada Marquee ile Hakkımızda arasında tam genişlik bir bant çıkar: fizikle
+dalgalanan ipek, üzerinde markanın adı dokunmuş (ThreeUI Community, MIT: `hope-demo/src/vendor/threeui/`,
+`ui/BrandCloth.jsx`). Kendi WebGL bağlamı olan bir iframe; ekrana yaklaşınca açılır, uzaklaşınca kapanır.
+
+```json
+"cloth": { "mono": "S", "sub": "P A R F U M S", "l1": "SHAURAN", "l2": "PARIS", "tag": "E A U   D E   P A R F U M",
+           "bg": "#0c0807", "sheen": "#f6cfb0", "filter": "sepia(0.85) saturate(1.25) hue-rotate(-14deg)",
+           "caption": { "tr": "Varlıkların ruhu kokularıdır.", "en": "The soul of the beings is their smell." } }
+```
+`filter` kumaşın gökkuşağı yanardönerini markanın rengine çeker (yoksa mor-yeşil ipek). Uzun ad tek satıra sığdırılır.

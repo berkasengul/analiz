@@ -19,6 +19,7 @@ import Ritual from "./ui/Ritual";
 import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
 import { EPILOGUE, EpilogueStage } from "./ui/Epilogue";
+import BrandCloth, { CLOTH } from "./ui/BrandCloth";
 import Finder, { FINDER } from "./ui/Finder";
 import Discovery, { DISCOVERY } from "./ui/Discovery";
 import { CatalogPage, CategoryBar, CategoryGrid, CollectionGrid } from "./ui/Catalog";
@@ -477,6 +478,7 @@ export default function App() {
           <div className={`epilogue${EPILOGUE ? " epilogue--stage" : ""}`}>
             {EPILOGUE && <EpilogueStage />}
             <Marquee />
+            {CLOTH && <BrandCloth />}
             {!HIDDEN.has("story") && <Story />}
             {!HIDDEN.has("stockists") && <Stockists />}
             <Faq />
