@@ -565,6 +565,15 @@ export default function Carousel() {
 
     groups.current.forEach((g, i) => {
       if (!g) return;
+      // Ölçü (ayak, tepe, genişlik) her ürün için baştan alınır; ekranda hiç görünmemiş ürün de (sayfa doğrudan
+      // nota piramidine ya da koku bulucuya atlanınca) yuvasına doğru boyda oturur. Gizli ürünün ölçeği 0
+      // olabildiği için ölçerken geçici olarak 1 yapılır.
+      if (BOTTOM[i] == null && fade < 0.001 && spread < 0.001) {
+        const s0 = g.scale.x;
+        g.scale.setScalar(1);
+        measure(g, i);
+        g.scale.setScalar(s0);
+      }
       let d = slotOf[i] - s.p;
       if (!LINEAR) {
         d = ((d % N) + N) % N;

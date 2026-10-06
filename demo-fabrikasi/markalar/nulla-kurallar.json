@@ -1,0 +1,237 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "solidTop": 0.3,
+  "backSolid": ".",
+  "skip": "-1$|^discovery-set$"
+ },
+ "aktar": {
+  "domain": "houseofnulla.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "black",
+   "amber",
+   "spice"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.42
+  },
+  "categories": [
+   {
+    "id": "extrait",
+    "tr": "The Beautiful Darkness",
+    "en": "The Beautiful Darkness",
+    "color": "#b0303c",
+    "descTr": "Üç extrait de parfum; tek başına ya da katmanlanarak.",
+    "descEn": "Three extraits de parfum, worn alone or layered.",
+    "match": "."
+   }
+  ],
+  "families": {
+   "black": [
+    "Çiçeksi · Odunsu",
+    "Floral · Woody"
+   ],
+   "amber": [
+    "Oryantal · Amber",
+    "Oriental · Amber"
+   ],
+   "spice": [
+    "Baharatlı · Odunsu",
+    "Spicy · Woody"
+   ]
+  },
+  "notes": [
+   [
+    "^black$",
+    [
+     [
+      "Siyah Gül",
+      "Black Rose"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Beyaz Misk",
+      "White Musk"
+     ]
+    ]
+   ],
+   [
+    "^amber$",
+    [
+     [
+      "Siyah Gül",
+      "Black Rose"
+     ],
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^spice$",
+    [
+     [
+      "Siyah Gül",
+      "Black Rose"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^black$",
+    "composition": {
+     "tr": [
+      "Üst: Siyah Gül, Mandalina, Narenciye Notaları",
+      "Kalp: Gül, Sardunya, Paçuli, Labdanum, Cypriol, Tonka Fasulyesi, Muskat, Tarçın",
+      "Dip: Beyaz Misk, Sedir Ağacı, Tik Ağacı, Sandal Ağacı, Kuru Amber Notaları, Beyaz Amber Kristalleri"
+     ],
+     "en": [
+      "Top: Black Rose, Mandarin, Citrus Notes",
+      "Heart: Rose, Geranium, Patchouli, Labdanum, Cypriol, Tonka Bean, Nutmeg, Cinnamon",
+      "Base: White Musk, Cedarwood, Teak, Sandalwood, Dry Amber Notes, White Amber Crystals"
+     ]
+    }
+   },
+   {
+    "match": "^amber$",
+    "composition": {
+     "tr": [
+      "Üst: Siyah Gül, Mandalina, Bergamot, Greyfurt",
+      "Kalp: Muskat, Tarçın, Karabiber, Kuru Meyveler",
+      "Dip: Oud, Sedir Ağacı, Tik Ağacı, Sandal Ağacı, Misk, Paçuli, Labdanum, Amber, Vanilya"
+     ],
+     "en": [
+      "Top: Black Rose, Mandarin, Bergamot, Grapefruit",
+      "Heart: Nutmeg, Cinnamon, Black Pepper, Dried Fruits",
+      "Base: Oud, Cedarwood, Teak, Sandalwood, Musk, Patchouli, Labdanum, Amber, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^spice$",
+    "composition": {
+     "tr": [
+      "Üst: Siyah Gül, Mandalina, Bergamot, Greyfurt, Elemi",
+      "Kalp: Muskat, Tarçın, Safran, Karanfil, Karabiber, Kuru Meyveler",
+      "Dip: Oud, Sedir Ağacı, Tik Ağacı, Sandal Ağacı, Misk, Paçuli"
+     ],
+     "en": [
+      "Top: Black Rose, Mandarin, Bergamot, Grapefruit, Elemi",
+      "Heart: Nutmeg, Cinnamon, Saffron, Clove, Black Pepper, Dried Fruits",
+      "Base: Oud, Cedarwood, Teak, Sandalwood, Musk, Patchouli"
+     ]
+    }
+   }
+  ],
+  "tagline": "notes",
+  "palette": [
+   [
+    "^black$",
+    "#160a0c",
+    "#c0404c"
+   ],
+   [
+    "^amber$",
+    "#3a1a08",
+    "#e8923e"
+   ],
+   [
+    "^spice$",
+    "#26102c",
+    "#c066d8"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "black",
+    "tr": {
+     "title": "Karanlıktaki güzellik",
+     "text": "Halfeti'nin siyah gülü; gül, paçuli ve labdanumla derinleşen, ağır olmayan sessiz bir yoğunluk.",
+     "stat": "Siyah Gül · Paçuli · Misk"
+    },
+    "en": {
+     "title": "Beauty in the dark",
+     "text": "Halfeti's black rose, deepened with rose, patchouli and labdanum: a quiet intensity that is never heavy.",
+     "stat": "Black Rose · Patchouli · Musk"
+    }
+   },
+   {
+    "handle": "amber",
+    "tr": {
+     "title": "Yavaş açılan sıcaklık",
+     "text": "Siyah gül ve narenciyeden baharata; oud, amber ve vanilyayla yumuşayan karşı konulmaz bir ışıltı.",
+     "stat": "Tarçın · Oud · Vanilya"
+    },
+    "en": {
+     "title": "A slowly unfolding warmth",
+     "text": "From black rose and citrus to spice; an irresistible glow softened by oud, amber and vanilla.",
+     "stat": "Cinnamon · Oud · Vanilla"
+    }
+   },
+   {
+    "handle": "spice",
+    "tr": {
+     "title": "Cüretkar karşıtlık",
+     "text": "Safran, karanfil ve karabiber; oud ve sandal ağacıyla duyuları uyandıran çarpıcı bir yoğunluk.",
+     "stat": "Safran · Karanfil · Oud"
+    },
+    "en": {
+     "title": "A bold contrast",
+     "text": "Saffron, clove and black pepper over oud and sandalwood: a striking intensity that awakens the senses.",
+     "stat": "Saffron · Clove · Oud"
+    }
+   }
+  ]
+ }
+}

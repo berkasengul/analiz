@@ -176,7 +176,12 @@ function Slices({ canBody, uniforms, flavor, hero, main }) {
     const H = hero.current;
     const r = scrollState;
     const p = r.pyrP;
-    const e = r.pyrOn && !r.pyrPast ? smoothstep(0.1, 0.4, p) * (1 - smoothstep(0.78, 0.95, p)) * Math.min(1, r.pyrIn * 1.2) * (1 - r.finderIn) : 0;
+    // Sinematik açılış: dilimler kaydırmaya bağlı olarak sırayla ayrılır (önce kapak, sonra üst, kalp, dip);
+    // bölüm sonunda tersten sırayla birleşir. ek: dilimin kendi açılma oranı, e: ortalaması (halkalar, yazılar).
+    const gate = r.pyrOn && !r.pyrPast ? Math.min(1, r.pyrIn * 1.2) * (1 - r.finderIn) : 0;
+    const ease3 = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const ek = [0, 1, 2, 3].map((k) => gate * ease3(smoothstep(0.06 + k * 0.11, 0.3 + k * 0.11, p)) * (1 - ease3(smoothstep(0.8 + (3 - k) * 0.035, 0.92 + (3 - k) * 0.025, p))));
+    const e = (ek[0] + ek[1] + ek[2] + ek[3]) / 4;
     sceneState.pyramid = sceneState.pyramid ?? { e: 0, flavor, labels: [] };
     sceneState.pyramid.e = e;
     sceneState.pyramid.flavor = flavor;
@@ -198,27 +203,30 @@ function Slices({ canBody, uniforms, flavor, hero, main }) {
     const cut = [hi, hi - Hh * capFrac];
     const bodyH = cut[1] - lo;
     cut.push(cut[1] - bodyH / 3, cut[1] - (2 * bodyH) / 3, lo);
-    const gap = Hh * 0.12;
+    const gap = Hh * 0.115;
     const sc = H.scale.y;
     const narrow = size.width / size.height < 0.8;
     const labels = sceneState.pyramid.labels;
     for (let k = 0; k < 4; k++) {
-      const dy = (1.5 - k) * gap * e;
+      const ex = ek[k];
+      const dy = (1.5 - k) * gap * ex;
       const g = groups.current[k];
       g.position.y = dy;
-      g.rotation.y = (k % 2 ? 1 : -1) * 0.3 * e;
+      // Açılırken dilim kendi ekseninde döner ve hafifçe öne süzülür (orta dilimler daha çok).
+      g.rotation.y = (k % 2 ? 1 : -1) * 0.38 * ex;
+      g.position.z = (k === 1 || k === 2 ? 0.1 : 0.04) * Hh * ex;
       const s = slices[k];
       // Kesim düzlemleri dünyada (şişe dik durur; hafif eğim ihmal edilir). Komşu dilimler çok az üst üste biner.
       s.planes[0].constant = -(H.position.y + (cut[k + 1] + dy) * sc - 0.003);
       s.planes[1].constant = H.position.y + (cut[k] + dy) * sc + 0.003;
       const ring = rings.current[k];
       ring.position.y = cut[k] + dy;
-      ring.scale.setScalar(w * 0.62 * (0.6 + 0.4 * e));
-      ring.material.opacity = k === 0 ? 0 : 0.85 * e;
+      ring.scale.setScalar(w * 0.62 * (0.6 + 0.4 * ex));
+      ring.material.opacity = k === 0 ? 0 : 0.85 * ex;
       // Etiketin ekrandaki yeri: dilimin ortası, şişenin yanında (telefonda hep sağda).
       const side = narrow || k % 2 === 0 ? 1 : -1;
       _p.set(side * (w * 0.5 + 0.25), (cut[k] + cut[k + 1]) / 2 + dy, 0).applyMatrix4(H.matrixWorld).project(camera);
-      labels[k] = { x: (_p.x * 0.5 + 0.5) * size.width, y: (0.5 - _p.y * 0.5) * size.height, side };
+      labels[k] = { x: (_p.x * 0.5 + 0.5) * size.width, y: (0.5 - _p.y * 0.5) * size.height, side, e: ex };
     }
   });
   return (

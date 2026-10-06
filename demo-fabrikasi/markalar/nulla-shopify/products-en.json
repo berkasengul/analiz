@@ -1,0 +1,547 @@
+[
+ {
+  "id": 8900375019733,
+  "title": "AMBER",
+  "handle": "amber",
+  "body_html": "<p>Amber reveals a warmth that unfolds slowly, carrying an irresistible charm. It finds softness in depth with quiet confidence. A glow impossible to ignore.</p>\n<p>The 100 ml Extrait de Parfum, with a 30% concentration, is designed for long-lasting wear and a powerful sillage, carrying its presence from morning into night.</p>\n<p>The Beautiful Darkness presents a perfect combination of three perfumes, designed to be worn alone or layered.</p>",
+  "published_at": "2026-04-02T11:04:02+03:00",
+  "created_at": "2025-02-21T09:58:23+03:00",
+  "updated_at": "2026-10-06T19:53:51+03:00",
+  "vendor": "House of Nulla",
+  "product_type": "Parfume",
+  "tags": [
+   "Perfume"
+  ],
+  "variants": [
+   {
+    "id": 51141923307733,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "BD02EXT100",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "16000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8900375019733,
+    "created_at": "2025-02-21T09:58:23+03:00",
+    "updated_at": "2026-10-06T19:53:51+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 50723670655189,
+    "created_at": "2026-04-10T10:41:17+03:00",
+    "position": 1,
+    "updated_at": "2026-04-10T10:41:32+03:00",
+    "product_id": 8900375019733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/amber-perfume.jpg?v=1775806892",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50758710919381,
+    "created_at": "2026-04-13T12:42:24+03:00",
+    "position": 2,
+    "updated_at": "2026-04-13T12:42:47+03:00",
+    "product_id": 8900375019733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/amber-parfume-box-2.jpg?v=1776073367",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50206154719445,
+    "created_at": "2026-02-11T09:06:55+03:00",
+    "position": 3,
+    "updated_at": "2026-04-13T12:42:47+03:00",
+    "product_id": 8900375019733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/100ml-amber-img-2.jpg?v=1776073367",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Başlık",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8900374986965,
+  "title": "SPICE",
+  "handle": "spice",
+  "body_html": "<p>Bold and sensual, is driven by contrast and temptation. A striking intensity that awakens the senses while evoking mystery.</p>\n<p>The 100 ml Extrait de Parfum, with a 30% concentration, is designed for long-lasting wear and a powerful sillage, carrying its presence from morning into night.</p>\n<p>The Beautiful Darkness presents a perfect combination of three perfumes, designed to be worn alone or layered.</p>",
+  "published_at": "2026-04-02T11:04:02+03:00",
+  "created_at": "2025-02-21T09:58:18+03:00",
+  "updated_at": "2026-10-06T19:53:51+03:00",
+  "vendor": "House of Nulla",
+  "product_type": "Parfume",
+  "tags": [
+   "Perfume"
+  ],
+  "variants": [
+   {
+    "id": 51141923274965,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "BD03EXT100",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "16000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8900374986965,
+    "created_at": "2025-02-21T09:58:18+03:00",
+    "updated_at": "2026-10-06T19:53:51+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 50723670687957,
+    "created_at": "2026-04-10T10:41:17+03:00",
+    "position": 1,
+    "updated_at": "2026-04-10T10:57:52+03:00",
+    "product_id": 8900374986965,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/spice-perfume.jpg?v=1775807872",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50758710886613,
+    "created_at": "2026-04-13T12:42:24+03:00",
+    "position": 2,
+    "updated_at": "2026-04-13T12:43:10+03:00",
+    "product_id": 8900374986965,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/spice-parfume-box-2.jpg?v=1776073390",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50206154981589,
+    "created_at": "2026-02-11T09:06:56+03:00",
+    "position": 3,
+    "updated_at": "2026-04-13T12:43:10+03:00",
+    "product_id": 8900374986965,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/100ml-spice-img-2.jpg?v=1776073390",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Başlık",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8900374888661,
+  "title": "BLACK",
+  "handle": "black",
+  "body_html": "<p>Black is a restrained and modern interpretation of depth. Grounded yet never heavy, it creates a quiet intensity. A subtly addictive perfume that finds beauty in darkness.</p>\n<p>The 100 ml Extrait de Parfum, with a 30% concentration, is designed for long-lasting wear and a powerful sillage, carrying its presence from morning into night.</p>\n<p>The Beautiful Darkness presents a perfect combination of three perfumes, designed to be worn alone or layered.</p>",
+  "published_at": "2026-04-02T11:04:01+03:00",
+  "created_at": "2025-02-21T09:58:13+03:00",
+  "updated_at": "2026-10-06T19:53:51+03:00",
+  "vendor": "House of Nulla",
+  "product_type": "Parfume",
+  "tags": [
+   "Perfume"
+  ],
+  "variants": [
+   {
+    "id": 51141923012821,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "BD01EXT100",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "16000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8900374888661,
+    "created_at": "2025-02-21T09:58:13+03:00",
+    "updated_at": "2026-10-06T19:53:51+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 50723670720725,
+    "created_at": "2026-04-10T10:41:17+03:00",
+    "position": 1,
+    "updated_at": "2026-04-10T10:58:06+03:00",
+    "product_id": 8900374888661,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/black-perfume.jpg?v=1775807886",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50758710853845,
+    "created_at": "2026-04-13T12:42:24+03:00",
+    "position": 2,
+    "updated_at": "2026-04-13T12:43:31+03:00",
+    "product_id": 8900374888661,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/black-parfume-box-2.jpg?v=1776073411",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50206154817749,
+    "created_at": "2026-02-11T09:06:56+03:00",
+    "position": 3,
+    "updated_at": "2026-04-13T12:43:31+03:00",
+    "product_id": 8900374888661,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/100ml-black-img-2.jpg?v=1776073411",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Başlık",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8900374855893,
+  "title": "AMBER",
+  "handle": "amber-1",
+  "body_html": "<p>Amber reveals a warmth that unfolds slowly, carrying an irresistible charm. It finds softness in depth with quiet confidence. A glow impossible to ignore.</p>\n<p>The 12 ml alcohol-free pure perfume oil offers a refined and practical way to wear fragrance. Its roll-on tip allows for precise application on pulse points.</p>\n<p>The Beautiful Darkness presents a perfect combination of three perfumes, designed to be worn alone or layered.</p>",
+  "published_at": "2026-04-02T11:04:01+03:00",
+  "created_at": "2025-02-21T09:58:06+03:00",
+  "updated_at": "2026-10-06T19:53:51+03:00",
+  "vendor": "House of Nulla",
+  "product_type": "Oil",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51141922980053,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "BD02OIL12",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "10000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8900374855893,
+    "created_at": "2025-02-21T09:58:06+03:00",
+    "updated_at": "2026-10-06T19:53:51+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 50723670360277,
+    "created_at": "2026-04-10T10:41:15+03:00",
+    "position": 1,
+    "updated_at": "2026-04-10T10:58:24+03:00",
+    "product_id": 8900374855893,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/amber-oil.jpg?v=1775807904",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50758710755541,
+    "created_at": "2026-04-13T12:42:22+03:00",
+    "position": 2,
+    "updated_at": "2026-04-13T12:43:53+03:00",
+    "product_id": 8900374855893,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/amber-oil-box-2.jpg?v=1776073433",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50206155079893,
+    "created_at": "2026-02-11T09:06:56+03:00",
+    "position": 3,
+    "updated_at": "2026-04-13T12:43:53+03:00",
+    "product_id": 8900374855893,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/12ml-amber-img-2.jpg?v=1776073433",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Başlık",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8900374823125,
+  "title": "BLACK",
+  "handle": "black-1",
+  "body_html": "<p>Black is a restrained and modern interpretation of depth. Grounded yet never heavy, it creates a quiet intensity. A subtly addictive perfume that finds beauty in darkness.</p>\n<p>The 12 ml alcohol-free pure perfume oil offers a refined and practical way to wear fragrance. Its roll-on tip allows for precise application on pulse points.</p>\n<p>The Beautiful Darkness presents a perfect combination of three perfumes, designed to be worn alone or layered.</p>",
+  "published_at": "2026-04-02T11:04:00+03:00",
+  "created_at": "2025-02-21T09:58:00+03:00",
+  "updated_at": "2026-10-06T19:53:51+03:00",
+  "vendor": "House of Nulla",
+  "product_type": "Oil",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51141922947285,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "BD01OIL12",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "10000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8900374823125,
+    "created_at": "2025-02-21T09:58:00+03:00",
+    "updated_at": "2026-10-06T19:53:51+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 50723670393045,
+    "created_at": "2026-04-10T10:41:15+03:00",
+    "position": 1,
+    "updated_at": "2026-04-10T10:58:39+03:00",
+    "product_id": 8900374823125,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/black-oil.jpg?v=1775807919",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50758710722773,
+    "created_at": "2026-04-13T12:42:22+03:00",
+    "position": 2,
+    "updated_at": "2026-04-13T12:44:12+03:00",
+    "product_id": 8900374823125,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/black-oil-box-2.jpg?v=1776073452",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50206154752213,
+    "created_at": "2026-02-11T09:06:55+03:00",
+    "position": 3,
+    "updated_at": "2026-04-13T12:44:12+03:00",
+    "product_id": 8900374823125,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/12ml-black-img-2.jpg?v=1776073452",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Başlık",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8900374790357,
+  "title": "SPICE",
+  "handle": "spice-1",
+  "body_html": "<p>Bold and sensual, is driven by contrast and temptation. A striking intensity that awakens the senses while evoking mystery.</p>\n<p>The 12 ml alcohol-free pure perfume oil offers a refined and practical way to wear fragrance. Its roll-on tip allows for precise application on pulse points.</p>\n<p>The Beautiful Darkness presents a perfect combination of three perfumes, designed to be worn alone or layered.</p>",
+  "published_at": "2026-04-02T11:04:00+03:00",
+  "created_at": "2025-02-21T09:57:54+03:00",
+  "updated_at": "2026-10-06T19:53:51+03:00",
+  "vendor": "House of Nulla",
+  "product_type": "Oil",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51141922914517,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "BD03OIL12",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "10000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8900374790357,
+    "created_at": "2025-02-21T09:57:55+03:00",
+    "updated_at": "2026-10-06T19:53:51+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 50723670425813,
+    "created_at": "2026-04-10T10:41:15+03:00",
+    "position": 1,
+    "updated_at": "2026-04-10T10:59:40+03:00",
+    "product_id": 8900374790357,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/spice-oil.jpg?v=1775807980",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50758710690005,
+    "created_at": "2026-04-13T12:42:22+03:00",
+    "position": 2,
+    "updated_at": "2026-04-13T12:44:37+03:00",
+    "product_id": 8900374790357,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/spice-oil-box-2.jpg?v=1776073477",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50206155014357,
+    "created_at": "2026-02-11T09:06:56+03:00",
+    "position": 3,
+    "updated_at": "2026-04-13T12:44:37+03:00",
+    "product_id": 8900374790357,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/12ml-spice-img-2.jpg?v=1776073477",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Başlık",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8900374757589,
+  "title": "DISCOVERY SET",
+  "handle": "discovery-set",
+  "body_html": "<p>The complete Beautiful Darkness collection: Black, Amber, and Spice<br>Three 10 ml Extrait de Parfum, each distinct. A refined way to discover the world of House of Nulla. Each perfume can be worn alone or layered together.</p>\n<p>3 x 10 ml Extrait de Parfum with %30 perfume concentration</p>",
+  "published_at": "2026-04-02T11:04:00+03:00",
+  "created_at": "2025-02-21T09:57:47+03:00",
+  "updated_at": "2026-10-06T19:53:51+03:00",
+  "vendor": "House of Nulla",
+  "product_type": "Parfume Set",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51141922881749,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "BDDISC3x10",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "7900.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8900374757589,
+    "created_at": "2025-02-21T09:57:47+03:00",
+    "updated_at": "2026-10-06T19:53:51+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 50724012556501,
+    "created_at": "2026-04-10T11:36:03+03:00",
+    "position": 1,
+    "updated_at": "2026-04-10T11:36:12+03:00",
+    "product_id": 8900374757589,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/discovery-set-2.jpg?v=1775810172",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50758710821077,
+    "created_at": "2026-04-13T12:42:24+03:00",
+    "position": 2,
+    "updated_at": "2026-04-13T12:45:00+03:00",
+    "product_id": 8900374757589,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/set-perfume-box-2.jpg?v=1776073500",
+    "width": 4055,
+    "height": 4055
+   },
+   {
+    "id": 50618083147989,
+    "created_at": "2026-04-01T15:52:57+03:00",
+    "position": 3,
+    "updated_at": "2026-04-13T12:45:00+03:00",
+    "product_id": 8900374757589,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0732/0846/3573/files/discorery-hover.jpg?v=1776073500",
+    "width": 1280,
+    "height": 1280
+   }
+  ],
+  "options": [
+   {
+    "name": "Başlık",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ }
+]

@@ -1,0 +1,1235 @@
+{
+  "slug": "nulla",
+  "meta": {
+    "title": "House of Nulla · Konsept Demo",
+    "description": "House of Nulla için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
+    "og": "House of Nulla: Hiçlik her şeyin başladığı yerdir."
+  },
+  "brand": {
+    "name": "House of Nulla",
+    "sub": "The Beautiful Darkness",
+    "specs": "Extrait de Parfum · 100 ml · %30",
+    "disclaimer": "Bu sayfa House of Nulla için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Ürün görselleri, notalar, fiyatlar ve metinler markanın kendi sitesinden (houseofnulla.com) alınmıştır.",
+    "en": {
+      "sub": "The Beautiful Darkness",
+      "specs": "Extrait de Parfum · 100 ml · 30%",
+      "disclaimer": "This page is an independent concept demo prepared for House of Nulla and is not affiliated with the brand owner. Product images, notes, prices and copy are taken from the brand's own website (houseofnulla.com)."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "HOUSE OF NULLA",
+    "submark": "THE BEAUTIFUL DARKNESS",
+    "concentration": "EXTRAIT DE PARFUM",
+    "volume": "100 ml"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "Extrait de Parfum · 100 ml",
+    "en": "Extrait de Parfum · 100 ml"
+  },
+  "features": [
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Hiçlik",
+        "kicker": "01",
+        "struck": "Sıradan bir isim",
+        "title": "Hiçlik her şeyin başladığı yerdir",
+        "text": "Adını Latince \"hiçlik\" anlamına gelen nulla sözcüğünden alıyor: görünmeyenin ve sonsuzluğun eşiği."
+      },
+      "en": {
+        "short": "Nothingness",
+        "kicker": "01",
+        "struck": "An ordinary name",
+        "title": "Nothingness is where everything begins",
+        "text": "Named after the Latin nulla, \"nothingness\": the threshold of the unseen and the infinite."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "Anadolu",
+        "kicker": "02",
+        "struck": "Rastgele ilham",
+        "title": "Anadolu'nun kadim topraklarından",
+        "text": "Medeniyetlerin, ritüellerin ve kokuların yüzyıllar boyunca kesiştiği coğrafyadan ilham."
+      },
+      "en": {
+        "short": "Anatolia",
+        "kicker": "02",
+        "struck": "Random inspiration",
+        "title": "From the ancient lands of Anatolia",
+        "text": "Inspired by the land where civilisations, rituals and scents have crossed for centuries."
+      }
+    },
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "%30",
+        "kicker": "03",
+        "struck": "Hafif bir iz",
+        "title": "%30 konsantrasyonlu extrait",
+        "text": "100 ml extrait de parfum: sabahtan geceye uzun kalıcılık ve güçlü bir iz."
+      },
+      "en": {
+        "short": "30%",
+        "kicker": "03",
+        "struck": "A faint trail",
+        "title": "Extrait at 30% concentration",
+        "text": "100 ml extrait de parfum: long-lasting from morning to night, with a strong trail."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Katmanla",
+        "kicker": "04",
+        "struck": "Tek bir koku",
+        "title": "Tek başına ya da katmanlanarak",
+        "text": "The Beautiful Darkness'taki üç parfüm birlikte katmanlanmak için dengelendi."
+      },
+      "en": {
+        "short": "Layering",
+        "kicker": "04",
+        "struck": "A single scent",
+        "title": "Alone or layered",
+        "text": "The three perfumes of The Beautiful Darkness are balanced to be layered together."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "100 ml",
+        "en": "100 ml"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 16000
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "TRY",
+      "locale": "en-GB",
+      "packs": {
+        "1": 16000
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "Nevbahar Koç · Esra Tümen Dinçkök",
+    "instagram": "https://www.instagram.com/houseofnulla",
+    "website": "https://houseofnulla.com/",
+    "press": [],
+    "tr": {
+      "lead": "Hiçlik her şeyin başladığı yerdir.",
+      "paragraphs": [
+        "House of Nulla, köklerini geçmişten ve hayal gücünden alan; zamanı ve mekânı aşıp zamansız kokular yaratan bir parfüm evi. Adını Latince \"hiçlik\" anlamına gelen nulla sözcüğünden alıyor.",
+        "Anadolu'nun kadim topraklarından, medeniyetlerin, ritüellerin ve kokuların yüzyıllar boyunca kesiştiği coğrafyadan ilham alarak binlerce yıllık koku mirasını çağdaş parfümeriyle buluşturuyor.",
+        "Nevbahar Koç ve Esra Tümen Dinçkök, kokular aracılığıyla hikâye anlatma tutkusuyla bir keşif yolculuğuna çıkarak House of Nulla'yı yarattı."
+      ],
+      "timeline": [
+        [
+          "Nulla",
+          "Latince \"hiçlik\": her şeyin başladığı eşik"
+        ],
+        [
+          "Anadolu",
+          "Kadim koku mirası"
+        ],
+        [
+          "The Beautiful Darkness",
+          "Black, Amber, Spice"
+        ],
+        [
+          "Extrait",
+          "%30 konsantrasyon, 100 ml"
+        ]
+      ],
+      "stats": [
+        [
+          "3",
+          "extrait de parfum"
+        ],
+        [
+          "%30",
+          "konsantrasyon"
+        ],
+        [
+          "100 ml",
+          "her şişe"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Nothingness is where everything begins.",
+      "paragraphs": [
+        "House of Nulla is a perfume house rooted in the past and in imagination, creating timeless scents beyond time and place. Its name comes from the Latin nulla, \"nothingness\".",
+        "Inspired by the ancient lands of Anatolia, where civilisations, rituals and scents have crossed for centuries, it brings a heritage of thousands of years together with contemporary perfumery.",
+        "Nevbahar Koç and Esra Tümen Dinçkök created House of Nulla out of a shared passion for telling stories through scent."
+      ],
+      "timeline": [
+        [
+          "Nulla",
+          "Latin for \"nothingness\": the threshold where everything begins"
+        ],
+        [
+          "Anatolia",
+          "An ancient heritage of scent"
+        ],
+        [
+          "The Beautiful Darkness",
+          "Black, Amber, Spice"
+        ],
+        [
+          "Extrait",
+          "30% concentration, 100 ml"
+        ]
+      ],
+      "stats": [
+        [
+          "3",
+          "extraits de parfum"
+        ],
+        [
+          "30%",
+          "concentration"
+        ],
+        [
+          "100 ml",
+          "every bottle"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Koleksiyonda kaç koku var?",
+        "The Beautiful Darkness üç extrait de parfumden oluşuyor: Black, Amber ve Spice."
+      ],
+      [
+        "Konsantrasyon nedir?",
+        "%30 parfüm konsantrasyonlu extrait de parfum, 100 ml."
+      ],
+      [
+        "Katmanlayabilir miyim?",
+        "Evet; üç parfüm tek başına ya da katmanlanarak kullanılmak üzere tasarlandı."
+      ],
+      [
+        "Kokuları nasıl deneyebilirim?",
+        "Keşif seti üç kokuyu 10'ar ml olarak sunuyor; ayrıca 12 ml alkolsüz parfüm yağları (roll-on) var."
+      ]
+    ],
+    "en": [
+      [
+        "How many scents are in the collection?",
+        "The Beautiful Darkness has three extraits de parfum: Black, Amber and Spice."
+      ],
+      [
+        "What is the concentration?",
+        "Extrait de parfum at 30% concentration, 100 ml."
+      ],
+      [
+        "Can I layer them?",
+        "Yes; the three perfumes are designed to be worn alone or layered."
+      ],
+      [
+        "How can I try them?",
+        "The Discovery Set offers all three in 10 ml each; there are also 12 ml alcohol-free perfume oils (roll-on)."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Hiçlik her şeyin başladığı yerdir",
+      "madeFor": "House of Nulla için hazırlanmış konsept",
+      "recyclable": "Extrait de Parfum · 100 ml",
+      "founder": "Kurucular · Nevbahar Koç & Esra Tümen Dinçkök",
+      "contactTag": "Siparişleriniz, kokularımız ve iş birlikleri için bize yazın.",
+      "newsTitle": "Yeni kokular önce burada.",
+      "marquee": [
+        "House of Nulla",
+        "The Beautiful Darkness",
+        "Black · Amber · Spice",
+        "Extrait de Parfum · %30",
+        "Anadolu'nun kadim koku mirası"
+      ],
+      "slogan": "Hiçlik her şeyin başladığı yerdir.",
+      "nav": {
+        "flavors": "Öne çıkanlar",
+        "catalog": "Tüm kokular",
+        "categories": "Kategoriler",
+        "products": "Kokular",
+        "sets": "Koleksiyonlar",
+        "about": "Hakkımızda",
+        "contact": "İletişim"
+      },
+      "flavors": "Kokular",
+      "notes": "Notalar",
+      "discover": "{0} kokusunu keşfet",
+      "discoverCan": "Kokuyu keşfet",
+      "backToFlavors": "Kokulara dön",
+      "prevFlavor": "Önceki koku",
+      "nextFlavor": "Sonraki koku",
+      "backToFlavor": "Koku bilgisine dön",
+      "exploreCan": "Kokuyu keşfet · {0} hikâye",
+      "whatsInside": "Notalar",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Kokunu seç",
+      "shopTag": "Kokunu seç; markanın kendi mağazasında güvenle öde.",
+      "flavor": "Koku",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "House of Nulla · {0}",
+      "family": "Koku ailesi",
+      "caffeine": "Yalnızca harici kullanım içindir.",
+      "perks": [
+        "Üç extrait, katmanlanabilir",
+        "%30 konsantrasyon · 100 ml",
+        "Keşif seti: 3 × 10 ml"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Seçenek",
+      "related": "Benzer kokular",
+      "buildBox": "Kokuları keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} koku; The Beautiful Darkness koleksiyonu.",
+      "year": "Çıkış",
+      "composition": "Nota piramidi",
+      "ships": "Markanın kendi mağazasında",
+      "place": "Nokta",
+      "spot": "Adres",
+      "status": "İletişim",
+      "addToCart": "Sepete ekle",
+      "added": "Sepette"
+    },
+    "en": {
+      "loading": "Nothingness is where everything begins",
+      "madeFor": "Concept prepared for House of Nulla",
+      "recyclable": "Extrait de Parfum · 100 ml",
+      "founder": "Founders · Nevbahar Koç & Esra Tümen Dinçkök",
+      "contactTag": "Write to us about orders, our fragrances and collaborations.",
+      "newsTitle": "New fragrances, first here.",
+      "marquee": [
+        "House of Nulla",
+        "The Beautiful Darkness",
+        "Black · Amber · Spice",
+        "Extrait de Parfum · 30%",
+        "An ancient Anatolian heritage of scent"
+      ],
+      "slogan": "Nothingness is where everything begins.",
+      "nav": {
+        "flavors": "Featured",
+        "catalog": "All scents",
+        "categories": "Categories",
+        "products": "Scents",
+        "sets": "Collections",
+        "about": "About us",
+        "contact": "Contact"
+      },
+      "flavors": "Scents",
+      "notes": "Notes",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover the scent",
+      "backToFlavors": "Back to scents",
+      "prevFlavor": "Previous scent",
+      "nextFlavor": "Next scent",
+      "backToFlavor": "Back to scent",
+      "exploreCan": "Explore the scent · {0} stories",
+      "whatsInside": "Notes",
+      "drag": "Drag to turn the bottle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your scent",
+      "shopTag": "Choose your scent; pay securely on the brand's own store.",
+      "flavor": "Scent",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "House of Nulla · {0}",
+      "family": "Family",
+      "caffeine": "For external use only.",
+      "perks": [
+        "Three extraits, made to layer",
+        "30% concentration · 100 ml",
+        "Discovery Set: 3 × 10 ml"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Option",
+      "related": "Similar scents",
+      "buildBox": "Explore the scents",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} fragrances; The Beautiful Darkness collection.",
+      "year": "Launched",
+      "composition": "Fragrance pyramid",
+      "ships": "On the brand's own store",
+      "place": "Location",
+      "spot": "Address",
+      "status": "Contact",
+      "addToCart": "Add to cart",
+      "added": "In cart"
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "bottle"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "bottle",
+  "logo": "brand/logo.png",
+  "labelFinish": {
+    "metalness": 0.1,
+    "roughness": 0.18,
+    "clearcoat": 1,
+    "clearcoatRoughness": 0.08,
+    "envMapIntensity": 1.1
+  },
+  "fillLight": "#ffd9c8",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "shopify": "https://houseofnulla.com"
+  },
+  "latinTerms": "Extrait de Parfum|House of Nulla|Nulla|The Beautiful Darkness|Black|Amber|Spice",
+  "glass": false,
+  "spray": false,
+  "photoUnlit": 0.55,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#c9a15c",
+    "particles": "gold",
+    "numerals": {
+      "font": "fonts/Italiana-Regular.ttf"
+    },
+    "intro": "mark",
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
+      "display": "\"Cinzel\", \"Cormorant Garamond\", Georgia, serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "glide",
+    "cards": "gallery",
+    "pyramid": true,
+    "glideScale": 1.1,
+    "cardAngle": 0.32,
+    "lux": true
+  },
+  "defaultLang": "tr",
+  "hide": [
+    "stockists"
+  ],
+  "contactInfo": {
+    "tr": [
+      [
+        "Web",
+        [
+          "houseofnulla.com"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@houseofnulla"
+        ]
+      ],
+      [
+        "Kurucular",
+        [
+          "Nevbahar Koç",
+          "Esra Tümen Dinçkök"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "Web",
+        [
+          "houseofnulla.com"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@houseofnulla"
+        ]
+      ],
+      [
+        "Founders",
+        [
+          "Nevbahar Koç",
+          "Esra Tümen Dinçkök"
+        ]
+      ]
+    ]
+  },
+  "stockists": {
+    "tr": [],
+    "en": []
+  },
+  "finder": {},
+  "catalog": {
+    "homeCount": 8,
+    "glow": "#3a1a10",
+    "categories": [
+      {
+        "id": "extrait",
+        "name": {
+          "tr": "The Beautiful Darkness",
+          "en": "The Beautiful Darkness"
+        },
+        "color": "#b0303c",
+        "desc": {
+          "tr": "Üç extrait de parfum; tek başına ya da katmanlanarak.",
+          "en": "Three extraits de parfum, worn alone or layered."
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "black",
+        "handle": "black",
+        "name": {
+          "tr": "BLACK",
+          "en": "BLACK"
+        },
+        "category": "extrait",
+        "size": "100 ml",
+        "price": {
+          "tr": 16000.0,
+          "en": 16000.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Black, derinliğin ölçülü ve modern bir yorumu. Yere sağlam basan ama asla ağır olmayan, sessiz bir yoğunluk yaratır.",
+          "en": "Black is a restrained and modern interpretation of depth. Grounded yet never heavy, it creates a quiet intensity."
+        },
+        "color": "#541618",
+        "product": 0,
+        "image": "cut/black.webp",
+        "cutout": true,
+        "bg": "#160a0c",
+        "bg2": "#c0404c",
+        "variants": [
+          {
+            "id": 51141923012821
+          }
+        ],
+        "url": "https://houseofnulla.com/products/black"
+      },
+      {
+        "id": "amber",
+        "handle": "amber",
+        "name": {
+          "tr": "AMBER",
+          "en": "AMBER"
+        },
+        "category": "extrait",
+        "size": "100 ml",
+        "price": {
+          "tr": 16000.0,
+          "en": 16000.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Amber, yavaş yavaş açığa çıkan bir sıcaklık taşır; karşı konulması güç bir çekicilik sunar.",
+          "en": "Amber reveals a warmth that unfolds slowly, carrying an irresistible charm."
+        },
+        "color": "#541918",
+        "product": 1,
+        "image": "cut/amber.webp",
+        "cutout": true,
+        "bg": "#3a1a08",
+        "bg2": "#e8923e",
+        "variants": [
+          {
+            "id": 51141923307733
+          }
+        ],
+        "url": "https://houseofnulla.com/products/amber"
+      },
+      {
+        "id": "spice",
+        "handle": "spice",
+        "name": {
+          "tr": "SPICE",
+          "en": "SPICE"
+        },
+        "category": "extrait",
+        "size": "100 ml",
+        "price": {
+          "tr": 16000.0,
+          "en": 16000.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Cüretkar ve duyusal olan Spice, barındırdığı karşıtlık ve baştan çıkarıcı yanıyla öne çıkar.",
+          "en": "Bold and sensual, is driven by contrast and temptation."
+        },
+        "color": "#531718",
+        "product": 2,
+        "image": "cut/spice.webp",
+        "cutout": true,
+        "bg": "#26102c",
+        "bg2": "#c066d8",
+        "variants": [
+          {
+            "id": 51141923274965
+          }
+        ],
+        "url": "https://houseofnulla.com/products/spice"
+      }
+    ]
+  },
+  "products": [
+    {
+      "name": "BLACK",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Çiçeksi · Odunsu",
+      "year": null,
+      "perfumer": null,
+      "color": "#541618",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#160a0c",
+        "edge": "#050404",
+        "drop": "#c0404c",
+        "accent": "#c0404c",
+        "mood": "warm"
+      },
+      "tagline": "Siyah Gül · Gül · Paçuli",
+      "notes": [
+        "Siyah Gül",
+        "Gül",
+        "Paçuli",
+        "Sandal Ağacı",
+        "Beyaz Misk"
+      ],
+      "description": "Black, derinliğin ölçülü ve modern bir yorumu. Yere sağlam basan ama asla ağır olmayan, sessiz bir yoğunluk yaratır. Güzelliği karanlıkta bulan, ince bir bağımlılık hissi bırakan bir parfüm.",
+      "file": "black.webp",
+      "handle": "black",
+      "en": {
+        "name": "BLACK",
+        "family": "Floral · Woody",
+        "tagline": "Black Rose · Rose · Patchouli",
+        "notes": [
+          "Black Rose",
+          "Rose",
+          "Patchouli",
+          "Sandalwood",
+          "White Musk"
+        ],
+        "description": "Black is a restrained and modern interpretation of depth. Grounded yet never heavy, it creates a quiet intensity. A subtly addictive perfume that finds beauty in darkness.",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Black Rose, Mandarin, Citrus Notes",
+          "Heart: Rose, Geranium, Patchouli, Labdanum, Cypriol, Tonka Bean, Nutmeg, Cinnamon",
+          "Base: White Musk, Cedarwood, Teak, Sandalwood, Dry Amber Notes, White Amber Crystals"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2854,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0148, 0.0359, 0.0484, 0.0586, 0.0672, 0.0734, 0.0805, 0.0859, 0.0906, 0.0961, 0.1008, 0.1039, 0.1078, 0.1117, 0.1141, 0.118, 0.1203, 0.1227, 0.125, 0.1273, 0.1289, 0.1305, 0.132, 0.1336, 0.1352, 0.1359, 0.1375, 0.1383, 0.1391, 0.1398, 0.1406, 0.1406, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1406, 0.1406, 0.1398, 0.1398, 0.1391, 0.1375, 0.1367, 0.1352, 0.1344, 0.1328, 0.1313, 0.1297, 0.1281, 0.1258, 0.1234, 0.1211, 0.1187, 0.1156, 0.1125, 0.1094, 0.1055, 0.1016, 0.0977, 0.0922, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.1148, 0.1625, 0.2039, 0.2445, 0.2914, 0.3, 0.3039, 0.3086, 0.3125, 0.3156, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.3156, 0.3133, 0.3094, 0.3039, 0.3, 0.2961, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4516, 0.0375],
+            [0.425, 0.05],
+            [0.3969, 0.0719],
+            [0.3812, 0.0906],
+            [0.3703, 0.1078],
+            [0.3688, 0.1141],
+            [0.3656, 0.1172],
+            [0.3656, 0.1203],
+            [0.3625, 0.125],
+            [0.3609, 0.1344],
+            [0.3578, 0.1406],
+            [0.3547, 0.1828],
+            [0.3563, 0.1844],
+            [0.3563, 0.1969],
+            [0.3578, 0.1984],
+            [0.3578, 0.2047],
+            [0.3609, 0.2109],
+            [0.3609, 0.2156],
+            [0.3734, 0.2437],
+            [0.3828, 0.2578],
+            [0.4062, 0.2828],
+            [0.4062, 0.3094],
+            [0.4031, 0.3125],
+            [0.3719, 0.3141],
+            [0.3703, 0.3156],
+            [0.3578, 0.3156],
+            [0.3563, 0.3172],
+            [0.3406, 0.3172],
+            [0.3391, 0.3187],
+            [0.325, 0.3187],
+            [0.3234, 0.3203],
+            [0.3094, 0.3203],
+            [0.3078, 0.3219],
+            [0.2938, 0.3219],
+            [0.2922, 0.3234],
+            [0.2766, 0.3234],
+            [0.275, 0.325],
+            [0.2594, 0.325],
+            [0.2578, 0.3266],
+            [0.2453, 0.3266],
+            [0.2437, 0.3281],
+            [0.2297, 0.3281],
+            [0.2281, 0.3297],
+            [0.2047, 0.3312],
+            [0.1828, 0.3516],
+            [0.1812, 0.3563],
+            [0.1812, 0.9375],
+            [0.1828, 0.9422],
+            [0.2, 0.9609],
+            [0.2094, 0.9672],
+            [0.7906, 0.9672],
+            [0.7953, 0.9641],
+            [0.8172, 0.9406],
+            [0.8172, 0.3547],
+            [0.8156, 0.3516],
+            [0.7937, 0.3312],
+            [0.7688, 0.3297],
+            [0.7672, 0.3281],
+            [0.7516, 0.3281],
+            [0.75, 0.3266],
+            [0.7375, 0.3266],
+            [0.7359, 0.325],
+            [0.7203, 0.325],
+            [0.7188, 0.3234],
+            [0.7047, 0.3234],
+            [0.7031, 0.3219],
+            [0.6875, 0.3219],
+            [0.6859, 0.3203],
+            [0.6734, 0.3203],
+            [0.6719, 0.3187],
+            [0.6391, 0.3172],
+            [0.6375, 0.3156],
+            [0.625, 0.3156],
+            [0.6234, 0.3141],
+            [0.5922, 0.3125],
+            [0.5891, 0.3094],
+            [0.5891, 0.2828],
+            [0.6062, 0.2672],
+            [0.6234, 0.2437],
+            [0.6328, 0.2234],
+            [0.6328, 0.2188],
+            [0.6391, 0.2016],
+            [0.6391, 0.1922],
+            [0.6406, 0.1906],
+            [0.6406, 0.1562],
+            [0.6391, 0.1547],
+            [0.6391, 0.1453],
+            [0.6328, 0.1281],
+            [0.6328, 0.1234],
+            [0.6219, 0.1],
+            [0.6031, 0.075],
+            [0.5875, 0.0609],
+            [0.5687, 0.0484],
+            [0.5453, 0.0375],
+            [0.5234, 0.0328],
+            [0.5219, 0.0312],
+            [0.5062, 0.0312],
+            [0.5047, 0.0297],
+            [0.4766, 0.0312],
+            [0.475, 0.0328],
+            [0.4672, 0.0328]
+          ]
+        ],
+        "edge": "#48000c"
+      },
+      "price": {
+        "tr": 16000.0,
+        "en": 16000.0
+      },
+      "photos": [
+        "foto/black/1.webp",
+        "foto/black/2.webp",
+        "foto/black/3.webp"
+      ],
+      "composition": [
+        "Üst: Siyah Gül, Mandalina, Narenciye Notaları",
+        "Kalp: Gül, Sardunya, Paçuli, Labdanum, Cypriol, Tonka Fasulyesi, Muskat, Tarçın",
+        "Dip: Beyaz Misk, Sedir Ağacı, Tik Ağacı, Sandal Ağacı, Kuru Amber Notaları, Beyaz Amber Kristalleri"
+      ]
+    },
+    {
+      "name": "AMBER",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Oryantal · Amber",
+      "year": null,
+      "perfumer": null,
+      "color": "#541918",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#3a1a08",
+        "edge": "#050404",
+        "drop": "#e8923e",
+        "accent": "#e8923e",
+        "mood": "warm"
+      },
+      "tagline": "Siyah Gül · Tarçın · Oud",
+      "notes": [
+        "Siyah Gül",
+        "Tarçın",
+        "Oud",
+        "Amber",
+        "Vanilya"
+      ],
+      "description": "Amber, yavaş yavaş açığa çıkan bir sıcaklık taşır; karşı konulması güç bir çekicilik sunar. Derinliğin içindeki yumuşaklığı, sakin bir özgüvenle bulur. Göz ardı edilmesi imkansız bir ışıltı.",
+      "file": "amber.webp",
+      "handle": "amber",
+      "en": {
+        "name": "AMBER",
+        "family": "Oriental · Amber",
+        "tagline": "Black Rose · Cinnamon · Oud",
+        "notes": [
+          "Black Rose",
+          "Cinnamon",
+          "Oud",
+          "Amber",
+          "Vanilla"
+        ],
+        "description": "Amber reveals a warmth that unfolds slowly, carrying an irresistible charm. It finds softness in depth with quiet confidence. A glow impossible to ignore.",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Black Rose, Mandarin, Bergamot, Grapefruit",
+          "Heart: Nutmeg, Cinnamon, Black Pepper, Dried Fruits",
+          "Base: Oud, Cedarwood, Teak, Sandalwood, Musk, Patchouli, Labdanum, Amber, Vanilla"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2896,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0172, 0.0359, 0.0484, 0.0594, 0.0672, 0.0734, 0.0813, 0.0867, 0.0914, 0.0969, 0.1008, 0.1047, 0.1086, 0.1117, 0.1148, 0.118, 0.1203, 0.1227, 0.1258, 0.1273, 0.1289, 0.1305, 0.1328, 0.1336, 0.1359, 0.1367, 0.1375, 0.1383, 0.1391, 0.1398, 0.1406, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1398, 0.1398, 0.1391, 0.1383, 0.1375, 0.1359, 0.1352, 0.1336, 0.132, 0.1297, 0.1281, 0.1266, 0.1242, 0.1219, 0.1195, 0.1156, 0.1133, 0.1102, 0.1055, 0.1023, 0.0984, 0.093, 0.0898, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.1148, 0.1641, 0.2016, 0.2422, 0.2891, 0.2992, 0.3039, 0.3086, 0.3125, 0.3156, 0.3172, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.3164, 0.3141, 0.3102, 0.3047, 0.3008, 0.2969, 0.2906, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4547, 0.0359],
+            [0.4219, 0.0516],
+            [0.4047, 0.0641],
+            [0.3891, 0.0797],
+            [0.3734, 0.1016],
+            [0.3688, 0.1125],
+            [0.3656, 0.1156],
+            [0.3594, 0.1328],
+            [0.3578, 0.1469],
+            [0.3547, 0.1547],
+            [0.3547, 0.1922],
+            [0.3594, 0.2078],
+            [0.3594, 0.2141],
+            [0.3656, 0.2313],
+            [0.3688, 0.2344],
+            [0.3688, 0.2375],
+            [0.3812, 0.2547],
+            [0.3828, 0.2594],
+            [0.3891, 0.2672],
+            [0.4047, 0.2812],
+            [0.4062, 0.2859],
+            [0.4062, 0.3094],
+            [0.4031, 0.3125],
+            [0.3719, 0.3141],
+            [0.3703, 0.3156],
+            [0.3578, 0.3156],
+            [0.3563, 0.3172],
+            [0.3078, 0.3203],
+            [0.3063, 0.3219],
+            [0.2953, 0.3219],
+            [0.2938, 0.3234],
+            [0.2781, 0.3234],
+            [0.2766, 0.325],
+            [0.2609, 0.325],
+            [0.2594, 0.3266],
+            [0.2047, 0.3312],
+            [0.1969, 0.3359],
+            [0.1859, 0.3469],
+            [0.1812, 0.3547],
+            [0.1812, 0.9406],
+            [0.1828, 0.9453],
+            [0.2, 0.9625],
+            [0.2094, 0.9688],
+            [0.7891, 0.9688],
+            [0.8094, 0.9516],
+            [0.8172, 0.9406],
+            [0.8172, 0.3547],
+            [0.7984, 0.3344],
+            [0.7922, 0.3312],
+            [0.75, 0.3281],
+            [0.7484, 0.3266],
+            [0.7359, 0.3266],
+            [0.7344, 0.325],
+            [0.7188, 0.325],
+            [0.7172, 0.3234],
+            [0.7016, 0.3234],
+            [0.7, 0.3219],
+            [0.6719, 0.3203],
+            [0.6703, 0.3187],
+            [0.6391, 0.3172],
+            [0.6375, 0.3156],
+            [0.625, 0.3156],
+            [0.6234, 0.3141],
+            [0.5922, 0.3125],
+            [0.5891, 0.3094],
+            [0.5891, 0.2844],
+            [0.6109, 0.2625],
+            [0.6281, 0.2359],
+            [0.6297, 0.2281],
+            [0.6328, 0.225],
+            [0.6375, 0.2109],
+            [0.6375, 0.2031],
+            [0.6406, 0.1922],
+            [0.6406, 0.1562],
+            [0.6391, 0.1547],
+            [0.6359, 0.1313],
+            [0.6297, 0.1187],
+            [0.6281, 0.1109],
+            [0.6141, 0.0875],
+            [0.5922, 0.0641],
+            [0.5797, 0.0547],
+            [0.5563, 0.0422],
+            [0.5297, 0.0328],
+            [0.5078, 0.0312],
+            [0.5062, 0.0297],
+            [0.4875, 0.0297],
+            [0.4859, 0.0312],
+            [0.475, 0.0312],
+            [0.4734, 0.0328]
+          ]
+        ],
+        "edge": "#48000c"
+      },
+      "price": {
+        "tr": 16000.0,
+        "en": 16000.0
+      },
+      "photos": [
+        "foto/amber/1.webp",
+        "foto/amber/2.webp",
+        "foto/amber/3.webp"
+      ],
+      "composition": [
+        "Üst: Siyah Gül, Mandalina, Bergamot, Greyfurt",
+        "Kalp: Muskat, Tarçın, Karabiber, Kuru Meyveler",
+        "Dip: Oud, Sedir Ağacı, Tik Ağacı, Sandal Ağacı, Misk, Paçuli, Labdanum, Amber, Vanilya"
+      ]
+    },
+    {
+      "name": "SPICE",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Baharatlı · Odunsu",
+      "year": null,
+      "perfumer": null,
+      "color": "#531718",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#26102c",
+        "edge": "#050404",
+        "drop": "#c066d8",
+        "accent": "#c066d8",
+        "mood": "warm"
+      },
+      "tagline": "Siyah Gül · Safran · Karanfil",
+      "notes": [
+        "Siyah Gül",
+        "Safran",
+        "Karanfil",
+        "Oud",
+        "Karabiber"
+      ],
+      "description": "Cüretkar ve duyusal olan Spice, barındırdığı karşıtlık ve baştan çıkarıcı yanıyla öne çıkar. Gizemi çağrıştırırken duyuları uyandıran çarpıcı bir yoğunluk sunar.",
+      "file": "spice.webp",
+      "handle": "spice",
+      "en": {
+        "name": "SPICE",
+        "family": "Spicy · Woody",
+        "tagline": "Black Rose · Saffron · Clove",
+        "notes": [
+          "Black Rose",
+          "Saffron",
+          "Clove",
+          "Oud",
+          "Black Pepper"
+        ],
+        "description": "Bold and sensual, is driven by contrast and temptation. A striking intensity that awakens the senses while evoking mystery.",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Black Rose, Mandarin, Bergamot, Grapefruit, Elemi",
+          "Heart: Nutmeg, Cinnamon, Saffron, Clove, Black Pepper, Dried Fruits",
+          "Base: Oud, Cedarwood, Teak, Sandalwood, Musk, Patchouli"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2854,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.018, 0.0383, 0.0492, 0.0617, 0.0695, 0.0758, 0.0828, 0.0883, 0.093, 0.0984, 0.1023, 0.1055, 0.1094, 0.1125, 0.1156, 0.1187, 0.1211, 0.1234, 0.1258, 0.1281, 0.1297, 0.1313, 0.1328, 0.1344, 0.1359, 0.1367, 0.1375, 0.1391, 0.1398, 0.1398, 0.1406, 0.1406, 0.1406, 0.1414, 0.1414, 0.1414, 0.1414, 0.1406, 0.1406, 0.1398, 0.1391, 0.1383, 0.1375, 0.1359, 0.1352, 0.1328, 0.132, 0.1305, 0.1281, 0.1266, 0.1242, 0.1219, 0.1195, 0.1172, 0.1133, 0.1109, 0.1078, 0.1031, 0.0992, 0.0953, 0.0906, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.0891, 0.1195, 0.1695, 0.2117, 0.2516, 0.2961, 0.3023, 0.3063, 0.3109, 0.3141, 0.3172, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.318, 0.3164, 0.3133, 0.3094, 0.3047, 0.3008, 0.2961, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4516, 0.0359],
+            [0.4266, 0.0469],
+            [0.4125, 0.0563],
+            [0.3859, 0.0813],
+            [0.3719, 0.1016],
+            [0.3656, 0.1141],
+            [0.3656, 0.1172],
+            [0.3609, 0.125],
+            [0.3609, 0.1297],
+            [0.3563, 0.1437],
+            [0.3563, 0.1516],
+            [0.3547, 0.1531],
+            [0.3547, 0.1875],
+            [0.3563, 0.1891],
+            [0.3563, 0.2],
+            [0.3578, 0.2016],
+            [0.3594, 0.2141],
+            [0.3672, 0.2297],
+            [0.3672, 0.2328],
+            [0.3703, 0.2359],
+            [0.3719, 0.2422],
+            [0.3812, 0.2562],
+            [0.4062, 0.2828],
+            [0.4062, 0.3094],
+            [0.4, 0.3125],
+            [0.3875, 0.3125],
+            [0.3859, 0.3141],
+            [0.3516, 0.3156],
+            [0.35, 0.3172],
+            [0.3344, 0.3172],
+            [0.3328, 0.3187],
+            [0.3187, 0.3187],
+            [0.3172, 0.3203],
+            [0.3016, 0.3203],
+            [0.3, 0.3219],
+            [0.2844, 0.3219],
+            [0.2828, 0.3234],
+            [0.2687, 0.3234],
+            [0.2672, 0.325],
+            [0.2516, 0.325],
+            [0.25, 0.3266],
+            [0.2344, 0.3266],
+            [0.2328, 0.3281],
+            [0.2062, 0.3297],
+            [0.2016, 0.3312],
+            [0.1828, 0.35],
+            [0.1812, 0.3547],
+            [0.1812, 0.9391],
+            [0.1828, 0.9437],
+            [0.2078, 0.9672],
+            [0.7906, 0.9672],
+            [0.8172, 0.9422],
+            [0.8172, 0.3516],
+            [0.8016, 0.3344],
+            [0.7922, 0.3297],
+            [0.7766, 0.3297],
+            [0.775, 0.3281],
+            [0.7625, 0.3281],
+            [0.7609, 0.3266],
+            [0.7266, 0.325],
+            [0.725, 0.3234],
+            [0.7125, 0.3234],
+            [0.7109, 0.3219],
+            [0.6766, 0.3203],
+            [0.675, 0.3187],
+            [0.6625, 0.3187],
+            [0.6609, 0.3172],
+            [0.6266, 0.3156],
+            [0.625, 0.3141],
+            [0.6094, 0.3141],
+            [0.6078, 0.3125],
+            [0.5953, 0.3125],
+            [0.5891, 0.3094],
+            [0.5891, 0.2812],
+            [0.6109, 0.2594],
+            [0.6219, 0.2437],
+            [0.6297, 0.2281],
+            [0.6391, 0.1984],
+            [0.6391, 0.1891],
+            [0.6406, 0.1875],
+            [0.6406, 0.1547],
+            [0.6391, 0.1531],
+            [0.6391, 0.1437],
+            [0.6328, 0.1219],
+            [0.6234, 0.1016],
+            [0.6109, 0.0828],
+            [0.5953, 0.0656],
+            [0.5687, 0.0469],
+            [0.5516, 0.0391],
+            [0.5375, 0.0344],
+            [0.5312, 0.0344],
+            [0.5234, 0.0312],
+            [0.5141, 0.0312],
+            [0.5125, 0.0297],
+            [0.4828, 0.0297],
+            [0.4813, 0.0312],
+            [0.4703, 0.0312],
+            [0.4688, 0.0328]
+          ]
+        ],
+        "edge": "#47000c"
+      },
+      "price": {
+        "tr": 16000.0,
+        "en": 16000.0
+      },
+      "photos": [
+        "foto/spice/1.webp",
+        "foto/spice/2.webp",
+        "foto/spice/3.webp"
+      ],
+      "composition": [
+        "Üst: Siyah Gül, Mandalina, Bergamot, Greyfurt, Elemi",
+        "Kalp: Muskat, Tarçın, Safran, Karanfil, Karabiber, Kuru Meyveler",
+        "Dip: Oud, Sedir Ağacı, Tik Ağacı, Sandal Ağacı, Misk, Paçuli"
+      ]
+    }
+  ],
+  "home": [0, 1, 2],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Karanlıktaki güzellik",
+        "text": "Halfeti'nin siyah gülü; gül, paçuli ve labdanumla derinleşen, ağır olmayan sessiz bir yoğunluk.",
+        "stat": "Siyah Gül · Paçuli · Misk"
+      },
+      "en": {
+        "title": "Beauty in the dark",
+        "text": "Halfeti's black rose, deepened with rose, patchouli and labdanum: a quiet intensity that is never heavy.",
+        "stat": "Black Rose · Patchouli · Musk"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Yavaş açılan sıcaklık",
+        "text": "Siyah gül ve narenciyeden baharata; oud, amber ve vanilyayla yumuşayan karşı konulmaz bir ışıltı.",
+        "stat": "Tarçın · Oud · Vanilya"
+      },
+      "en": {
+        "title": "A slowly unfolding warmth",
+        "text": "From black rose and citrus to spice; an irresistible glow softened by oud, amber and vanilla.",
+        "stat": "Cinnamon · Oud · Vanilla"
+      }
+    },
+    {
+      "flavor": 2,
+      "tr": {
+        "title": "Cüretkar karşıtlık",
+        "text": "Safran, karanfil ve karabiber; oud ve sandal ağacıyla duyuları uyandıran çarpıcı bir yoğunluk.",
+        "stat": "Safran · Karanfil · Oud"
+      },
+      "en": {
+        "title": "A bold contrast",
+        "text": "Saffron, clove and black pepper over oud and sandalwood: a striking intensity that awakens the senses.",
+        "stat": "Saffron · Clove · Oud"
+      }
+    }
+  ]
+}

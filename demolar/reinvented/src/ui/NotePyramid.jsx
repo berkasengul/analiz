@@ -29,10 +29,23 @@ export default function NotePyramid() {
   const en = lang === "en";
   const labels = useRef([]);
   const [shown, setShown] = useState(null);
+  const choices = HOME_SET.map((g) => flavors.findIndex((x) => x.gid === g)).filter((i) => i >= 0);
+  const picked = useRef(-1e9);
   useEffect(() => {
     let raf;
     let last = null;
+    // Bölüm ekrandayken şişe bütünse (açılmadan önce ya da birleştikten sonra) kokular kendiliğinden sırayla
+    // değişir; sahnenin rengi de onunla geçer. Kullanıcı bir kokuyu seçince bir süre o kokuda kalır.
+    let shownAt = performance.now();
     const tick = () => {
+      const now = performance.now();
+      const P0 = sceneState.pyramid;
+      if (scrollState.pyrOn && scrollState.pyrIn > 0.9 && (P0?.e ?? 0) < 0.02 && choices.length > 1 && now - picked.current > 12000 && now - shownAt > 4500) {
+        const cur = scrollState.pyrFlavor ?? P0?.flavor ?? choices[0];
+        scrollState.pyrFlavor = choices[(choices.indexOf(cur) + 1) % choices.length];
+        shownAt = now;
+      }
+      if (!scrollState.pyrOn) shownAt = now;
       const P = sceneState.pyramid;
       if (P) {
         if (P.flavor !== last) {
@@ -44,7 +57,8 @@ export default function NotePyramid() {
           const L = P.labels[k];
           if (!el || !L) continue;
           // Katmanlar sırayla belirir (kapak önce), birleşirken birlikte kaybolur.
-          el.style.opacity = String(Math.min(1, Math.max(0, (P.e - 0.25 - k * 0.12) / 0.3)));
+          // Her katmanın yazısı kendi dilimi açılırken belirir.
+          el.style.opacity = String(Math.min(1, Math.max(0, ((L.e ?? P.e) - 0.35) / 0.45)));
           el.style.transform = `translate(${L.x}px, ${L.y}px) translate(${L.side < 0 ? "-100%" : "0"}, -50%)`;
           el.classList.toggle("is-left", L.side < 0);
         }
@@ -57,7 +71,6 @@ export default function NotePyramid() {
   const gid = shown != null ? flavors[shown]?.gid : null;
   const f = shown != null ? flavorText(shown) : null;
   const layers = gid != null ? layersOf(gid, lang) : [];
-  const choices = HOME_SET.map((g) => flavors.findIndex((x) => x.gid === g)).filter((i) => i >= 0);
   return (
     <section id="pyramid" className="pyr">
       <div className="pyr__stage">
@@ -87,7 +100,7 @@ export default function NotePyramid() {
         {choices.length > 1 && (
           <div className="pyr__chips" role="tablist" aria-label={en ? "Fragrance" : "Koku"}>
             {choices.map((i) => (
-              <button key={i} role="tab" aria-selected={i === shown} className={`pyr__chip${i === shown ? " is-on" : ""}`} onClick={() => (scrollState.pyrFlavor = i)}>
+              <button key={i} role="tab" aria-selected={i === shown} className={`pyr__chip${i === shown ? " is-on" : ""}`} onClick={() => ((scrollState.pyrFlavor = i), (picked.current = performance.now()))}>
                 {flavorText(i).name}
               </button>
             ))}

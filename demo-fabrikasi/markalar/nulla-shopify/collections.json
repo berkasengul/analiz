@@ -1,0 +1,82 @@
+[
+ {
+  "id": 513737851093,
+  "title": "All Products",
+  "handle": "all-products",
+  "description": "",
+  "published_at": "2026-03-17T15:15:17+03:00",
+  "updated_at": "2026-10-03T14:23:08+03:00",
+  "image": null,
+  "products_count": 8
+ },
+ {
+  "id": 509284647125,
+  "title": "Amber",
+  "handle": "amber",
+  "description": "",
+  "published_at": "2026-01-20T11:14:46+03:00",
+  "updated_at": "2026-10-03T14:23:08+03:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 509284679893,
+  "title": "Black",
+  "handle": "black",
+  "description": "",
+  "published_at": "2026-01-20T11:17:05+03:00",
+  "updated_at": "2026-10-03T14:23:08+03:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 509284384981,
+  "title": "Discover Our Perfumes",
+  "handle": "discover-our-perfumes",
+  "description": "",
+  "published_at": "2026-01-20T11:04:52+03:00",
+  "updated_at": "2026-10-03T14:23:08+03:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 476586049749,
+  "title": "Home page",
+  "handle": "frontpage",
+  "description": null,
+  "published_at": "2025-02-20T17:18:55+03:00",
+  "updated_at": "2026-09-02T01:47:32+03:00",
+  "image": null,
+  "products_count": 1
+ },
+ {
+  "id": 509284778197,
+  "title": "Oils",
+  "handle": "oils",
+  "description": "",
+  "published_at": "2026-01-20T11:19:40+03:00",
+  "updated_at": "2026-09-18T14:18:10+03:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 481149780181,
+  "title": "PERFUMES",
+  "handle": "perfumes",
+  "description": "",
+  "published_at": "2025-04-04T11:16:15+03:00",
+  "updated_at": "2026-10-03T14:23:08+03:00",
+  "image": null,
+  "products_count": 8
+ },
+ {
+  "id": 509284712661,
+  "title": "Spice",
+  "handle": "spice",
+  "description": "",
+  "published_at": "2026-01-20T11:18:12+03:00",
+  "updated_at": "2026-10-03T14:23:08+03:00",
+  "image": null,
+  "products_count": 4
+ }
+]
