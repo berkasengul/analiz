@@ -25,5 +25,6 @@ export const sceneState = {
 export const SPRAY_SLOW = typeof window !== "undefined" ? Number(new URLSearchParams(window.location.search).get("slowmo")) || 1 : 1;
 export const SPRAY = { lift: 0.55, press: 0.8, emit: 0.85, emitDur: 0.75, back: 3.1, end: 3.8 };
 
-// Dosya adresi: sitenin kendi dosyası (BASE_URL'e göre) ya da tam adres (Shopify CDN: https://… veya //…).
-export const assetUrl = (p) => (/^(https?:)?\/\//.test(p) ? p : import.meta.env.BASE_URL + p);
+// Dosya adresi: sitenin kendi dosyası (BASE_URL'e göre) ya da tam adres (Shopify CDN: https://… veya //…; tarayıcıda
+// üretilen görsel: blob:…).
+export const assetUrl = (p) => (/^((https?:)?\/\/|blob:|data:)/.test(p) ? p : import.meta.env.BASE_URL + p);

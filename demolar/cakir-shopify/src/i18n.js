@@ -337,8 +337,10 @@ function mergeUi(base, over = {}) {
   return out;
 }
 
-export function getT(lang) {
-  if (cache[lang]) return cache[lang];
+// rev: Shopify'dan geç gelen fiyatlar uygulanınca artar (shopifyLive.js → refreshShop); çeviri yeniden kurulur.
+export function getT(lang, rev = 0) {
+  const key = `${lang}:${rev}`;
+  if (cache[key]) return cache[key];
   const en = lang === "en";
   const P = PRICES[lang];
   // Tam sayılarda kuruş gösterilmez (₺890, $25); kuruşlu fiyatlarda iki hane (₺1.333,90).
@@ -393,11 +395,12 @@ export function getT(lang) {
     shipping: P.shipping,
     subPct: Math.round(D.SUB_DISCOUNT * 100),
   };
-  cache[lang] = t;
+  cache[key] = t;
   return t;
 }
 
 export function useT() {
   const lang = useStore((s) => s.lang);
-  return getT(lang);
+  const rev = useStore((s) => s.shopRev ?? 0);
+  return getT(lang, rev);
 }

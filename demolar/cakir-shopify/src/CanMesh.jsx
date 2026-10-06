@@ -38,7 +38,8 @@ const MOBILE_GL = typeof window !== "undefined" && window.matchMedia("(max-width
 
 // Etiket dokuları: content.json'daki her ürünün `file` adıyla eşleşir.
 const FILES = import.meta.glob("./assets/labels/*.{jpg,webp}", { eager: true, import: "default" });
-const LABELS = flavors.map((f) => FILES[`./assets/labels/${f.file}`]);
+// labelUrl: mağazanın fotoğrafından tarayıcıda üretilen atlas (photo3d.js, Shopify teması).
+const LABELS = flavors.map((f) => f.labelUrl ?? FILES[`./assets/labels/${f.file}`]);
 
 // Ürün ambalajı content.json → bottle ölçüleriyle koddan üretilir. Her ürün
 // `form` ("tube" krem tüpü, boş = şişe) ve kendi `bottle` / `tube` ayarlarıyla

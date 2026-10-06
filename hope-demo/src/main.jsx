@@ -1,7 +1,7 @@
 // Shopify'da değiştirilen yazılar, içerik okunmadan önce uygulanır.
 import "./textOverride";
 import C from "./content.json";
-import { keepHashLinks, loadShopify } from "./shopifyLive";
+import { keepHashLinks, loadShopify, refreshShop } from "./shopifyLive";
 
 import "./css/base.css";
 
@@ -11,8 +11,8 @@ document.documentElement.lang = C.htmlLang ?? "tr";
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 keepHashLinks();
 
-// Shopify mağazasında: önce güncel fiyat, stok, model, fotoğraf ve yeni ürünler mağazadan okunur (en çok 3 sn
-// beklenir), sonra uygulama yüklenir. Uygulamanın modülleri içerikten türettiklerini (ürün seti, renkler)
+// Shopify mağazasında: önce güncel fiyat, stok, model, fotoğraf ve yeni ürünler mağazadan okunur (en çok 6 sn
+// beklenir; daha geç gelirse çizilmiş sayfaya uygulanır: refreshShop), sonra uygulama yüklenir. Uygulamanın modülleri içerikten türettiklerini (ürün seti, renkler)
 // yüklenirken hesapladığı için hepsi bundan sonra içe aktarılır.
 async function start() {
   const [{ default: React }, { default: ReactDOM }, { applyTheme }] = await Promise.all([
@@ -38,4 +38,11 @@ async function start() {
   );
 }
 
-Promise.race([loadShopify(), new Promise((r) => setTimeout(r, 3000))]).finally(start);
+const live = loadShopify();
+let liveDone = false;
+live.finally(() => (liveDone = true));
+Promise.race([live, new Promise((r) => setTimeout(r, 6000))]).finally(async () => {
+  const late = !liveDone;
+  await start();
+  if (late) live.then(refreshShop, () => {});
+});

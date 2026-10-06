@@ -41,3 +41,12 @@ fiyat ve yazılar Shopify panelinden değiştirilebiliyor.
 - **Yeni ürün:** Shopify'a eklenen, vitrinde olmayan ürün "Tüm ürünler"de fotoğraflı kartla çıkar, sepete eklenir.
   Kategorisi: ürün türü (product type) bir kategori adıyla aynıysa o, değilse ilk kategori. Ana sayfaya ve 3D
   akışa bizim eklememiz gerekir.
+
+**06.10.2026 güncelleme:**
+- Fiyatlar tek istekte (`/products.json`) okunur; mağaza geç cevap verirse çizilmiş sayfaya sonradan uygulanır
+  (önceki sürümde sepet yeni, sayfa eski fiyatı gösteriyordu).
+- Ürün görseli değiştiyse (tema kurulurkenki görsel değil) ve fotoğraf düz zeminliyse ya da saydam PNG ise 3D şişe
+  tarayıcıda üretilir (`hope-demo/src/photo3d.js`). Sahne fotoğraflarından (el, ayak, masa) şişe çıkarılamaz: kartta
+  fotoğraf görünür, 3D şişe eskisi kalır.
+- Yeni ürün: fotoğrafından 3D şişe üretilir, ana sayfa akışına ve kategorisine eklenir; üretilemezse fotoğraflı kart.
+- Bilinen sorun: GLB modeli ilk üründe çalışıyor, akışta sonraki bir üründe kaide boş görünebiliyor (incelenecek).

@@ -1,8 +1,10 @@
 """3D vitrini Shopify teması olarak paketler: "Online Mağaza → Temalar → Tema yükle" ile yüklenir, mağazanın ana
 sayfası doğrudan 3D vitrinle açılır. Ödeme, sepet, stok ve domain Shopify'da kalır.
 
-Kullanım: python3 shopify-tema.py <slug> [tema-adı]
+Kullanım: python3 shopify-tema.py <slug> [tema-adı] [--magaza https://x.myshopify.com [--parola X]]
   örn.   python3 shopify-tema.py cakir-shopify "Çakır 3D"
+  --magaza: mağazadaki ürün görsellerinin adları temaya yazılır (vitrin kurulurkenki görseller). Müşteri sonradan
+  ürünün görselini değiştirirse vitrin bunu anlar (shopifyLive.js). Verilmezse markalar/<slug>-shopify/products-tr.json.
 Girdi:  demolar/<slug>-Netlify.zip (yeni-demo.py ile)
 Çıktı:  demolar/<slug>-tema.zip
 
@@ -17,20 +19,27 @@ Nasıl çalışır:
 - Yazılar: sitedeki Türkçe yazıların hepsi tema ayarı olur. Mağaza sahibi Shopify → Temalar → Özelleştir →
   Tema ayarları'nda (bölüm bölüm, ürün ürün) değiştirir; tema bunları <script id="vitrin-metin"> ile vitrine verir
   (hope-demo/src/textOverride.js). Boş bırakılan alan sitedeki ilk yazıyı gösterir.
-- Görsel ve 3B model: ürüne Shopify'da yüklenen GLB model vitrinin şişesinin yerine geçer; temanın kurulduğu andan
-  (<meta name="vitrin-built">) sonra yüklenen fotoğraflar galeride ve kartta görünür; vitrinde olmayan yeni ürünler
-  "Tüm ürünler"e fotoğraflı kartla eklenir (hope-demo/src/shopifyLive.js)."""
+- Görsel ve 3B model: ürüne Shopify'da yüklenen GLB model vitrinin şişesinin yerine geçer. Ürünün görseli tema
+  kurulurkenkinden (<script id="vitrin-gorsel">) farklıysa galeri ve kart o görselle; düz zeminli fotoğraftan 3B şişe
+  tarayıcıda üretilir (hope-demo/src/photo3d.js). Vitrinde olmayan yeni ürünler de fotoğraflarından 3B olur, ana sayfa
+  akışına eklenir; olmazsa fotoğraflı kart (hope-demo/src/shopifyLive.js)."""
 import json
 import os
 import re
 import subprocess
 import sys
-import time
 import zipfile
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
-slug = sys.argv[1]
-name = sys.argv[2] if len(sys.argv) > 2 else "3D Vitrin"
+args = [a for a in sys.argv[1:]]
+opt = {}
+for k in ("--magaza", "--parola"):
+    if k in args:
+        i = args.index(k)
+        opt[k] = args[i + 1]
+        del args[i : i + 2]
+slug = args[0]
+name = args[1] if len(args) > 1 else "3D Vitrin"
 src = zipfile.ZipFile(os.path.join(ROOT, "demolar", f"{slug}-Netlify.zip"))
 cfg = json.load(open(os.path.join(ROOT, "demo-fabrikasi", "markalar", f"{slug}.json"), encoding="utf-8"))
 SKIP = {"index.html", "_headers", "robots.txt", "fonts/OFL-Italiana.txt"}
@@ -181,6 +190,41 @@ for grp, entries in texts.items():
                      "label": lab, "default": value})
         pairs.append(f"[{json.dumps(paths)},{{{{ settings.{sid} | json }}}}]")
     schema.append({"name": grp if len(grp) <= 50 else grp[:49] + "…", "settings": sets})
+# ------------------------------------------------------------------ vitrin kurulurkenki ürün görselleri
+def image_name(u):
+    """shopifyLive.js nameOf ile aynı: adres, uzantı ve Shopify'ın _<uuid> eki olmadan, küçük harf."""
+    from urllib.parse import unquote
+    n = unquote(u.split("?")[0].rsplit("/", 1)[-1])
+    n = re.sub(r"\.[a-z0-9]+$", "", n, flags=re.I)
+    return re.sub(r"_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", "", n, flags=re.I).lower()
+
+
+def store_products():
+    if "--magaza" in opt:
+        import http.cookiejar
+        import urllib.parse
+        import urllib.request
+        base = opt["--magaza"].rstrip("/")
+        op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+        op.addheaders = [("User-Agent", "Mozilla/5.0")]
+        if "--parola" in opt:
+            data = urllib.parse.urlencode({"form_type": "storefront_password", "utf8": "✓", "password": opt["--parola"]}).encode()
+            op.open(f"{base}/password", data, timeout=30).read()
+        return json.loads(op.open(f"{base}/products.json?limit=250", timeout=30).read())["products"]
+    for d in (f"{slug}-shopify", slug):
+        f = os.path.join(ROOT, "demo-fabrikasi", "markalar", d, "products-tr.json")
+        if os.path.exists(f):
+            return json.load(open(f, encoding="utf-8"))
+    return []
+
+
+try:
+    snap = {p["handle"]: sorted({image_name(i["src"]) for i in p.get("images", []) if i.get("src")}) for p in store_products()}
+except Exception as e:
+    print("! mağaza görselleri okunamadı:", e)
+    snap = {}
+GORSEL = '<script type="application/json" id="vitrin-gorsel">' + json.dumps(snap, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+
 METIN = '<script type="application/json" id="vitrin-metin">[' + ",".join(pairs) + "]</script>"
 
 HEAD = """  <meta charset="utf-8">
@@ -195,7 +239,6 @@ out.writestr("layout/theme.liquid", f"""<!doctype html>
 {HEAD}
   {{{{ content_for_header }}}}
   <meta name="vitrin-shopify" content="{{{{ shop.permanent_domain }}}}">
-  <meta name="vitrin-built" content="{int(time.time())}">
   <base href="{{{{ '{js}' | asset_url | split: '{js}' | first }}}}">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   {fonts}
@@ -204,6 +247,7 @@ out.writestr("layout/theme.liquid", f"""<!doctype html>
 </head>
 <body>
   {METIN}
+  {GORSEL}
   <div id="root"></div>
   <div hidden>{{{{ content_for_layout }}}}</div>
 </body>
