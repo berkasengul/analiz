@@ -10,6 +10,9 @@ import Particles from "./Particles";
 import IceScene from "./IceScene";
 import Numeral from "./Numeral";
 import Pedestal from "./Pedestal";
+import Spray from "./Spray";
+import Boutique from "./Boutique";
+import Garnish from "./Garnish";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
 import { content } from "./data";
@@ -17,7 +20,9 @@ import { content } from "./data";
 import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
 
 export default function Scene() {
-  const [dpr, setDpr] = useState(Math.min(1.5, window.devicePixelRatio || 1));
+  // theme.cinema: masaüstünde piksel oranı en fazla 2, telefonda 1.5 (sinematik ürün ışığında kenar keskinliği).
+  const maxDpr = THEME.cinema ? (window.matchMedia("(max-width: 900px)").matches ? 1.5 : 2) : 1.5;
+  const [dpr, setDpr] = useState(Math.min(maxDpr, window.devicePixelRatio || 1));
   const [onScreen, setOnScreen] = useState(true);
 
   // Mağaza bölümü ekrandan çıkınca sahneyi çizmeyi bırak.
@@ -48,11 +53,15 @@ export default function Scene() {
           <CameraRig />
           <Background />
           <Particles />
-          {THEME.numerals && !["solo", "orbit", "rise", "glide"].includes(THEME.carousel) && <Numeral />}
-          {THEME.pedestal && <Pedestal />}
+          {THEME.numerals && !["solo", "orbit", "rise", "glide", "dolly"].includes(THEME.carousel) && <Numeral />}
+          {/* "dolly": her ürünün kendi kaidesi var (Carousel → Plinth). */}
+          {THEME.pedestal && THEME.carousel !== "dolly" && <Pedestal />}
+          {THEME.carousel === "dolly" && <Boutique />}
           <IceScene />
           <Carousel />
+          <Garnish />
           <HeroCan />
+          {content.spray && <Spray />}
           {/* Tüm shader'ları baştan derle; ilk etkileşimde takılma olmasın. */}
           <Preload all />
         </Suspense>

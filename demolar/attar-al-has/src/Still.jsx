@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
+import { Environment, MeshReflectorMaterial } from "@react-three/drei";
 import {
   AdditiveBlending,
   BufferAttribute,
@@ -8,6 +8,10 @@ import {
   CanvasTexture,
   Color,
   CurvePath,
+  CylinderGeometry,
+  MeshBasicMaterial,
+  Object3D,
+  TextureLoader,
   DoubleSide,
   LineCurve3,
   EllipseCurve,
@@ -25,7 +29,7 @@ import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
 
 // Kart görselleri için tek ürün çekimi (data.js ?still=<n> ile yalnızca o ürünü yükler).
 //   ?still=<n>          saydam zeminde ürün (arama, sepet küçük resimleri)
-//   ?still=<n>&stage=1  sinematik sergi: altın çerçeveli kemerli niş, mermer kaide, yansıtıcı
+//   ?still=<n>&stage=1  sinematik sergi: altın çerçeveli kemerli niş (dolly: ışık paneli), mermer kaide, yansıtıcı
 //                       siyah zemin, tepeden spot ışığı ve ışık konisi; ürün kaidenin üstünde.
 // demo-fabrikasi/araclar/kart-3b.py bu sayfanın ekran görüntüsünü alır.
 const STAGE = new URLSearchParams(location.search).has("stage");
@@ -153,6 +157,9 @@ function archShape(w, h) {
 
 // Osmanlı (sivri) kemeri: iki yay tepede birleşir. hw yarım genişlik, h toplam yükseklik; yay yarıçapı 1,45·hw.
 const OTTOMAN = THEME.carousel === "glide";
+// Karanlık sinematik stüdyo ("dolly", ana sayfayla aynı dil): kemer yok; ürünün arkasında dikey, yumuşak bir
+// ışık paneli, iki yanda odak dışı ince ışık şeritleri.
+const NOIR = THEME.carousel === "dolly";
 function ogeePoints(w, h, n = 48) {
   const hw = w / 2;
   const r = hw * 1.45;
@@ -241,6 +248,121 @@ function OttomanTrim({ w, h, z, floorY }) {
   );
 }
 
+// Butik sergisi ("dolly", ana sayfadaki Boutique ile aynı dil): yivli koyu bronz duvar, tepeden ürünün
+// renginde duvara düşen ışık havuzu, ürünü ve kaideyi yansıtan cilalı taş zemin, altın kenarlı yuvarlak
+// obsidyen kaide.
+const FL = { r: 0.16, pitch: 0.35, n: 60 };
+function NoirSet({ floorY, z, glow }) {
+  const inst = useRef();
+  const light = useRef();
+  const geo = useMemo(() => new CylinderGeometry(FL.r, FL.r, 16, 16, 1, true, -Math.PI / 2, Math.PI), []);
+  const tint = useMemo(() => glow.clone().lerp(new Color(1, 1, 1), 0.45), [glow]);
+  useLayoutEffect(() => {
+    const o = new Object3D();
+    for (let i = 0; i < FL.n; i++) {
+      o.position.set((i - FL.n / 2 + 0.5) * FL.pitch, 8, 0);
+      o.updateMatrix();
+      inst.current.setMatrixAt(i, o.matrix);
+    }
+    inst.current.instanceMatrix.needsUpdate = true;
+    light.current.target.position.set(0, floorY + 3.4, z - 0.6);
+    light.current.target.updateMatrixWorld();
+  }, [floorY, z]);
+  const h = PED.h;
+  return (
+    <>
+      <group position={[0, floorY, z - 0.6]}>
+        <instancedMesh ref={inst} args={[geo, null, FL.n]}>
+          <meshStandardMaterial color="#3a2819" metalness={0.45} roughness={0.38} envMapIntensity={0.05} />
+        </instancedMesh>
+        <mesh position={[0, 8, -FL.r]}>
+          <planeGeometry args={[FL.n * FL.pitch, 16]} />
+          <meshStandardMaterial color="#0c0907" roughness={0.9} />
+        </mesh>
+        <mesh position={[0, 0.07, FL.r + 0.03]}>
+          <boxGeometry args={[FL.n * FL.pitch, 0.04, 0.04]} />
+          <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.25} />
+        </mesh>
+      </group>
+      <spotLight ref={light} position={[0, floorY + 11, z + 5]} angle={0.42} penumbra={1} decay={0} intensity={16} color={tint} />
+      {/* Obsidyen kaide, üst ve alt kenarda altın halka */}
+      <mesh position={[0, PED_TOP - h / 2, 0]}>
+        <cylinderGeometry args={[1.5, 1.55, h, 96]} />
+        <meshStandardMaterial color="#050404" roughness={0.9} metalness={0} envMapIntensity={0.05} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, PED_TOP - 0.004, 0]}>
+        <torusGeometry args={[1.505, 0.018, 12, 160]} />
+        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.22} envMapIntensity={1.6} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, PED_TOP - h + 0.03, 0]}>
+        <torusGeometry args={[1.552, 0.008, 8, 160]} />
+        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.3} envMapIntensity={1.2} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY, -2]}>
+        <planeGeometry args={[40, 30]} />
+        <MeshReflectorMaterial resolution={512} blur={[140, 50]} mixBlur={0.6} mixStrength={2.2} mixContrast={1.1} depthScale={1.1} minDepthThreshold={0.25} maxDepthThreshold={1.3} roughness={1} metalness={0} envMapIntensity={0.55} color="#3d2e22" mirror={0.96} />
+      </mesh>
+    </>
+  );
+}
+
+// Butik fotoğraflı marka (theme.plate): kart, ana sayfadaki salon fotoğrafının önünde çekilir. Fotoğraf
+// kemerin ortası ürünün arkasına, duvar dibi kaidenin altına gelecek biçimde sisten etkilenmeyen bir düzlemde;
+// ürün ana sayfadaki gibi ince, altın kenarlı yuvarlak obsidyen kaidede, altında temas gölgesi.
+const PLATE = THEME.plate;
+const PLINTH = 0.32;
+function PlateSet() {
+  const tex = useMemo(() => {
+    const t = new TextureLoader().load(`${import.meta.env.BASE_URL}${PLATE.src}`);
+    t.colorSpace = SRGBColorSpace;
+    return t;
+  }, []);
+  const mat = useMemo(() => new MeshBasicMaterial({ map: tex, fog: false, toneMapped: false }), [tex]);
+  const shadow = useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d");
+    const r = g.createRadialGradient(64, 64, 10, 64, 64, 64);
+    r.addColorStop(0, "rgba(0,0,0,0.85)");
+    r.addColorStop(0.55, "rgba(0,0,0,0.4)");
+    r.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = r;
+    g.fillRect(0, 0, 128, 128);
+    return new CanvasTexture(c);
+  }, []);
+  // Düzlem: z = -6, genişlik 30 (kemer kartın ~%90'ı); duvar dibi (floor) kaidenin altındaki zeminle aynı hizada.
+  const W = 30;
+  const H = W / (PLATE.aspect ?? 2.63);
+  const floorY = PED_TOP - PLINTH;
+  const camY = 0.55;
+  const yFloorPlane = camY + (floorY - camY) * (18.5 / 12.5);
+  const cy = yFloorPlane + ((PLATE.floor ?? 0.66) - 0.5) * H;
+  const cx = (0.5 - (PLATE.x ?? 0.5)) * W;
+  return (
+    <>
+      <mesh position={[cx, cy, -6]} material={mat}>
+        <planeGeometry args={[W, H]} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY + 0.004, 0]}>
+        <planeGeometry args={[4.4, 4.4]} />
+        <meshBasicMaterial map={shadow} transparent depthWrite={false} color="#000000" fog={false} />
+      </mesh>
+      <mesh position={[0, PED_TOP - PLINTH / 2, 0]}>
+        <cylinderGeometry args={[1.5, 1.55, PLINTH, 96]} />
+        <meshStandardMaterial color="#050404" roughness={0.9} metalness={0} envMapIntensity={0.05} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, PED_TOP - 0.004, 0]}>
+        <torusGeometry args={[1.505, 0.018, 12, 160]} />
+        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.22} envMapIntensity={1.6} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, floorY + 0.03, 0]}>
+        <torusGeometry args={[1.552, 0.008, 8, 160]} />
+        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.3} envMapIntensity={1.2} />
+      </mesh>
+    </>
+  );
+}
+
 function Stage() {
   const f = flavors[0];
   const accent = useMemo(() => new Color(f.theme?.accent ?? "#c9a55c"), [f]);
@@ -265,6 +387,16 @@ function Stage() {
       vertexShader: "varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }",
       fragmentShader:
         "uniform vec3 u_a; uniform float u_top; varying vec3 vP; void main(){ float y = clamp(vP.y / u_top, 0., 1.); float cx = 1. - smoothstep(0., 2.3, abs(vP.x)); vec3 c = u_a * (0.18 + 0.75 * pow(1. - abs(y - 0.55), 2.) * cx); gl_FragColor = vec4(c, 1.); }",
+    }),
+    [glow, accent]
+  );
+  // Işık paneli (NOIR): üstte parlak, gövdeye doğru kısılan dikey ışık; iki yanda ince şeritler.
+  const panelMat = useMemo(
+    () => ({
+      uniforms: { u_a: { value: glow.clone().lerp(accent, 0.25).lerp(new Color(1, 1, 1), 0.2) } },
+      vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }",
+      fragmentShader:
+        "uniform vec3 u_a; varying vec2 vUv; void main(){ float x = (vUv.x - 0.5) * 8.; float y = vUv.y * 9.; float panel = exp(-pow(abs(x) / 1.5, 2.2) - pow(abs(y - 3.2) / 2.9, 2.6)); float grad = 0.5 + 0.5 * smoothstep(1., 5.5, y); float strip = exp(-pow((abs(x) - 2.6) / 0.06, 2.)) * smoothstep(0.3, 1.5, y) * (1. - smoothstep(4.5, 6.5, y)); vec3 c = vec3(0.02, 0.017, 0.015) + u_a * (panel * grad * 1.05 + strip * 0.28); gl_FragColor = vec4(c, 1.); }",
     }),
     [glow, accent]
   );
@@ -299,48 +431,62 @@ function Stage() {
     <>
       <color attach="background" args={["#060504"]} />
       <fog attach="fog" args={["#050403", 12.5, 19]} />
-      {/* Arka duvar ve kemerli niş */}
-      <mesh position={[0, 2, archZ - 0.3]}>
-        <planeGeometry args={[30, 20]} />
-        <meshStandardMaterial color="#0d0b0a" roughness={0.9} />
-      </mesh>
-      <mesh position={[0, floorY, archZ]}>
-        <shapeGeometry args={[niche, 48]} />
-        <shaderMaterial args={[nicheMat]} />
-      </mesh>
-      <mesh position={[0, floorY, 0]}>
-        <tubeGeometry args={[frame, 400, 0.035, 8, false]} />
-        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.28} />
-      </mesh>
-      <mesh position={[0, floorY, 0]}>
-        <tubeGeometry args={[frame2, 400, 0.018, 8, false]} />
-        <meshStandardMaterial color="#b8903f" metalness={1} roughness={0.35} />
-      </mesh>
+      {/* Arka duvar ve kemerli niş (butik fotoğrafında duvar fotoğraftan gelir) */}
+      {!PLATE && (
+        <mesh position={[0, 2, archZ - 0.3]}>
+          <planeGeometry args={[30, 20]} />
+          <meshStandardMaterial color="#0d0b0a" roughness={0.9} />
+        </mesh>
+      )}
+      {PLATE ? (
+        <PlateSet />
+      ) : NOIR ? (
+        <NoirSet floorY={floorY} z={archZ} glow={glow} />
+      ) : (
+        <>
+          <mesh position={[0, floorY, archZ]}>
+            <shapeGeometry args={[niche, 48]} />
+            <shaderMaterial args={[nicheMat]} />
+          </mesh>
+          <mesh position={[0, floorY, 0]}>
+            <tubeGeometry args={[frame, 400, 0.035, 8, false]} />
+            <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.28} />
+          </mesh>
+          <mesh position={[0, floorY, 0]}>
+            <tubeGeometry args={[frame2, 400, 0.018, 8, false]} />
+            <meshStandardMaterial color="#b8903f" metalness={1} roughness={0.35} />
+          </mesh>
+        </>
+      )}
       {OTTOMAN && <OttomanTrim w={archW} h={archH} z={archZ} floorY={floorY} />}
-      {/* Mermer kaide ve altın kenar */}
-      <mesh position={[0, PED_TOP - PED.h / 2, 0]}>
-        <boxGeometry args={[PED.w, PED.h, PED.d]} />
-        <meshPhysicalMaterial map={marble} roughness={0.16} metalness={0.1} clearcoat={1} clearcoatRoughness={0.06} envMapIntensity={0.8} />
-      </mesh>
-      <mesh position={[0, PED_TOP - 0.01, PED.d / 2]}>
-        <boxGeometry args={[PED.w + 0.01, 0.022, 0.022]} />
-        <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.3} />
-      </mesh>
-      {/* Parlak siyah zemin: ışık yalnızca ürünün önünde hafifçe yansır. */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY, 0]}>
-        <planeGeometry args={[40, 40]} />
-        <meshStandardMaterial color="#050404" roughness={1} metalness={0} envMapIntensity={0} />
-      </mesh>
-      {/* Işık konisi ve toz */}
-      <mesh position={[0, PED_TOP + 3.9, 0.2]}>
-        <coneGeometry args={[2.4, 8, 48, 1, true]} />
-        <shaderMaterial args={[coneMat]} />
-      </mesh>
+      {!NOIR && (
+        <>
+          {/* Mermer kaide ve altın kenar */}
+          <mesh position={[0, PED_TOP - PED.h / 2, 0]}>
+            <boxGeometry args={[PED.w, PED.h, PED.d]} />
+            <meshPhysicalMaterial map={marble} roughness={0.16} metalness={0.1} clearcoat={1} clearcoatRoughness={0.06} envMapIntensity={0.8} />
+          </mesh>
+          <mesh position={[0, PED_TOP - 0.01, PED.d / 2]}>
+            <boxGeometry args={[PED.w + 0.01, 0.022, 0.022]} />
+            <meshStandardMaterial color="#d9b46a" metalness={1} roughness={0.3} />
+          </mesh>
+          {/* Parlak siyah zemin: ışık yalnızca ürünün önünde hafifçe yansır. */}
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY, 0]}>
+            <planeGeometry args={[40, 40]} />
+            <meshStandardMaterial color="#050404" roughness={1} metalness={0} envMapIntensity={0} />
+          </mesh>
+          {/* Işık konisi */}
+          <mesh position={[0, PED_TOP + 3.9, 0.2]}>
+            <coneGeometry args={[2.4, 8, 48, 1, true]} />
+            <shaderMaterial args={[coneMat]} />
+          </mesh>
+        </>
+      )}
       <points geometry={dust}>
         <pointsMaterial color="#e8c77a" size={0.035} transparent opacity={0.7} depthWrite={false} blending={AdditiveBlending} />
       </points>
       {/* Işıklar: tepeden sıcak spot, önden yumuşak ana ışık, arkadan ürün renginde kenar ışıkları */}
-      <spotLight position={[0, 8.5, 2.5]} angle={0.26} penumbra={0.9} decay={0} intensity={4.6} color="#fff0dc" />
+      <spotLight position={[0, 8.5, 2.5]} angle={0.26} penumbra={0.9} decay={0} intensity={NOIR ? 2.2 : 4.6} color="#fff0dc" />
       <pointLight position={[-3, 1.5, -1.5]} intensity={6} distance={9} color={accent} />
       <pointLight position={[3, 1.5, -1.5]} intensity={6} distance={9} color={accent} />
       <pointLight position={[0, 3, archZ + 0.6]} intensity={5} distance={7} color={glow.clone().lerp(accent, 0.5)} />
@@ -355,7 +501,9 @@ export default function Still() {
         gl={{ alpha: !STAGE, antialias: true, preserveDrawingBuffer: true }}
         camera={STAGE ? { position: [0, 0.55, 12.5], fov: 33 } : { position: [0, 0, 10.5], fov: 35 }}
         dpr={STAGE ? 1 : 2}
-        onCreated={({ gl }) => (gl.toneMappingExposure = STAGE ? 1.15 : 1.25)}
+        onCreated={({ gl }) => {
+          gl.toneMappingExposure = STAGE ? 1.15 : 1.25;
+        }}
       >
         {/* Stüdyo: önden yumuşak ana ışık, üstten sıcak spot, yanlardan kenar ışığı; ürün aydınlık. */}
         <ambientLight intensity={STAGE ? 0.35 : 0.55} />

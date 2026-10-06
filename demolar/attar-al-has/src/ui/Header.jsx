@@ -1,11 +1,14 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Bag, BrandIcon } from "../Icons";
 import { useT, termLang } from "../i18n";
 import { useStore } from "../store";
 import { HIDDEN, content } from "../data";
 import { SearchButton } from "./Search";
+import { onSoundChange, setSound, soundState } from "../sound";
+import { FINDER } from "./Finder";
 
+import { assetUrl } from "../shared";
 // Dil düğmesinde o dilin para birimi simgesi (markanın fiyat ayarından).
 const symbol = (p) => (p ? new Intl.NumberFormat(p.locale, { style: "currency", currency: p.currency, currencyDisplay: "narrowSymbol" }).formatToParts(0).find((x) => x.type === "currency")?.value : "");
 const CUR = { tr: symbol(content.prices?.tr) || "₺", en: symbol(content.prices?.en) || "$" };
@@ -20,6 +23,8 @@ export function LangSwitch() {
   const lang = useStore((s) => s.lang);
   const setLang = useStore((s) => s.setLang);
   const { ui } = useT();
+  // Tek dilli markada (content.langs: ["tr"]) dil düğmesi yok.
+  if (content.langs?.length === 1) return null;
   return (
     <div className="lang" role="group" aria-label={ui.langLabel}>
       {LANGS.map(([code, label, cur]) => (
@@ -38,8 +43,34 @@ export function LangSwitch() {
   );
 }
 
+// Ses düğmesi: çalarken üç çubuk dalgalanır; kapalıyken düz çizgi. İlk tıklamada tarayıcının ses kilidi açılır.
+function SoundButton() {
+  const on = useStore((s) => s.sound);
+  const { lang, ui } = useT();
+  const [, bump] = useState(0);
+  useEffect(() => onSoundChange(() => bump((n) => n + 1)), []);
+  if (content.sound === false) return null;
+  const playing = on && soundState.unlocked;
+  const label = ui.sound ?? (lang === "en" ? "Sound" : "Ses");
+  return (
+    <button
+      className={`sound-btn mono${playing ? " is-on" : ""}`}
+      onClick={() => setSound(!playing)}
+      aria-pressed={playing}
+      aria-label={playing ? ui.soundOff ?? (lang === "en" ? "Turn sound off" : "Sesi kapat") : ui.soundOn ?? (lang === "en" ? "Turn sound on" : "Sesi aç")}
+    >
+      <span className="sound-btn__bars" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <span className="sound-btn__label">{label}</span>
+    </button>
+  );
+}
+
 const CAT = content.catalog;
-const BASE = import.meta.env.BASE_URL;
 
 // Üst menü: ince cam bir bar; üzerine gelinen bağlantının arkasında ışıklı bir
 // hap kayar. Katalogu olan markalarda "Ürünler" açılınca kategoriler ürün
@@ -59,6 +90,8 @@ function NavBar({ ui }) {
   const links = CAT
     ? [
         ...(hasSets ? [["#/urunler/set", ui.nav.sets]] : []),
+        // Koku bulucu (ui/Finder.jsx) üst menüde.
+        ...(FINDER ? [["#finder", ui.nav.finder ?? (lang === "en" ? "Scent finder" : "Koku bulucu")]] : []),
         ...(HIDDEN.has("story") ? [] : [["#story", ui.nav.about ?? ui.nav.story]]),
         // Mağaza bulucusu olan markalarda üst menüde "Mağaza bul".
         ...(content.locator ? [["#stockists", ui.nav.stockists]] : []),
@@ -102,7 +135,7 @@ function NavBar({ ui }) {
                 <li key={c.id} style={{ "--c": c.color, "--i": i }}>
                   <a href={`#/urunler/${c.id}`} onClick={() => setOpen(false)}>
                     <span className="navcat__img" aria-hidden="true">
-                      {thumb(c.id) && <img src={BASE + thumb(c.id)} alt="" loading="lazy" />}
+                      {thumb(c.id) && <img src={assetUrl(thumb(c.id))} alt="" loading="lazy" />}
                     </span>
                     <span className="navcat__name" lang={termLang(c.name[lang] ?? c.name.tr)}>{c.name[lang] ?? c.name.tr}</span>
                     <small>{count(c.id)}</small>
@@ -144,6 +177,7 @@ export default function Header() {
       </a>
       <NavBar ui={ui} />
       <div className="header__right">
+        {content.sceneSounds && <SoundButton />}
         <SearchButton />
         <LangSwitch />
         <button className="cart-btn" onClick={() => setCartOpen(true)} aria-label={ui.openCart(count)}>

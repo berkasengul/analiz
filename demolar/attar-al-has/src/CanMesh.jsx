@@ -1,5 +1,5 @@
-import { useLayoutEffect, useMemo, useRef } from "react";
-import { useTexture } from "@react-three/drei";
+import { Component, Suspense, useLayoutEffect, useMemo, useRef } from "react";
+import { useGLTF, useTexture } from "@react-three/drei";
 import {
   Box3,
   BoxGeometry,
@@ -13,9 +13,13 @@ import {
   CylinderGeometry,
   LatheGeometry,
   MathUtils,
+  MeshBasicMaterial,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   PlaneGeometry,
+  Plane,
+  Vector4,
+  DoubleSide,
   RepeatWrapping,
   SRGBColorSpace,
   Quaternion,
@@ -25,12 +29,17 @@ import {
   Vector3,
 } from "three";
 import { RoundedBoxGeometry, mergeVertices } from "three-stdlib";
+import { useFrame } from "@react-three/fiber";
 
 import { content, flavors } from "./data";
+import { SPRAY, SPRAY_SLOW, sceneState } from "./shared";
+
+const MOBILE_GL = typeof window !== "undefined" && window.matchMedia("(max-width: 820px)").matches;
 
 // Etiket dokuları: content.json'daki her ürünün `file` adıyla eşleşir.
 const FILES = import.meta.glob("./assets/labels/*.{jpg,webp}", { eager: true, import: "default" });
-const LABELS = flavors.map((f) => FILES[`./assets/labels/${f.file}`]);
+// labelUrl: mağazanın fotoğrafından tarayıcıda üretilen atlas (photo3d.js, Shopify teması).
+const LABELS = flavors.map((f) => f.labelUrl ?? FILES[`./assets/labels/${f.file}`]);
 
 // Ürün ambalajı content.json → bottle ölçüleriyle koddan üretilir. Her ürün
 // `form` ("tube" krem tüpü, boş = şişe) ve kendi `bottle` / `tube` ayarlarıyla
@@ -467,7 +476,27 @@ function flaskGeometry(S) {
   const body = { ...S, outline: [[...left, ...right]], depth: S.depth ?? width * (S.depthRatio ?? 0.42) };
   const block = flatBlock(body);
   if (S.clear) liquidColors(block, S, cut, idx[idx.length - 1] ?? N - 1);
-  return { block, front: latheHalf(cap, false), back: latheHalf(cap, true) };
+  // Saydam camda (glass) içteki parfüm: gövdenin biraz içeride kalan kopyası (camın kalınlığı kadar), dolum
+  // hizası gövdenin üstünden %15 aşağıda. Yüzey Liquid bileşeninde hareketle çalkalanır.
+  let liquid = null;
+  if (S.glass && idx.length) {
+    const top = idx[0] / N;
+    const bot = (idx[idx.length - 1] + 1) / N;
+    const yc = (top + bot) / 2;
+    const shrink = (pts) => pts.map(([x, y]) => [S.axis + (x - S.axis) * 0.86, yc + (y - yc) * 0.93]);
+    const lBody = { ...body, outline: [shrink([...left, ...right])], depth: body.depth * 0.78 };
+    const level = top + 0.2 * (bot - top);
+    const li = Math.min(idx.length - 1, Math.max(0, Math.round(level * N) - cut));
+    liquid = {
+      geo: flatBlock(lBody),
+      axisX: (S.axis - 0.5) * S.size,
+      levelY: (0.5 - (top + 0.07 * (bot - top) + 0.93 * (level - top))) * S.size,
+      width: 2 * rs[idx[li]] * 0.86 * S.size,
+      depth: lBody.depth,
+      height: (bot - top) * 0.93 * S.size,
+    };
+  }
+  return { block, front: latheHalf(cap, false), back: latheHalf(cap, true), liquid };
 }
 
 function partGeometry(S) {
@@ -588,7 +617,24 @@ export function createBottleParts(f = {}) {
     // Fotoğraflı üründe yalnızca etiket malzemesi var; sahne "metal"e dokunduğu için boş bir malzeme.
     parts.metal = new MeshStandardMaterial({ color: "#000000" });
     // Düz bloğun kenarları: ürünün kenar rengi.
-    parts.side = S.clear
+    // Telefonda gerçek kırılma (ek çizim geçişi) kapalı: yarı saydam cam.
+    parts.side = S.glass && !MOBILE_GL
+      ? // Saydam cam (glass): kalınlık yüzleri ışığı gerçekten kıran cam; arkadaki sahne kırılarak görünür,
+        // parfümün rengi camın derinliğinde koyulaşır (attenuation). Kenarlarda ortam yansıması.
+        new MeshPhysicalMaterial({
+          color: new Color(S.liquid ?? "#f2ead8").lerp(new Color(1, 1, 1), 0.55),
+          transmission: 1,
+          thickness: 0.9,
+          ior: 1.5,
+          roughness: 0.05,
+          metalness: 0,
+          clearcoat: 1,
+          clearcoatRoughness: 0.03,
+          envMapIntensity: 1.3,
+          attenuationColor: new Color(S.liquid ?? "#f2ead8"),
+          attenuationDistance: 2.2,
+        })
+      : S.clear
       ? // Şeffaf cam içinde parfüm: parlak, ışığı içinde taşıyan sıvı rengi (köşe renkleri: hava payı, sıvı yüzeyi).
         new MeshPhysicalMaterial({
           color: S.liquid ?? S.edge,
@@ -599,6 +645,8 @@ export function createBottleParts(f = {}) {
           clearcoatRoughness: 0.04,
           envMapIntensity: 1.5,
           emissive: new Color(S.liquid ?? S.edge).multiplyScalar(0.22),
+          transparent: !!S.glass,
+          opacity: S.glass ? 0.22 : 1,
         })
       : new MeshStandardMaterial({ color: S.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
     if (!S.clear) parts.side.color.multiplyScalar(0.78); // kenar ışığı fotoğraftakinden biraz koyu dursun
@@ -606,7 +654,9 @@ export function createBottleParts(f = {}) {
       parts[`side${i}`] = new MeshStandardMaterial({ color: p.edge ?? "#8a7a60", roughness: 0.55, envMapIntensity: 0.6 });
       parts[`side${i}`].color.multiplyScalar(0.78);
     });
-    for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
+    // Saydam camlı markada (content.glass) bütün parçalar saydam çizilir: geçişte şişe bütünüyle çözülür.
+    if (content.glass) for (const m of Object.values(parts)) m.transparent = true;
+    for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity, opacity: m.opacity };
     return parts;
   }
   if (S.kind === "tube") {
@@ -655,14 +705,15 @@ export function createBottleParts(f = {}) {
     // Şeffaf şişede içeriğin rengi (ör. altın sarısı sıvı sabun): `liquid`.
     parts.liquid = glassMaterial(S.tint ? 0 : (S.liquidOpacity ?? 0.06), S.liquid ?? "#f6f1e4");
   }
-  for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity };
+  for (const m of Object.values(parts)) m.userData.base = { color: m.color.clone(), env: m.envMapIntensity, opacity: m.opacity };
   return parts;
 }
 
-export function dimBottleParts(parts, dim) {
+export function dimBottleParts(parts, dim, alpha = 1) {
   for (const m of Object.values(parts)) {
     m.color.copy(m.userData.base.color).multiplyScalar(dim);
     m.envMapIntensity = m.userData.base.env * dim;
+    if (m.transparent) m.opacity = m.userData.base.opacity * alpha;
   }
 }
 
@@ -801,20 +852,262 @@ function Tool({ body, parts, S }) {
   );
 }
 
-function Photo({ body, parts, S }) {
+function Photo({ body, parts, S, flavor }) {
   const g = photoGeometry(S);
+  const cap = useRef();
+  // Parfüm sıkma (content.spray): yassı şişede kapak (boynun üstündeki torna) ayrı bir grupta kalkar.
+  const spray = content.spray && S.profile === "flask" && S.neck;
+  const pivot = useMemo(() => (spray ? capPivot(S) : null), [spray, S]);
   return (
     <group rotation={[0, 0, S.tilt]} scale={S.scale}>
       {g.parts.map((p, i) => (
         <group key={i}>
           {p.block && <mesh geometry={p.block} material={[body, parts[`side${i}`] ?? parts.side]} />}
-          {p.front && <mesh geometry={p.front} material={body} />}
-          {p.back && <mesh geometry={p.back} material={body} />}
+          {pivot && i === 0 ? (
+            <group ref={cap} position={[pivot.x, pivot.y, 0]}>
+              <group position={[-pivot.x, -pivot.y, 0]}>
+                {p.front && <mesh geometry={p.front} material={body} />}
+                {p.back && <mesh geometry={p.back} material={body} />}
+              </group>
+            </group>
+          ) : (
+            <>
+              {p.front && <mesh geometry={p.front} material={body} />}
+              {p.back && <mesh geometry={p.back} material={body} />}
+            </>
+          )}
         </group>
       ))}
-      {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. */}
-      <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} userData={{ noFit: true }} />
-      <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} userData={{ noFit: true }} />
+      {pivot && <Sprayer S={S} pivot={pivot} cap={cap} flavor={flavor} />}
+      {g.parts[0]?.liquid && <Liquid L={g.parts[0].liquid} S={S} body={body} />}
+      {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. Saydam camda kart camın
+          içinden görünürdü (ikinci bir etiket gibi); orada çizilmez. */}
+      {/* Parfüm sıkmada (pivot) kart çizilmez: kapağın fotoğrafı kartta kalır ve kapak kalkınca yerinde
+          ikinci bir kapak gibi görünürdü; sprey başlığını Sprayer çizer. */}
+      {!S.glass && !pivot && (
+        <>
+          <mesh geometry={g.finF} material={body} position={[0, 0, 0.002]} userData={{ noFit: true }} />
+          <mesh geometry={g.finB} material={body} position={[0, 0, -0.002]} rotation={[0, Math.PI, 0]} userData={{ noFit: true }} />
+        </>
+      )}
+    </group>
+  );
+}
+
+// Şişedeki parfüm: gövdenin içinde yarı saydam, ürünün renginde sıvı ve yüzeyi. Şişe hareket ettikçe
+// (kaydırma, dönme, detayda sürükleme) yüzey eylemsizlikle ters yöne yatar, yay-sönüm ile sağa sola çalkalanıp
+// durulur. Sıvının üstü, eğik yüzey düzlemiyle kırpılır (sıvının shader'ında, dünya uzayındaki düzlemle).
+const _p = new Vector3();
+const _v = new Vector3();
+const _a = new Vector3();
+const _qi = new Quaternion();
+const _n = new Vector3();
+const _up = new Vector3(0, 1, 0);
+const _qx = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI / 2);
+function liquidTint(hex) {
+  // Fotoğraftaki sıvı rengi çok açık (neredeyse beyaz): sahnede seçilsin diye doygunlaşır ve koyulaşır.
+  // Rengi belirgin olanın tonu korunur (Hicaz sarı, Babel pembe); neredeyse renksiz olan altın-amber olur.
+  const c = new Color(hex ?? "#e9dcb0");
+  const hsl = {};
+  c.getHSL(hsl);
+  const colored = hsl.s > 0.25 && hsl.l < 0.97;
+  return c.setHSL(colored ? hsl.h : 0.1, colored ? Math.min(0.9, hsl.s * 1.6 + 0.2) : 0.75, 0.42);
+}
+function Liquid({ L, S, body }) {
+  const vol = useRef();
+  const surf = useRef();
+  const st = useRef({ init: false, prev: new Vector3(), vel: new Vector3(), yaw: 0, tx: 0, vx: 0, tz: 0, vz: 0 });
+  const plane = useMemo(() => new Plane(), []);
+  const mats = useMemo(() => {
+    const tint = liquidTint(S.liquid);
+    // Sıvı ışıksız (MeshBasic): her sahnede kendi amber tonunda; güçlü sergi ışığında krem blok olmaz.
+    const volume = new MeshBasicMaterial({
+      color: tint.clone().multiplyScalar(0.75),
+      transparent: true,
+      opacity: 0.42,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
+    });
+    // Yüzeyin üstü kendi shader'ımızda atılır (dünya uzayında düzlem: u_liq.xyz normal, u_liq.w sabit).
+    volume.userData.plane = { value: new Vector4(0, -1, 0, 0) };
+    volume.onBeforeCompile = (sh) => {
+      sh.uniforms.u_liq = volume.userData.plane;
+      sh.vertexShader = sh.vertexShader
+        .replace("#include <common>", "#include <common>\nvarying vec3 vLiqW;")
+        .replace("#include <worldpos_vertex>", "#include <worldpos_vertex>\nvLiqW = (modelMatrix * vec4(transformed, 1.0)).xyz;");
+      sh.fragmentShader = sh.fragmentShader
+        .replace("#include <common>", "#include <common>\nuniform vec4 u_liq;\nvarying vec3 vLiqW;")
+        .replace("void main() {", "void main() {\n  if (dot(u_liq.xyz, vLiqW) + u_liq.w < 0.0) discard;");
+
+    };
+    volume.customProgramCacheKey = () => "mardini-liquid";
+    const top = new MeshBasicMaterial({
+      color: tint.clone().lerp(new Color(1, 0.95, 0.85), 0.45),
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+      side: DoubleSide,
+      toneMapped: false,
+    });
+    return { volume, top };
+  }, [S.liquid, plane]);
+  useFrame(({ clock }, delta) => {
+    const m = vol.current;
+    if (!m) return;
+    const dt = Math.min(Math.max(delta, 1 / 240), 1 / 20);
+    const s = st.current;
+    m.updateWorldMatrix(true, false);
+    m.getWorldPosition(_p);
+    m.getWorldQuaternion(_qi);
+    // Yerel eksen etrafındaki dönüş (yaw) de sıvıyı sallar.
+    _n.set(0, 0, 1).applyQuaternion(_qi);
+    const yaw = Math.atan2(_n.x, _n.z);
+    if (!s.init) {
+      s.prev.copy(_p);
+      s.yaw = yaw;
+      s.init = true;
+    }
+    _v.copy(_p).sub(s.prev).divideScalar(dt);
+    _a.copy(_v).sub(s.vel).divideScalar(dt);
+    s.prev.copy(_p);
+    s.vel.copy(_v);
+    let dyaw = yaw - s.yaw;
+    if (dyaw > Math.PI) dyaw -= 2 * Math.PI;
+    if (dyaw < -Math.PI) dyaw += 2 * Math.PI;
+    s.yaw = yaw;
+    // İvme yerel eksenlere çevrilir (dünya ölçeğine göre normalize).
+    _a.applyQuaternion(_qi.invert());
+    const scale = m.matrixWorld.getMaxScaleOnAxis() || 1;
+    const ax = MathUtils.clamp(_a.x / scale, -60, 60);
+    const az = MathUtils.clamp(_a.z / scale, -60, 60);
+    // Yay-sönüm: yüzey ivmenin tersine yatar, sonra salınarak durulur.
+    const k = 55;
+    const c = 3.2;
+    s.vx += (-k * s.tx - c * s.vx - ax * 0.9 - (dyaw / dt) * 0.35) * dt;
+    s.vz += (-k * s.tz - c * s.vz + az * 0.9) * dt;
+    s.tx = MathUtils.clamp(s.tx + s.vx * dt, -0.45, 0.45);
+    s.tz = MathUtils.clamp(s.tz + s.vz * dt, -0.35, 0.35);
+    // Çok hafif, sürekli canlılık (durgun sıvıda da ışık oynar).
+    const t = clock.getElapsedTime();
+    const wob = 0.012 * Math.sin(t * 1.7);
+    const sx = Math.tan(s.tx + wob);
+    const sz = Math.tan(s.tz);
+    // Yerel yüzey: y = level - sx·(x - axis) - sz·z; normal (sx, 1, sz).
+    _n.set(sx, 1, sz).normalize();
+    const p0 = _v.set(L.axisX, L.levelY, 0);
+    plane.setFromNormalAndCoplanarPoint(_n.clone().negate(), p0);
+    plane.applyMatrix4(m.matrixWorld);
+    mats.volume.userData.plane.value.set(plane.normal.x, plane.normal.y, plane.normal.z, plane.constant);
+    const q = surf.current.quaternion.setFromUnitVectors(_up, _n);
+    q.multiply(_qx);
+    surf.current.position.copy(p0);
+    // Geçişte şişeyle birlikte soluklaşır.
+    const o = body.transparent ? body.opacity : 1;
+    mats.volume.opacity = 0.42 * o;
+    mats.top.opacity = 0.55 * o;
+  });
+  return (
+    <>
+      {/* Sıvı camdan önce çizilir (cam derinliğe yazar; sonra çizilirse camın arkasında kalırdı). */}
+      <mesh ref={vol} geometry={L.geo} material={mats.volume} renderOrder={-2} userData={{ noMeasure: true, noFit: true }} />
+      <mesh ref={surf} material={mats.top} renderOrder={-1} userData={{ noMeasure: true, noFit: true }}>
+        <planeGeometry args={[L.width, L.depth]} />
+      </mesh>
+    </>
+  );
+}
+
+// Kapağın ölçüleri (yerel birim): tepesi, boyu, ortası ve boyundaki halkanın yarıçapı.
+function capPivot(S) {
+  const L = S.size;
+  const N = S.rows.length;
+  const cut = Math.round(S.neck * N);
+  let top0 = S.rows.findIndex((r) => r > 0);
+  if (top0 < 0 || top0 >= cut) top0 = Math.max(0, cut - Math.round(0.15 * N));
+  const neckR = Math.max(...S.rows.slice(Math.max(top0, cut - 4), cut)) * L;
+  const capR = Math.max(...S.rows.slice(top0, cut)) * L;
+  return {
+    x: (S.axis - 0.5) * L,
+    y: (0.5 - (top0 + cut) / 2 / N) * L,
+    h: ((cut - top0) / N) * L,
+    r: capR,
+    neckTop: (0.5 - S.neck) * L,
+    collar: MathUtils.clamp(neckR * 0.9, 0.035 * L, 0.09 * L),
+    L,
+  };
+}
+
+const easeOutC = (t) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
+const easeIO = (t) => {
+  const x = Math.min(1, Math.max(0, t));
+  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+};
+const GOLD_M = new MeshStandardMaterial({ color: "#d9b66c", metalness: 1, roughness: 0.2, envMapIntensity: 1.7 });
+const STEEL_M = new MeshStandardMaterial({ color: "#c9c9c9", metalness: 1, roughness: 0.25, envMapIntensity: 1.4 });
+const HOLE_M = new MeshStandardMaterial({ color: "#050505", roughness: 0.6 });
+const _q = new Quaternion();
+const _d = new Vector3();
+const shownInScene = (o) => {
+  for (let x = o; x; x = x.parent) if (!x.visible) return false;
+  return true;
+};
+
+// Sprey başlığı: kapak kalkınca görünen altın boyun halkası, ince sap ve basmalı başlık (önünde püskürtme
+// deliği). Sıkma zaman çizelgesi (SPRAY): kapak kalkıp yana döner, başlığa basılır, buğu çıkar, kapak kapanır.
+function Sprayer({ S, pivot, cap, flavor }) {
+  const group = useRef();
+  const act = useRef();
+  const nozzle = useRef();
+  const P = pivot;
+  const L = P.L;
+  const actR = P.collar * 0.62;
+  const actY = P.neckTop + 0.095 * L;
+  // Püskürtme yönü (yerel): buğu ekrana doğru, ortaya (izleyicinin yüzüne) üflenir; hafifçe yukarı.
+  const dir = useMemo(() => new Vector3(0, 0.14, 1).normalize(), []);
+  const hole = Math.atan2(dir.x, dir.z);
+  useFrame(({ clock }) => {
+    const sp = sceneState.spray;
+    const now = clock.getElapsedTime() / SPRAY_SLOW;
+    const t = sp.flavor === flavor ? now - sp.t0 : 99;
+    const lift = t < SPRAY.lift ? easeOutC(t / SPRAY.lift) : t < SPRAY.back ? 1 : t < SPRAY.end ? 1 - easeIO((t - SPRAY.back) / (SPRAY.end - SPRAY.back)) : 0;
+    const c = cap.current;
+    if (c) {
+      const bob = lift > 0.99 ? Math.sin(t * 2.2) * 0.012 * L : 0;
+      // Kapak görünmez bir elle kaldırılmış gibi: biraz yukarı ve yana, hafifçe eğik havada asılı kalır.
+      c.position.set(P.x + lift * P.r * 0.75, P.y + lift * P.h * 0.75 + bob, lift * 0.06 * L);
+      c.rotation.set(0, -0.35 * lift, -0.3 * lift);
+    }
+    group.current.visible = lift > 0.02;
+    // Basma: başlık kısa bir an aşağı iner, buğu bitince kalkar.
+    const down = t > SPRAY.press && t < SPRAY.emit + SPRAY.emitDur ? Math.min(1, (t - SPRAY.press) / 0.08) : 0;
+    act.current.position.y = actY - down * 0.014 * L;
+    if (t < SPRAY.end && group.current.visible && shownInScene(group.current)) {
+      nozzle.current.getWorldPosition(sceneState.nozzle);
+      nozzle.current.getWorldQuaternion(_q);
+      sceneState.nozzleDir.copy(_d.copy(dir).applyQuaternion(_q).normalize());
+      sceneState.nozzleAt = now;
+    }
+  });
+  return (
+    <group ref={group} visible={false}>
+      <mesh material={GOLD_M} position={[P.x, P.neckTop + 0.024 * L, 0]}>
+        <cylinderGeometry args={[P.collar, P.collar * 1.04, 0.048 * L, 48]} />
+      </mesh>
+      <mesh material={STEEL_M} position={[P.x, P.neckTop + 0.058 * L, 0]}>
+        <cylinderGeometry args={[P.collar * 0.16, P.collar * 0.16, 0.022 * L, 16]} />
+      </mesh>
+      <group ref={act} position={[P.x, actY, 0]}>
+        <mesh material={GOLD_M}>
+          <cylinderGeometry args={[actR, actR, 0.055 * L, 40]} />
+        </mesh>
+        <group rotation={[0, hole, 0]}>
+          <mesh material={HOLE_M} position={[0, 0.006 * L, actR * 0.99]} rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[actR * 0.16, actR * 0.16, 0.004 * L, 16]} />
+          </mesh>
+          <object3D ref={nozzle} position={[0, 0.006 * L, actR * 1.05]} />
+        </group>
+      </group>
     </group>
   );
 }
@@ -862,16 +1155,45 @@ export const viewUrl = (file) => FILES[`./assets/labels/${file}`];
 
 export default function CanMesh({ body, parts, flavor = 0, view = null }) {
   const f = viewOf(flavor, view);
-  return (
+  const own = (
     <Fit k={`${flavor}:${view}`} wide={f.photo3d?.profile === "group"}>
-      <ProductShape body={body} parts={parts} f={f} />
+      <ProductShape body={body} parts={parts} f={f} flavor={flavor} />
     </Fit>
+  );
+  // Mağazanın yüklediği 3B model (Shopify ürün medyası, GLB: shopifyLive.js → products[].glb): yüklenene kadar ve
+  // yüklenemezse vitrinin kendi şişesi görünür.
+  if (!f.glb || view != null) return own;
+  return (
+    <Fallback key={f.glb} fallback={own}>
+      <Suspense fallback={own}>
+        <Fit k={`${flavor}:glb`}>
+          <Glb url={f.glb} />
+        </Fit>
+      </Suspense>
+    </Fallback>
   );
 }
 
-function ProductShape({ body, parts, f }) {
+class Fallback extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
+}
+
+function Glb({ url }) {
+  const { scene } = useGLTF(url);
+  // Aynı model birden çok yerde (akış, detay) kullanılır: her biri kendi kopyası.
+  const obj = useMemo(() => scene.clone(true), [scene]);
+  return <primitive object={obj} />;
+}
+
+function ProductShape({ body, parts, f, flavor }) {
   const S = shapeOf(f);
-  if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} />;
+  if (S.kind === "photo") return <Photo body={body} parts={parts} S={S} flavor={flavor} />;
   if (S.kind === "tube") return <Tube body={body} parts={parts} S={S} />;
   if (S.kind === "tool") return <Tool body={body} parts={parts} S={S} />;
   return <Bottle body={body} parts={parts} S={S} />;

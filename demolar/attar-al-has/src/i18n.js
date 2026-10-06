@@ -35,7 +35,7 @@ const UI = {
   tr: {
     backToTop: "başa dön",
     sections: "Bölümler",
-    nav: { flavors: "Kokular", ritual: "Ritüel", shop: "Mağaza", story: "Hikâye", stockists: "Nerede", faq: "SSS", contact: "İletişim", catalog: "Tüm ürünler", categories: "Kategoriler", products: "Ürünler", sets: "Setler", about: "Hakkımızda" },
+    nav: { flavors: "Kokular", ritual: "Ritüel", shop: "Mağaza", story: "Hikâye", stockists: "Nerede", faq: "SSS", contact: "İletişim", catalog: "Tüm ürünler", categories: "Kategoriler", products: "Ürünler", sets: "Setler", about: "Hakkımızda", finder: "Koku bulucu" },
     openCart: (n) => `Sepeti aç, ${n} ürün`,
     menu: "Menü",
     close: "Kapat",
@@ -43,6 +43,7 @@ const UI = {
     madeFor: "Hope Istanbul için hazırlanmış konsept",
     discover: (name) => `${name} kokusunu keşfet`,
     discoverCan: "Şişeyi keşfet",
+    spray: "Parfümü sık",
     notes: "Notalar",
     flavors: "Kokular",
     scroll: "Keşfetmek için kaydır",
@@ -178,7 +179,7 @@ const UI = {
   en: {
     backToTop: "back to top",
     sections: "Sections",
-    nav: { flavors: "Scents", ritual: "Ritual", shop: "Shop", story: "Story", stockists: "Where", faq: "FAQ", contact: "Contact", catalog: "All products", categories: "Categories", products: "Products", sets: "Sets", about: "About us" },
+    nav: { flavors: "Scents", ritual: "Ritual", shop: "Shop", story: "Story", stockists: "Where", faq: "FAQ", contact: "Contact", catalog: "All products", categories: "Categories", products: "Products", sets: "Sets", about: "About us", finder: "Scent finder" },
     openCart: (n) => `Open cart, ${n} items`,
     menu: "Menu",
     close: "Close",
@@ -186,6 +187,7 @@ const UI = {
     madeFor: "A concept made for Hope Istanbul",
     discover: (name) => `Discover ${name}`,
     discoverCan: "Discover the bottle",
+    spray: "Spray it",
     notes: "Notes",
     flavors: "Scents",
     scroll: "Scroll to discover",
@@ -335,8 +337,10 @@ function mergeUi(base, over = {}) {
   return out;
 }
 
-export function getT(lang) {
-  if (cache[lang]) return cache[lang];
+// rev: Shopify'dan geç gelen fiyatlar uygulanınca artar (shopifyLive.js → refreshShop); çeviri yeniden kurulur.
+export function getT(lang, rev = 0) {
+  const key = `${lang}:${rev}`;
+  if (cache[key]) return cache[key];
   const en = lang === "en";
   const P = PRICES[lang];
   // Tam sayılarda kuruş gösterilmez (₺890, $25); kuruşlu fiyatlarda iki hane (₺1.333,90).
@@ -364,8 +368,11 @@ export function getT(lang) {
     lang,
     contactInfo: C.contactInfo?.[lang] ?? null,
     ui: mergeUi(UI[lang], C.ui?.[lang]),
-    money,
+    money: C.commerce?.showcase ? () => "" : money,
     price,
+    // "50 ml · ₺1.350"; vitrin modunda yalnızca hacim.
+    tagPrice: (size, id) => [size, C.commerce?.showcase ? null : money(price(1, "once", id))].filter(Boolean).join(" · "),
+    showcase: !!C.commerce?.showcase,
     packLabel,
     flavor: (i) => flavorText[i],
     flavorName: (id) => (id === D.VARIETY ? t.ui.mix : catalog[id] ? catalog[id].name[lang] ?? catalog[id].name.tr : flavorText[id].name),
@@ -388,11 +395,12 @@ export function getT(lang) {
     shipping: P.shipping,
     subPct: Math.round(D.SUB_DISCOUNT * 100),
   };
-  cache[lang] = t;
+  cache[key] = t;
   return t;
 }
 
 export function useT() {
   const lang = useStore((s) => s.lang);
-  return getT(lang);
+  const rev = useStore((s) => s.shopRev ?? 0);
+  return getT(lang, rev);
 }

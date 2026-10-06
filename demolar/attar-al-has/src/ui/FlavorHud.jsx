@@ -1,10 +1,27 @@
-import { flavors } from "../data";
+import { content, flavors } from "../data";
+import { sceneState } from "../shared";
 import { useT, termLang } from "../i18n";
 import { scrollToFlavorOf } from "../scroll";
 import { useStore } from "../store";
 import { SplitChars } from "./Split";
 
 const N = flavors.length;
+
+// Sprey buğusu simgesi: başlık ve önünde yayılan noktalar.
+export function SprayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+      <rect x="3.5" y="9" width="7" height="11" rx="1.5" />
+      <rect x="5" y="5.5" width="4" height="3.5" rx="0.8" />
+      <circle cx="14.5" cy="7" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="17.5" cy="5" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="17.5" cy="9" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="20.5" cy="3.5" r="0.8" fill="currentColor" stroke="none" />
+      <circle cx="20.5" cy="7" r="0.8" fill="currentColor" stroke="none" />
+      <circle cx="20.5" cy="10.5" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 const pad = (n) => String(n).padStart(2, "0");
 
 export default function FlavorHud() {
@@ -38,13 +55,22 @@ export default function FlavorHud() {
             </>
           )}
         </p>
-        <button className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={termLang(f.name) ?? f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
+        <button style={{ "--lw": Math.max(4, ...f.name.split(/\s+/).map((w) => w.length)) }} className={`hud__name${f.name.length > 30 ? " is-longer" : f.name.length > 18 ? " is-long" : ""}`} lang={termLang(f.name) ?? f.nameLang ?? t.nameLang} onClick={openDetail} aria-label={ui.discover(f.name)}>
           <SplitChars text={f.name.replace(/\s*\/\s*/, "\u2009/\u2009")} key={f.name} step={40} />
         </button>
         <p className="tagline hud__tagline" key={f.tagline + t.lang}>{f.tagline}</p>
-        <button className="hud__cta mono" onClick={openDetail}>
-          {ui.discoverCan}
-        </button>
+        <div className="hud__actions">
+          <button className="hud__cta mono" onClick={openDetail}>
+            {ui.discoverCan}
+          </button>
+          {/* Parfümü sık (content.spray): kapak kalkar, başlıktan buğu çıkar. Yalnızca şişelerde. */}
+          {content.spray && flavors[active]?.photo3d?.profile === "flask" && (
+            <button className="hud__spray mono" onClick={() => (sceneState.sprayReq = active)} aria-label={ui.spray} disabled={moving}>
+              <SprayIcon />
+              <span>{ui.spray}</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="hud__count">

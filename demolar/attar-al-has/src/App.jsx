@@ -2,22 +2,69 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 
 import Scene from "./Scene";
-import { HIDDEN, PAGE, SET_KEY, content, features, flavors, setKey } from "./data";
+import { HIDDEN, PAGE, SET_KEY, SHOWCASE, content, features, flavors, setKey } from "./data";
 import { measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
+import { startSound } from "./sound";
 import { useStore } from "./store";
+import { THEME } from "./theme";
 
 import CartDrawer from "./ui/CartDrawer";
 import DetailPanel, { stepFeature, stepFlavor } from "./ui/DetailPanel";
 import FlavorHud from "./ui/FlavorHud";
+import SprayNote from "./ui/SprayNote";
 import Header from "./ui/Header";
 import Menu from "./ui/Menu";
 import Preloader from "./ui/Preloader";
 import Ritual from "./ui/Ritual";
 import { Faq, Footer, Marquee, Stockists, Story } from "./ui/Sections";
 import Shop from "./ui/Shop";
+import { EPILOGUE, EpilogueStage } from "./ui/Epilogue";
+import Finder, { FINDER } from "./ui/Finder";
+import Discovery, { DISCOVERY } from "./ui/Discovery";
 import { CatalogPage, CategoryBar, CategoryGrid, CollectionGrid } from "./ui/Catalog";
 
 const N = flavors.length;
+
+// Masaüstünde fare tekerleği / dokunmatik yüzeyle ürün ürün geçiş (theme.paging; "dolly" butikte açık):
+// tek kaydırma hareketi sıradaki ürünü doğrudan ortaya getirir, iki ürün arasında kalınmaz. Bir hareketin
+// ardından gelen atalet olayları yutulur; son üründen sonra (ilkinden önce) sayfa doğal akar.
+const PAGING = THEME.paging ?? THEME.carousel === "dolly";
+const wheel = { at: 0, acc: 0, stepped: false, lockUntil: 0, target: -1 };
+function pagingWheel(e) {
+  if (!PAGING || N < 2 || e.ctrlKey) return false;
+  const s = useStore.getState();
+  if (s.detail || s.menu || s.cartOpen || !s.loaded || s.swapping) return false;
+  if (e.target?.closest?.("[data-lenis-prevent]")) return false;
+  const el = document.getElementById("flavors");
+  const range = el ? el.offsetHeight - window.innerHeight : 0;
+  if (range <= 0) return false;
+  const now = performance.now();
+  const busy = now < wheel.lockUntil;
+  const raw = ((window.scrollY - el.offsetTop) / range) * (N - 1);
+  if (!busy && (raw < -0.02 || raw > N - 1 + 0.02)) return false;
+  const dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
+  const dir = Math.sign(dy);
+  if (!dir) return false;
+  // Yeni hareket: önceki olaydan beri kısa bir sessizlik var ya da yön değişti.
+  const fresh = now - wheel.at > 140 || Math.sign(wheel.acc) !== dir;
+  wheel.at = now;
+  if (fresh) {
+    wheel.acc = 0;
+    wheel.stepped = false;
+  }
+  wheel.acc += dy;
+  const cur = busy ? wheel.target : Math.round(raw);
+  // Uçlarda (yeni bir hareketle) doğal kaydırma: alt bölümlere iner ya da sayfa başına çıkar.
+  if (!busy && !wheel.stepped && ((dir > 0 && cur >= N - 1) || (dir < 0 && cur <= 0))) return false;
+  e.preventDefault();
+  if (busy || wheel.stepped || Math.abs(wheel.acc) < 24) return true;
+  const next = Math.max(0, Math.min(N - 1, cur + dir));
+  wheel.stepped = true;
+  wheel.target = next;
+  wheel.lockUntil = now + 1150;
+  scrollToFlavor(next);
+  return true;
+}
 
 function useSmoothScroll() {
   const handleScroll = useCallback(() => {
@@ -61,7 +108,13 @@ function useSmoothScroll() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Düşük lerp = daha ağır, film gibi süzülen kaydırma.
-    smooth.lenis = reduce ? null : new Lenis({ autoRaf: true, lerp: 0.07, wheelMultiplier: 0.9 });
+    smooth.lenis = reduce ? null : new Lenis({
+          autoRaf: true,
+          lerp: 0.07,
+          wheelMultiplier: 0.9,
+          // Ürün akışında tekerlek ürün ürün ilerletir (pagingWheel); Lenis o olayı kaydırmaz.
+          virtualScroll: (d) => !(d.event.type === "wheel" && pagingWheel(d.event)),
+        });
     smooth.lenis?.on("scroll", handleScroll);
     smooth.lenis?.on("scroll", queueSnap);
 
@@ -291,7 +344,8 @@ function useMagnetic() {
 function useDocLang() {
   const lang = useStore((s) => s.lang);
   useEffect(() => {
-    document.documentElement.lang = lang;
+    // content.htmlLang: arayüz başka bir dile çevrildiyse (ör. Macarca metinler "en" yuvasında) sayfanın dili.
+    document.documentElement.lang = content.htmlLang ?? lang;
   }, [lang]);
 }
 
@@ -370,6 +424,7 @@ export default function App() {
   useMagnetic();
   useDocLang();
   useOpenProduct();
+  useEffect(() => startSound(), []);
   const route = useRoute();
   useReveal(route);
   useLanding();
@@ -391,6 +446,7 @@ export default function App() {
         {isCategory && <CategoryBar id={PAGE.id} />}
         <FlavorHud />
         <DetailPanel />
+        {content.spray && <SprayNote />}
       </div>
     </section>
   );
@@ -414,13 +470,18 @@ export default function App() {
         <main>
           {stage}
           <Ritual />
+          {FINDER && <Finder />}
           {content.catalog && <CollectionGrid />}
-          <Shop />
-          <Marquee />
-          {!HIDDEN.has("story") && <Story />}
-          {!HIDDEN.has("stockists") && <Stockists />}
-          <Faq />
-          <Footer />
+          {DISCOVERY && <Discovery />}
+          {!SHOWCASE && <Shop />}
+          <div className={`epilogue${EPILOGUE ? " epilogue--stage" : ""}`}>
+            {EPILOGUE && <EpilogueStage />}
+            <Marquee />
+            {!HIDDEN.has("story") && <Story />}
+            {!HIDDEN.has("stockists") && <Stockists />}
+            <Faq />
+            <Footer />
+          </div>
         </main>
       )}
     </>

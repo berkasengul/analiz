@@ -154,6 +154,8 @@ export async function loadShopify() {
   delete C.commerce.ikas;
   delete C.commerce.woo;
   const items = C.catalog?.items ?? [];
+  // Katalog kaydının Shopify adı: handle; yoksa kimliği (demo fabrikası kimliği çoğunlukla Shopify adıdır).
+  for (const it of items) if (!it.handle && it.variants?.length) it.handle = it.id;
   const get = (url) => fetch(url, { credentials: "same-origin", cache: "no-store" }).then((r) => (r.ok ? r.json() : null));
   // Tek istekte bütün ürünler: fiyat, varyant, stok, görseller.
   const list = (await get(`${SHOP}/products.json?limit=250`).catch(() => null))?.products ?? [];
@@ -171,7 +173,9 @@ export async function loadShopify() {
         .catch(() => {})
     );
   if (C.catalog?.categories?.length) {
-    const known = new Set(items.map((i) => i.handle));
+    // Yeni ürün: vitrinde de, tema kurulurken mağazada da (SNAP) olmayan; kurulumda vitrine bilerek alınmayan
+    // ürünler (numune, set) eklenmez.
+    const known = new Set([...items.map((i) => i.handle), ...Object.keys(SNAP)]);
     for (const p of list) if (!known.has(p.handle)) jobs.push(addNew(p, C.catalog.categories).catch(() => {}));
   }
   await Promise.all(jobs);

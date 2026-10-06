@@ -6,14 +6,23 @@ import { Color, MathUtils, SRGBColorSpace, TextureLoader, Vector2, Vector3, Vect
 
 import { content, flavors } from "./data";
 import { scrollState } from "./scroll";
-import { sceneState } from "./shared";
+import { SPRAY, SPRAY_SLOW, sceneState } from "./shared";
 import { useStore } from "./store";
 import { THEME } from "./theme";
 
-const SOLO = ["solo", "orbit", "rise", "glide"].includes(THEME.carousel);
-// Parlak zemin: "rise" ve "glide"; altın kemer yalnızca "glide".
-const FLOOR = ["rise", "glide"].includes(THEME.carousel);
-const ARCH = THEME.carousel === "glide";
+const SOLO = ["solo", "orbit", "rise", "glide", "dolly"].includes(THEME.carousel);
+// Parlak zemin: "rise", "glide" ve "dolly"; altın kemer yalnızca "glide", "dolly"de karanlık sinematik stüdyo.
+const FLOOR = ["rise", "glide", "dolly"].includes(THEME.carousel);
+const TUNNEL = THEME.carousel === "dolly";
+// Butik fotoğrafı (theme.plate = { src, aspect, x, floor }): arka planı kaplar; odak noktası (x) öndeki ürüne,
+// duvar dibi (floor, fotoğrafın üstünden oran) ürünlerin zeminine hizalanır.
+const PLATE = THEME.plate;
+const plateTex = PLATE ? new TextureLoader().load(`${import.meta.env.BASE_URL}${PLATE.src}`, (t) => (t.colorSpace = SRGBColorSpace)) : null;
+if (plateTex) plateTex.colorSpace = SRGBColorSpace;
+// Ferah sahne (theme.fresh: true): fotoğraf yerine her kokunun kendi renginde aydınlık fon ve parlak zemin.
+const FRESH = !!THEME.fresh && !PLATE;
+// Ürünün arkasındaki süslü kemer ("glide" düzeninde); theme.arch: false ile kapanır (ör. sade, endüstriyel sahne).
+const ARCH = THEME.carousel === "glide" && THEME.arch !== false;
 const P = new Vector3();
 const Q = new Vector3();
 // Ürünlerin sahne fotoğrafları (products[].stage): bir kez yüklenir, ürünler arasında paylaşılır.
@@ -30,6 +39,7 @@ function sceneTex(src) {
 const spOf = (st, v) => v.set(st.aspect, st.base, st.cx, st.h);
 
 import "./BackgroundMaterial";
+import { PLINTH_H } from "./Pedestal";
 
 // Carousel yeni bir kutuya oturduğunda (ya da fare öndeki kutuya
 // geldiğinde) kutunun etrafından o tatın renginde gürültülü bir halka
@@ -80,7 +90,9 @@ export default function Background() {
     // Arayüzün vurgu rengi ekrandaki kutunun tadını takip eder.
     if (l.accent !== sceneState.heroFlavor) {
       l.accent = sceneState.heroFlavor;
-      document.documentElement.style.setProperty("--accent", flavors[l.accent].color);
+      // Ferah sahnede duvar ürünün renginde: vurgu yazıları okunur kalsın diye ürün renginin açık tonu.
+      const f = flavors[l.accent];
+      document.documentElement.style.setProperty("--accent", FRESH ? f.theme.drop ?? f.color : f.color);
     }
 
     // Arkadaki şehir resmi tat değişince yumuşakça diğerine geçer.
@@ -150,7 +162,8 @@ export default function Background() {
       l.sizeKey = sizeKey;
       const sc = f.scale || 1;
       const r = f.rest;
-      const yb = (P.set(r.x, r.y + f.bottom * sc, r.z).project(camera).y + 1) / 2;
+      // "dolly": ürün kaidenin üstünde; zemin kaidenin altında.
+      const yb = (P.set(r.x, r.y + (f.bottom - PLINTH_H) * sc, r.z).project(camera).y + 1) / 2;
       const yt = (Q.set(r.x, r.y + f.top * sc, r.z).project(camera).y + 1) / 2;
       const sx = MathUtils.clamp((P.set(r.x, r.y, r.z).project(camera).x + 1) / 2, 0.2, 0.8);
       l.baseY = yb;
@@ -173,11 +186,78 @@ export default function Background() {
     // Canlı sahne (stage.vivid): fotoğraf olduğu gibi net ve parlak; karartma ve bulanıklık kalkar.
     l.vivid = MathUtils.damp(l.vivid ?? 0, stageOf?.vivid ? 1 : 0, 2.5, dt);
     m.u_vivid = l.vivid;
+    m.u_cine = THEME.cinema ? 1 : 0;
+    // Koku bulucu ekrandayken fon bölümün üst kenarında biter (altında oda görünür, şişe odanın önünde).
+    m.u_clip = scrollState.finderOn ? 1 - scrollState.finderTop : -1;
+    // Süzülen yapraklar (theme.petals: false ile kapanır; ör. içecek markası).
+    m.u_petals = THEME.petals === false ? 0 : 1;
     // Parlak zemin (rise): vitrinde tam; detayda (ürün başka yere geçer), Ritüel ve mağazada söner.
     const floorT = FLOOR && l.baseY != null ? (st.detail ? 0 : 1) * (1 - scrollState.ritualIn) * (1 - scrollState.shopIn) : 0;
     l.floor = MathUtils.damp(l.floor ?? 0, floorT, 3, dt);
     m.u_floor = l.floor;
     m.u_arch = ARCH ? l.floor : 0;
+    // Koridor kemerleri kaydırmayla birlikte yaklaşır (scrollState.p: kesirli ürün sırası).
+    // "dolly": arka plan gerçek 3B butik sahnesi (Boutique); shader yalnızca karanlık zemin rengini verir.
+    m.u_tunnel = 0;
+    m.u_noir = TUNNEL ? 1 : 0;
+    if (PLATE || FRESH) {
+      if (PLATE) m.u_plate = plateTex;
+      const asp = size.width / size.height;
+      // Duvar dibi: kaidelerin zemini, komşuların biraz arkasında.
+      const fy = sceneState.floorY ?? -4.5;
+      // Ürünler kayarken kemer ekranın ortasında sabit kalır (sıra hep ortadan akar); yalnızca detayda
+      // ürün yana geçince fotoğraf yumuşakça onunla gider. Kameranın salınımı da fotoğrafı oynatmaz.
+      l.plateX = MathUtils.damp(l.plateX ?? 0, st.detail ? sceneState.focus.rest.x : 0, 3, dt);
+      const cxw = l.plateX;
+      const sx = 0.5 + (Q.set(cxw, fy, 0).project(camera).x - P.set(0, fy, 0).project(camera).x) / 2;
+      // Fotoğraf dikeyde ekranı tam kaplar (kaydırılmaz); yatayda odak noktası (kemerin ortası) öndeki ürüne gelir.
+      const phone = asp < 0.9;
+      // Telefonda duvar dibi kaidelerin arkasına (ekranın üstten ~%63'ü) gelir.
+      if (PLATE) m.u_plateSp.set(PLATE.aspect ?? 2.63, PLATE.x ?? 0.5, PLATE.floor ?? 0.66, phone ? 0.63 : PLATE.floor ?? 0.66);
+      m.u_plateScale = phone ? 0.62 : 0;
+      m.u_sceneX = sx;
+      // Ürünler değişirken arka plan sabit kalır.
+      m.u_plateShift = 0;
+      // Sinematik ışık: huzme kaidenin üstüne iner, havuz kaidenin dibinde. Geçişte (kesirli sıra) huzme
+      // kısılır ve arka planın odağı kayar (daha flu); yeni ürün kaideye konunca huzme kısa bir an parlar.
+      const zemin = (P.set(0, fy, 0).project(camera).y + 1) / 2;
+      const ust = (Q.set(0, sceneState.plinthTop ?? fy, 0).project(camera).y + 1) / 2;
+      const fr = scrollState.p - Math.floor(scrollState.p);
+      const trans = Math.sin(Math.PI * fr);
+      // Kaydırmayla gelen ürün oturunca ya da tıklanan ürün uçup kaideye konunca (Carousel → landAt) kısa parlama.
+      if (sceneState.settled && l.landKey !== st.active) {
+        if (l.landKey != null && !st.swapping) l.landAt = time;
+        l.landKey = st.active;
+      }
+      const landAt = Math.max(l.landAt ?? -1e9, sceneState.landAt ?? -1e9);
+      const flash = landAt > -1e8 ? Math.exp(-(time - landAt) * 2.2) : 0;
+      l.beam = MathUtils.damp(l.beam ?? 0, (1 - 0.65 * trans) * (st.detail ? 0.2 : 1) * (phone ? 0.5 : 1) * Math.min(1, sceneState.intro * 1.3), 4, dt);
+      m.u_plateFx.set(zemin, ust, l.beam, flash);
+      l.blur = MathUtils.damp(l.blur ?? 1.1, (phone ? 0.8 : 1.1) + 7 * trans, 6, dt);
+      m.u_plateBlur = l.blur;
+      l.plateOn = MathUtils.damp(l.plateOn ?? 0, (1 - scrollState.ritualIn) * (1 - scrollState.shopIn), 3, dt);
+      m.u_plateOn = PLATE ? l.plateOn : 0;
+      m.u_fresh = FRESH ? l.plateOn : 0;
+      // theme.decor: {niche: true, pattern: true} → kemerli niş ve geometrik desen (ferah sahnede).
+      if (FRESH && THEME.decor) {
+        m.u_decor.set(THEME.decor.niche === false ? 0 : 1, THEME.decor.pattern === false ? 0 : 1);
+        m.u_decorShape = THEME.decor.shape === "rect" ? 1 : 0;
+        // Niş öndeki ürünün boyunu izler (ürün değişince yumuşakça büyüyüp küçülür; sprey kapağı açılınca da sığar).
+        const fo = sceneState.focus;
+        if (fo.top != null && fo.bottom != null && fo.half && !st.detail) {
+          const sc = fo.scale || 1;
+          const r = fo.rest;
+          const lift = sceneState.spray && time / SPRAY_SLOW - sceneState.spray.t0 < SPRAY.end ? 0.12 * (fo.top - fo.bottom) : 0;
+          const yt = (P.set(r.x, r.y + (fo.top + lift) * sc, r.z).project(camera).y + 1) / 2;
+          const cx = P.set(r.x, r.y + ((fo.top + fo.bottom) / 2) * sc, r.z).project(camera).x;
+          const hx = ((Q.set(r.x + fo.half * sc, r.y + ((fo.top + fo.bottom) / 2) * sc, r.z).project(camera).x - cx) / 2) * asp;
+          l.nTop = l.nTop == null ? yt : MathUtils.damp(l.nTop, yt, 3, dt);
+          l.nHalf = l.nHalf == null ? hx : MathUtils.damp(l.nHalf, hx, 3, dt);
+          m.u_decorBox.set(l.nTop, l.nHalf);
+        }
+      }
+    }
+    m.u_tp = scrollState.p;
     material.current.u_studio = SOLO ? 1 : 0;
     material.current.u_dark = sceneState.spotlight;
 
@@ -203,7 +283,8 @@ export default function Background() {
   });
 
   return (
-    <mesh renderOrder={-1} frustumCulled={false}>
+    // Katman 1: zemin yansıması (Boutique) arka plan katmanını yansıtmaz; ana kamera 1. katmanı da görür.
+    <mesh renderOrder={-1} frustumCulled={false} layers={1}>
       <planeGeometry args={[2, 2]} />
       <backgroundMaterial
         ref={material}

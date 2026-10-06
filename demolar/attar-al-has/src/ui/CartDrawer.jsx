@@ -6,7 +6,9 @@ import { useT } from "../i18n";
 import { scrollToElement } from "../scroll";
 import { useStore } from "../store";
 import { Close, Minus, Plus } from "../Icons";
+import { SHOP } from "../shopifyLive";
 
+import { assetUrl } from "../shared";
 export default function CartDrawer() {
   const open = useStore((s) => s.cartOpen);
   const cart = useStore((s) => s.cart);
@@ -27,11 +29,46 @@ export default function CartDrawer() {
   const variantOf = (i) => i.variant ?? itemOf(i)?.variants?.[0]?.id;
   const tab = open ? 0 : -1;
 
+  // Vitrin bir mağaza sayfasına (iframe) gömülüyse ödeme sayfası çerçevenin içinde değil, tüm sayfada açılır.
+  const go = (url) => {
+    try {
+      if (window.top !== window.self) return void (window.top.location.href = url);
+    } catch {
+      return void window.open(url, "_top");
+    }
+    window.location.href = url;
+  };
+
   const checkout = () => {
+    // Vitrin mağazanın kendi sayfasındaysa ürünler mağazanın sepetine eklenir (sepetteki diğer ürünler kalır),
+    // sonra ödeme sayfası açılır.
+    if (SHOP && cart.every((i) => variantOf(i))) {
+      fetch(`${SHOP}/cart/add.js`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ items: cart.map((i) => ({ id: variantOf(i), quantity: i.qty * i.pack })) }),
+      })
+        .then((r) => go(r.ok ? `${SHOP}/checkout` : `${SHOP}/cart`))
+        .catch(() => go(`${SHOP}/cart`));
+      return;
+    }
     // Shopify mağazası: ürünler markanın kendi sepetine eklenip ödeme sayfası açılır.
     if (C.shopify && cart.every((i) => variantOf(i))) {
       const lines = cart.map((i) => `${variantOf(i)}:${i.qty * i.pack}`).join(",");
-      window.location.href = `${C.shopify.replace(/\/$/, "")}/cart/${lines}`;
+      go(`${C.shopify.replace(/\/$/, "")}/cart/${lines}`);
+      return;
+    }
+    // WooCommerce mağazası: tek ürün markanın kendi sepetine eklenip sepet sayfası açılır; birden çok ürün
+    // için ilk ürün eklenir (WooCommerce adresle tek ürün ekleyebiliyor), gerisi mağazada tamamlanır.
+    if (C.woo && cart.length && variantOf(cart[0])) {
+      const i = cart[0];
+      go(`${C.woo.replace(/\/$/, "")}/${C.wooCart ?? "cart"}/?add-to-cart=${variantOf(i)}&quantity=${i.qty * i.pack}`);
+      return;
+    }
+    // ikas mağazası: sepet bağlantısı yok; tek ürün varsa ürünün mağazadaki sayfası, yoksa mağaza açılır.
+    if (C.ikas) {
+      const one = cart.length === 1 ? itemOf(cart[0])?.url : null;
+      go(one ?? C.ikas);
       return;
     }
     if (!CHECKOUT_URL) {
@@ -86,7 +123,7 @@ export default function CartDrawer() {
                 <li key={i.id} className="line">
                   {itemOf(i)?.image ? (
                     <span className="line__thumb" style={{ "--c": itemOf(i).color }}>
-                      <img src={import.meta.env.BASE_URL + itemOf(i).image} alt="" />
+                      <img src={assetUrl(itemOf(i).image)} alt="" />
                     </span>
                   ) : (
                     <span
@@ -161,7 +198,7 @@ export default function CartDrawer() {
                 </p>
               )}
               <p className="mono drawer__small">{ui.taxes}</p>
-              {C.shopify && ui.checkoutNote && <p className="mono drawer__small">{ui.checkoutNote}</p>}
+              {(C.shopify || C.ikas || C.woo) && ui.checkoutNote && <p className="mono drawer__small">{ui.checkoutNote}</p>}
             </footer>
           </>
         )}

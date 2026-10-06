@@ -1,4 +1,5 @@
 import { Color, MeshPhysicalMaterial } from "three";
+import { THEME } from "./theme";
 import { noise } from "./Noise";
 import { content } from "./data";
 
@@ -10,7 +11,8 @@ export const MOBILE = typeof window !== "undefined" && window.matchMedia("(max-w
 // Fotoğraftan yapılan ürünlerde ışığın bir kısmı fotoğrafın kendi rengiyle
 // karışır: renk ve arka etiket yazıları gerçek fotoğraftaki gibi net kalır,
 // spot ışık yüzeyi beyazlatmaz.
-export const unlitOf = (f) => (f.form === "photo" ? (MOBILE ? 0.62 : 0.4) : 0);
+// content.photoUnlit: fotoğrafın kendi ışığının payı (etiketler ışıkta beyazlamasın, yazılar net okunsun).
+export const unlitOf = (f) => (f.form === "photo" ? content.photoUnlit ?? (MOBILE ? 0.62 : 0.4) : 0);
 
 const FINISH = { metalness: 0.3, roughness: 0.24, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.1, ...content.labelFinish };
 
@@ -33,13 +35,24 @@ export function createCanUniforms(flavor) {
     u_sweep: { value: 0 },
     u_sweepColor: { value: new Color(1, 0.9, 0.7) },
     u_rim: { value: new Color(0, 0, 0) },
+    // Tepe ışığı (odaktaki ürün): üstten inen ışık; çarpımsal (renk ve yazı kontrastı korunur, parlama yok).
+    u_key: { value: 0 },
+    u_keyColor: { value: new Color(1, 0.94, 0.84) },
+    // theme.cinema: sinematik ürün reklamı ışığı (ince sıcak kenar ışığı, sol üstten yumuşak ana ışık ve speküler,
+    // fırçalanmış kapak, kalın cam tabanda kırılma parıltısı, sıvıda çok hafif iç parıltı). u_capY: kapağın başladığı v.
+    u_cine: { value: THEME.cinema ? 1 : 0 },
+    u_capY: { value: capOf(flavor) },
     u_width: { value: 0.8 },
     u_scaleX: { value: 50 },
     u_scaleY: { value: 50 },
   };
 }
 
+// Kapak bölgesi: fotoğraflı üründe boyun (kapağın bittiği satır, karenin üstünden oran) → doku v değeri.
+const capOf = (f) => (f?.photo3d?.neck ? 1 - f.photo3d.neck : 2);
+
 export function setCanFlavor(uniforms, flavor) {
+  if (uniforms.u_capY) uniforms.u_capY.value = capOf(flavor);
   uniforms.u_map1.value = flavor.texture;
   uniforms.u_map2.value = flavor.texture;
   uniforms.u_color1.value.setScalar(1);
@@ -50,9 +63,12 @@ export function setCanFlavor(uniforms, flavor) {
 
 // Cam şişenin içindeki parfüm ve etiket.
 export function createCanMaterial(base, uniforms) {
-  const material = new MeshPhysicalMaterial({ map: base.map, alphaTest: 0.5, ...FINISH });
+  // content.glass: şeffaf cam şişeler; dokunun alfası yarı saydam camdır, malzeme saydam çizilir.
+  const material = new MeshPhysicalMaterial({ map: base.map, alphaTest: content.glass ? 0.02 : 0.5, transparent: !!content.glass, ...FINISH });
   // Sahne her karede yansımayı ve cilayı kısar/açar; oranlar bu değerlere göre.
   material.userData.finish = FINISH;
+  // content.photoExact: ürün fotoğrafının renkleri ton eşlemeden geçmez (beyaz etiket gri, altın yazı soluk kalmaz).
+  if (content.photoExact) material.toneMapped = false;
 
   material.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);
@@ -77,7 +93,11 @@ export function createCanMaterial(base, uniforms) {
         uniform float u_sweep;
         uniform vec3 u_sweepColor;
         uniform vec3 u_rim;
+        uniform float u_key;
+        uniform vec3 u_keyColor;
         uniform float u_width;
+        uniform float u_cine;
+        uniform float u_capY;
         uniform float u_scaleX;
         uniform float u_scaleY;
 
@@ -120,6 +140,42 @@ export function createCanMaterial(base, uniforms) {
         float rimF = pow(1. - abs(dot(normal, normalize(vViewPosition))), 3.);
         // u_dim tüm ışığı (yansımalar dahil) kısar: yan kutular gerçekten kararır.
         outgoingLight = mix(outgoingLight, diffuseColor.rgb, u_unlit) * u_dim + u_rim * rimF * (1. - 0.6 * u_unlit);
+        // Tepe ışığı: üst kısım biraz aydınlanır, alt kısım hafif gölgede kalır (çarpımsal: yazılar beyazlamaz);
+        // yukarı bakan yüzeylerde (kapak üstü, omuz) sıcak, ince bir parıltı.
+        if (u_key > 0.001) {
+          float kh = smoothstep(0.08, 0.92, vCanUv.y);
+          outgoingLight *= mix(1., mix(0.86, 1.14, kh), u_key);
+          outgoingLight += u_keyColor * pow(max(normal.y, 0.), 5.) * 0.16 * u_key;
+        }
+        // Sinematik ürün ışığı (theme.cinema). Görüş uzayında: ana ışık kameranın sol üstünden (~40°), dolgu sağdan.
+        if (u_cine > 0.5) {
+          vec3 Vd = normalize(vViewPosition);
+          vec3 Nn = normalize(normal);
+          vec3 Ld = normalize(vec3(-0.55, 0.52, 0.65));
+          vec3 Rr = reflect(-Vd, Nn);
+          float lam = max(dot(Nn, Ld), 0.);
+          vec3 warmW = vec3(1., 0.93, 0.84);
+          // yumuşak ana ışık gölgelemesi (çarpımsal; etiket okunur kalır) + çok düşük sağ dolgu
+          outgoingLight *= mix(0.9, 1.08, lam);
+          outgoingLight += warmW * max(dot(Nn, normalize(vec3(0.85, 0.1, 0.5))), 0.) * 0.025;
+          // ince sıcak beyaz kenar ışığı (arkadan): yalnızca silüet kenarında
+          float rimT = pow(1. - abs(dot(Nn, Vd)), 6.);
+          outgoingLight += warmW * rimT * 0.55 * u_dim;
+          // camda kontrollü speküler parıltı (büyük alan ışığı: geniş ve yumuşak)
+          float sp = pow(max(dot(Rr, Ld), 0.), 38.);
+          outgoingLight += warmW * sp * 0.28 * u_dim;
+          if (vCanUv.y > u_capY) {
+            // fırçalanmış metal kapak: yatay mikro çizgiler, ince ve kontrollü parıltı (krom ayna değil)
+            float brush = 0.72 + 0.28 * sin(vCanUv.y * 1400. + sin(vCanUv.x * 37.) * 2.);
+            outgoingLight += warmW * pow(max(dot(Rr, Ld), 0.), 14.) * 0.22 * brush * u_dim;
+          } else if (vCanUv.y < 0.16) {
+            // kalın cam taban: hafif kırılma parıltısı
+            outgoingLight += warmW * pow(max(dot(Rr, normalize(vec3(-0.2, 0.9, 0.4))), 0.), 24.) * 0.18 * u_dim;
+          } else {
+            // sıvı: ışık geldiğinde içten çok hafif parlar (neon değil)
+            outgoingLight += diffuseColor.rgb * 0.035 * lam * u_dim;
+          }
+        }
         // Stüdyo ışık süpürmesi (tema): yüzeyden çapraz, yumuşak bir ışık bandı periyodik geçer.
         if (u_sweep > 0.001) {
           float sx = -vViewPosition.x * 0.85 - vViewPosition.y * 0.5;

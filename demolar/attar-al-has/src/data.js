@@ -7,6 +7,14 @@ import C from "./content.json";
 export const content = C;
 // Markanın kapattığı ana sayfa bölümleri (content.hide, ör. ["story"]): sayfada, menüde ve altlıkta görünmez.
 export const HIDDEN = new Set(C.hide ?? []);
+// Vitrin modu (content.commerce.showcase): markanın online satışı yok (mağaza/bayi ağıyla satıyor). Fiyatlar
+// gösterilmez, sepet yoktur; "Sepete ekle" yerine ürünün adıyla markanın hattı (WhatsApp) açılır:
+//   { "href": "https://wa.me/90...?text={text}", "message": { "tr": "Merhaba, {0} hakkında bilgi almak istiyorum.", "en": "…" } }
+export const SHOWCASE = C.commerce?.showcase ?? null;
+export function inquire(name, lang = "tr") {
+  const msg = (SHOWCASE.message?.[lang] ?? SHOWCASE.message?.tr ?? "{0}").replace("{0}", name);
+  window.open(SHOWCASE.href.replace("{text}", encodeURIComponent(msg)), "_blank", "noopener");
+}
 
 // Sayfanın ürün seti. Ana sayfa öne çıkan ürünleri (`home`), bir kategori sayfası
 // (#/urunler/<kategori>) yalnızca o kategorinin ürünlerini 3B akışta gösterir.

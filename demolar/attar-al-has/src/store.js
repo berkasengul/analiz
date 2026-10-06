@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { DEFAULT_SHOP_FLAVOR, DETAIL_PACK, VARIETY, catalogIdOf, content, flavors } from "./data";
+import { DEFAULT_SHOP_FLAVOR, DETAIL_PACK, SHOWCASE, VARIETY, catalogIdOf, content, flavors, inquire } from "./data";
 
 // Sepette 3B ürünler katalog kimliğiyle tutulur ("c:el-kremi"): sayfalar farklı
 // ürün setleri gösterse de sepet aynı kalır.
@@ -57,7 +57,9 @@ export const useStore = create(
       shopPack: DETAIL_PACK,
       shopPlan: "once",
       cart: [],
+      sound: true, // ürün geçiş sesleri (sound.js); tercih saklanır
 
+      setSound: (sound) => set({ sound }),
       setLoaded: () => set({ loaded: true }),
       setSceneReady: () => set({ sceneReady: true }),
       setLang: (lang) => set({ lang }),
@@ -84,6 +86,13 @@ export const useStore = create(
       addToCart: (flavor, pack, plan, qty = 1) =>
         set((s) => {
           flavor = cartKey(flavor);
+          // Vitrin modu: sepet yok; ürünün adıyla markanın hattı açılır.
+          if (SHOWCASE) {
+            const it = content.catalog?.items?.find((i) => `c:${i.id}` === flavor);
+            const f = typeof flavor === "number" ? flavors[flavor] : null;
+            inquire(it ? it.name[s.lang] ?? it.name.tr : s.lang === "en" ? f?.en?.name ?? f?.name : f?.name, s.lang);
+            return {};
+          }
           const id = `${flavor}-${pack}-${plan}`;
           const found = s.cart.find((i) => i.id === id);
           const cart = found
@@ -101,7 +110,13 @@ export const useStore = create(
     {
       name: `${content.slug}-cart`,
       storage: createJSONStorage(() => safeStorage),
-      partialize: (s) => ({ cart: s.cart, lang: s.lang }),
+      partialize: (s) => ({ cart: s.cart, lang: s.lang, sound: s.sound }),
+      // Markanın desteklemediği kayıtlı dil (content.langs) varsayılana döner.
+      merge: (saved, cur) => {
+        const m = { ...cur, ...saved };
+        if (content.langs && !content.langs.includes(m.lang)) m.lang = content.defaultLang ?? content.langs[0];
+        return m;
+      },
       // Eski sepetlerdeki ürün numaraları katalog kimliğine çevrilir.
       // v2: varsayılan dili değişen markalarda eski ziyaretçinin kayıtlı dili de varsayılana döner.
       version: 2,
