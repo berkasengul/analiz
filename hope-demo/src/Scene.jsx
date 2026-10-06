@@ -13,6 +13,7 @@ import Pedestal from "./Pedestal";
 import Spray from "./Spray";
 import Boutique from "./Boutique";
 import Garnish from "./Garnish";
+import Effects, { FX } from "./Effects";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
 import { content } from "./data";
@@ -24,6 +25,8 @@ export default function Scene() {
   const maxDpr = THEME.cinema ? (window.matchMedia("(max-width: 900px)").matches ? 1.5 : 2) : 1.5;
   const [dpr, setDpr] = useState(Math.min(maxDpr, window.devicePixelRatio || 1));
   const [onScreen, setOnScreen] = useState(true);
+  // Görüntü efektleri (Effects.jsx): yalnızca masaüstünde; kare hızı düşerse kapanır.
+  const [fx, setFx] = useState(() => !!FX && !window.matchMedia("(max-width: 900px), (pointer: coarse)").matches);
 
   // Mağaza bölümü ekrandan çıkınca sahneyi çizmeyi bırak.
   useEffect(() => {
@@ -44,7 +47,13 @@ export default function Scene() {
         dpr={dpr}
         frameloop={onScreen ? "always" : "never"}
       >
-        <PerformanceMonitor onDecline={() => setDpr(1)} flipflops={1} />
+        <PerformanceMonitor
+          onDecline={() => {
+            setDpr(1);
+            setFx(false);
+          }}
+          flipflops={1}
+        />
         <ambientLight intensity={0.25} />
         <directionalLight position={[-6, 8, 6]} intensity={1.1} />
         <directionalLight position={[8, -2, 4]} intensity={0.55} color={content.fillLight ?? "#9fb4ff"} />
@@ -62,6 +71,7 @@ export default function Scene() {
           <Garnish />
           <HeroCan />
           {content.spray && <Spray />}
+          {fx && <Effects />}
           {/* Tüm shader'ları baştan derle; ilk etkileşimde takılma olmasın. */}
           <Preload all />
         </Suspense>
