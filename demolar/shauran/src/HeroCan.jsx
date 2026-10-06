@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils, RepeatWrapping, SRGBColorSpace, TextureLoader, Vector3 } from "three";
+import { Box3, Color, DoubleSide, MathUtils, Plane, RepeatWrapping, SRGBColorSpace, TextureLoader, Vector3 } from "three";
 
 const WHITE = new Color(1, 1, 1);
 import { animate } from "framer-motion";
@@ -9,7 +9,7 @@ import { easeQuadOut } from "d3-ease";
 import CanMesh, { createBottleParts, useCanBody, viewOf, viewUrl } from "./CanMesh";
 import { BOUNDS, lightOf } from "./Carousel";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor, unlitOf } from "./canMaterial";
-import { VARIETY, features, flavors, ritual } from "./data";
+import { VARIETY, content, features, flavors, ritual } from "./data";
 import { THEME } from "./theme";
 import { pointer } from "./pointer";
 import { scrollState } from "./scroll";
@@ -89,8 +89,8 @@ function screenToWorld(camera, x, y, out) {
   R0.set(x * 2 - 1, 1 - y * 2, 0.5).unproject(camera).sub(camera.position).normalize();
   return out.copy(camera.position).addScaledVector(R0, (SEAT_Z - camera.position.z) / R0.z);
 }
-function finderPose(camera, size, flavor, time) {
-  const el = document.getElementById("finder-seat");
+function finderPose(camera, size, flavor, time, id = "finder-seat") {
+  const el = document.getElementById(id);
   const bottom = BOUNDS.bottom[flavor];
   const top = BOUNDS.top[flavor];
   if (!el || bottom == null || top == null) return null;
@@ -128,6 +128,116 @@ function detailPose(feature, wide, time, turn) {
   return base;
 }
 
+// ---------------------------------------------------------------- nota piramidi: katmanlara ayrılan şişe
+// Bölümde (scrollState.pyrP) şişe dört dilime ayrılır: kapak, üst, kalp, dip. Şişe dört kez çizilir; her kopya
+// iki kesme düzlemiyle (dünya uzayında, yatay) yalnızca kendi dilimini gösterir ve dilimle birlikte ayrılır.
+// Dilimlerin ekrandaki yeri sceneState.pyramid'e yazılır; notaları ui/NotePyramid.jsx bu konumlara dizer.
+const PYRAMID = !!content.theme?.pyramid;
+const smoothstep = (a, b, x) => {
+  const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+};
+// Kapağın bittiği yer, şişe boyuna oranla (fotoğraftan yapılan şişede boyun satırı; yoksa dörtte bir).
+function capFracOf(f) {
+  const P = f.photo3d;
+  const rows = P?.rows ?? [];
+  const nz = rows.map((r, i) => (r > 0 ? i : -1)).filter((i) => i >= 0);
+  if (!P?.neck || !nz.length) return 0.26;
+  const top = nz[0] / rows.length;
+  const bot = (nz[nz.length - 1] + 1) / rows.length;
+  return Math.min(0.45, Math.max(0.12, (P.neck - top) / (bot - top)));
+}
+const _box = new Box3();
+const _p = new Vector3();
+function Slices({ canBody, uniforms, flavor, hero, main }) {
+  const f = flavors[flavor];
+  const gl = useThree((s) => s.gl);
+  const camera = useThree((s) => s.camera);
+  const size = useThree((s) => s.size);
+  gl.localClippingEnabled = true;
+  const capFrac = useMemo(() => capFracOf(f), [f]);
+  const accent = useMemo(() => new Color(f.theme?.accent ?? THEME.accent ?? "#c9a15c").lerp(WHITE, 0.15), [f]);
+  const slices = useMemo(
+    () =>
+      [0, 1, 2, 3].map(() => {
+        const body = createCanMaterial(canBody, uniforms);
+        const parts = createBottleParts(f);
+        const planes = [new Plane(new Vector3(0, 1, 0), 99), new Plane(new Vector3(0, -1, 0), 99)];
+        for (const m of [body, ...Object.values(parts)]) m.clippingPlanes = planes;
+        return { body, parts, planes };
+      }),
+    [canBody, uniforms, f]
+  );
+  const root = useRef();
+  const groups = useRef([]);
+  const rings = useRef([]);
+  const ext = useRef(null); // şişenin hero grubundaki alt/üst sınırı ve genişliği
+  useFrame(() => {
+    const H = hero.current;
+    const r = scrollState;
+    const p = r.pyrP;
+    const e = r.pyrOn && !r.pyrPast ? smoothstep(0.1, 0.4, p) * (1 - smoothstep(0.78, 0.95, p)) * Math.min(1, r.pyrIn * 1.2) * (1 - r.finderIn) : 0;
+    sceneState.pyramid = sceneState.pyramid ?? { e: 0, flavor, labels: [] };
+    sceneState.pyramid.e = e;
+    sceneState.pyramid.flavor = flavor;
+    const on = e > 0.002;
+    main.current.visible = !on || !ext.current;
+    root.current.visible = on && !!ext.current;
+    // Sınırlar şişe bütünken bir kez ölçülür (hero grubunun yerel uzayında).
+    if (!ext.current) {
+      // Ölçüm şişe yuvada dik dururken (Ritüel pozlarında eğik durur).
+      if (!H.visible || H.scale.y < 0.01 || r.pyrIn < 0.95 || Math.abs(H.rotation.x) > 0.06) return;
+      H.updateWorldMatrix(true, true);
+      _box.setFromObject(main.current);
+      if (_box.isEmpty() || !isFinite(_box.min.y)) return;
+      const sc = H.scale.y;
+      ext.current = { lo: (_box.min.y - H.position.y) / sc, hi: (_box.max.y - H.position.y) / sc, w: (_box.max.x - _box.min.x) / sc };
+    }
+    const { lo, hi, w } = ext.current;
+    const Hh = hi - lo;
+    const cut = [hi, hi - Hh * capFrac];
+    const bodyH = cut[1] - lo;
+    cut.push(cut[1] - bodyH / 3, cut[1] - (2 * bodyH) / 3, lo);
+    const gap = Hh * 0.12;
+    const sc = H.scale.y;
+    const narrow = size.width / size.height < 0.8;
+    const labels = sceneState.pyramid.labels;
+    for (let k = 0; k < 4; k++) {
+      const dy = (1.5 - k) * gap * e;
+      const g = groups.current[k];
+      g.position.y = dy;
+      g.rotation.y = (k % 2 ? 1 : -1) * 0.3 * e;
+      const s = slices[k];
+      // Kesim düzlemleri dünyada (şişe dik durur; hafif eğim ihmal edilir). Komşu dilimler çok az üst üste biner.
+      s.planes[0].constant = -(H.position.y + (cut[k + 1] + dy) * sc - 0.003);
+      s.planes[1].constant = H.position.y + (cut[k] + dy) * sc + 0.003;
+      const ring = rings.current[k];
+      ring.position.y = cut[k] + dy;
+      ring.scale.setScalar(w * 0.62 * (0.6 + 0.4 * e));
+      ring.material.opacity = k === 0 ? 0 : 0.85 * e;
+      // Etiketin ekrandaki yeri: dilimin ortası, şişenin yanında (telefonda hep sağda).
+      const side = narrow || k % 2 === 0 ? 1 : -1;
+      _p.set(side * (w * 0.5 + 0.25), (cut[k] + cut[k + 1]) / 2 + dy, 0).applyMatrix4(H.matrixWorld).project(camera);
+      labels[k] = { x: (_p.x * 0.5 + 0.5) * size.width, y: (0.5 - _p.y * 0.5) * size.height, side };
+    }
+  });
+  return (
+    <group ref={root} visible={false}>
+      {slices.map((s, k) => (
+        <group key={k} ref={(el) => (groups.current[k] = el)}>
+          <CanMesh body={s.body} parts={s.parts} flavor={flavor} noLiquid />
+        </group>
+      ))}
+      {[0, 1, 2, 3].map((k) => (
+        <mesh key={`r${k}`} ref={(el) => (rings.current[k] = el)} rotation={[-Math.PI / 2, 0, 0]} renderOrder={2}>
+          <ringGeometry args={[0.92, 1, 96]} />
+          <meshBasicMaterial color={accent} transparent opacity={0} side={DoubleSide} depthWrite={false} toneMapped={false} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 // Tek büyük kutu: carousel'deki aktif kutunun yerinden devralır ve sayfa
 // boyunca detay, Ritual ve Shop bölümlerinde farklı pozlara geçer.
 // Gösterdiği tat değişince Codrops gürültülü doku geçişini oynatır.
@@ -142,6 +252,7 @@ export default function HeroCan() {
   const body = useMemo(() => createCanMaterial(canBody, uniforms), [canBody, uniforms]);
 
   const group = useRef();
+  const main = useRef();
   const spot = useRef();
   const l = useRef({
     detailT: 0,
@@ -279,7 +390,9 @@ export default function HeroCan() {
     // Gösterilecek tat: mağazada seçilen, Ritual'da adımın tadı,
     // aksi halde carousel'deki aktif tat.
     let want = st.active;
-    if (!st.detail && r.shopIn > 0.5) {
+    if (!st.detail && r.pyrIn > 0.5 && !r.pyrPast && r.pyrFlavor != null && r.finderIn < 0.5) {
+      want = r.pyrFlavor;
+    } else if (!st.detail && r.shopIn > 0.5) {
       const shop = shopFlavorOf(st);
       want = shop === VARIETY ? Math.floor(time / 1.8) % N : shop;
     } else if (!st.detail && r.ritualIn > 0.5) {
@@ -339,6 +452,17 @@ export default function HeroCan() {
     // Ritüel'den koku bulucuya: şişe aşağıdaki kutunun kaidesine iner ve kutuyla birlikte kayar
     // (yumuşatmasız: bölümle aynı anda hareket eder, havada kalmaz).
     // Bölüm yukarıda kalınca (mağaza ve sonrası) şişe kendi pozlarına döner.
+    // Nota piramidi: şişe bölümün yuvasına (#pyramid-seat) iner, bölüm boyunca orada durur; aşağıdaki koku
+    // bulucu gelince oradan kaideye geçer (yukarıdaki kural pozu ondan devralır).
+    if (r.pyrIn > 0.001 && !r.pyrPast && !st.detail) {
+      const pp = finderPose(camera, size, s.target, time, "pyramid-seat");
+      if (pp) {
+        pp.rotY = Math.sin(time * 0.35) * 0.25 - 0.2;
+        const k = r.pyrIn;
+        pose = lerpPose(pose, pp, k);
+        pose.y += Math.sin(Math.PI * k) * 0.25 * pp.scale;
+      }
+    }
     if (r.finderIn > 0.001 && r.finderHold && !r.finderPast && !st.detail) {
       const fp = finderPose(camera, size, s.target, time);
       if (fp) {
@@ -395,7 +519,10 @@ export default function HeroCan() {
         document.body.style.cursor = "grabbing";
       }}
     >
-      <CanMesh body={body} parts={parts} flavor={shown} view={shownView} />
+      <group ref={main}>
+        <CanMesh body={body} parts={parts} flavor={shown} view={shownView} />
+      </group>
+      {PYRAMID && shownView == null && <Slices key={shown} canBody={canBody} uniforms={uniforms} flavor={shown} hero={group} main={main} />}
     </group>
     </>
   );

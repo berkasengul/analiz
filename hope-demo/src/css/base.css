@@ -8180,53 +8180,49 @@ html .epi-exhibit > .finder__drop { z-index: 2; }
   .cloth { height: 62vh; }
 }
 
-/* Nota piramidi (ui/NotePyramid.jsx): kaydırdıkça şişe katmanlara ayrılır. Bölüm uzun, sahne yapışık. */
+/* Nota piramidi (ui/NotePyramid.jsx): ana sahnedeki şişe bölümün yuvasına iner ve katmanlarına ayrılır; bölüm
+   saydam (arkadaki 3B sahne görünür), yazılar şişenin yanına dizilir. */
 .pyr {
   position: relative;
-  z-index: 2;
-  height: 320vh;
-  background: radial-gradient(ellipse 70% 60% at 50% 55%, color-mix(in srgb, var(--theme-accent, #c9a15c) 14%, #0c0908) 0%, #070605 70%);
+  height: 340vh;
 }
 .pyr__stage {
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
 }
-.pyr__canvas {
-  position: absolute !important;
-  inset: 0;
+.pyr__seat {
+  position: absolute;
+  left: 50%;
+  bottom: 26vh;
+  width: 1px;
+  height: 38vh;
+  visibility: hidden;
+  pointer-events: none;
 }
 .pyr__head {
   position: absolute;
   top: 14vh;
-  left: 6vw;
-  z-index: 3;
+  left: var(--gutter, 6vw);
   max-width: 30ch;
-  pointer-events: none;
 }
-.pyr__head .section__title {
-  margin: 0.2em 0 0.3em;
-}
-.pyr__hint {
-  margin: 0;
-  color: rgba(255, 244, 232, 0.6);
-  font-size: 0.9rem;
-}
+.pyr__head .section__title { margin: 0.2em 0 0.3em; }
+.pyr__hint { margin: 0; color: rgba(255, 244, 232, 0.6); font-size: 0.9rem; }
+.pyr__labels { position: absolute; inset: 0; pointer-events: none; }
 .pyr__label {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: max-content;
-  max-width: min(34vw, 340px);
-  padding: 0 0 0 18px;
+  max-width: min(30vw, 320px);
+  padding-left: 18px;
   border-left: 1px solid var(--theme-accent, #c9a15c);
   color: #f6eee6;
-  transition: opacity 0.2s linear;
+  will-change: transform, opacity;
 }
-.pyr__label.is-left {
-  padding: 0 18px 0 0;
-  border-left: 0;
-  border-right: 1px solid var(--theme-accent, #c9a15c);
-  text-align: right;
-}
+.pyr__label.is-left { padding: 0 18px 0 0; border-left: 0; border-right: 1px solid var(--theme-accent, #c9a15c); text-align: right; }
 .pyr__label .pyr__k {
   display: block;
   font-size: 0.68rem;
@@ -8241,50 +8237,37 @@ html .epi-exhibit > .finder__drop { z-index: 2; }
   font-weight: 400;
   font-size: clamp(1rem, 1.6vw, 1.35rem);
   line-height: 1.35;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 }
 .pyr__chips {
   position: absolute;
   left: 50%;
   bottom: 5vh;
   transform: translateX(-50%);
-  z-index: 3;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 92vw;
+  pointer-events: auto;
 }
 .pyr__chip {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(10, 8, 7, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 244, 232, 0.75);
+  color: rgba(255, 244, 232, 0.8);
   padding: 9px 16px;
   font: 400 0.72rem/1 var(--sans, sans-serif);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
+  backdrop-filter: blur(6px);
 }
-.pyr__chip.is-on {
-  border-color: var(--theme-accent, #c9a15c);
-  color: #fff;
-  background: color-mix(in srgb, var(--theme-accent, #c9a15c) 18%, transparent);
-}
+.pyr__chip.is-on { border-color: var(--theme-accent, #c9a15c); color: #fff; background: color-mix(in srgb, var(--theme-accent, #c9a15c) 18%, rgba(10, 8, 7, 0.5)); }
 @media (max-width: 760px) {
   .pyr__head { top: 11vh; left: 5vw; right: 5vw; }
-  .pyr__label { max-width: 40vw; }
+  .pyr__seat { left: 30%; bottom: 24vh; height: 30vh; }
+  .pyr__label { max-width: 52vw; padding-left: 14px; }
   .pyr__label strong { font-size: 0.92rem; }
-}
-@media (max-width: 760px) {
-  .pyr__chips {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: flex-start;
-    width: 100vw;
-    max-width: none;
-    padding: 0 16px;
-    scrollbar-width: none;
-  }
+  .pyr__chips { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100vw; max-width: none; padding: 0 16px; scrollbar-width: none; }
   .pyr__chip { flex: none; }
-  .pyr__label.is-left { padding: 0 0 0 14px; border-right: 0; border-left: 1px solid var(--theme-accent, #c9a15c); text-align: left; }
-  .pyr__label { max-width: 46vw; padding-left: 14px; }
 }

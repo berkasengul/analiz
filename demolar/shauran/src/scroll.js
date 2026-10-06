@@ -17,6 +17,12 @@ export const scrollState = {
   finderOn: false, // bölüm ekranda ve şişe kaidede (sonuç seçilmemiş)
   finderHold: true, // Finder: sonuç yokken true (şişe kaidede durur)
   finderPast: false, // bölüm yukarıda kaldı (sonraki bölümlerde şişe kendi yerine döner)
+  // Nota piramidi (#pyramid, ui/NotePyramid.jsx): şişe Ritüel'den bölümün yuvasına iner, katmanlarına ayrılır.
+  pyrIn: 0, // bölüm ekrana girerken 0 → 1
+  pyrP: 0, // bölümün içindeki kaydırma 0 → 1 (yapışık sahne boyunca)
+  pyrOn: false, // bölüm ekranda
+  pyrPast: false, // bölüm yukarıda kaldı
+  pyrFlavor: null, // bölümdeki düğmelerle seçilen ürün (yoksa Ritüel'in son ürünü)
   sceneVisible: true,
   velocity: 0,
 };
@@ -50,13 +56,14 @@ export function measureScroll() {
   const rr = ritualEl.getBoundingClientRect();
   scrollState.ritualIn = ease(clamp01(1 - rr.top / vh));
   measureFinder(vh);
+  measurePyramid(vh);
   const steps = 3;
   scrollState.ritualStep = Math.min(magnet(clamp01(-rr.top / Math.max(1, rr.height - vh)) * (steps - 1)), steps - 1);
 
   if (!shopEl) {
     scrollState.shopIn = scrollState.shopOut = 0;
     const ar = document.getElementById("all")?.getBoundingClientRect();
-    scrollState.sceneVisible = (rr.bottom > 0 || scrollState.finderOn) && !(ar && ar.top <= 0 && ar.bottom >= vh);
+    scrollState.sceneVisible = (rr.bottom > 0 || scrollState.finderOn || scrollState.pyrOn) && !(ar && ar.top <= 0 && ar.bottom >= vh);
     scrollState.velocity = smooth.lenis ? smooth.lenis.velocity : 0;
     return;
   }
@@ -70,8 +77,23 @@ export function measureScroll() {
   // kaydırma ve kartların açılması takılmasın.
   const ar = document.getElementById("all")?.getBoundingClientRect();
   const covered = !!ar && ar.top <= 0 && ar.bottom >= vh;
-  scrollState.sceneVisible = (sr.bottom > 0 || scrollState.finderOn) && !covered;
+  scrollState.sceneVisible = (sr.bottom > 0 || scrollState.finderOn || scrollState.pyrOn) && !covered;
   scrollState.velocity = smooth.lenis ? smooth.lenis.velocity : 0;
+}
+
+// Nota piramidi: bölümün konumu (HeroCan şişeyi #pyramid-seat'e oturtur ve pyrP'ye göre katmanlara ayırır).
+function measurePyramid(vh) {
+  const pe = document.getElementById("pyramid");
+  if (!pe) {
+    scrollState.pyrIn = scrollState.pyrP = 0;
+    scrollState.pyrOn = scrollState.pyrPast = false;
+    return;
+  }
+  const r = pe.getBoundingClientRect();
+  scrollState.pyrIn = ease(clamp01((vh - r.top) / (vh * 0.85)));
+  scrollState.pyrP = clamp01(-r.top / Math.max(1, r.height - vh));
+  scrollState.pyrOn = r.top < vh && r.bottom > 0;
+  scrollState.pyrPast = r.bottom <= 0;
 }
 
 // Koku bulucu kaidesi (#finder-seat: Finder'da kaidenin üstündeki şişe kutusu). Bölüm ekrandayken

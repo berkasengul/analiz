@@ -536,25 +536,6 @@
       "pattern": false,
       "shape": "rect"
     },
-    "cloth": {
-      "mono": "S",
-      "sub": "P A R F U M S",
-      "l1": "SHAURAN",
-      "l2": "PARIS",
-      "tag": "M E S O P O T A M I A   ·   E A U   D E   P A R F U M",
-      "bg": "#0c0807",
-      "sheen": "#f6cfb0",
-      "ambient": "#3a2620",
-      "key": "#fff0e2",
-      "rimCool": "#e0a27e",
-      "rimWarm": "#ff8a5c",
-      "fill": "#b98466",
-      "caption": {
-        "tr": "Varlıkların ruhu kokularıdır.",
-        "en": "The soul of the beings is their smell."
-      },
-      "filter": "sepia(0.85) saturate(1.25) hue-rotate(-14deg) brightness(1.05)"
-    },
     "fx": true,
     "pyramid": true
   },
