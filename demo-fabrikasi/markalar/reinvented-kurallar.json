@@ -1,0 +1,599 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "solidTop": 0.3,
+  "backSolid": ".",
+  "neckAt": [
+   [
+    ".",
+    0.25
+   ]
+  ],
+  "skip": "-sample$|^discovery-set$"
+ },
+ "aktar": {
+  "domain": "www.reinventedparfums.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "75 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "enigmatic-aura",
+   "lucid-dream",
+   "eureka",
+   "sacred-bond"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.62
+  },
+  "categories": [
+   {
+    "id": "extrait",
+    "tr": "Extrait de Parfum",
+    "en": "Extrait de Parfum",
+    "color": "#d6aa5c",
+    "descTr": "On extrait; her biri bir duygunun, bir anının, bir rüyanın kokusu.",
+    "descEn": "Ten extraits, each the scent of an emotion, a memory, a dream.",
+    "match": "."
+   }
+  ],
+  "families": {
+   "aether-aura": [
+    "Meyveli · Narenciye",
+    "Fruity · Citrus"
+   ],
+   "enigmatic-aura": [
+    "Amber · Odunsu",
+    "Amber · Woody"
+   ],
+   "lucid-dream": [
+    "Çiçeksi · Meyveli",
+    "Floral · Fruity"
+   ],
+   "ode-to-psyche": [
+    "Odunsu · Aromatik",
+    "Woody · Aromatic"
+   ],
+   "ethereal-soul": [
+    "Meyveli · Narenciye",
+    "Fruity · Citrus"
+   ],
+   "epiphany": [
+    "Çiçeksi · Baharatlı",
+    "Floral · Spicy"
+   ],
+   "eureka": [
+    "Oryantal · Baharatlı",
+    "Oriental · Spicy"
+   ],
+   "pheromones": [
+    "Odunsu · Baharatlı",
+    "Woody · Spicy"
+   ],
+   "sacred-bond": [
+    "Çiçeksi Oryantal · Gurme",
+    "Floriental · Gourmand"
+   ],
+   "illusion": [
+    "Oryantal · Meyveli",
+    "Oriental · Fruity"
+   ]
+  },
+  "notes": [
+   [
+    "^aether-aura$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "Kivi",
+      "Kiwi"
+     ],
+     [
+      "Ananas",
+      "Pineapple"
+     ]
+    ]
+   ],
+   [
+    "^enigmatic-aura$",
+    [
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Jatamansi",
+      "Jatamansi"
+     ],
+     [
+      "Nagarmotha",
+      "Nagarmotha"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^lucid-dream$",
+    [
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "Erik",
+      "Plum"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ]
+    ]
+   ],
+   [
+    "^ode-to-psyche$",
+    [
+     [
+      "Sardunya",
+      "Geranium"
+     ],
+     [
+      "Ardıç",
+      "Juniper"
+     ],
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Kaşmir Ağacı",
+      "Cashmere Wood"
+     ],
+     [
+      "Vetiver",
+      "Vetiver"
+     ]
+    ]
+   ],
+   [
+    "^ethereal-soul$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Kiraz",
+      "Cherry"
+     ],
+     [
+      "Frenk Üzümü",
+      "Blackcurrant"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^epiphany$",
+    [
+     [
+      "Yeşil Limon",
+      "Green Lemon"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "İris",
+      "Orris"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ]
+    ]
+   ],
+   [
+    "^eureka$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Kahve",
+      "Coffee"
+     ],
+     [
+      "Menekşe Yaprağı",
+      "Violet Leaf"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Tolu Balsamı",
+      "Tolu Balm"
+     ]
+    ]
+   ],
+   [
+    "^pheromones$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^sacred-bond$",
+    [
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "Gardenya",
+      "Gardenia"
+     ],
+     [
+      "Karamel",
+      "Caramel"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^illusion$",
+    [
+     [
+      "Kuru Meyveler",
+      "Dried Fruits"
+     ],
+     [
+      "Pamuk Şeker",
+      "Cotton Candy"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^aether-aura$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Limon, Zencefil, Pembe Biber",
+      "Kalp: Kivi, Ananas, İris, Sardunya",
+      "Dip: Amber, Misk, Vetiver"
+     ],
+     "en": [
+      "Top: Bergamot, Lemon, Ginger, Pink Pepper",
+      "Heart: Kiwi, Pineapple, Iris, Geranium",
+      "Base: Amber, Musk, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^enigmatic-aura$",
+    "composition": {
+     "tr": [
+      "Üst: Safran",
+      "Kalp: Jatamansi, Nagarmotha",
+      "Dip: Amber, Misk, Kaşmir Ağacı, Vanilya"
+     ],
+     "en": [
+      "Top: Saffron",
+      "Heart: Jatamansi, Nagarmotha",
+      "Base: Amber, Musk, Cashmere Wood, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^lucid-dream$",
+    "composition": {
+     "tr": [
+      "Üst: Safran, Ahududu, Erik",
+      "Kalp: Gül, Beyaz Çiçekler, Safran Çiçeği",
+      "Dip: Sandal Ağacı, Paçuli, Oud"
+     ],
+     "en": [
+      "Top: Saffron, Raspberry, Plum",
+      "Heart: Rose, White Flowers, Saffron Blossom",
+      "Base: Sandalwood, Patchouli, Oud"
+     ]
+    }
+   },
+   {
+    "match": "^ode-to-psyche$",
+    "composition": {
+     "tr": [
+      "Üst: Sardunya, Ardıç, Pembe Biber",
+      "Kalp: Kaşmir Ağacı, Paçuli, Sedir",
+      "Dip: Beyaz Misk, Vetiver, Amber"
+     ],
+     "en": [
+      "Top: Geranium, Juniper, Pink Pepper",
+      "Heart: Cashmere Wood, Patchouli, Cedarwood",
+      "Base: White Musk, Vetiver, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^ethereal-soul$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Limon, Kiraz",
+      "Kalp: Frenk Üzümü, Ahududu",
+      "Dip: Amber, Misk, Yosun"
+     ],
+     "en": [
+      "Top: Bergamot, Lemon, Cherry",
+      "Heart: Blackcurrant, Raspberry",
+      "Base: Amber, Musk, Moss"
+     ]
+    }
+   },
+   {
+    "match": "^epiphany$",
+    "composition": {
+     "tr": [
+      "Üst: Yeşil Limon, Bergamot, Safran",
+      "Kalp: Gül, Kananga, İris, Kakule, Karabiber",
+      "Dip: Paçuli, Tütsü, Sedir"
+     ],
+     "en": [
+      "Top: Green Lemon, Bergamot, Saffron",
+      "Heart: Rose, Cananga, Orris, Cardamom, Black Pepper",
+      "Base: Patchouli, Incense, Cedarwood"
+     ]
+    }
+   },
+   {
+    "match": "^eureka$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Kahve, Menekşe Yaprağı",
+      "Kalp: Yasemin, Karabiber, Muskat, Kakule",
+      "Dip: Stiraks, Paçuli, Tolu Balsamı, Sandal Ağacı"
+     ],
+     "en": [
+      "Top: Bergamot, Coffee, Violet Leaf",
+      "Heart: Jasmine, Black Pepper, Nutmeg, Cardamom",
+      "Base: Styrax, Patchouli, Tolu Balm, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^pheromones$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Safran, Pembe Biber",
+      "Kalp: Kakule, Yasemin, Gül, İris, Elemi",
+      "Dip: Vanilya, Labdanum, Vetiver, Cypriol, Sandal Ağacı, Misk"
+     ],
+     "en": [
+      "Top: Bergamot, Saffron, Pink Pepper",
+      "Heart: Cardamom, Jasmine, Rose, Orris, Elemi",
+      "Base: Vanilla Beans, Cistus Labdanum, Vetiver, Cypriol, Sandalwood, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^sacred-bond$",
+    "composition": {
+     "tr": [
+      "Üst: Mandalina, Bergamot, Ahududu",
+      "Kalp: Yasemin, Gardenya, Gül",
+      "Dip: Sandal Ağacı, Benzoin, Karamel, Vanilya, Beyaz Misk, Amber"
+     ],
+     "en": [
+      "Top: Mandarin, Bergamot, Raspberry",
+      "Heart: Jasmine, Gardenia, Rose",
+      "Base: Sandalwood, Benzoin, Caramel, Vanilla, White Musk, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^illusion$",
+    "composition": {
+     "tr": [
+      "Üst: Kuru Meyveler, Pamuk Şeker, Ardıç Meyvesi",
+      "Kalp: Gül, Safran, Karanfil",
+      "Dip: Vanilya, Amber, Gurjun Balsamı, Cabreuva, Sedir"
+     ],
+     "en": [
+      "Top: Dried Fruits, Cotton Candy, Juniper Berries",
+      "Heart: Rose, Saffron, Clove Buds",
+      "Base: Sweet Vanilla, Amber, Gurjum Balm, Cabreuva, Cedarwood"
+     ]
+    }
+   }
+  ],
+  "tagline": "notes",
+  "palette": [
+   [
+    "^aether-aura$",
+    "#14260e",
+    "#a8d84c"
+   ],
+   [
+    "^enigmatic-aura$",
+    "#1a1c24",
+    "#d6aa5c"
+   ],
+   [
+    "^lucid-dream$",
+    "#2e070b",
+    "#e2453c"
+   ],
+   [
+    "^ode-to-psyche$",
+    "#161f2b",
+    "#a3b6cc"
+   ],
+   [
+    "^ethereal-soul$",
+    "#331006",
+    "#ff6a3a"
+   ],
+   [
+    "^epiphany$",
+    "#2c2016",
+    "#e6c49a"
+   ],
+   [
+    "^eureka$",
+    "#05272a",
+    "#2fc8aa"
+   ],
+   [
+    "^pheromones$",
+    "#25102c",
+    "#b462b4"
+   ],
+   [
+    "^sacred-bond$",
+    "#0a1a3c",
+    "#4d90e4"
+   ],
+   [
+    "^illusion$",
+    "#341420",
+    "#f2a3b4"
+   ]
+  ],
+  "trText": {
+   "aether-aura": "Aether Aura, varlık bir anıya dönüştükten sonra da süren o görünmez ışıltıyı yakalıyor. Bergamot ve ışıltılı limonla elektrikli bir ferahlıkla açılıyor; zencefil ve pembe biber canlılık katıyor.",
+   "enigmatic-aura": "Enigmatic Aura zıtlıklarla şekillenen atmosferik bir extrait de parfum: aydınlık ama köklü, duyusal ama mesafeli, tanıdık ama tam kavranamayan. Kozmosun sessiz enginliğinden ilham alıyor; ağır ağır dönen bir takımyıldızı gibi açılıyor.",
+   "lucid-dream": "Lucid Dream bilinç ile hayal arasında asılı duran bir extrait de parfum; yumuşak, ışıltılı ve akışkan. Zamanın eridiği, duyguların özgürce dolaştığı rüyaların gerçeküstü berraklığından ilham alıyor.",
+   "ode-to-psyche": "Ode To Psyche bellek, kimlik ve yeniden doğuş arasındaki kırılgan bağı keşfeden içe dönük bir extrait de parfum. Kozmosun sonsuz hareketinden ve doğanın döngülerinden ilham alıyor.",
+   "ethereal-soul": "Ethereal Soul zihin, beden ve ruh arasındaki sonsuz bağdan ilham alan ışıltılı bir extrait de parfum. Işık ile gölge arasında göksel bir yolculuk gibi açılıyor.",
+   "epiphany": "Epiphany, bellek ile duygunun habersizce çarpıştığı o elektrikli anı yakalayan dışavurumcu bir extrait de parfum. Duyuların ani bir uyanışı gibi açılıyor.",
+   "eureka": "Eureka ani bir berraklık anını yakalayan yoğun ve atmosferik bir extrait de parfum: sezginin uyandığı, gizli fikirlerin ışığa çıktığı an. İlham ve yaratıcı keşif anlarından doğuyor.",
+   "pheromones": "Pheromones bedenleri, duyguları ve enerjileri birbirine çeken görünmez kimyadan ilham alan yoğun duyusal bir extrait de parfum. Arzu ile duygu arasında asılı samimi bir karşılaşma gibi açılıyor.",
+   "sacred-bond": "Sacred Bond ruhları zamanın ve mesafenin ötesinde birleştiren görünmez bağları keşfeden duyusal, sarmalayıcı bir extrait de parfum. Zihin, beden ve ruh arasındaki içgüdüsel uyumdan ilham alıyor.",
+   "illusion": "Illusion rüya ile gerçek arasındaki kırılgan alandan ilham alan büyüleyici bir extrait de parfum: algının çözüldüğü, duygunun ışığa dönüştüğü asılı bir an."
+  },
+  "ritual": [
+   {
+    "handle": "enigmatic-aura",
+    "tr": {
+     "title": "Kozmosun sessizliği",
+     "text": "Safranın altın ışıltısı yıldız ışığı gibi karanlığı yarıyor; jatamansi ve nagarmotha toprak gibi derin, amber ve vanilya tende yumuşacık.",
+     "stat": "Safran · Jatamansi · Amber"
+    },
+    "en": {
+     "title": "The silence of the cosmos",
+     "text": "Saffron's golden glow cuts through darkness like starlight; jatamansi and nagarmotha bring earthy depth, amber and vanilla soften on the skin.",
+     "stat": "Saffron · Jatamansi · Amber"
+    }
+   },
+   {
+    "handle": "lucid-dream",
+    "tr": {
+     "title": "Uyanık bir rüya",
+     "text": "Safran, ahududu ve erik saydam bir uyum içinde; gül ve beyaz çiçekler durgun suda halkalar gibi açılıyor.",
+     "stat": "Safran · Gül · Sandal"
+    },
+    "en": {
+     "title": "A waking dream",
+     "text": "Saffron, raspberry and plum in translucent harmony; rose and white flowers unfold like ripples on still water.",
+     "stat": "Saffron · Rose · Sandalwood"
+    }
+   },
+   {
+    "handle": "sacred-bond",
+    "tr": {
+     "title": "Görünmez bağ",
+     "text": "Mandalina ve ahududuyla neşeli bir açılış; yasemin, gardenya ve gül; karamel, vanilya ve amberle sarmalayan bir iz.",
+     "stat": "Ahududu · Gardenya · Karamel"
+    },
+    "en": {
+     "title": "The invisible bond",
+     "text": "A joyful opening of mandarin and raspberry; jasmine, gardenia and rose; an enveloping trail of caramel, vanilla and amber.",
+     "stat": "Raspberry · Gardenia · Caramel"
+    }
+   }
+  ]
+ }
+}
