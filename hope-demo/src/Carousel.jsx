@@ -7,6 +7,7 @@ import { easeQuadOut } from "d3-ease";
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { THEME } from "./theme";
+import { PUCK_Z, VAULT, vaultFit, vaultFrame } from "./Vault";
 
 // Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
 const STUDIO = !!THEME.studio;
@@ -21,7 +22,9 @@ export const RISE = THEME.carousel === "rise";
 export const GLIDE = THEME.carousel === "glide";
 // "dolly": karanlık sinematik stüdyo; şişe arkasındaki ışık panelinin önünde, geçişte karanlıkta çözülüp belirir.
 export const DOLLY = THEME.carousel === "dolly";
-const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY;
+// "vault": hazine dolabı (Vault.jsx); kapaklar kapanır, içeride şişe değişir, kapaklar yeniden açılır.
+export const CABINET = THEME.carousel === "vault";
+const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || CABINET;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
@@ -109,6 +112,22 @@ export function arcPose(d, aspect, time, i) {
         scale: alpha > 0.004 ? scale : 0,
         alpha,
         up,
+      };
+    }
+    if (CABINET) {
+      // Şişe dolabın döner tablasında; kaydırınca kapaklar kapanırken tablayla birlikte döner ve kapaklar tam
+      // kapanınca (iki ürünün ortası) yerini sıradakine bırakır. Komşular hiç görünmez.
+      const fr = vaultFrame(aspect);
+      const vis = 1 - MathUtils.smoothstep(ad, 0.44, 0.5);
+      const sc = vaultFit(fr, BOTTOM[i], TOP[i], HALF[i]) * (1 - 0.1 * Math.min(ad / 0.5, 1)) * vis;
+      return {
+        x: fr.x,
+        y: fr.shelf - (BOTTOM[i] ?? -1.8) * sc,
+        z: (VAULT.Z + PUCK_Z) * fr.s,
+        rotX: 0.01,
+        rotY: -d * 1.7 + 0.14 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
+        rotZ: 0,
+        scale: sc,
       };
     }
     if (GLIDE) {
@@ -640,11 +659,11 @@ export default function Carousel() {
 
       g.position.set(
         pose.x * (1 + 2.2 * spread + 0.9 * fade),
-        pose.y - 2 * spread + (1 - intro) * (sceneState.introAt ? 7 : -9) + lift * 0.25 - 0.4 * fade,
-        pose.z - (1 - intro) * 4 - 1.5 * fade
+        pose.y - 2 * spread + (CABINET ? 0 : (1 - intro) * (sceneState.introAt ? 7 : -9)) + lift * 0.25 - 0.4 * fade,
+        pose.z - (CABINET ? 0 : (1 - intro) * 4) - 1.5 * fade
       );
       // Butik sırasında ürünler kaidede durur: kaydırırken yatmaz.
-      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
+      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY || CABINET ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
@@ -690,7 +709,7 @@ export default function Carousel() {
 
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {
-        sceneState.focus.position.set(pose.x, pose.y + (1 - intro) * (sceneState.introAt ? 7 : -9), pose.z - (1 - intro) * 4);
+        sceneState.focus.position.set(pose.x, pose.y + (CABINET ? 0 : (1 - intro) * (sceneState.introAt ? 7 : -9)), pose.z - (CABINET ? 0 : (1 - intro) * 4));
         sceneState.focus.rest.set(pose.x, pose.y, pose.z);
         sceneState.focus.rotation.copy(g.rotation);
         sceneState.focus.scale = pose.scale;

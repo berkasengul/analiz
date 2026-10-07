@@ -221,6 +221,7 @@ süzülür; kaydırınca şişe yarım tur dönerek yukarı çıkar, sıradaki a
 yalnızca geçişte görünür, kaide yok, hiçbir şey üst üste binmez. `"orbit"`: döner platform (denendi, ürünler
 iç içe göründüğü için Unique'te bırakıldı). Arka plan ürün renginde kadife.
 
+`"vault"` (O'JUVI): hazine dolabı (Vault.jsx). Şişe siyah lake, altın işlemeli iki kapaklı dolabın içinde, kadife fonun önünde döner altın tablada. Kaydırınca kapaklar kapanır (ön yüzlerdeki madalyon birleşir, marka baş harfleri), kapalıyken şişe değişir, açılırken aralıktan kokunun renginde ışık sızar; iç kadife her kokunun rengini alır.
 `"glide"` (Attar al Has; kemersiz `"arch": false` ve büyük şişe `"glideScale": 1.25` ile Reinvented): şişe altın çizgili bir Osmanlı kemerinin (sivri kemerli niş, tepede alem) içinde,
 parlak zeminde durur; kaydırınca yana süzülüp döner, sıradaki öbür yandan kemere girer. Kemer ürünün ayağına ve
 boyuna göre çizilir (BackgroundMaterial → `u_arch`). Satış noktası listesi olmayan marka `hide: ["stockists"]`.
