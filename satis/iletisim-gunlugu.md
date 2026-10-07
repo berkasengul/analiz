@@ -34,6 +34,8 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 (23:36) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Tema ödemesi tek seferlik değil mi 12 bin" (12.000 ₺'nin tek seferlik olup olmadığını soruyor) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 | 01.10.2026 (23:39) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Temayı 1 kez oluşturursunuz yıllık 12 bin fazla değil mi? Alt yapı bizim sonuçta" (12.000 ₺'yi yıllık ödeme sanıyor; fiyat itirazı) | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 | 01.10.2026 (23:50) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Size yarın dönüş sağlayacağım" · "Teşekkür ediyorum" | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
+| 07.10.2026 | O'JUVI | Giden | E-posta | Berka → atadogan@ojuvi.com.tr (adres Expodat fuar kaydından) | İlk satış maili: Ojuvi Gold'un Marie Claire ödülü tebriki; https://ojuviperfume.netlify.app/ (butik sahnesi, tek kaydırmada geçiş, parfüm sıkma, nota piramidi, koku bulucu, ojuvi.com.tr mağazasına bağlı); 15 dakikalık görüşme önerildi | `yazismalar/ojuvi/2026-10-07-giden-ilk-mail.md` |
+| 07.10.2026 | Portelier Parfum | Giden | E-posta | Berka → info@portelierparfum.com (Ceren ve Atılay'a hitaben) | İlk satış maili: Mediterranean Connections; https://portelier.netlify.app/ (kemerli salon, her kokunun kendi rengi, duvarda logo, parfüm sıkma, Shopify mağazasına bağlı); 15 dakikalık görüşme önerildi. Instagram DM gönderildi mi: bilinmiyor | `yazismalar/portelier/2026-10-07-giden-ilk-mail.md` |
 
 ---
 
@@ -127,6 +129,16 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
   - Dosyalar müşteriye teslim edilecek (memnun kalmazsa tasarımı kendisi ya da başka bir tasarımcı sürdürebilir).
 - **Bizim hesap:** Instagram @mkyreklam (mesajda paylaşıldı).
 - **Sırada:** Cevap gelirse: paket seçimi, alan adı/alt alan adı (ör. vitrin.cakirparfumeri.com.tr), ödeme (önerilen: yarısı başta, yarısı teslimde), kurulum. Cevap gelmezse 2–3 gün sonra kısa hatırlatma.
+
+### O'JUVI (ojuvi.com.tr)
+- **Durum:** İlk mail gönderildi (07.10.2026), cevap bekleniyor.
+- **Verilen sözler:** 15 dakikalık görüntülü gösterim teklif edildi.
+- **Sıradaki adım:** Cevap yoksa 11.10.2026'da hatırlatma; e-posta dönerse sitedeki iletişim formu ya da +90 212 515 84 44.
+
+### Portelier Parfum (portelierparfum.com)
+- **Durum:** İlk mail gönderildi (07.10.2026), cevap bekleniyor.
+- **Verilen sözler:** 15 dakikalık görüntülü gösterim teklif edildi.
+- **Sıradaki adım:** Cevap yoksa 11.10.2026'da hatırlatma (Instagram @portelierparfum DM de olabilir).
 
 ### Diğer firmalar (demo hazır, gönderim kaydı yok)
 Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kayıt yok. Gönderdikçe yukarıdaki tabloya satır ekle.
