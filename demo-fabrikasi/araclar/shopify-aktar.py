@@ -20,7 +20,7 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "rename": {"handle": ["tr", "en"]}
     "tagline": "notes"                     kısa alt yazı: ürünün ilk üç notası (uzun açıklama cümlesi yerine)
     "defaultSize": "100 ml"                 ürün adında hacim yoksa (bütün ürünler aynı hacimde)
-    "sizes": [["regex", "50 ml"]]           tek tek ürünlerin hacmi (defaultSize'dan önce)
+    "sizes": [["regex", "50 ml"]]           tek tek ürünlerin hacmi (addaki hacimden ve defaultSize'dan önce)
     "trText": {"handle": "Türkçe açıklama"}   mağaza yalnızca İngilizceyse: markanın metninin Türkçe çevirisi
                                              (İngilizce metin mağazadan olduğu gibi kalır)
     "enText": {"handle": "English text"}   İngilizce açıklama (ör. mağazanın İngilizce sayfasındaki ikinci paragraf)
@@ -190,7 +190,8 @@ def main():
         p = tr[h]
         q = en.get(h) or en_by_id.get(p["id"], {})
         name, size = split_name(p["title"])
-        size = size or next((v for rx, v in R.get("sizes", []) if re.search(rx, h)), None) or R.get("defaultSize")
+        # Elle verilen hacim (sizes) addan okunandan önce gelir (ör. "100 ml + 10 ml" adı 10 ml okunmasın).
+        size = next((v for rx, v in R.get("sizes", []) if re.search(rx, h)), None) or size or R.get("defaultSize")
         en_name, _ = split_name(q.get("title") or p["title"])
         if h in R.get("rename", {}):
             name, en_name = R["rename"][h]

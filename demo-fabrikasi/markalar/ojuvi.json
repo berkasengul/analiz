@@ -622,7 +622,7 @@
           "en": "Red Passion"
         },
         "category": "premium-plus",
-        "size": "10 ml",
+        "size": "100 ml",
         "price": {
           "tr": 250.0,
           "en": 250.0
@@ -653,7 +653,7 @@
           "en": "Dark Miracle"
         },
         "category": "premium-plus",
-        "size": "10 ml",
+        "size": "100 ml",
         "price": {
           "tr": 250.0,
           "en": 250.0
@@ -684,7 +684,7 @@
           "en": "Reborn"
         },
         "category": "premium-plus",
-        "size": "10 ml",
+        "size": "100 ml",
         "price": {
           "tr": 250.0,
           "en": 250.0
@@ -715,7 +715,7 @@
           "en": "Forever"
         },
         "category": "premium-plus",
-        "size": "10 ml",
+        "size": "100 ml",
         "price": {
           "tr": 250.0,
           "en": 250.0
@@ -1228,7 +1228,7 @@
     {
       "name": "Red Passion",
       "form": "photo",
-      "sub": "10 ml",
+      "sub": "100 ml",
       "collection": null,
       "family": "Amber",
       "year": null,
@@ -1265,7 +1265,7 @@
           "Amber"
         ],
         "description": "In a daring composition, balmy and sweet notes of vanilla, tobacco, amber are faceted with earthy patchouli and refreshed with a bergamot top note makes for a fascinating study.",
-        "sub": "10 ml",
+        "sub": "100 ml",
         "composition": [
           "Top: Bergamot",
           "Heart: Cinnamon",
@@ -1381,7 +1381,7 @@
     {
       "name": "Dark Miracle",
       "form": "photo",
-      "sub": "10 ml",
+      "sub": "100 ml",
       "collection": null,
       "family": "Misk",
       "year": null,
@@ -1418,7 +1418,7 @@
           "Oud"
         ],
         "description": "A fragrance playing on the contrasting facets of simplicity; its dark and poignant freshness is rounded by the scent of rose, amber, oud and saffron.",
-        "sub": "10 ml",
+        "sub": "100 ml",
         "composition": [
           "Top: Saffron",
           "Heart: Jasmine, Rose",
@@ -1543,7 +1543,7 @@
     {
       "name": "Reborn",
       "form": "photo",
-      "sub": "10 ml",
+      "sub": "100 ml",
       "collection": null,
       "family": "Odunsu",
       "year": null,
@@ -1580,7 +1580,7 @@
           "Cedarwood"
         ],
         "description": "An elegant interpretation of spicy nuances and honey envoloped indelicate flowers precious composition of cedar , sandal and leathery notes",
-        "sub": "10 ml",
+        "sub": "100 ml",
         "composition": [
           "Top: Geranium, Clove, Saffron, Black Pepper",
           "Heart: Cedarwood, Guaiac, Sandalwood, Patchouli",
@@ -1700,7 +1700,7 @@
     {
       "name": "Forever",
       "form": "photo",
-      "sub": "10 ml",
+      "sub": "100 ml",
       "collection": null,
       "family": "Misk",
       "year": null,
@@ -1737,7 +1737,7 @@
           "Gardenia"
         ],
         "description": "This is a complex and mystical fragrance that exudes soft tobacco and ambery notes and is full of character and old world sophistication",
-        "sub": "10 ml",
+        "sub": "100 ml",
         "composition": [
           "Top: Peach, Bergamot",
           "Heart: Jasmine, Ylang Ylang, Gardenia, Peony",
