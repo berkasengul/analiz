@@ -498,9 +498,9 @@
     "cardAngle": 0.32,
     "lux": true,
     "fx": {
-      "bloom": 0.32,
-      "threshold": 0.88,
-      "vignette": 0.42,
+      "bloom": 0.16,
+      "threshold": 0.93,
+      "vignette": 0.34,
       "grain": 0
     }
   },
@@ -2082,7 +2082,6 @@
       "perfumer": null,
       "color": "#d5111d",
       "ink": "#1f1a17",
-      "scene": "crimson",
       "theme": {
         "glow": "#160306",
         "edge": "#050203",

@@ -8,6 +8,7 @@ import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMes
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { THEME } from "./theme";
 import { WATER_CLIP, lakePath } from "./Lake";
+import { studioEnv } from "./Studio";
 
 // Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
 const STUDIO = !!THEME.studio;
@@ -22,7 +23,7 @@ export const RISE = THEME.carousel === "rise";
 export const GLIDE = THEME.carousel === "glide";
 // "dolly": karanlık sinematik stüdyo; şişe arkasındaki ışık panelinin önünde, geçişte karanlıkta çözülüp belirir.
 export const DOLLY = THEME.carousel === "dolly";
-// "lake": ayna su (Lake.jsx); şişe durgun suyun üstünde; sıradaki koku ufuktan süzülerek gelir, öndeki yana çekilir.
+// "lake": gece stüdyosu (Lake.jsx, Studio.jsx); ıslak siyah taş zeminde şişe; sıradaki koku ufuktan süzülerek gelir.
 export const LAKE = THEME.carousel === "lake";
 const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || LAKE;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
@@ -56,6 +57,7 @@ const LINEAR = N < 5 && !(SOLO && N >= 3);
 // Kategori sayfasında üstte kategori satırı var: masaüstünde sahne biraz aşağıda durur.
 const CAT_DROP = SOLO && PAGE.kind === "category" ? 0.45 : 0;
 const WHITE = new Color(1, 1, 1);
+const KEY_WARM = new Color("#ffeedd");
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 // ?slowmo=8 adresiyle uçuş ağır çekimde oynar (animasyonu incelemek için).
@@ -115,20 +117,17 @@ export function arcPose(d, aspect, time, i) {
       };
     }
     if (LAKE) {
-      // Su üstünde geçit (Lake.jsx → lakePath): sıradaki ufuktan süzülerek gelir, öndeki yana çekilip söner.
-      // Suda ayağı biraz suya girer ve hafifçe salınır. Ürüne özel sahnede (scene, ör. Red Passion) zemin taştır:
-      // şişe biraz daha büyük, ayağı tam zeminde, salınmaz; yalnızca ±1° çok yavaş (10 sn) yalpalar ki camdaki
-      // yansımalar hafifçe kaysın.
+      // Gece stüdyosu (Lake.jsx → lakePath, Studio.jsx): sıradaki koku ufuktan süzülerek gelir, öndeki yana
+      // çekilip söner. Şişe ıslak taş zemine oturur (salınmaz); çevresinde nefes alanı kalsın diye ölçüsü ölçülü,
+      // önemini ışık verir. Yerindeyken yalnızca ±1° çok yavaş (10 sn) yalpalar ki camdaki yansımalar hafifçe kaysın.
       const q = lakePath(d, aspect);
-      const cw = flavors[i]?.scene ? 1 : 0;
-      const sc = q.L.sc * q.vis * (1 + 0.12 * cw);
-      const idle = cw ? Math.sin((time * Math.PI * 2) / 10) * 0.0175 : Math.sin(time * 0.4) * 0.08;
+      const sc = q.L.sc * q.vis * (phone ? 0.9 : 0.92);
       return {
         x: q.x,
-        y: q.L.y - ((BOTTOM[i] ?? -1.8) + 0.05 * (1 - cw)) * sc + Math.sin(time * 0.9) * 0.03 * focus * (1 - cw),
+        y: q.L.y - (BOTTOM[i] ?? -1.8) * sc,
         z: q.z,
         rotX: 0.01,
-        rotY: -d * 1.1 + (cw ? 0.07 : 0.12) * focus + (focus > 0 ? idle * focus : 0),
+        rotY: -d * 1.1 + 0.07 * focus + (focus > 0 ? Math.sin((time * Math.PI * 2) / 10) * 0.0175 * focus : 0),
         rotZ: 0,
         scale: sc,
         alpha: q.vis,
@@ -478,6 +477,7 @@ export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.45 : 2.15 * MathU
 export default function Carousel() {
   const canBody = useCanBody();
   const size = useThree((s) => s.size);
+  const gl = useThree((s) => s.gl);
   const openDetail = useStore((s) => s.openDetail);
 
   const bodies = useMemo(
@@ -577,6 +577,13 @@ export default function Carousel() {
       const staged = flavors[active].stage ? 1 : 0;
       L.intensity = 7 * (MOBILE ? 0.55 : 1) * (content.glass ? 0.45 : 1) * (1 - 0.4 * staged) * lightOf(flavors[active]) * (1 - fade) * (1 - spread) * sceneState.intro;
       L.color.set(STUDIO ? flavors[active].theme.accent : flavors[active].theme.glow).lerp(WHITE, STUDIO ? 0.5 : 0.65);
+      // Gece stüdyosunda tepe ışığı nötr-sıcak (ürünü boyamaz) ve dar: zemini değil şişeyi aydınlatır.
+      const cr = sceneState.studio ?? 0;
+      if (cr > 0) {
+        L.color.lerp(KEY_WARM, cr);
+        L.intensity *= 1 - 0.45 * cr;
+      }
+      L.angle = 0.42 - 0.1 * cr;
       if (staged) L.position.set(fp.x - 0.4, fp.y + 9.5, fp.z + 3.2);
       else L.position.set(fp.x - 1.2, fp.y + 7.5, fp.z + 7);
       L.target.position.set(fp.x, fp.y + 0.2, fp.z);
@@ -674,7 +681,7 @@ export default function Carousel() {
         pose.z - (1 - intro) * 4 - 1.5 * fade
       );
       // Butik sırasında ürünler kaidede durur: kaydırırken yatmaz.
-      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY || (LAKE && flavors[i]?.scene) ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
+      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY || LAKE ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
@@ -687,19 +694,40 @@ export default function Carousel() {
         : 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
       const dim = (1 - fade) * lit;
       bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(SOLO ? (1 - fade) * (0.5 + 0.5 * lit * lit) * (flavors[i]?.stage ? 0.55 : 1) : dim * (0.35 + 0.65 * lit));
-      bodies[i].userData.uniforms.u_dim.value = dim;
+      // Gece stüdyosu: stüdyo ortam yansıması, altın bölgeler metal, renkli kenar parıltısı ve
+      // ışıktan bağımsız (unlit) pay kısılır: şişe kendinden parlayan kırmızı plastik gibi görünmez.
+      const sw = LAKE ? sceneState.studio ?? 0 : 0;
+      if (LAKE) {
+        const B = bodies[i];
+        if (!B.userData.studio) {
+          B.userData.studio = true;
+          B.userData.unlit0 = B.userData.uniforms.u_unlit.value;
+          const env = studioEnv(gl);
+          for (const m of [B, ...Object.values(parts[i])]) {
+            if (!m?.isMaterial) continue;
+            m.envMap = env;
+            m.needsUpdate = true;
+          }
+        }
+        B.userData.uniforms.u_rim.value.multiplyScalar(1 - 0.8 * sw);
+        B.userData.uniforms.u_unlit.value = B.userData.unlit0 * (1 - 0.65 * sw);
+        B.userData.uniforms.u_gold.value = sw;
+      }
+      // Gece stüdyosunda genel parlaklık biraz kısık ki renkli cam patlamasın.
+      bodies[i].userData.uniforms.u_dim.value = dim * (1 - 0.12 * sw);
       // Tepe ışığı yalnızca odaktaki (ortadaki) üründe.
-      bodies[i].userData.uniforms.u_key.value = PREMIUM ? Math.pow(Math.max(0, 1 - Math.abs(d)), 2) * (1 - fade) * (1 - spread) * Math.min(1, sceneState.intro * 1.4) : 0;
+      // Gece stüdyosunda fotoğrafçı ışığı: üstte (kapak, omuz) aydınlık, alta doğru camda koyulaşan düşüş.
+      bodies[i].userData.uniforms.u_key.value = Math.max(PREMIUM ? Math.pow(Math.max(0, 1 - Math.abs(d)), 2) * (1 - fade) * (1 - spread) * Math.min(1, sceneState.intro * 1.4) : 0, 0.9 * sw);
       if (STUDIO) {
         const U = bodies[i].userData.uniforms;
         U.u_time.value = t;
         // Saydam camlı markada süpürme çok hafif: etiket beyazlamasın.
-        U.u_sweep.value = dim * lit * lit * (content.glass ? 0.15 : 0.6);
+        U.u_sweep.value = dim * lit * lit * (content.glass ? 0.15 : 0.6) * (1 - 0.45 * sw);
         U.u_sweepColor.value.set(flavors[i].theme.accent).lerp(WHITE, 0.55);
       }
       const F = bodies[i].userData.finish;
       // Sahne fotoğraflı üründe yansıma biraz kısık: beyaz şişe parlamadan net görünür.
-      bodies[i].envMapIntensity = F.envMapIntensity * 1.23 * dim * (flavors[i]?.stage ? 0.8 : 1);
+      bodies[i].envMapIntensity = F.envMapIntensity * 1.23 * dim * (flavors[i]?.stage ? 0.8 : 1) * (1 + 0.8 * sw);
       bodies[i].clearcoat = Math.max(F.clearcoat * dim, 0.01); // 0 olursa shader yeniden derlenir
       dimBottleParts(parts[i], dim, pose.alpha ?? 1);
       // Saydam camlı ürünlerde (content.glass) geçişte şişe karanlıkta çözülür.

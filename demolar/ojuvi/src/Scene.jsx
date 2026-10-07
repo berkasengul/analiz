@@ -15,7 +15,7 @@ import Boutique from "./Boutique";
 import Garnish from "./Garnish";
 import Cosmos from "./Cosmos";
 import Lake from "./Lake";
-import Crimson from "./Crimson";
+import Studio from "./Studio";
 import Effects, { FX } from "./Effects";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
@@ -72,7 +72,7 @@ export default function Scene() {
           {THEME.carousel === "dolly" && <Boutique />}
           <IceScene />
           {THEME.carousel === "lake" && <Lake />}
-          {THEME.carousel === "lake" && <Crimson />}
+          {THEME.carousel === "lake" && <Studio />}
           <Carousel />
           <Garnish />
           <HeroCan />

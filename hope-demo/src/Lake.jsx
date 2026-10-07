@@ -179,25 +179,27 @@ export default function Lake() {
     s.glow.lerp(tmp.set(f.theme.glow), k);
     M.ripple.uniforms.u_color.value.copy(s.col);
     M.horizon.uniforms.u_color.value.copy(s.col).lerp(tmp.set("#ffffff"), 0.15);
-    M.horizon.uniforms.u_on.value = on * (1 - 0.65 * (sceneState.crimson ?? 0));
+    M.horizon.uniforms.u_on.value = on * (1 - 0.8 * (sceneState.studio ?? 0));
     M.ripple.uniforms.u_time.value = t;
-    M.ripple.uniforms.u_pool.value = (1 - (sceneState.crimson ?? 0)) * on * (1 - 0.7 * Math.sin(Math.PI * Math.min(1, Math.abs(p - Math.round(p)) * 2)));
+    M.ripple.uniforms.u_pool.value = (1 - (sceneState.studio ?? 0)) * on * (1 - 0.7 * Math.sin(Math.PI * Math.min(1, Math.abs(p - Math.round(p)) * 2)));
     M.ripple.uniforms.u_pc.value.set(F.x, 0, 0);
-    // Ürüne özel sahnede (Crimson) su cilalı siyah taşa döner: titreşim yok, yansıma bulanık ve kısık.
-    const cr = sceneState.crimson ?? 0;
+    // Ürüne özel sahnede (gece stüdyosu) su cilalı siyah taşa döner: titreşim yok, yansıma bulanık ve kısık.
+    const cr = sceneState.studio ?? 0;
     const w = water.current;
     if (w) {
-      w.color.copy(s.glow).multiplyScalar(0.55 * (1 - cr)).lerp(tmp.set("#0a0506"), cr);
-      w.mixStrength = (3.2 - 1.2 * cr) * on;
-      w.mixBlur = 0.35 + 0.55 * cr;
+      w.color.copy(s.glow).multiplyScalar(0.55 * (1 - cr)).lerp(tmp.set("#030202"), cr);
+      w.mixStrength = 3.2 * on;
+      w.mixBlur = 0.35 + 0.2 * cr;
+      // Taşta gökyüzü ortam ışığı yok: zemin griye dönmez, neredeyse siyah kalır.
+      w.envMapIntensity = 0.25 * (1 - 0.92 * cr);
       w.distortion = 0.18 * (1 - cr);
       if (NOISE) NOISE.offset.set(t * 0.012, t * 0.03);
     }
     // Temas gölgesi: şişenin ayağının altında yumuşak koyu leke (taş zeminde; suda yok).
     if (shadow.current) {
       shadow.current.position.set(F.x, 0.012, 0);
-      shadow.current.scale.set(F.sc * 1.9, F.sc * 1.05, 1);
-      shadow.current.material.opacity = 0.85 * cr * on;
+      shadow.current.scale.set(F.sc * 1.45, F.sc * 0.5, 1);
+      shadow.current.material.opacity = 0.6 * cr * on;
       shadow.current.visible = cr > 0.01;
     }
     // Ufuk ışığının parlak yeri şişenin hizasında.
@@ -213,9 +215,9 @@ export default function Lake() {
       ring(t, 1.2, F.x, 0);
       ring(t + 0.25, 0.7, F.x, 0);
     }
-    // Taş zeminde halka yok (Crimson); su yüzeyine dönerken yeniden başlar.
-    if ((sceneState.crimson ?? 0) > 0.4) s.lastRing = t;
-    else if (speed > 0.15 && t - s.lastRing > 0.22) {
+    // Islak taşta halkalar yalnızca kayan şişelerin ardında (yerindeyken damla yok).
+    const stone = (sceneState.studio ?? 0) > 0.4;
+    if (speed > 0.15 && t - s.lastRing > 0.22) {
       // Kayan şişelerin ayağında (ufuktan gelen ve yana çekilen) iz halkaları.
       const N = order.length;
       order.forEach((_, slot) => {
@@ -224,9 +226,9 @@ export default function Lake() {
         if (d >= N / 2) d -= N;
         if (Math.abs(d) < 0.04 || Math.abs(d) > 0.97) return;
         const q = lakePath(d, aspect);
-        if (q.vis > 0.3) ring(t, 0.55 + Math.min(0.5, speed * 0.25), q.x, q.z);
+        if (q.vis > 0.3) ring(t, (0.55 + Math.min(0.5, speed * 0.25)) * (stone ? 0.55 : 1), q.x, q.z);
       });
-    } else if (t - s.lastRing > 4.2 && on > 0.5) ring(t, 0.45, F.x, 0);
+    } else if (!stone && t - s.lastRing > 4.2 && on > 0.5) ring(t, 0.45, F.x, 0);
   });
 
   return (

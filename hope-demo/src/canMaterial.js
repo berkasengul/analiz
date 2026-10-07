@@ -37,6 +37,8 @@ export function createCanUniforms(flavor) {
     u_rim: { value: new Color(0, 0, 0) },
     // Tepe ışığı (odaktaki ürün): üstten inen ışık; çarpımsal (renk ve yazı kontrastı korunur, parlama yok).
     u_key: { value: 0 },
+    // Altın metal (0–1): dokudaki altın tonlu bölgeler (kapak, etiket süslemesi) cilalı metal gibi yansır.
+    u_gold: { value: 0 },
     u_keyColor: { value: new Color(1, 0.94, 0.84) },
     // theme.cinema: sinematik ürün reklamı ışığı (ince sıcak kenar ışığı, sol üstten yumuşak ana ışık ve speküler,
     // fırçalanmış kapak, kalın cam tabanda kırılma parıltısı, sıvıda çok hafif iç parıltı). u_capY: kapağın başladığı v.
@@ -94,6 +96,7 @@ export function createCanMaterial(base, uniforms) {
         uniform vec3 u_sweepColor;
         uniform vec3 u_rim;
         uniform float u_key;
+        uniform float u_gold;
         uniform vec3 u_keyColor;
         uniform float u_width;
         uniform float u_cine;
@@ -130,6 +133,25 @@ export function createCanMaterial(base, uniforms) {
         diffuseColor.rgb = mix(t1.rgb * u_color1, t2.rgb * u_color2, mask);
         // Fotoğraflı ürünlerde doku alfası ürünün silüetidir (alphaTest ile kesilir).
         diffuseColor.a *= mix(t1.a, t2.a, mask);
+      `
+    );
+
+    // Altın metal: dokuda sıcak, doygun ve yeterince parlak (kırmızı/beyaz/siyah olmayan) bölgeler metal ve
+    // az pürüzlü olur (yazılar okunur kalsın diye tam metal değil); ortam yansımasını altın renginde taşır. Doku değişmez, yalnızca yüzey tepkisi.
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <metalnessmap_fragment>",
+      /* glsl */ `
+        #include <metalnessmap_fragment>
+        if (u_gold > 0.001) {
+          vec3 gc = diffuseColor.rgb;
+          float gmx = max(gc.r, max(gc.g, gc.b));
+          float gmn = min(gc.r, min(gc.g, gc.b));
+          float gsat = (gmx - gmn) / max(gmx, 1e-3);
+          float ghue = step(gc.b, gc.g) * smoothstep(0.42, 0.62, gc.g / max(gc.r, 1e-3));
+          float goldM = ghue * smoothstep(0.16, 0.36, gsat) * smoothstep(0.14, 0.32, gmx) * u_gold;
+          metalnessFactor = mix(metalnessFactor, 0.8, goldM);
+          roughnessFactor = mix(roughnessFactor, 0.3, goldM);
+        }
       `
     );
 
