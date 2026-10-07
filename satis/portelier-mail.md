@@ -2,7 +2,7 @@
 
 **Alıcı:** info@portelierparfum.com (markanın sitesindeki iletişim / gizlilik ve iade politikası sayfaları)
 **Diğer kanal:** Instagram @portelierparfum (DM)
-**Demo:** bilinmiyor (Netlify'a yüklenince eklenecek; zip: demolar/portelier-Netlify.zip)
+**Demo:** https://portelier.netlify.app/
 
 ## Konu
 Portelier için 3B web sitesi konsepti: Mediterranean Connections
@@ -12,7 +12,7 @@ Merhaba Ceren, Atılay,
 
 Portelier için, Mediterranean Connections koleksiyonunu 3B olarak sergileyen bir web sitesi konsepti hazırladım; incelemeniz için paylaşıyorum:
 
-👉 [DEMO LİNKİ]
+👉 https://portelier.netlify.app/
 
 Kısaca neler var:
 
