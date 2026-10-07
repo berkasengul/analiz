@@ -1,0 +1,37 @@
+[
+ {
+  "id": 509925130541,
+  "title": "Mediterranean Connections",
+  "handle": "mediterranean-connections",
+  "description": "<p><meta charset=\"utf-8\">How many doors have you stepped through—leading to adventure, discovery, and memories that linger like a beautiful dream?<br>If you had the chance, what would you give to relive them once more?<br>We try a way to relive the stories behind those doors —<br>so that every story may bloom again, breathing on your skin.<br>From the golden embrace of the Mediterranean breeze to the misty whispers of the Manche, we followed the traces of forgotten tales…<br>And at the end of the road, the last door we knocked on was yours.<br>Now, it’s your turn to open it—and let the story begin again.<br></p>",
+  "published_at": "2024-09-01T13:52:04+03:00",
+  "updated_at": "2026-10-05T14:15:44+03:00",
+  "image": {
+   "id": 1747036111149,
+   "created_at": "2024-09-01T13:52:03+03:00",
+   "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/collections/atilay_champagne_glasses_on_the_table_in_front_of_a_wisteria-co_1d431446-4ca6-46ba-8116-5c68566ea3ee.png?v=1725187924",
+   "alt": null
+  },
+  "products_count": 13
+ },
+ {
+  "id": 539025998125,
+  "title": "Travel Size",
+  "handle": "travel-size",
+  "description": "",
+  "published_at": "2026-05-11T14:54:39+03:00",
+  "updated_at": "2026-10-05T14:15:44+03:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 532657471789,
+  "title": "Workshop",
+  "handle": "workshop",
+  "description": null,
+  "published_at": "2025-12-07T22:57:12+03:00",
+  "updated_at": "2026-05-13T16:28:33+03:00",
+  "image": null,
+  "products_count": 0
+ }
+]

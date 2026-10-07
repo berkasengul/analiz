@@ -1,0 +1,783 @@
+[
+ {
+  "id": 10267748499757,
+  "title": "Nesso 10ml",
+  "handle": "nesso-10ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Ginger and Italian orange fizz up like the first pour, champagne sparkling over the top. Then the flowers arrive: magnolia, jasmine and tuberose, lush and a little heady. Honey thickens it all into something sweet and sticky, while cedarwood and patchouli keep it warm and grounded.<br></p>\n<p>Top notes<strong>: </strong><em>Ginger, Italian Orange, Champagne</em></p>\n<p>Middle Notes:<strong> </strong><em>Magnolia, Jasmine, Tuberose</em></p>\n<p>Base Notes:<strong> </strong><em>Honey, <meta charset=\"utf-8\">Cedarwood, Patchouli</em></p>",
+  "published_at": "2026-04-30T09:36:47+03:00",
+  "created_at": "2026-04-29T10:20:42+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 52028821700909,
+    "title": "10 ML",
+    "option1": "10 ML",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "1900.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10267748499757,
+    "created_at": "2026-04-29T10:20:43+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53923120873773,
+    "created_at": "2026-04-30T09:43:54+03:00",
+    "position": 1,
+    "updated_at": "2026-04-30T09:43:55+03:00",
+    "product_id": 10267748499757,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142039_1_20996127-3a14-492c-9b95-96f4ccdfa478.png?v=1777531435",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53915665006893,
+    "created_at": "2026-04-29T10:29:58+03:00",
+    "position": 2,
+    "updated_at": "2026-04-29T10:30:00+03:00",
+    "product_id": 10267748499757,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/hf_20260428_123837_fd3f1bb6-25f6-439f-9b14-17178012c08d.png?v=1777447800",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257663054125,
+    "created_at": "2025-12-07T11:49:16+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:50:24+03:00",
+    "product_id": 10267748499757,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/d8e90134-9f83-492e-8563-70c948f08400.png?v=1765097424",
+    "width": 1536,
+    "height": 2752
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "10 ML"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10267747385645,
+  "title": "Ribeira 10ml",
+  "handle": "ribeira-10ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Clove, saffron and thyme open warm and spicy, nothing like the vanilla you were expecting. Leather and heliotrope add a smooth, almost powdery depth at the heart. Then bourbon vanilla and incense take over: rich, dark and smoky, vanilla pushed as far from simple as it goes.<br></p>\n<p>Top notes<strong>: </strong><em>Clove, Saffron, Thyme</em></p>\n<p>Middle Notes:<strong> </strong><em>Leather, Heliotrope</em></p>\n<p>Base Notes: <em>Vanilla Bourbon, Incense</em></p>",
+  "published_at": "2026-04-30T09:36:46+03:00",
+  "created_at": "2026-04-29T10:19:12+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 52028820554029,
+    "title": "10 ML",
+    "option1": "10 ML",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "1900.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10267747385645,
+    "created_at": "2026-04-29T10:19:12+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53923120906541,
+    "created_at": "2026-04-30T09:43:54+03:00",
+    "position": 1,
+    "updated_at": "2026-04-30T09:43:55+03:00",
+    "product_id": 10267747385645,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142039_3.png?v=1777531435",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53915664908589,
+    "created_at": "2026-04-29T10:29:58+03:00",
+    "position": 2,
+    "updated_at": "2026-04-29T10:29:59+03:00",
+    "product_id": 10267747385645,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/hf_20260428_124919_7d2b08a9-883f-4c22-85a0-479f2d56ce06.png?v=1777447799",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257662890285,
+    "created_at": "2025-12-07T11:48:02+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:48:30+03:00",
+    "product_id": 10267747385645,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/55be2c75-b39d-4182-8f1d-9f7cff926b81.png?v=1765097310",
+    "width": 1536,
+    "height": 2752
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "10 ML"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10267745386797,
+  "title": "Manche 10ml",
+  "handle": "manche-10ml",
+  "body_html": "<div class=\"flex max-w-full flex-col flex-grow\">\n<div data-message-author-role=\"assistant\" data-message-id=\"bf79f669-315c-4198-b20f-b1805dae554c\" dir=\"auto\" class=\"min-h-[20px] text-message flex w-full flex-col items-end gap-2 break-words [.text-message+&amp;]:mt-5 overflow-x-auto whitespace-normal\">\n<div class=\"flex w-full flex-col gap-1 empty:hidden first:pt-[3px]\">\n<div class=\"markdown prose w-full break-words dark:prose-invert light\">\n<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Bergamot opens bright and citrus-sharp, but this sea was never going to stay clean. Cucumber and galbanum bring a cold, green snap, sage cuts in bitter, and seaweed drags it all back to the water: salt, brine, something alive. Amber and sandalwood keep it close to warm skin.<br></p>\n<p>Top notes<strong>: </strong><em>Calabrian Bergamot, Galbanum, Cucumber</em></p>\n<p>Middle Notes:<strong> </strong><em>Sage, Rose</em></p>\n<p>Base Notes: <em>Seaweed, <meta charset=\"utf-8\">Amber, <meta charset=\"utf-8\">Sandalwood</em></p>\n</div>\n</div>\n</div>\n</div>",
+  "published_at": "2026-04-30T09:36:45+03:00",
+  "created_at": "2026-04-29T10:16:53+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 52028816818477,
+    "title": "10 ML",
+    "option1": "10 ML",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "1900.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10267745386797,
+    "created_at": "2026-04-29T10:16:53+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53923120808237,
+    "created_at": "2026-04-30T09:43:54+03:00",
+    "position": 1,
+    "updated_at": "2026-04-30T09:43:55+03:00",
+    "product_id": 10267745386797,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142039_2_ee15843a-bf29-4cd4-99dd-7bdc9e253d21.png?v=1777531435",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53915664941357,
+    "created_at": "2026-04-29T10:29:58+03:00",
+    "position": 2,
+    "updated_at": "2026-04-29T10:30:00+03:00",
+    "product_id": 10267745386797,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/hf_20260428_123446_411a5ea5-b54f-4174-80c4-698d0a0a49f4.png?v=1777447800",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257659056429,
+    "created_at": "2025-12-07T11:45:48+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:46:24+03:00",
+    "product_id": 10267745386797,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/219489db-5691-4efc-979a-cad5617152df.png?v=1765097184",
+    "width": 768,
+    "height": 1376
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "10 ML"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10267744567597,
+  "title": "Urla 10ml",
+  "handle": "urla-10ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Sweet meets salt. Warm skin meets cold sea. Ripe fig, a sharp bite of blackcurrant, basil and violet leaf running green and cool, salt in the air — and a warm, skin-close base that stays on you after a swim.<br></p>\n<p>Top notes<strong>: </strong><em>Fig, Cardamom Guatemala, B<span>lackcurrant</span></em></p>\n<p>Middle Notes:<strong> </strong><em>Basil, Sea Water, Violet Leaf</em></p>\n<p>Base Notes: <em>Driftwood, <meta charset=\"utf-8\">Sandalwood, Ambergris</em></p>",
+  "published_at": "2026-04-30T09:36:44+03:00",
+  "created_at": "2026-04-29T10:15:57+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 52028815769901,
+    "title": "10 ML",
+    "option1": "10 ML",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "1900.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10267744567597,
+    "created_at": "2026-04-29T10:15:57+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53923120841005,
+    "created_at": "2026-04-30T09:43:54+03:00",
+    "position": 1,
+    "updated_at": "2026-04-30T09:43:55+03:00",
+    "product_id": 10267744567597,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142039_4.png?v=1777531435",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53915664974125,
+    "created_at": "2026-04-29T10:29:58+03:00",
+    "position": 2,
+    "updated_at": "2026-04-29T10:29:59+03:00",
+    "product_id": 10267744567597,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/hf_20260428_124014_e05b2fd8-943a-4bf6-811b-95817cce1551.png?v=1777447799",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257658433837,
+    "created_at": "2025-12-07T11:43:50+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:44:12+03:00",
+    "product_id": 10267744567597,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/52e79a5e-bf22-4af4-b1fc-635e4ab786ee.png?v=1765097052",
+    "width": 1536,
+    "height": 2752
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "10 ML"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10121661776173,
+  "title": "Discovery Set 4x2ML",
+  "handle": "disco-set",
+  "body_html": "<p class=\"font-claude-response-body break-words whitespace-normal\"><strong>URLA</strong> — An unfiltered Aegean morning.<br><br>FIG | BASIL | SEA WATER<br><br><strong>MANCHE</strong> — Just the real scent of the sea, not clean.<br><br>BERGAMOT | SEAWEED | SAGE<br><br><strong>NESSO</strong> — An innocent bouquet with champagne spilled on it.<br><br>CHAMPAGNE | JASMINE | HONEY<br><br><strong>RIBEIRA</strong> — A complex vanilla in its purest form.<br><br>CLOVE | REAL VANILLA | INCENSE</p>",
+  "published_at": "2025-09-23T18:58:14+03:00",
+  "created_at": "2025-09-23T18:55:39+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51502085308717,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "1200.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10121661776173,
+    "created_at": "2025-09-23T18:55:39+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 54208869630253,
+    "created_at": "2026-06-29T20:27:31+03:00",
+    "position": 1,
+    "updated_at": "2026-06-29T20:27:33+03:00",
+    "product_id": 10121661776173,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/hf_20260610_105515_9f4a26f1-0e74-4fdb-89ea-2181a3aaffa6.png?v=1782754053",
+    "width": 2752,
+    "height": 1536
+   },
+   {
+    "id": 54208869597485,
+    "created_at": "2026-06-29T20:27:30+03:00",
+    "position": 2,
+    "updated_at": "2026-06-29T20:27:32+03:00",
+    "product_id": 10121661776173,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/hf_20260520_114603_deb55940-1a63-413b-af8c-6cfc3ba29333_1.png?v=1782754052",
+    "width": 2048,
+    "height": 2048
+   },
+   {
+    "id": 54208869663021,
+    "created_at": "2026-06-29T20:27:31+03:00",
+    "position": 3,
+    "updated_at": "2026-06-29T20:27:34+03:00",
+    "product_id": 10121661776173,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/hf_20260610_105657_ea1578fa-6c6b-4ebc-94ae-f14272bcc729.png?v=1782754054",
+    "width": 2752,
+    "height": 1536
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9958561382701,
+  "title": "Urla 100ml",
+  "handle": "urla-100ml",
+  "body_html": "<p><meta charset=\"utf-8\"><meta charset=\"utf-8\">Sweet meets salt. Warm skin meets cold sea. Ripe fig, a sharp bite of blackcurrant, basil and violet leaf running green and cool, salt in the air — and a warm, skin-close base that stays on you after a swim.<br></p>\n<p>Top notes<strong>: </strong><em>Fig, Cardamom Guatemala, B<span>lackcurrant</span></em></p>\n<p>Middle Notes:<strong> </strong><em>Basil, Sea Water, Violet Leaf</em></p>\n<p>Base Notes: <em>Driftwood, <meta charset=\"utf-8\">Sandalwood, Ambergris</em></p>\n<div style=\"border-left: 3px solid #a42325; padding: 16px 20px; font-family: inherit;\">\n<p style=\"margin: 0 0 6px 0; font-weight: 600;\">If it's your first time, start with 10ML.</p>\n<strong><a href=\"/products/urla-10ml\" style=\"display: inline-block; padding: 10px 18px; background: #000000; color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.5px;\">See the 10ML option →</a></strong>\n</div>",
+  "published_at": "2025-02-17T16:31:04+03:00",
+  "created_at": "2025-02-17T15:49:00+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 50485093990701,
+    "title": "100 ML",
+    "option1": "100 ML",
+    "option2": null,
+    "option3": null,
+    "sku": null,
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "13000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9958561382701,
+    "created_at": "2025-02-17T15:49:00+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53257656303917,
+    "created_at": "2025-12-07T11:42:12+03:00",
+    "position": 1,
+    "updated_at": "2025-12-07T11:57:39+03:00",
+    "product_id": 9958561382701,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142039_1.png?v=1765097859",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53257657319725,
+    "created_at": "2025-12-07T11:43:08+03:00",
+    "position": 2,
+    "updated_at": "2025-12-07T11:44:12+03:00",
+    "product_id": 9958561382701,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/71182706-f9bc-4b03-b5e9-0d810d798fde.png?v=1765097052",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257657418029,
+    "created_at": "2025-12-07T11:43:35+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:44:12+03:00",
+    "product_id": 9958561382701,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/1297e52d-3e47-435c-8938-8792e9db869e.png?v=1765097052",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257658433837,
+    "created_at": "2025-12-07T11:43:50+03:00",
+    "position": 4,
+    "updated_at": "2025-12-07T11:44:12+03:00",
+    "product_id": 9958561382701,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/52e79a5e-bf22-4af4-b1fc-635e4ab786ee.png?v=1765097052",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257656467757,
+    "created_at": "2025-12-07T11:42:12+03:00",
+    "position": 5,
+    "updated_at": "2025-12-07T11:44:12+03:00",
+    "product_id": 9958561382701,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142039_2.png?v=1765097052",
+    "width": 1500,
+    "height": 2100
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "100 ML"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9757066821933,
+  "title": "Manche 100ml",
+  "handle": "manche-100ml",
+  "body_html": "<div class=\"flex max-w-full flex-col flex-grow\">\n<div data-message-author-role=\"assistant\" data-message-id=\"bf79f669-315c-4198-b20f-b1805dae554c\" dir=\"auto\" class=\"min-h-[20px] text-message flex w-full flex-col items-end gap-2 break-words [.text-message+&amp;]:mt-5 overflow-x-auto whitespace-normal\">\n<div class=\"flex w-full flex-col gap-1 empty:hidden first:pt-[3px]\">\n<div class=\"markdown prose w-full break-words dark:prose-invert light\">\n<p class=\"font-claude-response-body break-words whitespace-normal\">Bergamot opens bright and citrus-sharp, but this sea was never going to stay clean. Cucumber and galbanum bring a cold, green snap, sage cuts in bitter, and seaweed drags it all back to the water: salt, brine, something alive. Amber and sandalwood keep it close to warm skin.</p>\n<p>Top notes<strong>: </strong><em>Calabrian Bergamot, Galbanum, Cucumber</em></p>\n<p>Middle Notes:<strong> </strong><em>Sage, Rose</em></p>\n<p>Base Notes: <em>Seaweed, <meta charset=\"utf-8\">Amber, <meta charset=\"utf-8\">Sandalwood</em></p>\n</div>\n</div>\n</div>\n</div>\n<p> </p>\n<div style=\"border-left: 3px solid #a42325; padding: 16px 20px; font-family: inherit;\">\n<p style=\"margin: 0 0 6px 0; font-weight: 600;\">If it's your first time, start with 10ML.</p>\n<strong><a style=\"display: inline-block; padding: 10px 18px; background: #000000; color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.5px;\" href=\"/products/manche-10ml\">See the 10ML option →</a></strong>\n</div>",
+  "published_at": "2024-09-01T15:05:49+03:00",
+  "created_at": "2024-09-01T15:05:49+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 49885106012461,
+    "title": "100 ML",
+    "option1": "100 ML",
+    "option2": null,
+    "option3": null,
+    "sku": "",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "13000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9757066821933,
+    "created_at": "2024-09-01T15:05:51+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53257658695981,
+    "created_at": "2025-12-07T11:45:06+03:00",
+    "position": 1,
+    "updated_at": "2025-12-07T11:58:32+03:00",
+    "product_id": 9757066821933,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142008_1_da3a93c2-6799-4e88-9c40-93e441499dc0.png?v=1765097912",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53257659056429,
+    "created_at": "2025-12-07T11:45:48+03:00",
+    "position": 2,
+    "updated_at": "2025-12-07T11:46:24+03:00",
+    "product_id": 9757066821933,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/219489db-5691-4efc-979a-cad5617152df.png?v=1765097184",
+    "width": 768,
+    "height": 1376
+   },
+   {
+    "id": 53257659515181,
+    "created_at": "2025-12-07T11:46:01+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:46:24+03:00",
+    "product_id": 9757066821933,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/14430ca6-3c52-402a-afbf-41afe054ce73.png?v=1765097184",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257659973933,
+    "created_at": "2025-12-07T11:46:14+03:00",
+    "position": 4,
+    "updated_at": "2025-12-07T11:46:24+03:00",
+    "product_id": 9757066821933,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/597abfa4-0774-4d56-a5c4-9ab4d3c311df.png?v=1765097184",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257658728749,
+    "created_at": "2025-12-07T11:45:06+03:00",
+    "position": 5,
+    "updated_at": "2025-12-07T11:46:24+03:00",
+    "product_id": 9757066821933,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142008_2_4d81e5d1-026a-4289-88e1-104282777360.png?v=1765097184",
+    "width": 1500,
+    "height": 2100
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "100 ML"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9757066133805,
+  "title": "Ribeira 100ml",
+  "handle": "ribeira-100ml",
+  "body_html": "<p class=\"font-claude-response-body break-words whitespace-normal\">Clove, saffron and thyme open warm and spicy, nothing like the vanilla you were expecting. Leather and heliotrope add a smooth, almost powdery depth at the heart. Then bourbon vanilla and incense take over: rich, dark and smoky, vanilla pushed as far from simple as it goes.</p>\n<p>Top notes<strong>: </strong><em>Clove, Saffron, Thyme</em></p>\n<p>Middle Notes:<strong> </strong><em>Leather, Heliotrope</em></p>\n<p>Base Notes: <em>Vanilla Bourbon, Incense</em></p>\n<p> </p>\n<div style=\"border-left: 3px solid #a42325; padding: 16px 20px; font-family: inherit;\">\n<p style=\"margin: 0 0 6px 0; font-weight: 600;\">If it's your first time, start with 10ML.</p>\n<strong><a style=\"display: inline-block; padding: 10px 18px; background: #000000; color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.5px;\" href=\"/products/ribeira-10ml\">See the 10ML option →</a></strong>\n</div>",
+  "published_at": "2024-09-01T14:58:59+03:00",
+  "created_at": "2024-09-01T14:58:59+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 49885101359405,
+    "title": "100 ML",
+    "option1": "100 ML",
+    "option2": null,
+    "option3": null,
+    "sku": "",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "13000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9757066133805,
+    "created_at": "2024-09-01T14:59:01+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53257656434989,
+    "created_at": "2025-12-07T11:42:12+03:00",
+    "position": 1,
+    "updated_at": "2025-12-07T11:59:07+03:00",
+    "product_id": 9757066133805,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142022_1.png?v=1765097947",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53257662890285,
+    "created_at": "2025-12-07T11:48:02+03:00",
+    "position": 2,
+    "updated_at": "2025-12-07T11:48:30+03:00",
+    "product_id": 9757066133805,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/55be2c75-b39d-4182-8f1d-9f7cff926b81.png?v=1765097310",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257662628141,
+    "created_at": "2025-12-07T11:47:38+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:48:30+03:00",
+    "product_id": 9757066133805,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/01324589-bd5e-418f-9c51-78119cf506b0.png?v=1765097310",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257662988589,
+    "created_at": "2025-12-07T11:48:17+03:00",
+    "position": 4,
+    "updated_at": "2025-12-07T11:48:30+03:00",
+    "product_id": 9757066133805,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/cf1e21c6-cc55-4871-86cf-09d4ad75de4b.png?v=1765097310",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257656369453,
+    "created_at": "2025-12-07T11:42:12+03:00",
+    "position": 5,
+    "updated_at": "2025-12-07T11:48:30+03:00",
+    "product_id": 9757066133805,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142022_2.png?v=1765097310",
+    "width": 1500,
+    "height": 2100
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "100 ML"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 9757041426733,
+  "title": "Nesso 100ml",
+  "handle": "nesso-100ml",
+  "body_html": "<p class=\"font-claude-response-body break-words whitespace-normal\">Ginger and Italian orange fizz up like the first pour, champagne sparkling over the top. Then the flowers arrive: magnolia, jasmine and tuberose, lush and a little heady. Honey thickens it all into something sweet and sticky, while cedarwood and patchouli keep it warm and grounded.</p>\n<p>Top notes<strong>: </strong><em>Ginger, Italian Orange, Champagne</em></p>\n<p>Middle Notes:<strong> </strong><em>Magnolia, Jasmine, Tuberose</em></p>\n<p>Base Notes:<strong> </strong><em>Honey, <meta charset=\"utf-8\">Cedarwood, Patchouli</em></p>\n<p> </p>\n<div style=\"border-left: 3px solid #a42325; padding: 16px 20px; font-family: inherit;\">\n<p style=\"margin: 0 0 6px 0; font-weight: 600;\">If it's your first time, start with 10ML.</p>\n<strong><a style=\"display: inline-block; padding: 10px 18px; background: #000000; color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.5px;\" href=\"/products/nesso-10ml\">See the 10ML option →</a></strong>\n</div>",
+  "published_at": "2024-09-01T14:06:36+03:00",
+  "created_at": "2024-09-01T14:06:36+03:00",
+  "updated_at": "2026-10-07T13:13:32+03:00",
+  "vendor": "Portelier Parfum",
+  "product_type": "",
+  "tags": [],
+  "variants": [
+   {
+    "id": 49884681437485,
+    "title": "100 ML",
+    "option1": "100 ML",
+    "option2": null,
+    "option3": null,
+    "sku": "",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "13000.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 9757041426733,
+    "created_at": "2024-09-01T14:06:37+03:00",
+    "updated_at": "2026-10-07T13:13:32+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 53257656271149,
+    "created_at": "2025-12-07T11:42:12+03:00",
+    "position": 1,
+    "updated_at": "2025-12-07T11:59:39+03:00",
+    "product_id": 9757041426733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142015_1.png?v=1765097979",
+    "width": 1500,
+    "height": 2100
+   },
+   {
+    "id": 53257663381805,
+    "created_at": "2025-12-07T11:49:43+03:00",
+    "position": 2,
+    "updated_at": "2025-12-07T11:50:24+03:00",
+    "product_id": 9757041426733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/06cec8c5-f1c6-47d0-86f2-c65d5bbde5f4.png?v=1765097424",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257663054125,
+    "created_at": "2025-12-07T11:49:16+03:00",
+    "position": 3,
+    "updated_at": "2025-12-07T11:50:24+03:00",
+    "product_id": 9757041426733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/d8e90134-9f83-492e-8563-70c948f08400.png?v=1765097424",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257663447341,
+    "created_at": "2025-12-07T11:49:55+03:00",
+    "position": 4,
+    "updated_at": "2025-12-07T11:50:08+03:00",
+    "product_id": 9757041426733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/6d16cdac-c85a-439e-b305-95f6ab475989.png?v=1765097408",
+    "width": 1536,
+    "height": 2752
+   },
+   {
+    "id": 53257656336685,
+    "created_at": "2025-12-07T11:42:12+03:00",
+    "position": 5,
+    "updated_at": "2025-12-07T11:50:08+03:00",
+    "product_id": 9757041426733,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0870/7624/1709/files/8684904142015_2.png?v=1765097408",
+    "width": 1500,
+    "height": 2100
+   }
+  ],
+  "options": [
+   {
+    "name": "Size",
+    "position": 1,
+    "values": [
+     "100 ML"
+    ]
+   }
+  ]
+ }
+]

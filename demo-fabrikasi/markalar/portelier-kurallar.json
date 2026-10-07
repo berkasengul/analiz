@@ -1,0 +1,305 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "solidTop": 0.28,
+  "backSolid": ".",
+  "skip": "-10ml$|^disco-set$"
+ },
+ "aktar": {
+  "domain": "portelierparfum.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "urla-100ml",
+   "manche-100ml",
+   "nesso-100ml",
+   "ribeira-100ml"
+  ],
+  "rename": {
+   "urla-100ml": [
+    "Urla",
+    "Urla"
+   ],
+   "manche-100ml": [
+    "Manche",
+    "Manche"
+   ],
+   "nesso-100ml": [
+    "Nesso",
+    "Nesso"
+   ],
+   "ribeira-100ml": [
+    "Ribeira",
+    "Ribeira"
+   ]
+  },
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.42
+  },
+  "categories": [
+   {
+    "id": "mediterranean",
+    "tr": "Mediterranean Connections",
+    "en": "Mediterranean Connections",
+    "color": "#c9a45a",
+    "descTr": "Akdeniz'in dört kıyısından dört extrait de parfum; her kokudan yalnızca 250 şişe.",
+    "descEn": "Four extraits de parfum from four Mediterranean shores; only 250 bottles of each.",
+    "match": "."
+   }
+  ],
+  "families": {
+   "urla-100ml": [
+    "Aromatik · Deniz",
+    "Aromatic · Marine"
+   ],
+   "manche-100ml": [
+    "Yeşil · Deniz",
+    "Green · Marine"
+   ],
+   "nesso-100ml": [
+    "Çiçeksi · Tatlı",
+    "Floral · Sweet"
+   ],
+   "ribeira-100ml": [
+    "Baharatlı · Vanilyalı",
+    "Spicy · Vanilla"
+   ]
+  },
+  "notes": [
+   [
+    "^urla",
+    [
+     [
+      "İncir",
+      "Fig"
+     ],
+     [
+      "Fesleğen",
+      "Basil"
+     ],
+     [
+      "Deniz Suyu",
+      "Sea Water"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Amber Gri",
+      "Ambergris"
+     ]
+    ]
+   ],
+   [
+    "^manche",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Deniz Yosunu",
+      "Seaweed"
+     ],
+     [
+      "Adaçayı",
+      "Sage"
+     ],
+     [
+      "Galbanum",
+      "Galbanum"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^nesso",
+    [
+     [
+      "Şampanya",
+      "Champagne"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Bal",
+      "Honey"
+     ],
+     [
+      "Manolya",
+      "Magnolia"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ]
+    ]
+   ],
+   [
+    "^ribeira",
+    [
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^urla",
+    "composition": {
+     "tr": [
+      "Üst: İncir, Guatemala Kakulesi, Frenk Üzümü",
+      "Kalp: Fesleğen, Deniz Suyu, Menekşe Yaprağı",
+      "Dip: Deniz Odunu, Sandal Ağacı, Amber Gri"
+     ],
+     "en": [
+      "Top: Fig, Guatemalan Cardamom, Blackcurrant",
+      "Heart: Basil, Sea Water, Violet Leaf",
+      "Base: Driftwood, Sandalwood, Ambergris"
+     ]
+    }
+   },
+   {
+    "match": "^manche",
+    "composition": {
+     "tr": [
+      "Üst: Calabria Bergamotu, Galbanum, Salatalık",
+      "Kalp: Adaçayı, Gül",
+      "Dip: Deniz Yosunu, Amber, Sandal Ağacı"
+     ],
+     "en": [
+      "Top: Calabrian Bergamot, Galbanum, Cucumber",
+      "Heart: Sage, Rose",
+      "Base: Seaweed, Amber, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^nesso",
+    "composition": {
+     "tr": [
+      "Üst: Zencefil, İtalyan Portakalı, Şampanya",
+      "Kalp: Manolya, Yasemin, Sümbülteber",
+      "Dip: Bal, Sedir Ağacı, Paçuli"
+     ],
+     "en": [
+      "Top: Ginger, Italian Orange, Champagne",
+      "Heart: Magnolia, Jasmine, Tuberose",
+      "Base: Honey, Cedarwood, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^ribeira",
+    "composition": {
+     "tr": [
+      "Üst: Karanfil, Safran, Kekik",
+      "Kalp: Deri, Heliotrop",
+      "Dip: Bourbon Vanilya, Tütsü"
+     ],
+     "en": [
+      "Top: Clove, Saffron, Thyme",
+      "Heart: Leather, Heliotrope",
+      "Base: Bourbon Vanilla, Incense"
+     ]
+    }
+   }
+  ],
+  "tagline": "notes",
+  "palette": [
+   [
+    "^urla",
+    "#10220e",
+    "#8cc062"
+   ],
+   [
+    "^manche",
+    "#0c1430",
+    "#5e7fe0"
+   ],
+   [
+    "^nesso",
+    "#24122a",
+    "#d9a0d0"
+   ],
+   [
+    "^ribeira",
+    "#2a120a",
+    "#e07a3c"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "urla-100ml",
+    "tr": {
+     "title": "Filtresiz bir Ege sabahı",
+     "text": "Olgun incir, fesleğen ve deniz suyu; denizden çıkınca tende kalan sıcak, tene yakın bir dip.",
+     "stat": "İncir · Fesleğen · Deniz Suyu"
+    },
+    "en": {
+     "title": "An unfiltered Aegean morning",
+     "text": "Ripe fig, basil and sea water; a warm, skin-close base that stays on you after a swim.",
+     "stat": "Fig · Basil · Sea Water"
+    }
+   },
+   {
+    "handle": "manche-100ml",
+    "tr": {
+     "title": "Temiz olmayan, gerçek deniz",
+     "text": "Bergamotla parlak açılış; salatalık ve galbanumla soğuk yeşil, deniz yosunuyla tuzlu ve canlı.",
+     "stat": "Bergamot · Deniz Yosunu · Adaçayı"
+    },
+    "en": {
+     "title": "The real sea, not clean",
+     "text": "A bright bergamot opening; cold green with cucumber and galbanum, salty and alive with seaweed.",
+     "stat": "Bergamot · Seaweed · Sage"
+    }
+   },
+   {
+    "handle": "ribeira-100ml",
+    "tr": {
+     "title": "En saf hâliyle vanilya",
+     "text": "Karanfil ve safranla sıcak açılış; deri ve heliotroptan sonra bourbon vanilya ve tütsüyle koyu, dumanlı bir dip.",
+     "stat": "Karanfil · Vanilya · Tütsü"
+    },
+    "en": {
+     "title": "Vanilla in its purest form",
+     "text": "A warm clove and saffron opening; after leather and heliotrope, a dark, smoky base of bourbon vanilla and incense.",
+     "stat": "Clove · Vanilla · Incense"
+    }
+   }
+  ]
+ }
+}
