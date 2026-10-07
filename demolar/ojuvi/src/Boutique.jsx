@@ -20,7 +20,12 @@ const PITCH = 0.44;
 const COUNT = 170;
 // ?slowmo=N: uçuş ve duman N kat yavaş (yavaş test tarayıcısında ara kareleri görmek için).
 const SLOWMO = typeof window !== "undefined" ? Number(new URLSearchParams(window.location.search).get("slowmo")) || 1 : 1;
-const WALL_Z = -10;
+// theme.wallCurve (yarıçap): duvar düz değil, ürünün arkasında içbükey bir yay (oval salon); yanlara doğru öne
+// kıvrılır. Duvar daha geride durur ki iki yandaki komşu ürünler duvarın önünde görünsün.
+const CURVE = THEME.wallCurve ?? 0;
+const WALL_Z = CURVE ? -24 : -10;
+// theme.beams: tepeden inen ürün renginde ışık huzmeleri (sisli salon spotları), duvarın önünde.
+const BEAMS = THEME.beams ?? 0;
 const GOLD = new Color(THEME.accent ?? "#d4b06a");
 const WHITE = new Color(1, 1, 1);
 // Butik fotoğrafında (theme.plate) zemin fotoğraftan gelir: 3B zemin yalnızca ürünlerin ve kaidelerin
@@ -54,6 +59,27 @@ const smokeMaterial = () =>
       }`,
   });
 
+// Işık huzmesi: tepede dar ve parlak, aşağı doğru genişleyip söner; kenarlarda yumuşak, içinde yavaş duman.
+const beamMaterial = () =>
+  new ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: AdditiveBlending,
+    side: DoubleSide,
+    uniforms: { u_time: { value: 0 }, u_color: { value: new Color(1, 0.9, 0.8) }, u_on: { value: 0 } },
+    vertexShader: /* glsl */ `varying vec2 vUv; varying vec3 vN; varying vec3 vV;
+      void main() { vUv = uv; vec4 mv = modelViewMatrix * vec4(position, 1.); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }`,
+    fragmentShader: /* glsl */ `
+      uniform float u_time; uniform vec3 u_color; uniform float u_on; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
+      void main() {
+        float edge = pow(abs(dot(normalize(vN), normalize(vV))), 1.6);
+        float fall = pow(vUv.y, 1.8) * smoothstep(0., 0.25, vUv.y);
+        float haze = 0.75 + 0.25 * sin(vUv.y * 9. - u_time * 0.4 + vUv.x * 20.);
+        float a = edge * fall * haze * 0.38 * u_on;
+        gl_FragColor = vec4(u_color * a, a);
+      }`,
+  });
+
 export default function Boutique() {
   const size = useThree((s) => s.size);
   const root = useRef();
@@ -65,6 +91,8 @@ export default function Boutique() {
   const smoke = useRef();
   const s = useRef({ tint: new Color(), x: null });
   const smokeMat = useMemo(smokeMaterial, []);
+  const beamMat = useMemo(beamMaterial, []);
+  const beams = useRef([]);
   const fluteGeo = useMemo(() => new CylinderGeometry(FLUTE_R, FLUTE_R, 30, 20, 1, true, -Math.PI / 2, Math.PI), []);
 
   // Fotoğraflı butikte zemin yalnızca yansımayı ekler (toplamalı karışım); özellik olarak verilince
@@ -82,7 +110,13 @@ export default function Boutique() {
   useEffect(() => {
     const o = new Object3D();
     for (let i = 0; i < COUNT; i++) {
-      o.position.set((i - COUNT / 2) * PITCH, 15, 0);
+      if (CURVE) {
+        // Yay üzerinde: her oluk yayın merkezine (ürünün önüne) döner; görüş dışındakiler gizli.
+        const th = ((i - COUNT / 2) * PITCH) / CURVE;
+        o.position.set(CURVE * Math.sin(th), 15, CURVE - CURVE * Math.cos(th));
+        o.rotation.set(0, -th, 0);
+        o.scale.setScalar(Math.abs(th) < 1.3 ? 1 : 0);
+      } else o.position.set((i - COUNT / 2) * PITCH, 15, 0);
       o.updateMatrix();
       flutes.current.setMatrixAt(i, o.matrix);
     }
@@ -96,8 +130,9 @@ export default function Boutique() {
     const asp = size.width / size.height;
     const r = arcPose(0, asp, 0, st.active);
     const floorY = sceneState.floorY ?? r.y - 4.2;
-    // Kaydırınca duvar yavaşça sola kayar; oluklar periyodik olduğundan kayma dikişsiz.
-    const shift = -((scrollState.p * 1.1) % PITCH);
+    // Kaydırınca duvar yavaşça sola kayar; oluklar periyodik olduğundan kayma dikişsiz. theme.wallStill: duvar
+    // sabit kalır (ürün değişince yalnızca ışığın rengi değişir).
+    const shift = THEME.wallStill ? 0 : -((scrollState.p * 1.1) % PITCH);
     root.current.position.set(0, floorY, 0);
     wall.current.position.set(r.x + shift, 0, r.z + WALL_Z);
     // Işık ürünün renginde; Ritüel ve mağazaya geçerken söner.
@@ -113,6 +148,9 @@ export default function Boutique() {
     fill.current.color.copy(S.tint);
     fill.current.intensity = 1.4 * on;
     fill.current.position.set(r.x, 2.5, r.z + WALL_Z + 2.5);
+    beamMat.uniforms.u_time.value = clock.getElapsedTime();
+    beamMat.uniforms.u_color.value.copy(S.tint).lerp(WHITE, 0.2);
+    beamMat.uniforms.u_on.value = on * (st.detail ? 0.3 : 1);
     if (floorMat.current) floorMat.current.mixStrength = (THEME.plate ? 1.4 : 2.2) * on;
     // Duman: ürünün önünde; geçişte (kesirli kaydırma) kabarır, yerindeyken çok hafif.
     const fr = scrollState.p - Math.floor(scrollState.p);
@@ -165,19 +203,32 @@ export default function Boutique() {
           <instancedMesh ref={flutes} args={[fluteGeo, null, COUNT]}>
             <meshStandardMaterial color="#3a2819" metalness={0.45} roughness={0.38} envMapIntensity={0.05} />
           </instancedMesh>
-          <mesh position={[0, 15, -FLUTE_R]}>
+          <mesh position={[0, 15, -FLUTE_R]} visible={!CURVE}>
             <planeGeometry args={[COUNT * PITCH, 30]} />
             <meshStandardMaterial color="#0c0907" roughness={0.9} />
           </mesh>
           {/* Duvar dibinde ince altın süpürgelik */}
-          <mesh position={[0, 0.09, FLUTE_R + 0.03]}>
+          <mesh position={[0, 0.09, FLUTE_R + 0.03]} visible={!CURVE}>
             <boxGeometry args={[COUNT * PITCH, 0.05, 0.05]} />
             <meshStandardMaterial color={GOLD} metalness={1} roughness={0.25} envMapIntensity={1.4} />
           </mesh>
-          <mesh position={[0, 0.03, FLUTE_R + 0.06]}>
+          <mesh position={[0, 0.03, FLUTE_R + 0.06]} visible={!CURVE}>
             <boxGeometry args={[COUNT * PITCH, 0.06, 0.12]} />
             <meshStandardMaterial color="#070605" roughness={0.5} />
           </mesh>
+          {/* Kavisli duvarın dibinde ince altın şerit (yay) */}
+          {CURVE > 0 && (
+            <mesh position={[0, 0.09, CURVE]} rotation={[Math.PI / 2, 0, Math.PI / 2 - 1.3]}>
+              <torusGeometry args={[CURVE - FLUTE_R - 0.03, 0.025, 8, 160, 2.6]} />
+              <meshStandardMaterial color={GOLD} metalness={1} roughness={0.25} envMapIntensity={1.4} />
+            </mesh>
+          )}
+          {/* Tepeden inen ışık huzmeleri */}
+          {Array.from({ length: BEAMS }, (_, k) => (
+            <mesh key={k} ref={(el) => (beams.current[k] = el)} material={beamMat} position={[(k - (BEAMS - 1) / 2) * 7.5, 9, 4]} rotation={[0, 0, (k - (BEAMS - 1) / 2) * -0.08]}>
+              <cylinderGeometry args={[0.35, 2.6, 18, 48, 1, true]} />
+            </mesh>
+          ))}
         </group>
       </group>
       {/* Tepeden duvara düşen ürün renginde ışık ve duvarı yumuşakça dolduran ikinci ışık. */}

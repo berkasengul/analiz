@@ -7,6 +7,7 @@ import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { MOBILE } from "./canMaterial";
+import { THEME } from "./theme";
 import { stageFrame } from "./Lake";
 
 // Gece stüdyosu ("lake" düzeninin ışık ve atmosferi): her koku aynı premium dilde, kendi renginde sergilenir.
@@ -137,7 +138,7 @@ export default function Studio() {
       globals.current = [];
       scene.traverse((o) => (o.isAmbientLight || o.isDirectionalLight) && globals.current.push({ L: o, base: o.intensity }));
     }
-    for (const g of globals.current) g.L.intensity = g.base * (1 - 0.8 * e);
+    for (const g of globals.current) g.L.intensity = g.base * (1 - (THEME.fresh ? 0.5 : 0.8) * e);
     root.current.visible = s.w > 0.003;
 
     // Renk: öndeki kokunun vurgusu (geçişte yumuşakça diğerine).
@@ -168,12 +169,14 @@ export default function Studio() {
     // Hale: şişenin ekrandaki hizasında, çok uzakta; alt yarısı ufkun arkasında kalır.
     halo.current.position.set(bx * (148 / 18) * (phone ? 1 : 0.95), fy * 0.8 + 2, -130);
     halo.current.scale.setScalar(phone ? 1.05 : 1.55);
-    M.halo.uniforms.u_on.value = e;
+    M.halo.uniforms.u_on.value = e * dark;
     M.halo.uniforms.u_time.value = t;
     M.halo.uniforms.u_color.value.copy(s.col).multiplyScalar(0.62);
-    M.veil.opacity = (phone ? 0.9 : 0.86) * e;
+    // Ferah sahnede (theme.fresh) fon aydınlık kalır: perde, hale ve sis yok.
+    const dark = THEME.fresh ? 0 : 1;
+    M.veil.opacity = (phone ? 0.9 : 0.86) * e * dark;
     fog.current.position.set(bx * 0.5, fy + 3.2, -16);
-    M.fog.uniforms.u_on.value = e;
+    M.fog.uniforms.u_on.value = e * dark;
     M.fog.uniforms.u_time.value = t;
     M.fog.uniforms.u_amt.value = 0.06;
     M.fog.uniforms.u_color.value.copy(s.col).multiplyScalar(0.55);

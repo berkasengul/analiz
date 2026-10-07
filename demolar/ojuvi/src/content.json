@@ -472,7 +472,7 @@
   },
   "latinTerms": "Extrait de Parfum|Eau de Parfum|O'JUVI|Ojuvi|Gold|Red Passion|Dark Miracle|Forever|Reborn|Premium Plus|Premium|Another Story|Black Ombre|Dancing Under The Full Moon|Night Tales|One Thousand & One Night|Oud & Amber Harmony",
   "glass": false,
-  "spray": false,
+  "spray": true,
   "photoUnlit": 0.55,
   "photoExact": true,
   "theme": {
@@ -491,12 +491,19 @@
     },
     "studio": true,
     "pedestal": true,
-    "carousel": "silk",
+    "carousel": "dolly",
     "cards": "gallery",
     "pyramid": true,
     "glideScale": 1.1,
     "cardAngle": 0.32,
     "lux": true,
+    "paging": true,
+    "wallStill": true,
+    "wallCurve": 18,
+    "beams": 3,
+    "plinthColor": "#f3ece2",
+    "epilogue": false,
+    "pageDuration": 1.7,
     "fx": {
       "bloom": 0.16,
       "threshold": 0.93,
@@ -968,7 +975,7 @@
       "color": "#beae81",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#2a1e08",
+        "glow": "#6e5424",
         "edge": "#050404",
         "drop": "#f4c860",
         "accent": "#f4c860",
@@ -2083,8 +2090,8 @@
       "color": "#d5111d",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#160306",
-        "edge": "#050203",
+        "glow": "#7a141a",
+        "edge": "#050404",
         "drop": "#e0303a",
         "accent": "#e0303a",
         "mood": "warm"
@@ -2705,7 +2712,7 @@
       "color": "#c4a360",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#120d07",
+        "glow": "#3e3428",
         "edge": "#050404",
         "drop": "#d4ad62",
         "accent": "#d4ad62",
@@ -3363,7 +3370,7 @@
       "color": "#d6bd7e",
       "ink": "#1f1a17",
       "theme": {
-        "glow": "#16110a",
+        "glow": "#5a4a30",
         "edge": "#050404",
         "drop": "#e0b84a",
         "accent": "#e0b84a",

@@ -3,7 +3,7 @@ import Lenis from "lenis";
 
 import Scene from "./Scene";
 import { HIDDEN, PAGE, SET_KEY, SHOWCASE, content, features, flavors, setKey } from "./data";
-import { measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
+import { PAGE_DURATION, measureScroll, scrollState, scrollToElement, scrollToFlavor, scrollToFlavorOf, smooth } from "./scroll";
 import { startSound } from "./sound";
 import { useStore } from "./store";
 import { THEME } from "./theme";
@@ -63,7 +63,7 @@ function pagingWheel(e) {
   const next = Math.max(0, Math.min(N - 1, cur + dir));
   wheel.stepped = true;
   wheel.target = next;
-  wheel.lockUntil = now + 1150;
+  wheel.lockUntil = now + PAGE_DURATION * 1000 - 50;
   scrollToFlavor(next);
   return true;
 }

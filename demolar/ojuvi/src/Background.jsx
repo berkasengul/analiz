@@ -207,7 +207,8 @@ export default function Background() {
       const fy = sceneState.floorY ?? -4.5;
       // Ürünler kayarken kemer ekranın ortasında sabit kalır (sıra hep ortadan akar); yalnızca detayda
       // ürün yana geçince fotoğraf yumuşakça onunla gider. Kameranın salınımı da fotoğrafı oynatmaz.
-      l.plateX = MathUtils.damp(l.plateX ?? 0, st.detail ? sceneState.focus.rest.x : 0, 3, dt);
+      // Ürünün sabit yeri yandaysa (ör. "silk": sağda) niş ve ışık havuzu orada durur.
+      l.plateX = MathUtils.damp(l.plateX ?? 0, st.detail ? sceneState.focus.rest.x : sceneState.stageX ?? 0, 3, dt);
       const cxw = l.plateX;
       const sx = 0.5 + (Q.set(cxw, fy, 0).project(camera).x - P.set(0, fy, 0).project(camera).x) / 2;
       // Fotoğraf dikeyde ekranı tam kaplar (kaydırılmaz); yatayda odak noktası (kemerin ortası) öndeki ürüne gelir.

@@ -8,13 +8,14 @@ import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { stageFrame } from "./Lake";
 import { studioEnv } from "./Studio";
+import { THEME } from "./theme";
 
 const HSL = {};
 
 // "silk" (ipek): şişe kokunun renginde akan saten bir kumaşın üstünde durur. Kumaş şişenin altında düz (ayağı
 // kumaşa oturur, altında yumuşak temas gölgesi ve ana ışığın arkaya düşen gölgesi), arkasında sağa doğru bir
-// dalga gibi yükselir; sol üst karanlık kalır (başlığa yer). Kıvrımlar çapraz akar, yavaşça kıpırdar; kaydırınca
-// kumaş dalgalanır (hız → kıvrım genliği). Renk öndeki kokudan: koyu taban, ışığı yakalayan saten parlaması.
+// dalga gibi yükselir; sol üst karanlık kalır (başlığa yer). Kıvrımlar çapraz akar, yavaşça kıpırdar; ürün
+// değişince kumaş yerinde kalır, yalnızca rengi geçer. Renk öndeki kokudan: koyu taban, ışığı yakalayan saten parlaması.
 // Kumaşın ışığı kendi gölgelendiricisinde (stüdyo ana ışığı soldan-önden, arkadan kenar ışığı, şişenin
 // çevresinde tepe ışığı havuzu, kıvrım yönünde anizotropik saten parlaması).
 
@@ -190,12 +191,9 @@ export default function Silk() {
     const { detail, order } = useStore.getState();
     const F = stageFrame(aspect);
     const u = M.uniforms;
-    // Kaydırma hızı kumaşı dalgalandırır; durunca yavaşça yatışır.
-    const v = Math.abs(scrollState.p - s.last) / Math.max(dt, 1e-3);
-    s.last = scrollState.p;
-    s.wave = MathUtils.damp(s.wave, Math.min(1, v * 0.9), v * 0.9 > s.wave ? 6 : 1.2, dt);
-    u.u_time.value += dt * (1 + 2.5 * s.wave);
-    u.u_wave.value = s.wave;
+    // Arka plan ürün değişince oynamaz: kumaş yalnızca çok yavaş kendi kendine kıpırdar, rengi değişir.
+    u.u_time.value += dt;
+    u.u_wave.value = 0;
     u.u_bx.value = F.x;
     u.u_fy.value = F.y;
     u.u_sc.value = F.sc / 1.55;
@@ -216,7 +214,12 @@ export default function Silk() {
     const off = Math.max(sceneState.spread, detail ? 1 : 0);
     s.on = MathUtils.damp(s.on, (1 - off) * Math.min(1, sceneState.intro * 1.4), 3, dt);
     u.u_on.value = s.on;
-    mesh.current.visible = s.on > 0.01;
+    // Ferah sahnede (theme.fresh) fon ve parlak zemin arka plan shader'ından gelir: 3B kumaş gizli, kaide
+    // o zemine oturur (Background → floorY, plinthTop, stageX).
+    mesh.current.visible = s.on > 0.01 && !THEME.fresh;
+    sceneState.floorY = F.y;
+    sceneState.plinthTop = plinthTop(F);
+    sceneState.stageX = F.x;
     mesh.current.position.y = -4 * off * off;
     // Kaide: öndeki şişenin yerinde, sabit; Ritüel'e geçerken ve detayda kumaşla birlikte aşağı iner.
     const g = plinth.current;

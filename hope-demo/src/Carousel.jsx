@@ -127,9 +127,9 @@ export function arcPose(d, aspect, time, i) {
       const L = stageFrame(aspect);
       const vis = 1 - MathUtils.smoothstep(ad, 0.55, 0.95);
       const sc = L.sc * vis;
-      const hop = Math.sin(Math.PI * Math.min(ad, 1)) * 0.9 * (L.sc / 1.55);
+      const hop = Math.sin(Math.PI * Math.min(ad, 1)) * 0.45 * (L.sc / 1.55);
       return {
-        x: L.x + d * (phone ? 4.6 : 8.5),
+        x: L.x + d * (phone ? 4.2 : 6.8),
         y: plinthTop(L) - (BOTTOM[i] ?? -1.8) * sc + hop,
         z: -Math.min(ad, 1.2) * 3.2,
         rotX: 0.01,

@@ -1,3 +1,4 @@
+import { THEME } from "./theme";
 import { flavors } from "./data";
 
 const N = flavors.length;
@@ -129,10 +130,15 @@ export function scrollToFlavorOf(order, flavor, immediate = false) {
   scrollToFlavor(order.indexOf(flavor), immediate);
 }
 
+// Ürün ürün geçişin süresi (theme.pageDuration, sn). Uzun süreli geçişte yumuşak başlayıp yumuşak biten eğri:
+// ürün aniden fırlamaz, kaideye ağır ve dengeli konar.
+export const PAGE_DURATION = THEME.pageDuration ?? 1.2;
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
 export function scrollToFlavor(i, immediate = false, onComplete) {
   const y = yForFlavor(i);
   if (smooth.lenis) {
-    smooth.lenis.scrollTo(y, { immediate, force: true, duration: 1.2, onComplete });
+    smooth.lenis.scrollTo(y, { immediate, force: true, duration: PAGE_DURATION, onComplete, ...(THEME.pageDuration ? { easing: easeInOut } : {}) });
   } else {
     window.scrollTo({ top: y, behavior: immediate ? "instant" : "smooth" });
     if (onComplete) setTimeout(onComplete, immediate ? 0 : 900);
