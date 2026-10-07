@@ -3,7 +3,7 @@
 **Alıcı:** info@soleildegrace.com (markanın sitesindeki hakkımızda ve satış noktaları sayfaları)
 **Şirket:** La Grace Kozmetik Ürünleri ve San. Tic. Ltd. Şti.
 **Diğer kanal:** Instagram @soleil.de.grace (DM)
-**Demo:** bilinmiyor (Netlify'a yüklenince eklenecek; zip: demolar/soleil-Netlify.zip)
+**Demo:** https://soleildegrace.netlify.app/
 
 ## Konu
 Soleil de Grâce için 3B web sitesi konsepti: Néo Collection ve The Origins
@@ -13,7 +13,7 @@ Merhaba,
 
 Soleil de Grâce için, Néo Collection ve The Origins kokularını 3B olarak sergileyen bir web sitesi konsepti hazırladım; incelemeniz için paylaşıyorum:
 
-👉 [DEMO LİNKİ]
+👉 https://soleildegrace.netlify.app/
 
 Kısaca neler var:
 
