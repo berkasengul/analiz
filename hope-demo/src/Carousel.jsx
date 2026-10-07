@@ -7,7 +7,7 @@ import { easeQuadOut } from "d3-ease";
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { THEME } from "./theme";
-import { WATER_CLIP, lakeFrame, lakePath } from "./Lake";
+import { WATER_CLIP, lakePath, stageFrame } from "./Lake";
 import { studioEnv } from "./Studio";
 import { plinthTop } from "./Silk";
 
@@ -124,9 +124,9 @@ export function arcPose(d, aspect, time, i) {
     if (SILK) {
       // İpek: ortada sabit bir kaide (Silk.jsx). Öndeki şişe kaidenin üstünde; sıradaki sağdan hafif bir yayla
       // süzülüp kaideye konar, öndeki kalkıp sola çekilir ve karanlıkta söner. Yerindeyken yalnızca ±1° yalpalar.
-      const L = lakeFrame(aspect);
+      const L = stageFrame(aspect);
       const vis = 1 - MathUtils.smoothstep(ad, 0.55, 0.95);
-      const sc = L.sc * (phone ? 0.9 : 0.92) * vis;
+      const sc = L.sc * vis;
       const hop = Math.sin(Math.PI * Math.min(ad, 1)) * 0.9 * (L.sc / 1.55);
       return {
         x: L.x + d * (phone ? 4.6 : 8.5),

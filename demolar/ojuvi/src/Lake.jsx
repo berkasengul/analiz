@@ -8,6 +8,7 @@ import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { MOBILE } from "./canMaterial";
+import { THEME } from "./theme";
 
 // "lake" (ayna su): şişe karanlık, durgun bir suyun üstünde; suda yansıması, ufukta kokunun renginde ışık.
 // Şişeler suyun üstünde bir geçit gibi akar: sıradaki koku ufuktaki ışığın içinden (uzakta küçük bir silüet)
@@ -17,6 +18,15 @@ import { MOBILE } from "./canMaterial";
 export function lakeFrame(aspect) {
   const phone = aspect < 0.9;
   return phone ? { x: 0, y: -1.45, sc: 1.05 } : { x: 2.55 * MathUtils.clamp(aspect / 1.9, 0.44, 1), y: -2.85, sc: 1.55 };
+}
+
+// Sahnenin çerçevesi (ürünün yeri, zemin çizgisi, ölçeği). "silk": ürün daha büyük ve biraz daha aşağıda,
+// ön planda; kaide (Silk.jsx) de bu ölçekle büyür.
+const SILK_MODE = THEME.carousel === "silk";
+export function stageFrame(aspect) {
+  const F = lakeFrame(aspect);
+  if (!SILK_MODE) return F;
+  return aspect < 0.9 ? { x: 0, y: -2.1, sc: 1.2 } : { x: F.x * 0.92, y: -3.6, sc: 1.8 };
 }
 
 // d: ürünün öndeki ürüne uzaklığı. d > 0: ufuktan yaklaşan (sıradaki), d < 0: yana çekilip giden.

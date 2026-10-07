@@ -1,12 +1,12 @@
 import { useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Color, MathUtils, MeshPhysicalMaterial, MeshStandardMaterial, PlaneGeometry, ShaderMaterial } from "three";
+import { CanvasTexture, Color, LatheGeometry, MathUtils, MeshPhysicalMaterial, MeshStandardMaterial, PlaneGeometry, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Vector2 } from "three";
 
 import { flavors } from "./data";
 import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
-import { lakeFrame } from "./Lake";
+import { stageFrame } from "./Lake";
 import { studioEnv } from "./Studio";
 
 const HSL = {};
@@ -18,9 +18,49 @@ const HSL = {};
 // Kumaşın ışığı kendi gölgelendiricisinde (stüdyo ana ışığı soldan-önden, arkadan kenar ışığı, şişenin
 // çevresinde tepe ışığı havuzu, kıvrım yönünde anizotropik saten parlaması).
 
-// Sabit kaide: ipeğin üstünde siyah lake silindir, üst ve alt kenarında ince altın halka. Şişeler yandan gelip
-// üstüne konar. Ölçüler ekran ölçeğiyle (masaüstü 1).
-export const PLINTH = { H: 0.72, R: 1.55 };
+// Sabit kaide: ipeğin üstünde mimari profilli (geniş taban basamağı, iç bükey silme, gövde, taç silmesi) cilalı
+// siyah mermer; damarları koyu altın, silme çizgilerinde ince altın halkalar, üst yüzde altın kakma halka.
+// Şişeler yandan gelip üstüne konar. Ölçüler ekran ölçeğiyle (stageFrame.sc / 1.55).
+export const PLINTH = { H: 0.97, R: 1.95 };
+const PROFILE = [
+  [0, 0], [1.92, 0], [1.95, 0.03], [1.95, 0.11], [1.9, 0.14], [1.72, 0.15], [1.7, 0.2], [1.6, 0.25], [1.53, 0.3], [1.5, 0.33],
+  [1.5, 0.8], [1.53, 0.83], [1.6, 0.86], [1.64, 0.9], [1.64, 0.95], [1.61, 0.97], [0, 0.97],
+].map(([r, y]) => new Vector2(r, y));
+
+// Siyah mermer: neredeyse siyah zemin, ince dallanan koyu altın ve duman grisi damarlar.
+const MARBLE = (() => {
+  if (typeof document === "undefined") return null;
+  const c = document.createElement("canvas");
+  c.width = 1024;
+  c.height = 512;
+  const g = c.getContext("2d");
+  g.fillStyle = "#0a0808";
+  g.fillRect(0, 0, 1024, 512);
+  let seed = 11;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const vein = (x, y, len, w, col) => {
+    g.strokeStyle = col;
+    g.lineWidth = w;
+    g.beginPath();
+    g.moveTo(x, y);
+    let a = rnd() * Math.PI * 2;
+    for (let k = 0; k < len; k++) {
+      a += (rnd() - 0.5) * 0.5;
+      x += Math.cos(a) * 9;
+      y += Math.sin(a) * 4;
+      g.lineTo(x, y);
+      if (rnd() < 0.03) vein(x, y, len * 0.35, w * 0.6, col);
+    }
+    g.stroke();
+  };
+  for (let k = 0; k < 7; k++) vein(rnd() * 1024, rnd() * 512, 110, 1.6, "rgba(196,150,82,0.55)");
+  for (let k = 0; k < 9; k++) vein(rnd() * 1024, rnd() * 512, 80, 1.1, "rgba(120,110,105,0.28)");
+  const t = new CanvasTexture(c);
+  t.colorSpace = SRGBColorSpace;
+  t.wrapS = RepeatWrapping;
+  t.anisotropy = 8;
+  return t;
+})();
 export const plinthTop = (F) => F.y + PLINTH.H * (F.sc / 1.55);
 
 const W = 44; // genişlik (x)
@@ -52,7 +92,7 @@ const silkMaterial = () =>
       }
       float h(float x, float z) {
         float dx = x - u_bx;
-        float near = smoothstep(1.6 * u_sc, 4.6, length(vec2(dx, z * 1.3)));
+        float near = smoothstep(2.1 * u_sc, 5.2, length(vec2(dx, z * 1.3)));
         float r = rise(x, z);
         float t = u_time * (0.35 + 0.5 * u_wave);
         float amp = (0.22 + 0.5 * u_wave) * near * (0.55 + 0.25 * r);
@@ -106,8 +146,8 @@ const silkMaterial = () =>
         float pool = exp(-dot(q, q) / (14. * u_sc * u_sc));
         float far = exp(-dot(q, q) / 180.);
         // Temas gölgesi ve ana ışığın arkaya-sağa düşen gölgesi.
-        float contact = exp(-pow(length(q) / (1.85 * u_sc), 4.));
-        vec2 sq = q - vec2(1.4, -1.6) * u_sc;
+        float contact = exp(-pow(length(q) / (2.25 * u_sc), 4.));
+        vec2 sq = q - vec2(1.7, -1.9) * u_sc;
         vec2 sr = vec2(sq.x * 0.8 + sq.y * 0.6, -sq.x * 0.6 + sq.y * 0.8);
         float castSh = exp(-(sr.x * sr.x / (1.6 * u_sc * u_sc) + sr.y * sr.y / (4.5 * u_sc * u_sc))) * step(vW.y, u_fy + 0.6);
         float shade = 1. - 0.75 * contact - 0.45 * castSh;
@@ -129,9 +169,9 @@ export default function Silk() {
   const P = useMemo(() => {
     const env = studioEnv(gl);
     return {
-      body: new MeshPhysicalMaterial({ color: "#060405", roughness: 0.16, metalness: 0.2, clearcoat: 1, clearcoatRoughness: 0.05, envMap: env, envMapIntensity: 1.1 }),
-      top: new MeshPhysicalMaterial({ color: "#0b0809", roughness: 0.1, metalness: 0.1, clearcoat: 1, clearcoatRoughness: 0.03, envMap: env, envMapIntensity: 1.3 }),
-      gold: new MeshStandardMaterial({ color: "#c9a062", metalness: 1, roughness: 0.22, envMap: env, envMapIntensity: 2.2 }),
+      marble: new MeshPhysicalMaterial({ map: MARBLE, color: "#ffffff", roughness: 0.14, metalness: 0.05, clearcoat: 1, clearcoatRoughness: 0.04, envMap: env, envMapIntensity: 1.2 }),
+      gold: new MeshStandardMaterial({ color: "#c79c5c", metalness: 1, roughness: 0.2, envMap: env, envMapIntensity: 2.4 }),
+      lathe: new LatheGeometry(PROFILE, 128),
     };
   }, [gl]);
   const st = useRef({ wave: 0, on: 0, last: scrollState.p, base: new Color(), sheen: new Color() });
@@ -148,7 +188,7 @@ export default function Silk() {
     const dt = Math.min(delta, 0.1);
     const s = st.current;
     const { detail, order } = useStore.getState();
-    const F = lakeFrame(aspect);
+    const F = stageFrame(aspect);
     const u = M.uniforms;
     // Kaydırma hızı kumaşı dalgalandırır; durunca yavaşça yatışır.
     const v = Math.abs(scrollState.p - s.last) / Math.max(dt, 1e-3);
@@ -186,25 +226,24 @@ export default function Silk() {
     g.visible = s.on > 0.01;
   });
 
-  const { H, R } = PLINTH;
+  const { H } = PLINTH;
   return (
     <>
       <mesh ref={mesh} geometry={geo} material={M} frustumCulled={false} renderOrder={1} />
       <group ref={plinth} visible={false}>
-        {/* Gövde: hafif konik siyah lake silindir; tabanı ipeğe biraz gömülü. */}
-        <mesh material={P.body} position={[0, H / 2 - 0.04, 0]}>
-          <cylinderGeometry args={[R, R * 1.04, H + 0.08, 96]} />
+        <mesh geometry={P.lathe} material={P.marble} position={[0, -0.03, 0]} />
+        {/* İnce altın halkalar: taban basamağı, gövdenin altı ve taç silmesi; üst yüzde kakma halka */}
+        <mesh material={P.gold} position={[0, 0.1, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[1.955, 0.012, 10, 160]} />
         </mesh>
-        {/* Üst yüz: cilalı, kenarından biraz içeride */}
-        <mesh material={P.top} position={[0, H + 0.006, 0]}>
-          <cylinderGeometry args={[R * 0.97, R * 0.97, 0.012, 96]} />
+        <mesh material={P.gold} position={[0, 0.3, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[1.525, 0.016, 10, 160]} />
         </mesh>
-        {/* İnce altın halkalar: üst kenar ve tabana yakın */}
-        <mesh material={P.gold} position={[0, H - 0.005, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[R * 0.985, 0.022, 12, 128]} />
+        <mesh material={P.gold} position={[0, 0.89, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[1.632, 0.02, 10, 160]} />
         </mesh>
-        <mesh material={P.gold} position={[0, 0.16, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[R * 1.035, 0.014, 10, 128]} />
+        <mesh material={P.gold} position={[0, H - 0.024, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[1.32, 0.008, 8, 160]} />
         </mesh>
       </group>
     </>

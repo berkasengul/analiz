@@ -7,7 +7,7 @@ import { scrollState, slotIndex } from "./scroll";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { MOBILE } from "./canMaterial";
-import { lakeFrame } from "./Lake";
+import { stageFrame } from "./Lake";
 
 // Gece stüdyosu ("lake" düzeninin ışık ve atmosferi): her koku aynı premium dilde, kendi renginde sergilenir.
 // Kalite nesne sayısından değil ışık, malzeme ve kompozisyondan gelir:
@@ -127,7 +127,7 @@ export default function Studio() {
     const t = clock.getElapsedTime();
     const s = st.current;
     const { detail, order } = useStore.getState();
-    const F = lakeFrame(aspect);
+    const F = stageFrame(aspect);
     const phone = aspect < 0.9;
     const off = Math.max(sceneState.spread, detail ? 1 : 0);
     s.w = MathUtils.damp(s.w, (1 - off) * Math.min(1, sceneState.intro * 1.3), 3.2, dt);
