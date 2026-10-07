@@ -1,0 +1,505 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": false,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.4,
+  "backSolid": ".",
+  "skip": "^(p-0000003966|p-0000003967|marc-antoine-barrois-ganymede-(extrait-50ml|edp-30ml).*)$",
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "wick": [
+   [
+    "^diptyque-feu-de-",
+    [
+     0.4992,
+     0.0425
+    ]
+   ],
+   [
+    "^diptyque-figuier",
+    [
+     0.4996,
+     0.0425
+    ]
+   ],
+   [
+    "^diptyque-roses-3",
+    [
+     0.4992,
+     0.0425
+    ]
+   ]
+  ],
+  "neckAt": [
+   [
+    "^p-0000004058",
+    0.16
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "www.miskanber.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "themeGlow": 0.3,
+  "sizes": [
+   [
+    "^p-0000003706",
+    "75 ml"
+   ],
+   [
+    "^p-0000003997",
+    "125 ml"
+   ],
+   [
+    "^diptyque-",
+    "300 g"
+   ]
+  ],
+  "home": [
+   "p-0000003993",
+   "p-0000003997",
+   "diptyque-feu-de-bois-300gr-kokulu-mum-kokulu-mum",
+   "p-0000003989",
+   "diptyque-figuier-300gr-kokulu-mum-kokulu-mum",
+   "p-0000003706"
+  ],
+  "profiles": {
+   "flask": "^(p-|marc-)",
+   "depthRatio": 0.42,
+   "flat": "^diptyque-",
+   "flatDepth": [
+    [
+     "^diptyque-",
+     1.3
+    ]
+   ]
+  },
+  "rename": {
+   "p-0000004058": [
+    "Morning Star",
+    "Morning Star"
+   ],
+   "p-0000003989": [
+    "Velvet Tonka Extrait",
+    "Velvet Tonka Extrait"
+   ],
+   "p-0000003997": [
+    "Althaïr Exclusif",
+    "Althaïr Exclusif"
+   ],
+   "p-0000003706": [
+    "Honey Dragon",
+    "Honey Dragon"
+   ],
+   "p-0000003993": [
+    "Iris Debonair",
+    "Iris Debonair"
+   ],
+   "marc-antoine-barrois-ganymede-edp-100ml-parfum-unisex-parfum": [
+    "Ganymede",
+    "Ganymede"
+   ],
+   "diptyque-roses-300gr-kokulu-mum-kokulu-mum": [
+    "Roses",
+    "Roses"
+   ],
+   "diptyque-figuier-300gr-kokulu-mum-kokulu-mum": [
+    "Figuier",
+    "Figuier"
+   ],
+   "diptyque-feu-de-bois-300gr-kokulu-mum-kokulu-mum": [
+    "Feu de Bois",
+    "Feu de Bois"
+   ]
+  },
+  "categories": [
+   {
+    "id": "parfum",
+    "tr": "Niş Parfümler",
+    "en": "Niche Perfumes",
+    "color": "#d8b46a",
+    "descTr": "Creed, Parfums de Marly, BDK, Memo Paris, Liquides Imaginaires, Marc-Antoine Barrois.",
+    "descEn": "Creed, Parfums de Marly, BDK, Memo Paris, Liquides Imaginaires, Marc-Antoine Barrois.",
+    "match": "^(p-|marc-)"
+   },
+   {
+    "id": "mum",
+    "tr": "Kokulu Mumlar",
+    "en": "Scented Candles",
+    "color": "#7a8a60",
+    "descTr": "Diptyque'in ikonik mumları, 300 g.",
+    "descEn": "Diptyque's iconic candles, 300 g.",
+    "match": "^diptyque-"
+   }
+  ],
+  "families": {
+   "p-0000004058": [
+    "Liquides Imaginaires",
+    "Liquides Imaginaires"
+   ],
+   "p-0000003989": [
+    "BDK Parfums",
+    "BDK Parfums"
+   ],
+   "p-0000003997": [
+    "Parfums de Marly",
+    "Parfums de Marly"
+   ],
+   "p-0000003706": [
+    "Memo Paris",
+    "Memo Paris"
+   ],
+   "p-0000003993": [
+    "Creed",
+    "Creed"
+   ],
+   "marc-antoine-barrois-ganymede-edp-100ml-parfum-unisex-parfum": [
+    "Marc-Antoine Barrois",
+    "Marc-Antoine Barrois"
+   ],
+   "diptyque-roses-300gr-kokulu-mum-kokulu-mum": [
+    "Diptyque",
+    "Diptyque"
+   ],
+   "diptyque-figuier-300gr-kokulu-mum-kokulu-mum": [
+    "Diptyque",
+    "Diptyque"
+   ],
+   "diptyque-feu-de-bois-300gr-kokulu-mum-kokulu-mum": [
+    "Diptyque",
+    "Diptyque"
+   ]
+  },
+  "notes": [
+   [
+    "^p-0000004058",
+    [
+     [
+      "Metalik notalar",
+      "Metallic notes"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Sütsü notalar",
+      "Milky notes"
+     ],
+     [
+      "Sedir",
+      "Cedarwood"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Vetiver",
+      "Vetiver"
+     ]
+    ]
+   ],
+   [
+    "^p-0000003989",
+    [
+     [
+      "Tonka",
+      "Tonka Bean"
+     ],
+     [
+      "Kavrulmuş Antep Fıstığı",
+      "Roasted Pistachio"
+     ],
+     [
+      "Saffiano Deri",
+      "Saffiano Leather"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^p-0000003997",
+    [
+     [
+      "Bourbon Vanilyası",
+      "Bourbon Vanilla"
+     ],
+     [
+      "Amaretto",
+      "Amaretto"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^p-0000003706",
+    [
+     [
+      "Kekik",
+      "Thyme"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Mür",
+      "Myrrh"
+     ],
+     [
+      "Opoponaks",
+      "Opoponax"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ]
+    ]
+   ],
+   [
+    "^p-0000003993",
+    [
+     [
+      "Kalabriya Bergamotu",
+      "Calabrian Bergamot"
+     ],
+     [
+      "Pelin",
+      "Wormwood"
+     ],
+     [
+      "İngiliz Lavantası",
+      "English Lavender"
+     ],
+     [
+      "Iris Pallida",
+      "Iris Pallida"
+     ]
+    ]
+   ],
+   [
+    "^marc-",
+    [
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ],
+     [
+      "Süet",
+      "Suede"
+     ],
+     [
+      "Saman Çiçeği",
+      "Immortelle"
+     ]
+    ]
+   ],
+   [
+    "^diptyque-roses",
+    [
+     [
+      "Taze Gül",
+      "Fresh Rose"
+     ],
+     [
+      "Çiğ Damlası",
+      "Dew"
+     ]
+    ]
+   ],
+   [
+    "^diptyque-figuier",
+    [
+     [
+      "İncir",
+      "Fig"
+     ],
+     [
+      "İncir Yaprağı",
+      "Fig Leaf"
+     ],
+     [
+      "Ağaç Kabuğu",
+      "Bark"
+     ]
+    ]
+   ],
+   [
+    "^diptyque-feu",
+    [
+     [
+      "Yanan Odun",
+      "Burning Wood"
+     ],
+     [
+      "Reçine",
+      "Resin"
+     ],
+     [
+      "Duman",
+      "Smoke"
+     ]
+    ]
+   ]
+  ],
+  "palette": [
+   [
+    "^p-0000004058",
+    "#0a1028",
+    "#6a80e0",
+    "#03050e"
+   ],
+   [
+    "^p-0000003989",
+    "#2a2008",
+    "#e0b850",
+    "#0a0802"
+   ],
+   [
+    "^p-0000003997",
+    "#3a1808",
+    "#e8904a",
+    "#0e0602"
+   ],
+   [
+    "^p-0000003706",
+    "#2a1806",
+    "#f0b860",
+    "#0c0602"
+   ],
+   [
+    "^p-0000003993",
+    "#141c2c",
+    "#9ab0d8",
+    "#04060c"
+   ],
+   [
+    "^marc-",
+    "#2a2208",
+    "#ecd078",
+    "#0a0802"
+   ],
+   [
+    "^diptyque-roses",
+    "#2a1218",
+    "#f4b4c4",
+    "#0a0406"
+   ],
+   [
+    "^diptyque-figuier",
+    "#0e1c0a",
+    "#88b866",
+    "#030702"
+   ],
+   [
+    "^diptyque-feu",
+    "#161210",
+    "#b08a60",
+    "#060504"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "p-0000003993",
+    "tr": {
+     "title": "İngiliz terziliği, Fransız parfümcülüğü",
+     "text": "Kalabriya bergamotu ve pelin; kalpte Kent lavantası, dipte üç yıl yetiştirilen Iris Pallida.",
+     "stat": "Creed · Iris Debonair"
+    },
+    "en": {
+     "title": "English tailoring, French perfumery",
+     "text": "Calabrian bergamot and wormwood; Kent lavender at the heart, Iris Pallida grown for three years at the base.",
+     "stat": "Creed · Iris Debonair"
+    }
+   },
+   {
+    "handle": "p-0000003997",
+    "tr": {
+     "title": "Versailles'ın ihtişamı, Marly'nin samimiyeti",
+     "text": "Bourbon vanilyasının etrafında amaretto ve safranın sıcak ışıltısı.",
+     "stat": "Parfums de Marly · Althaïr Exclusif"
+    },
+    "en": {
+     "title": "The splendour of Versailles, the intimacy of Marly",
+     "text": "Amaretto and the warm glow of saffron around Bourbon vanilla.",
+     "stat": "Parfums de Marly · Althaïr Exclusif"
+    }
+   },
+   {
+    "handle": "diptyque-feu-de-bois-300gr-kokulu-mum-kokulu-mum",
+    "tr": {
+     "title": "Şöminede yanan odunun çıtırtısı",
+     "text": "Reçineli ve sıcak; ağır ağır tükenen kütüklerin dumanlı notaları. Alev titreştikçe oda sıcak bir atmosferle dolar.",
+     "stat": "Diptyque · Feu de Bois"
+    },
+    "en": {
+     "title": "The crackle of a wood fire",
+     "text": "Resinous and warm; the smoky notes of slowly burning logs. As the flame flickers, the room fills with warmth.",
+     "stat": "Diptyque · Feu de Bois"
+    }
+   }
+  ],
+  "taglines": {
+   "p-0000004058": [
+    "Metalik bir açılış, yasemin ve sütsü yumuşaklık",
+    "A metallic opening, jasmine and milky softness"
+   ],
+   "p-0000003989": [
+    "Fas'ın sıcaklığı, Paris'in enerjisi",
+    "The warmth of Morocco, the energy of Paris"
+   ],
+   "p-0000003997": [
+    "Bourbon vanilyasının etrafında bir koku sonatı",
+    "A fragrance sonata around Bourbon vanilla"
+   ],
+   "p-0000003706": [
+    "Draco takımyıldızından ateşli bir iz",
+    "A fiery trail from the Draco constellation"
+   ],
+   "p-0000003993": [
+    "Charles Creed'e saygı: fougère ve iris",
+    "A tribute to Charles Creed: fougère and iris"
+   ],
+   "marc-antoine-barrois-ganymede-edp-100ml-parfum-unisex-parfum": [
+    "Adını Jüpiter'in bir ayından alan koku",
+    "A scent named after a moon of Jupiter"
+   ],
+   "diptyque-roses-300gr-kokulu-mum-kokulu-mum": [
+    "Mayıs ortasında çiğ kaplı bir gül buketi",
+    "A dew-covered bouquet of roses in mid-May"
+   ],
+   "diptyque-figuier-300gr-kokulu-mum-kokulu-mum": [
+    "Yaz güneşi altında bir incir bahçesi",
+    "A fig orchard under the summer sun"
+   ],
+   "diptyque-feu-de-bois-300gr-kokulu-mum-kokulu-mum": [
+    "Şöminede ağır ağır yanan kütükler",
+    "Logs slowly burning in the fireplace"
+   ]
+  }
+ }
+}

@@ -1,0 +1,871 @@
+[
+ {
+  "id": 15407787507997,
+  "title": "Morning Star EDP 100ML Parfüm",
+  "handle": "p-0000004058",
+  "body_html": "Morning Star, metalik ve parlak bir açılışın ardından taze yasemin ile sütsü bir yumuşaklığa bırakıyor kendini. Sedir ağacı, patchouli, vetiver ve odunsu misklerin oluşturduğu kalıcı dip notalarla, katman katman keşfedilen odunsu bir iz bırakıyor.",
+  "published_at": "2026-10-07T13:19:15+03:00",
+  "created_at": "2026-09-30T17:54:11+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "LIQUIDES IMAGINAIRES",
+  "product_type": "Unisex Parfüm",
+  "tags": [
+   "yeni_lansman"
+  ],
+  "variants": [
+   {
+    "id": 67622245859613,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000004058",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "15370.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15407787507997,
+    "created_at": "2026-09-30T17:54:11+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 65906032148765,
+    "created_at": "2026-10-01T09:41:53+03:00",
+    "position": 1,
+    "updated_at": "2026-10-01T09:41:54+03:00",
+    "product_id": 15407787507997,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3760303364540_1.jpg?v=1790836914",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65906032181533,
+    "created_at": "2026-10-01T09:41:53+03:00",
+    "position": 2,
+    "updated_at": "2026-10-01T09:41:54+03:00",
+    "product_id": 15407787507997,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3760303364540_2.jpg?v=1790836914",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10369036353821,
+  "title": "Velvet Tonka Extrait EDP 100ML Parfüm",
+  "handle": "p-0000003989",
+  "body_html": "Velvet Tonka Extrait, David Benedek'in evreninde buluşan iki coğrafyayı yansıtıyor: Fas'ın sıcak, zanaatkâr ruhu ve Paris'in şehirli enerjisi. Kompozisyonun kalbindeki tonka fasulyesi, kavrulmuş antep fıstığıyla gurme ve tatlı bir doku sunarken; saffiano deri, koyu ve dokulu karakteriyle Parisli bir derinlik katıyor. Orijinal kokunun daha yoğun ve iddialı bir yorumu olan bu Extrait, amberli ve derimsi nüanslarla karakterini güçlendiriyor. Collection Matières'in bir parçası olarak tonka fasulyesini yeniden yorumlayan koku, BDK Parfums imzasına özgü parlak ve dokulu bir kimlik taşıyor.",
+  "published_at": "2026-10-01T12:08:45+03:00",
+  "created_at": "2026-08-28T17:49:27+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "BDK PARFUMS",
+  "product_type": "Unisex Parfüm",
+  "tags": [
+   "yeni_lansman"
+  ],
+  "variants": [
+   {
+    "id": 52829059580189,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003989",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "17865.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10369036353821,
+    "created_at": "2026-08-28T17:49:27+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 65474265383197,
+    "created_at": "2026-08-31T10:28:26+03:00",
+    "position": 1,
+    "updated_at": "2026-08-31T10:28:28+03:00",
+    "product_id": 10369036353821,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3760035452164_1.jpg?v=1788161308",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65474265350429,
+    "created_at": "2026-08-31T10:28:26+03:00",
+    "position": 2,
+    "updated_at": "2026-08-31T10:28:28+03:00",
+    "product_id": 10369036353821,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3760035452164_2.jpg?v=1788161308",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65474265317661,
+    "created_at": "2026-08-31T10:28:26+03:00",
+    "position": 3,
+    "updated_at": "2026-08-31T10:28:28+03:00",
+    "product_id": 10369036353821,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3760035452164_3.jpg?v=1788161308",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 15402666328349,
+  "title": "Althair Exclusif EDP 125ML Parfüm",
+  "handle": "p-0000003997",
+  "body_html": "Fransız yaşam sanatından ilham alan Althaïr Exclusif, Versailles’ın ihtişamı ile Marly’nin samimiyeti arasında mekik dokuyan 18. yüzyıl müziğinin büyüleyici zıtlıklarını teninize taşıyor. Gösterişli fakat bir o kadar da içten, güçlü ama zarif yapısıyla özgür ve bağımsız bir ruhu simgeleyen bu koku; yoğun Bourbon vanilyasının etrafında şekillenen bir koku sonatı sunuyor. Amarettonun kadifemsi nüansları ve safranın sıcak ışıltısıyla yükselen bu özel kompozisyon, duyularınızı baştan çıkarıcı bir yolculuğa davet ediyor.",
+  "published_at": "2026-09-28T16:54:12+03:00",
+  "created_at": "2026-09-28T16:54:12+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "PARFUMS DE MARLY",
+  "product_type": "Erkek Parfüm",
+  "tags": [
+   "yeni_lansman"
+  ],
+  "variants": [
+   {
+    "id": 67607004512541,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003997",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "19725.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 15402666328349,
+    "created_at": "2026-09-28T16:54:12+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 65861314511133,
+    "created_at": "2026-09-29T08:45:55+03:00",
+    "position": 1,
+    "updated_at": "2026-09-29T08:45:56+03:00",
+    "product_id": 15402666328349,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3700578509505_1.jpg?v=1790660756",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65861314478365,
+    "created_at": "2026-09-29T08:45:55+03:00",
+    "position": 2,
+    "updated_at": "2026-09-29T08:45:56+03:00",
+    "product_id": 15402666328349,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3700578509505_2.jpg?v=1790660756",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10367611830557,
+  "title": "NobleXXI Blonde Amber 300GR Kokulu Mum",
+  "handle": "p-0000003966",
+  "body_html": "Noble XXI Art Deco Blonde Amber Mumu, döneminin ihtişamlı ruhundan ilham alan derin ve dumanlı bir amber kokusudur. Aromatik sarı tütünle baharatlandırılmış sıcak amber notaları, çiçeksi dokunuşlarla zenginleşerek katmanlı bir yapıya dönüşür. Zengin çiçekler ve kuru meyvelerin cümbüşü, kokuya kendine has ve keyif verici bir karakter kazandırır.",
+  "published_at": "2026-09-28T12:29:25+03:00",
+  "created_at": "2026-08-27T11:49:35+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "CLIVE CHRISTIAN",
+  "product_type": "Kokulu Mum",
+  "tags": [
+   "yeni_lansman"
+  ],
+  "variants": [
+   {
+    "id": 52824547492125,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003966",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "26680.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10367611830557,
+    "created_at": "2026-08-27T11:49:35+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 65453360546077,
+    "created_at": "2026-08-27T12:03:01+03:00",
+    "position": 1,
+    "updated_at": "2026-08-27T12:03:03+03:00",
+    "product_id": 10367611830557,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/652638014067_1_308ba5bb-a4e1-470a-ba69-44fa74c320b2.jpg?v=1787821383",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65453360611613,
+    "created_at": "2026-08-27T12:03:02+03:00",
+    "position": 2,
+    "updated_at": "2026-08-27T12:03:04+03:00",
+    "product_id": 10367611830557,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/652638014067_2_2fc3ded1-376f-4c07-af00-b048ba16f538.jpg?v=1787821384",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10367611961629,
+  "title": "C Woody Leather 300GR Kokulu Mum",
+  "handle": "p-0000003967",
+  "body_html": "C Woody Leather Mumu, safran ve tütün füzyonuyla ciltte iz bırakan derin ve odunsu oryantal bir koku sunar. Mandarinin tatlı tazeliği, dumanlı ve baştan çıkarıcı notalarla dengeli bir uyum yaratır.",
+  "published_at": "2026-09-28T12:29:17+03:00",
+  "created_at": "2026-08-27T11:49:42+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "CLIVE CHRISTIAN",
+  "product_type": "Kokulu Mum",
+  "tags": [
+   "yeni_lansman"
+  ],
+  "variants": [
+   {
+    "id": 52824548278557,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003967",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "26680.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10367611961629,
+    "created_at": "2026-08-27T11:49:42+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 65453362282781,
+    "created_at": "2026-08-27T12:03:23+03:00",
+    "position": 1,
+    "updated_at": "2026-08-27T12:03:25+03:00",
+    "product_id": 10367611961629,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/652638014074_1.jpg?v=1787821405",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65453363265821,
+    "created_at": "2026-08-27T12:03:30+03:00",
+    "position": 2,
+    "updated_at": "2026-08-27T12:03:32+03:00",
+    "product_id": 10367611961629,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/652638014074_2.jpg?v=1787821412",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10414522532125,
+  "title": "Honey Dragon EDP 75ML Parfüm",
+  "handle": "p-0000003706",
+  "body_html": "<p>Memo Paris'in yıldızlara ve takımyıldızlarına adanan bu yeni koleksiyonunda Honey Dragon, Draco takımyıldızından ilhamla doğan gizemli ve tutkulu bir kompozisyon sunuyor. Kekik ve bergamotun tazeliği, vanilyanın duyusal sıcaklığıyla buluşurken, mür ve opoponaksın amber tonları kompozisyona büyüleyici bir derinlik katıyor. Kara biber ve tarçın ise gecenin içinden süzülen efsanevi bir yaratığın gizemini ve karanlık karakterini kokuya taşıyor. Bal rengi bir şerit gibi uzayan bu iz, adeta ateşli bir mitolojik varlığın buzlu bir gecede açılışını andırıyor. Yoğun ve uzun süre kalıcı bu koku, kayan bir yıldız gibi arkasında unutulmaz bir iz bırakıyor. Honey Dragon, sadece çevrimiçi olarak, Selfridges London'da ve Paris'teki Boutique Cambon'da özel olarak sunuluyor.</p>",
+  "published_at": "2026-09-23T15:38:16+03:00",
+  "created_at": "2026-09-23T12:54:16+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "MEMO PARIS",
+  "product_type": "Unisex Parfüm",
+  "tags": [
+   "yeni_lansman"
+  ],
+  "variants": [
+   {
+    "id": 53014405841181,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003706",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "16970.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10414522532125,
+    "created_at": "2026-09-23T12:54:17+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 65774336442653,
+    "created_at": "2026-09-23T15:38:04+03:00",
+    "position": 1,
+    "updated_at": "2026-09-23T15:38:05+03:00",
+    "product_id": 10414522532125,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3700458604887_1.jpg?v=1790167085",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65774336409885,
+    "created_at": "2026-09-23T15:38:04+03:00",
+    "position": 2,
+    "updated_at": "2026-09-23T15:38:05+03:00",
+    "product_id": 10414522532125,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3700458604887_2.jpg?v=1790167085",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10397259071773,
+  "title": "Iris Debonair EDP 100ML Parfüm",
+  "handle": "p-0000003993",
+  "body_html": "Iris Debonair, Creed'in beşinci kuşak temsilcisi, vizyoner moda tasarımcısı Charles Creed'den ilham alan yeni bir fougère-floral kompozisyon. Kalabriya bergamotu ve pelin yapraklarının özel co-enfüzyonuyla açılıyor; kalpte Kent'te yetiştirilen taze İngiliz lavantası, dip notalarda ise Les Landes'de üç yıl yetiştirilen değerli Fransız Iris Pallida yer alıyor. İngiliz terziliğinin hassasiyetiyle Fransız haute perfumerie sanatını buluşturan koku, zamansız ve büyüleyici bir zarafet imzası sunuyor.",
+  "published_at": "2026-09-15T16:54:32+03:00",
+  "created_at": "2026-09-15T16:54:32+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "CREED",
+  "product_type": "Unisex Parfüm",
+  "tags": [
+   "Yeni Gelen",
+   "yeni_lansman"
+  ],
+  "variants": [
+   {
+    "id": 52933330239773,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003993",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "22275.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10397259071773,
+    "created_at": "2026-09-15T16:54:32+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 65629174792477,
+    "created_at": "2026-09-15T16:56:46+03:00",
+    "position": 1,
+    "updated_at": "2026-09-15T16:56:48+03:00",
+    "product_id": 10397259071773,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3508440006462_1.jpg?v=1789480608",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 65629174759709,
+    "created_at": "2026-09-15T16:56:46+03:00",
+    "position": 2,
+    "updated_at": "2026-09-15T16:56:48+03:00",
+    "product_id": 10397259071773,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/3508440006462_2.jpg?v=1789480608",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8431097413917,
+  "title": "Ganymede EDP 100ML Parfüm",
+  "handle": "marc-antoine-barrois-ganymede-edp-100ml-parfum-unisex-parfum",
+  "body_html": "<p data-start=\"206\" data-end=\"485\">Ganymede EDP 100ML Parfüm, mandalina, menekşe ve süet notalarının dengeli birleşimiyle oluşturulmuş sofistike bir kompozisyona sahiptir. İtalyan saman çiçeği dokunuşlarıyla derinleşen koku, modern ve rafine bir parfüm deneyimi sunar.</p>\n<p>GANYMEDE, mandalina, menekşe, İtalyan çileği ve süetin zarif ve beklenmedik şekilde uyumlu bir bileşimiyle sonuçlandı. Başyapıt, adını 1610'da Galileo tarafından keşfedilen gizemli bir Jüpiter ayından almıştır. Deri nüansları menekşelerle tamamlanırken, mandalina ilk andan itibaren zengin bir canlılık sağlıyor. İtalyan saman çiçeği aromaları, kokuyu uyumlu ve hassas kıldıkları için ilginç bir kontrast oluşturur.</p>",
+  "published_at": "2026-07-31T20:06:29+03:00",
+  "created_at": "2023-07-06T14:55:45+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "MARC ANTOINE BARROIS",
+  "product_type": "Unisex Parfüm",
+  "tags": [
+   "Erkeklere hediye",
+   "seçtiklerimiz",
+   "Unisex hediye",
+   "çok satanlar"
+  ],
+  "variants": [
+   {
+    "id": 49797241766173,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000000449",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "13915.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8431097413917,
+    "created_at": "2025-03-18T13:15:44+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 42358651224349,
+    "created_at": "2023-07-26T14:10:54+03:00",
+    "position": 1,
+    "updated_at": "2026-03-19T02:50:26+03:00",
+    "product_id": 8431097413917,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/Ganymede-EDP-100ML-Parf-m-Miskanber-Beauty-2932.jpg?v=1773877826",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 42358651257117,
+    "created_at": "2023-07-26T14:10:54+03:00",
+    "position": 2,
+    "updated_at": "2026-03-19T02:50:26+03:00",
+    "product_id": 8431097413917,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/Ganymede-EDP-100ML-Parf-m-Miskanber-Beauty-2550.jpg?v=1773877826",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 42358651158813,
+    "created_at": "2023-07-26T14:10:55+03:00",
+    "position": 3,
+    "updated_at": "2026-03-19T02:50:27+03:00",
+    "product_id": 8431097413917,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/Ganymede-EDP-100ML-Parf-m-Miskanber-Beauty-173.jpg?v=1773877827",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10226700484893,
+  "title": "Roses 300GR Kokulu Mum",
+  "handle": "diptyque-roses-300gr-kokulu-mum-kokulu-mum",
+  "body_html": "<p>Roses kokulu mum, 300 GR'lık büyük boyuyla mayıs ortasındaki taze gül buketini uzun saatler boyunca odanıza yayar. Çiğ damlalarıyla kaplı çiçeksi notalar, mekana coşkulu ve zarif bir atmosfer katar.</p>\n<p>Mayıs ayının ortasında, çiğ damlalarıyla kaplı bir gül çalısından kesilmiş, bazı çiçekleri hâlâ açmakta olan bir gül buketi hayal edin. Baharın saf tazeliği alevle açıldıkça hava yavaş yavaş gülün coşkulu notalarıyla dolar. Koşulsuz güzelliğin daima ikonik kalan simgesine bir saygı duruşu.</p>",
+  "published_at": "2026-06-15T19:06:54+03:00",
+  "created_at": "2026-06-15T19:06:54+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "DIPTYQUE",
+  "product_type": "Kokulu Mum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51880355791133,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003349",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "6465.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10226700484893,
+    "created_at": "2026-06-15T19:06:54+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 64820871037213,
+    "created_at": "2026-06-16T11:01:18+03:00",
+    "position": 1,
+    "updated_at": "2026-06-16T11:01:20+03:00",
+    "product_id": 10226700484893,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/bgremove.png?v=1781596880",
+    "width": 2000,
+    "height": 2000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10226700419357,
+  "title": "Figuier 300GR Kokulu Mum",
+  "handle": "diptyque-figuier-300gr-kokulu-mum-kokulu-mum",
+  "body_html": "<p>Figuier 300GR Kokulu Mum, odunsu ve taze incir kokusuyla yaşam alanınıza büyük hacimiyle yaz bahçesi hissi taşır. MISK+ANBER'in Figuier serisinin 300 gram formatı, uzun yanma süresiyle evinize premium incir kokusu yayar.</p>\n<p>İncire bütüncül bir yaklaşım: yalnızca meyve değil, kıyı boyunca uzanan canlı ağaçlarla dolu sonsuz bir bahçe. Odunsu ve sıcak, yeşil ve aydınlık; kabuk, özsu ve yapraklar, neredeyse olgun incirlerle zarifçe harmanlanır. Yaz güneşinin altında bir meyve bahçesini çağrıştırır.</p>",
+  "published_at": "2026-06-15T19:06:46+03:00",
+  "created_at": "2026-06-15T19:06:46+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "DIPTYQUE",
+  "product_type": "Kokulu Mum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51880355594525,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003348",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "6465.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10226700419357,
+    "created_at": "2026-06-15T19:06:47+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 64820873756957,
+    "created_at": "2026-06-16T11:02:04+03:00",
+    "position": 1,
+    "updated_at": "2026-06-16T11:02:06+03:00",
+    "product_id": 10226700419357,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/bgremove_32a9f276-d360-4303-b0cb-466456819e32.png?v=1781596926",
+    "width": 2000,
+    "height": 2000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 10226700321053,
+  "title": "Feu De Bois 300GR Kokulu Mum",
+  "handle": "diptyque-feu-de-bois-300gr-kokulu-mum-kokulu-mum",
+  "body_html": "<p>Feu De Bois 300GR Kokulu Mum, MISK+ANBER'in odunsu ve reçineli koleksiyonunun en çok tercih edilen boyutudur. 300 gram kapasitesiyle evinize uzun süreli yanan kütük ve duman kokusu taşır.</p>\n<p>Kışın gelişiyle şöminede yanan odunun yumuşak çıtırtısını çağrıştıran bu kompozisyon, reçineli ve sıcak karakteriyle ağır ağır tükenen kütüklerin dumanlı notalarını yansıtır. Alev titreştikce oda sakin ve sıcak bir atmosferle dolur.</p>",
+  "published_at": "2026-06-15T19:06:38+03:00",
+  "created_at": "2026-06-15T19:06:38+03:00",
+  "updated_at": "2026-10-07T23:42:57+03:00",
+  "vendor": "DIPTYQUE",
+  "product_type": "Kokulu Mum",
+  "tags": [],
+  "variants": [
+   {
+    "id": 51880355397917,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000003347",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "6465.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 10226700321053,
+    "created_at": "2026-06-15T19:06:38+03:00",
+    "updated_at": "2026-10-07T23:42:57+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 64820877099293,
+    "created_at": "2026-06-16T11:02:48+03:00",
+    "position": 1,
+    "updated_at": "2026-06-16T11:02:50+03:00",
+    "product_id": 10226700321053,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/bgremove_c290e938-8743-42d4-9191-32d9a97b5a1e.png?v=1781596970",
+    "width": 2000,
+    "height": 2000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8431097807133,
+  "title": "Ganymede Extrait 50ML Parfüm",
+  "handle": "marc-antoine-barrois-ganymede-extrait-50ml-parfum-unisex-parfum",
+  "body_html": "<p data-start=\"207\" data-end=\"450\">Ganymede Extrait 50ML Parfüm, mineralli akorların tütsü ve mür notalarıyla birleştiği sofistike bir kompozisyona sahiptir. Dengeli ve karakterli yapısıyla derin ve rafine bir parfüm deneyimi sunar.</p>\n<p>Parfümün yaratıcıları Marc-Antoine Barrois ve Quentin Bisch, kişinin kendisini sonsuz çiçekler tarlasında bulduğu kokulu ve duyusal bir gezinti hayal ettiler. Mineralli havanın ortasında bir tütsü ve mür aromasını ve uzaktaki dalgaları saran rüzgarla birlikte güneşten ısıyı birleştirerek bir şişe içinde sizlerle buluşturuyor. Bu kokunun ateşli kalbi bize, tanrıların Ganymede'ye güzelliği asla solmaması için verdiği sonsuz yaşamı hatırlatır.</p>",
+  "published_at": "2023-07-26T16:39:59+03:00",
+  "created_at": "2023-07-06T14:55:59+03:00",
+  "updated_at": "2026-10-07T23:43:02+03:00",
+  "vendor": "MARC ANTOINE BARROIS",
+  "product_type": "Unisex Parfüm",
+  "tags": [],
+  "variants": [
+   {
+    "id": 49794970190109,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000000455",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "19155.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8431097807133,
+    "created_at": "2025-03-17T17:41:43+03:00",
+    "updated_at": "2026-10-07T23:43:02+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 42358693462301,
+    "created_at": "2023-07-26T14:14:52+03:00",
+    "position": 1,
+    "updated_at": "2026-03-19T02:50:45+03:00",
+    "product_id": 8431097807133,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/Ganymede-Extrait-50ML-Parf-m-Miskanber-Beauty-3574.jpg?v=1773877845",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 42358693495069,
+    "created_at": "2023-07-26T14:14:52+03:00",
+    "position": 2,
+    "updated_at": "2026-03-19T02:50:46+03:00",
+    "product_id": 8431097807133,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/Ganymede-Extrait-50ML-Parf-m-Miskanber-Beauty-1245.jpg?v=1773877846",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 8431097577757,
+  "title": "Ganymede EDP 30ML Parfüm",
+  "handle": "marc-antoine-barrois-ganymede-edp-30ml-parfum-unisex-parfum",
+  "body_html": "<p data-start=\"204\" data-end=\"482\">Ganymede EDP 30ML Parfüm, mandalina, menekşe ve süet notalarının dengeli birleşimiyle oluşturulmuş sofistike bir kompozisyona sahiptir. İtalyan saman çiçeği dokunuşlarıyla derinleşen koku, modern ve rafine bir parfüm deneyimi sunar.</p>\n<p>GANYMEDE, mandalina, menekşe, İtalyan çileği ve süetin zarif ve beklenmedik şekilde uyumlu bir bileşimiyle sonuçlanmıştır. Koku, adını 1610'da Galileo tarafından keşfedilen gizemli bir Jüpiter ayından almıştır. Deri nüansları menekşelerle tamamlanırken, mandalina ilk andan itibaren zengin bir canlılık sağlıyor. İtalyan saman çiçeği aromaları, kokuyu uyumlu ve hassas kıldıkları için ilginç bir kontrast oluşturuyor.</p>",
+  "published_at": "2023-07-26T14:13:35+03:00",
+  "created_at": "2023-07-06T14:55:51+03:00",
+  "updated_at": "2026-10-07T23:43:02+03:00",
+  "vendor": "MARC ANTOINE BARROIS",
+  "product_type": "Unisex Parfüm",
+  "tags": [
+   "çok satanlar"
+  ],
+  "variants": [
+   {
+    "id": 49797241700637,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "P-0000000451",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "8350.00",
+    "grams": 0,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 8431097577757,
+    "created_at": "2025-03-18T13:15:40+03:00",
+    "updated_at": "2026-10-07T23:43:02+03:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 42358676685085,
+    "created_at": "2023-07-26T14:13:19+03:00",
+    "position": 1,
+    "updated_at": "2026-03-19T02:50:33+03:00",
+    "product_id": 8431097577757,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/Ganymede-EDP-30ML-Parf-m-Miskanber-Beauty-2102.jpg?v=1773877833",
+    "width": 1200,
+    "height": 1200
+   },
+   {
+    "id": 42358676652317,
+    "created_at": "2023-07-26T14:13:19+03:00",
+    "position": 2,
+    "updated_at": "2026-03-19T02:50:34+03:00",
+    "product_id": 8431097577757,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0687/2527/6957/files/Ganymede-EDP-30ML-Parf-m-Miskanber-Beauty-8173.jpg?v=1773877834",
+    "width": 1200,
+    "height": 1200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ }
+]
