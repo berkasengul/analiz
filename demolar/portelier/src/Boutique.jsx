@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { MeshReflectorMaterial } from "@react-three/drei";
-import { AdditiveBlending, Color, CylinderGeometry, DoubleSide, MathUtils, Object3D, ShaderMaterial } from "three";
+import { AdditiveBlending, Color, CylinderGeometry, DoubleSide, MathUtils, MeshStandardMaterial, Object3D, RepeatWrapping, ShaderMaterial, SRGBColorSpace, TextureLoader } from "three";
 
 import { arcPose } from "./Carousel";
 import { MOBILE } from "./canMaterial";
@@ -40,6 +40,9 @@ const styleOf = (f) => STYLES[(typeof window !== "undefined" && new URLSearchPar
 const STYLE_ID = Math.max(STYLES[WALL_STYLE] ?? -1, ...flavors.map(styleOf));
 // Duvar yayının açısı (radyan): yay iki yanda kameranın hizasına kadar uzanır; geniş ekranda da kenarda boşluk kalmaz.
 const ARC = 3.1;
+// theme.wallLogo: markanın logosu kemerlerin üstündeki boş duvarda, duvarın eğrisini izleyen altın bir yazı
+// ({src, width, y}: dosya, genişlik ve zeminden yükseklik; logo beyaz ve saydam zeminli olmalı).
+const WALL_LOGO = THEME.wallLogo ?? null;
 const TMP = new Color();
 
 const wallMaterial = () =>
@@ -199,6 +202,17 @@ export default function Boutique() {
   const smokeMat = useMemo(smokeMaterial, []);
   const beamMat = useMemo(beamMaterial, []);
   const wallMat = useMemo(wallMaterial, []);
+  const logo = useRef();
+  const logoMat = useMemo(() => {
+    if (!WALL_LOGO) return null;
+    const tex = new TextureLoader().load(WALL_LOGO.src);
+    tex.colorSpace = SRGBColorSpace;
+    // Silindirin içinden bakılıyor: doku yatayda aynalanır ki yazı düz okunsun.
+    tex.wrapS = RepeatWrapping;
+    tex.repeat.x = -1;
+    tex.anisotropy = 8;
+    return new MeshStandardMaterial({ map: tex, color: GOLD, metalness: 0.75, roughness: 0.32, emissive: GOLD, emissiveMap: tex, emissiveIntensity: 0.35, transparent: true, depthWrite: false, side: DoubleSide, envMapIntensity: 1.3 });
+  }, []);
   const beams = useRef([]);
   const fluteGeo = useMemo(() => new CylinderGeometry(FLUTE_R, FLUTE_R, 30, 20, 1, true, -Math.PI / 2, Math.PI), []);
 
@@ -262,6 +276,9 @@ export default function Boutique() {
     // Duvarın ışığı kokunun vurgu renginde (doygun): ürün değişince yumuşakça diğerine geçer.
     wallMat.uniforms.u_tint.value.lerp(TMP.set(flavors[st.active].theme.accent), 1 - Math.exp(-dt * 2.5));
     wallMat.uniforms.u_on.value = on * (st.detail ? 0.45 : 1);
+    if (logoMat) logoMat.opacity = on * (st.detail ? 0.4 : 1);
+    // Telefonda duvardaki logo üstteki sayaçla çakışır (logo zaten başlıkta): gizli.
+    if (logo.current) logo.current.visible = asp >= 0.9;
     wallMat.uniforms.u_len.value = CURVE * ARC;
     // Ürüne özel desen: öndeki ürün değişince eski desen yenisine 1,2 sn'de karışır.
     const U = wallMat.uniforms;
@@ -326,6 +343,12 @@ export default function Boutique() {
           {STYLE_ID >= 0 && CURVE > 0 && (
             <mesh material={wallMat} position={[0, 15, CURVE]}>
               <cylinderGeometry args={[CURVE, CURVE, 30, 160, 1, true, Math.PI - ARC / 2, ARC]} />
+            </mesh>
+          )}
+          {/* Marka logosu: kemerlerin üstünde, duvarın eğrisinde altın yazı */}
+          {logoMat && CURVE > 0 && (
+            <mesh ref={logo} material={logoMat} position={[0, WALL_LOGO.y ?? 11.6, CURVE]}>
+              <cylinderGeometry args={[CURVE - 0.12, CURVE - 0.12, (WALL_LOGO.width ?? 9) * (WALL_LOGO.aspect ?? 0.166), 64, 1, true, Math.PI - (WALL_LOGO.width ?? 9) / (2 * CURVE), (WALL_LOGO.width ?? 9) / CURVE]} />
             </mesh>
           )}
           {/* Yivli bronz duvar ve arkasındaki koyu yüzey */}
