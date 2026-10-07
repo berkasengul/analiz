@@ -1,0 +1,485 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": false,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "backSolid": "^(amber-pachouli|gingerbread-cookie|lime-verbena|rose-vanilla|scented-candle-tobacco)",
+  "skip": "^(white-musk|especially-for-you|dark-blue-parfum-intense|golden-tonka-parfum-intense|scent-of-angels)",
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "neckAt": [
+   [
+    "parfum-100ml$",
+    0.22
+   ]
+  ],
+  "parts": [
+   [
+    "^(amber-pachouli|gingerbread-cookie|lime-verbena|rose-vanilla|scented-candle-tobacco)",
+    [
+     [
+      0.558,
+      0.275,
+      0.945,
+      0.74
+     ]
+    ]
+   ],
+   [
+    "parfum-100ml$",
+    [
+     [
+      0.62,
+      0.32,
+      0.9,
+      0.79
+     ]
+    ]
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "www.lafann.com",
+  "platform": "woo",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "sizes": [
+   [
+    "^(amber-pachouli|gingerbread-cookie|lime-verbena|rose-vanilla|scented-candle-tobacco)",
+    "200 g"
+   ]
+  ],
+  "themeGlow": 0.3,
+  "home": [
+   "amber-pachouli-kokulu-mum-190gr",
+   "gingerbread-cookie-kokulu-mum-200gr",
+   "lime-verbena-kokulu-mum-200gr",
+   "scented-candle-tobacco-vanilla-kokulu-mum-190gr"
+  ],
+  "profiles": {
+   "flask": "parfum-100ml$",
+   "depthRatio": 0.42
+  },
+  "rename": {
+   "amber-pachouli-kokulu-mum-190gr": [
+    "Amber & Patchouli",
+    "Amber & Patchouli"
+   ],
+   "gingerbread-cookie-kokulu-mum-200gr": [
+    "Gingerbread & Cookie",
+    "Gingerbread & Cookie"
+   ],
+   "lime-verbena-kokulu-mum-200gr": [
+    "Lime & Verbena",
+    "Lime & Verbena"
+   ],
+   "rose-vanilla-kokulu-mum": [
+    "Rose & Vanilla",
+    "Rose & Vanilla"
+   ],
+   "scented-candle-tobacco-vanilla-kokulu-mum-190gr": [
+    "Tobacco & Vanilla",
+    "Tobacco & Vanilla"
+   ],
+   "dark-blue-parfum-100ml": [
+    "Dark Blue",
+    "Dark Blue"
+   ],
+   "golden-tonka-parfum-100ml": [
+    "Golden Tonka",
+    "Golden Tonka"
+   ],
+   "mystic-vanilla-parfum-100ml": [
+    "Mystic Vanilla",
+    "Mystic Vanilla"
+   ],
+   "hidden-sense-parfum-100ml": [
+    "Hidden Sense",
+    "Hidden Sense"
+   ],
+   "secret-garden-parfum-100ml": [
+    "Secret Garden",
+    "Secret Garden"
+   ],
+   "velvet-oud-parfum-100ml": [
+    "Velvet Oud",
+    "Velvet Oud"
+   ]
+  },
+  "tagline": "notes",
+  "categories": [
+   {
+    "id": "mum",
+    "tr": "Kokulu Mumlar",
+    "en": "Scented Candles",
+    "color": "#d8b46a",
+    "descTr": "El işçiliği cam bardakta %100 doğal bazlı mum ve doğal fitil.",
+    "descEn": "100% natural-base wax and natural wick in a handcrafted glass.",
+    "match": "^(amber-pachouli|gingerbread-cookie|lime-verbena|rose-vanilla|scented-candle-tobacco)"
+   },
+   {
+    "id": "parfum",
+    "tr": "Parfum Intense",
+    "en": "Parfum Intense",
+    "color": "#8a9ab8",
+    "descTr": "Kalıcı ve yoğun, 100 ml parfümler.",
+    "descEn": "Intense, long-lasting 100 ml perfumes.",
+    "match": "parfum"
+   }
+  ],
+  "families": {
+   "amber-pachouli-kokulu-mum-190gr": [
+    "Amber · Topraksı",
+    "Amber · Earthy"
+   ],
+   "gingerbread-cookie-kokulu-mum-200gr": [
+    "Gurme · Baharatlı",
+    "Gourmand · Spicy"
+   ],
+   "lime-verbena-kokulu-mum-200gr": [
+    "Narenciye · Yeşil",
+    "Citrus · Green"
+   ],
+   "rose-vanilla-kokulu-mum": [
+    "Çiçeksi · Tatlı",
+    "Floral · Sweet"
+   ],
+   "scented-candle-tobacco-vanilla-kokulu-mum-190gr": [
+    "Tütün · Vanilya",
+    "Tobacco · Vanilla"
+   ],
+   "dark-blue-parfum-100ml": [
+    "Odunsu · Çiçeksi",
+    "Woody · Floral"
+   ],
+   "golden-tonka-parfum-100ml": [
+    "Oryantal · Baharatlı",
+    "Oriental · Spicy"
+   ],
+   "mystic-vanilla-parfum-100ml": [
+    "Oryantal · Vanilya",
+    "Oriental · Vanilla"
+   ],
+   "hidden-sense-parfum-100ml": [
+    "Baharatlı · Odunsu",
+    "Spicy · Woody"
+   ],
+   "secret-garden-parfum-100ml": [
+    "Narenciye · Oryantal",
+    "Citrus · Oriental"
+   ],
+   "velvet-oud-parfum-100ml": [
+    "Odunsu · Oud",
+    "Woody · Oud"
+   ]
+  },
+  "notes": [
+   [
+    "^amber",
+    [
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ]
+    ]
+   ],
+   [
+    "^gingerbread",
+    [
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Badem",
+      "Almond"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^lime",
+    [
+     [
+      "Mine Çiçeği",
+      "Verbena"
+     ],
+     [
+      "Yeşil Çay",
+      "Green Tea"
+     ],
+     [
+      "Misket Limonu",
+      "Lime"
+     ]
+    ]
+   ],
+   [
+    "^rose",
+    [
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "tobacco",
+    [
+     [
+      "Tütün",
+      "Tobacco"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^dark-blue",
+    [
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Osmanthus",
+      "Osmanthus"
+     ],
+     [
+      "Ölmez Çiçeği",
+      "Immortelle"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ]
+    ]
+   ],
+   [
+    "^golden-tonka",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "Tütün",
+      "Tobacco"
+     ],
+     [
+      "Bal",
+      "Honey"
+     ],
+     [
+      "Tonka",
+      "Tonka Bean"
+     ]
+    ]
+   ],
+   [
+    "^mystic",
+    [
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Laden Gülü",
+      "Rockrose"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ]
+    ]
+   ],
+   [
+    "^hidden",
+    [
+     [
+      "Tonka",
+      "Tonka Bean"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Sedir",
+      "Cedarwood"
+     ]
+    ]
+   ],
+   [
+    "^secret",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^velvet",
+    [
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ]
+  ],
+  "palette": [
+   [
+    "^amber",
+    "#1e1406",
+    "#e0a440"
+   ],
+   [
+    "^gingerbread",
+    "#1e0a0c",
+    "#b04a5a"
+   ],
+   [
+    "^lime",
+    "#10140e",
+    "#b8c4b0"
+   ],
+   [
+    "^rose",
+    "#1a1412",
+    "#f0d8c8"
+   ],
+   [
+    "tobacco",
+    "#0e0c0a",
+    "#9a7a5a"
+   ],
+   [
+    "^dark-blue",
+    "#08101e",
+    "#4a7ac8"
+   ],
+   [
+    "^golden",
+    "#1a1206",
+    "#d8b05a"
+   ],
+   [
+    "^mystic",
+    "#1a1008",
+    "#d8a060"
+   ],
+   [
+    "^hidden",
+    "#121014",
+    "#b09ac0"
+   ],
+   [
+    "^secret",
+    "#0e140a",
+    "#a8c070"
+   ],
+   [
+    "^velvet",
+    "#140a0a",
+    "#a04a3a"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "amber-pachouli-kokulu-mum-190gr",
+    "tr": {
+     "title": "Derin ve karakterli",
+     "text": "Topraksı paçuliye gizemli amber eşlik ediyor; el işçiliği cam bardakta.",
+     "stat": "Amber · Paçuli"
+    },
+    "en": {
+     "title": "Deep and full of character",
+     "text": "Mysterious amber joins earthy patchouli, in a handcrafted glass.",
+     "stat": "Amber · Patchouli"
+    }
+   },
+   {
+    "handle": "gingerbread-cookie-kokulu-mum-200gr",
+    "tr": {
+     "title": "Ağız sulandıran bir koku",
+     "text": "Tarçın, badem, bir tutam taze zencefil ve kremsi vanilya.",
+     "stat": "Tarçın · Badem · Vanilya"
+    },
+    "en": {
+     "title": "A mouth-watering scent",
+     "text": "Cinnamon, almond, a pinch of fresh ginger and creamy vanilla.",
+     "stat": "Cinnamon · Almond · Vanilla"
+    }
+   },
+   {
+    "handle": "lime-verbena-kokulu-mum-200gr",
+    "tr": {
+     "title": "Taze ve capcanlı",
+     "text": "Mine çiçeğinin narenciye kokusu, yeşil çay ve misket limonuyla buluşuyor.",
+     "stat": "Mine Çiçeği · Yeşil Çay · Lime"
+    },
+    "en": {
+     "title": "Fresh and vivid",
+     "text": "The citrus scent of verbena meets green tea and lime.",
+     "stat": "Verbena · Green Tea · Lime"
+    }
+   }
+  ],
+  "wooCart": "sepet"
+ }
+}
