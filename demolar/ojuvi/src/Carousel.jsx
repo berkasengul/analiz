@@ -7,7 +7,7 @@ import { easeQuadOut } from "d3-ease";
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { THEME } from "./theme";
-import { WATER_CLIP, lakeFrame } from "./Lake";
+import { WATER_CLIP, lakePath } from "./Lake";
 
 // Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
 const STUDIO = !!THEME.studio;
@@ -22,7 +22,7 @@ export const RISE = THEME.carousel === "rise";
 export const GLIDE = THEME.carousel === "glide";
 // "dolly": karanlık sinematik stüdyo; şişe arkasındaki ışık panelinin önünde, geçişte karanlıkta çözülüp belirir.
 export const DOLLY = THEME.carousel === "dolly";
-// "lake": ayna su (Lake.jsx); şişe durgun suyun üstünde, kaydırınca dönerek suya gömülür, sıradaki sudan yükselir.
+// "lake": ayna su (Lake.jsx); şişe durgun suyun üstünde; sıradaki koku ufuktan süzülerek gelir, öndeki yana çekilir.
 export const LAKE = THEME.carousel === "lake";
 const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || LAKE;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
@@ -115,20 +115,19 @@ export function arcPose(d, aspect, time, i) {
       };
     }
     if (LAKE) {
-      // Yerindeyken şişe suyun üstünde hafifçe salınır (ayağı biraz suda). Komşuya geçerken dönerek suya
-      // gömülür (iki ürünün ortasında tamamen suyun altında), sıradaki dönerek sudan yükselir.
-      const L = lakeFrame(aspect);
-      const h = TOP[i] != null && BOTTOM[i] != null ? TOP[i] - BOTTOM[i] : 3.8;
-      const k = MathUtils.smoothstep(ad, 0.04, 0.5);
-      const sc = ad < 0.5 ? L.sc : 0;
+      // Su üstünde geçit (Lake.jsx → lakePath): sıradaki ufuktan süzülerek gelir, öndeki yana çekilip söner.
+      // Ayağı hep su çizgisinde (biraz suda); yerindeyken hafifçe salınır.
+      const q = lakePath(d, aspect);
+      const sc = q.L.sc * q.vis;
       return {
-        x: L.x + d * 0.5,
-        y: L.y - ((BOTTOM[i] ?? -1.8) + 0.05) * sc + Math.sin(time * 0.9) * 0.03 * focus - k * (h * sc + 0.4),
-        z: 0,
+        x: q.x,
+        y: q.L.y - ((BOTTOM[i] ?? -1.8) + 0.05) * sc + Math.sin(time * 0.9) * 0.03 * focus,
+        z: q.z,
         rotX: 0.01,
-        rotY: -d * 2.6 + 0.12 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
-        rotZ: -0.14 * d,
+        rotY: -d * 1.1 + 0.12 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
+        rotZ: 0,
         scale: sc,
+        alpha: q.vis,
       };
     }
     if (GLIDE) {
