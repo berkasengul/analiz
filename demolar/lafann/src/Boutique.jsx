@@ -328,12 +328,14 @@ export default function Boutique() {
     wallMat.uniforms.u_time.value = clock.getElapsedTime();
     // Duvarın ışığı kokunun vurgu renginde (doygun): ürün değişince yumuşakça diğerine geçer.
     wallMat.uniforms.u_tint.value.lerp(TMP.set(flavors[st.active].theme.accent), 1 - Math.exp(-dt * 2.5));
-    wallMat.uniforms.u_on.value = on * (st.detail ? 0.45 : 1);
+    // Mum yanıyorsa (Candle.jsx) duvarın ışığı alevle birlikte çok hafif titrer.
+    const fk = sceneState.flicker != null ? 0.9 + 0.16 * sceneState.flicker : 1;
+    wallMat.uniforms.u_on.value = on * (st.detail ? 0.45 : 1) * fk;
     if (logoMat) {
       logoMat.uniforms.u_on.value = on * (st.detail ? 0.4 : 1);
       logoMat.uniforms.u_time.value = clock.getElapsedTime();
       logoMat.uniforms.u_tint.value.copy(wallMat.uniforms.u_tint.value);
-      haloMat.uniforms.u_on.value = on * (st.detail ? 0.3 : 1);
+      haloMat.uniforms.u_on.value = on * (st.detail ? 0.3 : 1) * fk;
       haloMat.uniforms.u_tint.value.copy(wallMat.uniforms.u_tint.value);
     }
     wallMat.uniforms.u_len.value = CURVE * ARC;

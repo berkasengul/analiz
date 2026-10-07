@@ -33,6 +33,7 @@ import { useFrame } from "@react-three/fiber";
 
 import { content, flavors } from "./data";
 import { SPRAY, SPRAY_SLOW, sceneState } from "./shared";
+import { CandleFlame } from "./Candle";
 
 const MOBILE_GL = typeof window !== "undefined" && window.matchMedia("(max-width: 820px)").matches;
 
@@ -886,6 +887,7 @@ function Photo({ body, parts, S, flavor, noLiquid }) {
         </group>
       ))}
       {pivot && <Sprayer S={S} pivot={pivot} cap={cap} flavor={flavor} />}
+      {S.flame?.length > 0 && flavor != null && <CandleFlame S={S} flavor={flavor} />}
       {g.parts[0]?.liquid && !noLiquid && <Liquid L={g.parts[0].liquid} S={S} body={body} />}
       {/* Gövdelerin dışında kalan ince parçalar (pompa ağzı, sap): fotoğraf kartı. Saydam camda kart camın
           içinden görünürdü (ikinci bir etiket gibi); orada çizilmez. */}

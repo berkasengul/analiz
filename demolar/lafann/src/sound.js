@@ -11,6 +11,8 @@ import { useStore } from "./store";
 
 const ENABLED = content.sound !== false;
 const SCENE = content.sceneSounds === true;
+// Fon müziği (content.music: true): dosya yok, Web Audio ile üretilen usul bir ortam müziği.
+const MUSIC = content.music === true || (content.music && typeof content.music === "object");
 // A minör pentatonik (A3'ten yukarı): ürün sırasına göre nota.
 const SCALE = [220, 261.63, 293.66, 329.63, 392, 440, 523.25, 587.33, 659.25, 783.99];
 export const noteOf = (i) => SCALE[((i % SCALE.length) + SCALE.length) % SCALE.length];
@@ -71,6 +73,7 @@ export function unlock() {
     if (soundState.unlocked) {
       setMaster(true);
       if (SCENE) startPad();
+      if (MUSIC) startMusic();
     }
     notify();
   };
@@ -280,4 +283,106 @@ export function startSound() {
   // Tanı (?sounddebug): ses durumunu konsoldan okumak için.
   if (new URLSearchParams(window.location.search).has("sounddebug"))
     window.__sound = () => ({ unlocked: soundState.unlocked, state: ctx?.state, pref: pref(), hidden: document.hidden, active: useStore.getState().active, loaded: useStore.getState().loaded, p: scrollState.p });
+}
+
+// Fon müziği: dört akorluk yavaş bir döngü (Dmaj9 · Bm9 · Gmaj7 · A6sus), her akor 9 sn. Yumuşak pad
+// (iki hafif akortsuz ton, alçak geçiren süzgeç) ve arada tek tük, uzun yankılı piyano notaları.
+// Ses çok kısık (content.music.volume, varsayılan 0.5); kendi uzun yankısıyla ana çıkışa bağlanır.
+let music = null;
+const CHORDS = [
+  [146.83, 220, 277.18, 329.63, 369.99],
+  [123.47, 185, 220, 277.18, 293.66],
+  [98, 146.83, 185, 246.94, 293.66],
+  [110, 164.81, 185, 246.94, 293.66],
+];
+function startMusic() {
+  if (music || !ctx) return;
+  const vol = (typeof content.music === "object" && content.music.volume) || 0.5;
+  const bus = ctx.createGain();
+  bus.gain.value = 0;
+  const verb = ctx.createConvolver();
+  const len = ctx.sampleRate * 4.5;
+  const ir = ctx.createBuffer(2, len, ctx.sampleRate);
+  for (let c = 0; c < 2; c++) {
+    const d = ir.getChannelData(c);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
+  }
+  verb.buffer = ir;
+  const wet = ctx.createGain();
+  wet.gain.value = 0.55;
+  const warm = ctx.createBiquadFilter();
+  warm.type = "lowpass";
+  warm.frequency.value = 2400;
+  bus.connect(warm);
+  warm.connect(master);
+  warm.connect(verb).connect(wet).connect(master);
+  bus.gain.setTargetAtTime(0.32 * vol, ctx.currentTime, 4);
+  const DUR = 9;
+  let next = ctx.currentTime + 0.2;
+  let k = 0;
+  const padChord = (notes, t) => {
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 700;
+    lp.Q.value = 0.3;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.05, t + 3.2);
+    g.gain.setValueAtTime(0.05, t + DUR - 0.5);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + DUR + 3.5);
+    lp.connect(g).connect(bus);
+    notes.forEach((f, i) =>
+      [-4, 4].forEach((cents) => {
+        const o = ctx.createOscillator();
+        o.type = i === 0 ? "sine" : "triangle";
+        o.frequency.value = f * Math.pow(2, cents / 1200);
+        const og = ctx.createGain();
+        og.gain.value = i === 0 ? 0.55 : 0.22;
+        o.connect(og).connect(lp);
+        o.start(t);
+        o.stop(t + DUR + 4);
+      })
+    );
+  };
+  const piano = (f, t, amp) => {
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(amp, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(amp * 0.35, t + 0.5);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 3.8);
+    g.connect(bus);
+    [
+      [1, 1],
+      [2, 0.28],
+      [3, 0.08],
+    ].forEach(([r, a]) => {
+      const o = ctx.createOscillator();
+      o.type = "sine";
+      o.frequency.value = f * r;
+      const og = ctx.createGain();
+      og.gain.value = a;
+      o.connect(og).connect(g);
+      o.start(t);
+      o.stop(t + 4);
+    });
+  };
+  const schedule = () => {
+    if (!music) return;
+    while (next < ctx.currentTime + 2) {
+      const notes = CHORDS[k % CHORDS.length];
+      padChord(notes, next);
+      // Piyano: akorun üst notalarından 3-4 tanesi, bir oktav yukarıda, yavaş ve düzensiz aralıklarla.
+      const n = 3 + (k % 2);
+      let at = next + 0.6;
+      for (let i = 0; i < n; i++) {
+        const f = notes[1 + ((i * 2 + k) % (notes.length - 1))] * 2;
+        piano(f, at, 0.045 - i * 0.006);
+        at += 1.4 + Math.random() * 1.2;
+      }
+      next += DUR;
+      k++;
+    }
+  };
+  music = { bus, timer: setInterval(schedule, 500) };
+  schedule();
 }

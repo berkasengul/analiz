@@ -17,6 +17,10 @@ import Cosmos from "./Cosmos";
 import Lake from "./Lake";
 import Studio from "./Studio";
 import Silk from "./Silk";
+import { FlameLight } from "./Candle";
+import { flavors } from "./data";
+
+const HAS_FLAME = flavors.some((f) => f.photo3d?.flame?.length);
 import Effects, { FX } from "./Effects";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
@@ -72,6 +76,7 @@ export default function Scene() {
           {THEME.pedestal && THEME.carousel !== "dolly" && <Pedestal />}
           {THEME.carousel === "dolly" && <Boutique />}
           <IceScene />
+          {HAS_FLAME && <FlameLight />}
           {THEME.carousel === "lake" && <Lake />}
           {["lake", "silk"].includes(THEME.carousel) && <Studio />}
           {THEME.carousel === "silk" && <Silk />}

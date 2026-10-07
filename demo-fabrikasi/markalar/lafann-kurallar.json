@@ -66,7 +66,14 @@
   ],
   "profiles": {
    "flask": "parfum-100ml$",
-   "depthRatio": 0.42
+   "depthRatio": 0.42,
+   "flat": "^(amber-pachouli|gingerbread-cookie|lime-verbena|rose-vanilla|scented-candle-tobacco)",
+   "flatDepth": [
+    [
+     "^(amber-pachouli|gingerbread-cookie|lime-verbena|rose-vanilla|scented-candle-tobacco)",
+     1.3
+    ]
+   ]
   },
   "rename": {
    "amber-pachouli-kokulu-mum-190gr": [

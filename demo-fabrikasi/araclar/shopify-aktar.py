@@ -129,6 +129,8 @@ def photo3d(h, m):
         shape.update(clear=True, liquid=hexc(m["liquid"]))
     if m.get("glass"):
         shape["glass"] = True
+    if m.get("flame"):
+        shape["flame"] = m["flame"]  # mum: fitil ucu (araclar/mum-alev.py), sitede canlı alev
     if R.get("liquidBottom") and os.path.exists(os.path.join(FOTO, "labels", f"{h}.webp")):
         from PIL import Image
         a = Image.open(os.path.join(FOTO, "labels", f"{h}.webp")).convert("RGBA")
