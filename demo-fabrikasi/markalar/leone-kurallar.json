@@ -1,0 +1,357 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "backSolid": ".",
+  "skip": "^(atlante-bianca|ombra|legna|legnoso|mini|leo|leona)-",
+  "hero": [
+   [
+    "^tabacco",
+    4
+   ],
+   [
+    ".",
+    1
+   ]
+  ],
+  "parts": [
+   [
+    "^lumina",
+    [
+     [
+      0.41,
+      0.548,
+      0.755,
+      0.95
+     ]
+    ]
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "leonedifiume.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "450 gr",
+  "sizes": [
+   [
+    "^misteriosa",
+    "850 gr"
+   ],
+   [
+    "^atlante",
+    "850 gr"
+   ],
+   [
+    "^casa",
+    "2200 gr"
+   ]
+  ],
+  "themeGlow": 0.3,
+  "home": [
+   "misteriosa-luxury-soy-candle-850-gr",
+   "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr",
+   "atlante-nero-luxury-soy-candle",
+   "tabacco-pelle-2-wick-black-soy-candle-450-gr"
+  ],
+  "rename": {
+   "misteriosa-luxury-soy-candle-850-gr": [
+    "Misteriosa",
+    "Misteriosa"
+   ],
+   "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr": [
+    "Casa di Pietra",
+    "Casa di Pietra"
+   ],
+   "atlante-nero-luxury-soy-candle": [
+    "Atlante Nero",
+    "Atlante Nero"
+   ],
+   "tabacco-pelle-2-wick-black-soy-candle-450-gr": [
+    "Tabacco & Pelle",
+    "Tabacco & Pelle"
+   ],
+   "lavanda-2-wick-black-soy-candle-450-gr": [
+    "Lavanda",
+    "Lavanda"
+   ],
+   "lumina-2-wick-luxury-soy-candle-450-gr": [
+    "Lumina",
+    "Lumina"
+   ]
+  },
+  "tagline": "notes",
+  "categories": [
+   {
+    "id": "kristal",
+    "tr": "Kristal Koleksiyon",
+    "en": "Crystal Collection",
+    "color": "#d8b05a",
+    "descTr": "Ağızda üflenmiş kristal; 24 ayar altın ve platinle elde boyanır, fırınlanır.",
+    "descEn": "Mouth-blown crystal, hand-painted with 24k gold and platinum, then fired.",
+    "match": "^(misteriosa|casa-di-pietra|atlante|lumina)-"
+   },
+   {
+    "id": "kesme",
+    "tr": "Kesme Kristal",
+    "en": "Cut Crystal",
+    "color": "#8a7a9a",
+    "descTr": "Elmas bıçaklarla kesilmiş kristal, el yapımı ahşap sandıkta.",
+    "descEn": "Crystal cut with diamond blades, presented in a handmade wooden chest.",
+    "match": "^(tabacco|lavanda)-"
+   }
+  ],
+  "families": {
+   "misteriosa-luxury-soy-candle-850-gr": [
+    "Odunsu · Baharatlı",
+    "Woody · Spicy"
+   ],
+   "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr": [
+    "Oud · Baharatlı",
+    "Oud · Spicy"
+   ],
+   "atlante-nero-luxury-soy-candle": [
+    "Gurme · Odunsu",
+    "Gourmand · Woody"
+   ],
+   "tabacco-pelle-2-wick-black-soy-candle-450-gr": [
+    "Tütün · Deri",
+    "Tobacco · Leather"
+   ],
+   "lavanda-2-wick-black-soy-candle-450-gr": [
+    "Aromatik · Çiçeksi",
+    "Aromatic · Floral"
+   ],
+   "lumina-2-wick-luxury-soy-candle-450-gr": [
+    "Baharatlı · Meyveli",
+    "Spicy · Fruity"
+   ]
+  },
+  "notes": [
+   [
+    "^misteriosa",
+    [
+     [
+      "Sedir",
+      "Cedarwood"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^casa",
+    [
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Ambergris",
+      "Ambergris"
+     ],
+     [
+      "Mür",
+      "Myrrh"
+     ]
+    ]
+   ],
+   [
+    "^atlante",
+    [
+     [
+      "Tonka",
+      "Tonka Bean"
+     ],
+     [
+      "Karamel",
+      "Caramel"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Ylang-Ylang",
+      "Ylang-Ylang"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ]
+    ]
+   ],
+   [
+    "^tabacco",
+    [
+     [
+      "Tütün",
+      "Tobacco"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Tonka",
+      "Tonka Bean"
+     ]
+    ]
+   ],
+   [
+    "^lavanda",
+    [
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Akdeniz Limonu",
+      "Mediterranean Lemon"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^lumina",
+    [
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Sedir",
+      "Cedarwood"
+     ],
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Ylang-Ylang",
+      "Ylang-Ylang"
+     ],
+     [
+      "Karamel",
+      "Caramel"
+     ]
+    ]
+   ]
+  ],
+  "palette": [
+   [
+    "^misteriosa",
+    "#1a1206",
+    "#e0a84a"
+   ],
+   [
+    "^casa",
+    "#1e0e06",
+    "#f08a3a"
+   ],
+   [
+    "^atlante",
+    "#100c06",
+    "#d8b05a"
+   ],
+   [
+    "^tabacco",
+    "#140c08",
+    "#b0703c"
+   ],
+   [
+    "^lavanda",
+    "#120e1e",
+    "#9a86d0"
+   ],
+   [
+    "^lumina",
+    "#1a140a",
+    "#f0c878"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "misteriosa-luxury-soy-candle-850-gr",
+    "tr": {
+     "title": "Tarihî bir kapının ardında",
+     "text": "Sedir, kakule ve bergamot; dipte amber, misk ve karabiber. Kapı motifi elde oyulur, 24 ayar altın ve platinle boyanır.",
+     "stat": "Sedir · Kakule · Amber"
+    },
+    "en": {
+     "title": "Behind a historic door",
+     "text": "Cedarwood, cardamom and bergamot over amber, musk and black pepper. The door motif is hand-engraved and painted in 24k gold and platinum.",
+     "stat": "Cedarwood · Cardamom · Amber"
+    }
+   },
+   {
+    "handle": "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr",
+    "tr": {
+     "title": "Taş bir evin altın pencereleri",
+     "text": "Altı fitil, kristal pencerelerden geçen ışık. Neroli ve menekşe, dipte oud, ambergris ve mür.",
+     "stat": "Neroli · Oud · Mür"
+    },
+    "en": {
+     "title": "Golden windows of a stone house",
+     "text": "Six wicks, light passing through crystal windows. Neroli and violet over oud, ambergris and myrrh.",
+     "stat": "Neroli · Oud · Myrrh"
+    }
+   },
+   {
+    "handle": "atlante-nero-luxury-soy-candle",
+    "tr": {
+     "title": "Göğü omuzlarında taşıyan Atlas",
+     "text": "Tonka ve karamelin kremsi sıcaklığı; mandalina ve ylang-ylang, sandal ağacı ve miskle.",
+     "stat": "Tonka · Ylang-Ylang · Sandal"
+    },
+    "en": {
+     "title": "Atlas, carrying the heavens",
+     "text": "The creamy warmth of tonka and caramel; mandarin and ylang-ylang, with sandalwood and musk.",
+     "stat": "Tonka · Ylang-Ylang · Sandalwood"
+    }
+   }
+  ],
+  "platform": "merx"
+ }
+}

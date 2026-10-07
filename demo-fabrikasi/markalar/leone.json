@@ -1,0 +1,1913 @@
+{
+  "slug": "leone",
+  "meta": {
+    "title": "Leone di Fiume · Konsept Demo",
+    "description": "Leone di Fiume için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
+    "og": "Leone di Fiume: mouth-blown crystal candles, hand-painted in 24k gold."
+  },
+  "brand": {
+    "name": "LEONE DI FIUME",
+    "sub": "Crystal Candles",
+    "specs": "Kristal · %100 soya mumu",
+    "disclaimer": "Bu sayfa Leone di Fiume için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Ürün görselleri, koku profilleri, fiyatlar ve metinler markanın kendi sitesinden (leonedifiume.com) alınmıştır.",
+    "en": {
+      "sub": "Crystal Candles",
+      "specs": "Crystal · 100% soy wax",
+      "disclaimer": "This page is an independent concept demo prepared for Leone di Fiume and is not affiliated with the brand owner. Product images, scent profiles, prices and copy are taken from the brand's own website (leonedifiume.com)."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "LEONE DI FIUME",
+    "submark": "CRYSTAL CANDLES",
+    "concentration": "SOY WAX CANDLE",
+    "volume": "450 gr"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "Kristal · %100 soya mumu",
+    "en": "Crystal · 100% soy wax"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Kristal",
+        "kicker": "01",
+        "struck": "Sıradan bir cam",
+        "title": "Ağızda üflenmiş kristal",
+        "text": "Camın en saf hâli olan kristal, bu sanatın en üst seviyesi olan üfleme tekniğiyle ustaların elinde biçimlenir."
+      },
+      "en": {
+        "short": "Crystal",
+        "kicker": "01",
+        "struck": "An ordinary glass",
+        "title": "Mouth-blown crystal",
+        "text": "Crystal, the clearest state of glass, shaped by masters with the blowing technique, the highest level of the art."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "Altın",
+        "kicker": "02",
+        "struck": "Basılı bir desen",
+        "title": "24 ayar altın ve platin",
+        "text": "Desenler elde oyulur, kumlanır ya da elmas bıçaklarla kesilir; ardından 24 ayar altın ve platinle boyanıp fırınlanır."
+      },
+      "en": {
+        "short": "Gold",
+        "kicker": "02",
+        "struck": "A printed pattern",
+        "title": "24k gold and platinum",
+        "text": "Patterns are hand-engraved, sandblasted or cut with diamond blades, then hand-painted in 24k gold and platinum and fired."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Koku",
+        "kicker": "03",
+        "struck": "Sıradan bir koku",
+        "title": "Her mumun kendi imza kokusu",
+        "text": "%100 soya mumu ve yalnızca o ürüne özel Leone di Fiume imza kokusu."
+      },
+      "en": {
+        "short": "Scent",
+        "kicker": "03",
+        "struck": "An ordinary scent",
+        "title": "A signature scent for every candle",
+        "text": "100% soy wax and a Leone di Fiume signature perfume unique to each product."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Sandık",
+        "kicker": "04",
+        "struck": "Sıradan bir kutu",
+        "title": "El yapımı ahşap sandıkta",
+        "text": "Her eser, el yapımı ahşap bir sandıkta ya da özel hediye kutusunda sunulur."
+      },
+      "en": {
+        "short": "Chest",
+        "kicker": "04",
+        "struck": "An ordinary box",
+        "title": "In a handmade wooden chest",
+        "text": "Each work of art is presented in a handmade wooden chest or a special gift box."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "1 adet",
+        "en": "1 piece"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "USD",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 640
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "USD",
+      "locale": "en-US",
+      "packs": {
+        "1": 640
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "Leone di Fiume · İstanbul",
+    "instagram": "https://www.instagram.com/leonedifiume/",
+    "website": "https://leonedifiume.com/",
+    "press": [],
+    "tr": {
+      "lead": "Işığı kristalde saklayan mumlar.",
+      "paragraphs": [
+        "Leone di Fiume, camın en saf hâli olan kristali ve bu sanatın en üst seviyesi olan üfleme tekniğini bir araya getiriyor; her ürün, gönlünü bu sanata vermiş ustaların elinde tek tek üretiliyor.",
+        "Desenler tarihî kapılardan, taş evlerden, burçlardan ve gökyüzünden esinleniyor; elde oyulup 24 ayar altın ve platinle boyanıyor, ardından fırınlanıyor.",
+        "Kristalin içinde %100 soya mumu ve yalnızca o ürüne özel bir imza kokusu yanıyor; mum yandıkça ışık kristalin desenlerinden süzülüyor."
+      ],
+      "timeline": [
+        [
+          "Kristal",
+          "Ağızda üflenir"
+        ],
+        [
+          "Desen",
+          "Elde oyulur, kumlanır ya da kesilir"
+        ],
+        [
+          "Altın",
+          "24 ayar altın ve platinle boyanır"
+        ],
+        [
+          "Mum",
+          "%100 soya, imza koku"
+        ]
+      ],
+      "stats": [
+        [
+          "16",
+          "mum"
+        ],
+        [
+          "24K",
+          "altın ve platin"
+        ],
+        [
+          "%100",
+          "soya mumu"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Candles that keep light in crystal.",
+      "paragraphs": [
+        "Leone di Fiume combines crystal, the clearest and most perfect state of glass, with blowing, the highest level of this art; every piece is handmade by masters who have set their heart on it.",
+        "Patterns are inspired by historic doors, stone houses, horoscopes and the sky; they are hand-engraved, painted in 24k gold and platinum, then fired.",
+        "Inside the crystal burns 100% soy wax with a signature perfume unique to each product; as it burns, light passes through the patterns of the crystal."
+      ],
+      "timeline": [
+        [
+          "Crystal",
+          "Mouth-blown"
+        ],
+        [
+          "Pattern",
+          "Engraved, sandblasted or cut"
+        ],
+        [
+          "Gold",
+          "Painted in 24k gold and platinum"
+        ],
+        [
+          "Wax",
+          "100% soy, signature scent"
+        ]
+      ],
+      "stats": [
+        [
+          "16",
+          "candles"
+        ],
+        [
+          "24K",
+          "gold and platinum"
+        ],
+        [
+          "100%",
+          "soy wax"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Mumlar neyle üretiliyor?",
+        "%100 soya mumu ve her ürüne özel Leone di Fiume imza kokusuyla."
+      ],
+      [
+        "Kristal kaplar nasıl yapılıyor?",
+        "Ağızda üflenmiş kristal; desenler elde oyulur, kumlanır ya da elmas bıçaklarla kesilir, 24 ayar altın ve platinle boyanıp fırınlanır."
+      ],
+      [
+        "Nasıl paketleniyor?",
+        "El yapımı ahşap sandıkta ya da özel hediye kutusunda."
+      ]
+    ],
+    "en": [
+      [
+        "What are the candles made of?",
+        "100% soy wax with a Leone di Fiume signature perfume unique to each product."
+      ],
+      [
+        "How is the crystal made?",
+        "Mouth-blown crystal; patterns are engraved, sandblasted or cut with diamond blades, then painted in 24k gold and platinum and fired."
+      ],
+      [
+        "How is it packaged?",
+        "In a handmade wooden chest or a special gift box."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Crystal Candles",
+      "madeFor": "Leone di Fiume için hazırlanmış konsept",
+      "recyclable": "Kristal · %100 soya mumu",
+      "founder": "Leone di Fiume · İstanbul",
+      "contactTag": "Siparişleriniz, mumlarımız ve iş birlikleri için bize yazın.",
+      "newsTitle": "Yeni eserler önce burada.",
+      "marquee": [
+        "LEONE DI FIUME",
+        "Ağızda üflenmiş kristal",
+        "24 ayar altın ve platin",
+        "%100 soya mumu",
+        "İstanbul"
+      ],
+      "slogan": "Işığı kristalde saklayan mumlar.",
+      "nav": {
+        "flavors": "Öne çıkanlar",
+        "catalog": "Tüm mumlar",
+        "categories": "Koleksiyonlar",
+        "products": "Mumlar",
+        "sets": "Koleksiyonlar",
+        "about": "Hakkımızda",
+        "contact": "İletişim"
+      },
+      "flavors": "Mumlar",
+      "notes": "Koku profili",
+      "discover": "{0} mumunu keşfet",
+      "discoverCan": "Mumu keşfet",
+      "backToFlavors": "Mumlara dön",
+      "prevFlavor": "Önceki mum",
+      "nextFlavor": "Sonraki mum",
+      "backToFlavor": "Mum bilgisine dön",
+      "exploreCan": "Mumu keşfet · {0} hikâye",
+      "whatsInside": "Koku profili",
+      "drag": "Mumu çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Mumunu seç",
+      "shopTag": "Mumunu seç; markanın kendi mağazasında güvenle öde.",
+      "flavor": "Mum",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "Leone di Fiume · {0}",
+      "family": "Koku ailesi",
+      "caffeine": "Yanan mumu gözetimsiz bırakmayın.",
+      "perks": [
+        "Ağızda üflenmiş kristal",
+        "24 ayar altın ve platin",
+        "%100 soya mumu"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Seçenek",
+      "related": "Benzer mumlar",
+      "buildBox": "Mumları keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} mum; kristal ve kesme kristal koleksiyonlar.",
+      "year": "Çıkış",
+      "composition": "Koku profili",
+      "ships": "Markanın kendi mağazasında",
+      "place": "Nokta",
+      "spot": "Adres",
+      "status": "İletişim",
+      "addToCart": "Sepete ekle",
+      "added": "Sepette"
+    },
+    "en": {
+      "loading": "Crystal Candles",
+      "madeFor": "Concept prepared for Leone di Fiume",
+      "recyclable": "Crystal · 100% soy wax",
+      "founder": "Leone di Fiume · Istanbul",
+      "contactTag": "Write to us about orders, our candles and collaborations.",
+      "newsTitle": "New pieces, first here.",
+      "marquee": [
+        "LEONE DI FIUME",
+        "Mouth-blown crystal",
+        "24k gold and platinum",
+        "100% soy wax",
+        "Istanbul"
+      ],
+      "slogan": "Candles that keep light in crystal.",
+      "nav": {
+        "flavors": "Featured",
+        "catalog": "All candles",
+        "categories": "Collections",
+        "products": "Candles",
+        "sets": "Collections",
+        "about": "About us",
+        "contact": "Contact"
+      },
+      "flavors": "Candles",
+      "notes": "Scent profile",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover the candle",
+      "backToFlavors": "Back to candles",
+      "prevFlavor": "Previous candle",
+      "nextFlavor": "Next candle",
+      "backToFlavor": "Back to candle",
+      "exploreCan": "Explore the candle · {0} stories",
+      "whatsInside": "Scent profile",
+      "drag": "Drag to turn the candle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your candle",
+      "shopTag": "Choose your candle; pay securely on the brand's own store.",
+      "flavor": "Candle",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "Leone di Fiume · {0}",
+      "family": "Family",
+      "caffeine": "Never leave a burning candle unattended.",
+      "perks": [
+        "Mouth-blown crystal",
+        "24k gold and platinum",
+        "100% soy wax"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Option",
+      "related": "Similar candles",
+      "buildBox": "Explore the candles",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} candles; crystal and cut crystal collections.",
+      "year": "Launched",
+      "composition": "Scent profile",
+      "ships": "On the brand's own store",
+      "place": "Location",
+      "spot": "Address",
+      "status": "Contact",
+      "addToCart": "Add to cart",
+      "added": "In cart"
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "bottle"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "bottle",
+  "logo": "brand/logo.png",
+  "labelFinish": {
+    "metalness": 0.1,
+    "roughness": 0.18,
+    "clearcoat": 1,
+    "clearcoatRoughness": 0.08,
+    "envMapIntensity": 1.1
+  },
+  "fillLight": "#ffe6c4",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "ikas": "https://leonedifiume.com"
+  },
+  "latinTerms": "Leone di Fiume|LEONE DI FIUME|Crystal Candles|Misteriosa|Casa di Pietra|Atlante Nero|Tabacco & Pelle|Lavanda|Lumina",
+  "glass": false,
+  "spray": false,
+  "photoUnlit": 0.55,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#e0a84a",
+    "particles": "gold",
+    "numerals": {
+      "font": "fonts/Italiana-Regular.ttf"
+    },
+    "intro": "mark",
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
+      "display": "\"Cinzel\", \"Cormorant Garamond\", Georgia, serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "dolly",
+    "cards": "gallery",
+    "pyramid": true,
+    "lux": true,
+    "paging": true,
+    "wallStill": true,
+    "wallCurve": 18,
+    "beams": 3,
+    "plinthColor": "#f3ece2",
+    "epilogue": false,
+    "pageDuration": 1.7,
+    "fx": {
+      "bloom": 0.16,
+      "threshold": 0.93,
+      "vignette": 0.34,
+      "grain": 0
+    },
+    "wallStyle": "arches",
+    "wallLogo": {
+      "src": "brand/logo.png",
+      "width": 10.5,
+      "aspect": 0.1927,
+      "y": 13.6,
+      "phoneWidth": 7.2,
+      "phoneY": 9.6
+    },
+    "productScale": 1.0
+  },
+  "defaultLang": "tr",
+  "hide": [
+    "stockists"
+  ],
+  "contactInfo": {
+    "tr": [
+      [
+        "E-posta",
+        [
+          "info@leonedifiume.com"
+        ]
+      ],
+      [
+        "Telefon",
+        [
+          "+90 212 263 40 58",
+          "+90 549 472 08 64"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@leonedifiume"
+        ]
+      ],
+      [
+        "Adres",
+        [
+          "Arnavutköy, Beyazgül Sk. No:47/A",
+          "Beşiktaş / İstanbul"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "Email",
+        [
+          "info@leonedifiume.com"
+        ]
+      ],
+      [
+        "Phone",
+        [
+          "+90 212 263 40 58",
+          "+90 549 472 08 64"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@leonedifiume"
+        ]
+      ],
+      [
+        "Address",
+        [
+          "Arnavutköy, Beyazgül Sk. No:47/A",
+          "Beşiktaş / Istanbul"
+        ]
+      ]
+    ]
+  },
+  "stockists": {
+    "tr": [],
+    "en": []
+  },
+  "finder": {},
+  "catalog": {
+    "categories": [
+      {
+        "id": "kristal",
+        "name": {
+          "tr": "Kristal Koleksiyon",
+          "en": "Crystal Collection"
+        },
+        "color": "#d8b05a",
+        "desc": {
+          "tr": "Ağızda üflenmiş kristal; 24 ayar altın ve platinle elde boyanır, fırınlanır.",
+          "en": "Mouth-blown crystal, hand-painted with 24k gold and platinum, then fired."
+        }
+      },
+      {
+        "id": "kesme",
+        "name": {
+          "tr": "Kesme Kristal",
+          "en": "Cut Crystal"
+        },
+        "color": "#8a7a9a",
+        "desc": {
+          "tr": "Elmas bıçaklarla kesilmiş kristal, el yapımı ahşap sandıkta.",
+          "en": "Crystal cut with diamond blades, presented in a handmade wooden chest."
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "misteriosa-luxury-soy-candle-850-gr",
+        "handle": "misteriosa-luxury-soy-candle-850-gr",
+        "name": {
+          "tr": "Misteriosa",
+          "en": "Misteriosa"
+        },
+        "category": "kristal",
+        "size": "850 gr",
+        "price": {
+          "tr": 640.0,
+          "en": 640.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Misteriosa Crystal Vase is made of mouth-blown crystal.",
+          "en": "Misteriosa Crystal Vase is made of mouth-blown crystal."
+        },
+        "color": "#583b25",
+        "product": 0,
+        "image": "cut/misteriosa-luxury-soy-candle-850-gr.webp",
+        "cutout": true,
+        "bg": "#1a1206",
+        "bg2": "#e0a84a",
+        "variants": [
+          {
+            "id": 1
+          }
+        ],
+        "url": "https://leonedifiume.com/en/misteriosa-luxury-soy-candle-850-gr"
+      },
+      {
+        "id": "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr",
+        "handle": "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr",
+        "name": {
+          "tr": "Casa di Pietra",
+          "en": "Casa di Pietra"
+        },
+        "category": "kristal",
+        "size": "2200 gr",
+        "price": {
+          "tr": 850.0,
+          "en": 850.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Casa di Pietra Crystal Bowl is made of mouth-blown crystal.",
+          "en": "Casa di Pietra Crystal Bowl is made of mouth-blown crystal."
+        },
+        "color": "#834d2e",
+        "product": 1,
+        "image": "cut/casa-di-pietra-6-wick-luxury-soy-candle-2200-gr.webp",
+        "cutout": true,
+        "bg": "#1e0e06",
+        "bg2": "#f08a3a",
+        "variants": [
+          {
+            "id": 2
+          }
+        ],
+        "url": "https://leonedifiume.com/en/casa-di-pietra-6-wick-luxury-soy-candle-2200-gr"
+      },
+      {
+        "id": "atlante-nero-luxury-soy-candle",
+        "handle": "atlante-nero-luxury-soy-candle",
+        "name": {
+          "tr": "Atlante Nero",
+          "en": "Atlante Nero"
+        },
+        "category": "kristal",
+        "size": "850 gr",
+        "price": {
+          "tr": 110.0,
+          "en": 110.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Atlante Nero Crystal Candle Holder is made of mouth-blown crystal.",
+          "en": "Atlante Nero Crystal Candle Holder is made of mouth-blown crystal."
+        },
+        "color": "#613517",
+        "product": 2,
+        "image": "cut/atlante-nero-luxury-soy-candle.webp",
+        "cutout": true,
+        "bg": "#100c06",
+        "bg2": "#d8b05a",
+        "variants": [
+          {
+            "id": 3
+          }
+        ],
+        "url": "https://leonedifiume.com/en/atlante-nero-luxury-soy-candle"
+      },
+      {
+        "id": "lumina-2-wick-luxury-soy-candle-450-gr",
+        "handle": "lumina-2-wick-luxury-soy-candle-450-gr",
+        "name": {
+          "tr": "Lumina",
+          "en": "Lumina"
+        },
+        "category": "kristal",
+        "size": "450 g",
+        "price": {
+          "tr": 88.0,
+          "en": 88.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Lumina Crystal Candle Holder is made of mouth-blown crystal.",
+          "en": "Lumina Crystal Candle Holder is made of mouth-blown crystal."
+        },
+        "color": "#9c714f",
+        "product": 4,
+        "image": "cut/lumina-2-wick-luxury-soy-candle-450-gr.webp",
+        "cutout": true,
+        "bg": "#1a140a",
+        "bg2": "#f0c878",
+        "variants": [
+          {
+            "id": 8
+          }
+        ],
+        "url": "https://leonedifiume.com/en/lumina-2-wick-luxury-soy-candle-450-gr"
+      },
+      {
+        "id": "tabacco-pelle-2-wick-black-soy-candle-450-gr",
+        "handle": "tabacco-pelle-2-wick-black-soy-candle-450-gr",
+        "name": {
+          "tr": "Tabacco & Pelle",
+          "en": "Tabacco & Pelle"
+        },
+        "category": "kesme",
+        "size": "450 g",
+        "price": {
+          "tr": 108.0,
+          "en": 108.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Tabacco & Pelle Cut Crystal Candle Holder is made of mouth-blown crystal.",
+          "en": "Tabacco & Pelle Cut Crystal Candle Holder is made of mouth-blown crystal."
+        },
+        "color": "#6a4529",
+        "product": 3,
+        "image": "cut/tabacco-pelle-2-wick-black-soy-candle-450-gr.webp",
+        "cutout": true,
+        "bg": "#140c08",
+        "bg2": "#b0703c",
+        "variants": [
+          {
+            "id": 5
+          }
+        ],
+        "url": "https://leonedifiume.com/en/tabacco-pelle-2-wick-black-soy-candle-450-gr"
+      },
+      {
+        "id": "lavanda-2-wick-black-soy-candle-450-gr",
+        "handle": "lavanda-2-wick-black-soy-candle-450-gr",
+        "name": {
+          "tr": "Lavanda",
+          "en": "Lavanda"
+        },
+        "category": "kesme",
+        "size": "450 g",
+        "price": {
+          "tr": 104.0,
+          "en": 104.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Lavanda Cut Crystal Candle Holder is made of mouth-blown crystal.",
+          "en": "Lavanda Cut Crystal Candle Holder is made of mouth-blown crystal."
+        },
+        "color": "#562916",
+        "product": 5,
+        "image": "cut/lavanda-2-wick-black-soy-candle-450-gr.webp",
+        "cutout": true,
+        "bg": "#120e1e",
+        "bg2": "#9a86d0",
+        "variants": [
+          {
+            "id": 6
+          }
+        ],
+        "url": "https://leonedifiume.com/en/lavanda-2-wick-black-soy-candle-450-gr"
+      }
+    ]
+  },
+  "products": [
+    {
+      "name": "Misteriosa",
+      "form": "photo",
+      "sub": "850 gr",
+      "collection": null,
+      "family": "Odunsu · Baharatlı",
+      "year": null,
+      "perfumer": null,
+      "color": "#583b25",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#1a1206",
+        "edge": "#050404",
+        "drop": "#e0a84a",
+        "accent": "#e0a84a",
+        "mood": "warm"
+      },
+      "tagline": "Sedir · Kakule · Bergamot",
+      "notes": [
+        "Sedir",
+        "Kakule",
+        "Bergamot",
+        "Amber",
+        "Misk"
+      ],
+      "description": "Misteriosa Crystal Vase is made of mouth-blown crystal. The design pattern is engraved meticulously by our craftspeople using various techniques. The artwork then turned into a masterpiece by shaping the glass rim. Misteriosa Crystal Vase is then being hand painted with 24k gold and platinum and fired.",
+      "file": "misteriosa-luxury-soy-candle-850-gr.webp",
+      "handle": "misteriosa-luxury-soy-candle-850-gr",
+      "en": {
+        "name": "Misteriosa",
+        "family": "Woody · Spicy",
+        "tagline": "Cedarwood · Cardamom · Bergamot",
+        "notes": [
+          "Cedarwood",
+          "Cardamom",
+          "Bergamot",
+          "Amber",
+          "Musk"
+        ],
+        "description": "Misteriosa Crystal Vase is made of mouth-blown crystal. The design pattern is engraved meticulously by our craftspeople using various techniques. The artwork then turned into a masterpiece by shaping the glass rim. Misteriosa Crystal Vase is then being hand painted with 24k gold and platinum and fired.",
+        "sub": "850 gr"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "round",
+        "zScale": 1,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0117, 0.0336, 0.0492, 0.0641, 0.0734, 0.0828, 0.0922, 0.0984, 0.1047, 0.1109, 0.1164, 0.1211, 0.1266, 0.1305, 0.1344, 0.1383, 0.1414, 0.1445, 0.1484, 0.1508, 0.1531, 0.1562, 0.1578, 0.1609, 0.1633, 0.1648, 0.1664, 0.1688, 0.1703, 0.1719, 0.1734, 0.1758, 0.1766, 0.1773, 0.1789, 0.1805, 0.1812, 0.182, 0.1828, 0.1836, 0.1844, 0.1852, 0.1859, 0.1867, 0.1867, 0.1883, 0.1883, 0.1891, 0.1891, 0.1898, 0.1898, 0.1898, 0.1906, 0.1906, 0.1906, 0.1906, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1922, 0.193, 0.193, 0.1922, 0.1922, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.193, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1922, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1914, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1906, 0.1898, 0.1898, 0.1898, 0.1898, 0.1898, 0.1898, 0.1898, 0.1898, 0.1898, 0.1898, 0.1891, 0.1859, 0.182, 0.1734, 0.15, 0.125, 0.0914, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.5359, 0.0328],
+            [0.5062, 0.0312],
+            [0.5047, 0.0297],
+            [0.5, 0.0312],
+            [0.4719, 0.0328],
+            [0.4656, 0.0359],
+            [0.4578, 0.0359],
+            [0.4375, 0.0422],
+            [0.4031, 0.0578],
+            [0.3812, 0.0734],
+            [0.3594, 0.0953],
+            [0.3484, 0.1094],
+            [0.3484, 0.1125],
+            [0.3391, 0.125],
+            [0.3266, 0.1484],
+            [0.3172, 0.1766],
+            [0.3156, 0.1906],
+            [0.3125, 0.1984],
+            [0.3125, 0.2078],
+            [0.3094, 0.2172],
+            [0.3078, 0.2875],
+            [0.3063, 0.2891],
+            [0.3063, 0.3031],
+            [0.3078, 0.3047],
+            [0.3078, 0.3109],
+            [0.3063, 0.3125],
+            [0.3063, 0.5281],
+            [0.3078, 0.5297],
+            [0.3078, 0.8609],
+            [0.3094, 0.8625],
+            [0.3094, 0.9406],
+            [0.3187, 0.9516],
+            [0.3266, 0.9563],
+            [0.3328, 0.9578],
+            [0.3359, 0.9609],
+            [0.3453, 0.9609],
+            [0.3563, 0.9641],
+            [0.3719, 0.9641],
+            [0.3734, 0.9656],
+            [0.3922, 0.9656],
+            [0.4031, 0.9688],
+            [0.5906, 0.9688],
+            [0.6, 0.9656],
+            [0.6234, 0.9641],
+            [0.6328, 0.9609],
+            [0.6438, 0.9609],
+            [0.6516, 0.9578],
+            [0.6625, 0.9578],
+            [0.6641, 0.9563],
+            [0.6813, 0.9547],
+            [0.6844, 0.9531],
+            [0.6891, 0.9469],
+            [0.6891, 0.8984],
+            [0.6906, 0.8969],
+            [0.6906, 0.7047],
+            [0.6922, 0.7031],
+            [0.6922, 0.2922],
+            [0.6906, 0.2906],
+            [0.6891, 0.225],
+            [0.6859, 0.2141],
+            [0.6844, 0.1953],
+            [0.6828, 0.1938],
+            [0.6813, 0.1797],
+            [0.6781, 0.175],
+            [0.6797, 0.1734],
+            [0.6766, 0.1688],
+            [0.6766, 0.1641],
+            [0.6719, 0.15],
+            [0.6687, 0.1469],
+            [0.6687, 0.1437],
+            [0.6594, 0.1234],
+            [0.6562, 0.1203],
+            [0.6484, 0.1047],
+            [0.6406, 0.0953],
+            [0.6172, 0.0719],
+            [0.5859, 0.05],
+            [0.5703, 0.0453],
+            [0.5625, 0.0406],
+            [0.5578, 0.0406],
+            [0.5531, 0.0375],
+            [0.5375, 0.0344]
+          ]
+        ],
+        "edge": "#3f362e"
+      },
+      "price": {
+        "tr": 640.0,
+        "en": 640.0
+      },
+      "photos": [
+        "foto/misteriosa-luxury-soy-candle-850-gr/1.webp",
+        "foto/misteriosa-luxury-soy-candle-850-gr/2.webp",
+        "foto/misteriosa-luxury-soy-candle-850-gr/3.webp"
+      ]
+    },
+    {
+      "name": "Casa di Pietra",
+      "form": "photo",
+      "sub": "2200 gr",
+      "collection": null,
+      "family": "Oud · Baharatlı",
+      "year": null,
+      "perfumer": null,
+      "color": "#834d2e",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#1e0e06",
+        "edge": "#050404",
+        "drop": "#f08a3a",
+        "accent": "#f08a3a",
+        "mood": "warm"
+      },
+      "tagline": "Neroli · Menekşe · Oud",
+      "notes": [
+        "Neroli",
+        "Menekşe",
+        "Oud",
+        "Ambergris",
+        "Mür"
+      ],
+      "description": "Casa di Pietra Crystal Bowl is made of mouth-blown crystal. The design pattern is engraved meticulously by our craftspeople using sandblasting technique. The artwork is then being hand painted with 24k gold and platinum and fired.",
+      "file": "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr.webp",
+      "handle": "casa-di-pietra-6-wick-luxury-soy-candle-2200-gr",
+      "en": {
+        "name": "Casa di Pietra",
+        "family": "Oud · Spicy",
+        "tagline": "Neroli · Violet · Oud",
+        "notes": [
+          "Neroli",
+          "Violet",
+          "Oud",
+          "Ambergris",
+          "Myrrh"
+        ],
+        "description": "Casa di Pietra Crystal Bowl is made of mouth-blown crystal. The design pattern is engraved meticulously by our craftspeople using sandblasting technique. The artwork is then being hand painted with 24k gold and platinum and fired.",
+        "sub": "2200 gr"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "round",
+        "zScale": 1,
+        "axis": 0.5008,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0586, 0.1547, 0.2227, 0.2523, 0.2914, 0.3289, 0.3508, 0.3742, 0.3937, 0.4039, 0.4203, 0.4375, 0.4453, 0.4531, 0.4602, 0.4641, 0.4656, 0.4648, 0.4625, 0.4602, 0.4578, 0.4594, 0.4617, 0.4641, 0.4648, 0.4656, 0.468, 0.468, 0.4672, 0.4672, 0.4664, 0.4656, 0.4664, 0.4664, 0.4656, 0.4664, 0.4672, 0.4664, 0.4664, 0.4664, 0.4656, 0.4656, 0.4656, 0.4656, 0.4656, 0.4656, 0.4648, 0.4648, 0.4648, 0.4656, 0.4656, 0.4656, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4656, 0.4656, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4641, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4633, 0.4633, 0.4633, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4625, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4609, 0.4617, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4594, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4562, 0.4562, 0.4562, 0.4562, 0.4547, 0.4539, 0.4531, 0.4516, 0.4484, 0.4461, 0.4437, 0.4391, 0.4367, 0.4328, 0.4281, 0.4234, 0.4188, 0.4141, 0.4062, 0.4016, 0.3914, 0.3852, 0.3758, 0.3664, 0.3578, 0.3445, 0.332, 0.3219, 0.3063, 0.2906, 0.2758, 0.2547, 0.2328, 0.2141, 0.1898, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.9641, 0.1172],
+            [0.9563, 0.1094],
+            [0.9422, 0.1016],
+            [0.9187, 0.0938],
+            [0.9031, 0.0922],
+            [0.8938, 0.0875],
+            [0.8875, 0.0875],
+            [0.8859, 0.0859],
+            [0.8719, 0.0844],
+            [0.8703, 0.0828],
+            [0.8625, 0.0828],
+            [0.8609, 0.0813],
+            [0.8578, 0.0828],
+            [0.85, 0.0828],
+            [0.8484, 0.0813],
+            [0.825, 0.0797],
+            [0.8234, 0.0781],
+            [0.8156, 0.0781],
+            [0.8047, 0.075],
+            [0.7656, 0.0719],
+            [0.7641, 0.0703],
+            [0.7453, 0.0688],
+            [0.7438, 0.0672],
+            [0.7281, 0.0672],
+            [0.7266, 0.0656],
+            [0.7188, 0.0656],
+            [0.7109, 0.0625],
+            [0.6562, 0.0609],
+            [0.6547, 0.0594],
+            [0.5984, 0.0594],
+            [0.5969, 0.0578],
+            [0.4016, 0.0609],
+            [0.4, 0.0625],
+            [0.3203, 0.0656],
+            [0.3187, 0.0672],
+            [0.3016, 0.0672],
+            [0.3, 0.0688],
+            [0.2609, 0.0703],
+            [0.2594, 0.0719],
+            [0.2484, 0.0719],
+            [0.2469, 0.0734],
+            [0.2297, 0.0734],
+            [0.2234, 0.0766],
+            [0.1812, 0.0797],
+            [0.1797, 0.0813],
+            [0.1719, 0.0813],
+            [0.1625, 0.0844],
+            [0.15, 0.0844],
+            [0.1484, 0.0859],
+            [0.1422, 0.0859],
+            [0.1328, 0.0891],
+            [0.125, 0.0891],
+            [0.1234, 0.0906],
+            [0.1062, 0.0938],
+            [0.0953, 0.0984],
+            [0.0891, 0.0984],
+            [0.0781, 0.1031],
+            [0.0672, 0.1047],
+            [0.0437, 0.1156],
+            [0.0344, 0.1234],
+            [0.0297, 0.1297],
+            [0.0297, 0.1531],
+            [0.0312, 0.1547],
+            [0.0312, 0.1656],
+            [0.0297, 0.1672],
+            [0.0297, 0.2469],
+            [0.0312, 0.2484],
+            [0.0312, 0.2734],
+            [0.0328, 0.275],
+            [0.0328, 0.2953],
+            [0.0344, 0.2969],
+            [0.0344, 0.4734],
+            [0.0359, 0.475],
+            [0.0359, 0.5437],
+            [0.0375, 0.5453],
+            [0.0375, 0.6125],
+            [0.0391, 0.6141],
+            [0.0391, 0.6813],
+            [0.0406, 0.6828],
+            [0.0422, 0.7937],
+            [0.0437, 0.7953],
+            [0.0453, 0.8203],
+            [0.0531, 0.8391],
+            [0.0781, 0.8641],
+            [0.0906, 0.8734],
+            [0.1437, 0.9016],
+            [0.2047, 0.9219],
+            [0.2109, 0.9219],
+            [0.225, 0.9266],
+            [0.2531, 0.9313],
+            [0.2703, 0.9375],
+            [0.2859, 0.9391],
+            [0.2875, 0.9406],
+            [0.2891, 0.9391],
+            [0.2969, 0.9422],
+            [0.6656, 0.9422],
+            [0.6766, 0.9391],
+            [0.6891, 0.9391],
+            [0.6906, 0.9375],
+            [0.7109, 0.9359],
+            [0.7156, 0.9328],
+            [0.7328, 0.9313],
+            [0.7344, 0.9297],
+            [0.7484, 0.9281],
+            [0.7562, 0.925],
+            [0.7703, 0.9234],
+            [0.7719, 0.9219],
+            [0.8016, 0.9156],
+            [0.8578, 0.8969],
+            [0.8625, 0.8938],
+            [0.8672, 0.8938],
+            [0.9141, 0.8688],
+            [0.9391, 0.8453],
+            [0.9516, 0.8266],
+            [0.9563, 0.8109],
+            [0.9578, 0.7859],
+            [0.9594, 0.7844],
+            [0.9594, 0.7344],
+            [0.9609, 0.7328],
+            [0.9594, 0.7312],
+            [0.9625, 0.7281],
+            [0.9609, 0.7266],
+            [0.9625, 0.725],
+            [0.9625, 0.6359],
+            [0.9609, 0.6344],
+            [0.9641, 0.6312],
+            [0.9641, 0.5391],
+            [0.9625, 0.5375],
+            [0.9656, 0.5344],
+            [0.9656, 0.4375],
+            [0.9672, 0.4359],
+            [0.9672, 0.275],
+            [0.9656, 0.2734],
+            [0.9656, 0.2234],
+            [0.9672, 0.2219],
+            [0.9656, 0.2172],
+            [0.9672, 0.2156],
+            [0.9656, 0.2],
+            [0.9672, 0.1984],
+            [0.9672, 0.1938],
+            [0.9656, 0.1922],
+            [0.9656, 0.1875],
+            [0.9672, 0.1859],
+            [0.9688, 0.1672],
+            [0.9656, 0.1641],
+            [0.9656, 0.1594],
+            [0.9578, 0.1437],
+            [0.9594, 0.1391],
+            [0.9656, 0.1313],
+            [0.9656, 0.1266],
+            [0.9672, 0.125]
+          ]
+        ],
+        "edge": "#ae8e6b"
+      },
+      "price": {
+        "tr": 850.0,
+        "en": 850.0
+      },
+      "photos": [
+        "foto/casa-di-pietra-6-wick-luxury-soy-candle-2200-gr/1.webp",
+        "foto/casa-di-pietra-6-wick-luxury-soy-candle-2200-gr/2.webp"
+      ]
+    },
+    {
+      "name": "Atlante Nero",
+      "form": "photo",
+      "sub": "850 gr",
+      "collection": null,
+      "family": "Gurme · Odunsu",
+      "year": null,
+      "perfumer": null,
+      "color": "#613517",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#100c06",
+        "edge": "#050404",
+        "drop": "#d8b05a",
+        "accent": "#d8b05a",
+        "mood": "warm"
+      },
+      "tagline": "Tonka · Karamel · Mandalina",
+      "notes": [
+        "Tonka",
+        "Karamel",
+        "Mandalina",
+        "Ylang-Ylang",
+        "Sandal Ağacı"
+      ],
+      "description": "Atlante Nero Crystal Candle Holder is made of mouth-blown crystal. The design pattern is hand-painted meticulously by our craftspeople using 24k gold & platinum.",
+      "file": "atlante-nero-luxury-soy-candle.webp",
+      "handle": "atlante-nero-luxury-soy-candle",
+      "en": {
+        "name": "Atlante Nero",
+        "family": "Gourmand · Woody",
+        "tagline": "Tonka Bean · Caramel · Mandarin",
+        "notes": [
+          "Tonka Bean",
+          "Caramel",
+          "Mandarin",
+          "Ylang-Ylang",
+          "Sandalwood"
+        ],
+        "description": "Atlante Nero Crystal Candle Holder is made of mouth-blown crystal. The design pattern is hand-painted meticulously by our craftspeople using 24k gold & platinum.",
+        "sub": "850 gr"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "round",
+        "zScale": 1,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0023, 0.0039, 0.0063, 0.0078, 0.0117, 0.1883, 0.2625, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2781, 0.2781, 0.2781, 0.2781, 0.2781, 0.2781, 0.2789, 0.2789, 0.2789, 0.2789, 0.2781, 0.2781, 0.2781, 0.2781, 0.2781, 0.2781, 0.2781, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2805, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2812, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2797, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2789, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2773, 0.2758, 0.2758, 0.2758, 0.2758, 0.2758, 0.2758, 0.275, 0.2727, 0.2703, 0.2633, 0.2555, 0.2422, 0.2242, 0.2102, 0.1969, 0.182, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.2172, 0.0969],
+            [0.2172, 0.1047],
+            [0.2188, 0.1062],
+            [0.2172, 0.1094],
+            [0.2172, 0.1141],
+            [0.2188, 0.1156],
+            [0.2188, 0.15],
+            [0.2172, 0.1516],
+            [0.2172, 0.2016],
+            [0.2188, 0.2031],
+            [0.2172, 0.2047],
+            [0.2172, 0.2219],
+            [0.2188, 0.2234],
+            [0.2172, 0.2313],
+            [0.2188, 0.2328],
+            [0.2188, 0.2516],
+            [0.2172, 0.2531],
+            [0.2172, 0.2766],
+            [0.2156, 0.2781],
+            [0.2156, 0.2828],
+            [0.2172, 0.2844],
+            [0.2172, 0.5203],
+            [0.2188, 0.5219],
+            [0.2188, 0.8375],
+            [0.2203, 0.8391],
+            [0.2203, 0.9016],
+            [0.2219, 0.9031],
+            [0.2219, 0.9281],
+            [0.2234, 0.9328],
+            [0.2297, 0.9406],
+            [0.2422, 0.9469],
+            [0.2609, 0.9531],
+            [0.2734, 0.9547],
+            [0.2781, 0.9578],
+            [0.2828, 0.9578],
+            [0.2891, 0.9609],
+            [0.2953, 0.9609],
+            [0.3016, 0.9641],
+            [0.3063, 0.9641],
+            [0.3172, 0.9688],
+            [0.7, 0.9688],
+            [0.7125, 0.9625],
+            [0.7219, 0.9609],
+            [0.7406, 0.9531],
+            [0.7453, 0.9531],
+            [0.7734, 0.9406],
+            [0.7766, 0.9375],
+            [0.7797, 0.9297],
+            [0.7812, 0.8422],
+            [0.7828, 0.8406],
+            [0.7812, 0.5594],
+            [0.7797, 0.5578],
+            [0.7797, 0.3953],
+            [0.7781, 0.3937],
+            [0.7781, 0.2828],
+            [0.7766, 0.2812],
+            [0.7766, 0.2391],
+            [0.7781, 0.2375],
+            [0.7766, 0.2359],
+            [0.7766, 0.1484],
+            [0.775, 0.1469],
+            [0.775, 0.0953],
+            [0.7766, 0.0938],
+            [0.7672, 0.0891],
+            [0.7547, 0.0891],
+            [0.7531, 0.0875],
+            [0.7172, 0.0875],
+            [0.7156, 0.0859],
+            [0.6844, 0.0859],
+            [0.6828, 0.0844],
+            [0.5328, 0.0844],
+            [0.5312, 0.0859],
+            [0.5109, 0.0859],
+            [0.5047, 0.0797],
+            [0.5047, 0.0766],
+            [0.5, 0.0688],
+            [0.5, 0.0641],
+            [0.4984, 0.0656],
+            [0.4953, 0.0625],
+            [0.4875, 0.0391],
+            [0.4828, 0.0375],
+            [0.4797, 0.0406],
+            [0.4719, 0.0563],
+            [0.4656, 0.0766],
+            [0.4594, 0.0844],
+            [0.4547, 0.0875],
+            [0.3172, 0.0875],
+            [0.3156, 0.0891],
+            [0.2891, 0.0891],
+            [0.2875, 0.0906],
+            [0.2437, 0.0922],
+            [0.2344, 0.0953],
+            [0.2203, 0.0953]
+          ]
+        ],
+        "edge": "#291e15"
+      },
+      "price": {
+        "tr": 110.0,
+        "en": 110.0
+      },
+      "photos": [
+        "foto/atlante-nero-luxury-soy-candle/1.webp",
+        "foto/atlante-nero-luxury-soy-candle/2.webp",
+        "foto/atlante-nero-luxury-soy-candle/3.webp"
+      ]
+    },
+    {
+      "name": "Tabacco & Pelle",
+      "form": "photo",
+      "sub": "450 g",
+      "collection": null,
+      "family": "Tütün · Deri",
+      "year": null,
+      "perfumer": null,
+      "color": "#6a4529",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#140c08",
+        "edge": "#050404",
+        "drop": "#b0703c",
+        "accent": "#b0703c",
+        "mood": "warm"
+      },
+      "tagline": "Tütün · Deri · Amber",
+      "notes": [
+        "Tütün",
+        "Deri",
+        "Amber",
+        "Paçuli",
+        "Tonka"
+      ],
+      "description": "Tabacco & Pelle Cut Crystal Candle Holder is made of mouth-blown crystal. The cut crystal pattern is engraved meticulously by our craftspeople using diamond blades. The artwork is then hand-painted with glass colors and fired.",
+      "file": "tabacco-pelle-2-wick-black-soy-candle-450-gr.webp",
+      "handle": "tabacco-pelle-2-wick-black-soy-candle-450-gr",
+      "en": {
+        "name": "Tabacco & Pelle",
+        "family": "Tobacco · Leather",
+        "tagline": "Tobacco · Leather · Amber",
+        "notes": [
+          "Tobacco",
+          "Leather",
+          "Amber",
+          "Patchouli",
+          "Tonka Bean"
+        ],
+        "description": "Tabacco & Pelle Cut Crystal Candle Holder is made of mouth-blown crystal. The cut crystal pattern is engraved meticulously by our craftspeople using diamond blades. The artwork is then hand-painted with glass colors and fired.",
+        "sub": "450 g"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "round",
+        "zScale": 1,
+        "axis": 0.5008,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0695, 0.1211, 0.1562, 0.1828, 0.2039, 0.2234, 0.2461, 0.2586, 0.2727, 0.2852, 0.2953, 0.3023, 0.3102, 0.3148, 0.3195, 0.3242, 0.3266, 0.3305, 0.3336, 0.3375, 0.3398, 0.343, 0.3453, 0.3469, 0.3477, 0.35, 0.3523, 0.3539, 0.3547, 0.3547, 0.3555, 0.3547, 0.3547, 0.3539, 0.3523, 0.3516, 0.3508, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.3508, 0.3508, 0.3516, 0.3516, 0.3523, 0.3523, 0.3523, 0.3523, 0.3523, 0.3523, 0.3523, 0.3523, 0.3523, 0.3523, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3508, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3523, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3531, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.3516, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3484, 0.3477, 0.3469, 0.3469, 0.3469, 0.3469, 0.3469, 0.3469, 0.3469, 0.3469, 0.3469, 0.3469, 0.3453, 0.3453, 0.3453, 0.3453, 0.3453, 0.3453, 0.3453, 0.3453, 0.3453, 0.3438, 0.3438, 0.3438, 0.3438, 0.3438, 0.3438, 0.3438, 0.3422, 0.3422, 0.3422, 0.3422, 0.3414, 0.3406, 0.3406, 0.3391, 0.3375, 0.3344, 0.3312, 0.3281, 0.325, 0.3211, 0.3164, 0.3117, 0.307, 0.3008, 0.2938, 0.2898, 0.2828, 0.2766, 0.268, 0.2609, 0.25, 0.2398, 0.2305, 0.2148, 0.1969, 0.1836, 0.1625, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.1859, 0.075],
+            [0.1719, 0.0875],
+            [0.1406, 0.1344],
+            [0.1406, 0.1844],
+            [0.1422, 0.1859],
+            [0.1422, 0.2188],
+            [0.1437, 0.2203],
+            [0.1437, 0.2875],
+            [0.1453, 0.2891],
+            [0.1453, 0.4094],
+            [0.1469, 0.4109],
+            [0.1484, 0.6188],
+            [0.15, 0.6203],
+            [0.15, 0.6922],
+            [0.1516, 0.6937],
+            [0.1547, 0.8109],
+            [0.1562, 0.8125],
+            [0.1562, 0.8391],
+            [0.1578, 0.8406],
+            [0.1594, 0.8688],
+            [0.175, 0.8953],
+            [0.1891, 0.9078],
+            [0.2188, 0.9281],
+            [0.2437, 0.9406],
+            [0.2547, 0.9437],
+            [0.2687, 0.9516],
+            [0.2922, 0.9594],
+            [0.2969, 0.9594],
+            [0.3297, 0.9688],
+            [0.6625, 0.9688],
+            [0.6641, 0.9672],
+            [0.6703, 0.9672],
+            [0.6719, 0.9656],
+            [0.7203, 0.9547],
+            [0.7594, 0.9406],
+            [0.7719, 0.9344],
+            [0.8125, 0.9062],
+            [0.8359, 0.8812],
+            [0.8422, 0.8641],
+            [0.8438, 0.8469],
+            [0.8453, 0.8453],
+            [0.8469, 0.7312],
+            [0.8484, 0.7297],
+            [0.8484, 0.6625],
+            [0.85, 0.6609],
+            [0.85, 0.5922],
+            [0.8516, 0.5906],
+            [0.8516, 0.5188],
+            [0.8531, 0.5172],
+            [0.8531, 0.3516],
+            [0.8516, 0.35],
+            [0.8531, 0.2297],
+            [0.8516, 0.2281],
+            [0.8516, 0.2109],
+            [0.85, 0.2094],
+            [0.85, 0.1828],
+            [0.8516, 0.1812],
+            [0.8516, 0.1734],
+            [0.8547, 0.1688],
+            [0.8562, 0.1531],
+            [0.8547, 0.1516],
+            [0.8547, 0.1422],
+            [0.8484, 0.1328],
+            [0.8469, 0.1234],
+            [0.8422, 0.1156],
+            [0.8266, 0.0953],
+            [0.8172, 0.0859],
+            [0.8047, 0.0766],
+            [0.7844, 0.0672],
+            [0.7797, 0.0672],
+            [0.7469, 0.0563],
+            [0.7406, 0.0563],
+            [0.7328, 0.0531],
+            [0.725, 0.0531],
+            [0.7109, 0.0484],
+            [0.6953, 0.0469],
+            [0.6859, 0.0437],
+            [0.6781, 0.0437],
+            [0.6687, 0.0406],
+            [0.6359, 0.0375],
+            [0.6344, 0.0359],
+            [0.6219, 0.0359],
+            [0.6203, 0.0344],
+            [0.5844, 0.0328],
+            [0.5828, 0.0312],
+            [0.5531, 0.0312],
+            [0.5516, 0.0297],
+            [0.4375, 0.0297],
+            [0.4359, 0.0312],
+            [0.4016, 0.0312],
+            [0.4, 0.0328],
+            [0.3781, 0.0328],
+            [0.3766, 0.0344],
+            [0.3609, 0.0344],
+            [0.3594, 0.0359],
+            [0.3453, 0.0359],
+            [0.3438, 0.0375],
+            [0.3281, 0.0375],
+            [0.3266, 0.0391],
+            [0.2844, 0.0437],
+            [0.2828, 0.0453],
+            [0.2562, 0.05],
+            [0.25, 0.0531],
+            [0.2344, 0.0563],
+            [0.2016, 0.0672]
+          ]
+        ],
+        "edge": "#1d1c1f"
+      },
+      "price": {
+        "tr": 108.0,
+        "en": 108.0
+      },
+      "photos": [
+        "foto/tabacco-pelle-2-wick-black-soy-candle-450-gr/1.webp",
+        "foto/tabacco-pelle-2-wick-black-soy-candle-450-gr/2.webp",
+        "foto/tabacco-pelle-2-wick-black-soy-candle-450-gr/3.webp",
+        "foto/tabacco-pelle-2-wick-black-soy-candle-450-gr/4.webp"
+      ]
+    },
+    {
+      "name": "Lumina",
+      "form": "photo",
+      "sub": "450 g",
+      "collection": null,
+      "family": "Baharatlı · Meyveli",
+      "year": null,
+      "perfumer": null,
+      "color": "#9c714f",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#1a140a",
+        "edge": "#050404",
+        "drop": "#f0c878",
+        "accent": "#f0c878",
+        "mood": "warm"
+      },
+      "tagline": "Tütsü · Sedir · Pembe Biber",
+      "notes": [
+        "Tütsü",
+        "Sedir",
+        "Pembe Biber",
+        "Ylang-Ylang",
+        "Karamel"
+      ],
+      "description": "Lumina Crystal Candle Holder is made of mouth-blown crystal. The design pattern is hand-painted meticulously by our craftspeople using 24k gold & platinum.",
+      "file": "lumina-2-wick-luxury-soy-candle-450-gr.webp",
+      "handle": "lumina-2-wick-luxury-soy-candle-450-gr",
+      "en": {
+        "name": "Lumina",
+        "family": "Spicy · Fruity",
+        "tagline": "Incense · Cedarwood · Pink Pepper",
+        "notes": [
+          "Incense",
+          "Cedarwood",
+          "Pink Pepper",
+          "Ylang-Ylang",
+          "Caramel"
+        ],
+        "description": "Lumina Crystal Candle Holder is made of mouth-blown crystal. The design pattern is hand-painted meticulously by our craftspeople using 24k gold & platinum.",
+        "sub": "450 g"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "round",
+        "zScale": 1,
+        "axis": 0.5047,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0781, 0.1609, 0.1711, 0.2023, 0.2305, 0.2516, 0.2703, 0.2844, 0.3, 0.3141, 0.3227, 0.3352, 0.3453, 0.3508, 0.357, 0.3641, 0.368, 0.3711, 0.3734, 0.3758, 0.3773, 0.3789, 0.3805, 0.3805, 0.3805, 0.3789, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3789, 0.3781, 0.3781, 0.3781, 0.3781, 0.3781, 0.3781, 0.3797, 0.3797, 0.3797, 0.3797, 0.3797, 0.3789, 0.382, 0.382, 0.382, 0.382, 0.382, 0.382, 0.382, 0.382, 0.382, 0.382, 0.3828, 0.3844, 0.3844, 0.3844, 0.3844, 0.3844, 0.3844, 0.3844, 0.3844, 0.3844, 0.3844, 0.3867, 0.3867, 0.3867, 0.3867, 0.3867, 0.3867, 0.3867, 0.3867, 0.3867, 0.3867, 0.3867, 0.3891, 0.3891, 0.3891, 0.3891, 0.3891, 0.3891, 0.3891, 0.3891, 0.3883, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3875, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3852, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3828, 0.3805, 0.3805, 0.3805, 0.3805, 0.3805, 0.3805, 0.3789, 0.3781, 0.3781, 0.3781, 0.3781, 0.3773, 0.3758, 0.3758, 0.3758, 0.3734, 0.3734, 0.3703, 0.3703, 0.368, 0.3664, 0.3656, 0.3656, 0.3633, 0.3617, 0.3609, 0.3586, 0.3586, 0.3563, 0.3547, 0.3539, 0.3516, 0.3516, 0.3492, 0.3492, 0.3469, 0.3469, 0.3445, 0.3445, 0.3414, 0.3414, 0.3398, 0.3375, 0.3375, 0.3344, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.15, 0.0859],
+            [0.1313, 0.1031],
+            [0.1313, 0.1062],
+            [0.1234, 0.1219],
+            [0.1234, 0.1297],
+            [0.125, 0.1313],
+            [0.125, 0.2812],
+            [0.1266, 0.2828],
+            [0.1266, 0.3078],
+            [0.125, 0.3094],
+            [0.125, 0.3312],
+            [0.1219, 0.3344],
+            [0.1203, 0.4188],
+            [0.1172, 0.4219],
+            [0.1156, 0.5078],
+            [0.1125, 0.5109],
+            [0.1109, 0.5938],
+            [0.1078, 0.5969],
+            [0.1062, 0.6828],
+            [0.1031, 0.6859],
+            [0.1016, 0.7844],
+            [0.0984, 0.7859],
+            [0.0984, 0.9688],
+            [0.8375, 0.9688],
+            [0.8422, 0.9641],
+            [0.8406, 0.9609],
+            [0.8438, 0.9578],
+            [0.8438, 0.9531],
+            [0.8469, 0.95],
+            [0.8453, 0.9469],
+            [0.8484, 0.9437],
+            [0.8484, 0.9375],
+            [0.8516, 0.9359],
+            [0.8516, 0.9281],
+            [0.8531, 0.9266],
+            [0.8531, 0.9219],
+            [0.8562, 0.9187],
+            [0.8578, 0.9062],
+            [0.8609, 0.9047],
+            [0.8625, 0.8922],
+            [0.8656, 0.8906],
+            [0.8672, 0.8781],
+            [0.8703, 0.875],
+            [0.8703, 0.8688],
+            [0.8734, 0.8656],
+            [0.8719, 0.8625],
+            [0.875, 0.8594],
+            [0.875, 0.8531],
+            [0.8781, 0.8516],
+            [0.8797, 0.8328],
+            [0.8828, 0.8297],
+            [0.8844, 0.7844],
+            [0.8875, 0.7812],
+            [0.8891, 0.6219],
+            [0.8922, 0.6203],
+            [0.8922, 0.5016],
+            [0.8938, 0.5],
+            [0.8938, 0.2797],
+            [0.8953, 0.2781],
+            [0.8938, 0.2594],
+            [0.8969, 0.2531],
+            [0.8969, 0.2172],
+            [0.9, 0.2109],
+            [0.9, 0.1266],
+            [0.8969, 0.125],
+            [0.8969, 0.1219],
+            [0.8781, 0.1],
+            [0.8609, 0.0875],
+            [0.8516, 0.0828],
+            [0.8469, 0.0781],
+            [0.8422, 0.0781],
+            [0.8281, 0.0734],
+            [0.825, 0.0703],
+            [0.8141, 0.0688],
+            [0.8109, 0.0656],
+            [0.8, 0.0641],
+            [0.7953, 0.0609],
+            [0.7812, 0.0594],
+            [0.7766, 0.0563],
+            [0.7703, 0.0563],
+            [0.7656, 0.0531],
+            [0.7484, 0.0516],
+            [0.7453, 0.0484],
+            [0.7234, 0.0469],
+            [0.7203, 0.0437],
+            [0.7063, 0.0437],
+            [0.7047, 0.0422],
+            [0.6953, 0.0422],
+            [0.6891, 0.0391],
+            [0.6672, 0.0375],
+            [0.6609, 0.0312],
+            [0.6562, 0.0344],
+            [0.5891, 0.0328],
+            [0.5781, 0.0297],
+            [0.4016, 0.0297],
+            [0.3937, 0.0328],
+            [0.3484, 0.0328],
+            [0.3469, 0.0344],
+            [0.3344, 0.0344],
+            [0.3312, 0.0375],
+            [0.3172, 0.0375],
+            [0.3156, 0.0391],
+            [0.3031, 0.0391],
+            [0.2969, 0.0422],
+            [0.275, 0.0437],
+            [0.2687, 0.0469],
+            [0.2609, 0.0469],
+            [0.2469, 0.0516],
+            [0.2328, 0.0531],
+            [0.2297, 0.0563],
+            [0.2234, 0.0563],
+            [0.2156, 0.0609],
+            [0.2109, 0.0609],
+            [0.2078, 0.0641],
+            [0.1953, 0.0656],
+            [0.1906, 0.0688],
+            [0.1812, 0.0703],
+            [0.1734, 0.075],
+            [0.1625, 0.0781],
+            [0.1578, 0.0828]
+          ]
+        ],
+        "edge": "#e0d7cc"
+      },
+      "price": {
+        "tr": 88.0,
+        "en": 88.0
+      },
+      "photos": [
+        "foto/lumina-2-wick-luxury-soy-candle-450-gr/1.webp",
+        "foto/lumina-2-wick-luxury-soy-candle-450-gr/2.webp",
+        "foto/lumina-2-wick-luxury-soy-candle-450-gr/3.webp"
+      ]
+    },
+    {
+      "name": "Lavanda",
+      "form": "photo",
+      "sub": "450 g",
+      "collection": null,
+      "family": "Aromatik · Çiçeksi",
+      "year": null,
+      "perfumer": null,
+      "color": "#562916",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#120e1e",
+        "edge": "#050404",
+        "drop": "#9a86d0",
+        "accent": "#9a86d0",
+        "mood": "warm"
+      },
+      "tagline": "Lavanta · Akdeniz Limonu · Amber",
+      "notes": [
+        "Lavanta",
+        "Akdeniz Limonu",
+        "Amber",
+        "Misk"
+      ],
+      "description": "Lavanda Cut Crystal Candle Holder is made of mouth-blown crystal. The cut crystal pattern is engraved meticulously by our craftspeople using diamond blades. The artwork is then hand-painted with glass colors and fired.",
+      "file": "lavanda-2-wick-black-soy-candle-450-gr.webp",
+      "handle": "lavanda-2-wick-black-soy-candle-450-gr",
+      "en": {
+        "name": "Lavanda",
+        "family": "Aromatic · Floral",
+        "tagline": "Lavender · Mediterranean Lemon · Amber",
+        "notes": [
+          "Lavender",
+          "Mediterranean Lemon",
+          "Amber",
+          "Musk"
+        ],
+        "description": "Lavanda Cut Crystal Candle Holder is made of mouth-blown crystal. The cut crystal pattern is engraved meticulously by our craftspeople using diamond blades. The artwork is then hand-painted with glass colors and fired.",
+        "sub": "450 g"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "round",
+        "zScale": 1,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0203, 0.0766, 0.1047, 0.2289, 0.2836, 0.3211, 0.3492, 0.3797, 0.3961, 0.4141, 0.4273, 0.4375, 0.4437, 0.45, 0.4547, 0.4578, 0.4617, 0.4648, 0.4672, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4664, 0.4656, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4648, 0.4641, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4625, 0.4625, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4633, 0.4625, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4617, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4602, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.4578, 0.457, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4562, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4547, 0.4531, 0.4531, 0.4531, 0.4531, 0.4531, 0.4531, 0.4531, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.0422, 0.1875],
+            [0.0312, 0.2031],
+            [0.0297, 0.2141],
+            [0.0312, 0.2156],
+            [0.0312, 0.2687],
+            [0.0344, 0.2797],
+            [0.0359, 0.3203],
+            [0.0375, 0.3219],
+            [0.0375, 0.3266],
+            [0.0359, 0.3281],
+            [0.0375, 0.7656],
+            [0.0406, 0.7688],
+            [0.0406, 0.9109],
+            [0.0422, 0.9125],
+            [0.0422, 0.9234],
+            [0.0437, 0.925],
+            [0.9531, 0.925],
+            [0.9547, 0.8344],
+            [0.9563, 0.8328],
+            [0.9563, 0.7719],
+            [0.9578, 0.7703],
+            [0.9578, 0.7125],
+            [0.9594, 0.7109],
+            [0.9594, 0.6094],
+            [0.9609, 0.6078],
+            [0.9625, 0.2906],
+            [0.9641, 0.2891],
+            [0.9656, 0.2031],
+            [0.9688, 0.2],
+            [0.9688, 0.1938],
+            [0.9672, 0.1938],
+            [0.9531, 0.1781],
+            [0.9391, 0.1703],
+            [0.9156, 0.1625],
+            [0.9094, 0.1625],
+            [0.9078, 0.1609],
+            [0.9016, 0.1609],
+            [0.8922, 0.1578],
+            [0.8844, 0.1578],
+            [0.8781, 0.1547],
+            [0.8641, 0.1531],
+            [0.8562, 0.15],
+            [0.8469, 0.15],
+            [0.8453, 0.1484],
+            [0.8359, 0.1484],
+            [0.8344, 0.1469],
+            [0.8125, 0.1469],
+            [0.8109, 0.1453],
+            [0.775, 0.1437],
+            [0.7734, 0.1422],
+            [0.7125, 0.1391],
+            [0.7063, 0.1359],
+            [0.6969, 0.1344],
+            [0.6813, 0.1203],
+            [0.6766, 0.1125],
+            [0.6609, 0.0984],
+            [0.6562, 0.0984],
+            [0.6547, 0.0969],
+            [0.6422, 0.1016],
+            [0.6359, 0.1094],
+            [0.6359, 0.1125],
+            [0.6312, 0.1219],
+            [0.6266, 0.125],
+            [0.6219, 0.1234],
+            [0.6203, 0.125],
+            [0.5141, 0.125],
+            [0.5125, 0.1266],
+            [0.5094, 0.125],
+            [0.4875, 0.125],
+            [0.4859, 0.1266],
+            [0.4813, 0.125],
+            [0.4734, 0.1281],
+            [0.4297, 0.1297],
+            [0.4281, 0.1313],
+            [0.4188, 0.1313],
+            [0.4078, 0.1344],
+            [0.3953, 0.1344],
+            [0.3937, 0.1359],
+            [0.3609, 0.1359],
+            [0.3484, 0.1281],
+            [0.3391, 0.1156],
+            [0.3359, 0.1156],
+            [0.3328, 0.1219],
+            [0.3266, 0.1125],
+            [0.3266, 0.1094],
+            [0.3234, 0.1062],
+            [0.3234, 0.1031],
+            [0.3141, 0.0859],
+            [0.3125, 0.0797],
+            [0.3078, 0.075],
+            [0.3016, 0.075],
+            [0.2953, 0.0813],
+            [0.2922, 0.0891],
+            [0.2922, 0.0969],
+            [0.2891, 0.1031],
+            [0.2875, 0.1266],
+            [0.2859, 0.1281],
+            [0.2859, 0.1344],
+            [0.2828, 0.1391],
+            [0.2812, 0.1375],
+            [0.2766, 0.1375],
+            [0.2687, 0.1406],
+            [0.2578, 0.1406],
+            [0.2562, 0.1422],
+            [0.2297, 0.1422],
+            [0.2281, 0.1437],
+            [0.2141, 0.1437],
+            [0.2125, 0.1453],
+            [0.1953, 0.1453],
+            [0.1938, 0.1469],
+            [0.1641, 0.1484],
+            [0.1625, 0.15],
+            [0.1531, 0.15],
+            [0.1516, 0.1516],
+            [0.125, 0.1547],
+            [0.1172, 0.1578],
+            [0.1109, 0.1578],
+            [0.1094, 0.1594],
+            [0.0969, 0.1609],
+            [0.0781, 0.1672],
+            [0.0734, 0.1672],
+            [0.0625, 0.1719]
+          ]
+        ],
+        "edge": "#352f26"
+      },
+      "price": {
+        "tr": 104.0,
+        "en": 104.0
+      },
+      "photos": [
+        "foto/lavanda-2-wick-black-soy-candle-450-gr/1.webp",
+        "foto/lavanda-2-wick-black-soy-candle-450-gr/2.webp",
+        "foto/lavanda-2-wick-black-soy-candle-450-gr/3.webp",
+        "foto/lavanda-2-wick-black-soy-candle-450-gr/4.webp"
+      ]
+    }
+  ],
+  "home": [0, 1, 2, 3],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Tarihî bir kapının ardında",
+        "text": "Sedir, kakule ve bergamot; dipte amber, misk ve karabiber. Kapı motifi elde oyulur, 24 ayar altın ve platinle boyanır.",
+        "stat": "Sedir · Kakule · Amber"
+      },
+      "en": {
+        "title": "Behind a historic door",
+        "text": "Cedarwood, cardamom and bergamot over amber, musk and black pepper. The door motif is hand-engraved and painted in 24k gold and platinum.",
+        "stat": "Cedarwood · Cardamom · Amber"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Taş bir evin altın pencereleri",
+        "text": "Altı fitil, kristal pencerelerden geçen ışık. Neroli ve menekşe, dipte oud, ambergris ve mür.",
+        "stat": "Neroli · Oud · Mür"
+      },
+      "en": {
+        "title": "Golden windows of a stone house",
+        "text": "Six wicks, light passing through crystal windows. Neroli and violet over oud, ambergris and myrrh.",
+        "stat": "Neroli · Oud · Myrrh"
+      }
+    },
+    {
+      "flavor": 2,
+      "tr": {
+        "title": "Göğü omuzlarında taşıyan Atlas",
+        "text": "Tonka ve karamelin kremsi sıcaklığı; mandalina ve ylang-ylang, sandal ağacı ve miskle.",
+        "stat": "Tonka · Ylang-Ylang · Sandal"
+      },
+      "en": {
+        "title": "Atlas, carrying the heavens",
+        "text": "The creamy warmth of tonka and caramel; mandarin and ylang-ylang, with sandalwood and musk.",
+        "stat": "Tonka · Ylang-Ylang · Sandalwood"
+      }
+    }
+  ]
+}
