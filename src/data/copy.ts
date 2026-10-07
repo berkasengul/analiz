@@ -1,0 +1,248 @@
+import type { Lang, ProductId } from './products';
+
+/** Arayüz metinleri (TR/EN). Yalnız AGENTS.md ve markanın kendi metinleri. */
+export const copy = {
+  tr: {
+    brand: 'UnBe.',
+    collection: 'No Collection',
+    slogan: 'Duruşunu seç.',
+    motto: 'UNBE is not just a fragrance brand. It’s a mindset.',
+    nav: { scents: 'Kokular', finder: 'Koku Bulucu', about: 'UnBe. Hakkında', contact: 'İletişim', menu: 'Menü', close: 'Kapat' },
+    navAria: { search: 'Ara', cart: 'Sepet', lang: 'Dil', menu: 'Menüyü aç', skip: 'İçeriğe geç' },
+    search: { placeholder: 'Koku veya nota ara (ör. bergamot)', empty: 'Sonuç yok.', title: 'Ara' },
+    loader: 'No Collection',
+    gender: { 'kadın': 'Kadın', erkek: 'Erkek' } as Record<string, string>,
+    ml: '100 ML',
+    flavors: {
+      discover: 'Kokuyu keşfet',
+      spray: 'Parfümü sık',
+      notes: 'Notalar',
+      scroll: 'Keşfetmek için kaydır',
+    },
+    ritual: { label: '02 — Ritüel', thisStep: 'Bu adımda:' },
+    pyramid: {
+      label: 'Nota Piramidi',
+      hint: 'Kaydırmaya devam edin: şişe katman katman açılsın.',
+      top: 'Üst', heart: 'Kalp', base: 'Dip',
+    },
+    finder: {
+      label: 'Koku Bulucu · 01 — 03',
+      title: 'Kokunu bul',
+      desc: 'Üç soru. Her kokunun notalarını okuyup seninkini kaideye koyuyoruz.',
+      land: 'Kokun buraya inecek',
+      back: 'Geri',
+      restart: 'Baştan başla',
+      result: 'Senin kokun',
+      alsoTry: 'Bunları da dene',
+      discover: 'Kokuyu keşfet',
+      add: 'Sepete ekle',
+      questions: [
+        { q: 'Hangi dünya seni çekiyor?', a: ['Narenciye ve deniz esintisi', 'Bir buket çiçek', 'Tatlı bir şey', 'Odun, baharat ve duman'] },
+        { q: 'Ne zaman süreceksin?', a: ['Güneşli günler', 'Şehirde akşamlar', 'Unutulmaz bir gece', 'Her gün'] },
+        { q: 'Sana nasıl hissettirsin?', a: ['Hafif ve özgür', 'Yumuşak ve sıcacık', 'Cesur ve çekici', 'Sessizce zarif'] },
+      ],
+    },
+    all: {
+      label: 'Tüm Ürünler · Koleksiyonun Tamamı',
+      title: 'Koleksiyonun tamamı',
+      desc: '6 koku: No Collection.',
+      filters: { all: 'Tümü', 'kadın': 'Kadın', erkek: 'Erkek' } as Record<string, string>,
+      add: 'Sepete ekle',
+    },
+    shop: {
+      label: '03 — Mağaza · Kokunu seç',
+      title: ['Kokunu', 'seç'],
+      desc: 'Duruşunu seç; markanın kendi mağazasında güvenle öde.',
+      scent: 'Koku',
+      qty: 'Adet',
+      add: 'Sepete ekle',
+      perks: ['Eau de Parfum, uzun süre kalıcı', 'Formül İspanya, üretim Türkiye', 'Keşif setiyle önce dene'],
+    },
+    story: {
+      label: '04 — Hikâye',
+      title: 'Duruşunu seç.',
+      paragraphs: [
+        'UNBE, kokuyu kişisel ve bilinçli bir ifade biçimi olarak görür. Kokuya genel yaklaşım formüller ve trendler üzerinden ilerlerken, UNBE yaklaşımı kişisel duruşla başlar.',
+        'Her koku; nasıl hissettiğini, nasıl hareket ettiğini ve dünyada nasıl var olmak istediğini yansıtmak için yaratılır. Beklenen gibi değil, kendin olduğun gibi.',
+        'Bizce parfüm bir gösteri değil, bir izdir: hemen göze çarpmayan ama akılda kalan. Herkes gibi değil, senin gibi hissettiren.',
+      ],
+      place: 'UnBe. · İstanbul',
+      seen: 'Görüldüğü yerler',
+      timeline: [
+        ['Duruş', 'Önce ruh hâli ve duruş'],
+        ['Formül', 'İspanya’da formüle edilir'],
+        ['Üretim', 'Türkiye’de üretilir'],
+        ['No Collection', 'Altı koku, altı duruş'],
+      ],
+      stats: [
+        ['6', 'koku'],
+        ['100 ml', 'Eau de Parfum'],
+        ['4 + 2', 'kadın ve erkek'],
+      ],
+    },
+    faq: {
+      label: '06 — SSS · Merak edilenler',
+      title: 'Merak edilenler',
+      items: [
+        ['Kokular ne kadar kalıcı?', 'Tüm UNBE kokuları Eau de Parfum ve uzun süre kalıcıdır.'],
+        ['Kokular nerede üretiliyor?', 'Formüller İspanya’da hazırlanıyor, üretim Türkiye’de.'],
+        ['Önce deneyebilir miyim?', 'Keşif setleriyle (kadın 4 × 2 ml, erkek 2 × 2 ml, tümü 6 × 2 ml) deneyebilirsin.'],
+      ],
+    },
+    contact: {
+      label: 'İletişim · Bize yaz',
+      title: 'Bize yaz',
+      desc: 'Siparişlerin, kokularımız ve iş birlikleri için bize yaz.',
+      name: 'Ad soyad', email: 'E-posta', message: 'Mesaj', send: 'Mesajı gönder',
+      newsTitle: 'Bülten', newsDesc: 'Yeni duruşlar önce burada.', newsPlaceholder: 'E-posta adresi', join: 'Katıl',
+      mailSubject: 'UnBe. web sitesinden mesaj', newsSubject: 'Bülten kaydı',
+      cols: { email: 'E-posta', phone: 'Telefon', instagram: 'Instagram', address: 'Adres' },
+    },
+    footer: {
+      marquee: ['UnBe.', 'No Tears', 'No Excuse', 'No Drama', 'No Regrets', 'No Filter', 'No Rules', 'Mindset before fragrance'],
+      line: 'UnBe. · Duruşunu seç.',
+      links: { shop: 'Mağaza', faq: 'SSS', story: 'Hikâye', contact: 'İletişim', web: 'unbeperfumes.com' },
+      demo: 'Bu sayfa UnBe. için hazırlanmış bağımsız bir konsept demodur. Ürün görselleri, notalar, fiyatlar ve metinler markanın kendi sitesinden (unbeperfumes.com) alınmıştır; satın alma markanın kendi mağazasında tamamlanır.',
+    },
+    cart: {
+      title: 'Sepet', empty: 'Sepetin boş. Bir duruş seç.', subtotal: 'Ara toplam', checkout: 'Ödemeye geç',
+      remove: 'Kaldır', close: 'Sepeti kapat', note: 'Ödeme unbeperfumes.com üzerinde güvenle tamamlanır.',
+      added: 'sepete eklendi',
+    },
+  },
+  en: {
+    brand: 'UnBe.',
+    collection: 'No Collection',
+    slogan: 'Choose your stance.',
+    motto: 'UNBE is not just a fragrance brand. It’s a mindset.',
+    nav: { scents: 'Scents', finder: 'Scent Finder', about: 'About UnBe.', contact: 'Contact', menu: 'Menu', close: 'Close' },
+    navAria: { search: 'Search', cart: 'Cart', lang: 'Language', menu: 'Open menu', skip: 'Skip to content' },
+    search: { placeholder: 'Search a scent or note (e.g. bergamot)', empty: 'No results.', title: 'Search' },
+    loader: 'No Collection',
+    gender: { 'kadın': 'Women', erkek: 'Men' } as Record<string, string>,
+    ml: '100 ML',
+    flavors: {
+      discover: 'Discover the scent',
+      spray: 'Spray it',
+      notes: 'Notes',
+      scroll: 'Scroll to explore',
+    },
+    ritual: { label: '02 — Ritual', thisStep: 'In this step:' },
+    pyramid: {
+      label: 'Note Pyramid',
+      hint: 'Keep scrolling: the bottle opens layer by layer.',
+      top: 'Top', heart: 'Heart', base: 'Base',
+    },
+    finder: {
+      label: 'Scent Finder · 01 — 03',
+      title: 'Find your scent',
+      desc: 'Three questions. We read every scent’s notes and put yours on the pedestal.',
+      land: 'Your scent will land here',
+      back: 'Back',
+      restart: 'Start over',
+      result: 'Your scent',
+      alsoTry: 'Also try',
+      discover: 'Discover the scent',
+      add: 'Add to cart',
+      questions: [
+        { q: 'Which world pulls you in?', a: ['Citrus and sea breeze', 'A bouquet of flowers', 'Something sweet', 'Wood, spice and smoke'] },
+        { q: 'When will you wear it?', a: ['Sunny days', 'Evenings in the city', 'An unforgettable night', 'Every day'] },
+        { q: 'How should it make you feel?', a: ['Light and free', 'Soft and cosy', 'Bold and magnetic', 'Quietly elegant'] },
+      ],
+    },
+    all: {
+      label: 'All Products · The Full Collection',
+      title: 'The full collection',
+      desc: '6 scents: No Collection.',
+      filters: { all: 'All', 'kadın': 'Women', erkek: 'Men' } as Record<string, string>,
+      add: 'Add to cart',
+    },
+    shop: {
+      label: '03 — Shop · Choose your scent',
+      title: ['Choose', 'your scent'],
+      desc: 'Choose your stance; pay securely in the brand’s own store.',
+      scent: 'Scent',
+      qty: 'Qty',
+      add: 'Add to cart',
+      perks: ['Eau de Parfum, long-lasting', 'Formulated in Spain, made in Türkiye', 'Try first with a discovery set'],
+    },
+    story: {
+      label: '04 — Story',
+      title: 'Choose your stance.',
+      paragraphs: [
+        'UNBE sees fragrance as a personal, conscious form of expression. While the usual approach to fragrance runs through formulas and trends, the UNBE approach begins with a personal stance.',
+        'Every scent is created to reflect how you feel, how you move and how you want to exist in the world. Not as expected, but as you are.',
+        'To us, perfume is not a show but a trace: not loud at first glance, yet unforgettable. Making you feel like you, not like everyone else.',
+      ],
+      place: 'UnBe. · Istanbul',
+      seen: 'As seen in',
+      timeline: [
+        ['Stance', 'Mood and stance first'],
+        ['Formula', 'Formulated in Spain'],
+        ['Production', 'Made in Türkiye'],
+        ['No Collection', 'Six scents, six stances'],
+      ],
+      stats: [
+        ['6', 'scents'],
+        ['100 ml', 'Eau de Parfum'],
+        ['4 + 2', 'women and men'],
+      ],
+    },
+    faq: {
+      label: '06 — FAQ · Good to know',
+      title: 'Good to know',
+      items: [
+        ['How long do the scents last?', 'All UNBE scents are Eau de Parfum and long-lasting.'],
+        ['Where are the scents made?', 'The formulas are developed in Spain; production is in Türkiye.'],
+        ['Can I try them first?', 'You can try them with the discovery sets (women 4 × 2 ml, men 2 × 2 ml, all 6 × 2 ml).'],
+      ],
+    },
+    contact: {
+      label: 'Contact · Write to us',
+      title: 'Write to us',
+      desc: 'Write to us about your orders, our scents and collaborations.',
+      name: 'Full name', email: 'Email', message: 'Message', send: 'Send message',
+      newsTitle: 'Newsletter', newsDesc: 'New stances land here first.', newsPlaceholder: 'Email address', join: 'Join',
+      mailSubject: 'Message from the UnBe. website', newsSubject: 'Newsletter sign-up',
+      cols: { email: 'Email', phone: 'Phone', instagram: 'Instagram', address: 'Address' },
+    },
+    footer: {
+      marquee: ['UnBe.', 'No Tears', 'No Excuse', 'No Drama', 'No Regrets', 'No Filter', 'No Rules', 'Mindset before fragrance'],
+      line: 'UnBe. · Choose your stance.',
+      links: { shop: 'Shop', faq: 'FAQ', story: 'Story', contact: 'Contact', web: 'unbeperfumes.com' },
+      demo: 'This page is an independent concept demo made for UnBe. Product images, notes, prices and texts are taken from the brand’s own site (unbeperfumes.com); purchases are completed in the brand’s own store.',
+    },
+    cart: {
+      title: 'Cart', empty: 'Your cart is empty. Choose a stance.', subtotal: 'Subtotal', checkout: 'Checkout',
+      remove: 'Remove', close: 'Close cart', note: 'Payment is completed securely on unbeperfumes.com.',
+      added: 'added to cart',
+    },
+  },
+} as const;
+
+export type Copy = (typeof copy)['tr'];
+
+/** Koku hikâyesinin ilk cümlesi (EN: sadık çeviri) */
+export const storyFirst: Record<ProductId, Record<Lang, string>> = {
+  'no-tears': { tr: 'Duygusal resetleme.', en: 'An emotional reset.' },
+  'no-excuse': {
+    tr: 'Tutarlı ve saf disiplin sahibi, kimse bakmazken bile kendi doğruları ve hedefleri için varoluşlarını taçlandıranların kokusu.',
+    en: 'The scent of the consistent and purely disciplined, who crown their existence for their own truths and goals even when no one is watching.',
+  },
+  'no-drama': { tr: 'Gürültüyü seven bir dünyada, NO DRAMA sessiz bir başkaldırıdır.', en: 'In a world that loves noise, NO DRAMA is a quiet rebellion.' },
+  'no-regrets': { tr: 'Anlık bir dürtünün nabzı.', en: 'The pulse of a sudden impulse.' },
+  'no-filter': { tr: 'Şişelenmiş saf dürüstlük.', en: 'Pure honesty, bottled.' },
+  'no-rules': { tr: 'Kalıpları kırmanın kokusu.', en: 'The scent of breaking the mould.' },
+};
+
+export const contact = {
+  email: 'info@unbeperfumes.com',
+  phone: '0553 978 44 74',
+  phoneHref: 'tel:+905539784474',
+  instagram: '@unbeperfumes',
+  instagramHref: 'https://www.instagram.com/unbeperfumes/',
+  address: ['Yeniköy Mah. Köybaşı Cad. No:122/9', 'Sarıyer / İstanbul'],
+  shop: 'https://unbeperfumes.com',
+};
+
+export const formatTRY = (v: number) => '₺' + new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 }).format(v);
