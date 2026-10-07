@@ -26,6 +26,93 @@ const CURVE = THEME.wallCurve ?? 0;
 const WALL_Z = CURVE ? -24 : -10;
 // theme.beams: tepeden inen ürün renginde ışık huzmeleri (sisli salon spotları), duvarın önünde.
 const BEAMS = THEME.beams ?? 0;
+// theme.wallStyle: oluklu bronz yerine kavisli tek yüzey, kendi gölgelendiricisiyle (kokunun renginde ışık):
+//   "marble"  gece mermeri: kitap gibi eşlenmiş siyah mermer paneller, altın damarlar ve altın derzler
+//   "arches"  ışıklı kemerler: içleri kokunun renginde arkadan aydınlanan, altın çerçeveli kemer nişler dizisi
+//   "lattice" altın kafes: arkadan aydınlanan sekiz köşeli yıldız örgülü paravan
+// ?wall=marble|arches|lattice adresiyle denenebilir.
+const WALL_STYLE = (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("wall")) || THEME.wallStyle || null;
+const STYLE_ID = { marble: 0, arches: 1, lattice: 2 }[WALL_STYLE] ?? -1;
+const ARC = 2.6; // duvar yayının açısı (radyan)
+const TMP = new Color();
+
+const wallMaterial = () =>
+  new ShaderMaterial({
+    side: DoubleSide,
+    uniforms: { u_tint: { value: new Color(1, 0.8, 0.6) }, u_time: { value: 0 }, u_on: { value: 0 }, u_len: { value: 40 }, u_style: { value: STYLE_ID } },
+    vertexShader: /* glsl */ `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`,
+    fragmentShader: /* glsl */ `
+      uniform vec3 u_tint; uniform float u_time; uniform float u_on; uniform float u_len; uniform float u_style; varying vec2 vUv;
+      float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float vnoise(vec2 p) { vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3. - 2. * f);
+        return mix(mix(hash(i), hash(i + vec2(1., 0.)), f.x), mix(hash(i + vec2(0., 1.)), hash(i + vec2(1., 1.)), f.x), f.y); }
+      float fbm(vec2 p) { float v = 0.; float a = 0.5; for (int k = 0; k < 5; k++) { v += a * vnoise(p); p = p * 2.03 + vec2(1.7, 9.2); a *= 0.5; } return v; }
+      void main() {
+        float x = (vUv.x - 0.5) * u_len;
+        float y = vUv.y * 30.;
+        vec3 gold = vec3(0.86, 0.68, 0.38);
+        vec3 tint = u_tint;
+        // Işık: ürünün arkasında, duvarın alt-orta kısmında bir havuz; yukarı ve yanlara doğru karanlık.
+        float pool = exp(-x * x / 70. - pow(y - 5.5, 2.) / 45.);
+        float amb = (0.18 + 0.82 * exp(-x * x / 500.)) * (1. - 0.8 * smoothstep(9., 24., y));
+        vec3 col = vec3(0.);
+        if (u_style < 0.5) {
+          // Gece mermeri: 3,4 birimlik paneller; komşu paneller ayna (kitap eşleme). Altın derz ve damarlar.
+          float W = 4.2;
+          float pi = floor(x / W + 0.5);
+          float lx = x - pi * W;
+          lx = mod(pi, 2.) < 0.5 ? lx : -lx;
+          vec2 q = vec2(abs(lx) * 0.55 + lx * 0.15, y * 0.32);
+          float n = fbm(q * 1.4 + vec2(0., pi * 0.0));
+          float v = abs(sin((q.x * 1.8 + q.y * 0.9 + n * 5.5)));
+          float vein = (pow(1. - v, 28.) + 0.3 * pow(1. - abs(sin(q.y * 3.1 + n * 9. - q.x)), 40.)) * smoothstep(0.35, 0.7, n);
+          vec3 base = vec3(0.035, 0.032, 0.034) + vec3(0.02) * fbm(q * 4.);
+          float seam = 1. - smoothstep(0.0, 0.035, abs(abs(x - pi * W) - W * 0.5));
+          float sheen = pow(max(0., 1. - abs(lx) / (W * 0.5)), 3.) * 0.05;
+          col = base * (0.6 + 2.6 * pool * tint * 1.6) + mix(gold, tint, 0.45) * vein * (0.03 + 0.32 * pool) * amb
+              + gold * seam * (0.12 + 0.9 * pool) + tint * sheen * amb;
+          col *= amb + 0.15;
+        } else if (u_style < 1.5) {
+          // Işıklı kemerler: 4,6 birim aralıklı, 2,7 genişliğinde, ~10 yüksekliğinde sivri olmayan yuvarlak kemerler.
+          float S = 4.6;
+          float ci = floor(x / S + 0.5);
+          float lx = x - ci * S;
+          float w = 1.35;
+          float h0 = 8.2;
+          float sd = y < h0 ? abs(lx) - w : length(vec2(lx, y - h0)) - w;
+          sd = max(sd, 0.35 - y);
+          float inside = 1. - smoothstep(-0.02, 0.02, sd);
+          // Niş içi: arkadan aydınlanan, tepeye doğru parlayan kokunun rengi; uzak kemerler sönük.
+          float far = exp(-pow(ci * S, 2.) / 160.);
+          float glow = (0.18 + 0.82 * smoothstep(0.3, h0 + w, y)) * (0.25 + 0.75 * far);
+          vec3 niche = mix(tint * 0.22, mix(tint, vec3(1.), 0.15) * 0.75, smoothstep(h0 - 3., h0 + w, y)) * glow * (0.35 + 0.65 * smoothstep(0.3, 0.9, 1. - abs(lx) / w));
+          float frame = (1. - smoothstep(0.0, 0.05, abs(sd + 0.08))) + 0.5 * (1. - smoothstep(0.0, 0.03, abs(sd - 0.18)));
+          vec3 stone = vec3(0.045, 0.038, 0.036) * (0.8 + 0.4 * fbm(vec2(x, y) * 0.7));
+          col = mix(stone * (0.5 + 2.2 * pool), niche, inside) + gold * frame * (0.15 + 0.8 * far) * (0.5 + pool);
+          col *= 0.35 + 0.65 * amb + 0.3 * inside * far;
+          // Kemerlerin önünde zemine yakın hafif hale.
+          col += tint * 0.05 * exp(-y * 0.6) * far;
+        } else {
+          // Altın kafes: sekiz köşeli yıldız örgüsü; boşluklardan kokunun rengi süzülür, çıtalar koyu bronz,
+          // kenarları altın.
+          vec2 g = vec2(x, y) / 2.4;
+          vec2 c = fract(g) - 0.5;
+          vec2 r = mat2(0.7071, -0.7071, 0.7071, 0.7071) * c;
+          float sq = max(abs(c.x), abs(c.y));
+          float rq = max(abs(r.x), abs(r.y));
+          float star = max(sq, rq);
+          float hole = 1. - smoothstep(0.30, 0.32, star);
+          float ring = 1. - smoothstep(0.0, 0.025, abs(star - 0.33));
+          float small = 1. - smoothstep(0.06, 0.075, length(abs(c) - vec2(0.5)));
+          float lightBehind = (0.12 + 0.88 * pool) * amb * 0.75;
+          vec3 behind = mix(tint, vec3(1.), 0.1) * (0.45 + 0.55 * fbm(vec2(x * 0.2, y * 0.2 - u_time * 0.03)));
+          vec3 bronze = vec3(0.07, 0.05, 0.035) * (0.7 + 1.8 * pool);
+          col = mix(bronze, behind * lightBehind, max(hole, small));
+          col += gold * ring * (0.1 + 0.7 * pool) * amb;
+        }
+        gl_FragColor = vec4(col * u_on, 1.);
+      }`,
+  });
 const GOLD = new Color(THEME.accent ?? "#d4b06a");
 const WHITE = new Color(1, 1, 1);
 // Butik fotoğrafında (theme.plate) zemin fotoğraftan gelir: 3B zemin yalnızca ürünlerin ve kaidelerin
@@ -92,6 +179,7 @@ export default function Boutique() {
   const s = useRef({ tint: new Color(), x: null });
   const smokeMat = useMemo(smokeMaterial, []);
   const beamMat = useMemo(beamMaterial, []);
+  const wallMat = useMemo(wallMaterial, []);
   const beams = useRef([]);
   const fluteGeo = useMemo(() => new CylinderGeometry(FLUTE_R, FLUTE_R, 30, 20, 1, true, -Math.PI / 2, Math.PI), []);
 
@@ -151,6 +239,11 @@ export default function Boutique() {
     beamMat.uniforms.u_time.value = clock.getElapsedTime();
     beamMat.uniforms.u_color.value.copy(S.tint).lerp(WHITE, 0.2);
     beamMat.uniforms.u_on.value = on * (st.detail ? 0.3 : 1);
+    wallMat.uniforms.u_time.value = clock.getElapsedTime();
+    // Duvarın ışığı kokunun vurgu renginde (doygun): ürün değişince yumuşakça diğerine geçer.
+    wallMat.uniforms.u_tint.value.lerp(TMP.set(flavors[st.active].theme.accent), 1 - Math.exp(-dt * 2.5));
+    wallMat.uniforms.u_on.value = on * (st.detail ? 0.45 : 1);
+    wallMat.uniforms.u_len.value = CURVE * ARC;
     if (floorMat.current) floorMat.current.mixStrength = (THEME.plate ? 1.4 : 2.2) * on;
     // Duman: ürünün önünde; geçişte (kesirli kaydırma) kabarır, yerindeyken çok hafif.
     const fr = scrollState.p - Math.floor(scrollState.p);
@@ -199,8 +292,14 @@ export default function Boutique() {
           />
         </mesh>
         <group ref={wall}>
+          {/* theme.wallStyle: kavisli tek yüzey (oluklar gizli) */}
+          {STYLE_ID >= 0 && CURVE > 0 && (
+            <mesh material={wallMat} position={[0, 15, CURVE]}>
+              <cylinderGeometry args={[CURVE, CURVE, 30, 160, 1, true, Math.PI - ARC / 2, ARC]} />
+            </mesh>
+          )}
           {/* Yivli bronz duvar ve arkasındaki koyu yüzey */}
-          <instancedMesh ref={flutes} args={[fluteGeo, null, COUNT]}>
+          <instancedMesh ref={flutes} args={[fluteGeo, null, COUNT]} visible={STYLE_ID < 0}>
             <meshStandardMaterial color="#3a2819" metalness={0.45} roughness={0.38} envMapIntensity={0.05} />
           </instancedMesh>
           <mesh position={[0, 15, -FLUTE_R]} visible={!CURVE}>
