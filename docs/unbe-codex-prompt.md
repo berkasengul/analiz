@@ -173,12 +173,21 @@ aşağı koyudan saydama geçiş. Kaydırınca hafif bulanık cam (backdrop-filt
 - Solda kart (yarı saydam koyu, 1 px çerçeve, 32 px iç boşluk): başlık "KOKUNU BUL" (Syne 40 px),
   açıklama "Üç soru. Her kokunun notalarını okuyup seninkini kaideye koyuyoruz.", soru (Syne 26 px) ve
   4 seçenek (A–D, 2×2 ızgara), altta ilerleme çubuğu.
-  Sorular: 1) "Hangi dünya seni çekiyor?" A Narenciye ve deniz esintisi · B Bir buket çiçek · C Tatlı
-  bir şey · D Odun, baharat ve duman 2) "Ne zaman sıkacaksın?" A Gündüz · B Akşam · C Özel bir gece ·
-  D Her gün 3) "Nasıl bir iz bırakmak istersin?" A Hafif ve temiz · B Işıltılı · C Cesur · D Gizemli.
-- Puanlama: her seçeneğin anahtar kelimeleri koku notalarıyla eşleşir (örn. A → bergamot, mandalina,
-  deniz, neroli, greyfurt; B → gül, yasemin, portakal çiçeği, manolya; C → şeftali, pamuk şekeri,
-  vanilya, liçi; D → paçuli, sedir, deri, safran, sandal). En yüksek puanlı koku sonuç olur.
+  Sorular ve puanlar (4 koku ailesi: fresh, floral, sweet, warm):
+  1) "Hangi dünya seni çekiyor?" A Narenciye ve deniz esintisi {fresh:1} · B Bir buket çiçek {floral:1} ·
+     C Tatlı bir şey {sweet:1} · D Odun, baharat ve duman {warm:1}
+  2) "Ne zaman süreceksin?" A Güneşli günler {fresh:.6, floral:.4} · B Şehirde akşamlar {sweet:.5, warm:.5} ·
+     C Unutulmaz bir gece {warm:.7, sweet:.3} · D Her gün {floral:.5, fresh:.5}
+  3) "Sana nasıl hissettirsin?" A Hafif ve özgür {fresh:.6, floral:.4} · B Yumuşak ve sıcacık
+     {sweet:.6, floral:.4} · C Cesur ve çekici {warm:.7, sweet:.3} · D Sessizce zarif {floral:.6, warm:.4}
+  (EN: "Which world pulls you in?" / "When will you wear it?" / "How should it make you feel?")
+- Puanlama: her kokunun piramit notaları ve ailesi küçük harfe çevrilip aile sözlükleriyle sayılır,
+  normalize edilir (koku profili). Örnek sözlükler: fresh = bergamot, mandalina, greyfurt, neroli,
+  deniz, marin, akuatik, yeşil, kakule, armut, limon · floral = gül, yasemin, portakal çiçeği,
+  manolya, müge, süsen, sümbülteber, pudra · sweet = şeftali, liçi, çilek, pamuk şekeri, vanilya, rom,
+  çarkıfelek, meyve · warm = misk, paçuli, sedir, sandal, safran, cypriol, kaşmir, ambergris, amber,
+  deri, tütsü, benjoin, isli. Cevapların toplam vektörüyle nokta çarpımı en yüksek olan koku sonuç;
+  iki alternatif "Bunları da dene" olarak altta gösterilir. Butonlar: "Geri", "Baştan başla".
 - 3B: sağda boş kaide ("KOKUN BURAYA İNECEK" yazısı üstünde); sonuçta şişe yukarıdan kaideye iner
   (0.9 sn, hafif zıplama), arka plan sonucun rengine geçer, "Kokuyu keşfet" ve "Sepete ekle" düğmeleri çıkar.
 
