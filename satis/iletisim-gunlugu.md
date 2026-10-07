@@ -36,6 +36,7 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 | 01.10.2026 (23:50) | Çakır Parfümeri | Gelen | WhatsApp | Çakır Parfümeri → Berka | "Size yarın dönüş sağlayacağım" · "Teşekkür ediyorum" | `yazismalar/cakir/2026-10-01-whatsapp-altyapi-sorusu.md` |
 | 07.10.2026 | O'JUVI | Giden | E-posta | Berka → atadogan@ojuvi.com.tr (adres Expodat fuar kaydından) | İlk satış maili: Ojuvi Gold'un Marie Claire ödülü tebriki; https://ojuviperfume.netlify.app/ (butik sahnesi, tek kaydırmada geçiş, parfüm sıkma, nota piramidi, koku bulucu, ojuvi.com.tr mağazasına bağlı); 15 dakikalık görüşme önerildi | `yazismalar/ojuvi/2026-10-07-giden-ilk-mail.md` |
 | 07.10.2026 | Portelier Parfum | Giden | E-posta | Berka → info@portelierparfum.com (Ceren ve Atılay'a hitaben) | İlk satış maili: Mediterranean Connections; https://portelier.netlify.app/ (kemerli salon, her kokunun kendi rengi, duvarda logo, parfüm sıkma, Shopify mağazasına bağlı); 15 dakikalık görüşme önerildi. Instagram DM gönderildi mi: bilinmiyor | `yazismalar/portelier/2026-10-07-giden-ilk-mail.md` |
+| 07.10.2026 | Soleil de Grâce | Giden | E-posta | Berka → info@soleildegrace.com | İlk satış maili: Néo Collection ve The Origins; https://soleildegrace.netlify.app/ (siyah mermer butik, her kokunun kendi rengi, altın kabartma logo, parfüm sıkma, satış noktaları); 15 dakikalık görüşme önerildi. Instagram DM gönderildi mi: bilinmiyor | `yazismalar/soleil/2026-10-07-giden-ilk-mail.md` |
 
 ---
 
@@ -139,6 +140,11 @@ Kime ne gönderildi, kimden ne geldi, ne konuşuldu, sırada ne var. Her yeni me
 - **Durum:** İlk mail gönderildi (07.10.2026), cevap bekleniyor.
 - **Verilen sözler:** 15 dakikalık görüntülü gösterim teklif edildi.
 - **Sıradaki adım:** Cevap yoksa 11.10.2026'da hatırlatma (Instagram @portelierparfum DM de olabilir).
+
+### Soleil de Grâce (soleildegrace.com)
+- **Durum:** İlk mail gönderildi (07.10.2026), cevap bekleniyor.
+- **Verilen sözler:** 15 dakikalık görüntülü gösterim teklif edildi.
+- **Sıradaki adım:** Cevap yoksa 11.10.2026'da hatırlatma (Instagram @soleil.de.grace DM de olabilir).
 
 ### Diğer firmalar (demo hazır, gönderim kaydı yok)
 Aşağıdakilerin demosu ve satış mesajı hazır; gönderildiklerine dair kayıt yok. Gönderdikçe yukarıdaki tabloya satır ekle.
