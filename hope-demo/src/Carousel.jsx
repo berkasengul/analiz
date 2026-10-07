@@ -7,7 +7,7 @@ import { easeQuadOut } from "d3-ease";
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { THEME } from "./theme";
-import { PUCK_Z, VAULT, vaultFit, vaultFrame } from "./Vault";
+import { helixAt } from "./Helix";
 
 // Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
 const STUDIO = !!THEME.studio;
@@ -22,9 +22,10 @@ export const RISE = THEME.carousel === "rise";
 export const GLIDE = THEME.carousel === "glide";
 // "dolly": karanlık sinematik stüdyo; şişe arkasındaki ışık panelinin önünde, geçişte karanlıkta çözülüp belirir.
 export const DOLLY = THEME.carousel === "dolly";
-// "vault": hazine dolabı (Vault.jsx); kapaklar kapanır, içeride şişe değişir, kapaklar yeniden açılır.
-export const CABINET = THEME.carousel === "vault";
-const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || CABINET;
+// "helix": koku sarmalı (Helix.jsx); ürünler altın kenarlı bir sarmal merdivende, öndeki büyük ve ışıkta;
+// kaydırınca sarmal döner ve sıradaki şişe aşağıdan dönerek öne çıkar.
+export const HELIX = THEME.carousel === "helix";
+const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || HELIX;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
@@ -114,18 +115,18 @@ export function arcPose(d, aspect, time, i) {
         up,
       };
     }
-    if (CABINET) {
-      // Şişe dolabın döner tablasında; kaydırınca kapaklar kapanırken tablayla birlikte döner ve kapaklar tam
-      // kapanınca (iki ürünün ortası) yerini sıradakine bırakır. Komşular hiç görünmez.
-      const fr = vaultFrame(aspect);
-      const vis = 1 - MathUtils.smoothstep(ad, 0.44, 0.5);
-      const sc = vaultFit(fr, BOTTOM[i], TOP[i], HALF[i]) * (1 - 0.1 * Math.min(ad / 0.5, 1)) * vis;
+    if (HELIX) {
+      // Ayağı sarmalın üstündeki altın diskte (DISC_H); uzaktakiler (iki basamak öte) küçülüp söner.
+      const h = helixAt(d, aspect);
+      // Telefonda alttaki (sıradaki) şişe yazıların altında kalmasın: yalnızca geçişte görünür.
+      const alpha = (1 - MathUtils.smoothstep(ad, 1.55, 2.05)) * (phone && d > 0 ? 1 - MathUtils.smoothstep(d, 0.5, 0.85) : 1);
+      const sc = h.F.sc * (1 - 0.45 * Math.min(ad, 1)) * alpha;
       return {
-        x: fr.x,
-        y: fr.shelf - (BOTTOM[i] ?? -1.8) * sc,
-        z: (VAULT.Z + PUCK_Z) * fr.s,
+        x: h.x,
+        y: h.y + (DISC_H - (BOTTOM[i] ?? -1.8)) * sc,
+        z: h.z,
         rotX: 0.01,
-        rotY: -d * 1.7 + 0.14 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
+        rotY: -h.a * 0.55 + 0.12 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
         rotZ: 0,
         scale: sc,
       };
@@ -468,6 +469,13 @@ function PremiumPlinth({ refFn }) {
 }
 
 // Butik sırasında kaidelerin üst yüzü (dünya y) ve öndeki ürünün ölçeği.
+// Sarmalda her ürünün altında altın kenarlı siyah disk (yerel birim: kalınlık).
+const DISC_H = 0.09;
+const discMats = () => [
+  new MeshStandardMaterial({ color: "#dcb066", metalness: 1, roughness: 0.24, envMapIntensity: 1.6 }),
+  new MeshPhysicalMaterial({ color: "#070605", metalness: 0.4, roughness: 0.15, clearcoat: 1, clearcoatRoughness: 0.05 }),
+];
+
 export const dollyTop = (aspect) => (aspect < 0.9 ? -1.35 : -3.4);
 export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.45 : 2.15 * MathUtils.clamp(aspect / 2.3, 0.88, 1));
 
@@ -488,6 +496,8 @@ export default function Carousel() {
 
   const groups = useRef([]);
   const shadows = useRef([]);
+  const discs = useRef([]);
+  const discM = useMemo(() => (HELIX ? discMats() : null), []);
   const plinth = useRef();
   const spot = useRef();
   const rimColor = useMemo(() => new Color(), []);
@@ -659,11 +669,11 @@ export default function Carousel() {
 
       g.position.set(
         pose.x * (1 + 2.2 * spread + 0.9 * fade),
-        pose.y - 2 * spread + (CABINET ? 0 : (1 - intro) * (sceneState.introAt ? 7 : -9)) + lift * 0.25 - 0.4 * fade,
-        pose.z - (CABINET ? 0 : (1 - intro) * 4) - 1.5 * fade
+        pose.y - 2 * spread + (1 - intro) * (sceneState.introAt ? 7 : -9) + lift * 0.25 - 0.4 * fade,
+        pose.z - (1 - intro) * 4 - 1.5 * fade
       );
       // Butik sırasında ürünler kaidede durur: kaydırırken yatmaz.
-      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY || CABINET ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
+      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
@@ -671,6 +681,8 @@ export default function Carousel() {
       // biçimleri ve etiketleri hafifçe seçilir.
       const lit = DOLLY
         ? (PREMIUM ? 0.4 : 0.5) + (PREMIUM ? 0.6 : 0.5) * Math.max(0, 1 - Math.abs(d))
+        : HELIX
+        ? 0.38 + 0.62 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : SOLO
         ? 0.16 + 0.84 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
@@ -694,6 +706,16 @@ export default function Carousel() {
       // Saydam camlı ürünlerde (content.glass) geçişte şişe karanlıkta çözülür.
       if (bodies[i].transparent) bodies[i].opacity = pose.alpha ?? 1;
 
+      // Sarmalda disk ürünün ayağının altında, genişliğine göre.
+      if (HELIX) {
+        const dk = discs.current[i];
+        if (dk) {
+          const r = (HALF[i] ?? 0.9) * 1.3;
+          dk.position.y = (BOTTOM[i] ?? -1.8) - DISC_H / 2;
+          dk.scale.set(r, 1, r);
+          dk.visible = BOTTOM[i] != null;
+        }
+      }
       // Butik sırasında (DOLLY) her ürün kendi kaidesinde: ayağı ölçülür, kaide ayağın altına oturur.
       if (DOLLY) {
         if (BOTTOM[i] == null && pose.scale > 0.01 && fade < 0.001 && spread < 0.001) measure(g, i);
@@ -709,7 +731,7 @@ export default function Carousel() {
 
       // Büyük kutu buradan (dağılmadan önceki pozdan) devralır.
       if (i === nearest) {
-        sceneState.focus.position.set(pose.x, pose.y + (CABINET ? 0 : (1 - intro) * (sceneState.introAt ? 7 : -9)), pose.z - (CABINET ? 0 : (1 - intro) * 4));
+        sceneState.focus.position.set(pose.x, pose.y + (1 - intro) * (sceneState.introAt ? 7 : -9), pose.z - (1 - intro) * 4);
         sceneState.focus.rest.set(pose.x, pose.y, pose.z);
         sceneState.focus.rotation.copy(g.rotation);
         sceneState.focus.scale = pose.scale;
@@ -777,6 +799,16 @@ export default function Carousel() {
           onPointerOut={unhover(i)}
         >
           <CanMesh body={bodies[i]} parts={parts[i]} flavor={i} />
+          {HELIX && (
+            <group ref={(el) => (discs.current[i] = el)} visible={false}>
+              <mesh material={discM[0]} userData={{ noMeasure: true }}>
+                <cylinderGeometry args={[1, 1.03, DISC_H * 0.7, 48]} />
+              </mesh>
+              <mesh material={discM[1]} position={[0, DISC_H * 0.4, 0]} userData={{ noMeasure: true }}>
+                <cylinderGeometry args={[0.95, 0.95, DISC_H * 0.2, 48]} />
+              </mesh>
+            </group>
+          )}
           {DOLLY && (
             <mesh ref={(el) => (shadows.current[i] = el)} rotation={[-Math.PI / 2, 0, 0]} visible={false} userData={{ noMeasure: true }} renderOrder={-1}>
               <planeGeometry args={[2.3, 2.3]} />

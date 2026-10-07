@@ -491,7 +491,7 @@
     },
     "studio": true,
     "pedestal": true,
-    "carousel": "vault",
+    "carousel": "helix",
     "cards": "gallery",
     "pyramid": true,
     "glideScale": 1.1,
