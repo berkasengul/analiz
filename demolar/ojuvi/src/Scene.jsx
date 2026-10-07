@@ -14,7 +14,7 @@ import Spray from "./Spray";
 import Boutique from "./Boutique";
 import Garnish from "./Garnish";
 import Cosmos from "./Cosmos";
-import Helix from "./Helix";
+import Lake from "./Lake";
 import Effects, { FX } from "./Effects";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
@@ -65,12 +65,12 @@ export default function Scene() {
           <Background />
           {THEME.cosmos && <Cosmos />}
           <Particles />
-          {THEME.numerals && !["solo", "orbit", "rise", "glide", "dolly", "helix"].includes(THEME.carousel) && <Numeral />}
+          {THEME.numerals && !["solo", "orbit", "rise", "glide", "dolly", "lake"].includes(THEME.carousel) && <Numeral />}
           {/* "dolly": her ürünün kendi kaidesi var (Carousel → Plinth). */}
           {THEME.pedestal && THEME.carousel !== "dolly" && <Pedestal />}
           {THEME.carousel === "dolly" && <Boutique />}
           <IceScene />
-          {THEME.carousel === "helix" && <Helix />}
+          {THEME.carousel === "lake" && <Lake />}
           <Carousel />
           <Garnish />
           <HeroCan />

@@ -6,7 +6,7 @@ import { flavors } from "./data";
 import { sceneState } from "./shared";
 import { useStore } from "./store";
 import { THEME } from "./theme";
-import { DOLLY, HELIX, GLIDE, ORBIT, RISE, arcPose, orbitFloor, orbitRadius, orbitX } from "./Carousel";
+import { DOLLY, LAKE, GLIDE, ORBIT, RISE, arcPose, orbitFloor, orbitRadius, orbitX } from "./Carousel";
 
 // "dolly" kaidesi: ürünün yerel biriminde yükseklik (arka plandaki zemin kaidenin altına hizalanır).
 export const PLINTH_H = DOLLY ? 0.26 : 0;
@@ -50,7 +50,7 @@ export default function Pedestal() {
     const st = useStore.getState();
     const S = s.current;
     // Ürünün sahne fotoğrafı varsa ürün fotoğraftaki kaidede durur; 3B kaide gizlenir.
-    const target = (RISE || GLIDE || HELIX ? 0 : 1) * (flavors[st.active]?.stage ? 0 : 1) * (1 - Math.min(1, sceneState.spread * 3)) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
+    const target = (RISE || GLIDE || LAKE ? 0 : 1) * (flavors[st.active]?.stage ? 0 : 1) * (1 - Math.min(1, sceneState.spread * 3)) * (st.detail ? 0 : 1) * Math.min(1, sceneState.intro * 1.2);
     S.vis = MathUtils.damp(S.vis, target, 3, dt);
     const f = sceneState.focus;
     const sc = f.scale || 1;

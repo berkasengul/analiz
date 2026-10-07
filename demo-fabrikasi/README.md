@@ -221,7 +221,7 @@ süzülür; kaydırınca şişe yarım tur dönerek yukarı çıkar, sıradaki a
 yalnızca geçişte görünür, kaide yok, hiçbir şey üst üste binmez. `"orbit"`: döner platform (denendi, ürünler
 iç içe göründüğü için Unique'te bırakıldı). Arka plan ürün renginde kadife.
 
-`"helix"` (O'JUVI): koku sarmalı (Helix.jsx). Ürünler siyah camdan, altın kenarlı bir sarmal merdivende, her biri altın bir diskin üstünde; öndeki büyük ve ışıkta, önceki koku yukarıda, sıradaki aşağıda derinlikte görünür. Kaydırınca sarmal döner, sıradaki şişe aşağıdan dönerek öne çıkar; sarmal boyunca kokunun renginde ışık zerreleri akar.
+`"lake"` (O'JUVI): ayna su (Lake.jsx). Şişe karanlık, durgun bir suyun üstünde; suda yansıması, ufukta kokunun renginde ışık. Kaydırınca şişe dönerek suya gömülür, sıradaki sudan yükselir; suya girip çıkarken yüzeyde ışıklı halkalar yayılır.
 `"glide"` (Attar al Has; kemersiz `"arch": false` ve büyük şişe `"glideScale": 1.25` ile Reinvented): şişe altın çizgili bir Osmanlı kemerinin (sivri kemerli niş, tepede alem) içinde,
 parlak zeminde durur; kaydırınca yana süzülüp döner, sıradaki öbür yandan kemere girer. Kemer ürünün ayağına ve
 boyuna göre çizilir (BackgroundMaterial → `u_arch`). Satış noktası listesi olmayan marka `hide: ["stockists"]`.

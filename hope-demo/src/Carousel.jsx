@@ -7,7 +7,7 @@ import { easeQuadOut } from "d3-ease";
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { THEME } from "./theme";
-import { helixAt } from "./Helix";
+import { WATER_CLIP, lakeFrame } from "./Lake";
 
 // Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
 const STUDIO = !!THEME.studio;
@@ -22,10 +22,9 @@ export const RISE = THEME.carousel === "rise";
 export const GLIDE = THEME.carousel === "glide";
 // "dolly": karanlık sinematik stüdyo; şişe arkasındaki ışık panelinin önünde, geçişte karanlıkta çözülüp belirir.
 export const DOLLY = THEME.carousel === "dolly";
-// "helix": koku sarmalı (Helix.jsx); ürünler altın kenarlı bir sarmal merdivende, öndeki büyük ve ışıkta;
-// kaydırınca sarmal döner ve sıradaki şişe aşağıdan dönerek öne çıkar.
-export const HELIX = THEME.carousel === "helix";
-const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || HELIX;
+// "lake": ayna su (Lake.jsx); şişe durgun suyun üstünde, kaydırınca dönerek suya gömülür, sıradaki sudan yükselir.
+export const LAKE = THEME.carousel === "lake";
+const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || LAKE;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
@@ -115,19 +114,20 @@ export function arcPose(d, aspect, time, i) {
         up,
       };
     }
-    if (HELIX) {
-      // Ayağı sarmalın üstündeki altın diskte (DISC_H); uzaktakiler (iki basamak öte) küçülüp söner.
-      const h = helixAt(d, aspect);
-      // Telefonda alttaki (sıradaki) şişe yazıların altında kalmasın: yalnızca geçişte görünür.
-      const alpha = (1 - MathUtils.smoothstep(ad, 1.55, 2.05)) * (phone && d > 0 ? 1 - MathUtils.smoothstep(d, 0.5, 0.85) : 1);
-      const sc = h.F.sc * (1 - 0.45 * Math.min(ad, 1)) * alpha;
+    if (LAKE) {
+      // Yerindeyken şişe suyun üstünde hafifçe salınır (ayağı biraz suda). Komşuya geçerken dönerek suya
+      // gömülür (iki ürünün ortasında tamamen suyun altında), sıradaki dönerek sudan yükselir.
+      const L = lakeFrame(aspect);
+      const h = TOP[i] != null && BOTTOM[i] != null ? TOP[i] - BOTTOM[i] : 3.8;
+      const k = MathUtils.smoothstep(ad, 0.04, 0.5);
+      const sc = ad < 0.5 ? L.sc : 0;
       return {
-        x: h.x,
-        y: h.y + (DISC_H - (BOTTOM[i] ?? -1.8)) * sc,
-        z: h.z,
+        x: L.x + d * 0.5,
+        y: L.y - ((BOTTOM[i] ?? -1.8) + 0.05) * sc + Math.sin(time * 0.9) * 0.03 * focus - k * (h * sc + 0.4),
+        z: 0,
         rotX: 0.01,
-        rotY: -h.a * 0.55 + 0.12 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
-        rotZ: 0,
+        rotY: -d * 2.6 + 0.12 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
+        rotZ: -0.14 * d,
         scale: sc,
       };
     }
@@ -469,13 +469,6 @@ function PremiumPlinth({ refFn }) {
 }
 
 // Butik sırasında kaidelerin üst yüzü (dünya y) ve öndeki ürünün ölçeği.
-// Sarmalda her ürünün altında altın kenarlı siyah disk (yerel birim: kalınlık).
-const DISC_H = 0.09;
-const discMats = () => [
-  new MeshStandardMaterial({ color: "#dcb066", metalness: 1, roughness: 0.24, envMapIntensity: 1.6 }),
-  new MeshPhysicalMaterial({ color: "#070605", metalness: 0.4, roughness: 0.15, clearcoat: 1, clearcoatRoughness: 0.05 }),
-];
-
 export const dollyTop = (aspect) => (aspect < 0.9 ? -1.35 : -3.4);
 export const dollyScale = (aspect) => (aspect < 0.9 ? 0.78 * 1.45 : 2.15 * MathUtils.clamp(aspect / 2.3, 0.88, 1));
 
@@ -490,14 +483,19 @@ export default function Carousel() {
   );
   // Her kutunun kendi alüminyumu var; detay açılınca tek tek karartılır.
   const parts = useMemo(() => flavors.map((f) => createBottleParts(f)), []);
+  // Ayna suda (LAKE) şişenin su çizgisinin altı kesilir.
+  useMemo(() => {
+    if (!LAKE) return;
+    bodies.forEach((b, i) => {
+      for (const m of [b, ...Object.values(parts[i])]) if (m?.isMaterial) m.clippingPlanes = [WATER_CLIP];
+    });
+  }, [bodies, parts]);
 
   // Bu bileşen render edildiyse model ve doku yüklenmiştir.
   useEffect(() => useStore.getState().setSceneReady(), []);
 
   const groups = useRef([]);
   const shadows = useRef([]);
-  const discs = useRef([]);
-  const discM = useMemo(() => (HELIX ? discMats() : null), []);
   const plinth = useRef();
   const spot = useRef();
   const rimColor = useMemo(() => new Color(), []);
@@ -681,8 +679,6 @@ export default function Carousel() {
       // biçimleri ve etiketleri hafifçe seçilir.
       const lit = DOLLY
         ? (PREMIUM ? 0.4 : 0.5) + (PREMIUM ? 0.6 : 0.5) * Math.max(0, 1 - Math.abs(d))
-        : HELIX
-        ? 0.38 + 0.62 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : SOLO
         ? 0.16 + 0.84 * Math.pow(Math.max(0, 1 - Math.abs(d)), 1.4)
         : 0.14 + 0.86 * Math.pow(Math.max(0, 1 - Math.min(Math.abs(d), 1.6) / 1.6), 1.6);
@@ -706,16 +702,6 @@ export default function Carousel() {
       // Saydam camlı ürünlerde (content.glass) geçişte şişe karanlıkta çözülür.
       if (bodies[i].transparent) bodies[i].opacity = pose.alpha ?? 1;
 
-      // Sarmalda disk ürünün ayağının altında, genişliğine göre.
-      if (HELIX) {
-        const dk = discs.current[i];
-        if (dk) {
-          const r = (HALF[i] ?? 0.9) * 1.3;
-          dk.position.y = (BOTTOM[i] ?? -1.8) - DISC_H / 2;
-          dk.scale.set(r, 1, r);
-          dk.visible = BOTTOM[i] != null;
-        }
-      }
       // Butik sırasında (DOLLY) her ürün kendi kaidesinde: ayağı ölçülür, kaide ayağın altına oturur.
       if (DOLLY) {
         if (BOTTOM[i] == null && pose.scale > 0.01 && fade < 0.001 && spread < 0.001) measure(g, i);
@@ -799,16 +785,6 @@ export default function Carousel() {
           onPointerOut={unhover(i)}
         >
           <CanMesh body={bodies[i]} parts={parts[i]} flavor={i} />
-          {HELIX && (
-            <group ref={(el) => (discs.current[i] = el)} visible={false}>
-              <mesh material={discM[0]} userData={{ noMeasure: true }}>
-                <cylinderGeometry args={[1, 1.03, DISC_H * 0.7, 48]} />
-              </mesh>
-              <mesh material={discM[1]} position={[0, DISC_H * 0.4, 0]} userData={{ noMeasure: true }}>
-                <cylinderGeometry args={[0.95, 0.95, DISC_H * 0.2, 48]} />
-              </mesh>
-            </group>
-          )}
           {DOLLY && (
             <mesh ref={(el) => (shadows.current[i] = el)} rotation={[-Math.PI / 2, 0, 0]} visible={false} userData={{ noMeasure: true }} renderOrder={-1}>
               <planeGeometry args={[2.3, 2.3]} />
