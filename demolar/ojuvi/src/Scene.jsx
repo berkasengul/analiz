@@ -16,6 +16,7 @@ import Garnish from "./Garnish";
 import Cosmos from "./Cosmos";
 import Lake from "./Lake";
 import Studio from "./Studio";
+import Silk from "./Silk";
 import Effects, { FX } from "./Effects";
 import { THEME } from "./theme";
 import { scrollState } from "./scroll";
@@ -66,13 +67,14 @@ export default function Scene() {
           <Background />
           {THEME.cosmos && <Cosmos />}
           <Particles />
-          {THEME.numerals && !["solo", "orbit", "rise", "glide", "dolly", "lake"].includes(THEME.carousel) && <Numeral />}
+          {THEME.numerals && !["solo", "orbit", "rise", "glide", "dolly", "lake", "silk"].includes(THEME.carousel) && <Numeral />}
           {/* "dolly": her ürünün kendi kaidesi var (Carousel → Plinth). */}
           {THEME.pedestal && THEME.carousel !== "dolly" && <Pedestal />}
           {THEME.carousel === "dolly" && <Boutique />}
           <IceScene />
           {THEME.carousel === "lake" && <Lake />}
-          {THEME.carousel === "lake" && <Studio />}
+          {["lake", "silk"].includes(THEME.carousel) && <Studio />}
+          {THEME.carousel === "silk" && <Silk />}
           <Carousel />
           <Garnish />
           <HeroCan />

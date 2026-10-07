@@ -10,9 +10,9 @@ import { SPRAY, SPRAY_SLOW, sceneState } from "./shared";
 import { useStore } from "./store";
 import { THEME } from "./theme";
 
-const SOLO = ["solo", "orbit", "rise", "glide", "dolly", "lake"].includes(THEME.carousel);
+const SOLO = ["solo", "orbit", "rise", "glide", "dolly", "lake", "silk"].includes(THEME.carousel);
 // Parlak zemin: "rise", "glide" ve "dolly"; altın kemer yalnızca "glide", "dolly"de karanlık sinematik stüdyo.
-const FLOOR = ["rise", "glide", "dolly", "lake"].includes(THEME.carousel);
+const FLOOR = ["rise", "glide", "dolly", "lake", "silk"].includes(THEME.carousel);
 const TUNNEL = THEME.carousel === "dolly";
 // Butik fotoğrafı (theme.plate = { src, aspect, x, floor }): arka planı kaplar; odak noktası (x) öndeki ürüne,
 // duvar dibi (floor, fotoğrafın üstünden oran) ürünlerin zeminine hizalanır.

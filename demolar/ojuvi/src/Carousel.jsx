@@ -7,8 +7,9 @@ import { easeQuadOut } from "d3-ease";
 import CanMesh, { createBottleParts, dimBottleParts, useCanBody } from "./CanMesh";
 import { MOBILE, createCanMaterial, createCanUniforms, setCanFlavor } from "./canMaterial";
 import { THEME } from "./theme";
-import { WATER_CLIP, lakePath } from "./Lake";
+import { WATER_CLIP, lakeFrame, lakePath } from "./Lake";
 import { studioEnv } from "./Studio";
+import { plinthTop } from "./Silk";
 
 // Tema stüdyo ışığı: kenar ışığı ürünün kendi vurgu renginde ve güçlü, yüzeyden ışık süpürmesi geçer.
 const STUDIO = !!THEME.studio;
@@ -25,7 +26,11 @@ export const GLIDE = THEME.carousel === "glide";
 export const DOLLY = THEME.carousel === "dolly";
 // "lake": gece stüdyosu (Lake.jsx, Studio.jsx); ıslak siyah taş zeminde şişe; sıradaki koku ufuktan süzülerek gelir.
 export const LAKE = THEME.carousel === "lake";
-const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || LAKE;
+// "silk": ipek (Silk.jsx); şişe kokunun renginde akan saten kumaşın üstünde; ürünler yandan süzülerek gelir.
+export const SILK = THEME.carousel === "silk";
+// Gece stüdyosu ışığı ve malzemesi (Studio.jsx): "lake" ve "silk".
+const NIGHT = LAKE || SILK;
+const SOLO = THEME.carousel === "solo" || ORBIT || RISE || GLIDE || DOLLY || LAKE || SILK;
 // Kaide için her ürünün yerel alt kenarı (şişe, set, tüp farklı boyda); ilk görüldüğünde ölçülür.
 const BOTTOM = [];
 // Ürünün tepesi (kapak dahil): arka plan sahnesi ürünün boyuna göre ölçeklenir.
@@ -114,6 +119,24 @@ export function arcPose(d, aspect, time, i) {
         scale: alpha > 0.004 ? scale : 0,
         alpha,
         up,
+      };
+    }
+    if (SILK) {
+      // İpek: ortada sabit bir kaide (Silk.jsx). Öndeki şişe kaidenin üstünde; sıradaki sağdan hafif bir yayla
+      // süzülüp kaideye konar, öndeki kalkıp sola çekilir ve karanlıkta söner. Yerindeyken yalnızca ±1° yalpalar.
+      const L = lakeFrame(aspect);
+      const vis = 1 - MathUtils.smoothstep(ad, 0.55, 0.95);
+      const sc = L.sc * (phone ? 0.9 : 0.92) * vis;
+      const hop = Math.sin(Math.PI * Math.min(ad, 1)) * 0.9 * (L.sc / 1.55);
+      return {
+        x: L.x + d * (phone ? 4.6 : 8.5),
+        y: plinthTop(L) - (BOTTOM[i] ?? -1.8) * sc + hop,
+        z: -Math.min(ad, 1.2) * 3.2,
+        rotX: 0.01,
+        rotY: -d * 1.25 + 0.07 * focus + (focus > 0 ? Math.sin((time * Math.PI * 2) / 10) * 0.0175 * focus : 0),
+        rotZ: 0,
+        scale: sc,
+        alpha: vis,
       };
     }
     if (LAKE) {
@@ -681,7 +704,7 @@ export default function Carousel() {
         pose.z - (1 - intro) * 4 - 1.5 * fade
       );
       // Butik sırasında ürünler kaidede durur: kaydırırken yatmaz.
-      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY || LAKE ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
+      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY || NIGHT ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.
@@ -696,8 +719,8 @@ export default function Carousel() {
       bodies[i].userData.uniforms.u_rim.value.copy(rimColor).multiplyScalar(SOLO ? (1 - fade) * (0.5 + 0.5 * lit * lit) * (flavors[i]?.stage ? 0.55 : 1) : dim * (0.35 + 0.65 * lit));
       // Gece stüdyosu: stüdyo ortam yansıması, altın bölgeler metal, renkli kenar parıltısı ve
       // ışıktan bağımsız (unlit) pay kısılır: şişe kendinden parlayan kırmızı plastik gibi görünmez.
-      const sw = LAKE ? sceneState.studio ?? 0 : 0;
-      if (LAKE) {
+      const sw = NIGHT ? sceneState.studio ?? 0 : 0;
+      if (NIGHT) {
         const B = bodies[i];
         if (!B.userData.studio) {
           B.userData.studio = true;
