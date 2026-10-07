@@ -1561,8 +1561,7 @@
         "Üst: İncir, Guatemala Kakulesi, Frenk Üzümü",
         "Kalp: Fesleğen, Deniz Suyu, Menekşe Yaprağı",
         "Dip: Deniz Odunu, Sandal Ağacı, Amber Gri"
-      ],
-      "wall": "arches"
+      ]
     },
     {
       "name": "Manche",
@@ -2354,8 +2353,7 @@
         "Üst: Calabria Bergamotu, Galbanum, Salatalık",
         "Kalp: Adaçayı, Gül",
         "Dip: Deniz Yosunu, Amber, Sandal Ağacı"
-      ],
-      "wall": "waves"
+      ]
     },
     {
       "name": "Nesso",
@@ -3323,8 +3321,7 @@
         "Üst: Zencefil, İtalyan Portakalı, Şampanya",
         "Kalp: Manolya, Yasemin, Sümbülteber",
         "Dip: Bal, Sedir Ağacı, Paçuli"
-      ],
-      "wall": "marble"
+      ]
     },
     {
       "name": "Ribeira",
@@ -4240,8 +4237,7 @@
         "Üst: Karanfil, Safran, Kekik",
         "Kalp: Deri, Heliotrop",
         "Dip: Bourbon Vanilya, Tütsü"
-      ],
-      "wall": "lattice"
+      ]
     }
   ],
   "home": [

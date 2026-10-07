@@ -38,7 +38,8 @@ const STYLES = { marble: 0, arches: 1, lattice: 2, waves: 3 };
 // Ürüne özel duvar (products[].wall): her kokunun kendi deseni; ürün değişince desen yumuşakça diğerine geçer.
 const styleOf = (f) => STYLES[(typeof window !== "undefined" && new URLSearchParams(window.location.search).get("wall")) || f?.wall || THEME.wallStyle] ?? -1;
 const STYLE_ID = Math.max(STYLES[WALL_STYLE] ?? -1, ...flavors.map(styleOf));
-const ARC = 2.6; // duvar yayının açısı (radyan)
+// Duvar yayının açısı (radyan): yay iki yanda kameranın hizasına kadar uzanır; geniş ekranda da kenarda boşluk kalmaz.
+const ARC = 3.1;
 const TMP = new Color();
 
 const wallMaterial = () =>
@@ -221,7 +222,7 @@ export default function Boutique() {
         const th = ((i - COUNT / 2) * PITCH) / CURVE;
         o.position.set(CURVE * Math.sin(th), 15, CURVE - CURVE * Math.cos(th));
         o.rotation.set(0, -th, 0);
-        o.scale.setScalar(Math.abs(th) < 1.3 ? 1 : 0);
+        o.scale.setScalar(Math.abs(th) < ARC / 2 ? 1 : 0);
       } else o.position.set((i - COUNT / 2) * PITCH, 15, 0);
       o.updateMatrix();
       flutes.current.setMatrixAt(i, o.matrix);
@@ -346,8 +347,8 @@ export default function Boutique() {
           </mesh>
           {/* Kavisli duvarın dibinde ince altın şerit (yay) */}
           {CURVE > 0 && (
-            <mesh position={[0, 0.09, CURVE]} rotation={[Math.PI / 2, 0, Math.PI / 2 - 1.3]}>
-              <torusGeometry args={[CURVE - FLUTE_R - 0.03, 0.025, 8, 160, 2.6]} />
+            <mesh position={[0, 0.09, CURVE]} rotation={[Math.PI / 2, 0, Math.PI / 2 - ARC / 2]}>
+              <torusGeometry args={[CURVE - FLUTE_R - 0.03, 0.025, 8, 160, ARC]} />
               <meshStandardMaterial color={GOLD} metalness={1} roughness={0.25} envMapIntensity={1.4} />
             </mesh>
           )}
