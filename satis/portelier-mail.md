@@ -17,7 +17,7 @@ Portelier için, Mediterranean Connections koleksiyonunu 3B olarak sergileyen bi
 Kısaca neler var:
 
 - **Urla, Manche, Nesso ve Ribeira 3B şişeler olarak:** Kendi ürün fotoğraflarınızdan hazırlandı; illüstrasyonlu etiketler olduğu gibi okunuyor. Ziyaretçi her kaydırmada bir sonraki kokuya geçiyor, şişe karanlık bir salonda ışık altında kaideye konuyor.
-- **Her kokunun kendi dünyası:** Urla'da yeşil ışıklı kemerler, Manche'de lacivert deniz dalgaları, Nesso'da pembe damarlı mermer, Ribeira'da turuncu ışıklı bir kafes. Ürün değişince duvarın deseni ve rengi de değişiyor.
+- **Her kokunun kendi rengi:** Şişenin arkasında, etiketlerinizdeki kemeri yankılayan ışıklı kemerli bir salon; kemerlerin ışığı her kokunun renginde (Urla yeşil, Manche lacivert, Nesso mor-pembe, Ribeira toprak turuncu).
 - **"Parfümü sık":** Butona basınca kapak kalkıyor, şişeden sis çıkıyor ve kokunun notaları ekranda beliriyor.
 - **Nota piramidi ve koku bulucu:** Şişe katman katman açılıp üst, kalp ve dip notaları gösteriyor; üç soruyla ziyaretçiye uygun kokuyu öneren bir koku bulucu da var.
 - **Mağazanıza bağlı:** "Sepete ekle" mevcut Shopify mağazanıza gidiyor; ürünleri ve fiyatları kendi panelinizden yönetmeye devam ediyorsunuz.
