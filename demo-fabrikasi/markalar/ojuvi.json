@@ -496,7 +496,13 @@
     "pyramid": true,
     "glideScale": 1.1,
     "cardAngle": 0.32,
-    "lux": true
+    "lux": true,
+    "fx": {
+      "bloom": 0.32,
+      "threshold": 0.88,
+      "vignette": 0.42,
+      "grain": 0
+    }
   },
   "defaultLang": "tr",
   "hide": [
@@ -1235,9 +1241,10 @@
       "perfumer": null,
       "color": "#d5111d",
       "ink": "#1f1a17",
+      "scene": "crimson",
       "theme": {
-        "glow": "#3a0608",
-        "edge": "#050404",
+        "glow": "#160306",
+        "edge": "#050203",
         "drop": "#e0303a",
         "accent": "#e0303a",
         "mood": "warm"

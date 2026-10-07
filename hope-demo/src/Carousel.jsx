@@ -116,15 +116,19 @@ export function arcPose(d, aspect, time, i) {
     }
     if (LAKE) {
       // Su üstünde geçit (Lake.jsx → lakePath): sıradaki ufuktan süzülerek gelir, öndeki yana çekilip söner.
-      // Ayağı hep su çizgisinde (biraz suda); yerindeyken hafifçe salınır.
+      // Suda ayağı biraz suya girer ve hafifçe salınır. Ürüne özel sahnede (scene, ör. Red Passion) zemin taştır:
+      // şişe biraz daha büyük, ayağı tam zeminde, salınmaz; yalnızca ±1° çok yavaş (10 sn) yalpalar ki camdaki
+      // yansımalar hafifçe kaysın.
       const q = lakePath(d, aspect);
-      const sc = q.L.sc * q.vis;
+      const cw = flavors[i]?.scene ? 1 : 0;
+      const sc = q.L.sc * q.vis * (1 + 0.12 * cw);
+      const idle = cw ? Math.sin((time * Math.PI * 2) / 10) * 0.0175 : Math.sin(time * 0.4) * 0.08;
       return {
         x: q.x,
-        y: q.L.y - ((BOTTOM[i] ?? -1.8) + 0.05) * sc + Math.sin(time * 0.9) * 0.03 * focus,
+        y: q.L.y - ((BOTTOM[i] ?? -1.8) + 0.05 * (1 - cw)) * sc + Math.sin(time * 0.9) * 0.03 * focus * (1 - cw),
         z: q.z,
         rotX: 0.01,
-        rotY: -d * 1.1 + 0.12 * focus + (focus > 0 ? Math.sin(time * 0.4) * 0.08 * focus : 0),
+        rotY: -d * 1.1 + (cw ? 0.07 : 0.12) * focus + (focus > 0 ? idle * focus : 0),
         rotZ: 0,
         scale: sc,
         alpha: q.vis,
@@ -670,7 +674,7 @@ export default function Carousel() {
         pose.z - (1 - intro) * 4 - 1.5 * fade
       );
       // Butik sırasında ürünler kaidede durur: kaydırırken yatmaz.
-      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
+      g.rotation.set(pose.rotX, pose.rotY + (1 - intro) * 2.5, pose.rotZ + (DOLLY || (LAKE && flavors[i]?.scene) ? 0 : s.lean) * (1 - Math.min(Math.abs(d), 4) * 0.15));
       // Detay açılınca yan ürünler kararırken küçülüp kenarlara çekilir: metnin arkasında siyah leke kalmaz.
       g.scale.setScalar(pose.scale * (1 - 0.5 * spread) * (SOLO ? 1 - MathUtils.smoothstep(fade, 0, 0.6) : 1 - 0.7 * fade) * (1 + lift * 0.06));
       // Vitrin ışığı: öndeki kutu tam aydınlık, yanlar kademeli olarak kararır.

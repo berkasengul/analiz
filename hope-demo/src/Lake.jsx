@@ -58,6 +58,21 @@ const NOISE = (() => {
   return t;
 })();
 
+// Temas gölgesi dokusu: ortası koyu, kenara doğru sönen elips.
+const SHADOW = (() => {
+  if (typeof document === "undefined") return null;
+  const c = document.createElement("canvas");
+  c.width = c.height = 128;
+  const g = c.getContext("2d");
+  const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gr.addColorStop(0, "rgba(0,0,0,1)");
+  gr.addColorStop(0.35, "rgba(0,0,0,0.75)");
+  gr.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = gr;
+  g.fillRect(0, 0, 128, 128);
+  return new CanvasTexture(c);
+})();
+
 const RINGS = 14;
 const rippleMaterial = () =>
   new ShaderMaterial({
@@ -125,6 +140,7 @@ export default function Lake() {
   const water = useRef();
   const ripples = useRef();
   const horizon = useRef();
+  const shadow = useRef();
   const st = useRef({ away: 0, lastP: scrollState.p, lastRing: -9, next: 0, idleAt: 0, col: new Color(flavors[0].theme.accent), glow: new Color(flavors[0].theme.glow), landed: false });
   const M = useMemo(() => ({ ripple: rippleMaterial(), horizon: horizonMaterial() }), []);
   const tmp = useMemo(() => new Color(), []);
@@ -163,15 +179,26 @@ export default function Lake() {
     s.glow.lerp(tmp.set(f.theme.glow), k);
     M.ripple.uniforms.u_color.value.copy(s.col);
     M.horizon.uniforms.u_color.value.copy(s.col).lerp(tmp.set("#ffffff"), 0.15);
-    M.horizon.uniforms.u_on.value = on;
+    M.horizon.uniforms.u_on.value = on * (1 - 0.65 * (sceneState.crimson ?? 0));
     M.ripple.uniforms.u_time.value = t;
-    M.ripple.uniforms.u_pool.value = on * (1 - 0.7 * Math.sin(Math.PI * Math.min(1, Math.abs(p - Math.round(p)) * 2)));
+    M.ripple.uniforms.u_pool.value = (1 - (sceneState.crimson ?? 0)) * on * (1 - 0.7 * Math.sin(Math.PI * Math.min(1, Math.abs(p - Math.round(p)) * 2)));
     M.ripple.uniforms.u_pc.value.set(F.x, 0, 0);
+    // Ürüne özel sahnede (Crimson) su cilalı siyah taşa döner: titreşim yok, yansıma bulanık ve kısık.
+    const cr = sceneState.crimson ?? 0;
     const w = water.current;
     if (w) {
-      w.color.copy(s.glow).multiplyScalar(0.55);
-      w.mixStrength = 3.2 * on;
+      w.color.copy(s.glow).multiplyScalar(0.55 * (1 - cr)).lerp(tmp.set("#0a0506"), cr);
+      w.mixStrength = (3.2 - 1.2 * cr) * on;
+      w.mixBlur = 0.35 + 0.55 * cr;
+      w.distortion = 0.18 * (1 - cr);
       if (NOISE) NOISE.offset.set(t * 0.012, t * 0.03);
+    }
+    // Temas gölgesi: şişenin ayağının altında yumuşak koyu leke (taş zeminde; suda yok).
+    if (shadow.current) {
+      shadow.current.position.set(F.x, 0.012, 0);
+      shadow.current.scale.set(F.sc * 1.9, F.sc * 1.05, 1);
+      shadow.current.material.opacity = 0.85 * cr * on;
+      shadow.current.visible = cr > 0.01;
     }
     // Ufuk ışığının parlak yeri şişenin hizasında.
     P.set(F.x, 0, -60).project(camera);
@@ -186,7 +213,9 @@ export default function Lake() {
       ring(t, 1.2, F.x, 0);
       ring(t + 0.25, 0.7, F.x, 0);
     }
-    if (speed > 0.15 && t - s.lastRing > 0.22) {
+    // Taş zeminde halka yok (Crimson); su yüzeyine dönerken yeniden başlar.
+    if ((sceneState.crimson ?? 0) > 0.4) s.lastRing = t;
+    else if (speed > 0.15 && t - s.lastRing > 0.22) {
       // Kayan şişelerin ayağında (ufuktan gelen ve yana çekilen) iz halkaları.
       const N = order.length;
       order.forEach((_, slot) => {
@@ -225,6 +254,10 @@ export default function Lake() {
       {/* Halkalar ve ışık havuzu (şişenin ayağının çevresi) */}
       <mesh ref={ripples} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.015, -30]} material={M.ripple} renderOrder={2}>
         <planeGeometry args={[90, 90]} />
+      </mesh>
+      <mesh ref={shadow} rotation={[-Math.PI / 2, 0, 0]} renderOrder={3} visible={false}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial map={SHADOW} color="#000000" transparent depthWrite={false} opacity={0} />
       </mesh>
       {/* Ufuk ışığı */}
       <mesh ref={horizon} position={[0, 0, -138]} material={M.horizon} renderOrder={1}>
