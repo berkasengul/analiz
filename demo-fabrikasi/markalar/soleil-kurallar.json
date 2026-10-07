@@ -1,0 +1,602 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "solidTop": 0.28,
+  "backSolid": ".",
+  "skip": "^(limerence|luxtirnakus|ltirnakambre-vanille|eximious)$",
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "neckAt": [
+   [
+    ".",
+    0.24
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "soleildegrace.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "atlantis",
+   "carat-iris",
+   "cherish-oud",
+   "black-tonka"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.42
+  },
+  "categories": [
+   {
+    "id": "neo",
+    "tr": "Néo Collection",
+    "en": "Néo Collection",
+    "color": "#9a6ae0",
+    "descTr": "2026'nın yeni extrait'leri: gece, iris ve oud.",
+    "descEn": "The new extraits of 2026: night, iris and oud.",
+    "match": "^(addictoud|carat-iris|cherish-oud|nirvana)\\b"
+   },
+   {
+    "id": "origins",
+    "tr": "The Origins",
+    "en": "The Origins",
+    "color": "#d8b05a",
+    "descTr": "Markanın ilk koleksiyonu: denizden benzine, cesur ve zıt renkler.",
+    "descEn": "The house's first collection: from the sea to gasoline, bold and contrasting colours.",
+    "match": "^(atlantis|black-tonka|floruits|monarchy|patchouli-dream|route-66)\\b"
+   }
+  ],
+  "families": {
+   "addictoud": [
+    "Neo Oryantal · Gurme",
+    "Neo Oriental · Gourmand"
+   ],
+   "atlantis": [
+    "Deniz · Odunsu",
+    "Marine · Woody"
+   ],
+   "black-tonka": [
+    "Oryantal · Gurme",
+    "Oriental · Gourmand"
+   ],
+   "carat-iris": [
+    "Çiçeksi · Odunsu",
+    "Floral · Woody"
+   ],
+   "cherish-oud": [
+    "Oryantal · Meyveli",
+    "Oriental · Fruity"
+   ],
+   "floruits": [
+    "Meyveli · Çiçeksi",
+    "Fruity · Floral"
+   ],
+   "monarchy": [
+    "Pudralı · Tatlı",
+    "Powdery · Sweet"
+   ],
+   "nirvana": [
+    "Odunsu · Oryantal",
+    "Woody · Oriental"
+   ],
+   "patchouli-dream": [
+    "Likörlü · Odunsu",
+    "Liquorish · Woody"
+   ],
+   "route-66": [
+    "Benzin · Baharatlı",
+    "Gasoline · Spicy"
+   ]
+  },
+  "notes": [
+   [
+    "^addictoud$",
+    [
+     [
+      "Şarap",
+      "Wine"
+     ],
+     [
+      "Karamel",
+      "Caramel"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^atlantis$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Deniz Notaları",
+      "Marine Notes"
+     ],
+     [
+      "Siklamen",
+      "Cyclamen"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Deniz Yosunu",
+      "Seaweed"
+     ]
+    ]
+   ],
+   [
+    "^black-tonka$",
+    [
+     [
+      "Karamel",
+      "Caramel"
+     ],
+     [
+      "Tütün",
+      "Tobacco"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Tonka Fasulyesi",
+      "Tonka Bean"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^carat-iris$",
+    [
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Mür",
+      "Myrrh"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^cherish-oud$",
+    [
+     [
+      "Kiraz",
+      "Cherry"
+     ],
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^floruits$",
+    [
+     [
+      "Çarkıfelek",
+      "Passion Fruit"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Frezya",
+      "Freesia"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^monarchy$",
+    [
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Hindistan Cevizi",
+      "Coconut"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Tonka Fasulyesi",
+      "Tonka Bean"
+     ]
+    ]
+   ],
+   [
+    "^nirvana$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Zencefil",
+      "Ginger"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Ağar Ağacı",
+      "Agarwood"
+     ],
+     [
+      "Şarap",
+      "Wine"
+     ]
+    ]
+   ],
+   [
+    "^patchouli-dream$",
+    [
+     [
+      "Rom",
+      "Rum"
+     ],
+     [
+      "Hindistan Cevizi",
+      "Coconut"
+     ],
+     [
+      "Krem Brüle",
+      "Crème Brûlée"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ]
+    ]
+   ],
+   [
+    "^route-66$",
+    [
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Benzin",
+      "Gasoline"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^addictoud$",
+    "composition": {
+     "tr": [
+      "Üst: Şarap, Karamel",
+      "Kalp: Yasemin, Sedir Ağacı, Sandal Ağacı, Yosun, Kaşmir Ağacı",
+      "Dip: Pamuk Şekeri, Vanilya, Tonka Fasulyesi, Labdanum, Amber, Misk, Oud"
+     ],
+     "en": [
+      "Top: Wine, Caramel",
+      "Heart: Jasmine, Cedarwood, Sandalwood, Mossy Notes, Cashmere Wood",
+      "Base: Cotton Candy, Vanilla, Tonka Bean, Labdanum, Amber, Musk, Oud"
+     ]
+    }
+   },
+   {
+    "match": "^atlantis$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Deniz Notaları",
+      "Kalp: Siklamen, İnci Çiçeği, Yasemin",
+      "Dip: Amber, Misk, Sandal Ağacı, Deniz Yosunu"
+     ],
+     "en": [
+      "Top: Bergamot, Marine Notes",
+      "Heart: Cyclamen, Muguet, Jasmine",
+      "Base: Amber, Musk, Sandalwood, Seaweed"
+     ]
+    }
+   },
+   {
+    "match": "^black-tonka$",
+    "composition": {
+     "tr": [
+      "Üst: Süt, Karamel, Tarçın, Elemi, Safran, Muskat, Tütün",
+      "Kalp: Mimoza, İnci Çiçeği, Yasemin",
+      "Dip: Paçuli, Sandal Ağacı, Benzoin, Tonka Fasulyesi, Vanilya, Amber, Misk"
+     ],
+     "en": [
+      "Top: Milk, Caramel, Cinnamon, Elemi, Saffron, Nutmeg, Tobacco",
+      "Heart: Mimosa, Muguet, Jasmine",
+      "Base: Patchouli, Sandalwood, Benzoin, Tonka Bean, Vanilla, Amber, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^carat-iris$",
+    "composition": {
+     "tr": [
+      "Üst: İris, Yasemin",
+      "Kalp: Sedir Ağacı, Tütsü, Mür",
+      "Dip: Vanilya, Amber, Yosun, Misk"
+     ],
+     "en": [
+      "Top: Iris, Jasmine",
+      "Heart: Cedarwood, Incense, Myrrh",
+      "Base: Vanilla, Amber, Mossy Notes, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^cherish-oud$",
+    "composition": {
+     "tr": [
+      "Üst: Kiraz, Ahududu, Zencefil, Tarçın",
+      "Kalp: Gül, İnci Çiçeği, Menekşe, Paçuli",
+      "Dip: Oud, Amber, Misk, Vanilya"
+     ],
+     "en": [
+      "Top: Cherry, Raspberry, Ginger, Cinnamon",
+      "Heart: Rose, Lily-of-the-Valley, Violet, Patchouli",
+      "Base: Oud, Amber, Musk, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^floruits$",
+    "composition": {
+     "tr": [
+      "Üst: Çarkıfelek Meyvesi, Mandalina",
+      "Kalp: Frezya, Yasemin, İnci Çiçeği",
+      "Dip: Yosun, Amber Notaları"
+     ],
+     "en": [
+      "Top: Passion Fruit, Mandarin",
+      "Heart: Freesia, Jasmine, Muguet",
+      "Base: Mossy Notes, Ambery Notes"
+     ]
+    }
+   },
+   {
+    "match": "^monarchy$",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Portakal, Mandalina",
+      "Kalp: Pudralı Notalar, Elma, Şeftali, Hindistan Cevizi, Çilek, Ananas",
+      "Dip: Vanilya, Tonka Fasulyesi, Amber, Misk"
+     ],
+     "en": [
+      "Top: Lemon, Orange, Mandarin",
+      "Heart: Powdery Notes, Apple, Peach, Coconut, Strawberry, Pineapple",
+      "Base: Vanilla, Tonka Bean, Amber, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^nirvana$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Portakal, Greyfurt, Mandalina, Zencefil, Karanfil",
+      "Kalp: Deniz Notaları, İnci Çiçeği, İris, Sandal Ağacı, Paçuli, Kaşmir Ağacı, Ağar Ağacı",
+      "Dip: Amber, Misk, Şarap"
+     ],
+     "en": [
+      "Top: Bergamot, Orange, Grapefruit, Mandarin, Ginger, Clove",
+      "Heart: Marine Notes, Muguet, Iris, Sandalwood, Patchouli, Cashmere Wood, Agarwood",
+      "Base: Amber, Musk, Wine"
+     ]
+    }
+   },
+   {
+    "match": "^patchouli-dream$",
+    "composition": {
+     "tr": [
+      "Üst: Rom, Vanilya, Hindistan Cevizi",
+      "Kalp: Gül, Yasemin, Krem Brüle, Karamel, Safran",
+      "Dip: Paçuli, Ağar Ağacı, Kaşmir Ağacı, Vanilya, Tonka Fasulyesi, Misk, Amber, Labdanum, Deri"
+     ],
+     "en": [
+      "Top: Rum, Vanilla, Coconut",
+      "Heart: Rose, Jasmine, Crème Brûlée, Caramel, Saffron",
+      "Base: Patchouli, Agarwood, Cashmere Wood, Vanilla, Tonka Bean, Musk, Amber, Labdanum, Leather"
+     ]
+    }
+   },
+   {
+    "match": "^route-66$",
+    "composition": {
+     "tr": [
+      "Üst: Baharatlar, Tarçın, Bergamot",
+      "Kalp: Benzin, Paçuli, Sandal Ağacı",
+      "Dip: Vanilya, Tonka Fasulyesi, Beyaz Misk, Amber"
+     ],
+     "en": [
+      "Top: Spicy Notes, Cinnamon, Bergamot",
+      "Heart: Gasoline, Patchouli, Sandalwood",
+      "Base: Vanilla, Tonka Bean, White Musk, Amber"
+     ]
+    }
+   }
+  ],
+  "tagline": "notes",
+  "palette": [
+   [
+    "^atlantis$",
+    "#08202a",
+    "#3fb6c8"
+   ],
+   [
+    "^carat-iris$",
+    "#160c2a",
+    "#9a6ae0"
+   ],
+   [
+    "^cherish-oud$",
+    "#2a0a0c",
+    "#e0464c"
+   ],
+   [
+    "^black-tonka$",
+    "#141008",
+    "#d8b05a"
+   ],
+   [
+    "^addictoud$",
+    "#2a1606",
+    "#e8963c"
+   ],
+   [
+    "^floruits$",
+    "#1e1024",
+    "#e86aa8"
+   ],
+   [
+    "^monarchy$",
+    "#2a1206",
+    "#f08a3a"
+   ],
+   [
+    "^nirvana$",
+    "#0a2420",
+    "#5ad0b8"
+   ],
+   [
+    "^patchouli-dream$",
+    "#241a0e",
+    "#e0c28a"
+   ],
+   [
+    "^route-66$",
+    "#221a06",
+    "#f0c040"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "atlantis",
+    "tr": {
+     "title": "Denizin sakin kıyıları",
+     "text": "Bergamot ve deniz notalarıyla taze bir okyanus esintisi; siklamen ve yasemin, amber ve deniz yosunuyla derinleşiyor.",
+     "stat": "Bergamot · Deniz · Sandal"
+    },
+    "en": {
+     "title": "The serene shores of the sea",
+     "text": "A fresh ocean breeze of bergamot and marine notes; cyclamen and jasmine deepen into amber and seaweed.",
+     "stat": "Bergamot · Marine · Sandalwood"
+    }
+   },
+   {
+    "handle": "cherish-oud",
+    "tr": {
+     "title": "Yasak topraklara bir yolculuk",
+     "text": "Kiraz ve ahududu, zencefil ve tarçınla; gül ve menekşeden sonra oud ve vanilya.",
+     "stat": "Kiraz · Gül · Oud"
+    },
+    "en": {
+     "title": "A voyage into forbidden territory",
+     "text": "Cherry and raspberry with ginger and cinnamon; after rose and violet, oud and vanilla.",
+     "stat": "Cherry · Rose · Oud"
+    }
+   },
+   {
+    "handle": "black-tonka",
+    "tr": {
+     "title": "Gurme ile oryantalin birliği",
+     "text": "Süt, karamel, safran ve tütünle güçlü bir açılış; mimoza ve yasemin, tonka ve vanilyaya iniyor.",
+     "stat": "Karamel · Tütün · Tonka"
+    },
+    "en": {
+     "title": "A union of gourmand and oriental",
+     "text": "A rich opening of milk, caramel, saffron and tobacco; mimosa and jasmine land on tonka and vanilla.",
+     "stat": "Caramel · Tobacco · Tonka"
+    }
+   }
+  ]
+ }
+}
