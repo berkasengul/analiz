@@ -1,0 +1,6023 @@
+{
+  "slug": "unbe",
+  "meta": {
+    "title": "UnBe. · Konsept Demo",
+    "description": "UnBe. için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
+    "og": "UnBe.: mindset before fragrance."
+  },
+  "brand": {
+    "name": "UnBe.",
+    "sub": "No Collection",
+    "specs": "Eau de Parfum · 100 ml",
+    "disclaimer": "Bu sayfa UnBe. için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Ürün görselleri, notalar, fiyatlar ve metinler markanın kendi sitesinden (unbeperfumes.com) alınmıştır.",
+    "en": {
+      "sub": "No Collection",
+      "specs": "Eau de Parfum · 100 ml",
+      "disclaimer": "This page is an independent concept demo prepared for UnBe. and is not affiliated with the brand owner. Product images, notes, prices and copy are taken from the brand's own website (unbeperfumes.com)."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "UNBE.",
+    "submark": "NO COLLECTION",
+    "concentration": "EAU DE PARFUM",
+    "volume": "100 ml"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "Eau de Parfum · 100 ml",
+    "en": "Eau de Parfum · 100 ml"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Duruş",
+        "kicker": "01",
+        "struck": "Önce koku",
+        "title": "Önce duruş, sonra koku",
+        "text": "Her UNBE parfümü kokuya dönüşmeden önce bir ruh hâliyle başlar: önce duyguya ve duruşa odaklanılır, koku bu hissin etrafında şekillenir."
+      },
+      "en": {
+        "short": "Mindset",
+        "kicker": "01",
+        "struck": "Fragrance first",
+        "title": "Mindset before fragrance",
+        "text": "Every UNBE perfume starts as a mood before it becomes a scent: feeling and stance first, then the fragrance is shaped around them."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "İspanya",
+        "kicker": "02",
+        "struck": "Sıradan bir formül",
+        "title": "Formül İspanya'dan",
+        "text": "Kokular İspanya'da formüle ediliyor, Türkiye'de üretiliyor. Eau de Parfum, uzun süre kalıcı."
+      },
+      "en": {
+        "short": "Spain",
+        "kicker": "02",
+        "struck": "An ordinary formula",
+        "title": "Formulated in Spain",
+        "text": "Formulated in Spain, made in Türkiye. Eau de Parfum, long lasting."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Sen",
+        "kicker": "03",
+        "struck": "Herkes gibi",
+        "title": "Beklenen gibi değil, kendin olduğun gibi",
+        "text": "UNBE, önceden tanımlanmış kimliklere sığmaya çalışmayanlar için yaratıldı. Kim olduğunu gizlemez; seni daha da görünür kılar."
+      },
+      "en": {
+        "short": "You",
+        "kicker": "03",
+        "struck": "Like everyone",
+        "title": "Not as expected, as you are",
+        "text": "UNBE is made for those who don't try to fit predefined identities. It doesn't hide who you are; it makes you more visible."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Her gün",
+        "kicker": "04",
+        "struck": "Özel günlere saklanan",
+        "title": "Her gün seninle",
+        "text": "Ne fazla yoğun, ne sıradan. UNBE özel günler için saklanmak üzere değil, her gün seninle olmak için var."
+      },
+      "en": {
+        "short": "Everyday",
+        "kicker": "04",
+        "struck": "Saved for special days",
+        "title": "With you every day",
+        "text": "Neither too intense nor ordinary. UNBE isn't saved for special occasions; it's made to be with you every day."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "100 ml",
+        "en": "100 ml"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 1999
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "TRY",
+      "locale": "en-US",
+      "packs": {
+        "1": 1999
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "UnBe. · İstanbul",
+    "instagram": "https://www.instagram.com/unbeperfumes/",
+    "website": "https://unbeperfumes.com/",
+    "press": [
+      "Vogue Türkiye"
+    ],
+    "tr": {
+      "lead": "UNBE is not just a fragrance brand. It's a mindset.",
+      "paragraphs": [
+        "UNBE, kokuyu kişisel ve bilinçli bir ifade biçimi olarak görür. Kokuya genel yaklaşım formüller ve trendler üzerinden ilerlerken, UNBE yaklaşımı kişisel duruşla başlar.",
+        "Her koku; nasıl hissettiğini, nasıl hareket ettiğini ve dünyada nasıl var olmak istediğini yansıtmak için yaratılır. Beklenen gibi değil, kendin olduğun gibi.",
+        "Bizce parfüm bir gösteri değil, bir izdir: hemen göze çarpmayan ama akılda kalan. Herkes gibi değil, senin gibi hissettiren."
+      ],
+      "timeline": [
+        [
+          "Duruş",
+          "Önce ruh hâli ve duruş"
+        ],
+        [
+          "Formül",
+          "İspanya'da formüle edilir"
+        ],
+        [
+          "Üretim",
+          "Türkiye'de üretilir"
+        ],
+        [
+          "No Collection",
+          "Altı koku, altı duruş"
+        ]
+      ],
+      "stats": [
+        [
+          "6",
+          "koku"
+        ],
+        [
+          "100 ml",
+          "Eau de Parfum"
+        ],
+        [
+          "4 + 2",
+          "kadın ve erkek"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "UNBE is not just a fragrance brand. It's a mindset.",
+      "paragraphs": [
+        "UNBE sees fragrance as a personal, conscious form of expression. While the usual approach starts with formulas and trends, UNBE starts with a personal stance.",
+        "Each scent is created to reflect how you feel, how you move and how you want to exist in the world. Not as expected, as you are.",
+        "To us, perfume is not a show but a trace: not loud at first, but memorable. Making you feel like you, not like everyone."
+      ],
+      "timeline": [
+        [
+          "Mindset",
+          "Mood and stance first"
+        ],
+        [
+          "Formula",
+          "Formulated in Spain"
+        ],
+        [
+          "Made",
+          "Made in Türkiye"
+        ],
+        [
+          "No Collection",
+          "Six scents, six stances"
+        ]
+      ],
+      "stats": [
+        [
+          "6",
+          "scents"
+        ],
+        [
+          "100 ml",
+          "Eau de Parfum"
+        ],
+        [
+          "4 + 2",
+          "women and men"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Kokular ne kadar kalıcı?",
+        "Tüm UNBE kokuları Eau de Parfum ve uzun süre kalıcıdır."
+      ],
+      [
+        "Kokular nerede üretiliyor?",
+        "Formüller İspanya'da hazırlanıyor, üretim Türkiye'de."
+      ],
+      [
+        "Önce deneyebilir miyim?",
+        "Keşif setleriyle (kadın 4 x 2 ml, erkek 2 x 2 ml, tümü 6 x 2 ml) bütün kokuları deneyebilirsin."
+      ]
+    ],
+    "en": [
+      [
+        "How long do the scents last?",
+        "All UNBE scents are Eau de Parfum and long lasting."
+      ],
+      [
+        "Where are they made?",
+        "Formulated in Spain, made in Türkiye."
+      ],
+      [
+        "Can I try them first?",
+        "With the discovery sets (women 4 x 2 ml, men 2 x 2 ml, all 6 x 2 ml) you can try every scent."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "No Collection",
+      "madeFor": "UnBe. için hazırlanmış konsept",
+      "recyclable": "Eau de Parfum · 100 ml",
+      "founder": "UnBe. · İstanbul",
+      "contactTag": "Siparişlerin, kokularımız ve iş birlikleri için bize yaz.",
+      "newsTitle": "Yeni duruşlar önce burada.",
+      "marquee": [
+        "UnBe.",
+        "No Tears",
+        "No Excuse",
+        "No Drama",
+        "No Regrets",
+        "No Filter",
+        "No Rules",
+        "Mindset before fragrance"
+      ],
+      "slogan": "Duruşunu seç.",
+      "nav": {
+        "flavors": "Duruşunu seç",
+        "catalog": "Tüm kokular",
+        "categories": "Koleksiyonlar",
+        "products": "Kokular",
+        "sets": "Koleksiyonlar",
+        "about": "UnBe. hakkında",
+        "contact": "İletişim"
+      },
+      "flavors": "Kokular",
+      "notes": "Notalar",
+      "discover": "{0} kokusunu keşfet",
+      "discoverCan": "Kokuyu keşfet",
+      "backToFlavors": "Kokulara dön",
+      "prevFlavor": "Önceki koku",
+      "nextFlavor": "Sonraki koku",
+      "backToFlavor": "Koku bilgisine dön",
+      "exploreCan": "Kokuyu keşfet · {0} hikâye",
+      "whatsInside": "Notalar",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Kokunu seç",
+      "shopTag": "Duruşunu seç; markanın kendi mağazasında güvenle öde.",
+      "flavor": "Koku",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "UnBe. · {0}",
+      "family": "Koku ailesi",
+      "caffeine": "Yalnızca harici kullanım içindir.",
+      "perks": [
+        "Eau de Parfum, uzun süre kalıcı",
+        "Formül İspanya, üretim Türkiye",
+        "Keşif setiyle önce dene"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Seçenek",
+      "related": "Benzer kokular",
+      "buildBox": "Kokuları keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} koku: No Collection.",
+      "year": "Çıkış",
+      "composition": "Nota piramidi",
+      "ships": "Markanın kendi mağazasında",
+      "place": "Nokta",
+      "spot": "Adres",
+      "status": "İletişim",
+      "addToCart": "Sepete ekle",
+      "added": "Sepette"
+    },
+    "en": {
+      "loading": "No Collection",
+      "madeFor": "Concept prepared for UnBe.",
+      "recyclable": "Eau de Parfum · 100 ml",
+      "founder": "UnBe. · Istanbul",
+      "contactTag": "Write to us about orders, our scents and collaborations.",
+      "newsTitle": "New stances, first here.",
+      "marquee": [
+        "UnBe.",
+        "No Tears",
+        "No Excuse",
+        "No Drama",
+        "No Regrets",
+        "No Filter",
+        "No Rules",
+        "Mindset before fragrance"
+      ],
+      "slogan": "Choose your stance.",
+      "nav": {
+        "flavors": "Choose your stance",
+        "catalog": "All scents",
+        "categories": "Collections",
+        "products": "Scents",
+        "sets": "Collections",
+        "about": "About UnBe.",
+        "contact": "Contact"
+      },
+      "flavors": "Scents",
+      "notes": "Notes",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover the scent",
+      "backToFlavors": "Back to scents",
+      "prevFlavor": "Previous scent",
+      "nextFlavor": "Next scent",
+      "backToFlavor": "Back to scent",
+      "exploreCan": "Explore the scent · {0} stories",
+      "whatsInside": "Notes",
+      "drag": "Drag to turn the bottle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your scent",
+      "shopTag": "Choose your stance; pay securely on the brand's own store.",
+      "flavor": "Scent",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "UnBe. · {0}",
+      "family": "Family",
+      "caffeine": "For external use only.",
+      "perks": [
+        "Eau de Parfum, long lasting",
+        "Formulated in Spain, made in Türkiye",
+        "Try first with a discovery set"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Option",
+      "related": "Similar scents",
+      "buildBox": "Explore the scents",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} scents: No Collection.",
+      "year": "Launched",
+      "composition": "Fragrance pyramid",
+      "ships": "On the brand's own store",
+      "place": "Location",
+      "spot": "Address",
+      "status": "Contact",
+      "addToCart": "Add to cart",
+      "added": "In cart"
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "bottle"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "bottle",
+  "logo": "brand/logo.png",
+  "labelFinish": {
+    "metalness": 0.1,
+    "roughness": 0.18,
+    "clearcoat": 1,
+    "clearcoatRoughness": 0.08,
+    "envMapIntensity": 1.1
+  },
+  "fillLight": "#ffe6c4",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "shopify": "https://unbeperfumes.com"
+  },
+  "latinTerms": "UnBe.|UNBE|No Collection|NO TEARS|NO EXCUSE|NO DRAMA|NO REGRETS|NO FILTER|NO RULES|Eau de Parfum|Mindset before fragrance",
+  "glass": false,
+  "spray": true,
+  "photoUnlit": 0.55,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#f0583a",
+    "particles": "dust",
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Syne:wght@500..800&family=Jost:wght@300..500&display=swap&subset=latin-ext",
+      "display": "\"Syne\", \"Helvetica Neue\", Arial, sans-serif",
+      "serif": "\"Syne\", \"Helvetica Neue\", Arial, sans-serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "dolly",
+    "cards": "gallery",
+    "fresh": true,
+    "plinthColor": "#f3ece2",
+    "paging": true,
+    "pageDuration": 1.4,
+    "epilogue": false,
+    "productScale": 1.0,
+    "pyramid": true
+  },
+  "defaultLang": "tr",
+  "hide": [
+    "stockists"
+  ],
+  "contactInfo": {
+    "tr": [
+      [
+        "E-posta",
+        [
+          "info@unbeperfumes.com"
+        ]
+      ],
+      [
+        "Telefon",
+        [
+          "0553 978 44 74"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@unbeperfumes"
+        ]
+      ],
+      [
+        "Adres",
+        [
+          "Yeniköy Mah. Köybaşı Cad. No:122/9",
+          "Sarıyer / İstanbul"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "Email",
+        [
+          "info@unbeperfumes.com"
+        ]
+      ],
+      [
+        "Phone",
+        [
+          "+90 553 978 44 74"
+        ]
+      ],
+      [
+        "Instagram",
+        [
+          "@unbeperfumes"
+        ]
+      ],
+      [
+        "Address",
+        [
+          "Yeniköy Mah. Köybaşı Cad. No:122/9",
+          "Sarıyer / Istanbul"
+        ]
+      ]
+    ]
+  },
+  "stockists": {
+    "tr": [],
+    "en": []
+  },
+  "finder": {},
+  "catalog": {
+    "categories": [
+      {
+        "id": "kadin",
+        "name": {
+          "tr": "Kadın",
+          "en": "Women"
+        },
+        "color": "#d8402a",
+        "desc": {
+          "tr": "No Tears, No Drama, No Regrets, No Filter.",
+          "en": "No Tears, No Drama, No Regrets, No Filter."
+        }
+      },
+      {
+        "id": "erkek",
+        "name": {
+          "tr": "Erkek",
+          "en": "Men"
+        },
+        "color": "#5a3aa8",
+        "desc": {
+          "tr": "No Excuse, No Rules.",
+          "en": "No Excuse, No Rules."
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "no-tears",
+        "handle": "no-tears",
+        "name": {
+          "tr": "NO TEARS",
+          "en": "NO TEARS"
+        },
+        "category": "kadin",
+        "size": "100 ml",
+        "price": {
+          "tr": 1999.0,
+          "en": 1999.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "NO TEARS",
+          "en": "NO TEARS"
+        },
+        "color": "#61aaa1",
+        "product": 0,
+        "image": "cut/no-tears.webp",
+        "cutout": true,
+        "bg": "#2a9a88",
+        "bg2": "#bff0e6",
+        "variants": [
+          {
+            "id": 52728293392747
+          }
+        ],
+        "url": "https://unbeperfumes.com/products/no-tears",
+        "compareAt": {
+          "tr": 2999.0,
+          "en": 2999.0
+        }
+      },
+      {
+        "id": "no-drama",
+        "handle": "no-drama",
+        "name": {
+          "tr": "NO DRAMA",
+          "en": "NO DRAMA"
+        },
+        "category": "kadin",
+        "size": "100 ml",
+        "price": {
+          "tr": 1999.0,
+          "en": 1999.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "NO DRAMA",
+          "en": "NO DRAMA"
+        },
+        "color": "#ca8664",
+        "product": 2,
+        "image": "cut/no-drama.webp",
+        "cutout": true,
+        "bg": "#d89a30",
+        "bg2": "#ffe6b8",
+        "variants": [
+          {
+            "id": 52660950270315
+          }
+        ],
+        "url": "https://unbeperfumes.com/products/no-drama",
+        "compareAt": {
+          "tr": 2999.0,
+          "en": 2999.0
+        }
+      },
+      {
+        "id": "no-regrets",
+        "handle": "no-regrets",
+        "name": {
+          "tr": "NO REGRETS",
+          "en": "NO REGRETS"
+        },
+        "category": "kadin",
+        "size": "100 ml",
+        "price": {
+          "tr": 1999.0,
+          "en": 1999.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "NO REGRETS",
+          "en": "NO REGRETS"
+        },
+        "color": "#814886",
+        "product": 3,
+        "image": "cut/no-regrets.webp",
+        "cutout": true,
+        "bg": "#9a50d0",
+        "bg2": "#ecd4ff",
+        "variants": [
+          {
+            "id": 52660948500843
+          }
+        ],
+        "url": "https://unbeperfumes.com/products/no-regrets",
+        "compareAt": {
+          "tr": 2999.0,
+          "en": 2999.0
+        }
+      },
+      {
+        "id": "no-filter",
+        "handle": "no-filter",
+        "name": {
+          "tr": "NO FILTER",
+          "en": "NO FILTER"
+        },
+        "category": "kadin",
+        "size": "100 ml",
+        "price": {
+          "tr": 1999.0,
+          "en": 1999.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "NO FILTER",
+          "en": "NO FILTER"
+        },
+        "color": "#c36f66",
+        "product": 4,
+        "image": "cut/no-filter.webp",
+        "cutout": true,
+        "bg": "#e04a2c",
+        "bg2": "#ffd0c4",
+        "variants": [
+          {
+            "id": 52660946764139
+          }
+        ],
+        "url": "https://unbeperfumes.com/products/no-filter",
+        "compareAt": {
+          "tr": 2999.0,
+          "en": 2999.0
+        }
+      },
+      {
+        "id": "no-excuse",
+        "handle": "no-excuse",
+        "name": {
+          "tr": "NO EXCUSE",
+          "en": "NO EXCUSE"
+        },
+        "category": "erkek",
+        "size": "100 ml",
+        "price": {
+          "tr": 1999.0,
+          "en": 1999.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "NO EXCUSE",
+          "en": "NO EXCUSE"
+        },
+        "color": "#8f458b",
+        "product": 1,
+        "image": "cut/no-excuse.webp",
+        "cutout": true,
+        "bg": "#6a4ac8",
+        "bg2": "#dcd0ff",
+        "variants": [
+          {
+            "id": 52660951023979
+          }
+        ],
+        "url": "https://unbeperfumes.com/products/no-excuse",
+        "compareAt": {
+          "tr": 2999.0,
+          "en": 2999.0
+        }
+      },
+      {
+        "id": "no-rules",
+        "handle": "no-rules",
+        "name": {
+          "tr": "NO RULES",
+          "en": "NO RULES"
+        },
+        "category": "erkek",
+        "size": "100 ml",
+        "price": {
+          "tr": 1999.0,
+          "en": 1999.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "NO RULES",
+          "en": "NO RULES"
+        },
+        "color": "#b66948",
+        "product": 5,
+        "image": "cut/no-rules.webp",
+        "cutout": true,
+        "bg": "#e07a28",
+        "bg2": "#ffdcb8",
+        "variants": [
+          {
+            "id": 52658948899179
+          }
+        ],
+        "url": "https://unbeperfumes.com/products/no-rules",
+        "compareAt": {
+          "tr": 2999.0,
+          "en": 2999.0
+        }
+      }
+    ]
+  },
+  "products": [
+    {
+      "name": "NO TEARS",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Odunsu · Amberimsi",
+      "year": null,
+      "perfumer": null,
+      "color": "#61aaa1",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#2a9a88",
+        "edge": "#06201c",
+        "drop": "#bff0e6",
+        "accent": "#bff0e6",
+        "mood": "warm"
+      },
+      "tagline": "Yumuşak — Işıltılı — Dayanıklı",
+      "notes": [
+        "Mandalina",
+        "Şeftali",
+        "Bergamot",
+        "Portakal Çiçeği",
+        "Misk"
+      ],
+      "description": "NO TEARS",
+      "file": "no-tears.webp",
+      "handle": "no-tears",
+      "en": {
+        "name": "NO TEARS",
+        "family": "Woody · Ambery",
+        "tagline": "Soft — Luminous — Resilient",
+        "notes": [
+          "Mandarin",
+          "Peach",
+          "Bergamot",
+          "Orange Blossom",
+          "Musk"
+        ],
+        "description": "NO TEARS",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Mandarin, Peach, Bergamot, Green",
+          "Heart: Orange Blossom, Solar notes, Ambery",
+          "Base: Musk, Creamy notes, Patchouli"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.3896,
+        "depthRatio": 0.42,
+        "axis": 0.4992,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0172,
+          0.0375,
+          0.0516,
+          0.0641,
+          0.0727,
+          0.0813,
+          0.0906,
+          0.0969,
+          0.1023,
+          0.1094,
+          0.1141,
+          0.1195,
+          0.125,
+          0.1289,
+          0.1328,
+          0.1375,
+          0.1406,
+          0.1445,
+          0.1484,
+          0.1508,
+          0.1539,
+          0.157,
+          0.1594,
+          0.1617,
+          0.1648,
+          0.1672,
+          0.1688,
+          0.1719,
+          0.1727,
+          0.175,
+          0.1773,
+          0.1781,
+          0.1797,
+          0.1812,
+          0.1828,
+          0.1836,
+          0.1844,
+          0.1859,
+          0.1867,
+          0.1875,
+          0.1883,
+          0.1891,
+          0.1891,
+          0.1898,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1891,
+          0.1883,
+          0.1883,
+          0.1875,
+          0.1867,
+          0.1859,
+          0.1844,
+          0.1836,
+          0.182,
+          0.1812,
+          0.1797,
+          0.1781,
+          0.1766,
+          0.175,
+          0.1734,
+          0.1711,
+          0.1688,
+          0.1672,
+          0.1641,
+          0.1617,
+          0.1594,
+          0.1562,
+          0.1539,
+          0.1508,
+          0.1477,
+          0.1437,
+          0.1406,
+          0.1367,
+          0.1328,
+          0.1289,
+          0.1234,
+          0.1195,
+          0.1187,
+          0.207,
+          0.2719,
+          0.3117,
+          0.3359,
+          0.3453,
+          0.3492,
+          0.3516,
+          0.3523,
+          0.3523,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3477,
+          0.3469,
+          0.3461,
+          0.3438,
+          0.3398,
+          0.3359,
+          0.3312,
+          0.3242,
+          0.318,
+          0.3094,
+          0.2969,
+          0.2844,
+          0.2687,
+          0.2437,
+          0.218,
+          0.1898,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4297,
+              0.0453
+            ],
+            [
+              0.4078,
+              0.0563
+            ],
+            [
+              0.3828,
+              0.0734
+            ],
+            [
+              0.3734,
+              0.0813
+            ],
+            [
+              0.35,
+              0.1062
+            ],
+            [
+              0.3312,
+              0.1344
+            ],
+            [
+              0.3312,
+              0.1375
+            ],
+            [
+              0.3266,
+              0.1437
+            ],
+            [
+              0.3266,
+              0.1469
+            ],
+            [
+              0.3219,
+              0.1547
+            ],
+            [
+              0.3203,
+              0.1625
+            ],
+            [
+              0.3172,
+              0.1672
+            ],
+            [
+              0.3156,
+              0.1781
+            ],
+            [
+              0.3125,
+              0.1844
+            ],
+            [
+              0.3109,
+              0.2
+            ],
+            [
+              0.3094,
+              0.2016
+            ],
+            [
+              0.3094,
+              0.2125
+            ],
+            [
+              0.3078,
+              0.2141
+            ],
+            [
+              0.3078,
+              0.25
+            ],
+            [
+              0.3109,
+              0.2594
+            ],
+            [
+              0.3109,
+              0.2703
+            ],
+            [
+              0.3219,
+              0.3063
+            ],
+            [
+              0.3422,
+              0.3438
+            ],
+            [
+              0.3609,
+              0.3672
+            ],
+            [
+              0.3719,
+              0.3766
+            ],
+            [
+              0.3812,
+              0.3875
+            ],
+            [
+              0.3734,
+              0.3906
+            ],
+            [
+              0.3109,
+              0.3922
+            ],
+            [
+              0.3094,
+              0.3937
+            ],
+            [
+              0.2719,
+              0.3937
+            ],
+            [
+              0.2703,
+              0.3953
+            ],
+            [
+              0.2547,
+              0.3953
+            ],
+            [
+              0.2531,
+              0.3969
+            ],
+            [
+              0.2281,
+              0.3969
+            ],
+            [
+              0.2266,
+              0.3984
+            ],
+            [
+              0.2109,
+              0.3984
+            ],
+            [
+              0.2094,
+              0.4
+            ],
+            [
+              0.2047,
+              0.3984
+            ],
+            [
+              0.2016,
+              0.4
+            ],
+            [
+              0.1891,
+              0.4
+            ],
+            [
+              0.1875,
+              0.4016
+            ],
+            [
+              0.1797,
+              0.4016
+            ],
+            [
+              0.1781,
+              0.4031
+            ],
+            [
+              0.1703,
+              0.4031
+            ],
+            [
+              0.1688,
+              0.4047
+            ],
+            [
+              0.1578,
+              0.4062
+            ],
+            [
+              0.1484,
+              0.4125
+            ],
+            [
+              0.1453,
+              0.4203
+            ],
+            [
+              0.1453,
+              0.4625
+            ],
+            [
+              0.1469,
+              0.4641
+            ],
+            [
+              0.1484,
+              0.8906
+            ],
+            [
+              0.15,
+              0.8922
+            ],
+            [
+              0.15,
+              0.9047
+            ],
+            [
+              0.1547,
+              0.9156
+            ],
+            [
+              0.1641,
+              0.925
+            ],
+            [
+              0.1734,
+              0.9313
+            ],
+            [
+              0.1922,
+              0.9406
+            ],
+            [
+              0.2109,
+              0.9469
+            ],
+            [
+              0.2156,
+              0.9469
+            ],
+            [
+              0.2297,
+              0.9516
+            ],
+            [
+              0.2453,
+              0.9531
+            ],
+            [
+              0.2531,
+              0.9563
+            ],
+            [
+              0.2641,
+              0.9563
+            ],
+            [
+              0.2656,
+              0.9578
+            ],
+            [
+              0.2719,
+              0.9578
+            ],
+            [
+              0.2812,
+              0.9609
+            ],
+            [
+              0.2922,
+              0.9609
+            ],
+            [
+              0.3031,
+              0.9641
+            ],
+            [
+              0.3297,
+              0.9656
+            ],
+            [
+              0.3312,
+              0.9672
+            ],
+            [
+              0.6594,
+              0.9672
+            ],
+            [
+              0.6609,
+              0.9656
+            ],
+            [
+              0.6781,
+              0.9656
+            ],
+            [
+              0.6797,
+              0.9641
+            ],
+            [
+              0.6875,
+              0.9641
+            ],
+            [
+              0.6984,
+              0.9609
+            ],
+            [
+              0.7109,
+              0.9609
+            ],
+            [
+              0.7125,
+              0.9594
+            ],
+            [
+              0.7203,
+              0.9594
+            ],
+            [
+              0.7312,
+              0.9563
+            ],
+            [
+              0.7422,
+              0.9563
+            ],
+            [
+              0.7438,
+              0.9547
+            ],
+            [
+              0.75,
+              0.9547
+            ],
+            [
+              0.7594,
+              0.9516
+            ],
+            [
+              0.7672,
+              0.9516
+            ],
+            [
+              0.7688,
+              0.95
+            ],
+            [
+              0.7859,
+              0.9469
+            ],
+            [
+              0.7969,
+              0.9422
+            ],
+            [
+              0.8016,
+              0.9422
+            ],
+            [
+              0.8281,
+              0.9281
+            ],
+            [
+              0.8438,
+              0.9125
+            ],
+            [
+              0.8469,
+              0.9047
+            ],
+            [
+              0.8469,
+              0.8719
+            ],
+            [
+              0.8484,
+              0.8703
+            ],
+            [
+              0.8484,
+              0.7672
+            ],
+            [
+              0.85,
+              0.7656
+            ],
+            [
+              0.85,
+              0.6109
+            ],
+            [
+              0.8516,
+              0.6094
+            ],
+            [
+              0.8516,
+              0.5453
+            ],
+            [
+              0.85,
+              0.5437
+            ],
+            [
+              0.8516,
+              0.5422
+            ],
+            [
+              0.8516,
+              0.4219
+            ],
+            [
+              0.85,
+              0.4172
+            ],
+            [
+              0.8438,
+              0.4094
+            ],
+            [
+              0.8375,
+              0.4062
+            ],
+            [
+              0.8172,
+              0.4031
+            ],
+            [
+              0.8156,
+              0.4016
+            ],
+            [
+              0.8078,
+              0.4016
+            ],
+            [
+              0.8063,
+              0.4
+            ],
+            [
+              0.7953,
+              0.4
+            ],
+            [
+              0.7937,
+              0.3984
+            ],
+            [
+              0.7422,
+              0.3969
+            ],
+            [
+              0.7406,
+              0.3953
+            ],
+            [
+              0.7203,
+              0.3953
+            ],
+            [
+              0.7188,
+              0.3937
+            ],
+            [
+              0.6375,
+              0.3922
+            ],
+            [
+              0.6328,
+              0.3891
+            ],
+            [
+              0.6594,
+              0.3641
+            ],
+            [
+              0.6813,
+              0.3344
+            ],
+            [
+              0.6984,
+              0.2984
+            ],
+            [
+              0.6984,
+              0.2938
+            ],
+            [
+              0.7016,
+              0.2891
+            ],
+            [
+              0.7016,
+              0.2844
+            ],
+            [
+              0.7063,
+              0.2703
+            ],
+            [
+              0.7078,
+              0.2453
+            ],
+            [
+              0.7094,
+              0.2437
+            ],
+            [
+              0.7094,
+              0.2125
+            ],
+            [
+              0.7078,
+              0.2109
+            ],
+            [
+              0.7063,
+              0.1891
+            ],
+            [
+              0.6969,
+              0.1578
+            ],
+            [
+              0.6813,
+              0.1266
+            ],
+            [
+              0.6594,
+              0.0969
+            ],
+            [
+              0.6328,
+              0.0719
+            ],
+            [
+              0.6047,
+              0.0531
+            ],
+            [
+              0.5766,
+              0.0406
+            ],
+            [
+              0.5672,
+              0.0391
+            ],
+            [
+              0.5625,
+              0.0359
+            ],
+            [
+              0.5563,
+              0.0359
+            ],
+            [
+              0.5547,
+              0.0344
+            ],
+            [
+              0.5406,
+              0.0328
+            ],
+            [
+              0.5391,
+              0.0312
+            ],
+            [
+              0.5312,
+              0.0312
+            ],
+            [
+              0.5297,
+              0.0297
+            ],
+            [
+              0.4891,
+              0.0297
+            ],
+            [
+              0.4875,
+              0.0312
+            ],
+            [
+              0.4781,
+              0.0312
+            ],
+            [
+              0.4766,
+              0.0328
+            ],
+            [
+              0.4688,
+              0.0328
+            ],
+            [
+              0.4672,
+              0.0344
+            ],
+            [
+              0.4562,
+              0.0359
+            ]
+          ]
+        ],
+        "edge": "#abb3ad"
+      },
+      "price": {
+        "tr": 1999.0,
+        "en": 1999.0
+      },
+      "photos": [
+        "foto/no-tears/1.webp",
+        "foto/no-tears/2.webp",
+        "foto/no-tears/3.webp",
+        "foto/no-tears/4.webp",
+        "foto/no-tears/5.webp",
+        "foto/no-tears/6.webp"
+      ],
+      "composition": [
+        "Üst: Mandalina, Şeftali, Bergamot, Yeşil",
+        "Kalp: Portakal Çiçeği, Solar, Amberimsi",
+        "Dip: Misk, Kremamsı, Paçuli"
+      ]
+    },
+    {
+      "name": "NO EXCUSE",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Odunsu · Marin",
+      "year": null,
+      "perfumer": null,
+      "color": "#8f458b",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#6a4ac8",
+        "edge": "#100828",
+        "drop": "#dcd0ff",
+        "accent": "#dcd0ff",
+        "mood": "warm"
+      },
+      "tagline": "Odaklı — Minimal — Güçlü",
+      "notes": [
+        "Mandalina",
+        "Neroli",
+        "Deniz notaları",
+        "Safran",
+        "Cypriol"
+      ],
+      "description": "NO EXCUSE",
+      "file": "no-excuse.webp",
+      "handle": "no-excuse",
+      "en": {
+        "name": "NO EXCUSE",
+        "family": "Woody · Marine",
+        "tagline": "Minimal — Powerful",
+        "notes": [
+          "Mandarin",
+          "Neroli",
+          "Marine",
+          "Saffron",
+          "Cypriol"
+        ],
+        "description": "NO EXCUSE",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Mandarin, Neroli, Marine, Saffron",
+          "Heart: Cypriol, Cashmere, Rose, Ambery, Smoky",
+          "Base: Musk, Cistus, Ambery, Sandalwood, Moss, Smoky"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.3104,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0172,
+          0.0375,
+          0.0477,
+          0.0594,
+          0.0664,
+          0.0727,
+          0.0797,
+          0.0852,
+          0.0906,
+          0.0953,
+          0.1,
+          0.1031,
+          0.1078,
+          0.1109,
+          0.1141,
+          0.1164,
+          0.1195,
+          0.1219,
+          0.125,
+          0.1273,
+          0.1289,
+          0.1313,
+          0.1328,
+          0.1344,
+          0.1367,
+          0.1383,
+          0.1391,
+          0.1406,
+          0.1422,
+          0.143,
+          0.1437,
+          0.1445,
+          0.1453,
+          0.1461,
+          0.1461,
+          0.1469,
+          0.1469,
+          0.1469,
+          0.1461,
+          0.1461,
+          0.1453,
+          0.1453,
+          0.1445,
+          0.1437,
+          0.143,
+          0.1422,
+          0.1414,
+          0.1398,
+          0.1391,
+          0.1367,
+          0.1352,
+          0.1328,
+          0.1313,
+          0.1289,
+          0.1273,
+          0.1242,
+          0.1227,
+          0.1195,
+          0.1172,
+          0.1141,
+          0.1102,
+          0.107,
+          0.1031,
+          0.0992,
+          0.0945,
+          0.0898,
+          0.0852,
+          0.082,
+          0.1445,
+          0.1828,
+          0.2031,
+          0.2172,
+          0.2258,
+          0.2281,
+          0.2297,
+          0.2297,
+          0.2305,
+          0.2305,
+          0.2305,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.2242,
+          0.2227,
+          0.2195,
+          0.2164,
+          0.2109,
+          0.2062,
+          0.2,
+          0.1898,
+          0.1797,
+          0.1688,
+          0.1547,
+          0.1383,
+          0.1164,
+          0.082,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4688,
+              0.0312
+            ],
+            [
+              0.4672,
+              0.0328
+            ],
+            [
+              0.4531,
+              0.0344
+            ],
+            [
+              0.4391,
+              0.0391
+            ],
+            [
+              0.4281,
+              0.0453
+            ],
+            [
+              0.425,
+              0.0453
+            ],
+            [
+              0.3891,
+              0.0719
+            ],
+            [
+              0.3656,
+              0.1031
+            ],
+            [
+              0.3516,
+              0.1328
+            ],
+            [
+              0.3438,
+              0.1594
+            ],
+            [
+              0.3438,
+              0.1688
+            ],
+            [
+              0.3422,
+              0.1703
+            ],
+            [
+              0.3438,
+              0.2031
+            ],
+            [
+              0.3547,
+              0.2406
+            ],
+            [
+              0.3781,
+              0.2797
+            ],
+            [
+              0.3875,
+              0.2906
+            ],
+            [
+              0.4047,
+              0.3047
+            ],
+            [
+              0.4078,
+              0.3094
+            ],
+            [
+              0.4062,
+              0.3109
+            ],
+            [
+              0.3578,
+              0.3125
+            ],
+            [
+              0.3563,
+              0.3141
+            ],
+            [
+              0.3391,
+              0.3141
+            ],
+            [
+              0.3375,
+              0.3156
+            ],
+            [
+              0.3203,
+              0.3156
+            ],
+            [
+              0.3187,
+              0.3172
+            ],
+            [
+              0.2984,
+              0.3187
+            ],
+            [
+              0.275,
+              0.3266
+            ],
+            [
+              0.2687,
+              0.3344
+            ],
+            [
+              0.2672,
+              0.3594
+            ],
+            [
+              0.2687,
+              0.3609
+            ],
+            [
+              0.2703,
+              0.5422
+            ],
+            [
+              0.2719,
+              0.5437
+            ],
+            [
+              0.2703,
+              0.5453
+            ],
+            [
+              0.2703,
+              0.5828
+            ],
+            [
+              0.2719,
+              0.5844
+            ],
+            [
+              0.2734,
+              0.8797
+            ],
+            [
+              0.275,
+              0.8812
+            ],
+            [
+              0.275,
+              0.9156
+            ],
+            [
+              0.2797,
+              0.9234
+            ],
+            [
+              0.2875,
+              0.9313
+            ],
+            [
+              0.3063,
+              0.9422
+            ],
+            [
+              0.3453,
+              0.9563
+            ],
+            [
+              0.3719,
+              0.9609
+            ],
+            [
+              0.3734,
+              0.9625
+            ],
+            [
+              0.3828,
+              0.9625
+            ],
+            [
+              0.3922,
+              0.9656
+            ],
+            [
+              0.4172,
+              0.9672
+            ],
+            [
+              0.4188,
+              0.9688
+            ],
+            [
+              0.5828,
+              0.9688
+            ],
+            [
+              0.5844,
+              0.9672
+            ],
+            [
+              0.5938,
+              0.9672
+            ],
+            [
+              0.5953,
+              0.9656
+            ],
+            [
+              0.6078,
+              0.9656
+            ],
+            [
+              0.6188,
+              0.9625
+            ],
+            [
+              0.6281,
+              0.9625
+            ],
+            [
+              0.6297,
+              0.9609
+            ],
+            [
+              0.6453,
+              0.9594
+            ],
+            [
+              0.6469,
+              0.9578
+            ],
+            [
+              0.6641,
+              0.9547
+            ],
+            [
+              0.6828,
+              0.9484
+            ],
+            [
+              0.6953,
+              0.9422
+            ],
+            [
+              0.7188,
+              0.9234
+            ],
+            [
+              0.725,
+              0.9109
+            ],
+            [
+              0.7297,
+              0.3391
+            ],
+            [
+              0.7281,
+              0.3344
+            ],
+            [
+              0.7234,
+              0.3297
+            ],
+            [
+              0.7141,
+              0.325
+            ],
+            [
+              0.7094,
+              0.325
+            ],
+            [
+              0.6953,
+              0.3203
+            ],
+            [
+              0.6875,
+              0.3203
+            ],
+            [
+              0.6781,
+              0.3172
+            ],
+            [
+              0.6672,
+              0.3172
+            ],
+            [
+              0.6656,
+              0.3156
+            ],
+            [
+              0.6531,
+              0.3156
+            ],
+            [
+              0.6516,
+              0.3141
+            ],
+            [
+              0.6141,
+              0.3125
+            ],
+            [
+              0.6125,
+              0.3109
+            ],
+            [
+              0.5828,
+              0.3109
+            ],
+            [
+              0.5813,
+              0.3094
+            ],
+            [
+              0.6031,
+              0.2891
+            ],
+            [
+              0.6172,
+              0.2719
+            ],
+            [
+              0.6266,
+              0.2562
+            ],
+            [
+              0.6406,
+              0.225
+            ],
+            [
+              0.6438,
+              0.2047
+            ],
+            [
+              0.6453,
+              0.2031
+            ],
+            [
+              0.6469,
+              0.1766
+            ],
+            [
+              0.6453,
+              0.175
+            ],
+            [
+              0.6438,
+              0.1547
+            ],
+            [
+              0.6344,
+              0.125
+            ],
+            [
+              0.6234,
+              0.1031
+            ],
+            [
+              0.6078,
+              0.0813
+            ],
+            [
+              0.5906,
+              0.0641
+            ],
+            [
+              0.5656,
+              0.0469
+            ],
+            [
+              0.5453,
+              0.0375
+            ],
+            [
+              0.5297,
+              0.0328
+            ],
+            [
+              0.5234,
+              0.0328
+            ],
+            [
+              0.5219,
+              0.0312
+            ],
+            [
+              0.5031,
+              0.0312
+            ],
+            [
+              0.5016,
+              0.0297
+            ]
+          ]
+        ],
+        "edge": "#b4b8b4"
+      },
+      "price": {
+        "tr": 1999.0,
+        "en": 1999.0
+      },
+      "photos": [
+        "foto/no-excuse/1.webp",
+        "foto/no-excuse/2.webp",
+        "foto/no-excuse/3.webp",
+        "foto/no-excuse/4.webp",
+        "foto/no-excuse/5.webp",
+        "foto/no-excuse/6.webp"
+      ],
+      "composition": [
+        "Üst: Mandalina, Neroli, Deniz notaları, Safran",
+        "Kalp: Cypriol, Kaşmir ağacı, Gül, Amberimsi, İsli",
+        "Dip: Misk, Cistus (Laden), Amberimsi, Sandal Ağacı, Yosun, İsli"
+      ]
+    },
+    {
+      "name": "NO DRAMA",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Oryantal · Odunsu",
+      "year": null,
+      "perfumer": null,
+      "color": "#ca8664",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#d89a30",
+        "edge": "#2a1a04",
+        "drop": "#ffe6b8",
+        "accent": "#ffe6b8",
+        "mood": "warm"
+      },
+      "tagline": "Sakin — Dengeli — Sessiz Güç",
+      "notes": [
+        "Bergamot",
+        "Davana",
+        "Rom",
+        "Gül",
+        "Misk"
+      ],
+      "description": "NO DRAMA",
+      "file": "no-drama.webp",
+      "handle": "no-drama",
+      "en": {
+        "name": "NO DRAMA",
+        "family": "Oriental · Woody",
+        "tagline": "Calm — Balanced — Quiet Power",
+        "notes": [
+          "Bergamot",
+          "Davana",
+          "Rum",
+          "Rose",
+          "Musk"
+        ],
+        "description": "NO DRAMA",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Aqueous, Bergamot, Davana, Rum",
+          "Heart: Creamy, Powdery , Rose",
+          "Base: Musk, Ambergris, Vanilla, Sandalwood, Ambery"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.3896,
+        "depthRatio": 0.42,
+        "axis": 0.4992,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0172,
+          0.0375,
+          0.0516,
+          0.0641,
+          0.0727,
+          0.0813,
+          0.0906,
+          0.0969,
+          0.1023,
+          0.1094,
+          0.1141,
+          0.1195,
+          0.125,
+          0.1289,
+          0.1328,
+          0.1375,
+          0.1406,
+          0.1445,
+          0.1484,
+          0.1508,
+          0.1539,
+          0.157,
+          0.1594,
+          0.1617,
+          0.1648,
+          0.1672,
+          0.1688,
+          0.1719,
+          0.1727,
+          0.175,
+          0.1773,
+          0.1781,
+          0.1797,
+          0.1812,
+          0.1828,
+          0.1836,
+          0.1844,
+          0.1859,
+          0.1867,
+          0.1875,
+          0.1883,
+          0.1891,
+          0.1891,
+          0.1898,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1891,
+          0.1883,
+          0.1883,
+          0.1875,
+          0.1867,
+          0.1859,
+          0.1844,
+          0.1836,
+          0.182,
+          0.1812,
+          0.1797,
+          0.1781,
+          0.1766,
+          0.175,
+          0.1734,
+          0.1711,
+          0.1688,
+          0.1672,
+          0.1641,
+          0.1617,
+          0.1594,
+          0.1562,
+          0.1539,
+          0.1508,
+          0.1477,
+          0.1437,
+          0.1406,
+          0.1367,
+          0.1328,
+          0.1289,
+          0.1234,
+          0.1195,
+          0.1187,
+          0.207,
+          0.2719,
+          0.3117,
+          0.3359,
+          0.3453,
+          0.3492,
+          0.3516,
+          0.3523,
+          0.3523,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3477,
+          0.3469,
+          0.3461,
+          0.3438,
+          0.3398,
+          0.3359,
+          0.332,
+          0.3242,
+          0.318,
+          0.3094,
+          0.2969,
+          0.2844,
+          0.2687,
+          0.2437,
+          0.2188,
+          0.1906,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4297,
+              0.0453
+            ],
+            [
+              0.4078,
+              0.0563
+            ],
+            [
+              0.375,
+              0.0797
+            ],
+            [
+              0.35,
+              0.1062
+            ],
+            [
+              0.3312,
+              0.1344
+            ],
+            [
+              0.3312,
+              0.1375
+            ],
+            [
+              0.3266,
+              0.1437
+            ],
+            [
+              0.3266,
+              0.1469
+            ],
+            [
+              0.3219,
+              0.1547
+            ],
+            [
+              0.3203,
+              0.1625
+            ],
+            [
+              0.3172,
+              0.1672
+            ],
+            [
+              0.3156,
+              0.1781
+            ],
+            [
+              0.3125,
+              0.1844
+            ],
+            [
+              0.3109,
+              0.2
+            ],
+            [
+              0.3094,
+              0.2016
+            ],
+            [
+              0.3094,
+              0.2125
+            ],
+            [
+              0.3078,
+              0.2141
+            ],
+            [
+              0.3078,
+              0.25
+            ],
+            [
+              0.3109,
+              0.2594
+            ],
+            [
+              0.3109,
+              0.2703
+            ],
+            [
+              0.3219,
+              0.3063
+            ],
+            [
+              0.3422,
+              0.3438
+            ],
+            [
+              0.3609,
+              0.3672
+            ],
+            [
+              0.3719,
+              0.3766
+            ],
+            [
+              0.3812,
+              0.3875
+            ],
+            [
+              0.3734,
+              0.3906
+            ],
+            [
+              0.3109,
+              0.3922
+            ],
+            [
+              0.3094,
+              0.3937
+            ],
+            [
+              0.2719,
+              0.3937
+            ],
+            [
+              0.2703,
+              0.3953
+            ],
+            [
+              0.2547,
+              0.3953
+            ],
+            [
+              0.2531,
+              0.3969
+            ],
+            [
+              0.2281,
+              0.3969
+            ],
+            [
+              0.2266,
+              0.3984
+            ],
+            [
+              0.2109,
+              0.3984
+            ],
+            [
+              0.2094,
+              0.4
+            ],
+            [
+              0.2047,
+              0.3984
+            ],
+            [
+              0.2016,
+              0.4
+            ],
+            [
+              0.1891,
+              0.4
+            ],
+            [
+              0.1875,
+              0.4016
+            ],
+            [
+              0.1797,
+              0.4016
+            ],
+            [
+              0.1781,
+              0.4031
+            ],
+            [
+              0.1703,
+              0.4031
+            ],
+            [
+              0.1688,
+              0.4047
+            ],
+            [
+              0.1578,
+              0.4062
+            ],
+            [
+              0.1484,
+              0.4125
+            ],
+            [
+              0.1453,
+              0.4203
+            ],
+            [
+              0.1453,
+              0.4625
+            ],
+            [
+              0.1469,
+              0.4641
+            ],
+            [
+              0.1484,
+              0.8906
+            ],
+            [
+              0.15,
+              0.8922
+            ],
+            [
+              0.15,
+              0.9047
+            ],
+            [
+              0.1547,
+              0.9156
+            ],
+            [
+              0.1641,
+              0.925
+            ],
+            [
+              0.1734,
+              0.9313
+            ],
+            [
+              0.1922,
+              0.9406
+            ],
+            [
+              0.2109,
+              0.9469
+            ],
+            [
+              0.2156,
+              0.9469
+            ],
+            [
+              0.2297,
+              0.9516
+            ],
+            [
+              0.2453,
+              0.9531
+            ],
+            [
+              0.2531,
+              0.9563
+            ],
+            [
+              0.2641,
+              0.9563
+            ],
+            [
+              0.2656,
+              0.9578
+            ],
+            [
+              0.2719,
+              0.9578
+            ],
+            [
+              0.2812,
+              0.9609
+            ],
+            [
+              0.2922,
+              0.9609
+            ],
+            [
+              0.3031,
+              0.9641
+            ],
+            [
+              0.3297,
+              0.9656
+            ],
+            [
+              0.3312,
+              0.9672
+            ],
+            [
+              0.6609,
+              0.9672
+            ],
+            [
+              0.6625,
+              0.9656
+            ],
+            [
+              0.6891,
+              0.9641
+            ],
+            [
+              0.7,
+              0.9609
+            ],
+            [
+              0.7125,
+              0.9609
+            ],
+            [
+              0.7141,
+              0.9594
+            ],
+            [
+              0.7297,
+              0.9578
+            ],
+            [
+              0.7312,
+              0.9563
+            ],
+            [
+              0.7422,
+              0.9563
+            ],
+            [
+              0.7438,
+              0.9547
+            ],
+            [
+              0.75,
+              0.9547
+            ],
+            [
+              0.7594,
+              0.9516
+            ],
+            [
+              0.7672,
+              0.9516
+            ],
+            [
+              0.7688,
+              0.95
+            ],
+            [
+              0.7859,
+              0.9469
+            ],
+            [
+              0.7969,
+              0.9422
+            ],
+            [
+              0.8016,
+              0.9422
+            ],
+            [
+              0.8281,
+              0.9281
+            ],
+            [
+              0.8438,
+              0.9125
+            ],
+            [
+              0.8469,
+              0.9047
+            ],
+            [
+              0.8469,
+              0.8719
+            ],
+            [
+              0.8484,
+              0.8703
+            ],
+            [
+              0.8484,
+              0.7672
+            ],
+            [
+              0.85,
+              0.7656
+            ],
+            [
+              0.85,
+              0.6109
+            ],
+            [
+              0.8516,
+              0.6094
+            ],
+            [
+              0.8516,
+              0.5453
+            ],
+            [
+              0.85,
+              0.5437
+            ],
+            [
+              0.8516,
+              0.5422
+            ],
+            [
+              0.8516,
+              0.4219
+            ],
+            [
+              0.85,
+              0.4172
+            ],
+            [
+              0.8438,
+              0.4094
+            ],
+            [
+              0.8375,
+              0.4062
+            ],
+            [
+              0.8172,
+              0.4031
+            ],
+            [
+              0.8156,
+              0.4016
+            ],
+            [
+              0.8078,
+              0.4016
+            ],
+            [
+              0.8063,
+              0.4
+            ],
+            [
+              0.7953,
+              0.4
+            ],
+            [
+              0.7937,
+              0.3984
+            ],
+            [
+              0.7438,
+              0.3969
+            ],
+            [
+              0.7422,
+              0.3953
+            ],
+            [
+              0.7203,
+              0.3953
+            ],
+            [
+              0.7188,
+              0.3937
+            ],
+            [
+              0.6375,
+              0.3922
+            ],
+            [
+              0.6328,
+              0.3891
+            ],
+            [
+              0.6594,
+              0.3641
+            ],
+            [
+              0.6813,
+              0.3344
+            ],
+            [
+              0.6984,
+              0.2984
+            ],
+            [
+              0.6984,
+              0.2938
+            ],
+            [
+              0.7016,
+              0.2891
+            ],
+            [
+              0.7016,
+              0.2844
+            ],
+            [
+              0.7063,
+              0.2703
+            ],
+            [
+              0.7078,
+              0.2469
+            ],
+            [
+              0.7094,
+              0.2453
+            ],
+            [
+              0.7094,
+              0.2125
+            ],
+            [
+              0.7078,
+              0.2109
+            ],
+            [
+              0.7063,
+              0.1891
+            ],
+            [
+              0.6969,
+              0.1578
+            ],
+            [
+              0.6813,
+              0.1266
+            ],
+            [
+              0.6594,
+              0.0969
+            ],
+            [
+              0.6328,
+              0.0719
+            ],
+            [
+              0.6047,
+              0.0531
+            ],
+            [
+              0.5766,
+              0.0406
+            ],
+            [
+              0.5672,
+              0.0391
+            ],
+            [
+              0.5625,
+              0.0359
+            ],
+            [
+              0.5563,
+              0.0359
+            ],
+            [
+              0.5547,
+              0.0344
+            ],
+            [
+              0.5406,
+              0.0328
+            ],
+            [
+              0.5391,
+              0.0312
+            ],
+            [
+              0.5312,
+              0.0312
+            ],
+            [
+              0.5297,
+              0.0297
+            ],
+            [
+              0.4891,
+              0.0297
+            ],
+            [
+              0.4875,
+              0.0312
+            ],
+            [
+              0.4781,
+              0.0312
+            ],
+            [
+              0.4766,
+              0.0328
+            ],
+            [
+              0.4688,
+              0.0328
+            ],
+            [
+              0.4672,
+              0.0344
+            ],
+            [
+              0.4562,
+              0.0359
+            ]
+          ]
+        ],
+        "edge": "#abb3ad"
+      },
+      "price": {
+        "tr": 1999.0,
+        "en": 1999.0
+      },
+      "photos": [
+        "foto/no-drama/1.webp",
+        "foto/no-drama/2.webp",
+        "foto/no-drama/3.webp",
+        "foto/no-drama/4.webp",
+        "foto/no-drama/5.webp",
+        "foto/no-drama/6.webp"
+      ],
+      "composition": [
+        "Üst: Sulu notalar, Bergamot, Davana, Rom",
+        "Kalp: Kremamsı, Pudramsı, Gül",
+        "Dip: Misk, Ambergris, Vanilya, Sandal Ağacı, Amberimsi"
+      ]
+    },
+    {
+      "name": "NO REGRETS",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Çiçeksi · Tatlı",
+      "year": null,
+      "perfumer": null,
+      "color": "#814886",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#9a50d0",
+        "edge": "#1c0a28",
+        "drop": "#ecd4ff",
+        "accent": "#ecd4ff",
+        "mood": "warm"
+      },
+      "tagline": "Cesur — Canlı — Derin",
+      "notes": [
+        "Kakule",
+        "Şeftali",
+        "Armut",
+        "Yasemin",
+        "Gül"
+      ],
+      "description": "NO REGRETS",
+      "file": "no-regrets.webp",
+      "handle": "no-regrets",
+      "en": {
+        "name": "NO REGRETS",
+        "family": "Floral · Sweet",
+        "tagline": "Bold — Vibrant — Deep",
+        "notes": [
+          "Cardamom",
+          "Peach",
+          "Pear",
+          "Jasmine",
+          "Rose"
+        ],
+        "description": "NO REGRETS",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Cardamom, Peach, Pear",
+          "Heart: Jasmine, Rose, Tuberose",
+          "Base: Balsamic notes, Cedarwood, Musk"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.3896,
+        "depthRatio": 0.42,
+        "axis": 0.4992,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0172,
+          0.0375,
+          0.0516,
+          0.0641,
+          0.0727,
+          0.0813,
+          0.0906,
+          0.0961,
+          0.1023,
+          0.1094,
+          0.1141,
+          0.1195,
+          0.125,
+          0.1289,
+          0.1328,
+          0.1375,
+          0.1406,
+          0.1445,
+          0.1484,
+          0.1508,
+          0.1539,
+          0.157,
+          0.1594,
+          0.1617,
+          0.1648,
+          0.1672,
+          0.1688,
+          0.1711,
+          0.1727,
+          0.175,
+          0.1766,
+          0.1781,
+          0.1797,
+          0.1812,
+          0.1828,
+          0.1836,
+          0.1844,
+          0.1859,
+          0.1867,
+          0.1875,
+          0.1883,
+          0.1891,
+          0.1891,
+          0.1898,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1891,
+          0.1883,
+          0.1883,
+          0.1875,
+          0.1867,
+          0.1859,
+          0.1844,
+          0.1836,
+          0.1828,
+          0.1812,
+          0.1797,
+          0.1781,
+          0.1766,
+          0.175,
+          0.1734,
+          0.1711,
+          0.1695,
+          0.1672,
+          0.1641,
+          0.1617,
+          0.1594,
+          0.1562,
+          0.1539,
+          0.1508,
+          0.1477,
+          0.1445,
+          0.1406,
+          0.1367,
+          0.1328,
+          0.1289,
+          0.1234,
+          0.1195,
+          0.118,
+          0.1945,
+          0.2703,
+          0.3109,
+          0.3359,
+          0.3445,
+          0.3484,
+          0.3516,
+          0.3523,
+          0.3523,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.35,
+          0.3508,
+          0.3508,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3477,
+          0.3469,
+          0.3445,
+          0.3406,
+          0.3367,
+          0.332,
+          0.3258,
+          0.3187,
+          0.3109,
+          0.3,
+          0.2852,
+          0.2703,
+          0.2469,
+          0.2219,
+          0.193,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4297,
+              0.0453
+            ],
+            [
+              0.4078,
+              0.0563
+            ],
+            [
+              0.3828,
+              0.0734
+            ],
+            [
+              0.3734,
+              0.0813
+            ],
+            [
+              0.35,
+              0.1062
+            ],
+            [
+              0.3344,
+              0.1297
+            ],
+            [
+              0.3219,
+              0.1547
+            ],
+            [
+              0.3203,
+              0.1625
+            ],
+            [
+              0.3172,
+              0.1672
+            ],
+            [
+              0.3156,
+              0.1781
+            ],
+            [
+              0.3125,
+              0.1844
+            ],
+            [
+              0.3109,
+              0.2
+            ],
+            [
+              0.3094,
+              0.2016
+            ],
+            [
+              0.3094,
+              0.2125
+            ],
+            [
+              0.3078,
+              0.2141
+            ],
+            [
+              0.3078,
+              0.25
+            ],
+            [
+              0.3109,
+              0.2594
+            ],
+            [
+              0.3109,
+              0.2703
+            ],
+            [
+              0.3219,
+              0.3063
+            ],
+            [
+              0.3266,
+              0.3141
+            ],
+            [
+              0.3266,
+              0.3172
+            ],
+            [
+              0.3312,
+              0.3234
+            ],
+            [
+              0.3312,
+              0.3266
+            ],
+            [
+              0.35,
+              0.3547
+            ],
+            [
+              0.3812,
+              0.3875
+            ],
+            [
+              0.3781,
+              0.3906
+            ],
+            [
+              0.3484,
+              0.3906
+            ],
+            [
+              0.3469,
+              0.3922
+            ],
+            [
+              0.3172,
+              0.3922
+            ],
+            [
+              0.3156,
+              0.3937
+            ],
+            [
+              0.2891,
+              0.3937
+            ],
+            [
+              0.2875,
+              0.3953
+            ],
+            [
+              0.2297,
+              0.3969
+            ],
+            [
+              0.2281,
+              0.3984
+            ],
+            [
+              0.2188,
+              0.3984
+            ],
+            [
+              0.2172,
+              0.4
+            ],
+            [
+              0.1891,
+              0.4
+            ],
+            [
+              0.1875,
+              0.4016
+            ],
+            [
+              0.1797,
+              0.4016
+            ],
+            [
+              0.1781,
+              0.4031
+            ],
+            [
+              0.1719,
+              0.4031
+            ],
+            [
+              0.1703,
+              0.4047
+            ],
+            [
+              0.1641,
+              0.4047
+            ],
+            [
+              0.1547,
+              0.4078
+            ],
+            [
+              0.1469,
+              0.4156
+            ],
+            [
+              0.1453,
+              0.4203
+            ],
+            [
+              0.1453,
+              0.4625
+            ],
+            [
+              0.1469,
+              0.4641
+            ],
+            [
+              0.1484,
+              0.8703
+            ],
+            [
+              0.15,
+              0.8719
+            ],
+            [
+              0.15,
+              0.9047
+            ],
+            [
+              0.1531,
+              0.9141
+            ],
+            [
+              0.1656,
+              0.9266
+            ],
+            [
+              0.175,
+              0.9328
+            ],
+            [
+              0.1781,
+              0.9328
+            ],
+            [
+              0.1906,
+              0.9406
+            ],
+            [
+              0.2094,
+              0.9469
+            ],
+            [
+              0.2141,
+              0.9469
+            ],
+            [
+              0.2266,
+              0.9516
+            ],
+            [
+              0.2344,
+              0.9516
+            ],
+            [
+              0.2422,
+              0.9547
+            ],
+            [
+              0.2484,
+              0.9547
+            ],
+            [
+              0.25,
+              0.9563
+            ],
+            [
+              0.2594,
+              0.9563
+            ],
+            [
+              0.2609,
+              0.9578
+            ],
+            [
+              0.2687,
+              0.9578
+            ],
+            [
+              0.2781,
+              0.9609
+            ],
+            [
+              0.2891,
+              0.9609
+            ],
+            [
+              0.2906,
+              0.9625
+            ],
+            [
+              0.3094,
+              0.9641
+            ],
+            [
+              0.3109,
+              0.9656
+            ],
+            [
+              0.325,
+              0.9656
+            ],
+            [
+              0.3266,
+              0.9672
+            ],
+            [
+              0.6641,
+              0.9672
+            ],
+            [
+              0.6656,
+              0.9656
+            ],
+            [
+              0.6813,
+              0.9656
+            ],
+            [
+              0.6828,
+              0.9641
+            ],
+            [
+              0.7016,
+              0.9625
+            ],
+            [
+              0.7031,
+              0.9609
+            ],
+            [
+              0.7156,
+              0.9609
+            ],
+            [
+              0.7172,
+              0.9594
+            ],
+            [
+              0.725,
+              0.9594
+            ],
+            [
+              0.7344,
+              0.9563
+            ],
+            [
+              0.7453,
+              0.9563
+            ],
+            [
+              0.7469,
+              0.9547
+            ],
+            [
+              0.7531,
+              0.9547
+            ],
+            [
+              0.7609,
+              0.9516
+            ],
+            [
+              0.7688,
+              0.9516
+            ],
+            [
+              0.7703,
+              0.95
+            ],
+            [
+              0.8031,
+              0.9422
+            ],
+            [
+              0.8109,
+              0.9375
+            ],
+            [
+              0.8141,
+              0.9375
+            ],
+            [
+              0.8328,
+              0.925
+            ],
+            [
+              0.8422,
+              0.9156
+            ],
+            [
+              0.8469,
+              0.9047
+            ],
+            [
+              0.8469,
+              0.8719
+            ],
+            [
+              0.8484,
+              0.8703
+            ],
+            [
+              0.8484,
+              0.7672
+            ],
+            [
+              0.85,
+              0.7656
+            ],
+            [
+              0.85,
+              0.6109
+            ],
+            [
+              0.8516,
+              0.6094
+            ],
+            [
+              0.8516,
+              0.5469
+            ],
+            [
+              0.85,
+              0.5453
+            ],
+            [
+              0.8516,
+              0.5437
+            ],
+            [
+              0.8516,
+              0.4219
+            ],
+            [
+              0.8469,
+              0.4125
+            ],
+            [
+              0.8406,
+              0.4078
+            ],
+            [
+              0.8297,
+              0.4047
+            ],
+            [
+              0.8234,
+              0.4047
+            ],
+            [
+              0.8219,
+              0.4031
+            ],
+            [
+              0.8156,
+              0.4031
+            ],
+            [
+              0.8141,
+              0.4016
+            ],
+            [
+              0.8078,
+              0.4016
+            ],
+            [
+              0.8063,
+              0.4
+            ],
+            [
+              0.7875,
+              0.4
+            ],
+            [
+              0.7859,
+              0.3984
+            ],
+            [
+              0.7734,
+              0.3984
+            ],
+            [
+              0.7719,
+              0.3969
+            ],
+            [
+              0.7094,
+              0.3953
+            ],
+            [
+              0.7078,
+              0.3937
+            ],
+            [
+              0.6359,
+              0.3922
+            ],
+            [
+              0.6328,
+              0.3891
+            ],
+            [
+              0.6625,
+              0.3609
+            ],
+            [
+              0.6813,
+              0.3344
+            ],
+            [
+              0.6891,
+              0.3203
+            ],
+            [
+              0.6891,
+              0.3172
+            ],
+            [
+              0.6922,
+              0.3141
+            ],
+            [
+              0.6922,
+              0.3109
+            ],
+            [
+              0.6984,
+              0.2984
+            ],
+            [
+              0.6984,
+              0.2938
+            ],
+            [
+              0.7016,
+              0.2891
+            ],
+            [
+              0.7016,
+              0.2844
+            ],
+            [
+              0.7063,
+              0.2703
+            ],
+            [
+              0.7078,
+              0.2469
+            ],
+            [
+              0.7094,
+              0.2453
+            ],
+            [
+              0.7094,
+              0.2125
+            ],
+            [
+              0.7078,
+              0.2109
+            ],
+            [
+              0.7063,
+              0.1891
+            ],
+            [
+              0.6969,
+              0.1578
+            ],
+            [
+              0.6813,
+              0.1266
+            ],
+            [
+              0.6594,
+              0.0969
+            ],
+            [
+              0.6328,
+              0.0719
+            ],
+            [
+              0.6047,
+              0.0531
+            ],
+            [
+              0.5766,
+              0.0406
+            ],
+            [
+              0.5672,
+              0.0391
+            ],
+            [
+              0.5625,
+              0.0359
+            ],
+            [
+              0.5563,
+              0.0359
+            ],
+            [
+              0.5547,
+              0.0344
+            ],
+            [
+              0.5406,
+              0.0328
+            ],
+            [
+              0.5391,
+              0.0312
+            ],
+            [
+              0.5312,
+              0.0312
+            ],
+            [
+              0.5297,
+              0.0297
+            ],
+            [
+              0.4891,
+              0.0297
+            ],
+            [
+              0.4875,
+              0.0312
+            ],
+            [
+              0.4781,
+              0.0312
+            ],
+            [
+              0.4766,
+              0.0328
+            ],
+            [
+              0.4688,
+              0.0328
+            ],
+            [
+              0.4672,
+              0.0344
+            ],
+            [
+              0.4562,
+              0.0359
+            ]
+          ]
+        ],
+        "edge": "#abb3ad"
+      },
+      "price": {
+        "tr": 1999.0,
+        "en": 1999.0
+      },
+      "photos": [
+        "foto/no-regrets/1.webp",
+        "foto/no-regrets/2.webp",
+        "foto/no-regrets/3.webp",
+        "foto/no-regrets/4.webp",
+        "foto/no-regrets/5.webp",
+        "foto/no-regrets/6.webp"
+      ],
+      "composition": [
+        "Üst: Kakule, Şeftali, Armut",
+        "Kalp: Yasemin, Gül, Sümbülteber",
+        "Dip: Balsamik, Sedir Ağacı, Misk"
+      ]
+    },
+    {
+      "name": "NO FILTER",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Çiçeksi · Meyvemsi",
+      "year": null,
+      "perfumer": null,
+      "color": "#c36f66",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#e04a2c",
+        "edge": "#2a0804",
+        "drop": "#ffd0c4",
+        "accent": "#ffd0c4",
+        "mood": "warm"
+      },
+      "tagline": "Gerçek — Cesur — Parlak",
+      "notes": [
+        "Pamuk Şekeri",
+        "Tütsü",
+        "Liçi",
+        "Çilek",
+        "Fındık"
+      ],
+      "description": "NO FILTER",
+      "file": "no-filter.webp",
+      "handle": "no-filter",
+      "en": {
+        "name": "NO FILTER",
+        "family": "Floral · Fruity",
+        "tagline": "Authentic — Bold — Radiant",
+        "notes": [
+          "Cotton Candy",
+          "Incense",
+          "Lychee",
+          "Strawberry",
+          "Hazelnut"
+        ],
+        "description": "NO FILTER",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Cotton Candy, Incense, Lychee, Strawberry",
+          "Heart: Hazelnut, Magnolia, Rose, Green",
+          "Base: Ambery notes, Musk, Sandalwood, Vanilla"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.3896,
+        "depthRatio": 0.42,
+        "axis": 0.4992,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0172,
+          0.0375,
+          0.0516,
+          0.0641,
+          0.0727,
+          0.0813,
+          0.0906,
+          0.0969,
+          0.1023,
+          0.1094,
+          0.1141,
+          0.1195,
+          0.125,
+          0.1289,
+          0.1328,
+          0.1375,
+          0.1406,
+          0.1445,
+          0.1484,
+          0.1508,
+          0.1539,
+          0.157,
+          0.1594,
+          0.1617,
+          0.1648,
+          0.1672,
+          0.1688,
+          0.1719,
+          0.1727,
+          0.175,
+          0.1773,
+          0.1781,
+          0.1797,
+          0.1812,
+          0.1828,
+          0.1836,
+          0.1844,
+          0.1859,
+          0.1867,
+          0.1875,
+          0.1883,
+          0.1891,
+          0.1891,
+          0.1898,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1906,
+          0.1891,
+          0.1883,
+          0.1883,
+          0.1875,
+          0.1867,
+          0.1859,
+          0.1844,
+          0.1836,
+          0.182,
+          0.1812,
+          0.1797,
+          0.1781,
+          0.1766,
+          0.175,
+          0.1734,
+          0.1711,
+          0.1688,
+          0.1672,
+          0.1641,
+          0.1617,
+          0.1594,
+          0.1562,
+          0.1539,
+          0.1508,
+          0.1477,
+          0.1437,
+          0.1406,
+          0.1367,
+          0.1328,
+          0.1289,
+          0.1234,
+          0.1195,
+          0.1187,
+          0.207,
+          0.2719,
+          0.3117,
+          0.3359,
+          0.3453,
+          0.3492,
+          0.3516,
+          0.3523,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3531,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3523,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3516,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.3508,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3492,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3484,
+          0.3477,
+          0.3469,
+          0.3461,
+          0.3438,
+          0.3398,
+          0.3359,
+          0.332,
+          0.3242,
+          0.318,
+          0.3094,
+          0.2969,
+          0.2836,
+          0.2672,
+          0.2422,
+          0.2164,
+          0.1875,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4297,
+              0.0453
+            ],
+            [
+              0.4078,
+              0.0563
+            ],
+            [
+              0.3828,
+              0.0734
+            ],
+            [
+              0.3734,
+              0.0813
+            ],
+            [
+              0.35,
+              0.1062
+            ],
+            [
+              0.3312,
+              0.1344
+            ],
+            [
+              0.3312,
+              0.1375
+            ],
+            [
+              0.3266,
+              0.1437
+            ],
+            [
+              0.3266,
+              0.1469
+            ],
+            [
+              0.3219,
+              0.1547
+            ],
+            [
+              0.3203,
+              0.1625
+            ],
+            [
+              0.3172,
+              0.1672
+            ],
+            [
+              0.3156,
+              0.1781
+            ],
+            [
+              0.3125,
+              0.1844
+            ],
+            [
+              0.3109,
+              0.2
+            ],
+            [
+              0.3094,
+              0.2016
+            ],
+            [
+              0.3094,
+              0.2125
+            ],
+            [
+              0.3078,
+              0.2141
+            ],
+            [
+              0.3078,
+              0.25
+            ],
+            [
+              0.3109,
+              0.2594
+            ],
+            [
+              0.3109,
+              0.2703
+            ],
+            [
+              0.3219,
+              0.3063
+            ],
+            [
+              0.3422,
+              0.3438
+            ],
+            [
+              0.3609,
+              0.3672
+            ],
+            [
+              0.3719,
+              0.3766
+            ],
+            [
+              0.3812,
+              0.3875
+            ],
+            [
+              0.3734,
+              0.3906
+            ],
+            [
+              0.3125,
+              0.3922
+            ],
+            [
+              0.3109,
+              0.3937
+            ],
+            [
+              0.2719,
+              0.3937
+            ],
+            [
+              0.2703,
+              0.3953
+            ],
+            [
+              0.2547,
+              0.3953
+            ],
+            [
+              0.2531,
+              0.3969
+            ],
+            [
+              0.2281,
+              0.3969
+            ],
+            [
+              0.2266,
+              0.3984
+            ],
+            [
+              0.2094,
+              0.3984
+            ],
+            [
+              0.2078,
+              0.4
+            ],
+            [
+              0.2047,
+              0.3984
+            ],
+            [
+              0.2016,
+              0.4
+            ],
+            [
+              0.1891,
+              0.4
+            ],
+            [
+              0.1875,
+              0.4016
+            ],
+            [
+              0.1797,
+              0.4016
+            ],
+            [
+              0.1781,
+              0.4031
+            ],
+            [
+              0.1703,
+              0.4031
+            ],
+            [
+              0.1688,
+              0.4047
+            ],
+            [
+              0.1578,
+              0.4062
+            ],
+            [
+              0.1484,
+              0.4125
+            ],
+            [
+              0.1453,
+              0.4203
+            ],
+            [
+              0.1453,
+              0.4609
+            ],
+            [
+              0.1469,
+              0.4625
+            ],
+            [
+              0.1484,
+              0.8703
+            ],
+            [
+              0.15,
+              0.8719
+            ],
+            [
+              0.15,
+              0.9047
+            ],
+            [
+              0.1547,
+              0.9156
+            ],
+            [
+              0.1641,
+              0.925
+            ],
+            [
+              0.1734,
+              0.9313
+            ],
+            [
+              0.1922,
+              0.9406
+            ],
+            [
+              0.2109,
+              0.9469
+            ],
+            [
+              0.2156,
+              0.9469
+            ],
+            [
+              0.2297,
+              0.9516
+            ],
+            [
+              0.2453,
+              0.9531
+            ],
+            [
+              0.2531,
+              0.9563
+            ],
+            [
+              0.2641,
+              0.9563
+            ],
+            [
+              0.2656,
+              0.9578
+            ],
+            [
+              0.2719,
+              0.9578
+            ],
+            [
+              0.2812,
+              0.9609
+            ],
+            [
+              0.2938,
+              0.9609
+            ],
+            [
+              0.3047,
+              0.9641
+            ],
+            [
+              0.3312,
+              0.9656
+            ],
+            [
+              0.3328,
+              0.9672
+            ],
+            [
+              0.6594,
+              0.9672
+            ],
+            [
+              0.6609,
+              0.9656
+            ],
+            [
+              0.675,
+              0.9656
+            ],
+            [
+              0.6766,
+              0.9641
+            ],
+            [
+              0.6859,
+              0.9641
+            ],
+            [
+              0.6969,
+              0.9609
+            ],
+            [
+              0.7109,
+              0.9609
+            ],
+            [
+              0.7125,
+              0.9594
+            ],
+            [
+              0.7281,
+              0.9578
+            ],
+            [
+              0.7297,
+              0.9563
+            ],
+            [
+              0.7406,
+              0.9563
+            ],
+            [
+              0.7422,
+              0.9547
+            ],
+            [
+              0.7656,
+              0.9516
+            ],
+            [
+              0.7797,
+              0.9469
+            ],
+            [
+              0.7859,
+              0.9469
+            ],
+            [
+              0.7969,
+              0.9422
+            ],
+            [
+              0.8016,
+              0.9422
+            ],
+            [
+              0.8281,
+              0.9281
+            ],
+            [
+              0.8438,
+              0.9125
+            ],
+            [
+              0.8469,
+              0.9047
+            ],
+            [
+              0.8469,
+              0.8703
+            ],
+            [
+              0.8484,
+              0.8688
+            ],
+            [
+              0.8484,
+              0.7656
+            ],
+            [
+              0.85,
+              0.7641
+            ],
+            [
+              0.85,
+              0.6094
+            ],
+            [
+              0.8516,
+              0.6078
+            ],
+            [
+              0.8516,
+              0.5453
+            ],
+            [
+              0.85,
+              0.5437
+            ],
+            [
+              0.8516,
+              0.5422
+            ],
+            [
+              0.8516,
+              0.4219
+            ],
+            [
+              0.85,
+              0.4172
+            ],
+            [
+              0.8438,
+              0.4094
+            ],
+            [
+              0.8375,
+              0.4062
+            ],
+            [
+              0.8172,
+              0.4031
+            ],
+            [
+              0.8156,
+              0.4016
+            ],
+            [
+              0.8078,
+              0.4016
+            ],
+            [
+              0.8063,
+              0.4
+            ],
+            [
+              0.7953,
+              0.4
+            ],
+            [
+              0.7937,
+              0.3984
+            ],
+            [
+              0.7422,
+              0.3969
+            ],
+            [
+              0.7406,
+              0.3953
+            ],
+            [
+              0.7203,
+              0.3953
+            ],
+            [
+              0.7188,
+              0.3937
+            ],
+            [
+              0.6375,
+              0.3922
+            ],
+            [
+              0.6328,
+              0.3891
+            ],
+            [
+              0.6594,
+              0.3641
+            ],
+            [
+              0.6813,
+              0.3344
+            ],
+            [
+              0.6984,
+              0.2984
+            ],
+            [
+              0.6984,
+              0.2938
+            ],
+            [
+              0.7016,
+              0.2891
+            ],
+            [
+              0.7016,
+              0.2844
+            ],
+            [
+              0.7063,
+              0.2703
+            ],
+            [
+              0.7078,
+              0.2453
+            ],
+            [
+              0.7094,
+              0.2437
+            ],
+            [
+              0.7094,
+              0.2125
+            ],
+            [
+              0.7078,
+              0.2109
+            ],
+            [
+              0.7063,
+              0.1891
+            ],
+            [
+              0.6969,
+              0.1578
+            ],
+            [
+              0.6813,
+              0.1266
+            ],
+            [
+              0.6594,
+              0.0969
+            ],
+            [
+              0.6328,
+              0.0719
+            ],
+            [
+              0.6047,
+              0.0531
+            ],
+            [
+              0.5766,
+              0.0406
+            ],
+            [
+              0.5672,
+              0.0391
+            ],
+            [
+              0.5625,
+              0.0359
+            ],
+            [
+              0.5563,
+              0.0359
+            ],
+            [
+              0.5547,
+              0.0344
+            ],
+            [
+              0.5406,
+              0.0328
+            ],
+            [
+              0.5391,
+              0.0312
+            ],
+            [
+              0.5312,
+              0.0312
+            ],
+            [
+              0.5297,
+              0.0297
+            ],
+            [
+              0.4891,
+              0.0297
+            ],
+            [
+              0.4875,
+              0.0312
+            ],
+            [
+              0.4781,
+              0.0312
+            ],
+            [
+              0.4766,
+              0.0328
+            ],
+            [
+              0.4688,
+              0.0328
+            ],
+            [
+              0.4672,
+              0.0344
+            ],
+            [
+              0.4562,
+              0.0359
+            ]
+          ]
+        ],
+        "edge": "#abb3ad"
+      },
+      "price": {
+        "tr": 1999.0,
+        "en": 1999.0
+      },
+      "photos": [
+        "foto/no-filter/1.webp",
+        "foto/no-filter/2.webp",
+        "foto/no-filter/3.webp",
+        "foto/no-filter/4.webp",
+        "foto/no-filter/5.webp",
+        "foto/no-filter/6.webp"
+      ],
+      "composition": [
+        "Üst: Pamuk Şekeri, Tütsü, Liçi, Çilek",
+        "Kalp: Fındık, Manolya, Gül, Yeşil",
+        "Dip: Amberimsi, Misk, Sandal Ağacı, Vanilya"
+      ]
+    },
+    {
+      "name": "NO RULES",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Meyvemsi",
+      "year": null,
+      "perfumer": null,
+      "color": "#b66948",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#e07a28",
+        "edge": "#2a1204",
+        "drop": "#ffdcb8",
+        "accent": "#ffdcb8",
+        "mood": "warm"
+      },
+      "tagline": "Özgür — Manyetik — Modern",
+      "notes": [
+        "Bergamot",
+        "Greyfurt",
+        "Liçi",
+        "Çarkıfelek Meyvesi",
+        "Ravent"
+      ],
+      "description": "NO RULES",
+      "file": "no-rules.webp",
+      "handle": "no-rules",
+      "en": {
+        "name": "NO RULES",
+        "family": "Fruity",
+        "tagline": "Free — Magnetic — Modern",
+        "notes": [
+          "Bergamot",
+          "Grapefruit",
+          "Lychee",
+          "Passionfruit",
+          "Rhubarb"
+        ],
+        "description": "NO RULES",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Bergamot, Grapefruit, Lychee, Passionfruit, Rhubarb, Saffron",
+          "Heart: Jasmine, Lily of the valley, Orris, Rose",
+          "Base: Ambergris, Benzoin, Cashmere, Cedarwood, Labdanum, Leather"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.3104,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0164,
+          0.0367,
+          0.0477,
+          0.0594,
+          0.0664,
+          0.0727,
+          0.0797,
+          0.0852,
+          0.0898,
+          0.0953,
+          0.1,
+          0.1031,
+          0.1078,
+          0.1102,
+          0.1141,
+          0.1164,
+          0.1195,
+          0.1219,
+          0.125,
+          0.1273,
+          0.1289,
+          0.1313,
+          0.1328,
+          0.1344,
+          0.1367,
+          0.1383,
+          0.1391,
+          0.1406,
+          0.1422,
+          0.143,
+          0.1437,
+          0.1445,
+          0.1453,
+          0.1461,
+          0.1461,
+          0.1469,
+          0.1469,
+          0.1469,
+          0.1461,
+          0.1461,
+          0.1453,
+          0.1453,
+          0.1445,
+          0.1437,
+          0.143,
+          0.1422,
+          0.1414,
+          0.1398,
+          0.1391,
+          0.1367,
+          0.1352,
+          0.1328,
+          0.1313,
+          0.1297,
+          0.1273,
+          0.1242,
+          0.1227,
+          0.1195,
+          0.1172,
+          0.1141,
+          0.1102,
+          0.107,
+          0.1031,
+          0.0992,
+          0.0945,
+          0.0906,
+          0.0852,
+          0.082,
+          0.1437,
+          0.1828,
+          0.2031,
+          0.2172,
+          0.2258,
+          0.2281,
+          0.2297,
+          0.2297,
+          0.2305,
+          0.2305,
+          0.2305,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2297,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2289,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2281,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2273,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2266,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.2258,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.225,
+          0.2242,
+          0.2227,
+          0.2195,
+          0.2164,
+          0.2109,
+          0.2062,
+          0.2,
+          0.1906,
+          0.1805,
+          0.1695,
+          0.1539,
+          0.1383,
+          0.1172,
+          0.0828,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outline": [
+          [
+            [
+              0.4688,
+              0.0312
+            ],
+            [
+              0.4672,
+              0.0328
+            ],
+            [
+              0.4594,
+              0.0328
+            ],
+            [
+              0.4437,
+              0.0375
+            ],
+            [
+              0.4203,
+              0.0484
+            ],
+            [
+              0.3891,
+              0.0719
+            ],
+            [
+              0.3656,
+              0.1031
+            ],
+            [
+              0.3516,
+              0.1328
+            ],
+            [
+              0.3438,
+              0.1594
+            ],
+            [
+              0.3438,
+              0.1672
+            ],
+            [
+              0.3422,
+              0.1688
+            ],
+            [
+              0.3438,
+              0.2031
+            ],
+            [
+              0.3453,
+              0.2047
+            ],
+            [
+              0.3453,
+              0.2109
+            ],
+            [
+              0.3531,
+              0.2375
+            ],
+            [
+              0.3672,
+              0.2641
+            ],
+            [
+              0.3719,
+              0.2687
+            ],
+            [
+              0.3781,
+              0.2797
+            ],
+            [
+              0.3859,
+              0.2891
+            ],
+            [
+              0.4047,
+              0.3047
+            ],
+            [
+              0.4078,
+              0.3094
+            ],
+            [
+              0.4062,
+              0.3109
+            ],
+            [
+              0.3578,
+              0.3125
+            ],
+            [
+              0.3563,
+              0.3141
+            ],
+            [
+              0.3203,
+              0.3156
+            ],
+            [
+              0.3187,
+              0.3172
+            ],
+            [
+              0.2984,
+              0.3187
+            ],
+            [
+              0.275,
+              0.3266
+            ],
+            [
+              0.2687,
+              0.3344
+            ],
+            [
+              0.2672,
+              0.3594
+            ],
+            [
+              0.2687,
+              0.3609
+            ],
+            [
+              0.2703,
+              0.5391
+            ],
+            [
+              0.2719,
+              0.5406
+            ],
+            [
+              0.2703,
+              0.5453
+            ],
+            [
+              0.2703,
+              0.5813
+            ],
+            [
+              0.2719,
+              0.5828
+            ],
+            [
+              0.2734,
+              0.8797
+            ],
+            [
+              0.275,
+              0.8812
+            ],
+            [
+              0.275,
+              0.9156
+            ],
+            [
+              0.2797,
+              0.9234
+            ],
+            [
+              0.2875,
+              0.9313
+            ],
+            [
+              0.3125,
+              0.9453
+            ],
+            [
+              0.3516,
+              0.9578
+            ],
+            [
+              0.3641,
+              0.9594
+            ],
+            [
+              0.3719,
+              0.9625
+            ],
+            [
+              0.3906,
+              0.9641
+            ],
+            [
+              0.3922,
+              0.9656
+            ],
+            [
+              0.4031,
+              0.9656
+            ],
+            [
+              0.4047,
+              0.9672
+            ],
+            [
+              0.4156,
+              0.9672
+            ],
+            [
+              0.4172,
+              0.9688
+            ],
+            [
+              0.5828,
+              0.9688
+            ],
+            [
+              0.5844,
+              0.9672
+            ],
+            [
+              0.5938,
+              0.9672
+            ],
+            [
+              0.5953,
+              0.9656
+            ],
+            [
+              0.6078,
+              0.9656
+            ],
+            [
+              0.6188,
+              0.9625
+            ],
+            [
+              0.6281,
+              0.9625
+            ],
+            [
+              0.6297,
+              0.9609
+            ],
+            [
+              0.6453,
+              0.9594
+            ],
+            [
+              0.6469,
+              0.9578
+            ],
+            [
+              0.6641,
+              0.9547
+            ],
+            [
+              0.6828,
+              0.9484
+            ],
+            [
+              0.6953,
+              0.9422
+            ],
+            [
+              0.7188,
+              0.9234
+            ],
+            [
+              0.725,
+              0.9109
+            ],
+            [
+              0.7266,
+              0.6469
+            ],
+            [
+              0.7281,
+              0.6453
+            ],
+            [
+              0.7281,
+              0.475
+            ],
+            [
+              0.7297,
+              0.4734
+            ],
+            [
+              0.7297,
+              0.3391
+            ],
+            [
+              0.7281,
+              0.3344
+            ],
+            [
+              0.7188,
+              0.3266
+            ],
+            [
+              0.6969,
+              0.3219
+            ],
+            [
+              0.6953,
+              0.3203
+            ],
+            [
+              0.6875,
+              0.3203
+            ],
+            [
+              0.6766,
+              0.3172
+            ],
+            [
+              0.6656,
+              0.3172
+            ],
+            [
+              0.6641,
+              0.3156
+            ],
+            [
+              0.6531,
+              0.3156
+            ],
+            [
+              0.6516,
+              0.3141
+            ],
+            [
+              0.6141,
+              0.3125
+            ],
+            [
+              0.6125,
+              0.3109
+            ],
+            [
+              0.5828,
+              0.3109
+            ],
+            [
+              0.5813,
+              0.3094
+            ],
+            [
+              0.6031,
+              0.2891
+            ],
+            [
+              0.6172,
+              0.2719
+            ],
+            [
+              0.6266,
+              0.2562
+            ],
+            [
+              0.6406,
+              0.225
+            ],
+            [
+              0.6438,
+              0.2047
+            ],
+            [
+              0.6453,
+              0.2031
+            ],
+            [
+              0.6469,
+              0.1766
+            ],
+            [
+              0.6453,
+              0.175
+            ],
+            [
+              0.6438,
+              0.1547
+            ],
+            [
+              0.6344,
+              0.125
+            ],
+            [
+              0.6234,
+              0.1031
+            ],
+            [
+              0.6078,
+              0.0813
+            ],
+            [
+              0.5906,
+              0.0641
+            ],
+            [
+              0.5656,
+              0.0469
+            ],
+            [
+              0.5453,
+              0.0375
+            ],
+            [
+              0.5406,
+              0.0375
+            ],
+            [
+              0.5359,
+              0.0344
+            ],
+            [
+              0.5219,
+              0.0328
+            ],
+            [
+              0.5203,
+              0.0312
+            ],
+            [
+              0.5031,
+              0.0312
+            ],
+            [
+              0.5016,
+              0.0297
+            ]
+          ]
+        ],
+        "edge": "#b4b8b4"
+      },
+      "price": {
+        "tr": 1999.0,
+        "en": 1999.0
+      },
+      "photos": [
+        "foto/no-rules/1.webp",
+        "foto/no-rules/2.webp",
+        "foto/no-rules/3.webp",
+        "foto/no-rules/4.webp",
+        "foto/no-rules/5.webp",
+        "foto/no-rules/6.webp"
+      ],
+      "composition": [
+        "Üst: Bergamot, Greyfurt, Liçi, Çarkıfelek Meyvesi, Ravent, Safran",
+        "Kalp: Yasemin, Müge (İnci Çiçeği), Süsen Kökü (İris), Gül",
+        "Dip: Ambergris, Benjoin, Kaşmir ağacı, Sedir Ağacı, Ladanyum, Deri"
+      ]
+    }
+  ],
+  "home": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Güç, gözyaşlarının bittiği yerde başlar.",
+        "text": "Duygusal resetleme.",
+        "stat": "Yumuşak — Işıltılı — Dayanıklı"
+      },
+      "en": {
+        "title": "Strength begins where the tears end.",
+        "text": "Emotional reset",
+        "stat": "Soft — Luminous — Resilient"
+      }
+    },
+    {
+      "flavor": 2,
+      "tr": {
+        "title": "Varlık, her tartışmadan daha yüksek sesle konuşur.",
+        "text": "Gürültüyü seven bir dünyada, NO DRAMA sessiz bir başkaldırıdır.",
+        "stat": "Sakin — Dengeli — Sessiz Güç"
+      },
+      "en": {
+        "title": "Presence is louder than any argument.",
+        "text": "In a world that loves noise, NO DRAMA is the quiet rebellion.",
+        "stat": "Calm — Balanced — Quiet Power"
+      }
+    },
+    {
+      "flavor": 5,
+      "tr": {
+        "title": "Yolu sen yarat. Takip etme.",
+        "text": "Kalıpları kırmanın kokusu.",
+        "stat": "Özgür — Manyetik — Modern"
+      },
+      "en": {
+        "title": "Create the path. Don't follow it.",
+        "text": "Scent of breaking patterns",
+        "stat": "Free — Magnetic — Modern"
+      }
+    }
+  ]
+}

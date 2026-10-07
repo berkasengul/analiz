@@ -1,0 +1,458 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": false,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.55,
+  "backSolid": ".",
+  "hero": [
+   [
+    ".",
+    3
+   ]
+  ],
+  "skip": "(hediye-seti|kesif-seti|-10-ml)"
+ },
+ "aktar": {
+  "domain": "unbeperfumes.com",
+  "namePrefix": "^UnBe\\.\\s+",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "no-tears",
+   "no-excuse",
+   "no-drama",
+   "no-regrets",
+   "no-filter",
+   "no-rules"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.42
+  },
+  "rename": {
+   "no-tears": [
+    "NO TEARS",
+    "NO TEARS"
+   ],
+   "no-excuse": [
+    "NO EXCUSE",
+    "NO EXCUSE"
+   ],
+   "no-drama": [
+    "NO DRAMA",
+    "NO DRAMA"
+   ],
+   "no-regrets": [
+    "NO REGRETS",
+    "NO REGRETS"
+   ],
+   "no-filter": [
+    "NO FILTER",
+    "NO FILTER"
+   ],
+   "no-rules": [
+    "NO RULES",
+    "NO RULES"
+   ]
+  },
+  "categories": [
+   {
+    "id": "kadin",
+    "tr": "Kadın",
+    "en": "Women",
+    "color": "#d8402a",
+    "descTr": "No Tears, No Drama, No Regrets, No Filter.",
+    "descEn": "No Tears, No Drama, No Regrets, No Filter.",
+    "match": "^no-(tears|drama|regrets|filter)\\b"
+   },
+   {
+    "id": "erkek",
+    "tr": "Erkek",
+    "en": "Men",
+    "color": "#5a3aa8",
+    "descTr": "No Excuse, No Rules.",
+    "descEn": "No Excuse, No Rules.",
+    "match": "^no-(excuse|rules)\\b"
+   }
+  ],
+  "families": {
+   "no-tears": [
+    "Odunsu · Amberimsi",
+    "Woody · Ambery"
+   ],
+   "no-excuse": [
+    "Odunsu · Marin",
+    "Woody · Marine"
+   ],
+   "no-drama": [
+    "Oryantal · Odunsu",
+    "Oriental · Woody"
+   ],
+   "no-regrets": [
+    "Çiçeksi · Tatlı",
+    "Floral · Sweet"
+   ],
+   "no-filter": [
+    "Çiçeksi · Meyvemsi",
+    "Floral · Fruity"
+   ],
+   "no-rules": [
+    "Meyvemsi",
+    "Fruity"
+   ]
+  },
+  "notes": [
+   [
+    "^no-tears$",
+    [
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Orange Blossom"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^no-excuse$",
+    [
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Deniz notaları",
+      "Marine"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Cypriol",
+      "Cypriol"
+     ]
+    ]
+   ],
+   [
+    "^no-drama$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Davana",
+      "Davana"
+     ],
+     [
+      "Rom",
+      "Rum"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^no-regrets$",
+    [
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Armut",
+      "Pear"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ]
+    ]
+   ],
+   [
+    "^no-filter$",
+    [
+     [
+      "Pamuk Şekeri",
+      "Cotton Candy"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Liçi",
+      "Lychee"
+     ],
+     [
+      "Çilek",
+      "Strawberry"
+     ],
+     [
+      "Fındık",
+      "Hazelnut"
+     ]
+    ]
+   ],
+   [
+    "^no-rules$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Liçi",
+      "Lychee"
+     ],
+     [
+      "Çarkıfelek Meyvesi",
+      "Passionfruit"
+     ],
+     [
+      "Ravent",
+      "Rhubarb"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^no-tears$",
+    "composition": {
+     "tr": [
+      "Üst: Mandalina, Şeftali, Bergamot, Yeşil",
+      "Kalp: Portakal Çiçeği, Solar, Amberimsi",
+      "Dip: Misk, Kremamsı, Paçuli"
+     ],
+     "en": [
+      "Top: Mandarin, Peach, Bergamot, Green",
+      "Heart: Orange Blossom, Solar notes, Ambery",
+      "Base: Musk, Creamy notes, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^no-excuse$",
+    "composition": {
+     "tr": [
+      "Üst: Mandalina, Neroli, Deniz notaları, Safran",
+      "Kalp: Cypriol, Kaşmir ağacı, Gül, Amberimsi, İsli",
+      "Dip: Misk, Cistus (Laden), Amberimsi, Sandal Ağacı, Yosun, İsli"
+     ],
+     "en": [
+      "Top: Mandarin, Neroli, Marine, Saffron",
+      "Heart: Cypriol, Cashmere, Rose, Ambery, Smoky",
+      "Base: Musk, Cistus, Ambery, Sandalwood, Moss, Smoky"
+     ]
+    }
+   },
+   {
+    "match": "^no-drama$",
+    "composition": {
+     "tr": [
+      "Üst: Sulu notalar, Bergamot, Davana, Rom",
+      "Kalp: Kremamsı, Pudramsı, Gül",
+      "Dip: Misk, Ambergris, Vanilya, Sandal Ağacı, Amberimsi"
+     ],
+     "en": [
+      "Top: Aqueous, Bergamot, Davana, Rum",
+      "Heart: Creamy, Powdery , Rose",
+      "Base: Musk, Ambergris, Vanilla, Sandalwood, Ambery"
+     ]
+    }
+   },
+   {
+    "match": "^no-regrets$",
+    "composition": {
+     "tr": [
+      "Üst: Kakule, Şeftali, Armut",
+      "Kalp: Yasemin, Gül, Sümbülteber",
+      "Dip: Balsamik, Sedir Ağacı, Misk"
+     ],
+     "en": [
+      "Top: Cardamom, Peach, Pear",
+      "Heart: Jasmine, Rose, Tuberose",
+      "Base: Balsamic notes, Cedarwood, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^no-filter$",
+    "composition": {
+     "tr": [
+      "Üst: Pamuk Şekeri, Tütsü, Liçi, Çilek",
+      "Kalp: Fındık, Manolya, Gül, Yeşil",
+      "Dip: Amberimsi, Misk, Sandal Ağacı, Vanilya"
+     ],
+     "en": [
+      "Top: Cotton Candy, Incense, Lychee, Strawberry",
+      "Heart: Hazelnut, Magnolia, Rose, Green",
+      "Base: Ambery notes, Musk, Sandalwood, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^no-rules$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Greyfurt, Liçi, Çarkıfelek Meyvesi, Ravent, Safran",
+      "Kalp: Yasemin, Müge (İnci Çiçeği), Süsen Kökü (İris), Gül",
+      "Dip: Ambergris, Benjoin, Kaşmir ağacı, Sedir Ağacı, Ladanyum, Deri"
+     ],
+     "en": [
+      "Top: Bergamot, Grapefruit, Lychee, Passionfruit, Rhubarb, Saffron",
+      "Heart: Jasmine, Lily of the valley, Orris, Rose",
+      "Base: Ambergris, Benzoin, Cashmere, Cedarwood, Labdanum, Leather"
+     ]
+    }
+   }
+  ],
+  "palette": [
+   [
+    "^no-tears$",
+    "#2a9a88",
+    "#bff0e6",
+    "#06201c"
+   ],
+   [
+    "^no-excuse$",
+    "#6a4ac8",
+    "#dcd0ff",
+    "#100828"
+   ],
+   [
+    "^no-drama$",
+    "#d89a30",
+    "#ffe6b8",
+    "#2a1a04"
+   ],
+   [
+    "^no-regrets$",
+    "#9a50d0",
+    "#ecd4ff",
+    "#1c0a28"
+   ],
+   [
+    "^no-filter$",
+    "#e04a2c",
+    "#ffd0c4",
+    "#2a0804"
+   ],
+   [
+    "^no-rules$",
+    "#e07a28",
+    "#ffdcb8",
+    "#2a1204"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "no-tears",
+    "tr": {
+     "title": "Güç, gözyaşlarının bittiği yerde başlar.",
+     "text": "Duygusal resetleme.",
+     "stat": "Yumuşak — Işıltılı — Dayanıklı"
+    },
+    "en": {
+     "title": "Strength begins where the tears end.",
+     "text": "Emotional reset",
+     "stat": "Soft — Luminous — Resilient"
+    }
+   },
+   {
+    "handle": "no-drama",
+    "tr": {
+     "title": "Varlık, her tartışmadan daha yüksek sesle konuşur.",
+     "text": "Gürültüyü seven bir dünyada, NO DRAMA sessiz bir başkaldırıdır.",
+     "stat": "Sakin — Dengeli — Sessiz Güç"
+    },
+    "en": {
+     "title": "Presence is louder than any argument.",
+     "text": "In a world that loves noise, NO DRAMA is the quiet rebellion.",
+     "stat": "Calm — Balanced — Quiet Power"
+    }
+   },
+   {
+    "handle": "no-rules",
+    "tr": {
+     "title": "Yolu sen yarat. Takip etme.",
+     "text": "Kalıpları kırmanın kokusu.",
+     "stat": "Özgür — Manyetik — Modern"
+    },
+    "en": {
+     "title": "Create the path. Don't follow it.",
+     "text": "Scent of breaking patterns",
+     "stat": "Free — Magnetic — Modern"
+    }
+   }
+  ],
+  "taglines": {
+   "no-tears": [
+    "Yumuşak — Işıltılı — Dayanıklı",
+    "Soft — Luminous — Resilient"
+   ],
+   "no-excuse": [
+    "Odaklı — Minimal — Güçlü",
+    "Minimal — Powerful"
+   ],
+   "no-drama": [
+    "Sakin — Dengeli — Sessiz Güç",
+    "Calm — Balanced — Quiet Power"
+   ],
+   "no-regrets": [
+    "Cesur — Canlı — Derin",
+    "Bold — Vibrant — Deep"
+   ],
+   "no-filter": [
+    "Gerçek — Cesur — Parlak",
+    "Authentic — Bold — Radiant"
+   ],
+   "no-rules": [
+    "Özgür — Manyetik — Modern",
+    "Free — Magnetic — Modern"
+   ]
+  }
+ }
+}
