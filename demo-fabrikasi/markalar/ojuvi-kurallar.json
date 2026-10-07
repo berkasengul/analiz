@@ -1,0 +1,736 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "solidTop": 0.28,
+  "backSolid": ".",
+  "skip": "-mum$",
+  "hero": [
+   [
+    "^another\\-story\\-erkek\\-parfum\\-70ml\\-premium$",
+    3
+   ],
+   [
+    "^black\\-ombre\\-erkek\\-parfum\\-70ml\\-premium$",
+    4
+   ],
+   [
+    "^dancing\\-under\\-the\\-full\\-moon\\-erkek\\-parfum\\-70ml\\-premium$",
+    3
+   ],
+   [
+    "^night\\-tales\\-erkek\\-parfum\\-70ml\\-premium$",
+    4
+   ],
+   [
+    "^one\\-thousand\\-one\\-night\\-erkek\\-parfum\\-70ml\\-premium$",
+    4
+   ],
+   [
+    "^oud\\-amber\\-harmony\\-erkek\\-parfum\\-70ml\\-premium$",
+    3
+   ],
+   [
+    "^ojuvi-(red-passion|dark-miracle|forever|reborn)",
+    3
+   ],
+   [
+    "^ojuvi-gold",
+    2
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "ojuvi.com.tr",
+  "platform": "woo",
+  "wooCart": "cart",
+  "namePrefix": "^(Ojuvi|O’juvi)\\s+",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "sizes": [
+   [
+    "^ojuvi-",
+    "100 ml"
+   ],
+   [
+    "-premium$",
+    "70 ml"
+   ]
+  ],
+  "themeGlow": 0.3,
+  "home": [
+   "ojuvi-gold-eau-de-parfum-100-ml",
+   "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml",
+   "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml",
+   "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml"
+  ],
+  "profiles": {
+   "flask": "^(?!ojuvi-gold)",
+   "depthRatio": 0.42
+  },
+  "categories": [
+   {
+    "id": "premium-plus",
+    "tr": "Premium Plus",
+    "en": "Premium Plus",
+    "color": "#d4ad62",
+    "descTr": "Ödüllü Gold ve 100 ml extrait de parfum serisi.",
+    "descEn": "The award-winning Gold and the 100 ml extrait de parfum series.",
+    "match": "^ojuvi-"
+   },
+   {
+    "id": "premium",
+    "tr": "Premium",
+    "en": "Premium",
+    "color": "#c9a15c",
+    "descTr": "70 ml extrait de parfum; Doğu'nun masallarından ilham.",
+    "descEn": "70 ml extrait de parfum, inspired by tales of the East.",
+    "match": "."
+   }
+  ],
+  "families": {
+   "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml": [
+    "Amber",
+    "Ambery"
+   ],
+   "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml": [
+    "Misk",
+    "Musky"
+   ],
+   "ojuvi-forever-extrait-de-parfum-100-ml-10-ml": [
+    "Misk",
+    "Musky"
+   ],
+   "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml": [
+    "Odunsu",
+    "Woody"
+   ],
+   "ojuvi-gold-eau-de-parfum-100-ml": [
+    "Odunsu Amber",
+    "Woody Amber"
+   ],
+   "oud-amber-harmony-erkek-parfum-70ml-premium": [
+    "Amber Odunsu",
+    "Ambery Woody"
+   ],
+   "one-thousand-one-night-erkek-parfum-70ml-premium": [
+    "Odunsu Amber",
+    "Woody Ambery"
+   ],
+   "night-tales-erkek-parfum-70ml-premium": [
+    "Misk",
+    "Musky"
+   ],
+   "dancing-under-the-full-moon-erkek-parfum-70ml-premium": [
+    "Tatlı Amber",
+    "Sweety Ambery"
+   ],
+   "black-ombre-erkek-parfum-70ml-premium": [
+    "Amber",
+    "Ambery"
+   ],
+   "another-story-erkek-parfum-70ml-premium": [
+    "Odunsu",
+    "Woody"
+   ]
+  },
+  "notes": [
+   [
+    "^ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Tütün",
+      "Tobacco"
+     ],
+     [
+      "Tonka Fasulyesi",
+      "Tonka Bean"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml$",
+    [
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ]
+    ]
+   ],
+   [
+    "^ojuvi-forever-extrait-de-parfum-100-ml-10-ml$",
+    [
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Ylang Ylang",
+      "Ylang Ylang"
+     ],
+     [
+      "Gardenya",
+      "Gardenia"
+     ]
+    ]
+   ],
+   [
+    "^ojuvi-reborn-extrait-de-parfum-100-ml-10-ml$",
+    [
+     [
+      "Sardunya",
+      "Geranium"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Sedir",
+      "Cedarwood"
+     ]
+    ]
+   ],
+   [
+    "^ojuvi-gold-eau-de-parfum-100-ml$",
+    [
+     [
+      "Pembe Biber",
+      "Pink Pepper"
+     ],
+     [
+      "Misk Adaçayı",
+      "Clary Sage"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^oud-amber-harmony-erkek-parfum-70ml-premium$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Mandalina",
+      "Mandarine"
+     ],
+     [
+      "Çiçek Buketi",
+      "Floral Bouquet"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^one-thousand-one-night-erkek-parfum-70ml-premium$",
+    [
+     [
+      "Tik Ağacı",
+      "Teak Wood"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Oud",
+      "Oud"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^night-tales-erkek-parfum-70ml-premium$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ],
+     [
+      "Sedir",
+      "Cedarwood"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Misk",
+      "Diffusive Musk"
+     ]
+    ]
+   ],
+   [
+    "^dancing-under-the-full-moon-erkek-parfum-70ml-premium$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Mandalina",
+      "Mandarine"
+     ],
+     [
+      "Portakal Çiçeği",
+      "Orange Blossom"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Karamel",
+      "Caramel"
+     ]
+    ]
+   ],
+   [
+    "^black-ombre-erkek-parfum-70ml-premium$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Menekşe",
+      "Violet"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^another-story-erkek-parfum-70ml-premium$",
+    [
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Karanfil Çiçeği",
+      "Carnation"
+     ],
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Muskat",
+      "Nutmeg"
+     ],
+     [
+      "Zambak",
+      "Lily"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot",
+      "Kalp: Tarçın",
+      "Dip: Tütün, Tonka Fasulyesi, Amber, Paçuli"
+     ],
+     "en": [
+      "Top: Bergamot",
+      "Heart: Cinnamon",
+      "Base: Tobacco, Tonka Bean, Amber, Patchouli"
+     ]
+    }
+   },
+   {
+    "match": "^ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Safran",
+      "Kalp: Yasemin, Gül",
+      "Dip: Misk, Oud, Vanilya, Amber"
+     ],
+     "en": [
+      "Top: Saffron",
+      "Heart: Jasmine, Rose",
+      "Base: Musk, Oud, Vanilla, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^ojuvi-forever-extrait-de-parfum-100-ml-10-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Şeftali, Bergamot",
+      "Kalp: Yasemin, Ylang Ylang, Gardenya, Şakayık",
+      "Dip: Misk, Meşe Yosunu, Vanilya, Çikolata"
+     ],
+     "en": [
+      "Top: Peach, Bergamot",
+      "Heart: Jasmine, Ylang Ylang, Gardenia, Peony",
+      "Base: Musk, Oakmoss, Vanilla, Chocolate"
+     ]
+    }
+   },
+   {
+    "match": "^ojuvi-reborn-extrait-de-parfum-100-ml-10-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Sardunya, Karanfil, Safran, Karabiber",
+      "Kalp: Sedir, Gayak, Sandal Ağacı, Paçuli",
+      "Dip: Oud, Deri, Kuru Odun, Vanilya"
+     ],
+     "en": [
+      "Top: Geranium, Clove, Saffron, Black Pepper",
+      "Heart: Cedarwood, Guaiac, Sandalwood, Patchouli",
+      "Base: Oud, Leather, Dry Wood, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^ojuvi-gold-eau-de-parfum-100-ml$",
+    "composition": {
+     "tr": [
+      "Üst: Pembe Biber",
+      "Kalp: Misk Adaçayı",
+      "Dip: Paçuli, Amber"
+     ],
+     "en": [
+      "Top: Pink Pepper",
+      "Heart: Clary Sage",
+      "Base: Patchouli, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^oud-amber-harmony-erkek-parfum-70ml-premium$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Mandalina",
+      "Kalp: Çiçek Buketi",
+      "Dip: Oud, Amber"
+     ],
+     "en": [
+      "Top: Bergamot, Mandarine",
+      "Heart: Floral Bouquet",
+      "Base: Oud, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^one-thousand-one-night-erkek-parfum-70ml-premium$",
+    "composition": {
+     "tr": [
+      "Üst: Tik Ağacı",
+      "Kalp: Gül",
+      "Dip: Oud, Amber"
+     ],
+     "en": [
+      "Top: Teak Wood",
+      "Heart: Rose",
+      "Base: Oud, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^night-tales-erkek-parfum-70ml-premium$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Menekşe",
+      "Kalp: Sedir, Paçuli",
+      "Dip: Misk"
+     ],
+     "en": [
+      "Top: Bergamot, Violet",
+      "Heart: Cedarwood, Patchouli",
+      "Base: Diffusive Musk"
+     ]
+    }
+   },
+   {
+    "match": "^dancing-under-the-full-moon-erkek-parfum-70ml-premium$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Mandalina",
+      "Kalp: Portakal Çiçeği",
+      "Dip: Vanilya, Karamel"
+     ],
+     "en": [
+      "Top: Bergamot, Mandarine",
+      "Heart: Orange Blossom",
+      "Base: Vanilla, Caramel"
+     ]
+    }
+   },
+   {
+    "match": "^black-ombre-erkek-parfum-70ml-premium$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Portakal",
+      "Kalp: Menekşe, Yasemin",
+      "Dip: Amber"
+     ],
+     "en": [
+      "Top: Bergamot, Orange",
+      "Heart: Violet, Jasmine",
+      "Base: Amber"
+     ]
+    }
+   },
+   {
+    "match": "^another-story-erkek-parfum-70ml-premium$",
+    "composition": {
+     "tr": [
+      "Üst: Karabiber, Karanfil Çiçeği, Tarçın, Muskat",
+      "Kalp: Zambak",
+      "Dip: Paçuli, Vetiver"
+     ],
+     "en": [
+      "Top: Black Pepper, Carnation, Cinnamon, Nutmeg",
+      "Heart: Lily",
+      "Base: Patchouli, Vetiver"
+     ]
+    }
+   }
+  ],
+  "tagline": "notes",
+  "palette": [
+   [
+    "^ojuvi-red-passion",
+    "#3a0608",
+    "#e0303a"
+   ],
+   [
+    "^ojuvi-dark-miracle",
+    "#120d07",
+    "#d4ad62"
+   ],
+   [
+    "^ojuvi-forever",
+    "#2a2418",
+    "#f0e2c0"
+   ],
+   [
+    "^ojuvi-reborn",
+    "#16110a",
+    "#e0b84a"
+   ],
+   [
+    "^ojuvi-gold",
+    "#2a1e08",
+    "#f4c860"
+   ],
+   [
+    "^another-story",
+    "#1a120c",
+    "#c9a15c"
+   ],
+   [
+    "^black-ombre",
+    "#120c14",
+    "#b48ae0"
+   ],
+   [
+    "^dancing",
+    "#2a2418",
+    "#f2e6c8"
+   ],
+   [
+    "^night-tales",
+    "#0e1426",
+    "#8aa8e0"
+   ],
+   [
+    "^one-thousand",
+    "#2a1a06",
+    "#f0b040"
+   ],
+   [
+    "^oud-amber",
+    "#20140a",
+    "#d08a40"
+   ]
+  ],
+  "trText": {
+   "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml": "Cesur bir kompozisyon: vanilya, tütün ve amberin balsamik, tatlı notaları toprak kokulu paçuliyle derinleşiyor, bergamotla ferahlıyor.",
+   "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml": "Sadeliğin zıt yüzleriyle oynayan bir koku; karanlık ve dokunaklı ferahlığı gül, amber, oud ve safranla yuvarlanıyor.",
+   "ojuvi-forever-extrait-de-parfum-100-ml-10-ml": "Yumuşak tütün ve amber notaları yayan, karakter dolu, eski dünya inceliğinde karmaşık ve mistik bir koku.",
+   "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml": "Baharatlı nüansların ve balın narin çiçekleri sardığı zarif bir yorum; sedir, sandal ağacı ve deri notalarıyla değerli bir kompozisyon.",
+   "ojuvi-gold-eau-de-parfum-100-ml": "Yumuşak odunsu ve baharatlı notalar yayan karmaşık ve mistik bir koku; paçuli dünyanızı rüya gibi ve huzurlu kılıyor.",
+   "oud-amber-harmony-erkek-parfum-70ml-premium": "Değerli oud, kıymetli bir çiçek buketi ve parlak narenciye açılışından bir iksir.",
+   "one-thousand-one-night-erkek-parfum-70ml-premium": "Gül, oud ve oryantal amberle tazelenen ferah ve balsamik bir koku.",
+   "night-tales-erkek-parfum-70ml-premium": "Sadeliğin zıt yüzleriyle oynayan bir koku; parlak ferahlığı paçuli, misk ve sedirle yuvarlanıyor.",
+   "dancing-under-the-full-moon-erkek-parfum-70ml-premium": "Bir serap gibi, duyuların yolculuğu: zengin, dolgun ve dokulu bir koku. Lezzetli!",
+   "black-ombre-erkek-parfum-70ml-premium": "Menekşe ve sıcak amberle sarılmış yasemin zenginliğine adanmış bir koku.",
+   "another-story-erkek-parfum-70ml-premium": "Yumuşak odunsu ve baharatlı notalar yayan, karakter dolu, eski dünya inceliğinde karmaşık ve mistik bir koku."
+  },
+  "ritual": [
+   {
+    "handle": "ojuvi-gold-eau-de-parfum-100-ml",
+    "tr": {
+     "title": "Ödüllü koku",
+     "text": "Marie Claire Türkiye Parfüm Ödülleri 2026'da En İyi Niş Parfüm: pembe biber, misk adaçayı, paçuli ve amber.",
+     "stat": "Pembe Biber · Paçuli · Amber"
+    },
+    "en": {
+     "title": "The award-winning scent",
+     "text": "Best Niche Perfume at the Marie Claire Türkiye Fragrance Awards 2026: pink pepper, clary sage, patchouli and amber.",
+     "stat": "Pink Pepper · Patchouli · Amber"
+    }
+   },
+   {
+    "handle": "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml",
+    "tr": {
+     "title": "Cesur bir tutku",
+     "text": "Vanilya, tütün ve amber; toprak kokulu paçuli ve bergamotla.",
+     "stat": "Tütün · Tonka · Amber"
+    },
+    "en": {
+     "title": "A daring passion",
+     "text": "Vanilla, tobacco and amber, with earthy patchouli and a bergamot top.",
+     "stat": "Tobacco · Tonka · Amber"
+    }
+   },
+   {
+    "handle": "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml",
+    "tr": {
+     "title": "Karanlık bir mucize",
+     "text": "Safranla açılıyor; yasemin ve gül, misk, oud ve vanilyayla derinleşiyor.",
+     "stat": "Safran · Gül · Oud"
+    },
+    "en": {
+     "title": "A dark miracle",
+     "text": "Opens with saffron; jasmine and rose deepen into musk, oud and vanilla.",
+     "stat": "Saffron · Rose · Oud"
+    }
+   }
+  ],
+  "rename": {
+   "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml": [
+    "Red Passion",
+    "Red Passion"
+   ],
+   "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml": [
+    "Dark Miracle",
+    "Dark Miracle"
+   ],
+   "ojuvi-forever-extrait-de-parfum-100-ml-10-ml": [
+    "Forever",
+    "Forever"
+   ],
+   "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml": [
+    "Reborn",
+    "Reborn"
+   ],
+   "ojuvi-gold-eau-de-parfum-100-ml": [
+    "Gold",
+    "Gold"
+   ],
+   "oud-amber-harmony-erkek-parfum-70ml-premium": [
+    "Oud & Amber Harmony",
+    "Oud & Amber Harmony"
+   ],
+   "one-thousand-one-night-erkek-parfum-70ml-premium": [
+    "One Thousand & One Night",
+    "One Thousand & One Night"
+   ],
+   "night-tales-erkek-parfum-70ml-premium": [
+    "Night Tales",
+    "Night Tales"
+   ],
+   "dancing-under-the-full-moon-erkek-parfum-70ml-premium": [
+    "Dancing Under The Full Moon",
+    "Dancing Under The Full Moon"
+   ],
+   "black-ombre-erkek-parfum-70ml-premium": [
+    "Black Ombre",
+    "Black Ombre"
+   ],
+   "another-story-erkek-parfum-70ml-premium": [
+    "Another Story",
+    "Another Story"
+   ]
+  }
+ }
+}

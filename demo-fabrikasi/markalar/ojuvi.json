@@ -1,0 +1,2962 @@
+{
+  "slug": "ojuvi",
+  "meta": {
+    "title": "O'JUVI · Konsept Demo",
+    "description": "O'JUVI için 3B konsept demo. Marka sahibiyle bağlantılı değildir.",
+    "og": "O'JUVI: Ödüllü niş parfüm evi."
+  },
+  "brand": {
+    "name": "O'JUVI",
+    "sub": "Perfume House",
+    "specs": "Extrait de Parfum · 100 ml",
+    "disclaimer": "Bu sayfa O'JUVI için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir. Ürün görselleri, notalar, fiyatlar ve metinler markanın kendi sitesinden (ojuvi.com.tr) alınmıştır.",
+    "en": {
+      "sub": "Perfume House",
+      "specs": "Extrait de Parfum · 100 ml",
+      "disclaimer": "This page is an independent concept demo prepared for O'JUVI and is not affiliated with the brand owner. Product images, notes, prices and copy are taken from the brand's own website (ojuvi.com.tr)."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "O'JUVI",
+    "submark": "PERFUME HOUSE",
+    "concentration": "EXTRAIT DE PARFUM",
+    "volume": "100 ml"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "Extrait de Parfum · 100 ml",
+    "en": "Extrait de Parfum · 100 ml"
+  },
+  "features": [
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Ödül",
+        "kicker": "01",
+        "struck": "Sıradan bir koku",
+        "title": "En İyi Niş Parfüm 2026",
+        "text": "Ojuvi Gold, Marie Claire Türkiye Parfüm Ödülleri'nde En İyi Niş Parfüm seçildi."
+      },
+      "en": {
+        "short": "Award",
+        "kicker": "01",
+        "struck": "An ordinary scent",
+        "title": "Best Niche Perfume 2026",
+        "text": "Ojuvi Gold was named Best Niche Perfume at the Marie Claire Türkiye Fragrance Awards."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "Dünyaya",
+        "kicker": "02",
+        "struck": "Tek bir pazar",
+        "title": "Avrupa, Asya ve Afrika'da",
+        "text": "2014'ten beri kendi mağazaları ve distribütörleriyle dünyaya ihraç ediliyor."
+      },
+      "en": {
+        "short": "Worldwide",
+        "kicker": "02",
+        "struck": "A single market",
+        "title": "In Europe, Asia and Africa",
+        "text": "Exported worldwide since 2014 through its own stores and distributors."
+      }
+    },
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Standart",
+        "kicker": "03",
+        "struck": "Belirsiz üretim",
+        "title": "Uluslararası standartlarda üretim",
+        "text": "IFRA standartları; GMP ISO 22716, ISO 9001, ISO 14001 ve OHSAS 18001 sertifikaları."
+      },
+      "en": {
+        "short": "Standards",
+        "kicker": "03",
+        "struck": "Unclear production",
+        "title": "Made to international standards",
+        "text": "IFRA standards; GMP ISO 22716, ISO 9001, ISO 14001 and OHSAS 18001 certificates."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Showroom",
+        "kicker": "04",
+        "struck": "Sadece internet",
+        "title": "İstanbul ve Güney Afrika showroomları",
+        "text": "İstanbul'da CVK ve The Marmara otellerinde, Güney Afrika'da showroom."
+      },
+      "en": {
+        "short": "Showrooms",
+        "kicker": "04",
+        "struck": "Online only",
+        "title": "Showrooms in Istanbul and South Africa",
+        "text": "At CVK and The Marmara hotels in Istanbul, and in South Africa."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "100 ml",
+        "en": "100 ml"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "USD",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 250
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "USD",
+      "locale": "en-US",
+      "packs": {
+        "1": 250
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "M3 Cosmetics · Empas Group",
+    "instagram": "",
+    "website": "https://ojuvi.com.tr/",
+    "press": [],
+    "tr": {
+      "lead": "Bir dünya markası yaratma vizyonu.",
+      "paragraphs": [
+        "Ojuvi, 1984'ten beri çok uluslu şirketlere hizmet veren Empas Grubu'nun bir şirketi olan M3 Cosmetics tarafından 2014'te bir dünya markası yaratma vizyonuyla kuruldu.",
+        "Kısa sürede parfüm, kolonya ve esans üretimine başlayan marka; Avrupa, Asya ve Afrika'ya ihracat yapıyor, kendi mağazalarını açıyor ve distribütörlük veriyor.",
+        "Üretim uluslararası IFRA standartlarında; GMP ISO 22716, ISO 9001, ISO 14001 ve OHSAS 18001 sertifikalarıyla."
+      ],
+      "timeline": [
+        [
+          "1984",
+          "Empas Grubu"
+        ],
+        [
+          "2014",
+          "M3 Cosmetics ve Ojuvi"
+        ],
+        [
+          "Dünya",
+          "Avrupa, Asya ve Afrika'ya ihracat"
+        ],
+        [
+          "2026",
+          "En İyi Niş Parfüm: Ojuvi Gold"
+        ]
+      ],
+      "stats": [
+        [
+          "2014",
+          "kuruluş"
+        ],
+        [
+          "3",
+          "kıta"
+        ],
+        [
+          "2026",
+          "En İyi Niş Parfüm"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "A vision to create a world brand.",
+      "paragraphs": [
+        "Ojuvi was founded in 2014 by M3 Cosmetics, a company of Empas Group, which has served multinational companies since 1984, with the vision of creating a world brand.",
+        "In a short time it began producing perfumes, colognes and essences, exporting to Europe, Asia and Africa, opening its own stores and appointing distributors.",
+        "Production follows international IFRA standards, with GMP ISO 22716, ISO 9001, ISO 14001 and OHSAS 18001 certificates."
+      ],
+      "timeline": [
+        [
+          "1984",
+          "Empas Group"
+        ],
+        [
+          "2014",
+          "M3 Cosmetics and Ojuvi"
+        ],
+        [
+          "Worldwide",
+          "Exports to Europe, Asia and Africa"
+        ],
+        [
+          "2026",
+          "Best Niche Perfume: Ojuvi Gold"
+        ]
+      ],
+      "stats": [
+        [
+          "2014",
+          "founded"
+        ],
+        [
+          "3",
+          "continents"
+        ],
+        [
+          "2026",
+          "Best Niche Perfume"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Ojuvi Gold neden özel?",
+        "Marie Claire Türkiye Parfüm Ödülleri 2026'da En İyi Niş Parfüm seçildi."
+      ],
+      [
+        "Premium Plus serisinde ne var?",
+        "100 ml extrait de parfum ve yanında 10 ml seyahat spreyi."
+      ],
+      [
+        "Kokuları nerede deneyebilirim?",
+        "İstanbul'da CVK ve The Marmara otellerindeki showroomlarda ve Güney Afrika'daki showroomda."
+      ]
+    ],
+    "en": [
+      [
+        "What makes Ojuvi Gold special?",
+        "It was named Best Niche Perfume at the Marie Claire Türkiye Fragrance Awards 2026."
+      ],
+      [
+        "What is in the Premium Plus series?",
+        "A 100 ml extrait de parfum with a 10 ml travel spray."
+      ],
+      [
+        "Where can I try the scents?",
+        "At the showrooms in the CVK and The Marmara hotels in Istanbul, and in South Africa."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Ödüllü niş parfüm evi",
+      "madeFor": "O'JUVI için hazırlanmış konsept",
+      "recyclable": "Extrait de Parfum · 100 ml",
+      "founder": "M3 Cosmetics · Empas Group",
+      "contactTag": "Siparişleriniz, kokularımız ve iş birlikleri için bize yazın.",
+      "newsTitle": "Yeni kokular önce burada.",
+      "marquee": [
+        "O'JUVI",
+        "En İyi Niş Parfüm 2026",
+        "Ojuvi Gold",
+        "Premium Plus",
+        "Extrait de Parfum",
+        "Avrupa · Asya · Afrika"
+      ],
+      "slogan": "Bir dünya markası yaratma vizyonu.",
+      "nav": {
+        "flavors": "Öne çıkanlar",
+        "catalog": "Tüm kokular",
+        "categories": "Kategoriler",
+        "products": "Kokular",
+        "sets": "Koleksiyonlar",
+        "about": "Hakkımızda",
+        "contact": "İletişim"
+      },
+      "flavors": "Kokular",
+      "notes": "Notalar",
+      "discover": "{0} kokusunu keşfet",
+      "discoverCan": "Kokuyu keşfet",
+      "backToFlavors": "Kokulara dön",
+      "prevFlavor": "Önceki koku",
+      "nextFlavor": "Sonraki koku",
+      "backToFlavor": "Koku bilgisine dön",
+      "exploreCan": "Kokuyu keşfet · {0} hikâye",
+      "whatsInside": "Notalar",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Kokunu seç",
+      "shopTag": "Kokunu seç; markanın kendi mağazasında güvenle öde.",
+      "flavor": "Koku",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "O'JUVI · {0}",
+      "family": "Koku ailesi",
+      "caffeine": "Yalnızca harici kullanım içindir.",
+      "perks": [
+        "En İyi Niş Parfüm 2026: Ojuvi Gold",
+        "100 ml + 10 ml seyahat spreyi",
+        "İstanbul ve Güney Afrika showroomları"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Seçenek",
+      "related": "Benzer kokular",
+      "buildBox": "Kokuları keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} koku; O'JUVI Premium Plus ve Premium serileri.",
+      "year": "Çıkış",
+      "composition": "Nota piramidi",
+      "ships": "Markanın kendi mağazasında",
+      "place": "Nokta",
+      "spot": "Adres",
+      "status": "İletişim",
+      "addToCart": "Sepete ekle",
+      "added": "Sepette"
+    },
+    "en": {
+      "loading": "An award-winning niche perfume house",
+      "madeFor": "Concept prepared for O'JUVI",
+      "recyclable": "Extrait de Parfum · 100 ml",
+      "founder": "M3 Cosmetics · Empas Group",
+      "contactTag": "Write to us about orders, our fragrances and collaborations.",
+      "newsTitle": "New fragrances, first here.",
+      "marquee": [
+        "O'JUVI",
+        "Best Niche Perfume 2026",
+        "Ojuvi Gold",
+        "Premium Plus",
+        "Extrait de Parfum",
+        "Europe · Asia · Africa"
+      ],
+      "slogan": "A vision to create a world brand.",
+      "nav": {
+        "flavors": "Featured",
+        "catalog": "All scents",
+        "categories": "Categories",
+        "products": "Scents",
+        "sets": "Collections",
+        "about": "About us",
+        "contact": "Contact"
+      },
+      "flavors": "Scents",
+      "notes": "Notes",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover the scent",
+      "backToFlavors": "Back to scents",
+      "prevFlavor": "Previous scent",
+      "nextFlavor": "Next scent",
+      "backToFlavor": "Back to scent",
+      "exploreCan": "Explore the scent · {0} stories",
+      "whatsInside": "Notes",
+      "drag": "Drag to turn the bottle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your scent",
+      "shopTag": "Choose your scent; pay securely on the brand's own store.",
+      "flavor": "Scent",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "O'JUVI · {0}",
+      "family": "Family",
+      "caffeine": "For external use only.",
+      "perks": [
+        "Best Niche Perfume 2026: Ojuvi Gold",
+        "100 ml + 10 ml travel spray",
+        "Showrooms in Istanbul and South Africa"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Option",
+      "related": "Similar scents",
+      "buildBox": "Explore the scents",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} fragrances; the O'JUVI Premium Plus and Premium series.",
+      "year": "Launched",
+      "composition": "Fragrance pyramid",
+      "ships": "On the brand's own store",
+      "place": "Location",
+      "spot": "Address",
+      "status": "Contact",
+      "addToCart": "Add to cart",
+      "added": "In cart"
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "bottle"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "bottle",
+  "logo": null,
+  "labelFinish": {
+    "metalness": 0.1,
+    "roughness": 0.18,
+    "clearcoat": 1,
+    "clearcoatRoughness": 0.08,
+    "envMapIntensity": 1.1
+  },
+  "fillLight": "#ffe6c4",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "woo": "https://ojuvi.com.tr",
+    "wooCart": "cart"
+  },
+  "latinTerms": "Extrait de Parfum|Eau de Parfum|O'JUVI|Ojuvi|Gold|Red Passion|Dark Miracle|Forever|Reborn|Premium Plus|Premium|Another Story|Black Ombre|Dancing Under The Full Moon|Night Tales|One Thousand & One Night|Oud & Amber Harmony",
+  "glass": false,
+  "spray": false,
+  "photoUnlit": 0.55,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#c9a15c",
+    "particles": "gold",
+    "numerals": {
+      "font": "fonts/Italiana-Regular.ttf"
+    },
+    "intro": "mark",
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400..600;1,400..600&family=Jost:wght@300..500&display=swap",
+      "display": "\"Cinzel\", \"Cormorant Garamond\", Georgia, serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "glide",
+    "cards": "gallery",
+    "pyramid": true,
+    "glideScale": 1.1,
+    "cardAngle": 0.32,
+    "lux": true
+  },
+  "defaultLang": "tr",
+  "hide": [
+    "stockists"
+  ],
+  "contactInfo": {
+    "tr": [
+      [
+        "Telefon",
+        [
+          "+90 212 515 84 44"
+        ]
+      ],
+      [
+        "Web",
+        [
+          "ojuvi.com.tr"
+        ]
+      ],
+      [
+        "Showroom",
+        [
+          "İstanbul · CVK Hotels",
+          "İstanbul · The Marmara Hotels",
+          "Güney Afrika"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "Phone",
+        [
+          "+90 212 515 84 44"
+        ]
+      ],
+      [
+        "Web",
+        [
+          "ojuvi.com.tr"
+        ]
+      ],
+      [
+        "Showrooms",
+        [
+          "Istanbul · CVK Hotels",
+          "Istanbul · The Marmara Hotels",
+          "South Africa"
+        ]
+      ]
+    ]
+  },
+  "stockists": {
+    "tr": [],
+    "en": []
+  },
+  "finder": {},
+  "catalog": {
+    "homeCount": 8,
+    "glow": "#3a2a10",
+    "categories": [
+      {
+        "id": "premium-plus",
+        "name": {
+          "tr": "Premium Plus",
+          "en": "Premium Plus"
+        },
+        "color": "#d4ad62",
+        "desc": {
+          "tr": "Ödüllü Gold ve 100 ml extrait de parfum serisi.",
+          "en": "The award-winning Gold and the 100 ml extrait de parfum series."
+        }
+      },
+      {
+        "id": "premium",
+        "name": {
+          "tr": "Premium",
+          "en": "Premium"
+        },
+        "color": "#c9a15c",
+        "desc": {
+          "tr": "70 ml extrait de parfum; Doğu'nun masallarından ilham.",
+          "en": "70 ml extrait de parfum, inspired by tales of the East."
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "ojuvi-gold-eau-de-parfum-100-ml",
+        "handle": "ojuvi-gold-eau-de-parfum-100-ml",
+        "name": {
+          "tr": "Gold",
+          "en": "Gold"
+        },
+        "category": "premium-plus",
+        "size": "100 ml",
+        "price": {
+          "tr": 600.0,
+          "en": 600.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Yumuşak odunsu ve baharatlı notalar yayan karmaşık ve mistik bir koku; paçuli dünyanızı rüya gibi ve huzurlu kılıyor.",
+          "en": "This is a complex and mystical fragrance that exudes soft woody and spicy notes and with patchouli notes it makes your…"
+        },
+        "color": "#beae81",
+        "product": 0,
+        "image": "cut/ojuvi-gold-eau-de-parfum-100-ml.webp",
+        "cutout": true,
+        "bg": "#2a1e08",
+        "bg2": "#f4c860",
+        "variants": [
+          {
+            "id": 416
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/ojuvi-gold-eau-de-parfum-100-ml/"
+      },
+      {
+        "id": "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml",
+        "handle": "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml",
+        "name": {
+          "tr": "Red Passion",
+          "en": "Red Passion"
+        },
+        "category": "premium-plus",
+        "size": "10 ml",
+        "price": {
+          "tr": 250.0,
+          "en": 250.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Cesur bir kompozisyon: vanilya, tütün ve amberin balsamik, tatlı notaları toprak kokulu paçuliyle derinleşiyor,…",
+          "en": "In a daring composition, balmy and sweet notes of vanilla, tobacco, amber are faceted with earthy patchouli and…"
+        },
+        "color": "#d5111d",
+        "product": 1,
+        "image": "cut/ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml.webp",
+        "cutout": true,
+        "bg": "#3a0608",
+        "bg2": "#e0303a",
+        "variants": [
+          {
+            "id": 420
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml/"
+      },
+      {
+        "id": "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml",
+        "handle": "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml",
+        "name": {
+          "tr": "Dark Miracle",
+          "en": "Dark Miracle"
+        },
+        "category": "premium-plus",
+        "size": "10 ml",
+        "price": {
+          "tr": 250.0,
+          "en": 250.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Sadeliğin zıt yüzleriyle oynayan bir koku; karanlık ve dokunaklı ferahlığı gül, amber, oud ve safranla yuvarlanıyor.",
+          "en": "A fragrance playing on the contrasting facets of simplicity; its dark and poignant freshness is rounded by the scent of…"
+        },
+        "color": "#c4a360",
+        "product": 2,
+        "image": "cut/ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml.webp",
+        "cutout": true,
+        "bg": "#120d07",
+        "bg2": "#d4ad62",
+        "variants": [
+          {
+            "id": 419
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml/"
+      },
+      {
+        "id": "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml",
+        "handle": "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml",
+        "name": {
+          "tr": "Reborn",
+          "en": "Reborn"
+        },
+        "category": "premium-plus",
+        "size": "10 ml",
+        "price": {
+          "tr": 250.0,
+          "en": 250.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Baharatlı nüansların ve balın narin çiçekleri sardığı zarif bir yorum;",
+          "en": "An elegant interpretation of spicy nuances and honey envoloped indelicate flowers precious composition of cedar ,…"
+        },
+        "color": "#d6bd7e",
+        "product": 3,
+        "image": "cut/ojuvi-reborn-extrait-de-parfum-100-ml-10-ml.webp",
+        "cutout": true,
+        "bg": "#16110a",
+        "bg2": "#e0b84a",
+        "variants": [
+          {
+            "id": 417
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/ojuvi-reborn-extrait-de-parfum-100-ml-10-ml/"
+      },
+      {
+        "id": "ojuvi-forever-extrait-de-parfum-100-ml-10-ml",
+        "handle": "ojuvi-forever-extrait-de-parfum-100-ml-10-ml",
+        "name": {
+          "tr": "Forever",
+          "en": "Forever"
+        },
+        "category": "premium-plus",
+        "size": "10 ml",
+        "price": {
+          "tr": 250.0,
+          "en": 250.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Yumuşak tütün ve amber notaları yayan, karakter dolu, eski dünya inceliğinde karmaşık ve mistik bir koku.",
+          "en": "This is a complex and mystical fragrance that exudes soft tobacco and ambery notes and is full of character and old…"
+        },
+        "color": "#ccb162",
+        "product": 4,
+        "image": "cut/ojuvi-forever-extrait-de-parfum-100-ml-10-ml.webp",
+        "cutout": true,
+        "bg": "#2a2418",
+        "bg2": "#f0e2c0",
+        "variants": [
+          {
+            "id": 418
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/ojuvi-forever-extrait-de-parfum-100-ml-10-ml/"
+      },
+      {
+        "id": "another-story-erkek-parfum-70ml-premium",
+        "handle": "another-story-erkek-parfum-70ml-premium",
+        "name": {
+          "tr": "Another Story",
+          "en": "Another Story"
+        },
+        "category": "premium",
+        "size": "70 ml",
+        "price": {
+          "tr": 99.9,
+          "en": 99.9
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Yumuşak odunsu ve baharatlı notalar yayan, karakter dolu, eski dünya inceliğinde karmaşık ve mistik bir koku.",
+          "en": "This is a complex and mystical fragrance that exudes soft woody and spicy notes and is full of character and old world…"
+        },
+        "color": "#cfa66e",
+        "product": 5,
+        "image": "cut/another-story-erkek-parfum-70ml-premium.webp",
+        "cutout": true,
+        "bg": "#1a120c",
+        "bg2": "#c9a15c",
+        "variants": [
+          {
+            "id": 238
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/another-story-erkek-parfum-70ml-premium/",
+        "compareAt": {
+          "tr": 200.0,
+          "en": 200.0
+        }
+      },
+      {
+        "id": "black-ombre-erkek-parfum-70ml-premium",
+        "handle": "black-ombre-erkek-parfum-70ml-premium",
+        "name": {
+          "tr": "Black Ombre",
+          "en": "Black Ombre"
+        },
+        "category": "premium",
+        "size": "70 ml",
+        "price": {
+          "tr": 99.9,
+          "en": 99.9
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Menekşe ve sıcak amberle sarılmış yasemin zenginliğine adanmış bir koku.",
+          "en": "A fragrance dedicated to the richness of jasmine enveloped with violet and warm amber."
+        },
+        "color": "#d6ab70",
+        "product": 6,
+        "image": "cut/black-ombre-erkek-parfum-70ml-premium.webp",
+        "cutout": true,
+        "bg": "#120c14",
+        "bg2": "#b48ae0",
+        "variants": [
+          {
+            "id": 243
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/black-ombre-erkek-parfum-70ml-premium/",
+        "compareAt": {
+          "tr": 200.0,
+          "en": 200.0
+        }
+      },
+      {
+        "id": "dancing-under-the-full-moon-erkek-parfum-70ml-premium",
+        "handle": "dancing-under-the-full-moon-erkek-parfum-70ml-premium",
+        "name": {
+          "tr": "Dancing Under The Full Moon",
+          "en": "Dancing Under The Full Moon"
+        },
+        "category": "premium",
+        "size": "70 ml",
+        "price": {
+          "tr": 99.9,
+          "en": 99.9
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Bir serap gibi, duyuların yolculuğu: zengin, dolgun ve dokulu bir koku. Lezzetli!",
+          "en": "Like a mirage, a journey of the senses: an opulent, voluptuous and textured fragrance. Delicious!"
+        },
+        "color": "#e3d2bd",
+        "product": 7,
+        "image": "cut/dancing-under-the-full-moon-erkek-parfum-70ml-premium.webp",
+        "cutout": true,
+        "bg": "#2a2418",
+        "bg2": "#f2e6c8",
+        "variants": [
+          {
+            "id": 248
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/dancing-under-the-full-moon-erkek-parfum-70ml-premium/",
+        "compareAt": {
+          "tr": 200.0,
+          "en": 200.0
+        }
+      },
+      {
+        "id": "night-tales-erkek-parfum-70ml-premium",
+        "handle": "night-tales-erkek-parfum-70ml-premium",
+        "name": {
+          "tr": "Night Tales",
+          "en": "Night Tales"
+        },
+        "category": "premium",
+        "size": "70 ml",
+        "price": {
+          "tr": 99.9,
+          "en": 99.9
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Sadeliğin zıt yüzleriyle oynayan bir koku; parlak ferahlığı paçuli, misk ve sedirle yuvarlanıyor.",
+          "en": "A fragrance playing on the contrasting facets of simplicity; its bright and poignant freshness is rounded by the scent…"
+        },
+        "color": "#d8b279",
+        "product": 8,
+        "image": "cut/night-tales-erkek-parfum-70ml-premium.webp",
+        "cutout": true,
+        "bg": "#0e1426",
+        "bg2": "#8aa8e0",
+        "variants": [
+          {
+            "id": 252
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/night-tales-erkek-parfum-70ml-premium/",
+        "compareAt": {
+          "tr": 200.0,
+          "en": 200.0
+        }
+      },
+      {
+        "id": "one-thousand-one-night-erkek-parfum-70ml-premium",
+        "handle": "one-thousand-one-night-erkek-parfum-70ml-premium",
+        "name": {
+          "tr": "One Thousand & One Night",
+          "en": "One Thousand & One Night"
+        },
+        "category": "premium",
+        "size": "70 ml",
+        "price": {
+          "tr": 99.9,
+          "en": 99.9
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Gül, oud ve oryantal amberle tazelenen ferah ve balsamik bir koku.",
+          "en": "This is an fresh and balsamic fragrance refreshed by the essence of rose, oud and oriental amber."
+        },
+        "color": "#d6a953",
+        "product": 9,
+        "image": "cut/one-thousand-one-night-erkek-parfum-70ml-premium.webp",
+        "cutout": true,
+        "bg": "#2a1a06",
+        "bg2": "#f0b040",
+        "variants": [
+          {
+            "id": 257
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/one-thousand-one-night-erkek-parfum-70ml-premium/",
+        "compareAt": {
+          "tr": 200.0,
+          "en": 200.0
+        }
+      },
+      {
+        "id": "oud-amber-harmony-erkek-parfum-70ml-premium",
+        "handle": "oud-amber-harmony-erkek-parfum-70ml-premium",
+        "name": {
+          "tr": "Oud & Amber Harmony",
+          "en": "Oud & Amber Harmony"
+        },
+        "category": "premium",
+        "size": "70 ml",
+        "price": {
+          "tr": 99.9,
+          "en": 99.9
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Değerli oud, kıymetli bir çiçek buketi ve parlak narenciye açılışından bir iksir.",
+          "en": "A potion of precious oud, precious floral bouquet and citrusy bright top."
+        },
+        "color": "#c7a779",
+        "product": 10,
+        "image": "cut/oud-amber-harmony-erkek-parfum-70ml-premium.webp",
+        "cutout": true,
+        "bg": "#20140a",
+        "bg2": "#d08a40",
+        "variants": [
+          {
+            "id": 262
+          }
+        ],
+        "url": "https://ojuvi.com.tr/urun/oud-amber-harmony-erkek-parfum-70ml-premium/",
+        "compareAt": {
+          "tr": 200.0,
+          "en": 200.0
+        }
+      }
+    ]
+  },
+  "products": [
+    {
+      "name": "Gold",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Odunsu Amber",
+      "year": null,
+      "perfumer": null,
+      "color": "#beae81",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#2a1e08",
+        "edge": "#050404",
+        "drop": "#f4c860",
+        "accent": "#f4c860",
+        "mood": "warm"
+      },
+      "tagline": "Pembe Biber · Misk Adaçayı · Paçuli",
+      "notes": [
+        "Pembe Biber",
+        "Misk Adaçayı",
+        "Paçuli",
+        "Amber"
+      ],
+      "description": "Yumuşak odunsu ve baharatlı notalar yayan karmaşık ve mistik bir koku; paçuli dünyanızı rüya gibi ve huzurlu kılıyor.",
+      "file": "ojuvi-gold-eau-de-parfum-100-ml.webp",
+      "handle": "ojuvi-gold-eau-de-parfum-100-ml",
+      "en": {
+        "name": "Gold",
+        "family": "Woody Amber",
+        "tagline": "Pink Pepper · Clary Sage · Patchouli",
+        "notes": [
+          "Pink Pepper",
+          "Clary Sage",
+          "Patchouli",
+          "Amber"
+        ],
+        "description": "This is a complex and mystical fragrance that exudes soft woody and spicy notes and with patchouli notes it makes your world dreamy and peacefull",
+        "sub": "100 ml",
+        "composition": [
+          "Top: Pink Pepper",
+          "Heart: Clary Sage",
+          "Base: Patchouli, Amber"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "round",
+        "zScale": 1,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0609, 0.0844, 0.1109, 0.1328, 0.1555, 0.1719, 0.1766, 0.182, 0.1883, 0.193, 0.1977, 0.2039, 0.2086, 0.2133, 0.2188, 0.2234, 0.2273, 0.2313, 0.2344, 0.2367, 0.2391, 0.2414, 0.2437, 0.2461, 0.2484, 0.25, 0.2523, 0.2547, 0.2562, 0.2586, 0.2602, 0.2609, 0.2617, 0.2625, 0.2625, 0.2625, 0.2625, 0.2609, 0.2594, 0.2578, 0.2562, 0.2547, 0.2523, 0.2508, 0.2484, 0.2469, 0.2445, 0.2422, 0.2398, 0.2375, 0.2344, 0.2313, 0.2281, 0.2234, 0.2203, 0.2164, 0.2109, 0.207, 0.2023, 0.1938, 0.1867, 0.1797, 0.1711, 0.1633, 0.1477, 0.1258, 0.118, 0.1164, 0.1172, 0.1187, 0.1195, 0.1203, 0.1203, 0.1203, 0.1195, 0.1195, 0.118, 0.1164, 0.118, 0.1219, 0.1219, 0.1359, 0.1625, 0.1945, 0.2211, 0.2437, 0.2516, 0.2578, 0.2648, 0.2727, 0.2789, 0.2852, 0.293, 0.2992, 0.3055, 0.3133, 0.3195, 0.3258, 0.3328, 0.3383, 0.3438, 0.3484, 0.3516, 0.3547, 0.3586, 0.3617, 0.3656, 0.3695, 0.3727, 0.3758, 0.3797, 0.3828, 0.3867, 0.3906, 0.3937, 0.3969, 0.4008, 0.4039, 0.4078, 0.4117, 0.4148, 0.418, 0.4219, 0.4258, 0.4289, 0.4328, 0.4344, 0.4359, 0.4383, 0.4398, 0.4414, 0.443, 0.4445, 0.4461, 0.4477, 0.4492, 0.4508, 0.4531, 0.4547, 0.4555, 0.4578, 0.4594, 0.4609, 0.4625, 0.4641, 0.4656, 0.4672, 0.4688, 0.4672, 0.4656, 0.4641, 0.4625, 0.4609, 0.4594, 0.4586, 0.457, 0.4555, 0.4539, 0.4523, 0.4508, 0.45, 0.4477, 0.4469, 0.4453, 0.4437, 0.4422, 0.4406, 0.4391, 0.4383, 0.4367, 0.4336, 0.4305, 0.4273, 0.4234, 0.4203, 0.4172, 0.4141, 0.4109, 0.4078, 0.4039, 0.4008, 0.3977, 0.3937, 0.3906, 0.3883, 0.3844, 0.3812, 0.3781, 0.3742, 0.3711, 0.368, 0.3641, 0.3594, 0.3531, 0.3461, 0.3398, 0.3344, 0.3266, 0.3211, 0.3148, 0.3078, 0.3016, 0.2953, 0.2883, 0.282, 0.2758, 0.2687, 0.2555, 0.2422, 0.2258, 0.2117, 0.1984, 0.182, 0.168, 0.1547, 0.1383, 0.125, 0.1109, 0.0945, 0.0805, 0.0672, 0.05, 0.0367, 0.0219, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4484, 0.0328],
+            [0.4469, 0.0344],
+            [0.4375, 0.0344],
+            [0.4359, 0.0359],
+            [0.4188, 0.0375],
+            [0.4094, 0.0406],
+            [0.3828, 0.0437],
+            [0.3734, 0.0469],
+            [0.3563, 0.0484],
+            [0.3469, 0.0516],
+            [0.3297, 0.0531],
+            [0.2875, 0.0859],
+            [0.2672, 0.1047],
+            [0.2562, 0.1219],
+            [0.2391, 0.1562],
+            [0.2359, 0.1672],
+            [0.2359, 0.1859],
+            [0.2406, 0.2],
+            [0.2531, 0.2266],
+            [0.2703, 0.2516],
+            [0.2922, 0.2734],
+            [0.3375, 0.2984],
+            [0.35, 0.3],
+            [0.3656, 0.3047],
+            [0.3719, 0.3047],
+            [0.3797, 0.3078],
+            [0.3828, 0.3156],
+            [0.3781, 0.325],
+            [0.3781, 0.3469],
+            [0.3828, 0.3578],
+            [0.3766, 0.3625],
+            [0.3766, 0.3688],
+            [0.3719, 0.3719],
+            [0.3391, 0.375],
+            [0.3375, 0.3766],
+            [0.3266, 0.3766],
+            [0.325, 0.3781],
+            [0.3031, 0.3797],
+            [0.3016, 0.3812],
+            [0.2797, 0.3828],
+            [0.2781, 0.3844],
+            [0.2687, 0.3844],
+            [0.2672, 0.3859],
+            [0.2531, 0.3875],
+            [0.2094, 0.4156],
+            [0.2047, 0.4172],
+            [0.1875, 0.4297],
+            [0.1828, 0.4313],
+            [0.1609, 0.4469],
+            [0.1562, 0.4484],
+            [0.1391, 0.4656],
+            [0.1, 0.5141],
+            [0.0797, 0.5344],
+            [0.0688, 0.5484],
+            [0.05, 0.5922],
+            [0.0484, 0.6],
+            [0.0391, 0.6203],
+            [0.0297, 0.6484],
+            [0.0375, 0.6672],
+            [0.0469, 0.6984],
+            [0.05, 0.7031],
+            [0.0609, 0.7391],
+            [0.0688, 0.7516],
+            [0.1391, 0.8359],
+            [0.1484, 0.8406],
+            [0.1797, 0.8625],
+            [0.1844, 0.8641],
+            [0.2156, 0.8859],
+            [0.2297, 0.8938],
+            [0.2344, 0.8938],
+            [0.2453, 0.8984],
+            [0.25, 0.8984],
+            [0.2562, 0.9016],
+            [0.2609, 0.9016],
+            [0.2672, 0.9047],
+            [0.2719, 0.9047],
+            [0.2781, 0.9078],
+            [0.2828, 0.9078],
+            [0.2891, 0.9109],
+            [0.2938, 0.9109],
+            [0.3, 0.9141],
+            [0.3047, 0.9141],
+            [0.3109, 0.9172],
+            [0.3156, 0.9172],
+            [0.3219, 0.9203],
+            [0.3266, 0.9203],
+            [0.3328, 0.9234],
+            [0.3375, 0.9234],
+            [0.3438, 0.9266],
+            [0.3484, 0.9266],
+            [0.3547, 0.9297],
+            [0.3594, 0.9297],
+            [0.3656, 0.9328],
+            [0.3703, 0.9328],
+            [0.3766, 0.9359],
+            [0.3812, 0.9359],
+            [0.3875, 0.9391],
+            [0.3922, 0.9391],
+            [0.3984, 0.9422],
+            [0.4031, 0.9422],
+            [0.4422, 0.9547],
+            [0.4531, 0.9563],
+            [0.4703, 0.9625],
+            [0.4828, 0.9641],
+            [0.4844, 0.9656],
+            [0.525, 0.9656],
+            [0.5266, 0.9641],
+            [0.5437, 0.9609],
+            [0.55, 0.9578],
+            [0.5547, 0.9578],
+            [0.5609, 0.9547],
+            [0.5719, 0.9531],
+            [0.5781, 0.95],
+            [0.5828, 0.95],
+            [0.5891, 0.9469],
+            [0.6, 0.9453],
+            [0.6062, 0.9422],
+            [0.6172, 0.9406],
+            [0.6344, 0.9344],
+            [0.6453, 0.9328],
+            [0.6625, 0.9266],
+            [0.6734, 0.925],
+            [0.6906, 0.9187],
+            [0.7016, 0.9172],
+            [0.7297, 0.9078],
+            [0.7516, 0.9031],
+            [0.8516, 0.8375],
+            [0.8609, 0.8328],
+            [0.9344, 0.7391],
+            [0.9469, 0.7031],
+            [0.95, 0.6984],
+            [0.9531, 0.6859],
+            [0.9563, 0.6813],
+            [0.9594, 0.6687],
+            [0.9625, 0.6641],
+            [0.9672, 0.65],
+            [0.9672, 0.6422],
+            [0.9641, 0.6375],
+            [0.9625, 0.6297],
+            [0.9594, 0.625],
+            [0.9594, 0.6219],
+            [0.9469, 0.5938],
+            [0.9453, 0.5859],
+            [0.9406, 0.5781],
+            [0.9406, 0.575],
+            [0.9328, 0.5578],
+            [0.8422, 0.4516],
+            [0.8125, 0.4313],
+            [0.7391, 0.3875],
+            [0.7297, 0.3875],
+            [0.7188, 0.3844],
+            [0.7094, 0.3844],
+            [0.7078, 0.3828],
+            [0.6766, 0.3797],
+            [0.6656, 0.3766],
+            [0.6344, 0.3734],
+            [0.6234, 0.3703],
+            [0.6234, 0.3641],
+            [0.6203, 0.3609],
+            [0.6203, 0.3578],
+            [0.6234, 0.35],
+            [0.625, 0.3328],
+            [0.6234, 0.3312],
+            [0.6234, 0.325],
+            [0.6188, 0.3187],
+            [0.6234, 0.3141],
+            [0.6266, 0.3078],
+            [0.6391, 0.3063],
+            [0.6406, 0.3047],
+            [0.6625, 0.3],
+            [0.7109, 0.2703],
+            [0.7422, 0.2297],
+            [0.7594, 0.1969],
+            [0.7641, 0.1828],
+            [0.7641, 0.175],
+            [0.7656, 0.1734],
+            [0.7656, 0.1641],
+            [0.7641, 0.1625],
+            [0.7625, 0.15],
+            [0.7484, 0.1234],
+            [0.7203, 0.0844],
+            [0.7094, 0.0734],
+            [0.6891, 0.0594],
+            [0.6844, 0.0578],
+            [0.6687, 0.0469],
+            [0.6562, 0.0422],
+            [0.6422, 0.0422],
+            [0.6406, 0.0406],
+            [0.6281, 0.0406],
+            [0.6266, 0.0391],
+            [0.6141, 0.0391],
+            [0.6125, 0.0375],
+            [0.6, 0.0375],
+            [0.5984, 0.0359],
+            [0.5844, 0.0359],
+            [0.5828, 0.0344],
+            [0.5703, 0.0344],
+            [0.5687, 0.0328],
+            [0.5547, 0.0328],
+            [0.5531, 0.0312]
+          ]
+        ],
+        "edge": "#c2b58d"
+      },
+      "price": {
+        "tr": 600.0,
+        "en": 600.0
+      },
+      "photos": [
+        "foto/ojuvi-gold-eau-de-parfum-100-ml/1.webp",
+        "foto/ojuvi-gold-eau-de-parfum-100-ml/2.webp",
+        "foto/ojuvi-gold-eau-de-parfum-100-ml/3.webp"
+      ],
+      "composition": [
+        "Üst: Pembe Biber",
+        "Kalp: Misk Adaçayı",
+        "Dip: Paçuli, Amber"
+      ]
+    },
+    {
+      "name": "Red Passion",
+      "form": "photo",
+      "sub": "10 ml",
+      "collection": null,
+      "family": "Amber",
+      "year": null,
+      "perfumer": null,
+      "color": "#d5111d",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#3a0608",
+        "edge": "#050404",
+        "drop": "#e0303a",
+        "accent": "#e0303a",
+        "mood": "warm"
+      },
+      "tagline": "Bergamot · Tarçın · Tütün",
+      "notes": [
+        "Bergamot",
+        "Tarçın",
+        "Tütün",
+        "Tonka Fasulyesi",
+        "Amber"
+      ],
+      "description": "Cesur bir kompozisyon: vanilya, tütün ve amberin balsamik, tatlı notaları toprak kokulu paçuliyle derinleşiyor, bergamotla ferahlıyor.",
+      "file": "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml.webp",
+      "handle": "ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml",
+      "en": {
+        "name": "Red Passion",
+        "family": "Ambery",
+        "tagline": "Bergamot · Cinnamon · Tobacco",
+        "notes": [
+          "Bergamot",
+          "Cinnamon",
+          "Tobacco",
+          "Tonka Bean",
+          "Amber"
+        ],
+        "description": "In a daring composition, balmy and sweet notes of vanilla, tobacco, amber are faceted with earthy patchouli and refreshed with a bergamot top note makes for a fascinating study.",
+        "sub": "10 ml",
+        "composition": [
+          "Top: Bergamot",
+          "Heart: Cinnamon",
+          "Base: Tobacco, Tonka Bean, Amber, Patchouli"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2188,
+        "depthRatio": 0.42,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0078, 0.0328, 0.0523, 0.0703, 0.0828, 0.093, 0.1031, 0.1102, 0.1125, 0.1125, 0.1125, 0.1109, 0.1102, 0.1094, 0.1086, 0.1078, 0.1062, 0.1055, 0.1047, 0.1039, 0.1031, 0.1016, 0.1008, 0.1, 0.0984, 0.0977, 0.0969, 0.0953, 0.0945, 0.093, 0.0922, 0.0906, 0.0898, 0.0883, 0.0867, 0.0859, 0.0844, 0.0828, 0.0813, 0.0797, 0.0781, 0.0766, 0.0742, 0.0727, 0.0711, 0.0695, 0.0734, 0.0742, 0.0742, 0.0742, 0.075, 0.075, 0.075, 0.075, 0.1148, 0.1805, 0.1852, 0.1906, 0.1953, 0.1992, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1977, 0.1961, 0.193, 0.1719, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4391, 0.0375],
+            [0.4328, 0.0406],
+            [0.4281, 0.0406],
+            [0.4219, 0.0437],
+            [0.4172, 0.0437],
+            [0.3984, 0.05],
+            [0.3828, 0.0578],
+            [0.3781, 0.0641],
+            [0.3797, 0.0828],
+            [0.3812, 0.0844],
+            [0.3812, 0.0906],
+            [0.3828, 0.0922],
+            [0.3828, 0.0984],
+            [0.3844, 0.1],
+            [0.3891, 0.1234],
+            [0.3969, 0.1453],
+            [0.3969, 0.15],
+            [0.4016, 0.1594],
+            [0.4016, 0.1641],
+            [0.4062, 0.1734],
+            [0.4062, 0.1781],
+            [0.4094, 0.1828],
+            [0.4156, 0.2047],
+            [0.4219, 0.2188],
+            [0.4172, 0.2234],
+            [0.4156, 0.2531],
+            [0.4141, 0.2547],
+            [0.3844, 0.2547],
+            [0.3828, 0.2562],
+            [0.3109, 0.2578],
+            [0.3094, 0.2594],
+            [0.3047, 0.2594],
+            [0.3, 0.2641],
+            [0.2969, 0.2719],
+            [0.2984, 0.9516],
+            [0.3016, 0.9594],
+            [0.3094, 0.9672],
+            [0.3172, 0.9672],
+            [0.3187, 0.9688],
+            [0.6687, 0.9688],
+            [0.6703, 0.9672],
+            [0.6891, 0.9672],
+            [0.6937, 0.9641],
+            [0.6969, 0.9578],
+            [0.6969, 0.9156],
+            [0.6984, 0.9141],
+            [0.7, 0.3953],
+            [0.7016, 0.3937],
+            [0.7016, 0.2859],
+            [0.7, 0.2844],
+            [0.7, 0.2797],
+            [0.6781, 0.2594],
+            [0.6, 0.2562],
+            [0.5984, 0.2547],
+            [0.575, 0.2547],
+            [0.5734, 0.2531],
+            [0.5719, 0.2234],
+            [0.5672, 0.2172],
+            [0.5797, 0.1891],
+            [0.5922, 0.15],
+            [0.5922, 0.1453],
+            [0.6047, 0.1],
+            [0.6078, 0.0797],
+            [0.6109, 0.0719],
+            [0.6109, 0.0625],
+            [0.6078, 0.0594],
+            [0.5922, 0.0516],
+            [0.5656, 0.0422],
+            [0.5469, 0.0391],
+            [0.5391, 0.0359],
+            [0.5125, 0.0328],
+            [0.5109, 0.0312],
+            [0.4781, 0.0297],
+            [0.4766, 0.0312],
+            [0.4672, 0.0312],
+            [0.4656, 0.0328]
+          ]
+        ],
+        "edge": "#dc123a"
+      },
+      "price": {
+        "tr": 250.0,
+        "en": 250.0
+      },
+      "photos": [
+        "foto/ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml/1.webp",
+        "foto/ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml/2.webp",
+        "foto/ojuvi-red-passion-extrait-de-parfum-100-ml-10-ml/3.webp"
+      ],
+      "composition": [
+        "Üst: Bergamot",
+        "Kalp: Tarçın",
+        "Dip: Tütün, Tonka Fasulyesi, Amber, Paçuli"
+      ]
+    },
+    {
+      "name": "Dark Miracle",
+      "form": "photo",
+      "sub": "10 ml",
+      "collection": null,
+      "family": "Misk",
+      "year": null,
+      "perfumer": null,
+      "color": "#c4a360",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#120d07",
+        "edge": "#050404",
+        "drop": "#d4ad62",
+        "accent": "#d4ad62",
+        "mood": "warm"
+      },
+      "tagline": "Safran · Yasemin · Gül",
+      "notes": [
+        "Safran",
+        "Yasemin",
+        "Gül",
+        "Misk",
+        "Oud"
+      ],
+      "description": "Sadeliğin zıt yüzleriyle oynayan bir koku; karanlık ve dokunaklı ferahlığı gül, amber, oud ve safranla yuvarlanıyor.",
+      "file": "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml.webp",
+      "handle": "ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml",
+      "en": {
+        "name": "Dark Miracle",
+        "family": "Musky",
+        "tagline": "Saffron · Jasmine · Rose",
+        "notes": [
+          "Saffron",
+          "Jasmine",
+          "Rose",
+          "Musk",
+          "Oud"
+        ],
+        "description": "A fragrance playing on the contrasting facets of simplicity; its dark and poignant freshness is rounded by the scent of rose, amber, oud and saffron.",
+        "sub": "10 ml",
+        "composition": [
+          "Top: Saffron",
+          "Heart: Jasmine, Rose",
+          "Base: Musk, Oud, Vanilla, Amber"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.42,
+        "axis": 0.5008,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0195, 0.0422, 0.0617, 0.0797, 0.0922, 0.1023, 0.1109, 0.1125, 0.1133, 0.1133, 0.1125, 0.1117, 0.1109, 0.1102, 0.1094, 0.1086, 0.107, 0.1062, 0.1055, 0.1039, 0.1031, 0.1016, 0.1008, 0.0992, 0.0977, 0.0969, 0.0953, 0.0945, 0.093, 0.0914, 0.0906, 0.0891, 0.0875, 0.0859, 0.0852, 0.0836, 0.082, 0.0813, 0.0797, 0.0781, 0.0773, 0.0758, 0.0742, 0.0727, 0.0719, 0.075, 0.0758, 0.0766, 0.0766, 0.0766, 0.0773, 0.0773, 0.0773, 0.1156, 0.1852, 0.1891, 0.193, 0.1969, 0.1992, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1984, 0.1984, 0.1984, 0.1969, 0.1938, 0.1891, 0.1766, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4281, 0.0406],
+            [0.4, 0.05],
+            [0.3891, 0.0563],
+            [0.3875, 0.0594],
+            [0.3875, 0.075],
+            [0.3891, 0.0766],
+            [0.3891, 0.0828],
+            [0.3906, 0.0844],
+            [0.3969, 0.1141],
+            [0.4141, 0.1656],
+            [0.4141, 0.1703],
+            [0.4281, 0.2094],
+            [0.4281, 0.2156],
+            [0.4234, 0.2234],
+            [0.4234, 0.2484],
+            [0.4219, 0.25],
+            [0.4016, 0.25],
+            [0.4, 0.2516],
+            [0.3672, 0.2516],
+            [0.3656, 0.2531],
+            [0.3172, 0.2547],
+            [0.3016, 0.2703],
+            [0.2969, 0.2781],
+            [0.2969, 0.3047],
+            [0.2984, 0.3063],
+            [0.2984, 0.6156],
+            [0.3, 0.6172],
+            [0.3016, 0.9531],
+            [0.3063, 0.9625],
+            [0.3141, 0.9672],
+            [0.3203, 0.9672],
+            [0.3219, 0.9688],
+            [0.6766, 0.9688],
+            [0.6781, 0.9672],
+            [0.6828, 0.9672],
+            [0.6891, 0.9641],
+            [0.6969, 0.9563],
+            [0.7016, 0.9453],
+            [0.7016, 0.275],
+            [0.6953, 0.2641],
+            [0.6844, 0.2547],
+            [0.6453, 0.2531],
+            [0.6438, 0.2516],
+            [0.6141, 0.2516],
+            [0.6125, 0.25],
+            [0.5813, 0.25],
+            [0.5797, 0.2484],
+            [0.5797, 0.2422],
+            [0.5781, 0.2406],
+            [0.5781, 0.2219],
+            [0.5734, 0.2125],
+            [0.5766, 0.2078],
+            [0.5797, 0.1953],
+            [0.5828, 0.1906],
+            [0.5859, 0.1781],
+            [0.5953, 0.1562],
+            [0.5953, 0.1516],
+            [0.5984, 0.1453],
+            [0.5984, 0.1406],
+            [0.6016, 0.1344],
+            [0.6016, 0.1297],
+            [0.6109, 0.0969],
+            [0.6109, 0.0906],
+            [0.6172, 0.0688],
+            [0.6172, 0.0594],
+            [0.6125, 0.0547],
+            [0.5969, 0.0469],
+            [0.5922, 0.0469],
+            [0.5719, 0.0406],
+            [0.5656, 0.0406],
+            [0.5578, 0.0375],
+            [0.5344, 0.0344],
+            [0.5328, 0.0328],
+            [0.525, 0.0328],
+            [0.5234, 0.0312],
+            [0.5141, 0.0312],
+            [0.5125, 0.0297],
+            [0.4719, 0.0312],
+            [0.4703, 0.0328],
+            [0.4625, 0.0328],
+            [0.4609, 0.0344],
+            [0.4547, 0.0344],
+            [0.4531, 0.0359],
+            [0.4469, 0.0359],
+            [0.4453, 0.0375]
+          ]
+        ],
+        "edge": "#363232"
+      },
+      "price": {
+        "tr": 250.0,
+        "en": 250.0
+      },
+      "photos": [
+        "foto/ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml/1.webp",
+        "foto/ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml/2.webp",
+        "foto/ojuvi-dark-miracle-extrait-de-parfum-100-ml-10-ml/3.webp"
+      ],
+      "composition": [
+        "Üst: Safran",
+        "Kalp: Yasemin, Gül",
+        "Dip: Misk, Oud, Vanilya, Amber"
+      ]
+    },
+    {
+      "name": "Reborn",
+      "form": "photo",
+      "sub": "10 ml",
+      "collection": null,
+      "family": "Odunsu",
+      "year": null,
+      "perfumer": null,
+      "color": "#d6bd7e",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#16110a",
+        "edge": "#050404",
+        "drop": "#e0b84a",
+        "accent": "#e0b84a",
+        "mood": "warm"
+      },
+      "tagline": "Sardunya · Karanfil · Safran",
+      "notes": [
+        "Sardunya",
+        "Karanfil",
+        "Safran",
+        "Karabiber",
+        "Sedir"
+      ],
+      "description": "Baharatlı nüansların ve balın narin çiçekleri sardığı zarif bir yorum; sedir, sandal ağacı ve deri notalarıyla değerli bir kompozisyon.",
+      "file": "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml.webp",
+      "handle": "ojuvi-reborn-extrait-de-parfum-100-ml-10-ml",
+      "en": {
+        "name": "Reborn",
+        "family": "Woody",
+        "tagline": "Geranium · Clove · Saffron",
+        "notes": [
+          "Geranium",
+          "Clove",
+          "Saffron",
+          "Black Pepper",
+          "Cedarwood"
+        ],
+        "description": "An elegant interpretation of spicy nuances and honey envoloped indelicate flowers precious composition of cedar , sandal and leathery notes",
+        "sub": "10 ml",
+        "composition": [
+          "Top: Geranium, Clove, Saffron, Black Pepper",
+          "Heart: Cedarwood, Guaiac, Sandalwood, Patchouli",
+          "Base: Oud, Leather, Dry Wood, Vanilla"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2188,
+        "depthRatio": 0.42,
+        "axis": 0.5008,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0187, 0.0445, 0.0625, 0.0797, 0.0922, 0.1023, 0.1109, 0.1141, 0.1156, 0.1156, 0.1148, 0.1141, 0.1133, 0.1117, 0.1109, 0.1102, 0.1094, 0.1078, 0.107, 0.1062, 0.1047, 0.1039, 0.1031, 0.1016, 0.1008, 0.1, 0.0984, 0.0977, 0.0961, 0.0953, 0.0945, 0.093, 0.0922, 0.0906, 0.0891, 0.0883, 0.0867, 0.0852, 0.0836, 0.082, 0.0805, 0.0797, 0.0781, 0.0766, 0.075, 0.0734, 0.0773, 0.0773, 0.0773, 0.0781, 0.0781, 0.0781, 0.0781, 0.0781, 0.15, 0.1875, 0.1906, 0.1938, 0.1977, 0.1992, 0.2008, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1992, 0.1984, 0.1984, 0.1984, 0.1984, 0.1984, 0.1984, 0.1984, 0.1984, 0.1984, 0.1984, 0.1984, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1977, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1969, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1961, 0.1953, 0.1953, 0.1953, 0.193, 0.1898, 0.1836, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4094, 0.0453],
+            [0.3875, 0.0547],
+            [0.3828, 0.0594],
+            [0.3812, 0.0672],
+            [0.3828, 0.0688],
+            [0.3828, 0.075],
+            [0.3844, 0.0766],
+            [0.3906, 0.1062],
+            [0.3937, 0.1125],
+            [0.3969, 0.1297],
+            [0.4016, 0.1406],
+            [0.4016, 0.1453],
+            [0.4266, 0.2156],
+            [0.4266, 0.2188],
+            [0.4219, 0.2266],
+            [0.4219, 0.25],
+            [0.4188, 0.2531],
+            [0.375, 0.2531],
+            [0.3734, 0.2547],
+            [0.3297, 0.2547],
+            [0.3281, 0.2562],
+            [0.3172, 0.2562],
+            [0.2984, 0.2766],
+            [0.2953, 0.2828],
+            [0.3047, 0.95],
+            [0.3063, 0.9547],
+            [0.3141, 0.9625],
+            [0.325, 0.9656],
+            [0.6391, 0.9672],
+            [0.6406, 0.9688],
+            [0.675, 0.9688],
+            [0.6766, 0.9672],
+            [0.6828, 0.9672],
+            [0.6937, 0.9594],
+            [0.6984, 0.9484],
+            [0.6984, 0.9406],
+            [0.7, 0.9391],
+            [0.7016, 0.4594],
+            [0.7031, 0.4578],
+            [0.7031, 0.2859],
+            [0.7016, 0.2844],
+            [0.7016, 0.2797],
+            [0.6953, 0.2625],
+            [0.6875, 0.2578],
+            [0.6344, 0.2562],
+            [0.6328, 0.2547],
+            [0.6, 0.2547],
+            [0.5984, 0.2531],
+            [0.5797, 0.2531],
+            [0.5781, 0.2516],
+            [0.5781, 0.2234],
+            [0.5734, 0.2188],
+            [0.5906, 0.1719],
+            [0.5906, 0.1672],
+            [0.5938, 0.1609],
+            [0.5938, 0.1562],
+            [0.6, 0.1375],
+            [0.6, 0.1328],
+            [0.6109, 0.0938],
+            [0.6109, 0.0875],
+            [0.6156, 0.0734],
+            [0.6156, 0.0609],
+            [0.6094, 0.0547],
+            [0.5922, 0.0469],
+            [0.5781, 0.0437],
+            [0.5719, 0.0406],
+            [0.5453, 0.0359],
+            [0.5437, 0.0344],
+            [0.5359, 0.0344],
+            [0.525, 0.0312],
+            [0.5109, 0.0312],
+            [0.5094, 0.0297],
+            [0.4719, 0.0312],
+            [0.4703, 0.0328],
+            [0.4625, 0.0328],
+            [0.4609, 0.0344],
+            [0.4391, 0.0375],
+            [0.4375, 0.0391],
+            [0.4203, 0.0422],
+            [0.4141, 0.0453]
+          ]
+        ],
+        "edge": "#3a383d"
+      },
+      "price": {
+        "tr": 250.0,
+        "en": 250.0
+      },
+      "photos": [
+        "foto/ojuvi-reborn-extrait-de-parfum-100-ml-10-ml/1.webp",
+        "foto/ojuvi-reborn-extrait-de-parfum-100-ml-10-ml/2.webp",
+        "foto/ojuvi-reborn-extrait-de-parfum-100-ml-10-ml/3.webp"
+      ],
+      "composition": [
+        "Üst: Sardunya, Karanfil, Safran, Karabiber",
+        "Kalp: Sedir, Gayak, Sandal Ağacı, Paçuli",
+        "Dip: Oud, Deri, Kuru Odun, Vanilya"
+      ]
+    },
+    {
+      "name": "Forever",
+      "form": "photo",
+      "sub": "10 ml",
+      "collection": null,
+      "family": "Misk",
+      "year": null,
+      "perfumer": null,
+      "color": "#ccb162",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#2a2418",
+        "edge": "#050404",
+        "drop": "#f0e2c0",
+        "accent": "#f0e2c0",
+        "mood": "warm"
+      },
+      "tagline": "Şeftali · Bergamot · Yasemin",
+      "notes": [
+        "Şeftali",
+        "Bergamot",
+        "Yasemin",
+        "Ylang Ylang",
+        "Gardenya"
+      ],
+      "description": "Yumuşak tütün ve amber notaları yayan, karakter dolu, eski dünya inceliğinde karmaşık ve mistik bir koku.",
+      "file": "ojuvi-forever-extrait-de-parfum-100-ml-10-ml.webp",
+      "handle": "ojuvi-forever-extrait-de-parfum-100-ml-10-ml",
+      "en": {
+        "name": "Forever",
+        "family": "Musky",
+        "tagline": "Peach · Bergamot · Jasmine",
+        "notes": [
+          "Peach",
+          "Bergamot",
+          "Jasmine",
+          "Ylang Ylang",
+          "Gardenia"
+        ],
+        "description": "This is a complex and mystical fragrance that exudes soft tobacco and ambery notes and is full of character and old world sophistication",
+        "sub": "10 ml",
+        "composition": [
+          "Top: Peach, Bergamot",
+          "Heart: Jasmine, Ylang Ylang, Gardenia, Peony",
+          "Base: Musk, Oakmoss, Vanilla, Chocolate"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2146,
+        "depthRatio": 0.42,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0219, 0.043, 0.0609, 0.0797, 0.0938, 0.1047, 0.1125, 0.1156, 0.1164, 0.1156, 0.1141, 0.1133, 0.1117, 0.1102, 0.1094, 0.1078, 0.107, 0.1055, 0.1039, 0.1031, 0.1023, 0.1008, 0.0992, 0.0984, 0.0969, 0.0961, 0.0945, 0.093, 0.0922, 0.0906, 0.0898, 0.0883, 0.0875, 0.0859, 0.0852, 0.0836, 0.0828, 0.0813, 0.0805, 0.0789, 0.0773, 0.0766, 0.075, 0.0742, 0.0727, 0.0734, 0.0758, 0.075, 0.075, 0.075, 0.075, 0.075, 0.075, 0.1047, 0.1836, 0.1883, 0.1922, 0.1961, 0.2, 0.2023, 0.2039, 0.2039, 0.2039, 0.2039, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2055, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2047, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2039, 0.2023, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4047, 0.0453],
+            [0.3875, 0.0531],
+            [0.3812, 0.0578],
+            [0.3797, 0.0609],
+            [0.3797, 0.0781],
+            [0.3812, 0.0797],
+            [0.3828, 0.0938],
+            [0.3891, 0.1125],
+            [0.3891, 0.1172],
+            [0.3922, 0.1234],
+            [0.3922, 0.1281],
+            [0.4219, 0.2156],
+            [0.4172, 0.2219],
+            [0.4172, 0.2484],
+            [0.4156, 0.25],
+            [0.3891, 0.25],
+            [0.3875, 0.2516],
+            [0.35, 0.2516],
+            [0.3484, 0.2531],
+            [0.3031, 0.2547],
+            [0.2984, 0.2625],
+            [0.2984, 0.2672],
+            [0.2938, 0.2812],
+            [0.2938, 0.4234],
+            [0.2922, 0.425],
+            [0.2922, 0.8203],
+            [0.2938, 0.8219],
+            [0.2938, 0.9625],
+            [0.3016, 0.9672],
+            [0.6172, 0.9672],
+            [0.6188, 0.9688],
+            [0.6891, 0.9688],
+            [0.6906, 0.9672],
+            [0.6953, 0.9672],
+            [0.6984, 0.9656],
+            [0.7016, 0.9609],
+            [0.7016, 0.8906],
+            [0.7031, 0.8891],
+            [0.7047, 0.2812],
+            [0.6906, 0.2641],
+            [0.6797, 0.2547],
+            [0.6234, 0.2531],
+            [0.6219, 0.2516],
+            [0.5859, 0.2516],
+            [0.5844, 0.25],
+            [0.575, 0.25],
+            [0.5734, 0.2484],
+            [0.5734, 0.2203],
+            [0.5703, 0.2172],
+            [0.5703, 0.2141],
+            [0.5813, 0.1797],
+            [0.5813, 0.175],
+            [0.5859, 0.1641],
+            [0.5922, 0.1375],
+            [0.5969, 0.1266],
+            [0.6, 0.1109],
+            [0.6047, 0.1],
+            [0.6078, 0.0844],
+            [0.6125, 0.0734],
+            [0.6141, 0.0609],
+            [0.6109, 0.0563],
+            [0.6, 0.05],
+            [0.5859, 0.0453],
+            [0.5813, 0.0453],
+            [0.575, 0.0422],
+            [0.5625, 0.0406],
+            [0.5609, 0.0391],
+            [0.5344, 0.0344],
+            [0.5328, 0.0328],
+            [0.5141, 0.0312],
+            [0.5125, 0.0297],
+            [0.4844, 0.0297],
+            [0.4828, 0.0312],
+            [0.4609, 0.0328],
+            [0.4594, 0.0344],
+            [0.4516, 0.0344],
+            [0.45, 0.0359],
+            [0.4359, 0.0375],
+            [0.4344, 0.0391]
+          ]
+        ],
+        "edge": "#d1b76e"
+      },
+      "price": {
+        "tr": 250.0,
+        "en": 250.0
+      },
+      "photos": [
+        "foto/ojuvi-forever-extrait-de-parfum-100-ml-10-ml/1.webp",
+        "foto/ojuvi-forever-extrait-de-parfum-100-ml-10-ml/2.webp",
+        "foto/ojuvi-forever-extrait-de-parfum-100-ml-10-ml/3.webp"
+      ],
+      "composition": [
+        "Üst: Şeftali, Bergamot",
+        "Kalp: Yasemin, Ylang Ylang, Gardenya, Şakayık",
+        "Dip: Misk, Meşe Yosunu, Vanilya, Çikolata"
+      ]
+    },
+    {
+      "name": "Another Story",
+      "form": "photo",
+      "sub": "70 ml",
+      "collection": null,
+      "family": "Odunsu",
+      "year": null,
+      "perfumer": null,
+      "color": "#cfa66e",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#1a120c",
+        "edge": "#050404",
+        "drop": "#c9a15c",
+        "accent": "#c9a15c",
+        "mood": "warm"
+      },
+      "tagline": "Karabiber · Karanfil Çiçeği · Tarçın",
+      "notes": [
+        "Karabiber",
+        "Karanfil Çiçeği",
+        "Tarçın",
+        "Muskat",
+        "Zambak"
+      ],
+      "description": "Yumuşak odunsu ve baharatlı notalar yayan, karakter dolu, eski dünya inceliğinde karmaşık ve mistik bir koku.",
+      "file": "another-story-erkek-parfum-70ml-premium.webp",
+      "handle": "another-story-erkek-parfum-70ml-premium",
+      "en": {
+        "name": "Another Story",
+        "family": "Woody",
+        "tagline": "Black Pepper · Carnation · Cinnamon",
+        "notes": [
+          "Black Pepper",
+          "Carnation",
+          "Cinnamon",
+          "Nutmeg",
+          "Lily"
+        ],
+        "description": "This is a complex and mystical fragrance that exudes soft woody and spicy notes and is full of character and old world sophistication.",
+        "sub": "70 ml",
+        "composition": [
+          "Top: Black Pepper, Carnation, Cinnamon, Nutmeg",
+          "Heart: Lily",
+          "Base: Patchouli, Vetiver"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.1896,
+        "depthRatio": 0.42,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0164, 0.0383, 0.0539, 0.0758, 0.0906, 0.0969, 0.1, 0.1, 0.0992, 0.0977, 0.0969, 0.0969, 0.0953, 0.0945, 0.0938, 0.0922, 0.0922, 0.0906, 0.0898, 0.0883, 0.0875, 0.0852, 0.0836, 0.0828, 0.0813, 0.0797, 0.0789, 0.0773, 0.0766, 0.075, 0.0742, 0.0727, 0.0719, 0.0703, 0.0688, 0.0672, 0.0664, 0.0648, 0.0633, 0.0672, 0.0672, 0.068, 0.068, 0.0688, 0.0688, 0.0695, 0.0742, 0.1352, 0.1414, 0.1445, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1461, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1469, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1484, 0.1484, 0.1484, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1477, 0.1484, 0.1477, 0.1477, 0.1484, 0.1477, 0.1477, 0.1477, 0.1477, 0.1477, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1477, 0.1484, 0.1477, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1484, 0.1469, 0.1453, 0.1414, 0.1367, 0.1313, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4578, 0.0312],
+            [0.4422, 0.0359],
+            [0.4359, 0.0359],
+            [0.425, 0.0406],
+            [0.4188, 0.0406],
+            [0.4141, 0.0437],
+            [0.3953, 0.0484],
+            [0.3875, 0.0547],
+            [0.3875, 0.0594],
+            [0.3906, 0.0672],
+            [0.3906, 0.075],
+            [0.3937, 0.0813],
+            [0.3937, 0.0875],
+            [0.3984, 0.1],
+            [0.3984, 0.1062],
+            [0.4016, 0.1125],
+            [0.4031, 0.1234],
+            [0.4078, 0.1328],
+            [0.4078, 0.1375],
+            [0.4109, 0.1422],
+            [0.4156, 0.1562],
+            [0.4156, 0.1609],
+            [0.4203, 0.1688],
+            [0.425, 0.1844],
+            [0.4297, 0.1906],
+            [0.425, 0.1938],
+            [0.425, 0.2188],
+            [0.4234, 0.2219],
+            [0.4125, 0.225],
+            [0.3625, 0.225],
+            [0.3578, 0.2281],
+            [0.3563, 0.2266],
+            [0.3578, 0.2281],
+            [0.3516, 0.2359],
+            [0.3516, 0.2484],
+            [0.35, 0.25],
+            [0.3516, 0.2516],
+            [0.35, 0.5516],
+            [0.3484, 0.5531],
+            [0.3484, 0.5687],
+            [0.35, 0.5703],
+            [0.35, 0.6219],
+            [0.3484, 0.6234],
+            [0.3484, 0.6297],
+            [0.35, 0.6312],
+            [0.35, 0.9453],
+            [0.3531, 0.9516],
+            [0.3672, 0.9641],
+            [0.5266, 0.9656],
+            [0.5281, 0.9672],
+            [0.5437, 0.9672],
+            [0.5453, 0.9656],
+            [0.6344, 0.9656],
+            [0.6422, 0.9578],
+            [0.6469, 0.95],
+            [0.6469, 0.6609],
+            [0.6484, 0.6594],
+            [0.6469, 0.6609],
+            [0.6453, 0.6594],
+            [0.6469, 0.6562],
+            [0.6453, 0.6531],
+            [0.6469, 0.65],
+            [0.6469, 0.6297],
+            [0.6453, 0.6281],
+            [0.6453, 0.6078],
+            [0.6469, 0.6062],
+            [0.6453, 0.6047],
+            [0.6453, 0.5969],
+            [0.6469, 0.5953],
+            [0.6453, 0.5922],
+            [0.6453, 0.5859],
+            [0.6469, 0.5844],
+            [0.6469, 0.5781],
+            [0.6453, 0.5766],
+            [0.6469, 0.575],
+            [0.6469, 0.5563],
+            [0.6453, 0.5547],
+            [0.6469, 0.5531],
+            [0.6469, 0.5234],
+            [0.6453, 0.5219],
+            [0.6453, 0.5109],
+            [0.6469, 0.5094],
+            [0.6469, 0.5016],
+            [0.6453, 0.5],
+            [0.6453, 0.3734],
+            [0.6469, 0.3719],
+            [0.6453, 0.3703],
+            [0.6453, 0.3531],
+            [0.6469, 0.35],
+            [0.6453, 0.3484],
+            [0.6453, 0.3172],
+            [0.6438, 0.3156],
+            [0.6438, 0.2375],
+            [0.6359, 0.2281],
+            [0.6281, 0.225],
+            [0.5781, 0.2234],
+            [0.5672, 0.2203],
+            [0.5656, 0.1938],
+            [0.5609, 0.1875],
+            [0.5687, 0.1688],
+            [0.5687, 0.1641],
+            [0.5734, 0.1531],
+            [0.5766, 0.1375],
+            [0.5813, 0.1266],
+            [0.5813, 0.1203],
+            [0.5828, 0.1187],
+            [0.5844, 0.1203],
+            [0.5828, 0.1187],
+            [0.5859, 0.1141],
+            [0.5875, 0.1031],
+            [0.5906, 0.0969],
+            [0.5906, 0.0891],
+            [0.5938, 0.0813],
+            [0.5953, 0.0672],
+            [0.5984, 0.0609],
+            [0.5969, 0.0531],
+            [0.5844, 0.0453],
+            [0.5766, 0.0453],
+            [0.5641, 0.0406],
+            [0.5547, 0.0406],
+            [0.5484, 0.0375],
+            [0.5422, 0.0375],
+            [0.5359, 0.0344],
+            [0.5203, 0.0328],
+            [0.5188, 0.0312],
+            [0.5094, 0.0312],
+            [0.5078, 0.0297],
+            [0.4672, 0.0297],
+            [0.4656, 0.0312]
+          ]
+        ],
+        "edge": "#2d2723"
+      },
+      "price": {
+        "tr": 99.9,
+        "en": 99.9
+      },
+      "photos": [
+        "foto/another-story-erkek-parfum-70ml-premium/1.webp",
+        "foto/another-story-erkek-parfum-70ml-premium/2.webp",
+        "foto/another-story-erkek-parfum-70ml-premium/3.webp",
+        "foto/another-story-erkek-parfum-70ml-premium/4.webp"
+      ],
+      "composition": [
+        "Üst: Karabiber, Karanfil Çiçeği, Tarçın, Muskat",
+        "Kalp: Zambak",
+        "Dip: Paçuli, Vetiver"
+      ]
+    },
+    {
+      "name": "Black Ombre",
+      "form": "photo",
+      "sub": "70 ml",
+      "collection": null,
+      "family": "Amber",
+      "year": null,
+      "perfumer": null,
+      "color": "#d6ab70",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#120c14",
+        "edge": "#050404",
+        "drop": "#b48ae0",
+        "accent": "#b48ae0",
+        "mood": "warm"
+      },
+      "tagline": "Bergamot · Portakal · Menekşe",
+      "notes": [
+        "Bergamot",
+        "Portakal",
+        "Menekşe",
+        "Yasemin",
+        "Amber"
+      ],
+      "description": "Menekşe ve sıcak amberle sarılmış yasemin zenginliğine adanmış bir koku.",
+      "file": "black-ombre-erkek-parfum-70ml-premium.webp",
+      "handle": "black-ombre-erkek-parfum-70ml-premium",
+      "en": {
+        "name": "Black Ombre",
+        "family": "Ambery",
+        "tagline": "Bergamot · Orange · Violet",
+        "notes": [
+          "Bergamot",
+          "Orange",
+          "Violet",
+          "Jasmine",
+          "Amber"
+        ],
+        "description": "A fragrance dedicated to the richness of jasmine enveloped with violet and warm amber.",
+        "sub": "70 ml",
+        "composition": [
+          "Top: Bergamot, Orange",
+          "Heart: Violet, Jasmine",
+          "Base: Amber"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2062,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0125, 0.0398, 0.057, 0.0719, 0.0836, 0.0922, 0.0953, 0.0953, 0.0953, 0.0945, 0.0938, 0.093, 0.0914, 0.0914, 0.0898, 0.0891, 0.0883, 0.0875, 0.0859, 0.0852, 0.0844, 0.0813, 0.0813, 0.0797, 0.0781, 0.0773, 0.0758, 0.075, 0.0742, 0.0719, 0.0711, 0.0703, 0.0688, 0.0672, 0.0664, 0.0641, 0.0633, 0.0617, 0.0602, 0.0602, 0.0641, 0.0641, 0.0641, 0.0641, 0.0641, 0.0641, 0.0648, 0.075, 0.1305, 0.1375, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.3594, 0.0297],
+            [0.3594, 0.25],
+            [0.3609, 0.2516],
+            [0.3594, 0.2531],
+            [0.3594, 0.9688],
+            [0.6391, 0.9688],
+            [0.6391, 0.2531],
+            [0.6375, 0.2516],
+            [0.6391, 0.25],
+            [0.6391, 0.0297],
+            [0.6391, 0.25],
+            [0.6375, 0.2516],
+            [0.6297, 0.2469],
+            [0.5734, 0.2437],
+            [0.5641, 0.2406],
+            [0.5641, 0.2234],
+            [0.5625, 0.2219],
+            [0.5641, 0.2141],
+            [0.5609, 0.2125],
+            [0.5578, 0.2078],
+            [0.5609, 0.2047],
+            [0.5625, 0.1953],
+            [0.5656, 0.1906],
+            [0.5672, 0.1812],
+            [0.5766, 0.1547],
+            [0.5766, 0.1484],
+            [0.5813, 0.1375],
+            [0.5813, 0.1328],
+            [0.5844, 0.1297],
+            [0.5875, 0.1203],
+            [0.5875, 0.1125],
+            [0.5891, 0.1109],
+            [0.5906, 0.0969],
+            [0.5953, 0.0813],
+            [0.5953, 0.0719],
+            [0.5906, 0.0672],
+            [0.5703, 0.0594],
+            [0.5656, 0.0594],
+            [0.5422, 0.0516],
+            [0.5359, 0.0516],
+            [0.5266, 0.0484],
+            [0.5156, 0.0484],
+            [0.5141, 0.0469],
+            [0.4875, 0.0469],
+            [0.4859, 0.0484],
+            [0.4844, 0.0469],
+            [0.4828, 0.0484],
+            [0.4719, 0.0484],
+            [0.4703, 0.05],
+            [0.4609, 0.05],
+            [0.4516, 0.0531],
+            [0.4437, 0.0531],
+            [0.4266, 0.0594],
+            [0.4203, 0.0594],
+            [0.4094, 0.0641],
+            [0.4047, 0.0641],
+            [0.3906, 0.0719],
+            [0.3891, 0.075],
+            [0.3906, 0.0766],
+            [0.3906, 0.0828],
+            [0.3937, 0.0906],
+            [0.3937, 0.0969],
+            [0.3969, 0.1031],
+            [0.4, 0.1219],
+            [0.4062, 0.1391],
+            [0.4062, 0.1437],
+            [0.4141, 0.1641],
+            [0.4141, 0.1688],
+            [0.4172, 0.1719],
+            [0.4172, 0.1781],
+            [0.4203, 0.1812],
+            [0.4266, 0.2016],
+            [0.4313, 0.2078],
+            [0.4313, 0.2109],
+            [0.4266, 0.2141],
+            [0.4266, 0.2375],
+            [0.425, 0.2391],
+            [0.4266, 0.2422],
+            [0.4234, 0.2453],
+            [0.3703, 0.2453],
+            [0.3609, 0.2516],
+            [0.3594, 0.25]
+          ]
+        ],
+        "edge": "#2d2623"
+      },
+      "price": {
+        "tr": 99.9,
+        "en": 99.9
+      },
+      "photos": [
+        "foto/black-ombre-erkek-parfum-70ml-premium/1.webp",
+        "foto/black-ombre-erkek-parfum-70ml-premium/2.webp",
+        "foto/black-ombre-erkek-parfum-70ml-premium/3.webp",
+        "foto/black-ombre-erkek-parfum-70ml-premium/4.webp"
+      ],
+      "composition": [
+        "Üst: Bergamot, Portakal",
+        "Kalp: Menekşe, Yasemin",
+        "Dip: Amber"
+      ]
+    },
+    {
+      "name": "Dancing Under The Full Moon",
+      "form": "photo",
+      "sub": "70 ml",
+      "collection": null,
+      "family": "Tatlı Amber",
+      "year": null,
+      "perfumer": null,
+      "color": "#e3d2bd",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#2a2418",
+        "edge": "#050404",
+        "drop": "#f2e6c8",
+        "accent": "#f2e6c8",
+        "mood": "warm"
+      },
+      "tagline": "Bergamot · Mandalina · Portakal Çiçeği",
+      "notes": [
+        "Bergamot",
+        "Mandalina",
+        "Portakal Çiçeği",
+        "Vanilya",
+        "Karamel"
+      ],
+      "description": "Bir serap gibi, duyuların yolculuğu: zengin, dolgun ve dokulu bir koku. Lezzetli!",
+      "file": "dancing-under-the-full-moon-erkek-parfum-70ml-premium.webp",
+      "handle": "dancing-under-the-full-moon-erkek-parfum-70ml-premium",
+      "en": {
+        "name": "Dancing Under The Full Moon",
+        "family": "Sweety Ambery",
+        "tagline": "Bergamot · Mandarine · Orange Blossom",
+        "notes": [
+          "Bergamot",
+          "Mandarine",
+          "Orange Blossom",
+          "Vanilla",
+          "Caramel"
+        ],
+        "description": "Like a mirage, a journey of the senses: an opulent, voluptuous and textured fragrance. Delicious!",
+        "sub": "70 ml",
+        "composition": [
+          "Top: Bergamot, Mandarine",
+          "Heart: Orange Blossom",
+          "Base: Vanilla, Caramel"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.1938,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0211, 0.0445, 0.0594, 0.0734, 0.0828, 0.0906, 0.0945, 0.0961, 0.0969, 0.0953, 0.0945, 0.0938, 0.0922, 0.0914, 0.0898, 0.0891, 0.0883, 0.0875, 0.0859, 0.0852, 0.0836, 0.082, 0.0813, 0.0805, 0.0789, 0.0773, 0.0766, 0.075, 0.0742, 0.0727, 0.0719, 0.0703, 0.0688, 0.068, 0.0664, 0.0648, 0.0633, 0.0617, 0.0602, 0.0594, 0.0617, 0.0641, 0.0648, 0.0648, 0.0648, 0.0648, 0.0656, 0.0656, 0.1203, 0.1367, 0.1406, 0.1437, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1445, 0.1437, 0.1437, 0.1414, 0.1391, 0.1359, 0.1313, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4516, 0.0328],
+            [0.45, 0.0344],
+            [0.4203, 0.0406],
+            [0.4156, 0.0437],
+            [0.4062, 0.0453],
+            [0.4, 0.0484],
+            [0.3953, 0.0484],
+            [0.3875, 0.0547],
+            [0.3875, 0.0609],
+            [0.3937, 0.0828],
+            [0.3937, 0.0891],
+            [0.3969, 0.0953],
+            [0.3969, 0.1016],
+            [0.4016, 0.1125],
+            [0.4016, 0.1172],
+            [0.4094, 0.1391],
+            [0.4094, 0.1437],
+            [0.4172, 0.1625],
+            [0.4172, 0.1672],
+            [0.4203, 0.1719],
+            [0.4219, 0.1797],
+            [0.4281, 0.1938],
+            [0.4266, 0.1953],
+            [0.4266, 0.2047],
+            [0.425, 0.2062],
+            [0.425, 0.2266],
+            [0.4234, 0.2281],
+            [0.375, 0.2281],
+            [0.3641, 0.2313],
+            [0.3594, 0.2344],
+            [0.3547, 0.2406],
+            [0.3547, 0.9422],
+            [0.3609, 0.9578],
+            [0.3719, 0.9656],
+            [0.6312, 0.9656],
+            [0.6406, 0.9578],
+            [0.6438, 0.9516],
+            [0.6438, 0.2437],
+            [0.6344, 0.2328],
+            [0.6297, 0.2313],
+            [0.6141, 0.2313],
+            [0.6125, 0.2297],
+            [0.5984, 0.2297],
+            [0.5969, 0.2281],
+            [0.575, 0.2281],
+            [0.5734, 0.2266],
+            [0.5672, 0.2266],
+            [0.5641, 0.2219],
+            [0.5641, 0.2],
+            [0.5594, 0.1953],
+            [0.5594, 0.1891],
+            [0.5672, 0.1703],
+            [0.5672, 0.1656],
+            [0.5719, 0.1547],
+            [0.5734, 0.1453],
+            [0.5766, 0.1406],
+            [0.5766, 0.1344],
+            [0.5844, 0.1125],
+            [0.5844, 0.1062],
+            [0.5891, 0.0953],
+            [0.5891, 0.0891],
+            [0.5969, 0.0625],
+            [0.5938, 0.0547],
+            [0.5891, 0.05],
+            [0.5828, 0.0484],
+            [0.575, 0.0437],
+            [0.5359, 0.0328],
+            [0.5266, 0.0328],
+            [0.525, 0.0312],
+            [0.5156, 0.0312],
+            [0.5141, 0.0297],
+            [0.475, 0.0297],
+            [0.4734, 0.0312]
+          ]
+        ],
+        "edge": "#e3d7c2"
+      },
+      "price": {
+        "tr": 99.9,
+        "en": 99.9
+      },
+      "photos": [
+        "foto/dancing-under-the-full-moon-erkek-parfum-70ml-premium/1.webp",
+        "foto/dancing-under-the-full-moon-erkek-parfum-70ml-premium/2.webp",
+        "foto/dancing-under-the-full-moon-erkek-parfum-70ml-premium/3.webp"
+      ],
+      "composition": [
+        "Üst: Bergamot, Mandalina",
+        "Kalp: Portakal Çiçeği",
+        "Dip: Vanilya, Karamel"
+      ]
+    },
+    {
+      "name": "Night Tales",
+      "form": "photo",
+      "sub": "70 ml",
+      "collection": null,
+      "family": "Misk",
+      "year": null,
+      "perfumer": null,
+      "color": "#d8b279",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#0e1426",
+        "edge": "#050404",
+        "drop": "#8aa8e0",
+        "accent": "#8aa8e0",
+        "mood": "warm"
+      },
+      "tagline": "Bergamot · Menekşe · Sedir",
+      "notes": [
+        "Bergamot",
+        "Menekşe",
+        "Sedir",
+        "Paçuli",
+        "Misk"
+      ],
+      "description": "Sadeliğin zıt yüzleriyle oynayan bir koku; parlak ferahlığı paçuli, misk ve sedirle yuvarlanıyor.",
+      "file": "night-tales-erkek-parfum-70ml-premium.webp",
+      "handle": "night-tales-erkek-parfum-70ml-premium",
+      "en": {
+        "name": "Night Tales",
+        "family": "Musky",
+        "tagline": "Bergamot · Violet · Cedarwood",
+        "notes": [
+          "Bergamot",
+          "Violet",
+          "Cedarwood",
+          "Patchouli",
+          "Diffusive Musk"
+        ],
+        "description": "A fragrance playing on the contrasting facets of simplicity; its bright and poignant freshness is rounded by the scent of patchouli, musk and cedarwood.",
+        "sub": "70 ml",
+        "composition": [
+          "Top: Bergamot, Violet",
+          "Heart: Cedarwood, Patchouli",
+          "Base: Diffusive Musk"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.1938,
+        "depthRatio": 0.42,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0125, 0.0352, 0.0516, 0.068, 0.0797, 0.0891, 0.0945, 0.0961, 0.0961, 0.0961, 0.0945, 0.0938, 0.093, 0.0914, 0.0906, 0.0891, 0.0883, 0.0867, 0.0852, 0.0844, 0.0828, 0.0813, 0.0805, 0.0797, 0.0781, 0.0773, 0.0758, 0.0742, 0.0734, 0.0719, 0.0703, 0.0695, 0.068, 0.0664, 0.0656, 0.0641, 0.0625, 0.0617, 0.0602, 0.0594, 0.0617, 0.0625, 0.0625, 0.0625, 0.0633, 0.0633, 0.0633, 0.0641, 0.1297, 0.1375, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1398, 0.1391, 0.1375, 0.1352, 0.1313, 0.1266, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4562, 0.0328],
+            [0.4547, 0.0344],
+            [0.45, 0.0344],
+            [0.4375, 0.0391],
+            [0.4313, 0.0391],
+            [0.425, 0.0422],
+            [0.4047, 0.0469],
+            [0.3984, 0.05],
+            [0.3922, 0.0563],
+            [0.3922, 0.0656],
+            [0.3953, 0.0719],
+            [0.3984, 0.0922],
+            [0.4031, 0.1031],
+            [0.4031, 0.1078],
+            [0.4094, 0.1234],
+            [0.4109, 0.1328],
+            [0.4141, 0.1375],
+            [0.4172, 0.1516],
+            [0.4219, 0.1609],
+            [0.4219, 0.1656],
+            [0.4313, 0.1875],
+            [0.4313, 0.1938],
+            [0.4281, 0.1969],
+            [0.4281, 0.2203],
+            [0.4266, 0.2219],
+            [0.4266, 0.2266],
+            [0.425, 0.2281],
+            [0.3828, 0.2266],
+            [0.3812, 0.2281],
+            [0.3688, 0.2297],
+            [0.3641, 0.2328],
+            [0.3594, 0.2391],
+            [0.3594, 0.9391],
+            [0.3578, 0.9406],
+            [0.3641, 0.9547],
+            [0.375, 0.9656],
+            [0.6266, 0.9656],
+            [0.6344, 0.9609],
+            [0.6391, 0.9563],
+            [0.6406, 0.9516],
+            [0.6406, 0.2406],
+            [0.6391, 0.2375],
+            [0.6312, 0.2313],
+            [0.5656, 0.2281],
+            [0.5625, 0.2219],
+            [0.5625, 0.1984],
+            [0.5594, 0.1953],
+            [0.5594, 0.1891],
+            [0.5672, 0.1672],
+            [0.5672, 0.1625],
+            [0.5703, 0.1578],
+            [0.5766, 0.1313],
+            [0.5813, 0.1203],
+            [0.5844, 0.1047],
+            [0.5922, 0.0828],
+            [0.5922, 0.0781],
+            [0.5953, 0.0703],
+            [0.5953, 0.0578],
+            [0.5891, 0.0516],
+            [0.5687, 0.0437],
+            [0.5641, 0.0437],
+            [0.5547, 0.0391],
+            [0.5484, 0.0391],
+            [0.5422, 0.0359],
+            [0.5359, 0.0359],
+            [0.5281, 0.0328],
+            [0.5172, 0.0328],
+            [0.5156, 0.0312],
+            [0.5062, 0.0312],
+            [0.5047, 0.0297],
+            [0.4766, 0.0297],
+            [0.475, 0.0312]
+          ]
+        ],
+        "edge": "#2d2824"
+      },
+      "price": {
+        "tr": 99.9,
+        "en": 99.9
+      },
+      "photos": [
+        "foto/night-tales-erkek-parfum-70ml-premium/1.webp",
+        "foto/night-tales-erkek-parfum-70ml-premium/2.webp",
+        "foto/night-tales-erkek-parfum-70ml-premium/3.webp",
+        "foto/night-tales-erkek-parfum-70ml-premium/4.webp"
+      ],
+      "composition": [
+        "Üst: Bergamot, Menekşe",
+        "Kalp: Sedir, Paçuli",
+        "Dip: Misk"
+      ]
+    },
+    {
+      "name": "One Thousand & One Night",
+      "form": "photo",
+      "sub": "70 ml",
+      "collection": null,
+      "family": "Odunsu Amber",
+      "year": null,
+      "perfumer": null,
+      "color": "#d6a953",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#2a1a06",
+        "edge": "#050404",
+        "drop": "#f0b040",
+        "accent": "#f0b040",
+        "mood": "warm"
+      },
+      "tagline": "Tik Ağacı · Gül · Oud",
+      "notes": [
+        "Tik Ağacı",
+        "Gül",
+        "Oud",
+        "Amber"
+      ],
+      "description": "Gül, oud ve oryantal amberle tazelenen ferah ve balsamik bir koku.",
+      "file": "one-thousand-one-night-erkek-parfum-70ml-premium.webp",
+      "handle": "one-thousand-one-night-erkek-parfum-70ml-premium",
+      "en": {
+        "name": "One Thousand & One Night",
+        "family": "Woody Ambery",
+        "tagline": "Teak Wood · Rose · Oud",
+        "notes": [
+          "Teak Wood",
+          "Rose",
+          "Oud",
+          "Amber"
+        ],
+        "description": "This is an fresh and balsamic fragrance refreshed by the essence of rose, oud and oriental amber.",
+        "sub": "70 ml",
+        "composition": [
+          "Top: Teak Wood",
+          "Heart: Rose",
+          "Base: Oud, Amber"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.1938,
+        "depthRatio": 0.42,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0133, 0.0391, 0.0516, 0.0703, 0.0828, 0.0906, 0.0953, 0.0945, 0.0938, 0.093, 0.0922, 0.0914, 0.0906, 0.0898, 0.0891, 0.0883, 0.0867, 0.0859, 0.0852, 0.0836, 0.0805, 0.0797, 0.0789, 0.0773, 0.0766, 0.0758, 0.0742, 0.0727, 0.0719, 0.0703, 0.0688, 0.068, 0.0672, 0.0656, 0.0641, 0.0625, 0.0609, 0.0602, 0.0586, 0.057, 0.0617, 0.0617, 0.0617, 0.0625, 0.0625, 0.0625, 0.0625, 0.0641, 0.1109, 0.1359, 0.1391, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1414, 0.1398, 0.1375, 0.1344, 0.1289, 0.1141, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4516, 0.0328],
+            [0.45, 0.0344],
+            [0.4375, 0.0359],
+            [0.4266, 0.0406],
+            [0.4172, 0.0406],
+            [0.4062, 0.0453],
+            [0.3891, 0.05],
+            [0.3844, 0.0563],
+            [0.3859, 0.0719],
+            [0.3875, 0.0734],
+            [0.3906, 0.0906],
+            [0.3937, 0.0969],
+            [0.3969, 0.1156],
+            [0.4203, 0.1859],
+            [0.425, 0.1922],
+            [0.425, 0.1953],
+            [0.4219, 0.1984],
+            [0.4219, 0.2266],
+            [0.4188, 0.2297],
+            [0.3656, 0.2297],
+            [0.3563, 0.2359],
+            [0.3563, 0.9469],
+            [0.3594, 0.9547],
+            [0.3672, 0.9625],
+            [0.3766, 0.9672],
+            [0.3828, 0.9672],
+            [0.3844, 0.9688],
+            [0.6219, 0.9688],
+            [0.6328, 0.9641],
+            [0.6406, 0.9547],
+            [0.6406, 0.2437],
+            [0.6359, 0.2359],
+            [0.6297, 0.2328],
+            [0.6234, 0.2328],
+            [0.6219, 0.2313],
+            [0.6031, 0.2313],
+            [0.6016, 0.2297],
+            [0.5938, 0.2313],
+            [0.5828, 0.2281],
+            [0.5641, 0.2281],
+            [0.5609, 0.2234],
+            [0.5609, 0.2078],
+            [0.5594, 0.2062],
+            [0.5594, 0.2016],
+            [0.5609, 0.2],
+            [0.5594, 0.1969],
+            [0.5547, 0.1953],
+            [0.5547, 0.1906],
+            [0.5578, 0.1859],
+            [0.5656, 0.1625],
+            [0.5656, 0.1578],
+            [0.5734, 0.1375],
+            [0.5734, 0.1313],
+            [0.5781, 0.1266],
+            [0.5766, 0.125],
+            [0.5797, 0.1219],
+            [0.5813, 0.1094],
+            [0.5828, 0.1078],
+            [0.5828, 0.1031],
+            [0.5875, 0.0891],
+            [0.5875, 0.0828],
+            [0.5891, 0.0813],
+            [0.5891, 0.075],
+            [0.5906, 0.0734],
+            [0.5906, 0.0672],
+            [0.5922, 0.0656],
+            [0.5922, 0.0578],
+            [0.5938, 0.0563],
+            [0.5859, 0.0484],
+            [0.5813, 0.0484],
+            [0.5609, 0.0406],
+            [0.5547, 0.0406],
+            [0.5469, 0.0375],
+            [0.5406, 0.0375],
+            [0.5359, 0.0344],
+            [0.5281, 0.0344],
+            [0.5266, 0.0328],
+            [0.5188, 0.0328],
+            [0.5078, 0.0297],
+            [0.5062, 0.0312],
+            [0.5031, 0.0297],
+            [0.4734, 0.0297],
+            [0.4719, 0.0312]
+          ]
+        ],
+        "edge": "#2e2924"
+      },
+      "price": {
+        "tr": 99.9,
+        "en": 99.9
+      },
+      "photos": [
+        "foto/one-thousand-one-night-erkek-parfum-70ml-premium/1.webp",
+        "foto/one-thousand-one-night-erkek-parfum-70ml-premium/2.webp",
+        "foto/one-thousand-one-night-erkek-parfum-70ml-premium/3.webp",
+        "foto/one-thousand-one-night-erkek-parfum-70ml-premium/4.webp"
+      ],
+      "composition": [
+        "Üst: Tik Ağacı",
+        "Kalp: Gül",
+        "Dip: Oud, Amber"
+      ]
+    },
+    {
+      "name": "Oud & Amber Harmony",
+      "form": "photo",
+      "sub": "70 ml",
+      "collection": null,
+      "family": "Amber Odunsu",
+      "year": null,
+      "perfumer": null,
+      "color": "#c7a779",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#20140a",
+        "edge": "#050404",
+        "drop": "#d08a40",
+        "accent": "#d08a40",
+        "mood": "warm"
+      },
+      "tagline": "Bergamot · Mandalina · Çiçek Buketi",
+      "notes": [
+        "Bergamot",
+        "Mandalina",
+        "Çiçek Buketi",
+        "Oud",
+        "Amber"
+      ],
+      "description": "Değerli oud, kıymetli bir çiçek buketi ve parlak narenciye açılışından bir iksir.",
+      "file": "oud-amber-harmony-erkek-parfum-70ml-premium.webp",
+      "handle": "oud-amber-harmony-erkek-parfum-70ml-premium",
+      "en": {
+        "name": "Oud & Amber Harmony",
+        "family": "Ambery Woody",
+        "tagline": "Bergamot · Mandarine · Floral Bouquet",
+        "notes": [
+          "Bergamot",
+          "Mandarine",
+          "Floral Bouquet",
+          "Oud",
+          "Amber"
+        ],
+        "description": "A potion of precious oud, precious floral bouquet and citrusy bright top.",
+        "sub": "70 ml",
+        "composition": [
+          "Top: Bergamot, Mandarine",
+          "Heart: Floral Bouquet",
+          "Base: Oud, Amber"
+        ]
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2062,
+        "depthRatio": 0.42,
+        "axis": 0.5016,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0375, 0.057, 0.0688, 0.0805, 0.093, 0.0977, 0.0992, 0.0969, 0.0961, 0.0945, 0.0938, 0.093, 0.0922, 0.0914, 0.0898, 0.0883, 0.0867, 0.0859, 0.0852, 0.0836, 0.0828, 0.0813, 0.0805, 0.0789, 0.0781, 0.0766, 0.0758, 0.0734, 0.0727, 0.0711, 0.0695, 0.068, 0.0672, 0.0656, 0.0641, 0.0633, 0.0609, 0.0586, 0.0641, 0.0633, 0.0625, 0.0633, 0.0633, 0.0633, 0.0648, 0.0672, 0.1289, 0.1336, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1352, 0.1336, 0.1313, 0.1281, 0.1234, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4703, 0.0484],
+            [0.4672, 0.0516],
+            [0.4594, 0.0516],
+            [0.4578, 0.0531],
+            [0.4531, 0.0516],
+            [0.45, 0.0547],
+            [0.4437, 0.0547],
+            [0.4422, 0.0563],
+            [0.4406, 0.0547],
+            [0.4375, 0.0578],
+            [0.4328, 0.0578],
+            [0.4313, 0.0594],
+            [0.4281, 0.0578],
+            [0.425, 0.0609],
+            [0.4219, 0.0609],
+            [0.4172, 0.0641],
+            [0.4125, 0.0641],
+            [0.4109, 0.0656],
+            [0.4094, 0.0641],
+            [0.4078, 0.0672],
+            [0.4, 0.0719],
+            [0.4031, 0.0828],
+            [0.4016, 0.0859],
+            [0.4047, 0.0891],
+            [0.4047, 0.0953],
+            [0.4062, 0.0969],
+            [0.4047, 0.0984],
+            [0.4078, 0.1016],
+            [0.4062, 0.1062],
+            [0.4078, 0.1047],
+            [0.4094, 0.1062],
+            [0.4078, 0.1109],
+            [0.4109, 0.1125],
+            [0.4094, 0.1141],
+            [0.4109, 0.1156],
+            [0.4109, 0.1219],
+            [0.4141, 0.1266],
+            [0.4141, 0.1328],
+            [0.4156, 0.1344],
+            [0.4141, 0.1375],
+            [0.4156, 0.1359],
+            [0.4172, 0.1375],
+            [0.4172, 0.1422],
+            [0.4219, 0.1547],
+            [0.4203, 0.1562],
+            [0.4234, 0.1594],
+            [0.4234, 0.1641],
+            [0.425, 0.1656],
+            [0.4234, 0.1688],
+            [0.4266, 0.1703],
+            [0.4266, 0.175],
+            [0.4344, 0.1922],
+            [0.4328, 0.1969],
+            [0.4344, 0.1953],
+            [0.4391, 0.2031],
+            [0.4359, 0.2078],
+            [0.4344, 0.2062],
+            [0.4328, 0.2094],
+            [0.4344, 0.2109],
+            [0.4328, 0.2125],
+            [0.4344, 0.2156],
+            [0.4328, 0.2172],
+            [0.4328, 0.2328],
+            [0.4313, 0.2344],
+            [0.4359, 0.2344],
+            [0.4375, 0.2359],
+            [0.4359, 0.2375],
+            [0.4125, 0.2375],
+            [0.4016, 0.2406],
+            [0.3953, 0.2406],
+            [0.3937, 0.2391],
+            [0.3922, 0.2406],
+            [0.3766, 0.2406],
+            [0.3656, 0.2484],
+            [0.3656, 0.9203],
+            [0.3688, 0.9297],
+            [0.3781, 0.9359],
+            [0.3969, 0.9359],
+            [0.3984, 0.9344],
+            [0.4016, 0.9359],
+            [0.6188, 0.9359],
+            [0.6234, 0.9313],
+            [0.625, 0.9328],
+            [0.6297, 0.925],
+            [0.6312, 0.9266],
+            [0.6297, 0.925],
+            [0.6375, 0.9141],
+            [0.6359, 0.9125],
+            [0.6375, 0.9109],
+            [0.6375, 0.2531],
+            [0.6328, 0.2437],
+            [0.6312, 0.2453],
+            [0.625, 0.2406],
+            [0.6078, 0.2406],
+            [0.6062, 0.2391],
+            [0.6047, 0.2406],
+            [0.5813, 0.2406],
+            [0.575, 0.2375],
+            [0.5703, 0.2391],
+            [0.5641, 0.2359],
+            [0.5656, 0.2344],
+            [0.5641, 0.2328],
+            [0.5641, 0.2125],
+            [0.5656, 0.2109],
+            [0.5609, 0.2062],
+            [0.5625, 0.2047],
+            [0.5609, 0.2031],
+            [0.5641, 0.1984],
+            [0.5656, 0.1906],
+            [0.5687, 0.1875],
+            [0.5672, 0.1859],
+            [0.5734, 0.1703],
+            [0.5734, 0.1656],
+            [0.5766, 0.1609],
+            [0.5766, 0.1562],
+            [0.5813, 0.15],
+            [0.5797, 0.1469],
+            [0.5828, 0.1406],
+            [0.5828, 0.1359],
+            [0.5859, 0.1313],
+            [0.5844, 0.1297],
+            [0.5859, 0.1281],
+            [0.5891, 0.1109],
+            [0.5938, 0.1078],
+            [0.5922, 0.1062],
+            [0.5922, 0.1016],
+            [0.5953, 0.0969],
+            [0.5938, 0.0953],
+            [0.5953, 0.0938],
+            [0.5953, 0.0875],
+            [0.5969, 0.0844],
+            [0.6, 0.0828],
+            [0.5969, 0.0797],
+            [0.6, 0.0766],
+            [0.5984, 0.0703],
+            [0.5938, 0.0688],
+            [0.5922, 0.0656],
+            [0.5891, 0.0672],
+            [0.5875, 0.0656],
+            [0.5891, 0.0641],
+            [0.5859, 0.0656],
+            [0.5766, 0.0609],
+            [0.5703, 0.0609],
+            [0.5687, 0.0594],
+            [0.5703, 0.0578],
+            [0.5656, 0.0594],
+            [0.5641, 0.0563],
+            [0.5609, 0.0578],
+            [0.5594, 0.0547],
+            [0.5578, 0.0563],
+            [0.5469, 0.0516],
+            [0.5406, 0.0516],
+            [0.5391, 0.05],
+            [0.5375, 0.0516],
+            [0.5344, 0.0484],
+            [0.5297, 0.05],
+            [0.525, 0.0484],
+            [0.4797, 0.0484],
+            [0.4781, 0.05]
+          ]
+        ],
+        "edge": "#000000"
+      },
+      "price": {
+        "tr": 99.9,
+        "en": 99.9
+      },
+      "photos": [
+        "foto/oud-amber-harmony-erkek-parfum-70ml-premium/1.webp",
+        "foto/oud-amber-harmony-erkek-parfum-70ml-premium/2.webp",
+        "foto/oud-amber-harmony-erkek-parfum-70ml-premium/3.webp",
+        "foto/oud-amber-harmony-erkek-parfum-70ml-premium/4.webp"
+      ],
+      "composition": [
+        "Üst: Bergamot, Mandalina",
+        "Kalp: Çiçek Buketi",
+        "Dip: Oud, Amber"
+      ]
+    }
+  ],
+  "home": [0, 1, 2, 3],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Ödüllü koku",
+        "text": "Marie Claire Türkiye Parfüm Ödülleri 2026'da En İyi Niş Parfüm: pembe biber, misk adaçayı, paçuli ve amber.",
+        "stat": "Pembe Biber · Paçuli · Amber"
+      },
+      "en": {
+        "title": "The award-winning scent",
+        "text": "Best Niche Perfume at the Marie Claire Türkiye Fragrance Awards 2026: pink pepper, clary sage, patchouli and amber.",
+        "stat": "Pink Pepper · Patchouli · Amber"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Cesur bir tutku",
+        "text": "Vanilya, tütün ve amber; toprak kokulu paçuli ve bergamotla.",
+        "stat": "Tütün · Tonka · Amber"
+      },
+      "en": {
+        "title": "A daring passion",
+        "text": "Vanilla, tobacco and amber, with earthy patchouli and a bergamot top.",
+        "stat": "Tobacco · Tonka · Amber"
+      }
+    },
+    {
+      "flavor": 2,
+      "tr": {
+        "title": "Karanlık bir mucize",
+        "text": "Safranla açılıyor; yasemin ve gül, misk, oud ve vanilyayla derinleşiyor.",
+        "stat": "Safran · Gül · Oud"
+      },
+      "en": {
+        "title": "A dark miracle",
+        "text": "Opens with saffron; jasmine and rose deepen into musk, oud and vanilla.",
+        "stat": "Saffron · Rose · Oud"
+      }
+    }
+  ]
+}
