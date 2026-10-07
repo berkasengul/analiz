@@ -1,0 +1,495 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": false,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.5,
+  "backSolid": ".",
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "parts": [
+   [
+    "^(amber|fig|hamam|rose)-mum$",
+    [
+     [
+      0.54,
+      0.29,
+      0.945,
+      0.86
+     ]
+    ]
+   ]
+  ],
+  "neckAt": [
+   [
+    "^(amber|fig|hamam|rose)-mum$",
+    0.16
+   ],
+   [
+    "^seferi",
+    0.34
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "haremlique.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "220 g",
+  "themeGlow": 0.3,
+  "sizes": [
+   [
+    "^(amber|fig|hamam|rose)-mum$",
+    "R 7 cm · Y 9 cm"
+   ],
+   [
+    "^seferi",
+    "220 g"
+   ]
+  ],
+  "home": [
+   "seferi-i̇ncir-kokulu-mum",
+   "seferi-tarcin-kokulu-mum",
+   "amber-mum",
+   "fig-mum",
+   "hamam-mum",
+   "rose-mum"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.62
+  },
+  "rename": {
+   "seferi-i̇ncir-kokulu-mum": [
+    "Seferî Tulipa",
+    "Seferî Tulipa"
+   ],
+   "seferi-tarcin-kokulu-mum": [
+    "Seferî Tarçın",
+    "Seferî Cinnamon"
+   ],
+   "amber-mum": [
+    "Amber",
+    "Amber"
+   ],
+   "fig-mum": [
+    "Fig",
+    "Fig"
+   ],
+   "hamam-mum": [
+    "Hamam",
+    "Hamam"
+   ],
+   "rose-mum": [
+    "Rose",
+    "Rose"
+   ]
+  },
+  "categories": [
+   {
+    "id": "seferi",
+    "tr": "Seferî",
+    "en": "Seferî",
+    "color": "#d8b46a",
+    "descTr": "Oluklu cam gövde, altın tonlu pirinç zemin ve kapak süsü.",
+    "descEn": "Fluted glass body, gold-toned brass base and lid finial.",
+    "match": "^seferi"
+   },
+   {
+    "id": "anadolu",
+    "tr": "Scented Candles",
+    "en": "Scented Candles",
+    "color": "#2a2a2a",
+    "descTr": "Siyah cam, altın kapak; Anadolu'dan ilham alan dört koku.",
+    "descEn": "Black glass, gold lid; four scents inspired by Anatolia.",
+    "match": "^(amber|fig|hamam|rose)-mum"
+   }
+  ],
+  "families": {
+   "seferi-i̇ncir-kokulu-mum": [
+    "Çiçeksi · Misk",
+    "Floral · Musk"
+   ],
+   "seferi-tarcin-kokulu-mum": [
+    "Baharatlı · Gurme",
+    "Spicy · Gourmand"
+   ],
+   "amber-mum": [
+    "Amber · Baharatlı",
+    "Amber · Spicy"
+   ],
+   "fig-mum": [
+    "Yeşil · Meyvemsi",
+    "Green · Fruity"
+   ],
+   "hamam-mum": [
+    "Temiz · Çiçeksi",
+    "Clean · Floral"
+   ],
+   "rose-mum": [
+    "Gül · Odunsu",
+    "Rose · Woody"
+   ]
+  },
+  "notes": [
+   [
+    "^seferi-i",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Sümbülteber",
+      "Tuberose"
+     ],
+     [
+      "Gardenya",
+      "Gardenia"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^seferi-t",
+    [
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Erik",
+      "Plum"
+     ],
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Pralin",
+      "Praline"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ],
+   [
+    "^amber",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Kimyon",
+      "Cumin"
+     ],
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Sandal Ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Kehribar",
+      "Amber"
+     ]
+    ]
+   ],
+   [
+    "^fig",
+    [
+     [
+      "İncir Yaprağı",
+      "Fig Leaf"
+     ],
+     [
+      "İncir",
+      "Fig"
+     ],
+     [
+      "Tonka",
+      "Tonka Bean"
+     ],
+     [
+      "Hindistan Cevizi",
+      "Coconut"
+     ]
+    ]
+   ],
+   [
+    "^hamam",
+    [
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Erik",
+      "Plum"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Sümbül",
+      "Hyacinth"
+     ],
+     [
+      "Beyaz Misk",
+      "White Musk"
+     ]
+    ]
+   ],
+   [
+    "^rose",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Agar Ağacı",
+      "Agarwood"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^seferi-i",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot",
+      "Kalp: Yasemin, Sümbülteber, Gardenya",
+      "Dip: Misk"
+     ],
+     "en": [
+      "Top: Bergamot",
+      "Heart: Jasmine, Tuberose, Gardenia",
+      "Base: Musk"
+     ]
+    }
+   },
+   {
+    "match": "^seferi-t",
+    "composition": {
+     "tr": [
+      "Üst: Aldehitler, taze yapraklar, Karabiber, Erik",
+      "Kalp: Tarçın, Karanfil, Muskat, Gül",
+      "Dip: Balsamik notalar, Heliotrop, Pralin, Vanilya"
+     ],
+     "en": [
+      "Top: Aldehydes, fresh leaves, Black Pepper, Plum",
+      "Heart: Cinnamon, Clove, Nutmeg, Rose",
+      "Base: Balsamic notes, Heliotrope, Praline, Vanilla"
+     ]
+    }
+   },
+   {
+    "match": "^amber",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot",
+      "Orta: Kimyon, Tarçın, Karanfil, Sandal ağacı",
+      "Alt: Vanilya, Kehribar"
+     ],
+     "en": [
+      "Top: Bergamot",
+      "Heart: Cumin, Cinnamon, Clove, Sandalwood",
+      "Base: Vanilla, Amber"
+     ]
+    }
+   },
+   {
+    "match": "^fig",
+    "composition": {
+     "tr": [
+      "Üst: İncir yaprağı, Yeşil bitki özleri",
+      "Orta: İncir",
+      "Alt: Tonka fasulyesi, Hindistan cevizi, İncir ağacı"
+     ],
+     "en": [
+      "Top: Fig leaf, Green notes",
+      "Heart: Fig",
+      "Base: Tonka bean, Coconut, Fig tree"
+     ]
+    }
+   },
+   {
+    "match": "^hamam",
+    "composition": {
+     "tr": [
+      "Üst: Şeftali, Erik",
+      "Orta: Gül, Sümbül, Liliyum",
+      "Alt: Tonka fasulyesi, Vanilya, Beyaz misk"
+     ],
+     "en": [
+      "Top: Peach, Plum",
+      "Heart: Rose, Hyacinth, Lily",
+      "Base: Tonka bean, Vanilla, White musk"
+     ]
+    }
+   },
+   {
+    "match": "^rose",
+    "composition": {
+     "tr": [
+      "Üst: Limon, Bergamot, Safran",
+      "Orta: Gül",
+      "Alt: Misk, Paçuli, Guayak ağacı, Agar ağacı"
+     ],
+     "en": [
+      "Top: Lemon, Bergamot, Saffron",
+      "Heart: Rose",
+      "Base: Musk, Patchouli, Guaiac wood, Agarwood"
+     ]
+    }
+   }
+  ],
+  "taglines": {
+   "seferi-i̇ncir-kokulu-mum": [
+    "Oluklu cam, altın taç · 28 saat",
+    "Fluted glass, gold crown · 28 hours"
+   ],
+   "seferi-tarcin-kokulu-mum": [
+    "Oluklu cam, altın taç · 28 saat",
+    "Fluted glass, gold crown · 28 hours"
+   ],
+   "amber-mum": [
+    "Tarihî çarşıların sıcaklığı · 45 saat",
+    "The warmth of historic bazaars · 45 hours"
+   ],
+   "fig-mum": [
+    "Akdeniz'in bereketi · 45 saat",
+    "The abundance of the Mediterranean · 45 hours"
+   ],
+   "hamam-mum": [
+    "Türk hamamının arınması · 45 saat",
+    "The purity of the Turkish bath · 45 hours"
+   ],
+   "rose-mum": [
+    "Anadolu gülü · 45 saat",
+    "The Anatolian rose · 45 hours"
+   ]
+  },
+  "palette": [
+   [
+    "^seferi-i",
+    "#2a2010",
+    "#f0d8a0",
+    "#0c0904"
+   ],
+   [
+    "^seferi-t",
+    "#2a140a",
+    "#e8a060",
+    "#0c0603"
+   ],
+   [
+    "^amber",
+    "#26160a",
+    "#e0a050",
+    "#0a0603"
+   ],
+   [
+    "^fig",
+    "#16200e",
+    "#a8c070",
+    "#060a04"
+   ],
+   [
+    "^hamam",
+    "#1a1e22",
+    "#c8d8e0",
+    "#06080a"
+   ],
+   [
+    "^rose",
+    "#26100e",
+    "#e88a8a",
+    "#0a0404"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "seferi-i̇ncir-kokulu-mum",
+    "tr": {
+     "title": "Işığı yumuşak bir parıltıya dönüştürür",
+     "text": "Oluklu cam gövde, altın tonlu pirinç zemin ve kapak süsü. Bergamot, yasemin, sümbülteber ve gardenya; dipte misk.",
+     "stat": "Bergamot · Yasemin · Misk"
+    },
+    "en": {
+     "title": "Turning light into a soft glow",
+     "text": "Fluted glass body, gold-toned brass base and finial. Bergamot, jasmine, tuberose and gardenia over musk.",
+     "stat": "Bergamot · Jasmine · Musk"
+    }
+   },
+   {
+    "handle": "amber-mum",
+    "tr": {
+     "title": "Tarihî çarşıların sıcaklığı",
+     "text": "Baharatların, dokumaların ve değerli taşların ticaretinin yapıldığı Anadolu çarşılarını anımsatan amber.",
+     "stat": "Bergamot · Tarçın · Kehribar"
+    },
+    "en": {
+     "title": "The warmth of historic bazaars",
+     "text": "Amber that recalls the Anatolian bazaars where spices, textiles and precious stones were traded.",
+     "stat": "Bergamot · Cinnamon · Amber"
+    }
+   },
+   {
+    "handle": "hamam-mum",
+    "tr": {
+     "title": "Saflığın ve arınmanın simgesi",
+     "text": "Türk hamamının ılık ve buharlı atmosferi: şeftali ve erik, gül ve sümbül, beyaz misk.",
+     "stat": "Şeftali · Gül · Beyaz Misk"
+    },
+    "en": {
+     "title": "A symbol of purity and renewal",
+     "text": "The warm, steamy atmosphere of the Turkish bath: peach and plum, rose and hyacinth, white musk.",
+     "stat": "Peach · Rose · White Musk"
+    }
+   }
+  ],
+  "candles": "."
+ }
+}

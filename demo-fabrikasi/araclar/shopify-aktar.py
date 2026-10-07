@@ -33,6 +33,7 @@ Kurallar: markalar/<marka>-kurallar.json → "aktar":
     "themeAccent": "#c9a55c"                 sahne ışığının ikinci rengi bütün ürünlerde bu olur
     "themeGlow": 0.27                        sahne ışığının parlaklığı (koyu, kadife sahne için düşük)
     "families": {"handle": ["tr", "en"]}     ürüne özel koku ailesi (ör. WooCommerce kısa açıklamasından)
+    "candles": "regex"                      kapaklı mumlar (flask profili): kapak kendiliğinden kalkar, mum tutuşur
     "taglines": {"handle": ["tr", "en"]}     ürüne özel kısa alt yazı (markanın kendi cümlesi)
     "gallery": false                         ürün detayında fotoğraf galerisi gösterilmez
     "palette": [["regex", "#ana", "#vurgu"]]  ürüne özel sahne ve kart rengi (ilk eşleşen)
@@ -131,6 +132,8 @@ def photo3d(h, m):
         shape["glass"] = True
     if m.get("flame"):
         shape["flame"] = m["flame"]  # mum: fitil ucu (araclar/mum-alev.py), sitede canlı alev
+    elif R.get("candles") and re.search(R["candles"], h) and m.get("neck"):
+        shape["flame"] = [[m.get("axis", 0.5), m["neck"]]]  # kapaklı mum: alev kavanozun ağzında, kapak kalkınca
     if R.get("liquidBottom") and os.path.exists(os.path.join(FOTO, "labels", f"{h}.webp")):
         from PIL import Image
         a = Image.open(os.path.join(FOTO, "labels", f"{h}.webp")).convert("RGBA")

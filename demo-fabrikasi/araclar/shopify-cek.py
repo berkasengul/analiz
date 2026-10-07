@@ -12,6 +12,7 @@ gerekmez (yalnızca Python 3). Kendi bilgisayarında çalıştır:
     images/<ürün>/<n>.<uzantı>           ürünün bütün görselleri, orijinal boyutta
 """
 import json
+import re
 import os
 import sys
 import time
@@ -54,16 +55,21 @@ def main():
     os.makedirs(os.path.join(out, "images"), exist_ok=True)
     base = f"https://{domain}"
 
-    tr = all_products(base)
+    # --only "regex": yalnızca bu ürünler (büyük mağazalarda, ör. ev tekstili markasının mumları)
+    only = re.compile(sys.argv[sys.argv.index("--only") + 1]) if "--only" in sys.argv else None
+    keep = lambda ps: [p for p in ps if not only or only.search(p["handle"])]
+    tr = keep(all_products(base))
     print(f"{len(tr)} ürün (TR)")
     json.dump(tr, open(os.path.join(out, "products-tr.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    en = all_products(f"{base}/en")
+    en = keep(all_products(f"{base}/en"))
     print(f"{len(en)} ürün (EN)")
     json.dump(en, open(os.path.join(out, "products-en.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     cols = (get(f"{base}/collections.json?limit=250") or {}).get("collections", [])
     json.dump(cols, open(os.path.join(out, "collections.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for c in cols:
+        if only:
+            continue
         items = all_products(f"{base}/collections/{c['handle']}")
         json.dump([p["handle"] for p in items], open(os.path.join(out, f"collection-{c['handle']}.json"), "w", encoding="utf-8"), ensure_ascii=False)
         print(f"  kategori {c['handle']}: {len(items)} ürün")
