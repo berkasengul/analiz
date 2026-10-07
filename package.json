@@ -1,0 +1,40 @@
+{
+  "name": "unbe-no-collection",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "images": "node scripts/prepare-images.mjs",
+    "shots": "node scripts/shots.mjs",
+    "cards": "node scripts/render-cards.mjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/postprocessing": "^2.19.1",
+    "framer-motion": "^14.0.0",
+    "lenis": "^1.3.26",
+    "postprocessing": "6.37.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "0.163.0",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@types/three": "0.163.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "playwright": "1.56.1",
+    "sharp": "^0.35.5",
+    "typescript": "5.5",
+    "vite": "^5.4.21"
+  },
+  "overrides": {
+    "postprocessing": "$postprocessing"
+  }
+}
