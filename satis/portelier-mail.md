@@ -8,7 +8,7 @@
 Portelier için 3B web sitesi konsepti: Mediterranean Connections
 
 ## Mesaj
-Merhaba Ceren Hanım, Atılay Bey,
+Merhaba Ceren, Atılay,
 
 Portelier için, Mediterranean Connections koleksiyonunu 3B olarak sergileyen bir web sitesi konsepti hazırladım; incelemeniz için paylaşıyorum:
 
