@@ -1,0 +1,592 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": false,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.5,
+  "backSolid": ".",
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ],
+  "neckAt": [
+   [
+    "^filippo-sorcinelli-(luce-dei-cuori|dolcissimo-sollievo|lentezza-carezza|la-voglia-damare|ascetic-vanilla|fango-e-pesca)",
+    0.44
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "dropsparfumerie.com",
+  "platform": "woo",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "filippo-sorcinelli-pioggia-forte-50-ml",
+   "filippo-sorcinelli-ascetic-vanilla-50-ml",
+   "filippo-sorcinelli-nebbia-spessa-50-ml",
+   "filippo-sorcinelli-fango-e-pesca-50-ml",
+   "filippo-sorcinelli-pioggia-debole-50-ml",
+   "filippo-sorcinelli-luce-dei-cuori-50-ml"
+  ],
+  "profiles": {
+   "flask": "^filippo-sorcinelli-(luce-dei-cuori|dolcissimo-sollievo|lentezza-carezza|la-voglia-damare|ascetic-vanilla|fango-e-pesca)",
+   "depthRatio": 0.5,
+   "flat": "^filippo-sorcinelli-(pioggia|nebbia)",
+   "flatDepth": [
+    [
+     "^filippo-sorcinelli-(pioggia|nebbia)",
+     0.9
+    ]
+   ]
+  },
+  "rename": {
+   "filippo-sorcinelli-luce-dei-cuori-50-ml": [
+    "Luce Dei Cuori",
+    "Luce Dei Cuori"
+   ],
+   "filippo-sorcinelli-dolcissimo-sollievo-50-ml": [
+    "Dolcissimo Sollievo",
+    "Dolcissimo Sollievo"
+   ],
+   "filippo-sorcinelli-lentezza-carezza-50-ml": [
+    "Lentezza Carezza",
+    "Lentezza Carezza"
+   ],
+   "filippo-sorcinelli-la-voglia-damare-50-ml": [
+    "La Voglia D’Amare",
+    "La Voglia D’Amare"
+   ],
+   "filippo-sorcinelli-ascetic-vanilla-50-ml": [
+    "Ascetic Vanilla",
+    "Ascetic Vanilla"
+   ],
+   "filippo-sorcinelli-fango-e-pesca-50-ml": [
+    "Fango E Pesca",
+    "Fango E Pesca"
+   ],
+   "filippo-sorcinelli-pioggia-forte-50-ml": [
+    "Pioggia Forte",
+    "Pioggia Forte"
+   ],
+   "filippo-sorcinelli-pioggia-moderata-50-ml": [
+    "Pioggia Moderata",
+    "Pioggia Moderata"
+   ],
+   "filippo-sorcinelli-pioggia-debole-50-ml": [
+    "Pioggia Debole",
+    "Pioggia Debole"
+   ],
+   "filippo-sorcinelli-nebbia-spessa-50-ml": [
+    "Nebbia Spessa",
+    "Nebbia Spessa"
+   ],
+   "filippo-sorcinelli-nebbia-fitta-50-ml": [
+    "Nebbia Fitta",
+    "Nebbia Fitta"
+   ],
+   "filippo-sorcinelli-nebbia-densa-50-ml": [
+    "Nebbia Densa",
+    "Nebbia Densa"
+   ]
+  },
+  "tagline": "notes",
+  "categories": [
+   {
+    "id": "superfluo",
+    "tr": "SuperFluo?",
+    "en": "SuperFluo?",
+    "color": "#c8a8f0",
+    "descTr": "Yanardöner etiketler, buruşuk siyah kapaklar: altı duygusal extrait.",
+    "descEn": "Iridescent labels, crumpled black caps: six emotional extraits.",
+    "match": "^filippo-sorcinelli-(luce-dei-cuori|dolcissimo-sollievo|lentezza-carezza|la-voglia-damare|ascetic-vanilla|fango-e-pesca)"
+   },
+   {
+    "id": "nebbia",
+    "tr": "Nebbia & Pioggia",
+    "en": "Nebbia & Pioggia",
+    "color": "#9ab8d8",
+    "descTr": "Sis ve yağmur: gümüş heykel kapaklı altı extrait.",
+    "descEn": "Fog and rain: six extraits with sculpted silver caps.",
+    "match": "^filippo-sorcinelli-(pioggia-forte|pioggia-moderata|pioggia-debole|nebbia-spessa|nebbia-fitta|nebbia-densa)"
+   }
+  ],
+  "families": {
+   "filippo-sorcinelli-luce-dei-cuori-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-dolcissimo-sollievo-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-lentezza-carezza-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-la-voglia-damare-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-ascetic-vanilla-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-fango-e-pesca-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-pioggia-forte-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-pioggia-moderata-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-pioggia-debole-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-nebbia-spessa-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-nebbia-fitta-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ],
+   "filippo-sorcinelli-nebbia-densa-50-ml": [
+    "Filippo Sorcinelli",
+    "Filippo Sorcinelli"
+   ]
+  },
+  "notes": [
+   [
+    "^filippo\\-sorcinelli\\-luce\\-dei\\-cuori\\-50\\-ml$",
+    [
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Iris",
+      "Iris"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Portakal",
+      "Orange"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-dolcissimo\\-sollievo\\-50\\-ml$",
+    [
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Tonka fasulyesi",
+      "Tonka Bean"
+     ],
+     [
+      "Iris",
+      "Iris"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Deniz notaları",
+      "Sea Notes"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-lentezza\\-carezza\\-50\\-ml$",
+    [
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Tonka fasulyesi",
+      "Tonka Bean"
+     ],
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Dikenli incir",
+      "Prickly Pear"
+     ],
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-la\\-voglia\\-damare\\-50\\-ml$",
+    [
+     [
+      "Hindistan cevizi kreması",
+      "Coconut Cream"
+     ],
+     [
+      "Iris kökü",
+      "Orris Root"
+     ],
+     [
+      "Çam katranı",
+      "Pine Tar"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-ascetic\\-vanilla\\-50\\-ml$",
+    [
+     [
+      "Vanilya kreması",
+      "Vanilla Cream"
+     ],
+     [
+      "Süt akoru",
+      "Milk Accord"
+     ],
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ],
+     [
+      "Karamel",
+      "Caramel"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-fango\\-e\\-pesca\\-50\\-ml$",
+    [
+     [
+      "Olgun şeftali",
+      "Ripe Peach"
+     ],
+     [
+      "Yağmur",
+      "Rain"
+     ],
+     [
+      "Çamur akoru",
+      "Mud Accord"
+     ],
+     [
+      "Osmanthus",
+      "Osmanthus"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Tütün yaprakları",
+      "Tobacco Leaves"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-pioggia\\-forte\\-50\\-ml$",
+    [
+     [
+      "Gardenya",
+      "Gardenia"
+     ],
+     [
+      "Gül",
+      "Rose"
+     ],
+     [
+      "Marine notalar",
+      "Marine Notes"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Benzoin",
+      "Benzoin"
+     ],
+     [
+      "Yosun",
+      "Moss"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-pioggia\\-moderata\\-50\\-ml$",
+    [
+     [
+      "Iris",
+      "Iris"
+     ],
+     [
+      "Marine notalar",
+      "Marine Notes"
+     ],
+     [
+      "Mür",
+      "Myrrh"
+     ],
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Tonka fasulyesi",
+      "Tonka Bean"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-pioggia\\-debole\\-50\\-ml$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Çam",
+      "Pine"
+     ],
+     [
+      "Deniz notaları",
+      "Sea Notes"
+     ],
+     [
+      "Sedir ağacı",
+      "Cedarwood"
+     ],
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Yosun",
+      "Moss"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-nebbia\\-spessa\\-50\\-ml$",
+    [
+     [
+      "Deniz likeni",
+      "Sea Lichen"
+     ],
+     [
+      "Akuatik notalar",
+      "Aquatic Notes"
+     ],
+     [
+      "Çiy",
+      "Dew"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-nebbia\\-fitta\\-50\\-ml$",
+    [
+     [
+      "Amber",
+      "Amber"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Değerli odunlar",
+      "Precious Woods"
+     ],
+     [
+      "Nemli toprak",
+      "Damp Earth"
+     ]
+    ]
+   ],
+   [
+    "^filippo\\-sorcinelli\\-nebbia\\-densa\\-50\\-ml$",
+    [
+     [
+      "Vetiver",
+      "Vetiver"
+     ],
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ],
+     [
+      "Palo santo",
+      "Palo Santo"
+     ],
+     [
+      "Botanik miskler",
+      "Botanical Musks"
+     ],
+     [
+      "Çiy",
+      "Dew"
+     ]
+    ]
+   ]
+  ],
+  "palette": [
+   [
+    "^filippo-sorcinelli-luce-dei-cuori",
+    "#2a1c08",
+    "#f0c060"
+   ],
+   [
+    "^filippo-sorcinelli-dolcissimo-sollievo",
+    "#1c142a",
+    "#c8a8f0"
+   ],
+   [
+    "^filippo-sorcinelli-lentezza-carezza",
+    "#2a1606",
+    "#f0a050"
+   ],
+   [
+    "^filippo-sorcinelli-la-voglia-damare",
+    "#0a1c24",
+    "#80d0e0"
+   ],
+   [
+    "^filippo-sorcinelli-ascetic-vanilla",
+    "#241c12",
+    "#f0dcb0"
+   ],
+   [
+    "^filippo-sorcinelli-fango-e-pesca",
+    "#2a140c",
+    "#f0a080"
+   ],
+   [
+    "^filippo-sorcinelli-pioggia-forte",
+    "#101a24",
+    "#9ab8d8"
+   ],
+   [
+    "^filippo-sorcinelli-pioggia-moderata",
+    "#121620",
+    "#a8b0d0"
+   ],
+   [
+    "^filippo-sorcinelli-pioggia-debole",
+    "#0c1a18",
+    "#90c8b8"
+   ],
+   [
+    "^filippo-sorcinelli-nebbia-spessa",
+    "#0e1820",
+    "#a0c4cc"
+   ],
+   [
+    "^filippo-sorcinelli-nebbia-fitta",
+    "#1a1410",
+    "#c0a080"
+   ],
+   [
+    "^filippo-sorcinelli-nebbia-densa",
+    "#10160e",
+    "#a8b890"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "filippo-sorcinelli-pioggia-forte-50-ml",
+    "tr": {
+     "title": "Ani bastıran bir yaz yağmuru",
+     "text": "Gardenya ve gül, marine notalar; amber, benzoin ve yosunla nemli bir derinlik.",
+     "stat": "Pioggia Forte"
+    },
+    "en": {
+     "title": "A sudden summer downpour",
+     "text": "Gardenia and rose, marine notes; a damp depth of amber, benzoin and moss.",
+     "stat": "Pioggia Forte"
+    }
+   },
+   {
+    "handle": "filippo-sorcinelli-nebbia-spessa-50-ml",
+    "tr": {
+     "title": "Görünmeyen bir denizin üzerinde",
+     "text": "Deniz likeni, akuatik notalar ve çiy: tuzlu, sisli ve hipnotik.",
+     "stat": "Nebbia Spessa"
+    },
+    "en": {
+     "title": "Drifting over an unseen sea",
+     "text": "Sea lichen, aquatic notes and dew: salty, foggy and hypnotic.",
+     "stat": "Nebbia Spessa"
+    }
+   },
+   {
+    "handle": "filippo-sorcinelli-ascetic-vanilla-50-ml",
+    "tr": {
+     "title": "Bağırmayan bir vanilya",
+     "text": "Vanilya kreması, süt akoru, sandal ağacı, misk ve karamel: ten odaklı, kremsi ve derin.",
+     "stat": "Ascetic Vanilla"
+    },
+    "en": {
+     "title": "A vanilla that doesn't shout",
+     "text": "Vanilla cream, milk accord, sandalwood, musk and caramel: skin-close, creamy and deep.",
+     "stat": "Ascetic Vanilla"
+    }
+   }
+  ]
+ }
+}
