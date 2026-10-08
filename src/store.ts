@@ -35,8 +35,18 @@ interface State {
 
   /** ürün detay paneli */
   detailId: ProductId | null;
+  /** detayda seçili hikâye (0..3) ya da koku bilgisi (null) */
+  detailStory: number | null;
   openDetail: (id: ProductId) => void;
   closeDetail: () => void;
+  setDetailStory: (i: number | null) => void;
+
+  /** #all filtresi (üst menüdeki kategoriler de bunu ayarlar) */
+  allFilter: 'all' | 'kadın' | 'erkek';
+  setAllFilter: (f: 'all' | 'kadın' | 'erkek') => void;
+
+  menuOpen: boolean;
+  setMenuOpen: (o: boolean) => void;
 
   spray: Spray | null;
   startSpray: (id: ProductId) => void;
@@ -89,8 +99,16 @@ export const useStore = create<State>()(
       setFinderResult: (finderResult) => set({ finderResult, finderAt: now() }),
 
       detailId: null,
-      openDetail: (detailId) => set({ detailId, cartOpen: false }),
-      closeDetail: () => set({ detailId: null }),
+      detailStory: null,
+      openDetail: (detailId) => set({ detailId, detailStory: null, cartOpen: false, menuOpen: false }),
+      closeDetail: () => set({ detailId: null, detailStory: null }),
+      setDetailStory: (detailStory) => set({ detailStory }),
+
+      allFilter: 'all',
+      setAllFilter: (allFilter) => set({ allFilter }),
+
+      menuOpen: false,
+      setMenuOpen: (menuOpen) => set({ menuOpen }),
 
       spray: null,
       startSpray: (id) => {

@@ -41,7 +41,7 @@ async function run(label, viewport, isMobile) {
   });
   page.on('pageerror', (e) => problems.push(`[${label}] pageerror: ${e.message}`));
   await page.goto(`http://localhost:${PORT}/`, { waitUntil: 'networkidle' });
-  await page.waitForSelector('.loader', { state: 'detached', timeout: 60000 });
+  await page.waitForSelector('.mark', { state: 'detached', timeout: 90000 });
   await page.waitForTimeout(1500);
 
   const top = (id) => page.evaluate((i) => { const e = document.getElementById(i); return { top: e.offsetTop, h: e.offsetHeight, vh: innerHeight }; }, id);
@@ -63,7 +63,7 @@ async function run(label, viewport, isMobile) {
 
   // parfümü sık
   await go(f.top, 2500);
-  const sprayBtn = page.locator('.fl-actions .btn-accent-line');
+  const sprayBtn = page.locator('.hud__cta--spray');
   await sprayBtn.click();
   await page.waitForTimeout(1250);
   await shot('01-flavors-spray');
@@ -110,8 +110,23 @@ async function run(label, viewport, isMobile) {
   const al = await top('all');
   await go(al.top, 1500);
   await page.locator('.card-media').first().click();
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(5000);
   await shot('12-detail');
+  // hikâye: şişenin arka yüzü
+  await page.locator('.feat').nth(2).click();
+  await page.waitForTimeout(4000);
+  await shot('13-detail-story');
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(800);
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(2000);
+
+  // menü
+  await page.locator('.menu-btn').click();
+  await page.waitForTimeout(4000);
+  await shot('14-menu');
+  await page.locator('.menu-btn').click();
+  await page.waitForTimeout(1000);
   await ctx.close();
 }
 

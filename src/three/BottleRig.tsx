@@ -4,10 +4,11 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { products, getProduct, type ProductId } from '../data/products';
 import { useStore, now, prefersReducedMotion, settleInstantly, type SectionId } from '../store';
 import { box, scrollY, viewportH, flavorFloat, progress } from '../scroll/scroll';
-import { bottles, pedestal, palette, anchors, finderAnchor, floor, pose, lerpPose, POSE_KEYS, NEUTRAL, type Pose } from './rigState';
+import { bottles, pedestal, palette, anchors, finderAnchor, floor, detailDrag, pose, lerpPose, POSE_KEYS, NEUTRAL, type Pose } from './rigState';
 import { FLOOR_Y } from './Floor';
 import { PEDESTAL_H } from './Pedestal';
 import { BOTTLE_H } from './bottleGeometry';
+import { storyPoses } from '../data/copy';
 
 const DEG = Math.PI / 180;
 const HALF = BOTTLE_H / 2;
@@ -62,7 +63,7 @@ const hiddenPed = (x = 0): Ped => ({ x, y: FLOOR_Y - 1.2, z: 0, s: 0 });
 function flavorsStation(c: Ctx): Station {
   const af = flavorFloat();
   const lift = c.mobile ? 0.95 : 0;
-  const baseS = c.mobile ? 0.8 : 1;
+  const baseS = c.mobile ? 0.8 : 1.08;
   const sideX = c.mobile ? (c.visW * (16.5 / 14)) / 2 : 5.2;
   const pedY = FLOOR_Y + lift;
   const top = pedY + PEDESTAL_H * baseS;
@@ -83,7 +84,7 @@ function flavorsStation(c: Ctx): Station {
       x, z,
       y: top + 0.35 * Math.sin(Math.PI * a1),
       s: baseS * (1 - 0.3 * a1) * fade,
-      dim: 1 - 0.25 * a1,
+      dim: 1 - 0.55 * a1,
       ry: -slot * 0.22 + idle * (1 - a1),
     });
     if (i === heroIdx) heroPose = ps;
@@ -209,8 +210,27 @@ function cardStation(id: ProductId): Station {
     heroPose: pose({ y: top }),
     extras: [],
     ped: { x: 0, y: FLOOR_Y, z: 0, s: 1 },
+    floorY: FLOOR_Y - 3,
     color: id,
     center: [0.5, 0.58],
+  };
+}
+
+/** Ürün detayı: şişe sahnenin ortasında büyür; hikâyeye göre poz, sürükleyerek döner */
+function detailStation(c: Ctx, id: ProductId, story: number | null): Station {
+  const sp = story != null ? storyPoses[story] : { ry: 0, y: 0, s: 1 };
+  const s = (c.mobile ? 0.52 : 1.1) * sp.s;
+  const cx = c.mobile ? 0 : c.visW * 0.05;
+  const cy = (c.mobile ? 2.05 : 0.62) + sp.y * 0.5;
+  const ry = sp.ry + detailDrag.ry + (story == null ? Math.sin(c.t * 0.35) * 0.12 : 0);
+  return {
+    hero: id,
+    heroPose: pose({ x: cx, y: cy - HALF * s, z: 0, s, ry }),
+    extras: [],
+    ped: hiddenPed(cx),
+    floorY: FLOOR_Y - 1.4,
+    color: id,
+    center: [0.5 + cx / c.visW, c.mobile ? 0.78 : 0.56],
   };
 }
 
@@ -301,7 +321,15 @@ export function BottleRig({ mobile, cardId }: { mobile: boolean; cardId?: Produc
       if (y <= h1 || i === STATIONS.length - 1) { a = b = i; mix = 0; break; }
     }
     if (cardId) { a = b = 0; mix = 0; }
-    const A = cardId ? cardStation(cardId) : stationState(STATIONS[a], ctx);
+    // detay açıkken tüm bölümlerin yerine geçer
+    if (st.detailId) { a = b = 0; mix = 0; }
+    // sürükleme ataleti
+    if (!detailDrag.dragging) {
+      detailDrag.ry += detailDrag.vel * dt;
+      detailDrag.vel *= Math.exp(-3.2 * dt);
+      if (!st.detailId) { detailDrag.ry *= Math.exp(-4 * dt); detailDrag.vel = 0; }
+    }
+    const A = cardId ? cardStation(cardId) : st.detailId ? detailStation(ctx, st.detailId, st.detailStory) : stationState(STATIONS[a], ctx);
     const B = a === b ? A : stationState(STATIONS[b], ctx);
 
     // --- kahraman şişe: karıştır + gerekiyorsa yan dönüşte değiştir ---

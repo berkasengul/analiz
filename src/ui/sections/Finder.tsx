@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '../../store';
 import { copy } from '../../data/copy';
 import { getProduct, type ProductId } from '../../data/products';
@@ -67,9 +66,8 @@ export function Finder() {
         <p className="eyebrow accent-text">{t.label}</p>
         <h2 className="fi-title">{t.title}</h2>
         <p className="fi-desc">{t.desc}</p>
-        <AnimatePresence mode="wait">
-          {!done ? (
-            <motion.div key={`q${q}-${lang}`} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
+        {!done ? (
+            <div key={`q${q}-${lang}`} className="swap-in">
               <p className="fi-qnum">{String(q + 1).padStart(2, '0')} / 03</p>
               <h3 className="fi-q" id={`fi-q-${q}`}>{t.questions[q].q}</h3>
               <div className="fi-options" role="radiogroup" aria-labelledby={`fi-q-${q}`}>
@@ -79,10 +77,10 @@ export function Finder() {
                   </button>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ) : (
             rp && (
-              <motion.div key={`r-${result}-${lang}`} className="fi-result" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.5 } }} exit={{ opacity: 0 }} aria-live="polite">
+              <div key={`r-${result}-${lang}`} className="fi-result swap-in" style={{ animationDelay: '0.4s' }} aria-live="polite">
                 <p className="eyebrow">{t.result}</p>
                 <h3 className="fi-rname">{rp.name}</h3>
                 <p className="fi-rstance">{rp.family[lang]} · {rp.stance[lang]}</p>
@@ -101,10 +99,9 @@ export function Finder() {
                     );
                   })}
                 </div>
-              </motion.div>
+              </div>
             )
           )}
-        </AnimatePresence>
         <div className="fi-progress" aria-hidden="true"><i style={{ width: `${progressPct}%` }} /></div>
         <div className="fi-nav">
           <button className="link-btn" onClick={back} disabled={answers.length === 0}>← {t.back}</button>

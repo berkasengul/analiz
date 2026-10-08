@@ -5,6 +5,7 @@ import { useTexture } from '@react-three/drei';
 import { blackCap, getProduct, type ProductId } from '../data/products';
 import { getProfile, imageUrl } from './assets';
 import { buildBottleGeometries } from './bottleGeometry';
+import { buildAtlas } from './bottleAtlas';
 import { bottles } from './rigState';
 import { useStore, now } from '../store';
 
@@ -49,16 +50,18 @@ export function pressAmount(t: number) {
 export function Bottle({ id }: { id: ProductId }) {
   const product = getProduct(id);
   const profile = getProfile(id);
-  const map = useTexture(imageUrl(id));
+  const photo = useTexture(imageUrl(id));
   const gl = useThree((s) => s.gl);
+  // ön fotoğraf + arka etiket atlası
+  const map = useMemo(() => buildAtlas(photo.image as HTMLImageElement, product, profile), [photo, product, profile]);
   const geo = useMemo(() => buildBottleGeometries(profile), [profile]);
   const m = geo.meta;
   const black = blackCap[id];
 
   useLayoutEffect(() => {
-    map.colorSpace = THREE.SRGBColorSpace;
     map.anisotropy = Math.min(8, gl.capabilities.getMaxAnisotropy());
     map.needsUpdate = true;
+    return () => map.dispose();
   }, [map, gl]);
 
   const mats = useMemo(() => {

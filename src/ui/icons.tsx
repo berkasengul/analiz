@@ -47,3 +47,35 @@ export const PlusIcon = () => (
     <path d="M12 5v14M5 12h14" />
   </svg>
 );
+
+export const ArrowLeft = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+    <path d="M20 12H5M10 6.5L4.5 12l5.5 5.5" />
+  </svg>
+);
+
+export const DropIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+    <path d="M12 3.5c3.4 4.3 5.5 7.6 5.5 10.2a5.5 5.5 0 0 1-11 0c0-2.6 2.1-5.9 5.5-10.2z" />
+  </svg>
+);
+
+export const StarIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+    <path d="M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.8l-5.1 2.7 1-5.7-4.1-4 5.7-.8z" />
+  </svg>
+);
+
+export const LeafIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+    <path d="M5 19c0-8 5-13.5 14-14-0.5 9-6 14-14 14z" />
+    <path d="M5 19l7.5-7.5" />
+  </svg>
+);
+
+export const BottleIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+    <circle cx="12" cy="6" r="2.6" />
+    <rect x="6.5" y="9.5" width="11" height="10.5" rx="2" />
+  </svg>
+);

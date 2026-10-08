@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '../../store';
 import { copy, formatTRY } from '../../data/copy';
-import { getProduct, products } from '../../data/products';
+import { compareAtTRY, getProduct, products } from '../../data/products';
 
 export function Shop() {
   const lang = useStore((s) => s.lang);
@@ -45,7 +45,7 @@ export function Shop() {
             ))}
           </div>
         </div>
-        <p className="shop-price">{formatTRY(p.priceTRY)}</p>
+        <p className="shop-price">{formatTRY(p.priceTRY)} <s>{formatTRY(compareAtTRY[p.id])}</s></p>
         <div className="shop-buy">
           <div className="qty" role="group" aria-label={t.shop.qty}>
             <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="−">−</button>

@@ -12,3 +12,6 @@ export const anchors = {
 
 /** Koku bulucu kaidesinin ekran konumu (px), "KOKUN BURAYA İNECEK" yazısı için */
 export const finderAnchor = { x: 0, y: 0 };
+
+/** Detayda şişeyi sürükleyerek çevirme (ry ofseti ve hız) */
+export const detailDrag = { ry: 0, vel: 0, dragging: false };

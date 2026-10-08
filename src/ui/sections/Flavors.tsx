@@ -14,7 +14,7 @@ const NOTE_SPOTS = [
   { x: -150, y: -40 }, { x: 170, y: -90 }, { x: -210, y: 70 }, { x: 210, y: 40 }, { x: -60, y: -150 },
 ];
 
-function SprayNotes() {
+export function SprayNotes() {
   const spray = useStore((s) => s.spray);
   const lang = useStore((s) => s.lang);
   const [show, setShow] = useState<{ key: number; notes: string[] } | null>(null);
@@ -70,48 +70,43 @@ export function Flavors() {
       aria-label={lang === 'tr' ? 'Kokular' : 'Scents'}
     >
       <div className="sticky flavors">
-        <div className="fl-left">
-          <div className="fl-counter">
-            <Swap k={active} as="span" className="fl-num">
-                {String(active + 1).padStart(2, '0')}
-              </Swap>
-            <i className="fl-rule" aria-hidden="true" />
-            <span className="fl-total">{String(products.length).padStart(2, '0')}</span>
-          </div>
-          <Swap k={`${p.id}-${lang}`} className="fl-text">
-              <p className="eyebrow">
-                <span className="dot accent" aria-hidden="true" /> {p.family[lang]} · {t.ml}
-              </p>
-              <h2 className="fl-name">{p.name}</h2>
-              <p className="fl-stance">{p.stance[lang]}</p>
-            </Swap>
-          <div className="fl-actions">
-            <button
-              className="btn btn-ghost"
-              onClick={() => openDetail(p.id)}
-            >
-              {t.flavors.discover} <ArrowRight />
-            </button>
-            <button className="btn btn-accent-line" onClick={spray}>
-              <SprayIcon /> {t.flavors.spray}
-            </button>
-          </div>
-        </div>
-
         {/* ortadaki 3B şişe tıklanabilir: ürün detayı */}
         <button className="bottle-hit fl-hit" onClick={() => openDetail(p.id)} aria-label={`${p.name} — ${t.detail.open}`}>
           <span className="bottle-hit-label">{t.detail.open} +</span>
         </button>
 
-        <aside className="fl-notes" aria-label={t.flavors.notes}>
-          <p className="eyebrow accent-text">{t.flavors.notes}</p>
+        <div className="hud__center">
+          <div className="count--inline" aria-label={`${active + 1} / ${products.length}`}>
+            <Swap k={active} as="span" className="count__now">{String(active + 1).padStart(2, '0')}</Swap>
+            <i className="count__line" aria-hidden="true" />
+            <span className="count__total">{String(products.length).padStart(2, '0')}</span>
+          </div>
+          <Swap k={`${p.id}-${lang}`} className="hud__text">
+            <p className="tag"><span className="dot" aria-hidden="true" /> {p.family[lang]} · {t.ml}</p>
+            <h2 className="hud__name">
+              <button onClick={() => openDetail(p.id)} aria-label={`${p.name} — ${t.detail.open}`}>{p.name}</button>
+            </h2>
+            <p className="hud__tagline">{p.stance[lang]}</p>
+          </Swap>
+          <div className="hud__actions">
+            <button className="hud__cta" onClick={() => openDetail(p.id)}>
+              {t.flavors.discover} <ArrowRight />
+            </button>
+            <button className="hud__cta hud__cta--spray" onClick={spray}>
+              <SprayIcon /> {t.flavors.spray}
+            </button>
+          </div>
+        </div>
+
+        <aside className="hud__notes" aria-label={t.flavors.notes}>
+          <p className="hud__notes-label">{t.flavors.notes}</p>
           <Swap k={`${p.id}-${lang}`} as="ul">
-              {notes.map((n) => <li key={n}>{n}</li>)}
-            </Swap>
+            {notes.map((n) => <li key={n}>{n}</li>)}
+          </Swap>
         </aside>
 
-        <div className="fl-bottom">
-          <div className="fl-bars" role="tablist" aria-label={t.nav.scents}>
+        <div className="track">
+          <div className="track__ticks" role="tablist" aria-label={t.nav.scents}>
             {products.map((x, i) => (
               <button
                 key={x.id}
@@ -119,14 +114,13 @@ export function Flavors() {
                 aria-selected={i === active}
                 aria-label={x.name}
                 className={i === active ? 'is-active' : ''}
+                style={{ '--c': p.color } as React.CSSProperties}
                 onClick={() => scrollToFlavor(i)}
-              >
-                <i style={{ background: i === active ? p.color : undefined }} />
-              </button>
+              />
             ))}
           </div>
-          <p className="fl-scroll">{t.flavors.scroll}</p>
         </div>
+        <p className="hud__scroll">{t.flavors.scroll}</p>
         <SprayNotes />
       </div>
     </section>

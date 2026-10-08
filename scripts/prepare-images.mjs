@@ -140,7 +140,27 @@ async function logo() {
   console.log(`logo        ${meta.width}×${meta.height}  ${(png.length / 1024).toFixed(0)} KB`);
 }
 
+/** Ürün fotoğrafları galerisi: markanın kendi Shopify ürün sayfasındaki 6 görsel → public/foto/<id>/<n>.webp */
+async function gallery(p) {
+  const res = await fetch(`${p.url}.json`);
+  if (!res.ok) throw new Error(`${p.url}.json → ${res.status}`);
+  const { product } = await res.json();
+  const dir = path.join(root, 'public/foto', p.id);
+  await fs.mkdir(dir, { recursive: true });
+  let n = 0;
+  for (const img of product.images) {
+    const buf = await download(img.src.split('?')[0]);
+    const webp = await sharp(buf).flatten({ background: '#ffffff' }).resize(1200, 1200, { fit: 'inside' }).webp({ quality: 82 }).toBuffer();
+    await fs.writeFile(path.join(dir, `${++n}.webp`), webp);
+  }
+  console.log(`${p.id.padEnd(11)} galeri ${n} foto · fiyat ${product.variants[0].price} (önce ${product.variants[0].compare_at_price})`);
+}
+
 await fs.mkdir(outDir, { recursive: true });
 await fs.mkdir(brandDir, { recursive: true });
-await logo();
-for (const p of await readProducts()) await product(p);
+const onlyGallery = process.argv.includes('--gallery');
+if (!onlyGallery) await logo();
+for (const p of await readProducts()) {
+  if (!onlyGallery) await product(p);
+  await gallery(p);
+}

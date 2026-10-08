@@ -51,15 +51,23 @@ export function bottleMeta(p: BottleProfile): BottleMeta {
   };
 }
 
-/** Fotoğrafı önden izdüşüren UV üretici: u = 0.5 + x / imgW, v = y / H */
-function photoUV(imgW: number) {
+/**
+ * Doku atlası: sol yarı ön fotoğraf, sağ yarı arka etiket.
+ * Ön yüz u = (0.5 + x / imgW) / 2; arka yüz arkadan okunacak şekilde aynalanır.
+ */
+const frontU = (x: number, imgW: number) => (0.5 + x / imgW) * 0.5;
+const backU = (x: number, imgW: number) => 0.5 + (0.5 - x / imgW) * 0.5;
+
+function photoUV(imgW: number, depth: number) {
   return {
     generateTopUV(_g: THREE.ExtrudeGeometry, v: number[], a: number, b: number, c: number) {
-      return [a, b, c].map((i) => new THREE.Vector2(0.5 + v[i * 3] / imgW, v[i * 3 + 1] / BOTTLE_H));
+      // ExtrudeGeometry: arka kapak z < 0, ön kapak z > depth (pah dahil)
+      const back = v[a * 3 + 2] < depth / 2;
+      return [a, b, c].map((i) => new THREE.Vector2(back ? backU(v[i * 3], imgW) : frontU(v[i * 3], imgW), v[i * 3 + 1] / BOTTLE_H));
     },
     generateSideWallUV(_g: THREE.ExtrudeGeometry, v: number[], a: number, b: number, c: number, d: number) {
       // yan yüzler düz renk; yine de kenar pikselini örnekleyen anlamlı bir UV ver
-      return [a, b, c, d].map((i) => new THREE.Vector2(0.5 + v[i * 3] / imgW, v[i * 3 + 1] / BOTTLE_H));
+      return [a, b, c, d].map((i) => new THREE.Vector2(frontU(v[i * 3], imgW), v[i * 3 + 1] / BOTTLE_H));
     },
   };
 }
@@ -96,7 +104,7 @@ function extrude(shape: THREE.Shape, m: BottleMeta) {
     bevelSegments: 3,
     curveSegments: 4,
     steps: 1,
-    UVGenerator: photoUV(m.imgW),
+    UVGenerator: photoUV(m.imgW, m.depth),
   });
   g.translate(0, 0, -m.depth / 2);
   // keskin ön yüz kalsın, pah ve yan yüzler yumuşasın
@@ -128,7 +136,7 @@ export function buildBottleGeometries(p: BottleProfile): BottleGeometries {
   // Ön yarıya fotoğraf: u = 0.5 + sinθ·r (görsel genişliğine oranla), v = y / H
   const pos = cap.attributes.position as THREE.BufferAttribute;
   const uv = cap.attributes.uv as THREE.BufferAttribute;
-  for (let i = 0; i < pos.count; i++) uv.setXY(i, 0.5 + pos.getX(i) / m.imgW, pos.getY(i) / BOTTLE_H);
+  for (let i = 0; i < pos.count; i++) uv.setXY(i, frontU(pos.getX(i), m.imgW), pos.getY(i) / BOTTLE_H);
   uv.needsUpdate = true;
 
   const midRow = Math.round(N * (1 - m.midY / BOTTLE_H));

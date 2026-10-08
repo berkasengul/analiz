@@ -7,7 +7,7 @@ export const copy = {
     collection: 'No Collection',
     slogan: 'Duruşunu seç.',
     motto: 'UNBE is not just a fragrance brand. It’s a mindset.',
-    nav: { scents: 'Kokular', finder: 'Koku Bulucu', about: 'UnBe. Hakkında', contact: 'İletişim', menu: 'Menü', close: 'Kapat' },
+    nav: { scents: 'Kokular', finder: 'Koku Bulucu', about: 'UnBe. Hakkında', contact: 'İletişim', menu: 'Menü', close: 'Kapat', faq: 'SSS', all: 'Tüm kokular', women: 'Kadın', men: 'Erkek', collections: 'Koleksiyonlar' },
     navAria: { search: 'Ara', cart: 'Sepet', lang: 'Dil', menu: 'Menüyü aç', skip: 'İçeriğe geç' },
     search: { placeholder: 'Koku veya nota ara (ör. bergamot)', empty: 'Sonuç yok.', title: 'Ara' },
     loader: 'No Collection',
@@ -105,6 +105,17 @@ export const copy = {
       demo: 'Bu sayfa UnBe. için hazırlanmış bağımsız bir konsept demodur. Ürün görselleri, notalar, fiyatlar ve metinler markanın kendi sitesinden (unbeperfumes.com) alınmıştır; satın alma markanın kendi mağazasında tamamlanır.',
     },
     detail: {
+      back: 'Kokulara dön',
+      backToScent: 'Koku bilgisine dön',
+      no: 'N°',
+      familyLabel: 'Koku ailesi',
+      photos: 'Ürün fotoğrafları',
+      explore: 'Kokuyu keşfet',
+      storiesCount: '4 hikâye',
+      drag: 'Şişeyi çevirmek için sürükle',
+      pcs: 'adet',
+      inCart: 'Sepette',
+      photo: 'Fotoğraf',
       open: 'Detaylar',
       close: 'Kapat',
       prev: 'Önceki koku',
@@ -131,7 +142,7 @@ export const copy = {
     collection: 'No Collection',
     slogan: 'Choose your stance.',
     motto: 'UNBE is not just a fragrance brand. It’s a mindset.',
-    nav: { scents: 'Scents', finder: 'Scent Finder', about: 'About UnBe.', contact: 'Contact', menu: 'Menu', close: 'Close' },
+    nav: { scents: 'Scents', finder: 'Scent Finder', about: 'About UnBe.', contact: 'Contact', menu: 'Menu', close: 'Close', faq: 'FAQ', all: 'All scents', women: 'Women', men: 'Men', collections: 'Collections' },
     navAria: { search: 'Search', cart: 'Cart', lang: 'Language', menu: 'Open menu', skip: 'Skip to content' },
     search: { placeholder: 'Search a scent or note (e.g. bergamot)', empty: 'No results.', title: 'Search' },
     loader: 'No Collection',
@@ -229,6 +240,17 @@ export const copy = {
       demo: 'This page is an independent concept demo made for UnBe. Product images, notes, prices and texts are taken from the brand’s own site (unbeperfumes.com); purchases are completed in the brand’s own store.',
     },
     detail: {
+      back: 'Back to scents',
+      backToScent: 'Back to scent',
+      no: 'N°',
+      familyLabel: 'Family',
+      photos: 'Product photos',
+      explore: 'Explore the scent',
+      storiesCount: '4 stories',
+      drag: 'Drag to turn the bottle',
+      pcs: 'pcs',
+      inCart: 'In cart',
+      photo: 'Photo',
       open: 'Details',
       close: 'Close',
       prev: 'Previous scent',
@@ -265,6 +287,30 @@ export const storyFirst: Record<ProductId, Record<Lang, string>> = {
   'no-regrets': { tr: 'Anlık bir dürtünün nabzı.', en: 'The pulse of a sudden impulse.' },
   'no-filter': { tr: 'Şişelenmiş saf dürüstlük.', en: 'Pure honesty, bottled.' },
   'no-rules': { tr: 'Kalıpları kırmanın kokusu.', en: 'The scent of breaking the mould.' },
+};
+
+/** "Kokuyu keşfet · 4 hikâye" (markanın kendi metinlerinden) */
+export interface StoryItem { icon: 'drop' | 'star' | 'leaf' | 'bottle'; short: string; struck: string; title: string; text: string }
+/** Hikâye başına şişe pozu: ry (radyan), y ofseti, ölçek */
+export const storyPoses = [
+  { ry: 0.03, y: -0.2, s: 1.0 },
+  { ry: 0.5, y: 0.35, s: 0.94 },
+  { ry: 3.18, y: -0.2, s: 1.0 },
+  { ry: -0.4, y: 0.15, s: 0.97 },
+];
+export const stories: Record<Lang, StoryItem[]> = {
+  tr: [
+    { icon: 'drop', short: 'Duruş', struck: 'Önce koku', title: 'Önce duruş, sonra koku', text: 'Her UNBE parfümü kokuya dönüşmeden önce bir ruh hâliyle başlar: önce duyguya ve duruşa odaklanılır, koku bu hissin etrafında şekillenir.' },
+    { icon: 'star', short: 'İspanya', struck: 'Sıradan bir formül', title: 'Formül İspanya\u2019dan', text: 'Kokular İspanya\u2019da formüle ediliyor, Türkiye\u2019de üretiliyor. Eau de Parfum, uzun süre kalıcı.' },
+    { icon: 'leaf', short: 'Sen', struck: 'Herkes gibi', title: 'Beklenen gibi değil, kendin olduğun gibi', text: 'UNBE, önceden tanımlanmış kimliklere sığmaya çalışmayanlar için yaratıldı. Kim olduğunu gizlemez; seni daha da görünür kılar.' },
+    { icon: 'bottle', short: 'Her gün', struck: 'Özel günlere saklanan', title: 'Her gün seninle', text: 'Ne fazla yoğun, ne sıradan. UNBE özel günler için saklanmak üzere değil, her gün seninle olmak için var.' },
+  ],
+  en: [
+    { icon: 'drop', short: 'Mindset', struck: 'Fragrance first', title: 'Mindset before fragrance', text: 'Every UNBE perfume starts as a mood before it becomes a scent: feeling and stance first, then the fragrance is shaped around them.' },
+    { icon: 'star', short: 'Spain', struck: 'An ordinary formula', title: 'Formulated in Spain', text: 'Formulated in Spain, made in Türkiye. Eau de Parfum, long lasting.' },
+    { icon: 'leaf', short: 'You', struck: 'Like everyone', title: 'Not as expected, as you are', text: 'UNBE is made for those who don\u2019t try to fit predefined identities. It doesn\u2019t hide who you are; it makes you more visible.' },
+    { icon: 'bottle', short: 'Everyday', struck: 'Saved for special days', title: 'With you every day', text: 'Neither too intense nor ordinary. UNBE isn\u2019t saved for special occasions; it\u2019s made to be with you every day.' },
+  ],
 };
 
 /** Koku DNA'sı (EN: sadık çeviri; TR products.ts'teki dna) */

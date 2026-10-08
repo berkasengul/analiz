@@ -70,3 +70,14 @@ export function topNotes(p: Product, lang: Lang, n = 5): string[] {
   }
   return out;
 }
+
+/** Markanın kendi mağazasındaki indirim öncesi fiyat (unbeperfumes.com ürün verisi: compare_at_price) */
+export const compareAtTRY: Record<ProductId, number> = {
+  'no-tears': 2999, 'no-excuse': 2999, 'no-drama': 2999, 'no-regrets': 2999, 'no-filter': 2999, 'no-rules': 2999,
+};
+
+/** Ürün fotoğrafları: markanın Shopify galerisi (npm run images) */
+export const GALLERY_SIZE = 6;
+export const galleryUrl = (id: ProductId, n: number) => `/foto/${id}/${n}.webp`;
+
+export type Category = 'kadın' | 'erkek';

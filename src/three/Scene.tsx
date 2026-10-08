@@ -80,18 +80,25 @@ function Pauser() {
   const setFrameloop = useThree((s) => s.setFrameloop);
   useEffect(() => {
     let state: 'always' | 'never' = 'always';
-    return onScroll((y) => {
+    let y = 0;
+    const update = () => {
       const vh = viewportH();
       const all = box('all');
       const story = box('story');
+      const s = useStore.getState();
+      // ürün detayı ya da menü açıkken sahne her zaman görünür
       const covered =
-        (y >= all.top && y + vh <= all.top + all.height) || (story.top > 0 && y >= story.top);
+        !s.detailId && !s.menuOpen &&
+        ((y >= all.top && y + vh <= all.top + all.height) || (story.top > 0 && y >= story.top));
       const next = covered ? 'never' : 'always';
       if (next !== state) {
         state = next;
         setFrameloop(next);
       }
-    });
+    };
+    const offScroll = onScroll((v) => { y = v; update(); });
+    const offStore = useStore.subscribe(update);
+    return () => { offScroll(); offStore(); };
   }, [setFrameloop]);
   return null;
 }

@@ -30,7 +30,7 @@ try {
   for (const id of IDS) {
     await page.goto(`http://localhost:${PORT}/?card=${id}`, { waitUntil: 'networkidle' });
     await page.waitForFunction(() => document.documentElement.dataset.cardReady === '1', null, { timeout: 60000 });
-    await page.waitForSelector('.loader', { state: 'detached', timeout: 30000 });
+    await page.waitForSelector('.mark', { state: 'detached', timeout: 30000 });
     await page.waitForTimeout(2500);
     const png = await page.screenshot();
     const webp = await sharp(png).resize(800, 1000).webp({ quality: 80, effort: 6 }).toBuffer();

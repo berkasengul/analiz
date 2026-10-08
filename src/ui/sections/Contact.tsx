@@ -26,6 +26,7 @@ export function Contact() {
             <p className="eyebrow accent-text">{t.label}</p>
             <h2 className="h-section">{t.title}</h2>
             <p className="muted">{t.desc}</p>
+            <div className="field-row">
             <label className="field">
               <span>{t.name}</span>
               <input required autoComplete="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
@@ -34,6 +35,7 @@ export function Contact() {
               <span>{t.email}</span>
               <input required type="email" autoComplete="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </label>
+            </div>
             <label className="field">
               <span>{t.message}</span>
               <textarea required rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
@@ -48,7 +50,7 @@ export function Contact() {
                 <span className="sr-only">{t.newsPlaceholder}</span>
                 <input required type="email" placeholder={t.newsPlaceholder} value={news} onChange={(e) => setNews(e.target.value)} autoComplete="email" />
               </label>
-              <button className="btn btn-ghost" type="submit">{t.join}</button>
+              <button className="btn btn-accent" type="submit">{t.join}</button>
             </div>
           </form>
         </div>

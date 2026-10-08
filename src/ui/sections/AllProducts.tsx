@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '../../store';
 import { copy, formatTRY } from '../../data/copy';
-import { products, topNotes } from '../../data/products';
-import { PlusIcon } from '../icons';
+import { compareAtTRY, products, topNotes } from '../../data/products';
+import { BagIcon } from '../icons';
 
 type Filter = 'all' | 'kadın' | 'erkek';
 
@@ -13,7 +12,8 @@ export function AllProducts() {
   const setCartOpen = useStore((s) => s.setCartOpen);
   const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang];
-  const [filter, setFilter] = useState<Filter>('all');
+  const filter = useStore((s) => s.allFilter);
+  const setFilter = useStore((s) => s.setAllFilter);
   const list = products.filter((p) => filter === 'all' || p.gender === filter);
 
   return (
@@ -58,9 +58,9 @@ export function AllProducts() {
                   <p className="card-stance">{p.stance[lang]}</p>
                   <p className="card-notes">{topNotes(p, lang, 4).join(' · ')}</p>
                   <div className="card-foot">
-                    <span className="price">{formatTRY(p.priceTRY)}</span>
-                    <button className="plus" aria-label={`${p.name} — ${t.all.add}`} onClick={() => { addToCart(p.id); setCartOpen(true); }}>
-                      <PlusIcon />
+                    <span className="price">{formatTRY(p.priceTRY)} <s>{formatTRY(compareAtTRY[p.id])}</s></span>
+                    <button className="card-add" aria-label={`${p.name} — ${t.all.add}`} onClick={() => { addToCart(p.id); setCartOpen(true); }}>
+                      <BagIcon /> {t.all.add}
                     </button>
                   </div>
                 </div>

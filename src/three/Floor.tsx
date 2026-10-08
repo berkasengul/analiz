@@ -43,9 +43,9 @@ export function Floor({ mobile }: { mobile: boolean }) {
         mixBlur={1}
         mixStrength={0.7}
         mixContrast={1}
-        roughness={0.9}
-        metalness={0.15}
-        envMapIntensity={0.12}
+        roughness={1}
+        metalness={0}
+        envMapIntensity={0}
         depthScale={0.6}
         minDepthThreshold={0.4}
         maxDepthThreshold={1.4}

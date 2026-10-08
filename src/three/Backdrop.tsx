@@ -65,15 +65,22 @@ const fragment = /* glsl */ `
 
     vec3 halo = mix(uColor, vec3(1.0), 0.55);
     vec3 edge = mix(uColor, uDark, 0.75);
+    vec3 deep = mix(uDark, vec3(0.0), 0.35);
 
-    // kenarlara ve üste doğru koyulaşma
-    float d = length(p * vec2(0.62, 0.9));
-    vec3 col = mix(uColor, edge, smoothstep(0.15, 1.15, d));
-    col = mix(col, edge, smoothstep(0.62, 1.0, uv.y) * 0.65);
+    // kenarlara ve üste doğru koyulaşma (sinematik, derin stüdyo)
+    float d = length(p * vec2(0.6, 0.92));
+    vec3 col = mix(uColor, edge, smoothstep(0.05, 0.85, d));
+    col = mix(col, deep, smoothstep(0.55, 1.25, d));
+    col = mix(col, deep, smoothstep(0.6, 1.0, uv.y) * 0.7);
+
+    // yukarıdan süzülen yumuşak ışık huzmesi
+    float bw = 0.07 + (1.0 - uv.y) * 0.32;
+    float beam = exp(-pow((uv.x - uCenter.x) * uAspect / bw, 2.0)) * smoothstep(0.25, 0.95, uv.y);
+    col += mix(uColor, vec3(1.0), 0.6) * beam * 0.1;
 
     // şişenin arkasında yumuşak, parlak hale
     float h = exp(-dot(p * vec2(1.35, 1.05), p * vec2(1.35, 1.05)) * 5.0);
-    col = mix(col, halo, h * 0.62);
+    col = mix(col, halo, h * 0.48);
 
     // yavaş akan fbm sis
     vec3 q = vec3(p * 1.7 + vec2(uTime * 0.03, uTime * 0.012), uTime * 0.03);
@@ -94,7 +101,7 @@ const fragment = /* glsl */ `
 
     // vinyet
     float v = length((uv - 0.5) * vec2(uAspect * 0.62, 1.0));
-    col *= mix(1.0, 0.38, smoothstep(0.35, 0.95, v));
+    col *= mix(1.0, 0.12, smoothstep(0.22, 0.88, v));
 
     gl_FragColor = vec4(inverseACES(col), 1.0);
     #include <colorspace_fragment>

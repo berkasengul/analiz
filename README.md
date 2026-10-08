@@ -9,11 +9,24 @@ Tek sayfalık, arkasında tek bir sabit WebGL sahnesi olan parfüm vitrini. Ayr�
 | `npm run dev` | Geliştirme sunucusu |
 | `npm run build` | Tip denetimi + üretim derlemesi (`dist/`) |
 | `npm run preview` | Derlemeyi sunar |
-| `npm run images` | Ürün fotoğraflarını indirir, arka planı siler, `public/products/<id>.png` + `<id>.json` üretir |
+| `npm run images` | Ürün fotoğraflarını indirir, arka planı siler, `public/products/<id>.png` + `<id>.json` üretir; markanın Shopify galerisini `public/foto/<id>/1–6.webp` olarak indirir (`-- --gallery` yalnız galeri) |
 | `npm run cards` | #all kart görsellerini sahneden render eder → `public/cards/<id>.webp` |
 | `npm run shots` | 1440×810 ve 390×844'te her bölümün ekran görüntüsü → `shots/` (konsol hata/uyarılarını raporlar) |
 
 `npm run shots -- desktop` veya `npm run shots -- mobile` tek görünüm alır.
+
+## Görsel dil
+
+Görünüm, referans site (unbeperfumes.netlify.app, "portal" teması) örnek alınarak ayarlandı:
+neredeyse siyah zemin (#070605), krem yazı (#f5e6d8), altın tonlu ince çizgiler ve sayaç (#d4b06a),
+Syne 400/500 + geniş harf aralıklı başlıklar, şeftali→turuncu geçişli ana düğmeler, logo üzerinden ışık
+süzülen ve sahnenin ortadan dairesel açıldığı giriş, büyük yazılı tam ekran menü.
+
+**Ürün detayı sahnenin içinde açılır:** şişe ortada büyür ve sürüklenerek çevrilir; solda aile, nota çipleri,
+nota piramidi, markanın Shopify galerisinden 6 ürün fotoğrafı (tam ekran görüntüleyici), fiyat (indirim öncesi
+fiyatla) ve "Parfümü sık"; sağda "Kokuyu keşfet · 4 hikâye" (Duruş, İspanya, Sen, Her gün). Her hikâye şişeyi
+farklı bir poza çevirir; "Sen" şişenin arkasındaki etiketi gösterir. Adres `#<id>` (ör. `#no-drama`) ile paylaşılabilir,
+geri tuşu ve Esc kapatır, ← → ürünler / hikâyeler arasında gezer.
 
 ## Yapı
 

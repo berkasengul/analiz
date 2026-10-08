@@ -54,4 +54,4 @@ export const palette = {
 /** Ürün seçilmemişken (koku bulucu, alt bölümler) nötr stüdyo */
 export const NEUTRAL = { color: '#4a4650', tint: '#ece4dc', dark: '#0b0b0d' };
 
-export { anchors, finderAnchor } from './anchors';
+export { anchors, finderAnchor, detailDrag } from './anchors';
