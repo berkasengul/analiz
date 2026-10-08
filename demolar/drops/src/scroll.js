@@ -2,6 +2,7 @@ import { THEME } from "./theme";
 import { flavors } from "./data";
 
 const N = flavors.length;
+const CISTERN = THEME.wallStyle === "cistern";
 const ease = (t) => t * t * (3 - 2 * t);
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
@@ -79,6 +80,8 @@ export function measureScroll() {
   const ar = document.getElementById("all")?.getBoundingClientRect();
   const covered = !!ar && ar.top <= 0 && ar.bottom >= vh;
   scrollState.sceneVisible = (sr.bottom > 0 || scrollState.finderOn || scrollState.pyrOn) && !covered;
+  // Sarnıç: 3B sahne sayfanın sonuna kadar sürer (hikâye, SSS ve iletişim sarnıcın önünde, yarı saydam).
+  if (CISTERN) scrollState.sceneVisible = !covered;
   scrollState.velocity = smooth.lenis ? smooth.lenis.velocity : 0;
 }
 

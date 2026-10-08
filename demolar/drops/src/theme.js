@@ -23,6 +23,8 @@ export function applyTheme() {
   // theme.lux: 3B sahneyle aynı kalitede arayüz: metal altın düğmeler, altın kenarlı cam düğmeler, altın-fildişi
   // ışıltılı başlıklar (css/base.css → html.lux).
   if (THEME.lux) root.classList.add("lux");
+  // Sarnıç sahnesi (theme.wallStyle "cistern"): koleksiyon kartları da küçük birer sarnıç nişi (css: html.cistern).
+  if (THEME.wallStyle === "cistern") root.classList.add("cistern");
   // theme.decor: 3B sahnedeki kemerli niş, altın desen ve mermer kaide koleksiyon kartlarında, koku bulucuda ve
   // alt bölümlerin sahnesinde de (css/base.css → html.decor).
   if (THEME.decor) {

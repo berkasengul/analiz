@@ -177,10 +177,28 @@ function Card({ item, t, onOpen, index = 0 }) {
         </div>
       </article>
     );
+  // Galeri kartında ürünün kendi sahne rengi (palette vurgusu): ışık konisi, hale ve su yansıması bu renkte.
+  const accent = GALLERY && item.product != null ? content.products[item.product]?.theme?.accent : null;
+  // İmleç kartın üstünde gezinirken kart hafifçe 3B eğilir (vitrin camına bakar gibi).
+  const tilt = GALLERY
+    ? {
+        onPointerMove: (e) => {
+          if (e.pointerType !== "mouse") return;
+          const r = e.currentTarget.getBoundingClientRect();
+          e.currentTarget.style.setProperty("--rx", `${(((e.clientY - r.top) / r.height - 0.5) * -7).toFixed(2)}deg`);
+          e.currentTarget.style.setProperty("--ry", `${(((e.clientX - r.left) / r.width - 0.5) * 9).toFixed(2)}deg`);
+        },
+        onPointerLeave: (e) => {
+          e.currentTarget.style.setProperty("--rx", "0deg");
+          e.currentTarget.style.setProperty("--ry", "0deg");
+        },
+      }
+    : {};
   return (
     <article
       className={`pcard${GALLERY ? " pcard--gallery" : ""}${item.shop ? " pcard--shop" : ""}`}
-      style={{ "--c": item.color ?? cat?.color, "--i": index % 4, "--f": index % 5, ...(item.bg ? { "--bg": item.bg, "--bg2": item.bg2 } : {}) }}
+      style={{ "--c": accent ?? item.color ?? cat?.color, "--i": index % 4, "--f": index % 5, ...(item.bg ? { "--bg": item.bg, "--bg2": item.bg2 } : {}) }}
+      {...tilt}
       {...motion}
     >
       <button className={`pcard__media${item.cutout ? " is-cutout" : ""}`} onClick={() => onOpen?.(item)} tabIndex={item.product != null ? 0 : -1} aria-label={name}>

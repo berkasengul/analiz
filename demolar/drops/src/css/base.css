@@ -8501,3 +8501,111 @@ html.lux .epi-floor {
     linear-gradient(180deg, #17130f, #050403);
   box-shadow: inset 0 1px 0 rgba(217, 180, 106, 0.45);
 }
+
+/* ===================== Sarnıç kartları (html.cistern: theme.wallStyle "cistern") =====================
+   Her kart küçük bir sarnıç nişi: tuğla örgülü kemerin içi ürünün kendi renginde (--c: palette vurgusu)
+   aydınlanır, iki yanda dibinden ışık alan taş sütunlar, zeminde renkli bir ışık havuzu ve suda yansıma.
+   İmleç kartın üstünde gezinirken niş 3B eğilir (Catalog.jsx → --rx, --ry). */
+html.cistern .pcard--gallery {
+  --rx: 0deg;
+  --ry: 0deg;
+  perspective: 900px;
+}
+html.cistern .pcard--gallery .pcard__media.is-cutout {
+  --floor: 82%;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--ease);
+  border-radius: 50% 50% 3px 3px / 30% 30% 3px 3px;
+  background:
+    radial-gradient(ellipse 34% 5% at 50% var(--floor), color-mix(in srgb, var(--c) 70%, white 10%), transparent 72%),
+    radial-gradient(ellipse 46% 9% at 50% calc(var(--floor) + 4%), color-mix(in srgb, var(--c) 28%, transparent), transparent 75%),
+    radial-gradient(ellipse 52% 44% at 50% 46%, color-mix(in srgb, var(--c) 34%, transparent), transparent 72%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.32) 0 1px, transparent 1px 13px),
+    linear-gradient(180deg, #0b0807 0%, color-mix(in srgb, var(--c) 14%, #0c0907) 62%, #060505 var(--floor), color-mix(in srgb, var(--c) 8%, #030405) 100%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--c) 30%, transparent),
+    inset 0 40px 70px rgba(0, 0, 0, 0.65),
+    0 40px 70px -40px color-mix(in srgb, var(--c) 55%, transparent);
+}
+/* İki yanda taş sütun: yivli gövde, dibinde kokunun renginde ışık. */
+html.cistern .pcard--gallery .pcard__media.is-cutout::before,
+html.cistern .pcard--gallery .pcard__media.is-cutout::after {
+  display: block;
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 6%;
+  bottom: calc(100% - var(--floor) - 1%);
+  width: 9%;
+  border-radius: 3px 3px 1px 1px;
+  background:
+    radial-gradient(ellipse 120% 30% at 50% 100%, color-mix(in srgb, var(--c) 75%, transparent), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 4px),
+    linear-gradient(90deg, #0d0b09, #4a4036 38%, #6b5e50 52%, #2b241e 78%, #0b0908);
+  box-shadow: 0 0 22px -6px color-mix(in srgb, var(--c) 60%, transparent);
+  -webkit-mask: linear-gradient(180deg, transparent, #000 22%);
+  mask: linear-gradient(180deg, transparent, #000 22%);
+  transform: translateZ(18px);
+  pointer-events: none;
+}
+html.cistern .pcard--gallery .pcard__media.is-cutout::before {
+  left: 7%;
+}
+html.cistern .pcard--gallery .pcard__media.is-cutout::after {
+  right: 7%;
+}
+html.cistern .pcard--gallery .pcard__beam {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 55%, white 30%), color-mix(in srgb, var(--c) 22%, transparent) 55%, transparent);
+  opacity: 0.55;
+}
+html.cistern .pcard--gallery:hover .pcard__beam {
+  opacity: 0.9;
+}
+html.cistern .pcard--gallery .pcard__num {
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--c) 75%, transparent);
+  transform: translateZ(-30px);
+}
+html.cistern .pcard--gallery .pcard__float {
+  transform: translateZ(36px);
+  transition: transform 0.8s var(--ease);
+}
+html.cistern .pcard--gallery:hover .pcard__float {
+  transform: translateZ(48px) translateY(-6px);
+}
+/* Suda yansıma: kokunun renginde, aşağı doğru sönen. */
+html.cistern .pcard--gallery .pcard__media.is-cutout img.pcard__reflect {
+  opacity: 0.26;
+  filter: blur(1.2px) saturate(1.2);
+}
+html.cistern .pcard--gallery .pcard__cat {
+  color: color-mix(in srgb, var(--c) 60%, #e8d6b0);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.cistern .pcard--gallery .pcard__media.is-cutout {
+    transform: none;
+  }
+}
+
+/* Sarnıç: hikâye, SSS ve iletişim 3B sarnıcın önünde (sahne sayfanın sonuna kadar sürer, sütunlar kaydırmayla
+   akar). Zeminler opak siyah yerine yarı saydam: soldan okunaklı koyu bir perde, sağda sarnıç görünür. */
+html.cistern .story,
+html.cistern .stockists,
+html.cistern .faq,
+html.cistern .contact {
+  background:
+    linear-gradient(90deg, rgba(6, 6, 8, 0.86) 0%, rgba(6, 6, 8, 0.7) 48%, rgba(6, 6, 8, 0.28) 100%),
+    radial-gradient(60% 50% at 80% 30%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%);
+}
+html.cistern .epilogue,
+html.cistern .footer {
+  background: transparent;
+}
+@media (max-width: 900px) {
+  html.cistern .story,
+  html.cistern .stockists,
+  html.cistern .faq,
+  html.cistern .contact {
+    background: linear-gradient(rgba(6, 6, 8, 0.8), rgba(6, 6, 8, 0.66));
+  }
+}

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { MeshReflectorMaterial } from "@react-three/drei";
-import { AdditiveBlending, Color, CylinderGeometry, DoubleSide, MathUtils, Object3D, ShaderMaterial, TextureLoader } from "three";
+import { AdditiveBlending, Color, CylinderGeometry, DoubleSide, LatheGeometry, MathUtils, Object3D, ShaderMaterial, TextureLoader, Vector2, Vector3 } from "three";
 
 import { arcPose } from "./Carousel";
 import { MOBILE } from "./canMaterial";
@@ -23,7 +23,7 @@ const SLOWMO = typeof window !== "undefined" ? Number(new URLSearchParams(window
 // theme.wallCurve (yarıçap): duvar düz değil, ürünün arkasında içbükey bir yay (oval salon); yanlara doğru öne
 // kıvrılır. Duvar daha geride durur ki iki yandaki komşu ürünler duvarın önünde görünsün.
 const CURVE = THEME.wallCurve ?? 0;
-const WALL_Z = CURVE ? -24 : -10;
+const WALL_Z = THEME.wallZ ?? (CURVE ? -24 : -10);
 // theme.beams: tepeden inen ürün renginde ışık huzmeleri (sisli salon spotları), duvarın önünde.
 const BEAMS = THEME.beams ?? 0;
 // theme.wallStyle: oluklu bronz yerine kavisli tek yüzey, kendi gölgelendiricisiyle (kokunun renginde ışık):
@@ -31,10 +31,13 @@ const BEAMS = THEME.beams ?? 0;
 //   "arches"  ışıklı kemerler: içleri kokunun renginde arkadan aydınlanan, altın çerçeveli kemer nişler dizisi
 //   "lattice" altın kafes: arkadan aydınlanan sekiz köşeli yıldız örgülü paravan
 //   "waves"   dalgalar: denizden esinli yatay dalga sırtları, sırtlarda altın
+//   "cistern" sarnıç: uzakta tuğla kemerli bir galeri; önünde gerçek 3B taş sütun sıraları (dibinden kokunun
+//             renginde aydınlanır), zemin karanlık su (yansıma, dalgacıklar, şişenin çevresinde halkalar)
 // Ürün verisinde "wall" ile her kokuya kendi duvarı verilebilir (yoksa theme.wallStyle).
 // ?wall=marble|arches|lattice adresiyle denenebilir.
 const WALL_STYLE = (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("wall")) || THEME.wallStyle || null;
-const STYLES = { marble: 0, arches: 1, lattice: 2, waves: 3 };
+const STYLES = { marble: 0, arches: 1, lattice: 2, waves: 3, cistern: 4 };
+const CISTERN = WALL_STYLE === "cistern";
 // Ürüne özel duvar (products[].wall): her kokunun kendi deseni; ürün değişince desen yumuşakça diğerine geçer.
 const styleOf = (f) => STYLES[(typeof window !== "undefined" && new URLSearchParams(window.location.search).get("wall")) || f?.wall || THEME.wallStyle] ?? -1;
 const STYLE_ID = Math.max(STYLES[WALL_STYLE] ?? -1, ...flavors.map(styleOf));
@@ -111,6 +114,34 @@ const wallMaterial = () =>
           vec3 bronze = vec3(0.07, 0.05, 0.035) * (0.7 + 1.8 * pool);
           col = mix(bronze, behind * lightBehind, max(hole, small));
           col += gold * ring * (0.1 + 0.7 * pool) * amb;
+        } else if (sty > 3.5) {
+          // Sarnıç galerisi: tuğla örgülü duvarda yuvarlak kemerli açıklıklar; açıklıkların ardında karanlık derinlik
+          // ve kokunun renginde uzak bir ışık. Tuğlalar şaşırtmalı sıralı, derzler koyu.
+          float S = 7.2;
+          float ci = floor(x / S + 0.5);
+          float lx = x - ci * S;
+          float w = 2.6;
+          float h0 = 7.;
+          float sd = y < h0 ? abs(lx) - w : length(vec2(lx, y - h0)) - w;
+          float open = 1. - smoothstep(-0.03, 0.03, sd);
+          vec2 b = vec2(x / 1.05, y / 0.42);
+          b.x += mod(floor(b.y), 2.) * 0.5;
+          vec2 bf = fract(b);
+          float mortar = smoothstep(0.0, 0.06, bf.x) * smoothstep(1.0, 0.94, bf.x) * smoothstep(0.0, 0.1, bf.y) * smoothstep(1.0, 0.9, bf.y);
+          // Kemer çevresinde ışınsal tuğlalar (voussoir): kemerin dış halkasında açıya göre bölünmüş taşlar.
+          float ring = smoothstep(0.0, 0.04, sd) * (1. - smoothstep(0.75, 0.8, sd)) * step(h0, y);
+          float ang = atan(y - h0, lx);
+          float vous = smoothstep(0.0, 0.08, fract(ang * 7.) ) * smoothstep(1.0, 0.92, fract(ang * 7.));
+          mortar = mix(mortar, vous * smoothstep(0.04, 0.1, sd) * (1. - smoothstep(0.7, 0.76, sd)), ring);
+          float n = fbm(floor(b) * 0.37 + 3.1);
+          vec3 brick = mix(vec3(0.075, 0.045, 0.03), vec3(0.11, 0.075, 0.05), n) * (0.75 + 0.5 * fbm(vec2(x, y) * 2.2));
+          vec3 joint = vec3(0.018, 0.014, 0.012);
+          vec3 wallc = mix(joint, brick, mortar) * (0.35 + 2.4 * pool * mix(vec3(1.), tint, 0.55));
+          float far = exp(-pow(ci * S, 2.) / 260.);
+          vec3 depth = tint * (0.04 + 0.22 * smoothstep(0., h0 + w, y) * far) * (0.4 + 0.6 * smoothstep(0.2, 1., 1. - abs(lx) / w));
+          col = mix(wallc, depth, open);
+          col *= 0.3 + 0.7 * amb;
+          col += tint * 0.06 * exp(-y * 0.5) * far;
         } else {
           // Dalgalar: denizden esinli, yatay akan dalga sırtları; sırtlarda altın, aralarında kokunun renginde derinlik.
           float wy = y + 0.55 * sin(x * 0.32 + y * 0.15) + 0.22 * sin(x * 0.85 - y * 0.4 + u_time * 0.05);
@@ -189,6 +220,107 @@ const beamMaterial = () =>
       }`,
   });
 
+
+// Sarnıç sütunu: tabanlı, yivli gövdeli, başlıklı taş sütun (dönel profil). Sütunlar gerçek 3B; her birinin
+// dibinde kokunun renginde bir ışık (sarnıçtaki gibi) gövdeyi aşağıdan yukarı yalar, tepesi karanlıkta kaybolur.
+const columnGeometry = () => {
+  const pts = [
+    [0, 0], [1.05, 0], [1.05, 0.32], [0.86, 0.42], [0.92, 0.55], [0.7, 0.68], [0.6, 0.8],
+    [0.56, 1.2], [0.5, 15.2], [0.58, 15.4], [0.66, 15.75], [0.95, 16.3], [1.15, 16.55], [1.15, 17.05],
+    [0.9, 17.1], [0.9, 24], [0, 24],
+  ].map(([x, y]) => new Vector2(x, y));
+  return new LatheGeometry(pts, 40);
+};
+const columnMaterial = () =>
+  new ShaderMaterial({
+    uniforms: { u_tint: { value: new Color(1, 0.7, 0.4) }, u_on: { value: 0 }, u_light: { value: new Vector3() }, u_time: { value: 0 } },
+    vertexShader: /* glsl */ `
+      varying vec3 vW; varying vec3 vN; varying vec3 vL; varying float vH; varying float vSeed;
+      void main() {
+        vec4 lp = instanceMatrix * vec4(position, 1.);
+        vH = position.y;
+        vL = position;
+        vSeed = instanceMatrix[3].x * 0.37 + instanceMatrix[3].z * 0.11;
+        vec4 w = modelMatrix * lp;
+        vW = w.xyz;
+        vN = normalize(mat3(modelMatrix) * mat3(instanceMatrix) * normal);
+        gl_Position = projectionMatrix * viewMatrix * w;
+      }`,
+    fragmentShader: /* glsl */ `
+      uniform vec3 u_tint; uniform float u_on; uniform vec3 u_light; uniform float u_time;
+      varying vec3 vW; varying vec3 vN; varying vec3 vL; varying float vH; varying float vSeed;
+      float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float vnoise(vec2 p) { vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3. - 2. * f);
+        return mix(mix(hash(i), hash(i + vec2(1., 0.)), f.x), mix(hash(i + vec2(0., 1.)), hash(i + vec2(1., 1.)), f.x), f.y); }
+      void main() {
+        vec3 N = normalize(vN);
+        float ang = atan(vL.z, vL.x);
+        // Gövdede 20 yiv: yivin içi gölgede, sırtı aydınlık.
+        float shaft = step(1.2, vH) * (1. - step(15.2, vH));
+        float flute = 0.5 + 0.5 * cos(ang * 20.);
+        // Taş dokusu: lekeler ve yaşlanma, dipte suyun bıraktığı koyu iz.
+        float n = vnoise(vec2(ang * 3. + vSeed, vH * 0.9)) * 0.6 + vnoise(vec2(ang * 11., vH * 4.)) * 0.4;
+        vec3 stone = mix(vec3(0.16, 0.13, 0.11), vec3(0.24, 0.2, 0.16), n);
+        stone *= 1. - 0.45 * (1. - smoothstep(0.1, 1.4, vH));
+        stone *= mix(1., 0.72 + 0.28 * flute, shaft);
+        // Dipteki renkli ışık (sütuna doğru yukarı bakan spot): yakında güçlü, yukarı doğru söner.
+        float up = exp(-vH * 0.2) * (0.55 + 0.45 * max(0., N.y * -0.3 + 0.7));
+        // Öndeki şişenin ışığı: şişeye bakan yüz aydınlık.
+        vec3 Ld = u_light - vW;
+        float dist = length(Ld);
+        float lam = max(0., dot(N, Ld / dist));
+        float key = lam * 14. / (1. + dist * dist * 0.05);
+        float rim = pow(1. - abs(dot(N, normalize(cameraPosition - vW))), 3.) * 0.35;
+        vec3 col = stone * (0.05 + key * mix(vec3(1.), u_tint, 0.6) + up * u_tint * 1.6) + u_tint * rim * up;
+        // Tepeler karanlıkta, uzaktakiler sisin içinde.
+        col *= 1. - smoothstep(9., 21., vH);
+        float fog = exp(-max(0., length(vW - cameraPosition) - 16.) * 0.03);
+        gl_FragColor = vec4(col * fog * u_on, 1.);
+      }`,
+  });
+// Sarnıç suyu: yansıtıcı zeminin üstünde ince bir katman (toplamalı): yavaş dalgacıkların parıltısı ve öndeki
+// şişenin çevresinde birkaç saniyede bir yayılan halkalar (damla düşmüş gibi), kokunun renginde.
+const waterMaterial = () =>
+  new ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: AdditiveBlending,
+    uniforms: { u_tint: { value: new Color(1, 0.7, 0.4) }, u_on: { value: 0 }, u_time: { value: 0 }, u_center: { value: new Vector2() } },
+    vertexShader: /* glsl */ `varying vec3 vW; void main() { vec4 w = modelMatrix * vec4(position, 1.); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+    fragmentShader: /* glsl */ `
+      uniform vec3 u_tint; uniform float u_on; uniform float u_time; uniform vec2 u_center; varying vec3 vW;
+      void main() {
+        vec2 p = vW.xz;
+        float t = u_time;
+        float w = sin(p.x * 1.3 + t * 0.6 + sin(p.y * 0.7 + t * 0.3) * 2.) * sin(p.y * 1.7 - t * 0.5 + sin(p.x * 0.5) * 1.5);
+        float glint = pow(max(0., w), 6.);
+        vec2 d = p - u_center;
+        float r = length(d * vec2(1., 1.25));
+        float rings = 0.;
+        for (int k = 0; k < 3; k++) {
+          float age = fract(t / 4.5 + float(k) / 3.);
+          float R = 1.6 + age * 9.;
+          rings += exp(-pow((r - R) * 3.2, 2.)) * (1. - age) * (1. - age);
+        }
+        float near = exp(-r * r / 90.);
+        float fog = exp(-max(0., length(vW - cameraPosition) - 18.) * 0.035);
+        vec3 col = u_tint * (glint * 0.05 * (0.3 + near) + rings * 0.12 * near + 0.05 * exp(-r * r / 6.));
+        gl_FragColor = vec4(col * fog * u_on, 1.);
+      }`,
+  });
+// Sütunların yerleşimi (öndeki ürüne göre; z eksi = geride). Ön sıra ürünü iki yandan çerçeveler ve sabit
+// durur; arka sıralar kaydırmayla yavaşça yana akar (derinlik). Komşu ürünlerin görüş çizgisinde sütun yok.
+// Arka sıralar komşu ürünlerin (16 birim geride) arkasında; her sıra görüş alanından biraz geniş, uçtan
+// çıkan sütun öbür uçtan (görüş dışında) girer.
+const COL_ROWS = [
+  { z: -1, xs: [-4.4, 4.4, -18, 18] },
+  { z: -21, period: 8.8, off: 4.4 },
+  { z: -31, period: 8.8, off: 0 },
+  { z: -41, period: 8.8, off: 4.4 },
+].map((r) => (r.xs ? r : { ...r, n: Math.ceil((2 * (26 + Math.abs(r.z))) / r.period) + 1 }));
+const COL_COUNT = COL_ROWS.reduce((n, r) => n + (r.xs ? r.xs.length : r.n), 0);
+const O = new Object3D();
+
 export default function Boutique() {
   const size = useThree((s) => s.size);
   const root = useRef();
@@ -202,6 +334,10 @@ export default function Boutique() {
   const smokeMat = useMemo(smokeMaterial, []);
   const beamMat = useMemo(beamMaterial, []);
   const wallMat = useMemo(wallMaterial, []);
+  const cols = useRef();
+  const colMat = useMemo(() => (CISTERN ? columnMaterial() : null), []);
+  const colGeo = useMemo(() => (CISTERN ? columnGeometry() : null), []);
+  const waterMat = useMemo(() => (CISTERN ? waterMaterial() : null), []);
   // Logonun yeri ve boyu: telefonda daha dar ve biraz aşağıda (üstteki sayacın altında, ekrana sığar).
   const phoneView = size.width / size.height < 0.9;
   const LOGO = WALL_LOGO
@@ -216,6 +352,8 @@ export default function Boutique() {
     return new ShaderMaterial({
       transparent: true,
       depthWrite: false,
+      // Sarnıçta sütunlar duvarın önünde: logo sütunların üstünde çizilir (yazı kesilmesin).
+      depthTest: !CISTERN,
       side: DoubleSide,
       uniforms: { u_map: { value: tex }, u_time: { value: 0 }, u_on: { value: 0 }, u_tint: { value: new Color(1, 0.8, 0.5) }, u_px: { value: 0.0015 } },
       vertexShader: /* glsl */ `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`,
@@ -311,7 +449,12 @@ export default function Boutique() {
     wall.current.position.set(r.x + shift, 0, r.z + WALL_Z);
     // Işık ürünün renginde; Ritüel ve mağazaya geçerken söner.
     S.tint.lerp(new Color(flavors[st.active].theme.glow).lerp(WHITE, 0.45), 0.05);
-    const on = (1 - scrollState.ritualIn) * (1 - scrollState.shopIn) * Math.min(1, sceneState.intro * 1.3);
+    // Sarnıçta sahne alt bölümlerde de (Ritüel, nota piramidi, koku bulucu, mağaza) sürer: biraz kısılır,
+    // sütunlar kaydırmayla yana akar (kamera sarnıcın içinde ilerliyormuş gibi).
+    const lowerK = Math.max(scrollState.ritualIn, scrollState.shopIn);
+    const on = CISTERN
+      ? (1 - 0.35 * lowerK) * Math.min(1, sceneState.intro * 1.3)
+      : (1 - scrollState.ritualIn) * (1 - scrollState.shopIn) * Math.min(1, sceneState.intro * 1.3);
     const L = wallLight.current;
     L.color.copy(S.tint);
     L.intensity = 22 * on;
@@ -350,7 +493,7 @@ export default function Boutique() {
       S.mixAt = now;
     }
     U.u_mix.value = Math.min(1, (now - (S.mixAt ?? -9)) / 1.2);
-    if (floorMat.current) floorMat.current.mixStrength = (THEME.plate ? 1.4 : 2.2) * on;
+    if (floorMat.current) floorMat.current.mixStrength = (THEME.plate ? 1.4 : CISTERN ? 3.2 : 2.2) * on;
     // Duman: ürünün önünde; geçişte (kesirli kaydırma) kabarır, yerindeyken çok hafif.
     const fr = scrollState.p - Math.floor(scrollState.p);
     // Fotoğraflı butikte geçişte duman kabarmaz: arka plan sabit görünür.
@@ -370,6 +513,40 @@ export default function Boutique() {
     // Fotoğraflı butikte duvar ve zemin fotoğraftan gelir (3B duvar ve yansıtıcı zemin gizli).
     // Ferah sahnede (theme.fresh) duvar ve zemin shader'dan gelir: 3B butik de gizli.
     root.current.visible = on > 0.01 && !THEME.plate && !THEME.fresh;
+    if (CISTERN) {
+      const lowerP = scrollState.ritualStep + (scrollState.pyrP ?? 0) * 3 + (scrollState.finderIn ?? 0) * 1.5 + scrollState.shopIn;
+      // Alt bölümlerde sayfa aşağı indikçe sütunlar akmaya devam eder (hikâye, SSS, iletişim de sarnıcın içinde).
+      const target = scrollState.p * 1.6 + lowerK * (lowerP * 4.4 + (window.scrollY / Math.max(1, window.innerHeight)) * 2.2);
+      S.drift = MathUtils.damp(S.drift ?? target, target, 4, dt);
+      let k = 0;
+      for (const row of COL_ROWS) {
+        if (row.xs) {
+          // Ön sıra ürünü çerçeveler; alt bölümlerde iki yana açılıp çekilir (şişenin önüne geçmez).
+          for (const x0 of row.xs) {
+            O.position.set(r.x + x0 * (1 + 1.8 * lowerK), 0, r.z + row.z);
+            O.updateMatrix();
+            cols.current.setMatrixAt(k++, O.matrix);
+          }
+        } else {
+          const L = row.n * row.period;
+          const half = 26 + Math.abs(row.z);
+          for (let j = 0; j < row.n; j++) {
+            const x = ((((row.off + j * row.period - S.drift + half) % L) + L) % L) - half;
+            O.position.set(r.x + x, 0, r.z + row.z);
+            O.updateMatrix();
+            cols.current.setMatrixAt(k++, O.matrix);
+          }
+        }
+      }
+      cols.current.instanceMatrix.needsUpdate = true;
+      colMat.uniforms.u_tint.value.copy(wallMat.uniforms.u_tint.value);
+      colMat.uniforms.u_on.value = on * (st.detail ? 0.45 : 1);
+      colMat.uniforms.u_light.value.set(r.x, floorY + 2.5, r.z + 1.5);
+      waterMat.uniforms.u_tint.value.copy(wallMat.uniforms.u_tint.value);
+      waterMat.uniforms.u_on.value = on;
+      waterMat.uniforms.u_time.value = time;
+      waterMat.uniforms.u_center.value.set(r.x, r.z);
+    }
     if (THEME.plate || THEME.fresh) L.intensity = 0;
   });
 
@@ -377,12 +554,12 @@ export default function Boutique() {
     <>
       <group ref={root}>
         {/* Cilalı siyah taş zemin: gerçek yansıma (bulanık, kenara doğru sönen). */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -6]}>
-          <planeGeometry args={[90, 50]} />
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, CISTERN ? -26 : -6]}>
+          <planeGeometry args={CISTERN ? [170, 100] : [90, 50]} />
           <MeshReflectorMaterial
             ref={floorMat}
             resolution={MOBILE ? 256 : 640}
-            blur={[140, 50]}
+            blur={CISTERN ? [40, 14] : [140, 50]}
             mixBlur={0.6}
             mixStrength={2.2}
             mixContrast={1.1}
@@ -392,11 +569,19 @@ export default function Boutique() {
             roughness={1}
             metalness={0}
             envMapIntensity={0.55}
-            color="#3d2e22"
-            mirror={0.96}
+            color={CISTERN ? "#0d1517" : "#3d2e22"}
+            mirror={CISTERN ? 0.985 : 0.96}
             {...(THEME.plate ? PLATE_FLOOR : {})}
           />
         </mesh>
+        {CISTERN && (
+          <>
+            <instancedMesh ref={cols} args={[colGeo, colMat, COL_COUNT]} frustumCulled={false} />
+            <mesh material={waterMat} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, -10]} renderOrder={1}>
+              <planeGeometry args={[120, 80]} />
+            </mesh>
+          </>
+        )}
         <group ref={wall}>
           {/* theme.wallStyle: kavisli tek yüzey (oluklar gizli) */}
           {STYLE_ID >= 0 && CURVE > 0 && (
@@ -410,7 +595,7 @@ export default function Boutique() {
               <mesh material={haloMat} renderOrder={1}>
                 <cylinderGeometry args={[CURVE - 0.1, CURVE - 0.1, LOGO.w * LOGO.aspect * 4.2, 48, 1, true, Math.PI - (LOGO.w * 1.5) / (2 * CURVE), (LOGO.w * 1.5) / CURVE]} />
               </mesh>
-              <mesh material={logoMat} renderOrder={2}>
+              <mesh material={logoMat} renderOrder={CISTERN ? 6 : 2}>
                 <cylinderGeometry args={[CURVE - 0.12, CURVE - 0.12, LOGO.w * LOGO.aspect, 96, 1, true, Math.PI - LOGO.w / (2 * CURVE), LOGO.w / CURVE]} />
               </mesh>
             </group>

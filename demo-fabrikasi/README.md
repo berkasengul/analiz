@@ -477,3 +477,15 @@ keşfet, Sepete ekle kartta, nota piramidi seçimleri…) altın degrade kenarl�
 simge düğmeleri altın halkalı koyu cam; büyük başlıklar fildişiden altına metal degrade (her harf ayrı canlandığı
 için degrade harfe uygulanır, bölünmemiş başlıklar düz fildişi); etiketlerde elmas işaret, sayaç altın. İlk: Reinvented
 (kemerli "glide", Cinzel/Cormorant).
+
+**Sarnıç sahnesi** (`theme.wallStyle: "cistern"`, Nishane): uzakta tuğla örgülü kemerli galeri, önünde gerçek 3B
+taş sütun sıraları (yivli gövde, taban ve başlık; dibinden kokunun renginde ışık alır), zemin karanlık su (keskin
+yansıma, dalgacık parıltısı, şişenin çevresinde halkalar). Ön sıra ürünü iki yandan çerçeveler; arka sıralar kaydırmayla
+yana akar. Sahne alt bölümlerde (Ritüel, nota piramidi, koku bulucu, mağaza, hikâye, SSS, iletişim) de sürer; alt
+bölümlerin zemini yarı saydamdır. Koleksiyon kartları küçük sarnıç nişleri (ürünün renginde kemer içi, iki yanda sütun,
+su yansıması, imleçle 3B eğilme). Önerilen ayarlar: `"wallCurve": 70, "wallZ": -50, "beams": 0`; logo duvarda büyük
+(`wallLogo.width` ~22) ve sütunların üstünde çizilir. Her ürünün rengi aktarım kurallarındaki `palette`ten gelir.
+Galeri kartlarında (`theme.cards: "gallery"`) kartın rengi artık ürünün palette vurgusudur.
+
+**Net silüet** (`araclar/kenar-net.py <marka>`): şeffaf camlı köşeli şişelerde (`profiles.flat`) kenar çizgisi kesimin
+saydamlığından yeniden çıkarılır (sık noktalı, köşeler korunur); shopify-foto'dan sonra, aktar'dan önce çalıştırılır.

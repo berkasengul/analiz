@@ -1,0 +1,712 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": false,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.3,
+  "backSolid": "."
+ },
+ "aktar": {
+  "domain": "nishane.com",
+  "platform": "woo",
+  "wooCart": "cart",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "hacivat",
+   "ani",
+   "hundred-silent-ways",
+   "wulong-cha",
+   "fan-your-flames",
+   "ege",
+   "b-612",
+   "tuberoza"
+  ],
+  "profiles": {
+   "flat": ".",
+   "flatDepth": [
+    [
+     ".",
+     0.62
+    ]
+   ]
+  },
+  "categories": [
+   {
+    "id": "shadow",
+    "tr": "Gölge Oyunu",
+    "en": "Shadow Play",
+    "color": "#f2c84b",
+    "descTr": "Karagöz ile Hacivat'tan ilham alan üçleme.",
+    "descEn": "A trilogy inspired by Karagöz and Hacivat.",
+    "match": "^(hacivat|karagoz)\\b"
+   },
+   {
+    "id": "rumi",
+    "tr": "Rumi",
+    "en": "Rumi",
+    "color": "#e5404f",
+    "descTr": "Mevlânâ Celâleddîn-i Rûmî'nin sözlerinden ilham alan kokular.",
+    "descEn": "Scents inspired by the words of Rumi.",
+    "match": "^(hundred-silent-ways|fan-your-flames)\\b"
+   },
+   {
+    "id": "boundaries",
+    "tr": "Sınırsız",
+    "en": "No Boundaries",
+    "color": "#47c6da",
+    "descTr": "İnsanlar arasındaki bütün sınırları kaldırma umudu.",
+    "descEn": "The hope of ending every border between people.",
+    "match": "^(ani|ege)\\b"
+   },
+   {
+    "id": "art",
+    "tr": "Sanat ve Hayal",
+    "en": "Art & Imagination",
+    "color": "#9b7dff",
+    "descTr": "Küçük Prens'ten minyatür sanatına, çiçek bahçelerine.",
+    "descEn": "From The Little Prince to miniature art and blossoms.",
+    "match": "^(b-612|tuberoza|wulong-cha|sultan-vetiver)\\b"
+   }
+  ],
+  "families": {
+   "hacivat": [
+    "Narenciye · Şipr · Odunsu",
+    "Citrus · Chypre · Woody"
+   ],
+   "ani": [
+    "Baharatlı · Odunsu · Vanilya",
+    "Spicy · Woody · Vanilla"
+   ],
+   "hundred-silent-ways": [
+    "Çiçeksi · Gurme · Misk",
+    "Floral · Gourmand · Musky"
+   ],
+   "wulong-cha": [
+    "Narenciye · Yeşil · Misk",
+    "Citrus · Green · Musky"
+   ],
+   "fan-your-flames": [
+    "Likörlü · Gurme · Odunsu",
+    "Boozy · Gourmand · Woody"
+   ],
+   "ege": [
+    "Yeşil · Aromatik · Akuatik",
+    "Green · Aromatic · Aquatic"
+   ],
+   "b-612": [
+    "Aromatik · Balsamik · Fujer",
+    "Aromatic · Balsamic · Fougère"
+   ],
+   "tuberoza": [
+    "Çiçeksi · Amber",
+    "Floral · Ambery"
+   ],
+   "sultan-vetiver": [
+    "Aromatik · Odunsu · Amber",
+    "Aromatic · Woody · Ambery"
+   ],
+   "karagoz": [
+    "Meyveli · Yeşil · Odunsu",
+    "Fruity · Green · Woody"
+   ]
+  },
+  "rename": {
+   "hacivat": [
+    "Hacivat",
+    "Hacivat"
+   ],
+   "ani": [
+    "Ani",
+    "Ani"
+   ],
+   "hundred-silent-ways": [
+    "Hundred Silent Ways",
+    "Hundred Silent Ways"
+   ],
+   "wulong-cha": [
+    "Wūlóng Chá",
+    "Wūlóng Chá"
+   ],
+   "fan-your-flames": [
+    "Fan Your Flames",
+    "Fan Your Flames"
+   ],
+   "ege": [
+    "Ege / Αιγαίο",
+    "Ege / Αιγαίο"
+   ],
+   "b-612": [
+    "B-612",
+    "B-612"
+   ],
+   "tuberoza": [
+    "Tuberóza",
+    "Tuberóza"
+   ],
+   "sultan-vetiver": [
+    "Sultan Vetiver",
+    "Sultan Vetiver"
+   ],
+   "karagoz": [
+    "Karagöz",
+    "Karagoz"
+   ]
+  },
+  "palette": [
+   [
+    "^hacivat$",
+    "#2a2108",
+    "#f2c84b"
+   ],
+   [
+    "^ani$",
+    "#2a1809",
+    "#e3a35a"
+   ],
+   [
+    "^hundred-silent-ways$",
+    "#2e070d",
+    "#e5404f"
+   ],
+   [
+    "^wulong-cha$",
+    "#16220c",
+    "#c3dc6a"
+   ],
+   [
+    "^fan-your-flames$",
+    "#0a1236",
+    "#5a83ff"
+   ],
+   [
+    "^ege$",
+    "#05242c",
+    "#47c6da"
+   ],
+   [
+    "^b-612$",
+    "#150e33",
+    "#9b7dff"
+   ],
+   [
+    "^tuberoza$",
+    "#2e0a1b",
+    "#ff7aa6"
+   ],
+   [
+    "^sultan-vetiver$",
+    "#062419",
+    "#33d29b"
+   ],
+   [
+    "^karagoz$",
+    "#1c0a26",
+    "#c35ee6"
+   ]
+  ],
+  "notes": [
+   [
+    "^hacivat$",
+    [
+     [
+      "Ananas",
+      "Pineapple"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Meşe yosunu",
+      "Oakmoss"
+     ]
+    ]
+   ],
+   [
+    "^ani$",
+    [
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Mavi zencefil",
+      "Blue ginger"
+     ],
+     [
+      "Türk gülü",
+      "Turkish rose"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Benzoin",
+      "Benzoin"
+     ]
+    ]
+   ],
+   [
+    "^hundred-silent-ways$",
+    [
+     [
+      "Sümbülteber",
+      "Tuberose"
+     ],
+     [
+      "Şeftali",
+      "Peach"
+     ],
+     [
+      "Beyaz yasemin",
+      "White jasmine"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ],
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ]
+    ]
+   ],
+   [
+    "^wulong-cha$",
+    [
+     [
+      "Oolong çayı",
+      "Oolong tea"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "İncir",
+      "Fig"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^fan-your-flames$",
+    [
+     [
+      "Hindistan cevizi",
+      "Coconut"
+     ],
+     [
+      "Rom",
+      "Rum"
+     ],
+     [
+      "Tütün",
+      "Tobacco"
+     ],
+     [
+      "Tonka",
+      "Tonka bean"
+     ],
+     [
+      "Sedir",
+      "Cedarwood"
+     ]
+    ]
+   ],
+   [
+    "^ege$",
+    [
+     [
+      "Yuzu",
+      "Yuzu"
+     ],
+     [
+      "Menekşe yaprağı",
+      "Violet leaves"
+     ],
+     [
+      "Fesleğen",
+      "Basil"
+     ],
+     [
+      "Nane",
+      "Mint"
+     ],
+     [
+      "Günlük",
+      "Olibanum"
+     ]
+    ]
+   ],
+   [
+    "^b-612$",
+    [
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Sardunya",
+      "Geranium"
+     ],
+     [
+      "Selvi",
+      "Cypress"
+     ],
+     [
+      "Kaşmir ağacı",
+      "Cashmeran wood"
+     ],
+     [
+      "Tonka",
+      "Tonka bean"
+     ]
+    ]
+   ],
+   [
+    "^tuberoza$",
+    [
+     [
+      "Sümbülteber",
+      "Tuberose"
+     ],
+     [
+      "Gardenya",
+      "Gardenia"
+     ],
+     [
+      "Yasemin",
+      "Jasmine"
+     ],
+     [
+      "Ylang ylang",
+      "Ylang ylang"
+     ],
+     [
+      "Amber ağacı",
+      "Amberwood"
+     ]
+    ]
+   ],
+   [
+    "^sultan-vetiver$",
+    [
+     [
+      "Cava vetiveri",
+      "Javanese vetiver"
+     ],
+     [
+      "Pelin otu",
+      "Absinthe"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Tonka",
+      "Tonka"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ]
+    ]
+   ],
+   [
+    "^karagoz$",
+    [
+     [
+      "Ananas",
+      "Pineapple"
+     ],
+     [
+      "Siyah üzüm",
+      "Black grape"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Ud",
+      "Agarwood"
+     ],
+     [
+      "Amber",
+      "Amber"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^hacivat$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Ananas, Greyfurt",
+      "Kalp: Yasemin, Paçuli, Sedir",
+      "Dip: Clearwood, Meşe yosunu, Kuru odun"
+     ],
+     "en": [
+      "Top: Bergamot, Pineapple, Grapefruit",
+      "Heart: Jasmine, Patchouli, Cedarwood",
+      "Base: Clearwood, Oakmoss, Dry timberwood"
+     ]
+    }
+   },
+   {
+    "match": "^ani$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Yeşil notalar, Mavi zencefil, Pembe biber",
+      "Kalp: Frenk üzümü, Türk gülü, Kakule",
+      "Dip: Paçuli, Sedir, Vanilya, Benzoin, Amber, Misk, Sandal ağacı"
+     ],
+     "en": [
+      "Top: Bergamot, Green notes, Blue ginger, Pink pepper",
+      "Heart: Blackcurrant, Turkish rose, Cardamom",
+      "Base: Patchouli, Cedarwood, Vanilla, Benzoin, Ambergris, Musk, Sandalwood"
+     ]
+    }
+   },
+   {
+    "match": "^hundred-silent-ways$",
+    "composition": {
+     "tr": [
+      "Üst: Sümbülteber, Mandalina, Şeftali",
+      "Kalp: Beyaz yasemin, Gardenya, İris",
+      "Dip: Vanilya, Sandal ağacı, Vetiver"
+     ],
+     "en": [
+      "Top: Tuberose, Mandarin, Peach",
+      "Heart: White jasmine, Gardenia, Orris",
+      "Base: Vanilla, Sandalwood, Vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^wulong-cha$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Portakal, Litsea, Mandalina",
+      "Kalp: Oolong çayı, Muskat",
+      "Dip: Misk, İncir"
+     ],
+     "en": [
+      "Top: Bergamot, Orange, Litsea, Mandarin",
+      "Heart: Oolong tea, Nutmeg",
+      "Base: Musk, Fig"
+     ]
+    }
+   },
+   {
+    "match": "^fan-your-flames$",
+    "composition": {
+     "tr": [
+      "Üst: Hindistan cevizi, Rom",
+      "Kalp: Tütün, Tonka fasulyesi",
+      "Dip: Meşe yosunu, Çin sediri"
+     ],
+     "en": [
+      "Top: Coconut, Rum",
+      "Heart: Tobacco, Tonka bean",
+      "Base: Oakmoss, Chinese cedarwood"
+     ]
+    }
+   },
+   {
+    "match": "^ege$",
+    "composition": {
+     "tr": [
+      "Üst: Yuzu, Menekşe yaprağı, Anason",
+      "Kalp: Fesleğen, Yeşil kakule, Nane",
+      "Dip: Günlük, Meyan kökü"
+     ],
+     "en": [
+      "Top: Yuzu, Violet leaves, Anise",
+      "Heart: Basil, Green cardamom, Mint",
+      "Base: Olibanum, Licorice"
+     ]
+    }
+   },
+   {
+    "match": "^b-612$",
+    "composition": {
+     "tr": [
+      "Üst: Lavanta, Sardunya, Selvi",
+      "Kalp: Kaşmir ağacı, Sedir, Sandal ağacı, Paçuli",
+      "Dip: Misk, Meşe yosunu, Tonka fasulyesi"
+     ],
+     "en": [
+      "Top: Lavender, Geranium, Cypress",
+      "Heart: Cashmeran wood, Cedarwood, Sandalwood, Patchouli",
+      "Base: Musk, Oakmoss, Tonka bean"
+     ]
+    }
+   },
+   {
+    "match": "^tuberoza$",
+    "composition": {
+     "tr": [
+      "Üst: Ylang ylang, Tatlı portakal, Pelin, Portakal çiçeği",
+      "Kalp: Sümbülteber, Gardenya, Yasemin, Kadife çiçeği",
+      "Dip: Amber ağacı, Vetiver, Sandal ağacı, Misk"
+     ],
+     "en": [
+      "Top: Ylang ylang, Sweet orange, Armoise, Orange blossom",
+      "Heart: Tuberose, Gardenia, Jasmine, Marigold",
+      "Base: Amberwood, Vetiver, Sandalwood, Musk"
+     ]
+    }
+   },
+   {
+    "match": "^sultan-vetiver$",
+    "composition": {
+     "tr": [
+      "Üst: Cava vetiveri, Pelin otu, Peru biberi, Bergamot",
+      "Kalp: Bourbon vetiveri, Haiti vetiveri, Neroli, Tonka",
+      "Dip: Amber ağacı, Deri, Brezilya vetiveri"
+     ],
+     "en": [
+      "Top: Javanese vetiver, Absinthe, Schinus molle, Bergamot",
+      "Heart: Bourbon vetiver, Haitian vetiver, Neroli, Tonka",
+      "Base: Amberwood, Leather, Brazilian vetiver"
+     ]
+    }
+   },
+   {
+    "match": "^karagoz$",
+    "composition": {
+     "tr": [
+      "Üst: Ananas, Siyah üzüm, Bouquet garni",
+      "Kalp: Neroli, Yasemin, Paçuli",
+      "Dip: Vetiver, Ud, Amber"
+     ],
+     "en": [
+      "Top: Pineapple, Black grape, Bouquet garni",
+      "Heart: Neroli, Jasmine, Patchouli",
+      "Base: Vetiver, Agarwood, Amber"
+     ]
+    }
+   }
+  ],
+  "taglines": {
+   "hacivat": [
+    "Gölge oyununun zarif kahramanı",
+    "The elegant hero of the shadow play"
+   ],
+   "ani": [
+    "Sarı Gelin türküsünden doğan vanilya",
+    "A vanilla born of the folk song Sarı Gelin"
+   ],
+   "hundred-silent-ways": [
+    "Ağzımı kapadım, seninle yüz sessiz yolla konuştum",
+    "I closed my mouth and spoke to you in a hundred silent ways"
+   ],
+   "wulong-cha": [
+    "Şanghay'dan bir fincan oolong ferahlığı",
+    "A cup of oolong freshness from Shanghai"
+   ],
+   "fan-your-flames": [
+    "Hayatını ateşe ver, alevini körükleyenleri bul",
+    "Set your life on fire, seek those who fan your flames"
+   ],
+   "ege": [
+    "İzmir'den Atina'ya aynı mavi",
+    "The same blue from İzmir to Athens"
+   ],
+   "b-612": [
+    "Küçük Prens'in asteroidinden gelen koku",
+    "A scent from the Little Prince's asteroid"
+   ],
+   "tuberoza": [
+    "Meksika sümbülteberinin büyüsü",
+    "The spell of Mexican tuberose"
+   ],
+   "sultan-vetiver": [
+    "Türünün kurallarını yıkan vetiver",
+    "The vetiver that breaks the rules of its genre"
+   ],
+   "karagoz": [
+    "Gölge oyununun hazırcevap kahramanı",
+    "The quick-witted hero of the shadow play"
+   ]
+  },
+  "trText": {
+   "hacivat": "Zarafete, nezakete, ustalığa ve sanat sevgisine bir saygı duruşu. Geleneksel gölge oyunu karakterinden ilham alan bu eau chypre, ananas ve bergamotun canlandırıcı notalarından ve onları taşıyan gerçek odunsu notalardan oluşan neşeli yapısının bitmeyen ışıltısıyla en güzel hayallerinizi yaşatır.",
+   "ani": "Parfüm severlerin en iyi vanilya kokusu olarak gösterdiği ikonik ANI, ünlü Anadolu türküsü \"Sarı Gelin\"den ilham alan romantik ve sakin bir parfüm. Adını bugün UNESCO Dünya Mirası Listesi'ndeki antik Ani kentinden alır; insanlar arasındaki her sınırı yıkmaya adanmıştır.",
+   "hundred-silent-ways": "Parfümeri tarihinin en sevilen kokularına modern bir yorumla yapılmış bir saygı duruşu. Tek bir damlayla, dünyada yaşamış bütün güzel ruhların çekiciliğini taşıdığınızı hissedip karşılaştığınız herkesle sessizce paylaşırsınız. İltifatlara hazır olun. \"Ağzımı kapadım ve seninle yüz sessiz yolla konuştum.\" – Rumi",
+   "wulong-cha": "Piyasanın en güçlü ferah kokularından biri: bergamot, portakal ve mandalinanın narenciye notalarıyla ışıl ışıl açılır. Akdeniz inciri ve misk kokuya zemin olurken oolong çayı yakalanması güç bir zarafetle büyüler.",
+   "fan-your-flames": "Sevdiklerinizle geçen güzel bir geceyi anlatır: hindistan cevizli nargile, keyifli sohbet, daha güzel günlerin beklentisi. Hayatı kutlamak için güzel anların tadını çıkarın. \"Hayatını ateşe ver ve alevini körükleyenleri ara.\" – Rumi",
+   "ege": "Yunan ve Anadolu yarımadaları arasında uzanan, tarih boyunca Avrupa ile Asya'yı buluşturan Ege Denizi'ne bir saygı duruşu. Bu yeşil akuatik koku, denizin ve Akdeniz yazının en hoş kokularını taşıyarak en unutulmaz yaz tatillerini hatırlamaya davet eder.",
+   "b-612": "Küçük Prens'in asteroidi kokularıyla dünyaya yaklaşıyor: çocukluktan unutulmuş özellikleri geri getiren büyüleyici yapısıyla, onu süreni hayal gücü geniş, açık fikirli ve dünyanın gizemine ve güzelliğine duyarlı kılar. Keşfederek aydınlanma.",
+   "tuberoza": "Başrolde Meksika'nın büyüleyici sümbülteberi; gardenya, kadife çiçeği ve yasemin gibi çiçek notalarıyla birlikte. Güçlü amber dip notası kokunun ayırt ediciliğinin garantisi.",
+   "sultan-vetiver": "Cava, Haiti ve Bourbon vetiverleriyle aynı potada yoğunlaşan bir neroli notasıyla açılır. Çağlar boyunca asıl fatihler sultanlar ve krallar olduğu gibi Sultan Vetiver de türünün yeni kural yıkıcısı. Vetiver sevenler için cennet gibi bir parfüm.",
+   "karagoz": "Hayatın oyunbaz ikramlarına, hazırcevaplığa, dobralığa ve içtenliğe bir saygı duruşu. Ünlü gölge oyunu karakteri Karagöz gibi fark edilmenin tadını çıkarın. Ananas ve otlarla neşeli açılışın ardından neroli, yasemin ve paçuliden güçlü bir kalp gelir; vetiver, ud ve amber bu oyunbaz karakteri resmeden son fırça darbeleri."
+  },
+  "ritual": [
+   {
+    "handle": "hacivat",
+    "tr": {
+     "title": "Perde açılıyor",
+     "text": "Gölge oyununun zarif kahramanı sahnede: ananas ve bergamotun ışıltısı, altında gerçek odunsu bir şipr.",
+     "stat": "Hacivat · İstanbul"
+    },
+    "en": {
+     "title": "The curtain rises",
+     "text": "The elegant hero of the shadow play takes the stage: a sparkle of pineapple and bergamot over a true woody chypre.",
+     "stat": "Hacivat · Istanbul"
+    }
+   },
+   {
+    "handle": "ani",
+    "tr": {
+     "title": "Sınırları yıkan bir türkü",
+     "text": "Sarı Gelin'den doğan vanilya; mavi zencefil, Türk gülü ve kakuleyle sıcak, romantik ve sakin.",
+     "stat": "Ani · No Boundaries"
+    },
+    "en": {
+     "title": "A folk song that ruins borders",
+     "text": "A vanilla born of Sarı Gelin; warm, romantic and calm with blue ginger, Turkish rose and cardamom.",
+     "stat": "Ani · No Boundaries"
+    }
+   },
+   {
+    "handle": "hundred-silent-ways",
+    "tr": {
+     "title": "Yüz sessiz yol",
+     "text": "Sümbülteber, şeftali ve beyaz yasemin; vanilya ve sandal ağacında iltifat toplayan bir iz.",
+     "stat": "Hundred Silent Ways · Rumi"
+    },
+    "en": {
+     "title": "A hundred silent ways",
+     "text": "Tuberose, peach and white jasmine; a trail of vanilla and sandalwood that gathers compliments.",
+     "stat": "Hundred Silent Ways · Rumi"
+    }
+   }
+  ]
+ }
+}
