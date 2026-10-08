@@ -18,13 +18,9 @@
   "themeGlow": 0.3,
   "home": [
    "hacivat",
-   "ani",
    "hundred-silent-ways",
-   "wulong-cha",
    "fan-your-flames",
-   "ege",
-   "b-612",
-   "tuberoza"
+   "ani"
   ],
   "profiles": {
    "flat": ".",
@@ -160,53 +156,63 @@
   "palette": [
    [
     "^hacivat$",
-    "#2a2108",
-    "#f2c84b"
-   ],
-   [
-    "^ani$",
-    "#2a1809",
-    "#e3a35a"
+    "#b08a32",
+    "#f2d070",
+    "#1e1404"
    ],
    [
     "^hundred-silent-ways$",
-    "#2e070d",
-    "#e5404f"
-   ],
-   [
-    "^wulong-cha$",
-    "#16220c",
-    "#c3dc6a"
+    "#9a1422",
+    "#e8505c",
+    "#1e0306"
    ],
    [
     "^fan-your-flames$",
-    "#0a1236",
-    "#5a83ff"
+    "#1c34a8",
+    "#5a7cf0",
+    "#040a24"
+   ],
+   [
+    "^ani$",
+    "#9a5418",
+    "#e8a050",
+    "#1e0e03"
+   ],
+   [
+    "^wulong-cha$",
+    "#5e7a28",
+    "#b8d468",
+    "#101804"
    ],
    [
     "^ege$",
-    "#05242c",
-    "#47c6da"
+    "#1c7a90",
+    "#5cc8dc",
+    "#03161b"
    ],
    [
     "^b-612$",
-    "#150e33",
-    "#9b7dff"
+    "#3e2e98",
+    "#8c78f0",
+    "#0a0624"
    ],
    [
     "^tuberoza$",
-    "#2e0a1b",
-    "#ff7aa6"
+    "#982e58",
+    "#e87aa4",
+    "#22060f"
    ],
    [
     "^sultan-vetiver$",
-    "#062419",
-    "#33d29b"
+    "#176a4c",
+    "#4cd09c",
+    "#03140c"
    ],
    [
     "^karagoz$",
-    "#1c0a26",
-    "#c35ee6"
+    "#5a2078",
+    "#b46ae0",
+    "#14041c"
    ]
   ],
   "notes": [
