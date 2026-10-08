@@ -20,6 +20,7 @@ export function Header() {
   const setLang = useStore((s) => s.setLang);
   const cart = useStore((s) => s.cart);
   const setCartOpen = useStore((s) => s.setCartOpen);
+  const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang];
   const [scrolled, setScrolled] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -75,9 +76,9 @@ export function Header() {
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {products.map((p, i) => (
+                  {products.map((p) => (
                     <li key={p.id}>
-                      <button onClick={go(() => scrollToFlavor(i))} style={{ '--c': p.color } as React.CSSProperties}>
+                      <button onClick={go(() => openDetail(p.id))} style={{ '--c': p.color } as React.CSSProperties}>
                         <span className="dot" /> {p.name}
                         <small>{p.family[lang]}</small>
                       </button>
@@ -160,6 +161,7 @@ export function Header() {
 
 function Search({ open, onClose }: { open: boolean; onClose: () => void }) {
   const lang = useStore((s) => s.lang);
+  const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang];
   const [q, setQ] = useState('');
   useEscape(open, onClose);
@@ -200,9 +202,9 @@ function Search({ open, onClose }: { open: boolean; onClose: () => void }) {
             </div>
             <ul>
               {results.length === 0 && <li className="search-empty">{t.search.empty}</li>}
-              {results.map(({ p, i }) => (
+              {results.map(({ p }) => (
                 <li key={p.id}>
-                  <button onClick={() => { onClose(); scrollToFlavor(i); }} style={{ '--c': p.color } as React.CSSProperties}>
+                  <button onClick={() => { onClose(); openDetail(p.id); }} style={{ '--c': p.color } as React.CSSProperties}>
                     <span className="dot" />
                     <strong>{p.name}</strong>
                     <span>{p.family[lang]}</span>

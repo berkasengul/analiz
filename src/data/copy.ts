@@ -104,6 +104,22 @@ export const copy = {
       links: { shop: 'Mağaza', faq: 'SSS', story: 'Hikâye', contact: 'İletişim', web: 'unbeperfumes.com' },
       demo: 'Bu sayfa UnBe. için hazırlanmış bağımsız bir konsept demodur. Ürün görselleri, notalar, fiyatlar ve metinler markanın kendi sitesinden (unbeperfumes.com) alınmıştır; satın alma markanın kendi mağazasında tamamlanır.',
     },
+    detail: {
+      open: 'Detaylar',
+      close: 'Kapat',
+      prev: 'Önceki koku',
+      next: 'Sonraki koku',
+      edp: 'Eau de Parfum',
+      story: 'Hikâye',
+      dna: 'Koku DNA\u2019sı',
+      pyramid: 'Nota piramidi',
+      ritual: 'Ritüel',
+      qty: 'Adet',
+      add: 'Sepete ekle',
+      store: 'unbeperfumes.com\u2019da gör',
+      see3d: '3B vitrinde gör',
+      open3d: 'Piramidi 3B aç',
+    },
     cart: {
       title: 'Sepet', empty: 'Sepetin boş. Bir duruş seç.', subtotal: 'Ara toplam', checkout: 'Ödemeye geç',
       remove: 'Kaldır', close: 'Sepeti kapat', note: 'Ödeme unbeperfumes.com üzerinde güvenle tamamlanır.',
@@ -212,6 +228,22 @@ export const copy = {
       links: { shop: 'Shop', faq: 'FAQ', story: 'Story', contact: 'Contact', web: 'unbeperfumes.com' },
       demo: 'This page is an independent concept demo made for UnBe. Product images, notes, prices and texts are taken from the brand’s own site (unbeperfumes.com); purchases are completed in the brand’s own store.',
     },
+    detail: {
+      open: 'Details',
+      close: 'Close',
+      prev: 'Previous scent',
+      next: 'Next scent',
+      edp: 'Eau de Parfum',
+      story: 'Story',
+      dna: 'Scent DNA',
+      pyramid: 'Note pyramid',
+      ritual: 'Ritual',
+      qty: 'Qty',
+      add: 'Add to cart',
+      store: 'View on unbeperfumes.com',
+      see3d: 'See in 3D showcase',
+      open3d: 'Open pyramid in 3D',
+    },
     cart: {
       title: 'Cart', empty: 'Your cart is empty. Choose a stance.', subtotal: 'Subtotal', checkout: 'Checkout',
       remove: 'Remove', close: 'Close cart', note: 'Payment is completed securely on unbeperfumes.com.',
@@ -233,6 +265,16 @@ export const storyFirst: Record<ProductId, Record<Lang, string>> = {
   'no-regrets': { tr: 'Anlık bir dürtünün nabzı.', en: 'The pulse of a sudden impulse.' },
   'no-filter': { tr: 'Şişelenmiş saf dürüstlük.', en: 'Pure honesty, bottled.' },
   'no-rules': { tr: 'Kalıpları kırmanın kokusu.', en: 'The scent of breaking the mould.' },
+};
+
+/** Koku DNA'sı (EN: sadık çeviri; TR products.ts'teki dna) */
+export const dnaEn: Record<ProductId, string[]> = {
+  'no-tears': ['Bright citrus opening', 'Luminous floral warmth', 'Creamy musk base'],
+  'no-excuse': ['Citrus and marine freshness', 'Spicy floral warmth', 'Strong woody base'],
+  'no-drama': ['Fresh aquatic openness', 'Soft powdery florals', 'Warm amber and musk base'],
+  'no-regrets': ['Spicy fruity opening', 'Intense white florals', 'Warm balsamic woods'],
+  'no-filter': ['Vivid fruity energy', 'Soft floral warmth', 'A trace of musk and vanilla'],
+  'no-rules': ['Citrus and exotic fruit energy', 'Elegant floral heart', 'Leathery amber and woods'],
 };
 
 export const contact = {

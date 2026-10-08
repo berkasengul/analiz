@@ -13,6 +13,7 @@ export function Cart() {
   const cart = useStore((s) => s.cart);
   const setQty = useStore((s) => s.setQty);
   const remove = useStore((s) => s.removeFromCart);
+  const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang].cart;
   const panel = useRef<HTMLDivElement>(null);
   const subtotal = cart.reduce((sum, l) => sum + getProduct(l.id).priceTRY * l.qty, 0);
@@ -67,7 +68,7 @@ export function Cart() {
                     <li key={l.id} className="cart-line" style={{ '--c': p.color } as React.CSSProperties}>
                       <div className="cart-thumb"><img src={`/products/${p.id}.png`} alt="" width={52} height={70} /></div>
                       <div className="cart-info">
-                        <strong>{p.name}</strong>
+                        <strong><button className="card-link" onClick={() => openDetail(p.id)}>{p.name}</button></strong>
                         <span>{p.family[lang]} · 100 ML</span>
                         <div className="qty qty-sm" role="group" aria-label={`${p.name} adet`}>
                           <button onClick={() => setQty(l.id, l.qty - 1)} aria-label="−" disabled={l.qty <= 1}>−</button>

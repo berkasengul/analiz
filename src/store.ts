@@ -33,6 +33,11 @@ interface State {
   finderAt: number;
   setFinderResult: (id: ProductId | null) => void;
 
+  /** ürün detay paneli */
+  detailId: ProductId | null;
+  openDetail: (id: ProductId) => void;
+  closeDetail: () => void;
+
   spray: Spray | null;
   startSpray: (id: ProductId) => void;
 
@@ -82,6 +87,10 @@ export const useStore = create<State>()(
       finderResult: null,
       finderAt: 0,
       setFinderResult: (finderResult) => set({ finderResult, finderAt: now() }),
+
+      detailId: null,
+      openDetail: (detailId) => set({ detailId, cartOpen: false }),
+      closeDetail: () => set({ detailId: null }),
 
       spray: null,
       startSpray: (id) => {

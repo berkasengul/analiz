@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '../../store';
 import { copy, formatTRY } from '../../data/copy';
-import { products, productIndex, topNotes } from '../../data/products';
-import { scrollToFlavor } from '../../scroll/scroll';
+import { products, topNotes } from '../../data/products';
 import { PlusIcon } from '../icons';
 
 type Filter = 'all' | 'kadın' | 'erkek';
@@ -12,6 +11,7 @@ export function AllProducts() {
   const lang = useStore((s) => s.lang);
   const addToCart = useStore((s) => s.addToCart);
   const setCartOpen = useStore((s) => s.setCartOpen);
+  const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang];
   const [filter, setFilter] = useState<Filter>('all');
   const list = products.filter((p) => filter === 'all' || p.gender === filter);
@@ -46,7 +46,7 @@ export function AllProducts() {
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.4 }}
               >
-                <button className="card-media" onClick={() => scrollToFlavor(productIndex(p.id))} aria-label={`${p.name} — ${t.flavors.discover}`}>
+                <button className="card-media" onClick={() => openDetail(p.id)} aria-label={`${p.name} — ${t.detail.open}`}>
                   <picture>
                     <source srcSet={`/cards/${p.id}.webp`} type="image/webp" />
                     <img src={`/products/${p.id}.png`} alt="" loading="lazy" width={800} height={1000} />
@@ -54,7 +54,7 @@ export function AllProducts() {
                 </button>
                 <div className="card-body">
                   <p className="eyebrow">{t.gender[p.gender]} · {t.ml}</p>
-                  <h3 className="card-name">{p.name}</h3>
+                  <h3 className="card-name"><button className="card-link" onClick={() => openDetail(p.id)}>{p.name}</button></h3>
                   <p className="card-stance">{p.stance[lang]}</p>
                   <p className="card-notes">{topNotes(p, lang, 4).join(' · ')}</p>
                   <div className="card-foot">

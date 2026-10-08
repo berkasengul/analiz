@@ -4,7 +4,7 @@ import { Swap } from '../Swap';
 import { useStore } from '../../store';
 import { copy } from '../../data/copy';
 import { products, topNotes } from '../../data/products';
-import { scrollToFlavor, scrollToSection } from '../../scroll/scroll';
+import { scrollToFlavor } from '../../scroll/scroll';
 import { playSpraySounds } from '../../audio/sound';
 import { ArrowRight, SprayIcon } from '../icons';
 
@@ -50,7 +50,7 @@ export function Flavors() {
   const lang = useStore((s) => s.lang);
   const active = useStore((s) => s.active);
   const startSpray = useStore((s) => s.startSpray);
-  const setPyramidId = useStore((s) => s.setPyramidId);
+  const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang];
   const p = products[active];
   const notes = topNotes(p, lang);
@@ -88,7 +88,7 @@ export function Flavors() {
           <div className="fl-actions">
             <button
               className="btn btn-ghost"
-              onClick={() => { setPyramidId(p.id); scrollToSection('pyramid'); }}
+              onClick={() => openDetail(p.id)}
             >
               {t.flavors.discover} <ArrowRight />
             </button>
@@ -97,6 +97,11 @@ export function Flavors() {
             </button>
           </div>
         </div>
+
+        {/* ortadaki 3B şişe tıklanabilir: ürün detayı */}
+        <button className="bottle-hit fl-hit" onClick={() => openDetail(p.id)} aria-label={`${p.name} — ${t.detail.open}`}>
+          <span className="bottle-hit-label">{t.detail.open} +</span>
+        </button>
 
         <aside className="fl-notes" aria-label={t.flavors.notes}>
           <p className="eyebrow accent-text">{t.flavors.notes}</p>

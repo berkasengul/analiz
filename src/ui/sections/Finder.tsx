@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '../../store';
 import { copy } from '../../data/copy';
-import { getProduct, productIndex, type ProductId } from '../../data/products';
+import { getProduct, type ProductId } from '../../data/products';
 import { rank } from '../../data/finder';
-import { scrollToFlavor } from '../../scroll/scroll';
 import { finderAnchor } from '../../three/anchors';
 import { ArrowRight } from '../icons';
 
@@ -16,6 +15,7 @@ export function Finder() {
   const setResult = useStore((s) => s.setFinderResult);
   const addToCart = useStore((s) => s.addToCart);
   const setCartOpen = useStore((s) => s.setCartOpen);
+  const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang].finder;
   const [answers, setAnswers] = useState<number[]>([]);
   const [alts, setAlts] = useState<ProductId[]>([]);
@@ -87,7 +87,7 @@ export function Finder() {
                 <h3 className="fi-rname">{rp.name}</h3>
                 <p className="fi-rstance">{rp.family[lang]} · {rp.stance[lang]}</p>
                 <div className="fi-actions">
-                  <button className="btn btn-ghost" onClick={() => scrollToFlavor(productIndex(rp.id))}>{t.discover} <ArrowRight /></button>
+                  <button className="btn btn-ghost" onClick={() => openDetail(rp.id)}>{t.discover} <ArrowRight /></button>
                   <button className="btn btn-accent" onClick={() => { addToCart(rp.id); setCartOpen(true); }}>{t.add}</button>
                 </div>
                 <p className="eyebrow fi-alts-title">{t.alsoTry}</p>

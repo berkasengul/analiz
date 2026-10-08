@@ -7,6 +7,7 @@ import { unlockAudio } from './audio/sound';
 import { Loader } from './ui/Loader';
 import { Header } from './ui/Header';
 import { Cart } from './ui/Cart';
+import { ProductDetail } from './ui/ProductDetail';
 import { Flavors } from './ui/sections/Flavors';
 import { Ritual } from './ui/sections/Ritual';
 import { Pyramid } from './ui/sections/Pyramid';
@@ -102,6 +103,7 @@ function Site() {
       </main>
       <Footer />
       <Cart />
+      <ProductDetail />
       <Loader />
     </MotionConfig>
   );

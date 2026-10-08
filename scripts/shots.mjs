@@ -103,6 +103,15 @@ async function run(label, viewport, isMobile) {
   await page.evaluate(() => document.querySelector('.cart-btn')?.click());
   await page.waitForTimeout(900);
   await shot('11-cart');
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(600);
+
+  // ürün detayı (tüm ürünler kartından)
+  const al = await top('all');
+  await go(al.top, 1500);
+  await page.locator('.card-media').first().click();
+  await page.waitForTimeout(1500);
+  await shot('12-detail');
   await ctx.close();
 }
 

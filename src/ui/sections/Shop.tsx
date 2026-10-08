@@ -10,6 +10,7 @@ export function Shop() {
   const setId = useStore((s) => s.setShopId);
   const addToCart = useStore((s) => s.addToCart);
   const setCartOpen = useStore((s) => s.setCartOpen);
+  const openDetail = useStore((s) => s.openDetail);
   const t = copy[lang];
   const p = getProduct(id);
   const [qty, setQty] = useState(1);
@@ -55,10 +56,14 @@ export function Shop() {
             {t.shop.add}
           </button>
         </div>
+        <button className="link-btn shop-detail" onClick={() => openDetail(id)}>{t.detail.open} — {p.name} →</button>
         <ul className="perks">
           {t.shop.perks.map((x) => <li key={x}><span aria-hidden="true">✓</span> {x}</li>)}
         </ul>
       </div>
+      <button className="bottle-hit shop-hit" onClick={() => openDetail(id)} aria-label={`${p.name} — ${t.detail.open}`}>
+        <span className="bottle-hit-label">{t.detail.open} +</span>
+      </button>
     </section>
   );
 }
