@@ -1,4 +1,6 @@
-import { Suspense, useEffect, useState } from "react";
+import { Component, Suspense, useEffect, useState } from "react";
+import { useStore } from "./store";
+import { assetUrl } from "./shared";
 import { Canvas } from "@react-three/fiber";
 import { Environment, PerformanceMonitor, Preload } from "@react-three/drei";
 
@@ -28,7 +30,7 @@ import { content } from "./data";
 
 import envMap from "./assets/envMap/potsdamer_platz_0.256k.hdr?url";
 
-export default function Scene() {
+function SceneCanvas({ onLost }) {
   // theme.cinema: masaüstünde piksel oranı en fazla 2, telefonda 1.5 (sinematik ürün ışığında kenar keskinliği).
   const maxDpr = THEME.cinema ? (window.matchMedia("(max-width: 900px)").matches ? 1.5 : 2) : 1.5;
   const [dpr, setDpr] = useState(Math.min(maxDpr, window.devicePixelRatio || 1));
@@ -54,6 +56,13 @@ export default function Scene() {
         camera={{ position: [0, 0, 18], fov: 35 }}
         dpr={dpr}
         frameloop={onScreen ? "always" : "never"}
+        onCreated={({ gl }) => {
+          // Ekran kartı belleği yetmezse tarayıcı WebGL bağlamını kapatır (siyah ekran): yakala, sahneyi yeniden kur.
+          gl.domElement.addEventListener("webglcontextlost", (e) => {
+            e.preventDefault();
+            onLost?.();
+          });
+        }}
       >
         <PerformanceMonitor
           onDecline={() => {
@@ -90,5 +99,53 @@ export default function Scene() {
         </Suspense>
       </Canvas>
     </div>
+  );
+}
+
+// Sahne çizilemezse (WebGL yok ya da bir hata) boş siyah ekran yerine öndeki ürünün fotoğrafı, kendi renginde.
+function StaticHero() {
+  const active = useStore((s) => s.active ?? 0);
+  const f = flavors[active] ?? flavors[0];
+  const glow = f?.theme?.glow ?? "#222";
+  return (
+    <div className="canvas canvas--static" aria-hidden="true" style={{ background: `radial-gradient(ellipse at 50% 55%, ${glow} 0%, #050404 70%)` }}>
+      {f?.file && <img src={assetUrl("cut/" + f.file)} alt="" style={{ position: "absolute", left: "50%", top: "54%", transform: "translate(-50%, -50%)", maxHeight: "62vh", maxWidth: "44vw", objectFit: "contain", filter: "drop-shadow(0 30px 40px rgba(0,0,0,.6))" }} />}
+    </div>
+  );
+}
+
+class GLBoundary extends Component {
+  constructor(p) {
+    super(p);
+    this.state = { failed: false };
+  }
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(e) {
+    console.warn("3B sahne açılamadı, fotoğraf gösteriliyor:", e?.message);
+  }
+  render() {
+    return this.state.failed ? <StaticHero /> : this.props.children;
+  }
+}
+
+// WebGL bağlamı kaybolursa sahne en fazla iki kez baştan kurulur; yine olmazsa fotoğraflı görünüme geçilir.
+export default function Scene() {
+  const [run, setRun] = useState(0);
+  const [lost, setLost] = useState(false);
+  useEffect(() => {
+    if (!lost) return;
+    const t = setTimeout(() => {
+      setRun((n) => n + 1);
+      setLost(false);
+    }, 600);
+    return () => clearTimeout(t);
+  }, [lost]);
+  if (run > 2) return <StaticHero />;
+  return (
+    <GLBoundary key={run}>
+      <SceneCanvas key={run} onLost={() => setLost(true)} />
+    </GLBoundary>
   );
 }
