@@ -344,7 +344,7 @@ const CARS = [
     glb: 'models/bmw-420i-coupe.glb',  length: 4.77, rimColor: '#141518', caliperColor: '#1f4fd8',
     materials: {
       blinn1SG: 'paint', Windows: 'glass', lambert6SG: 'gloss', lambert30SG: 'gloss', lambert22SG: 'mirror',
-      lambert4SG: 'tire', lambert5SG: 'matte', lambert7SG: 'rim', lambert8SG: 'disc', lambert9SG: 'caliper',
+      lambert4SG: 'tire', lambert5SG: 'matte', lambert7SG: 'rim', lambert8SG: 'caliper', lambert9SG: 'disc',
       lambert3SG: 'darkChrome', lambert2SG: 'chrome', lambert10SG: 'headlight', HeadLights1: 'headlight',
       BrakeLights_Glass: 'taillight', Plate_Recovered: 'plate', '*': 'interior',
     }, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
@@ -371,6 +371,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 
 const ACCENT = new THREE.Color('#e3122b');
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
@@ -387,7 +388,7 @@ try {
   document.getElementById('loader').classList.add('done');
   throw e;
 }
-renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 1.75));
+renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
 renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
@@ -988,8 +989,8 @@ function makeCarMaterials(spec) {
   const P = THREE.MeshPhysicalMaterial, S = THREE.MeshStandardMaterial;
   const envMap = carEnv();
   const set = {
-    paint: new P({ color: spec.color, metalness: .5, roughness: .32, clearcoat: 1, clearcoatRoughness: .02, envMapIntensity: 1.3 }),
-    glass: new P({ color: '#030405', metalness: .1, roughness: .02, transparent: true, opacity: .78, depthWrite: false, envMapIntensity: 1.4 }),
+    paint: new P({ color: spec.color, metalness: .45, roughness: .38, clearcoat: 1, clearcoatRoughness: .07, envMapIntensity: 1.2 }),
+    glass: new P({ color: '#010102', metalness: .2, roughness: .03, transparent: true, opacity: .88, depthWrite: false, envMapIntensity: .9 }),
     gloss: new P({ color: '#0a0a0b', metalness: .2, roughness: .12, clearcoat: 1, envMapIntensity: 1.5 }),
     matte: new S({ color: '#0e0e10', roughness: .9, envMapIntensity: .3 }),
     tire: new S({ color: '#131315', roughness: .92, envMapIntensity: .3 }),
@@ -999,8 +1000,8 @@ function makeCarMaterials(spec) {
     chrome: new S({ color: '#e5e8ec', metalness: 1, roughness: .1, envMapIntensity: 1.8 }),
     darkChrome: new S({ color: '#34363a', metalness: 1, roughness: .16, envMapIntensity: 1.6 }),
     mirror: new S({ color: '#c9ced6', metalness: 1, roughness: .03, envMapIntensity: 2 }),
-    headlight: new P({ color: '#d5dbe2', emissive: spec.drlColor || '#fff5df', emissiveIntensity: .7, roughness: .05, metalness: .3, clearcoat: 1, envMapIntensity: 1.6 }),
-    taillight: new S({ color: '#2a0000', emissive: '#ff1428', emissiveIntensity: 2.4, roughness: .2, envMapIntensity: 1 }),
+    headlight: new P({ color: '#d5dbe2', emissive: spec.drlColor || '#fff5df', emissiveIntensity: .35, roughness: .05, metalness: .3, clearcoat: 1, envMapIntensity: 1.6 }),
+    taillight: new P({ color: '#3a0006', emissive: '#e0001a', emissiveIntensity: 1.3, roughness: .08, clearcoat: 1, envMapIntensity: 1 }),
     plate: new S({ map: plateTexture(), roughness: .45, envMapIntensity: .6 }),
     interior: new S({ color: '#1b1b1e', roughness: .8, envMapIntensity: .4 }),
   };
@@ -1037,6 +1038,10 @@ function prepareCarModel(spec) {
     const hit = rules.find(([k]) => name.endsWith(k));
     const key = hit ? hit[1] : spec.materials?.['*'];
     if (key && presets[key]) o.material = presets[key];
+    // dalgalı yansımaları önlemek için kaporta normallerini yumuşat (keskin kenarlar korunur)
+    if (key === 'paint' || key === 'gloss') {
+      o.geometry = toCreasedNormals(o.geometry.index ? o.geometry.toNonIndexed() : o.geometry, THREE.MathUtils.degToRad(35));
+    }
     else if (o.material && 'envMapIntensity' in o.material) o.material.envMapIntensity = 1.4;
   });
 
@@ -1112,7 +1117,7 @@ function buildStations() {
     turn.rotation.y = side < 0 ? -.55 : Math.PI + .55;
 
     // tepe spot ışığı
-    const spot = new THREE.SpotLight('#ffffff', 170, 16, .62, .55, 2);
+    const spot = new THREE.SpotLight('#ffffff', 75, 16, .75, .8, 2);
     spot.position.set(x, HALL_H - .3, z + .5);
     spot.target.position.set(x, 0, z);
     scene.add(spot, spot.target);
@@ -1140,7 +1145,7 @@ function buildStations() {
     // kamera yolundaki iki çekim açısı (buildCameraPath ile aynı): fotoğraf geçişleri bunların arasında olur
     const aisle = -side;
     stations.push({ group: st, turn, photo, side, x, z, spec, baseRot: turn.rotation.y,
-      yawA: Math.atan2(aisle * 9, 5), yawB: Math.atan2(aisle * 7.2, -3) });
+      yawA: Math.atan2(aisle * 7.6, 4.2), yawB: Math.atan2(aisle * 6.2, -2.6) });
   });
 }
 
@@ -1158,8 +1163,8 @@ function buildCameraPath() {
   stations.forEach((st, i) => {
     const aisle = -st.side;                           // kameranın durduğu koridor yönü
     carKeyIndex[i] = keys.length;
-    K([st.x + aisle * 9, 1.55, st.z + 5], [st.x, .8, st.z], 40, `car${i}`);
-    K([st.x + aisle * 7.2, .95, st.z - 3], [st.x, .75, st.z + .3], 38, `car${i}`);
+    K([st.x + aisle * 7.6, 1.45, st.z + 4.2], [st.x, .75, st.z], 40, `car${i}`);
+    K([st.x + aisle * 6.2, .95, st.z - 2.6], [st.x, .7, st.z + .3], 38, `car${i}`);
   });
   K([0, 2.2, BACK_Z + 21], [0, 3.0, BACK_Z], 46, 'finale');
   K([0, 2.3, BACK_Z + 17.5], [0, 1.9, BACK_Z], 46, 'finale');
@@ -1313,9 +1318,12 @@ const posCurve = new THREE.CatmullRomCurve3(keys.map((k) => k.pos), false, 'cent
 const lookCurve = new THREE.CatmullRomCurve3(keys.map((k) => k.look), false, 'centripetal');
 
 // Post-processing
-const composer = new EffectComposer(renderer);
+// Kenar yumuşatma (MSAA) efekt zincirinde de korunur
+const composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
+  type: THREE.HalfFloatType, samples: isMobile ? 2 : 4,
+}));
 composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .5, .55, .9);
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .32, .45, .95);
 composer.addPass(bloom);
 composer.addPass(new OutputPass());
 composer.setPixelRatio(renderer.getPixelRatio());
