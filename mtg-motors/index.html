@@ -321,7 +321,7 @@
    paint : modelin boya materyal adları (dizi). Verilirse "color" ile ilan rengine boyanır.
    views : sahnede gösterilecek, arka planı temizlenmiş gerçek araç fotoğrafları (cutouts/ klasörü):
            sırayla [ön çapraz, yan, arka çapraz], aracın SOL tarafından, önü resmin solunda.
-           h = görüntü yüksekliği (m), w = genişlik (m). Varsa 3D model yerine bunlar kullanılır.
+           h = görüntü yüksekliği (m), w = genişlik (m). Sadece 3D model dosyası yoksa kullanılır.
    photos: ilan fotoğrafları (photos/ klasöründe) — kartta küçük resim olarak görünür, tıklayınca büyür
    credit: CC BY 4.0 lisansı gereği model sahibine atıf (sayfanın sonunda gösterilir)
    Araç ekleyip çıkarabilirsiniz; showroom ve kamera turu otomatik uzar/kısalır.
@@ -852,7 +852,7 @@ gltfLoader.setMeshoptDecoder(MeshoptDecoder);
 async function loadCarModels(onProgress) {
   let done = 0;
   await Promise.all(CARS.map(async (spec) => {
-    if (spec.glb && !spec.views?.length) {
+    if (spec.glb) {
       try {
         spec._scene = (await gltfLoader.loadAsync(spec.glb)).scene;
       } catch (e) {
@@ -1028,7 +1028,7 @@ function buildStations() {
     turn.position.y = .17;
     st.add(turn);
     let photo = null;
-    if (spec._views) {
+    if (spec._views && !spec._scene) {   // 3D model varsa her zaman o kullanılır
       photo = buildPhotoCar(spec, side);
       photo.position.y = .17;
       st.add(photo);
