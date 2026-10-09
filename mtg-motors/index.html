@@ -1573,7 +1573,7 @@ function updateCamera(s, time) {
 // Kapılar: kamera yaklaştıkça açılır
 function updateDoors(s) {
   const open = THREE.MathUtils.smoothstep(s, 1.15, 2.35);
-  doors.forEach((d) => { d.position.x = d.userData.side * (1.3 + 2.55 * open); });
+  doors.forEach((d) => { d.position.x = d.userData.side * (1.45 + 2.8 * open); });
 }
 
 // Metin katmanlarının görünürlüğü
