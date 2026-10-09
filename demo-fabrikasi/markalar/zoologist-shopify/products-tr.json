@@ -1,0 +1,811 @@
+[
+ {
+  "id": 7314332614715,
+  "title": "Zoologist King Cobra Deluxe Bottle",
+  "handle": "zoologist-king-cobra-deluxe-bottle",
+  "body_html": "<p>Intoxicating aromas of exotic greenery infuse the ancient Indian forest. Yet a snake on the trail of its next meal can isolate the scent of a plump rat. But a flick of its slithering tail betrays the snake, sending the rodent darting away. Thwarted, the snake curls back upon itself, only to feel the cool touch of a menacing shadow of a towering King Cobra witnessing its failure. Now the predator becomes prey and there’s no escape. Intent on a breakfast devoured whole and without mercy, the hooded king strikes. Fangs sink deep, their venom coursing through the body of the snake. Instantly paralyzing heart and lungs, the toxins set to work dissolving the flesh from the inside out.</p>\n<p>King Cobra from Zoologist is driven by danger and a desire to dominate. It hypnotizes with camphorous notes of Ganja and petitgrain, radiating coils of aromatic spices and damp mossy soil around a body heavy with incense. Finally, after shedding a delicate green leather, the powerful king ascends to his throne. A coronation of scent, King Cobra gives you license to rule.</p>",
+  "published_at": "2024-10-30T18:24:29-04:00",
+  "created_at": "2024-10-30T18:08:17-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Aromatic",
+   "Cannabis",
+   "Dirt",
+   "Green",
+   "Herbal",
+   "Incense",
+   "Leathery",
+   "Mossy",
+   "Tea",
+   "Unisex",
+   "Vetiver",
+   "Woody"
+  ],
+  "variants": [
+   {
+    "id": 41880195956795,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60KCB-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 7314332614715,
+    "created_at": "2024-10-30T18:08:17-04:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151746619,
+    "created_at": "2026-03-01T13:04:40-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:12:58-05:00",
+    "product_id": 7314332614715,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-King-Cobra.jpg?v=1772388778",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740153712699,
+    "created_at": "2026-03-01T13:05:05-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:12:58-05:00",
+    "product_id": 7314332614715,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-King-Cobra.jpg?v=1772388778",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 32902065356859,
+    "created_at": "2025-01-30T15:30:33-05:00",
+    "position": 3,
+    "updated_at": "2026-03-01T13:12:58-05:00",
+    "product_id": 7314332614715,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Scene-King-Cobra-JD.jpg?v=1772388778",
+    "width": 2000,
+    "height": 2000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 7228123840571,
+  "title": "Zoologist Penguin Deluxe Bottle",
+  "handle": "zoologist-penguin-deluxe-bottle",
+  "body_html": "<p>Emperors they may be, but when a massive cyclone unleashes its merciless austral winds, the colony of penguins bow to its power. It's from such extremes that the male penguin must guard his precious bundle. Passed tenderly from mother to father, the egg is their shared purpose. She embarks on a perilous odyssey to the sea for food. He begins his own monotonous march, packed tightly in a circle of trudging penguins. So intent is he on protecting his egg that even the dazzling aurora australis against a lonely night sky escapes his notice.</p>\n<p>Zoologist Penguin opens with saffron caught upon a salty blast of crisp antarctic air. Against the cool desolation, anticipation glimmers as lively aromas of pink pepper and sea moss swirl over musks, suede and sandalwood. Brace yourself for a vibrant scent that Is always invigorating, a reminder of nature’s harsh reality in a welcome blast.<strong></strong></p>",
+  "published_at": "2024-01-11T18:43:06-05:00",
+  "created_at": "2024-01-10T22:45:29-05:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Aquatic",
+   "Aromatic",
+   "Fresh",
+   "Leather",
+   "Salty",
+   "Unisex"
+  ],
+  "variants": [
+   {
+    "id": 41594080788539,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60PEN-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 7228123840571,
+    "created_at": "2024-01-10T22:54:08-05:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151484475,
+    "created_at": "2026-03-01T13:04:40-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:04:41-05:00",
+    "product_id": 7228123840571,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Penguin.jpg?v=1772388281",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740153483323,
+    "created_at": "2026-03-01T13:05:05-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:05:06-05:00",
+    "product_id": 7228123840571,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Penguin.jpg?v=1772388306",
+    "width": 2200,
+    "height": 2200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 6595186491451,
+  "title": "Zoologist Seahorse Deluxe Bottle",
+  "handle": "zoologist-seahorse-deluxe-bottle",
+  "body_html": "<p>Balmy sunlight trips across foamy turquoise waves, sending rippling haloes onto the coral below. On the lagoon floor, anemone and seaweed sway in unison, limbs pumping to the rhythm of the current. Hovering among the coral branches, a group of seahorses gazes shyly on. The pulsating beat calls to them and two pair off, their tails entwined in a delicate waltz. Soon their passion is spent, but the memory of the dance lives on. For the pouch of the male seahorse tenderly cradles a precious clutch of eggs.<br></p>\n<p>Zoologist Seahorse invites you to wade through a vibrant coral garden. This unisex scent turns expectation on its head. With such surprising couplets as tuberose and seaweed, sage and neroli, and fennel and vetiver, this delightful melody will sweep you away on a wave of joy and abandon.<strong></strong></p>",
+  "published_at": "2021-12-02T19:50:45-05:00",
+  "created_at": "2021-06-06T10:33:26-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Aquatic",
+   "Aromatic",
+   "Floral",
+   "Fresh",
+   "Unisex"
+  ],
+  "variants": [
+   {
+    "id": 41011703152699,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60SHR-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 6595186491451,
+    "created_at": "2022-12-08T15:54:45-05:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151910459,
+    "created_at": "2026-03-01T13:04:40-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:04:41-05:00",
+    "product_id": 6595186491451,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Seahorse.jpg?v=1772388281",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740153581627,
+    "created_at": "2026-03-01T13:05:05-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:05:06-05:00",
+    "product_id": 6595186491451,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Seahorse.jpg?v=1772388306",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34964548812859,
+    "created_at": "2026-04-19T20:18:25-04:00",
+    "position": 3,
+    "updated_at": "2026-04-19T20:18:27-04:00",
+    "product_id": 6595186491451,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Seahorse-Product-Shot.jpg?v=1776644307",
+    "width": 2048,
+    "height": 2048
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 4675388342331,
+  "title": "Zoologist Bat (2020) Deluxe Bottle",
+  "handle": "zoologist-bat-deluxe-bottle",
+  "body_html": "<p>Mystical, mysterious murmurings glide upon a blanket of inky sky. Shadows smear across the moonlight, their darting journey shrouded in darkness. Bats, the only mammal capable of true flight, are enigmatic and alien.</p>\n<p>Zoologist Bat escorts you on an odyssey through the night. This unique olfactory experience carries you with the fruit bat to a sumptuous feast in a lush tropical jungle, before whisking you down to the recesses of its cavernous home. Sweet guavas and passion fruits ensnare you with addictive notes, then beckon you deep with primordial mineral scents that evoke a rugged enclosure redolent with hints of damp soil and vegetal roots. Allow yourself to hang, draped in pitch black, as alluring musk wafts over you with every unfolding of the thousands of leathery wings that surround you.<strong></strong></p>",
+  "published_at": "2020-04-23T18:11:26-04:00",
+  "created_at": "2020-03-20T16:26:16-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Aromatic",
+   "Dramatic",
+   "Floral",
+   "Fruity",
+   "Musky",
+   "Sultry",
+   "Unisex"
+  ],
+  "variants": [
+   {
+    "id": 32853126479931,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60BT2-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 4675388342331,
+    "created_at": "2020-03-20T16:26:16-04:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151582779,
+    "created_at": "2026-03-01T13:04:40-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:05:38-05:00",
+    "product_id": 4675388342331,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Bat.jpg?v=1772388338",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740152762427,
+    "created_at": "2026-03-01T13:05:02-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:05:38-05:00",
+    "product_id": 4675388342331,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Bat_77984558-5e29-481c-a810-c3c68f88b0b4.jpg?v=1772388338",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34697149448251,
+    "created_at": "2026-02-16T21:52:37-05:00",
+    "position": 3,
+    "updated_at": "2026-03-01T13:05:38-05:00",
+    "product_id": 4675388342331,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Product-Shot-Bat.jpg?v=1772388338",
+    "width": 2000,
+    "height": 2000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 4337006641211,
+  "title": "Zoologist Bee Deluxe Bottle",
+  "handle": "zoologist-bee-deluxe-bottle",
+  "body_html": "<p style=\"text-align: center;\"><strong>🏅 The Art &amp; Olfaction Awards 2020, Independent Category Finalist</strong></p>\n<p>The spring day seems still and peaceful. Yet beneath the wildly splattered canvas of a blossom-strewn meadow, thousands engage in a desperate race for survival. Worker bees toil at a frantic pace, ferrying a precious cargo of nectar and pollen to deposit it within cramped honeycomb cells, where it will nurture drones and larvae under the eye of a regal queen. In the claustrophobic hive, a deafening buzz offers evidence of the bees' devotion to duty, not a single worker pausing to question its role in perpetual grind of life in the queendom.</p>\n<p>Like the frantic hustle of the bee through a maze of multi-faceted scents, Zoologist Bee delivers a surreal experience. The rich aroma of honey captivates, while alluring florals, royal jelly, animalic beeswax and regal incense unite to create a buzz, offering excitement, and the sweet rewards of life.<strong></strong></p>",
+  "published_at": "2019-11-28T17:43:09-05:00",
+  "created_at": "2019-11-28T11:04:23-05:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Dramatic",
+   "Floral",
+   "Gourmand",
+   "Incense",
+   "Musky",
+   "Sweet"
+  ],
+  "variants": [
+   {
+    "id": 31539068567611,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60BEE-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "240.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 4337006641211,
+    "created_at": "2020-01-10T11:50:15-05:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151615547,
+    "created_at": "2026-03-01T13:04:40-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:06:51-05:00",
+    "product_id": 4337006641211,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Bee.jpg?v=1772388411",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740153057339,
+    "created_at": "2026-03-01T13:05:04-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:06:51-05:00",
+    "product_id": 4337006641211,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Bee.jpg?v=1772388411",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34968691048507,
+    "created_at": "2026-04-20T19:41:31-04:00",
+    "position": 3,
+    "updated_at": "2026-04-20T19:41:32-04:00",
+    "product_id": 4337006641211,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bee-Product-Shot-A.jpg?v=1776728492",
+    "width": 2048,
+    "height": 2048
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 2330507411515,
+  "title": "Zoologist Squid Deluxe Bottle",
+  "handle": "zoologist-squid-deluxe-bottle",
+  "body_html": "<p style=\"text-align: center;\"><strong>🏆 The Fragrance Foundation Awards 2020, \"Perfume Extraordinaire of the Year\" </strong></p>\n<p style=\"text-align: center;\"><strong>🏅 The Art &amp; Olfaction Awards 2020, Independent Category Finalist</strong></p>\n<p>The vast ocean swells and contracts, caught in the relentless tug of the moon. Beneath the surface, a school of squid emerges. Strange, elastic forms propel from the deep in a frantic search for sustenance. They are not alone. Their predators lunge, only to be foiled by blinding jets of murky ink. The hunt ends abruptly as a monolith materializes, greedily engulfing all in its path. The massive sperm whale dives, leaving a temporary peace bobbing in its wake. Decades on, relics of the battle resurface. Lumps of ambergris, expelled by the whale and polished by the salty currents, wash ashore. Waste? Flotsam? To the perfumer this elusive substance is nothing less than treasure.</p>\n<p>Zoologist Squid sings a song of the sea, a melancholy tale told through tangy brine, crisp incense, and sweet, cloudy ink, all united by the moody aroma of ambergris. Like the endless depths that inspired it, this elegant scent ripples with mystery.</p>",
+  "published_at": "2019-08-30T21:59:54-04:00",
+  "created_at": "2019-08-28T21:20:18-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Aquatic",
+   "Incense",
+   "Musky",
+   "Salty",
+   "Sultry",
+   "Sweet"
+  ],
+  "variants": [
+   {
+    "id": 30273475477563,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60SQD-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": false,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 2330507411515,
+    "created_at": "2019-10-03T11:41:39-04:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740152139835,
+    "created_at": "2026-03-01T13:04:40-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:04:41-05:00",
+    "product_id": 2330507411515,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Squid.jpg?v=1772388281",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740180090939,
+    "created_at": "2026-03-01T13:34:22-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:34:24-05:00",
+    "product_id": 2330507411515,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Squid.jpg?v=1772390064",
+    "width": 2200,
+    "height": 2200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 1479354941499,
+  "title": "Zoologist Tyrannosaurus Rex Deluxe Bottle",
+  "handle": "zoologist-tyrannosaurus-rex-deluxe-bottle",
+  "body_html": "<p>A sultry heat wafts across the land, lapped up greedily by the abundant flora that thrives in its midst. Trees soar to majestic heights and plants flower for the first time, their petals spreading to give birth to a world rich in diversity. The Cretaceous period comes of age against a backdrop scorched by wildfire and lightning strikes. Over this turbulent landscape, a massive predator looms. Giants rule the earth, but even giants can be cut down within the powerful jaws of the fearsome tyrannosaur. Standing tall, the terrifying beast fears nothing, until that pivotal moment when a fire in the sky signals the end of their deadly reign.</p>\n<p>Zoologist Tyrannosaurus Rex is a gargantuan scent that sinks its teeth into the world of delicate fragrances and rips it wide open. Primitive woods and florals seize you and snatch you away to an ancient era. Smoky, charred wood warns of the danger of smouldering fire, setting your senses on edge, while droplets of metallic rose oxide offer a chilling premonition of blood-lust. The mighty Tyrannosaurus Rex is sometimes menacing, sometimes fascinating, but never, ever ordinary.<strong></strong></p>",
+  "published_at": "2018-09-14T23:13:28-04:00",
+  "created_at": "2018-08-20T16:09:21-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Aromatic",
+   "Dramatic",
+   "Floral",
+   "Incense",
+   "Leathery",
+   "Musky",
+   "Smokey",
+   "Spicy",
+   "Sultry",
+   "Woody"
+  ],
+  "variants": [
+   {
+    "id": 19871239110715,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60TRX-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "240.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 1479354941499,
+    "created_at": "2018-12-30T17:15:50-05:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151975995,
+    "created_at": "2026-03-01T13:04:40-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:26:05-05:00",
+    "product_id": 1479354941499,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Tyrannosaurus-Rex.jpg?v=1772389565",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740154073147,
+    "created_at": "2026-03-01T13:05:05-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:26:05-05:00",
+    "product_id": 1479354941499,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Tyannosaurus-Rex.jpg?v=1772389565",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34679442276411,
+    "created_at": "2026-02-14T21:37:45-05:00",
+    "position": 3,
+    "updated_at": "2026-03-01T13:26:05-05:00",
+    "product_id": 1479354941499,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Product-Shot-T-Rex.jpg?v=1772389565",
+    "width": 2000,
+    "height": 2000
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 559501443131,
+  "title": "Zoologist Moth Deluxe Bottle",
+  "handle": "zoologist-moth-deluxe-bottle",
+  "body_html": "<p>Their days are spent secluded in camouflage, the intricate pattern of their wings disguising them against a coarse backdrop of barks and rocks. When they finally stir, even their flight is concealed, shrouded beneath the cover of night. Moonlight ripples off a delicate coating of tiny hairs as their feathered antennae guide them in their search for a mate. Only one temptation can lure them from their quest. Should they succumb to the attraction of the flame, their urge to procreate may be quashed in a wisp of smoke and a smattering of ashes.</p>\n<p>At first encounter, the rich, gothic scent of Zoologist Moth may surprise but soon it hypnotizes. A heavy dose of dark spices jolts your senses before settling into a dusting of honey-sweet rose and powdery florals. Slowly, it tests its wings, taking flight on an exotic journey of nagarmotha, guaiac wood and patchouli. Beneath it all lingers a smoky undertone that serves as a constant reminder of the danger within the tantalizing flame.<strong></strong></p>",
+  "published_at": "2018-05-03T22:35:35-04:00",
+  "created_at": "2018-03-21T14:55:31-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Dramatic",
+   "Floral",
+   "Incense",
+   "Smokey",
+   "Spicy",
+   "Sultry",
+   "Sweet"
+  ],
+  "variants": [
+   {
+    "id": 7114722705467,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60MTH-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 559501443131,
+    "created_at": "2018-03-21T14:55:31-04:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151320635,
+    "created_at": "2026-03-01T13:04:39-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:04:41-05:00",
+    "product_id": 559501443131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Moth.jpg?v=1772388281",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740153286715,
+    "created_at": "2026-03-01T13:05:04-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:05:06-05:00",
+    "product_id": 559501443131,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Moth.jpg?v=1772388306",
+    "width": 2200,
+    "height": 2200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 6391888836,
+  "title": "Zoologist Nightingale Deluxe Bottle",
+  "handle": "nightingale",
+  "body_html": "<p style=\"text-align: center;\">⭐ <strong>Fragrantica.com's Best Perfumes of 2016, Editors' Choice</strong></p>\n<p>Messengers of spring arrive, bearing gifts that bring smiles to faces dulled by winter’s chill. The joyous song of the nightingale accompanies vibrant fuchsia-colored aromas of Japanese plum blossoms as they spread, infusing the tepid air. It marks a fleeting moment of emotional awaking: to some a time for celebration and fresh starts; to others, a countdown to a departure for unknown horizons.</p>\n<p>Zoologist captures the onset of the Japanese spring through Nightingale, a pink floral chypre that will melt your heart. It opens with rich scents of saffron and rosy, powdery, tart Japanese plum blossoms, enveloping the core of the perfume like a luxurious silk kimono. Deep, warm aromas of oud, patchouli, moss, incense and ambergris seek to escape, seeping from the ruddy petals, to create a composition that’s complex and at the same time, simply desirable.<a href=\"https://www.zoologistperfumes.com/blogs/news/zoologist-nightingale-reviews-round-up\" title=\"Zoologist Nightingale Perfume Reviews Roundup\"></a></p>",
+  "published_at": "2016-10-09T16:12:00-04:00",
+  "created_at": "2016-08-13T19:07:49-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Chypre",
+   "Citrus",
+   "Floral",
+   "Incense",
+   "Musky",
+   "Oud",
+   "Powdery",
+   "Sultry",
+   "Woody"
+  ],
+  "variants": [
+   {
+    "id": 22286022660,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60NIG-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 6391888836,
+    "created_at": "2016-08-13T19:07:49-04:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151255099,
+    "created_at": "2026-03-01T13:04:39-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:04:41-05:00",
+    "product_id": 6391888836,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Nightingale.jpg?v=1772388281",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740153450555,
+    "created_at": "2026-03-01T13:05:05-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:05:06-05:00",
+    "product_id": 6391888836,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Nightingale_d01f1e14-0abf-4bde-8286-222c4fa73875.jpg?v=1772388306",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 35054402502715,
+    "created_at": "2026-05-10T21:10:33-04:00",
+    "position": 3,
+    "updated_at": "2026-05-10T21:10:35-04:00",
+    "product_id": 6391888836,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Zoologist-Perfumes-Nightingale-PSAI-Square.jpg?v=1778461835",
+    "width": 2048,
+    "height": 2048
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ },
+ {
+  "id": 263412889,
+  "title": "Zoologist Panda Deluxe Bottle",
+  "handle": "panda",
+  "body_html": "<p>An encounter with a lovable panda is as unforgettable as the exotic forest it calls home. Like the majestic mosaic of dewy greens, and enchanting aromas of florals and fruits, this creature exudes a vibrance as light and playful as a Sichuan breeze.</p>\n<p>The opening of this oriental fragrance envelops you in a joyous embrace - osmanthus, magnolia, lily, juicy apple and mandarin tumble over one another in a happy melee to create a moment of pure joy. As the scent gently settles, you find yourself meandering through a shadowy corridor of bamboo, where subtle hints of jasmine, amber, and musks peek out from behind fresh green leaves, leading you to a tranquil oasis. In the quiet calm, a carefree exuberance rolls over you, lifting your spirits to a magical place where panda roam and play.<span style=\"color: rgb(255, 42, 0);\"><strong></strong></span></p>",
+  "published_at": "2014-03-12T08:27:00-04:00",
+  "created_at": "2014-03-12T08:27:14-04:00",
+  "updated_at": "2026-10-09T17:10:12-04:00",
+  "vendor": "Zoologist Perfumes",
+  "product_type": "Deluxe Bottle",
+  "tags": [
+   "Floral",
+   "Fresh",
+   "Fruity",
+   "Green",
+   "Woody"
+  ],
+  "variants": [
+   {
+    "id": 21359524053051,
+    "title": "Default Title",
+    "option1": "Default Title",
+    "option2": null,
+    "option3": null,
+    "sku": "EDP60PD2-JD",
+    "requires_shipping": true,
+    "taxable": true,
+    "featured_image": null,
+    "available": true,
+    "price": "200.00",
+    "grams": 440,
+    "compare_at_price": null,
+    "position": 1,
+    "product_id": 263412889,
+    "created_at": "2019-08-28T22:09:24-04:00",
+    "updated_at": "2026-10-09T17:10:12-04:00"
+   }
+  ],
+  "images": [
+   {
+    "id": 34740151451707,
+    "created_at": "2026-03-01T13:04:39-05:00",
+    "position": 1,
+    "updated_at": "2026-03-01T13:04:41-05:00",
+    "product_id": 263412889,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Front-Panda.jpg?v=1772388281",
+    "width": 2200,
+    "height": 2200
+   },
+   {
+    "id": 34740152991803,
+    "created_at": "2026-03-01T13:05:03-05:00",
+    "position": 2,
+    "updated_at": "2026-03-01T13:05:05-05:00",
+    "product_id": 263412889,
+    "variant_ids": [],
+    "src": "https://cdn.shopify.com/s/files/1/0396/9165/files/Bottle-Box-Panda_d87a99dd-8f57-462c-973f-de776ba7d729.jpg?v=1772388305",
+    "width": 2200,
+    "height": 2200
+   }
+  ],
+  "options": [
+   {
+    "name": "Title",
+    "position": 1,
+    "values": [
+     "Default Title"
+    ]
+   }
+  ]
+ }
+]

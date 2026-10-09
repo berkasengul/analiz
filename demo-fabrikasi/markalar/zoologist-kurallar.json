@@ -1,0 +1,734 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": false,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": false,
+  "backSolid": ".",
+  "symFill": true
+ },
+ "aktar": {
+  "domain": "www.zoologistperfumes.com",
+  "namePrefix": "^Zoologist\\s+",
+  "idPrefix": "zoologist-",
+  "defaultSize": "60 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "zoologist-squid-deluxe-bottle",
+   "nightingale",
+   "zoologist-bee-deluxe-bottle",
+   "zoologist-seahorse-deluxe-bottle"
+  ],
+  "profiles": {
+   "depthRatio": 1.0
+  },
+  "categories": [
+   {
+    "id": "sea",
+    "tr": "Deniz ve Buz",
+    "en": "Sea & Ice",
+    "color": "#5a7ee0",
+    "descTr": "Okyanusun derinliklerinden Antarktika'ya.",
+    "descEn": "From the ocean deep to the Antarctic.",
+    "match": "(squid|seahorse|penguin)"
+   },
+   {
+    "id": "wild",
+    "tr": "Orman ve Gece",
+    "en": "Forest & Night",
+    "color": "#9ad86a",
+    "descTr": "Bambu ormanından mağaraya, kral kobradan pervaneye.",
+    "descEn": "From bamboo forest to cave, king cobra to moth.",
+    "match": "(panda|cobra|moth|bat|tyrannosaurus)"
+   },
+   {
+    "id": "bloom",
+    "tr": "Çiçek ve Bal",
+    "en": "Bloom & Honey",
+    "color": "#f07aa8",
+    "descTr": "Erik çiçekleri ve kovanın balı.",
+    "descEn": "Plum blossoms and honey from the hive.",
+    "match": "."
+   }
+  ],
+  "families": {
+   "zoologist-squid-deluxe-bottle": [
+    "Deniz · Tütsü · Amber",
+    "Marine · Incense · Amber"
+   ],
+   "nightingale": [
+    "Çiçeksi Şipr",
+    "Floral Chypre"
+   ],
+   "zoologist-bee-deluxe-bottle": [
+    "Bal · Çiçeksi · Amber",
+    "Honey · Floral · Amber"
+   ],
+   "zoologist-seahorse-deluxe-bottle": [
+    "Akuatik · Aromatik · Çiçeksi",
+    "Aquatic · Aromatic · Floral"
+   ],
+   "panda": [
+    "Oryantal · Yeşil · Çiçeksi",
+    "Oriental · Green · Floral"
+   ],
+   "zoologist-tyrannosaurus-rex-deluxe-bottle": [
+    "Dumanlı · Odunsu · Çiçeksi",
+    "Smoky · Woody · Floral"
+   ],
+   "zoologist-king-cobra-deluxe-bottle": [
+    "Yeşil · Aromatik · Deri",
+    "Green · Aromatic · Leather"
+   ],
+   "zoologist-moth-deluxe-bottle": [
+    "Baharatlı · Pudralı · Dumanlı",
+    "Spicy · Powdery · Smoky"
+   ],
+   "zoologist-penguin-deluxe-bottle": [
+    "Ferah · Tuzlu · Deri",
+    "Fresh · Salty · Leather"
+   ],
+   "zoologist-bat-deluxe-bottle": [
+    "Meyveli · Toprak · Mineral",
+    "Fruity · Earthy · Mineral"
+   ]
+  },
+  "rename": {
+   "zoologist-squid-deluxe-bottle": [
+    "Squid · Mürekkepbalığı",
+    "Squid"
+   ],
+   "nightingale": [
+    "Nightingale · Bülbül",
+    "Nightingale"
+   ],
+   "zoologist-bee-deluxe-bottle": [
+    "Bee · Arı",
+    "Bee"
+   ],
+   "zoologist-seahorse-deluxe-bottle": [
+    "Seahorse · Denizatı",
+    "Seahorse"
+   ],
+   "panda": [
+    "Panda",
+    "Panda"
+   ],
+   "zoologist-tyrannosaurus-rex-deluxe-bottle": [
+    "Tyrannosaurus Rex",
+    "Tyrannosaurus Rex"
+   ],
+   "zoologist-king-cobra-deluxe-bottle": [
+    "King Cobra · Kral Kobra",
+    "King Cobra"
+   ],
+   "zoologist-moth-deluxe-bottle": [
+    "Moth · Pervane",
+    "Moth"
+   ],
+   "zoologist-penguin-deluxe-bottle": [
+    "Penguin · Penguen",
+    "Penguin"
+   ],
+   "zoologist-bat-deluxe-bottle": [
+    "Bat · Yarasa",
+    "Bat"
+   ]
+  },
+  "palette": [
+   [
+    "^zoologist-squid-deluxe-bottle$",
+    "#1a2c6e",
+    "#5a7ee0",
+    "#030820"
+   ],
+   [
+    "^nightingale$",
+    "#a0285a",
+    "#f07aa8",
+    "#24040f"
+   ],
+   [
+    "^zoologist-bee-deluxe-bottle$",
+    "#b8660c",
+    "#f0a640",
+    "#200e02"
+   ],
+   [
+    "^zoologist-seahorse-deluxe-bottle$",
+    "#127e80",
+    "#4ad2cc",
+    "#021a1a"
+   ],
+   [
+    "^panda$",
+    "#3e7a2e",
+    "#9ad86a",
+    "#0a1806"
+   ],
+   [
+    "^zoologist-tyrannosaurus-rex-deluxe-bottle$",
+    "#6e3416",
+    "#d0804a",
+    "#180802"
+   ],
+   [
+    "^zoologist-king-cobra-deluxe-bottle$",
+    "#5a6e10",
+    "#c8d840",
+    "#121602"
+   ],
+   [
+    "^zoologist-moth-deluxe-bottle$",
+    "#5a4a70",
+    "#b4a0d8",
+    "#100a18"
+   ],
+   [
+    "^zoologist-penguin-deluxe-bottle$",
+    "#2a6a9c",
+    "#8ccaf0",
+    "#04121e"
+   ],
+   [
+    "^zoologist-bat-deluxe-bottle$",
+    "#3c2468",
+    "#9a74e0",
+    "#0c0618"
+   ]
+  ],
+  "taglines": {
+   "zoologist-squid-deluxe-bottle": [
+    "Derinlerden gelen mürekkep ve amber",
+    "Ink and ambergris from the deep"
+   ],
+   "nightingale": [
+    "Japon baharında erik çiçekleri",
+    "Plum blossoms in a Japanese spring"
+   ],
+   "zoologist-bee-deluxe-bottle": [
+    "Kovanın içinde bal ve arı sütü",
+    "Honey and royal jelly inside the hive"
+   ],
+   "zoologist-seahorse-deluxe-bottle": [
+    "Mercan bahçesinde bir vals",
+    "A waltz in the coral garden"
+   ],
+   "panda": [
+    "Siçuan'da bambu ormanı",
+    "A bamboo forest in Sichuan"
+   ],
+   "zoologist-tyrannosaurus-rex-deluxe-bottle": [
+    "Kretase ormanında dumanlı odunlar",
+    "Smoky woods of a Cretaceous forest"
+   ],
+   "zoologist-king-cobra-deluxe-bottle": [
+    "Kokuların tahtında kral",
+    "The king on a throne of scent"
+   ],
+   "zoologist-moth-deluxe-bottle": [
+    "Alevin cazibesine kapılan gece",
+    "A night drawn to the flame"
+   ],
+   "zoologist-penguin-deluxe-bottle": [
+    "Antarktika havasında safran",
+    "Saffron on an Antarctic wind"
+   ],
+   "zoologist-bat-deluxe-bottle": [
+    "Gecenin içinde bir mağara yolculuğu",
+    "A night journey into the cave"
+   ]
+  },
+  "trText": {
+   "zoologist-squid-deluxe-bottle": "Zoologist Squid denizin şarkısını söyler: keskin tuzlu su, berrak tütsü ve tatlı, bulutlu mürekkep, hepsi amberin buğulu kokusuyla birleşir. İlham aldığı sonsuz derinlikler gibi bu zarif koku da gizemle dalgalanır. Fragrance Foundation Ödülleri 2020: Yılın Olağanüstü Parfümü.",
+   "nightingale": "Zoologist, Japon baharının gelişini Nightingale ile yakalıyor: kalbinizi eritecek pembe, çiçeksi bir şipr. Safran ve pudralı, mayhoş Japon erik çiçekleriyle açılır; ud, paçuli, yosun, tütsü ve amberin sıcak derinliği kızıl yaprakların arasından süzülür.",
+   "zoologist-bee-deluxe-bottle": "Arının çok yüzlü kokular arasındaki telaşı gibi Zoologist Bee de gerçeküstü bir deneyim sunar. Balın zengin kokusu büyüler; çiçekler, arı sütü, hayvansı balmumu ve tütsü bir araya gelerek hayatın tatlı ödüllerini müjdeler. Art & Olfaction Ödülleri 2020 finalisti.",
+   "zoologist-seahorse-deluxe-bottle": "Zoologist Seahorse sizi canlı bir mercan bahçesinde yürümeye davet ediyor. Bu unisex koku beklentileri tersine çevirir: sümbülteber ile deniz yosunu, adaçayı ile neroli, rezene ile vetiver gibi şaşırtıcı ikililerle sizi neşe dalgasında sürükler.",
+   "panda": "Bu oryantal koku sizi neşeyle sarar: osmanthus, manolya, zambak, sulu elma ve mandalina. Koku yerleştikçe gölgeli bir bambu koridorunda yürürsünüz; yasemin, amber ve misk taze yeşil yaprakların arkasından görünür.",
+   "zoologist-tyrannosaurus-rex-deluxe-bottle": "Zoologist Tyrannosaurus Rex, narin kokuların dünyasına dişlerini geçirip onu paramparça eden devasa bir koku. İlkel odunlar ve çiçekler sizi kadim bir çağa kapar; dumanlı, kömürleşmiş odun tehlikeyi haber verir, metalik gül oksit damlaları ise ürpertici bir önsezi taşır.",
+   "zoologist-king-cobra-deluxe-bottle": "Zoologist King Cobra tehlike ve hükmetme arzusuyla hareket eder. Kenevir ve petitgrainin kâfurumsu notalarıyla büyüler; aromatik baharatlar ve nemli yosunlu toprak tütsüyle yoğunlaşan bir gövdenin çevresinde kıvrılır. Sonunda narin yeşil deri kabuğunu atan kral tahtına çıkar.",
+   "zoologist-moth-deluxe-bottle": "İlk karşılaşmada Zoologist Moth'un zengin, gotik kokusu şaşırtabilir ama kısa sürede büyüler. Koyu baharatlar duyuları sarsar, ardından ballı gül ve pudralı çiçekler yerleşir. Nagarmotha, gayak ağacı ve paçuli ile egzotik bir yolculuğa çıkar; altta alevin tehlikesini hatırlatan dumanlı bir iz kalır.",
+   "zoologist-penguin-deluxe-bottle": "Zoologist Penguin, Antarktika'nın keskin, tuzlu havasına karışmış safranla açılır. Soğuk ıssızlığın ortasında pembe biber ve deniz yosununun canlı kokuları misk, süet ve sandal ağacının üzerinde döner. Her seferinde canlandıran, ferah bir koku.",
+   "zoologist-bat-deluxe-bottle": "Zoologist Bat sizi gecenin içinde bir yolculuğa çıkarır: meyve yarasasıyla tropik bir ormanda tatlı guava ve çarkıfelek meyvesi şölenine, ardından nemli toprak ve köklerin mineral kokularıyla dolu mağarasının derinliklerine."
+  },
+  "enText": {
+   "zoologist-squid-deluxe-bottle": "Zoologist Squid sings a song of the sea, a melancholy tale told through tangy brine, crisp incense, and sweet, cloudy ink, all united by the moody aroma of ambergris. Like the endless depths that inspired it, this elegant scent ripples with mystery.",
+   "nightingale": "Zoologist captures the onset of the Japanese spring through Nightingale, a pink floral chypre that will melt your heart. It opens with rich scents of saffron and rosy, powdery, tart Japanese plum blossoms, enveloping the core of the perfume like a luxurious silk kimono.",
+   "zoologist-bee-deluxe-bottle": "Like the frantic hustle of the bee through a maze of multi-faceted scents, Zoologist Bee delivers a surreal experience. The rich aroma of honey captivates, while alluring florals, royal jelly, animalic beeswax and regal incense unite to create a buzz.",
+   "zoologist-seahorse-deluxe-bottle": "Zoologist Seahorse invites you to wade through a vibrant coral garden. This unisex scent turns expectation on its head. With such surprising couplets as tuberose and seaweed, sage and neroli, and fennel and vetiver, this delightful melody will sweep you away on a wave of joy and abandon.",
+   "panda": "The opening of this oriental fragrance envelops you in a joyous embrace - osmanthus, magnolia, lily, juicy apple and mandarin tumble over one another in a happy melee to create a moment of pure joy.",
+   "zoologist-tyrannosaurus-rex-deluxe-bottle": "Zoologist Tyrannosaurus Rex is a gargantuan scent that sinks its teeth into the world of delicate fragrances and rips it wide open. Primitive woods and florals seize you and snatch you away to an ancient era.",
+   "zoologist-king-cobra-deluxe-bottle": "King Cobra from Zoologist is driven by danger and a desire to dominate. It hypnotizes with camphorous notes of Ganja and petitgrain, radiating coils of aromatic spices and damp mossy soil around a body heavy with incense.",
+   "zoologist-moth-deluxe-bottle": "At first encounter, the rich, gothic scent of Zoologist Moth may surprise but soon it hypnotizes. A heavy dose of dark spices jolts your senses before settling into a dusting of honey-sweet rose and powdery florals.",
+   "zoologist-penguin-deluxe-bottle": "Zoologist Penguin opens with saffron caught upon a salty blast of crisp antarctic air. Against the cool desolation, anticipation glimmers as lively aromas of pink pepper and sea moss swirl over musks, suede and sandalwood.",
+   "zoologist-bat-deluxe-bottle": "Zoologist Bat escorts you on an odyssey through the night. This unique olfactory experience carries you with the fruit bat to a sumptuous feast in a lush tropical jungle, before whisking you down to the recesses of its cavernous home."
+  },
+  "notes": [
+   [
+    "^zoologist-squid-deluxe-bottle$",
+    [
+     [
+      "Pembe biber",
+      "Pink Pepper"
+     ],
+     [
+      "Güneş salisilatı",
+      "Solar Salicylate"
+     ],
+     [
+      "Tütsü",
+      "Incense"
+     ],
+     [
+      "Siyah mürekkep akoru",
+      "Black Ink Accord"
+     ],
+     [
+      "Tuzlu akor",
+      "Salty Accord"
+     ]
+    ]
+   ],
+   [
+    "^nightingale$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Japon erik çiçeği",
+      "Japanese Plum Blossom"
+     ],
+     [
+      "Kırmızı gül",
+      "Red Rose"
+     ]
+    ]
+   ],
+   [
+    "^zoologist-bee-deluxe-bottle$",
+    [
+     [
+      "Portakal",
+      "Orange"
+     ],
+     [
+      "Zencefil şurubu",
+      "Ginger Syrup"
+     ],
+     [
+      "Arı sütü akoru",
+      "Royal Jelly Accord"
+     ],
+     [
+      "Katırtırnağı",
+      "Broom"
+     ],
+     [
+      "Heliotrop",
+      "Heliotrope"
+     ]
+    ]
+   ],
+   [
+    "^zoologist-seahorse-deluxe-bottle$",
+    [
+     [
+      "Guatemala kakulesi",
+      "Guatemala Cardamom"
+     ],
+     [
+      "Rezene",
+      "Fennel"
+     ],
+     [
+      "Amber çiçeği mutlağı",
+      "Ambrette Absolute"
+     ],
+     [
+      "Misk adaçayı",
+      "Clary Sage"
+     ],
+     [
+      "Sümbülteber",
+      "Tuberose"
+     ]
+    ]
+   ],
+   [
+    "^panda$",
+    [
+     [
+      "Elma",
+      "Apple"
+     ],
+     [
+      "Manolya",
+      "Magnolia"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "Zambak",
+      "Lily"
+     ],
+     [
+      "Osmanthus",
+      "Osmanthus"
+     ]
+    ]
+   ],
+   [
+    "^zoologist-tyrannosaurus-rex-deluxe-bottle$",
+    [
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Köknar",
+      "Fir"
+     ],
+     [
+      "Defne yaprağı",
+      "Laurel Leaf"
+     ],
+     [
+      "Neroli",
+      "Neroli"
+     ]
+    ]
+   ],
+   [
+    "^zoologist-king-cobra-deluxe-bottle$",
+    [
+     [
+      "Petitgrain",
+      "Petitgrain"
+     ],
+     [
+      "Mandalina",
+      "Mandarin"
+     ],
+     [
+      "İncir yaprağı",
+      "Fig leaf"
+     ],
+     [
+      "Kâfur",
+      "Camphor"
+     ],
+     [
+      "Pomelo",
+      "Pomelo"
+     ]
+    ]
+   ],
+   [
+    "^zoologist-moth-deluxe-bottle$",
+    [
+     [
+      "Karabiber",
+      "Black Pepper"
+     ],
+     [
+      "Tarçın",
+      "Cinnamon"
+     ],
+     [
+      "Karanfil",
+      "Clove"
+     ],
+     [
+      "Kimyon",
+      "Cumin"
+     ],
+     [
+      "Limon",
+      "Lemon"
+     ]
+    ]
+   ],
+   [
+    "^zoologist-penguin-deluxe-bottle$",
+    [
+     [
+      "Antarktika havası",
+      "Antarctic Air"
+     ],
+     [
+      "Buz akoru",
+      "Ice Accord"
+     ],
+     [
+      "Ardıç meyvesi",
+      "Juniper Berry"
+     ],
+     [
+      "Pembe biber",
+      "Pink Pepper"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ]
+    ]
+   ],
+   [
+    "^zoologist-bat-deluxe-bottle$",
+    [
+     [
+      "İncir",
+      "Fig"
+     ],
+     [
+      "Çarkıfelek meyvesi",
+      "Passion Fruit"
+     ],
+     [
+      "Pembe guava",
+      "Pink Guava"
+     ],
+     [
+      "Soil Accord",
+      "Soil Accord"
+     ],
+     [
+      "Kuru ot",
+      "Hay"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^zoologist-squid-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: Pembe biber, Güneş salisilatı, Tütsü",
+      "Kalp: Siyah mürekkep akoru, Tuzlu akor, Opoponaks",
+      "Dip: Amber (ambergris), Benzoin, Misk",
+      "Parfümör: Céline Barel · Esans %20"
+     ],
+     "en": [
+      "Top: Pink Pepper, Solar Salicylate, Incense",
+      "Heart: Black Ink Accord, Salty Accord, Opoponax",
+      "Base: Ambergris, Benzoin, Musk",
+      "Perfumer: Céline Barel · 20% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^nightingale$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Limon, Safran",
+      "Kalp: Japon erik çiçeği, Kırmızı gül, Menekşe",
+      "Dip: Ud, Paçuli, Sandal ağacı, Yosun, Günlük, Beyaz misk, Labdanum, Amber (ambergris)",
+      "Parfümör: 稲葉 智夫 (Tomoo Inaba) · Esans %20"
+     ],
+     "en": [
+      "Top: Bergamot, Lemon, Saffron",
+      "Heart: Japanese Plum Blossom, Red Rose, Violet",
+      "Base: Oud, Patchouli, Sandalwood, Moss, Frankincense, White Musk, Labdanum, Ambergris",
+      "Perfumer: 稲葉 智夫 (Tomoo Inaba) · 20% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^zoologist-bee-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: Portakal, Zencefil şurubu, Arı sütü akoru",
+      "Kalp: Katırtırnağı, Heliotrop, Mimoza, Portakal çiçeği",
+      "Dip: Benzoin, Labdanum, Misk, Sandal ağacı, Tonka, Vanilya",
+      "Parfümör: Cristiano Canali · Esans %18"
+     ],
+     "en": [
+      "Top: Orange, Ginger Syrup, Royal Jelly Accord",
+      "Heart: Broom, Heliotrope, Mimosa, Orange Flower",
+      "Base: Benzoin, Labdanum, Musks, Sandalwood, Tonka, Vanilla",
+      "Perfumer: Cristiano Canali · 18% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^zoologist-seahorse-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: Guatemala kakulesi, Rezene, Amber çiçeği mutlağı",
+      "Kalp: Misk adaçayı, Sümbülteber, Neroli",
+      "Dip: Deniz yosunu mutlağı, Vetiver, Amber akoru",
+      "Parfümör: Julien Rasquinet · Esans %20"
+     ],
+     "en": [
+      "Top: Guatemala Cardamom, Fennel, Ambrette Absolute",
+      "Heart: Clary Sage, Tuberose, Neroli",
+      "Base: Algae Absolute, Vetiver, Ambergris Accord",
+      "Perfumer: Julien Rasquinet · 20% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^panda$",
+    "composition": {
+     "tr": [
+      "Üst: Elma, Manolya, Mandalina, Zambak, Osmanthus, Ozon, Çay",
+      "Kalp: Amber, Bambu, Toprak notaları, Yasemin, İris, Paçuli",
+      "Dip: Misk kedisi akoru, Misk, Sandal ağacı, Vanilya",
+      "Parfümör: Christian Carbonnel · Esans %20"
+     ],
+     "en": [
+      "Top: Apple, Magnolia, Mandarin, Lily, Osmanthus, Ozone, Tea",
+      "Heart: Amber, Bamboo, Earthy Notes, Jasmine, Orris, Patchouli",
+      "Base: Civet, Musk, Sandalwood, Vanilla",
+      "Perfumer: Christian Carbonnel · 20% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^zoologist-tyrannosaurus-rex-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: Bergamot, Karabiber, Köknar, Defne yaprağı, Neroli, Muskat",
+      "Kalp: Şampaka, Sardunya, Yasemin, Osmanthus, Gül, Ylang ylang",
+      "Dip: Reçineler, Ardıç katranı, Sedir, Misk kedisi akoru, Günlük, Deri, Paçuli, Sandal ağacı, Vanilya",
+      "Parfümör: Antonio Gardoni · Esans %23"
+     ],
+     "en": [
+      "Top: Bergamot, Black Pepper, Fir, Laurel Leaf, Neroli, Nutmeg",
+      "Heart: Champaca, Geranium, Jasmine, Osmanthus, Rose, Ylang Ylang",
+      "Base: Resins, Cade, Cedar, Civet, Frankincense, Leather, Patchouli, Sandalwood, Vanilla",
+      "Perfumer: Antonio Gardoni · 23% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^zoologist-king-cobra-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: Petitgrain, Mandalina, İncir yaprağı, Kâfur, Pomelo, Kenevir akoru",
+      "Kalp: Siyah çay, Kimyon, Deri, Toprak akoru",
+      "Dip: Tütsü, Amber, Yosun, Paçuli, Vetiver",
+      "Parfümör: Prin Lomros · Esans %18"
+     ],
+     "en": [
+      "Top: Petitgrain, Mandarin, Fig leaf, Camphor, Pomelo, Ganja accord",
+      "Heart: Black Tea, Cumin, Leather, Soil accord",
+      "Base: Incense, Amber, Moss, Patchouli, Vetiver",
+      "Perfumer: Prin Lomros · 18% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^zoologist-moth-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: Karabiber, Tarçın, Karanfil, Kimyon, Limon, Muskat, Safran",
+      "Kalp: Heliotrop, İris, Yasemin, Mimoza, Müge, Gül",
+      "Dip: Amber (ambergris), Bal, Reçineler, Gayak ağacı, Misk, Nagarmotha, Ud, Paçuli, Duman, Vetiver",
+      "Parfümör: 稲葉 智夫 (Tomoo Inaba) · Esans %20"
+     ],
+     "en": [
+      "Top: Black Pepper, Cinnamon, Clove, Cumin, Lemon, Nutmeg, Saffron",
+      "Heart: Heliotrope, Iris, Jasmine, Mimosa, Muguet, Rose",
+      "Base: Ambergris, Honey, Resins, Guaiac Wood, Musk, Nagarmotha, Oud, Patchouli, Smoke, Vetiver",
+      "Perfumer: 稲葉 智夫 (Tomoo Inaba) · 20% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^zoologist-penguin-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: Antarktika havası, Buz akoru, Ardıç meyvesi",
+      "Kalp: Pembe biber, Safran, Laden mutlağı",
+      "Dip: Sandal ağacı, Misk, Deniz yosunu, Süet",
+      "Parfümör: Chiaki Nomura · Esans %20"
+     ],
+     "en": [
+      "Top: Antarctic Air, Ice Accord, Juniper Berry",
+      "Heart: Pink Pepper, Saffron, Ciste Absolute",
+      "Base: Sandalwood, Musks, Seamoss, Suede",
+      "Perfumer: Chiaki Nomura · 20% concentration"
+     ]
+    }
+   },
+   {
+    "match": "^zoologist-bat-deluxe-bottle$",
+    "composition": {
+     "tr": [
+      "Üst: İncir, Çarkıfelek meyvesi, Pembe guava, Soil Accord",
+      "Kalp: Kuru ot, Tütsü, Mineraller, Gece yasemini",
+      "Dip: Hayvansı notalar, Deri, Yosunlu taşlar, Tik ağacı, Vetiver",
+      "Parfümör: Prin Lomros · Esans %20"
+     ],
+     "en": [
+      "Top: Fig, Passion Fruit, Pink Guava, Soil Accord",
+      "Heart: Hay, Incense, Minerals, Night Blooming Jasmine",
+      "Base: Animalic Notes, Leather, Mossy Stones, Teak Wood, Vetiver",
+      "Perfumer: Prin Lomros · 20% concentration"
+     ]
+    }
+   }
+  ],
+  "ritual": [
+   {
+    "handle": "zoologist-squid-deluxe-bottle",
+    "tr": {
+     "title": "Derinlerden bir hazine",
+     "text": "Tuzlu su, berrak tütsü ve bulutlu mürekkep; hepsini amberin buğusu birleştirir.",
+     "stat": "Squid · Céline Barel"
+    },
+    "en": {
+     "title": "A treasure from the deep",
+     "text": "Tangy brine, crisp incense and cloudy ink, all united by the moody aroma of ambergris.",
+     "stat": "Squid · Céline Barel"
+    }
+   },
+   {
+    "handle": "nightingale",
+    "tr": {
+     "title": "Baharın ilk şarkısı",
+     "text": "Safran ve Japon erik çiçekleri; altında ud, yosun ve tütsünün sıcak derinliği.",
+     "stat": "Nightingale · Tomoo Inaba"
+    },
+    "en": {
+     "title": "The first song of spring",
+     "text": "Saffron and Japanese plum blossoms over a warm depth of oud, moss and incense.",
+     "stat": "Nightingale · Tomoo Inaba"
+    }
+   },
+   {
+    "handle": "zoologist-bee-deluxe-bottle",
+    "tr": {
+     "title": "Kovanın kalbinde",
+     "text": "Bal, arı sütü ve mimoza; balmumu ve tütsüyle tatlı bir vızıltı.",
+     "stat": "Bee · Cristiano Canali"
+    },
+    "en": {
+     "title": "At the heart of the hive",
+     "text": "Honey, royal jelly and mimosa; a sweet buzz of beeswax and incense.",
+     "stat": "Bee · Cristiano Canali"
+    }
+   }
+  ]
+ }
+}

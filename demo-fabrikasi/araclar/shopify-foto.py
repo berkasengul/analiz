@@ -25,6 +25,7 @@ Kurallar: markalar/<marka>-kurallar.json → "foto" (hepsi isteğe bağlı):
     "edgeFrom": "side"              3B kalınlık yüzlerinin rengi fotoğraftaki yan panelden (kesim kenarından değil)
     "backLang": "en"                arka etiket metni İngilizce mağazadan (mağazanın varsayılan dili Türkçe değilse)
     "backHead": "ILLATJEGYEK"       arka etiketteki notalar başlığı (başka dildeki mağaza için)
+    "symFill": true                 eksene simetrik şişe, düz açık zemin: maske zeminden ayrışan piksellerden, satır satır dolu ve simetrik
     "solidTop": 0.25                ürünün üst bölümü (oran) delik bırakılmadan dolu kesilir (zemine yakın renkli kapak)
     "glassBack": {"label": [x0, y0, x1, y1], "labels": [["regex", [x0, y0, x1, y1]]], "lines": ["...", ...]}
                                      renkli cam şişe: arka yüz ön fotoğrafın aynası (cam ve renk net), ön etiketin
@@ -181,6 +182,25 @@ def cutout(im, k, box=False):
     if k in "WL" and RULES.get("ai"):
         a = np.asarray(im).copy()
         a[..., 3] = ai_alpha(im, box)
+        # symFill: eksene simetrik (dönen) şişe, açık zeminde: maske yapay zekâ yerine zeminden ayrışan piksellerden
+        # çıkarılır; her satır en dıştaki piksele kadar doldurulur ve eksenin iki yanı eşitlenir (şeffaf cam omuz ve
+        # taban kesilmez, zeminden kalan beyaz üçgenler olmaz).
+        if RULES.get("symFill") and re.search(str(RULES["symFill"]) if RULES["symFill"] is not True else ".", _HANDLE[0]):
+            rgb = a[..., :3].astype(np.int16)
+            bgc = np.median(np.concatenate([rgb[:8].reshape(-1, 3), rgb[-8:].reshape(-1, 3)]), 0)
+            nw = (np.abs(rgb - bgc).max(2) > 14).astype(np.uint8)
+            nw = cv2.morphologyEx(nw, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
+            ys = np.where(nw.any(1))[0]
+            xs = np.where(nw.any(0))[0]
+            al = np.zeros(nw.shape, np.uint8)
+            if len(ys) and len(xs):
+                ax = (xs[0] + xs[-1]) / 2
+                for y in range(ys[0], ys[-1] + 1):
+                    r = np.where(nw[y])[0]
+                    if len(r):
+                        half = max(ax - r[0], r[-1] - ax)
+                        al[y, max(0, int(round(ax - half))): int(round(ax + half)) + 1] = 255
+            a[..., 3] = cv2.GaussianBlur(al, (0, 0), 1.0)
         # Kapak zemine yakın renkteyse maskede delik kalır: üst bölümde (solidTop oranı) her satır
         # soldan sağa dolu sayılır.
         if RULES.get("solidTop"):

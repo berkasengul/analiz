@@ -1,0 +1,77 @@
+[
+ {
+  "id": 308387348539,
+  "title": "Attars",
+  "handle": "attars",
+  "description": "",
+  "published_at": "2026-03-29T12:20:32-04:00",
+  "updated_at": "2026-09-29T07:03:14-04:00",
+  "image": {
+   "id": 1625415647291,
+   "created_at": "2026-03-29T12:58:08-04:00",
+   "src": "https://cdn.shopify.com/s/files/1/0396/9165/collections/15mL-Attar-Product-Sacred-Scarab-shopify-2000.jpg?v=1774803488",
+   "alt": null
+  },
+  "products_count": 1
+ },
+ {
+  "id": 308387086395,
+  "title": "Deluxe Bottles",
+  "handle": "deluxe-bottles",
+  "description": "",
+  "published_at": "2026-03-29T12:18:27-04:00",
+  "updated_at": "2026-10-09T07:04:30-04:00",
+  "image": {
+   "id": 1625415712827,
+   "created_at": "2026-03-29T12:59:04-04:00",
+   "src": "https://cdn.shopify.com/s/files/1/0396/9165/collections/feature-promo-bottles-2025.jpg?v=1774803544",
+   "alt": null
+  },
+  "products_count": 42
+ },
+ {
+  "id": 308387938363,
+  "title": "Samples",
+  "handle": "samples-1",
+  "description": "",
+  "published_at": "2026-03-29T12:57:06-04:00",
+  "updated_at": "2026-10-09T07:04:30-04:00",
+  "image": {
+   "id": 1625415614523,
+   "created_at": "2026-03-29T12:57:46-04:00",
+   "src": "https://cdn.shopify.com/s/files/1/0396/9165/collections/feature-promo-samples-2024.jpg?v=1774803466",
+   "alt": null
+  },
+  "products_count": 42
+ },
+ {
+  "id": 308387283003,
+  "title": "Samples & Sample Sets",
+  "handle": "samples",
+  "description": "<h1>Enjoy 20% off when you purchase 8 samples or more. <br>The discount is applied automatically at checkout.<br>Sample sets and Specimen Anthology are already discounted.</h1>",
+  "published_at": "2026-03-29T12:19:46-04:00",
+  "updated_at": "2026-10-09T07:04:30-04:00",
+  "image": {
+   "id": 1625415745595,
+   "created_at": "2026-03-29T12:59:27-04:00",
+   "src": "https://cdn.shopify.com/s/files/1/0396/9165/collections/Specimen-Anthology-Side.jpg?v=1774803567",
+   "alt": null
+  },
+  "products_count": 43
+ },
+ {
+  "id": 308387184699,
+  "title": "Travel Sprays",
+  "handle": "travel-sprays",
+  "description": "",
+  "published_at": "2026-03-29T12:18:51-04:00",
+  "updated_at": "2026-10-09T07:04:30-04:00",
+  "image": {
+   "id": 1625415680059,
+   "created_at": "2026-03-29T12:58:30-04:00",
+   "src": "https://cdn.shopify.com/s/files/1/0396/9165/collections/feature-promo-travelsprays-2025.jpg?v=1774803510",
+   "alt": null
+  },
+  "products_count": 43
+ }
+]
