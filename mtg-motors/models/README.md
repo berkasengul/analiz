@@ -6,7 +6,7 @@ Dosya yoksa site çalışmaya devam eder, o araç için basit yedek model çizil
 | Dosya | İlan | Kaynak model (CC BY 4.0) |
 |---|---|---|
 | `seat-ateca.glb` | Seat Ateca 1.5 EcoTSI Xperience | [Seat Ateca Cupra 2019 — Nieve5677](https://sketchfab.com/3d-models/seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c) |
-| `bmw-4-serisi.glb` | BMW 420i Edition M Sport | [BMW i4 (G26) 2021 — Merc_TV](https://sketchfab.com/3d-models/bmw-i4-g26-2021-97901a0eca4344c4a12f2a134d79775b) |
+| `bmw-420i-coupe.glb` | BMW 420i Edition M Sport (G22 Coupé) | [2021 BMW M430i Coupe — tonielpro520](https://sketchfab.com/3d-models/2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875) |
 | `mercedes-e-w212.glb` | Mercedes-Benz E 180 AMG | [Mercedes E Class W212 — Peter_D](https://sketchfab.com/3d-models/mercedes-e-class-w212-119c5e10733142b197aa53b86f6aeb04) |
 | `vw-golf-7.glb` | VW Golf 1.6 TDI Midline Plus | [Volkswagen Golf 7. — Mona x Supercars](https://sketchfab.com/3d-models/volkswagen-golf-7-364f56c79e9a4bfbb0bfa981b9abb6a3) |
 | `bmw-3-f30.glb` | BMW 320i ED 40th Year Edition | [BMW 3 Series VI F30 — Merc_TV](https://sketchfab.com/3d-models/bmw-3-series-vi-f30-b94e907d247e4ade964f613d17293b31) |
