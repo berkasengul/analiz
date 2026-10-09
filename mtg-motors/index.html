@@ -296,6 +296,7 @@
 
 <div id="scroller"></div>
 
+<script src="cutouts/cutouts.js"></script>
 <script type="importmap">
 {
   "imports": {
@@ -318,6 +319,9 @@
    length: aracın gerçek boyu (metre) — model bu boya ölçeklenir
    rotY  : model ters/yan duruyorsa derece cinsinden düzeltme (örn. 180)
    paint : modelin boya materyal adları (dizi). Verilirse "color" ile ilan rengine boyanır.
+   views : sahnede gösterilecek, arka planı temizlenmiş gerçek araç fotoğrafları (cutouts/ klasörü):
+           sırayla [ön çapraz, yan, arka çapraz], aracın SOL tarafından, önü resmin solunda.
+           h = görüntü yüksekliği (m), w = genişlik (m). Varsa 3D model yerine bunlar kullanılır.
    photos: ilan fotoğrafları (photos/ klasöründe) — kartta küçük resim olarak görünür, tıklayınca büyür
    credit: CC BY 4.0 lisansı gereği model sahibine atıf (sayfanın sonunda gösterilir)
    Araç ekleyip çıkarabilirsiniz; showroom ve kamera turu otomatik uzar/kısalır.
@@ -334,6 +338,7 @@ const CARS = [
     glb: 'models/seat-ateca.glb',      length: 4.36, credit: { name: 'Seat Ateca Cupra 2019', author: 'Nieve5677', url: SKETCHFAB('seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c') } },
   { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#5a0d17', url: '',
     photos: ['photos/bmw-420i-1.webp', 'photos/bmw-420i-2.webp', 'photos/bmw-420i-3.webp', 'photos/bmw-420i-4.webp'],
+    views: [{ src: 'cutouts/bmw-420i-on.webp', h: 1.62 }, { src: 'cutouts/bmw-420i-yan.webp', w: 4.85 }, { src: 'cutouts/bmw-420i-arka.webp', h: 1.62 }],
     glb: 'models/bmw-420i-coupe.glb',  length: 4.77, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
   { brand: 'Mercedes-Benz', model: 'E 180 AMG',                       title: '2013 E180 ORJİNAL AMG İÇİ SİYAH EMSALSİZ TEMİZLİKTE',             ilanNo: '1335046387', year: 2013, km: '199.000', colorName: 'Beyaz',     price: '1.965.000 TL', type: 'sedan', color: '#ecedef', url: '',
     glb: 'models/mercedes-e-w212.glb', length: 4.87, credit: { name: 'Mercedes E Class W212', author: 'Peter_D', url: SKETCHFAB('mercedes-e-class-w212-119c5e10733142b197aa53b86f6aeb04') } },
@@ -847,7 +852,7 @@ gltfLoader.setMeshoptDecoder(MeshoptDecoder);
 async function loadCarModels(onProgress) {
   let done = 0;
   await Promise.all(CARS.map(async (spec) => {
-    if (spec.glb) {
+    if (spec.glb && !spec.views?.length) {
       try {
         spec._scene = (await gltfLoader.loadAsync(spec.glb)).scene;
       } catch (e) {
@@ -856,6 +861,68 @@ async function loadCarModels(onProgress) {
     }
     onProgress(++done / CARS.length);
   }));
+}
+
+// Gerçek fotoğraf kesimleri (gömülü sürüm varsa file:// ile açılınca da çalışır)
+const texLoader = new THREE.TextureLoader();
+async function loadCarViews() {
+  await Promise.all(CARS.map(async (spec) => {
+    if (!spec.views?.length) return;
+    try {
+      spec._views = await Promise.all(spec.views.map(async (v) => {
+        const tex = await texLoader.loadAsync(window.MTG_CUTOUTS?.[v.src] || v.src);
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.anisotropy = 8;
+        const aspect = tex.image.width / tex.image.height;
+        return { tex, h: v.h ?? v.w / aspect, w: v.w ?? v.h * aspect };
+      }));
+    } catch (e) {
+      console.warn('Araç fotoğrafı yüklenemedi, 3D modele dönülüyor.', e);
+      spec._views = null;
+    }
+  }));
+}
+
+// Fotoğraf kesimlerini platforma yerleştir: her biri kameraya dönük bir pano,
+// kamera aracın etrafında döndükçe en yakın açıdaki fotoğrafa geçilir.
+function buildPhotoCar(spec, side) {
+  const g = new THREE.Group();
+  const order = side < 0 ? spec._views : [...spec._views].reverse();  // sağ sıradaki araçların önü arka duvara bakar
+  const panels = order.map((v) => {
+    const geo = new THREE.PlaneGeometry(v.w, v.h);
+    geo.translate(0, v.h / 2, 0);
+    const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+      map: v.tex, transparent: true, depthWrite: false, toneMapped: false, color: '#e9e9e9',
+    }));
+    m.renderOrder = 2;
+    g.add(m);
+    return m;
+  });
+  const sh = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 6.2),
+    new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+  sh.rotation.x = -Math.PI / 2;
+  sh.position.y = .012;
+  g.add(sh);
+  g.userData.panels = panels;
+  return g;
+}
+
+function updatePhotoCars() {
+  stations.forEach((st) => {
+    const panels = st.photo?.userData.panels;
+    if (!panels) return;
+    const yaw = Math.atan2(camera.position.x - st.x, camera.position.z - st.z);
+    let t = (yaw - st.yawA) / (st.yawB - st.yawA);
+    t = Math.min(1, Math.max(0, t));
+    const n = panels.length - 1;
+    panels.forEach((m, k) => {
+      const d = Math.abs(t * n - k);
+      const w = 1 - THREE.MathUtils.smoothstep(d, .38, .62);
+      m.material.opacity = w;
+      m.visible = w > .01;
+      m.rotation.y = yaw;
+    });
+  });
 }
 
 const GLASS_RE = /glass|cam|window|windscreen|windshield|cristal|vidrio|scheibe/i;
@@ -909,6 +976,15 @@ function prepareCarModel(spec) {
   return car;
 }
 
+// Fotoğrafı/modeli henüz olmayan araç: showroom'daki gibi saten örtülü gösterilir
+const coverMat = new THREE.MeshPhysicalMaterial({ color: '#1b1c20', roughness: .55, metalness: 0, sheen: 1, sheenColor: '#6b6f7a', sheenRoughness: .4, envMapIntensity: .5 });
+function coverCar(car) {
+  car.traverse((o) => {
+    if (o.isMesh && o.material.map !== shadowTex) o.material = coverMat;
+  });
+  return car;
+}
+
 // ---------- Döner platformlar ve araçlar ----------
 const stations = [];
 function plaqueTexture(car, i) {
@@ -951,8 +1027,14 @@ function buildStations() {
     const turn = new THREE.Group();
     turn.position.y = .17;
     st.add(turn);
-    const car = spec._scene ? prepareCarModel(spec) : buildCar(spec);
-    turn.add(car);
+    let photo = null;
+    if (spec._views) {
+      photo = buildPhotoCar(spec, side);
+      photo.position.y = .17;
+      st.add(photo);
+    } else {
+      turn.add(spec._scene ? prepareCarModel(spec) : coverCar(buildCar(spec)));
+    }
     turn.rotation.y = side < 0 ? -.55 : Math.PI + .55;
 
     // tepe spot ışığı
@@ -981,7 +1063,10 @@ function buildStations() {
     stand.rotation.y = -side * .55;
     scene.add(stand);
 
-    stations.push({ group: st, turn, side, x, z, spec, baseRot: turn.rotation.y });
+    // kamera yolundaki iki çekim açısı (buildCameraPath ile aynı): fotoğraf geçişleri bunların arasında olur
+    const aisle = -side;
+    stations.push({ group: st, turn, photo, side, x, z, spec, baseRot: turn.rotation.y,
+      yawA: Math.atan2(aisle * 9, 5), yawB: Math.atan2(aisle * 7.2, -3) });
   });
 }
 
@@ -1137,7 +1222,10 @@ try {
   ]);
 } catch (e) { /* yedek font kullanılır */ }
 const loaderText = document.querySelector('#loader small');
-await loadCarModels((p) => { loaderText.textContent = `Araçlar yükleniyor %${Math.round(p * 100)}`; });
+await Promise.all([
+  loadCarViews(),
+  loadCarModels((p) => { loaderText.textContent = `Araçlar yükleniyor %${Math.round(p * 100)}`; }),
+]);
 buildSky();
 buildStreet();
 buildBuilding();
@@ -1267,6 +1355,7 @@ function frame() {
 
   updateDoors(currentS);
   updateCamera(currentS, t);
+  updatePhotoCars();
   updateUI(currentS);
   composer.render();
   requestAnimationFrame(frame);
