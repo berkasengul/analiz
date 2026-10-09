@@ -21,5 +21,8 @@ npx @gltf-transform/cli optimize ham-model.glb seat-ateca.glb \
   --compress meshopt --simplify true --simplify-ratio 0.35 --texture-size 1024 --texture-compress webp
 ```
 
-Not: Site `fetch` ile model yüklediği için `file://` ile açılmaz; bir web sunucusu üzerinden açın
-(ör. `npx serve mtg-motors` veya GitHub Pages).
+Sitenin `index.html` dosyasına çift tıklanarak (`file://`) açılabilmesi için her model ayrıca
+`models.js` içinde gömülü (base64) olarak tutulur; web sunucusunda doğrudan `.glb` yüklenir.
+Yeni bir model eklenince `models.js` de güncellenmelidir.
+
+Durum: `bmw-420i-coupe.glb` eklendi (meshopt ile 6,3 MB → 2,2 MB). Diğerleri bekleniyor.

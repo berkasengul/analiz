@@ -318,7 +318,9 @@
            veya yüklenemezse basit yedek model gösterilir.
    length: aracın gerçek boyu (metre) — model bu boya ölçeklenir
    rotY  : model ters/yan duruyorsa derece cinsinden düzeltme (örn. 180)
-   paint : modelin boya materyal adları (dizi). Verilirse "color" ile ilan rengine boyanır.
+   materials: modelin materyal adı (sonu) → görünüm eşlemesi: paint (ilan rengi "color"), glass, gloss,
+           matte, tire, rim, disc, caliper, chrome, darkChrome, mirror, headlight, taillight, plate,
+           interior. '*' eşleşmeyen tüm materyaller içindir.
    views : sahnede gösterilecek, arka planı temizlenmiş gerçek araç fotoğrafları (cutouts/ klasörü):
            sırayla [ön çapraz, yan, arka çapraz], aracın SOL tarafından, önü resmin solunda.
            h = görüntü yüksekliği (m), w = genişlik (m). Sadece 3D model dosyası yoksa kullanılır.
@@ -336,10 +338,16 @@ const SKETCHFAB = (slug) => `https://sketchfab.com/3d-models/${slug}`;
 const CARS = [
   { brand: 'Seat',          model: 'Ateca 1.5 EcoTSI Xperience',      title: '2023 ATECA 1.5 XPERIENCE HATASIZ-BOYASIZ KIŞ PAKETİ-D.ISITMA',     ilanNo: '1344478037', year: 2023, km: '65.000',  colorName: 'Gümüş Gri', price: '2.075.000 TL', type: 'suv',   color: '#8e9399', url: '',
     glb: 'models/seat-ateca.glb',      length: 4.36, credit: { name: 'Seat Ateca Cupra 2019', author: 'Nieve5677', url: SKETCHFAB('seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c') } },
-  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#5a0d17', url: '',
+  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#4a0812', url: '',
     photos: ['photos/bmw-420i-1.webp', 'photos/bmw-420i-2.webp', 'photos/bmw-420i-3.webp', 'photos/bmw-420i-4.webp'],
     views: [{ src: 'cutouts/bmw-420i-on.webp', h: 1.62 }, { src: 'cutouts/bmw-420i-yan.webp', w: 4.85 }, { src: 'cutouts/bmw-420i-arka.webp', h: 1.62 }],
-    glb: 'models/bmw-420i-coupe.glb',  length: 4.77, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
+    glb: 'models/bmw-420i-coupe.glb',  length: 4.77, rimColor: '#141518', caliperColor: '#1f4fd8',
+    materials: {
+      blinn1SG: 'paint', Windows: 'glass', lambert6SG: 'gloss', lambert30SG: 'gloss', lambert22SG: 'mirror',
+      lambert4SG: 'tire', lambert5SG: 'matte', lambert7SG: 'rim', lambert8SG: 'disc', lambert9SG: 'caliper',
+      lambert3SG: 'darkChrome', lambert2SG: 'chrome', lambert10SG: 'headlight', HeadLights1: 'headlight',
+      BrakeLights_Glass: 'taillight', Plate_Recovered: 'plate', '*': 'interior',
+    }, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
   { brand: 'Mercedes-Benz', model: 'E 180 AMG',                       title: '2013 E180 ORJİNAL AMG İÇİ SİYAH EMSALSİZ TEMİZLİKTE',             ilanNo: '1335046387', year: 2013, km: '199.000', colorName: 'Beyaz',     price: '1.965.000 TL', type: 'sedan', color: '#ecedef', url: '',
     glb: 'models/mercedes-e-w212.glb', length: 4.87, credit: { name: 'Mercedes E Class W212', author: 'Peter_D', url: SKETCHFAB('mercedes-e-class-w212-119c5e10733142b197aa53b86f6aeb04') } },
   { brand: 'Volkswagen',    model: 'Golf 1.6 TDI BlueMotion Midline Plus', title: '2016 VW GOLF 1.6 TDI MİDLİNE PLUS EXTRALI',                   ilanNo: '1340316378', year: 2016, km: '102.000', colorName: 'Beyaz',     price: '945.000 TL',   type: 'hatch', color: '#e6e7e9', url: '',
@@ -849,12 +857,28 @@ const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/'));
 gltfLoader.setMeshoptDecoder(MeshoptDecoder);
 
+// Sayfa dosyadan açıldığında tarayıcı .glb dosyasını okuyamaz; gömülü kopyayı kullan
+let embeddedModels;
+function loadEmbeddedModels() {
+  embeddedModels ??= new Promise((resolve) => {
+    const el = document.createElement('script');
+    el.src = 'models/models.js';
+    el.onload = el.onerror = resolve;
+    document.head.appendChild(el);
+  });
+  return embeddedModels;
+}
+
 async function loadCarModels(onProgress) {
   let done = 0;
   await Promise.all(CARS.map(async (spec) => {
     if (spec.glb) {
       try {
-        spec._scene = (await gltfLoader.loadAsync(spec.glb)).scene;
+        if (location.protocol === 'file:') await loadEmbeddedModels();
+        const b64 = window.MTG_MODELS?.[spec.glb];
+        spec._scene = b64
+          ? (await gltfLoader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '')).scene
+          : (await gltfLoader.loadAsync(spec.glb)).scene;
       } catch (e) {
         console.warn(`3D model yüklenemedi (${spec.glb}), yedek model kullanılıyor.`, e);
       }
@@ -925,7 +949,65 @@ function updatePhotoCars() {
   });
 }
 
-const GLASS_RE = /glass|cam|window|windscreen|windshield|cristal|vidrio|scheibe/i;
+// Gerçekçi araç malzemeleri (ilan rengi, cam, jant, kaliper ...)
+function plateTexture() {
+  const t = canvasTexture(1040, 230, (g, w, h) => {
+    g.fillStyle = '#d9dbde'; g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#2a2c30'; g.lineWidth = 10; g.strokeRect(5, 5, w - 10, h - 10);
+    g.fillStyle = '#1f2125'; g.textBaseline = 'middle'; g.textAlign = 'center';
+    g.font = '600 112px Cinzel, Georgia, serif';
+    g.fillText('MTG | MOTORS', w / 2, h / 2 + 6);
+  });
+  return t;
+}
+// Araç boyası için stüdyo yansıması: karanlık oda + tavan ışık şeritleri ve yan softbox'lar
+let carEnvTex;
+function carEnv() {
+  if (carEnvTex) return carEnvTex;
+  const s = new THREE.Scene();
+  s.background = new THREE.Color('#060608');
+  const lamp = (w, h, d, x, y, z, k) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshBasicMaterial({ color: new THREE.Color(k, k, k) }));
+    m.position.set(x, y, z);
+    s.add(m);
+  };
+  for (let i = -2; i <= 2; i++) lamp(.5, .05, 14, i * 2.4, 6, 0, 5);      // tavan şeritleri
+  [-1, 1].forEach((sd) => {
+    lamp(.1, 2.6, 9, sd * 9, 2.4, 0, 2.2);                                  // yan softbox
+    lamp(9, 2.2, .1, 0, 2.2, sd * 10, 1.4);                                 // ön/arka softbox
+  });
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshBasicMaterial({ color: '#141416' }));
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -.6;
+  s.add(floor);
+  carEnvTex = pmrem.fromScene(s, .015).texture;
+  return carEnvTex;
+}
+
+function makeCarMaterials(spec) {
+  const P = THREE.MeshPhysicalMaterial, S = THREE.MeshStandardMaterial;
+  const envMap = carEnv();
+  const set = {
+    paint: new P({ color: spec.color, metalness: .5, roughness: .32, clearcoat: 1, clearcoatRoughness: .02, envMapIntensity: 1.3 }),
+    glass: new P({ color: '#030405', metalness: .1, roughness: .02, transparent: true, opacity: .78, depthWrite: false, envMapIntensity: 1.4 }),
+    gloss: new P({ color: '#0a0a0b', metalness: .2, roughness: .12, clearcoat: 1, envMapIntensity: 1.5 }),
+    matte: new S({ color: '#0e0e10', roughness: .9, envMapIntensity: .3 }),
+    tire: new S({ color: '#131315', roughness: .92, envMapIntensity: .3 }),
+    rim: new P({ color: spec.rimColor || '#b9bdc3', metalness: .6, roughness: .32, clearcoat: .6, envMapIntensity: 1 }),
+    disc: new S({ color: '#6d7076', metalness: 1, roughness: .45, envMapIntensity: 1 }),
+    caliper: new P({ color: spec.caliperColor || '#b80d1c', roughness: .35, clearcoat: 1, envMapIntensity: 1.2 }),
+    chrome: new S({ color: '#e5e8ec', metalness: 1, roughness: .1, envMapIntensity: 1.8 }),
+    darkChrome: new S({ color: '#34363a', metalness: 1, roughness: .16, envMapIntensity: 1.6 }),
+    mirror: new S({ color: '#c9ced6', metalness: 1, roughness: .03, envMapIntensity: 2 }),
+    headlight: new P({ color: '#d5dbe2', emissive: spec.drlColor || '#fff5df', emissiveIntensity: .7, roughness: .05, metalness: .3, clearcoat: 1, envMapIntensity: 1.6 }),
+    taillight: new S({ color: '#2a0000', emissive: '#ff1428', emissiveIntensity: 2.4, roughness: .2, envMapIntensity: 1 }),
+    plate: new S({ map: plateTexture(), roughness: .45, envMapIntensity: .6 }),
+    interior: new S({ color: '#1b1b1e', roughness: .8, envMapIntensity: .4 }),
+  };
+  Object.values(set).forEach((m) => { m.envMap = envMap; });
+  return set;
+}
+
 function prepareCarModel(spec) {
   const root = spec._scene;
   root.rotation.y = THREE.MathUtils.degToRad(spec.rotY || 0);
@@ -947,23 +1029,15 @@ function prepareCarModel(spec) {
   root.position.z -= center.z;
   root.position.y -= box.min.y;
 
-  const paintNames = new Set(spec.paint || []);
+  const presets = makeCarMaterials(spec);
+  const rules = Object.entries(spec.materials || {}).filter(([k]) => k !== '*');
   root.traverse((o) => {
     if (!o.isMesh) return;
-    const mats = Array.isArray(o.material) ? o.material : [o.material];
-    mats.forEach((m) => {
-      if (!m) return;
-      if ('envMapIntensity' in m) m.envMapIntensity = 1.4;
-      if (paintNames.has(m.name)) {
-        m.color.set(spec.color);
-        if (m.map) m.map = null;
-        m.metalness = .55; m.roughness = .28;
-        m.needsUpdate = true;
-      }
-      if (GLASS_RE.test(m.name) && !m.transparent) {
-        m.transparent = true; m.opacity = .35; m.depthWrite = false; m.roughness = .03;
-      }
-    });
+    const name = o.material?.name || '';
+    const hit = rules.find(([k]) => name.endsWith(k));
+    const key = hit ? hit[1] : spec.materials?.['*'];
+    if (key && presets[key]) o.material = presets[key];
+    else if (o.material && 'envMapIntensity' in o.material) o.material.envMapIntensity = 1.4;
   });
 
   const car = new THREE.Group();
