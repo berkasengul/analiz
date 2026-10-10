@@ -86,3 +86,35 @@ geçiyor, bir sonraki oda kapı çerçevesinde beliriyor.
   WebP formatında, `textures/textures.js` içinde gömülü kopyaları var.
 - `models/decor/`: 13 mobilya/bitki modeli (kanepe, koltuklar, sehpalar, saksı bitkileri, sarkıt lamba,
   bar tabureleri, kahve arabası), meshopt + WebP; `models/decor/decor.js` içinde gömülü kopyaları var.
+
+---
+
+# Üçüncü güncelleme: yan yana odalar, sağdan kapı, durak tabanlı gezinme
+
+## Hata düzeltmesi: "360° İncele" yanlış aracı açıyordu
+Bütün araç kartları ekranda üst üste duruyor; görünmeyenler yalnızca `opacity: 0` ile gizleniyordu.
+`.btn { pointer-events: auto }` kuralı, gizli kartların düğmelerini de tıklanabilir bırakıyordu.
+En üstteki (son) kart tıklamayı yakaladığı için hep başka bir araç açılıyordu.
+Artık görünmeyen katmanlara `data-hidden` (`visibility: hidden`) uygulanıyor (`setOverlay`).
+
+## Düzen
+- Odalar x ekseni boyunca yan yana (`roomCX(k)`). Her odadan **sağ duvardaki** sürgülü cam kapıyla
+  bir sonrakine geçiliyor. Kapı `DOOR_Z = -2.3`'te, ön cama yakın; kamera aracın önünden geçip kapıya dönüyor.
+- Ölçüler: `ROOM_W = 13`, `ROOM_D = 13`, `DOOR_W = 2.6`, `DOOR_H = 3.1`. Giriş ilk odanın cephesinde
+  (`ENTRANCE_X`); diğer odaların ön yüzü vitrin camı.
+- **Araç sunumu (referans BMW showroom fotoğrafları gibi):**
+  - araç zeminde, büyük yuvarlak halı üstünde, 3/4 önden duruyor
+  - tavanda halka lamba ve/veya akustik disk, koyu tavanda spot ızgarası (bazı odalarda siyah ızgara tavan)
+  - sağ arka köşede oturma grubu: kanepe, kabuk koltuklar, yuvarlak sehpa, koni sarkıt lambalar
+  - arka duvarda ekran, kadife perde, sanat panosu veya bahçeye bakan pencere
+  - beton kolon ve saksı bitkileri
+- Temalar (`THEMES`): Galeri, Mor Lounge, Beton & Halka, Bahçe, Mavi Salon, Ceviz, Taş. Son oda MTG Lounge.
+
+## Gezinme
+- Sayfa artık kaymıyor. **Bir tekerlek hareketi, bir parmak kaydırması veya ↓ / ↑ tuşu bir durak ilerletir.**
+  Duraklar sırasıyla: dış plan → her araç → lounge.
+- İki durak arasındaki geçiş `easeInOut` ile oynatılır (1,4–5,2 sn); geçiş sırasında yeni girdi alınmaz.
+- İlgili kod: `STOPS`, `goToStop(i)`, `step(dir)`, tween. Sağdaki araç listesi ve "Tura baştan başla" da
+  `goToStop` kullanır. Test için `window.mtgGo(i)` var.
+- Yalnızca bulunulan oda ve iki komşusu çizilir; dışarıdayken bütün odalar görünür.
+  İki alan ışığı bulunulan ve sonraki odaya taşınır.
