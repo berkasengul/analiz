@@ -1,0 +1,747 @@
+[
+ {
+  "id": 150584197197,
+  "title": "- Soaps and Candles",
+  "handle": "soaps-and-candles",
+  "description": "",
+  "published_at": "2019-09-28T14:54:44-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 8
+ },
+ {
+  "id": 410817659116,
+  "title": "-Best Sellers",
+  "handle": "best-sellers",
+  "description": "",
+  "published_at": "2023-02-21T04:20:17-08:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 12
+ },
+ {
+  "id": 412148629740,
+  "title": "-Body Oils",
+  "handle": "body-oils",
+  "description": "",
+  "published_at": "2023-07-14T08:11:23-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 18
+ },
+ {
+  "id": 410817626348,
+  "title": "-Candles",
+  "handle": "candles",
+  "description": "",
+  "published_at": "2023-02-21T04:19:58-08:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 11
+ },
+ {
+  "id": 432558670060,
+  "title": "-Co Written",
+  "handle": "co-written",
+  "description": "",
+  "published_at": "2024-08-14T04:00:20-07:00",
+  "updated_at": "2026-09-21T10:02:26-07:00",
+  "image": null,
+  "products_count": 0
+ },
+ {
+  "id": 410817724652,
+  "title": "-Collections",
+  "handle": "collections",
+  "description": "",
+  "published_at": "2023-02-21T04:20:38-08:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 7
+ },
+ {
+  "id": 432564076780,
+  "title": "-For The Body",
+  "handle": "for-the-body",
+  "description": "",
+  "published_at": "2024-08-14T06:55:19-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 19
+ },
+ {
+  "id": 432564011244,
+  "title": "-For The Home",
+  "handle": "for-the-home",
+  "description": "",
+  "published_at": "2024-08-14T06:53:35-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 8
+ },
+ {
+  "id": 140252807245,
+  "title": "-Fragrances",
+  "handle": "frontpage",
+  "description": "",
+  "published_at": "2019-09-16T19:21:20-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 25
+ },
+ {
+  "id": 432997728492,
+  "title": "-Gifts",
+  "handle": "gifts",
+  "description": "",
+  "published_at": "2024-08-21T06:31:48-07:00",
+  "updated_at": "2026-10-09T04:05:04-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 404936949996,
+  "title": "-Perfumes (Bottles Only)",
+  "handle": "perfumes-bottles-only",
+  "description": "",
+  "published_at": "2022-09-09T08:25:40-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 31
+ },
+ {
+  "id": 150584361037,
+  "title": "-Sample Sets",
+  "handle": "sets",
+  "description": "",
+  "published_at": "2019-09-28T14:54:44-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 410817691884,
+  "title": "-Samples",
+  "handle": "samples",
+  "description": "",
+  "published_at": "2023-02-21T04:20:28-08:00",
+  "updated_at": "2026-09-21T10:02:26-07:00",
+  "image": null,
+  "products_count": 0
+ },
+ {
+  "id": 410817593580,
+  "title": "-Soaps",
+  "handle": "soaps",
+  "description": "",
+  "published_at": "2023-02-21T04:19:45-08:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 11
+ },
+ {
+  "id": 435281789164,
+  "title": "All-Season",
+  "handle": "all-season",
+  "description": "",
+  "published_at": "2024-09-24T05:01:39-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 11
+ },
+ {
+  "id": 435281887468,
+  "title": "Amber",
+  "handle": "amber",
+  "description": "",
+  "published_at": "2024-09-24T05:03:44-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 435284967660,
+  "title": "Animalic",
+  "handle": "animalic",
+  "description": "",
+  "published_at": "2024-09-24T05:43:00-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 1
+ },
+ {
+  "id": 435699286252,
+  "title": "Art Prints",
+  "handle": "art-prints",
+  "description": "<p dir=\"ltr\"><span>Our gallery-worthy art prints are 27\" x 39.5\" on heavy matte archival paper.</span></p>",
+  "published_at": "2024-09-30T21:35:35-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 428764496108,
+  "title": "Autumnal",
+  "handle": "autumnal",
+  "description": "",
+  "published_at": "2024-06-20T00:41:26-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 461558022380,
+  "title": "Black Friday Sale",
+  "handle": "black-friday-sale",
+  "description": "",
+  "published_at": "2025-11-19T14:44:04-08:00",
+  "updated_at": "2026-09-21T10:02:30-07:00",
+  "image": {
+   "id": 1733508202732,
+   "created_at": "2025-11-19T13:51:08-08:00",
+   "src": "https://cdn.shopify.com/s/files/1/0252/7471/2141/collections/IA_WEB_NewReleaseMarquee_1800x1000_BF.jpg?v=1763589068",
+   "alt": null
+  },
+  "products_count": 20
+ },
+ {
+  "id": 462156955884,
+  "title": "Black Friday Sale 2nd half",
+  "handle": "black-friday-sale-copy",
+  "description": "",
+  "published_at": "2025-11-24T08:15:27-08:00",
+  "updated_at": "2026-09-21T10:02:30-07:00",
+  "image": {
+   "id": 1733534515436,
+   "created_at": "2025-11-24T08:13:35-08:00",
+   "src": "https://cdn.shopify.com/s/files/1/0252/7471/2141/collections/IA_WEB_NewReleaseMarquee_1800x1000_BF.jpg?v=1764000815",
+   "alt": null
+  },
+  "products_count": 9
+ },
+ {
+  "id": 435704987884,
+  "title": "Body Oils",
+  "handle": "body-oils-1",
+  "description": "<p dir=\"ltr\"><span>Our subtle and long-lasting 2oz body oils are made with jojoba oil to moisturize and protect your skin. </span></p>\n<p> </p>",
+  "published_at": "2024-09-30T23:27:32-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 16
+ },
+ {
+  "id": 435285000428,
+  "title": "Bold",
+  "handle": "bold",
+  "description": "",
+  "published_at": "2024-09-24T05:44:03-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 7
+ },
+ {
+  "id": 435285033196,
+  "title": "Boozy",
+  "handle": "boozy",
+  "description": "",
+  "published_at": "2024-09-24T05:45:02-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 435704955116,
+  "title": "Candles",
+  "handle": "candles-1",
+  "description": "<p>Our stunningly fragrant 11oz soy blend candles have cotton wicks and a 55-hour burn time. Entice miracles to the surface by filling your room with scent.</p>\n<p> </p>",
+  "published_at": "2024-09-30T23:27:22-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 12
+ },
+ {
+  "id": 435282084076,
+  "title": "Citrus",
+  "handle": "citrus",
+  "description": "",
+  "published_at": "2024-09-24T05:05:41-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 428764463340,
+  "title": "Complex",
+  "handle": "complex",
+  "description": "",
+  "published_at": "2024-06-20T00:41:09-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 435282247916,
+  "title": "Cool",
+  "handle": "cool",
+  "description": "",
+  "published_at": "2024-09-24T05:08:21-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": {
+   "id": 1720468242668,
+   "created_at": "2024-10-01T00:25:03-07:00",
+   "src": "https://cdn.shopify.com/s/files/1/0252/7471/2141/collections/cool.png?v=1727767503",
+   "alt": null
+  },
+  "products_count": 6
+ },
+ {
+  "id": 428764692716,
+  "title": "Cozy",
+  "handle": "cozy",
+  "description": "",
+  "published_at": "2024-06-20T00:42:32-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 9
+ },
+ {
+  "id": 435282575596,
+  "title": "Creamy",
+  "handle": "creamy",
+  "description": "",
+  "published_at": "2024-09-24T05:15:10-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 435285098732,
+  "title": "Earthy",
+  "handle": "earthy",
+  "description": "",
+  "published_at": "2024-09-24T05:46:20-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 10
+ },
+ {
+  "id": 435282673900,
+  "title": "Fem",
+  "handle": "fem",
+  "description": "",
+  "published_at": "2024-09-24T05:16:20-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 435282837740,
+  "title": "Floral",
+  "handle": "floral",
+  "description": "",
+  "published_at": "2024-09-24T05:18:13-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 435704824044,
+  "title": "For The Body",
+  "handle": "for-the-body-1",
+  "description": "",
+  "published_at": "2024-09-30T23:24:35-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 21
+ },
+ {
+  "id": 435704856812,
+  "title": "For The Home",
+  "handle": "for-the-home-1",
+  "description": "",
+  "published_at": "2024-09-30T23:24:52-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 17
+ },
+ {
+  "id": 435707412716,
+  "title": "Fragrances",
+  "handle": "fragrances",
+  "description": "",
+  "published_at": "2024-10-01T01:11:45-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 23
+ },
+ {
+  "id": 435282903276,
+  "title": "Fresh",
+  "handle": "fresh",
+  "description": "",
+  "published_at": "2024-09-24T05:19:37-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 9
+ },
+ {
+  "id": 435285164268,
+  "title": "Fruity",
+  "handle": "fruity",
+  "description": "",
+  "published_at": "2024-09-24T05:47:15-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 8
+ },
+ {
+  "id": 435283034348,
+  "title": "Fun",
+  "handle": "fun",
+  "description": "",
+  "published_at": "2024-09-24T05:21:26-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 7
+ },
+ {
+  "id": 435705250028,
+  "title": "Gifts",
+  "handle": "gifts-1",
+  "description": "",
+  "published_at": "2024-09-30T23:35:07-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 13
+ },
+ {
+  "id": 428764659948,
+  "title": "Green",
+  "handle": "green",
+  "description": "",
+  "published_at": "2024-06-20T00:42:13-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 435283198188,
+  "title": "Herbal",
+  "handle": "herbal",
+  "description": "",
+  "published_at": "2024-09-24T05:24:07-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 6
+ },
+ {
+  "id": 435285229804,
+  "title": "Jammy",
+  "handle": "jammy",
+  "description": "",
+  "published_at": "2024-09-24T05:48:05-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 435283329260,
+  "title": "Leather",
+  "handle": "leather",
+  "description": "",
+  "published_at": "2024-09-24T05:29:10-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 435283656940,
+  "title": "Light",
+  "handle": "light",
+  "description": "",
+  "published_at": "2024-09-24T05:30:04-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 435285262572,
+  "title": "Luxurious",
+  "handle": "luxurious",
+  "description": "",
+  "published_at": "2024-09-24T05:48:53-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 435284082924,
+  "title": "Marine",
+  "handle": "marine",
+  "description": "",
+  "published_at": "2024-09-24T05:31:26-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 435285328108,
+  "title": "Masc",
+  "handle": "masc",
+  "description": "",
+  "published_at": "2024-09-24T05:49:42-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 449597505772,
+  "title": "Modern",
+  "handle": "modern",
+  "description": "",
+  "published_at": "2025-05-13T09:34:49-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 6
+ },
+ {
+  "id": 435285491948,
+  "title": "Moody",
+  "handle": "moody",
+  "description": "",
+  "published_at": "2024-09-24T05:51:25-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 10
+ },
+ {
+  "id": 435284148460,
+  "title": "Nutty",
+  "handle": "nutty",
+  "description": "",
+  "published_at": "2024-09-24T05:32:41-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 435285557484,
+  "title": "Polarizing",
+  "handle": "polarizing",
+  "description": "",
+  "published_at": "2024-09-24T05:52:08-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 1
+ },
+ {
+  "id": 435284246764,
+  "title": "Powdery",
+  "handle": "powdery",
+  "description": "",
+  "published_at": "2024-09-24T05:33:45-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 440121360620,
+  "title": "Rare Book Room",
+  "handle": "rare-book-room",
+  "description": "",
+  "published_at": "2024-12-06T05:08:12-08:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 8
+ },
+ {
+  "id": 435707445484,
+  "title": "Sample Sets",
+  "handle": "sample-sets",
+  "description": "<p>Sample sets are a great way to get an introduction to our line. Every fragrance tells a different story.</p>",
+  "published_at": "2024-10-01T01:13:59-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 428764365036,
+  "title": "Sexy",
+  "handle": "sexy",
+  "description": "",
+  "published_at": "2024-06-20T00:40:42-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 13
+ },
+ {
+  "id": 435704463596,
+  "title": "Shave",
+  "handle": "shave",
+  "description": "",
+  "published_at": "2024-09-30T23:02:57-07:00",
+  "updated_at": "2026-10-07T04:06:03-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 435285623020,
+  "title": "Smoky",
+  "handle": "smoky",
+  "description": "",
+  "published_at": "2024-09-24T05:52:52-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 1
+ },
+ {
+  "id": 447184011500,
+  "title": "SOAP Trios",
+  "handle": "soap-trios",
+  "description": "",
+  "published_at": "2025-04-04T11:01:07-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 12
+ },
+ {
+  "id": 435704922348,
+  "title": "Soaps",
+  "handle": "soaps-1",
+  "description": "<p>Our sumptuous perfumed soaps are 6oz hard-milled and enriched with shea butter, sweet almond oil &amp;amp; vitamin E. Introduce a little luxury to your routine.</p>",
+  "published_at": "2024-09-30T23:27:10-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 10
+ },
+ {
+  "id": 435284279532,
+  "title": "Spicy",
+  "handle": "spicy",
+  "description": "",
+  "published_at": "2024-09-24T05:35:01-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 435284312300,
+  "title": "Springy",
+  "handle": "springy",
+  "description": "",
+  "published_at": "2024-09-24T05:35:58-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 435285655788,
+  "title": "Summery",
+  "handle": "summery",
+  "description": "",
+  "published_at": "2024-09-24T05:53:34-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 4
+ },
+ {
+  "id": 428764397804,
+  "title": "Sweet",
+  "handle": "sweet",
+  "description": "",
+  "published_at": "2024-06-20T00:40:56-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 6
+ },
+ {
+  "id": 435284541676,
+  "title": "Tart",
+  "handle": "tart",
+  "description": "",
+  "published_at": "2024-09-24T05:37:38-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 3
+ },
+ {
+  "id": 435284738284,
+  "title": "Tobacco",
+  "handle": "tobacco",
+  "description": "",
+  "published_at": "2024-09-24T05:38:44-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 466839109868,
+  "title": "Travelers",
+  "handle": "travelers",
+  "description": "",
+  "published_at": "2026-02-01T09:51:17-08:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 26
+ },
+ {
+  "id": 435284771052,
+  "title": "Tropical",
+  "handle": "tropical",
+  "description": "",
+  "published_at": "2024-09-24T05:39:27-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 435284803820,
+  "title": "Uplifting",
+  "handle": "uplifting",
+  "description": "",
+  "published_at": "2024-09-24T05:40:33-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 10
+ },
+ {
+  "id": 435284902124,
+  "title": "Vanilla",
+  "handle": "vanilla",
+  "description": "",
+  "published_at": "2024-09-24T05:41:24-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 5
+ },
+ {
+  "id": 435285688556,
+  "title": "Warm",
+  "handle": "warm",
+  "description": "",
+  "published_at": "2024-09-24T05:54:21-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 8
+ },
+ {
+  "id": 428764528876,
+  "title": "Wintery",
+  "handle": "wintery",
+  "description": "",
+  "published_at": "2024-06-20T00:41:43-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 2
+ },
+ {
+  "id": 435285786860,
+  "title": "Woody",
+  "handle": "woody",
+  "description": "",
+  "published_at": "2024-09-24T05:55:02-07:00",
+  "updated_at": "2026-10-10T04:05:24-07:00",
+  "image": null,
+  "products_count": 7
+ }
+]

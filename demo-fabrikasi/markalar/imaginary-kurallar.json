@@ -1,0 +1,685 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": false,
+  "backSolid": ".",
+  "hero": [
+   [
+    ".",
+    1
+   ]
+  ]
+ },
+ "aktar": {
+  "domain": "imaginaryauthors.com",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "50 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "sundrunk",
+   "falling-into-the-sea",
+   "a-little-secret",
+   "in-love-with-everything"
+  ],
+  "profiles": {
+   "flat": ".",
+   "flatDepth": [
+    [
+     ".",
+     0.55
+    ]
+   ]
+  },
+  "categories": [
+   {
+    "id": "sun",
+    "tr": "Güneş ve Deniz",
+    "en": "Sun & Sea",
+    "color": "#ff9a60",
+    "descTr": "Kumsallar, batan güneşler ve yaz aşkları.",
+    "descEn": "Beaches, sunsets and summer love.",
+    "match": "(sundrunk|falling|in-love|slow-explosions)"
+   },
+   {
+    "id": "forest",
+    "tr": "Orman ve Duman",
+    "en": "Forest & Smoke",
+    "color": "#7ab884",
+    "descTr": "Köknar ormanları, yanan şehirler, keşif yolculukları.",
+    "descEn": "Fir forests, burning cities, voyages of discovery.",
+    "match": "(city-on-fire|cape|memoirs|soft-lawn)"
+   },
+   {
+    "id": "sweet",
+    "tr": "Tatlı Sırlar",
+    "en": "Sweet Secrets",
+    "color": "#ff6a6a",
+    "descTr": "Vişneli turta, incir ve alacakaranlık.",
+    "descEn": "Cherry pie, fig and dusk.",
+    "match": "."
+   }
+  ],
+  "families": {
+   "a-city-on-fire": [
+    "Dumanlı · Odunsu · Baharatlı",
+    "Smoky · Woody · Spicy"
+   ],
+   "sundrunk": [
+    "Narenciye · Çiçeksi · Ferah",
+    "Citrus · Floral · Fresh"
+   ],
+   "yesterday-haze": [
+    "İnciremsi · Kremsi · Odunsu",
+    "Figgy · Creamy · Woody"
+   ],
+   "falling-into-the-sea": [
+    "Narenciye · Meyveli · Güneşli",
+    "Citrus · Fruity · Sunny"
+   ],
+   "the-soft-lawn": [
+    "Yeşil · Ferah · Odunsu",
+    "Green · Fresh · Woody"
+   ],
+   "a-little-secret": [
+    "Meyveli · Gurme · Sıcak",
+    "Fruity · Gourmand · Warm"
+   ],
+   "slow-explosions": [
+    "Baharatlı · Çiçeksi · Deri",
+    "Spicy · Floral · Leather"
+   ],
+   "in-love-with-everything": [
+    "Meyveli · Tatlı · Tropik",
+    "Fruity · Sweet · Tropical"
+   ],
+   "cape-heartache": [
+    "Yeşil · Reçineli · Meyveli",
+    "Green · Resinous · Fruity"
+   ],
+   "memoirs-of-a-trespasser": [
+    "Vanilya · Reçineli · Odunsu",
+    "Vanilla · Resinous · Woody"
+   ]
+  },
+  "rename": {
+   "a-city-on-fire": [
+    "A City on Fire",
+    "A City on Fire"
+   ],
+   "sundrunk": [
+    "Sundrunk",
+    "Sundrunk"
+   ],
+   "yesterday-haze": [
+    "Yesterday Haze",
+    "Yesterday Haze"
+   ],
+   "falling-into-the-sea": [
+    "Falling into the Sea",
+    "Falling into the Sea"
+   ],
+   "the-soft-lawn": [
+    "The Soft Lawn",
+    "The Soft Lawn"
+   ],
+   "a-little-secret": [
+    "A Little Secret",
+    "A Little Secret"
+   ],
+   "slow-explosions": [
+    "Slow Explosions",
+    "Slow Explosions"
+   ],
+   "in-love-with-everything": [
+    "In Love With Everything",
+    "In Love With Everything"
+   ],
+   "cape-heartache": [
+    "Cape Heartache",
+    "Cape Heartache"
+   ],
+   "memoirs-of-a-trespasser": [
+    "Memoirs of a Trespasser",
+    "Memoirs of a Trespasser"
+   ]
+  },
+  "palette": [
+   [
+    "^a-city-on-fire$",
+    "#3a2a24",
+    "#ff7a40",
+    "#0a0605"
+   ],
+   [
+    "^sundrunk$",
+    "#c4502a",
+    "#ff9a60",
+    "#2a0c04"
+   ],
+   [
+    "^yesterday-haze$",
+    "#c86a5a",
+    "#ffb0a0",
+    "#2a0e0a"
+   ],
+   [
+    "^falling-into-the-sea$",
+    "#2a8ca0",
+    "#6ad4e4",
+    "#03181e"
+   ],
+   [
+    "^the-soft-lawn$",
+    "#6a8a2a",
+    "#b8d870",
+    "#121a04"
+   ],
+   [
+    "^a-little-secret$",
+    "#b81e24",
+    "#ff6a6a",
+    "#240406"
+   ],
+   [
+    "^slow-explosions$",
+    "#c8a040",
+    "#f6d880",
+    "#241a04"
+   ],
+   [
+    "^in-love-with-everything$",
+    "#1c2a6e",
+    "#ff5ab4",
+    "#04081e"
+   ],
+   [
+    "^cape-heartache$",
+    "#2a4a30",
+    "#7ab884",
+    "#061008"
+   ],
+   [
+    "^memoirs-of-a-trespasser$",
+    "#8a5a2a",
+    "#e0a868",
+    "#1c0e04"
+   ]
+  ],
+  "taglines": {
+   "a-city-on-fire": [
+    "İki çöpçatanın karanlık çizgi romanı",
+    "A dark graphic novel about two match-makers"
+   ],
+   "sundrunk": [
+    "Batan güneşi kovalayan bir yolculuk",
+    "A journey chasing the setting sun"
+   ],
+   "yesterday-haze": [
+    "San Joaquin Vadisi'nde bir itiraf",
+    "A confession in the San Joaquin Valley"
+   ],
+   "falling-into-the-sea": [
+    "Napoli Körfezi'nde bir yaz aşkı",
+    "A summer love on the Gulf of Naples"
+   ],
+   "the-soft-lawn": [
+    "Princeton'lı bir tenis şampiyonu",
+    "A Princeton tennis champion"
+   ],
+   "a-little-secret": [
+    "Hayatın küçük lüksleri",
+    "Life's little luxuries"
+   ],
+   "slow-explosions": [
+    "Haritaya atılan bir dart, Goa'ya bir bilet",
+    "A dart on a map, a ticket to Goa"
+   ],
+   "in-love-with-everything": [
+    "1982 Florida'sında bitmeyen bir parti",
+    "An endless party in 1982 Florida"
+   ],
+   "cape-heartache": [
+    "Pasifik Kuzeybatı'da bir ilk yerleşim",
+    "A homestead in the Pacific Northwest"
+   ],
+   "memoirs-of-a-trespasser": [
+    "Gerçek sanılan hayali dünyalar",
+    "Fantastical worlds mistaken for real"
+   ]
+  },
+  "trText": {
+   "a-city-on-fire": "Parlak ve karanlık bir çizgi roman: A City on Fire iki çöpçatanın hikâyesi. Rupert rıhtımdaki fabrikada kibrit üretir, Frances şehir gazetesinde flört köşesi yazar. İkisi de gecenin gölgelerinde gizli işleri izleyen yalnızlardır. Ardıç katranı, kakule, koyu orman meyveleri ve yanmış kibrit.",
+   "sundrunk": "Clementine Cope dizlerine kadar kara gömüldüğü o gün bunun son olduğunu bildi. Montana'daki evini bırakıp yalnızca batan güneşi izlemeye karar verdi; her sabah sıcağa doğru yola çıktı. Neroli, ravent, hanımeli, gül suyu ve ilk öpücük.",
+   "yesterday-haze": "Lenora Blumberg'in ikinci romanı: on yıllarca bir ilaçlama pilotuyla gizli ilişki yaşayan bir çiftçi karısı, kocasına her şeyi itiraf etmeye karar verir. Kaliforniya'nın sakin, tozlu San Joaquin Vadisi'nde, alacakaranlığın renkleri gibi yavaşça değişen bir rüya. İncir, iris, krema ve bahçe tozu.",
+   "falling-into-the-sea": "Nica Galas on dokuz yaşında ilk kitabını yayımladı: Napoli Körfezi'nin sıcak kumsalları ve limon ağaçları arasında yaşanan kısa ve tutkulu bir aşkın otobiyografik hikâyesi. Limon, bergamot, liçi, tropik çiçekler ve sıcak kum.",
+   "the-soft-lawn": "Claude LeCoq ilk kitabı The Soft Lawn'ı 1916'da, henüz Princeton'da öğrenciyken yayımladı: New England'da üst sınıf gençlerin isyanını anlatan, kendini beğenmiş bir üniversite tenis şampiyonunun büyüme hikâyesi. Ihlamur çiçeği, greyfurt, vetiver ve yeni tenis topları.",
+   "a-little-secret": "Cleo Gordon büyüdüğü küçük dağ kasabasına ait değildir. Karanlığın ortasında ışık arayışı, onu hayatta mutluluk veren her şeyi listelemeye götürür: bir dilim vişneli turta ve sade kahve, gece karanlığında gürleyen bir şelale. Rainier kirazı, badem ezmesi, safran ve hamur işi kabuğu.",
+   "slow-explosions": "1980'de Gwen K. Vroomen tekdüze işini bıraktı, köşedeki bara gitti ve barmenin ısrarıyla duvardaki dünya haritasına bir dart attı. Goa'yı hiç duymamıştı ama oraya gitmesi gerektiğini hemen anladı. Safran, gül mutlağı, deri, elma ve Arpora gece pazarı.",
+   "in-love-with-everything": "1982'de yazılan bu elektrikli roman, Miami Vice öncesi Florida'da gece kulüplerinde, paten disolarında ve South Beach barlarında partiyi sürdürecek bir şey arayan bir grup genç kızı anlatır. Ahududu, hindistan cevizi palmiye şekeri, tropik punç ve yıldız tozu.",
+   "cape-heartache": "Cape Heartache, Philip Sava'nın keşif romanları dizisine tek Amerikan katkısı: 1881'de gençken Pasifik Kuzeybatı'ya yaptığı bir yolculuğa dayanır ve yazarın en içten eseri sayılır. Duglas köknarı, çam reçinesi, çilek ve dağ sisi.",
+   "memoirs-of-a-trespasser": "Philip Sava'nın ilk keşif yazıları postmodern kurgunun sınırlarını zorladı; o kadar fantastik dünyalar anlattı ki birçok okur onların gerçek olduğuna inandı. Memoirs of a Trespasser bu koleksiyonların merkezindeki eser. Madagaskar vanilyası, gayak ağacı, mür ve meşe fıçılar."
+  },
+  "enText": {
+   "a-city-on-fire": "A brilliantly dark graphic novel, A City On Fire, is the story of two match-makers. Rupert literally fabricates matches in a factory on the waterfront while Frances writes a dating column for the city’s newspaper. Both are recluses who haunt the night’s shadows observing clandestine activities from afar but never partaking. That changes one fortuitous evening when they are both witness to the same high-profile murder and are forced to come together as an unlikely vigilante pair in order to save their own names.",
+   "sundrunk": "When Clementine Cope set foot in snow deeper than her knees, she knew it was for the last time. Leaving the rural Montana home, she’d been raised in, with no plans other than to follow the setting sun, she’d wake up every morning and head towards the warmth, dreaming of Dennis Wilson, push pops in the sand, and convertibles.",
+   "yesterday-haze": "“Yesterday Haze,” the subtly sinister follow-up to Lenora Blumberg’s acclaimed debut “Violet Disguise,” tells the story of a farmer’s wife who, after maintaining a decades-long affair with a crop duster pilot, decides to come clean to her husband (who also happens to be her lover’s employer). “The memory of him is a rifle in my mouth,” Blumberg wrote, “and the scent of fig its trigger.” Set in California’s tranquil and dusty San Joaquin Valley, the elaborate tale unfolds like a dream, delicately shifting perceptions like the colors of a dimming dusk.",
+   "falling-into-the-sea": "At the age of nineteen Nica Galas published her first book, the autobiographical tome Falling into the Sea which chronicled her short and torrid love affair among the hot beaches and lemon trees in the Gulf of Naples. The breathtaking story opens with Nica and her girlfriends picking bunches of jasmine flower for boys while they cliff-jumped into the sea. An innocent first kiss erupts into an ardent summer entanglement which is cut short one moonlit night when her lover leaps into the dark abyss never to surface, leaving Nica naked on the cliffs screaming his name.",
+   "the-soft-lawn": "Claude LeCoq published his first book, The Soft Lawn, in 1916 while still attending Princeton University. A controversial portrait of adolescent upper-class rebellion in New England, the coming-of-age story follows Hampton Perry, a charmingly snotty college tennis champ who, after years of having everything handed to him on a silver platter, finds himself handing it all back.",
+   "a-little-secret": "Cleo Gordon doesn’t belong but she sees no way out. She’s too beautiful for the small mountain town where she’s spent her whole life, too educated to relate to the locals, and too curious for her own good. Her quest to find light in the encroaching darkness leads her to catalog everything in her life that brings joy, from a slice of cherry pie chased by a cup of black coffee to the sound of a roaring waterfall in the pitch-black night. Her observations of “Life’s Little Luxuries” redefine what it means to be rich in today’s world, but with affluence comes responsibility. How Cleo navigates this new abundance of wealth is seen as both foolish and brilliant, but which is it?",
+   "slow-explosions": "In 1980, Gwen K. Vroomen quit a monotonous job, went to the corner bar, and – on the bartender’s urging – threw a dart at a world map tacked on the wall. She had never heard of Goa but knew immediately she needed to go.",
+   "in-love-with-everything": "Written in 1982, this electrifying novel about sex, drugs, and decadence in pre-Miami Vice Florida, follows a delinquent clique of teenage girls through nightclubs, roller discos, and seedy South Beach bars in search of anything to keep the party going. Driven by an inexhaustible enthusiasm, the girls navigate a series of potentially dangerous situations with naive ease, radiating their infectious light like a disco ball and turning even the darkest circumstances into a dance party. Lauded for its unflinchingly honest portrayal of strong, outspoken, resourceful young women whose sole motivation was to have a good time, the book stands in stark contrast to the male chauvinism of the era and still resonates today. Critics have called it “an essential examination of the joys of recklessness” and “an addictive story in which every sentence glistens with sticky sweet summer heat.”",
+   "cape-heartache": "Cape Heartache is the lone American contribution to Philip Sava’s wildly popular series of exploration novels. It is based loosely on an expedition he made to the Pacific Northwest as a teenager in 1881 and is generally regarded as the most candid of his works. Revolving around a homestead he built in a coastal grove of old growth trees, the novel documents his romance with a young woman who was a descendent of the Nehalem Tribe. Its themes of leaving the familiar and finding comfort and solace in a new place still resonate today.",
+   "memoirs-of-a-trespasser": "The early exploration writing of Philip Sava bent the limits of post-modern fiction, revealing fantastical worlds that fooled many into believing they were, in fact, real. Sava’s kaleidoscopic collections, of which Memoirs of a Trespasser is the undeniable centerpiece, drew upon true experiences from his exotic travels but were infused with a hallucinatory inventiveness that set his work apart from others in the genre."
+  },
+  "notes": [
+   [
+    "^a-city-on-fire$",
+    [
+     [
+      "Ardıç katranı",
+      "Cade oil"
+     ],
+     [
+      "Hint sümbülü",
+      "Spikenard"
+     ],
+     [
+      "Kakule",
+      "Cardamom"
+     ],
+     [
+      "Clearwood",
+      "Clearwood"
+     ],
+     [
+      "Koyu orman meyveleri",
+      "Dark Berries"
+     ]
+    ]
+   ],
+   [
+    "^sundrunk$",
+    [
+     [
+      "Neroli",
+      "Neroli"
+     ],
+     [
+      "Ravent",
+      "Rhubarb"
+     ],
+     [
+      "Hanımeli",
+      "Honeysuckle"
+     ],
+     [
+      "Gül suyu",
+      "Rose Water"
+     ],
+     [
+      "Portakal kabuğu",
+      "Orange Zest"
+     ]
+    ]
+   ],
+   [
+    "^yesterday-haze$",
+    [
+     [
+      "İncir",
+      "Fig"
+     ],
+     [
+      "İris",
+      "Iris"
+     ],
+     [
+      "Krema",
+      "Cream"
+     ],
+     [
+      "Tonka",
+      "Tonka"
+     ],
+     [
+      "Ağaç kabuğu",
+      "Tree Bark"
+     ]
+    ]
+   ],
+   [
+    "^falling-into-the-sea$",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Liçi",
+      "Lychee"
+     ],
+     [
+      "Tropik çiçekler",
+      "Tropical Flowers"
+     ]
+    ]
+   ],
+   [
+    "^the-soft-lawn$",
+    [
+     [
+      "Ihlamur çiçeği",
+      "Linden Blossom"
+     ],
+     [
+      "Greyfurt",
+      "Grapefruit"
+     ],
+     [
+      "Defne ve sarmaşık yaprakları",
+      "Laurel & Ivy leaves"
+     ],
+     [
+      "Vetiver",
+      "Vetiver"
+     ],
+     [
+      "Meşe yosunu",
+      "Oakmoss"
+     ]
+    ]
+   ],
+   [
+    "^a-little-secret$",
+    [
+     [
+      "Rainier kirazı",
+      "Rainier Cherry"
+     ],
+     [
+      "Badem ezmesi",
+      "Marzipan"
+     ],
+     [
+      "Paçuli",
+      "Patchouli"
+     ],
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Demerara şekeri",
+      "Demerara Sugar"
+     ]
+    ]
+   ],
+   [
+    "^slow-explosions$",
+    [
+     [
+      "Safran",
+      "Saffron"
+     ],
+     [
+      "Gül mutlağı",
+      "Rose Absolute"
+     ],
+     [
+      "Deri",
+      "Leather"
+     ],
+     [
+      "Elma",
+      "Apple"
+     ],
+     [
+      "Benzoin",
+      "Benzoin"
+     ]
+    ]
+   ],
+   [
+    "^in-love-with-everything$",
+    [
+     [
+      "Ahududu",
+      "Raspberry"
+     ],
+     [
+      "Narenciye özü",
+      "Citrus Pulp"
+     ],
+     [
+      "Hindistan cevizi palmiye şekeri",
+      "Coconut Palm Sugar"
+     ],
+     [
+      "Madame Isaac Pereire gülü",
+      "Madame Isaac Pereire"
+     ],
+     [
+      "Sandal ağacı",
+      "Sandalwood"
+     ]
+    ]
+   ],
+   [
+    "^cape-heartache$",
+    [
+     [
+      "Duglas köknarı",
+      "Douglas Fir"
+     ],
+     [
+      "Çam reçinesi",
+      "Pine Resin"
+     ],
+     [
+      "Batı baldıranı",
+      "Western Hemlock"
+     ],
+     [
+      "Vanilya yaprağı",
+      "Vanilla Leaf"
+     ],
+     [
+      "Çilek",
+      "Strawberry"
+     ]
+    ]
+   ],
+   [
+    "^memoirs-of-a-trespasser$",
+    [
+     [
+      "Madagaskar vanilyası",
+      "Madagascar Vanilla"
+     ],
+     [
+      "Gayak ağacı",
+      "Guaiacwood"
+     ],
+     [
+      "Mür",
+      "Myrrh"
+     ],
+     [
+      "Benzoin reçinesi",
+      "Benzoin Resin"
+     ],
+     [
+      "Amber çiçeği tohumu",
+      "Ambrette Seeds"
+     ]
+    ]
+   ]
+  ],
+  "library": [
+   {
+    "match": "^a-city-on-fire$",
+    "composition": {
+     "tr": [
+      "Notalar: Ardıç katranı, Hint sümbülü, Kakule, Clearwood, Koyu orman meyveleri, Labdanum, Yanmış kibrit"
+     ],
+     "en": [
+      "Notes: Cade oil, Spikenard, Cardamom, Clearwood, Dark Berries, Labdanum, Burnt Match"
+     ]
+    }
+   },
+   {
+    "match": "^sundrunk$",
+    "composition": {
+     "tr": [
+      "Notalar: Neroli, Ravent, Hanımeli, Gül suyu, Portakal kabuğu, İlk öpücük"
+     ],
+     "en": [
+      "Notes: Neroli, Rhubarb, Honeysuckle, Rose Water, Orange Zest, First Kiss"
+     ]
+    }
+   },
+   {
+    "match": "^yesterday-haze$",
+    "composition": {
+     "tr": [
+      "Notalar: İncir, İris, Krema, Tonka, Ağaç kabuğu, Ceviz bitter, Bahçe tozu"
+     ],
+     "en": [
+      "Notes: Fig, Iris, Cream, Tonka, Tree Bark, Walnut Bitters, Orchard Dust"
+     ]
+    }
+   },
+   {
+    "match": "^falling-into-the-sea$",
+    "composition": {
+     "tr": [
+      "Notalar: Limon, Bergamot, Greyfurt, Liçi, Tropik çiçekler, Sıcak kum"
+     ],
+     "en": [
+      "Notes: Lemon, Bergamot, Grapefruit, Lychee, Tropical Flowers, Warm Sand"
+     ]
+    }
+   },
+   {
+    "match": "^the-soft-lawn$",
+    "composition": {
+     "tr": [
+      "Notalar: Ihlamur çiçeği, Greyfurt, Defne ve sarmaşık yaprakları, Vetiver, Meşe yosunu, Yeni tenis topları"
+     ],
+     "en": [
+      "Notes: Linden Blossom, Grapefruit, Laurel & Ivy leaves, Vetiver, Oakmoss, Fresh Tennis Balls"
+     ]
+    }
+   },
+   {
+    "match": "^a-little-secret$",
+    "composition": {
+     "tr": [
+      "Notalar: Rainier kirazı, Badem ezmesi, Paçuli, Safran, Demerara şekeri, Roma batırılmış tonka, Hamur işi kabuğu"
+     ],
+     "en": [
+      "Notes: Rainier Cherry, Marzipan, Patchouli, Saffron, Demerara Sugar, Rum-Soaked Tonka, Pastry Crust"
+     ]
+    }
+   },
+   {
+    "match": "^slow-explosions$",
+    "composition": {
+     "tr": [
+      "Notalar: Safran, Gül mutlağı, Deri, Elma, Benzoin, Kaşmir ağacı, Arpora gece pazarı"
+     ],
+     "en": [
+      "Notes: Saffron, Rose Absolute, Leather, Apple, Benzoin, Cashmeran, Arpora Night Market"
+     ]
+    }
+   },
+   {
+    "match": "^in-love-with-everything$",
+    "composition": {
+     "tr": [
+      "Notalar: Ahududu, Narenciye özü, Hindistan cevizi palmiye şekeri, Madame Isaac Pereire gülü, Sandal ağacı, Tropik punç, Yıldız tozu"
+     ],
+     "en": [
+      "Notes: Raspberry, Citrus Pulp, Coconut Palm Sugar, Madame Isaac Pereire, Sandalwood, Tropical Punch, Stardust"
+     ]
+    }
+   },
+   {
+    "match": "^cape-heartache$",
+    "composition": {
+     "tr": [
+      "Notalar: Duglas köknarı, Çam reçinesi, Batı baldıranı, Vanilya yaprağı, Çilek, Kadim orman, Dağ sisi"
+     ],
+     "en": [
+      "Notes: Douglas Fir, Pine Resin, Western Hemlock, Vanilla Leaf, Strawberry, Old Growth, Mountain Fog"
+     ]
+    }
+   },
+   {
+    "match": "^memoirs-of-a-trespasser$",
+    "composition": {
+     "tr": [
+      "Notalar: Madagaskar vanilyası, Gayak ağacı, Mür, Benzoin reçinesi, Amber çiçeği tohumu, Meşe fıçılar"
+     ],
+     "en": [
+      "Notes: Madagascar Vanilla, Guaiacwood, Myrrh, Benzoin Resin, Ambrette Seeds, Oak Barrels"
+     ]
+    }
+   }
+  ],
+  "ritual": [
+   {
+    "handle": "sundrunk",
+    "tr": {
+     "title": "Güneşe doğru",
+     "text": "Neroli, ravent ve hanımeli; portakal kabuğu ve ilk öpücükle ışıl ışıl bir yol.",
+     "stat": "Sundrunk · Clementine Cope"
+    },
+    "en": {
+     "title": "Towards the sun",
+     "text": "Neroli, rhubarb and honeysuckle; a road glowing with orange zest and a first kiss.",
+     "stat": "Sundrunk · Clementine Cope"
+    }
+   },
+   {
+    "handle": "falling-into-the-sea",
+    "tr": {
+     "title": "Denize düşerken",
+     "text": "Limon ağaçları, liçi ve sıcak kum: Napoli Körfezi'nde bir yaz.",
+     "stat": "Falling into the Sea · Nica Galas"
+    },
+    "en": {
+     "title": "Falling into the sea",
+     "text": "Lemon trees, lychee and warm sand: a summer on the Gulf of Naples.",
+     "stat": "Falling into the Sea · Nica Galas"
+    }
+   },
+   {
+    "handle": "a-little-secret",
+    "tr": {
+     "title": "Küçük bir sır",
+     "text": "Rainier kirazı, badem ezmesi ve roma batırılmış tonka: bir dilim turta, bir fincan kahve.",
+     "stat": "A Little Secret · Cleo Gordon"
+    },
+    "en": {
+     "title": "A little secret",
+     "text": "Rainier cherry, marzipan and rum-soaked tonka: a slice of pie, a cup of coffee.",
+     "stat": "A Little Secret · Cleo Gordon"
+    }
+   }
+  ]
+ }
+}
