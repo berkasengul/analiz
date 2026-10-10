@@ -1508,7 +1508,7 @@ function buildUI() {
   const credited = CARS.filter((c) => c._scene && c.credit);
   if (credited.length) {
     const el = $('credits');
-    el.append('Mobilya, bitki ve yüzey dokuları: Poly Haven (CC0). 3D modeller temsilidir, ilandaki renk ve donanıma göre boyanmıştır. BMW 320i gövdesi proje içinde modellenmiştir. Diğer modeller — CC BY 4.0: ');
+    el.append('Mobilya, bitki ve yüzey dokuları: Poly Haven ve ambientCG (CC0). 3D modeller temsilidir, ilandaki renk ve donanıma göre boyanmıştır. BMW 320i gövdesi proje içinde modellenmiştir. Diğer modeller — CC BY 4.0: ');
     credited.forEach((c, i) => {
       const a = document.createElement('a');
       a.href = c.credit.url; a.target = '_blank'; a.rel = 'noopener';
@@ -1704,34 +1704,26 @@ function pbr(name, rx, ry, o = {}) {
   });
 }
 
-// Oda temaları — gerçek BMW showroom referanslarından: açık taş zemin, koyu spotlu tavan,
-// araç üstünde halka lamba, araç altında yuvarlak halı, yanında oturma grubu, arka duvarda
-// ekran / perde / sanat / pencere. floor/wall: [doku, karo boyu (m), renk, pürüzlülük|normal]
-const THEMES = [
-  { name: 'Galeri',        floor: ['marble_01', 1.2, '#e3e1dd', .3],  wall: ['plastered_wall_04', 2.2, '#d9d5ce', .4], ceil: 'dark', carpet: '#a65a34', chair: '#c87a32', sofa: '#1f3b8c', feature: 'screen', ring: true,  light: '#fff6ea', lightI: 5.5 },
-  { name: 'Mor Lounge',    floor: ['marble_01', 1.2, '#d8d4cd', .32], wall: ['plastered_wall_04', 2.2, '#3d3650', .4], ceil: 'dark', carpet: '#c47a3c', chair: '#d8b13c', sofa: '#283a7a', feature: 'curtain', curtain: '#4a4352', disc: true, light: '#ffe9cf', lightI: 5 },
-  { name: 'Beton & Halka', floor: ['concrete_floor_01', 2.4, '#c9c6c0', .45], wall: ['plastered_wall_04', 2.2, '#c9c5be', .4], ceil: 'grid', carpet: '#6e6a66', chair: '#b4553a', sofa: '#3b3f46', feature: 'art', ring: true, light: '#f4f6ff', lightI: 5.5 },
-  { name: 'Bahçe',         floor: ['marble_01', 1.2, '#e6e2da', .3],  wall: ['plastered_wall_04', 2.2, '#d6d0c5', .4], ceil: 'dark', carpet: '#9b5530', chair: '#c48a4a', sofa: '#2e4a3a', feature: 'window', ring: true, disc: true, light: '#fff2df', lightI: 5.5 },
-  { name: 'Mavi Salon',    floor: ['marble_01', 1.2, '#e8e6e2', .3],  wall: ['plastered_wall_04', 2.2, '#efede9', .4], ceil: 'dark', carpet: '#7d8a6c', chair: '#cf7a2e', sofa: '#1d3f9a', feature: 'screen', ring: true, light: '#ffffff', lightI: 5 },
-  { name: 'Ceviz',         floor: ['marble_01', 1.2, '#dedad3', .3],  wall: ['walnut_veneer', 1.1, '#ffffff', .7],      ceil: 'dark', carpet: '#6d6a66', chair: '#b98b52', sofa: '#3c3a37', feature: 'curtain', curtain: '#2e2b29', disc: true, light: '#ffe2bd', lightI: 5.5 },
-  { name: 'Taş',           floor: ['granite_tile_03', 1.2, '#dcdcdc', .35], wall: ['stone_tile_wall', 1.4, '#ddd5c7', .8], ceil: 'grid', carpet: '#8a5a3c', chair: '#c27a3a', sofa: '#2c3646', feature: 'art', ring: true, light: '#fff3e2', lightI: 5.5 },
-];
-const LOUNGE_THEME = { name: 'MTG Lounge', floor: ['marble_01', 1.2, '#e0ddd8', .3], wall: ['walnut_veneer', 1.1, '#ffffff', .7], ceil: 'dark', light: '#ffdcb4', lightI: 5, lounge: true };
-const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : THEMES[k % THEMES.length]);
-const THEME_TEXTURES = ['marble_01', 'plastered_wall_04', 'concrete_floor_01', 'walnut_veneer', 'smoked_walnut_veneer', 'stone_tile_wall', 'granite_tile_03', 'velour_velvet'];
+// ---------- Premium showroom: tek, sakin malzeme dili ----------
+// Zemin: 1.2 m büyük ebat açık gri taş (cilalı, yansımalı) · Duvar: sıcak açık gri mikro çimento
+// Araç arkası: 1.2 × 2.4 m traverten paneller · Tavan: antrasit, gömme ışık kasası + lineer LED hatları
+// Ölçüler gerçek mimari oranlarda (m): tavan 4.8, kapı 2.6 × 3.1, kanepe oturum 0.42, sehpa 0.35.
+const THEME_TEXTURES = ['showroom_floor', 'microcement', 'travertine_panel', 'smoked_walnut_veneer', 'velour_velvet', 'granite_tile_03', 'stone_tile_wall'];
+const ROOM_THEME = { name: 'Showroom', light: '#fff6ec', lightI: 4.6 };
+const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge: true };
+const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : ROOM_THEME);
 
-// dekor modelleri (Poly Haven, CC0) — bir kez yüklenir, kopyalanır
+// dekor modelleri (Poly Haven, CC0) — yalnızca gerçekçi olanlar
 const DECOR = {};
 async function loadDecor() {
-  const names = ['potted_plant_02', 'potted_plant_04', 'planter_box_02', 'sofa_03', 'modern_arm_chair_01', 'mid_century_lounge_chair',
-    'modern_coffee_table_01', 'side_table_01', 'ceramic_vase_01', 'brass_vase_02', 'modern_ceiling_lamp_01', 'bar_chair_round_01', 'CoffeeCart_01'];
+  const names = ['potted_plant_02', 'mid_century_lounge_chair', 'ceramic_vase_01', 'brass_vase_02', 'bar_chair_round_01'];
   if (location.protocol === 'file:') await loadEmbeddedModels();
   await Promise.all(names.map(async (n) => {
     const url = `models/decor/${n}.glb`;
     try {
       const b64 = window.MTG_MODELS?.[url];
       const g = b64 ? await gltfLoader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : await gltfLoader.loadAsync(url);
-      g.scene.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; if (o.material) o.material.envMapIntensity = .6; } });
+      g.scene.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; if (o.material) o.material.envMapIntensity = .55; } });
       DECOR[n] = g.scene;
     } catch (e) { console.warn('Dekor yüklenemedi', n); }
   }));
@@ -1743,241 +1735,236 @@ function decor(name, parent, x, z, rotDeg = 0, y = 0, sc = 1) {
   parent.add(o); return o;
 }
 
-// --- mobilya ve aydınlatma (prosedürel, referans görsellerdeki modern showroom dili)
-const fabric = (color) => { const m = pbr('velour_velvet', 2, 2, { color, rough: .95, normal: .45, env: .25 }); m.map = null; return m; };
-function rbox(w, h, d, mat, x, y, z, parent, r = .06) {
+// ortak malzemeler (dokular yüklendikten sonra bir kez oluşturulur)
+let SM;
+function showroomMats() {
+  if (SM) return SM;
+  const fabric = pbr('velour_velvet', 3, 3, { color: '#b8b1a6', rough: .97, normal: .55, env: .2 }); fabric.map = null;
+  SM = {
+    fabric,
+    plinth: std('#121315', .5, .2, .3),
+    reveal: std('#0b0b0c', .9, 0, .05),
+    ceiling: std('#1d1e21', .88, 0, .12),
+    led: glow('#fff4e4', 2.6),
+    ledSoft: glow('#ffeedd', 1.3),
+    diffuser: glow('#fffaf3', 1.15),
+    metal: new THREE.MeshPhysicalMaterial({ color: '#b9b4ab', metalness: 1, roughness: .32, envMapIntensity: 1 }),
+    bronze: new THREE.MeshPhysicalMaterial({ color: '#3a3027', metalness: .85, roughness: .42, envMapIntensity: .6 }),
+    black: std('#0e0f10', .35, .5, .5),
+    glassP: new THREE.MeshPhysicalMaterial({ color: '#d6e0e4', roughness: .02, transparent: true, opacity: .16, envMapIntensity: .9, depthWrite: false, side: THREE.DoubleSide }),
+    walnut: pbr('smoked_walnut_veneer', 1, 1, { normal: .5, env: .3 }),
+    planter: pbr('microcement', .6, .6, { color: '#8c877f', rough: .9, normal: .6 }),
+  };
+  return SM;
+}
+const travertine = (w, h) => pbr('travertine_panel', w / 1.2, h / 2.4, { color: '#d6cfc3', rough: .9, normal: .55, env: .45 });
+const microcement = (w, h) => pbr('microcement', w / 2.4, h / 2.4, { color: '#f2eee8', rough: .95, normal: .45, env: .9 });
+function rbox(w, h, d, mat, x, y, z, parent, r = .05) {
   const m = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 3, Math.min(r, w / 2.2, h / 2.2, d / 2.2)), mat);
   m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; parent.add(m); return m;
 }
-function modernSofa(parent, x, z, rotDeg, color, len = 2.3) {
-  const g = new THREE.Group(), f = fabric(color), leg = std('#141414', .4, .6);
-  rbox(len, .26, .9, f, 0, .36, 0, g, .08);
-  rbox(len, .5, .2, f, 0, .66, -.36, g, .08);
-  for (const sd of [-1, 1]) rbox(.18, .42, .9, f, sd * (len / 2 - .09), .55, 0, g, .07);
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) box(.03, .23, .03, leg, sx * (len / 2 - .12), .115, sz * .36, g);
-  g.position.set(x, 0, z); g.rotation.y = THREE.MathUtils.degToRad(rotDeg); parent.add(g); return g;
-}
-function shellChair(parent, x, z, rotDeg, color) {
-  const g = new THREE.Group(), leather = pbr('velour_velvet', 1, 1, { color, rough: .55, normal: .2, env: .4 }); leather.map = null;
-  const shell = new THREE.Mesh(new THREE.SphereGeometry(.36, 32, 16, Math.PI * .1, Math.PI * 1.8, Math.PI * .35, Math.PI * .4), leather);
-  shell.material.side = THREE.DoubleSide; shell.scale.set(1, .9, 1); shell.rotation.y = Math.PI; shell.position.y = .7; g.add(shell);
-  rbox(.62, .07, .56, leather, 0, .47, .02, g, .03);
-  const metal = std('#1a1a1a', .35, .8);
-  for (let i = 0; i < 4; i++) { const a = Math.PI / 4 + i * Math.PI / 2; const l = new THREE.Mesh(new THREE.CylinderGeometry(.012, .012, .5, 8), metal);
-    l.position.set(Math.cos(a) * .17, .22, Math.sin(a) * .17); l.rotation.set(Math.sin(a) * .35, 0, -Math.cos(a) * .35); g.add(l); }
-  const stem = new THREE.Mesh(new THREE.CylinderGeometry(.02, .02, .1, 8), metal); stem.position.y = .43; g.add(stem);
-  g.position.set(x, 0, z); g.rotation.y = THREE.MathUtils.degToRad(rotDeg); parent.add(g); return g;
-}
-function roundTable(parent, x, z, r = .45, h = .42) {
-  const top = new THREE.Mesh(new THREE.CylinderGeometry(r, r, .035, 48), std('#121212', .25, .2, .7)); top.position.set(x, h, z);
-  const base = new THREE.Mesh(new THREE.CylinderGeometry(r * .45, r * .5, h - .02, 32), pbr('marble_01', 1, 1, { color: '#ecebe8', rough: .3 }));
-  base.position.set(x, (h - .02) / 2, z); top.castShadow = base.castShadow = true; parent.add(top, base);
-}
-function conePendant(parent, x, z, drop, color = '#141414') {
-  const H = HALL_H, y = H - drop;
-  const wire = new THREE.Mesh(new THREE.CylinderGeometry(.004, .004, drop - .25, 4), std('#111', .5)); wire.position.set(x, H - (drop - .25) / 2, z);
-  const shade = new THREE.Mesh(new THREE.ConeGeometry(.2, .32, 32, 1, true), std(color, .45, .2, .5)); shade.material.side = THREE.DoubleSide; shade.position.set(x, y + .16, z);
-  const bulb = new THREE.Mesh(new THREE.CircleGeometry(.17, 24), glow('#fff2dc', 4)); bulb.rotation.x = Math.PI / 2; bulb.position.set(x, y + .01, z);
-  parent.add(wire, shade, bulb);
-}
-function ringLight(parent, x, z, r = 2.3, y = HALL_H - .85) {
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(r, .03, 12, 160), glow('#fff8ee', 4.5)); ring.rotation.x = Math.PI / 2; ring.position.set(x, y, z); parent.add(ring);
-  for (let i = 0; i < 3; i++) { const a = i * Math.PI * 2 / 3; const w = new THREE.Mesh(new THREE.CylinderGeometry(.003, .003, HALL_H - y, 4), std('#222', .5));
-    w.position.set(x + Math.cos(a) * r, (HALL_H + y) / 2, z + Math.sin(a) * r); parent.add(w); }
-}
-function acousticDisc(parent, x, z, r = 1.9, y = HALL_H - .7) {
-  const d = new THREE.Mesh(new THREE.CylinderGeometry(r, r, .06, 64), std('#e9e6e0', .9, 0, .2)); d.position.set(x, y, z); parent.add(d);
-  const under = new THREE.Mesh(new THREE.CircleGeometry(r * .92, 64), glow('#fff3e3', .55)); under.rotation.x = Math.PI / 2; under.position.set(x, y - .031, z); parent.add(under);
-}
-function ceilingDownlights(parent, cx, cz, holes) {
-  const pts = [];
-  for (let x = -ROOM_W / 2 + 1; x <= ROOM_W / 2 - 1; x += 1.6) for (let z = -ROOM_D + 1; z <= -1; z += 1.6) {
-    if (holes.some(([hx, hz, hr]) => Math.hypot(cx + x - hx, z - hz) < hr)) continue;
-    pts.push([cx + x, z]);
-  }
-  const m = new THREE.InstancedMesh(new THREE.CircleGeometry(.07, 16), glow('#fff6e8', 5), pts.length), mat = new THREE.Matrix4(), q = new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI / 2, 0, 0));
-  pts.forEach(([x, z], i) => { m.setMatrixAt(i, mat.compose(new THREE.Vector3(x, HALL_H - .012, z), q, new THREE.Vector3(1, 1, 1))); });
-  parent.add(m);
-}
-function artTexture(kind, seed = 1) {
-  return canvasTexture(1024, 576, (g, w, h) => {
-    if (kind === 'art') {                   // kırmızı-pembe dalga heykel efekti (ref. 5)
-      g.fillStyle = '#f3ece8'; g.fillRect(0, 0, w, h);
-      for (let i = 0; i < 90; i++) { g.strokeStyle = `hsla(${345 + Math.sin(i * .2) * 12},75%,${42 + (i % 7) * 5}%,.85)`; g.lineWidth = 6;
-        g.beginPath(); g.ellipse(w * .62, h * .5, 60 + i * 4, 30 + i * 2.4, i * .045, 0, Math.PI * 1.3); g.stroke(); }
-    } else if (kind === 'window') {         // pencereden bahçe (ref. 4)
-      const sky = g.createLinearGradient(0, 0, 0, h); sky.addColorStop(0, '#dfe6e3'); sky.addColorStop(1, '#c9d2c6'); g.fillStyle = sky; g.fillRect(0, 0, w, h);
-      for (let i = 0; i < 700; i++) { g.fillStyle = `hsla(${80 + Math.random() * 40},${30 + Math.random() * 30}%,${28 + Math.random() * 30}%,.55)`;
-        g.beginPath(); g.arc(Math.random() * w, h * .25 + Math.random() * h * .75, 6 + Math.random() * 22, 0, 7); g.fill(); }
-      g.fillStyle = '#1b1c1e'; for (let x = 0; x <= w; x += w / 4) g.fillRect(x - 5, 0, 10, h);
-    } else {                                 // ekran: gece yolu ışık izleri (ref. 3)
-      const bg = g.createLinearGradient(0, 0, w, h); bg.addColorStop(0, '#1a1036'); bg.addColorStop(1, '#3a1d52'); g.fillStyle = bg; g.fillRect(0, 0, w, h);
-      for (let i = 0; i < 26; i++) { g.strokeStyle = `hsla(${(seed * 47 + 290 + i * 5) % 360},90%,${55 + (i % 4) * 8}%,.7)`; g.lineWidth = 3 + (i % 3) * 2;
-        g.beginPath(); g.moveTo(-50, h * .9 - i * 6); g.bezierCurveTo(w * .3, h * .7 - i * 9, w * .6, h * .35 + i * 4, w + 50, h * .2 + i * 7); g.stroke(); }
-      g.fillStyle = 'rgba(255,255,255,.85)'; g.font = '600 42px Cinzel, Georgia, serif'; g.fillText('MTG | MOTORS', 60, 90);
-    }
-  });
-}
-function curtain(parent, w, h, x, y, z, color) {
-  const geo = new THREE.PlaneGeometry(w, h, Math.round(w * 14), 1), p = geo.attributes.position;
-  for (let i = 0; i < p.count; i++) p.setZ(i, Math.sin(p.getX(i) * 9.5) * .05 + Math.sin(p.getX(i) * 3.1) * .02);
-  geo.computeVertexNormals();
-  const m = new THREE.Mesh(geo, pbr('velour_velvet', w / 1.5, h / 1.5, { color, rough: .95, normal: .3, env: .2 })); m.material.map = null;
-  m.position.set(x, y, z); m.receiveShadow = true; parent.add(m); return m;
-}
-function plaqueTex(k, spec) {
-  return canvasTexture(1024, 512, (g, w, h) => {
-    g.fillStyle = '#121416'; g.fillRect(0, 0, w, h);
-    g.strokeStyle = '#a8895a'; g.lineWidth = 4; g.strokeRect(18, 18, w - 36, h - 36);
-    g.fillStyle = '#c9a86f'; g.font = '600 150px Cinzel, Georgia, serif'; g.fillText(String(k + 1).padStart(2, '0'), 70, 210);
-    g.fillStyle = '#efe8dc'; g.font = '500 44px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '10px';
-    g.fillText(spec.brand.toUpperCase(), 72, 300); if ('letterSpacing' in g) g.letterSpacing = '1px';
-    let fs = 54; do { g.font = `600 ${fs}px Cinzel, Georgia, serif`; fs -= 2; } while (g.measureText(spec.model).width > w - 150 && fs > 24);
-    g.fillText(spec.model, 72, 380);
-    g.fillStyle = '#a8895a'; g.fillRect(72, 420, 160, 3);
-    g.fillStyle = '#9da3a8'; g.font = '400 30px Inter, Arial, sans-serif'; g.fillText(`${spec.year} · ${spec.km} km · ${spec.colorName}`, 72, 470);
-  });
-}
-
-// araç konumu (oda içinde): sol-ön, oturma grubu sağ-arka köşede
-const CAR_OFF = new THREE.Vector3(-1.0, 0, .3);
-const carPos = (k) => new THREE.Vector3(roomCX(k) + CAR_OFF.x, 0, ROOM_CZ + CAR_OFF.z);
-
-const rooms = [], roomDoors = [];
 function wallPlane(group, mat, w, h, x, y, z, rotY) {
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
   m.position.set(x, y, z); m.rotation.y = rotY; m.receiveShadow = true; group.add(m); return m;
 }
-const wallMat = (th, w, h) => pbr(th.wall[0], w / th.wall[1], h / th.wall[1], { color: th.wall[2], normal: th.wall[3], rough: .95 });
-// iki oda arasındaki bölme: kapı boşluğu DOOR_Z'de; her yüz kendi odasının malzemesiyle
-function buildPartition(g, x, thL, thR) {
-  const H = HALL_H, zF = DOOR_Z + DOOR_W / 2, zB = DOOR_Z - DOOR_W / 2, core = std('#1a1b1d', .8);
-  const segs = [[0, zF], [zB, -ROOM_D]];
-  for (const [a, b] of segs) {
+
+// alçak modüler kanepe (gerçek ölçü: 2.6 × 0.95 m, oturum 0.42 m, sırt 0.72 m)
+function premiumSofa(parent, x, z, rotDeg, len = 2.6) {
+  const M = showroomMats(), g = new THREE.Group();
+  box(len - .12, .08, .8, M.plinth, 0, .04, .02, g);                                    // gölgede kalan kaide
+  for (const sx of [-1, 1]) rbox(len / 2 - .2, .2, .78, M.fabric, sx * (len / 4 - .02), .31, .06, g, .07);   // oturum minderleri
+  rbox(len, .14, .95, M.fabric, 0, .15, 0, g, .04);                                     // gövde
+  rbox(len - .3, .36, .2, M.fabric, 0, .55, -.36, g, .08);                              // sırt minderi
+  for (const sd of [-1, 1]) rbox(.16, .5, .95, M.fabric, sd * (len / 2 - .08), .33, 0, g, .05);
+  g.position.set(x, 0, z); g.rotation.y = THREE.MathUtils.degToRad(rotDeg); parent.add(g); return g;
+}
+// traverten blok sehpa (0.9 × 0.9 × 0.35 m) + seramik vazo
+function blockTable(parent, x, z) {
+  const m = new THREE.Mesh(new RoundedBoxGeometry(.9, .35, .9, 3, .015), travertine(.9, .35));
+  m.position.set(x, .175, z); m.castShadow = m.receiveShadow = true; parent.add(m);
+  decor('ceramic_vase_01', parent, x + .18, z - .1, 0, .35, .85);
+}
+// taş saksıda bitki (saksı 0.64 m çap, 0.6 m yükseklik)
+function plantInPlanter(parent, x, z, sc = 1.2) {
+  const M = showroomMats();
+  const p = new THREE.Mesh(new THREE.CylinderGeometry(.32, .3, .6, 48), M.planter); p.position.set(x, .3, z); p.castShadow = p.receiveShadow = true; parent.add(p);
+  const top = new THREE.Mesh(new THREE.CircleGeometry(.3, 32), std('#2a2522', 1)); top.rotation.x = -Math.PI / 2; top.position.set(x, .585, z); parent.add(top);
+  decor('potted_plant_02', parent, x, z, Math.random() * 360, .32, sc);
+}
+// dijital bilgi totemi (0.6 × 1.9 m siyah cam, ince ekran kenarı)
+function totemTexture(spec, k) {
+  return canvasTexture(600, 1900, (g, w, h) => {
+    const bg = g.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#0d0f12'); bg.addColorStop(1, '#16191d'); g.fillStyle = bg; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#ffffff'; g.font = '600 46px Cinzel, Georgia, serif'; g.textAlign = 'center'; g.fillText('MTG | MOTORS', w / 2, 130);
+    g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(60, 175, w - 120, 1);
+    g.textAlign = 'left'; g.fillStyle = '#b9a07a'; g.font = '500 30px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '8px';
+    g.fillText(String(k + 1).padStart(2, '0') + '  ·  ' + spec.brand.toUpperCase(), 60, 300);
+    if ('letterSpacing' in g) g.letterSpacing = '0px';
+    g.fillStyle = '#ffffff'; let fs = 64; const words = spec.model.split(' '); const lines = []; let cur = '';
+    g.font = `500 ${fs}px Cinzel, Georgia, serif`;
+    for (const wd of words) { const t = cur ? cur + ' ' + wd : wd; if (g.measureText(t).width > w - 120) { lines.push(cur); cur = wd; } else cur = t; }
+    lines.push(cur); lines.slice(0, 3).forEach((l, i) => g.fillText(l, 60, 400 + i * 78));
+    const rows = [['MODEL YILI', String(spec.year)], ['KİLOMETRE', spec.km + ' km'], ['RENK', spec.colorName], ['İLAN NO', '#' + spec.ilanNo]];
+    rows.forEach(([a, b], i) => { const y = 720 + i * 150; g.fillStyle = 'rgba(255,255,255,.14)'; g.fillRect(60, y - 60, w - 120, 1);
+      g.fillStyle = '#8e959c'; g.font = '500 24px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '5px'; g.fillText(a, 60, y);
+      if ('letterSpacing' in g) g.letterSpacing = '0px'; g.fillStyle = '#f2f2f2'; g.font = '500 44px Inter, Arial, sans-serif'; g.fillText(b, 60, y + 56); });
+    g.fillStyle = '#8e959c'; g.font = '500 24px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '5px'; g.fillText('FİYAT', 60, 1390);
+    if ('letterSpacing' in g) g.letterSpacing = '0px'; g.fillStyle = '#ffffff'; g.font = '600 64px Inter, Arial, sans-serif'; g.fillText(spec.price, 60, 1470);
+    g.fillStyle = '#b9a07a'; g.fillRect(60, 1720, 90, 3);
+    g.fillStyle = '#8e959c'; g.font = '400 24px Inter, Arial, sans-serif'; g.fillText('mtgmotors34.sahibinden.com', 60, 1780);
+  });
+}
+function infoTotem(parent, x, z, rotY, spec, k) {
+  const M = showroomMats(), g = new THREE.Group();
+  box(.66, 1.98, .07, M.black, 0, 1.0, 0, g).castShadow = true;
+  const t = totemTexture(spec, k);
+  const scr = new THREE.Mesh(new THREE.PlaneGeometry(.6, 1.9), new THREE.MeshStandardMaterial({ map: t, emissiveMap: t, emissive: '#ffffff', emissiveIntensity: .75, roughness: .15, metalness: .1 }));
+  scr.position.set(0, 1.0, .036); g.add(scr);
+  box(.5, .03, .32, M.black, 0, .015, 0, g);
+  g.position.set(x, 0, z); g.rotation.y = rotY; parent.add(g);
+}
+// arkadan aydınlatmalı marka paneli (koyu bronz plaka, 3.6 × 0.7 m)
+function brandPanel(parent, x, y, z, w = 3.6, h = .7) {
+  const M = showroomMats();
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(w + .12, h + .12), glow('#ffe7c8', .45)); halo.position.set(x, y, z + .005); parent.add(halo);
+  box(w, h, .04, M.bronze, x, y, z + .035, parent);
+  const lt = logoTexture(2400, 420, { sub: false });
+  const logo = new THREE.Mesh(new THREE.PlaneGeometry(w * .86, w * .86 * 420 / 2400), new THREE.MeshStandardMaterial({ map: lt, emissiveMap: lt, emissive: '#f3dcb8', emissiveIntensity: .7, transparent: true, color: '#000' }));
+  logo.position.set(x, y, z + .057); parent.add(logo);
+}
+
+// araç konumu (oda içinde): merkezin biraz solu; oturma grubu sağ arkada, totem sol arkada
+const CAR_OFF = new THREE.Vector3(-1.0, 0, .3);
+const carPos = (k) => new THREE.Vector3(roomCX(k) + CAR_OFF.x, 0, ROOM_CZ + CAR_OFF.z);
+
+const rooms = [], roomDoors = [];
+// iki oda arasındaki bölme: mikro çimento yüzler, bronz kasa, duvar içine kayan cam kapı
+function buildPartition(g, x) {
+  const H = HALL_H, zF = DOOR_Z + DOOR_W / 2, zB = DOOR_Z - DOOR_W / 2, core = std('#1a1b1d', .8), M = showroomMats();
+  for (const [a, b] of [[0, zF], [zB, -ROOM_D]]) {
     const len = a - b, cz = (a + b) / 2;
     box(.3, H, len, core, x, H / 2, cz, g);
-    wallPlane(g, wallMat(thL, len, H), len, H, x - .151, H / 2, cz, -Math.PI / 2);
-    wallPlane(g, wallMat(thR, len, H), len, H, x + .151, H / 2, cz, Math.PI / 2);
+    for (const sd of [-1, 1]) wallPlane(g, microcement(len, H), len, H, x + sd * .151, H / 2, cz, sd * Math.PI / 2);
   }
   const lh = H - DOOR_H;
   box(.3, lh, DOOR_W, core, x, DOOR_H + lh / 2, DOOR_Z, g);
-  wallPlane(g, wallMat(thL, DOOR_W, lh), DOOR_W, lh, x - .151, DOOR_H + lh / 2, DOOR_Z, -Math.PI / 2);
-  wallPlane(g, wallMat(thR, DOOR_W, lh), DOOR_W, lh, x + .151, DOOR_H + lh / 2, DOOR_Z, Math.PI / 2);
-  const trim = std('#8c7350', .3, .85, .9);
-  for (const z of [zF + .05, zB - .05]) box(.36, DOOR_H, .1, trim, x, DOOR_H / 2, z, g);
-  box(.36, .1, DOOR_W + .2, trim, x, DOOR_H + .05, DOOR_Z, g);
-  for (const sd of [-1, 1]) box(.03, .03, DOOR_W + .4, glow('#fff1dc', 1.8), x + sd * .2, DOOR_H + .16, DOOR_Z, g);
+  for (const sd of [-1, 1]) wallPlane(g, microcement(DOOR_W, lh), DOOR_W, lh, x + sd * .151, DOOR_H + lh / 2, DOOR_Z, sd * Math.PI / 2);
+  for (const z of [zF + .03, zB - .03]) box(.32, DOOR_H, .06, M.black, x, DOOR_H / 2, z, g);
+  box(.32, .06, DOOR_W + .12, M.black, x, DOOR_H + .03, DOOR_Z, g);
   for (const sd of [-1, 1]) {
     const d = new THREE.Group();
-    const pane = new THREE.Mesh(new THREE.BoxGeometry(.02, DOOR_H - .04, DOOR_W / 2), glassMat); pane.position.y = (DOOR_H - .04) / 2; d.add(pane);
-    for (const z of [-DOOR_W / 4, DOOR_W / 4]) box(.04, DOOR_H - .04, .04, trim, 0, (DOOR_H - .04) / 2, z, d);
-    box(.04, .04, DOOR_W / 2, trim, 0, .02, 0, d); box(.04, .04, DOOR_W / 2, trim, 0, DOOR_H - .06, 0, d);
+    const pane = new THREE.Mesh(new THREE.BoxGeometry(.016, DOOR_H - .04, DOOR_W / 2), M.glassP); pane.position.y = (DOOR_H - .04) / 2; d.add(pane);
+    box(.03, .9, .025, M.metal, .03, 1.05, -sd * (DOOR_W / 4 - .12), d);         // dikey kulp
+    box(.02, .05, DOOR_W / 2, M.black, 0, .025, 0, d); box(.02, .05, DOOR_W / 2, M.black, 0, DOOR_H - .065, 0, d);
     d.position.set(x, 0, DOOR_Z + sd * DOOR_W / 4); d.userData = { side: sd, x }; g.add(d); roomDoors.push(d);
   }
 }
 
-function buildRoom(k) {
-  const th = themeOf(k), g = new THREE.Group(); g.name = 'Oda ' + (k + 1) + ' — ' + th.name; scene.add(g);
-  const cx = roomCX(k), cz = ROOM_CZ, W = ROOM_W, D = ROOM_D, H = HALL_H, xL = cx - W / 2, xR = cx + W / 2;
-  // zemin
-  const [ft, fsz, fcol, frough] = th.floor;
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), pbr(ft, W / fsz, D / fsz, { color: fcol, rough: frough, normal: .3, env: .75 }));
-  floor.rotation.x = -Math.PI / 2; floor.position.set(cx, 0, cz); floor.receiveShadow = true; g.add(floor);
-  // tavan: koyu düz veya siyah ızgara (ref. 5)
-  const ceilMat = th.ceil === 'grid'
-    ? new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: .9, map: repeat(canvasTexture(256, 256, (c, w, h) => { c.fillStyle = '#0d0e10'; c.fillRect(0, 0, w, h); c.strokeStyle = '#2a2c30'; c.lineWidth = 6; for (let i = 0; i <= 4; i++) { c.beginPath(); c.moveTo(i * w / 4, 0); c.lineTo(i * w / 4, h); c.stroke(); c.beginPath(); c.moveTo(0, i * h / 4); c.lineTo(w, i * h / 4); c.stroke(); } }), W / 1.2, D / 1.2) })
-    : std('#17181b', .9, 0, .1);
-  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), ceilMat); ceil.rotation.x = Math.PI / 2; ceil.position.set(cx, H, cz); g.add(ceil);
-  // duvarlar: arka duvar + dış kenar duvarları (bölmeler buildRooms'ta)
-  wallPlane(g, wallMat(th, W, H), W, H, cx, H / 2, -D + .001, 0);
-  if (k === 0) wallPlane(g, wallMat(th, D, H), D, H, xL + .001, H / 2, cz, Math.PI / 2);
-  if (k === NROOMS - 1) wallPlane(g, wallMat(th, D, H), D, H, xR - .001, H / 2, cz, -Math.PI / 2);
-  const shadowGap = std('#08090a', .9);
-  box(W, .06, .04, shadowGap, cx, .03, -D + .02, g);
-
-  if (th.lounge) { buildLoungeRoom(g, k, th); rooms.push({ group: g, theme: th, cx, cz }); return; }
-
-  const car = carPos(k), lounge = new THREE.Vector3(cx + 3.9, 0, cz - 3.4);
-  // araç altında yuvarlak halı (ref. 2, 4)
-  const rug = new THREE.Mesh(new THREE.CircleGeometry(3.7, 96), fabric(th.carpet)); rug.rotation.x = -Math.PI / 2; rug.position.set(car.x, .006, car.z); rug.receiveShadow = true; g.add(rug);
-  // oturma grubunun halısı
-  const rug2 = new THREE.Mesh(new THREE.CircleGeometry(2.0, 64), fabric(new THREE.Color(th.carpet).offsetHSL(0, -.1, .08).getStyle())); rug2.rotation.x = -Math.PI / 2; rug2.position.set(lounge.x, .007, lounge.z); g.add(rug2);
-  // tavan aydınlatması
-  if (th.ring) ringLight(g, car.x, car.z);
-  if (th.disc) acousticDisc(g, th.ring ? lounge.x : car.x, th.ring ? lounge.z : car.z, th.ring ? 1.6 : 2.4);
-  ceilingDownlights(g, cx, cz, [[car.x, car.z, 3.0], [lounge.x, lounge.z, 2.0]]);
-  for (const [dx, dz, drop] of [[-.5, .2, 1.3], [.1, -.4, 1.6], [.55, .35, 1.45]]) conePendant(g, lounge.x + dx, lounge.z + dz, drop, k % 2 ? '#e7dcc9' : '#141414');
-  // oturma grubu: kanepe, kabuk koltuklar, yuvarlak sehpa
-  modernSofa(g, lounge.x + .6, lounge.z - 1.15, 0, th.sofa);
-  shellChair(g, lounge.x - 1.0, lounge.z + .4, 130, th.chair);
-  shellChair(g, lounge.x + 1.3, lounge.z + .7, 205, th.chair);
-  roundTable(g, lounge.x + .2, lounge.z + .1);
-  decor('ceramic_vase_01', g, lounge.x + .3, lounge.z + .1, 0, .44, .8);
-  // arka duvar özelliği
-  const fx = cx - 1.5;
-  if (th.feature === 'curtain') curtain(g, W - .4, H - .05, cx, H / 2, -D + .12, th.curtain);
-  else if (th.feature === 'window') {
-    const win = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 3.2), new THREE.MeshStandardMaterial({ map: artTexture('window'), emissiveMap: artTexture('window'), emissive: '#ffffff', emissiveIntensity: .55, roughness: .2 }));
-    win.position.set(fx, 1.9, -D + .04); g.add(win); box(6.6, .08, .1, std('#1b1c1e', .4, .5), fx, .34, -D + .06, g); box(6.6, .08, .1, std('#1b1c1e', .4, .5), fx, 3.54, -D + .06, g);
-  } else {
-    const t = artTexture(th.feature, k);
-    const pw = th.feature === 'art' ? 5.4 : 3.6, ph = th.feature === 'art' ? 3.0 : 2.03;
-    const pic = new THREE.Mesh(new THREE.PlaneGeometry(pw, ph), new THREE.MeshStandardMaterial({ map: t, emissiveMap: t, emissive: '#ffffff', emissiveIntensity: th.feature === 'screen' ? .9 : .25, roughness: .4 }));
-    pic.position.set(th.feature === 'art' ? cx + .5 : lounge.x - .2, th.feature === 'art' ? 2.3 : 1.75, -D + .06); g.add(pic);
-    box(pw + .08, ph + .08, .05, std('#0b0b0c', .3, .4), pic.position.x, pic.position.y, -D + .03, g);
-    if (th.feature === 'screen') box(2.2, .5, .45, pbr('smoked_walnut_veneer', 1, .3, { normal: .5 }), pic.position.x, .25, -D + .25, g);
+function buildCeiling(g, cx, lightboxes) {
+  const M = showroomMats(), H = HALL_H, W = ROOM_W, D = ROOM_D;
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), M.ceiling); ceil.rotation.x = Math.PI / 2; ceil.position.set(cx, H, -D / 2); g.add(ceil);
+  // gömme ışık kasası: siyah gölge çerçeve + yumuşak difüzör (aracın üstünde)
+  for (const [lx, lz, lw, ld] of lightboxes) {
+    const depth = .28;
+    for (const sz of [-1, 1]) box(lw + .08, depth, .04, M.reveal, lx, H - depth / 2, lz + sz * (ld / 2 + .02), g);
+    for (const sx of [-1, 1]) box(.04, depth, ld, M.reveal, lx + sx * (lw / 2 + .02), H - depth / 2, lz, g);
+    const dif = new THREE.Mesh(new THREE.PlaneGeometry(lw, ld), M.diffuser); dif.rotation.x = Math.PI / 2; dif.position.set(lx, H - depth + .01, lz); g.add(dif);
   }
-  // beton kolon (ref. 2) ve bitkiler
-  const col = new THREE.Mesh(new THREE.CylinderGeometry(.3, .3, H, 32), pbr('concrete_floor_01', 1, 2.4, { color: '#c3c0ba', normal: .5 }));
-  col.position.set(cx - 4.6, H / 2, cz - 3.9); col.castShadow = true; g.add(col);
-  decor('potted_plant_02', g, xL + .9, -D + .9, 30, 0, 1.15);
-  decor('potted_plant_02', g, xR - .8, -.9, -40, 0, 1.0);
-  decor('planter_box_02', g, xR - .5, cz - .4, 90);
-  // oda numarası ve künye (sol duvarda, kapı yönünün tersinde)
-  const spec = CARS[TOUR[k]], pt = plaqueTex(k, spec);
-  const pl = new THREE.Mesh(new THREE.PlaneGeometry(1.4, .7), new THREE.MeshStandardMaterial({ map: pt, emissiveMap: pt, emissive: '#ffffff', emissiveIntensity: .35, roughness: .5 }));
-  pl.position.set(xL + .17, 1.75, cz - 1.5); pl.rotation.y = Math.PI / 2; g.add(pl);
-  rooms.push({ group: g, theme: th, cx, cz });
+  // lineer LED hatları (x boyunca, gömme kanal içinde)
+  for (const z of [-2.0, -11.2]) {
+    box(W - 1.2, .05, .1, M.reveal, cx, H - .025, z, g);
+    box(W - 1.3, .012, .035, M.led, cx, H - .056, z, g);
+  }
+  // duvar yalayıcı: arka (traverten) duvar boyunca tavanda gizli LED
+  box(W - .3, .06, .14, M.reveal, cx, H - .03, -D + .2, g);
+  box(W - .4, .012, .03, M.ledSoft, cx, H - .062, -D + .24, g);
 }
 
-function buildLoungeRoom(g, k, th) {
-  const cx = roomCX(k), D = ROOM_D, H = HALL_H, z1 = -D;
-  const led = glow('#ffe2bd', 1.6);
-  box(9.2, 1.9, .06, std('#0c0d0e', .5), cx, 3.0, z1 + .07, g);
-  const lt = logoTexture(3200, 420, { sub: false });
-  const logo = new THREE.Mesh(new THREE.PlaneGeometry(8.4, 1.1), new THREE.MeshStandardMaterial({ map: lt, emissiveMap: lt, emissive: '#fff0d6', emissiveIntensity: 1.1, transparent: true, color: '#000' }));
-  logo.position.set(cx, 3.0, z1 + .11); g.add(logo);
-  box(9.3, .02, .03, led, cx, 3.97, z1 + .1, g);
-  ringLight(g, cx, z1 + 4.2, 2.0);
-  ceilingDownlights(g, cx, -D / 2, [[cx, z1 + 4.2, 2.6]]);
-  const lz = z1 + 3.6;
-  modernSofa(g, cx, z1 + 1.6, 0, '#283a7a', 2.8);
-  shellChair(g, cx - 2.3, lz + .4, 120, '#c87a32');
-  shellChair(g, cx + 2.3, lz + .4, 240, '#c87a32');
-  roundTable(g, cx, lz - .1, .55);
-  decor('brass_vase_02', g, cx - .2, lz - .1, 0, .44);
-  const rug = new THREE.Mesh(new THREE.CircleGeometry(2.8, 64), fabric('#a65a34')); rug.rotation.x = -Math.PI / 2; rug.position.set(cx, .007, lz - .3); g.add(rug);
-  const wal = pbr('smoked_walnut_veneer', 1.2, .6, { normal: .6 }), gr = pbr('granite_tile_03', 1.6, .4, { rough: .45 });
-  const bx = cx + ROOM_W / 2 - 2.4, bz = -D / 2;
-  box(.9, 1.05, 4.0, wal, bx, .525, bz, g); box(1.05, .06, 4.2, gr, bx, 1.08, bz, g);
-  box(.02, .015, 3.8, led, bx - .47, .08, bz, g);
-  for (const dz of [-1.2, 0, 1.2]) decor('bar_chair_round_01', g, bx - .9, bz + dz, 90);
-  decor('CoffeeCart_01', g, cx + ROOM_W / 2 - .9, bz + 3.2, -90);
-  for (const [px, pz] of [[cx - ROOM_W / 2 + .9, z1 + .9], [cx + ROOM_W / 2 - .9, z1 + .9]]) decor('potted_plant_02', g, px, pz, 20, 0, 1.15);
-  for (const [dx, dz, drop] of [[-.4, .3, 1.3], [.3, -.2, 1.55], [.6, .4, 1.4]]) conePendant(g, bx - .3 + dx * .5, bz + dz * 2, drop);
+function buildRoom(k) {
+  const th = themeOf(k), M = showroomMats(), g = new THREE.Group(); g.name = 'Oda ' + (k + 1) + ' — ' + th.name; scene.add(g);
+  const cx = roomCX(k), cz = ROOM_CZ, W = ROOM_W, D = ROOM_D, H = HALL_H, xL = cx - W / 2, xR = cx + W / 2;
+  // zemin: büyük ebat taş, derzler dokuda; yansıma altta tek Reflector'dan
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), pbr('showroom_floor', W / 2.4, D / 2.4, { color: '#c4c1bc', rough: 1, normal: .25, env: .6 }));
+  if (floorReflector) { floor.material.transparent = true; floor.material.opacity = .93; }
+  floor.rotation.x = -Math.PI / 2; floor.position.set(cx, 0, cz); floor.receiveShadow = true; g.add(floor);
+  // arka duvar: traverten paneller + üst/alt gölge boşluğu
+  wallPlane(g, travertine(W, H), W, H, cx, H / 2, -D + .002, 0);
+  box(W, .04, .05, M.reveal, cx, .02, -D + .02, g); box(W, .05, .05, M.reveal, cx, H - .025, -D + .02, g);
+  // dış kenar duvarları (ilk odanın solu, son odanın sağı)
+  if (k === 0) wallPlane(g, microcement(D, H), D, H, xL + .002, H / 2, cz, Math.PI / 2);
+  if (k === NROOMS - 1) wallPlane(g, microcement(D, H), D, H, xR - .002, H / 2, cz, -Math.PI / 2);
+  for (const x of k === 0 ? [xL + .02] : []) box(.05, .04, D, M.reveal, x, .02, cz, g);
+
+  if (th.lounge) { buildLoungeRoom(g, k); rooms.push({ group: g, theme: th, cx, cz, light: [cx, -D + 4.4] }); return; }
+
+  const car = carPos(k);
+  buildCeiling(g, cx, [[car.x, car.z, 7.2, 4.2]]);
+  // zemine gömülü fırçalanmış metal halka (aracın sergi alanını tanımlar)
+  const ring = new THREE.Mesh(new THREE.RingGeometry(3.42, 3.47, 160), M.metal); ring.rotation.x = -Math.PI / 2; ring.position.set(car.x, .003, car.z); g.add(ring);
+  // marka paneli traverten duvarda, aracın arkasında
+  brandPanel(g, cx + .4, 2.65, -D);
+  // dijital bilgi totemi (sol arka, kameraya dönük)
+  const spec = CARS[TOUR[k]];
+  const tx = cx - 2.3, tz = -10.9, camX = car.x - 3.6, camZ = car.z + 5.3;
+  infoTotem(g, tx, tz, Math.atan2(camX - tx, camZ - tz), spec, k);
+  // oturma köşesi (sağ arka): cam bölme + arkasında ceviz panel, önünde kanepe, lounge koltuğu, traverten sehpa
+  const gz = -10.2;
+  wallPlane(g, M.walnut, 4.6, H, cx + 4.2, H / 2, -D + .01, 0).material = pbr('smoked_walnut_veneer', 3, 3, { normal: .5, env: .3 });
+  const glassW = 4.7;
+  const gp = new THREE.Mesh(new THREE.PlaneGeometry(glassW, H - .02), M.glassP); gp.position.set(cx + 4.15, H / 2, gz); g.add(gp);
+  box(glassW, .05, .06, M.black, cx + 4.15, .025, gz, g); box(glassW, .05, .06, M.black, cx + 4.15, H - .025, gz, g);
+  box(.04, H, .06, M.black, cx + 1.8, H / 2, gz, g);
+  premiumSofa(g, cx + 4.3, gz + .75, 0);
+  decor('mid_century_lounge_chair', g, cx + 2.6, gz + 2.5, 150);
+  blockTable(g, cx + 4.3, gz + 2.15);
+  // lineer sarkıt lamba oturma grubunun üstünde
+  const lp = new THREE.Group(); box(1.8, .05, .08, M.black, 0, 0, 0, lp); box(1.76, .01, .05, M.led, 0, -.03, 0, lp);
+  for (const sx of [-.8, .8]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(.003, .003, 1.6, 4), M.black); w.position.set(sx, .8, 0); lp.add(w); }
+  lp.position.set(cx + 4.3, H - 1.6, gz + 1.6); g.add(lp);
+  // bitkiler: taş saksıda
+  plantInPlanter(g, xL + .7, -D + .8, 1.25);
+  plantInPlanter(g, xL + .7, -.9, 1.1);
+  rooms.push({ group: g, theme: th, cx, cz, light: [car.x, car.z] });
+}
+
+function buildLoungeRoom(g, k) {
+  const M = showroomMats(), cx = roomCX(k), D = ROOM_D, H = HALL_H;
+  buildCeiling(g, cx, [[cx, -D + 4.4, 6.0, 3.6]]);
+  brandPanel(g, cx, 3.0, -D, 6.4, 1.2);
+  const lz = -D + 4.4;
+  premiumSofa(g, cx, -D + 2.2, 0, 3.0);
+  decor('mid_century_lounge_chair', g, cx - 2.3, lz + .8, 130);
+  decor('mid_century_lounge_chair', g, cx + 2.3, lz + .8, 230);
+  blockTable(g, cx, lz);
+  // traverten resepsiyon / kahve bankosu
+  const bx = cx + ROOM_W / 2 - 2.3, bz = -D / 2 + .6;
+  const counter = new THREE.Mesh(new RoundedBoxGeometry(.9, 1.05, 3.6, 3, .02), travertine(3.6, 1.05)); counter.position.set(bx, .525, bz); counter.castShadow = counter.receiveShadow = true; g.add(counter);
+  box(.8, .06, 3.5, M.plinth, bx, .03, bz, g);
+  box(.02, .012, 3.4, M.ledSoft, bx - .46, .07, bz, g);
+  for (const dz of [-1.0, 0, 1.0]) decor('bar_chair_round_01', g, bx - .95, bz + dz, 90);
+  decor('brass_vase_02', g, bx, bz - 1.3, 0, 1.05, .9);
+  plantInPlanter(g, cx - ROOM_W / 2 + .8, -D + .8, 1.3);
+  plantInPlanter(g, cx + ROOM_W / 2 - .8, -D + .8, 1.3);
 }
 
 function buildRooms() {
+  if (!isMobile) {   // tek yansıma düzlemi: tüm binanın zemini
+    floorReflector = new Reflector(new THREE.PlaneGeometry(HALL_W, ROOM_D), {
+      clipBias: .003, color: '#5c5c5c',
+      textureWidth: Math.floor(innerWidth * .5), textureHeight: Math.floor(innerHeight * .5),
+    });
+    floorReflector.rotation.x = -Math.PI / 2; floorReflector.position.set(0, -.001, -ROOM_D / 2); scene.add(floorReflector);
+  }
   for (let k = 0; k < NROOMS; k++) buildRoom(k);
-  for (let k = 0; k < NROOMS - 1; k++) buildPartition(rooms[k].group, roomCX(k) + ROOM_W / 2, themeOf(k), themeOf(k + 1));
+  for (let k = 0; k < NROOMS - 1; k++) buildPartition(rooms[k].group, roomCX(k) + ROOM_W / 2);
 }
 
-// oda ışıkları: iki alan ışığı bulunulan ve sonraki odaya taşınır (ışık sayısı sabit → shader yeniden derlenmez)
-const roomLightA = new THREE.RectAreaLight('#ffffff', 5, 7, 6), roomLightB = new THREE.RectAreaLight('#ffffff', 5, 7, 6);
+// oda ışıkları: ışık kasasının altında alan ışığı; bulunulan ve sonraki odaya taşınır (ışık sayısı sabit)
+const roomLightA = new THREE.RectAreaLight('#ffffff', 5, 7.2, 4.2), roomLightB = new THREE.RectAreaLight('#ffffff', 5, 7.2, 4.2);
 scene.add(roomLightA, roomLightB);
 function placeRoomLight(l, k) {
   const r = rooms[THREE.MathUtils.clamp(k, 0, rooms.length - 1)];
-  l.position.set(r.cx, HALL_H - .05, r.cz); l.lookAt(r.cx, 0, r.cz);
+  l.position.set(r.light[0], HALL_H - .27, r.light[1]); l.lookAt(r.light[0], 0, r.light[1]);
   l.color.set(r.theme.light); l.intensity = r.theme.lightI;
 }
 let lastRoomK = null;
@@ -1992,7 +1979,6 @@ function updateRooms() {
     renderer.shadowMap.needsUpdate = true;
     lastRoomK = k;
   }
-  // kamera yaklaştıkça bölme kapıları duvarın içine kayar
   for (const d of roomDoors) {
     const open = 1 - THREE.MathUtils.smoothstep(Math.hypot(camera.position.x - d.userData.x, (camera.position.z - DOOR_Z) * .6), 2.2, 5.5);
     d.position.z = DOOR_Z + d.userData.side * (DOOR_W / 4 + (DOOR_W / 2 + .02) * open);
@@ -2286,8 +2272,7 @@ addEventListener('resize', () => {
 
 
   if (floorReflector) {
-    const pr = Math.min(devicePixelRatio, 1.5) * .5;
-    floorReflector.getRenderTarget().setSize(Math.floor(innerWidth * pr), Math.floor(innerHeight * pr));
+    floorReflector.getRenderTarget().setSize(Math.floor(innerWidth * .5), Math.floor(innerHeight * .5));
   }
 });
 

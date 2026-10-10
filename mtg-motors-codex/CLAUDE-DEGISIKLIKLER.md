@@ -118,3 +118,37 @@ Artık görünmeyen katmanlara `data-hidden` (`visibility: hidden`) uygulanıyor
   `goToStop` kullanır. Test için `window.mtgGo(i)` var.
 - Yalnızca bulunulan oda ve iki komşusu çizilir; dışarıdayken bütün odalar görünür.
   İki alan ışığı bulunulan ve sonraki odaya taşınır.
+
+---
+
+# Dördüncü güncelleme: premium, fotogerçekçi showroom
+
+## Analiz: önceki sahnenin zayıf noktaları
+1. **Mobilya:** Prosedürel kutu kanepe ve küre parçası "kabuk" koltuklar oyun objesi gibi duruyordu. `planter_box_02` (ahşap sandık) showroom'a uymuyordu.
+2. **Duvarlar:** Oda başına değişen mor perde, spiral poster, neon ekran ve renkli halılar fuar standı hissi veriyordu.
+3. **Işık:** Halka lamba ince bir çember gibiydi, koyu tavandaki nokta spotlar yıldız gibiydi. Işık düzdü ve temas gölgesi zayıftı.
+4. **Zemin:** Yansıma yoktu; halılar kalınlıksız düz dairelerdi.
+5. **Mimari detay:** Panel derzi, gölge boşluğu, gömme tavan kasası yoktu; odalar boş kutu gibiydi.
+6. **Mekân içi bilgi:** Dijital ekran ya da marka paneli yoktu.
+
+## Yeni düzen (her odada aynı sakin malzeme dili)
+- **Zemin:** 1,2 × 1,2 m büyük ebat açık gri taş/cilalı beton, derzler dokuda (`textures/showroom_floor`). Tek bir
+  `Reflector` bütün binanın zeminini kapsıyor; zemin %93 opak katman olarak üstünde. Bu katman masaüstünde açık, mobilde kapalı.
+- **Duvarlar:** sıcak açık gri mikro çimento (`textures/microcement`). Aracın arkası 1,2 × 2,4 m traverten paneller (`textures/travertine_panel`).
+  Zemin ve tavan birleşimlerinde siyah gölge boşlukları var.
+- **Tavan:** antrasit. Aracın üstünde 7,2 × 4,2 m gömme ışık kasası (difüzör + alan ışığı), iki paralel lineer LED hattı ve traverten duvarı yalayan gizli LED.
+- **Sergi alanı:** araç doğrudan cilalı zeminde; zemine gömülü ince fırçalanmış metal halka sergi alanını tanımlıyor.
+- **Oturma köşesi (sağ arka):** siyah profilli cam bölme, arkasında füme ceviz panel. Önünde alçak modüler kanepe (2,6 m, oturum 0,42 m), Eames tarzı lounge koltuğu (Poly Haven modeli), traverten blok sehpa (0,9 × 0,9 × 0,35 m) ve seramik vazo. Üstünde lineer sarkıt lamba.
+- **Dijital bilgi totemi:** 0,6 × 1,9 m siyah cam; marka, model, yıl, km, renk, ilan no ve fiyat gösteriyor.
+- **Marka paneli:** traverten duvarda, arkadan aydınlatmalı koyu bronz MTG | MOTORS paneli.
+- **Bitkiler:** taş (mikro çimento) silindir saksılarda büyük bitkiler.
+- **Lounge (son oda):** aynı malzemeler, büyük marka paneli, kanepe ve iki lounge koltuğu, traverten banko ve bar tabureleri.
+
+## Kaldırılanlar
+Kutu kanepe, kabuk koltuklar, ahşap sandık, posterler/sanat panoları, perdeler, renkli halılar, halka lambalar,
+nokta spot ızgarası, koni sarkıtlar, beton kolon ve kahve arabası.
+
+## Dosyalar
+- `textures/`: `showroom_floor`, `microcement`, `travertine_panel` (CC0 kaynaklardan üretildi: ambientCG Travertine009,
+  Poly Haven plaster_grey_04), `smoked_walnut_veneer`, `velour_velvet`, `granite_tile_03`, `stone_tile_wall`.
+- `models/decor/`: yalnızca `potted_plant_02`, `mid_century_lounge_chair`, `ceramic_vase_01`, `brass_vase_02`, `bar_chair_round_01`.
