@@ -52,3 +52,37 @@ konumlarına bu şekilde yazılınca geometri bozuluyordu. Şimdi bütün öznit
 - Araç adalarının altında hacimsel ışık huzmeleri.
 - Uzakta alacakaranlık şehir silueti.
 - Meydan kenarında sıcak ışıklı babalar.
+
+---
+
+# Oda dizisi (enfilad) düzeni — ikinci güncelleme
+
+Araçlar artık tek salonda yan yana durmuyor. Her araç **kendi odasında** sergileniyor ve odalar
+**sürgülü cam kapılarla** birbirine bağlanıyor. Kamera bir odadaki aracı gösterip sonraki kapıdan
+geçiyor, bir sonraki oda kapı çerçevesinde beliriyor.
+
+- **Tur sırası:** `TOUR = [1, 6, 3, 0, 5, 2, 4]`: BMW 420i ilk, ardından Kuga, Golf, Ateca, Corsa, Mercedes ve 320i. Son oda lounge ve kahve barı.
+- **Oda ölçüsü:** `ROOM_W=14`, `ROOM_D=12`, kapı genişliği 3 m, yüksekliği 3.3 m.
+- **Her odanın kendi teması var (`THEMES`):** ceviz-bronz, traverten, beton stüdyo, taş-yeşil, beyaz minimal, deri-ceviz, granit-bronz.
+- **Odaların ortak öğeleri:**
+  - zemin ve duvarlarda gerçek PBR dokular (renk, pürüzlülük ve normal haritası)
+  - bronz derzler, gölge boşluklu süpürgelik ve LED kovesi
+  - aracın üstünde gömme ışık kasası
+  - arka duvarda oda numarası ve araç künyesi
+  - koltuk, yan sehpa ve saksılar
+- **Kamera:** her odada dört çekim (`SHOTS_PER_CAR = 4`):
+  1. giriş: oda ve aracın tamamı
+  2. far yakın planı
+  3. alçak yan profil
+  4. sonraki kapıya dönüş
+- **Kapılar:** odalar arasındaki kapılar kamera yaklaşınca duvarın içine kayar (`updateRooms`).
+- **Performans:** yalnızca kameranın bulunduğu odanın bir öncesi ve iki sonrası çizilir. İki alan ışığı (`RectAreaLight`) bulunulan odaya ve sonrakine taşınır; ışık sayısı sabit kaldığı için shader yeniden derlenmez.
+- **Kodla çizilen bina:** dış kabuk, taş kolonlu giriş cephesi, cam saçak ve ışıklı tabela.
+- **Blender salon dosyası:** `showroom-blender.glb` tek salon düzenine göre yapılmış olduğu için bu modda yüklenmiyor; `buildRooms()` onun yerini alıyor.
+
+## Yeni varlıklar (Poly Haven, CC0)
+- `textures/`: 10 PBR doku seti (marble_01, walnut_veneer, smoked_walnut_veneer, plastered_wall_04,
+  stone_tile_wall, velour_velvet, brown_leather, granite_tile_03, concrete_floor_01, slab_tiles);
+  WebP formatında, `textures/textures.js` içinde gömülü kopyaları var.
+- `models/decor/`: 13 mobilya/bitki modeli (kanepe, koltuklar, sehpalar, saksı bitkileri, sarkıt lamba,
+  bar tabureleri, kahve arabası), meshopt + WebP; `models/decor/decor.js` içinde gömülü kopyaları var.

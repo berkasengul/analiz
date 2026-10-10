@@ -318,6 +318,7 @@ header{transition:top 1.4s cubic-bezier(.65,0,.2,1)}
 <div id="scroller"></div>
 
 <script src="cutouts/cutouts.js"></script>
+<script src="textures/textures.js"></script>
 <script type="importmap">
 {
   "imports": {
@@ -484,12 +485,18 @@ const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
 
 // ---------- Ölçüler ----------
-const HALL_W = 22;                       // iç genişlik (x: -11..11)
+// Oda dizisi (enfilad): her araç kendi odasında, odalar arasında sürgülü kapılar.
+// Tur sırası: BMW 420i ilk; son oda lounge + kahve barı.
+const TOUR = [1, 6, 3, 0, 5, 2, 4].filter((i) => i < CARS.length);
+const ROOM_W = 14, ROOM_D = 12, DOOR_W = 3.0, DOOR_H = 3.3;
+const NROOMS = TOUR.length + 1;
+const roomFront = (k) => -k * ROOM_D, roomBack = (k) => -(k + 1) * ROOM_D, roomCenter = (k) => -(k + .5) * ROOM_D;
+const HALL_W = ROOM_W;
 const HALL_H = 4.8;
-const CAR_SPACING = 7.6;
-const FIRST_CAR_Z = -9;
-const lastCarZ = FIRST_CAR_Z - Math.floor((CARS.length - 1) / 2) * CAR_SPACING;
-const HALL_D = -lastCarZ + 9;           // iç derinlik (z: 0..-HALL_D)
+const CAR_SPACING = ROOM_D;
+const FIRST_CAR_Z = roomCenter(0);
+const lastCarZ = roomCenter(TOUR.length - 1);
+const HALL_D = NROOMS * ROOM_D;          // iç derinlik (z: 0..-HALL_D)
 const BACK_Z = -HALL_D;
 
 // ---------- Yardımcılar ----------
@@ -749,28 +756,39 @@ function glassWall(len, h, cx, cz, rotY, step = 2.4) {
 }
 
 function buildBuilding(){
- const bronze=std('#988364',.3,.85,.8),shell=std('#252b2b',.7,.15,.4);
- // Glass pavilion shell; sculpted entrance is supplied by the Blender asset.
- for(const side of [-1,1])glassWall(HALL_D,HALL_H,side*HALL_W/2,-HALL_D/2,Math.PI/2);
- box(HALL_W+.2,HALL_H,.2,shell,0,HALL_H/2,BACK_Z-.1);
- box(HALL_W+.6,.22,HALL_D+.4,shell,0,HALL_H+.11,-HALL_D/2);
+ const bronze=std('#988364',.3,.85,.8), T=.3, HH=HALL_H+.6;
+ const clad=pbr('granite_tile_03',(HALL_D)/2.4,HH/2.4,{color:'#6b6966',rough:.9,normal:.6,env:.25});
+ const cladS=pbr('granite_tile_03',(ROOM_W+2*T)/2.4,HH/2.4,{color:'#6b6966',rough:.9,normal:.6,env:.25});
+ const dark=std('#1b1e20',.6,.3,.3);
+ // dış kabuk: yan duvarlar, arka duvar, çatı (iç yüzeyler odalardan gelir)
+ for(const sd of [-1,1]) box(T,HH,HALL_D+T,clad,sd*(ROOM_W/2+T/2),HH/2,-HALL_D/2);
+ box(ROOM_W+2*T,HH,T,cladS,0,HH/2,BACK_Z-T/2);
+ box(ROOM_W+2*T+.8,.32,HALL_D+1.2,dark,0,HH+.16,-HALL_D/2+.3);
+ // giriş cephesi: taş kolonlar, vitrin camları, bronz sürgülü kapılar, cam saçak, ışıklı tabela
+ const pil=pbr('stone_tile_wall',.6,HH/1.6,{color:'#e9dfcf',normal:.8});
+ for(const x of [-ROOM_W/2,-3.2,3.2,ROOM_W/2]) box(.7,HH,.7,pil,x,HH/2,.05);
  for(const side of [-1,1]){
-  glassWall(6.8,4.25,side*7.65,0,0,2.26);
+  const a=3.2+.35, b=ROOM_W/2-.35;
+  glassWall(b-a,4.25,side*(a+b)/2,0,0,1.8);
   box(.07,4.3,.12,bronze,side*2.86,2.15,.12);
  }
  box(5.78,.14,.2,bronze,0,3.8,.14);
  const transom=new THREE.Mesh(new THREE.PlaneGeometry(5.68,.4),glassMat);transom.position.set(0,4.06,.12);scene.add(transom);
  for(const z of [.04,.25])box(5.8,.015,.025,bronze,0,.027,z);
+ box(ROOM_W+1.4,1.0,.6,dark,0,HALL_H+.1,.25);
+ const signTex=logoTexture(4096,360,{sub:false,phones:true});
+ const sign=new THREE.Mesh(new THREE.PlaneGeometry(13.4,1.18),new THREE.MeshStandardMaterial({map:signTex,emissiveMap:signTex,emissive:'#fff1dc',emissiveIntensity:1.25,transparent:true,color:'#000'}));
+ sign.position.set(0,HALL_H+.1,.56);scene.add(sign);
+ const canopy=new THREE.Mesh(new THREE.PlaneGeometry(6.6,2.6),glassMat);canopy.rotation.x=-Math.PI/2+.06;canopy.position.set(0,4.1,1.4);scene.add(canopy);
+ for(const x of [-3.3,3.3])box(.07,.07,2.6,bronze,x,4.1,1.4);
  for(const side of [-1,1]){
   const door=new THREE.Group();door.name='Bronze sliding entrance '+side;
   const pane=new THREE.Mesh(new THREE.BoxGeometry(2.76,3.68,.018),glassMat);pane.position.y=1.85;door.add(pane);
   for(const x of [-1.4,1.4])box(.045,3.72,.065,bronze,x,1.86,0,door);
   for(const y of [.035,3.71])box(2.83,.045,.065,bronze,0,y,0,door);
-  // Raised pull with two standoffs, kick plate and a subtle safety band.
   for(const y of [1.03,2.04])box(.08,.035,.09,bronze,-side*1.17,y,.085,door);
   box(.045,1.08,.045,bronze,-side*1.17,1.54,.14,door);
   box(2.74,.16,.022,bronze,0,.14,.022,door);
-  const band=new THREE.Mesh(new THREE.PlaneGeometry(2.7,.018),new THREE.MeshBasicMaterial({color:'#cfccbf',transparent:true,opacity:.5}));band.position.set(0,1.35,.021);door.add(band);
   door.position.set(side*1.41,0,.15);door.userData.side=side;scene.add(door);doors.push(door);
  }
 }
@@ -974,7 +992,7 @@ function loadEmbeddedModels() {
     el.onload = el.onerror = resolve;
     document.head.appendChild(el);
   });
-  embeddedModels ??= Promise.all([load('models/models.js'), load('models/web/extra-models.js')]);
+  embeddedModels ??= Promise.all([load('models/models.js'), load('models/web/extra-models.js'), load('models/decor/decor.js')]);
   return embeddedModels;
 }
 
@@ -1295,9 +1313,10 @@ function buildStations() {
   const baseMat = new THREE.MeshStandardMaterial({color:'#b8b0a0',map:plinthMap,bumpMap:plinthMap,bumpScale:.014,metalness:.08,roughness:.47,envMapIntensity:.55});
   const trimMat=new THREE.MeshStandardMaterial({color:'#a38a61',metalness:.85,roughness:.3});
   const ringMat = glow('#e4d5b6', .18);
-  CARS.forEach((spec, i) => {
-    const side = i % 2 === 0 ? -1 : 1;
-    const x = side * 6, z = FIRST_CAR_Z - Math.floor(i / 2) * CAR_SPACING;
+  TOUR.forEach((ci, i) => {
+    const spec = CARS[ci];
+    const side = i % 2 ? 1 : -1;          // kameranın aracın etrafında döndüğü taraf
+    const x = 0, z = roomCenter(i);
     const st = new THREE.Group();
     st.position.set(x, 0, z);
     scene.add(st);
@@ -1322,7 +1341,7 @@ function buildStations() {
     } else {
       turn.add(spec._scene ? prepareCarModel(spec) : coverCar(buildCar(spec)));
     }
-    turn.rotation.y = side < 0 ? -.55 : Math.PI + .55;
+    turn.rotation.y = Math.atan2(-.88, side * .48);   // ön: girişe doğru, dönüş tarafına çapraz
 
     // bilgi panosu (koridora bakan)
     const stand = new THREE.Group();
@@ -1341,7 +1360,7 @@ function buildStations() {
 
     // kamera yolundaki iki çekim açısı (buildCameraPath ile aynı): fotoğraf geçişleri bunların arasında olur
     const aisle = -side;
-    stations.push({ group: st, turn, photo, side, x, z, spec, baseRot: turn.rotation.y,
+    stations.push({ group: st, turn, photo, side, x, z, spec, room: i, baseRot: turn.rotation.y,
       yawA: Math.atan2(aisle * 7.6, 4.2), yawB: Math.atan2(aisle * 6.2, -2.6) });
   });
 }
@@ -1354,41 +1373,39 @@ function buildStations() {
 const keys = [];
 const K = (pos, look, fov = 42, tag = null, roll = 0) => keys.push({ pos: new THREE.Vector3(...pos), look: new THREE.Vector3(...look), fov, tag, roll });
 const carKeyIndex = [];
-const SHOTS_PER_CAR = 3;
+const SHOTS_PER_CAR = 4;
 
 // Aracın yerel eksenleri: F = ön, S = koridora bakan yan
 function carFrame(st) {
   const F = new THREE.Vector3(Math.cos(st.baseRot), 0, -Math.sin(st.baseRot));
   const S = new THREE.Vector3(-F.z, 0, F.x);
-  if (S.x * -st.side < 0) S.negate();
+  if (Math.sign(S.x) !== st.side) S.negate();          // S: kameranın döndüğü yan
   const C = new THREE.Vector3(st.x, 0, st.z);
   return (f, sd, y) => C.clone().addScaledVector(F, f).addScaledVector(S, sd).setY(y).toArray();
 }
 
+// Her oda dört çekim: giriş (aracın tamamı) → far yakın planı → alçak yan profil → sonraki kapıya dönüş.
+// Kamera kapıdan geçerken bir sonraki araç kapı çerçevesinde görünür.
 function buildCameraPath() {
-  K([-9, 4.4, 25], [-7.5, 2.4, 0], 38, 'hero');             // yüksek, geniş dış plan
-  K([7, 1.9, 14], [0, 2.3, 0], 40, null, -1.6);              // inen vinç + yay, hafif dutch
-  K([0, 1.7, 6.2], [0, 2.0, 0], 44, 'door');                 // kapıya yaklaşma
-  K([0, 1.65, .6], [0, 1.6, -10], 54, null);                 // kapıdan geçiş: geniş açı (dolly-zoom hissi)
-  K([0, 3.45, -3.8], [0, .95, -22], 50, 'welcome');          // içeride vinç yükselişi, salona genel bakış
+  K([-12, 4.6, 26], [-5, 2.4, 0], 38, 'hero');               // yüksek, geniş dış plan
+  K([6, 1.9, 13], [0, 2.3, 0], 40, null, -1.6);              // inen vinç + yay
+  K([0, 1.7, 5.6], [0, 1.9, -6], 46, 'door');                // giriş kapısına yaklaşma
   stations.forEach((st, i) => {
     const at = carFrame(st);
     const L = (st.spec.length || 4.6) / 2;
-    // yakın plan: far + tampon köşesi (SUV'larda far daha yüksekte)
     const lampY = st.spec.type === 'suv' ? .95 : .78;
-    const detail  = () => K(at(L + 1.35, 1.0, lampY - .05), at(L - .3, .5, lampY - .12), 32, `car${i}`, 1.2);   // at(ön, yan, yükseklik)
-    const reveal  = () => K(at(4.9, 1.6, 1.85), at(.3, 0, .78), 40, `car${i}`);
-    const profile = () => K(at(.1, 5.3, .66), at(-.15, 0, .7), 38, `car${i}`, -.6);
+    const z0 = roomFront(i), z1 = roomBack(i), s = st.side;
     carKeyIndex[i] = keys.length;
-    const last = i === stations.length - 1;
-    if (st.side > 0 || (last && st.side < 0)) { profile(); reveal(); detail(); }
-    else { detail(); reveal(); profile(); }
-    // fotoğraf kesimi yedeği için çekim açıları
+    K([0, 1.75, z0 - 1.3], [0, .75, st.z], 46, `car${i}`);                                       // giriş: oda + araç
+    K(at(L + 1.35, 1.0, lampY - .05), at(L - .3, .5, lampY - .12), 32, `car${i}`, 1.2);          // far yakın planı
+    K(at(.1, 4.6, .62), at(-.15, 0, .7), 38, `car${i}`, -.6);                                     // alçak yan profil
+    K([s * 1.2, 1.7, z1 + 2.3], [0, 1.45, z1 - 8], 44, `car${i}`);                               // sonraki kapıya
     const ang = (k) => Math.atan2(k.pos.x - st.x, k.pos.z - st.z);
-    st.yawA = ang(keys[carKeyIndex[i]]); st.yawB = ang(keys[carKeyIndex[i] + 2]);
+    st.yawA = ang(keys[carKeyIndex[i] + 1]); st.yawB = ang(keys[carKeyIndex[i] + 2]);
   });
-  K([0, 2.5, BACK_Z + 12], [0, 2.0, BACK_Z], 44, 'finale');
-  K([0, 1.7, BACK_Z + 7.2], [0, 2.2, BACK_Z], 38, 'finale');  // yavaş itiş (push-in)
+  const lk = NROOMS - 1;
+  K([0, 1.8, roomFront(lk) - 1.6], [0, 1.4, roomBack(lk)], 48, 'finale');
+  K([0, 1.65, roomBack(lk) + 7.0], [0, 2.4, roomBack(lk)], 42, 'finale');                         // lounge'a yavaş itiş
   buildTourCurves();
 }
 
@@ -1499,14 +1516,14 @@ function buildUI() {
     b.type = 'button';
     b.innerHTML = '<span></span><i></i>';
     b.querySelector('span').textContent = `${s.brand} ${s.model}`;
-    b.onclick = () => scrollToKey(carKeyIndex[i] + 1);
+    b.onclick = () => scrollToKey(carKeyIndex[i]);
     rail.appendChild(b);
   });
 
   const credited = CARS.filter((c) => c._scene && c.credit);
   if (credited.length) {
     const el = $('credits');
-    el.append('3D modeller temsilidir, ilandaki renk ve donanıma göre boyanmıştır. BMW 320i gövdesi proje içinde modellenmiştir. Diğer modeller — CC BY 4.0: ');
+    el.append('Mobilya, bitki ve yüzey dokuları: Poly Haven (CC0). 3D modeller temsilidir, ilandaki renk ve donanıma göre boyanmıştır. BMW 320i gövdesi proje içinde modellenmiştir. Diğer modeller — CC BY 4.0: ');
     credited.forEach((c, i) => {
       const a = document.createElement('a');
       a.href = c.credit.url; a.target = '_blank'; a.rel = 'noopener';
@@ -1541,7 +1558,7 @@ addEventListener('keydown', (e) => {
 });
 
 // Kaydırma uzunluğu: her kamera geçişi ~85vh
-const SEG_VH = 72;
+const SEG_VH = 62;
 function layoutScroller() {
   $('scroller').style.height = `${(keys.length - 1) * SEG_VH + 100}vh`;
 }
@@ -1680,6 +1697,225 @@ async function buildLuxuryDetails(){
  const facade=new THREE.RectAreaLight('#fff0d6',2.8,12,2);facade.position.set(0,4.3,5);facade.lookAt(0,3,.6);scene.add(facade);
 }
 
+// ---------- Oda sistemi ----------
+// Gerçek PBR dokular (Poly Haven, CC0): textures/<ad>/{Diffuse,Rough,nor_gl}.webp
+// file:// açılışında textures/textures.js içindeki gömülü kopyalar kullanılır.
+const pbrLoader = new THREE.TextureLoader();
+const PBR = {};
+async function preloadTextures(names) {
+  await Promise.all(names.flatMap((n) => ['Diffuse', 'Rough', 'nor_gl'].map(async (m) => {
+    const k = `${n}/${m}`;
+    try {
+      const t = await pbrLoader.loadAsync(window.MTG_TEX?.[k] || `textures/${k}.webp`);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+      if (m === 'Diffuse') t.colorSpace = THREE.SRGBColorSpace;
+      PBR[k] = t;
+    } catch (e) { console.warn('Doku yüklenemedi', k); }
+  })));
+}
+// pbr(ad, tekrarX, tekrarY, {color, rough, metal, normal, env})
+function pbr(name, rx, ry, o = {}) {
+  const tx = (m) => { const b = PBR[`${name}/${m}`]; if (!b) return null; const t = b.clone(); t.repeat.set(rx, ry); t.needsUpdate = true; return t; };
+  const nrm = o.normal ?? .8;
+  return new THREE.MeshStandardMaterial({
+    map: tx('Diffuse'), roughnessMap: tx('Rough'), normalMap: tx('nor_gl'), normalScale: new THREE.Vector2(nrm, nrm),
+    color: o.color || '#ffffff', roughness: o.rough ?? 1, metalness: o.metal ?? 0, envMapIntensity: o.env ?? .4,
+  });
+}
+
+// Oda temaları — her araç farklı bir atmosferde.
+//  floor/wall: [doku, karo boyu (m), renk çarpanı, pürüzlülük/normal]
+const THEMES = [
+  { name: 'Ceviz & Bronz',    floor: ['marble_01', 2.4, '#ffffff', .32], wall: ['smoked_walnut_veneer', 1.1, '#ffffff', .8], ceil: '#121315', light: '#ffe5c2', lightI: 6, trim: '#8f7048', slats: 'walnut_veneer' },
+  { name: 'Traverten Galeri', floor: ['marble_01', 2.0, '#efe4d4', .35],   wall: ['stone_tile_wall', 1.8, '#efe4d2', .7],     ceil: '#e6e1d8', light: '#fff4e4', lightI: 4.5, trim: '#a48a62' },
+  { name: 'Beton Stüdyo',     floor: ['concrete_floor_01', 3, '#d9d7d2', .5], wall: ['concrete_floor_01', 2.6, '#b5b3ae', .6], ceil: '#1b1c1e', light: '#f2f5ff', lightI: 6, trim: '#2a2c2f', ribs: true },
+  { name: 'Taş & Yeşil',      floor: ['granite_tile_03', 1.2, '#ffffff', .4], wall: ['stone_tile_wall', 1.4, '#c9c3b6', .8], ceil: '#25292a', light: '#fff0da', lightI: 5.5, trim: '#7b6a4f', greens: true },
+  { name: 'Beyaz Minimal',    floor: ['marble_01', 2.0, '#f6f4f1', .3],    wall: ['plastered_wall_04', 2.4, '#f1efeb', .45], ceil: '#f3f1ee', light: '#ffffff', lightI: 4, trim: '#cfc8bc' },
+  { name: 'Deri & Ceviz',     floor: ['smoked_walnut_veneer', 1.6, '#ffffff', .55], wall: ['brown_leather', 1.1, '#ffffff', .7], ceil: '#17130f', light: '#ffd9a8', lightI: 6, trim: '#9b7a4a', slats: 'smoked_walnut_veneer' },
+  { name: 'Granit & Bronz',   floor: ['granite_tile_03', 1.2, '#ffffff', .35], wall: ['granite_tile_03', 1.4, '#8f8f8f', .9], ceil: '#101113', light: '#edf1ff', lightI: 6, trim: '#a07d4c' },
+];
+const LOUNGE_THEME = { name: 'MTG Lounge', floor: ['marble_01', 2.4, '#ffffff', .32], wall: ['walnut_veneer', 1.1, '#ffffff', .7], ceil: '#14120f', light: '#ffdcb4', lightI: 5, trim: '#9a7a4c', slats: 'smoked_walnut_veneer' };
+const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : THEMES[k % THEMES.length]);
+const THEME_TEXTURES = [...new Set([...THEMES, LOUNGE_THEME].flatMap((t) => [t.floor[0], t.wall[0], t.slats].filter(Boolean)).concat(['granite_tile_03', 'stone_tile_wall', 'velour_velvet']))];
+
+// dekor modelleri (Poly Haven, CC0) — bir kez yüklenir, kopyalanır
+const DECOR = {};
+async function loadDecor() {
+  const names = ['potted_plant_02', 'potted_plant_04', 'planter_box_02', 'sofa_03', 'modern_arm_chair_01', 'mid_century_lounge_chair',
+    'modern_coffee_table_01', 'side_table_01', 'ceramic_vase_01', 'brass_vase_02', 'modern_ceiling_lamp_01', 'bar_chair_round_01', 'CoffeeCart_01'];
+  if (location.protocol === 'file:') await loadEmbeddedModels();
+  await Promise.all(names.map(async (n) => {
+    const url = `models/decor/${n}.glb`;
+    try {
+      const b64 = window.MTG_MODELS?.[url];
+      const g = b64 ? await gltfLoader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : await gltfLoader.loadAsync(url);
+      g.scene.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; if (o.material) o.material.envMapIntensity = .6; } });
+      DECOR[n] = g.scene;
+    } catch (e) { console.warn('Dekor yüklenemedi', n); }
+  }));
+}
+function decor(name, parent, x, z, rotDeg = 0, y = 0, sc = 1) {
+  if (!DECOR[name]) return null;
+  const o = DECOR[name].clone(true);
+  o.position.set(x, y, z); o.rotation.y = THREE.MathUtils.degToRad(rotDeg); o.scale.setScalar(sc);
+  parent.add(o); return o;
+}
+
+function plaqueTex(k, spec) {
+  return canvasTexture(1024, 512, (g, w, h) => {
+    g.fillStyle = '#121416'; g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#a8895a'; g.lineWidth = 4; g.strokeRect(18, 18, w - 36, h - 36);
+    g.fillStyle = '#c9a86f'; g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+    g.font = '600 150px Cinzel, Georgia, serif'; g.fillText(String(k + 1).padStart(2, '0'), 70, 210);
+    g.fillStyle = '#efe8dc'; g.font = '500 44px Inter, Arial, sans-serif';
+    if ('letterSpacing' in g) g.letterSpacing = '10px';
+    g.fillText(spec.brand.toUpperCase(), 72, 300);
+    if ('letterSpacing' in g) g.letterSpacing = '1px';
+    let fs = 54; do { g.font = `600 ${fs}px Cinzel, Georgia, serif`; fs -= 2; } while (g.measureText(spec.model).width > w - 150 && fs > 24);
+    g.fillText(spec.model, 72, 380);
+    g.fillStyle = '#a8895a'; g.fillRect(72, 420, 160, 3);
+    g.fillStyle = '#9da3a8'; g.font = '400 30px Inter, Arial, sans-serif';
+    g.fillText(`${spec.year} · ${spec.km} km · ${spec.colorName}`, 72, 470);
+  });
+}
+
+const rooms = [], roomDoors = [];
+function wallPlane(group, mat, w, h, x, y, z, rotY) {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+  m.position.set(x, y, z); m.rotation.y = rotY; m.receiveShadow = true; group.add(m); return m;
+}
+function buildRoom(k) {
+  const th = themeOf(k), g = new THREE.Group(); g.name = 'Oda ' + (k + 1) + ' — ' + th.name; scene.add(g);
+  const z0 = roomFront(k), z1 = roomBack(k), cz = roomCenter(k), W = ROOM_W, D = ROOM_D, H = HALL_H;
+  const trim = std(th.trim, .3, .85, .9), shadow = std('#08090a', .9), led = glow(th.light, 1.6);
+  // zemin
+  const [ft, fsz, fcol, frough] = th.floor;
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), pbr(ft, W / fsz, D / fsz, { color: fcol, rough: frough, normal: .35, env: .7 }));
+  floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, cz); floor.receiveShadow = true; g.add(floor);
+  // tavan + gömme ışık kasası (aracın üstünde geniş difüzör)
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), std(th.ceil, .9, 0, .15));
+  ceil.rotation.x = Math.PI / 2; ceil.position.set(0, H, cz); g.add(ceil);
+  const cw = 6.6, cd = 5.4;
+  box(cw + .3, .26, .15, shadow, 0, H - .13, cz - cd / 2, g); box(cw + .3, .26, .15, shadow, 0, H - .13, cz + cd / 2, g);
+  box(.15, .26, cd, shadow, -cw / 2, H - .13, cz, g); box(.15, .26, cd, shadow, cw / 2, H - .13, cz, g);
+  const diff = new THREE.Mesh(new THREE.PlaneGeometry(cw - .2, cd - .2), glow(th.light, .9));
+  diff.rotation.x = Math.PI / 2; diff.position.set(0, H - .24, cz); g.add(diff);
+  box(cw + .34, .02, .02, trim, 0, H - .27, cz - cd / 2 - .08, g); box(cw + .34, .02, .02, trim, 0, H - .27, cz + cd / 2 + .08, g);
+  // yan duvarlar: doku + bronz derzler + süpürgelik gölge boşluğu + üst LED kovesi
+  const [wt, wsz, wcol, wn] = th.wall;
+  for (const sd of [-1, 1]) {
+    wallPlane(g, pbr(wt, D / wsz, H / wsz, { color: wcol, normal: wn }), D, H, sd * (W / 2 - .001), H / 2, cz, -sd * Math.PI / 2);
+    for (let i = 1; i < 5; i++) box(.025, H - .2, .03, trim, sd * (W / 2 - .02), H / 2, z0 - i * D / 5, g);
+    box(.04, .07, D, shadow, sd * (W / 2 - .02), .035, cz, g);
+    box(.18, .05, D, shadow, sd * (W / 2 - .09), H - .32, cz, g);
+    box(.02, .02, D - .2, led, sd * (W / 2 - .17), H - .35, cz, g);
+    if (th.slats) {   // orta bölümde ahşap lameller
+      const sm = pbr(th.slats, .3, H / 1.2, { normal: .6 });
+      for (let i = 0; i < 26; i++) box(.05, H - .7, .06, sm, sd * (W / 2 - .06), (H - .7) / 2 + .1, cz - 2.4 + i * .19, g);
+    }
+    if (th.ribs) for (let i = 0; i < 9; i++) box(.18, H - .3, .22, pbr('concrete_floor_01', .3, 1.6, { color: '#a9a7a2' }), sd * (W / 2 - .09), (H - .3) / 2, z0 - .9 - i * 1.3, g);
+  }
+  // arka duvar: kapılı bölme (son oda: tam duvar + logo)
+  const last = k === NROOMS - 1, nth = themeOf(k + 1);
+  const seg = (W - DOOR_W) / 2, lintelH = H - DOOR_H;
+  const core = std('#1a1b1d', .8);
+  if (last) {
+    box(W, H, .3, core, 0, H / 2, z1, g);
+    wallPlane(g, pbr(wt, W / wsz, H / wsz, { color: wcol, normal: wn }), W, H, 0, H / 2, z1 + .151, 0);
+    const lt = logoTexture(3200, 420, { sub: false });
+    const logo = new THREE.Mesh(new THREE.PlaneGeometry(8.4, 1.1), new THREE.MeshStandardMaterial({ map: lt, emissiveMap: lt, emissive: '#fff0d6', emissiveIntensity: 1.1, transparent: true, color: '#000' }));
+    box(9.2, 1.9, .06, std('#0c0d0e', .5), 0, 3.0, z1 + .18, g);
+    logo.position.set(0, 3.0, z1 + .22); g.add(logo);
+    box(9.3, .02, .03, led, 0, 3.97, z1 + .21, g);
+  } else {
+    const [nwt, nwsz, nwcol, nwn] = nth.wall;
+    for (const sd of [-1, 1]) {
+      const cx = sd * (DOOR_W / 2 + seg / 2);
+      box(seg, H, .3, core, cx, H / 2, z1, g);
+      wallPlane(g, pbr(wt, seg / wsz, H / wsz, { color: wcol, normal: wn }), seg, H, cx, H / 2, z1 + .151, 0);
+      wallPlane(g, pbr(nwt, seg / nwsz, H / nwsz, { color: nwcol, normal: nwn }), seg, H, cx, H / 2, z1 - .151, Math.PI);
+    }
+    box(DOOR_W, lintelH, .3, core, 0, DOOR_H + lintelH / 2, z1, g);
+    wallPlane(g, pbr(wt, DOOR_W / wsz, lintelH / wsz, { color: wcol, normal: wn }), DOOR_W, lintelH, 0, DOOR_H + lintelH / 2, z1 + .151, 0);
+    wallPlane(g, pbr(nwt, DOOR_W / nwsz, lintelH / nwsz, { color: nwcol, normal: nwn }), DOOR_W, lintelH, 0, DOOR_H + lintelH / 2, z1 - .151, Math.PI);
+    // bronz kasa + içine kayan cam kapılar
+    for (const sd of [-1, 1]) box(.1, DOOR_H, .36, trim, sd * (DOOR_W / 2 + .05), DOOR_H / 2, z1, g);
+    box(DOOR_W + .2, .1, .36, trim, 0, DOOR_H + .05, z1, g);
+    box(DOOR_W + .4, .03, .05, led, 0, DOOR_H + .14, z1 + .2, g);
+    for (const sd of [-1, 1]) {
+      const d = new THREE.Group();
+      const pane = new THREE.Mesh(new THREE.BoxGeometry(DOOR_W / 2, DOOR_H - .04, .02), glassMat); pane.position.y = (DOOR_H - .04) / 2; d.add(pane);
+      for (const x of [-DOOR_W / 4, DOOR_W / 4]) box(.04, DOOR_H - .04, .04, trim, x, (DOOR_H - .04) / 2, 0, d);
+      box(DOOR_W / 2, .04, .04, trim, 0, .02, 0, d); box(DOOR_W / 2, .04, .04, trim, 0, DOOR_H - .06, 0, d);
+      d.position.set(sd * DOOR_W / 4, 0, z1); d.userData = { side: sd, z: z1 }; g.add(d); roomDoors.push(d);
+    }
+  }
+  // dekor
+  const s = k % 2 ? 1 : -1;   // kameranın döndüğü taraf
+  if (!last) {
+    decor('potted_plant_02', g, -W / 2 + 1.0, z1 + 1.0, 30, 0, 1.15);
+    decor('potted_plant_02', g, W / 2 - 1.0, z1 + 1.0, -40, 0, 1.15);
+    decor('mid_century_lounge_chair', g, -s * (W / 2 - 1.5), z0 - 1.9, -s * 120);
+    decor('side_table_01', g, -s * (W / 2 - .7), z0 - 1.0, 0);
+    decor('potted_plant_04', g, -s * (W / 2 - .7), z0 - 1.0, 0, .55);
+    if (th.greens) for (const sd of [-1, 1]) for (const dz of [-2.5, 0, 2.5]) decor('planter_box_02', g, sd * (W / 2 - .45), cz + dz, sd * 90);
+    // oda numarası ve araç künyesi (arka duvarda, kapının yanında)
+    const spec = CARS[TOUR[k]];
+    const pt = plaqueTex(k, spec);
+    const pl = new THREE.Mesh(new THREE.PlaneGeometry(1.6, .8), new THREE.MeshStandardMaterial({ map: pt, emissiveMap: pt, emissive: '#ffffff', emissiveIntensity: .35, roughness: .5 }));
+    pl.position.set(-s * 4.4, 1.9, z1 + .17); g.add(pl);
+    box(1.68, .88, .02, trim, -s * 4.4, 1.9, z1 + .16, g);
+  } else {
+    // lounge: kanepe takımı, halı, sarkıt lamba, kahve barı
+    const lz = z1 + 3.4;
+    decor('sofa_03', g, 0, z1 + 1.3, 0);
+    decor('modern_arm_chair_01', g, -2.4, lz + .3, 65);
+    decor('modern_arm_chair_01', g, 2.4, lz + .3, -65);
+    decor('modern_coffee_table_01', g, 0, lz - .1, 0);
+    decor('ceramic_vase_01', g, .3, lz - .1, 0, .38);
+    decor('brass_vase_02', g, -.3, lz - .05, 0, .38);
+    decor('modern_ceiling_lamp_01', g, 0, lz - .1, 0, H - .02);
+    const rugMat = pbr('velour_velvet', 3, 2, { color: '#8c7e6c', rough: .95, normal: .5 }); rugMat.map = null;   // kadife dokusu, nötr kum rengi
+    const rug = new THREE.Mesh(new THREE.PlaneGeometry(5.4, 3.8), rugMat);
+    rug.rotation.x = -Math.PI / 2; rug.position.set(0, .008, lz - .1); rug.receiveShadow = true; g.add(rug);
+    const wal = pbr('smoked_walnut_veneer', 1.2, .6, { normal: .6 }), gr = pbr('granite_tile_03', 1.6, .4, { rough: .45 });
+    box(.9, 1.05, 4.0, wal, W / 2 - 2.6, .525, cz + 1.0, g); box(1.05, .06, 4.2, gr, W / 2 - 2.6, 1.08, cz + 1.0, g);
+    box(.02, .015, 3.8, led, W / 2 - 3.07, .08, cz + 1.0, g);
+    for (const dz of [-1.2, 0, 1.2]) decor('bar_chair_round_01', g, W / 2 - 3.5, cz + 1.0 + dz, 90);
+    decor('CoffeeCart_01', g, W / 2 - .9, cz + 3.6, -90);
+    for (const sd of [-1, 1]) decor('potted_plant_02', g, sd * (W / 2 - 1.0), z1 + 1.0, sd * 30, 0, 1.15);
+  }
+  rooms.push({ group: g, theme: th, z0, z1, cz });
+}
+function buildRooms() { for (let k = 0; k < NROOMS; k++) buildRoom(k); }
+
+// oda ışıkları: sabit sayıda alan ışığı kameranın bulunduğu ve sonraki odaya taşınır
+// (ışık sayısı değişince shader yeniden derlenir; bu yüzden ışıklar açılıp kapanmaz, yer değiştirir)
+const roomLightA = new THREE.RectAreaLight('#ffffff', 5, 6.4, 5.2), roomLightB = new THREE.RectAreaLight('#ffffff', 5, 6.4, 5.2);
+scene.add(roomLightA, roomLightB);
+function placeRoomLight(l, k) {
+  const r = rooms[THREE.MathUtils.clamp(k, 0, rooms.length - 1)];
+  l.position.set(0, HALL_H - .26, r.cz); l.lookAt(0, 0, r.cz);
+  l.color.set(r.theme.light); l.intensity = r.theme.lightI;
+}
+let lastRoomK = null;
+function updateRooms() {
+  const k = THREE.MathUtils.clamp(Math.floor(-camera.position.z / ROOM_D), -1, NROOMS - 1);
+  if (k !== lastRoomK) {
+    rooms.forEach((r, i) => { r.group.visible = i >= k - 1 && i <= k + 2; });
+    stations.forEach((st) => { st.group.visible = st.room >= k - 1 && st.room <= k + 2; });
+    placeRoomLight(roomLightA, Math.max(k, 0)); placeRoomLight(roomLightB, Math.max(k, 0) + 1);
+    renderer.shadowMap.needsUpdate = true;
+    lastRoomK = k;
+  }
+  // kamera yaklaştıkça bölme kapıları duvarın içine kayar
+  for (const d of roomDoors) {
+    const open = 1 - THREE.MathUtils.smoothstep(Math.abs(camera.position.z - d.userData.z), 2.4, 5.5);
+    d.position.x = d.userData.side * (DOOR_W / 4 + (DOOR_W / 2 + .02) * open);
+  }
+}
+
 // ---------- Atmosfer ve çevre detayları ----------
 // Blender showroom modelinin üstüne eklenen, onunla çakışmayan katmanlar:
 // ışıkta süzülen toz, araç adalarının altında hacimsel ışık huzmeleri,
@@ -1782,11 +2018,11 @@ try {
 const loaderText = document.querySelector('#loader small');
 await loadCarModels((p) => { loaderText.textContent = `Araçlar yükleniyor %${Math.round(p * 100)}`; });
 await loadCarViews();
+await Promise.all([preloadTextures(THEME_TEXTURES), loadDecor()]);
 buildSky();
 buildStreet();
 buildBuilding();
-await buildBlenderInterior();
-await buildLuxuryDetails();
+buildRooms();          // oda dizisi: Blender salon modeli (tek salon düzeni) bu modda kullanılmaz
 buildStations();
 buildAtmosphere();
 buildCameraPath();
@@ -1889,7 +2125,7 @@ function setOverlay(el, o, dy = 18) {
 function updateUI(s) {
   setOverlay(ovHero, 1 - THREE.MathUtils.smoothstep(s, .15, .7));
   hint.style.opacity = (1 - THREE.MathUtils.smoothstep(s, .05, .35)).toFixed(3);
-  setOverlay(ovWelcome, fade(s, 3.55, 4.25, .45));
+  setOverlay(ovWelcome, fade(s, 2.1, 2.45, .3));
   let active = -1;
   carCards.forEach((el, i) => {
     const k = carKeyIndex[i];
@@ -1937,6 +2173,7 @@ function frame() {
   shadowElapsed += dt;
   if (shadowElapsed > .14 && Math.abs(currentS-lastShadowS)>.002) { renderer.shadowMap.needsUpdate=true; lastShadowS=currentS; shadowElapsed=0; }
   updateDoors(currentS);
+  updateRooms();
   if(inspect.active){updateInspect(dt);prevYaw=null;}else updateCamera(currentS,t,dt);
   updateAtmosphere(t);
   updatePhotoCars();
