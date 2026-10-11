@@ -1379,29 +1379,36 @@ function carFrame(st) {
   return (f, sd, y) => C.clone().addScaledVector(F, f).addScaledVector(S, sd).setY(y).toArray();
 }
 
-// Duraklar: dış plan → her araç için tek kare (3/4 ön, referans fotoğraflardaki gibi) → lounge.
-// Bir kaydırma = bir durak. İki araç arasında kamera SAĞ duvardaki kapıdan geçer.
+// Duraklar: dış plan → her araç için tek kahraman kare (3/4 ön) → lounge. Bir kaydırma = bir durak.
+// Sinematik dil (otomotiv reklamı):
+//  · açılış: yüksekten geniş kuruluş planı → cepheye yay çizen vinç inişi → kapıdan giriş, ilk araç doğrudan kadrajda
+//  · araçtan araca: (1) aracın önünden yavaş izleme ("son bakış") → (2) sağ kapıya yaklaşma →
+//    (3) eşik: yeni araç kapı çerçevesinin içinde belirir → (4) geniş açıdan uzun lense geçerek kahraman pozisyona kayış
+//  · duruşlar: 42° (uzun lens hissi), göz hizasının biraz altı → araç daha görkemli
 const STOPS = [];
 function buildCameraPath() {
-  const ex = ENTRANCE_X;
-  K([ex - 16, 5.2, 24], [ex + 16, 2.0, -6], 40, 'hero'); STOPS.push(0);
-  K([ex + 6, 1.9, 12], [ex, 2.1, 0], 42);
-  K([ex, 1.7, 5], [ex, 1.7, -6], 46, 'door');
-  K([ex - .6, 1.65, .5], [ex - 2.6, 1.3, -8], 50);
+  const ex = ENTRANCE_X, s0 = stations[0];
+  K([ex - 19, 6.6, 27], [ex + 9, 1.4, -4], 38, 'hero'); STOPS.push(0);          // kuruluş planı
+  K([ex + 7.5, 2.5, 13.5], [ex + .5, 2.0, 0], 40);                               // cepheye yay çizen iniş
+  K([ex + .6, 1.7, 5.2], [ex, 1.62, -6], 44, 'door');                            // kapı önü (kapılar açılır)
+  K([ex - .4, 1.62, .4], [s0.x + .3, .85, s0.z], 48);                            // içeri: ilk araç kadrajda
   stations.forEach((st, i) => {
-    const xw = roomCX(i) - ROOM_W / 2;                  // bu odanın sol duvarı (önceki odanın kapısı)
+    const xw = roomCX(i) - ROOM_W / 2;                  // bu odanın sol duvarı = önceki odanın kapısı
     if (i > 0) {
-      K([xw - 2.8, 1.65, DOOR_Z + .2], [xw + 6, 1.45, DOOR_Z - .3], 46);     // kapıya yaklaşma: kapı çerçevesi kadrajda
-      K([xw + 1.0, 1.65, DOOR_Z], [xw + 5, 1.3, DOOR_Z - 2.2], 50);     // kapıdan geçiş
+      const pv = stations[i - 1];
+      K([pv.x + 2.5, 1.82, pv.z + 4.7], [pv.x + .3, .78, pv.z - .3], 44);       // son bakış: aracın önünden kayan izleme
+      K([xw - 2.1, 1.7, DOOR_Z + .55], [xw + 5, 1.35, DOOR_Z - 1.7], 46);       // kapıya yaklaşma
+      K([xw + .85, 1.62, DOOR_Z - .1], [st.x + .2, .9, st.z], 50);              // eşik: yeni araç kapı çerçevesinde
     }
     carKeyIndex[i] = keys.length; STOPS.push(keys.length);
-    K([st.x - 3.6, 1.6, st.z + 5.3], [st.x + 1.0, .7, st.z - .8], 46, `car${i}`);
+    K([st.x - 3.6, 1.5, st.z + 5.3], [st.x + 1.0, .72, st.z - .8], 42, `car${i}`);
     st.yawA = st.yawB = Math.atan2(-3.4, 5.0);
   });
-  const lk = NROOMS - 1, xw = roomCX(lk) - ROOM_W / 2, lcx = roomCX(lk);
-  K([xw - 2.8, 1.65, DOOR_Z + .2], [xw + 6, 1.45, DOOR_Z - .3], 46);
-  K([xw + 1.0, 1.65, DOOR_Z], [xw + 5, 1.4, DOOR_Z - 3], 50);
-  K([lcx - .8, 1.6, -1.2], [lcx - .2, 1.7, -ROOM_D], 46, 'finale'); STOPS.push(keys.length - 1);
+  const lk = NROOMS - 1, xw = roomCX(lk) - ROOM_W / 2, lcx = roomCX(lk), pv = stations[stations.length - 1];
+  K([pv.x + 2.5, 1.82, pv.z + 4.7], [pv.x + .3, .78, pv.z - .3], 44);
+  K([xw - 2.1, 1.7, DOOR_Z + .55], [xw + 5, 1.4, DOOR_Z - 2], 46);
+  K([xw + .85, 1.62, DOOR_Z - .1], [lcx, 1.5, -ROOM_D + 2.5], 50);
+  K([lcx - .8, 1.55, -1.3], [lcx - .2, 1.7, -ROOM_D], 44, 'finale'); STOPS.push(keys.length - 1);
   buildTourCurves();
 }
 
@@ -2220,6 +2227,10 @@ buildStreet();
 buildBuilding();
 buildRooms();          // Blender odaları (models/rooms) yüklendiyse onlar, yoksa kodla çizilen odalar
 captureRoomEnv();      // araçlar eklenmeden önce: boya gerçek showroom'u yansıtsın
+if (BLENDER_ROOMS) {   // mimari ışık pişmiş: araç üstündeki gerçek zamanlı ışıkları dengele (boya solmasın, derin kırmızı kalsın)
+  keyLight.intensity = 4.2; fillLight.intensity = 1.4; rimLight.intensity = 3.2; focusShadow.intensity = 32;
+  ROOM_THEME.lightI = 3.2; LOUNGE_THEME.lightI = 3.0;
+}
 buildStations();
 buildAtmosphere();
 buildCameraPath();
@@ -2237,14 +2248,14 @@ let targetS = 0, currentS = 0, sVel = 0;
 const mouse = new THREE.Vector2(), mouseSmooth = new THREE.Vector2();
 
 let stopIdx = 0, tween = null, inputLock = 0;
-const easeInOut = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const easeInOut = (t) => t * t * t * (t * (t * 6 - 15) + 10);   // smootherstep: başta ve sonda ivme de sıfır (kamera kızağı hissi)
 function goToStop(i) {
   i = THREE.MathUtils.clamp(i, 0, STOPS.length - 1);
   if (inspect.active) closeInspect();
   if (i === stopIdx && !tween) return;
   stopIdx = i;
   const to = STOPS[i], dist = Math.abs(to - currentS);
-  tween = { from: currentS, to, t: 0, dur: THREE.MathUtils.clamp(dist * 1.05, 1.4, 5.2) };
+  tween = { from: currentS, to, t: 0, dur: THREE.MathUtils.clamp(dist * 1.2, 1.8, 6.4) };
   if (reduceMotion || NO_INERTIA) { currentS = to; tween = null; }
 }
 window.mtgGo = goToStop;
@@ -2297,11 +2308,11 @@ function updateCamera(s, time, dt) {
 
   // kaydırma durunca kamera durmaz: özne etrafında çok yavaş yörünge + nefes
   const motion = reduceMotion ? 0 : 1;
-  const drift = THREE.MathUtils.smoothstep(idleTime, 1, 4) * motion;
+  const drift = THREE.MathUtils.smoothstep(idleTime, 1.2, 6) * motion;
   camRight.set(Math.cos(yaw), 0, Math.sin(yaw));
-  tmpPos.addScaledVector(camRight, Math.sin(time * .21) * .38 * drift + mouseSmooth.x * .12 * motion);
-  tmpPos.y += (Math.sin(time * .17) * .08 * drift - mouseSmooth.y * .05 * motion);
-  tmpPos.addScaledVector(camDir, Math.sin(time * .13) * .2 * drift);
+  tmpPos.addScaledVector(camRight, Math.sin(time * .11) * .26 * drift + mouseSmooth.x * .1 * motion);
+  tmpPos.y += (Math.sin(time * .083) * .045 * drift - mouseSmooth.y * .04 * motion);
+  tmpPos.addScaledVector(camDir, (Math.sin(time * .067) * .5 + .5) * .16 * drift);   // çok yavaş içeri itiş
 
   // dönüşlerde kameranın hafifçe yatması (steadicam operatörü gibi)
   const dyaw = prevYaw === null ? 0 : (yaw - prevYaw) / Math.max(dt, 1e-3);
