@@ -20,7 +20,7 @@
 #
 # Koordinatlar: site (three.js, Y yukarı) (x, y, z) = Blender (x, -z, y). Oda yereldir: merkez x=0,
 # ön cephe z=0, arka duvar z=-13. Kod GLB'yi roomCX(k) kadar kaydırır.
-import bpy, bmesh, math, os, sys, json, time
+import bpy, bmesh, math, os, sys, json, time, re
 from mathutils import Vector
 
 # ---------------- argümanlar ----------------
@@ -40,7 +40,8 @@ CAR_GLB = opt('--car', os.path.join(REPO, 'models', 'web', 'bmw-420i-coupe.glb')
 SAMPLES = int(opt('--samples', 64))
 BAKE_SAMPLES = int(opt('--bake-samples', 192))
 LM = int(opt('--lm-size', 2048))
-PREVIEW_ONLY = opt('--views')            # örn. "bmw,wide"
+PREVIEW_ONLY = opt('--views')
+RES = tuple(int(v) for v in opt('--res', '1280x720').split('x'))            # örn. "bmw,wide"
 os.makedirs(OUT, exist_ok=True)
 T0 = time.time()
 def log(*a): print('[MTG %5.1fs]' % (time.time() - T0), *a, flush=True)
@@ -83,7 +84,7 @@ def hexrgb(h):
     h = h.lstrip('#'); c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
     return tuple(((v + .055) / 1.055) ** 2.4 if v > .04045 else v / 12.92 for v in c)   # sRGB → lineer
 
-def pbr(name, folder=None, color='#ffffff', rough=.5, metal=0., normal=1., coat=0., use_map=True, rough_var=0., coat_rough=.03, rough_mul=1.):
+def pbr(name, folder=None, color='#ffffff', rough=.5, metal=0., normal=1., coat=0., use_map=True, rough_var=0., coat_rough=.03, rough_mul=1., micro=0.):
     m = bpy.data.materials.new('MTG_' + name); m.use_nodes = True
     nt = m.node_tree; b = nt.nodes['Principled BSDF']
     b.inputs['Metallic'].default_value = metal
@@ -122,6 +123,14 @@ def pbr(name, folder=None, color='#ffffff', rough=.5, metal=0., normal=1., coat=
             nt_ = nt.nodes.new('ShaderNodeTexImage'); nt_.image = img(n, True)
             nm = nt.nodes.new('ShaderNodeNormalMap'); nm.inputs['Strength'].default_value = normal
             nt.links.new(nt_.outputs['Color'], nm.inputs['Color']); nt.links.new(nm.outputs['Normal'], b.inputs['Normal'])
+            if micro:
+                # mikro yüzey: dokunun çok altındaki ölçekte ince kırılım (cilalı taşta "gerçek" ışık kırığı)
+                geo = nt.nodes.new('ShaderNodeNewGeometry')
+                mz = nt.nodes.new('ShaderNodeTexNoise'); mz.inputs['Scale'].default_value = 38.; mz.inputs['Detail'].default_value = 6.
+                nt.links.new(geo.outputs['Position'], mz.inputs['Vector'])
+                bp = nt.nodes.new('ShaderNodeBump'); bp.inputs['Strength'].default_value = micro; bp.inputs['Distance'].default_value = .0005
+                nt.links.new(mz.outputs['Fac'], bp.inputs['Height']); nt.links.new(nm.outputs['Normal'], bp.inputs['Normal'])
+                nt.links.new(bp.outputs['Normal'], b.inputs['Normal'])
     m['mtg'] = name                      # kod bu anahtarla kendi malzemesini atayabilir
     return m
 
@@ -146,22 +155,22 @@ def glass(name):
 
 M = {
     # zemin: büyük ebat porselen plaka (2.6 × 1.3 m), iki hafif ton → doğal varyasyon
-    'porcelain':  pbr('porcelain', 'porcelain_slab', '#ece7df', normal=.3, rough_var=.15, coat=.25, coat_rough=.07),   # cilalı porselen: ince cila + pürüzlülük dalgası
-    'porcelain2': pbr('porcelain_b', 'porcelain_slab', '#e2ddd5', normal=.3, rough_var=.15, coat=.25, coat_rough=.08),
+    'porcelain':  pbr('porcelain', 'porcelain_slab', '#ece7df', normal=.3, rough_var=.2, coat=.22, coat_rough=.1, micro=.06),   # cilalı porselen: ince cila + pürüzlülük dalgası
+    'porcelain2': pbr('porcelain_b', 'porcelain_slab', '#e2ddd5', normal=.3, rough_var=.2, coat=.22, coat_rough=.11, micro=.06),
     'grout':      pbr('grout', None, '#625d58', rough=.85),
-    'stage':      pbr('stage', 'porcelain_slab', '#4f4c49', normal=.12, rough_var=.08, coat=.5, coat_rough=.06),   # cilalı grafit porselen
+    'stage':      pbr('stage', 'porcelain_slab', '#4a4744', normal=.1, rough_var=.15, coat=.4, coat_rough=.11, micro=.05, use_map=False),   # cilalı grafit porselen
     'brand':      pbr('brand_brass', None, '#b8935f', rough=.38, metal=.75),
     # duvar taşları: çizgisiz plakalar, derz geometride; panel başına ton ve doku başlangıcı değişir
-    'trav_a':     pbr('travertine_a', 'travertine_clean', '#efe8dc', normal=.65, rough_var=.25),
-    'trav_b':     pbr('travertine_b', 'travertine_clean', '#e4dccf', normal=.65, rough_var=.25),
-    'trav_c':     pbr('travertine_c', 'travertine_clean', '#eae1d2', normal=.65, rough_var=.25),
-    'dark_a':     pbr('dark_stone', 'dark_stone', '#ffffff', normal=.55, rough_var=.3, coat=.15, coat_rough=.2),   # bilenmiş (honed) koyu taş
-    'dark_b':     pbr('dark_stone_b', 'dark_stone', '#e9e5e1', normal=.55, rough_var=.3, coat=.15, coat_rough=.2),
+    'trav_a':     pbr('travertine_a', 'travertine_clean', '#efe8dc', normal=.65, rough_var=.3, micro=.12),
+    'trav_b':     pbr('travertine_b', 'travertine_clean', '#e4dccf', normal=.65, rough_var=.3, micro=.12),
+    'trav_c':     pbr('travertine_c', 'travertine_clean', '#eae1d2', normal=.65, rough_var=.3, micro=.12),
+    'dark_a':     pbr('dark_stone', 'dark_stone', '#ffffff', normal=.6, rough_var=.35, coat=.18, coat_rough=.22, micro=.1),   # bilenmiş (honed) koyu taş
+    'dark_b':     pbr('dark_stone_b', 'dark_stone', '#e9e5e1', normal=.6, rough_var=.35, coat=.18, coat_rough=.22, micro=.1),
     'warm':       pbr('warm_stone', 'warm_stone', '#ffffff', normal=.5),
     'micro':      pbr('microcement', 'microcement', '#efebe5', normal=.45),
-    'walnut':     pbr('walnut', 'smoked_walnut_veneer', '#ffffff', normal=.6, rough_var=.2, coat=.3, coat_rough=.28),   # yağ cilalı ceviz: yumuşak parlama
+    'walnut':     pbr('walnut', 'smoked_walnut_veneer', '#ffffff', normal=.7, rough_var=.25, coat=.3, coat_rough=.3, micro=.05),   # yağ cilalı ceviz: yumuşak parlama
     'travertine': pbr('travertine', 'travertine_clean', '#e8e0d3', normal=.5),
-    'ceil_panel': pbr('ceiling_panel', 'microcement', '#3a3734', normal=.2, rough_mul=.55, rough_var=.2),   # koyu saten lake panel
+    'ceil_panel': pbr('ceiling_panel', 'microcement', '#3a3734', normal=.25, rough_mul=.55, rough_var=.25, micro=.04),   # koyu saten lake panel
     'reveal':     pbr('reveal', None, '#0b0b0c', rough=.9),
     'black':      pbr('black', None, '#0e0f10', rough=.35, metal=.5),
     'plinth':     pbr('plinth', None, '#121315', rough=.5, metal=.2),
@@ -180,10 +189,29 @@ M = {
     'soil':       pbr('soil', None, '#2a2522', rough=1.),
     'glass':      glass('glass'),
     'led':        emissive('led', '#fff4e4', 9.),     # geniş difüzörlü lineer armatür: yansıması patlamasın
+    'led_line':   None,
     'ledSoft':    emissive('ledSoft', '#ffeedd', 14.),
     'ledRing':    emissive('ledRing', '#ffe6c4', 2.5),
     'halo':       emissive('halo', '#ffd8a6', 22.),
 }
+def diffuser_strip(name, color, peak):
+    """lineer armatür difüzörü: enine profil (1 - u²)^1.5 → yansımada sert beyaz çizgi değil, yumuşak kenarlı ışık bandı."""
+    m = emissive(name, color, peak); nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ')
+    nt.links.new(tc.outputs['Generated'], sep.inputs['Vector'])
+    m1 = nt.nodes.new('ShaderNodeMath'); m1.operation = 'MULTIPLY_ADD'; m1.inputs[1].default_value = 2.; m1.inputs[2].default_value = -1.
+    nt.links.new(sep.outputs['Y'], m1.inputs[0])                       # u: -1..1 (enine)
+    m2 = nt.nodes.new('ShaderNodeMath'); m2.operation = 'POWER'; m2.inputs[1].default_value = 2.
+    nt.links.new(m1.outputs[0], m2.inputs[0])
+    m3 = nt.nodes.new('ShaderNodeMath'); m3.operation = 'SUBTRACT'; m3.inputs[0].default_value = 1.; m3.use_clamp = True
+    nt.links.new(m2.outputs[0], m3.inputs[1])
+    m4 = nt.nodes.new('ShaderNodeMath'); m4.operation = 'POWER'; m4.inputs[1].default_value = 1.5
+    nt.links.new(m3.outputs[0], m4.inputs[0])
+    m5 = nt.nodes.new('ShaderNodeMath'); m5.operation = 'MULTIPLY'; m5.inputs[1].default_value = peak
+    nt.links.new(m4.outputs[0], m5.inputs[0]); nt.links.new(m5.outputs[0], b.inputs['Emission Strength'])
+    return m
+M['led_line'] = diffuser_strip('led_line', '#fff4e4', 13.)
+
 # dokular için gerçek ölçü (m): bir doku tekrarının kapladığı alan (anahtar = malzemenin 'mtg' adı)
 TILE = {'stage': (6.0, 6.0), 'porcelain': (2.6, 2.6), 'porcelain_b': (2.6, 2.6), 'travertine': (2.4, 2.4),
         'travertine_a': (2.4, 2.4), 'travertine_b': (2.4, 2.4), 'travertine_c': (2.4, 2.4),
@@ -462,7 +490,7 @@ for i in range(len(xs) - 1):
         box(f'CeilP_{i}_{j}', xb - xa, .04, zb - za, (xa + xb) / 2, CH + .02, (za + zb) / 2, M['ceil_panel'], BAKE['ceil'], origin=rand_origin())
 plane_h('Ceil_Void', W, D, 0, CH + .09, -D / 2, M['reveal'], DARK, down=True)
 for i, (z, x0, x1) in enumerate(LED_LINES):
-    box(f'MTG_LED_{i}', x1 - x0, .012, .055, (x0 + x1) / 2, CH + .05, z, M['led'], EMISSIVE)
+    box(f'MTG_LED_{i}', x1 - x0, .012, .06, (x0 + x1) / 2, CH + .05, z, M['led_line'], EMISSIVE)
 # çevre gizli LED (panellerin üstünde, duvara bakan kenarda): görünmez, ışığı duvara düşer
 for nm_, x_, z_, sx_, sz_ in (('B', 0, PZ0 - .03, PX1 - PX0, .02), ('L', PX0 - .03, -D / 2, .02, D - .2), ('R', PX1 + .03, -D / 2, .02, D - .2)):
     box('MTG_LED_Cove' + nm_, sx_, .01, sz_, x_, CH + .06, z_, M['ledSoft'], EMISSIVE)
@@ -668,8 +696,16 @@ for a in list(ANCHORS):
 # ---------------- araç (sadece önizleme + bake gölgesi) ----------------
 CAR_MATS = {'blinn1SG': 'paint', 'Windows': 'glass', 'lambert6SG': 'gloss', 'lambert30SG': 'gloss', 'lambert22SG': 'mirror',
             'lambert4SG': 'tire', 'lambert5SG': 'matte', 'lambert7SG': 'rim', 'lambert8SG': 'caliper', 'lambert9SG': 'disc',
-            'lambert3SG': 'chrome', 'lambert2SG': 'chrome', 'lambert10SG': 'headlight', 'HeadLights1': 'headlight',
-            'BrakeLights_Glass': 'taillight', 'Plate_Recovered': 'plate'}
+            'lambert3SG': 'chrome_dark', 'lambert2SG': 'chrome', 'lambert15SG': 'kidney', 'lambert25SG1': 'chrome_dark',
+            # far: lambert10 = dış lens (+ tampon LED şeridi), HeadLights1 = iç gövde/reflektör, 13 = LED, 14 = iç çerçeve
+            'lambert10SG': 'hl_lens', 'HeadLights1': 'hl_inner', 'lambert13SG': 'hl_led', 'lambert14SG': 'hl_bezel',
+            # stop: dış kırmızı cam + iç parçalar
+            'BrakeLights_Glass': 'tail_lens', 'lambert20SG': 'tail_inner', 'lambert21SG': 'tail_led',
+            'lambert16SG': 'gloss', 'lambert17SG': 'chrome', 'lambert18SG': 'gloss', 'Plate_Recovered': 'plate'}
+def car_kind(nm):
+    base = re.sub(r'\.\d+$', '', nm)
+    return next((v for k, v in CAR_MATS.items() if base.endswith('_' + k) or base == k), 'interior')
+
 def car_material(kind, paint='#681824'):
     """Önizleme aracı malzemeleri (Cycles). Sitede aynı değerler MeshPhysicalMaterial'e taşınır."""
     key = 'car_' + kind + (paint if kind == 'paint' else '')
@@ -694,11 +730,11 @@ def car_material(kind, paint='#681824'):
         # metalik baz: koyu kırmızı + ince pul (voronoi → normal sapması), üstte kalın şeffaf cila
         setv(**{'Base Color': (*hexrgb(paint), 1), 'Metallic': .62, 'Roughness': .34, 'Coat Weight': 1., 'Coat Roughness': .025,
                 'Coat IOR': 1.5})
-        vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.inputs['Scale'].default_value = 2600.
+        vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.inputs['Scale'].default_value = 3200.
         nt.links.new(geo.outputs['Position'], vo.inputs['Vector'])
         mix = nt.nodes.new('ShaderNodeMix'); mix.data_type = 'RGBA'; mix.inputs['Factor'].default_value = .12
         mix.inputs[6].default_value = (.5, .5, 1., 1.); nt.links.new(vo.outputs['Color'], mix.inputs[7])
-        nm = nt.nodes.new('ShaderNodeNormalMap'); nm.inputs['Strength'].default_value = .35
+        nm = nt.nodes.new('ShaderNodeNormalMap'); nm.inputs['Strength'].default_value = .5
         nt.links.new(mix.outputs[2], nm.inputs['Color']); nt.links.new(nm.outputs['Normal'], I['Normal'])
         # cila: çok hafif portakal kabuğu (yansımalar cam gibi değil, gerçek boya gibi dalgalansın)
         noise_bump(55., .018, .0004, target='Coat Normal', detail=3.)
@@ -711,15 +747,37 @@ def car_material(kind, paint='#681824'):
         # hafif füme oto camı: yansıtır, içi seçilir (düz siyah değil)
         setv(**{'Base Color': (.55, .6, .6, 1), 'Roughness': .0, 'Transmission Weight': 1., 'IOR': 1.52})
     elif kind == 'tire':
-        setv(**{'Base Color': (*hexrgb('#161616'), 1), 'Specular IOR Level': .35})
-        rough_noise(.62, .82, 40.); noise_bump(260., .25, .0008)
+        # kauçuk: koyu antrasit (saf siyah değil), hafif sheen, pürüzlülük dalgası + ince yüzey dokusu
+        setv(**{'Base Color': (*hexrgb('#121212'), 1), 'Specular IOR Level': .3, 'Sheen Weight': .07, 'Sheen Roughness': .7})
+        rough_noise(.6, .85, 35.); noise_bump(320., .3, .0006, detail=5.)
     elif kind == 'rim':
         # cilalı gunmetal jant (sitedeki rimColor), şeffaf cila
-        setv(**{'Base Color': (*hexrgb('#2a2c30'), 1), 'Metallic': 1., 'Roughness': .24, 'Coat Weight': .7, 'Coat Roughness': .04})
+        setv(**{'Base Color': (*hexrgb('#2b2d31'), 1), 'Metallic': 1., 'Roughness': .2, 'Coat Weight': 1., 'Coat Roughness': .02})
     elif kind == 'disc':
         setv(**{'Base Color': (*hexrgb('#7a7976'), 1), 'Metallic': 1., 'Roughness': .38, 'Anisotropic': .6})
     elif kind == 'caliper':
         setv(**{'Base Color': (*hexrgb('#1f4fd8'), 1), 'Roughness': .3, 'Coat Weight': 1., 'Coat Roughness': .05})
+    elif kind == 'chrome_dark':
+        setv(**{'Base Color': (*hexrgb('#3b3d40'), 1), 'Metallic': 1., 'Roughness': .14})
+    elif kind == 'kidney':
+        setv(**{'Base Color': (*hexrgb('#b4b7bb'), 1), 'Metallic': 1., 'Roughness': .16})
+    elif kind == 'hl_lens':
+        # dış lens: berrak polikarbonat (şeffaf, keskin yansıma) — içerisi görünür
+        setv(**{'Base Color': (1, 1, 1, 1), 'Roughness': .0, 'Transmission Weight': 1., 'IOR': 1.49})
+    elif kind == 'hl_inner':
+        # iç gövde: vakum metalize reflektör + koyu gövde karışımı (krom, hafif mat)
+        setv(**{'Base Color': (*hexrgb('#a7abb0'), 1), 'Metallic': 1., 'Roughness': .1, 'Anisotropic': .4})
+    elif kind == 'hl_led':
+        # LED modülleri: kapalı far ama hafif ışık alan beyaz difüzör (gündüz farı izlenimi, çok düşük)
+        setv(**{'Base Color': (*hexrgb('#eef3ff'), 1), 'Roughness': .3, 'Emission Color': (*hexrgb('#e8f0ff'), 1), 'Emission Strength': 1.6})
+    elif kind == 'hl_bezel':
+        setv(**{'Base Color': (*hexrgb('#0a0a0b'), 1), 'Roughness': .18, 'Coat Weight': .6})
+    elif kind == 'tail_lens':
+        setv(**{'Base Color': (*hexrgb('#b3141c'), 1), 'Roughness': .02, 'Transmission Weight': .92, 'IOR': 1.49})
+    elif kind == 'tail_inner':
+        setv(**{'Base Color': (*hexrgb('#3c1013'), 1), 'Metallic': 1., 'Roughness': .18})
+    elif kind == 'tail_led':
+        setv(**{'Base Color': (*hexrgb('#5e0a0e'), 1), 'Roughness': .3, 'Emission Color': (*hexrgb('#ff2a1f'), 1), 'Emission Strength': .35})
     elif kind == 'chrome':
         setv(**{'Base Color': (*hexrgb('#9a9da1'), 1), 'Metallic': 1., 'Roughness': .07})
     elif kind == 'mirror':
@@ -727,7 +785,8 @@ def car_material(kind, paint='#681824'):
     elif kind == 'gloss':
         setv(**{'Base Color': (*hexrgb('#060607'), 1), 'Roughness': .12, 'Coat Weight': 1., 'Coat Roughness': .03})
     elif kind == 'matte':
-        setv(**{'Base Color': (*hexrgb('#0e0e0f'), 1), 'Specular IOR Level': .4}); rough_noise(.5, .65, 30.)
+        # tampon / hava girişi: dokulu mat plastik (ince tanecik), parlak siyahtan net ayrılır
+        setv(**{'Base Color': (*hexrgb('#121213'), 1), 'Specular IOR Level': .4}); rough_noise(.52, .68, 30.); noise_bump(900., .2, .0003)
     elif kind == 'headlight':
         # far: krom reflektör + üstünde kalın şeffaf lens hissi (metal + kalın cila)
         setv(**{'Base Color': (*hexrgb('#8f959b'), 1), 'Metallic': .8, 'Roughness': .16, 'Coat Weight': 1., 'Coat Roughness': .0, 'Coat IOR': 1.55})
@@ -752,7 +811,7 @@ def place_car(spot, yaw, paint='#681824', tag='Car'):
     for o in meshes:
         for s in o.material_slots:
             nm = s.material.name if s.material else ''
-            kind = next((v for k, v in CAR_MATS.items() if nm.endswith(k) or nm.endswith(k + '.001')), 'interior')
+            kind = car_kind(nm)
             s.material = car_material(kind, paint)
     bpy.context.view_layer.update()
     mn = Vector((1e9,) * 3); mx = -mn
@@ -815,8 +874,9 @@ if not LOUNGE:
     # 5) yansıma kartları: kameradan görünmez, kaportada geniş ve yumuşak gradyan yansıma (stüdyo softbox)
     #    – omuz çizgisini ve kapı yüzeylerini tanımlar; düşük yoğunluk: patlamaz
     area('L_Card_L', cx_ - 4.8, 1.05, cz_ + 1.2, 6.0, 1.1, 85, '#fffaf2', aim=(cx_, .55, cz_), spread=70)   # göğüs hizası: kapıya yansır, ön cama değil
-    area('L_Card_T', cx_ + 1.6, CH - .3, cz_ - 1.4, 2.6, .9, 45, '#fffaf2', aim=(cx_, 0, cz_), spread=70)
+    area('L_Card_T', cx_ + 1.6, CH - .3, cz_ - 1.4, 2.6, .9, 28, '#fffaf2', aim=(cx_, 0, cz_), spread=70)
     # 6) kenar (rim) ışıkları: arkadan alçak, araç siluetini zeminden ayırır
+    area('L_Card_S', cx_ + 1.9, .95, cz_ + 2.9, 5.2, .9, 55, '#fffaf2', aim=(cx_, .55, cz_), spread=60)   # kapı boyunca yumuşak yansıma bandı
     area('L_Rim_R', cx_ + 3.6, 1.5, cz_ - 3.2, 2.6, .5, 110, '#ffe9d0', aim=(cx_, .7, cz_), spread=45)
     area('L_Rim_B', cx_ - 1.2, 1.2, cz_ - 4.4, 3.0, .6, 110, '#fff1e2', aim=(cx_, .5, cz_), spread=60)
     # ışık bağlama: yansıma kartları ve kenar ışıkları yalnız ana araca etki eder
@@ -824,7 +884,7 @@ if not LOUNGE:
     try:
         rc = bpy.data.collections.new('MTG_CarReceivers')
         for o in CAR_MAIN: rc.objects.link(o)
-        for nm in ('L_Card_L', 'L_Card_T', 'L_Rim_R', 'L_Rim_B'):
+        for nm in ('L_Card_L', 'L_Card_T', 'L_Card_S', 'L_Rim_R', 'L_Rim_B'):
             bpy.data.objects[nm].light_linking.receiver_collection = rc
     except Exception as e:
         log('ışık bağlama yok (Blender < 4.0?), kartlar her yüzeye etki eder:', str(e)[:60])
@@ -880,7 +940,8 @@ def setup_post():
     except Exception as e:
         log('post-process atlandı:', str(e)[:80])
 
-def render_view(name, pos, look, vfov=40., res=(1280, 720)):
+def render_view(name, pos, look, vfov=40., res=None):
+    res = res or RES
     cd = bpy.data.cameras.new(name); cd.sensor_fit = 'VERTICAL'; cd.angle_y = math.radians(vfov)
     cam = bpy.data.objects.new(name, cd); link(cam)
     cam.location = P(*pos); d = P(*look) - cam.location
