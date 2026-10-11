@@ -730,7 +730,7 @@ def car_material(kind, paint='#681824'):
         setv(**{'Base Color': (*hexrgb('#0e0e0f'), 1), 'Specular IOR Level': .4}); rough_noise(.5, .65, 30.)
     elif kind == 'headlight':
         # far: krom reflektör + üstünde kalın şeffaf lens hissi (metal + kalın cila)
-        setv(**{'Base Color': (*hexrgb('#cfd3d7'), 1), 'Metallic': .35, 'Roughness': .28, 'Coat Weight': 1., 'Coat Roughness': .0, 'Coat IOR': 1.55})
+        setv(**{'Base Color': (*hexrgb('#8f959b'), 1), 'Metallic': .8, 'Roughness': .16, 'Coat Weight': 1., 'Coat Roughness': .0, 'Coat IOR': 1.55})
     elif kind == 'taillight':
         # stop: koyu kırmızı renkli cam, içten hafif derinlik
         setv(**{'Base Color': (*hexrgb('#8c0d12'), 1), 'Roughness': .04, 'Transmission Weight': .65, 'IOR': 1.5,
@@ -814,8 +814,8 @@ if not LOUNGE:
     area('L_Fill', cx_ - 2.5, 2.4, -.6, 6., 2.4, 260, '#f2f0ec', aim=(cx_, .7, cz_), spread=120, glossy=False)
     # 5) yansıma kartları: kameradan görünmez, kaportada geniş ve yumuşak gradyan yansıma (stüdyo softbox)
     #    – omuz çizgisini ve kapı yüzeylerini tanımlar; düşük yoğunluk: patlamaz
-    area('L_Card_L', cx_ - 4.8, 2.3, cz_ + 1.2, 6.0, 2.4, 75, '#fffaf2', aim=(cx_, .8, cz_), spread=70)
-    area('L_Card_T', cx_ + .9, CH - .3, cz_ - .9, 3.4, 1.0, 60, '#fffaf2', aim=(cx_, 0, cz_), spread=70)
+    area('L_Card_L', cx_ - 4.8, 1.05, cz_ + 1.2, 6.0, 1.1, 85, '#fffaf2', aim=(cx_, .55, cz_), spread=70)   # göğüs hizası: kapıya yansır, ön cama değil
+    area('L_Card_T', cx_ + 1.6, CH - .3, cz_ - 1.4, 2.6, .9, 45, '#fffaf2', aim=(cx_, 0, cz_), spread=70)
     # 6) kenar (rim) ışıkları: arkadan alçak, araç siluetini zeminden ayırır
     area('L_Rim_R', cx_ + 3.6, 1.5, cz_ - 3.2, 2.6, .5, 110, '#ffe9d0', aim=(cx_, .7, cz_), spread=45)
     area('L_Rim_B', cx_ - 1.2, 1.2, cz_ - 4.4, 3.0, .6, 110, '#fff1e2', aim=(cx_, .5, cz_), spread=60)
