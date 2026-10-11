@@ -61,15 +61,17 @@ Koordinatlar oda yereldir ve sitenin eksen düzenini kullanır (Y yukarı):
 | `MTG_Floor`, `MTG_Walls`, `MTG_Ceiling` | Pişmiş mesh | `extras.lightmap` dosyasını `lightMap` olarak bağla (`channel = 1`, `flipY = false`, sRGB), şiddet `extras.lmScale`. |
 | `MTG_WallL_Filler` | Pişmiş mesh | Yalnız ilk odada görünür; sol duvarda kapı yok. |
 | `MTG_DoorFrame_L / _R` | Mesh | İlk odada `_L` gizlenir. |
-| `MTG_Glass_*` | Mesh | Kodun cam malzemesi atanır. |
-| `MTG_Diffuser`, `MTG_LED_*` | Mesh | Işık yüzeyi: `MeshBasicMaterial` (bloom'a girer). |
+| `MTG_Glass_*`, `MTG_Mullion_*` | Mesh | Cam galeri kutusu (yerden tavana cam + bronz dikmeler); cama kodun cam malzemesi atanır. |
+| `MTG_LED_*`, `MTG_Stage_LED` | Mesh | Işık yüzeyi: `MeshBasicMaterial` (bloom'a girer). |
+| `MTG_Brand`, `MTG_Brand_Halo` | Mesh | Arkadan aydınlatmalı pirinç "MTG \| MOTORS" harfleri (Cinzel) + hale ışığı. |
+| `MTG_Stage*` | Mesh | Aracın altındaki zemine gömülü grafit disk, çelik kenar ve ince ışık çizgisi. |
 | `MTG_Decor_*` | Empty | `extras.decor` adlı dekor modeli (`models/decor/*.glb`) bu çapaya eklenir. |
 | `MTG_CarSpot` | Empty | Araç konumu ve yönü. |
-| `MTG_Totem` | Empty | Dijital bilgi totemi (yazısı ilan verisinden). |
-| `MTG_BrandPanel` | Empty | Arkadan aydınlatmalı logo paneli (`extras.w / h`). |
+| `MTG_SecondCar` | Empty | Cam galerideki ikinci araç (koyu renkli; kod mevcut modellerden birini klonlar). |
+| `MTG_Display` | Empty | Marka duvarına gömülü dijital ekran (`extras.w / h`, ilan verisi canvas ile çizilir). |
 | `MTG_Light` | Empty | Gerçek zamanlı alan ışığı (`extras.w / h`). |
 
-Sürgülü cam kapılar, totem yazısı, logo, araçlar ve kamera kodda kalır. GLB yalnız sabit mimariyi
+Sürgülü cam kapılar, ekran içeriği, araçlar ve kamera kodda kalır. GLB yalnız sabit mimariyi
 ve mobilyayı taşır.
 
 ## Bake ayrıntıları
@@ -83,3 +85,23 @@ ve mobilyayı taşır.
 - Komşu odalar ve cam cephe `PX_` vekilleriyle temsil edilir: kapıdan sızan ışık doğru çıkar.
   Bu vekiller dışa aktarılmaz.
 - Gölge boşlukları ve ışık kanalları (neredeyse siyah) `MTG_Reveals` olarak pişirilmeden verilir.
+
+## Oda tasarımı (2. aşama)
+
+- **Zemin:** 2.6 × 1.3 m porselen plakalar, 4 mm koyu derz, iki hafif ton, plaka başına farklı doku başlangıcı.
+  Aracın altında zemine gömülü r = 3 m cilalı grafit disk, fırçalanmış çelik kenar ve ince ışık çizgisi var.
+- **Sol arka duvar (marka duvarı):** 1.35 × 2.36 m koyu taş paneller, arkadan aydınlatmalı pirinç
+  "MTG | MOTORS" harfleri, bronz çerçeveli gömme dikey ekran.
+- **Sağ arka (cam galeri):** yerden tavana L biçimli cam kutu, bronz dikmeler.
+  - İçeride grafit renkli ikinci bir araç duruyor.
+  - Arkada ceviz lamel vurgu duvarı var; her 9. lamel bronz.
+  - Lameller tabandan ve tavandan ışıkla yalanıyor.
+- **Sağ duvar:** kapı çevresinde düzenli bölünmüş traverten paneller, bronz kapı kasası.
+- **Tavan:** zemin ızgarasıyla hizalı 2.6 × 1.3 m koyu paneller.
+  - Panel derzlerine gömülü lineer ışıklar (araç üstünde 4 hat, galeride 2 hat).
+  - Duvar çevresinde 16 cm gölge boşluğu ve içinde gizli LED.
+- **Lounge:** iki tonlu yün halı, modüler kanepe (3 oturum + eğik sırt minderleri + kırlentler), iki koltuk,
+  yuvarlak traverten sehpa (3 kitap, bronz heykelcik, vazo), bronz halka sarkıt, büyük saksılı bitkiler.
+
+Dokular `textures/` altında: `porcelain_slab`, `dark_stone`, `travertine_clean`, `warm_stone`.
+Kaynakları Poly Haven ve ambientCG, hepsi CC0. Yazı tipi `assets/Cinzel-SemiBold.ttf`, SIL OFL lisanslı.
