@@ -369,8 +369,10 @@ const CARS = [
     materials: {
       blinn1SG: 'paint', Windows: 'glass', lambert6SG: 'gloss', lambert30SG: 'gloss', lambert22SG: 'mirror',
       lambert4SG: 'tire', lambert5SG: 'matte', lambert7SG: 'rim', lambert8SG: 'caliper', lambert9SG: 'disc',
-      lambert3SG: 'darkChrome', lambert2SG: 'chrome', lambert10SG: 'headlight', HeadLights1: 'headlight',
-      BrakeLights_Glass: 'taillight', Plate_Recovered: 'plate', '*': 'interior',
+      lambert3SG: 'darkChrome', lambert2SG: 'chrome', lambert15SG: 'kidney', lambert25SG1: 'darkChrome',
+      // far katmanları (Blender malzeme kimliği render'ıyla eşlendi): dış lens, iç reflektör, LED, iç çerçeve
+      lambert10SG: 'lens', HeadLights1: 'reflector', lambert13SG: 'ledw', lambert14SG: 'gloss',
+      BrakeLights_Glass: 'taillight', lambert20SG: 'darkChrome', lambert21SG: 'tailLed', Plate_Recovered: 'plate', '*': 'interior',
     }, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
   { brand: 'Mercedes-Benz', model: 'E 180 AMG',                       title: '2013 E180 ORJİNAL AMG İÇİ SİYAH EMSALSİZ TEMİZLİKTE',             ilanNo: '1335046387', year: 2013, km: '199.000', colorName: 'Beyaz',     price: '1.965.000 TL', type: 'sedan', color: '#ecedef', url: '',
     glb: 'models/web/mercedes-e-w212.glb', length: 4.87, credit: { name: 'Mercedes E Class W212', author: 'Peter_D', url: SKETCHFAB('mercedes-e-class-w212-119c5e10733142b197aa53b86f6aeb04') } },
@@ -1156,11 +1158,18 @@ function makeCarMaterials(spec) {
   const P = THREE.MeshPhysicalMaterial, S = THREE.MeshStandardMaterial;
   const envMap = carEnv();
   const set = {
-    paint: new P({ color: spec.color, metalness: spec.metallic ?? .32, roughness: spec.metallic != null && spec.metallic < .2 ? .3 : .24, clearcoat: 1, clearcoatRoughness: .06, envMapIntensity: 1.1 }),
-    glass: new P({ color: '#010102', metalness: .2, roughness: .03, transparent: true, opacity: .43, depthWrite: false, side: THREE.DoubleSide, envMapIntensity: .9 }),
+    // baz kat + kalın şeffaf cila: geniş, yumuşak showroom yansımaları cila katmanından gelir
+    paint: new P({ color: spec.color, metalness: spec.metallic ?? .3, roughness: spec.metallic != null && spec.metallic < .2 ? .38 : .36, clearcoat: 1, clearcoatRoughness: .035, envMapIntensity: 1.05 }),
+    // hafif füme cam: yansıtır, içi seçilir (düz siyah değil)
+    glass: new P({ color: '#161b1f', metalness: .1, roughness: .02, transparent: true, opacity: .44, depthWrite: false, side: THREE.DoubleSide, envMapIntensity: 1.25 }),
+    lens: new P({ color: '#ffffff', metalness: 0, roughness: 0, clearcoat: 1, transparent: true, opacity: .14, depthWrite: false, envMapIntensity: 1.8 }),
+    reflector: new S({ color: '#b6bac0', metalness: 1, roughness: .12, envMapIntensity: 1.6 }),
+    ledw: new S({ color: '#f4f8ff', emissive: '#eaf2ff', emissiveIntensity: .9, roughness: .3 }),
+    kidney: new S({ color: '#b4b7bb', metalness: 1, roughness: .16, envMapIntensity: 1.5 }),
+    tailLed: new S({ color: '#5a0a0e', emissive: '#ff2a1f', emissiveIntensity: .35, roughness: .3 }),
     gloss: new P({ color: '#0a0a0b', metalness: .2, roughness: .12, clearcoat: 1, envMapIntensity: 1.5 }),
     matte: new S({ color: '#0e0e10', roughness: .9, envMapIntensity: .3 }),
-    tire: new S({ color: '#131315', roughness: .92, envMapIntensity: .3 }),
+    tire: new S({ color: '#151517', roughness: .82, envMapIntensity: .35 }),
     rim: new P({ color: spec.rimColor || '#b9bdc3', metalness: .6, roughness: .32, clearcoat: .6, envMapIntensity: 1 }),
     disc: new S({ color: '#6d7076', metalness: 1, roughness: .45, envMapIntensity: 1 }),
     caliper: new P({ color: spec.caliperColor || '#b80d1c', roughness: .35, clearcoat: 1, envMapIntensity: 1.2 }),
@@ -1883,6 +1892,7 @@ function buildCeiling(g, cx, lightboxes) {
 function buildRoom(k) {
   const th = themeOf(k), M = showroomMats(), g = new THREE.Group(); g.name = 'Oda ' + (k + 1) + ' — ' + th.name; scene.add(g);
   const cx = roomCX(k), cz = ROOM_CZ, W = ROOM_W, D = ROOM_D, H = HALL_H, xL = cx - W / 2, xR = cx + W / 2;
+  if (BLENDER_ROOMS) { buildRoomGLB(g, k); return; }
   // zemin: büyük ebat taş, derzler dokuda; yansıma altta tek Reflector'dan
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), pbr('showroom_floor', W / 2.4, D / 2.4, { color: '#c4c1bc', rough: 1, normal: .25, env: .6 }));
   if (floorReflector) { floor.material.transparent = true; floor.material.opacity = .93; }
@@ -1956,7 +1966,139 @@ function buildRooms() {
     floorReflector.rotation.x = -Math.PI / 2; floorReflector.position.set(0, -.001, -ROOM_D / 2); scene.add(floorReflector);
   }
   for (let k = 0; k < NROOMS; k++) buildRoom(k);
-  for (let k = 0; k < NROOMS - 1; k++) buildPartition(rooms[k].group, roomCX(k) + ROOM_W / 2);
+  for (let k = 0; k < NROOMS - 1; k++) (BLENDER_ROOMS ? buildDoorPanels : buildPartition)(rooms[k].group, roomCX(k) + ROOM_W / 2);
+}
+
+
+// ---------- Blender odaları (tools/blender/mtg_room.py) ----------
+// models/rooms/room_car.glb (7 araç odası ortak) + room_lounge.glb. Mimari ışığı Blender'da pişirildi (lightmap);
+// GLB yüklenemezse (ör. file:// ile açılış) yukarıdaki kodla çizilen odalar kullanılır.
+let BLENDER_ROOMS = null;
+const LM_GAIN = .55;                       // Blender (AgX, pozlama −1.45) ↔ three (ACES) parlaklık eşlemesi
+const bakedOnly = (sh) => {                // pişmiş yüzey: yayılı ışık lightmap'ten; gerçek zamanlı ışıklardan yalnız parlama
+  sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\n  reflectedLight.directDiffuse *= 0.0;');
+};
+async function loadBlenderRooms() {
+  if (location.protocol === 'file:') return;
+  try {
+    const [car, lounge] = await Promise.all(['room_car', 'room_lounge'].map((n) => gltfLoader.loadAsync(`models/rooms/${n}.glb`)));
+    const lmCache = {};
+    const lm = (file) => (lmCache[file] ||= texLoader.loadAsync('models/rooms/' + file).then((t) => {
+      t.flipY = false; t.channel = 1; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }));
+    const M = showroomMats(), jobs = [];
+    for (const g of [car, lounge]) {
+      g.scene.traverse((o) => {
+        const ex = o.userData || {};
+        if (ex.lightmap) jobs.push(lm(ex.lightmap).then((t) => o.traverse((m) => {
+          if (!m.isMesh) return;
+          const c = m.material.clone();
+          c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN; c.envMapIntensity = .3;
+          c.onBeforeCompile = bakedOnly; c.customProgramCacheKey = () => 'mtg-baked';
+          // masaüstünde zeminin altında Reflector var: zemin hafif şeffaf, yansıma süzülür
+          if (/Floor/.test(o.name) && !isMobile) { c.transparent = true; c.opacity = .9; }
+          m.material = c; m.receiveShadow = true;
+        })));
+        if (!o.isMesh) return;
+        const n = o.material.name || '';
+        o.castShadow = o.receiveShadow = true;
+        if (/MTG_(led|ledSoft|led_line|ledRing|halo)$/.test(n)) {
+          const e = o.material.emissive.clone().multiplyScalar(/halo/.test(n) ? 1.1 : 1.6);
+          o.material = new THREE.MeshBasicMaterial({ color: e, toneMapped: true }); o.castShadow = false;
+        } else if (/MTG_glass/.test(n)) { o.material = M.glassP; o.castShadow = false; }
+        else if (/MTG_stage/.test(n)) { o.material = o.material.clone(); o.material.clearcoat = .35; o.material.envMapIntensity = .3; if (!isMobile) { o.material.transparent = true; o.material.opacity = .9; } }
+        else if ('envMapIntensity' in o.material) o.material.envMapIntensity = .6;
+      });
+    }
+    await Promise.all(jobs);
+    BLENDER_ROOMS = { car: car.scene, lounge: lounge.scene };
+  } catch (e) {
+    console.warn('Blender odaları yüklenemedi, kodla çizilen odalar kullanılıyor.', e);
+    BLENDER_ROOMS = null;
+  }
+}
+
+// marka harflerinin arkasında duvara düşen yumuşak hale (Blender'daki arkadan aydınlatmanın web karşılığı)
+let haloTex;
+function brandHalo(mesh) {
+  haloTex ||= canvasTexture(2048, 320, (g, w, h) => {
+    g.clearRect(0, 0, w, h); g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '600 150px Cinzel, Georgia, serif';
+    if ('letterSpacing' in g) g.letterSpacing = '40px';
+    g.shadowColor = 'rgba(255,205,150,1)'; g.shadowBlur = 46; g.fillStyle = 'rgba(255,214,166,.9)';
+    for (let i = 0; i < 3; i++) g.fillText('MTG  |  MOTORS', w / 2, h / 2 + 6);
+  });
+  const box = new THREE.Box3().setFromObject(mesh), size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(size.x * 1.18, size.x * 1.18 * 320 / 2048),
+    new THREE.MeshBasicMaterial({ map: haloTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: .55 }));
+  p.position.set(c.x, c.y, box.min.z - .012); return p;
+}
+
+// cam galerideki ikinci araç: bir sonraki odanın aracı, grafit renkte (aynı spec için bir kez hazırlanır, sonra klonlanır)
+const secondCarCache = new Map();
+function secondCar(k) {
+  if (isMobile) return null;
+  const order = [TOUR[k + 1], TOUR[k - 1], TOUR[k]].filter((i) => i != null && CARS[i]?._scene);
+  if (!order.length) return null;
+  const spec = CARS[order[0]];
+  if (!secondCarCache.has(spec)) {
+    const ghost = { ...spec, color: '#34373c', metallic: .55, _scene: spec._scene.clone(true) };
+    secondCarCache.set(spec, prepareCarModel(ghost));
+  }
+  return secondCarCache.get(spec).clone(true);
+}
+
+function buildRoomGLB(g, k) {
+  const lounge = k >= TOUR.length, src = lounge ? BLENDER_ROOMS.lounge : BLENDER_ROOMS.car;
+  const room = src.clone(true), cx = roomCX(k);
+  room.position.x = cx; g.add(room); room.updateMatrixWorld(true);
+  const anchor = (n) => room.getObjectByName(n);
+  // ilk odada sol duvarda kapı yok
+  const filler = anchor('MTG_WallL_Filler'), frameL = anchor('MTG_DoorFrame_L');
+  if (filler) filler.visible = k === 0;
+  if (frameL) frameL.visible = k !== 0;
+  // dekor çapaları
+  room.traverse((o) => { const d = o.userData?.decor; if (d && DECOR[d]) o.add(DECOR[d].clone(true)); });
+  // marka hale ışığı
+  const brand = anchor('MTG_Brand'); if (brand) { const h = brandHalo(brand); room.attach(h); }
+  // duvara gömülü dijital ekran: ilan verisi
+  const disp = anchor('MTG_Display');
+  if (disp && !lounge) {
+    const t = totemTexture(CARS[TOUR[k]], k);
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(disp.userData.w || .62, disp.userData.h || 1.9),
+      new THREE.MeshStandardMaterial({ map: t, emissiveMap: t, emissive: '#ffffff', emissiveIntensity: .8, roughness: .12, metalness: .1 }));
+    scr.position.z = .001; disp.add(scr);
+  }
+  // cam galerideki ikinci araç
+  const spot2 = anchor('MTG_SecondCar');
+  if (spot2 && !lounge) { const c2 = secondCar(k); if (c2) { c2.rotation.y = spot2.rotation.y; spot2.parent.add(c2); c2.position.copy(spot2.position); } }
+  const L = anchor('MTG_Light'), lp = L ? L.getWorldPosition(new THREE.Vector3()) : carPos(k);
+  rooms.push({ group: g, theme: themeOf(k), cx, cz: ROOM_CZ, light: [lp.x, lp.z] });
+}
+
+// GLB modunda bölmeden yalnız sürgülü cam kapılar (duvar ve kasa GLB'de)
+function buildDoorPanels(g, x) {
+  const M = showroomMats();
+  for (const sd of [-1, 1]) {
+    const d = new THREE.Group();
+    const pane = new THREE.Mesh(new THREE.BoxGeometry(.016, DOOR_H - .04, DOOR_W / 2), M.glassP); pane.position.y = (DOOR_H - .04) / 2; d.add(pane);
+    box(.03, .9, .025, M.metal, .03, 1.05, -sd * (DOOR_W / 4 - .12), d);
+    box(.02, .05, DOOR_W / 2, M.black, 0, .025, 0, d); box(.02, .05, DOOR_W / 2, M.black, 0, DOOR_H - .065, 0, d);
+    d.position.set(x, 0, DOOR_Z + sd * DOOR_W / 4); d.userData = { side: sd, x }; g.add(d); roomDoors.push(d);
+  }
+}
+
+// gerçek showroom yansıması: odalar kurulunca araç noktasından küp çekim → araç boyası ve parlak yüzeyler bunu yansıtır
+function captureRoomEnv() {
+  if (!BLENDER_ROOMS) return;
+  placeRoomLight(roomLightA, 0); placeRoomLight(roomLightB, 1);
+  const rt = new THREE.WebGLCubeRenderTarget(isMobile ? 128 : 256, { type: THREE.HalfFloatType });
+  const cube = new THREE.CubeCamera(.1, 80, rt);
+  const p = carPos(0); cube.position.set(p.x, 1.1, p.z);
+  const prevFog = scene.fog; scene.fog = null;
+  cube.update(renderer, scene);
+  scene.fog = prevFog;
+  carEnvTex = pmrem.fromCubemap(rt.texture).texture;
+  scene.environment = carEnvTex;
+  rt.dispose();
 }
 
 // oda ışıkları: ışık kasasının altında alan ışığı; bulunulan ve sonraki odaya taşınır (ışık sayısı sabit)
@@ -2071,11 +2213,13 @@ try {
 const loaderText = document.querySelector('#loader small');
 await loadCarModels((p) => { loaderText.textContent = `Araçlar yükleniyor %${Math.round(p * 100)}`; });
 await loadCarViews();
-await Promise.all([preloadTextures(THEME_TEXTURES), loadDecor()]);
+loaderText.textContent = 'Showroom hazırlanıyor';
+await Promise.all([preloadTextures(THEME_TEXTURES), loadDecor(), loadBlenderRooms()]);
 buildSky();
 buildStreet();
 buildBuilding();
-buildRooms();          // oda dizisi: Blender salon modeli (tek salon düzeni) bu modda kullanılmaz
+buildRooms();          // Blender odaları (models/rooms) yüklendiyse onlar, yoksa kodla çizilen odalar
+captureRoomEnv();      // araçlar eklenmeden önce: boya gerçek showroom'u yansıtsın
 buildStations();
 buildAtmosphere();
 buildCameraPath();
