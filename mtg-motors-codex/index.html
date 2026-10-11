@@ -2098,6 +2098,152 @@ function buildRooms() {
   for (let k = 0; k < NROOMS; k++) buildRoom(k);
 }
 
+// ---------- Blender odaları (tools/blender/mtg_room.py) ----------
+// models/rooms/room_car.glb (7 araç odası ortak) + room_lounge.glb. Mimari ışığı Blender'da pişirildi (lightmap);
+// GLB yüklenemezse (ör. file:// ile açılış) yukarıdaki kodla çizilen odalar kullanılır.
+let BLENDER_ROOMS = null;
+const LM_GAIN = .55;                       // Blender (AgX, pozlama −1.45) ↔ three (ACES) parlaklık eşlemesi
+const bakedOnly = (sh) => {                // pişmiş yüzey: yayılı ışık lightmap'ten; gerçek zamanlı ışıklardan yalnız parlama
+  sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\n  reflectedLight.directDiffuse *= 0.0;');
+};
+// file:// ile açılışta GLB ve lightmap'ler models/rooms/rooms.js içinden (base64) okunur
+async function roomAsset(n) {
+  const url = `models/rooms/${n}.glb`, b64 = window.MTG_ROOMS?.[url];
+  return b64 ? gltfLoader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : gltfLoader.loadAsync(url);
+}
+async function loadBlenderRooms() {
+  if (location.protocol === 'file:' && !window.MTG_ROOMS) await new Promise((res) => {
+    const sc = document.createElement('script'); sc.src = 'models/rooms/rooms.js'; sc.onload = sc.onerror = res; document.head.appendChild(sc);
+  });
+  try {
+    const [car, lounge, hub] = await Promise.all(['room_car', 'room_lounge', 'room_hub'].map((n) => roomAsset(n)));
+    const lmCache = {};
+    const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
+      t.flipY = false; t.channel = 1; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }));
+    const M = showroomMats(), jobs = [];
+    for (const g of [car, lounge, hub]) {
+      g.scene.traverse((o) => {
+        const ex = o.userData || {};
+        if (ex.lightmap) jobs.push(lm(ex.lightmap).then((t) => o.traverse((m) => {
+          if (!m.isMesh) return;
+          const c = m.material.clone();
+          c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN; c.envMapIntensity = .3;
+          c.onBeforeCompile = bakedOnly; c.customProgramCacheKey = () => 'mtg-baked';
+          // masaüstünde zeminin altında Reflector var: zemin hafif şeffaf, yansıma süzülür
+          if (/Floor/.test(o.name) && !isMobile) { c.transparent = true; c.opacity = .9; }
+          m.material = c; m.receiveShadow = true;
+        })));
+        if (!o.isMesh) return;
+        const n = o.material.name || '';
+        o.castShadow = o.receiveShadow = true;
+        if (/MTG_(led|ledSoft|led_line|ledRing|halo)$/.test(n)) {
+          const e = o.material.emissive.clone().multiplyScalar(/halo/.test(n) ? 1.1 : 1.6);
+          o.material = new THREE.MeshBasicMaterial({ color: e, toneMapped: true }); o.castShadow = false;
+        } else if (/MTG_glass/.test(n)) { o.material = M.glassP; o.castShadow = false; }
+        else if (/MTG_stage/.test(n)) { o.material = o.material.clone(); o.material.clearcoat = .35; o.material.envMapIntensity = .3; if (!isMobile) { o.material.transparent = true; o.material.opacity = .9; } }
+        else if ('envMapIntensity' in o.material) o.material.envMapIntensity = .6;
+      });
+    }
+    await Promise.all(jobs);
+    BLENDER_ROOMS = { car: car.scene, lounge: lounge.scene, hub: hub.scene };
+  } catch (e) {
+    console.warn('Blender odaları yüklenemedi, kodla çizilen odalar kullanılıyor.', e);
+    BLENDER_ROOMS = null;
+  }
+}
+
+// marka harflerinin arkasında duvara düşen yumuşak hale (Blender'daki arkadan aydınlatmanın web karşılığı)
+let haloTex;
+function brandHalo(mesh) {
+  haloTex ||= canvasTexture(2048, 320, (g, w, h) => {
+    g.clearRect(0, 0, w, h); g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '600 150px Cinzel, Georgia, serif';
+    if ('letterSpacing' in g) g.letterSpacing = '40px';
+    g.shadowColor = 'rgba(255,205,150,1)'; g.shadowBlur = 46; g.fillStyle = 'rgba(255,214,166,.9)';
+    for (let i = 0; i < 3; i++) g.fillText('MTG  |  MOTORS', w / 2, h / 2 + 6);
+  });
+  const box = new THREE.Box3().setFromObject(mesh), size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(size.x * 1.18, size.x * 1.18 * 320 / 2048),
+    new THREE.MeshBasicMaterial({ map: haloTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: .55 }));
+  p.position.set(c.x, c.y, box.min.z - .012); return p;
+}
+
+// cam galerideki ikinci araç: bir sonraki odanın aracı, grafit renkte (aynı spec için bir kez hazırlanır, sonra klonlanır)
+const secondCarCache = new Map();
+function secondCar(k) {
+  if (isMobile) return null;
+  const order = [TOUR[k + 1], TOUR[k - 1], TOUR[k]].filter((i) => i != null && CARS[i]?._scene);
+  if (!order.length) return null;
+  const spec = CARS[order[0]];
+  if (!secondCarCache.has(spec)) {
+    const ghost = { ...spec, color: '#34373c', metallic: .55, _scene: spec._scene.clone(true) };
+    secondCarCache.set(spec, prepareCarModel(ghost));
+  }
+  return secondCarCache.get(spec).clone(true);
+}
+
+// GLB modunda bölmeden yalnız sürgülü cam kapılar (duvar ve kasa GLB'de)
+function buildDoorPanels(g, x) {
+  const M = showroomMats();
+  for (const sd of [-1, 1]) {
+    const d = new THREE.Group();
+    const pane = new THREE.Mesh(new THREE.BoxGeometry(.016, DOOR_H - .04, DOOR_W / 2), M.glassP); pane.position.y = (DOOR_H - .04) / 2; d.add(pane);
+    box(.03, .9, .025, M.metal, .03, 1.05, -sd * (DOOR_W / 4 - .12), d);
+    box(.02, .05, DOOR_W / 2, M.black, 0, .025, 0, d); box(.02, .05, DOOR_W / 2, M.black, 0, DOOR_H - .065, 0, d);
+    d.position.set(x, 0, DOOR_Z + sd * DOOR_W / 4); d.userData = { side: sd, x }; g.add(d); roomDoors.push(d);
+  }
+}
+
+// gerçek showroom yansıması: odalar kurulunca araç noktasından küp çekim → araç boyası ve parlak yüzeyler bunu yansıtır
+function captureRoomEnv() {
+  if (!BLENDER_ROOMS) return;
+  placeRoomLight(roomLightA, 0); placeRoomLight(roomLightB, 1);
+  const rt = new THREE.WebGLCubeRenderTarget(isMobile ? 128 : 256, { type: THREE.HalfFloatType });
+  const cube = new THREE.CubeCamera(.1, 80, rt);
+  const p = carPos(0); cube.position.set(p.x, 1.1, p.z);
+  const prevFog = scene.fog; scene.fog = null;
+  cube.update(renderer, scene);
+  scene.fog = prevFog;
+  carEnvTex = pmrem.fromCubemap(rt.texture).texture;
+  scene.environment = carEnvTex;
+  rt.dispose();
+}
+
+function decorize(root) {
+  root.traverse((o) => { const d = o.userData?.decor; if (d && DECOR[d] && !o.userData._decorDone) { o.add(DECOR[d].clone(true)); o.userData._decorDone = true; } });
+  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b) root.add(brandHalo(b)); }
+}
+function buildRoomGLB(g, k) {
+  const lounge = k >= TOUR.length, src = lounge ? BLENDER_ROOMS.lounge : BLENDER_ROOMS.car;
+  const room = src.clone(true);
+  g.add(room); g.updateMatrixWorld(true);           // önce oda yerelinde kur, sonra modül konumuna taşı
+  const anchor = (n) => room.getObjectByName(n);
+  decorize(room);
+  const disp = anchor('MTG_Display');
+  if (disp && !lounge) {
+    const t = totemTexture(CARS[TOUR[k]], k);
+    const scr = new THREE.Mesh(new THREE.PlaneGeometry(disp.userData.w || .62, disp.userData.h || 1.9),
+      new THREE.MeshStandardMaterial({ map: t, emissiveMap: t, emissive: '#ffffff', emissiveIntensity: .8, roughness: .12, metalness: .1 }));
+    scr.position.z = .001; disp.add(scr);
+  }
+  const spot2 = anchor('MTG_SecondCar');
+  if (spot2 && !lounge) { const c2 = secondCar(k); if (c2) { c2.rotation.y = spot2.rotation.y; spot2.parent.add(c2); c2.position.copy(spot2.position); } }
+  const m = moduleXform(k);
+  g.position.copy(m.origin); g.rotation.y = m.rotY; g.updateMatrixWorld(true);
+  const L = anchor('MTG_Light'), lp = L ? L.getWorldPosition(new THREE.Vector3()) : carPos(k);
+  rooms.push({ group: g, theme: themeOf(k), cx: m.origin.x, cz: m.zc, light: [lp.x, lp.z], row: m.row });
+}
+// GLB yüklenemezse: modül başına sade zemin + duvarlar (tur ve kamera yine çalışır)
+function buildRoomFallback(g, k) {
+  const M = showroomMats(), m = moduleXform(k);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(ROOM_W, ROOM_D), pbr('showroom_floor', ROOM_W / 2.4, ROOM_D / 2.4, { color: '#c4c1bc', rough: 1, normal: .25, env: .6 }));
+  floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, -ROOM_D / 2); floor.receiveShadow = true; g.add(floor);
+  wallPlane(g, travertine(ROOM_W, HALL_H), ROOM_W, HALL_H, 0, HALL_H / 2, -ROOM_D + .01, 0);
+  for (const sd of [-1, 1]) wallPlane(g, microcement(ROOM_D, HALL_H), ROOM_D, HALL_H, sd * (ROOM_W / 2 - .15), HALL_H / 2, -ROOM_D / 2, -sd * Math.PI / 2);
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(ROOM_W, ROOM_D), M.ceiling); ceil.rotation.x = Math.PI / 2; ceil.position.set(0, HALL_H, -ROOM_D / 2); g.add(ceil);
+  g.position.copy(m.origin); g.rotation.y = m.rotY; g.updateMatrixWorld(true);
+  const lp = carPos(k); rooms.push({ group: g, theme: themeOf(k), cx: m.origin.x, cz: m.zc, light: [lp.x, lp.z], row: m.row });
+}
+
 // oda ışıkları: ışık kasasının altında alan ışığı; bulunulan ve sonraki odaya taşınır (ışık sayısı sabit)
 const roomLightA = new THREE.RectAreaLight('#ffffff', 5, 7.2, 4.2), roomLightB = new THREE.RectAreaLight('#ffffff', 5, 7.2, 4.2);
 scene.add(roomLightA, roomLightB);
