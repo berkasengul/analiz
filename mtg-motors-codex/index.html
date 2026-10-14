@@ -1701,6 +1701,8 @@ function showcasePose(dt) {
 if (NO_INERTIA) window.__showcase = (t) => { SHOW.forceT = t; };   // yalnızca #test: vitrin anını sabitle
 if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total: +tour.total.toFixed(1), seg: STOPS.slice(1).map((st, i) => +(sToL(st) - sToL(STOPS[i])).toFixed(1)),
   portals: Array.from({ length: NROOMS }, (_, k) => { const o = portalOpen(k), m = moduleSlot(k); return `${k}:${m.side < 0 ? 'L' : 'R'}${m.row}${o.L ? '<' : '|'}${o.R ? '>' : '|'}`; }).join(' ') });   // yalnızca #test
+if (NO_INERTIA) window.__camAt = (S) => { const k = keys[Math.round(S)]; const d = new THREE.Vector3(); camera.getWorldDirection(d);
+  return { s: S, pos: camera.position.toArray().map((v) => +v.toFixed(2)), dir: d.toArray().map((v) => +v.toFixed(2)), key: k && { pos: k.pos.toArray().map((v) => +v.toFixed(2)), look: k.look.toArray().map((v) => +v.toFixed(2)) }, pitch: +tour.pitch[Math.round(S)].toFixed(2) }; };   // yalnızca #test
 if (NO_INERTIA) window.__perf = () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, scale: renderScale });   // yalnızca #test
 // yalnızca #test: lastiklerin en alt noktası / aracın en alt noktası / zemin (dünya y, m)
 if (NO_INERTIA) window.__ground = () => stations.map((st, i) => {
@@ -2981,7 +2983,7 @@ function goToStop(i) {
   if (reduceMotion || NO_INERTIA) { currentS = to; tween = null; }
 }
 window.mtgGo = goToStop;
-if (NO_INERTIA) window.__setS = (k) => { tween = null; currentS = targetS = k; };   // yalnızca #test
+if (NO_INERTIA) window.__setS = (k) => { tween = null; currentS = targetS = k; SHOW.k = -1; SHOW.w = 0; };   // yalnızca #test (vitrin bırakışı sıfır)
 let testCam = null;
 if (NO_INERTIA) window.__cam = (p, t, fov) => { testCam = p ? [p, t, fov] : null; };   // yalnızca #test: sabit kabul açısı
 function step(dir) { if (tween || performance.now() < inputLock || inspect.active || lb.el.classList.contains('open')) return; goToStop(stopIdx + dir); }
