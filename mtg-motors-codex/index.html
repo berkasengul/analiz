@@ -1286,7 +1286,7 @@ function prepareCarModel(spec) {
 }
 
 // Fotoğrafı/modeli henüz olmayan araç: showroom'daki gibi saten örtülü gösterilir
-const coverMat = new THREE.MeshPhysicalMaterial({ color: '#1b1c20', roughness: .55, metalness: 0, sheen: 1, sheenColor: '#6b6f7a', sheenRoughness: .4, envMapIntensity: .5 });
+const coverMat = new THREE.MeshPhysicalMaterial({ color: '#2a2c31', roughness: .62, metalness: 0, sheen: 1, sheenColor: '#9aa0aa', sheenRoughness: .45, envMapIntensity: .55 });   // saten araç örtüsü
 function coverCar(car) {
   car.traverse((o) => {
     if (o.isMesh && o.material.map !== shadowTex) o.material = coverMat;
@@ -1316,7 +1316,17 @@ function plaqueTexture(car, i) {
   });
 }
 
+// 3D modeli henüz olmayan ilan: aynı gövde tipindeki gerçek bir modelin üstüne saten araç örtüsü
+// (premium galerilerdeki örtülü lansman aracı görünümü; kutu yedek gövde yerine)
+const donorFor = (type) => CARS.find((c) => c._scene && c.type === ({ sedan: 'coupe' }[type] || type)) || CARS.find((c) => c._scene);
 function buildStations() {
+  const donors = new Map();          // donör sahneler, kendileri hazırlanmadan (birleştirme/malzeme) önce kopyalanır
+  TOUR.forEach((ci) => { const sp = CARS[ci], d = !sp._scene && donorFor(sp.type); if (d && !donors.has(d)) donors.set(d, d._scene.clone(true)); });
+  const coveredCar = (spec) => {
+    const d = donorFor(spec.type);
+    if (!d || !donors.has(d)) return coverCar(buildCar(spec));
+    return coverCar(prepareCarModel({ ...d, length: spec.length || d.length, _scene: donors.get(d).clone(true) }));
+  };
   TOUR.forEach((ci, i) => {
     const spec = CARS[ci];
     const side = -1;                      // bilgi kartı sağda, araç kadrajın solunda
@@ -1334,7 +1344,7 @@ function buildStations() {
       photo.position.y = .1;
       st.add(photo);
     } else {
-      turn.add(spec._scene ? prepareCarModel(spec) : coverCar(buildCar(spec)));
+      turn.add(spec._scene ? prepareCarModel(spec) : coveredCar(spec));
     }
     turn.rotation.y = Math.atan2(-.55, -.84);          // ön: kameraya çapraz (3/4 ön görünüm)
 
