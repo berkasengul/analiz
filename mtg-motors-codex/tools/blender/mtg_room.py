@@ -880,6 +880,10 @@ def build_signature():
     text_mesh('MTG_Brand', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .03 + .02, M['champagne'], PLAIN, depth=.04, tracking=1.14)
     text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .012, M['halo'], EMISSIVE, depth=.002, tracking=1.14)
     text_mesh('MTG_BrandSub', 'PRIVATE  COLLECTION', .19, bx_, 2.36, MZ + .03 + .008, M['champagne'], PLAIN, depth=.016, tracking=1.5)
+    # harfler duvara gölge düşürmez: 4 cm kabartmanın lightmap'teki bulanık/çift gölgesi yazıyı kirletiyordu; derinliği hale verir
+    for nm_ in ('MTG_Brand', 'MTG_BrandSub', 'MTG_Brand_Halo'):
+        try: bpy.data.objects[nm_].visible_shadow = False
+        except Exception: pass
     box('MTG_LED_BrandTop', BW1 - BW0 - .2, .01, .02, bx_, H - .02, MZ + .2, M['ledSoft'], EMISSIVE)
     # dijital ekran: sağ çıta alanında
     dx, dy = (BW1 + .12 + XR) / 2, 1.42

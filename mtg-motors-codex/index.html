@@ -2538,10 +2538,19 @@ const PREM_LIGHTS = [];
 // Signature Gallery GLB'si (tools/blender/mtg_room.py --variant signature): mimari, ışık ve sergileme alanı Blender'da.
 // Kodda yalnız: arkadan ışıklı şampanya harflerin hafif ışıması, araç üstü stüdyo panelinin yumuşak ışıması.
 function signatureRoom(room) {
+  // canvas hale (bulanık yazı kopyası) burada yok: harf aralığı 3B harflerle tutmayıp çift/kayık görüntü veriyordu;
+  // hale, Blender'daki harflerle birebir aynı biçimli MTG_Brand_Halo'dan gelir
+  room.getObjectByName('MTG_Brand_Glow')?.removeFromParent();
   room.traverse((o) => {
     if (!o.isMesh) return;
-    if (/^MTG_Brand(Sub)?$/.test(o.name)) { o.material = o.material.clone(); o.material.emissive?.set('#7a5424'); o.material.emissiveIntensity = .7; o.material.side = THREE.DoubleSide; }
-    if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.toneMapped = true; o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
+    const part = (/^MTG_(Floor)/.exec(o.name) || /^MTG_(Floor)/.exec(o.parent?.name || '') || [])[1];
+    if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = .8; o.material.roughness = .22; }   // cilalı taş: yansıma belirgin
+    if (/^MTG_Brand(Sub)?$/.test(o.name)) {                                // fırçalanmış şampanya metal, arkadan hafif ışıklı: net okunur
+      const m = o.material = o.material.clone();
+      m.color.set('#e2c592'); m.metalness = .85; m.roughness = .3; m.envMapIntensity = 1.1;
+      m.emissive?.set('#6e4b1d'); m.emissiveIntensity = .6; m.side = THREE.DoubleSide;
+    }
+    if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
   });
 }
 function premiumRoom(room, k) {
