@@ -778,9 +778,9 @@ def facade_lights():
 # çerçeveli cam bölmenin ardında "private vault" (ceviz lamel + arkadan ışıklı raflar), koyu mat tavanda araç üstü
 # stüdyo ışık paneli, VIP lounge (deri kanepe, konyak koltuklar, mermer sehpa, çift halka avize).
 SIG_YAW = -1.283                 # sitedeki PREM_YAW: araç önü (0.28, 0.96) → koridora ve sağa dönük
-M['floor_a'] = pbr('floor_graphite', 'dark_stone', '#9c958e', rough=.34, normal=.35, coat=.45, coat_rough=.08, rough_var=.25, micro=.06)
-M['floor_b'] = pbr('floor_graphite_b', 'dark_stone', '#8d867f', rough=.36, normal=.35, coat=.45, coat_rough=.09, rough_var=.25, micro=.06)
-M['floor_inlay'] = pbr('floor_inlay', 'dark_stone', '#6c6660', rough=.22, normal=.25, coat=.8, coat_rough=.04, micro=.04)
+M['floor_a'] = pbr('floor_graphite', 'dark_stone', '#6f6a65', rough=.34, normal=.35, coat=.45, coat_rough=.08, rough_var=.25, micro=.06)
+M['floor_b'] = pbr('floor_graphite_b', 'dark_stone', '#65605b', rough=.36, normal=.35, coat=.45, coat_rough=.09, rough_var=.25, micro=.06)
+M['floor_inlay'] = pbr('floor_inlay', 'dark_stone', '#4a4642', rough=.22, normal=.25, coat=.8, coat_rough=.04, micro=.04)
 M['marble'] = pbr('brand_marble', 'dark_stone', '#7d7874', rough=.3, normal=.5, coat=.55, coat_rough=.06, rough_var=.3, micro=.08)
 M['champagne'] = pbr('champagne', None, '#dcbd86', rough=.24, metal=1.)
 M['leather_cream'] = pbr('leather_cream', 'velour_velvet', '#dacbb6', rough=.52, normal=.25, use_map=False, coat=.15, coat_rough=.35)
@@ -854,14 +854,15 @@ def build_signature():
                                     ('W', fw, zz1 - zz0, zx0, (zz0 + zz1) / 2), ('E', fw, zz1 - zz0, zx1, (zz0 + zz1) / 2)):
         box(f'MTG_StageFrame_{nm_}', sx_, .003, sz_, cx_, .0015, cz_, M['champagne'], PLAIN)
 
-    # --- arka duvar (z = −13): sol ceviz çıta | koyu mermer marka duvarı | ceviz çıta | cam bölmeli private vault
+    # --- arka duvar (z = −13): cam bölmeli private vault (sol, aracın arkası) | ceviz çıta | koyu mermer marka duvarı
+    #     (orta: kahraman karede aracın tam arkasında) | ceviz çıta + dijital ekran (sağ)
     box('Wall_Back_Core', W, WALL_TOP, .02, 0, WALL_TOP / 2, BZ + .01, M['reveal'], DARK)
-    BW0, BW1 = -4.35, 2.25                       # marka duvarı
-    VX = 2.85                                    # vault başlangıcı (x)
+    BW0, BW1 = -2.23, 4.27                       # marka duvarı (merkez x ≈ 1.0)
+    VX0, VX1 = XL, -2.9                          # vault (x)
     VZ = -10.6                                   # vault cam bölmesi (z)
-    slats('SlatL', XL, BW0 - .12, BZ, bronze_every=0)
+    slats('SlatM', VX1, BW0 - .12, BZ)
     led_v('BackL', BW0 - .06, BZ)
-    slats('SlatM', BW1 + .12, VX, BZ)
+    slats('SlatR', BW1 + .12, XR, BZ)
     led_v('BackR', BW1 + .06, BZ)
     # marka duvarı: 10 cm öne çıkan koyu mermer (3 × 2 panel), şampanya çerçeve, altta havada duran traverten bant
     MZ = BZ + .12
@@ -880,27 +881,28 @@ def build_signature():
     text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .012, M['halo'], EMISSIVE, depth=.002, tracking=1.14)
     text_mesh('MTG_BrandSub', 'PRIVATE  COLLECTION', .19, bx_, 2.36, MZ + .03 + .008, M['champagne'], PLAIN, depth=.016, tracking=1.5)
     box('MTG_LED_BrandTop', BW1 - BW0 - .2, .01, .02, bx_, H - .02, MZ + .2, M['ledSoft'], EMISSIVE)
-    # dijital ekran: sol çıta alanında
-    dx, dy = (XL + BW0 - .12) / 2, 1.42
+    # dijital ekran: sağ çıta alanında
+    dx, dy = (BW1 + .12 + XR) / 2, 1.42
     box('MTG_Display_Frame', .74, 2.02, .03, dx, dy, BZ + .085, M['bronze'], PLAIN)
     box('MTG_Display_Bezel', .68, 1.96, .02, dx, dy, BZ + .105, M['black'], PLAIN)
     anchor('MTG_Display', dx, dy, BZ + .116, mtg_anchor='display', w=.62, h=1.9)
     # private vault: arkada ceviz lamel + arkadan ışıklı bronz raflar, önde bronz çerçeveli cam bölme
-    slats('Vault', VX, XR, BZ, bronze_every=9)
+    slats('Vault', VX0, VX1, BZ, bronze_every=9)
+    vcx = (VX0 + VX1) / 2
     for k, y in enumerate((1.0, 1.7, 2.4)):
-        box(f'MTG_Shelf_{k}', XR - VX - .7, .025, .32, (VX + XR) / 2, y, BZ + .26, M['champagne'], PLAIN)
-        box(f'MTG_LED_Shelf_{k}', XR - VX - .8, .006, .02, (VX + XR) / 2, y - .016, BZ + .38, M['shelf_led'], EMISSIVE)
+        box(f'MTG_Shelf_{k}', VX1 - VX0 - .7, .025, .32, vcx, y, BZ + .26, M['champagne'], PLAIN)
+        box(f'MTG_LED_Shelf_{k}', VX1 - VX0 - .8, .006, .02, vcx, y - .016, BZ + .38, M['shelf_led'], EMISSIVE)
     for k, (ox, y, dn, sc) in enumerate(((-.7, 1.0, 'brass_vase_02', .9), (.5, 1.0, 'ceramic_vase_01', .8), (-.2, 1.7, 'ceramic_vase_01', .7),
                                          (.7, 1.7, 'brass_vase_02', .7), (0.0, 2.4, 'brass_vase_02', .8))):
-        anchor(f'MTG_Decor_Vault_{k}', (VX + XR) / 2 + ox, y + .0125, BZ + .26, yaw=k * .9, decor=dn, scale=sc)
-    gw = XR - VX
-    box('MTG_Glass_Front', gw, H, .012, VX + gw / 2, H / 2, VZ, M['glass'], PLAIN)
-    box('MTG_Glass_Side', .012, H, VZ - BZ - .05, VX, H / 2, (VZ + BZ) / 2, M['glass'], PLAIN)
+        anchor(f'MTG_Decor_Vault_{k}', vcx + ox, y + .0125, BZ + .26, yaw=k * .9, decor=dn, scale=sc)
+    gw = VX1 - VX0
+    box('MTG_Glass_Front', gw, H, .012, VX0 + gw / 2, H / 2, VZ, M['glass'], PLAIN)
+    box('MTG_Glass_Side', .012, H, VZ - BZ - .05, VX1, H / 2, (VZ + BZ) / 2, M['glass'], PLAIN)
     for k in range(4):
-        box(f'MTG_Mullion_F{k}', .06, H, .08, VX + gw * k / 3 + (.03 if k == 0 else -.03 if k == 3 else 0), H / 2, VZ, M['bronze'], PLAIN)
+        box(f'MTG_Mullion_F{k}', .06, H, .08, VX0 + gw * k / 3 + (.03 if k == 0 else -.03 if k == 3 else 0), H / 2, VZ, M['bronze'], PLAIN)
     for y in (.03, H - .03):
-        box(f'MTG_Glass_Rail_{y:.0f}', gw, .06, .08, VX + gw / 2, y, VZ, M['bronze'], PLAIN)
-    box('MTG_Glass_Track_S', .06, .006, VZ - BZ, VX, .003, (VZ + BZ) / 2, M['bronze'], PLAIN)
+        box(f'MTG_Glass_Rail_{y:.0f}', gw, .06, .08, VX0 + gw / 2, y, VZ, M['bronze'], PLAIN)
+    box('MTG_Glass_Track_S', .06, .006, VZ - BZ, VX1, .003, (VZ + BZ) / 2, M['bronze'], PLAIN)
 
     # --- sol duvar (x = XL, +x'e bakar): traverten paneller + iki dikey LED derz + ceviz bant
     wall_x('Wall_L_Core', XL, +1, -D, 0, 0, WALL_TOP, M['reveal'], DARK)
@@ -915,11 +917,11 @@ def build_signature():
 
     # --- sağ duvar (x = XR, −x'e bakar): lounge arkasında ceviz panel alanı + traverten, üstte duvar yıkayıcı
     wall_x('Wall_R_Core', XR, -1, -D, 0, 0, WALL_TOP, M['reveal'], DARK)
-    zs_ = [VZ + .075 * (k + .5) for k in range(int((-2.4 - VZ) / .075))]
+    zs_ = [-D + .3 + .075 * (k + .5) for k in range(int((-2.4 + D - .3) / .075))]
     for k, zc_ in enumerate(zs_):
         m_ = M['bronze'] if k % 11 == 5 else M['walnut']
         box(f'SlatRW_{k}', .04, H, .045, XR - .04, H / 2, zc_, m_, BAKE['wall_r'] if m_ is M['walnut'] else PLAIN, origin=(0, 0, zc_))
-    stone_panels('TravR', ('x', XR, -1), [(-2.4, 0, .06, H - .05, 2, 2), (-D, VZ, .06, H - .05, 2, 2)], [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
+    stone_panels('TravR', ('x', XR, -1), [(-2.4, 0, .06, H - .05, 2, 2)], [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
     led_v('RW', XR - .02, -2.4, face='x')
 
     # --- ön yüz (koridor): cam vitrin + giriş açıklığı + taş pilastrlar (oda modülüyle aynı)
@@ -977,9 +979,9 @@ def build_signature():
     ring_pendant_at(LX + .1, 3.15, LZ + .35, .52, 'Pendant')
     ring_pendant_at(LX + .1, 3.45, LZ - .3, .78, 'Pendant2')
     planter(XR - .6, -2.0, 1.8, 'Planter_A', h=.82, r=.34, plant='potted_plant_04')
-    planter(XR - .6, VZ + .75, 1.6, 'Planter_B', h=.78, r=.32)
+    planter(XR - .6, -11.9, 1.6, 'Planter_B', h=.78, r=.32)
     planter(XL + .6, -.9, 1.35, 'Planter_C', h=.72)
-    planter(BW0 - .7, BZ + .75, 1.5, 'Planter_D', h=.78, r=.32, plant='potted_plant_04')
+    planter(XL + .6, VZ + .75, 1.5, 'Planter_D', h=.78, r=.32, plant='potted_plant_04')
 
     # çapalar
     anchor('MTG_CarSpot', CAR[0], 0, CAR[1], yaw=SIG_YAW, mtg_anchor='car')
@@ -992,7 +994,7 @@ def build_signature():
     px_box('CorrOppGlass', W - .3, H, .02, 0, H / 2, CORR_, M['glass'], None)
     px_box('CorrOppBack', W, H, .05, 0, H / 2, CORR_ + 6.5, M['travertine'], None, origin=(-W / 2, .06, 0))
     px_plane('CorrOppFloor', W, 6.5, 0, 0, CORR_ + 3.25, M['porcelain'], None)
-    return dict(BW0=BW0, BW1=BW1, VX=VX, VZ=VZ, SB=SB, SLOTS_X=SLOTS_X, LX=LX, LZ=LZ, MZ=MZ)
+    return dict(BW0=BW0, BW1=BW1, VX0=VX0, VX1=VX1, VZ=VZ, SB=SB, SLOTS_X=SLOTS_X, LX=LX, LZ=LZ, MZ=MZ)
 
 def signature_lights(g):
     bg.inputs['Color'].default_value = (*hexrgb('#2a2420'), 1); bg.inputs['Strength'].default_value = .15
@@ -1014,10 +1016,10 @@ def signature_lights(g):
     for nm_, x_, z_ in (('L_LedBL', g['BW0'] - .06, BZ + .06), ('L_LedBR', g['BW1'] + .06, BZ + .06)):
         area(nm_, x_, H / 2, z_, .03, H - .4, 120, '#ffcf96', aim=(x_, H / 2, BZ + 2), spread=120, glossy=False)
     # vault: lamel yukarı yıkama + raf ışıkları
-    vx = (g['VX'] + XR) / 2
-    area('L_VaultUp', vx, .04, BZ + .2, XR - g['VX'] - .2, .05, 260, '#ffcf96', aim=(vx, H, BZ + .12), spread=50, glossy=False)
+    vx, vw = (g['VX0'] + g['VX1']) / 2, g['VX1'] - g['VX0']
+    area('L_VaultUp', vx, .04, BZ + .2, vw - .2, .05, 260, '#ffcf96', aim=(vx, H, BZ + .12), spread=50, glossy=False)
     for k, y in enumerate((1.0, 1.7, 2.4)):
-        area(f'L_Shelf{k}', vx, y - .03, BZ + .3, XR - g['VX'] - .9, .2, 70, '#ffd6a0', aim=(vx, 0, BZ + .3), spread=110, glossy=False)
+        area(f'L_Shelf{k}', vx, y - .03, BZ + .3, vw - .9, .2, 70, '#ffd6a0', aim=(vx, 0, BZ + .3), spread=110, glossy=False)
     # lounge: halka avizeler + sehpa üstüne sıcak spot
     for nm_, y_, z_ in (('L_Ring1', 3.05, g['LZ'] + .35), ('L_Ring2', 3.35, g['LZ'] - .3)):
         bpy.ops.object.light_add(type='POINT', location=P(g['LX'] + .1, y_, z_))
@@ -1025,7 +1027,7 @@ def signature_lights(g):
         try: pl.visible_glossy = False
         except Exception: pass
     # sağ ceviz duvar: üstten yıkama
-    area('L_WalnutWash', XR - .25, H - .05, (g['VZ'] - 2.4) / 2, .05, -2.4 - g['VZ'], 500, '#ffcf96', aim=(XR, 1.2, (g['VZ'] - 2.4) / 2), spread=45, glossy=False)
+    area('L_WalnutWash', XR - .25, H - .05, (-D - 2.4) / 2, .05, D - 2.6, 650, '#ffcf96', aim=(XR, 1.2, (-D - 2.4) / 2), spread=45, glossy=False)
     # araç: yansıma kartları + kenar ışığı (yalnız araca, önizleme)
     area('L_Card_L', cx_ - 4.6, 1.05, cz_ + 1.6, 6.0, 1.1, 85, '#fff5e8', aim=(cx_, .55, cz_), spread=70)
     area('L_Rim_B', cx_ + 1.2, 1.3, cz_ - 4.4, 3.4, .6, 140, '#ffe2c0', aim=(cx_, .5, cz_), spread=60)
