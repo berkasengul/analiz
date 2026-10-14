@@ -2152,7 +2152,7 @@ const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : ROOM_THEME);
 // dekor modelleri (Poly Haven, CC0) — yalnızca gerçekçi olanlar
 const DECOR = {};
 async function loadDecor() {
-  const names = ['potted_plant_02', 'mid_century_lounge_chair', 'ceramic_vase_01', 'brass_vase_02', 'bar_chair_round_01'];
+  const names = ['potted_plant_02', 'potted_plant_04', 'mid_century_lounge_chair', 'ceramic_vase_01', 'brass_vase_02', 'bar_chair_round_01'];
   if (location.protocol === 'file:') await loadEmbeddedModels();
   await Promise.all(names.map(async (n) => {
     const url = `models/decor/${n}.glb`;
@@ -2419,11 +2419,12 @@ async function loadBlenderRooms() {
   try {
     const [car, lounge, hub] = await Promise.all(['room_car', 'room_lounge', 'room_hub'].map((n) => roomAsset(n)));
     const facade = await roomAsset('room_facade').catch((e) => { console.warn('Cephe GLB yüklenemedi, kodla çizilen cephe kullanılıyor.', e); return null; });
+    const signature = await roomAsset('room_signature').catch(() => null);   // ilk BMW salonu (Signature Gallery)
     const lmCache = {};
     const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
       t.flipY = false; t.channel = 1; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }));
     const M = showroomMats(), jobs = [];
-    for (const g of [car, lounge, hub, facade].filter(Boolean)) {
+    for (const g of [car, lounge, hub, facade, signature].filter(Boolean)) {
       g.scene.traverse((o) => {
         const ex = o.userData || {};
         if (ex.lightmap) jobs.push(lm(ex.lightmap).then((t) => o.traverse((m) => {
@@ -2448,7 +2449,7 @@ async function loadBlenderRooms() {
       });
     }
     await Promise.all(jobs);
-    BLENDER_ROOMS = { car: car.scene, lounge: lounge.scene, hub: hub.scene, facade: facade?.scene || null };
+    BLENDER_ROOMS = { car: car.scene, lounge: lounge.scene, hub: hub.scene, facade: facade?.scene || null, signature: signature?.scene || null };
   } catch (e) {
     console.warn('Blender odaları yüklenemedi, kodla çizilen odalar kullanılıyor.', e);
     BLENDER_ROOMS = null;
@@ -2534,6 +2535,15 @@ function decorize(root) {
 const PREMIUM_ROOMS = new Set([0]);
 const PREM_YAW = -1.283;          // araç önü oda yerelinde (0.28, 0.96): koridora ve sağa dönük
 const PREM_LIGHTS = [];
+// Signature Gallery GLB'si (tools/blender/mtg_room.py --variant signature): mimari, ışık ve sergileme alanı Blender'da.
+// Kodda yalnız: arkadan ışıklı şampanya harflerin hafif ışıması, araç üstü stüdyo panelinin yumuşak ışıması.
+function signatureRoom(room) {
+  room.traverse((o) => {
+    if (!o.isMesh) return;
+    if (/^MTG_Brand(Sub)?$/.test(o.name)) { o.material = o.material.clone(); o.material.emissive?.set('#7a5424'); o.material.emissiveIntensity = .7; o.material.side = THREE.DoubleSide; }
+    if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.toneMapped = true; o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
+  });
+}
 function premiumRoom(room, k) {
   const warm = new THREE.Color('#ffe2c0');
   room.traverse((o) => {
@@ -2601,12 +2611,14 @@ function premiumRoom(room, k) {
 }
 
 function buildRoomGLB(g, k) {
-  const lounge = k >= TOUR.length, src = lounge ? BLENDER_ROOMS.lounge : BLENDER_ROOMS.car;
+  const lounge = k >= TOUR.length, sig = PREMIUM_ROOMS.has(k) && !!BLENDER_ROOMS.signature;
+  const src = lounge ? BLENDER_ROOMS.lounge : sig ? BLENDER_ROOMS.signature : BLENDER_ROOMS.car;
   const room = src.clone(true);
   g.add(room); g.updateMatrixWorld(true);           // önce oda yerelinde kur, sonra modül konumuna taşı
   const anchor = (n) => room.getObjectByName(n);
   decorize(room);
-  if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);
+  if (sig) signatureRoom(room);
+  else if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);   // Signature GLB yoksa: ortak oda üzerinde sıcak premium katman
   const disp = anchor('MTG_Display');
   if (disp && !lounge) {
     const t = totemTexture(CARS[TOUR[k]], k);
