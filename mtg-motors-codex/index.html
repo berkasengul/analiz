@@ -362,7 +362,7 @@ const SKETCHFAB = (slug) => `https://sketchfab.com/3d-models/${slug}`;
 const CARS = [
   { brand: 'Seat',          model: 'Ateca 1.5 EcoTSI Xperience',      title: '2023 ATECA 1.5 XPERIENCE HATASIZ-BOYASIZ KIŞ PAKETİ-D.ISITMA',     ilanNo: '1344478037', year: 2023, km: '65.000',  colorName: 'Gümüş Gri', price: '2.075.000 TL', type: 'suv',   color: '#8e9399', url: '',
     glb: 'models/web/seat-ateca.glb',      length: 4.36, credit: { name: 'Seat Ateca Cupra 2019', author: 'Nieve5677', url: SKETCHFAB('seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c') } },
-  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#b00c19', metallic: .1, paintRough: .5, paintSpec: .25, url: '',
+  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#681824', url: '',
     photos: ['photos/bmw-420i-1.webp', 'photos/bmw-420i-2.webp', 'photos/bmw-420i-3.webp', 'photos/bmw-420i-4.webp'],
     views: [{ src: 'cutouts/bmw-420i-on.webp', h: 1.62 }, { src: 'cutouts/bmw-420i-yan.webp', w: 4.85 }, { src: 'cutouts/bmw-420i-arka.webp', h: 1.62 }],
     glb: 'models/web/bmw-420i-coupe.glb',  length: 4.77, rimColor: '#141518', caliperColor: '#1f4fd8',
@@ -411,8 +411,9 @@ for(const i of [0,5]){CARS[i].glb='models/web/curated-'+i+'.glb';CARS[i].materia
 
 // Kullanıcının sağladığı ham modeller (web için işlendi: models/web/*.glb).
 // Malzemeler ilandaki araca göre: renk, jant, kaliper, cam, far/stop.
-Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (koyu bordo), siyah jant, mavi kaliper
-  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#3f0911', metallic: .5,
+Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu kırmızı), siyah jant, mavi kaliper
+  // paintSpec: taban katının yansıması kısık → renk doygun kalır, keskin yansımalar cila katından gelir
+  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#740913', metallic: .3, paintRough: .45, paintSpec: .3,
   representation: '2021 M430i Coupé gövdesi; ilandaki renk ve donanımla boyandı',
 });
 Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa: kırmızı çizgi/kaliper Midline'a göre karartıldı)
