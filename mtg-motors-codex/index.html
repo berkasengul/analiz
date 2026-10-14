@@ -1590,6 +1590,7 @@ const SHOW = { k: -1, t: 0, w: 0, forceT: null };
 // Kamera durakta durunca render yumuşakça belirir; hareket, 360° inceleme veya ekspertizde canlı 3B sahneye döner.
 // models/rooms/plate_signature_hero.webp: tools/blender/mtg_room.py --variant signature --views plate (3:1, dikey FOV 38°).
 const PLATE = { k: 0, aspect: 3, w: 0, ok: false, el: null };
+if (NO_INERTIA) window.__plate = () => ({ ok: PLATE.ok, w: PLATE.w, k: SHOW.k, sw: SHOW.w });   // yalnızca #test
 function initPlate() {
   if (isMobile || !BLENDER_ROOMS?.signature || !PREMIUM_ROOMS.has(PLATE.k)) return;
   const el = PLATE.el = document.createElement('img'); el.id = 'hero-plate'; el.alt = ''; el.decoding = 'async';
@@ -1601,7 +1602,7 @@ function updatePlate(dt) {
   if (!PLATE.ok) return;
   const idx = carKeyIndex[PLATE.k];
   const at = camera.aspect >= 1.3 && !inspect.active && !tween && idx != null && Math.abs(currentS - idx) < 1e-3 && SHOW.k === PLATE.k && SHOW.w > .999 && !testCam;
-  PLATE.w += ((at ? 1 : 0) - PLATE.w) * (1 - Math.exp(-dt * (at ? 2.4 : 8)));
+  PLATE.w += ((at ? 1 : 0) - PLATE.w) * (1 - Math.exp(-dt * (NO_INERTIA ? 200 : at ? 2.4 : 8)));
   if (PLATE.w < .002) PLATE.w = 0;
   const H = innerHeight, Wd = H * PLATE.aspect;
   PLATE.el.style.left = (innerWidth / 2 - frameShift * innerWidth - Wd / 2).toFixed(1) + 'px';   // optik merkez = 3B kameranınki (kart kaydırması dahil)

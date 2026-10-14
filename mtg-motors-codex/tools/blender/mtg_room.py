@@ -877,9 +877,12 @@ def build_signature():
     box('MTG_LED_Plinth', BW1 - BW0 - .2, .01, .02, (BW0 + BW1) / 2, .07, MZ + .32, M['ledSoft'], EMISSIVE)
     # 3B harfler: şampanya metal, 4 cm kabartma + arkasında hale
     bx_ = (BW0 + BW1) / 2
-    text_mesh('MTG_Brand', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .03 + .02, M['champagne'], PLAIN, depth=.04, tracking=1.14)
+    # harfler: fırçalanmış şampanya + hafif iç ışıma (arkadan aydınlatmalı tabela; koyu mermer üstünde net okunur)
+    lit = pbr('champagne_lit', None, '#e2c592', rough=.3, metal=.85)
+    bl_ = lit.node_tree.nodes['Principled BSDF']; bl_.inputs['Emission Color'].default_value = (*hexrgb('#ffcf8a'), 1); bl_.inputs['Emission Strength'].default_value = 1.6
+    text_mesh('MTG_Brand', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .03 + .02, lit, PLAIN, depth=.04, tracking=1.14)
     text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .012, M['halo'], EMISSIVE, depth=.002, tracking=1.14)
-    text_mesh('MTG_BrandSub', 'PRIVATE  COLLECTION', .19, bx_, 2.36, MZ + .03 + .008, M['champagne'], PLAIN, depth=.016, tracking=1.5)
+    text_mesh('MTG_BrandSub', 'PRIVATE  COLLECTION', .19, bx_, 2.36, MZ + .03 + .008, lit, PLAIN, depth=.016, tracking=1.5)
     # harfler duvara gölge düşürmez: 4 cm kabartmanın lightmap'teki bulanık/çift gölgesi yazıyı kirletiyordu; derinliği hale verir
     for nm_ in ('MTG_Brand', 'MTG_BrandSub', 'MTG_Brand_Halo'):
         try: bpy.data.objects[nm_].visible_shadow = False
