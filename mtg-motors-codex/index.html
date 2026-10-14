@@ -362,7 +362,7 @@ const SKETCHFAB = (slug) => `https://sketchfab.com/3d-models/${slug}`;
 const CARS = [
   { brand: 'Seat',          model: 'Ateca 1.5 EcoTSI Xperience',      title: '2023 ATECA 1.5 XPERIENCE HATASIZ-BOYASIZ KIŞ PAKETİ-D.ISITMA',     ilanNo: '1344478037', year: 2023, km: '65.000',  colorName: 'Gümüş Gri', price: '2.075.000 TL', type: 'suv',   color: '#8e9399', url: '',
     glb: 'models/web/seat-ateca.glb',      length: 4.36, credit: { name: 'Seat Ateca Cupra 2019', author: 'Nieve5677', url: SKETCHFAB('seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c') } },
-  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#681824', url: '',
+  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#b00c19', metallic: .1, paintRough: .5, paintSpec: .25, url: '',
     photos: ['photos/bmw-420i-1.webp', 'photos/bmw-420i-2.webp', 'photos/bmw-420i-3.webp', 'photos/bmw-420i-4.webp'],
     views: [{ src: 'cutouts/bmw-420i-on.webp', h: 1.62 }, { src: 'cutouts/bmw-420i-yan.webp', w: 4.85 }, { src: 'cutouts/bmw-420i-arka.webp', h: 1.62 }],
     glb: 'models/web/bmw-420i-coupe.glb',  length: 4.77, rimColor: '#141518', caliperColor: '#1f4fd8',
@@ -387,6 +387,8 @@ const CARS = [
 ];
 // Paket içindeki gerçek dosyalarla eşleştirme. Beş gövde proje içinde modellenmiştir.
 for (const i of [4]) { CARS[i].credit = null; CARS[i].representation = 'Proje için modellenmiş temsili 3D gövde'; }
+// Ekspertiz (parça: degisen | boyali | lokal; yazılmayan = orijinal). BMW'deki kayıt tasarım örneğidir (ornek: true).
+CARS[1].ekspertiz = { ornek: true, parcalar: { bagaj: 'degisen', sagArkaCamurluk: 'boyali', sagOnKapi: 'boyali', kaput: 'lokal' } };
 CARS[0].materials = { r_glass:'taillight', r_lights:'taillight', d_glass:'glass', glass:'glass', body:'paint', tire_mat4:'tire', brakes1:'disc', chrome:'chrome', silver_d:'darkChrome', silver:'rim', gold:'bronze', black_m:'matte', black:'gloss', lights:'headlight', plate:'plate', '*':'interior' };
 CARS[0].representation='Ateca Cupra 2019 modeli; Xperience donanımı farklı olabilir';
 CARS[3].credit.author='Car2022';
@@ -1232,12 +1234,34 @@ function carEnv() {
   return carEnvTex;
 }
 
+// Araç cilası için showroom stüdyo yansıması: koyu tavan + büyük sıcak ışık panelleri, yanlarda yatay ışık şeritleri,
+// koyu parlak zemin. Oda yakalaması (açık renk taş) cilayı sütlü gösteriyordu; araçlar bu ortamı yansıtır.
+let carStudioTex;
+function carStudioEnv() {
+  if (carStudioTex) return carStudioTex;
+  const s = new THREE.Scene();
+  s.background = new THREE.Color(.012, .011, .010);
+  const panel = (w, h, d, x, y, z, k, c = [1, .93, .82]) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshBasicMaterial({ color: new THREE.Color(c[0] * k, c[1] * k, c[2] * k) }));
+    m.position.set(x, y, z); s.add(m);
+  };
+  panel(30, .1, 30, 0, 5.2, 0, .025, [1, 1, 1]);                    // koyu tavan
+  for (const x of [-3.4, 0, 3.4]) panel(2.6, .05, 1.5, x, 4.9, -.4, 12);     // tavan ışık panelleri
+  panel(1.4, .05, 1.0, 0, 4.9, 2.4, 7);
+  for (const z of [-6.5, 6.5]) { panel(12, .07, .07, 0, 2.3, z, 9); panel(12, .5, .05, 0, 1.2, z * 1.1, .14); }   // yan ışık şeridi + sıcak taş duvar
+  for (const x of [-8, 8]) panel(.05, 3.6, 7, x, 1.9, 0, .45);               // ön/arka yumuşak softbox
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshBasicMaterial({ color: new THREE.Color(.05, .047, .044) }));
+  floor.rotation.x = -Math.PI / 2; s.add(floor);
+  carStudioTex = pmrem.fromScene(s, .02).texture;
+  return carStudioTex;
+}
+
 function makeCarMaterials(spec) {
   const P = THREE.MeshPhysicalMaterial, S = THREE.MeshStandardMaterial;
-  const envMap = carEnv();
+  const envMap = carStudioEnv();
   const set = {
     // baz kat + kalın şeffaf cila: geniş, yumuşak showroom yansımaları cila katmanından gelir
-    paint: new P({ color: spec.color, metalness: spec.metallic ?? .3, roughness: spec.metallic != null && spec.metallic < .2 ? .38 : .36, clearcoat: 1, clearcoatRoughness: .035, envMapIntensity: 1.05 }),
+    paint: new P({ color: spec.color, metalness: spec.metallic ?? .3, roughness: spec.paintRough ?? (spec.metallic != null && spec.metallic < .2 ? .36 : .32), clearcoat: 1, clearcoatRoughness: .02, specularIntensity: spec.paintSpec ?? 1, envMapIntensity: 1.25 }),
     // hafif füme cam: yansıtır, içi seçilir (düz siyah değil)
     glass: new P({ color: '#161b1f', metalness: .1, roughness: .02, transparent: true, opacity: .44, depthWrite: false, side: THREE.DoubleSide, envMapIntensity: 1.25 }),
     lens: new P({ color: '#ffffff', metalness: 0, roughness: 0, clearcoat: 1, transparent: true, opacity: .14, depthWrite: false, envMapIntensity: 1.8 }),
@@ -1289,6 +1313,19 @@ function toFloatAttribute(a) {
   return out;
 }
 
+// Blender'da pişirilmiş araç AO'su (tools/car_ao.sh → GLB'de _AO vertex özniteliği): dolaylı ışığı ve yansımayı
+// tekerlek yuvası, panel aralığı, alt gövde gibi kapalı yerlerde karartır. Doğrudan ışık ve gölgeler etkilenmez.
+const carAOPatch = (sh) => {
+  sh.vertexShader = 'attribute float aoc;\nvarying float vAoc;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vAoc = aoc;');
+  sh.fragmentShader = 'varying float vAoc;\n' + sh.fragmentShader.replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
+  float aoK = smoothstep(0.0, 1.0, vAoc);
+  reflectedLight.indirectDiffuse *= aoK;
+  reflectedLight.indirectSpecular *= mix(1.0, aoK, 0.9);
+  reflectedLight.directDiffuse *= mix(1.0, aoK, 0.25);
+  #ifdef USE_CLEARCOAT
+  clearcoatSpecularIndirect *= mix(1.0, aoK, 0.9);
+  #endif`);
+};
 function prepareCarModel(spec) {
   const root = new THREE.Group();
   const asset = spec._scene;
@@ -1314,6 +1351,8 @@ function prepareCarModel(spec) {
   root.position.y -= box.min.y;
 
   const presets = makeCarMaterials(spec);
+  let hasAO = false; root.traverse((o) => { if (o.isMesh && o.geometry.attributes._ao) hasAO = true; });
+  if (hasAO) for (const m of Object.values(presets)) { m.onBeforeCompile = carAOPatch; m.customProgramCacheKey = () => 'mtg-car-ao'; }
   const rules = Object.entries(spec.materials || {}).filter(([k]) => k !== '*');
   root.traverse((o) => {
     if (!o.isMesh) return;
@@ -1324,12 +1363,17 @@ function prepareCarModel(spec) {
     // Dosyadaki özgün normalleri koru; gereksiz yeniden yumuşatma yapma.
     // sıkıştırılmış (meshopt) modellerde interleaved öznitelikleri ayır: birleştirme ve normal yumuşatma için gerekli
     for (const [k, a] of Object.entries(o.geometry.attributes)) if (a.isInterleavedBufferAttribute || !(a.array instanceof Float32Array)) o.geometry.setAttribute(k, toFloatAttribute(a));
+    if (hasAO) {   // AO'lu malzeme her mesh'te öznitelik ister (yoksa 1 = açık)
+      const g = o.geometry, a = g.attributes._ao;
+      g.setAttribute('aoc', a || new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count).fill(1), 1));
+      if (a) g.deleteAttribute('_ao');
+    }
     if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals();
     // smoothNormals: kaporta yansımaları dalgalı olan modellerde normalleri yumuşat (keskin hatlar korunur)
     if (spec.smoothNormals && (key === 'paint' || key === 'gloss'))
       o.geometry = toCreasedNormals(o.geometry.index ? o.geometry.toNonIndexed() : o.geometry, THREE.MathUtils.degToRad(35));
     o.castShadow = !o.material.transparent; o.receiveShadow = true;
-    if (!key && o.material && 'envMapIntensity' in o.material) {o.material.envMapIntensity=.85;o.material.envMap=carEnv();}
+    if (!key && o.material && 'envMapIntensity' in o.material) {o.material.envMapIntensity=.85;o.material.envMap=carStudioEnv();}
   });
 
   // Consolidate static parts after material mapping to reduce draw calls.
@@ -1423,7 +1467,9 @@ function buildStations() {
       photo.position.y = .1;
       st.add(photo);
     } else {
-      turn.add(spec._scene ? prepareCarModel(spec) : coveredCar(spec));
+      const car = spec._scene ? prepareCarModel(spec) : coveredCar(spec);
+      var carBox = new THREE.Box3().setFromObject(car.children[0]);   // gölge düzlemi hariç (araç yereli: önü +x)
+      turn.add(car);
     }
     turn.rotation.y = Math.atan2(-.55, -.84);          // ön: kameraya çapraz (3/4 ön görünüm)
 
@@ -1444,7 +1490,7 @@ function buildStations() {
 
     // kamera yolundaki iki çekim açısı (buildCameraPath ile aynı): fotoğraf geçişleri bunların arasında olur
     const aisle = -side;
-    stations.push({ group: st, turn, photo, side, x, z, spec, room: i, baseRot: turn.rotation.y,
+    stations.push({ group: st, turn, photo, side, x, z, spec, room: i, baseRot: turn.rotation.y, box: photo ? null : carBox,
       yawA: Math.atan2(aisle * 7.6, 4.2), yawB: Math.atan2(aisle * 6.2, -2.6) });
   });
 }
@@ -1628,12 +1674,14 @@ function buildUI() {
       </div>
       <div class="thumbs"></div>
       <button class="btn inspect-trigger" type="button">360° incele ↗</button>
+      <button class="btn eks-trigger" type="button">Ekspertiz raporu</button>
       <div class="card-foot">
         <div class="price"><small>Fiyat</small><strong></strong></div>
         <a class="btn primary" target="_blank" rel="noopener">İlanı İncele
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
       </div>`;
     el.querySelector('.inspect-trigger').onclick=()=>openInspect(i,el.querySelector('.inspect-trigger'));
+    el.querySelector('.eks-trigger').onclick=()=>openEkspertiz(i,el.querySelector('.eks-trigger'));
     el.querySelector('.car-brand').textContent = s.brand;
     el.querySelector('.car-model').textContent = s.model;
     el.querySelector('[data-k=year]').textContent = s.year;
@@ -1805,10 +1853,11 @@ function openInspect(index,opener){
  inspectBar.querySelector('[data-action=close]').focus();renderer.shadowMap.needsUpdate=true;
 }
 function closeInspect(){
- if(!inspect.active)return;inspect.active=false;inspect.pointer=null;inspectBar.hidden=true;document.body.classList.remove('inspecting');
+ if(!inspect.active)return;if(eks.active){eks.active=false;eksPanel.hidden=eksLayer.hidden=true;document.body.classList.remove('eks');}inspect.active=false;inspect.pointer=null;inspectBar.hidden=true;document.body.classList.remove('inspecting');
  document.documentElement.style.overflow=inspect.overflow;canvas.style.touchAction='';targetS=currentS=inspect.savedS;sVel=0;mouse.set(0,0);mouseSmooth.set(0,0);inspect.opener?.focus({preventScroll:true});
 }
 function inspectAction(action){if(action==='close')return closeInspect();if(action==='left')inspect.targetYaw-=.18;if(action==='right')inspect.targetYaw+=.18;if(action==='in')inspect.targetRadius-=.25;if(action==='out')inspect.targetRadius+=.25;inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius,3.7,4.5);}
+if(NO_INERTIA)window.__inspectYaw=(d)=>{inspect.targetYaw+=d;};   // yalnızca #test
 inspectBar.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(b)inspectAction(b.dataset.action);});
 canvas.addEventListener('pointerdown',e=>{if(!inspect.active)return;inspect.pointer=e.pointerId;inspect.lastX=e.clientX;inspect.lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
 canvas.addEventListener('pointermove',e=>{if(!inspect.active||inspect.pointer!==e.pointerId)return;inspect.targetYaw-=(e.clientX-inspect.lastX)*.006;inspect.targetPitch=THREE.MathUtils.clamp(inspect.targetPitch+(e.clientY-inspect.lastY)*.004,.08,.48);inspect.lastX=e.clientX;inspect.lastY=e.clientY;});
@@ -1837,6 +1886,205 @@ function updateInspect(dt){
  const horizontal=inspect.radius*Math.cos(inspect.pitch);inspectTarget.set(st.x,.85,st.z);
  camera.position.set(st.x+Math.sin(inspect.yaw)*horizontal,.85+Math.sin(inspect.pitch)*inspect.radius,st.z+Math.cos(inspect.yaw)*horizontal);camera.lookAt(inspectTarget);camera.fov=camera.aspect<1?72:52;camera.clearViewOffset();camera.updateProjectionMatrix();
 }
+
+// ---------- Ekspertiz raporu: parça durumları, panel + araç üzerinde işaretli etiketler ----------
+// Veri: CARS[i].ekspertiz = { ornek?: true, parcalar: { kaput: 'lokal', bagaj: 'degisen', ... } }.
+// Yazılmayan parça "orijinal" sayılır. ornek: true → panelde "örnek veri" uyarısı (gerçek rapor girilince kaldırın).
+const EKS_DURUM = {
+  degisen: { ad: 'Değişen', renk: '#e5484d' },
+  boyali: { ad: 'Boyalı', renk: '#f0a830' },
+  lokal: { ad: 'Lokal boyalı', renk: '#f5d04a' },
+  orijinal: { ad: 'Orijinal', renk: '#7f8a8f' },
+};
+// araç yereli (önü +x, sol −z): konum = kutu oranı (x: boy, y: yükseklik, z: genişlik), n = dış yön
+const EKS_PARCA = [
+  { k: 'onTampon', ad: 'Ön Tampon', p: [.5, .28, 0], n: [1, 0, 0], ikon: 'tampon' },
+  { k: 'kaput', ad: 'Kaput', p: [.3, .66, 0], n: [.35, 1, 0], ikon: 'kaput' },
+  { k: 'tavan', ad: 'Tavan', p: [-.08, 1, 0], n: [0, 1, 0], ikon: 'tavan' },
+  { k: 'bagaj', ad: 'Arka Bagaj Kapağı', p: [-.43, .74, 0], n: [-.6, 1, 0], ikon: 'bagaj' },
+  { k: 'arkaTampon', ad: 'Arka Tampon', p: [-.5, .3, 0], n: [-1, 0, 0], ikon: 'tampon' },
+  { k: 'solOnCamurluk', ad: 'Sol Ön Çamurluk', p: [.33, .55, -.48], n: [0, 0, -1], ikon: 'camurluk' },
+  { k: 'solOnKapi', ad: 'Sol Ön Kapı', p: [.06, .46, -.5], n: [0, 0, -1], ikon: 'kapi', coupe: 'Sol Kapı' },
+  { k: 'solArkaKapi', ad: 'Sol Arka Kapı', p: [-.17, .46, -.5], n: [0, 0, -1], ikon: 'kapi', kapi4: true },
+  { k: 'solArkaCamurluk', ad: 'Sol Arka Çamurluk', p: [-.34, .55, -.48], n: [0, 0, -1], ikon: 'camurluk' },
+  { k: 'sagOnCamurluk', ad: 'Sağ Ön Çamurluk', p: [.33, .55, .48], n: [0, 0, 1], ikon: 'camurluk' },
+  { k: 'sagOnKapi', ad: 'Sağ Ön Kapı', p: [.06, .46, .5], n: [0, 0, 1], ikon: 'kapi', coupe: 'Sağ Kapı' },
+  { k: 'sagArkaKapi', ad: 'Sağ Arka Kapı', p: [-.17, .46, .5], n: [0, 0, 1], ikon: 'kapi', kapi4: true },
+  { k: 'sagArkaCamurluk', ad: 'Sağ Arka Çamurluk', p: [-.34, .55, .48], n: [0, 0, 1], ikon: 'camurluk' },
+];
+const EKS_IKON = {
+  kaput: '<path d="M4 15c2-5 5-7 8-7s6 2 8 7"/><path d="M4 15h16v3H4z"/>',
+  bagaj: '<path d="M3 16h18v3H3z"/><path d="M5 16l2-6h10l2 6"/><path d="M9 13h6"/>',
+  tavan: '<path d="M5 15l3-6h8l3 6"/><path d="M3 15h18"/>',
+  tampon: '<rect x="3" y="10" width="18" height="6" rx="2"/><path d="M7 13h10"/>',
+  kapi: '<path d="M5 4h11l3 6v10H5z"/><path d="M5 10h14"/><path d="M14 14h2"/>',
+  camurluk: '<path d="M3 17a9 9 0 0 1 18 0"/><path d="M7 17a5 5 0 0 1 10 0"/>',
+};
+const eksIkon = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">${EKS_IKON[k] || EKS_IKON.kapi}</svg>`;
+function eksParcalar(spec) {
+  const coupe = spec.type === 'coupe', d = spec.ekspertiz?.parcalar || {};
+  return EKS_PARCA.filter((q) => !(coupe && q.kapi4)).map((q) => ({ ...q, ad: coupe && q.coupe ? q.coupe : q.ad, durum: d[q.k] || 'orijinal' }));
+}
+
+const eks = { active: false, index: -1, sel: null, parts: [], tags: [] };
+const eksPanel = document.createElement('aside'); eksPanel.id = 'eks-panel'; eksPanel.hidden = true;
+const eksLayer = document.createElement('div'); eksLayer.id = 'eks-layer'; eksLayer.hidden = true;
+eksLayer.innerHTML = '<svg id="eks-lines"></svg>';
+document.body.append(eksLayer, eksPanel);
+const eksStyle = document.createElement('style'); eksStyle.textContent = `
+#eks-panel{position:fixed;z-index:85;left:clamp(14px,3vw,48px);top:50%;transform:translateY(-50%);width:min(400px,92vw);max-height:calc(100vh - 13vh - 40px);overflow:auto;
+ background:rgba(14,15,17,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(201,170,120,.35);border-radius:14px;padding:22px;color:#eee;font-family:Inter,Arial,sans-serif;box-shadow:0 24px 60px #0008}
+#eks-panel[hidden],#eks-layer[hidden]{display:none}
+#eks-panel .eks-top{display:flex;justify-content:space-between;align-items:center;color:#d5a84e;font-size:13px}
+#eks-panel .eks-x{width:34px;height:34px;border-radius:8px;border:1px solid #ffffff22;background:#ffffff0a;color:#fff;font-size:18px;cursor:pointer}
+#eks-panel h3{font:500 30px/1.15 Cinzel,Georgia,serif;margin:12px 0 6px;color:#fff}
+#eks-panel .eks-sub{font-size:12.5px;color:#b9bec2;line-height:1.5}
+#eks-panel .eks-car{display:flex;gap:12px;align-items:center;margin:16px 0;padding:10px;border:1px solid #ffffff1a;border-radius:10px;background:#ffffff06}
+#eks-panel .eks-car img{width:82px;height:54px;border-radius:6px;object-fit:cover;flex:none}
+#eks-panel .eks-car b{display:block;font-weight:600;font-size:14px}#eks-panel .eks-car small{color:#9aa1a6;font-size:12px}
+#eks-panel .eks-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+#eks-panel .eks-sum div{border:1px solid #ffffff1c;border-radius:10px;padding:12px 12px 10px;position:relative}
+#eks-panel .eks-sum strong{font:500 28px/1 Inter,Arial;color:var(--c)}#eks-panel .eks-sum span{display:block;font-size:12px;color:#d9dcde;margin-top:6px}
+#eks-panel .eks-sum div:after{content:'';position:absolute;right:10px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--c)}
+#eks-panel .eks-h{display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px;color:#d5a84e;font-size:14px}
+#eks-panel .eks-h small{color:#9aa1a6;border:1px solid #ffffff22;border-radius:20px;padding:2px 9px;font-size:11px}
+#eks-panel ul{list-style:none;display:grid;gap:6px}
+#eks-panel li button{width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #ffffff14;border-radius:9px;background:#ffffff05;color:#eee;font:500 13px Inter,Arial;cursor:pointer;text-align:left}
+#eks-panel li button:hover,#eks-panel li button.on{border-color:#d5a84e;background:#d5a84e14}
+#eks-panel li svg{width:22px;height:22px;color:#cfd3d6;flex:none}#eks-panel li span{flex:1}
+.eks-badge{padding:4px 10px;border-radius:14px;font:600 11.5px Inter,Arial;color:#141414;background:var(--c);white-space:nowrap}
+#eks-panel .eks-ok{font-size:12.5px;color:#9aa1a6;padding:8px 2px}
+#eks-panel .eks-views{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+#eks-panel .eks-views button{padding:12px;border:1px solid #ffffff22;border-radius:8px;background:transparent;color:#eee;font:500 13px Inter,Arial;cursor:pointer}
+#eks-panel .eks-views button:hover{border-color:#d5a84e}
+#eks-panel .eks-note{margin-top:12px;font-size:11px;color:#c9a46a;line-height:1.5}
+#eks-layer{position:fixed;inset:0;z-index:84;pointer-events:none}
+#eks-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.eks-tag{position:absolute;left:0;top:0;pointer-events:auto;display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;background:rgba(14,15,17,.88);
+ border:1px solid #ffffff1f;color:#fff;font:500 13px Inter,Arial;cursor:pointer;transition:opacity .25s,border-color .2s;white-space:nowrap;backdrop-filter:blur(8px)}
+.eks-tag svg{width:24px;height:24px;color:#e8e8e8}.eks-tag em{font-style:normal;display:block;margin-bottom:5px}
+.eks-tag.on{border-color:var(--c);box-shadow:0 0 0 1px var(--c)}
+.eks-dot{position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px #0008,0 0 14px var(--c);transition:opacity .25s}
+.inspecting.eks #inspect-bar{display:none}
+.eks-trigger{width:100%;justify-content:center;margin:8px 0 4px;background:transparent;border:1px solid #d3bc94;color:#e9d9b8}
+@media(max-width:760px){#eks-panel{left:8px;right:8px;width:auto;top:auto;bottom:8px;transform:none;max-height:46vh;padding:14px}#eks-panel h3{font-size:22px}
+ #eks-panel .eks-car,#eks-panel .eks-sub{display:none}.eks-tag{padding:6px 8px;font-size:11px}.eks-tag svg{display:none}}`;
+document.head.appendChild(eksStyle);
+
+function openEkspertiz(i, opener) {
+  const st = stations[i], s = st.spec;
+  if (!inspect.active || inspect.index !== i) openInspect(i, opener);
+  eks.active = true; eks.index = i; eks.sel = null; document.body.classList.add('eks');
+  eks.parts = eksParcalar(s);
+  const kusur = eks.parts.filter((q) => q.durum !== 'orijinal');
+  const say = (d) => eks.parts.filter((q) => q.durum === d).length;
+  const photo = s.photos?.[0];
+  eksPanel.innerHTML = `
+    <div class="eks-top"><span>MTG / Ekspertiz raporu</span><button class="eks-x" type="button" aria-label="Kapat">×</button></div>
+    <h3>Parça Durumu</h3>
+    <p class="eks-sub">Aracın gövde parçalarındaki boya ve değişim durumunu inceleyin.</p>
+    <div class="eks-car">${photo ? `<img alt="" src="${photo}" onerror="this.remove()">` : ''}<div><b></b><small></small></div></div>
+    <div class="eks-sum">${['degisen', 'boyali', 'lokal'].map((d) => `<div style="--c:${EKS_DURUM[d].renk}"><strong>${String(say(d)).padStart(2, '0')}</strong><span>${EKS_DURUM[d].ad}</span></div>`).join('')}</div>
+    <div class="eks-h"><span>Gövde değerlendirmesi</span><small>${kusur.length} parça</small></div>
+    <ul></ul>
+    <div class="eks-views"><button type="button" data-v="on">Ön çapraz</button><button type="button" data-v="arka">Arka çapraz</button></div>
+    <p class="eks-note"></p>`;
+  eksPanel.querySelector('.eks-car b').textContent = `${s.brand} ${s.model}`;
+  eksPanel.querySelector('.eks-car small').textContent = `${s.year} · ${s.km} km · #${s.ilanNo}`;
+  const ul = eksPanel.querySelector('ul');
+  if (!s.ekspertiz) ul.outerHTML = '<p class="eks-ok">Bu araç için ekspertiz bilgisi henüz girilmedi. Güncel rapor için ilan sayfasına bakın veya bizi arayın.</p>';
+  else if (!kusur.length) ul.outerHTML = '<p class="eks-ok">Tüm gövde parçaları orijinal.</p>';
+  else kusur.forEach((q) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<button type="button">${eksIkon(q.ikon)}<span></span><b class="eks-badge" style="--c:${EKS_DURUM[q.durum].renk}">${EKS_DURUM[q.durum].ad}</b></button>`;
+    li.querySelector('span').textContent = q.ad;
+    li.firstChild.onclick = () => eksSec(q.k);
+    q.li = li.firstChild; ul.appendChild(li);
+  });
+  eksPanel.querySelector('.eks-note').textContent = s.ekspertiz?.ornek ? 'Örnek veri: bu rapor tasarım gösterimi içindir; araç ekspertizi girildiğinde güncellenir.' : '';
+  eksPanel.querySelector('.eks-x').onclick = closeEkspertiz;
+  eksPanel.querySelectorAll('[data-v]').forEach((b) => (b.onclick = () => eksBak([b.dataset.v === 'on' ? .8 : -.8, 0, .6 * eks.yan])));
+  // araç üzerindeki etiketler: yalnız kusurlu parçalar
+  eksLayer.querySelectorAll('.eks-tag,.eks-dot').forEach((e) => e.remove());
+  eksLayer.querySelector('svg').innerHTML = '';
+  eks.tags = kusur.map((q) => {
+    const c = EKS_DURUM[q.durum].renk;
+    const tag = document.createElement('div'); tag.className = 'eks-tag'; tag.style.setProperty('--c', c);
+    tag.innerHTML = `${eksIkon(q.ikon)}<div><em></em><b class="eks-badge" style="--c:${c}">${EKS_DURUM[q.durum].ad}</b></div>`;
+    tag.querySelector('em').textContent = q.ad; tag.onclick = () => eksSec(q.k);
+    const dot = document.createElement('i'); dot.className = 'eks-dot'; dot.style.setProperty('--c', c);
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('stroke', c); line.setAttribute('stroke-width', '1.5');
+    eksLayer.querySelector('svg').appendChild(line); eksLayer.append(dot, tag);
+    return { q, tag, dot, line };
+  });
+  eksPanel.hidden = eksLayer.hidden = false;
+  // ilk görünüm: kusurlu parçaların bulunduğu taraf (ön/arka çapraz)
+  const sum = kusur.reduce((a, q) => [a[0] + q.n[0], a[1] + q.n[2]], [0, 0]);
+  eks.yan = sum[1] > .01 ? 1 : -1; eks.on = sum[0] < -.3 ? -1 : 1;
+  eksBak([.8 * eks.on, 0, .6 * eks.yan]);
+}
+function closeEkspertiz() {
+  if (!eks.active) return;
+  eks.active = false; eksPanel.hidden = eksLayer.hidden = true; document.body.classList.remove('eks');
+  closeInspect();
+}
+// kamerayı araç yerel yönüne (önü +x) çevir
+const _eq = new THREE.Quaternion(), _ev = new THREE.Vector3(), _ew = new THREE.Vector3(), _en = new THREE.Vector3();
+function eksBak(n, pitch = .2) {
+  const st = stations[eks.index]; st.turn.getWorldQuaternion(_eq);
+  if (n) _ev.set(...n).normalize().applyQuaternion(_eq);
+  if (n && Math.hypot(_ev.x, _ev.z) > .2) {
+    let y = Math.atan2(_ev.x, _ev.z); while (y - inspect.targetYaw > Math.PI) y -= 2 * Math.PI; while (inspect.targetYaw - y > Math.PI) y += 2 * Math.PI;
+    inspect.targetYaw = y;
+  }
+  inspect.targetPitch = pitch;
+}
+function eksSec(k) {
+  eks.sel = k; const t = eks.tags.find((e) => e.q.k === k);
+  eks.parts.forEach((q) => q.li?.classList.toggle('on', q.k === k));
+  eks.tags.forEach((e) => e.tag.classList.toggle('on', e.q.k === k));
+  if (!t) return;
+  const [nx, ny, nz] = t.q.n;                      // tavan gibi üst parçalarda yön korunur, kamera yükselir
+  eksBak(nx || nz ? [nx, 0, nz] : null, ny > .5 ? .45 : .2);
+}
+// her karede: parça noktalarını ekrana iz düşür, arkada kalanları gizle, etiketi dışa doğru yerleştir
+function updateEkspertiz() {
+  if (!eks.active) return;
+  const st = stations[eks.index], box = st.box; if (!box) return;
+  const sz = box.getSize(new THREE.Vector3()), mn = box.min, W = innerWidth, H = innerHeight;
+  st.turn.updateMatrixWorld(); st.turn.getWorldQuaternion(_eq);
+  const ofs = isMobile ? 0 : -.17 * W;              // panel solda: araç sağa kaydırılır
+  if (isMobile) camera.setViewOffset(W, H, 0, .2 * H, W, H); else camera.setViewOffset(W, H, ofs, 0, W, H);
+  camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+  const placed = [];
+  for (const e of eks.tags) {
+    const q = e.q;
+    _ew.set(mn.x + (q.p[0] + .5) * sz.x, mn.y + q.p[1] * sz.y, (mn.z + mn.z + sz.z) / 2 + q.p[2] * sz.z);
+    st.turn.localToWorld(_ew);
+    _en.set(...q.n).normalize().applyQuaternion(_eq);
+    const toCam = _ev.copy(camera.position).sub(_ew).normalize();
+    const vis = _en.dot(toCam) > .08;
+    const sp = _ew.clone().project(camera);
+    const x = (sp.x * .5 + .5) * W, y = (-sp.y * .5 + .5) * H;
+    // etiket yönü: parçanın dış yönünün ekrandaki izdüşümü
+    const tip = _ew.clone().addScaledVector(_en, .6).project(camera);
+    let dx = (tip.x - sp.x) * W, dy = -(tip.y - sp.y) * H; const L = Math.hypot(dx, dy) || 1;
+    dx /= L; dy /= L; if (Math.abs(dy) < .25) dy = q.n[1] > .5 ? -.8 : .35 * Math.sign(dy || 1);
+    const r = isMobile ? 70 : 120;
+    let tx = x + dx * r, ty = y + dy * r * .9 - (q.n[1] > .5 ? 40 : 0);
+    const tw = e.tag.offsetWidth || 170, th = e.tag.offsetHeight || 54;
+    let lx = dx < 0 ? tx - tw : tx, ly = ty - th / 2;
+    for (const p of placed) if (Math.abs(p.x - lx) < tw && Math.abs(p.y - ly) < th + 6) ly = p.y + (ly < p.y ? -(th + 8) : th + 8);
+    lx = THREE.MathUtils.clamp(lx, isMobile ? 6 : W * .36, W - tw - 8); ly = THREE.MathUtils.clamp(ly, 70, H - th - (isMobile ? H * .48 : 120));
+    placed.push({ x: lx, y: ly });
+    const o = vis ? '1' : '0';
+    e.dot.style.transform = `translate(${x}px,${y}px)`; e.dot.style.opacity = o;
+    e.tag.style.transform = `translate(${lx}px,${ly}px)`; e.tag.style.opacity = o; e.tag.style.pointerEvents = vis ? 'auto' : 'none';
+    const ax = lx + (dx < 0 ? tw : 0), ay = ly + th / 2;
+    e.line.setAttribute('x1', x); e.line.setAttribute('y1', y); e.line.setAttribute('x2', ax); e.line.setAttribute('y2', ay); e.line.style.opacity = vis ? .9 : 0;
+  }
+}
+addEventListener('keydown', (e) => { if (eks.active && e.key === 'Escape') { e.stopImmediatePropagation(); closeEkspertiz(); } }, true);
 
 async function buildLuxuryDetails(){
  const url='models/web/showroom-luxury-details.glb';
@@ -2606,7 +2854,7 @@ function frame() {
   if (shadowElapsed > .14 && Math.abs(currentS-lastShadowS)>.002) { renderer.shadowMap.needsUpdate=true; lastShadowS=currentS; shadowElapsed=0; }
   updateDoors(currentS);
   updateRooms();
-  if(inspect.active){updateInspect(dt);prevYaw=null;}else updateCamera(currentS,t,dt);
+  if(inspect.active){updateInspect(dt);updateEkspertiz();prevYaw=null;}else updateCamera(currentS,t,dt);
   updateAtmosphere(t);
   updatePhotoCars();
   updateFocusLights(dt);
