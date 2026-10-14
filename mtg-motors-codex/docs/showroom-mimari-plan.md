@@ -294,6 +294,27 @@ Kapsam dışı: oda içi, koridor, kamera hareket dili, ışık ayarı, efektler
 - Gizli kartlar tıklama yakalamaz.
 - Konsolda yeni hata çıkmaz; eksik GLB'lere ait 404 uyarıları dışında.
 
+### 6.2 Uygulama durumu (1. aşama tamamlandı)
+
+| Madde | Durum | Not |
+|---|---|---|
+| 1 Temel | ✔ | Koridorlu düzen geri geldi; örtülü donör araçlar korundu. |
+| 2 Kapılar ve ray | ✔ | Ölçüleri plandan farklı (aşağıda). Hesapla doğrulandı: kapalı konumda kanatların arası 0; açık konumda kanat, sabit cam profilinin 8 cm arkasında ve ray kutusunun 2 cm altında kalır. |
+| 3 Cam ve profil | ✔ | Vitrin, sabit panel ve tepe camı 22 mm kutu cam. Bronz profil 0.05 × 0.12 m. Vitrinlerde traverten denizlik var. |
+| 4 Traverten cephe | ✔ | Blender `facade` varyantı. Aks ölçüleri plandan farklı (aşağıda). |
+| 5 Vitrin görünürlüğü | ✔ | Turun ilk iki aracının kopyası resepsiyonda (±10.2, −3.4), sokağa çapraz. Banko ve lounge geriye alındı. Yalnız masaüstü. |
+| 6 Sahte yan pencere | ✔ | Resepsiyon yan cephesi taş oldu; kodla çizilen yedek cephede de taş. |
+| 7 Tabela | ✔ | Taşa monte 3B harfler ve hale; cephede telefon yok. |
+| 8 Hub ışığı | ✔ | Yeni cephe vekiliyle yeniden pişirildi: 1024 px, 128 örnek. 2048 px tam kalite sonraki adım. |
+| 9 Dokümantasyon | ✔ | `tools/blender/README.md` → "Dış cephe ve giriş". |
+
+**Plandan farklı uygulanan ölçüler:**
+- **Kapılar:** iki kanat × 1.55 m, net geçiş 3.0 m. Kanatlar 1.5 m kayar.
+- **Cephe aksları:** köşe kolonları `|x|` 15.9–16.8, portal kolonları 4.1–5.0. Vitrin açıklığı 10.9 m, bronz profille üçe bölünmüş.
+- **Portal:** 8.2 m genişlikte, 2 m içe çekilmiş.
+
+Kontrol açılarındaki görünüm `docs/img/faz1_*.jpg` dosyalarındadır. D6 kamerası çitin içine alındı: (−24, 1.8, −14) → (−16, 2.6, −30). D8 içeriden girişe bakar: (4.5, 1.7, −8.6) → (−2, 1.6, 0.5).
+
 ---
 
 ## 7. Karar noktaları (uygulamadan önce)

@@ -10,6 +10,8 @@ ve arka planda (arayüz açmadan) çalıştırılır.
 |---|---|
 | `models/rooms/room_car.glb` | Araç odası mimarisi. Yedi araç odasının hepsi bunu paylaşır. |
 | `models/rooms/room_lounge.glb` | Son oda (MTG Lounge). |
+| `models/rooms/room_hub.glb` | Resepsiyon + ana koridor (dünya koordinatında). |
+| `models/rooms/room_facade.glb` | Dış cephe: traverten ön cephe, vitrinler, içe çekilmiş giriş portalı, yan cepheler. |
 | `models/rooms/room_*_lm_*.webp` | Pişmiş ışık haritaları: zemin, duvar atlası, tavan, kapı dolgusu. |
 | `models/rooms/preview_*.png` | Cycles önizleme render'ları (kamera durakları). |
 | `models/rooms/room_*.blend` | Düzenlenebilir Blender kaynağı (`--save-blend` ile). |
@@ -38,7 +40,7 @@ Render Properties → Device: GPU Compute.
 
 | Seçenek | Varsayılan | Açıklama |
 |---|---|---|
-| `--variant car / lounge` | `car` | Hangi oda üretilecek. |
+| `--variant car / lounge / hub / facade` | `car` | Hangi oda üretilecek. |
 | `--mode preview / full` | `preview` | `preview` yalnız render alır. `full` lightmap pişirir, GLB verir, render alır. |
 | `--samples N` | 64 | Önizleme render örnek sayısı. |
 | `--bake-samples N` | 192 | Bake örnek sayısı. Yüksek değer daha az gürültü verir, daha yavaştır. |
@@ -105,3 +107,38 @@ ve mobilyayı taşır.
 
 Dokular `textures/` altında: `porcelain_slab`, `dark_stone`, `travertine_clean`, `warm_stone`.
 Kaynakları Poly Haven ve ambientCG, hepsi CC0. Yazı tipi `assets/Cinzel-SemiBold.ttf`, SIL OFL lisanslı.
+
+## Dış cephe ve giriş (`--variant facade`)
+
+Dünya koordinatıyla modellenir: bina iç cephe çizgisi `z = 0`, sokak `z > 0`, bina `|x| ≤ 16.8`, arka cephe `z = -62`.
+
+- **Ön cephe aksları:** köşe kolonları `|x|` 15.9–16.8 ve portal kolonları `|x|` 4.1–5.0.
+  - Kolonların arasında iki vitrin var (`|x|` 5.0–15.9). Vitrinlerde 22 mm cam, 5 cm görünür yüzlü bronz profiller ve üç bölme bulunur.
+  - Taş derzleri kolon kenarlarıyla hizalıdır. Attika 4.4–5.9 m, koping 6.05 m.
+- **Giriş portalı:** 8.2 m genişliğinde, 2 m içe çekilmiştir.
+  - Yanaklar taş, tavan alnı ceviz kaplamadır. Tavanda 6 gömme spot vardır.
+  - Giriş cam duvarı `z = -1.6`'dadır. Sabit yan camlar, tepe camı, bronz kayıt, iç tarafta ray kutusu, zemin rayı ve traverten eşik bu duvarın parçasıdır.
+- **Sürgülü kanatlar kodda:** iki kanat, 1.55 m genişlikte. Net geçiş 3.0 m.
+  - Kanatlar `z = -1.76`'da kayar ve açılınca sabit yan camların arkasına girer.
+  - `index.html` → `buildFacadeGLB` ve `updateDoors`.
+- **Tabela:** taşa monte 3B "MTG | MOTORS" harfleri ve arka hale ışığı. Telefon numarası tabelada değil, arayüzde kalır.
+- **Yan cepheler:**
+  - Resepsiyon bölümü tamamen taştır; sahte pencere yoktur.
+  - Her araç odası ayrı bir taş kütledir: alt taş, buzlu ışık bandı ve attika.
+  - Odaların arasında derin derz ve dikey LED bulunur.
+- **Bake grupları:**
+  - ön cephe → duvar atlası satır 0
+  - sağ / sol yan cephe → satır 1 / 2
+  - portal tavanı → tavan
+  - portal ve cephe önü zemini → zemin
+  - Cephede atlas satırları kendi uzunluğuna yayılır (`LM_BOUNDS['h']`).
+- **Bake'te cam yok sayılır:** içerideki sıcak ışık kostik benek üretmeden dışarı vurur.
+- Hub bake'i aynı cepheyi `PX_` vekili olarak kullanır (`build_facade(proxy=True)`).
+
+```powershell
+& "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" -b --factory-startup --python tools\blender\mtg_room.py -- --variant facade --mode full
+& "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" -b --factory-startup --python tools\blender\mtg_room.py -- --variant hub --mode full
+python tools\embed_rooms.py
+```
+
+`embed_rooms.py`, `models/rooms/rooms.js` dosyasını yeniden yazar. Site `file://` ile açıldığında GLB'ler buradan okunur.
