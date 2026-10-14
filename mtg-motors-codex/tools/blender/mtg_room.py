@@ -778,17 +778,18 @@ def facade_lights():
 # çerçeveli cam bölmenin ardında "private vault" (ceviz lamel + arkadan ışıklı raflar), koyu mat tavanda araç üstü
 # stüdyo ışık paneli, VIP lounge (deri kanepe, konyak koltuklar, mermer sehpa, çift halka avize).
 SIG_YAW = -1.283                 # sitedeki PREM_YAW: araç önü (0.28, 0.96) → koridora ve sağa dönük
-M['floor_a'] = pbr('floor_graphite', 'dark_stone', '#6f6a65', rough=.34, normal=.35, coat=.45, coat_rough=.08, rough_var=.25, micro=.06)
-M['floor_b'] = pbr('floor_graphite_b', 'dark_stone', '#65605b', rough=.36, normal=.35, coat=.45, coat_rough=.09, rough_var=.25, micro=.06)
-M['floor_inlay'] = pbr('floor_inlay', 'dark_stone', '#4a4642', rough=.22, normal=.25, coat=.8, coat_rough=.04, micro=.04)
-M['marble'] = pbr('brand_marble', 'dark_stone', '#7d7874', rough=.3, normal=.5, coat=.55, coat_rough=.06, rough_var=.3, micro=.08)
+# glTF'ye birebir aktarılan PBR: doku doğrudan renk / pürüzlülük / normal girişine bağlı (ara düğüm yok; tools/make_marble.py)
+M['floor_a'] = pbr('floor_graphite', 'graphite_marble', '#ffffff', rough=.25, normal=.35, coat=.3, coat_rough=.08)
+M['floor_b'] = M['floor_a']                                                        # plaka başına farklı doku başlangıcı (rand_origin)
+M['floor_inlay'] = pbr('floor_inlay', 'graphite_marble', '#ffffff', rough=.16, normal=.25, coat=.6, coat_rough=.04)
+M['marble'] = pbr('brand_marble', 'smoke_marble', '#ffffff', rough=.28, normal=.4, coat=.4, coat_rough=.07)
 M['champagne'] = pbr('champagne', None, '#dcbd86', rough=.24, metal=1.)
-M['leather_cream'] = pbr('leather_cream', 'velour_velvet', '#dacbb6', rough=.52, normal=.25, use_map=False, coat=.15, coat_rough=.35)
+M['leather_cream'] = pbr('leather_cream', 'cream_leather', '#ffffff', rough=.55, normal=.6)          # gerçek deri dokusu + normal
 M['leather_cognac'] = pbr('leather_cognac', 'velour_velvet', '#8a4b26', rough=.48, normal=.25, use_map=False, coat=.2, coat_rough=.3)
 M['softbox'] = emissive('softbox', '#ffe6c4', 1.1)
 M['shelf_led'] = emissive('shelf_led', '#ffd6a0', 6.)
-for k_, t_ in (('floor_graphite', (3.25, 3.25)), ('floor_graphite_b', (3.25, 3.25)), ('floor_inlay', (2.6, 2.6)), ('brand_marble', (2.2, 2.2)),
-               ('leather_cream', (.4, .4)), ('leather_cognac', (.4, .4))):
+for k_, t_ in (('floor_graphite', (3.25, 3.25)), ('floor_inlay', (2.6, 2.6)), ('brand_marble', (3.6, 3.6)),
+               ('leather_cream', (.5, .5)), ('leather_cognac', (.4, .4))):
     TILE[k_] = t_
 SIG_ZONE = (-3.9, 1.3, -9.1, -2.6)            # sergileme alanı: zemin ızgarasına oturan 5.2 × 6.5 m cilalı plakalar
 
@@ -883,10 +884,9 @@ def build_signature():
     text_mesh('MTG_Brand', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .03 + .02, lit, PLAIN, depth=.04, tracking=1.14)
     text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .012, M['halo'], EMISSIVE, depth=.002, tracking=1.14)
     text_mesh('MTG_BrandSub', 'PRIVATE  COLLECTION', .19, bx_, 2.36, MZ + .03 + .008, lit, PLAIN, depth=.016, tracking=1.5)
-    # harfler duvara gölge düşürmez: 4 cm kabartmanın lightmap'teki bulanık/çift gölgesi yazıyı kirletiyordu; derinliği hale verir
-    for nm_ in ('MTG_Brand', 'MTG_BrandSub', 'MTG_Brand_Halo'):
-        try: bpy.data.objects[nm_].visible_shadow = False
-        except Exception: pass
+    # hale kopyası gölge düşürmez (yalnız ışık); gerçek harfler üst yıkama ışığıyla duvara doğal, ince gölge bırakır
+    try: bpy.data.objects['MTG_Brand_Halo'].visible_shadow = False
+    except Exception: pass
     box('MTG_LED_BrandTop', BW1 - BW0 - .2, .01, .02, bx_, H - .02, MZ + .2, M['ledSoft'], EMISSIVE)
     # dijital ekran: sağ çıta alanında
     dx, dy = (BW1 + .12 + XR) / 2, 1.42

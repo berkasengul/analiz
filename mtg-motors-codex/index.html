@@ -237,7 +237,6 @@
 header{transition:top 1.4s cubic-bezier(.65,0,.2,1)}
 .car-card{transition:bottom 1.4s cubic-bezier(.65,0,.2,1)}
 @media(min-width:761px){.car-card{max-height:calc(89vh - 150px);overflow:auto}}   /* üstteki İletişim / Tüm İlanlar ile çakışmasın */
-#hero-plate{position:fixed;top:0;height:100vh;width:auto;z-index:1;pointer-events:none;opacity:0;will-change:opacity}
 @media (min-width:761px){
   body.scope::before,body.scope::after{height:9vh}
   body.scope header{top:9vh}
@@ -404,6 +403,7 @@ CARS[2].rotY = 180;
 CARS[2].materials = { mat_body: 'paint', mat_tires: 'tire', mat_glass: 'glass' };
 CARS[1].materials.lambert26SG = 'leather';
 CARS[1].materials.lambert28SG = 'leather';
+Object.assign(CARS[1], { leatherColor: '#c9ad85', rimMetal: .9 });   // bej deri iç döşeme; siyah jantlar metalik antrasit
 CARS[1].materials.lambert13SG = 'drl';
 CARS[1].materials.lambert14SG = 'drl';
 CARS[1].representation = '2021 M430i Coupé gövdesi; 2023 420i donanımı farklı olabilir';
@@ -1281,7 +1281,7 @@ function makeCarMaterials(spec) {
     gloss: new P({ color: '#0a0a0b', metalness: .2, roughness: .12, clearcoat: 1, envMapIntensity: 1.5 }),
     matte: new S({ color: '#0e0e10', roughness: .9, envMapIntensity: .3 }),
     tire: new S({ color: '#151517', roughness: .82, envMapIntensity: .35 }),
-    rim: new P({ color: spec.rimColor || '#b9bdc3', metalness: .6, roughness: .32, clearcoat: .6, envMapIntensity: 1 }),
+    rim: new P({ color: spec.rimColor || '#b9bdc3', metalness: spec.rimMetal ?? .6, roughness: .32, clearcoat: .6, envMapIntensity: 1 }),
     disc: new S({ color: '#6d7076', metalness: 1, roughness: .45, envMapIntensity: 1 }),
     caliper: new P({ color: spec.caliperColor || '#b80d1c', roughness: .35, clearcoat: 1, envMapIntensity: 1.2 }),
     chrome: new S({ color: '#e5e8ec', metalness: 1, roughness: .1, envMapIntensity: 1.8 }),
@@ -1292,11 +1292,11 @@ function makeCarMaterials(spec) {
     plate: new S({ map: plateTexture(), roughness: .45, envMapIntensity: .6 }),
     bronze: new P({color:'#86745c',metalness:.8,roughness:.3}),
     amber: new P({color:'#dd7018',roughness:.15}),
-    leather: new S({ color: '#8d4b29', roughness: .82 }),
+    leather: new P({ color: spec.leatherColor || '#8d4b29', roughness: .62, sheen: .4, sheenColor: '#fff4e6', sheenRoughness: .6 }),   // yumuşak deri parlaması
     drl: new S({ color: '#ffdf6a', emissive: '#ffd63e', emissiveIntensity: 1.2 }),
     interior: new S({ color: '#1b1b1e', roughness: .8, envMapIntensity: .4 }),
   };
-  Object.values(set).forEach((m) => { m.envMap = envMap; });
+  Object.entries(set).forEach(([k, m]) => { m.envMap = envMap; m.name = 'car_' + k; });
   return set;
 }
 
@@ -1449,7 +1449,75 @@ function plaqueTexture(car, i) {
 
 // 3D modeli henüz olmayan ilan: aynı gövde tipindeki gerçek bir modelin üstüne saten araç örtüsü
 // (premium galerilerdeki örtülü lansman aracı görünümü; kutu yedek gövde yerine)
+// ---------- Gerçek temas gölgesi (araç geometrisinden) ----------
+// Araç alttan ortografik kamerayla derinlik olarak çekilir: zemine yakın parçalar koyu, yükseldikçe açık (yükseklik → yoğunluk),
+// ardından iki geçişli Gauss bulanıklaştırma. İki katman: lastik altında sıkı/yoğun temas gölgesi + gövde altında geniş yumuşak gölge.
+// Araç turda dönmediği için bir kez pişirilir (kaideyle birlikte döner: düzlem araç grubunun çocuğu). Pişmiş zeminle çelişmez:
+// zemin lightmap'inde araç yok, gölge yalnız aracın kendi geometrisinden gelir.
+const CS_LAYER = 5;
+const csQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+  uniforms: { tDiffuse: { value: null }, dir: { value: new THREE.Vector2() } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
+  fragmentShader: `uniform sampler2D tDiffuse; uniform vec2 dir; varying vec2 vUv;
+    void main(){ vec4 s = texture2D(tDiffuse, vUv) * .2270270270;
+      s += (texture2D(tDiffuse, vUv + dir * 1.3846153846) + texture2D(tDiffuse, vUv - dir * 1.3846153846)) * .3162162162;
+      s += (texture2D(tDiffuse, vUv + dir * 3.2307692308) + texture2D(tDiffuse, vUv - dir * 3.2307692308)) * .0702702703;
+      gl_FragColor = s; }`,
+  depthTest: false, depthWrite: false,
+}));
+csQuad.frustumCulled = false;
+const csCam2 = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+function contactShadow(car, box, { far, blur, passes = 2, opacity, res = 512, pad = .55, darkness = 1.4 }) {
+  const w = box.max.x - box.min.x + 2 * pad, d = box.max.z - box.min.z + 2 * pad;
+  const cx = (box.min.x + box.max.x) / 2, cz = (box.min.z + box.max.z) / 2;
+  const rw = res, rh = Math.max(64, Math.round(res * d / w));
+  const opt = { type: THREE.HalfFloatType };
+  const rtA = new THREE.WebGLRenderTarget(rw, rh, opt), rtB = new THREE.WebGLRenderTarget(rw, rh, opt);
+  rtA.texture.generateMipmaps = rtB.texture.generateMipmaps = false;
+  // alttan yukarı bakan ortografik kamera (aracın yerel çerçevesinde: sağ = +x, yukarı = +z)
+  const cam = new THREE.OrthographicCamera(-w / 2, w / 2, d / 2, -d / 2, 0, far);
+  cam.position.set(cx, -.001, cz); cam.rotation.set(Math.PI / 2, 0, 0); cam.layers.set(CS_LAYER);
+  car.add(cam); car.updateMatrixWorld(true);
+  const depthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.BasicDepthPacking, side: THREE.DoubleSide });
+  depthMat.onBeforeCompile = (sh) => {
+    sh.fragmentShader = sh.fragmentShader.replace('vec4( vec3( 1.0 - fragCoordZ ), opacity );', `vec4( vec3( 0.0 ), pow( 1.0 - fragCoordZ, 1.6 ) * ${darkness.toFixed(2)} );`);
+  };
+  const meshes = []; car.traverse((o) => { if (o.isMesh && o.material?.map !== shadowTex && !o.userData.cs) { o.layers.enable(CS_LAYER); meshes.push(o); } });
+  const prev = { bg: scene.background, fog: scene.fog, ov: scene.overrideMaterial, target: renderer.getRenderTarget(), alpha: renderer.getClearAlpha(), color: renderer.getClearColor(new THREE.Color()), sm: renderer.shadowMap.autoUpdate };
+  scene.background = null; scene.fog = null; scene.overrideMaterial = depthMat; renderer.shadowMap.autoUpdate = false;
+  renderer.setClearColor(0x000000, 0);
+  renderer.setRenderTarget(rtA); renderer.clear(); renderer.render(scene, cam);
+  scene.overrideMaterial = prev.ov;
+  for (let i = 0; i < passes; i++) {                 // iki geçişli ayrık Gauss bulanıklaştırma
+    csQuad.material.uniforms.tDiffuse.value = rtA.texture; csQuad.material.uniforms.dir.value.set(blur / rw, 0);
+    renderer.setRenderTarget(rtB); renderer.clear(); renderer.render(csQuad, csCam2);
+    csQuad.material.uniforms.tDiffuse.value = rtB.texture; csQuad.material.uniforms.dir.value.set(0, blur / rh);
+    renderer.setRenderTarget(rtA); renderer.clear(); renderer.render(csQuad, csCam2);
+  }
+  renderer.setRenderTarget(prev.target); renderer.setClearColor(prev.color, prev.alpha);
+  scene.background = prev.bg; scene.fog = prev.fog; renderer.shadowMap.autoUpdate = prev.sm;
+  meshes.forEach((o) => o.layers.disable(CS_LAYER)); car.remove(cam); rtB.dispose(); depthMat.dispose();
+  // gölge düzlemi: doku v'si +z yönünde artar (kamera "yukarı" = +z)
+  const geo = new THREE.PlaneGeometry(w, d); const uv = geo.attributes.uv;
+  for (let i = 0; i < uv.count; i++) uv.setY(i, 1 - uv.getY(i));
+  geo.rotateX(-Math.PI / 2);
+  const plane = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: rtA.texture, transparent: true, opacity, depthWrite: false, toneMapped: false }));
+  plane.position.set(cx, .0035, cz); plane.renderOrder = 2; plane.userData.cs = true; plane.raycast = () => {};
+  car.add(plane);
+  return plane;
+}
+function groundCar(car) {
+  // aracın yerel çerçevesi: lastik altı y = 0 (prepareCarModel). Sıkı temas + geniş yumuşak gölge.
+  const root = car.children[0]; if (!root) return;
+  const box = new THREE.Box3().setFromObject(root);
+  const inv = new THREE.Matrix4().copy(car.matrixWorld).invert(); box.applyMatrix4(inv);
+  contactShadow(car, box, { far: .3, blur: 1.4, passes: 1, opacity: 1, res: 640, pad: .35, darkness: 2.2 });
+  contactShadow(car, box, { far: 1.1, blur: 5.5, passes: 3, opacity: .85, res: 384, pad: .9, darkness: 1.25 });
+  car.traverse((o) => { if (o.isMesh && o.material?.map === shadowTex) o.material.opacity = .35; });   // eski yumuşak leke yalnız dolgu
+}
+
 const donorFor = (type) => CARS.find((c) => c._scene && c.type === ({ sedan: 'coupe' }[type] || type)) || CARS.find((c) => c._scene);
+const stGround = [];
 function buildStations() {
   const donors = new Map();          // donör sahneler, kendileri hazırlanmadan (birleştirme/malzeme) önce kopyalanır
   TOUR.forEach((ci) => { const sp = CARS[ci], d = !sp._scene && donorFor(sp.type); if (d && !donors.has(d)) donors.set(d, d._scene.clone(true)); });
@@ -1468,7 +1536,9 @@ function buildStations() {
     scene.add(st);
 
     const turn = new THREE.Group();
-    turn.position.y = .012;
+    // lastiklerin en alt noktası zemin düzlemine (y = 0) oturur; 3 mm lastik basıklığı → temas yüzeyi, ışık sızmaz
+    // (önceden kaide 1.2 cm yukarıdaydı: araç havada duruyordu). prepareCarModel lastik altını yerel y = 0'a koyar.
+    turn.position.y = -.003;
     st.add(turn);
     let photo = null;
     if (spec._views && !spec._scene) {   // 3D model varsa her zaman o kullanılır
@@ -1479,6 +1549,7 @@ function buildStations() {
       const car = spec._scene ? prepareCarModel(spec) : coveredCar(spec);
       var carBox = new THREE.Box3().setFromObject(car.children[0]);   // gölge düzlemi hariç (araç yereli: önü +x)
       turn.add(car);
+      stGround.push(car);
     }
     turn.rotation.y = PREMIUM_ROOMS.has(i) ? PREM_YAW : Math.atan2(-.55, -.84);   // ön: kameraya çapraz (3/4 ön görünüm)
 
@@ -1533,6 +1604,14 @@ function carFrame(st) {
 // Akış: dış cephe 3/4 → portala yaklaşma → resepsiyon → koridorda dolly → oda: overview → hero
 //       → (duruşta) hero ⇄ side yayı, hero → detail itişi → koridora dönüş → sonraki oda
 const CAM = [];
+// bounding box tabanlı kadraj: kahraman ve yan profil, BMW 420i (sınır küresi yarıçapı ≈ 2.65 m) için ayarlı;
+// diğer modellerde kamera aynı yönde, aracın yarıçapı oranında yaklaşır / uzaklaşır (araç kadrajda aynı oranda kalır)
+const FIT_REF_R = 2.65;
+function fitShot(k, c, keys = ['hero', 'side']) {
+  const box = stations[k]?.box; if (!box) return;
+  const sc = THREE.MathUtils.clamp(box.getSize(new THREE.Vector3()).length() / 2 / FIT_REF_R, .82, 1.25);
+  for (const key of keys) if (c[key]) c[key].pos.sub(c[key].look).multiplyScalar(sc).add(c[key].look);
+}
 function buildCameraRig() {
   const A = (k, p, t, fov) => ({ pos: modLocal(k, ...p), look: modLocal(k, ...t), fov });
   for (let k = 0; k < NROOMS; k++) {
@@ -1546,6 +1625,7 @@ function buildCameraRig() {
       side: A(k, [2.1, 1.05, -1.5], [-1, .62, -6.2], 38),
       detail: A(k, [-2.85, .78, -3.05], [-2.05, .48, -4.9], 30),
     };
+    if (k < TOUR.length) fitShot(k, CAM[k]);
     if (PREMIUM_ROOMS.has(k) && k < TOUR.length) Object.assign(CAM[k], {
       // araç burnu koridora ve sağa dönük (PREM_YAW): kamera sol önde, göz hizasına yakın, 6.3 m'den 38° — araç kadrajın kahramanı;
       // arkada solda marka duvarı, sağda cam galeri + lounge
@@ -1553,6 +1633,7 @@ function buildCameraRig() {
       side: A(k, [-5.55, 1.05, -4.85], [-1, .6, -6.2], 44),          // sağ yan profil
       detail: A(k, [-1.95, .8, -3.55], [-1.05, .52, -4.25], 32),     // far + ön jant
     });
+    if (PREMIUM_ROOMS.has(k) && k < TOUR.length) fitShot(k, CAM[k]);
     CAM[k].corridor = { pos: new THREE.Vector3(-m.side * .3, 1.66, m.zc), fov: 48 };
   }
 }
@@ -1586,28 +1667,6 @@ function buildCameraPath() {
 // Kahraman karede kısa bekleme → yan profile yavaş yay → bekleme → geri yay → ön çeyreğe hafif itiş → geri.
 // Kullanıcı ilerleyince hareket donar ve 1.6 sn'de yumuşakça yol kamerasına bırakılır (sıçrama yok).
 const SHOW = { k: -1, t: 0, w: 0, forceT: null };
-// ---------- Signature salonu: kahraman karede Blender HD render'ı (aynı 3B sahne, aynı kamera, ışık hesaplı) ----------
-// Kamera durakta durunca render yumuşakça belirir; hareket, 360° inceleme veya ekspertizde canlı 3B sahneye döner.
-// models/rooms/plate_signature_hero.webp: tools/blender/mtg_room.py --variant signature --views plate (3:1, dikey FOV 38°).
-const PLATE = { k: 0, aspect: 3, w: 0, ok: false, el: null };
-if (NO_INERTIA) window.__plate = () => ({ ok: PLATE.ok, w: PLATE.w, k: SHOW.k, sw: SHOW.w });   // yalnızca #test
-function initPlate() {
-  if (isMobile || !BLENDER_ROOMS?.signature || !PREMIUM_ROOMS.has(PLATE.k)) return;
-  const el = PLATE.el = document.createElement('img'); el.id = 'hero-plate'; el.alt = ''; el.decoding = 'async';
-  el.onload = () => { PLATE.ok = true; PLATE.aspect = el.naturalWidth / el.naturalHeight; };
-  el.src = 'models/rooms/plate_signature_hero.webp';
-  canvas.after(el);
-}
-function updatePlate(dt) {
-  if (!PLATE.ok) return;
-  const idx = carKeyIndex[PLATE.k];
-  const at = camera.aspect >= 1.3 && !inspect.active && !tween && idx != null && Math.abs(currentS - idx) < 1e-3 && SHOW.k === PLATE.k && SHOW.w > .999 && !testCam;
-  PLATE.w += ((at ? 1 : 0) - PLATE.w) * (1 - Math.exp(-dt * (NO_INERTIA ? 200 : at ? 2.4 : 8)));
-  if (PLATE.w < .002) PLATE.w = 0;
-  const H = innerHeight, Wd = H * PLATE.aspect;
-  PLATE.el.style.left = (innerWidth / 2 - frameShift * innerWidth - Wd / 2).toFixed(1) + 'px';   // optik merkez = 3B kameranınki (kart kaydırması dahil)
-  PLATE.el.style.opacity = PLATE.w.toFixed(3);
-}
 const LEGS = [['hold', 'hero', 4.5], ['arc', 'hero', 'side', 11], ['hold', 'side', 4], ['arc', 'side', 'hero', 10],
   ['hold', 'hero', 2.5], ['push', 'hero', 'detail', 8], ['hold', 'detail', 4], ['push', 'detail', 'hero', 8]];
 const LEG_T = LEGS.reduce((a, l) => a + l[l.length - 1], 0);
@@ -1620,7 +1679,6 @@ function showcasePose(dt) {
   if (SHOW.k < 0) return 0;
   const c = CAM[SHOW.k], st = stations[SHOW.k];
   let t = (SHOW.forceT ?? SHOW.t) % LEG_T, leg = LEGS[0];
-  if (PLATE.ok && SHOW.k === PLATE.k) t = 1;                     // render plakası olan salonda kahraman karede sabit
   for (const l of LEGS) { const d = l[l.length - 1]; if (t <= d) { leg = l; break; } t -= d; }
   const [kind, a, b, d] = leg, A = c[a];
   let fov = A.fov;
@@ -1640,6 +1698,13 @@ function showcasePose(dt) {
   return smoother(SHOW.w);
 }
 if (NO_INERTIA) window.__showcase = (t) => { SHOW.forceT = t; };   // yalnızca #test: vitrin anını sabitle
+if (NO_INERTIA) window.__perf = () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, scale: renderScale });   // yalnızca #test
+// yalnızca #test: lastiklerin en alt noktası / aracın en alt noktası / zemin (dünya y, m)
+if (NO_INERTIA) window.__ground = () => stations.map((st, i) => {
+  const all = new THREE.Box3(), tire = new THREE.Box3(); st.group.updateMatrixWorld(true);
+  st.turn.traverse((o) => { if (!o.isMesh || o.material?.map === shadowTex) return; const b = new THREE.Box3().setFromObject(o); all.union(b); if (o.material?.name === 'car_tire') tire.union(b); });
+  return { i, car: st.spec.model, minAll: +all.min.y.toFixed(4), minTire: tire.isEmpty() ? null : +tire.min.y.toFixed(4), turnY: st.turn.position.y };
+});
 
 // Konum: centripetal Catmull-Rom; yön: yaw/pitch açıları üzerinden Catmull-Rom.
 // Böylece hız anahtar karelerde kesilmez ve bakış noktası kameranın altından/arkasından geçmez.
@@ -2415,7 +2480,7 @@ function buildRooms() {
   if (!isMobile) {   // tek yansıma düzlemi: tüm binanın zemini
     floorReflector = new Reflector(new THREE.PlaneGeometry(HALL_W, HALL_D), {
       clipBias: .003, color: '#5c5c5c',
-      textureWidth: Math.floor(innerWidth * .75), textureHeight: Math.floor(innerHeight * .75),   // net zemin yansıması
+      textureWidth: Math.floor(innerWidth * .5), textureHeight: Math.floor(innerHeight * .5),   // yarım çözünürlük: cilalı taşta hafif bulanık yansıma
     });
     floorReflector.rotation.x = -Math.PI / 2; floorReflector.position.set(0, -.001, -HALL_D / 2); scene.add(floorReflector);
   }
@@ -2518,7 +2583,8 @@ function buildVitrines() {
   [[-10.2, -3.4, -Math.PI / 3], [10.2, -3.4, -2 * Math.PI / 3]].forEach(([x, z, yaw], i) => {
     const spec = picks[i]; if (!spec) return;
     const car = prepareCarModel({ ...spec, _scene: spec._scene.clone(true) });
-    car.rotation.y += yaw; car.position.set(x, .012, z); car.name = 'Vitrin aracı ' + (i + 1); scene.add(car);
+    car.rotation.y += yaw; car.position.set(x, -.003, z); car.name = 'Vitrin aracı ' + (i + 1); scene.add(car);
+    stGround.push(car);
     const l = new THREE.RectAreaLight('#fff1e0', 3.2, 5.2, 3.2); l.position.set(x, 4.3, z); l.lookAt(x, 0, z); scene.add(l);
   });
 }
@@ -2570,11 +2636,8 @@ function signatureRoom(room) {
   room.traverse((o) => {
     if (!o.isMesh) return;
     const part = (/^MTG_(Floor)/.exec(o.name) || /^MTG_(Floor)/.exec(o.parent?.name || '') || [])[1];
-    if (part === 'Floor') {                                              // koyu cilalı grafit: Blender render'ındaki gibi koyu ve yansıtıcı
-      const m = o.material = o.material.clone(); m.color.multiplyScalar(.62); m.roughness = .18; m.lightMapIntensity *= .85;
-      if (!isMobile) m.opacity = .66;
-    }
-    if (o.material?.lightMap && part !== 'Floor') { o.material = o.material.clone(); o.material.lightMapIntensity *= .9; }   // biraz daha kontrast
+    // zemin: grafit mermer dokusu + pişmiş ışık olduğu gibi (Blender'daki malzeme); altta Reflector ölçülü görünür → hafif bulanık yansıma
+    if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = .82; }
     if (/^MTG_Brand(Sub)?$/.test(o.name)) {                                // fırçalanmış şampanya metal, arkadan hafif ışıklı: net okunur
       const m = o.material = o.material.clone();
       m.color.set('#e2c592'); m.metalness = .85; m.roughness = .3; m.envMapIntensity = 1.1;
@@ -2808,8 +2871,9 @@ if (BLENDER_ROOMS) {   // mimari ışık pişmiş: araç üstündeki gerçek zam
   ROOM_THEME.lightI = 3.2; LOUNGE_THEME.lightI = 3.0;
 }
 buildVitrines();       // istasyonlar araç sahnelerini hazırlamadan önce kopyalar
-initPlate();
 buildStations();
+scene.updateMatrixWorld(true);
+stGround.forEach((c) => groundCar(c));   // temas gölgeleri: araç geometrisinden, bir kez
 buildAtmosphere();
 buildCameraPath();
 buildUI();
@@ -2890,7 +2954,7 @@ function updateCamera(s, time, dt) {
   }
 
   // kaydırma durunca kamera durmaz: özne etrafında çok yavaş yörünge + nefes
-  const motion = reduceMotion ? 0 : 1 - PLATE.w;               // render plakası görünürken kamera kıpırdamaz
+  const motion = reduceMotion ? 0 : 1;
   const drift = THREE.MathUtils.smoothstep(idleTime, 1.2, 6) * motion * (1 - .75 * sw);
   camRight.set(Math.cos(yaw), 0, Math.sin(yaw));
   tmpPos.addScaledVector(camRight, Math.sin(time * .11) * .26 * drift + mouseSmooth.x * .1 * motion);
@@ -3001,8 +3065,7 @@ function frame() {
   updatePhotoCars();
   updateFocusLights(dt);
   updateUI(currentS);
-  updatePlate(dt);
-  if (PLATE.w < .999) renderer.render(scene, camera);           // render plakası tam görünürken 3B çizim duraklar
+  renderer.render(scene, camera);
   updateRenderBudget(dt);
   requestAnimationFrame(frame);
 }
