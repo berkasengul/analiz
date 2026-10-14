@@ -236,6 +236,8 @@
 .letterbox::before,.letterbox::after{transition:height 1.4s cubic-bezier(.65,0,.2,1)}
 header{transition:top 1.4s cubic-bezier(.65,0,.2,1)}
 .car-card{transition:bottom 1.4s cubic-bezier(.65,0,.2,1)}
+@media(min-width:761px){.car-card{max-height:calc(89vh - 150px);overflow:auto}}   /* üstteki İletişim / Tüm İlanlar ile çakışmasın */
+#hero-plate{position:fixed;top:0;height:100vh;width:auto;z-index:1;pointer-events:none;opacity:0;will-change:opacity}
 @media (min-width:761px){
   body.scope::before,body.scope::after{height:9vh}
   body.scope header{top:9vh}
@@ -471,7 +473,7 @@ try {
   document.getElementById('loader').classList.add('done');
   throw e;
 }
-let renderScale = Math.min(devicePixelRatio, isMobile ? 1 : 1.25);
+let renderScale = Math.min(devicePixelRatio, isMobile ? 1 : 1.5);   // HD: masaüstünde retina ekranlarda 2'ye kadar çıkar (bütçe izin verirse)
 renderer.setPixelRatio(renderScale);
 renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -1584,6 +1586,27 @@ function buildCameraPath() {
 // Kahraman karede kısa bekleme → yan profile yavaş yay → bekleme → geri yay → ön çeyreğe hafif itiş → geri.
 // Kullanıcı ilerleyince hareket donar ve 1.6 sn'de yumuşakça yol kamerasına bırakılır (sıçrama yok).
 const SHOW = { k: -1, t: 0, w: 0, forceT: null };
+// ---------- Signature salonu: kahraman karede Blender HD render'ı (aynı 3B sahne, aynı kamera, ışık hesaplı) ----------
+// Kamera durakta durunca render yumuşakça belirir; hareket, 360° inceleme veya ekspertizde canlı 3B sahneye döner.
+// models/rooms/plate_signature_hero.webp: tools/blender/mtg_room.py --variant signature --views plate (3:1, dikey FOV 38°).
+const PLATE = { k: 0, aspect: 3, w: 0, ok: false, el: null };
+function initPlate() {
+  if (isMobile || !BLENDER_ROOMS?.signature || !PREMIUM_ROOMS.has(PLATE.k)) return;
+  const el = PLATE.el = document.createElement('img'); el.id = 'hero-plate'; el.alt = ''; el.decoding = 'async';
+  el.onload = () => { PLATE.ok = true; PLATE.aspect = el.naturalWidth / el.naturalHeight; };
+  el.src = 'models/rooms/plate_signature_hero.webp';
+  canvas.after(el);
+}
+function updatePlate(dt) {
+  if (!PLATE.ok) return;
+  const idx = carKeyIndex[PLATE.k];
+  const at = camera.aspect >= 1.3 && !inspect.active && !tween && idx != null && Math.abs(currentS - idx) < 1e-3 && SHOW.k === PLATE.k && SHOW.w > .999 && !testCam;
+  PLATE.w += ((at ? 1 : 0) - PLATE.w) * (1 - Math.exp(-dt * (at ? 2.4 : 8)));
+  if (PLATE.w < .002) PLATE.w = 0;
+  const H = innerHeight, Wd = H * PLATE.aspect;
+  PLATE.el.style.left = (innerWidth / 2 - frameShift * innerWidth - Wd / 2).toFixed(1) + 'px';   // optik merkez = 3B kameranınki (kart kaydırması dahil)
+  PLATE.el.style.opacity = PLATE.w.toFixed(3);
+}
 const LEGS = [['hold', 'hero', 4.5], ['arc', 'hero', 'side', 11], ['hold', 'side', 4], ['arc', 'side', 'hero', 10],
   ['hold', 'hero', 2.5], ['push', 'hero', 'detail', 8], ['hold', 'detail', 4], ['push', 'detail', 'hero', 8]];
 const LEG_T = LEGS.reduce((a, l) => a + l[l.length - 1], 0);
@@ -1596,6 +1619,7 @@ function showcasePose(dt) {
   if (SHOW.k < 0) return 0;
   const c = CAM[SHOW.k], st = stations[SHOW.k];
   let t = (SHOW.forceT ?? SHOW.t) % LEG_T, leg = LEGS[0];
+  if (PLATE.ok && SHOW.k === PLATE.k) t = 1;                     // render plakası olan salonda kahraman karede sabit
   for (const l of LEGS) { const d = l[l.length - 1]; if (t <= d) { leg = l; break; } t -= d; }
   const [kind, a, b, d] = leg, A = c[a];
   let fov = A.fov;
@@ -1713,6 +1737,7 @@ function buildUI() {
         t.type = 'button';
         t.setAttribute('aria-label', `Fotoğraf ${k + 1}`);
         t.style.backgroundImage = `url("${src}")`;
+        const probe = new Image(); probe.onerror = () => { t.remove(); if (!thumbs.children.length) thumbs.remove(); }; probe.src = src;
         t.onclick = () => openLightbox(s.photos, k);
         thumbs.appendChild(t);
       });
@@ -2389,7 +2414,7 @@ function buildRooms() {
   if (!isMobile) {   // tek yansıma düzlemi: tüm binanın zemini
     floorReflector = new Reflector(new THREE.PlaneGeometry(HALL_W, HALL_D), {
       clipBias: .003, color: '#5c5c5c',
-      textureWidth: Math.floor(innerWidth * .5), textureHeight: Math.floor(innerHeight * .5),
+      textureWidth: Math.floor(innerWidth * .75), textureHeight: Math.floor(innerHeight * .75),   // net zemin yansıması
     });
     floorReflector.rotation.x = -Math.PI / 2; floorReflector.position.set(0, -.001, -HALL_D / 2); scene.add(floorReflector);
   }
@@ -2782,6 +2807,7 @@ if (BLENDER_ROOMS) {   // mimari ışık pişmiş: araç üstündeki gerçek zam
   ROOM_THEME.lightI = 3.2; LOUNGE_THEME.lightI = 3.0;
 }
 buildVitrines();       // istasyonlar araç sahnelerini hazırlamadan önce kopyalar
+initPlate();
 buildStations();
 buildAtmosphere();
 buildCameraPath();
@@ -2863,7 +2889,7 @@ function updateCamera(s, time, dt) {
   }
 
   // kaydırma durunca kamera durmaz: özne etrafında çok yavaş yörünge + nefes
-  const motion = reduceMotion ? 0 : 1;
+  const motion = reduceMotion ? 0 : 1 - PLATE.w;               // render plakası görünürken kamera kıpırdamaz
   const drift = THREE.MathUtils.smoothstep(idleTime, 1.2, 6) * motion * (1 - .75 * sw);
   camRight.set(Math.cos(yaw), 0, Math.sin(yaw));
   tmpPos.addScaledVector(camRight, Math.sin(time * .11) * .26 * drift + mouseSmooth.x * .1 * motion);
@@ -2942,7 +2968,7 @@ function updateRenderBudget(dt){
  budgetTime+=dt;budgetFrames++;
  if(budgetTime<3)return;
  const average=budgetTime/budgetFrames;
- const next=average>.024?Math.max(.75,renderScale-.15):average<.017?Math.min(isMobile?1:1.25,devicePixelRatio,renderScale+.05):renderScale;
+ const next=average>.024?Math.max(isMobile?.75:1,renderScale-.15):average<.017?Math.min(isMobile?1:2,devicePixelRatio,renderScale+.05):renderScale;
  if(Math.abs(next-renderScale)>.01){renderScale=next;renderer.setPixelRatio(renderScale);renderer.setSize(innerWidth,innerHeight);}
  budgetTime=0;budgetFrames=0;
 }
@@ -2974,7 +3000,8 @@ function frame() {
   updatePhotoCars();
   updateFocusLights(dt);
   updateUI(currentS);
-  renderer.render(scene, camera);
+  updatePlate(dt);
+  if (PLATE.w < .999) renderer.render(scene, camera);           // render plakası tam görünürken 3B çizim duraklar
   updateRenderBudget(dt);
   requestAnimationFrame(frame);
 }

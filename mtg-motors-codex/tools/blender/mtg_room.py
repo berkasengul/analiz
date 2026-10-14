@@ -1406,7 +1406,7 @@ def place_car(spot, yaw, paint='#681824', tag='Car'):
 
 CAR_OBJS, CAR_MAIN = [], []
 if SIG:
-    place_car(CAR, SIG_YAW)
+    place_car(CAR, SIG_YAW, paint=opt('--paint', '#740913'))   # sitedeki BMW rengi (Aventurin kırmızısı)
 elif not LOUNGE and not HUB and not FACADE:
     place_car(CAR, CAR_YAW)
     c2 = bpy.data.objects['MTG_SecondCar']
@@ -1548,6 +1548,8 @@ VIEWS = {
     },
     'signature': {
         'hero':   ((-3.5, 1.45, -.45), (-.85, .98, -6.0), 38),
+        # sitedeki kahraman karenin arka plakası: aynı kamera, 3:1 (kart kaydırması + geniş ekranlar için yatay pay)
+        'plate':  ((-3.5, 1.45, -.45), (-.85, .98, -6.0), 38),
         'wide':   ((5.6, 1.7, -.6), (-2.0, 1.6, -10.5), 56),
         'brand':  ((-1.0, 1.55, -6.2), (-1.05, 2.4, -13), 52),
         'lounge': ((-.6, 1.5, -3.2), (5.4, 1.1, -7.6), 50),
