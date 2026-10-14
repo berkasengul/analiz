@@ -2544,7 +2544,11 @@ function signatureRoom(room) {
   room.traverse((o) => {
     if (!o.isMesh) return;
     const part = (/^MTG_(Floor)/.exec(o.name) || /^MTG_(Floor)/.exec(o.parent?.name || '') || [])[1];
-    if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = .8; o.material.roughness = .22; }   // cilalı taş: yansıma belirgin
+    if (part === 'Floor') {                                              // koyu cilalı grafit: Blender render'ındaki gibi koyu ve yansıtıcı
+      const m = o.material = o.material.clone(); m.color.multiplyScalar(.62); m.roughness = .18; m.lightMapIntensity *= .85;
+      if (!isMobile) m.opacity = .66;
+    }
+    if (o.material?.lightMap && part !== 'Floor') { o.material = o.material.clone(); o.material.lightMapIntensity *= .9; }   // biraz daha kontrast
     if (/^MTG_Brand(Sub)?$/.test(o.name)) {                                // fırçalanmış şampanya metal, arkadan hafif ışıklı: net okunur
       const m = o.material = o.material.clone();
       m.color.set('#e2c592'); m.metalness = .85; m.roughness = .3; m.envMapIntensity = 1.1;
