@@ -2570,7 +2570,7 @@ function buildRooms() {
 }
 
 // ---------- Blender odaları (tools/blender/mtg_room.py) ----------
-// models/rooms/room_car.glb (7 araç odası ortak) + room_lounge.glb. Mimari ışığı Blender'da pişirildi (lightmap);
+// models/rooms/room_signature.glb (tüm araç salonları ortak; yüklenemezse room_car.glb) + room_lounge.glb. Mimari ışığı Blender'da pişirildi (lightmap);
 // GLB yüklenemezse (ör. file:// ile açılış) yukarıdaki kodla çizilen odalar kullanılır.
 let BLENDER_ROOMS = null;
 const LM_GAIN = .55;                       // Blender (AgX, pozlama −1.45) ↔ three (ACES) parlaklık eşlemesi
@@ -2587,9 +2587,10 @@ async function loadBlenderRooms() {
     const sc = document.createElement('script'); sc.src = 'models/rooms/rooms.js'; sc.onload = sc.onerror = res; document.head.appendChild(sc);
   });
   try {
-    const [car, lounge, hub] = await Promise.all(['room_car', 'room_lounge', 'room_hub'].map((n) => roomAsset(n)));
+    const [lounge, hub] = await Promise.all(['room_lounge', 'room_hub'].map((n) => roomAsset(n)));
     const facade = await roomAsset('room_facade').catch((e) => { console.warn('Cephe GLB yüklenemedi, kodla çizilen cephe kullanılıyor.', e); return null; });
-    const signature = await roomAsset('room_signature').catch(() => null);   // ilk BMW salonu (Signature Gallery)
+    const signature = await roomAsset('room_signature').catch(() => null);   // Signature Gallery: tüm araç salonları
+    const car = signature ? null : await roomAsset('room_car');              // yedek: eski ortak araç odası
     const lmCache = {};
     const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
       t.flipY = false; t.channel = 1; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }));
@@ -2619,7 +2620,7 @@ async function loadBlenderRooms() {
       });
     }
     await Promise.all(jobs);
-    BLENDER_ROOMS = { car: car.scene, lounge: lounge.scene, hub: hub.scene, facade: facade?.scene || null, signature: signature?.scene || null };
+    BLENDER_ROOMS = { car: car?.scene || null, lounge: lounge.scene, hub: hub.scene, facade: facade?.scene || null, signature: signature?.scene || null };
   } catch (e) {
     console.warn('Blender odaları yüklenemedi, kodla çizilen odalar kullanılıyor.', e);
     BLENDER_ROOMS = null;
@@ -2699,11 +2700,11 @@ function decorize(root) {
   root.traverse((o) => { const d = o.userData?.decor; if (d && DECOR[d] && !o.userData._decorDone) { o.add(DECOR[d].clone(true)); o.userData._decorDone = true; } });
   for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b) { const h = brandHalo(b); h.name = n + '_Glow'; root.add(h); } }
 }
-// ---------- Premium oda katmanı (önce yalnız ilk BMW salonu; beğenilirse PREMIUM_ROOMS'a diğer odalar eklenir) ----------
+// ---------- Premium oda katmanı: tüm araç salonları ilk BMW salonuyla aynı Signature Gallery tasarımında ----------
 // Referans: sıcak altın ışık, koyu parlak taş zemin, aracın çevresinde ince altın halka, arkadan ışıklı marka duvarı
 // + PRIVATE COLLECTION, lounge üstünde parlayan bronz halka avizeler. Oda GLB'si ortak; değişiklikler malzeme kopyalarıyla
 // yalnız bu odaya uygulanır.
-const PREMIUM_ROOMS = new Set([0]);
+const PREMIUM_ROOMS = new Set(TOUR.map((_, k) => k));   // her araç salonu (lounge hariç; o da aynı malzeme dilinde pişirildi)
 const PREM_YAW = -1.283;          // araç önü oda yerelinde (0.28, 0.96): koridora ve sağa dönük
 const PREM_LIGHTS = [];
 // Signature Gallery GLB'si (tools/blender/mtg_room.py --variant signature): mimari, ışık ve sergileme alanı Blender'da.
@@ -2800,7 +2801,7 @@ function buildRoomGLB(g, k) {
   decorize(room);
   const po = portalOpen(k);                       // açık geçişte dolgu gizli, kapalı uçta (resepsiyon / bina sonu) duvar
   for (const [sd, open] of [['L', po.L], ['R', po.R]]) { const f = room.getObjectByName('MTG_PortalFill_' + sd); if (f) f.visible = !open; }
-  if (sig) signatureRoom(room);
+  if (sig || (lounge && room.getObjectByName('MTG_Brand_Halo'))) signatureRoom(room);   // lounge: aynı Signature malzeme dili
   else if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);   // Signature GLB yoksa: ortak oda üzerinde sıcak premium katman
   const disp = anchor('MTG_Display');
   if (disp && !lounge) {
