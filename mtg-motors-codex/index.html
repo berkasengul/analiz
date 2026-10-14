@@ -511,8 +511,16 @@ const BACK_Z = -HALL_D;
 const ENTRANCE_X = 0;
 const ROOM_CZ = -ROOM_D / 2;
 // modül k: koridorun hangi yanında, hangi sırada; yerel (oda) koordinatından dünyaya dönüşüm
+// Tur sırası: sol sıra derine doğru (k 0–3), koridorun sonunda tek karşıya geçiş, sağ sıra girişe doğru (k 4–7, lounge son).
+// Böylece ardışık salonlar aynı sıradaki komşulardır ve aradaki duvardaki cam geçişten geçilir (boş koridor yürüyüşü yok).
+function moduleSlot(k) { const half = Math.ceil(NROOMS / 2); return k < half ? { side: -1, row: k } : { side: 1, row: NROOMS - 1 - k }; }
+// salonun yan duvar geçişleri: L = yerel −x (önceki salon), R = yerel +x (sonraki salon); iki sırada da aynı (modül yönelimi)
+function portalOpen(k) {
+  const sd = moduleSlot(k).side;
+  return { L: k > 0 && moduleSlot(k - 1).side === sd, R: k < NROOMS - 1 && moduleSlot(k + 1).side === sd };
+}
 function moduleXform(k) {
-  const side = k % 2 === 0 ? -1 : 1, row = Math.floor(k / 2), zc = -REC_D - ROOM_D / 2 - ROOM_D * row;
+  const { side, row } = moduleSlot(k), zc = -REC_D - ROOM_D / 2 - ROOM_D * row;
   return { side, row, zc, rotY: side < 0 ? Math.PI / 2 : -Math.PI / 2, origin: new THREE.Vector3(side * CORR, 0, zc) };
 }
 function modLocal(k, lx, ly, lz) {   // oda yereli: ön yüz z = 0 (koridor), arka duvar z = −13, merkez x = 0
@@ -1646,30 +1654,33 @@ function buildCameraPath() {
   K([-12, 3.1, 17], [0, 2.4, -2], 40);                                 // girişe yay çizen iniş
   K([.3, 1.75, 6.0], [0, 1.65, -8], 44, 'door');                       // portal önü: kapılar açılır, camdan içerisi
   K([0, 1.68, -3.2], [0, 1.5, -24], 50);                               // resepsiyon → koridor ekseni
+  // ilk salon: koridorda kısa dolly → salonun genel görünümü
+  { const m = moduleXform(0); K([m.side * -.45, 1.7, m.zc + 4.6], focus(0).toArray(), 46); K(P(CAM[0].overview), L(CAM[0].overview), CAM[0].overview.fov); }
   for (let k = 0; k < NROOMS; k++) {
-    const m = moduleXform(k), c = CAM[k];
-    if (!(k > 0 && moduleXform(k - 1).row === m.row))                 // koridorda dolly: odanın önüne, araca hafif yönelim
-      K([m.side * -.45, 1.7, m.zc + 4.6], focus(k).toArray(), 46);
-    K(P(c.overview), L(c.overview), c.overview.fov);                   // room_overview
+    const c = CAM[k];
     if (k >= TOUR.length) { K(P(c.hero), L(c.hero), c.hero.fov, 'finale'); STOPS.push(keys.length - 1); break; }
     carKeyIndex[k] = keys.length; STOPS.push(keys.length);
-    K(P(c.hero), L(c.hero), c.hero.fov, `car${k}`);                    // hero_front_34
+    K(P(c.hero), L(c.hero), c.hero.fov, `car${k}`);                    // hero_front_34 (durak)
     stations[k].yawA = stations[k].yawB = 0;
-    const nm = moduleXform(k + 1), same = nm.row === m.row;            // corridor_transition → sonraki oda
-    const look = same ? focus(k + 1) : new THREE.Vector3(0, 1.45, m.zc - 16);
-    c.corridor.look = look;
-    K([c.corridor.pos.x, 1.66, m.zc - (same ? 0 : 1.5)], look.toArray(), 48);
+    const next = focus(k + 1);
+    if (portalOpen(k).R) {
+      // cam geçiş: salonun önünden yana kayarak geçişe, oradan yandaki salona (araç solda kalır, sonraki araç camdan görünür)
+      K(modLocal(k, 1.4, 1.52, -1.7).toArray(), next.clone().lerp(modLocal(k, 6.35, 1.3, -2.4), .35).toArray(), 46);
+      K(modLocal(k, 6.35, 1.5, -2.25).toArray(), next.toArray(), 48);
+    } else {
+      // sıranın sonu: koridoru tek bir yayla karşıya geç (salon girişinden çık, karşı salonun girişinden gir)
+      const mz = (moduleXform(k).zc + moduleXform(k + 1).zc) / 2;
+      K(modLocal(k, -3.6, 1.6, -.4).toArray(), modLocal(k, -4.2, 1.4, 4).toArray(), 46);
+      K([0, 1.66, mz], next.toArray(), 50);
+      K(modLocal(k + 1, -4.0, 1.6, .6).toArray(), next.toArray(), 48);
+    }
   }
   buildTourCurves();
 }
 
-// ---------- Duruşta vitrin hareketi (ürün lansmanı dili) ----------
-// Kahraman karede kısa bekleme → yan profile yavaş yay → bekleme → geri yay → ön çeyreğe hafif itiş → geri.
-// Kullanıcı ilerleyince hareket donar ve 1.6 sn'de yumuşakça yol kamerasına bırakılır (sıçrama yok).
+// ---------- Duruşta vitrin hareketi ----------
+// Kahraman karede araç merkezli çok yavaş bir salınım (±7°). Kullanıcı ilerleyince 1.6 sn'de yumuşakça yol kamerasına bırakılır.
 const SHOW = { k: -1, t: 0, w: 0, forceT: null };
-const LEGS = [['hold', 'hero', 4.5], ['arc', 'hero', 'side', 11], ['hold', 'side', 4], ['arc', 'side', 'hero', 10],
-  ['hold', 'hero', 2.5], ['push', 'hero', 'detail', 8], ['hold', 'detail', 4], ['push', 'detail', 'hero', 8]];
-const LEG_T = LEGS.reduce((a, l) => a + l[l.length - 1], 0);
 const smoother = (t) => t * t * t * (t * (t * 6 - 15) + 10);
 const scPos = new THREE.Vector3(), scLook = new THREE.Vector3(), scC = new THREE.Vector3(), scA = new THREE.Vector3(), scB = new THREE.Vector3();
 function showcasePose(dt) {
@@ -1677,27 +1688,19 @@ function showcasePose(dt) {
   if (at >= 0) { if (SHOW.k !== at) { SHOW.k = at; SHOW.t = 0; } SHOW.t += dt; SHOW.w = 1; }
   else if (SHOW.k >= 0) { SHOW.w = Math.max(0, SHOW.w - dt / 1.6); if (SHOW.w === 0) SHOW.k = -1; }
   if (SHOW.k < 0) return 0;
-  const c = CAM[SHOW.k], st = stations[SHOW.k];
-  let t = (SHOW.forceT ?? SHOW.t) % LEG_T, leg = LEGS[0];
-  for (const l of LEGS) { const d = l[l.length - 1]; if (t <= d) { leg = l; break; } t -= d; }
-  const [kind, a, b, d] = leg, A = c[a];
-  let fov = A.fov;
-  if (kind === 'hold') { scPos.copy(A.pos); scLook.copy(A.look); }
-  else {
-    const B = c[b], u = smoother(Math.min(1, t / d));
-    scLook.copy(A.look).lerp(B.look, u); fov = A.fov + (B.fov - A.fov) * u;
-    if (kind === 'push') scPos.copy(A.pos).lerp(B.pos, u);
-    else {   // yay: araç merkezli kutupsal ara değer (açı + yarıçap + yükseklik), ortada hafif yaklaşma
-      scC.set(st.x, 0, st.z); scA.copy(A.pos).sub(scC); scB.copy(B.pos).sub(scC);
-      const aa = Math.atan2(scA.x, scA.z); let ab = Math.atan2(scB.x, scB.z); ab = aa + Math.atan2(Math.sin(ab - aa), Math.cos(ab - aa));
-      const ang = aa + (ab - aa) * u, r = Math.hypot(scA.x, scA.z) * (1 - u) + Math.hypot(scB.x, scB.z) * u - Math.sin(Math.PI * u) * .55;
-      scPos.set(scC.x + Math.sin(ang) * r, A.pos.y + (B.pos.y - A.pos.y) * u, scC.z + Math.cos(ang) * r);
-    }
-  }
+  const c = CAM[SHOW.k], st = stations[SHOW.k], A = c.hero;
+  // kahraman karede çok yavaş, kesintisiz salınım: araç merkezli ±7° yay + hafif yaklaşma (sallantısız, tek hareket)
+  const t = SHOW.forceT ?? SHOW.t, ph = Math.sin(t * Math.PI * 2 / 26) * Math.min(1, t / 4);
+  scC.set(st.x, 0, st.z); scA.copy(A.pos).sub(scC);
+  const ang = Math.atan2(scA.x, scA.z) + THREE.MathUtils.degToRad(7) * ph, r = Math.hypot(scA.x, scA.z) * (1 - .035 * Math.abs(ph));
+  scPos.set(scC.x + Math.sin(ang) * r, A.pos.y, scC.z + Math.cos(ang) * r);
+  scLook.copy(A.look); const fov = A.fov;
   SHOW.fov = fov;
   return smoother(SHOW.w);
 }
 if (NO_INERTIA) window.__showcase = (t) => { SHOW.forceT = t; };   // yalnızca #test: vitrin anını sabitle
+if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total: +tour.total.toFixed(1), seg: STOPS.slice(1).map((st, i) => +(sToL(st) - sToL(STOPS[i])).toFixed(1)),
+  portals: Array.from({ length: NROOMS }, (_, k) => { const o = portalOpen(k), m = moduleSlot(k); return `${k}:${m.side < 0 ? 'L' : 'R'}${m.row}${o.L ? '<' : '|'}${o.R ? '>' : '|'}`; }).join(' ') });   // yalnızca #test
 if (NO_INERTIA) window.__perf = () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, scale: renderScale });   // yalnızca #test
 // yalnızca #test: lastiklerin en alt noktası / aracın en alt noktası / zemin (dünya y, m)
 if (NO_INERTIA) window.__ground = () => stations.map((st, i) => {
@@ -1723,6 +1726,20 @@ function buildTourCurves() {
     pos: new THREE.CatmullRomCurve3(keys.map((k) => k.pos), false, 'centripetal'),
     yaw, pitch, dist, fov: keys.map((k) => k.fov), roll: keys.map((k) => k.roll),
   };
+  // anahtar karelerin yol üzerindeki uzunluğu (m): kamera yay uzunluğuyla ilerler → her yerde aynı hız
+  const DIV = 60, lens = tour.pos.getLengths((keys.length - 1) * DIV);
+  tour.keyL = keys.map((_, i) => lens[i * DIV]); tour.total = lens[lens.length - 1];
+}
+// durak indeksi (s) ↔ yol uzunluğu (m)
+function sToL(s) {
+  const kl = tour.keyL, n = kl.length - 1, i = THREE.MathUtils.clamp(Math.floor(s), 0, n - 1), f = THREE.MathUtils.clamp(s - i, 0, 1);
+  return kl[i] + (kl[i + 1] - kl[i]) * f;
+}
+function LtoS(L) {
+  const kl = tour.keyL; let i = 0;
+  while (i < kl.length - 2 && L > kl[i + 1]) i++;
+  const seg = kl[i + 1] - kl[i];
+  return i + (seg > 1e-6 ? THREE.MathUtils.clamp((L - kl[i]) / seg, 0, 1) : 0);
 }
 function cr(arr, s) {
   const n = arr.length - 1;
@@ -2779,6 +2796,8 @@ function buildRoomGLB(g, k) {
   g.add(room); g.updateMatrixWorld(true);           // önce oda yerelinde kur, sonra modül konumuna taşı
   const anchor = (n) => room.getObjectByName(n);
   decorize(room);
+  const po = portalOpen(k);                       // açık geçişte dolgu gizli, kapalı uçta (resepsiyon / bina sonu) duvar
+  for (const [sd, open] of [['L', po.L], ['R', po.R]]) { const f = room.getObjectByName('MTG_PortalFill_' + sd); if (f) f.visible = !open; }
   if (sig) signatureRoom(room);
   else if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);   // Signature GLB yoksa: ortak oda üzerinde sıcak premium katman
   const disp = anchor('MTG_Display');
@@ -2956,8 +2975,9 @@ function goToStop(i) {
   if (inspect.active) closeInspect();
   if (i === stopIdx && !tween) return;
   stopIdx = i;
-  const to = STOPS[i], dist = Math.abs(to - currentS);
-  tween = { from: currentS, to, t: 0, dur: THREE.MathUtils.clamp(dist * 1.45, 2.2, 7.5) };
+  const to = STOPS[i], fromL = sToL(currentS), toL = sToL(to), meters = Math.abs(toL - fromL);
+  // süre metreye göre: 13 m'lik salon geçişi ≈ 5.7 sn; uzun yollar 8.5 sn'yi geçmez
+  tween = { from: currentS, to, fromL, toL, t: 0, dur: THREE.MathUtils.clamp(1.4 + meters * .33, 2.6, 8.5) };
   if (reduceMotion || NO_INERTIA) { currentS = to; tween = null; }
 }
 window.mtgGo = goToStop;
@@ -2998,7 +3018,7 @@ const tmpPos = new THREE.Vector3(), tmpLook = new THREE.Vector3(), camDir = new 
 let camRoll = 0, prevYaw = null, idleTime = 0;
 function updateCamera(s, time, dt) {
   const ss = shapedS(s);
-  tour.pos.getPoint(ss / SEGMENTS, tmpPos);
+  tour.pos.getPointAt(THREE.MathUtils.clamp(sToL(ss) / tour.total, 0, 1), tmpPos);   // yay uzunluğuyla: sabit hız
   const yaw = cr(tour.yaw, ss), pitch = THREE.MathUtils.clamp(cr(tour.pitch, ss), -.8, .5);
   const dist = Math.max(1.2, cr(tour.dist, ss));
   camDir.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), -Math.cos(yaw) * Math.cos(pitch));
@@ -3015,16 +3035,16 @@ function updateCamera(s, time, dt) {
 
   // kaydırma durunca kamera durmaz: özne etrafında çok yavaş yörünge + nefes
   const motion = reduceMotion ? 0 : 1;
-  const drift = THREE.MathUtils.smoothstep(idleTime, 1.2, 6) * motion * (1 - .75 * sw);
+  const drift = 0;                                             // sürekli "nefes" kaldırıldı: durakta tek hareket vitrin salınımı
   camRight.set(Math.cos(yaw), 0, Math.sin(yaw));
-  tmpPos.addScaledVector(camRight, Math.sin(time * .11) * .26 * drift + mouseSmooth.x * .1 * motion);
-  tmpPos.y += (Math.sin(time * .083) * .045 * drift - mouseSmooth.y * .04 * motion);
+  tmpPos.addScaledVector(camRight, mouseSmooth.x * .04 * motion);   // çok hafif fare paralaksı
+  tmpPos.y -= mouseSmooth.y * .015 * motion;
   tmpPos.addScaledVector(camDir, (Math.sin(time * .067) * .5 + .5) * .16 * drift);   // çok yavaş içeri itiş
 
   // dönüşlerde kameranın hafifçe yatması (steadicam operatörü gibi)
   const dyaw = prevYaw === null ? 0 : (yaw - prevYaw) / Math.max(dt, 1e-3);
   prevYaw = yaw;
-  const bank = THREE.MathUtils.clamp(-dyaw * .045, -.05, .05) * motion;
+  const bank = 0 * dyaw;                                       // dönüşte kamera yatması kaldırıldı (sallantı hissi veriyordu)
   camRoll += (bank - camRoll) * (1 - Math.exp(-dt * 2.5));
 
   camera.position.copy(tmpPos);
@@ -3106,7 +3126,7 @@ function frame() {
   // kritik sönümlü yay: kamera yumuşak hızlanır, yumuşak durur (ani başlangıç yok)
   if (tween && !inspect.active) {
     tween.t = Math.min(1, tween.t + dt / tween.dur);
-    currentS = tween.from + (tween.to - tween.from) * easeInOut(tween.t);
+    currentS = tween.t >= 1 ? tween.to : LtoS(tween.fromL + (tween.toL - tween.fromL) * easeInOut(tween.t));
     if (tween.t >= 1) { tween = null; inputLock = performance.now() + 250; }
   }
   targetS = currentS;

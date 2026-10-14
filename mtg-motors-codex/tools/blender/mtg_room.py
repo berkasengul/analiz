@@ -772,6 +772,34 @@ def facade_lights():
     area('L_Lobby', 0, 4.6, -5.0, 7.5, 5.0, 380, '#fff0dc', glossy=False)
 
 
+# ---------------- CAM GEÇİŞ: aynı sıradaki komşu odalar arasında yan duvarda açıklık + cam panel ----------------
+# Oda yereli: açıklık z −3.75 … −0.7 (3.05 m), yanında cam panel z −5.35 … −3.85; yükseklik 3.4 m. Sol (XL) ve sağ (XR)
+# duvarlarda aynı z'de: komşu modüller paylaşılan duvarda birebir hizalanır. Kapalı uçta site 'MTG_PortalFill_*' gösterir.
+PORTAL = (-5.35, -.7, 0., 3.4)                # duvar deliği (za, zb, ya, yb)
+PORTAL_OPEN = (-3.75, -.7)                    # yürünebilir açıklık
+PORTAL_FILLS = []                             # bake sırasında gizlenir (geçiş açıkken ışık komşuya akar)
+def portal(side, fill_mat):
+    x = XL if side < 0 else XR
+    tag = 'L' if side < 0 else 'R'
+    za, zb, ya, yb = PORTAL
+    wt = .3                                    # duvar kalınlığı (iki modülün yarısı); kasa duvarı boydan boya sarar
+    xc = x + (-side) * 0.0                     # duvar düzlemi
+    br = M['bronze']
+    for nm_, zc_, w_ in (('JambA', za + .04, .08), ('Mull', -3.8, .1), ('JambB', zb - .04, .08)):
+        box(f'MTG_Portal{tag}_{nm_}', wt, yb, w_, xc, yb / 2, zc_, br, PLAIN)
+    box(f'MTG_Portal{tag}_Head', wt, .1, zb - za, xc, yb + .05, (za + zb) / 2, br, PLAIN)
+    box(f'MTG_Portal{tag}_Sill', wt, .004, PORTAL_OPEN[1] - PORTAL_OPEN[0], xc, .002, sum(PORTAL_OPEN) / 2, M['champagne'] if 'champagne' in M else br, PLAIN)
+    box(f'MTG_Glass_Portal{tag}', .012, yb - .02, -3.85 - za - .08, xc, yb / 2, (za + .08 - 3.85) / 2, M['glass'], PLAIN)
+    box(f'MTG_Portal{tag}_GlassRail', wt, .04, -3.85 - za, xc, .02, (za - 3.85) / 2, br, PLAIN)
+    f = box(f'MTG_PortalFill_{tag}', .06, yb, zb - za, xc - side * .03, yb / 2, (za + zb) / 2, fill_mat, PLAIN)
+    PORTAL_FILLS.append(f)
+    # vekil komşu oda (bake: açıklıktan sızan ışık + cam arkasında derinlik); dışa aktarılmaz
+    cx = side * W
+    px_plane(f'NbFloor{tag}', W, D, cx, 0, -D / 2, M['porcelain'], None)
+    px_plane(f'NbCeil{tag}', W, D, cx, H, -D / 2, M['ceil_panel'], None, down=True)
+    px_box(f'NbBack{tag}', W, H, .05, cx, H / 2, -D, M['travertine'], None)
+    px_box(f'NbFar{tag}', .05, H, D, cx + side * W / 2, H / 2, -D / 2, M['micro'], None)
+
 # ---------------- SIGNATURE GALLERY: ilk BMW salonu (oda yereli, modül 13 × 13, ön yüz z = 0) ----------------
 # Konsept: koyu grafit taş zemin + aracın altında cilalı sergileme alanı (şampanya çerçeve), arka duvarda koyu mermer
 # marka duvarı (3B şampanya harfler + PRIVATE COLLECTION, arkadan hale), iki yanda LED derzli ceviz çıtalar, sağda bronz
@@ -923,13 +951,15 @@ def build_signature():
         led_v(f'LW{abs(z_):.0f}', XL + .02, z_, face='x')
 
     # --- sağ duvar (x = XR, −x'e bakar): lounge arkasında ceviz panel alanı + traverten, üstte duvar yıkayıcı
-    wall_x('Wall_R_Core', XR, -1, -D, 0, 0, WALL_TOP, M['reveal'], DARK)
-    zs_ = [-D + .3 + .075 * (k + .5) for k in range(int((-2.4 + D - .3) / .075))]
+    wall_x('Wall_R_Core', XR, -1, -D, 0, 0, WALL_TOP, M['reveal'], DARK, holes=(PORTAL,))
+    zs_ = [-D + .3 + .075 * (k + .5) for k in range(int((PORTAL[0] - .15 + D - .3) / .075))]
     for k, zc_ in enumerate(zs_):
         m_ = M['bronze'] if k % 11 == 5 else M['walnut']
         box(f'SlatRW_{k}', .04, H, .045, XR - .04, H / 2, zc_, m_, BAKE['wall_r'] if m_ is M['walnut'] else PLAIN, origin=(0, 0, zc_))
-    stone_panels('TravR', ('x', XR, -1), [(-2.4, 0, .06, H - .05, 2, 2)], [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
-    led_v('RW', XR - .02, -2.4, face='x')
+    stone_panels('TravR', ('x', XR, -1), [(PORTAL[1], 0, .06, H - .05, 1, 2), (PORTAL[0], PORTAL[1], PORTAL[3] + .1, H - .05, 3, 1)],
+                 [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
+    led_v('RW', XR - .02, PORTAL[0] - .1, face='x')
+    portal(+1, M['travertine'])                 # sağ: sonraki salona cam geçiş
 
     # --- ön yüz (koridor): cam vitrin + giriş açıklığı + taş pilastrlar (oda modülüyle aynı)
     OPEN_X1 = -2.2
@@ -985,7 +1015,6 @@ def build_signature():
     anchor('MTG_Decor_Table_vase', LX + .15, .39, LZ + .32, decor='brass_vase_02', scale=.85)
     ring_pendant_at(LX + .1, 3.15, LZ + .35, .52, 'Pendant')
     ring_pendant_at(LX + .1, 3.45, LZ - .3, .78, 'Pendant2')
-    planter(XR - .6, -2.0, 1.8, 'Planter_A', h=.82, r=.34, plant='potted_plant_04')
     planter(XR - .6, -11.9, 1.6, 'Planter_B', h=.78, r=.32)
     planter(XL + .6, -.9, 1.35, 'Planter_C', h=.72)
     planter(XL + .6, VZ + .75, 1.5, 'Planter_D', h=.78, r=.32, plant='potted_plant_04')
@@ -1034,7 +1063,8 @@ def signature_lights(g):
         try: pl.visible_glossy = False
         except Exception: pass
     # sağ ceviz duvar: üstten yıkama
-    area('L_WalnutWash', XR - .25, H - .05, (-D - 2.4) / 2, .05, D - 2.6, 650, '#ffcf96', aim=(XR, 1.2, (-D - 2.4) / 2), spread=45, glossy=False)
+    area('L_WalnutWash', XR - .25, H - .05, (-D + PORTAL[0]) / 2, .05, PORTAL[0] + D - .3, 650, '#ffcf96', aim=(XR, 1.2, (-D + PORTAL[0]) / 2), spread=45, glossy=False)
+    area('L_NbR', W - 1, H - .1, -6.2, 6, 4, 1800, '#fff1e0', glossy=False)      # komşu salon (vekil) ışığı
     # araç: yansıma kartları + kenar ışığı (yalnız araca, önizleme)
     area('L_Card_L', cx_ - 4.6, 1.05, cz_ + 1.6, 6.0, 1.1, 85, '#fff5e8', aim=(cx_, .55, cz_), spread=70)
     area('L_Rim_B', cx_ + 1.2, 1.3, cz_ - 4.4, 3.4, .6, 140, '#ffe2c0', aim=(cx_, .5, cz_), spread=60)
@@ -1085,12 +1115,16 @@ elif not HUB and not FACADE:
         stone_panels('Trav', ('z', BZ + .02, +1), [(XL, XR, .06, H - .05, 10, 2)], [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['back'])
 
     # --- yan duvarlar (modül: komşu odalarla ortak, kapısız) ---
-    wall_x('Wall_L', XL, +1, -D, 0, 0, WALL_TOP, M['micro'], BAKE['wall_l'])
-    box('Skirt_L', .012, .04, D, XL + .006, .02, -D / 2, M['reveal'], DARK)
+    wall_x('Wall_L', XL, +1, -D, 0, 0, WALL_TOP, M['micro'], BAKE['wall_l'], holes=(PORTAL,))
+    box('Skirt_L', .012, .04, D + PORTAL[0], XL + .006, .02, (-D + PORTAL[0]) / 2, M['reveal'], DARK)
+    box('Skirt_L2', .012, .04, -PORTAL[1], XL + .006, .02, PORTAL[1] / 2, M['reveal'], DARK)
+    portal(-1, M['micro'])                      # sol: önceki salondan cam geçiş
     if not LOUNGE:
         # sağ: traverten paneller (1.3 × 2.36 m), gerçek derz
-        wall_x('Wall_R_Core', XR, -1, -D, 0, 0, WALL_TOP, M['reveal'], DARK)
-        stone_panels('TravR', ('x', XR, -1), [(-D, 0, .06, H - .05, 10, 2)], [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
+        wall_x('Wall_R_Core', XR, -1, -D, 0, 0, WALL_TOP, M['reveal'], DARK, holes=(PORTAL,))
+        stone_panels('TravR', ('x', XR, -1), [(-D, PORTAL[0], .06, H - .05, 7, 2), (PORTAL[1], 0, .06, H - .05, 1, 2),
+                                              (PORTAL[0], PORTAL[1], PORTAL[3] + .1, H - .05, 3, 1)], [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
+        portal(+1, M['travertine'])             # sağ: sonraki salona cam geçiş
     else:
         wall_x('Wall_R', XR, -1, -D, 0, 0, WALL_TOP, M['micro'], BAKE['wall_r'])
         box('Skirt_R', .012, .04, D, XR - .006, .02, -D / 2, M['reveal'], DARK)
@@ -1174,7 +1208,7 @@ elif not HUB and not FACADE:
         round_table(4.4, LZ)
         ring_pendant(4.4, LZ)
         planter(XR - .55, GLASS_Z + .6, 1.6, 'Planter_A', h=.78, r=.32)
-        planter(XL + .55, -.9, 1.25, 'Planter_B', h=.7)
+        planter(XL + .55, -6.6, 1.25, 'Planter_B', h=.7)           # geçişin önünden alındı
         planter(XL + .55, -D + .65, 1.35, 'Planter_C', h=.7)
         # kodun kullanacağı çapalar
         anchor('MTG_CarSpot', CAR[0], 0, CAR[1], yaw=CAR_YAW, mtg_anchor='car')
@@ -1443,6 +1477,9 @@ elif not HUB and not FACADE:
     area('L_Cove_B', 0, CH + .02, PZ0 - .06, PX1 - PX0, .05, 650, '#ffeedd', aim=(0, 0, -D + .02), spread=60, glossy=False)
     area('L_Cove_L', PX0 - .06, CH + .02, -D / 2, .05, D - .3, 380, '#ffeedd', aim=(XL + .02, 0, -D / 2), spread=60, glossy=False)
     area('L_Cove_R', PX1 + .06, CH + .02, -D / 2, .05, D - .3, 520, '#ffeedd', aim=(XR - .02, 0, -D / 2), spread=60, glossy=False)
+    # cam geçişlerden komşu salonun ışığı (vekil): açıklık ve cam panel çevresi karanlık kalmasın
+    for sd_ in ((-1,) if LOUNGE else (-1, 1)):
+        area(f'L_Nb{sd_}', sd_ * (W - 1), H - .1, -6.2, 6, 4, 1800, '#fff1e0', glossy=False)
     if not LOUNGE:
         cx_, cz_ = CAR
         # 3) ana ışık (key): aracın üstünde, hafif önden — büyük, yumuşak, yansımada görünmez
@@ -1537,6 +1574,7 @@ def render_view(name, pos, look, vfov=40., res=None):
 VIEWS = {
     'car': {   # kamera durağı: (araç.x − 3.6, 1.6, araç.z + 5.3)
         'bmw':     ((CAR[0] - 3.6, 1.6, CAR[1] + 5.3), (CAR[0] + .2, .75, CAR[1] - .4), 40),      # 1) ön 3/4 kahraman (sitedeki durak)
+        'portal':  ((0.2, 1.6, -0.4), (6.35, 1.5, -2.6), 62),                                    # sağ duvardaki cam geçiş
         'side':    ((CAR[0] + 3.2, 1.15, CAR[1] + 6.4), (CAR[0] - .4, .72, CAR[1] - .3), 46),    # 2) yandan geniş
         'lounge':  ((5.6, 1.4, -3.4), (-1.6, .85, -7.6), 50),                                   # 3) lounge + araç
         'detail':  ((-2.85, .78, -3.05), (-2.05, .48, -4.9), 30),                               # 4) far + ön jant yakın
@@ -1574,6 +1612,7 @@ VIEWS = {
 
 def run_previews():
     setup_post()
+    for o in PORTAL_FILLS: o.hide_render = True          # referans render'da geçişler açık
     keys = PREVIEW_ONLY.split(',') if PREVIEW_ONLY else list(VIEWS)
     for k in keys:
         if k in VIEWS:
@@ -1676,7 +1715,7 @@ def full_build():
     arch = join_group(BAKE['back'] + BAKE['wall_l'] + BAKE['wall_r'], 'MTG_Walls')
     ceil = join_group(BAKE['ceil'], 'MTG_Ceiling')
     PLAIN.append(join_group(DARK, 'MTG_Reveals'))
-    for o in CAR_OBJS: o.hide_render = True
+    for o in CAR_OBJS + PORTAL_FILLS: o.hide_render = True
     # cephe: cam, içeriden gelen ışığı kostik beneklerle taşır → bake'te cam yok sayılır (ışık serbest geçer)
     glass_off = [o for o in scene.objects if FACADE and o.type == 'MESH' and any(sl.material and 'glass' in sl.material.name for sl in o.material_slots)]
     for o in glass_off: o.hide_render = True
@@ -1700,7 +1739,7 @@ def full_build():
     for key, obj in (('floor', floor), ('walls', arch), ('ceiling', ceil)):
         obj['lightmap'] = save_lm(res[key], scale, f'{name}_lm_{key}.webp')
         obj['lmScale'] = scale
-    for o in CAR_OBJS + glass_off: o.hide_render = False
+    for o in CAR_OBJS + glass_off + PORTAL_FILLS: o.hide_render = False
     for b, v in emis: b.inputs['Emission Strength'].default_value = v
     scene.cycles.sample_clamp_indirect = 10.
     return [floor, arch, ceil]
