@@ -1159,6 +1159,9 @@ let focusSide = -1, focusInit = false, focusSt = null;
 const fT = { key: new THREE.Vector3(), fill: new THREE.Vector3(), rim: new THREE.Vector3(), sh: new THREE.Vector3(), c: new THREE.Vector3() };
 const fC = { key: new THREE.Vector3(), fill: new THREE.Vector3(), rim: new THREE.Vector3(), sh: new THREE.Vector3(), c: new THREE.Vector3() };
 // araç üstü ışık düzeni (oda yereli, araç = (−1, −6.2)): tepe softbox, kamera tarafı dolgu, arka-sağ kenar ışığı, gölge spotu
+const BASE_KEY = new THREE.Color('#fff8ed'), BASE_FILL = new THREE.Color('#dbe6fa'), BASE_RIM = new THREE.Color('#fff0d5');
+const PREM_KEY = new THREE.Color('#ffe4c2'), PREM_FILL = new THREE.Color('#ffdcb8'), PREM_RIM = new THREE.Color('#ffcf98');
+const focusBase = { key: 8, rim: 5 };
 function updateFocusLights(dt) {
   let best = null, bd = Infinity;
   stations.forEach((st) => {
@@ -1174,6 +1177,9 @@ function updateFocusLights(dt) {
   fT.rim.copy(modLocal(k, cx + 3.2, 2.5, cz - 2.8));
   fT.sh.copy(modLocal(k, cx - 1.6, 3.9, cz + 2.6));
   const a = focusInit ? 1 - Math.exp(-dt * 3) : 1; focusInit = true;
+  const prem = PREMIUM_ROOMS.has(k);
+  keyLight.color.lerp(prem ? PREM_KEY : BASE_KEY, a); fillLight.color.lerp(prem ? PREM_FILL : BASE_FILL, a); rimLight.color.lerp(prem ? PREM_RIM : BASE_RIM, a);
+  keyLight.intensity += ((prem ? 5.4 : focusBase.key) - keyLight.intensity) * a; rimLight.intensity += ((prem ? 4.4 : focusBase.rim) - rimLight.intensity) * a;
   for (const n of ['key', 'fill', 'rim', 'sh', 'c']) fC[n].lerp(fT[n], a);
   keyLight.position.copy(fC.key); keyLight.lookAt(fC.c.x, 0, fC.c.z);
   fillLight.position.copy(fC.fill); fillLight.lookAt(fC.c);
@@ -1472,7 +1478,7 @@ function buildStations() {
       var carBox = new THREE.Box3().setFromObject(car.children[0]);   // gölge düzlemi hariç (araç yereli: önü +x)
       turn.add(car);
     }
-    turn.rotation.y = Math.atan2(-.55, -.84);          // ön: kameraya çapraz (3/4 ön görünüm)
+    turn.rotation.y = PREMIUM_ROOMS.has(i) ? PREM_YAW : Math.atan2(-.55, -.84);   // ön: kameraya çapraz (3/4 ön görünüm)
 
     // bilgi panosu (koridora bakan)
     const stand = new THREE.Group();
@@ -1538,6 +1544,13 @@ function buildCameraRig() {
       side: A(k, [2.1, 1.05, -1.5], [-1, .62, -6.2], 38),
       detail: A(k, [-2.85, .78, -3.05], [-2.05, .48, -4.9], 30),
     };
+    if (PREMIUM_ROOMS.has(k) && k < TOUR.length) Object.assign(CAM[k], {
+      // araç burnu koridora ve sağa dönük (PREM_YAW): kamera sol önde, göz hizasına yakın, 6.3 m'den 38° — araç kadrajın kahramanı;
+      // arkada solda marka duvarı, sağda cam galeri + lounge
+      hero: A(k, [-3.5, 1.45, -.45], [-.85, .98, -6.0], 38),
+      side: A(k, [-5.55, 1.05, -4.85], [-1, .6, -6.2], 44),          // sağ yan profil
+      detail: A(k, [-1.95, .8, -3.55], [-1.05, .52, -4.25], 32),     // far + ön jant
+    });
     CAM[k].corridor = { pos: new THREE.Vector3(-m.side * .3, 1.66, m.zc), fov: 48 };
   }
 }
@@ -2512,14 +2525,88 @@ function captureRoomEnv() {
 
 function decorize(root) {
   root.traverse((o) => { const d = o.userData?.decor; if (d && DECOR[d] && !o.userData._decorDone) { o.add(DECOR[d].clone(true)); o.userData._decorDone = true; } });
-  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b) root.add(brandHalo(b)); }
+  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b) { const h = brandHalo(b); h.name = n + '_Glow'; root.add(h); } }
 }
+// ---------- Premium oda katmanı (önce yalnız ilk BMW salonu; beğenilirse PREMIUM_ROOMS'a diğer odalar eklenir) ----------
+// Referans: sıcak altın ışık, koyu parlak taş zemin, aracın çevresinde ince altın halka, arkadan ışıklı marka duvarı
+// + PRIVATE COLLECTION, lounge üstünde parlayan bronz halka avizeler. Oda GLB'si ortak; değişiklikler malzeme kopyalarıyla
+// yalnız bu odaya uygulanır.
+const PREMIUM_ROOMS = new Set([0]);
+const PREM_YAW = -1.283;          // araç önü oda yerelinde (0.28, 0.96): koridora ve sağa dönük
+const PREM_LIGHTS = [];
+function premiumRoom(room, k) {
+  const warm = new THREE.Color('#ffe2c0');
+  room.traverse((o) => {
+    if (!o.isMesh) return;
+    const n = o.name, mn = o.material?.name || '';
+    const part = (/^MTG_(Floor|Walls|Ceiling)/.exec(n) || /^MTG_(Floor|Walls|Ceiling)/.exec(o.parent?.name || '') || [])[1];   // çok malzemeli düğüm → alt mesh'ler
+    if (/^MTG_Stage/.test(n)) { o.visible = false; return; }              // grafit disk yerine altın halka
+    const m = o.material = o.material.clone();
+    if (part === 'Floor') {                                             // koyu, sıcak, cilalı taş: yansıma belirginleşir
+      m.color.set('#4a3f37'); m.roughness = .16; m.envMapIntensity = .5;
+      if (!isMobile) m.opacity = .72;
+    } else if (part === 'Walls') m.color.multiply(warm);
+    else if (part === 'Ceiling') m.color.set('#a08a76');
+    else if (m.isMeshBasicMaterial && /LED/.test(n)) {                    // tavan çizgi ışıkları + gizli LED: sıcak altın
+      m.color.set(/LED_\d/.test(n) ? '#ffd7a0' : '#ffc27a').multiplyScalar(/LED_\d/.test(n) ? 1.25 : 1.6);
+    }
+    if (/fabric/.test(mn)) { m.color.set('#e9dfcf'); }                    // lounge kanepesi: krem bukle
+    if (n === 'MTG_Brand') { m.emissive?.set('#8a5a22'); m.emissiveIntensity = .85; m.roughness = .3; m.envMapIntensity = 1.2; }   // arkadan ışıklı pirinç
+  });
+  // aracın çevresinde ince altın halka + çok hafif ışık izi
+  const c = room.getObjectByName('MTG_CarSpot')?.position || new THREE.Vector3(-1, 0, -6.2);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(3.46, 3.5, 160), new THREE.MeshBasicMaterial({ color: new THREE.Color('#e0ad5c').multiplyScalar(1.4) }));
+  ring.rotation.x = -Math.PI / 2; ring.position.set(c.x, .004, c.z); room.add(ring);
+  const glowTex = canvasTexture(256, 256, (g, w, h) => {
+    const r = g.createRadialGradient(w / 2, h / 2, w * .43, w / 2, h / 2, w * .5);
+    r.addColorStop(0, 'rgba(255,190,110,0)'); r.addColorStop(.6, 'rgba(255,190,110,.55)'); r.addColorStop(1, 'rgba(255,190,110,0)');
+    g.fillStyle = r; g.fillRect(0, 0, w, h);
+  });
+  const glow = new THREE.Mesh(new THREE.PlaneGeometry(7.6, 7.6), new THREE.MeshBasicMaterial({ map: glowTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: .5 }));
+  glow.rotation.x = -Math.PI / 2; glow.position.set(c.x, .005, c.z); room.add(glow);
+  // marka duvarı: PRIVATE COLLECTION alt satırı + üstten sıcak ışık yıkaması
+  const brand = room.getObjectByName('MTG_Brand');
+  if (brand) {
+    // yazı aynı koyu taş duvarda sağa/aşağı: kahraman karede aracın arkasında, sitenin logosuyla çakışmadan okunur
+    for (const nm of ['MTG_Brand', 'MTG_Brand_Halo', 'MTG_Brand_Glow']) { const o = room.getObjectByName(nm); if (o) { o.position.x += 1.9; o.position.y -= .55; } }
+    brand.updateMatrixWorld(true);
+    const bb = new THREE.Box3().setFromObject(brand), bs = bb.getSize(new THREE.Vector3()), bc = bb.getCenter(new THREE.Vector3());
+    const tex = canvasTexture(2048, 200, (g, w, h) => {
+      g.clearRect(0, 0, w, h); g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '500 92px Cinzel, Georgia, serif';
+      if ('letterSpacing' in g) g.letterSpacing = '34px';
+      g.shadowColor = 'rgba(255,196,120,.9)'; g.shadowBlur = 22; g.fillStyle = '#e2bf86'; g.fillText('PRIVATE COLLECTION', w / 2, h / 2 + 4);
+    });
+    const sub = new THREE.Mesh(new THREE.PlaneGeometry(bs.x * .78, bs.x * .78 * 200 / 2048),
+      new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, color: new THREE.Color(1.15, 1.05, .95) }));
+    sub.position.set(bc.x, bb.min.y - bs.y * .75, bb.max.z + .004); room.add(sub);
+    if (!isMobile) {
+      const wash = new THREE.RectAreaLight('#ffb468', 7, 6.2, .35);
+      wash.position.set(bc.x, HALL_H - .25, bb.min.z + .55); room.add(wash);
+      wash.lookAt(room.localToWorld(new THREE.Vector3(bc.x, 1.2, bb.min.z - .2)));
+      PREM_LIGHTS.push(wash);
+    }
+  }
+  // lounge: mevcut avizenin yanına ikinci (daha büyük) bronz halka + altında lokal sıcak ışık
+  const pend = room.getObjectByName('MTG_Pendant'), pb = pend ? new THREE.Box3().setFromObject(pend) : null;
+  const pc = pb ? pb.getCenter(new THREE.Vector3()) : new THREE.Vector3(4.4, 3.9, -6.4);
+  const bronze = new THREE.MeshStandardMaterial({ color: '#7a5d3c', metalness: 1, roughness: .3, envMapIntensity: 1 });
+  const ringLed = new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffcf8a').multiplyScalar(1.7) });
+  const p2 = new THREE.Group(); p2.position.set(pc.x + 1.3, pc.y - .35, pc.z - 1.0);
+  const t2 = new THREE.Mesh(new THREE.TorusGeometry(.78, .035, 12, 96), bronze); t2.rotation.x = Math.PI / 2; p2.add(t2);
+  const l2 = new THREE.Mesh(new THREE.RingGeometry(.72, .8, 96), ringLed); l2.rotation.x = Math.PI / 2; l2.position.y = -.04; p2.add(l2);
+  for (const a of [0, 2.09, 4.19]) { const w = new THREE.Mesh(new THREE.CylinderGeometry(.004, .004, HALL_H - p2.position.y, 4), bronze); w.position.set(Math.cos(a) * .78, (HALL_H - p2.position.y) / 2, Math.sin(a) * .78); p2.add(w); }
+  room.add(p2);
+  const pl = new THREE.PointLight('#ffc98e', isMobile ? 4 : 7, 7.5, 2); pl.position.set(pc.x + .6, pc.y - .9, pc.z - .5); room.add(pl);
+  PREM_LIGHTS.push(pl);
+}
+
 function buildRoomGLB(g, k) {
   const lounge = k >= TOUR.length, src = lounge ? BLENDER_ROOMS.lounge : BLENDER_ROOMS.car;
   const room = src.clone(true);
   g.add(room); g.updateMatrixWorld(true);           // önce oda yerelinde kur, sonra modül konumuna taşı
   const anchor = (n) => room.getObjectByName(n);
   decorize(room);
+  if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);
   const disp = anchor('MTG_Display');
   if (disp && !lounge) {
     const t = totemTexture(CARS[TOUR[k]], k);
@@ -2528,7 +2615,8 @@ function buildRoomGLB(g, k) {
     scr.position.z = .001; disp.add(scr);
   }
   const spot2 = anchor('MTG_SecondCar');
-  if (spot2 && !lounge) { const c2 = secondCar(k); if (c2) { c2.rotation.y = spot2.rotation.y; spot2.parent.add(c2); c2.position.copy(spot2.position); } }
+  // premium salonda ikinci araç yok: kahraman araçla yarışmasın
+  if (spot2 && !lounge && !PREMIUM_ROOMS.has(k)) { const c2 = secondCar(k); if (c2) { c2.rotation.y = spot2.rotation.y; spot2.parent.add(c2); c2.position.copy(spot2.position); } }
   const m = moduleXform(k);
   g.position.copy(m.origin); g.rotation.y = m.rotY; g.updateMatrixWorld(true);
   const L = anchor('MTG_Light'), lp = L ? L.getWorldPosition(new THREE.Vector3()) : carPos(k);
@@ -2665,6 +2753,7 @@ buildRooms();          // Blender odaları (models/rooms) yüklendiyse onlar, yo
 captureRoomEnv();      // araçlar eklenmeden önce: boya gerçek showroom'u yansıtsın
 if (BLENDER_ROOMS) {   // mimari ışık pişmiş: araç üstündeki gerçek zamanlı ışıkları dengele (boya solmasın, derin kırmızı kalsın)
   keyLight.intensity = 4.2; fillLight.intensity = 1.4; rimLight.intensity = 3.2; focusShadow.intensity = 32;
+  focusBase.key = 4.2; focusBase.rim = 3.2;
   ROOM_THEME.lightI = 3.2; LOUNGE_THEME.lightI = 3.0;
 }
 buildVitrines();       // istasyonlar araç sahnelerini hazırlamadan önce kopyalar
