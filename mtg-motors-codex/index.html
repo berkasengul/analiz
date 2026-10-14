@@ -296,7 +296,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 <div id="car-cards"></div>
 
 <section class="overlay finale interactive" id="ov-finale">
-  <div class="eyebrow" style="justify-content:center">MTG MOTORS</div>
+  <div class="eyebrow" style="justify-content:center;visibility:hidden" aria-hidden="true">MTG MOTORS</div>   <!-- marka arkadaki 3B duvarda; yer tutucu (başlık konumu sabit) -->
   <h2>HAYALİNİZDEKİ ARAÇ<br>BİR ADIM UZAĞINIZDA</h2>
   <p>Tüm güncel ilanlarımızı sahibinden.com mağazamızda bulabilir, ekspertiz ve takas seçenekleri için bizimle iletişime geçebilirsiniz.</p>
   <div class="actions">
@@ -2698,7 +2698,8 @@ function captureRoomEnv() {
 
 function decorize(root) {
   root.traverse((o) => { const d = o.userData?.decor; if (d && DECOR[d] && !o.userData._decorDone) { o.add(DECOR[d].clone(true)); o.userData._decorDone = true; } });
-  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b) { const h = brandHalo(b); h.name = n + '_Glow'; root.add(h); } }
+  // Signature odalarında hale Blender'dan (MTG_Brand_Halo) gelir; canvas kopyası çift yazı verir
+  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b && !b.parent?.getObjectByName('MTG_Brand_Halo')) { const h = brandHalo(b); h.name = n + '_Glow'; root.add(h); } }
 }
 // ---------- Premium oda katmanı: tüm araç salonları ilk BMW salonuyla aynı Signature Gallery tasarımında ----------
 // Referans: sıcak altın ışık, koyu parlak taş zemin, aracın çevresinde ince altın halka, arkadan ışıklı marka duvarı
