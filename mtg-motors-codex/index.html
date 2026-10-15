@@ -566,6 +566,106 @@ function canvasTexture(w, h, draw) {
   t.anisotropy = 8;
   return t;
 }
+// ---------- Medya duvarı TV'si: odadaki aracın sinematik filmi ----------
+// Her salonun sağ duvarındaki TV, o salondaki aracı gösterir. CARS[].video verilmişse (mp4/webm) o oynatılır; yoksa araç
+// sahnede ikinci bir kamerayla canlı çekilir: ön 3/4 dolly, yan profil kaydırma, jant yakın planı, arka 3/4 vinç, üstten
+// yörünge, far detayı (her plan ~5 sn, aralarda kısa karartma). Sinema oranı bantları + MTG MOTORS imzası görüntüye işlenir.
+// Yalnız kameranın bulunduğu salonun TV'si ve yalnız ekran kadrajdayken çizilir (masaüstü ~30 kare/sn, mobil ~12).
+const TV = { list: [], rt: null, cam: new THREE.PerspectiveCamera(30, 16 / 9, .05, 60), active: -1, t: 0, n: 0,
+  ovScene: new THREE.Scene(), ovCam: new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), ovQuad: null, fade: null, frustum: new THREE.Frustum(), pm: new THREE.Matrix4() };
+const TV_SHOTS = [   // araç yereli (önü +x, yan +z), L: araç boyu. from → to konum, bakış, fov
+  { p0: [.98, .78, .62], p1: [.8, .7, .46], l0: [0, .58, 0], l1: [.05, .55, 0], fov: 30 },          // ön 3/4 yaklaşma
+  { p0: [.42, .62, .62], p1: [-.42, .62, .62], l0: [.3, .55, 0], l1: [-.3, .55, 0], fov: 34 },       // yan profil kaydırma
+  { p0: [.42, .36, .4], p1: [.26, .38, .42], l0: [.3, .34, .18], l1: [.31, .34, .18], fov: 26 },    // ön jant yakın plan
+  { p0: [-.95, .82, .5], p1: [-.82, 1.25, .62], l0: [-.1, .6, 0], l1: [0, .55, 0], fov: 32 },       // arka 3/4 vinç
+  { orbit: [.95, .78, -.3, .55], l0: [0, .35, 0], fov: 34 },                                          // üstten yörünge
+  { p0: [.7, .66, .3], p1: [.64, .64, .22], l0: [.46, .6, .16], l1: [.46, .6, .16], fov: 24 },      // far detayı
+];
+const TV_SHOT_DUR = 5.2;
+function tvOverlayTexture(spec, k) {
+  return canvasTexture(1024, 576, (g, w, h) => {
+    const bar = Math.round(h * .115);
+    g.fillStyle = '#000'; g.fillRect(0, 0, w, bar); g.fillRect(0, h - bar, w, bar);
+    g.fillStyle = 'rgba(214,180,120,.85)'; g.fillRect(36, h - bar, 54, 2);
+    g.font = '600 22px Cinzel, Georgia, serif'; g.fillStyle = '#e6cfa0'; g.textBaseline = 'middle';
+    g.fillText('MTG  |  MOTORS', 36, h - bar / 2 + 2);
+    g.font = '500 15px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(255,255,255,.82)'; g.textAlign = 'right';
+    g.fillText(`${spec.brand.toUpperCase()}  ·  ${spec.model}  ·  ${spec.year}`, w - 36, h - bar / 2 + 1);
+    g.textAlign = 'left'; g.font = '500 12px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(230,207,160,.75)';
+    g.fillText(`PRIVATE COLLECTION  ·  ${String(k + 1).padStart(2, '0')} / ${String(TOUR.length).padStart(2, '0')}`, 36, bar / 2);
+  });
+}
+const tvStandby = canvasTexture(512, 288, (g, w, h) => {
+  const r = g.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * .6); r.addColorStop(0, '#16130f'); r.addColorStop(1, '#050505');
+  g.fillStyle = r; g.fillRect(0, 0, w, h);
+  g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = 'rgba(214,180,120,.55)'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('MTG  |  MOTORS', w / 2, h / 2);
+});
+function buildTV(room, k) {
+  const a = room.getObjectByName('MTG_TV'); if (!a || k >= TOUR.length) return;
+  const w = a.userData.w || 2.08, h = a.userData.h || 1.17, spec = CARS[TOUR[k]];
+  const mat = new THREE.MeshBasicMaterial({ map: tvStandby, color: new THREE.Color(1, 1, 1) });
+  const scr = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); scr.position.z = .003; scr.name = 'MTG_TV_Live'; a.add(scr);
+  // cam yüzey: ekranın önünde çok hafif ortam yansıması (kapalıyken de cam hissi)
+  const glass = new THREE.Mesh(scr.geometry, new THREE.MeshStandardMaterial({ color: '#000', roughness: .06, metalness: 0, transparent: true, opacity: .14, envMapIntensity: .6, depthWrite: false }));
+  glass.position.z = .005; a.add(glass);
+  const e = { k, scr, mat, spec, ov: null, video: null };
+  if (spec.video) {
+    const v = Object.assign(document.createElement('video'), { src: spec.video, muted: true, loop: true, playsInline: true, preload: 'none', crossOrigin: 'anonymous' });
+    e.video = v; e.vtex = new THREE.VideoTexture(v); e.vtex.colorSpace = THREE.SRGBColorSpace;
+  }
+  TV.list.push(e);
+}
+const tvV = new THREE.Vector3(), tvL = new THREE.Vector3(), tvV2 = new THREE.Vector3();
+function tvShot(st, L, t) {
+  const n = Math.floor(t / TV_SHOT_DUR), u = (t % TV_SHOT_DUR) / TV_SHOT_DUR, sh = TV_SHOTS[n % TV_SHOTS.length];
+  const e = u * u * (3 - 2 * u) * .7 + u * .3;          // yumuşak ama durmayan hareket
+  if (sh.orbit) {
+    const [r, y, a0, a1] = sh.orbit, a = a0 + (a1 - a0) * e;
+    tvV.set(Math.cos(a) * r * L, y * L, Math.sin(a) * r * L);
+  } else tvV.fromArray(sh.p0).lerp(tvV2.fromArray(sh.p1), e).multiplyScalar(L);
+  tvL.fromArray(sh.l0).lerp(tvV2.fromArray(sh.l1), e).multiplyScalar(L);
+  tvV.y /= L; tvL.y /= L;                                 // yükseklikler metre (boydan bağımsız)
+  st.turn.localToWorld(tvV); st.turn.localToWorld(tvL);
+  TV.cam.position.copy(tvV); TV.cam.lookAt(tvL); TV.cam.fov = sh.fov; TV.cam.updateProjectionMatrix();
+  return Math.min(1, u / .06, (1 - u) / .06);            // plan geçişinde karartma
+}
+function updateTV(dt) {
+  const k = camRoom, e = TV.list.find((x) => x.k === k);
+  if (TV.active !== k) {                                  // salon değişti: önceki TV bekleme ekranına, video durur
+    for (const x of TV.list) if (x.k !== k) { x.mat.map = tvStandby; x.video?.pause(); }
+    TV.active = k; TV.t = 0;
+  }
+  if (!e) return;
+  TV.pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); TV.frustum.setFromProjectionMatrix(TV.pm);
+  if (!TV.frustum.intersectsObject(e.scr)) return;
+  if (e.video) { if (e.video.paused) e.video.play().catch(() => {}); e.mat.map = e.vtex; return; }
+  const st = stations[k]; if (!st) return;
+  TV.t += dt;
+  if (++TV.n % (isMobile ? 5 : 2)) return;
+  if (!TV.rt) {
+    const w = isMobile ? 384 : 768;
+    TV.rt = new THREE.WebGLRenderTarget(w, Math.round(w * 9 / 16), { type: THREE.HalfFloatType, samples: isMobile ? 0 : 4 });
+    TV.rt.texture.colorSpace = THREE.LinearSRGBColorSpace;
+    TV.ovQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ transparent: true, depthTest: false, depthWrite: false, toneMapped: false }));
+    TV.fade = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ color: '#000', transparent: true, depthTest: false, depthWrite: false }));
+    TV.ovScene.add(TV.fade, TV.ovQuad);
+  }
+  if (!e.ov) e.ov = tvOverlayTexture(e.spec, k);
+  const L = e.spec.length || 4.6;
+  const vis = tvShot(st, L, TV.t);
+  // çizim: ekranlar gizli (kendi görüntüsünü okumasın), toz parçacıkları ve zemin yansıması bu geçişte yok
+  const hide = [atmosphere.dust, floorReflector, ...TV.list.map((x) => x.scr)].filter(Boolean), was = hide.map((o) => o.visible);
+  hide.forEach((o) => { o.visible = false; });
+  const prevT = renderer.getRenderTarget();
+  renderer.setRenderTarget(TV.rt); renderer.clear();
+  renderer.render(scene, TV.cam);
+  TV.fade.material.opacity = 1 - vis; TV.ovQuad.material.map = e.ov;
+  renderer.autoClear = false; renderer.render(TV.ovScene, TV.ovCam); renderer.autoClear = true;
+  renderer.setRenderTarget(prevT);
+  hide.forEach((o, i) => { o.visible = was[i]; });
+  e.mat.map = TV.rt.texture;
+}
 
 // Dükkân tabelasındaki gibi: serifli beyaz "MTG | MOTORS", isteğe bağlı telefonlar
 function logoTexture(w, h, { sub = true, phones = false } = {}) {
@@ -1776,7 +1876,8 @@ function showcasePose(dt) {
   return smoother(SHOW.w);
 }
 if (NO_INERTIA) window.__showcase = (t) => { SHOW.forceT = t; };
-if (NO_INERTIA) window.__tv = () => ({ n: TV.list.length, active: TV.active, rt: !!TV.rt, t: +TV.t.toFixed(1) });   // yalnızca #test: vitrin anını sabitle
+if (NO_INERTIA) window.__tv = () => ({ n: TV.list.length, active: TV.active, rt: !!TV.rt, t: +TV.t.toFixed(1),
+  scr: TV.list.map((e) => ({ k: e.k, p: e.scr.getWorldPosition(new THREE.Vector3()).toArray().map((v) => +v.toFixed(2)), d: e.scr.getWorldDirection(new THREE.Vector3()).toArray().map((v) => +v.toFixed(2)) })) });   // yalnızca #test: vitrin anını sabitle
 if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total: +tour.total.toFixed(1), seg: STOPS.slice(1).map((st, i) => +(sToL(st) - sToL(STOPS[i])).toFixed(1)),
   portals: Array.from({ length: NROOMS }, (_, k) => { const o = portalOpen(k), m = moduleSlot(k); return `${k}:${m.side < 0 ? 'L' : 'R'}${m.row}${o.L ? '<' : '|'}${o.R ? '>' : '|'}`; }).join(' ') });   // yalnızca #test
 if (NO_INERTIA) window.__camAt = (S) => { const k = keys[Math.round(S)]; const d = new THREE.Vector3(); camera.getWorldDirection(d);
@@ -3643,106 +3744,6 @@ function updateRoomPower(dt) {
     for (const e of r.glow) e.m.emissiveIntensity = e.base * r.power;
   });
   for (const l of [roomLightA, roomLightB]) { const r = rooms[l.userData.k]; if (r) l.intensity = r.theme.lightI * (r.power ?? 1); }
-}
-// ---------- Medya duvarı TV'si: odadaki aracın sinematik filmi ----------
-// Her salonun sağ duvarındaki TV, o salondaki aracı gösterir. CARS[].video verilmişse (mp4/webm) o oynatılır; yoksa araç
-// sahnede ikinci bir kamerayla canlı çekilir: ön 3/4 dolly, yan profil kaydırma, jant yakın planı, arka 3/4 vinç, üstten
-// yörünge, far detayı (her plan ~5 sn, aralarda kısa karartma). Sinema oranı bantları + MTG MOTORS imzası görüntüye işlenir.
-// Yalnız kameranın bulunduğu salonun TV'si ve yalnız ekran kadrajdayken çizilir (masaüstü ~30 kare/sn, mobil ~12).
-const TV = { list: [], rt: null, cam: new THREE.PerspectiveCamera(30, 16 / 9, .05, 60), active: -1, t: 0, n: 0,
-  ovScene: new THREE.Scene(), ovCam: new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), ovQuad: null, fade: null, frustum: new THREE.Frustum(), pm: new THREE.Matrix4() };
-const TV_SHOTS = [   // araç yereli (önü +x, yan +z), L: araç boyu. from → to konum, bakış, fov
-  { p0: [.98, .78, .62], p1: [.8, .7, .46], l0: [0, .58, 0], l1: [.05, .55, 0], fov: 30 },          // ön 3/4 yaklaşma
-  { p0: [.42, .62, .62], p1: [-.42, .62, .62], l0: [.3, .55, 0], l1: [-.3, .55, 0], fov: 34 },       // yan profil kaydırma
-  { p0: [.42, .36, .4], p1: [.26, .38, .42], l0: [.3, .34, .18], l1: [.31, .34, .18], fov: 26 },    // ön jant yakın plan
-  { p0: [-.95, .82, .5], p1: [-.82, 1.25, .62], l0: [-.1, .6, 0], l1: [0, .55, 0], fov: 32 },       // arka 3/4 vinç
-  { orbit: [.95, .78, -.3, .55], l0: [0, .35, 0], fov: 34 },                                          // üstten yörünge
-  { p0: [.7, .66, .3], p1: [.64, .64, .22], l0: [.46, .6, .16], l1: [.46, .6, .16], fov: 24 },      // far detayı
-];
-const TV_SHOT_DUR = 5.2;
-function tvOverlayTexture(spec, k) {
-  return canvasTexture(1024, 576, (g, w, h) => {
-    const bar = Math.round(h * .115);
-    g.fillStyle = '#000'; g.fillRect(0, 0, w, bar); g.fillRect(0, h - bar, w, bar);
-    g.fillStyle = 'rgba(214,180,120,.85)'; g.fillRect(36, h - bar, 54, 2);
-    g.font = '600 22px Cinzel, Georgia, serif'; g.fillStyle = '#e6cfa0'; g.textBaseline = 'middle';
-    g.fillText('MTG  |  MOTORS', 36, h - bar / 2 + 2);
-    g.font = '500 15px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(255,255,255,.82)'; g.textAlign = 'right';
-    g.fillText(`${spec.brand.toUpperCase()}  ·  ${spec.model}  ·  ${spec.year}`, w - 36, h - bar / 2 + 1);
-    g.textAlign = 'left'; g.font = '500 12px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(230,207,160,.75)';
-    g.fillText(`PRIVATE COLLECTION  ·  ${String(k + 1).padStart(2, '0')} / ${String(TOUR.length).padStart(2, '0')}`, 36, bar / 2);
-  });
-}
-const tvStandby = canvasTexture(512, 288, (g, w, h) => {
-  const r = g.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * .6); r.addColorStop(0, '#16130f'); r.addColorStop(1, '#050505');
-  g.fillStyle = r; g.fillRect(0, 0, w, h);
-  g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = 'rgba(214,180,120,.55)'; g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.fillText('MTG  |  MOTORS', w / 2, h / 2);
-});
-function buildTV(room, k) {
-  const a = room.getObjectByName('MTG_TV'); if (!a || k >= TOUR.length) return;
-  const w = a.userData.w || 2.08, h = a.userData.h || 1.17, spec = CARS[TOUR[k]];
-  const mat = new THREE.MeshBasicMaterial({ map: tvStandby, color: new THREE.Color(1, 1, 1) });
-  const scr = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); scr.position.z = .003; scr.name = 'MTG_TV_Live'; a.add(scr);
-  // cam yüzey: ekranın önünde çok hafif ortam yansıması (kapalıyken de cam hissi)
-  const glass = new THREE.Mesh(scr.geometry, new THREE.MeshStandardMaterial({ color: '#000', roughness: .06, metalness: 0, transparent: true, opacity: .14, envMapIntensity: .6, depthWrite: false }));
-  glass.position.z = .005; a.add(glass);
-  const e = { k, scr, mat, spec, ov: null, video: null };
-  if (spec.video) {
-    const v = Object.assign(document.createElement('video'), { src: spec.video, muted: true, loop: true, playsInline: true, preload: 'none', crossOrigin: 'anonymous' });
-    e.video = v; e.vtex = new THREE.VideoTexture(v); e.vtex.colorSpace = THREE.SRGBColorSpace;
-  }
-  TV.list.push(e);
-}
-const tvV = new THREE.Vector3(), tvL = new THREE.Vector3(), tvV2 = new THREE.Vector3();
-function tvShot(st, L, t) {
-  const n = Math.floor(t / TV_SHOT_DUR), u = (t % TV_SHOT_DUR) / TV_SHOT_DUR, sh = TV_SHOTS[n % TV_SHOTS.length];
-  const e = u * u * (3 - 2 * u) * .7 + u * .3;          // yumuşak ama durmayan hareket
-  if (sh.orbit) {
-    const [r, y, a0, a1] = sh.orbit, a = a0 + (a1 - a0) * e;
-    tvV.set(Math.cos(a) * r * L, y * L, Math.sin(a) * r * L);
-  } else tvV.fromArray(sh.p0).lerp(tvV2.fromArray(sh.p1), e).multiplyScalar(L);
-  tvL.fromArray(sh.l0).lerp(tvV2.fromArray(sh.l1), e).multiplyScalar(L);
-  tvV.y /= L; tvL.y /= L;                                 // yükseklikler metre (boydan bağımsız)
-  st.turn.localToWorld(tvV); st.turn.localToWorld(tvL);
-  TV.cam.position.copy(tvV); TV.cam.lookAt(tvL); TV.cam.fov = sh.fov; TV.cam.updateProjectionMatrix();
-  return Math.min(1, u / .06, (1 - u) / .06);            // plan geçişinde karartma
-}
-function updateTV(dt) {
-  const k = camRoom, e = TV.list.find((x) => x.k === k);
-  if (TV.active !== k) {                                  // salon değişti: önceki TV bekleme ekranına, video durur
-    for (const x of TV.list) if (x.k !== k) { x.mat.map = tvStandby; x.video?.pause(); }
-    TV.active = k; TV.t = 0;
-  }
-  if (!e) return;
-  TV.pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); TV.frustum.setFromProjectionMatrix(TV.pm);
-  if (!TV.frustum.intersectsObject(e.scr)) return;
-  if (e.video) { if (e.video.paused) e.video.play().catch(() => {}); e.mat.map = e.vtex; return; }
-  const st = stations[k]; if (!st) return;
-  TV.t += dt;
-  if (++TV.n % (isMobile ? 5 : 2)) return;
-  if (!TV.rt) {
-    const w = isMobile ? 384 : 768;
-    TV.rt = new THREE.WebGLRenderTarget(w, Math.round(w * 9 / 16), { type: THREE.HalfFloatType, samples: isMobile ? 0 : 4 });
-    TV.rt.texture.colorSpace = THREE.LinearSRGBColorSpace;
-    TV.ovQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ transparent: true, depthTest: false, depthWrite: false, toneMapped: false }));
-    TV.fade = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ color: '#000', transparent: true, depthTest: false, depthWrite: false }));
-    TV.ovScene.add(TV.fade, TV.ovQuad);
-  }
-  if (!e.ov) e.ov = tvOverlayTexture(e.spec, k);
-  const L = e.spec.length || 4.6;
-  const vis = tvShot(st, L, TV.t);
-  // çizim: ekranlar gizli (kendi görüntüsünü okumasın), toz parçacıkları ve zemin yansıması bu geçişte yok
-  const hide = [atmosphere.dust, floorReflector, ...TV.list.map((x) => x.scr)].filter(Boolean), was = hide.map((o) => o.visible);
-  hide.forEach((o) => { o.visible = false; });
-  const prevT = renderer.getRenderTarget();
-  renderer.setRenderTarget(TV.rt); renderer.clear();
-  renderer.render(scene, TV.cam);
-  TV.fade.material.opacity = 1 - vis; TV.ovQuad.material.map = e.ov;
-  renderer.autoClear = false; renderer.render(TV.ovScene, TV.ovCam); renderer.autoClear = true;
-  renderer.setRenderTarget(prevT);
-  hide.forEach((o, i) => { o.visible = was[i]; });
-  e.mat.map = TV.rt.texture;
 }
 // Ortam sesi (isteğe bağlı, kapalı başlar): Web Audio ile üretilen çok hafif galeri ambiyansı — iki yumuşak drone + filtreli
 // hava sesi. Dosya indirmez; düğmeyle açılır/kapanır (tarayıcılar sesi yalnız kullanıcı etkileşimiyle başlatır).
