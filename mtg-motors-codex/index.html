@@ -364,7 +364,7 @@ const SKETCHFAB = (slug) => `https://sketchfab.com/3d-models/${slug}`;
 const CARS = [
   { brand: 'Seat',          model: 'Ateca 1.5 EcoTSI Xperience',      title: '2023 ATECA 1.5 XPERIENCE HATASIZ-BOYASIZ KIŞ PAKETİ-D.ISITMA',     ilanNo: '1344478037', room: 'dynamic', year: 2023, km: '65.000',  colorName: 'Gümüş Gri', price: '2.075.000 TL', type: 'suv',   color: '#8e9399', url: '',
     glb: 'models/web/seat-ateca.glb',      length: 4.36, credit: { name: 'Seat Ateca Cupra 2019', author: 'Nieve5677', url: SKETCHFAB('seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c') } },
-  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', room: 'sport', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#681824', url: '',
+  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', room: 'sport', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.775.000 TL', type: 'coupe', color: '#681824', url: '',
     photos: ['photos/bmw-420i-1.webp', 'photos/bmw-420i-2.webp', 'photos/bmw-420i-3.webp', 'photos/bmw-420i-4.webp'],
     views: [{ src: 'cutouts/bmw-420i-on.webp', h: 1.62 }, { src: 'cutouts/bmw-420i-yan.webp', w: 4.85 }, { src: 'cutouts/bmw-420i-arka.webp', h: 1.62 }],
     glb: 'models/web/bmw-420i-coupe.glb',  length: 4.77, rimColor: '#141518', caliperColor: '#1f4fd8',
@@ -452,6 +452,8 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
@@ -1191,6 +1193,7 @@ function updateFocusLights(dt) {
   keyLight.color.lerp(prem ? th.keyC : BASE_KEY, a); fillLight.color.lerp(prem ? th.fillC : BASE_FILL, a); rimLight.color.lerp(prem ? th.rimC : BASE_RIM, a);
   keyLight.intensity += ((prem ? th.keyI : focusBase.key) - keyLight.intensity) * a; rimLight.intensity += ((prem ? th.rimI : focusBase.rim) - rimLight.intensity) * a;
   renderer.toneMappingExposure += ((prem ? th.exp : 1) - renderer.toneMappingExposure) * a;
+  gradeToward(prem ? th : null, a);
   for (const n of ['key', 'fill', 'rim', 'sh', 'c']) fC[n].lerp(fT[n], a);
   keyLight.position.copy(fC.key); keyLight.lookAt(fC.c.x, 0, fC.c.z);
   fillLight.position.copy(fC.fill); fillLight.lookAt(fC.c);
@@ -1489,7 +1492,7 @@ function contactShadow(car, box, { far, blur, passes = 2, opacity, res = 512, pa
   car.add(cam); car.updateMatrixWorld(true);
   const depthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.BasicDepthPacking, side: THREE.DoubleSide });
   depthMat.onBeforeCompile = (sh) => {
-    sh.fragmentShader = sh.fragmentShader.replace('vec4( vec3( 1.0 - fragCoordZ ), opacity );', `vec4( vec3( 0.0 ), pow( 1.0 - fragCoordZ, 1.6 ) * ${darkness.toFixed(2)} );`);
+    sh.fragmentShader = sh.fragmentShader.replace('vec4( vec3( 1.0 - fragCoordZ ), opacity );', `vec4( vec3( 0.0 ), min( pow( 1.0 - fragCoordZ, 1.6 ) * ${darkness.toFixed(2)}, 1.0 ) );`   // alfa ≤ 1: HalfFloat efekt hedefinde negatif renk (parlama) olmasın);
   };
   const meshes = []; car.traverse((o) => { if (o.isMesh && o.material?.map !== shadowTex && !o.userData.cs) { o.layers.enable(CS_LAYER); meshes.push(o); } });
   const prev = { bg: scene.background, fog: scene.fog, ov: scene.overrideMaterial, target: renderer.getRenderTarget(), alpha: renderer.getClearAlpha(), color: renderer.getClearColor(new THREE.Color()), sm: renderer.shadowMap.autoUpdate };
@@ -1715,6 +1718,7 @@ if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total:
   portals: Array.from({ length: NROOMS }, (_, k) => { const o = portalOpen(k), m = moduleSlot(k); return `${k}:${m.side < 0 ? 'L' : 'R'}${m.row}${o.L ? '<' : '|'}${o.R ? '>' : '|'}`; }).join(' ') });   // yalnızca #test
 if (NO_INERTIA) window.__camAt = (S) => { const k = keys[Math.round(S)]; const d = new THREE.Vector3(); camera.getWorldDirection(d);
   return { s: S, pos: camera.position.toArray().map((v) => +v.toFixed(2)), dir: d.toArray().map((v) => +v.toFixed(2)), key: k && { pos: k.pos.toArray().map((v) => +v.toFixed(2)), look: k.look.toArray().map((v) => +v.toFixed(2)) }, pitch: +tour.pitch[Math.round(S)].toFixed(2) }; };   // yalnızca #test
+if (NO_INERTIA) window.__cine = (o) => { Object.assign(window.__cineOff ||= {}, o); };   // yalnızca #test: sinematik katman parçalarını kapat
 if (NO_INERTIA) window.__perf = () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, scale: renderScale });   // yalnızca #test
 // yalnızca #test: lastiklerin en alt noktası / aracın en alt noktası / zemin (dünya y, m)
 if (NO_INERTIA) window.__ground = () => stations.map((st, i) => {
@@ -2009,7 +2013,15 @@ roomNav.addEventListener('click',e=>{const b=e.target.closest('[data-d]');if(b)s
 // odalar arası geçişte koleksiyon odasının adı (camdan geçerken belirip kaybolur; tıklamayı engellemez)
 const roomTitle=document.createElement('div');roomTitle.id='room-title';roomTitle.setAttribute('aria-hidden','true');
 roomTitle.innerHTML='<small></small><b></b>';document.body.appendChild(roomTitle);
+const soundBtn=document.createElement('button');soundBtn.id='sound-btn';soundBtn.type='button';soundBtn.setAttribute('aria-pressed','false');soundBtn.setAttribute('aria-label','Ortam sesini aç');
+soundBtn.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="w" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+soundBtn.addEventListener('click',()=>toggleAmbient(soundBtn));document.body.appendChild(soundBtn);
 const navStyle=document.createElement('style');navStyle.textContent=`
+#sound-btn{position:fixed;left:24px;bottom:28px;z-index:30;width:38px;height:38px;display:grid;place-items:center;cursor:pointer;
+ background:rgba(14,16,18,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);color:#9d968b;transition:color .3s,border-color .3s}
+#sound-btn .w{opacity:.25;transition:opacity .3s}#sound-btn.on{color:#e2c592;border-color:rgba(201,170,120,.55)}#sound-btn.on .w{opacity:1}
+body.inspecting #sound-btn{opacity:0;pointer-events:none}
+@media (max-width:760px){#sound-btn{left:12px;bottom:14px;width:34px;height:34px}}
 #room-title{position:fixed;left:50%;top:21%;transform:translateX(-50%);z-index:20;pointer-events:none;opacity:0;text-align:center;
  color:#efe3c8;text-shadow:0 2px 24px rgba(0,0,0,.65)}
 #room-title small{display:block;font:500 10px/1 Inter,Arial,sans-serif;letter-spacing:.42em;text-transform:uppercase;color:#c9aa78;margin-bottom:14px}
@@ -2344,14 +2356,15 @@ const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge
 //   letters/emis: 3B harf rengi / iç ışıma · key/fill/rim: araç ışıkları · light/lightI: tavan alan ışığı
 //   refl: zeminin opaklığı (altındaki Reflector'un ne kadar göründüğü; cilalı taş düşük) · exp: pozlama çarpanı
 //   halo: harflerin arkasındaki ışıma çarpanı (desenli taşta düşük tutulur, yazı bulanık görünmesin)
+//   grade: [r, g, b ton, doygunluk, kontrast] — masaüstü renk tonu (sinematik katman)
 const ROOM_THEMES = {
-  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.0, rimI: 5.2, light: '#ffe6c8', lightI: 4.2, refl: .8, exp: 1.0, halo: 1 },
-  suv:       { name: 'Explorer SUV Lounge',     letters: '#c9a26a', emis: '#5e3f1a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 5.8, rimI: 4.6, light: '#ffdcb4', lightI: 4.8, refl: .93, exp: 1.02, halo: .45 },
-  urban:     { name: 'Urban Collection',        letters: '#3d4146', emis: '#000000', key: '#fff6ea', fill: '#e8eef6', rim: '#fff3e2', keyI: 5.2, rimI: 4.2, light: '#f7f3ec', lightI: 4.6, refl: .9, exp: 1.0 },
-  dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7 },
-  compact:   { name: 'Compact Studio',          letters: '#5b4632', emis: '#000000', key: '#fff4e8', fill: '#f2ede6', rim: '#fff0dc', keyI: 5.0, rimI: 3.8, light: '#fff3e6', lightI: 5.0, refl: .9, exp: .97 },
-  executive: { name: 'Executive Lounge',        letters: '#7f6036', emis: '#000000', key: '#ffeacc', fill: '#fbe6cc', rim: '#ffe0b4', keyI: 4.8, rimI: 3.6, light: '#ffeccf', lightI: 4.6, refl: .86, exp: .96 },
-  sedan:     { name: 'Executive Sedan Gallery', letters: '#d5d9de', emis: '#2a3442', key: '#f2f5ff', fill: '#dfe7f6', rim: '#e8efff', keyI: 5.8, rimI: 5.2, light: '#f1f3fb', lightI: 4.4, refl: .8, exp: 1.0, halo: .6 },
+  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.0, rimI: 5.2, light: '#ffe6c8', lightI: 4.2, refl: .8, exp: 1.0, halo: 1, grade: [1.03, .99, .95, 1.06, 1.06] },
+  suv:       { name: 'Explorer SUV Lounge',     letters: '#c9a26a', emis: '#5e3f1a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 5.8, rimI: 4.6, light: '#ffdcb4', lightI: 4.8, refl: .93, exp: 1.02, halo: .45, grade: [1.04, 1.0, .94, 1.0, 1.04] },
+  urban:     { name: 'Urban Collection',        letters: '#3d4146', emis: '#000000', key: '#fff6ea', fill: '#e8eef6', rim: '#fff3e2', keyI: 5.2, rimI: 4.2, light: '#f7f3ec', lightI: 4.6, refl: .9, exp: 1.0, grade: [1.0, 1.0, 1.0, .98, 1.03] },
+  dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
+  compact:   { name: 'Compact Studio',          letters: '#5b4632', emis: '#000000', key: '#fff4e8', fill: '#f2ede6', rim: '#fff0dc', keyI: 5.0, rimI: 3.8, light: '#fff3e6', lightI: 5.0, refl: .9, exp: .97, grade: [1.01, 1.0, .99, 1.0, 1.0] },
+  executive: { name: 'Executive Lounge',        letters: '#7f6036', emis: '#000000', key: '#ffeacc', fill: '#fbe6cc', rim: '#ffe0b4', keyI: 4.8, rimI: 3.6, light: '#ffeccf', lightI: 4.6, refl: .86, exp: .96, grade: [1.02, 1.0, .96, .96, .98] },
+  sedan:     { name: 'Executive Sedan Gallery', letters: '#d5d9de', emis: '#2a3442', key: '#f2f5ff', fill: '#dfe7f6', rim: '#e8efff', keyI: 5.8, rimI: 5.2, light: '#f1f3fb', lightI: 4.4, refl: .8, exp: 1.0, halo: .6, grade: [.97, .99, 1.03, .97, 1.08] },
 };
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
 const roomThemeOf = (k) => ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
@@ -2894,7 +2907,18 @@ function buildRoomGLB(g, k) {
   const m = moduleXform(k);
   g.position.copy(m.origin); g.rotation.y = m.rotY; g.updateMatrixWorld(true);
   const L = anchor('MTG_Light'), lp = L ? L.getWorldPosition(new THREE.Vector3()) : carPos(k);
-  rooms.push({ group: g, theme: themeOf(k), cx: m.origin.x, cz: m.zc, light: [lp.x, lp.z], row: m.row });
+  // oda ışık gücü (updateRoomPower): lightmap'li yüzeyler, LED çizgiler, softbox
+  const lmL = [], leds = [], glow = [], seen = new Set();
+  room.traverse((o) => {
+    if (!o.isMesh) return;
+    for (const mt of [].concat(o.material)) {
+      if (seen.has(mt)) continue; seen.add(mt);
+      if (mt.lightMap) lmL.push({ m: mt, base: mt.lightMapIntensity });
+      else if (mt.isMeshBasicMaterial && /LED/.test(o.name)) leds.push({ m: mt, base: mt.color.clone() });
+      else if (o.name === 'MTG_Softbox' && mt.emissive) glow.push({ m: mt, base: mt.emissiveIntensity });
+    }
+  });
+  rooms.push({ group: g, theme: themeOf(k), cx: m.origin.x, cz: m.zc, light: [lp.x, lp.z], row: m.row, lm: lmL, leds, glow, power: 1, applied: 1 });
 }
 // GLB yüklenemezse: modül başına sade zemin + duvarlar (tur ve kamera yine çalışır)
 function buildRoomFallback(g, k) {
@@ -2914,7 +2938,7 @@ scene.add(roomLightA, roomLightB);
 function placeRoomLight(l, k) {
   const r = rooms[THREE.MathUtils.clamp(k, 0, rooms.length - 1)];
   l.position.set(r.light[0], HALL_H - .27, r.light[1]); l.lookAt(r.light[0], 0, r.light[1]);
-  l.color.set(r.theme.light); l.intensity = r.theme.lightI;
+  l.color.set(r.theme.light); l.intensity = r.theme.lightI * (r.power ?? 1); l.userData.k = THREE.MathUtils.clamp(k, 0, rooms.length - 1);
 }
 let lastRoomK = null, lastLights = '';
 // görünürlük: kameranın bulunduğu sıra ± 1 (dışarıdayken ilk iki sıra); ışıklar: kameraya en yakın iki oda
@@ -3215,8 +3239,175 @@ function updateRenderBudget(dt){
  if(budgetTime<3)return;
  const average=budgetTime/budgetFrames;
  const next=average>.024?Math.max(isMobile?.75:1,renderScale-.15):average<.017?Math.min(isMobile?1:2,devicePixelRatio,renderScale+.05):renderScale;
- if(Math.abs(next-renderScale)>.01){renderScale=next;renderer.setPixelRatio(renderScale);renderer.setSize(innerWidth,innerHeight);}
+ if(Math.abs(next-renderScale)>.01){renderScale=next;renderer.setPixelRatio(renderScale);renderer.setSize(innerWidth,innerHeight);resizeComposer();}
  budgetTime=0;budgetFrames=0;
+}
+// ---------- Sinematik katman (masaüstü) ----------
+// Efekt zinciri: sahne (derinlik dokusuyla) → alan derinliği → hafif parlama (yarım çözünürlük) → ton eşleme → oda renk
+// tonu + vinyet → SMAA kenar yumuşatma. Mobilde doğrudan çizim (pil/ısı); renk tonu yalnız masaüstünde.
+// Alan derinliği yalnız araç duruşunda ve 360° incelemede açılır; geçişte keskin (yol okunur, baş dönmez).
+const CINE = !isMobile;
+let composer = null, dofPass = null, gradePass = null, bloomPass = null;
+const cine = { dof: 0, focus: 6, tint: new THREE.Color(1, 1, 1), sat: 1, con: 1, vig: .22 };
+const DOF_SHADER = {
+  uniforms: { tDiffuse: { value: null }, tDepth: { value: null }, focus: { value: 6 }, amount: { value: 0 },
+    near: { value: .1 }, far: { value: 400 }, texel: { value: new THREE.Vector2(1 / 1280, 1 / 720) }, maxR: { value: 7 } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+  fragmentShader: `uniform sampler2D tDiffuse, tDepth; uniform float focus, amount, near, far, maxR; uniform vec2 texel; varying vec2 vUv;
+    float lin(vec2 uv){ float z = texture2D(tDepth, uv).x * 2. - 1.; return 2. * near * far / (far + near - z * (far - near)); }
+    // bulanıklık yarıçapı: odak düzleminden göreli uzaklık; arka plan önden daha çok (portre lens hissi)
+    float coc(float d){ float c = (d - focus) / max(d, .001); return clamp(c > 0. ? c * 1.7 : -c * .9, 0., 1.); }
+    void main(){
+      vec4 base = texture2D(tDiffuse, vUv);
+      float c0 = coc(lin(vUv)) * amount;
+      if (c0 < .03) { gl_FragColor = base; return; }
+      vec3 acc = base.rgb; float wsum = 1.;
+      for (int i = 0; i < 24; i++) {
+        float fi = float(i) + .5, r = sqrt(fi / 24.) * maxR * c0, a = fi * 2.39996;
+        vec2 o = vec2(cos(a), sin(a)) * r * texel, uv = vUv + o;
+        float cs = coc(lin(uv)) * amount * maxR;
+        float w = smoothstep(r - 1., r, cs + .5);          // örnek kendi bulanıklığıyla bu pikseli kapsıyorsa katkı verir (keskin araç arka plana sızmaz)
+        acc += texture2D(tDiffuse, uv).rgb * w; wsum += w;
+      }
+      gl_FragColor = vec4(acc / wsum, base.a);
+    }`,
+};
+const GRADE_SHADER = {
+  uniforms: { tDiffuse: { value: null }, tint: { value: new THREE.Color(1, 1, 1) }, sat: { value: 1 }, con: { value: 1 }, vig: { value: .22 }, aspect: { value: 16 / 9 } },
+  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+  fragmentShader: `uniform sampler2D tDiffuse; uniform vec3 tint; uniform float sat, con, vig, aspect; varying vec2 vUv;
+    void main(){
+      vec4 c = texture2D(tDiffuse, vUv);
+      vec3 col = c.rgb * tint;
+      float l = dot(col, vec3(.2126, .7152, .0722));
+      col = mix(vec3(l), col, sat);
+      col = (col - .5) * con + .5;                                  // görüntü uzayında hafif kontrast (orta ton sabit)
+      vec2 q = (vUv - .5) * vec2(aspect, 1.); float v = smoothstep(.45, 1.15, length(q));
+      col *= 1. - vig * v;                                          // yumuşak vinyet: göz araca toplanır
+      gl_FragColor = vec4(clamp(col, 0., 1.), c.a);
+    }`,
+};
+function buildComposer() {
+  if (!CINE) return;
+  const w = Math.floor(innerWidth * renderScale), h = Math.floor(innerHeight * renderScale);
+  const rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, depthTexture: new THREE.DepthTexture(w, h) });
+  composer = new EffectComposer(renderer, rt);
+  // EffectComposer ikinci hedefi klonlar: DepthTexture.clone aynı GPU dokusunu paylaşır (geri besleme döngüsü) → ayrı derinlik
+  composer.renderTarget2.depthTexture = new THREE.DepthTexture(w, h);
+  composer.setPixelRatio(renderScale); composer.setSize(innerWidth, innerHeight);
+  composer.addPass(new RenderPass(scene, camera));
+  dofPass = new ShaderPass(DOF_SHADER); composer.addPass(dofPass);
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth / 2, innerHeight / 2), .2, .5, 2.2);   // yalnız gerçekten parlak yüzeyler (LED, softbox, kaporta parlaması); beyaz boya parlamasın composer.addPass(bloomPass);
+  composer.addPass(new OutputPass());
+  gradePass = new ShaderPass(GRADE_SHADER); composer.addPass(gradePass);
+  composer.addPass(new SMAAPass(w, h));
+}
+function resizeComposer() {
+  if (!composer) return;
+  composer.setPixelRatio(renderScale); composer.setSize(innerWidth, innerHeight);
+  bloomPass.resolution.set(innerWidth / 2, innerHeight / 2);
+}
+const cineTmp = new THREE.Vector3();
+function renderFrame(dt) {
+  if (!composer) { renderer.render(scene, camera); return; }
+  // odak + alan derinliği: duruşta araca, 360° incelemede incelenen araca
+  let amt = 0;
+  const w = SHOW.k >= 0 ? smoother(SHOW.w) : 0;
+  if (inspect.active && stations[inspect.index]) { const st = stations[inspect.index]; cine.focus = camera.position.distanceTo(cineTmp.set(st.x, .65, st.z)); amt = .55; }
+  else if (w > 0) { const st = stations[SHOW.k]; cine.focus = camera.position.distanceTo(cineTmp.set(st.x, .65, st.z)); amt = .85 * w; }
+  cine.dof += (amt - cine.dof) * (1 - Math.exp(-dt * 2.5));
+  const u = dofPass.uniforms;
+  u.tDepth.value = composer.readBuffer.depthTexture; u.focus.value = cine.focus; u.amount.value = cine.dof;
+  u.near.value = camera.near; u.far.value = camera.far;
+  u.texel.value.set(1 / composer.readBuffer.width, 1 / composer.readBuffer.height); u.maxR.value = 4.2 * composer.readBuffer.height / 1080;   // hafif: arka plan yumuşar, marka yazısı okunur kalır
+  dofPass.enabled = cine.dof > .01 && !window.__cineOff?.dof;
+  bloomPass.enabled = !window.__cineOff?.bloom; if (sweep && window.__cineOff?.sweep) sweep.intensity = 0;
+  const g = gradePass.uniforms;
+  g.tint.value.copy(cine.tint); g.sat.value = cine.sat; g.con.value = cine.con; g.vig.value = cine.vig; g.aspect.value = innerWidth / innerHeight;
+  composer.render(dt);
+}
+// oda renk tonu: odak ışıklarıyla aynı anda yeni odanın tonuna geçer (updateFocusLights çağırır)
+function gradeToward(th, a) {
+  const gr = th?.grade || [1, 1, 1, 1, 1];
+  cine.tint.r += (gr[0] - cine.tint.r) * a; cine.tint.g += (gr[1] - cine.tint.g) * a; cine.tint.b += (gr[2] - cine.tint.b) * a;
+  cine.sat += (gr[3] - cine.sat) * a; cine.con += (gr[4] - cine.con) * a;
+}
+// ---------- Canlı sahne ----------
+// Duruşta platform çok yavaş salınır (±16°, 40 sn): araç durağanken bile kaporta ve jant ışığı canlı kalır. 360° inceleme /
+// ekspertiz açılınca araç yumuşakça ilan açısına döner (parça işaretleri ve "ön/arka çapraz" bakışları doğru kalsın).
+const SWING = { amp: THREE.MathUtils.degToRad(16), period: 40, w: 0, k: -1, t: 0 };
+function updateSwing(dt) {
+  const active = SHOW.k >= 0 && !inspect.active && !reduceMotion;
+  if (active && SWING.k !== SHOW.k) {
+    if (SWING.k >= 0) stations[SWING.k].turn.rotation.y = stations[SWING.k].baseRot;
+    SWING.k = SHOW.k; SWING.t = 0;
+  }
+  SWING.w += ((active ? smoother(SHOW.w) : 0) - SWING.w) * (1 - Math.exp(-dt * 1.5));
+  if (SWING.k < 0) return false;
+  SWING.t += dt;
+  const st = stations[SWING.k];
+  st.turn.rotation.y = st.baseRot + SWING.amp * Math.sin(SWING.t * Math.PI * 2 / SWING.period) * SWING.w * Math.min(1, SWING.t / 6);
+  return SWING.w > .01;
+}
+// Işık süzmesi: duruşta ~11 sn'de bir, aracın üstünden boydan boya geçen ince sıcak ışık bandı (lüks otomobil reklamı anı).
+// Yalnız masaüstü; RectAreaLight boya / cam / jantta gezen bir parlama çizgisi bırakır.
+const sweep = CINE ? new THREE.RectAreaLight('#fff3e2', 0, 5.6, .22) : null;
+if (sweep) scene.add(sweep);
+const swDir = new THREE.Vector3();
+function updateSweep() {
+  if (!sweep) return;
+  const on = SHOW.k >= 0 && !inspect.active ? smoother(SHOW.w) : 0, st = SHOW.k >= 0 ? stations[SHOW.k] : null;
+  const ph = ((SHOW.t || 0) % 11 - 2.5) / 3.8;                        // duruştan 2.5 sn sonra başlar, 3.8 sn sürer
+  if (!st || on <= 0 || ph < 0 || ph > 1) { sweep.intensity = 0; return; }
+  swDir.set(1, 0, 0).transformDirection(st.turn.matrixWorld);          // araç yereli +x = ön
+  const a = THREE.MathUtils.lerp(2.9, -2.9, smoother(ph));
+  sweep.position.set(st.x + swDir.x * a, 2.55, st.z + swDir.z * a);
+  sweep.up.set(swDir.x, 0, swDir.z); sweep.lookAt(sweep.position.x, 0, sweep.position.z);
+  sweep.intensity = 16 * Math.sin(Math.PI * ph) * on;
+}
+// Oda ışıkları: içinde bulunulan salon tam aydınlık, cam ardından görünen komşular kısık (%60); salona girilince ışıklar
+// ~1.5 sn'de açılır ("ışıklar sizin için yandı"). Koridorda / dışarıda tüm salonlar %85.
+const rpV = new THREE.Vector3();
+function updateRoomPower(dt) {
+  let cur = -1;
+  rooms.forEach((r, k) => { rpV.copy(camera.position); r.group.worldToLocal(rpV); if (rpV.x > -6.6 && rpV.x < 6.6 && rpV.z < .3 && rpV.z > -13.2) cur = k; });
+  const a = 1 - Math.exp(-dt * 1.8);
+  rooms.forEach((r, k) => {
+    if (!r.lm) return;
+    const tgt = reduceMotion ? 1 : cur < 0 ? .85 : k === cur ? 1 : .6;
+    r.power += (tgt - r.power) * a;
+    if (Math.abs(r.power - r.applied) < .004) return;
+    r.applied = r.power;
+    for (const e of r.lm) e.m.lightMapIntensity = e.base * r.power;
+    for (const e of r.leds) e.m.color.copy(e.base).multiplyScalar(.35 + .65 * r.power);
+    for (const e of r.glow) e.m.emissiveIntensity = e.base * r.power;
+  });
+  for (const l of [roomLightA, roomLightB]) { const r = rooms[l.userData.k]; if (r) l.intensity = r.theme.lightI * (r.power ?? 1); }
+}
+// Ortam sesi (isteğe bağlı, kapalı başlar): Web Audio ile üretilen çok hafif galeri ambiyansı — iki yumuşak drone + filtreli
+// hava sesi. Dosya indirmez; düğmeyle açılır/kapanır (tarayıcılar sesi yalnız kullanıcı etkileşimiyle başlatır).
+let ambient = null;
+function toggleAmbient(btn) {
+  if (!ambient) {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)(), master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+    for (const [f, g] of [[55, .05], [82.4, .03], [110.2, .012]]) {
+      const o = ctx.createOscillator(), og = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f; og.gain.value = g; lfo.frequency.value = .05 + f / 4000; lg.gain.value = g * .5;
+      lfo.connect(lg).connect(og.gain); o.connect(og).connect(master); o.start(); lfo.start();
+    }
+    const nb = ctx.createBuffer(1, ctx.sampleRate * 4, ctx.sampleRate), d = nb.getChannelData(0);
+    let b = 0; for (let i = 0; i < d.length; i++) { b = .985 * b + .015 * (Math.random() * 2 - 1); d[i] = b * 3; }   // kırmızı gürültü: yumuşak hava
+    const ns = ctx.createBufferSource(), nf = ctx.createBiquadFilter(), ng = ctx.createGain();
+    ns.buffer = nb; ns.loop = true; nf.type = 'lowpass'; nf.frequency.value = 520; ng.gain.value = .05;
+    ns.connect(nf).connect(ng).connect(master); ns.start();
+    ambient = { ctx, master, on: false };
+  }
+  ambient.on = !ambient.on;
+  if (ambient.ctx.state === 'suspended') ambient.ctx.resume();
+  const g = ambient.master.gain, t = ambient.ctx.currentTime;
+  g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(ambient.on ? .55 : 0, t + 1.6);
+  btn.setAttribute('aria-pressed', ambient.on); btn.classList.toggle('on', ambient.on);
+  btn.setAttribute('aria-label', ambient.on ? 'Ortam sesini kapat' : 'Ortam sesini aç');
 }
 const clock = new THREE.Clock();
 function frame() {
@@ -3241,12 +3432,15 @@ function frame() {
   if (shadowElapsed > .14 && Math.abs(currentS-lastShadowS)>.002) { renderer.shadowMap.needsUpdate=true; lastShadowS=currentS; shadowElapsed=0; }
   updateDoors(currentS);
   updateRooms();
+  updateRoomPower(dt);
+  if (updateSwing(dt) && shadowElapsed > (isMobile ? .5 : .2)) { renderer.shadowMap.needsUpdate = true; shadowElapsed = 0; }   // salınan aracın gölgesi
   if(inspect.active){updateInspect(dt);updateEkspertiz();prevYaw=null;}else updateCamera(currentS,t,dt);
   updateAtmosphere(t);
   updatePhotoCars();
   updateFocusLights(dt);
+  updateSweep();
   updateUI(currentS);
-  renderer.render(scene, camera);
+  renderFrame(dt);
   updateRenderBudget(dt);
   requestAnimationFrame(frame);
 }
@@ -3254,6 +3448,7 @@ function frame() {
 addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   renderer.setSize(innerWidth, innerHeight);
+  resizeComposer();
   atmosphere.uniforms.uScale.value = innerHeight * .5;
 
 
@@ -3263,6 +3458,7 @@ addEventListener('resize', () => {
 });
 
 currentS = targetS = 0;
+buildComposer();
 requestAnimationFrame(frame);
 setTimeout(() => $('loader').classList.add('done'), 900);
 </script>
