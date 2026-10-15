@@ -830,7 +830,8 @@ function glassWall(len, h, cx, cz, rotY, step = 2.4) {
 // Kodda yalnız sürgülü kanatlar (iç tarafta, ray kutusunun altında; açılınca sabit yan camların arkasına kayar).
 function buildFacadeGLB() {
   const f = BLENDER_ROOMS.facade.clone(true); f.name = 'Dış cephe + giriş'; scene.add(f);
-  const glassP = showroomMats().glassP, warmGlass = glassP.clone(); warmGlass.color.set('#e2cfae');   // vitrin camı: içeriden taşan ışık dışarıdan sıcak görünür
+  // mimari cam: yüzey rengi koyu (cam kendini değil yansımayı ve arkasını gösterir), hafif sıcak bronz ton; yansıma gece ortamından
+  const glassP = showroomMats().glassP, warmGlass = facadeGlass = glassP.clone(); warmGlass.color.set('#2b261f'); warmGlass.opacity = .22;   // vitrin camı: içeriden taşan ışık dışarıdan sıcak görünür
   f.traverse((o) => {   // şimşir ve ağaç taçları: alttan sıcak ışıkla yalanmış yaprak (pişmiş değil, gerçek zamanlı)
     if (o.isMesh && o.material === glassP) o.material = warmGlass;
     if (o.isMesh && /hedge/.test(o.material?.name || '')) {
@@ -842,7 +843,7 @@ function buildFacadeGLB() {
   const W = 1.55, HD = 2.8;                     // kanat: net açıklık 3.0 m (iki kanat), ray altı 2.84 m
   for (const side of [-1, 1]) {
     const d = new THREE.Group(); d.name = 'Giriş kapısı ' + side;
-    const pane = new THREE.Mesh(new THREE.BoxGeometry(W - .05, HD - .05, .02), M.glassP); pane.position.y = .02 + HD / 2; d.add(pane);
+    const pane = new THREE.Mesh(new THREE.BoxGeometry(W - .05, HD - .05, .02), warmGlass); pane.position.y = .02 + HD / 2; d.add(pane);
     for (const x of [-W / 2 + .02, W / 2 - .02]) box(.04, HD, .045, bronze, x, .02 + HD / 2, 0, d);
     for (const y of [.04, HD]) box(W, .04, .045, bronze, 0, y, 0, d);
     for (const z of [-.055, .055]) box(.028, 1.3, .028, bronze, -side * (W / 2 - .16), 1.2, z, d);   // çekme kolu (iki yüz)
@@ -940,7 +941,18 @@ function woodTexture() {
 
 // ---------- İç mekan: açık mermer, siyah LED tavan, taş kolonlar ----------
 const WARM = '#ffd2a1';
-let floorReflector = null, streetReflector = null;
+let floorReflector = null, streetReflector = null, facadeGlass = null;
+// Gece yansıma ortamı: plaza önünden bir kez küp kamerayla çekilir (şehir silueti, sokak lambaları, babalar, gök);
+// cephe camı stüdyo ortamı yerine bunu yansıtır → cam düz/karanlık yüzey değil, gerçek gece vitrini gibi okunur.
+function captureNightEnv() {
+  if (!facadeGlass) return;
+  const rt = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+  const cube = new THREE.CubeCamera(.3, 400, rt); cube.position.set(0, 1.7, 11);
+  const wasEnv = scene.environment; scene.add(cube); cube.update(renderer, scene); scene.remove(cube);
+  scene.environment = wasEnv;
+  const env = pmrem.fromCubemap(rt.texture).texture; rt.dispose();
+  facadeGlass.envMap = env; facadeGlass.envMapIntensity = 1.1; facadeGlass.needsUpdate = true;
+}
 function buildInterior() {
   // Satin stone uses environment reflections; no second scene render.
   const floor=new THREE.Mesh(new THREE.PlaneGeometry(HALL_W,HALL_D),std('#c7c0b1',.46,.08,.5,{map:repeat(stoneTexture('#c9c0ae'),8,14),transparent:!!floorReflector,opacity:floorReflector?.93:1}));
@@ -1709,10 +1721,11 @@ function buildCameraPath() {
   buildCameraRig();
   const P = (a) => a.pos.toArray(), L = (a) => a.look.toArray();
   const focus = (k) => (k >= TOUR.length ? modLocal(k, 0, 1.3, -8) : carPos(k).setY(.8));
-  K([-31, 9.5, 33], [1, 2.4, -16], 36, 'hero'); STOPS.push(0);        // dış cephe 3/4: ön cephe + oda kütleleri
-  K([-12, 3.1, 17], [0, 2.4, -2], 40);                                 // girişe yay çizen iniş
-  K([.3, 1.75, 6.0], [0, 1.65, -8], 44, 'door');                       // portal önü: kapılar açılır, camdan içerisi
-  K([0, 1.68, -3.2], [0, 1.5, -24], 50);                               // resepsiyon → koridor ekseni
+  // açılış: sokak seviyesinden 3/4 cephe (mimari görselleştirme kadrajı; kuş bakışı maket hissi yok), bina sağda, başlık solda
+  K([-8, 1.75, 31], [-12, 3.6, 0], 38, 'hero'); STOPS.push(0);         // karşı kaldırımdan: giriş + tabela sağda, ıslak yol önde
+  K([-4, 1.75, 17], [-.5, 2.4, -2], 40);                              // yolu geçip girişe dönen yaklaşma (göz hizası)
+  K([.3, 1.72, 6.2], [0, 1.65, -8], 44, 'door'); STOPS.push(keys.length - 1);   // varış anı: portal önünde durak, kapılar açılır
+  K([0, 1.68, -3.2], [0, 1.5, -24], 50, 'welcome'); STOPS.push(keys.length - 1); // resepsiyon: karşılama, koridor ekseni
   // ilk salon: koridorda kısa dolly → salonun genel görünümü
   { const m = moduleXform(0); K([m.side * -.45, 1.7, m.zc + 4.6], focus(0).toArray(), 46); K(P(CAM[0].overview), L(CAM[0].overview), CAM[0].overview.fov); }
   for (let k = 0; k < NROOMS; k++) {
@@ -1740,6 +1753,7 @@ function buildCameraPath() {
 // ---------- Duruşta vitrin hareketi ----------
 // Kahraman karede araç merkezli çok yavaş bir salınım (±7°). Kullanıcı ilerleyince 1.6 sn'de yumuşakça yol kamerasına bırakılır.
 const SHOW = { k: -1, t: 0, w: 0, forceT: null };
+const EXT_IDLE = { t: 0, w: 0 };
 const smoother = (t) => t * t * t * (t * (t * 6 - 15) + 10);
 const scPos = new THREE.Vector3(), scLook = new THREE.Vector3(), scC = new THREE.Vector3(), scA = new THREE.Vector3(), scB = new THREE.Vector3();
 function showcasePose(dt) {
@@ -1763,6 +1777,8 @@ if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total:
 if (NO_INERTIA) window.__camAt = (S) => { const k = keys[Math.round(S)]; const d = new THREE.Vector3(); camera.getWorldDirection(d);
   return { s: S, pos: camera.position.toArray().map((v) => +v.toFixed(2)), dir: d.toArray().map((v) => +v.toFixed(2)), key: k && { pos: k.pos.toArray().map((v) => +v.toFixed(2)), look: k.look.toArray().map((v) => +v.toFixed(2)) }, pitch: +tour.pitch[Math.round(S)].toFixed(2) }; };   // yalnızca #test
 if (NO_INERTIA) window.__cine = (o) => { Object.assign(window.__cineOff ||= {}, o); };   // yalnızca #test: sinematik katman parçalarını kapat
+if (NO_INERTIA) window.__probe = (x, y, z, r = .3) => { const out = [], b = new THREE.Box3(), pt = new THREE.Vector3(x, y, z); scene.traverse((o) => { if (!o.isMesh || !o.visible) return; b.setFromObject(o); if (b.distanceToPoint(pt) < r) out.push(o.name + '|' + (o.material?.name || o.material?.type) + '|' + (o.material?.opacity ?? 1)); }); return out; };   // yalnızca #test
+if (NO_INERTIA) window.__hide = (names) => scene.traverse((o) => { if (names.includes(o.name)) o.visible = false; });   // yalnızca #test
 if (NO_INERTIA) window.__perf = () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, scale: renderScale });   // yalnızca #test
 // yalnızca #test: lastiklerin en alt noktası / aracın en alt noktası / zemin (dünya y, m)
 if (NO_INERTIA) window.__ground = () => stations.map((st, i) => {
@@ -3168,17 +3184,31 @@ const mouse = new THREE.Vector2(), mouseSmooth = new THREE.Vector2();
 
 let stopIdx = 0, tween = null, inputLock = 0;
 const easeInOut = (t) => t * t * t * (t * (t * 6 - 15) + 10);   // smootherstep: başta ve sonda ivme de sıfır (kamera kızağı hissi)
+// Kamera hızı: süre yol uzunluğu, bakış dönüşü ve bölgeye göre (smootherstep'te tepe hız ortalamanın ~1.9 katı).
+//   dışarı → kapı: 2.5 m/sn ort. (binayı okumak için yavaş yaklaşma), kapı → resepsiyon: 1.5 m/sn (varış anı),
+//   koridor / salonlar: 1.9 m/sn; dönüş en fazla 22°/sn ortalama. Süre 2.8 – 15 sn.
+const CAM_SPEED = { ext: 2.5, arrival: 1.5, gallery: 1.9, yawDegPerSec: 22 };
+function segmentDuration(a, b, meters) {
+  const lo = Math.min(a, b), hi = Math.max(a, b);
+  const v = hi <= STOPS[1] + .01 ? CAM_SPEED.ext : hi <= STOPS[2] + .01 ? CAM_SPEED.arrival : CAM_SPEED.gallery;
+  let yawSum = 0, prev = cr(tour.yaw, lo);
+  for (let k = 1; k <= 48; k++) { const y = cr(tour.yaw, lo + (hi - lo) * k / 48); yawSum += Math.abs(y - prev); prev = y; }
+  const dur = Math.max(meters / v, THREE.MathUtils.radToDeg(yawSum) / CAM_SPEED.yawDegPerSec, 2.8);
+  return Math.min(dur, meters > 40 ? 9 + meters * .02 : 15);   // uzak atlamalarda (alt menüden) süre makul kalır
+}
 function goToStop(i) {
   i = THREE.MathUtils.clamp(i, 0, STOPS.length - 1);
   if (inspect.active) closeInspect();
   if (i === stopIdx && !tween) return;
   stopIdx = i;
   const to = STOPS[i], fromL = sToL(currentS), toL = sToL(to), meters = Math.abs(toL - fromL);
-  // süre metreye göre: 13 m'lik salon geçişi ≈ 5.7 sn; uzun yollar 8.5 sn'yi geçmez
-  tween = { from: currentS, to, fromL, toL, t: 0, dur: THREE.MathUtils.clamp(1.4 + meters * .33, 2.6, 8.5) };
+  tween = { from: currentS, to, fromL, toL, t: 0, dur: segmentDuration(currentS, to, meters) };
   if (reduceMotion || NO_INERTIA) { currentS = to; tween = null; }
 }
 window.mtgGo = goToStop;
+// yalnızca #test: duraklar arası süre, ortalama / tepe hız (m/sn) ve toplam bakış dönüşü
+if (NO_INERTIA) window.__durs = () => STOPS.slice(1).map((to, i) => { const a = STOPS[i], m = Math.abs(sToL(to) - sToL(a)), d = segmentDuration(a, to, m);
+  return { from: a, to, m: +m.toFixed(1), dur: +d.toFixed(1), avg: +(m / d).toFixed(2), peak: +(m / d * 1.875).toFixed(2) }; });
 if (NO_INERTIA) window.__setS = (k) => { tween = null; currentS = targetS = k; SHOW.k = -1; SHOW.w = 0; };   // yalnızca #test (vitrin bırakışı sıfır)
 let testCam = null;
 if (NO_INERTIA) window.__cam = (p, t, fov) => { testCam = p ? [p, t, fov] : null; };   // yalnızca #test: sabit kabul açısı
@@ -3222,6 +3252,11 @@ function updateCamera(s, time, dt) {
   camDir.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), -Math.cos(yaw) * Math.cos(pitch));
   tmpLook.copy(tmpPos).addScaledVector(camDir, dist);           // özne sabit kalır, kamera onun etrafında kayar
   let fov = cr(tour.fov, ss);
+  // açılış sahnesinde çok yavaş dolly (30 sn'de ~1.6 m): dış cephe "film gibi" yaşar; ilerleyince yumuşakça bırakılır
+  const atHero = !tween && !inspect.active && !reduceMotion && Math.abs(currentS) < 1e-3;
+  EXT_IDLE.t = atHero ? EXT_IDLE.t + dt : EXT_IDLE.t; EXT_IDLE.w = atHero ? Math.min(1, EXT_IDLE.w + dt / 1.6) : Math.max(0, EXT_IDLE.w - dt / 1.6);
+  if (!atHero && EXT_IDLE.w === 0) EXT_IDLE.t = 0;
+  if (EXT_IDLE.w > 0) tmpPos.addScaledVector(camDir, 1.6 * smoother(Math.min(1, EXT_IDLE.t / 30)) * smoother(EXT_IDLE.w));
   const sw = showcasePose(dt);                                   // duruşta vitrin hareketi (yumuşak harman)
   if (sw > 0) { tmpPos.lerp(scPos, sw); tmpLook.lerp(scLook, sw); fov += (SHOW.fov - fov) * sw; }
 
@@ -3555,6 +3590,7 @@ addEventListener('resize', () => {
 });
 
 currentS = targetS = 0;
+captureNightEnv();
 buildComposer();
 requestAnimationFrame(frame);
 setTimeout(() => $('loader').classList.add('done'), 900);

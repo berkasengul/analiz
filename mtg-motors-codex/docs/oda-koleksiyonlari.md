@@ -90,3 +90,23 @@ Draw call sayısı aynı kaldı, üçgen sayısı %7 arttı (tavan kirişleri, k
   Modeller eklenince `CARS[].glb` alanına yazılması yeterli; oda temaları hazır.
 - **Ekspertiz verisi:** Örnek ekspertiz verisi yalnız BMW 420i'de var (`ornek: true`).
   Gerçek raporlar ilan sahibinden alınıp eklenmelidir.
+
+## Kamera hareketleri ve giriş akışı (güncelleme)
+
+**Önceki sorunlar:**
+- **Hız:** İlk kaydırmada kamera dış cepheden BMW salonuna kadar yaklaşık 60 metreyi tek hamlede, en fazla 8,5 saniyede geçiyordu. Ortalama hız 7 m/sn, tepe hız yaklaşık 13 m/sn'ydi.
+- **Açılış:** Kuş bakışı bir açıydı; maket hissi veriyor, düz çatı kadrajın büyük kısmını kaplıyordu.
+
+**Yeni sistem:**
+- **Yeni duraklar:** Kapı önünde "varış" durağı (kapılar açılır, camdan koridor görünür) ve resepsiyonda karşılama durağı eklendi.
+- **Hız sınırı:** Her geçişin süresi üç ölçüden büyük olanına göre hesaplanır: yol uzunluğu, bakış dönüşü ve bölge hızı.
+  - Dışarıdan kapıya: ortalama 2,5 m/sn.
+  - Kapıdan resepsiyona: 1,5 m/sn.
+  - Koridor ve salonlar: 1,9 m/sn.
+  - Dönüş: en fazla ortalama 22°/sn.
+
+  Geçişlerin tepe hızı artık 4,7 m/sn'nin altında.
+- **Yumuşak geçiş:** Hareket smootherstep eğrisiyle yapılır; başta ve sonda hız ve ivme sıfırdır, bu yüzden ani kalkış ve fren hissi olmaz.
+- **Açılış kadrajı:** Kamera karşı kaldırımda, göz hizasında. Giriş ve tabela sağda, başlık solda gökyüzünün üstünde, ıslak yol önde.
+- **Açılışta dolly:** Açılış sahnesinde kamera çok yavaş ilerler (30 saniyede yaklaşık 1,6 m); kullanıcı kaydırınca 1,6 saniyede yumuşakça bırakılır.
+- **Cephe camı:** Gece ortamı bir kez küp kamerayla çekilir; cam şehri, sokak lambalarını ve babaları yansıtır. Camın yüzey rengi koyu ve hafif bronz tonlu olduğu için iç mekân ve araçlar camdan net okunur.
