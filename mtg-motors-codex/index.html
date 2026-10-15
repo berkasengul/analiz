@@ -2343,14 +2343,15 @@ const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge
 // Kodda: oda GLB'si, harf rengi, araç üstü ışıkların rengi/yoğunluğu, oda tavan ışığı, zemin yansıma oranı, pozlama.
 //   letters/emis: 3B harf rengi / iç ışıma · key/fill/rim: araç ışıkları · light/lightI: tavan alan ışığı
 //   refl: zeminin opaklığı (altındaki Reflector'un ne kadar göründüğü; cilalı taş düşük) · exp: pozlama çarpanı
+//   halo: harflerin arkasındaki ışıma çarpanı (desenli taşta düşük tutulur, yazı bulanık görünmesin)
 const ROOM_THEMES = {
-  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.0, rimI: 5.2, light: '#ffe6c8', lightI: 4.2, refl: .8, exp: 1.0 },
-  suv:       { name: 'Explorer SUV Lounge',     letters: '#c9a26a', emis: '#5e3f1a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 5.8, rimI: 4.6, light: '#ffdcb4', lightI: 4.8, refl: .93, exp: 1.02 },
+  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.0, rimI: 5.2, light: '#ffe6c8', lightI: 4.2, refl: .8, exp: 1.0, halo: 1 },
+  suv:       { name: 'Explorer SUV Lounge',     letters: '#c9a26a', emis: '#5e3f1a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 5.8, rimI: 4.6, light: '#ffdcb4', lightI: 4.8, refl: .93, exp: 1.02, halo: .45 },
   urban:     { name: 'Urban Collection',        letters: '#3d4146', emis: '#000000', key: '#fff6ea', fill: '#e8eef6', rim: '#fff3e2', keyI: 5.2, rimI: 4.2, light: '#f7f3ec', lightI: 4.6, refl: .9, exp: 1.0 },
-  dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0 },
+  dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7 },
   compact:   { name: 'Compact Studio',          letters: '#5b4632', emis: '#000000', key: '#fff4e8', fill: '#f2ede6', rim: '#fff0dc', keyI: 5.0, rimI: 3.8, light: '#fff3e6', lightI: 5.0, refl: .9, exp: .97 },
   executive: { name: 'Executive Lounge',        letters: '#7f6036', emis: '#000000', key: '#ffeacc', fill: '#fbe6cc', rim: '#ffe0b4', keyI: 4.8, rimI: 3.6, light: '#ffeccf', lightI: 4.6, refl: .86, exp: .96 },
-  sedan:     { name: 'Executive Sedan Gallery', letters: '#d5d9de', emis: '#2a3442', key: '#f2f5ff', fill: '#dfe7f6', rim: '#e8efff', keyI: 5.8, rimI: 5.2, light: '#f1f3fb', lightI: 4.4, refl: .8, exp: 1.0 },
+  sedan:     { name: 'Executive Sedan Gallery', letters: '#d5d9de', emis: '#2a3442', key: '#f2f5ff', fill: '#dfe7f6', rim: '#e8efff', keyI: 5.8, rimI: 5.2, light: '#f1f3fb', lightI: 4.4, refl: .8, exp: 1.0, halo: .6 },
 };
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
 const roomThemeOf = (k) => ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
@@ -2798,6 +2799,7 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
       m.color.set(th.letters); m.metalness = .85; m.roughness = .3; m.envMapIntensity = 1.1;
       m.emissive?.set(th.emis); m.emissiveIntensity = .6; m.side = THREE.DoubleSide;
     }
+    if (o.name === 'MTG_Brand_Halo' && th.halo != null && o.material.color) { o.material = o.material.clone(); o.material.color.multiplyScalar(th.halo); }
     if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
   });
 }
