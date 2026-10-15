@@ -1,0 +1,12 @@
+{
+  "name": "mtg-room-pack",
+  "private": true,
+  "type": "module",
+  "description": "Blender oda GLB'lerini web için sıkıştırır (meshopt geometri, isimler/extras/lightmap UV korunur)",
+  "dependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
+    "meshoptimizer": "^1.3.0"
+  }
+}

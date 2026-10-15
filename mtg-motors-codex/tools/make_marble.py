@@ -1,6 +1,7 @@
 # Kesintisiz (tileable) prosedürel mermer dokusu: Diffuse + Rough + nor_gl (webp).
 # Periyodik FFT gürültüsü + alan bükme (domain warp) ile ince damarlar. Kullanım: python3 tools/make_marble.py
-import numpy as np, os
+import numpy as np, os, sys
+ONLY = set(sys.argv[1:])                    # isim verilirse yalnız o dokular üretilir (ör. ivory_marble navy_marble)
 from PIL import Image
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'textures')
 N = 2048
@@ -18,6 +19,7 @@ def veins(freq, warp, sharp, ang, w1, w2, w3):
     return np.exp(-np.abs(np.sin(ph)) * sharp)
 w1, w2, w3, base, fine = noise(3.2), noise(2.6), noise(2.0), noise(1.8), noise(.9)
 def marble(name, c_base, c_base2, c_vein, k_vein, k_fine):
+    if ONLY and name not in ONLY: return
     # ana damarlar: çapraz, uzun ve akışkan (yumuşak bükme) + ince ikincil damarlar (farklı açı, yer yer)
     v1 = veins(2, 1.25, 34, .62, w1, w2, w3)
     v2 = veins(3, 1.0, 60, 1.05, w2, w1, w3) * np.clip(base * .8 + .2, 0, 1)
@@ -40,3 +42,5 @@ def marble(name, c_base, c_base2, c_vein, k_vein, k_fine):
 # lineer renk değerleri
 marble('graphite_marble', (.012, .0115, .011), (.022, .02, .018), (.28, .25, .22), .32, 1.)     # zemin: koyu antrasit, sıcak gri damar
 marble('smoke_marble', (.016, .011, .008), (.034, .024, .016), (.22, .17, .11), .32, 1.)          # marka duvarı: sıcak füme, altın-bej damar
+marble('ivory_marble', (.60, .55, .47), (.70, .65, .56), (.30, .24, .16), .5, .6)             # Mercedes: fildişi, yumuşak bal rengi damar
+marble('navy_marble', (.010, .013, .019), (.019, .024, .033), (.20, .23, .28), .3, 1.)           # BMW 320i: koyu mavi-gri, çelik damar

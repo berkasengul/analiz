@@ -342,6 +342,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
    glb   : gerçekçi 3D model dosyası (mtg-motors/models/ klasöründe). Dosya yoksa
            veya yüklenemezse basit yedek model gösterilir.
    length: aracın gerçek boyu (metre) — model bu boya ölçeklenir
+   room  : koleksiyon odası teması (ROOM_THEMES: sport, suv, urban, dynamic, compact, executive, sedan)
    rotY  : model ters/yan duruyorsa derece cinsinden düzeltme (örn. 180)
    materials: modelin materyal adı (sonu) → görünüm eşlemesi: paint (ilan rengi "color"), glass, gloss,
            matte, tire, rim, disc, caliper, chrome, darkChrome, mirror, headlight, taillight, plate,
@@ -361,9 +362,9 @@ const GALLERY = {
 
 const SKETCHFAB = (slug) => `https://sketchfab.com/3d-models/${slug}`;
 const CARS = [
-  { brand: 'Seat',          model: 'Ateca 1.5 EcoTSI Xperience',      title: '2023 ATECA 1.5 XPERIENCE HATASIZ-BOYASIZ KIŞ PAKETİ-D.ISITMA',     ilanNo: '1344478037', year: 2023, km: '65.000',  colorName: 'Gümüş Gri', price: '2.075.000 TL', type: 'suv',   color: '#8e9399', url: '',
+  { brand: 'Seat',          model: 'Ateca 1.5 EcoTSI Xperience',      title: '2023 ATECA 1.5 XPERIENCE HATASIZ-BOYASIZ KIŞ PAKETİ-D.ISITMA',     ilanNo: '1344478037', room: 'dynamic', year: 2023, km: '65.000',  colorName: 'Gümüş Gri', price: '2.075.000 TL', type: 'suv',   color: '#8e9399', url: '',
     glb: 'models/web/seat-ateca.glb',      length: 4.36, credit: { name: 'Seat Ateca Cupra 2019', author: 'Nieve5677', url: SKETCHFAB('seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c') } },
-  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#681824', url: '',
+  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', room: 'sport', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.875.000 TL', type: 'coupe', color: '#681824', url: '',
     photos: ['photos/bmw-420i-1.webp', 'photos/bmw-420i-2.webp', 'photos/bmw-420i-3.webp', 'photos/bmw-420i-4.webp'],
     views: [{ src: 'cutouts/bmw-420i-on.webp', h: 1.62 }, { src: 'cutouts/bmw-420i-yan.webp', w: 4.85 }, { src: 'cutouts/bmw-420i-arka.webp', h: 1.62 }],
     glb: 'models/web/bmw-420i-coupe.glb',  length: 4.77, rimColor: '#141518', caliperColor: '#1f4fd8',
@@ -375,15 +376,15 @@ const CARS = [
       lambert10SG: 'lens', HeadLights1: 'reflector', lambert13SG: 'ledw', lambert14SG: 'gloss',
       BrakeLights_Glass: 'taillight', lambert20SG: 'darkChrome', lambert21SG: 'tailLed', Plate_Recovered: 'plate', '*': 'interior',
     }, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
-  { brand: 'Mercedes-Benz', model: 'E 180 AMG',                       title: '2013 E180 ORJİNAL AMG İÇİ SİYAH EMSALSİZ TEMİZLİKTE',             ilanNo: '1335046387', year: 2013, km: '199.000', colorName: 'Beyaz',     price: '1.965.000 TL', type: 'sedan', color: '#ecedef', url: '',
+  { brand: 'Mercedes-Benz', model: 'E 180 AMG',                       title: '2013 E180 ORJİNAL AMG İÇİ SİYAH EMSALSİZ TEMİZLİKTE',             ilanNo: '1335046387', room: 'executive', year: 2013, km: '199.000', colorName: 'Beyaz',     price: '1.965.000 TL', type: 'sedan', color: '#ecedef', url: '',
     glb: 'models/web/mercedes-e-w212.glb', length: 4.87, credit: { name: 'Mercedes E Class W212', author: 'Peter_D', url: SKETCHFAB('mercedes-e-class-w212-119c5e10733142b197aa53b86f6aeb04') } },
-  { brand: 'Volkswagen',    model: 'Golf 1.6 TDI BlueMotion Midline Plus', title: '2016 VW GOLF 1.6 TDI MİDLİNE PLUS EXTRALI',                   ilanNo: '1340316378', year: 2016, km: '102.000', colorName: 'Beyaz',     price: '945.000 TL',   type: 'hatch', color: '#e6e7e9', url: '',
+  { brand: 'Volkswagen',    model: 'Golf 1.6 TDI BlueMotion Midline Plus', title: '2016 VW GOLF 1.6 TDI MİDLİNE PLUS EXTRALI',                   ilanNo: '1340316378', room: 'urban', year: 2016, km: '102.000', colorName: 'Beyaz',     price: '945.000 TL',   type: 'hatch', color: '#e6e7e9', url: '',
     glb: 'models/web/vw-golf-7.glb',       length: 4.26, credit: { name: 'Volkswagen Golf 7.', author: 'Mona x Supercars', url: SKETCHFAB('volkswagen-golf-7-364f56c79e9a4bfbb0bfa981b9abb6a3') } },
-  { brand: 'BMW',           model: '320i ED 40th Year Edition',       title: '2015 320İ ED 40th YEAR EDİTİON ESTROİL İÇ FİL DİŞİ TRAMERSİZ',    ilanNo: '1334119983', year: 2015, km: '165.000', colorName: 'Mavi',      price: '1.935.000 TL', type: 'sedan', color: '#1c4597', url: '',
+  { brand: 'BMW',           model: '320i ED 40th Year Edition',       title: '2015 320İ ED 40th YEAR EDİTİON ESTROİL İÇ FİL DİŞİ TRAMERSİZ',    ilanNo: '1334119983', room: 'sedan', year: 2015, km: '165.000', colorName: 'Mavi',      price: '1.935.000 TL', type: 'sedan', color: '#1c4597', url: '',
     glb: 'models/web/bmw-3-f30.glb',       length: 4.62, credit: { name: 'BMW 3 Series VI F30', author: 'Merc_TV', url: SKETCHFAB('bmw-3-series-vi-f30-b94e907d247e4ade964f613d17293b31') } },
-  { brand: 'Opel',          model: 'Corsa 1.2 T Elegance',            title: '2023 CAM TAVAN HAYALET 370.000₺ PEŞİNAT 36 AY KREDİ İMKANI',      ilanNo: '1328296977', year: 2023, km: '120.000', colorName: 'Beyaz',     price: '1.155.000 TL', type: 'hatch', color: '#f0f0f2', url: '',
+  { brand: 'Opel',          model: 'Corsa 1.2 T Elegance',            title: '2023 CAM TAVAN HAYALET 370.000₺ PEŞİNAT 36 AY KREDİ İMKANI',      ilanNo: '1328296977', room: 'compact', year: 2023, km: '120.000', colorName: 'Beyaz',     price: '1.155.000 TL', type: 'hatch', color: '#f0f0f2', url: '',
     glb: 'models/web/opel-corsa-f.glb',    length: 4.06, credit: { name: 'Opel Corsa F', author: 'teenlin3', url: SKETCHFAB('opel-corsa-f-142a797a3ee54daa8f4d00c8559cddbb') } },
-  { brand: 'Ford',          model: 'Kuga 1.5 EcoBlue Titanium',       title: '2022 FORD KUGA 1.5 EcoBlue TİTANİUM CAM TAVAN',                   ilanNo: '1339636939', year: 2022, km: '145.000', colorName: 'Beyaz',     price: '1.465.000 TL', type: 'suv',   color: '#e9eaec', url: '',
+  { brand: 'Ford',          model: 'Kuga 1.5 EcoBlue Titanium',       title: '2022 FORD KUGA 1.5 EcoBlue TİTANİUM CAM TAVAN',                   ilanNo: '1339636939', room: 'suv', year: 2022, km: '145.000', colorName: 'Beyaz',     price: '1.465.000 TL', type: 'suv',   color: '#e9eaec', url: '',
     glb: 'models/web/ford-kuga.glb',       length: 4.61, credit: { name: 'Ford Kuga', author: 'MattDoesBlender', url: SKETCHFAB('ford-kuga-3412188f796f46bc8db90b5e59827548') } },
 ];
 // Paket içindeki gerçek dosyalarla eşleştirme. Beş gövde proje içinde modellenmiştir.
@@ -1170,7 +1171,6 @@ const fT = { key: new THREE.Vector3(), fill: new THREE.Vector3(), rim: new THREE
 const fC = { key: new THREE.Vector3(), fill: new THREE.Vector3(), rim: new THREE.Vector3(), sh: new THREE.Vector3(), c: new THREE.Vector3() };
 // araç üstü ışık düzeni (oda yereli, araç = (−1, −6.2)): tepe softbox, kamera tarafı dolgu, arka-sağ kenar ışığı, gölge spotu
 const BASE_KEY = new THREE.Color('#fff8ed'), BASE_FILL = new THREE.Color('#dbe6fa'), BASE_RIM = new THREE.Color('#fff0d5');
-const PREM_KEY = new THREE.Color('#ffe4c2'), PREM_FILL = new THREE.Color('#ffdcb8'), PREM_RIM = new THREE.Color('#ffcf98');
 const focusBase = { key: 8, rim: 5 };
 function updateFocusLights(dt) {
   let best = null, bd = Infinity;
@@ -1187,9 +1187,10 @@ function updateFocusLights(dt) {
   fT.rim.copy(modLocal(k, cx + 3.2, 2.5, cz - 2.8));
   fT.sh.copy(modLocal(k, cx - 1.6, 3.9, cz + 2.6));
   const a = focusInit ? 1 - Math.exp(-dt * 3) : 1; focusInit = true;
-  const prem = PREMIUM_ROOMS.has(k);
-  keyLight.color.lerp(prem ? PREM_KEY : BASE_KEY, a); fillLight.color.lerp(prem ? PREM_FILL : BASE_FILL, a); rimLight.color.lerp(prem ? PREM_RIM : BASE_RIM, a);
-  keyLight.intensity += ((prem ? 5.4 : focusBase.key) - keyLight.intensity) * a; rimLight.intensity += ((prem ? 4.4 : focusBase.rim) - rimLight.intensity) * a;
+  const prem = PREMIUM_ROOMS.has(k), th = roomThemeOf(k);   // oda değişince ışık rengi/yoğunluğu yeni temaya yumuşakça geçer
+  keyLight.color.lerp(prem ? th.keyC : BASE_KEY, a); fillLight.color.lerp(prem ? th.fillC : BASE_FILL, a); rimLight.color.lerp(prem ? th.rimC : BASE_RIM, a);
+  keyLight.intensity += ((prem ? th.keyI : focusBase.key) - keyLight.intensity) * a; rimLight.intensity += ((prem ? th.rimI : focusBase.rim) - rimLight.intensity) * a;
+  renderer.toneMappingExposure += ((prem ? th.exp : 1) - renderer.toneMappingExposure) * a;
   for (const n of ['key', 'fill', 'rim', 'sh', 'c']) fC[n].lerp(fT[n], a);
   keyLight.position.copy(fC.key); keyLight.lookAt(fC.c.x, 0, fC.c.z);
   fillLight.position.copy(fC.fill); fillLight.lookAt(fC.c);
@@ -1620,6 +1621,17 @@ function fitShot(k, c, keys = ['hero', 'side']) {
   const sc = THREE.MathUtils.clamp(box.getSize(new THREE.Vector3()).length() / 2 / FIT_REF_R, .82, 1.25);
   for (const key of keys) if (c[key]) c[key].pos.sub(c[key].look).multiplyScalar(sc).add(c[key].look);
 }
+// gövde tipine göre kadraj: coupe alçak ve yakın (sportif, dramatik), SUV daha yüksek ve geniş (hacim), sedan göz hizası,
+// hatchback hafif yüksek. Uzaklık bbox ölçeğinin üstüne çarpan; bakış noktası gövde yüksekliğiyle birlikte kayar.
+const TYPE_SHOT = { coupe: { dy: -.1, k: .97, ly: -.04 }, sedan: { dy: 0, k: 1, ly: 0 }, hatch: { dy: .06, k: 1.02, ly: .02 }, suv: { dy: .2, k: 1.05, ly: .1 } };
+function typeShot(k, c) {
+  const t = TYPE_SHOT[CARS[TOUR[k]]?.type]; if (!t) return;
+  for (const key of ['hero', 'side']) {
+    const s = c[key]; if (!s) continue;
+    s.pos.sub(s.look).multiplyScalar(t.k).add(s.look);
+    s.pos.y += t.dy; s.look.y += t.ly;
+  }
+}
 function buildCameraRig() {
   const A = (k, p, t, fov) => ({ pos: modLocal(k, ...p), look: modLocal(k, ...t), fov });
   for (let k = 0; k < NROOMS; k++) {
@@ -1641,7 +1653,7 @@ function buildCameraRig() {
       side: A(k, [-5.55, 1.05, -4.85], [-1, .6, -6.2], 44),          // sağ yan profil
       detail: A(k, [-1.95, .8, -3.55], [-1.05, .52, -4.25], 32),     // far + ön jant
     });
-    if (PREMIUM_ROOMS.has(k) && k < TOUR.length) fitShot(k, CAM[k]);
+    if (PREMIUM_ROOMS.has(k) && k < TOUR.length) { fitShot(k, CAM[k]); typeShot(k, CAM[k]); }
     CAM[k].corridor = { pos: new THREE.Vector3(-m.side * .3, 1.66, m.zc), fov: 48 };
   }
 }
@@ -1994,7 +2006,15 @@ const roomNav=document.createElement('div');roomNav.id='room-nav';
 roomNav.innerHTML='<button type="button" data-d="-1" aria-label="Önceki oda">‹</button><span id="room-nav-label">Giriş</span><button type="button" data-d="1" aria-label="Sonraki oda">›</button>';
 document.body.appendChild(roomNav);
 roomNav.addEventListener('click',e=>{const b=e.target.closest('[data-d]');if(b)step(+b.dataset.d);});
+// odalar arası geçişte koleksiyon odasının adı (camdan geçerken belirip kaybolur; tıklamayı engellemez)
+const roomTitle=document.createElement('div');roomTitle.id='room-title';roomTitle.setAttribute('aria-hidden','true');
+roomTitle.innerHTML='<small></small><b></b>';document.body.appendChild(roomTitle);
 const navStyle=document.createElement('style');navStyle.textContent=`
+#room-title{position:fixed;left:50%;top:21%;transform:translateX(-50%);z-index:20;pointer-events:none;opacity:0;text-align:center;
+ color:#efe3c8;text-shadow:0 2px 24px rgba(0,0,0,.65)}
+#room-title small{display:block;font:500 10px/1 Inter,Arial,sans-serif;letter-spacing:.42em;text-transform:uppercase;color:#c9aa78;margin-bottom:14px}
+#room-title b{display:block;font:500 30px/1.15 Cinzel,Georgia,serif;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+@media (max-width:760px){#room-title{top:15%}#room-title b{font-size:18px;letter-spacing:.1em}#room-title small{font-size:9px;margin-bottom:9px}}
 #room-nav{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:14px;
  padding:8px 10px;background:rgba(14,16,18,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);
  font:500 11px/1 Inter,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#e9e4da;transition:opacity .6s}
@@ -2317,12 +2337,30 @@ function pbr(name, rx, ry, o = {}) {
 const THEME_TEXTURES = ['travertine_clean', 'showroom_floor', 'microcement', 'travertine_panel', 'smoked_walnut_veneer', 'velour_velvet', 'granite_tile_03', 'stone_tile_wall'];
 const ROOM_THEME = { name: 'Showroom', light: '#fff6ec', lightI: 4.6 };
 const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge: true };
-const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : ROOM_THEME);
+// ---------- Araca özel koleksiyon odaları ----------
+// Ortak plan ve marka dili (MTG | MOTORS + PRIVATE COLLECTION, cilalı sergileme alanı, cam geçişler); malzeme, tavan, duvar
+// detayı, lounge ve ışık karakteri her araçta farklı. Mimari + pişmiş ışık: tools/blender/mtg_room.py THEMES (aynı adlar).
+// Kodda: oda GLB'si, harf rengi, araç üstü ışıkların rengi/yoğunluğu, oda tavan ışığı, zemin yansıma oranı, pozlama.
+//   letters/emis: 3B harf rengi / iç ışıma · key/fill/rim: araç ışıkları · light/lightI: tavan alan ışığı
+//   refl: zeminin opaklığı (altındaki Reflector'un ne kadar göründüğü; cilalı taş düşük) · exp: pozlama çarpanı
+const ROOM_THEMES = {
+  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.0, rimI: 5.2, light: '#ffe6c8', lightI: 4.2, refl: .8, exp: 1.0 },
+  suv:       { name: 'Explorer SUV Lounge',     letters: '#c9a26a', emis: '#5e3f1a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 5.8, rimI: 4.6, light: '#ffdcb4', lightI: 4.8, refl: .93, exp: 1.02 },
+  urban:     { name: 'Urban Collection',        letters: '#3d4146', emis: '#000000', key: '#fff6ea', fill: '#e8eef6', rim: '#fff3e2', keyI: 5.2, rimI: 4.2, light: '#f7f3ec', lightI: 4.6, refl: .9, exp: 1.0 },
+  dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0 },
+  compact:   { name: 'Compact Studio',          letters: '#5b4632', emis: '#000000', key: '#fff4e8', fill: '#f2ede6', rim: '#fff0dc', keyI: 5.0, rimI: 3.8, light: '#fff3e6', lightI: 5.0, refl: .9, exp: .97 },
+  executive: { name: 'Executive Lounge',        letters: '#7f6036', emis: '#000000', key: '#ffeacc', fill: '#fbe6cc', rim: '#ffe0b4', keyI: 4.8, rimI: 3.6, light: '#ffeccf', lightI: 4.6, refl: .86, exp: .96 },
+  sedan:     { name: 'Executive Sedan Gallery', letters: '#d5d9de', emis: '#2a3442', key: '#f2f5ff', fill: '#dfe7f6', rim: '#e8efff', keyI: 5.8, rimI: 5.2, light: '#f1f3fb', lightI: 4.4, refl: .8, exp: 1.0 },
+};
+for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
+const roomThemeOf = (k) => ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
+const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : roomThemeOf(k));
 
 // dekor modelleri (Poly Haven, CC0) — yalnızca gerçekçi olanlar
 const DECOR = {};
 async function loadDecor() {
-  const names = ['potted_plant_02', 'potted_plant_04', 'mid_century_lounge_chair', 'ceramic_vase_01', 'brass_vase_02', 'bar_chair_round_01'];
+  const names = ['potted_plant_02', 'potted_plant_04', 'mid_century_lounge_chair', 'ceramic_vase_01', 'brass_vase_02', 'bar_chair_round_01',
+    'modern_arm_chair_01', 'modern_coffee_table_01', 'coffee_table_round_01', 'planter_box_02'];   // son dördü: tema lounge'ları
   if (location.protocol === 'file:') await loadEmbeddedModels();
   await Promise.all(names.map(async (n) => {
     const url = `models/decor/${n}.glb`;
@@ -2577,25 +2615,60 @@ const LM_GAIN = .55;                       // Blender (AgX, pozlama −1.45) ↔
 const bakedOnly = (sh) => {                // pişmiş yüzey: yayılı ışık lightmap'ten; gerçek zamanlı ışıklardan yalnız parlama
   sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\n  reflectedLight.directDiffuse *= 0.0;');
 };
-// file:// ile açılışta GLB ve lightmap'ler models/rooms/rooms.js içinden (base64) okunur
+// file:// ile açılışta her oda kendi models/rooms/<oda>.js dosyasından (GLB + lightmap'ler, base64) okunur
+const roomScript = (n) => new Promise((res) => {
+  const sc = document.createElement('script'); sc.src = `models/rooms/${n}.js`; sc.onload = sc.onerror = res; document.head.appendChild(sc);
+});
 async function roomAsset(n) {
-  const url = `models/rooms/${n}.glb`, b64 = window.MTG_ROOMS?.[url];
+  const url = `models/rooms/${n}.glb`;
+  if (location.protocol === 'file:' && !window.MTG_ROOMS?.[url]) await roomScript(n);
+  const b64 = window.MTG_ROOMS?.[url];
   return b64 ? gltfLoader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : gltfLoader.loadAsync(url);
 }
-async function loadBlenderRooms() {
-  if (location.protocol === 'file:' && !window.MTG_ROOMS) await new Promise((res) => {
-    const sc = document.createElement('script'); sc.src = 'models/rooms/rooms.js'; sc.onload = sc.onerror = res; document.head.appendChild(sc);
+// Odalar arasında aynı doku (ör. ceviz, deri, mermer) her GLB'de ayrı gömülü: içerik özetiyle eşleştirilip tek GPU kopyasına indirilir
+const texDedupe = new Map();
+async function dedupeTextures(g) {
+  const p = g.parser, json = p.json, seen = new Set();
+  const jobs = [];
+  g.scene.traverse((o) => {
+    if (!o.isMesh) return;
+    for (const m of [].concat(o.material)) for (const key of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap']) {
+      const t = m[key]; if (!t || seen.has(t)) continue; seen.add(t);
+      const a = p.associations.get(t); if (a?.textures == null) continue;
+      const td = json.textures[a.textures], src = td.extensions?.EXT_texture_webp?.source ?? td.source, bv = json.images[src]?.bufferView;
+      if (bv == null) continue;
+      jobs.push(p.getDependency('bufferView', bv).then((buf) => {
+        const u = new Uint8Array(buf); let h = 2166136261 ^ u.length;
+        for (let i = 0; i < u.length; i += 61) h = Math.imul(h ^ u[i], 16777619);
+        const k = h + ':' + u.length, prev = texDedupe.get(k);
+        if (prev && prev !== t.source) t.source = prev;   // aynı bitmap aynı GLB'de başka dokuda da olabilir: close() yok, GC bırakır else texDedupe.set(k, t.source);
+      }));
+    }
   });
+  await Promise.all(jobs);
+}
+async function loadBlenderRooms() {
   try {
     const [lounge, hub] = await Promise.all(['room_lounge', 'room_hub'].map((n) => roomAsset(n)));
     const facade = await roomAsset('room_facade').catch((e) => { console.warn('Cephe GLB yüklenemedi, kodla çizilen cephe kullanılıyor.', e); return null; });
-    const signature = await roomAsset('room_signature').catch(() => null);   // Signature Gallery: tüm araç salonları
+    // araca özel koleksiyon odaları (tema başına bir GLB); eksik tema → Sport (Signature) salonu
+    const themes = {};
+    await Promise.all([...new Set(TOUR.map((i) => CARS[i].room || 'sport'))].map(async (t) => {
+      themes[t] = await roomAsset('room_' + t).catch(() => (console.warn('Oda GLB yok:', t), null));
+    }));
+    const signature = themes.sport || await roomAsset('room_signature').catch(() => null);
     const car = signature ? null : await roomAsset('room_car');              // yedek: eski ortak araç odası
     const lmCache = {};
     const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
+      if (isMobile && t.image.width > 1024) {          // mobil: lightmap yarı çözünürlük (8 oda × 3 harita GPU belleği)
+        const c = document.createElement('canvas'); c.width = t.image.width / 2; c.height = t.image.height / 2;
+        c.getContext('2d').drawImage(t.image, 0, 0, c.width, c.height); t.image = c;
+      }
       t.flipY = false; t.channel = 1; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }));
     const M = showroomMats(), jobs = [];
-    for (const g of [car, lounge, hub, facade, signature].filter(Boolean)) {
+    const all = [...new Set([car, lounge, hub, facade, signature, ...Object.values(themes)].filter(Boolean))];
+    await Promise.all(all.map(dedupeTextures));
+    for (const g of all) {
       g.scene.traverse((o) => {
         const ex = o.userData || {};
         if (ex.lightmap) jobs.push(lm(ex.lightmap).then((t) => o.traverse((m) => {
@@ -2620,7 +2693,8 @@ async function loadBlenderRooms() {
       });
     }
     await Promise.all(jobs);
-    BLENDER_ROOMS = { car: car?.scene || null, lounge: lounge.scene, hub: hub.scene, facade: facade?.scene || null, signature: signature?.scene || null };
+    const themeScenes = Object.fromEntries(Object.entries(themes).filter(([, g]) => g).map(([t, g]) => [t, g.scene]));
+    BLENDER_ROOMS = { themes: themeScenes, car: car?.scene || null, lounge: lounge.scene, hub: hub.scene, facade: facade?.scene || null, signature: signature?.scene || null };
   } catch (e) {
     console.warn('Blender odaları yüklenemedi, kodla çizilen odalar kullanılıyor.', e);
     BLENDER_ROOMS = null;
@@ -2699,7 +2773,7 @@ function captureRoomEnv() {
 function decorize(root) {
   root.traverse((o) => { const d = o.userData?.decor; if (d && DECOR[d] && !o.userData._decorDone) { o.add(DECOR[d].clone(true)); o.userData._decorDone = true; } });
   // Signature odalarında hale Blender'dan (MTG_Brand_Halo) gelir; canvas kopyası çift yazı verir
-  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b && !b.parent?.getObjectByName('MTG_Brand_Halo')) { const h = brandHalo(b); h.name = n + '_Glow'; root.add(h); } }
+  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b && !b.parent?.getObjectByName('MTG_BrandSub')) { const h = brandHalo(b); h.name = n + '_Glow'; root.add(h); } }
 }
 // ---------- Premium oda katmanı: tüm araç salonları ilk BMW salonuyla aynı Signature Gallery tasarımında ----------
 // Referans: sıcak altın ışık, koyu parlak taş zemin, aracın çevresinde ince altın halka, arkadan ışıklı marka duvarı
@@ -2710,7 +2784,7 @@ const PREM_YAW = -1.283;          // araç önü oda yerelinde (0.28, 0.96): kor
 const PREM_LIGHTS = [];
 // Signature Gallery GLB'si (tools/blender/mtg_room.py --variant signature): mimari, ışık ve sergileme alanı Blender'da.
 // Kodda yalnız: arkadan ışıklı şampanya harflerin hafif ışıması, araç üstü stüdyo panelinin yumuşak ışıması.
-function signatureRoom(room) {
+function signatureRoom(room, th = ROOM_THEMES.sport) {
   // canvas hale (bulanık yazı kopyası) burada yok: harf aralığı 3B harflerle tutmayıp çift/kayık görüntü veriyordu;
   // hale, Blender'daki harflerle birebir aynı biçimli MTG_Brand_Halo'dan gelir
   room.getObjectByName('MTG_Brand_Glow')?.removeFromParent();
@@ -2718,11 +2792,11 @@ function signatureRoom(room) {
     if (!o.isMesh) return;
     const part = (/^MTG_(Floor)/.exec(o.name) || /^MTG_(Floor)/.exec(o.parent?.name || '') || [])[1];
     // zemin: grafit mermer dokusu + pişmiş ışık olduğu gibi (Blender'daki malzeme); altta Reflector ölçülü görünür → hafif bulanık yansıma
-    if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = .82; }
-    if (/^MTG_Brand(Sub)?$/.test(o.name)) {                                // fırçalanmış şampanya metal, arkadan hafif ışıklı: net okunur
+    if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = th.refl; }
+    if (/^MTG_Brand(Sub)?$/.test(o.name)) {                                // fırçalanmış metal (tema rengi), arkadan hafif ışıklı: net okunur
       const m = o.material = o.material.clone();
-      m.color.set('#e2c592'); m.metalness = .85; m.roughness = .3; m.envMapIntensity = 1.1;
-      m.emissive?.set('#6e4b1d'); m.emissiveIntensity = .6; m.side = THREE.DoubleSide;
+      m.color.set(th.letters); m.metalness = .85; m.roughness = .3; m.envMapIntensity = 1.1;
+      m.emissive?.set(th.emis); m.emissiveIntensity = .6; m.side = THREE.DoubleSide;
     }
     if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
   });
@@ -2794,15 +2868,16 @@ function premiumRoom(room, k) {
 }
 
 function buildRoomGLB(g, k) {
-  const lounge = k >= TOUR.length, sig = PREMIUM_ROOMS.has(k) && !!BLENDER_ROOMS.signature;
-  const src = lounge ? BLENDER_ROOMS.lounge : sig ? BLENDER_ROOMS.signature : BLENDER_ROOMS.car;
+  const lounge = k >= TOUR.length, themed = !lounge && BLENDER_ROOMS.themes[CARS[TOUR[k]].room];
+  const sig = PREMIUM_ROOMS.has(k) && !!(themed || BLENDER_ROOMS.signature);
+  const src = lounge ? BLENDER_ROOMS.lounge : themed || (sig ? BLENDER_ROOMS.signature : BLENDER_ROOMS.car);
   const room = src.clone(true);
   g.add(room); g.updateMatrixWorld(true);           // önce oda yerelinde kur, sonra modül konumuna taşı
   const anchor = (n) => room.getObjectByName(n);
   decorize(room);
   const po = portalOpen(k);                       // açık geçişte dolgu gizli, kapalı uçta (resepsiyon / bina sonu) duvar
   for (const [sd, open] of [['L', po.L], ['R', po.R]]) { const f = room.getObjectByName('MTG_PortalFill_' + sd); if (f) f.visible = !open; }
-  if (sig || (lounge && room.getObjectByName('MTG_Brand_Halo'))) signatureRoom(room);   // lounge: aynı Signature malzeme dili
+  if (sig || (lounge && room.getObjectByName('MTG_BrandSub'))) signatureRoom(room, lounge ? ROOM_THEMES.sport : roomThemeOf(k));   // lounge: Signature dili
   else if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);   // Signature GLB yoksa: ortak oda üzerinde sıcak premium katman
   const disp = anchor('MTG_Display');
   if (disp && !lounge) {
@@ -3103,7 +3178,27 @@ function updateUI(s) {
   });
   railBtns.forEach((b, i) => b.classList.toggle('active', i === active));
   const navL = document.getElementById('room-nav-label');
-  if (navL) { const lbl = active >= 0 ? `${String(active + 1).padStart(2, '0')} · ${stations[active].spec.brand} ${stations[active].spec.model}` : s >= SEGMENTS - .5 ? 'MTG Lounge' : s < 2.5 ? 'Giriş' : 'Galeri'; if (navL.textContent !== lbl) navL.textContent = lbl; }
+  if (navL) {
+    // duruşta araç adı; odalar arası geçişte girilen koleksiyon odasının adı (yeni mekân hissi)
+    const nx = carKeyIndex.findIndex((ki) => ki > s - .5);
+    const lbl = active >= 0 ? `${String(active + 1).padStart(2, '0')} · ${stations[active].spec.brand} ${stations[active].spec.model}`
+      : s >= SEGMENTS - .5 ? 'MTG Lounge' : s < 2.5 ? 'Giriş' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
+    if (navL.textContent !== lbl) navL.textContent = lbl;
+  }
+  // koleksiyon odası başlığı: önceki duruştan sonraki odanın duruşuna geçişin ortasında (sinüs eğrisiyle) görünür
+  {
+    let to = 0, tk = -1;
+    for (let k = 0; k < carKeyIndex.length; k++) {
+      const b = carKeyIndex[k], a = k ? carKeyIndex[k - 1] : b - 2.2;
+      if (s > a + .3 && s < b - .3) { tk = k; to = Math.sin(Math.PI * (s - a - .3) / (b - a - .6)); break; }
+    }
+    if (inspect.active) to = 0;
+    if (tk >= 0) {
+      const t = `Koleksiyon ${String(tk + 1).padStart(2, '0')} / ${String(carKeyIndex.length).padStart(2, '0')}`, n = roomThemeOf(tk).name.toUpperCase();   // İngilizce ad: tr büyük harf dönüşümü (İ) uygulanmasın
+      if (roomTitle.dataset.k !== String(tk)) { roomTitle.firstChild.textContent = t; roomTitle.lastChild.textContent = n; roomTitle.dataset.k = tk; }
+    }
+    roomTitle.style.opacity = (Math.max(0, to) * .95).toFixed(3);
+  }
   document.body.classList.toggle('scope', active >= 0);
   frameShiftTarget = active < 0 ? 0 : isMobile ? .2 : .14;
   rail.classList.toggle('visible', s > carKeyIndex[0] - .6 && s < SEGMENTS - .7);

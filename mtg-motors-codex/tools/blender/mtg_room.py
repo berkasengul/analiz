@@ -807,19 +807,138 @@ def portal(side, fill_mat):
 # stüdyo ışık paneli, VIP lounge (deri kanepe, konyak koltuklar, mermer sehpa, çift halka avize).
 SIG_YAW = -1.283                 # sitedeki PREM_YAW: araç önü (0.28, 0.96) → koridora ve sağa dönük
 # glTF'ye birebir aktarılan PBR: doku doğrudan renk / pürüzlülük / normal girişine bağlı (ara düğüm yok; tools/make_marble.py)
-M['floor_a'] = pbr('floor_graphite', 'graphite_marble', '#ffffff', rough=.25, normal=.35, coat=.3, coat_rough=.08)
+# ---------------- ODA TEMALARI: ortak plan (zemin ızgarası, marka duvarı, vault, cam geçişler, kamera kadrajı) aynı;
+# malzeme, ışık karakteri, tavan kurgusu, duvar detayı ve lounge her araç için ayrı. Ortak dil: MTG MOTORS harfleri +
+# PRIVATE COLLECTION, cilalı sergileme alanı, gizli LED derzler, PBR taş/ahşap/metal, sıcak-kontrollü ışık.
+#   floor/inlay/brand/stone/wood: doku klasörü (textures/), slab: zemin plaka ölçüsü (m), feature: duvar detayı
+#   (slats ahşap çıta | planks geniş ahşap | fins metal kanat | fluted taş yiv), ceiling: tavan kurgusu, stage: sergileme alanı
+#   accent: metal vurgu (çerçeve/raf/harf kasası), dark: koyu metal (dikme/kayıt), letters: (renk, ışıma rengi, ışıma)
+#   light: bake ışık karakteri (renk + yoğunluklar), lounge: mobilya tipi
+THEMES = {
+    'sport': dict(      # BMW 420i Edition M Sport — sportif, rafine, dramatik
+        title='Sport Coupé Collection',
+        floor=('graphite_marble', .25, .3), slab=(3.25, 1.625), inlay=('graphite_marble', .16, .6), stage='slab',
+        brand='smoke_marble', stone='travertine_clean', wood='smoked_walnut_veneer', feature='slats',
+        accent='#dcbd86', dark='#5a4632', ceil='#2a2724', ceiling='softbox', led='#ffe6c4',
+        letters=('#e2c592', '#ffcf8a', 1.6), halo=22.,
+        light=dict(col='#ffe9cf', key=2600, slot=650, cove=480, brand=950, wash=520, world=('#221d1a', .12)),
+        lounge=dict(sofa=('black_leather', '#ffffff'), chairs='mid_century_lounge_chair', table='slab', pend='rings',
+                    rug=('#2a2826', '#5a554f'), plant='potted_plant_02')),
+    'suv': dict(        # Ford Kuga — güçlü, sıcak, doğal; geniş taş + koyu meşe kirişler
+        title='Explorer SUV Lounge',
+        floor=('sand_stone', .42, .1), slab=(1.625, 1.625), inlay=('dark_stone', .3, .25), stage='slab',
+        brand='dark_stone', stone='sand_stone', wood='dark_oak', feature='planks',
+        accent='#8a6a45', dark='#4a3a2a', ceil='#33291f', ceiling='beams', led='#ffdcb0',
+        letters=('#c9a26a', '#ffc27a', 1.2), halo=16.,
+        light=dict(col='#ffe0bc', key=2900, slot=0, cove=620, brand=900, wash=700, world=('#2a2018', .16)),
+        lounge=dict(sofa=('cognac_leather', '#ffffff'), chairs='mid_century_lounge_chair', table='slab', pend='rings',
+                    rug=('#4a3b2d', '#a08a6e'), plant='potted_plant_04', boxes=True)),
+    'urban': dict(      # VW Golf — dengeli, temiz, şehirli; gri taş + açık meşe, nötr lineer ışık
+        title='Urban Collection',
+        floor=('urban_grey', .3, .15), slab=(2.6, 1.3), inlay=('porcelain_slab', .2, .3), stage='slab',
+        brand='microcement', stone='microcement', wood='light_oak', feature='slats',
+        accent='#b4b8bc', dark='#3c3f43', ceil='#4a4d50', ceiling='linear', led='#f6f4ef',
+        letters=('#3d4146', '#000000', 0.), halo=0.,
+        light=dict(col='#f7f3ec', key=0, slot=0, line=520, cove=520, brand=650, wash=480, world=('#2a2c2f', .2)),
+        lounge=dict(sofa=('fabric_grey', '#8a8c8e'), chairs='modern_arm_chair_01', table='modern_coffee_table_01', pend='none',
+                    rug=('#5b5e61', '#c9c8c4'), plant='potted_plant_02')),
+    'dynamic': dict(    # SEAT Ateca — genç, enerjik, şehirli; koyu beton + terracotta + bakır kanatlar, geometrik tavan
+        title='Dynamic City Collection',
+        floor=('concrete_dark', .3, .25), slab=(2.6, 2.6), inlay=('anthracite_stone', .2, .45), stage='slab',
+        brand='anthracite_stone', stone='concrete_dark', wood=None, feature='fins', fin_bg='terracotta_plaster',
+        accent='#c07a50', dark='#2c2a29', ceil='#262729', ceiling='geo', led='#fff1e4',
+        letters=('#d08a5c', '#ffb07a', 1.4), halo=14.,
+        light=dict(col='#fff0e2', key=0, slot=0, geo=380, cove=420, brand=850, wash=520, world=('#1e1e20', .14)),
+        lounge=dict(sofa=('fabric_terracotta', '#a65a3c'), chairs='modern_arm_chair_01', table='modern_coffee_table_01', pend='none',
+                    rug=('#2b2b2c', '#6b6865'), plant='potted_plant_04')),
+    'compact': dict(    # Opel Corsa — kompakt, genç, ferah; açık taş + açık meşe, tavanda ışık halkası
+        title='Compact Studio',
+        floor=('pearl_porcelain', .28, .2), slab=(1.3, 1.3), inlay=('urban_grey', .18, .4), stage='disc',
+        brand='microcement', stone='travertine_clean', wood='light_oak', feature='planks',
+        accent='#d6c29a', dark='#6b5a46', ceil='#b9b2a8', ceiling='halo', led='#fff3e6',
+        letters=('#5b4632', '#000000', 0.), halo=0.,
+        light=dict(col='#fff3e6', key=0, slot=0, ring=1700, cove=560, brand=600, wash=520, world=('#2e2b28', .24)),
+        lounge=dict(sofa=None, chairs='modern_arm_chair_01', table='coffee_table_round_01', pend='none',
+                    rug=('#b9b1a5', '#e6e0d6'), plant='potted_plant_04')),
+    'executive': dict(  # Mercedes E 180 — zarif, sakin, yönetici sınıfı; fildişi mermer + traverten yiv + pirinç, kasetli tavan
+        title='Executive Lounge',
+        floor=('ivory_marble', .2, .4), slab=(1.625, 1.625), inlay=('ivory_travertine', .16, .5), stage='disc',
+        brand='ivory_marble', stone='ivory_travertine', wood=None, feature='fluted', flute='ivory_travertine',
+        accent='#c9a865', dark='#7a6447', ceil='#d6cdbf', ceiling='coffer', led='#ffe8cc',
+        letters=('#7f6036', '#000000', 0.), halo=0.,
+        light=dict(col='#ffeccf', key=1800, slot=0, cove=760, brand=700, wash=600, world=('#2e2822', .2)),
+        lounge=dict(sofa=('leather_cream', '#ffffff'), chairs='mid_century_lounge_chair', table='round', pend='rings',
+                    rug=('#bba98e', '#ece3d3'), plant='potted_plant_02')),
+    'sedan': dict(      # BMW 320i — premium sedan, iş dünyası; antrasit + mavi-gri, çelik kanatlar, uzun lineer ışık bıçakları
+        title='Executive Sedan Gallery',
+        floor=('anthracite_stone', .22, .35), slab=(3.25, 1.625), inlay=('navy_marble', .15, .55), stage='slab',
+        brand='navy_marble', stone='bluegrey_plaster', wood=None, feature='blades', fin_bg='anthracite_stone',
+        accent='#9aa3ad', dark='#2a2e33', ceil='#1f2226', ceiling='blades', led='#eef3ff',
+        letters=('#d5d9de', '#dfe8ff', .9), halo=12.,
+        light=dict(col='#f1f3fb', key=0, slot=560, line=380, cove=420, brand=800, wash=480, world=('#1b1d22', .13)),
+        lounge=dict(sofa=('velvet_navy', '#2a3446'), chairs='mid_century_lounge_chair', table='slab', pend='bar',
+                    rug=('#1f242b', '#4d545d'), plant='potted_plant_02')),
+}
+THEME_NAME = opt('--theme', 'sport')
+ROOM_ID = f'room_{THEME_NAME}' if (SIG and opt('--theme')) else f'room_{VARIANT}'   # temalı salon: room_<tema>.glb
+TH = THEMES[THEME_NAME]
+def tex_mat(name, folder, rough, coat=0., normal=.4):
+    return pbr(name, folder, '#ffffff', rough=rough, normal=normal, coat=coat, coat_rough=.08)
+# glTF'ye birebir aktarılan PBR: doku doğrudan renk / pürüzlülük / normal girişine bağlı (ara düğüm yok; tools/make_marble.py)
+M['floor_a'] = tex_mat('floor_' + TH['floor'][0], TH['floor'][0], TH['floor'][1], TH['floor'][2], .35)
 M['floor_b'] = M['floor_a']                                                        # plaka başına farklı doku başlangıcı (rand_origin)
-M['floor_inlay'] = pbr('floor_inlay', 'graphite_marble', '#ffffff', rough=.16, normal=.25, coat=.6, coat_rough=.04)
-M['marble'] = pbr('brand_marble', 'smoke_marble', '#ffffff', rough=.28, normal=.4, coat=.4, coat_rough=.07)
-M['champagne'] = pbr('champagne', None, '#dcbd86', rough=.24, metal=1.)
+M['floor_inlay'] = pbr('floor_inlay', TH['inlay'][0], '#ffffff', rough=TH['inlay'][1], normal=.25, coat=TH['inlay'][2], coat_rough=.04)
+M['marble'] = pbr('brand_marble', TH['brand'], '#ffffff', rough=.28, normal=.4, coat=.4, coat_rough=.07)
+M['champagne'] = pbr('champagne', None, TH['accent'], rough=.24, metal=1.)
+M['bronze'] = pbr('bronze', None, TH['dark'], rough=.34, metal=1.)
+M['stone'] = tex_mat('wall_' + TH['stone'], TH['stone'], .55, 0., .55)
+M['trav_a'] = M['trav_b'] = M['trav_c'] = M['travertine'] = M['stone']
+if TH.get('wood'): M['walnut'] = pbr('wood_' + TH['wood'], TH['wood'], '#ffffff', rough=.5, normal=.7, coat=.3, coat_rough=.3)
+M['fin_bg'] = tex_mat('finbg_' + TH.get('fin_bg', TH['stone']), TH.get('fin_bg', TH['stone']), .6, 0., .5)
+M['flute'] = tex_mat('flute_' + TH.get('flute', TH['stone']), TH.get('flute', TH['stone']), .45, .1, .5)
+M['ceil_panel'] = pbr('ceiling_panel', None, TH['ceil'], rough=.6)                 # saten lake panel (düz renk: glTF'ye birebir)
 M['leather_cream'] = pbr('leather_cream', 'cream_leather', '#ffffff', rough=.55, normal=.6)          # gerçek deri dokusu + normal
 M['leather_cognac'] = pbr('leather_cognac', 'velour_velvet', '#8a4b26', rough=.48, normal=.25, use_map=False, coat=.2, coat_rough=.3)
-M['softbox'] = emissive('softbox', '#ffe6c4', 1.1)
-M['shelf_led'] = emissive('shelf_led', '#ffd6a0', 6.)
-for k_, t_ in (('floor_graphite', (3.25, 3.25)), ('floor_inlay', (2.6, 2.6)), ('brand_marble', (3.6, 3.6)),
-               ('leather_cream', (.5, .5)), ('leather_cognac', (.4, .4))):
+_sofa = TH['lounge']['sofa']
+if _sofa:
+    M['sofa'] = (pbr('sofa_' + _sofa[0], _sofa[0], '#ffffff', rough=.55, normal=.6) if tex_path(_sofa[0], 'Diffuse')
+                 else pbr('sofa_' + _sofa[0], 'velour_velvet', _sofa[1], rough=.95, normal=.8, use_map=False))
+M['rug'] = pbr('rug', 'velour_velvet', TH['lounge']['rug'][1], rough=.98, normal=1., use_map=False)
+M['rug_edge'] = pbr('rug_edge', 'velour_velvet', TH['lounge']['rug'][0], rough=.98, normal=1., use_map=False)
+M['softbox'] = emissive('softbox', TH['led'], 1.1)
+M['shelf_led'] = emissive('shelf_led', TH['led'], 6.)
+M['ledSoft'] = emissive('ledSoft', TH['led'], 14.)
+M['led_line'] = diffuser_strip('led_line', TH['led'], 13.)
+M['halo'] = emissive('halo', TH['letters'][1] if TH['halo'] else '#000000', TH['halo'])
+for k_, t_ in (('floor_' + TH['floor'][0], (TH['slab'][0], TH['slab'][0])), ('floor_inlay', (2.6, 2.6)), ('brand_marble', (3.6, 3.6)),
+               ('wall_' + TH['stone'], (2.4, 2.4)), ('finbg_' + TH.get('fin_bg', TH['stone']), (2.4, 2.4)),
+               ('flute_' + TH.get('flute', TH['stone']), (1.2, 1.2)), ('wood_' + str(TH.get('wood')), (1.0, 1.0)),
+               ('leather_cream', (.5, .5)), ('leather_cognac', (.4, .4)), ('sofa_' + str(_sofa and _sofa[0]), (.5, .5))):
     TILE[k_] = t_
 SIG_ZONE = (-3.9, 1.3, -9.1, -2.6)            # sergileme alanı: zemin ızgarasına oturan 5.2 × 6.5 m cilalı plakalar
+
+FEATURE = {   # (aralık, genişlik, derinlik, pah)
+    'slats': (.075, .045, .04, 0.), 'planks': (.16, .15, .03, .004), 'fins': (.3, .025, .12, 0.),
+    'blades': (.12, .02, .07, 0.), 'fluted': (.09, .08, .04, .03)}
+def feature_strip(tag, axis, c, a0, a1, face, group, accent_every=0):
+    """tema duvar detayı. axis 'z': duvar z=c, x boyunca a0..a1, +z'ye bakar; axis 'x': duvar x=c, z boyunca, face (±1) yönüne bakar."""
+    ft = TH['feature']
+    pitch, sw, depth, bev = FEATURE[ft]
+    metal = ft in ('fins', 'blades')
+    if axis == 'z':
+        box(f'{tag}_Back', a1 - a0, H, .02, (a0 + a1) / 2, H / 2, c + .01, M['fin_bg'] if metal else M['reveal'], group if metal else DARK, origin=rand_origin())
+    else:
+        box(f'{tag}_Back', .02, H, a1 - a0, c + face * .01, H / 2, (a0 + a1) / 2, M['fin_bg'] if metal else M['reveal'], group if metal else DARK, origin=rand_origin())
+    n = int((a1 - a0 - .01) / pitch); off = (a1 - a0 - n * pitch) / 2
+    for i in range(n):
+        ac = accent_every and not metal and i % accent_every == accent_every // 2
+        m_ = M['champagne'] if metal else (M['bronze'] if ac else (M['flute'] if ft == 'fluted' else M['walnut']))
+        g_ = PLAIN if (metal or ac) else group
+        u = a0 + off + pitch * (i + .5)
+        if axis == 'z':
+            box(f'{tag}_{i}', sw, H, depth, u, H / 2, c + .02 + depth / 2, m_, g_, bevel=bev, seg=3 if bev else 2, origin=(u - pitch / 2, 0, 0))
+        else:
+            box(f'{tag}_{i}', depth, H, sw, c + face * (.02 + depth / 2), H / 2, u, m_, g_, bevel=bev, seg=3 if bev else 2, origin=(0, 0, u))
 
 def slats(tag, x0, x1, z, depth=.04, pitch=.075, sw=.045, y0=0., y1=None, bronze_every=0, group=None):
     """dikey ceviz çıtalar (arka duvar düzleminde, +z'ye bakar)."""
@@ -853,10 +972,11 @@ def build_signature(lounge=False):
     """lounge=True: aynı malzeme/mimari dilde dinlenme salonu (araç yerine merkezde VIP oturma grubu + kahve bankosu,
     sağ duvar bina sonu: geçişsiz). Araç odaları: iki yan duvarda da cam geçiş (sitede kapalı uçta dolgu gösterilir)."""
     # --- zemin: 3.25 × 1.625 m grafit taş plakalar, 2 mm derz; sergileme alanında daha cilalı koyu plakalar (2.6 × 1.3)
-    zx0, zx1, zz0, zz1 = SIG_ZONE if not lounge else (0., 0., 0., 0.)
-    SW, SD, J = 3.25, 1.625, .002
-    for i in range(4):
-        for j in range(8):
+    slab_zone = not lounge and TH['stage'] == 'slab'
+    zx0, zx1, zz0, zz1 = SIG_ZONE if slab_zone else (0., 0., 0., 0.)
+    SW, SD = TH['slab']; J = .002
+    for i in range(int(round(W / SW))):
+        for j in range(int(round(D / SD))):
             x0, x1, z1, z0 = -W / 2 + SW * i, -W / 2 + SW * (i + 1), -SD * j, -SD * (j + 1)
             # sergileme alanıyla kesişen kısım kesilir (iki ızgara üst üste binmesin): plakayı alanın dışında kalan dikdörtgenlere böl
             rects = [(x0, x1, z0, z1)]
@@ -873,7 +993,7 @@ def build_signature(lounge=False):
                 ga0 = J / 2 if abs(a0 - x0) < 1e-6 else 0; ga1 = J / 2 if abs(a1 - x1) < 1e-6 else 0
                 gb0 = J / 2 if abs(b0 - z0) < 1e-6 else 0; gb1 = J / 2 if abs(b1 - z1) < 1e-6 else 0
                 plane_h(f'Slab_{i}_{j}_{k}', a1 - a0 - ga0 - ga1, b1 - b0 - gb0 - gb1, (a0 + a1 + ga0 - ga1) / 2, 0, (b0 + b1 + gb0 - gb1) / 2, m, BAKE['floor'], origin=rand_origin())
-    nzx, nzz = (2, 5) if not lounge else (0, 0)
+    nzx, nzz = (2, 5) if slab_zone else (0, 0)
     for i in range(nzx):
         for j in range(nzz):
             w_, d_ = (zx1 - zx0) / nzx, (zz1 - zz0) / nzz
@@ -881,9 +1001,14 @@ def build_signature(lounge=False):
     plane_h('Floor_Grout', W, D, 0, -.002, -D / 2, M['grout'], DARK)
     # sergileme alanı çerçevesi: zemine gömülü 2 cm şampanya profil (platform değil, yüzeyle aynı seviyede)
     fw = .02
-    for nm_, sx_, sz_, cx_, cz_ in () if lounge else (('N', zx1 - zx0 + fw, fw, (zx0 + zx1) / 2, zz1), ('S', zx1 - zx0 + fw, fw, (zx0 + zx1) / 2, zz0),
+    for nm_, sx_, sz_, cx_, cz_ in () if not slab_zone else (('N', zx1 - zx0 + fw, fw, (zx0 + zx1) / 2, zz1), ('S', zx1 - zx0 + fw, fw, (zx0 + zx1) / 2, zz0),
                                     ('W', fw, zz1 - zz0, zx0, (zz0 + zz1) / 2), ('E', fw, zz1 - zz0, zx1, (zz0 + zz1) / 2)):
         box(f'MTG_StageFrame_{nm_}', sx_, .003, sz_, cx_, .0015, cz_, M['champagne'], PLAIN)
+    if not lounge and TH['stage'] == 'disc':
+        # yuvarlak sergileme platformu: zeminle aynı seviyede cilalı taş disk + metal kenar + çok ince ışık çizgisi
+        disc('MTG_Stage', 3.2, 0, .004, CAR[0], CAR[1], M['floor_inlay'], PLAIN)
+        disc('MTG_Stage_Rim', 3.24, 3.2, .0045, CAR[0], CAR[1], M['champagne'], PLAIN)
+        disc('MTG_Stage_LED', 3.258, 3.248, .0045, CAR[0], CAR[1], M['ledSoft'], EMISSIVE)
 
     # --- arka duvar (z = −13): cam bölmeli private vault (sol, aracın arkası) | ceviz çıta | koyu mermer marka duvarı
     #     (orta: kahraman karede aracın tam arkasında) | ceviz çıta + dijital ekran (sağ)
@@ -891,9 +1016,9 @@ def build_signature(lounge=False):
     BW0, BW1 = -2.23, 4.27                       # marka duvarı (merkez x ≈ 1.0)
     VX0, VX1 = XL, -2.9                          # vault (x)
     VZ = -10.6                                   # vault cam bölmesi (z)
-    slats('SlatM', VX1, BW0 - .12, BZ)
+    feature_strip('SlatM', 'z', BZ, VX1, BW0 - .12, +1, BAKE['back'])
     led_v('BackL', BW0 - .06, BZ)
-    slats('SlatR', BW1 + .12, XR, BZ)
+    feature_strip('SlatR', 'z', BZ, BW1 + .12, XR, +1, BAKE['back'])
     led_v('BackR', BW1 + .06, BZ)
     # marka duvarı: 10 cm öne çıkan koyu mermer (3 × 2 panel), şampanya çerçeve, altta havada duran traverten bant
     MZ = BZ + .12
@@ -909,10 +1034,12 @@ def build_signature(lounge=False):
     # 3B harfler: şampanya metal, 4 cm kabartma + arkasında hale
     bx_ = (BW0 + BW1) / 2
     # harfler: fırçalanmış şampanya + hafif iç ışıma (arkadan aydınlatmalı tabela; koyu mermer üstünde net okunur)
-    lit = pbr('champagne_lit', None, '#e2c592', rough=.3, metal=.85)
-    bl_ = lit.node_tree.nodes['Principled BSDF']; bl_.inputs['Emission Color'].default_value = (*hexrgb('#ffcf8a'), 1); bl_.inputs['Emission Strength'].default_value = 1.6
+    lc_, le_, ls_ = TH['letters']
+    lit = pbr('champagne_lit', None, lc_, rough=.3, metal=.85)
+    bl_ = lit.node_tree.nodes['Principled BSDF']; bl_.inputs['Emission Color'].default_value = (*hexrgb(le_), 1); bl_.inputs['Emission Strength'].default_value = ls_
     text_mesh('MTG_Brand', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .03 + .02, lit, PLAIN, depth=.04, tracking=1.14)
-    text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .012, M['halo'], EMISSIVE, depth=.002, tracking=1.14)
+    if TH['halo']:
+        text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .012, M['halo'], EMISSIVE, depth=.002, tracking=1.14)
     text_mesh('MTG_BrandSub', 'PRIVATE  COLLECTION', .19, bx_, 2.36, MZ + .03 + .008, lit, PLAIN, depth=.016, tracking=1.5)
     # hale kopyası gölge düşürmez (yalnız ışık); gerçek harfler üst yıkama ışığıyla duvara doğal, ince gölge bırakır
     try: bpy.data.objects['MTG_Brand_Halo'].visible_shadow = False
@@ -925,7 +1052,7 @@ def build_signature(lounge=False):
         box('MTG_Display_Bezel', .68, 1.96, .02, dx, dy, BZ + .105, M['black'], PLAIN)
         anchor('MTG_Display', dx, dy, BZ + .116, mtg_anchor='display', w=.62, h=1.9)
     # private vault: arkada ceviz lamel + arkadan ışıklı bronz raflar, önde bronz çerçeveli cam bölme
-    slats('Vault', VX0, VX1, BZ, bronze_every=9)
+    feature_strip('Vault', 'z', BZ, VX0, VX1, +1, BAKE['back'], accent_every=9)
     vcx = (VX0 + VX1) / 2
     for k, y in enumerate((1.0, 1.7, 2.4)):
         box(f'MTG_Shelf_{k}', VX1 - VX0 - .7, .025, .32, vcx, y, BZ + .26, M['champagne'], PLAIN)
@@ -947,10 +1074,7 @@ def build_signature(lounge=False):
     stone_panels('TravL', ('x', XL, +1), [(-D, -8.6, .06, H - .05, 3, 2), (-6.4, PORTAL[0], .06, H - .05, 1, 2), (PORTAL[1], 0, .06, H - .05, 1, 2),
                                           (PORTAL[0], PORTAL[1], PORTAL[3] + .1, H - .05, 3, 1)],
                  [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_l'])
-    for z0_, z1_ in ((-8.6, -6.4),):                   # ceviz bölüm
-        zs_ = [z0_ + .075 * (k + .5) for k in range(int((z1_ - z0_) / .075))]
-        for k, zc_ in enumerate(zs_):
-            box(f'SlatLW_{z0_:.0f}_{k}', .04, H, .045, XL + .04, H / 2, zc_, M['walnut'], BAKE['wall_l'], origin=(0, 0, zc_))
+    feature_strip('SlatLW', 'x', XL, -8.6, -6.4, +1, BAKE['wall_l'])          # tema detay bölümü
     for z_ in (-8.6, -6.4):
         led_v(f'LW{abs(z_):.0f}', XL + .02, z_, face='x')
     portal(-1, M['travertine'])                 # sol: önceki salondan cam geçiş (ilk salonda sitede kapalı dolgu)
@@ -958,10 +1082,7 @@ def build_signature(lounge=False):
     # --- sağ duvar (x = XR, −x'e bakar): lounge arkasında ceviz panel alanı + traverten, üstte duvar yıkayıcı
     RZ1 = PORTAL[0] - .15 if not lounge else -1.55      # ceviz alanın ön ucu
     wall_x('Wall_R_Core', XR, -1, -D, 0, 0, WALL_TOP, M['reveal'], DARK, holes=() if lounge else (PORTAL,))
-    zs_ = [-D + .3 + .075 * (k + .5) for k in range(int((RZ1 + D - .3) / .075))]
-    for k, zc_ in enumerate(zs_):
-        m_ = M['bronze'] if k % 11 == 5 else M['walnut']
-        box(f'SlatRW_{k}', .04, H, .045, XR - .04, H / 2, zc_, m_, BAKE['wall_r'] if m_ is M['walnut'] else PLAIN, origin=(0, 0, zc_))
+    feature_strip('SlatRW', 'x', XR, -D + .3, RZ1, -1, BAKE['wall_r'], accent_every=11)
     if lounge:
         stone_panels('TravR', ('x', XR, -1), [(-1.4, 0, .06, H - .05, 1, 2)], [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
         led_v('RW', XR - .02, -1.48, face='x')
@@ -984,29 +1105,76 @@ def build_signature(lounge=False):
         box(f'MTG_Pier_{sx}', .16, WALL_TOP, .34, sx * (W / 2 - .08), WALL_TOP / 2, .17 - .02, M['travertine'], PLAIN, tile=(1.2, 2.4))
         box(f'MTG_Pier_LED_{sx}', .012, H - .4, .012, sx * (W / 2 - .17), H / 2, .3, M['ledSoft'], EMISSIVE)
 
-    # --- tavan: mat koyu paneller; aracın üstünde bronz çerçeveli stüdyo ışık paneli, iki boyuna ışık kanalı, çevre gizli LED
+    # --- tavan (tema kurgusu): softbox | linear (enine LED hatlar) | blades (boyuna ışık bıçakları + çerçeve) | geo (çapraz
+    #     LED şeritler) | halo (araç üstünde ışık halkası) | coffer (kasetli tavan) | beams (ahşap kirişler + softbox)
     LX, LZ = (4.45, -6.5) if not lounge else ((BW0 + BW1) / 2, -D + 3.6)    # oturma grubu merkezi
+    cs = TH['ceiling'] if not lounge else 'softbox'
     SB = (CAR[0], CAR[1], 6.4, 3.4) if not lounge else (LX, LZ + .2, 4.6, 4.2)   # softbox (x, z, boy-z, en-x)
+    if cs == 'coffer': SB = (CAR[0], CAR[1], 5.2, 3.9)
+    has_sb = cs in ('softbox', 'beams', 'coffer')
     sbx0, sbx1, sbz0, sbz1 = SB[0] - SB[3] / 2, SB[0] + SB[3] / 2, SB[1] - SB[2] / 2, SB[1] + SB[2] / 2
-    SLOTS_X = (-4.9, 3.1)
+    SLOTS_X = {'softbox': (-4.9, 3.1), 'blades': (-3.4, -1.7, -.3, 1.1, 3.0), 'beams': (), 'coffer': (), 'linear': (),
+               'geo': (-4.9, 4.6), 'halo': (-4.9, 3.1)}[cs]
+    LINES_Z = {'linear': tuple(-1.3 * k for k in range(1, 10)), 'blades': (-2.6, -10.4)}.get(cs, ())
+    blade_z = (-10.4, -2.6)                      # blades: boyuna hatlar yalnız bu aralıkta (çerçeve)
     COVE_ = .16
-    xs = sorted({XL + COVE_, XR - COVE_, sbx0 - .05, sbx1 + .05, *[s_ - .04 for s_ in SLOTS_X], *[s_ + .04 for s_ in SLOTS_X]})
-    zs = sorted({-D + COVE_, 0., sbz0 - .05, sbz1 + .05, *[-1.3 * k for k in range(1, 10)]})
+    xs = sorted({XL + COVE_, XR - COVE_, *([sbx0 - .05, sbx1 + .05] if has_sb else []),
+                 *[s_ - .04 for s_ in SLOTS_X], *[s_ + .04 for s_ in SLOTS_X]})
+    zs = sorted({-D + COVE_, 0., *([sbz0 - .05, sbz1 + .05] if has_sb else []), *[-1.3 * k for k in range(1, 10)],
+                 *[z_ - .04 for z_ in LINES_Z], *[z_ + .04 for z_ in LINES_Z], *(blade_z if cs == 'blades' else ())})
     for i in range(len(xs) - 1):
         for j in range(len(zs) - 1):
             xa, xb, za, zb = xs[i], xs[i + 1], zs[j], zs[j + 1]
             xc, zc = (xa + xb) / 2, (za + zb) / 2
-            if any(abs(xc - s_) < .05 for s_ in SLOTS_X): continue                       # ışık kanalı
-            if sbx0 - .06 < xc < sbx1 + .06 and sbz0 - .06 < zc < sbz1 + .06: continue    # softbox açıklığı
+            in_slot = any(abs(xc - s_) < .05 for s_ in SLOTS_X)
+            if in_slot and (cs != 'blades' or blade_z[0] < zc < blade_z[1]): continue          # ışık kanalı
+            if any(abs(zc - z_) < .05 for z_ in LINES_Z): continue
+            if has_sb and sbx0 - .06 < xc < sbx1 + .06 and sbz0 - .06 < zc < sbz1 + .06: continue    # softbox açıklığı
             if xb - xa < .03 or zb - za < .03: continue
             box(f'CeilP_{i}_{j}', xb - xa - .01, .04, zb - za - .01, xc, H + .02, zc, M['ceil_panel'], BAKE['ceil'], origin=rand_origin())
     plane_h('Ceil_Void', W, D, 0, H + .09, -D / 2, M['reveal'], DARK, down=True)
-    plane_h('MTG_Softbox', SB[3] - .04, SB[2] - .04, SB[0], H + .06, SB[1], M['softbox'], EMISSIVE, down=True)
-    for nm_, sx_, sz_, cx_, cz_ in (('N', SB[3] + .1, .05, SB[0], sbz1 + .025), ('S', SB[3] + .1, .05, SB[0], sbz0 - .025),
-                                    ('W', .05, SB[2], sbx0 - .025, SB[1]), ('E', .05, SB[2], sbx1 + .025, SB[1])):
-        box(f'MTG_SoftboxFrame_{nm_}', sx_, .08, sz_, cx_, H + .0, cz_, M['champagne'], PLAIN)
+    if has_sb:
+        plane_h('MTG_Softbox', SB[3] - .04, SB[2] - .04, SB[0], H + .06, SB[1], M['softbox'], EMISSIVE, down=True)
+        for nm_, sx_, sz_, cx_, cz_ in (('N', SB[3] + .1, .05, SB[0], sbz1 + .025), ('S', SB[3] + .1, .05, SB[0], sbz0 - .025),
+                                        ('W', .05, SB[2], sbx0 - .025, SB[1]), ('E', .05, SB[2], sbx1 + .025, SB[1])):
+            box(f'MTG_SoftboxFrame_{nm_}', sx_, .08, sz_, cx_, H + .0, cz_, M['champagne'], PLAIN)
     for i, s_ in enumerate(SLOTS_X):
-        box(f'MTG_LED_Slot{i}', .05, .012, D - .8, s_, H + .05, -D / 2, M['led_line'], EMISSIVE)
+        z0_, z1_ = blade_z if cs == 'blades' else (-D + .4, -.4)
+        box(f'MTG_LED_Slot{i}', .05 if cs != 'blades' else .03, .012, z1_ - z0_, s_, H + .05, (z0_ + z1_) / 2, M['led_line'], EMISSIVE)
+    for i, z_ in enumerate(LINES_Z):
+        x0_, x1_ = (XL + COVE_ + .1, XR - COVE_ - .1) if cs == 'linear' else (SLOTS_X[0] - .04, SLOTS_X[-1] + .04)
+        box(f'MTG_LED_Line{i}', x1_ - x0_, .012, .05, (x0_ + x1_) / 2, H + .05, z_, M['led_line'], EMISSIVE)
+    if cs == 'geo':
+        # çapraz LED şeritler: araç üstünden geçen dört paralel hat (35°), panellerin 1 cm altında, ince bakır kasa
+        for i, off in enumerate((-2.4, -.8, .8, 2.4)):
+            ln = 9.0
+            st = box(f'MTG_LED_Geo{i}', ln, .014, .03, CAR[0] + off * .57, H - .012, CAR[1] + off * .82, M['ledSoft'], EMISSIVE)
+            rotate_mesh(st, yaw=math.radians(35), pivot=P(CAR[0] + off * .57, H, CAR[1] + off * .82))
+            fr = box(f'MTG_GeoFrame{i}', ln + .04, .03, .075, CAR[0] + off * .57, H - .006, CAR[1] + off * .82, M['champagne'], PLAIN)
+            rotate_mesh(fr, yaw=math.radians(35), pivot=P(CAR[0] + off * .57, H, CAR[1] + off * .82))
+    if cs == 'halo':
+        # araç üstünde 2.6 m yarıçaplı ışık halkası: şampanya kasa + alt yüzde LED
+        bpy.ops.mesh.primitive_torus_add(major_radius=2.6, minor_radius=.05, major_segments=192, minor_segments=12, location=P(CAR[0], H - .25, CAR[1]))
+        t = bpy.context.active_object; t.name = 'MTG_HaloRing'; t.scale = (1, 1, .6); bpy.ops.object.transform_apply(location=True, scale=True)
+        bpy.ops.object.shade_smooth(); finish(t, M['champagne'], PLAIN)
+        for f_ in disc('MTG_LED_Halo', 2.63, 2.57, H - .284, CAR[0], CAR[1], M['ledSoft'], EMISSIVE, n=192).data.polygons: f_.flip()   # aşağı bakar
+        for a in range(0, 360, 60):
+            cylinder(f'MTG_Halo_wire{a}', .003, .003, .25, CAR[0] + 2.6 * math.cos(math.radians(a)), H - .25, CAR[1] + 2.6 * math.sin(math.radians(a)), M['black'], PLAIN, verts=6)
+    if cs == 'beams':
+        # koyu meşe kirişler (enine, 1.625 m aralık); softbox açıklığında kesilir
+        for i, z_ in enumerate([-1.625 * k for k in range(1, 8)]):
+            segs = [(XL, XR)]
+            if sbz0 - .1 < z_ < sbz1 + .1: segs = [(XL, sbx0 - .08), (sbx1 + .08, XR)]
+            for j, (xa_, xb_) in enumerate(segs):
+                box(f'Beam_{i}_{j}', xb_ - xa_, .3, .2, (xa_ + xb_) / 2, H - .15, z_, M['walnut'], BAKE['ceil'], origin=rand_origin())
+    if cs == 'coffer':
+        # kasetli tavan: 2.6 m ızgarada 30 cm derin kirişler (açık renk lake), kiriş altında gizli ışık
+        for i, x_ in enumerate([-W / 2 + 2.6 * k for k in range(1, 5)]):
+            for j, (za_, zb_) in enumerate([(-D + COVE_, sbz0 - .1), (sbz1 + .1, 0.)] if sbx0 - .1 < x_ < sbx1 + .1 else [(-D + COVE_, 0.)]):
+                box(f'CofX_{i}_{j}', .16, .3, zb_ - za_, x_, H - .15, (za_ + zb_) / 2, M['ceil_panel'], BAKE['ceil'], origin=rand_origin())
+        for i, z_ in enumerate([-2.6 * k for k in range(1, 5)]):
+            for j, (xa_, xb_) in enumerate([(XL + COVE_, sbx0 - .1), (sbx1 + .1, XR - COVE_)] if sbz0 - .1 < z_ < sbz1 + .1 else [(XL + COVE_, XR - COVE_)]):
+                box(f'CofZ_{i}_{j}', xb_ - xa_, .3, .16, (xa_ + xb_) / 2, H - .15, z_, M['ceil_panel'], BAKE['ceil'], origin=rand_origin())
     for nm_, x_, z_, sx_, sz_ in (('B', 0, -D + COVE_ - .03, W - 2 * COVE_, .02), ('L', XL + COVE_ - .03, -D / 2, .02, D - .2), ('R', XR - COVE_ + .03, -D / 2, .02, D - .2)):
         box('MTG_LED_Cove' + nm_, sx_, .01, sz_, x_, H + .06, z_, M['ledSoft'], EMISSIVE)
 
@@ -1014,25 +1182,46 @@ def build_signature(lounge=False):
         sig_lounge_furniture(LX, LZ, VZ)
         anchor('MTG_Light', LX, H - .05, LZ, mtg_anchor='light', w=SB[3], h=SB[2])
         return dict(BW0=BW0, BW1=BW1, VX0=VX0, VX1=VX1, VZ=VZ, SB=SB, SLOTS_X=SLOTS_X, LX=LX, LZ=LZ, MZ=MZ, lounge=True,
+                    cs=cs, has_sb=has_sb, LINES_Z=LINES_Z, blade_z=blade_z, pend='rings',
                     RINGS=((LX - .35, 3.05, LZ + .75), (LX + .3, 3.35, LZ + .75)))
-    # --- VIP lounge (sağ, ceviz duvarın önünde): krem deri kanepe, iki konyak deri koltuk, mermer + bronz sehpa, çift halka avize
+    # --- VIP lounge (sağ, tema duvarının önünde): tema mobilyası (kanepe kumaşı/derisi, koltuk tipi, sehpa, avize)
+    lg = TH['lounge']
     rug(LX + .1, LZ, 3.6, 3.9, tag='Rug')
-    fab = M['fabric']; M['fabric'] = M['leather_cream']
-    sofa(XR - .62, LZ, -90, 3.0, 'Sofa')
-    M['fabric'] = fab
-    anchor('MTG_Decor_Chair_A', 2.75, 0, LZ + 1.15, yaw=math.radians(112), decor='mid_century_lounge_chair', scale=1.)
-    anchor('MTG_Decor_Chair_B', 2.75, 0, LZ - 1.15, yaw=math.radians(68), decor='mid_century_lounge_chair', scale=1.)
-    rounded_slab('MTG_Table_Top', .8, 1.4, .12, .05, LX + .1, .34, LZ, M['marble'], PLAIN, tile=(1.2, 1.2))
-    rounded_slab('MTG_Table_Base', .5, 1.05, .06, .34, LX + .1, 0, LZ, M['bronze'], PLAIN)
-    for k, (w_, d_, t_, m_, a_) in enumerate(((.32, .24, .034, M['book_a'], 6), (.28, .21, .03, M['book_b'], -5))):
-        b = box(f'MTG_Table_book{k}', w_, t_, d_, LX + .05, .39 + t_ / 2 + .034 * k, LZ - .3, m_, PLAIN, bevel=.003, seg=1)
-        rotate_mesh(b, yaw=math.radians(a_))
-    anchor('MTG_Decor_Table_vase', LX + .15, .39, LZ + .32, decor='brass_vase_02', scale=.85)
-    ring_pendant_at(LX + .1, 3.15, LZ + .35, .52, 'Pendant')
-    ring_pendant_at(LX + .1, 3.45, LZ - .3, .78, 'Pendant2')
-    planter(XR - .6, -11.9, 1.6, 'Planter_B', h=.78, r=.32)
-    planter(XL + .6, -6.0, 1.35, 'Planter_C', h=.72)        # geçişin önü boş kalır
+    if lg['sofa']:
+        fab = M['fabric']; M['fabric'] = M['sofa']
+        sofa(XR - .62, LZ, -90, 3.4 if lg.get('boxes') else 3.0, 'Sofa')
+        M['fabric'] = fab
+    else:   # kompakt: kanepe yerine üçüncü koltuk (duvar önünde, salona bakar)
+        anchor('MTG_Decor_Chair_C', XR - .95, 0, LZ, yaw=math.radians(-90), decor=lg['chairs'], scale=1.)
+    anchor('MTG_Decor_Chair_A', 2.75, 0, LZ + 1.15, yaw=math.radians(112), decor=lg['chairs'], scale=1.)
+    anchor('MTG_Decor_Chair_B', 2.75, 0, LZ - 1.15, yaw=math.radians(68), decor=lg['chairs'], scale=1.)
+    if lg['table'] in ('slab', 'round'):
+        if lg['table'] == 'slab':
+            rounded_slab('MTG_Table_Top', .8, 1.4, .12, .05, LX + .1, .34, LZ, M['marble'], PLAIN, tile=(1.2, 1.2))
+            rounded_slab('MTG_Table_Base', .5, 1.05, .06, .34, LX + .1, 0, LZ, M['bronze'], PLAIN)
+        else:
+            cylinder('MTG_Table_Top', .62, .62, .05, LX + .1, .34, LZ, M['marble'], PLAIN, verts=96, tile=(1.2, 1.2))
+            cylinder('MTG_Table_Base', .26, .34, .34, LX + .1, 0, LZ, M['champagne'], PLAIN, verts=64)
+        for k, (w_, d_, t_, m_, a_) in enumerate(((.32, .24, .034, M['book_a'], 6), (.28, .21, .03, M['book_b'], -5))):
+            b = box(f'MTG_Table_book{k}', w_, t_, d_, LX + .05, .39 + t_ / 2 + .034 * k, LZ - .3, m_, PLAIN, bevel=.003, seg=1)
+            rotate_mesh(b, yaw=math.radians(a_))
+        anchor('MTG_Decor_Table_vase', LX + .15, .39, LZ + .32, decor='brass_vase_02', scale=.85)
+    else:
+        anchor('MTG_Decor_Table', LX + .1, 0, LZ, yaw=math.radians(90), decor=lg['table'], scale=1.)
+    if lg['pend'] == 'rings':
+        ring_pendant_at(LX + .1, 3.15, LZ + .35, .52, 'Pendant')
+        ring_pendant_at(LX + .1, 3.45, LZ - .3, .78, 'Pendant2')
+    elif lg['pend'] == 'bar':     # lineer sarkıt: çelik kasa + altında LED, iki askı
+        box('MTG_PendantBar', .07, .06, 1.8, LX + .1, 2.95, LZ, M['champagne'], PLAIN)
+        box('MTG_LED_PendantBar', .045, .006, 1.74, LX + .1, 2.917, LZ, M['ledSoft'], EMISSIVE)
+        for dz in (-.8, .8):
+            cylinder(f'MTG_PendantBar_wire{dz:+.0f}', .0025, .0025, H - 2.98, LX + .1, 2.98, LZ + dz, M['black'], PLAIN, verts=6)
+    planter(XR - .6, -11.9, 1.6, 'Planter_B', h=.78, r=.32, plant=lg['plant'])
+    planter(XL + .6, -6.0, 1.35, 'Planter_C', h=.72, plant=lg['plant'])        # geçişin önü boş kalır
     planter(XL + .6, VZ + .75, 1.5, 'Planter_D', h=.78, r=.32, plant='potted_plant_04')
+    if lg.get('boxes'):            # SUV: duvar önünde uzun bitki kasaları (doğal doku)
+        anchor('MTG_Decor_Box_A', XR - .45, 0, -1.6, yaw=math.radians(90), decor='planter_box_02', scale=1.)
+        anchor('MTG_Decor_Box_B', BW1 + .9, 0, BZ + .5, yaw=0., decor='planter_box_02', scale=1.)
 
     # çapalar
     anchor('MTG_CarSpot', CAR[0], 0, CAR[1], yaw=SIG_YAW, mtg_anchor='car')
@@ -1045,7 +1234,8 @@ def build_signature(lounge=False):
     px_box('CorrOppGlass', W - .3, H, .02, 0, H / 2, CORR_, M['glass'], None)
     px_box('CorrOppBack', W, H, .05, 0, H / 2, CORR_ + 6.5, M['travertine'], None, origin=(-W / 2, .06, 0))
     px_plane('CorrOppFloor', W, 6.5, 0, 0, CORR_ + 3.25, M['porcelain'], None)
-    return dict(BW0=BW0, BW1=BW1, VX0=VX0, VX1=VX1, VZ=VZ, SB=SB, SLOTS_X=SLOTS_X, LX=LX, LZ=LZ, MZ=MZ, lounge=False)
+    return dict(BW0=BW0, BW1=BW1, VX0=VX0, VX1=VX1, VZ=VZ, SB=SB, SLOTS_X=SLOTS_X, LX=LX, LZ=LZ, MZ=MZ, lounge=False,
+                cs=cs, has_sb=has_sb, LINES_Z=LINES_Z, blade_z=blade_z, pend=lg['pend'])
 
 def sig_lounge_furniture(LX, LZ, VZ):
     """dinlenme salonu: marka duvarının önünde krem deri kanepe (koridora bakar), iki konyak koltuk, mermer sehpa,
@@ -1078,20 +1268,40 @@ def sig_lounge_furniture(LX, LZ, VZ):
     planter(XL + .6, VZ + .75, 1.5, 'Planter_D', h=.78, r=.32, plant='potted_plant_04')
 
 def signature_lights(g):
-    bg.inputs['Color'].default_value = (*hexrgb('#2a2420'), 1); bg.inputs['Strength'].default_value = .15
+    # tema ışık karakteri: renk sıcaklığı + yoğunluklar (lounge varyantı eski Signature değerleriyle)
+    Lt = TH['light'] if not g['lounge'] else dict(col='#ffe9cf', key=1500, slot=700, cove=600, brand=900, wash=650, world=('#2a2420', .15))
+    col = Lt['col']
+    bg.inputs['Color'].default_value = (*hexrgb(Lt['world'][0]), 1); bg.inputs['Strength'].default_value = Lt['world'][1]
     cx_, cz_ = CAR
     sb = g['SB']
-    # araç üstü stüdyo paneli: geniş, yumuşak, sıcak
-    area('L_Softbox', sb[0], H - .02, sb[1], sb[3] - .1, sb[2] - .1, 2300 if not g['lounge'] else 1500, '#ffe9cf', spread=120, glossy=False)
+    if g['has_sb'] and Lt.get('key'):
+        # araç üstü stüdyo paneli: geniş, yumuşak
+        area('L_Softbox', sb[0], H - .02, sb[1], sb[3] - .1, sb[2] - .1, Lt['key'], col, spread=120, glossy=False)
     for i, s_ in enumerate(g['SLOTS_X']):
-        area(f'L_Slot{i}', s_, H + .03, -D / 2, .05, D - .9, 700, '#ffdcae', spread=100, glossy=False)
-    # çevre gizli LED: duvarları yukarıdan yalar (sıcak)
-    area('L_Cove_B', 0, H + .02, -D + .1, W - .4, .05, 600, '#ffd2a0', aim=(0, 0, -D + .02), spread=60, glossy=False)
-    area('L_Cove_L', XL + .1, H + .02, -D / 2, .05, D - .3, 450, '#ffd2a0', aim=(XL + .02, 0, -D / 2), spread=60, glossy=False)
-    area('L_Cove_R', XR - .1, H + .02, -D / 2, .05, D - .3, 520, '#ffd2a0', aim=(XR - .02, 0, -D / 2), spread=60, glossy=False)
-    # marka duvarı: üstten sıyıran sıcak ışık + traverten bant altı
+        z0_, z1_ = g['blade_z'] if g['cs'] == 'blades' else (-D + .45, -.45)
+        area(f'L_Slot{i}', s_, H + .03, (z0_ + z1_) / 2, .05, z1_ - z0_, Lt.get('slot', 700), col, spread=100, glossy=False)
+    for i, z_ in enumerate(g['LINES_Z']):
+        x0_, x1_ = (XL + .3, XR - .3) if g['cs'] == 'linear' else (g['SLOTS_X'][0], g['SLOTS_X'][-1])
+        area(f'L_Line{i}', (x0_ + x1_) / 2, H + .03, z_, x1_ - x0_, .05, Lt.get('line', 400), col, spread=110, glossy=False)
+    if g['cs'] == 'geo':
+        for i, off in enumerate((-2.4, -.8, .8, 2.4)):
+            l_ = area(f'L_Geo{i}', cx_ + off * .57, H - .03, cz_ + off * .82, 9.0, .05, Lt['geo'], col, spread=110, glossy=False)
+            l_.rotation_euler = (0, 0, math.radians(35))
+    if g['cs'] == 'halo':
+        bpy.ops.object.light_add(type='AREA', location=P(cx_, H - .3, cz_))
+        l_ = bpy.context.active_object; l_.name = 'L_Halo'; l_.data.shape = 'DISK'; l_.data.size = 5.2
+        l_.data.energy = Lt['ring']; l_.data.color = hexrgb(col); l_.data.spread = math.radians(130)
+        for attr, val in (('visible_camera', False), ('visible_glossy', False)):
+            try: setattr(l_, attr, val)
+            except Exception: pass
+        LIGHTS.append(l_)
+    # çevre gizli LED: duvarları yukarıdan yalar
+    area('L_Cove_B', 0, H + .02, -D + .1, W - .4, .05, Lt['cove'] * 1.15, col, aim=(0, 0, -D + .02), spread=60, glossy=False)
+    area('L_Cove_L', XL + .1, H + .02, -D / 2, .05, D - .3, Lt['cove'] * .85, col, aim=(XL + .02, 0, -D / 2), spread=60, glossy=False)
+    area('L_Cove_R', XR - .1, H + .02, -D / 2, .05, D - .3, Lt['cove'], col, aim=(XR - .02, 0, -D / 2), spread=60, glossy=False)
+    # marka duvarı: üstten sıyıran ışık + traverten bant altı
     bx_ = (g['BW0'] + g['BW1']) / 2
-    area('L_BrandWash', bx_, H - .05, g['MZ'] + .28, g['BW1'] - g['BW0'] - .3, .06, 900, '#ffc584', aim=(bx_, 1.0, g['MZ']), spread=40, glossy=False)
+    area('L_BrandWash', bx_, H - .05, g['MZ'] + .28, g['BW1'] - g['BW0'] - .3, .06, Lt['brand'], col, aim=(bx_, 1.0, g['MZ']), spread=40, glossy=False)
     area('L_BrandPlinth', bx_, .06, g['MZ'] + .36, g['BW1'] - g['BW0'] - .3, .04, 160, '#ffcf96', aim=(bx_, 0, g['MZ'] + 1.0), spread=70, glossy=False)
     # dikey LED derzleri
     for nm_, x_, z_ in (('L_LedBL', g['BW0'] - .06, BZ + .06), ('L_LedBR', g['BW1'] + .06, BZ + .06)):
@@ -1103,6 +1313,8 @@ def signature_lights(g):
         area(f'L_Shelf{k}', vx, y - .03, BZ + .3, vw - .9, .2, 70, '#ffd6a0', aim=(vx, 0, BZ + .3), spread=110, glossy=False)
     # lounge: halka avizeler + sehpa üstüne sıcak spot
     rings = g.get('RINGS') or ((g['LX'] + .1, 3.05, g['LZ'] + .35), (g['LX'] + .1, 3.35, g['LZ'] - .3))
+    if g['pend'] == 'bar': rings = ((g['LX'] + .1, 2.8, g['LZ'] - .4), (g['LX'] + .1, 2.8, g['LZ'] + .4))
+    if g['pend'] == 'none': rings = ((g['LX'] + .1, 3.6, g['LZ']),)
     for nm_, (x_, y_, z_) in zip(('L_Ring1', 'L_Ring2'), rings):
         bpy.ops.object.light_add(type='POINT', location=P(x_, y_, z_))
         pl = bpy.context.active_object; pl.name = nm_; pl.data.energy = 110; pl.data.color = hexrgb('#ffcf98'); pl.data.shadow_soft_size = .3; LIGHTS.append(pl)
@@ -1110,7 +1322,7 @@ def signature_lights(g):
         except Exception: pass
     # sağ ceviz duvar: üstten yıkama
     rz1 = PORTAL[0] if not g['lounge'] else -1.5
-    area('L_WalnutWash', XR - .25, H - .05, (-D + rz1) / 2, .05, rz1 + D - .3, 650, '#ffcf96', aim=(XR, 1.2, (-D + rz1) / 2), spread=45, glossy=False)
+    area('L_WalnutWash', XR - .25, H - .05, (-D + rz1) / 2, .05, rz1 + D - .3, Lt['wash'], col, aim=(XR, 1.2, (-D + rz1) / 2), spread=45, glossy=False)
     # komşu salon (vekil) ışığı: cam geçişlerden
     area('L_NbL', -(W - 1), H - .1, -6.2, 6, 4, 1800, '#fff1e0', glossy=False)
     if not g['lounge']:
@@ -1625,7 +1837,7 @@ def render_view(name, pos, look, vfov=40., res=None):
     cam.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler()
     scene.camera = cam
     scene.render.resolution_x, scene.render.resolution_y = res
-    scene.render.filepath = os.path.join(OUT, f'preview_{VARIANT}_{name}.png')
+    scene.render.filepath = os.path.join(OUT, f'preview_{ROOM_ID[5:]}_{name}.png')
     bpy.ops.render.render(write_still=True)
     log('önizleme', scene.render.filepath)
 
@@ -1795,7 +2007,7 @@ def full_build():
     res['ceiling'] = denoise(bake(ceil, (LM // 2, LM // 2), 'ceiling'))
     # ortak ölçek: zemin ve duvarların %99.7'lik parlaklığı → 1.0 (tüm haritalar aynı birimde)
     scale = float(max(np.percentile(res['floor'].max(axis=2), 99.7), np.percentile(res['walls'].max(axis=2), 99.7))) or 1.
-    name = f'room_{VARIANT}'
+    name = ROOM_ID
     for key, obj in (('floor', floor), ('walls', arch), ('ceiling', ceil)):
         obj['lightmap'] = save_lm(res[key], scale, f'{name}_lm_{key}.webp')
         obj['lmScale'] = scale
@@ -1812,7 +2024,7 @@ def export(baked):
     bpy.ops.object.select_all(action='DESELECT')
     for o in scene.objects:
         if o.name.startswith('MTG_') and o.type in ('MESH', 'EMPTY'): o.select_set(True)
-    path = os.path.join(OUT, f'room_{VARIANT}.glb')
+    path = os.path.join(OUT, f'{ROOM_ID}.glb')
     kw = dict(filepath=path, export_format='GLB', use_selection=True, export_extras=True, export_yup=True,
               export_apply=True, export_lights=False, export_cameras=False, export_texcoords=True, export_normals=True,
               export_image_format='WEBP')
@@ -1826,13 +2038,13 @@ def export(baked):
     log('GLB', path, '%.1f MB' % (os.path.getsize(path) / 1e6))
     json.dump({'variant': VARIANT, 'W': W, 'D': D, 'H': H, 'door': [DOOR_W, DOOR_H, DOOR_Z], 'car': CAR,
                'lightbox': LIGHTBOX, 'blender': bpy.app.version_string},
-              open(os.path.join(OUT, f'room_{VARIANT}.json'), 'w'), indent=1)
+              open(os.path.join(OUT, f'{ROOM_ID}.json'), 'w'), indent=1)
 
 if MODE == 'preview':
     run_previews()
 elif MODE == 'full':
     baked = full_build()
     run_previews()
-    if '--save-blend' in argv: bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, f'room_{VARIANT}.blend'))
+    if '--save-blend' in argv: bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, f'{ROOM_ID}.blend'))
     export(baked)
 log('bitti')
