@@ -36,3 +36,14 @@ recolor('travertine_clean', 'ivory_travertine', '#d9cdb8', '#f3ece0', .8)  # Mer
 recolor('warm_stone', 'sand_stone', '#ac9b84', '#c9baa3', .45)             # Kuga: sıcak kum taşı
 recolor('porcelain_slab', 'pearl_porcelain', '#c9c4bc', '#e8e4dd', 1.0)    # Corsa: açık sıcak gri
 recolor('cream_leather', 'black_leather', '#141312', '#3a3632', 1.0)       # BMW 420i: siyah deri (lounge)
+# koyu premium odalar (2. tur)
+recolor('microcement', 'charcoal_plaster', '#26231f', '#3d3832', .8)       # BMW 420i: sıcak kömür sıva
+recolor('microcement', 'umber_plaster', '#35281f', '#52402e', .8)          # Kuga: koyu toprak sıva
+recolor('dark_stone', 'slate_dark', '#1d1915', '#433a31', 1.0)              # Kuga: koyu arduvaz zemin
+recolor('microcement', 'forest_plaster', '#1a241f', '#2d3b33', .8)         # Golf: orman yeşili sıva
+recolor('smoked_walnut_veneer', 'black_oak', '#15110e', '#3a2f27', .9)     # Golf: siyah meşe nervürler
+recolor('porcelain_slab', 'urban_dark', '#2a2c2e', '#45484b', 1.1)         # Golf: koyu gri porselen zemin
+recolor('porcelain_slab', 'warm_graphite', '#2d2927', '#48423e', 1.0)      # Corsa: sıcak grafit zemin
+recolor('microcement', 'oxblood_plaster', '#2a1514', '#40201d', .8)        # Corsa: bordo sıva
+recolor('cream_leather', 'oxblood_leather', '#3a1413', '#6a2723', 1.0)     # Corsa: bordo deri duvar panelleri
+recolor('travertine_clean', 'graphite_travertine', '#25221e', '#423d36', .9)   # Mercedes: grafit traverten yivler

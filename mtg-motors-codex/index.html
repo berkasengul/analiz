@@ -1775,7 +1775,8 @@ function showcasePose(dt) {
   SHOW.fov = fov;
   return smoother(SHOW.w);
 }
-if (NO_INERTIA) window.__showcase = (t) => { SHOW.forceT = t; };   // yalnızca #test: vitrin anını sabitle
+if (NO_INERTIA) window.__showcase = (t) => { SHOW.forceT = t; };
+if (NO_INERTIA) window.__tv = () => ({ n: TV.list.length, active: TV.active, rt: !!TV.rt, t: +TV.t.toFixed(1) });   // yalnızca #test: vitrin anını sabitle
 if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total: +tour.total.toFixed(1), seg: STOPS.slice(1).map((st, i) => +(sToL(st) - sToL(STOPS[i])).toFixed(1)),
   portals: Array.from({ length: NROOMS }, (_, k) => { const o = portalOpen(k), m = moduleSlot(k); return `${k}:${m.side < 0 ? 'L' : 'R'}${m.row}${o.L ? '<' : '|'}${o.R ? '>' : '|'}`; }).join(' ') });   // yalnızca #test
 if (NO_INERTIA) window.__camAt = (S) => { const k = keys[Math.round(S)]; const d = new THREE.Vector3(); camera.getWorldDirection(d);
@@ -2422,12 +2423,12 @@ const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge
 //   halo: harflerin arkasındaki ışıma çarpanı (desenli taşta düşük tutulur, yazı bulanık görünmesin)
 //   grade: [r, g, b ton, doygunluk, kontrast] — masaüstü renk tonu (sinematik katman)
 const ROOM_THEMES = {
-  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.0, rimI: 5.2, light: '#ffe6c8', lightI: 4.2, refl: .8, exp: 1.0, halo: 1, grade: [1.03, .99, .95, 1.06, 1.06] },
-  suv:       { name: 'Explorer SUV Lounge',     letters: '#c9a26a', emis: '#5e3f1a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 5.8, rimI: 4.6, light: '#ffdcb4', lightI: 4.8, refl: .93, exp: 1.02, halo: .45, grade: [1.04, 1.0, .94, 1.0, 1.04] },
-  urban:     { name: 'Urban Collection',        letters: '#3d4146', emis: '#000000', key: '#fff6ea', fill: '#e8eef6', rim: '#fff3e2', keyI: 5.2, rimI: 4.2, light: '#f7f3ec', lightI: 4.6, refl: .9, exp: 1.0, grade: [1.0, 1.0, 1.0, .98, 1.03] },
+  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.2, rimI: 5.4, light: '#ffe6c8', lightI: 4.4, refl: .78, exp: 1.03, halo: 1, grade: [1.03, .99, .95, 1.06, 1.07] },
+  suv:       { name: 'Explorer SUV Lounge',     letters: '#d2ab72', emis: '#5e3f1a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
+  urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
-  compact:   { name: 'Compact Studio',          letters: '#5b4632', emis: '#000000', key: '#fff4e8', fill: '#f2ede6', rim: '#fff0dc', keyI: 5.0, rimI: 3.8, light: '#fff3e6', lightI: 5.0, refl: .9, exp: .97, grade: [1.01, 1.0, .99, 1.0, 1.0] },
-  executive: { name: 'Executive Lounge',        letters: '#7f6036', emis: '#000000', key: '#ffeacc', fill: '#fbe6cc', rim: '#ffe0b4', keyI: 4.8, rimI: 3.6, light: '#ffeccf', lightI: 4.6, refl: .86, exp: .96, grade: [1.02, 1.0, .96, .96, .98] },
+  compact:   { name: 'Compact Studio',          letters: '#e0b49c', emis: '#5a3024', key: '#fff2e8', fill: '#ffe2d6', rim: '#ffd8c4', keyI: 5.8, rimI: 5.0, light: '#ffeee2', lightI: 4.6, refl: .82, exp: 1.03, halo: .75, grade: [1.03, .98, .97, 1.05, 1.07] },
+  executive: { name: 'Executive Lounge',        letters: '#e6c98e', emis: '#6a4e22', key: '#ffeacc', fill: '#fbe6cc', rim: '#ffe0b4', keyI: 5.6, rimI: 4.8, light: '#ffeccf', lightI: 4.6, refl: .76, exp: 1.03, halo: .9, grade: [1.02, 1.0, .96, 1.03, 1.08] },
   sedan:     { name: 'Executive Sedan Gallery', letters: '#d5d9de', emis: '#2a3442', key: '#f2f5ff', fill: '#dfe7f6', rim: '#e8efff', keyI: 5.8, rimI: 5.2, light: '#f1f3fb', lightI: 4.4, refl: .8, exp: 1.0, halo: .6, grade: [.97, .99, 1.03, .97, 1.08] },
 };
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
@@ -2868,6 +2869,100 @@ const PREM_YAW = -1.283;          // araç önü oda yerelinde (0.28, 0.96): kor
 const PREM_LIGHTS = [];
 // Signature Gallery GLB'si (tools/blender/mtg_room.py --variant signature): mimari, ışık ve sergileme alanı Blender'da.
 // Kodda yalnız: arkadan ışıklı şampanya harflerin hafif ışıması, araç üstü stüdyo panelinin yumuşak ışıması.
+// ---------- Marka yazısı (MTG | MOTORS · PRIVATE COLLECTION) ----------
+// Cinzel SemiBold harf konturları (örtüşen konturlar birleştirilmiş; tools/brand_glyphs.py). Harfler sitede üretilir:
+// pahlı 3B metal harf (ön yüz fırçalanmış, pah cilalı: kenarlar ışığı yakalar), duvarda yumuşak gölge ve tema rengiyle arkadan
+// aydınlatma. Fırında yazı gölgesi yok, geometri her çözünürlükte keskin.
+const BRAND_GLYPHS = {"upm":1000,"cap":700,"g":{" ":[250,""],"A":[715,"M356 718 645 68Q660 38 683 25Q707 10 730 10H738V0H451V10H460Q479 10 494 27Q508 42 499 70L444 212H197L141 73Q133 53 138 39Q143 25 155 17.5Q167 10 179 10H188V0H-22V10H-13Q10 10 35 25Q56 37 71 65L302 596Q304 600 310.5 615.5Q317 631 325.5 651Q334 671 340 689.5Q346 708 347 718ZM323 521 213 250H429Z"],"C":[773,"M718 292 720 125Q697 86 659 54.5Q621 23 566.5 4.5Q512 -14 439 -14Q323 -13 235 31Q147 75 98.5 156.5Q50 238 50 351Q50 462 98 543.5Q146 625 234 669.5Q322 714 443 714Q521 714 583 696.5Q645 679 688 655L696 494H687Q662 589 598.5 632.5Q535 676 450 676Q368 676 308.5 636.5Q249 597 216.5 524.5Q184 452 184 353Q184 254 215.5 180.5Q247 107 304.5 66.5Q362 26 439 24Q514 24 569.5 49.5Q625 75 660.5 134Q696 193 710 292Z"],"E":[613,"M582 190 532 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H399Q421 700 445.5 703Q470 706 491 710Q512 714 521 718V560H511V574Q511 612 487 637Q467 657 436 661H247V364H391Q422 365 443 386Q464 407 464 438V448H474V242H464V253Q464 284 443 305Q422 326 391 326H247V39H381Q432 39 469 57.5Q506 76 531 110.5Q556 145 572 190Z"],"G":[824,"M739 280V115Q716 85 671.5 55Q627 25 564 5.5Q501 -14 421 -14Q311 -13 227 31.5Q143 76 96.5 157.5Q50 239 50 351Q50 461 96 543Q142 625 227 669.5Q312 714 425 714Q480 714 529.5 706Q579 698 620.5 684.5Q662 671 691 655L699 494H690Q672 559 636.5 598.5Q601 638 552 657Q503 676 446 676Q363 676 304.5 635.5Q246 595 215 521.5Q184 448 184 347Q184 249 213.5 176.5Q243 104 298.5 64.5Q354 25 430 24Q470 24 506 35Q542 46 571.5 67.5Q601 89 618 119L619 280Q619 325 568 325H552V335H804V325H789Q759 325 747 310Q738 299 739 280Z"],"I":[370,"M125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H324V690H311Q285 690 266.5 671.5Q248 653 247 627V73Q248 47 266.5 28.5Q285 10 311 10H324V0H48V10H61Q87 10 105.5 28.5Q124 47 125 73Z"],"L":[598,"M582 190 532 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H324V690H311Q285 690 266.5 671.5Q248 653 247 627V39H381Q432 39 469 57.5Q506 76 531 110.5Q556 145 572 190Z"],"M":[946,"M767 714H776L859 73Q864 43 884.5 26.5Q905 10 932 10H948V0H675V9H690Q707 9 718 22.5Q729 36 729 52V57L688 456L493 90L484 73Q475 55 466 30Q457 5 456 -18H446L190 453L149 57V52Q149 36 160.5 22.5Q172 9 188 9H203V0H-1V10H15Q42 10 63 26.5Q84 43 88 73L168 714H178L477 176Z"],"N":[857,"M114 715 633 202V629Q632 655 614.5 672.5Q597 690 571 690H552V700H822V690H804Q779 690 761 672.5Q743 655 742 629V114Q742 78 745 49Q748 20 751 3L753 -14H744L225 498L226 71Q226 46 244 28Q262 10 287 10H306V0H35V10H54Q79 10 97 28Q115 46 115 71V590Q115 644 110 680L104 715Z"],"O":[865,"M438 714Q553 714 639.5 669.5Q726 625 773 543Q820 461 820 350Q820 239 773 157Q726 75 639.5 30.5Q553 -14 438 -14Q322 -14 236 30.5Q150 75 103 157Q56 239 56 350Q56 461 103 543Q150 625 236 669.5Q322 714 438 714ZM438 24Q513 24 568.5 64Q624 104 654.5 177Q685 250 685 350Q685 450 654.5 523Q624 596 568.5 636Q513 676 438 676Q363 676 307.5 636Q252 596 221.5 523Q191 450 191 350Q191 250 221.5 177Q252 104 307.5 64Q363 24 438 24Z"],"P":[630,"M127 73V627Q127 653 108 671.5Q89 690 63 690H51L50 700H359Q438 700 489.5 675.5Q541 651 567 608Q593 565 594 508Q595 458 576.5 418Q558 378 525.5 351Q493 324 452.5 311.5Q412 299 368 304.5Q324 310 283 335V345L297 344Q310 343 332 346.5Q354 350 378.5 360.5Q403 371 424 394.5Q445 418 456 457Q460 470 461.5 486Q463 502 462 517Q461 583 427 622.5Q393 662 331 662H249V73Q250 47 268.5 28.5Q287 10 313 10H326V0H50V10H63Q89 10 107.5 28.5Q126 47 127 73Z"],"R":[724,"M127 73V627Q126 653 107.5 671.5Q89 690 63 690H50V700H369Q414 700 454.5 689Q495 678 526 655Q557 632 574.5 596.5Q592 561 592 512Q592 468 573 425Q554 382 517 353.5Q480 325 426 321Q453 312 477.5 287.5Q502 263 518 239Q519 238 530.5 220.5Q542 203 559 178Q576 153 594.5 128Q613 103 627 86Q649 60 667.5 43.5Q686 27 707 18.5Q728 10 755 10V0H672Q620 0 579.5 11Q539 22 509 44Q479 66 457 99Q451 108 440 126.5Q429 145 416 168Q403 191 390.5 212.5Q378 234 369.5 251Q361 268 358 275Q342 304 323 322Q304 340 282 342V352Q284 352 295 351.5Q306 351 320 352Q347 353 374.5 362Q402 371 424 395.5Q446 420 456 464Q458 473 460 487Q462 501 461 516Q458 586 425 622Q392 658 341 660Q322 661 301 660.5Q280 660 265 660H249V73Q249 47 268 28.5Q287 10 313 10H325V0H50V10H63Q89 10 107.5 28.5Q126 47 127 73Z"],"S":[544,"M268 714Q287 714 313 712Q339 710 366 707Q375 705 384 704H443L442 683H441L434 565H424Q424 616 387.5 646Q351 676 293 676Q235 676 200.5 646Q166 616 165 573Q163 548 179.5 524.5Q196 501 224 481L417 338Q458 311 477 272.5Q496 234 494 186Q491 94 427.5 40Q364 -14 255 -14Q218 -14 179.5 -7.5Q141 -1 109 12.5Q77 26 58 45Q52 65 53 93.5Q54 122 61 152.5Q68 183 78 204H87Q83 153 104 111.5Q125 70 165.5 46.5Q206 23 261 24Q323 26 360.5 59Q398 92 398 144Q398 174 382 198.5Q366 223 332 243L151 380Q105 410 85.5 452.5Q66 495 69 541Q72 589 96 628.5Q120 668 163.5 691Q207 714 268 714Z"],"T":[650,"M635 719V561L625 562V575Q625 614 601 638Q577 662 538 663H387V73Q388 47 406.5 28.5Q425 10 451 10H464V0H188V10H201Q227 10 245.5 28.5Q264 47 265 73V663H113Q74 662 50 638Q26 614 26 575V562L16 561V719Q26 715 46.5 711Q67 707 92 704Q117 701 138 701H513Q535 701 559.5 704Q584 707 605 711Q626 715 635 719Z"],"V":[732,"M368 -18 74 627Q58 661 33.5 675.5Q9 690 -14 690H-22V700H265V690H256Q237 690 222.5 674Q208 658 219 628H218L400 178L592 632Q602 659 588 674Q573 690 553 690H544V700H754V690H745Q723 690 698 676Q676 663 661 636L422 104Q420 100 413 84.5Q406 69 398 49Q390 29 384 10.5Q378 -8 377 -18Z"],"|":[253,"M100 700H153V-180H100Z"]}};
+function glyphPathShapes(cmd, s, ox, oy) {
+  const sp = new THREE.ShapePath(); let cx = 0, cy = 0;
+  for (const [, op, args] of cmd.matchAll(/([MLHVQZ])([^MLHVQZ]*)/g)) {
+    const v = args.trim() ? args.trim().split(/[\s,]+/).map(Number) : [];
+    if (op === 'M') { cx = v[0]; cy = v[1]; sp.moveTo(ox + cx * s, oy + cy * s); }
+    else if (op === 'L') { cx = v[0]; cy = v[1]; sp.lineTo(ox + cx * s, oy + cy * s); }
+    else if (op === 'H') { cx = v[0]; sp.lineTo(ox + cx * s, oy + cy * s); }
+    else if (op === 'V') { cy = v[0]; sp.lineTo(ox + cx * s, oy + cy * s); }
+    else if (op === 'Q') { sp.quadraticCurveTo(ox + v[0] * s, oy + v[1] * s, ox + v[2] * s, oy + v[3] * s); cx = v[2]; cy = v[3]; }
+  }
+  return sp.toShapes(false);
+}
+// satır yerleşimi: büyük harf yüksekliği capH (m), toplam genişlik width (m); harf aralığı genişliğe göre açılır
+function brandLayout(line, capH, width) {
+  const s = capH / BRAND_GLYPHS.cap, ch = [...line];
+  const adv = ch.map((c) => (BRAND_GLYPHS.g[c]?.[0] ?? 320) * s);
+  const gap = ch.length > 1 ? Math.max(0, (width - adv.reduce((a, b) => a + b, 0)) / (ch.length - 1)) : 0;
+  let x = 0; const items = [];
+  ch.forEach((c, i) => { if (BRAND_GLYPHS.g[c]?.[1]) items.push({ c, x }); x += adv[i] + gap; });
+  return { s, items, w: x - gap };
+}
+function brandTextCanvas(lay, capH, ppm, blurM, color, dy) {
+  const pad = blurM * 3 + .05, wM = lay.w + pad * 2, hM = capH * 1.6 + pad * 2;
+  const W = Math.min(2048, Math.ceil(wM * ppm)), H = Math.ceil(hM * ppm), k = W / wM;
+  const tex = canvasTexture(W, H, (g) => {
+    g.shadowColor = color; g.shadowBlur = blurM * k; g.shadowOffsetX = 4 * W; g.shadowOffsetY = dy * k; g.fillStyle = '#000';
+    for (const it of lay.items) {
+      g.setTransform(lay.s * k, 0, 0, -lay.s * k, (pad + it.x) * k - 4 * W, (hM / 2 + capH / 2) * k);
+      g.fill(new Path2D(BRAND_GLYPHS.g[it.c][1]));
+    }
+  });
+  return { tex, wM, hM };
+}
+const brandGeoCache = new Map();
+function brandText(line, capH, width, th, opt) {
+  const lay = brandLayout(line, capH, width), key = line + capH + width;
+  let geo = brandGeoCache.get(key);
+  if (!geo) {
+    const shapes = lay.items.flatMap((it) => glyphPathShapes(BRAND_GLYPHS.g[it.c][1], lay.s, it.x - lay.w / 2, -capH / 2));
+    geo = new THREE.ExtrudeGeometry(shapes, { depth: opt.depth, bevelEnabled: true, bevelThickness: opt.bevel, bevelSize: opt.bevel * .6,
+      bevelSegments: 3, curveSegments: opt.curve });
+    geo.computeVertexNormals(); brandGeoCache.set(key, geo);
+  }
+  const col = new THREE.Color(th.letters);
+  const face = new THREE.MeshStandardMaterial({ color: col, metalness: 1, roughness: .34, envMapIntensity: 1.2,
+    emissive: new THREE.Color(th.emis || '#000'), emissiveIntensity: .5 });
+  const edge = new THREE.MeshStandardMaterial({ color: col.clone().offsetHSL(0, -.05, .06), metalness: 1, roughness: .14, envMapIntensity: 1.6,
+    emissive: new THREE.Color(th.emis || '#000'), emissiveIntensity: .35 });
+  const g = new THREE.Group();
+  const mesh = new THREE.Mesh(geo, [face, edge]); mesh.position.z = opt.standoff + opt.bevel; mesh.name = 'MTG_BrandLetters';
+  mesh.castShadow = false; mesh.receiveShadow = false; g.add(mesh);
+  // duvarda yumuşak gölge (üst yıkama ışığı: hafif aşağı kayık) + tema rengiyle arkadan ışık (halo)
+  const ppm = isMobile ? 160 : 260;
+  const sh = brandTextCanvas(lay, capH, ppm, opt.blur, 'rgba(0,0,0,.92)', opt.drop);
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(sh.wM, sh.hM), new THREE.MeshBasicMaterial({ map: sh.tex, transparent: true, opacity: .62,
+    depthWrite: false, toneMapped: false, color: '#000' }));
+  shadow.position.z = .002; shadow.renderOrder = 1; g.add(shadow);
+  if (th.halo) {
+    const gl = brandTextCanvas(lay, capH, ppm * .5, opt.blur * 3.4, '#fff', 0);
+    const glow = new THREE.Mesh(new THREE.PlaneGeometry(gl.wM, gl.hM), new THREE.MeshBasicMaterial({ map: gl.tex, transparent: true,
+      blending: THREE.AdditiveBlending, depthWrite: false, color: new THREE.Color(th.letters).multiplyScalar(.5 * th.halo) }));
+    glow.position.z = .004; glow.renderOrder = 2; g.add(glow);
+  }
+  return g;
+}
+// oda GLB'sindeki yazı çapalarına (MTG_BrandText / MTG_BrandSubText) yazıyı kurar; eski GLB'lerde harf mesh'leri gizlenip
+// yerlerine aynı konumda yeni yazı konur
+function brandLetters(room, th) {
+  const spec = [['MTG_BrandText', 'MTG_Brand', 'MTG  |  MOTORS', .34, 3.5, { depth: .024, bevel: .005, standoff: .014, blur: .035, drop: .035, curve: 10 }],
+    ['MTG_BrandSubText', 'MTG_BrandSub', 'PRIVATE  COLLECTION', .13, 2.75, { depth: .01, bevel: .0022, standoff: .008, blur: .016, drop: .014, curve: 6 }]];
+  const box3 = new THREE.Box3();
+  for (const [an, old, line, capH, width, opt] of spec) {
+    let host = room.getObjectByName(an);
+    const o = room.getObjectByName(old);
+    if (!host && o?.isMesh) {                 // eski GLB: harf mesh'inin kutusundan konum (oda yereli)
+      o.geometry.computeBoundingBox(); box3.copy(o.geometry.boundingBox);
+      host = new THREE.Object3D(); host.position.set((box3.min.x + box3.max.x) / 2, (box3.min.y + box3.max.y) / 2, box3.min.z);
+      o.parent.add(host); host.position.applyMatrix4(o.matrix);
+    }
+    if (o) o.visible = false;
+    if (old === 'MTG_Brand') { const h = room.getObjectByName('MTG_Brand_Halo'); if (h) h.visible = false; }
+    if (!host) continue;
+    host.add(brandText(line, capH, width, th, opt));
+    if (old === 'MTG_BrandSub') {            // alt satırın iki yanında ince metal çizgi
+      const m = new THREE.MeshStandardMaterial({ color: th.letters, metalness: 1, roughness: .25, envMapIntensity: 1.3 });
+      for (const sd of [-1, 1]) { const r = new THREE.Mesh(new THREE.BoxGeometry(.42, .005, .006), m); r.position.set(sd * (width / 2 + .38), 0, .012); host.add(r); }
+    }
+  }
+}
 function signatureRoom(room, th = ROOM_THEMES.sport) {
   // canvas hale (bulanık yazı kopyası) burada yok: harf aralığı 3B harflerle tutmayıp çift/kayık görüntü veriyordu;
   // hale, Blender'daki harflerle birebir aynı biçimli MTG_Brand_Halo'dan gelir
@@ -2877,14 +2972,9 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
     const part = (/^MTG_(Floor)/.exec(o.name) || /^MTG_(Floor)/.exec(o.parent?.name || '') || [])[1];
     // zemin: grafit mermer dokusu + pişmiş ışık olduğu gibi (Blender'daki malzeme); altta Reflector ölçülü görünür → hafif bulanık yansıma
     if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = th.refl; }
-    if (/^MTG_Brand(Sub)?$/.test(o.name)) {                                // fırçalanmış metal (tema rengi), arkadan hafif ışıklı: net okunur
-      const m = o.material = o.material.clone();
-      m.color.set(th.letters); m.metalness = .85; m.roughness = .3; m.envMapIntensity = 1.1;
-      m.emissive?.set(th.emis); m.emissiveIntensity = .6; m.side = THREE.DoubleSide;
-    }
-    if (o.name === 'MTG_Brand_Halo' && th.halo != null && o.material.color) { o.material = o.material.clone(); o.material.color.multiplyScalar(th.halo); }
     if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
   });
+  brandLetters(room, th);
 }
 function premiumRoom(room, k) {
   const warm = new THREE.Color('#ffe2c0');
@@ -2995,7 +3085,7 @@ function buildRoomGLB(g, k) {
   decorize(room);
   const po = portalOpen(k);                       // açık geçişte dolgu gizli, kapalı uçta (resepsiyon / bina sonu) duvar
   for (const [sd, open] of [['L', po.L], ['R', po.R]]) { const f = room.getObjectByName('MTG_PortalFill_' + sd); if (f) f.visible = !open; }
-  if (sig || (lounge && room.getObjectByName('MTG_BrandSub'))) signatureRoom(room, lounge ? ROOM_THEMES.sport : roomThemeOf(k));   // lounge: Signature dili
+  if (sig || (lounge && (room.getObjectByName('MTG_BrandSub') || room.getObjectByName('MTG_BrandText')))) signatureRoom(room, lounge ? ROOM_THEMES.sport : roomThemeOf(k));   // lounge: Signature dili
   else if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);   // Signature GLB yoksa: ortak oda üzerinde sıcak premium katman
   const disp = anchor('MTG_Display');
   if (disp && !lounge) {
@@ -3004,6 +3094,7 @@ function buildRoomGLB(g, k) {
       new THREE.MeshStandardMaterial({ map: t, emissiveMap: t, emissive: '#ffffff', emissiveIntensity: .8, roughness: .12, metalness: .1 }));
     scr.position.z = .001; disp.add(scr);
   }
+  buildTV(room, k);
   const spot2 = anchor('MTG_SecondCar');
   // premium salonda ikinci araç yok: kahraman araçla yarışmasın
   if (spot2 && !lounge && !PREMIUM_ROOMS.has(k)) { const c2 = secondCar(k); if (c2) { c2.rotation.y = spot2.rotation.y; spot2.parent.add(c2); c2.position.copy(spot2.position); } }
@@ -3091,7 +3182,7 @@ function buildAtmosphere() {
     fragmentShader: `varying float vA; void main(){ float d = length(gl_PointCoord - .5); gl_FragColor = vec4(1., .93, .8, (1. - smoothstep(.2, .5, d)) * vA * .55); }`,
   }));
   dust.frustumCulled = false;
-  scene.add(dust);
+  scene.add(dust); atmosphere.dust = dust;
 
   // alacakaranlık şehir silueti (pencerelerde sıcak ışıklar)
   // pencereler: kat bantları halinde (cam giydirme cephe hissi), çoğu sıcak, az sayıda serin ofis ışığı; bazı katlar tamamen karanlık
@@ -3400,8 +3491,9 @@ const DOF_SHADER = {
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
   fragmentShader: `uniform sampler2D tDiffuse, tDepth; uniform float focus, amount, near, far, maxR; uniform vec2 texel; varying vec2 vUv;
     float lin(vec2 uv){ float z = texture2D(tDepth, uv).x * 2. - 1.; return 2. * near * far / (far + near - z * (far - near)); }
-    // bulanıklık yarıçapı: odak düzleminden göreli uzaklık; arka plan önden daha çok (portre lens hissi)
-    float coc(float d){ float c = (d - focus) / max(d, .001); return clamp(c > 0. ? c * 1.7 : -c * .9, 0., 1.); }
+    // bulanıklık yarıçapı: odak düzleminden göreli uzaklık. Aracın arkasındaki salon (marka duvarı dahil) keskin kalır;
+    // yalnız cam ardındaki uzak salonlar ve kameraya çok yakın ön plan yumuşar
+    float coc(float d){ float c = (d - focus) / max(d, .001); return clamp(c > 0. ? max(c - .52, 0.) * 2.4 : -c * .9, 0., 1.); }
     void main(){
       vec4 base = texture2D(tDiffuse, vUv);
       float c0 = coc(lin(vUv)) * amount;
@@ -3552,6 +3644,106 @@ function updateRoomPower(dt) {
   });
   for (const l of [roomLightA, roomLightB]) { const r = rooms[l.userData.k]; if (r) l.intensity = r.theme.lightI * (r.power ?? 1); }
 }
+// ---------- Medya duvarı TV'si: odadaki aracın sinematik filmi ----------
+// Her salonun sağ duvarındaki TV, o salondaki aracı gösterir. CARS[].video verilmişse (mp4/webm) o oynatılır; yoksa araç
+// sahnede ikinci bir kamerayla canlı çekilir: ön 3/4 dolly, yan profil kaydırma, jant yakın planı, arka 3/4 vinç, üstten
+// yörünge, far detayı (her plan ~5 sn, aralarda kısa karartma). Sinema oranı bantları + MTG MOTORS imzası görüntüye işlenir.
+// Yalnız kameranın bulunduğu salonun TV'si ve yalnız ekran kadrajdayken çizilir (masaüstü ~30 kare/sn, mobil ~12).
+const TV = { list: [], rt: null, cam: new THREE.PerspectiveCamera(30, 16 / 9, .05, 60), active: -1, t: 0, n: 0,
+  ovScene: new THREE.Scene(), ovCam: new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), ovQuad: null, fade: null, frustum: new THREE.Frustum(), pm: new THREE.Matrix4() };
+const TV_SHOTS = [   // araç yereli (önü +x, yan +z), L: araç boyu. from → to konum, bakış, fov
+  { p0: [.98, .78, .62], p1: [.8, .7, .46], l0: [0, .58, 0], l1: [.05, .55, 0], fov: 30 },          // ön 3/4 yaklaşma
+  { p0: [.42, .62, .62], p1: [-.42, .62, .62], l0: [.3, .55, 0], l1: [-.3, .55, 0], fov: 34 },       // yan profil kaydırma
+  { p0: [.42, .36, .4], p1: [.26, .38, .42], l0: [.3, .34, .18], l1: [.31, .34, .18], fov: 26 },    // ön jant yakın plan
+  { p0: [-.95, .82, .5], p1: [-.82, 1.25, .62], l0: [-.1, .6, 0], l1: [0, .55, 0], fov: 32 },       // arka 3/4 vinç
+  { orbit: [.95, .78, -.3, .55], l0: [0, .35, 0], fov: 34 },                                          // üstten yörünge
+  { p0: [.7, .66, .3], p1: [.64, .64, .22], l0: [.46, .6, .16], l1: [.46, .6, .16], fov: 24 },      // far detayı
+];
+const TV_SHOT_DUR = 5.2;
+function tvOverlayTexture(spec, k) {
+  return canvasTexture(1024, 576, (g, w, h) => {
+    const bar = Math.round(h * .115);
+    g.fillStyle = '#000'; g.fillRect(0, 0, w, bar); g.fillRect(0, h - bar, w, bar);
+    g.fillStyle = 'rgba(214,180,120,.85)'; g.fillRect(36, h - bar, 54, 2);
+    g.font = '600 22px Cinzel, Georgia, serif'; g.fillStyle = '#e6cfa0'; g.textBaseline = 'middle';
+    g.fillText('MTG  |  MOTORS', 36, h - bar / 2 + 2);
+    g.font = '500 15px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(255,255,255,.82)'; g.textAlign = 'right';
+    g.fillText(`${spec.brand.toUpperCase()}  ·  ${spec.model}  ·  ${spec.year}`, w - 36, h - bar / 2 + 1);
+    g.textAlign = 'left'; g.font = '500 12px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(230,207,160,.75)';
+    g.fillText(`PRIVATE COLLECTION  ·  ${String(k + 1).padStart(2, '0')} / ${String(TOUR.length).padStart(2, '0')}`, 36, bar / 2);
+  });
+}
+const tvStandby = canvasTexture(512, 288, (g, w, h) => {
+  const r = g.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * .6); r.addColorStop(0, '#16130f'); r.addColorStop(1, '#050505');
+  g.fillStyle = r; g.fillRect(0, 0, w, h);
+  g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = 'rgba(214,180,120,.55)'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('MTG  |  MOTORS', w / 2, h / 2);
+});
+function buildTV(room, k) {
+  const a = room.getObjectByName('MTG_TV'); if (!a || k >= TOUR.length) return;
+  const w = a.userData.w || 2.08, h = a.userData.h || 1.17, spec = CARS[TOUR[k]];
+  const mat = new THREE.MeshBasicMaterial({ map: tvStandby, color: new THREE.Color(1, 1, 1) });
+  const scr = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); scr.position.z = .003; scr.name = 'MTG_TV_Live'; a.add(scr);
+  // cam yüzey: ekranın önünde çok hafif ortam yansıması (kapalıyken de cam hissi)
+  const glass = new THREE.Mesh(scr.geometry, new THREE.MeshStandardMaterial({ color: '#000', roughness: .06, metalness: 0, transparent: true, opacity: .14, envMapIntensity: .6, depthWrite: false }));
+  glass.position.z = .005; a.add(glass);
+  const e = { k, scr, mat, spec, ov: null, video: null };
+  if (spec.video) {
+    const v = Object.assign(document.createElement('video'), { src: spec.video, muted: true, loop: true, playsInline: true, preload: 'none', crossOrigin: 'anonymous' });
+    e.video = v; e.vtex = new THREE.VideoTexture(v); e.vtex.colorSpace = THREE.SRGBColorSpace;
+  }
+  TV.list.push(e);
+}
+const tvV = new THREE.Vector3(), tvL = new THREE.Vector3(), tvV2 = new THREE.Vector3();
+function tvShot(st, L, t) {
+  const n = Math.floor(t / TV_SHOT_DUR), u = (t % TV_SHOT_DUR) / TV_SHOT_DUR, sh = TV_SHOTS[n % TV_SHOTS.length];
+  const e = u * u * (3 - 2 * u) * .7 + u * .3;          // yumuşak ama durmayan hareket
+  if (sh.orbit) {
+    const [r, y, a0, a1] = sh.orbit, a = a0 + (a1 - a0) * e;
+    tvV.set(Math.cos(a) * r * L, y * L, Math.sin(a) * r * L);
+  } else tvV.fromArray(sh.p0).lerp(tvV2.fromArray(sh.p1), e).multiplyScalar(L);
+  tvL.fromArray(sh.l0).lerp(tvV2.fromArray(sh.l1), e).multiplyScalar(L);
+  tvV.y /= L; tvL.y /= L;                                 // yükseklikler metre (boydan bağımsız)
+  st.turn.localToWorld(tvV); st.turn.localToWorld(tvL);
+  TV.cam.position.copy(tvV); TV.cam.lookAt(tvL); TV.cam.fov = sh.fov; TV.cam.updateProjectionMatrix();
+  return Math.min(1, u / .06, (1 - u) / .06);            // plan geçişinde karartma
+}
+function updateTV(dt) {
+  const k = camRoom, e = TV.list.find((x) => x.k === k);
+  if (TV.active !== k) {                                  // salon değişti: önceki TV bekleme ekranına, video durur
+    for (const x of TV.list) if (x.k !== k) { x.mat.map = tvStandby; x.video?.pause(); }
+    TV.active = k; TV.t = 0;
+  }
+  if (!e) return;
+  TV.pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); TV.frustum.setFromProjectionMatrix(TV.pm);
+  if (!TV.frustum.intersectsObject(e.scr)) return;
+  if (e.video) { if (e.video.paused) e.video.play().catch(() => {}); e.mat.map = e.vtex; return; }
+  const st = stations[k]; if (!st) return;
+  TV.t += dt;
+  if (++TV.n % (isMobile ? 5 : 2)) return;
+  if (!TV.rt) {
+    const w = isMobile ? 384 : 768;
+    TV.rt = new THREE.WebGLRenderTarget(w, Math.round(w * 9 / 16), { type: THREE.HalfFloatType, samples: isMobile ? 0 : 4 });
+    TV.rt.texture.colorSpace = THREE.LinearSRGBColorSpace;
+    TV.ovQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ transparent: true, depthTest: false, depthWrite: false, toneMapped: false }));
+    TV.fade = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ color: '#000', transparent: true, depthTest: false, depthWrite: false }));
+    TV.ovScene.add(TV.fade, TV.ovQuad);
+  }
+  if (!e.ov) e.ov = tvOverlayTexture(e.spec, k);
+  const L = e.spec.length || 4.6;
+  const vis = tvShot(st, L, TV.t);
+  // çizim: ekranlar gizli (kendi görüntüsünü okumasın), toz parçacıkları ve zemin yansıması bu geçişte yok
+  const hide = [atmosphere.dust, floorReflector, ...TV.list.map((x) => x.scr)].filter(Boolean), was = hide.map((o) => o.visible);
+  hide.forEach((o) => { o.visible = false; });
+  const prevT = renderer.getRenderTarget();
+  renderer.setRenderTarget(TV.rt); renderer.clear();
+  renderer.render(scene, TV.cam);
+  TV.fade.material.opacity = 1 - vis; TV.ovQuad.material.map = e.ov;
+  renderer.autoClear = false; renderer.render(TV.ovScene, TV.ovCam); renderer.autoClear = true;
+  renderer.setRenderTarget(prevT);
+  hide.forEach((o, i) => { o.visible = was[i]; });
+  e.mat.map = TV.rt.texture;
+}
 // Ortam sesi (isteğe bağlı, kapalı başlar): Web Audio ile üretilen çok hafif galeri ambiyansı — iki yumuşak drone + filtreli
 // hava sesi. Dosya indirmez; düğmeyle açılır/kapanır (tarayıcılar sesi yalnız kullanıcı etkileşimiyle başlatır).
 let ambient = null;
@@ -3609,6 +3801,7 @@ function frame() {
   updatePhotoCars();
   updateFocusLights(dt);
   updateSweep();
+  updateTV(dt);
   updateUI(currentS);
   renderFrame(dt);
   updateRenderBudget(dt);

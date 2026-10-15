@@ -929,33 +929,33 @@ SIG_YAW = -1.283                 # sitedeki PREM_YAW: araç önü (0.28, 0.96) �
 #   accent: metal vurgu (çerçeve/raf/harf kasası), dark: koyu metal (dikme/kayıt), letters: (renk, ışıma rengi, ışıma)
 #   light: bake ışık karakteri (renk + yoğunluklar), lounge: mobilya tipi
 THEMES = {
-    'sport': dict(      # BMW 420i Edition M Sport — sportif, rafine, dramatik
+    'sport': dict(      # BMW 420i Edition M Sport — sportif, dramatik; siyah-altın Portoro mermer, kömür sıva, ceviz çıta
         title='Sport Coupé Collection',
-        floor=('graphite_marble', .25, .3), slab=(3.25, 1.625), inlay=('graphite_marble', .16, .6), stage='slab',
-        brand='smoke_marble', stone='travertine_clean', wood='smoked_walnut_veneer', feature='slats',
-        accent='#dcbd86', dark='#5a4632', ceil='#2a2724', ceiling='softbox', led='#ffe6c4',
+        floor=('graphite_marble', .2, .4), slab=(3.25, 1.625), inlay=('portoro_marble', .14, .65), stage='slab',
+        brand='portoro_marble', stone='charcoal_plaster', wood='smoked_walnut_veneer', feature='slats',
+        accent='#d8b46e', dark='#4a3a28', ceil='#1d1b19', ceiling='softbox', led='#ffe2b8',
         letters=('#e2c592', '#ffcf8a', 1.6), halo=22.,
-        light=dict(col='#ffe9cf', key=2600, slot=650, cove=480, brand=950, wash=520, world=('#221d1a', .12)),
+        light=dict(col='#ffe6c8', key=2400, slot=620, cove=460, brand=950, wash=520, world=('#1c1815', .11)),
         lounge=dict(sofa=('black_leather', '#ffffff'), chairs='mid_century_lounge_chair', table='slab', pend='rings',
-                    rug=('#2a2826', '#5a554f'), plant='potted_plant_02')),
-    'suv': dict(        # Ford Kuga — güçlü, sıcak, doğal; geniş taş + koyu meşe kirişler
+                    rug=('#1c1a18', '#4a443d'), plant='potted_plant_02')),
+    'suv': dict(        # Ford Kuga — güçlü, doğal, sıcak; Emperador mermer, koyu arduvaz, koyu meşe kirişler
         title='Explorer SUV Lounge',
-        floor=('sand_stone', .42, .1), slab=(1.625, 1.625), inlay=('dark_stone', .3, .25), stage='slab',
-        brand='dark_stone', stone='sand_stone', wood='dark_oak', feature='planks',
-        accent='#8a6a45', dark='#4a3a2a', ceil='#33291f', ceiling='beams', led='#ffdcb0',
-        letters=('#c9a26a', '#ffc27a', 1.2), halo=16.,
-        light=dict(col='#ffe0bc', key=2900, slot=0, cove=620, brand=900, wash=700, world=('#2a2018', .16)),
+        floor=('slate_dark', .38, .2), slab=(1.625, 1.625), inlay=('emperador_marble', .16, .55), stage='slab',
+        brand='emperador_marble', stone='umber_plaster', wood='dark_oak', feature='planks',
+        accent='#b08a58', dark='#3e2e20', ceil='#241c15', ceiling='beams', led='#ffd9a8',
+        letters=('#d2ab72', '#ffc27a', 1.3), halo=18.,
+        light=dict(col='#ffdcb4', key=2700, slot=0, cove=560, brand=950, wash=620, world=('#20180f', .12)),
         lounge=dict(sofa=('cognac_leather', '#ffffff'), chairs='mid_century_lounge_chair', table='slab', pend='rings',
-                    rug=('#4a3b2d', '#a08a6e'), plant='potted_plant_04', boxes=True)),
-    'urban': dict(      # VW Golf — dengeli, temiz, şehirli; gri taş + açık meşe, nötr lineer ışık
+                    rug=('#2e241b', '#6e5a45'), plant='potted_plant_04', boxes=True)),
+    'urban': dict(      # VW Golf — şehirli, modern, derin; orman yeşili mermer, siyah meşe nervürler, pirinç, lineer ışık
         title='Urban Collection',
-        floor=('urban_grey', .3, .15), slab=(2.6, 1.3), inlay=('porcelain_slab', .2, .3), stage='slab',
-        brand='microcement', stone='microcement', wood='light_oak', feature='slats',
-        accent='#b4b8bc', dark='#3c3f43', ceil='#4a4d50', ceiling='linear', led='#f6f4ef',
-        letters=('#3d4146', '#000000', 0.), halo=0.,
-        light=dict(col='#f7f3ec', key=0, slot=0, line=520, cove=520, brand=650, wash=480, world=('#2a2c2f', .2)),
-        lounge=dict(sofa=('fabric_grey', '#8a8c8e'), chairs='modern_arm_chair_01', table='modern_coffee_table_01', pend='none',
-                    rug=('#5b5e61', '#c9c8c4'), plant='potted_plant_02')),
+        floor=('urban_dark', .26, .3), slab=(2.6, 1.3), inlay=('verde_marble', .14, .6), stage='slab',
+        brand='verde_marble', stone='forest_plaster', wood='black_oak', feature='ribs',
+        accent='#c9a96a', dark='#2f2a22', ceil='#1b1e1c', ceiling='linear', led='#fff0dc',
+        letters=('#d9bd84', '#ffd79a', 1.3), halo=16.,
+        light=dict(col='#fff1df', key=0, slot=0, line=500, cove=460, brand=900, wash=520, world=('#161a18', .12)),
+        lounge=dict(sofa=('fabric_grey', '#3b3f3c'), chairs='modern_arm_chair_01', table='modern_coffee_table_01', pend='bar',
+                    rug=('#1f2421', '#4b524d'), plant='potted_plant_02')),
     'dynamic': dict(    # SEAT Ateca — genç, enerjik, şehirli; koyu beton + terracotta + bakır kanatlar, geometrik tavan
         title='Dynamic City Collection',
         floor=('concrete_dark', .3, .25), slab=(2.6, 2.6), inlay=('anthracite_stone', .2, .45), stage='slab',
@@ -965,24 +965,24 @@ THEMES = {
         light=dict(col='#fff0e2', key=0, slot=0, geo=380, cove=420, brand=850, wash=520, world=('#1e1e20', .14)),
         lounge=dict(sofa=('fabric_terracotta', '#a65a3c'), chairs='modern_arm_chair_01', table='modern_coffee_table_01', pend='none',
                     rug=('#2b2b2c', '#6b6865'), plant='potted_plant_04')),
-    'compact': dict(    # Opel Corsa — kompakt, genç, ferah; açık taş + açık meşe, tavanda ışık halkası
+    'compact': dict(    # Opel Corsa — genç, sıcak, butik; bordo mermer, bordo deri duvar panelleri, rose-gold, ışık halkası
         title='Compact Studio',
-        floor=('pearl_porcelain', .28, .2), slab=(1.3, 1.3), inlay=('urban_grey', .18, .4), stage='disc',
-        brand='microcement', stone='travertine_clean', wood='light_oak', feature='planks',
-        accent='#d6c29a', dark='#6b5a46', ceil='#b9b2a8', ceiling='halo', led='#fff3e6',
-        letters=('#5b4632', '#000000', 0.), halo=0.,
-        light=dict(col='#fff3e6', key=0, slot=0, ring=1700, cove=560, brand=600, wash=520, world=('#2e2b28', .24)),
+        floor=('warm_graphite', .26, .3), slab=(1.3, 1.3), inlay=('rosso_marble', .14, .6), stage='disc',
+        brand='rosso_marble', stone='oxblood_plaster', wood=None, feature='panels', flute='oxblood_leather',
+        accent='#d0a088', dark='#4a2c24', ceil='#1e1817', ceiling='halo', led='#ffe9dc',
+        letters=('#e0b49c', '#ffc8a8', 1.3), halo=16.,
+        light=dict(col='#ffeee2', key=0, slot=0, ring=1900, cove=500, brand=900, wash=520, world=('#1c1514', .12)),
         lounge=dict(sofa=None, chairs='modern_arm_chair_01', table='coffee_table_round_01', pend='none',
-                    rug=('#b9b1a5', '#e6e0d6'), plant='potted_plant_04')),
-    'executive': dict(  # Mercedes E 180 — zarif, sakin, yönetici sınıfı; fildişi mermer + traverten yiv + pirinç, kasetli tavan
+                    rug=('#241a19', '#5a403b'), plant='potted_plant_04')),
+    'executive': dict(  # Mercedes E 180 — zarif yönetici sınıfı; Nero Marquina mermer, grafit traverten yivler, altın, kasetli tavan
         title='Executive Lounge',
-        floor=('ivory_marble', .2, .4), slab=(1.625, 1.625), inlay=('ivory_travertine', .16, .5), stage='disc',
-        brand='ivory_marble', stone='ivory_travertine', wood=None, feature='fluted', flute='ivory_travertine',
-        accent='#c9a865', dark='#7a6447', ceil='#d6cdbf', ceiling='coffer', led='#ffe8cc',
-        letters=('#7f6036', '#000000', 0.), halo=0.,
-        light=dict(col='#ffeccf', key=1800, slot=0, cove=760, brand=700, wash=600, world=('#2e2822', .2)),
+        floor=('nero_marquina', .16, .5), slab=(1.625, 1.625), inlay=('graphite_marble', .12, .65), stage='disc',
+        brand='nero_marquina', stone='graphite_travertine', wood=None, feature='fluted', flute='graphite_travertine',
+        accent='#d6b26a', dark='#4a3b26', ceil='#1c1a18', ceiling='coffer', led='#ffe6c4',
+        letters=('#e6c98e', '#ffd28c', 1.5), halo=20.,
+        light=dict(col='#ffeccf', key=1900, slot=0, cove=600, brand=950, wash=560, world=('#1a1714', .12)),
         lounge=dict(sofa=('leather_cream', '#ffffff'), chairs='mid_century_lounge_chair', table='round', pend='rings',
-                    rug=('#bba98e', '#ece3d3'), plant='potted_plant_02')),
+                    rug=('#1d1b19', '#4d4740'), plant='potted_plant_02')),
     'sedan': dict(      # BMW 320i — premium sedan, iş dünyası; antrasit + mavi-gri, çelik kanatlar, uzun lineer ışık bıçakları
         title='Executive Sedan Gallery',
         floor=('anthracite_stone', .22, .35), slab=(3.25, 1.625), inlay=('navy_marble', .15, .55), stage='slab',
@@ -1033,7 +1033,7 @@ SIG_ZONE = (-3.9, 1.3, -9.1, -2.6)            # sergileme alanı: zemin ızgaras
 
 FEATURE = {   # (aralık, genişlik, derinlik, pah)
     'slats': (.075, .045, .04, 0.), 'planks': (.16, .15, .03, .004), 'fins': (.3, .025, .12, 0.),
-    'blades': (.12, .02, .07, 0.), 'fluted': (.09, .08, .04, .03)}
+    'blades': (.12, .02, .07, 0.), 'fluted': (.09, .08, .04, .03), 'ribs': (.3, .07, .1, .006), 'panels': (.62, .6, .035, .012)}
 def feature_strip(tag, axis, c, a0, a1, face, group, accent_every=0):
     """tema duvar detayı. axis 'z': duvar z=c, x boyunca a0..a1, +z'ye bakar; axis 'x': duvar x=c, z boyunca, face (±1) yönüne bakar."""
     ft = TH['feature']
@@ -1045,8 +1045,8 @@ def feature_strip(tag, axis, c, a0, a1, face, group, accent_every=0):
         box(f'{tag}_Back', .02, H, a1 - a0, c + face * .01, H / 2, (a0 + a1) / 2, M['fin_bg'] if metal else M['reveal'], group if metal else DARK, origin=rand_origin())
     n = int((a1 - a0 - .01) / pitch); off = (a1 - a0 - n * pitch) / 2
     for i in range(n):
-        ac = accent_every and not metal and i % accent_every == accent_every // 2
-        m_ = M['champagne'] if metal else (M['bronze'] if ac else (M['flute'] if ft == 'fluted' else M['walnut']))
+        ac = accent_every and not metal and ft != 'panels' and i % accent_every == accent_every // 2
+        m_ = M['champagne'] if metal else (M['bronze'] if ac else (M['flute'] if ft in ('fluted', 'panels') else M['walnut']))
         g_ = PLAIN if (metal or ac) else group
         u = a0 + off + pitch * (i + .5)
         if axis == 'z':
@@ -1147,17 +1147,10 @@ def build_signature(lounge=False):
     box('MTG_LED_Plinth', BW1 - BW0 - .2, .01, .02, (BW0 + BW1) / 2, .07, MZ + .32, M['ledSoft'], EMISSIVE)
     # 3B harfler: şampanya metal, 4 cm kabartma + arkasında hale
     bx_ = (BW0 + BW1) / 2
-    # harfler: fırçalanmış şampanya + hafif iç ışıma (arkadan aydınlatmalı tabela; koyu mermer üstünde net okunur)
-    lc_, le_, ls_ = TH['letters']
-    lit = pbr('champagne_lit', None, lc_, rough=.3, metal=.85)
-    bl_ = lit.node_tree.nodes['Principled BSDF']; bl_.inputs['Emission Color'].default_value = (*hexrgb(le_), 1); bl_.inputs['Emission Strength'].default_value = ls_
-    text_mesh('MTG_Brand', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .03 + .02, lit, PLAIN, depth=.04, tracking=1.14)
-    if TH['halo']:
-        text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', .5, bx_, 3.05, MZ + .012, M['halo'], EMISSIVE, depth=.002, tracking=1.14)
-    text_mesh('MTG_BrandSub', 'PRIVATE  COLLECTION', .19, bx_, 2.36, MZ + .03 + .008, lit, PLAIN, depth=.016, tracking=1.5)
-    # hale kopyası gölge düşürmez (yalnız ışık); gerçek harfler üst yıkama ışığıyla duvara doğal, ince gölge bırakır
-    try: bpy.data.objects['MTG_Brand_Halo'].visible_shadow = False
-    except Exception: pass
+    # harfler sitede üretilir (Cinzel konturlarından pahlı 3B metal harf + yumuşak gölge + arkadan ışık): fırında yazı gölgesi
+    # olmaz, harf geometrisi bozulmaz, her ekranda keskin kalır. Burada yalnız yerleşim çapaları var.
+    anchor('MTG_BrandText', bx_, 3.05, MZ + .03, mtg_anchor='brandtext', size=.5, line='MTG  |  MOTORS')
+    anchor('MTG_BrandSubText', bx_, 2.36, MZ + .03, mtg_anchor='brandtext', size=.19, line='PRIVATE  COLLECTION')
     box('MTG_LED_BrandTop', BW1 - BW0 - .2, .01, .02, bx_, H - .02, MZ + .2, M['ledSoft'], EMISSIVE)
     # dijital ekran: sağ çıta alanında
     dx, dy = (BW1 + .12 + XR) / 2, 1.42
@@ -1205,6 +1198,23 @@ def build_signature(lounge=False):
                      [M['trav_a'], M['trav_b'], M['trav_c']], BAKE['wall_r'])
         led_v('RW', XR - .02, PORTAL[0] - .1, face='x')
         portal(+1, M['travertine'])             # sağ: sonraki salona cam geçiş
+
+    # --- medya duvarı (sağ duvar, lounge'un arkası): tema taşından yüzen panel + şampanya çerçeve + ince TV; ekran sitede
+    #     odadaki aracın sinematik görüntüsünü oynatır (MTG_TV çapası). Panel tema duvar detayının önünde durur.
+    if not lounge:
+        TVZ, TVY = -9.75, 1.86
+        PW_, PH_ = 2.75, 1.78
+        fd_ = FEATURE[TH['feature']][2] + .03
+        PX_ = XR - fd_ - .03                      # panelin ön yüzü
+        box('MediaWall_Back', .05, PH_, PW_, PX_ + .025, TVY, TVZ, M['marble'], BAKE['wall_r'], origin=rand_origin())
+        for nm_, sy_, sz_, cy_, cz_ in (('T', .03, PW_ + .06, TVY + PH_ / 2 + .015, TVZ), ('B', .03, PW_ + .06, TVY - PH_ / 2 - .015, TVZ),
+                                        ('N', PH_, .03, TVY, TVZ - PW_ / 2 - .015), ('S', PH_, .03, TVY, TVZ + PW_ / 2 + .015)):
+            box(f'MTG_MediaFrame_{nm_}', .07, sy_, sz_, PX_ + .015, cy_, cz_, M['champagne'], PLAIN)
+        box('MTG_LED_Media', .012, .01, PW_ - .1, PX_ - .01, TVY - PH_ / 2 - .04, TVZ, M['ledSoft'], EMISSIVE)
+        TW_, TH_ = 2.08, 1.17
+        box('MTG_TV_Body', .035, TH_ + .02, TW_ + .02, PX_ - .0175 - .02, TVY, TVZ, M['black'], PLAIN)
+        box('MTG_TV_Screen', .002, TH_, TW_, PX_ - .056, TVY, TVZ, M['black'], PLAIN)
+        anchor('MTG_TV', PX_ - .058, TVY, TVZ, yaw=-math.pi / 2, mtg_anchor='tv', w=TW_, h=TH_)
 
     # --- ön yüz (koridor): cam vitrin + giriş açıklığı + taş pilastrlar (oda modülüyle aynı)
     OPEN_X1 = -2.2

@@ -15,15 +15,32 @@ Odalar yine aynı MTG MOTORS ailesine ait.
 
 | Oda | Araç | Zemin | Duvar / detay | Tavan | Lounge | Işık |
 |---|---|---|---|---|---|---|
-| Sport Coupé Collection | BMW 420i | Grafit mermer, cilalı sergileme alanı | Füme mermer marka duvarı, ceviz çıta, şampanya | Stüdyo ışık paneli + 2 ışık kanalı | Siyah deri kanepe, konyak koltuklar | Dramatik, sıcak; düşük ortam ışığı |
-| Explorer SUV Lounge | Ford Kuga | Kum rengi taş (büyük kare plaka) | Doğal koyu taş, geniş koyu meşe paneller, koyu bronz | Koyu meşe kirişler + ışık paneli | Konyak deri kanepe, bitki kasaları | Güçlü ve sıcak |
-| Urban Collection | VW Golf | Orta gri porselen | Açık sıva, açık meşe çıta, çelik | Enine lineer ışık hatları | Gri kumaş kanepe, modern koltuk, ahşap sehpa | Nötr ve temiz |
+| Sport Coupé Collection | BMW 420i | Grafit mermer, siyah-altın Portoro sergileme alanı | Portoro mermer marka duvarı, kömür sıva, ceviz çıta, altın | Stüdyo ışık paneli + 2 ışık kanalı | Siyah deri kanepe, konyak koltuklar | Dramatik, sıcak; düşük ortam ışığı |
+| Explorer SUV Lounge | Ford Kuga | Koyu arduvaz, Emperador mermer sergileme alanı | Emperador (kahve) mermer marka duvarı, toprak sıva, koyu meşe paneller, koyu bronz | Koyu meşe kirişler + ışık paneli | Konyak deri kanepe, bitki kasaları | Güçlü ve sıcak |
+| Urban Collection | VW Golf | Koyu gri porselen, yeşil mermer sergileme alanı | Orman yeşili mermer marka duvarı, yeşil sıva, siyah meşe nervürler, pirinç | Enine lineer ışık hatları | Koyu yeşil-gri kadife kanepe, modern koltuk, lineer sarkıt | Nötr-sıcak, derin |
 | Dynamic City Collection | SEAT Ateca | Koyu beton | Antrasit taş, terracotta zemin üstünde bakır kanatlar | Çapraz geometrik LED şeritler | Terracotta kanepe, modern koltuk | Nötr-serin, bakır vurgu |
-| Compact Studio | Opel Corsa | Açık sıcak gri porselen (küçük plaka) | Traverten, geniş açık meşe paneller | Aracın üstünde ışık halkası | Kompakt: üç modern koltuk, yuvarlak sehpa | Aydınlık ve ferah |
-| Executive Lounge | Mercedes E 180 | Fildişi mermer, yuvarlak platform | Fildişi traverten yivli duvar, pirinç | Kasetli tavan + yumuşak panel | Krem deri kanepe, pirinç halka avize | Yumuşak ve sakin |
+| Compact Studio | Opel Corsa | Sıcak grafit porselen, bordo mermer yuvarlak platform | Bordo mermer marka duvarı, bordo sıva, bordo deri duvar panelleri, rose-gold | Aracın üstünde ışık halkası | Kompakt: üç modern koltuk, yuvarlak sehpa | Sıcak, butik |
+| Executive Lounge | Mercedes E 180 | Nero Marquina (siyah-beyaz damarlı) mermer, yuvarlak platform | Nero Marquina marka duvarı, grafit traverten yivli duvar, altın | Kasetli tavan + yumuşak panel | Krem deri kanepe, altın halka avize | Yumuşak, zarif, kontrastlı |
 | Executive Sedan Gallery | BMW 320i | Antrasit taş, lacivert mermer sergileme alanı | Mavi-gri sıva, çelik kanatlar, lacivert mermer marka duvarı | Boyuna ışık bıçakları + çerçeve | Lacivert kadife kanepe, lineer sarkıt | Serin ve keskin |
 
 Son oda olan MTG Lounge, ortak Signature dilinde kalıyor (turun kapanışı).
+
+### 2. tur: tüm odalar koyu premium dilde
+
+Seat (Dynamic) ve BMW 320i (Sedan) odaları referans alındı: koyu zemin, damarlı taş marka duvarı, düşük ortam ışığı, sıcak vurgu ışıkları.
+Diğer beş oda bu seviyeye çıkarıldı; her biri kendi taşı ve rengiyle ayrışıyor (Portoro, Emperador, yeşil mermer, bordo mermer, Nero Marquina).
+- **Yeni duvar detayları:** Golf'te geniş aralıklı siyah meşe nervürler (`ribs`), Corsa'da bordo deri duvar panelleri (`panels`).
+- **Medya duvarı:** Her salonun sağ duvarında, tema taşından yüzen panel üstünde ince bir TV var.
+  TV o salondaki aracın sinematik filmini oynatır.
+  - Araç sahnede ikinci bir kamerayla canlı çekilir: ön 3/4 yaklaşma, yan profil kaydırma, jant yakın planı, arka 3/4 vinç, üstten yörünge ve far detayı.
+  - Görüntüde sinema bantları ve MTG MOTORS imzası var.
+  - `CARS[].video` alanına bir mp4/webm yolu yazılırsa canlı çekim yerine o video oynatılır.
+  - Yalnız kameranın bulunduğu salonun TV'si ve yalnız ekran kadrajdayken çizilir (masaüstü ~30 kare/sn, mobil ~12).
+- **Marka yazısı:** MTG | MOTORS ve PRIVATE COLLECTION artık sitede, Cinzel fontunun konturlarından üretiliyor.
+  - Harfler pahlı metal: ön yüz fırçalanmış, kenarlar cilalı.
+  - Duvarda yumuşak gölge ve tema rengiyle arkadan aydınlatma var.
+  - Fırında yazı gölgesi yok; harf geometrisi bozulmuyor (eski sürümde E harfinin kolları eksikti).
+  - Alan derinliği efekti aracın arkasındaki salonu (marka duvarı dahil) keskin bırakır.
 
 ## Geçiş deneyimi
 
