@@ -1150,7 +1150,7 @@ def build_signature(lounge=False):
             ln = 9.0
             st = box(f'MTG_LED_Geo{i}', ln, .014, .03, CAR[0] + off * .57, H - .012, CAR[1] + off * .82, M['ledSoft'], EMISSIVE)
             rotate_mesh(st, yaw=math.radians(35), pivot=P(CAR[0] + off * .57, H, CAR[1] + off * .82))
-            fr = box(f'MTG_GeoFrame{i}', ln + .04, .03, .075, CAR[0] + off * .57, H - .006, CAR[1] + off * .82, M['champagne'], PLAIN)
+            fr = box(f'MTG_GeoFrame{i}', ln + .04, .008, .075, CAR[0] + off * .57, H - .004, CAR[1] + off * .82, M['champagne'], PLAIN)   # şeridin üstünde kasa plakası
             rotate_mesh(fr, yaw=math.radians(35), pivot=P(CAR[0] + off * .57, H, CAR[1] + off * .82))
     if cs == 'halo':
         # araç üstünde 2.6 m yarıçaplı ışık halkası: şampanya kasa + alt yüzde LED
