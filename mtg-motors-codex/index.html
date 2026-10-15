@@ -675,7 +675,7 @@ function buildSky() {
   });
   scene.add(new THREE.Mesh(geo, mat));
   // gece gökyüzü ışığı (serin, düşük) + ay ışığı; binanın gece görünümü pişmiş ışıktan gelir
-  scene.add(new THREE.HemisphereLight('#8ea3c8', '#2b2622', .38));
+  scene.add(new THREE.HemisphereLight('#8ea3c8', '#2b2622', .2));
   const sun = new THREE.DirectionalLight('#a9bde0', .22);
   sun.position.set(-30, 25, 40);
   scene.add(sun);
@@ -717,8 +717,8 @@ function buildStreet() {
   // ıslak yol: asfaltın altında yarım çözünürlüklü yansıma; asfalt yarı saydam → cephe ışıkları yolda süzülür (yalnız masaüstü,
   // yalnız dışarıdayken çizilir: updateStreetReflection)
   if (!isMobile) {
-    ground.material.transparent = true; ground.material.opacity = .8; ground.material.depthWrite = false; ground.renderOrder = -1;
-    streetReflector = new Reflector(new THREE.PlaneGeometry(120, 60), { clipBias: .003, color: '#6d6a66',
+    ground.material.transparent = true; ground.material.opacity = .86; ground.material.depthWrite = false; ground.renderOrder = -1;
+    streetReflector = new Reflector(new THREE.PlaneGeometry(120, 60), { clipBias: .003, color: '#2c2a28',
       textureWidth: Math.floor(innerWidth * .35), textureHeight: Math.floor(innerHeight * .35) });
     streetReflector.rotation.x = -Math.PI / 2; streetReflector.position.set(0, -.03, 32); scene.add(streetReflector);
   }
@@ -830,6 +830,13 @@ function glassWall(len, h, cx, cz, rotY, step = 2.4) {
 // Kodda yalnız sürgülü kanatlar (iç tarafta, ray kutusunun altında; açılınca sabit yan camların arkasına kayar).
 function buildFacadeGLB() {
   const f = BLENDER_ROOMS.facade.clone(true); f.name = 'Dış cephe + giriş'; scene.add(f);
+  const glassP = showroomMats().glassP, warmGlass = glassP.clone(); warmGlass.color.set('#e2cfae');   // vitrin camı: içeriden taşan ışık dışarıdan sıcak görünür
+  f.traverse((o) => {   // şimşir ve ağaç taçları: alttan sıcak ışıkla yalanmış yaprak (pişmiş değil, gerçek zamanlı)
+    if (o.isMesh && o.material === glassP) o.material = warmGlass;
+    if (o.isMesh && /hedge/.test(o.material?.name || '')) {
+      o.material = o.material.clone(); o.material.color.set('#4d6b3e'); o.material.emissive?.set('#2a2412'); o.material.emissiveIntensity = 1; o.material.envMapIntensity = .4;
+    }
+  });
   const b = f.getObjectByName('MTG_FacBrand'); if (b) f.add(brandHalo(b));
   const M = showroomMats(), bronze = std('#5a4632', .34, 1, .9);
   const W = 1.55, HD = 2.8;                     // kanat: net açıklık 3.0 m (iki kanat), ray altı 2.84 m
@@ -2405,7 +2412,7 @@ const ROOM_THEMES = {
 };
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
 const EXT_LOOK = { exp: 1.04, grade: [.95, .99, 1.06, 1.02, 1.08] };   // dış cephe: serin gece, sıcak ışıklar kontrastla öne çıkar
-const HUB_LOOK = { exp: 1.0, grade: [1.03, 1.0, .95, 1.02, 1.04] };    // resepsiyon + koridor: sıcak galeri tonu
+const HUB_LOOK = { exp: .92, grade: [1.03, 1.0, .95, 1.02, 1.06] };    // resepsiyon + koridor: sıcak galeri tonu
 const roomThemeOf = (k) => ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
 const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : roomThemeOf(k));
 
@@ -2722,12 +2729,16 @@ async function loadBlenderRooms() {
     const all = [...new Set([car, lounge, hub, facade, signature, ...Object.values(themes)].filter(Boolean))];
     await Promise.all(all.map(dedupeTextures));
     for (const g of all) {
+      // stüdyo ortam yansıması pişmiş yüzeyleri soluklaştırmasın: gece cephesi çok az, resepsiyon/koridor az, salonlar olduğu gibi
+      const envK = g === facade ? .07 : g === hub ? .16 : .3;
       g.scene.traverse((o) => {
         const ex = o.userData || {};
         if (ex.lightmap) jobs.push(lm(ex.lightmap).then((t) => o.traverse((m) => {
           if (!m.isMesh) return;
           const c = m.material.clone();
-          c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN; c.envMapIntensity = .3;
+          // plaza ve koridor zemini: açık taş + yoğun pişmiş ışık ACES'te patlıyor → zemin lightmap'i kısık (gece kontrastı korunur)
+          const floorK = /Floor/.test(o.name) ? (g === facade ? .5 : g === hub ? .74 : 1) : 1;
+          c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN * floorK; c.envMapIntensity = envK;
           c.onBeforeCompile = bakedOnly; c.customProgramCacheKey = () => 'mtg-baked';
           // masaüstünde zeminin altında Reflector var: zemin hafif şeffaf, yansıma süzülür
           if (/Floor/.test(o.name) && !isMobile) { c.transparent = true; c.opacity = .9; }
