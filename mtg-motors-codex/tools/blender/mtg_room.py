@@ -540,14 +540,15 @@ def led_strip(name, x0, x1, z0, z1, y=None, mat=None):
     """tavana gömülü lineer armatür (x veya z boyunca)."""
     return box(name, x1 - x0, .012, z1 - z0, (x0 + x1) / 2, (y if y is not None else H + .05), (z0 + z1) / 2, mat or M['led_line'], EMISSIVE)
 
-def slab_floor(tag, x0, x1, z0, z1, sw, sd):
+def slab_floor(tag, x0, x1, z0, z1, sw, sd, mat=None, group=None, y=0., joint=None):
     """x0 < x1, z0 > z1 (z öne doğru büyür). Plakalar alana tam bölünür."""
     nx, nz = max(1, round((x1 - x0) / sw)), max(1, round((z0 - z1) / sd))
     w, d = (x1 - x0) / nx, (z0 - z1) / nz
+    jt = JOINT if joint is None else joint
     for i in range(nx):
         for j in range(nz):
-            m = M['porcelain'] if RNG.random() < .55 else M['porcelain2']
-            plane_h(f'{tag}_{i}_{j}', w - JOINT, d - JOINT, x0 + w * (i + .5), 0, z0 - d * (j + .5), m, BAKE['floor'], origin=rand_origin())
+            m = mat or (M['porcelain'] if RNG.random() < .55 else M['porcelain2'])
+            plane_h(f'{tag}_{i}_{j}', w - jt, d - jt, x0 + w * (i + .5), y, z0 - d * (j + .5), m, group if group is not None else BAKE['floor'], origin=rand_origin())
 
 def ceil_grid(tag, x0, x1, z0, z1, xs_, zs_, led_x=(), led_z=()):
     """koyu tavan panelleri: xs_/zs_ ızgara çizgileri; ışık hattı olan çizgilerde 8 cm kanal."""
@@ -565,11 +566,21 @@ def ceil_grid(tag, x0, x1, z0, z1, xs_, zs_, led_x=(), led_z=()):
             box(f'{tag}_{i}_{j}', xb - xa, .04, zb - za, (xa + xb) / 2, H + .02, (za + zb) / 2, M['ceil_panel'], BAKE['ceil'], origin=rand_origin())
 
 HUB_LED = []                   # (x0, x1, z0, z1) — ışık alanları için
+HUB_SPOTS = []                 # koridor gömme spotları (x, z)
 def build_hub():
     LM_BOUNDS.update(floor=(-HUB_W_OUT, HUB_W_OUT, -HUB_D, 0.), ax=(-HUB_W_OUT, HUB_W_OUT), az=(-REC_D, 0.))
     # --- zemin: resepsiyon 12 × 8 plaka (2.725 × 1.25 m), koridor 2 × 40 plaka (3.0 × 1.3 m) + bronz şeritler
-    slab_floor('RecSlab', -HUB_XI, HUB_XI, 0., -REC_D, 2.725, 1.25)
-    slab_floor('CorSlab', -CW, CW, -REC_D, -HUB_D, 3.0, 1.3)
+    # sıcak fildişi mermer, büyük plaka (3.0 × 1.5), 2 mm derz; cilalı (sitede altında Reflector)
+    M['hub_floor'] = pbr('hub_floor', 'ivory_marble', '#ffffff', rough=.18, normal=.3, coat=.45, coat_rough=.05)
+    TILE['hub_floor'] = (3.0, 3.0)
+    slab_floor('RecSlab', -HUB_XI, HUB_XI, 0., -REC_D, 2.725, 1.25, mat=M['hub_floor'], joint=.002)
+    slab_floor('CorSlab', -CW, CW, -REC_D, -HUB_D, 3.0, 1.3, mat=M['hub_floor'], joint=.002)
+    # modül sınırlarında enine bronz kakma (koridor ritmi) + resepsiyon çevresinde bronz bordür
+    for r in range(N_ROWS + 1):
+        box(f'MTG_RunnerX_{r}', 4.4, .004, .02, 0, .002, -REC_D - 13.0 * r, M['bronze'], PLAIN)
+    for nm_, sx_, sz_, cx_, cz_ in (('F', 2 * HUB_XI - 1.2, .02, 0, -.6), ('B', 2 * HUB_XI - 1.2, .02, 0, -REC_D + .6),
+                                    ('L', .02, REC_D - 1.2, -HUB_XI + .6, -REC_D / 2), ('R', .02, REC_D - 1.2, HUB_XI - .6, -REC_D / 2)):
+        box(f'MTG_RecInlay_{nm_}', sx_, .004, sz_, cx_, .002, cz_, M['bronze'], PLAIN)
     plane_h('Floor_Grout', 2 * HUB_W_OUT, HUB_D, 0, -.002, -HUB_D / 2, M['grout'], DARK)
     for sx in (-1, 1):
         box(f'MTG_Runner_{sx}', .02, .004, HUB_D - REC_D - .4, sx * 2.2, .002, -(REC_D + HUB_D) / 2, M['bronze'], PLAIN)
@@ -582,13 +593,24 @@ def build_hub():
     # koridor ağzında bronz portal (ince çerçeve, koridorun başladığını vurgular)
     for sx in (-1, 1):
         box(f'MTG_Portal_{sx}', .08, H, .3, sx * (CW - .04), H / 2, -REC_D + .15, M['bronze'], PLAIN)
-    # --- resepsiyon yan duvarları (mikro çimento)
-    wall_x('RecWall_L', -HUB_XI, +1, -REC_D, 0, 0, WALL_TOP, M['micro'], BAKE['wall_l'])
-    wall_x('RecWall_R', HUB_XI, -1, -REC_D, 0, 0, WALL_TOP, M['micro'], BAKE['wall_r'])
+    # --- resepsiyon yan duvarları: traverten paneller + ortada dikey ceviz çıta bölümü (LED derzli)
+    for sx, grp in ((-1, BAKE['wall_l']), (1, BAKE['wall_r'])):
+        xw = sx * HUB_XI
+        wall_x(f'RecWall_Core{sx}', xw, -sx, -REC_D, 0, 0, WALL_TOP, M['reveal'], DARK)
+        stone_panels(f'RecTravS{sx}', ('x', xw, -sx), [(-REC_D, -6.2, .06, H - .05, 3, 2), (-3.8, 0, .06, H - .05, 3, 2)],
+                     [M['trav_a'], M['trav_b'], M['trav_c']], grp)
+        zs_ = [-6.2 + .075 * (k + .5) for k in range(int(2.4 / .075))]
+        for k, zc_ in enumerate(zs_):
+            box(f'RecSlat{sx}_{k}', .04, H, .045, xw - sx * .04, H / 2, zc_, M['walnut'], grp, origin=(0, 0, zc_))
+        for z_ in (-6.2, -3.8):
+            box(f'RecLed{sx}_{z_:.0f}_Chan', .03, H - .3, .05, xw - sx * .015, H / 2, z_, M['reveal'], DARK)
+            box(f'MTG_LED_RecW{sx}_{abs(z_):.0f}', .01, H - .3, .012, xw - sx * .03, H / 2, z_, M['ledSoft'], EMISSIVE)
     # --- koridor sonu (z = −62): koyu taş vurgu duvarı + büyük marka yazısı
     box('EndCore', 2 * CW + .4, WALL_TOP, .02, 0, WALL_TOP / 2, -HUB_D + .01, M['reveal'], DARK)
-    stone_panels('EndDark', ('z', -HUB_D + .02, +1), [(-CW - .2, CW + .2, .06, H - .05, 4, 2)], [M['dark_a'], M['dark_b']], BAKE['back'])
-    text_mesh('MTG_EndBrand', 'MTG  |  MOTORS', .36, 0, 3.15, -HUB_D + .05 + .03, M['brand'], PLAIN, depth=.015, tracking=1.18)
+    stone_panels('EndDark', ('z', -HUB_D + .02, +1), [(-CW - .2, CW + .2, .06, H - .05, 2, 2)], [M['marble']], BAKE['back'], depth=.03, gap=.004)
+    for sx in (-1, 1):
+        box(f'MTG_EndFrame{sx}', .04, H - .1, .06, sx * (CW + .2), H / 2, -HUB_D + .08, M['champagne'], PLAIN)
+    text_mesh('MTG_EndBrand', 'MTG  |  MOTORS', .36, 0, 3.15, -HUB_D + .05 + .03, M['champagne'], PLAIN, depth=.015, tracking=1.18)
     text_mesh('MTG_EndBrand_Halo', 'MTG  |  MOTORS', .36, 0, 3.15, -HUB_D + .05 + .018, M['halo'], EMISSIVE, depth=.002, tracking=1.18)
     box('MTG_End_Line', 2.6, .012, .02, 0, 2.62, -HUB_D + .06, M['bronze'], PLAIN)
     # --- tavan: resepsiyon ızgarası (x boyunca 3 ışık hattı) + koridor (boyuna 2 hat, kenarlarda gizli LED)
@@ -603,6 +625,13 @@ def build_hub():
     ceil_grid('CorCeil', -CW + COVE, CW - COVE, -REC_D, -HUB_D + COVE, cor_x, cor_z, led_x=[-1.1, 1.1])
     for sx in (-1, 1):
         led_strip(f'MTG_LED_Cor{sx}', sx * 1.1 - .03, sx * 1.1 + .03, -REC_D - .3, -HUB_D + .5); HUB_LED.append((sx * 1.1, sx * 1.1, -REC_D - .3, -HUB_D + .5))
+        # ritmik gömme spotlar: kenar panellerde 2.6 m arayla (vitrin önlerini ve zemindeki bronz çizgiyi yalar)
+        for k in range(20):
+            z_ = -REC_D - 1.3 - 2.6 * k
+            for o_ in (disc(f'MTG_CorSpot{sx}_{k}', .055, 0, H - .001, sx * 2.25, z_, M['led'], EMISSIVE, n=24),
+                       disc(f'MTG_CorSpotRim{sx}_{k}', .075, .055, H - .0012, sx * 2.25, z_, M['bronze'], PLAIN, n=24)):
+                for f_ in o_.data.polygons: f_.flip()
+            HUB_SPOTS.append((sx * 2.25, z_))
         box(f'MTG_LED_CorCove{sx}', .02, .01, HUB_D - REC_D - .4, sx * (CW - COVE + .03), H + .06, -(REC_D + HUB_D) / 2, M['ledSoft'], EMISSIVE)
     plane_h('Ceil_Void', 2 * HUB_W_OUT, HUB_D, 0, H + .09, -HUB_D / 2, M['reveal'], DARK, down=True)
     for nm_, x_, z_, sx_, sz_ in (('B', 0, -REC_D + COVE - .03, 2 * HUB_XI - 2 * COVE, .02),
@@ -625,7 +654,11 @@ def build_hub():
     for i, (px_, pz_) in enumerate(((-HUB_XI + .7, -REC_D + .7), (HUB_XI - .7, -REC_D + .7), (-4.6, -1.1), (4.6, -1.1))):
         planter(px_, pz_, 1.6, f'RecPlanter{i}', h=.8, r=.34)
     for i, sx in enumerate((-1, 1)):
-        planter(sx * 2.2, -HUB_D + .9, 1.5, f'EndPlanter{i}', h=.8, r=.34)
+        planter(sx * 2.2, -HUB_D + .9, 1.5, f'EndPlanter{i}', h=.8, r=.34, plant='potted_plant_04')
+    # modül sınırlarında (taş pilastrların önünde) koyu taş saksılarda bitkiler: koridora ritim ve doğal katman
+    for r in range(1, N_ROWS):
+        for sx in (-1, 1):
+            planter(sx * 2.3, -REC_D - 13.0 * r, 1.3, f'CorPlanter{r}{sx}', h=.62, r=.26, plant='potted_plant_02' if (r + sx) % 2 else 'potted_plant_04')
     # --- vekiller: cam cephe + modüller (koridora açılan vitrinler, iç ışık, zemin, arka duvar)
     build_facade(proxy=True)          # yeni cephe (vitrinler + içe çekilmiş portal) bake'te vekil
     px_plane('Plaza', 60, 30, 0, -.02, 15, M['plinth'], None)
@@ -646,7 +679,16 @@ def hub_lights():
         area(f'L_CorCove{sx}', sx * (CW - .1), H + .02, -(REC_D + HUB_D) / 2, .05, HUB_D - REC_D - .4, 900, '#ffeedd', aim=(sx * CW, 0, -(REC_D + HUB_D) / 2), spread=60, glossy=False)
         for r in range(N_ROWS):      # modüllerin kendi ışığı (koridora taşar)
             area(f'L_Mod{sx}_{r}', sx * (CW + 6.2), H - .05, -REC_D - 6.5 - 13 * r, 3.9, 7.2, 2400, '#fff6ec', glossy=False)
-    area('L_EndWash', 0, H - .05, -HUB_D + .3, 2 * CW, .05, 380, '#ffeedd', aim=(0, 0, -HUB_D + .02), spread=60, glossy=False)
+    area('L_EndWash', 0, H - .05, -HUB_D + .3, 2 * CW, .05, 520, '#ffe6c8', aim=(0, 0, -HUB_D + .02), spread=60, glossy=False)
+    for i, (x_, z_) in enumerate(HUB_SPOTS):          # gömme spotlar: zeminde yumuşak ışık havuzları (ritim)
+        bpy.ops.object.light_add(type='SPOT', location=P(x_, H - .02, z_))
+        l_ = bpy.context.active_object; l_.name = f'L_CorSpot{i}'; l_.data.energy = 140; l_.data.color = hexrgb('#ffe2bd')
+        l_.data.spot_size = math.radians(48); l_.data.spot_blend = .7; l_.data.shadow_soft_size = .05; l_.rotation_euler = (0, 0, 0)
+        try: l_.visible_glossy = False
+        except Exception: pass
+        LIGHTS.append(l_)
+    for sx in (-1, 1):                                  # resepsiyon ceviz bölümleri: üstten yıkama
+        area(f'L_RecSlat{sx}', sx * (HUB_XI - .25), H - .05, -5.0, .05, 2.4, 260, '#ffd6a0', aim=(sx * HUB_XI, 1.2, -5.0), spread=45, glossy=False)
     bpy.ops.object.light_add(type='POINT', location=P(9.6, H - 1.8, -6.3))
     pl = bpy.context.active_object; pl.data.energy = 70; pl.data.color = hexrgb('#ffdcb4'); pl.data.shadow_soft_size = .08
 
@@ -665,7 +707,7 @@ DOOR_HALF = 1.5                # sürgülü açıklık yarı genişliği (net ge
 VIT_X0, VIT_X1 = 5.0, 15.9     # vitrin açıklığı (|x|)
 M['band'] = emissive('band', '#ffe6c4', 1.6)          # yan cephedeki buzlu ışık bandı
 
-def frame_rect(name, x0, x1, y0, y1, z, mullions, grp, face=.05, depth=.12):
+def frame_rect(name, x0, x1, y0, y1, z, mullions, grp, face=.035, depth=.12):
     """bronz profil çerçeve: çevre + ara dikmeler (görünür yüz 5 cm)."""
     box(f'{name}_B', x1 - x0, face, depth, (x0 + x1) / 2, y0 + face / 2, z, M['bronze'], grp)
     box(f'{name}_T', x1 - x0, face, depth, (x0 + x1) / 2, y1 - face / 2, z, M['bronze'], grp)
@@ -689,6 +731,11 @@ def build_facade(proxy=False):
             box(f'MTG_FacPierBack{i}', b - a, FAC_GLZ, .02, (a + b) / 2, FAC_GLZ / 2, -.01, M['travertine'], G('plain'), tile=(1.2, 1.2))   # içeriden görünen kolon arkası
             box(f'MTG_FacUplight{i}', .16, .012, .1, (a + b) / 2, .012, FAC_FZ + .3, M['ledSoft'], G('emis'))
     box('MTG_FacAtticBack', 2 * FAC_XO, FAC_TOP - FAC_GLZ, .02, 0, (FAC_GLZ + FAC_TOP) / 2, -.01, M['micro'], G('plain'))
+    # vitrin üstünde bronz kanal + yukarı bakan LED: attika taşını aşağıdan sıyırır (gece cephe vurgusu)
+    for sx in (-1, 1):
+        x0, x1 = sorted((sx * VIT_X0, sx * VIT_X1))
+        box(f'MTG_FacGrazerCh{sx}', x1 - x0, .05, .08, (x0 + x1) / 2, FAC_GLZ + .025, FAC_FZ + .04, M['bronze'], G('plain'))
+        box(f'MTG_LED_FacGrazer{sx}', x1 - x0 - .1, .008, .03, (x0 + x1) / 2, FAC_GLZ + .054, FAC_FZ + .045, M['ledSoft'], G('emis'))
     box('MTG_FacCoping', 2 * FAC_XO + .1, FAC_COPE - FAC_TOP, FAC_FZ + .08, 0, (FAC_TOP + FAC_COPE) / 2, FAC_FZ / 2, M['black'], G('plain'))
     # --- vitrinler: 22 mm cam + bronz çerçeve (3 bölme)
     for sx in (-1, 1):
@@ -703,8 +750,27 @@ def build_facade(proxy=False):
     for i, x in enumerate((-2.6, 0., 2.6)):
         for j, z in enumerate((-.75, .05)):
             plane_h(f'MTG_PortSpot{i}{j}', .13, .13, x, FAC_GLZ - .004, z, M['led'], G('emis'), down=True)
-    plane_h('MTG_PortFloor', 2 * PORT_X, FAC_FZ - PORT_Z, 0, .006, (FAC_FZ + PORT_Z) / 2, M['porcelain'], G('floor'), origin=(-PORT_X, 0, 0))
-    plane_h('MTG_Apron', 2 * FAC_XO + .6, 2.75, 0, .008, FAC_FZ + 1.375, M['porcelain'], G('floor'), origin=(-FAC_XO, 0, 0))
+    M['paver'] = pbr('paver', 'pearl_porcelain', '#ffffff', rough=.55, normal=.4, coat=.08, coat_rough=.25)       # açık sıcak gri taş plak
+    M['hedge'] = pbr('hedge', 'velour_velvet', '#27401f', rough=.95, normal=1.6, use_map=False)                      # yaprak dokusu: normal ile
+    M['bark'] = pbr('bark', None, '#3a2f26', rough=.85)
+    M['paver_dark'] = pbr('paver_dark', 'anthracite_stone', '#ffffff', rough=.3, normal=.3, coat=.25, coat_rough=.1)  # giriş halısı / bordür bandı
+    TILE['paver'] = (2.4, 2.4); TILE['paver_dark'] = (2.4, 2.4)
+    plane_h('MTG_PortFloor', 2 * PORT_X, FAC_FZ - PORT_Z, 0, .006, (FAC_FZ + PORT_Z) / 2, M['paver_dark'], G('floor'), origin=(-PORT_X, 0, 0))
+    # plaza: 1.2 × 0.6 taş plaklar (bina önü → bordür); girişin önünde koyu taş "giriş halısı" + bronz çerçeve + zemine gömülü LED çizgiler
+    PZ0, PZ1, CARPET = FAC_FZ, 9.25, 3.4
+    if not proxy:
+        slab_floor('MTG_Plaza', -FAC_XO - .3, -PORT_X, PZ1, PZ0, 1.2, .6, mat=M['paver'], group=G('floor'), y=.008, joint=.004)
+        slab_floor('MTG_PlazaR', PORT_X, FAC_XO + .3, PZ1, PZ0, 1.2, .6, mat=M['paver'], group=G('floor'), y=.008, joint=.004)
+        slab_floor('MTG_PlazaC', -PORT_X, PORT_X, PZ1, PZ0 + CARPET, 1.2, .6, mat=M['paver'], group=G('floor'), y=.008, joint=.004)
+        slab_floor('MTG_Carpet', -PORT_X, PORT_X, PZ0 + CARPET, PZ0, 1.37, 1.13, mat=M['paver_dark'], group=G('floor'), y=.008, joint=.003)
+        slab_floor('MTG_CurbBand', -FAC_XO - .3, FAC_XO + .3, 9.85, PZ1, 1.2, .6, mat=M['paver_dark'], group=G('floor'), y=.008, joint=.004)
+        for sx in (-1, 1):
+            box(f'MTG_CarpetEdge{sx}', .025, .004, CARPET, sx * PORT_X, .01, PZ0 + CARPET / 2, M['champagne'], G('plain'))
+            box(f'MTG_LED_Path{sx}', .03, .006, CARPET - .3, sx * (PORT_X - .55), .011, PZ0 + CARPET / 2 + .1, M['ledSoft'], G('emis'))
+        box('MTG_CarpetEdgeF', 2 * PORT_X + .03, .004, .025, 0, .01, PZ0 + CARPET, M['champagne'], G('plain'))
+        box('MTG_Curb', 2 * FAC_XO + .6, .15, .25, 0, .075, 9.975, M['travertine'], G('plain'), tile=(1.2, 1.2))
+    else:
+        plane_h('MTG_Apron', 2 * FAC_XO + .6, 2.75, 0, .008, FAC_FZ + 1.375, M['porcelain'], G('floor'), origin=(-FAC_XO, 0, 0))
     # --- giriş cam duvarı (z = PORT_Z): sabit yan paneller + tepe camı + ray kutusu + zemin rayı (kanatlar kodda kayar)
     zg = PORT_Z
     for sx in (-1, 1):
@@ -720,6 +786,11 @@ def build_facade(proxy=False):
     box('MTG_Threshold', 2 * DOOR_HALF + .2, .012, .3, 0, .009, zg - .05, M['travertine'], G('plain'), tile=(1.2, 1.2))
     for sx in (-1, 1):
         box(f'MTG_Jamb{sx}', .06, FAC_GLZ, .14, sx * (PORT_X - .03), FAC_GLZ / 2, zg, M['bronze'], G('plain'))
+        # portal ağzında bronz çerçeve (taş yüzünden 2 cm taşar) + yanakta gizli dikey LED (kapıyı sıcak ışıkla çerçeveler)
+        box(f'MTG_PortFrame{sx}', .07, FAC_GLZ + .07, .05, sx * (PORT_X + .035), (FAC_GLZ + .07) / 2, FAC_FZ + .025, M['bronze'], G('plain'))
+        box(f'MTG_LED_PortV{sx}', .012, FAC_GLZ - .3, .012, sx * (PORT_X - .015), FAC_GLZ / 2, FAC_FZ - .2, M['ledSoft'], G('emis'))
+    box('MTG_PortFrameT', 2 * PORT_X + .14, .07, .05, 0, FAC_GLZ + .035, FAC_FZ + .025, M['bronze'], G('plain'))
+    box('MTG_LED_PortH', 2 * PORT_X - .3, .012, .012, 0, FAC_GLZ - .015, FAC_FZ - .2, M['ledSoft'], G('emis'))
     # --- tabela: taşa monte 3B harfler + arka hale ışığı (telefon yok)
     ty = (FAC_GLZ + FAC_TOP) / 2
     text_mesh('MTG_FacBrand', 'MTG  |  MOTORS', .74, 0, ty, FAC_FZ + .035, M['brand'], G('plain'), depth=.03, tracking=1.16)
@@ -743,17 +814,44 @@ def build_facade(proxy=False):
                 box(f'MTG_SideBandFr{sx}_{r}_{y}', .06, .05, z1 - z0, xf - sx * .22, y, (z0 + z1) / 2, M['bronze'], G('plain'))
         box(f'MTG_SideCoping{sx}', .55, FAC_COPE - FAC_TOP, HUB_D + FAC_FZ + .1, xf - sx * .22, (FAC_TOP + FAC_COPE) / 2, -(HUB_D - FAC_FZ) / 2, M['black'], G('plain'))
     box('MTG_FacBack', 2 * FAC_XO, FAC_TOP, .45, 0, FAC_TOP / 2, -HUB_D - .225, M['travertine'], G('plain'), tile=(2.4, 2.4))
+    if not proxy:
+        # vitrin önünde alçak traverten saksılar (bitki + gizli yukarı ışık), köşelerde ağaç saksıları
+        for sx in (-1, 1):
+            for j, xc in enumerate((7.6, 13.4)):
+                x_ = sx * xc
+                box(f'MTG_FacPlanter{sx}_{j}', 3.2, .48, .7, x_, .24 + .008, FAC_FZ + .75, M['travertine'], G('plain'), tile=(1.2, 1.2), bevel=.01, seg=2)
+                box(f'MTG_FacPlanterSoil{sx}_{j}', 3.06, .01, .56, x_, .48, FAC_FZ + .75, M['soil'], G('plain'))
+                for k, dx in enumerate((-1.0, 0., 1.0)):        # budanmış şimşir: üç yumuşak blok, hafif yükseklik farkı
+                    rounded_slab(f'MTG_FacHedge{sx}_{j}_{k}', .98, .5, .16, .42 + .05 * ((j + k) % 2), x_ + dx, .48, FAC_FZ + .75, M['hedge'], G('plain'), seg=6)
+                box(f'MTG_LED_FacPlanter{sx}_{j}', 3.0, .008, .02, x_, .5, FAC_FZ + .42, M['ledSoft'], G('emis'))
+            # köşelerde top budanmış ağaç (koyu bronz saksı, ince gövde, küresel taç): temiz, mimari peyzaj
+            cylinder(f'MTG_FacTreePot{sx}', .62, .55, .62, sx * 17.75, .008, 3.2, M['bronze'], G('plain'), verts=48)
+            cylinder(f'MTG_FacTreeTrunk{sx}', .06, .045, 2.1, sx * 17.75, .6, 3.2, M['bark'], G('plain'), verts=12)
+            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=4, radius=1.0, location=P(sx * 17.75, 3.35, 3.2))
+            cn = bpy.context.active_object; cn.name = f'MTG_FacTreeCrown{sx}'; cn.scale = (1.0, 1.0, .92)
+            bpy.ops.object.transform_apply(location=True, scale=True); bpy.ops.object.shade_smooth(); finish(cn, M['hedge'], G('plain'))
+            # bordür boyunca alçak aydınlatma babaları (bronz gövde + ışık yarığı)
+            for k in range(5):
+                x_ = sx * (6.0 + 2.6 * k)
+                cylinder(f'MTG_Bollard{sx}_{k}', .085, .085, .78, x_, .008, 8.85, M['bronze'], G('plain'), verts=24)
+                cylinder(f'MTG_LED_Bollard{sx}_{k}', .087, .087, .05, x_, .66, 8.85, M['ledSoft'], G('emis'), verts=24)
+            # sokak lambası: ince koyu bronz direk + lineer armatür (yola ve kaldırıma)
+            cylinder(f'MTG_LampPole{sx}', .06, .075, 6.6, sx * 12.4, .008, 9.55, M['bronze'], G('plain'), verts=20)
+            box(f'MTG_LampArm{sx}', .08, .06, 1.5, sx * 12.4, 6.55, 9.55 + .7, M['bronze'], G('plain'))
+            box(f'MTG_LampHead{sx}', .18, .07, .9, sx * 12.4, 6.5, 9.55 + 1.2, M['bronze'], G('plain'))
+            box(f'MTG_LED_LampHead{sx}', .14, .006, .82, sx * 12.4, 6.462, 9.55 + 1.2, M['led'], G('emis'))
     box('MTG_Roof', 2 * FAC_XO, .1, HUB_D, 0, FAC_TOP - .05, -HUB_D / 2, M['black'], G('plain'))
     if proxy:
         for o in tmp:
             o.name = 'PX_' + o.name; PROXY.append(o)
     else:
-        LM_BOUNDS.update(floor=(-FAC_XO - .3, FAC_XO + .3, PORT_Z, FAC_FZ + 2.75), ax=(-FAC_XO, FAC_XO), az=(-HUB_D - .5, FAC_FZ + .05), h=FAC_COPE)
+        LM_BOUNDS.update(floor=(-FAC_XO - .3, FAC_XO + .3, PORT_Z, 9.9), ax=(-FAC_XO, FAC_XO), az=(-HUB_D - .5, FAC_FZ + .05), h=FAC_COPE)
 
 def facade_lights():
     # alacakaranlık gökyüzü: cepheye mavi saat ışığı
-    bg.inputs['Color'].default_value = (*hexrgb('#8d96a6'), 1); bg.inputs['Strength'].default_value = 2.6
-    area('L_SkyFill', 0, 14, 30, 60, 20, 26000, '#c9d6ee', aim=(0, 2, 0), glossy=False)      # akşam göğünün ön cepheye yumuşak dolgusu
+    # gece (mavi saatin sonu): gök ışığı düşük ve serin, cepheyi sıcak yapay ışıklar taşır (lüks marka filmi kontrastı)
+    bg.inputs['Color'].default_value = (*hexrgb('#1c2536'), 1); bg.inputs['Strength'].default_value = .9
+    area('L_SkyFill', 0, 14, 30, 60, 20, 6500, '#9fb2d6', aim=(0, 2, 0), glossy=False)       # gece göğünün ön cepheye çok hafif dolgusu
     def spot(name, x, y, z, aim, power, size_deg, color='#ffe2bd', blend=.6):
         bpy.ops.object.light_add(type='SPOT', location=P(x, y, z))
         l = bpy.context.active_object; l.name = name; l.data.energy = power; l.data.color = hexrgb(color)
@@ -763,13 +861,29 @@ def facade_lights():
         except Exception: pass
         LIGHTS.append(l)
     for i, xc in enumerate((-16.35, -4.55, 4.55, 16.35)):           # kolon diplerinden taşı yalayan yukarı ışık
-        spot(f'L_Up{i}', xc, .05, FAC_FZ + .55, (xc, FAC_TOP * .8, FAC_FZ), 1500, 52, blend=.95)
+        spot(f'L_Up{i}', xc, .05, FAC_FZ + .55, (xc, FAC_TOP * .8, FAC_FZ), 2200, 48, blend=.95)
     for i, x in enumerate((-2.6, 0., 2.6)):                           # portal tavanındaki gömme spotlar
         for j, z in enumerate((-.75, .05)):
             spot(f'L_PortSpot{i}{j}', x, FAC_GLZ - .02, z, (x, 0, z), 260, 60, '#ffe6c8', .8)
     for sx in (-1, 1):                                                # vitrinlerin arkasındaki sıcak iç ışık
-        area(f'L_VitInt{sx}', sx * 10.4, 4.6, -3.5, 9.5, 5.0, 1800, '#fff0dc', glossy=False)
+        area(f'L_VitInt{sx}', sx * 10.4, 4.6, -3.5, 9.5, 5.0, 3200, '#ffe6c4', glossy=False)        # içeriden taşan sıcak ışık
     area('L_Lobby', 0, 4.6, -5.0, 7.5, 5.0, 380, '#fff0dc', glossy=False)
+    # giriş: portal yanaklarındaki dikey LED'ler + üst kenar, giriş halısındaki zemin çizgileri
+    for sx in (-1, 1):
+        area(f'L_PortV{sx}', sx * (PORT_X - .05), FAC_GLZ / 2, FAC_FZ - .2, .04, FAC_GLZ - .4, 260, '#ffd9a8', aim=(0, FAC_GLZ / 2, FAC_FZ - .2), spread=90, glossy=False)
+        area(f'L_Path{sx}', sx * (PORT_X - .55), .06, FAC_FZ + 1.8, .05, 3.0, 45, '#ffdcb0', aim=(sx * (PORT_X - .55), 2, FAC_FZ + 1.8), spread=120, glossy=False)
+        for j, xc in enumerate((7.6, 13.4)):            # saksılardan bitkilere ve cepheye yukarı ışık
+            spot(f'L_Planter{sx}{j}', sx * xc, .52, FAC_FZ + .42, (sx * xc, 3.0, FAC_FZ), 220, 70, '#ffdcb0', .9)
+        spot(f'L_Tree{sx}', sx * 17.75, .66, 3.2 + .7, (sx * 17.75, 3.4, 3.2), 420, 55, '#ffdcb0', .9)
+        for k in range(5):                               # babalar: zeminde küçük sıcak ışık havuzları
+            bpy.ops.object.light_add(type='POINT', location=P(sx * (6.0 + 2.6 * k), .66, 8.85))
+            b_ = bpy.context.active_object; b_.name = f'L_Bollard{sx}{k}'; b_.data.energy = 9; b_.data.color = hexrgb('#ffcf96'); b_.data.shadow_soft_size = .05
+            LIGHTS.append(b_)
+        area(f'L_Lamp{sx}', sx * 12.4, 6.42, 9.55 + 1.2, .14, .8, 900, '#ffe8cc', spread=140, glossy=False)
+    area('L_PortH', 0, FAC_GLZ - .05, FAC_FZ - .2, 2 * PORT_X - .4, .04, 320, '#ffd9a8', spread=90, glossy=False)
+    for sx in (-1, 1):                                    # attika sıyırıcı ışıklar
+        xc = sx * (VIT_X0 + VIT_X1) / 2
+        area(f'L_Grazer{sx}', xc, FAC_GLZ + .07, FAC_FZ + .06, VIT_X1 - VIT_X0 - .2, .04, 900, '#ffdcb0', aim=(xc, FAC_TOP + 2, FAC_FZ - .05), spread=35, glossy=False)
 
 
 # ---------------- CAM GEÇİŞ: aynı sıradaki komşu odalar arasında yan duvarda açıklık + cam panel ----------------
