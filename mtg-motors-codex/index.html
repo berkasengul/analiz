@@ -571,7 +571,7 @@ function canvasTexture(w, h, draw) {
 // sahnede ikinci bir kamerayla canlı çekilir: ön 3/4 dolly, yan profil kaydırma, jant yakın planı, arka 3/4 vinç, üstten
 // yörünge, far detayı (her plan ~5 sn, aralarda kısa karartma). Sinema oranı bantları + MTG MOTORS imzası görüntüye işlenir.
 // Yalnız kameranın bulunduğu salonun TV'si ve yalnız ekran kadrajdayken çizilir (masaüstü ~30 kare/sn, mobil ~12).
-const TV = { list: [], rt: null, cam: new THREE.PerspectiveCamera(30, 16 / 9, .05, 60), active: -1, t: 0, n: 0,
+const TV = { slow: false, list: [], rt: null, cam: new THREE.PerspectiveCamera(30, 16 / 9, .05, 60), active: -1, t: 0, n: 0,
   ovScene: new THREE.Scene(), ovCam: new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), ovQuad: null, fade: null, frustum: new THREE.Frustum(), pm: new THREE.Matrix4() };
 const TV_SHOTS = [   // araç yereli (önü +x, yan +z), L: araç boyu. from → to konum, bakış, fov
   { p0: [.98, .78, .62], p1: [.8, .7, .46], l0: [0, .58, 0], l1: [.05, .55, 0], fov: 30 },          // ön 3/4 yaklaşma
@@ -609,7 +609,7 @@ function buildTV(room, k) {
   // cam yüzey: ekranın önünde çok hafif ortam yansıması (kapalıyken de cam hissi)
   const glass = new THREE.Mesh(scr.geometry, new THREE.MeshStandardMaterial({ color: '#000', roughness: .06, metalness: 0, transparent: true, opacity: .14, envMapIntensity: .6, depthWrite: false }));
   glass.position.z = .005; a.add(glass);
-  const e = { k, scr, mat, spec, ov: null, video: null };
+  const e = { k, scr, mat, spec, ov: tvOverlayTexture(spec, k), video: null };
   if (spec.video) {
     const v = Object.assign(document.createElement('video'), { src: spec.video, muted: true, loop: true, playsInline: true, preload: 'none', crossOrigin: 'anonymous' });
     e.video = v; e.vtex = new THREE.VideoTexture(v); e.vtex.colorSpace = THREE.SRGBColorSpace;
@@ -631,6 +631,7 @@ function tvShot(st, L, t) {
   return Math.min(1, u / .06, (1 - u) / .06);            // plan geçişinde karartma
 }
 function updateTV(dt) {
+  if (window.__cineOff?.tv) return;
   const k = camRoom, e = TV.list.find((x) => x.k === k);
   if (TV.active !== k) {                                  // salon değişti: önceki TV bekleme ekranına, video durur
     for (const x of TV.list) if (x.k !== k) { x.mat.map = tvStandby; x.video?.pause(); }
@@ -641,11 +642,14 @@ function updateTV(dt) {
   if (!TV.frustum.intersectsObject(e.scr)) return;
   if (e.video) { if (e.video.paused) e.video.play().catch(() => {}); e.mat.map = e.vtex; return; }
   const st = stations[k]; if (!st) return;
+  // performans: kamera hareket ederken ve 360° incelemede TV son karesinde kalır (geçişler akıcı); durakta masaüstü ~20,
+  // yavaş cihazda ~8, mobilde ~5 kare/sn. Sahnenin ikinci kez çizilmesi bu yüzden kare bütçesini zorlamaz.
+  if (tween || inspect.active) return;
   TV.t += dt;
-  if (++TV.n % (isMobile ? 5 : 2)) return;
+  if (++TV.n % (isMobile ? 12 : TV.slow ? 8 : 3)) return;
   if (!TV.rt) {
-    const w = isMobile ? 384 : 768;
-    TV.rt = new THREE.WebGLRenderTarget(w, Math.round(w * 9 / 16), { type: THREE.HalfFloatType, samples: isMobile ? 0 : 4 });
+    const w = isMobile ? 320 : 640;
+    TV.rt = new THREE.WebGLRenderTarget(w, Math.round(w * 9 / 16), { type: THREE.HalfFloatType });
     TV.rt.texture.colorSpace = THREE.LinearSRGBColorSpace;
     TV.ovQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ transparent: true, depthTest: false, depthWrite: false, toneMapped: false }));
     TV.fade = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ color: '#000', transparent: true, depthTest: false, depthWrite: false }));
@@ -2842,7 +2846,9 @@ async function loadBlenderRooms() {
     const car = signature ? null : await roomAsset('room_car');              // yedek: eski ortak araç odası
     const lmCache = {};
     const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
-      if (isMobile && t.image.width > 1024) {          // mobil: lightmap yarı çözünürlük (8 oda × 3 harita GPU belleği)
+      // mobil: tüm lightmap'ler yarı çözünürlük; masaüstü: duvar + tavan yarı çözünürlük (ışık geçişleri yumuşak, fark görünmez),
+      // zemin 2048 kalır (gölge kenarları). 8 salon × 3 harita GPU belleğini ~%40 azaltır: dahili GPU'da donmayı önler
+      if ((isMobile || !/_floor/.test(file)) && t.image.width > 1024) {
         const c = document.createElement('canvas'); c.width = t.image.width / 2; c.height = t.image.height / 2;
         c.getContext('2d').drawImage(t.image, 0, 0, c.width, c.height); t.image = c;
       }
@@ -3571,13 +3577,23 @@ function updateUI(s) {
 
 // ---------- Döngü ----------
 let shadowElapsed=1,lastShadowS=-1,budgetTime=0,budgetFrames=0;
+// Çözünürlük bütçesi: kare süresi uzarsa çözünürlük hemen düşer; yükseltme yalnız art arda 3 ölçüm (6 sn) rahatsa ve son
+// değişiklikten 10–20 sn sonra yapılır. Eskiden eşik çevresinde her 3 sn'de bir aşağı-yukarı gidiyordu; her değişiklik efekt
+// zincirinin hedeflerini yeniden kurduğu için düzenli donma yaratıyordu. Geçiş sırasında yükseltme yapılmaz.
+let budgetGood = 0, budgetLock = 0;
 function updateRenderBudget(dt){
- budgetTime+=dt;budgetFrames++;
- if(budgetTime<3)return;
- const average=budgetTime/budgetFrames;
- const next=average>.024?Math.max(isMobile?.75:1,renderScale-.15):average<.017?Math.min(isMobile?1:2,devicePixelRatio,renderScale+.05):renderScale;
- if(Math.abs(next-renderScale)>.01){renderScale=next;renderer.setPixelRatio(renderScale);renderer.setSize(innerWidth,innerHeight);resizeComposer();}
- budgetTime=0;budgetFrames=0;
+  budgetTime += dt; budgetFrames++;
+  if (budgetTime < 2) return;
+  const average = budgetTime / budgetFrames, now = performance.now();
+  budgetTime = 0; budgetFrames = 0;
+  const lo = isMobile ? .75 : 1, hi = Math.min(isMobile ? 1 : 1.5, devicePixelRatio);
+  let next = renderScale;
+  if (average > .026 && renderScale > lo) { next = Math.max(lo, renderScale - .25); budgetGood = 0; budgetLock = now + 20000; }
+  else if (average < .0135 && renderScale < hi && now > budgetLock && !tween) {
+    if (++budgetGood >= 3) { next = Math.min(hi, renderScale + .1); budgetGood = 0; budgetLock = now + 10000; }
+  } else budgetGood = 0;
+  TV.slow = average > .022;
+  if (Math.abs(next - renderScale) > .01) { renderScale = next; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, innerHeight); resizeComposer(); }
 }
 // ---------- Sinematik katman (masaüstü) ----------
 // Efekt zinciri: sahne (derinlik dokusuyla) → alan derinliği → hafif parlama (yarım çözünürlük) → ton eşleme → oda renk
@@ -3639,6 +3655,7 @@ function prewarmGPU() {
       }
     }
   });
+  for (const e of TV.list) if (e.ov) try { renderer.initTexture(e.ov); } catch (er) {}   // TV imza katmanları
   const vis = rooms.map((r) => r.group.visible), svis = stations.map((st) => st.group.visible);
   rooms.forEach((r) => { r.group.visible = true; }); stations.forEach((st) => { st.group.visible = true; });
   try { renderer.compile(scene, camera); } catch (e) {}
