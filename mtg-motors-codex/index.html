@@ -1492,7 +1492,7 @@ function contactShadow(car, box, { far, blur, passes = 2, opacity, res = 512, pa
   car.add(cam); car.updateMatrixWorld(true);
   const depthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.BasicDepthPacking, side: THREE.DoubleSide });
   depthMat.onBeforeCompile = (sh) => {
-    sh.fragmentShader = sh.fragmentShader.replace('vec4( vec3( 1.0 - fragCoordZ ), opacity );', `vec4( vec3( 0.0 ), min( pow( 1.0 - fragCoordZ, 1.6 ) * ${darkness.toFixed(2)}, 1.0 ) );`   // alfa ≤ 1: HalfFloat efekt hedefinde negatif renk (parlama) olmasın);
+    sh.fragmentShader = sh.fragmentShader.replace('vec4( vec3( 1.0 - fragCoordZ ), opacity );', `vec4( vec3( 0.0 ), min( pow( 1.0 - fragCoordZ, 1.6 ) * ${darkness.toFixed(2)}, 1.0 ) );`);   // alfa ≤ 1: HalfFloat efekt hedefinde negatif renk olmasın
   };
   const meshes = []; car.traverse((o) => { if (o.isMesh && o.material?.map !== shadowTex && !o.userData.cs) { o.layers.enable(CS_LAYER); meshes.push(o); } });
   const prev = { bg: scene.background, fog: scene.fog, ov: scene.overrideMaterial, target: renderer.getRenderTarget(), alpha: renderer.getClearAlpha(), color: renderer.getClearColor(new THREE.Color()), sm: renderer.shadowMap.autoUpdate };
