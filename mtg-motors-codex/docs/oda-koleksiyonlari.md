@@ -127,3 +127,14 @@ Draw call sayısı aynı kaldı, üçgen sayısı %7 arttı (tavan kirişleri, k
 - **Açılış kadrajı:** Kamera karşı kaldırımda, göz hizasında. Giriş ve tabela sağda, başlık solda gökyüzünün üstünde, ıslak yol önde.
 - **Açılışta dolly:** Açılış sahnesinde kamera çok yavaş ilerler (30 saniyede yaklaşık 1,6 m); kullanıcı kaydırınca 1,6 saniyede yumuşakça bırakılır.
 - **Cephe camı:** Gece ortamı bir kez küp kamerayla çekilir; cam şehri, sokak lambalarını ve babaları yansıtır. Camın yüzey rengi koyu ve hafif bronz tonlu olduğu için iç mekân ve araçlar camdan net okunur.
+
+## Performans: HD ve Akıcı mod
+
+Sol alttaki düğme iki mod arasında geçiş yapar; seçim tarayıcıda hatırlanır.
+- **HD:** Tüm efektler açık (alan derinliği, parlama, zemin ve yol yansıması, TV'de canlı araç çekimi).
+- **Akıcı:** Efekt zinciri yerine doğrudan çizim (donanım kenar yumuşatma açık), yansımalar kapalı, TV'de sabit afiş, çözünürlük 1x.
+  Sahne her karede yalnız bir kez çizilir.
+- **Otomatik seçim:** Dahili / zayıf ekran kartında (Intel UHD/Iris, AMD Radeon Graphics, GeForce MX vb.) site Akıcı modda açılır.
+  HD'de en düşük çözünürlükte bile kareler ağır kalırsa (~22 fps altı) Akıcı moda kendiliğinden geçer ve kısa bir bildirim gösterir.
+- **Tanı:** Adresin sonuna `#fps` eklenirse sol üstte kare hızı, en yavaş kare, mod ve ekran kartı adı görünür.
+- **Doku belleği:** Oda dokuları 1024 px ile sınırlı (`tools/room_pack/tex_limit.mjs`); masaüstünde duvar/tavan lightmap'leri yarı çözünürlükte.

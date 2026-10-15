@@ -476,7 +476,7 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 const ACCENT = new THREE.Color('#e3122b');
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const NO_INERTIA = location.hash === '#test';
+const NO_INERTIA = /^#test(&|$)/.test(location.hash);
 
 // ---------- Renderer ----------
 const canvas = document.getElementById('scene');
@@ -493,6 +493,16 @@ renderer.setPixelRatio(renderScale);
 renderer.setSize(innerWidth, innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
+// ---------- Kalite modu: HD | Akıcı ----------
+// Akıcı mod: sinematik efekt zinciri (alan derinliği, parlama, SMAA) yerine doğrudan çizim (donanım kenar yumuşatma açık),
+// zemin ve ıslak yol yansıması kapalı (sahne ikinci kez çizilmez), TV canlı çekim yerine sabit afiş, çözünürlük 1x.
+// Dahili / zayıf ekran kartında kendiliğinden açılır; kare süresi uzun süre yüksek kalırsa da devreye girer.
+// Alt köşedeki düğmeyle elle seçilir ve tarayıcıda hatırlanır.
+const QUALITY = { lite: false, gpu: '', saved: null, slowN: 0 };
+try { const gl = renderer.getContext(), ext = gl.getExtension('WEBGL_debug_renderer_info'); QUALITY.gpu = String(ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER)); } catch (e) {}
+try { QUALITY.saved = localStorage.getItem('mtgQuality'); } catch (e) {}
+const WEAK_GPU = /Intel(?!.*Arc)|UHD|Iris|HD Graphics|Mali|Adreno|PowerVR|SwiftShader|llvmpipe|Basic Render|Radeon\(TM\) Graphics|Radeon Graphics|Vega \d+ Graphics|GeForce (MX|GT )|Microsoft/i;
+QUALITY.lite = QUALITY.saved ? QUALITY.saved === 'lite' : (WEAK_GPU.test(QUALITY.gpu) && !/[#&]test/.test(location.hash)) || /[#&]lite/.test(location.hash);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.autoUpdate = false;
 renderer.shadowMap.needsUpdate = true;
@@ -601,6 +611,21 @@ const tvStandby = canvasTexture(512, 288, (g, w, h) => {
   g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = 'rgba(214,180,120,.55)'; g.textAlign = 'center'; g.textBaseline = 'middle';
   g.fillText('MTG  |  MOTORS', w / 2, h / 2);
 });
+// akıcı modda TV afişi: araç adı + MTG MOTORS imzası (sahne ikinci kez çizilmez)
+function tvPosterTexture(spec, k) {
+  return canvasTexture(1024, 576, (g, w, h) => {
+    const r = g.createLinearGradient(0, 0, w, h); r.addColorStop(0, '#15120e'); r.addColorStop(1, '#050505'); g.fillStyle = r; g.fillRect(0, 0, w, h);
+    g.fillStyle = 'rgba(214,180,120,.85)'; g.fillRect(w / 2 - 40, h * .36, 80, 2);
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = '#e6cfa0'; g.fillText('MTG  |  MOTORS', w / 2, h * .26);
+    g.font = '500 20px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(230,207,160,.8)'; g.fillText(spec.brand.toUpperCase(), w / 2, h * .47);
+    g.font = '600 44px Cinzel, Georgia, serif'; g.fillStyle = '#f4ede2'; g.fillText(spec.model, w / 2, h * .58);
+    g.font = '500 18px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(255,255,255,.7)';
+    g.fillText(`${spec.year}  ·  ${spec.km} km  ·  ${spec.price}`, w / 2, h * .7);
+    g.font = '500 13px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(230,207,160,.6)';
+    g.fillText(`PRIVATE COLLECTION  ·  ${String(k + 1).padStart(2, '0')} / ${String(TOUR.length).padStart(2, '0')}`, w / 2, h * .86);
+  });
+}
 function buildTV(room, k) {
   const a = room.getObjectByName('MTG_TV'); if (!a || k >= TOUR.length) return;
   const w = a.userData.w || 2.08, h = a.userData.h || 1.17, spec = CARS[TOUR[k]];
@@ -641,6 +666,7 @@ function updateTV(dt) {
   TV.pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); TV.frustum.setFromProjectionMatrix(TV.pm);
   if (!TV.frustum.intersectsObject(e.scr)) return;
   if (e.video) { if (e.video.paused) e.video.play().catch(() => {}); e.mat.map = e.vtex; return; }
+  if (QUALITY.lite) { e.mat.map = e.poster ||= tvPosterTexture(e.spec, k); return; }
   const st = stations[k]; if (!st) return;
   // performans: kamera hareket ederken ve 360° incelemede TV son karesinde kalır (geçişler akıcı); durakta masaüstü ~20,
   // yavaş cihazda ~8, mobilde ~5 kare/sn. Sahnenin ikinci kez çizilmesi bu yüzden kare bütçesini zorlamaz.
@@ -821,7 +847,7 @@ function buildStreet() {
   // ıslak yol: asfaltın altında yarım çözünürlüklü yansıma; asfalt yarı saydam → cephe ışıkları yolda süzülür (yalnız masaüstü,
   // yalnız dışarıdayken çizilir: updateStreetReflection)
   if (!isMobile) {
-    ground.material.transparent = true; ground.material.opacity = .86; ground.material.depthWrite = false; ground.renderOrder = -1;
+    ground.material.transparent = true; ground.material.opacity = .86; ground.material.userData.reflFloor = true; ground.material.depthWrite = false; ground.renderOrder = -1;
     streetReflector = new Reflector(new THREE.PlaneGeometry(120, 60), { clipBias: .003, color: '#2c2a28',
       textureWidth: Math.floor(innerWidth * .35), textureHeight: Math.floor(innerHeight * .35) });
     streetReflector.rotation.x = -Math.PI / 2; streetReflector.position.set(0, -.03, 32); scene.add(streetReflector);
@@ -1889,6 +1915,7 @@ if (NO_INERTIA) window.__camAt = (S) => { const k = keys[Math.round(S)]; const d
 if (NO_INERTIA) window.__cine = (o) => { Object.assign(window.__cineOff ||= {}, o); };   // yalnızca #test: sinematik katman parçalarını kapat
 if (NO_INERTIA) window.__probe = (x, y, z, r = .3) => { const out = [], b = new THREE.Box3(), pt = new THREE.Vector3(x, y, z); scene.traverse((o) => { if (!o.isMesh || !o.visible) return; b.setFromObject(o); if (b.distanceToPoint(pt) < r) out.push(o.name + '|' + (o.material?.name || o.material?.type) + '|' + (o.material?.opacity ?? 1)); }); return out; };   // yalnızca #test
 if (NO_INERTIA) window.__hide = (names) => scene.traverse((o) => { if (names.includes(o.name)) o.visible = false; });   // yalnızca #test
+if (NO_INERTIA) window.__lights = () => { const c = {}; scene.traverse((o) => { if (o.isLight) { const k = o.type + (o.visible && o.intensity > 0 ? '' : '_off') + (o.castShadow ? '_shadow' : ''); c[k] = (c[k] || 0) + 1; } }); return c; };
 if (NO_INERTIA) window.__perf = () => ({ calls: renderer.info.render.calls, tris: renderer.info.render.triangles, geos: renderer.info.memory.geometries, tex: renderer.info.memory.textures, scale: renderScale });   // yalnızca #test
 // yalnızca #test: lastiklerin en alt noktası / aracın en alt noktası / zemin (dünya y, m)
 if (NO_INERTIA) window.__ground = () => stations.map((st, i) => {
@@ -2186,12 +2213,44 @@ roomTitle.innerHTML='<small></small><b></b>';document.body.appendChild(roomTitle
 const soundBtn=document.createElement('button');soundBtn.id='sound-btn';soundBtn.type='button';soundBtn.setAttribute('aria-pressed','false');soundBtn.setAttribute('aria-label','Ortam sesini aç');
 soundBtn.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="w" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 soundBtn.addEventListener('click',()=>toggleAmbient(soundBtn));document.body.appendChild(soundBtn);
+const qualityBtn=document.createElement('button');qualityBtn.id='quality-btn';qualityBtn.type='button';
+qualityBtn.addEventListener('click',()=>setQuality(!QUALITY.lite,true));document.body.appendChild(qualityBtn);
+const qualityToast=document.createElement('div');qualityToast.id='quality-toast';qualityToast.setAttribute('role','status');document.body.appendChild(qualityToast);
+// tanı: adrese #fps eklenirse sol üstte kare hızı, ekran kartı ve mod görünür (yavaşlık bildirirken ekran görüntüsü için)
+const fpsHud=/[?#&]fps/.test(location.href)?document.body.appendChild(Object.assign(document.createElement('div'),{id:'fps-hud'})):null;
+let fpsT=0,fpsN=0,fpsWorst=0;
+function updateFpsHud(dt){if(!fpsHud)return;fpsT+=dt;fpsN++;fpsWorst=Math.max(fpsWorst,dt);if(fpsT<.5)return;
+ fpsHud.textContent=`${Math.round(fpsN/fpsT)} fps · en yavaş kare ${Math.round(fpsWorst*1000)} ms · ${QUALITY.lite?'AKICI':'HD'} · ${renderScale.toFixed(2)}x · ${QUALITY.gpu}`;fpsT=0;fpsN=0;fpsWorst=0;}
+function showQualityToast(){qualityToast.textContent='Akıcı mod açıldı: efektler azaltıldı. HD için sol alttaki düğme.';qualityToast.classList.add('on');setTimeout(()=>qualityToast.classList.remove('on'),5200);}
+function setQuality(lite, persist) {
+  QUALITY.lite = lite;
+  if (persist) { QUALITY.saved = lite ? 'lite' : 'hd'; try { localStorage.setItem('mtgQuality', QUALITY.saved); } catch (e) {} }
+  scene.traverse((o) => { if (!o.isMesh) return; for (const m of [].concat(o.material)) if (m?.userData?.reflFloor) { m.userData.baseOpacity ??= m.opacity; m.opacity = lite ? 1 : m.userData.baseOpacity; } });
+  for (const e of TV.list) if (!e.video) e.mat.map = tvStandby;
+  TV.active = -2;
+  if (lite && renderScale > 1) { renderScale = 1; renderer.setPixelRatio(1); renderer.setSize(innerWidth, innerHeight); resizeComposer(); }
+  qualityBtn.textContent = lite ? 'AKICI' : 'HD'; qualityBtn.classList.toggle('lite', lite);
+  qualityBtn.setAttribute('aria-pressed', String(lite));
+  qualityBtn.setAttribute('aria-label', lite ? 'Akıcı mod açık: HD görüntüye geç' : 'HD görüntü açık: akıcı moda geç');
+  qualityBtn.title = (lite ? 'Akıcı mod (efektler azaltılmış)' : 'HD (tüm efektler)') + ' · tıklayınca değişir' + (QUALITY.gpu ? `\nEkran kartı: ${QUALITY.gpu}` : '');
+  renderer.shadowMap.needsUpdate = true;
+}
 const navStyle=document.createElement('style');navStyle.textContent=`
 #sound-btn{position:fixed;left:24px;bottom:28px;z-index:30;width:38px;height:38px;display:grid;place-items:center;cursor:pointer;
  background:rgba(14,16,18,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);color:#9d968b;transition:color .3s,border-color .3s}
 #sound-btn .w{opacity:.25;transition:opacity .3s}#sound-btn.on{color:#e2c592;border-color:rgba(201,170,120,.55)}#sound-btn.on .w{opacity:1}
 body.inspecting #sound-btn{opacity:0;pointer-events:none}
 @media (max-width:760px){#sound-btn{left:12px;bottom:14px;width:34px;height:34px}}
+#quality-btn{position:fixed;left:70px;bottom:28px;z-index:30;height:38px;padding:0 12px;cursor:pointer;font:600 10px/1 Inter,system-ui,sans-serif;letter-spacing:2px;
+ background:rgba(14,16,18,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);color:#9d968b;transition:color .3s,border-color .3s}
+#quality-btn:hover,#quality-btn.lite{color:#e2c592;border-color:rgba(201,170,120,.55)}
+body.inspecting #quality-btn{opacity:0;pointer-events:none}
+@media (max-width:760px){#quality-btn{left:52px;bottom:14px;height:34px;padding:0 10px}}
+#quality-toast{position:fixed;left:24px;bottom:78px;z-index:31;max-width:min(360px,calc(100vw - 32px));padding:10px 14px;font:500 12px/1.45 Inter,system-ui,sans-serif;color:#eee6d8;
+ background:rgba(14,16,18,.82);border:1px solid rgba(201,170,120,.4);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;pointer-events:none}
+#quality-toast.on{opacity:1;transform:none}
+#fps-hud{position:fixed;left:12px;top:64px;z-index:40;padding:6px 10px;font:500 11px/1.3 ui-monospace,monospace;color:#9f9;background:rgba(0,0,0,.7);pointer-events:none;max-width:calc(100vw - 24px)}
+@media (max-width:760px){#quality-toast{left:12px;bottom:58px}}
 #room-title{position:fixed;left:50%;top:15%;transform:translateX(-50%);z-index:20;pointer-events:none;opacity:0;text-align:center;
  color:#efe3c8;text-shadow:0 2px 24px rgba(0,0,0,.65)}
 #room-title small{display:block;font:500 10px/1 Inter,Arial,sans-serif;letter-spacing:.42em;text-transform:uppercase;color:#c9aa78;margin-bottom:14px}
@@ -2869,7 +2928,7 @@ async function loadBlenderRooms() {
           c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN * floorK; c.envMapIntensity = envK;
           c.onBeforeCompile = bakedOnly; c.customProgramCacheKey = () => 'mtg-baked';
           // masaüstünde zeminin altında Reflector var: zemin hafif şeffaf, yansıma süzülür
-          if (/Floor/.test(o.name) && !isMobile) { c.transparent = true; c.opacity = .9; }
+          if (/Floor/.test(o.name) && !isMobile) { c.transparent = true; c.opacity = .9; c.userData.reflFloor = true; }
           m.material = c; m.receiveShadow = true;
         })));
         if (!o.isMesh) return;
@@ -2880,7 +2939,7 @@ async function loadBlenderRooms() {
           const e = o.material.emissive.clone().multiplyScalar(/halo/.test(n) ? 1.1 : 1.6);
           o.material = new THREE.MeshBasicMaterial({ color: e, toneMapped: true }); o.castShadow = false;
         } else if (/MTG_glass/.test(n)) { o.material = M.glassP; o.castShadow = false; }
-        else if (/MTG_stage/.test(n)) { o.material = o.material.clone(); o.material.clearcoat = .35; o.material.envMapIntensity = .3; if (!isMobile) { o.material.transparent = true; o.material.opacity = .9; } }
+        else if (/MTG_stage/.test(n)) { o.material = o.material.clone(); o.material.clearcoat = .35; o.material.envMapIntensity = .3; if (!isMobile) { o.material.transparent = true; o.material.opacity = .9; o.material.userData.reflFloor = true; } }
         else if ('envMapIntensity' in o.material) o.material.envMapIntensity = .6;
       });
     }
@@ -3078,7 +3137,7 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
     if (!o.isMesh) return;
     const part = (/^MTG_(Floor)/.exec(o.name) || /^MTG_(Floor)/.exec(o.parent?.name || '') || [])[1];
     // zemin: grafit mermer dokusu + pişmiş ışık olduğu gibi (Blender'daki malzeme); altta Reflector ölçülü görünür → hafif bulanık yansıma
-    if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = th.refl; }
+    if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = th.refl; o.material.userData.reflFloor = true; }
     if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
   });
   brandLetters(room, th);
@@ -3093,7 +3152,7 @@ function premiumRoom(room, k) {
     const m = o.material = o.material.clone();
     if (part === 'Floor') {                                             // koyu, sıcak, cilalı taş: yansıma belirginleşir
       m.color.set('#4a3f37'); m.roughness = .16; m.envMapIntensity = .5;
-      if (!isMobile) m.opacity = .72;
+      if (!isMobile) { m.opacity = .72; m.userData.reflFloor = true; }
     } else if (part === 'Walls') m.color.multiply(warm);
     else if (part === 'Ceiling') m.color.set('#a08a76');
     else if (m.isMeshBasicMaterial && /LED/.test(n)) {                    // tavan çizgi ışıkları + gizli LED: sıcak altın
@@ -3586,7 +3645,10 @@ function updateRenderBudget(dt){
   if (budgetTime < 2) return;
   const average = budgetTime / budgetFrames, now = performance.now();
   budgetTime = 0; budgetFrames = 0;
-  const lo = isMobile ? .75 : 1, hi = Math.min(isMobile ? 1 : 1.5, devicePixelRatio);
+  const lo = isMobile ? .75 : 1, hi = QUALITY.lite ? 1 : Math.min(isMobile ? 1 : 1.5, devicePixelRatio);
+  // en düşük çözünürlükte bile kareler ağırsa (art arda 2 ölçüm, ~22 fps altı) ve kullanıcı HD'yi seçmediyse akıcı moda geç
+  if (!QUALITY.lite && !QUALITY.saved && !NO_INERTIA && renderScale <= lo + .01 && average > .045) { if (++QUALITY.slowN >= 2) { setQuality(true, false); showQualityToast(); } }
+  else QUALITY.slowN = 0;
   let next = renderScale;
   if (average > .026 && renderScale > lo) { next = Math.max(lo, renderScale - .25); budgetGood = 0; budgetLock = now + 20000; }
   else if (average < .0135 && renderScale < hi && now > budgetLock && !tween) {
@@ -3685,7 +3747,7 @@ function resizeComposer() {
 }
 const cineTmp = new THREE.Vector3();
 function renderFrame(dt) {
-  if (!composer) { renderer.render(scene, camera); return; }
+  if (!composer || QUALITY.lite) { renderer.render(scene, camera); return; }
   // odak + alan derinliği: duruşta araca, 360° incelemede incelenen araca
   let amt = 0;
   const w = SHOW.k >= 0 ? smoother(SHOW.w) : 0;
@@ -3790,7 +3852,8 @@ function toggleAmbient(btn) {
 const clock = new THREE.Clock();
 function frame() {
   if (document.hidden) { clock.getDelta(); requestAnimationFrame(frame); return; }
-  const dt = Math.min(clock.getDelta(), .05);
+  const rawDt = clock.getDelta(), dt = Math.min(rawDt, .05);
+  updateFpsHud(rawDt);
   const t = clock.elapsedTime;
   // sinematik atalet
   // kritik sönümlü yay: kamera yumuşak hızlanır, yumuşak durur (ani başlangıç yok)
@@ -3811,8 +3874,8 @@ function frame() {
   updateDoors(currentS);
   updateRooms();
   updateRoomPower(dt);
-  if (streetReflector) streetReflector.visible = camera.position.z > -1.5;   // ıslak yol yalnız dışarıdayken
-  if (floorReflector) floorReflector.visible = camera.position.z < 2.5;      // iç zemin yansıması dışarıda gerekmez
+  if (streetReflector) streetReflector.visible = !QUALITY.lite && camera.position.z > -1.5;   // ıslak yol yalnız dışarıdayken
+  if (floorReflector) floorReflector.visible = !QUALITY.lite && camera.position.z < 2.5;      // iç zemin yansıması dışarıda gerekmez
   if (updateSwing(dt) && shadowElapsed > (isMobile ? .5 : .2)) { renderer.shadowMap.needsUpdate = true; shadowElapsed = 0; }   // salınan aracın gölgesi
   if(inspect.active){updateInspect(dt);updateEkspertiz();prevYaw=null;}else updateCamera(currentS,t,dt);
   updateAtmosphere(t);
@@ -3822,7 +3885,7 @@ function frame() {
   updateTV(dt);
   updateUI(currentS);
   renderFrame(dt);
-  updateRenderBudget(dt);
+  updateRenderBudget(Math.min(rawDt, .25));
   requestAnimationFrame(frame);
 }
 
@@ -3841,6 +3904,7 @@ addEventListener('resize', () => {
 currentS = targetS = 0;
 captureNightEnv();
 buildComposer();
+setQuality(QUALITY.lite, false);
 prewarmGPU();
 requestAnimationFrame(frame);
 setTimeout(() => $('loader').classList.add('done'), 900);
