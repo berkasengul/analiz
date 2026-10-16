@@ -934,7 +934,7 @@ THEMES = {
                         # Dekor sade: koltuk, saksı bitkisi, dijital ekran ve halka avize yok (araç tek odak)
         title='Sport Coupé Collection',
         floor=('graphite_travertine', .44, .04), slab=(3.25, 1.625), inlay=('anthracite_stone', .4, .1), stage='slab',
-        brand='dark_stone', brand_rough=.5, brand_coat=.06, stone='charcoal_plaster', wood='dark_oak', feature='planks',
+        brand='bmw_stone', brand_rough=.38, brand_coat=.1, brand_grid=(4, 1, .006), vault_frame=(.025, .04), frame='#1c1c1d', stone='charcoal_plaster', wood='dark_oak', feature='planks',
         accent='#c9b893', dark='#34312d', ceil='#191919', ceiling='softbox', led='#f6f4f0', display=False,
         letters=('#d6c9ad', '#f4efe6', .8), halo=8.,
         light=dict(col='#f7f5f2', key=1700, slot=520, cove=420, brand=520, wash=420, world=('#18191b', .12)),
@@ -1007,6 +1007,7 @@ M['floor_inlay'] = pbr('floor_inlay', TH['inlay'][0], '#ffffff', rough=TH['inlay
 M['marble'] = pbr('brand_marble', TH['brand'], '#ffffff', rough=TH.get('brand_rough', .28), normal=.4, coat=TH.get('brand_coat', .4), coat_rough=.07)
 M['champagne'] = pbr('champagne', None, TH['accent'], rough=.24, metal=1.)
 M['bronze'] = pbr('bronze', None, TH['dark'], rough=.34, metal=1.)
+if TH.get('frame'): M['frame'] = pbr('frame', None, TH['frame'], rough=.38, metal=.9)   # vitrin profili (koyu saten metal)
 M['stone'] = tex_mat('wall_' + TH['stone'], TH['stone'], .55, 0., .55)
 M['trav_a'] = M['trav_b'] = M['trav_c'] = M['travertine'] = M['stone']
 if TH.get('wood'): M['walnut'] = pbr('wood_' + TH['wood'], TH['wood'], '#ffffff', rough=.5, normal=.7, coat=.3, coat_rough=.3)
@@ -1139,7 +1140,8 @@ def build_signature(lounge=False):
     # marka duvarı: 10 cm öne çıkan koyu mermer (3 × 2 panel), şampanya çerçeve, altta havada duran traverten bant
     MZ = BZ + .12
     box('BrandCore', BW1 - BW0, WALL_TOP, .1, (BW0 + BW1) / 2, WALL_TOP / 2, BZ + .07, M['reveal'], DARK)
-    stone_panels('Marble', ('z', MZ, +1), [(BW0, BW1, .95, H - .05, 3, 2)], [M['marble']], BAKE['back'], depth=.03, gap=.004)
+    _bg = TH.get('brand_grid', (3, 2, .004))   # (sütun, sıra, derz): BMW'de 4 büyük dikey levha, 6 mm derz
+    stone_panels('Marble', ('z', MZ, +1), [(BW0, BW1, .95, H - .05, _bg[0], _bg[1])], [M['marble']], BAKE['back'], depth=.03, gap=_bg[2])
     for nm_, sx_, sy_, cx_, cy_ in (('L', .04, H - .95, BW0 - .02, (H + .95) / 2), ('R', .04, H - .95, BW1 + .02, (H + .95) / 2)):
         box(f'MTG_BrandFrame_{nm_}', sx_, sy_, .06, cx_, cy_, MZ + .02, M['champagne'], PLAIN)
     box('MTG_BrandBand', BW1 - BW0 + .08, .03, .06, (BW0 + BW1) / 2, .95, MZ + .02, M['champagne'], PLAIN)
@@ -1172,11 +1174,12 @@ def build_signature(lounge=False):
     gw = VX1 - VX0
     box('MTG_Glass_Front', gw, H, .012, VX0 + gw / 2, H / 2, VZ, M['glass'], PLAIN)
     box('MTG_Glass_Side', .012, H, VZ - BZ - .05, VX1, H / 2, (VZ + BZ) / 2, M['glass'], PLAIN)
+    fw_, fd_ = TH.get('vault_frame', (.06, .08)); fm_ = M.get('frame', M['bronze'])   # BMW: 2.5 cm ince koyu metal profil
     for k in range(4):
-        box(f'MTG_Mullion_F{k}', .06, H, .08, VX0 + gw * k / 3 + (.03 if k == 0 else -.03 if k == 3 else 0), H / 2, VZ, M['bronze'], PLAIN)
-    for y in (.03, H - .03):
-        box(f'MTG_Glass_Rail_{y:.0f}', gw, .06, .08, VX0 + gw / 2, y, VZ, M['bronze'], PLAIN)
-    box('MTG_Glass_Track_S', .06, .006, VZ - BZ, VX1, .003, (VZ + BZ) / 2, M['bronze'], PLAIN)
+        box(f'MTG_Mullion_F{k}', fw_, H, fd_, VX0 + gw * k / 3 + (fw_ / 2 if k == 0 else -fw_ / 2 if k == 3 else 0), H / 2, VZ, fm_, PLAIN)
+    for y in (fw_ / 2, H - fw_ / 2):
+        box(f'MTG_Glass_Rail_{y:.0f}', gw, fw_, fd_, VX0 + gw / 2, y, VZ, fm_, PLAIN)
+    box('MTG_Glass_Track_S', fw_, .006, VZ - BZ, VX1, .003, (VZ + BZ) / 2, fm_, PLAIN)
 
     # --- sol duvar (x = XL, +x'e bakar): traverten paneller + ceviz bant + dikey LED derzler; önde önceki salona cam geçiş
     wall_x('Wall_L_Core', XL, +1, -D, 0, 0, WALL_TOP, M['reveal'], DARK, holes=(PORTAL,))

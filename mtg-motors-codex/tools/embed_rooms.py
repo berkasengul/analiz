@@ -10,7 +10,7 @@ if os.path.exists(old): os.remove(old)                     # eski tek dosya
 for glb in sorted(glob.glob(os.path.join(RD, 'room_*.glb'))):
     n = os.path.basename(glb)[:-4]
     out = {'models/rooms/' + n + '.glb': base64.b64encode(open(glb, 'rb').read()).decode()}
-    for p in sorted(glob.glob(os.path.join(RD, n + '_lm_*.webp'))):
+    for p in sorted(glob.glob(os.path.join(RD, n + '_lm_*.webp')) + glob.glob(os.path.join(RD, n + '_tv*.webp'))):   # lightmap + TV posteri
         out['models/rooms/' + os.path.basename(p)] = 'data:image/webp;base64,' + base64.b64encode(open(p, 'rb').read()).decode()
     dst = os.path.join(RD, n + '.js')
     with open(dst, 'w') as f:

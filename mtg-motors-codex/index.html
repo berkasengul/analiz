@@ -432,6 +432,9 @@ Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu
   // ownPlates: modelin kendi plakası (ikinci bayi plakası yok) · plateStyle: premium plaka · contactK: temas gölgesi yoğunluğu
   glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#6e0a14', metallic: .34, paintRough: .38, paintSpec: .3,
   coatRough: .05, paintEnv: 1.0, studioEnv: 'strips', ownPlates: true, plateStyle: 'premium', contactK: 1.2,
+  // salon TV'si: projede BMW videosu yok → video verilirse (video: 'media/….mp4') o oynar; yoksa HD'de 3D modelden canlı çekim,
+  // akıcı modda / bekleme ekranında bu poster (BMW 3D modelinin Blender render karesi)
+  tvPoster: 'models/rooms/room_sport_tv.webp',
   representation: '2021 M430i Coupé gövdesi; ilandaki renk ve donanımla boyandı',
 });
 Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa: kırmızı çizgi/kaliper Midline'a göre karartıldı)
@@ -645,13 +648,37 @@ function buildTV(room, k) {
   // cam yüzey: ekranın önünde çok hafif ortam yansıması (kapalıyken de cam hissi)
   const glass = new THREE.Mesh(scr.geometry, new THREE.MeshStandardMaterial({ color: '#000', roughness: .06, metalness: 0, transparent: true, opacity: .14, envMapIntensity: .6, depthWrite: false }));
   glass.position.z = .005; a.add(glass);
-  const e = { k, scr, mat, spec, ov: tvOverlayTexture(spec, k), video: null };
-  if (spec.video) {
+  const e = { k, scr, mat, spec, ov: tvOverlayTexture(spec, k), video: null, posterImg: null };
+  if (spec.tvPoster) tvPosterImage(e);
+  if (spec.video) {   // araç videosu: sessiz, döngü, satır içi; yalnız salon etkin ve ekran kadrajdayken oynar (updateTV)
     const v = Object.assign(document.createElement('video'), { src: spec.video, muted: true, loop: true, playsInline: true, preload: 'none', crossOrigin: 'anonymous' });
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
     e.video = v; e.vtex = new THREE.VideoTexture(v); e.vtex.colorSpace = THREE.SRGBColorSpace;
+    v.addEventListener('loadedmetadata', () => {   // ekranı doldur, taşma yok: farklı en-boy oranında ortadan kırp (cover)
+      const va = v.videoWidth / v.videoHeight, sa = w / h, t = e.vtex;
+      if (va > sa) { t.repeat.set(sa / va, 1); t.offset.set((1 - sa / va) / 2, 0); } else { t.repeat.set(1, va / sa); t.offset.set(0, (1 - va / sa) / 2); }
+    });
+    v.addEventListener('error', () => { e.vfail = true; });   // dosya yok / açılamadı: poster kalır (siyah ekran yok)
   }
   TV.list.push(e);
 }
+// TV posteri: araç görseli (spec.tvPoster) + canlı yayınla aynı alt / üst bant imzası. file:// açılışında gömülü kopyadan okunur.
+function tvPosterImage(e) {
+  if (e.posterImg) return e.posterImg;
+  const c = document.createElement('canvas'); c.width = 1024; c.height = 576;
+  const t = e.posterImg = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+  const img = new Image();
+  img.onload = () => {
+    const g = c.getContext('2d'), k = Math.max(c.width / img.width, c.height / img.height), iw = img.width * k, ih = img.height * k;
+    g.drawImage(img, (c.width - iw) / 2, (c.height - ih) / 2, iw, ih);
+    g.drawImage(e.ov.image, 0, 0, c.width, c.height);
+    t.needsUpdate = true; e.posterReady = true;
+    if (e.mat.map === tvStandby) e.mat.map = t;
+  };
+  img.src = window.MTG_ROOMS?.[e.spec.tvPoster] || e.spec.tvPoster;
+  return t;
+}
+const tvIdle = (x) => (x.posterReady ? x.posterImg : tvStandby);   // salon dışı / video hazır değil: poster (yoksa bekleme ekranı)
 const tvV = new THREE.Vector3(), tvL = new THREE.Vector3(), tvV2 = new THREE.Vector3();
 function tvShot(st, L, t) {
   const n = Math.floor(t / TV_SHOT_DUR), u = (t % TV_SHOT_DUR) / TV_SHOT_DUR, sh = TV_SHOTS[n % TV_SHOTS.length];
@@ -670,14 +697,17 @@ function updateTV(dt) {
   if (window.__cineOff?.tv) return;
   const k = camRoom, e = TV.list.find((x) => x.k === k);
   if (TV.active !== k) {                                  // salon değişti: önceki TV bekleme ekranına, video durur
-    for (const x of TV.list) if (x.k !== k) { x.mat.map = tvStandby; x.video?.pause(); }
+    for (const x of TV.list) if (x.k !== k) { x.mat.map = tvIdle(x); x.video?.pause(); }
     TV.active = k; TV.t = 0;
   }
   if (!e) return;
   TV.pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); TV.frustum.setFromProjectionMatrix(TV.pm);
-  if (!TV.frustum.intersectsObject(e.scr)) return;
-  if (e.video) { if (e.video.paused) e.video.play().catch(() => {}); e.mat.map = e.vtex; return; }
-  if (QUALITY.lite) { e.mat.map = e.poster ||= tvPosterTexture(e.spec, k); return; }
+  if (!TV.frustum.intersectsObject(e.scr)) { if (e.video && !e.video.paused) e.video.pause(); return; }   // ekran görünmüyor: video durur
+  if (e.video && !e.vfail) {
+    if (e.video.paused && !e.vplay) e.vplay = e.video.play().catch(() => { e.vfail = true; }).finally(() => { e.vplay = null; });   // autoplay engeli → poster
+    e.mat.map = e.video.readyState >= 2 && !e.video.paused ? e.vtex : tvIdle(e); return;
+  }
+  if (QUALITY.lite) { e.mat.map = e.posterReady ? e.posterImg : (e.poster ||= tvPosterTexture(e.spec, k)); return; }
   const st = stations[k]; if (!st) return;
   // performans: kamera hareket ederken ve 360° incelemede TV son karesinde kalır (geçişler akıcı); durakta masaüstü ~20,
   // yavaş cihazda ~8, mobilde ~5 kare/sn. Sahnenin ikinci kez çizilmesi bu yüzden kare bütçesini zorlamaz.
@@ -2771,8 +2801,10 @@ const ROOM_THEMES = {
   // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat / stageTint: araç altı taş plakanın cilası ve tonu ·
   // brandK / brandTint: marka duvarı taşının pişmiş ışık çarpanı ve nötr tonu · woodTint: ahşabın tonu (turuncu parlamaz) ·
   // display: ekran parlaklığı · dof: alan derinliği çarpanı (0: marka yazısı arka planda tam net) · letterShadow: yazının duvardaki
-  // gölge yoğunluğu · wallLift: duvar / ahşap pişmiş ışığına nötr dolgu · floorRough: zemin pürüzlülüğü (parlak ışık şeridi yansıması yok). keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
-  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .5, brandTint: '#cfcac2', woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75 },
+  // gölge yoğunluğu · wallLift: duvar / ahşap pişmiş ışığına nötr dolgu · floorRough: zemin pürüzlülüğü (parlak ışık şeridi yansıması yok) ·
+  // glass: vitrin / geçiş camları (ortak süt beyazı cam yerine temiz, koyu tonlu, ölçülü yansımalı). keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
+  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .5, brandTint: '#cfcac2', woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75,
+    glass: { color: '#1b2023', roughness: .015, metalness: 0, transparent: true, opacity: .1, envMapIntensity: .42, specularIntensity: .9, depthWrite: false, side: THREE.DoubleSide } },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
@@ -3432,6 +3464,7 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
       o.material = o.material.clone(); o.material.roughness = Math.max(o.material.roughness, th.floorRough); o.material.clearcoat = 0;
       o.material.envMapIntensity = Math.min(o.material.envMapIntensity ?? .3, .15); if (o.material.userData.reflFloor) o.material.opacity = 1;
     }
+    if (th.glass && /^MTG_Glass_(Front|Side|Vitrine|Portal[LR])$/.test(o.name)) o.material = th._glassMat ||= new THREE.MeshPhysicalMaterial(th.glass);   // temiz, koyu tonlu cam
     if (th.pillowTint && mn === 'MTG_pillow_rust') { o.material = o.material.clone(); o.material.color.set(th.pillowTint); }   // kanepe yastığı: turuncu vurgu yerine nötr
   });
   brandLetters(room, th);
