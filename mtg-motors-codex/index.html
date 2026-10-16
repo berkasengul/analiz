@@ -451,7 +451,9 @@ Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa
 });
 Object.assign(CARS[6], {   // Ford Kuga — beyaz, Titanium iki tonlu jant, siyah çamurluk kaplamaları
   glb: 'models/web/ford-kuga.glb', rotX: 0, rotY: 0, curated: false, color: '#eceeef', metallic: .06,
-  studioEnv: 'strips', coatRough: .06, paintEnv: .85, paintRough: .36, contactK: 1.2,   // beyaz boya: uzun yumuşak şerit yansımalar, patlama yok
+  studioEnv: 'strips', coatRough: .08, paintEnv: .62, paintRough: .4, contactK: 1.25,   // beyaz boya: uzun yumuşak şerit yansımalar, patlama yok
+  // salon TV'si: projede Kuga videosu yok → 3D modelden alınmış sade poster (akıcı mod / bekleme); HD canlı çekimde de yazı bandı yok
+  tvPoster: 'models/rooms/room_suv_tv.webp', tvClean: true,
   rimColor: '#9ea3a9', caliperColor: '#2f3236',
   materials: { silver_PRIMARY: 'paint', vehicle_generic_smallspecmap_PRIMARY: 'matte',
     plastic_detail: 'darkChrome', 'plastic_detail.003': 'gloss', 'plastic_detail.004': 'gloss', 'plastic_detail.005': 'matte',
@@ -676,7 +678,7 @@ function tvPosterImage(e) {
   img.onload = () => {
     const g = c.getContext('2d'), k = Math.max(c.width / img.width, c.height / img.height), iw = img.width * k, ih = img.height * k;
     g.drawImage(img, (c.width - iw) / 2, (c.height - ih) / 2, iw, ih);
-    g.drawImage(e.ov.image, 0, 0, c.width, c.height);
+    if (!e.spec.tvClean) g.drawImage(e.ov.image, 0, 0, c.width, c.height);
     t.needsUpdate = true; e.posterReady = true;
     if (e.mat.map === tvStandby) e.mat.map = t;
   };
@@ -736,7 +738,7 @@ function updateTV(dt) {
   const prevT = renderer.getRenderTarget();
   renderer.setRenderTarget(TV.rt); renderer.clear();
   renderer.render(scene, TV.cam);
-  TV.fade.material.opacity = 1 - vis; TV.ovQuad.material.map = e.ov;
+  TV.fade.material.opacity = 1 - vis; TV.ovQuad.material.map = e.ov; TV.ovQuad.visible = !e.spec.tvClean;   // tvClean: bantlı yazı imzası yok (sade görüntü)
   renderer.autoClear = false; renderer.render(TV.ovScene, TV.ovCam); renderer.autoClear = true;
   renderer.setRenderTarget(prevT);
   hide.forEach((o, i) => { o.visible = was[i]; });
@@ -2884,8 +2886,8 @@ const ROOM_THEMES = {
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
   // Ford Kuga (3. tur): BMW ile aynı yerleşim ve kalite, Ford'a özgü palet — derin petrol mavisi sıva, fırçalanmış gümüş kanatlar,
   // açık gri taş marka duvarında koyu gri metal MTG | MOTORS, mat açık-orta gri zemin; nötr-serin ışık (beyaz Kuga rengini korur)
-  suv:       { name: 'Explorer SUV Lounge',     letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 4.0, rimI: 4.4, light: '#f4f7fa', lightI: 2.8, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
-    stageCoat: .04, stageTint: '#d4d6d8', brandK: .6, brandTint: '#b2b5b8', brandRough: .7, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'],
+  suv:       { name: 'Explorer SUV Lounge',     letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 2.9, rimI: 3.2, light: '#f4f7fa', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
+    stageCoat: .04, stageTint: '#a9acaf', floorK: .62, floorTint: '#c4c6c8', brandK: .6, brandTint: '#b2b5b8', brandRough: .7, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'],
     pillowTint: '#3d4a52', beam: '#2c353b', matTint: { MTG_finbg_slate_cool: '#86aab8' }, dof: 0, letterShadow: .28, wallLift: 1.75, floorRough: .75,
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
@@ -3550,6 +3552,9 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
     }
     if (th.wallLift && /^MTG_(wood_|wall_)/.test(mn) && o.material.lightMap) {   // nötr dolgu: duvar ve ahşap bir ton açılır, araçla ton ayrımı
       o.material = o.material.clone(); o.material.lightMapIntensity *= th.wallLift;
+    }
+    if (th.floorK && /^MTG_floor_/.test(mn) && o.material.lightMap) {   // açık taş zeminde pişmiş ışık patlaması: zemin ve platform bir ton kısık
+      o.material = o.material.clone(); o.material.lightMapIntensity *= th.floorK; if (th.floorTint && mn !== 'MTG_floor_inlay') o.material.color.set(th.floorTint);
     }
     if (th.floorRough && /^MTG_floor_/.test(mn)) {        // mat taş: tavan / LED ışıklarının uzun parlak şerit yansıması oluşmaz
       o.material = o.material.clone(); o.material.roughness = Math.max(o.material.roughness, th.floorRough); o.material.clearcoat = 0;
