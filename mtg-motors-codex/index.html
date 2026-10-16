@@ -477,9 +477,8 @@ const ACCENT = new THREE.Color('#e3122b');
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const NO_INERTIA = /^#test(&|$)/.test(location.hash);
-// Yerleşim: 'brutal' (varsayılan) = tek brütalist galeri salonu, araçlar iki yanda ışık havuzlarında (konfigüratör);
-// 'rooms' = önceki tema odaları (adrese #rooms eklenerek açılır).
-const LAYOUT = /[#&]rooms/.test(location.hash) ? 'rooms' : 'brutal', BRUTAL = LAYOUT === 'brutal';
+// Yerleşim: 'rooms' (varsayılan) = tema odaları; 'brutal' = deneme amaçlı tek brütalist galeri salonu (adrese #brutal eklenerek açılır).
+const LAYOUT = /[#&]brutal/.test(location.hash) ? 'brutal' : 'rooms', BRUTAL = LAYOUT === 'brutal';
 
 // ---------- Renderer ----------
 const canvas = document.getElementById('scene');

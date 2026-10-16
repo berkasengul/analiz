@@ -139,9 +139,9 @@ Sol alttaki düğme iki mod arasında geçiş yapar; seçim tarayıcıda hatırl
 - **Tanı:** Adresin sonuna `#fps` eklenirse sol üstte kare hızı, en yavaş kare, mod ve ekran kartı adı görünür.
 - **Doku belleği:** Oda dokuları 1024 px ile sınırlı (`tools/room_pack/tex_limit.mjs`); masaüstünde duvar/tavan lightmap'leri yarı çözünürlükte.
 
-## Brütalist galeri (varsayılan düzen)
+## Brütalist galeri (deneme düzeni)
 
-Site artık varsayılan olarak tek hacimli brütalist beton galeriyle açılır; önceki tema odaları adrese `#rooms` eklenerek açılır.
+Varsayılan düzen tema odalarıdır. Brütalist beton galeri yalnız deneme amaçlı durur; adrese `#brutal` eklenerek açılır.
 
 - **Mimari** (`tools/blender/mtg_brutal.py`): lobi (h 4.8 m) → 1.2 m kalın geçiş duvarında bronz çerçeveli portal → 12 m yüksekliğinde salon.
   Tavanda 6.5 m arayla kirişler, ortada ışıklık yarığı, sonda büyük ışıklık; duvarlarda derz ve gölge boşlukları, modül sınırlarında dikey LED çizgileri.
