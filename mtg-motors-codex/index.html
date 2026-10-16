@@ -502,7 +502,10 @@ const QUALITY = { lite: false, gpu: '', saved: null, slowN: 0 };
 try { const gl = renderer.getContext(), ext = gl.getExtension('WEBGL_debug_renderer_info'); QUALITY.gpu = String(ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER)); } catch (e) {}
 try { QUALITY.saved = localStorage.getItem('mtgQuality'); } catch (e) {}
 const WEAK_GPU = /Intel(?!.*Arc)|UHD|Iris|HD Graphics|Mali|Adreno|PowerVR|SwiftShader|llvmpipe|Basic Render|Radeon\(TM\) Graphics|Radeon Graphics|Vega \d+ Graphics|GeForce (MX|GT )|Microsoft/i;
-QUALITY.lite = QUALITY.saved ? QUALITY.saved === 'lite' : (WEAK_GPU.test(QUALITY.gpu) && !/[#&]test/.test(location.hash)) || /[#&]lite/.test(location.hash);
+// yazılımla çizim (tarayıcıda donanım hızlandırma kapalı / ekran kartı sürücüsü engelli): 3B sahne işlemciyle çizilir, her kare
+// saniyeler sürer. Akıcı mod zorunlu + kullanıcıya nasıl açacağı gösterilir.
+QUALITY.software = /SwiftShader|llvmpipe|Basic Render|Software/i.test(QUALITY.gpu) && !/[#&]test/.test(location.hash);
+QUALITY.lite = QUALITY.software || QUALITY.saved ? (QUALITY.software || QUALITY.saved === 'lite') : (WEAK_GPU.test(QUALITY.gpu) && !/[#&]test/.test(location.hash)) || /[#&]lite/.test(location.hash);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.autoUpdate = false;
 renderer.shadowMap.needsUpdate = true;
@@ -2218,9 +2221,15 @@ qualityBtn.addEventListener('click',()=>setQuality(!QUALITY.lite,true));document
 const qualityToast=document.createElement('div');qualityToast.id='quality-toast';qualityToast.setAttribute('role','status');document.body.appendChild(qualityToast);
 // tanı: adrese #fps eklenirse sol üstte kare hızı, ekran kartı ve mod görünür (yavaşlık bildirirken ekran görüntüsü için)
 const fpsHud=/[?#&]fps/.test(location.href)?document.body.appendChild(Object.assign(document.createElement('div'),{id:'fps-hud'})):null;
-let fpsT=0,fpsN=0,fpsWorst=0;
-function updateFpsHud(dt){if(!fpsHud)return;fpsT+=dt;fpsN++;fpsWorst=Math.max(fpsWorst,dt);if(fpsT<.5)return;
- fpsHud.textContent=`${Math.round(fpsN/fpsT)} fps · en yavaş kare ${Math.round(fpsWorst*1000)} ms · ${QUALITY.lite?'AKICI':'HD'} · ${renderScale.toFixed(2)}x · ${QUALITY.gpu}`;fpsT=0;fpsN=0;fpsWorst=0;}
+let fpsT=0,fpsN=0,fpsWorst=0,fpsHitch=0;
+function updateFpsHud(dt){if(!fpsHud)return;fpsT+=dt;fpsN++;fpsWorst=Math.max(fpsWorst,dt);if(dt>.25)fpsHitch++;if(fpsT<.5)return;
+ fpsHud.textContent=`${Math.round(fpsN/fpsT)} fps · en yavaş kare ${Math.round(fpsWorst*1000)} ms · takılma ${fpsHitch} · ${QUALITY.lite?'AKICI':'HD'} · ${renderScale.toFixed(2)}x · ${QUALITY.gpu}`;fpsT=0;fpsN=0;fpsWorst=0;}
+function showSoftwareNotice(){
+ const d=document.createElement('div');d.id='gpu-notice';d.setAttribute('role','alert');
+ d.innerHTML='<b>Tarayıcınızda donanım hızlandırma kapalı.</b> Site ekran kartı yerine işlemciyle çiziliyor, bu yüzden donuyor.<br>'+
+  'Chrome / Edge: Ayarlar → Sistem → <i>“Kullanılabilir olduğunda grafik hızlandırmayı kullan”</i> seçeneğini açın ve tarayıcıyı yeniden başlatın.'+
+  '<button type="button" aria-label="Kapat">×</button>';
+ d.querySelector('button').onclick=()=>d.remove();document.body.appendChild(d);}
 function showQualityToast(){qualityToast.textContent='Akıcı mod açıldı: efektler azaltıldı. HD için sol alttaki düğme.';qualityToast.classList.add('on');setTimeout(()=>qualityToast.classList.remove('on'),5200);}
 function setQuality(lite, persist) {
   QUALITY.lite = lite;
@@ -2249,6 +2258,9 @@ body.inspecting #quality-btn{opacity:0;pointer-events:none}
 #quality-toast{position:fixed;left:24px;bottom:78px;z-index:31;max-width:min(360px,calc(100vw - 32px));padding:10px 14px;font:500 12px/1.45 Inter,system-ui,sans-serif;color:#eee6d8;
  background:rgba(14,16,18,.82);border:1px solid rgba(201,170,120,.4);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;pointer-events:none}
 #quality-toast.on{opacity:1;transform:none}
+#gpu-notice{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:60;width:min(620px,calc(100vw - 32px));padding:14px 40px 14px 16px;
+ font:500 13px/1.55 Inter,system-ui,sans-serif;color:#f1e9dc;background:rgba(20,14,10,.94);border:1px solid rgba(214,170,110,.6)}
+#gpu-notice b{color:#e8c98f}#gpu-notice button{position:absolute;right:8px;top:6px;background:none;border:0;color:#e8c98f;font-size:20px;cursor:pointer}
 #fps-hud{position:fixed;left:12px;top:64px;z-index:40;padding:6px 10px;font:500 11px/1.3 ui-monospace,monospace;color:#9f9;background:rgba(0,0,0,.7);pointer-events:none;max-width:calc(100vw - 24px)}
 @media (max-width:760px){#quality-toast{left:12px;bottom:58px}}
 #room-title{position:fixed;left:50%;top:15%;transform:translateX(-50%);z-index:20;pointer-events:none;opacity:0;text-align:center;
@@ -3645,9 +3657,9 @@ function updateRenderBudget(dt){
   if (budgetTime < 2) return;
   const average = budgetTime / budgetFrames, now = performance.now();
   budgetTime = 0; budgetFrames = 0;
-  const lo = isMobile ? .75 : 1, hi = QUALITY.lite ? 1 : Math.min(isMobile ? 1 : 1.5, devicePixelRatio);
+  const lo = QUALITY.lite ? .6 : isMobile ? .75 : 1, hi = QUALITY.lite ? 1 : Math.min(isMobile ? 1 : 1.5, devicePixelRatio);
   // en düşük çözünürlükte bile kareler ağırsa (art arda 2 ölçüm, ~22 fps altı) ve kullanıcı HD'yi seçmediyse akıcı moda geç
-  if (!QUALITY.lite && !QUALITY.saved && !NO_INERTIA && renderScale <= lo + .01 && average > .045) { if (++QUALITY.slowN >= 2) { setQuality(true, false); showQualityToast(); } }
+  if (!QUALITY.lite && !QUALITY.saved && !NO_INERTIA && renderScale <= (isMobile ? .75 : 1) + .01 && average > .045) { if (++QUALITY.slowN >= 2) { setQuality(true, false); showQualityToast(); } }
   else QUALITY.slowN = 0;
   let next = renderScale;
   if (average > .026 && renderScale > lo) { next = Math.max(lo, renderScale - .25); budgetGood = 0; budgetLock = now + 20000; }
@@ -3775,7 +3787,7 @@ function gradeToward(th, a) {
 // ekspertiz açılınca araç yumuşakça ilan açısına döner (parça işaretleri ve "ön/arka çapraz" bakışları doğru kalsın).
 const SWING = { amp: THREE.MathUtils.degToRad(16), period: 40, w: 0, k: -1, t: 0 };
 function updateSwing(dt) {
-  const active = SHOW.k >= 0 && !inspect.active && !reduceMotion;
+  const active = SHOW.k >= 0 && !inspect.active && !reduceMotion && !QUALITY.lite;
   if (active && SWING.k !== SHOW.k) {
     if (SWING.k >= 0) stations[SWING.k].turn.rotation.y = stations[SWING.k].baseRot;
     SWING.k = SHOW.k; SWING.t = 0;
@@ -3905,6 +3917,7 @@ currentS = targetS = 0;
 captureNightEnv();
 buildComposer();
 setQuality(QUALITY.lite, false);
+if (QUALITY.software) { showSoftwareNotice(); renderScale = .6; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, innerHeight); }
 prewarmGPU();
 requestAnimationFrame(frame);
 setTimeout(() => $('loader').classList.add('done'), 900);
