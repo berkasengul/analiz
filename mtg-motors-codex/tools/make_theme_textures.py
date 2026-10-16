@@ -47,3 +47,6 @@ recolor('porcelain_slab', 'warm_graphite', '#2d2927', '#48423e', 1.0)      # Cor
 recolor('microcement', 'oxblood_plaster', '#2a1514', '#40201d', .8)        # Corsa: bordo sıva
 recolor('cream_leather', 'oxblood_leather', '#3a1413', '#6a2723', 1.0)     # Corsa: bordo deri duvar panelleri
 recolor('travertine_clean', 'graphite_travertine', '#25221e', '#423d36', .9)   # Mercedes: grafit traverten yivler
+# brütalist galeri (3. tur): açık-orta gri yerinde döküm beton duvar, koyu cilalı beton zemin
+recolor('microcement', 'brut_concrete', '#5d5c58', '#8f8d88', 1.25)       # duvar / tavan: sıcak gri ham beton
+recolor('microcement', 'brut_floor', '#232324', '#3a3a3b', 1.1)           # zemin: koyu grafit cilalı beton

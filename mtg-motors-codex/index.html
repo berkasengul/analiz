@@ -477,6 +477,9 @@ const ACCENT = new THREE.Color('#e3122b');
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const NO_INERTIA = /^#test(&|$)/.test(location.hash);
+// Yerleşim: 'brutal' (varsayılan) = tek brütalist galeri salonu, araçlar iki yanda ışık havuzlarında (konfigüratör);
+// 'rooms' = önceki tema odaları (adrese #rooms eklenerek açılır).
+const LAYOUT = /[#&]brutal/.test(location.hash) ? 'brutal' : 'rooms', BRUTAL = LAYOUT === 'brutal';   // geçici: galeri modeli fırınlanana kadar #brutal ile
 
 // ---------- Renderer ----------
 const canvas = document.getElementById('scene');
@@ -1865,6 +1868,7 @@ function buildCameraPath() {
   K([0, 1.68, -4.5], [0, 1.5, -24], 50, 'welcome'); tempo(.85);                   // resepsiyon: karşılama, koridor ekseni
   { const m = moduleXform(0); K([m.side * -.45, 1.7, m.zc + 4.6], focus(0).toArray(), 46); tempo(1.3);   // koridorda dolly
     K(P(CAM[0].overview), L(CAM[0].overview), CAM[0].overview.fov); tempo(.8); }                     // salonun açılışı
+  if (BRUTAL) { brutalCarPath(P, L, focus); buildTourCurves(); return; }
   for (let k = 0; k < NROOMS; k++) {
     const c = CAM[k];
     if (k >= TOUR.length) { K(P(c.hero), L(c.hero), c.hero.fov, 'finale'); STOPS.push(keys.length - 1); break; }
@@ -1885,6 +1889,33 @@ function buildCameraPath() {
     }
   }
   buildTourCurves();
+}
+
+// Galeri (konfigüratör) kamera akışı: her araçta üç durak — kahraman 3/4 (açılış), yaklaşma (gövde hatları), detay (far + ön jant).
+// Araçlar arası: detaydan koridor eksenine geri çekil, koridor boyunca süzül, sonraki aracın kahraman açısına yaklaş (kamera
+// hiçbir zaman başka bir aracın / platformun içinden geçmez). Son durak: marka duvarı önünden tüm salonun genel görünümü.
+const carStopIndex = [];     // araç → kahraman durağının STOPS sırası
+const carKeyEnd = [];        // araç → detay anahtar karesi (kart bu aralıkta görünür)
+function brutalCarPath(P, L, focus) {
+  for (let k = 0; k < TOUR.length; k++) {
+    const c = CAM[k], st = stations[k];
+    const look = c.hero.look.clone(), near = c.hero.pos.clone().lerp(look, .32); near.y = Math.max(.95, near.y - .2);
+    carKeyIndex[k] = keys.length; carStopIndex[k] = STOPS.length; STOPS.push(keys.length);
+    K(P(c.hero), L(c.hero), c.hero.fov, `car${k}`); tempo(.65);
+    STOPS.push(keys.length); K(near.toArray(), look.clone().lerp(focus(k), .4).toArray(), c.hero.fov - 2); tempo(.7);
+    carKeyEnd[k] = keys.length; STOPS.push(keys.length); K(P(c.detail), L(c.detail), c.detail.fov); tempo(.6);
+    stations[k].yawA = stations[k].yawB = 0;
+    // detaydan çıkış: bölmenin önüne (koridor kenarı) geri çekil, sonra koridor ekseninde sonraki araca
+    const m = moduleXform(k);
+    K(modLocal(k, -1.2, 1.6, 1.4).toArray(), focus(k).toArray(), 46); tempo(1.1);
+    if (k < TOUR.length - 1) {
+      const n = moduleXform(k + 1), nx = focus(k + 1);
+      if (n.side !== m.side) K([0, 1.7, (m.zc + n.zc) / 2], nx.toArray(), 50);   // karşı sıraya geçiş: koridorun ortası
+      K(modLocal(k + 1, -1.2, 1.6, 1.6).toArray(), nx.toArray(), 46); tempo(1.1);
+    }
+  }
+  // final: salonun ortasından marka duvarına ve tüm araçlara genel bakış
+  K([0, 2.6, -24], [0, 3.2, -62], 54, 'finale'); STOPS.push(keys.length - 1);
 }
 
 // ---------- Duruşta vitrin hareketi ----------
@@ -2051,6 +2082,16 @@ function buildUI() {
     b.querySelector('span').textContent = `${s.brand} ${s.model}`;
     b.onclick = () => scrollToKey(carKeyIndex[i]);
     rail.appendChild(b);
+    if (BRUTAL) {   // konfigüratör kartı: küçük görsel (yüklemede sahneden çekilir) + ad + yıl/km + fiyat
+      const c = document.createElement('button'); c.type = 'button'; c.className = 'strip-card';
+      c.innerHTML = '<span class="sc-img"></span><span class="sc-name"></span><span class="sc-sub"></span><span class="sc-price"></span>';
+      c.querySelector('.sc-name').textContent = `${s.brand} ${s.model}`;
+      c.querySelector('.sc-sub').textContent = `${s.year} · ${s.km} km`;
+      c.querySelector('.sc-price').textContent = s.price;
+      c.setAttribute('aria-label', `${s.brand} ${s.model}, ${s.price}`);
+      c.onclick = () => scrollToKey(carKeyIndex[i]);
+      carStrip.appendChild(c);
+    }
   });
 
   const credited = CARS.filter((c) => c._scene && c.credit);
@@ -2206,6 +2247,7 @@ addEventListener('blur',()=>{inspect.pointer=null;});
 canvas.addEventListener('wheel',e=>{if(!inspect.active)return;e.preventDefault();inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius+e.deltaY*.002,3.7,4.5);},{passive:false});
 addEventListener('keydown',e=>{if(!inspect.active)return;const action={Escape:'close',ArrowLeft:'left',ArrowRight:'right','+':'in','=':'in','-':'out'}[e.key];if(action){e.preventDefault();inspectAction(action);}});
 // önceki / sonraki oda gezinmesi (kaydırma, oklar ve bu düğmeler aynı durak sistemini kullanır)
+const carStrip=document.createElement('nav');carStrip.id='car-strip';carStrip.setAttribute('aria-label','Araç seçimi');if(BRUTAL)document.body.appendChild(carStrip);
 const roomNav=document.createElement('div');roomNav.id='room-nav';
 roomNav.innerHTML='<button type="button" data-d="-1" aria-label="Önceki oda">‹</button><span id="room-nav-label">Giriş</span><button type="button" data-d="1" aria-label="Sonraki oda">›</button>';
 document.body.appendChild(roomNav);
@@ -2275,7 +2317,22 @@ body.inspecting #quality-btn{opacity:0;pointer-events:none}
 #room-nav button:hover{background:rgba(201,170,120,.18)}
 #room-nav span{min-width:190px;text-align:center}
 body.inspecting #room-nav{opacity:0;pointer-events:none}
-@media (max-width:760px){#room-nav{bottom:14px}#room-nav span{min-width:120px;font-size:10px}}`;document.head.appendChild(navStyle);
+@media (max-width:760px){#room-nav{bottom:14px}#room-nav span{min-width:120px;font-size:10px}}
+#car-strip{position:fixed;left:50%;transform:translate(-50%,8px);bottom:78px;z-index:29;display:flex;gap:10px;max-width:min(1180px,calc(100vw - 48px));
+ overflow-x:auto;scrollbar-width:none;padding:2px;opacity:0;pointer-events:none;transition:opacity .6s,transform .6s}
+#car-strip::-webkit-scrollbar{display:none}
+#car-strip.visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+body.inspecting #car-strip{opacity:0;pointer-events:none}
+.strip-card{flex:0 0 152px;display:grid;gap:2px;text-align:left;padding:0 0 9px;background:rgba(14,15,16,.78);border:1px solid rgba(255,255,255,.1);
+ color:#e9e4da;cursor:pointer;font:500 11px/1.35 Inter,system-ui,sans-serif;transition:border-color .3s,transform .3s,background .3s;overflow:hidden}
+.strip-card:hover,.strip-card:focus-visible{border-color:rgba(201,170,120,.7);outline:none}
+.strip-card.on{border-color:#e9e4da;background:rgba(24,25,27,.92);transform:translateY(-3px)}
+.sc-img{display:block;width:100%;aspect-ratio:16/9;background:#1b1c1e center/cover no-repeat;margin-bottom:6px}
+.sc-name,.sc-sub,.sc-price{padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-name{font-weight:600;font-size:11.5px}.sc-sub{color:#9d968b;font-size:10.5px}.sc-price{font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+body.brutal .car-card{bottom:228px!important;max-height:calc(100vh - 330px)!important}
+@media (max-width:760px){#car-strip{bottom:58px;max-width:calc(100vw - 24px);gap:8px}.strip-card{flex-basis:112px;font-size:10px}.sc-sub{display:none}
+ body.brutal .car-card{bottom:176px!important;max-height:calc(100vh - 290px)!important}}`;document.head.appendChild(navStyle);
 const inspectTarget=new THREE.Vector3();
 function updateInspect(dt){
  const st=stations[inspect.index],blend=1-Math.exp(-dt*12);
@@ -2610,8 +2667,10 @@ const ROOM_THEMES = {
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
 const EXT_LOOK = { exp: 1.04, grade: [.95, .99, 1.06, 1.02, 1.08] };   // dış cephe: serin gece, sıcak ışıklar kontrastla öne çıkar
 const HUB_LOOK = { exp: .92, grade: [1.03, 1.0, .95, 1.02, 1.06] };    // resepsiyon + koridor: sıcak galeri tonu
-const roomThemeOf = (k) => ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
-const themeOf = (k) => (k >= TOUR.length ? LOUNGE_THEME : roomThemeOf(k));
+ROOM_THEMES.brutal = { name: 'MTG Galeri', letters: '#e6e4df', emis: '#2e2a25', key: '#fff3e6', fill: '#e8eef6', rim: '#fff0de', keyI: 6.2, rimI: 5.2, light: '#fff2e2', lightI: 4.6, refl: 1, exp: 1.0, halo: .55, grade: [1, 1, 1, 1, 1.04] };
+for (const c of ['key', 'fill', 'rim']) ROOM_THEMES.brutal[c + 'C'] = new THREE.Color(ROOM_THEMES.brutal[c]);
+const roomThemeOf = (k) => BRUTAL ? ROOM_THEMES.brutal : ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
+const themeOf = (k) => (BRUTAL ? ROOM_THEMES.brutal : k >= TOUR.length ? LOUNGE_THEME : roomThemeOf(k));
 
 // dekor modelleri (Poly Haven, CC0) — yalnızca gerçekçi olanlar
 const DECOR = {};
@@ -2782,6 +2841,16 @@ function buildCeiling(g, cx, lightboxes) {
 }
 
 function buildRoom(k) {
+  if (BRUTAL) {   // galeri modülü: geometri yok; ışık / görünürlük kaydı (araç ışık havuzu salonda fırınlı)
+    const g = new THREE.Group(); g.name = 'Galeri bölmesi ' + (k + 1); scene.add(g);
+    const m = moduleXform(k), lp = carPos(k);
+    if (k < TOUR.length) {   // aracın çevresinde zemine gömülü ince ışık halkası (sergileme alanı; ek ışık kaynağı değil)
+      const ring = new THREE.Mesh(new THREE.RingGeometry(3.32, 3.36, 160), new THREE.MeshBasicMaterial({ color: new THREE.Color('#e8dcc4').multiplyScalar(1.25) }));
+      ring.rotation.x = -Math.PI / 2; ring.position.set(lp.x, .004, lp.z); g.add(ring);
+    }
+    rooms.push({ group: g, theme: ROOM_THEMES.brutal, cx: m.origin.x, cz: m.zc, light: [lp.x, lp.z], row: m.row });
+    return;
+  }
   const th = themeOf(k), M = showroomMats(), g = new THREE.Group(); g.name = 'Oda ' + (k + 1) + ' — ' + th.name; scene.add(g);
   const cx = roomCX(k), cz = ROOM_CZ, W = ROOM_W, D = ROOM_D, H = HALL_H, xL = cx - W / 2, xR = cx + W / 2;
   if (BLENDER_ROOMS) { buildRoomGLB(g, k); return; }
@@ -2851,6 +2920,7 @@ function buildLoungeRoom(g, k) {
 }
 
 function buildRooms() {
+  if (BRUTAL) { buildBrutalHall(); for (let k = 0; k < NROOMS; k++) buildRoom(k); return; }
   if (!isMobile) {   // tek yansıma düzlemi: tüm binanın zemini
     floorReflector = new Reflector(new THREE.PlaneGeometry(HALL_W, HALL_D), {
       clipBias: .003, color: '#5c5c5c',
@@ -2862,6 +2932,20 @@ function buildRooms() {
     const hub = BLENDER_ROOMS.hub.clone(true); hub.name = 'Resepsiyon + ana koridor'; scene.add(hub); decorize(hub);
   }
   for (let k = 0; k < NROOMS; k++) buildRoom(k);
+}
+
+// Brütalist galeri sahnesi: salon tek grup; araç modülleri yalnız konum (oda geometrisi yok). Zemin yansıma kamerası yok
+// (cilalı beton yalnız ortam yansıması verir: ikinci sahne çizimi yok).
+let brutalHall = null;
+function buildBrutalHall() {
+  if (BLENDER_ROOMS?.brutal) {
+    brutalHall = BLENDER_ROOMS.brutal.clone(true); brutalHall.name = 'Brütalist galeri'; scene.add(brutalHall);
+    brandLetters(brutalHall, ROOM_THEMES.brutal);
+  } else {   // GLB yoksa: düz beton zemin + duvarlar (tur ve konfigüratör yine çalışır)
+    const g = new THREE.Group(); scene.add(g); brutalHall = g;
+    const mat = new THREE.MeshStandardMaterial({ color: '#2a2a2b', roughness: .45 });
+    const fl = new THREE.Mesh(new THREE.PlaneGeometry(HALL_W, HALL_D), mat); fl.rotation.x = -Math.PI / 2; fl.position.set(0, 0, -HALL_D / 2); g.add(fl);
+  }
 }
 
 // ---------- Blender odaları (tools/blender/mtg_room.py) ----------
@@ -2905,6 +2989,7 @@ async function dedupeTextures(g) {
   await Promise.all(jobs);
 }
 async function loadBlenderRooms() {
+  if (BRUTAL) return loadBrutalHall();
   try {
     const [lounge, hub] = await Promise.all(['room_lounge', 'room_hub'].map((n) => roomAsset(n)));
     const facade = await roomAsset('room_facade').catch((e) => { console.warn('Cephe GLB yüklenemedi, kodla çizilen cephe kullanılıyor.', e); return null; });
@@ -2963,6 +3048,49 @@ async function loadBlenderRooms() {
     BLENDER_ROOMS = null;
   }
 }
+
+// Brütalist galeri: tek GLB (lobi + beton geçiş portalı + 12 m salon, ışık fırınlı; tools/blender/mtg_brutal.py) + dış cephe.
+// Tema odaları ve resepsiyon/koridor modeli yüklenmez: daha az indirme, daha az GPU belleği, tek sahne.
+async function loadBrutalHall() {
+  try {
+    const [hall, facade] = await Promise.all([roomAsset('room_brutal'), roomAsset('room_facade').catch(() => null)]);
+    const lm = (file) => texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
+      if (isMobile && t.image.width > 1024) {
+        const c = document.createElement('canvas'); c.width = t.image.width / 2; c.height = t.image.height / 2;
+        c.getContext('2d').drawImage(t.image, 0, 0, c.width, c.height); t.image = c;
+      }
+      t.flipY = false; t.channel = 1; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; });
+    const jobs = [];
+    for (const g of [hall, facade].filter(Boolean)) {
+      const envK = g === facade ? .07 : .22;
+      g.scene.traverse((o) => {
+        const ex = o.userData || {};
+        if (ex.lightmap) jobs.push(lm(ex.lightmap).then((t) => o.traverse((m) => {
+          if (!m.isMesh) return;
+          const c = m.material.clone();
+          const floorK = /Floor/.test(o.name) && g === facade ? .5 : 1;
+          c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN * BRUTAL_LM * floorK; c.envMapIntensity = envK;
+          c.onBeforeCompile = bakedOnly; c.customProgramCacheKey = () => 'mtg-baked';
+          m.material = c; m.receiveShadow = true;
+        })));
+        if (!o.isMesh) return;
+        const n = o.material.name || '';
+        o.castShadow = false; o.receiveShadow = true;
+        if (/MTG_(led|ledSoft|led_line|ledRing|halo|sky)$/.test(n)) {
+          const e = o.material.emissive.clone().multiplyScalar(/sky/.test(n) ? .8 : 1.6);
+          o.material = new THREE.MeshBasicMaterial({ color: e, toneMapped: true });
+        } else if (/MTG_glass/.test(n)) o.material = showroomMats().glassP;
+        else if ('envMapIntensity' in o.material) o.material.envMapIntensity = .5;
+      });
+    }
+    await Promise.all(jobs);
+    BLENDER_ROOMS = { themes: {}, brutal: hall.scene, facade: facade?.scene || null };
+  } catch (e) {
+    console.warn('Brütalist galeri yüklenemedi, kodla çizilen odalar kullanılıyor.', e);
+    BLENDER_ROOMS = null;
+  }
+}
+const BRUTAL_LM = 1.0;                       // galeri lightmap parlaklık çarpanı (Blender bake ↔ site pozlaması)
 
 // marka harflerinin arkasında duvara düşen yumuşak hale (Blender'daki arkadan aydınlatmanın web karşılığı)
 let haloTex;
@@ -3123,8 +3251,11 @@ function brandLetters(room, th) {
   const spec = [['MTG_BrandText', 'MTG_Brand', 'MTG  |  MOTORS', .34, 3.5, { depth: .024, bevel: .005, standoff: .014, blur: .035, drop: .035, curve: 10 }],
     ['MTG_BrandSubText', 'MTG_BrandSub', 'PRIVATE  COLLECTION', .13, 2.75, { depth: .01, bevel: .0022, standoff: .008, blur: .016, drop: .014, curve: 6 }]];
   const box3 = new THREE.Box3();
-  for (const [an, old, line, capH, width, opt] of spec) {
+  for (const [an, old, line, capH0, width0, opt0] of spec) {
     let host = room.getObjectByName(an);
+    // çapa boyut taşıyorsa (galeri: 12 m duvar) harf yüksekliği / genişliği ve pah, gölge ölçüleri orantılı büyür
+    const kS = host?.userData?.cap ? host.userData.cap / capH0 : 1, capH = capH0 * kS, width = host?.userData?.width || width0;
+    const opt = Object.fromEntries(Object.entries(opt0).map(([k, v]) => [k, k === 'curve' ? v : v * kS]));
     const o = room.getObjectByName(old);
     if (!host && o?.isMesh) {                 // eski GLB: harf mesh'inin kutusundan konum (oda yereli)
       o.geometry.computeBoundingBox(); box3.copy(o.geometry.boundingBox);
@@ -3321,7 +3452,7 @@ function updateRooms() {
   const outside = camera.position.z > .4;
   const row = outside ? -1 : Math.floor((-camera.position.z - REC_D) / ROOM_D);
   if (row !== lastRoomK) {
-    rooms.forEach((r) => { r.group.visible = Math.abs(r.row - Math.max(row, 0)) <= 1; });
+    rooms.forEach((r) => { r.group.visible = BRUTAL || Math.abs(r.row - Math.max(row, 0)) <= 1; });
     stations.forEach((st) => { st.group.visible = rooms[st.room].group.visible; });
     renderer.shadowMap.needsUpdate = true;
     lastRoomK = row;
@@ -3610,18 +3741,23 @@ function updateUI(s) {
   setOverlay(ovWelcome, fade(s, 2.55, 3.3, .35));  // kapıdan geçerken belirir, koridora girerken çekilir (salon başlığıyla çakışmaz)
   let active = -1;
   carCards.forEach((el, i) => {
-    const k = carKeyIndex[i];
-    const o = inspect.active ? 0 : 1 - THREE.MathUtils.smoothstep(Math.abs(s - k), .12, .5);
+    const k = carKeyIndex[i], e = BRUTAL ? carKeyEnd[i] : k;   // galeri: kahraman → detay boyunca kart açık
+    const d = s < k ? k - s : s > e ? s - e : 0;
+    const o = inspect.active ? 0 : 1 - THREE.MathUtils.smoothstep(d, .12, .5);
     setOverlay(el, o);
     if (o > .5) active = i;
   });
   railBtns.forEach((b, i) => b.classList.toggle('active', i === active));
+  if (BRUTAL) {
+    [...carStrip.children].forEach((c, i) => { const on = i === active; if (c.classList.contains('on') !== on) { c.classList.toggle('on', on); if (on) c.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } });
+    carStrip.classList.toggle('visible', s > carKeyIndex[0] - .6 && !inspect.active);
+  }
   const navL = document.getElementById('room-nav-label');
   if (navL) {
     // duruşta araç adı; odalar arası geçişte girilen koleksiyon odasının adı (yeni mekân hissi)
     const nx = carKeyIndex.findIndex((ki) => ki > s - .5);
     const lbl = active >= 0 ? `${String(active + 1).padStart(2, '0')} · ${stations[active].spec.brand} ${stations[active].spec.model}`
-      : s >= SEGMENTS - .5 ? 'MTG Lounge' : s < 2.5 ? 'Giriş' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
+      : s >= SEGMENTS - .5 ? (BRUTAL ? 'MTG Galeri' : 'MTG Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'MTG Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
     if (navL.textContent !== lbl) navL.textContent = lbl;
   }
   // koleksiyon odası başlığı: önceki duruştan sonraki odanın duruşuna geçişin ortasında (sinüs eğrisiyle) görünür
@@ -3632,7 +3768,7 @@ function updateUI(s) {
       const a0 = k ? a + .3 : b - 2.0, b0 = b - 1.0;   // salonun içi kadrajı doldurmadan (marka duvarı görünmeden) çekilir
       if (s > a0 && s < b0) { tk = k; to = Math.sin(Math.PI * (s - a0) / (b0 - a0)); break; }
     }
-    if (inspect.active) to = 0;
+    if (inspect.active || BRUTAL) to = 0;   // galeri tek salon: koleksiyon odası başlığı yok
     if (tk >= 0) {
       const t = `Koleksiyon ${String(tk + 1).padStart(2, '0')} / ${String(carKeyIndex.length).padStart(2, '0')}`, n = roomThemeOf(tk).name.toUpperCase();   // İngilizce ad: tr büyük harf dönüşümü (İ) uygulanmasın
       if (roomTitle.dataset.k !== String(tk)) { roomTitle.firstChild.textContent = t; roomTitle.lastChild.textContent = n; roomTitle.dataset.k = tk; }
@@ -3737,7 +3873,23 @@ function prewarmGPU() {
   lastRoomK = null;
   if (composer) { dofPass.enabled = true; composer.render(0); }
 }
+// konfigüratör kartları için küçük görseller: her aracın kahraman açısından bir kare (yükleme ekranı sırasında, bir kez)
+function makeThumbs() {
+  const cam = camera.clone(), cv = document.createElement('canvas'); cv.width = 320; cv.height = 180;
+  const g = cv.getContext('2d'), W = renderer.domElement.width, H = renderer.domElement.height;
+  const cw = Math.min(W, H * 16 / 9), ch = cw * 9 / 16;
+  [...carStrip.children].forEach((card, k) => {
+    const c = CAM[k]?.hero; if (!c) return;
+    cam.position.copy(c.pos); cam.fov = c.fov + 4; cam.aspect = W / H; cam.updateProjectionMatrix(); cam.lookAt(c.look);
+    try {
+      renderer.render(scene, cam);
+      g.drawImage(renderer.domElement, (W - cw) / 2, (H - ch) / 2, cw, ch, 0, 0, 320, 180);
+      card.querySelector('.sc-img').style.backgroundImage = `url(${cv.toDataURL('image/jpeg', .82)})`;
+    } catch (e) { /* görsel çekilemezse kart yalnız metinle kalır */ }
+  });
+}
 function buildComposer() {
+  if (BRUTAL) return;
   if (!CINE) return;
   const w = Math.floor(innerWidth * renderScale), h = Math.floor(innerHeight * renderScale);
   const rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, depthTexture: new THREE.DepthTexture(w, h) });
@@ -3916,9 +4068,11 @@ addEventListener('resize', () => {
 currentS = targetS = 0;
 captureNightEnv();
 buildComposer();
+if (BRUTAL) document.body.classList.add('brutal');
 setQuality(QUALITY.lite, false);
 if (QUALITY.software) { showSoftwareNotice(); renderScale = .6; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, innerHeight); }
 prewarmGPU();
+if (BRUTAL) makeThumbs();
 requestAnimationFrame(frame);
 setTimeout(() => $('loader').classList.add('done'), 900);
 </script>
