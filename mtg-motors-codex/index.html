@@ -1605,13 +1605,14 @@ function roundelTexture() {
 function addEmblems(car) {
   car.updateMatrixWorld(true);
   const box = new THREE.Box3().setFromObject(car), L = box.max.x - box.min.x, H = box.max.y - box.min.y, cz = (box.min.z + box.max.z) / 2;
-  const meshes = []; car.traverse((o) => { if (o.isMesh && o.material?.name === 'car_darkChrome') meshes.push(o); });
+  // amblem: modelde koyu krom disk + üstünde krom kapak / halka; dekal ikisine de yansıtılır (en dıştaki görünür)
+  const meshes = []; car.traverse((o) => { if (o.isMesh && /^car_(darkChrome|chrome)$/.test(o.material?.name || '')) meshes.push(o); });
   const mat = new THREE.MeshPhysicalMaterial({ map: roundelTexture(), transparent: true, roughness: .3, metalness: .1, clearcoat: 1, clearcoatRoughness: .04,
     polygonOffset: true, polygonOffsetFactor: -4, depthWrite: false, envMap: carStudioEnv(), envMapIntensity: .9 });
   const v = new THREE.Vector3(), n = new THREE.Vector3();
   // amblem diskleri (araç yereli; önü +x): bagaj kapağının ortası ve kaputun ön ortası
   for (const zone of [{ x: [box.min.x, box.min.x + .03 * L], y: [.6 * H, .75 * H] }, { x: [box.max.x - .03 * L, box.max.x], y: [.46 * H, .56 * H] }]) {
-    let best = null;
+    let best = null; const hits = [];
     for (const m of meshes) {
       const p = m.geometry.attributes.position, nr = m.geometry.attributes.normal, c = new THREE.Vector3(), nn = new THREE.Vector3(), bb = new THREE.Box3(); let k = 0;
       for (let i = 0; i < p.count; i++) {
@@ -1619,15 +1620,19 @@ function addEmblems(car) {
         if (v.x < zone.x[0] || v.x > zone.x[1] || v.y < zone.y[0] || v.y > zone.y[1] || Math.abs(v.z - cz) > .08) continue;
         c.add(v); bb.expandByPoint(v); k++; if (nr) nn.add(n.fromBufferAttribute(nr, i).transformDirection(m.matrixWorld));
       }
-      if (k > 6 && (!best || k > best.k)) best = { m, k, c: c.divideScalar(k), n: nn.normalize(), bb };
+      if (k > 6) { hits.push(m); if (!best || k > best.k) best = { m, k, c: c.divideScalar(k), n: nn.normalize(), bb }; }
     }
     if (NO_INERTIA) (window.__emb ||= []).push({ meshes: meshes.length, found: !!best, k: best?.k, c: best?.c.toArray(), n: best?.n.toArray(), bb: best && best.bb.getSize(new THREE.Vector3()).toArray(), box: [box.min.toArray(), box.max.toArray()] });
     if (!best) continue;
     const d = best.bb.getSize(new THREE.Vector3()).z * .97;   // disk çapı: araç genişliği yönündeki ölçü (her iki amblemde de tam çap)
     const h = new THREE.Object3D(); h.position.copy(best.c); h.lookAt(best.c.clone().add(best.n));
-    const decal = new THREE.Mesh(new DecalGeometry(best.m, best.c, h.rotation, new THREE.Vector3(d, d, d * 1.2)), mat);
-    decal.name = 'MTG_BMW_Roundel'; decal.renderOrder = 3; car.add(decal);
-    if (NO_INERTIA) window.__emb.at(-1).verts = decal.geometry.attributes.position?.count ?? 0;
+    for (const m of hits) {
+      const g = new DecalGeometry(m, best.c, h.rotation, new THREE.Vector3(d, d, d * 1.2)), p = g.attributes.position, nr = g.attributes.normal;
+      if (!p || !p.count) continue;
+      for (let i = 0; i < p.count; i++) p.setXYZ(i, p.getX(i) + nr.getX(i) * .0012, p.getY(i) + nr.getY(i) * .0012, p.getZ(i) + nr.getZ(i) * .0012);   // yüzeyden 1.2 mm dışarı (derinlik çakışması yok)
+      const decal = new THREE.Mesh(g, mat); decal.name = 'MTG_BMW_Roundel'; decal.renderOrder = 3; car.add(decal);
+      if (NO_INERTIA) window.__emb.at(-1).verts = (window.__emb.at(-1).verts || 0) + p.count;
+    }
   }
 }
 function addDealerPlates(car,spec){
