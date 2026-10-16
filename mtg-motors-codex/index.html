@@ -2533,8 +2533,10 @@ body.view-refined .rail button i{background:rgba(201,184,147,.35)}body.view-refi
  .car-card.refined .specs{margin:10px 0 10px;gap:0 16px}.car-card.refined .spec{padding:7px 0 6px}
  .car-card.refined .spec small{font-size:9px}.car-card.refined .spec span{font-size:13.5px;margin-top:4px}
  .car-card.refined .card-actions{margin-bottom:10px}.car-card.refined .card-actions .btn{min-height:44px;letter-spacing:.1em!important;padding:0 8px!important}
- .car-card.refined .card-foot{padding-top:10px}.car-card.refined .price strong{font-size:21px}
+ .car-card.refined .card-foot{padding-top:10px;gap:10px}.car-card.refined .price{min-width:0}.car-card.refined .price strong{font-size:21px}
  .car-card.refined .btn.primary{padding:0 12px;white-space:nowrap}}
+@media (max-width:440px){.car-card.refined .price strong{font-size:19px}.car-card.refined .btn.primary{padding:0 10px;letter-spacing:.08em;gap:6px}
+ .car-card.refined .card-actions .btn{font-size:10px!important}}   /* dar telefonda fiyat + İlanı İncele tek satıra sığar, buton taşmaz */
 body.view-refined #room-nav{gap:10px;padding:6px;background:rgba(14,14,15,.78);border:1px solid rgba(201,184,147,.22);border-radius:2px;
  font:500 10.5px/1.3 Inter,system-ui,sans-serif;letter-spacing:.24em;color:#ece6da}
 body.view-refined #room-nav button{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(201,184,147,.35);border-radius:1px;color:#e9e2d2;font-size:20px;line-height:1;transition:background .25s,border-color .25s}
@@ -4066,7 +4068,9 @@ function updateUI(s) {
   // görünüm teması (yalnız stil): duruştaki ya da 360°'de incelenen aracın odası — BMW salonu için kart / gezinme / inceleme çubuğu
   const view = (inspect.active ? stations[inspect.index]?.spec.room : active >= 0 ? stations[active].spec.room : '') || '';
   if ((document.body.dataset.view || '') !== view) { document.body.dataset.view = view; document.body.classList.toggle('view-refined', REFINED_ROOMS.has(view)); }
-  frameShiftTarget = active < 0 ? 0 : cardBelow() ? .2 : .14;
+  // dar ekranda kart altta: araç, kartın üstünde kalan alanın ortasına kaydırılır (kart yüksekliği ekrana / içeriğe göre değişir)
+  if (active >= 0 && cardBelow()) { const top = carCards[active].getBoundingClientRect().top; frameShiftTarget = THREE.MathUtils.clamp((innerHeight - top) / (2 * innerHeight) + .03, .2, .38); }
+  else frameShiftTarget = active < 0 ? 0 : .14;
   rail.classList.toggle('visible', s > carKeyIndex[0] - .6 && s < SEGMENTS - .7);
   setOverlay(ovFinale, THREE.MathUtils.smoothstep(s, SEGMENTS - .6, SEGMENTS - .1));
   progress.style.width = `${(s / SEGMENTS) * 100}%`;
