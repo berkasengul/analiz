@@ -2005,6 +2005,7 @@ function showcasePose(dt) {
   return smoother(SHOW.w);
 }
 if (NO_INERTIA) window.__showcase = (t) => { SHOW.forceT = t; };
+if (NO_INERTIA) window.__tvT = (t) => { TV.t = t; };   // yalnızca #test: TV filminde belirli ana atla (planların oynadığını doğrulama)
 if (NO_INERTIA) window.__tv = () => ({ n: TV.list.length, active: TV.active, rt: !!TV.rt, t: +TV.t.toFixed(1),
   scr: TV.list.map((e) => ({ k: e.k, p: e.scr.getWorldPosition(new THREE.Vector3()).toArray().map((v) => +v.toFixed(2)), d: e.scr.getWorldDirection(new THREE.Vector3()).toArray().map((v) => +v.toFixed(2)) })) });   // yalnızca #test: vitrin anını sabitle
 if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total: +tour.total.toFixed(1), seg: STOPS.slice(1).map((st, i) => +(sToL(st) - sToL(STOPS[i])).toFixed(1)),

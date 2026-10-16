@@ -51,4 +51,4 @@ recolor('travertine_clean', 'graphite_travertine', '#25221e', '#423d36', .9)   #
 recolor('microcement', 'brut_concrete', '#5d5c58', '#8f8d88', 1.25)       # duvar / tavan: sıcak gri ham beton
 recolor('microcement', 'brut_floor', '#232324', '#3a3a3b', 1.1)           # zemin: koyu grafit cilalı beton
 # BMW 420i salonu (4. tur): marka duvarı için 2048 px doğal gri-bej damarlı taş (büyük ebatlı levha, keskin damar)
-recolor('smoke_marble', 'bmw_stone', '#4f4a44', '#9a9286', .8)
+recolor('smoke_marble', 'bmw_stone', '#4a4540', '#7d766c', .5)
