@@ -430,7 +430,7 @@ Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu
   // paintSpec: taban katının yansıması kısık → renk doygun kalır, keskin yansımalar cila katından gelir
   // metallic / coatRough / paintEnv: hafif metalik derinlik + ince saten cila (plastik parlaklık yerine ölçülü vernik yansıması)
   glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#740913', metallic: .36, paintRough: .4, paintSpec: .3,
-  coatRough: .1, paintEnv: .95,
+  coatRough: .07, paintEnv: 1.0,
   representation: '2021 M430i Coupé gövdesi; ilandaki renk ve donanımla boyandı',
 });
 Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa: kırmızı çizgi/kaliper Midline'a göre karartıldı)
@@ -2392,13 +2392,15 @@ body[data-view="sport"] #room-nav button:hover{background:rgba(201,184,147,.12);
 body[data-view="sport"] :is(#room-nav button,#inspect-bar button,#sound-btn,#quality-btn):focus-visible{outline:1px solid #c9b893;outline-offset:3px}
 body[data-view="sport"] :is(#sound-btn,#quality-btn){border-color:rgba(201,184,147,.24);background:rgba(14,14,15,.72)}
 body[data-view="sport"] #inspect-bar{background:rgba(14,14,15,.95);border:1px solid rgba(201,184,147,.22);border-top-color:rgba(201,184,147,.6);border-radius:2px;padding:14px 16px;gap:10px}
-body[data-view="sport"] #inspect-bar strong{font:400 18px/1.2 Cinzel,Georgia,serif;color:#f2efe8;letter-spacing:.01em}
-body[data-view="sport"] #inspect-bar span{font:500 10px/1.4 Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#9c988f}
+body[data-view="sport"] #inspect-bar strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:400 18px/1.2 Cinzel,Georgia,serif;color:#f2efe8;letter-spacing:.01em}
+body[data-view="sport"] #inspect-bar span{font:500 10px/1.4 Inter,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#9c988f;white-space:nowrap}
+@media (min-width:761px){body[data-view="sport"] #inspect-bar{flex-wrap:nowrap}}
 body[data-view="sport"] #inspect-bar button{min-width:44px;min-height:44px;padding:0 12px;background:transparent;border:1px solid rgba(201,184,147,.35);border-radius:1px;color:#ece6da;
  font:500 15px/1 Inter,system-ui,sans-serif;transition:background .25s,border-color .25s}
 body[data-view="sport"] #inspect-bar button:hover{background:rgba(201,184,147,.12);border-color:#c9b893}
 body[data-view="sport"] #inspect-bar button[data-action="close"]{background:rgba(201,184,147,.13);border-color:rgba(201,184,147,.7);font:600 10.5px/1 Inter,system-ui,sans-serif;letter-spacing:.15em;text-transform:uppercase}
-@media (max-width:760px){body[data-view="sport"] #room-nav button{width:44px;height:44px}body[data-view="sport"] #inspect-bar{padding:12px}}`;
+@media (max-width:760px){body[data-view="sport"] #room-nav button{width:44px;height:44px}body[data-view="sport"] #inspect-bar{padding:12px}
+ body[data-view="sport"] #inspect-bar strong{flex:1 1 100%}body[data-view="sport"] #inspect-bar span{white-space:normal}}`;
 document.head.appendChild(bmwStyle);
 const inspectTarget=new THREE.Vector3();
 function updateInspect(dt){
@@ -2727,7 +2729,7 @@ const ROOM_THEMES = {
   // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat / stageTint: araç altı taş plakanın cilası ve tonu ·
   // brandK / brandTint: marka duvarı taşının pişmiş ışık çarpanı ve nötr tonu · woodTint: ahşabın tonu (turuncu parlamaz) ·
   // display: ekran parlaklığı. keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
-  sport:     { name: 'Sport Coupé Collection',  letters: '#d3c4a3', emis: '#2a2216', key: '#f8f7f5', fill: '#eeeff1', rim: '#eef2f8', keyI: 5.0, rimI: 5.0, light: '#f6f5f3', lightI: 3.6, refl: .94, exp: 1.0, halo: .35, grade: [.99, 1.0, 1.02, 1.0, 1.05], stageCoat: .1, stageTint: '#cfcac3', brandK: .62, brandTint: '#d2d3d4', woodTint: '#a8a6a5', display: .35 },
+  sport:     { name: 'Sport Coupé Collection',  letters: '#d3c4a3', emis: '#2a2216', key: '#f8f7f5', fill: '#eeeff1', rim: '#eef2f8', keyI: 5.0, rimI: 5.0, light: '#f6f5f3', lightI: 3.6, refl: .94, exp: 1.0, halo: .35, grade: [.99, 1.0, 1.02, 1.0, 1.05], stageCoat: .1, stageTint: '#cfcac3', brandK: .62, brandTint: '#d2d3d4', woodTint: '#a8a6a5', pillowTint: '#4e4a46', display: .35 },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
@@ -3380,6 +3382,7 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
       o.material = o.material.clone(); o.material.lightMapIntensity *= th.brandK; if (th.brandTint) o.material.color.set(th.brandTint);
     }
     if (th.woodTint && /^MTG_wood_/.test(mn)) { o.material = o.material.clone(); o.material.color.set(th.woodTint); }
+    if (th.pillowTint && mn === 'MTG_pillow_rust') { o.material = o.material.clone(); o.material.color.set(th.pillowTint); }   // kanepe yastığı: turuncu vurgu yerine nötr
   });
   brandLetters(room, th);
 }
