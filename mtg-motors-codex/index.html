@@ -2659,8 +2659,9 @@ const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge
 //   grade: [r, g, b ton, doygunluk, kontrast] — masaüstü renk tonu (sinematik katman)
 const ROOM_THEMES = {
   // BMW 420i: çağdaş özel galeri — nötr beyaz stüdyo ışığı (yumuşak ana, dengeli dolgu, hafif serin kenar), honlanmış taş zemin
-  // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat: araç altı taş plakanın cila katmanı · display: ekran parlaklığı
-  sport:     { name: 'Sport Coupé Collection',  letters: '#d3c4a3', emis: '#2a2216', key: '#fff6ee', fill: '#f3f2f0', rim: '#f2f5fb', keyI: 6.0, rimI: 5.8, light: '#fff6ee', lightI: 4.4, refl: .94, exp: 1.0, halo: .35, grade: [1.0, 1.0, 1.01, 1.0, 1.06], stageCoat: .12, display: .35 },
+  // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat / stageTint: araç altı taş plakanın cilası ve tonu ·
+  // brandK: marka duvarı taşının pişmiş ışık çarpanı · display: ekran parlaklığı
+  sport:     { name: 'Sport Coupé Collection',  letters: '#d3c4a3', emis: '#2a2216', key: '#fff6ee', fill: '#f3f2f0', rim: '#f2f5fb', keyI: 6.0, rimI: 5.8, light: '#fff6ee', lightI: 4.4, refl: .94, exp: 1.0, halo: .35, grade: [1.0, 1.0, 1.01, 1.0, 1.06], stageCoat: .12, stageTint: '#cfcac3', brandK: .55, display: .35 },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
@@ -3304,8 +3305,13 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
     // zemin: grafit mermer dokusu + pişmiş ışık olduğu gibi (Blender'daki malzeme); altta Reflector ölçülü görünür → hafif bulanık yansıma
     if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = th.refl; o.material.userData.reflFloor = true; }
     if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
-    if (th.stageCoat != null && /MTG_stage/.test(o.material?.name || '')) {   // honlanmış sergileme taşı: ince cila, yansıma ölçülü
-      o.material = o.material.clone(); o.material.clearcoat = th.stageCoat; o.material.envMapIntensity = .22; if (o.material.userData.reflFloor) o.material.opacity = .96;
+    const mn = o.material?.name || '';
+    if (th.stageTint && mn === 'MTG_floor_inlay') {      // araç altı taş: nötr gri ton (mavi damar bastırılır), ince cila, yansıma ölçülü
+      o.material = o.material.clone(); o.material.color.set(th.stageTint); o.material.clearcoat = th.stageCoat ?? o.material.clearcoat;
+      o.material.envMapIntensity = .22; if (o.material.userData.reflFloor) o.material.opacity = .96;
+    }
+    if (th.brandK && mn === 'MTG_brand_marble' && o.material.lightMap) {   // marka duvarı taşı: araçtan bir ton koyu (yazı okunur, dikkat dağıtmaz)
+      o.material = o.material.clone(); o.material.lightMapIntensity *= th.brandK;
     }
   });
   brandLetters(room, th);
