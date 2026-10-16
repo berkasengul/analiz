@@ -934,7 +934,7 @@ THEMES = {
                         # Dekor sade: koltuk, saksı bitkisi, dijital ekran ve halka avize yok (araç tek odak)
         title='Sport Coupé Collection',
         floor=('graphite_travertine', .44, .04), slab=(3.25, 1.625), inlay=('anthracite_stone', .4, .1), stage='slab',
-        brand='bmw_stone', brand_rough=.38, brand_coat=.1, brand_grid=(4, 1, .006), vault_frame=(.025, .04), frame='#1c1c1d', stone='charcoal_plaster', wood='dark_oak', feature='planks',
+        brand='bmw_slab', brand_rough=.62, brand_coat=0., brand_grid=(4, 1, .006), vault_frame=(.025, .04), frame='#1c1c1d', stone='charcoal_plaster', wood='dark_oak', feature='planks',
         accent='#c9b893', dark='#34312d', ceil='#191919', ceiling='softbox', led='#f6f4f0', display=False,
         letters=('#d6c9ad', '#f4efe6', .8), halo=8.,
         light=dict(col='#f7f5f2', key=1700, slot=520, cove=420, brand=520, wash=420, world=('#18191b', .12)),

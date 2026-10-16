@@ -386,7 +386,7 @@ const CARS = [
       lambert3SG: 'darkChrome', lambert2SG: 'chrome', lambert15SG: 'kidney', lambert25SG1: 'darkChrome',
       // far katmanları (Blender malzeme kimliği render'ıyla eşlendi): dış lens, iç reflektör, LED, iç çerçeve
       lambert10SG: 'lens', HeadLights1: 'reflector', lambert13SG: 'ledw', lambert14SG: 'gloss',
-      BrakeLights_Glass: 'taillight', lambert20SG: 'darkChrome', lambert21SG: 'tailLed', Plate_Recovered: 'plate', '*': 'interior',
+      BrakeLights_Glass: 'tailLens', lambert20SG: 'tailHousing', lambert21SG: 'tailLed', Plate_Recovered: 'plate', '*': 'interior',
     }, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
   { brand: 'Mercedes-Benz', model: 'E 180 AMG',                       title: '2013 E180 ORJİNAL AMG İÇİ SİYAH EMSALSİZ TEMİZLİKTE',             ilanNo: '1335046387', room: 'executive', year: 2013, km: '199.000', colorName: 'Beyaz',     price: '1.965.000 TL', type: 'sedan', color: '#ecedef', url: '',
     glb: 'models/web/mercedes-e-w212.glb', length: 4.87, credit: { name: 'Mercedes E Class W212', author: 'Peter_D', url: SKETCHFAB('mercedes-e-class-w212-119c5e10733142b197aa53b86f6aeb04') } },
@@ -435,6 +435,7 @@ Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu
   // salon TV'si: projede BMW videosu yok → video verilirse (video: 'media/….mp4') o oynar; yoksa HD'de 3D modelden canlı çekim,
   // akıcı modda / bekleme ekranında bu poster (BMW 3D modelinin Blender render karesi)
   tvPoster: 'models/rooms/room_sport_tv.webp',
+  emblems: true, tailStyle: 'layered',   // ön / arka amblem rondelası, katmanlı stop lambası (dış lens + iç gövde + park LED'i)
   representation: '2021 M430i Coupé gövdesi; ilandaki renk ve donanımla boyandı',
 });
 Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa: kırmızı çizgi/kaliper Midline'a göre karartıldı)
@@ -477,6 +478,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { mergeGeometries, toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 
 const ACCENT = new THREE.Color('#e3122b');
@@ -1556,6 +1558,10 @@ function makeCarMaterials(spec) {
     mirror: new S({ color: '#c9ced6', metalness: 1, roughness: .03, envMapIntensity: 2 }),
     headlight: new P({ color: '#5f666e', emissive: spec.drlColor || '#fff5df', emissiveIntensity: .12, roughness: .04, metalness: .6, clearcoat: 1, envMapIntensity: 1.2 }),
     taillight: new P({ color: '#3a0006', emissive: '#e0001a', emissiveIntensity: 1.3, roughness: .08, clearcoat: 1, envMapIntensity: 1 }),
+    // katmanlı stop lambası (tailStyle 'layered'): yarı saydam kırmızı dış lens + koyu kırmızı yansıtıcı iç gövde + ölçülü park LED'i
+    tailLens: new P({ color: '#8e0a14', emissive: '#5a0008', emissiveIntensity: .35, roughness: .04, metalness: 0, clearcoat: 1, clearcoatRoughness: .03,
+      transparent: true, opacity: .62, depthWrite: false, envMapIntensity: 1.1 }),
+    tailHousing: new S({ color: '#3a080b', metalness: .85, roughness: .26, envMapIntensity: 1.2 }),
     plate: new S({ map: plateTexture(spec.plateStyle), roughness: .45, envMapIntensity: .6 }),
     bronze: new P({color:'#86745c',metalness:.8,roughness:.3}),
     amber: new P({color:'#dd7018',roughness:.15}),
@@ -1563,10 +1569,60 @@ function makeCarMaterials(spec) {
     drl: new S({ color: '#ffdf6a', emissive: '#ffd63e', emissiveIntensity: 1.2 }),
     interior: new S({ color: '#1b1b1e', roughness: .8, envMapIntensity: .4 }),
   };
+  if (spec.tailStyle === 'layered') { set.tailLed.color.set('#3c0507'); set.tailLed.emissive.set('#ff2416'); set.tailLed.emissiveIntensity = .75; }   // park LED'i: okunur, glow yapmaz
   Object.entries(set).forEach(([k, m]) => { m.envMap = envMap; m.name = 'car_' + k; });
   return set;
 }
 
+// BMW rondelası (projede amblem / logo dosyası yok): siyah dış halka + BMW harfleri + mavi-beyaz çeyrekler, ince gümüş ayraçlar.
+// Saydam zemin: yalnız daire görünür. Model geometrisindeki mevcut amblem diskinin üstüne DecalGeometry ile yansıtılır.
+let roundelTex = null;
+function roundelTexture() {
+  if (roundelTex) return roundelTex;
+  roundelTex = canvasTexture(512, 512, (g, w) => {
+    const c = w / 2; g.clearRect(0, 0, w, w);
+    g.fillStyle = '#0b0b0c'; g.beginPath(); g.arc(c, c, 252, 0, Math.PI * 2); g.fill();
+    g.strokeStyle = '#c9cdd2'; g.lineWidth = 5; g.beginPath(); g.arc(c, c, 247, 0, Math.PI * 2); g.stroke();
+    g.fillStyle = '#ffffff'; g.font = '700 78px "Helvetica Neue", Helvetica, Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    [['B', -52], ['M', 0], ['W', 52]].forEach(([ch, a]) => {
+      const r = THREE.MathUtils.degToRad(a); g.save(); g.translate(c + Math.sin(r) * 207, c - Math.cos(r) * 207); g.rotate(r); g.fillText(ch, 0, 2); g.restore();
+    });
+    const R = 163;
+    for (let q = 0; q < 4; q++) {   // çeyrekler: sol üst ve sağ alt mavi, sağ üst ve sol alt beyaz
+      g.fillStyle = q % 2 ? '#ffffff' : '#1c69d4';
+      g.beginPath(); g.moveTo(c, c); g.arc(c, c, R, Math.PI + q * Math.PI / 2, Math.PI + (q + 1) * Math.PI / 2); g.closePath(); g.fill();
+    }
+    g.strokeStyle = '#c9cdd2'; g.lineWidth = 6; g.beginPath(); g.arc(c, c, R + 2, 0, Math.PI * 2); g.stroke();
+  });
+  roundelTex.anisotropy = 8;
+  return roundelTex;
+}
+function addEmblems(car) {
+  car.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(car), L = box.max.x - box.min.x, H = box.max.y - box.min.y, cz = (box.min.z + box.max.z) / 2;
+  const meshes = []; car.traverse((o) => { if (o.isMesh && o.material?.name === 'car_darkChrome') meshes.push(o); });
+  const mat = new THREE.MeshPhysicalMaterial({ map: roundelTexture(), transparent: true, roughness: .3, metalness: .1, clearcoat: 1, clearcoatRoughness: .04,
+    polygonOffset: true, polygonOffsetFactor: -4, depthWrite: false, envMap: carStudioEnv(), envMapIntensity: .9 });
+  const v = new THREE.Vector3(), n = new THREE.Vector3();
+  // amblem diskleri (araç yereli; önü +x): bagaj kapağının ortası ve kaputun ön ortası
+  for (const zone of [{ x: [box.min.x, box.min.x + .03 * L], y: [.6 * H, .75 * H] }, { x: [box.max.x - .03 * L, box.max.x], y: [.46 * H, .56 * H] }]) {
+    let best = null;
+    for (const m of meshes) {
+      const p = m.geometry.attributes.position, nr = m.geometry.attributes.normal, c = new THREE.Vector3(), nn = new THREE.Vector3(), bb = new THREE.Box3(); let k = 0;
+      for (let i = 0; i < p.count; i++) {
+        v.fromBufferAttribute(p, i).applyMatrix4(m.matrixWorld);
+        if (v.x < zone.x[0] || v.x > zone.x[1] || v.y < zone.y[0] || v.y > zone.y[1] || Math.abs(v.z - cz) > .08) continue;
+        c.add(v); bb.expandByPoint(v); k++; if (nr) nn.add(n.fromBufferAttribute(nr, i).transformDirection(m.matrixWorld));
+      }
+      if (k > 6 && (!best || k > best.k)) best = { m, k, c: c.divideScalar(k), n: nn.normalize(), bb };
+    }
+    if (!best) continue;
+    const d = best.bb.getSize(new THREE.Vector3()).z * .97;   // disk çapı: araç genişliği yönündeki ölçü (her iki amblemde de tam çap)
+    const h = new THREE.Object3D(); h.position.copy(best.c); h.lookAt(best.c.clone().add(best.n));
+    const decal = new THREE.Mesh(new DecalGeometry(best.m, best.c, h.rotation, new THREE.Vector3(d, d, d * 1.2)), mat);
+    decal.name = 'MTG_BMW_Roundel'; decal.renderOrder = 3; car.add(decal);
+  }
+}
 function addDealerPlates(car,spec){
  const texture=plateTexture(),face=new THREE.MeshStandardMaterial({map:texture,roughness:.32,metalness:.12});
  const backing=new THREE.MeshStandardMaterial({color:'#171a1d',roughness:.3,metalness:.7});
@@ -1674,6 +1730,7 @@ function prepareCarModel(spec) {
   root.position.x-=center.x;root.position.z-=center.z;root.position.y-=box.min.y;
   const car = new THREE.Group();
   car.add(root);
+  if (spec.emblems) addEmblems(car);   // BMW: model geometrisindeki koyu amblem disklerine rondela dekali
   if (!spec.ownPlates) addDealerPlates(car,spec);   // modelin kendi plaka yuvası varsa ikinci (bayi) plaka eklenmez
   const sh = new THREE.Mesh(new THREE.PlaneGeometry(spec.length + 1.2, size.z / size.x * spec.length + 1.3),
     new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
@@ -2803,9 +2860,10 @@ const ROOM_THEMES = {
   // brandK / brandTint: marka duvarı taşının pişmiş ışık çarpanı ve nötr tonu · woodTint: ahşabın tonu (turuncu parlamaz) ·
   // display: ekran parlaklığı · dof: alan derinliği çarpanı (0: marka yazısı arka planda tam net) · letterShadow: yazının duvardaki
   // gölge yoğunluğu · wallLift: duvar / ahşap pişmiş ışığına nötr dolgu · floorRough: zemin pürüzlülüğü (parlak ışık şeridi yansıması yok) ·
-  // glass: vitrin / geçiş camları (ortak süt beyazı cam yerine temiz, koyu tonlu, ölçülü yansımalı). keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
-  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .62, brandTint: '#ece9e4', woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75,
-    glass: { color: '#1b2023', roughness: .015, metalness: 0, transparent: true, opacity: .1, envMapIntensity: .42, specularIntensity: .9, depthWrite: false, side: THREE.DoubleSide } },
+  // glass: vitrin / geçiş camları (ortak süt beyazı cam yerine temiz, çok hafif tonlu, ölçülü yansımalı) · brandRough: duvar taşı
+  // pürüzlülüğü (honlanmış) · noBrandText: duvarda yazı yok · vaultDecor: vitrin raflarında kalan dekor çapaları. keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
+  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .85, brandTint: '#ffffff', brandRough: .72, noBrandText: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'], woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75,
+    glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
@@ -3457,6 +3515,11 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
     if (th.brandK && mn === 'MTG_brand_marble' && o.material.lightMap) {   // marka duvarı taşı: araçtan bir ton koyu (yazı okunur, dikkat dağıtmaz)
       o.material = o.material.clone(); o.material.lightMapIntensity *= th.brandK; if (th.brandTint) o.material.color.set(th.brandTint);
     }
+    if (th.brandRough && mn === 'MTG_brand_marble') {   // honlanmış taş: parlak cila yok
+      if (o.material.name === mn && !o.material.userData._bmw) { o.material = o.material.clone(); o.material.userData._bmw = true; }
+      o.material.roughness = th.brandRough; o.material.clearcoat = 0; o.material.envMapIntensity = .12;
+    }
+    if (th.vaultDecor && /^MTG_Decor_Vault_\d+$/.test(o.parent?.name || '') && !th.vaultDecor.includes(o.parent.name)) o.visible = false;   // vitrin rafları: seyrek dekor
     if (th.woodTint && /^MTG_wood_/.test(mn)) { o.material = o.material.clone(); o.material.color.set(th.woodTint); }
     if (th.wallLift && /^MTG_(wood_|wall_)/.test(mn) && o.material.lightMap) {   // nötr dolgu: duvar ve ahşap bir ton açılır, araçla ton ayrımı
       o.material = o.material.clone(); o.material.lightMapIntensity *= th.wallLift;
@@ -3468,7 +3531,8 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
     if (th.glass && /^MTG_Glass_(Front|Side|Vitrine|Portal[LR])$/.test(o.name)) o.material = th._glassMat ||= new THREE.MeshPhysicalMaterial(th.glass);   // temiz, koyu tonlu cam
     if (th.pillowTint && mn === 'MTG_pillow_rust') { o.material = o.material.clone(); o.material.color.set(th.pillowTint); }   // kanepe yastığı: turuncu vurgu yerine nötr
   });
-  brandLetters(room, th);
+  // noBrandText: duvardaki 3B "MTG | MOTORS / PRIVATE COLLECTION" yazısı kurulmaz (projede gerçek logo dosyası yok → duvar logosuz)
+  if (!th.noBrandText) brandLetters(room, th);
 }
 function premiumRoom(room, k) {
   const warm = new THREE.Color('#ffe2c0');
