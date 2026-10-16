@@ -940,15 +940,17 @@ THEMES = {
         light=dict(col='#f7f5f2', key=1700, slot=520, cove=420, brand=520, wash=420, world=('#18191b', .12)),
         lounge=dict(sofa=('black_leather', '#ffffff'), chairs=None, table='slab', pend='none',
                     rug=('#1a1a1a', '#3a3a3a'), plant=None)),
-    'suv': dict(        # Ford Kuga — güçlü, doğal, sıcak; Emperador mermer, koyu arduvaz, koyu meşe kirişler
+    'suv': dict(        # Ford Kuga — güçlü, doğal, sakin: mat sıcak grafit zemin, koyu grafit sergileme alanı, damarsız toprak gri taş
+                        # levhalar (4 büyük panel), kömür sıva, koyu meşe paneller, ince koyu metal vitrin, nötr ışık; dekor sade
         title='Explorer SUV Lounge',
-        floor=('slate_dark', .38, .2), slab=(1.625, 1.625), inlay=('emperador_marble', .16, .55), stage='slab',
-        brand='emperador_marble', stone='umber_plaster', wood='dark_oak', feature='planks',
-        accent='#b08a58', dark='#3e2e20', ceil='#241c15', ceiling='beams', led='#ffd9a8',
-        letters=('#d2ab72', '#ffc27a', 1.3), halo=18.,
-        light=dict(col='#ffdcb4', key=2700, slot=0, cove=560, brand=950, wash=620, world=('#20180f', .12)),
-        lounge=dict(sofa=('cognac_leather', '#ffffff'), chairs='mid_century_lounge_chair', table='slab', pend='rings',
-                    rug=('#2e241b', '#6e5a45'), plant='potted_plant_04', boxes=True)),
+        floor=('warm_graphite', .46, .04), slab=(1.625, 1.625), inlay=('urban_dark', .42, .06), stage='slab',
+        brand='kuga_slab', brand_rough=.62, brand_coat=0., brand_grid=(4, 1, .006), vault_frame=(.025, .04), frame='#1c1c1d',
+        stone='charcoal_plaster', wood='dark_oak', feature='planks', display=False,
+        accent='#c2ad85', dark='#2f2c28', ceil='#1b1a19', ceiling='beams', led='#f6f2ea',
+        letters=('#d8c8a6', '#f2ead8', .8), halo=6.,
+        light=dict(col='#f6f3ee', key=1900, slot=0, cove=460, brand=520, wash=440, world=('#19191a', .12)),
+        lounge=dict(sofa=('fabric_grey', '#3a3836'), chairs=None, table='slab', pend='none',
+                    rug=('#1c1b1a', '#3c3a37'), plant=None)),
     'urban': dict(      # VW Golf — şehirli, modern, derin; orman yeşili mermer, siyah meşe nervürler, pirinç, lineer ışık
         title='Urban Collection',
         floor=('urban_dark', .26, .3), slab=(2.6, 1.3), inlay=('verde_marble', .14, .6), stage='slab',

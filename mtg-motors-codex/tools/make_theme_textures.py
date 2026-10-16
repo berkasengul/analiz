@@ -52,3 +52,5 @@ recolor('microcement', 'brut_concrete', '#5d5c58', '#8f8d88', 1.25)       # duva
 recolor('microcement', 'brut_floor', '#232324', '#3a3a3b', 1.1)           # zemin: koyu grafit cilalı beton
 # BMW 420i salonu (5. tur): marka duvarı damarsız, honlanmış koyu nötr taş levha (büyük ebat; mermer damarı ve kabartma yok)
 recolor('porcelain_slab', 'bmw_slab', '#363431', '#55524d', 1.0)
+# Ford Kuga salonu (2. tur): marka duvarı damarsız, honlanmış sıcak-nötr taş levha (BMW'den bir ton açık, toprak gri)
+recolor('porcelain_slab', 'kuga_slab', '#423d37', '#655e55', 1.0)
