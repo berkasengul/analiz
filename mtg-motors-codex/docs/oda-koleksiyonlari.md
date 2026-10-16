@@ -138,3 +138,16 @@ Sol alttaki düğme iki mod arasında geçiş yapar; seçim tarayıcıda hatırl
   HD'de en düşük çözünürlükte bile kareler ağır kalırsa (~22 fps altı) Akıcı moda kendiliğinden geçer ve kısa bir bildirim gösterir.
 - **Tanı:** Adresin sonuna `#fps` eklenirse sol üstte kare hızı, en yavaş kare, mod ve ekran kartı adı görünür.
 - **Doku belleği:** Oda dokuları 1024 px ile sınırlı (`tools/room_pack/tex_limit.mjs`); masaüstünde duvar/tavan lightmap'leri yarı çözünürlükte.
+
+## Brütalist galeri (varsayılan düzen)
+
+Site artık varsayılan olarak tek hacimli brütalist beton galeriyle açılır; önceki tema odaları adrese `#rooms` eklenerek açılır.
+
+- **Mimari** (`tools/blender/mtg_brutal.py`): lobi (h 4.8 m) → 1.2 m kalın geçiş duvarında bronz çerçeveli portal → 12 m yüksekliğinde salon.
+  Tavanda 6.5 m arayla kirişler, ortada ışıklık yarığı, sonda büyük ışıklık; duvarlarda derz ve gölge boşlukları, modül sınırlarında dikey LED çizgileri.
+  Işık Blender'da pişirilir (zemin / duvar / tavan lightmap'leri); sitede yansıma kamerası ve ağır post-process yok.
+- **Araçlar**: her araç zeminde ince ışık halkasının üzerinde. Tur sırası, ilan bilgileri, 360° inceleme, ekspertiz ve galeri değişmedi.
+- **Kamera durakları** (araç başına): kahraman → yakın → detay; araçlar arasında koridora geri çekilip sonraki araca süzülme; final: marka duvarına genel bakış.
+- **Araç şeridi** (`#car-strip`): alttaki küçük resimli kartlar (görsel sahneden çekilir) aracın kahraman karesine götürür. Mobilde yalnız küçük resimler gösterilir.
+- **Marka duvarı**: arka duvarda koyu bronz 3B harfler (MTG | MOTORS · PRIVATE COLLECTION).
+- **Dış cephe ve giriş**: korunur. Eski cephenin çatısı ve iç duvar yüzleri galerinin içinde kaldığı için yalnız bu düzende çizilmez.

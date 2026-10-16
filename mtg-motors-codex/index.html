@@ -479,7 +479,7 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const NO_INERTIA = /^#test(&|$)/.test(location.hash);
 // Yerleşim: 'brutal' (varsayılan) = tek brütalist galeri salonu, araçlar iki yanda ışık havuzlarında (konfigüratör);
 // 'rooms' = önceki tema odaları (adrese #rooms eklenerek açılır).
-const LAYOUT = /[#&]brutal/.test(location.hash) ? 'brutal' : 'rooms', BRUTAL = LAYOUT === 'brutal';   // geçici: galeri modeli fırınlanana kadar #brutal ile
+const LAYOUT = /[#&]rooms/.test(location.hash) ? 'rooms' : 'brutal', BRUTAL = LAYOUT === 'brutal';
 
 // ---------- Renderer ----------
 const canvas = document.getElementById('scene');
@@ -1866,7 +1866,8 @@ function buildCameraPath() {
   K([-3.2, 1.72, 15.5], [-.4, 2.3, -2], 40); tempo(1.15);                         // yolu geçip girişe dönüş
   K([.2, 1.7, 4.2], [0, 1.62, -8], 44, 'door'); tempo(.62);                       // eşik: kapılar açılır, içerisi görünür
   K([0, 1.68, -4.5], [0, 1.5, -24], 50, 'welcome'); tempo(.85);                   // resepsiyon: karşılama, koridor ekseni
-  { const m = moduleXform(0); K([m.side * -.45, 1.7, m.zc + 4.6], focus(0).toArray(), 46); tempo(1.3);   // koridorda dolly
+  if (BRUTAL) { K([0, 1.7, -10.6], [-2.2, 2.4, -42], 52); tempo(1.1); }        // galeri: portaldan düz geçiş, araca dönüş salona girince
+  { const m = moduleXform(0); K([m.side * -.45, 1.7, BRUTAL ? -14.2 : m.zc + 4.6], focus(0).toArray(), 46); tempo(1.3);   // koridorda dolly
     K(P(CAM[0].overview), L(CAM[0].overview), CAM[0].overview.fov); tempo(.8); }                     // salonun açılışı
   if (BRUTAL) { brutalCarPath(P, L, focus); buildTourCurves(); return; }
   for (let k = 0; k < NROOMS; k++) {
@@ -2331,8 +2332,8 @@ body.inspecting #car-strip{opacity:0;pointer-events:none}
 .sc-name,.sc-sub,.sc-price{padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sc-name{font-weight:600;font-size:11.5px}.sc-sub{color:#9d968b;font-size:10.5px}.sc-price{font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
 body.brutal .car-card{bottom:228px!important;max-height:calc(100vh - 330px)!important}
-@media (max-width:760px){#car-strip{bottom:58px;max-width:calc(100vw - 24px);gap:8px}.strip-card{flex-basis:112px;font-size:10px}.sc-sub{display:none}
- body.brutal .car-card{bottom:176px!important;max-height:calc(100vh - 290px)!important}}`;document.head.appendChild(navStyle);
+@media (max-width:760px){#car-strip{bottom:66px;max-width:calc(100vw - 24px);gap:6px}.strip-card{flex-basis:78px;padding:0}.sc-img{margin:0}.sc-name,.sc-sub,.sc-price{display:none}
+ body.brutal .car-card{bottom:120px!important;max-height:calc(100vh - 228px)!important}}`;document.head.appendChild(navStyle);
 const inspectTarget=new THREE.Vector3();
 function updateInspect(dt){
  const st=stations[inspect.index],blend=1-Math.exp(-dt*12);
@@ -2667,7 +2668,7 @@ const ROOM_THEMES = {
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
 const EXT_LOOK = { exp: 1.04, grade: [.95, .99, 1.06, 1.02, 1.08] };   // dış cephe: serin gece, sıcak ışıklar kontrastla öne çıkar
 const HUB_LOOK = { exp: .92, grade: [1.03, 1.0, .95, 1.02, 1.06] };    // resepsiyon + koridor: sıcak galeri tonu
-ROOM_THEMES.brutal = { name: 'MTG Galeri', letters: '#e6e4df', emis: '#2e2a25', key: '#fff3e6', fill: '#e8eef6', rim: '#fff0de', keyI: 6.2, rimI: 5.2, light: '#fff2e2', lightI: 4.6, refl: 1, exp: 1.0, halo: .55, grade: [1, 1, 1, 1, 1.04] };
+ROOM_THEMES.brutal = { name: 'MTG Galeri', letters: '#4a3c2c', emis: '#0e0a06', key: '#fff3e6', fill: '#e8eef6', rim: '#fff0de', keyI: 6.2, rimI: 5.2, light: '#fff2e2', lightI: 4.6, refl: 1, exp: 1.0, halo: 0, grade: [1, 1, 1, 1, 1.04] };
 for (const c of ['key', 'fill', 'rim']) ROOM_THEMES.brutal[c + 'C'] = new THREE.Color(ROOM_THEMES.brutal[c]);
 const roomThemeOf = (k) => BRUTAL ? ROOM_THEMES.brutal : ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
 const themeOf = (k) => (BRUTAL ? ROOM_THEMES.brutal : k >= TOUR.length ? LOUNGE_THEME : roomThemeOf(k));
@@ -3071,11 +3072,11 @@ async function loadBrutalHall() {
           const floorK = /Floor/.test(o.name) && g === facade ? .5 : 1;
           c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN * BRUTAL_LM * floorK; c.envMapIntensity = envK;
           c.onBeforeCompile = bakedOnly; c.customProgramCacheKey = () => 'mtg-baked';
-          m.material = c; m.receiveShadow = true;
+          m.material = c; m.receiveShadow = g === facade || /Floor/.test(o.name);   // salon duvar / tavanı: pişmiş gölge yeter (gerçek zamanlı gölge çizgisi yok)
         })));
         if (!o.isMesh) return;
         const n = o.material.name || '';
-        o.castShadow = false; o.receiveShadow = true;
+        o.castShadow = false; o.receiveShadow = g === facade || /Floor/.test(o.name);
         if (/MTG_(led|ledSoft|led_line|ledRing|halo|sky)$/.test(n)) {
           const e = o.material.emissive.clone().multiplyScalar(/sky/.test(n) ? .8 : 1.6);
           o.material = new THREE.MeshBasicMaterial({ color: e, toneMapped: true });
@@ -3084,6 +3085,21 @@ async function loadBrutalHall() {
       });
     }
     await Promise.all(jobs);
+    // eski cephenin çatısı (y 5.9) 12 m'lik salonun içinden geçer: galeri kendi tavanını taşıdığı için kaldırılır
+    for (const nm of ['MTG_Roof', 'MTG_FacBack']) facade?.scene.getObjectByName(nm)?.removeFromParent();   // arka cephe salonun arka duvarıyla aynı düzlemde (z-fighting)
+    // cephe duvarlarının iç yüzü (x ±16.3) salon duvarının 5 cm önünde kalır: salon içindeki üçgenler atılır, dış cephe kalır
+    facade?.scene.updateMatrixWorld(true);
+    facade?.scene.traverse((o) => {
+      if (!o.isMesh || !/^MTG_(Walls|Reveals|SideCoping)/.test(o.name)) return;
+      const g = o.geometry, pos = g.attributes.position, v = new THREE.Vector3(), idx = g.index ? g.index.array : null;
+      const n = idx ? idx.length : pos.count, keep = [];
+      for (let t = 0; t < n; t += 3) {
+        let cx = 0, cz = 0;
+        for (let j = 0; j < 3; j++) { v.fromBufferAttribute(pos, idx ? idx[t + j] : t + j).applyMatrix4(o.matrixWorld); cx += v.x / 3; cz += v.z / 3; }
+        if (!(cz < -1 && Math.abs(cx) < 16.45)) for (let j = 0; j < 3; j++) keep.push(idx ? idx[t + j] : t + j);
+      }
+      o.geometry = g.clone(); o.geometry.setIndex(keep);
+    });
     BLENDER_ROOMS = { themes: {}, brutal: hall.scene, facade: facade?.scene || null };
   } catch (e) {
     console.warn('Brütalist galeri yüklenemedi, kodla çizilen odalar kullanılıyor.', e);
@@ -3184,11 +3200,11 @@ function glyphPathShapes(cmd, s, ox, oy) {
   const sp = new THREE.ShapePath(); let cx = 0, cy = 0;
   for (const [, op, args] of cmd.matchAll(/([MLHVQZ])([^MLHVQZ]*)/g)) {
     const v = args.trim() ? args.trim().split(/[\s,]+/).map(Number) : [];
-    if (op === 'M') { cx = v[0]; cy = v[1]; sp.moveTo(ox + cx * s, oy + cy * s); }
-    else if (op === 'L') { cx = v[0]; cy = v[1]; sp.lineTo(ox + cx * s, oy + cy * s); }
-    else if (op === 'H') { cx = v[0]; sp.lineTo(ox + cx * s, oy + cy * s); }
-    else if (op === 'V') { cy = v[0]; sp.lineTo(ox + cx * s, oy + cy * s); }
-    else if (op === 'Q') { sp.quadraticCurveTo(ox + v[0] * s, oy + v[1] * s, ox + v[2] * s, oy + v[3] * s); cx = v[2]; cy = v[3]; }
+    // SVG: komut harfi tekrarlanmadan gelen ek koordinatlar aynı komutun devamıdır (M'den sonrakiler L sayılır)
+    if (op === 'M' || op === 'L') for (let i = 0; i + 1 < v.length; i += 2) { cx = v[i]; cy = v[i + 1]; (op === 'M' && !i ? sp.moveTo : sp.lineTo).call(sp, ox + cx * s, oy + cy * s); }
+    else if (op === 'H') for (const x of v) { cx = x; sp.lineTo(ox + cx * s, oy + cy * s); }
+    else if (op === 'V') for (const y of v) { cy = y; sp.lineTo(ox + cx * s, oy + cy * s); }
+    else if (op === 'Q') for (let i = 0; i + 3 < v.length; i += 4) { sp.quadraticCurveTo(ox + v[i] * s, oy + v[i + 1] * s, ox + v[i + 2] * s, oy + v[i + 3] * s); cx = v[i + 2]; cy = v[i + 3]; }
   }
   return sp.toShapes(false);
 }
@@ -3265,10 +3281,12 @@ function brandLetters(room, th) {
     if (o) o.visible = false;
     if (old === 'MTG_Brand') { const h = room.getObjectByName('MTG_Brand_Halo'); if (h) h.visible = false; }
     if (!host) continue;
-    host.add(brandText(line, capH, width, th, opt));
-    if (old === 'MTG_BrandSub') {            // alt satırın iki yanında ince metal çizgi
+    const txt = brandText(line, capH, width, th, opt); host.add(txt);
+    if (old === 'MTG_BrandSub') {            // alt satırın iki yanında ince metal çizgi (yazının gerçek genişliğinden; harfe değmez)
       const m = new THREE.MeshStandardMaterial({ color: th.letters, metalness: 1, roughness: .25, envMapIntensity: 1.3 });
-      for (const sd of [-1, 1]) { const r = new THREE.Mesh(new THREE.BoxGeometry(.42, .005, .006), m); r.position.set(sd * (width / 2 + .38), 0, .012); host.add(r); }
+      const tg = txt.getObjectByName('MTG_BrandLetters').geometry; tg.computeBoundingBox();
+      const hw = (tg.boundingBox.max.x - tg.boundingBox.min.x) / 2, len = .42 * kS;
+      for (const sd of [-1, 1]) { const r = new THREE.Mesh(new THREE.BoxGeometry(len, .005 * kS, .006 * kS), m); r.position.set(sd * (hw + .2 * kS + len / 2), 0, .012 * kS); host.add(r); }
     }
   }
 }
@@ -3750,7 +3768,7 @@ function updateUI(s) {
   railBtns.forEach((b, i) => b.classList.toggle('active', i === active));
   if (BRUTAL) {
     [...carStrip.children].forEach((c, i) => { const on = i === active; if (c.classList.contains('on') !== on) { c.classList.toggle('on', on); if (on) c.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } });
-    carStrip.classList.toggle('visible', s > carKeyIndex[0] - .6 && !inspect.active);
+    carStrip.classList.toggle('visible', s > carKeyIndex[0] - .6 && s < keys.length - 1.5 && !inspect.active);   // finalde kapanış metnine yer açar
   }
   const navL = document.getElementById('room-nav-label');
   if (navL) {
@@ -3881,6 +3899,7 @@ function makeThumbs() {
   [...carStrip.children].forEach((card, k) => {
     const c = CAM[k]?.hero; if (!c) return;
     cam.position.copy(c.pos); cam.fov = c.fov + 4; cam.aspect = W / H; cam.updateProjectionMatrix(); cam.lookAt(c.look);
+    placeRoomLight(roomLightA, stations[k].room); placeRoomLight(roomLightB, stations[k].room); lastLights = '';   // araç kendi ışığıyla çekilir
     try {
       renderer.render(scene, cam);
       g.drawImage(renderer.domElement, (W - cw) / 2, (H - ch) / 2, cw, ch, 0, 0, 320, 180);
