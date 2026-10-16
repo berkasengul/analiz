@@ -952,15 +952,18 @@ THEMES = {
         light=dict(col='#f3f6fa', key=1900, slot=0, cove=460, brand=560, wash=440, world=('#171b1e', .12)),
         lounge=dict(sofa=('fabric_grey', '#22343d'), chairs=None, table='slab', pend='none',
                     rug=('#1b2328', '#3a464d'), plant=None)),
-    'urban': dict(      # VW Golf — şehirli, modern, derin; orman yeşili mermer, siyah meşe nervürler, pirinç, lineer ışık
+    'urban': dict(      # VW Golf — sakin, çağdaş, Volkswagen'e özgü: koyu orman yeşili sıva, grafit yivli paneller, açık doğal traverten
+                        # marka duvarı (3 büyük levha, yazısız), mat antrasit zemin, nötr gri sergileme alanı, fırçalanmış nikel ince vurgular,
+                        # lineer tavan ışığı; ahşap, şampanya-altın ve mavi-gri yok; dekor sade
         title='Urban Collection',
-        floor=('urban_dark', .26, .3), slab=(2.6, 1.3), inlay=('verde_marble', .14, .6), stage='slab',
-        brand='verde_marble', stone='forest_plaster', wood='black_oak', feature='ribs',
-        accent='#c9a96a', dark='#2f2a22', ceil='#1b1e1c', ceiling='linear', led='#fff0dc',
-        letters=('#d9bd84', '#ffd79a', 1.3), halo=16.,
-        light=dict(col='#fff1df', key=0, slot=0, line=500, cove=460, brand=900, wash=520, world=('#161a18', .12)),
-        lounge=dict(sofa=('fabric_grey', '#3b3f3c'), chairs='modern_arm_chair_01', table='modern_coffee_table_01', pend='bar',
-                    rug=('#1f2421', '#4b524d'), plant='potted_plant_02')),
+        floor=('urban_dark', .55, 0.), slab=(2.6, 1.3), inlay=('concrete_dark', .5, .04), stage='slab',
+        brand='vw_travertine', brand_rough=.6, brand_coat=0., brand_grid=(3, 1, .006), vault_frame=(.025, .04), frame='#1f2321',
+        stone='forest_plaster', wood=None, feature='fluted', flute='urban_dark', display=False,
+        accent='#a9aeb0', dark='#2b2e2c', ceil='#1a1d1b', ceiling='linear', led='#f4f5f1',
+        letters=('#24332c', '#eef2ee', .5), halo=0.,
+        light=dict(col='#f5f5f2', key=0, slot=0, line=420, cove=420, brand=520, wash=440, world=('#171a18', .12)),
+        lounge=dict(sofa=('fabric_grey', '#2c3330'), chairs=None, table='slab', pend='none',
+                    rug=('#1b1f1d', '#3a403d'), plant=None)),
     'dynamic': dict(    # SEAT Ateca — genç, enerjik, şehirli; koyu beton + terracotta + bakır kanatlar, geometrik tavan
         title='Dynamic City Collection',
         floor=('concrete_dark', .3, .25), slab=(2.6, 2.6), inlay=('anthracite_stone', .2, .45), stage='slab',
