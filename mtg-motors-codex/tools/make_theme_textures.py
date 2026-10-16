@@ -54,3 +54,7 @@ recolor('microcement', 'brut_floor', '#232324', '#3a3a3b', 1.1)           # zemi
 recolor('porcelain_slab', 'bmw_slab', '#363431', '#55524d', 1.0)
 # Ford Kuga salonu (2. tur): marka duvarı damarsız, honlanmış sıcak-nötr taş levha (BMW'den bir ton açık, toprak gri)
 recolor('porcelain_slab', 'kuga_slab', '#423d37', '#655e55', 1.0)
+# Ford Kuga salonu (3. tur): Ford'a özgü palet — derin petrol mavisi sıva, soğuk arduvaz kanat zemini, açık gri doğal taş marka duvarı
+recolor('microcement', 'petrol_plaster', '#18272f', '#2b414c', .8)
+recolor('dark_stone', 'slate_cool', '#24292d', '#40474c', .9)
+recolor('porcelain_slab', 'ford_stone', '#8e9193', '#bcbfc1', 1.0)
