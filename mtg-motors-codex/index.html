@@ -1450,13 +1450,18 @@ function updatePhotoCars() {
 
 // Gerçekçi araç malzemeleri (ilan rengi, cam, jant, kaliper ...)
 function plateTexture(style) {
-  if (style === 'premium') return canvasTexture(1040, 230, (g, w, h) => {   // antrasit zemin, ince şampanya iç çerçeve, aralıklı tek satır
-    g.fillStyle = '#131416'; g.fillRect(0, 0, w, h);
-    g.strokeStyle = 'rgba(201,184,147,.75)'; g.lineWidth = 4; g.strokeRect(22, 22, w - 44, h - 44);
-    g.fillStyle = '#ece4d2'; g.textBaseline = 'middle'; g.textAlign = 'center'; g.font = '600 96px Cinzel, Georgia, serif';
-    if ('letterSpacing' in g) g.letterSpacing = '14px';
-    g.fillText('MTG MOTORS', w / 2 + 7, h / 2 + 5);
-  });
+  if (style === 'premium') {   // antrasit zemin, ince şampanya iç çerçeve; yazı plakaya sığan en büyük boyutta, kalın ve yüksek çözünürlüklü
+    const t = canvasTexture(2080, 460, (g, w, h) => {
+      g.fillStyle = '#121315'; g.fillRect(0, 0, w, h);
+      g.strokeStyle = 'rgba(201,184,147,.8)'; g.lineWidth = 6; g.strokeRect(26, 26, w - 52, h - 52);
+      g.fillStyle = '#f6f0e4'; g.textBaseline = 'middle'; g.textAlign = 'center';
+      if ('letterSpacing' in g) g.letterSpacing = '10px';
+      let fs = 300; g.font = `700 ${fs}px Cinzel, Georgia, serif`;
+      while (fs > 120 && g.measureText('MTG MOTORS').width > w - 150) g.font = `700 ${fs -= 6}px Cinzel, Georgia, serif`;
+      g.fillText('MTG MOTORS', w / 2 + 5, h / 2 + fs * .04);
+    });
+    t.anisotropy = 16; return t;
+  }
   const t = canvasTexture(1040, 230, (g, w, h) => {
     g.fillStyle = '#151a1e'; g.fillRect(0, 0, w, h);
     g.strokeStyle = '#2a2c30'; g.lineWidth = 10; g.strokeRect(5, 5, w - 10, h - 10);
@@ -1562,7 +1567,7 @@ function makeCarMaterials(spec) {
     tailLens: new P({ color: '#8e0a14', emissive: '#5a0008', emissiveIntensity: .35, roughness: .04, metalness: 0, clearcoat: 1, clearcoatRoughness: .03,
       transparent: true, opacity: .62, depthWrite: false, envMapIntensity: 1.1 }),
     tailHousing: new S({ color: '#3a080b', metalness: .85, roughness: .26, envMapIntensity: 1.2 }),
-    plate: new S({ map: plateTexture(spec.plateStyle), roughness: .45, envMapIntensity: .6 }),
+    plate: new S({ map: plateTexture(spec.plateStyle), roughness: spec.plateStyle === 'premium' ? .6 : .45, envMapIntensity: spec.plateStyle === 'premium' ? .25 : .6 }),   // premium: yansıma yazıyı soldurmaz
     bronze: new P({color:'#86745c',metalness:.8,roughness:.3}),
     amber: new P({color:'#dd7018',roughness:.15}),
     leather: new P({ color: spec.leatherColor || '#8d4b29', roughness: .62, sheen: .4, sheenColor: '#fff4e6', sheenRoughness: .6 }),   // yumuşak deri parlaması
