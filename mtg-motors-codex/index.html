@@ -477,6 +477,9 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 
 const ACCENT = new THREE.Color('#e3122b');
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
+// bilgi kartı altta mı: yükleme anındaki cihaz değil, o anki pencere genişliği (CSS ile aynı eşik; pencere sonradan daraltılınca
+// da araç kartın üstünde kalır)
+const cardBelow = () => innerWidth <= 760;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const NO_INERTIA = /^#test(&|$)/.test(location.hash);
 // Yerleşim: 'rooms' (varsayılan) = tema odaları; 'brutal' = deneme amaçlı tek brütalist galeri salonu (adrese #brutal eklenerek açılır).
@@ -2378,14 +2381,19 @@ const bmwStyle=document.createElement('style');bmwStyle.textContent=`
 .car-card[data-room="sport"] :is(.btn,.thumbs button):focus-visible{outline:1px solid var(--ch);outline-offset:3px}
 @media (min-width:761px){.car-card[data-room="sport"]{z-index:9}.car-card[data-room="sport"].right{right:max(clamp(16px,5vw,80px),96px)}}   /* sağdaki gezinme şeridi (z 8) kartın üstüne binmez */
 body[data-view="sport"] .rail button i{background:rgba(201,184,147,.35)}body[data-view="sport"] .rail button.active i{background:#c9b893}
-@media (min-width:761px) and (max-height:820px){.car-card[data-room="sport"] .thumbs{display:none}}
-@media (min-width:761px) and (max-height:680px){.car-card[data-room="sport"] .model-note{display:none}.car-card[data-room="sport"] .specs{margin:12px 0 12px}}
+@media (min-width:761px) and (max-height:900px){.car-card[data-room="sport"] .thumbs{display:none}}
+@media (min-width:761px) and (max-height:820px){.car-card[data-room="sport"] .model-note{display:none}.car-card[data-room="sport"] .specs{margin:14px 0 12px}
+ .car-card[data-room="sport"] .spec{padding:9px 0 8px}.car-card[data-room="sport"] .car-brand{margin-top:12px}}
+.car-card[data-room="sport"] .card-foot{flex-wrap:nowrap;justify-content:space-between}.car-card[data-room="sport"] .price strong{font-size:24px;white-space:nowrap}
+.car-card[data-room="sport"] .btn.primary{padding:0 14px;white-space:nowrap;flex:none}
 @media (max-width:760px){
- .car-card[data-room="sport"]{width:auto!important;padding:16px 16px 14px!important}
- .car-card[data-room="sport"] .car-brand{margin-top:12px}.car-card[data-room="sport"] .car-model{font-size:20px;margin-top:7px}
- .car-card[data-room="sport"] .specs{margin:12px 0 12px;gap:0 16px}.car-card[data-room="sport"] .spec{padding:9px 0 8px}
- .car-card[data-room="sport"] .spec span{font-size:14px;margin-top:5px}.car-card[data-room="sport"] .card-actions{margin-bottom:12px}
- .car-card[data-room="sport"] .card-foot{padding-top:12px;flex-wrap:nowrap}.car-card[data-room="sport"] .price strong{font-size:22px}
+ .car-card[data-room="sport"]{width:auto!important;padding:14px 16px 12px!important;max-height:calc(100vh - 170px)!important}
+ .car-card[data-room="sport"] .car-index,.car-card[data-room="sport"] .model-note,.car-card[data-room="sport"] .thumbs{display:none}
+ .car-card[data-room="sport"] .car-brand{margin-top:0}.car-card[data-room="sport"] .car-model{font-size:19px;margin-top:6px}
+ .car-card[data-room="sport"] .specs{margin:10px 0 10px;gap:0 16px}.car-card[data-room="sport"] .spec{padding:7px 0 6px}
+ .car-card[data-room="sport"] .spec small{font-size:9px}.car-card[data-room="sport"] .spec span{font-size:13.5px;margin-top:4px}
+ .car-card[data-room="sport"] .card-actions{margin-bottom:10px}.car-card[data-room="sport"] .card-actions .btn{min-height:44px;letter-spacing:.1em!important;padding:0 8px!important}
+ .car-card[data-room="sport"] .card-foot{padding-top:10px}.car-card[data-room="sport"] .price strong{font-size:21px}
  .car-card[data-room="sport"] .btn.primary{padding:0 12px;white-space:nowrap}}
 body[data-view="sport"] #room-nav{gap:10px;padding:6px;background:rgba(14,14,15,.78);border:1px solid rgba(201,184,147,.22);border-radius:2px;
  font:500 10.5px/1.3 Inter,system-ui,sans-serif;letter-spacing:.24em;color:#ece6da}
@@ -2732,8 +2740,8 @@ const ROOM_THEMES = {
   // BMW 420i: çağdaş özel galeri — nötr beyaz stüdyo ışığı (yumuşak ana, dengeli dolgu, hafif serin kenar), honlanmış taş zemin
   // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat / stageTint: araç altı taş plakanın cilası ve tonu ·
   // brandK / brandTint: marka duvarı taşının pişmiş ışık çarpanı ve nötr tonu · woodTint: ahşabın tonu (turuncu parlamaz) ·
-  // display: ekran parlaklığı. keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
-  sport:     { name: 'Sport Coupé Collection',  letters: '#d3c4a3', emis: '#2a2216', key: '#f8f7f5', fill: '#eeeff1', rim: '#eef2f8', keyI: 5.0, rimI: 5.0, light: '#f6f5f3', lightI: 3.6, refl: .94, exp: 1.0, halo: .35, grade: [.99, 1.0, 1.02, 1.0, 1.05], stageCoat: .1, stageTint: '#cfcac3', brandK: .62, brandTint: '#d2d3d4', woodTint: '#a8a6a5', pillowTint: '#4e4a46', display: .35 },
+  // display: ekran parlaklığı · dof: alan derinliği çarpanı (marka yazısı arka planda net kalır). keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
+  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f7f5', fill: '#eeeff1', rim: '#eef2f8', keyI: 5.0, rimI: 5.0, light: '#f6f5f3', lightI: 3.6, refl: .94, exp: 1.0, halo: .5, grade: [.99, 1.0, 1.02, 1.0, 1.05], stageCoat: .1, stageTint: '#cfcac3', brandK: .5, brandTint: '#c6c7c9', woodTint: '#a8a6a5', pillowTint: '#4e4a46', display: .35, dof: .35 },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
@@ -3808,7 +3816,7 @@ function updateCamera(s, time, dt) {
   // bilgi kartı açıkken aracı kartın karşı tarafına kaydır
   // masaüstünde yatay, mobilde (kart altta) dikey kaydırma
   if (Math.abs(frameShift) > .001) {
-    if (isMobile) camera.setViewOffset(innerWidth, innerHeight, 0, frameShift * innerHeight, innerWidth, innerHeight);
+    if (cardBelow()) camera.setViewOffset(innerWidth, innerHeight, 0, frameShift * innerHeight, innerWidth, innerHeight);
     else camera.setViewOffset(innerWidth, innerHeight, frameShift * innerWidth, 0, innerWidth, innerHeight);
   }
   else camera.clearViewOffset();
@@ -3884,7 +3892,7 @@ function updateUI(s) {
   // görünüm teması (yalnız stil): duruştaki ya da 360°'de incelenen aracın odası — BMW salonu için kart / gezinme / inceleme çubuğu
   const view = (inspect.active ? stations[inspect.index]?.spec.room : active >= 0 ? stations[active].spec.room : '') || '';
   if ((document.body.dataset.view || '') !== view) document.body.dataset.view = view;
-  frameShiftTarget = active < 0 ? 0 : isMobile ? .2 : .14;
+  frameShiftTarget = active < 0 ? 0 : cardBelow() ? .2 : .14;
   rail.classList.toggle('visible', s > carKeyIndex[0] - .6 && s < SEGMENTS - .7);
   setOverlay(ovFinale, THREE.MathUtils.smoothstep(s, SEGMENTS - .6, SEGMENTS - .1));
   progress.style.width = `${(s / SEGMENTS) * 100}%`;
@@ -4024,8 +4032,8 @@ function renderFrame(dt) {
   // odak + alan derinliği: duruşta araca, 360° incelemede incelenen araca
   let amt = 0;
   const w = SHOW.k >= 0 ? smoother(SHOW.w) : 0;
-  if (inspect.active && stations[inspect.index]) { const st = stations[inspect.index]; cine.focus = camera.position.distanceTo(cineTmp.set(st.x, .65, st.z)); amt = .55; }
-  else if (w > 0) { const st = stations[SHOW.k]; cine.focus = camera.position.distanceTo(cineTmp.set(st.x, .65, st.z)); amt = .85 * w; }
+  if (inspect.active && stations[inspect.index]) { const st = stations[inspect.index]; cine.focus = camera.position.distanceTo(cineTmp.set(st.x, .65, st.z)); amt = .55 * (roomThemeOf(inspect.index).dof ?? 1); }
+  else if (w > 0) { const st = stations[SHOW.k]; cine.focus = camera.position.distanceTo(cineTmp.set(st.x, .65, st.z)); amt = .85 * w * (roomThemeOf(SHOW.k).dof ?? 1); }
   cine.dof += (amt - cine.dof) * (1 - Math.exp(-dt * 2.5));
   const u = dofPass.uniforms;
   u.tDepth.value = composer.readBuffer.depthTexture; u.focus.value = cine.focus; u.amount.value = cine.dof;
