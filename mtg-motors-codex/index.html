@@ -428,9 +428,10 @@ for(const i of [0,5]){CARS[i].glb='models/web/curated-'+i+'.glb';CARS[i].materia
 // Malzemeler ilandaki araca göre: renk, jant, kaliper, cam, far/stop.
 Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu kırmızı), siyah jant, mavi kaliper
   // paintSpec: taban katının yansıması kısık → renk doygun kalır, keskin yansımalar cila katından gelir
-  // metallic / coatRough / paintEnv: hafif metalik derinlik + ince saten cila (plastik parlaklık yerine ölçülü vernik yansıması)
-  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#740913', metallic: .36, paintRough: .4, paintSpec: .3,
-  coatRough: .07, paintEnv: 1.0,
+  // metallic / coatRough / paintEnv: hafif metalik derinlik + ince cila · studioEnv 'strips': uzun ışık şeridi yansımaları ·
+  // ownPlates: modelin kendi plakası (ikinci bayi plakası yok) · plateStyle: premium plaka · contactK: temas gölgesi yoğunluğu
+  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#6e0a14', metallic: .34, paintRough: .38, paintSpec: .3,
+  coatRough: .05, paintEnv: 1.0, studioEnv: 'strips', ownPlates: true, plateStyle: 'premium', contactK: 1.2,
   representation: '2021 M430i Coupé gövdesi; ilandaki renk ve donanımla boyandı',
 });
 Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa: kırmızı çizgi/kaliper Midline'a göre karartıldı)
@@ -1416,7 +1417,14 @@ function updatePhotoCars() {
 }
 
 // Gerçekçi araç malzemeleri (ilan rengi, cam, jant, kaliper ...)
-function plateTexture() {
+function plateTexture(style) {
+  if (style === 'premium') return canvasTexture(1040, 230, (g, w, h) => {   // antrasit zemin, ince şampanya iç çerçeve, aralıklı tek satır
+    g.fillStyle = '#131416'; g.fillRect(0, 0, w, h);
+    g.strokeStyle = 'rgba(201,184,147,.75)'; g.lineWidth = 4; g.strokeRect(22, 22, w - 44, h - 44);
+    g.fillStyle = '#ece4d2'; g.textBaseline = 'middle'; g.textAlign = 'center'; g.font = '600 96px Cinzel, Georgia, serif';
+    if ('letterSpacing' in g) g.letterSpacing = '14px';
+    g.fillText('MTG MOTORS', w / 2 + 7, h / 2 + 5);
+  });
   const t = canvasTexture(1040, 230, (g, w, h) => {
     g.fillStyle = '#151a1e'; g.fillRect(0, 0, w, h);
     g.strokeStyle = '#2a2c30'; g.lineWidth = 10; g.strokeRect(5, 5, w - 10, h - 10);
@@ -1472,10 +1480,31 @@ function carStudioEnv() {
   carStudioTex = pmrem.fromScene(s, .02).texture;
   return carStudioTex;
 }
+// BMW salonu: geniş sıcak paneller yerine uzun, ince, nötr ışık şeritleri — gövde hatları boyunca kontrollü çizgi yansımalar,
+// kaput / kapıda patlamış beyaz leke yok. Koyu tavan ve zemin boyanın derinliğini korur.
+let carStripTex;
+function carStripEnv() {
+  if (carStripTex) return carStripTex;
+  const s = new THREE.Scene();
+  s.background = new THREE.Color(.012, .012, .012);
+  const panel = (w, h, d, x, y, z, k, c = [1, .97, .92]) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshBasicMaterial({ color: new THREE.Color(c[0] * k, c[1] * k, c[2] * k) }));
+    m.position.set(x, y, z); s.add(m);
+  };
+  panel(30, .1, 30, 0, 5.2, 0, .02, [1, 1, 1]);                                  // koyu tavan
+  for (const x of [-2.2, 0, 2.2]) panel(.22, .04, 12, x, 4.9, 0, 5.5);           // tavanda uzun ince şeritler (z boyunca)
+  for (const z of [-2.2, 2.2]) panel(12, .04, .22, 0, 4.9, z, 3.2);              // çapraz şeritler (x boyunca)
+  for (const z of [-6.5, 6.5]) { panel(14, .05, .05, 0, 2.0, z, 7); panel(14, .9, .05, 0, 1.0, z * 1.05, .12, [.92, .9, .87]); }   // yan şerit + taş duvar
+  for (const x of [-8, 8]) { panel(.05, .05, 14, x, 2.0, 0, 7); panel(.05, 2.4, 6, x, 1.6, 0, .2); }   // ön / arka şerit + yumuşak dolgu
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshBasicMaterial({ color: new THREE.Color(.045, .045, .046) }));
+  floor.rotation.x = -Math.PI / 2; s.add(floor);
+  carStripTex = pmrem.fromScene(s, .02).texture;
+  return carStripTex;
+}
 
 function makeCarMaterials(spec) {
   const P = THREE.MeshPhysicalMaterial, S = THREE.MeshStandardMaterial;
-  const envMap = carStudioEnv();
+  const envMap = spec.studioEnv === 'strips' ? carStripEnv() : carStudioEnv();
   const set = {
     // baz kat + kalın şeffaf cila: geniş, yumuşak showroom yansımaları cila katmanından gelir
     paint: new P({ color: spec.color, metalness: spec.metallic ?? .3, roughness: spec.paintRough ?? (spec.metallic != null && spec.metallic < .2 ? .36 : .32), clearcoat: 1, clearcoatRoughness: spec.coatRough ?? .02, specularIntensity: spec.paintSpec ?? 1, envMapIntensity: spec.paintEnv ?? 1.25 }),
@@ -1497,7 +1526,7 @@ function makeCarMaterials(spec) {
     mirror: new S({ color: '#c9ced6', metalness: 1, roughness: .03, envMapIntensity: 2 }),
     headlight: new P({ color: '#5f666e', emissive: spec.drlColor || '#fff5df', emissiveIntensity: .12, roughness: .04, metalness: .6, clearcoat: 1, envMapIntensity: 1.2 }),
     taillight: new P({ color: '#3a0006', emissive: '#e0001a', emissiveIntensity: 1.3, roughness: .08, clearcoat: 1, envMapIntensity: 1 }),
-    plate: new S({ map: plateTexture(), roughness: .45, envMapIntensity: .6 }),
+    plate: new S({ map: plateTexture(spec.plateStyle), roughness: .45, envMapIntensity: .6 }),
     bronze: new P({color:'#86745c',metalness:.8,roughness:.3}),
     amber: new P({color:'#dd7018',roughness:.15}),
     leather: new P({ color: spec.leatherColor || '#8d4b29', roughness: .62, sheen: .4, sheenColor: '#fff4e6', sheenRoughness: .6 }),   // yumuşak deri parlaması
@@ -1615,7 +1644,7 @@ function prepareCarModel(spec) {
   root.position.x-=center.x;root.position.z-=center.z;root.position.y-=box.min.y;
   const car = new THREE.Group();
   car.add(root);
-  addDealerPlates(car,spec);
+  if (!spec.ownPlates) addDealerPlates(car,spec);   // modelin kendi plaka yuvası varsa ikinci (bayi) plaka eklenmez
   const sh = new THREE.Mesh(new THREE.PlaneGeometry(spec.length + 1.2, size.z / size.x * spec.length + 1.3),
     new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
   sh.rotation.x = -Math.PI / 2;
@@ -1719,8 +1748,9 @@ function groundCar(car) {
   const root = car.children[0]; if (!root) return;
   const box = new THREE.Box3().setFromObject(root);
   const inv = new THREE.Matrix4().copy(car.matrixWorld).invert(); box.applyMatrix4(inv);
-  contactShadow(car, box, { far: .3, blur: 1.4, passes: 1, opacity: 1, res: 640, pad: .35, darkness: 2.2 });
-  contactShadow(car, box, { far: 1.1, blur: 5.5, passes: 3, opacity: .85, res: 384, pad: .9, darkness: 1.25 });
+  const ck = car.userData.contactK ?? 1;   // araç başına temas gölgesi yoğunluğu (varsayılan 1)
+  contactShadow(car, box, { far: .3, blur: 1.4, passes: 1, opacity: 1, res: 640, pad: .35, darkness: 2.2 * ck });
+  contactShadow(car, box, { far: 1.1, blur: 5.5, passes: 3, opacity: Math.min(1, .85 * ck), res: 384, pad: .9, darkness: 1.25 * ck });
   car.traverse((o) => { if (o.isMesh && o.material?.map === shadowTex) o.material.opacity = .35; });   // eski yumuşak leke yalnız dolgu
 }
 
@@ -1757,7 +1787,7 @@ function buildStations() {
       const car = spec._scene ? prepareCarModel(spec) : coveredCar(spec);
       var carBox = new THREE.Box3().setFromObject(car.children[0]);   // gölge düzlemi hariç (araç yereli: önü +x)
       turn.add(car);
-      stGround.push(car);
+      car.userData.contactK = spec.contactK ?? 1; stGround.push(car);
     }
     turn.rotation.y = PREMIUM_ROOMS.has(i) ? PREM_YAW : Math.atan2(-.55, -.84);   // ön: kameraya çapraz (3/4 ön görünüm)
 
@@ -2741,7 +2771,7 @@ const ROOM_THEMES = {
   // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat / stageTint: araç altı taş plakanın cilası ve tonu ·
   // brandK / brandTint: marka duvarı taşının pişmiş ışık çarpanı ve nötr tonu · woodTint: ahşabın tonu (turuncu parlamaz) ·
   // display: ekran parlaklığı · dof: alan derinliği çarpanı (marka yazısı arka planda net kalır). keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
-  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f7f5', fill: '#eeeff1', rim: '#eef2f8', keyI: 5.0, rimI: 5.0, light: '#f6f5f3', lightI: 3.6, refl: .94, exp: 1.0, halo: .5, grade: [.99, 1.0, 1.02, 1.0, 1.05], stageCoat: .1, stageTint: '#cfcac3', brandK: .5, brandTint: '#c6c7c9', woodTint: '#a8a6a5', pillowTint: '#4e4a46', display: .35, dof: .35 },
+  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: .94, exp: 1.0, halo: .5, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#cfcac3', brandK: .5, brandTint: '#cfcac2', woodTint: '#96959a', pillowTint: '#4e4a46', display: .35, dof: .35 },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
