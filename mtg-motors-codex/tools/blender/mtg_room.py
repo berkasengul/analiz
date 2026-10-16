@@ -930,15 +930,16 @@ SIG_YAW = -1.283                 # sitedeki PREM_YAW: araç önü (0.28, 0.96) �
 #   light: bake ışık karakteri (renk + yoğunluklar), lounge: mobilya tipi
 THEMES = {
     'sport': dict(      # BMW 420i Edition M Sport — çağdaş özel galeri: honlanmış grafit traverten zemin, antrasit taş sergileme
-                        # alanı, doğal koyu taş marka duvarı, antrasit sıva, ölçülü koyu meşe paneller, ince şampanya metal, nötr ışık
+                        # alanı, doğal koyu taş marka duvarı, antrasit sıva, ölçülü koyu meşe paneller, ince şampanya metal, nötr ışık.
+                        # Dekor sade: koltuk, saksı bitkisi, dijital ekran ve halka avize yok (araç tek odak)
         title='Sport Coupé Collection',
-        floor=('graphite_travertine', .42, .1), slab=(3.25, 1.625), inlay=('anthracite_stone', .34, .2), stage='slab',
+        floor=('graphite_travertine', .44, .04), slab=(3.25, 1.625), inlay=('anthracite_stone', .4, .1), stage='slab',
         brand='dark_stone', brand_rough=.5, brand_coat=.06, stone='charcoal_plaster', wood='dark_oak', feature='planks',
-        accent='#c9b893', dark='#34312d', ceil='#191919', ceiling='softbox', led='#fff3e6',
-        letters=('#d6c9ad', '#fff0dc', .8), halo=8.,
-        light=dict(col='#fff5ec', key=2400, slot=620, cove=380, brand=700, wash=460, world=('#18181a', .11)),
-        lounge=dict(sofa=('black_leather', '#ffffff'), chairs='mid_century_lounge_chair', table='slab', pend='rings',
-                    rug=('#1a1a1a', '#3d3c3a'), plant='potted_plant_02')),
+        accent='#c9b893', dark='#34312d', ceil='#191919', ceiling='softbox', led='#f6f4f0', display=False,
+        letters=('#d6c9ad', '#f4efe6', .8), halo=8.,
+        light=dict(col='#f7f5f2', key=1700, slot=520, cove=420, brand=520, wash=420, world=('#18191b', .12)),
+        lounge=dict(sofa=('black_leather', '#ffffff'), chairs=None, table='slab', pend='none',
+                    rug=('#1a1a1a', '#3a3a3a'), plant=None)),
     'suv': dict(        # Ford Kuga — güçlü, doğal, sıcak; Emperador mermer, koyu arduvaz, koyu meşe kirişler
         title='Explorer SUV Lounge',
         floor=('slate_dark', .38, .2), slab=(1.625, 1.625), inlay=('emperador_marble', .16, .55), stage='slab',
@@ -1155,7 +1156,7 @@ def build_signature(lounge=False):
     box('MTG_LED_BrandTop', BW1 - BW0 - .2, .01, .02, bx_, H - .02, MZ + .2, M['ledSoft'], EMISSIVE)
     # dijital ekran: sağ çıta alanında
     dx, dy = (BW1 + .12 + XR) / 2, 1.42
-    if not lounge:
+    if not lounge and TH.get('display', True):   # display=False: dijital ilan ekranı yok (bilgi sitedeki kartta)
         box('MTG_Display_Frame', .74, 2.02, .03, dx, dy, BZ + .085, M['bronze'], PLAIN)
         box('MTG_Display_Bezel', .68, 1.96, .02, dx, dy, BZ + .105, M['black'], PLAIN)
         anchor('MTG_Display', dx, dy, BZ + .116, mtg_anchor='display', w=.62, h=1.9)
@@ -1316,10 +1317,11 @@ def build_signature(lounge=False):
         fab = M['fabric']; M['fabric'] = M['sofa']
         sofa(XR - .62, LZ, -90, 3.4 if lg.get('boxes') else 3.0, 'Sofa')
         M['fabric'] = fab
-    else:   # kompakt: kanepe yerine üçüncü koltuk (duvar önünde, salona bakar)
+    elif lg['chairs']:   # kompakt: kanepe yerine üçüncü koltuk (duvar önünde, salona bakar)
         anchor('MTG_Decor_Chair_C', XR - .95, 0, LZ, yaw=math.radians(-90), decor=lg['chairs'], scale=1.)
-    anchor('MTG_Decor_Chair_A', 2.75, 0, LZ + 1.15, yaw=math.radians(112), decor=lg['chairs'], scale=1.)
-    anchor('MTG_Decor_Chair_B', 2.75, 0, LZ - 1.15, yaw=math.radians(68), decor=lg['chairs'], scale=1.)
+    if lg['chairs']:     # chairs=None: lounge yalnız kanepe + sehpa (sade; araçla yarışmaz)
+        anchor('MTG_Decor_Chair_A', 2.75, 0, LZ + 1.15, yaw=math.radians(112), decor=lg['chairs'], scale=1.)
+        anchor('MTG_Decor_Chair_B', 2.75, 0, LZ - 1.15, yaw=math.radians(68), decor=lg['chairs'], scale=1.)
     if lg['table'] in ('slab', 'round'):
         if lg['table'] == 'slab':
             rounded_slab('MTG_Table_Top', .8, 1.4, .12, .05, LX + .1, .34, LZ, M['marble'], PLAIN, tile=(1.2, 1.2))
@@ -1341,9 +1343,10 @@ def build_signature(lounge=False):
         box('MTG_LED_PendantBar', .045, .006, 1.74, LX + .1, 2.917, LZ, M['ledSoft'], EMISSIVE)
         for dz in (-.8, .8):
             cylinder(f'MTG_PendantBar_wire{dz:+.0f}', .0025, .0025, H - 2.98, LX + .1, 2.98, LZ + dz, M['black'], PLAIN, verts=6)
-    planter(XR - .6, -11.9, 1.6, 'Planter_B', h=.78, r=.32, plant=lg['plant'])
-    planter(XL + .6, -6.0, 1.35, 'Planter_C', h=.72, plant=lg['plant'])        # geçişin önü boş kalır
-    planter(XL + .6, VZ + .75, 1.5, 'Planter_D', h=.78, r=.32, plant='potted_plant_04')
+    if lg['plant']:      # plant=None: saksı bitkisi yok
+        planter(XR - .6, -11.9, 1.6, 'Planter_B', h=.78, r=.32, plant=lg['plant'])
+        planter(XL + .6, -6.0, 1.35, 'Planter_C', h=.72, plant=lg['plant'])        # geçişin önü boş kalır
+        planter(XL + .6, VZ + .75, 1.5, 'Planter_D', h=.78, r=.32, plant='potted_plant_04')
     if lg.get('boxes'):            # SUV: duvar önünde uzun bitki kasaları (doğal doku)
         anchor('MTG_Decor_Box_A', XR - .45, 0, -1.6, yaw=math.radians(90), decor='planter_box_02', scale=1.)
         anchor('MTG_Decor_Box_B', BW1 + .9, 0, BZ + .5, yaw=0., decor='planter_box_02', scale=1.)
