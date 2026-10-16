@@ -929,15 +929,16 @@ SIG_YAW = -1.283                 # sitedeki PREM_YAW: araç önü (0.28, 0.96) �
 #   accent: metal vurgu (çerçeve/raf/harf kasası), dark: koyu metal (dikme/kayıt), letters: (renk, ışıma rengi, ışıma)
 #   light: bake ışık karakteri (renk + yoğunluklar), lounge: mobilya tipi
 THEMES = {
-    'sport': dict(      # BMW 420i Edition M Sport — sportif, dramatik; siyah-altın Portoro mermer, kömür sıva, ceviz çıta
+    'sport': dict(      # BMW 420i Edition M Sport — çağdaş özel galeri: honlanmış grafit traverten zemin, antrasit taş sergileme
+                        # alanı, doğal koyu taş marka duvarı, antrasit sıva, ölçülü koyu meşe paneller, ince şampanya metal, nötr ışık
         title='Sport Coupé Collection',
-        floor=('graphite_marble', .2, .4), slab=(3.25, 1.625), inlay=('portoro_marble', .14, .65), stage='slab',
-        brand='portoro_marble', stone='charcoal_plaster', wood='smoked_walnut_veneer', feature='slats',
-        accent='#d8b46e', dark='#4a3a28', ceil='#1d1b19', ceiling='softbox', led='#ffe2b8',
-        letters=('#e2c592', '#ffcf8a', 1.6), halo=22.,
-        light=dict(col='#ffe6c8', key=2400, slot=620, cove=460, brand=950, wash=520, world=('#1c1815', .11)),
+        floor=('graphite_travertine', .42, .1), slab=(3.25, 1.625), inlay=('anthracite_stone', .34, .2), stage='slab',
+        brand='dark_stone', brand_rough=.5, brand_coat=.06, stone='charcoal_plaster', wood='dark_oak', feature='planks',
+        accent='#c9b893', dark='#34312d', ceil='#191919', ceiling='softbox', led='#fff3e6',
+        letters=('#d6c9ad', '#fff0dc', .8), halo=8.,
+        light=dict(col='#fff5ec', key=2400, slot=620, cove=380, brand=700, wash=460, world=('#18181a', .11)),
         lounge=dict(sofa=('black_leather', '#ffffff'), chairs='mid_century_lounge_chair', table='slab', pend='rings',
-                    rug=('#1c1a18', '#4a443d'), plant='potted_plant_02')),
+                    rug=('#1a1a1a', '#3d3c3a'), plant='potted_plant_02')),
     'suv': dict(        # Ford Kuga — güçlü, doğal, sıcak; Emperador mermer, koyu arduvaz, koyu meşe kirişler
         title='Explorer SUV Lounge',
         floor=('slate_dark', .38, .2), slab=(1.625, 1.625), inlay=('emperador_marble', .16, .55), stage='slab',
@@ -1002,7 +1003,7 @@ def tex_mat(name, folder, rough, coat=0., normal=.4):
 M['floor_a'] = tex_mat('floor_' + TH['floor'][0], TH['floor'][0], TH['floor'][1], TH['floor'][2], .35)
 M['floor_b'] = M['floor_a']                                                        # plaka başına farklı doku başlangıcı (rand_origin)
 M['floor_inlay'] = pbr('floor_inlay', TH['inlay'][0], '#ffffff', rough=TH['inlay'][1], normal=.25, coat=TH['inlay'][2], coat_rough=.04)
-M['marble'] = pbr('brand_marble', TH['brand'], '#ffffff', rough=.28, normal=.4, coat=.4, coat_rough=.07)
+M['marble'] = pbr('brand_marble', TH['brand'], '#ffffff', rough=TH.get('brand_rough', .28), normal=.4, coat=TH.get('brand_coat', .4), coat_rough=.07)
 M['champagne'] = pbr('champagne', None, TH['accent'], rough=.24, metal=1.)
 M['bronze'] = pbr('bronze', None, TH['dark'], rough=.34, metal=1.)
 M['stone'] = tex_mat('wall_' + TH['stone'], TH['stone'], .55, 0., .55)

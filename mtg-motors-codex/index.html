@@ -428,7 +428,9 @@ for(const i of [0,5]){CARS[i].glb='models/web/curated-'+i+'.glb';CARS[i].materia
 // Malzemeler ilandaki araca göre: renk, jant, kaliper, cam, far/stop.
 Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu kırmızı), siyah jant, mavi kaliper
   // paintSpec: taban katının yansıması kısık → renk doygun kalır, keskin yansımalar cila katından gelir
-  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#740913', metallic: .3, paintRough: .45, paintSpec: .3,
+  // metallic / coatRough / paintEnv: hafif metalik derinlik + ince saten cila (plastik parlaklık yerine ölçülü vernik yansıması)
+  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#740913', metallic: .4, paintRough: .42, paintSpec: .3,
+  coatRough: .05, paintEnv: 1.05,
   representation: '2021 M430i Coupé gövdesi; ilandaki renk ve donanımla boyandı',
 });
 Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa: kırmızı çizgi/kaliper Midline'a göre karartıldı)
@@ -1473,7 +1475,7 @@ function makeCarMaterials(spec) {
   const envMap = carStudioEnv();
   const set = {
     // baz kat + kalın şeffaf cila: geniş, yumuşak showroom yansımaları cila katmanından gelir
-    paint: new P({ color: spec.color, metalness: spec.metallic ?? .3, roughness: spec.paintRough ?? (spec.metallic != null && spec.metallic < .2 ? .36 : .32), clearcoat: 1, clearcoatRoughness: .02, specularIntensity: spec.paintSpec ?? 1, envMapIntensity: 1.25 }),
+    paint: new P({ color: spec.color, metalness: spec.metallic ?? .3, roughness: spec.paintRough ?? (spec.metallic != null && spec.metallic < .2 ? .36 : .32), clearcoat: 1, clearcoatRoughness: spec.coatRough ?? .02, specularIntensity: spec.paintSpec ?? 1, envMapIntensity: spec.paintEnv ?? 1.25 }),
     // hafif füme cam: yansıtır, içi seçilir (düz siyah değil)
     glass: new P({ color: '#161b1f', metalness: .1, roughness: .02, transparent: true, opacity: .44, depthWrite: false, side: THREE.DoubleSide, envMapIntensity: 1.25 }),
     lens: new P({ color: '#ffffff', metalness: 0, roughness: 0, clearcoat: 1, transparent: true, opacity: .14, depthWrite: false, envMapIntensity: 1.8 }),
@@ -2656,7 +2658,9 @@ const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge
 //   halo: harflerin arkasındaki ışıma çarpanı (desenli taşta düşük tutulur, yazı bulanık görünmesin)
 //   grade: [r, g, b ton, doygunluk, kontrast] — masaüstü renk tonu (sinematik katman)
 const ROOM_THEMES = {
-  sport:     { name: 'Sport Coupé Collection',  letters: '#e2c592', emis: '#6e4b1d', key: '#ffe0b8', fill: '#ffd6aa', rim: '#ffc98c', keyI: 6.2, rimI: 5.4, light: '#ffe6c8', lightI: 4.4, refl: .78, exp: 1.03, halo: 1, grade: [1.03, .99, .95, 1.06, 1.07] },
+  // BMW 420i: çağdaş özel galeri — nötr beyaz stüdyo ışığı (yumuşak ana, dengeli dolgu, hafif serin kenar), honlanmış taş zemin
+  // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat: araç altı taş plakanın cila katmanı · display: ekran parlaklığı
+  sport:     { name: 'Sport Coupé Collection',  letters: '#d3c4a3', emis: '#2a2216', key: '#fff6ee', fill: '#f3f2f0', rim: '#f2f5fb', keyI: 6.0, rimI: 5.8, light: '#fff6ee', lightI: 4.4, refl: .94, exp: 1.0, halo: .35, grade: [1.0, 1.0, 1.01, 1.0, 1.06], stageCoat: .12, display: .35 },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
@@ -2665,6 +2669,7 @@ const ROOM_THEMES = {
   sedan:     { name: 'Executive Sedan Gallery', letters: '#d5d9de', emis: '#2a3442', key: '#f2f5ff', fill: '#dfe7f6', rim: '#e8efff', keyI: 5.8, rimI: 5.2, light: '#f1f3fb', lightI: 4.4, refl: .8, exp: 1.0, halo: .6, grade: [.97, .99, 1.03, .97, 1.08] },
 };
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
+const LOUNGE_SIG = { letters: '#e2c592', emis: '#6e4b1d', refl: .78, halo: 1 };   // lounge: önceki Signature harf / zemin dili (BMW salonundan bağımsız)
 const EXT_LOOK = { exp: 1.04, grade: [.95, .99, 1.06, 1.02, 1.08] };   // dış cephe: serin gece, sıcak ışıklar kontrastla öne çıkar
 const HUB_LOOK = { exp: .92, grade: [1.03, 1.0, .95, 1.02, 1.06] };    // resepsiyon + koridor: sıcak galeri tonu
 ROOM_THEMES.brutal = { name: 'MTG Galeri', letters: '#4a3c2c', emis: '#0e0a06', key: '#fff3e6', fill: '#e8eef6', rim: '#fff0de', keyI: 6.2, rimI: 5.2, light: '#fff2e2', lightI: 4.6, refl: 1, exp: 1.0, halo: 0, grade: [1, 1, 1, 1, 1.04] };
@@ -3299,6 +3304,9 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
     // zemin: grafit mermer dokusu + pişmiş ışık olduğu gibi (Blender'daki malzeme); altta Reflector ölçülü görünür → hafif bulanık yansıma
     if (part === 'Floor' && !isMobile) { o.material = o.material.clone(); o.material.opacity = th.refl; o.material.userData.reflFloor = true; }
     if (o.name === 'MTG_Softbox') { o.material = o.material.clone(); o.material.emissiveIntensity = Math.min(o.material.emissiveIntensity, 1.1); }
+    if (th.stageCoat != null && /MTG_stage/.test(o.material?.name || '')) {   // honlanmış sergileme taşı: ince cila, yansıma ölçülü
+      o.material = o.material.clone(); o.material.clearcoat = th.stageCoat; o.material.envMapIntensity = .22; if (o.material.userData.reflFloor) o.material.opacity = .96;
+    }
   });
   brandLetters(room, th);
 }
@@ -3411,13 +3419,13 @@ function buildRoomGLB(g, k) {
   decorize(room);
   const po = portalOpen(k);                       // açık geçişte dolgu gizli, kapalı uçta (resepsiyon / bina sonu) duvar
   for (const [sd, open] of [['L', po.L], ['R', po.R]]) { const f = room.getObjectByName('MTG_PortalFill_' + sd); if (f) f.visible = !open; }
-  if (sig || (lounge && (room.getObjectByName('MTG_BrandSub') || room.getObjectByName('MTG_BrandText')))) signatureRoom(room, lounge ? ROOM_THEMES.sport : roomThemeOf(k));   // lounge: Signature dili
+  if (sig || (lounge && (room.getObjectByName('MTG_BrandSub') || room.getObjectByName('MTG_BrandText')))) signatureRoom(room, lounge ? LOUNGE_SIG : roomThemeOf(k));   // lounge: Signature dili
   else if (PREMIUM_ROOMS.has(k)) premiumRoom(room, k);   // Signature GLB yoksa: ortak oda üzerinde sıcak premium katman
   const disp = anchor('MTG_Display');
   if (disp && !lounge) {
     const t = totemTexture(CARS[TOUR[k]], k);
     const scr = new THREE.Mesh(new THREE.PlaneGeometry(disp.userData.w || .62, disp.userData.h || 1.9),
-      new THREE.MeshStandardMaterial({ map: t, emissiveMap: t, emissive: '#ffffff', emissiveIntensity: .8, roughness: .12, metalness: .1 }));
+      new THREE.MeshStandardMaterial({ map: t, emissiveMap: t, emissive: '#ffffff', emissiveIntensity: roomThemeOf(k).display ?? .8, roughness: .12, metalness: .1 }));
     scr.position.z = .001; disp.add(scr);
   }
   buildTV(room, k);
