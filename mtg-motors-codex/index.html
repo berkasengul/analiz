@@ -2770,8 +2770,9 @@ const ROOM_THEMES = {
   // BMW 420i: çağdaş özel galeri — nötr beyaz stüdyo ışığı (yumuşak ana, dengeli dolgu, hafif serin kenar), honlanmış taş zemin
   // (yansıma ölçülü), şampanya harfler, odadaki ilan ekranı kısık. stageCoat / stageTint: araç altı taş plakanın cilası ve tonu ·
   // brandK / brandTint: marka duvarı taşının pişmiş ışık çarpanı ve nötr tonu · woodTint: ahşabın tonu (turuncu parlamaz) ·
-  // display: ekran parlaklığı · dof: alan derinliği çarpanı (marka yazısı arka planda net kalır). keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
-  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: .94, exp: 1.0, halo: .5, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#cfcac3', brandK: .5, brandTint: '#cfcac2', woodTint: '#96959a', pillowTint: '#4e4a46', display: .35, dof: .35 },
+  // display: ekran parlaklığı · dof: alan derinliği çarpanı (0: marka yazısı arka planda tam net) · letterShadow: yazının duvardaki
+  // gölge yoğunluğu · wallLift: duvar / ahşap pişmiş ışığına nötr dolgu · floorRough: zemin pürüzlülüğü (parlak ışık şeridi yansıması yok). keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
+  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .5, brandTint: '#cfcac2', woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75 },
   suv:       { name: 'Explorer SUV Lounge',     letters: '#f2dcae', emis: '#7a5a2a', key: '#ffdfb6', fill: '#ffd3a4', rim: '#ffc890', keyI: 6.0, rimI: 5.0, light: '#ffdcb4', lightI: 4.6, refl: .84, exp: 1.04, halo: .85, grade: [1.04, 1.0, .94, 1.04, 1.06] },
   urban:     { name: 'Urban Collection',        letters: '#d9bd84', emis: '#5a4520', key: '#fff4e4', fill: '#e6efe9', rim: '#fff0dc', keyI: 5.8, rimI: 5.0, light: '#fff1df', lightI: 4.4, refl: .82, exp: 1.03, halo: .75, grade: [.99, 1.01, .99, 1.03, 1.07] },
   dynamic:   { name: 'Dynamic City Collection', letters: '#d08a5c', emis: '#5a2a12', key: '#fff1e2', fill: '#ffd8bf', rim: '#ffb98a', keyI: 5.6, rimI: 5.4, light: '#fff0e2', lightI: 4.4, refl: .86, exp: 1.0, halo: .7, grade: [1.02, .99, .97, 1.08, 1.07] },
@@ -3365,7 +3366,7 @@ function brandText(line, capH, width, th, opt) {
   // duvarda yumuşak gölge (üst yıkama ışığı: hafif aşağı kayık) + tema rengiyle arkadan ışık (halo)
   const ppm = isMobile ? 160 : 260;
   const sh = brandTextCanvas(lay, capH, ppm, opt.blur, 'rgba(0,0,0,.92)', opt.drop);
-  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(sh.wM, sh.hM), new THREE.MeshBasicMaterial({ map: sh.tex, transparent: true, opacity: .62,
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(sh.wM, sh.hM), new THREE.MeshBasicMaterial({ map: sh.tex, transparent: true, opacity: th.letterShadow ?? .62,
     depthWrite: false, toneMapped: false, color: '#000' }));
   shadow.position.z = .002; shadow.renderOrder = 1; g.add(shadow);
   if (th.halo) {
@@ -3424,6 +3425,13 @@ function signatureRoom(room, th = ROOM_THEMES.sport) {
       o.material = o.material.clone(); o.material.lightMapIntensity *= th.brandK; if (th.brandTint) o.material.color.set(th.brandTint);
     }
     if (th.woodTint && /^MTG_wood_/.test(mn)) { o.material = o.material.clone(); o.material.color.set(th.woodTint); }
+    if (th.wallLift && /^MTG_(wood_|wall_)/.test(mn) && o.material.lightMap) {   // nötr dolgu: duvar ve ahşap bir ton açılır, araçla ton ayrımı
+      o.material = o.material.clone(); o.material.lightMapIntensity *= th.wallLift;
+    }
+    if (th.floorRough && /^MTG_floor_/.test(mn)) {        // mat taş: tavan / LED ışıklarının uzun parlak şerit yansıması oluşmaz
+      o.material = o.material.clone(); o.material.roughness = Math.max(o.material.roughness, th.floorRough); o.material.clearcoat = 0;
+      o.material.envMapIntensity = Math.min(o.material.envMapIntensity ?? .3, .15); if (o.material.userData.reflFloor) o.material.opacity = 1;
+    }
     if (th.pillowTint && mn === 'MTG_pillow_rust') { o.material = o.material.clone(); o.material.color.set(th.pillowTint); }   // kanepe yastığı: turuncu vurgu yerine nötr
   });
   brandLetters(room, th);
