@@ -2399,7 +2399,9 @@ body[data-view="sport"] #inspect-bar button{min-width:44px;min-height:44px;paddi
  font:500 15px/1 Inter,system-ui,sans-serif;transition:background .25s,border-color .25s}
 body[data-view="sport"] #inspect-bar button:hover{background:rgba(201,184,147,.12);border-color:#c9b893}
 body[data-view="sport"] #inspect-bar button[data-action="close"]{background:rgba(201,184,147,.13);border-color:rgba(201,184,147,.7);font:600 10.5px/1 Inter,system-ui,sans-serif;letter-spacing:.15em;text-transform:uppercase}
-@media (max-width:760px){body[data-view="sport"] #room-nav button{width:44px;height:44px}body[data-view="sport"] #inspect-bar{padding:12px}
+@media (max-width:760px){body[data-view="sport"] #room-nav{left:auto;right:12px;transform:none;gap:8px;padding:5px}
+ body[data-view="sport"] #room-nav button{width:44px;height:44px}body[data-view="sport"] #room-nav span{min-width:0;width:128px;font-size:9.5px;letter-spacing:.14em}
+ .car-card[data-room="sport"]{bottom:84px!important}body[data-view="sport"] #inspect-bar{padding:12px}
  body[data-view="sport"] #inspect-bar strong{flex:1 1 100%}body[data-view="sport"] #inspect-bar span{white-space:normal}}`;
 document.head.appendChild(bmwStyle);
 const inspectTarget=new THREE.Vector3();
