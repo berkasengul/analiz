@@ -1616,11 +1616,13 @@ function addEmblems(car) {
       }
       if (k > 6 && (!best || k > best.k)) best = { m, k, c: c.divideScalar(k), n: nn.normalize(), bb };
     }
+    if (NO_INERTIA) (window.__emb ||= []).push({ meshes: meshes.length, found: !!best, k: best?.k, c: best?.c.toArray(), n: best?.n.toArray(), bb: best && best.bb.getSize(new THREE.Vector3()).toArray(), box: [box.min.toArray(), box.max.toArray()] });
     if (!best) continue;
     const d = best.bb.getSize(new THREE.Vector3()).z * .97;   // disk çapı: araç genişliği yönündeki ölçü (her iki amblemde de tam çap)
     const h = new THREE.Object3D(); h.position.copy(best.c); h.lookAt(best.c.clone().add(best.n));
     const decal = new THREE.Mesh(new DecalGeometry(best.m, best.c, h.rotation, new THREE.Vector3(d, d, d * 1.2)), mat);
     decal.name = 'MTG_BMW_Roundel'; decal.renderOrder = 3; car.add(decal);
+    if (NO_INERTIA) window.__emb.at(-1).verts = decal.geometry.attributes.position?.count ?? 0;
   }
 }
 function addDealerPlates(car,spec){
