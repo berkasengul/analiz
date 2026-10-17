@@ -435,7 +435,7 @@ Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu
   // metallic / coatRough / paintEnv: hafif metalik derinlik + ince cila · studioEnv 'strips': uzun ışık şeridi yansımaları ·
   // ownPlates: modelin kendi plakası (ikinci bayi plakası yok) · plateStyle: premium plaka · contactK: temas gölgesi yoğunluğu
   glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#6e0a14', metallic: .34, paintRough: .38, paintSpec: .3,
-  coatRough: .05, paintEnv: 1.0, studioEnv: 'strips', ownPlates: true, plateStyle: 'premium', contactK: 1.2,
+  coatRough: .11, paintEnv: .85, studioEnv: 'strips', ownPlates: true, plateStyle: 'premium', contactK: 1.35, smoothKeys: ['paint', 'gloss', 'tire'],
   // salon TV'si: projede BMW videosu yok → video verilirse (video: 'media/….mp4') o oynar; yoksa HD'de 3D modelden canlı çekim,
   // akıcı modda / bekleme ekranında bu poster (BMW 3D modelinin Blender render karesi)
   tvPoster: 'models/rooms/room_sport_tv.webp',
@@ -457,7 +457,7 @@ Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa
 });
 Object.assign(CARS[6], {   // Ford Kuga — beyaz, Titanium iki tonlu jant, siyah çamurluk kaplamaları
   glb: 'models/web/ford-kuga.glb', rotX: 0, rotY: 0, curated: false, color: '#eceeef', metallic: .06,
-  studioEnv: 'strips', coatRough: .08, paintEnv: .62, paintRough: .4, contactK: 1.25,   // beyaz boya: uzun yumuşak şerit yansımalar, patlama yok
+  studioEnv: 'strips', coatRough: .1, paintEnv: .58, paintRough: .4, contactK: 1.4,   // beyaz boya: uzun yumuşak şerit yansımalar, patlama yok
   // salon TV'si: projede Kuga videosu yok → 3D modelden alınmış sade poster (akıcı mod / bekleme); HD canlı çekimde de yazı bandı yok
   tvPoster: 'models/rooms/room_suv_tv.webp', tvClean: true,
   rimColor: '#9ea3a9', caliperColor: '#2f3236',
@@ -1423,7 +1423,7 @@ const fT = { key: new THREE.Vector3(), fill: new THREE.Vector3(), rim: new THREE
 const fC = { key: new THREE.Vector3(), fill: new THREE.Vector3(), rim: new THREE.Vector3(), sh: new THREE.Vector3(), c: new THREE.Vector3() };
 // araç üstü ışık düzeni (oda yereli, araç = (−1, −6.2)): tepe softbox, kamera tarafı dolgu, arka-sağ kenar ışığı, gölge spotu
 const BASE_KEY = new THREE.Color('#fff8ed'), BASE_FILL = new THREE.Color('#dbe6fa'), BASE_RIM = new THREE.Color('#fff0d5');
-const focusBase = { key: 8, rim: 5 };
+const focusBase = { key: 8, rim: 5, fill: 2.8, spot: 65, keySize: [6, 2.8], fillSize: [4.5, 2.2] };
 function updateFocusLights(dt) {
   let best = null, bd = Infinity;
   stations.forEach((st) => {
@@ -1442,6 +1442,12 @@ function updateFocusLights(dt) {
   const prem = PREMIUM_ROOMS.has(k), th = roomThemeOf(k);   // oda değişince ışık rengi/yoğunluğu yeni temaya yumuşakça geçer
   keyLight.color.lerp(prem ? th.keyC : BASE_KEY, a); fillLight.color.lerp(prem ? th.fillC : BASE_FILL, a); rimLight.color.lerp(prem ? th.rimC : BASE_RIM, a);
   keyLight.intensity += ((prem ? th.keyI : focusBase.key) - keyLight.intensity) * a; rimLight.intensity += ((prem ? th.rimI : focusBase.rim) - rimLight.intensity) * a;
+  // tema başına (yalnız tanımlayan salonlar: BMW, Kuga): geniş yumuşak dolgu, kısık sert spot, büyük tepe softbox (kaportada küçük parlak leke yok)
+  fillLight.intensity += (((prem && th.fillI) || focusBase.fill) - fillLight.intensity) * a;
+  focusShadow.intensity += (((prem && th.spotI) || focusBase.spot) - focusShadow.intensity) * a;
+  const kw = (prem && th.keySize) || focusBase.keySize, fw = (prem && th.fillSize) || focusBase.fillSize;
+  keyLight.width += (kw[0] - keyLight.width) * a; keyLight.height += (kw[1] - keyLight.height) * a;
+  fillLight.width += (fw[0] - fillLight.width) * a; fillLight.height += (fw[1] - fillLight.height) * a;
   // varış anı: dışarıda serin gece tonu → kapıdan girince resepsiyonun sıcak tonu → salonda salonun kendi tonu
   const zone = camera.position.z > -.4 ? EXT_LOOK : camRoom < 0 ? HUB_LOOK : prem ? th : null;
   renderer.toneMappingExposure += ((zone?.exp ?? 1) - renderer.toneMappingExposure) * a;
@@ -1743,7 +1749,7 @@ function prepareCarModel(spec) {
     }
     if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals();
     // smoothNormals: kaporta yansımaları dalgalı olan modellerde normalleri yumuşat (keskin hatlar korunur)
-    if (spec.smoothNormals && (key === 'paint' || key === 'gloss'))
+    if (spec.smoothNormals && (spec.smoothKeys || ['paint', 'gloss']).includes(key))
       o.geometry = toCreasedNormals(o.geometry.index ? o.geometry.toNonIndexed() : o.geometry, THREE.MathUtils.degToRad(35));
     o.castShadow = !o.material.transparent; o.receiveShadow = true;
     if (!key && o.material && 'envMapIntensity' in o.material) {o.material.envMapIntensity=.85;o.material.envMap=carStudioEnv();}
@@ -2912,11 +2918,11 @@ const ROOM_THEMES = {
   // gölge yoğunluğu · wallLift: duvar / ahşap pişmiş ışığına nötr dolgu · floorRough: zemin pürüzlülüğü (parlak ışık şeridi yansıması yok) ·
   // glass: vitrin / geçiş camları (ortak süt beyazı cam yerine temiz, çok hafif tonlu, ölçülü yansımalı) · brandRough: duvar taşı
   // pürüzlülüğü (honlanmış) · brandMainOnly: duvarda yalnız MTG | MOTORS (net, alt satırsız) · vaultDecor: vitrin raflarında kalan dekor çapaları. keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
-  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 4.3, rimI: 4.6, light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .85, brandTint: '#ffffff', brandRough: .72, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'], woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75,
+  sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 3.3, rimI: 3.6, fillI: 2.6, spotI: 16, keySize: [8.5, 3.8], fillSize: [7, 3], light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .85, brandTint: '#ffffff', brandRough: .72, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'], woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75,
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
   // Ford Kuga (3. tur): BMW ile aynı yerleşim ve kalite, Ford'a özgü palet — derin petrol mavisi sıva, fırçalanmış gümüş kanatlar,
   // açık gri taş marka duvarında koyu gri metal MTG | MOTORS, mat açık-orta gri zemin; nötr-serin ışık (beyaz Kuga rengini korur)
-  suv:       { name: 'Explorer SUV Lounge',     letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 2.9, rimI: 3.2, light: '#f4f7fa', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
+  suv:       { name: 'Explorer SUV Lounge',     letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 2.5, rimI: 2.7, fillI: 2.2, spotI: 14, keySize: [8.5, 3.8], fillSize: [7, 3], light: '#f4f7fa', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
     stageCoat: .04, stageTint: '#a9acaf', floorK: .62, floorTint: '#c4c6c8', brandK: .6, brandTint: '#b2b5b8', brandRough: .7, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'],
     pillowTint: '#3d4a52', beam: '#2c353b', matTint: { MTG_finbg_slate_cool: '#86aab8' }, dof: 0, letterShadow: .28, wallLift: 1.75, floorRough: .75,
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
@@ -3878,7 +3884,7 @@ buildRooms();          // Blender odaları (models/rooms) yüklendiyse onlar, yo
 captureRoomEnv();      // araçlar eklenmeden önce: boya gerçek showroom'u yansıtsın
 if (BLENDER_ROOMS) {   // mimari ışık pişmiş: araç üstündeki gerçek zamanlı ışıkları dengele (boya solmasın, derin kırmızı kalsın)
   keyLight.intensity = 4.2; fillLight.intensity = 1.4; rimLight.intensity = 3.2; focusShadow.intensity = 32;
-  focusBase.key = 4.2; focusBase.rim = 3.2;
+  focusBase.key = 4.2; focusBase.rim = 3.2; focusBase.fill = 1.4; focusBase.spot = 32;
   ROOM_THEME.lightI = 3.2; LOUNGE_THEME.lightI = 3.0;
 }
 buildVitrines();       // istasyonlar araç sahnelerini hazırlamadan önce kopyalar
