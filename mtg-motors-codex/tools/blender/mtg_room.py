@@ -887,8 +887,8 @@ def facade_lights():
     area('L_PortH', 0, FAC_GLZ - .05, FAC_FZ - .2, 2 * PORT_X - .4, .04, 240, '#ffd9a8', spread=90, glossy=False)
     for sx in (-1, 1):                                    # attika sıyırıcı ışıklar (vitrin üstü): yumuşak sıcak yıkama
         xc = sx * (VIT_X0 + VIT_X1) / 2
-        area(f'L_Grazer{sx}', xc, FAC_GLZ + .07, FAC_FZ + .06, VIT_X1 - VIT_X0 - .2, .04, 650, '#ffdcb0', aim=(xc, FAC_TOP + 2, FAC_FZ - .05), spread=40, glossy=False)
-    area('L_GrazerP', 0, FAC_GLZ + .1, FAC_FZ + .08, 2 * PORT_X - .2, .04, 420, '#ffdcb0', aim=(0, FAC_TOP + 2, FAC_FZ - .05), spread=40, glossy=False)
+        area(f'L_Grazer{sx}', xc, FAC_GLZ + .07, FAC_FZ + .06, VIT_X1 - VIT_X0 - .2, .04, 320, '#ffdcb0', aim=(xc, FAC_TOP + 2, FAC_FZ - .05), spread=60, glossy=False)
+    # tabela bandı alttan yakılmaz (taş patlıyor, harfler bandın üstüne gölge düşürüyordu): yalnız gök dolgusu + aplikler
 
 
 # ---------------- CAM GEÇİŞ: aynı sıradaki komşu odalar arasında yan duvarda açıklık + cam panel ----------------
@@ -1051,9 +1051,9 @@ if FACADE:   # gündüz: LED'ler kısık, ışık bandı sakin; tabela koyu sati
     M['band'] = emissive('band', '#ffe6c4', 1.1)
     M['brand'] = pbr('brand_dark_bronze', None, '#2e2924', rough=.3, metal=.85)
     # cephe: ince gözenekli honlanmış taş-beton (tools/make_facade_textures.py), panel başına hafif ton farkı; 1.5 m gerçek doku ölçeği
-    M['trav_a'] = pbr('facstone_a', 'facade_stone', '#ffffff', rough=.72, normal=1.1, rough_var=.12, micro=.06)
-    M['trav_b'] = pbr('facstone_b', 'facade_stone', '#f3efe8', rough=.74, normal=1.1, rough_var=.12, micro=.06)
-    M['trav_c'] = pbr('facstone_c', 'facade_stone', '#faf6ef', rough=.7, normal=1.1, rough_var=.12, micro=.06)
+    M['trav_a'] = pbr('facstone_a', 'facade_stone', '#ffffff', rough=.72, normal=1.5, rough_var=.12, micro=.06)
+    M['trav_b'] = pbr('facstone_b', 'facade_stone', '#f3efe8', rough=.74, normal=1.5, rough_var=.12, micro=.06)
+    M['trav_c'] = pbr('facstone_c', 'facade_stone', '#faf6ef', rough=.7, normal=1.5, rough_var=.12, micro=.06)
     M['travertine'] = M['trav_a']
     for k_ in ('facstone_a', 'facstone_b', 'facstone_c'): TILE[k_] = (1.5, 1.5)
 for k_, t_ in (('floor_' + TH['floor'][0], (TH['slab'][0], TH['slab'][0])), ('floor_inlay', (2.6, 2.6)), ('brand_marble', (3.6, 3.6)),
