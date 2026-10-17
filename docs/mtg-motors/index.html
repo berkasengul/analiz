@@ -1039,7 +1039,7 @@ function buildFacadeGLB() {
   f.traverse((o) => {
     if (!o.isMesh) return;
     if (o.material === glassP) o.material = warmGlass;
-    else if (/hedge/.test(o.material?.name || '')) { o.material = o.material.clone(); o.material.color.set('#3f5435'); o.material.emissive?.set('#000000'); o.material.envMapIntensity = .3; }
+    else if (/hedge/.test(o.material?.name || '')) { o.material = o.material.clone(); o.material.color.set('#7a9a63'); o.material.emissive?.set('#141a0e'); o.material.envMapIntensity = .5; }   // akşamda da yaprak yeşili okunur
   });
   const M = showroomMats(), bronze = std('#2a2c2f', .38, .9, .6);   // kapı kanadı profili: cephe profilleriyle aynı koyu grafit, ince
   const W = 1.55, HD = 2.8;                     // kanat: net açıklık 3.0 m (iki kanat), ray altı 2.84 m

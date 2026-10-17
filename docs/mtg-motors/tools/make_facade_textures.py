@@ -28,7 +28,7 @@ def make(src, dst, dark, light, contrast=1.0, size=2048, rough_add=0.):
     sv(np.asarray(Image.open(os.path.join(SRC, f'{src}_nor_gl.jpg')).convert('RGB')), 'nor_gl.webp')
     print('doku', dst, size)
 
-make('plaster_grey_04', 'facade_stone', '#aba499', '#d3cdc3', .85)     # açık gri-bej kireç taşı / mimari beton: beyaz değil (ışıkta patlamaz)
+make('plaster_grey_04', 'facade_stone', '#a59e93', '#d3cdc3', 1.15)     # açık gri-bej kireç taşı / mimari beton: beyaz değil (ışıkta patlamaz)
 make('rock_01', 'plaza_stone', '#a29d95', '#c2bdb4', .7)                # meydan plakları
 make('rock_01', 'approach_stone', '#3b3a39', '#5a5856', .8)             # giriş yaklaşım alanı
 make('concrete_tiles_02', 'sidewalk_tiles', '#9d9a95', '#bebab3', .8, size=1024)
