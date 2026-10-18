@@ -434,7 +434,7 @@ Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu
   // paintSpec: taban katının yansıması kısık → renk doygun kalır, keskin yansımalar cila katından gelir
   // metallic / coatRough / paintEnv: hafif metalik derinlik + ince cila · studioEnv 'strips': uzun ışık şeridi yansımaları ·
   // ownPlates: modelin kendi plakası (ikinci bayi plakası yok) · plateStyle: premium plaka · contactK: temas gölgesi yoğunluğu
-  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#6e0a14', metallic: .34, paintRough: .38, paintSpec: .3,
+  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#4f1419', metallic: .4, paintRough: .38, paintSpec: .3,
   coatRough: .11, paintEnv: .85, studioEnv: 'strips', ownPlates: true, plateStyle: 'premium', contactK: 1.35, smoothKeys: ['paint', 'gloss', 'tire'],
   // salon TV'si: projede BMW videosu yok → video verilirse (video: 'media/….mp4') o oynar; yoksa HD'de 3D modelden canlı çekim,
   // akıcı modda / bekleme ekranında bu poster (BMW 3D modelinin Blender render karesi)
@@ -2024,7 +2024,7 @@ function buildCameraRig() {
       overview: A(k, [-4.0, 2.0, 2.6], [0, 1.4, -13], 50),
       hero: A(k, [-3.2, 1.6, -1.6], [.5, 1.55, -13], 46),
     } : {
-      overview: A(k, [-3.0, 2.15, 2.4], [-1.2, .8, -7.0], 50),
+      overview: A(k, [-4.3, 2.0, 2.2], [-1.2, .8, -7.0], 50),   // koridordan salona giriş: açıklığın tam ortası (cam dikmesi x −2.2'den 2 m uzak)
       hero: A(k, [-4.6, 1.5, -.9], [0, .72, -7.0], 42),
       side: A(k, [2.1, 1.05, -1.5], [-1, .62, -6.2], 38),
       detail: A(k, [-2.85, .78, -3.05], [-2.05, .48, -4.9], 30),
@@ -4166,7 +4166,7 @@ function updateDoors(s) {
 function fade(s, a, b, edge = .35) {
   return Math.min(THREE.MathUtils.smoothstep(s, a - edge, a), 1 - THREE.MathUtils.smoothstep(s, b, b + edge));
 }
-let frameShift = 0, frameShiftTarget = 0;
+let frameShift = 0, frameShiftTarget = 0, frameShiftFull = .3;
 const ovHero = $('ov-hero'), ovWelcome = $('ov-welcome'), ovFinale = $('ov-finale');
 const hint = $('scroll-hint'), progress = $('progress');
 const carCards = stations.map((_, i) => $('ov-car' + i));
@@ -4189,7 +4189,7 @@ function updateUI(s) {
   carCards.forEach((el, i) => {
     const k = carKeyIndex[i], e = BRUTAL ? carKeyEnd[i] : k;   // galeri: kahraman → detay boyunca kart açık
     const d = s < k ? k - s : s > e ? s - e : 0;
-    const o = inspect.active ? 0 : 1 - THREE.MathUtils.smoothstep(d, .06, .3);   // kart yalnız duraktayken: kamera ayrılınca kısa, yumuşak solma (yeni salonla çakışmaz)
+    const o = inspect.active ? 0 : 1 - THREE.MathUtils.smoothstep(d, .04, .2);   // kart yalnız duraktayken: kamera ayrılınca kısa, yumuşak solma (yeni salonla çakışmaz)
     setOverlay(el, o);
     if (o > .5) active = i;
   });
@@ -4226,8 +4226,15 @@ function updateUI(s) {
   const view = (inspect.active ? stations[inspect.index]?.spec.room : active >= 0 ? stations[active].spec.room : '') || '';
   if ((document.body.dataset.view || '') !== view) { document.body.dataset.view = view; document.body.classList.toggle('view-refined', REFINED_ROOMS.has(view)); }
   // dar ekranda kart altta: araç, kartın üstünde kalan alanın ortasına kaydırılır (kart yüksekliği ekrana / içeriğe göre değişir)
-  if (active >= 0 && cardBelow()) { const top = carCards[active].getBoundingClientRect().top; frameShiftTarget = THREE.MathUtils.clamp((innerHeight - top) / (2 * innerHeight) + .03, .2, .38); }
-  else frameShiftTarget = active < 0 ? 0 : .14;
+  // kart için kadraj kaydırması kameranın varışıyla aynı hareket: durağa uzaklıkla orantılı (kamera yavaşlarken birlikte kayar,
+  // durduktan sonra ayrıca kayıp "araç kameraya geliyor" etkisi yapmaz). Dar ekranda kartın gerçek üst kenarı ölçülür.
+  {
+    let dmin = Infinity; carKeyIndex.forEach((k) => { dmin = Math.min(dmin, Math.abs(s - k)); });
+    const w = inspect.active ? 0 : 1 - THREE.MathUtils.smoothstep(dmin, 0, .55);
+    if (active >= 0 && cardBelow()) { const top = carCards[active].getBoundingClientRect().top; frameShiftFull = THREE.MathUtils.clamp((innerHeight - top) / (2 * innerHeight) + .03, .2, .38); }
+    else if (!cardBelow()) frameShiftFull = .14;
+    frameShiftTarget = w * frameShiftFull;
+  }
   rail.classList.toggle('visible', s > carKeyIndex[0] - .6 && s < SEGMENTS - .7);
   setOverlay(ovFinale, THREE.MathUtils.smoothstep(s, SEGMENTS - .6, SEGMENTS - .1));
   progress.style.width = `${(s / SEGMENTS) * 100}%`;
@@ -4481,7 +4488,7 @@ function frame() {
   targetS = currentS;
   idleTime = tween ? 0 : idleTime + dt;
   mouseSmooth.lerp(mouse, 1 - Math.exp(-dt * 2));
-  frameShift += (frameShiftTarget - frameShift) * (1 - Math.exp(-dt * (NO_INERTIA ? 60 : 2.5)));
+  frameShift += (frameShiftTarget - frameShift) * (1 - Math.exp(-dt * (NO_INERTIA ? 60 : 7)));   // hedef zaten yolla senkron: yalnız titreşim süzgeci
 
   // Stationary cars retain consistent contact shadows and composed viewing angles.
 
