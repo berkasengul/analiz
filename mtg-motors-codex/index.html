@@ -1985,6 +1985,8 @@ function buildCameraRig() {
       detail: A(k, [-1.95, .8, -3.55], [-1.05, .52, -4.25], 32),     // far + ön jant
     });
     if (PREMIUM_ROOMS.has(k) && k < TOUR.length) { fitShot(k, CAM[k]); typeShot(k, CAM[k]); }
+    // dikey ekran: yatay görüş dar → kahraman kare araçtan geri çekilir (burun / arka tampon ekrandan taşmasın)
+    if (k < TOUR.length && innerWidth / viewH() < 1) { const h = CAM[k].hero; h.pos.sub(h.look).multiplyScalar(1.32).add(h.look); }
     CAM[k].corridor = { pos: new THREE.Vector3(-m.side * .3, 1.66, m.zc), fov: 48 };
   }
 }
@@ -2392,10 +2394,12 @@ async function buildBlenderInterior(){
 const inspect={active:false,index:-1,yaw:0,pitch:.2,radius:4.5,targetYaw:0,targetPitch:.2,targetRadius:4.5,pointer:null,lastX:0,lastY:0,opener:null,overflow:''};
 const inspectBar=document.createElement('div');inspectBar.id='inspect-bar';inspectBar.hidden=true;
 inspectBar.innerHTML='<strong id="inspect-name"></strong><span>Sürükle: 360° · Tekerlek: yakınlaştır</span><button type="button" data-action="left" aria-label="Sola döndür">←</button><button type="button" data-action="right" aria-label="Sağa döndür">→</button><button type="button" data-action="in" aria-label="Yakınlaştır">+</button><button type="button" data-action="out" aria-label="Uzaklaştır">−</button><button type="button" data-action="close">Tura dön · Esc</button>';document.body.appendChild(inspectBar);
+// 360° uzaklık aralığı ekran oranına göre: dikey ekranda araç bütünüyle sığsın (4.5 m'de burun ve arka ekrandan taşıyordu)
+const inspectRange=()=>innerWidth/viewH()<1?{r:7.2,min:6,max:8.6}:{r:4.5,min:3.7,max:4.5};
 function openInspect(index,opener){
  const st=stations[index];inspect.active=true;inspect.index=index;inspect.opener=opener;inspect.overflow=document.documentElement.style.overflow;
  const dx=camera.position.x-st.x,dz=camera.position.z-st.z;
- inspect.yaw=inspect.targetYaw=Math.atan2(dx,dz);inspect.radius=inspect.targetRadius=4.5;inspect.pitch=inspect.targetPitch=.20;
+ inspect.yaw=inspect.targetYaw=Math.atan2(dx,dz);inspect.radius=inspect.targetRadius=inspectRange().r;inspect.pitch=inspect.targetPitch=.20;
  inspect.savedS=currentS;targetS=currentS;document.documentElement.style.overflow='hidden';document.body.classList.add('inspecting');canvas.style.touchAction='none';
  inspectBar.hidden=false;inspectBar.querySelector('strong').textContent=st.spec.brand+' '+st.spec.model;
  inspectBar.querySelector('[data-action=close]').focus();renderer.shadowMap.needsUpdate=true;
@@ -2404,14 +2408,14 @@ function closeInspect(){
  if(!inspect.active)return;if(eks.active){eks.active=false;eksPanel.hidden=eksLayer.hidden=true;document.body.classList.remove('eks');}inspect.active=false;inspect.pointer=null;inspectBar.hidden=true;document.body.classList.remove('inspecting');
  document.documentElement.style.overflow=inspect.overflow;canvas.style.touchAction='';targetS=currentS=inspect.savedS;sVel=0;mouse.set(0,0);mouseSmooth.set(0,0);inspect.opener?.focus({preventScroll:true});
 }
-function inspectAction(action){if(action==='close')return closeInspect();if(action==='left')inspect.targetYaw-=.18;if(action==='right')inspect.targetYaw+=.18;if(action==='in')inspect.targetRadius-=.25;if(action==='out')inspect.targetRadius+=.25;inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius,3.7,4.5);}
+function inspectAction(action){if(action==='close')return closeInspect();if(action==='left')inspect.targetYaw-=.18;if(action==='right')inspect.targetYaw+=.18;if(action==='in')inspect.targetRadius-=.25;if(action==='out')inspect.targetRadius+=.25;inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius,inspectRange().min,inspectRange().max);}
 if(NO_INERTIA)window.__inspectYaw=(d)=>{inspect.targetYaw+=d;};   // yalnızca #test
 inspectBar.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(b)inspectAction(b.dataset.action);});
 canvas.addEventListener('pointerdown',e=>{if(!inspect.active)return;inspect.pointer=e.pointerId;inspect.lastX=e.clientX;inspect.lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
 canvas.addEventListener('pointermove',e=>{if(!inspect.active||inspect.pointer!==e.pointerId)return;inspect.targetYaw-=(e.clientX-inspect.lastX)*.006;inspect.targetPitch=THREE.MathUtils.clamp(inspect.targetPitch+(e.clientY-inspect.lastY)*.004,.08,.48);inspect.lastX=e.clientX;inspect.lastY=e.clientY;});
 for(const event of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(event,()=>{inspect.pointer=null;});
 addEventListener('blur',()=>{inspect.pointer=null;});
-canvas.addEventListener('wheel',e=>{if(!inspect.active)return;e.preventDefault();inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius+e.deltaY*.002,3.7,4.5);},{passive:false});
+canvas.addEventListener('wheel',e=>{if(!inspect.active)return;e.preventDefault();inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius+e.deltaY*.002,inspectRange().min,inspectRange().max);},{passive:false});
 addEventListener('keydown',e=>{if(!inspect.active)return;const action={Escape:'close',ArrowLeft:'left',ArrowRight:'right','+':'in','=':'in','-':'out'}[e.key];if(action){e.preventDefault();inspectAction(action);}});
 // önceki / sonraki oda gezinmesi (kaydırma, oklar ve bu düğmeler aynı durak sistemini kullanır)
 const carStrip=document.createElement('nav');carStrip.id='car-strip';carStrip.setAttribute('aria-label','Araç seçimi');if(BRUTAL)document.body.appendChild(carStrip);
@@ -2744,7 +2748,7 @@ function openEkspertiz(i, opener) {
   const st = stations[i], s = st.spec;
   if (!inspect.active || inspect.index !== i) openInspect(i, opener);
   eks.active = true; eks.index = i; eks.sel = null; eks.mod = eks.mod || 'kusur'; eks.oy = 0; document.body.classList.add('eks');
-  if (innerWidth <= 760) inspect.targetRadius = 6.4;   // dar ekran: araç, alt sayfanın üstündeki alana bütünüyle sığsın
+  if (innerWidth <= 760) inspect.targetRadius = Math.max(inspectRange().r, 6.4);   // dar ekran: araç, alt sayfanın üstündeki alana bütünüyle sığsın
   eks.parts = eksParcalar(s);
   const kusur = eks.parts.filter((q) => q.durum !== 'orijinal');
   const say = (d) => eks.parts.filter((q) => q.durum === d).length;
