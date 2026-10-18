@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GARDEN MOTORS | Oto Galeri</title>
 <meta name="description" content="GARDEN MOTORS 3D sanal showroom. Galeriye girin, ilandaki araçları sinematik bir turla inceleyin.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,7 @@
 
   #scene {
     position: fixed; inset: 0;
-    width: 100vw; height: 100vh;
+    width: 100vw; height: 100vh; height: 100lvh;
     display: block; z-index: 0;
   }
   /* Kaydırma mesafesini oluşturan boş alan */
@@ -424,6 +424,14 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 
 const ACCENT = new THREE.Color('#e3122b');
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
+// Tuval yüksekliği: telefonda adres çubuğu açılıp kapanınca innerHeight değişir; tuval ve kamera her seferinde yeniden boyutlanınca
+// sahne zıplıyordu. Telefonda tuval en büyük görünür yüksekliğe (100lvh) sabitlenir, yalnız genişlik / yön değişince yeniden
+// boyutlanır. Tuval üstten hizalı: adres çubuğunun altında kalan şerit sahnenin altıdır.
+const lvhProbe = document.createElement('div');
+lvhProbe.style.cssText = 'position:fixed;left:0;top:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';
+document.documentElement.appendChild(lvhProbe);
+const ANISO_MAX = () => renderer?.capabilities?.getMaxAnisotropy?.() || 1;
+const viewH = () => (isMobile ? Math.max(innerHeight, lvhProbe.offsetHeight || 0) : innerHeight);
 // Firma adı tek yerden: arayüz, tabela, oda duvarları, plaka, totem, TV bandı bu sabitten okunur
 const BRAND = { line: 'GARDEN  MOTORS', name: 'GARDEN MOTORS', a: 'GARDEN', b: 'MOTORS', short: 'Garden' };
 // bilgi kartı altta mı: yükleme anındaki cihaz değil, o anki pencere genişliği (CSS ile aynı eşik; pencere sonradan daraltılınca
@@ -440,15 +448,19 @@ const REFINED_ROOMS = new Set(['sport', 'suv', 'urban']);
 const canvas = document.getElementById('scene');
 let renderer;
 try {
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, powerPreference: 'high-performance' });
+  // kenar yumuşatma telefonda da açık (karo tabanlı mobil GPU'larda MSAA ucuz); kapalıyken araç kenarları tırtıklıydı
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
 } catch (e) {
   document.getElementById('webgl-error').style.display = 'flex';
   document.getElementById('loader').classList.add('done');
   throw e;
 }
-let renderScale = Math.min(devicePixelRatio, isMobile ? 1 : 1.5);   // HD: masaüstünde retina ekranlarda 2'ye kadar çıkar (bütçe izin verirse)
+// piksel oranı: telefonda 1'e sabitti (3x ekranda görüntü üç kat düşük çözünürlükte çizilip büyütülüyordu → bulanık + tırtıklı).
+// Telefon 1.5'ten başlar (bütçe izin verirse 2'ye çıkar, ağırsa 1'e iner); masaüstü 1.5'e kadar.
+let renderScale = Math.min(devicePixelRatio, 1.5);
+const ANISO = Math.min(isMobile ? 4 : 8, ANISO_MAX());   // oda dokuları için anizotropik süzme
 renderer.setPixelRatio(renderScale);
-renderer.setSize(innerWidth, innerHeight);
+renderer.setSize(innerWidth, viewH());
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
 // ---------- Kalite modu: HD | Akıcı ----------
@@ -474,7 +486,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color('#3b4a66');
 scene.fog = new THREE.FogExp2('#3c475d', 0.0036);   // mavi saat: uzak şehir hafif puslu, serin
 
-const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 400);
+const camera = new THREE.PerspectiveCamera(42, innerWidth / viewH(), 0.1, 400);
 
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
@@ -1973,6 +1985,8 @@ function buildCameraRig() {
       detail: A(k, [-1.95, .8, -3.55], [-1.05, .52, -4.25], 32),     // far + ön jant
     });
     if (PREMIUM_ROOMS.has(k) && k < TOUR.length) { fitShot(k, CAM[k]); typeShot(k, CAM[k]); }
+    // dikey ekran: yatay görüş dar → kahraman kare araçtan geri çekilir (burun / arka tampon ekrandan taşmasın)
+    if (k < TOUR.length && innerWidth / viewH() < 1) { const h = CAM[k].hero; h.pos.sub(h.look).multiplyScalar(1.32).add(h.look); }
     CAM[k].corridor = { pos: new THREE.Vector3(-m.side * .3, 1.66, m.zc), fov: 48 };
   }
 }
@@ -2011,13 +2025,13 @@ function buildCameraPath() {
       // tam ortadan geçer (iki yanda ~1.5 m pay: duvar, cam panel ve pervaz kadraja girmez), yeni salonda araca yaklaşır.
       // Lounge mobilyası z ≤ −4.5'te: güzergâh (z ≈ −1.2…−2.2) mobilyaya ve araçlara değmez.
       const oz = -2.225;
-      K(modLocal(k, 2.5, 1.56, -1.25).toArray(), modLocal(k, 7.5, 1.45, oz - .35).toArray(), 46); tempo(1.0);   // araçtan çözül, açıklığa dön
+      K(modLocal(k, 2.5, 1.56, -1.25).toArray(), modLocal(k, 7.5, 1.45, oz - .35).lerp(next, .5).toArray(), 46); tempo(1.0);   // bakış açıklık ile sonraki araç arasında: boş köşe ana görüntü olmaz   // araçtan çözül, açıklığa dön
       K(modLocal(k, 5.2, 1.56, oz).toArray(), modLocal(k, 11, 1.35, oz - .9).toArray(), 48); tempo(.9);        // açıklığın önü, eksende
       K(modLocal(k, 7.8, 1.56, oz).toArray(), next.clone().lerp(modLocal(k, 12, 1.3, oz - 1.2), .45).toArray(), 48); tempo(.95);   // geçildi: yeni salon
     } else {
       // sıranın sonu: koridoru tek bir yayla karşıya geç (salon girişinden çık, karşı salonun girişinden gir)
       const mz = (moduleXform(k).zc + moduleXform(k + 1).zc) / 2;
-      K(modLocal(k, -3.6, 1.6, -.4).toArray(), modLocal(k, -4.2, 1.4, 4).toArray(), 46);
+      K(modLocal(k, -3.6, 1.6, -.4).toArray(), modLocal(k, -4.2, 1.4, 4).lerp(next, .6).toArray(), 46);   // koridora çıkarken bakış karşıdaki araca (duvar / boş koridor ana görüntü olmaz)
       K([0, 1.66, mz], next.toArray(), 50);
       K(modLocal(k + 1, -4.0, 1.6, .6).toArray(), next.toArray(), 48);
     }
@@ -2380,10 +2394,12 @@ async function buildBlenderInterior(){
 const inspect={active:false,index:-1,yaw:0,pitch:.2,radius:4.5,targetYaw:0,targetPitch:.2,targetRadius:4.5,pointer:null,lastX:0,lastY:0,opener:null,overflow:''};
 const inspectBar=document.createElement('div');inspectBar.id='inspect-bar';inspectBar.hidden=true;
 inspectBar.innerHTML='<strong id="inspect-name"></strong><span>Sürükle: 360° · Tekerlek: yakınlaştır</span><button type="button" data-action="left" aria-label="Sola döndür">←</button><button type="button" data-action="right" aria-label="Sağa döndür">→</button><button type="button" data-action="in" aria-label="Yakınlaştır">+</button><button type="button" data-action="out" aria-label="Uzaklaştır">−</button><button type="button" data-action="close">Tura dön · Esc</button>';document.body.appendChild(inspectBar);
+// 360° uzaklık aralığı ekran oranına göre: dikey ekranda araç bütünüyle sığsın (4.5 m'de burun ve arka ekrandan taşıyordu)
+const inspectRange=()=>innerWidth/viewH()<1?{r:7.2,min:6,max:8.6}:{r:4.5,min:3.7,max:4.5};
 function openInspect(index,opener){
  const st=stations[index];inspect.active=true;inspect.index=index;inspect.opener=opener;inspect.overflow=document.documentElement.style.overflow;
  const dx=camera.position.x-st.x,dz=camera.position.z-st.z;
- inspect.yaw=inspect.targetYaw=Math.atan2(dx,dz);inspect.radius=inspect.targetRadius=4.5;inspect.pitch=inspect.targetPitch=.20;
+ inspect.yaw=inspect.targetYaw=Math.atan2(dx,dz);inspect.radius=inspect.targetRadius=inspectRange().r;inspect.pitch=inspect.targetPitch=.20;
  inspect.savedS=currentS;targetS=currentS;document.documentElement.style.overflow='hidden';document.body.classList.add('inspecting');canvas.style.touchAction='none';
  inspectBar.hidden=false;inspectBar.querySelector('strong').textContent=st.spec.brand+' '+st.spec.model;
  inspectBar.querySelector('[data-action=close]').focus();renderer.shadowMap.needsUpdate=true;
@@ -2392,14 +2408,14 @@ function closeInspect(){
  if(!inspect.active)return;if(eks.active){eks.active=false;eksPanel.hidden=eksLayer.hidden=true;document.body.classList.remove('eks');}inspect.active=false;inspect.pointer=null;inspectBar.hidden=true;document.body.classList.remove('inspecting');
  document.documentElement.style.overflow=inspect.overflow;canvas.style.touchAction='';targetS=currentS=inspect.savedS;sVel=0;mouse.set(0,0);mouseSmooth.set(0,0);inspect.opener?.focus({preventScroll:true});
 }
-function inspectAction(action){if(action==='close')return closeInspect();if(action==='left')inspect.targetYaw-=.18;if(action==='right')inspect.targetYaw+=.18;if(action==='in')inspect.targetRadius-=.25;if(action==='out')inspect.targetRadius+=.25;inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius,3.7,4.5);}
+function inspectAction(action){if(action==='close')return closeInspect();if(action==='left')inspect.targetYaw-=.18;if(action==='right')inspect.targetYaw+=.18;if(action==='in')inspect.targetRadius-=.25;if(action==='out')inspect.targetRadius+=.25;inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius,inspectRange().min,inspectRange().max);}
 if(NO_INERTIA)window.__inspectYaw=(d)=>{inspect.targetYaw+=d;};   // yalnızca #test
 inspectBar.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(b)inspectAction(b.dataset.action);});
 canvas.addEventListener('pointerdown',e=>{if(!inspect.active)return;inspect.pointer=e.pointerId;inspect.lastX=e.clientX;inspect.lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
 canvas.addEventListener('pointermove',e=>{if(!inspect.active||inspect.pointer!==e.pointerId)return;inspect.targetYaw-=(e.clientX-inspect.lastX)*.006;inspect.targetPitch=THREE.MathUtils.clamp(inspect.targetPitch+(e.clientY-inspect.lastY)*.004,.08,.48);inspect.lastX=e.clientX;inspect.lastY=e.clientY;});
 for(const event of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(event,()=>{inspect.pointer=null;});
 addEventListener('blur',()=>{inspect.pointer=null;});
-canvas.addEventListener('wheel',e=>{if(!inspect.active)return;e.preventDefault();inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius+e.deltaY*.002,3.7,4.5);},{passive:false});
+canvas.addEventListener('wheel',e=>{if(!inspect.active)return;e.preventDefault();inspect.targetRadius=THREE.MathUtils.clamp(inspect.targetRadius+e.deltaY*.002,inspectRange().min,inspectRange().max);},{passive:false});
 addEventListener('keydown',e=>{if(!inspect.active)return;const action={Escape:'close',ArrowLeft:'left',ArrowRight:'right','+':'in','=':'in','-':'out'}[e.key];if(action){e.preventDefault();inspectAction(action);}});
 // önceki / sonraki oda gezinmesi (kaydırma, oklar ve bu düğmeler aynı durak sistemini kullanır)
 const carStrip=document.createElement('nav');carStrip.id='car-strip';carStrip.setAttribute('aria-label','Araç seçimi');if(BRUTAL)document.body.appendChild(carStrip);
@@ -2434,7 +2450,7 @@ function setQuality(lite, persist) {
   scene.traverse((o) => { if (!o.isMesh) return; for (const m of [].concat(o.material)) if (m?.userData?.reflFloor) { m.userData.baseOpacity ??= m.opacity; m.opacity = lite ? 1 : m.userData.baseOpacity; } });
   for (const e of TV.list) if (!e.video) e.mat.map = tvStandby;
   TV.active = -2;
-  if (lite && renderScale > 1) { renderScale = 1; renderer.setPixelRatio(1); renderer.setSize(innerWidth, innerHeight); resizeComposer(); }
+  if (lite && renderScale > 1) { renderScale = 1; renderer.setPixelRatio(1); renderer.setSize(innerWidth, viewH()); resizeComposer(); }
   qualityBtn.textContent = lite ? 'AKICI' : 'HD'; qualityBtn.classList.toggle('lite', lite);
   qualityBtn.setAttribute('aria-pressed', String(lite));
   qualityBtn.setAttribute('aria-label', lite ? 'Akıcı mod açık: HD görüntüye geç' : 'HD görüntü açık: akıcı moda geç');
@@ -2558,6 +2574,32 @@ body.view-refined #inspect-bar button[data-action="close"]{background:rgba(201,1
  .car-card.refined{bottom:84px!important}body.view-refined #inspect-bar{padding:12px}
  body.view-refined #inspect-bar strong{flex:1 1 100%}body.view-refined #inspect-bar span{white-space:normal}}`;
 document.head.appendChild(bmwStyle);
+// Dar ekran yerleşimi: alt gezinme, ses / HD düğmeleri ve araç kartı birbirine binmesin; yükseklikler görünür ekrana (dvh) ve
+// güvenli alana göre (çentik / ana ekran çubuğu). Etiketler küçük ekranda da okunur boyutta (en az 10.5 px), taşma yok.
+const mobileFit = document.createElement('style'); mobileFit.textContent = `
+html,body{overflow-x:hidden}
+@media (max-width:760px){
+ #sound-btn,#quality-btn{bottom:calc(14px + env(safe-area-inset-bottom))}
+ #room-nav,body.view-refined #room-nav{left:118px;right:calc(10px + env(safe-area-inset-right));bottom:calc(14px + env(safe-area-inset-bottom));transform:none;gap:6px;padding:5px}
+ #room-nav span,body.view-refined #room-nav span{flex:1 1 auto;min-width:0;width:auto;font-size:10.5px;line-height:1.3;letter-spacing:.1em;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-align:center;white-space:normal}
+ #room-nav button,body.view-refined #room-nav button{flex:none;width:40px;height:40px}
+ .car-card,.car-card.refined{bottom:calc(72px + env(safe-area-inset-bottom))!important;max-height:calc(100vh - 150px)!important;max-height:calc(100dvh - 150px - env(safe-area-inset-bottom))!important;
+  overflow-y:auto;overscroll-behavior:contain}
+ .car-card.refined .car-model{font-size:18px;line-height:1.25;overflow-wrap:anywhere}
+ .car-card.refined .spec small{font-size:10px}
+ .car-card.refined .card-actions .btn{font-size:10.5px!important}
+ #inspect-bar{bottom:calc(12px + env(safe-area-inset-bottom))!important}
+ header{padding-top:calc(12px + env(safe-area-inset-top))}
+}
+@media (max-width:370px){
+ .car-card,.car-card.refined{left:10px!important;right:10px!important}
+ .car-card.refined .price strong{font-size:18px}
+ .car-card.refined .btn.primary{padding:0 9px;letter-spacing:.06em}
+ .car-card.refined .card-actions .btn{letter-spacing:.06em!important}
+ header .btn{padding:9px 10px;font-size:10px}
+}`;
+document.head.appendChild(mobileFit);
 const inspectTarget=new THREE.Vector3();
 function updateInspect(dt){
  const st=stations[inspect.index],blend=1-Math.exp(-dt*12);
@@ -2706,7 +2748,7 @@ function openEkspertiz(i, opener) {
   const st = stations[i], s = st.spec;
   if (!inspect.active || inspect.index !== i) openInspect(i, opener);
   eks.active = true; eks.index = i; eks.sel = null; eks.mod = eks.mod || 'kusur'; eks.oy = 0; document.body.classList.add('eks');
-  if (innerWidth <= 760) inspect.targetRadius = 6.4;   // dar ekran: araç, alt sayfanın üstündeki alana bütünüyle sığsın
+  if (innerWidth <= 760) inspect.targetRadius = Math.max(inspectRange().r, 6.4);   // dar ekran: araç, alt sayfanın üstündeki alana bütünüyle sığsın
   eks.parts = eksParcalar(s);
   const kusur = eks.parts.filter((q) => q.durum !== 'orijinal');
   const say = (d) => eks.parts.filter((q) => q.durum === d).length;
@@ -2811,7 +2853,7 @@ function eksSec(k) {
 function updateEkspertiz() {
   if (!eks.active) return;
   const st = stations[eks.index], box = st.box; if (!box) return;
-  const sz = box.getSize(new THREE.Vector3()), mn = box.min, W = innerWidth, H = innerHeight;
+  const sz = box.getSize(new THREE.Vector3()), mn = box.min, W = innerWidth, H = viewH();
   st.turn.updateMatrixWorld(); st.turn.getWorldQuaternion(_eq);
   const narrow = W <= 760, ofs = narrow ? 0 : -.17 * W;   // geniş ekran: panel solda, araç sağa kaydırılır
   // dar ekran: alt sayfanın üstünde kalan alanın ortasına aracı taşı (sayfa yüksekliği içeriğe göre değişir → her karede ölçülür)
@@ -3352,6 +3394,8 @@ async function loadBlenderRooms() {
         if (!o.isMesh) return;
         const n = o.material.name || '';
         o.castShadow = o.receiveShadow = true;
+        // anizotropik süzme: zemin / duvar dokuları eğik açıda bulanıklaşmasın (yalnız ışık haritalarında vardı)
+        for (const k of ['map', 'normalMap', 'roughnessMap']) { const t = o.material[k]; if (t && t.anisotropy < ANISO) { t.anisotropy = ANISO; t.needsUpdate = true; } }
         if (/Brand$/.test(o.name)) { o.material = o.material.clone(); o.material.side = THREE.DoubleSide; }   // yazı tipi eğrilerinde ters yüzler: hale içinden görünmesin
         if (/MTG_(led|ledSoft|led_line|ledRing|halo)$/.test(n)) {
           const e = o.material.emissive.clone().multiplyScalar(/halo/.test(n) ? 1.1 : 1.6);
@@ -4038,12 +4082,18 @@ function reverseTween(dir) {
   // yeni geçiş süresi gidilecek yola göre kısalır; ani duruş-kalkış hissi azalsın diye çok kısa olmaz
   if (tween) tween.dur = Math.max(1.6, Math.min(tween.dur, Math.abs(tween.toL - tween.fromL) / Math.max(v, CAM_SPEED.gallery) * 1.6));
 }
-let wheelAcc = 0, wheelTimer = 0;
+// Tekerlek / iz paneli: bir kaydırma hareketi (aralarında 220 ms'den uzun boşluk olmayan olaylar) en fazla bir durak ilerletir.
+// İz panelinin atalet (momentum) olayları geçiş bittikten sonra da gelmeye devam ediyordu → bir sonraki durağa atlıyordu.
+// Aynı hareket içinde yön değişirse (geri kaydırma) geçiş tersine döner.
+let wheelAcc = 0, wheelLast = 0, wheelDir = 0;
 addEventListener('wheel', (e) => {
   if (inspect.active || e.target.closest?.('.car-card')) return;
   e.preventDefault();
-  wheelAcc += e.deltaY; clearTimeout(wheelTimer); wheelTimer = setTimeout(() => { wheelAcc = 0; }, 180);
-  if (Math.abs(wheelAcc) > 35) { step(Math.sign(wheelAcc)); wheelAcc = 0; }
+  const now = performance.now();
+  if (now - wheelLast > 220) { wheelAcc = 0; wheelDir = 0; }
+  wheelLast = now;
+  wheelAcc += e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1);
+  if (Math.abs(wheelAcc) > 35) { const d = Math.sign(wheelAcc); wheelAcc = 0; if (d !== wheelDir) { wheelDir = d; step(d); } }
 }, { passive: false });
 let touchY = null;
 addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
@@ -4112,8 +4162,8 @@ function updateCamera(s, time, dt) {
   // bilgi kartı açıkken aracı kartın karşı tarafına kaydır
   // masaüstünde yatay, mobilde (kart altta) dikey kaydırma
   if (Math.abs(frameShift) > .001) {
-    if (cardBelow()) camera.setViewOffset(innerWidth, innerHeight, 0, frameShift * innerHeight, innerWidth, innerHeight);
-    else camera.setViewOffset(innerWidth, innerHeight, frameShift * innerWidth, 0, innerWidth, innerHeight);
+    { const vh = viewH(); if (cardBelow()) camera.setViewOffset(innerWidth, vh, 0, frameShift * vh, innerWidth, vh);
+    else camera.setViewOffset(innerWidth, vh, frameShift * innerWidth, 0, innerWidth, vh); }
   }
   else camera.clearViewOffset();
   camera.updateProjectionMatrix();
@@ -4144,18 +4194,38 @@ function setOverlay(el, o, dy = 18) {
   el.style.transform = `${base}translateY(${((1 - o) * dy).toFixed(1)}px)`;
 }
 
-function updateUI(s) {
+// Tek etkin seçim (araç + oda + kart): durakta duran araç; geçişte yalnız varışa çok yakın (yolun son %15'i) hedef araç.
+// Kart opaklığı kamera konumundan değil bu seçimden ve zamandan (dt) türetilir: duraktan ayrılırken eski kart ~0.12 sn'de kapanır,
+// yeni kart ancak eski kart tamamen kapandıktan ve kamera yeni araca vardıktan sonra açılır → iki kart üst üste binmez,
+// eski aracın kartı yeni salonun üzerinde yarı saydam kalmaz.
+const cardO = [];
+const TEST_SNAP = () => NO_INERTIA && !window.__noInertiaOff;   // #test: anında; __sim: gerçek zamanlı solma
+function selectedCar(s) {
+  if (inspect.active || BRUTAL) return -1;
+  if (tween) { const c = carKeyIndex.indexOf(tween.to); return c >= 0 && tween.t > .85 ? c : -1; }
+  return carKeyIndex.findIndex((k) => Math.abs(s - k) < .02);
+}
+function updateUI(s, dt = 1 / 60) {
   setOverlay(ovHero, 1 - THREE.MathUtils.smoothstep(s, .1, .6));
   hint.style.opacity = (1 - THREE.MathUtils.smoothstep(s, .05, .35)).toFixed(3);
   setOverlay(ovWelcome, fade(s, 2.55, 3.3, .35));  // kapıdan geçerken belirir, koridora girerken çekilir (salon başlığıyla çakışmaz)
   let active = -1;
+  const sel = selectedCar(s), anyOther = cardO.some((o, i) => i !== sel && o > .001);
   carCards.forEach((el, i) => {
-    const k = carKeyIndex[i], e = BRUTAL ? carKeyEnd[i] : k;   // galeri: kahraman → detay boyunca kart açık
-    const d = s < k ? k - s : s > e ? s - e : 0;
-    const o = inspect.active ? 0 : 1 - THREE.MathUtils.smoothstep(d, .04, .2);   // kart yalnız duraktayken: kamera ayrılınca kısa, yumuşak solma (yeni salonla çakışmaz)
+    let o;
+    if (BRUTAL) { const k = carKeyIndex[i], e = carKeyEnd[i], d = s < k ? k - s : s > e ? s - e : 0; o = inspect.active ? 0 : 1 - THREE.MathUtils.smoothstep(d, .04, .2); }
+    else {
+      const prev = cardO[i] ?? 0;
+      if (i === sel && !anyOther) o = TEST_SNAP() ? 1 : Math.min(1, prev + dt / .3);       // açılış: 0.3 sn
+      else o = TEST_SNAP() || i !== sel ? Math.max(0, prev - dt / .12) : prev;               // kapanış: 0.12 sn
+      if (TEST_SNAP() && i !== sel) o = 0;
+    }
+    cardO[i] = o;
+    if (o === 0 && el.dataset.o === '0') return;   // kapalı kart her karede yeniden yazılmaz
+    el.dataset.o = o === 0 ? '0' : '';
     setOverlay(el, o);
-    if (o > .5) active = i;
   });
+  active = BRUTAL ? carCards.findIndex((el, i) => cardO[i] > .5) : sel;
   railBtns.forEach((b, i) => b.classList.toggle('active', i === active));
   if (BRUTAL) {
     [...carStrip.children].forEach((c, i) => { const on = i === active; if (c.classList.contains('on') !== on) { c.classList.toggle('on', on); if (on) c.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } });
@@ -4166,7 +4236,7 @@ function updateUI(s) {
     // duruşta araç adı; odalar arası geçişte girilen koleksiyon odasının adı (yeni mekân hissi)
     const nx = carKeyIndex.findIndex((ki) => ki > s - .5);
     const lbl = active >= 0 ? `${String(active + 1).padStart(2, '0')} · ${stations[active].spec.brand} ${stations[active].spec.model}`
-      : s >= SEGMENTS - .5 ? (BRUTAL ? 'Garden Galeri' : 'Garden Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'Garden Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
+      : s >= SEGMENTS - .5 || (!BRUTAL && s > carKeyIndex[carKeyIndex.length - 1] + .3) ? (BRUTAL ? 'Garden Galeri' : 'Garden Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'Garden Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
     if (navL.textContent !== lbl) navL.textContent = lbl;
   }
   // koleksiyon odası başlığı: önceki duruştan sonraki odanın duruşuna geçişin ortasında (sinüs eğrisiyle) görünür
@@ -4186,7 +4256,8 @@ function updateUI(s) {
   }
   document.body.classList.toggle('scope', active >= 0);
   // görünüm teması (yalnız stil): duruştaki ya da 360°'de incelenen aracın odası — BMW salonu için kart / gezinme / inceleme çubuğu
-  const view = (inspect.active ? stations[inspect.index]?.spec.room : active >= 0 ? stations[active].spec.room : '') || '';
+  const goal = active >= 0 ? active : tween ? carKeyIndex.indexOf(tween.to) : -1;   // geçişte varılacak salonun stili (gezinme çubuğu yolda stil değiştirmez)
+  const view = (inspect.active ? stations[inspect.index]?.spec.room : goal >= 0 ? stations[goal].spec.room : '') || '';
   if ((document.body.dataset.view || '') !== view) { document.body.dataset.view = view; document.body.classList.toggle('view-refined', REFINED_ROOMS.has(view)); }
   // dar ekranda kart altta: araç, kartın üstünde kalan alanın ortasına kaydırılır (kart yüksekliği ekrana / içeriğe göre değişir)
   // kart için kadraj kaydırması kameranın varışıyla aynı hareket: durağa uzaklıkla orantılı (kamera yavaşlarken birlikte kayar,
@@ -4214,9 +4285,9 @@ function updateRenderBudget(dt){
   if (budgetTime < 2) return;
   const average = budgetTime / budgetFrames, now = performance.now();
   budgetTime = 0; budgetFrames = 0;
-  const lo = QUALITY.lite ? .6 : isMobile ? .75 : 1, hi = QUALITY.lite ? 1 : Math.min(isMobile ? 1 : 1.5, devicePixelRatio);
+  const lo = QUALITY.lite ? .6 : Math.min(1, devicePixelRatio), hi = QUALITY.lite ? 1 : Math.min(isMobile ? 2 : 1.5, devicePixelRatio);
   // en düşük çözünürlükte bile kareler ağırsa (art arda 2 ölçüm, ~22 fps altı) ve kullanıcı HD'yi seçmediyse akıcı moda geç
-  if (!QUALITY.lite && !QUALITY.saved && !NO_INERTIA && renderScale <= (isMobile ? .75 : 1) + .01 && average > .045) { if (++QUALITY.slowN >= 2) { setQuality(true, false); showQualityToast(); } }
+  if (!QUALITY.lite && !QUALITY.saved && !NO_INERTIA && renderScale <= lo + .01 && average > .045) { if (++QUALITY.slowN >= 2) { setQuality(true, false); showQualityToast(); } }
   else QUALITY.slowN = 0;
   let next = renderScale;
   if (average > .026 && renderScale > lo) { next = Math.max(lo, renderScale - .25); budgetGood = 0; budgetLock = now + 20000; }
@@ -4224,14 +4295,14 @@ function updateRenderBudget(dt){
     if (++budgetGood >= 3) { next = Math.min(hi, renderScale + .1); budgetGood = 0; budgetLock = now + 10000; }
   } else budgetGood = 0;
   TV.slow = average > .022;
-  if (Math.abs(next - renderScale) > .01) { renderScale = next; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, innerHeight); resizeComposer(); }
+  if (Math.abs(next - renderScale) > .01) { renderScale = next; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, viewH()); resizeComposer(); }
 }
 // ---------- Sinematik katman (masaüstü) ----------
 // Efekt zinciri: sahne (derinlik dokusuyla) → alan derinliği → hafif parlama (yarım çözünürlük) → ton eşleme → oda renk
 // tonu + vinyet → SMAA kenar yumuşatma. Mobilde doğrudan çizim (pil/ısı); renk tonu yalnız masaüstünde.
 // Alan derinliği yalnız araç duruşunda ve 360° incelemede açılır; geçişte keskin (yol okunur, baş dönmez).
 const CINE = !isMobile;
-let composer = null, dofPass = null, gradePass = null, bloomPass = null;
+let composer = null, dofPass = null, gradePass = null, bloomPass = null, composerRT = null;
 const cine = { dof: 0, focus: 6, tint: new THREE.Color(1, 1, 1), sat: 1, con: 1, vig: .22 };
 const DOF_SHADER = {
   uniforms: { tDiffuse: { value: null }, tDepth: { value: null }, focus: { value: 6 }, amount: { value: 0 },
@@ -4314,11 +4385,14 @@ function buildComposer() {
   if (BRUTAL) return;
   if (!CINE) return;
   const w = Math.floor(innerWidth * renderScale), h = Math.floor(innerHeight * renderScale);
-  const rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, depthTexture: new THREE.DepthTexture(w, h) });
-  composer = new EffectComposer(renderer, rt);
+  // 4x MSAA: sahne çizimi çok örnekli hedefe yapılır (derinlik dokusu da çözülür → alan derinliği çalışır). Önceden yalnız SMAA
+  // vardı; ince krom çıtalar, tampon ve cam kenarları tırtıklı kalıyordu.
+  const rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, depthTexture: new THREE.DepthTexture(w, h), samples: 4 });
+  composer = new EffectComposer(renderer, rt); composerRT = rt;
+  composer.renderTarget2.samples = 0;   // efekt geçişleri tek örnekli hedefte (yalnız sahne çizimi çok örnekli)
   // EffectComposer ikinci hedefi klonlar: DepthTexture.clone aynı GPU dokusunu paylaşır (geri besleme döngüsü) → ayrı derinlik
   composer.renderTarget2.depthTexture = new THREE.DepthTexture(w, h);
-  composer.setPixelRatio(renderScale); composer.setSize(innerWidth, innerHeight);
+  composer.setPixelRatio(renderScale); composer.setSize(innerWidth, viewH());
   composer.addPass(new RenderPass(scene, camera));
   dofPass = new ShaderPass(DOF_SHADER); composer.addPass(dofPass);
   bloomPass = new UnrealBloomPass(new THREE.Vector2(innerWidth / 2, innerHeight / 2), .2, .5, 2.2);   // yalnız gerçekten parlak yüzeyler (LED, softbox, kaporta parlaması); beyaz boya parlamasın composer.addPass(bloomPass);
@@ -4328,7 +4402,7 @@ function buildComposer() {
 }
 function resizeComposer() {
   if (!composer) return;
-  composer.setPixelRatio(renderScale); composer.setSize(innerWidth, innerHeight);
+  composer.setPixelRatio(renderScale); composer.setSize(innerWidth, viewH());
   bloomPass.resolution.set(innerWidth / 2, innerHeight / 2);
 }
 const cineTmp = new THREE.Vector3();
@@ -4347,7 +4421,9 @@ function renderFrame(dt) {
   dofPass.enabled = cine.dof > .01 && !window.__cineOff?.dof;
   bloomPass.enabled = !window.__cineOff?.bloom; if (sweep && window.__cineOff?.sweep) sweep.intensity = 0;
   const g = gradePass.uniforms;
-  g.tint.value.copy(cine.tint); g.sat.value = cine.sat; g.con.value = cine.con; g.vig.value = cine.vig; g.aspect.value = innerWidth / innerHeight;
+  g.tint.value.copy(cine.tint); g.sat.value = cine.sat; g.con.value = cine.con; g.vig.value = cine.vig; g.aspect.value = innerWidth / viewH();
+  // sahne her karede çok örnekli hedefe çizilsin: geçiş sayısı tekse okuma/yazma hedefleri karede bir yer değiştirir
+  if (composer.readBuffer !== composerRT) composer.swapBuffers();
   composer.render(dt);
 }
 // oda renk tonu: odak ışıklarıyla aynı anda yeni odanın tonuna geçer (updateFocusLights çağırır)
@@ -4435,6 +4511,28 @@ function toggleAmbient(btn) {
   btn.setAttribute('aria-pressed', ambient.on); btn.classList.toggle('on', ambient.on);
   btn.setAttribute('aria-label', ambient.on ? 'Ortam sesini kapat' : 'Ortam sesini aç');
 }
+// tek ilerleme değeri: geçiş (tween) zamana (dt) göre ilerler, currentS'i üretir; kamera, oda, araç ve kart bu değerden okunur
+function advanceTween(dt) {
+  if (!tween || inspect.active) return;
+  tween.t = Math.min(1, tween.t + dt / tween.dur);
+  currentS = tween.t >= 1 ? tween.to : LtoS(tween.map(easeInOut(tween.t)));
+  if (tween.t >= 1) { tween = null; inputLock = performance.now() + 250; renderer.shadowMap.needsUpdate = true; }
+}
+// yalnızca #test: çizim yapmadan geçiş simülasyonu (kare kare s, seçili araç ve görünür kartlar). NO_INERTIA geçişi atladığı için
+// burada geçiş elle kurulur (gerçek süre ve hız eğrisiyle).
+if (NO_INERTIA) window.__sim = (fromStop, toStop, fps = 60, extra = 0) => {
+  tween = null; currentS = STOPS[fromStop]; stopIdx = fromStop; cardO.fill(0); updateUI(currentS, 1);
+  const to = STOPS[toStop], fromL = sToL(currentS), toL = sToL(to), meters = Math.abs(toL - fromL); stopIdx = toStop;
+  tween = { from: currentS, to, fromL, toL, t: 0, dur: segmentDuration(currentS, to, meters), map: tempoTable(fromL, toL) };
+  const rec = [], dt = 1 / fps; let n = 0;
+  const NI = window.__noInertiaOff = true;
+  while ((tween || n < extra) && n < 20000) {
+    advanceTween(dt); updateUI(currentS, dt); n += tween ? 0 : 1;
+    rec.push([+currentS.toFixed(3), selectedCar(currentS), cardO.map((o) => +o.toFixed(2))]);
+  }
+  window.__noInertiaOff = false;
+  return { dur: rec.length / fps, rec };
+};
 const clock = new THREE.Clock();
 function frame() {
   if (document.hidden) { clock.getDelta(); requestAnimationFrame(frame); return; }
@@ -4443,11 +4541,7 @@ function frame() {
   const t = clock.elapsedTime;
   // sinematik atalet
   // kritik sönümlü yay: kamera yumuşak hızlanır, yumuşak durur (ani başlangıç yok)
-  if (tween && !inspect.active) {
-    tween.t = Math.min(1, tween.t + dt / tween.dur);
-    currentS = tween.t >= 1 ? tween.to : LtoS(tween.map(easeInOut(tween.t)));
-    if (tween.t >= 1) { tween = null; inputLock = performance.now() + 250; renderer.shadowMap.needsUpdate = true; }
-  }
+  advanceTween(dt);
   targetS = currentS;
   idleTime = tween ? 0 : idleTime + dt;
   mouseSmooth.lerp(mouse, 1 - Math.exp(-dt * 2));
@@ -4470,21 +4564,25 @@ function frame() {
   updateFocusLights(dt);
   updateSweep();
   updateTV(dt);
-  updateUI(currentS);
+  updateUI(currentS, dt);
   renderFrame(dt);
   updateRenderBudget(Math.min(rawDt, .25));
   requestAnimationFrame(frame);
 }
 
+let lastSize = [innerWidth, viewH()];
 addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight;
-  renderer.setSize(innerWidth, innerHeight);
+  // telefon: yalnız adres çubuğu (yükseklik) değiştiyse tuval aynı kalır (100lvh) → sahne zıplamaz
+  if (isMobile && innerWidth === lastSize[0] && viewH() === lastSize[1]) return;
+  lastSize = [innerWidth, viewH()];
+  camera.aspect = innerWidth / viewH();
+  renderer.setSize(innerWidth, viewH());
   resizeComposer();
-  atmosphere.uniforms.uScale.value = innerHeight * .5;
+  atmosphere.uniforms.uScale.value = viewH() * .5;
 
 
   if (floorReflector) {
-    floorReflector.getRenderTarget().setSize(Math.floor(innerWidth * .5), Math.floor(innerHeight * .5));
+    floorReflector.getRenderTarget().setSize(Math.floor(innerWidth * .5), Math.floor(viewH() * .5));
   }
 });
 
@@ -4493,7 +4591,7 @@ captureNightEnv();
 buildComposer();
 if (BRUTAL) document.body.classList.add('brutal');
 setQuality(QUALITY.lite, false);
-if (QUALITY.software) { showSoftwareNotice(); renderScale = .6; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, innerHeight); }
+if (QUALITY.software) { showSoftwareNotice(); renderScale = .6; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, viewH()); }
 prewarmGPU();
 if (BRUTAL) makeThumbs();
 requestAnimationFrame(frame);
