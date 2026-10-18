@@ -2029,7 +2029,7 @@ function buildCameraPath() {
     } else {
       // sıranın sonu: koridoru tek bir yayla karşıya geç (salon girişinden çık, karşı salonun girişinden gir)
       const mz = (moduleXform(k).zc + moduleXform(k + 1).zc) / 2;
-      K(modLocal(k, -3.6, 1.6, -.4).toArray(), modLocal(k, -4.2, 1.4, 4).toArray(), 46);
+      K(modLocal(k, -3.6, 1.6, -.4).toArray(), modLocal(k, -4.2, 1.4, 4).lerp(next, .6).toArray(), 46);   // koridora çıkarken bakış karşıdaki araca (duvar / boş koridor ana görüntü olmaz)
       K([0, 1.66, mz], next.toArray(), 50);
       K(modLocal(k + 1, -4.0, 1.6, .6).toArray(), next.toArray(), 48);
     }
@@ -4232,7 +4232,7 @@ function updateUI(s, dt = 1 / 60) {
     // duruşta araç adı; odalar arası geçişte girilen koleksiyon odasının adı (yeni mekân hissi)
     const nx = carKeyIndex.findIndex((ki) => ki > s - .5);
     const lbl = active >= 0 ? `${String(active + 1).padStart(2, '0')} · ${stations[active].spec.brand} ${stations[active].spec.model}`
-      : s >= SEGMENTS - .5 ? (BRUTAL ? 'Garden Galeri' : 'Garden Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'Garden Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
+      : s >= SEGMENTS - .5 || (!BRUTAL && s > carKeyIndex[carKeyIndex.length - 1] + .3) ? (BRUTAL ? 'Garden Galeri' : 'Garden Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'Garden Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
     if (navL.textContent !== lbl) navL.textContent = lbl;
   }
   // koleksiyon odası başlığı: önceki duruştan sonraki odanın duruşuna geçişin ortasında (sinüs eğrisiyle) görünür
