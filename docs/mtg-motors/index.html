@@ -806,14 +806,15 @@ function noiseTexture(base, amp, size = 512, draw) {
 }
 // asfalt: 1024 px = 8 m. Koyu bağlayıcı içinde açık/koyu agrega taneleri, çok yumuşak geniş lekeler (yama, lastik izi değil)
 function asphaltTexture(rough = false) {
-  const t = canvasTexture(1024, 1024, (g, w, h) => {
+  const S = isMobile ? 512 : 1024;
+  const t = canvasTexture(S, S, (g, w, h) => {
     g.fillStyle = rough ? '#c8c8c8' : '#5a5b5d'; g.fillRect(0, 0, w, h);
     for (let k = 0; k < 14; k++) {
       const x = Math.random() * w, y = Math.random() * h, r = 120 + Math.random() * 260, v = Math.random() < .5 ? 0 : 255;
       const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, `rgba(${v},${v},${v},${.035 + Math.random() * .04})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
       for (const dx of [-w, 0, w]) for (const dy of [-h, 0, h]) { g.save(); g.translate(dx, dy); g.fillStyle = gr; g.fillRect(x - r, y - r, 2 * r, 2 * r); g.restore(); }
     }
-    for (let i = 0; i < 52000; i++) {
+    for (let i = 0, n = isMobile ? 13000 : 52000; i < n; i++) {
       const x = Math.random() * w, y = Math.random() * h, s = .6 + Math.random() * 1.8, t = Math.random();
       const v = rough ? (t < .5 ? 150 : 235) : (t < .45 ? 40 + t * 40 : t < .9 ? 95 + t * 40 : 150 + t * 40);
       g.fillStyle = `rgba(${v},${v},${v + (rough ? 0 : 2)},${.35 + Math.random() * .45})`; g.fillRect(x, y, s, s);
@@ -821,6 +822,23 @@ function asphaltTexture(rough = false) {
   });
   if (rough) t.colorSpace = THREE.NoColorSpace;
   return t;
+}
+// Telefon belleği: iOS Safari sekme başına ~1 GB'ı aşınca sayfayı kapatır ("birçok kez sorun oluştu"). Telefonda GLB / PBR
+// dokuları GPU'ya yüklenmeden önce en çok MOBILE_TEX px'e indirilir (1024 → 512: 4× az bellek). Video ve kod içinde canlı
+// çizilen canvas dokularına (TV, plaka, yazılar) dokunulmaz; onlar zaten küçük ya da kendi boyutlarıyla üretilir.
+const MOBILE_TEX = 512;
+function shrinkTexture(t, max = MOBILE_TEX) {
+  if (!t || t.isVideoTexture || t.isCanvasTexture || t.isRenderTargetTexture || t.userData?.shrunk) return;
+  const im = t.image, w = im?.width || 0, h = im?.height || 0;
+  if (!w || !h || (w <= max && h <= max) || !(im instanceof HTMLImageElement || im instanceof HTMLCanvasElement || (typeof ImageBitmap !== 'undefined' && im instanceof ImageBitmap))) return;
+  const k = max / Math.max(w, h), c = document.createElement('canvas'); c.width = Math.max(1, Math.round(w * k)); c.height = Math.max(1, Math.round(h * k));
+  c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+  t.image = c; t.needsUpdate = true; t.userData.shrunk = true;
+  if (typeof ImageBitmap !== 'undefined' && im instanceof ImageBitmap) im.close?.();
+}
+const TEX_KEYS = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'bumpMap', 'alphaMap', 'clearcoatNormalMap', 'clearcoatRoughnessMap', 'sheenColorMap', 'specularIntensityMap'];
+function shrinkTexturesIn(root) {
+  root.traverse((o) => { for (const m of [].concat(o.material || [])) for (const k of TEX_KEYS) shrinkTexture(m?.[k], /^(normal|roughness|metalness|ao|clearcoat)/.test(k) ? MOBILE_TEX / 2 : MOBILE_TEX); });   // kabartma / pürüzlülük haritaları telefonda 256
 }
 function repeat(t, x, y) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(x, y); return t; }
 // mermer: açık gri zemin, yumuşak damarlar
@@ -2130,6 +2148,15 @@ if (NO_INERTIA) window.__path = () => ({ stops: STOPS, keys: keys.length, total:
 if (NO_INERTIA) window.__camAt = (S) => { const k = keys[Math.round(S)]; const d = new THREE.Vector3(); camera.getWorldDirection(d);
   return { s: S, pos: camera.position.toArray().map((v) => +v.toFixed(2)), dir: d.toArray().map((v) => +v.toFixed(2)), key: k && { pos: k.pos.toArray().map((v) => +v.toFixed(2)), look: k.look.toArray().map((v) => +v.toFixed(2)) }, pitch: +tour.pitch[Math.round(S)].toFixed(2) }; };   // yalnızca #test
 if (NO_INERTIA) window.__cine = (o) => { Object.assign(window.__cineOff ||= {}, o); };   // yalnızca #test: sinematik katman parçalarını kapat
+if (NO_INERTIA) window.__mem = () => {   // yalnızca #test: GPU bellek tahmini (doku w·h·4·1.33 MB, geometri tampon MB), en büyük dokular
+  const tex = new Map(), geo = new Set(); let gb = 0;
+  scene.traverse((o) => { if (o.geometry && !geo.has(o.geometry)) { geo.add(o.geometry); for (const a of Object.values(o.geometry.attributes)) gb += a.array.byteLength; if (o.geometry.index) gb += o.geometry.index.array.byteLength; }
+    for (const m of [].concat(o.material || [])) for (const k of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'lightMap', 'aoMap', 'emissiveMap', 'bumpMap', 'alphaMap', 'clearcoatNormalMap', 'envMap'])
+      { const t = m?.[k]; const im = t?.image; if (im && !tex.has(im)) { tex.set(im, (im.width || 0) * (im.height || 0) * 4 * 1.33 / 1e6); (window.__memT ||= new Map()).set(im, `${k}|${t.constructor.name}|${im.constructor.name}|${im.width}x${im.height}|${(m.name || '').slice(0, 30)}|${(o.name || '').slice(0, 24)}`); } } });
+  const list = [...tex.values()].sort((a, b) => b - a);
+  const desc = [...tex.entries()].sort((a, b) => b[1] - a[1]).slice(0, 60).map(([im, v]) => Math.round(v) + 'MB ' + window.__memT.get(im));
+  return { desc, texMB: Math.round(list.reduce((a, b) => a + b, 0)), texN: list.length, top: list.slice(0, 12).map((v) => Math.round(v)), geoMB: Math.round(gb / 1e6), geoN: geo.size, dpr: devicePixelRatio, info: renderer.info.memory };
+};
 if (NO_INERTIA) window.__probe = (x, y, z, r = .3) => { const out = [], b = new THREE.Box3(), pt = new THREE.Vector3(x, y, z); scene.traverse((o) => { if (!o.isMesh || !o.visible) return; b.setFromObject(o); if (b.distanceToPoint(pt) < r) out.push(o.name + '|' + (o.material?.name || o.material?.type) + '|' + (o.material?.opacity ?? 1)); }); return out; };   // yalnızca #test
 if (NO_INERTIA) window.__hide = (names) => scene.traverse((o) => { if (names.includes(o.name)) o.visible = false; });   // yalnızca #test
 if (NO_INERTIA) window.__lights = () => { const c = {}; scene.traverse((o) => { if (o.isLight) { const k = o.type + (o.visible && o.intensity > 0 ? '' : '_off') + (o.castShadow ? '_shadow' : ''); c[k] = (c[k] || 0) + 1; } }); return c; };
@@ -3250,7 +3277,7 @@ function buildRooms() {
 function buildEntranceCarpet(hub) {
   const W = 1.9, Lz = 7.0, z0 = -2.15, T = .014;
   const BAND = .07, LINE = .025;
-  const PX = 320;                                            // px / m (renk + kenar şeridi)
+  const PX = isMobile ? 150 : 320;                           // px / m (renk + kenar şeridi; telefonda bellek için düşük)
   const map = canvasTexture(Math.round(W * PX), Math.round(Lz * PX), (g, w, h) => {
     g.fillStyle = '#4e0b12'; g.fillRect(0, 0, w, h);          // derin bordo
     for (let i = 0; i < 26; i++) {                            // çok yumuşak ton dalgalanması (yün partisi), desen yok
@@ -3358,14 +3385,16 @@ async function loadBlenderRooms() {
     const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
       // mobil: tüm lightmap'ler yarı çözünürlük; masaüstü: duvar + tavan yarı çözünürlük (ışık geçişleri yumuşak, fark görünmez),
       // zemin 2048 kalır (gölge kenarları). 8 salon × 3 harita GPU belleğini ~%40 azaltır: dahili GPU'da donmayı önler
-      if ((isMobile || !/_floor/.test(file)) && t.image.width > 1024) {
-        const c = document.createElement('canvas'); c.width = t.image.width / 2; c.height = t.image.height / 2;
+      const lmMax = /_floor/.test(file) ? (isMobile ? 1024 : 2048) : (isMobile ? 512 : 1024);   // telefon: duvar / tavan 512, zemin 1024
+      if (t.image.width > lmMax) {
+        const c = document.createElement('canvas'); c.width = lmMax; c.height = Math.round(t.image.height * lmMax / t.image.width);
         c.getContext('2d').drawImage(t.image, 0, 0, c.width, c.height); t.image = c;
       }
       t.flipY = false; t.channel = 1; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }));
     const M = showroomMats(), jobs = [];
     const all = [...new Set([car, lounge, hub, facade, signature, ...Object.values(themes)].filter(Boolean))];
     await Promise.all(all.map(dedupeTextures));
+    if (isMobile) all.forEach((g) => shrinkTexturesIn(g.scene));   // telefon: büyük dokular hemen küçülür (yükleme anındaki bellek zirvesi düşer)
     for (const g of all) {
       // stüdyo ortam yansıması pişmiş yüzeyleri soluklaştırmasın: gece cephesi çok az, resepsiyon/koridor az, salonlar olduğu gibi
       const envK = g === facade ? .07 : g === hub ? .16 : .3;
@@ -3955,12 +3984,14 @@ try {
 const loaderText = document.querySelector('#loader small');
 await loadCarModels((p) => { loaderText.textContent = `Araçlar yükleniyor %${Math.round(p * 100)}`; });
 await loadCarViews();
+if (isMobile) CARS.forEach((c) => c._scene && shrinkTexturesIn(c._scene));   // telefon: araç dokuları da hemen küçülür
 loaderText.textContent = 'Showroom hazırlanıyor';
 await Promise.all([preloadTextures(THEME_TEXTURES), loadDecor(), loadBlenderRooms()]);
 buildSky();
 buildStreet();
 buildBuilding();
 buildRooms();          // Blender odaları (models/rooms) yüklendiyse onlar, yoksa kodla çizilen odalar
+if (isMobile) shrinkTexturesIn(scene);   // telefon: ortam yansıması çekilmeden (ilk GPU yüklemesinden) önce dokular küçülür
 captureRoomEnv();      // araçlar eklenmeden önce: boya gerçek showroom'u yansıtsın
 if (BLENDER_ROOMS) {   // mimari ışık pişmiş: araç üstündeki gerçek zamanlı ışıkları dengele (boya solmasın, derin kırmızı kalsın)
   keyLight.intensity = 4.2; fillLight.intensity = 1.4; rimLight.intensity = 3.2; focusShadow.intensity = 32;
@@ -3975,6 +4006,7 @@ buildAtmosphere();
 buildCameraPath();
 buildUI();
 layoutScroller();
+if (isMobile) shrinkTexturesIn(scene);   // araçlar, dekor ve sonradan eklenen yüzeyler
 
 
 // Post-processing
