@@ -4028,7 +4028,21 @@ if (NO_INERTIA) window.__durs = () => STOPS.slice(1).map((to, i) => { const a = 
 if (NO_INERTIA) window.__setS = (k) => { tween = null; currentS = targetS = k; SHOW.k = -1; SHOW.w = 0; };   // yalnızca #test (vitrin bırakışı sıfır)
 let testCam = null;
 if (NO_INERTIA) window.__cam = (p, t, fov) => { testCam = p ? [p, t, fov] : null; };   // yalnızca #test: sabit kabul açısı
-function step(dir) { if (tween || performance.now() < inputLock || inspect.active || lb.el.classList.contains('open')) return; goToStop(stopIdx + dir); }
+function step(dir) {
+  if (inspect.active || lb.el.classList.contains('open')) return;
+  // geçiş sürerken ters yöne kaydırma: kamera bulunduğu yerden bir önceki durağa yumuşakça geri döner (yok sayılmaz);
+  // aynı yöne kaydırma geçiş bitene kadar yok sayılır (durak atlanmaz)
+  if (tween) { if (Math.sign(dir) !== Math.sign(tween.to - tween.from)) { reverseTween(dir); } return; }
+  if (performance.now() < inputLock) return;
+  goToStop(stopIdx + dir);
+}
+function reverseTween(dir) {
+  const i = THREE.MathUtils.clamp(stopIdx + dir, 0, STOPS.length - 1); if (i === stopIdx) return;
+  const v = tween.t > 0 && tween.t < 1 ? Math.abs(tween.toL - tween.fromL) / tween.dur : 0;   // mevcut ortalama hız (m/sn)
+  tween = null; goToStop(i);
+  // yeni geçiş süresi gidilecek yola göre kısalır; ani duruş-kalkış hissi azalsın diye çok kısa olmaz
+  if (tween) tween.dur = Math.max(1.6, Math.min(tween.dur, Math.abs(tween.toL - tween.fromL) / Math.max(v, CAM_SPEED.gallery) * 1.6));
+}
 let wheelAcc = 0, wheelTimer = 0;
 addEventListener('wheel', (e) => {
   if (inspect.active || e.target.closest?.('.car-card')) return;
