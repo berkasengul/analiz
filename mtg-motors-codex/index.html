@@ -3190,7 +3190,7 @@ function buildRooms() {
   }
   if (BLENDER_ROOMS) {   // resepsiyon + ana koridor
     const hub = BLENDER_ROOMS.hub.clone(true); hub.name = 'Resepsiyon + ana koridor'; scene.add(hub);
-    for (const n of ['MTG_Brand', 'MTG_EndBrand']) rebrandMesh(hub, n, { letters: '#c9a86e', emis: '#3a2a12', halo: 0, letterShadow: .5 });   // pirinç harfler
+    // resepsiyon ve koridor sonu yazıları GLB'de yeni adla pişirildi (yazı + gölgesi birlikte)
     decorize(hub);
     buildEntranceCarpet(hub);
   }
