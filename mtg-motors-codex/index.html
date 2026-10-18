@@ -2023,7 +2023,7 @@ function buildCameraPath() {
       // tam ortadan geçer (iki yanda ~1.5 m pay: duvar, cam panel ve pervaz kadraja girmez), yeni salonda araca yaklaşır.
       // Lounge mobilyası z ≤ −4.5'te: güzergâh (z ≈ −1.2…−2.2) mobilyaya ve araçlara değmez.
       const oz = -2.225;
-      K(modLocal(k, 2.5, 1.56, -1.25).toArray(), modLocal(k, 7.5, 1.45, oz - .35).toArray(), 46); tempo(1.0);   // araçtan çözül, açıklığa dön
+      K(modLocal(k, 2.5, 1.56, -1.25).toArray(), modLocal(k, 7.5, 1.45, oz - .35).lerp(next, .5).toArray(), 46); tempo(1.0);   // bakış açıklık ile sonraki araç arasında: boş köşe ana görüntü olmaz   // araçtan çözül, açıklığa dön
       K(modLocal(k, 5.2, 1.56, oz).toArray(), modLocal(k, 11, 1.35, oz - .9).toArray(), 48); tempo(.9);        // açıklığın önü, eksende
       K(modLocal(k, 7.8, 1.56, oz).toArray(), next.clone().lerp(modLocal(k, 12, 1.3, oz - 1.2), .45).toArray(), 48); tempo(.95);   // geçildi: yeni salon
     } else {
