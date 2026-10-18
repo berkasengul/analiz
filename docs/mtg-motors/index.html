@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MTG MOTORS | Oto Galeri</title>
-<meta name="description" content="MTG MOTORS 3D sanal showroom. Galeriye girin, ilandaki araçları sinematik bir turla inceleyin.">
+<title>GARDEN MOTORS | Oto Galeri</title>
+<meta name="description" content="GARDEN MOTORS 3D sanal showroom. Galeriye girin, ilandaki araçları sinematik bir turla inceleyin.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Michroma&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -264,14 +264,14 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 <body class="letterbox">
 
 <div id="loader">
-  <div class="logo">MTG<i></i>MOTORS</div>
+  <div class="logo">GARDEN&nbsp;MOTORS</div>
   <div class="bar"><i></i></div>
   <small>Showroom hazırlanıyor</small>
 </div>
 
 <div id="webgl-error">
   <div>
-    <h2 style="font-family:Michroma,sans-serif;margin-bottom:12px">MTG MOTORS</h2>
+    <h2 style="font-family:Michroma,sans-serif;margin-bottom:12px">GARDEN MOTORS</h2>
     <p style="color:#9aa0ab;margin-bottom:20px">Tarayıcınız 3D showroom'u desteklemiyor. İlanlarımızı sahibinden.com'da inceleyebilirsiniz.</p>
     <a class="btn primary" href="https://mtgmotors34.sahibinden.com/" target="_blank" rel="noopener">Tüm İlanlar</a>
   </div>
@@ -282,7 +282,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 
 <header>
   <a class="brand" href="#" id="home-link">
-    <div class="brand-name">MTG<i></i>MOTORS</div>
+    <div class="brand-name">GARDEN&nbsp;MOTORS</div>
   </a>
   <nav>
     <button class="btn" id="contact-link" type="button">İletişim</button>
@@ -295,7 +295,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 
 <section class="overlay hero interactive" id="ov-hero">
   <div class="eyebrow">İstanbul · Premium Oto Galeri</div>
-  <h1>MTG<br><span>MOTORS</span></h1>
+  <h1>GARDEN<br><span>MOTORS</span></h1>
   <p>Galerimize adım atın. Aşağı kaydırdıkça kapıdan girip ilandaki araçlarımızı tek tek gezeceksiniz.</p>
   <div class="phones" data-phones></div>
 </section>
@@ -303,7 +303,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 <div class="scroll-hint" id="scroll-hint"><div class="mouse"></div>Kaydırın · sonraki araç</div>
 
 <section class="overlay center-title welcome" id="ov-welcome">
-  <div class="w-eyebrow">MTG MOTORS · PRIVATE COLLECTION</div>
+  <div class="w-eyebrow">GARDEN MOTORS · PRIVATE COLLECTION</div>
   <h2>Özel Koleksiyona<br>Hoş Geldiniz</h2>
   <i class="w-rule" aria-hidden="true"></i>
   <p>Seçkin araçlarımız sizi bekliyor</p>
@@ -312,7 +312,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 <div id="car-cards"></div>
 
 <section class="overlay finale interactive" id="ov-finale">
-  <div class="eyebrow" style="justify-content:center;visibility:hidden" aria-hidden="true">MTG MOTORS</div>   <!-- marka arkadaki 3B duvarda; yer tutucu (başlık konumu sabit) -->
+  <div class="eyebrow" style="justify-content:center;visibility:hidden" aria-hidden="true">GARDEN MOTORS</div>   <!-- marka arkadaki 3B duvarda; yer tutucu (başlık konumu sabit) -->
   <h2>HAYALİNİZDEKİ ARAÇ<br>BİR ADIM UZAĞINIZDA</h2>
   <p>Tüm güncel ilanlarımızı sahibinden.com mağazamızda bulabilir, ekspertiz ve takas seçenekleri için bizimle iletişime geçebilirsiniz.</p>
   <div class="actions">
@@ -371,7 +371,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
    Araç ekleyip çıkarabilirsiniz; showroom ve kamera turu otomatik uzar/kısalır.
    ===================================================================== */
 const GALLERY = {
-  name: 'MTG MOTORS',
+  name: 'GARDEN MOTORS',
   storeUrl: 'https://mtgmotors34.sahibinden.com/',
   phones: ['0554 579 86 13', '0538 438 26 41'],   // "İletişim" butonu ilk numarayı arar
 };
@@ -492,6 +492,8 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 
 const ACCENT = new THREE.Color('#e3122b');
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
+// Firma adı tek yerden: arayüz, tabela, oda duvarları, plaka, totem, TV bandı bu sabitten okunur
+const BRAND = { line: 'GARDEN  MOTORS', name: 'GARDEN MOTORS', a: 'GARDEN', b: 'MOTORS', short: 'Garden' };
 // bilgi kartı altta mı: yükleme anındaki cihaz değil, o anki pencere genişliği (CSS ile aynı eşik; pencere sonradan daraltılınca
 // da araç kartın üstünde kalır)
 const cardBelow = () => innerWidth <= 760;
@@ -606,7 +608,7 @@ function canvasTexture(w, h, draw) {
 // ---------- Medya duvarı TV'si: odadaki aracın sinematik filmi ----------
 // Her salonun sağ duvarındaki TV, o salondaki aracı gösterir. CARS[].video verilmişse (mp4/webm) o oynatılır; yoksa araç
 // sahnede ikinci bir kamerayla canlı çekilir: ön 3/4 dolly, yan profil kaydırma, jant yakın planı, arka 3/4 vinç, üstten
-// yörünge, far detayı (her plan ~5 sn, aralarda kısa karartma). Sinema oranı bantları + MTG MOTORS imzası görüntüye işlenir.
+// yörünge, far detayı (her plan ~5 sn, aralarda kısa karartma). Sinema oranı bantları + GARDEN MOTORS imzası görüntüye işlenir.
 // Yalnız kameranın bulunduğu salonun TV'si ve yalnız ekran kadrajdayken çizilir (masaüstü ~30 kare/sn, mobil ~12).
 const TV = { slow: false, list: [], rt: null, cam: new THREE.PerspectiveCamera(30, 16 / 9, .05, 60), active: -1, t: 0, n: 0,
   ovScene: new THREE.Scene(), ovCam: new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), ovQuad: null, fade: null, frustum: new THREE.Frustum(), pm: new THREE.Matrix4() };
@@ -625,7 +627,7 @@ function tvOverlayTexture(spec, k) {
     g.fillStyle = '#000'; g.fillRect(0, 0, w, bar); g.fillRect(0, h - bar, w, bar);
     g.fillStyle = 'rgba(214,180,120,.85)'; g.fillRect(36, h - bar, 54, 2);
     g.font = '600 22px Cinzel, Georgia, serif'; g.fillStyle = '#e6cfa0'; g.textBaseline = 'middle';
-    g.fillText('MTG  |  MOTORS', 36, h - bar / 2 + 2);
+    g.fillText(BRAND.line, 36, h - bar / 2 + 2);
     g.font = '500 15px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(255,255,255,.82)'; g.textAlign = 'right';
     g.fillText(`${spec.brand.toUpperCase()}  ·  ${spec.model}  ·  ${spec.year}`, w - 36, h - bar / 2 + 1);
     g.textAlign = 'left'; g.font = '500 12px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(230,207,160,.75)';
@@ -636,15 +638,15 @@ const tvStandby = canvasTexture(512, 288, (g, w, h) => {
   const r = g.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * .6); r.addColorStop(0, '#16130f'); r.addColorStop(1, '#050505');
   g.fillStyle = r; g.fillRect(0, 0, w, h);
   g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = 'rgba(214,180,120,.55)'; g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.fillText('MTG  |  MOTORS', w / 2, h / 2);
+  g.fillText(BRAND.line, w / 2, h / 2);
 });
-// akıcı modda TV afişi: araç adı + MTG MOTORS imzası (sahne ikinci kez çizilmez)
+// akıcı modda TV afişi: araç adı + GARDEN MOTORS imzası (sahne ikinci kez çizilmez)
 function tvPosterTexture(spec, k) {
   return canvasTexture(1024, 576, (g, w, h) => {
     const r = g.createLinearGradient(0, 0, w, h); r.addColorStop(0, '#15120e'); r.addColorStop(1, '#050505'); g.fillStyle = r; g.fillRect(0, 0, w, h);
     g.fillStyle = 'rgba(214,180,120,.85)'; g.fillRect(w / 2 - 40, h * .36, 80, 2);
     g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = '#e6cfa0'; g.fillText('MTG  |  MOTORS', w / 2, h * .26);
+    g.font = '600 26px Cinzel, Georgia, serif'; g.fillStyle = '#e6cfa0'; g.fillText(BRAND.line, w / 2, h * .26);
     g.font = '500 20px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(230,207,160,.8)'; g.fillText(spec.brand.toUpperCase(), w / 2, h * .47);
     g.font = '600 44px Cinzel, Georgia, serif'; g.fillStyle = '#f4ede2'; g.fillText(spec.model, w / 2, h * .58);
     g.font = '500 18px Inter, system-ui, sans-serif'; g.fillStyle = 'rgba(255,255,255,.7)';
@@ -751,7 +753,7 @@ function updateTV(dt) {
   e.mat.map = TV.rt.texture;
 }
 
-// Dükkân tabelasındaki gibi: serifli beyaz "MTG | MOTORS", isteğe bağlı telefonlar
+// Dükkân tabelasındaki gibi: serifli beyaz "GARDEN MOTORS", isteğe bağlı telefonlar
 function logoTexture(w, h, { sub = true, phones = false } = {}) {
   return canvasTexture(w, h, (g) => {
     g.clearRect(0, 0, w, h);
@@ -762,14 +764,13 @@ function logoTexture(w, h, { sub = true, phones = false } = {}) {
     if ('letterSpacing' in g) g.letterSpacing = `${size * .06}px`;
     const y = sub ? h * .44 : h * .52;
     const gap = size * .45;
-    const mtgW = g.measureText('MTG').width, motW = g.measureText('MOTORS').width;
+    const mtgW = g.measureText(BRAND.a).width, motW = g.measureText(BRAND.b).width;
     const total = mtgW + gap * 2 + motW;
     const cx = phones ? w * .42 : w / 2;
     const x0 = cx - total / 2;
     g.textAlign = 'left';
-    g.fillText('MTG', x0, y);
-    g.fillRect(x0 + mtgW + gap - size * .02, y - size * .55, size * .045, size * 1.1);
-    g.fillText('MOTORS', x0 + mtgW + gap * 2, y);
+    g.fillText(BRAND.a, x0, y);
+    g.fillText(BRAND.b, x0 + mtgW + gap * 2, y);
     if (phones) {
       const ps = h * .2;
       g.font = `500 ${ps}px Cinzel, Georgia, serif`;
@@ -1009,7 +1010,7 @@ function buildStreet() {
       hedge(x, 1.6, 1.2, 1.2, .7).position.y = .9;
     });
   }
-  // anıtsal totem kaldırıldı: giriş sahnesi sade kalsın, tabela tek ve net (cephedeki MTG | MOTORS)
+  // anıtsal totem kaldırıldı: giriş sahnesi sade kalsın, tabela tek ve net (cephedeki GARDEN MOTORS)
 }
 
 // totem paneli: koyu zemin, ince şampanya çerçeve, dikey kompozisyon (MTG / çizgi / MOTORS / PRIVATE COLLECTION)
@@ -1018,7 +1019,7 @@ function emblemTexture() {
     g.fillStyle = '#0d0f12'; g.fillRect(0, 0, w, h);
     g.strokeStyle = 'rgba(214,186,134,.75)'; g.lineWidth = 3; g.strokeRect(18, 18, w - 36, h - 36);
     g.textAlign = 'center'; g.textBaseline = 'middle'; g.shadowColor = 'rgba(255,200,130,.6)'; g.shadowBlur = 14;
-    g.fillStyle = '#e3c58f'; g.font = '600 104px Cinzel, Georgia, serif'; g.fillText('MTG', w / 2, h * .3);
+    g.fillStyle = '#e3c58f'; g.font = '600 76px Cinzel, Georgia, serif'; g.fillText(BRAND.a, w / 2, h * .3);
     g.fillRect(w / 2 - 50, h * .39, 100, 3);
     g.font = '600 48px Cinzel, Georgia, serif'; if ('letterSpacing' in g) g.letterSpacing = '6px'; g.fillText('MOTORS', w / 2, h * .47);
     g.shadowBlur = 0; g.fillStyle = 'rgba(214,186,134,.85)'; g.font = '500 20px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '5px';
@@ -1051,6 +1052,7 @@ function glassWall(len, h, cx, cz, rotY, step = 2.4) {
 // Kodda yalnız sürgülü kanatlar (iç tarafta, ray kutusunun altında; açılınca sabit yan camların arkasına kayar).
 function buildFacadeGLB() {
   const f = BLENDER_ROOMS.facade.clone(true); f.name = 'Dış cephe + giriş'; scene.add(f);
+  rebrandMesh(f, 'MTG_FacBrand', { letters: '#2e2924', emis: '#000000', halo: 0, letterShadow: .45 });   // tabela: koyu bronz harfler (eskisiyle aynı)
   // mimari cam: yüzey rengi koyu (cam kendini değil yansımayı ve arkasını gösterir), hafif sıcak bronz ton; yansıma gece ortamından
   // mimari cam (akşam): koyu, hafif sıcak gövde; içeriden taşan ışık dışarıdan sıcak görünür, yansıma kontrollü
   const glassP = showroomMats().glassP, warmGlass = facadeGlass = glassP.clone(); warmGlass.color.set('#2b261f'); warmGlass.opacity = .22;
@@ -1109,7 +1111,7 @@ function buildBuilding() {
   const pil = (x) => { box(.6, HALL_H, .6, trav(.6, HALL_H), x, HALL_H / 2, .2); box(.25, .02, .25, glow('#fff0d8', 1.6), x, .015, .62); };
   for (const x of [-XO - .05, -10.4, -3.9, 3.9, 10.4, XO + .05]) pil(x);
   for (const [a, b] of [[-XO + .25, -10.7], [-10.1, -4.2], [4.2, 10.1], [10.7, XO - .25]]) glassWall(b - a, HALL_H, (a + b) / 2, 0, 0, 2.6);
-  // giriş portalı: bronz çerçeve, cam kanopi, ışıklı alın, MTG | MOTORS tabelası saçakta
+  // giriş portalı: bronz çerçeve, cam kanopi, ışıklı alın, GARDEN MOTORS tabelası saçakta
   for (const sd of [-1, 1]) box(.28, 5.3, 1.5, bronze, sd * 3.62, 2.65, .75);
   box(7.52, .32, 1.5, bronze, 0, 5.3, .75);
   box(6.9, .02, 1.3, glow('#fff1dc', 1.4), 0, 5.13, .78);
@@ -1511,8 +1513,8 @@ function plateTexture(style) {
       g.fillStyle = '#f6f0e4'; g.textBaseline = 'middle'; g.textAlign = 'center';
       if ('letterSpacing' in g) g.letterSpacing = '10px';
       let fs = 300; g.font = `700 ${fs}px Cinzel, Georgia, serif`;
-      while (fs > 120 && g.measureText('MTG MOTORS').width > w - 150) g.font = `700 ${fs -= 6}px Cinzel, Georgia, serif`;
-      g.fillText('MTG MOTORS', w / 2 + 5, h / 2 + fs * .04);
+      while (fs > 100 && g.measureText(BRAND.name).width > w - 150) g.font = `700 ${fs -= 6}px Cinzel, Georgia, serif`;
+      g.fillText(BRAND.name, w / 2 + 5, h / 2 + fs * .04);
     });
     t.anisotropy = 16; return t;
   }
@@ -1520,8 +1522,9 @@ function plateTexture(style) {
     g.fillStyle = '#151a1e'; g.fillRect(0, 0, w, h);
     g.strokeStyle = '#2a2c30'; g.lineWidth = 10; g.strokeRect(5, 5, w - 10, h - 10);
     g.fillStyle = '#f5f1e7'; g.textBaseline = 'middle'; g.textAlign = 'center';
-    g.font = '600 112px Cinzel, Georgia, serif';
-    g.fillText('MTG MOTORS', w / 2, h / 2 + 6);
+    let fs2 = 112; g.font = `600 ${fs2}px Cinzel, Georgia, serif`;
+    while (fs2 > 60 && g.measureText(BRAND.name).width > w - 70) g.font = `600 ${fs2 -= 4}px Cinzel, Georgia, serif`;
+    g.fillText(BRAND.name, w / 2, h / 2 + 6);
   });
   return t;
 }
@@ -2050,7 +2053,7 @@ function buildCameraPath() {
   // Giriş tek akıcı çekim (tek kaydırma): karşı kaldırım → yolu geçip girişe dönüş → kapı eşiğinde hafif yavaşlama (kapılar
   // açılır) → resepsiyondan koridora süzülme → ilk salonun açılışı → BMW kahraman karesi. Tempo: anahtar kare çevresindeki
   // göreli hız (1 = ortalama); açık alanda akar, eşikte ve araç açılışında yavaşlar.
-  // açılış kadrajı tabelaya yakın (yolun karşı şeridi, ~17 m): MTG | MOTORS tabelası ve portal net okunur. Masaüstünde tabela sağ
+  // açılış kadrajı tabelaya yakın (yolun karşı şeridi, ~17 m): GARDEN MOTORS tabelası ve portal net okunur. Masaüstünde tabela sağ
   // yarıda (sol yarı başlık metnine kalır); dar/dikey ekranda tabela ve kapı ekranın ortasında.
   const narrow = innerWidth <= 760 || innerHeight > innerWidth;
   if (narrow) K([-.5, 1.65, 14.5], [-.2, 1.95, 0], 38, 'hero');            // tabela ekranın üst üçte birinde, başlık altında
@@ -2421,7 +2424,7 @@ function buildShowroomDetails(){
  for(const [m,parts]of buckets){const o=new THREE.Mesh(mergeGeometries(parts,false),m);o.castShadow=true;o.receiveShadow=true;root.add(o);parts.forEach(g=>g.dispose());}
  for(let i=0;i<CARS.length;i++){
   const side=i%2===0?-1:1,z=FIRST_CAR_Z-Math.floor(i/2)*CAR_SPACING;
-  const tex=canvasTexture(1024,512,(g,w,h)=>{g.fillStyle='#222a2c';g.fillRect(0,0,w,h);g.textAlign='center';g.fillStyle='#bca47a';g.font='24px sans-serif';g.fillText('MTG  /  SELECTED COLLECTION',w/2,80);g.fillStyle='#ede7db';g.font='110px Georgia';g.fillText(String(i+1).padStart(2,'0'),w/2,235);g.font='40px Georgia';g.fillText(CARS[i].brand.toUpperCase(),w/2,325);g.fillStyle='#bca47a';g.fillRect(w/2-75,365,150,2);});
+  const tex=canvasTexture(1024,512,(g,w,h)=>{g.fillStyle='#222a2c';g.fillRect(0,0,w,h);g.textAlign='center';g.fillStyle='#bca47a';g.font='24px sans-serif';g.fillText(BRAND.name + '  /  SELECTED COLLECTION',w/2,80);g.fillStyle='#ede7db';g.font='110px Georgia';g.fillText(String(i+1).padStart(2,'0'),w/2,235);g.font='40px Georgia';g.fillText(CARS[i].brand.toUpperCase(),w/2,325);g.fillStyle='#bca47a';g.fillRect(w/2-75,365,150,2);});
   const label=new THREE.Mesh(new THREE.PlaneGeometry(2.6,1.3),new THREE.MeshStandardMaterial({map:tex,roughness:.8}));label.rotation.y=-side*Math.PI/2;label.position.set(side*10.40,2.5,z);root.add(label);
  }
  scene.add(root);return root;
@@ -2777,7 +2780,7 @@ function openEkspertiz(i, opener) {
   const photo = s.photos?.[0], e = s.ekspertiz || {};
   const sema = { ...EKS_SEMA, ...(s.type === 'coupe' ? EKS_SEMA_COUPE : {}) };
   eksPanel.innerHTML = `
-    <div class="eks-top"><span>MTG · Ekspertiz raporu</span><button class="eks-x" type="button" aria-label="Kapat">×</button></div>
+    <div class="eks-top"><span>${BRAND.short} Motors · Ekspertiz raporu</span><button class="eks-x" type="button" aria-label="Kapat">×</button></div>
     <h3>Parça Durumu</h3>
     <p class="eks-sub">Gövde parçalarındaki boya ve değişim durumu. Bir parçaya dokunun; araç o yöne döner.</p>
     <div class="eks-car">${photo ? `<img alt="" src="${photo}" onerror="this.remove()">` : ''}<div><b></b><small></small></div></div>
@@ -2961,9 +2964,9 @@ function pbr(name, rx, ry, o = {}) {
 // Ölçüler gerçek mimari oranlarda (m): tavan 4.8, kapı 2.6 × 3.1, kanepe oturum 0.42, sehpa 0.35.
 const THEME_TEXTURES = ['travertine_clean', 'showroom_floor', 'microcement', 'travertine_panel', 'smoked_walnut_veneer', 'velour_velvet', 'granite_tile_03', 'stone_tile_wall'];
 const ROOM_THEME = { name: 'Showroom', light: '#fff6ec', lightI: 4.6 };
-const LOUNGE_THEME = { name: 'MTG Lounge', light: '#ffe9d2', lightI: 4.2, lounge: true };
+const LOUNGE_THEME = { name: 'Garden Lounge', light: '#ffe9d2', lightI: 4.2, lounge: true };
 // ---------- Araca özel koleksiyon odaları ----------
-// Ortak plan ve marka dili (MTG | MOTORS + PRIVATE COLLECTION, cilalı sergileme alanı, cam geçişler); malzeme, tavan, duvar
+// Ortak plan ve marka dili (GARDEN MOTORS + PRIVATE COLLECTION, cilalı sergileme alanı, cam geçişler); malzeme, tavan, duvar
 // detayı, lounge ve ışık karakteri her araçta farklı. Mimari + pişmiş ışık: tools/blender/mtg_room.py THEMES (aynı adlar).
 // Kodda: oda GLB'si, harf rengi, araç üstü ışıkların rengi/yoğunluğu, oda tavan ışığı, zemin yansıma oranı, pozlama.
 //   letters/emis: 3B harf rengi / iç ışıma · key/fill/rim: araç ışıkları · light/lightI: tavan alan ışığı
@@ -2977,16 +2980,16 @@ const ROOM_THEMES = {
   // display: ekran parlaklığı · dof: alan derinliği çarpanı (0: marka yazısı arka planda tam net) · letterShadow: yazının duvardaki
   // gölge yoğunluğu · wallLift: duvar / ahşap pişmiş ışığına nötr dolgu · floorRough: zemin pürüzlülüğü (parlak ışık şeridi yansıması yok) ·
   // glass: vitrin / geçiş camları (ortak süt beyazı cam yerine temiz, çok hafif tonlu, ölçülü yansımalı) · brandRough: duvar taşı
-  // pürüzlülüğü (honlanmış) · brandMainOnly: duvarda yalnız MTG | MOTORS (net, alt satırsız) · vaultDecor: vitrin raflarında kalan dekor çapaları. keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
+  // pürüzlülüğü (honlanmış) · brandMainOnly: duvarda yalnız GARDEN MOTORS (net, alt satırsız) · vaultDecor: vitrin raflarında kalan dekor çapaları. keyI / rimI / lightI kısık: boyada beyaz parlama lekeleri yerine yumuşak stüdyo yansımaları
   sport:     { name: 'Sport Coupé Collection',  letters: '#ead9b0', emis: '#7a6340', key: '#f8f5ef', fill: '#eeeff1', rim: '#eef2f8', keyI: 3.3, rimI: 3.6, fillI: 2.6, spotI: 16, keySize: [8.5, 3.8], fillSize: [7, 3], light: '#f7f4ee', lightI: 3.0, refl: 1, exp: 1.0, halo: 0, grade: [.985, 1.0, 1.025, 1.0, 1.06], stageCoat: .1, stageTint: '#c4c0ba', brandK: .85, brandTint: '#ffffff', brandRough: .72, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'], woodTint: '#c2bfbb', pillowTint: '#4e4a46', display: .35, dof: 0, letterShadow: .32, wallLift: 1.35, floorRough: .75,
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
   // Ford Kuga (3. tur): BMW ile aynı yerleşim ve kalite, Ford'a özgü palet — derin petrol mavisi sıva, fırçalanmış gümüş kanatlar,
-  // açık gri taş marka duvarında koyu gri metal MTG | MOTORS, mat açık-orta gri zemin; nötr-serin ışık (beyaz Kuga rengini korur)
+  // açık gri taş marka duvarında koyu gri metal GARDEN MOTORS, mat açık-orta gri zemin; nötr-serin ışık (beyaz Kuga rengini korur)
   suv:       { name: 'Explorer SUV Lounge',     letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 2.5, rimI: 2.7, fillI: 2.2, spotI: 14, keySize: [8.5, 3.8], fillSize: [7, 3], light: '#f4f7fa', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
     stageCoat: .04, stageTint: '#a9acaf', floorK: .62, floorTint: '#c4c6c8', brandK: .6, brandTint: '#b2b5b8', brandRough: .7, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'],
     pillowTint: '#3d4a52', beam: '#2c353b', matTint: { MTG_finbg_slate_cool: '#86aab8' }, dof: 0, letterShadow: .28, wallLift: 1.75, floorRough: .75,
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
-  // VW Golf (2. tur): Volkswagen'e özgü palet — koyu orman yeşili sıva, grafit yivli paneller, açık traverten duvarda MTG | MOTORS,
+  // VW Golf (2. tur): Volkswagen'e özgü palet — koyu orman yeşili sıva, grafit yivli paneller, açık traverten duvarda GARDEN MOTORS,
   // mat antrasit zemin, nikel ince vurgular; nötr yumuşak ışık (beyaz Golf doğal beyaz, detaylar net), dekor sade
   urban:     { name: 'Urban Collection',        letters: '#24332c', emis: '#000000', key: '#f6f7f5', fill: '#eff1ef', rim: '#eef2f0', keyI: 2.9, rimI: 3.2, light: '#f5f6f3', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.99, 1.01, 1.0, .98, 1.06],
     stageCoat: .04, stageTint: '#b9bbba', floorK: .8, brandK: .62, brandTint: '#ffffff', brandRough: .7, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'],
@@ -3001,7 +3004,7 @@ for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim
 const LOUNGE_SIG = { letters: '#e2c592', emis: '#6e4b1d', refl: .78, halo: 1 };   // lounge: önceki Signature harf / zemin dili (BMW salonundan bağımsız)
 const EXT_LOOK = { exp: .98, grade: [.98, .99, 1.03, 1.02, 1.06] };   // dış cephe: mavi saat, serin gölgeler + ölçülü sıcak ışıklar; taş patlamaz
 const HUB_LOOK = { exp: .92, grade: [1.03, 1.0, .95, 1.02, 1.06] };    // resepsiyon + koridor: sıcak galeri tonu
-ROOM_THEMES.brutal = { name: 'MTG Galeri', letters: '#4a3c2c', emis: '#0e0a06', key: '#fff3e6', fill: '#e8eef6', rim: '#fff0de', keyI: 6.2, rimI: 5.2, light: '#fff2e2', lightI: 4.6, refl: 1, exp: 1.0, halo: 0, grade: [1, 1, 1, 1, 1.04] };
+ROOM_THEMES.brutal = { name: 'Garden Galeri', letters: '#4a3c2c', emis: '#0e0a06', key: '#fff3e6', fill: '#e8eef6', rim: '#fff0de', keyI: 6.2, rimI: 5.2, light: '#fff2e2', lightI: 4.6, refl: 1, exp: 1.0, halo: 0, grade: [1, 1, 1, 1, 1.04] };
 for (const c of ['key', 'fill', 'rim']) ROOM_THEMES.brutal[c + 'C'] = new THREE.Color(ROOM_THEMES.brutal[c]);
 const roomThemeOf = (k) => BRUTAL ? ROOM_THEMES.brutal : ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
 const themeOf = (k) => (BRUTAL ? ROOM_THEMES.brutal : k >= TOUR.length ? LOUNGE_THEME : roomThemeOf(k));
@@ -3089,7 +3092,7 @@ function plantInPlanter(parent, x, z, sc = 1.2) {
 function totemTexture(spec, k) {
   return canvasTexture(600, 1900, (g, w, h) => {
     const bg = g.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#0d0f12'); bg.addColorStop(1, '#16191d'); g.fillStyle = bg; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#ffffff'; g.font = '600 46px Cinzel, Georgia, serif'; g.textAlign = 'center'; g.fillText('MTG | MOTORS', w / 2, 130);
+    g.fillStyle = '#ffffff'; g.font = '600 46px Cinzel, Georgia, serif'; g.textAlign = 'center'; g.fillText(BRAND.name, w / 2, 130);
     g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(60, 175, w - 120, 1);
     g.textAlign = 'left'; g.fillStyle = '#b9a07a'; g.font = '500 30px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '8px';
     g.fillText(String(k + 1).padStart(2, '0') + '  ·  ' + spec.brand.toUpperCase(), 60, 300);
@@ -3263,7 +3266,9 @@ function buildRooms() {
     floorReflector.rotation.x = -Math.PI / 2; floorReflector.position.set(0, -.001, -HALL_D / 2); scene.add(floorReflector);
   }
   if (BLENDER_ROOMS) {   // resepsiyon + ana koridor
-    const hub = BLENDER_ROOMS.hub.clone(true); hub.name = 'Resepsiyon + ana koridor'; scene.add(hub); decorize(hub);
+    const hub = BLENDER_ROOMS.hub.clone(true); hub.name = 'Resepsiyon + ana koridor'; scene.add(hub);
+    for (const n of ['MTG_Brand', 'MTG_EndBrand']) rebrandMesh(hub, n, { letters: '#c9a86e', emis: '#3a2a12', halo: 0, letterShadow: .5 });   // pirinç harfler
+    decorize(hub);
     buildEntranceCarpet(hub);
   }
   for (let k = 0; k < NROOMS; k++) buildRoom(k);
@@ -3497,7 +3502,7 @@ function brandHalo(mesh) {
     g.clearRect(0, 0, w, h); g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '600 150px Cinzel, Georgia, serif';
     if ('letterSpacing' in g) g.letterSpacing = '40px';
     g.shadowColor = 'rgba(255,205,150,1)'; g.shadowBlur = 46; g.fillStyle = 'rgba(255,214,166,.9)';
-    for (let i = 0; i < 3; i++) g.fillText('MTG  |  MOTORS', w / 2, h / 2 + 6);
+    for (let i = 0; i < 3; i++) g.fillText(BRAND.line, w / 2, h / 2 + 6);
   });
   const box = new THREE.Box3().setFromObject(mesh), size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
   const p = new THREE.Mesh(new THREE.PlaneGeometry(size.x * 1.18, size.x * 1.18 * 320 / 2048),
@@ -3562,7 +3567,7 @@ function captureRoomEnv() {
 function decorize(root) {
   root.traverse((o) => { const d = o.userData?.decor; if (d && DECOR[d] && !o.userData._decorDone) { o.add(DECOR[d].clone(true)); o.userData._decorDone = true; } });
   // Signature odalarında hale Blender'dan (MTG_Brand_Halo) gelir; canvas kopyası çift yazı verir
-  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b && !b.parent?.getObjectByName('MTG_BrandSub')) { const h = brandHalo(b); h.name = n + '_Glow'; root.add(h); } }
+  for (const n of ['MTG_Brand', 'MTG_EndBrand']) { const b = root.getObjectByName(n); if (b && !b.parent?.getObjectByName('MTG_BrandSub')) { const h = brandHalo(b.userData.rebrand || b); h.name = n + '_Glow'; root.add(h); } }
 }
 // ---------- Premium oda katmanı: tüm araç salonları ilk BMW salonuyla aynı Signature Gallery tasarımında ----------
 // Referans: sıcak altın ışık, koyu parlak taş zemin, aracın çevresinde ince altın halka, arkadan ışıklı marka duvarı
@@ -3573,11 +3578,11 @@ const PREM_YAW = -1.283;          // araç önü oda yerelinde (0.28, 0.96): kor
 const PREM_LIGHTS = [];
 // Signature Gallery GLB'si (tools/blender/mtg_room.py --variant signature): mimari, ışık ve sergileme alanı Blender'da.
 // Kodda yalnız: arkadan ışıklı şampanya harflerin hafif ışıması, araç üstü stüdyo panelinin yumuşak ışıması.
-// ---------- Marka yazısı (MTG | MOTORS · PRIVATE COLLECTION) ----------
+// ---------- Marka yazısı (GARDEN MOTORS · PRIVATE COLLECTION) ----------
 // Cinzel SemiBold harf konturları (örtüşen konturlar birleştirilmiş; tools/brand_glyphs.py). Harfler sitede üretilir:
 // pahlı 3B metal harf (ön yüz fırçalanmış, pah cilalı: kenarlar ışığı yakalar), duvarda yumuşak gölge ve tema rengiyle arkadan
 // aydınlatma. Fırında yazı gölgesi yok, geometri her çözünürlükte keskin.
-const BRAND_GLYPHS = {"upm":1000,"cap":700,"g":{" ":[250,""],"A":[715,"M356 718 645 68Q660 38 683 25Q707 10 730 10H738V0H451V10H460Q479 10 494 27Q508 42 499 70L444 212H197L141 73Q133 53 138 39Q143 25 155 17.5Q167 10 179 10H188V0H-22V10H-13Q10 10 35 25Q56 37 71 65L302 596Q304 600 310.5 615.5Q317 631 325.5 651Q334 671 340 689.5Q346 708 347 718ZM323 521 213 250H429Z"],"C":[773,"M718 292 720 125Q697 86 659 54.5Q621 23 566.5 4.5Q512 -14 439 -14Q323 -13 235 31Q147 75 98.5 156.5Q50 238 50 351Q50 462 98 543.5Q146 625 234 669.5Q322 714 443 714Q521 714 583 696.5Q645 679 688 655L696 494H687Q662 589 598.5 632.5Q535 676 450 676Q368 676 308.5 636.5Q249 597 216.5 524.5Q184 452 184 353Q184 254 215.5 180.5Q247 107 304.5 66.5Q362 26 439 24Q514 24 569.5 49.5Q625 75 660.5 134Q696 193 710 292Z"],"E":[613,"M582 190 532 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H399Q421 700 445.5 703Q470 706 491 710Q512 714 521 718V560H511V574Q511 612 487 637Q467 657 436 661H247V364H391Q422 365 443 386Q464 407 464 438V448H474V242H464V253Q464 284 443 305Q422 326 391 326H247V39H381Q432 39 469 57.5Q506 76 531 110.5Q556 145 572 190Z"],"G":[824,"M739 280V115Q716 85 671.5 55Q627 25 564 5.5Q501 -14 421 -14Q311 -13 227 31.5Q143 76 96.5 157.5Q50 239 50 351Q50 461 96 543Q142 625 227 669.5Q312 714 425 714Q480 714 529.5 706Q579 698 620.5 684.5Q662 671 691 655L699 494H690Q672 559 636.5 598.5Q601 638 552 657Q503 676 446 676Q363 676 304.5 635.5Q246 595 215 521.5Q184 448 184 347Q184 249 213.5 176.5Q243 104 298.5 64.5Q354 25 430 24Q470 24 506 35Q542 46 571.5 67.5Q601 89 618 119L619 280Q619 325 568 325H552V335H804V325H789Q759 325 747 310Q738 299 739 280Z"],"I":[370,"M125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H324V690H311Q285 690 266.5 671.5Q248 653 247 627V73Q248 47 266.5 28.5Q285 10 311 10H324V0H48V10H61Q87 10 105.5 28.5Q124 47 125 73Z"],"L":[598,"M582 190 532 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H324V690H311Q285 690 266.5 671.5Q248 653 247 627V39H381Q432 39 469 57.5Q506 76 531 110.5Q556 145 572 190Z"],"M":[946,"M767 714H776L859 73Q864 43 884.5 26.5Q905 10 932 10H948V0H675V9H690Q707 9 718 22.5Q729 36 729 52V57L688 456L493 90L484 73Q475 55 466 30Q457 5 456 -18H446L190 453L149 57V52Q149 36 160.5 22.5Q172 9 188 9H203V0H-1V10H15Q42 10 63 26.5Q84 43 88 73L168 714H178L477 176Z"],"N":[857,"M114 715 633 202V629Q632 655 614.5 672.5Q597 690 571 690H552V700H822V690H804Q779 690 761 672.5Q743 655 742 629V114Q742 78 745 49Q748 20 751 3L753 -14H744L225 498L226 71Q226 46 244 28Q262 10 287 10H306V0H35V10H54Q79 10 97 28Q115 46 115 71V590Q115 644 110 680L104 715Z"],"O":[865,"M438 714Q553 714 639.5 669.5Q726 625 773 543Q820 461 820 350Q820 239 773 157Q726 75 639.5 30.5Q553 -14 438 -14Q322 -14 236 30.5Q150 75 103 157Q56 239 56 350Q56 461 103 543Q150 625 236 669.5Q322 714 438 714ZM438 24Q513 24 568.5 64Q624 104 654.5 177Q685 250 685 350Q685 450 654.5 523Q624 596 568.5 636Q513 676 438 676Q363 676 307.5 636Q252 596 221.5 523Q191 450 191 350Q191 250 221.5 177Q252 104 307.5 64Q363 24 438 24Z"],"P":[630,"M127 73V627Q127 653 108 671.5Q89 690 63 690H51L50 700H359Q438 700 489.5 675.5Q541 651 567 608Q593 565 594 508Q595 458 576.5 418Q558 378 525.5 351Q493 324 452.5 311.5Q412 299 368 304.5Q324 310 283 335V345L297 344Q310 343 332 346.5Q354 350 378.5 360.5Q403 371 424 394.5Q445 418 456 457Q460 470 461.5 486Q463 502 462 517Q461 583 427 622.5Q393 662 331 662H249V73Q250 47 268.5 28.5Q287 10 313 10H326V0H50V10H63Q89 10 107.5 28.5Q126 47 127 73Z"],"R":[724,"M127 73V627Q126 653 107.5 671.5Q89 690 63 690H50V700H369Q414 700 454.5 689Q495 678 526 655Q557 632 574.5 596.5Q592 561 592 512Q592 468 573 425Q554 382 517 353.5Q480 325 426 321Q453 312 477.5 287.5Q502 263 518 239Q519 238 530.5 220.5Q542 203 559 178Q576 153 594.5 128Q613 103 627 86Q649 60 667.5 43.5Q686 27 707 18.5Q728 10 755 10V0H672Q620 0 579.5 11Q539 22 509 44Q479 66 457 99Q451 108 440 126.5Q429 145 416 168Q403 191 390.5 212.5Q378 234 369.5 251Q361 268 358 275Q342 304 323 322Q304 340 282 342V352Q284 352 295 351.5Q306 351 320 352Q347 353 374.5 362Q402 371 424 395.5Q446 420 456 464Q458 473 460 487Q462 501 461 516Q458 586 425 622Q392 658 341 660Q322 661 301 660.5Q280 660 265 660H249V73Q249 47 268 28.5Q287 10 313 10H325V0H50V10H63Q89 10 107.5 28.5Q126 47 127 73Z"],"S":[544,"M268 714Q287 714 313 712Q339 710 366 707Q375 705 384 704H443L442 683H441L434 565H424Q424 616 387.5 646Q351 676 293 676Q235 676 200.5 646Q166 616 165 573Q163 548 179.5 524.5Q196 501 224 481L417 338Q458 311 477 272.5Q496 234 494 186Q491 94 427.5 40Q364 -14 255 -14Q218 -14 179.5 -7.5Q141 -1 109 12.5Q77 26 58 45Q52 65 53 93.5Q54 122 61 152.5Q68 183 78 204H87Q83 153 104 111.5Q125 70 165.5 46.5Q206 23 261 24Q323 26 360.5 59Q398 92 398 144Q398 174 382 198.5Q366 223 332 243L151 380Q105 410 85.5 452.5Q66 495 69 541Q72 589 96 628.5Q120 668 163.5 691Q207 714 268 714Z"],"T":[650,"M635 719V561L625 562V575Q625 614 601 638Q577 662 538 663H387V73Q388 47 406.5 28.5Q425 10 451 10H464V0H188V10H201Q227 10 245.5 28.5Q264 47 265 73V663H113Q74 662 50 638Q26 614 26 575V562L16 561V719Q26 715 46.5 711Q67 707 92 704Q117 701 138 701H513Q535 701 559.5 704Q584 707 605 711Q626 715 635 719Z"],"V":[732,"M368 -18 74 627Q58 661 33.5 675.5Q9 690 -14 690H-22V700H265V690H256Q237 690 222.5 674Q208 658 219 628H218L400 178L592 632Q602 659 588 674Q573 690 553 690H544V700H754V690H745Q723 690 698 676Q676 663 661 636L422 104Q420 100 413 84.5Q406 69 398 49Q390 29 384 10.5Q378 -8 377 -18Z"],"|":[253,"M100 700H153V-180H100Z"]}};
+const BRAND_GLYPHS = {"upm":1000,"cap":700,"g":{" ":[250,""],"A":[715,"M356 718 645 68Q660 38 683 25Q707 10 730 10H738V0H451V10H460Q479 10 494 27Q508 42 499 70L444 212H197L141 73Q133 53 138 39Q143 25 155 17.5Q167 10 179 10H188V0H-22V10H-13Q10 10 35 25Q56 37 71 65L302 596Q304 600 310.5 615.5Q317 631 325.5 651Q334 671 340 689.5Q346 708 347 718ZM323 521 213 250H429Z"],"C":[773,"M718 292 720 125Q697 86 659 54.5Q621 23 566.5 4.5Q512 -14 439 -14Q323 -13 235 31Q147 75 98.5 156.5Q50 238 50 351Q50 462 98 543.5Q146 625 234 669.5Q322 714 443 714Q521 714 583 696.5Q645 679 688 655L696 494H687Q662 589 598.5 632.5Q535 676 450 676Q368 676 308.5 636.5Q249 597 216.5 524.5Q184 452 184 353Q184 254 215.5 180.5Q247 107 304.5 66.5Q362 26 439 24Q514 24 569.5 49.5Q625 75 660.5 134Q696 193 710 292Z"],"D":[821,"M403 700Q517 700 601.5 657.5Q686 615 732 536Q778 457 778 350Q778 243 732 164.5Q686 86 601.5 43Q517 0 403 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q125 653 106 671.5Q87 690 61 690H49L48 700ZM247 662V38H395Q472 38 527.5 76.5Q583 115 614 185Q645 255 645 350Q645 445 614 515Q583 585 527 623.5Q471 662 395 662Z"],"E":[613,"M582 190 532 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H399Q421 700 445.5 703Q470 706 491 710Q512 714 521 718V560H511V574Q511 612 487 637Q467 657 436 661H247V364H391Q422 365 443 386Q464 407 464 438V448H474V242H464V253Q464 284 443 305Q422 326 391 326H247V39H381Q432 39 469 57.5Q506 76 531 110.5Q556 145 572 190Z"],"G":[824,"M739 280V115Q716 85 671.5 55Q627 25 564 5.5Q501 -14 421 -14Q311 -13 227 31.5Q143 76 96.5 157.5Q50 239 50 351Q50 461 96 543Q142 625 227 669.5Q312 714 425 714Q480 714 529.5 706Q579 698 620.5 684.5Q662 671 691 655L699 494H690Q672 559 636.5 598.5Q601 638 552 657Q503 676 446 676Q363 676 304.5 635.5Q246 595 215 521.5Q184 448 184 347Q184 249 213.5 176.5Q243 104 298.5 64.5Q354 25 430 24Q470 24 506 35Q542 46 571.5 67.5Q601 89 618 119L619 280Q619 325 568 325H552V335H804V325H789Q759 325 747 310Q738 299 739 280Z"],"I":[370,"M125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H324V690H311Q285 690 266.5 671.5Q248 653 247 627V73Q248 47 266.5 28.5Q285 10 311 10H324V0H48V10H61Q87 10 105.5 28.5Q124 47 125 73Z"],"L":[598,"M582 190 532 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H324V690H311Q285 690 266.5 671.5Q248 653 247 627V39H381Q432 39 469 57.5Q506 76 531 110.5Q556 145 572 190Z"],"M":[946,"M767 714H776L859 73Q864 43 884.5 26.5Q905 10 932 10H948V0H675V9H690Q707 9 718 22.5Q729 36 729 52V57L688 456L493 90L484 73Q475 55 466 30Q457 5 456 -18H446L190 453L149 57V52Q149 36 160.5 22.5Q172 9 188 9H203V0H-1V10H15Q42 10 63 26.5Q84 43 88 73L168 714H178L477 176Z"],"N":[857,"M114 715 633 202V629Q632 655 614.5 672.5Q597 690 571 690H552V700H822V690H804Q779 690 761 672.5Q743 655 742 629V114Q742 78 745 49Q748 20 751 3L753 -14H744L225 498L226 71Q226 46 244 28Q262 10 287 10H306V0H35V10H54Q79 10 97 28Q115 46 115 71V590Q115 644 110 680L104 715Z"],"O":[865,"M438 714Q553 714 639.5 669.5Q726 625 773 543Q820 461 820 350Q820 239 773 157Q726 75 639.5 30.5Q553 -14 438 -14Q322 -14 236 30.5Q150 75 103 157Q56 239 56 350Q56 461 103 543Q150 625 236 669.5Q322 714 438 714ZM438 24Q513 24 568.5 64Q624 104 654.5 177Q685 250 685 350Q685 450 654.5 523Q624 596 568.5 636Q513 676 438 676Q363 676 307.5 636Q252 596 221.5 523Q191 450 191 350Q191 250 221.5 177Q252 104 307.5 64Q363 24 438 24Z"],"P":[630,"M127 73V627Q127 653 108 671.5Q89 690 63 690H51L50 700H359Q438 700 489.5 675.5Q541 651 567 608Q593 565 594 508Q595 458 576.5 418Q558 378 525.5 351Q493 324 452.5 311.5Q412 299 368 304.5Q324 310 283 335V345L297 344Q310 343 332 346.5Q354 350 378.5 360.5Q403 371 424 394.5Q445 418 456 457Q460 470 461.5 486Q463 502 462 517Q461 583 427 622.5Q393 662 331 662H249V73Q250 47 268.5 28.5Q287 10 313 10H326V0H50V10H63Q89 10 107.5 28.5Q126 47 127 73Z"],"R":[724,"M127 73V627Q126 653 107.5 671.5Q89 690 63 690H50V700H369Q414 700 454.5 689Q495 678 526 655Q557 632 574.5 596.5Q592 561 592 512Q592 468 573 425Q554 382 517 353.5Q480 325 426 321Q453 312 477.5 287.5Q502 263 518 239Q519 238 530.5 220.5Q542 203 559 178Q576 153 594.5 128Q613 103 627 86Q649 60 667.5 43.5Q686 27 707 18.5Q728 10 755 10V0H672Q620 0 579.5 11Q539 22 509 44Q479 66 457 99Q451 108 440 126.5Q429 145 416 168Q403 191 390.5 212.5Q378 234 369.5 251Q361 268 358 275Q342 304 323 322Q304 340 282 342V352Q284 352 295 351.5Q306 351 320 352Q347 353 374.5 362Q402 371 424 395.5Q446 420 456 464Q458 473 460 487Q462 501 461 516Q458 586 425 622Q392 658 341 660Q322 661 301 660.5Q280 660 265 660H249V73Q249 47 268 28.5Q287 10 313 10H325V0H50V10H63Q89 10 107.5 28.5Q126 47 127 73Z"],"S":[544,"M268 714Q287 714 313 712Q339 710 366 707Q375 705 384 704H443L442 683H441L434 565H424Q424 616 387.5 646Q351 676 293 676Q235 676 200.5 646Q166 616 165 573Q163 548 179.5 524.5Q196 501 224 481L417 338Q458 311 477 272.5Q496 234 494 186Q491 94 427.5 40Q364 -14 255 -14Q218 -14 179.5 -7.5Q141 -1 109 12.5Q77 26 58 45Q52 65 53 93.5Q54 122 61 152.5Q68 183 78 204H87Q83 153 104 111.5Q125 70 165.5 46.5Q206 23 261 24Q323 26 360.5 59Q398 92 398 144Q398 174 382 198.5Q366 223 332 243L151 380Q105 410 85.5 452.5Q66 495 69 541Q72 589 96 628.5Q120 668 163.5 691Q207 714 268 714Z"],"T":[650,"M635 719V561L625 562V575Q625 614 601 638Q577 662 538 663H387V73Q388 47 406.5 28.5Q425 10 451 10H464V0H188V10H201Q227 10 245.5 28.5Q264 47 265 73V663H113Q74 662 50 638Q26 614 26 575V562L16 561V719Q26 715 46.5 711Q67 707 92 704Q117 701 138 701H513Q535 701 559.5 704Q584 707 605 711Q626 715 635 719Z"],"V":[732,"M368 -18 74 627Q58 661 33.5 675.5Q9 690 -14 690H-22V700H265V690H256Q237 690 222.5 674Q208 658 219 628H218L400 178L592 632Q602 659 588 674Q573 690 553 690H544V700H754V690H745Q723 690 698 676Q676 663 661 636L422 104Q420 100 413 84.5Q406 69 398 49Q390 29 384 10.5Q378 -8 377 -18Z"],"|":[253,"M100 700H153V-180H100Z"]}};
 function glyphPathShapes(cmd, s, ox, oy) {
   const sp = new THREE.ShapePath(); let cx = 0, cy = 0;
   for (const [, op, args] of cmd.matchAll(/([MLHVQZ])([^MLHVQZ]*)/g)) {
@@ -3591,6 +3596,8 @@ function glyphPathShapes(cmd, s, ox, oy) {
   return sp.toShapes(false);
 }
 // satır yerleşimi: büyük harf yüksekliği capH (m), toplam genişlik width (m); harf aralığı genişliğe göre açılır
+// yazının doğal genişliği (harf aralığı genişletilmeden) alanı aşarsa harf boyu ölçeği (≤ 1)
+function fitCap(line, capH, width) { const w = brandLayout(line, capH, 0).w * 1.04; return w > width ? width / w : 1; }
 function brandLayout(line, capH, width) {
   const s = capH / BRAND_GLYPHS.cap, ch = [...line];
   const adv = ch.map((c) => (BRAND_GLYPHS.g[c]?.[0] ?? 320) * s);
@@ -3645,14 +3652,36 @@ function brandText(line, capH, width, th, opt) {
 }
 // oda GLB'sindeki yazı çapalarına (MTG_BrandText / MTG_BrandSubText) yazıyı kurar; eski GLB'lerde harf mesh'leri gizlenip
 // yerlerine aynı konumda yeni yazı konur
+// GLB'ye gömülü eski marka harfleri (cephe tabelası MTG_FacBrand, resepsiyon MTG_Brand, koridor sonu MTG_EndBrand):
+// mesh gizlenir, aynı konum ve harf boyunda (eski yazıdaki '|' çubuğu taban çizgisinin altına iner → kutu yüksekliği
+// 880/700 oranıyla büyük gelir) yeni ad sitede üretilir. Uzun ad, eski yazı alanının 1.3 katına sığacak kadar küçülür.
+function rebrandMesh(root, name, th, opt = {}) {
+  const o = root.getObjectByName(name); if (!o) return null;
+  if (o.userData.rebrand) return o.userData.rebrand;
+  // ölçü dünya koordinatında (GLB konumları nicemlenmiş: düğüm ölçeği yerel kutuyu metre cinsinden vermez; çok malzemeli yazı grup olabilir)
+  root.updateMatrixWorld(true); const bb = new THREE.Box3().setFromObject(o);
+  if (bb.isEmpty()) return null;
+  const hgt = bb.max.y - bb.min.y, cap0 = hgt * 700 / 880, maxW = (bb.max.x - bb.min.x) * 1.3;
+  // harf boyu eskisinin %82'si, harf aralığı doğal genişliğin %14'ü kadar açık (tabeladaki gibi ferah); alanı aşarsa birlikte küçülür
+  let capH = cap0 * .82, width = brandLayout(BRAND.line, capH, 0).w * 1.14;
+  if (width > maxW) { capH *= maxW / width; width = maxW; }
+  const host = new THREE.Object3D(); host.name = name + '_Rebrand';
+  host.position.set((bb.min.x + bb.max.x) / 2, bb.min.y + hgt * (180 + 350) / 880, bb.min.z);   // eski yazının büyük harf ortası ('|' çubuğu 180 birim aşağı iner)
+  root.worldToLocal(host.position); root.add(host);
+  const k = capH / .34, o0 = { depth: .024, bevel: .005, standoff: .014, blur: .035, drop: .035, curve: 10 };
+  host.add(brandText(BRAND.line, capH, width, th, { ...Object.fromEntries(Object.entries(o0).map(([a, v]) => [a, a === 'curve' ? v : v * k])), ...opt }));
+  o.visible = false; const h = root.getObjectByName(name + '_Halo'); if (h) h.visible = false;
+  o.userData.rebrand = host; return host;
+}
 function brandLetters(room, th) {
-  const spec = [['MTG_BrandText', 'MTG_Brand', 'MTG  |  MOTORS', .34, 3.5, { depth: .024, bevel: .005, standoff: .014, blur: .035, drop: .035, curve: 10 }],
+  const spec = [['MTG_BrandText', 'MTG_Brand', BRAND.line, .34, 3.5, { depth: .024, bevel: .005, standoff: .014, blur: .035, drop: .035, curve: 10 }],
     ['MTG_BrandSubText', 'MTG_BrandSub', 'PRIVATE  COLLECTION', .13, 2.75, { depth: .01, bevel: .0022, standoff: .008, blur: .016, drop: .014, curve: 6 }]];
   const box3 = new THREE.Box3();
-  for (const [an, old, line, capH0, width0, opt0] of th.brandMainOnly ? spec.slice(0, 1) : spec) {   // brandMainOnly: yalnız MTG | MOTORS (alt satır yok)
+  for (const [an, old, line, capH0, width0, opt0] of th.brandMainOnly ? spec.slice(0, 1) : spec) {   // brandMainOnly: yalnız GARDEN MOTORS (alt satır yok)
     let host = room.getObjectByName(an);
     // çapa boyut taşıyorsa (galeri: 12 m duvar) harf yüksekliği / genişliği ve pah, gölge ölçüleri orantılı büyür
-    const kS = host?.userData?.cap ? host.userData.cap / capH0 : 1, capH = capH0 * kS, width = host?.userData?.width || width0;
+    const kS0 = host?.userData?.cap ? host.userData.cap / capH0 : 1, width = host?.userData?.width || width0;
+    const kS = kS0 * fitCap(line, capH0 * kS0, width), capH = capH0 * kS;   // uzun ad (GARDEN  MOTORS): harf boyu duvardaki yazı alanına sığacak kadar küçülür
     const opt = Object.fromEntries(Object.entries(opt0).map(([k, v]) => [k, k === 'curve' ? v : v * kS]));
     const o = room.getObjectByName(old);
     if (!host && o?.isMesh) {                 // eski GLB: harf mesh'inin kutusundan konum (oda yereli)
@@ -3802,7 +3831,7 @@ function collectionSign(k) {
     const mw = spec.model.split(' '); let ml = '', my = h * .7; const mls = [];
     for (const wd of mw) { const t = ml ? ml + ' ' + wd : wd; if (g.measureText(t).width > w - 80) { mls.push(ml); ml = wd; } else ml = t; }
     mls.push(ml); mls.slice(0, 3).forEach((ln, i) => g.fillText(ln, w / 2, my + i * 32));
-    g.fillStyle = 'rgba(214,186,134,.9)'; g.font = '600 24px Cinzel, Georgia, serif'; sp('4px'); g.fillText('MTG  |  MOTORS', w / 2, h * .92);
+    g.fillStyle = 'rgba(214,186,134,.9)'; g.font = '600 24px Cinzel, Georgia, serif'; sp('4px'); g.fillText(BRAND.line, w / 2, h * .92);
   });
   tex.anisotropy = 4;
   const grp = new THREE.Group(); grp.name = 'Koleksiyon tabelası ' + (k + 1);
@@ -4203,7 +4232,7 @@ function updateUI(s) {
     // duruşta araç adı; odalar arası geçişte girilen koleksiyon odasının adı (yeni mekân hissi)
     const nx = carKeyIndex.findIndex((ki) => ki > s - .5);
     const lbl = active >= 0 ? `${String(active + 1).padStart(2, '0')} · ${stations[active].spec.brand} ${stations[active].spec.model}`
-      : s >= SEGMENTS - .5 ? (BRUTAL ? 'MTG Galeri' : 'MTG Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'MTG Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
+      : s >= SEGMENTS - .5 ? (BRUTAL ? 'Garden Galeri' : 'Garden Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'Garden Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
     if (navL.textContent !== lbl) navL.textContent = lbl;
   }
   // koleksiyon odası başlığı: önceki duruştan sonraki odanın duruşuna geçişin ortasında (sinüs eğrisiyle) görünür

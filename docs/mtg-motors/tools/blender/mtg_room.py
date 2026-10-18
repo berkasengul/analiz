@@ -514,9 +514,9 @@ def ring_pendant(x, z, r=.5, tag='Pendant'):
 def brand_wall(cx, cy, size, wall_z=None):
     """MTG | MOTORS: fırçalanmış bronz harfler, duvardan 4 cm ayrık, arkadan ışıklı (halo)."""
     zf = (BZ if wall_z is None else wall_z) + .05
-    text_mesh('MTG_Brand', 'MTG  |  MOTORS', size, cx, cy, zf + .03, M['brand'], PLAIN, depth=.015, tracking=1.18)
+    text_mesh('MTG_Brand', 'GARDEN  MOTORS', size, cx, cy, zf + .03, M['brand'], PLAIN, depth=.015, tracking=1.18)
     # halo: harflerin hemen arkasında aynı biçimde ışıklı kopya; önden görünmez, duvara ışık halesi düşürür
-    text_mesh('MTG_Brand_Halo', 'MTG  |  MOTORS', size, cx, cy, zf + .018, M['halo'], EMISSIVE, depth=.002, tracking=1.18)
+    text_mesh('MTG_Brand_Halo', 'GARDEN  MOTORS', size, cx, cy, zf + .018, M['halo'], EMISSIVE, depth=.002, tracking=1.18)
 
 def px_box(name, *a, **k):
     o = box('PX_' + name, *a, **k); PROXY.append(o); return o
@@ -610,8 +610,8 @@ def build_hub():
     stone_panels('EndDark', ('z', -HUB_D + .02, +1), [(-CW - .2, CW + .2, .06, H - .05, 2, 2)], [M['marble']], BAKE['back'], depth=.03, gap=.004)
     for sx in (-1, 1):
         box(f'MTG_EndFrame{sx}', .04, H - .1, .06, sx * (CW + .2), H / 2, -HUB_D + .08, M['champagne'], PLAIN)
-    text_mesh('MTG_EndBrand', 'MTG  |  MOTORS', .36, 0, 3.15, -HUB_D + .05 + .03, M['champagne'], PLAIN, depth=.015, tracking=1.18)
-    text_mesh('MTG_EndBrand_Halo', 'MTG  |  MOTORS', .36, 0, 3.15, -HUB_D + .05 + .018, M['halo'], EMISSIVE, depth=.002, tracking=1.18)
+    text_mesh('MTG_EndBrand', 'GARDEN  MOTORS', .36, 0, 3.15, -HUB_D + .05 + .03, M['champagne'], PLAIN, depth=.015, tracking=1.18)
+    text_mesh('MTG_EndBrand_Halo', 'GARDEN  MOTORS', .36, 0, 3.15, -HUB_D + .05 + .018, M['halo'], EMISSIVE, depth=.002, tracking=1.18)
     box('MTG_End_Line', 2.6, .012, .02, 0, 2.62, -HUB_D + .06, M['bronze'], PLAIN)
     # --- tavan: resepsiyon ızgarası (x boyunca 3 ışık hattı) + koridor (boyuna 2 hat, kenarlarda gizli LED)
     rec_x = [-HUB_XI + 2.725 * k for k in range(13)]
@@ -801,8 +801,8 @@ def build_facade(proxy=False):
     box('MTG_LED_PortH', 2 * PORT_X - .3, .012, .012, 0, FAC_GLZ - .015, FAC_FZ - .2, M['ledSoft'], G('emis'))
     # --- tabela: taşa monte 3B harfler + arka hale ışığı (telefon yok)
     ty = (FAC_GLZ + FAC_TOP) / 2
-    text_mesh('MTG_FacBrand', 'MTG  |  MOTORS', .74, 0, ty, FAC_FZ + .035, M['brand'], G('plain'), depth=.03, tracking=1.16)
-    if TH['halo']: text_mesh('MTG_FacBrand_Halo', 'MTG  |  MOTORS', .74, 0, ty, FAC_FZ + .016, M['halo'], G('emis'), depth=.002, tracking=1.16)
+    text_mesh('MTG_FacBrand', 'GARDEN  MOTORS', .74, 0, ty, FAC_FZ + .035, M['brand'], G('plain'), depth=.03, tracking=1.16)
+    if TH['halo']: text_mesh('MTG_FacBrand_Halo', 'GARDEN  MOTORS', .74, 0, ty, FAC_FZ + .016, M['halo'], G('emis'), depth=.002, tracking=1.16)
     # --- yan cepheler: resepsiyon bölümü taş (sahte pencere yok); her oda ayrı taş kütle + buzlu ışık bandı; aralarda ışık derzi
     for sx in (-1, 1):
         gs = G('side_px') if sx > 0 else G('side_nx')
@@ -1182,7 +1182,7 @@ def build_signature(lounge=False):
     bx_ = (BW0 + BW1) / 2
     # harfler sitede üretilir (Cinzel konturlarından pahlı 3B metal harf + yumuşak gölge + arkadan ışık): fırında yazı gölgesi
     # olmaz, harf geometrisi bozulmaz, her ekranda keskin kalır. Burada yalnız yerleşim çapaları var.
-    anchor('MTG_BrandText', bx_, 3.05, MZ + .03, mtg_anchor='brandtext', size=.5, line='MTG  |  MOTORS')
+    anchor('MTG_BrandText', bx_, 3.05, MZ + .03, mtg_anchor='brandtext', size=.5, line='GARDEN  MOTORS')
     anchor('MTG_BrandSubText', bx_, 2.36, MZ + .03, mtg_anchor='brandtext', size=.19, line='PRIVATE  COLLECTION')
     box('MTG_LED_BrandTop', BW1 - BW0 - .2, .01, .02, bx_, H - .02, MZ + .2, M['ledSoft'], EMISSIVE)
     # dijital ekran: sağ çıta alanında
