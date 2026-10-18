@@ -384,6 +384,14 @@ const CARS = [
   { brand: 'Mercedes-Benz', model: 'E 250 CGI Premium Coupé', title: 'GARDEN MOTORS TAN E 250 COUPE',                                 ilanNo: '', date: '13 Ekim 2026', room: 'sport', year: 2012, km: '216.776', colorName: 'Beyaz', price: '1.618.000 TL', type: 'coupe', color: '#eceeef', url: '', length: 4.70 },
   { brand: 'Audi',          model: 'A1 1.6 TDI Ambition',  title: 'GARDEN MOTORS TAN BAKIMLI MASRAFSIZ AUDI A1',                        ilanNo: '', date: '08 Ekim 2026', room: 'urban', year: 2013, km: '302.000', colorName: 'Beyaz', price: '925.000 TL',   type: 'hatch', color: '#eceeef', url: '', length: 3.95 },
 ];
+// rol adları (malzeme adı = görünüm): ham modeller tools'ta düğüm başına rol adıyla yeniden adlandırıldı (scratchpad carprep.mjs)
+const ROLE_MATS = Object.fromEntries(['paint', 'glass', 'lens', 'gloss', 'matte', 'tire', 'rim', 'disc', 'caliper', 'chrome', 'darkChrome', 'mirror',
+  'headlight', 'taillight', 'tailHousing', 'plate', 'amber', 'interior'].map((k) => [k, k]));
+Object.assign(CARS[0], {   // Mercedes E 180 — füme metalik, gümüş jant
+  glb: 'models/web/mercedes-e180-w212.glb', rotX: 0, rotY: 0, materials: ROLE_MATS, rimColor: '#c3c7cc', caliperColor: '#2c2e31',
+  credit: { name: 'Mercedes e-class w212', author: 'Res1n', url: SKETCHFAB('mercedes-e-class-w212-e86ac95cbfa1448b8246950450757a0d') },
+  representation: 'W212 E-Serisi gövdesi (2009–2012 kasa); 2015 makyajlı far ve tampon farklıdır',
+});
 for (const c of CARS) Object.assign(c, { studioEnv: 'strips', coatRough: .1, paintEnv: .6, paintRough: .4, contactK: 1.3, metallic: c.colorName === 'Füme' ? .45 : .06 });
 /* ===================================================================== */
 

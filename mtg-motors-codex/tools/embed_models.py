@@ -2,7 +2,7 @@
 # Kullanım (proje klasöründen): python3 tools/embed_models.py
 import base64, os
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-names = ['bmw-420i-coupe.glb', 'vw-golf-7.glb', 'ford-kuga.glb']
+names = ['mercedes-e180-w212.glb']
 dst = os.path.join(ROOT, 'models', 'web', 'extra-models.js')
 with open(dst, 'w') as f:
     f.write('// Sayfa dosyadan (file://) açıldığında da yüklensin diye gömülü (base64) modeller.\n')
