@@ -392,6 +392,16 @@ Object.assign(CARS[0], {   // Mercedes E 180 — füme metalik, gümüş jant
   credit: { name: 'Mercedes e-class w212', author: 'Res1n', url: SKETCHFAB('mercedes-e-class-w212-e86ac95cbfa1448b8246950450757a0d') },
   representation: 'W212 E-Serisi gövdesi (2009–2012 kasa); 2015 makyajlı far ve tampon farklıdır',
 });
+Object.assign(CARS[1], {   // Mercedes E 250 Coupé (C207) — beyaz, gümüş jant
+  glb: 'models/web/mercedes-e250-coupe-c207.glb', rotX: 0, rotY: 90, materials: ROLE_MATS, rimColor: '#c3c7cc', caliperColor: '#2c2e31',
+  credit: { name: 'Mercedes- Benz E Class Coupe C207', author: 'Nieve5677', url: SKETCHFAB('mercedes-benz-e-class-coupe-c207-e6bac40acd2d4d709b1e8109d9f3fac3') },
+  representation: 'E-Serisi Coupé (C207) gövdesi; ilandaki beyaz renge boyandı',
+});
+Object.assign(CARS[2], {   // Audi A1 — beyaz (tavan dahil), gümüş jant
+  glb: 'models/web/audi-a1.glb', rotX: 0, rotY: 90, materials: { ...ROLE_MATS, tailLens: 'tailLens', drl: 'drl' }, rimColor: '#c3c7cc', caliperColor: '#2c2e31',
+  credit: { name: '2021 Audi A1 S-Line', author: 'tonielpro520', url: SKETCHFAB('2021-audi-a1-s-line-7fe1ac54bf644917b41aa64dcebcc686') },
+  representation: '2021 A1 gövdesi (yeni kasa); ilandaki 2013 A1 (8X) kasa ve donanımı farklıdır',
+});
 for (const c of CARS) Object.assign(c, { studioEnv: 'strips', coatRough: .1, paintEnv: .6, paintRough: .4, contactK: 1.3, metallic: c.colorName === 'Füme' ? .45 : .06 });
 /* ===================================================================== */
 
