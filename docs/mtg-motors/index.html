@@ -273,7 +273,7 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
   <div>
     <h2 style="font-family:Michroma,sans-serif;margin-bottom:12px">GARDEN MOTORS</h2>
     <p style="color:#9aa0ab;margin-bottom:20px">Tarayıcınız 3D showroom'u desteklemiyor. İlanlarımızı sahibinden.com'da inceleyebilirsiniz.</p>
-    <a class="btn primary" href="https://mtgmotors34.sahibinden.com/" target="_blank" rel="noopener">Tüm İlanlar</a>
+    <a class="btn primary" href="https://gardenmotors.sahibinden.com/" target="_blank" rel="noopener">Tüm İlanlar</a>
   </div>
 </div>
 
@@ -372,105 +372,27 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
    ===================================================================== */
 const GALLERY = {
   name: 'GARDEN MOTORS',
-  storeUrl: 'https://mtgmotors34.sahibinden.com/',
+  storeUrl: 'https://gardenmotors.sahibinden.com/',
   phones: ['0554 579 86 13', '0538 438 26 41'],   // "İletişim" butonu ilk numarayı arar
 };
 
 const SKETCHFAB = (slug) => `https://sketchfab.com/3d-models/${slug}`;
+// Garden Motors ilanları (gardenmotors.sahibinden.com, 18.10.2026). İlan no / linki girilmemiş ilanlar mağaza sayfasını açar;
+// kartta ilan no yerine ilan tarihi (date) gösterilir. 3D model dosyası (glb) eklenene kadar araç örtülü sergilenir.
 const CARS = [
-  { brand: 'Seat',          model: 'Ateca 1.5 EcoTSI Xperience',      title: '2023 ATECA 1.5 XPERIENCE HATASIZ-BOYASIZ KIŞ PAKETİ-D.ISITMA',     ilanNo: '1344478037', room: 'dynamic', year: 2023, km: '65.000',  colorName: 'Gümüş Gri', price: '2.075.000 TL', type: 'suv',   color: '#8e9399', url: '',
-    glb: 'models/web/seat-ateca.glb',      length: 4.36, credit: { name: 'Seat Ateca Cupra 2019', author: 'Nieve5677', url: SKETCHFAB('seat-ateca-cupra-2019-24615e5bc5204ae99279d9fddfb4579c') } },
-  { brand: 'BMW',           model: '420i Edition M Sport',            title: '2023 4.20İ EDİTİON M SPORT /LİVE KOKPİT/LAZER/HEADUP/M4 KOLTUK',  ilanNo: '1341139811', room: 'sport', year: 2023, km: '55.000',  colorName: 'Kırmızı',   price: '3.775.000 TL', type: 'coupe', color: '#681824', url: '',
-    photos: ['photos/bmw-420i-1.webp', 'photos/bmw-420i-2.webp', 'photos/bmw-420i-3.webp', 'photos/bmw-420i-4.webp'],
-    views: [{ src: 'cutouts/bmw-420i-on.webp', h: 1.62 }, { src: 'cutouts/bmw-420i-yan.webp', w: 4.85 }, { src: 'cutouts/bmw-420i-arka.webp', h: 1.62 }],
-    glb: 'models/web/bmw-420i-coupe.glb',  length: 4.77, rimColor: '#141518', caliperColor: '#1f4fd8',
-    materials: {
-      blinn1SG: 'paint', Windows: 'glass', lambert6SG: 'gloss', lambert30SG: 'gloss', lambert22SG: 'mirror',
-      lambert4SG: 'tire', lambert5SG: 'matte', lambert7SG: 'rim', lambert8SG: 'caliper', lambert9SG: 'disc',
-      lambert3SG: 'darkChrome', lambert2SG: 'chrome', lambert15SG: 'kidney', lambert25SG1: 'darkChrome',
-      // far katmanları (Blender malzeme kimliği render'ıyla eşlendi): dış lens, iç reflektör, LED, iç çerçeve
-      lambert10SG: 'lens', HeadLights1: 'reflector', lambert13SG: 'ledw', lambert14SG: 'gloss',
-      BrakeLights_Glass: 'tailLens', lambert20SG: 'tailHousing', lambert21SG: 'tailLed', Plate_Recovered: 'plate', '*': 'interior',
-    }, credit: { name: '2021 BMW M430i Coupe', author: 'tonielpro520', url: SKETCHFAB('2021-bmw-m430i-coupe-29fda3f5f21044bd8805f2891a98d875') } },
-  { brand: 'Mercedes-Benz', model: 'E 180 AMG',                       title: '2013 E180 ORJİNAL AMG İÇİ SİYAH EMSALSİZ TEMİZLİKTE',             ilanNo: '1335046387', room: 'executive', year: 2013, km: '199.000', colorName: 'Beyaz',     price: '1.965.000 TL', type: 'sedan', color: '#ecedef', url: '',
-    glb: 'models/web/mercedes-e-w212.glb', length: 4.87, credit: { name: 'Mercedes E Class W212', author: 'Peter_D', url: SKETCHFAB('mercedes-e-class-w212-119c5e10733142b197aa53b86f6aeb04') } },
-  { brand: 'Volkswagen',    model: 'Golf 1.6 TDI BlueMotion Midline Plus', title: '2016 VW GOLF 1.6 TDI MİDLİNE PLUS EXTRALI',                   ilanNo: '1340316378', room: 'urban', year: 2016, km: '102.000', colorName: 'Beyaz',     price: '945.000 TL',   type: 'hatch', color: '#e6e7e9', url: '',
-    glb: 'models/web/vw-golf-7.glb',       length: 4.26, credit: { name: 'Volkswagen Golf 7.', author: 'Mona x Supercars', url: SKETCHFAB('volkswagen-golf-7-364f56c79e9a4bfbb0bfa981b9abb6a3') } },
-  { brand: 'BMW',           model: '320i ED 40th Year Edition',       title: '2015 320İ ED 40th YEAR EDİTİON ESTROİL İÇ FİL DİŞİ TRAMERSİZ',    ilanNo: '1334119983', room: 'sedan', year: 2015, km: '165.000', colorName: 'Mavi',      price: '1.935.000 TL', type: 'sedan', color: '#1c4597', url: '',
-    glb: 'models/web/bmw-3-f30.glb',       length: 4.62, credit: { name: 'BMW 3 Series VI F30', author: 'Merc_TV', url: SKETCHFAB('bmw-3-series-vi-f30-b94e907d247e4ade964f613d17293b31') } },
-  { brand: 'Opel',          model: 'Corsa 1.2 T Elegance',            title: '2023 CAM TAVAN HAYALET 370.000₺ PEŞİNAT 36 AY KREDİ İMKANI',      ilanNo: '1328296977', room: 'compact', year: 2023, km: '120.000', colorName: 'Beyaz',     price: '1.155.000 TL', type: 'hatch', color: '#f0f0f2', url: '',
-    glb: 'models/web/opel-corsa-f.glb',    length: 4.06, credit: { name: 'Opel Corsa F', author: 'teenlin3', url: SKETCHFAB('opel-corsa-f-142a797a3ee54daa8f4d00c8559cddbb') } },
-  { brand: 'Ford',          model: 'Kuga 1.5 EcoBlue Titanium',       title: '2022 FORD KUGA 1.5 EcoBlue TİTANİUM CAM TAVAN',                   ilanNo: '1339636939', room: 'suv', year: 2022, km: '145.000', colorName: 'Beyaz',     price: '1.465.000 TL', type: 'suv',   color: '#e9eaec', url: '',
-    glb: 'models/web/ford-kuga.glb',       length: 4.61, credit: { name: 'Ford Kuga', author: 'MattDoesBlender', url: SKETCHFAB('ford-kuga-3412188f796f46bc8db90b5e59827548') } },
+  { brand: 'Mercedes-Benz', model: 'E 180 Edition E',     title: "GARDEN MOTORS'TAN EMSALSİZ TEMİZLİKTE MERCEDES E 180 EDİTİON E", ilanNo: '', date: '16 Ekim 2026', room: 'suv',   year: 2015, km: '258.000', colorName: 'Füme',  price: '2.200.000 TL', type: 'sedan', color: '#45484c', url: '', length: 4.88 },
+  { brand: 'Mercedes-Benz', model: 'E 250 CGI Premium Coupé', title: 'GARDEN MOTORS TAN E 250 COUPE',                                 ilanNo: '', date: '13 Ekim 2026', room: 'sport', year: 2012, km: '216.776', colorName: 'Beyaz', price: '1.618.000 TL', type: 'coupe', color: '#eceeef', url: '', length: 4.70 },
+  { brand: 'Audi',          model: 'A1 1.6 TDI Ambition',  title: 'GARDEN MOTORS TAN BAKIMLI MASRAFSIZ AUDI A1',                        ilanNo: '', date: '08 Ekim 2026', room: 'urban', year: 2013, km: '302.000', colorName: 'Beyaz', price: '925.000 TL',   type: 'hatch', color: '#eceeef', url: '', length: 3.95 },
 ];
-// Paket içindeki gerçek dosyalarla eşleştirme. Beş gövde proje içinde modellenmiştir.
-for (const i of [4]) { CARS[i].credit = null; CARS[i].representation = 'Proje için modellenmiş temsili 3D gövde'; }
-// Ekspertiz (parça: degisen | boyali | lokal; yazılmayan = orijinal). BMW'deki kayıt tasarım örneğidir (ornek: true).
-CARS[1].ekspertiz = { ornek: true, parcalar: { bagaj: 'degisen', sagArkaCamurluk: 'boyali', sagOnKapi: 'boyali', kaput: 'lokal' } };
-CARS[0].materials = { r_glass:'taillight', r_lights:'taillight', d_glass:'glass', glass:'glass', body:'paint', tire_mat4:'tire', brakes1:'disc', chrome:'chrome', silver_d:'darkChrome', silver:'rim', gold:'bronze', black_m:'matte', black:'gloss', lights:'headlight', plate:'plate', '*':'interior' };
-CARS[0].representation='Ateca Cupra 2019 modeli; Xperience donanımı farklı olabilir';
-CARS[3].credit.author='Car2022';
-CARS[3].materials={FrontColor:'paint',tires:'tire',wheel1:'rim',disc1:'disc',disc2:'disc',Color_C02:'glass',Color_B04:'glass',r_light_lamp1:'taillight'};
-CARS[3].representation='Kullanıcının sağladığı Volkswagen Golf 7 modeli';
-CARS[5].representation='Kullanıcının sağladığı Opel Corsa F modeli';
-CARS[6].rotX=0; CARS[6].rotY=180;
-CARS[6].materials={ vehicle_generic_smallspecmap_PRIMARY:'paint',silver_PRIMARY:'paint',windows:'glass','windows.001':'glass',sidewall:'tire',black:'matte','black.001':'matte',silver:'chrome','silver.001':'chrome',brake_disk_355_246_5:'disc',sz_glass_r:'taillight','sz_glass_r.001':'taillight','sz_glass_r.002':'taillight',sz_clear:'glass','sz_clear.001':'glass',sz_orangeglass:'amber','*':'interior' };
-CARS[6].representation='Kullanıcının sağladığı Ford Kuga modeli; ilan donanımı farklı olabilir';
-CARS[2].rotY = 180;
-CARS[2].materials = { mat_body: 'paint', mat_tires: 'tire', mat_glass: 'glass' };
-CARS[1].materials.lambert26SG = 'leather';
-CARS[1].materials.lambert28SG = 'leather';
-Object.assign(CARS[1], { leatherColor: '#c9ad85', rimMetal: .9 });   // bej deri iç döşeme; siyah jantlar metalik antrasit
-CARS[1].materials.lambert13SG = 'drl';
-CARS[1].materials.lambert14SG = 'drl';
-CARS[1].representation = '2021 M430i Coupé gövdesi; 2023 420i donanımı farklı olabilir';
-CARS[2].representation = 'W212 gövde modeli; AMG ayrıntıları farklı olabilir';
-
-for(const i of [0,5]){CARS[i].glb='models/web/curated-'+i+'.glb';CARS[i].materials={};CARS[i].rotX=0;CARS[i].rotY=0;CARS[i].curated=true;}
-
-// Kullanıcının sağladığı ham modeller (web için işlendi: models/web/*.glb).
-// Malzemeler ilandaki araca göre: renk, jant, kaliper, cam, far/stop.
-Object.assign(CARS[1], {   // BMW 420i — Aventurin kırmızısı (metalik koyu kırmızı), siyah jant, mavi kaliper
-  // paintSpec: taban katının yansıması kısık → renk doygun kalır, keskin yansımalar cila katından gelir
-  // metallic / coatRough / paintEnv: hafif metalik derinlik + ince cila · studioEnv 'strips': uzun ışık şeridi yansımaları ·
-  // ownPlates: modelin kendi plakası (ikinci bayi plakası yok) · plateStyle: premium plaka · contactK: temas gölgesi yoğunluğu
-  glb: 'models/web/bmw-420i-coupe.glb', rotX: 0, rotY: 0, curated: false, smoothNormals: true, color: '#4f1419', metallic: .4, paintRough: .38, paintSpec: .3,
-  coatRough: .11, paintEnv: .85, studioEnv: 'strips', ownPlates: true, plateStyle: 'premium', contactK: 1.35, smoothKeys: ['paint', 'gloss', 'tire'],
-  // salon TV'si: projede BMW videosu yok → video verilirse (video: 'media/….mp4') o oynar; yoksa HD'de 3D modelden canlı çekim,
-  // akıcı modda / bekleme ekranında bu poster (BMW 3D modelinin Blender render karesi)
-  tvPoster: 'models/rooms/room_sport_tv.webp',
-  emblems: true, tailStyle: 'layered',   // ön / arka amblem rondelası, katmanlı stop lambası (dış lens + iç gövde + park LED'i)
-  representation: '2021 M430i Coupé gövdesi; ilandaki renk ve donanımla boyandı',
+// rol adları (malzeme adı = görünüm): ham modeller tools'ta düğüm başına rol adıyla yeniden adlandırıldı (scratchpad carprep.mjs)
+const ROLE_MATS = Object.fromEntries(['paint', 'glass', 'lens', 'gloss', 'matte', 'tire', 'rim', 'disc', 'caliper', 'chrome', 'darkChrome', 'mirror',
+  'headlight', 'taillight', 'tailHousing', 'plate', 'amber', 'interior'].map((k) => [k, k]));
+Object.assign(CARS[0], {   // Mercedes E 180 — füme metalik, gümüş jant
+  glb: 'models/web/mercedes-e180-w212.glb', rotX: 0, rotY: 0, materials: ROLE_MATS, rimColor: '#c3c7cc', caliperColor: '#2c2e31',
+  credit: { name: 'Mercedes e-class w212', author: 'Res1n', url: SKETCHFAB('mercedes-e-class-w212-e86ac95cbfa1448b8246950450757a0d') },
+  representation: 'W212 E-Serisi gövdesi (2009–2012 kasa); 2015 makyajlı far ve tampon farklıdır',
 });
-Object.assign(CARS[3], {   // VW Golf 7 — beyaz, gümüş jant (model GTI kasa: kırmızı çizgi/kaliper Midline'a göre karartıldı)
-  glb: 'models/web/vw-golf-7.glb', rotX: 0, rotY: 0, curated: false, color: '#eef0f1', metallic: .06,
-  studioEnv: 'strips', coatRough: .08, paintEnv: .62, paintRough: .4, contactK: 1.25,   // beyaz boya: yumuşak şerit yansıma, patlama yok
-  tvPoster: 'models/rooms/room_urban_tv.webp', tvClean: true,   // projede Golf videosu yok → 3D modelden yazısız poster; TV'de yazı bandı yok
-  rimColor: '#c4c8cd', caliperColor: '#3e4146',
-  materials: { Color_B06: 'paint', FrontColor: 'chrome', Color_C05: 'gloss', Color_B01_1: 'gloss', Color_B01: 'gloss',
-    r_light_lamp1: 'taillight', Color_C01: 'taillight', Color_C02: 'glass', Color_B04: 'glass', material_7: 'gloss', material_13: 'gloss',   // GTI rozetleri (Midline'da yok)
-    Color_C03: 'gloss', Color_M02: 'chrome', Color_M04: 'chrome', material_23: 'chrome',
-    tires: 'tire', wheel1: 'rim', wheel2: 'darkChrome', wheel3: 'darkChrome',
-    disc1: 'disc', disc2: 'disc', drum1: 'disc', califer: 'caliper' },
-  credit: { name: 'Volkswagen Golf 7.', author: 'Car2022', url: SKETCHFAB('volkswagen-golf-7-364f56c79e9a4bfbb0bfa981b9abb6a3') },
-  representation: 'Golf 7 gövdesi; ilandaki beyaz renk ve Midline donanımına göre düzenlendi',
-});
-Object.assign(CARS[6], {   // Ford Kuga — beyaz, Titanium iki tonlu jant, siyah çamurluk kaplamaları
-  glb: 'models/web/ford-kuga.glb', rotX: 0, rotY: 0, curated: false, color: '#eceeef', metallic: .06,
-  studioEnv: 'strips', coatRough: .1, paintEnv: .58, paintRough: .4, contactK: 1.4,   // beyaz boya: uzun yumuşak şerit yansımalar, patlama yok
-  // salon TV'si: projede Kuga videosu yok → 3D modelden alınmış sade poster (akıcı mod / bekleme); HD canlı çekimde de yazı bandı yok
-  tvPoster: 'models/rooms/room_suv_tv.webp', tvClean: true,
-  rimColor: '#9ea3a9', caliperColor: '#2f3236',
-  materials: { silver_PRIMARY: 'paint', vehicle_generic_smallspecmap_PRIMARY: 'matte',
-    plastic_detail: 'darkChrome', 'plastic_detail.003': 'gloss', 'plastic_detail.004': 'gloss', 'plastic_detail.005': 'matte',
-    'plastic_detail.006': 'chrome', silver: 'chrome', 'silver.001': 'chrome', Ford: 'chrome', logo_black: 'darkChrome',
-    sz_clear: 'headlight', 'sz_clear.001': 'headlight', vehlights: 'headlight',
-    sz_glass_r: 'taillight', 'sz_glass_r.002': 'taillight', 'sz_glass_r.001': 'caliper', sz_orangeglass: 'amber',
-    windows: 'glass', 'windows.001': 'glass', 'black.001': 'matte',
-    brake_disk_355_246_5: 'disc', black: 'rim', '00c6a000': 'tire', sidewall: 'tire', '*': 'interior' },
-  credit: { name: 'Ford Kuga', author: 'MattDoesBlender', url: SKETCHFAB('ford-kuga-3412188f796f46bc8db90b5e59827548') },
-  representation: 'Kuga gövdesi; ilandaki beyaz renk ve Titanium donanımına göre düzenlendi',
-});
+for (const c of CARS) Object.assign(c, { studioEnv: 'strips', coatRough: .1, paintEnv: .6, paintRough: .4, contactK: 1.3, metallic: c.colorName === 'Füme' ? .45 : .06 });
 /* ===================================================================== */
 
 import * as THREE from 'three';
@@ -553,14 +475,14 @@ scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture
 //   · ana koridor: |x| < 3, z −10 … −62 (boyuna lineer ışıklar, sonunda marka duvarı)
 //   · araç odaları: koridorun iki yanında 13 × 13 m modüller; ön yüzleri (cam vitrin + giriş açıklığı) koridora bakar.
 //     Sıra: modül 0 sol, 1 sağ, 2 sol … (her sırada sol + sağ). Son modül lounge.
-// Tur sırası: BMW 420i ilk.
-const TOUR = [1, 6, 3, 0, 5, 2, 4].filter((i) => i < CARS.length);
+// Tur sırası: CARS listesindeki sıra (Mercedes E 180 ilk).
+const TOUR = CARS.map((_, i) => i);
 const ROOM_W = 13, ROOM_D = 13, DOOR_W = 2.6, DOOR_H = 3.1, DOOR_Z = -2.3;
-const NROOMS = TOUR.length + 1;                       // 7 araç odası + lounge
+const NROOMS = TOUR.length + 1;                       // araç odaları + lounge (Blender hub/cephe aynı sıra sayısıyla pişirilir: --rows N_ROWS)
 const CORR = 3.0, REC_D = 10, N_ROWS = Math.ceil(NROOMS / 2), BUILD_XI = 16.35, BUILD_XO = 16.5;
 const HALL_H = 4.8;
 const HALL_W = 2 * BUILD_XO;                          // bina genişliği (x merkezli)
-const HALL_D = REC_D + ROOM_D * N_ROWS;               // bina derinliği (62 m)
+const HALL_D = REC_D + ROOM_D * N_ROWS;               // bina derinliği (3 araç: 36 m, 7 araç: 62 m)
 const BACK_Z = -HALL_D;
 const ENTRANCE_X = 0;
 const ROOM_CZ = -ROOM_D / 2;
@@ -2117,7 +2039,7 @@ function brutalCarPath(P, L, focus) {
     }
   }
   // final: salonun ortasından marka duvarına ve tüm araçlara genel bakış
-  K([0, 2.6, -24], [0, 3.2, -62], 54, 'finale'); STOPS.push(keys.length - 1);
+  K([0, 2.6, -24], [0, 3.2, BACK_Z], 54, 'finale'); STOPS.push(keys.length - 1);
 }
 
 // ---------- Duruşta vitrin hareketi ----------
@@ -2279,7 +2201,8 @@ function buildUI() {
     el.querySelector('[data-k=year]').textContent = s.year;
     el.querySelector('[data-k=km]').textContent = s.km + ' km';
     el.querySelector('[data-k=color]').textContent = s.colorName;
-    el.querySelector('[data-k=ilan]').textContent = '#' + s.ilanNo;
+    el.querySelector('[data-k=ilan]').textContent = s.ilanNo ? '#' + s.ilanNo : s.date || '—';
+    if (!s.ilanNo) el.querySelector('[data-k=ilan]').previousElementSibling.textContent = 'İlan Tarihi';
     el.querySelector('.car-title').textContent = s.title;
     const modelNote=document.createElement('p'); modelNote.className='model-note';modelNote.textContent=s.representation || 'Temsili 3D model';el.querySelector('.car-title').after(modelNote);
     el.querySelector('.price strong').textContent = s.price;
@@ -2800,7 +2723,7 @@ function openEkspertiz(i, opener) {
     <div class="eks-views"><button type="button" data-v="on">Ön çapraz</button><button type="button" data-v="arka">Arka çapraz</button></div>
     <p class="eks-note"></p>`;
   eksPanel.querySelector('.eks-car b').textContent = `${s.brand} ${s.model}`;
-  eksPanel.querySelector('.eks-car small').textContent = `${s.year} · ${s.km} km · #${s.ilanNo}`;
+  eksPanel.querySelector('.eks-car small').textContent = `${s.year} · ${s.km} km · ${s.ilanNo ? '#' + s.ilanNo : s.date || ''}`;
   eksPanel.querySelector('.eks-meta b').textContent = !s.ekspertiz ? '—' : e.tramer == null ? 'Bilgi girilmedi' : e.tramer || 'Yok';
   eksPanel.querySelectorAll('.eks-sema rect[data-k]').forEach((r) => {
     const q = eks.parts.find((p) => p.k === r.dataset.k); r.querySelector('title').textContent = `${q.ad}: ${EKS_DURUM[q.durum].ad}`;
@@ -2985,7 +2908,7 @@ const ROOM_THEMES = {
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
   // Ford Kuga (3. tur): BMW ile aynı yerleşim ve kalite, Ford'a özgü palet — derin petrol mavisi sıva, fırçalanmış gümüş kanatlar,
   // açık gri taş marka duvarında koyu gri metal GARDEN MOTORS, mat açık-orta gri zemin; nötr-serin ışık (beyaz Kuga rengini korur)
-  suv:       { name: 'Explorer SUV Lounge',     letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 2.5, rimI: 2.7, fillI: 2.2, spotI: 14, keySize: [8.5, 3.8], fillSize: [7, 3], light: '#f4f7fa', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
+  suv:       { name: 'Executive Sedan Lounge',  letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 2.5, rimI: 2.7, fillI: 2.2, spotI: 14, keySize: [8.5, 3.8], fillSize: [7, 3], light: '#f4f7fa', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
     stageCoat: .04, stageTint: '#a9acaf', floorK: .62, floorTint: '#c4c6c8', brandK: .6, brandTint: '#b2b5b8', brandRough: .7, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'],
     pillowTint: '#3d4a52', beam: '#2c353b', matTint: { MTG_finbg_slate_cool: '#86aab8' }, dof: 0, letterShadow: .28, wallLift: 1.75, floorRough: .75,
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
@@ -3101,14 +3024,14 @@ function totemTexture(spec, k) {
     g.font = `500 ${fs}px Cinzel, Georgia, serif`;
     for (const wd of words) { const t = cur ? cur + ' ' + wd : wd; if (g.measureText(t).width > w - 120) { lines.push(cur); cur = wd; } else cur = t; }
     lines.push(cur); lines.slice(0, 3).forEach((l, i) => g.fillText(l, 60, 400 + i * 78));
-    const rows = [['MODEL YILI', String(spec.year)], ['KİLOMETRE', spec.km + ' km'], ['RENK', spec.colorName], ['İLAN NO', '#' + spec.ilanNo]];
+    const rows = [['MODEL YILI', String(spec.year)], ['KİLOMETRE', spec.km + ' km'], ['RENK', spec.colorName], spec.ilanNo ? ['İLAN NO', '#' + spec.ilanNo] : ['İLAN TARİHİ', spec.date || '—']];
     rows.forEach(([a, b], i) => { const y = 720 + i * 150; g.fillStyle = 'rgba(255,255,255,.14)'; g.fillRect(60, y - 60, w - 120, 1);
       g.fillStyle = '#8e959c'; g.font = '500 24px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '5px'; g.fillText(a, 60, y);
       if ('letterSpacing' in g) g.letterSpacing = '0px'; g.fillStyle = '#f2f2f2'; g.font = '500 44px Inter, Arial, sans-serif'; g.fillText(b, 60, y + 56); });
     g.fillStyle = '#8e959c'; g.font = '500 24px Inter, Arial, sans-serif'; if ('letterSpacing' in g) g.letterSpacing = '5px'; g.fillText('FİYAT', 60, 1390);
     if ('letterSpacing' in g) g.letterSpacing = '0px'; g.fillStyle = '#ffffff'; g.font = '600 64px Inter, Arial, sans-serif'; g.fillText(spec.price, 60, 1470);
     g.fillStyle = '#b9a07a'; g.fillRect(60, 1720, 90, 3);
-    g.fillStyle = '#8e959c'; g.font = '400 24px Inter, Arial, sans-serif'; g.fillText('mtgmotors34.sahibinden.com', 60, 1780);
+    g.fillStyle = '#8e959c'; g.font = '400 24px Inter, Arial, sans-serif'; g.fillText(GALLERY.storeUrl.replace(/^https?:\/\/|\/$/g, ''), 60, 1780);
   });
 }
 function infoTotem(parent, x, z, rotY, spec, k) {
@@ -3267,7 +3190,7 @@ function buildRooms() {
   }
   if (BLENDER_ROOMS) {   // resepsiyon + ana koridor
     const hub = BLENDER_ROOMS.hub.clone(true); hub.name = 'Resepsiyon + ana koridor'; scene.add(hub);
-    for (const n of ['MTG_Brand', 'MTG_EndBrand']) rebrandMesh(hub, n, { letters: '#c9a86e', emis: '#3a2a12', halo: 0, letterShadow: .5 });   // pirinç harfler
+    // resepsiyon ve koridor sonu yazıları GLB'de yeni adla pişirildi (yazı + gölgesi birlikte)
     decorize(hub);
     buildEntranceCarpet(hub);
   }
@@ -3306,9 +3229,9 @@ function buildEntranceCarpet(hub) {
   const mat = new THREE.MeshPhysicalMaterial({ map, color: '#ffffff', roughness: .93, metalness: 0, bumpMap: weave, bumpScale: .9,
     sheen: .7, sheenColor: new THREE.Color('#b0364a'), sheenRoughness: .55, envMapIntensity: .2 });
   const geo = new THREE.BoxGeometry(W, T, Lz);
-  // ışık haritası UV'si (UV1): resepsiyon zemininin düzlemsel eşlemesi (u = 0.5 + x/33, v = −z/62.13; room_hub.glb MTG_Floor'dan)
+  // ışık haritası UV'si (UV1): resepsiyon zemininin düzlemsel eşlemesi (u = 0.5 + x/33, v = −z/(HALL_D·1.002); room_hub.glb MTG_Floor'dan)
   const pos = geo.attributes.position, uv1 = new Float32Array(pos.count * 2), cz = z0 - Lz / 2;
-  for (let i = 0; i < pos.count; i++) { uv1[2 * i] = .5 + pos.getX(i) / 33; uv1[2 * i + 1] = -(pos.getZ(i) + cz) / 62.13; }
+  for (let i = 0; i < pos.count; i++) { uv1[2 * i] = .5 + pos.getX(i) / 33; uv1[2 * i + 1] = -(pos.getZ(i) + cz) / (HALL_D * 62.13 / 62); }
   geo.setAttribute('uv1', new THREE.BufferAttribute(uv1, 2));
   let floorMat = null; hub.traverse((o) => { if (o.isMesh && o.name === 'MTG_Floor' && o.material.lightMap) floorMat = o.material; });
   if (floorMat) {

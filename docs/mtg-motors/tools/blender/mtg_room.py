@@ -532,8 +532,10 @@ COVE = .16                                  # tavan çevre gölge boşluğu
 HUB_XI = 16.35                 # iç yan duvar yüzü (modül derinliği 13 + koridor yarısı 3 + duvar payı)
 CW = 3.0                       # koridor yarı genişliği
 REC_D = 10.0                   # resepsiyon derinliği
-N_ROWS = 4                     # koridor boyunca modül sırası (her sırada sol + sağ modül)
-HUB_D = REC_D + 13.0 * N_ROWS  # 62
+# koridor boyunca modül sırası (her sırada sol + sağ modül). Sitedeki N_ROWS = ceil((araç sayısı + lounge) / 2) ile aynı olmalı:
+# 7 araç → 4 sıra (62 m), 3 araç → 2 sıra (36 m). --rows ile verilir.
+N_ROWS = int(opt('--rows', 4))
+HUB_D = REC_D + 13.0 * N_ROWS  # 4 sıra: 62
 HUB_W_OUT = HUB_XI + .15
 
 def led_strip(name, x0, x1, z0, z1, y=None, mat=None):
@@ -2037,7 +2039,7 @@ VIEWS = {
     'hub': {
         'reception': ((-2.0, 1.7, -2.4), (3.0, 1.4, -14), 60),
         'entry':     ((3.0, 1.7, -8.5), (-1.0, 1.8, 0.5), 58),
-        'corridor':  ((0.4, 1.62, -12.5), (0, 1.4, -62), 50),
+        'corridor':  ((0.4, 1.62, -12.5), (0, 1.4, -HUB_D), 50),
         'desk':      ((-4.5, 1.6, -2.2), (-9.6, 1.6, -9.5), 52),
     },
 }[VARIANT]
