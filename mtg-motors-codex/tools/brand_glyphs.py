@@ -7,7 +7,7 @@ from fontTools.ttLib import TTFont
 from fontTools.ttLib.removeOverlaps import removeOverlaps
 from fontTools.pens.svgPathPen import SVGPathPen
 
-TEXT = 'MTG  |  MOTORS' + 'PRIVATE  COLLECTION'
+TEXT = 'GARDEN  MOTORS' + 'MTG  |  ' + 'PRIVATE  COLLECTION'
 f = TTFont(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'blender', 'assets', 'Cinzel-SemiBold.ttf'))
 cmap = f.getBestCmap(); chars = sorted(set(TEXT)); names = [cmap[ord(c)] for c in chars]
 removeOverlaps(f, glyphNames=names)
