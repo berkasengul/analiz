@@ -809,7 +809,10 @@ def build_facade(proxy=False):
     # --- giriş sövesi (katmanlı): traverten cephe → 3 cm koyu gölge derzi → cepheden 35 cm çıkan koyu granit söve → ince bronz iç
     # çerçeve → 2 m içeride cam giriş. Söve cephe taşına oturur (derz arkada), yapıştırılmış plaka gibi durmaz: kalın, köşeleri pahlı.
     xo = PORT_X + SUR_W
-    box('MTG_PortSurroundReveal', 2 * xo + .06, FAC_GLZ + SUR_H + .03, .012, 0, (FAC_GLZ + SUR_H + .03) / 2, FAC_FZ + .006, M['reveal'], G('plain'))
+    # gölge derzi yalnız sövenin dış kenarında (iki yan + üst şerit); açıklık açık kalır
+    for sx in (-1, 1):
+        box(f'MTG_PortSurroundReveal{sx}', .03, FAC_GLZ + SUR_H + .03, .012, sx * (xo + .015), (FAC_GLZ + SUR_H + .03) / 2, FAC_FZ + .006, M['reveal'], G('plain'))
+    box('MTG_PortSurroundRevealT', 2 * xo + .06, .03, .012, 0, FAC_GLZ + SUR_H + .015, FAC_FZ + .006, M['reveal'], G('plain'))
     dark = [M['paver_dark']]
     for sx in (-1, 1):
         a0, a1 = sorted((sx * PORT_X, sx * xo))
