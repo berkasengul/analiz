@@ -81,7 +81,7 @@
   .overlay.interactive { pointer-events: auto; }
 
   .hero {   /* tam karşıdan açılış: bina ekranın orta bandında; başlık altta plaza şeridinde, cepheyi örtmez */
-    left: clamp(16px, 4vw, 64px); bottom: 5.5vh; max-width: 560px;
+    left: clamp(16px, 4vw, 64px); bottom: calc(max(4vh, 20px) + 64px); max-width: 760px;   /* sol alttaki ses / HD düğmelerinin üstünde */
   }
   .hero h1 br { display: none; }
   .hero h1 span { margin-left: .3em; }
@@ -89,6 +89,7 @@
   .hero::before { content: ""; position: absolute; z-index: -1; pointer-events: none; left: -30vw; right: -10vw; top: -10vh; bottom: -10vh;
     background: radial-gradient(ellipse 58% 60% at 38% 52%, rgba(9,11,15,.6), rgba(9,11,15,.34) 52%, rgba(9,11,15,0) 100%); }
   .hero h1, .hero p, .hero .eyebrow { text-shadow: 0 1px 18px rgba(0,0,0,.35); }
+  .hero .eyebrow { margin-bottom: 10px; }
   .eyebrow {
     font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted);
     display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
@@ -100,7 +101,7 @@
   }
   .hero h1 span { color: #fff; }
   .hero .phones { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
-  .hero p { margin-top: 10px; font-size: clamp(13px, 1vw, 15px); color: #c9ccd3; max-width: 540px; line-height: 1.55; }
+  .hero p { margin-top: 8px; font-size: clamp(13px, 1vw, 15px); color: #c9ccd3; max-width: 720px; line-height: 1.5; }
 
   .scroll-hint {
     position: fixed; left: 50%; bottom: calc(5.5vh + 22px); transform: translateX(-50%);
@@ -433,6 +434,9 @@ import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 
 const ACCENT = new THREE.Color('#e3122b');
+// model / ışık haritası sürümü: dosyalar aynı adla güncellenince tarayıcı eski kopyayı önbellekten yüklemesin (dosya değişince artır)
+const ASSET_V = '20261019b';
+const vurl = (u) => (location.protocol === 'file:' ? u : u + (u.includes('?') ? '&' : '?') + 'v=' + ASSET_V);
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
 // Tuval yüksekliği: telefonda adres çubuğu açılıp kapanınca innerHeight değişir; tuval ve kamera her seferinde yeniden boyutlanınca
 // sahne zıplıyordu. Telefonda tuval en büyük görünür yüksekliğe (100lvh) sabitlenir, yalnız genişlik / yön değişince yeniden
@@ -1347,7 +1351,7 @@ async function loadCarModels(onProgress) {
           const b64 = window.MTG_MODELS?.[spec.glb];
           spec._scene = b64
             ? (await gltfLoader.parseAsync(Uint8Array.from(atob(b64), c => c.charCodeAt(0)).buffer, '')).scene
-            : (await gltfLoader.loadAsync(spec.glb)).scene;
+            : (await gltfLoader.loadAsync(vurl(spec.glb))).scene;
         } catch (e) {
           console.warn(`3D model yüklenemedi (${spec.glb}), yedek model kullanılıyor.`, e);
         }
@@ -3384,7 +3388,7 @@ async function roomAsset(n) {
   const url = `models/rooms/${n}.glb`;
   if (location.protocol === 'file:' && !window.MTG_ROOMS?.[url]) await roomScript(n);
   const b64 = window.MTG_ROOMS?.[url];
-  return b64 ? gltfLoader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : gltfLoader.loadAsync(url);
+  return b64 ? gltfLoader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : gltfLoader.loadAsync(vurl(url));
 }
 // Odalar arasında aynı doku (ör. ceviz, deri, mermer) her GLB'de ayrı gömülü: içerik özetiyle eşleştirilip tek GPU kopyasına indirilir
 const texDedupe = new Map();
@@ -3421,7 +3425,7 @@ async function loadBlenderRooms() {
     const signature = themes.sport || await roomAsset('room_signature').catch(() => null);
     const car = signature ? null : await roomAsset('room_car');              // yedek: eski ortak araç odası
     const lmCache = {};
-    const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
+    const lm = (file) => (lmCache[file] ||= texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || vurl('models/rooms/' + file)).then((t) => {
       // mobil: tüm lightmap'ler yarı çözünürlük; masaüstü: duvar + tavan yarı çözünürlük (ışık geçişleri yumuşak, fark görünmez),
       // zemin 2048 kalır (gölge kenarları). 8 salon × 3 harita GPU belleğini ~%40 azaltır: dahili GPU'da donmayı önler
       const lmMax = /_floor/.test(file) ? (isMobile ? 1024 : 2048) : (isMobile ? 512 : 1024);   // telefon: duvar / tavan 512, zemin 1024
@@ -3478,7 +3482,7 @@ async function loadBlenderRooms() {
 async function loadBrutalHall() {
   try {
     const [hall, facade] = await Promise.all([roomAsset('room_brutal'), roomAsset('room_facade').catch(() => null)]);
-    const lm = (file) => texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || 'models/rooms/' + file).then((t) => {
+    const lm = (file) => texLoader.loadAsync(window.MTG_ROOMS?.['models/rooms/' + file] || vurl('models/rooms/' + file)).then((t) => {
       if (isMobile && t.image.width > 1024) {
         const c = document.createElement('canvas'); c.width = t.image.width / 2; c.height = t.image.height / 2;
         c.getContext('2d').drawImage(t.image, 0, 0, c.width, c.height); t.image = c;
