@@ -80,9 +80,11 @@
   }
   .overlay.interactive { pointer-events: auto; }
 
-  .hero {
-    left: clamp(16px, 5vw, 80px); bottom: 15vh; max-width: 440px;
+  .hero {   /* tam karşıdan açılış: bina ekranın orta bandında; başlık altta plaza şeridinde, cepheyi örtmez */
+    left: clamp(16px, 4vw, 64px); bottom: 9vh; max-width: 560px;
   }
+  .hero h1 br { display: none; }
+  .hero h1 span { margin-left: .3em; }
   /* gündüz cephesi açık taş: başlığın arkasında yumuşak, kenarsız koyu geçiş (metin her arka planda okunur) */
   .hero::before { content: ""; position: absolute; z-index: -1; pointer-events: none; left: -30vw; right: -10vw; top: -10vh; bottom: -10vh;
     background: radial-gradient(ellipse 58% 60% at 38% 52%, rgba(9,11,15,.6), rgba(9,11,15,.34) 52%, rgba(9,11,15,0) 100%); }
@@ -94,11 +96,11 @@
   .eyebrow::before { content: ""; width: 42px; height: 1px; background: var(--accent); }
   .hero h1 {
     font-family: Cinzel, Georgia, serif; font-weight: 600;
-    font-size: clamp(30px, 3.6vw, 56px); line-height: 1; letter-spacing: .1em;   /* bina girişiyle yarışmaz: tabela ana öğe */
+    font-size: clamp(26px, 2.5vw, 42px); line-height: 1; letter-spacing: .1em;   /* bina ve tabelayla yarışmaz: tabela ana öğe */
   }
   .hero h1 span { color: #fff; }
-  .hero .phones { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
-  .hero p { margin-top: 16px; font-size: clamp(14px, 1.1vw, 16px); color: #c9ccd3; max-width: 400px; line-height: 1.6; }
+  .hero .phones { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero p { margin-top: 10px; font-size: clamp(13px, 1vw, 15px); color: #c9ccd3; max-width: 540px; line-height: 1.55; }
 
   .scroll-hint {
     position: fixed; left: 50%; bottom: calc(5.5vh + 22px); transform: translateX(-50%);
@@ -902,9 +904,10 @@ function buildStreet() {
   // (yalnız masaüstü, yalnız dışarıdayken çizilir: updateStreetReflection)
   if (!isMobile) {
     ground.material.transparent = true; ground.material.opacity = .82; ground.material.userData.reflFloor = true; ground.material.depthWrite = false; ground.renderOrder = -1;
-    streetReflector = new Reflector(new THREE.PlaneGeometry(120, 60), { clipBias: .003, color: '#33302c',
+    // yansıma düzlemi portal zemininden (z −1.6) yolun sonuna: plaza taşı da yarı saydam → ıslak taş zeminde cephe ve vitrin ışıkları
+    streetReflector = new Reflector(new THREE.PlaneGeometry(120, 64), { clipBias: .003, color: '#33302c',
       textureWidth: Math.floor(innerWidth * .35), textureHeight: Math.floor(innerHeight * .35) });
-    streetReflector.rotation.x = -Math.PI / 2; streetReflector.position.set(0, -.03, 32); scene.add(streetReflector);
+    streetReflector.rotation.x = -Math.PI / 2; streetReflector.position.set(0, -.03, 30.4); scene.add(streetReflector);
   }
 
   // ön meydan: granit parke + kaldırım taşı
@@ -1007,7 +1010,8 @@ function buildFacadeGLB() {
   // cephe GLB'si yeni adla pişirildi (tabela + gölgesi birlikte): çalışma anında yeniden yazmaya gerek yok
   // mimari cam: yüzey rengi koyu (cam kendini değil yansımayı ve arkasını gösterir), hafif sıcak bronz ton; yansıma gece ortamından
   // mimari cam (akşam): koyu, hafif sıcak gövde; içeriden taşan ışık dışarıdan sıcak görünür, yansıma kontrollü
-  const glassP = showroomMats().glassP, warmGlass = facadeGlass = glassP.clone(); warmGlass.color.set('#2b261f'); warmGlass.opacity = .22;
+  // vitrin / üst kat camı: hafif sıcak ton, ölçülü yansıma → arkadaki araçlar ve marka duvarları camın gerisinde kaybolmaz
+  const glassP = showroomMats().glassP, warmGlass = facadeGlass = glassP.clone(); warmGlass.color.set('#3a342b'); warmGlass.opacity = .15; warmGlass.envMapIntensity = .5;
   // giriş camı (kanatlar, yan sabit camlar, tepe camı): vitrinden daha şeffaf, yansıması yarıya kısık → arkadaki resepsiyon ve
   // halı okunur; yansıma iç mekânı örtmez. Vitrin camı koyu kalır (cephe ritmi).
   const entryGlass = warmGlass.clone(); entryGlass.color.set('#3a342b'); entryGlass.opacity = .14; entryGlass.envMapIntensity = .42;
@@ -2030,12 +2034,14 @@ function buildCameraPath() {
   // açılış kadrajı tabelaya yakın (yolun karşı şeridi, ~17 m): GARDEN MOTORS tabelası ve portal net okunur. Masaüstünde tabela sağ
   // yarıda (sol yarı başlık metnine kalır); dar/dikey ekranda tabela ve kapı ekranın ortasında.
   const narrow = innerWidth <= 760 || innerHeight > innerWidth;
-  // dar ekran: kamera hafif aşağı bakar → giriş ve tabela ekranın üst yarısında, başlık / telefonlar altta plazanın üstünde (kapıyı örtmez)
-  if (narrow) K([-.4, 1.65, 15.4], [-.2, -1.0, 0], 38, 'hero');
-  else K([-3.5, 1.7, 17], [-6, 3.3, 0], 38, 'hero');
+  // açılış: galerinin tam karşısı, giriş ekseninde (x = 0), cephe düz karşıdan. Masaüstü 27 m: iki vitrin, giriş, üst kat ve tabela
+  // kadrajda; bina ekranın orta bandında, başlık altta plazanın üstünde. Dar ekran 38 m, kamera hafif aşağı bakar: tabela, giriş ve
+  // iki vitrinin içe bakan bölümleri üst yarıda, başlık / telefonlar altta (cepheyi örtmez).
+  if (narrow) K([0, 1.8, 38], [0, -2.9, 0], 38, 'hero');
+  else K([0, 2.4, 27], [0, 4.6, 0], 38, 'hero');
   STOPS.push(0); tempo(1);
-  K([-1.4, 1.7, 10.6], [-.2, 2.2, -2], 41); tempo(1.1);                         // bordürü geçip giriş eksenine dönüş
-  K([.2, 1.7, 4.2], [0, 1.62, -8], 44, 'door'); tempo(.62);                       // eşik: kapılar açılır, içerisi görünür
+  K([0, 1.75, 12.5], [0, 2.4, -2], 40); tempo(1.15);                             // giriş ekseninde düz yaklaşma (yana kayma yok)
+  K([0, 1.7, 4.2], [0, 1.62, -8], 44, 'door'); tempo(.62);                       // eşik: kapılar açılır, içerisi görünür
   K([0, 1.68, -4.5], [0, 1.5, -24], 50, 'welcome'); tempo(.85);                   // resepsiyon: karşılama, koridor ekseni
   if (BRUTAL) { K([0, 1.7, -10.6], [-2.2, 2.4, -42], 52); tempo(1.1); }        // galeri: portaldan düz geçiş, araca dönüş salona girince
   { const m = moduleXform(0); K([m.side * -.45, 1.7, BRUTAL ? -14.2 : m.zc + 4.6], focus(0).toArray(), 46); tempo(1.3);   // koridorda dolly
@@ -3434,7 +3440,7 @@ async function loadBlenderRooms() {
           c.lightMap = t; c.lightMapIntensity = ex.lmScale * Math.PI * LM_GAIN * floorK; c.envMapIntensity = envK;
           c.onBeforeCompile = bakedOnly; c.customProgramCacheKey = () => 'mtg-baked';
           // masaüstünde zeminin altında Reflector var: zemin hafif şeffaf, yansıma süzülür
-          if (/Floor/.test(o.name) && !isMobile) { c.transparent = true; c.opacity = .9; c.userData.reflFloor = true; }
+          if (/Floor/.test(o.name) && !isMobile) { c.transparent = true; c.opacity = g === facade ? .8 : .9; c.userData.reflFloor = true; }   // cephe plazası: ıslak taş
           m.material = c; m.receiveShadow = true;
         })));
         if (!o.isMesh) return;
@@ -3547,17 +3553,31 @@ function secondCar(k) {
   return secondCarCache.get(spec).clone(true);
 }
 
-// resepsiyon vitrinleri: turun ilk iki aracının kopyası, sokağa çapraz bakar (dışarıdan araç görünür)
+// resepsiyon vitrinleri: turun ilk iki aracının kopyası. Burnu camın ~15 cm gerisinde (cam z = 0.2, araç merkezi z −2.5), vitrin bölmesinin ortasında, önü sokağa
+// 3/4 dönük: gövde, ön ve tekerlekler açılış kadrajında okunur. Önceden 3.6 m geride ve 60° yan duruyordu (camın gerisinde kayboluyordu).
+// Telefonda bellek için kurulmaz.
+const vitrineCars = [];
 function buildVitrines() {
   if (!BLENDER_ROOMS?.facade || isMobile) return;
   const picks = TOUR.map((i) => CARS[i]).filter((c) => c?._scene).slice(0, 2);
-  [[-10.2, -3.4, -Math.PI / 3], [10.2, -3.4, -2 * Math.PI / 3]].forEach(([x, z, yaw], i) => {
+  [[-10.4, -2.5, -Math.PI / 2 + .62], [10.4, -2.5, -Math.PI / 2 - .62]].forEach(([x, z, yaw], i) => {
     const spec = picks[i]; if (!spec) return;
     const car = prepareCarModel({ ...spec, _scene: spec._scene.clone(true) });
     car.rotation.y += yaw; car.position.set(x, -.003, z); car.name = 'Vitrin aracı ' + (i + 1); scene.add(car);
+    car.userData.baseYaw = car.rotation.y; vitrineCars.push(car);
     stGround.push(car);
-    const l = new THREE.RectAreaLight('#fff1e0', 3.2, 5.2, 3.2); l.position.set(x, 4.3, z); l.lookAt(x, 0, z); scene.add(l);
+    const l = new THREE.RectAreaLight('#fff1e0', 3.0, 5.2, 3.2); l.position.set(x, 4.2, z); l.lookAt(x, 0, z); scene.add(l);
   });
+}
+// vitrin araçları: park hâlindeki aracın açı değiştirmesi gibi çok yavaş, küçük sağ-sol dönüş (±5°, 28 sn), iki araç aynı yöne;
+// yalnız kamera dışarıdayken. Araç kendi merkezinde döner, yer değiştirmez. Hareket kamerayla aynı saat (dt) ile ilerler.
+const VIT = { t: 0, lastShadow: 0 };
+function updateVitrineCars(dt) {
+  if (!vitrineCars.length || reduceMotion || QUALITY.lite || camera.position.z < -1) return;
+  VIT.t += dt;
+  const a = THREE.MathUtils.degToRad(5) * Math.sin(VIT.t * Math.PI * 2 / 28);
+  for (const c of vitrineCars) c.rotation.y = c.userData.baseYaw + a;
+  if ((VIT.lastShadow += dt) > .3) { VIT.lastShadow = 0; renderer.shadowMap.needsUpdate = true; }
 }
 
 // GLB modunda bölmeden yalnız sürgülü cam kapılar (duvar ve kasa GLB'de)
@@ -4177,7 +4197,8 @@ function updateCamera(s, time, dt) {
   const atHero = !tween && !inspect.active && !reduceMotion && Math.abs(currentS) < 1e-3;
   EXT_IDLE.t = atHero ? EXT_IDLE.t + dt : EXT_IDLE.t; EXT_IDLE.w = atHero ? Math.min(1, EXT_IDLE.w + dt / 1.6) : Math.max(0, EXT_IDLE.w - dt / 1.6);
   if (!atHero && EXT_IDLE.w === 0) EXT_IDLE.t = 0;
-  if (EXT_IDLE.w > 0) tmpPos.addScaledVector(camDir, 1.6 * smoother(Math.min(1, EXT_IDLE.t / 30)) * smoother(EXT_IDLE.w));
+  // ilk 2.5 sn kadraj sabit; sonra giriş eksenine doğru çok yavaş, merkezde kalan yaklaşma (yön değişimi yok)
+  if (EXT_IDLE.w > 0) tmpPos.addScaledVector(camDir, 1.6 * smoother(THREE.MathUtils.clamp((EXT_IDLE.t - 2.5) / 30, 0, 1)) * smoother(EXT_IDLE.w));
   const sw = showcasePose(dt);                                   // duruşta vitrin hareketi (yumuşak harman)
   if (sw > 0) { tmpPos.lerp(scPos, sw); tmpLook.lerp(scLook, sw); fov += (SHOW.fov - fov) * sw; }
 
@@ -4331,7 +4352,7 @@ function updateRenderBudget(dt){
   if (budgetTime < 2) return;
   const average = budgetTime / budgetFrames, now = performance.now();
   budgetTime = 0; budgetFrames = 0;
-  const lo = QUALITY.lite ? .6 : Math.min(1, devicePixelRatio), hi = QUALITY.lite ? 1 : Math.min(isMobile ? 2 : 1.5, devicePixelRatio);
+  const lo = QUALITY.lite ? .85 : Math.min(1, devicePixelRatio), hi = QUALITY.lite ? 1 : Math.min(isMobile ? 2 : 1.5, devicePixelRatio);
   // en düşük çözünürlükte bile kareler ağırsa (art arda 2 ölçüm, ~22 fps altı) ve kullanıcı HD'yi seçmediyse akıcı moda geç
   if (!QUALITY.lite && !QUALITY.saved && !NO_INERTIA && renderScale <= lo + .01 && average > .045) { if (++QUALITY.slowN >= 2) { setQuality(true, false); showQualityToast(); } }
   else QUALITY.slowN = 0;
@@ -4607,6 +4628,7 @@ function frame() {
   if(inspect.active){updateInspect(dt);updateEkspertiz();prevYaw=null;}else updateCamera(currentS,t,dt);
   updateAtmosphere(t);
   updatePhotoCars();
+  updateVitrineCars(dt);
   updateFocusLights(dt);
   updateSweep();
   updateTV(dt);
