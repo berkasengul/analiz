@@ -1015,6 +1015,13 @@ function buildFacadeGLB() {
   // giriş camı (kanatlar, yan sabit camlar, tepe camı): vitrinden daha şeffaf, yansıması yarıya kısık → arkadaki resepsiyon ve
   // halı okunur; yansıma iç mekânı örtmez. Vitrin camı koyu kalır (cephe ritmi).
   const entryGlass = warmGlass.clone(); entryGlass.color.set('#3a342b'); entryGlass.opacity = .14; entryGlass.envMapIntensity = .42;
+  // ana tabela: harfler şampanya metal + sıcak iç ışık (gece uzaktan net okunur), arkadaki hale parlak (panelde ışık çerçevesi)
+  f.traverse((o) => {
+    if (!o.isMesh || !/^MTG_FacBrand/.test(o.name)) return;
+    if (/Halo/.test(o.name)) o.material = new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffd9a6').multiplyScalar(1.6), toneMapped: true });
+    else { const m = o.material.clone(); m.color.set('#e9d3a6'); m.metalness = .55; m.roughness = .32; m.emissive = new THREE.Color('#f0d3a0'); m.emissiveIntensity = .75; m.lightMap = null; m.onBeforeCompile = () => {}; m.customProgramCacheKey = () => 'mtg-sign'; o.material = m; }
+    o.castShadow = false;
+  });
   f.traverse((o) => {
     if (!o.isMesh) return;
     if (o.material === glassP) o.material = /MTG_Glass_(Fixed|Transom)/.test(o.name) ? entryGlass : warmGlass;
@@ -2034,11 +2041,11 @@ function buildCameraPath() {
   // açılış kadrajı tabelaya yakın (yolun karşı şeridi, ~17 m): GARDEN MOTORS tabelası ve portal net okunur. Masaüstünde tabela sağ
   // yarıda (sol yarı başlık metnine kalır); dar/dikey ekranda tabela ve kapı ekranın ortasında.
   const narrow = innerWidth <= 760 || innerHeight > innerWidth;
-  // açılış: galerinin tam karşısı, giriş ekseninde (x = 0), cephe düz karşıdan. Masaüstü 27 m: iki vitrin, giriş, üst kat ve tabela
-  // kadrajda; bina ekranın orta bandında, başlık altta plazanın üstünde. Dar ekran 38 m, kamera hafif aşağı bakar: tabela, giriş ve
+  // açılış: galerinin tam karşısı, giriş ekseninde (x = 0), cephe düz karşıdan. Masaüstü 29 m, neredeyse yatay bakış: bina ekranın
+  // %20–65 bandında (iki vitrin, giriş, üst kat, tabela), başlık altta ıslak plazanın üstünde. Dar ekran 32 m, hafif aşağı bakış: tabela, giriş ve
   // iki vitrinin içe bakan bölümleri üst yarıda, başlık / telefonlar altta (cepheyi örtmez).
-  if (narrow) K([0, 1.8, 38], [0, -2.9, 0], 38, 'hero');
-  else K([0, 2.4, 27], [0, 4.6, 0], 38, 'hero');
+  if (narrow) K([0, 1.8, 32], [0, -1.2, 0], 38, 'hero');
+  else K([0, 2.4, 29], [0, 2.9, 0], 38, 'hero');
   STOPS.push(0); tempo(1);
   K([0, 1.75, 12.5], [0, 2.4, -2], 40); tempo(1.15);                             // giriş ekseninde düz yaklaşma (yana kayma yok)
   K([0, 1.7, 4.2], [0, 1.62, -8], 44, 'door'); tempo(.62);                       // eşik: kapılar açılır, içerisi görünür
