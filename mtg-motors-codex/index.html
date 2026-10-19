@@ -81,11 +81,11 @@
   .overlay.interactive { pointer-events: auto; }
 
   .hero {
-    left: clamp(16px, 6vw, 96px); bottom: 18vh; max-width: 720px;
+    left: clamp(16px, 5vw, 80px); bottom: 15vh; max-width: 440px;
   }
   /* gündüz cephesi açık taş: başlığın arkasında yumuşak, kenarsız koyu geçiş (metin her arka planda okunur) */
-  .hero::before { content: ""; position: absolute; z-index: -1; pointer-events: none; left: -40vw; right: -18vw; top: -16vh; bottom: -14vh;
-    background: radial-gradient(ellipse 60% 62% at 42% 52%, rgba(9,11,15,.66), rgba(9,11,15,.42) 52%, rgba(9,11,15,0) 100%); }
+  .hero::before { content: ""; position: absolute; z-index: -1; pointer-events: none; left: -30vw; right: -10vw; top: -10vh; bottom: -10vh;
+    background: radial-gradient(ellipse 58% 60% at 38% 52%, rgba(9,11,15,.6), rgba(9,11,15,.34) 52%, rgba(9,11,15,0) 100%); }
   .hero h1, .hero p, .hero .eyebrow { text-shadow: 0 1px 18px rgba(0,0,0,.35); }
   .eyebrow {
     font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted);
@@ -94,11 +94,11 @@
   .eyebrow::before { content: ""; width: 42px; height: 1px; background: var(--accent); }
   .hero h1 {
     font-family: Cinzel, Georgia, serif; font-weight: 600;
-    font-size: clamp(40px, 8vw, 104px); line-height: .95; letter-spacing: clamp(2px, .6vw, 8px);
+    font-size: clamp(30px, 3.6vw, 56px); line-height: 1; letter-spacing: .1em;   /* bina girişiyle yarışmaz: tabela ana öğe */
   }
   .hero h1 span { color: #fff; }
-  .hero .phones { margin-top: 22px; display: flex; gap: 10px; flex-wrap: wrap; }
-  .hero p { margin-top: 22px; font-size: clamp(15px, 1.4vw, 18px); color: #c9ccd3; max-width: 520px; line-height: 1.6; }
+  .hero .phones { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero p { margin-top: 16px; font-size: clamp(14px, 1.1vw, 16px); color: #c9ccd3; max-width: 400px; line-height: 1.6; }
 
   .scroll-hint {
     position: fixed; left: 50%; bottom: calc(5.5vh + 22px); transform: translateX(-50%);
@@ -224,7 +224,15 @@
     header { padding: 12px 16px; }
     nav .btn:not(.primary) { display: none; }
     .btn { padding: 10px 14px; font-size: 11px; }
-    .hero { bottom: 22vh; left: 16px; right: 16px; }
+    .hero { bottom: calc(76px + env(safe-area-inset-bottom)); left: 16px; right: 16px; }
+    .hero h1 { font-size: 30px; letter-spacing: .08em; }
+    .hero h1 br { display: none; }
+    .hero h1 span { margin-left: .3em; }
+    .hero p { font-size: 13.5px; margin-top: 10px; line-height: 1.5; }
+    .hero .phones { margin-top: 12px; }
+    .hero .eyebrow { margin-bottom: 10px; font-size: 10.5px; letter-spacing: 3px; }
+    .hero::before { top: -6vh; bottom: -4vh; left: -16px; right: -16px; background: linear-gradient(to top, rgba(9,11,15,.82), rgba(9,11,15,.55) 60%, rgba(9,11,15,0)); }
+    .scroll-hint { display: none; }
     .car-card, .car-card.right { left: 16px; right: 16px; width: auto; bottom: calc(5.5vh + 14px); padding: 18px 18px 16px; }
     .specs { gap: 8px 14px; margin: 14px 0; }
     .spec span { font-size: 13.5px; }
@@ -1000,19 +1008,33 @@ function buildFacadeGLB() {
   // mimari cam: yüzey rengi koyu (cam kendini değil yansımayı ve arkasını gösterir), hafif sıcak bronz ton; yansıma gece ortamından
   // mimari cam (akşam): koyu, hafif sıcak gövde; içeriden taşan ışık dışarıdan sıcak görünür, yansıma kontrollü
   const glassP = showroomMats().glassP, warmGlass = facadeGlass = glassP.clone(); warmGlass.color.set('#2b261f'); warmGlass.opacity = .22;
+  // giriş camı (kanatlar, yan sabit camlar, tepe camı): vitrinden daha şeffaf, yansıması yarıya kısık → arkadaki resepsiyon ve
+  // halı okunur; yansıma iç mekânı örtmez. Vitrin camı koyu kalır (cephe ritmi).
+  const entryGlass = warmGlass.clone(); entryGlass.color.set('#3a342b'); entryGlass.opacity = .14; entryGlass.envMapIntensity = .42;
   f.traverse((o) => {
     if (!o.isMesh) return;
-    if (o.material === glassP) o.material = warmGlass;
+    if (o.material === glassP) o.material = /MTG_Glass_(Fixed|Transom)/.test(o.name) ? entryGlass : warmGlass;
     else if (/hedge/.test(o.material?.name || '')) { o.material = o.material.clone(); o.material.color.set('#7a9a63'); o.material.emissive?.set('#141a0e'); o.material.envMapIntensity = .5; }   // akşamda da yaprak yeşili okunur
   });
   const M = showroomMats(), bronze = std('#2a2c2f', .38, .9, .6);   // kapı kanadı profili: cephe profilleriyle aynı koyu grafit, ince
   const W = 1.55, HD = 2.8;                     // kanat: net açıklık 3.0 m (iki kanat), ray altı 2.84 m
+  // kanat doğraması sabit camlarla aynı dil: 35 mm dikme, 50 mm üst kayıt, 110 mm alt tekmelik; 10 mm cam profile gömülü.
+  // Çekme kolu iki yüzde, Ø32 mm yuvarlak, iki ayrık tutturma ayağıyla (yüzey üstüne yapışık çubuk değil); altta fırça fitil.
+  const pull = std('#8a7a62', .28, .95, .9), seal = std('#0c0c0d', .9, 0, .1);
+  const rod = (len, r, mat, x, y, z, rotZ = 0, rotX = 0, parent) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, 24), mat); m.position.set(x, y, z); m.rotation.set(rotX, 0, rotZ); m.castShadow = true; parent.add(m); return m; };
   for (const side of [-1, 1]) {
     const d = new THREE.Group(); d.name = 'Giriş kapısı ' + side;
-    const pane = new THREE.Mesh(new THREE.BoxGeometry(W - .05, HD - .05, .02), warmGlass); pane.position.y = .02 + HD / 2; d.add(pane);
-    for (const x of [-W / 2 + .02, W / 2 - .02]) box(.04, HD, .045, bronze, x, .02 + HD / 2, 0, d);
-    for (const y of [.04, HD]) box(W, .04, .045, bronze, 0, y, 0, d);
-    for (const z of [-.055, .055]) box(.028, 1.3, .028, bronze, -side * (W / 2 - .16), 1.2, z, d);   // çekme kolu (iki yüz)
+    const y0 = .012, ST = .035, TR = .05, BR = .11, DEP = .05;
+    const pane = new THREE.Mesh(new THREE.BoxGeometry(W - 2 * ST + .02, HD - TR - BR + .02, .012), entryGlass); pane.position.y = y0 + BR + (HD - TR - BR) / 2; d.add(pane);
+    for (const x of [-W / 2 + ST / 2, W / 2 - ST / 2]) box(ST, HD, DEP, bronze, x, y0 + HD / 2, 0, d);
+    box(W, TR, DEP, bronze, 0, y0 + HD - TR / 2, 0, d);
+    box(W, BR, DEP, bronze, 0, y0 + BR / 2, 0, d);
+    box(W - .02, .012, .02, seal, 0, y0 - .004, 0, d);                                   // fırça fitil (zemin rayına iner)
+    const hx = -side * (W / 2 - .14);                                                     // kol: buluşma kenarına yakın
+    for (const z of [-1, 1]) {
+      rod(1.2, .016, pull, hx, 1.15, z * .07, 0, 0, d);
+      for (const y of [.65, 1.65]) rod(.06, .009, pull, hx, y, z * .045, 0, Math.PI / 2, d);   // tutturma ayakları
+    }
     d.position.set(side * W / 2, 0, -1.76); d.userData = { side, x0: 0, closed: W / 2, travel: 1.5 }; scene.add(d); doors.push(d);
   }
   // giriş yolu: aydınlatma babaları + yan cephe boyunca zemin ışıkları
@@ -1414,13 +1436,19 @@ function updateFocusLights(dt) {
   keyLight.width += (kw[0] - keyLight.width) * a; keyLight.height += (kw[1] - keyLight.height) * a;
   fillLight.width += (fw[0] - fillLight.width) * a; fillLight.height += (fw[1] - fillLight.height) * a;
   // varış anı: dışarıda serin gece tonu → kapıdan girince resepsiyonun sıcak tonu → salonda salonun kendi tonu
-  const zone = camera.position.z > -.4 ? EXT_LOOK : camRoom < 0 ? HUB_LOOK : prem ? th : null;
+  // dış → iç: pozlama, renk tonu ve gök ışığı kapı bölgesinde kameranın konumuyla kademeli karışır (z +1.2 saçak altı → −3 resepsiyon).
+  // Önceden z = −0.4'te tek eşikle hedef değişiyordu: kapı eşiğinde iç mekân bir anda parlıyor / tonu sıçrıyordu.
+  const wIn = THREE.MathUtils.smoothstep(-camera.position.z, -1.2, 3.0);
+  const zone = camRoom >= 0 && camera.position.z < -REC_D + 1 ? (prem ? th : null) : wIn <= 0 ? EXT_LOOK : wIn >= 1 ? HUB_LOOK : blendLook(EXT_LOOK, HUB_LOOK, wIn);
   renderer.toneMappingExposure += ((zone?.exp ?? 1) - renderer.toneMappingExposure) * a;
   gradeToward(zone, a);
-  if (SKY.hemi) {   // dışarıda gündüz gök + güneş; kapıdan girince salonların eski (düşük, serin) değerleri — iç mekân etkilenmez
-    const ex = zone === EXT_LOOK, C = ex ? SKY.exC : SKY.inC, I = ex ? SKY.exI : SKY.inI;
-    SKY.hemi.color.lerp(C.hemi, a); SKY.hemi.groundColor.lerp(C.ground, a); SKY.sun.color.lerp(C.sun, a);
-    SKY.hemi.intensity += (I.hemi - SKY.hemi.intensity) * a; SKY.sun.intensity += (I.sun - SKY.sun.intensity) * a;
+  if (SKY.hemi) {   // gök + güneş: dışarıda mavi saat, içeride kısık serin değerler; kapı bölgesinde aynı karışımla
+    const w = camRoom >= 0 && camera.position.z < -REC_D + 1 ? 1 : wIn;
+    _skyC.copy(SKY.exC.hemi).lerp(SKY.inC.hemi, w); SKY.hemi.color.lerp(_skyC, a);
+    _skyC.copy(SKY.exC.ground).lerp(SKY.inC.ground, w); SKY.hemi.groundColor.lerp(_skyC, a);
+    _skyC.copy(SKY.exC.sun).lerp(SKY.inC.sun, w); SKY.sun.color.lerp(_skyC, a);
+    SKY.hemi.intensity += (THREE.MathUtils.lerp(SKY.exI.hemi, SKY.inI.hemi, w) - SKY.hemi.intensity) * a;
+    SKY.sun.intensity += (THREE.MathUtils.lerp(SKY.exI.sun, SKY.inI.sun, w) - SKY.sun.intensity) * a;
   }
   for (const n of ['key', 'fill', 'rim', 'sh', 'c']) fC[n].lerp(fT[n], a);
   focusMoving = fC.sh.distanceToSquared(fT.sh) > 1e-4 || fC.c.distanceToSquared(fT.c) > 1e-4;   // ışık yeni salona kayarken gölge haritası da yenilenir
@@ -2002,7 +2030,8 @@ function buildCameraPath() {
   // açılış kadrajı tabelaya yakın (yolun karşı şeridi, ~17 m): GARDEN MOTORS tabelası ve portal net okunur. Masaüstünde tabela sağ
   // yarıda (sol yarı başlık metnine kalır); dar/dikey ekranda tabela ve kapı ekranın ortasında.
   const narrow = innerWidth <= 760 || innerHeight > innerWidth;
-  if (narrow) K([-.5, 1.65, 14.5], [-.2, 1.95, 0], 38, 'hero');            // tabela ekranın üst üçte birinde, başlık altında
+  // dar ekran: kamera hafif aşağı bakar → giriş ve tabela ekranın üst yarısında, başlık / telefonlar altta plazanın üstünde (kapıyı örtmez)
+  if (narrow) K([-.4, 1.65, 15.4], [-.2, -1.0, 0], 38, 'hero');
   else K([-3.5, 1.7, 17], [-6, 3.3, 0], 38, 'hero');
   STOPS.push(0); tempo(1);
   K([-1.4, 1.7, 10.6], [-.2, 2.2, -2], 41); tempo(1.1);                         // bordürü geçip giriş eksenine dönüş
@@ -2978,7 +3007,9 @@ const ROOM_THEMES = {
 for (const t of Object.values(ROOM_THEMES)) for (const c of ['key', 'fill', 'rim']) t[c + 'C'] = new THREE.Color(t[c]);
 const LOUNGE_SIG = { letters: '#e2c592', emis: '#6e4b1d', refl: .78, halo: 1 };   // lounge: önceki Signature harf / zemin dili (BMW salonundan bağımsız)
 const EXT_LOOK = { exp: .98, grade: [.98, .99, 1.03, 1.02, 1.06] };   // dış cephe: mavi saat, serin gölgeler + ölçülü sıcak ışıklar; taş patlamaz
-const HUB_LOOK = { exp: .92, grade: [1.03, 1.0, .95, 1.02, 1.06] };    // resepsiyon + koridor: sıcak galeri tonu
+const HUB_LOOK = { exp: .92, grade: [1.03, 1.0, .95, 1.02, 1.06] };
+const _skyC = new THREE.Color(), _blend = { exp: 1, grade: [1, 1, 1, 1, 1] };
+function blendLook(A, B, w) { _blend.exp = THREE.MathUtils.lerp(A.exp, B.exp, w); for (let i = 0; i < 5; i++) _blend.grade[i] = THREE.MathUtils.lerp(A.grade[i], B.grade[i], w); return _blend; }    // resepsiyon + koridor: sıcak galeri tonu
 ROOM_THEMES.brutal = { name: 'Garden Galeri', letters: '#4a3c2c', emis: '#0e0a06', key: '#fff3e6', fill: '#e8eef6', rim: '#fff0de', keyI: 6.2, rimI: 5.2, light: '#fff2e2', lightI: 4.6, refl: 1, exp: 1.0, halo: 0, grade: [1, 1, 1, 1, 1.04] };
 for (const c of ['key', 'fill', 'rim']) ROOM_THEMES.brutal[c + 'C'] = new THREE.Color(ROOM_THEMES.brutal[c]);
 const roomThemeOf = (k) => BRUTAL ? ROOM_THEMES.brutal : ROOM_THEMES[CARS[TOUR[k]]?.room] || ROOM_THEMES.sport;
@@ -3255,7 +3286,8 @@ function buildRooms() {
 // tüy parlaması (sheen). 14 mm kalınlık: alt yüz zeminle aynı düzlemde (havada değil, gömülü değil), üst yüz zeminden ayrı →
 // yüzey çakışması (z-fighting) yok. Aydınlatma resepsiyon zemininin pişmiş ışık haritasından (aynı gölge ve ışık havuzları).
 function buildEntranceCarpet(hub) {
-  const W = 1.9, Lz = 7.0, z0 = -2.15, T = .014;
+  // giriş ekseni x = 0 (kapı ortası); kapı rayının (z −1.76) hemen içinden başlar. 2.4 m: 3 m'lik kapı açıklığında ince şerit gibi durmaz
+  const W = 2.4, Lz = 7.0, z0 = -2.0, T = .016;
   const BAND = .07, LINE = .025;
   const PX = isMobile ? 150 : 320;                           // px / m (renk + kenar şeridi; telefonda bellek için düşük)
   const map = canvasTexture(Math.round(W * PX), Math.round(Lz * PX), (g, w, h) => {
@@ -3276,6 +3308,7 @@ function buildEntranceCarpet(hub) {
     for (let y = 0; y < h; y += 4) { g.fillStyle = 'rgba(255,255,255,.22)'; g.fillRect(0, y, w, 2); }
     for (let x = 0; x < w; x += 4) { g.fillStyle = 'rgba(0,0,0,.14)'; g.fillRect(x, 0, 1, h); }
     for (let i = 0; i < 9000; i++) { const v = Math.random() < .5 ? 0 : 255; g.fillStyle = `rgba(${v},${v},${v},.18)`; g.fillRect(Math.random() * w, Math.random() * h, 1, 1); }
+    for (let i = 0; i < 2600; i++) { const v = Math.random() < .5 ? 40 : 215, x = Math.random() * w, y = Math.random() * h; g.fillStyle = `rgba(${v},${v},${v},.22)`; g.fillRect(x, y, 1, 2 + Math.random() * 2); }   // tüy uçları (kesik hav)
   });
   weave.colorSpace = THREE.NoColorSpace; weave.wrapS = weave.wrapT = THREE.RepeatWrapping; weave.repeat.set(W / .25, Lz / .25); weave.anisotropy = 8;
   const mat = new THREE.MeshPhysicalMaterial({ map, color: '#ffffff', roughness: .93, metalness: 0, bumpMap: weave, bumpScale: .9,
@@ -3293,6 +3326,19 @@ function buildEntranceCarpet(hub) {
   const carpet = new THREE.Mesh(geo, mat); carpet.name = 'Giriş halısı';
   carpet.position.set(0, T / 2, cz); carpet.receiveShadow = true; carpet.castShadow = false;
   scene.add(carpet);
+  // kenar bitişi: halıdan 4 mm yüksek, dikişli bordür kumaşı (koyu bordo, kadife parlaklığı); halı plaka gibi değil dikilmiş kumaş gibi biter
+  const bindMat = new THREE.MeshPhysicalMaterial({ color: '#3a070d', roughness: .8, sheen: .8, sheenColor: new THREE.Color('#8a2a38'), sheenRoughness: .5, envMapIntensity: .15 });
+  if (floorMat) { bindMat.lightMap = floorMat.lightMap; bindMat.lightMapIntensity = floorMat.lightMapIntensity; bindMat.onBeforeCompile = bakedOnly; bindMat.customProgramCacheKey = () => 'mtg-carpet-bind'; }
+  const BW = .045, BT = T + .004;
+  const bind = (w, d, x, z) => { const g = new THREE.BoxGeometry(w, BT, d), p = g.attributes.position, u = new Float32Array(p.count * 2);
+    for (let i = 0; i < p.count; i++) { u[2 * i] = .5 + (p.getX(i) + x) / 33; u[2 * i + 1] = -(p.getZ(i) + z) / (HALL_D * 62.13 / 62); }
+    g.setAttribute('uv1', new THREE.BufferAttribute(u, 2)); const m = new THREE.Mesh(g, bindMat); m.position.set(x, BT / 2, z); m.receiveShadow = true; scene.add(m); };
+  for (const sx of [-1, 1]) bind(BW, Lz, sx * (W / 2 + BW / 2 - .01), cz);
+  for (const sz of [-1, 1]) bind(W + 2 * BW - .02, BW, 0, cz + sz * (Lz / 2 + BW / 2 - .01));
+  // temas gölgesi: halının altından taşan yumuşak koyu hale (halı zemine oturur, havada durmaz)
+  const sh = canvasTexture(256, 512, (g, w, h) => { g.filter = 'blur(10px)'; g.fillStyle = 'rgba(0,0,0,1)'; g.fillRect(22, 22, w - 44, h - 44); });
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(W + .34, Lz + .34), new THREE.MeshBasicMaterial({ map: sh, transparent: true, opacity: .42, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1, color: '#000' }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.set(0, .0015, cz); shadow.renderOrder = 1; scene.add(shadow);
 }
 
 // Brütalist galeri sahnesi: salon tek grup; araç modülleri yalnız konum (oda geometrisi yok). Zemin yansıma kamerası yok
