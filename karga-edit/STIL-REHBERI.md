@@ -31,3 +31,17 @@ python3 -I render_sinematik.py <varlik_klasoru>
 - `poses/karga-pozlari-v1/*.png`
 - `fonts/`: PlayfairItalic.ttf, Montserrat.ttf (Google Fonts)
 - `yt/xhb_KI1HHt4.jpg`: geçici site görüntüsü. Gerçek ekran kaydı gelince değiştirilecek.
+
+## Var olan bir videoyu yeni stile çevirme (`edit_showroom.py`)
+1. `transcribe.py`: sesi Türkçe olarak, kelime zamanlarıyla yazıya döker (faster-whisper large-v3-turbo).
+2. `classify.py`: her kareyi sınıflandırır: ekran kaydı, eski slayt, telefon paneli ya da önce/sonra.
+3. `edit_showroom.py`:
+   - Eski slaytları ve paneller yerine yeni animasyonlu sahneler koyar.
+   - Ekran kayıtlarını bantlardan kesip yüzen kart olarak yerleştirir; anlatıma göre zoom yapar.
+   - Bölüm geçişleri, metin vurguları, köşede tepki veren karga, altyazı, müzik ve efektler ekler.
+   - Render 4 çekirdekte paralel çalışır.
+
+```
+python3 -I edit_showroom.py <varlik_klasoru> stills 12.5 60   # tek kare kontrol
+python3 -I edit_showroom.py <varlik_klasoru> render 4          # tam video
+```
