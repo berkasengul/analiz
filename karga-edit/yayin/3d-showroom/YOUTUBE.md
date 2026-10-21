@@ -1,14 +1,11 @@
 # 3D Showroom videosu: YouTube yayın paketi
 
-## Başlık (önerilen)
-**Oto Galeriler İçin 3D Showroom Web Sitesi Yaptım (Proje Dosyası Hediye)**
+## Başlık (son karar)
+**Bu Showroom Bir Web Sitesi! Yapay Zekayla Adım Adım (Proje Dosyası Hediye)**
 
-Alternatifler:
-- Oyun Değil, Web Sitesi: Claude ile 3D Araba Showroom'u Nasıl Yaptım?
-- Yapay Zekayla Galerilere Satılabilir 3D Showroom Sitesi (Adım Adım)
-
-## Thumbnail
-`thumb_A_bu_bir_web_sitesi.jpg`, `thumb_B_once_sonra.jpg` ve `thumb_C_oyun_degil.jpg` dosyalarının üçünü de YouTube Studio'daki **Test et ve karşılaştır** özelliğiyle yükle; YouTube kazananı kendisi seçer. Tek bir tane seçeceksen A'yı kullan.
+## Thumbnail (son karar)
+- Ana thumbnail: `FINAL_1_laptop_galerilere_sun.jpg`
+- Test et ve karşılaştır: `FINAL_1`, `TEST_2_kapi_bu_bir_web_sitesi.jpg`, `TEST_3_sen_de_yap.jpg`
 
 ## Açıklama
 ```
