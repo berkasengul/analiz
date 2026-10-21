@@ -44,3 +44,10 @@ Bir yerde takılırsan hangi adımda olduğunu yorumlara yaz. Sıradaki videoda 
 - Dil: Türkçe; altyazı dili: Türkçe
 - Sabitlenmiş yorum: proje dosyası linki ve "Hangi sektör olsun?" sorusu
 - Bitiş ekranı: son 20 saniyeye (6:13'ten sonra) abone ol butonu ve bir önceki 3D site videosu
+
+## A/B testi: 3 thumbnail + başlık eşleşmesi
+| Test | Thumbnail | Başlık | Hangi duyguya oynuyor |
+|---|---|---|---|
+| A | FINAL_1_laptop_galerilere_sun.jpg | Bu Showroom Bir Web Sitesi! Yapay Zekayla Adım Adım (Proje Dosyası Hediye) | Merak + kazanç |
+| B | TEST_2_kapi_bu_bir_web_sitesi.jpg | Galerilere Satabileceğin 3D Showroom: Claude ile Sıfırdan (Proje Dosyası Hediye) | Şaşırma + para |
+| C | TEST_3_sen_de_yap.jpg | Kod Bilmeden 3D Web Sitesi: Oto Galeri Showroom'u Yaptım (Proje Dosyası Hediye) | "Ben de yapabilirim" |
