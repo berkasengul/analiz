@@ -51,3 +51,10 @@ Bir yerde takılırsan hangi adımda olduğunu yorumlara yaz. Sıradaki videoda 
 | A | FINAL_1_laptop_galerilere_sun.jpg | Bu Showroom Bir Web Sitesi! Yapay Zekayla Adım Adım (Proje Dosyası Hediye) | Merak + kazanç |
 | B | TEST_2_kapi_bu_bir_web_sitesi.jpg | Galerilere Satabileceğin 3D Showroom: Claude ile Sıfırdan (Proje Dosyası Hediye) | Şaşırma + para |
 | C | TEST_3_sen_de_yap.jpg | Kod Bilmeden 3D Web Sitesi: Oto Galeri Showroom'u Yaptım (Proje Dosyası Hediye) | "Ben de yapabilirim" |
+
+## A/B testi v2 (kullanıcının son 3 thumbnail'i)
+| Test | Thumbnail yazısı | Başlık |
+|---|---|---|
+| A | 3D SHOWROOM YAP, GALERİLERE SAT! (laptop) | Bu Showroom Bir Web Sitesi! Claude ile Adım Adım (Proje Dosyası Hediye) |
+| B | CLAUDE İLE 3D SHOWROOM YAP! (kapı + imleç) | Galerilerin İstediği 3D Web Sitesi: Kod Bilmeden Yap (Proje Hediye) |
+| C | CLAUDE İLE 3D SHOWROOM YAP, SAT! (showroom) | Oyun Değil, Web Sitesi! 3D Galeri Showroom'u Adım Adım (Proje Hediye) |
