@@ -58,3 +58,10 @@ Bir yerde takılırsan hangi adımda olduğunu yorumlara yaz. Sıradaki videoda 
 | A | 3D SHOWROOM YAP, GALERİLERE SAT! (laptop) | Bu Showroom Bir Web Sitesi! Claude ile Adım Adım (Proje Dosyası Hediye) |
 | B | CLAUDE İLE 3D SHOWROOM YAP! (kapı + imleç) | Galerilerin İstediği 3D Web Sitesi: Kod Bilmeden Yap (Proje Hediye) |
 | C | CLAUDE İLE 3D SHOWROOM YAP, SAT! (showroom) | Oyun Değil, Web Sitesi! 3D Galeri Showroom'u Adım Adım (Proje Hediye) |
+
+## A/B testi v3: kısa ve net başlıklar
+| Test | Thumbnail | Başlık |
+|---|---|---|
+| A | 3D SHOWROOM YAP, GALERİLERE SAT! | Bu Galeri Aslında Bir Web Sitesi! |
+| B | CLAUDE İLE 3D SHOWROOM YAP! | Galerilere Bu Siteyi Sat (Kod Bilmeden) |
+| C | CLAUDE İLE 3D SHOWROOM YAP, SAT! | Oyun Değil, Web Sitesi! Kod Bilmeden Yaptım |
