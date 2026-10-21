@@ -181,9 +181,11 @@ def word_img(txt, fnt_key, fill, glow=None, track=0):
     sh = Image.new("RGBA", im.size, (0, 0, 0, 0)); sh.putalpha(im.getchannel("A").filter(ImageFilter.GaussianBlur(10)).point(lambda v: int(v * .55)))
     base = Image.new("RGBA", im.size, (0, 0, 0, 0)); base.alpha_composite(sh, (0, 4))
     if glow:
-        for rad, mul in ((18, 1.4), (5, 1.0)):
-            gl = Image.new("RGBA", im.size, glow + (0,)); gl.putalpha(im.getchannel("A").filter(ImageFilter.GaussianBlur(rad)).point(lambda v, m=mul: min(255, int(v * m))))
-            base.alpha_composite(gl)
+        # wide soft halo + thin dark edge: glows but stays crisp
+        gl = Image.new("RGBA", im.size, glow + (0,)); gl.putalpha(im.getchannel("A").filter(ImageFilter.GaussianBlur(26)).point(lambda v: int(v * 0.6)))
+        base.alpha_composite(gl)
+        ed = Image.new("RGBA", im.size, (20, 10, 6, 0)); ed.putalpha(im.getchannel("A").filter(ImageFilter.MaxFilter(3)).point(lambda v: int(v * 0.8)))
+        base.alpha_composite(ed)
     base.alpha_composite(im)
     _TC[k] = (base, pad)
     return base, pad
@@ -751,8 +753,14 @@ def scene_gen(src, t, f, seg):
         light_leak(c, t, a - 0.3, a + 3.5, 0.3, 0.3)
         sq = spring(lt, 0.1)
         crow(c, "sevinen", 500, 1000, f, 680, 2 - sq, sq, glow=0.9)
-        title2(c, t, a + 0.2, b + 2, "görüşürüz", "KARGA ZİHNİ", 950, 360, s1=110, s2=100)
-        blur_in(c, word_img("yapay zekâyla fikirden gerçeğe", ("sans", 34, 600), (220, 216, 208))[0], 955 - 50, 640 - 50, t, a + 0.9)
+        # teacher's quote: "kuşlar seni bekliyor, uç."
+        q1, p1 = word_img("kuşlar seni bekliyor,", ("ser", 104), WHITE)
+        q2, p2 = word_img("UÇ.", ("sans", 230), ORANGE, glow=GLOW)
+        blur_in(c, q1, 900 - p1, 300 - p1, t, a + 0.3)
+        blur_in(c, q2, 895 - p2, 430 - p2, t, a + 0.9, scale0=1.35, rise=0)
+        pl = eexp(prog(t, a + 1.4, a + 1.9))
+        ImageDraw.Draw(c).rectangle((908, 718, 908 + 120 * pl, 722), fill=ORANGE + (255,))
+        blur_in(c, word_img("KARGA ZİHNİ", ("sans", 36, 700), (226, 220, 208), track=8)[0], 1045 - 50, 696 - 50, t, a + 1.6)
     return c
 
 # ============ transitions ============
@@ -973,8 +981,46 @@ def chunks(target=24.0):
     cuts.append(NFR)
     return [(i, cuts[i], cuts[i + 1]) for i in range(len(cuts) - 1)]
 
+def outro_clip(dur=6.0):
+    """Standalone outro clip to append to any video."""
+    seg = (0.0, dur + 1, "outro")
+    n = int(dur * FPS)
+    path = f"{OUT}/karga_zihni_kapanis.mp4"
+    m = int(dur * SR); st = np.arange(m) / SR
+    r = np.random.default_rng(9)
+    aud = np.zeros(m, np.float32)
+    def put(sig, t0, g):
+        i = int(t0 * SR); j = min(m, i + len(sig)); aud[i:j] += sig[: j - i] * g
+    k = int(1.2 * SR); kt = np.arange(k) / SR
+    imp = (np.sin(2 * np.pi * np.cumsum(40 + 80 * np.exp(-kt * 18)) / SR) * np.exp(-kt * 3.5)).astype(np.float32)
+    put(imp, 0.05, 0.6); put(imp, 0.9, 0.5)
+    sh = sum(np.sin(2 * np.pi * fr * st) * (0.5 + 0.5 * np.sin(2 * np.pi * (3 + i) * st)) for i, fr in enumerate((880, 1174.7, 1318.5, 1760)))
+    aud += (sh * np.exp(-st * 0.6) * np.minimum(1, st * 3) * 0.02).astype(np.float32)
+    for ch, t0 in (((220, 261.6, 329.6), 0.0), ((174.6, 220, 261.6), 2.8)):
+        seg_t = st[int(t0 * SR):] - t0
+        pad = sum(np.sin(2 * np.pi * fr * seg_t) for fr in ch) * np.minimum(1, seg_t / 0.6) * 0.03
+        aud[int(t0 * SR):] += pad.astype(np.float32)
+    aud *= np.clip((dur - st) / 1.2, 0, 1)
+    wav = f"{OUT}/kapanis.wav"
+    with wave.open(wav, "wb") as w:
+        w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
+        w.writeframes((np.repeat(np.tanh(aud)[:, None], 2, 1) * 32767).astype(np.int16).tobytes())
+    enc = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", wav,
+                            "-c:v", "libx264", "-crf", "17", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", path], stdin=subprocess.PIPE)
+    for f in range(n):
+        t = f / FPS
+        img = scene_gen(None, t, f, seg)
+        img = finish(img, f, 10.0)  # mid-timeline: no global fade
+        a = min(prog(t, 0, 0.3), 1 - prog(t, dur - 0.8, dur))
+        if a < 1: img = Image.blend(Image.new("RGB", (W, H)), img, clamp(a))
+        enc.stdin.write(img.tobytes())
+    enc.stdin.close(); enc.wait()
+    return path
+
 if __name__ == "__main__":
     mode = sys.argv[2]
+    if mode == "outro":
+        print(outro_clip()); sys.exit(0)
     if mode == "stills":
         for ts in sys.argv[3:]:
             t = float(ts); f = int(round(t * FPS))

@@ -9,7 +9,7 @@ POSE = f"{S}/poses/karga-pozlari-v1"
 FD = f"{S}/fonts"
 W, H = 2560, 1440
 SX0, SY0, SX1, SY1 = (W - 1546) // 2, (H - 423) // 2, (W + 1546) // 2, (H + 423) // 2
-ORANGE = (255, 122, 36); GOLD = (255, 190, 110); CREAM = (250, 243, 228)
+ORANGE = (255, 116, 30); GOLD = (255, 190, 110); CREAM = (250, 243, 228)
 rnd = random.Random(7)
 
 def F(name, size, wght=None):
@@ -175,8 +175,10 @@ def text_img(txt, fnt, fill, glow=None, shadow=True, track=0):
         s = Image.new("RGBA", im.size, (0, 0, 0, 0)); s.putalpha(im.getchannel("A").filter(ImageFilter.GaussianBlur(10)).point(lambda v: int(v * .7)))
         out.alpha_composite(s, (6, 12))
     if glow:
-        for rr, k in ((30, 1.2), (9, 1.0)):
-            gl = Image.new("RGBA", im.size, glow + (0,)); gl.putalpha(im.getchannel("A").filter(ImageFilter.GaussianBlur(rr)).point(lambda v, k=k: min(255, int(v * k)))); out.alpha_composite(gl)
+        # soft, wide, low halo only: keeps letter edges crisp
+        gl = Image.new("RGBA", im.size, glow + (0,)); gl.putalpha(im.getchannel("A").filter(ImageFilter.GaussianBlur(40)).point(lambda v: int(v * 0.55))); out.alpha_composite(gl)
+        # thin dark edge so the letters separate from the halo
+        edge = Image.new("RGBA", im.size, (20, 10, 6, 0)); edge.putalpha(im.getchannel("A").filter(ImageFilter.MaxFilter(5)).point(lambda v: int(v * 0.85))); out.alpha_composite(edge)
     out.alpha_composite(im)
     return out, pad, r - l + extra
 
