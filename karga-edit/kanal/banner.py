@@ -194,8 +194,14 @@ ty = SY0 + 22
 c.alpha_composite(k1, (TX - p1, ty - p1 + 10))
 c.alpha_composite(k2, (TX + w1 + 36 - p2, ty - p2 + 10))
 total_w = w1 + 40 + w2
-tag, pt, wt = text_img("yapay zekâyla fikirden gerçeğe", F("PlayfairItalic.ttf", 70, 500), CREAM)
-c.alpha_composite(tag, (TX + 6 - pt, ty + 205 - pt))
+fT = F("PlayfairItalic.ttf", 74, 500)
+tag, pt, wt = text_img("kuşlar seni bekliyor,", fT, CREAM)
+c.alpha_composite(tag, (TX + 6 - pt, ty + 202 - pt))
+fT2 = F("PlayfairItalic.ttf", 74, 700)
+tg2, pt2, wt2 = text_img("uç.", fT2, ORANGE, glow=(255, 100, 20))
+dy = fT2.getbbox("uç.")[1] - fT.getbbox("kuşlar seni bekliyor,")[1]
+c.alpha_composite(tg2, (TX + 6 + wt + 22 - pt2, ty + 202 + dy - pt2))
+print("tagline ends at", TX + 6 + wt + 24 + wt2, "safe edge", SX1)
 # accent line
 ImageDraw.Draw(c).rounded_rectangle((TX + 8, ty + 312, TX + 140, ty + 318), 3, fill=ORANGE + (255,))
 cs = 30
