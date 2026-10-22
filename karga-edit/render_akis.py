@@ -367,8 +367,7 @@ def scene_open(c, t):
     line(c, t, [("Ama", "b", 4.62), ("burası", "b", 4.94), ("biraz", "i", 6.58), ("farklı.", "i", 6.86)], W / 2, H / 2 + 34, 104, t1=7.2)
 
 for _t in (0.05, 1.24): sfx(_t, "pop", .5)
-sfx(5.3, "cards", .6); sfx(6.55, "focus", .5)
-
+sfx(5.3, "cards", .6); 
 # ---- 7.6–21.7  tarayıcı → ekran kaydı
 URL = "gardenmotor.netlify.app"
 def scene_browser(c, t, cam):
@@ -410,9 +409,7 @@ def scene_browser(c, t, cam):
             with fx(c, st2, 0, 150, (-200, 110, 200, 190)):
                 text(c, "3D Showroom", 0, 166, "b", 30, INK, align="center")
 
-sfx(7.62, "whoosh", .35)
 for i in range(len(URL)): sfx(7.9 + i * (0.95 / len(URL)), "type", .22)
-sfx(10.05, "whoosh", .3); sfx(20.85, "whoosh", .45)
 
 # ---- 10.6–20.8  ekran kaydı üstünde bilgi hapları (ekran uzayında)
 PILLS = [(12.04, 13.4, "door", "Kapıdan içeri gir"), (13.62, 16.7, "orbit", "Aracın etrafında dolaş"), (17.04, 20.5, "info", "Bilgileri aç, incele")]
@@ -562,7 +559,6 @@ def focus_amount(t):
 def overlay_text(c, t):
     line(c, t, [("Nasıl", "b", 25.00), ("yaptığımı", "b", 25.22), ("paylaşıyorum.", "i", 26.08)], W / 2, H / 2 + 30, 100, t1=26.75)
     line(c, t, [("Sıfırdan", "b", 32.08), ("başlamana", "b", 32.50), ("gerek", "i", 33.14), ("yok.", "i", 33.36)], W / 2, H / 2 + 30, 104, t1=33.72)
-sfx(24.7, "focus", .5); sfx(31.45, "focus", .5)
 
 # ---- 34.3–36.6  zip dosyası yorumlara
 def scene_zip(c, t):
@@ -604,7 +600,7 @@ def scene_zip(c, t):
                 icon(c, "zip", x + 90, y + 78, 84, ORANGE, sw=1.6)
                 text(c, ".zip", x + 90, y + 152, "b", 24, INK, align="center")
     line(c, t, [("Proje", "b", 34.52), ("dosyası", "b", 34.84), ("yorumlarda.", "i", 35.38)], ox, oy - 250, 74, t1=36.45)
-sfx(34.52, "pop", .5); sfx(35.38, "msg", .5); sfx(35.82, "whoosh", .25); sfx(36.0, "ding", .45)
+sfx(34.52, "pop", .5); sfx(35.38, "msg", .5); sfx(36.0, "ding", .45)
 
 # ---- 36.6–43.4  zaman çizelgesi: bu videoda
 STEPS = [("pencil", "Galeri adını değiştir", 37.80), ("car", "Yeni araç ekle", 39.48), ("link", "Bağlantıyla paylaş", 41.54)]
@@ -646,7 +642,6 @@ def dip(t):
 def scene_chapter(c, t):
     if t < 43.8 or t > 46.6: return
     line(c, t, [("Bölüm", "b", 43.95), ("1:", "b", 44.10), ("Showroom", "i", 44.70), ("turu", "i", 44.98)], W / 2, H / 2 + 34, 104, t1=46.0)
-sfx(43.2, "riser", .5); sfx(43.95, "thump", .7)
 
 # ---- 46.2–53.6  kapanış: kanal sayfası + abone ol hapı
 def channel_page(c, t, a):
@@ -735,9 +730,7 @@ def scene_quote(c, t):
     if t < 51.0: return
     line(c, t, [("kuşlar", "b", 51.15), ("seni", "b", 51.35), ("bekliyor,", "b", 51.55), ("uç.", "i", 52.05)], W / 2, H / 2 + 30, 96,
          color="#F3EFE7", acc=ORANGE)
-sfx(46.05, "whoosh", .45); sfx(46.6, "pop", .7); sfx(47.0, "whoosh", .2)
-sfx(48.30, "click", .8); sfx(48.32, "ding", .3); sfx(49.0, "click", .8); sfx(49.05, "ding", .45); sfx(49.72, "click", .8); sfx(49.75, "bell", .5)
-sfx(50.55, "whoosh", .25); sfx(51.15, "thump", .5)
+sfx(46.6, "pop", .7); sfx(48.30, "click", .8); sfx(48.32, "ding", .3); sfx(49.0, "click", .8); sfx(49.05, "ding", .45); sfx(49.72, "click", .8); sfx(49.75, "bell", .5)
 
 # ================= kare birleştirici =================
 GRAIN = None
@@ -791,7 +784,7 @@ class Renderer:
 
 # ================= ses =================
 SR = 48000
-def build_audio(path):
+def build_audio(path, music=True):
     n = int(DUR * SR) + SR
     wf = wave.open(f"{A}/src/audio48.wav")
     ch = wf.getnchannels()
@@ -832,7 +825,7 @@ def build_audio(path):
     duck = 1 - .6 * np.clip(env / .025, 0, 1)
     tt = np.arange(n) / SR
     mus *= .9 * duck * np.minimum(1, tt / 1.5) * np.clip((DUR - tt) / 1.2, 0, 1) * (1 + .5 * (tt > 46.0))
-    L += mus; R += mus
+    if music: L += mus; R += mus
     # efektler
     def lp(m, a):
         x = r.normal(0, 1, m).astype(np.float32); y = np.empty_like(x); acc = 0.0
@@ -918,11 +911,14 @@ if __name__ == "__main__":
         with Pool(nproc) as pool:
             parts = pool.map(render_chunk, jobs, chunksize=1)
         wav = build_audio(f"{OUT}/akis_ses.wav")
+        wav2 = build_audio(f"{OUT}/akis_ses_muziksiz.wav", music=False)
         lst = f"{OUT}/akis_list.txt"
         open(lst, "w").write("".join(f"file '{p}'\n" for p in parts))
         final = f"{OUT}/Karga_Zihni_Akis_Stili_Demo.mp4"
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", lst, "-i", wav, "-map", "0:v", "-map", "1:a",
                         "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", final], check=True)
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", lst, "-i", wav2, "-map", "0:v", "-map", "1:a",
+                        "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", final.replace(".mp4", "_muziksiz.mp4")], check=True)
         print(final)
     elif MODE == "audio":
         print(build_audio(f"{OUT}/akis_ses.wav"))

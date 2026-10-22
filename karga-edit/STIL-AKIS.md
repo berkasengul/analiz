@@ -64,8 +64,8 @@ Fark olarak eklenenler (referansta yok, bizim kanal için gerekli):
 4. Aynı anda yalnızca **bir şey** hareket etmeli. Kamera hareket ediyorsa öğeler sabit durmalı.
 5. Süreler: görünme 0,45–0,55 sn, kaybolma 0,3 sn, kamera kayması 0,6–0,9 sn, karartma 0,9 sn.
 6. Ekran kaydı her zaman bir çerçevenin (tarayıcı, laptop) içinde durmalı ve dünyada bir yeri olmalı.
-7. Ses: düğüm başına yumuşak "pop", kamera kaymasında hafif whoosh, odak geçişinde düşük "fsss", tıklamada click.
-   Müzik konuşmanın altında %60 kısılmalı.
+7. Ses: düğüm başına yumuşak "pop", tıklamada click, adım tamamlanınca kısa zil.
+   Müzik konuşmanın altında %60 kısılmalı. Whoosh, darbe (boom) ve riser gibi gürültü tabanlı efektler kullanılmaz: patlama gibi duyuluyor.
 
 ## 4. Motor (`render_akis.py`)
 
