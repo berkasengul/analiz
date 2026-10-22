@@ -17,3 +17,8 @@ Eski sinematik/koyu stil (`karga-edit/STIL-REHBERI.md`, `edit_showroom.py`) yaln
 - Yalnızca kısık ve kısa efektler: pop, tık, kısa zil, tuş sesi.
 - En yüksek ses her zaman anlatım olur. Müzik konuşmanın altında kısılır.
 - Her teslimde iki sürüm verilir: hafif müzikli ve müziksiz.
+
+## Thumbnail: varsayılan stil "Net"
+Bütün thumbnail'ler `karga-edit/THUMBNAIL-REHBERI.md` kurallarıyla, `karga-edit/thumbnail_net.py` şablonundan üretilir:
+beyaz zemin, 2–3 kelime (siyah satır + turuncu kutuda beyaz satır, Anton), sağda tek temiz nesne, çıkartma gibi karga.
+Koyu, kalabalık, çok yazılı thumbnail yapılmaz. Her yeni video için 3 A/B varyantı ve başlık eşleşmesi verilir.

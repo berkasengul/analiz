@@ -72,3 +72,10 @@ Bir yerde takılırsan hangi adımda olduğunu yorumlara yaz. Sıradaki videoda 
 | A | 3D SHOWROOM YAP, GALERİLERE SAT! | Oto Galeriler İçin 3D Web Sitesi: İçinde Gerçekten Geziliyor! |
 | B | CLAUDE İLE 3D SHOWROOM YAP! | Claude'a 3D Galeri Sitesi Yaptırdım, Sonuç Gerçek Showroom Gibi |
 | C | CLAUDE İLE 3D SHOWROOM YAP, SAT! | Galerilere Satabileceğin 3D Site: Hiç Kod Yazmadan Nasıl Yaptım? |
+
+## A/B testi v5: "Net" stil (güncel)
+| Test | Thumbnail | Başlık |
+|---|---|---|
+| A | NET_A_bu_bir_web_sitesi.jpg: BU BİR / WEB SİTESİ! | Oto Galeriler İçin 3D Web Sitesi: İçinde Gerçekten Geziliyor! |
+| B | NET_B_galeriler_bunu_istiyor.jpg: GALERİLER / BUNU İSTİYOR! | Galerilere Satabileceğin 3D Site: Hiç Kod Yazmadan Nasıl Yaptım? |
+| C | NET_C_oyun_degil.jpg: OYUN / DEĞİL! | Claude'a 3D Galeri Sitesi Yaptırdım, Sonuç Gerçek Showroom Gibi |
