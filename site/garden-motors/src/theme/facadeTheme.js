@@ -25,6 +25,22 @@ export const FACADE_THEME = {
     halo: .25,              // harf arkası hale opaklığı
     iconScale: .62,         // logo simgesinin yazıya göre ölçeği
   },
+  // mimari derinlik (m). z: sokağa doğru +. Katmanlar önden arkaya: çatı plağı → kolonlar → üst kat bandı → doğrama → cam → giriş.
+  depth: {
+    glass: .20,            // vitrin camı düzlemi (Blender cephesi)
+    column: .25,           // kolon ön yüzü camın bu kadar önünde (= cephe hattı)
+    mullion: .05,          // doğrama profili camın önüne bu kadar çıkar
+    band: .15,             // üst kat bandı alt kat camının bu kadar önünde (kolonların gerisinde kalır)
+    bandShadow: .045,      // bandın alt kenarındaki gölge derzi yüksekliği
+    portalRecess: .80,     // giriş camı yan vitrin camına göre bu kadar içeride
+    roofOverhang: 1.5,     // çatı plağı cephe hattından bu kadar öne çıkar
+    roofThick: .50,        // çatı plağı kalınlığı
+    roofBottom: 8.48,      // çatı plağı alt kotu
+    parapet: .60,          // parapet yüksekliği (plak üstünden)
+    sideReturn: 3.6,       // bina uçlarında yan cephenin görünen derinliği
+    neighbourWall: 26,     // komşu parsele uzanan koyu duvar / çit uzunluğu
+    shadowMap: 2048, shadowNormalBias: .04, shadowBias: -.0002, keyLight: 1.3,
+  },
   bloom: { threshold: .9, strength: .16, radius: .12 },
   sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22 },
   city: { color: '#1c2335', windows: .14, distance: 170, height: 72 },

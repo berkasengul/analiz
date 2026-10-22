@@ -1151,7 +1151,7 @@ function buildFacadeGLB() {
       rod(1.2, .016, pull, hx, 1.15, z * .07, 0, 0, d);
       for (const y of [.65, 1.65]) rod(.06, .009, pull, hx, y, z * .045, 0, Math.PI / 2, d);   // tutturma ayakları
     }
-    d.position.set(side * W / 2, 0, -1.76); d.userData = { side, x0: 0, closed: W / 2, travel: 1.5 }; scene.add(d); doors.push(d);
+    d.position.set(side * W / 2, 0, -1.76 + FAC_ENTRY_DZ); d.userData = { side, x0: 0, closed: W / 2, travel: 1.5 }; scene.add(d); doors.push(d);
   }
   facadeGlass.userData.entry = entryGlass; entryGlass.userData.glassK = .84;   // giriş camı vitrinden az yansıtır
   applyExteriorPBR(f);
@@ -1396,7 +1396,7 @@ function facPlateGrid(g, x0, x1, y0, y1, z, { pw0 = .6, ph0 = 1.2, gap = .004, d
   const pw = (W - gap * (nx - 1)) / nx, ph = (H - gap * (ny - 1)) / ny, tm = TH.palette.structure.textureMeters;
   const back = new THREE.Mesh(new THREE.BoxGeometry(W, H, .006), M.joint); back.position.set((x0 + x1) / 2, (y0 + y1) / 2, z + .003); g.add(back);
   for (let i = 0; i < nx; i++) for (let j = 0; j < ny; j++) {
-    const p = new THREE.Mesh(facUV(new RoundedBoxGeometry(pw, ph, d, 2, .003), pw, ph, tm), M.structure);
+    const p = new THREE.Mesh(facUV(new RoundedBoxGeometry(pw, ph, d, 2, .005), pw, ph, tm), M.structure);
     p.position.set(x0 + pw / 2 + i * (pw + gap), y0 + ph / 2 + j * (ph + gap), z + .006 + d / 2); p.receiveShadow = true; p.name = 'GM_Plate'; g.add(p);
   }
 }
@@ -1466,19 +1466,151 @@ function facHaloTexture(shapes, bb, px = 1024) {
   o.filter = `blur(${Math.round(px / 110)}px)`; o.drawImage(c, 0, 0);
   const t = new THREE.CanvasTexture(out); t.colorSpace = THREE.SRGBColorSpace; return { tex: t, W, H };
 }
+// ---------- Cephe derinliği: katmanlar, çatı plağı, parapet, bina uçları, gölge ----------
+const FD = TH.depth;
+const FAC_COL_F = FD.glass + FD.column;                 // cephe hattı: kolon ön yüzü (.45)
+const FAC_BAND_F = FD.glass + FD.band;                  // üst kat bandı ön yüzü (.35)
+const FAC_ROOF_F = FAC_COL_F + FD.roofOverhang;         // çatı plağı ön yüzü (1.95)
+const FAC_ROOF_TOP = FD.roofBottom + FD.roofThick;      // 8.98
+const FAC_ENTRY_DZ = (FD.glass - FD.portalRecess) - (-1.60);   // Blender'daki giriş camı z −1.60 → yan camın .80 gerisi
+// Blender ağının köşe noktalarını dünya koordinatında düzenler (pişmiş ışık haritası UV'leri korunur)
+function facEditVerts(o, fn) {
+  const pos = o.geometry?.attributes?.position; if (!pos) return;
+  o.updateWorldMatrix(true, false);
+  const M = o.matrixWorld, inv = M.clone().invert(), v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i).applyMatrix4(M); if (fn(v) !== false) { v.applyMatrix4(inv); pos.setXYZ(i, v.x, v.y, v.z); } }
+  pos.needsUpdate = true; o.geometry.computeBoundingBox(); o.geometry.computeBoundingSphere();
+}
+// pahlı panel (RoundedBox, 5 mm) — gerçek ölçekli UV
+const facBox = (w, h, d, mat, uvW = w, uvH = h) => new THREE.Mesh(facUV(new RoundedBoxGeometry(w, h, d, 2, .005), uvW, uvH, TH.palette.structure.textureMeters), mat);
+function facadeDepth(f, g) {
+  const M = facadeMats(), mats = [], matte = M.variant('structure', { matte: true });
+  const sideMat = matte.clone(); sideMat.name = 'GM_SideStructure';   // yan dönüş + parapet: HDRI gök yansıması almaz (bkz. yan duvarlar)
+  const copingMat = M.metal.clone(); copingMat.name = 'GM_CopingMetal'; copingMat.roughness = .55; copingMat.envMapIntensity = .18; mats.push(copingMat);
+  const byName = (re) => { const out = []; f.traverse((o) => { if (re.test(o.name)) out.push(o); }); return out; };
+  const hide = (re) => byName(re).forEach((o) => { o.visible = false; });
+  // 1) Blender kütlesi: bant cephe hattının gerisine (bant .35), kolon yüzleri kaplamanın arkasına, çıkıntılı giriş çerçevesi düz
+  for (const o of byName(/^Cube(_1)?$/)) if (o.isMesh) facEditVerts(o, (v) => {
+    const inBand = v.y > 4.4 && v.y < 5.6;
+    if (inBand && v.z > .3) v.z = FAC_BAND_F - .05;
+    else if (!inBand && v.z > FAC_COL_F - .04 && v.z < FAC_COL_F + .02) v.z = FAC_COL_F - .03;
+    else return false;
+    if (inBand && Math.abs(v.x) > 16.85) v.x = Math.sign(v.x) * 16.85;
+  });
+  for (const o of byName(/^Cube_2$/)) if (o.isMesh) facEditVerts(o, (v) => { if (v.z > FAC_COL_F - .03) v.z = FAC_COL_F - .03; else return false; });
+  // yan duvarlar: gece HDRI'sinin gök yansıması (düşük şiddette bile) duvarları lavantaya boyuyor → yan cephe malzemeleri
+  // HDRI almayan kendi kopyalarını kullanır (pişmiş ışık haritası aynen kalır). Çatı üstü: koyu membran.
+  const noSky = (re) => byName(re).forEach((o) => { if (!o.isMesh) return; o.material = [].concat(o.material).map((m) => { if (!m?.lightMap) return m;
+    const c = m.clone(); c.onBeforeCompile = m.onBeforeCompile; c.customProgramCacheKey = m.customProgramCacheKey; return c; })[0]; });
+  noSky(/^Cube_[345]$/);
+  { const roofM = new THREE.MeshStandardMaterial({ name: 'GM_RoofMembrane', color: '#1c1d20', roughness: .92, metalness: 0, envMapIntensity: .04 }); mats.push(roofM);   // çatı üstü: koyu gri membran
+    byName(/^MTG_Roof$/).forEach((o) => { if (o.isMesh) o.material = roofM; }); }
+  hide(/^MTG_(BandSoffit|BandSpot\d+|LED_Band(Low|Top)|PortFrame(1|-1|T)|LED_RoofEdge|SideCoping-?1)$/);
+  // giriş: cam duvar, doğramalar, ray ve eşik yan vitrinin .80 gerisine (tavan ahşabı ve yan dönüşler zaten cephe hattına kadar)
+  for (const o of byName(/^MTG_(FixFrame-?1_[BMT]\d?|Glass_(Fixed-?1|Transom)|TransomBar|TransomTop|Jamb-?1|DoorRail|FloorTrack|Threshold|EntryHeader)$/)) o.position.z += FAC_ENTRY_DZ;
+  // doğrama: camın 5 cm önüne çıkan profil (Blender'da 6 cm)
+  for (const o of byName(/^MTG_(Vit|Up)Frame-?[LRC1]?_?(-?1_)?[BMT]\d?$/)) { o.updateWorldMatrix(true, false); const b = new THREE.Box3().setFromObject(o); o.position.z += (FD.glass + FD.mullion) - b.max.z; o.castShadow = true; }
+  // 2) çatı plağı: 1.5 m saçak, 50 cm kalınlık; altı ahşap (pişmiş tavan uzatılır), spotlar yeni alt kota
+  for (const o of byName(/^MTG_RoofSlab$/)) { facEditVerts(o, (v) => { if (v.z > 1.6) v.z = FAC_ROOF_F; if (v.y > 8.7) v.y = FAC_ROOF_TOP; }); o.castShadow = true; o.receiveShadow = true; }
+  for (const o of byName(/^MTG_RoofSoffit$/)) facEditVerts(o, (v) => { v.y = FD.roofBottom - .004; if (v.z > 1.5) v.z = FAC_ROOF_F - .02; });
+  for (const o of byName(/^MTG_RoofSpot\d+$/)) facEditVerts(o, (v) => { v.y = FD.roofBottom - .006; v.z += .3; });
+  // alın: yatay paneller + alt / üst metal profil; altında 3000 K LED çizgisi
+  facPanelRow(g, -17.30, 17.30, FD.roofBottom, FAC_ROOF_TOP, FAC_ROOF_F - .042);
+  // parapet (60 cm, alından 3 cm geri) + metal harpuşta
+  const pTop = FAC_ROOF_TOP + FD.parapet, pz = FAC_ROOF_F - .03;
+  facPanelRow(g, -17.30, 17.30, FAC_ROOF_TOP + .004, pTop, pz - .042, { top: false, bottom: false });
+  const body = (w, h, d, x, y, z) => { const m = facBox(w, h, d, sideMat, Math.max(w, d), h); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; };
+  const coping = (w, d, x, z, y = pTop) => { const m = new THREE.Mesh(new RoundedBoxGeometry(w, .05, d, 2, .005), copingMat); m.position.set(x, y + .025, z); m.castShadow = true; m.name = 'GM_Coping'; g.add(m); };
+  body(34.6, FD.parapet, .25, 0, FAC_ROOF_TOP + FD.parapet / 2, pz - .042 - .125);
+  coping(34.66, .34, 0, FAC_ROOF_F - .14);
+  for (const sd of [-1, 1]) {
+    // yan parapet: plak üstünde (z −3.7 → ön), sonra yan duvarın üstünden arkaya
+    const zA0 = -3.7, zA1 = pz - .3, la = zA1 - zA0;
+    body(.25, FD.parapet, la, sd * 17.175, FAC_ROOF_TOP + FD.parapet / 2, (zA0 + zA1) / 2); coping(.31, la, sd * 17.175, (zA0 + zA1) / 2);
+    const hB = pTop - 8.8;
+    body(.75, hB, .25, sd * 16.925, 8.8 + hB / 2, zA0 - .125);
+    body(.25, hB, 58.3, sd * 16.675, 8.8 + hB / 2, zA0 - .25 - 29.15); coping(.31, 58.3, sd * 16.675, zA0 - .25 - 29.15);
+  }
+  // 3) bina uçları: yan cephe 3.6 m görünür derinlikte, structure panel + dar cam yarıkları; komşu parsele koyu duvar + çit
+  const slitMat = new THREE.MeshStandardMaterial({ name: 'GM_SlitGlass', color: '#0b0c0e', metalness: .3, roughness: .12, emissive: M.lightColor.clone(), emissiveIntensity: .06 });
+  mats.push(slitMat);
+  const yTop = FD.roofBottom, slits = [-.8, -1.6, -2.4], SW = .16;
+  for (const sd of [-1, 1]) {
+    const side = new THREE.Group(); side.name = 'GM_SideReturn'; side.position.set(sd * 16.82, 0, 0); side.rotation.y = sd * Math.PI / 2; g.add(side);
+    const U = (z) => (sd > 0 ? -z : z);                  // dünya z → yerel x
+    const zs = [FAC_COL_F, ...slits.flatMap((z) => [z + SW / 2, z - SW / 2]), FAC_COL_F - FD.sideReturn];
+    const back = new THREE.Mesh(new THREE.BoxGeometry(FD.sideReturn, yTop, .012), M.joint); back.position.set((U(zs[0]) + U(zs.at(-1))) / 2, yTop / 2, .006); side.add(back);
+    for (let k = 0; k < zs.length - 1; k += 2) {        // dolu şeritler: ~1.2 m yüksek paneller
+      const a = U(zs[k]), b = U(zs[k + 1]), w = Math.abs(b - a) - .01, n = 7, ph = (yTop - .01 * (n - 1)) / n;
+      for (let r = 0; r < n; r++) { const p = facBox(w, ph, .03, sideMat); p.position.set((a + b) / 2, ph / 2 + r * (ph + .01), .027); p.receiveShadow = true; p.castShadow = true; side.add(p); }
+    }
+    for (const z of slits) {                             // yarık: alt ve üst katta cam, araları panel
+      const u = U(z);
+      for (const [y0, y1, glass] of [[0, .6, 0], [.6, 4.0, 1], [4.0, 6.0, 0], [6.0, 8.0, 1], [8.0, yTop, 0]]) {
+        const h = y1 - y0 - .01;
+        const m = glass ? new THREE.Mesh(new THREE.BoxGeometry(SW - .02, h, .012), slitMat) : facBox(SW - .01, h, .03, sideMat);
+        m.position.set(u, (y0 + y1) / 2, glass ? .002 : .027); m.castShadow = !glass; side.add(m);
+        if (glass) for (const dx of [-1, 1]) { const fr = new THREE.Mesh(new THREE.BoxGeometry(.012, h, .04), M.metal); fr.position.set(u + dx * (SW / 2 - .006), (y0 + y1) / 2, .02); side.add(fr); }
+      }
+    }
+    // komşu parsel geçişi: 1.3 m koyu beton duvar + 1.2 m dikey çıta çit (düşük detay)
+    const wallMat = mats[mats.push(new THREE.MeshStandardMaterial({ name: 'GM_NeighbourWall', color: '#1a1b1d', roughness: .95, metalness: 0 })) - 1];
+    const L = FD.neighbourWall, x0 = sd * 16.86, xc = x0 + sd * L / 2, zc = FAC_COL_F - FD.sideReturn - .15;
+    const wall = new THREE.Mesh(new RoundedBoxGeometry(L, 1.3, .3, 2, .005), wallMat); wall.position.set(xc, .65, zc); wall.castShadow = wall.receiveShadow = true; g.add(wall);
+    const fence = mats[mats.push(new THREE.MeshStandardMaterial({ name: 'GM_Fence', color: '#101113', roughness: .7, metalness: .2 })) - 1];
+    const cap = new THREE.Mesh(new RoundedBoxGeometry(L, .04, .34, 2, .005), fence); cap.position.set(xc, 1.32, zc); g.add(cap);
+    const n = Math.floor(L / .11), slat = new THREE.InstancedMesh(new THREE.BoxGeometry(.045, 1.15, .03), fence, n), mm = new THREE.Matrix4();
+    for (let i = 0; i < n; i++) slat.setMatrixAt(i, mm.makeTranslation(x0 + sd * (.08 + i * .11), 1.34 + .575, zc));
+    slat.instanceMatrix.needsUpdate = true; slat.name = 'GM_NeighbourFence'; g.add(slat);
+    for (const y of [1.42, 2.42]) { const rail = new THREE.Mesh(new THREE.BoxGeometry(L, .04, .05), fence); rail.position.set(xc, y, zc - .03); g.add(rail); }
+  }
+  // çatıda sönük mekanik ekipman silüetleri (parapetin gerisinde, yalnız uzaktan seçilir)
+  const mech = mats[mats.push(new THREE.MeshStandardMaterial({ name: 'GM_RoofMech', color: '#141518', roughness: .75, metalness: .3 })) - 1];
+  const fan = mats[mats.push(new THREE.MeshStandardMaterial({ name: 'GM_RoofFan', color: '#0c0d0f', roughness: .6, metalness: .4 })) - 1];
+  for (const [x, z, w, h, d, fans] of [[-7.6, -10.5, 2.6, 1.35, 1.5, 2], [8.4, -15, 1.9, 1.05, 1.25, 1]]) {
+    const u = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 2, .02), mech); u.position.set(x, 8.8 + h / 2, z); g.add(u);
+    for (let i = 0; i < fans; i++) { const c = new THREE.Mesh(new THREE.CylinderGeometry(.42, .42, .08, 24), fan); c.position.set(x - w / 2 + w * (i + .5) / fans, 8.8 + h + .04, z); g.add(c); }
+  }
+  { const duct = new THREE.Mesh(new THREE.BoxGeometry(.45, .45, 4.2), mech); duct.position.set(-7.6, 9.05, -10.5 + .75 + 2.1); g.add(duct); }
+  // 4) cam köşelerinde koyu silikon derz: her doğrama profilinin cama değdiği kenar boyunca 5 mm çizgi
+  const sil = new THREE.MeshStandardMaterial({ name: 'GM_Silicone', color: '#040405', roughness: .55 }); mats.push(sil);
+  const strips = [], bb = new THREE.Box3();
+  for (const o of byName(/^MTG_(Vit|Up)Frame/)) {
+    if (!o.isMesh) continue; bb.setFromObject(o); const w = bb.max.x - bb.min.x, h = bb.max.y - bb.min.y, cx = (bb.min.x + bb.max.x) / 2, cy = (bb.min.y + bb.max.y) / 2;
+    if (h > w) for (const x of [bb.min.x - .0025, bb.max.x + .0025]) strips.push([x, cy, .005, h]);
+    else for (const y of [bb.min.y - .0025, bb.max.y + .0025]) strips.push([cx, y, w, .005]);
+  }
+  const sm = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), sil, strips.length), q = new THREE.Matrix4();
+  strips.forEach(([x, y, w, h], i) => sm.setMatrixAt(i, q.compose(new THREE.Vector3(x, y, FD.glass + .014), new THREE.Quaternion(), new THREE.Vector3(w, h, .006))));
+  sm.instanceMatrix.needsUpdate = true; sm.name = 'GM_SiliconeJoints'; g.add(sm);
+  // 5) gölge: önden-soldan yüksek bir sokak ışığı yıkaması; saçak, bant ve kolon gölgeleri net (PCF soft, 2048)
+  const key = new THREE.SpotLight(M.lightColor, FD.keyLight, 54, .62, .35, 0);
+  key.name = 'GM_FacadeKey'; key.position.set(-15, 21, 25); key.target.position.set(0, 4.6, .4); scene.add(key, key.target);
+  if (!isMobile) {   // statik gölge: yalnız gerektiğinde yeniden çizilir, akıcı modda da açık
+    key.castShadow = true; key.shadow.mapSize.set(FD.shadowMap, FD.shadowMap);
+    key.shadow.bias = FD.shadowBias; key.shadow.normalBias = FD.shadowNormalBias; key.shadow.camera.near = 12; key.shadow.camera.far = 58;
+  }
+  FAC_KEY = key;
+  for (const m of mats) { m.envMapIntensity = Math.min(m.envMapIntensity ?? 1, .3); if (EXT_ENV && m !== copingMat) m.envMap = EXT_ENV; }
+  renderer.shadowMap.needsUpdate = true;
+}
+let FAC_KEY = null;
 function buildFacadeCladding(f) {
   if (window.__facadeOff) return null;
   const M = facadeMats(), S = TH.sign, g = new THREE.Group(); g.name = 'Cephe kaplaması'; scene.add(g);
   const hide = (re) => f.traverse((o) => { if (re.test(o.name)) o.visible = false; });
+  facadeDepth(f, g);
   // kat bandı (tabelanın iki yanı) + çatı alnı: structure paneller, derzler, metal profiller; çatı alnı altında 3000 K LED
-  facPanelRow(g, -17.09, -5.84, 4.40, 5.60, 1.20);
-  facPanelRow(g, 5.84, 17.09, 4.40, 5.60, 1.20);
+  // üst kat bandı: kolonların 10 cm gerisinde, alt kenarında koyu gölge derzi (bant camdan 15 cm önde)
+  const bs = FD.bandShadow;
+  facPanelRow(g, -16.85, -5.84, 4.40 + bs, 5.60, FAC_BAND_F - .042, { bottom: false });
+  facPanelRow(g, 5.84, 16.85, 4.40 + bs, 5.60, FAC_BAND_F - .042, { bottom: false });
+  { const sh = new THREE.Mesh(new THREE.BoxGeometry(33.7, bs, FAC_BAND_F - FD.glass - .07), M.joint); sh.position.set(0, 4.40 + bs / 2, (FAC_BAND_F - .07 + FD.glass) / 2); sh.name = 'GM_BandShadowLine'; g.add(sh); }
   hide(/^MTG_FacBandJoint/);
-  facPanelRow(g, -17.30, 17.30, 8.50, 8.80, 1.65, { top: false });
-  const led = new THREE.Mesh(new THREE.BoxGeometry(34.5, .012, .02), M.led); led.position.set(0, 8.492, 1.60); led.name = 'GM_LED'; g.add(led);
+  const led = new THREE.Mesh(new THREE.BoxGeometry(34.5, .012, .02), M.led); led.position.set(0, FD.roofBottom - .008, FAC_ROOF_F - .06); led.name = 'GM_LED'; g.add(led);
   // tabela: mat structure zemin, 2 cm metal çerçeve, 3B kutu harf (4 cm, pahsız), hafif hale
   hide(/^MTG_(SignPanel|SignFrame[BLRT]|FacBrand(_Halo)?)$/); hide(/^GM_Logo$/);
-  const SX = 11.6, SY = 1.36, SZ = .12, scy = 5.0, sz0 = 1.20, SF = sz0 + SZ, tm = TH.palette.structure.textureMeters;
+  const SX = 11.6, SY = 1.36, SZ = .12, scy = 5.0, sz0 = FAC_BAND_F, SF = sz0 + SZ, tm = TH.palette.structure.textureMeters;
   const panel = new THREE.Mesh(facUV(new RoundedBoxGeometry(SX, SY, SZ, 2, .006), SX, SY, tm, false), M.structure);
   panel.position.set(0, scy, sz0 + SZ / 2); panel.name = 'GM_SignPanel'; g.add(panel);
   const fr = .02, fd = SZ + .02;
@@ -1499,15 +1631,20 @@ function buildFacadeCladding(f) {
   const hp = new THREE.Mesh(new THREE.PlaneGeometry(halo.W * sc, halo.H * sc), haloMat);
   hp.position.set(logo.position.x + (bb.min.x + bb.max.x) / 2 * sc, scy, SF + .003); hp.name = 'GM_SignHalo'; g.add(hp);
   M.halo = haloMat;
-  // bütün kolonlar: structure plakalar (alt kat ön z .45, üst kat .35, kapı kasası .80)
+  // bütün kolonlar: cephe hattında (camın 25 cm önü), zeminden çatı plağına kesintisiz; bant kolonların gerisinde kalır.
+  // Giriş kasası artık öne çıkmaz: kolonla aynı hatta, giriş boşluğu bunun 80 cm gerisinde.
+  const cz = FAC_COL_F - .026;
   for (const sd of [-1, 1]) {
     const R = (a, b) => (sd < 0 ? [-b, -a] : [a, b]);
-    facPlateGrid(g, ...R(15.9, 16.8), 0, 4.40, .45);
-    facPlateGrid(g, ...R(4.62, 5.0), 0, 4.40, .45);
-    facPlateGrid(g, ...R(15.9, 16.66), 5.60, 8.50, .35);
-    facPlateGrid(g, ...R(4.10, 5.0), 5.60, 8.50, .35);
-    facPlateGrid(g, ...R(4.10, 4.60), 0, 4.40, .80);
+    facPlateGrid(g, ...R(15.9, 16.8), 0, 4.40, cz);
+    facPlateGrid(g, ...R(4.62, 5.0), 0, 4.40, cz);
+    facPlateGrid(g, ...R(15.9, 16.8), 4.40, 5.60, cz);
+    facPlateGrid(g, ...R(4.10, 5.0), 4.40, 5.60, cz);
+    facPlateGrid(g, ...R(15.9, 16.8), 5.60, FD.roofBottom, cz);
+    facPlateGrid(g, ...R(4.10, 5.0), 5.60, FD.roofBottom, cz);
+    facPlateGrid(g, ...R(4.10, 4.60), 0, 4.40, cz);
   }
+  g.traverse((o) => { if (o.isMesh && /^GM_(Plate|Panel|Profile|SignPanel|SignFrame)$/.test(o.name)) o.castShadow = true; });
   return g;
 }
 // Blender cephesindeki malzemeleri palete bağla. Pişmiş ışık haritası olanlar tema malzemesinin ışık haritalı paylaşılan kopyasını alır.
