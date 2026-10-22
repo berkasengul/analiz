@@ -1,4 +1,6 @@
-# Karga Zihni — Kurgu Stil Rehberi (v2, sinematik)
+# Karga Zihni — Kurgu Stil Rehberi (v2, sinematik) — ARŞİV
+
+> Bu stil artık kullanılmıyor. Güncel stil: **Akış** (`STIL-AKIS.md`).
 
 Referans: Isaac (@isaacverse) — "How I Actually Edit Viral Videos", "I Blew Up a Shorts Channel in 7 Days!"
 

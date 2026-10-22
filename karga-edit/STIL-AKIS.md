@@ -1,5 +1,7 @@
 # Karga Zihni: "Akış" stili (v3)
 
+> **Kanalın varsayılan stili.** Bütün yeni videolar bu kurallarla kurgulanır. Her teslimde müzikli ve müziksiz iki sürüm verilir.
+
 Referans: Efe Cpp, "Kendi Kendine Çalışan Bir Yapay Zeka Şirketi Kurdum" (110 sn, telefondan ekran kaydı olarak incelendi).
 Motor: `render_akis.py` (skia ile çizim, 60 fps).
 
