@@ -11,35 +11,51 @@
   "textures": [
     {
       "name": "asphalt",
-      "id": null,
+      "id": "asphalt_02",
       "resolution": "2k",
       "target": "public/textures/asphalt",
       "note": "koyu, hafif aşınmış yol asfaltı",
-      "candidates": ["asphalt_02", "clean_asphalt", "asphalt_01"]
+      "candidates": [
+        "asphalt_02",
+        "clean_asphalt",
+        "asphalt_01"
+      ]
     },
     {
       "name": "concrete",
-      "id": null,
+      "id": "concrete_floor_worn_001",
       "resolution": "2k",
       "target": "public/textures/concrete",
       "note": "düz, açık gri mimari beton (kolon/saçak)",
-      "candidates": ["concrete_floor_worn_001", "concrete_slab_wall", "plaster_grey_04"]
+      "candidates": [
+        "concrete_floor_worn_001",
+        "concrete_slab_wall",
+        "plaster_grey_04"
+      ]
     },
     {
       "name": "stone",
-      "id": null,
+      "id": "granite_tile",
       "resolution": "2k",
       "target": "public/textures/stone",
       "note": "büyük format gri taş/granit zemin karosu (kaldırım)",
-      "candidates": ["granite_tile", "large_square_pattern_01", "large_grey_tiles"]
+      "candidates": [
+        "granite_tile",
+        "large_square_pattern_01",
+        "large_grey_tiles"
+      ]
     },
     {
       "name": "metal",
-      "id": null,
+      "id": "blue_metal_plate",
       "resolution": "2k",
       "target": "public/textures/metal",
       "note": "koyu fırçalanmış veya boyalı metal (doğramalar)",
-      "candidates": ["blue_metal_plate", "metal_plate_02", "painted_metal_shutter"]
+      "candidates": [
+        "blue_metal_plate",
+        "metal_plate_02",
+        "painted_metal_shutter"
+      ]
     }
   ]
 }
