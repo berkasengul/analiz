@@ -1,0 +1,2183 @@
+[
+ {
+  "name": "(adsız)",
+  "type": "ShaderMaterial",
+  "color": "-",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#6c6d70",
+  "metal": 0,
+  "rough": 0.85,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#a9a7a3",
+  "metal": 0,
+  "rough": 0.7,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#3a3b3e",
+  "metal": 0,
+  "rough": 0.6,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#cfcac0",
+  "metal": 0,
+  "rough": 0.5,
+  "emis": "",
+  "maps": "",
+  "meshes": 20,
+  "groups": {
+   "sahne": 20
+  },
+  "samples": [
+   "?",
+   "?",
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 0.95,
+  "emis": "",
+  "maps": "map",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 0.8,
+  "emis": "",
+  "maps": "map",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 0.95,
+  "emis": "",
+  "maps": "map",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 0.8,
+  "emis": "",
+  "maps": "map",
+  "meshes": 1,
+  "groups": {
+   "sahne": 1
+  },
+  "samples": [
+   "?"
+  ]
+ },
+ {
+  "name": "MTG_wood_smoked_walnut_veneer",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 2,
+  "groups": {
+   "Dış cephe + giriş": 2
+  },
+  "samples": [
+   "MTG_BandSoffit",
+   "MTG_RoofSoffit"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot2"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot3"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot4"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot5"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot6"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot7"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot8"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot9"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot10"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot11"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_BandSpot12"
+  ]
+ },
+ {
+  "name": "MTG_bronze.001",
+  "type": "MeshStandardMaterial",
+  "color": "#26282b",
+  "metal": 0.8,
+  "rough": 0.78,
+  "emis": "",
+  "maps": "normal,roughness",
+  "meshes": 16,
+  "groups": {
+   "Dış cephe + giriş": 16
+  },
+  "samples": [
+   "MTG_Bollard1_0",
+   "MTG_Bollard1_1",
+   "MTG_Bollard1_2"
+  ]
+ },
+ {
+  "name": "MTG_champagne",
+  "type": "MeshStandardMaterial",
+  "color": "#d7bd8e",
+  "metal": 1,
+  "rough": 0.23999999463558197,
+  "emis": "",
+  "maps": "",
+  "meshes": 4,
+  "groups": {
+   "Dış cephe + giriş": 4
+  },
+  "samples": [
+   "MTG_CarpetEdge1",
+   "MTG_CarpetEdge-1",
+   "MTG_CarpetEdgeF"
+  ]
+ },
+ {
+  "name": "MTG_wood_smoked_walnut_veneer",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_Ceiling"
+  ]
+ },
+ {
+  "name": "MTG_curb",
+  "type": "MeshStandardMaterial",
+  "color": "#b2a696",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_Curb"
+  ]
+ },
+ {
+  "name": "potted_plant_02_leaves.001",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_MTG_Decor_FacadeShrub1_potted_plant_02_leaves"
+  ]
+ },
+ {
+  "name": "potted_plant_02_pot.001",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_MTG_Decor_FacadeShrub1_potted_plant_02_pot"
+  ]
+ },
+ {
+  "name": "potted_plant_02_leaves",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_MTG_Decor_FacadeShrub-1_potted_plant_02_leaves"
+  ]
+ },
+ {
+  "name": "potted_plant_02_pot",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_MTG_Decor_FacadeShrub-1_potted_plant_02_pot"
+  ]
+ },
+ {
+  "name": "potted_plant_04.005",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 4,
+  "groups": {
+   "Dış cephe + giriş": 4
+  },
+  "samples": [
+   "MTG_MTG_Decor_FacadeTree1_potted_plant_04_dirt004",
+   "MTG_MTG_Decor_FacadeTree1_potted_plant_04_ground004",
+   "MTG_MTG_Decor_FacadeTree1_potted_plant_04_plant004"
+  ]
+ },
+ {
+  "name": "potted_plant_04.004",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 4,
+  "groups": {
+   "Dış cephe + giriş": 4
+  },
+  "samples": [
+   "MTG_MTG_Decor_FacadeTree-1_potted_plant_04_dirt004",
+   "MTG_MTG_Decor_FacadeTree-1_potted_plant_04_ground004",
+   "MTG_MTG_Decor_FacadeTree-1_potted_plant_04_plant004"
+  ]
+ },
+ {
+  "name": "MTG_black",
+  "type": "MeshStandardMaterial",
+  "color": "#141517",
+  "metal": 0.5,
+  "rough": 0.9,
+  "emis": "",
+  "maps": "normal,roughness",
+  "meshes": 5,
+  "groups": {
+   "Dış cephe + giriş": 5
+  },
+  "samples": [
+   "MTG_DoorRail",
+   "MTG_Roof",
+   "MTG_RoofSlab"
+  ]
+ },
+ {
+  "name": "MTG_microcement",
+  "type": "MeshStandardMaterial",
+  "color": "#efebe5",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 3,
+  "groups": {
+   "Dış cephe + giriş": 3
+  },
+  "samples": [
+   "MTG_EntryHeader",
+   "MTG_FacBandBack",
+   "MTG_UpCeil"
+  ]
+ },
+ {
+  "name": "MTG_facstone_a",
+  "type": "MeshStandardMaterial",
+  "color": "#b2a696",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacBack"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge1_0_0"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge1_0_1"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge1_1_0"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge1_1_1"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge-1_0_0"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge-1_0_1"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge-1_1_0"
+  ]
+ },
+ {
+  "name": "MTG_hedge",
+  "type": "MeshStandardMaterial",
+  "color": "#7a9a63",
+  "metal": 0,
+  "rough": 0.949999988079071,
+  "emis": "#141a0e×1",
+  "maps": "normal",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_FacHedge-1_1_1"
+  ]
+ },
+ {
+  "name": "MTG_ledSoft.002",
+  "type": "MeshStandardMaterial",
+  "color": "#ffe2bc",
+  "metal": 0,
+  "rough": 0.5,
+  "emis": "#ffe2bc×8",
+  "maps": "",
+  "meshes": 50,
+  "groups": {
+   "Dış cephe + giriş": 50
+  },
+  "samples": [
+   "MTG_FacJointLED1_0",
+   "MTG_FacJointLED1_1",
+   "MTG_FacJointLED1_2"
+  ]
+ },
+ {
+  "name": "MTG_dmarble_a",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 6,
+  "groups": {
+   "Dış cephe + giriş": 6
+  },
+  "samples": [
+   "MTG_FacPierBack0",
+   "MTG_FacPierBack1",
+   "MTG_FacPierBack2"
+  ]
+ },
+ {
+  "name": "MTG_planter.001",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 6,
+  "groups": {
+   "Dış cephe + giriş": 6
+  },
+  "samples": [
+   "MTG_FacPlanter1_0",
+   "MTG_FacPlanter1_1",
+   "MTG_FacPlanter-1_0"
+  ]
+ },
+ {
+  "name": "MTG_soil",
+  "type": "MeshStandardMaterial",
+  "color": "#2a2522",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "",
+  "meshes": 6,
+  "groups": {
+   "Dış cephe + giriş": 6
+  },
+  "samples": [
+   "MTG_FacPlanterSoil1_0",
+   "MTG_FacPlanterSoil1_1",
+   "MTG_FacPlanterSoil-1_0"
+  ]
+ },
+ {
+  "name": "MTG_bronze.001",
+  "type": "MeshStandardMaterial",
+  "color": "#2b2d31",
+  "metal": 0.85,
+  "rough": 0.62,
+  "emis": "",
+  "maps": "normal,roughness",
+  "meshes": 67,
+  "groups": {
+   "Dış cephe + giriş": 67
+  },
+  "samples": [
+   "MTG_FixFrame1_B",
+   "MTG_FixFrame1_M0",
+   "MTG_FixFrame1_M1"
+  ]
+ },
+ {
+  "name": "MTG_paver_dark",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Plane064"
+  ]
+ },
+ {
+  "name": "MTG_paver",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Plane064_1"
+  ]
+ },
+ {
+  "name": "MTG_paver_mid",
+  "type": "MeshStandardMaterial",
+  "color": "#e3ddd3",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Plane064_2"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshPhysicalMaterial",
+  "color": "#3a342b",
+  "metal": 0,
+  "rough": 0.02,
+  "emis": "",
+  "maps": "",
+  "meshes": 3,
+  "groups": {
+   "Dış cephe + giriş": 3
+  },
+  "samples": [
+   "MTG_Glass_Fixed1",
+   "MTG_Glass_Fixed-1",
+   "MTG_Glass_Transom"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshPhysicalMaterial",
+  "color": "#3a342b",
+  "metal": 0,
+  "rough": 0.02,
+  "emis": "",
+  "maps": "",
+  "meshes": 5,
+  "groups": {
+   "Dış cephe + giriş": 5
+  },
+  "samples": [
+   "MTG_Glass_UpC",
+   "MTG_Glass_UpL",
+   "MTG_Glass_UpR"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_LED_LampHead1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_LED_LampHead-1"
+  ]
+ },
+ {
+  "name": "MTG_facstone_b",
+  "type": "MeshStandardMaterial",
+  "color": "#b2a696",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 2,
+  "groups": {
+   "Dış cephe + giriş": 2
+  },
+  "samples": [
+   "MTG_PortRet1_0_0_0",
+   "MTG_PortRet-1_0_0_1"
+  ]
+ },
+ {
+  "name": "MTG_facstone_c",
+  "type": "MeshStandardMaterial",
+  "color": "#b2a696",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortRet1_0_0_1"
+  ]
+ },
+ {
+  "name": "MTG_facstone_a",
+  "type": "MeshStandardMaterial",
+  "color": "#b2a696",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 3,
+  "groups": {
+   "Dış cephe + giriş": 3
+  },
+  "samples": [
+   "MTG_PortRet1_0_0_2",
+   "MTG_PortRet-1_0_0_0",
+   "MTG_PortRet-1_0_0_2"
+  ]
+ },
+ {
+  "name": "MTG_paver_dark",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortSill"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortSpot00"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortSpot01"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortSpot10"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortSpot11"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortSpot20"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_PortSpot21"
+  ]
+ },
+ {
+  "name": "MTG_reveal",
+  "type": "MeshStandardMaterial",
+  "color": "#0b0b0c",
+  "metal": 0,
+  "rough": 0.8999999761581421,
+  "emis": "",
+  "maps": "",
+  "meshes": 3,
+  "groups": {
+   "Dış cephe + giriş": 3
+  },
+  "samples": [
+   "MTG_PortSurroundReveal1",
+   "MTG_PortSurroundReveal-1",
+   "Plane065_1"
+  ]
+ },
+ {
+  "name": "MTG_grout",
+  "type": "MeshStandardMaterial",
+  "color": "#625d58",
+  "metal": 0,
+  "rough": 0.8500000238418579,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Plane065"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot2"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot3"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot4"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot5"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot6"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot7"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot8"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot9"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot10"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot11"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot12"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot13"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_RoofSpot14"
+  ]
+ },
+ {
+  "name": "MTG_band.001",
+  "type": "MeshStandardMaterial",
+  "color": "#ffe6c4",
+  "metal": 0,
+  "rough": 0.5,
+  "emis": "#ffe6c4×1.1",
+  "maps": "",
+  "meshes": 8,
+  "groups": {
+   "Dış cephe + giriş": 8
+  },
+  "samples": [
+   "MTG_SideBand1_0",
+   "MTG_SideBand1_1",
+   "MTG_SideBand1_2"
+  ]
+ },
+ {
+  "name": "MTG_facstone_a",
+  "type": "MeshStandardMaterial",
+  "color": "#b2a696",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 3,
+  "groups": {
+   "Dış cephe + giriş": 3
+  },
+  "samples": [
+   "MTG_Threshold",
+   "MTG_VitSill1",
+   "MTG_VitSill-1"
+  ]
+ },
+ {
+  "name": "MTG_facade_smoked_walnut_premium",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpBack"
+  ]
+ },
+ {
+  "name": "MTG_dark_stone",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpFloor"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpRing_LED"
+  ]
+ },
+ {
+  "name": "MTG_black",
+  "type": "MeshStandardMaterial",
+  "color": "#141517",
+  "metal": 0.5,
+  "rough": 0.9,
+  "emis": "",
+  "maps": "normal,roughness",
+  "meshes": 3,
+  "groups": {
+   "Dış cephe + giriş": 3
+  },
+  "samples": [
+   "MTG_UpRing_wire30",
+   "MTG_UpRing_wire150",
+   "MTG_UpRing_wire270"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot0_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot0_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot1_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot1_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot2_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot2_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot3_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot3_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot4_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot4_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot5_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot5_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot6_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot6_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-1_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-1_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-2_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-2_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-3_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-3_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-4_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-4_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-5_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-5_1"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-6_0"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffff",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "MTG_UpSpot-6_1"
+  ]
+ },
+ {
+  "name": "MTG_facade_walnut_shadow_joint",
+  "type": "MeshStandardMaterial",
+  "color": "#35291d",
+  "metal": 0.18000000715255737,
+  "rough": 0.3199999928474426,
+  "emis": "",
+  "maps": "",
+  "meshes": 7,
+  "groups": {
+   "Dış cephe + giriş": 7
+  },
+  "samples": [
+   "MTG_UpWoodJoint0",
+   "MTG_UpWoodJoint1",
+   "MTG_UpWoodJoint2"
+  ]
+ },
+ {
+  "name": "MTG_dmarble_b",
+  "type": "MeshStandardMaterial",
+  "color": "#76695c",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Cube"
+  ]
+ },
+ {
+  "name": "MTG_dmarble_a",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Cube_1"
+  ]
+ },
+ {
+  "name": "MTG_paver_dark",
+  "type": "MeshPhysicalMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Cube_2"
+  ]
+ },
+ {
+  "name": "MTG_facstone_b",
+  "type": "MeshStandardMaterial",
+  "color": "#f3efe8",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Cube_3"
+  ]
+ },
+ {
+  "name": "MTG_facstone_c",
+  "type": "MeshStandardMaterial",
+  "color": "#faf6ef",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Cube_4"
+  ]
+ },
+ {
+  "name": "MTG_facstone_a",
+  "type": "MeshStandardMaterial",
+  "color": "#ffffff",
+  "metal": 0,
+  "rough": 1,
+  "emis": "",
+  "maps": "map,normal,roughness,light",
+  "meshes": 1,
+  "groups": {
+   "Dış cephe + giriş": 1
+  },
+  "samples": [
+   "Cube_5"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#040405",
+  "metal": 0,
+  "rough": 0.95,
+  "emis": "",
+  "maps": "",
+  "meshes": 3,
+  "groups": {
+   "Cephe kaplaması": 3
+  },
+  "samples": [
+   "Cephe kaplaması",
+   "Cephe kaplaması",
+   "Cephe kaplaması"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshPhysicalMaterial",
+  "color": "#2a2c2e",
+  "metal": 0.6,
+  "rough": 0.45,
+  "emis": "",
+  "maps": "normal,roughness",
+  "meshes": 45,
+  "groups": {
+   "Cephe kaplaması": 45
+  },
+  "samples": [
+   "FAC_Panel",
+   "FAC_Panel",
+   "FAC_Panel"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshPhysicalMaterial",
+  "color": "#c4c8cc",
+  "metal": 1,
+  "rough": 0.38,
+  "emis": "",
+  "maps": "normal,roughness",
+  "meshes": 9,
+  "groups": {
+   "Cephe kaplaması": 9
+  },
+  "samples": [
+   "FAC_Trim",
+   "FAC_Trim",
+   "FAC_Trim"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffffe8",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Cephe kaplaması": 1
+  },
+  "samples": [
+   "FAC_LED"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshPhysicalMaterial",
+  "color": "#1c1d1f",
+  "metal": 0.8,
+  "rough": 0.35,
+  "emis": "",
+  "maps": "normal,roughness",
+  "meshes": 1,
+  "groups": {
+   "Cephe kaplaması": 1
+  },
+  "samples": [
+   "FAC_SignPanel"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#f2ecdf",
+  "metal": 0,
+  "rough": 0.85,
+  "emis": "#f2ecdf×0.35",
+  "maps": "",
+  "meshes": 2,
+  "groups": {
+   "Cephe kaplaması": 2
+  },
+  "samples": [
+   "FAC_Logo",
+   "FAC_Logo"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#26282b",
+  "metal": 0.85,
+  "rough": 0.4,
+  "emis": "",
+  "maps": "",
+  "meshes": 3,
+  "groups": {
+   "Cephe kaplaması": 3
+  },
+  "samples": [
+   "FAC_Logo",
+   "FAC_Logo",
+   "FAC_Logo"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshStandardMaterial",
+  "color": "#3ccf3c",
+  "metal": 0,
+  "rough": 0.5,
+  "emis": "#3ccf3c×0.9",
+  "maps": "",
+  "meshes": 1,
+  "groups": {
+   "Cephe kaplaması": 1
+  },
+  "samples": [
+   "FAC_Logo"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshBasicMaterial",
+  "color": "#ffe6c4",
+  "metal": null,
+  "rough": null,
+  "emis": "",
+  "maps": "map",
+  "meshes": 1,
+  "groups": {
+   "Cephe kaplaması": 1
+  },
+  "samples": [
+   "FAC_Halo"
+  ]
+ },
+ {
+  "name": "(adsız)",
+  "type": "MeshPhysicalMaterial",
+  "color": "#5a5a5c",
+  "metal": 0,
+  "rough": 0.2,
+  "emis": "",
+  "maps": "map,normal",
+  "meshes": 44,
+  "groups": {
+   "Cephe kaplaması": 44
+  },
+  "samples": [
+   "FAC_Stone",
+   "FAC_Stone",
+   "FAC_Stone"
+  ]
+ }
+]
