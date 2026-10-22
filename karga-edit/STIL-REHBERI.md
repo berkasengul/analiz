@@ -45,3 +45,6 @@ python3 -I render_sinematik.py <varlik_klasoru>
 python3 -I edit_showroom.py <varlik_klasoru> stills 12.5 60   # tek kare kontrol
 python3 -I edit_showroom.py <varlik_klasoru> render 4          # tam video
 ```
+
+## Yeni: "Akış" stili (v3)
+Açık zemin, tek kamera, kelime kelime blur-in yazı, çizilen diyagramlar. Ayrıntı: `STIL-AKIS.md`, motor: `render_akis.py`.
