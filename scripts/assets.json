@@ -56,6 +56,58 @@
         "metal_plate_02",
         "painted_metal_shutter"
       ]
+    },
+    {
+      "name": "panel_metal",
+      "source": "ambientcg",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/panel_metal",
+      "note": "koyu toz boya metal, ince doku, desensiz",
+      "candidates": [
+        "Metal027",
+        "Metal029",
+        "Metal028"
+      ]
+    },
+    {
+      "name": "brushed_metal",
+      "source": "ambientcg",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/brushed_metal",
+      "note": "yatay ince fırça izli metal",
+      "candidates": [
+        "Metal009",
+        "Metal011",
+        "Metal010"
+      ]
+    },
+    {
+      "name": "dark_stone",
+      "source": "ambientcg",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/dark_stone",
+      "note": "siyah/antrasit mermer, ince damarlı",
+      "candidates": [
+        "Marble016",
+        "Marble017",
+        "Marble002"
+      ]
+    },
+    {
+      "name": "aluminium_trim",
+      "source": "ambientcg",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/aluminium_trim",
+      "note": "açık gri saten alüminyum",
+      "candidates": [
+        "Metal050A",
+        "Metal050C",
+        "Metal050B"
+      ]
     }
   ]
 }
