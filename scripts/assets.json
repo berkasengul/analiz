@@ -1,0 +1,45 @@
+{
+  "source": "polyhaven",
+  "hdris": [
+    {
+      "name": "night",
+      "id": "modern_buildings_night",
+      "resolution": "2k",
+      "target": "public/hdri/night.hdr"
+    }
+  ],
+  "textures": [
+    {
+      "name": "asphalt",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/asphalt",
+      "note": "koyu, hafif aşınmış yol asfaltı",
+      "candidates": ["asphalt_02", "clean_asphalt", "asphalt_01"]
+    },
+    {
+      "name": "concrete",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/concrete",
+      "note": "düz, açık gri mimari beton (kolon/saçak)",
+      "candidates": ["concrete_floor_worn_001", "concrete_slab_wall", "plaster_grey_04"]
+    },
+    {
+      "name": "stone",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/stone",
+      "note": "büyük format gri taş/granit zemin karosu (kaldırım)",
+      "candidates": ["granite_tile", "large_square_pattern_01", "large_grey_tiles"]
+    },
+    {
+      "name": "metal",
+      "id": null,
+      "resolution": "2k",
+      "target": "public/textures/metal",
+      "note": "koyu fırçalanmış veya boyalı metal (doğramalar)",
+      "candidates": ["blue_metal_plate", "metal_plate_02", "painted_metal_shutter"]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "analiz",
+  "private": true,
+  "scripts": {
+    "assets": "node scripts/fetch-assets.mjs"
+  }
+}
