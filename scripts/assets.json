@@ -60,7 +60,7 @@
     {
       "name": "panel_metal",
       "source": "ambientcg",
-      "id": null,
+      "id": "Metal027",
       "resolution": "2k",
       "target": "public/textures/panel_metal",
       "note": "koyu toz boya metal, ince doku, desensiz",
@@ -73,7 +73,7 @@
     {
       "name": "brushed_metal",
       "source": "ambientcg",
-      "id": null,
+      "id": "Metal009",
       "resolution": "2k",
       "target": "public/textures/brushed_metal",
       "note": "yatay ince fırça izli metal",
@@ -86,7 +86,7 @@
     {
       "name": "dark_stone",
       "source": "ambientcg",
-      "id": null,
+      "id": "Marble016",
       "resolution": "2k",
       "target": "public/textures/dark_stone",
       "note": "siyah/antrasit mermer, ince damarlı",
@@ -99,7 +99,7 @@
     {
       "name": "aluminium_trim",
       "source": "ambientcg",
-      "id": null,
+      "id": "Metal050A",
       "resolution": "2k",
       "target": "public/textures/aluminium_trim",
       "note": "açık gri saten alüminyum",
