@@ -44,3 +44,15 @@ ayarlar `facadeTheme.js` → `columns`. Eski ince plaka ızgarası, kolonlardaki
 - lil-gui → Cephe → **Kolonlar**: varyant (A/B), LED şiddeti, girinti yan ışığı, yalayan ışık, girinti genişliği.
 
 A / B karşılaştırma: `screenshots/kolon/AB_karsilastirma.jpg`.
+
+## Üst kat duvarı, vitrin araçları, bant dokusu
+Ayarlar `facadeTheme.js` → `upper`, `display`, `band`; kod `buildUpperGallery()`, `facBandMats()`, `displayPlinth()` / `displaySpot()`.
+- **Üst kat duvarı:** düz ceviz duvar yerine cilalı koyu mermer (`dark_stone`) arka plan; nişler dışında mermerin 3 cm önünde
+  dikey ceviz lameller, altta ve üstte sıcak LED çizgisi ve duvara düşen yıkama. Her aracın arkasında lamel yüzünden 15 cm geride,
+  metal çerçeveli niş; arkasında araçtan yukarı ve kenarlara sönen sıcak ışıma (araç silüeti öne çıkar, tabeladan sönük).
+- **Araçlar:** her araca cam önü tavanından gölgesiz spot, üst ışıklar güçlendirildi; kaide tabanında geri çekilmiş ışık çizgisi
+  ve zeminde yumuşak hale (araç yüzer gibi), pirinç kenar çizgisi daha belirgin.
+- **Bant (tabelanın arkası):** düz boya yerine fırçalanmış koyu alüminyum kompozit (`brushed_metal` normal + pürüzlülük,
+  yatay fırça izi), komşu paneller ±%6 farklı tonda.
+
+Önce / sonra: `screenshots/ust-kat/onceSonra_ust1.jpg` (önden, 3/4), `onceSonra_ust2.jpg` (üst kat yakın, zemin vitrin).

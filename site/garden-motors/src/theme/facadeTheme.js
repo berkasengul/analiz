@@ -56,6 +56,18 @@ export const FACADE_THEME = {
     uplight: 10, uplightAngle: .15, uplightPenumbra: .5, uplightOffset: .22,   // yalayan ışık (gölgesiz)
     lamel: { thick: .015, depth: .04, gap: .06, core: '#151617' },
   },
+  // üst kat bandı (tabelanın arkası): fırçalanmış koyu alüminyum kompozit, panel başına hafif ton farkı
+  band: { texture: 'brushed_metal', textureMeters: 1.0, normalScale: .35, roughness: .42, metalness: .6, envIntensity: .35, toneJitter: .06 },
+  // üst kat iç duvarı: cilalı koyu mermer + ceviz lamel bölgeleri + her aracın arkasında arkadan aydınlatmalı niş
+  upper: {
+    stone: 'dark_stone', stoneMeters: 2.4, stoneTint: .62, stoneRough: .4,
+    finW: .05, finD: .12, finPitch: .17,
+    niches: [[-10.4, 6.4], [10.4, 6.4]],   // [merkez x, genişlik] — araçların arkası
+    lightBox: .42,         // niş arka panelinin parlaklığı (araç silüeti öne çıkar, tabeladan sönük)
+    wash: .55,             // lamel bölgesinde taş duvara düşen sıcak yıkama
+  },
+  // vitrin araçları: tavan spotu + üst ışık + kaide altında yüzen ışık
+  display: { spot: 48, spotAngle: .5, spotPenumbra: .65, topLight: 4.2, groundTopLight: 3.2, trim: .75, floorGlow: .45 },
   bloom: { threshold: .9, strength: .16, radius: .12 },
   sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22 },
   city: { color: '#1c2335', windows: .14, distance: 170, height: 72 },

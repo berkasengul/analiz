@@ -1379,12 +1379,13 @@ function facUV(geo, w, h, texM, jitter = true) {
   uv.needsUpdate = true; return geo;
 }
 // yatay panel sırası (x0..x1, y0..y1, ön yüz z): ~1.3 m panel, 10 mm koyu derz, alt / üst 3 cm metal profil
-function facPanelRow(g, x0, x1, y0, y1, z, { w = 1.3, gap = .01, d = .03, top = true, bottom = true } = {}) {
+function facPanelRow(g, x0, x1, y0, y1, z, { w = 1.3, gap = .01, d = .03, top = true, bottom = true, mat = null, texM = null } = {}) {
   const M = facadeMats(), L = x1 - x0, tr = .03, ya = y0 + (bottom ? tr : 0), yb = y1 - (top ? tr : 0), h = yb - ya;
-  const n = Math.max(1, Math.round(L / w)), pw = (L - gap * (n - 1)) / n, tm = TH.palette.structure.textureMeters;
+  const n = Math.max(1, Math.round(L / w)), pw = (L - gap * (n - 1)) / n, tm = texM ?? TH.palette.structure.textureMeters;
   const back = new THREE.Mesh(new THREE.BoxGeometry(L, h, .012), M.joint); back.position.set((x0 + x1) / 2, (ya + yb) / 2, z + .006); g.add(back);
   for (let i = 0; i < n; i++) {
-    const p = new THREE.Mesh(facUV(new RoundedBoxGeometry(pw, h, d, 2, .005), pw, h, tm), M.structure);
+    const pm = typeof mat === 'function' ? mat(i) : (mat || M.structure);
+    const p = new THREE.Mesh(facUV(new RoundedBoxGeometry(pw, h, d, 2, .005), pw, h, tm), pm);
     p.position.set(x0 + pw / 2 + i * (pw + gap), (ya + yb) / 2, z + .012 + d / 2); p.receiveShadow = true; p.name = 'GM_Panel'; g.add(p);
   }
   for (const [on, y] of [[bottom, y0 + tr / 2], [top, y1 - tr / 2]]) if (on) {
@@ -1592,10 +1593,77 @@ function facadeDepth(f, g) {
     key.shadow.bias = FD.shadowBias; key.shadow.normalBias = FD.shadowNormalBias; key.shadow.camera.near = 12; key.shadow.camera.far = 58;
   }
   FAC_KEY = key;
+  buildUpperGallery(f, g);
   for (const m of mats) { m.envMapIntensity = Math.min(m.envMapIntensity ?? 1, .3); if (EXT_ENV && m !== copingMat) m.envMap = EXT_ENV; }
   renderer.shadowMap.needsUpdate = true;
 }
 let FAC_KEY = null;
+// ---------- Üst kat bandı: fırçalanmış koyu alüminyum kompozit (panel başına ±%6 ton, yatay fırça izi) ----------
+let BAND_MATS = null;
+function facBandMats() {
+  if (!BAND_MATS) {
+    const B = TH.band, P = TH.palette.structure;
+    BAND_MATS = [-.5, .15, .7, -.1, .45].map((k, i) => {
+      const m = new THREE.MeshStandardMaterial({ name: 'GM_BandACM' + i, color: new THREE.Color(P.color).multiplyScalar(1 + k * B.toneJitter),
+        metalness: B.metalness, roughness: B.roughness, roughnessMap: extTex(B.texture, 'roughness', 1), normalMap: extTex(B.texture, 'normal', 1),
+        normalScale: new THREE.Vector2(B.normalScale, B.normalScale), envMapIntensity: B.envIntensity });
+      m.userData.extEnv = B.envIntensity; if (EXT_ENV) m.envMap = EXT_ENV; EXT_MATS.push(m); return m;
+    });
+  }
+  let k = 0; return () => BAND_MATS[(k++ * 3) % BAND_MATS.length];   // komşu paneller farklı tonda
+}
+// ---------- Üst kat iç duvarı: cilalı koyu mermer, ceviz lamel bölgeleri, araç arkasında arkadan aydınlatmalı niş ----------
+function gradTex(dir, stops) {   // dir 'x' | 'y'; stops: [[konum, alfa]]
+  const cv = document.createElement('canvas'); cv.width = dir === 'x' ? 128 : 4; cv.height = dir === 'x' ? 4 : 128;
+  const g = cv.getContext('2d'), gr = dir === 'x' ? g.createLinearGradient(0, 0, 128, 0) : g.createLinearGradient(0, 128, 0, 0);
+  for (const [t, a] of stops) gr.addColorStop(t, `rgba(255,255,255,${a})`);
+  g.fillStyle = gr; g.fillRect(0, 0, cv.width, cv.height);
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+function buildUpperGallery(f, g) {
+  const U = TH.upper, M = facadeMats(), L = M.lightColor, y0 = 5.64, y1 = 8.48, H = y1 - y0, zB = -3.6, X0 = -16.65, X1 = 16.65;
+  f.traverse((o) => { if (/^MTG_(UpBack|UpWoodJoint\d|LED_UpV-?\d)$/.test(o.name)) o.visible = false; });
+  const G = new THREE.Group(); G.name = 'Üst kat galeri duvarı'; g.add(G);
+  // 1) cilalı koyu mermer arka duvar
+  const stone = new THREE.MeshStandardMaterial({ name: 'GM_UpperMarble', map: extTex(U.stone, 'color', 1, true), roughnessMap: extTex(U.stone, 'roughness', 1),
+    normalMap: extTex(U.stone, 'normal', 1), normalScale: new THREE.Vector2(.5, .5), roughness: U.stoneRough, metalness: 0, color: new THREE.Color(U.stoneTint, U.stoneTint, U.stoneTint), envMapIntensity: .35 });
+  stone.userData.extEnv = .35; if (EXT_ENV) stone.envMap = EXT_ENV; EXT_MATS.push(stone);
+  const wall = new THREE.Mesh(facUV(new THREE.BoxGeometry(X1 - X0, H, .04), X1 - X0, H, U.stoneMeters, false), stone);
+  wall.position.set(0, y0 + H / 2, zB + .02); wall.receiveShadow = true; wall.name = 'GM_UpperMarble'; G.add(wall);
+  // 2) ceviz lamel bölgeleri (nişlerin dışı): mermerin 3 cm önünde dikey lameller, altta ve üstte sıcak LED çizgisi + duvara yıkama
+  const wood = (M.wood || facadeMats().structure).clone(); wood.name = 'GM_UpperWalnut';
+  if (wood.lightMap) { wood.lightMap = null; wood.onBeforeCompile = () => {}; wood.customProgramCacheKey = () => 'gm-walnut'; }
+  wood.envMapIntensity = .06; wood.roughness = Math.max(wood.roughness ?? .5, .55);
+  const led = new THREE.MeshBasicMaterial({ name: 'GM_UpperLED', color: L.clone().multiplyScalar(1.2) });
+  const wash = new THREE.MeshBasicMaterial({ name: 'GM_UpperWash', map: gradTex('y', [[0, 1], [.35, .35], [1, 0]]), color: L.clone().multiplyScalar(U.wash),
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+  const nich = U.niches.map(([c, w]) => [c - w / 2, c + w / 2]).sort((a, b) => a[0] - b[0]);
+  const zones = []; let x = X0; for (const [a, b] of nich) { if (a > x) zones.push([x, a]); x = b; } if (x < X1) zones.push([x, X1]);
+  const fins = [], m4 = new THREE.Matrix4(), q = new THREE.Quaternion();
+  for (const [a, b] of zones) {
+    const n = Math.max(1, Math.floor((b - a - U.finW) / U.finPitch) + 1), pitch = (b - a - U.finW) / Math.max(1, n - 1);
+    for (let i = 0; i < n; i++) fins.push(new THREE.Vector3(a + U.finW / 2 + i * pitch, y0 + H / 2, zB + .07 + U.finD / 2));
+    const w = b - a, cx = (a + b) / 2;
+    for (const yy of [y0 + .008, y1 - .008]) { const s = new THREE.Mesh(new THREE.BoxGeometry(w - .04, .01, .015), led); s.position.set(cx, yy, zB + .055); G.add(s); }
+    const wp = new THREE.Mesh(new THREE.PlaneGeometry(w, H), wash); wp.position.set(cx, y0 + H / 2, zB + .045); G.add(wp);
+  }
+  const fin = new THREE.InstancedMesh(facUV(new RoundedBoxGeometry(U.finW, H - .03, U.finD, 2, .006), U.finW, H - .03, 1.6), wood, fins.length);   // ahşap damar gerçek ölçekte
+  fins.forEach((p, i) => fin.setMatrixAt(i, m4.compose(p, q, new THREE.Vector3(1, 1, 1))));
+  fin.instanceMatrix.needsUpdate = true; fin.name = 'GM_UpperFins'; fin.receiveShadow = true; G.add(fin);
+  // 3) nişler: lamel yüzünün 15 cm gerisinde, arkadan aydınlatmalı panel (araç silüeti öne çıkar) + ince metal çerçeve
+  // arkadan aydınlatma: düz beyaz ekran değil, aracın arkasında en parlak, kenarlara ve yukarı doğru sönen sıcak ışıma
+  const lb = new THREE.MeshBasicMaterial({ name: 'GM_LightBox', map: gradTex('x', [[0, 0], [.2, .35], [.5, 1], [.8, .35], [1, 0]]),
+    alphaMap: gradTex('y', [[0, .7], [.35, 1], [1, .05]]), color: L.clone().multiplyScalar(U.lightBox), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+  for (const [c, w] of U.niches) {
+    const pw = w - .3, ph = H - .5, pz = zB + .05;
+    const panel = new THREE.Mesh(new THREE.PlaneGeometry(pw, ph), lb); panel.position.set(c, y0 + .25 + ph / 2, pz); panel.name = 'GM_NicheLightBox'; G.add(panel);
+    for (const [bw, bh, dx, dy] of [[pw + .08, .04, 0, ph / 2 + .02], [pw + .08, .04, 0, -ph / 2 - .02], [.04, ph, pw / 2 + .02, 0], [.04, ph, -pw / 2 - .02, 0]]) {
+      const fr = new THREE.Mesh(new RoundedBoxGeometry(bw, bh, .05, 2, .004), M.metal); fr.position.set(c + dx, y0 + .25 + ph / 2 + dy, pz + .02); G.add(fr);
+    }
+    // niş yan dönüşleri: lamel yüzüyle niş arasında koyu yanak (derinlik)
+    for (const sd of [-1, 1]) { const ch = new THREE.Mesh(new THREE.BoxGeometry(.04, H, U.finD + .07), new THREE.MeshStandardMaterial({ color: '#141416', roughness: .8 })); ch.position.set(c + sd * w / 2, y0 + H / 2, zB + (U.finD + .07) / 2); G.add(ch); }
+  }
+}
 // ---------- Dış kolonlar: tek üretici createColumn(width, height, depth, variant) ----------
 // Yerel eksen: x ∈ [−w/2, w/2], y ∈ [0, h] (zemin → saçak altı), z ∈ [−d, 0] (0 = kolon ön yüzü).
 const COL = { group: null, specs: [], mats: null, spots: [] };
@@ -1692,8 +1760,9 @@ function buildFacadeCladding(f) {
   // kat bandı (tabelanın iki yanı) + çatı alnı: structure paneller, derzler, metal profiller; çatı alnı altında 3000 K LED
   // üst kat bandı: kolonların 10 cm gerisinde, alt kenarında koyu gölge derzi (bant camdan 15 cm önde)
   const bs = FD.bandShadow;
-  facPanelRow(g, -16.85, -5.84, 4.40 + bs, 5.60, FAC_BAND_F - .042, { bottom: false });
-  facPanelRow(g, 5.84, 16.85, 4.40 + bs, 5.60, FAC_BAND_F - .042, { bottom: false });
+  const bandMat = facBandMats();
+  facPanelRow(g, -16.85, -5.84, 4.40 + bs, 5.60, FAC_BAND_F - .042, { bottom: false, mat: bandMat, texM: TH.band.textureMeters });
+  facPanelRow(g, 5.84, 16.85, 4.40 + bs, 5.60, FAC_BAND_F - .042, { bottom: false, mat: bandMat, texM: TH.band.textureMeters });
   { const sh = new THREE.Mesh(new THREE.BoxGeometry(33.7, bs, FAC_BAND_F - FD.glass - .07), M.joint); sh.position.set(0, 4.40 + bs / 2, (FAC_BAND_F - .07 + FD.glass) / 2); sh.name = 'GM_BandShadowLine'; g.add(sh); }
   hide(/^MTG_FacBandJoint/);
   const led = new THREE.Mesh(new THREE.BoxGeometry(34.5, .012, .02), M.led); led.position.set(0, FD.roofBottom - .008, FAC_ROOF_F - .06); led.name = 'GM_LED'; g.add(led);
@@ -4290,7 +4359,7 @@ function secondCar(k) {
 const vitrineCars = [];
 function displayPlinth(x, floorY, z, length = 5.45, width = 2.55) {
   const g = new THREE.Group(); g.name = 'Vitrin araç kaidesi'; g.position.set(x, floorY, z); scene.add(g);
-  const baseMat = std('#202124', .38, .58, .55), topMat = std('#39342d', .34, .66, .65), trim = glow('#d4b782', .42);
+  const baseMat = std('#202124', .38, .58, .55), topMat = std('#39342d', .34, .66, .65), trim = glow('#d4b782', TH.display.trim);
   const base = new THREE.Mesh(new RoundedBoxGeometry(length, .22, width, .08, 5), baseMat);
   base.position.y = .11; base.castShadow = true; base.receiveShadow = true; g.add(base);
   const top = new THREE.Mesh(new RoundedBoxGeometry(length - .14, .045, width - .14, .06, 5), topMat);
@@ -4301,7 +4370,19 @@ function displayPlinth(x, floorY, z, length = 5.45, width = 2.55) {
   box(length - .34, .012, .018, trim, 0, edgeY, -width / 2 + inset, g);
   box(.018, .012, width - .34, trim, length / 2 - inset, edgeY, 0, g);
   box(.018, .012, width - .34, trim, -length / 2 + inset, edgeY, 0, g);
+  // kaide tabanında geri çekilmiş ışık çizgisi + zeminde yumuşak hale: araç yüzer gibi durur
+  const lc = new THREE.Color('#ffd9a8');
+  for (const [w, d, zz] of [[length - .1, .012, width / 2 - .03], [length - .1, .012, -width / 2 + .03]]) box(w, .014, d, glow('#ffd9a8', 1.1), 0, .012, zz, g);
+  for (const xx of [length / 2 - .03, -length / 2 + .03]) box(.012, .014, width - .1, glow('#ffd9a8', 1.1), xx, .012, 0, g);
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(length + 1.4, width + 1.4), new THREE.MeshBasicMaterial({ map: gradTex('x', [[0, 0], [.5, 1], [1, 0]]),
+    alphaMap: gradTex('y', [[0, 0], [.5, 1], [1, 0]]), color: lc.multiplyScalar(TH.display.floorGlow), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+  halo.rotation.x = -Math.PI / 2; halo.position.y = .006; g.add(halo);
   return .255;
+}
+// cam önü tavanından araca bakan gölgesiz spot: boya ve jantlarda sokaktan görünen parlaklık
+function displaySpot(x, y, z, ty) {
+  const D = TH.display, s = new THREE.SpotLight('#ffe9cf', D.spot, 12, D.spotAngle, D.spotPenumbra, 2);
+  s.position.set(x, y, -.15); s.target.position.set(x, ty, z); s.castShadow = false; s.name = 'GM_DisplaySpot'; scene.add(s, s.target); return s;
 }
 function buildVitrines() {
   if (!BLENDER_ROOMS?.facade) return;
@@ -4313,7 +4394,7 @@ function buildVitrines() {
     const car = prepareCarModel({ ...spec, _scene: spec._scene.clone(true) });
     car.rotation.y += yaw; car.position.set(x, carY, z); car.name = 'Zemin kat vitrin aracı ' + (i + 1); scene.add(car);
     car.userData.baseYaw = car.rotation.y; vitrineCars.push(car); stGround.push(car);
-    if (!isMobile) { const l = new THREE.RectAreaLight('#fff1e0', 2.0, 5.2, 3.2); l.position.set(x, 4.2, z); l.lookAt(x, carY, z); scene.add(l); }
+    if (!isMobile) { const l = new THREE.RectAreaLight('#fff1e0', TH.display.groundTopLight, 5.2, 3.2); l.position.set(x, 4.2, z); l.lookAt(x, carY, z); scene.add(l); displaySpot(x, 4.25, z, carY + .6); }
   });
   // Üst kattaki araçlar da aynı ince kaideye oturur; GLB içindeki kopyalar buildFacadeGLB'de ayrıca üretilmez.
   if (!isMobile) display.forEach(([x, z, yaw], i) => {
@@ -4323,7 +4404,8 @@ function buildVitrines() {
     car.rotation.y += yaw; car.position.set(x, 5.605 + carY, z); car.name = 'Üst kat vitrin aracı ' + (i + 1); scene.add(car);
     car.userData.baseYaw = car.rotation.y; car.traverse((o) => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
     vitrineCars.push(car); stGround.push(car);
-    const l = new THREE.RectAreaLight('#fff0dc', 2.0, 5.2, 3.2); l.position.set(x, 8.15, z); l.lookAt(x, 6.25, z); scene.add(l);
+    const l = new THREE.RectAreaLight('#fff0dc', TH.display.topLight, 5.2, 3.2); l.position.set(x, 8.15, z); l.lookAt(x, 6.25, z); scene.add(l);
+    displaySpot(x, 8.35, z, 5.605 + carY + .6);
   });
 }
 // vitrin araçları: park hâlindeki aracın açı değiştirmesi gibi çok yavaş, küçük sağ-sol dönüş (±3°, 36 sn), iki araç aynı yöne;
