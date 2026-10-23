@@ -41,6 +41,21 @@ export const FACADE_THEME = {
     neighbourWall: 26,     // komşu parsele uzanan koyu duvar / çit uzunluğu
     shadowMap: 2048, shadowNormalBias: .04, shadowBias: -.0002, keyLight: 1.3,
   },
+  // dış kolonlar: createColumn() — A: monolit + LED girinti, B: dikey alüminyum lamel
+  columns: {
+    variant: 'A',
+    plates: 3,             // yarı başına uzun plaka (yükseklik boyunca)
+    joint: .004,           // plakalar arası yatay derz
+    radius: .008,          // plaka köşe pahı
+    roughness: .35, clearcoat: .4, clearcoatRoughness: .3,   // bantlardan bir tık rafine
+    grooveW: .04, grooveD: .03,      // orta girinti
+    led: 1.1,              // girinti dibindeki 3000 K şerit (tabeladan sönük kalır)
+    grooveGlow: .35,       // girinti yan yüzeylerine düşen LED ışığı
+    plinthH: .12, plinthInset: .02, plinthGap: .03,   // metal kaide + koyu gölge boşluğu
+    topGap: .03,           // kolon üstü ile saçak arası gölge boşluğu
+    uplight: 10, uplightAngle: .15, uplightPenumbra: .5, uplightOffset: .22,   // yalayan ışık (gölgesiz)
+    lamel: { thick: .015, depth: .04, gap: .06, core: '#151617' },
+  },
   bloom: { threshold: .9, strength: .16, radius: .12 },
   sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22 },
   city: { color: '#1c2335', windows: .14, distance: 170, height: 72 },

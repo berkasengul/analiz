@@ -30,3 +30,17 @@ statik olduğu için akıcı modda da açık (telefonda kapalı). Panel kenarlar
 Yan duvarlar ve yeni yan paneller gece HDRI'sinin gök yansımasını almaz (lavanta tonu bu yansımadan geliyordu); çatı üstü koyu membran.
 
 Önce / sonra: `screenshots/derinlik/onceSonra_1.jpg` (önden, 3/4 sağ), `_2` (giriş yakın, 3/4 sol), `_3` (yukarıdan, sağ uç).
+
+## Dış kolonlar (`createColumn`)
+Bütün dış kolonlar (iki uç + giriş portalının iki yanı) tek fonksiyondan gelir: `createColumn(width, height, depth, variant)`;
+ayarlar `facadeTheme.js` → `columns`. Eski ince plaka ızgarası, kolonlardaki aplikler ve zemin ışık diskleri kaldırıldı.
+- **A (varsayılan) monolit + LED girinti:** ortada 4 × 3 cm girintiyle ayrılmış iki yarı; her yarı 3 uzun plaka (4 mm derz,
+  8 mm pah, plaka başına farklı doku kaydırması); structure, roughness .35 + clearcoat .4. Girinti dibinde 3000 K şerit,
+  yan yüzlerinde LED'den sönen katkılı ışık gradyanı.
+- **B dikey lamel:** #151617 çekirdek, önde ve yanlarda 4 cm derin 1.5 cm kalın alüminyum lameller (6 cm aralık, InstancedMesh).
+- İkisinde de: 12 cm metal kaide (2 cm içeride) + 3 cm koyu gölge boşluğu; üstte saçakla arasında 3 cm gölge boşluğu;
+  önde zemine gömülü halka + yukarı bakan dar spot (0.15 rad, penumbra .5, 3000 K, gölgesiz). Spot, kendi yarı açısı kadar
+  yüze eğik: ışık yüze ~70 cm'den değer, yukarı doğru söner. Telefonda spotlar yok (yalnız halka).
+- lil-gui → Cephe → **Kolonlar**: varyant (A/B), LED şiddeti, girinti yan ışığı, yalayan ışık, girinti genişliği.
+
+A / B karşılaştırma: `screenshots/kolon/AB_karsilastirma.jpg`.
