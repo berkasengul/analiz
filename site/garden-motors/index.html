@@ -434,6 +434,7 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { FACADE_THEME, createFacadeMaterials } from './src/theme/facadeTheme.js';
+import { applyWorldUV, plateVarAttribute, randomPlateVar, colorMulVec, albedoMul } from './src/materials/worldUV.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
@@ -1313,6 +1314,22 @@ function extMat(src, name, rep, o = {}) {
   if (EXT_ENV && m.userData.extEnv) { m.envMap = EXT_ENV; m.envMapIntensity = m.userData.extEnv; }
   m.needsUpdate = true; EXT_MATS.push(m); return m;
 }
+// yaya zemini: duvar taşı dokusu, dünya ızgarasına oturan 60 × 60 cm karolar, ince derz, karo başına ofset / ton.
+// Kaynak malzemenin pişmiş ışık haritası ve bakedOnly kancası korunur (applyWorldUV önceki onBeforeCompile'ı zincirler).
+function pavingMat(src, dark) {
+  const P = TH.paving, K = Object.values(TH.walls).find((k) => k?.texture === P.texture), t = P.texture;
+  const m = src.clone();
+  m.onBeforeCompile = src.onBeforeCompile; m.customProgramCacheKey = src.customProgramCacheKey;
+  m.name = 'GM_Paving' + (dark ? 'Dark' : ''); m.map = m.normalMap = m.roughnessMap = m.aoMap = null;
+  m.color.setScalar(P.gain); m.metalness = 0; m.roughness = 1;   // gain: pişmiş ışık haritası koyu, albedo ona göre telafi edilir
+  m.userData.extEnv = EXT_CFG.envI.ground; if (EXT_ENV) { m.envMap = EXT_ENV; m.envMapIntensity = m.userData.extEnv; } EXT_MATS.push(m);
+  const maps = { color: extTex(t, 'color', 1, true), normal: extTex(t, 'normal', 1), roughness: extTex(t, 'roughness', 1), ao: extTex(t, 'ao', 1) };
+  for (const x of Object.values(maps)) x.anisotropy = ANISO_MAX();   // yere çok sığ açıyla bakılıyor
+  applyWorldUV(m, { maps, worldSize: P.worldSize, aspect: K?.aspect || 1, normalScale: P.normalScale, antiTile: .3,
+    colorMul: albedoMul(K.avg, dark ? P.albedoDark : P.albedo), roughMul: .9, variation: 1, tint: P.tint, roughVar: .06,
+    tiles: { size: P.tile, joint: P.joint, dark: P.jointDark }, base: { dark: 0 }, lite: isMobile });
+  m.userData.paving = true; return m;
+}
 // Blender cephesi: zemin taşı → granit karo, saçak / bant / portal → mimari beton, doğrama / baba / lamba → koyu metal
 function applyExteriorPBR(root) {
   const S = EXT_CFG.size, cache = new Map();
@@ -1328,7 +1345,10 @@ function applyExteriorPBR(root) {
   root.traverse((o) => {
     if (!o.isMesh) return;
     const mats = [].concat(o.material), out = mats.map((mat) => {
-      const r = rule(mat?.name || '', `${o.name || ''}|${o.parent?.name || ''}`); if (!r) return mat;   // çok parçalı mesh: düğüm adı üst grupta
+      const mp = `${o.name || ''}|${o.parent?.name || ''}`;
+      if (/^MTG_paver/.test(mat?.name || '') && !/(^|\|)Cube_2(\||$)/.test(mp)) {   // yaya zemini → dünya koordinatlı taş karo
+        const key = `${mat.uuid}|paving`; if (!cache.has(key)) cache.set(key, pavingMat(mat, /dark/.test(mat.name))); return cache.get(key); }
+      const r = rule(mat?.name || '', mp); if (!r) return mat;   // çok parçalı mesh: düğüm adı üst grupta
       const [name, opt] = r, mpu = uvMeters(o), rep = mpu > 0 ? Math.min(40, Math.max(.05, mpu / S[name])) : 1;
       const key = `${mat.uuid}|${name}|${rep.toFixed(3)}|${opt.rough}|${opt.tint}`;
       if (!cache.has(key)) cache.set(key, extMat(mat, name, rep, { ...opt, env: opt.env ?? (/stone|concrete/.test(name) ? EXT_CFG.envI.ground : 0) }));
@@ -1379,13 +1399,14 @@ function facUV(geo, w, h, texM, jitter = true) {
   uv.needsUpdate = true; return geo;
 }
 // yatay panel sırası (x0..x1, y0..y1, ön yüz z): ~1.3 m panel, 10 mm koyu derz, alt / üst 3 cm metal profil
-function facPanelRow(g, x0, x1, y0, y1, z, { w = 1.3, gap = .01, d = .03, top = true, bottom = true, mat = null, texM = null } = {}) {
+function facPanelRow(g, x0, x1, y0, y1, z, { w = 1.3, gap = .01, d = .03, top = true, bottom = true, mat = null, texM = null, onGeo = null } = {}) {
   const M = facadeMats(), L = x1 - x0, tr = .03, ya = y0 + (bottom ? tr : 0), yb = y1 - (top ? tr : 0), h = yb - ya;
   const n = Math.max(1, Math.round(L / w)), pw = (L - gap * (n - 1)) / n, tm = texM ?? TH.palette.structure.textureMeters;
   const back = new THREE.Mesh(new THREE.BoxGeometry(L, h, .012), M.joint); back.position.set((x0 + x1) / 2, (ya + yb) / 2, z + .006); g.add(back);
   for (let i = 0; i < n; i++) {
     const pm = typeof mat === 'function' ? mat(i) : (mat || M.structure);
-    const p = new THREE.Mesh(facUV(new RoundedBoxGeometry(pw, h, d, 2, .005), pw, h, tm), pm);
+    const pg = facUV(new RoundedBoxGeometry(pw, h, d, 2, .005), pw, h, tm); onGeo?.(pg, i);
+    const p = new THREE.Mesh(pg, pm);
     p.position.set(x0 + pw / 2 + i * (pw + gap), (ya + yb) / 2, z + .012 + d / 2); p.receiveShadow = true; p.name = 'GM_Panel'; g.add(p);
   }
   for (const [on, y] of [[bottom, y0 + tr / 2], [top, y1 - tr / 2]]) if (on) {
@@ -1487,7 +1508,6 @@ function facEditVerts(o, fn) {
 const facBox = (w, h, d, mat, uvW = w, uvH = h) => new THREE.Mesh(facUV(new RoundedBoxGeometry(w, h, d, 2, .005), uvW, uvH, TH.palette.structure.textureMeters), mat);
 function facadeDepth(f, g) {
   const M = facadeMats(), mats = [], matte = M.variant('structure', { matte: true });
-  const sideMat = matte.clone(); sideMat.name = 'GM_SideStructure';   // yan dönüş + parapet: HDRI gök yansıması almaz (bkz. yan duvarlar)
   const copingMat = M.metal.clone(); copingMat.name = 'GM_CopingMetal'; copingMat.roughness = .55; copingMat.envMapIntensity = .18; mats.push(copingMat);
   const byName = (re) => { const out = []; f.traverse((o) => { if (re.test(o.name)) out.push(o); }); return out; };
   const hide = (re) => byName(re).forEach((o) => { o.visible = false; });
@@ -1520,8 +1540,8 @@ function facadeDepth(f, g) {
   facPanelRow(g, -17.30, 17.30, FD.roofBottom, FAC_ROOF_TOP, FAC_ROOF_F - .042);
   // parapet (60 cm, alından 3 cm geri) + metal harpuşta
   const pTop = FAC_ROOF_TOP + FD.parapet, pz = FAC_ROOF_F - .03;
-  facPanelRow(g, -17.30, 17.30, FAC_ROOF_TOP + .004, pTop, pz - .042, { top: false, bottom: false });
-  const body = (w, h, d, x, y, z) => { const m = facBox(w, h, d, sideMat, Math.max(w, d), h); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; };
+  facPanelRow(g, -17.30, 17.30, FAC_ROOF_TOP + .004, pTop, pz - .042, { top: false, bottom: false, w: TH.walls.plateW, gap: TH.walls.joint, mat: wallMat(), onGeo: wallVar });
+  const body = (w, h, d, x, y, z) => { const m = new THREE.Mesh(wallVar(new RoundedBoxGeometry(w, h, d, 2, .005)), wallMat()); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; };
   const coping = (w, d, x, z, y = pTop) => { const m = new THREE.Mesh(new RoundedBoxGeometry(w, .05, d, 2, .005), copingMat); m.position.set(x, y + .025, z); m.castShadow = true; m.name = 'GM_Coping'; g.add(m); };
   body(34.6, FD.parapet, .25, 0, FAC_ROOF_TOP + FD.parapet / 2, pz - .042 - .125);
   coping(34.66, .34, 0, FAC_ROOF_F - .14);
@@ -1543,22 +1563,22 @@ function facadeDepth(f, g) {
     const zs = [FAC_COL_F, ...slits.flatMap((z) => [z + SW / 2, z - SW / 2]), FAC_COL_F - FD.sideReturn];
     const back = new THREE.Mesh(new THREE.BoxGeometry(FD.sideReturn, yTop, .012), M.joint); back.position.set((U(zs[0]) + U(zs.at(-1))) / 2, yTop / 2, .006); side.add(back);
     for (let k = 0; k < zs.length - 1; k += 2) {        // dolu şeritler: ~1.2 m yüksek paneller
-      const a = U(zs[k]), b = U(zs[k + 1]), w = Math.abs(b - a) - .01, n = 7, ph = (yTop - .01 * (n - 1)) / n;
-      for (let r = 0; r < n; r++) { const p = facBox(w, ph, .03, sideMat); p.position.set((a + b) / 2, ph / 2 + r * (ph + .01), .027); p.receiveShadow = true; p.castShadow = true; side.add(p); }
+      const a = U(zs[k]), b = U(zs[k + 1]), J = TH.walls.joint, w = Math.abs(b - a) - J, n = 3, ph = (yTop - J * (n - 1)) / n;
+      for (let r = 0; r < n; r++) { const p = new THREE.Mesh(wallVar(new RoundedBoxGeometry(w, ph, .03, 2, .005)), wallMat()); p.position.set((a + b) / 2, ph / 2 + r * (ph + J), .027); p.receiveShadow = true; p.castShadow = true; side.add(p); }
     }
     for (const z of slits) {                             // yarık: alt ve üst katta cam, araları panel
       const u = U(z);
       for (const [y0, y1, glass] of [[0, .6, 0], [.6, 4.0, 1], [4.0, 6.0, 0], [6.0, 8.0, 1], [8.0, yTop, 0]]) {
         const h = y1 - y0 - .01;
-        const m = glass ? new THREE.Mesh(new THREE.BoxGeometry(SW - .02, h, .012), slitMat) : facBox(SW - .01, h, .03, sideMat);
+        const m = glass ? new THREE.Mesh(new THREE.BoxGeometry(SW - .02, h, .012), slitMat) : new THREE.Mesh(wallVar(new RoundedBoxGeometry(SW - .01, h, .03, 2, .005)), wallMat());
         m.position.set(u, (y0 + y1) / 2, glass ? .002 : .027); m.castShadow = !glass; side.add(m);
         if (glass) for (const dx of [-1, 1]) { const fr = new THREE.Mesh(new THREE.BoxGeometry(.012, h, .04), M.metal); fr.position.set(u + dx * (SW / 2 - .006), (y0 + y1) / 2, .02); side.add(fr); }
       }
     }
     // komşu parsel geçişi: 1.3 m koyu beton duvar + 1.2 m dikey çıta çit (düşük detay)
-    const wallMat = mats[mats.push(new THREE.MeshStandardMaterial({ name: 'GM_NeighbourWall', color: '#1a1b1d', roughness: .95, metalness: 0 })) - 1];
+    const nwMat = mats[mats.push(new THREE.MeshStandardMaterial({ name: 'GM_NeighbourWall', color: '#1a1b1d', roughness: .95, metalness: 0 })) - 1];
     const L = FD.neighbourWall, x0 = sd * 16.86, xc = x0 + sd * L / 2, zc = FAC_COL_F - FD.sideReturn - .15;
-    const wall = new THREE.Mesh(new RoundedBoxGeometry(L, 1.3, .3, 2, .005), wallMat); wall.position.set(xc, .65, zc); wall.castShadow = wall.receiveShadow = true; g.add(wall);
+    const wall = new THREE.Mesh(new RoundedBoxGeometry(L, 1.3, .3, 2, .005), nwMat); wall.position.set(xc, .65, zc); wall.castShadow = wall.receiveShadow = true; g.add(wall);
     const fence = mats[mats.push(new THREE.MeshStandardMaterial({ name: 'GM_Fence', color: '#101113', roughness: .7, metalness: .2 })) - 1];
     const cap = new THREE.Mesh(new RoundedBoxGeometry(L, .04, .34, 2, .005), fence); cap.position.set(xc, 1.32, zc); g.add(cap);
     const n = Math.floor(L / .11), slat = new THREE.InstancedMesh(new THREE.BoxGeometry(.045, 1.15, .03), fence, n), mm = new THREE.Matrix4();
@@ -1594,6 +1614,8 @@ function facadeDepth(f, g) {
   }
   FAC_KEY = key;
   buildUpperGallery(f, g);
+  buildSideWalls(g);
+  for (const sd of [-1, 1]) { wallUplight(sd * 16.862, FAC_COL_F - 1.2, sd, 0, FD.roofBottom); for (const z of [-7, -16.5]) wallUplight(sd * 16.862, z, sd, 0, 8.8); }
   for (const m of mats) { m.envMapIntensity = Math.min(m.envMapIntensity ?? 1, .3); if (EXT_ENV && m !== copingMat) m.envMap = EXT_ENV; }
   renderer.shadowMap.needsUpdate = true;
 }
@@ -1664,6 +1686,68 @@ function buildUpperGallery(f, g) {
     for (const sd of [-1, 1]) { const ch = new THREE.Mesh(new THREE.BoxGeometry(.04, H, U.finD + .07), new THREE.MeshStandardMaterial({ color: '#141416', roughness: .8 })); ch.position.set(c + sd * w / 2, y0 + H / 2, zB + (U.finD + .07) / 2); G.add(ch); }
   }
 }
+// ---------- Dış duvarlar: taranmış PBR, dünya koordinatlı (triplanar), plakalı ----------
+const WALL = { mat: null, spots: [], rnd: (() => { let s = 7741; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); })() };
+function wallMaps(kind) {
+  const W = TH.walls, t = W[kind].texture;
+  const mp = { color: extTex(t, 'color', 1, true), normal: extTex(t, 'normal', 1), roughness: extTex(t, 'roughness', 1), ao: extTex(t, 'ao', 1) };
+  for (const x of Object.values(mp)) x.anisotropy = ANISO_MAX();   // sığ açıda (yan duvar, kolon yanı) doku netliği
+  return mp;
+}
+function wallMat() {
+  if (WALL.mat) return WALL.mat;
+  const W = TH.walls, K = W[W.material];
+  // HDRI gök yansıması YOK: gece HDRI'si mat taşı lavanta / beyaza boyuyor (yan duvarlarda olduğu gibi). Işık: tema ışıkları + yalayan spotlar.
+  const m = new THREE.MeshPhysicalMaterial({ name: 'GM_WallScan', color: '#ffffff', metalness: 0, roughness: 1, envMapIntensity: 0 });
+  const gm = extTex(W.grime.texture, 'opacity', 1);
+  applyWorldUV(m, { maps: wallMaps(W.material), worldSize: K.worldSize, aspect: K.aspect, normalScale: W.normalScale, antiTile: W.antiTile, colorMul: albedoMul(K.avg, W.albedo),
+    roughMul: K.roughMul, variation: W.variation, tint: W.tint, roughVar: W.roughVar, lite: isMobile,
+    grime: { map: gm, opacity: W.grime.opacity, height: W.grime.height, width: W.grime.width, edges: [FAC_ROOF_TOP + FD.parapet, 8.80, FD.roofBottom] },
+    base: W.base });
+  return (WALL.mat = m);
+}
+const wallVar = (geo) => plateVarAttribute(geo, randomPlateVar(WALL.rnd));
+function setWallMaterial(kind) {
+  const W = TH.walls, K = W[kind], u = wallMat().userData.worldUV.uniforms, mp = wallMaps(kind);
+  W.material = kind; u.tpColor.value = mp.color; u.tpNormal.value = mp.normal; u.tpRough.value = mp.roughness; u.tpAO.value = mp.ao;
+  u.tpScale.value = 1 / K.worldSize; u.tpAspect.value = K.aspect || 1; u.tpColorMul.value = colorMulVec(albedoMul(K.avg, W.albedo)); u.tpRoughMul.value = K.roughMul;
+}
+// uzun yan duvarlar: z −3.15 → −62, 120 × 300 cm plakalar (5 mm derz). Pencere bantları ve dikey LED derzleri açık kalır.
+function buildSideWalls(g) {
+  const W = TH.walls, M = wallMat(), J = W.joint, T = .03, xF = 16.862, z0 = FAC_COL_F - FD.sideReturn, top = 8.80;
+  const joints = [-10, -23, -36, -49, -62];   // Blender'daki dikey LED derzleri
+  const windows = [[-10.15, -22.85], [-23.15, -35.85], [-36.15, -48.85], [-49.15, -61.85]];
+  const bySize = new Map(), add = (w, h, x, y, z) => { const k = `${w.toFixed(3)}x${h.toFixed(3)}`; if (!bySize.has(k)) bySize.set(k, { w, h, list: [] }); bySize.get(k).list.push([x, y, z]); };
+  const ledM = new THREE.MeshBasicMaterial({ name: 'GM_SideJointLED', color: facadeMats().lightColor.clone().multiplyScalar(.9) });
+  for (const sd of [-1, 1]) {
+    let za = z0;
+    for (const zb of joints) {
+      const a = za - (za === z0 ? 0 : .02), b = zb + .02, L = a - b, win = windows.find(([w0, w1]) => w0 <= a + .3 && w1 >= b - .3);
+      const rows = win ? [[0, 3.40], [4.45, 6.625], [6.625, top]] : [[0, top / 3], [top / 3, top * 2 / 3], [top * 2 / 3, top]];
+      const n = Math.max(1, Math.round(L / W.plateW)), pw = (L - J * (n - 1)) / n;
+      for (const [y0, y1] of rows) { const ph = y1 - y0 - J; for (let i = 0; i < n; i++) add(pw, ph, sd * (xF - T / 2), y0 + J / 2 + ph / 2, a - pw / 2 - i * (pw + J)); }
+      if (zb > -62) { const led = new THREE.Mesh(new THREE.BoxGeometry(.01, 8.0, .012), ledM); led.position.set(sd * (xF - .02), 4.4, zb); g.add(led); }
+      za = zb;
+    }
+    // derz zemini: plakaların arkasında koyu katman
+    const back = new THREE.Mesh(new THREE.BoxGeometry(.01, top, Math.abs(-62 - z0)), facadeMats().joint); back.position.set(sd * (xF - T - .006), top / 2, (z0 - 62) / 2); g.add(back);
+  }
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), one = new THREE.Vector3(1, 1, 1);
+  for (const { w, h, list } of bySize.values()) {
+    const geo = new RoundedBoxGeometry(T, h, w, 2, .005), im = new THREE.InstancedMesh(geo, M, list.length), pv = new Float32Array(list.length * 4);
+    list.forEach(([x, y, z], i) => { im.setMatrixAt(i, m4.compose(new THREE.Vector3(x, y, z), q, one)); pv.set(randomPlateVar(WALL.rnd), i * 4); });
+    geo.setAttribute('plateVar', new THREE.InstancedBufferAttribute(pv, 4));
+    im.instanceMatrix.needsUpdate = true; im.receiveShadow = true; im.castShadow = true; im.name = 'GM_SideWallPlates'; g.add(im);
+  }
+}
+// duvar dibinde yukarı bakan dar spot: yüzeyi sığ açıyla yalar (gölgesiz)
+function wallUplight(x, z, nx, nz, h) {
+  if (isMobile) return null;
+  const U = TH.walls.uplight, off = U.offset, s = new THREE.SpotLight(facadeMats().lightColor, U.intensity, h + 1.5, U.angle, U.penumbra, 2);
+  s.name = 'GM_WallUplight'; s.castShadow = false; s.position.set(x + nx * off, .05, z + nz * off);
+  const back = off - h * .6 * Math.tan(U.angle); s.target.position.set(x + nx * back, h * .6, z + nz * back);
+  scene.add(s, s.target); WALL.spots.push(s); return s;
+}
 // ---------- Dış kolonlar: tek üretici createColumn(width, height, depth, variant) ----------
 // Yerel eksen: x ∈ [−w/2, w/2], y ∈ [0, h] (zemin → saçak altı), z ∈ [−d, 0] (0 = kolon ön yüzü).
 const COL = { group: null, specs: [], mats: null, spots: [] };
@@ -1716,8 +1800,8 @@ function createColumn(width, height, depth, variant = TH.columns.variant) {
     const gw = C.grooveW, gd = C.grooveD, hw = (w - gw) / 2, n = C.plates, ph = (bh - C.joint * (n - 1)) / n;
     add(new THREE.BoxGeometry(w - .02, bh, d - gd), K.gap, 0, y0 + bh / 2, -gd - (d - gd) / 2, { cast: false, name: 'GM_ColumnCore' });
     for (const sd of [-1, 1]) for (let k = 0; k < n; k++) {
-      const geo = facUV(new RoundedBoxGeometry(hw, ph, d, 3, C.radius), hw, ph, tm);   // facUV: plaka başına farklı doku kaydırması
-      add(geo, K.body, sd * (gw / 2 + hw / 2), y0 + ph / 2 + k * (ph + C.joint), -d / 2, { name: 'GM_ColumnPlate' });
+      const geo = wallVar(new RoundedBoxGeometry(hw, ph, d, 3, C.radius));   // dünya koordinatlı doku + plaka başına ofset / döndürme / ton
+      add(geo, wallMat(), sd * (gw / 2 + hw / 2), y0 + ph / 2 + k * (ph + C.joint), -d / 2, { name: 'GM_ColumnPlate' });
     }
     add(new THREE.BoxGeometry(.012, bh, .006), K.led, 0, y0 + bh / 2, -gd + .004, { cast: false, recv: false, name: 'GM_ColumnLED' });
     for (const sd of [-1, 1]) {
@@ -1807,7 +1891,7 @@ function applyFacadeTheme(f) {
     /glass/i.test(n) ? null :
     /^MTG_hedge$/.test(n) ? 'hide' :
     /^MTG_paver_dark$/.test(n) && /(^|\|)Cube_2(\||$)/.test(mp) ? 'structure' :             // kapı kasası (koyu granit) → kolon
-    /^MTG_(paver|curb)/.test(n) ? 'stone' :
+    /^(MTG_(paver|curb)|GM_Paving)/.test(n) ? 'stone' :
     /^MTG_microcement$/.test(n) && /MTG_UpCeil/.test(mp) ? 'wood' :
     /^MTG_(dmarble_[ab]|facstone_[abc]|microcement)$/.test(n) ? 'structure' :
     /^MTG_black$/.test(n) ? (/MTG_RoofSlab/.test(mp) ? 'structure' : 'metal') :
@@ -1856,12 +1940,41 @@ function applyFacadeTheme(f) {
   if (THEME_UNMAPPED.size) console.info('Cephe teması: palete bağlanmayan malzemeler', Object.fromEntries(THEME_UNMAPPED));
 }
 // sahne düzeyi: 3000 K dış / vitrin ışıkları, gradyan gök + şehir silueti (HDRI yalnız yansıma)
-function finalizeFacadeTheme() {
-  const M = facadeMats(), L = M.lightColor;
+// bütün dış cephe ışıkları (z > −3.5: spot, uplight, saçak, vitrin) tek renkte: facadeLightColor() = kelvinToColor(lightTemp, whiteBalance)
+function recolorFacadeLights() {
+  const L = facadeMats().lightColor;
   const skip = new Set([keyLight, fillLight, rimLight, focusShadow, roomLightA, roomLightB, typeof sweep !== 'undefined' ? sweep : null].filter(Boolean));
   const wp = new THREE.Vector3();
   scene.traverse((o) => { if (!o.isLight || o.isHemisphereLight || o.isDirectionalLight || o.isAmbientLight || skip.has(o)) return; o.getWorldPosition(wp); if (wp.z > -3.5) o.color.copy(L); });
+}
+function finalizeFacadeTheme() {
+  recolorFacadeLights();
+  restylePlanters();
   buildThemeSky();
+}
+// palet dışı terakota saksılar (Poly Haven potted_plant_02/04 saksıları + altlarındaki yuvarlak taş saksı) →
+// structure malzemesinde dikdörtgen saksı. Bitki yerinde kalır; saksı, eski saksının ve altlığının kapladığı hacmi örter.
+function restylePlanters() {
+  const M = facadeMats(), mat = M.variant('structure', { matte: true }), pots = [], bases = [], soil = std('#211f1a', .96, 0, 0);   // mat: iç mekân ortamını yansıtıp açık griye dönmesin
+  scene.updateMatrixWorld(true);
+  scene.traverse((o) => {
+    if (!o.isMesh || !o.visible) return;
+    if (/^potted_plant_0\d_pot/.test(o.name) && [].concat(o.material).every((m) => m?.name !== 'GM_structure')) pots.push(o);
+    else if (/^MTG_(Rec)?Planter(\d+|_[A-Z])(_soil)?$/.test(o.name)) bases.push(o);
+  });
+  for (const p of pots) {
+    const b = new THREE.Box3().setFromObject(p), probe = b.clone().expandByScalar(.03);
+    for (const q of bases) { const qb = new THREE.Box3().setFromObject(q); if (qb.intersectsBox(probe)) { b.union(qb); q.visible = false; } }
+    p.visible = false;
+    const s = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3()), wide = Math.max(s.x, s.z);
+    const along = Math.abs(c.x) > 14 ? 'z' : 'x';   // yan duvar dibindekiler duvar boyunca uzanır
+    const L = wide * 1.12, D = wide * .66, H = b.max.y - .03;
+    const box = new THREE.Mesh(new RoundedBoxGeometry(along === 'x' ? L : D, H, along === 'x' ? D : L, 3, Math.min(.03, wide * .06)), mat);
+    box.position.set(c.x, H / 2, c.z); box.castShadow = box.receiveShadow = true; box.name = 'GM_RectPlanter'; scene.add(box);
+    const top = new THREE.Mesh(new THREE.PlaneGeometry(along === 'x' ? L - .06 : D - .06, along === 'x' ? D - .06 : L - .06), soil);
+    top.rotation.x = -Math.PI / 2; top.position.set(c.x, H - .035, c.z); top.name = 'GM_RectPlanterSoil'; scene.add(top);
+  }
+  if (pots.length) renderer.shadowMap.needsUpdate = true;
 }
 let THEME_SKY = null, THEME_CITY = null;
 function buildThemeSky() {
@@ -1914,7 +2027,8 @@ async function facadeGUI() {
   bl.add(TH.bloom, 'strength', 0, 1, .01).onChange((v) => bloomPass && (bloomPass.strength = v));
   bl.add(TH.bloom, 'radius', 0, 1, .01).onChange((v) => bloomPass && (bloomPass.radius = v));
   const li = f.addFolder('ışık / gök');
-  li.add(TH, 'lightTemp', 2200, 6500, 50).name('ışık (K)').onChange(() => { up(); if (M.halo) M.halo.color.copy(M.lightColor); });
+  li.add(TH, 'lightTemp', 2200, 6500, 50).name('ışık (K)').onChange(() => { up(); recolorFacadeLights(); if (M.halo) M.halo.color.copy(M.lightColor); });
+  li.add(TH, 'whiteBalance', 3000, 6500, 50).name('beyaz dengesi (K)').onChange(() => { up(); recolorFacadeLights(); if (M.halo) M.halo.color.copy(M.lightColor); });
   li.addColor(TH.sky, 'top').name('gök üst').onChange((v) => THEME_SKY?.material.uniforms.top.value.set(v));
   li.addColor(TH.sky, 'horizon').name('ufuk').onChange((v) => THEME_SKY?.material.uniforms.hor.value.set(v));
   li.add(TH.sky, 'warm', 0, .25, .005).name('ufuk sıcaklığı').onChange((v) => THEME_SKY && (THEME_SKY.material.uniforms.warm.value = v));
@@ -1923,8 +2037,17 @@ async function facadeGUI() {
   co.add(CC, 'variant', { 'A: monolit + LED girinti': 'A', 'B: dikey lamel': 'B' }).name('varyant').onChange(() => { buildColumns(); updateColumnLights(); });
   co.add(CC, 'led', 0, 3, .05).name('LED şiddeti').onChange(updateColumnLights);
   co.add(CC, 'grooveGlow', 0, 1.5, .05).name('girinti yan ışığı').onChange(updateColumnLights);
-  co.add(CC, 'uplight', 0, 60, .5).name('yalayan ışık').onChange(updateColumnLights);
+  co.add(CC, 'uplight', 0, 20, .1).name('yalayan ışık').onChange(updateColumnLights);
   co.add(CC, 'grooveW', .02, .12, .005).name('girinti genişliği').onFinishChange(() => { buildColumns(); updateColumnLights(); });
+  const wa = f.addFolder('Duvarlar'), WW = TH.walls, wu = () => wallMat().userData.worldUV.uniforms;
+  wa.add(WW, 'material', { 'taş (Rock041)': 'stone', 'beton (Concrete029)': 'concrete' }).name('malzeme').onChange((v) => setWallMaterial(v));
+  const ws = { worldSize: WW[WW.material].worldSize };
+  wa.add(ws, 'worldSize', .5, 6, .05).name('textureWorldSize (m)').onChange((v) => { WW[WW.material].worldSize = v; wu().tpScale.value = 1 / v; });
+  wa.addColor(WW, 'albedo').name('ortalama renk (albedo)').onChange((v) => { wu().tpColorMul.value = colorMulVec(albedoMul(WW[WW.material].avg, v)); });
+  wa.add(WW, 'normalScale', 0, 3, .05).onChange((v) => { wu().tpNormalScale.value = v; });
+  wa.add(WW.grime, 'opacity', 0, 1, .01).name('kir opaklığı').onChange((v) => { wu().tpGrimeOpacity.value = v; });
+  wa.add(WW.uplight, 'intensity', 0, 20, .1).name('yalayan ışık').onChange((v) => { for (const sp of [...WALL.spots, ...COL.spots]) sp.intensity = v; TH.columns.uplight = v; });
+  wa.add(WW, 'variation', 0, 2, .05).name('plaka varyasyonu').onChange((v) => { wu().tpVar.value = v; });
   f.add({ kopyala: () => navigator.clipboard?.writeText(JSON.stringify(TH, null, 2)) }, 'kopyala').name('temayı kopyala (JSON)');
   gui.close(); f.open();
 }

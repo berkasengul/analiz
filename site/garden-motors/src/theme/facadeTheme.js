@@ -15,7 +15,8 @@ export const FACADE_THEME = {
     stone: { texture: 'stone', usage: 'yalnız yaya zemini (kaldırım, giriş eşiği)' },
     brand: { green: '#3ccf3c', white: '#f2efe8' },
   },
-  lightTemp: 3000,   // K — bütün spot, LED ve vitrin ışıkları
+  lightTemp: 3500,   // K — bütün spot, LED ve vitrin ışıkları (cephe ışıklarının hepsi kelvinToColor'dan)
+  whiteBalance: 4700,   // K — kamera beyaz dengesi: 3500 K ışık #ffe1b6 görünür, gri taş sıcak ışık altında gri kalır (6500 = dengesiz, #ffcc8c)
   sign: {
     capRatio: .45,          // büyük harf yüksekliği / panel yüksekliği
     depth: .04,             // kutu harf derinliği (m), pah yok
@@ -53,7 +54,7 @@ export const FACADE_THEME = {
     grooveGlow: .35,       // girinti yan yüzeylerine düşen LED ışığı
     plinthH: .12, plinthInset: .02, plinthGap: .03,   // metal kaide + koyu gölge boşluğu
     topGap: .03,           // kolon üstü ile saçak arası gölge boşluğu
-    uplight: 10, uplightAngle: .15, uplightPenumbra: .5, uplightOffset: .22,   // yalayan ışık (gölgesiz)
+    uplight: 2.2, uplightAngle: .3, uplightPenumbra: .8, uplightOffset: .22,   // yalayan ışık (gölgesiz)
     lamel: { thick: .015, depth: .04, gap: .06, core: '#151617' },
   },
   // üst kat bandı (tabelanın arkası): fırçalanmış koyu alüminyum kompozit, panel başına hafif ton farkı
@@ -68,27 +69,57 @@ export const FACADE_THEME = {
   },
   // vitrin araçları: tavan spotu + üst ışık + kaide altında yüzen ışık
   display: { spot: 48, spotAngle: .5, spotPenumbra: .65, topLight: 4.2, groundTopLight: 3.2, trim: .75, floorGlow: .45 },
+  // dış duvarlar (kolon, yan duvar, parapet, bina uçları; tabela yanındaki kompozit bant HARİÇ): taranmış PBR, dünya koordinatlı
+  walls: {
+    material: 'stone',                 // 'stone' | 'concrete'
+    // albedo: dokunun ortalama rengi bu tona çekilir (kanal başına çarpan = hedef / avg). avg: doku renginin doğrusal ortalaması.
+    // aspect: doku piksel en/boyu (2048×1024 → 2), dünya ölçeği iki eksende de doğru kalsın diye
+    albedo: '#5a5652',                 // açık-orta gri taş: sıcak ışık altında turuncuya kaçmaz
+    stone: { texture: 'wall_stone', worldSize: 2.0, aspect: 2, avg: [.160, .142, .1057], roughMul: .8 },        // ambientCG Rock041
+    concrete: { texture: 'wall_concrete', worldSize: 2.4, aspect: 1, avg: [.1397, .1291, .1195], roughMul: .8 }, // ambientCG Concrete029
+    normalScale: 1.5, antiTile: .3,    // ikinci (döndürülmüş, düşük frekanslı) örnekleme oranı
+    plateW: 1.2, plateH: 3.0, joint: .005,
+    variation: 1.0, tint: .07, roughVar: .08,    // plaka başına ton ±%7, pürüzlülük ±.08: yakından plakalar ayrışır
+    grime: { texture: 'grime_mask', opacity: .4, height: .7, width: 2.0 },                  // ambientCG Leaking005 (Opacity)
+    base: { height: .25, dark: .35 },
+    uplight: { intensity: 2.2, angle: .3, penumbra: .8, offset: .22 },
+  },
+  // yaya zemini (giriş önü kaldırım): duvar taşı, dünya ızgarasına oturan 60 × 60 cm karolar, ince derz. Pişmiş ışık haritası korunur.
+  paving: { texture: 'wall_stone', worldSize: 0.9, tint: .035, tile: .6, joint: .003, jointDark: .55, albedo: '#4a4845', albedoDark: '#33312f', normalScale: 1.0, gain: 2.3 },
   bloom: { threshold: .9, strength: .16, radius: .12 },
   sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22 },
   city: { color: '#1c2335', windows: .14, distance: 170, height: 72 },
   fog: { color: '#0b1020', density: .0045 },
 };
 
-// Tanner Helland yaklaşımı: renk sıcaklığı (K) → sRGB
-export function kelvinToColor(k) {
-  const t = k / 100;
-  const r = t <= 66 ? 255 : 329.698727446 * Math.pow(t - 60, -0.1332047592);
-  const g = t <= 66 ? 99.4708025861 * Math.log(t) - 161.1195681661 : 288.1221695283 * Math.pow(t - 60, -0.0755148492);
-  const b = t >= 66 ? 255 : t <= 19 ? 0 : 138.5177312231 * Math.log(t - 10) - 305.0447927307;
-  const c = (v) => Math.min(255, Math.max(0, v)) / 255;
-  return new THREE.Color().setRGB(c(r), c(g), c(b), THREE.SRGBColorSpace);
+// Renk sıcaklığı (K) → renk. Kara cisim (Planck) eğrisinin CIE 1931 xy yaklaşımı (Kim ve ark.) → XYZ → doğrusal sRGB.
+// wb: beyaz dengesi (K). Kamera gibi: ışık rengi wb sıcaklığındaki kara cisim rengine bölünür (von Kries).
+// En parlak kanal 1'e normalize edilir: renk tonunu verir, şiddet ışığın intensity değerindedir.
+// 3500 K: wb yok → #ffc78b · wb 5500 → #ffd69e · wb 4700 → #ffe1b6 (Tanner Helland yaklaşımı aynı K'de daha turuncu çıkıyordu)
+function planckLinear(k) {
+  const T = Math.min(25000, Math.max(1667, k));
+  const x = T <= 4000 ? -0.2661239e9 / T ** 3 - 0.2343589e6 / T ** 2 + 0.8776956e3 / T + 0.179910
+                      : -3.0258469e9 / T ** 3 + 2.1070379e6 / T ** 2 + 0.2226347e3 / T + 0.240390;
+  const y = T <= 2222 ? -1.1063814 * x ** 3 - 1.34811020 * x ** 2 + 2.18555832 * x - 0.20219683
+          : T <= 4000 ? -0.9549476 * x ** 3 - 1.37418593 * x ** 2 + 2.09137015 * x - 0.16748867
+                      : 3.0817580 * x ** 3 - 5.87338670 * x ** 2 + 3.75112997 * x - 0.37001483;
+  const X = x / y, Z = (1 - x - y) / y;
+  return [3.2404542 * X - 1.5371385 - 0.4985314 * Z, -0.9692660 * X + 1.8760108 + 0.0415560 * Z, 0.0556434 * X - 0.2040259 + 1.0572252 * Z]
+    .map((v) => Math.max(1e-4, v));
 }
+export function kelvinToColor(k, wb = null) {
+  let c = planckLinear(k);
+  if (wb) { const w = planckLinear(wb); c = c.map((v, i) => v / w[i]); }
+  const m = Math.max(...c);
+  return new THREE.Color().setRGB(c[0] / m, c[1] / m, c[2] / m, THREE.LinearSRGBColorSpace);
+}
+export const facadeLightColor = () => kelvinToColor(FACADE_THEME.lightTemp, FACADE_THEME.whiteBalance);
 
 // texture(name, map, srgb) → THREE.Texture (sahne sağlar). envMap sonradan setEnv ile gelir.
 export function createFacadeMaterials({ texture, wood = null, glass = null, stone = null } = {}) {
   const P = FACADE_THEME.palette, S = FACADE_THEME.sign, v2 = (k) => new THREE.Vector2(k, k);
   const tex = (name, map, srgb, rep = 1) => { const t = texture(name, map, srgb); if (!t) return null; const c = t.clone(); c.wrapS = c.wrapT = THREE.RepeatWrapping; c.repeat.set(rep, rep); return c; };
-  const light = kelvinToColor(FACADE_THEME.lightTemp);
+  const light = facadeLightColor();
   const M = {
     theme: FACADE_THEME, lightColor: light,
     structure: new THREE.MeshStandardMaterial({ name: 'GM_structure', color: P.structure.color, metalness: P.structure.metalness, roughness: P.structure.roughness,
@@ -118,7 +149,7 @@ export function createFacadeMaterials({ texture, wood = null, glass = null, ston
   M.all = () => [M.structure, M.metal, M.joint, M.signFace, M.signGreen, ...cache.values()];
   // tema değişince (lil-gui) bütün örnekler güncellenir
   M.sync = () => {
-    const L = kelvinToColor(FACADE_THEME.lightTemp); M.lightColor.copy(L); M.led.color.copy(L).multiplyScalar(2.2);
+    const L = facadeLightColor(); M.lightColor.copy(L); M.led.color.copy(L).multiplyScalar(2.2);
     for (const m of [M.structure, ...[...cache.values()].filter((x) => x.userData.variantOf === 'structure')]) {
       m.color.set(P.structure.color); m.metalness = P.structure.metalness; m.roughness = P.structure.roughness; m.normalScale?.setScalar(P.structure.normalScale); m.envMapIntensity = m.lightMap || m.userData.env === P.structure.bakedEnvIntensity ? P.structure.bakedEnvIntensity : P.structure.envIntensity; }
     for (const m of [M.metal, ...[...cache.values()].filter((x) => x.userData.variantOf === 'metal')]) {

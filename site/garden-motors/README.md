@@ -56,3 +56,31 @@ Ayarlar `facadeTheme.js` → `upper`, `display`, `band`; kod `buildUpperGallery(
   yatay fırça izi), komşu paneller ±%6 farklı tonda.
 
 Önce / sonra: `screenshots/ust-kat/onceSonra_ust1.jpg` (önden, 3/4), `onceSonra_ust2.jpg` (üst kat yakın, zemin vitrin).
+
+## Dış duvarlar: taranmış PBR, dünya koordinatlı (`src/materials/worldUV.js`)
+Kolonlar, yan duvarlar, parapet ve bina uçları (tabela yanındaki kompozit bant hariç) ambientCG taramalarıyla kaplıdır:
+**taş Rock041 (varsayılan)**, beton Concrete029 (lil-gui seçeneği), kir maskesi Leaking005. Dokular repo kökündeki
+`public/textures/wall_stone|wall_concrete|grime_mask` klasörlerindedir, sitenin `public/textures/` klasörüne kopyalanmalıdır.
+Ayarlar `facadeTheme.js` → `walls`, `paving`, `lightTemp`, `whiteBalance`.
+
+- **Triplanar örnekleme:** UV yok, doku dünya koordinatından gelir (her yüzeyde aynı ölçek, gerilme yok). Normal haritası
+  "whiteout" karışımıyla dünya uzayına çevrilir. Türevler dallanmanın dışında hesaplanıp `textureGrad` ile verilir (köşelerde
+  yanlış mip seçimi olmaz); doku en/boy oranı (`aspect`, Rock041 2:1) düzeltilir; anizotropi en yüksek değerde.
+- **Renk:** her dokunun doğrusal ortalaması (`avg`) kayıtlı; kanal başına çarpan ortalamayı `albedo` hedefine çeker
+  (duvar `#5a5652`, açık-orta gri). lil-gui'de renk seçici var.
+- **Plakalama:** 120 × 300 cm plakalar, 5 mm derz; plaka başına doku kaydırması, 180° döndürme, ±%7 ton ve ±.08 pürüzlülük.
+  Parapet ve saçak kenarlarının altında 70 cm'lik kir akıntısı (opaklık .4), zemine değen 25 cm'de koyulaşma.
+- **Işık:** `kelvinToColor` artık Planck eğrisinin CIE 1931 yaklaşımı (eski Tanner Helland formülü aynı K'de daha turuncuydu).
+  Bütün dış cephe ışıkları aynı renkten gelir: `facadeLightColor() = kelvinToColor(lightTemp 3500, whiteBalance 4700)`.
+  Beyaz dengesi kamera gibi çalışır. 3500 K tek başına doğrusal uzayda (1, .57, .25) demektir ve gri taşı turuncuya boyar;
+  4700 K beyaz dengesiyle ışık `#ffe1b6` olur ve taş sıcak ışık altında gri kalır (lil-gui → ışık / gök → beyaz dengesi).
+- **Yalayan ışık:** kolon ve duvar dibinde gölgesiz spot; açı .3, penumbra .8, şiddet 2.2 (en parlak nokta tone mapping'de patlamaz).
+- **Yaya zemini:** giriş önü kaldırım aynı taş dokusuyla, dünya ızgarasına oturan 60 × 60 cm karolar, 3 mm derz, karo başına
+  ofset/ton; orta-koyu gri (`#4a4845`, giriş şeridi `#33312f`). Blender'ın pişmiş ışık haritası korunur.
+- **Saksılar:** palet dışı terakota saksılar (vitrin ve resepsiyon) structure malzemesinde mat, dikdörtgen saksılarla değiştirildi.
+- lil-gui → Cephe → **Duvarlar**: malzeme (taş/beton), ortalama renk, textureWorldSize, normalScale (1.5), kir opaklığı,
+  yalayan ışık, plaka varyasyonu.
+
+Teşhis (kolon, 2 m): `screenshots/duvar/teshis_ab.jpg`: uplight'lar kapalı ve nötr yan ışık altında bile kolon turuncuydu
+(sebep: 3000 K cephe ışığı ve dokunun sıcak kahve ortalaması). Renk haritası tek başına net ve doğru ölçekteydi.
+Önce / sonra (açılış, kapıya yarı yol, kolona 2 m): `screenshots/duvar/once_sonra_duvar.jpg`; taş / beton: `tas_beton_yeni.jpg`.
