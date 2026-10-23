@@ -18,12 +18,13 @@ export const FACADE_THEME = {
   lightTemp: 3500,   // K — bütün spot, LED ve vitrin ışıkları (cephe ışıklarının hepsi kelvinToColor'dan)
   whiteBalance: 4700,   // K — kamera beyaz dengesi: 3500 K ışık #ffe1b6 görünür, gri taş sıcak ışık altında gri kalır (6500 = dengesiz, #ffcc8c)
   sign: {
+    width: 12.4, height: 1.56, boxDepth: .22,   // tabela kutusu: bant önüne 22 cm çıkar, bantdan 18 cm yüksek, önü aynı lamel
     capRatio: .45,          // büyük harf yüksekliği / panel yüksekliği
     depth: .04,             // kutu harf derinliği (m), pah yok
     standoff: .03,          // panel ile harf arası (m)
-    faceEmissive: .62,      // harf yüzü: bloom eşiğini yalnız hafifçe geçer
-    greenEmissive: .32,     // yeşil çizgi + yapraklar: harflerden daha sönük
-    halo: .25,              // harf arkası hale opaklığı
+    faceEmissive: 1.05,     // harf yüzü: referanstaki gibi parlak beyaz, bloom eşiğini geçer
+    greenEmissive: .62,     // yeşil çizgi + yapraklar: harflerden biraz sönük
+    halo: .42,              // harf arkası hale opaklığı (lamellere vuran ışıma)
     iconScale: .62,         // logo simgesinin yazıya göre ölçeği
   },
   // mimari derinlik (m). z: sokağa doğru +. Katmanlar önden arkaya: çatı plağı → kolonlar → üst kat bandı → doğrama → cam → giriş.
@@ -54,11 +55,16 @@ export const FACADE_THEME = {
     grooveGlow: .35,       // girinti yan yüzeylerine düşen LED ışığı
     plinthH: .12, plinthInset: .02, plinthGap: .03,   // metal kaide + koyu gölge boşluğu
     topGap: .03,           // kolon üstü ile saçak arası gölge boşluğu
-    uplight: 2.2, uplightAngle: .3, uplightPenumbra: .8, uplightOffset: .22,   // yalayan ışık (gölgesiz)
+    uplight: 36, uplightAngle: .26, uplightPenumbra: .8, uplightOffset: .22,   // kolon ışığı şiddeti / açısı (gölgesiz)
+    fixtures: [4.30, 8.30],   // referans: kolon yüzüne monte silindir armatür, aşağı bakan dar ışın (bant altı + saçak altı)
+    fixtureZ: .10,          // armatür yüzden 10 cm dışarıda (kısa kol): ışın yüze armatürün ~40 cm altında değer, aşağı söner
     lamel: { thick: .015, depth: .04, gap: .06, core: '#151617' },
   },
   // üst kat bandı (tabelanın arkası): fırçalanmış koyu alüminyum kompozit, panel başına hafif ton farkı
-  band: { texture: 'brushed_metal', textureMeters: 1.0, normalScale: .35, roughness: .42, metalness: .6, envIntensity: .35, toneJitter: .06 },
+  band: { texture: 'brushed_metal', textureMeters: 1.0, normalScale: .35, roughness: .42, metalness: .6, envIntensity: .35, toneJitter: .06,
+    // referans: boydan boya siyah yatay alüminyum lamel. Bant kolonların önünden geçer, uç kolonlara dayanır.
+    louver: { front: .10, pitch: .07, slatH: .05, slatD: .06, tilt: 12, color: '#141414', metalness: .6, roughness: .3, envIntensity: .2, normal: 0,
+      x: 15.9, y0: 4.40, y1: 5.60, led: 1.6 } },
   // üst kat iç duvarı: cilalı koyu mermer + ceviz lamel bölgeleri + her aracın arkasında arkadan aydınlatmalı niş
   upper: {
     stone: 'dark_stone', stoneMeters: 2.4, stoneTint: .62, stoneRough: .4,
@@ -74,20 +80,24 @@ export const FACADE_THEME = {
     material: 'stone',                 // 'stone' | 'concrete'
     // albedo: dokunun ortalama rengi bu tona çekilir (kanal başına çarpan = hedef / avg). avg: doku renginin doğrusal ortalaması.
     // aspect: doku piksel en/boyu (2048×1024 → 2), dünya ölçeği iki eksende de doğru kalsın diye
-    albedo: '#5a5652',                 // açık-orta gri taş: sıcak ışık altında turuncuya kaçmaz
+    albedo: '#3d3c3a',                 // referans: koyu antrasit damarlı taş (kolon + çatı alnı); ışık huzmesinde griye açılır
     stone: { texture: 'wall_stone', worldSize: 2.0, aspect: 2, avg: [.160, .142, .1057], roughMul: .8 },        // ambientCG Rock041
     concrete: { texture: 'wall_concrete', worldSize: 2.4, aspect: 1, avg: [.1397, .1291, .1195], roughMul: .8 }, // ambientCG Concrete029
     normalScale: 1.5, antiTile: .3,    // ikinci (döndürülmüş, düşük frekanslı) örnekleme oranı
     plateW: 1.2, plateH: 3.0, joint: .005,
-    variation: 1.0, tint: .07, roughVar: .08,    // plaka başına ton ±%7, pürüzlülük ±.08: yakından plakalar ayrışır
+    variation: 1.0, tint: .06, roughVar: .035,    // plaka başına ton ±%7, pürüzlülük ±.08: yakından plakalar ayrışır
     grime: { texture: 'grime_mask', opacity: .4, height: .7, width: 2.0 },                  // ambientCG Leaking005 (Opacity)
     base: { height: .25, dark: .35 },
     uplight: { intensity: 2.2, angle: .3, penumbra: .8, offset: .22 },
   },
   // yaya zemini (giriş önü kaldırım): duvar taşı, dünya ızgarasına oturan 60 × 60 cm karolar, ince derz. Pişmiş ışık haritası korunur.
   paving: { texture: 'wall_stone', worldSize: 0.9, tint: .035, tile: .6, joint: .003, jointDark: .55, albedo: '#4a4845', albedoDark: '#33312f', normalScale: 1.0, gain: 2.3 },
+  soffit: { led: 4.0, glow: .55, glowDepth: 1.4 },   // saçak ön kenarı: parlak sürekli LED + ahşaba yayılan ışık
+  // ıslak zemin (referans: yağmur sonrası gece): yol + kaldırım yansıması, birikinti, koyulaşma. Yalnız HD modda ve dışarıdayken.
+  wet: { reflect: 1.0, wetness: 1.0, streak: 2.2, res: .5, road: { darken: .45, puddle: .5, minWet: .82 }, paving: { darken: .35, puddle: .45, minWet: .6 } },
+  bollard: { led: 6, pool: .75, poolR: 1.3 },   // baba tepesi ışık halkası + zemindeki ışık havuzu
   bloom: { threshold: .9, strength: .16, radius: .12 },
-  sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22 },
+  sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22, clouds: .6, cloud: '#1f2638' },   // clouds: referanstaki bulutlu gece
   city: { color: '#1c2335', windows: .14, distance: 170, height: 72 },
   fog: { color: '#0b1020', density: .0045 },
 };

@@ -84,3 +84,26 @@ Ayarlar `facadeTheme.js` → `walls`, `paving`, `lightTemp`, `whiteBalance`.
 Teşhis (kolon, 2 m): `screenshots/duvar/teshis_ab.jpg`: uplight'lar kapalı ve nötr yan ışık altında bile kolon turuncuydu
 (sebep: 3000 K cephe ışığı ve dokunun sıcak kahve ortalaması). Renk haritası tek başına net ve doğru ölçekteydi.
 Önce / sonra (açılış, kapıya yarı yol, kolona 2 m): `screenshots/duvar/once_sonra_duvar.jpg`; taş / beton: `tas_beton_yeni.jpg`.
+
+## Referans görsele göre cephe (lamel bant, koyu taş, ıslak zemin)
+Hedef: kanal sahibinin referans render'ı (`screenshots/referans/referans.jpg`). Fark analizi ve yapılanlar:
+
+| Alan | Referans | Önceki site | Şimdi |
+|---|---|---|---|
+| Tabela arkası bant | boydan boya siyah yatay alüminyum lamel, kolonların önünden geçer | düz koyu kompozit panel, dikey derzli, kolonların arkasında | `buildLouverBand()`: 7 cm aralıklı, 12° eğik lameller (üst yüzleri ışığı yakalar), koyu arka yüz, metal başlık/kapak, alt kenarda aşağı bakan ince LED. Bant kolonların 10 cm önünde, uç kolonlara dayanır |
+| Tabela | bantın önüne çıkan ayrı lamel kutu, parlak beyaz harf + hale | bant düzleminde mat panel, sönük harf | 12.4 × 1.56 m kutu, bantın 22 cm önünde; harf ışığı 1.05, yeşil .62, hale .42 |
+| Kolon + çatı alnı | koyu antrasit damarlı taş plakalar | açık gri taş (kolon), kompozit (alın) | aynı Rock041 taşı, albedo `#3d3c3a`; çatı alnı 2.4 m taş plakalar |
+| Kolon ışığı | yüze monte silindir armatür, aşağı dar ışın | zeminden yukarı yalayan spot | her kolonda iki armatür (bant altı, saçak altı), 10 cm kol, aşağı bakan dar spot (şiddet 36); yüze ~40 cm altta değer, aşağı söner |
+| Saçak kenarı | sürekli parlak LED çizgi, ahşaba yayılan ışık | ince sönük LED | 3 cm LED + ahşap tavana 1.4 m katkılı ışık gradyanı |
+| Zemin | yağmur sonrası ıslak yol ve taş, ışıkların dikey süzülmesi | kuru (HD'de yarı saydam ayna yol) | `src/materials/wetGround.js`: Reflector görüntüsü yol ve kaldırım malzemesinde okunur; dikey bulanıklık, Fresnel, birikinti maskesi, ıslak yerde koyulaşma + düşük pürüzlülük. Yalnız HD ve dışarıdayken |
+| Babalar | tepede parlak ışık halkası, zeminde ışık havuzu | siyah, sönük | LED halka ×6, zeminde 1.3 m ışık havuzu (ıslak zeminde süzülür) |
+| Gök | bulutlu gece | düz gradyan | fbm bulut katmanı, alt yüzü şehir ışığıyla hafif sıcak |
+| Saksılar | gür, sık bitki | seyrek | dikim aralığı 62 → 40 cm, boy çeşitliliği |
+
+lil-gui → Cephe: **Islak zemin** (yansıma, ıslaklık, süzülme); kolon ışığı Kolonlar klasöründe.
+Hata düzeltmesi: giriş lobisini aydınlatan 15 × 3 m alan ışığı (`entranceLight`) kolon yüzlerinin 5 cm önündeydi; düzlemi kolonu
+y ≈ 2.85 m'de kesip altını aşırı aydınlatıyor, üstünü karanlık bırakıyordu (plakalar arasında keskin çizgi). Cam hattına (z .12) alındı.
+
+Kalan farklar (sonraki tur): referans genel olarak daha sıcak (iç mekân turuncu, ahşap parlıyor); yoldaki yansımalar referansta
+her ışık için ayrı ince dikey çizgi, bizde daha geniş; iç mekânda giriş yanlarında saksı ağaçlar.
+Karşılaştırma: `screenshots/referans/karsilastirma.jpg`.
