@@ -108,6 +108,48 @@
         "Metal050C",
         "Metal050B"
       ]
+    },
+    {
+      "name": "wall_stone",
+      "source": "ambientcg",
+      "id": "Rock041",
+      "resolution": "2k",
+      "target": "public/textures/wall_stone",
+      "worldSize": 2.0,
+      "note": "koyu düz taş plaka (kolon, yan duvar, parapet, bina uçları); palete göre color çarpanıyla koyulaştırılır",
+      "candidates": [
+        "Rock041",
+        "Granite002A",
+        "Granite005A"
+      ]
+    },
+    {
+      "name": "wall_concrete",
+      "source": "ambientcg",
+      "id": "Concrete029",
+      "resolution": "2k",
+      "target": "public/textures/wall_concrete",
+      "worldSize": 2.4,
+      "note": "mimari brüt beton, kalıp izi + tij delikleri",
+      "candidates": [
+        "Concrete029",
+        "Concrete015",
+        "Concrete046"
+      ]
+    },
+    {
+      "name": "grime_mask",
+      "source": "ambientcg",
+      "id": "Leaking005",
+      "resolution": "2k",
+      "target": "public/textures/grime_mask",
+      "worldSize": 1.5,
+      "note": "dikey yağmur akıntısı; yalnız Opacity maske olarak kullanılır (Decal)",
+      "candidates": [
+        "Leaking005",
+        "Leaking002",
+        "Leaking001"
+      ]
     }
   ]
 }

@@ -40,6 +40,7 @@ const ACG_MAPS = [
   { key: 'Roughness', file: 'roughness.jpg', required: true },
   { key: 'Metalness', file: 'metalness.jpg', required: false },
   { key: 'AmbientOcclusion', file: 'ao.jpg', required: false },
+  { key: 'Opacity', file: 'opacity.jpg', required: false },   // Decal (ör. Leaking): saydamlık maskesi
 ];
 
 const results = [];   // { asset, file, status, bytes }
@@ -142,12 +143,13 @@ async function fetchAmbientCG(item) {
   const label = `${item.name} (${item.id})`, dir = path.resolve(ROOT, item.target);
   const attr = `${(item.resolution || '2k').toUpperCase()}-JPG`;
   const all = await Promise.all(ACG_MAPS.map(async (m) => ({ m, dest: path.join(dir, m.file), have: await exists(path.join(dir, m.file)) })));
-  const req = all.filter((x) => x.m.required);
+  const isDecal = /^Leaking|Decal/i.test(item.id) || item.kind === 'decal';
+  const req = all.filter((x) => (isDecal ? ['Color', 'Opacity'].includes(x.m.key) : x.m.required));
   if (req.every((x) => x.have)) {             // zorunlu haritalar zaten var: zip tekrar indirilmez
     for (const x of all) if (x.have) results.push({ asset: label, file: path.relative(ROOT, x.dest), status: 'zaten var', bytes: (await stat(x.dest)).size });
     return;
   }
-  const info = await getJSON(`${ACG_API}?type=Material&id=${encodeURIComponent(item.id)}&include=downloadData`);
+  const info = await getJSON(`${ACG_API}?type=${isDecal ? 'Decal' : 'Material'}&id=${encodeURIComponent(item.id)}&include=downloadData`);
   const asset = (info.foundAssets || []).find((a) => a.assetId === item.id);
   if (!asset) throw new Error(`${item.id}: ambientCG'de bulunamadı`);
   const dl = asset.downloadFolders?.default?.downloadFiletypeCategories?.zip?.downloads?.find((d) => d.attribute === attr);
@@ -165,7 +167,7 @@ async function fetchAmbientCG(item) {
     if (have) { results.push({ asset: label, file: rel, status: 'zaten var', bytes: (await stat(dest)).size }); continue; }
     const name = [...zip.keys()].find((n) => new RegExp(`_${m.key}\\.jpe?g$`, 'i').test(n));
     if (!name) {
-      if (m.required) throw new Error(`${item.id}: zorunlu harita ${m.key} pakette yok`);
+      if (isDecal ? ['Color', 'Opacity'].includes(m.key) : m.required) throw new Error(`${item.id}: zorunlu harita ${m.key} pakette yok`);
       results.push({ asset: label, file: rel, status: 'kaynakta yok', bytes: 0 });
       continue;
     }
