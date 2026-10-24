@@ -1335,7 +1335,7 @@ function pavingMat(src, dark) {
   for (const x of Object.values(maps)) x.anisotropy = ANISO_MAX();   // yere çok sığ açıyla bakılıyor
   applyWorldUV(m, { maps, worldSize: P.worldSize, aspect: K?.aspect || 1, normalScale: P.normalScale, antiTile: .3,
     colorMul: albedoMul(K.avg, dark ? P.albedoDark : P.albedo), roughMul: .9, variation: 1, tint: P.tint, roughVar: .06,
-    tiles: { size: P.tile, joint: P.joint, dark: P.jointDark }, base: { dark: 0 }, lite: isMobile });
+    tiles: { size: P.tile, joint: P.joint, dark: P.jointDark }, base: { dark: 0 }, roughMin: .3, lite: isMobile });
   if (!isMobile) applyWet(m, WET_U, TH.wet.paving);   // ıslak taş: cephe ve vitrin ışıkları zeminde süzülür
   m.userData.paving = true; return m;
 }
@@ -1542,7 +1542,9 @@ function facadeDepth(f, g) {
   // doğrama: camın 5 cm önüne çıkan profil (Blender'da 6 cm)
   for (const o of byName(/^MTG_(Vit|Up)Frame-?[LRC1]?_?(-?1_)?[BMT]\d?$/)) { o.updateWorldMatrix(true, false); const b = new THREE.Box3().setFromObject(o); o.position.z += (FD.glass + FD.mullion) - b.max.z; o.castShadow = true; }
   // 2) çatı plağı: 1.5 m saçak, 50 cm kalınlık; altı ahşap (pişmiş tavan uzatılır), spotlar yeni alt kota
-  for (const o of byName(/^MTG_RoofSlab$/)) { facEditVerts(o, (v) => { if (v.z > 1.6) v.z = FAC_ROOF_F; if (v.y > 8.7) v.y = FAC_ROOF_TOP; }); o.castShadow = true; o.receiveShadow = true; }
+  // plak ön yüzü alın taş plakalarının 1.5 cm gerisinde: aynı düzlemde kalınca (z-fighting) taş ile gökyüzünü yansıtan plak
+  // kare kare yer değiştiriyor, alında mavi lekeler yanıp sönüyordu
+  for (const o of byName(/^MTG_RoofSlab$/)) { facEditVerts(o, (v) => { if (v.z > 1.6) v.z = FAC_ROOF_F - .015; if (v.y > 8.7) v.y = FAC_ROOF_TOP; }); o.castShadow = true; o.receiveShadow = true; }
   for (const o of byName(/^MTG_RoofSoffit$/)) facEditVerts(o, (v) => { v.y = FD.roofBottom - .004; if (v.z > 1.5) v.z = FAC_ROOF_F - .02; });
   for (const o of byName(/^MTG_RoofSpot\d+$/)) facEditVerts(o, (v) => { v.y = FD.roofBottom - .006; v.z += .3; });
   // alın: yatay paneller + alt / üst metal profil; altında 3000 K LED çizgisi
@@ -1657,7 +1659,7 @@ function buildUpperGallery(f, g) {
   const G = new THREE.Group(); G.name = 'Üst kat galeri duvarı'; g.add(G);
   // 1) cilalı koyu mermer arka duvar
   const stone = new THREE.MeshStandardMaterial({ name: 'GM_UpperMarble', map: extTex(U.stone, 'color', 1, true), roughnessMap: extTex(U.stone, 'roughness', 1),
-    normalMap: extTex(U.stone, 'normal', 1), normalScale: new THREE.Vector2(.5, .5), roughness: U.stoneRough, metalness: 0, color: new THREE.Color(U.stoneTint, U.stoneTint, U.stoneTint), envMapIntensity: .35 });
+    normalMap: extTex(U.stone, 'normal', 1), normalScale: new THREE.Vector2(U.stoneNormal, U.stoneNormal), roughness: U.stoneRough, metalness: 0, color: new THREE.Color(U.stoneTint, U.stoneTint, U.stoneTint), envMapIntensity: .35 });
   stone.userData.extEnv = .35; if (EXT_ENV) stone.envMap = EXT_ENV; EXT_MATS.push(stone);
   const wall = new THREE.Mesh(facUV(new THREE.BoxGeometry(X1 - X0, H, .04), X1 - X0, H, U.stoneMeters, false), stone);
   wall.position.set(0, y0 + H / 2, zB + .02); wall.receiveShadow = true; wall.name = 'GM_UpperMarble'; G.add(wall);
@@ -1713,7 +1715,7 @@ function wallMat() {
   const m = new THREE.MeshPhysicalMaterial({ name: 'GM_WallScan', color: '#ffffff', metalness: 0, roughness: 1, envMapIntensity: 0 });
   const gm = extTex(W.grime.texture, 'opacity', 1);
   applyWorldUV(m, { maps: wallMaps(W.material), worldSize: K.worldSize, aspect: K.aspect, normalScale: W.normalScale, antiTile: W.antiTile, colorMul: albedoMul(K.avg, W.albedo),
-    roughMul: K.roughMul, variation: W.variation, tint: W.tint, roughVar: W.roughVar, lite: isMobile,
+    roughMul: K.roughMul, roughMin: W.roughMin, variation: W.variation, tint: W.tint, roughVar: W.roughVar, lite: isMobile,
     grime: { map: gm, opacity: W.grime.opacity, height: W.grime.height, width: W.grime.width, edges: [FAC_ROOF_TOP + FD.parapet, 8.80, FD.roofBottom] },
     base: W.base });
   return (WALL.mat = m);
@@ -1778,7 +1780,7 @@ function colMats() {
   const ring = new THREE.MeshBasicMaterial({ name: 'GM_UplightRing', color: M.lightColor.clone().multiplyScalar(1.5) });
   const face = new THREE.MeshBasicMaterial({ name: 'GM_ColumnFaceGlow', map: gradTex('x', [[0, 0], [.38, .05], [.47, .5], [.5, 1], [.53, .5], [.62, .05], [1, 0]]),
     alphaMap: gradTex('y', [[0, .35], [.08, 1], [.85, .8], [1, 0]]), color: M.lightColor.clone().multiplyScalar(C.faceGlow),
-    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 });
   // girinti yan yüzeyi: LED'e yakın kenar parlak, öne doğru sönen ışık (ek ışık kaynağı yerine katkılı gradyan)
   const cv = document.createElement('canvas'); cv.width = 64; cv.height = 4; const g = cv.getContext('2d'), gr = g.createLinearGradient(0, 0, 64, 0);
   gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(.55, 'rgba(255,255,255,.18)'); gr.addColorStop(1, 'rgba(255,255,255,1)');
@@ -1883,8 +1885,8 @@ function louverMat() {
   if (LOUVER_MAT) return LOUVER_MAT;
   const L = TH.band.louver, B = TH.band;
   const m = new THREE.MeshPhysicalMaterial({ name: 'GM_Louver', color: L.color, metalness: L.metalness, roughness: L.roughness,
-    roughnessMap: extTex(B.texture, 'roughness', 1), normalMap: L.normal ? extTex(B.texture, 'normal', 1) : null, normalScale: new THREE.Vector2(L.normal, L.normal),
-    clearcoat: .25, clearcoatRoughness: .4, envMapIntensity: L.envIntensity });   // gök yansıması düşük: siyah lamel maviye kaçmaz
+    // doku yok: 32 m'lik lamele gerilen fırça haritası uzakta moiré (elmas desen) yapıp kamera kaydıkça titriyordu
+    normalMap: L.normal ? extTex(B.texture, 'normal', 1) : null, normalScale: new THREE.Vector2(L.normal, L.normal), envMapIntensity: L.envIntensity });   // gök yansıması düşük: siyah lamel maviye kaçmaz
   m.userData.extEnv = L.envIntensity; if (EXT_ENV) m.envMap = EXT_ENV; EXT_MATS.push(m);
   return (LOUVER_MAT = m);
 }
@@ -1899,11 +1901,12 @@ function buildLouverBand(g, x0, x1, y0, y1, z0, zF, { name = 'GM_Louver', ends =
   for (let i = 0; i < n; i++) im.setMatrixAt(i, m4.compose(new THREE.Vector3(cx, ya + L.slatH / 2 + i * pitch, zF - L.slatD / 2), q, new THREE.Vector3(1, 1, 1)));
   im.instanceMatrix.needsUpdate = true; im.castShadow = true; im.receiveShadow = true; im.name = name + 'Slats'; G.add(im);
   const plate = (w, h, d, x, y, z, m = M.metal) => { const p = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 2, .004), m); p.position.set(x, y, z); p.castShadow = true; p.receiveShadow = true; G.add(p); return p; };
-  plate(W + .02, cap, D + .015, cx, y1 - cap / 2, z0 + (D + .015) / 2);       // üst başlık
-  plate(W + .02, cap, D + .015, cx, y0 + cap / 2, z0 + (D + .015) / 2);       // alt kapak
+  // başlık ve kapak 1 cm dışa taşar: Blender bant kütlesinin alt/üst yüzüyle (4.40 / 5.60) aynı düzlemde kalmaz (z-fighting)
+  plate(W + .02, cap + .01, D + .015, cx, y1 - cap / 2 + .005, z0 + (D + .015) / 2);       // üst başlık
+  plate(W + .02, cap + .01, D + .015, cx, y0 + cap / 2 - .005, z0 + (D + .015) / 2);       // alt kapak
   if (ends) for (const x of [x0 - .01, x1 + .01]) plate(.02, y1 - y0, D + .015, x, (y0 + y1) / 2, z0 + (D + .015) / 2);
   const led = new THREE.Mesh(new THREE.BoxGeometry(W - .04, .008, .014), new THREE.MeshBasicMaterial({ name: 'GM_LouverLED', color: M.lightColor.clone().multiplyScalar(L.led) }));
-  led.position.set(cx, y0 - .004, zF - .03); led.name = name + 'LED'; G.add(led);   // alt kenar: aşağı bakan ince ışık çizgisi
+  led.position.set(cx, y0 - .014, zF - .03); led.name = name + 'LED'; G.add(led);   // alt kenar: aşağı bakan ince ışık çizgisi
   return G;
 }
 function buildFacadeCladding(f) {
@@ -1921,7 +1924,8 @@ function buildFacadeCladding(f) {
   const ledM = new THREE.MeshBasicMaterial({ name: 'GM_SoffitLED', color: M.lightColor.clone().multiplyScalar(SO.led) });
   const led = new THREE.Mesh(new THREE.BoxGeometry(34.5, .018, .03), ledM); led.position.set(0, FD.roofBottom - .01, FAC_ROOF_F - .09); led.name = 'GM_LED'; g.add(led);
   const sg = new THREE.Mesh(new THREE.PlaneGeometry(34.5, SO.glowDepth), new THREE.MeshBasicMaterial({ name: 'GM_SoffitGlow', map: gradTex('y', [[0, 0], [.55, .12], [.9, .6], [1, 1]]),
-    color: M.lightColor.clone().multiplyScalar(SO.glow), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+    color: M.lightColor.clone().multiplyScalar(SO.glow), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false,
+    polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 }));   // ahşap tavana 6 mm: uzakta derinlik hassasiyeti yetmez, öne itilir
   sg.rotation.x = Math.PI / 2; sg.position.set(0, FD.roofBottom - .006, FAC_ROOF_F - .09 - SO.glowDepth / 2); sg.name = 'GM_SoffitGlow'; g.add(sg);
   // tabela: bantın önüne çıkan ayrı kutu (referans): önü aynı siyah lamel, kenarları metal; 3B kutu harf + hale
   hide(/^MTG_(SignPanel|SignFrame[BLRT]|FacBrand(_Halo)?)$/); hide(/^GM_Logo$/);

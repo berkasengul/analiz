@@ -58,9 +58,9 @@ export const FACADE_THEME = {
     baseUplight: 14,       // uç kolonlar: zeminden yukarı ışık (referanstaki gibi altta parlak)
     plinthH: .12, plinthInset: .02, plinthGap: .03,   // metal kaide + koyu gölge boşluğu
     topGap: .03,           // kolon üstü ile saçak arası gölge boşluğu
-    uplight: 36, uplightAngle: .26, uplightPenumbra: .8, uplightOffset: .22,   // kolon ışığı şiddeti / açısı (gölgesiz)
+    uplight: 24, uplightAngle: .26, uplightPenumbra: .8, uplightOffset: .22,   // kolon ışığı şiddeti / açısı (gölgesiz)
     fixtures: [4.30, 8.30],   // referans: kolon yüzüne monte silindir armatür, aşağı bakan dar ışın (bant altı + saçak altı)
-    fixtureZ: .10,          // armatür yüzden 10 cm dışarıda (kısa kol): ışın yüze armatürün ~40 cm altında değer, aşağı söner
+    fixtureZ: .14,          // armatür yüzden 10 cm dışarıda (kısa kol): ışın yüze armatürün ~40 cm altında değer, aşağı söner
     lamel: { thick: .015, depth: .04, gap: .06, core: '#151617' },
   },
   // üst kat bandı (tabelanın arkası): fırçalanmış koyu alüminyum kompozit, panel başına hafif ton farkı
@@ -70,7 +70,7 @@ export const FACADE_THEME = {
       x: 15.9, y0: 4.40, y1: 5.60, led: 1.6 } },
   // üst kat iç duvarı: cilalı koyu mermer + ceviz lamel bölgeleri + her aracın arkasında arkadan aydınlatmalı niş
   upper: {
-    stone: 'dark_stone', stoneMeters: 2.4, stoneTint: .62, stoneRough: .4,
+    stone: 'dark_stone', stoneMeters: 2.4, stoneTint: .62, stoneRough: .5, stoneNormal: .22,
     finW: .05, finD: .12, finPitch: .17,
     niches: [[-10.4, 6.4], [10.4, 6.4]],   // [merkez x, genişlik] — araçların arkası
     lightBox: 1.0,         // niş arka panelinin parlaklığı (referans: mermer arkadan parlak aydınlatmalı)
@@ -87,7 +87,7 @@ export const FACADE_THEME = {
     albedo: '#3d3c3a',                 // referans: koyu antrasit damarlı taş (kolon + çatı alnı); ışık huzmesinde griye açılır
     stone: { texture: 'wall_stone', worldSize: 2.0, aspect: 2, avg: [.160, .142, .1057], roughMul: .8 },        // ambientCG Rock041
     concrete: { texture: 'wall_concrete', worldSize: 2.4, aspect: 1, avg: [.1397, .1291, .1195], roughMul: .8 }, // ambientCG Concrete029
-    normalScale: 1.5, antiTile: .3,    // ikinci (döndürülmüş, düşük frekanslı) örnekleme oranı
+    normalScale: 1.5, antiTile: .3, roughMin: .45,   // honlanmış taş: parlak noktalar titreşmesin    // ikinci (döndürülmüş, düşük frekanslı) örnekleme oranı
     plateW: 1.2, plateH: 3.0, joint: .005,
     variation: 1.0, tint: .06, roughVar: .035,    // plaka başına ton ±%7, pürüzlülük ±.08: yakından plakalar ayrışır
     grime: { texture: 'grime_mask', opacity: .4, height: .7, width: 2.0 },                  // ambientCG Leaking005 (Opacity)

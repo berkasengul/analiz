@@ -47,6 +47,7 @@ float wetMask() {   // birikinti: düşük frekanslı gürültü; aralarında ne
       .replace('#include <lights_physical_fragment>', `float wetM = wetMask();
 diffuseColor.rgb *= 1.0 - wetDarken * wetM;                     // ıslak yüzey koyulaşır
 roughnessFactor = mix(roughnessFactor, .07, wetM * .9);          // su filmi: ışıklar keskin parlar
+roughnessFactor = max(roughnessFactor, clamp(length(fwidth(normal)) * 1.6, 0.0, 1.0));   // speküler kenar yumuşatma: uzakta parlak nokta titremesi olmaz
 #include <lights_physical_fragment>`)
       .replace('#include <opaque_fragment>', `if (wetOn > .5) {
   vec4 wc = wetTM * vec4(vWetW, 1.0); vec2 wuv = wc.xy / wc.w;

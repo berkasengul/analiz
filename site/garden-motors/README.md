@@ -123,3 +123,14 @@ Karşılaştırma: `screenshots/referans/karsilastirma.jpg`.
 - **Babalar:** LED ×10, zeminde 1.4 m ışık havuzu.
 
 Karşılaştırma (referans / 1. tur / 2. tur): `screenshots/referans/karsilastirma2.jpg`.
+
+### Titreşim düzeltmesi (kanal sahibinin ekran kaydı)
+Kayıtta açılış karesi (kamera ±7° yavaş salınım + nefes) dururken bazı yerler kare kare değişiyordu. Ölçüm (kareler arası fark haritası):
+- **Çatı alnı (en çok):** taş plakaların ön yüzü Blender çatı plağının ön yüzüyle aynı düzlemdeydi (z-fighting); gökyüzünü yansıtan
+  plak ile taş kare kare yer değiştirip mavi lekeler yanıp sönüyordu. Plak 1.5 cm geri alındı. Lamel bant başlık/kapağı da Blender
+  bant kütlesinin alt/üst yüzüyle aynı kottaydı → 1 cm taşırıldı. Saçak ve kolon ışıma düzlemlerine polygonOffset.
+- **Giriş kolonu, armatürün altı:** çok güçlü ve yüze çok yakın spot + tümsekli taşta çok düşük pürüzlülük = speküler aliasing:
+  pikseller bir beyaz bir siyah, kameranın piksel altı kaymasıyla titriyordu. worldUV'ye normal türevine bağlı pürüzlülük artışı
+  (speküler kenar yumuşatma) ve taş için en düşük pürüzlülük .45; ıslak zemine de aynı koruma; armatür 14 cm dışarı, şiddet 24.
+- **Üst kat mermer:** normal haritası .5 → .22, pürüzlülük .5.
+- **Lamel bant:** 32 m'ye gerilen fırça pürüzlülük haritası uzakta moiré yapıyordu → kaldırıldı (sabit pürüzlülük).

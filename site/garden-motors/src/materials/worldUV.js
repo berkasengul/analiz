@@ -47,6 +47,7 @@ export function applyWorldUV(material, o) {
     tpAO: { value: o.maps.ao || null }, tpHasAO: { value: o.maps.ao ? 1 : 0 },
     tpScale: { value: 1 / (o.worldSize || 2) }, tpAspect: { value: o.aspect || 1 },   // doku en/boy (ör. 2048×1024 → 2): dünya ölçeği iki eksende doğru
     tpNormalScale: { value: o.normalScale ?? 1 },
+    tpRoughMin: { value: o.roughMin ?? .04 },   // en düşük pürüzlülük (honlanmış taş ~.45)
     tpAnti: { value: o.antiTile ?? .3 }, tpColorMul: { value: colorMulVec(o.colorMul) }, tpRoughMul: { value: o.roughMul ?? 1 },
     tpVar: { value: o.variation ?? 1 }, tpTint: { value: o.tint ?? .03 }, tpRoughVar: { value: o.roughVar ?? .05 },
     tpGrime: { value: g.map || null }, tpGrimeOn: { value: g.map ? 1 : 0 }, tpGrimeOpacity: { value: g.opacity ?? .2 },
@@ -76,7 +77,7 @@ varying vec3 vTpPos; varying vec3 vTpNrm; varying vec4 vTpVar;`)
       .replace('#include <common>', `#include <common>
 varying vec3 vTpPos; varying vec3 vTpNrm; varying vec4 vTpVar;
 uniform sampler2D tpColor, tpNormal, tpRough, tpAO, tpGrime;
-uniform vec3 tpColorMul;
+uniform vec3 tpColorMul; uniform float tpRoughMin;
 uniform float tpHasAO, tpScale, tpAspect, tpNormalScale, tpAnti, tpRoughMul, tpVar, tpTint, tpRoughVar;
 uniform float tpGrimeOn, tpGrimeOpacity, tpGrimeH, tpGrimeW, tpBaseH, tpBaseDark, tpTileJoint, tpTileDark;
 uniform vec2 tpTileSize;
@@ -119,10 +120,14 @@ if (tpW.y > .01) { tpSample(vTpPos.xz, tpDx.xz, tpDy.xz, tpK, c, tn, r, ao); flo
 if (tpW.z > .01) { tpSample(vTpPos.xy, tpDx.xy, tpDy.xy, tpK, c, tn, r, ao); float tz = sqrt(max(0.0, 1.0 - dot(tn, tn))); tn *= tpNormalScale; vec3 t = vec3(tn + tpN.xy, tz * tpN.z);
   tpC += c * tpW.z; tpR += r * tpW.z; tpO += ao * tpW.z; tpNW += t.xyz * tpW.z; }
 tpNW = normalize(tpNW);
+// speküler kenar yumuşatma: normal pikselden piksele hızlı değişiyorsa (uzakta / sığ açıda tümsekli taş) pürüzlülük artar.
+// Yoksa çok güçlü yakın ışıkta parlak noktalar bir beyaz bir siyah olur ve kameradaki piksel altı kaymayla titreşir.
+float tpNV = length(fwidth(tpNW));
 // plaka varyasyonu: renk ±tint, pürüzlülük ±roughVar
 float tpRnd = fract(sin(dot(tpV.xy, vec2(12.9898, 78.233))) * 43758.5453) * 2.0 - 1.0;
 tpC *= tpColorMul * (1.0 + tpV.w * tpTint * tpVar);
-tpR = clamp(tpR * tpRoughMul + tpRnd * tpRoughVar * tpVar, .04, 1.0);
+tpR = clamp(tpR * tpRoughMul + tpRnd * tpRoughVar * tpVar, tpRoughMin, 1.0);
+tpR = max(tpR, clamp(tpNV * 1.6, 0.0, 1.0));
 // kir: parapet / saçak kenarlarının hemen altında dikey akıntı (yalnız düşey yüzeyler)
 vec2 tpGdx = vec2(tpDx.x + tpDx.z, 2.0 * tpDx.y) / tpGrimeW, tpGdy = vec2(tpDy.x + tpDy.z, 2.0 * tpDy.y) / tpGrimeW;
 if (tpGrimeOn > .5 && abs(tpN.y) < .5) { float gm = 0.0;
