@@ -181,7 +181,7 @@ Ekran görüntüleri: `screenshots/arayuz/`.
 telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md`. Toplam 11 MB (orijinal 103 MB), ~650 bin üçgen.
 
 ### Tabelanın üstü: Maybach GLS 600 + taş bant
-- Üst katın ortasına (tabela kutusunun üstü) **Mercedes-Maybach GLS 600** kondu, burnu sokağa düz bakar. Uzun gövdeli araç seçildi, çünkü
+- Üst katın ortasında (tabela kutusunun üstü) kırmızı **Mercedes-AMG G 63** durur, burnu sokağa düz bakar; **Mercedes-Maybach GLS 600** sol üstte (G 63'ün eski yeri). Uzun gövdeli araç seçildi, çünkü
   alçak spor araçlar sokaktan tabela kutusunun arkasında kalıyordu. Üst kat 3.6 m derin, araç ~5.2 m: orta niş 2.4 m geriye alındı
   (`TH.upper.niches` 3. değer = ek derinlik; arka duvar, yan duvarlar, zemin, tavan ve LED çizgisi kodda kurulur). Araç **eğik sergi
   rampasında** (`tiltRamp`): arka 9° yüksek, burun aşağı bakar; önde 12 cm, arkada ~1 m. Sokaktan ızgara, farlar ve tekerlekler görünür.
@@ -191,4 +191,4 @@ telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md
   hafif cilası (`stoneRoughMin`) kullanılır. 120 cm plakalar, 5 mm derz, üst/alt ince metal, alt kenarda LED çizgisi. Yazı aynı.
 - Zemin kat sağdaki Bentley'nin modeli ters dışa aktarılmış: `flip: true` ile burnu sokağa çevrildi.
 
-![Maybach rampada](screenshots/vitrin/maybach_rampa.png)
+![G 63 rampada, Maybach sol üstte](screenshots/vitrin/g63_rampa.png)

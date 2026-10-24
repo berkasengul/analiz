@@ -4861,9 +4861,8 @@ let VITRIN_ORTA = 'maybach';
 const VITRINE = [
   { glb: 'models/vitrin/ferrari.glb', title: '2020 Ferrari Roma', author: 'Ddiaz Design', src: 'https://sketchfab.com/3d-models/2020-ferrari-roma-cbc0c13c0fb54fc8bbfa79a9ff99e3aa', length: 4.66, floor: 'ground', x: -10.4 },
   { glb: 'models/vitrin/bentley.glb', title: 'Bentley Continental GT V8', author: 'Mona x Supercars', src: 'https://sketchfab.com/3d-models/bentley-continental-gt-v8-2bb8aff1bbc54e9c9e59557f0484162d', length: 4.85, floor: 'ground', x: 10.4, flip: true },   // flip: model ters yönde dışa aktarılmış (arkası sokağa bakıyordu)
-  { glb: 'models/vitrin/g63.glb', title: 'Mercedes-AMG G 63', author: 'Black Snow', src: 'https://sketchfab.com/3d-models/mersedes-benz-g63-amg-e5e2a1d2238048a1a494b3df983c16bb', length: 4.87, floor: 'upper', x: -10.4 },
-  // üst kat ortası (tabelanın tam üstü; telefon açılışında kadrajın ortası): VITRIN_ORTA ile seçilir
-  { ...VITRIN_ORTA_SECENEK[VITRIN_ORTA], floor: 'upper', x: 0, center: true },
+  { glb: 'models/vitrin/g63.glb', title: 'Mercedes-AMG G 63', author: 'Black Snow', src: 'https://sketchfab.com/3d-models/mersedes-benz-g63-amg-e5e2a1d2238048a1a494b3df983c16bb', length: 4.87, floor: 'upper', x: 0, center: true },   // tabelanın tam üstü: eğik rampada, düz önden
+  { ...VITRIN_ORTA_SECENEK[VITRIN_ORTA], floor: 'upper', x: -10.4 },
   { glb: 'models/vitrin/rangerover.glb', title: '2022 Land Rover Range Rover', author: 'tonielpro520', src: 'https://sketchfab.com/3d-models/2022-land-rover-range-rover-fa4d79a5875e4733a71101e28a30e2e3', length: 5.05, floor: 'upper', x: 10.4 },
 ];
 // yuvarlak / oval döner kaide: koyu cilalı gövde (aracı yansıtır), şampanya kenar halkası, tabanda gömme LED + zeminde hale
