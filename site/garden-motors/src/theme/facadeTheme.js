@@ -64,7 +64,9 @@ export const FACADE_THEME = {
     lamel: { thick: .015, depth: .04, gap: .06, core: '#151617' },
   },
   // üst kat bandı (tabelanın arkası): fırçalanmış koyu alüminyum kompozit, panel başına hafif ton farkı
-  band: { texture: 'brushed_metal', textureMeters: 1.0, normalScale: .35, roughness: .42, metalness: .6, envIntensity: .35, toneJitter: .06,
+  // style: 'stone' = kolonlardaki koyu damarlı taş (varsayılan, kanal sahibinin isteği) | 'louver' = siyah alüminyum lamel
+  // stoneAlbedo: bantta kolon spotu yok → aynı taş biraz açık tonda (kolonun ışık huzmesindeki görünüşü); stoneRoughMin: hafif cilalı, saçak LED'ini yansıtır
+  band: { style: 'stone', stoneAlbedo: '#6e665d', stoneRoughMin: .32, texture: 'brushed_metal', textureMeters: 1.0, normalScale: .35, roughness: .42, metalness: .6, envIntensity: .35, toneJitter: .06,
     // referans: boydan boya siyah yatay alüminyum lamel. Bant kolonların önünden geçer, uç kolonlara dayanır.
     louver: { front: .10, pitch: .07, slatH: .05, slatD: .06, tilt: 12, color: '#141414', metalness: .6, roughness: .3, envIntensity: .2, normal: 0,
       x: 15.9, y0: 4.40, y1: 5.60, led: 1.6 } },
@@ -72,7 +74,7 @@ export const FACADE_THEME = {
   upper: {
     stone: 'dark_stone', stoneMeters: 2.4, stoneTint: .62, stoneRough: .5, stoneNormal: .22,
     finW: .05, finD: .12, finPitch: .17,
-    niches: [[-10.4, 6.4], [10.4, 6.4]],   // [merkez x, genişlik] — araçların arkası
+    niches: [[-10.4, 6.4], [0, 6.4, 2.4], [10.4, 6.4]],   // [merkez x, genişlik, ek derinlik] — araçların arkası (orta: tabelanın üstündeki vitrin aracı)
     lightBox: 1.0,         // niş arka panelinin parlaklığı (referans: mermer arkadan parlak aydınlatmalı)
     wash: 1.3,             // lamel bölgesinde taş duvara düşen sıcak yıkama (ahşap lameller ışıl ışıl)
     ceilLED: 3.0,          // üst kat tavanında boydan boya iki çizgi LED

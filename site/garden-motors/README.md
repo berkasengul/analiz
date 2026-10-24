@@ -179,3 +179,12 @@ Ekran görüntüleri: `screenshots/arayuz/`.
 şampanya kenar halkası, tabanda gömme LED, zeminde hale); üst kat G 63 + Range Rover oval kaidede yan profil (cam ile mermer arası
 3.8 m). Araçların kendi boyaları korunur; ağır "transmission" camı hafif saydam cama çevrilir. Modeller arka planda yüklenir;
 telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md`. Toplam 11 MB (orijinal 103 MB), ~650 bin üçgen.
+
+### Tabelanın üstü: Maybach GLS 600 + taş bant
+- Üst katın ortasına (tabela kutusunun üstü) **Mercedes-Maybach GLS 600** kondu, burnu sokağa düz bakar. Uzun gövdeli araç seçildi, çünkü
+  alçak spor araçlar sokaktan tabela kutusunun arkasında kalıyordu. Üst kat 3.6 m derin, araç ~5.2 m: orta niş 2.4 m geriye alındı
+  (`TH.upper.niches` 3. değer = ek derinlik; arka duvar, yan duvarlar, zemin, tavan ve LED çizgisi kodda kurulur). Kaide alçak (25 cm), oval.
+  Ön yüz için o aracın spotu ileri alınıp güçlendirildi. Telefonda da yüklenir (açılış kadrajının ortası).
+- Tabela arkasındaki boydan boya bant ve tabela kutusu: siyah lamel yerine **kolonlardaki koyu damarlı taş** (`buildStoneBand`,
+  `TH.band.style: 'stone'`; eski görünüm `'louver'`). Bantta kolon spotu olmadığından aynı taşın biraz açık tonu (`stoneAlbedo`) ve
+  hafif cilası (`stoneRoughMin`) kullanılır. 120 cm plakalar, 5 mm derz, üst/alt ince metal, alt kenarda LED çizgisi. Yazı aynı.
