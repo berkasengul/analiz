@@ -210,6 +210,10 @@ telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md
   bant ve niş ışıkları gündüz şiddetinde. Vitrin camı gök yansımasını daha az gösterir (araçlar görünür).
 - Masaüstü açılış 25 m'den, bakış biraz yukarıda: binanın üstünde bulutlu gök görünür.
 
+![Gündüz masaüstü](screenshots/gunduz/masaustu.jpg)
+
 ## Telefon kadrajları
 - Açılış daha uzaktan (40 m), hafif aşağı bakış; bütün vitrin araçları telefonda da yüklenir.
 - Araç salonlarında kadraj yukarı kayar: araç ilan kartının hemen üstünde, zemin az, arka duvardaki GARDEN MOTORS logosu okunur.
+
+<img src="screenshots/gunduz/telefon_acilis.png" width="260"> <img src="screenshots/gunduz/telefon_oda.png" width="260">
