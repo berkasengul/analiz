@@ -141,3 +141,21 @@ Kayıtta açılış karesi (kamera ±7° yavaş salınım + nefes) dururken baz�
 - **Oda 1 (Executive Sedan Lounge, Mercedes E 180):** açık gri taşta beyaz baskı logo okunmuyordu. Tema bayrağı `brandPanel` ile
   `brandLogoPanel()`: duvardan 4 cm ayrık siyah saten levha (hafif cila), 1.2 cm fırçalanmış çelik çerçeve, duvara yumuşak elips arka ışık,
   logo levhanın önünde hafif ışıklı. Diğer odalara aynı bayrakla açılabilir. `screenshots/oda/mercedes_logo_panel.png`.
+
+## Premium arayüz, ilan detayı, soru sor, fare paralaksı
+- **Butonlar:** kömür siyahı cam zemin, 1 px şampanya çizgi, geniş harf aralığı, üzerine gelince ince ışık süpürmesi; ana eylem
+  şampanya altın degrade. Stil betiğin sonunda eklenir (`#gm-premium`, `body.gm`).
+- **Gezinme çubuğu:** iki satır (küçük bölüm etiketi: "Garden Motors" / "Araç 01 / 03" / "Koleksiyon" + büyük ad), ince ok ikonları,
+  altta turun ilerleme çizgisi.
+- **Telefon:** `GALLERY.phones = ['0533 542 30 90']`, `GALLERY.whatsapp = '905335423090'`. Açılışta iki satırlı "Hemen arayın" ve
+  "WhatsApp" düğmeleri; yanında **ilandaki markaların logoları** (`public/brand/cars/*.png`, beyaz, şeffaf; Simple Icons SVG'sinden
+  üretildi). Logoya tıklayınca o markanın ilk aracına gidilir. Yeni marka: `GALLERY.brandLogos` + PNG.
+- **İlan detayı paneli** (kartta "Donanım" ve "Soru Sor"): Özet (ekspertiz kontrolleri, boya notu, bakım), Donanım (kategorili),
+  Soru Sor (hazır soru etiketleri, ad / telefon / soru). Gönderim **Netlify Forms** (`arac-soru`): Netlify → Forms → arac-soru;
+  e-posta bildirimi oradan açılır. Gönderilemezse (yerel önizleme) WhatsApp'a hazır metinle yönlendirir. Bot tuzağı alanı var.
+- **Mercedes E 180 verisi** (`CARS[0]`): başlık, etiketler (156 HP · Benzin · Otomatik · F1 Vites), ekspertiz (sol ön + sol arka kapı
+  lokal boyalı = "kordon altı boya", tramer yok, şase / podye / airbag orijinal, değişen yok, bakım notları) ve 35 maddelik donanım.
+  Tekrarlar birleştirildi (Hız Sabitleme = Cruise Control, iki arka perde maddesi).
+- **Fare paralaksı:** durakta kamera bakılan noktanın etrafında ±3.2° yatay, ±1.6° dikey döner (geçişte kısık; dokunmatikte yok;
+  ekspertiz / panel açıkken kapalı; fare pencereden çıkınca merkeze döner).
+Ekran görüntüleri: `screenshots/arayuz/`.

@@ -343,6 +343,11 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 </section>
 
 <nav class="rail" id="rail" aria-label="Araçlar"></nav>
+<!-- Netlify Forms: yayında formu tanıması için statik kopya (görünmez). Soru paneli aynı alanları gönderir. -->
+<form name="arac-soru" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="form-name" value="arac-soru"><input name="bot-field"><input name="arac"><input name="fiyat"><input name="ad"><input name="telefon"><textarea name="soru"></textarea>
+</form>
+<aside id="gm-sheet" hidden aria-modal="true" role="dialog" aria-labelledby="gm-sheet-title"></aside>
 <div id="lightbox" role="dialog" aria-label="Fotoğraflar">
   <img alt="">
   <button id="lb-close" type="button" aria-label="Kapat">×</button>
@@ -391,7 +396,10 @@ html, body { overflow: hidden; overscroll-behavior: none; height: 100%; }
 const GALLERY = {
   name: 'GARDEN MOTORS',
   storeUrl: 'https://gardenmotors.sahibinden.com/',
-  phones: ['0554 579 86 13', '0538 438 26 41'],   // "İletişim" butonu ilk numarayı arar
+  phones: ['0533 542 30 90'],   // "İletişim" butonu ilk numarayı arar
+  whatsapp: '905335423090',     // WhatsApp (ülke koduyla, boşluksuz): "WhatsApp" düğmesi ve araç sorusu
+  // ilandaki markaların logoları (public/brand/cars/<dosya>.png, beyaz, şeffaf zemin). Marka adı CARS[].brand ile aynı yazılır.
+  brandLogos: { 'Mercedes-Benz': 'mercedes', 'Audi': 'audi' },
 };
 
 const SKETCHFAB = (slug) => `https://sketchfab.com/3d-models/${slug}`;
@@ -409,6 +417,26 @@ Object.assign(CARS[0], {   // Mercedes E 180 — füme metalik, gümüş jant
   glb: 'models/web/mercedes-e180-w212.glb', rotX: 0, rotY: 0, materials: ROLE_MATS, rimColor: '#c3c7cc', caliperColor: '#2c2e31',
   credit: { name: 'Mercedes e-class w212', author: 'Res1n', url: SKETCHFAB('mercedes-e-class-w212-e86ac95cbfa1448b8246950450757a0d') },
   representation: 'W212 E-Serisi gövdesi (2009–2012 kasa); 2015 makyajlı far ve tampon farklıdır',
+  headline: '2015 Model Mercedes-Benz E 180 Edition E · 156 HP',
+  chips: ['156 HP', 'Benzin', 'Otomatik', 'F1 Vites'],
+  // ekspertiz ve tramer (ilan açıklamasından): sol iki kapı kordon altı boya → lokal boyalı
+  ekspertiz: {
+    tramer: 'Yok',
+    parcalar: { solOnKapi: 'lokal', solArkaKapi: 'lokal' },
+    kontrol: [['Şase', 'Orijinal'], ['Podye', 'Orijinal'], ['Airbag', 'Orijinal'], ['Değişen', 'Yok'], ['Tramer', 'Yok']],
+    bakim: ['Yağ bakımı yeni yapıldı; tüm filtreler tarafımızca değiştirildi.', 'Koltuklar tertemiz: en ufak deforme, yanık veya yırtık yok.'],
+    not: 'Boya: sol iki kapıda kordon altı boya. Değişen parça yok.',
+  },
+  donanim: {
+    'Güvenlik ve Sürüş Desteği': ['Çarpışma Önleyici', 'Radar / Tabela Okuma Sistemi', 'Yaya Algılama Sistemi', 'Yorgunluk Algılama Sistemi',
+      'Auto Hold (Yokuş Kalkış Desteği)', 'ISOFIX', 'Ön - Arka Park Sensörü', 'Geri Görüş Kamerası', 'Otomatik Park'],
+    'Konfor ve İç Mekân': ['Deri Koltuk', 'Sağ - Sol Isıtmalı Ön Koltuklar', 'Sağ - Sol Hafızalı Koltuklar', 'Elektrikli Ayarlı Direksiyon',
+      '4 Bölge Dijital Klima', 'İç Ambiyans Aydınlatma', 'Arka Cam Elektrikli Makam Perdesi', 'Arka Yan Makam Perdeleri',
+      'Ön ve Arka Kol Dayama', 'Kararan İç Dikiz Aynası', 'Analog Saat'],
+    'Sürüş': ['Sürüş Modları', 'F1 Vites', 'Hız Sabitleme (Cruise Control)', 'Hız Limitleme', 'Elektrikli Park Freni', 'Start - Stop', 'Yol Bilgisayarı'],
+    'Dış Donanım': ['Panoramik Açılır Cam Tavan', 'Elektrikli Katlanır Isıtmalı Aynalar', 'Gündüz LED Farlar', 'Far Yıkama', 'Yağmur ve Far Sensörü'],
+    'Multimedya': ['Bluetooth', 'USB', 'AUX'],
+  },
 });
 Object.assign(CARS[1], {   // Mercedes E 250 Coupé (C207) — beyaz, gümüş jant
   glb: 'models/web/mercedes-e250-coupe-c207.glb', rotX: 0, rotY: 90, materials: ROLE_MATS, rimColor: '#c3c7cc', caliperColor: '#2c2e31',
@@ -3259,14 +3287,34 @@ function buildUI() {
   const tel = (n) => 'tel:+9' + n.replace(/\s/g, '');
   if (GALLERY.phones.length) contact.onclick = () => (location.href = tel(GALLERY.phones[0]));
   else contact.onclick = () => window.open(GALLERY.storeUrl, '_blank', 'noopener');
-  document.querySelectorAll('[data-phones]').forEach((box) => GALLERY.phones.forEach((n) => {
-    const a = document.createElement('a');
-    a.className = 'btn';
-    a.href = tel(n);
-    a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>';
-    a.append(n);
-    box.appendChild(a);
-  }));
+  // telefon + WhatsApp + ilandaki markaların logoları (aynı sıra). Telefon: iki satırlı premium düğme.
+  const ICO_TEL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>';
+  const ICO_WA = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>';
+  document.querySelectorAll('[data-phones]').forEach((box) => {
+    GALLERY.phones.forEach((n) => {
+      const a = document.createElement('a'); a.className = 'btn tel'; a.href = tel(n);
+      a.innerHTML = `<i class="ic">${ICO_TEL}</i><span><small>Hemen arayın</small><b></b></span>`; a.querySelector('b').textContent = n; box.appendChild(a);
+    });
+    if (GALLERY.whatsapp) {
+      const w = document.createElement('a'); w.className = 'btn tel wa'; w.target = '_blank'; w.rel = 'noopener';
+      w.href = `https://wa.me/${GALLERY.whatsapp}?text=${encodeURIComponent('Merhaba, Garden Motors ilanlarınız hakkında bilgi almak istiyorum.')}`;
+      w.innerHTML = `<i class="ic">${ICO_WA}</i><span><small>WhatsApp</small><b>Mesaj gönderin</b></span>`; box.appendChild(w);
+    }
+    if (box.closest('#ov-hero')) {   // ilandaki markalar: logolar yan yana; tıklayınca o markanın ilk aracına gider
+      const brands = [...new Set(CARS.map((c) => c.brand))].filter((b) => GALLERY.brandLogos?.[b]);
+      if (brands.length) {
+        const row = document.createElement('div'); row.className = 'brand-logos';
+        row.innerHTML = '<small>İlandaki<br>markalar</small>';
+        brands.forEach((b) => {
+          const a = document.createElement('button'); a.type = 'button'; a.title = b + ' ilanlarına git';
+          a.innerHTML = `<img alt="${b}" src="public/brand/cars/${GALLERY.brandLogos[b]}.png"><span></span>`; a.querySelector('span').textContent = b;
+          a.onclick = () => { const i = CARS.findIndex((c) => c.brand === b); if (i >= 0 && typeof scrollToKey === 'function') scrollToKey(carKeyIndex[i]); };
+          row.appendChild(a);
+        });
+        box.appendChild(row);
+      }
+    }
+  });
 
   stations.forEach((st, i) => {
     const s = st.spec;
@@ -3302,6 +3350,14 @@ function buildUI() {
       it.innerHTML = ico('<path d="M3.5 12a8.5 8.5 0 0 1 14.6-5.9M20.5 12a8.5 8.5 0 0 1-14.6 5.9"/><path d="M18.6 2.8v3.6H15M5.4 21.2v-3.6H9"/>') + '<span>360° incele</span>';
       et.innerHTML = ico('<rect x="5" y="4.5" width="14" height="16.5" rx="1.5"/><path d="M9.5 4.5V3h5v1.5M8.5 10h7M8.5 13.5h7M8.5 17h4"/>') + '<span>Ekspertiz raporu</span>';
       row.className = 'card-actions'; it.before(row); row.append(it, et);
+      // donanım + soru sor (sahibinden'deki gibi): ikinci sıra
+      const row2 = document.createElement('div'); row2.className = 'card-actions extra';
+      const db = document.createElement('button'), qb = document.createElement('button');
+      db.type = qb.type = 'button'; db.className = qb.className = 'btn';
+      db.innerHTML = ico('<path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="1.6"/>') + '<span>Donanım</span>';
+      qb.innerHTML = ico('<path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4M12 14.2v.1"/>') + '<span>Soru Sor</span>';
+      db.onclick = () => openSheet(i, 'donanim'); qb.onclick = () => openSheet(i, 'soru');
+      row2.append(db, qb); row.after(row2);
     }
     el.querySelector('.car-brand').textContent = s.brand;
     el.querySelector('.car-model').textContent = s.model;
@@ -3311,6 +3367,7 @@ function buildUI() {
     el.querySelector('[data-k=ilan]').textContent = s.ilanNo ? '#' + s.ilanNo : s.date || '—';
     if (!s.ilanNo) el.querySelector('[data-k=ilan]').previousElementSibling.textContent = 'İlan Tarihi';
     el.querySelector('.car-title').textContent = s.title;
+    if (s.chips?.length) { const c = document.createElement('div'); c.className = 'car-chips'; s.chips.forEach((t) => { const x = document.createElement('span'); x.textContent = t; c.appendChild(x); }); el.querySelector('.car-title').after(c); }
     const modelNote=document.createElement('p'); modelNote.className='model-note';modelNote.textContent=s.representation || 'Temsili 3D model';el.querySelector('.car-title').after(modelNote);
     el.querySelector('.price strong').textContent = s.price;
     el.querySelector('a').href = linkFor(s);
@@ -3503,7 +3560,8 @@ addEventListener('keydown',e=>{if(!inspect.active)return;const action={Escape:'c
 // önceki / sonraki oda gezinmesi (kaydırma, oklar ve bu düğmeler aynı durak sistemini kullanır)
 const carStrip=document.createElement('nav');carStrip.id='car-strip';carStrip.setAttribute('aria-label','Araç seçimi');if(BRUTAL)document.body.appendChild(carStrip);
 const roomNav=document.createElement('div');roomNav.id='room-nav';
-roomNav.innerHTML='<button type="button" data-d="-1" aria-label="Önceki oda">‹</button><span id="room-nav-label">Giriş</span><button type="button" data-d="1" aria-label="Sonraki oda">›</button>';
+{const chev=(d)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+roomNav.innerHTML=`<button type="button" data-d="-1" aria-label="Önceki oda">${chev('M14.5 5.5 8 12l6.5 6.5')}</button><span id="room-nav-label"><small>Garden Motors</small><b>Giriş</b></span><button type="button" data-d="1" aria-label="Sonraki oda">${chev('M9.5 5.5 16 12l-6.5 6.5')}</button><i class="rn-prog" aria-hidden="true"><em></em></i>`;}
 document.body.appendChild(roomNav);
 roomNav.addEventListener('click',e=>{const b=e.target.closest('[data-d]');if(b)step(+b.dataset.d);});
 // odalar arası geçişte koleksiyon odasının adı (camdan geçerken belirip kaybolur; tıklamayı engellemez)
@@ -3691,6 +3749,86 @@ function updateInspect(dt){
  camera.position.set(st.x+Math.sin(inspect.yaw)*horizontal,.85+Math.sin(inspect.pitch)*inspect.radius,st.z+Math.cos(inspect.yaw)*horizontal);camera.lookAt(inspectTarget);camera.fov=camera.aspect<1?72:52;camera.clearViewOffset();camera.updateProjectionMatrix();
 }
 
+// ---------- Araç bilgi paneli: Özet · Donanım · Soru Sor (sahibinden'deki "Satıcıya soru sor" gibi) ----------
+// Soru, Netlify Forms'a (form adı: arac-soru) gönderilir; Netlify panelinde Forms → arac-soru altında görünür, e-posta bildirimi
+// oradan açılır. Gönderim başarısızsa (yerel önizleme vb.) aynı soru WhatsApp'a hazır metinle aktarılır.
+const SHEET = { i: -1 };
+const sheetEl = document.getElementById('gm-sheet');
+const escH = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function openSheet(i, tab = 'ozet') {
+  const s = stations[i].spec, e = s.ekspertiz || {}, D = s.donanim || {};
+  SHEET.i = i; document.body.classList.add('sheet-open');
+  const nD = Object.values(D).reduce((a, l) => a + l.length, 0);
+  sheetEl.innerHTML = `
+    <div class="sh-top"><span>${BRAND.short} Motors · İlan detayı</span><button class="sh-x" type="button" aria-label="Kapat">×</button></div>
+    <div class="sh-car"><small>${escH(s.brand)}</small><h3 id="gm-sheet-title">${escH(s.model)}</h3>
+      <p>${escH(s.headline || s.title)}</p>
+      <div class="sh-meta"><span>${s.year}</span><span>${escH(s.km)} km</span><span>${escH(s.colorName || '')}</span><b>${escH(s.price)}</b></div></div>
+    <div class="sh-tabs" role="tablist">
+      <button type="button" data-t="ozet">Özet</button><button type="button" data-t="donanim">Donanım${nD ? ` · ${nD}` : ''}</button><button type="button" data-t="soru">Soru Sor</button></div>
+    <div class="sh-body" data-p="ozet">
+      ${e.kontrol ? `<h4>Ekspertiz ve tramer</h4><div class="sh-kontrol">${e.kontrol.map(([a, b]) => `<div><span>${escH(a)}</span><b>${escH(b)}</b></div>`).join('')}</div>` : ''}
+      ${e.not ? `<p class="sh-note">${escH(e.not)}</p>` : ''}
+      ${e.bakim ? `<h4>Bakım ve iç durum</h4><ul class="sh-list">${e.bakim.map((t) => `<li>${escH(t)}</li>`).join('')}</ul>` : ''}
+      ${!e.kontrol && !e.bakim ? '<p class="sh-empty">Bu araç için özet bilgi henüz girilmedi. Ayrıntı için bizi arayın veya soru gönderin.</p>' : ''}
+      <button class="btn sh-eks" type="button">Ekspertiz raporunu aç</button>
+    </div>
+    <div class="sh-body" data-p="donanim">
+      ${nD ? Object.entries(D).map(([k, l]) => `<h4>${escH(k)}</h4><ul class="sh-feat">${l.map((t) => `<li>${escH(t)}</li>`).join('')}</ul>`).join('')
+        : '<p class="sh-empty">Donanım listesi henüz girilmedi.</p>'}
+    </div>
+    <div class="sh-body" data-p="soru">
+      <h4>Satıcıya soru sorun</h4>
+      <p class="sh-sub">Sorunuz doğrudan galerimize iletilir; en kısa sürede telefonla veya mesajla dönüş yaparız.</p>
+      <div class="sh-quick">${['Takas olur mu?', 'Son fiyat nedir?', 'Kredi / senet imkânı var mı?', 'Aracı ne zaman görebilirim?'].map((q) => `<button type="button">${q}</button>`).join('')}</div>
+      <form class="sh-form" novalidate>
+        <label><span>Ad Soyad</span><input name="ad" autocomplete="name" required maxlength="80"></label>
+        <label><span>Telefon</span><input name="telefon" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" placeholder="05xx xxx xx xx"></label>
+        <label><span>Sorunuz</span><textarea name="soru" rows="4" required maxlength="1000"></textarea></label>
+        <input name="bot-field" class="sh-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="sh-kvkk">Gönderdiğiniz bilgiler yalnızca sorunuza dönüş yapmak için kullanılır.</p>
+        <div class="sh-actions"><button class="btn primary" type="submit">Soruyu gönder</button>
+          ${GALLERY.whatsapp ? '<a class="btn wa" target="_blank" rel="noopener">WhatsApp\'tan sor</a>' : ''}</div>
+        <p class="sh-status" role="status"></p>
+      </form>
+    </div>`;
+  const tabs = () => sheetEl.querySelectorAll('[data-t]');
+  const show = (t) => { tabs().forEach((b) => b.classList.toggle('on', b.dataset.t === t)); sheetEl.querySelectorAll('[data-p]').forEach((p) => (p.hidden = p.dataset.p !== t)); };
+  tabs().forEach((b) => (b.onclick = () => show(b.dataset.t)));
+  sheetEl.querySelector('.sh-x').onclick = closeSheet;
+  sheetEl.querySelector('.sh-eks').onclick = () => { closeSheet(); openEkspertiz(i, document.querySelector(`#ov-car${i} .eks-trigger`)); };
+  const f = sheetEl.querySelector('.sh-form'), ta = f.soru, st = f.querySelector('.sh-status'), wa = f.querySelector('.wa');
+  const waUrl = () => `https://wa.me/${GALLERY.whatsapp}?text=${encodeURIComponent(`Merhaba, ${s.brand} ${s.model} (${s.year}, ${s.price}) ilanınız hakkında: ${ta.value.trim() || 'bilgi almak istiyorum.'}`)}`;
+  if (wa) { wa.href = waUrl(); ta.addEventListener('input', () => (wa.href = waUrl())); }
+  sheetEl.querySelectorAll('.sh-quick button').forEach((b) => (b.onclick = () => { ta.value = (ta.value ? ta.value.trim() + ' ' : '') + b.textContent; ta.dispatchEvent(new Event('input')); ta.focus(); }));
+  f.onsubmit = async (ev) => {
+    ev.preventDefault();
+    if (f['bot-field'].value) return;
+    const bad = [...f.querySelectorAll('[required]')].find((x) => !x.value.trim() || (x.name === 'telefon' && x.value.replace(/\D/g, '').length < 10));
+    if (bad) { st.textContent = bad.name === 'telefon' ? 'Lütfen geçerli bir telefon numarası yazın.' : 'Lütfen tüm alanları doldurun.'; st.className = 'sh-status err'; bad.focus(); return; }
+    const btn = f.querySelector('[type=submit]'); btn.disabled = true; st.className = 'sh-status'; st.textContent = 'Gönderiliyor…';
+    const body = new URLSearchParams({ 'form-name': 'arac-soru', arac: `${s.brand} ${s.model} (${s.year})`, fiyat: s.price, ad: f.ad.value.trim(), telefon: f.telefon.value.trim(), soru: ta.value.trim() });
+    try {
+      const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
+      if (!r.ok) throw new Error(r.status);
+      f.innerHTML = `<div class="sh-done"><b>Sorunuz iletildi</b><p>Teşekkürler ${escH(body.get('ad'))}. En kısa sürede ${escH(body.get('telefon'))} numarasından size dönüş yapacağız.</p></div>`;
+    } catch (err) {
+      btn.disabled = false; st.className = 'sh-status err';
+      st.innerHTML = 'Şu an gönderilemedi. Sorunuzu WhatsApp\'tan iletebilir veya bizi arayabilirsiniz.';
+    }
+  };
+  show(tab);
+  sheetEl.hidden = false; requestAnimationFrame(() => sheetEl.classList.add('open'));
+  (tab === 'soru' ? f.ad : sheetEl.querySelector('.sh-x')).focus({ preventScroll: true });
+}
+function closeSheet() {
+  if (SHEET.i < 0) return;
+  const i = SHEET.i; SHEET.i = -1; document.body.classList.remove('sheet-open'); sheetEl.classList.remove('open');
+  setTimeout(() => { if (SHEET.i < 0) sheetEl.hidden = true; }, 350);
+  document.querySelector(`#ov-car${i} .card-actions.extra .btn`)?.focus({ preventScroll: true });
+}
+addEventListener('keydown', (e) => { if (SHEET.i >= 0 && e.key === 'Escape') { e.stopImmediatePropagation(); closeSheet(); } }, true);
+
 // ---------- Ekspertiz raporu: parça durumları, panel + araç üzerinde işaretli etiketler ----------
 // Veri: CARS[i].ekspertiz = { ornek?: true, tramer?: 'Yok' | '12.500 TL', not?: 'serbest açıklama',
 //        parcalar: { kaput: 'lokal', bagaj: 'degisen', solMarspiyel: 'sokTak', ... } }.
@@ -3853,6 +3991,8 @@ function openEkspertiz(i, opener) {
       <div class="eks-legend">${[...EKS_SIRA, 'orijinal'].map((d) => `<span><i style="--c:${d === 'orijinal' ? '#3a4045' : EKS_DURUM[d].renk}"></i>${EKS_DURUM[d].ad} · ${say(d)}</span>`).join('')}</div>
     </div>
     <div class="eks-meta"><div>Tramer kaydı<b></b></div><div>Toplam parça<b>${eks.parts.length}</b></div></div>
+    ${e.kontrol ? `<div class="eks-kontrol">${e.kontrol.map(([a, b]) => `<div><span>${a}</span><b>${b}</b></div>`).join('')}</div>` : ''}
+    ${e.bakim ? `<div class="eks-bakim"><span>Bakım ve iç durum</span>${e.bakim.map((t) => `<p>${t}</p>`).join('')}</div>` : ''}
     <div class="eks-h"><span>Gövde değerlendirmesi</span><span class="eks-tabs"><button type="button" data-m="kusur">Kusurlu · ${kusur.length}</button><button type="button" data-m="tum">Tüm parçalar · ${eks.parts.length}</button></span></div>
     <ul></ul>
     <div class="eks-views"><button type="button" data-v="on">Ön çapraz</button><button type="button" data-v="arka">Arka çapraz</button></div>
@@ -5220,6 +5360,7 @@ if (isMobile) shrinkTexturesIn(scene);   // araçlar, dekor ve sonradan eklenen 
 const SEGMENTS = keys.length - 1;
 let targetS = 0, currentS = 0, sVel = 0;
 const mouse = new THREE.Vector2(), mouseSmooth = new THREE.Vector2();
+const parA = new THREE.Vector3(), parB = new THREE.Vector3(), UP_Y = new THREE.Vector3(0, 1, 0);
 
 let stopIdx = 0, tween = null, inputLock = 0;
 const easeInOut = (t) => t * t * t * (t * (t * 6 - 15) + 10);   // smootherstep: başta ve sonda ivme de sıfır (kamera kızağı hissi)
@@ -5264,7 +5405,7 @@ if (NO_INERTIA) window.__setS = (k) => { tween = null; currentS = targetS = k; S
 let testCam = null;
 if (NO_INERTIA) window.__cam = (p, t, fov) => { testCam = p ? [p, t, fov] : null; };   // yalnızca #test: sabit kabul açısı
 function step(dir) {
-  if (inspect.active || lb.el.classList.contains('open')) return;
+  if (inspect.active || lb.el.classList.contains('open') || document.body.classList.contains('sheet-open')) return;
   // geçiş sürerken ters yöne kaydırma: kamera bulunduğu yerden bir önceki durağa yumuşakça geri döner (yok sayılmaz);
   // aynı yöne kaydırma geçiş bitene kadar yok sayılır (durak atlanmaz)
   if (tween) { if (Math.sign(dir) !== Math.sign(tween.to - tween.from)) { reverseTween(dir); } return; }
@@ -5283,7 +5424,7 @@ function reverseTween(dir) {
 // Aynı hareket içinde yön değişirse (geri kaydırma) geçiş tersine döner.
 let wheelAcc = 0, wheelLast = 0, wheelDir = 0;
 addEventListener('wheel', (e) => {
-  if (inspect.active || e.target.closest?.('.car-card')) return;
+  if (inspect.active || e.target.closest?.('.car-card, #gm-sheet')) return;
   e.preventDefault();
   const now = performance.now();
   if (now - wheelLast > 220) { wheelAcc = 0; wheelDir = 0; }
@@ -5293,20 +5434,22 @@ addEventListener('wheel', (e) => {
 }, { passive: false });
 let touchY = null;
 addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
-addEventListener('touchmove', (e) => { if (!inspect.active && !e.target.closest?.('.car-card')) e.preventDefault(); }, { passive: false });
+addEventListener('touchmove', (e) => { if (!inspect.active && !e.target.closest?.('.car-card, #gm-sheet')) e.preventDefault(); }, { passive: false });
 addEventListener('touchend', (e) => {
-  if (touchY === null || inspect.active) return;
+  if (touchY === null || inspect.active || e.target.closest?.('#gm-sheet')) return;
   const dy = touchY - e.changedTouches[0].clientY; touchY = null;
   if (Math.abs(dy) > 45) step(Math.sign(dy));
 }, { passive: true });
 addEventListener('keydown', (e) => {
-  if (inspect.active || lb.el.classList.contains('open')) return;
+  if (inspect.active || lb.el.classList.contains('open') || e.target.closest?.('input, textarea, select, #gm-sheet')) return;
   if (['ArrowDown', 'PageDown', ' ', 'ArrowRight'].includes(e.key)) { e.preventDefault(); step(1); }
   if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); step(-1); }
 });
 addEventListener('pointermove', (e) => {
+  if (e.pointerType !== 'mouse') return;   // dokunmatik kaydırma kamerayı döndürmesin
   mouse.set((e.clientX / innerWidth) * 2 - 1, (e.clientY / innerHeight) * 2 - 1);
 });
+document.documentElement.addEventListener('mouseleave', () => mouse.set(0, 0));   // fare pencereden çıkınca kadraj merkeze döner
 
 // Anahtar karelerde hafif duraksama (hız sıfıra inmez, %45'e düşer)
 const ease = (t) => t * t * (3 - 2 * t);
@@ -5342,8 +5485,15 @@ function updateCamera(s, time, dt) {
   const motion = reduceMotion ? 0 : 1;
   const drift = 0;                                             // sürekli "nefes" kaldırıldı: durakta tek hareket vitrin salınımı
   camRight.set(Math.cos(yaw), 0, Math.sin(yaw));
-  tmpPos.addScaledVector(camRight, mouseSmooth.x * .04 * motion);   // çok hafif fare paralaksı
-  tmpPos.y -= mouseSmooth.y * .015 * motion;
+  // fare paralaksı (kanal sahibi: "hafif 3D havası"): kamera bakılan noktanın etrafında küçük bir yörüngede döner
+  // (±3.2° yatay, ±1.6° dikey). Durakta tam, geçiş sırasında kısık; dokunmatikte yok (yalnız fare olayları yazar).
+  { const par = motion * (tween ? .35 : 1) * (eks.active || SHEET.i >= 0 ? 0 : 1);
+    if (par > 0 && (mouseSmooth.x || mouseSmooth.y)) {
+      parA.copy(tmpPos).sub(tmpLook);
+      parA.applyAxisAngle(UP_Y, -mouseSmooth.x * THREE.MathUtils.degToRad(3.2) * par);
+      parB.crossVectors(UP_Y, parA).normalize(); parA.applyAxisAngle(parB, -mouseSmooth.y * THREE.MathUtils.degToRad(1.6) * par);
+      tmpPos.copy(tmpLook).add(parA);
+    } }
   tmpPos.addScaledVector(camDir, (Math.sin(time * .067) * .5 + .5) * .16 * drift);   // çok yavaş içeri itiş
 
   // dönüşlerde kameranın hafifçe yatması (steadicam operatörü gibi)
@@ -5432,9 +5582,12 @@ function updateUI(s, dt = 1 / 60) {
   if (navL) {
     // duruşta araç adı; odalar arası geçişte girilen koleksiyon odasının adı (yeni mekân hissi)
     const nx = carKeyIndex.findIndex((ki) => ki > s - .5);
-    const lbl = active >= 0 ? `${String(active + 1).padStart(2, '0')} · ${stations[active].spec.brand} ${stations[active].spec.model}`
-      : s >= SEGMENTS - .5 || (!BRUTAL && s > carKeyIndex[carKeyIndex.length - 1] + .3) ? (BRUTAL ? 'Garden Galeri' : 'Garden Lounge') : s < 2.5 ? 'Giriş' : BRUTAL ? 'Garden Galeri' : nx >= 0 ? roomThemeOf(nx).name.toUpperCase() : 'Galeri';
-    if (navL.textContent !== lbl) navL.textContent = lbl;
+    // iki satır: üstte küçük bölüm etiketi, altta Cinzel ad (araç / oda / giriş)
+    const [k, t] = active >= 0 ? [`Araç ${String(active + 1).padStart(2, '0')} / ${String(stations.length).padStart(2, '0')}`, `${stations[active].spec.brand} ${stations[active].spec.model}`]
+      : s >= SEGMENTS - .5 || (!BRUTAL && s > carKeyIndex[carKeyIndex.length - 1] + .3) ? ['Kapanış', BRUTAL ? 'Garden Galeri' : 'Garden Lounge'] : s < 2.5 ? ['Garden Motors', 'Giriş']
+      : ['Koleksiyon', BRUTAL ? 'Garden Galeri' : nx >= 0 ? roomThemeOf(nx).name : 'Galeri'];
+    if (navL.dataset.l !== k + t) { navL.dataset.l = k + t; navL.innerHTML = '<small></small><b></b>'; navL.firstChild.textContent = k; navL.lastChild.textContent = t; }
+    const pr = roomNav.querySelector('.rn-prog em'); if (pr) pr.style.transform = `scaleX(${THREE.MathUtils.clamp(s / Math.max(1, keys.length - 1), 0, 1).toFixed(4)})`;
   }
   // koleksiyon odası başlığı: önceki duruştan sonraki odanın duruşuna geçişin ortasında (sinüs eğrisiyle) görünür
   {
@@ -5796,6 +5949,126 @@ if (QUALITY.software) { showSoftwareNotice(); renderScale = .6; renderer.setPixe
 prewarmGPU();
 if (BRUTAL) makeThumbs();
 requestAnimationFrame(frame);
+{ const st = document.createElement('style'); st.id = 'gm-premium'; st.textContent = `
+/* ===== Premium arayüz: butonlar, gezinme çubuğu, telefon + marka sırası, ilan detayı paneli =====
+   Dil: kömür siyahı cam zemin, 1 px şampanya çizgi, Inter geniş harf aralığı, başlıklarda Cinzel; üzerine gelince ince ışık süpürmesi. */
+body.gm{--gold:#c9b893;--gold2:#e8d8b2;--ink:#0c0c0d}
+body.gm .btn{position:relative;overflow:hidden;padding:13px 22px;font:600 11px/1 Inter,Arial,sans-serif;letter-spacing:.24em;border:1px solid rgba(201,184,147,.36);border-radius:1px;
+ background:linear-gradient(180deg,rgba(26,26,28,.8),rgba(10,10,11,.8));box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 14px 34px -22px rgba(0,0,0,.9);color:#efe8da;transition:border-color .3s,color .3s,background .3s,transform .3s}
+body.gm .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 32%,rgba(232,216,178,.2) 50%,transparent 68%);transform:translateX(-130%);transition:transform .8s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+body.gm .btn:hover{border-color:var(--gold);color:#fff;background:linear-gradient(180deg,rgba(38,35,30,.88),rgba(14,13,12,.88))}
+body.gm .btn:hover::after{transform:translateX(130%)}
+body.gm .btn:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
+body.gm .btn.primary{background:linear-gradient(180deg,#e4d1a2,#b89b62);border-color:#d8c491;color:#15130f;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 34px -18px rgba(185,155,98,.75)}
+body.gm .btn.primary:hover{background:linear-gradient(180deg,#f1dfb2,#c7aa6f);color:#0c0b09;transform:translateY(-1px)}
+body.gm .btn svg{width:14px;height:14px}
+/* telefon / WhatsApp: iki satırlı düğme, ikon şampanya halkada */
+body.gm .btn.tel{padding:9px 20px 9px 10px;gap:12px;text-transform:none;letter-spacing:0}
+body.gm .btn.tel .ic{width:34px;height:34px;flex:none;display:grid;place-items:center;border:1px solid rgba(201,184,147,.45);border-radius:50%;color:var(--gold2)}
+body.gm .btn.tel .ic svg{width:15px;height:15px}
+body.gm .btn.tel span{display:flex;flex-direction:column;gap:5px;text-align:left}
+body.gm .btn.tel small{font:500 9px/1 Inter,Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+body.gm .btn.tel b{font:600 15px/1 Inter,Arial,sans-serif;letter-spacing:.06em;color:#fff}
+body.gm .btn.tel.wa .ic{color:#5fd38a;border-color:rgba(95,211,138,.45)}
+body.gm .btn.tel.wa b{font-size:13px;letter-spacing:.04em}
+body.gm .hero .phones{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+/* ilandaki markalar: beyaz logolar yan yana, ince dikey ayraçla telefonlardan ayrılır */
+body.gm .brand-logos{display:flex;align-items:center;gap:22px;margin-left:10px;padding-left:22px;border-left:1px solid rgba(201,184,147,.32);pointer-events:auto}
+body.gm .brand-logos small{font:500 9px/1.5 Inter,Arial,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+body.gm .brand-logos button{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:#d9d3c7;opacity:.82;transition:opacity .3s,transform .3s}
+body.gm .brand-logos button:hover{opacity:1;transform:translateY(-2px)}
+body.gm .brand-logos img{height:34px;width:auto;max-width:84px;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(0,0,0,.5))}
+body.gm .brand-logos span{font:500 8.5px/1 Inter,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;white-space:nowrap}
+/* oda gezinme çubuğu: iki satırlı etiket (küçük bölüm + Cinzel ad), ince oklar, altta ilerleme çizgisi */
+body.gm #room-nav,body.gm.view-refined #room-nav{gap:0;padding:0;background:linear-gradient(180deg,rgba(22,22,24,.84),rgba(8,8,9,.84));border:1px solid rgba(201,184,147,.3);border-radius:1px;
+ box-shadow:0 22px 60px -24px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden}
+body.gm #room-nav button,body.gm.view-refined #room-nav button{width:56px;height:58px;display:grid;place-items:center;border:0;border-radius:0;background:transparent;color:#e9e2d2;transition:background .3s,color .3s}
+body.gm #room-nav button:first-child{border-right:1px solid rgba(201,184,147,.2)}
+body.gm #room-nav button:last-of-type{border-left:1px solid rgba(201,184,147,.2)}
+body.gm #room-nav button svg{width:20px;height:20px;transition:transform .3s}
+body.gm #room-nav button:hover{background:rgba(201,184,147,.1);color:#fff}
+body.gm #room-nav button[data-d="1"]:hover svg{transform:translateX(2px)}
+body.gm #room-nav button[data-d="-1"]:hover svg{transform:translateX(-2px)}
+body.gm #room-nav span,body.gm.view-refined #room-nav span{min-width:260px;width:auto;padding:0 26px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+body.gm #room-nav span small{font:500 8.5px/1 Inter,Arial,sans-serif;letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
+body.gm #room-nav span b{font:500 13px/1.1 Inter,Arial,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#f3ecdc;white-space:nowrap;max-width:320px;overflow:hidden;text-overflow:ellipsis}
+body.gm #room-nav .rn-prog{position:absolute;left:0;right:0;bottom:0;height:1.5px;background:rgba(201,184,147,.12)}
+body.gm #room-nav .rn-prog em{position:absolute;inset:0;background:linear-gradient(90deg,#b89b62,#e8d8b2);transform-origin:0 50%;transform:scaleX(0)}
+/* kartta motor / yakıt etiketleri ve ikinci eylem sırası */
+body.gm .car-chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+body.gm .car-chips span{padding:5px 9px;border:1px solid rgba(201,184,147,.3);font:500 9.5px/1 Inter,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#e4dccb}
+body.gm .car-card.refined .card-actions.extra{margin-top:-2px}
+/* ilan detayı paneli (sağdan açılır; telefonda alttan) */
+#gm-sheet{position:fixed;top:calc(5.5vh + 12px);right:16px;bottom:calc(5.5vh + 12px);width:min(430px,calc(100vw - 32px));z-index:60;display:flex;flex-direction:column;
+ background:linear-gradient(180deg,rgba(18,18,20,.97),rgba(10,10,11,.97));border:1px solid rgba(201,184,147,.3);box-shadow:0 30px 90px -30px #000;color:#e9e3d6;
+ transform:translateX(24px);opacity:0;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s;font:400 13px/1.55 Inter,Arial,sans-serif}
+#gm-sheet.open{transform:none;opacity:1}
+#gm-sheet .sh-top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid rgba(201,184,147,.18);font:500 9px/1 Inter;letter-spacing:.34em;text-transform:uppercase;color:#c9b893}
+#gm-sheet .sh-x{width:32px;height:32px;border:1px solid rgba(201,184,147,.35);background:none;color:#eee;font-size:18px;cursor:pointer}
+#gm-sheet .sh-x:hover{border-color:#c9b893}
+#gm-sheet .sh-car{padding:18px 20px 14px}
+#gm-sheet .sh-car small{font:500 9px/1 Inter;letter-spacing:.36em;text-transform:uppercase;color:#c9b893}
+#gm-sheet .sh-car h3{font:500 21px/1.2 Cinzel,Georgia,serif;letter-spacing:.08em;margin:8px 0 6px;color:#fff}
+#gm-sheet .sh-car p{color:#b9b3a7;font-size:12px}
+#gm-sheet .sh-meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:12px;font-size:11.5px;color:#cfc8ba}
+#gm-sheet .sh-meta span+span::before{content:"·";margin-right:14px;color:#6f6a60}
+#gm-sheet .sh-meta b{margin-left:auto;font:600 17px/1 Inter;letter-spacing:.02em;color:#e8d8b2}
+#gm-sheet .sh-tabs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(201,184,147,.18);border-bottom:1px solid rgba(201,184,147,.18)}
+#gm-sheet .sh-tabs button{padding:13px 6px;background:none;border:0;border-bottom:1.5px solid transparent;color:#a8a296;font:600 10px/1 Inter;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .3s,border-color .3s}
+#gm-sheet .sh-tabs button.on{color:#fff;border-bottom-color:#c9b893}
+#gm-sheet .sh-body{flex:1;overflow:auto;padding:16px 20px 22px;overscroll-behavior:contain}
+#gm-sheet h4{font:500 9.5px/1 Inter;letter-spacing:.32em;text-transform:uppercase;color:#c9b893;margin:14px 0 10px}
+#gm-sheet h4:first-child{margin-top:2px}
+#gm-sheet .sh-kontrol{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:6px}
+#gm-sheet .sh-kontrol div{display:flex;justify-content:space-between;align-items:center;padding:9px 11px;border:1px solid rgba(201,184,147,.2);background:rgba(255,255,255,.02)}
+#gm-sheet .sh-kontrol span{color:#bdb6a8;font-size:11.5px}
+#gm-sheet .sh-kontrol b{font-weight:600;color:#7fd39c;font-size:11.5px}
+#gm-sheet .sh-note{margin-top:10px;padding:10px 12px;border-left:2px solid #f5d04a;background:rgba(245,208,74,.06);color:#e7dfcc;font-size:12px}
+#gm-sheet .sh-list,#gm-sheet .sh-feat{list-style:none}
+#gm-sheet .sh-list li{position:relative;padding:6px 0 6px 18px;color:#d7d0c2;font-size:12.5px}
+#gm-sheet .sh-list li::before{content:"";position:absolute;left:2px;top:13px;width:8px;height:1px;background:#c9b893}
+#gm-sheet .sh-feat{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+#gm-sheet .sh-feat li{position:relative;padding:6px 0 6px 20px;font-size:12px;color:#ddd6c8;border-bottom:1px solid rgba(255,255,255,.04)}
+#gm-sheet .sh-feat li::before{content:"";position:absolute;left:2px;top:10px;width:9px;height:5px;border-left:1.5px solid #7fd39c;border-bottom:1.5px solid #7fd39c;transform:rotate(-45deg)}
+#gm-sheet .sh-empty,#gm-sheet .sh-sub{color:#a9a396;font-size:12px}
+#gm-sheet .sh-eks{margin-top:16px;width:100%;justify-content:center}
+#gm-sheet .sh-quick{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+#gm-sheet .sh-quick button{padding:7px 10px;border:1px solid rgba(201,184,147,.3);background:rgba(255,255,255,.02);color:#ddd5c4;font:500 11px/1 Inter;cursor:pointer;border-radius:14px;transition:border-color .3s,color .3s}
+#gm-sheet .sh-quick button:hover{border-color:#c9b893;color:#fff}
+#gm-sheet .sh-form label{display:block;margin-top:12px}
+#gm-sheet .sh-form label span{display:block;font:500 9px/1 Inter;letter-spacing:.28em;text-transform:uppercase;color:#a8a296;margin-bottom:7px}
+#gm-sheet .sh-form input,#gm-sheet .sh-form textarea{width:100%;padding:11px 12px;background:rgba(255,255,255,.03);border:1px solid rgba(201,184,147,.26);color:#fff;font:400 13px/1.4 Inter,Arial,sans-serif;border-radius:1px;resize:vertical}
+#gm-sheet .sh-form input:focus,#gm-sheet .sh-form textarea:focus{outline:none;border-color:#c9b893;background:rgba(201,184,147,.05)}
+#gm-sheet .sh-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+#gm-sheet .sh-kvkk{margin-top:10px;font-size:10.5px;color:#8f897d}
+#gm-sheet .sh-actions{display:flex;gap:8px;margin-top:14px}
+#gm-sheet .sh-actions .btn{flex:1;justify-content:center}
+#gm-sheet .sh-actions .btn.wa{color:#9fe3b7;border-color:rgba(95,211,138,.4)}
+#gm-sheet .sh-status{min-height:18px;margin-top:10px;font-size:12px;color:#cfc8ba}
+#gm-sheet .sh-status.err{color:#f0a8a0}
+#gm-sheet .sh-done{margin-top:16px;padding:18px;border:1px solid rgba(127,211,156,.35);background:rgba(127,211,156,.06)}
+#gm-sheet .sh-done b{display:block;font:500 15px/1.2 Cinzel,Georgia,serif;letter-spacing:.1em;color:#fff;margin-bottom:8px}
+body.gm #scroll-hint{left:auto;right:clamp(16px,4vw,48px);transform:none;bottom:118px}   /* marka logolarıyla çakışmasın */
+body.sheet-open .car-card{opacity:.25!important;pointer-events:none!important;transition:opacity .3s}
+/* ekspertiz panelinde: şase / podye / airbag kontrolleri ve bakım notları */
+.eks-kontrol{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:6px;margin:10px 0 4px}
+.eks-kontrol div{display:flex;flex-direction:column;gap:5px;padding:8px 10px;border:1px solid rgba(201,184,147,.2)}
+.eks-kontrol span{font:500 9px/1 Inter;letter-spacing:.24em;text-transform:uppercase;color:#a8a296}
+.eks-kontrol b{font:600 12px/1 Inter;color:#7fd39c}
+.eks-bakim{margin:10px 0 2px;padding:10px 12px;border-left:2px solid #c9b893;background:rgba(201,184,147,.05)}
+.eks-bakim span{display:block;font:500 9px/1 Inter;letter-spacing:.28em;text-transform:uppercase;color:#c9b893;margin-bottom:6px}
+.eks-bakim p{font-size:12px;color:#ddd5c4;margin-top:3px}
+@media (max-width:760px){
+ body.gm .brand-logos{margin-left:0;padding-left:0;border-left:0;width:100%;gap:18px}
+ body.gm .brand-logos img{height:26px}
+ body.gm .btn.tel{padding:7px 14px 7px 7px}body.gm .btn.tel .ic{width:30px;height:30px}body.gm .btn.tel b{font-size:13px}
+ body.gm #room-nav span,body.gm.view-refined #room-nav span{min-width:0;padding:0 12px}body.gm #room-nav span b{font-size:12px;letter-spacing:.1em;max-width:46vw}
+ body.gm #room-nav button,body.gm.view-refined #room-nav button{width:46px;height:52px}
+ #gm-sheet{top:auto;left:0;right:0;bottom:0;width:auto;max-height:78vh;transform:translateY(30px);border-left:0;border-right:0}
+ #gm-sheet .sh-feat{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){body.gm .btn::after{display:none}#gm-sheet{transition:none}}
+`; document.head.appendChild(st); document.body.classList.add('gm'); }   // premium arayüz: diğer stillerden sonra
 setTimeout(() => $('loader').classList.add('done'), 900);
 </script>
 </body>
