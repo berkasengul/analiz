@@ -159,3 +159,17 @@ Kayıtta açılış karesi (kamera ±7° yavaş salınım + nefes) dururken baz�
 - **Fare paralaksı:** durakta kamera bakılan noktanın etrafında ±3.2° yatay, ±1.6° dikey döner (geçişte kısık; dokunmatikte yok;
   ekspertiz / panel açıkken kapalı; fare pencereden çıkınca merkeze döner).
 Ekran görüntüleri: `screenshots/arayuz/`.
+
+### Kamera akıcılığı, düğme hatası, duvar logosu, sade açılış
+- **Camdan salona giriş (ekran kaydı analizi):** kare kare yatay kayma ölçüldü; kamera sola dönerken geri sağa dönüyor, varışta ters
+  yönde kayıyordu. Sebep: bakış yönü / eğim / mesafe / görüş açısı anahtar kareler arasında Catmull-Rom ile hesaplanıyordu; büyük
+  dönüşün (koridor → salon) ardından küçük dönüş gelince hedefi aşıp geri dönüyordu (+4.6° sağa kaçış, −67.5°'ye taşma). Şimdi
+  monoton kübik (`crm`, Fritsch–Carlson): hedefi aşmaz. Koridor dolly ve salon açılışı karelerinin bakışı girişle araç kadrajı
+  arasına sıkıştırıldı (`monoYaw`): 0° → −64.5° tek yönde. Kare süresi yumuşatılıyor (`smDt`): düzensiz kare sürelerinde takılma azalır.
+- **Kart düğmeleri basılmıyordu:** gizli bilgi panelinin CSS'i `display:flex` olduğu için `hidden` çalışmıyor, görünmez panel kartın
+  üstünü örtüyordu. `#gm-sheet[hidden]{display:none}`. 360° incele, Ekspertiz, Donanım, Soru Sor, İlanı İncele tıklanarak denendi.
+- **Mercedes odası logosu:** siyah levha kaldırıldı. Duvara takılı grafit metal kabartma harf (yeşil çizgi / yapraklar korunur),
+  8 mm koyu kenar katmanı, duvarda yumuşak gölge; %40 daha büyük (`brandWallLogo`).
+- **Açılış:** masaüstü tam karşıdan, 21.5 m, bakış 3.55 m: üst kattaki araçlar menünün altında net; açılışta fare paralaksı yok
+  (kadraj ortada sabit). Telefon 36 m: camların arkasındaki araçlar görünür.
+- **Sade arayüz:** kalite (AKICI / HD) ve ses düğmeleri kaldırıldı; site her zaman akıcı modda. "İlandaki markalar" yazısı kaldırıldı.
