@@ -134,3 +134,10 @@ Kayıtta açılış karesi (kamera ±7° yavaş salınım + nefes) dururken baz�
   (speküler kenar yumuşatma) ve taş için en düşük pürüzlülük .45; ıslak zemine de aynı koruma; armatür 14 cm dışarı, şiddet 24.
 - **Üst kat mermer:** normal haritası .5 → .22, pürüzlülük .5.
 - **Lamel bant:** 32 m'ye gerilen fırça pürüzlülük haritası uzakta moiré yapıyordu → kaldırıldı (sabit pürüzlülük).
+
+### Açılış kamerası ve Mercedes odası logosu
+- **Açılış:** 29 m → 19.5 m (göz 2.1 m, bakış 2.75 m); cephe ekranı doldurur, giriş kolonları ekranın %34 / %66'sında (2.24:1 ekran).
+  Telefon 32 → 27 m.
+- **Oda 1 (Executive Sedan Lounge, Mercedes E 180):** açık gri taşta beyaz baskı logo okunmuyordu. Tema bayrağı `brandPanel` ile
+  `brandLogoPanel()`: duvardan 4 cm ayrık siyah saten levha (hafif cila), 1.2 cm fırçalanmış çelik çerçeve, duvara yumuşak elips arka ışık,
+  logo levhanın önünde hafif ışıklı. Diğer odalara aynı bayrakla açılabilir. `screenshots/oda/mercedes_logo_panel.png`.

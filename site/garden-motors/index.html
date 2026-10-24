@@ -3084,8 +3084,9 @@ function buildCameraPath() {
   // açılış: galerinin tam karşısı, giriş ekseninde (x = 0), cephe düz karşıdan. Masaüstü 29 m, neredeyse yatay bakış: bina ekranın
   // %20–65 bandında (iki vitrin, giriş, üst kat, tabela), başlık altta ıslak plazanın üstünde. Dar ekran 32 m, hafif aşağı bakış: tabela, giriş ve
   // iki vitrinin içe bakan bölümleri üst yarıda, başlık / telefonlar altta (cepheyi örtmez).
-  if (narrow) K([0, 1.8, 32], [0, -1.2, 0], 38, 'hero');
-  else K([0, 2.4, 29], [0, 2.9, 0], 38, 'hero');
+  // kanal sahibinin isteği: daha yakından (masaüstü 29 → 19.5 m, cephe ekranı doldurur; telefon 32 → 27 m)
+  if (narrow) K([0, 1.8, 27], [0, -.6, 0], 38, 'hero');
+  else K([0, 2.1, 19.5], [0, 2.75, 0], 38, 'hero');
   STOPS.push(0); tempo(1);
   K([0, 1.75, 12.5], [0, 2.4, -2], 40); tempo(1.15);                             // giriş ekseninde düz yaklaşma (yana kayma yok)
   K([0, 1.7, 4.2], [0, 1.62, -8], 44, 'door'); tempo(.62);                       // eşik: kapılar açılır, içerisi görünür
@@ -4044,6 +4045,8 @@ const ROOM_THEMES = {
   // açık gri taş marka duvarında koyu gri metal GARDEN MOTORS, mat açık-orta gri zemin; nötr-serin ışık (beyaz Kuga rengini korur)
   suv:       { name: 'Executive Sedan Lounge',  letters: '#3b434a', emis: '#000000', key: '#f5f7fa', fill: '#eef2f6', rim: '#e9f0f9', keyI: 2.5, rimI: 2.7, fillI: 2.2, spotI: 14, keySize: [8.5, 3.8], fillSize: [7, 3], light: '#f4f7fa', lightI: 1.9, refl: 1, exp: .98, halo: 0, grade: [.98, 1.0, 1.03, .98, 1.06],
     stageCoat: .04, stageTint: '#a9acaf', floorK: .62, floorTint: '#c4c6c8', brandK: .6, brandTint: '#b2b5b8', brandRough: .7, brandMainOnly: true, vaultDecor: ['MTG_Decor_Vault_2', 'MTG_Decor_Vault_4'],
+    // marka: açık gri taşta beyaz baskı logo okunmuyordu → siyah saten panel + ince metal çerçeve + duvara vuran arka ışık, logo hafif ışıklı
+    brandPanel: { glow: .85, scale: 1.25, halo: .22 },
     pillowTint: '#3d4a52', beam: '#2c353b', matTint: { MTG_finbg_slate_cool: '#86aab8' }, dof: 0, letterShadow: .28, wallLift: 1.75, floorRough: .75,
     glass: { color: '#dde3e6', roughness: .01, metalness: 0, transparent: true, opacity: .07, envMapIntensity: .5, specularIntensity: 1, depthWrite: false, side: THREE.DoubleSide } },
   // VW Golf (2. tur): Volkswagen'e özgü palet — koyu orman yeşili sıva, grafit yivli paneller, açık traverten duvarda GARDEN MOTORS,
@@ -4818,6 +4821,28 @@ function rebrandMesh(root, name, th, opt = {}) {
   o.visible = false; const h = root.getObjectByName(name + '_Halo'); if (h) h.visible = false;
   o.userData.rebrand = host; return host;
 }
+// premium marka paneli: duvardan 4 cm ayrık siyah saten levha, 1 cm fırçalanmış çelik çerçeve, arkasından duvara yayılan
+// yumuşak ışık (levha havada asılı gibi); logo levhanın 1 cm önünde, hafif ışıklı (beyaz harf + yeşil çizgi net okunur)
+function brandLogoPanel(host, lp, BP) {
+  lp.geometry.computeBoundingBox(); const b = lp.geometry.boundingBox, lw = (b.max.x - b.min.x) * lp.scale.x, lh = (b.max.y - b.min.y) * lp.scale.y;
+  const W = lw * 1.12, H = Math.max(lh * 1.32, lw * .27), D = .035, z0 = .04;
+  const panel = new THREE.Mesh(new RoundedBoxGeometry(W, H, D, 3, .012), new THREE.MeshPhysicalMaterial({ name: 'GM_BrandPanel', color: '#0f1012',
+    roughness: .42, metalness: .25, clearcoat: .5, clearcoatRoughness: .35, envMapIntensity: .5 }));
+  panel.position.set(0, 0, z0 + D / 2); panel.castShadow = true; host.add(panel);
+  const steel = new THREE.MeshStandardMaterial({ name: 'GM_BrandFrame', color: '#9a9ea3', metalness: 1, roughness: .3, envMapIntensity: 1.1 });
+  const fr = .012, fd = D + .006;
+  for (const [w, h, x, y] of [[W + 2 * fr, fr, 0, H / 2 + fr / 2], [W + 2 * fr, fr, 0, -H / 2 - fr / 2], [fr, H, -W / 2 - fr / 2, 0], [fr, H, W / 2 + fr / 2, 0]]) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, fd), steel); m.position.set(x, y, z0 + fd / 2); host.add(m); }
+  // arka ışık: levha kenarından duvara taşan sıcak-beyaz hale (katkılı, duvarın 2 mm önünde)
+  // kare doku, her kenarda sıfıra iner; düzleme gerilince elips hale olur (kenarda sert çizgi kalmaz)
+  const cv = document.createElement('canvas'); cv.width = cv.height = 256; const g = cv.getContext('2d');
+  const gr = g.createRadialGradient(128, 128, 8, 128, 128, 128); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.5, 'rgba(255,255,255,.5)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 256, 256); const ht = new THREE.CanvasTexture(cv); ht.colorSpace = THREE.SRGBColorSpace;
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.3, H * 1.8), new THREE.MeshBasicMaterial({ name: 'GM_BrandHalo', map: ht, color: new THREE.Color('#fff4e6').multiplyScalar(BP.halo),
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
+  halo.position.z = .004; host.add(halo);
+  lp.position.z = z0 + D + .006; lp.material.alphaTest = .3; lp.material.depthWrite = true;   // logo levhanın önünde, kenarları temiz
+}
 function brandLetters(room, th) {
   const spec = [['MTG_BrandText', 'MTG_Brand', BRAND.line, .34, 3.5, { depth: .024, bevel: .005, standoff: .014, blur: .035, drop: .035, curve: 10 }],
     ['MTG_BrandSubText', 'MTG_BrandSub', 'PRIVATE  COLLECTION', .13, 2.75, { depth: .01, bevel: .0022, standoff: .008, blur: .016, drop: .014, curve: 6 }]];
@@ -4837,8 +4862,10 @@ function brandLetters(room, th) {
     if (o) o.visible = false;
     if (old === 'MTG_Brand') { const h = room.getObjectByName('MTG_Brand_Halo'); if (h) h.visible = false; }
     if (!host) continue;
-    const lp = old === 'MTG_Brand' ? logoPlane(Math.min(width, capH * 4 * 2.6), { glow: 0 }) : null;   // ana marka satırı: firma logosu
+    const BP = old === 'MTG_Brand' ? th.brandPanel : null;
+    const lp = old === 'MTG_Brand' ? logoPlane(Math.min(width * (BP ? .86 : 1), capH * 4 * 2.6 * (BP?.scale || 1)), { glow: BP ? BP.glow : 0 }) : null;   // ana marka satırı: firma logosu
     const txt = lp || brandText(line, capH, width, th, opt); host.add(txt);
+    if (lp && BP) { brandLogoPanel(host, lp, BP); continue; }
     if (lp) { lp.position.z = .012; continue; }
     if (old === 'MTG_BrandSub') {            // alt satırın iki yanında ince metal çizgi (yazının gerçek genişliğinden; harfe değmez)
       const m = new THREE.MeshStandardMaterial({ color: th.letters, metalness: 1, roughness: .25, envMapIntensity: 1.3 });
