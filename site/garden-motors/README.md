@@ -173,3 +173,9 @@ Ekran görüntüleri: `screenshots/arayuz/`.
 - **Açılış:** masaüstü tam karşıdan, 21.5 m, bakış 3.55 m: üst kattaki araçlar menünün altında net; açılışta fare paralaksı yok
   (kadraj ortada sabit). Telefon 36 m: camların arkasındaki araçlar görünür.
 - **Sade arayüz:** kalite (AKICI / HD) ve ses düğmeleri kaldırıldı; site her zaman akıcı modda. "İlandaki markalar" yazısı kaldırıldı.
+
+## Prestij vitrini (görsel amaçlı)
+`VITRINE` listesi (index.html): zemin kat Ferrari Roma + Bentley Continental GT V8 yuvarlak döner kaidede (Ø 5.3 m, koyu cilalı gövde,
+şampanya kenar halkası, tabanda gömme LED, zeminde hale); üst kat G 63 + Range Rover oval kaidede yan profil (cam ile mermer arası
+3.8 m). Araçların kendi boyaları korunur; ağır "transmission" camı hafif saydam cama çevrilir. Modeller arka planda yüklenir;
+telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md`. Toplam 11 MB (orijinal 103 MB), ~650 bin üçgen.
