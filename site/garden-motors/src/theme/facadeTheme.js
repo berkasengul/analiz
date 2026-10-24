@@ -105,6 +105,19 @@ export const FACADE_THEME = {
   wet: { reflect: 1.5, wetness: 1.0, streak: 1.0, res: .5, road: { darken: .45, puddle: .5, minWet: .82 }, paving: { darken: .35, puddle: .45, minWet: .6 } },
   bollard: { led: 10, pool: 1.1, poolR: 1.4 },   // baba tepesi ışık halkası + zemindeki ışık havuzu
   bloom: { threshold: .9, strength: .16, radius: .12 },
+  // time: 'day' | 'night'. Kanal sahibi: "gece yapma, gündüz yap, gerçek bir dünya ortamı, bulutlar olsun".
+  time: 'day',
+  // gündüz: Poly Haven "Docklands 01" (CC0, Savva Zakharov): bulutlu gök + modern şehir. day.hdr (1k) yansıma ortamı,
+  // day_bg.jpg (6144 px, telefonda 3072 px) görünen arka plan (fotoğrafın kendi tonu, ek ton eşleme yok).
+  // Güneş HDRI'deki güneşle aynı yönde (önden-sağdan, 29°), gölgeli. Pişmiş gece ışığı (Blender lightmap) cephede kısılır.
+  // theme: gündüzde üzerine yazılan tema değerleri (LED, ışık havuzları, ıslaklık).
+  day: {
+    hdri: 'public/hdri/day.hdr', bg: 'public/hdri/day_bg.jpg', bgMobile: 'public/hdri/day_bg_m.jpg', bgGain: 1.0,
+    sun: { color: '#fff1dd', intensity: 10.0, dir: [.69, .48, .54] }, hemi: { sky: '#b9d0ec', ground: '#6f6458', intensity: 3.0 },
+    exposure: .8, grade: [1, 1, 1, 1, 1.03], fog: { color: '#b7c2ca', density: .0012 },
+    bakedLM: .12, lightScale: .3, glassEnv: .55,
+    theme: { bollard: { led: 3, pool: .25 }, soffit: { led: 2.0, glow: .25 }, band: { wash: .45 }, upper: { wash: .5, ceilLED: 1.6 }, display: { floorGlow: .2 }, paving: { gain: 1.35 } },
+  },
   sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22, clouds: .6, cloud: '#1f2638' },   // clouds: referanstaki bulutlu gece
   city: { color: '#1c2335', windows: .14, distance: 170, height: 72 },
   fog: { color: '#0b1020', density: .0045 },

@@ -198,3 +198,18 @@ telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md
 - Zemin kat sağdaki Bentley'nin modeli ters dışa aktarılmış: `flip: true` ile burnu sokağa çevrildi.
 
 ![G 63 rampada, Maybach sol üstte](screenshots/vitrin/g63_rampa.png)
+
+## Gündüz: gerçek bulutlu gök (varsayılan)
+`TH.time = 'day'` (`src/theme/facadeTheme.js` → `day`). Gece görünümü için `'night'`.
+- Gök: Poly Haven **Docklands 01** (CC0). Görünen arka plan, fotoğrafın kendi tonundaki 6144 px eşdikdörtgen JPG
+  (telefonda 3072 px), kamerayı izleyen kürede three.js ortam haritasıyla aynı yön kuralıyla çizilir: bulutlar ve şehir yansımalarla örtüşür.
+  Metal ve cam yansımaları `day.hdr` (1k). Hafif açık pus (sis).
+- Işık: güneş HDRI'deki güneşle aynı yönde (önden-sağdan, 29°), gölgeli (2048). Gök ışığı açık mavi. Dış pozlama 0.8.
+- Cephenin Blender'da pişmiş gece ışığı camın dışında %12'ye iner, yüzeyler güneşi alır; vitrin içleri kendi ışığında kalır.
+- Zemin kuru (ıslak yansıma düzlemi gündüz kurulmaz). Camın dışındaki spotlar %30, baba ışık havuzları, saçak LED'i,
+  bant ve niş ışıkları gündüz şiddetinde. Vitrin camı gök yansımasını daha az gösterir (araçlar görünür).
+- Masaüstü açılış 25 m'den, bakış biraz yukarıda: binanın üstünde bulutlu gök görünür.
+
+## Telefon kadrajları
+- Açılış daha uzaktan (40 m), hafif aşağı bakış; bütün vitrin araçları telefonda da yüklenir.
+- Araç salonlarında kadraj yukarı kayar: araç ilan kartının hemen üstünde, zemin az, arka duvardaki GARDEN MOTORS logosu okunur.
