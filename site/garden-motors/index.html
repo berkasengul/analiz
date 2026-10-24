@@ -4867,6 +4867,26 @@ const VITRINE = [
   { glb: 'models/vitrin/rangerover.glb', title: '2022 Land Rover Range Rover', author: 'tonielpro520', src: 'https://sketchfab.com/3d-models/2022-land-rover-range-rover-fa4d79a5875e4733a71101e28a30e2e3', length: 5.05, floor: 'upper', x: 10.4 },
 ];
 // yuvarlak / oval döner kaide: koyu cilalı gövde (aracı yansıtır), şampanya kenar halkası, tabanda gömme LED + zeminde hale
+// eğik sergi rampası (orta vitrin): arka yüksek, ön alçak; araç burnu sokağa ve hafif aşağı bakar, sokaktan tavanı ve ön yüzü görünür.
+// Kesiti yamuk koyu cilalı gövde, üstte cilalı kaplama, iki yan kenarda şampanya ışık çizgisi, tabanda gömme LED ve zeminde hale.
+function tiltRamp(x, floorY, z, W, L, hF, deg) {
+  const a = THREE.MathUtils.degToRad(deg), t = Math.tan(a), hB = hF + L * t, hc = hF + L / 2 * t;
+  const g = new THREE.Group(); g.name = 'Vitrin eğik rampa'; g.position.set(x, floorY, z); scene.add(g);
+  const sh = new THREE.Shape([new THREE.Vector2(-L / 2, 0), new THREE.Vector2(L / 2, 0), new THREE.Vector2(L / 2, hF), new THREE.Vector2(-L / 2, hB)]);
+  const geo = new THREE.ExtrudeGeometry(sh, { depth: W, bevelEnabled: true, bevelThickness: .012, bevelSize: .012, bevelSegments: 2, curveSegments: 1 });
+  geo.translate(0, 0, -W / 2); geo.rotateY(-Math.PI / 2);   // şekil x → dünya z (ön = sokak), çekme → dünya x
+  const body = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({ name: 'GM_PlinthBody', color: '#131416', metalness: .55, roughness: .3, clearcoat: .6, clearcoatRoughness: .25, envMapIntensity: .8 }));
+  body.castShadow = body.receiveShadow = true; g.add(body);
+  const deck = new THREE.Group(); deck.position.set(0, hc + .014, 0); deck.rotation.x = a; g.add(deck);   // rampa üst düzlemi
+  const top = new THREE.Mesh(new THREE.PlaneGeometry(W - .06, L / Math.cos(a) - .06), new THREE.MeshPhysicalMaterial({ name: 'GM_PlinthTop', color: '#18191c', metalness: .35, roughness: .16, clearcoat: 1, clearcoatRoughness: .08, envMapIntensity: 1 }));
+  top.rotation.x = -Math.PI / 2; top.receiveShadow = true; deck.add(top);
+  for (const sd of [-1, 1]) { const e = new THREE.Mesh(new THREE.BoxGeometry(.012, .008, L / Math.cos(a) - .04), glow('#d9bf8c', 1.25)); e.position.set(sd * (W / 2 - .02), .004, 0); deck.add(e); }
+  const led = new THREE.Mesh(new THREE.BoxGeometry(W + .02, .01, .012), glow('#ffd9a8', 1.6)); led.position.set(0, .012, L / 2 + .02); g.add(led);   // ön alt kenar
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.9, L * 1.25), new THREE.MeshBasicMaterial({ map: gradTex('x', [[0, 0], [.3, .5], [.5, 1], [.7, .5], [1, 0]]),
+    color: new THREE.Color('#ffd9a8').multiplyScalar(TH.display.floorGlow), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
+  halo.rotation.x = -Math.PI / 2; halo.position.y = .006; g.add(halo);
+  return { y: hc + .017, pitch: a, group: g };
+}
 function roundPlinth(x, floorY, z, rx, rz = rx, H = .2) {   // H: kaide yüksekliği (orta vitrin: tabela kutusunun üstünden okunsun diye podyum)
   const g = new THREE.Group(); g.name = 'Vitrin yuvarlak kaide'; g.position.set(x, floorY, z); scene.add(g);
   const el = (m) => { m.scale.set(rx, 1, rz); return m; };
@@ -4898,8 +4918,8 @@ async function buildVitrines() {
   await Promise.all(list.map(async (v) => {
     let gl; try { gl = await gltfLoader.loadAsync(vurl(v.glb)); } catch (e) { console.warn('Vitrin aracı yüklenemedi', v.glb, e); return; }
     const up = v.floor === 'upper', sd = Math.sign(v.x);
-    const z = v.center ? -2.55 : up ? -1.85 : -2.6, floorY = up ? 5.605 : .005;   // orta: derin nişte, düz önden, alçak kaide
-    const P = v.center ? roundPlinth(v.x, floorY, z, 1.55, 2.7, .25) : up ? roundPlinth(v.x, floorY, z, 2.85, 1.45) : roundPlinth(v.x, floorY, z, 2.65);
+    const z = v.center ? -2.65 : up ? -1.85 : -2.6, floorY = up ? 5.605 : .005;   // orta: derin nişte, düz önden, eğik rampada (arka 9° yüksek)
+    const P = v.center ? tiltRamp(v.x, floorY, z, 2.5, 5.5, .12, 9) : up ? roundPlinth(v.x, floorY, z, 2.85, 1.45) : roundPlinth(v.x, floorY, z, 2.65);
     if (v.hide) { const rm = []; gl.scene.traverse((o) => { if (v.hide.includes(o.name)) rm.push(o); }); rm.forEach((o) => o.removeFromParent()); }
     const car = prepareCarModel({ _scene: gl.scene, length: v.length, rotY: 0, color: '#777777', ownPlates: true, curated: false });
     vitrineGlass(car);
@@ -4909,7 +4929,9 @@ async function buildVitrines() {
       sh.rotation.x = -Math.PI / 2; sh.scale.set(v.length * .5, 1.1, 1); sh.position.y = .008; car.add(sh); }
     // zemin: 3/4 ön (burun sokağa ve ortaya); üst kat: yan profil, burun ortaya ve hafif sokağa (oval kaideye sığar)
     const yaw = v.center ? -Math.PI / 2 : up ? (sd < 0 ? -.18 : Math.PI + .18) : (sd < 0 ? -Math.PI / 2 + .62 : -Math.PI / 2 - .62);   // orta: burun düz sokağa
-    car.rotation.y += yaw + (v.flip ? Math.PI : 0); car.position.set(v.x, floorY + P.y, z); car.name = 'Vitrin: ' + v.title; scene.add(car);
+    car.rotation.y += yaw + (v.flip ? Math.PI : 0); car.name = 'Vitrin: ' + v.title;
+    if (P.pitch) { const pv = new THREE.Group(); pv.name = 'Vitrin eğim'; pv.position.set(v.x, floorY + P.y, z); pv.rotation.x = P.pitch; pv.add(car); scene.add(pv); }   // arka yukarı, burun aşağı
+    else { car.position.set(v.x, floorY + P.y, z); scene.add(car); }
     if (up) car.traverse((o) => { if (o.isMesh) o.castShadow = false; });
     car.userData.baseYaw = car.rotation.y; vitrineCars.push(car); stGround.push(car);
     if (!isMobile) {

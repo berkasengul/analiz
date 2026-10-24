@@ -183,8 +183,12 @@ telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md
 ### Tabelanın üstü: Maybach GLS 600 + taş bant
 - Üst katın ortasına (tabela kutusunun üstü) **Mercedes-Maybach GLS 600** kondu, burnu sokağa düz bakar. Uzun gövdeli araç seçildi, çünkü
   alçak spor araçlar sokaktan tabela kutusunun arkasında kalıyordu. Üst kat 3.6 m derin, araç ~5.2 m: orta niş 2.4 m geriye alındı
-  (`TH.upper.niches` 3. değer = ek derinlik; arka duvar, yan duvarlar, zemin, tavan ve LED çizgisi kodda kurulur). Kaide alçak (25 cm), oval.
+  (`TH.upper.niches` 3. değer = ek derinlik; arka duvar, yan duvarlar, zemin, tavan ve LED çizgisi kodda kurulur). Araç **eğik sergi
+  rampasında** (`tiltRamp`): arka 9° yüksek, burun aşağı bakar; önde 12 cm, arkada ~1 m. Sokaktan ızgara, farlar ve tekerlekler görünür.
   Ön yüz için o aracın spotu ileri alınıp güçlendirildi. Telefonda da yüklenir (açılış kadrajının ortası).
 - Tabela arkasındaki boydan boya bant ve tabela kutusu: siyah lamel yerine **kolonlardaki koyu damarlı taş** (`buildStoneBand`,
   `TH.band.style: 'stone'`; eski görünüm `'louver'`). Bantta kolon spotu olmadığından aynı taşın biraz açık tonu (`stoneAlbedo`) ve
   hafif cilası (`stoneRoughMin`) kullanılır. 120 cm plakalar, 5 mm derz, üst/alt ince metal, alt kenarda LED çizgisi. Yazı aynı.
+- Zemin kat sağdaki Bentley'nin modeli ters dışa aktarılmış: `flip: true` ile burnu sokağa çevrildi.
+
+![Maybach rampada](screenshots/vitrin/maybach_rampa.png)
