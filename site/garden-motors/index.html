@@ -1952,17 +1952,32 @@ function buildLouverBand(g, x0, x1, y0, y1, z0, zF, { name = 'GM_Louver', ends =
   led.position.set(cx, y0 - .014, zF - .03); led.name = name + 'LED'; G.add(led);   // alt kenar: aşağı bakan ince ışık çizgisi
   return G;
 }
-let BAND_STONE = null;
-// taş bant: kolonlardaki koyu damarlı taşın (wallMat, dünya koordinatlı) aynısı, bant boyunca 120 cm plakalar + 5 mm koyu derz.
-// Üst başlık / alt kapak ince metal, alt kenarda aşağı bakan LED çizgisi (lamel bantla aynı).
+// taş bant: kolonlardaki koyu damarlı taşın (wallMat, dünya koordinatlı) aynısı; büyük plakalar, ince derz.
+// Kolonlardaki üst spot etkisi bantta da var: her plakanın üstünden aşağı yayılan sıcak ışık konisi ("scallop"). Işık taşın kendi rengiyle
+// çarpılır (damarlar parlar, düz bir parlama değil); ek ışık kaynağı yok, gölgelendirici içinde hesaplanır.
+function bandStoneMat(y1, x0, pitch) {
+  const B = TH.band, m = wallMat({ albedo: B.stoneAlbedo || TH.walls.albedo, roughMin: B.stoneRoughMin ?? TH.walls.roughMin, grime: { ...TH.walls.grime, opacity: 0 } });
+  const prev = m.onBeforeCompile, prevKey = m.customProgramCacheKey;
+  const U = { bwTop: { value: y1 }, bwX0: { value: x0 }, bwPitch: { value: pitch }, bwColor: { value: facadeMats().lightColor.clone().multiplyScalar(B.wash ?? 1.6) } };
+  m.onBeforeCompile = (sh, r) => {
+    prev.call(m, sh, r); Object.assign(sh.uniforms, U);
+    sh.fragmentShader = sh.fragmentShader
+      .replace('#include <common>', '#include <common>\nuniform float bwTop, bwX0, bwPitch; uniform vec3 bwColor;')
+      .replace('#include <opaque_fragment>', `{ float d = max(bwTop - vTpPos.y, 0.0), dx = (fract((vTpPos.x - bwX0) / bwPitch) - .5) * bwPitch, w = .22 + d * .7;
+  float cone = exp(-dx * dx / (w * w)) * exp(-d * 1.1), lip = exp(-d * 9.0);   // plaka başına aşağı açılan koni + üst kenarda ince parlak şerit
+  outgoingLight += diffuseColor.rgb * bwColor * (cone + .35 * lip) * step(.0, vTpNrm.z); }
+#include <opaque_fragment>`);
+  };
+  m.customProgramCacheKey = () => 'gm-bandwash|' + prevKey.call(m);
+  return m;
+}
 function buildStoneBand(g, x0, x1, y0, y1, z0, zF, { name = 'GM_StoneBand', ends = false } = {}) {
-  const L = TH.band.louver, Wt = TH.walls, M = facadeMats(), W = x1 - x0, cx = (x0 + x1) / 2, cap = .035, T = .04;
+  const L = TH.band.louver, B = TH.band, Wt = TH.walls, M = facadeMats(), W = x1 - x0, cx = (x0 + x1) / 2, cap = .035, T = .04;
   const G = new THREE.Group(); G.name = name; g.add(G);
-  const ya = y0 + cap, yb = y1 - cap, H = yb - ya, D = zF - z0, J = Wt.joint;
+  const ya = y0 + cap, yb = y1 - cap, H = yb - ya, D = zF - z0, J = B.stoneJoint ?? .003;
   const back = new THREE.Mesh(new THREE.BoxGeometry(W, H, D - T + .004), M.joint); back.position.set(cx, (ya + yb) / 2, z0 + (D - T) / 2); G.add(back);
-  const n = Math.max(1, Math.round(W / Wt.plateW)), pw = (W - J * (n - 1)) / n;
-  BAND_STONE ||= wallMat({ albedo: TH.band.stoneAlbedo || TH.walls.albedo, roughMin: TH.band.stoneRoughMin ?? TH.walls.roughMin, grime: { ...TH.walls.grime, opacity: 0 } });
-  const geo = new RoundedBoxGeometry(pw, H, T, 2, .004), im = new THREE.InstancedMesh(geo, BAND_STONE, n), pv = new Float32Array(n * 4);
+  const n = Math.max(1, Math.round(W / (B.stonePlate ?? 2.4))), pw = (W - J * (n - 1)) / n;
+  const geo = new RoundedBoxGeometry(pw, H, T, 2, .003), im = new THREE.InstancedMesh(geo, bandStoneMat(yb, x0, pw + J), n), pv = new Float32Array(n * 4);
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), one = new THREE.Vector3(1, 1, 1);
   for (let i = 0; i < n; i++) { im.setMatrixAt(i, m4.compose(new THREE.Vector3(x0 + pw / 2 + i * (pw + J), (ya + yb) / 2, zF - T / 2), q, one)); pv.set(randomPlateVar(WALL.rnd), i * 4); }
   geo.setAttribute('plateVar', new THREE.InstancedBufferAttribute(pv, 4));
@@ -1971,8 +1986,9 @@ function buildStoneBand(g, x0, x1, y0, y1, z0, zF, { name = 'GM_StoneBand', ends
   plate(W + .02, cap + .01, D + .015, cx, y1 - cap / 2 + .005, z0 + (D + .015) / 2);       // üst başlık (1 cm taşar: z-fighting olmaz)
   plate(W + .02, cap + .01, D + .015, cx, y0 + cap / 2 - .005, z0 + (D + .015) / 2);       // alt kapak
   if (ends) for (const x of [x0 - .01, x1 + .01]) plate(.02, y1 - y0, D + .015, x, (y0 + y1) / 2, z0 + (D + .015) / 2);
-  const led = new THREE.Mesh(new THREE.BoxGeometry(W - .04, .008, .014), new THREE.MeshBasicMaterial({ name: 'GM_BandLED', color: M.lightColor.clone().multiplyScalar(L.led) }));
-  led.position.set(cx, y0 - .014, zF - .03); led.name = name + 'LED'; G.add(led);
+  const lm = new THREE.MeshBasicMaterial({ name: 'GM_BandLED', color: M.lightColor.clone().multiplyScalar(L.led) });
+  const led = new THREE.Mesh(new THREE.BoxGeometry(W - .04, .008, .014), lm); led.position.set(cx, y0 - .014, zF - .03); led.name = name + 'LED'; G.add(led);   // alt kenar: aşağı bakan çizgi
+  const top = new THREE.Mesh(new THREE.BoxGeometry(W - .04, .006, .012), lm); top.position.set(cx, yb - .004, zF + .012); top.name = name + 'TopLED'; G.add(top);   // üst başlığın altında gizli ışık kaynağı
   return G;
 }
 const buildBand = (...a) => (TH.band.style === 'louver' ? buildLouverBand : buildStoneBand)(...a);
@@ -4881,7 +4897,7 @@ function tiltRamp(x, floorY, z, W, L, hF, deg) {
   top.rotation.x = -Math.PI / 2; top.receiveShadow = true; deck.add(top);
   for (const sd of [-1, 1]) { const e = new THREE.Mesh(new THREE.BoxGeometry(.012, .008, L / Math.cos(a) - .04), glow('#d9bf8c', 1.25)); e.position.set(sd * (W / 2 - .02), .004, 0); deck.add(e); }
   const led = new THREE.Mesh(new THREE.BoxGeometry(W + .02, .01, .012), glow('#ffd9a8', 1.6)); led.position.set(0, .012, L / 2 + .02); g.add(led);   // ön alt kenar
-  const halo = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.9, L * 1.25), new THREE.MeshBasicMaterial({ map: gradTex('x', [[0, 0], [.3, .5], [.5, 1], [.7, .5], [1, 0]]),
+  const halo = new THREE.Mesh(new THREE.PlaneGeometry(Math.min(W * 1.9, 6.2), L * 1.25), new THREE.MeshBasicMaterial({ map: gradTex('x', [[0, 0], [.3, .5], [.5, 1], [.7, .5], [1, 0]]),
     color: new THREE.Color('#ffd9a8').multiplyScalar(TH.display.floorGlow), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
   halo.rotation.x = -Math.PI / 2; halo.position.y = .006; g.add(halo);
   return { y: hc + .017, pitch: a, group: g };
@@ -4918,7 +4934,7 @@ async function buildVitrines() {
     let gl; try { gl = await gltfLoader.loadAsync(vurl(v.glb)); } catch (e) { console.warn('Vitrin aracı yüklenemedi', v.glb, e); return; }
     const up = v.floor === 'upper', sd = Math.sign(v.x);
     const z = v.center ? -2.65 : up ? -1.85 : -2.6, floorY = up ? 5.605 : .005;   // orta: derin nişte, düz önden, eğik rampada (arka 9° yüksek)
-    const P = v.center ? tiltRamp(v.x, floorY, z, 2.5, 5.5, .12, 9) : up ? roundPlinth(v.x, floorY, z, 2.85, 1.45) : roundPlinth(v.x, floorY, z, 2.65);
+    const P = v.center ? tiltRamp(v.x, floorY, z, 4.4, 5.5, .12, 9) : up ? roundPlinth(v.x, floorY, z, 2.85, 1.45) : roundPlinth(v.x, floorY, z, 2.65);
     if (v.hide) { const rm = []; gl.scene.traverse((o) => { if (v.hide.includes(o.name)) rm.push(o); }); rm.forEach((o) => o.removeFromParent()); }
     const car = prepareCarModel({ _scene: gl.scene, length: v.length, rotY: 0, color: '#777777', ownPlates: true, curated: false });
     vitrineGlass(car);
@@ -4932,7 +4948,7 @@ async function buildVitrines() {
     if (P.pitch) { const pv = new THREE.Group(); pv.name = 'Vitrin eğim'; pv.position.set(v.x, floorY + P.y, z); pv.rotation.x = P.pitch; pv.add(car); scene.add(pv); }   // arka yukarı, burun aşağı
     else { car.position.set(v.x, floorY + P.y, z); scene.add(car); }
     if (up) car.traverse((o) => { if (o.isMesh) o.castShadow = false; });
-    car.userData.baseYaw = car.rotation.y; vitrineCars.push(car); stGround.push(car);
+    car.userData.baseYaw = car.rotation.y; if (v.center) car.userData.swing = 25; vitrineCars.push(car); stGround.push(car);
     if (!isMobile) {
       const l = new THREE.RectAreaLight('#fff1e0', up ? TH.display.topLight : TH.display.groundTopLight, 5.2, 3.2);
       l.position.set(v.x, up ? 8.15 : 4.2, z); l.lookAt(v.x, floorY + P.y, z); scene.add(l);
@@ -4945,14 +4961,16 @@ async function buildVitrines() {
   if (cr) { cr.append(document.createElement('br'), 'Vitrin araçları (görsel amaçlı, satılık değildir; CC BY 4.0): ');
     list.forEach((v, i) => { const a = document.createElement('a'); a.href = v.src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = `${v.title} — ${v.author}`; cr.append(a); if (i < list.length - 1) cr.append(' · '); }); }
 }
-// vitrin araçları: park hâlindeki aracın açı değiştirmesi gibi çok yavaş, küçük sağ-sol dönüş (±3°, 36 sn), iki araç aynı yöne;
+// vitrin araçları: park hâlindeki aracın açı değiştirmesi gibi çok yavaş, küçük sağ-sol dönüş (±3°, 36 sn), araçlar aynı yöne;
 // yalnız kamera dışarıdayken. Araç kendi merkezinde döner, yer değiştirmez. Hareket kamerayla aynı saat (dt) ile ilerler.
 const VIT = { t: 0, lastShadow: 0 };
 function updateVitrineCars(dt) {
   if (!vitrineCars.length || reduceMotion || camera.position.z < -1) return;
   VIT.t += dt;
   const a = THREE.MathUtils.degToRad(3) * Math.sin(VIT.t * Math.PI * 2 / 36);
-  for (const c of vitrineCars) c.rotation.y = c.userData.baseYaw + a;
+  // orta (rampadaki) araç: döner tabla gibi bir çapraz sola, bir çapraz sağa (±25°, 26 sn); uçlarda kısa duraklar (tanh), sonra yavaşça döner
+  const sw = Math.tanh(1.8 * Math.sin(VIT.t * Math.PI * 2 / 26)) / Math.tanh(1.8);
+  for (const c of vitrineCars) c.rotation.y = c.userData.baseYaw + (c.userData.swing ? THREE.MathUtils.degToRad(c.userData.swing) * sw : a);
   if (!QUALITY.lite && (VIT.lastShadow += dt) > .3) { VIT.lastShadow = 0; renderer.shadowMap.needsUpdate = true; }
 }
 

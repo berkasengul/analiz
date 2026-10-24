@@ -65,8 +65,9 @@ export const FACADE_THEME = {
   },
   // üst kat bandı (tabelanın arkası): fırçalanmış koyu alüminyum kompozit, panel başına hafif ton farkı
   // style: 'stone' = kolonlardaki koyu damarlı taş (varsayılan, kanal sahibinin isteği) | 'louver' = siyah alüminyum lamel
-  // stoneAlbedo: bantta kolon spotu yok → aynı taş biraz açık tonda (kolonun ışık huzmesindeki görünüşü); stoneRoughMin: hafif cilalı, saçak LED'ini yansıtır
-  band: { style: 'stone', stoneAlbedo: '#6e665d', stoneRoughMin: .32, texture: 'brushed_metal', textureMeters: 1.0, normalScale: .35, roughness: .42, metalness: .6, envIntensity: .35, toneJitter: .06,
+  // stoneAlbedo: kolon taşıyla aynı koyu antrasit; stoneRoughMin: hafif cilalı; stonePlate/Joint: 240 cm plaka, 3 mm derz;
+  // wash: üst başlığın altındaki gizli LED'den her plakaya aşağı yayılan sıcak ışık konisinin şiddeti (kolon spotlarının bantta karşılığı)
+  band: { style: 'stone', stoneAlbedo: '#45423f', stoneRoughMin: .3, stonePlate: 2.4, stoneJoint: .003, wash: 1.6, texture: 'brushed_metal', textureMeters: 1.0, normalScale: .35, roughness: .42, metalness: .6, envIntensity: .35, toneJitter: .06,
     // referans: boydan boya siyah yatay alüminyum lamel. Bant kolonların önünden geçer, uç kolonlara dayanır.
     louver: { front: .10, pitch: .07, slatH: .05, slatD: .06, tilt: 12, color: '#141414', metalness: .6, roughness: .3, envIntensity: .2, normal: 0,
       x: 15.9, y0: 4.40, y1: 5.60, led: 1.6 } },

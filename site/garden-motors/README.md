@@ -188,7 +188,13 @@ telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md
   Ön yüz için o aracın spotu ileri alınıp güçlendirildi. Telefonda da yüklenir (açılış kadrajının ortası).
 - Tabela arkasındaki boydan boya bant ve tabela kutusu: siyah lamel yerine **kolonlardaki koyu damarlı taş** (`buildStoneBand`,
   `TH.band.style: 'stone'`; eski görünüm `'louver'`). Bantta kolon spotu olmadığından aynı taşın biraz açık tonu (`stoneAlbedo`) ve
-  hafif cilası (`stoneRoughMin`) kullanılır. 120 cm plakalar, 5 mm derz, üst/alt ince metal, alt kenarda LED çizgisi. Yazı aynı.
+  koyu antrasit taş, hafif cilalı (`stoneAlbedo`, `stoneRoughMin`). 240 cm plakalar, 3 mm derz, üst/alt ince metal.
+  Kolonlardaki üst spotun bantta karşılığı: üst başlığın altında gizli LED, her plakadan aşağı açılan sıcak ışık konisi (`TH.band.wash`).
+  Işık gölgelendiricide taşın rengiyle çarpılır (damarlar parlar), ek ışık kaynağı yok. Alt kenarda LED çizgisi. Yazı aynı.
+
+  ![Taş bant yakından](screenshots/vitrin/bant_tas.png)
+- Ortadaki G 63 rampanın üstünde döner tabla gibi kendiliğinden bir çapraz sola, bir çapraz sağa döner (±25°, 26 sn, uçlarda
+  kısa duraklama); rampa bu dönüşte köşeler taşmasın diye 4.4 m geniş. Diğer vitrin araçları ±3° ile yavaş sallanır.
 - Zemin kat sağdaki Bentley'nin modeli ters dışa aktarılmış: `flip: true` ile burnu sokağa çevrildi.
 
 ![G 63 rampada, Maybach sol üstte](screenshots/vitrin/g63_rampa.png)
