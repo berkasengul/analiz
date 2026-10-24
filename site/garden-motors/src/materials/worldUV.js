@@ -10,7 +10,7 @@
 //             vec4(ofsetU, ofsetV, döndür(0|1), rastgele −1..1). InstancedMesh'te InstancedBufferAttribute olabilir.
 // grime:      { map (Opacity), opacity, height (m), width (m), edges: [y...] } — kenarların hemen altında dikey akıntı
 // base:       { height (m), dark (0..1) } — zemine değen alt kısımda koyulaşma
-// tiles:      { size (m), joint (m, derz genişliği), dark (0..1) } — yatay yüzeylerde dünya ızgarasına oturan kare karolar:
+// tiles:      { size (m ya da [x, z]), joint (m, derz genişliği), dark (0..1) } — yatay yüzeylerde dünya ızgarasına oturan kare karolar:
 //             karo başına ofset / döndürme / ton shader'da karo numarasından üretilir, derz ince ve kenar yumuşatmalı
 // Malzemenin önceki onBeforeCompile'ı (ör. pişmiş ışık kancası) korunur ve önce çalışır.
 // Ayarlar sonradan material.userData.worldUV.uniforms üzerinden değiştirilebilir.
@@ -52,7 +52,8 @@ export function applyWorldUV(material, o) {
     tpGrime: { value: g.map || null }, tpGrimeOn: { value: g.map ? 1 : 0 }, tpGrimeOpacity: { value: g.opacity ?? .2 },
     tpGrimeH: { value: g.height ?? .55 }, tpGrimeW: { value: g.width ?? 2 }, tpEdges: { value: edges },
     tpBaseH: { value: b.height ?? .25 }, tpBaseDark: { value: b.dark ?? .35 },
-    tpTileSize: { value: o.tiles?.size ?? .6 }, tpTileJoint: { value: o.tiles?.joint ?? .003 }, tpTileDark: { value: o.tiles?.dark ?? .5 },
+    tpTileSize: { value: new THREE.Vector2(...[].concat(o.tiles?.size ?? .6, o.tiles?.size ?? .6).slice(0, 2)) },   // [x, z] ya da tek sayı (kare)
+    tpTileJoint: { value: o.tiles?.joint ?? .003 }, tpTileDark: { value: o.tiles?.dark ?? .5 },
   };
   material.userData.worldUV = { uniforms: U };
   const lite = !!o.lite, tiles = !!o.tiles;
@@ -77,7 +78,8 @@ varying vec3 vTpPos; varying vec3 vTpNrm; varying vec4 vTpVar;
 uniform sampler2D tpColor, tpNormal, tpRough, tpAO, tpGrime;
 uniform vec3 tpColorMul;
 uniform float tpHasAO, tpScale, tpAspect, tpNormalScale, tpAnti, tpRoughMul, tpVar, tpTint, tpRoughVar;
-uniform float tpGrimeOn, tpGrimeOpacity, tpGrimeH, tpGrimeW, tpBaseH, tpBaseDark, tpTileSize, tpTileJoint, tpTileDark;
+uniform float tpGrimeOn, tpGrimeOpacity, tpGrimeH, tpGrimeW, tpBaseH, tpBaseDark, tpTileJoint, tpTileDark;
+uniform vec2 tpTileSize;
 vec4 tpV;   // etkin plaka/karo değişkenleri (plateVar ya da karo numarasından)
 uniform float tpEdges[${MAX_EDGES}];
 float tpHash(vec3 p) { p = fract(p * .3183099 + .1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }

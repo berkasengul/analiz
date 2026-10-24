@@ -50,11 +50,17 @@ roughnessFactor = mix(roughnessFactor, .07, wetM * .9);          // su filmi: ı
 #include <lights_physical_fragment>`)
       .replace('#include <opaque_fragment>', `if (wetOn > .5) {
   vec4 wc = wetTM * vec4(vWetW, 1.0); vec2 wuv = wc.xy / wc.w;
-  float rip = wetN(vWetW.xz * 7.0) - .5; wuv.x += rip * .004;
-  float st = wetStreak * mix(2.4, 1.0, wetM) * .006;           // nemli (birikinti olmayan) yerde daha bulanık
+  // referans: her ışık için uzun, kırık dikey süzülme. Yatayda ince dalga (yüzey pürüzü), dikeyde uzun üstel çekirdek.
+  float rip = wetN(vWetW.xz * vec2(2.2, 9.0)) - .5, rip2 = wetN(vWetW.xz * 23.0) - .5;
+  wuv.x += (rip * .010 + rip2 * .003) * wetM;
+  float st = wetStreak * mix(1.6, 1.0, wetM) * .0055;
   vec3 rc = vec3(0.0); float ws = 0.0;
-  for (int i = -5; i <= 5; i++) { float o = float(i), w = exp(-o * o / 12.0); rc += texture2D(wetMap, wuv + vec2(0.0, o * st)).rgb * w; ws += w; }
+  for (int i = -16; i <= 16; i++) { float o = float(i), w = exp(-abs(o) / 6.0) * (1.0 + .35 * rip2);
+    rc += texture2D(wetMap, wuv + vec2(0.0, o * st)).rgb * w; ws += w; }
   rc /= ws;
+  rc *= 1.0 + .6 * rip;                                           // süzülme boyunca parlaklık kırılır (dalgalı asfalt)
+  float lum = dot(rc, vec3(.2126, .7152, .0722));
+  rc *= 1.0 + 1.8 * smoothstep(.25, 2.5, lum);                     // parlak kaynaklar (baba, kolon LED'i) uzun ve parlak süzülür
   vec3 V = normalize(cameraPosition - vWetW); float fr = .02 + .98 * pow(1.0 - clamp(V.y, 0.0, 1.0), 5.0);
   outgoingLight += rc * fr * wetM * wetReflect;
 }

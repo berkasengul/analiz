@@ -107,3 +107,19 @@ y ≈ 2.85 m'de kesip altını aşırı aydınlatıyor, üstünü karanlık bır
 Kalan farklar (sonraki tur): referans genel olarak daha sıcak (iç mekân turuncu, ahşap parlıyor); yoldaki yansımalar referansta
 her ışık için ayrı ince dikey çizgi, bizde daha geniş; iç mekânda giriş yanlarında saksı ağaçlar.
 Karşılaştırma: `screenshots/referans/karsilastirma.jpg`.
+
+### 2. tur: referansın canlı ışığı birebir
+- **Işık rengi:** 3000 K, beyaz dengesi düzeltmesi yok (6500) → referanstaki canlı sıcak turuncu (`#ffbd73`). Koyu taş kolonlar
+  turuncu ışık huzmesi altında referanstaki gibi görünür.
+- **Kolonlar:** giriş kolonlarında yalnız zemin katta parlak dikey LED (bant altına kadar) + ön yüzde dar sıcak ışıma;
+  uç kolonlarda zeminden yukarı dar ışık (altta parlak). Üst armatürler aşağı vurmaya devam eder.
+- **Üst kat:** niş arkası mermer daha parlak (lightBox 1.0), ahşap lamellere yıkama 1.3, ahşap tavanda cepheye paralel iki çizgi LED.
+- **Saçak:** LED 5, ahşaba yayılan ışık 1.0 (1.6 m).
+- **Giriş lobisi:** kapının iki yanında koyu kare saksıda yapraklı ağaç (`lobbyTrees()`).
+- **Saksılar:** 30 cm aralıkla iki-üç sıra gür bitki.
+- **Kaldırım:** referanstaki gibi açık-orta gri (`#7a766f`) 120 × 60 cm karo; giriş şeridi `#4a4743`.
+- **Islak yol:** her ışık için uzun, kırık dikey süzülme (33 örnekli üstel çekirdek, yüzey dalgası), parlak kaynaklar güçlendirilir;
+  yansıma şiddeti 1.5.
+- **Babalar:** LED ×10, zeminde 1.4 m ışık havuzu.
+
+Karşılaştırma (referans / 1. tur / 2. tur): `screenshots/referans/karsilastirma2.jpg`.

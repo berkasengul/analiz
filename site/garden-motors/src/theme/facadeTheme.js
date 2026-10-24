@@ -15,8 +15,8 @@ export const FACADE_THEME = {
     stone: { texture: 'stone', usage: 'yalnız yaya zemini (kaldırım, giriş eşiği)' },
     brand: { green: '#3ccf3c', white: '#f2efe8' },
   },
-  lightTemp: 3500,   // K — bütün spot, LED ve vitrin ışıkları (cephe ışıklarının hepsi kelvinToColor'dan)
-  whiteBalance: 4700,   // K — kamera beyaz dengesi: 3500 K ışık #ffe1b6 görünür, gri taş sıcak ışık altında gri kalır (6500 = dengesiz, #ffcc8c)
+  lightTemp: 3000,   // K — bütün spot, LED ve vitrin ışıkları (cephe ışıklarının hepsi kelvinToColor'dan)
+  whiteBalance: 6500,   // K — kamera beyaz dengesi. Referans: canlı sıcak turuncu ışık → düzeltme yok (3000 K ≈ #ffbd73). 4700 = nötr, taş gri kalır
   sign: {
     width: 12.4, height: 1.56, boxDepth: .22,   // tabela kutusu: bant önüne 22 cm çıkar, bantdan 18 cm yüksek, önü aynı lamel
     capRatio: .45,          // büyük harf yüksekliği / panel yüksekliği
@@ -51,8 +51,11 @@ export const FACADE_THEME = {
     radius: .008,          // plaka köşe pahı
     roughness: .35, clearcoat: .4, clearcoatRoughness: .3,   // bantlardan bir tık rafine
     grooveW: .04, grooveD: .03,      // orta girinti
-    led: 1.1,              // girinti dibindeki 3000 K şerit (tabeladan sönük kalır)
-    grooveGlow: .35,       // girinti yan yüzeylerine düşen LED ışığı
+    led: 3.6,              // girinti dibindeki şerit (referans: zemin kat kolonlarında parlak dikey LED)
+    grooveGlow: 1.2,       // girinti yan yüzeylerine düşen LED ışığı
+    ledTop: 4.30,          // LED yalnız zemin katta (bant altına kadar), giriş kolonlarında
+    faceGlow: .22,         // LED'in kolon ön yüzüne yaydığı sıcak ışıma (ortada parlak, kenarlara söner)
+    baseUplight: 14,       // uç kolonlar: zeminden yukarı ışık (referanstaki gibi altta parlak)
     plinthH: .12, plinthInset: .02, plinthGap: .03,   // metal kaide + koyu gölge boşluğu
     topGap: .03,           // kolon üstü ile saçak arası gölge boşluğu
     uplight: 36, uplightAngle: .26, uplightPenumbra: .8, uplightOffset: .22,   // kolon ışığı şiddeti / açısı (gölgesiz)
@@ -70,8 +73,9 @@ export const FACADE_THEME = {
     stone: 'dark_stone', stoneMeters: 2.4, stoneTint: .62, stoneRough: .4,
     finW: .05, finD: .12, finPitch: .17,
     niches: [[-10.4, 6.4], [10.4, 6.4]],   // [merkez x, genişlik] — araçların arkası
-    lightBox: .42,         // niş arka panelinin parlaklığı (araç silüeti öne çıkar, tabeladan sönük)
-    wash: .55,             // lamel bölgesinde taş duvara düşen sıcak yıkama
+    lightBox: 1.0,         // niş arka panelinin parlaklığı (referans: mermer arkadan parlak aydınlatmalı)
+    wash: 1.3,             // lamel bölgesinde taş duvara düşen sıcak yıkama (ahşap lameller ışıl ışıl)
+    ceilLED: 3.0,          // üst kat tavanında boydan boya iki çizgi LED
   },
   // vitrin araçları: tavan spotu + üst ışık + kaide altında yüzen ışık
   display: { spot: 48, spotAngle: .5, spotPenumbra: .65, topLight: 4.2, groundTopLight: 3.2, trim: .75, floorGlow: .45 },
@@ -91,11 +95,12 @@ export const FACADE_THEME = {
     uplight: { intensity: 2.2, angle: .3, penumbra: .8, offset: .22 },
   },
   // yaya zemini (giriş önü kaldırım): duvar taşı, dünya ızgarasına oturan 60 × 60 cm karolar, ince derz. Pişmiş ışık haritası korunur.
-  paving: { texture: 'wall_stone', worldSize: 0.9, tint: .035, tile: .6, joint: .003, jointDark: .55, albedo: '#4a4845', albedoDark: '#33312f', normalScale: 1.0, gain: 2.3 },
-  soffit: { led: 4.0, glow: .55, glowDepth: 1.4 },   // saçak ön kenarı: parlak sürekli LED + ahşaba yayılan ışık
+  // referans: açık-orta gri, 120 × 60 cm büyük ıslak karolar (60 cm sokağa doğru)
+  paving: { texture: 'wall_stone', worldSize: 0.9, tint: .035, tile: [1.2, .6], joint: .003, jointDark: .55, albedo: '#7a766f', albedoDark: '#4a4743', normalScale: .8, gain: 2.3 },
+  soffit: { led: 5.0, glow: 1.0, glowDepth: 1.6 },   // saçak ön kenarı: parlak sürekli LED + ahşaba yayılan ışık
   // ıslak zemin (referans: yağmur sonrası gece): yol + kaldırım yansıması, birikinti, koyulaşma. Yalnız HD modda ve dışarıdayken.
-  wet: { reflect: 1.0, wetness: 1.0, streak: 2.2, res: .5, road: { darken: .45, puddle: .5, minWet: .82 }, paving: { darken: .35, puddle: .45, minWet: .6 } },
-  bollard: { led: 6, pool: .75, poolR: 1.3 },   // baba tepesi ışık halkası + zemindeki ışık havuzu
+  wet: { reflect: 1.5, wetness: 1.0, streak: 1.0, res: .5, road: { darken: .45, puddle: .5, minWet: .82 }, paving: { darken: .35, puddle: .45, minWet: .6 } },
+  bollard: { led: 10, pool: 1.1, poolR: 1.4 },   // baba tepesi ışık halkası + zemindeki ışık havuzu
   bloom: { threshold: .9, strength: .16, radius: .12 },
   sky: { top: '#0b1020', mid: '#10172a', horizon: '#2a2530', warm: .22, clouds: .6, cloud: '#1f2638' },   // clouds: referanstaki bulutlu gece
   city: { color: '#1c2335', windows: .14, distance: 170, height: 72 },
