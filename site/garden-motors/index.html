@@ -474,7 +474,8 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 
 const ACCENT = new THREE.Color('#e3122b');
 // model / ışık haritası sürümü: dosyalar aynı adla güncellenince tarayıcı eski kopyayı önbellekten yüklemesin (dosya değişince artır)
-const ASSET_V = '20261019k';
+const TT = /test/.test(location.hash) ? (l) => console.info('[T]', l, Math.round(performance.now())) : () => {};   // yükleme aşaması süreleri (yalnız #test)
+const ASSET_V = '20261025a';   // dosyalar değişince artır: tarayıcı önbelleği yenisini çeker
 const vurl = (u) => (location.protocol === 'file:' ? u : u + (u.includes('?') ? '&' : '?') + 'v=' + ASSET_V);
 const isMobile = matchMedia('(max-width: 760px)').matches || matchMedia('(pointer: coarse)').matches;
 // Tuval yüksekliği: telefonda adres çubuğu açılıp kapanınca innerHeight değişir; tuval ve kamera her seferinde yeniden boyutlanınca
@@ -1412,8 +1413,8 @@ function asphaltMaterial(base, planeSize) {
 }
 // gece şehir HDRI'si: dış metal, zemin ve cam yansımaları (telefonda indirilmez; yakalanan gece ortamı kalır)
 function loadExteriorHDRI() {
-  if (isMobile) return;
-  new RGBELoader().load(vurl(DAY ? DAY.hdri : 'public/hdri/night.hdr'), (hdr) => {
+  if (isMobile) return Promise.resolve();
+  return new Promise((done) => new RGBELoader().load(vurl(DAY ? DAY.hdri : 'public/hdri/night.hdr'), (hdr) => {
     hdr.mapping = THREE.EquirectangularReflectionMapping;
     EXT_ENV = pmrem.fromEquirectangular(hdr).texture;
     hdr.dispose(); facadeMats().setEnv(EXT_ENV);
@@ -1423,7 +1424,8 @@ function loadExteriorHDRI() {
       const glassEnv = (m) => { if (!m) return; m.envMap = EXT_ENV; m.envMapIntensity = EXT_CFG.envI.glass * (m.userData.glassK ?? 1); m.needsUpdate = true; };
       glassEnv(facadeGlass); glassEnv(facadeGlass.userData.entry);
     }
-  }, undefined, (e) => console.warn('Gece HDRI yüklenemedi, yakalanan ortam kullanılıyor.', e));
+    done();
+  }, undefined, (e) => { console.warn('HDRI yüklenemedi, yakalanan ortam kullanılıyor.', e); done(); }));
 }
 
 // ---------- Cephe: tek kimlik (src/theme/facadeTheme.js) ----------
@@ -2189,10 +2191,13 @@ function restylePlanters() {
   if (pots.length) renderer.shadowMap.needsUpdate = true;
 }
 let THEME_SKY = null, THEME_CITY = null;
+let DAY_SKY_READY = Promise.resolve(), SKY_LATE = false;
 function buildDaySky() {
   // gerçek gök fotoğrafı (eşdikdörtgen): three.js'in ortam haritasıyla aynı yön kuralı → arka plan ile yansımalar örtüşür.
   // Küre kameranın konumunu izler (sonsuz uzak gök, kayma yok); ton eşleme uygulanmaz (fotoğraf zaten tonlu).
-  const tex = texLoader.load(vurl(isMobile ? DAY.bgMobile : DAY.bg), () => captureNightEnv()); tex.colorSpace = THREE.SRGBColorSpace;   // gök yüklenince cam yansıması yeniden çekilir
+  let ready; DAY_SKY_READY = new Promise((r) => { ready = r; });
+  const tex = texLoader.load(vurl(isMobile ? DAY.bgMobile : DAY.bg), () => { ready(); if (SKY_LATE) captureNightEnv(); }, undefined, () => ready());   // geç gelirse cam yansıması yeniden çekilir
+  tex.colorSpace = THREE.SRGBColorSpace;
   tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; tex.wrapS = THREE.RepeatWrapping;
   THEME_SKY = new THREE.Mesh(new THREE.SphereGeometry(360, 48, 24), new THREE.ShaderMaterial({
     side: THREE.BackSide, depthWrite: false, fog: false, toneMapped: false,
@@ -2298,7 +2303,7 @@ if (/[?&]gui\b/.test(location.search)) setTimeout(facadeGUI, 0);
 addEventListener('keydown', (e) => { if ((e.key === 'g' || e.key === 'G') && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) { if (FAC_GUI) { FAC_GUI._hidden ? FAC_GUI.show() : FAC_GUI.hide(); } else facadeGUI(); } });
 
 function captureNightEnv() {
-  if (!facadeGlass) return;
+  if (!facadeGlass || EXT_ENV) return;   // HDRI yüklendiyse cam onu yansıtır (masaüstü); telefonda sahne gökle bir kez çekilir
   const rt = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
   const cube = new THREE.CubeCamera(.3, 400, rt); cube.position.set(0, 1.7, 11);
   const wasEnv = scene.environment; scene.add(cube); cube.update(renderer, scene); scene.remove(cube);
@@ -2480,6 +2485,7 @@ function buildCar(spec) {
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/'));
 gltfLoader.setMeshoptDecoder(MeshoptDecoder);
+try { MeshoptDecoder.useWorkers?.(isMobile ? 1 : 2); } catch (e) {}   // geometri çözme ana iş parçacığının dışında (açılışta donma azalır)
 
 // Sayfa dosyadan açıldığında tarayıcı .glb dosyasını okuyamaz; gömülü kopyayı kullan
 let embeddedModels;
@@ -4971,39 +4977,60 @@ function vitrineGlass(root) {
       if (m.transmission > 0 || /glass|window|cam/i.test(m.name || '')) { m.transmission = 0; m.transparent = true; m.opacity = Math.min(m.opacity ?? 1, .32); m.roughness = Math.min(m.roughness ?? .1, .06); m.metalness = 0; m.depthWrite = false; m.color?.multiplyScalar(.35); }
       m.needsUpdate = true; } });
 }
-async function buildVitrines() {
+// Akıcılık: kaideler ve vitrin ışıkları sayfa açılmadan, ön ısıtmadan ÖNCE eşzamanlı kurulur. (Işık sayısı değişince sahnedeki
+// bütün malzemeler yeniden derlenir; ışıklar araçla birlikte sonradan eklenince her araçta ekran donuyordu.) Araç gövdeleri
+// arka planda TEK TEK yüklenir (önce açılış kadrajının ortası), her biri sahneye girmeden önce dokuları GPU'ya yüklenip
+// gölgelendiricileri arka planda derlenir: araç belirdiğinde takılma olmaz.
+const _vitTex = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap', 'aoMap', 'alphaMap', 'clearcoatNormalMap', 'transmissionMap'];
+async function warmObject(o) {
+  o.traverse((m) => { if (!m.isMesh) return; for (const mt of [].concat(m.material)) for (const k of _vitTex) { const t = mt?.[k]; if (t?.isTexture) try { renderer.initTexture(t); } catch (e) {} } });
+  try { if (renderer.compileAsync) await renderer.compileAsync(o, camera, scene); else renderer.compile(o, camera, scene); } catch (e) {}
+}
+const idle = () => new Promise((r) => (window.requestIdleCallback ? requestIdleCallback(() => r(), { timeout: 600 }) : setTimeout(r, 120)));
+function buildVitrines() {
   if (!BLENDER_ROOMS?.facade) return;
   const list = VITRINE;   // telefonda da hepsi (kanal sahibi: vitrinlerdeki bütün araçlar sergilensin); telefonda vitrin ışıkları yok, hafif kalır
-  await Promise.all(list.map(async (v) => {
-    let gl; try { gl = await gltfLoader.loadAsync(vurl(v.glb)); } catch (e) { console.warn('Vitrin aracı yüklenemedi', v.glb, e); return; }
+  const slots = list.map((v) => {
     const up = v.floor === 'upper', sd = Math.sign(v.x);
     const z = v.center ? -2.65 : up ? -1.85 : -2.6, floorY = up ? 5.605 : .005;   // orta: derin nişte, düz önden, eğik rampada (arka 9° yüksek)
     const P = v.center ? tiltRamp(v.x, floorY, z, 4.4, 5.5, .12, 9) : up ? roundPlinth(v.x, floorY, z, 2.85, 1.45) : roundPlinth(v.x, floorY, z, 2.65);
-    if (v.hide) { const rm = []; gl.scene.traverse((o) => { if (v.hide.includes(o.name)) rm.push(o); }); rm.forEach((o) => o.removeFromParent()); }
-    const car = prepareCarModel({ _scene: gl.scene, length: v.length, rotY: 0, color: '#777777', ownPlates: true, curated: false });
-    vitrineGlass(car);
-    // genel temas gölgesi (dikdörtgen) çapraz araçta kaideden taşıp havada kalıyordu → kaldırılır; yerine kaideye oturan oval yumuşak gölge
-    car.children.filter((o) => o.isMesh && o.material?.map === shadowTex).forEach((o) => o.removeFromParent());
-    { const sh = new THREE.Mesh(new THREE.CircleGeometry(1, 48), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: .9 }));
-      sh.rotation.x = -Math.PI / 2; sh.scale.set(v.length * .5, 1.1, 1); sh.position.y = .008; car.add(sh); }
-    // zemin: 3/4 ön (burun sokağa ve ortaya); üst kat: yan profil, burun ortaya ve hafif sokağa (oval kaideye sığar)
-    const yaw = v.center ? -Math.PI / 2 : up ? (sd < 0 ? -.18 : Math.PI + .18) : (sd < 0 ? -Math.PI / 2 + .62 : -Math.PI / 2 - .62);   // orta: burun düz sokağa
-    car.rotation.y += yaw + (v.flip ? Math.PI : 0); car.name = 'Vitrin: ' + v.title;
-    if (P.pitch) { const pv = new THREE.Group(); pv.name = 'Vitrin eğim'; pv.position.set(v.x, floorY + P.y, z); pv.rotation.x = P.pitch; pv.add(car); scene.add(pv); }   // arka yukarı, burun aşağı
-    else { car.position.set(v.x, floorY + P.y, z); scene.add(car); }
-    if (up) car.traverse((o) => { if (o.isMesh) o.castShadow = false; });
-    car.userData.baseYaw = car.rotation.y; if (v.center) car.userData.swing = 25; vitrineCars.push(car); stGround.push(car);
     if (!isMobile) {
       const l = new THREE.RectAreaLight('#fff1e0', up ? TH.display.topLight : TH.display.groundTopLight, 5.2, 3.2);
       l.position.set(v.x, up ? 8.15 : 4.2, z); l.lookAt(v.x, floorY + P.y, z); scene.add(l);
       const sp = displaySpot(v.x, up ? 8.35 : 4.25, v.center ? z + 1.7 : z, floorY + P.y + (v.center ? .45 : .6));
       if (v.center) sp.intensity *= 1.8;   // orta araç sokağa düz önden bakar: ön yüzü (ızgara, farlar) ışık alsın
     }
-  }));
-  recolorFacadeLights?.(); renderer.shadowMap.needsUpdate = true;
+    return { v, up, sd, z, floorY, P };
+  });   // ışık rengi: finalizeFacadeTheme → recolorFacadeLights (burada çağrılamaz: sweep henüz tanımlı değil)
   const cr = $('credits');   // CC BY 4.0: model sahipleri sayfa sonunda
   if (cr) { cr.append(document.createElement('br'), 'Vitrin araçları (görsel amaçlı, satılık değildir; CC BY 4.0): ');
     list.forEach((v, i) => { const a = document.createElement('a'); a.href = v.src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = `${v.title} — ${v.author}`; cr.append(a); if (i < list.length - 1) cr.append(' · '); }); }
+  // yükleme sırası: orta (açılışın ortası) → üst kat yanları → zemin kat
+  const rank = (s) => (s.v.center ? 0 : s.up ? 1 : 2);
+  (async () => { for (const s of slots.slice().sort((a, b) => rank(a) - rank(b))) { await vitrineCar(s); await idle(); } })();
+}
+async function vitrineCar({ v, up, sd, z, floorY, P }) {
+  let gl; try { gl = await gltfLoader.loadAsync(vurl(v.glb)); } catch (e) { console.warn('Vitrin aracı yüklenemedi', v.glb, e); return; }
+  if (v.hide) { const rm = []; gl.scene.traverse((o) => { if (v.hide.includes(o.name)) rm.push(o); }); rm.forEach((o) => o.removeFromParent()); }
+  const car = prepareCarModel({ _scene: gl.scene, length: v.length, rotY: 0, color: '#777777', ownPlates: true, curated: false });
+  if (isMobile) shrinkTexturesIn(car);
+  vitrineGlass(car);
+  // genel temas gölgesi (dikdörtgen) çapraz araçta kaideden taşıp havada kalıyordu → kaldırılır; yerine kaideye oturan oval yumuşak gölge
+  car.children.filter((o) => o.isMesh && o.material?.map === shadowTex).forEach((o) => o.removeFromParent());
+  { const sh = new THREE.Mesh(new THREE.CircleGeometry(1, 48), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: .9 }));
+    sh.rotation.x = -Math.PI / 2; sh.scale.set(v.length * .5, 1.1, 1); sh.position.y = .008; car.add(sh); }
+  // zemin: 3/4 ön (burun sokağa ve ortaya); üst kat: yan profil, burun ortaya ve hafif sokağa (oval kaideye sığar)
+  const yaw = v.center ? -Math.PI / 2 : up ? (sd < 0 ? -.18 : Math.PI + .18) : (sd < 0 ? -Math.PI / 2 + .62 : -Math.PI / 2 - .62);   // orta: burun düz sokağa
+  car.rotation.y += yaw + (v.flip ? Math.PI : 0); car.name = 'Vitrin: ' + v.title;
+  if (up) car.traverse((o) => { if (o.isMesh) o.castShadow = false; });
+  let root = car;
+  if (P.pitch) { root = new THREE.Group(); root.name = 'Vitrin eğim'; root.position.set(v.x, floorY + P.y, z); root.rotation.x = P.pitch; root.add(car); }   // arka yukarı, burun aşağı
+  else car.position.set(v.x, floorY + P.y, z);
+  root.updateMatrixWorld(true);
+  await warmObject(root);                // dokular + gölgelendiriciler hazır → sahneye girince takılmaz
+  scene.add(root); TT('vitrin ' + v.title);
+  car.userData.baseYaw = car.rotation.y; if (v.center) car.userData.swing = 25; vitrineCars.push(car); stGround.push(car);
+  renderer.shadowMap.needsUpdate = true;
 }
 // vitrin araçları: park hâlindeki aracın açı değiştirmesi gibi çok yavaş, küçük sağ-sol dönüş (±3°, 36 sn), araçlar aynı yöne;
 // yalnız kamera dışarıdayken. Araç kendi merkezinde döner, yer değiştirmez. Hareket kamerayla aynı saat (dt) ile ilerler.
@@ -5557,11 +5584,11 @@ try {
   ]);
 } catch (e) { /* yedek font kullanılır */ }
 const loaderText = document.querySelector('#loader small');
-await loadCarModels((p) => { loaderText.textContent = `Araçlar yükleniyor %${Math.round(p * 100)}`; });
-await loadCarViews();
+TT('başla'); await loadCarModels((p) => { loaderText.textContent = `Araçlar yükleniyor %${Math.round(p * 100)}`; });
+await loadCarViews(); TT('araçlar');
 if (isMobile) CARS.forEach((c) => c._scene && shrinkTexturesIn(c._scene));   // telefon: araç dokuları da hemen küçülür
 loaderText.textContent = 'Showroom hazırlanıyor';
-await Promise.all([preloadTextures(THEME_TEXTURES), loadDecor(), loadBlenderRooms()]);
+await Promise.all([preloadTextures(THEME_TEXTURES), loadDecor(), loadBlenderRooms()]); TT('dokular+odalar');
 buildSky();
 buildStreet();
 buildBuilding();
@@ -5573,7 +5600,7 @@ if (BLENDER_ROOMS) {   // mimari ışık pişmiş: araç üstündeki gerçek zam
   focusBase.key = 4.2; focusBase.rim = 3.2; focusBase.fill = 1.4; focusBase.spot = 32;
   ROOM_THEME.lightI = 3.2; LOUNGE_THEME.lightI = 3.0;
 }
-buildVitrines();       // vitrin prestij araçları arka planda yüklenir (sayfa açılışını bekletmez)
+TT('kurulum'); buildVitrines();       // vitrin prestij araçları arka planda yüklenir (sayfa açılışını bekletmez)
 buildStations();
 scene.updateMatrixWorld(true);
 stGround.forEach((c) => groundCar(c));   // temas gölgeleri: araç geometrisinden, bir kez
@@ -5928,7 +5955,7 @@ const GRADE_SHADER = {
 // Ön ısıtma (kasma önleme): yükleme ekranı sırasında tüm dokular GPU'ya yüklenir, tüm salonlar görünürken shader'lar derlenir,
 // efekt zinciri bir kez alan derinliği açık çizilir. Aksi halde bir salon ilk kez göründüğünde (geçişin ortasında) doku yükleme +
 // shader derleme takılması olur.
-function prewarmGPU() {
+async function prewarmGPU() {
   const seen = new Set();
   scene.traverse((o) => {
     if (!o.isMesh && !o.isPoints) return;
@@ -5942,7 +5969,7 @@ function prewarmGPU() {
   for (const e of TV.list) if (e.ov) try { renderer.initTexture(e.ov); } catch (er) {}   // TV imza katmanları
   const vis = rooms.map((r) => r.group.visible), svis = stations.map((st) => st.group.visible);
   rooms.forEach((r) => { r.group.visible = true; }); stations.forEach((st) => { st.group.visible = true; });
-  try { renderer.compile(scene, camera); } catch (e) {}
+  try { if (renderer.compileAsync) await renderer.compileAsync(scene, camera); else renderer.compile(scene, camera); } catch (e) {}   // arka planda (paralel) derleme: yükleme ekranı donmaz
   rooms.forEach((r, i) => { r.group.visible = vis[i]; }); stations.forEach((st, i) => { st.group.visible = svis[i]; });
   lastRoomK = null;
   if (composer) { dofPass.enabled = true; composer.render(0); }
@@ -6174,13 +6201,16 @@ addEventListener('resize', () => {
 
 currentS = targetS = 0;
 finalizeFacadeTheme();   // 3000 K ışıklar, gradyan gök + şehir silueti, lacivert sis
+// gök fotoğrafı ve yansıma HDRI'si yükleme ekranında beklenir (en çok 8 sn): malzemeler sayfa açıldıktan sonra değişip
+// yeniden derlenmez (takılma olmaz), cam yansıması gerçek gökle çekilir
+{ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  await Promise.race([Promise.all([DAY_SKY_READY, loadExteriorHDRI()]), wait(8000)]); SKY_LATE = true; TT('gök+hdri'); }
 captureNightEnv();
-loadExteriorHDRI();
 buildComposer();
 if (BRUTAL) document.body.classList.add('brutal');
 setQuality(QUALITY.lite, false);
 if (QUALITY.software) { showSoftwareNotice(); renderScale = .6; renderer.setPixelRatio(renderScale); renderer.setSize(innerWidth, viewH()); }
-prewarmGPU();
+await prewarmGPU(); TT('ön ısıtma');
 if (BRUTAL) makeThumbs();
 requestAnimationFrame(frame);
 { const st = document.createElement('style'); st.id = 'gm-premium'; st.textContent = `

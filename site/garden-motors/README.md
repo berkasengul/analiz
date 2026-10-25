@@ -217,3 +217,19 @@ telefonda yalnız zemin kat. Kaynaklar sayfa sonunda ve `models/vitrin/LISANS.md
 - Araç salonlarında kadraj yukarı kayar: araç ilan kartının hemen üstünde, zemin az, arka duvardaki GARDEN MOTORS logosu okunur.
 
 <img src="screenshots/gunduz/telefon_acilis.png" width="260"> <img src="screenshots/gunduz/telefon_oda.png" width="260">
+
+## Hız ve akıcılık (açılışta donma, araçların geç gelmesi)
+Ölçüm (masaüstü, açılışa kadar indirilen): **108.5 MB → 73.9 MB**. Siteyi içeren zip 227 → 144 MB.
+- **Dokular** (`public/textures`, `textures`): Poly Haven JPG'leri neredeyse kayıpsız kalitede kaydedilmişti (tek dosya 7.8 MB'a kadar).
+  Aynı 2048 px, kalite 84 (normal haritaları 90) → 89 MB'tan 27 MB'a. Gözle fark yok.
+- **Oda modelleri**: `room_facade.glb` (15.6 → 10 MB) ve `room_car.glb` (3.9 → 1.5 MB) meshopt ile sıkıştırıldı; düğüm adları ve
+  pişmiş ışık bilgileri aynı. Geometri çözme artık ana iş parçacığının dışında (`MeshoptDecoder.useWorkers`).
+- **Donmanın asıl nedeni**: vitrin araçları sayfa açıldıktan sonra ışıklarıyla birlikte sahneye giriyordu. three.js'de ışık sayısı
+  değişince sahnedeki bütün malzemeler yeniden derlenir → her araçta ekran donuyordu (5 kez). Şimdi kaideler ve vitrin ışıkları
+  açılıştan önce kurulur; araç gövdeleri sırayla (önce orta) yüklenir ve sahneye girmeden önce dokuları GPU'ya yüklenip
+  gölgelendiricileri arka planda derlenir (`warmObject`, `compileAsync`).
+- Gök fotoğrafı ve yansıma HDRI'si yükleme ekranında beklenir (en çok 8 sn): malzemeler açıldıktan sonra değişmez.
+- Ön ısıtma (`prewarmGPU`) paralel derleme kullanır, yükleme ekranı donmaz.
+- **Önbellek** (`_headers`, Netlify): modeller, dokular ve gök dosyaları bir yıl tarayıcıda kalır; ikinci ziyaret neredeyse anında.
+  Dosyalar değişince `index.html` → `ASSET_V` artırılır (şimdi `20261025a`).
+- Test sayfasında (`#test`) yükleme aşamalarının süreleri konsola yazılır (`[T]`).
