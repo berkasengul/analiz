@@ -1,7 +1,10 @@
 # SESA KIDS — 3D Scroll Pijama Mağazası
 
-Çocuk pijama takımları için, ürünlerin kavisli bir ip üzerinde askılarda asılı
-durduğu ve sayfa kaydırıldıkça 3D olarak döndüğü bir mağaza sitesi.
+Çocuk pijama takımları için renkli, 3D vitrinli mağaza sitesi. Pijamaları
+giyen çocuk modeller logo renklerindeki kaideler üzerinde duruyor; vitrin
+scroll, sürükleme, oklar ve otomatik dönüşle çevriliyor. Bulutlar, yıldızlar,
+odaktaki ürünün renginde ışık halesi ve modellerin hafif zıplaması vitrine
+hareket katıyor.
 
 ## Referans video analizi ("Pov: Random Clothing Store in 2027")
 
@@ -22,8 +25,9 @@ D-2004, D-1001, D-1002, D-1003 (göz bandı hediyeli). Görseller şu an kodla
 çiziliyor. **Fiyatlar örnektir** ve D-1003 kodu tahminidir — gerçek değerlerle
 güncelleyin.
 
-Gerçek fotoğraf kullanmak için ürüne `image` alanı ekleyin (arka planı
-silinmiş, askılı, dikey PNG önerilir; oran yaklaşık 5:8):
+Gerçek fotoğraf kullanmak için ürüne `image` alanı ekleyin. Vitrinde ve
+"Modelde" görünümünde kullanılır; arka planı silinmiş, ayakta duran çocuk
+modelli dikey PNG önerilir (oran yaklaşık 1:2):
 
 ```js
 { id: '3003', ..., image: 'assets/3003.png' }
@@ -46,9 +50,9 @@ yüklenebilir.
 
 - `index.html` — sayfa yapısı (logo SVG olarak içeride)
 - `css/style.css` — tasarım, mobil uyum
-- `js/rail.js` — 3D ip/askı sahnesi (Three.js)
-- `js/garments.js` — pijama takımlarının ve desenlerinin çizimi
-- `js/main.js` — scroll, arama, detay ekranı, sepet
+- `js/showcase.js` — 3D döner vitrin: kaideler, modeller, bulutlar, yıldızlar (Three.js)
+- `js/garments.js` — pijama takımları, desenler ve çocuk modellerin çizimi
+- `js/main.js` — scroll, otomatik dönüş, arama, detay ekranı, sepet
 - `vendor/three.module.min.js` — Three.js r160 (MIT)
 
 ## Sonraki adımlar

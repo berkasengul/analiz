@@ -375,14 +375,15 @@ function hanger(ctx) {
 
 /* ---------- Ana çizim ---------- */
 
-export function drawSet(ctx, p, side = 'front', s = 1) {
+export function drawSet(ctx, p, side = 'front', s = 1, opts = {}) {
+  const hang = opts.hanger !== false;
   const jogger = p.line === 'interlok';
   const shirt = p.style === 'shirt';
   const pat = makePattern(ctx, p.pattern, s);
   const top = topPath();
   const pants = pantsPath(jogger);
 
-  ctx.clearRect(0, 0, GW, GH);
+  if (hang) ctx.clearRect(0, 0, GW, GH);
 
   // Alt
   ctx.save();
@@ -418,7 +419,7 @@ export function drawSet(ctx, p, side = 'front', s = 1) {
   }
 
   // Üst
-  if (side === 'front') hanger(ctx);
+  if (side === 'front' && hang) hanger(ctx);
   ctx.save();
   ctx.shadowColor = 'rgba(30,30,40,.2)';
   ctx.shadowBlur = 24;
@@ -507,7 +508,7 @@ export function drawSet(ctx, p, side = 'front', s = 1) {
     }
   }
 
-  if (side === 'back') {
+  if (side === 'back' && hang) {
     ctx.strokeStyle = '#9ca0a8';
     ctx.lineWidth = 3.2;
     ctx.lineCap = 'round';
@@ -570,4 +571,229 @@ export function thumb(p, s = 0.5) {
   const k = `${p.id}@${s}`;
   if (!thumbs.has(k)) thumbs.set(k, renderSet(p, 'front', s).toDataURL('image/png'));
   return thumbs.get(k);
+}
+
+/* ---------- Model (pijamayı giyen çocuk) ---------- */
+
+export const MW = 400;
+export const MH = 840;
+const DY = 172; // takımın model üzerindeki dikey konumu
+
+function shadeColor(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  const f = (c) => Math.max(0, Math.min(255, Math.round(c + amt * 255)));
+  return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`;
+}
+
+function backHair(ctx, m) {
+  if (m.style !== 'long') return;
+  ctx.fillStyle = shadeColor(m.hair, -0.05);
+  ctx.beginPath();
+  ctx.moveTo(128, 130);
+  ctx.quadraticCurveTo(116, 260, 136, 330);
+  ctx.quadraticCurveTo(200, 350, 264, 330);
+  ctx.quadraticCurveTo(284, 260, 272, 130);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function head(ctx, m) {
+  const skin = m.skin;
+  // Boyun
+  ctx.fillStyle = shadeColor(skin, -0.06);
+  ctx.beginPath();
+  ctx.roundRect(181, 196, 38, 50, 12);
+  ctx.fill();
+  // Saç (arka hacim)
+  ctx.fillStyle = m.hair;
+  ctx.beginPath();
+  ctx.ellipse(200, 122, 76, 74, 0, 0, Math.PI * 2);
+  ctx.fill();
+  if (m.style === 'curly') {
+    for (let i = 0; i < 11; i++) {
+      const a = Math.PI * (1.02 + (i / 10) * 0.96);
+      ctx.beginPath();
+      ctx.arc(200 + Math.cos(a) * 74, 124 + Math.sin(a) * 72, 17, 0, 7);
+      ctx.fill();
+    }
+  }
+  // Kulaklar
+  ctx.fillStyle = skin;
+  ctx.beginPath();
+  ctx.ellipse(135, 150, 13, 17, 0, 0, 7);
+  ctx.ellipse(265, 150, 13, 17, 0, 0, 7);
+  ctx.fill();
+  // Yüz
+  const g = ctx.createRadialGradient(186, 132, 10, 200, 150, 80);
+  g.addColorStop(0, shadeColor(skin, 0.05));
+  g.addColorStop(1, shadeColor(skin, -0.05));
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.ellipse(200, 148, 64, 68, 0, 0, Math.PI * 2);
+  ctx.fill();
+  // Ön saç / perçem
+  ctx.fillStyle = m.hair;
+  ctx.beginPath();
+  if (m.style === 'long') {
+    ctx.moveTo(134, 150);
+    ctx.quadraticCurveTo(132, 66, 200, 62);
+    ctx.quadraticCurveTo(268, 66, 266, 150);
+    ctx.quadraticCurveTo(254, 112, 214, 104);
+    ctx.quadraticCurveTo(206, 118, 196, 104);
+    ctx.quadraticCurveTo(156, 108, 134, 150);
+  } else if (m.style === 'curly') {
+    ctx.moveTo(136, 132);
+    ctx.quadraticCurveTo(136, 64, 200, 60);
+    ctx.quadraticCurveTo(264, 64, 264, 132);
+    for (let i = 0; i <= 6; i++) {
+      const x = 264 - i * 21.3;
+      ctx.quadraticCurveTo(x - 10, 92 + (i % 2) * 6, x - 21, 112 + ((i + 1) % 2) * 6);
+    }
+  } else {
+    ctx.moveTo(136, 134);
+    ctx.quadraticCurveTo(138, 62, 200, 60);
+    ctx.quadraticCurveTo(262, 62, 264, 134);
+    ctx.quadraticCurveTo(252, 104, 230, 104);
+    ctx.quadraticCurveTo(216, 90, 198, 104);
+    ctx.quadraticCurveTo(180, 92, 162, 108);
+    ctx.quadraticCurveTo(146, 112, 136, 134);
+  }
+  ctx.closePath();
+  ctx.fill();
+  // Saç parlaması
+  ctx.strokeStyle = 'rgba(255,255,255,.18)';
+  ctx.lineWidth = 6;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.arc(200, 120, 56, Math.PI * 1.2, Math.PI * 1.45);
+  ctx.stroke();
+  if (m.bow) {
+    ctx.fillStyle = m.bow;
+    ctx.beginPath();
+    ctx.moveTo(244, 74); ctx.lineTo(228, 56); ctx.lineTo(226, 88); ctx.closePath();
+    ctx.moveTo(244, 74); ctx.lineTo(262, 58); ctx.lineTo(264, 92); ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = shadeColor(m.bow, -0.12);
+    ctx.beginPath(); ctx.arc(245, 74, 7, 0, 7); ctx.fill();
+  }
+  // Kaşlar
+  ctx.strokeStyle = shadeColor(m.hair, -0.1);
+  ctx.lineWidth = 3.4;
+  ctx.beginPath();
+  ctx.moveTo(165, 128); ctx.quadraticCurveTo(176, 122, 187, 127);
+  ctx.moveTo(213, 127); ctx.quadraticCurveTo(224, 122, 235, 128);
+  ctx.stroke();
+  // Gözler
+  for (const x of [176, 224]) {
+    ctx.fillStyle = '#2a2230';
+    ctx.beginPath(); ctx.ellipse(x, 149, 8, 10.5, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(x + 2.6, 145, 3.2, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(x - 2.4, 153, 1.4, 0, 7); ctx.fill();
+  }
+  // Yanaklar
+  ctx.fillStyle = 'rgba(245,120,150,.32)';
+  ctx.beginPath();
+  ctx.ellipse(158, 172, 13, 8, 0, 0, 7);
+  ctx.ellipse(242, 172, 13, 8, 0, 0, 7);
+  ctx.fill();
+  // Burun + gülümseme
+  ctx.strokeStyle = shadeColor(skin, -0.2);
+  ctx.lineWidth = 2.6;
+  ctx.beginPath(); ctx.moveTo(198, 160); ctx.quadraticCurveTo(202, 166, 197, 168); ctx.stroke();
+  ctx.fillStyle = '#9b3b4a';
+  ctx.beginPath();
+  ctx.moveTo(184, 180);
+  ctx.quadraticCurveTo(200, 200, 216, 180);
+  ctx.quadraticCurveTo(200, 186, 184, 180);
+  ctx.fill();
+  ctx.fillStyle = '#f08a9c';
+  ctx.beginPath(); ctx.ellipse(200, 190, 6, 3, 0, 0, 7); ctx.fill();
+}
+
+function hands(ctx, skin) {
+  ctx.fillStyle = skin;
+  for (const [x, r] of [[67, -0.15], [333, 0.15]]) {
+    ctx.save();
+    ctx.translate(x, DY + 330);
+    ctx.rotate(r);
+    ctx.beginPath(); ctx.ellipse(0, 0, 15, 19, 0, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(r > 0 ? -11 : 11, -4, 6, 9, r > 0 ? -0.6 : 0.6, 0, 7); ctx.fill();
+    ctx.restore();
+  }
+}
+
+function slippers(ctx, m, jogger) {
+  const y = DY + (jogger ? 622 : 624);
+  for (const x of [154, 246]) {
+    ctx.fillStyle = 'rgba(0,0,0,.12)';
+    ctx.beginPath(); ctx.ellipse(x, y + 18, 40, 7, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = m.slippers;
+    ctx.beginPath(); ctx.ellipse(x + (x < 200 ? -6 : 6), y + 6, 36, 15, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = shadeColor(m.slippers, 0.18);
+    ctx.beginPath(); ctx.ellipse(x + (x < 200 ? -14 : 14), y + 1, 13, 8, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(x + (x < 200 ? -20 : 20), y - 2, 6, 0, 7); ctx.fill();
+  }
+}
+
+export function drawModel(ctx, p, side = 'front', s = 1) {
+  const m = p.model;
+  const jogger = p.line === 'interlok';
+  ctx.clearRect(0, 0, MW, MH);
+  ctx.save(); ctx.translate(0, 20); backHair(ctx, m); ctx.restore();
+  // Ayaklar ve eller giysinin altında kalır
+  ctx.save();
+  ctx.translate(0, 0);
+  slippers(ctx, m, jogger);
+  hands(ctx, m.skin);
+  ctx.restore();
+  if (side === 'front') {
+    ctx.save();
+    ctx.fillStyle = shadeColor(m.skin, -0.06);
+    ctx.beginPath(); ctx.roundRect(181, 214, 38, 50, 12); ctx.fill();
+    ctx.restore();
+  }
+  ctx.save();
+  ctx.translate(0, DY);
+  drawSet(ctx, p, side, s, { hanger: false });
+  ctx.restore();
+  ctx.save();
+  ctx.translate(0, 20);
+  if (side === 'front') {
+    head(ctx, m);
+  } else {
+    ctx.fillStyle = m.hair;
+    ctx.beginPath(); ctx.ellipse(135, 150, 13, 17, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = m.skin;
+    ctx.beginPath(); ctx.ellipse(135, 150, 13, 17, 0, 0, 7); ctx.ellipse(265, 150, 13, 17, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = m.hair;
+    ctx.beginPath(); ctx.ellipse(200, 128, 74, 80, 0, 0, Math.PI * 2); ctx.fill();
+    if (m.style === 'long') {
+      ctx.beginPath(); ctx.roundRect(128, 130, 144, 200, [0, 0, 40, 40]); ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+export function renderModel(p, side = 'front', s = 1, img = null) {
+  const c = document.createElement('canvas');
+  c.width = Math.round(MW * s);
+  c.height = Math.round(MH * s);
+  const ctx = c.getContext('2d');
+  ctx.scale(s, s);
+  if (img) {
+    const k = Math.min(MW / img.width, MH / img.height);
+    ctx.drawImage(img, (MW - img.width * k) / 2, MH - img.height * k, img.width * k, img.height * k);
+  } else {
+    drawModel(ctx, p, side, s);
+  }
+  return c;
+}
+
+const modelThumbs = new Map();
+export function modelThumb(p, s = 0.5) {
+  const k = `${p.id}@${s}`;
+  if (!modelThumbs.has(k)) modelThumbs.set(k, renderModel(p, 'front', s).toDataURL('image/png'));
+  return modelThumbs.get(k);
 }
