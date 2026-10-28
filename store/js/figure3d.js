@@ -304,17 +304,28 @@ function faceMesh(face) {
 }
 
 /* ---------- Premium kaide ---------- */
-const PED_H = 0.32;
+const PED_H = 0.42;
+const PED_R = 3.0;
+// Geniş, parlak, ürün renginde hafif tonlu kaide
 function pedestal(p, add, root) {
-  const base = add(root, new THREE.CylinderGeometry(1.5, 1.6, PED_H, 72), new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.08, metalness: 0.0 }));
+  const g = new THREE.Group();
+  root.add(g);
+  const tint = new THREE.Color('#ffffff').lerp(new THREE.Color(p.accent), 0.16);
+  const base = add(g, new THREE.CylinderGeometry(PED_R, PED_R * 1.03, PED_H, 96), new THREE.MeshPhysicalMaterial({ color: tint, roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.06, sheen: 0.4, sheenColor: new THREE.Color(p.accent) }), false);
   base.position.y = PED_H / 2;
-  const ring = add(root, new THREE.TorusGeometry(1.52, 0.035, 12, 96), new THREE.MeshStandardMaterial({ color: p.accent, emissive: p.accent, emissiveIntensity: 0.9, roughness: 0.3 }), false);
+  const top = add(g, new THREE.CircleGeometry(PED_R * 0.985, 96), new THREE.MeshPhysicalMaterial({ color: new THREE.Color('#ffffff').lerp(new THREE.Color(p.accent), 0.07), roughness: 0.1, clearcoat: 1, clearcoatRoughness: 0.04 }), false);
+  top.rotation.x = -Math.PI / 2;
+  top.position.y = PED_H + 0.002;
+  top.receiveShadow = true;
+  const ring = add(g, new THREE.TorusGeometry(PED_R * 1.005, 0.03, 12, 128), new THREE.MeshStandardMaterial({ color: p.accent, emissive: p.accent, emissiveIntensity: 0.7, roughness: 0.3 }), false);
   ring.rotation.x = Math.PI / 2;
-  ring.position.y = PED_H - 0.02;
-  const glow = new THREE.Mesh(new THREE.CircleGeometry(2.6, 64), new THREE.MeshBasicMaterial({ map: glowTex(), color: p.accent, transparent: true, opacity: 0.55, depthWrite: false }));
+  ring.position.y = PED_H - 0.01;
+  const glow = new THREE.Mesh(new THREE.CircleGeometry(PED_R * 1.7, 64), new THREE.MeshBasicMaterial({ map: glowTex(), color: p.accent, transparent: true, opacity: 0.5, depthWrite: false }));
   glow.rotation.x = -Math.PI / 2;
   glow.position.y = 0.01;
-  root.add(glow);
+  g.add(glow);
+  root.userData.pedestal = g;
+  return g;
 }
 const glowTex = (() => {
   let t = null;
@@ -445,6 +456,11 @@ function spinFigure(p) {
 function buildFigure(p, cache) {
   if (p.model3d) return glbFigure(p);
   if (p.spin && SPINS[p.spin]) return spinFigure(p);
+  if (!p.figure) { // 3D verisi henüz yok: sadece kaide
+    const root = new THREE.Group(); const body = new THREE.Group(); root.add(body); const meshes = [];
+    pedestal(p, (parent, geo, mat) => { const m = new THREE.Mesh(geo, mat); parent.add(m); meshes.push(m); return m; }, root);
+    return { root, body, head: new THREE.Group(), arms: [new THREE.Group(), new THREE.Group()], legs: [], eyes: [], meshes, anchors: { baski: new THREE.Vector3(0, 6, 0), desen: new THREE.Vector3(0, 3, 0), manset: new THREE.Vector3(0, 1, 0) } };
+  }
   const f = p.figure;
   const face = FACES[f.face];
   const root = new THREE.Group();

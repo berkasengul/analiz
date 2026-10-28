@@ -48,14 +48,14 @@ export function createStory(root, products, hooks = {}) {
     const [a, b] = split(p.name);
     return `
     <article class="panel">
-      <p class="panel-no"><b>${pad2(i + 1)}</b> / ${pad2(N)} · ${p.code}</p>
       <h2>${a}${b ? `<br> <em>${b}</em>` : ''}</h2>
       <p class="panel-desc">${p.desc}</p>
       <div class="panel-row">
         <strong>${formatPrice(p.price)}</strong>
+        <span>${p.code}</span>
         <span>${p.sizes[0].split('-')[0]}–${p.sizes[p.sizes.length - 1].split('-')[1]} yaş</span>
-        <span>${p.colorName}</span>
       </div>
+      <p class="panel-no" aria-label="${i + 1}. takım, toplam ${N}"><b>${pad2(i + 1)}</b> / ${pad2(N)}</p>
       <button class="btn btn-ink" data-open="${p.id}">İncele ve beden seç</button>
     </article>`;
   }).join('');
@@ -199,6 +199,14 @@ export function createStory(root, products, hooks = {}) {
     m3d?.resize(vw, vh);
   }
 
+  const GOLD = [
+    { dx: -0.2, dy: 0.17, r: 0.022, ph: 0 },
+    { dx: 0.2, dy: 0.28, r: 0.016, ph: 1.3 },
+    { dx: -0.13, dy: 0.7, r: 0.018, ph: 2.1 },
+    { dx: 0.09, dy: 0.6, r: 0.02, ph: 3.4 },
+    { dx: 0.24, dy: 0.72, r: 0.026, ph: 4.2 },
+    { dx: -0.26, dy: 0.46, r: 0.012, ph: 5.1 },
+  ];
   function star(x, y, r) {
     ctx.beginPath();
     for (let i = 0; i < 10; i++) {
@@ -213,6 +221,43 @@ export function createStory(root, products, hooks = {}) {
   function drawSky(t, prog) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, vw, vh);
+    // Modelin çevresinde süzülen büyük altın yıldızlar
+    const cxs = portrait ? 0.5 : 0.56;
+    for (const g of GOLD) {
+      const x = (cxs + g.dx * (portrait ? 0.9 : 1)) * vw;
+      const y = (g.dy + (reduced ? 0 : Math.sin(t * 0.8 + g.ph) * 0.012) - prog * 0.04) * vh;
+      const r = g.r * Math.min(vw, vh) * (portrait ? 0.8 : 1);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(Math.sin(t * 0.5 + g.ph) * 0.25);
+      ctx.globalAlpha = 0.95;
+      ctx.shadowColor = 'rgba(160, 90, 0, .35)';
+      ctx.shadowOffsetY = r * 0.18;
+      ctx.shadowBlur = r * 0.5;
+      const gr = ctx.createLinearGradient(-r, -r, r, r);
+      gr.addColorStop(0, '#fff3b8');
+      gr.addColorStop(0.45, '#ffd45c');
+      gr.addColorStop(1, '#f0a020');
+      ctx.fillStyle = gr;
+      ctx.beginPath();
+      for (let i = 0; i < 10; i++) {
+        const rr = i % 2 ? r * 0.48 : r;
+        const a2 = (i / 10) * Math.PI * 2 - Math.PI / 2;
+        ctx.lineTo(Math.cos(a2) * rr, Math.sin(a2) * rr);
+      }
+      ctx.closePath();
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = r * 0.22;
+      ctx.strokeStyle = gr;
+      ctx.stroke();
+      ctx.fill();
+      ctx.shadowColor = 'transparent';
+      ctx.fillStyle = 'rgba(255,255,255,.55)';
+      ctx.beginPath();
+      ctx.ellipse(-r * 0.22, -r * 0.3, r * 0.18, r * 0.09, -0.6, 0, 7);
+      ctx.fill();
+      ctx.restore();
+    }
     for (const b of bits) {
       if (!reduced) { b.y -= b.v; b.r += b.vr; }
       if (b.y < -0.05) { b.y = 1.05; b.x = Math.random(); }
@@ -264,7 +309,7 @@ export function createStory(root, products, hooks = {}) {
     pin.style.setProperty('--acc', rgb(mix(A.acc, B.acc, f)));
     pin.style.setProperty('--acc-ink', rgb(mix(mix(A.acc, B.acc, f), INK, 0.42)));
 
-    const cx = portrait ? 0.5 : 0.63;
+    const cx = portrait ? 0.5 : 0.56;
     mouse.sx += (mouse.x - mouse.sx) * 0.035;
     mouse.sy += (mouse.y - mouse.sy) * 0.06;
     if (!drag.on && now - drag.last > 2500) drag.rot += (Math.round(drag.rot / (Math.PI * 2)) * Math.PI * 2 - drag.rot) * 0.04;
@@ -281,13 +326,13 @@ export function createStory(root, products, hooks = {}) {
         const ease = 1 - Math.pow(1 - intro, 3);
         const entrance = i === 0 ? (1 - ease) * Math.PI * 2 : 0;
         const hdr = (document.querySelector('.site-header')?.offsetHeight || 110) / vh;
-        const floorY = portrait ? 0.665 : 0.9;
-        const topY = hdr + (portrait ? 0.075 : 0.05);
+        const floorY = portrait ? 0.68 : 0.915;
+        const topY = hdr + (portrait ? 0.05 : 0.0);
         const cur = Math.abs(d) < 0.5;
         states.push({
           x: cx - dir * u * (portrait ? 0.7 : 0.42),
           floor: floorY,
-          height: Math.min(portrait ? 0.56 : 0.8, (floorY - topY) / 1.04),
+          height: Math.min(portrait ? 0.6 : 0.86, (floorY - topY) / 1.06),
           rotY: -dir * u * Math.PI * 1.2 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.45 : 0),
           rotX: cur ? mouse.sy * 0.06 : 0,
           scale: (1 - u * 0.25) * (i === 0 ? 0.9 + ease * 0.1 : 1),

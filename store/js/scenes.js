@@ -42,6 +42,7 @@ export function createLineup(canvas, products, hooks = {}) {
   const cache = new Map();
   const figs = products.map((p, i) => {
     const f = buildFigure(p, cache);
+    f.root.userData.pedestal?.scale.set(0.55, 1, 0.55); // dizilimde kaideler sığsın
     scene.add(f.root);
     return { f, p, i, lift: 0, dim: 0, base: new THREE.Vector3() };
   });
@@ -217,7 +218,7 @@ export function createIcons(canvas, slots) {
     objs.forEach(({ el, o, spin, i }) => {
       const r = el.getBoundingClientRect();
       const sx = (r.left + r.width / 2 - cr.left) / cr.width;
-      const sy = (r.top + Math.min(125, r.height * 0.36) - cr.top) / cr.height;
+      const sy = (r.top + (innerWidth < 860 ? 90 : 100) - cr.top) / cr.height;
       const k = Math.min((r.width / cr.width) * visW * 0.15, (190 / cr.height) * visH * 0.42);
       o.position.set((sx - 0.5) * visW, (0.5 - sy) * visH + Math.sin(t * 1.4 + i) * k * 0.08, 0);
       o.scale.setScalar(k);

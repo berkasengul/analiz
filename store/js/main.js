@@ -120,9 +120,10 @@ const state = { id: null, view: '3d', size: null, lastFocus: null };
 
 async function drawDetail() {
   const p = byId(state.id);
-  const view = viewer && p.figure ? state.view : 'photo';
+  const has3d = !!(p.figure || p.spin || p.model3d);
+  const view = viewer && has3d ? state.view : 'photo';
   detail.dataset.view = view;
-  $('.seg').hidden = !(viewer && p.figure);
+  $('.seg').hidden = !(viewer && has3d);
   if (view === '3d') { viewer.show(p); viewer.start(); return; }
   viewer?.stop();
   const img = await loadProductImage(p);

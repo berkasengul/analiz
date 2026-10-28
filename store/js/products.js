@@ -19,6 +19,15 @@ export const PRODUCTS = [
     desc: 'Ekru üst üzerinde kalpli kedi baskısı, rengârenk kalp desenli manşetli alt.',
   },
   {
+    id: 'RK-07', spin: 'renkli-kediler',
+    spots: { yaka: [0.5, 0.2], baski: [0.5, 0.35], desen: [0.4, 0.7], manset: [0.6, 0.94] },
+    image: 'assets/spin/renkli-kediler/000.webp', gender: 'erkek',
+    accent: '#f08a24', tint: '#fff1e0', podium: '#ffd7a8',
+    code: 'Erkek çocuk', name: 'Renkli Kediler Takımı', price: 449,
+    colorName: 'Çok renkli kedi desenli', sizes: SIZES,
+    desc: 'Baştan aşağı rengârenk kedi desenli üst ve alt; beyaz ribanalı yaka, bilek ve paçalar.',
+  },
+  {
     id: 'HL-06', figure: { face: 'helikopter', skin: '#efc6a8', hair: { color: '#3b2a20', style: 'short' }, top: { pattern: 'stripes', base: '#55cfe2', stripe: '#1f3c8c' }, rib: '#22408f', pants: { pattern: 'vehicles', base: '#3fc6e6', scale: 0.6 }, pantsRib: '#5bd0e6', print: 'assets/tex/helikopter-print.png', printAspect: 1.222, printH: 1.4 },
     spots: { yaka: [0.55, 0.19], baski: [0.5, 0.34], desen: [0.45, 0.72], manset: [0.63, 0.94] },
     image: 'assets/helikopter.png', gender: 'erkek',
