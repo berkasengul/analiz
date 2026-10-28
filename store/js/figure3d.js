@@ -383,18 +383,27 @@ function spinFigure(p) {
     }
     return texs[i];
   };
-  // Önce her 4. kare, sonra hepsi (ilk açılış hızlı olsun)
-  for (let i = 0; i < n; i += 4) get(i);
-  setTimeout(() => { for (let i = 0; i < n; i++) get(i); }, 1200);
+  for (let i = 0; i < n; i++) get(i);
   const Hh = 10.1;
   const geo = new THREE.PlaneGeometry(Hh * spin.aspect, Hh);
   geo.translate(0, Hh / 2, 0);
-  const mat = new THREE.MeshBasicMaterial({ map: get(0), transparent: true, alphaTest: 0.35, side: THREE.DoubleSide, toneMapped: false });
+  // İki komşu kare arasında yumuşak geçiş: dönüş titremeden akar
+  const mat = new THREE.ShaderMaterial({
+    uniforms: { mapA: { value: get(0) }, mapB: { value: get(1) }, mixT: { value: 0 } },
+    vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `uniform sampler2D mapA; uniform sampler2D mapB; uniform float mixT; varying vec2 vUv;
+      void main(){ vec4 a = texture2D(mapA, vUv); vec4 b = texture2D(mapB, vUv);
+        vec4 c = mix(a, b, mixT); if (c.a < 0.4) discard;
+        gl_FragColor = vec4(c.rgb, 1.0);
+        #include <colorspace_fragment>
+      }`,
+    side: THREE.DoubleSide,
+    toneMapped: false,
+  });
   const plane = new THREE.Mesh(geo, mat);
   plane.castShadow = false;
   body.add(plane);
   meshes.push(plane);
-  // Gölge: yere yayılan yumuşak leke
   const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.2, 48), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#2b2f6b', transparent: true, opacity: 0.35, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2;
   shadow.position.y = 0.012;
@@ -403,17 +412,26 @@ function spinFigure(p) {
   const wp = new THREE.Vector3();
   const wq = new THREE.Quaternion();
   const e = new THREE.Euler();
+  const ready = (i) => texs[i] && texs[i].image && texs[i].image.width;
   plane.onBeforeRender = (renderer, scene, camera) => {
     root.getWorldPosition(wp);
     root.getWorldQuaternion(wq);
     e.setFromQuaternion(wq, 'YXZ');
     const camYaw = Math.atan2(camera.position.x - wp.x, camera.position.z - wp.z);
-    // Modelin kameraya göre açısı -> kare
     const ang = ((camYaw - e.y) % TAU + TAU) % TAU;
-    let i = Math.round((ang / TAU) * n) % n;
-    if (!texs[i] || !texs[i].image) i -= i % 4;
-    if (mat.map !== texs[i]) { mat.map = texs[i]; }
-    // Plane daima kameraya baksın
+    const f = (ang / TAU) * n;
+    let i0 = Math.floor(f) % n;
+    let i1 = (i0 + 1) % n;
+    let t = f - Math.floor(f);
+    if (!ready(i0) || !ready(i1)) { // henüz yüklenmediyse en yakın yüklü kare
+      let k = Math.round(f) % n;
+      while (!ready(k) && k > 0) k--;
+      i0 = i1 = k;
+      t = 0;
+    }
+    mat.uniforms.mapA.value = texs[i0];
+    mat.uniforms.mapB.value = texs[i1];
+    mat.uniforms.mixT.value = t;
     plane.rotation.y = camYaw - e.y;
     plane.updateMatrixWorld();
   };

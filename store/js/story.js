@@ -265,7 +265,7 @@ export function createStory(root, products, hooks = {}) {
     pin.style.setProperty('--acc-ink', rgb(mix(mix(A.acc, B.acc, f), INK, 0.42)));
 
     const cx = portrait ? 0.5 : 0.63;
-    mouse.sx += (mouse.x - mouse.sx) * 0.06;
+    mouse.sx += (mouse.x - mouse.sx) * 0.035;
     mouse.sy += (mouse.y - mouse.sy) * 0.06;
     if (!drag.on && now - drag.last > 2500) drag.rot += (Math.round(drag.rot / (Math.PI * 2)) * Math.PI * 2 - drag.rot) * 0.04;
     const states = [];
@@ -275,15 +275,22 @@ export function createStory(root, products, hooks = {}) {
       const dir = Math.sign(d) || 0;
       const vis = 1 - u;
       if (m3d) {
-        const idle = reduced ? 0 : Math.sin(t * 0.5 + i) * 0.35;
+        // Sakin, akıcı sağa-sola salınım; ilk açılışta tam bir tur dönerek sahneye girer
+        const idle = reduced ? 0 : Math.sin(t * 0.32 + i * 1.7) * 0.55;
+        const intro = reduced ? 1 : Math.min(1, t / 2.6);
+        const ease = 1 - Math.pow(1 - intro, 3);
+        const entrance = i === 0 ? (1 - ease) * Math.PI * 2 : 0;
+        const hdr = (document.querySelector('.site-header')?.offsetHeight || 110) / vh;
+        const floorY = portrait ? 0.665 : 0.9;
+        const topY = hdr + (portrait ? 0.075 : 0.05);
         const cur = Math.abs(d) < 0.5;
         states.push({
           x: cx - dir * u * (portrait ? 0.7 : 0.42),
-          floor: portrait ? 0.74 : 0.92,
-          height: portrait ? 0.56 : 0.78,
-          rotY: -dir * u * Math.PI * 1.2 + idle + (cur ? drag.rot + mouse.sx * 0.6 : 0),
+          floor: floorY,
+          height: Math.min(portrait ? 0.56 : 0.8, (floorY - topY) / 1.04),
+          rotY: -dir * u * Math.PI * 1.2 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.45 : 0),
           rotX: cur ? mouse.sy * 0.06 : 0,
-          scale: 1 - u * 0.25,
+          scale: (1 - u * 0.25) * (i === 0 ? 0.9 + ease * 0.1 : 1),
           opacity: vis,
         });
       }
