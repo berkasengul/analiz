@@ -59,7 +59,7 @@ export function createLineup(canvas, products, hooks = {}) {
         g.base.set((col - 1) * 3.9 + (row ? 1.95 : 0) - (row ? 1.95 : 0), 0, row ? -7 : 2);
       } else {
         const o = i - (n - 1) / 2;
-        g.base.set(o * 3.7, 0, -o * o * 0.42);
+        g.base.set(o * 4.6, 0, -o * o * 0.5);
       }
     });
   }
@@ -103,7 +103,7 @@ export function createLineup(canvas, products, hooks = {}) {
       camera.position.set(0, 16 - e * 4, 44 - e * 10);
       camera.lookAt(0, 4.6, -2);
     } else {
-      camera.position.set(Math.sin(t * 0.15) * 1.2, 11 - e * 4, 50 - e * 14);
+      camera.position.set(Math.sin(t * 0.12) * 1.2, 11 - e * 4, 58 - e * 14);
       camera.lookAt(0, 4.8, -2);
     }
     const h = pickAt();
@@ -120,7 +120,7 @@ export function createLineup(canvas, products, hooks = {}) {
       root.position.set(g.base.x, -g.dim * 1.2, g.base.z + g.lift * 1.8 - g.dim * 3);
       root.scale.setScalar(1 + g.lift * 0.06 - g.dim * 0.15);
       const face = Math.atan2(camera.position.x - root.position.x, camera.position.z - root.position.z);
-      root.rotation.y = face * (0.6 + g.lift * 0.4) + (reduced() ? 0 : Math.sin(t * 0.5 + g.i) * 0.25 * (1 - g.lift));
+      root.rotation.y = face * (0.6 + g.lift * 0.4) + (reduced() ? 0 : Math.sin(t * 0.25 + g.i) * 0.18 * (1 - g.lift));
       animateFigure(g.f, t, g.i, b && g.i % 2 === 0, g.lift);
     });
     renderer.render(scene, camera);
@@ -284,7 +284,7 @@ export function createFinale(canvas, product) {
     });
     camera.position.set(Math.sin(t * 0.2) * 1.5, 7, portrait ? 40 : 32 - q * 4);
     camera.lookAt(portrait ? 0.8 : 1.5, 6.5, 0);
-    fig.root.rotation.y = Math.sin(t * 0.4) * 0.3 + 0.25;
+    fig.root.rotation.y = Math.sin(t * 0.2) * 0.25 + 0.2;
     animateFigure(fig, t, 0, blink(t), clampS(q * 1.3));
     renderer.render(scene, camera);
   });

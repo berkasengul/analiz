@@ -452,10 +452,55 @@ function spinFigure(p) {
   return { root, body, head, arms, legs: [], eyes: [], meshes, anchors, spin: true };
 }
 
+/* ---------- Gerçek fotoğraf modeli: netleştirilmiş fotoğraf kaidede, kameraya dönük ---------- */
+function photoFigure(p) {
+  const root = new THREE.Group();
+  const body = new THREE.Group();
+  body.position.y = PED_H;
+  root.add(body);
+  const meshes = [];
+  const add = (parent, geo, mat, cast = true) => { const m = new THREE.Mesh(geo, mat); m.castShadow = cast; m.receiveShadow = true; parent.add(m); meshes.push(m); return m; };
+  pedestal(p, add, root);
+  const mat = new THREE.MeshBasicMaterial({ transparent: true, alphaTest: 0.4, side: THREE.DoubleSide, toneMapped: false });
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat);
+  body.add(plane);
+  meshes.push(plane);
+  new THREE.TextureLoader().load(p.photo, (tex) => {
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    const H = 10;
+    const W = H * (tex.image.width / tex.image.height);
+    plane.geometry.dispose();
+    const g = new THREE.PlaneGeometry(W, H);
+    g.translate(0, H / 2, 0);
+    plane.geometry = g;
+    mat.map = tex;
+    mat.needsUpdate = true;
+  });
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.3, 48), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#2b2f6b', transparent: true, opacity: 0.35, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.position.y = 0.012;
+  shadow.scale.set(1, 0.6, 1);
+  body.add(shadow);
+  const wp = new THREE.Vector3();
+  const wq = new THREE.Quaternion();
+  const e = new THREE.Euler();
+  plane.onBeforeRender = (renderer, scene, camera) => {
+    root.getWorldPosition(wp);
+    root.getWorldQuaternion(wq);
+    e.setFromQuaternion(wq, 'YXZ');
+    plane.rotation.y = Math.atan2(camera.position.x - wp.x, camera.position.z - wp.z) - e.y;
+    plane.updateMatrixWorld();
+  };
+  return { root, body, head: new THREE.Group(), arms: [new THREE.Group(), new THREE.Group()], legs: [], eyes: [], meshes, photo: true,
+    anchors: { baski: new THREE.Vector3(0, 6.8, 0.2), desen: new THREE.Vector3(-0.9, 3, 0.2), manset: new THREE.Vector3(0.6, 0.8, 0.2) } };
+}
+
 /* ---------- Figür ---------- */
 function buildFigure(p, cache) {
   if (p.model3d) return glbFigure(p);
   if (p.spin && SPINS[p.spin]) return spinFigure(p);
+  if (p.photo) return photoFigure(p);
   if (!p.figure) { // 3D verisi henüz yok: sadece kaide
     const root = new THREE.Group(); const body = new THREE.Group(); root.add(body); const meshes = [];
     pedestal(p, (parent, geo, mat) => { const m = new THREE.Mesh(geo, mat); parent.add(m); meshes.push(m); return m; }, root);

@@ -120,7 +120,7 @@ const state = { id: null, view: '3d', size: null, lastFocus: null };
 
 async function drawDetail() {
   const p = byId(state.id);
-  const has3d = !!(p.figure || p.spin || p.model3d);
+  const has3d = !!(p.spin || p.model3d);
   const view = viewer && has3d ? state.view : 'photo';
   detail.dataset.view = view;
   $('.seg').hidden = !(viewer && has3d);

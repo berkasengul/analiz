@@ -295,7 +295,7 @@ export function createStory(root, products, hooks = {}) {
     last = now;
     const prog = progress();
     const target = prog * (N - 1);
-    shown += (target - shown) * (reduced ? 1 : 1 - Math.exp(-dt * 7.5));
+    shown += (target - shown) * (reduced ? 1 : 1 - Math.exp(-dt * 3.2));
     const c = shown;
 
     // Arka plan rengi iki ürün arasında akar
@@ -310,7 +310,7 @@ export function createStory(root, products, hooks = {}) {
     pin.style.setProperty('--acc-ink', rgb(mix(mix(A.acc, B.acc, f), INK, 0.42)));
 
     const cx = portrait ? 0.5 : 0.56;
-    mouse.sx += (mouse.x - mouse.sx) * 0.035;
+    mouse.sx += (mouse.x - mouse.sx) * 0.025;
     mouse.sy += (mouse.y - mouse.sy) * 0.06;
     if (!drag.on && now - drag.last > 2500) drag.rot += (Math.round(drag.rot / (Math.PI * 2)) * Math.PI * 2 - drag.rot) * 0.04;
     const states = [];
@@ -321,9 +321,9 @@ export function createStory(root, products, hooks = {}) {
       const vis = 1 - u;
       if (m3d) {
         // Sakin, akıcı sağa-sola salınım; ilk açılışta tam bir tur dönerek sahneye girer
-        const idle = reduced ? 0 : Math.sin(t * 0.32 + i * 1.7) * 0.55;
-        const intro = reduced ? 1 : Math.min(1, t / 2.6);
-        const ease = 1 - Math.pow(1 - intro, 3);
+        const idle = reduced ? 0 : Math.sin(t * 0.22 + i * 1.7) * 0.32;
+        const intro = reduced ? 1 : Math.min(1, t / 3.4);
+        const ease = intro < 0.5 ? 4 * intro ** 3 : 1 - (-2 * intro + 2) ** 3 / 2; // yavaş başla, yavaş bitir
         const entrance = i === 0 ? (1 - ease) * Math.PI * 2 : 0;
         const hdr = (document.querySelector('.site-header')?.offsetHeight || 110) / vh;
         const floorY = portrait ? 0.68 : 0.915;
@@ -333,7 +333,7 @@ export function createStory(root, products, hooks = {}) {
           x: cx - dir * u * (portrait ? 0.7 : 0.42),
           floor: floorY,
           height: Math.min(portrait ? 0.6 : 0.86, (floorY - topY) / 1.06),
-          rotY: -dir * u * Math.PI * 1.2 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.45 : 0),
+          rotY: -dir * u * 0.7 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.25 : 0),
           rotX: cur ? mouse.sy * 0.06 : 0,
           scale: (1 - u * 0.25) * (i === 0 ? 0.9 + ease * 0.1 : 1),
           opacity: vis,
