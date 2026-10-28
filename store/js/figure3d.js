@@ -269,7 +269,7 @@ function skullFrontZ(x, y) {
   return k > 0 ? HEAD_C.z + Math.sqrt(k) * HEAD_R * HEAD_S.z : -Infinity;
 }
 
-function shade(hex, amt) {
+function tone(hex, amt) {
   const c = new THREE.Color(hex);
   c.offsetHSL(0, 0, amt);
   return c;
@@ -446,7 +446,7 @@ function buildFigure(p, cache) {
   const cloth = (tex, color = '#ffffff') => new THREE.MeshPhysicalMaterial({
     map: tex, color, roughness: 0.82, sheen: 0.7, sheenRoughness: 0.75, sheenColor: new THREE.Color('#ffffff'), side: THREE.DoubleSide,
   });
-  const skinColor = face ? shade(face.skin, -0.02) : new THREE.Color(f.skin);
+  const skinColor = face ? tone(face.skin, -0.02) : new THREE.Color(f.skin);
   const skin = new THREE.MeshPhysicalMaterial({ color: skinColor, roughness: 0.55, sheen: 0.3, sheenColor: new THREE.Color('#ffd8c8') });
   const hairMat = new THREE.MeshPhysicalMaterial({ color: f.hair.color, roughness: 0.5, sheen: 0.6, sheenColor: new THREE.Color('#fff2e0'), clearcoat: 0.1 });
   const ribTop = new THREE.MeshPhysicalMaterial({ color: f.rib, roughness: 0.75, sheen: 0.5 });
