@@ -1,0 +1,16 @@
+# Netlify önbellek başlıkları: modeller, dokular ve gök dosyaları bir yıl önbellekte kalır (adres ?v=ASSET_V ile sürümlenir;
+# dosya değişince index.html'deki ASSET_V artırılır). Sayfanın kendisi her ziyarette yeniden doğrulanır.
+/models/*
+  Cache-Control: public, max-age=31536000, immutable
+/public/*
+  Cache-Control: public, max-age=31536000, immutable
+/textures/*
+  Cache-Control: public, max-age=31536000, immutable
+/cutouts/*
+  Cache-Control: public, max-age=31536000, immutable
+/src/*
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
