@@ -146,7 +146,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; 
 .card-media { position: relative; display: block; background: var(--tint); aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; }
 .card-media::before { content: ""; position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%; background: #fff; opacity: .6; top: 12%; left: 11%; }
 .card-media::after { content: ""; position: absolute; bottom: 4%; left: 25%; width: 50%; height: 14px; border-radius: 50%; background: rgba(43, 47, 107, .12); }
-.card-media img { position: absolute; z-index: 1; bottom: 5%; left: 50%; height: 90%; width: auto; max-width: none; transform: translateX(-50%); transition: transform .5s var(--bounce); transform-origin: 50% 100%; }
+.card-media img { position: absolute; z-index: 1; bottom: 4%; left: 50%; height: 92%; width: 94%; max-width: 94%; object-fit: contain; object-position: 50% 100%; transform: translateX(-50%); transition: transform .5s var(--bounce); transform-origin: 50% 100%; }
 .card:hover .card-media img { transform: translateX(-50%) translateY(-8px) scale(1.04); }
 .card-body { padding: 16px 18px 18px; display: grid; gap: 2px; }
 .card small { font-size: 12px; font-weight: 800; color: var(--accent); letter-spacing: .05em; text-transform: uppercase; }
@@ -181,7 +181,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; 
 .detail-close svg { width: 16px; height: 16px; }
 .detail-media { position: relative; height: 100vh; height: 100svh; display: grid; place-items: center; }
 .detail-blob { position: absolute; width: min(70vh, 90%); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--accent, var(--pink)) 140%); opacity: .7; animation: float 9s ease-in-out infinite; }
-.detail-canvas { position: relative; height: calc(100svh - 80px); width: auto; max-width: 100%; object-fit: contain; animation: idle 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
+.detail-canvas { position: relative; height: calc(100svh - 60px); filter: drop-shadow(0 24px 30px rgba(43, 47, 107, .25)); width: auto; max-width: 100%; object-fit: contain; animation: idle 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
 .detail-canvas.drop { animation: enter .6s var(--bounce) both; }
 @keyframes idle { 50% { transform: translateY(-8px); } }
 @keyframes enter { from { transform: translateY(40px) scale(.92); opacity: 0; } }
@@ -246,6 +246,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; 
 .fly { position: fixed; z-index: 70; pointer-events: none; object-fit: contain; }
 
 /* ---------- Duyarlı ---------- */
+@media (min-aspect-ratio: 6/5) and (min-width: 861px) {
+  .hero { text-align: left; right: auto; left: max(40px, env(safe-area-inset-left, 0px)); max-width: 44vw; top: calc(var(--header-h) + 5vh); padding: 0; }
+  .hero h1 { font-size: clamp(40px, 4.8vw, 82px); line-height: 1; }
+  .hero .w3 { display: inline; }
+  .stage-ui { padding-left: max(40px, env(safe-area-inset-left, 0px)); }
+}
 @media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
   .menu a { padding: 9px 10px; }

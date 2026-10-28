@@ -20,17 +20,18 @@ hareket katıyor.
 
 ## Ürünler
 
-`js/products.js` içinde 8 takım var: İnterlok 3003, 3004, 3005, 3006 ve
-D-2004, D-1001, D-1002, D-1003 (göz bandı hediyeli). Görseller şu an kodla
-çiziliyor. **Fiyatlar örnektir** ve D-1003 kodu tahminidir — gerçek değerlerle
-güncelleyin.
+`js/products.js` içinde gerçek fotoğraflı 6 takım var: Kalpli Kedi, Helikopter,
+Çilekli, Kutup Ayısı, Smile Everyday Rakun ve Little Hoglet Kirpi. Fotoğrafların
+arka planı silinmiş halleri `assets/` klasöründe. **Ürün kodları, fiyatlar ve
+beden aralıkları örnektir** — gerçek değerlerle güncelleyin.
 
-Gerçek fotoğraf kullanmak için ürüne `image` alanı ekleyin. Vitrinde ve
-"Modelde" görünümünde kullanılır; arka planı silinmiş, ayakta duran çocuk
-modelli dikey PNG önerilir (oran yaklaşık 1:2):
+Yeni ürün eklemek için arka planı silinmiş, çocuk modelli dikey bir PNG'yi
+`assets/` içine koyup listeye bir satır eklemek yeterli:
 
 ```js
-{ id: '3003', ..., image: 'assets/3003.png' }
+{ id: 'XX-07', image: 'assets/yeni.png', gender: 'kiz', accent: '#e96bb8',
+  tint: '#ffeaf6', podium: '#ffc8e8', code: 'Kız çocuk', name: '...',
+  price: 449, colorName: '...', sizes: SIZES, desc: '...' },
 ```
 
 ## Çalıştırma

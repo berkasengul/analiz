@@ -2,8 +2,9 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { renderModel, alphaMask, loadProductImage, MW, MH } from './garments.js';
 
-const RADIUS = 5.6;
-const MODEL_W = 1.75;
+const RADIUS = 8.5;
+const PHOTO_H = 4.7; // fotoğraflı modellerin dünya birimindeki boyu
+const MODEL_W = 2.2;
 const MODEL_H = MODEL_W * (MH / MW);
 const LOGO = [0x79c3f6, 0xf59bd6, 0xf9a25c, 0xffd45c];
 
@@ -92,8 +93,8 @@ export function createShowcase(canvas, products, hooks = {}) {
   // Odaktaki modelin arkasında renkli ışık halesi
   const haloMat = new THREE.SpriteMaterial({ map: radial('rgba(255,255,255,1)', 'rgba(255,255,255,0)'), color: 0xf59bd6, transparent: true, opacity: 0.75, depthWrite: false });
   const halo = new THREE.Sprite(haloMat);
-  halo.scale.set(7.5, 7.5, 1);
-  halo.position.set(0, 2.2, -1.6);
+  halo.scale.set(9.5, 9.5, 1);
+  halo.position.set(0, 2.7, -1.8);
   halo.renderOrder = -1;
   scene.add(halo);
 
@@ -143,7 +144,7 @@ export function createShowcase(canvas, products, hooks = {}) {
     const rim = new THREE.Mesh(rimGeo, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25, metalness: 0.2 }));
     rim.rotation.x = Math.PI / 2;
     rim.position.y = 0.43;
-    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 0.6), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.1, 0.75), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
     shadow.rotation.x = -Math.PI / 2;
     shadow.position.y = 0.465;
 
@@ -153,6 +154,7 @@ export function createShowcase(canvas, products, hooks = {}) {
     tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
     const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.04 });
     const model = new THREE.Mesh(modelGeo, mat);
+    if (p.image) model.visible = false;
     model.position.y = 0.46;
     model.userData.index = i;
 
@@ -161,10 +163,20 @@ export function createShowcase(canvas, products, hooks = {}) {
     const it = { p, group, model, mat, pod, mask: alphaMask(cvs), lift: 0, jump: 0, phase: i * 0.9 };
     loadProductImage(p).then((img) => {
       if (!img) return;
-      const c2 = renderModel(p, 'front', 1.4, img);
-      tex.image = c2;
-      tex.needsUpdate = true;
-      it.mask = alphaMask(c2);
+      // Fotoğrafı kendi çözünürlüğünde ve oranında kullan (bulanıklık olmasın)
+      const t2 = new THREE.Texture(img);
+      t2.colorSpace = THREE.SRGBColorSpace;
+      t2.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      t2.needsUpdate = true;
+      const w = PHOTO_H * (img.width / img.height);
+      const g2 = new THREE.PlaneGeometry(w, PHOTO_H);
+      g2.translate(0, PHOTO_H / 2, 0);
+      model.geometry = g2;
+      mat.map = t2;
+      mat.needsUpdate = true;
+      tex.dispose();
+      it.mask = alphaMask(img, 120);
+      model.visible = true;
     });
     return it;
   });
@@ -180,7 +192,7 @@ export function createShowcase(canvas, products, hooks = {}) {
   const ray = new THREE.Raycaster();
   const haloTarget = new THREE.Color(products[0].accent);
   const start = performance.now();
-  let camBase = { y: 3.4, z: 15, ly: 2.65 };
+  let camBase = { y: 3.6, z: 13.8, ly: 2.85 };
 
   function resize() {
     const w = canvas.clientWidth;
@@ -188,8 +200,11 @@ export function createShowcase(canvas, products, hooks = {}) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     const portrait = w / h < 0.9;
-    camera.fov = portrait ? 40 : 32;
-    camBase = portrait ? { y: 3.2, z: 12.2, ly: 2.75 } : { y: 3.4, z: 15, ly: 2.65 };
+    camera.fov = portrait ? 40 : 30;
+    camBase = portrait ? { y: 3.3, z: 12.4, ly: 2.6 } : { y: 3.6, z: 13.8, ly: 2.85 };
+    // Geniş ekranda vitrin sağa kayar, solda yazılara yer kalır
+    if (w / h > 1.2) camera.setViewOffset(w, h, -w * 0.13, 0, w, h);
+    else camera.clearViewOffset();
     camera.updateProjectionMatrix();
   }
 
@@ -242,20 +257,21 @@ export function createShowcase(canvas, products, hooks = {}) {
       const depth = (1 - Math.cos(a)) / 2;
       it.lift += ((it === hovered ? 1 : 0) - it.lift) * 0.12;
       it.jump *= 0.94;
-      const bob = reduced ? 0 : Math.sin(t * 2.2 + it.phase) * 0.035;
-      const hop = reduced ? 0 : Math.abs(Math.sin(it.jump * Math.PI * 2.5)) * it.jump * 0.45;
+      const bob = reduced ? 0 : Math.sin(t * 1.6 + it.phase) * 0.012;
+      const hop = reduced ? 0 : Math.abs(Math.sin(it.jump * Math.PI * 2)) * it.jump * 0.22;
       it.model.position.y = 0.46 + bob + hop + it.lift * 0.08;
       // Model her zaman kameraya bakar
       const wx = x;
       const wz = z;
       it.model.rotation.y = Math.atan2(camera.position.x - wx, camera.position.z - wz) - a;
-      it.model.rotation.z = reduced ? 0 : (-vel * 2.2 * Math.cos(a)) + Math.sin(t * 1.3 + it.phase) * 0.012;
-      const sc = 1 + it.lift * 0.05 + (1 - depth) * 0.04;
+      it.model.rotation.z = reduced ? 0 : (-vel * 2.2 * Math.cos(a)) + Math.sin(t * 1.3 + it.phase) * 0.005;
+      const sc = 1 + it.lift * 0.03;
       it.model.scale.set(sc, sc, 1);
-      it.mat.color.setScalar(1 - depth * 0.18);
+      it.mat.color.setScalar(1 - depth * 0.12);
+      it.mat.opacity = 1 - Math.min(1, depth * 2.2) * 0.55;
     });
 
-    halo.position.y = 2.2 + Math.sin(t * 0.8) * 0.08;
+    halo.position.y = 2.7 + Math.sin(t * 0.8) * 0.08;
     clouds.forEach((c) => {
       c.position.x += c.userData.speed * 0.01 + vel * 0.6;
       if (c.position.x > 26) c.position.x = -26;

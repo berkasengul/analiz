@@ -155,7 +155,7 @@ $('.search').addEventListener('submit', (e) => {
 
 /* ---------- Koleksiyon ---------- */
 function renderGrid(filter = 'all') {
-  const list = PRODUCTS.filter((p) => filter === 'all' || p.line === filter);
+  const list = PRODUCTS.filter((p) => filter === 'all' || p.gender === filter);
   $('.grid').innerHTML = list.map((p) => `
     <button class="card" data-id="${p.id}" style="--accent:${p.accent};--tint:${p.tint}">
       ${p.gift ? '<span class="tag">Göz bandı hediyeli</span>' : ''}
@@ -179,8 +179,8 @@ function setFilter(f) {
   renderGrid(f);
 }
 $$('.chip').forEach((c) => c.addEventListener('click', () => setFilter(c.dataset.filter)));
-$('[data-goto="d"]').addEventListener('click', () => {
-  setFilter('d');
+$('[data-goto="all"]').addEventListener('click', () => {
+  setFilter('all');
   document.getElementById('koleksiyon').scrollIntoView({ behavior: 'smooth' });
 });
 renderGrid();
@@ -193,7 +193,8 @@ const state = { id: null, view: 'model', size: null, lastFocus: null };
 async function drawDetail() {
   const p = byId(state.id);
   const img = state.view === 'model' ? await loadProductImage(p) : null;
-  const src = state.view === 'model' ? renderModel(p, 'front', 2, img) : renderSet(p, state.view, 2);
+  // Fotoğraf varsa kendi çözünürlüğünde çizilir (keskin kalır)
+  const src = img || (state.view === 'model' ? renderModel(p, 'front', 2) : renderSet(p, state.view, 2));
   dCanvas.width = src.width;
   dCanvas.height = src.height;
   dCanvas.getContext('2d').drawImage(src, 0, 0);
@@ -216,6 +217,7 @@ function fillDetail() {
   $('.detail-meta').innerHTML = [
     `Renk: ${p.colorName}`,
     `Beden aralığı: ${ageRange(p)}`,
+    'Manşetli paçalar, rahat kalıp',
     ...(p.pattern ? [p.line === 'interlok' ? 'İnterlok kumaş, ribanalı yaka ve paçalar' : 'Yakalı, düğmeli üst, biyeli detaylar'] : []),
     ...(p.gift ? ['Uyku göz bandı hediye'] : []),
   ].map((t) => `<li>${t}</li>`).join('');
