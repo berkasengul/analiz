@@ -27,7 +27,7 @@ function wrapDraw(x, S, px, py, r, fn) {
   }
 }
 
-function rnd(seed) { return () => ((seed = (seed * 16807) % 2147483647) / 2147483647); }
+function seeded(seed) { return () => ((seed = (seed * 16807) % 2147483647) / 2147483647); }
 
 function heart(x, s) {
   const r = s * 0.5;
@@ -86,7 +86,7 @@ function raccoon(q) {
   q.fillStyle = '#e57a9c'; q.beginPath(); q.ellipse(0, 26, 16, 6, 0, 0, 7); q.fill();
 }
 
-const PATTERNS = {
+const FABRICS = {
   solid: (x, S, o) => { x.fillStyle = o.base; x.fillRect(0, 0, S, S); },
   stripes: (x, S, o) => {
     x.fillStyle = o.base; x.fillRect(0, 0, S, S);
@@ -96,7 +96,7 @@ const PATTERNS = {
   hearts: (x, S, o) => {
     x.fillStyle = o.base; x.fillRect(0, 0, S, S);
     const cols = ['#e8457a', '#8a3fa0', '#f2c31b', '#7ac143', '#4fb3e8', '#f39a6b', '#c9c3cf', '#f7a6c4'];
-    const r = rnd(5);
+    const r = seeded(5);
     let k = 0;
     for (let gy = 0; gy < 5; gy++) for (let gx = 0; gx < 5; gx++) {
       const px = (gx + 0.5 + (gy % 2) * 0.5) * (S / 5) + (r() - 0.5) * 20;
@@ -108,7 +108,7 @@ const PATTERNS = {
   },
   stars: (x, S, o) => {
     x.fillStyle = o.base; x.fillRect(0, 0, S, S);
-    const r = rnd(9);
+    const r = seeded(9);
     const pts = [[0.25, 0.22], [0.72, 0.38], [0.35, 0.72], [0.85, 0.85], [0.1, 0.55]];
     for (const [a, b] of pts) {
       const rot = r() * 6.28;
@@ -125,7 +125,7 @@ const PATTERNS = {
   },
   berries: (x, S, o) => {
     x.fillStyle = o.base; x.fillRect(0, 0, S, S);
-    const r = rnd(3);
+    const r = seeded(3);
     for (let i = 0; i < 9; i++) {
       const px = r() * S;
       const py = r() * S;
@@ -159,7 +159,7 @@ const PATTERNS = {
   },
   vehicles: (x, S, o) => {
     x.fillStyle = o.base; x.fillRect(0, 0, S, S);
-    const r = rnd(21);
+    const r = seeded(21);
     for (let i = 0; i < 5; i++) {
       const px = r() * S;
       const py = r() * S;
@@ -170,7 +170,7 @@ const PATTERNS = {
   },
   raccoons: (x, S, o) => {
     x.fillStyle = o.base; x.fillRect(0, 0, S, S);
-    const r = rnd(17);
+    const r = seeded(17);
     const spots = [[0.22, 0.2], [0.7, 0.3], [0.4, 0.62], [0.88, 0.75], [0.12, 0.86]];
     for (const [a, b] of spots) {
       const rot = (r() - 0.5) * 0.6;
@@ -184,7 +184,7 @@ const PATTERNS = {
   },
   bears: (x, S, o) => {
     x.fillStyle = o.base; x.fillRect(0, 0, S, S);
-    const r = rnd(11);
+    const r = seeded(11);
     for (let i = 0; i < 7; i++) {
       const px = r() * S;
       const py = r() * S;
@@ -215,7 +215,7 @@ function fabricTexture(spec, cache) {
     tex = new THREE.TextureLoader().load(spec.photo);
     tex.wrapS = tex.wrapT = THREE.MirroredRepeatWrapping;
   } else {
-    tex = new THREE.CanvasTexture(tileCanvas(512, (x, S) => PATTERNS[spec.pattern || 'solid'](x, S, spec)));
+    tex = new THREE.CanvasTexture(tileCanvas(512, (x, S) => FABRICS[spec.pattern || 'solid'](x, S, spec)));
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
   }
   tex.colorSpace = THREE.SRGBColorSpace;

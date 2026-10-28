@@ -2,7 +2,7 @@
 // gece finali ve ürün detayındaki 3D görüntüleyici.
 import { makeStage, buildFigure, animateFigure, blinker, THREE } from './figure3d.js';
 
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const clampS = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Görünür olduğunda çalışan döngü
@@ -96,7 +96,7 @@ export function createLineup(canvas, products, hooks = {}) {
   const v = new THREE.Vector3();
   loopWhenVisible(canvas, (t) => {
     const r = canvas.getBoundingClientRect();
-    const q = clamp(1 - (r.top + r.height * 0.3) / innerHeight); // bölüme girişte kamera yaklaşır
+    const q = clampS(1 - (r.top + r.height * 0.3) / innerHeight); // bölüme girişte kamera yaklaşır
     const e = 1 - Math.pow(1 - q, 3);
     if (portrait) {
       camera.position.set(0, 16 - e * 4, 44 - e * 10);
@@ -267,7 +267,7 @@ export function createFinale(canvas, product) {
   const blink = blinker();
   loopWhenVisible(canvas, (t) => {
     const r = canvas.getBoundingClientRect();
-    const q = clamp(1 - (r.top + r.height * 0.2) / innerHeight);
+    const q = clampS(1 - (r.top + r.height * 0.2) / innerHeight);
     const portrait = r.width / r.height < 0.9;
     const mx = portrait ? 3.2 : 11;
     holder.position.x = portrait ? 0 : 4.5;
@@ -284,7 +284,7 @@ export function createFinale(canvas, product) {
     camera.position.set(Math.sin(t * 0.2) * 1.5, 7, portrait ? 40 : 32 - q * 4);
     camera.lookAt(portrait ? 0.8 : 1.5, 6.5, 0);
     fig.root.rotation.y = Math.sin(t * 0.4) * 0.3 + 0.25;
-    animateFigure(fig, t, 0, blink(t), clamp(q * 1.3));
+    animateFigure(fig, t, 0, blink(t), clampS(q * 1.3));
     renderer.render(scene, camera);
   });
   return {};
