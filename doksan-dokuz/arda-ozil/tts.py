@@ -25,7 +25,7 @@ from script import SCENES
 API = "https://api.elevenlabs.io"
 KEY = os.environ.get("ELEVENLABS_API_KEY", "")
 VOICE = os.environ.get("ELEVEN_VOICE", "Berkay")
-MODEL = os.environ.get("ELEVEN_MODEL", "")
+MODEL = os.environ.get("ELEVEN_MODEL", "eleven_v4")
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "build") / "vo"
 
 # Akıcı, belgesel tadında anlatım
@@ -95,7 +95,7 @@ def synth(i: int, text: str, prev: str, nxt: str, voice_id: str, model: str) -> 
             "language_code": "tr", "previous_text": prev, "next_text": nxt}
     for attempt in range(5):
         r = requests.post(f"{API}/v1/text-to-speech/{voice_id}/with-timestamps",
-                          headers=h(), params={"output_format": "mp3_44100_192"}, json=body, timeout=180)
+                          headers=h(), params={"output_format": os.environ.get("ELEVEN_FORMAT", "mp3_44100_128")}, json=body, timeout=180)
         if r.status_code == 400 and attempt == 0:
             # bazı modeller previous/next_text ya da language_code desteklemez
             for k in ("previous_text", "next_text", "language_code"):

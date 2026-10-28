@@ -13,7 +13,7 @@ SCENES = [
     dict(v="datecard", date="2012", place="SANTIAGO BERNABÉU", sub="DEVRE ARASI",
          vo="İki bin on iki. Santiago Bernabéu. Real Madrid devre arasına Deportivo karşısında üçe bir önde giriyor. "
             "Soyunma odasında her şey yolunda görünüyor. Ama Jose Mourinho öfkeli. Hedefinde ise yirmi üç yaşındaki bir oyuncu var."),
-    dict(v="quote", text="İKİ GÜZEL PAS YETERLİ Mİ SANIYORSUN?", who="JOSE MOURINHO → MESUT ÖZİL",
+    dict(v="quote", text="İKİ GÜZEL PAS YETERLİ Mİ SANIYORSUN?", who="JOSE MOURINHO'DAN MESUT ÖZİL'E",
          vo="Mourinho, Mesut Özil'in üstüne yürüyor: İki güzel pas yeterli mi sanıyorsun? "
             "Özil formasını çıkarıp Mourinho'nun ayaklarının dibine fırlatıyor ve duşa gidiyor."),
     dict(v="jersey", number="10", name="ÖZİL", caption="İKİNCİ YARIDA RAMOS, ÖZİL'İN FORMASINI ALTINA GİYDİ",
@@ -89,8 +89,8 @@ SCENES = [
          vo="Yıllar sonra Arda Real Madrid'de az süre alırken Özil, Marca'ya konuştu. "
             "Fenerbahçe'de Arda'nın kendisi için küçük bir kardeş gibi olduğunu, sabırlı olması gerektiğini ve zamanının geleceğini söyledi. "
             "Örnek olarak da Real Madrid'de şans bulamayıp Arsenal'in kaptanı olan Ødegaard'ı gösterdi."),
-    dict(v="timeline", items=[("2023", "ARDA → REAL MADRID"), ("2024", "MOURINHO → FENERBAHÇE"),
-                              ("2025", "MOURINHO → BENFICA"), ("11 HAZ 2026", "MOURINHO → REAL MADRID")],
+    dict(v="timeline", items=[("2023", "ARDA REAL MADRID'DE"), ("2024", "MOURINHO FENERBAHÇE'DE"),
+                              ("2025", "MOURINHO BENFICA'DA"), ("11 HAZ 2026", "MOURINHO REAL MADRID'DE")],
          cues=["iki bin yirmi üç", "Fenerbahçe'nin", "Benfica", "Haziran"],
          vo="Arda, iki bin yirmi üç yazında Fenerbahçe'den Real Madrid'e transfer oldu. "
             "Ertesi yıl Mourinho, Fenerbahçe'nin teknik direktörü oldu. Ağustos iki bin yirmi beşte bu görev sona erdi, Mourinho Benfica'ya geçti. "
@@ -99,11 +99,11 @@ SCENES = [
     # ---------------- BÖLÜM 5 ----------------
     dict(v="chapter", n="05", name="AYNI DNA", vo=""),
     dict(v="compare", left="ÖZİL", right="ARDA",
-         rows=[("MOURINHO İLE İLK SEZON YAŞI", "21", "21"), ("AYAK", "SOL", "SOL"), ("KÖKEN", "TÜRK", "TÜRK"),
+         rows=[("MOURINHO İLE BAŞLADIĞI YAŞ", "21", "21"), ("AYAK", "SOL", "SOL"), ("KÖKEN", "TÜRK", "TÜRK"),
                ("FENERBAHÇE", "OYNADI", "YETİŞTİ"), ("ROL", "10 NUMARA", "10 / 8 NUMARA")],
          vo="Benzerlikler gerçekten şaşırtıcı. İkisi de Mourinho ile çalışmaya yirmi bir yaşında başladı. İkisi de sol ayaklı. İkisi de Türk kökenli. "
             "İkisinin de yolu Fenerbahçe'den geçti. Ve ikisi de oyunu topla düşünen, son pası seven klasik on numaralar."),
-    dict(v="statcards", cards=[("51", "MAÇ"), ("6", "GOL"), ("14", "ASİST")], header="ARDA · 2025–26 · TÜM KORTLAR",
+    dict(v="statcards", cards=[("51", "MAÇ"), ("6", "GOL"), ("14", "ASİST")], header="ARDA · 2025–26 · TÜM TURNUVALAR",
          cues=["elli bir", "altı gol", "on dört"],
          vo="Arda'nın geçen sezonu da Özil'in Madrid yıllarını hatırlatıyordu. Xabi Alonso döneminde oyunun merkezine yerleşen Arda, "
             "tüm turnuvalarda elli bir maçta altı gol ve on dört asist üretti. LaLiga'da asist sıralamasında ilk üçteydi."),
@@ -124,7 +124,7 @@ SCENES = [
          options=[("ARDA'YI DIŞARIDA BIRAKAMAZSIN", 67), ("MOURINHO HAKLI", 23), ("DİĞER", 10)],
          vo="Marca'nın anketine sekiz binden fazla kişi katılıyor. Yüzde altmış yedisi aynı şeyi söylüyor: "
             "Arda'yı dışarıda bırakamazsın, takımı oynatan o. Mourinho'yu destekleyenler ise sadece yüzde yirmi üç."),
-    dict(v="score", home="ELCHE", away="REAL MADRID", hs=2, as_=3, label="LALİGA · 6. HAFTA",
+    dict(v="score", home="ELCHE", away="REAL MADRID", hs=2, as_=3, label="LALİGA · 6. HAFTA", start=(0, 0), steps=[(0, 0, 1), (1, 0, 2), (3, 2, 2), (4, 2, 3)],
          events=[("25'", "ARDA'NIN SERBEST VURUŞU · KK"), ("33'", "MBAPPÉ"), ("68'", "ARDA OYUNDAN ÇIKTI"),
                  ("71' 83'", "ELCHE BERABERLİĞİ YAKALADI"), ("90+1'", "ESPI · GALİBİYET")],
          cues=["serbest", "Mbappé", "altmış sekizinci", "ikiye iki", "uzatma"],
@@ -138,7 +138,7 @@ SCENES = [
          vo="Ama aynı basın toplantısında şunu da ekliyor: Arda Güler benim en önemli oyuncularımdan biri. Vizyonu ve teknik yeteneği inanılmaz. "
             "Tanıdık geldi mi? Kamerada övgü, sahada baskı. On dört yıl önce Özil'e yaptığının aynısı."),
     dict(v="score", home="ROMA", away="REAL MADRID", hs=3, as_=4, label="ŞAMPİYONLAR LİGİ · 14 EKİM 2026",
-         start=(3, 1),
+         start=(3, 1), steps=[(1, 3, 2), (2, 3, 3), (3, 3, 4)],
          events=[("59'", "ARDA OYUNA GİRDİ"), ("83'", "ESPI"), ("85'", "ENDRICK · ASİST ARDA"), ("90'", "RÜDIGER · ASİST ARDA")],
          cues=["elli dokuzuncu", "Espi", "Endrick", "Rüdiger"],
          vo="Ekim ayında Roma deplasmanı. Arda yine yedek. Real Madrid üçe bir geride. Arda elli dokuzuncu dakikada oyuna giriyor. "
@@ -151,7 +151,7 @@ SCENES = [
 
     # ---------------- BÖLÜM 7 ----------------
     dict(v="chapter", n="07", name="ARDA'NIN CEVABI", vo=""),
-    dict(v="score", home="REAL MADRID", away="SEVILLA", hs=4, as_=1, label="LALİGA · 9. HAFTA",
+    dict(v="score", home="REAL MADRID", away="SEVILLA", hs=4, as_=1, label="LALİGA · 9. HAFTA", start=(0, 0), steps=[(0, 1, 0), (1, 2, 0), (2, 3, 0), (3, 4, 1)],
          events=[("30'", "ARDA GÜLER · CEZA SAHASI DIŞI"), ("37'", "MBAPPÉ"), ("63'", "MBAPPÉ · PEN"), ("82'", "DIOMANDE")],
          cues=["ceza sahası", "Mbappé", "penaltı", "Diomande"],
          vo="Ama Özil'den farklı olarak Arda'nın cevabı soyunma odasında değil, sahada geliyor. "
