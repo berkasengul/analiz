@@ -216,11 +216,15 @@ function fillDetail() {
   $('.detail-meta').innerHTML = [
     `Renk: ${p.colorName}`,
     `Beden aralığı: ${ageRange(p)}`,
-    p.line === 'interlok' ? 'İnterlok kumaş, ribanalı yaka ve paçalar' : 'Yakalı, düğmeli üst, biyeli detaylar',
+    ...(p.pattern ? [p.line === 'interlok' ? 'İnterlok kumaş, ribanalı yaka ve paçalar' : 'Yakalı, düğmeli üst, biyeli detaylar'] : []),
     ...(p.gift ? ['Uyku göz bandı hediye'] : []),
   ].map((t) => `<li>${t}</li>`).join('');
   $('.sizes').innerHTML = p.sizes.map((s) => `<button data-size="${s}" class="${s === state.size ? 'is-active' : ''}" aria-pressed="${s === state.size}">${s}</button>`).join('');
-  $$('.seg button').forEach((b) => b.classList.toggle('is-active', b.dataset.view === state.view));
+  $$('.seg button').forEach((b) => {
+    b.classList.toggle('is-active', b.dataset.view === state.view);
+    b.hidden = !p.pattern && b.dataset.view !== 'model';
+  });
+  $('.seg').hidden = !p.pattern;
   drawDetail();
 }
 

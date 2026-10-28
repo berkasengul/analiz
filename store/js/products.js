@@ -9,6 +9,13 @@ export const BRAND = 'SESA KIDS';
 
 export const PRODUCTS = [
   {
+    id: 'KK-01', image: 'assets/kalpli-kedi.png',
+    accent: '#e96bb8', tint: '#ffeaf6', podium: '#ffc8e8',
+    code: 'Yeni Sezon', name: 'Kalpli Kedi Takımı', line: 'interlok', price: 449,
+    colorName: 'Ekru / Renkli kalpler', sizes: INTERLOK_SIZES,
+    desc: 'Ekru zemin üzerine kalpli kedi baskılı üst, rengârenk kalp desenli alt. Manşetli paçalar.',
+  },
+  {
     id: '3003', 
     accent: '#f98a3c', tint: '#ffeedd', podium: '#ffc999', model: { skin: '#f6d3b5', hair: '#8a5a35', style: 'short', slippers: '#79c3f6' },
     code: 'İnterlok 3003', name: 'Renkli Kediler Takımı', line: 'interlok',

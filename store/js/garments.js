@@ -568,6 +568,7 @@ export function alphaMask(canvas, w = 80) {
 
 const thumbs = new Map();
 export function thumb(p, s = 0.5) {
+  if (p.image) return p.image;
   const k = `${p.id}@${s}`;
   if (!thumbs.has(k)) thumbs.set(k, renderSet(p, 'front', s).toDataURL('image/png'));
   return thumbs.get(k);
@@ -785,7 +786,7 @@ export function renderModel(p, side = 'front', s = 1, img = null) {
   if (img) {
     const k = Math.min(MW / img.width, MH / img.height);
     ctx.drawImage(img, (MW - img.width * k) / 2, MH - img.height * k, img.width * k, img.height * k);
-  } else {
+  } else if (p.model) {
     drawModel(ctx, p, side, s);
   }
   return c;
@@ -793,6 +794,7 @@ export function renderModel(p, side = 'front', s = 1, img = null) {
 
 const modelThumbs = new Map();
 export function modelThumb(p, s = 0.5) {
+  if (p.image) return p.image;
   const k = `${p.id}@${s}`;
   if (!modelThumbs.has(k)) modelThumbs.set(k, renderModel(p, 'front', s).toDataURL('image/png'));
   return modelThumbs.get(k);
