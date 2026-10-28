@@ -191,7 +191,7 @@ def draw_photo(c, key, x, y, w, h, r, crop=None, zoom=1.0, a=1.0):
     """crop: (fx, fy, fs) — odak noktası (0-1) ve çerçeve ölçeği (1 = en büyük kırpım)."""
     im = photo_img(key)
     if im is None:
-        rrect(c, x, y, w, h, r, SOFT, a); icon(c, "shirt", x + w / 2, y + h / 2, min(w, h) * .3, "#C9C3B8", sw=1.5, a=a)
+        name_card(c, key, x, y, w, h, r, a)
         return
     iw, ih = im.width(), im.height()
     fxp, fyp, fs = crop or (0.5, 0.5, 1.0)
@@ -203,6 +203,33 @@ def draw_photo(c, key, x, y, w, h, r, crop=None, zoom=1.0, a=1.0):
     p = skia.Paint(AntiAlias=True); p.setAlphaf(a)
     c.drawImageRect(im, skia.Rect.MakeXYWH(sx, sy, cw, ch), skia.Rect.MakeXYWH(x, y, w, h), SAMP, p)
     c.restore()
+
+# Fotoğrafı olmayan kişiler için tasarlanmış kart: lacivert zemin, forma numarası, isim
+FALLBACK = {
+    "ozil": ("Mesut Özil", "10", "Real Madrid"), "ramos": ("Sergio Ramos", "4", "Real Madrid"),
+    "bernabeu": ("Santiago Bernabéu", "", "Madrid"), "ulker": ("Ülker Stadyumu", "", "Fenerbahçe"),
+}
+def name_card(c, key, x, y, w, h, r, a=1.0):
+    name, num, club = next((v for k, v in FALLBACK.items() if key.startswith(k)), (key, "", ""))
+    if key == "ozil_fb": num, club = "67", "Fenerbahçe"
+    if key == "ozil_ronaldo": name, num = "Özil & Ronaldo", "10 · 7"
+    c.save(); c.clipRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(x, y, w, h), r, r), True)
+    p = skia.Paint(AntiAlias=True)
+    p.setShader(skia.GradientShader.MakeLinear([skia.Point(x, y), skia.Point(x + w, y + h)],
+                [C("#262C4A", a).toColor(), C(NAVY, a).toColor()]))
+    c.drawRect(skia.Rect.MakeXYWH(x, y, w, h), p)
+    g = paint(ACC, .35 * a); g.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, min(w, h) * .25))
+    c.drawCircle(x + w * .78, y + h * .2, min(w, h) * .35, g)
+    s = min(w, h)
+    if num:
+        text(c, num, x + w / 2, y + h * .58, "i", s * (.55 if len(num) <= 2 else .32), "#FFFFFF", a * .95, align="center")
+    else:
+        icon(c, "ball", x + w / 2, y + h * .42, s * .32, "#FFFFFF", a=a * .9, sw=1.4)
+    fs = min(s * .085, w * .9 / max(1, len(name)) * 1.7)
+    text(c, name, x + w / 2, y + h * .80, "b", fs, "#FFFFFF", a, align="center")
+    text(c, club, x + w / 2, y + h * .80 + fs * 1.2, "mono", fs * .5, LINE, a, align="center")
+    c.restore()
+
 
 def avatar_photo(c, key, cx, cy, r, crop=None, a=1.0, ring=ACC):
     g = paint(ring, .25 * a); g.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, r * .35))
@@ -1242,6 +1269,30 @@ if __name__ == "__main__":
         for f in range(int(t0 * FPS), int(t1 * FPS)):
             enc.stdin.write(rd.rgba(f).tobytes())
         enc.stdin.close(); enc.wait(); print(out)
+    elif MODE == "preview":
+        # python3 akis.py BUILD preview 0 100 4  -> paralel kısa önizleme (müzikli)
+        from multiprocessing import Pool
+        t0, t1 = float(sys.argv[3]), float(sys.argv[4])
+        nproc = int(sys.argv[5]) if len(sys.argv) > 5 else os.cpu_count()
+        rd = Renderer(A)
+        f0, f1 = int(t0 * FPS), int(t1 * FPS)
+        n = nproc * 2
+        cuts = [f0 + round(i * (f1 - f0) / n) for i in range(n + 1)]
+        OUT_PREV = OUT
+        jobs = [(100 + i, cuts[i], cuts[i + 1]) for i in range(n)]
+        for j in jobs:
+            for ext in ("", ".done"):
+                if os.path.exists(f"{OUT}/akis_{j[0]:02d}.mp4{ext}"): os.remove(f"{OUT}/akis_{j[0]:02d}.mp4{ext}")
+        with Pool(nproc) as pool:
+            parts = pool.map(render_chunk, jobs, chunksize=1)
+        wav = build_audio(rd, f"{OUT}/ses_onizleme.wav")
+        lst = f"{OUT}/list_prev.txt"
+        open(lst, "w").write("".join(f"file '{p}'\n" for p in parts))
+        out = f"{OUT}/Onizleme_{int(t0)}-{int(t1)}sn.mp4"
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", lst, "-ss", str(t0), "-t", str(t1 - t0), "-i", wav,
+                        "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", out],
+                       check=True)
+        print(out)
     elif MODE == "render":
         from multiprocessing import Pool
         nproc = int(sys.argv[3]) if len(sys.argv) > 3 else os.cpu_count()
