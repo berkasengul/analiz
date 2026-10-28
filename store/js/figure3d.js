@@ -1,6 +1,9 @@
 // Gerçek 3D çocuk figürleri: her açıdan tutarlı, pijamalar desen ve baskılarıyla giydirilmiş.
 // Figürler 10 birim boyunda kurulur, sahnede ekrana göre ölçeklenir.
 import * as THREE from '../vendor/three.module.min.js';
+import { FACES, FACE_TRI, FACE_ALPHA } from './faces.js';
+import { GLTFLoader } from '../vendor/GLTFLoader.js';
+import { SPINS } from './spins.js';
 
 /* ---------- Kumaş dokuları ---------- */
 function tileCanvas(size, draw) {
@@ -247,29 +250,80 @@ function radiusAt(profile, y) {
   return profile[profile.length - 1].x;
 }
 
-const TORSO = [[1.2, 4.42], [1.22, 4.7], [1.15, 5.3], [1.12, 6.0], [1.14, 6.6], [1.07, 7.05], [0.86, 7.36], [0.5, 7.56], [0.36, 7.62]];
-const TORSO_Z = 0.74;
-const SLEEVE = [[0, 0.3], [0.32, 0.22], [0.45, 0], [0.43, -0.6], [0.39, -1.4], [0.36, -2.15], [0.35, -2.3]];
-const PELVIS = [[0.98, 3.7], [1.12, 4.0], [1.15, 4.5], [1.08, 4.9], [0.9, 5.0]];
-const LEG = [[0, 0.32], [0.46, 0.16], [0.58, 0], [0.56, -0.8], [0.48, -1.8], [0.43, -2.8], [0.41, -3.3]];
-const HEAD_C = new THREE.Vector3(0, 8.78, 0.04);
-const HEAD_R = 1.12;
-const HEAD_S = new THREE.Vector3(1, 1.04, 0.97);
+// Oranlar: figür 10 birim boyunda; gerçekçi, fit çocuk oranları (yaklaşık 6 baş boyu)
+const TORSO = [[0.82, 5.0], [0.84, 5.4], [0.78, 6.0], [0.79, 6.6], [0.85, 7.2], [0.84, 7.6], [0.66, 7.9], [0.36, 8.05], [0.27, 8.08]];
+const TORSO_Z = 0.62;
+const SLEEVE = [[0, 0.22], [0.24, 0.16], [0.3, 0], [0.28, -0.8], [0.26, -1.7], [0.23, -2.6], [0.22, -2.75]];
+const PELVIS = [[0.72, 4.45], [0.84, 4.75], [0.86, 5.2], [0.8, 5.45], [0.7, 5.5]];
+const LEG = [[0, 0.25], [0.36, 0.12], [0.44, 0], [0.42, -0.9], [0.36, -2.0], [0.31, -3.3], [0.29, -4.0]];
+const HEAD_C = new THREE.Vector3(0, 9.08, -0.12);
+const HEAD_R = 0.78;
+const HEAD_S = new THREE.Vector3(0.93, 1.08, 0.86);
+const FACE_W = 1.26; // yüz ovalinin genişliği
 
-function headSurface(x, y, lift = 0) {
-  const ny = (y - HEAD_C.y) / HEAD_S.y;
-  const z = Math.sqrt(Math.max(0, HEAD_R * HEAD_R - x * x - ny * ny)) * HEAD_S.z;
-  return new THREE.Vector3(x, y, HEAD_C.z + z + lift);
+// Kafatası yüzeyinin (x, y) noktasındaki ön z değeri
+function skullFrontZ(x, y) {
+  const nx = x / (HEAD_R * HEAD_S.x);
+  const ny = (y - HEAD_C.y) / (HEAD_R * HEAD_S.y);
+  const k = 1 - nx * nx - ny * ny;
+  return k > 0 ? HEAD_C.z + Math.sqrt(k) * HEAD_R * HEAD_S.z : -Infinity;
 }
 
-const radialTex = (() => {
+function shade(hex, amt) {
+  const c = new THREE.Color(hex);
+  c.offsetHSL(0, 0, amt);
+  return c;
+}
+
+// Gerçek yüz: fotoğraftan çıkarılmış 3D yüz yüzeyi, kenarları cilde yumuşakça karışır
+function faceMesh(face) {
+  const n = face.pos.length / 3;
+  const pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    pos[i * 3] = face.pos[i * 3] * FACE_W;
+    pos[i * 3 + 1] = HEAD_C.y - 0.06 + face.pos[i * 3 + 1] * FACE_W;
+    pos[i * 3 + 2] = face.pos[i * 3 + 2] * FACE_W;
+  }
+  // Yüzü kafatasının önüne oturt: iç noktalar kafatasının dışında kalsın
+  let off = -Infinity;
+  for (let i = 0; i < n; i++) {
+    if (FACE_ALPHA[i] < 1) continue;
+    const need = skullFrontZ(pos[i * 3], pos[i * 3 + 1]) + 0.012 - pos[i * 3 + 2];
+    if (need > off) off = need;
+  }
+  for (let i = 0; i < n; i++) pos[i * 3 + 2] += off;
+  const col = new Float32Array(n * 4);
+  for (let i = 0; i < n; i++) { col[i * 4] = col[i * 4 + 1] = col[i * 4 + 2] = 1; col[i * 4 + 3] = FACE_ALPHA[i]; }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(face.uv), 2));
+  g.setAttribute('color', new THREE.BufferAttribute(col, 4));
+  g.setIndex(FACE_TRI);
+  g.computeVertexNormals();
+  return g;
+}
+
+/* ---------- Premium kaide ---------- */
+const PED_H = 0.32;
+function pedestal(p, add, root) {
+  const base = add(root, new THREE.CylinderGeometry(1.5, 1.6, PED_H, 72), new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.08, metalness: 0.0 }));
+  base.position.y = PED_H / 2;
+  const ring = add(root, new THREE.TorusGeometry(1.52, 0.035, 12, 96), new THREE.MeshStandardMaterial({ color: p.accent, emissive: p.accent, emissiveIntensity: 0.9, roughness: 0.3 }), false);
+  ring.rotation.x = Math.PI / 2;
+  ring.position.y = PED_H - 0.02;
+  const glow = new THREE.Mesh(new THREE.CircleGeometry(2.6, 64), new THREE.MeshBasicMaterial({ map: glowTex(), color: p.accent, transparent: true, opacity: 0.55, depthWrite: false }));
+  glow.rotation.x = -Math.PI / 2;
+  glow.position.y = 0.01;
+  root.add(glow);
+}
+const glowTex = (() => {
   let t = null;
   return () => {
     if (t) return t;
     const c = document.createElement('canvas');
     c.width = c.height = 128;
     const x = c.getContext('2d');
-    const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    const g = x.createRadialGradient(64, 64, 20, 64, 64, 64);
     g.addColorStop(0, 'rgba(255,255,255,1)');
     g.addColorStop(1, 'rgba(255,255,255,0)');
     x.fillStyle = g;
@@ -279,11 +333,105 @@ const radialTex = (() => {
   };
 })();
 
-/* ---------- Figür ---------- */
-function buildFigure(p, cache) {
-  const f = p.figure;
+/* ---------- Gerçek 3D model (GLB): görselden-3D ya da tarama ile üretilmiş ---------- */
+const gltf = new GLTFLoader();
+function glbFigure(p) {
   const root = new THREE.Group();
   const body = new THREE.Group();
+  body.position.y = PED_H;
+  root.add(body);
+  const meshes = [];
+  const add = (parent, geo, mat, cast = true) => { const m = new THREE.Mesh(geo, mat); m.castShadow = cast; m.receiveShadow = true; parent.add(m); meshes.push(m); return m; };
+  pedestal(p, add, root);
+  const head = new THREE.Group();
+  const arms = [new THREE.Group(), new THREE.Group()];
+  gltf.load(p.model3d, (g) => {
+    const m = g.scene;
+    const box = new THREE.Box3().setFromObject(m);
+    const size = box.getSize(new THREE.Vector3());
+    const k = 10 / size.y; // figür boyu 10 birim: diğer sahnelerle aynı ölçek
+    m.scale.setScalar(k);
+    const c = box.getCenter(new THREE.Vector3());
+    m.position.set(-c.x * k, -box.min.y * k, -c.z * k);
+    if (p.model3dRotY) m.rotation.y = p.model3dRotY;
+    m.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; meshes.push(o); } });
+    body.add(m);
+  });
+  const anchors = { baski: new THREE.Vector3(0, 6.6, 0.75), desen: new THREE.Vector3(-0.42, 2.6, 0.45), manset: new THREE.Vector3(0.4, 0.75, 0.4) };
+  return { root, body, head, arms, legs: [], eyes: [], meshes, anchors };
+}
+
+/* ---------- 360° model: turntable karelerinden, kameraya göre doğru açı ---------- */
+const TAU = Math.PI * 2;
+function spinFigure(p) {
+  const spin = SPINS[p.spin];
+  const root = new THREE.Group();
+  const body = new THREE.Group();
+  body.position.y = PED_H;
+  root.add(body);
+  const meshes = [];
+  const add = (parent, geo, mat, cast = true) => { const m = new THREE.Mesh(geo, mat); m.castShadow = cast; m.receiveShadow = true; parent.add(m); meshes.push(m); return m; };
+  pedestal(p, add, root);
+  const loader = new THREE.TextureLoader();
+  const n = spin.frames.length;
+  const texs = new Array(n);
+  const get = (i) => {
+    if (!texs[i]) {
+      texs[i] = loader.load(spin.frames[i]);
+      texs[i].colorSpace = THREE.SRGBColorSpace;
+      texs[i].anisotropy = 8;
+    }
+    return texs[i];
+  };
+  // Önce her 4. kare, sonra hepsi (ilk açılış hızlı olsun)
+  for (let i = 0; i < n; i += 4) get(i);
+  setTimeout(() => { for (let i = 0; i < n; i++) get(i); }, 1200);
+  const Hh = 10.1;
+  const geo = new THREE.PlaneGeometry(Hh * spin.aspect, Hh);
+  geo.translate(0, Hh / 2, 0);
+  const mat = new THREE.MeshBasicMaterial({ map: get(0), transparent: true, alphaTest: 0.35, side: THREE.DoubleSide, toneMapped: false });
+  const plane = new THREE.Mesh(geo, mat);
+  plane.castShadow = false;
+  body.add(plane);
+  meshes.push(plane);
+  // Gölge: yere yayılan yumuşak leke
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.2, 48), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#2b2f6b', transparent: true, opacity: 0.35, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.position.y = 0.012;
+  shadow.scale.set(1, 0.6, 1);
+  body.add(shadow);
+  const wp = new THREE.Vector3();
+  const wq = new THREE.Quaternion();
+  const e = new THREE.Euler();
+  plane.onBeforeRender = (renderer, scene, camera) => {
+    root.getWorldPosition(wp);
+    root.getWorldQuaternion(wq);
+    e.setFromQuaternion(wq, 'YXZ');
+    const camYaw = Math.atan2(camera.position.x - wp.x, camera.position.z - wp.z);
+    // Modelin kameraya göre açısı -> kare
+    const ang = ((camYaw - e.y) % TAU + TAU) % TAU;
+    let i = Math.round((ang / TAU) * n) % n;
+    if (!texs[i] || !texs[i].image) i -= i % 4;
+    if (mat.map !== texs[i]) { mat.map = texs[i]; }
+    // Plane daima kameraya baksın
+    plane.rotation.y = camYaw - e.y;
+    plane.updateMatrixWorld();
+  };
+  const head = new THREE.Group();
+  const arms = [new THREE.Group(), new THREE.Group()];
+  const anchors = { baski: new THREE.Vector3(0, 6.9, 0.6), desen: new THREE.Vector3(-0.8, 2.8, 0.3), manset: new THREE.Vector3(0.45, 0.7, 0.3) };
+  return { root, body, head, arms, legs: [], eyes: [], meshes, anchors, spin: true };
+}
+
+/* ---------- Figür ---------- */
+function buildFigure(p, cache) {
+  if (p.model3d) return glbFigure(p);
+  if (p.spin && SPINS[p.spin]) return spinFigure(p);
+  const f = p.figure;
+  const face = FACES[f.face];
+  const root = new THREE.Group();
+  const body = new THREE.Group();
+  body.position.y = PED_H;
   root.add(body);
   const meshes = [];
   const add = (parent, geo, mat, cast = true) => {
@@ -294,39 +442,35 @@ function buildFigure(p, cache) {
     meshes.push(m);
     return m;
   };
+  pedestal(p, add, root);
   const cloth = (tex, color = '#ffffff') => new THREE.MeshPhysicalMaterial({
     map: tex, color, roughness: 0.82, sheen: 0.7, sheenRoughness: 0.75, sheenColor: new THREE.Color('#ffffff'), side: THREE.DoubleSide,
   });
-  const skin = new THREE.MeshPhysicalMaterial({ color: f.skin, roughness: 0.5, sheen: 0.35, sheenColor: new THREE.Color('#ffd8c8'), clearcoat: 0.08 });
-  const hairMat = new THREE.MeshPhysicalMaterial({ color: f.hair.color, roughness: 0.42, sheen: 0.5, sheenColor: new THREE.Color('#fff2e0'), clearcoat: 0.15 });
+  const skinColor = face ? shade(face.skin, -0.02) : new THREE.Color(f.skin);
+  const skin = new THREE.MeshPhysicalMaterial({ color: skinColor, roughness: 0.55, sheen: 0.3, sheenColor: new THREE.Color('#ffd8c8') });
+  const hairMat = new THREE.MeshPhysicalMaterial({ color: f.hair.color, roughness: 0.5, sheen: 0.6, sheenColor: new THREE.Color('#fff2e0'), clearcoat: 0.1 });
   const ribTop = new THREE.MeshPhysicalMaterial({ color: f.rib, roughness: 0.75, sheen: 0.5 });
   const ribPants = new THREE.MeshPhysicalMaterial({ color: f.pantsRib || f.rib, roughness: 0.75, sheen: 0.5 });
   const sock = new THREE.MeshPhysicalMaterial({ color: f.sock || '#f6f6f8', roughness: 0.8, sheen: 0.6 });
-
   const topTex = fabricTexture(f.top, cache);
   const pantsTex = fabricTexture(f.pants, cache);
 
-  // Gövde (üst)
+  // Gövde
   const torsoProfile = smoothProfile(TORSO);
-  const torso = add(body, new THREE.LatheGeometry(torsoProfile, 64), cloth(repeated(topTex, 3, 1.6, f.top.scale)));
+  const torso = add(body, new THREE.LatheGeometry(torsoProfile, 64), cloth(repeated(topTex, 2.6, 1.5, f.top.scale)));
   torso.scale.z = TORSO_Z;
-  // Ön baskı: gövde yüzeyini izleyen ince kaplama
   if (f.print) {
-    const ph = f.printH || 1.55;
-    const y0 = 6.95 - ph;
-    const y1 = 6.95;
-    const halfW = Math.min(1.25, ((f.printAspect || 1) * ph) / 2 / 1.02);
-    const cols = 40;
-    const rows = 30;
-    const geo = new THREE.PlaneGeometry(1, 1, cols, rows);
+    const ph = (f.printH || 1.55) * 0.72;
+    const y1 = 7.5;
+    const y0 = y1 - ph;
+    const halfW = Math.min(1.05, ((f.printAspect || 1) * ph) / 2 / 0.8);
+    const geo = new THREE.PlaneGeometry(1, 1, 40, 30);
     const pos = geo.attributes.position;
     const uv = geo.attributes.uv;
     for (let k = 0; k < pos.count; k++) {
-      const u = uv.getX(k);
-      const v = uv.getY(k);
-      const y = y0 + v * (y1 - y0);
-      const phi = (u - 0.5) * 2 * halfW;
-      const r = radiusAt(torsoProfile, y) + 0.015;
+      const y = y0 + uv.getY(k) * (y1 - y0);
+      const phi = (uv.getX(k) - 0.5) * 2 * halfW;
+      const r = radiusAt(torsoProfile, y) + 0.012;
       pos.setXYZ(k, Math.sin(phi) * r, y, Math.cos(phi) * r * TORSO_Z + 0.004);
     }
     geo.computeVertexNormals();
@@ -336,115 +480,100 @@ function buildFigure(p, cache) {
     const m = add(body, geo, new THREE.MeshStandardMaterial({ map: tex, transparent: true, roughness: 0.85, polygonOffset: true, polygonOffsetFactor: -2 }), false);
     m.renderOrder = 2;
   }
-  // Yaka
-  const collar = add(body, new THREE.TorusGeometry(0.42, 0.085, 16, 48), ribTop);
+  const collar = add(body, new THREE.TorusGeometry(0.29, 0.06, 16, 48), ribTop);
   collar.rotation.x = Math.PI / 2;
-  collar.position.y = 7.58;
-  collar.scale.set(1, 0.88, 1);
-  // Alt: bel + bacaklar
-  const pelvis = add(body, lathe(PELVIS), cloth(repeated(pantsTex, 3, 0.7, f.pants.scale)));
-  pelvis.scale.z = 0.78;
+  collar.position.y = 8.05;
+  collar.scale.set(1, 0.85, 1);
+  // Alt
+  const pelvis = add(body, lathe(PELVIS), cloth(repeated(pantsTex, 2.6, 0.6, f.pants.scale)));
+  pelvis.scale.z = 0.74;
   const legs = [];
   for (const side of [-1, 1]) {
     const g = new THREE.Group();
-    g.position.set(side * 0.5, 4.02, 0);
-    g.rotation.z = side * 0.05;
+    g.position.set(side * 0.38, 4.75, 0);
+    g.rotation.z = side * 0.035;
     body.add(g);
-    add(g, lathe(LEG, 40), cloth(repeated(pantsTex, 2, 1.9, f.pants.scale)));
-    const cuff = add(g, new THREE.CylinderGeometry(0.42, 0.4, 0.34, 32), ribPants);
-    cuff.position.y = -3.46;
+    add(g, lathe(LEG, 40), cloth(repeated(pantsTex, 1.5, 2.1, f.pants.scale)));
+    const cuff = add(g, new THREE.CylinderGeometry(0.3, 0.29, 0.3, 32), ribPants);
+    cuff.position.y = -4.13;
     const foot = add(g, new THREE.SphereGeometry(1, 32, 20), sock);
-    foot.scale.set(0.34, 0.26, 0.5);
-    foot.position.set(0, -3.76, 0.14);
+    foot.scale.set(0.24, 0.19, 0.4);
+    foot.position.set(0, -4.5, 0.11);
     legs.push(g);
   }
   // Kollar
   const arms = [];
   for (const side of [-1, 1]) {
     const g = new THREE.Group();
-    g.position.set(side * 1.0, 6.95, 0);
-    g.rotation.z = side * 0.2;
+    g.position.set(side * 0.76, 7.72, 0);
+    g.rotation.z = side * 0.12;
     body.add(g);
-    add(g, lathe(SLEEVE, 40), cloth(repeated(topTex, 1.5, 1.4, f.top.scale)));
-    const cuff = add(g, new THREE.TorusGeometry(0.33, 0.075, 12, 36), ribTop);
+    add(g, lathe(SLEEVE, 40), cloth(repeated(topTex, 1.2, 1.4, f.top.scale)));
+    const cuff = add(g, new THREE.TorusGeometry(0.22, 0.05, 12, 36), ribTop);
     cuff.rotation.x = Math.PI / 2;
-    cuff.position.y = -2.3;
-    const hand = add(g, new THREE.SphereGeometry(0.27, 28, 20), skin);
-    hand.scale.set(0.85, 1.12, 0.75);
-    hand.position.y = -2.62;
+    cuff.position.y = -2.75;
+    const hand = add(g, new THREE.SphereGeometry(0.17, 28, 20), skin);
+    hand.scale.set(0.8, 1.15, 0.62);
+    hand.position.y = -2.97;
     arms.push(g);
   }
   // Boyun + baş
-  const neck = add(body, new THREE.CylinderGeometry(0.31, 0.34, 0.6, 24), skin);
-  neck.position.y = 7.62;
+  const neck = add(body, new THREE.CylinderGeometry(0.2, 0.23, 0.55, 24), skin);
+  neck.position.y = 8.22;
   const head = new THREE.Group();
-  head.position.set(0, 7.75, 0);
+  head.position.set(0, 8.2, 0);
   body.add(head);
-  const H = (v) => v.clone().sub(new THREE.Vector3(0, 7.75, 0));
+  const H = (v) => v.clone().sub(new THREE.Vector3(0, 8.2, 0));
   const skull = add(head, new THREE.SphereGeometry(HEAD_R, 64, 48), skin);
   skull.position.copy(H(HEAD_C));
   skull.scale.copy(HEAD_S);
   for (const side of [-1, 1]) {
-    const ear = add(head, new THREE.SphereGeometry(0.2, 20, 16), skin);
-    ear.position.copy(H(new THREE.Vector3(side * 1.08, 8.68, 0)));
-    ear.scale.set(0.55, 1, 0.8);
+    const ear = add(head, new THREE.SphereGeometry(0.13, 20, 16), skin);
+    ear.position.copy(H(new THREE.Vector3(side * 0.71, 9.0, -0.08)));
+    ear.scale.set(0.5, 1, 0.75);
   }
-  // Yüz
-  const eyeMat = new THREE.MeshPhysicalMaterial({ color: '#2a2030', roughness: 0.15, clearcoat: 1 });
-  const white = new THREE.MeshBasicMaterial({ color: '#ffffff' });
   const eyes = [];
-  for (const side of [-1, 1]) {
-    const ep = headSurface(side * 0.4, 8.64, -0.075);
-    const eye = add(head, new THREE.SphereGeometry(0.19, 24, 18), eyeMat, false);
-    eye.position.copy(H(ep));
-    eye.scale.set(0.92, 1.22, 0.42);
-    eye.lookAt(eye.position.clone().add(ep.clone().sub(HEAD_C).normalize()));
-    const hl = add(head, new THREE.SphereGeometry(0.055, 12, 10), white, false);
-    hl.position.copy(H(headSurface(side * 0.4 + 0.06, 8.73, 0.0)));
-    eyes.push(eye, hl);
-    const brow = add(head, new THREE.CapsuleGeometry(0.03, 0.22, 4, 8), new THREE.MeshStandardMaterial({ color: f.hair.brow || f.hair.color, roughness: 0.6 }), false);
-    brow.position.copy(H(headSurface(side * 0.4, 8.97, 0.01)));
-    brow.rotation.z = Math.PI / 2 + side * 0.18;
-    const cheek = add(head, new THREE.CircleGeometry(0.2, 24), new THREE.MeshBasicMaterial({ map: radialTex(), color: '#ff8fa8', transparent: true, opacity: 0.55, depthWrite: false }), false);
-    const cp = headSurface(side * 0.66, 8.33, 0.006);
-    cheek.position.copy(H(cp));
-    cheek.lookAt(H(cp).add(cp.clone().sub(HEAD_C).normalize()));
+  if (face) {
+    const tex = new THREE.TextureLoader().load(face.img);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    // Fotoğrafın kendi ışığı korunur, sahne ışığı hafifçe eklenir
+    const mat = new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: '#ffffff', emissiveIntensity: 0.42, color: '#c4c4c4', roughness: 0.62, vertexColors: true, transparent: true, depthWrite: true });
+    const fm = add(head, faceMesh(face), mat, false);
+    fm.position.copy(H(new THREE.Vector3(0, 0, 0)));
+    fm.renderOrder = 1;
   }
-  const nose = add(head, new THREE.SphereGeometry(0.085, 16, 12), skin, false);
-  nose.position.copy(H(headSurface(0, 8.4, -0.05)));
-  const smile = new THREE.CatmullRomCurve3([[-0.25, 8.15], [-0.12, 8.04], [0, 8.01], [0.12, 8.04], [0.25, 8.15]].map(([x, y]) => H(headSurface(x, y, 0.005))));
-  add(head, new THREE.TubeGeometry(smile, 24, 0.034, 8, false), new THREE.MeshStandardMaterial({ color: '#b84a60', roughness: 0.5 }), false);
-  // Saç
+  // Saç: alından enseye kapak
   const style = f.hair.style;
-  const cap = add(head, new THREE.SphereGeometry(HEAD_R * (style === 'short' ? 1.085 : 1.07), 64, 32, 0, Math.PI * 2, 0, style === 'short' ? 1.72 : 1.8), hairMat);
-  cap.position.copy(H(HEAD_C));
-  cap.scale.copy(HEAD_S);
-  cap.rotation.x = style === 'short' ? -0.66 : -0.55;
+  const capGeo = new THREE.SphereGeometry(HEAD_R * 1.07, 64, 40, 0, Math.PI * 2, 0, style === 'short' ? 1.42 : 1.5);
+  const cap = add(head, capGeo, hairMat);
+  cap.position.copy(H(HEAD_C.clone().add(new THREE.Vector3(0, 0.02, 0.05))));
+  cap.scale.set(HEAD_S.x, HEAD_S.y, 1.0);
+  cap.rotation.x = style === 'short' ? -0.58 : -0.66;
   if (style === 'long') {
-    const back = add(head, new THREE.CapsuleGeometry(0.95, 1.4, 10, 28), hairMat);
-    back.position.copy(H(new THREE.Vector3(0, 7.95, -0.6)));
-    back.scale.set(1.12, 1, 0.5);
+    const back = add(head, new THREE.CapsuleGeometry(0.62, 1.1, 10, 28), hairMat);
+    back.position.copy(H(new THREE.Vector3(0, 8.45, -0.42)));
+    back.scale.set(1.05, 1, 0.48);
     for (const side of [-1, 1]) {
-      const strand = add(head, new THREE.CapsuleGeometry(0.25, 1.2, 8, 16), hairMat);
-      strand.position.copy(H(new THREE.Vector3(side * 0.98, 8.0, -0.1)));
-      strand.rotation.z = side * 0.08;
+      const strand = add(head, new THREE.CapsuleGeometry(0.17, 1.0, 8, 16), hairMat);
+      strand.position.copy(H(new THREE.Vector3(side * 0.66, 8.55, -0.12)));
+      strand.rotation.z = side * 0.06;
       strand.scale.set(1, 1, 0.7);
     }
   }
   if (style === 'ponytail') {
-    const tie = add(head, new THREE.TorusGeometry(0.16, 0.06, 10, 24), new THREE.MeshStandardMaterial({ color: f.hair.tie || '#e96bb8' }));
-    tie.position.copy(H(new THREE.Vector3(0, 9.05, -1.08)));
+    const tie = add(head, new THREE.TorusGeometry(0.11, 0.045, 10, 24), new THREE.MeshStandardMaterial({ color: f.hair.tie || '#e96bb8' }));
+    tie.position.copy(H(new THREE.Vector3(0, 9.3, -0.8)));
     tie.rotation.x = 0.9;
-    const tail = add(head, new THREE.CapsuleGeometry(0.26, 1.3, 8, 20), hairMat);
-    tail.position.copy(H(new THREE.Vector3(0, 8.4, -1.35)));
-    tail.rotation.x = 0.35;
+    const tail = add(head, new THREE.CapsuleGeometry(0.17, 1.0, 8, 20), hairMat);
+    tail.position.copy(H(new THREE.Vector3(0, 8.75, -0.98)));
+    tail.rotation.x = 0.32;
   }
 
-  // Etiket noktaları (figür yerel koordinatları)
   const anchors = {
-    baski: new THREE.Vector3(0, 6.2, radiusAt(torsoProfile, 6.2) * TORSO_Z + 0.05),
-    desen: new THREE.Vector3(-0.52, 2.4, 0.5),
-    manset: new THREE.Vector3(0.56, 0.6, 0.45),
+    baski: new THREE.Vector3(0, 6.9, radiusAt(torsoProfile, 6.9) * TORSO_Z + 0.05),
+    desen: new THREE.Vector3(-0.42, 2.6, 0.38),
+    manset: new THREE.Vector3(0.4, 0.75, 0.32),
   };
   meshes.forEach((m) => { if (m.material.envMapIntensity !== undefined) m.material.envMapIntensity = 0.55; });
   return { root, body, head, arms, legs, eyes, meshes, anchors };

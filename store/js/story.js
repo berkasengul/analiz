@@ -262,6 +262,7 @@ export function createStory(root, products, hooks = {}) {
     pin.style.setProperty('--bg-mid', rgb(mix(A.mid, B.mid, f)));
     pin.style.setProperty('--bg-deep', rgb(mix(A.deep, B.deep, f)));
     pin.style.setProperty('--acc', rgb(mix(A.acc, B.acc, f)));
+    pin.style.setProperty('--acc-ink', rgb(mix(mix(A.acc, B.acc, f), INK, 0.42)));
 
     const cx = portrait ? 0.5 : 0.63;
     mouse.sx += (mouse.x - mouse.sx) * 0.06;

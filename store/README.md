@@ -13,6 +13,22 @@ başını oynatır, göz kırpar, el sallar.
 | Final | Gece göğü, 3D ay ve yıldızlar, bulut üstünde el sallayan figür |
 | Ürün detayı | 360° döndürülebilir 3D figür ya da gerçek fotoğraf |
 
+## Gerçek 3D modeller (önerilen)
+
+Her ürün için en iyi sonuç, ürün fotoğrafından bir görselden-3D aracıyla
+(Tripo, Meshy, Rodin vb.) üretilmiş modeldir. Site iki biçimi destekler:
+
+- **GLB dosyası (en iyisi):** `assets/models/` içine koyup ürüne
+  `model3d: 'assets/models/kalpli-kedi.glb'` ekleyin. Model otomatik olarak
+  figür boyuna ölçeklenir, kaideye oturur, ışık ve gölge alır, 360° döner.
+- **Turntable videosu:** Tam bir tur dönen video karelere ayrılıp arka planı
+  temizlenir (`assets/spin/<ad>/`, `js/spins.js`), ürüne `spin: '<ad>'`
+  eklenir. Kamera açısına göre doğru kare gösterilir. Kalpli Kedi takımı şu an
+  bu yolla, Tripo videosundan gösteriliyor.
+
+Bunlar yoksa figür kodla çizilir; yüz, ürün fotoğrafındaki gerçek yüzden
+çıkarılan 3D yüz yüzeyidir (`js/faces.js`, MediaPipe Face Mesh).
+
 Desenler (kalp, yıldız, çilek, kutup ayısı, araçlar, rakun) kodla çizilen
 dikişsiz kumaş dokularıdır; ön baskılar ürün fotoğraflarından kesilir
 (`assets/tex/`). Detay ya da sepet açıkken arkadaki sahneler durur.
@@ -67,7 +83,9 @@ yüklenebilir.
 - `index.html` — sayfa yapısı (logo SVG olarak içeride)
 - `css/style.css` — tasarım, mobil uyum
 - `js/story.js` — vitrin: scroll geçişleri, arka plan renkleri, konfeti, etiketler
-- `js/figure3d.js` — 3D çocuk figürleri, kumaş desenleri, ortak 3D sahne
+- `js/figure3d.js` — 3D figürler (GLB, 360° kare dizisi, çizilmiş figür), kumaş desenleri, kaide, ortak 3D sahne
+- `js/faces.js`, `js/spins.js` — üretilmiş yüz ve 360° kare verileri
+- `vendor/GLTFLoader.js` — Three.js GLB yükleyici (MIT)
 - `js/scenes.js` — 3D ikonlar, koleksiyon dizilimi, final sahnesi, detay görüntüleyici
 - `vendor/three.module.min.js` — Three.js r160 (MIT)
 - `js/garments.js` — pijama takımları, desenler ve çocuk modellerin çizimi

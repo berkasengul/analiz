@@ -10,7 +10,7 @@ export const BRAND = 'SESA KIDS';
 // Kodlar ve fiyatlar örnektir; gerçek değerlerle değiştirin.
 export const PRODUCTS = [
   {
-    id: 'KK-01', figure: { skin: '#f2cdb4', hair: { color: '#6b4630', style: 'long' }, top: { pattern: 'solid', base: '#f3f0ea' }, rib: '#ece8e1', pants: { pattern: 'hearts', base: '#f6f4f0' }, print: 'assets/tex/kalpli-kedi-print.png', printAspect: 0.667, printH: 1.9 },
+    id: 'KK-01', spin: 'kalpli-kedi', figure: { face: 'kalpli-kedi', skin: '#f2cdb4', hair: { color: '#6b4630', style: 'long' }, top: { pattern: 'solid', base: '#f3f0ea' }, rib: '#ece8e1', pants: { pattern: 'hearts', base: '#f6f4f0' }, print: 'assets/tex/kalpli-kedi-print.png', printAspect: 0.667, printH: 1.9 },
     spots: { yaka: [0.55, 0.2], baski: [0.55, 0.32], desen: [0.35, 0.66], manset: [0.7, 0.89] },
     image: 'assets/kalpli-kedi.png', gender: 'kiz',
     accent: '#e96bb8', tint: '#ffeaf6', podium: '#ffc8e8',
@@ -19,7 +19,7 @@ export const PRODUCTS = [
     desc: 'Ekru üst üzerinde kalpli kedi baskısı, rengârenk kalp desenli manşetli alt.',
   },
   {
-    id: 'HL-06', figure: { skin: '#efc6a8', hair: { color: '#3b2a20', style: 'short' }, top: { pattern: 'stripes', base: '#55cfe2', stripe: '#1f3c8c' }, rib: '#22408f', pants: { pattern: 'vehicles', base: '#3fc6e6', scale: 0.6 }, pantsRib: '#5bd0e6', print: 'assets/tex/helikopter-print.png', printAspect: 1.222, printH: 1.4 },
+    id: 'HL-06', figure: { face: 'helikopter', skin: '#efc6a8', hair: { color: '#3b2a20', style: 'short' }, top: { pattern: 'stripes', base: '#55cfe2', stripe: '#1f3c8c' }, rib: '#22408f', pants: { pattern: 'vehicles', base: '#3fc6e6', scale: 0.6 }, pantsRib: '#5bd0e6', print: 'assets/tex/helikopter-print.png', printAspect: 1.222, printH: 1.4 },
     spots: { yaka: [0.55, 0.19], baski: [0.5, 0.34], desen: [0.45, 0.72], manset: [0.63, 0.94] },
     image: 'assets/helikopter.png', gender: 'erkek',
     accent: '#1f8fd0', tint: '#e0f4ff', podium: '#b5e2fa',
@@ -28,7 +28,7 @@ export const PRODUCTS = [
     desc: 'Lacivert çizgili turkuaz üstte helikopter baskısı, itfaiye ve trafik desenli alt.',
   },
   {
-    id: 'CL-05', figure: { skin: '#f2cdb4', hair: { color: '#563724', style: 'long' }, top: { pattern: 'berries', base: '#f7b8d4' }, rib: '#f4a6c8', pants: { pattern: 'berries', base: '#f7b8d4' }, print: 'assets/tex/cilek-print.png', printAspect: 0.849, printH: 1.6 },
+    id: 'CL-05', figure: { face: 'cilek', skin: '#f2cdb4', hair: { color: '#563724', style: 'long' }, top: { pattern: 'berries', base: '#f7b8d4' }, rib: '#f4a6c8', pants: { pattern: 'berries', base: '#f7b8d4' }, print: 'assets/tex/cilek-print.png', printAspect: 0.849, printH: 1.6 },
     spots: { yaka: [0.5, 0.2], baski: [0.5, 0.36], desen: [0.4, 0.72], manset: [0.78, 0.95] },
     image: 'assets/cilek.png', gender: 'kiz',
     accent: '#ec5c95', tint: '#ffe8f1', podium: '#ffc4da',
@@ -37,7 +37,7 @@ export const PRODUCTS = [
     desc: 'Baştan aşağı çilek ve papatya desenli, önü çilek baskılı pembe takım.',
   },
   {
-    id: 'KA-02', figure: { skin: '#f0cbb2', hair: { color: '#4e3324', style: 'long' }, top: { pattern: 'solid', base: '#c4e8f5' }, rib: '#abdff0', pants: { pattern: 'bears', base: '#bfe5f3' }, print: 'assets/tex/kutup-ayisi-print.png', printAspect: 0.991, printH: 1.4 },
+    id: 'KA-02', figure: { face: 'kutup-ayisi', skin: '#f0cbb2', hair: { color: '#4e3324', style: 'long' }, top: { pattern: 'solid', base: '#c4e8f5' }, rib: '#abdff0', pants: { pattern: 'bears', base: '#bfe5f3' }, print: 'assets/tex/kutup-ayisi-print.png', printAspect: 0.991, printH: 1.4 },
     spots: { yaka: [0.45, 0.17], baski: [0.42, 0.3], desen: [0.3, 0.7], manset: [0.6, 0.9] },
     image: 'assets/kutup-ayisi.png', gender: 'kiz',
     accent: '#22aebf', tint: '#e0f7fa', podium: '#b8ecf3',
@@ -46,7 +46,7 @@ export const PRODUCTS = [
     desc: 'Mint rengi üstte fiyonklu ayıcık aplike, kutup ayısı desenli manşetli alt.',
   },
   {
-    id: 'RK-04', figure: { skin: '#f0cbb2', hair: { color: '#5a3a26', style: 'long' }, top: { pattern: 'solid', base: '#f8c8bd' }, rib: '#f4bcae', pants: { pattern: 'raccoons', base: '#a9a5a8', scale: 0.65 }, pantsRib: '#f6c2b4', print: 'assets/tex/rakun-print.png', printAspect: 1.031, printH: 1.6 },
+    id: 'RK-04', figure: { face: 'rakun', skin: '#f0cbb2', hair: { color: '#5a3a26', style: 'long' }, top: { pattern: 'solid', base: '#f8c8bd' }, rib: '#f4bcae', pants: { pattern: 'raccoons', base: '#a9a5a8', scale: 0.65 }, pantsRib: '#f6c2b4', print: 'assets/tex/rakun-print.png', printAspect: 1.031, printH: 1.6 },
     spots: { yaka: [0.52, 0.19], baski: [0.5, 0.36], desen: [0.5, 0.72], manset: [0.22, 0.95] },
     image: 'assets/rakun.png', gender: 'kiz',
     accent: '#ec7f5f', tint: '#ffefe9', podium: '#ffd3c5',
@@ -55,7 +55,7 @@ export const PRODUCTS = [
     desc: 'Somon üstte "Smile everyday" rakun baskısı, gri zemin üzerine rakun desenli alt.',
   },
   {
-    id: 'KR-03', figure: { skin: '#f2cfb8', hair: { color: '#7a5236', style: 'ponytail', tie: '#f9a25c' }, top: { pattern: 'solid', base: '#f1eff2' }, rib: '#e9e6ea', pants: { pattern: 'stars', base: '#1f3a42', star: '#e3b33c' }, pantsRib: '#1f3a42', print: 'assets/tex/kirpi-print.png', printAspect: 1.083, printH: 1.7 },
+    id: 'KR-03', figure: { face: 'kirpi', skin: '#f2cfb8', hair: { color: '#7a5236', style: 'ponytail', tie: '#f9a25c' }, top: { pattern: 'solid', base: '#f1eff2' }, rib: '#e9e6ea', pants: { pattern: 'stars', base: '#1f3a42', star: '#e3b33c' }, pantsRib: '#1f3a42', print: 'assets/tex/kirpi-print.png', printAspect: 1.083, printH: 1.7 },
     spots: { yaka: [0.5, 0.17], baski: [0.55, 0.33], desen: [0.62, 0.72], manset: [0.58, 0.96] },
     image: 'assets/kirpi.png', gender: 'kiz',
     accent: '#d1931a', tint: '#fff5dd', podium: '#ffe0a3',
