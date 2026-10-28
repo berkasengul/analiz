@@ -100,7 +100,7 @@ export function createLineup(canvas, products, hooks = {}) {
     const q = clampS(1 - (r.top + r.height * 0.3) / innerHeight); // bölüme girişte kamera yaklaşır
     const e = 1 - Math.pow(1 - q, 3);
     if (portrait) {
-      camera.position.set(0, 20 - e * 4, 62 - e * 10);
+      camera.position.set(0, 24 - e * 4, 92 - e * 12);
       camera.lookAt(0, 3.4, -9);
     } else {
       camera.position.set(Math.sin(t * 0.12) * 1.2, 16 - e * 4, 60 - e * 12);
