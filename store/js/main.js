@@ -1,11 +1,10 @@
 import { PRODUCTS, byId, formatPrice, sizeLabel } from './products.js';
 import { renderSet, renderModel, modelThumb, loadProductImage } from './garments.js';
-import { createShowcase } from './showcase.js';
+import { createStory } from './story.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const N = PRODUCTS.length;
-const AUTO_MS = 3800;
 
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
@@ -27,106 +26,22 @@ const paint = (el, p) => {
 };
 const ageRange = (p) => `${p.sizes[0].split('-')[0]}–${p.sizes[p.sizes.length - 1].split('-')[1]} yaş`;
 
-/* ---------- 3D vitrin ---------- */
-const stage = $('.stage');
-const spot = $('.spot');
-let focused = PRODUCTS[0];
+/* ---------- Sinematik hikâye ---------- */
+const stage = $('.story');
+$('.swatches').innerHTML = PRODUCTS.map((p) => `
+  <button class="swatch" data-pick="${p.id}" style="--accent:${p.accent};--tint:${p.tint}" aria-label="${p.name}">
+    <img src="${p.image}" alt="" loading="lazy">
+  </button>`).join('');
+$('.picker').innerHTML = PRODUCTS.map((p) => `
+  <li><button data-pick="${p.id}" style="--accent:${p.accent}">
+    <span class="pk-name">${p.name.replace(' Takımı', '').replace(' Takım', '')}</span>
+    <span class="pk-price">${formatPrice(p.price)}</span>
+  </button></li>`).join('');
 
-$('.dots').innerHTML = PRODUCTS.map((p, i) => `<button role="tab" style="--c:${p.accent}" data-i="${i}" aria-label="${p.name}"></button>`).join('');
-
-function showFocus(p, i) {
-  focused = p;
-  paint(spot, p);
-  $('.spot-code').textContent = p.code;
-  $('.spot-name').textContent = p.name;
-  $('.spot-desc').textContent = p.desc;
-  $('.spot-price').textContent = formatPrice(p.price);
-  $('.spot-age').textContent = ageRange(p);
-  spot.classList.remove('swap');
-  void spot.offsetWidth;
-  spot.classList.add('swap');
-  $$('.dots button').forEach((d, k) => {
-    d.classList.toggle('is-active', k === i);
-    d.setAttribute('aria-selected', k === i);
-  });
-}
-showFocus(PRODUCTS[0], 0);
-
-// Hedef = scroll'dan gelen konum + oklar/sürükleme/otomatik dönüşten gelen ek
-let extra = 0;
-let lastInput = 0;
-let autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const show = createShowcase($('.showcase'), PRODUCTS, {
-  onFocus: showFocus,
-  onSelect: (p) => openDetail(p.id),
-  onDrag: (d) => { extra -= d; touch(); update(); },
-  onDragEnd: () => snapSoon(0),
+const story = createStory(stage, PRODUCTS, {
+  onOpen: (p) => openDetail(p.id),
+  isBusy: () => !detail.hidden || cartEl.classList.contains('is-open'),
 });
-
-if (!show) {
-  $('.no-webgl').hidden = false;
-  $('.stage-ui').hidden = true;
-  stage.style.height = '100vh';
-}
-
-function stageProgress() {
-  const span = stage.offsetHeight - innerHeight;
-  return span > 0 ? Math.min(1, Math.max(0, (scrollY - stage.offsetTop) / span)) : 0;
-}
-const raw = () => stageProgress() * N + extra;
-function update() { show?.setTarget(raw()); }
-function touch() { lastInput = performance.now(); }
-
-let snapTimer;
-function snapSoon(ms = 180) {
-  clearTimeout(snapTimer);
-  snapTimer = setTimeout(() => {
-    const r = raw();
-    extra += Math.round(r) - r;
-    update();
-  }, ms);
-}
-
-addEventListener('scroll', () => { touch(); update(); snapSoon(); }, { passive: true });
-addEventListener('resize', update);
-update();
-
-function go(d) {
-  extra = Math.round(raw() + d) - stageProgress() * N;
-  touch();
-  update();
-}
-function goTo(i) {
-  const cur = Math.round(raw());
-  let d = ((i - cur) % N + N) % N;
-  if (d > N / 2) d -= N;
-  go(d);
-}
-$('.stage-ui .prev').addEventListener('click', () => go(-1));
-$('.stage-ui .next').addEventListener('click', () => go(1));
-$('.dots').addEventListener('click', (e) => {
-  const b = e.target.closest('button');
-  if (b) goTo(Number(b.dataset.i));
-});
-$('.auto').addEventListener('click', (e) => {
-  autoplay = !autoplay;
-  const b = e.currentTarget;
-  b.classList.toggle('is-on', autoplay);
-  b.setAttribute('aria-pressed', autoplay);
-  b.setAttribute('aria-label', autoplay ? 'Otomatik dönüşü durdur' : 'Otomatik dönüşü başlat');
-});
-$('.spot-open').addEventListener('click', () => openDetail(focused.id));
-
-// Otomatik dönüş: kullanıcı birkaç saniye dokunmazsa sıradaki modele geçer
-setInterval(() => {
-  if (!show || !autoplay || !detail.hidden || document.hidden) return;
-  if (performance.now() - lastInput < AUTO_MS) return;
-  const r = stage.getBoundingClientRect();
-  if (r.bottom < innerHeight * 0.5 || r.top > innerHeight * 0.5) return;
-  extra += 1;
-  update();
-}, AUTO_MS);
 
 /* ---------- Menü, arama ---------- */
 $$('[data-scroll]').forEach((a) => a.addEventListener('click', (e) => {
@@ -148,9 +63,8 @@ $('.search').addEventListener('submit', (e) => {
   });
   if (!hit) { toast('Aramanıza uygun pijama bulunamadı.'); return; }
   $('#search').blur();
-  const top = stage.offsetTop;
-  if (Math.abs(scrollY - top) > innerHeight) window.scrollTo({ top, behavior: 'smooth' });
-  goTo(PRODUCTS.indexOf(hit));
+  story.setProduct(hit.id);
+  story.goChapter(4);
 });
 
 /* ---------- Koleksiyon ---------- */
@@ -236,15 +150,12 @@ function openDetail(id) {
   fillDetail();
   detail.hidden = false;
   document.body.style.overflow = 'hidden';
-  show?.pause();
   requestAnimationFrame(() => detail.classList.add('is-open'));
   $('.detail-close').focus({ preventScroll: true });
 }
 function closeDetail() {
   detail.classList.remove('is-open');
   document.body.style.overflow = '';
-  show?.resume();
-  touch();
   setTimeout(() => { detail.hidden = true; }, 300);
   state.lastFocus?.focus?.({ preventScroll: true });
 }
@@ -294,7 +205,7 @@ addEventListener('keydown', (e) => {
   } else if (cartEl.classList.contains('is-open')) {
     if (e.key === 'Escape') toggleCart(false);
   } else if (e.target === document.body && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
-    go(e.key === 'ArrowRight' ? 1 : -1);
+    story.next(e.key === 'ArrowRight' ? 1 : -1);
   }
 });
 

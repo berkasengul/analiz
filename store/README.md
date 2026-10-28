@@ -1,10 +1,20 @@
-# SESA KIDS — 3D Scroll Pijama Mağazası
+# SESA KIDS — Sinematik Pijama Mağazası
 
-Çocuk pijama takımları için renkli, 3D vitrinli mağaza sitesi. Pijamaları
-giyen çocuk modeller logo renklerindeki kaideler üzerinde duruyor; vitrin
-scroll, sürükleme, oklar ve otomatik dönüşle çevriliyor. Bulutlar, yıldızlar,
-odaktaki ürünün renginde ışık halesi ve modellerin hafif zıplaması vitrine
-hareket katıyor.
+Çocuk pijama takımları için sinematik, scroll ile ilerleyen bir mağaza sitesi.
+Gece göğü, ay, kayan yıldızlar ve bulut denizi önünde gerçek çocuk fotoğrafları;
+arkada dev SESA KIDS yazısı. Kaydırdıkça kamera ürüne yaklaşır ve beş sahne
+ilerler:
+
+| Sahne | İçerik |
+| --- | --- |
+| 00 Masal | Açılış, ürün kartı, takım seçici |
+| 01 Desen | Ön baskıya yakın çekim |
+| 02 Rüya modu | "Basılı tut" ile ışıklar söner, gök kararır, yıldızlar parlar |
+| 03 Detaylar | Fotoğraf üzerinde numaralı noktalar (yaka, baskı, desen, paça) |
+| 04 Koleksiyon | Tüm takımların listesi; boşta kalınca kendiliğinden değişir |
+
+İlham alınan referans: "VAEL" mont sitesi (sinematik scroll, dev marka yazısı,
+numaralı sahneler, kızılötesi mod, detay noktaları, renk seçici).
 
 ## Referans video analizi ("Pov: Random Clothing Store in 2027")
 
@@ -26,10 +36,12 @@ arka planı silinmiş halleri `assets/` klasöründe. **Ürün kodları, fiyatla
 beden aralıkları örnektir** — gerçek değerlerle güncelleyin.
 
 Yeni ürün eklemek için arka planı silinmiş, çocuk modelli dikey bir PNG'yi
-`assets/` içine koyup listeye bir satır eklemek yeterli:
+`assets/` içine koyup listeye bir satır eklemek yeterli. `spots` alanı detay
+noktalarının fotoğraf üzerindeki yerleridir (0–1 arası x, y):
 
 ```js
 { id: 'XX-07', image: 'assets/yeni.png', gender: 'kiz', accent: '#e96bb8',
+  spots: { yaka: [0.5, 0.2], baski: [0.5, 0.33], desen: [0.4, 0.7], manset: [0.6, 0.94] },
   tint: '#ffeaf6', podium: '#ffc8e8', code: 'Kız çocuk', name: '...',
   price: 449, colorName: '...', sizes: SIZES, desc: '...' },
 ```
@@ -51,10 +63,9 @@ yüklenebilir.
 
 - `index.html` — sayfa yapısı (logo SVG olarak içeride)
 - `css/style.css` — tasarım, mobil uyum
-- `js/showcase.js` — 3D döner vitrin: kaideler, modeller, bulutlar, yıldızlar (Three.js)
+- `js/story.js` — sinematik scroll hikâyesi: kamera, gökyüzü, rüya modu, detay noktaları
 - `js/garments.js` — pijama takımları, desenler ve çocuk modellerin çizimi
-- `js/main.js` — scroll, otomatik dönüş, arama, detay ekranı, sepet
-- `vendor/three.module.min.js` — Three.js r160 (MIT)
+- `js/main.js` — arama, koleksiyon, detay ekranı, sepet
 
 ## Sonraki adımlar
 
