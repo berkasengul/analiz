@@ -1,17 +1,17 @@
-# SESA KIDS — Sinematik Pijama Mağazası
+# SESA KIDS — 3D Pijama Vitrini
 
-Çocuk pijama takımları için sinematik, scroll ile ilerleyen bir mağaza sitesi.
-Gece göğü, ay, kayan yıldızlar ve bulut denizi önünde gerçek çocuk fotoğrafları;
-arkada dev SESA KIDS yazısı. Kaydırdıkça kamera ürüne yaklaşır ve beş sahne
-ilerler:
+Çocuk pijama takımları için scroll ile ilerleyen, premium bir mağaza sitesi.
+Her takım kendi sahnesinde: aşağı kaydırdıkça bir sonraki çocuk modeli 3D
+olarak dönerek gelir, arka plan o takımın rengine (logo paletinde) akar.
 
-| Sahne | İçerik |
-| --- | --- |
-| 00 Masal | Açılış, ürün kartı, takım seçici |
-| 01 Desen | Ön baskıya yakın çekim |
-| 02 Rüya modu | "Basılı tut" ile ışıklar söner, gök kararır, yıldızlar parlar |
-| 03 Detaylar | Fotoğraf üzerinde numaralı noktalar (yaka, baskı, desen, paça) |
-| 04 Koleksiyon | Tüm takımların listesi; boşta kalınca kendiliğinden değişir |
+- **3D modeller:** Fotoğraflar, silüetten üretilen derinlik haritasıyla hacimli
+  3D yüzeylere dönüştürülür (Three.js). Işık ve gölge alır; fareyle eğilir,
+  sürükleyerek çevrilir, tıklayınca ürün detayı açılır.
+- **Etiketler:** "Ön baskı", "Desenli alt", "Manşetli paça" etiketleri 3D model
+  üzerindeki noktaları takip eder.
+- **Arka plan:** Ürün rengine göre değişen degrade, logo renklerinde bulanık
+  ışık lekeleri, yükselen konfeti/yıldızlar ve yumuşak bulut şeridi.
+- WebGL yoksa aynı sahneler düz fotoğraflarla çalışır.
 
 İlham alınan referans: "VAEL" mont sitesi (sinematik scroll, dev marka yazısı,
 numaralı sahneler, kızılötesi mod, detay noktaları, renk seçici).
@@ -37,10 +37,11 @@ beden aralıkları örnektir** — gerçek değerlerle güncelleyin.
 
 Yeni ürün eklemek için arka planı silinmiş, çocuk modelli dikey bir PNG'yi
 `assets/` içine koyup listeye bir satır eklemek yeterli. `spots` alanı detay
-noktalarının fotoğraf üzerindeki yerleridir (0–1 arası x, y):
+noktalarının fotoğraf üzerindeki yerleridir (0–1 arası x, y). 3D görünüm için
+aynı adla `-depth.png` derinlik haritası gerekir (beyaz = öne çıkan):
 
 ```js
-{ id: 'XX-07', image: 'assets/yeni.png', gender: 'kiz', accent: '#e96bb8',
+{ id: 'XX-07', image: 'assets/yeni.png', depth: 'assets/yeni-depth.png', gender: 'kiz', accent: '#e96bb8',
   spots: { yaka: [0.5, 0.2], baski: [0.5, 0.33], desen: [0.4, 0.7], manset: [0.6, 0.94] },
   tint: '#ffeaf6', podium: '#ffc8e8', code: 'Kız çocuk', name: '...',
   price: 449, colorName: '...', sizes: SIZES, desc: '...' },
@@ -63,7 +64,9 @@ yüklenebilir.
 
 - `index.html` — sayfa yapısı (logo SVG olarak içeride)
 - `css/style.css` — tasarım, mobil uyum
-- `js/story.js` — sinematik scroll hikâyesi: kamera, gökyüzü, rüya modu, detay noktaları
+- `js/story.js` — ürün sahneleri: scroll geçişleri, arka plan renkleri, konfeti, etiketler
+- `js/models3d.js` — fotoğraf + derinlik haritasından 3D model (Three.js)
+- `vendor/three.module.min.js` — Three.js r160 (MIT)
 - `js/garments.js` — pijama takımları, desenler ve çocuk modellerin çizimi
 - `js/main.js` — arama, koleksiyon, detay ekranı, sepet
 

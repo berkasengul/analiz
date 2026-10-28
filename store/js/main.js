@@ -28,16 +28,6 @@ const ageRange = (p) => `${p.sizes[0].split('-')[0]}–${p.sizes[p.sizes.length 
 
 /* ---------- Sinematik hikâye ---------- */
 const stage = $('.story');
-$('.swatches').innerHTML = PRODUCTS.map((p) => `
-  <button class="swatch" data-pick="${p.id}" style="--accent:${p.accent};--tint:${p.tint}" aria-label="${p.name}">
-    <img src="${p.image}" alt="" loading="lazy">
-  </button>`).join('');
-$('.picker').innerHTML = PRODUCTS.map((p) => `
-  <li><button data-pick="${p.id}" style="--accent:${p.accent}">
-    <span class="pk-name">${p.name.replace(' Takımı', '').replace(' Takım', '')}</span>
-    <span class="pk-price">${formatPrice(p.price)}</span>
-  </button></li>`).join('');
-
 const story = createStory(stage, PRODUCTS, {
   onOpen: (p) => openDetail(p.id),
   isBusy: () => !detail.hidden || cartEl.classList.contains('is-open'),
@@ -64,7 +54,6 @@ $('.search').addEventListener('submit', (e) => {
   if (!hit) { toast('Aramanıza uygun pijama bulunamadı.'); return; }
   $('#search').blur();
   story.setProduct(hit.id);
-  story.goChapter(4);
 });
 
 /* ---------- Koleksiyon ---------- */

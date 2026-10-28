@@ -1,163 +1,159 @@
-// Sinematik ürün hikâyesi: kaydırdıkça kamera ürüne yaklaşır, sahneler değişir.
-import { SPOTS, formatPrice } from './products.js';
+// Ürün sahneleri: aşağı kaydırdıkça bir sonraki model kayarak gelir,
+// arka plan o ürünün rengine geçer.
+import { formatPrice } from './products.js';
+import { createModels3D } from './models3d.js';
 
-const CH = 5;
-const BOX_ASPECT = 0.68; // tüm fotoğrafları içine alan kutu oranı (en / boy)
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (t) => { t = clamp(t); return t * t * (3 - 2 * t); };
-const lerp = (a, b, t) => a + (b - a) * t;
-const PASTEL = ['#79c3f6', '#f59bd6', '#f9a25c', '#ffd45c', '#ffffff'];
+const LOGO = ['#79c3f6', '#f59bd6', '#f9a25c', '#ffd45c'];
+const TAGS = [
+  { key: 'baski', label: 'Ön baskı' },
+  { key: 'desen', label: 'Desenli alt' },
+  { key: 'manset', label: 'Manşetli paça' },
+];
+
+const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+const rgb = (c) => `rgb(${c[0]},${c[1]},${c[2]})`;
+const WHITE = [255, 255, 255];
+const INK = [43, 47, 107];
 
 export function createStory(root, products, hooks = {}) {
   const $ = (s) => root.querySelector(s);
-  const $$ = (s) => [...root.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const cam = $('.cam');
-  const layers = $$('.cam-img');
-  const spotsEl = $('.spots');
+  const N = products.length;
+  const pin = $('.story-pin');
   const canvas = $('.sky');
   const ctx = canvas.getContext('2d');
-  const word = $('.wordmark');
-  const fog = $('.fog');
-  const chaps = $$('.chap');
-  const railItems = $$('.rail button');
+  const pad2 = (n) => String(n).padStart(2, '0');
+  const split = (name) => {
+    const m = name.match(/^(.*)\s(Takımı|Takım)$/);
+    return m ? [m[1], m[2]] : [name, ''];
+  };
 
-  let cur = products[0];
-  let layer = 0;
-  let spotKey = 'desen';
-  let holding = false;
-  let night = 0;
-  let lastInput = performance.now();
-  const sizes = new Map(); // ürün → en/boy oranı
-  const state = { s: 1, fx: 0.5, fy: 0.5, tx: 0.6, ty: 0.55, ready: false };
+  // Paletler: her ürün için açık, orta ve koyu ton
+  const pal = products.map((p) => {
+    const a = hex(p.accent);
+    return { light: mix(a, WHITE, 0.78), mid: mix(a, WHITE, 0.42), deep: mix(mix(a, INK, 0.12), WHITE, 0.08), acc: a };
+  });
+
+  /* ---------- İşaretleme ---------- */
+  $('.names').innerHTML = products.map((p) => `<span>${split(p.name)[0]}</span>`).join('');
+  $('.models').innerHTML = products.map((p) => `
+    <figure class="model">
+      <img src="${p.image}" alt="${p.name} pijama takımı" decoding="async" ${p === products[0] ? '' : 'loading="lazy"'}>
+      ${TAGS.map((t) => `<span class="tag" data-k="${t.key}"><i></i>${t.label}</span>`).join('')}
+    </figure>`).join('');
+  $('.panels').innerHTML = products.map((p, i) => {
+    const [a, b] = split(p.name);
+    return `
+    <article class="panel">
+      <p class="panel-no"><b>${pad2(i + 1)}</b> / ${pad2(N)} · ${p.code}</p>
+      <h2>${a}${b ? `<br> <em>${b}</em>` : ''}</h2>
+      <p class="panel-desc">${p.desc}</p>
+      <div class="panel-row">
+        <strong>${formatPrice(p.price)}</strong>
+        <span>${p.sizes[0].split('-')[0]}–${p.sizes[p.sizes.length - 1].split('-')[1]} yaş</span>
+        <span>${p.colorName}</span>
+      </div>
+      <button class="btn btn-ink" data-open="${p.id}">İncele ve beden seç</button>
+    </article>`;
+  }).join('');
+  $('.rail').innerHTML = products.map((p, i) => `
+    <button data-go="${i}" style="--c:${p.accent}"><b>${pad2(i + 1)}</b><span>${split(p.name)[0]}</span></button>`).join('');
+  $('.bar').innerHTML = products.map(() => '<i><b></b></i>').join('');
+
+  const names = [...$('.names').children];
+  const models = [...$('.models').children];
+  const panels = [...$('.panels').children];
+  const rails = [...$('.rail').children];
+  const bars = [...$('.bar').children].map((el) => el.firstElementChild);
+  const imgs = models.map((m) => m.querySelector('img'));
+
+  // 3D katman (WebGL yoksa düz fotoğraflar kullanılır)
+  const m3d = createModels3D($('.models3d'), products);
+  if (m3d) {
+    root.classList.add('is-3d');
+    $('.tags3d').innerHTML = products.map((p, i) => TAGS.map((t) => `<span class="tag" data-i="${i}" data-k="${t.key}"><i></i>${t.label}</span>`).join('')).join('');
+  }
+  const tags3d = m3d ? [...$('.tags3d').children] : [];
+  const drag = { on: false, x: 0, rot: 0, vel: 0 };
+  const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
+  const cv = $('.models3d');
+  cv.addEventListener('pointerdown', (e) => { drag.on = true; drag.x = e.clientX; drag.moved = 0; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'mouse') { mouse.x = e.clientX / vw - 0.5; mouse.y = e.clientY / vh - 0.5; }
+    if (!drag.on) return;
+    const dx = e.clientX - drag.x;
+    drag.x = e.clientX;
+    drag.moved += Math.abs(dx);
+    drag.rot = clamp(drag.rot + dx * 0.008, -1.1, 1.1);
+  });
+  const end = (e) => {
+    if (!drag.on) return;
+    drag.on = false;
+    if (drag.moved < 6 && m3d) {
+      const i = m3d.pick(e.clientX, e.clientY);
+      if (i >= 0) hooks.onOpen?.(products[i]);
+    }
+  };
+  cv.addEventListener('pointerup', end);
+  cv.addEventListener('pointercancel', () => { drag.on = false; });
+  cv.addEventListener('pointerleave', () => { mouse.x = 0; mouse.y = 0; });
+
+  root.addEventListener('click', (e) => {
+    const o = e.target.closest('[data-open]');
+    if (o) hooks.onOpen?.(products.find((p) => p.id === o.dataset.open));
+    const g = e.target.closest('[data-go]');
+    if (g) goTo(Number(g.dataset.go));
+    const m = e.target.closest('.model img');
+    if (m) hooks.onOpen?.(products[imgs.indexOf(m)]);
+  });
+
+  /* ---------- Etiketleri fotoğrafa yerleştir ---------- */
+  function placeTags(i) {
+    const img = imgs[i];
+    if (!img.naturalWidth) return;
+    const w = img.offsetWidth;
+    const h = img.offsetHeight;
+    models[i].querySelectorAll('.tag').forEach((t) => {
+      const [x, y] = products[i].spots[t.dataset.k];
+      const left = x < 0.5;
+      t.classList.toggle('left', left);
+      t.style.left = `${(img.offsetLeft + x * w).toFixed(1)}px`;
+      t.style.top = `${(y * h).toFixed(1)}px`;
+    });
+  }
+  imgs.forEach((img, i) => { img.onload = () => placeTags(i); if (img.complete) placeTags(i); });
+
+  /* ---------- Kaydırma ---------- */
   let vw = innerWidth;
   let vh = innerHeight;
   let portrait = vw / vh < 0.9;
-
-  /* ---------- Ürün değiştirme ---------- */
-  products.forEach((p) => {
-    const im = new Image();
-    im.onload = () => {
-      sizes.set(p.id, im.naturalWidth / im.naturalHeight);
-      if (p === cur) placeSpots();
-    };
-    im.src = p.image;
-  });
-
-  function aspectOf(p) { return sizes.get(p.id) || 0.45; }
-
-  function bind(p) {
-    root.style.setProperty('--accent', p.accent);
-    root.style.setProperty('--tint', p.tint);
-    $$('[data-bind]').forEach((el) => {
-      const k = el.dataset.bind;
-      if (k === 'price') el.textContent = formatPrice(p.price);
-      else if (k === 'age') el.textContent = `${p.sizes[0].split('-')[0]}–${p.sizes[p.sizes.length - 1].split('-')[1]} yaş`;
-      else el.textContent = p[k] ?? '';
-    });
-    $$('[data-pick]').forEach((b) => {
-      const on = b.dataset.pick === p.id;
-      b.classList.toggle('is-active', on);
-      b.setAttribute('aria-pressed', on);
-    });
-    $$('.chap-text').forEach((el) => { el.classList.remove('swap'); void el.offsetWidth; el.classList.add('swap'); });
+  const span = () => root.offsetHeight - vh;
+  const progress = () => (span() > 0 ? clamp((scrollY - root.offsetTop) / span()) : 0);
+  function goTo(i) {
+    window.scrollTo({ top: root.offsetTop + (i / (N - 1)) * span() + 1, behavior: reduced ? 'auto' : 'smooth' });
   }
 
-  function setProduct(p) {
-    if (!p || p === cur && state.ready) return;
-    cur = p;
-    const next = layers[1 - layer];
-    next.src = p.image;
-    next.alt = `${p.name} pijama takımı`;
-    const show = () => {
-      next.classList.add('is-on');
-      layers[layer].classList.remove('is-on');
-      layer = 1 - layer;
-      placeSpots();
-    };
-    if (next.complete && next.naturalWidth) show(); else next.onload = show;
-    bind(p);
-    hooks.onProduct?.(p);
-  }
+  // Durunca en yakın ürüne yumuşakça otur
+  let snapTimer;
+  let lastScroll = 0;
+  addEventListener('scroll', () => {
+    lastScroll = performance.now();
+    clearTimeout(snapTimer);
+    snapTimer = setTimeout(() => {
+      const r = root.getBoundingClientRect();
+      if (r.top > 0 || r.bottom < vh) return;
+      const c = progress() * (N - 1);
+      const d = Math.round(c) - c;
+      if (Math.abs(d) > 0.02 && Math.abs(d) < 0.45) goTo(Math.round(c));
+    }, 260);
+  }, { passive: true });
 
-  /* ---------- Detay noktaları ---------- */
-  spotsEl.innerHTML = SPOTS.map((s, i) => `<button class="spot-dot" data-spot="${s.key}" aria-label="${s.label}"><span>${i + 1}</span></button>`).join('');
-  $('.spot-list').innerHTML = SPOTS.map((s, i) => `
-    <li><button data-spot="${s.key}"><b>0${i + 1}</b><span>${s.label}</span></button></li>`).join('');
-
-  function setSpot(key) {
-    spotKey = key;
-    const s = SPOTS.find((x) => x.key === key);
-    $$('[data-spot]').forEach((b) => b.classList.toggle('is-active', b.dataset.spot === key));
-    $('.spot-caption').textContent = s.text;
-  }
-  root.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-spot]');
-    if (b) { setSpot(b.dataset.spot); lastInput = performance.now(); }
-    const pick = e.target.closest('[data-pick]');
-    if (pick) { setProduct(products.find((p) => p.id === pick.dataset.pick)); lastInput = performance.now(); }
-    if (e.target.closest('[data-open]')) hooks.onOpen?.(cur);
-    const r = e.target.closest('.rail button');
-    if (r) goChapter(Number(r.dataset.ch));
-  });
-
-  function placeSpots() {
-    const a = aspectOf(cur);
-    const w = (a / BOX_ASPECT) * 100;
-    spotsEl.style.left = `${(100 - w) / 2}%`;
-    spotsEl.style.width = `${w}%`;
-    $$('.spot-dot').forEach((d) => {
-      const [x, y] = cur.spots[d.dataset.spot];
-      d.style.left = `${x * 100}%`;
-      d.style.top = `${y * 100}%`;
-    });
-  }
-
-  /* ---------- Rüya modu (basılı tut) ---------- */
-  const hold = $('.hold');
-  const on = (e) => { e.preventDefault(); holding = true; hold.classList.add('is-holding'); lastInput = performance.now(); };
-  const off = () => { holding = false; hold.classList.remove('is-holding'); };
-  hold.addEventListener('pointerdown', on);
-  ['pointerup', 'pointerleave', 'pointercancel', 'blur'].forEach((ev) => hold.addEventListener(ev, off));
-  hold.addEventListener('keydown', (e) => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) on(e); });
-  hold.addEventListener('keyup', off);
-
-  /* ---------- Kamera anahtar kareleri ---------- */
-  function key(i) {
-    const center = [0.5, 0.5];
-    const p = cur.spots;
-    if (portrait) {
-      return [
-        { s: 1, f: center, t: [0.5, 0.42] },
-        { s: 1.45, f: p.baski, t: [0.5, 0.3] },
-        { s: 1, f: center, t: [0.5, 0.42] },
-        { s: 1.2, f: p[spotKey], t: [0.5, 0.3] },
-        { s: 0.8, f: center, t: [0.5, 0.33] },
-      ][i];
-    }
-    return [
-      { s: 1, f: center, t: [0.66, 0.56] },
-      { s: 1.7, f: p.baski, t: [0.66, 0.5] },
-      { s: 1.02, f: center, t: [0.64, 0.56] },
-      { s: 1.4, f: p[spotKey], t: [0.66, 0.52] },
-      { s: 0.95, f: center, t: [0.68, 0.6] },
-    ][i];
-  }
-
-  function progress() {
-    const span = root.offsetHeight - vh;
-    return span > 0 ? clamp((scrollY - root.offsetTop) / span) : 0;
-  }
-
-  function goChapter(i) {
-    const span = root.offsetHeight - vh;
-    window.scrollTo({ top: root.offsetTop + (i / (CH - 1)) * span + 2, behavior: reduced ? 'auto' : 'smooth' });
-  }
-
-  /* ---------- Gökyüzü ---------- */
-  let stars = [];
-  let sparks = [];
-  let shoot = null;
+  /* ---------- Konfeti / ışık ---------- */
+  let bits = [];
+  let cloud = null;
   const dpr = Math.min(devicePixelRatio || 1, 2);
   function resize() {
     vw = innerWidth;
@@ -165,30 +161,26 @@ export function createStory(root, products, hooks = {}) {
     portrait = vw / vh < 0.9;
     canvas.width = vw * dpr;
     canvas.height = vh * dpr;
-    const h0 = vh * (portrait ? 0.56 : 0.8);
-    cam.style.height = `${h0}px`;
-    cam.style.width = `${h0 * BOX_ASPECT}px`;
-    const n = Math.round((vw * vh) / 5200);
-    stars = Array.from({ length: n }, () => ({ x: Math.random(), y: Math.random() * 0.75, r: Math.random() * 1.3 + 0.3, ph: Math.random() * 6.28, sp: 0.6 + Math.random() * 1.6 }));
-    sparks = Array.from({ length: Math.round(n / 4) }, () => newSpark(true));
-    buildClouds();
-  }
-  function newSpark(any) {
-    return { x: Math.random(), y: any ? Math.random() : -0.05, r: Math.random() * 2.2 + 0.8, v: 0.0004 + Math.random() * 0.0009, sw: Math.random() * 6.28, c: PASTEL[(Math.random() * PASTEL.length) | 0] };
-  }
-
-  let cloudStrip = null;
-  function buildClouds() {
-    const sw = Math.max(vw, 900);
-    const sh = vh * 0.32;
+    const n = Math.round((vw * vh) / 26000);
+    bits = Array.from({ length: n }, (_, k) => ({
+      x: Math.random(), y: Math.random(), s: 3 + Math.random() * 7, v: 0.00012 + Math.random() * 0.00035,
+      r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.02, c: LOGO[k % LOGO.length], shape: k % 3, ph: Math.random() * 6.28,
+    }));
+    // Alt bulut şeridi (bir kez çizilir)
+    const sw = Math.round(Math.max(vw, 900));
+    const sh = Math.round(vh * 0.3);
+    const pad = 60; // bulanıklık kenarda soluklaşmasın diye fazladan alan
     const c = document.createElement('canvas');
-    c.width = sw * dpr;
+    c.width = (sw + pad * 2) * dpr;
     c.height = sh * dpr;
+    c.pad = pad;
+    c.sw = sw;
     const x = c.getContext('2d');
     x.scale(dpr, dpr);
-    x.filter = 'blur(14px)';
+    x.translate(pad, 0);
+    x.filter = 'blur(16px)';
     x.fillStyle = '#fff';
-    const draw = (cx, cy, w, al) => {
+    const puff = (cx, cy, w, al) => {
       x.globalAlpha = al;
       for (let k = 0; k < 7; k++) {
         x.beginPath();
@@ -196,145 +188,156 @@ export function createStory(root, products, hooks = {}) {
         x.fill();
       }
     };
-    for (let i = -1; i <= 4; i++) draw(i * sw * 0.28, sh * 0.72, sw * 0.36, 0.28);
-    for (let i = -1; i <= 4; i++) draw(i * sw * 0.26 + sw * 0.13, sh * 0.98, sw * 0.34, 0.5);
-    cloudStrip = c;
+    // Kenarlar dikişsiz birleşsin diye her bulut iki yana da çizilir
+    for (const shift of [-sw, 0, sw]) {
+      for (let i = 0; i < 4; i++) puff(shift + i * sw * 0.25, sh * 0.75, sw * 0.36, 0.45);
+      for (let i = 0; i < 4; i++) puff(shift + i * sw * 0.25 + sw * 0.125, sh * 1.0, sw * 0.34, 0.75);
+    }
+    cloud = c;
+    imgs.forEach((_, i) => placeTags(i));
+    m3d?.resize(vw, vh);
+  }
+
+  function star(x, y, r) {
+    ctx.beginPath();
+    for (let i = 0; i < 10; i++) {
+      const rr = i % 2 ? r * 0.45 : r;
+      const a = (i / 10) * Math.PI * 2 - Math.PI / 2;
+      ctx.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+    }
+    ctx.closePath();
+    ctx.fill();
   }
 
   function drawSky(t, prog) {
-    const W = canvas.width;
-    const H = canvas.height;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-    ctx.scale(dpr, dpr);
-    const glow = 0.55 + night * 0.6;
-    for (const s of stars) {
-      const a = (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.sp + s.ph))) * glow;
-      ctx.globalAlpha = clamp(a);
-      ctx.fillStyle = '#fff';
-      ctx.beginPath();
-      ctx.arc(s.x * vw, (s.y - prog * 0.06) * vh, s.r * (1 + night * 0.5), 0, 7);
-      ctx.fill();
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, vw, vh);
+    for (const b of bits) {
+      if (!reduced) { b.y -= b.v; b.r += b.vr; }
+      if (b.y < -0.05) { b.y = 1.05; b.x = Math.random(); }
+      const x = (b.x + Math.sin(t * 0.4 + b.ph) * 0.01) * vw;
+      const y = ((b.y + prog * 0.25) % 1.1) * vh;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(b.r);
+      ctx.globalAlpha = 0.75;
+      ctx.fillStyle = b.c;
+      if (b.shape === 0) star(0, 0, b.s);
+      else if (b.shape === 1) { ctx.beginPath(); ctx.roundRect(-b.s * 0.9, -b.s * 0.35, b.s * 1.8, b.s * 0.7, b.s * 0.35); ctx.fill(); }
+      else { ctx.beginPath(); ctx.arc(0, 0, b.s * 0.5, 0, 7); ctx.fill(); }
+      ctx.restore();
     }
-    // Kayan yıldız
-    if (!reduced && !shoot && Math.random() < 0.004 + night * 0.02) shoot = { x: Math.random() * 0.6 + 0.3, y: Math.random() * 0.3, l: 0 };
-    if (shoot) {
-      shoot.l += 0.025;
-      const x = (shoot.x - shoot.l * 0.35) * vw;
-      const y = (shoot.y + shoot.l * 0.18) * vh;
-      const g = ctx.createLinearGradient(x, y, x + 120, y - 60);
-      g.addColorStop(0, 'rgba(255,255,255,.95)');
-      g.addColorStop(1, 'rgba(255,255,255,0)');
-      ctx.globalAlpha = 1 - shoot.l;
-      ctx.strokeStyle = g;
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 120, y - 60); ctx.stroke();
-      if (shoot.l >= 1) shoot = null;
+    if (cloud) {
+      const sw = cloud.sw;
+      const sh = cloud.height / dpr;
+      const off = (prog * 400 + t * 10) % sw;
+      ctx.globalAlpha = 1;
+      for (let x = -Math.round(off); x < vw; x += sw) ctx.drawImage(cloud, cloud.pad * dpr, 0, sw * dpr, cloud.height, x, vh - sh, sw, sh);
     }
-    // Süzülen pırıltılar
-    for (const p of sparks) {
-      if (!reduced) {
-        p.y += p.v * (1 + night);
-        p.sw += 0.01;
-      }
-      if (p.y > 1.05) Object.assign(p, newSpark(false));
-      ctx.globalAlpha = 0.55 + night * 0.4;
-      ctx.fillStyle = p.c;
-      ctx.beginPath();
-      ctx.arc((p.x + Math.sin(p.sw) * 0.01) * vw, p.y * vh, p.r * (1 + night * 0.6), 0, 7);
-      ctx.fill();
-    }
-    // Bulut denizi: önceden çizilmiş yumuşak şerit kaydırılarak çizilir
-    if (cloudStrip) {
-      const sw = cloudStrip.width / dpr;
-      const off = (prog * 320 + t * 8) % sw;
-      ctx.globalAlpha = 0.9 - night * 0.25;
-      for (let x = -off; x < vw; x += sw) ctx.drawImage(cloudStrip, x, vh - cloudStrip.height / dpr, sw, cloudStrip.height / dpr);
-    }
-    ctx.globalAlpha = 1;
   }
 
   /* ---------- Ana döngü ---------- */
-  const start = performance.now();
+  let shown = 0;
+  let active = -1;
+  const t0 = performance.now();
+  let last = t0;
   function frame(now) {
     requestAnimationFrame(frame);
-    const t = (now - start) / 1000;
+    const t = (now - t0) / 1000;
+    const dt = Math.min(0.1, (now - last) / 1000);
+    last = now;
     const prog = progress();
-    const c = prog * (CH - 1);
-    const i = Math.min(CH - 2, Math.floor(c));
-    const f = smooth((c - i - 0.18) / 0.64);
-    const a = key(i);
-    const b = key(i + 1);
-    const goal = {
-      s: lerp(a.s, b.s, f), fx: lerp(a.f[0], b.f[0], f), fy: lerp(a.f[1], b.f[1], f),
-      tx: lerp(a.t[0], b.t[0], f), ty: lerp(a.t[1], b.t[1], f),
-    };
-    const k = state.ready && !reduced ? 0.09 : 1;
-    for (const n of ['s', 'fx', 'fy', 'tx', 'ty']) state[n] += (goal[n] - state[n]) * k;
-    state.ready = true;
+    const target = prog * (N - 1);
+    shown += (target - shown) * (reduced ? 1 : 1 - Math.exp(-dt * 7.5));
+    const c = shown;
 
-    // Kamera
-    const h0 = cam.offsetHeight;
-    const boxW = cam.offsetWidth;
-    const imgW = h0 * aspectOf(cur);
-    const Fx = (boxW - imgW) / 2 + state.fx * imgW;
-    const Fy = state.fy * h0;
-    const bob = reduced ? 0 : Math.sin(t * 1.1) * 4;
-    cam.style.transform = `translate3d(${state.tx * vw - state.s * Fx}px, ${state.ty * vh - state.s * Fy + bob}px, 0) scale(${state.s})`;
-    cam.style.setProperty('--inv', (1 / state.s).toFixed(3));
+    // Arka plan rengi iki ürün arasında akar
+    const i0 = Math.min(N - 2, Math.floor(c));
+    const f = smooth((c - i0 - 0.15) / 0.7);
+    const A = pal[i0];
+    const B = pal[i0 + 1];
+    pin.style.setProperty('--bg-light', rgb(mix(A.light, B.light, f)));
+    pin.style.setProperty('--bg-mid', rgb(mix(A.mid, B.mid, f)));
+    pin.style.setProperty('--bg-deep', rgb(mix(A.deep, B.deep, f)));
+    pin.style.setProperty('--acc', rgb(mix(A.acc, B.acc, f)));
 
-    // Sahne yazıları
-    const active = Math.round(c);
-    chaps.forEach((el, n) => {
-      const vis = clamp(1 - Math.abs(c - n) * 2.4);
-      el.style.opacity = vis.toFixed(3);
-      el.style.transform = `translateY(${(c - n) * -40}px)`;
-      el.classList.toggle('is-active', n === active);
-      el.inert = vis < 0.4;
+    const cx = portrait ? 0.5 : 0.63;
+    mouse.sx += (mouse.x - mouse.sx) * 0.06;
+    mouse.sy += (mouse.y - mouse.sy) * 0.06;
+    if (!drag.on) drag.rot *= 0.93;
+    const states = [];
+    products.forEach((p, i) => {
+      const d = c - i;
+      const u = smooth((Math.abs(d) - 0.1) / 0.8);
+      const dir = Math.sign(d) || 0;
+      const vis = 1 - u;
+      if (m3d) {
+        const idle = reduced ? 0 : Math.sin(t * 0.6 + i) * 0.18;
+        const cur = Math.abs(d) < 0.5;
+        states.push({
+          x: cx - dir * u * (portrait ? 0.6 : 0.34),
+          floor: portrait ? 0.72 : 0.9,
+          height: portrait ? 0.56 : 0.76,
+          rotY: dir * u * 1.1 + idle + (cur ? drag.rot + mouse.sx * 0.5 : 0),
+          rotX: cur ? mouse.sy * 0.08 : 0,
+          scale: 1 - u * 0.16,
+          opacity: vis,
+        });
+      }
+      const m = models[i];
+      if (m3d) { m.style.visibility = 'hidden'; } else {
+      m.style.opacity = vis.toFixed(3);
+      m.style.visibility = vis < 0.01 ? 'hidden' : 'visible';
+      const bob = reduced ? 0 : Math.sin(t * 1.2 + i) * 3;
+      m.style.transform = `translate3d(calc(${(cx * 100).toFixed(2)}vw - 50% + ${(-dir * u * (portrait ? 60 : 34)).toFixed(2)}vw), ${bob.toFixed(1)}px, 0) rotateY(${(dir * u * 22).toFixed(1)}deg) scale(${(1 - u * 0.16).toFixed(3)})`;
+      m.style.filter = u > 0.01 ? `blur(${(u * 6).toFixed(1)}px)` : 'none';
+      m.classList.toggle('is-current', Math.abs(d) < 0.25);
+      }
+
+      const nv = clamp(1 - Math.abs(d) * 1.6);
+      names[i].style.opacity = nv.toFixed(3);
+      names[i].style.transform = `translate(-50%, -50%) translateX(${(-d * 18).toFixed(2)}vw)`;
+
+      const pv = clamp(1 - Math.abs(d) * 2.6);
+      panels[i].style.opacity = pv.toFixed(3);
+      panels[i].style.transform = `translateY(${(d * -50).toFixed(1)}px)`;
+      panels[i].inert = pv < 0.5;
+      bars[i].style.transform = `scaleX(${clamp(c - i + 1).toFixed(3)})`;
     });
-    railItems.forEach((r, n) => r.classList.toggle('is-active', n === active));
-    root.dataset.ch = active;
 
-    // Rüya modu, dev yazı, sis
-    const dream = clamp(1 - Math.abs(c - 2) * 1.6) * 0.45;
-    night += ((holding ? 1 : dream) - night) * 0.08;
-    root.style.setProperty('--night', night.toFixed(3));
-    const zoom = clamp((state.s - 1) / 0.7);
-    const intro = clamp(1 - c * 1.5);
-    word.style.opacity = ((0.3 + intro * 0.35) * (1 - zoom * 0.7) * (1 - night * 0.4)).toFixed(3);
-    word.style.setProperty('--spread', `${c * 1.6}vw`);
-    word.style.transform = `translate(-50%, -50%) translateY(${-prog * 6}vh) scale(${1 + zoom * 0.15})`;
-    fog.style.opacity = (1 - zoom).toFixed(3);
-    $('.spots').classList.toggle('is-on', Math.abs(c - 3) < 0.35);
-
-    // Koleksiyon sahnesinde boşta kalınca sıradaki takıma geç
-    if (!reduced && active === CH - 1 && now - lastInput > 4500 && !document.hidden && !hooks.isBusy?.()) {
-      const idx = products.indexOf(cur);
-      setProduct(products[(idx + 1) % products.length]);
-      lastInput = now;
+    const a = Math.round(c);
+    if (m3d) {
+      m3d.render(states);
+      const settle = clamp(1 - Math.abs(c - a) * 5);
+      tags3d.forEach((tg) => {
+        const i = Number(tg.dataset.i);
+        if (i !== a || settle < 0.05) { tg.style.opacity = 0; return; }
+        const [x, y] = products[i].spots[tg.dataset.k];
+        const pt = m3d.project(i, x, y);
+        if (!pt) { tg.style.opacity = 0; return; }
+        tg.classList.toggle('left', x < 0.5);
+        tg.style.opacity = settle.toFixed(3);
+        tg.style.transform = `translate(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px)`;
+      });
     }
-
+    if (a !== active) {
+      active = a;
+      rails.forEach((r, k) => r.classList.toggle('is-active', k === a));
+      hooks.onProduct?.(products[a]);
+    }
+    $('.intro').style.opacity = clamp(1 - c * 2.2).toFixed(3);
+    $('.floor').style.opacity = (1 - Math.abs(c - a) * 1.2).toFixed(3);
     drawSky(t, prog);
   }
 
   addEventListener('resize', resize);
-  addEventListener('scroll', () => { lastInput = performance.now(); }, { passive: true });
   resize();
-  setSpot(spotKey);
-  layers[0].src = cur.image;
-  layers[0].classList.add('is-on');
-  bind(cur);
-  placeSpots();
   requestAnimationFrame(frame);
 
   return {
-    setProduct: (id) => setProduct(products.find((p) => p.id === id)),
-    goChapter,
-    get product() { return cur; },
-    next(d = 1) {
-      const idx = products.indexOf(cur);
-      setProduct(products[(idx + d + products.length) % products.length]);
-      lastInput = performance.now();
-    },
+    goTo,
+    setProduct: (id) => goTo(products.findIndex((p) => p.id === id)),
+    next(d = 1) { goTo(clamp(Math.round(progress() * (N - 1)) + d, 0, N - 1)); },
+    get product() { return products[Math.max(0, active)]; },
   };
 }
