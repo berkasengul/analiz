@@ -393,7 +393,7 @@ function spinFigure(p) {
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
     fragmentShader: `uniform sampler2D mapA; uniform sampler2D mapB; uniform float mixT; varying vec2 vUv;
       void main(){ vec4 a = texture2D(mapA, vUv); vec4 b = texture2D(mapB, vUv);
-        vec4 c = mix(a, b, mixT); if (c.a < 0.4) discard;
+        vec4 c = mix(a, b, smoothstep(0.38, 0.62, mixT)); if (c.a < 0.4) discard;
         gl_FragColor = vec4(c.rgb, 1.0);
         #include <colorspace_fragment>
       }`,
