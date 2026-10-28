@@ -89,30 +89,28 @@
       </div>
     </section>
 
-    <section class="features" aria-label="Öne çıkanlar">
+    <section class="why" aria-label="Neden SESA KIDS">
       <svg class="wave top" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 50 C 240 0 480 0 720 40 S 1200 90 1440 30 V80 H0Z"/></svg>
-      <div class="features-inner">
-        <div class="feat">
-          <span class="feat-ic ic-pink"><svg viewBox="0 0 24 24"><path d="M4 11h16v9H4zM12 11v9M3 7h18v4H3zM12 7c-1.5-3.5-5.5-3.5-5 0M12 7c1.5-3.5 5.5-3.5 5 0"/></svg></span>
-          <div><b>Sevimli desenler</b><span>Kedi, çilek, kirpi, helikopter</span></div>
+      <canvas class="icons3d" aria-hidden="true"></canvas>
+      <div class="why-inner">
+        <div class="why-head">
+          <p class="kicker light">Neden SESA KIDS</p>
+          <h2>Gece boyu <em>rahat</em>,<br>sabah <em>neşeli</em>.</h2>
         </div>
-        <div class="feat">
-          <span class="feat-ic ic-blue"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span>
-          <div><b>Mışıl mışıl uyku</b><span>Yumuşak, nefes alan kumaşlar</span></div>
-        </div>
-        <div class="feat">
-          <span class="feat-ic ic-orange"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg></span>
-          <div><b>2–12 yaş</b><span>Her yaşa uygun beden</span></div>
+        <div class="why-cards">
+          <article class="why-card" data-icon="cloud"><div class="why-art"></div><b>Yumuşacık dokunuş</b><p>Tene yumuşak gelen kumaşlar, rahat ve bol kalıp.</p></article>
+          <article class="why-card" data-icon="star"><div class="why-art"></div><b>Sevimli desenler</b><p>Kediler, çilekler, kirpiler, kutup ayıları ve helikopterler.</p></article>
+          <article class="why-card" data-icon="heart"><div class="why-art"></div><b>2–12 yaş</b><p>Her yaşa uygun bedenler, manşetli paçalar.</p></article>
         </div>
       </div>
-      <svg class="wave bottom" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C 300 90 520 80 760 40 S 1180 0 1440 40 V0 H0Z"/></svg>
     </section>
 
-    <section class="collection" id="koleksiyon">
-      <div class="collection-head">
+    <section class="world" id="koleksiyon">
+      <div class="world-head">
         <div>
           <p class="kicker">Koleksiyon</p>
           <h2>Pijama dünyası</h2>
+          <p class="world-sub">Figürlerin üzerine gelin, tıklayıp yakından inceleyin.</p>
         </div>
         <div class="chips" role="group" aria-label="Filtre">
           <button class="chip is-active" data-filter="all">Tümü</button>
@@ -120,26 +118,27 @@
           <button class="chip" data-filter="erkek">Erkek çocuk</button>
         </div>
       </div>
+      <div class="world-stage">
+        <canvas class="lineup" aria-label="Altı pijama takımı 3D figürlerle; tıklayınca ürün açılır"></canvas>
+        <div class="lineup-label" hidden><b></b><span></span></div>
+      </div>
+      <div class="photos-head">
+        <h3>Gerçek ürün fotoğrafları</h3>
+        <p>Takımların çocuklarımız üzerindeki hali.</p>
+      </div>
       <div class="grid"></div>
     </section>
 
-    <section class="gift" id="yeni">
-      <div class="gift-inner">
-        <div class="gift-art" aria-hidden="true">
-          <svg viewBox="0 0 220 160">
-            <path d="M120 20a62 62 0 1 0 58 84A52 52 0 0 1 120 20z" fill="#fff"/>
-            <path d="M88 84c6 6 16 6 22 0" stroke="#2b2f6b" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <circle cx="76" cy="98" r="7" fill="#f59bd6" opacity=".7"/>
-            <path d="M184 30l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#ffd45c"/>
-            <path d="M200 92l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#fff"/>
-            <circle cx="30" cy="40" r="5" fill="#fff"/><circle cx="196" cy="140" r="4" fill="#fff"/>
-          </svg>
-        </div>
-        <div>
-          <p class="kicker light">Yeni sezon</p>
-          <h2>Her gece yeni bir masal</h2>
-          <p>Kediler, kutup ayıları, çilekler, kirpiler ve helikopterler. Çocuğunuzun en sevdiği deseni seçin, uyku vakti oyuna dönüşsün.</p>
+    <section class="finale" id="yeni">
+      <div class="finale-sky" aria-hidden="true"></div>
+      <canvas class="finale3d" aria-hidden="true"></canvas>
+      <div class="finale-copy">
+        <p class="kicker light">Yeni sezon</p>
+        <h2>Her gece<br><em>yeni bir masal.</em></h2>
+        <p>Çocuğunuzun en sevdiği deseni seçin, uyku vakti oyuna dönüşsün.</p>
+        <div class="finale-actions">
           <button class="btn btn-white" data-goto="all">Tüm takımları gör</button>
+          <button class="btn btn-ghost" data-scroll="vitrin">Vitrine dön</button>
         </div>
       </div>
     </section>
@@ -147,13 +146,39 @@
 
   <footer class="site-footer" id="iletisim">
     <div class="footer-inner">
-      <svg class="footer-logo" viewBox="0 0 330 72" aria-hidden="true">
-        <text x="165" y="52" text-anchor="middle" class="logo-text"><tspan fill="var(--blue)">SESA</tspan><tspan fill="var(--pink)" dx="16">KIDS</tspan></text>
-      </svg>
-      <p>Çocuklar için rengârenk, yumuşacık pijama takımları.</p>
-      <a class="footer-url" href="https://www.sesakids.com.tr">www.sesakids.com.tr</a>
-      <small>© <span class="year"></span> SESA KIDS. Tüm hakları saklıdır.</small>
+      <div class="footer-brand">
+        <svg class="footer-logo" viewBox="0 0 330 72" aria-hidden="true">
+          <g stroke-linecap="round" stroke-width="7" fill="none">
+            <line x1="12" y1="10" x2="30" y2="20" stroke="var(--pink)"/><line x1="5" y1="37" x2="25" y2="37" stroke="var(--orange)"/><line x1="10" y1="63" x2="27" y2="51" stroke="var(--blue)"/>
+            <line x1="318" y1="10" x2="300" y2="20" stroke="var(--blue)"/><line x1="325" y1="37" x2="305" y2="37" stroke="var(--orange)"/><line x1="320" y1="63" x2="302" y2="53" stroke="var(--pink)"/>
+          </g>
+          <text x="165" y="52" text-anchor="middle" class="logo-text"><tspan fill="var(--blue)">SESA</tspan><tspan fill="var(--pink)" dx="16">KIDS</tspan></text>
+        </svg>
+        <p>Çocuklar için rengârenk, yumuşacık pijama takımları.</p>
+        <a class="footer-url" href="https://www.sesakids.com.tr">www.sesakids.com.tr</a>
+      </div>
+      <nav class="footer-col" aria-label="Mağaza">
+        <b>Mağaza</b>
+        <a href="#vitrin" data-scroll="vitrin">Vitrin</a>
+        <a href="#koleksiyon">Pijamalar</a>
+        <a href="#yeni">Yeni sezon</a>
+      </nav>
+      <nav class="footer-col" aria-label="Yardım">
+        <b>Yardım</b>
+        <a href="#" data-soon>Beden rehberi</a>
+        <a href="#" data-soon>Kargo ve iade</a>
+        <a href="#" data-soon>Sıkça sorulanlar</a>
+      </nav>
+      <form class="footer-news">
+        <b>Yeni masallardan haberdar ol</b>
+        <p>Yeni desenler çıktığında e-posta ile haber verelim.</p>
+        <div class="news-row">
+          <input id="news-email" type="email" required placeholder="E-posta adresiniz" aria-label="E-posta adresiniz">
+          <button class="btn btn-white">Kaydol</button>
+        </div>
+      </form>
     </div>
+    <p class="footer-legal">© <span class="year"></span> SESA KIDS. Tüm hakları saklıdır.</p>
   </footer>
 
   <!-- Ürün detayı -->
@@ -163,6 +188,8 @@
       <div class="detail-blob" aria-hidden="true"></div>
       <div class="gift-badge" hidden><span>Göz Bandı</span><b>Hediyeli</b></div>
       <canvas class="detail-canvas"></canvas>
+      <canvas class="detail-3d" aria-label="3D görünüm: sürükleyerek çevirin"></canvas>
+      <p class="detail-hint">Sürükleyerek 360° çevirin</p>
       <button class="round detail-nav prev" aria-label="Önceki ürün"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="round detail-nav next" aria-label="Sonraki ürün"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
@@ -172,9 +199,8 @@
       <h2 id="detail-name"></h2>
       <p class="detail-price"></p>
       <div class="seg" role="group" aria-label="Görünüm">
-        <button class="is-active" data-view="model">Modelde</button>
-        <button data-view="front">Askıda</button>
-        <button data-view="back">Arkası</button>
+        <button class="is-active" data-view="3d">3D görünüm</button>
+        <button data-view="photo">Gerçek fotoğraf</button>
       </div>
       <div class="field">
         <div class="field-head"><span>Yaş / Beden</span><span class="size-note">Seçiniz</span></div>

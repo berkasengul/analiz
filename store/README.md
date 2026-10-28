@@ -1,17 +1,21 @@
-# SESA KIDS — 3D Pijama Vitrini
+# SESA KIDS — 3D Pijama Mağazası
 
-Çocuk pijama takımları için scroll ile ilerleyen, premium bir mağaza sitesi.
-Her takım kendi sahnesinde: aşağı kaydırdıkça bir sonraki çocuk modeli 3D
-olarak dönerek gelir, arka plan o takımın rengine (logo paletinde) akar.
+Çocuk pijama takımları için baştan sona 3D ve sinematik bir mağaza sitesi.
+Ürünler, gerçek fotoğraflardaki desen ve baskılarla giydirilmiş 3D çocuk
+figürleriyle sergilenir (Three.js). Figürler her açıdan tutarlıdır; nefes alır,
+başını oynatır, göz kırpar, el sallar.
 
-- **3D modeller:** Fotoğraflar, silüetten üretilen derinlik haritasıyla hacimli
-  3D yüzeylere dönüştürülür (Three.js). Işık ve gölge alır; fareyle eğilir,
-  sürükleyerek çevrilir, tıklayınca ürün detayı açılır.
-- **Etiketler:** "Ön baskı", "Desenli alt", "Manşetli paça" etiketleri 3D model
-  üzerindeki noktaları takip eder.
-- **Arka plan:** Ürün rengine göre değişen degrade, logo renklerinde bulanık
-  ışık lekeleri, yükselen konfeti/yıldızlar ve yumuşak bulut şeridi.
-- WebGL yoksa aynı sahneler düz fotoğraflarla çalışır.
+| Bölüm | İçerik |
+| --- | --- |
+| Vitrin | Her takım kendi sahnesinde; kaydırdıkça bir sonraki figür dönerek gelir, arka plan takımın rengine akar. Sürükleyince 360° döner. |
+| Neden SESA KIDS | Cam kartlarda dönen parlak 3D bulut, yıldız ve kalp |
+| Pijama dünyası | Altı figür aynı 3D sahnede; üzerine gelince öne çıkıp el sallar, tıklayınca ürün açılır; kız/erkek filtresi figürleri soldurur. Altında gerçek ürün fotoğrafları. |
+| Final | Gece göğü, 3D ay ve yıldızlar, bulut üstünde el sallayan figür |
+| Ürün detayı | 360° döndürülebilir 3D figür ya da gerçek fotoğraf |
+
+Desenler (kalp, yıldız, çilek, kutup ayısı, araçlar, rakun) kodla çizilen
+dikişsiz kumaş dokularıdır; ön baskılar ürün fotoğraflarından kesilir
+(`assets/tex/`). Detay ya da sepet açıkken arkadaki sahneler durur.
 
 İlham alınan referans: "VAEL" mont sitesi (sinematik scroll, dev marka yazısı,
 numaralı sahneler, kızılötesi mod, detay noktaları, renk seçici).
@@ -35,16 +39,14 @@ numaralı sahneler, kızılötesi mod, detay noktaları, renk seçici).
 arka planı silinmiş halleri `assets/` klasöründe. **Ürün kodları, fiyatlar ve
 beden aralıkları örnektir** — gerçek değerlerle güncelleyin.
 
-Yeni ürün eklemek için arka planı silinmiş, çocuk modelli dikey bir PNG'yi
-`assets/` içine koyup listeye bir satır eklemek yeterli. `spots` alanı detay
-noktalarının fotoğraf üzerindeki yerleridir (0–1 arası x, y). 3D görünüm için
-aynı adla `-depth.png` derinlik haritası gerekir (beyaz = öne çıkan):
+Yeni ürün eklemek için `assets/` içine fotoğrafı, `assets/tex/` içine ön
+baskının kesimini koyup listeye `figure` alanıyla bir satır ekleyin:
 
 ```js
-{ id: 'XX-07', image: 'assets/yeni.png', depth: 'assets/yeni-depth.png', gender: 'kiz', accent: '#e96bb8',
-  spots: { yaka: [0.5, 0.2], baski: [0.5, 0.33], desen: [0.4, 0.7], manset: [0.6, 0.94] },
-  tint: '#ffeaf6', podium: '#ffc8e8', code: 'Kız çocuk', name: '...',
-  price: 449, colorName: '...', sizes: SIZES, desc: '...' },
+figure: { skin: '#f2cdb4', hair: { color: '#6b4630', style: 'long' }, // long | short | ponytail
+  top: { pattern: 'solid', base: '#f3f0ea' }, rib: '#ece8e1',
+  pants: { pattern: 'hearts', base: '#f6f4f0' },                     // solid, stripes, hearts, stars, berries, bears, vehicles, raccoons
+  print: 'assets/tex/yeni-print.png', printAspect: 0.8, printH: 1.6 },
 ```
 
 ## Çalıştırma
@@ -64,8 +66,9 @@ yüklenebilir.
 
 - `index.html` — sayfa yapısı (logo SVG olarak içeride)
 - `css/style.css` — tasarım, mobil uyum
-- `js/story.js` — ürün sahneleri: scroll geçişleri, arka plan renkleri, konfeti, etiketler
-- `js/models3d.js` — fotoğraf + derinlik haritasından 3D model (Three.js)
+- `js/story.js` — vitrin: scroll geçişleri, arka plan renkleri, konfeti, etiketler
+- `js/figure3d.js` — 3D çocuk figürleri, kumaş desenleri, ortak 3D sahne
+- `js/scenes.js` — 3D ikonlar, koleksiyon dizilimi, final sahnesi, detay görüntüleyici
 - `vendor/three.module.min.js` — Three.js r160 (MIT)
 - `js/garments.js` — pijama takımları, desenler ve çocuk modellerin çizimi
 - `js/main.js` — arama, koleksiyon, detay ekranı, sepet

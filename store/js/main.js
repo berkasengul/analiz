@@ -1,6 +1,7 @@
 import { PRODUCTS, byId, formatPrice, sizeLabel } from './products.js';
-import { renderSet, renderModel, modelThumb, loadProductImage } from './garments.js';
+import { renderModel, modelThumb, loadProductImage } from './garments.js';
 import { createStory } from './story.js';
+import { createLineup, createIcons, createFinale, createViewer } from './scenes.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -38,6 +39,30 @@ $$('[data-scroll]').forEach((a) => a.addEventListener('click', (e) => {
   e.preventDefault();
   window.scrollTo({ top: a.dataset.scroll === 'top' ? 0 : stage.offsetTop, behavior: 'smooth' });
 }));
+$$('[data-soon]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); toast('Bu sayfa yakında eklenecek.'); }));
+$('.footer-news').addEventListener('submit', (e) => {
+  e.preventDefault();
+  e.target.reset();
+  toast('Teşekkürler! Kaydınız alındı (demo, henüz bir listeye bağlı değil).');
+});
+
+/* ---------- 3D ikonlar, koleksiyon sahnesi, final ---------- */
+createIcons($('.icons3d'), $$('.why-card'));
+const label = $('.lineup-label');
+const lineup = createLineup($('.lineup'), PRODUCTS, {
+  onOpen: (p) => openDetail(p.id),
+  onHover: (p, x, y) => {
+    label.hidden = !p;
+    if (!p) return;
+    label.querySelector('b').textContent = p.name;
+    label.querySelector('span').textContent = `${formatPrice(p.price)} · İncele`;
+    label.style.left = `${x}px`;
+    label.style.top = `${y}px`;
+  },
+});
+if (!lineup) $('.world-stage').hidden = true;
+createFinale($('.finale3d'), PRODUCTS[0]);
+const viewer = createViewer($('.detail-3d'));
 $$('[data-action="account"]').forEach((b) => b.addEventListener('click', () => toast('Üyelik sistemi yakında açılıyor.')));
 
 const norm = (s) => s.toLocaleLowerCase('tr').replace(/\s+/g, ' ').trim();
@@ -61,7 +86,6 @@ function renderGrid(filter = 'all') {
   const list = PRODUCTS.filter((p) => filter === 'all' || p.gender === filter);
   $('.grid').innerHTML = list.map((p) => `
     <button class="card" data-id="${p.id}" style="--accent:${p.accent};--tint:${p.tint}">
-      ${p.gift ? '<span class="tag">Göz bandı hediyeli</span>' : ''}
       <span class="card-media"><img src="${modelThumb(p, 0.6)}" alt="${p.name} pijama takımı" loading="lazy" width="240" height="504"></span>
       <span class="card-body">
         <small>${p.code}</small>
@@ -80,6 +104,7 @@ $('.grid').addEventListener('click', (e) => {
 function setFilter(f) {
   $$('.chip').forEach((x) => x.classList.toggle('is-active', x.dataset.filter === f));
   renderGrid(f);
+  lineup?.setFilter((p) => f === 'all' || p.gender === f);
 }
 $$('.chip').forEach((c) => c.addEventListener('click', () => setFilter(c.dataset.filter)));
 $('[data-goto="all"]').addEventListener('click', () => {
@@ -91,13 +116,17 @@ renderGrid();
 /* ---------- Ürün detayı ---------- */
 const detail = $('.detail');
 const dCanvas = $('.detail-canvas');
-const state = { id: null, view: 'model', size: null, lastFocus: null };
+const state = { id: null, view: '3d', size: null, lastFocus: null };
 
 async function drawDetail() {
   const p = byId(state.id);
-  const img = state.view === 'model' ? await loadProductImage(p) : null;
-  // Fotoğraf varsa kendi çözünürlüğünde çizilir (keskin kalır)
-  const src = img || (state.view === 'model' ? renderModel(p, 'front', 2) : renderSet(p, state.view, 2));
+  const view = viewer && p.figure ? state.view : 'photo';
+  detail.dataset.view = view;
+  $('.seg').hidden = !(viewer && p.figure);
+  if (view === '3d') { viewer.show(p); viewer.start(); return; }
+  viewer?.stop();
+  const img = await loadProductImage(p);
+  const src = img || renderModel(p, 'front', 2);
   dCanvas.width = src.width;
   dCanvas.height = src.height;
   dCanvas.getContext('2d').drawImage(src, 0, 0);
@@ -125,26 +154,25 @@ function fillDetail() {
     ...(p.gift ? ['Uyku göz bandı hediye'] : []),
   ].map((t) => `<li>${t}</li>`).join('');
   $('.sizes').innerHTML = p.sizes.map((s) => `<button data-size="${s}" class="${s === state.size ? 'is-active' : ''}" aria-pressed="${s === state.size}">${s}</button>`).join('');
-  $$('.seg button').forEach((b) => {
-    b.classList.toggle('is-active', b.dataset.view === state.view);
-    b.hidden = !p.pattern && b.dataset.view !== 'model';
-  });
-  $('.seg').hidden = !p.pattern;
+  $$('.seg button').forEach((b) => b.classList.toggle('is-active', b.dataset.view === state.view));
   drawDetail();
 }
 
 function openDetail(id) {
   if (detail.hidden) state.lastFocus = document.activeElement;
-  Object.assign(state, { id, view: 'model', size: null });
+  Object.assign(state, { id, view: '3d', size: null });
   fillDetail();
   detail.hidden = false;
   document.body.style.overflow = 'hidden';
+  document.documentElement.dataset.modal = '1';
   requestAnimationFrame(() => detail.classList.add('is-open'));
   $('.detail-close').focus({ preventScroll: true });
 }
 function closeDetail() {
   detail.classList.remove('is-open');
   document.body.style.overflow = '';
+  delete document.documentElement.dataset.modal;
+  viewer?.stop();
   setTimeout(() => { detail.hidden = true; }, 300);
   state.lastFocus?.focus?.({ preventScroll: true });
 }
@@ -182,7 +210,7 @@ $('.add').addEventListener('click', () => {
     return;
   }
   cart.add(state.id, state.size);
-  flyToCart(dCanvas, byId(state.id));
+  flyToCart(detail.dataset.view === '3d' ? $('.detail-3d') : dCanvas, byId(state.id));
   toast(`${byId(state.id).name} (${sizeLabel(state.size)}) sepete eklendi.`);
 });
 
@@ -273,6 +301,8 @@ const cart = {
 function toggleCart(open) {
   cartEl.classList.toggle('is-open', open);
   cartEl.setAttribute('aria-hidden', String(!open));
+  if (open) document.documentElement.dataset.modal = '1';
+  else if (detail.hidden) delete document.documentElement.dataset.modal;
   if (open) {
     scrim.hidden = false;
     requestAnimationFrame(() => scrim.classList.add('is-open'));

@@ -1,7 +1,7 @@
 // Ürün sahneleri: aşağı kaydırdıkça bir sonraki model kayarak gelir,
 // arka plan o ürünün rengine geçer.
 import { formatPrice } from './products.js';
-import { createModels3D } from './models3d.js';
+import { createFigures } from './figure3d.js';
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (t) => { t = clamp(t); return t * t * (3 - 2 * t); };
@@ -71,23 +71,24 @@ export function createStory(root, products, hooks = {}) {
   const imgs = models.map((m) => m.querySelector('img'));
 
   // 3D katman (WebGL yoksa düz fotoğraflar kullanılır)
-  const m3d = createModels3D($('.models3d'), products);
+  const m3d = createFigures($('.models3d'), products);
   if (m3d) {
     root.classList.add('is-3d');
     $('.tags3d').innerHTML = products.map((p, i) => TAGS.map((t) => `<span class="tag" data-i="${i}" data-k="${t.key}"><i></i>${t.label}</span>`).join('')).join('');
   }
   const tags3d = m3d ? [...$('.tags3d').children] : [];
-  const drag = { on: false, x: 0, rot: 0, vel: 0 };
+  const drag = { on: false, x: 0, rot: 0, vel: 0, last: 0 };
   const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
   const cv = $('.models3d');
-  cv.addEventListener('pointerdown', (e) => { drag.on = true; drag.x = e.clientX; drag.moved = 0; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointerdown', (e) => { drag.last = performance.now(); drag.on = true; drag.x = e.clientX; drag.moved = 0; cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove', (e) => {
     if (e.pointerType === 'mouse') { mouse.x = e.clientX / vw - 0.5; mouse.y = e.clientY / vh - 0.5; }
     if (!drag.on) return;
     const dx = e.clientX - drag.x;
     drag.x = e.clientX;
     drag.moved += Math.abs(dx);
-    drag.rot = clamp(drag.rot + dx * 0.008, -1.1, 1.1);
+    drag.last = performance.now();
+    drag.rot += dx * 0.012;
   });
   const end = (e) => {
     if (!drag.on) return;
@@ -243,6 +244,7 @@ export function createStory(root, products, hooks = {}) {
   let last = t0;
   function frame(now) {
     requestAnimationFrame(frame);
+    if (document.documentElement.dataset.modal) { last = now; return; }
     const t = (now - t0) / 1000;
     const dt = Math.min(0.1, (now - last) / 1000);
     last = now;
@@ -264,7 +266,7 @@ export function createStory(root, products, hooks = {}) {
     const cx = portrait ? 0.5 : 0.63;
     mouse.sx += (mouse.x - mouse.sx) * 0.06;
     mouse.sy += (mouse.y - mouse.sy) * 0.06;
-    if (!drag.on) drag.rot *= 0.93;
+    if (!drag.on && now - drag.last > 2500) drag.rot += (Math.round(drag.rot / (Math.PI * 2)) * Math.PI * 2 - drag.rot) * 0.04;
     const states = [];
     products.forEach((p, i) => {
       const d = c - i;
@@ -272,15 +274,15 @@ export function createStory(root, products, hooks = {}) {
       const dir = Math.sign(d) || 0;
       const vis = 1 - u;
       if (m3d) {
-        const idle = reduced ? 0 : Math.sin(t * 0.6 + i) * 0.18;
+        const idle = reduced ? 0 : Math.sin(t * 0.5 + i) * 0.35;
         const cur = Math.abs(d) < 0.5;
         states.push({
-          x: cx - dir * u * (portrait ? 0.6 : 0.34),
-          floor: portrait ? 0.72 : 0.9,
-          height: portrait ? 0.56 : 0.76,
-          rotY: dir * u * 1.1 + idle + (cur ? drag.rot + mouse.sx * 0.5 : 0),
-          rotX: cur ? mouse.sy * 0.08 : 0,
-          scale: 1 - u * 0.16,
+          x: cx - dir * u * (portrait ? 0.7 : 0.42),
+          floor: portrait ? 0.74 : 0.92,
+          height: portrait ? 0.56 : 0.78,
+          rotY: -dir * u * Math.PI * 1.2 + idle + (cur ? drag.rot + mouse.sx * 0.6 : 0),
+          rotX: cur ? mouse.sy * 0.06 : 0,
+          scale: 1 - u * 0.25,
           opacity: vis,
         });
       }
@@ -307,16 +309,16 @@ export function createStory(root, products, hooks = {}) {
 
     const a = Math.round(c);
     if (m3d) {
-      m3d.render(states);
+      m3d.render(states, t);
       const settle = clamp(1 - Math.abs(c - a) * 5);
       tags3d.forEach((tg) => {
         const i = Number(tg.dataset.i);
         if (i !== a || settle < 0.05) { tg.style.opacity = 0; return; }
         const [x, y] = products[i].spots[tg.dataset.k];
-        const pt = m3d.project(i, x, y);
-        if (!pt) { tg.style.opacity = 0; return; }
+        const pt = m3d.project(i, tg.dataset.k);
+        if (!pt || pt.facing < 0.35) { tg.style.opacity = 0; return; }
         tg.classList.toggle('left', x < 0.5);
-        tg.style.opacity = settle.toFixed(3);
+        tg.style.opacity = (settle * clamp((pt.facing - 0.35) * 3)).toFixed(3);
         tg.style.transform = `translate(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px)`;
       });
     }
