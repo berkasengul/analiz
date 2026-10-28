@@ -41,7 +41,7 @@ export function createLineup(canvas, products, hooks = {}) {
   const { scene, camera, renderer } = st;
   const cache = new Map();
   const figs = products.map((p, i) => {
-    const f = buildFigure(p, cache);
+    const f = buildFigure(p, cache, { lite: true });
     f.root.userData.pedestal?.scale.set(0.55, 1, 0.55); // dizilimde kaideler sığsın
     scene.add(f.root);
     return { f, p, i, lift: 0, dim: 0, base: new THREE.Vector3() };
@@ -51,16 +51,16 @@ export function createLineup(canvas, products, hooks = {}) {
   let portrait = false;
 
   function layout() {
+    // Sıralar: masaüstünde 2 sıra (arkadaki sıra boşluklara kayar), mobilde 3 sıra
     const n = figs.length;
+    const perRow = portrait ? Math.ceil(n / 3) : Math.ceil(n / 2);
+    const gap = portrait ? 4.2 : 4.4;
     figs.forEach((g, i) => {
-      if (portrait) {
-        const row = i < Math.ceil(n / 2) ? 0 : 1;
-        const col = row === 0 ? i : i - Math.ceil(n / 2);
-        g.base.set((col - 1) * 3.9 + (row ? 1.95 : 0) - (row ? 1.95 : 0), 0, row ? -7 : 2);
-      } else {
-        const o = i - (n - 1) / 2;
-        g.base.set(o * 4.6, 0, -o * o * 0.5);
-      }
+      const row = Math.floor(i / perRow);
+      const col = i % perRow;
+      const inRow = Math.min(perRow, n - row * perRow);
+      const o = col - (inRow - 1) / 2 + (row % 2 ? 0.5 : 0) * (inRow === perRow ? 1 : 0) - (row % 2 ? 0.25 : 0);
+      g.base.set(o * gap, 0, 4 - row * 9 - Math.abs(o) * 0.6);
     });
   }
   function resize() {
@@ -100,11 +100,11 @@ export function createLineup(canvas, products, hooks = {}) {
     const q = clampS(1 - (r.top + r.height * 0.3) / innerHeight); // bölüme girişte kamera yaklaşır
     const e = 1 - Math.pow(1 - q, 3);
     if (portrait) {
-      camera.position.set(0, 16 - e * 4, 44 - e * 10);
-      camera.lookAt(0, 4.6, -2);
+      camera.position.set(0, 20 - e * 4, 62 - e * 10);
+      camera.lookAt(0, 3.4, -9);
     } else {
-      camera.position.set(Math.sin(t * 0.12) * 1.2, 11 - e * 4, 58 - e * 14);
-      camera.lookAt(0, 4.8, -2);
+      camera.position.set(Math.sin(t * 0.12) * 1.2, 16 - e * 4, 60 - e * 12);
+      camera.lookAt(0, 3.6, -6);
     }
     const h = pickAt();
     if (h !== hovered) {

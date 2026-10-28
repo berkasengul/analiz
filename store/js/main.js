@@ -123,7 +123,7 @@ async function drawDetail() {
   const has3d = !!(p.spin || p.model3d);
   const view = viewer && has3d ? state.view : 'photo';
   detail.dataset.view = view;
-  $('.seg').hidden = !(viewer && has3d);
+  $('.seg').hidden = true;
   if (view === '3d') { viewer.show(p); viewer.start(); return; }
   viewer?.stop();
   const img = await loadProductImage(p);

@@ -50,20 +50,15 @@ numaralı sahneler, kızılötesi mod, detay noktaları, renk seçici).
 
 ## Ürünler
 
-`js/products.js` içinde gerçek fotoğraflı 6 takım var: Kalpli Kedi, Helikopter,
-Çilekli, Kutup Ayısı, Smile Everyday Rakun ve Little Hoglet Kirpi. Fotoğrafların
-arka planı silinmiş halleri `assets/` klasöründe. **Ürün kodları, fiyatlar ve
-beden aralıkları örnektir** — gerçek değerlerle güncelleyin.
+`js/products.js` içinde 360° 3D modelli 7 takım var: Kalpli Kedi, Renkli
+Kediler, Dama İş Makineleri, Ayıcıklı Ekose, Renkli Çilekler, Polis Arabaları,
+Ayıcıklı Bej Ekose. Modeller Tripo turntable videolarından üretilir
+(`assets/spin/<ad>/`, `js/spins.js`). **Fiyatlar ve bedenler örnektir.**
 
-Yeni ürün eklemek için `assets/` içine fotoğrafı, `assets/tex/` içine ön
-baskının kesimini koyup listeye `figure` alanıyla bir satır ekleyin:
-
-```js
-figure: { skin: '#f2cdb4', hair: { color: '#6b4630', style: 'long' }, // long | short | ponytail
-  top: { pattern: 'solid', base: '#f3f0ea' }, rib: '#ece8e1',
-  pants: { pattern: 'hearts', base: '#f6f4f0' },                     // solid, stripes, hearts, stars, berries, bears, vehicles, raccoons
-  print: 'assets/tex/yeni-print.png', printAspect: 0.8, printH: 1.6 },
-```
+Yeni model eklemek: Tripo dönüş videosunu karelere ayırıp
+`spin_build.py <ad> <kare-klasörü> <kırpma>` ile işleyin (arka plan temizleme,
+Real-ESRGAN netleştirme, renk eşitleme, eksen ortalama), sonra ürüne
+`spin: '<ad>'` ekleyin. GLB dosyası için `model3d: 'assets/models/x.glb'`.
 
 ## Çalıştırma
 

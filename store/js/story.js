@@ -22,6 +22,7 @@ export function createStory(root, products, hooks = {}) {
   const $ = (s) => root.querySelector(s);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const N = products.length;
+  root.style.height = `${Math.max(600, N * 75 + 100)}vh`; // ürün başına yaklaşık bir ekran kaydırma
   const pin = $('.story-pin');
   const canvas = $('.sky');
   const ctx = canvas.getContext('2d');

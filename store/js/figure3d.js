@@ -374,7 +374,33 @@ function glbFigure(p) {
 
 /* ---------- 360° model: turntable karelerinden, kameraya göre doğru açı ---------- */
 const TAU = Math.PI * 2;
-function spinFigure(p) {
+// Paylaşılan, sayılı kare önbelleği: aynı kare birden çok sahnede tek kez yüklenir
+const TEX = new Map();
+const EMPTY = new THREE.DataTexture(new Uint8Array([0, 0, 0, 0]), 1, 1);
+EMPTY.needsUpdate = true;
+const SPIN_FIGS = new Set();
+const texLoader = new THREE.TextureLoader();
+function spinTex(url) {
+  let e = TEX.get(url);
+  if (!e) {
+    const t = texLoader.load(url);
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 4;
+    t.generateMipmaps = true;
+    e = { t, refs: 0 };
+    TEX.set(url, e);
+  }
+  e.refs++;
+  return e.t;
+}
+function releaseTex(url) {
+  const e = TEX.get(url);
+  if (!e) return;
+  if (--e.refs <= 0) { e.t.dispose(); TEX.delete(url); }
+}
+setInterval(() => { for (const f of SPIN_FIGS) if (f.idle()) f.drop(); }, 3000);
+
+function spinFigure(p, opts = {}) {
   const spin = SPINS[p.spin];
   const root = new THREE.Group();
   const body = new THREE.Group();
@@ -383,24 +409,28 @@ function spinFigure(p) {
   const meshes = [];
   const add = (parent, geo, mat, cast = true) => { const m = new THREE.Mesh(geo, mat); m.castShadow = cast; m.receiveShadow = true; parent.add(m); meshes.push(m); return m; };
   pedestal(p, add, root);
-  const loader = new THREE.TextureLoader();
   const n = spin.frames.length;
+  const step = opts.lite ? 4 : 1; // küçük görünümlerde her 4. kare yeter
   const texs = new Array(n);
+  let lastSeen = 0;
+  let loaded = false;
   const get = (i) => {
-    if (!texs[i]) {
-      texs[i] = loader.load(spin.frames[i]);
-      texs[i].colorSpace = THREE.SRGBColorSpace;
-      texs[i].anisotropy = 8;
-    }
+    i -= i % step;
+    if (!texs[i]) texs[i] = spinTex(spin.frames[i]);
     return texs[i];
   };
-  for (let i = 0; i < n; i++) get(i);
+  const loadAll = () => { if (loaded) return; loaded = true; for (let i = 0; i < n; i += step) get(i); };
+  // Ekranda görünmeyen modelin kareleri bellekten bırakılır, görününce yeniden yüklenir
+  SPIN_FIGS.add({ idle: () => performance.now() - lastSeen > 6000, drop: () => {
+    if (!loaded) return; loaded = false;
+    for (let i = 0; i < n; i++) if (texs[i]) { releaseTex(spin.frames[i]); texs[i] = null; }
+  } });
   const Hh = 10.1;
   const geo = new THREE.PlaneGeometry(Hh * spin.aspect, Hh);
   geo.translate(0, Hh / 2, 0);
   // İki komşu kare arasında yumuşak geçiş: dönüş titremeden akar
   const mat = new THREE.ShaderMaterial({
-    uniforms: { mapA: { value: get(0) }, mapB: { value: get(1) }, mixT: { value: 0 } },
+    uniforms: { mapA: { value: null }, mapB: { value: null }, mixT: { value: 0 } },
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
     fragmentShader: `uniform sampler2D mapA; uniform sampler2D mapB; uniform float mixT; varying vec2 vUv;
       void main(){ vec4 a = texture2D(mapA, vUv); vec4 b = texture2D(mapB, vUv);
@@ -425,23 +455,30 @@ function spinFigure(p) {
   const e = new THREE.Euler();
   const ready = (i) => texs[i] && texs[i].image && texs[i].image.width;
   plane.onBeforeRender = (renderer, scene, camera) => {
+    lastSeen = performance.now();
+    loadAll();
     root.getWorldPosition(wp);
     root.getWorldQuaternion(wq);
     e.setFromQuaternion(wq, 'YXZ');
     const camYaw = Math.atan2(camera.position.x - wp.x, camera.position.z - wp.z);
     const ang = ((camYaw - e.y) % TAU + TAU) % TAU;
-    const f = (ang / TAU) * n;
-    let i0 = Math.floor(f) % n;
-    let i1 = (i0 + 1) % n;
+    const f = (ang / TAU) * (n / step);
+    let i0 = (Math.floor(f) * step) % n;
+    let i1 = (i0 + step) % n;
     let t = f - Math.floor(f);
     if (!ready(i0) || !ready(i1)) { // henüz yüklenmediyse en yakın yüklü kare
-      let k = Math.round(f) % n;
-      while (!ready(k) && k > 0) k--;
+      // en yakın yüklü kareyi her iki yönde ara; hiçbiri yoksa görünmez kal
+      let k = -1;
+      const base = (Math.round(f) * step) % n;
+      for (let d = 0; d < n && k < 0; d += step) {
+        if (ready((base + d) % n)) k = (base + d) % n;
+        else if (ready((base - d + n) % n)) k = (base - d + n) % n;
+      }
       i0 = i1 = k;
       t = 0;
     }
-    mat.uniforms.mapA.value = texs[i0];
-    mat.uniforms.mapB.value = texs[i1];
+    mat.uniforms.mapA.value = i0 >= 0 ? texs[i0] : EMPTY;
+    mat.uniforms.mapB.value = i1 >= 0 ? texs[i1] : EMPTY;
     mat.uniforms.mixT.value = t;
     plane.rotation.y = camYaw - e.y;
     plane.updateMatrixWorld();
@@ -497,9 +534,9 @@ function photoFigure(p) {
 }
 
 /* ---------- Figür ---------- */
-function buildFigure(p, cache) {
+function buildFigure(p, cache, opts = {}) {
   if (p.model3d) return glbFigure(p);
-  if (p.spin && SPINS[p.spin]) return spinFigure(p);
+  if (p.spin && SPINS[p.spin]) return spinFigure(p, opts);
   if (p.photo) return photoFigure(p);
   if (!p.figure) { // 3D verisi henüz yok: sadece kaide
     const root = new THREE.Group(); const body = new THREE.Group(); root.add(body); const meshes = [];
