@@ -72,11 +72,51 @@ export const PRODUCTS = [
     colorName: 'Bej ekose / Ayıcıklı', sizes: SIZES,
     desc: 'Bej ekose zemin üzerinde ayıcıklar; kırmızı biyeli, yakalı düğmeli pijama takımı.',
   },
-
-
-
-
-
+  {
+    id: 'SD-13', spin: 'safari-dostlari',
+    spots: { yaka: [0.5, 0.2], baski: [0.5, 0.35], desen: [0.4, 0.7], manset: [0.6, 0.94] },
+    image: 'assets/spin/safari-dostlari/000.webp', gender: 'kiz',
+    accent: '#3aa0c8', tint: '#e6f5fb', podium: '#bfe3f1',
+    code: 'Kız çocuk', name: 'Safari Dostları Takımı', price: 449,
+    colorName: 'Açık mavi / Desenli', sizes: SIZES,
+    desc: 'Açık mavi zemin üzerinde filler, zürafalar, palmiye yaprakları ve çiçekler; manşetli bilek ve paçalar.',
+  },
+  {
+    id: 'GZ-14', spin: 'gezegenler',
+    spots: { yaka: [0.5, 0.2], baski: [0.5, 0.35], desen: [0.4, 0.7], manset: [0.6, 0.94] },
+    image: 'assets/spin/gezegenler/000.webp', gender: 'erkek',
+    accent: '#3b4fa8', tint: '#e9ecfb', podium: '#c4ccf2',
+    code: 'Erkek çocuk', name: 'Gezegenler Takımı', price: 449,
+    colorName: 'Lacivert / Uzay desenli', sizes: SIZES,
+    desc: 'Lacivert zemin üzerinde gezegenler ve yıldızlar; yakalı, düğmeli pijama takımı.',
+  },
+  {
+    id: 'KE-15', spin: 'kirmizi-ekose',
+    spots: { yaka: [0.5, 0.2], baski: [0.5, 0.35], desen: [0.4, 0.7], manset: [0.6, 0.94] },
+    image: 'assets/spin/kirmizi-ekose/000.webp', gender: 'erkek',
+    accent: '#c0283a', tint: '#fde9eb', podium: '#f4c0c6',
+    code: 'Erkek çocuk', name: 'Kırmızı Ekose Takım', price: 449,
+    colorName: 'Kırmızı / Siyah ekose', sizes: SIZES,
+    desc: 'Kırmızı-siyah ekose, yakalı düğmeli klasik pijama takımı.',
+  },
+  {
+    id: 'MC-16', spin: 'mavi-cizgili',
+    spots: { yaka: [0.5, 0.2], baski: [0.5, 0.35], desen: [0.4, 0.7], manset: [0.6, 0.94] },
+    image: 'assets/spin/mavi-cizgili/000.webp', gender: 'erkek',
+    accent: '#2f62d0', tint: '#e7eefe', podium: '#bfd0f8',
+    code: 'Erkek çocuk', name: 'Mavi Çizgili Takım', price: 449,
+    colorName: 'Mavi / Beyaz çizgili', sizes: SIZES,
+    desc: 'Mavi-beyaz çizgili, göğüs cepli, yakalı düğmeli klasik pijama takımı.',
+  },
+  {
+    id: 'KC-17', spin: 'krem-cilekler',
+    spots: { yaka: [0.5, 0.2], baski: [0.5, 0.35], desen: [0.4, 0.7], manset: [0.6, 0.94] },
+    image: 'assets/spin/krem-cilekler/000.webp', gender: 'kiz',
+    accent: '#d9455f', tint: '#fdecef', podium: '#f5c6cf',
+    code: 'Kız çocuk', name: 'Krem Çilekler Takımı', price: 449,
+    colorName: 'Krem / Renkli çilekler', sizes: SIZES,
+    desc: 'Krem zemin üzerinde rengârenk çilekler; manşetli bilek ve paçalar.',
+  },
 ];
 
 // Detay noktaları (fotoğraf içinde 0–1 arası x, y)

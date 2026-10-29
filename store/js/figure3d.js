@@ -310,13 +310,17 @@ const PED_R = 3.0;
 function pedestal(p, add, root) {
   const g = new THREE.Group();
   root.add(g);
-  const tint = new THREE.Color('#ffffff').lerp(new THREE.Color(p.accent), 0.16);
+  const tint = new THREE.Color('#ffffff').lerp(new THREE.Color(p.accent), 0.22);
   const base = add(g, new THREE.CylinderGeometry(PED_R, PED_R * 1.03, PED_H, 96), new THREE.MeshPhysicalMaterial({ color: tint, roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.06, sheen: 0.4, sheenColor: new THREE.Color(p.accent) }), false);
   base.position.y = PED_H / 2;
   const top = add(g, new THREE.CircleGeometry(PED_R * 0.985, 96), new THREE.MeshPhysicalMaterial({ color: new THREE.Color('#ffffff').lerp(new THREE.Color(p.accent), 0.07), roughness: 0.1, clearcoat: 1, clearcoatRoughness: 0.04 }), false);
   top.rotation.x = -Math.PI / 2;
   top.position.y = PED_H + 0.002;
   top.receiveShadow = true;
+  const sheen = new THREE.Mesh(new THREE.RingGeometry(PED_R * 0.2, PED_R * 0.98, 96), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#ffffff', transparent: true, opacity: 0.55, depthWrite: false }));
+  sheen.rotation.x = -Math.PI / 2;
+  sheen.position.y = PED_H + 0.006;
+  g.add(sheen);
   const ring = add(g, new THREE.TorusGeometry(PED_R * 1.005, 0.03, 12, 128), new THREE.MeshStandardMaterial({ color: p.accent, emissive: p.accent, emissiveIntensity: 0.7, roughness: 0.3 }), false);
   ring.rotation.x = Math.PI / 2;
   ring.position.y = PED_H - 0.01;
@@ -445,7 +449,7 @@ function spinFigure(p, opts = {}) {
   plane.castShadow = false;
   body.add(plane);
   meshes.push(plane);
-  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.2, 48), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#2b2f6b', transparent: true, opacity: 0.35, depthWrite: false }));
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 48), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#2b2f6b', transparent: true, opacity: 0.5, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2;
   shadow.position.y = 0.012;
   shadow.scale.set(1, 0.6, 1);
@@ -480,6 +484,12 @@ function spinFigure(p, opts = {}) {
     mat.uniforms.mapA.value = i0 >= 0 ? texs[i0] : EMPTY;
     mat.uniforms.mapB.value = i1 >= 0 ? texs[i1] : EMPTY;
     mat.uniforms.mixT.value = t;
+    // Ayaklar kaidenin üst yüzeyine tam bassın: karedeki ayak boşluğu kadar aşağı indir
+    if (spin.foot && i0 >= 0) {
+      const fa = spin.foot[i0] || 0;
+      const fb = spin.foot[i1 >= 0 ? i1 : i0] || 0;
+      plane.position.y = -(fa + (fb - fa) * t) * Hh - 0.05; // hafifçe yüzeye otur
+    }
     plane.rotation.y = camYaw - e.y;
     plane.updateMatrixWorld();
   };
