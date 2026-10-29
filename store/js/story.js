@@ -6,6 +6,8 @@ import { createFigures } from './figure3d.js';
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (t) => { t = clamp(t); return t * t * (3 - 2 * t); };
 const LOGO = ['#79c3f6', '#f59bd6', '#f9a25c', '#ffd45c'];
+// Etiketin yüksekliğinde figürün yarım genişliği (boyun oranı): yazı bunun dışına konur
+const EDGE = { baski: 0.2, desen: 0.15, manset: 0.13 };
 const TAGS = [
   { key: 'baski', label: 'Ön baskı' },
   { key: 'desen', label: 'Desenli alt' },
@@ -223,10 +225,37 @@ export function createStory(root, products, hooks = {}) {
   let bits = [];
   let cloud = null;
   const dpr = Math.min(devicePixelRatio || 1, 2);
+  // Kadraj sınırları gerçek yerleşimden ölçülür: başın tepesi menünün (mobilde giriş başlığının)
+  // hemen altına, kaidenin alt kenarı ilerleme çubuğunun (mobilde ürün kartının) hemen üstüne.
+  const frameBox = { top: 0.14, bottom: 0.94, maxHalf: 0 };
+  function measure() {
+    const hdr = document.querySelector('.site-header')?.getBoundingClientRect().bottom || 100;
+    if (portrait) {
+      const intro = $('.intro').getBoundingClientRect();
+      const tallest = Math.max(...panels.map((p) => p.offsetHeight));
+      const panelTop = vh - parseFloat(getComputedStyle($('.panels')).bottom || '44') - tallest;
+      frameBox.top = (Math.max(hdr, intro.bottom) + 10) / vh;
+      frameBox.bottom = (panelTop - 12) / vh;
+      frameBox.maxHalf = vw * 0.47;
+    } else {
+      const card = $('.panels').getBoundingClientRect();
+      // Menü kapsülleri modelin baş sütununu kesmiyorsa baş, duyuru bandının altına kadar çıkabilir
+      const mx = cx() * vw;
+      const half = Math.max(90, vw * 0.06);
+      const pills = [...document.querySelectorAll('.nav > .logo, .nav > .menu, .nav > .actions')].map((el) => el.getBoundingClientRect());
+      const blocked = pills.some((r) => r.right > mx - half && r.left < mx + half);
+      const band = document.querySelector('.marquee')?.getBoundingClientRect().bottom || 0;
+      frameBox.top = ((blocked ? hdr : band) + 12) / vh;
+      frameBox.bottom = ($('.bar').getBoundingClientRect().top - 6) / vh;
+      frameBox.maxHalf = Math.min(cx() * vw - card.right - 16, vw * 0.3);
+    }
+  }
+  const cx = () => (portrait ? 0.5 : 0.57);
   function resize() {
     vw = innerWidth;
     vh = innerHeight;
     portrait = vw / vh < 0.9;
+    measure();
     canvas.width = vw * dpr;
     canvas.height = vh * dpr;
     const n = Math.round((vw * vh) / 26000);
@@ -269,8 +298,8 @@ export function createStory(root, products, hooks = {}) {
   const GOLD = [
     { dx: -0.2, dy: 0.17, r: 0.022, ph: 0 },
     { dx: 0.2, dy: 0.28, r: 0.016, ph: 1.3 },
-    { dx: -0.13, dy: 0.7, r: 0.018, ph: 2.1 },
-    { dx: 0.09, dy: 0.6, r: 0.02, ph: 3.4 },
+    { dx: -0.19, dy: 0.7, r: 0.018, ph: 2.1 },
+    { dx: 0.16, dy: 0.6, r: 0.02, ph: 3.4 },
     { dx: 0.24, dy: 0.72, r: 0.026, ph: 4.2 },
     { dx: -0.26, dy: 0.46, r: 0.012, ph: 5.1 },
   ];
@@ -288,10 +317,10 @@ export function createStory(root, products, hooks = {}) {
   function drawSky(t, prog) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, vw, vh);
-    // Modelin çevresinde süzülen büyük altın yıldızlar
-    const cxs = portrait ? 0.5 : 0.56;
+    // Modelin çevresinde süzülen büyük altın yıldızlar (figürün silüetinin dışında kalır)
+    const cxs = cx();
     for (const g of GOLD) {
-      const x = (cxs + g.dx * (portrait ? 0.9 : 1)) * vw;
+      const x = (cxs + g.dx * (portrait ? 1.65 : 1)) * vw;
       const y = (g.dy + (reduced ? 0 : Math.sin(t * 0.8 + g.ph) * 0.012) - prog * 0.04) * vh;
       const r = g.r * Math.min(vw, vh) * (portrait ? 0.8 : 1);
       ctx.save();
@@ -357,6 +386,8 @@ export function createStory(root, products, hooks = {}) {
   function frame(now) {
     requestAnimationFrame(frame);
     if (document.documentElement.dataset.modal) { last = now; return; }
+    // Bazı mobil tarayıcılar ilk ölçümden sonra genişliği resize olayı olmadan düzeltir
+    if (innerWidth !== vw) resize();
     const t = (now - t0) / 1000;
     const dt = Math.min(0.1, (now - last) / 1000);
     last = now;
@@ -376,7 +407,7 @@ export function createStory(root, products, hooks = {}) {
     pin.style.setProperty('--acc', rgb(mix(A.acc, B.acc, f)));
     pin.style.setProperty('--acc-ink', rgb(mix(mix(A.acc, B.acc, f), INK, 0.42)));
 
-    const cx = portrait ? 0.5 : 0.56;
+    const cxv = cx();
     mouse.sx += (mouse.x - mouse.sx) * 0.025;
     mouse.sy += (mouse.y - mouse.sy) * 0.06;
     if (!drag.on && now - drag.last > 2500) drag.rot += (Math.round(drag.rot / (Math.PI * 2)) * Math.PI * 2 - drag.rot) * 0.04;
@@ -392,14 +423,12 @@ export function createStory(root, products, hooks = {}) {
         const intro = reduced ? 1 : Math.min(1, t / 3.4);
         const ease = intro < 0.5 ? 4 * intro ** 3 : 1 - (-2 * intro + 2) ** 3 / 2; // yavaş başla, yavaş bitir
         const entrance = i === 0 ? (1 - ease) * Math.PI * 2 : 0;
-        const hdr = (document.querySelector('.site-header')?.offsetHeight || 110) / vh;
-        const floorY = portrait ? 0.68 : 0.915;
-        const topY = hdr + (portrait ? 0.05 : 0.0);
         const cur = Math.abs(d) < 0.5;
         states.push({
-          x: cx - dir * u * (portrait ? 0.7 : 0.42),
-          floor: floorY,
-          height: Math.min(portrait ? 0.6 : 0.86, (floorY - topY) / 1.06),
+          x: cxv - dir * u * (portrait ? 0.7 : 0.42),
+          top: frameBox.top,
+          bottom: frameBox.bottom,
+          maxHalf: frameBox.maxHalf,
           rotY: -dir * u * 0.7 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.25 : 0),
           rotX: cur ? mouse.sy * 0.06 : 0,
           scale: (1 - u * 0.25) * (i === 0 ? 0.9 + ease * 0.1 : 1),
@@ -411,7 +440,7 @@ export function createStory(root, products, hooks = {}) {
       m.style.opacity = vis.toFixed(3);
       m.style.visibility = vis < 0.01 ? 'hidden' : 'visible';
       const bob = reduced ? 0 : Math.sin(t * 1.2 + i) * 3;
-      m.style.transform = `translate3d(calc(${(cx * 100).toFixed(2)}vw - 50% + ${(-dir * u * (portrait ? 60 : 34)).toFixed(2)}vw), ${bob.toFixed(1)}px, 0) rotateY(${(dir * u * 22).toFixed(1)}deg) scale(${(1 - u * 0.16).toFixed(3)})`;
+      m.style.transform = `translate3d(calc(${(cxv * 100).toFixed(2)}vw - 50% + ${(-dir * u * (portrait ? 60 : 34)).toFixed(2)}vw), ${bob.toFixed(1)}px, 0) rotateY(${(dir * u * 22).toFixed(1)}deg) scale(${(1 - u * 0.16).toFixed(3)})`;
       m.style.filter = u > 0.01 ? `blur(${(u * 6).toFixed(1)}px)` : 'none';
       m.classList.toggle('is-current', Math.abs(d) < 0.25);
       }
@@ -437,7 +466,17 @@ export function createStory(root, products, hooks = {}) {
         const [x, y] = products[i].spots[tg.dataset.k];
         const pt = m3d.project(i, tg.dataset.k);
         if (!pt || pt.facing < 0.35) { tg.style.opacity = 0; return; }
-        tg.classList.toggle('left', x < 0.5);
+        const left = x < 0.5;
+        tg.classList.toggle('left', left);
+        // Etiket yazısı figürün silüetinin dışında dursun: nokta detayda, bağlantı çizgisi uzar
+        const H = (frameBox.bottom - frameBox.top) * vh * 0.86;
+        const edge = cx() * vw + (left ? -1 : 1) * (EDGE[tg.dataset.k] || 0.15) * H;
+        let lead = Math.min(180, Math.max(18, left ? pt.x - edge + 10 : edge - pt.x + 10));
+        // Dar ekranda yazı ekranın dışına taşmasın
+        const tw = Number(tg.dataset.w) || (tg.dataset.w = tg.offsetWidth);
+        const room = left ? pt.x - tw - 8 : vw - 8 - tw - pt.x;
+        lead = Math.max(12, Math.min(lead, room));
+        tg.style.setProperty('--lead', `${lead.toFixed(0)}px`);
         tg.style.opacity = (settle * clamp((pt.facing - 0.35) * 3)).toFixed(3);
         tg.style.transform = `translate(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px)`;
       });
@@ -454,6 +493,7 @@ export function createStory(root, products, hooks = {}) {
 
   addEventListener('resize', resize);
   resize();
+  document.fonts?.ready.then(measure); // yazı tipleri yüklenince kart ve başlık ölçüleri değişir
   requestAnimationFrame(frame);
 
   return {

@@ -42,7 +42,7 @@ export function createLineup(canvas, products, hooks = {}) {
   const cache = new Map();
   const figs = products.map((p, i) => {
     const f = buildFigure(p, cache, { lite: true });
-    f.root.userData.pedestal?.scale.set(0.55, 1, 0.55); // dizilimde kaideler sığsın
+    f.root.userData.pedestal?.scale.set(0.72, 1, 0.72); // dizilimde kaideler sığsın (ayak açıklığı en geniş pozda da üstte kalır)
     scene.add(f.root);
     return { f, p, i, lift: 0, dim: 0, base: new THREE.Vector3() };
   });

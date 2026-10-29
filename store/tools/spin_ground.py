@@ -22,6 +22,8 @@ Tripo videosu sabit bir kamerayla, dönen bir tablada çekilir. Bu yüzden:
   * Gölgeler için her karede görünen taban lekeleri de kaydedilir (soles): karedeki yatay
     konum ve taban boşluğundan, ayağın kaide üzerindeki derinliği  z = (g − boşluk)/tilt − E
     olarak bulunur; gölge o karede çizilen ayağın tam altına düşer.
+  * top: başın en üst noktasının karenin üstünden uzaklığı. Figür, baştan zemine olan boyu
+    tüm modellerde aynı olacak şekilde ölçeklenir (ürün değişince görsel boyut sabit kalır).
   * Her ayağın g0 farkı o ayağın kalkıklığıdır (pozdan gelen parmak ucu vb.): ayak zorla
     indirilmez, sadece gölgesi zayıflatılır.
 
@@ -65,7 +67,10 @@ def blobs(alpha):
 def fit(frames):
     n = len(frames)
     A = 2 * np.pi * np.arange(n) / n
-    B = [blobs(np.array(Image.open(os.path.join(STORE, f)).convert('RGBA'))[..., 3]) for f in frames]
+    alphas = [np.array(Image.open(os.path.join(STORE, f)).convert('RGBA'))[..., 3] for f in frames]
+    B = [blobs(a) for a in alphas]
+    # Başın en üst noktası (tüm karelerde en yüksek opak satır): modeller aynı görsel boyda gösterilsin diye
+    top = min(int(np.where((a > 128).sum(1) > 3)[0].min()) for a in alphas) / alphas[0].shape[0]
     f0 = sorted(B[0], key=lambda b: b['x'])
     P = ([np.array([f0[0]['x'], 0.0]), np.array([f0[-1]['x'], 0.0])] if len(f0) > 1
          else [np.array([-0.03, 0.0]), np.array([0.03, 0.0])])
@@ -102,7 +107,7 @@ def fit(frames):
     # Her karede görünen ayak tabanları: [x, yarı genişlik, taban boşluğu] (gölgeler bunlardan çizilir)
     soles = [[round(float(v), 4) for b in bl for v in (b['x'], b['hw'], b['g'])] for bl in B]
     return dict(P=P, g0=coef[:2], tilt=float(coef[2]), rms=rms, hw=float(np.median(R[:, 3])),
-                nobs=[len(o) for o in obs], soles=soles)
+                nobs=[len(o) for o in obs], soles=soles, top=top)
 
 
 def main():
@@ -120,10 +125,11 @@ def main():
         feet = [[round(float(q[0]), 4), round(float(q[1]), 4), round(float(g - base), 4)]
                 for q, g in zip(r['P'], g0)]
         data[k]['ground'] = {'g': round(base + tilt * E, 4), 'tilt': round(tilt, 3),
-                             'feet': feet, 'hw': round(r['hw'], 4), 'soles': r['soles']}
+                             'feet': feet, 'hw': round(r['hw'], 4), 'top': round(r['top'], 4),
+                             'soles': r['soles']}
         data[k].pop('foot', None)
         lifted = [i for i, f in enumerate(feet) if f[2] > 0.012]
-        print(f"{k:22s} g={data[k]['ground']['g']:.4f} tilt={tilt:.3f}{'' if reliable else ' (ortanca)'} "
+        print(f"{k:22s} top={r['top']:.4f} g={data[k]['ground']['g']:.4f} tilt={tilt:.3f}{'' if reliable else ' (ortanca)'} "
               f"rms={r['rms']:.4f} ayaklar={feet} "
               f"{'iki ayak temas' if not lifted else 'kalkık ayak: ' + str(lifted)}")
     if '--write' in sys.argv:
