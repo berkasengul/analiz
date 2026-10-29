@@ -61,7 +61,7 @@ const lineup = createLineup($('.lineup'), PRODUCTS, {
   },
 });
 if (!lineup) $('.world-stage').hidden = true;
-createFinale($('.finale3d'), PRODUCTS[0]);
+createFinale($('.finale3d'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice });
 const viewer = createViewer($('.detail-3d'), {
   onZoom: (z) => {
     $('.zoom-level').textContent = `${z.toFixed(1).replace('.0', '')}×`;

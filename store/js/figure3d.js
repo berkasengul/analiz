@@ -444,13 +444,27 @@ const SPIN_FIGS = new Set();
 // Önizleme gibi farklı paketlemelerde kare kaynağı window.__spinSource ile değiştirilebilir
 const fetchBlob = (url) => (window.__spinSource ? window.__spinSource(url) : fetch(url).then((r) => r.blob()));
 const fetchQueue = [];
+const queued = new Map(); // url → bekleyen iş
 let fetching = 0;
-function queueFetch(url) { // aynı anda en fazla 6 indirme
-  return new Promise((res, rej) => { fetchQueue.push({ url, res, rej }); pumpFetch(); });
+// Aynı anda en fazla 6 indirme. Ekranda o an gereken kare (urgent) kuyruğun önüne geçer;
+// arka plandaki önden yükleme sona eklenir, böylece bir modelin 120 karesi diğerlerini bekletmez.
+function queueFetch(url, urgent) {
+  return new Promise((res, rej) => {
+    const job = { url, res, rej };
+    queued.set(url, job);
+    if (urgent) fetchQueue.unshift(job); else fetchQueue.push(job);
+    pumpFetch();
+  });
+}
+function promote(url) {
+  const job = queued.get(url);
+  const i = job ? fetchQueue.indexOf(job) : -1;
+  if (i > 0) { fetchQueue.splice(i, 1); fetchQueue.unshift(job); }
 }
 function pumpFetch() {
   while (fetching < 6 && fetchQueue.length) {
     const job = fetchQueue.shift();
+    queued.delete(job.url);
     fetching++;
     fetchBlob(job.url).then(job.res, job.rej).finally(() => { fetching--; pumpFetch(); });
   }
@@ -498,12 +512,18 @@ function spinFigure(p, opts = {}) {
   let blobs = null;
   let lastSeen = 0;
   let rendererRef = null;
-  const blobOf = (i) => {
+  const blobOf = (i, urgent) => {
     if (!blobs) blobs = new Array(n);
-    if (!blobs[i]) blobs[i] = queueFetch(spin.frames[i]);
+    if (!blobs[i]) blobs[i] = queueFetch(spin.frames[i], urgent);
+    else if (urgent) promote(spin.frames[i]);
     return blobs[i];
   };
-  const prefetch = () => { if (blobs) return; for (let i = 0; i < n; i += step) blobOf(i); };
+  let prefetched = false;
+  const prefetch = () => {
+    if (prefetched && blobs) return;
+    prefetched = true;
+    for (let i = 0; i < n; i += step) blobOf(i);
+  };
   const keep = new Set();
   function evict() {
     if (ring.size <= CAP) return;
@@ -517,7 +537,7 @@ function spinFigure(p, opts = {}) {
   }
   async function decode(i) {
     try {
-      const img = await decodeFrame(await blobOf(i), MAXH);
+      const img = await decodeFrame(await blobOf(i, true), MAXH);
       if (!blobs) { img.close?.(); return; } // bu arada bellekten bırakıldıysa
       const tex = new THREE.Texture(img);
       tex.colorSpace = THREE.SRGBColorSpace;
@@ -544,6 +564,7 @@ function spinFigure(p, opts = {}) {
   SPIN_FIGS.add({ idle: () => performance.now() - lastSeen > 6000, drop: () => {
     if (!blobs && !ring.size) return;
     blobs = null;
+    prefetched = false;
     for (const e of ring.values()) { e.tex.dispose(); e.tex.image.close?.(); }
     ring.clear();
   } });

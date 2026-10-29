@@ -54,15 +54,17 @@ export function createLineup(canvas, products, hooks = {}) {
     // Sıralar: masaüstünde 2 sıra (arkadaki sıra boşluklara kayar), mobilde 3 sıra
     const n = figs.length;
     const perRow = portrait ? Math.ceil(n / 3) : Math.ceil(n / 2);
-    const gap = portrait ? 4.2 : 4.4;
+    const gap = portrait ? 4.3 : 5.2;
     figs.forEach((g, i) => {
       const row = Math.floor(i / perRow);
       const col = i % perRow;
       const inRow = Math.min(perRow, n - row * perRow);
       const o = col - (inRow - 1) / 2 + (row % 2 ? 0.5 : 0) * (inRow === perRow ? 1 : 0) - (row % 2 ? 0.25 : 0);
-      g.base.set(o * gap, 0, 4 - row * 9 - Math.abs(o) * 0.6);
+      g.base.set(o * gap, 0, 4 - row * 8 - Math.abs(o) * 0.5);
     });
+    span = Math.max(...figs.map((g) => Math.abs(g.base.x))) + 1.9; // en dıştaki kaidenin kenarı
   }
+  let span = 10;
   function resize() {
     sizeTo(st, canvas);
     portrait = canvas.clientWidth / canvas.clientHeight < 0.9;
@@ -99,12 +101,15 @@ export function createLineup(canvas, products, hooks = {}) {
     const r = canvas.getBoundingClientRect();
     const q = clampS(1 - (r.top + r.height * 0.3) / innerHeight); // bölüme girişte kamera yaklaşır
     const e = 1 - Math.pow(1 - q, 3);
+    // Kamera, figür sıraları bölümün genişliğini dolduracak mesafeden bakar
+    const T = Math.tan((camera.fov * Math.PI) / 360);
+    const dist = (span * 1.04) / (T * camera.aspect) + (1 - e) * 6;
     if (portrait) {
-      camera.position.set(0, 24 - e * 4, 92 - e * 12);
-      camera.lookAt(0, 3.4, -9);
+      camera.position.set(0, 4 + dist * 0.24, 4 + dist);
+      camera.lookAt(0, 4.4, -8);
     } else {
-      camera.position.set(Math.sin(t * 0.12) * 1.2, 16 - e * 4, 60 - e * 12);
-      camera.lookAt(0, 3.6, -6);
+      camera.position.set(Math.sin(t * 0.12) * 0.8, 4 + dist * 0.22, 4 + dist);
+      camera.lookAt(0, 4.8, -4);
     }
     const h = pickAt();
     if (h !== hovered) {
@@ -233,7 +238,8 @@ export function createIcons(canvas, slots) {
 }
 
 /* ---------- Gece finali: ay, yıldızlar ve el sallayan figür ---------- */
-export function createFinale(canvas, product) {
+const FEET_Y = 0.36; // figürün ayak tabanı (kaide üst yüzeyi) kök koordinatında
+export function createFinale(canvas, products, hooks = {}) {
   const st = makeStage(canvas, { fov: 28, exposure: 1, groundOpacity: 0.25 });
   if (!st) return null;
   const { scene, camera, renderer, key } = st;
@@ -245,49 +251,165 @@ export function createFinale(canvas, product) {
   scene.add(glow);
   const stars = [];
   const cols = ['#ffd45c', '#f59bd6', '#79c3f6', '#ffffff'];
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 11; i++) {
     const m = new THREE.Mesh(extrude(starShape(1, 0.46), 0.35), gloss(cols[i % cols.length], 0.25));
-    m.userData = { a: (i / 9) * Math.PI * 2, r: 7 + (i % 3) * 2.2, y: 4 + (i % 4) * 2, s: 0.35 + (i % 3) * 0.15 };
+    m.userData = { a: (i / 11) * Math.PI * 2, r: 8 + (i % 3) * 2.4, y: 3 + (i % 4) * 2.2, s: 0.3 + (i % 3) * 0.14 };
     scene.add(m);
     stars.push(m);
   }
   const cloudMat = gloss('#ffffff');
   cloudMat.roughness = 0.6;
-  const cloud = cloudGroup(cloudMat);
-  cloud.scale.set(3.2, 1.4, 2.4);
-  cloud.position.set(0, -0.4, 0);
-  const fig = buildFigure(product, new Map());
-  fig.root.position.set(0, 0.6, 0);
-  const holder = new THREE.Group();
-  scene.add(holder);
-  holder.add(cloud, fig.root);
-  scene.add(fig.root);
-  st.ground.position.y = 0.55;
+  // Arka planda yavaşça kayan bulutlar (derinlik hissi)
+  const farMat = gloss('#c9c2ff');
+  farMat.roughness = 0.8;
+  farMat.transparent = true;
+  farMat.opacity = 0.45;
+  const far = [0, 1, 2].map((i) => {
+    const c = cloudGroup(farMat);
+    c.scale.set(2.2 + i * 0.6, 0.9, 1.2);
+    c.userData = { y: 12 + i * 1.6, z: -22 - i * 4, off: i * 13, v: 0.5 + i * 0.25 };
+    scene.add(c);
+    return c;
+  });
+  // Kayan yıldız
+  const shoot = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.0, 4, 8), new THREE.MeshBasicMaterial({ color: '#fff6c8', transparent: true, opacity: 0 }));
+  shoot.rotation.z = Math.PI / 2.6;
+  scene.add(shoot);
+
+  // Üç bulut sahne: ortada öne çıkan takım, iki yanda geride süzülen takımlar.
+  // Birkaç saniyede bir üçlü sıradaki takımlara geçer; 12 takımın hepsi sırayla görünür.
+  const slots = [0, 1, 2].map((k) => {
+    const g = new THREE.Group();
+    const cloud = cloudGroup(cloudMat);
+    cloud.scale.set(k ? 2.3 : 3.1, k ? 1.05 : 1.35, k ? 1.8 : 2.3);
+    // Bulutun üst yüzeyi figürün ayak hizasına (kaide yüksekliği) gelsin; ayaklar hafifçe gömülür
+    const top = new THREE.Box3().setFromObject(cloud).max.y;
+    cloud.position.y = FEET_Y - 0.1 - top;
+    g.add(cloud);
+    scene.add(g);
+    return { g, k, fig: null, id: null };
+  });
+  const pool = new Map();
+  const cache = new Map();
+  const figFor = (p) => {
+    let f = pool.get(p.id);
+    if (!f) {
+      f = buildFigure(p, cache);
+      f.root.userData.pedestal && (f.root.userData.pedestal.visible = false); // bulut kaide görevi görür
+      f.root.visible = false;
+      scene.add(f.root);
+      pool.set(p.id, f);
+    }
+    return f;
+  };
+  const N = products.length;
+  const PERIOD = 7.5;
+  const pick = canvas.parentElement.querySelector('.finale-pick');
+  let shownCycle = -1;
+
   const resize = () => sizeTo(st, canvas);
   addEventListener('resize', resize);
   resize();
+  const ray = new THREE.Raycaster();
+  const ndc = new THREE.Vector2();
+  canvas.addEventListener('click', (e) => {
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    for (const sl of slots) {
+      if (sl.fig && sl.fig.root.visible && ray.intersectObjects(sl.fig.meshes, false).length) { hooks.onOpen?.(products.find((p) => p.id === sl.id)); return; }
+    }
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    canvas.style.cursor = slots.some((sl) => sl.fig && sl.fig.root.visible && ray.intersectObjects(sl.fig.meshes, false).length) ? 'pointer' : '';
+  });
+  pick?.addEventListener('click', () => hooks.onOpen?.(products.find((p) => p.id === slots[0].id)));
+
   const blink = blinker();
+  const v = new THREE.Vector3();
+  const pop = (x) => x * x * (3 - 2 * x);
   loopWhenVisible(canvas, (t) => {
     const r = canvas.getBoundingClientRect();
     const q = clampS(1 - (r.top + r.height * 0.2) / innerHeight);
     const portrait = r.width / r.height < 0.9;
-    const mx = portrait ? 3.2 : 11;
-    holder.position.x = portrait ? 0 : 4.5;
-    moon.position.set(mx, 6 + q * 6, -6);
+    const cycle = Math.floor(t / PERIOD);
+    const local = t - cycle * PERIOD;
+    // Yerleşim: masaüstünde metin kutusunun sağında, mobilde üstte
+    const cx = portrait ? 0 : 7;
+    const pos = portrait
+      ? [[cx, 0.6, 0], [cx - 3.5, 1.6, -4], [cx + 3.5, 1.6, -4]]
+      : [[cx, 0.6, 0], [cx - 6.2, 2.4, -7], [cx + 6.4, 2.4, -7]];
+    const scl = portrait ? [0.62, 0.46, 0.46] : [1, 0.72, 0.72];
+    slots.forEach((sl, k) => {
+      const p = products[(cycle * 3 + k) % N];
+      if (sl.id !== p.id) {
+        if (sl.fig) sl.fig.root.visible = false;
+        sl.fig = figFor(p);
+        sl.id = p.id;
+      }
+      // Değişimde figür buluttan yükselip görünür, sonunda yumuşakça küçülür
+      const appear = pop(clampS((local - k * 0.18) / 0.9)) * pop(clampS((PERIOD - local) / 0.7));
+      const bob = reduced() ? 0 : Math.sin(t * 0.9 + k * 2) * 0.25;
+      const [x, y, z] = pos[k];
+      sl.g.position.set(x, y + bob, z);
+      sl.g.scale.setScalar(scl[k]);
+      const f = sl.fig;
+      f.root.visible = appear > 0.01;
+      f.root.position.set(x, y + bob - (1 - appear) * 1.2, z);
+      f.root.scale.setScalar(scl[k] * (0.6 + 0.4 * appear));
+      // Yavaş, kesintisiz dönüş; her tur karşıdan başlar
+      // Ortadaki her turda tam bir dönüş yapar (karşıdan başlar, karşıda biter); yandakiler salınır
+      f.root.rotation.y = reduced() ? 0 : k === 0 ? pop(clampS(local / PERIOD)) * Math.PI * 2 : Math.sin(t * 0.5 + k * 2) * 0.45;
+      animateFigure(f, t, k, blink(t) && k === 0, 0);
+    });
+    // Sıradaki üçlünün karelerini önceden yükle: görünmez ama çizime girer
+    const nextIds = new Set([0, 1, 2].map((k) => products[(cycle * 3 + 3 + k) % N].id));
+    if (local > PERIOD - 2.5) for (const id of nextIds) {
+      const f = figFor(products.find((p) => p.id === id));
+      // görünür alanın içinde, çok küçük: çizime girer, böylece kareleri yüklenir
+      if (!slots.some((sl) => sl.fig === f)) { f.root.visible = true; f.root.position.set(cx, 3, -12); f.root.scale.setScalar(0.002); }
+    }
+    const mx = portrait ? 3.6 : 13.5;
+    moon.position.set(mx, portrait ? 7.5 + q * 2 : 9 + q * 4, -9);
     moon.rotation.set(0, Math.sin(t * 0.4) * 0.4, -0.35 + Math.sin(t * 0.6) * 0.06);
-    moon.scale.setScalar(portrait ? 2.6 : 3.4);
-    glow.position.set(mx - 1.5, 9 + q * 4, -2);
+    moon.scale.setScalar(portrait ? 2.2 : 3.2);
+    glow.position.set(mx - 1.5, 10 + q * 3, -4);
     stars.forEach((s, i) => {
       const u = s.userData;
-      s.position.set(Math.cos(u.a + t * 0.08) * u.r, u.y + Math.sin(t + i) * 0.4, -4 + Math.sin(u.a + t * 0.08) * 3);
+      s.position.set(cx + Math.cos(u.a + t * 0.07) * u.r, u.y + Math.sin(t + i) * 0.4, -6 + Math.sin(u.a + t * 0.07) * 3);
       s.rotation.y = t * 0.6 + i;
       s.scale.setScalar(u.s * (portrait ? 0.8 : 1));
     });
-    camera.position.set(Math.sin(t * 0.2) * 1.5, 7, portrait ? 40 : 32 - q * 4);
-    camera.lookAt(portrait ? 0.8 : 1.5, 6.5, 0);
-    fig.root.rotation.y = Math.sin(t * 0.2) * 0.25 + 0.2;
-    animateFigure(fig, t, 0, blink(t), clampS(q * 1.3));
+    far.forEach((c) => {
+      const u = c.userData;
+      c.position.set(((t * u.v + u.off) % 60) - 30, u.y, u.z);
+    });
+    const sp = (t % 9) / 1.2; // her 9 sn'de bir kayan yıldız
+    shoot.material.opacity = sp < 1 ? Math.sin(sp * Math.PI) * 0.9 : 0;
+    shoot.position.set(-4 + sp * 14, 16 - sp * 5, -14);
+    camera.position.set(Math.sin(t * 0.2) * 1.2, portrait ? 4 : 6.5, portrait ? 42 : 34 - q * 4);
+    camera.lookAt(portrait ? 0 : 2, portrait ? 0.4 : 5.4, 0);
     renderer.render(scene, camera);
+    // Ortadaki takımın adı: kaidenin altında
+    if (pick) {
+      const p = products.find((x) => x.id === slots[0].id);
+      if (cycle !== shownCycle) {
+        shownCycle = cycle;
+        pick.querySelector('b').textContent = p.name;
+        pick.querySelector('span').textContent = `${hooks.price ? hooks.price(p.price) : p.price} · İncele`;
+        pick.hidden = false;
+      }
+      v.set(pos[0][0], pos[0][1] - 1.4 * scl[0], pos[0][2] + 2);
+      v.project(camera);
+      pick.style.left = `${(v.x * 0.5 + 0.5) * r.width}px`;
+      // ekranın altında kesilmesin
+      pick.style.top = `${Math.min((-v.y * 0.5 + 0.5) * r.height, r.height - pick.offsetHeight - 16)}px`;
+      const a0 = pop(clampS(local / 0.9)) * pop(clampS((PERIOD - local) / 0.7));
+      pick.style.opacity = a0.toFixed(3);
+    }
   });
   return {};
 }
