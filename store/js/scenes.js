@@ -292,7 +292,7 @@ export function createFinale(canvas, product) {
 }
 
 /* ---------- Ürün detayında 360° görüntüleyici ---------- */
-export function createViewer(canvas) {
+export function createViewer(canvas, ui = {}) {
   const st = makeStage(canvas, { fov: 26, groundOpacity: 0.2 });
   if (!st) return null;
   const { scene, camera, renderer } = st;
@@ -301,25 +301,97 @@ export function createViewer(canvas) {
   let cur = null;
   let rot = 0.4;
   let vel = 0;
-  let dragging = false;
-  let lastX = 0;
   let idle = 0;
-  canvas.addEventListener('pointerdown', (e) => { dragging = true; lastX = e.clientX; canvas.setPointerCapture(e.pointerId); });
-  canvas.addEventListener('pointermove', (e) => {
-    if (!dragging) return;
-    vel = (e.clientX - lastX) * 0.012;
-    rot += vel;
-    lastX = e.clientX;
+  // Yakınlaştırma: zoom 1 = tüm figür; odak noktası figür düzleminde (x, y)
+  const MAXZ = 3.2;
+  const view = { z: 1, fx: 0, fy: 5 };
+  const goal = { z: 1, fx: 0, fy: 5 };
+  const clampGoal = () => {
+    goal.z = clampS(goal.z, 1, MAXZ);
+    const spanY = 5 * (1 - 1 / goal.z);
+    goal.fy = clampS(goal.fy, 5 - spanY - 0.3, 5 + spanY + 0.6);
+    goal.fx = clampS(goal.fx, -2.6 * (1 - 1 / goal.z), 2.6 * (1 - 1 / goal.z));
+    ui.onZoom?.(goal.z);
+  };
+  const ray = new THREE.Raycaster();
+  const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+  const hit = new THREE.Vector3();
+  function pointAt(cx, cy) {
+    const r = canvas.getBoundingClientRect();
+    ray.setFromCamera(new THREE.Vector2(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1), camera);
+    return ray.ray.intersectPlane(plane, hit) ? hit.clone() : null;
+  }
+  // İmlecin altındaki nokta yerinde kalacak şekilde yakınlaş
+  function zoomAt(cx, cy, factor) {
+    const p = pointAt(cx, cy);
+    const nz = clampS(goal.z * factor, 1, MAXZ);
+    if (p) {
+      const k = 1 - goal.z / nz;
+      goal.fx += (p.x - goal.fx) * k;
+      goal.fy += (p.y - goal.fy) * k;
+    }
+    goal.z = nz;
+    if (nz <= 1.001) { goal.fx = 0; goal.fy = 5; }
+    clampGoal();
     idle = performance.now();
+  }
+  const pointers = new Map();
+  let pinch = null;
+  let lastTap = 0;
+  canvas.addEventListener('pointerdown', (e) => {
+    canvas.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), z: goal.z };
+    }
+    const now = performance.now();
+    if (e.pointerType !== 'mouse' && now - lastTap < 300 && pointers.size === 1) toggleAt(e.clientX, e.clientY);
+    lastTap = now;
   });
-  const up = () => { dragging = false; };
+  canvas.addEventListener('pointermove', (e) => {
+    const prev = pointers.get(e.pointerId);
+    if (!prev) return;
+    const dx = e.clientX - prev.x;
+    const dy = e.clientY - prev.y;
+    prev.x = e.clientX; prev.y = e.clientY;
+    idle = performance.now();
+    if (pointers.size === 2 && pinch) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, (pinch.z * d / pinch.d) / goal.z);
+      return;
+    }
+    if (goal.z > 1.05) { // yakındayken sürükle = gezin
+      const r = canvas.getBoundingClientRect();
+      const worldPerPx = (2 * camera.position.distanceTo(new THREE.Vector3(view.fx, view.fy, 0)) * Math.tan((camera.fov * Math.PI) / 360)) / r.height;
+      goal.fx -= dx * worldPerPx;
+      goal.fy += dy * worldPerPx;
+      clampGoal();
+    } else { // uzakken sürükle = çevir
+      vel = dx * 0.012;
+      rot += vel;
+    }
+  });
+  const up = (e) => { pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null; };
   canvas.addEventListener('pointerup', up);
   canvas.addEventListener('pointercancel', up);
+  canvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0022));
+  }, { passive: false });
+  function toggleAt(cx, cy) {
+    if (goal.z > 1.2) { goal.z = 1; goal.fx = 0; goal.fy = 5; clampGoal(); }
+    else zoomAt(cx, cy, 2.6 / goal.z);
+  }
+  canvas.addEventListener('dblclick', (e) => toggleAt(e.clientX, e.clientY));
+
   const resize = () => sizeTo(st, canvas);
   addEventListener('resize', resize);
   const blink = blinker();
   let running = false;
   const t0 = performance.now();
+  let last = t0;
   const size = new THREE.Vector2();
   function frame(now) {
     if (!running) return;
@@ -327,11 +399,21 @@ export function createViewer(canvas) {
     renderer.getSize(size);
     if (Math.abs(size.x - canvas.clientWidth) > 1 || Math.abs(size.y - canvas.clientHeight) > 1) resize();
     const t = (now - t0) / 1000;
-    if (!dragging) {
+    const dt = Math.min(0.1, (now - last) / 1000);
+    last = now;
+    if (pointers.size === 0) {
       vel *= 0.94;
       rot += vel;
-      if (now - idle > 2500 && !reduced()) rot += 0.006;
+      if (now - idle > 2500 && goal.z < 1.05 && !reduced()) rot += 0.006;
     }
+    // Kamera yumuşakça hedefe akar
+    const k = reduced() ? 1 : 1 - Math.exp(-dt * 9);
+    view.z += (goal.z - view.z) * k;
+    view.fx += (goal.fx - view.fx) * k;
+    view.fy += (goal.fy - view.fy) * k;
+    const dist = 37 / view.z;
+    camera.position.set(view.fx, view.fy + 1.2 / view.z, dist);
+    camera.lookAt(view.fx, view.fy, 0);
     if (cur) {
       cur.root.rotation.y = rot;
       animateFigure(cur, t, 0, blink(t));
@@ -349,9 +431,12 @@ export function createViewer(canvas) {
       cur = built.get(p.id);
       cur.root.visible = true;
       rot = 0.35;
-      camera.position.set(0, 6.2, 37);
-      camera.lookAt(0, 5, 0);
+      Object.assign(goal, { z: 1, fx: 0, fy: 5 });
+      Object.assign(view, goal);
+      ui.onZoom?.(1);
     },
+    zoom(f) { const r = canvas.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height * 0.42, f); },
+    reset() { Object.assign(goal, { z: 1, fx: 0, fy: 5 }); ui.onZoom?.(1); },
     start() { if (running) return; running = true; resize(); requestAnimationFrame(frame); },
     stop() { running = false; },
   };

@@ -62,7 +62,18 @@ const lineup = createLineup($('.lineup'), PRODUCTS, {
 });
 if (!lineup) $('.world-stage').hidden = true;
 createFinale($('.finale3d'), PRODUCTS[0]);
-const viewer = createViewer($('.detail-3d'));
+const viewer = createViewer($('.detail-3d'), {
+  onZoom: (z) => {
+    $('.zoom-level').textContent = `${z.toFixed(1).replace('.0', '')}×`;
+    $('.zoom-in').disabled = z >= 3.15;
+    $('.zoom-out').disabled = z <= 1.01;
+    $('.zoom-reset').hidden = z <= 1.01;
+    $('.detail').classList.toggle('is-zoomed', z > 1.05);
+  },
+});
+$('.zoom-in').addEventListener('click', () => viewer?.zoom(1.5));
+$('.zoom-out').addEventListener('click', () => viewer?.zoom(1 / 1.5));
+$('.zoom-reset').addEventListener('click', () => viewer?.reset());
 $$('[data-action="account"]').forEach((b) => b.addEventListener('click', () => toast('Üyelik sistemi yakında açılıyor.')));
 
 const norm = (s) => s.toLocaleLowerCase('tr').replace(/\s+/g, ' ').trim();

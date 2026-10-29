@@ -232,9 +232,17 @@ input, textarea { caret-color: var(--pink-d); }
 .detail-blob { position: absolute; width: min(70vh, 90%); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--accent, var(--pink)) 140%); opacity: .7; animation: float 9s ease-in-out infinite; }
 .detail-3d { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
 .detail-3d:active { cursor: grabbing; }
-.detail-hint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); margin: 0; font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: rgba(255, 255, 255, .75); padding: 8px 12px; border-radius: 999px; }
+.zoom-ctl { position: absolute; right: 22px; bottom: 16px; z-index: 3; display: grid; grid-auto-flow: column; align-items: center; justify-items: center; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(255, 255, 255, .86); box-shadow: 0 12px 30px -16px rgba(43, 47, 107, .45); }
+.zoom-ctl button { width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); display: grid; place-items: center; transition: background .2s; }
+.zoom-ctl button:hover { background: var(--cream); }
+.zoom-ctl button:disabled { opacity: .35; cursor: default; }
+.zoom-ctl svg { width: 20px; height: 20px; }
+.zoom-level { font: 700 12px/1 var(--mono); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.detail.is-zoomed .detail-3d { cursor: move; }
+.detail.is-zoomed .detail-nav { opacity: .35; }
+.detail-hint { position: absolute; bottom: 26px; left: 24px; margin: 0; font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: rgba(255, 255, 255, .75); padding: 8px 12px; border-radius: 999px; }
 .detail[data-view="3d"] .detail-canvas { display: none; }
-.detail[data-view="photo"] .detail-3d, .detail[data-view="photo"] .detail-hint { display: none; }
+.detail[data-view="photo"] .detail-3d, .detail[data-view="photo"] .detail-hint, .detail[data-view="photo"] .zoom-ctl { display: none; }
 .detail-canvas { position: relative; height: calc(100svh - 60px); filter: drop-shadow(0 24px 30px rgba(43, 47, 107, .25)); width: auto; max-width: 100%; object-fit: contain; animation: idle 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
 .detail-canvas.drop { animation: enter .6s var(--ease-out) both; }
 @keyframes idle { 50% { transform: translateY(-8px); } }
@@ -349,6 +357,8 @@ input, textarea { caret-color: var(--pink-d); }
   .detail-canvas { height: calc(62svh - 60px); }
   .detail-info { margin: 0 16px 24px; padding: 22px; max-width: none; border-radius: 26px; }
   .detail-nav.prev { left: 12px; }
+  .zoom-ctl { bottom: 14px; right: 12px; }
+  .detail-hint { display: none; }
   .detail-nav.next { right: 12px; }
   .gift-badge { top: 64px; left: 16px; width: 84px; height: 84px; }
   .gift-badge span { font-size: 12px; }

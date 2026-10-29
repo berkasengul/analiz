@@ -182,7 +182,13 @@
       <div class="gift-badge" hidden><span>Göz Bandı</span><b>Hediyeli</b></div>
       <canvas class="detail-canvas"></canvas>
       <canvas class="detail-3d" aria-label="3D görünüm: sürükleyerek çevirin"></canvas>
-      <p class="detail-hint">Sürükleyerek 360° çevirin</p>
+      <p class="detail-hint">Sürükle: çevir · Çift tıkla: yakınlaştır</p>
+      <div class="zoom-ctl" role="group" aria-label="Yakınlaştırma">
+        <button class="zoom-in" aria-label="Yakınlaştır"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <span class="zoom-level" aria-live="polite">1×</span>
+        <button class="zoom-out" aria-label="Uzaklaştır"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+        <button class="zoom-reset" aria-label="Tüm figürü göster" hidden><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
       <button class="round detail-nav prev" aria-label="Önceki ürün"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="round detail-nav next" aria-label="Sonraki ürün"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
