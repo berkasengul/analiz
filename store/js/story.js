@@ -134,23 +134,89 @@ export function createStory(root, products, hooks = {}) {
   let portrait = vw / vh < 0.9;
   const span = () => root.offsetHeight - vh;
   const progress = () => (span() > 0 ? clamp((scrollY - root.offsetTop) / span()) : 0);
-  function goTo(i) {
-    window.scrollTo({ top: root.offsetTop + (i / (N - 1)) * span() + 1, behavior: reduced ? 'auto' : 'smooth' });
+  // Tek hareket = tek ürün: kaydırma kendi yumuşak animasyonumuzla, ürünün tam üstünde durur
+  const easeIO = (x) => (x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2);
+  let anim = null;
+  const posOf = (i) => root.offsetTop + (i / (N - 1)) * span();
+  const index = () => Math.round(progress() * (N - 1));
+  function goTo(i, dur = 1150) {
+    i = clamp(i, 0, N - 1);
+    const from = scrollY;
+    const to = posOf(i);
+    if (anim) cancelAnimationFrame(anim.raf);
+    if (reduced || Math.abs(to - from) < 2) { window.scrollTo(0, to); anim = null; return; }
+    const t0 = performance.now();
+    anim = { to, raf: 0 };
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / dur);
+      window.scrollTo(0, from + (to - from) * easeIO(k));
+      if (k < 1) anim.raf = requestAnimationFrame(step);
+      else { anim = null; unlockAt = performance.now() + 120; }
+    };
+    anim.raf = requestAnimationFrame(step);
   }
+  const pinned = () => {
+    const r = root.getBoundingClientRect();
+    return r.top <= 1 && r.bottom >= vh - 1;
+  };
+  let unlockAt = 0;
+  let lastWheel = 0;
+  // Bir adım at; vitrinin başı/sonundaysa sayfanın normal kaydırılmasına izin ver
+  function stepBy(dir) {
+    const i = index();
+    if ((dir > 0 && i >= N - 1) || (dir < 0 && i <= 0)) return false;
+    goTo(i + dir);
+    return true;
+  }
+  addEventListener('wheel', (e) => {
+    if (!pinned() || Math.abs(e.deltaY) < 2) return;
+    const now = performance.now();
+    const quietGap = now - lastWheel;
+    lastWheel = now;
+    const dir = Math.sign(e.deltaY);
+    const i = index();
+    if (!anim && ((dir > 0 && i >= N - 1) || (dir < 0 && i <= 0))) return; // dışarı çıkış serbest
+    e.preventDefault();
+    // Dokunmatik yüzeyin ataletli olaylarını tek harekete say: animasyon bitip olaylar dinene kadar bekle
+    if (anim || now < unlockAt || quietGap < 160) { if (!anim) unlockAt = now + 160; return; }
+    stepBy(dir);
+  }, { passive: false });
 
-  // Durunca en yakın ürüne yumuşakça otur
+  let touchY = null;
+  addEventListener('touchstart', (e) => { touchY = pinned() ? e.touches[0].clientY : null; }, { passive: true });
+  addEventListener('touchmove', (e) => {
+    if (touchY === null) return;
+    const dy = touchY - e.touches[0].clientY;
+    const i = index();
+    if (!anim && ((dy > 0 && i >= N - 1) || (dy < 0 && i <= 0))) { touchY = null; return; }
+    e.preventDefault();
+  }, { passive: false });
+  addEventListener('touchend', (e) => {
+    if (touchY === null) return;
+    const dy = touchY - (e.changedTouches[0]?.clientY ?? touchY);
+    touchY = null;
+    if (!anim && Math.abs(dy) > 30) stepBy(Math.sign(dy));
+  }, { passive: true });
+
+  addEventListener('keydown', (e) => {
+    if (!pinned() || e.target.closest?.('input, textarea, select, [contenteditable]')) return;
+    if (!document.querySelector('.detail')?.hidden) return;
+    const map = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 };
+    const dir = map[e.key] ?? (e.key === ' ' && e.shiftKey ? -1 : 0);
+    if (!dir || anim) { if (dir) e.preventDefault(); return; }
+    if (stepBy(e.shiftKey && e.key === ' ' ? -1 : dir)) e.preventDefault();
+  });
+
+  // Kaydırma çubuğuyla sürüklenip bırakılırsa en yakın ürüne otur
   let snapTimer;
-  let lastScroll = 0;
   addEventListener('scroll', () => {
-    lastScroll = performance.now();
+    if (anim) return;
     clearTimeout(snapTimer);
     snapTimer = setTimeout(() => {
-      const r = root.getBoundingClientRect();
-      if (r.top > 0 || r.bottom < vh) return;
+      if (anim || !pinned()) return;
       const c = progress() * (N - 1);
-      const d = Math.round(c) - c;
-      if (Math.abs(d) > 0.02 && Math.abs(d) < 0.45) goTo(Math.round(c));
-    }, 260);
+      if (Math.abs(Math.round(c) - c) > 0.01) goTo(Math.round(c), 700);
+    }, 220);
   }, { passive: true });
 
   /* ---------- Konfeti / ışık ---------- */
@@ -296,7 +362,7 @@ export function createStory(root, products, hooks = {}) {
     last = now;
     const prog = progress();
     const target = prog * (N - 1);
-    shown += (target - shown) * (reduced ? 1 : 1 - Math.exp(-dt * 3.2));
+    shown += (target - shown) * (reduced ? 1 : 1 - Math.exp(-dt * 9));
     const c = shown;
 
     // Arka plan rengi iki ürün arasında akar
@@ -393,7 +459,7 @@ export function createStory(root, products, hooks = {}) {
   return {
     goTo,
     setProduct: (id) => goTo(products.findIndex((p) => p.id === id)),
-    next(d = 1) { goTo(clamp(Math.round(progress() * (N - 1)) + d, 0, N - 1)); },
+    next(d = 1) { goTo(index() + d); },
     get product() { return products[Math.max(0, active)]; },
   };
 }
