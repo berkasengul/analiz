@@ -434,29 +434,40 @@ function glbFigure(p) {
 
 /* ---------- 360° model: turntable karelerinden, kameraya göre doğru açı ---------- */
 const TAU = Math.PI * 2;
-// Paylaşılan, sayılı kare önbelleği: aynı kare birden çok sahnede tek kez yüklenir
-const TEX = new Map();
+// Kareler iki katmanda tutulur:
+//  1) Sıkıştırılmış dosya (webp Blob, ~50 KB): görünen modelin tüm kareleri arka planda indirilir.
+//  2) Ekran kartında açılmış doku: yalnızca o anki açının çevresindeki birkaç kare (halka).
+// 120 karelik bir model böylece yüzlerce MB yerine ~60 MB ekran belleğiyle akıcı döner.
 const EMPTY = new THREE.DataTexture(new Uint8Array([0, 0, 0, 0]), 1, 1);
 EMPTY.needsUpdate = true;
 const SPIN_FIGS = new Set();
-const texLoader = new THREE.TextureLoader();
-function spinTex(url) {
-  let e = TEX.get(url);
-  if (!e) {
-    const t = texLoader.load(url);
-    t.colorSpace = THREE.SRGBColorSpace;
-    t.anisotropy = 4;
-    t.generateMipmaps = true;
-    e = { t, refs: 0 };
-    TEX.set(url, e);
-  }
-  e.refs++;
-  return e.t;
+// Önizleme gibi farklı paketlemelerde kare kaynağı window.__spinSource ile değiştirilebilir
+const fetchBlob = (url) => (window.__spinSource ? window.__spinSource(url) : fetch(url).then((r) => r.blob()));
+const fetchQueue = [];
+let fetching = 0;
+function queueFetch(url) { // aynı anda en fazla 6 indirme
+  return new Promise((res, rej) => { fetchQueue.push({ url, res, rej }); pumpFetch(); });
 }
-function releaseTex(url) {
-  const e = TEX.get(url);
-  if (!e) return;
-  if (--e.refs <= 0) { e.t.dispose(); TEX.delete(url); }
+function pumpFetch() {
+  while (fetching < 6 && fetchQueue.length) {
+    const job = fetchQueue.shift();
+    fetching++;
+    fetchBlob(job.url).then(job.res, job.rej).finally(() => { fetching--; pumpFetch(); });
+  }
+}
+async function decodeFrame(blob, maxH) {
+  const bmp = await createImageBitmap(blob, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' });
+  if (!maxH || bmp.height <= maxH) return bmp;
+  // Küçük görünümler (koleksiyon) için küçültülmüş kopya: ekran belleği tasarrufu
+  const k = maxH / bmp.height;
+  const c = document.createElement('canvas');
+  c.width = Math.round(bmp.width * k);
+  c.height = maxH;
+  const x = c.getContext('2d');
+  x.imageSmoothingQuality = 'high';
+  x.drawImage(bmp, 0, 0, c.width, c.height);
+  bmp.close();
+  return c;
 }
 setInterval(() => { for (const f of SPIN_FIGS) if (f.idle()) f.drop(); }, 3000);
 
@@ -479,20 +490,62 @@ function spinFigure(p, opts = {}) {
   pedestal(p, add, pedG);
   root.userData.pedestal = pedG.userData.pedestal;
   const n = spin.frames.length;
-  const step = opts.lite ? 4 : 1; // küçük görünümlerde her 4. kare yeter
-  const texs = new Array(n);
+  const step = opts.lite ? Math.max(1, Math.round(n / 15)) : 1; // küçük görünümlerde ~15 kare yeter
+  const CAP = opts.lite ? Math.ceil(n / step) : 14; // ekran kartında aynı anda açık kare sayısı
+  const MAXH = opts.lite ? 420 : 0;
+  const ring = new Map(); // kare → { tex, used }
+  const pending = new Set();
+  let blobs = null;
   let lastSeen = 0;
-  let loaded = false;
-  const get = (i) => {
-    i -= i % step;
-    if (!texs[i]) texs[i] = spinTex(spin.frames[i]);
-    return texs[i];
+  let rendererRef = null;
+  const blobOf = (i) => {
+    if (!blobs) blobs = new Array(n);
+    if (!blobs[i]) blobs[i] = queueFetch(spin.frames[i]);
+    return blobs[i];
   };
-  const loadAll = () => { if (loaded) return; loaded = true; for (let i = 0; i < n; i += step) get(i); };
+  const prefetch = () => { if (blobs) return; for (let i = 0; i < n; i += step) blobOf(i); };
+  const keep = new Set();
+  function evict() {
+    if (ring.size <= CAP) return;
+    const list = [...ring.entries()].filter(([i]) => !keep.has(i)).sort((a, b) => a[1].used - b[1].used);
+    for (const [i, e] of list) {
+      if (ring.size <= CAP) break;
+      e.tex.dispose();
+      e.tex.image.close?.();
+      ring.delete(i);
+    }
+  }
+  async function decode(i) {
+    try {
+      const img = await decodeFrame(await blobOf(i), MAXH);
+      if (!blobs) { img.close?.(); return; } // bu arada bellekten bırakıldıysa
+      const tex = new THREE.Texture(img);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.flipY = false; // ImageBitmap çevrilemez: kaydırma gölgelendiricide yapılır
+      tex.anisotropy = 4;
+      tex.generateMipmaps = true;
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.needsUpdate = true;
+      if (rendererRef) rendererRef.initTexture(tex); // ilk kullanımda takılmasın
+      ring.set(i, { tex, used: performance.now() });
+      evict();
+    } catch (e) { /* ağ hatası: bir sonraki istekte yeniden denenir */ if (blobs) blobs[i] = null; }
+    pending.delete(i);
+  }
+  const norm = (i) => { i = ((i % n) + n) % n; return i - (i % step); };
+  const need = (i) => { // kareyi iste; hazırsa dokusunu ver
+    i = norm(i);
+    const e = ring.get(i);
+    if (e) { e.used = performance.now(); return e.tex; }
+    if (!pending.has(i) && pending.size < 4) { pending.add(i); decode(i); }
+    return null;
+  };
   // Ekranda görünmeyen modelin kareleri bellekten bırakılır, görününce yeniden yüklenir
   SPIN_FIGS.add({ idle: () => performance.now() - lastSeen > 6000, drop: () => {
-    if (!loaded) return; loaded = false;
-    for (let i = 0; i < n; i++) if (texs[i]) { releaseTex(spin.frames[i]); texs[i] = null; }
+    if (!blobs && !ring.size) return;
+    blobs = null;
+    for (const e of ring.values()) { e.tex.dispose(); e.tex.image.close?.(); }
+    ring.clear();
   } });
   // Zemin hizası (spin_ground.py ile turntable karelerinden ölçülür, boy oranı cinsinden):
   //  g    : dönüş ekseninin zemine değdiği noktanın karenin altından yüksekliği
@@ -528,10 +581,11 @@ function spinFigure(p, opts = {}) {
         vec4 b = projectionMatrix * vec4(mv.xy, mv.z + zBias, 1.0); gl_Position = vec4(c.xy, b.z / b.w * c.w, c.w); }`,
     fragmentShader: `uniform sampler2D mapA; uniform sampler2D mapB; uniform float mixT; uniform vec2 texel;
       uniform float axisV; uniform vec3 rimL; uniform vec3 rimR; uniform float rimK; varying vec2 vUv;
-      float alphaAt(vec2 uv, float t){ return mix(texture2D(mapA, uv).a, texture2D(mapB, uv).a, t); }
+      vec2 fl(vec2 uv){ return vec2(uv.x, 1.0 - uv.y); } // kareler üstten alta yüklenir
+      float alphaAt(vec2 uv, float t){ return mix(texture2D(mapA, fl(uv)).a, texture2D(mapB, fl(uv)).a, t); }
       void main(){
-        float t = smoothstep(0.38, 0.62, mixT);
-        vec4 c = mix(texture2D(mapA, vUv, -0.5), texture2D(mapB, vUv, -0.5), t);
+        float t = smoothstep(0.12, 0.88, mixT); // 3° aralıklı karelerde yumuşak, kesintisiz geçiş
+        vec4 c = mix(texture2D(mapA, fl(vUv), -0.5), texture2D(mapB, fl(vUv), -0.5), t);
         if (c.a < 0.03) discard;
         vec3 col = c.rgb;
         if (vUv.y < axisV + 0.05) { // ayak tabanı: altı boş olan pikseller hafifçe koyulaşır
@@ -577,7 +631,8 @@ function spinFigure(p, opts = {}) {
   const camR = new THREE.Vector3();
   const tiltAxis = new THREE.Vector3();
   const TILT_T = Math.atan(G.tilt); // Tripo kamerasının zemine bakış açısı
-  const ready = (i) => texs[i] && texs[i].image && texs[i].image.width;
+  let lastF = 0;
+  let dirF = 1;
   // Her karede (ve her kamera için) bir kez: figürün ilk çizilen parçası eğimi, kare seçimini ve
   // gölgeleri hesaplar; böylece kaide, gölgeler ve figür aynı karede aynı dönüşümle çizilir.
   let syncFrame = -1;
@@ -588,7 +643,8 @@ function spinFigure(p, opts = {}) {
     syncFrame = fr;
     syncCam = camera;
     lastSeen = performance.now();
-    loadAll();
+    rendererRef = renderer;
+    prefetch();
     root.getWorldScale(ws);
     // Kamera, kaide merkezine göre (kök koordinatında): yön açısı ve yükseklik açısı
     camR.copy(camera.position);
@@ -608,21 +664,31 @@ function spinFigure(p, opts = {}) {
     let i0 = (Math.floor(f) * step) % n;
     let i1 = (i0 + step) % n;
     let t = f - Math.floor(f);
-    if (!ready(i0) || !ready(i1)) { // henüz yüklenmediyse en yakın yüklü kare
-      // en yakın yüklü kareyi her iki yönde ara; hiçbiri yoksa görünmez kal
-      let k = -1;
-      const base = (Math.round(f) * step) % n;
-      for (let d = 0; d < n && k < 0; d += step) {
-        if (ready((base + d) % n)) k = (base + d) % n;
-        else if (ready((base - d + n) % n)) k = (base - d + n) % n;
+    // Dönüş yönünü izle ve sıradaki kareleri önceden aç
+    const df = ((f - lastF + n / step / 2) % (n / step) + n / step) % (n / step) - n / step / 2;
+    if (Math.abs(df) > 1e-4) dirF = Math.sign(df);
+    lastF = f;
+    keep.clear();
+    keep.add(i0).add(i1);
+    let A = need(i0);
+    let B = need(i1);
+    for (let k = 1; k <= 4; k++) need(i0 + dirF * step * (k + (dirF > 0 ? 1 : 0)));
+    if (!A || !B) { // henüz açılmadıysa en yakın hazır kare; hiçbiri yoksa görünmez kal
+      let best = null;
+      let bd = Infinity;
+      for (const [i, e] of ring) {
+        const d = Math.min(Math.abs(i - i0), n - Math.abs(i - i0));
+        if (d < bd) { bd = d; best = e; }
       }
-      i0 = i1 = k;
+      A = B = best ? best.tex : null;
       t = 0;
+      if (best) best.used = performance.now();
     }
-    mat.uniforms.mapA.value = i0 >= 0 ? texs[i0] : EMPTY;
-    mat.uniforms.mapB.value = i1 >= 0 ? texs[i1] : EMPTY;
+    mat.uniforms.mapA.value = A || EMPTY;
+    mat.uniforms.mapB.value = B || EMPTY;
     mat.uniforms.mixT.value = t;
-    const im = i0 >= 0 && texs[i0].image;
+    i1 = A && B ? i1 : i0;
+    const im = A && A.image;
     if (im && im.width) mat.uniforms.texel.value.set(1 / im.width, 1 / im.height);
     plane.rotation.set(-delta, phi, 0, 'YXZ'); // kameraya dönük, dünyada dik
     contact.rotation.y = phi;

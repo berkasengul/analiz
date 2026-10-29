@@ -86,8 +86,7 @@ export function createStory(root, products, hooks = {}) {
   const back = $('.focus-back');
   function setFocus(i, key) {
     Object.assign(focus, { on: true, i, key });
-    drag.rot = 0;
-    drag.vel = 0;
+    drag.vel = 0; // model en yakın ön görünüme yumuşakça döner (frame içinde)
     root.classList.add('is-focus');
     back.hidden = false;
   }
@@ -106,6 +105,10 @@ export function createStory(root, products, hooks = {}) {
     else setFocus(Number(tg.dataset.i), tg.dataset.k);
   });
   let settledAt = 0;
+  const TURN_SPEED = (Math.PI * 2) / 14; // rad/sn
+  const turn = { v: 0 };
+  const turnA = products.map(() => 0);
+  let prevActive = -1;
   const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
   const cv = $('.models3d');
   cv.addEventListener('pointerdown', (e) => { if (unfocus()) return; drag.last = performance.now(); drag.on = true; drag.x = e.clientX; drag.moved = 0; cv.setPointerCapture(e.pointerId); });
@@ -437,7 +440,18 @@ export function createStory(root, products, hooks = {}) {
     const cxv = cx();
     mouse.sx += (mouse.x - mouse.sx) * 0.025;
     mouse.sy += (mouse.y - mouse.sy) * 0.06;
-    if (!drag.on && now - drag.last > 2500) drag.rot += (Math.round(drag.rot / (Math.PI * 2)) * Math.PI * 2 - drag.rot) * 0.04;
+    // Otomatik tam tur: ürün yerine oturunca kısa bir an karşıdan durur, sonra sabit ve yavaş
+    // hızla döner (yaklaşık 14 sn'de bir tur). Sürüklerken durur, bırakınca kaldığı yerden sürer;
+    // etikete yakınlaşırken en yakın ön görünüme döner.
+    if (active >= 0) {
+      const go = !reduced && !focus.on && !drag.on && t - settledAt > 1.6 && now - drag.last > 1200;
+      turn.v += ((go ? TURN_SPEED : 0) - turn.v) * (1 - Math.exp(-dt * 1.4));
+      turnA[active] += turn.v * dt;
+      if (focus.on) {
+        const total = turnA[active] + drag.rot;
+        turnA[active] += (Math.round(total / (Math.PI * 2)) * Math.PI * 2 - total) * (1 - Math.exp(-dt * 5));
+      }
+    }
     const states = [];
     products.forEach((p, i) => {
       const d = c - i;
@@ -446,10 +460,7 @@ export function createStory(root, products, hooks = {}) {
       const vis = 1 - u;
       if (m3d) {
         // Sakin, akıcı sağa-sola salınım; ilk açılışta tam bir tur dönerek sahneye girer
-        // Ürün yerine oturduğu an tam karşıdan başlar, sonra çok hafif (±7°) salınır
-        const since = i === active ? Math.max(0, t - settledAt) : 0;
         const calm = 1 - focus.amt; // yakınlaşırken model kıpırdamaz
-        const idle = reduced ? 0 : Math.sin(since * 0.35) * 0.12 * smooth(since / 3) * calm;
         const intro = reduced ? 1 : Math.min(1, t / 3.4);
         const ease = intro < 0.5 ? 4 * intro ** 3 : 1 - (-2 * intro + 2) ** 3 / 2; // yavaş başla, yavaş bitir
         const entrance = i === 0 ? (1 - ease) * Math.PI * 2 : 0;
@@ -459,7 +470,7 @@ export function createStory(root, products, hooks = {}) {
           top: frameBox.top,
           bottom: frameBox.bottom,
           maxHalf: frameBox.maxHalf,
-          rotY: -dir * u * 0.7 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.12 * calm : 0),
+          rotY: -dir * u * 0.7 + turnA[i] + entrance + (cur ? drag.rot + mouse.sx * 0.12 * calm : 0),
           rotX: cur ? mouse.sy * 0.06 * calm : 0,
           scale: (1 - u * 0.25) * (i === 0 ? 0.9 + ease * 0.1 : 1),
           opacity: vis,
@@ -518,7 +529,11 @@ export function createStory(root, products, hooks = {}) {
     if (a !== active) {
       active = a;
       settledAt = t;
-      drag.rot = 0; // önceki ürünü çevirmek yeni ürüne taşınmasın: her ürün tam karşıdan açılır
+      if (prevActive >= 0) turnA[prevActive] += drag.rot; // giden ürün olduğu açıda kalır
+      prevActive = a;
+      turnA[a] = 0; // her ürün tam karşıdan açılır
+      turn.v = 0;
+      drag.rot = 0; // önceki ürünü çevirmek yeni ürüne taşınmasın
       drag.vel = 0;
       rails.forEach((r, k) => r.classList.toggle('is-active', k === a));
       hooks.onProduct?.(products[a]);
