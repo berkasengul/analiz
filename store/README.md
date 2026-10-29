@@ -50,15 +50,26 @@ numaralı sahneler, kızılötesi mod, detay noktaları, renk seçici).
 
 ## Ürünler
 
-`js/products.js` içinde 360° 3D modelli 7 takım var: Kalpli Kedi, Renkli
-Kediler, Dama İş Makineleri, Ayıcıklı Ekose, Renkli Çilekler, Polis Arabaları,
-Ayıcıklı Bej Ekose. Modeller Tripo turntable videolarından üretilir
+`js/products.js` içinde 360° 3D modelli 12 takım var. Modeller Tripo turntable videolarından üretilir
 (`assets/spin/<ad>/`, `js/spins.js`). **Fiyatlar ve bedenler örnektir.**
 
 Yeni model eklemek: Tripo dönüş videosunu karelere ayırıp
 `spin_build.py <ad> <kare-klasörü> <kırpma>` ile işleyin (arka plan temizleme,
 Real-ESRGAN netleştirme, renk eşitleme, eksen ortalama), sonra ürüne
 `spin: '<ad>'` ekleyin. GLB dosyası için `model3d: 'assets/models/x.glb'`.
+Koyu desenli kumaşlarda (lacivert, siyah ekose) `KEEP_DARK=1` ile çalıştırın; yoksa
+koyu çizgiler arka plan sanılıp silinir.
+
+Ardından ayakların kaideye oturması için zemin hizasını ölçün:
+
+    python3 tools/spin_ground.py <ad> --write
+
+Araç her ayağı tüm kareler boyunca ayrı ayrı izler; ayağın gövdedeki yerini, Tripo
+kamerasının eğimini ve dönüş ekseninin zemine değdiği satırı bulur, `spins.js` içine
+`ground` olarak yazar. Figür bu satırı kaidenin üst yüzeyine koyar (her model için
+kendi değeri; sabit bir ofset kullanılmaz), kaideyi kameranın eğimine uydurur ve her
+ayağın altına temas gölgesi çizer. Çıktıdaki `rms` 0,007'den büyükse ayak takibi
+güvenilmezdir (genelde kesimde ayak kaybolmuştur); kareleri kontrol edin.
 
 ## Çalıştırma
 

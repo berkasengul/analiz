@@ -317,7 +317,7 @@ function pedestal(p, add, root) {
   top.rotation.x = -Math.PI / 2;
   top.position.y = PED_H + 0.002;
   top.receiveShadow = true;
-  const sheen = new THREE.Mesh(new THREE.RingGeometry(PED_R * 0.2, PED_R * 0.98, 96), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#ffffff', transparent: true, opacity: 0.55, depthWrite: false }));
+  const sheen = new THREE.Mesh(new THREE.CircleGeometry(PED_R * 0.98, 96), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#ffffff', transparent: true, opacity: 0.4, depthWrite: false })); // tam disk: ortada halka izi kalmasın
   sheen.rotation.x = -Math.PI / 2;
   sheen.position.y = PED_H + 0.006;
   g.add(sheen);
@@ -328,6 +328,12 @@ function pedestal(p, add, root) {
   glow.rotation.x = -Math.PI / 2;
   glow.position.y = 0.01;
   g.add(glow);
+  // Kaidenin sahne zeminine değdiği yerde yumuşak temas gölgesi (kenara yakın koyu, dışa doğru söner)
+  const floorShadow = shadowDisc(0.34);
+  floorShadow.scale.set(PED_R * 1.22, 1, PED_R * 1.22);
+  floorShadow.position.set(0.12, 0.005, -0.1);
+  floorShadow.renderOrder = -1;
+  g.add(floorShadow);
   root.userData.pedestal = g;
   return g;
 }
@@ -347,6 +353,29 @@ const glowTex = (() => {
     return t;
   };
 })();
+
+// Yumuşak, gauss benzeri temas gölgesi dokusu (ortada koyu, kenara doğru sıfıra iner)
+const shadowTex = (() => {
+  let t = null;
+  return () => {
+    if (t) return t;
+    const c = document.createElement('canvas');
+    c.width = c.height = 128;
+    const x = c.getContext('2d');
+    const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    for (let i = 0; i <= 10; i++) { const r = i / 10; g.addColorStop(r, `rgba(0,0,0,${Math.exp(-r * r * 4.2) * (1 - r * r)})`); }
+    x.fillStyle = g;
+    x.fillRect(0, 0, 128, 128);
+    t = new THREE.CanvasTexture(c);
+    return t;
+  };
+})();
+const SHADOW_GEO = new THREE.CircleGeometry(1, 40).rotateX(-Math.PI / 2);
+function shadowDisc(opacity, color = '#2a2140') {
+  const m = new THREE.Mesh(SHADOW_GEO, new THREE.MeshBasicMaterial({ map: shadowTex(), color, transparent: true, opacity, depthWrite: false, toneMapped: false }));
+  m.renderOrder = 1;
+  return m;
+}
 
 /* ---------- Gerçek 3D model (GLB): görselden-3D ya da tarama ile üretilmiş ---------- */
 const gltf = new GLTFLoader();
@@ -407,12 +436,21 @@ setInterval(() => { for (const f of SPIN_FIGS) if (f.idle()) f.drop(); }, 3000);
 function spinFigure(p, opts = {}) {
   const spin = SPINS[p.spin];
   const root = new THREE.Group();
+  // tiltG: kaidenin üst yüzeyinin merkezinde (dönüş ekseninin zemine değdiği nokta) döner.
+  // Kaide ve gölgeler, modelin çekildiği Tripo kamera eğimiyle aynı perspektifte görünsün diye
+  // kameraya doğru hafifçe eğilir; figür düzlemi bu eğimi geri alıp dünyada dik kalır.
+  const tiltG = new THREE.Group();
+  tiltG.position.y = PED_H;
+  root.add(tiltG);
+  const pedG = new THREE.Group();
+  pedG.position.y = -PED_H;
+  tiltG.add(pedG);
   const body = new THREE.Group();
-  body.position.y = PED_H;
-  root.add(body);
+  tiltG.add(body);
   const meshes = [];
   const add = (parent, geo, mat, cast = true) => { const m = new THREE.Mesh(geo, mat); m.castShadow = cast; m.receiveShadow = true; parent.add(m); meshes.push(m); return m; };
-  pedestal(p, add, root);
+  pedestal(p, add, pedG);
+  root.userData.pedestal = pedG.userData.pedestal;
   const n = spin.frames.length;
   const step = opts.lite ? 4 : 1; // küçük görünümlerde her 4. kare yeter
   const texs = new Array(n);
@@ -430,12 +468,24 @@ function spinFigure(p, opts = {}) {
     for (let i = 0; i < n; i++) if (texs[i]) { releaseTex(spin.frames[i]); texs[i] = null; }
   } });
   const Hh = 10.1;
+  // Zemin hizası (spin_ground.py ile turntable karelerinden ölçülür, boy oranı cinsinden):
+  //  g    : dönüş ekseninin zemine değdiği noktanın karenin altından yüksekliği
+  //  tilt : Tripo kamerasının eğimi (öndeki zemin noktası karede tilt × derinlik kadar aşağıda)
+  //  feet : her ayağın gövde koordinatı [x, z, kalkıklık] (ölçüm raporu için)
+  //  soles: her karede görünen ayak tabanları [x, yarı genişlik, taban boşluğu]; gölgeler bunlardan
+  // Model katı bir dönüş tablası üzerinde çekildiği için bu değer tüm kareler için sabittir:
+  // ayaklar dönüş sırasında yukarı-aşağı oynamaz, eksen satırı kaidenin üst yüzeyine oturur.
+  const G = spin.ground || { g: 0, tilt: 0.28, feet: [], soles: [] };
   const geo = new THREE.PlaneGeometry(Hh * spin.aspect, Hh);
-  geo.translate(0, Hh / 2, 0);
-  // İki komşu kare arasında yumuşak geçiş: dönüş titremeden akar
+  geo.translate(0, Hh / 2 - G.g * Hh, 0);
+  // İki komşu kare arasında yumuşak geçiş: dönüş titremeden akar.
+  // zBias: karede eksenin önünde kalan ayak parmakları kaidenin üst yüzeyine gömülmesin diye
+  // yalnızca derinlik değeri kameraya doğru kaydırılır (ekrandaki konum değişmez).
   const mat = new THREE.ShaderMaterial({
-    uniforms: { mapA: { value: null }, mapB: { value: null }, mixT: { value: 0 } },
-    vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    uniforms: { mapA: { value: null }, mapB: { value: null }, mixT: { value: 0 }, zBias: { value: 0 } },
+    vertexShader: `uniform float zBias; varying vec2 vUv;
+      void main(){ vUv = uv; vec4 mv = modelViewMatrix * vec4(position, 1.0); vec4 c = projectionMatrix * mv;
+        vec4 b = projectionMatrix * vec4(mv.xy, mv.z + zBias, 1.0); gl_Position = vec4(c.xy, b.z / b.w * c.w, c.w); }`,
     fragmentShader: `uniform sampler2D mapA; uniform sampler2D mapB; uniform float mixT; varying vec2 vUv;
       void main(){ vec4 a = texture2D(mapA, vUv); vec4 b = texture2D(mapB, vUv);
         vec4 c = mix(a, b, smoothstep(0.38, 0.62, mixT)); if (c.a < 0.4) discard;
@@ -447,25 +497,55 @@ function spinFigure(p, opts = {}) {
   });
   const plane = new THREE.Mesh(geo, mat);
   plane.castShadow = false;
+  plane.renderOrder = 2;
   body.add(plane);
   meshes.push(plane);
-  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.0, 48), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#2b2f6b', transparent: true, opacity: 0.5, depthWrite: false }));
-  shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = 0.012;
-  shadow.scale.set(1, 0.6, 1);
-  body.add(shadow);
-  const wp = new THREE.Vector3();
-  const wq = new THREE.Quaternion();
-  const e = new THREE.Euler();
+  // Temas gölgeleri: her ayağın altında koyu çekirdek + yumuşak yayılım, figürün altında hafif ortam gölgesi
+  const contact = new THREE.Group();
+  contact.position.y = 0.006;
+  body.add(contact);
+  const ao = shadowDisc(0.16);
+  ao.scale.set(Hh * 0.17, 1, Hh * 0.11);
+  contact.add(ao);
+  // Her ayak lekesi için bir çift gölge (koyu çekirdek + yumuşak yayılım); karede en fazla 3 leke
+  const soles = [0, 1, 2].map(() => {
+    const soft = shadowDisc(0.3);
+    const core = shadowDisc(0.6);
+    contact.add(soft, core);
+    return { soft, core };
+  });
+  const E = 0.04; // ayağın en alt noktası, ayak merkezinin bu kadar önünde (boy oranı)
+  const ws = new THREE.Vector3();
+  const camR = new THREE.Vector3();
+  const tiltAxis = new THREE.Vector3();
+  const TILT_T = Math.atan(G.tilt); // Tripo kamerasının zemine bakış açısı
   const ready = (i) => texs[i] && texs[i].image && texs[i].image.width;
-  plane.onBeforeRender = (renderer, scene, camera) => {
+  // Her karede (ve her kamera için) bir kez: figürün ilk çizilen parçası eğimi, kare seçimini ve
+  // gölgeleri hesaplar; böylece kaide, gölgeler ve figür aynı karede aynı dönüşümle çizilir.
+  let syncFrame = -1;
+  let syncCam = null;
+  const sync = (renderer, scene, camera) => {
+    const fr = renderer.info.render.frame;
+    if (fr === syncFrame && camera === syncCam) return;
+    syncFrame = fr;
+    syncCam = camera;
     lastSeen = performance.now();
     loadAll();
-    root.getWorldPosition(wp);
-    root.getWorldQuaternion(wq);
-    e.setFromQuaternion(wq, 'YXZ');
-    const camYaw = Math.atan2(camera.position.x - wp.x, camera.position.z - wp.z);
-    const ang = ((camYaw - e.y) % TAU + TAU) % TAU;
+    root.getWorldScale(ws);
+    // Kamera, kaide merkezine göre (kök koordinatında): yön açısı ve yükseklik açısı
+    camR.copy(camera.position);
+    root.worldToLocal(camR);
+    const phi = Math.atan2(camR.x, camR.z);
+    const horiz = Math.max(1e-3, Math.hypot(camR.x, camR.z));
+    const elev = Math.atan2(camR.y - PED_H, horiz);
+    // Zemini Tripo kamerasının açısına getiren eğim (kd = 1 olacak şekilde), makul sınırlar içinde
+    const want = Math.asin(Math.min(0.95, G.tilt * Math.cos(elev)));
+    const delta = Math.max(-0.12, Math.min(0.3, want - elev));
+    tiltAxis.set(Math.cos(phi), 0, -Math.sin(phi));
+    tiltG.quaternion.setFromAxisAngle(tiltAxis, delta);
+    // Karedeki derinlik z, tilt·z kadar aşağıda çizilir; ekranda aynı yere düşen zemin derinliği z·kd
+    const kd = Math.max(0.5, Math.min(3.2, (G.tilt * Math.cos(elev)) / Math.max(0.05, Math.sin(elev + delta))));
+    const ang = ((phi % TAU) + TAU) % TAU;
     const f = (ang / TAU) * (n / step);
     let i0 = (Math.floor(f) * step) % n;
     let i1 = (i0 + step) % n;
@@ -484,15 +564,31 @@ function spinFigure(p, opts = {}) {
     mat.uniforms.mapA.value = i0 >= 0 ? texs[i0] : EMPTY;
     mat.uniforms.mapB.value = i1 >= 0 ? texs[i1] : EMPTY;
     mat.uniforms.mixT.value = t;
-    // Ayaklar kaidenin üst yüzeyine tam bassın: karedeki ayak boşluğu kadar aşağı indir
-    if (spin.foot && i0 >= 0) {
-      const fa = spin.foot[i0] || 0;
-      const fb = spin.foot[i1 >= 0 ? i1 : i0] || 0;
-      plane.position.y = -(fa + (fb - fa) * t) * Hh - 0.05; // hafifçe yüzeye otur
-    }
-    plane.rotation.y = camYaw - e.y;
-    plane.updateMatrixWorld();
+    plane.rotation.set(-delta, phi, 0, 'YXZ'); // kameraya dönük, dünyada dik
+    contact.rotation.y = phi;
+    const ped = root.userData.pedestal;
+    const pedR = PED_R * (ped ? ped.scale.x : 1); // dizilimde kaide küçültülmüş olabilir
+    mat.uniforms.zBias.value = pedR * 0.92 * ws.z;
+    // Gölgeler o karede görünen ayak tabanlarının altına: karedeki yatay konum + tabandan bulunan derinlik
+    const fi = t < 0.5 || i1 < 0 ? i0 : i1;
+    const row = (fi >= 0 && G.soles && G.soles[fi]) || [];
+    soles.forEach((sh, k) => {
+      const on = k * 3 + 2 < row.length;
+      sh.core.visible = sh.soft.visible = on;
+      if (!on) return;
+      const x = row[k * 3] * Hh;
+      const hw = row[k * 3 + 1] * Hh;
+      const z = ((G.g - row[k * 3 + 2]) / G.tilt - E) * Hh * kd;
+      const zv = Math.max(-pedR * 0.85, Math.min(pedR * 0.85, z));
+      const d = Math.min(kd, 1.6);
+      sh.core.position.set(x, 0.001, zv);
+      sh.core.scale.set(hw * 1.05, 1, 0.34 * d);
+      sh.soft.position.set(x + 0.06, 0, zv - 0.06);
+      sh.soft.scale.set(hw * 1.9 + 0.2, 1, 0.75 * d);
+    });
+    tiltG.updateMatrixWorld(true);
   };
+  tiltG.traverse((o) => { if (o.isMesh) o.onBeforeRender = sync; });
   const head = new THREE.Group();
   const arms = [new THREE.Group(), new THREE.Group()];
   const anchors = { baski: new THREE.Vector3(0, 6.9, 0.6), desen: new THREE.Vector3(-0.8, 2.8, 0.3), manset: new THREE.Vector3(0.45, 0.7, 0.3) };
