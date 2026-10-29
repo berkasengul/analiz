@@ -120,7 +120,8 @@ export function createLineup(canvas, products, hooks = {}) {
       root.position.set(g.base.x, -g.dim * 1.2, g.base.z + g.lift * 1.8 - g.dim * 3);
       root.scale.setScalar(1 + g.lift * 0.06 - g.dim * 0.15);
       const face = Math.atan2(camera.position.x - root.position.x, camera.position.z - root.position.z);
-      root.rotation.y = face * (0.6 + g.lift * 0.4) + (reduced() ? 0 : Math.sin(t * 0.25 + g.i) * 0.18 * (1 - g.lift));
+      // Her figür kameraya tam karşıdan bakar; çok hafif salınım
+      root.rotation.y = face + (reduced() ? 0 : Math.sin(t * 0.25 + g.i) * 0.08 * (1 - g.lift));
       animateFigure(g.f, t, g.i, b && g.i % 2 === 0, g.lift);
     });
     renderer.render(scene, camera);
@@ -404,7 +405,12 @@ export function createViewer(canvas, ui = {}) {
     if (pointers.size === 0) {
       vel *= 0.94;
       rot += vel;
-      if (now - idle > 2500 && goal.z < 1.05 && !reduced()) rot += 0.006;
+      // Boşta: tam tur dönmek yerine en yakın ön görünüme döner ve çok hafif salınır
+      if (now - idle > 2500 && !reduced()) {
+        const front = Math.round(rot / (Math.PI * 2)) * Math.PI * 2;
+        const sway = goal.z < 1.05 ? Math.sin((now - idle - 2500) / 2600) * 0.1 : 0;
+        rot += (front + sway - rot) * 0.03;
+      }
     }
     // Kamera yumuşakça hedefe akar
     const k = reduced() ? 1 : 1 - Math.exp(-dt * 9);
@@ -430,7 +436,8 @@ export function createViewer(canvas, ui = {}) {
       }
       cur = built.get(p.id);
       cur.root.visible = true;
-      rot = 0.35;
+      rot = 0; // her ürün tam karşıdan açılır
+      vel = 0;
       Object.assign(goal, { z: 1, fx: 0, fy: 5 });
       Object.assign(view, goal);
       ui.onZoom?.(1);

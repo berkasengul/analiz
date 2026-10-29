@@ -77,13 +77,38 @@ export function createStory(root, products, hooks = {}) {
   const m3d = createFigures($('.models3d'), products);
   if (m3d) {
     root.classList.add('is-3d');
-    $('.tags3d').innerHTML = products.map((p, i) => TAGS.map((t) => `<span class="tag" data-i="${i}" data-k="${t.key}"><i></i>${t.label}</span>`).join('')).join('');
+    $('.tags3d').innerHTML = products.map((p, i) => TAGS.map((t) => `<button type="button" class="tag" data-i="${i}" data-k="${t.key}" aria-label="${t.label}: yakınlaştır"><i></i>${t.label}</button>`).join('')).join('');
   }
   const tags3d = m3d ? [...$('.tags3d').children] : [];
   const drag = { on: false, x: 0, rot: 0, vel: 0, last: 0 };
+  // Etikete basınca o bölgeye yakınlaşma: model tam karşıya döner, kamera bölgeye süzülür
+  const focus = { on: false, i: -1, key: null, amt: 0 };
+  const back = $('.focus-back');
+  function setFocus(i, key) {
+    Object.assign(focus, { on: true, i, key });
+    drag.rot = 0;
+    drag.vel = 0;
+    root.classList.add('is-focus');
+    back.hidden = false;
+  }
+  function unfocus() {
+    if (!focus.on) return false;
+    focus.on = false;
+    root.classList.remove('is-focus');
+    back.hidden = true;
+    return true;
+  }
+  back.addEventListener('click', unfocus);
+  $('.tags3d').addEventListener('click', (e) => {
+    const tg = e.target.closest('.tag');
+    if (!tg) return;
+    if (focus.on && focus.key === tg.dataset.k) unfocus();
+    else setFocus(Number(tg.dataset.i), tg.dataset.k);
+  });
+  let settledAt = 0;
   const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
   const cv = $('.models3d');
-  cv.addEventListener('pointerdown', (e) => { drag.last = performance.now(); drag.on = true; drag.x = e.clientX; drag.moved = 0; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointerdown', (e) => { if (unfocus()) return; drag.last = performance.now(); drag.on = true; drag.x = e.clientX; drag.moved = 0; cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove', (e) => {
     if (e.pointerType === 'mouse') { mouse.x = e.clientX / vw - 0.5; mouse.y = e.clientY / vh - 0.5; }
     if (!drag.on) return;
@@ -165,6 +190,7 @@ export function createStory(root, products, hooks = {}) {
   let lastWheel = 0;
   // Bir adım at; vitrinin başı/sonundaysa sayfanın normal kaydırılmasına izin ver
   function stepBy(dir) {
+    if (unfocus()) return true; // yakınken ilk hareket tam görünüme döndürür
     const i = index();
     if ((dir > 0 && i >= N - 1) || (dir < 0 && i <= 0)) return false;
     goTo(i + dir);
@@ -177,7 +203,7 @@ export function createStory(root, products, hooks = {}) {
     lastWheel = now;
     const dir = Math.sign(e.deltaY);
     const i = index();
-    if (!anim && ((dir > 0 && i >= N - 1) || (dir < 0 && i <= 0))) return; // dışarı çıkış serbest
+    if (!anim && !focus.on && ((dir > 0 && i >= N - 1) || (dir < 0 && i <= 0))) return; // dışarı çıkış serbest
     e.preventDefault();
     // Dokunmatik yüzeyin ataletli olaylarını tek harekete say: animasyon bitip olaylar dinene kadar bekle
     if (anim || now < unlockAt || quietGap < 160) { if (!anim) unlockAt = now + 160; return; }
@@ -190,7 +216,7 @@ export function createStory(root, products, hooks = {}) {
     if (touchY === null) return;
     const dy = touchY - e.touches[0].clientY;
     const i = index();
-    if (!anim && ((dy > 0 && i >= N - 1) || (dy < 0 && i <= 0))) { touchY = null; return; }
+    if (!anim && !focus.on && ((dy > 0 && i >= N - 1) || (dy < 0 && i <= 0))) { touchY = null; return; }
     e.preventDefault();
   }, { passive: false });
   addEventListener('touchend', (e) => {
@@ -203,6 +229,7 @@ export function createStory(root, products, hooks = {}) {
   addEventListener('keydown', (e) => {
     if (!pinned() || e.target.closest?.('input, textarea, select, [contenteditable]')) return;
     if (!document.querySelector('.detail')?.hidden) return;
+    if (e.key === 'Escape' && unfocus()) { e.preventDefault(); return; }
     const map = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 };
     const dir = map[e.key] ?? (e.key === ' ' && e.shiftKey ? -1 : 0);
     if (!dir || anim) { if (dir) e.preventDefault(); return; }
@@ -419,7 +446,10 @@ export function createStory(root, products, hooks = {}) {
       const vis = 1 - u;
       if (m3d) {
         // Sakin, akıcı sağa-sola salınım; ilk açılışta tam bir tur dönerek sahneye girer
-        const idle = reduced ? 0 : Math.sin(t * 0.22 + i * 1.7) * 0.32;
+        // Ürün yerine oturduğu an tam karşıdan başlar, sonra çok hafif (±7°) salınır
+        const since = i === active ? Math.max(0, t - settledAt) : 0;
+        const calm = 1 - focus.amt; // yakınlaşırken model kıpırdamaz
+        const idle = reduced ? 0 : Math.sin(since * 0.35) * 0.12 * smooth(since / 3) * calm;
         const intro = reduced ? 1 : Math.min(1, t / 3.4);
         const ease = intro < 0.5 ? 4 * intro ** 3 : 1 - (-2 * intro + 2) ** 3 / 2; // yavaş başla, yavaş bitir
         const entrance = i === 0 ? (1 - ease) * Math.PI * 2 : 0;
@@ -429,8 +459,8 @@ export function createStory(root, products, hooks = {}) {
           top: frameBox.top,
           bottom: frameBox.bottom,
           maxHalf: frameBox.maxHalf,
-          rotY: -dir * u * 0.7 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.25 : 0),
-          rotX: cur ? mouse.sy * 0.06 : 0,
+          rotY: -dir * u * 0.7 + idle + entrance + (cur ? drag.rot + mouse.sx * 0.12 * calm : 0),
+          rotX: cur ? mouse.sy * 0.06 * calm : 0,
           scale: (1 - u * 0.25) * (i === 0 ? 0.9 + ease * 0.1 : 1),
           opacity: vis,
         });
@@ -457,15 +487,19 @@ export function createStory(root, products, hooks = {}) {
     });
 
     const a = Math.round(c);
+    if (focus.on && focus.i !== a) unfocus(); // başka ürüne geçildiyse
+    focus.amt += ((focus.on ? 1 : 0) - focus.amt) * (reduced ? 1 : 1 - Math.exp(-dt * 4.5));
+    if (focus.amt < 0.001) focus.amt = 0;
     if (m3d) {
-      m3d.render(states, t);
+      m3d.render(states, t, focus.amt > 0 ? { i: focus.i, key: focus.key, amt: focus.amt, sx: cx(), sy: portrait ? 0.4 : 0.5 } : null);
       const settle = clamp(1 - Math.abs(c - a) * 5);
       tags3d.forEach((tg) => {
         const i = Number(tg.dataset.i);
-        if (i !== a || settle < 0.05) { tg.style.opacity = 0; return; }
+        if (i !== a || settle < 0.05 || focus.amt > 0.02) { tg.style.opacity = 0; tg.style.pointerEvents = 'none'; return; }
         const [x, y] = products[i].spots[tg.dataset.k];
         const pt = m3d.project(i, tg.dataset.k);
-        if (!pt || pt.facing < 0.35) { tg.style.opacity = 0; return; }
+        if (!pt || pt.facing < 0.35) { tg.style.opacity = 0; tg.style.pointerEvents = 'none'; return; }
+        tg.style.pointerEvents = 'auto';
         const left = x < 0.5;
         tg.classList.toggle('left', left);
         // Etiket yazısı figürün silüetinin dışında dursun: nokta detayda, bağlantı çizgisi uzar
@@ -483,6 +517,9 @@ export function createStory(root, products, hooks = {}) {
     }
     if (a !== active) {
       active = a;
+      settledAt = t;
+      drag.rot = 0; // önceki ürünü çevirmek yeni ürüne taşınmasın: her ürün tam karşıdan açılır
+      drag.vel = 0;
       rails.forEach((r, k) => r.classList.toggle('is-active', k === a));
       hooks.onProduct?.(products[a]);
     }

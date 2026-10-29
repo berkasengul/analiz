@@ -313,28 +313,52 @@ const TILT_MAX = 0.18;
 function pedestal(p, add, root) {
   const g = new THREE.Group();
   root.add(g);
-  const tint = new THREE.Color('#ffffff').lerp(new THREE.Color(p.accent), 0.22);
-  const base = add(g, new THREE.CylinderGeometry(PED_R, PED_R * 1.03, PED_H, 96), new THREE.MeshPhysicalMaterial({ color: tint, roughness: 0.34, clearcoat: 0.45, clearcoatRoughness: 0.22, sheen: 0.35, sheenColor: new THREE.Color(p.accent) }), false);
-  base.position.y = PED_H / 2;
-  const top = add(g, new THREE.CircleGeometry(PED_R * 0.985, 96), new THREE.MeshPhysicalMaterial({ color: new THREE.Color('#ffffff').lerp(new THREE.Color(p.accent), 0.07), roughness: 0.26, clearcoat: 0.35, clearcoatRoughness: 0.18 }), false);
+  const acc = new THREE.Color(p.accent);
+  // Gövde: tek parça döner profil. Üst kenar ve taban hafif yuvarlatılmış, yan yüzey dik ve
+  // her yerde aynı kalınlıkta; üst yüzey tam PED_H yüksekliğinde düz (ayak hizası buna göre).
+  const BEV = 0.07; // üst kenar yuvarlaklığı
+  const FOOT = 0.04; // taban kenarı yuvarlaklığı
+  const R = PED_R;
+  const RB = PED_R * 1.015; // tabana doğru çok hafif genişleme (fiziksel ağırlık hissi)
+  const prof = [new THREE.Vector2(R - BEV, PED_H)];
+  for (let k = 1; k <= 8; k++) { // üst kenar çeyrek yayı
+    const a = (k / 8) * (Math.PI / 2);
+    prof.push(new THREE.Vector2(R - BEV + Math.sin(a) * BEV, PED_H - BEV + Math.cos(a) * BEV));
+  }
+  prof.push(new THREE.Vector2(RB, FOOT));
+  for (let k = 1; k <= 4; k++) { // taban kenarı yayı
+    const a = (k / 4) * (Math.PI / 2);
+    prof.push(new THREE.Vector2(RB - FOOT + Math.cos(a) * FOOT, FOOT - Math.sin(a) * FOOT));
+  }
+  prof.push(new THREE.Vector2(0, 0));
+  const pearl = new THREE.Color('#ffffff').lerp(acc, 0.3);
+  const side = add(g, new THREE.LatheGeometry(prof.slice().reverse(), 128), new THREE.MeshPhysicalMaterial({ color: pearl, roughness: 0.3, clearcoat: 0.5, clearcoatRoughness: 0.2, sheen: 0.4, sheenColor: acc }), false);
+  side.receiveShadow = true;
+  // Üst yüzey: mat saten, neredeyse beyaz (yan yüzeyden kontrollü malzeme farkı)
+  const top = add(g, new THREE.CircleGeometry(R - BEV + 0.002, 128), new THREE.MeshPhysicalMaterial({ color: new THREE.Color('#ffffff').lerp(acc, 0.05), roughness: 0.5, clearcoat: 0.2, clearcoatRoughness: 0.35 }), false);
   top.rotation.x = -Math.PI / 2;
-  top.position.y = PED_H + 0.002;
+  top.position.y = PED_H + 0.0005;
   top.receiveShadow = true;
-  const sheen = new THREE.Mesh(new THREE.CircleGeometry(PED_R * 0.98, 96), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#ffffff', transparent: true, opacity: 0.4, depthWrite: false })); // tam disk: ortada halka izi kalmasın
+  // Üst yüzeyde çok hafif ortadan yayılan ışık (stüdyo tepe ışığının izi)
+  const sheen = new THREE.Mesh(new THREE.CircleGeometry(R - BEV, 96), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#ffffff', transparent: true, opacity: 0.22, depthWrite: false }));
   sheen.rotation.x = -Math.PI / 2;
-  sheen.position.y = PED_H + 0.006;
+  sheen.position.y = PED_H + 0.004;
   g.add(sheen);
-  const ring = add(g, new THREE.TorusGeometry(PED_R * 1.005, 0.03, 12, 128), new THREE.MeshStandardMaterial({ color: p.accent, emissive: p.accent, emissiveIntensity: 0.45, roughness: 0.35 }), false);
-  ring.rotation.x = Math.PI / 2;
-  ring.position.y = PED_H - 0.01;
-  const glow = new THREE.Mesh(new THREE.CircleGeometry(PED_R * 1.7, 64), new THREE.MeshBasicMaterial({ map: glowTex(), color: p.accent, transparent: true, opacity: 0.5, depthWrite: false }));
+  // İnce ışık çizgisi: üst kenarın hemen altında, ürün paletinin açık tonu (mavide buz mavisi,
+  // pembede yumuşak pembe); parlamayan, sönük bir iz
+  const lineCol = acc.clone().lerp(new THREE.Color('#ffffff'), 0.3);
+  const line = add(g, new THREE.TorusGeometry(R + 0.004, 0.015, 8, 160), new THREE.MeshStandardMaterial({ color: lineCol, emissive: lineCol, emissiveIntensity: 0.55, roughness: 0.4 }), false);
+  line.rotation.x = Math.PI / 2;
+  line.position.y = PED_H - BEV - 0.035;
+  // Zemine düşen renkli yansıma (ölçülü) ve temas gölgesi
+  const glow = new THREE.Mesh(new THREE.CircleGeometry(PED_R * 1.6, 64), new THREE.MeshBasicMaterial({ map: glowTex(), color: p.accent, transparent: true, opacity: 0.26, depthWrite: false }));
   glow.rotation.x = -Math.PI / 2;
   glow.position.y = 0.01;
   g.add(glow);
   // Kaidenin sahne zeminine değdiği yerde yumuşak temas gölgesi (kenara yakın koyu, dışa doğru söner)
-  const floorShadow = shadowDisc(0.34);
-  floorShadow.scale.set(PED_R * 1.22, 1, PED_R * 1.22);
-  floorShadow.position.set(0.12, 0.005, -0.1);
+  const floorShadow = shadowDisc(0.4);
+  floorShadow.scale.set(PED_R * 1.2, 1, PED_R * 1.2);
+  floorShadow.position.set(0.1, 0.005, -0.08);
   floorShadow.renderOrder = -1;
   g.add(floorShadow);
   root.userData.pedestal = g;
@@ -628,6 +652,13 @@ function spinFigure(p, opts = {}) {
   const head = new THREE.Group();
   const arms = [new THREE.Group(), new THREE.Group()];
   const anchors = { baski: new THREE.Vector3(0, 6.9, 0.6), desen: new THREE.Vector3(-0.8, 2.8, 0.3), manset: new THREE.Vector3(0.45, 0.7, 0.3) };
+  // Etiket ve yakınlaşma noktaları: ürünün ön karesindeki konumdan (p.spots, 0–1) figür düzlemine
+  const anchorWorld = (key, out) => {
+    const sp = p.spots && p.spots[key];
+    if (!sp) return out.copy(anchors[key] || anchors.baski).applyMatrix4(body.matrixWorld);
+    out.set((sp[0] - 0.5) * Hh * spin.aspect, Hh * (1 - G.g - sp[1]), 0);
+    return plane.localToWorld(out);
+  };
   // Kadraj için: verilen kamera yükseklik açısında başın tepesi ve kaidenin en alt ön noktası
   // (kök koordinatında, ölçeksiz). Eğim, sync() ile aynı formülden hesaplanır.
   const fit = (elev) => {
@@ -637,7 +668,7 @@ function spinFigure(p, opts = {}) {
     const r = PED_R * 1.03 * (ped ? ped.scale.x : 1);
     return { hy: PED_H + SUBJECT_H, hz: 0, by: PED_H - PED_H * Math.cos(d) - r * Math.sin(d), bz: -PED_H * Math.sin(d) + r * Math.cos(d), r };
   };
-  return { root, body, head, arms, legs: [], eyes: [], meshes, anchors, spin: true, fit };
+  return { root, body, head, arms, legs: [], eyes: [], meshes, anchors, anchorWorld, spin: true, fit };
 }
 
 /* ---------- Gerçek fotoğraf modeli: netleştirilmiş fotoğraf kaidede, kameraya dönük ---------- */
@@ -994,7 +1025,12 @@ export function createFigures(canvas, products) {
 
   const blinkNow = blinker();
   // states[i] = { x, top, bottom (ekran oranları), maxHalf (px), rotY, rotX, scale, opacity }
-  function render(states, t) {
+  // focus = { i, key, amt (0–1), sx, sy }: etiketin gösterdiği bölgeye yakınlaşma
+  const CAM_Z = camera.position.z;
+  const FOCUS_ZOOM = 2.6; // karelerin çözünürlüğü bu yakınlıkta hâlâ net
+  const target = new THREE.Vector3();
+  function render(states, t, focus = null) {
+    camera.position.set(0, 0, CAM_Z); // kadraj hesabı sabit kameraya göre yapılır
     let floorY = 0;
     const blink = blinkNow(t);
     figs.forEach((fig, i) => {
@@ -1013,6 +1049,20 @@ export function createFigures(canvas, products) {
     });
     ground.position.y = floorY;
     key.target.position.set(0, floorY, 0);
+    if (focus && figs[focus.i] && figs[focus.i].root.visible) {
+      // Hedef noktayı ekranda (sx, sy) konumuna getirip kamerayı ona doğru yaklaştır; kamera
+      // dönmez, yalnızca ilerler: figür kameraya dönük kalır, ayak/kaide hizası bozulmaz
+      const fig = figs[focus.i];
+      fig.root.updateMatrixWorld(true);
+      if (fig.anchorWorld) fig.anchorWorld(focus.key, target);
+      else target.set(fig.root.position.x, fig.root.position.y + 5 * fig.root.scale.y, 0);
+      const T = Math.tan((camera.fov * Math.PI) / 360);
+      const dz = (CAM_Z - target.z) / FOCUS_ZOOM;
+      const ex = target.x - (focus.sx * 2 - 1) * dz * T * camera.aspect;
+      const ey = target.y + (focus.sy * 2 - 1) * dz * T;
+      const e = focus.amt * focus.amt * (3 - 2 * focus.amt);
+      camera.position.set(ex * e, ey * e, CAM_Z + (target.z + dz - CAM_Z) * e);
+    }
     renderer.render(scene, camera);
   }
 
@@ -1021,8 +1071,8 @@ export function createFigures(canvas, products) {
   function project(i, keyName) {
     const fig = figs[i];
     if (!fig.root.visible) return null;
-    v3.copy(fig.anchors[keyName]);
-    fig.body.localToWorld(v3);
+    if (fig.anchorWorld) fig.anchorWorld(keyName, v3);
+    else { v3.copy(fig.anchors[keyName]); fig.body.localToWorld(v3); }
     // Etiket figürün arka yüzünde kaldıysa gizle
     camDir.set(Math.sin(fig.root.rotation.y), 0, Math.cos(fig.root.rotation.y));
     const facing = camDir.z;
