@@ -27,7 +27,7 @@ export async function placeOrder(customer, lines, fmt) {
     } catch { sent = false; }
   }
   const c = customer;
-  const msg = `Merhaba, SESA KIDS sipariş vermek istiyorum.\nSipariş no: ${id}\n${lines.map((x) => `• ${x.name} – ${x.size} yaş × ${x.qty} = ${fmt(x.price * x.qty)}`).join('\n')}\nToplam: ${fmt(total)}\n\n${c.name}\n${c.phone}\n${c.address}, ${c.city}${c.note ? `\nNot: ${c.note}` : ''}`;
+  const msg = `Merhaba, SESA KIDS sipariş vermek istiyorum.\nSipariş no: ${id}\n${lines.map((x) => `• ${x.name} – ${x.size} yaş × ${x.qty} = ${fmt(x.price * x.qty)}`).join('\n')}\nToplam: ${fmt(total)}\n\n${c.name}\n${c.phone}\n${c.address}, ${c.city}${c.payment ? `\nÖdeme: ${c.payment}` : ''}${c.note ? `\nNot: ${c.note}` : ''}`;
   let link = '';
   let via = sent ? 'endpoint' : '';
   if (SITE.whatsapp) { link = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`; via = sent ? 'endpoint' : 'whatsapp'; }

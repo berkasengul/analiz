@@ -535,10 +535,12 @@ function spinFigure(p, opts = {}) {
       ring.delete(i);
     }
   }
+  let gen = 0; // bellekten bırakılınca artar: eski, yarım kalmış açma işleri yok sayılır
   async function decode(i) {
+    const g = gen;
     try {
       const img = await decodeFrame(await blobOf(i, true), MAXH);
-      if (!blobs) { img.close?.(); return; } // bu arada bellekten bırakıldıysa
+      if (g !== gen || !blobs) { img.close?.(); return; } // bu arada bellekten bırakıldıysa
       const tex = new THREE.Texture(img);
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.flipY = false; // ImageBitmap çevrilemez: kaydırma gölgelendiricide yapılır
@@ -549,8 +551,11 @@ function spinFigure(p, opts = {}) {
       if (rendererRef) rendererRef.initTexture(tex); // ilk kullanımda takılmasın
       ring.set(i, { tex, used: performance.now() });
       evict();
-    } catch (e) { /* ağ hatası: bir sonraki istekte yeniden denenir */ if (blobs) blobs[i] = null; }
-    pending.delete(i);
+    } catch (e) { /* ağ hatası: bir sonraki istekte yeniden denenir */ if (g === gen && blobs) blobs[i] = null; } finally {
+      // Her durumda (erken dönüş dahil) bekleyenler listesinden çık; aksi hâlde liste dolar
+      // ve model bir daha kare açamaz (geri kaydırınca boş sahne hatası)
+      if (g === gen) pending.delete(i);
+    }
   }
   const norm = (i) => { i = ((i % n) + n) % n; return i - (i % step); };
   const need = (i) => { // kareyi iste; hazırsa dokusunu ver
@@ -562,9 +567,11 @@ function spinFigure(p, opts = {}) {
   };
   // Ekranda görünmeyen modelin kareleri bellekten bırakılır, görününce yeniden yüklenir
   SPIN_FIGS.add({ idle: () => performance.now() - lastSeen > 6000, drop: () => {
-    if (!blobs && !ring.size) return;
+    if (!blobs && !ring.size && !pending.size) return;
+    gen++;
     blobs = null;
     prefetched = false;
+    pending.clear();
     for (const e of ring.values()) { e.tex.dispose(); e.tex.image.close?.(); }
     ring.clear();
   } });

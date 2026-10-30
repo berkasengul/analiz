@@ -33,8 +33,10 @@ const FAQ = [
 
 /* ---------- Ortak parçalar ---------- */
 const org = {
-  '@type': 'Organization', '@id': `${BASE}/#org`, name: SITE.name, url: `${BASE}/`,
-  logo: `${BASE}/assets/brand/logo.png`, email: SITE.email,
+  '@type': ['Organization', 'ClothingStore'],
+  ...(SITE.geo ? { geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng }, hasMap: SITE.mapLink,
+    address: { '@type': 'PostalAddress', ...(SITE.address ? { streetAddress: SITE.address } : {}), addressLocality: 'Ümraniye', addressRegion: SITE.city, postalCode: '34764', addressCountry: 'TR' } } : {}), '@id': `${BASE}/#org`, name: SITE.name, url: `${BASE}/`,
+  logo: `${BASE}/assets/brand/logo.png`, image: `${BASE}/assets/brand/og.jpg`, email: SITE.email, priceRange: '₺₺',
   ...(SITE.whatsapp ? { contactPoint: { '@type': 'ContactPoint', telephone: `+${SITE.whatsapp}`, contactType: 'customer service', areaServed: 'TR', availableLanguage: 'Turkish' } } : {}),
 };
 const productLd = (p) => ({
@@ -209,6 +211,7 @@ writeFileSync(join(STORE, 'llms.txt'), `# ${SITE.name}
 
 - Web: ${BASE}/
 - E-posta: ${SITE.email}
+- Mağaza: ${SITE.address}, ${SITE.city} (${SITE.mapLink})
 - Kargo: ${SITE.shipping}
 - İade: ${SITE.returns}
 - Kumaş: ${SITE.fabric}

@@ -199,8 +199,10 @@ export function createStory(root, products, hooks = {}) {
     goTo(i + dir);
     return true;
   }
+  // Sepet, ürün detayı ya da sohbet açıkken (veya imleç onların üstündeyken) vitrin kaydırmayı yakalamaz
+  const elsewhere = (e) => document.documentElement.dataset.modal || e.target.closest?.('.cart, .chat, .detail');
   addEventListener('wheel', (e) => {
-    if (!pinned() || Math.abs(e.deltaY) < 2) return;
+    if (elsewhere(e) || !pinned() || Math.abs(e.deltaY) < 2) return;
     const now = performance.now();
     const quietGap = now - lastWheel;
     lastWheel = now;
@@ -214,7 +216,7 @@ export function createStory(root, products, hooks = {}) {
   }, { passive: false });
 
   let touchY = null;
-  addEventListener('touchstart', (e) => { touchY = pinned() ? e.touches[0].clientY : null; }, { passive: true });
+  addEventListener('touchstart', (e) => { touchY = pinned() && !elsewhere(e) ? e.touches[0].clientY : null; }, { passive: true });
   addEventListener('touchmove', (e) => {
     if (touchY === null) return;
     const dy = touchY - e.touches[0].clientY;
@@ -230,7 +232,7 @@ export function createStory(root, products, hooks = {}) {
   }, { passive: true });
 
   addEventListener('keydown', (e) => {
-    if (!pinned() || e.target.closest?.('input, textarea, select, [contenteditable]')) return;
+    if (!pinned() || elsewhere(e) || e.target.closest?.('input, textarea, select, [contenteditable]')) return;
     if (!document.querySelector('.detail')?.hidden) return;
     if (e.key === 'Escape' && unfocus()) { e.preventDefault(); return; }
     const map = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 };

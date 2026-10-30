@@ -4,89 +4,131 @@
 // "Sepete Ekle" düğmesiyle aynı animasyon oynatılır.
 
 const TRACK = 64; // tutamacın aşağı inebileceği mesafe (px)
+// Çanta ortaya oturduğunda kısa, yumuşak bir "ding" (Web Audio; ses dosyası gerekmez)
+let audioCtx = null;
+function chime() {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const ac = audioCtx;
+    if (ac.state === 'suspended') ac.resume();
+    const t = ac.currentTime + 0.01;
+    const out = ac.createGain();
+    out.gain.value = 0.22;
+    out.connect(ac.destination);
+    // İki nota (Mi6, Si6) ve hafif üst ton: çan benzeri, kısa sönümlü
+    [[1318.5, 0, 0.9], [1975.5, 0.09, 1.1], [2637, 0.09, 0.5]].forEach(([f, d, len], k) => {
+      const o = ac.createOscillator();
+      const g = ac.createGain();
+      o.type = k === 2 ? 'sine' : 'triangle';
+      o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t + d);
+      g.gain.exponentialRampToValueAtTime(k === 2 ? 0.25 : 0.8, t + d + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + d + len);
+      o.connect(g).connect(out);
+      o.start(t + d);
+      o.stop(t + d + len + 0.05);
+    });
+  } catch (e) { /* ses desteklenmiyorsa sessiz geç */ }
+}
+// Yükselirken hafif bir "vuuş" (filtrelenmiş gürültü)
+function whoosh(dur) {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const ac = audioCtx;
+    if (ac.state === 'suspended') ac.resume();
+    const len = Math.floor(ac.sampleRate * dur);
+    const buf = ac.createBuffer(1, len, ac.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.sin((i / len) * Math.PI);
+    const src = ac.createBufferSource();
+    src.buffer = buf;
+    const f = ac.createBiquadFilter();
+    f.type = 'bandpass';
+    f.Q.value = 0.8;
+    f.frequency.setValueAtTime(400, ac.currentTime);
+    f.frequency.exponentialRampToValueAtTime(2200, ac.currentTime + dur);
+    const g = ac.createGain();
+    g.gain.value = 0.06;
+    src.connect(f).connect(g).connect(ac.destination);
+    src.start();
+  } catch (e) { /* yok say */ }
+}
 const bagReduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Premium butik çantası, 3/4 açıdan: ön yüz + katlanma çizgili yan körük, ön ve arka ip sap,
-// altın varak çerçeve ve etiket. Renkler takıma göre (--bag-*): erkekte mavi, kızda pembe.
-const BACK = `<svg viewBox="0 0 240 240" aria-hidden="true">
+// Lüks butik çantası (önden): mat pastel kâğıt dokusu, altın varak kabartma logo, ince ip saplar,
+// sapta saten fiyonklu hediye kartı. Renkler takıma göre (--bag-*): erkekte mavi, kızda pembe.
+const BACK = `<svg viewBox="0 0 200 240" aria-hidden="true">
   <defs>
     <linearGradient id="bagIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--bag-deep)"/><stop offset="1" style="stop-color:var(--bag-mid)"/></linearGradient>
-    <linearGradient id="bagRopeB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9c6a4"/><stop offset=".5" stop-color="#f3e6cf"/><stop offset="1" stop-color="#cdb791"/></linearGradient>
+    <linearGradient id="bagRopeB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cbb48c"/><stop offset=".5" stop-color="#ead9b8"/><stop offset="1" stop-color="#bfa57a"/></linearGradient>
   </defs>
-  <path d="M90 66 C86 2 190 -4 190 58" fill="none" stroke="url(#bagRopeB)" stroke-width="6" stroke-linecap="round"/>
-  <path d="M34 52 L206 44 L214 58 L170 70 L20 70 Z" fill="url(#bagIn)"/>
-  <path d="M20 70 L170 70 L214 58 L210 52 L168 62 L26 62 Z" fill="#000" opacity=".22"/>
+  <path d="M74 62 C70 6 130 6 126 62" fill="none" stroke="url(#bagRopeB)" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M26 56 H174 L176 74 H24 Z" fill="url(#bagIn)"/>
+  <path d="M24 66 H176 V74 H24 Z" fill="#000" opacity=".18"/>
   <g class="bag-tissue">
-    <path d="M42 72 C44 46 54 30 70 20 C76 38 86 52 94 72 Z" style="fill:var(--bag-tissue)"/>
-    <path d="M128 70 C134 46 150 30 170 24 C172 42 178 56 182 66 Z" style="fill:var(--bag-tissue)"/>
-    <path d="M78 72 C82 40 98 16 116 6 C128 24 138 46 142 70 Z" fill="#ffffff"/>
-    <path d="M96 72 C102 50 116 34 132 28 C134 46 138 60 140 70 Z" fill="#fdf6fa"/>
+    <path d="M40 72 C42 50 50 36 66 26 C72 42 80 56 88 72 Z" style="fill:var(--bag-tissue)"/>
+    <path d="M114 72 C120 50 134 36 152 30 C154 46 160 60 164 72 Z" style="fill:var(--bag-tissue)"/>
+    <path d="M70 72 C74 44 88 22 106 12 C118 30 128 50 132 72 Z" fill="#ffffff"/>
+    <path d="M88 72 C94 52 108 38 124 32 C126 48 130 62 132 72 Z" fill="#fbf7f2"/>
   </g>
 </svg>`;
 
-const FRONT = `<svg viewBox="0 0 240 240" aria-hidden="true">
+const FRONT = `<svg viewBox="0 0 200 240" aria-hidden="true">
   <defs>
-    <clipPath id="bagClip"><path d="M20 70 L170 70 L176 228 L14 228 Z"/></clipPath>
-    <linearGradient id="bagBase" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--bag-light)"/><stop offset=".55" style="stop-color:var(--bag-mid)"/><stop offset="1" style="stop-color:var(--bag-deep)"/></linearGradient>
-    <linearGradient id="bagSide" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--bag-deep)"/><stop offset=".5" style="stop-color:var(--bag-mid)"/><stop offset="1" style="stop-color:var(--bag-deep)"/></linearGradient>
-    <linearGradient id="bagLight" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".35" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
-    <linearGradient id="bagShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset=".12" stop-color="#000" stop-opacity="0"/><stop offset=".86" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
-    <linearGradient id="bagCuff" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffdf8"/><stop offset="1" stop-color="#f1e8da"/></linearGradient>
-    <linearGradient id="bagCuffS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe5d4"/><stop offset="1" stop-color="#ddd0bb"/></linearGradient>
-    <linearGradient id="bagFoil" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1bf"/><stop offset=".45" stop-color="#e2b354"/><stop offset="1" stop-color="#b9862a"/></linearGradient>
-    <linearGradient id="bagRope" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ead9ba"/><stop offset=".5" stop-color="#fffaf0"/><stop offset="1" stop-color="#dcc7a2"/></linearGradient>
-    <radialGradient id="bagGold" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#fff3c4"/><stop offset=".55" stop-color="#e8b84e"/><stop offset="1" stop-color="#a87a1e"/></radialGradient>
-    <pattern id="bagStars" patternUnits="userSpaceOnUse" width="34" height="34" patternTransform="rotate(-12)">
-      <path d="M8 5 l1.3 3 3.2.4 -2.4 2.1 .7 3.1 -2.8-1.6 -2.8 1.6 .7-3.1 -2.4-2.1 3.2-.4z" fill="#fff" opacity=".16"/>
-      <circle cx="25" cy="24" r="1.4" fill="#fff" opacity=".2"/><circle cx="26" cy="8" r=".9" fill="#fff" opacity=".18"/>
-    </pattern>
+    <linearGradient id="bagBase" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--bag-light)"/><stop offset=".6" style="stop-color:var(--bag-mid)"/><stop offset="1" style="stop-color:var(--bag-deep)"/></linearGradient>
+    <linearGradient id="bagVig" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset=".1" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#fff" stop-opacity=".12"/><stop offset=".9" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".2"/></linearGradient>
+    <linearGradient id="bagFoot" x1="0" y1="0" x2="0" y2="1"><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <linearGradient id="bagFoil" gradientUnits="userSpaceOnUse" x1="40" y1="130" x2="160" y2="185"><stop offset="0" stop-color="#fff4c9"/><stop offset=".35" stop-color="#e9c46a"/><stop offset=".6" stop-color="#c8963a"/><stop offset="1" stop-color="#f2d48a"/></linearGradient>
+    <linearGradient id="bagRope" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e2cfa8"/><stop offset=".5" stop-color="#fffaf0"/><stop offset="1" stop-color="#d6bf93"/></linearGradient>
+    <radialGradient id="bagGold" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#fff3c4"/><stop offset=".55" stop-color="#e2b354"/><stop offset="1" stop-color="#9c6f1c"/></radialGradient>
     <linearGradient id="bagRibbon" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--bag-ribbon-hi)"/><stop offset=".5" style="stop-color:var(--bag-ribbon)"/><stop offset="1" style="stop-color:var(--bag-ribbon-hi)"/></linearGradient>
-    <linearGradient id="bagSheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-    <filter id="bagSoft" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#2b2f6b" flood-opacity=".22"/></filter>
+    <linearGradient id="bagSheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="bagGrain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+    <filter id="bagEmboss" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="-.6" stdDeviation=".3" flood-color="#fff" flood-opacity=".7"/><feDropShadow dx="0" dy=".9" stdDeviation=".5" flood-color="#5a3d0c" flood-opacity=".45"/></filter>
+    <clipPath id="bagClip"><rect x="24" y="62" width="152" height="170" rx="3"/></clipPath>
   </defs>
-  <path d="M170 70 L214 58 L222 212 L176 228 Z" fill="url(#bagSide)"/>
-  <path d="M170 70 L192 82 L214 58 Z" fill="#000" opacity=".22"/>
-  <path d="M192 82 L199 221" stroke="#fff" stroke-opacity=".22" stroke-width="1.2"/>
-  <path d="M192 82 L176 228 M192 82 L222 212" stroke="#000" stroke-opacity=".08" stroke-width="1"/>
   <g clip-path="url(#bagClip)">
-    <rect x="0" y="66" width="200" height="170" fill="url(#bagBase)"/>
-    <rect x="0" y="66" width="200" height="170" fill="url(#bagStars)"/>
-    <rect class="bag-glint" x="-70" y="66" width="44" height="170" fill="url(#bagSheen)" transform="skewX(-18)"/>
-    <rect x="0" y="66" width="200" height="170" fill="url(#bagLight)"/>
-    <rect x="0" y="66" width="200" height="170" fill="url(#bagShade)"/>
+    <rect x="24" y="62" width="152" height="170" fill="url(#bagBase)"/>
+    <rect x="24" y="62" width="152" height="170" fill="#fff" filter="url(#bagGrain)"/>
+    <rect class="bag-glint" x="-40" y="62" width="40" height="170" fill="url(#bagSheen)" transform="skewX(-16)"/>
+    <rect x="24" y="62" width="152" height="170" fill="url(#bagVig)"/>
+    <rect x="24" y="62" width="152" height="170" fill="url(#bagFoot)"/>
+    <path d="M24 62 H176 V78 H24 Z" fill="#fff" opacity=".22"/>
+    <path d="M24 78 H176" stroke="#000" stroke-opacity=".1" stroke-width="1"/>
+    <path d="M36 232 L44 214 L156 214 L164 232" fill="none" stroke="#000" stroke-opacity=".07" stroke-width="1.2"/>
   </g>
-  <path d="M27 100 L163 100 L168.4 220 L21.6 220 Z" fill="none" stroke="url(#bagFoil)" stroke-width="1.3" opacity=".9"/>
-  <path d="M170 70 L214 58 L215 79 L171 92 Z" fill="url(#bagCuffS)"/>
-  <path d="M20 70 H170 L171 92 H19 Z" fill="url(#bagCuff)"/>
-  <path d="M19 92 H171 L215 79" stroke="#000" stroke-opacity=".12" stroke-width="1.4" fill="none"/>
-  <path d="M20 70 H170 L214 58" stroke="#fff" stroke-width="1.3" fill="none"/>
-  <path d="M58 84 C52 14 132 12 130 84" fill="none" stroke="url(#bagRope)" stroke-width="6.5" stroke-linecap="round"/>
-  <path d="M58 84 C52 14 132 12 130 84" fill="none" stroke="#bfa47a" stroke-width="6.5" stroke-dasharray="2.2 3.4" opacity=".5"/>
-  <g><circle cx="58" cy="82" r="5" fill="url(#bagGold)"/><circle cx="58" cy="82" r="2" fill="#5a3d0c"/><circle cx="130" cy="82" r="5" fill="url(#bagGold)"/><circle cx="130" cy="82" r="2" fill="#5a3d0c"/></g>
+  <path d="M24 62 H176" stroke="#fff" stroke-opacity=".75" stroke-width="1.2"/>
+  <path d="M72 70 C66 4 134 4 128 70" fill="none" stroke="url(#bagRope)" stroke-width="4.6" stroke-linecap="round"/>
+  <path d="M72 70 C66 4 134 4 128 70" fill="none" stroke="#b49768" stroke-width="4.6" stroke-dasharray="1.6 2.6" opacity=".45"/>
+  <g><circle cx="72" cy="70" r="4.2" fill="url(#bagGold)"/><circle cx="72" cy="70" r="1.6" fill="#4a3208"/><circle cx="128" cy="70" r="4.2" fill="url(#bagGold)"/><circle cx="128" cy="70" r="1.6" fill="#4a3208"/></g>
+  <g class="bag-logo" filter="url(#bagEmboss)">
+    <g stroke="url(#bagFoil)" stroke-linecap="round" stroke-width="3" fill="none">
+      <line x1="34" y1="139" x2="41" y2="143"/><line x1="32" y1="148" x2="40" y2="148"/><line x1="34" y1="157" x2="41" y2="153"/>
+      <line x1="166" y1="139" x2="159" y2="143"/><line x1="168" y1="148" x2="160" y2="148"/><line x1="166" y1="157" x2="159" y2="153"/>
+    </g>
+    <text x="100" y="155" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="21" letter-spacing="2" fill="url(#bagFoil)">SESA KIDS</text>
+    <path d="M70 166 H130" stroke="url(#bagFoil)" stroke-width=".9"/>
+    <text x="100" y="178" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="6.4" letter-spacing="3" fill="url(#bagFoil)">PİJAMA BUTİĞİ</text>
+  </g>
   <g class="bag-bow">
-    <path d="M94 82 C82 68 64 70 66 80 C67 88 84 88 94 82 Z" fill="url(#bagRibbon)"/>
-    <path d="M94 82 C106 68 124 70 122 80 C121 88 104 88 94 82 Z" fill="url(#bagRibbon)"/>
-    <path d="M91 84 L82 102 L88 100 L91 106 L94 86 Z" style="fill:var(--bag-ribbon)"/>
-    <path d="M97 84 L106 102 L100 100 L97 106 L94 86 Z" style="fill:var(--bag-ribbon)"/>
-    <rect x="89.5" y="77.5" width="9" height="9" rx="3" style="fill:var(--bag-ribbon)"/>
-    <path d="M72 77 C78 74 86 76 90 80" stroke="#fff" stroke-opacity=".45" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-  </g>
-  <g class="bag-logo" filter="url(#bagSoft)">
-    <rect x="41" y="130" width="108" height="48" rx="12" fill="#fff" stroke="url(#bagFoil)" stroke-width="1.4"/>
-    <text x="95" y="157" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="17" letter-spacing="1.2"><tspan fill="#3b8fe0">SESA</tspan><tspan fill="#ea6db8" dx="5">KIDS</tspan></text>
-    <text x="95" y="169" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="5.6" letter-spacing="1.6" fill="#8a8fb8">PİJAMA BUTİĞİ</text>
-    <g stroke-linecap="round" stroke-width="2.6" fill="none">
-      <line x1="48" y1="146" x2="53" y2="149" stroke="#ffd45c"/><line x1="47" y1="153" x2="52.5" y2="153" stroke="#f9a25c"/><line x1="48" y1="160" x2="53" y2="157" stroke="#79c3f6"/>
-      <line x1="142" y1="146" x2="137" y2="149" stroke="#79c3f6"/><line x1="143" y1="153" x2="137.5" y2="153" stroke="#f9a25c"/><line x1="142" y1="160" x2="137" y2="157" stroke="#ffd45c"/>
+    <path d="M128 72 C140 62 156 66 152 76 C149 83 136 80 128 72 Z" fill="url(#bagRibbon)"/>
+    <path d="M128 72 C120 60 106 62 108 72 C110 80 122 78 128 72 Z" fill="url(#bagRibbon)"/>
+    <path d="M127 74 L122 96 L127 93 L130 98 L130 75 Z" style="fill:var(--bag-ribbon)"/>
+    <path d="M130 74 L140 92 L134 91 L133 96 L130 75 Z" style="fill:var(--bag-ribbon)"/>
+    <circle cx="128.5" cy="73" r="3.6" style="fill:var(--bag-ribbon)"/>
+    <g class="bag-tag" transform="translate(140 88) rotate(14)">
+      <path d="M-3 -6 L0 2" stroke="#d8c39a" stroke-width="1"/>
+      <path d="M-8 2 H14 V30 H-8 Z" fill="#fffdf8"/><circle cx="3" cy="6" r="1.4" style="fill:var(--bag-deep)"/>
+      <text x="3" y="18" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="6" style="fill:var(--bag-deep)">SK</text>
+      <path d="M-4 23 H10" stroke="url(#bagFoil)" stroke-width=".8"/>
     </g>
   </g>
-  <path d="M14 228 H176 L222 212" stroke="#000" stroke-opacity=".18" stroke-width="2" fill="none"/>
 </svg>`;
 
 // Çanta setleri: erkek takımlarda mavi, kız takımlarda pembe
 const BAG_SETS = {
-  erkek: { light: '#d6e9ff', mid: '#6ea6ea', deep: '#2c5aa8', ribbon: '#1f3d86', ribbonHi: '#5b86d6', tissue: '#eaf4ff' },
-  kiz: { light: '#ffdcef', mid: '#f39bd2', deep: '#c94594', ribbon: '#b0306f', ribbonHi: '#f18cc4', tissue: '#fff0f8' },
+  erkek: { light: '#dde9fb', mid: '#8fb2ea', deep: '#4a70bd', ribbon: '#25408a', ribbonHi: '#6d8fd8', tissue: '#f2f7ff' },
+  kiz: { light: '#fde3ef', mid: '#f0a7cb', deep: '#cc679f', ribbon: '#a8326f', ribbonHi: '#ee8fc1', tissue: '#fff3f9' },
 };
 
 export function createBag(media, canvas, hooks = {}) {
@@ -220,7 +262,8 @@ export function createBag(media, canvas, hooks = {}) {
     ];
     const opts = { duration: fast ? 1 : 1300, easing: 'cubic-bezier(.22,.9,.25,1)', fill: 'forwards' };
     anims.push(back.animate(rise, opts), front.animate(rise, opts));
-    if (!fast) setTimeout(() => burst(m, lift, b), 760);
+    if (!fast) { whoosh(0.7); setTimeout(() => burst(m, lift, b), 760); }
+    setTimeout(chime, fast ? 0 : 1040);
     await anims[anims.length - 1].finished.catch(() => {});
     // Havada yavaş salınım
     if (!fast) for (const el of [back, front]) anims.push(el.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-7px)' }], { duration: 2400, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out', composite: 'add' }));

@@ -44,6 +44,19 @@ $$('[data-scroll]').forEach((a) => a.addEventListener('click', (e) => {
   e.preventDefault();
   window.scrollTo({ top: a.dataset.scroll === 'top' ? 0 : stage.offsetTop, behavior: 'smooth' });
 }));
+// Mağaza bölümü: harita yalnızca bölüme yaklaşınca yüklenir (sayfa hızını korur)
+{
+  const map = $('.visit-map iframe');
+  if (SITE.address) $('.visit-addr').textContent = `${SITE.address}, ${SITE.city}`;
+  else $('.visit-addr').textContent = SITE.city;
+  $('.visit-mail').href = `mailto:${SITE.email}`;
+  $('.visit-mail').textContent = SITE.email;
+  $('.visit-route').href = SITE.mapLink;
+  if (SITE.whatsapp) { const w = $('.visit-wa'); w.hidden = false; w.href = `https://wa.me/${SITE.whatsapp}`; }
+  new IntersectionObserver((es, o) => {
+    if (es.some((e) => e.isIntersecting)) { map.src = SITE.mapEmbed; o.disconnect(); }
+  }, { rootMargin: '400px' }).observe(map);
+}
 // Footer'daki yardım bağlantıları ilgili soruyu açar
 $$('[data-faq]').forEach((a) => a.addEventListener('click', () => { const d = document.getElementById(`sss-${a.dataset.faq}`); if (d) d.open = true; }));
 // Ürün sayfalarından gelen bağlantı: #urun=KOD ürünü 3D olarak açar
@@ -396,7 +409,11 @@ function setCartStep(step) {
     ? (over ? 'Kargo ücretsiz.' : `${formatPrice(SITE.freeShippingOver - cart.total())} daha ekleyin, kargo ücretsiz olsun.`)
     : 'Kargo ödeme adımında hesaplanır.';
   if (step === 'form') {
-    $('.co-pay').textContent = SITE.payment;
+    // Sipariş özeti: küçük görseller, adet ve toplam
+    const items = cart.items.map((x) => ({ x, p: byId(x.id) }));
+    $('.co-sum').innerHTML = `<div class="co-thumbs">${items.slice(0, 4).map(({ x, p }) => `<span style="--t:${p.tint}"><img src="${p.image}" alt=""><b>${x.qty}</b></span>`).join('')}${items.length > 4 ? `<span class="more">+${items.length - 4}</span>` : ''}</div>
+      <div class="co-sum-t"><small>${cart.count()} ürün</small><b>${formatPrice(cart.total())}</b></div>`;
+    $('.co-ship-b').textContent = over ? 'Kargo ücretsiz' : `${formatPrice(SITE.freeShippingOver)}+ ücretsiz kargo`;
     $('.co-err').textContent = '';
     setTimeout(() => co.elements.name.focus({ preventScroll: true }), 350);
   }
@@ -405,7 +422,7 @@ $('.co-back').addEventListener('click', () => setCartStep('list'));
 $('.co-close').addEventListener('click', () => { setCartStep('list'); toggleCart(false); });
 async function submitOrder() {
   const f = co.elements;
-  const c = { name: f.name.value.trim(), phone: normPhone(f.phone.value), city: f.city.value.trim(), address: f.address.value.trim(), note: f.note.value.trim() };
+  const c = { name: f.name.value.trim(), phone: normPhone(f.phone.value), city: f.city.value.trim(), address: f.address.value.trim(), payment: co.querySelector('[name=pay]:checked')?.value || '', note: f.note.value.trim() };
   const bad = (el, msg) => { $('.co-err').textContent = msg; el.focus(); el.setAttribute('aria-invalid', 'true'); return false; };
   [...co.querySelectorAll('[aria-invalid]')].forEach((el) => el.removeAttribute('aria-invalid'));
   if (c.name.split(/\s+/).length < 2) return bad(f.name, 'Lütfen ad ve soyadınızı yazın.');

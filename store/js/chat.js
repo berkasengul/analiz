@@ -174,6 +174,9 @@ export function createChat(api) {
     }
     if (has(q, ['merhaba', 'selam', 'günaydın', 'iyi akşamlar', 'hey'])) { await greet(); return; }
     if (has(q, ['teşekkür', 'sağ ol', 'sağol', 'eyvallah'])) { await say('Rica ederim! Başka bir konuda yardımcı olabilir miyim?'); quick(['Ürünleri göster', 'Sepetim']); return; }
+    if (has(q, ['mağaza', 'adres', 'konum', 'nerede', 'yol tarifi', 'ziyaret'])) {
+      await say(`Mağazamız ${SITE.address ? `${esc(SITE.address)}, ` : ''}${SITE.city}'da. <a href="${SITE.mapLink}" target="_blank" rel="noopener">Haritada aç ve yol tarifi al</a>`); quick(['Ürünleri göster']); return;
+    }
     if (has(q, ['iletişim', 'telefon', 'e posta', 'mail', 'whatsapp'])) {
       await say(`Bize ${SITE.email}${SITE.whatsapp ? ` veya WhatsApp üzerinden +${SITE.whatsapp}` : ''} adresinden ulaşabilirsiniz.`); return;
     }
