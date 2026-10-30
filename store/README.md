@@ -102,3 +102,25 @@ yüklenebilir.
 - Gerçek ürün fotoğrafları ve fiyatlar
 - Ödeme altyapısı (iyzico / PayTR / Shopify) — "Ödemeye Geç" şu an demo
 - Üyelik ve sipariş takibi
+
+
+## Yayına alma
+
+1. `js/config.js` dosyasını doldurun: alan adı (`url`), siparişlerin geleceği WhatsApp numarası
+   (`whatsapp`, ülke koduyla, ör. `905551234567`), e-posta, kargo/iade/ödeme metinleri.
+2. `node tools/seo_build.mjs` çalıştırın (ürün ya da ayar değişince her seferinde). Ana sayfa
+   SEO etiketleri, SSS, `urun/` ve kategori sayfaları, `sitemap.xml`, `robots.txt`, `llms.txt`
+   güncellenir. Yayın iş akışı bunu otomatik de yapar.
+3. GitHub: Settings → Pages → Source: **GitHub Actions**. `main` dalına her gönderimde
+   `.github/workflows/pages.yml` siteyi yayınlar.
+4. Alan adı: Settings → Pages → Custom domain'e `www.sesakids.com.tr` yazın ve alan adı
+   sağlayıcınızda `www` için `<kullanıcı>.github.io` adresine CNAME kaydı ekleyin.
+5. Google Search Console'a siteyi ekleyip `https://www.sesakids.com.tr/sitemap.xml` adresini
+   gönderin; Bing Webmaster Tools için de aynısını yapın (ChatGPT araması Bing dizinini kullanır).
+
+## SESA Asistan
+
+Sağ alttaki sohbet, ürünleri `js/products.js`'ten tanır; desen, renk, yaş ve cinsiyete göre
+öneri yapar, sepete ekler ve sipariş bilgilerini (ad, telefon, il/ilçe, adres) alır. Sipariş
+`config.js`'teki WhatsApp numarasına (müşterinin WhatsApp'ı açılır), `orderEndpoint` adresine
+ya da numara yoksa e-posta taslağı olarak iletilir.
