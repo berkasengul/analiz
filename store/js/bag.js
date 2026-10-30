@@ -4,7 +4,7 @@
 // "Sepete Ekle" düğmesiyle aynı animasyon oynatılır.
 
 const TRACK = 64; // tutamacın aşağı inebileceği mesafe (px)
-const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bagReduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const BACK = `<svg viewBox="0 0 200 230" aria-hidden="true">
   <defs><linearGradient id="bagIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c95aa3"/><stop offset="1" stop-color="#e98bc8"/></linearGradient></defs>
@@ -124,7 +124,7 @@ export function createBag(media, canvas, hooks = {}) {
     detail.classList.add('is-ordering');
     const m = media.getBoundingClientRect();
     const b = front.getBoundingClientRect();
-    const fast = reduced();
+    const fast = bagReduced();
     // 1) Model küçülüp çantanın ağzına düşer
     const toX = b.left + b.width / 2 - (m.left + m.width / 2);
     const toY = b.top + b.height * 0.32 - (m.top + m.height / 2);
