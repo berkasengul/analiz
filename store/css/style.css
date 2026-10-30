@@ -881,3 +881,7 @@ h1, h2, h3, .btn, .logo-text { font-synthesis: none; }
 /* Koyulaşan vitrin üstünde okunur kalan küçük yazılar */
 .story .intro-tale { color: rgba(255, 255, 255, .92); text-shadow: 0 1px 10px rgba(20, 18, 60, .55); }
 .story .hud { color: rgba(255, 255, 255, .85); text-shadow: 0 1px 8px rgba(20, 18, 60, .5); }
+/* Sipariş kutlaması: geniş ekranda çanta solda büyük, kart sağda, ikisi ekranın ortasında */
+.cel.is-wide .cel-stage { transform: translateX(-50%); }
+.cel.is-wide .cel-copy { top: 50%; bottom: auto; width: min(540px, 42vw); padding: 30px 32px; transform: translateY(-50%); animation-name: celCopyIn; }
+@keyframes celCopyIn { from { opacity: 0; translate: 24px 0; } to { opacity: 1; translate: 0 0; } }

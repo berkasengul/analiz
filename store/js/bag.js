@@ -255,18 +255,26 @@ export function createBag(media, canvas, hooks = {}) {
     back.classList.add('is-full');
     media.classList.add('is-spot');
     const small = m.width < 560;
+    // Ölçmeden önce içerik doldurulur (sonradan eklenen satırlar boşluğu daraltmasın)
+    done.querySelector('.bag-sub').textContent = info.text || '';
+    done.querySelector('.bag-cart').innerHTML = info.count ? `Sepetinde <b>${info.count} ürün</b> · Toplam <b>${info.total}</b>` : '';
+    const picks = info.picks || [];
+    ups.querySelector('.bag-ups').innerHTML = picks.map((x) => `<button type="button" data-pick="${x.id}"><img src="${x.img}" alt=""><span><b>${x.name}</b><i>${x.price}</i></span></button>`).join('');
     // Onay metni ve öneriler için yer ayır: çanta ikisinin arasına sığacak şekilde ölçeklenir
     done.hidden = false; done.style.visibility = 'hidden'; done.classList.remove('is-on');
     ups.hidden = false; ups.style.visibility = 'hidden';
-    const topLimit = done.getBoundingClientRect().bottom + 14;
-    const botLimit = (info.picks?.length && m.height >= 620 ? ups.getBoundingClientRect().top : m.bottom) - 14;
+    const topLimit = done.getBoundingClientRect().bottom + 18;
+    const botLimit = (info.picks?.length && m.height >= 620 ? ups.getBoundingClientRect().top - 30 : m.bottom - 8);
     done.hidden = true; done.style.visibility = '';
     ups.hidden = true; ups.style.visibility = '';
     const room = Math.max(120, botLimit - topLimit);
-    const fit = Math.min(small ? 1.32 : 1.54, room / b.height);
-    // Ölçek alt kenardan büyüdüğü için merkez h·(ölçek−1)/2 kadar yukarı kayar: bunu dengele
-    const lift = (topLimit + room / 2) - (b.top + b.height / 2) + (b.height * (fit - 1)) / 2;
+    // Ölçüler çantanın doğal (dönüşümsüz) boyundan: alt kenar orijinli ölçekte üst = alt − h0·fit
+    const h0 = front.offsetHeight || b.height;
+    const w0 = front.offsetWidth || b.width;
+    const fit = Math.min(small ? 1.9 : 2.3, (room - 16) / h0, (m.width * 0.6) / w0);
     const y0 = -p * 34;
+    const B0 = b.bottom - y0; // çantanın dönüşümsüz alt kenarı
+    const lift = topLimit + (room + h0 * fit) / 2 - B0;
     const tf = (y, r, sx, sy = sx) => `translate(-50%, ${y}px) perspective(900px) rotateY(${r}deg) scale(${sx}, ${sy})`;
     const rise = [
       { transform: tf(y0, 0, 1.18) },
@@ -284,14 +292,10 @@ export function createBag(media, canvas, hooks = {}) {
     // (composite:'add' desteklemeyen iOS'ta çanta bu yüzden aşağıda kalıyordu)
     if (!fast) for (const el of [back, front]) anims.push(el.animate([{ translate: '0 0' }, { translate: '0 -7px' }], { duration: 2400, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' }));
     // 3) Onay ve satışa yönlendirme
-    done.querySelector('.bag-sub').textContent = info.text || '';
-    done.querySelector('.bag-cart').innerHTML = info.count ? `Sepetinde <b>${info.count} ürün</b> · Toplam <b>${info.total}</b>` : '';
     done.hidden = false;
     done.classList.remove('is-on');
     void done.offsetWidth;
     done.classList.add('is-on');
-    const picks = info.picks || [];
-    ups.querySelector('.bag-ups').innerHTML = picks.map((x) => `<button type="button" data-pick="${x.id}"><img src="${x.img}" alt=""><span><b>${x.name}</b><i>${x.price}</i></span></button>`).join('');
     ups.hidden = !picks.length || media.clientHeight < 620;
     ups.classList.toggle('is-on', !ups.hidden);
     done.querySelector('.bag-go').focus({ preventScroll: true });

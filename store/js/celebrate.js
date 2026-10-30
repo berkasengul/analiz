@@ -113,14 +113,34 @@ export function createCelebration({ formatPrice }) {
     setTimeout(tada, reduced ? 0 : 950);
     setTimeout(() => el.querySelector('.cel-more')?.focus({ preventScroll: true }), 1400);
   }
-  // Çanta + el, yazı kartının üstündeki boşluğa sığacak şekilde ölçeklenir (üst üste binmez)
+  // Geniş ekranda çanta solda büyük, kart sağda; ikisi birlikte ekranın ortasında durur.
+  // Dar ekranda çanta kartın üstündeki boşluğa sığacak en büyük boyutta (üst üste binmez).
   function fit() {
     const stage = el.querySelector('.cel-stage');
     const copy = el.querySelector('.cel-copy');
     if (!stage || !copy) return;
-    const top = Math.max(20, innerHeight * 0.04);
-    const room = copy.getBoundingClientRect().top - top - 18;
-    const k = Math.max(0.42, Math.min(1.3, room / 300));
+    const W = innerWidth;
+    const H = innerHeight;
+    const wide = W >= 900 && H >= 520;
+    el.classList.toggle('is-wide', wide);
+    if (wide) {
+      const cw = copy.offsetWidth;
+      const gap = Math.max(24, W * 0.03);
+      const k = Math.max(0.9, Math.min(1.85, (H * 0.6) / 288, (W - cw - gap * 3) / 240 / 1.15));
+      const sw = 240 * k;
+      const total = sw + gap + cw;
+      const left = (W - total) / 2;
+      stage.style.left = `${left + sw / 2}px`;
+      stage.style.top = `${(H - 288 * k) / 2 + 288 * k * 0.1}px`; // el yukarıdan uzandığı için biraz aşağıda
+      stage.style.scale = String(k);
+      copy.style.left = `${left + sw + gap}px`;
+      return;
+    }
+    stage.style.left = '';
+    copy.style.left = '';
+    const top = Math.max(16, H * 0.03);
+    const room = copy.getBoundingClientRect().top - top - 14;
+    const k = Math.max(0.5, Math.min(1.9, room / 300, (W - 24) / 240));
     stage.style.top = `${top + (room - 300 * k) / 2}px`;
     stage.style.scale = String(k);
   }
