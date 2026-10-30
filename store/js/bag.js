@@ -31,7 +31,7 @@ function chime() {
   } catch (e) { /* ses desteklenmiyorsa sessiz geç */ }
 }
 // Yükselirken hafif bir "vuuş" (filtrelenmiş gürültü)
-function whoosh(dur) {
+export function bagWhoosh(dur) {
   try {
     audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
     const ac = audioCtx;
@@ -101,14 +101,10 @@ const FRONT = `<svg viewBox="0 0 200 240" aria-hidden="true">
   <path d="M72 70 C66 4 134 4 128 70" fill="none" stroke="url(#bagRope)" stroke-width="4.6" stroke-linecap="round"/>
   <path d="M72 70 C66 4 134 4 128 70" fill="none" stroke="#b49768" stroke-width="4.6" stroke-dasharray="1.6 2.6" opacity=".45"/>
   <g><circle cx="72" cy="70" r="4.2" fill="url(#bagGold)"/><circle cx="72" cy="70" r="1.6" fill="#4a3208"/><circle cx="128" cy="70" r="4.2" fill="url(#bagGold)"/><circle cx="128" cy="70" r="1.6" fill="#4a3208"/></g>
-  <g class="bag-logo" filter="url(#bagEmboss)">
-    <g stroke="url(#bagFoil)" stroke-linecap="round" stroke-width="3" fill="none">
-      <line x1="34" y1="139" x2="41" y2="143"/><line x1="32" y1="148" x2="40" y2="148"/><line x1="34" y1="157" x2="41" y2="153"/>
-      <line x1="166" y1="139" x2="159" y2="143"/><line x1="168" y1="148" x2="160" y2="148"/><line x1="166" y1="157" x2="159" y2="153"/>
-    </g>
-    <text x="100" y="155" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="21" letter-spacing="2" fill="url(#bagFoil)">SESA KIDS</text>
-    <path d="M70 166 H130" stroke="url(#bagFoil)" stroke-width=".9"/>
-    <text x="100" y="178" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="6.4" letter-spacing="3" fill="url(#bagFoil)">PİJAMA BUTİĞİ</text>
+  <g class="bag-logo">
+    <image href="assets/brand/logo-wordmark.png" x="27" y="126" width="146" height="31.3" preserveAspectRatio="xMidYMid meet"/>
+    <path d="M74 166 H126" stroke="url(#bagFoil)" stroke-width="1.1"/>
+    <text x="100" y="178" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="7" letter-spacing="2.6" style="fill:var(--bag-ribbon)" paint-order="stroke" stroke="#fff" stroke-width="2" stroke-opacity=".7">PİJAMA BUTİĞİ</text>
   </g>
   <g class="bag-bow">
     <path d="M128 72 C140 62 156 66 152 76 C149 83 136 80 128 72 Z" fill="url(#bagRibbon)"/>
@@ -130,6 +126,15 @@ const BAG_SETS = {
   erkek: { light: '#dde9fb', mid: '#8fb2ea', deep: '#4a70bd', ribbon: '#25408a', ribbonHi: '#6d8fd8', tissue: '#f2f7ff' },
   kiz: { light: '#fde3ef', mid: '#f0a7cb', deep: '#cc679f', ribbon: '#a8326f', ribbonHi: '#ee8fc1', tissue: '#fff3f9' },
 };
+
+// Başka sahnelerde (sipariş kutlaması) aynı çantayı çizmek için: arka + ön katman ve renk seti
+export function bagMarkup(gender) {
+  const set = BAG_SETS[gender === 'erkek' ? 'erkek' : 'kiz'];
+  const vars = `--bag-light:${set.light};--bag-mid:${set.mid};--bag-deep:${set.deep};--bag-ribbon:${set.ribbon};--bag-ribbon-hi:${set.ribbonHi};--bag-tissue:${set.tissue}`;
+  // Aynı sayfada iki çanta olunca SVG tanım kimlikleri çakışmasın (gizli çantanın tanımı seçilmesin)
+  const uniq = (svg) => svg.replace(/id="([^"]+)"/g, 'id="$1Cel"').replace(/url\(#([^)]+)\)/g, 'url(#$1Cel)');
+  return { vars, back: uniq(BACK), front: uniq(FRONT), set };
+}
 
 export function createBag(media, canvas, hooks = {}) {
   const back = document.createElement('div');
@@ -250,19 +255,29 @@ export function createBag(media, canvas, hooks = {}) {
     back.classList.add('is-full');
     media.classList.add('is-spot');
     const small = m.width < 560;
-    const lift = -(b.top + b.height / 2 - (m.top + m.height * (small ? 0.7 : 0.6)));
+    // Onay metni ve öneriler için yer ayır: çanta ikisinin arasına sığacak şekilde ölçeklenir
+    done.hidden = false; done.style.visibility = 'hidden'; done.classList.remove('is-on');
+    ups.hidden = false; ups.style.visibility = 'hidden';
+    const topLimit = done.getBoundingClientRect().bottom + 14;
+    const botLimit = (info.picks?.length && m.height >= 620 ? ups.getBoundingClientRect().top : m.bottom) - 14;
+    done.hidden = true; done.style.visibility = '';
+    ups.hidden = true; ups.style.visibility = '';
+    const room = Math.max(120, botLimit - topLimit);
+    const fit = Math.min(small ? 1.32 : 1.54, room / b.height);
+    // Ölçek alt kenardan büyüdüğü için merkez h·(ölçek−1)/2 kadar yukarı kayar: bunu dengele
+    const lift = (topLimit + room / 2) - (b.top + b.height / 2) + (b.height * (fit - 1)) / 2;
     const y0 = -p * 34;
     const tf = (y, r, sx, sy = sx) => `translate(-50%, ${y}px) perspective(900px) rotateY(${r}deg) scale(${sx}, ${sy})`;
     const rise = [
       { transform: tf(y0, 0, 1.18) },
       { transform: tf(y0 + 12, 0, 1.26, 1.08), offset: 0.14 },
-      { transform: tf(lift - 26, -18, small ? 1.4 : 1.64), offset: 0.55 },
-      { transform: tf(lift + 6, 7, small ? 1.28 : 1.5), offset: 0.8 },
-      { transform: tf(lift, -4, small ? 1.32 : 1.54) },
+      { transform: tf(lift - 26, -18, fit * 1.07), offset: 0.55 },
+      { transform: tf(lift + 6, 7, fit * 0.97), offset: 0.8 },
+      { transform: tf(lift, -4, fit) },
     ];
     const opts = { duration: fast ? 1 : 1300, easing: 'cubic-bezier(.22,.9,.25,1)', fill: 'forwards' };
     anims.push(back.animate(rise, opts), front.animate(rise, opts));
-    if (!fast) { whoosh(0.7); setTimeout(() => burst(m, lift, b), 760); }
+    if (!fast) { bagWhoosh(0.7); setTimeout(() => burst(m, lift, b), 760); }
     setTimeout(chime, fast ? 0 : 1040);
     await anims[anims.length - 1].finished.catch(() => {});
     // Havada yavaş salınım

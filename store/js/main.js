@@ -7,6 +7,8 @@ import { createChat } from './chat.js';
 import { paintBackdrop } from './themes.js';
 import { placeOrder, normPhone } from './orders.js';
 import { SITE } from './config.js';
+import { createAccount } from './account.js';
+import { createCelebration } from './celebrate.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -92,7 +94,7 @@ $('.zoom-in').addEventListener('click', () => viewer?.zoom(1.5));
 $$('.face-ctl button').forEach((b) => b.addEventListener('click', () => viewer?.turn(b.dataset.face === '1')));
 $('.zoom-out').addEventListener('click', () => viewer?.zoom(1 / 1.5));
 $('.zoom-reset').addEventListener('click', () => viewer?.reset());
-$$('[data-action="account"]').forEach((b) => b.addEventListener('click', () => toast('Üyelik sistemi yakında açılıyor.')));
+$$('[data-action="account"]').forEach((b) => b.addEventListener('click', () => account.open()));
 
 const norm = (s) => s.toLocaleLowerCase('tr').replace(/\s+/g, ' ').trim();
 $('#product-list').innerHTML = PRODUCTS.map((p) => `<option value="${p.name}">`).join('');
@@ -261,7 +263,7 @@ const bag = createBag($('.detail-media'), $('.detail-3d'), {
     const at = PRODUCTS.indexOf(p);
     const picks = pool.sort((a, b) => ((PRODUCTS.indexOf(a) - at + N) % N) - ((PRODUCTS.indexOf(b) - at + N) % N)).slice(0, 2)
       .map((x) => ({ id: x.id, name: x.name, price: formatPrice(x.price), img: x.image }));
-    return { text: `${p.name} · ${sizeLabel(state.size)} · ${formatPrice(p.price)}`, count: cart.count(), total: formatPrice(cart.total()), picks };
+    return { text: `${p.name} · ${sizeLabel(state.size)} · ${formatPrice(p.price)}`, count: cart.count(), total: formatPrice(cart.grand()), picks };
   },
   onPick: (id) => openDetail(id),
   onCheckout: () => { closeDetail(); startCheckout(); },
@@ -320,6 +322,10 @@ function startCheckout() {
   if (cart.count()) setCartStep('form');
 }
 
+const celebration = createCelebration({ formatPrice });
+/* ---------- Üyelik ---------- */
+// eslint-disable-next-line prefer-const
+let account = null;
 /* ---------- Sepet ---------- */
 const cartEl = $('.cart');
 const scrim = $('.scrim');
@@ -338,6 +344,9 @@ const cart = {
   },
   clear() { this.items = []; this.save(); },
   count() { return this.items.reduce((n, x) => n + x.qty, 0); },
+  // Üye indirimi ve ödenecek toplam
+  discount() { return account ? account.discount(this.total()) : 0; },
+  grand() { return this.total() - this.discount(); },
   total() { return this.items.reduce((n, x) => n + x.qty * byId(x.id).price, 0); },
   render() {
     const n = this.count();
@@ -346,6 +355,18 @@ const cart = {
     badge.textContent = n;
     $('.cart-count').textContent = n;
     $('.cart-sub').textContent = formatPrice(this.total());
+    const disc = this.discount();
+    $('.cart-disc').hidden = !disc;
+    $('.cart-grand').hidden = !disc;
+    $('.cart-disc-v').textContent = `−${formatPrice(disc)}`;
+    $('.cart-grand-v').textContent = formatPrice(this.grand());
+    // Üyelik teşviki: üye değilse indirimi göster, üyeyse eşiğe kalan tutarı söyle
+    const perk = $('.cart-perk');
+    const md = SITE.memberDiscount;
+    const member = account?.user;
+    if (n && !member) { perk.hidden = false; perk.innerHTML = this.total() >= md.min ? `<b>Üye olun, ${formatPrice(md.amount)} hemen düşsün</b> →` : `Üyelere ${formatPrice(md.min)} ve üzeri alışverişte <b>${formatPrice(md.amount)} indirim</b> →`; }
+    else if (n && member && !disc) { perk.hidden = false; perk.innerHTML = `${formatPrice(md.min - this.total())} daha ekleyin, <b>${formatPrice(md.amount)} üye indirimi</b> açılsın`; }
+    else perk.hidden = true;
     $('.checkout').disabled = n === 0;
     $('.cart-items').innerHTML = this.items.length
       ? this.items.map((x, i) => {
@@ -412,7 +433,10 @@ function setCartStep(step) {
     // Sipariş özeti: küçük görseller, adet ve toplam
     const items = cart.items.map((x) => ({ x, p: byId(x.id) }));
     $('.co-sum').innerHTML = `<div class="co-thumbs">${items.slice(0, 4).map(({ x, p }) => `<span style="--t:${p.tint}"><img src="${p.image}" alt=""><b>${x.qty}</b></span>`).join('')}${items.length > 4 ? `<span class="more">+${items.length - 4}</span>` : ''}</div>
-      <div class="co-sum-t"><small>${cart.count()} ürün</small><b>${formatPrice(cart.total())}</b></div>`;
+      <div class="co-sum-t"><small>${cart.count()} ürün${cart.discount() ? ` · <s>${formatPrice(cart.total())}</s>` : ''}</small><b>${formatPrice(cart.grand())}</b>${cart.discount() ? `<em>Üye indirimi −${formatPrice(cart.discount())}</em>` : ''}</div>`;
+    // Üyenin bilgileriyle formu doldur (boş alanlara)
+    const u = account?.user;
+    if (u) for (const k of ['name', 'phone', 'city', 'address']) if (u[k] && !co.elements[k].value) co.elements[k].value = u[k];
     $('.co-ship-b').textContent = over ? 'Kargo ücretsiz' : `${formatPrice(SITE.freeShippingOver)}+ ücretsiz kargo`;
     $('.co-err').textContent = '';
     setTimeout(() => co.elements.name.focus({ preventScroll: true }), 350);
@@ -432,7 +456,11 @@ async function submitOrder() {
   const btn = $('.checkout');
   btn.disabled = true;
   const lines = cart.items.map((x) => { const p = byId(x.id); return { id: p.id, name: p.name, size: x.size, qty: x.qty, price: p.price }; });
-  const { order, link, via } = await placeOrder(c, lines, formatPrice);
+  if (account?.user) c.email = account.user.email;
+  const boys = lines.filter((x) => byId(x.id).gender === 'erkek').reduce((n, x) => n + x.qty, 0);
+  const gender = boys * 2 > lines.reduce((n, x) => n + x.qty, 0) ? 'erkek' : 'kiz';
+  const thumbs = lines.map((x) => byId(x.id).image);
+  const { order, link, via } = await placeOrder(c, lines, formatPrice, cart.discount());
   cart.clear();
   co.reset();
   $('.co-no').innerHTML = `Sipariş no: <b>${order.id}</b> · Toplam ${formatPrice(order.total)}`;
@@ -448,9 +476,19 @@ async function submitOrder() {
   }
   setCartStep('done');
   btn.disabled = false;
+  // Kutlama: sepet kapanır, el çantayı kameraya uzatır
+  toggleCart(false);
+  setTimeout(() => celebration.show({ order, via, link, phone: c.phone, gender, thumbs }), 250);
 }
 $('.checkout').addEventListener('click', () => { if (cartStep === 'form') submitOrder(); else if (cart.count()) setCartStep('form'); });
 co.addEventListener('submit', (e) => { e.preventDefault(); submitOrder(); });
+account = createAccount({ formatPrice, toast, normPhone, onChange: (u) => {
+  cart.render();
+  if (cartStep === 'form') setCartStep('form');
+  $$('[data-action="account"]').forEach((b) => { b.classList.toggle('is-member', !!u); b.setAttribute('aria-label', u ? `Hesabım (${u.name})` : 'Giriş yap / Üye ol'); });
+} });
+$('.cart-perk').addEventListener('click', () => account.open(account.user ? 'me' : 'register'));
+if (account.user) $$('[data-action="account"]').forEach((b) => b.classList.add('is-member'));
 cart.render();
 
 $('.year').textContent = new Date().getFullYear();

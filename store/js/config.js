@@ -21,6 +21,8 @@ export const SITE = {
   returns: 'Ürünü teslim aldıktan sonra 14 gün içinde, etiketi sökülmemiş ve kullanılmamış olarak iade edebilir ya da değiştirebilirsiniz.',
   payment: 'Sipariş onayından sonra ödeme bilgileri (havale/EFT veya kapıda ödeme) size iletilir.',
   freeShippingOver: 750,
+  // Üyelere özel indirim: ara toplam `min` ve üzeriyse `amount` TL düşülür
+  memberDiscount: { amount: 100, min: 800 },
   fabric: '%100 pamuk, yumuşak interlok kumaş; tene dost, terletmeyen ve çok yıkamada formunu koruyan dokuma.',
   sizeGuide: [
     ['2-3', '92–98 cm'], ['3-4', '98–104 cm'], ['4-5', '104–110 cm'], ['5-6', '110–116 cm'], ['6-7', '116–122 cm'],

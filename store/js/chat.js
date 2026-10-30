@@ -174,6 +174,11 @@ export function createChat(api) {
     }
     if (has(q, ['merhaba', 'selam', 'günaydın', 'iyi akşamlar', 'hey'])) { await greet(); return; }
     if (has(q, ['teşekkür', 'sağ ol', 'sağol', 'eyvallah'])) { await say('Rica ederim! Başka bir konuda yardımcı olabilir miyim?'); quick(['Ürünleri göster', 'Sepetim']); return; }
+    if (has(q, ['üye', 'üyelik', 'indirim', 'kampanya', 'kupon'])) {
+      const md = SITE.memberDiscount;
+      await say(`SESA KIDS Kulübü üyelerine ${formatPrice(md.min)} ve üzeri her alışverişte <b>${formatPrice(md.amount)} indirim</b> var; indirim sepette otomatik düşer. Sağ üstteki kişi simgesinden saniyeler içinde üye olabilirsiniz.`);
+      quick(['Ürünleri göster', 'Sepetim']); return;
+    }
     if (has(q, ['mağaza', 'adres', 'konum', 'nerede', 'yol tarifi', 'ziyaret'])) {
       await say(`Mağazamız ${SITE.address ? `${esc(SITE.address)}, ` : ''}${SITE.city}'da. <a href="${SITE.mapLink}" target="_blank" rel="noopener">Haritada aç ve yol tarifi al</a>`); quick(['Ürünleri göster']); return;
     }
@@ -239,7 +244,7 @@ export function createChat(api) {
   const summary = () => `<ul class="chat-sum">${cart.items.map((x) => {
     const p = products.find((y) => y.id === x.id);
     return `<li><span>${esc(p.name)} · ${sizeLabel(x.size)} × ${x.qty}</span><b>${formatPrice(p.price * x.qty)}</b></li>`;
-  }).join('')}<li class="tot"><span>Toplam</span><b>${formatPrice(cart.total())}</b></li></ul>`;
+  }).join('')}${cart.discount?.() ? `<li><span>Üye indirimi</span><b>−${formatPrice(cart.discount())}</b></li>` : ''}<li class="tot"><span>Toplam</span><b>${formatPrice(cart.grand ? cart.grand() : cart.total())}</b></li></ul>`;
 
   /* ---------- Sipariş ---------- */
   async function checkout() {
@@ -289,7 +294,7 @@ export function createChat(api) {
     const o = state.order;
     state.step = null;
     const lines = cart.items.map((x) => { const p = products.find((y) => y.id === x.id); return { id: p.id, name: p.name, size: x.size, qty: x.qty, price: p.price }; });
-    const { order, link, via } = await placeOrder(o, lines, formatPrice);
+    const { order, link, via } = await placeOrder(o, lines, formatPrice, cart.discount ? cart.discount() : 0);
     cart.clear();
     if (via === 'endpoint') await say(`Siparişiniz alındı! Sipariş no: <b>${order.id}</b>. Ödeme ve kargo bilgisi için ${esc(o.phone)} numarasından size ulaşacağız.`);
     else await say(`Siparişiniz hazır! Sipariş no: <b>${order.id}</b>.<br>Son adım: siparişi ${via === 'whatsapp' ? "WhatsApp'tan" : 'e-postayla'} bize gönderin, ödeme ve kargo bilgisini hemen iletelim.<p><a class="chat-wa" href="${link}" target="_blank" rel="noopener">${via === 'whatsapp' ? 'WhatsApp ile gönder' : 'E-postayla gönder'}</a></p>`);

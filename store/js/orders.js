@@ -10,10 +10,11 @@ export function normPhone(v) {
 
 // customer: { name, phone, city, address, note }; lines: [{ id, name, size, qty, price }]
 // Dönüş: { order, sent, link, via } — link: müşterinin son adımda açacağı WhatsApp/e-posta adresi
-export async function placeOrder(customer, lines, fmt) {
+export async function placeOrder(customer, lines, fmt, discount = 0) {
   const id = `SK-${Date.now().toString(36).toUpperCase().slice(-6)}`;
-  const total = lines.reduce((n, x) => n + x.price * x.qty, 0);
-  const order = { id, date: new Date().toISOString(), items: lines, total, customer };
+  const subtotal = lines.reduce((n, x) => n + x.price * x.qty, 0);
+  const total = subtotal - discount;
+  const order = { id, date: new Date().toISOString(), items: lines, subtotal, discount, total, customer };
   try {
     const all = JSON.parse(localStorage.getItem('sesa-orders') || '[]');
     all.push(order);
@@ -27,7 +28,7 @@ export async function placeOrder(customer, lines, fmt) {
     } catch { sent = false; }
   }
   const c = customer;
-  const msg = `Merhaba, SESA KIDS sipariş vermek istiyorum.\nSipariş no: ${id}\n${lines.map((x) => `• ${x.name} – ${x.size} yaş × ${x.qty} = ${fmt(x.price * x.qty)}`).join('\n')}\nToplam: ${fmt(total)}\n\n${c.name}\n${c.phone}\n${c.address}, ${c.city}${c.payment ? `\nÖdeme: ${c.payment}` : ''}${c.note ? `\nNot: ${c.note}` : ''}`;
+  const msg = `Merhaba, SESA KIDS sipariş vermek istiyorum.\nSipariş no: ${id}\n${lines.map((x) => `• ${x.name} – ${x.size} yaş × ${x.qty} = ${fmt(x.price * x.qty)}`).join('\n')}${discount ? `\nAra toplam: ${fmt(subtotal)}\nÜye indirimi: -${fmt(discount)}` : ''}\nToplam: ${fmt(total)}${c.email ? `\nÜye: ${c.email}` : ''}\n\n${c.name}\n${c.phone}\n${c.address}, ${c.city}${c.payment ? `\nÖdeme: ${c.payment}` : ''}${c.note ? `\nNot: ${c.note}` : ''}`;
   let link = '';
   let via = sent ? 'endpoint' : '';
   if (SITE.whatsapp) { link = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`; via = sent ? 'endpoint' : 'whatsapp'; }
