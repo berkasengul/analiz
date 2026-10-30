@@ -845,7 +845,7 @@ function viewsFigure(p) {
     loader.load(v.src, (t) => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; tex.set(v.src, t); });
     const H = SUBJECT_H * (v.h / ref);
     const g = new THREE.PlaneGeometry(H * (v.w / v.h), H);
-    g.translate(0, H / 2, 0);
+    g.translate(0, H / 2 - 0.12, 0); // kesimdeki yumuşak kenar payı: tabanlar kaideye otursun
     geo.set(v.src, g);
   }
   // Açı listesi: sağ taraf (+) görünüşleri ve aynaları (−)
