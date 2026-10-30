@@ -2,6 +2,7 @@ import { PRODUCTS, byId, formatPrice, sizeLabel } from './products.js';
 import { renderModel, modelThumb, loadProductImage } from './garments.js';
 import { createStory } from './story.js';
 import { createLineup, createIcons, createFinale, createViewer } from './scenes.js';
+import { createBag } from './bag.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -173,6 +174,7 @@ function fillDetail() {
 function openDetail(id) {
   if (detail.hidden) state.lastFocus = document.activeElement;
   Object.assign(state, { id, view: '3d', size: null });
+  bag.reset();
   fillDetail();
   detail.hidden = false;
   document.body.style.overflow = 'hidden';
@@ -191,6 +193,7 @@ function closeDetail() {
 function step(d) {
   const i = PRODUCTS.findIndex((p) => p.id === state.id);
   Object.assign(state, { id: PRODUCTS[(i + d + N) % N].id, size: null });
+  bag.reset();
   fillDetail();
 }
 
@@ -212,17 +215,36 @@ $('.sizes').addEventListener('click', (e) => {
     x.setAttribute('aria-pressed', x === b);
   });
 });
+function needSize() {
+  const s = $('.sizes');
+  s.classList.remove('shake');
+  void s.offsetWidth;
+  s.classList.add('shake');
+  toast('Önce yaş / beden seçin.');
+}
+function bumpBadge() {
+  const b = $('.badge');
+  b.classList.remove('bump');
+  void b.offsetWidth;
+  b.classList.add('bump');
+}
+// "Çantaya at": tutamacı aşağı kaydırınca model çantaya düşer ve ürün sepete eklenir
+const bag = createBag($('.detail-media'), $('.detail-3d'), {
+  canStart: () => !!state.size,
+  onNeedSize: needSize,
+  onComplete: () => {
+    const p = byId(state.id);
+    cart.add(state.id, state.size);
+    bumpBadge();
+    return { text: `${p.name} · ${sizeLabel(state.size)} · ${formatPrice(p.price)}` };
+  },
+  onOpenCart: () => { closeDetail(); toggleCart(true); },
+});
 $('.add').addEventListener('click', () => {
-  if (!state.size) {
-    const s = $('.sizes');
-    s.classList.remove('shake');
-    void s.offsetWidth;
-    s.classList.add('shake');
-    toast('Önce yaş / beden seçin.');
-    return;
-  }
+  if (!state.size) { needSize(); return; }
+  if (detail.dataset.view === '3d') { bag.play(); return; }
   cart.add(state.id, state.size);
-  flyToCart(detail.dataset.view === '3d' ? $('.detail-3d') : dCanvas, byId(state.id));
+  flyToCart(dCanvas, byId(state.id));
   toast(`${byId(state.id).name} (${sizeLabel(state.size)}) sepete eklendi.`);
 });
 

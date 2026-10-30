@@ -427,12 +427,15 @@ export function createViewer(canvas, ui = {}) {
   let idle = 0;
   // Yakınlaştırma: zoom 1 = tüm figür; odak noktası figür düzleminde (x, y)
   const MAXZ = 3.2;
-  const view = { z: 1, fx: 0, fy: 5 };
-  const goal = { z: 1, fx: 0, fy: 5 };
+  // Varsayılan kadraj: model biraz yukarıda durur, altında "Çantaya at" çantasına yer kalır
+  const FY = 3.5;
+  const DIST = 42;
+  const view = { z: 1, fx: 0, fy: FY };
+  const goal = { z: 1, fx: 0, fy: FY };
   const clampGoal = () => {
     goal.z = clampS(goal.z, 1, MAXZ);
     const spanY = 5 * (1 - 1 / goal.z);
-    goal.fy = clampS(goal.fy, 5 - spanY - 0.3, 5 + spanY + 0.6);
+    goal.fy = clampS(goal.fy, FY - spanY - 0.3, FY + spanY + 2.1);
     goal.fx = clampS(goal.fx, -2.6 * (1 - 1 / goal.z), 2.6 * (1 - 1 / goal.z));
     ui.onZoom?.(goal.z);
   };
@@ -454,7 +457,7 @@ export function createViewer(canvas, ui = {}) {
       goal.fy += (p.y - goal.fy) * k;
     }
     goal.z = nz;
-    if (nz <= 1.001) { goal.fx = 0; goal.fy = 5; }
+    if (nz <= 1.001) { goal.fx = 0; goal.fy = FY; }
     clampGoal();
     idle = performance.now();
   }
@@ -504,7 +507,7 @@ export function createViewer(canvas, ui = {}) {
     zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0022));
   }, { passive: false });
   function toggleAt(cx, cy) {
-    if (goal.z > 1.2) { goal.z = 1; goal.fx = 0; goal.fy = 5; clampGoal(); }
+    if (goal.z > 1.2) { goal.z = 1; goal.fx = 0; goal.fy = FY; clampGoal(); }
     else zoomAt(cx, cy, 2.6 / goal.z);
   }
   canvas.addEventListener('dblclick', (e) => toggleAt(e.clientX, e.clientY));
@@ -539,7 +542,7 @@ export function createViewer(canvas, ui = {}) {
     view.z += (goal.z - view.z) * k;
     view.fx += (goal.fx - view.fx) * k;
     view.fy += (goal.fy - view.fy) * k;
-    const dist = 37 / view.z;
+    const dist = DIST / view.z;
     camera.position.set(view.fx, view.fy + 1.2 / view.z, dist);
     camera.lookAt(view.fx, view.fy, 0);
     if (cur) {
@@ -560,12 +563,12 @@ export function createViewer(canvas, ui = {}) {
       cur.root.visible = true;
       rot = 0; // her ürün tam karşıdan açılır
       vel = 0;
-      Object.assign(goal, { z: 1, fx: 0, fy: 5 });
+      Object.assign(goal, { z: 1, fx: 0, fy: FY });
       Object.assign(view, goal);
       ui.onZoom?.(1);
     },
     zoom(f) { const r = canvas.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height * 0.42, f); },
-    reset() { Object.assign(goal, { z: 1, fx: 0, fy: 5 }); ui.onZoom?.(1); },
+    reset() { Object.assign(goal, { z: 1, fx: 0, fy: FY }); ui.onZoom?.(1); },
     start() { if (running) return; running = true; resize(); requestAnimationFrame(frame); },
     stop() { running = false; },
   };
