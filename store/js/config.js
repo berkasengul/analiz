@@ -9,7 +9,7 @@ export const SITE = {
   // ZORUNLU (yayın için): siparişlerin düştüğü adres. tools/siparis-tablosu.gs dosyasındaki adımlarla
   // Google E-Tablo sipariş panelini kurup verilen web uygulaması adresini buraya yapıştırın.
   // Boşken site önizleme modunda çalışır; yayın iş akışı da güvenlik için durur.
-  orderEndpoint: '',
+  orderEndpoint: 'https://script.google.com/macros/s/AKfycbwnREA180oDlU5-UV5tAU_FUH15mY1-nnNtey2GKJwVcxNMbWXmLwHDKrLnH5-wVjsc/exec',
   email: 'merhaba@sesakids.com.tr',
   // Mağaza konumu (Google Haritalar'daki "Sesa Kids" kaydı). Açık adresi buraya yazın.
   address: 'Çakmak Mah., Varan Cd. No:1 D:B, 34764 Ümraniye',
