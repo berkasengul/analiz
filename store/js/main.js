@@ -41,6 +41,15 @@ $$('[data-scroll]').forEach((a) => a.addEventListener('click', (e) => {
   e.preventDefault();
   window.scrollTo({ top: a.dataset.scroll === 'top' ? 0 : stage.offsetTop, behavior: 'smooth' });
 }));
+// Footer'daki yardım bağlantıları ilgili soruyu açar
+$$('[data-faq]').forEach((a) => a.addEventListener('click', () => { const d = document.getElementById(`sss-${a.dataset.faq}`); if (d) d.open = true; }));
+// Ürün sayfalarından gelen bağlantı: #urun=KOD ürünü 3D olarak açar
+function openFromHash() {
+  const m = location.hash.match(/^#urun=([\w-]+)/);
+  if (m && byId(m[1])) { openDetail(m[1]); history.replaceState(null, '', location.pathname); }
+}
+addEventListener('hashchange', openFromHash);
+setTimeout(openFromHash, 400);
 $$('[data-soon]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); toast('Bu sayfa yakında eklenecek.'); }));
 $('.footer-news').addEventListener('submit', (e) => {
   e.preventDefault();
