@@ -1172,6 +1172,7 @@ export function createFigures(canvas, products) {
   const cache = new Map();
   const figs = products.map((p) => {
     const fig = buildFigure(p, cache);
+    fig.zoom = p.zoom || 1; // ürüne özel vitrin büyütmesi (kaidenin alt kenarı yerinde kalır)
     fig.root.visible = false;
     scene.add(fig.root);
     return fig;
@@ -1213,7 +1214,7 @@ export function createFigures(canvas, products) {
         const half = ((f.r * k) / (D * T * camera.aspect)) * (vw / 2);
         if (half > s.maxHalf) k *= s.maxHalf / half;
       }
-      k *= s.scale ?? 1;
+      k *= (s.scale ?? 1) * (fig.zoom || 1);
       Y = b * T * (D - k * f.bz) - k * f.by;
       elev = Math.atan2(-(Y + k * PED_H), Math.hypot(D, X));
     }

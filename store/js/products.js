@@ -10,16 +10,11 @@ export const BRAND = 'SESA KIDS';
 // Kodlar ve fiyatlar örnektir; gerçek değerlerle değiştirin.
 const CATALOG = [
   {
-    // Deneme: tek bir referans görselin ön / 3/4 / yan / arka görünüşlerinden çok açılı figür
-    id: 'MK-18', slug: 'mavi-kareli',
-    views: [
-      { a: 0, src: 'assets/photo/mavi-kareli/on.webp', w: 512, h: 1504 },
-      { a: 35, src: 'assets/photo/mavi-kareli/yarim.webp', w: 437, h: 1505 },
-      { a: 90, src: 'assets/photo/mavi-kareli/yan.webp', w: 311, h: 1489 },
-      { a: 180, src: 'assets/photo/mavi-kareli/arka.webp', w: 479, h: 1485 },
-    ],
+    // Tek bir referans görselin ön / 3/4 / yan / arka görünüşlerinden üretilmiş 120 karelik dönüş
+    // (tools/views_to_spin.py); kaynak görünüşler assets/photo/mavi-kareli içinde
+    id: 'MK-18', slug: 'mavi-kareli', spin: 'mavi-kareli', zoom: 1.05,
     spots: { yaka: [0.5, 0.2], baski: [0.5, 0.33], desen: [0.4, 0.7], manset: [0.6, 0.93] },
-    image: 'assets/photo/mavi-kareli/on.webp', gender: 'erkek',
+    image: 'assets/spin/mavi-kareli/000.webp', gender: 'erkek',
     accent: '#5f8fd8', tint: '#e8f1fd', podium: '#c6daf7',
     code: 'Erkek çocuk', name: 'Mavi Kareli Takım', price: 449,
     colorName: 'Açık mavi / Beyaz kareli', sizes: SIZES,
