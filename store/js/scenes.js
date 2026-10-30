@@ -465,15 +465,16 @@ export function createViewer(canvas, ui = {}) {
   let idle = 0;
   // Yakınlaştırma: zoom 1 = tüm figür; odak noktası figür düzleminde (x, y)
   const MAXZ = 3.2;
-  // Varsayılan kadraj: model biraz yukarıda durur, altında "Çantaya at" çantasına yer kalır
-  const FY = 3.5;
-  const DIST = 42;
+  // Varsayılan kadraj: model ekranı doldurur (başın üstünde az boşluk, altta çantaya yer)
+  const FY = 4.9;
+  const DIST = 30;
+  let face = 0; // 0 = ön, π = arka: boşta model seçili yüze döner
   const view = { z: 1, fx: 0, fy: FY };
   const goal = { z: 1, fx: 0, fy: FY };
   const clampGoal = () => {
     goal.z = clampS(goal.z, 1, MAXZ);
     const spanY = 5 * (1 - 1 / goal.z);
-    goal.fy = clampS(goal.fy, FY - spanY - 0.3, FY + spanY + 2.1);
+    goal.fy = clampS(goal.fy, FY - spanY - 1.2, FY + spanY + 0.8);
     goal.fx = clampS(goal.fx, -2.6 * (1 - 1 / goal.z), 2.6 * (1 - 1 / goal.z));
     ui.onZoom?.(goal.z);
   };
@@ -537,7 +538,17 @@ export function createViewer(canvas, ui = {}) {
       rot += vel;
     }
   });
-  const up = (e) => { pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null; };
+  const up = (e) => {
+    const was = pointers.size;
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = null;
+    // Elle çevirip bırakınca en yakın yüz (ön ya da arka) seçili olur
+    if (was === 1 && goal.z <= 1.05) {
+      const a = (((rot + vel * 12) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      const nf = a > Math.PI / 2 && a < (Math.PI * 3) / 2 ? Math.PI : 0;
+      if (nf !== face) { face = nf; ui.onFace?.(face); }
+    }
+  };
   canvas.addEventListener('pointerup', up);
   canvas.addEventListener('pointercancel', up);
   canvas.addEventListener('wheel', (e) => {
@@ -570,7 +581,7 @@ export function createViewer(canvas, ui = {}) {
       rot += vel;
       // Boşta: tam tur dönmek yerine en yakın ön görünüme döner ve çok hafif salınır
       if (now - idle > 2500 && !reduced()) {
-        const front = Math.round(rot / (Math.PI * 2)) * Math.PI * 2;
+        const front = Math.round((rot - face) / (Math.PI * 2)) * Math.PI * 2 + face;
         const sway = goal.z < 1.05 ? Math.sin((now - idle - 2500) / 2600) * 0.1 : 0;
         rot += (front + sway - rot) * 0.03;
       }
@@ -601,12 +612,30 @@ export function createViewer(canvas, ui = {}) {
       cur.root.visible = true;
       rot = 0; // her ürün tam karşıdan açılır
       vel = 0;
+      face = 0;
+      ui.onFace?.(0);
       Object.assign(goal, { z: 1, fx: 0, fy: FY });
       Object.assign(view, goal);
       ui.onZoom?.(1);
     },
     zoom(f) { const r = canvas.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height * 0.42, f); },
     reset() { Object.assign(goal, { z: 1, fx: 0, fy: FY }); ui.onZoom?.(1); },
+    // Ön / arka: model kısa yoldan seçili yüze döner ve orada kalır
+    turn(back) {
+      face = back ? Math.PI : 0;
+      const target = Math.round((rot - face) / (Math.PI * 2)) * Math.PI * 2 + face;
+      const from = rot;
+      const t0 = performance.now();
+      idle = t0 + 1e9; // dönüş sırasında boşta davranışı devre dışı
+      vel = 0;
+      const step = (now) => {
+        const k = Math.min(1, (now - t0) / 900);
+        rot = from + (target - from) * (k < 0.5 ? 4 * k ** 3 : 1 - (-2 * k + 2) ** 3 / 2);
+        if (k < 1) requestAnimationFrame(step); else idle = performance.now();
+      };
+      requestAnimationFrame(step);
+      ui.onFace?.(face);
+    },
     start() { if (running) return; running = true; resize(); requestAnimationFrame(frame); },
     stop() { running = false; },
   };

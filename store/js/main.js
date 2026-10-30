@@ -4,6 +4,7 @@ import { createStory } from './story.js';
 import { createLineup, createIcons, createFinale, createViewer } from './scenes.js';
 import { createBag } from './bag.js';
 import { createChat } from './chat.js';
+import { paintBackdrop } from './themes.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -63,6 +64,7 @@ const lineup = createLineup($('.lineup'), PRODUCTS, { onOpen: (p) => openDetail(
 if (!lineup) $('.world-stage').hidden = true;
 createFinale($('.finale3d'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice });
 const viewer = createViewer($('.detail-3d'), {
+  onFace: (f) => $$('.face-ctl button').forEach((b) => { const on = (b.dataset.face === '1') === (f > 1); b.classList.toggle('is-active', on); b.setAttribute('aria-pressed', on); }),
   onZoom: (z) => {
     $('.zoom-level').textContent = `${z.toFixed(1).replace('.0', '')}×`;
     $('.zoom-in').disabled = z >= 3.15;
@@ -72,6 +74,7 @@ const viewer = createViewer($('.detail-3d'), {
   },
 });
 $('.zoom-in').addEventListener('click', () => viewer?.zoom(1.5));
+$$('.face-ctl button').forEach((b) => b.addEventListener('click', () => viewer?.turn(b.dataset.face === '1')));
 $('.zoom-out').addEventListener('click', () => viewer?.zoom(1 / 1.5));
 $('.zoom-reset').addEventListener('click', () => viewer?.reset());
 $$('[data-action="account"]').forEach((b) => b.addEventListener('click', () => toast('Üyelik sistemi yakında açılıyor.')));
@@ -151,6 +154,7 @@ function fillDetail() {
   const p = byId(state.id);
   const i = PRODUCTS.indexOf(p);
   paint(detail, p);
+  paintBackdrop($('.detail-bg'), p);
   $('.detail-index').textContent = `${i + 1} / ${N}`;
   $('.detail-code').textContent = p.code;
   $('#detail-name').textContent = p.name;

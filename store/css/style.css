@@ -261,6 +261,22 @@ input, textarea { caret-color: var(--pink-d); }
 .detail-close svg { width: 16px; height: 16px; }
 .detail-media { position: relative; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; }
 .detail-blob { position: absolute; width: min(70vh, 90%); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--accent, var(--pink)) 140%); opacity: .7; animation: float 9s ease-in-out infinite; }
+.detail-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.detail-bg .bd-tex { position: absolute; inset: 0; opacity: .5; mask-image: radial-gradient(60% 55% at 50% 50%, transparent 35%, #000 75%); -webkit-mask-image: radial-gradient(60% 55% at 50% 50%, transparent 35%, #000 75%); }
+.detail-bg[data-tex="plaid"] .bd-tex { background: repeating-linear-gradient(0deg, color-mix(in srgb, var(--acc) 22%, transparent) 0 14px, transparent 14px 40px), repeating-linear-gradient(90deg, color-mix(in srgb, var(--acc) 22%, transparent) 0 14px, transparent 14px 40px), repeating-linear-gradient(0deg, rgba(43, 47, 107, .08) 0 2px, transparent 2px 20px), repeating-linear-gradient(90deg, rgba(43, 47, 107, .08) 0 2px, transparent 2px 20px); }
+.detail-bg[data-tex="stripes"] .bd-tex { background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--acc) 20%, transparent) 0 16px, transparent 16px 34px); }
+.detail-bg[data-tex="checker"] .bd-tex { background: repeating-conic-gradient(color-mix(in srgb, var(--acc) 16%, transparent) 0 25%, transparent 0 50%) 0 0 / 64px 64px; }
+.detail-bg .bd-disc { position: absolute; left: 50%; top: 50%; width: min(78vh, 92%); aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 50% 42%, #fff 0%, rgba(255, 255, 255, .7) 38%, rgba(255, 255, 255, 0) 70%); }
+.detail-bg .bd-m { position: absolute; height: auto; transform: translate(-50%, -50%) rotate(var(--r)); filter: drop-shadow(0 8px 10px rgba(43, 47, 107, .14)); animation: bdFloat var(--t) ease-in-out var(--d) infinite alternate; }
+@keyframes bdFloat { to { transform: translate(-50%, calc(-50% - 14px)) rotate(calc(var(--r) + 8deg)); } }
+.detail-bg.is-night { background: radial-gradient(70% 60% at 50% 45%, #3a3f8f 0%, #23265c 55%, #161842 100%); }
+.detail-bg.is-night .bd-disc { background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .55) 0%, rgba(160, 180, 255, .18) 40%, transparent 70%); }
+.detail-bg .bd-s { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; animation: twinkle 3s ease-in-out var(--d) infinite alternate; }
+.detail-bg ~ .detail-blob { display: none; }
+.face-ctl { position: absolute; z-index: 3; left: 50%; top: 22px; transform: translateX(-50%); display: flex; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, .88); box-shadow: 0 12px 26px -16px rgba(43, 47, 107, .5); }
+.face-ctl button { height: 38px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--ink); font: 700 14px/1 var(--display); cursor: pointer; transition: background .25s, color .25s; }
+.face-ctl button.is-active { background: var(--ink); color: #fff; }
+.detail.is-ordering .face-ctl { opacity: 0; pointer-events: none; }
 .detail-3d { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
 .detail-3d:active { cursor: grabbing; }
 .zoom-ctl { position: absolute; right: 22px; bottom: 16px; z-index: 3; display: grid; grid-auto-flow: column; align-items: center; justify-items: center; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(255, 255, 255, .86); box-shadow: 0 12px 30px -16px rgba(43, 47, 107, .45); }
@@ -478,6 +494,8 @@ input, textarea { caret-color: var(--pink-d); }
   .detail-nav.prev { left: 12px; }
   .zoom-ctl { bottom: 14px; right: 12px; }
   .detail-hint { display: none; }
+  .face-ctl { top: 58px; left: 16px; transform: none; }
+  .face-ctl button { height: 34px; padding: 0 16px; }
   .bag { width: 146px; height: 146px; bottom: -32px; }
   .bag-pull { top: 66px; transform: scale(.82); transform-origin: 50% 0; }
   .bag-tip { top: -26px; font-size: 10px; }
