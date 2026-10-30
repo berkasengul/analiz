@@ -9,6 +9,9 @@ import { placeOrder, normPhone } from './orders.js';
 import { SITE } from './config.js';
 import { createAccount } from './account.js';
 import { createCelebration } from './celebrate.js';
+import { renderTale, narrator } from './tale.js';
+// Tek dosyalık önizlemede ayrı masal sayfaları yok
+if (window.__spinSource) document.querySelectorAll('a[href="masal/"]').forEach((a) => a.remove());
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -198,6 +201,7 @@ function fillDetail() {
   $('#detail-name').textContent = p.name;
   $('.detail-price').textContent = formatPrice(p.price);
   $('.detail-desc').textContent = p.desc;
+  renderTale($('.tale'), p);
   $('.gift-badge').hidden = !p.gift;
   $('.size-note').textContent = state.size ? sizeLabel(state.size) : 'Seçiniz';
   $('.detail-meta').innerHTML = [
@@ -229,6 +233,7 @@ function closeDetail() {
   document.body.style.overflow = '';
   delete document.documentElement.dataset.modal;
   if (viewer) viewer.stop();
+  narrator.stop();
   setTimeout(() => { detail.hidden = true; }, 300);
   state.lastFocus?.focus?.({ preventScroll: true });
 }
@@ -432,7 +437,7 @@ $('.cart-items').addEventListener('click', (e) => {
   else cart.setQty(i, cart.items[i].qty + Number(b.dataset.d));
 });
 // Sohbet asistanı: yalnızca kullanıcı sağ alttaki düğmeye bastığında açılır
-createChat({ products: PRODUCTS, cart, openDetail, formatPrice, sizeLabel });
+createChat({ products: PRODUCTS, cart, openDetail, formatPrice, sizeLabel, current: () => (detail.hidden ? null : byId(state.id)) });
 
 /* ---------- Sepette sipariş: sepet → teslimat formu → onay ---------- */
 const co = $('.co');

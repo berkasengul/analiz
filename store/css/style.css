@@ -777,3 +777,31 @@ input, textarea { caret-color: var(--pink-d); }
 .cel-card .cel-no, .cel-card .cel-msg { font-size: 13.5px; }
 .cel-actions { animation: fadeUp .5s var(--ease-out) 1.8s both; }
 .cel-copy { animation-delay: .9s; }
+
+/* ---------- Bu pijamanın masalı (ürün sayfası) ---------- */
+.tale { --tale-c: #f59bd6; position: relative; margin: 6px 0 18px; padding: 20px 20px 16px; border-radius: 22px; overflow: hidden; color: #eef0ff;
+  background: radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--tale-c) 38%, transparent), transparent 60%), linear-gradient(160deg, #2c2f72, #1b1d4f 70%);
+  box-shadow: 0 14px 34px rgba(27, 29, 79, .28); }
+.tale[hidden] { display: none; }
+.tale::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .7;
+  background-image: radial-gradient(1.6px 1.6px at 12% 18%, #fff, transparent), radial-gradient(1.2px 1.2px at 78% 12%, #fff, transparent), radial-gradient(1.4px 1.4px at 88% 64%, #fff, transparent), radial-gradient(1.1px 1.1px at 34% 86%, #fff, transparent), radial-gradient(1.3px 1.3px at 58% 40%, #fff, transparent); }
+.tale > * { position: relative; }
+.tale-head { display: flex; align-items: center; gap: 12px; }
+.tale-emoji { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; font-size: 24px; background: rgba(255, 255, 255, .12); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); }
+.tale-kicker { margin: 0 0 2px; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #ffd45c; }
+.tale-title { font-size: 20px; line-height: 1.2; color: #fff; }
+.tale-body { margin-top: 12px; max-height: 5.1em; overflow: hidden; -webkit-mask: linear-gradient(#000 45%, transparent); mask: linear-gradient(#000 45%, transparent); transition: max-height .5s var(--ease-out); }
+.tale-body p { margin: 0 0 10px; font-size: 15px; line-height: 1.7; color: #e3e6ff; }
+.tale.is-open .tale-body { max-height: 40em; -webkit-mask: none; mask: none; }
+.tale-ask { display: none; margin: 4px 0 0; padding: 10px 14px; border-radius: 14px; background: rgba(255, 255, 255, .1); font-size: 14px; line-height: 1.5; }
+.tale-ask b { color: #ffd45c; }
+.tale.is-open .tale-ask { display: block; }
+.tale-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 14px; }
+.tale-listen { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px 0 14px; border: 0; border-radius: 999px; background: #ffd45c; color: #1b1d4f; font: 600 15px var(--display); cursor: pointer; transition: transform .2s var(--ease-out); }
+.tale-listen svg { width: 18px; height: 18px; fill: currentColor; }
+.tale-listen:hover { transform: translateY(-1px); }
+.tale-listen.is-on { background: #fff; animation: talePulse 1.6s ease-in-out infinite; }
+@keyframes talePulse { 50% { box-shadow: 0 0 0 8px rgba(255, 212, 92, .25); } }
+.tale-more, .tale-link { border: 0; background: none; padding: 6px 4px; color: #fff; font: 700 14px var(--body); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, .4); cursor: pointer; }
+.tale-link { margin-left: auto; color: #c9ccff; }
+@media (prefers-reduced-motion: reduce) { .tale-listen.is-on { animation: none; } }

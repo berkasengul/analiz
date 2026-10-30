@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 const STORE = join(dirname(fileURLToPath(import.meta.url)), '..');
 const { PRODUCTS, SPOTS } = await import(join(STORE, 'js/products.js'));
 const { SITE } = await import(join(STORE, 'js/config.js'));
+const { STORIES, storyPath } = await import(join(STORE, 'js/stories.js'));
 const BASE = SITE.url.replace(/\/$/, '');
 const TODAY = new Date().toISOString().slice(0, 10);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -158,6 +159,96 @@ for (const p of PRODUCTS) {
   writeFileSync(join(STORE, path, 'index.html'), shell({ depth, headHtml, body }));
 }
 
+/* ---------- Masal sayfaları (paketteki karekod buraya açılır) ---------- */
+const TALE_JS = `(()=>{const b=document.querySelector('.m-listen');const s=window.speechSynthesis;if(!b||!s||!window.SpeechSynthesisUtterance){b&&b.remove();return}
+const parts=[...document.querySelectorAll('[data-say]')].map(e=>e.textContent.trim());let on=false;
+const voice=()=>{const v=s.getVoices();return v.find(x=>/^tr/i.test(x.lang))||null};s.getVoices();
+const set=x=>{on=x;b.classList.toggle('is-on',x);b.querySelector('span').textContent=x?'Durdur':'Masalı sesli dinle';b.setAttribute('aria-pressed',x);b.querySelector('path').setAttribute('d',x?'M7 5h4v14H7zM13 5h4v14h-4z':'M8 5v14l11-7z')};
+b.addEventListener('click',()=>{if(on){s.cancel();set(false);return}set(true);let i=0;const next=()=>{if(!on)return;if(i>=parts.length){set(false);return}
+const u=new SpeechSynthesisUtterance(parts[i++]);u.lang='tr-TR';const v=voice();if(v)u.voice=v;u.rate=.88;u.pitch=1.05;u.onend=()=>setTimeout(next,450);u.onerror=()=>set(false);s.speak(u)};next()});})();`;
+const TALE_CSS = `*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(120% 70% at 80% 0%,color-mix(in srgb,var(--c) 30%,transparent),transparent 60%),linear-gradient(180deg,#24276a,#14163d 70%);color:#e9ebff;font:600 17px/1.75 Nunito,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.6;background-image:radial-gradient(1.6px 1.6px at 10% 12%,#fff,transparent),radial-gradient(1.2px 1.2px at 82% 8%,#fff,transparent),radial-gradient(1.4px 1.4px at 90% 46%,#fff,transparent),radial-gradient(1.1px 1.1px at 24% 70%,#fff,transparent),radial-gradient(1.3px 1.3px at 60% 28%,#fff,transparent),radial-gradient(1px 1px at 46% 92%,#fff,transparent)}
+a{color:inherit}.m-wrap{position:relative;max-width:680px;margin:0 auto;padding:22px 20px 60px}
+.m-top{display:flex;justify-content:space-between;align-items:center}.m-logo img{height:30px;display:block}.m-top a.m-all{font-size:14px;color:#c9ccff}
+.m-fig{position:relative;width:min(260px,62vw);aspect-ratio:3/4;margin:18px auto 6px}.m-fig:before{content:"";position:absolute;inset:12% 2% 0;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 55%,#fff 10%),transparent);filter:blur(10px);opacity:.75}
+.m-fig img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))}
+.m-kick{margin:0;text-align:center;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#ffd45c}
+h1{margin:6px 0 4px;text-align:center;font:600 clamp(28px,7vw,40px)/1.15 Fredoka,system-ui,sans-serif;color:#fff;text-wrap:balance}
+.m-hero{margin:0 0 20px;text-align:center;color:#c9ccff;font-size:15px}
+.m-listen{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:340px;height:56px;margin:0 auto 26px;border:0;border-radius:999px;background:#ffd45c;color:#1b1d4f;font:600 18px Fredoka,system-ui,sans-serif;cursor:pointer;box-shadow:0 10px 26px rgba(255,212,92,.25)}
+.m-listen svg{width:22px;height:22px;fill:currentColor}.m-listen.is-on{background:#fff}
+.m-text p{margin:0 0 18px}.m-text p:first-child:first-letter{float:left;font:600 3.1em/0.9 Fredoka,system-ui,sans-serif;margin:.06em .08em 0 0;color:#ffd45c}
+.m-ask{margin:26px 0;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}.m-ask b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ffd45c}
+.m-end{text-align:center;font:600 22px Fredoka,system-ui,sans-serif;color:#fff;margin:30px 0}
+.m-cta{display:block;max-width:340px;margin:0 auto;padding:15px 20px;border-radius:999px;background:#fff;color:#1b1d4f;text-align:center;text-decoration:none;font:600 17px Fredoka,system-ui,sans-serif}
+.m-more{margin-top:44px}.m-more h2{font:600 20px Fredoka,system-ui,sans-serif;color:#fff;text-align:center;margin:0 0 14px}
+.m-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}.m-grid a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.07);text-decoration:none;font-size:14px;line-height:1.3}.m-grid a span{font-size:22px}
+.m-foot{margin-top:40px;text-align:center;font-size:13px;color:#9da1d6}`;
+const taleShell = ({ depth, title, desc, path, image, accent, body, extra = '' }) => `<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${esc(title)}</title>
+  <meta name="description" content="${esc(desc)}">
+  <link rel="canonical" href="${BASE}/${path}">
+  <meta property="og:type" content="article"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${BASE}/${image}"><meta property="og:url" content="${BASE}/${path}"><meta property="og:locale" content="tr_TR">
+  <meta name="theme-color" content="#1b1d4f">
+  <link rel="icon" href="${depth}assets/brand/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <style>:root{--c:${accent}}${TALE_CSS}</style>
+${extra}</head>
+<body>
+${body}
+<script>${TALE_JS}</script>
+</body>
+</html>
+`;
+const taleProducts = PRODUCTS.filter((p) => STORIES[p.id]);
+const taleList = (except, depth) => taleProducts.filter((x) => x.id !== except).map((x) => `<a href="${depth}${storyPath(x)}"><span>${STORIES[x.id].emoji}</span>${esc(STORIES[x.id].title)}</a>`).join('');
+if (existsSync(join(STORE, 'masal'))) rmSync(join(STORE, 'masal'), { recursive: true });
+for (const p of taleProducts) {
+  const t = STORIES[p.id];
+  const path = storyPath(p);
+  const depth = '../../';
+  const title = `${t.title} – ${p.name} Uyku Masalı | SESA KIDS`;
+  const desc = `${t.text[0].slice(0, 140)}… ${p.name} pijamasının uyku masalını okuyun ya da sesli dinleyin.`;
+  const body = `<div class="m-wrap">
+  <header class="m-top"><a class="m-logo" href="${depth}" aria-label="SESA KIDS ana sayfa"><img src="${depth}assets/brand/logo-wordmark.png" alt="SESA KIDS"></a><a class="m-all" href="${depth}masal/">Tüm masallar</a></header>
+  <main>
+    <div class="m-fig"><img src="${depth}${p.image}" alt="${esc(p.name)}" width="300" height="400"></div>
+    <p class="m-kick">SESA KIDS uyku masalı</p>
+    <h1 data-say>${esc(t.title)}</h1>
+    <p class="m-hero">Kahramanımız: <b>${esc(t.hero)}</b> ${t.emoji} · ${esc(p.name)}</p>
+    <button type="button" class="m-listen" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Masalı sesli dinle</span></button>
+    <article class="m-text">${t.text.map((x) => `<p data-say>${esc(x)}</p>`).join('')}</article>
+    <p class="m-ask"><b>Uyumadan önce sor</b><span data-say>${esc(t.ask)}</span></p>
+    <p class="m-end">İyi geceler, tatlı rüyalar 🌙</p>
+    <a class="m-cta" href="${depth}#urun=${p.id}">${esc(p.name)} pijamasını incele</a>
+    <section class="m-more"><h2>Diğer pijamaların masalları</h2><div class="m-grid">${taleList(p.id, depth)}</div></section>
+  </main>
+  <footer class="m-foot">© ${new Date().getFullYear()} ${SITE.name} · Çocuk pijama takımları</footer>
+</div>`;
+  const extra = `  ${ld({ '@type': 'ShortStory', name: t.title, headline: t.title, inLanguage: 'tr', url: `${BASE}/${path}`, image: `${BASE}/${p.image}`, text: t.text.join(' '), character: { '@type': 'Person', name: t.hero }, audience: { '@type': 'PeopleAudience', suggestedMinAge: 2, suggestedMaxAge: 12 }, publisher: { '@id': `${BASE}/#org` }, about: { '@id': `${BASE}/${pageOf(p)}#product` } })}\n`;
+  mkdirSync(join(STORE, path), { recursive: true });
+  writeFileSync(join(STORE, path, 'index.html'), taleShell({ depth, title, desc, path, image: p.image, accent: p.accent, body, extra }));
+}
+{
+  const depth = '../';
+  const body = `<div class="m-wrap">
+  <header class="m-top"><a class="m-logo" href="${depth}" aria-label="SESA KIDS ana sayfa"><img src="${depth}assets/brand/logo-wordmark.png" alt="SESA KIDS"></a><a class="m-all" href="${depth}">Mağaza</a></header>
+  <main>
+    <p class="m-kick" style="margin-top:34px">Her pijamanın bir masalı var</p>
+    <h1>SESA KIDS uyku masalları</h1>
+    <p class="m-hero">Pijamasını giyen, masalını dinler. Her gece yeni bir masal 🌙</p>
+    <div class="m-grid">${taleList(null, depth)}</div>
+  </main>
+  <footer class="m-foot">© ${new Date().getFullYear()} ${SITE.name}</footer>
+</div>`;
+  writeFileSync(join(STORE, 'masal', 'index.html'), taleShell({ depth, title: 'Çocuklar için uyku masalları | SESA KIDS', desc: 'Her SESA KIDS pijamasının kendine ait bir uyku masalı var. Okuyun ya da sesli dinleyin; uyku vaktini bir ritüele dönüştürün.', path: 'masal/', image: 'assets/brand/og.jpg', accent: '#f59bd6', body }));
+}
+
 const CATS = [
   { path: 'kiz-cocuk-pijama/', h1: 'Kız çocuk pijama takımları', g: 'kiz', title: 'Kız Çocuk Pijama Takımları 2–12 Yaş | SESA KIDS',
     intro: 'Kız çocuklar için pamuklu, yumuşacık ve rengârenk pijama takımları. Kalpli kedi, çilekli, ayıcıklı ekose ve safari desenleri; 2–12 yaş bedenler, manşetli paçalar.' },
@@ -181,7 +272,7 @@ for (const c of CATS) {
 }
 
 /* ---------- Site haritası, robots, llms.txt ---------- */
-const urls = ['', ...CATS.map((c) => c.path), ...PRODUCTS.map(pageOf)];
+const urls = ['', ...CATS.map((c) => c.path), ...PRODUCTS.map(pageOf), 'masal/', ...taleProducts.map(storyPath)];
 writeFileSync(join(STORE, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map((u) => {
@@ -225,6 +316,10 @@ writeFileSync(join(STORE, 'llms.txt'), `# ${SITE.name}
 - İade: ${SITE.returns}
 - Kumaş: ${SITE.fabric}
 - Bedenler: ${sizeRows}
+
+## Uyku masalları
+Her pijamanın kendine ait bir uyku masalı vardır (paketteki karekodla açılır): ${BASE}/masal/
+${PRODUCTS.filter((p) => STORIES[p.id]).map((p) => `- [${STORIES[p.id].title}](${BASE}/${storyPath(p)}): ${p.name} masalı, kahramanı ${STORIES[p.id].hero}.`).join('\n')}
 
 ## Kategoriler
 ${CATS.map((c) => `- [${c.h1}](${BASE}/${c.path}): ${c.intro}`).join('\n')}

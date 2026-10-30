@@ -3,6 +3,8 @@
 // ve/veya sipariş adresine iletilir.
 import { SITE } from './config.js';
 import { placeOrder, normPhone } from './orders.js';
+import { STORIES } from './stories.js';
+import { narrator, taleParts } from './tale.js';
 
 const low = (s) => s.toLocaleLowerCase('tr-TR');
 const fold = (s) => low(s).replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
@@ -145,8 +147,8 @@ export function createChat(api) {
 
   /* ---------- Akış ---------- */
   async function greet() {
-    await say(`Merhaba! Ben <b>SESA Asistan</b>. ${products.length} pijama takımımızı tanıyorum: desen, renk ya da yaşa göre öneri yapabilir, beden seçip siparişinizi buradan oluşturabilirim.`);
-    quick(['Kız çocuk pijamaları', 'Erkek çocuk pijamaları', '5 yaş için öneri', 'Beden rehberi', 'Kargo ve iade']);
+    await say(`Merhaba! Ben <b>SESA Asistan</b>. ${products.length} pijama takımımızı tanıyorum: desen, renk ya da yaşa göre öneri yapabilir, beden seçip siparişinizi buradan oluşturabilirim. Her pijamanın bir de uyku masalı var, isterseniz anlatırım.`);
+    quick(['Kız çocuk pijamaları', 'Erkek çocuk pijamaları', '5 yaş için öneri', 'Bir masal anlat', 'Beden rehberi', 'Kargo ve iade']);
   }
 
   async function send(text) {
@@ -157,6 +159,10 @@ export function createChat(api) {
 
     if (has(q, ['sipariş', 'satın al', 'ödeme', 'tamamla', 'sepeti onayla'])) { await checkout(); return; }
     if (has(q, ['sepet', 'sepetim', 'sepette'])) { await showCart(); return; }
+    if (state.tale && has(q, ['sesli oku'])) { narrator.speak(taleParts(STORIES[state.tale.id])); await say('Okuyorum… 🌙 Durdurmak için “Dur” yazın.'); quick(['Dur', 'Başka masal']); return; }
+    if (state.tale && q === fold('Dur')) { narrator.stop(); await say('Durdurdum. İyi geceler! 🌙'); quick(['Başka masal', 'Ürünleri göster']); return; }
+    if (state.tale && q === fold(`${state.tale.name} incele`)) { openDetail(state.tale.id); return; }
+    if (has(q, ['masal', 'hikaye', 'hikâye', 'ninni', 'uyku masalı', 'sesli dinle'])) { await tellTale(q); return; }
     if (has(q, ['beden', 'ölçü', 'boy', 'kaç numara', 'hangi beden'])) { await sizeGuide(ageOf(q)); return; }
     if (has(q, ['kargo', 'teslim', 'ne zaman gelir', 'gönderim'])) {
       await say(SITE.shipping);
@@ -210,6 +216,19 @@ export function createChat(api) {
     }
     await say('Bunu tam anlayamadım. Desen (kedi, çilek, ayıcık, gezegen, safari…), renk, yaş ya da kız/erkek yazarak arayabilirsiniz.');
     quick(['Kız çocuk pijamaları', 'Erkek çocuk pijamaları', 'Çilekli', 'Gezegenler', 'Sepetim']);
+  }
+
+  // Pijamanın uyku masalı: sorudaki desen, açık ürün sayfası ya da sıradaki masal
+  async function tellTale(q) {
+    const pool = products.filter((p) => STORIES[p.id]);
+    const named = pool.find((p) => q.includes(fold(STORIES[p.id].hero))) || match(q).find((p) => STORIES[p.id]);
+    const cur = api.current?.();
+    let p = named || (has(q, ['başka', 'diğer', 'yeni']) ? null : cur && STORIES[cur.id] ? cur : null);
+    if (!p) p = pool[((pool.indexOf(state.tale) + 1) || Math.floor(Math.random() * pool.length)) % pool.length];
+    state.tale = p;
+    const t = STORIES[p.id];
+    await say(`${t.emoji} <b>${esc(t.title)}</b><br><small>${esc(p.name)} masalı</small><br><br>${t.text.map(esc).join('<br><br>')}<br><br><i>Uyumadan önce sor: ${esc(t.ask)}</i>`);
+    quick([...(narrator.supported ? ['Sesli oku'] : []), 'Başka masal', `${p.name} incele`]);
   }
 
   async function sizeGuide(age) {
