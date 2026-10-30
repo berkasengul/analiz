@@ -3,6 +3,7 @@ import { renderModel, modelThumb, loadProductImage } from './garments.js';
 import { createStory } from './story.js';
 import { createLineup, createIcons, createFinale, createViewer } from './scenes.js';
 import { createBag } from './bag.js';
+import { createChat } from './chat.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -307,6 +308,7 @@ const cart = {
     if (q <= 0) this.items.splice(i, 1); else this.items[i].qty = Math.min(q, 99);
     this.save();
   },
+  clear() { this.items = []; this.save(); },
   count() { return this.items.reduce((n, x) => n + x.qty, 0); },
   total() { return this.items.reduce((n, x) => n + x.qty * byId(x.id).price, 0); },
   render() {
@@ -359,7 +361,9 @@ $('.cart-items').addEventListener('click', (e) => {
   if (b.classList.contains('remove')) cart.setQty(i, 0);
   else cart.setQty(i, cart.items[i].qty + Number(b.dataset.d));
 });
-$('.checkout').addEventListener('click', () => toast('Ödeme altyapısı henüz bağlanmadı (demo).'));
+// Sohbet asistanı: ürünleri tanır, sepete ekler, siparişi alır
+window.sesaChat = createChat({ products: PRODUCTS, cart, openDetail, formatPrice, sizeLabel });
+$('.checkout').addEventListener('click', () => { toggleCart(false); window.sesaChat.checkout(); });
 cart.render();
 
 $('.year').textContent = new Date().getFullYear();
