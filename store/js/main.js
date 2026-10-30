@@ -186,7 +186,7 @@ const state = { id: null, view: '3d', size: null, lastFocus: null };
 
 async function drawDetail() {
   const p = byId(state.id);
-  const has3d = !!(p.spin || p.model3d);
+  const has3d = !!(p.spin || p.model3d || p.views);
   const v = getViewer();
   const view = v && has3d ? state.view : 'photo';
   detail.dataset.view = view;

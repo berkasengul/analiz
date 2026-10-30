@@ -26,7 +26,7 @@ pdfmetrics.registerFont(TTFont('NunitoX', os.path.join(FONTS, 'Nunito-ExtraBold.
 # Ürün ve masal verisini sitenin kendi dosyalarından oku
 data = json.loads(subprocess.check_output(['node', '--input-type=module', '-e', '''
 const {PRODUCTS}=await import('./js/products.js');const {STORIES}=await import('./js/stories.js');const {SITE}=await import('./js/config.js');
-console.log(JSON.stringify({url:SITE.url,items:PRODUCTS.filter(p=>STORIES[p.id]).map(p=>({...STORIES[p.id],name:p.name,spin:p.spin,image:p.image,accent:p.accent}))}))'''], cwd=STORE))
+console.log(JSON.stringify({url:SITE.url,items:PRODUCTS.filter(p=>STORIES[p.id]).map(p=>({...STORIES[p.id],name:p.name,spin:p.spin||p.slug,image:p.image,accent:p.accent}))}))'''], cwd=STORE))
 BASE = data['url'].rstrip('/')
 NAVY, NAVY2, GOLD, SOFT = HexColor('#2c2f72'), HexColor('#16183f'), HexColor('#ffd45c'), HexColor('#c9ccff')
 W, H = 105 * mm, 148 * mm

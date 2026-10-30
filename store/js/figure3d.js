@@ -826,10 +826,96 @@ function photoFigure(p) {
     anchors: { baski: new THREE.Vector3(0, 6.8, 0.2), desen: new THREE.Vector3(-0.9, 3, 0.2), manset: new THREE.Vector3(0.6, 0.8, 0.2) } };
 }
 
+/* ---------- Çok açılı fotoğraf figürü ----------
+   Ön / 3/4 / yan / arka fotoğraflardan kaba bir dönüş: figür döndükçe kameraya göre açısına en yakın
+   iki görünüş yumuşakça karışır; sol taraf, sağ taraf görünüşlerinin aynası ile gösterilir. */
+function viewsFigure(p) {
+  const root = new THREE.Group();
+  const body = new THREE.Group();
+  body.position.y = PED_H;
+  root.add(body);
+  const meshes = [];
+  const add = (parent, geo, mat, cast = true) => { const m = new THREE.Mesh(geo, mat); m.castShadow = cast; m.receiveShadow = true; parent.add(m); meshes.push(m); return m; };
+  pedestal(p, add, root);
+  const ref = p.views[0].h;
+  const loader = new THREE.TextureLoader();
+  const tex = new Map();
+  const geo = new Map();
+  for (const v of p.views) {
+    loader.load(v.src, (t) => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; tex.set(v.src, t); });
+    const H = SUBJECT_H * (v.h / ref);
+    const g = new THREE.PlaneGeometry(H * (v.w / v.h), H);
+    g.translate(0, H / 2, 0);
+    geo.set(v.src, g);
+  }
+  // Açı listesi: sağ taraf (+) görünüşleri ve aynaları (−)
+  const keys = [];
+  for (const v of p.views) {
+    keys.push({ a: v.a, v, flip: false });
+    if (v.a > 0 && v.a < 180) keys.push({ a: -v.a, v, flip: true });
+    if (v.a === 180) keys.push({ a: -180, v, flip: false });
+  }
+  keys.sort((x, y) => x.a - y.a);
+  const mk = (order) => {
+    const m = new THREE.MeshBasicMaterial({ transparent: true, alphaTest: 0.02, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
+    const mesh = new THREE.Mesh(geo.get(p.views[0].src), m);
+    mesh.renderOrder = order;
+    body.add(mesh);
+    meshes.push(mesh);
+    return mesh;
+  };
+  const A = mk(2);
+  const B = mk(3);
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.3, 48), new THREE.MeshBasicMaterial({ map: glowTex(), color: '#2b2f6b', transparent: true, opacity: 0.35, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.position.y = 0.012;
+  shadow.scale.set(1, 0.6, 1);
+  body.add(shadow);
+  const wp = new THREE.Vector3();
+  const wq = new THREE.Quaternion();
+  const e = new THREE.Euler();
+  const setPlane = (mesh, k, opacity, face) => {
+    const t = tex.get(k.v.src);
+    mesh.visible = !!t && opacity > 0.01;
+    if (!t) return;
+    if (mesh.material.map !== t) { mesh.material.map = t; mesh.material.needsUpdate = true; }
+    mesh.geometry = geo.get(k.v.src);
+    mesh.material.opacity = opacity;
+    mesh.rotation.y = face;
+    mesh.scale.x = k.flip ? -1 : 1;
+    mesh.updateMatrixWorld();
+  };
+  shadow.onBeforeRender = (renderer, scene, camera) => {
+    root.getWorldPosition(wp);
+    root.getWorldQuaternion(wq);
+    e.setFromQuaternion(wq, 'YXZ');
+    const cam = Math.atan2(camera.position.x - wp.x, camera.position.z - wp.z);
+    let rel = ((e.y - cam) * 180) / Math.PI;
+    rel = ((((rel + 180) % 360) + 360) % 360) - 180; // (−180, 180]
+    let i = 0;
+    while (i < keys.length - 2 && keys[i + 1].a < rel) i++;
+    const k0 = keys[i];
+    const k1 = keys[i + 1];
+    const f = (rel - k0.a) / (k1.a - k0.a || 1);
+    // Geçiş aralığın ortasında kısa sürer: hayalet görüntü azalır
+    const w = Math.min(1, Math.max(0, (f - 0.4) / 0.2));
+    const sw = w * w * (3 - 2 * w);
+    const face = cam - e.y;
+    // Biri tam opak kalır, diğeri onun önünde/arkasında belirip kaybolur
+    setPlane(A, k0, sw < 0.5 ? 1 : 2 * (1 - sw), face);
+    setPlane(B, k1, sw < 0.5 ? 2 * sw : 1, face);
+    A.renderOrder = sw < 0.5 ? 2 : 3;
+    B.renderOrder = sw < 0.5 ? 3 : 2;
+  };
+  return { root, body, head: new THREE.Group(), arms: [new THREE.Group(), new THREE.Group()], legs: [], eyes: [], meshes, photo: true,
+    anchors: { baski: new THREE.Vector3(0, 6.8, 0.2), desen: new THREE.Vector3(-0.9, 3, 0.2), manset: new THREE.Vector3(0.6, 0.8, 0.2) } };
+}
+
 /* ---------- Figür ---------- */
 function buildFigure(p, cache, opts = {}) {
   if (p.model3d) return glbFigure(p);
   if (p.spin && SPINS[p.spin]) return spinFigure(p, opts);
+  if (p.views) return viewsFigure(p);
   if (p.photo) return photoFigure(p);
   if (!p.figure) { // 3D verisi henüz yok: sadece kaide
     const root = new THREE.Group(); const body = new THREE.Group(); root.add(body); const meshes = [];

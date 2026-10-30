@@ -34,6 +34,7 @@ const T = {
   gezegenler: { m: ['planet', 'star', 'moon', 'rocket', 'star'], cols: ['#ffd45c', '#f59bd6', '#79c3f6', '#ffffff'], night: true },
   'kirmizi-ekose': { m: ['star', 'moon', 'button', 'star'], cols: ['#c0283a', '#2b2f6b', '#ffd45c', '#e98a7e'], tex: 'plaid' },
   'mavi-cizgili': { m: ['cloud', 'star', 'moon', 'cloud'], cols: ['#2f62d0', '#79c3f6', '#ffd45c', '#ffffff'], tex: 'stripes' },
+  'mavi-kareli': { m: ['cloud', 'moon', 'star', 'button'], cols: ['#5f8fd8', '#a9c8f2', '#ffd45c', '#ffffff'], tex: 'plaid' },
   'krem-cilekler': { m: ['strawberry', 'flower', 'heart', 'strawberry'], cols: ['#d9455f', '#f59bd6', '#7fd0a0', '#ffd45c'] },
 };
 
@@ -41,7 +42,7 @@ const T = {
 const rng = (seed) => () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
 
 export function paintBackdrop(el, p) {
-  const th = T[p.spin] || { m: ['star', 'heart', 'cloud'], cols: [p.accent, '#ffd45c', '#79c3f6'] };
+  const th = T[p.spin || p.slug] || { m: ['star', 'heart', 'cloud'], cols: [p.accent, '#ffd45c', '#79c3f6'] };
   const r = rng([...p.id].reduce((a, c) => a + c.charCodeAt(0) * 131, 7) % 2147483646 + 1);
   el.dataset.tex = th.tex || '';
   el.classList.toggle('is-night', !!th.night);

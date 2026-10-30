@@ -12,6 +12,7 @@
 
 ## Uyku masalları
 Her pijamanın kendine ait bir uyku masalı vardır (paketteki karekodla açılır): https://www.sesakids.com.tr/masal/
+- [Mavi’nin Kare Pencereleri](https://www.sesakids.com.tr/masal/mavi-kareli/): Mavi Kareli Takım masalı, kahramanı Mavi.
 - [Çilek Reçeli Ninnisi](https://www.sesakids.com.tr/masal/krem-cilekler/): Krem Çilekler Takımı masalı, kahramanı Tavşan Lale.
 - [Kamp Ateşinin Ninnisi](https://www.sesakids.com.tr/masal/kirmizi-ekose/): Kırmızı Ekose Takım masalı, kahramanı Kamp Kaptanı Kerem.
 - [Pamuk ve Kalp Cebi](https://www.sesakids.com.tr/masal/kalpli-kedi/): Kalpli Kedi Takımı masalı, kahramanı Pamuk.
@@ -28,9 +29,10 @@ Her pijamanın kendine ait bir uyku masalı vardır (paketteki karekodla açıl�
 ## Kategoriler
 - [Kız çocuk pijama takımları](https://www.sesakids.com.tr/kiz-cocuk-pijama/): Kız çocuklar için pamuklu, yumuşacık ve rengârenk pijama takımları. Kalpli kedi, çilekli, ayıcıklı ekose ve safari desenleri; 2–12 yaş bedenler, manşetli paçalar.
 - [Erkek çocuk pijama takımları](https://www.sesakids.com.tr/erkek-cocuk-pijama/): Erkek çocuklar için pamuklu, rahat pijama takımları. Gezegenler, iş makineleri, polis arabaları, renkli kediler, ekose ve çizgili modeller; 2–12 yaş bedenler.
-- [Çocuk pijama takımları](https://www.sesakids.com.tr/cocuk-pijama-takimi/): Kız ve erkek çocuklar için 12 desende çocuk pijama takımı. %100 pamuk, tene dost, manşetli; 2–12 yaş. Bedeninizi seçin, 360° inceleyin, kolayca sipariş verin.
+- [Çocuk pijama takımları](https://www.sesakids.com.tr/cocuk-pijama-takimi/): Kız ve erkek çocuklar için 13 desende çocuk pijama takımı. %100 pamuk, tene dost, manşetli; 2–12 yaş. Bedeninizi seçin, 360° inceleyin, kolayca sipariş verin.
 
 ## Ürünler
+- [Mavi Kareli Takım](https://www.sesakids.com.tr/urun/mavi-kareli-takim/): Erkek çocuk, 2–12 yaş, 449 TL. Açık mavi-beyaz pötikare kumaş; yakalı, düğmeli, göğüs cepli üst ve manşetli paçalı alt. Renk: Açık mavi / Beyaz kareli.
 - [Krem Çilekler Takımı](https://www.sesakids.com.tr/urun/krem-cilekler-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Krem zemin üzerinde rengârenk çilekler; manşetli bilek ve paçalar. Renk: Krem / Renkli çilekler.
 - [Kırmızı Ekose Takım](https://www.sesakids.com.tr/urun/kirmizi-ekose-takim/): Erkek çocuk, 2–12 yaş, 449 TL. Kırmızı-siyah ekose, yakalı düğmeli klasik pijama takımı. Renk: Kırmızı / Siyah ekose.
 - [Kalpli Kedi Takımı](https://www.sesakids.com.tr/urun/kalpli-kedi-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Ekru üst üzerinde kalpli kedi baskısı, rengârenk kalp desenli manşetli alt. Renk: Ekru / Renkli kalpler.
@@ -50,4 +52,4 @@ Her pijamanın kendine ait bir uyku masalı vardır (paketteki karekodla açıl�
 - **Kargo ne zaman gelir, ücreti ne kadar?** Siparişler 1–3 iş günü içinde kargoya verilir. 750 ₺ ve üzeri siparişlerde kargo ücretsizdir.
 - **İade ve değişim yapabilir miyim?** Ürünü teslim aldıktan sonra 14 gün içinde, etiketi sökülmemiş ve kullanılmamış olarak iade edebilir ya da değiştirebilirsiniz.
 - **Nasıl sipariş verir ve öderim?** Ürün sayfasında beden seçip “Sepete Ekle”ye basın ya da sağ alttaki SESA Asistan ile sohbet ederek sipariş verin. Sipariş onayından sonra ödeme bilgileri (havale/EFT veya kapıda ödeme) size iletilir.
-- **Hangi yaşlar için çocuk pijama takımı var?** Kız ve erkek çocuklar için 2–12 yaş arası 12 farklı desende pijama takımı var: kedili, çilekli, ayıcıklı ekose, gezegenli, safari, polis arabalı, iş makineli ve çizgili modeller.
+- **Hangi yaşlar için çocuk pijama takımı var?** Kız ve erkek çocuklar için 2–12 yaş arası 13 farklı desende pijama takımı var: kedili, çilekli, ayıcıklı ekose, gezegenli, safari, polis arabalı, iş makineli ve çizgili modeller.

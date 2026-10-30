@@ -10,6 +10,22 @@ export const BRAND = 'SESA KIDS';
 // Kodlar ve fiyatlar örnektir; gerçek değerlerle değiştirin.
 const CATALOG = [
   {
+    // Deneme: tek bir referans görselin ön / 3/4 / yan / arka görünüşlerinden çok açılı figür
+    id: 'MK-18', slug: 'mavi-kareli',
+    views: [
+      { a: 0, src: 'assets/photo/mavi-kareli/on.webp', w: 512, h: 1504 },
+      { a: 35, src: 'assets/photo/mavi-kareli/yarim.webp', w: 437, h: 1505 },
+      { a: 90, src: 'assets/photo/mavi-kareli/yan.webp', w: 311, h: 1489 },
+      { a: 180, src: 'assets/photo/mavi-kareli/arka.webp', w: 479, h: 1485 },
+    ],
+    spots: { yaka: [0.5, 0.2], baski: [0.5, 0.33], desen: [0.4, 0.7], manset: [0.6, 0.93] },
+    image: 'assets/photo/mavi-kareli/on.webp', gender: 'erkek',
+    accent: '#5f8fd8', tint: '#e8f1fd', podium: '#c6daf7',
+    code: 'Erkek çocuk', name: 'Mavi Kareli Takım', price: 449,
+    colorName: 'Açık mavi / Beyaz kareli', sizes: SIZES,
+    desc: 'Açık mavi-beyaz pötikare kumaş; yakalı, düğmeli, göğüs cepli üst ve manşetli paçalı alt.',
+  },
+  {
     id: 'KK-01', spin: 'kalpli-kedi',
     spots: { yaka: [0.55, 0.2], baski: [0.55, 0.32], desen: [0.35, 0.66], manset: [0.7, 0.89] },
     image: 'assets/spin/kalpli-kedi/000.webp', gender: 'kiz',
@@ -121,7 +137,7 @@ const CATALOG = [
 
 // Vitrin sırası: önce Krem Çilekler, sonra Kırmızı Ekose; ardından bir kız bir erkek.
 // Ana sayfadaki büyük vitrin ilk HERO_COUNT ürünü gösterir, tümü aşağıdaki bölümlerde.
-const ORDER = ['KC-17', 'KE-15', 'KK-01', 'GZ-14', 'SD-13', 'PA-11', 'AE-09', 'DM-08', 'RC-10', 'RK-07', 'BE-12', 'MC-16'];
+const ORDER = ['MK-18', 'KC-17', 'KE-15', 'KK-01', 'GZ-14', 'SD-13', 'PA-11', 'AE-09', 'DM-08', 'RC-10', 'RK-07', 'BE-12', 'MC-16'];
 export const PRODUCTS = [...CATALOG].sort((a, b) => (ORDER.indexOf(a.id) + 1 || 99) - (ORDER.indexOf(b.id) + 1 || 99));
 export const HERO_COUNT = 5;
 

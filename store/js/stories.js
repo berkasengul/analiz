@@ -3,6 +3,15 @@
 // line: vitrinde ürün ekrana gelince görünen iki satırlık masal cümlesi
 // hero: masalın kahramanı · title: masal adı · text: paragraflar · ask: uyumadan önce çocuğa sorulacak soru
 export const STORIES = {
+  'MK-18': {
+    line: ['Kareler birer pencere:', 'rüyalara açılıyor.'],
+    hero: 'Mavi', emoji: '🪟', title: 'Mavi’nin Kare Pencereleri',
+    text: [
+      'Mavi’nin pijamasındaki her kare, aslında minicik bir pencereydi. Gündüz kimse fark etmezdi; ama ışıklar sönünce pencereler tek tek aydınlanırdı.',
+      'Birinden deniz görünürdü, birinden karlı bir dağ, birinden de bulutların üstündeki şeker evler. Mavi her gece bir pencere seçer, gözlerini kapatır ve içinden geçerdi. Sabah olunca da pencereler usulca kapanır, Mavi sıcacık yatağında gülümseyerek uyanırdı.',
+    ],
+    ask: 'Bu gece hangi pencereden geçmek istersin?',
+  },
   'KK-01': {
     line: ['Kalbi sevgiyle dolu,', 'Pamuk’la tatlı rüyalar.'],
     hero: 'Pamuk', emoji: '🐱', title: 'Pamuk ve Kalp Cebi',
@@ -114,4 +123,4 @@ export const STORIES = {
 };
 
 // Kısa masal sayfası adresi (karekod buraya gider): masal/<spin>/
-export const storyPath = (p) => `masal/${p.spin}/`;
+export const storyPath = (p) => `masal/${p.spin || p.slug}/`;
