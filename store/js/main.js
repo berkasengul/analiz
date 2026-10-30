@@ -175,6 +175,7 @@ function openDetail(id) {
   if (detail.hidden) state.lastFocus = document.activeElement;
   Object.assign(state, { id, view: '3d', size: null });
   bag.reset();
+  bag.setProduct(byId(state.id));
   fillDetail();
   detail.hidden = false;
   document.body.style.overflow = 'hidden';
@@ -194,6 +195,7 @@ function step(d) {
   const i = PRODUCTS.findIndex((p) => p.id === state.id);
   Object.assign(state, { id: PRODUCTS[(i + d + N) % N].id, size: null });
   bag.reset();
+  bag.setProduct(byId(state.id));
   fillDetail();
 }
 

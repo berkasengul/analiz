@@ -264,15 +264,24 @@ input, textarea { caret-color: var(--pink-d); }
 .detail.is-zoomed .detail-nav { opacity: .35; }
 /* Çantaya at: kese kâğıdı iki katman (arka duvar modelin arkasında, ön yüz önünde) */
 .bag { position: absolute; left: 50%; bottom: -36px; width: 160px; height: 184px; transform: translate(-50%, 0); transform-origin: 50% 100%; pointer-events: none; }
-.bag svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 18px 22px rgba(160, 50, 120, .28)); }
+.bag svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .bag-back { z-index: 0; }
 .bag, .bag-done { -webkit-user-select: none; user-select: none; }
 .bag svg, .bag-check { stroke: none; } /* genel ikon konturu çantaya uygulanmasın */
 .detail-3d { z-index: 1; }
 .bag-front { z-index: 2; }
-.bag-front .bag-logo { transition: opacity .3s; }
-.bag-front.is-full .bag-logo { animation: logoPop .6s var(--ease-out) .35s both; }
-@keyframes logoPop { 0% { transform: scale(.7); opacity: 0; transform-origin: 100px 164px; } 60% { transform: scale(1.08); transform-origin: 100px 164px; } 100% { transform: none; opacity: 1; } }
+.bag { --bag-light: #ffd6ee; --bag-mid: #f59bd6; --bag-deep: #c45aa0; }
+.bag svg { filter: drop-shadow(0 22px 26px rgba(90, 30, 80, .28)) drop-shadow(0 4px 6px rgba(43, 47, 107, .18)); }
+.bag-front .bag-fabric { opacity: 0; transition: opacity .7s ease .15s; }
+.bag-front.is-full .bag-fabric { opacity: 1; }
+.bag-front .bag-monogram { transition: opacity .5s; }
+.bag-front.is-full .bag-monogram { opacity: 0; }
+.bag-back .bag-tissue { transform: translateY(46px); transform-box: fill-box; transition: transform .6s cubic-bezier(.3,1.5,.5,1) .1s; }
+.bag-back.is-full .bag-tissue { transform: none; }
+.bag-front:not(.is-full) .bag-logo { opacity: 0; }
+.bag-front.is-full .bag-logo { animation: logoPop .6s var(--ease-out) .45s both; }
+@keyframes logoPop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.08); } 100% { transform: none; opacity: 1; } }
+.bag-logo { transform-box: fill-box; transform-origin: center; }
 .bag-pull { position: absolute; left: 50%; top: 76px; width: 52px; height: 130px; margin-left: -26px; padding: 0; border: 0; background: none; pointer-events: auto; cursor: grab; touch-action: none; }
 .bag-pull:active { cursor: grabbing; }
 .bag-pull:focus-visible { outline: none; }
