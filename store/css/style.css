@@ -14,7 +14,7 @@
   --glass: rgba(255, 255, 255, .78);
   --line: rgba(43, 47, 107, .1);
   --shadow: 0 24px 60px -28px rgba(43, 47, 107, .45);
-  --display: Fredoka, "Baloo 2", "Comic Neue", system-ui, sans-serif;
+  --display: Quicksand, "Nunito", system-ui, sans-serif;
   --body: Nunito, "Segoe UI", system-ui, sans-serif;
   --ease: cubic-bezier(.2, .8, .2, 1);
   --ease-out: cubic-bezier(.16, 1, .3, 1);
@@ -23,7 +23,7 @@
   --night-2: #2a1d66;
   --night-3: #5b3a8e;
   --horizon: #ffb48a;
-  --serif: Fredoka, "Baloo 2", system-ui, sans-serif;
+  --serif: Fraunces, Georgia, "Times New Roman", serif;
   --mono: Nunito, "Segoe UI", system-ui, sans-serif;
   color-scheme: light;
 }
@@ -33,7 +33,7 @@ body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(
 button { font: inherit; color: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; margin: 0; }
 [hidden] { display: none !important; }
 ::selection { background: var(--pink); color: var(--ink); }
 html { scrollbar-color: #c9b6e8 transparent; accent-color: var(--pink-d); }
@@ -43,7 +43,7 @@ input, textarea { caret-color: var(--pink-d); }
 .skip:focus { left: 8px; }
 
 /* ---------- Butonlar ---------- */
-.btn { border: 0; border-radius: 999px; height: 50px; padding: 0 26px; font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: .01em; transition: transform .25s var(--ease-out), box-shadow .25s, background .2s; }
+.btn { border: 0; border-radius: 999px; height: 50px; padding: 0 26px; font-family: var(--display); font-size: 16px; font-weight: 700; letter-spacing: .01em; transition: transform .25s var(--ease-out), box-shadow .25s, background .2s; }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: scale(.97); }
 .btn-ink { background: var(--ink); color: #fff; box-shadow: 0 10px 24px -12px rgba(12, 10, 30, .35); }
@@ -826,3 +826,58 @@ input, textarea { caret-color: var(--pink-d); }
   .intro-tale { display: none; }
   .intro h1, .intro p.intro-line { font-size: clamp(26px, min(3.6vw, 5.8vh), 58px); }
 }
+
+/* ---------- Sahne ışığı: arka plan hafif kararır, ürüne spot vurur ---------- */
+/* Ürün sayfası */
+.detail { background: color-mix(in srgb, var(--tint, #ffeedd) 58%, #1e2156); }
+.detail-bg::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 30% 5.5% at 50% var(--floor, 86%), rgba(255, 248, 230, .75), rgba(255, 248, 230, 0) 72%),
+    radial-gradient(ellipse 26% 62% at 50% calc(var(--head, 80px) - 18%), rgba(255, 246, 225, .55), rgba(255, 246, 225, .14) 60%, transparent 78%),
+    radial-gradient(ellipse 62% 74% at 50% 52%, transparent 34%, rgba(20, 22, 60, .58) 100%),
+    linear-gradient(rgba(20, 22, 60, .22), rgba(20, 22, 60, .22)); }
+.detail-bg .bd-disc { opacity: .55; }
+.detail-bg .bd-m { opacity: .55; }
+.detail-canvas, .detail-3d { filter: drop-shadow(0 30px 40px rgba(10, 12, 40, .45)); }
+
+/* Ana sayfa vitrini */
+.story .dim { position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 34% 70% at 56% 46%, transparent 30%, rgba(24, 22, 66, .38) 100%),
+    linear-gradient(180deg, rgba(24, 22, 66, .12), rgba(24, 22, 66, .28)); }
+.story .beam { mix-blend-mode: normal; background: linear-gradient(180deg, rgba(255, 249, 232, .62), rgba(255, 249, 232, .18) 70%, transparent); opacity: .85; }
+.story .names span { color: rgba(255, 255, 255, .34); }
+@media (max-width: 860px) {
+  .story .dim { background: radial-gradient(ellipse 62% 46% at 50% 44%, transparent 30%, rgba(24, 22, 66, .38) 100%), linear-gradient(180deg, rgba(24, 22, 66, .1), rgba(24, 22, 66, .26)); }
+}
+
+/* Pijama dünyası sahnesi */
+.world-stage { background:
+    radial-gradient(42% 70% at 50% -6%, rgba(255, 246, 228, .55), rgba(255, 246, 228, .12) 55%, transparent 75%),
+    radial-gradient(70% 30% at 50% 92%, rgba(255, 236, 248, .32), transparent 70%),
+    linear-gradient(180deg, #3a2f6e 0%, #2a2358 55%, #1d1944 100%);
+  box-shadow: 0 40px 80px -40px rgba(30, 20, 70, .6); }
+.world-stage::before { background: radial-gradient(70% 100% at 50% 0%, rgba(255, 240, 250, .22), rgba(255, 255, 255, 0) 70%); }
+.world-stage::after { background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 0 120px, rgba(255, 255, 255, .05) 120px 121px); }
+.world-progress { background: rgba(255, 255, 255, .18); }
+.world-progress b { background: #fff; }
+
+/* ---------- Yazı tipleri: Fraunces (masal başlıkları) + Quicksand (arayüz) + Nunito (metin) ---------- */
+/* Tamamı Türkçe karakterleri (ğ, ş, ı, İ, ç, ö, ü) eksiksiz içerir */
+.intro h1, .intro p.intro-line, .panel h2, .why-head h2, .world h2, .photos-head h3, .finale h2, .tale-title, .acct-hero h2, .cel-thanks, .faq h2, .visit h2 {
+  font-family: var(--serif); font-variation-settings: "SOFT" 100, "WONK" 0; font-optical-sizing: auto; letter-spacing: -.015em; }
+.intro h1, .intro p.intro-line, .world h2, .why-head h2, .finale h2 { font-weight: 500; }
+.panel h2 { font-weight: 500; }
+.intro em, .panel h2 em, .world h2 em, .finale h2 em { font-style: italic; }
+.names span { font-family: var(--display); font-weight: 700; }
+.why-card b, .card strong, .finale-pick b, .footer-col b, .footer-news b { font-family: var(--display); font-weight: 700; }
+h1, h2, h3, .btn, .logo-text { font-synthesis: none; }
+@media (min-width: 861px) {
+  /* Bilgi sütunu uzayınca model alanı üstte sabit kalır (üstte boşluk oluşmaz) */
+  .detail { align-items: start; }
+  .detail-media { position: sticky; top: 0; }
+  .detail-info { align-self: center; }
+}
+/* Koyulaşan vitrin üstünde okunur kalan küçük yazılar */
+.story .intro-tale { color: rgba(255, 255, 255, .92); text-shadow: 0 1px 10px rgba(20, 18, 60, .55); }
+.story .hud { color: rgba(255, 255, 255, .85); text-shadow: 0 1px 8px rgba(20, 18, 60, .5); }

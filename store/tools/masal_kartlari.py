@@ -19,7 +19,7 @@ from reportlab.graphics import renderPDF
 STORE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FONTS = os.path.join(STORE, 'tools', 'fonts')
 OUT = os.path.join(STORE, 'tools', 'cikti')
-pdfmetrics.registerFont(TTFont('Fredoka', os.path.join(FONTS, 'Baloo2-Bold.ttf')))  # Fredoka'da ğ/ş/İ yok: yuvarlak hatlı Baloo 2
+pdfmetrics.registerFont(TTFont('Fredoka', os.path.join(FONTS, 'Quicksand-Bold.ttf')))  # sitedeki başlık yazı tipi (Türkçe karakterli)
 pdfmetrics.registerFont(TTFont('Nunito', os.path.join(FONTS, 'Nunito-SemiBold.ttf')))
 pdfmetrics.registerFont(TTFont('NunitoX', os.path.join(FONTS, 'Nunito-ExtraBold.ttf')))
 

@@ -115,7 +115,7 @@ const FRONT = `<svg viewBox="0 0 200 240" aria-hidden="true">
     <g class="bag-tag" transform="translate(140 88) rotate(14)">
       <path d="M-3 -6 L0 2" stroke="#d8c39a" stroke-width="1"/>
       <path d="M-8 2 H14 V30 H-8 Z" fill="#fffdf8"/><circle cx="3" cy="6" r="1.4" style="fill:var(--bag-deep)"/>
-      <text x="3" y="18" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="600" font-size="6" style="fill:var(--bag-deep)">SK</text>
+      <text x="3" y="18" text-anchor="middle" font-family="Quicksand, sans-serif" font-weight="600" font-size="6" style="fill:var(--bag-deep)">SK</text>
       <path d="M-4 23 H10" stroke="url(#bagFoil)" stroke-width=".8"/>
     </g>
   </g>

@@ -115,7 +115,7 @@ const shell = ({ depth, headHtml, body }) => `<!doctype html>
 ${headHtml}  <meta name="theme-color" content="#f9a25c">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..600,0..100&family=Quicksand:wght@500..700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="${depth}css/seo.css">
 </head>
 <body>
@@ -173,15 +173,15 @@ a{color:inherit}.m-wrap{position:relative;max-width:680px;margin:0 auto;padding:
 .m-fig{position:relative;width:min(260px,62vw);aspect-ratio:3/4;margin:18px auto 6px}.m-fig:before{content:"";position:absolute;inset:12% 2% 0;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 55%,#fff 10%),transparent);filter:blur(10px);opacity:.75}
 .m-fig img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))}
 .m-kick{margin:0;text-align:center;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#ffd45c}
-h1{margin:6px 0 4px;text-align:center;font:600 clamp(28px,7vw,40px)/1.15 Fredoka,system-ui,sans-serif;color:#fff;text-wrap:balance}
+h1{margin:6px 0 4px;text-align:center;font:500 clamp(28px,7vw,40px)/1.15 Fraunces,Georgia,serif;font-variation-settings:'SOFT' 100;color:#fff;text-wrap:balance}
 .m-hero{margin:0 0 20px;text-align:center;color:#c9ccff;font-size:15px}
-.m-listen{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:340px;height:56px;margin:0 auto 26px;border:0;border-radius:999px;background:#ffd45c;color:#1b1d4f;font:600 18px Fredoka,system-ui,sans-serif;cursor:pointer;box-shadow:0 10px 26px rgba(255,212,92,.25)}
+.m-listen{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:340px;height:56px;margin:0 auto 26px;border:0;border-radius:999px;background:#ffd45c;color:#1b1d4f;font:600 18px Quicksand,system-ui,sans-serif;cursor:pointer;box-shadow:0 10px 26px rgba(255,212,92,.25)}
 .m-listen svg{width:22px;height:22px;fill:currentColor}.m-listen.is-on{background:#fff}
-.m-text p{margin:0 0 18px}.m-text p:first-child:first-letter{float:left;font:600 3.1em/0.9 Fredoka,system-ui,sans-serif;margin:.06em .08em 0 0;color:#ffd45c}
+.m-text p{margin:0 0 18px}.m-text p:first-child:first-letter{float:left;font:600 3.1em/0.9 Fraunces,Georgia,serif;margin:.06em .08em 0 0;color:#ffd45c}
 .m-ask{margin:26px 0;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}.m-ask b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#ffd45c}
-.m-end{text-align:center;font:600 22px Fredoka,system-ui,sans-serif;color:#fff;margin:30px 0}
-.m-cta{display:block;max-width:340px;margin:0 auto;padding:15px 20px;border-radius:999px;background:#fff;color:#1b1d4f;text-align:center;text-decoration:none;font:600 17px Fredoka,system-ui,sans-serif}
-.m-more{margin-top:44px}.m-more h2{font:600 20px Fredoka,system-ui,sans-serif;color:#fff;text-align:center;margin:0 0 14px}
+.m-end{text-align:center;font:600 22px Quicksand,system-ui,sans-serif;color:#fff;margin:30px 0}
+.m-cta{display:block;max-width:340px;margin:0 auto;padding:15px 20px;border-radius:999px;background:#fff;color:#1b1d4f;text-align:center;text-decoration:none;font:600 17px Quicksand,system-ui,sans-serif}
+.m-more{margin-top:44px}.m-more h2{font:600 20px Quicksand,system-ui,sans-serif;color:#fff;text-align:center;margin:0 0 14px}
 .m-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}.m-grid a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.07);text-decoration:none;font-size:14px;line-height:1.3}.m-grid a span{font-size:22px}
 .m-foot{margin-top:40px;text-align:center;font-size:13px;color:#9da1d6}`;
 const taleShell = ({ depth, title, desc, path, image, accent, body, extra = '' }) => `<!doctype html>
@@ -196,7 +196,7 @@ const taleShell = ({ depth, title, desc, path, image, accent, body, extra = '' }
   <meta name="theme-color" content="#1b1d4f">
   <link rel="icon" href="${depth}assets/brand/icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..600,0..100&family=Quicksand:wght@500..700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>:root{--c:${accent}}${TALE_CSS}</style>
 ${extra}</head>
 <body>

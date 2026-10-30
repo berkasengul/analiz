@@ -483,9 +483,35 @@ export function createViewer(canvas, ui = {}) {
   let idle = 0;
   // Yakınlaştırma: zoom 1 = tüm figür; odak noktası figür düzleminde (x, y)
   const MAXZ = 3.2;
-  // Varsayılan kadraj: model ekranı doldurur (başın üstünde az boşluk, altta çantaya yer)
-  const FY = 4.9;
-  const DIST = 30;
+  // Varsayılan kadraj: figür (kaide altı y≈0, baş üstü y≈10) üstteki Ön/Arka düğmesi ile alttaki
+  // çanta arasına tam sığacak şekilde her ekran boyutunda hesaplanır
+  let FY = 4.9;
+  let DIST = 30;
+  const TAN = Math.tan((26 / 2) * Math.PI / 180);
+  function fitFrame() {
+    const h = canvas.clientHeight || 1;
+    const w = canvas.clientWidth || 1;
+    const r = canvas.getBoundingClientRect();
+    const ctl = document.querySelector('.detail .face-ctl')?.getBoundingClientRect();
+    // Çanta ve üstündeki "Aşağı kaydır" yazısının en üst noktası
+    const bagTop = Math.min(...[...document.querySelectorAll('.detail .bag-front, .detail .bag-tip')].map((e) => e.getBoundingClientRect()).filter((b) => b.height).map((b) => b.top), Infinity);
+    const topPx = Math.max(h * 0.06, ctl && ctl.height ? ctl.bottom - r.top + 14 : 70);
+    // Kısa (mobil) kadrajda çanta kaidenin önüne hafifçe biner: model daha büyük görünür
+    const overlap = h < 640 ? 0.55 * (document.querySelector('.detail .bag-front')?.getBoundingClientRect().height || 0) : 0;
+    const botPx = Math.max(h * 0.05, Number.isFinite(bagTop) ? r.bottom - bagTop + 6 - overlap : 150);
+    const band = Math.max(h * 0.45, h - topPx - botPx);
+    const Y0 = -0.15;
+    const Y1 = 10.15;
+    const byH = ((Y1 - Y0) * h) / (2 * TAN * band);
+    const byW = (3.1 * h) / (TAN * w); // dar ekranda kaide yanlardan taşmasın
+    DIST = Math.max(byH, byW);
+    const d = (topPx - Math.max(h * 0.05, h - topPx - band)) / 2;
+    FY = (Y0 + Y1) / 2 + d * ((2 * DIST * TAN) / h);
+    // Spot ışığının yere düştüğü nokta (kaide hizası): arka plan ışık havuzu buraya ortalanır
+    const floorPx = h / 2 + (FY / (DIST * TAN)) * (h / 2);
+    canvas.parentElement?.style.setProperty('--floor', `${Math.round(floorPx)}px`);
+    canvas.parentElement?.style.setProperty('--head', `${Math.round(topPx)}px`);
+  }
   let face = 0; // 0 = ön, π = arka: boşta model seçili yüze döner
   const view = { z: 1, fx: 0, fy: FY };
   const goal = { z: 1, fx: 0, fy: FY };
@@ -579,7 +605,12 @@ export function createViewer(canvas, ui = {}) {
   }
   canvas.addEventListener('dblclick', (e) => toggleAt(e.clientX, e.clientY));
 
-  const resize = () => sizeTo(st, canvas);
+  const resize = () => {
+    sizeTo(st, canvas);
+    const was = FY;
+    fitFrame();
+    if (goal.z <= 1.001) { goal.fy = FY; if (Math.abs(view.fy - was) < 1e-6 || !running) view.fy = FY; }
+  };
   addEventListener('resize', resize);
   const blink = blinker();
   let running = false;
@@ -610,7 +641,7 @@ export function createViewer(canvas, ui = {}) {
     view.fx += (goal.fx - view.fx) * k;
     view.fy += (goal.fy - view.fy) * k;
     const dist = DIST / view.z;
-    camera.position.set(view.fx, view.fy + 1.2 / view.z, dist);
+    camera.position.set(view.fx, view.fy + 0.6 * (1 - 1 / view.z), dist);
     camera.lookAt(view.fx, view.fy, 0);
     if (cur) {
       cur.root.rotation.y = rot;
@@ -632,6 +663,7 @@ export function createViewer(canvas, ui = {}) {
       vel = 0;
       face = 0;
       ui.onFace?.(0);
+      fitFrame();
       Object.assign(goal, { z: 1, fx: 0, fy: FY });
       Object.assign(view, goal);
       ui.onZoom?.(1);

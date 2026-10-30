@@ -180,7 +180,7 @@ const FABRICS = {
       wrapDraw(x, S, a * S, b * S, 40, (q) => { q.rotate(rot); q.scale(1.3, 1.3); raccoon(q); });
     }
     x.fillStyle = '#3a3842';
-    x.font = 'bold 22px Fredoka, sans-serif';
+    x.font = 'bold 22px Quicksand, sans-serif';
     wrapDraw(x, S, 0.62 * S, 0.06 * S, 40, (q) => q.fillText('SMILE', 0, 0));
     wrapDraw(x, S, 0.1 * S, 0.45 * S, 40, (q) => q.fillText('SMILE', 0, 0));
     for (let i = 0; i < 6; i++) wrapDraw(x, S, r() * S, r() * S, 12, (q) => { q.fillStyle = '#f2c94c'; starPath(q, 8); q.fill(); });

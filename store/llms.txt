@@ -12,18 +12,18 @@
 
 ## Uyku masalları
 Her pijamanın kendine ait bir uyku masalı vardır (paketteki karekodla açılır): https://www.sesakids.com.tr/masal/
-- [Pamuk ve Kalp Cebi](https://www.sesakids.com.tr/masal/kalpli-kedi/): Kalpli Kedi Takımı masalı, kahramanı Pamuk.
-- [Rengârenk Kedi Çetesi](https://www.sesakids.com.tr/masal/renkli-kediler/): Renkli Kediler Takımı masalı, kahramanı Tarçın.
-- [Rüya Yolunu Yapan Kepçe](https://www.sesakids.com.tr/masal/dama-is-makineleri/): Dama İş Makineleri Takımı masalı, kahramanı Kepçe Kaptan Kemal.
-- [Ayı Bulut’un Ekose Yorganı](https://www.sesakids.com.tr/masal/ayicikli-beyaz-ekose/): Ayıcıklı Ekose Takım masalı, kahramanı Ayı Bulut.
-- [Çilek Bahçesinin Sırrı](https://www.sesakids.com.tr/masal/renkli-cilekler/): Renkli Çilekler Takımı masalı, kahramanı Tomurcuk.
-- [Komiser Bıdık’ın Son Devriyesi](https://www.sesakids.com.tr/masal/polis-arabalari/): Polis Arabaları Takımı masalı, kahramanı Komiser Bıdık.
-- [Fındık’ın Yıldız Pikniği](https://www.sesakids.com.tr/masal/ayicikli-bej-ekose/): Ayıcıklı Bej Ekose Takım masalı, kahramanı Fındık.
-- [Ay’a İyi Geceler Diyen Zürafa](https://www.sesakids.com.tr/masal/safari-dostlari/): Safari Dostları Takımı masalı, kahramanı Zürafa Zeren.
-- [Uzay Kaşifi Kuzey](https://www.sesakids.com.tr/masal/gezegenler/): Gezegenler Takımı masalı, kahramanı Kaşif Kuzey.
-- [Kamp Ateşinin Ninnisi](https://www.sesakids.com.tr/masal/kirmizi-ekose/): Kırmızı Ekose Takım masalı, kahramanı Kamp Kaptanı Kerem.
-- [Kaptan Deniz ve Dalga Beşiği](https://www.sesakids.com.tr/masal/mavi-cizgili/): Mavi Çizgili Takım masalı, kahramanı Kaptan Deniz.
 - [Çilek Reçeli Ninnisi](https://www.sesakids.com.tr/masal/krem-cilekler/): Krem Çilekler Takımı masalı, kahramanı Tavşan Lale.
+- [Kamp Ateşinin Ninnisi](https://www.sesakids.com.tr/masal/kirmizi-ekose/): Kırmızı Ekose Takım masalı, kahramanı Kamp Kaptanı Kerem.
+- [Pamuk ve Kalp Cebi](https://www.sesakids.com.tr/masal/kalpli-kedi/): Kalpli Kedi Takımı masalı, kahramanı Pamuk.
+- [Uzay Kaşifi Kuzey](https://www.sesakids.com.tr/masal/gezegenler/): Gezegenler Takımı masalı, kahramanı Kaşif Kuzey.
+- [Ay’a İyi Geceler Diyen Zürafa](https://www.sesakids.com.tr/masal/safari-dostlari/): Safari Dostları Takımı masalı, kahramanı Zürafa Zeren.
+- [Komiser Bıdık’ın Son Devriyesi](https://www.sesakids.com.tr/masal/polis-arabalari/): Polis Arabaları Takımı masalı, kahramanı Komiser Bıdık.
+- [Ayı Bulut’un Ekose Yorganı](https://www.sesakids.com.tr/masal/ayicikli-beyaz-ekose/): Ayıcıklı Ekose Takım masalı, kahramanı Ayı Bulut.
+- [Rüya Yolunu Yapan Kepçe](https://www.sesakids.com.tr/masal/dama-is-makineleri/): Dama İş Makineleri Takımı masalı, kahramanı Kepçe Kaptan Kemal.
+- [Çilek Bahçesinin Sırrı](https://www.sesakids.com.tr/masal/renkli-cilekler/): Renkli Çilekler Takımı masalı, kahramanı Tomurcuk.
+- [Rengârenk Kedi Çetesi](https://www.sesakids.com.tr/masal/renkli-kediler/): Renkli Kediler Takımı masalı, kahramanı Tarçın.
+- [Fındık’ın Yıldız Pikniği](https://www.sesakids.com.tr/masal/ayicikli-bej-ekose/): Ayıcıklı Bej Ekose Takım masalı, kahramanı Fındık.
+- [Kaptan Deniz ve Dalga Beşiği](https://www.sesakids.com.tr/masal/mavi-cizgili/): Mavi Çizgili Takım masalı, kahramanı Kaptan Deniz.
 
 ## Kategoriler
 - [Kız çocuk pijama takımları](https://www.sesakids.com.tr/kiz-cocuk-pijama/): Kız çocuklar için pamuklu, yumuşacık ve rengârenk pijama takımları. Kalpli kedi, çilekli, ayıcıklı ekose ve safari desenleri; 2–12 yaş bedenler, manşetli paçalar.
@@ -31,18 +31,18 @@ Her pijamanın kendine ait bir uyku masalı vardır (paketteki karekodla açıl�
 - [Çocuk pijama takımları](https://www.sesakids.com.tr/cocuk-pijama-takimi/): Kız ve erkek çocuklar için 12 desende çocuk pijama takımı. %100 pamuk, tene dost, manşetli; 2–12 yaş. Bedeninizi seçin, 360° inceleyin, kolayca sipariş verin.
 
 ## Ürünler
-- [Kalpli Kedi Takımı](https://www.sesakids.com.tr/urun/kalpli-kedi-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Ekru üst üzerinde kalpli kedi baskısı, rengârenk kalp desenli manşetli alt. Renk: Ekru / Renkli kalpler.
-- [Renkli Kediler Takımı](https://www.sesakids.com.tr/urun/renkli-kediler-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Baştan aşağı rengârenk kedi desenli üst ve alt; beyaz ribanalı yaka, bilek ve paçalar. Renk: Çok renkli kedi desenli.
-- [Dama İş Makineleri Takımı](https://www.sesakids.com.tr/urun/dama-is-makineleri-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Lacivert-beyaz dama zemin üzerinde kepçe, kamyon ve iş makineleri; lacivert ribanalı bilek ve paçalar. Renk: Lacivert / Beyaz dama.
-- [Ayıcıklı Ekose Takım](https://www.sesakids.com.tr/urun/ayicikli-ekose-takim/): Kız çocuk, 2–12 yaş, 449 TL. Beyaz-siyah ekose zemin üzerinde ayıcıklar; kırmızı biyeli, yakalı düğmeli pijama takımı. Renk: Beyaz ekose / Ayıcıklı.
-- [Renkli Çilekler Takımı](https://www.sesakids.com.tr/urun/renkli-cilekler-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Pembe zemin üzerinde rengârenk çilekler; manşetli paçalı yumuşak takım. Renk: Pembe / Renkli çilekler.
-- [Polis Arabaları Takımı](https://www.sesakids.com.tr/urun/polis-arabalari-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Krem zemin üzerinde polis arabaları, kelepçe ve telsizler; manşetli paçalar. Renk: Krem / Gri.
-- [Ayıcıklı Bej Ekose Takım](https://www.sesakids.com.tr/urun/ayicikli-bej-ekose-takim/): Kız çocuk, 2–12 yaş, 449 TL. Bej ekose zemin üzerinde ayıcıklar; kırmızı biyeli, yakalı düğmeli pijama takımı. Renk: Bej ekose / Ayıcıklı.
-- [Safari Dostları Takımı](https://www.sesakids.com.tr/urun/safari-dostlari-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Açık mavi zemin üzerinde filler, zürafalar, palmiye yaprakları ve çiçekler; manşetli bilek ve paçalar. Renk: Açık mavi / Desenli.
-- [Gezegenler Takımı](https://www.sesakids.com.tr/urun/gezegenler-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Lacivert zemin üzerinde gezegenler ve yıldızlar; yakalı, düğmeli pijama takımı. Renk: Lacivert / Uzay desenli.
-- [Kırmızı Ekose Takım](https://www.sesakids.com.tr/urun/kirmizi-ekose-takim/): Erkek çocuk, 2–12 yaş, 449 TL. Kırmızı-siyah ekose, yakalı düğmeli klasik pijama takımı. Renk: Kırmızı / Siyah ekose.
-- [Mavi Çizgili Takım](https://www.sesakids.com.tr/urun/mavi-cizgili-takim/): Erkek çocuk, 2–12 yaş, 449 TL. Mavi-beyaz çizgili, göğüs cepli, yakalı düğmeli klasik pijama takımı. Renk: Mavi / Beyaz çizgili.
 - [Krem Çilekler Takımı](https://www.sesakids.com.tr/urun/krem-cilekler-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Krem zemin üzerinde rengârenk çilekler; manşetli bilek ve paçalar. Renk: Krem / Renkli çilekler.
+- [Kırmızı Ekose Takım](https://www.sesakids.com.tr/urun/kirmizi-ekose-takim/): Erkek çocuk, 2–12 yaş, 449 TL. Kırmızı-siyah ekose, yakalı düğmeli klasik pijama takımı. Renk: Kırmızı / Siyah ekose.
+- [Kalpli Kedi Takımı](https://www.sesakids.com.tr/urun/kalpli-kedi-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Ekru üst üzerinde kalpli kedi baskısı, rengârenk kalp desenli manşetli alt. Renk: Ekru / Renkli kalpler.
+- [Gezegenler Takımı](https://www.sesakids.com.tr/urun/gezegenler-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Lacivert zemin üzerinde gezegenler ve yıldızlar; yakalı, düğmeli pijama takımı. Renk: Lacivert / Uzay desenli.
+- [Safari Dostları Takımı](https://www.sesakids.com.tr/urun/safari-dostlari-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Açık mavi zemin üzerinde filler, zürafalar, palmiye yaprakları ve çiçekler; manşetli bilek ve paçalar. Renk: Açık mavi / Desenli.
+- [Polis Arabaları Takımı](https://www.sesakids.com.tr/urun/polis-arabalari-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Krem zemin üzerinde polis arabaları, kelepçe ve telsizler; manşetli paçalar. Renk: Krem / Gri.
+- [Ayıcıklı Ekose Takım](https://www.sesakids.com.tr/urun/ayicikli-ekose-takim/): Kız çocuk, 2–12 yaş, 449 TL. Beyaz-siyah ekose zemin üzerinde ayıcıklar; kırmızı biyeli, yakalı düğmeli pijama takımı. Renk: Beyaz ekose / Ayıcıklı.
+- [Dama İş Makineleri Takımı](https://www.sesakids.com.tr/urun/dama-is-makineleri-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Lacivert-beyaz dama zemin üzerinde kepçe, kamyon ve iş makineleri; lacivert ribanalı bilek ve paçalar. Renk: Lacivert / Beyaz dama.
+- [Renkli Çilekler Takımı](https://www.sesakids.com.tr/urun/renkli-cilekler-takimi/): Kız çocuk, 2–12 yaş, 449 TL. Pembe zemin üzerinde rengârenk çilekler; manşetli paçalı yumuşak takım. Renk: Pembe / Renkli çilekler.
+- [Renkli Kediler Takımı](https://www.sesakids.com.tr/urun/renkli-kediler-takimi/): Erkek çocuk, 2–12 yaş, 449 TL. Baştan aşağı rengârenk kedi desenli üst ve alt; beyaz ribanalı yaka, bilek ve paçalar. Renk: Çok renkli kedi desenli.
+- [Ayıcıklı Bej Ekose Takım](https://www.sesakids.com.tr/urun/ayicikli-bej-ekose-takim/): Kız çocuk, 2–12 yaş, 449 TL. Bej ekose zemin üzerinde ayıcıklar; kırmızı biyeli, yakalı düğmeli pijama takımı. Renk: Bej ekose / Ayıcıklı.
+- [Mavi Çizgili Takım](https://www.sesakids.com.tr/urun/mavi-cizgili-takim/): Erkek çocuk, 2–12 yaş, 449 TL. Mavi-beyaz çizgili, göğüs cepli, yakalı düğmeli klasik pijama takımı. Renk: Mavi / Beyaz çizgili.
 
 ## Sık sorulanlar
 - **Çocuk pijama bedeni nasıl seçilir?** Bedenleri yaşa göre 2-3 yaştan 11-12 yaşa kadar sunuyoruz. Boy ölçüsüne göre: 2-3 yaş: 92–98 cm, 3-4 yaş: 98–104 cm, 4-5 yaş: 104–110 cm, 5-6 yaş: 110–116 cm, 6-7 yaş: 116–122 cm, 7-8 yaş: 122–128 cm, 8-9 yaş: 128–134 cm, 9-10 yaş: 134–140 cm, 10-11 yaş: 140–146 cm, 11-12 yaş: 146–152 cm. İki beden arasında kalırsanız büyük olanı seçin; manşetli paçalar boyu toparlar.

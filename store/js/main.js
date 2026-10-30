@@ -1,4 +1,4 @@
-import { PRODUCTS, byId, formatPrice, sizeLabel } from './products.js';
+import { PRODUCTS, HERO_COUNT, byId, formatPrice, sizeLabel } from './products.js';
 import { renderModel, modelThumb, loadProductImage } from './garments.js';
 import { createStory } from './story.js';
 import { createLineup, createIcons, createFinale, createViewer } from './scenes.js';
@@ -39,7 +39,7 @@ const ageRange = (p) => `${p.sizes[0].split('-')[0]}–${p.sizes[p.sizes.length 
 
 /* ---------- Sinematik hikâye ---------- */
 const stage = $('.story');
-const story = createStory(stage, PRODUCTS, {
+const story = createStory(stage, PRODUCTS.slice(0, HERO_COUNT), {
   onOpen: (p) => openDetail(p.id),
   // "Masalını oku": ürün sayfası masal kartı açık ve görünür şekilde açılır
   onTale: (p) => {
@@ -142,7 +142,8 @@ $('.search').addEventListener('submit', (e) => {
   });
   if (!hit) { toast('Aramanıza uygun pijama bulunamadı.'); return; }
   $('#search').blur();
-  story.setProduct(hit.id);
+  // Büyük vitrinde olmayan ürün doğrudan ürün sayfasında açılır
+  if (PRODUCTS.indexOf(hit) < HERO_COUNT) story.setProduct(hit.id); else openDetail(hit.id);
 });
 
 /* ---------- Koleksiyon ---------- */

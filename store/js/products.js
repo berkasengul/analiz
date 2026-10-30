@@ -8,7 +8,7 @@ export const BRAND = 'SESA KIDS';
 
 // Vitrinde sırayla dönen, 360° 3D modelli takımlar (Tripo turntable videolarından).
 // Kodlar ve fiyatlar örnektir; gerçek değerlerle değiştirin.
-export const PRODUCTS = [
+const CATALOG = [
   {
     id: 'KK-01', spin: 'kalpli-kedi',
     spots: { yaka: [0.55, 0.2], baski: [0.55, 0.32], desen: [0.35, 0.66], manset: [0.7, 0.89] },
@@ -118,6 +118,12 @@ export const PRODUCTS = [
     desc: 'Krem zemin üzerinde rengârenk çilekler; manşetli bilek ve paçalar.',
   },
 ];
+
+// Vitrin sırası: önce Krem Çilekler, sonra Kırmızı Ekose; ardından bir kız bir erkek.
+// Ana sayfadaki büyük vitrin ilk HERO_COUNT ürünü gösterir, tümü aşağıdaki bölümlerde.
+const ORDER = ['KC-17', 'KE-15', 'KK-01', 'GZ-14', 'SD-13', 'PA-11', 'AE-09', 'DM-08', 'RC-10', 'RK-07', 'BE-12', 'MC-16'];
+export const PRODUCTS = [...CATALOG].sort((a, b) => (ORDER.indexOf(a.id) + 1 || 99) - (ORDER.indexOf(b.id) + 1 || 99));
+export const HERO_COUNT = 5;
 
 // Detay noktaları (fotoğraf içinde 0–1 arası x, y)
 export const SPOTS = [
