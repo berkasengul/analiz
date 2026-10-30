@@ -465,7 +465,8 @@ export function createStory(root, products, hooks = {}) {
         const calm = 1 - focus.amt; // yakınlaşırken model kıpırdamaz
         const intro = reduced ? 1 : Math.min(1, t / 3.4);
         const ease = intro < 0.5 ? 4 * intro ** 3 : 1 - (-2 * intro + 2) ** 3 / 2; // yavaş başla, yavaş bitir
-        const entrance = i === 0 ? (1 - ease) * Math.PI * 2 : 0;
+        // Açılışta tam tur dönüş yok: ön kare önceden indirildiği için model anında, karşıdan görünür
+        const entrance = 0;
         const cur = Math.abs(d) < 0.5;
         states.push({
           x: cxv - dir * u * (portrait ? 0.7 : 0.42),
@@ -531,6 +532,8 @@ export function createStory(root, products, hooks = {}) {
     if (a !== active) {
       active = a;
       settledAt = t;
+      // Sıradaki ve önceki ürünü önceden hazırla: geçişte model beklemeden görünsün
+      if (m3d) { m3d.warm(a + 1, 'full'); m3d.warm(a - 1, 'front'); m3d.warm(a + 2, 'front'); }
       if (prevActive >= 0) turnA[prevActive] += drag.rot; // giden ürün olduğu açıda kalır
       prevActive = a;
       turnA[a] = 0; // her ürün tam karşıdan açılır
@@ -547,6 +550,13 @@ export function createStory(root, products, hooks = {}) {
 
   addEventListener('resize', resize);
   resize();
+  // Açılışta ilk ürünü hemen yüklemeye başla; sayfa sakinleşince tüm ürünlerin ön görünümünü hazırla
+  if (m3d) {
+    m3d.warm(0, 'full');
+    m3d.warm(1, 'front');
+    const idle = window.requestIdleCallback || ((f) => setTimeout(f, 1500));
+    setTimeout(() => idle(() => products.forEach((_, i) => m3d.warm(i, 'fetch'))), 2500);
+  }
   document.fonts?.ready.then(measure); // yazı tipleri yüklenince kart ve başlık ölçüleri değişir
   requestAnimationFrame(frame);
 

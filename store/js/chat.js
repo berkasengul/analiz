@@ -294,10 +294,10 @@ export function createChat(api) {
     const o = state.order;
     state.step = null;
     const lines = cart.items.map((x) => { const p = products.find((y) => y.id === x.id); return { id: p.id, name: p.name, size: x.size, qty: x.qty, price: p.price }; });
-    const { order, link, via } = await placeOrder(o, lines, formatPrice, cart.discount ? cart.discount() : 0);
+    const { order, sent, configured } = await placeOrder(o, lines, formatPrice, cart.discount ? cart.discount() : 0);
+    if (configured && !sent) { state.step = 'confirm'; await say('Sipariş gönderilemedi, bağlantınızı kontrol edip "Onaylıyorum" yazarak tekrar deneyin.'); quick(['Onaylıyorum', 'Vazgeç']); return; }
     cart.clear();
-    if (via === 'endpoint') await say(`Siparişiniz alındı! Sipariş no: <b>${order.id}</b>. Ödeme ve kargo bilgisi için ${esc(o.phone)} numarasından size ulaşacağız.`);
-    else await say(`Siparişiniz hazır! Sipariş no: <b>${order.id}</b>.<br>Son adım: siparişi ${via === 'whatsapp' ? "WhatsApp'tan" : 'e-postayla'} bize gönderin, ödeme ve kargo bilgisini hemen iletelim.<p><a class="chat-wa" href="${link}" target="_blank" rel="noopener">${via === 'whatsapp' ? 'WhatsApp ile gönder' : 'E-postayla gönder'}</a></p>`);
+    await say(`Siparişiniz alındı! 🎉 Sipariş no: <b>${order.id}</b>. Bizi tercih ettiğiniz için teşekkür ederiz. Ödeme ve kargo bilgisi için ${esc(o.phone)} numarasından size ulaşacağız.`);
     api.onOrder?.(order);
     quick(['Ürünleri göster']);
   }

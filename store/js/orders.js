@@ -1,5 +1,6 @@
 // Sipariş oluşturma ve mağazaya iletme (sepet formu ve SESA Asistan ortak kullanır).
-// İletim sırası: config.orderEndpoint (POST JSON) → WhatsApp → e-posta taslağı.
+// Sipariş, müşteri hiçbir ek adım atmadan config.orderEndpoint adresine gönderilir.
+// Önerilen kurulum: tools/siparis-tablosu.gs (Google E-Tablo + e-posta bildirimi, ücretsiz).
 import { SITE } from './config.js';
 
 // Telefonu 05xx… biçimine getirir; geçersizse null
@@ -8,30 +9,38 @@ export function normPhone(v) {
   return /^5\d{9}$/.test(d) ? `0${d}` : null;
 }
 
-// customer: { name, phone, city, address, note }; lines: [{ id, name, size, qty, price }]
-// Dönüş: { order, sent, link, via } — link: müşterinin son adımda açacağı WhatsApp/e-posta adresi
+// customer: { name, phone, city, address, payment, note, email? }; lines: [{ id, name, size, qty, price }]
+// Dönüş: { order, sent, configured } — configured: sipariş adresi tanımlı mı (değilse önizleme/demo)
 export async function placeOrder(customer, lines, fmt, discount = 0) {
   const id = `SK-${Date.now().toString(36).toUpperCase().slice(-6)}`;
   const subtotal = lines.reduce((n, x) => n + x.price * x.qty, 0);
   const total = subtotal - discount;
-  const order = { id, date: new Date().toISOString(), items: lines, subtotal, discount, total, customer };
-  try {
-    const all = JSON.parse(localStorage.getItem('sesa-orders') || '[]');
-    all.push(order);
-    localStorage.setItem('sesa-orders', JSON.stringify(all));
-  } catch { /* yok say */ }
+  const order = {
+    id, date: new Date().toISOString(), items: lines, subtotal, discount, total, customer,
+    // E-Tablo ve e-posta bildirimi için okunur özet
+    summary: lines.map((x) => `${x.name} – ${x.size} yaş × ${x.qty} = ${fmt(x.price * x.qty)}`).join('\n'),
+  };
+  const configured = !!SITE.orderEndpoint;
   let sent = false;
-  if (SITE.orderEndpoint) {
+  if (configured) {
     try {
-      const r = await fetch(SITE.orderEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order) });
-      sent = r.ok;
+      if (/script\.google(usercontent)?\.com/.test(SITE.orderEndpoint)) {
+        // Google Apps Script: ön kontrol (CORS) istemeyen basit istek; yanıt okunamaz ama kayıt düşer
+        await fetch(SITE.orderEndpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(order) });
+        sent = true;
+      } else {
+        const r = await fetch(SITE.orderEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order) });
+        sent = r.ok;
+      }
     } catch { sent = false; }
   }
-  const c = customer;
-  const msg = `Merhaba, SESA KIDS sipariş vermek istiyorum.\nSipariş no: ${id}\n${lines.map((x) => `• ${x.name} – ${x.size} yaş × ${x.qty} = ${fmt(x.price * x.qty)}`).join('\n')}${discount ? `\nAra toplam: ${fmt(subtotal)}\nÜye indirimi: -${fmt(discount)}` : ''}\nToplam: ${fmt(total)}${c.email ? `\nÜye: ${c.email}` : ''}\n\n${c.name}\n${c.phone}\n${c.address}, ${c.city}${c.payment ? `\nÖdeme: ${c.payment}` : ''}${c.note ? `\nNot: ${c.note}` : ''}`;
-  let link = '';
-  let via = sent ? 'endpoint' : '';
-  if (SITE.whatsapp) { link = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`; via = sent ? 'endpoint' : 'whatsapp'; }
-  else if (!sent) { link = `mailto:${SITE.email}?subject=${encodeURIComponent(`SESA KIDS sipariş ${id}`)}&body=${encodeURIComponent(msg)}`; via = 'email'; }
-  return { order, sent, link, via };
+  // Gönderildiyse (ya da önizlemede) siparişi "Siparişlerim" için bu tarayıcıda da sakla
+  if (sent || !configured) {
+    try {
+      const all = JSON.parse(localStorage.getItem('sesa-orders') || '[]');
+      all.push(order);
+      localStorage.setItem('sesa-orders', JSON.stringify(all));
+    } catch { /* yok say */ }
+  }
+  return { order, sent, configured };
 }

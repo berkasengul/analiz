@@ -443,31 +443,36 @@ EMPTY.needsUpdate = true;
 const SPIN_FIGS = new Set();
 // Önizleme gibi farklı paketlemelerde kare kaynağı window.__spinSource ile değiştirilebilir
 const fetchBlob = (url) => (window.__spinSource ? window.__spinSource(url) : fetch(url).then((r) => r.blob()));
-const fetchQueue = [];
+// İki öncelikli indirme kuyruğu: ekranda gereken kareler (acil) hemen başlar; arka plan
+// indirmeleri yalnızca acil iş yokken ve en fazla 2 hatla ilerler, böylece görünen kareyle yarışmaz.
+const urgentQ = [];
+const bgQ = [];
 const queued = new Map(); // url → bekleyen iş
 let fetching = 0;
-// Aynı anda en fazla 6 indirme. Ekranda o an gereken kare (urgent) kuyruğun önüne geçer;
-// arka plandaki önden yükleme sona eklenir, böylece bir modelin 120 karesi diğerlerini bekletmez.
+let bgFetching = 0;
 function queueFetch(url, urgent) {
   return new Promise((res, rej) => {
-    const job = { url, res, rej };
+    const job = { url, res, rej, bg: !urgent };
     queued.set(url, job);
-    if (urgent) fetchQueue.unshift(job); else fetchQueue.push(job);
+    (urgent ? urgentQ : bgQ).push(job);
     pumpFetch();
   });
 }
 function promote(url) {
   const job = queued.get(url);
-  const i = job ? fetchQueue.indexOf(job) : -1;
-  if (i > 0) { fetchQueue.splice(i, 1); fetchQueue.unshift(job); }
+  if (!job || !job.bg) return;
+  const i = bgQ.indexOf(job);
+  if (i >= 0) { bgQ.splice(i, 1); job.bg = false; urgentQ.unshift(job); pumpFetch(); }
+}
+function run(job) {
+  queued.delete(job.url);
+  fetching++;
+  if (job.bg) bgFetching++;
+  fetchBlob(job.url).then(job.res, job.rej).finally(() => { fetching--; if (job.bg) bgFetching--; pumpFetch(); });
 }
 function pumpFetch() {
-  while (fetching < 6 && fetchQueue.length) {
-    const job = fetchQueue.shift();
-    queued.delete(job.url);
-    fetching++;
-    fetchBlob(job.url).then(job.res, job.rej).finally(() => { fetching--; pumpFetch(); });
-  }
+  while (fetching < 8 && urgentQ.length) run(urgentQ.shift());
+  while (!urgentQ.length && bgFetching < 2 && fetching < 8 && bgQ.length) run(bgQ.shift());
 }
 async function decodeFrame(blob, maxH) {
   const bmp = await createImageBitmap(blob, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' });
@@ -521,6 +526,7 @@ function spinFigure(p, opts = {}) {
   let prefetched = false;
   const prefetch = () => {
     if (prefetched && blobs) return;
+    if (!ring.size) return; // önce ekrandaki kare gelsin; sonra kalanlar arka planda iner
     prefetched = true;
     for (let i = 0; i < n; i += step) blobOf(i);
   };
@@ -564,6 +570,17 @@ function spinFigure(p, opts = {}) {
     if (e) { e.used = performance.now(); return e.tex; }
     if (!pending.has(i) && pending.size < 4) { pending.add(i); decode(i); }
     return null;
+  };
+  // Ön ısıtma: ürün ekrana gelmeden ön görünüm karelerini aç (full: tüm kareleri de indir).
+  // Bir süre bellekte tutulur ki ürüne geçildiğinde model anında görünsün.
+  // level: 'fetch' = yalnızca ön kare dosyasını indir (bellek harcamaz)
+  //        'front' = ön kareyi aç (ekran kartına hazır)
+  //        'full'  = ön kareyi aç + tüm kareleri indir
+  const warm = (level) => {
+    if (level === 'fetch') { blobOf(0); return; }
+    lastSeen = Math.max(lastSeen, performance.now() + 15000);
+    need(0);
+    if (level === 'full') prefetch();
   };
   // Ekranda görünmeyen modelin kareleri bellekten bırakılır, görününce yeniden yüklenir
   SPIN_FIGS.add({ idle: () => performance.now() - lastSeen > 6000, drop: () => {
@@ -762,7 +779,7 @@ function spinFigure(p, opts = {}) {
     const r = PED_R * 1.03 * (ped ? ped.scale.x : 1);
     return { hy: PED_H + SUBJECT_H, hz: 0, by: PED_H - PED_H * Math.cos(d) - r * Math.sin(d), bz: -PED_H * Math.sin(d) + r * Math.cos(d), r };
   };
-  return { root, body, head, arms, legs: [], eyes: [], meshes, anchors, anchorWorld, spin: true, fit };
+  return { root, body, head, arms, legs: [], eyes: [], meshes, anchors, anchorWorld, spin: true, fit, warm };
 }
 
 /* ---------- Gerçek fotoğraf modeli: netleştirilmiş fotoğraf kaidede, kameraya dönük ---------- */
@@ -1186,5 +1203,7 @@ export function createFigures(canvas, products) {
     return -1;
   }
 
-  return { resize, render, project, pick };
+  // i. ürünün karelerini önceden hazırla (vitrinde sıradaki ürünler)
+  const warm = (i, full) => figs[i]?.warm?.(full);
+  return { resize, render, project, pick, warm };
 }

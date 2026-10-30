@@ -6,8 +6,9 @@ export const SITE = {
   // Siparişlerin iletileceği WhatsApp numarası: ülke koduyla, boşluksuz (ör. '905551234567').
   // Boş bırakılırsa sipariş özeti müşteriye gösterilir ama mağazaya iletilmez.
   whatsapp: '',
-  // İsteğe bağlı: siparişleri JSON olarak POST eden bir adres (ör. Formspree, Google Apps Script,
-  // kendi sunucunuz). Doluysa siparişler buraya da gönderilir.
+  // ZORUNLU (yayın için): siparişlerin düştüğü adres. tools/siparis-tablosu.gs dosyasındaki adımlarla
+  // Google E-Tablo sipariş panelini kurup verilen web uygulaması adresini buraya yapıştırın.
+  // Boşken site önizleme modunda çalışır; yayın iş akışı da güvenlik için durur.
   orderEndpoint: '',
   email: 'merhaba@sesakids.com.tr',
   // Mağaza konumu (Google Haritalar'daki "Sesa Kids" kaydı). Açık adresi buraya yazın.

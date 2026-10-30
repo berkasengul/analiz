@@ -3,6 +3,7 @@
 import { bagMarkup, bagWhoosh } from './bag.js';
 
 let ac = null;
+const escC = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 function tada() {
   try {
     ac = ac || new (window.AudioContext || window.webkitAudioContext)();
@@ -73,13 +74,10 @@ export function createCelebration({ formatPrice }) {
   el.addEventListener('click', (e) => { if (e.target.closest('[data-cel-close]')) close(); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !el.hidden) close(); });
 
-  function show({ order, via, link, phone, gender, thumbs = [] }) {
+  function show({ order, phone, name = '', gender, thumbs = [] }) {
     lastFocus = document.activeElement;
     const bag = bagMarkup(gender);
-    const sendTxt = via === 'whatsapp' ? 'WhatsApp ile gönder' : 'E-postayla gönder';
-    const msg = via === 'endpoint'
-      ? `Siparişiniz alındı. Ödeme ve kargo bilgisi için ${phone} numarasından size ulaşacağız.`
-      : `Son adım: siparişi ${via === 'whatsapp' ? "WhatsApp'tan" : 'e-postayla'} bize gönderin; ödeme ve kargo bilgisini ${phone} numarasına hemen iletelim.`;
+    const first = String(name).trim().split(/\s+/)[0] || '';
     const conf = Array.from({ length: 34 }, (_, i) => {
       const c = ['#ffd45c', '#f59bd6', '#79c3f6', '#f9a25c', '#ffffff', '#9fe0b8'][i % 6];
       return `<i style="--x:${(Math.random() * 100).toFixed(1)}%;--d:${(Math.random() * 0.9).toFixed(2)}s;--r:${(Math.random() * 720 - 360).toFixed(0)}deg;--c:${c};--s:${(6 + Math.random() * 8).toFixed(0)}px;--t:${(2.6 + Math.random() * 1.6).toFixed(2)}s"></i>`;
@@ -97,18 +95,35 @@ export function createCelebration({ formatPrice }) {
         </div>
       </div>
       <div class="cel-copy">
-        <svg class="cel-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
-        <h2 id="cel-h">Siparişiniz hazır!</h2>
-        <p class="cel-no">Sipariş no <b>${order.id}</b> · Toplam <b>${formatPrice(order.total)}</b>${order.discount ? ` <span>(üye indirimi −${formatPrice(order.discount)})</span>` : ''}</p>
-        <p class="cel-msg">${msg}</p>
-        <div class="cel-actions">${via !== 'endpoint' ? `<a class="btn btn-ink cel-send" href="${link}" target="_blank" rel="noopener">${sendTxt}</a>` : ''}<button type="button" class="btn cel-more" data-cel-close>Alışverişe devam</button></div>
+        <p class="cel-thanks">Bizi tercih ettiğiniz için<br><em>teşekkür ederiz${first ? `, ${escC(first)}` : ''}!</em></p>
+        <p class="cel-sub">Pijamalarınız özenle paketlenip yola çıkmak için hazırlanıyor. Tatlı rüyalar şimdiden 🌙</p>
+        <div class="cel-card">
+          <svg class="cel-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
+          <div><h2 id="cel-h">Siparişiniz alındı</h2>
+          <p class="cel-no">Sipariş no <b>${order.id}</b> · Toplam <b>${formatPrice(order.total)}</b>${order.discount ? ` <span>(üye indirimi −${formatPrice(order.discount)})</span>` : ''}</p>
+          <p class="cel-msg">Ödeme ve kargo bilgisi için <b>${escC(phone)}</b> numarasından size ulaşacağız.</p></div>
+        </div>
+        <div class="cel-actions"><button type="button" class="btn btn-ink cel-more" data-cel-close>Alışverişe devam</button></div>
       </div>`;
     el.hidden = false;
+    fit();
     requestAnimationFrame(() => el.classList.add('is-on'));
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!reduced) bagWhoosh(0.9);
     setTimeout(tada, reduced ? 0 : 950);
-    setTimeout(() => el.querySelector('.cel-send, .cel-more')?.focus({ preventScroll: true }), 1400);
+    setTimeout(() => el.querySelector('.cel-more')?.focus({ preventScroll: true }), 1400);
   }
+  // Çanta + el, yazı kartının üstündeki boşluğa sığacak şekilde ölçeklenir (üst üste binmez)
+  function fit() {
+    const stage = el.querySelector('.cel-stage');
+    const copy = el.querySelector('.cel-copy');
+    if (!stage || !copy) return;
+    const top = Math.max(20, innerHeight * 0.04);
+    const room = copy.getBoundingClientRect().top - top - 18;
+    const k = Math.max(0.42, Math.min(1.3, room / 300));
+    stage.style.top = `${top + (room - 300 * k) / 2}px`;
+    stage.style.scale = String(k);
+  }
+  addEventListener('resize', () => { if (!el.hidden) fit(); });
   return { show, close };
 }

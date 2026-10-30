@@ -92,7 +92,16 @@ ${FAQ.map((f) => `          <details id="sss-${f.id}"><summary>${esc(f.q)}</summ
     </section>
 `;
 let index = readFileSync(join(STORE, 'index.html'), 'utf8');
-index = index.replace(/<!-- SEO:BEGIN -->[\s\S]*?<!-- SEO:END -->/, `<!-- SEO:BEGIN -->\n${head({ title: HOME_TITLE, desc: HOME_DESC, path: '', image: 'assets/brand/og.jpg', extra: `  ${homeLd}\n` })}  <!-- SEO:END -->`);
+// Hız: kod dosyalarını zincirleme beklemeden paralel iste, ilk ürünün ön karesini hemen indir
+const MODULES = ['main', 'products', 'garments', 'faces', 'spins', 'figure3d', 'config', 'orders', 'account', 'scenes', 'story', 'bag', 'celebrate', 'chat', 'themes'];
+const preload = [
+  `  <link rel="preload" as="fetch" href="${PRODUCTS[0].image}" crossorigin="anonymous" fetchpriority="high">`,
+  '  <link rel="modulepreload" href="vendor/three.module.min.js">',
+  '  <link rel="modulepreload" href="vendor/GLTFLoader.js">',
+  '  <link rel="modulepreload" href="vendor/BufferGeometryUtils.js">',
+  ...MODULES.map((m) => `  <link rel="modulepreload" href="js/${m}.js">`),
+].join('\n');
+index = index.replace(/<!-- SEO:BEGIN -->[\s\S]*?<!-- SEO:END -->/, `<!-- SEO:BEGIN -->\n${head({ title: HOME_TITLE, desc: HOME_DESC, path: '', image: 'assets/brand/og.jpg', extra: `  ${homeLd}\n${preload}\n` })}  <!-- SEO:END -->`);
 index = index.replace(/<!-- FAQ:BEGIN -->[\s\S]*?<!-- FAQ:END -->/, `<!-- FAQ:BEGIN -->\n${faqHtml}    <!-- FAQ:END -->`);
 writeFileSync(join(STORE, 'index.html'), index);
 

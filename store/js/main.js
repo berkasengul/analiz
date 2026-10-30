@@ -76,11 +76,30 @@ $('.footer-news').addEventListener('submit', (e) => {
 });
 
 /* ---------- 3D ikonlar, koleksiyon sahnesi, final ---------- */
-createIcons($('.icons3d'), $$('.why-card'));
-const lineup = createLineup($('.lineup'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice });
-if (!lineup) $('.world-stage').hidden = true;
-createFinale($('.finale3d'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice });
-const viewer = createViewer($('.detail-3d'), {
+// Aşağıdaki 3D sahneler, kullanıcı onlara yaklaşınca kurulur: açılışta tarayıcı yalnızca vitrine
+// çalışır ve ilk model hemen görünür.
+const whenNear = (el, fn) => {
+  if (!el) return;
+  const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); fn(); } }, { rootMargin: '900px 0px' });
+  io.observe(el);
+};
+let lineup = null;
+let gridFilter = 'all';
+whenNear($('.why'), () => createIcons($('.icons3d'), $$('.why-card')));
+whenNear($('.world-stage'), () => {
+  lineup = createLineup($('.lineup'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice });
+  if (!lineup) $('.world-stage').hidden = true;
+  else if (gridFilter !== 'all') lineup.setFilter((p) => p.gender === gridFilter);
+});
+whenNear($('.finale'), () => createFinale($('.finale3d'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice }));
+// Ürün detayı görüntüleyicisi: sayfa sakinleşince (ya da ilk ürün açılınca) kurulur
+let viewer = null;
+function getViewer() {
+  if (viewer === null) viewer = makeViewer() || false;
+  return viewer || null;
+}
+setTimeout(() => (window.requestIdleCallback || ((f) => f()))(getViewer), 5000);
+const makeViewer = () => createViewer($('.detail-3d'), {
   onFace: (f) => $$('.face-ctl button').forEach((b) => { const on = (b.dataset.face === '1') === (f > 1); b.classList.toggle('is-active', on); b.setAttribute('aria-pressed', on); }),
   onZoom: (z) => {
     $('.zoom-level').textContent = `${z.toFixed(1).replace('.0', '')}×`;
@@ -90,10 +109,10 @@ const viewer = createViewer($('.detail-3d'), {
     $('.detail').classList.toggle('is-zoomed', z > 1.05);
   },
 });
-$('.zoom-in').addEventListener('click', () => viewer?.zoom(1.5));
-$$('.face-ctl button').forEach((b) => b.addEventListener('click', () => viewer?.turn(b.dataset.face === '1')));
-$('.zoom-out').addEventListener('click', () => viewer?.zoom(1 / 1.5));
-$('.zoom-reset').addEventListener('click', () => viewer?.reset());
+$('.zoom-in').addEventListener('click', () => getViewer()?.zoom(1.5));
+$$('.face-ctl button').forEach((b) => b.addEventListener('click', () => getViewer()?.turn(b.dataset.face === '1')));
+$('.zoom-out').addEventListener('click', () => getViewer()?.zoom(1 / 1.5));
+$('.zoom-reset').addEventListener('click', () => getViewer()?.reset());
 $$('[data-action="account"]').forEach((b) => b.addEventListener('click', () => account.open()));
 
 const norm = (s) => s.toLocaleLowerCase('tr').replace(/\s+/g, ' ').trim();
@@ -135,6 +154,7 @@ $('.grid').addEventListener('click', (e) => {
 function setFilter(f) {
   $$('.chip').forEach((x) => x.classList.toggle('is-active', x.dataset.filter === f));
   renderGrid(f);
+  gridFilter = f;
   lineup?.setFilter((p) => f === 'all' || p.gender === f);
 }
 $$('.chip').forEach((c) => c.addEventListener('click', () => setFilter(c.dataset.filter)));
@@ -152,11 +172,12 @@ const state = { id: null, view: '3d', size: null, lastFocus: null };
 async function drawDetail() {
   const p = byId(state.id);
   const has3d = !!(p.spin || p.model3d);
-  const view = viewer && has3d ? state.view : 'photo';
+  const v = getViewer();
+  const view = v && has3d ? state.view : 'photo';
   detail.dataset.view = view;
   $('.seg').hidden = true;
-  if (view === '3d') { viewer.show(p); viewer.start(); return; }
-  viewer?.stop();
+  if (view === '3d') { v.show(p); v.start(); return; }
+  if (viewer) viewer.stop();
   const img = await loadProductImage(p);
   const src = img || renderModel(p, 'front', 2);
   dCanvas.width = src.width;
@@ -207,7 +228,7 @@ function closeDetail() {
   detail.classList.remove('is-open');
   document.body.style.overflow = '';
   delete document.documentElement.dataset.modal;
-  viewer?.stop();
+  if (viewer) viewer.stop();
   setTimeout(() => { detail.hidden = true; }, 300);
   state.lastFocus?.focus?.({ preventScroll: true });
 }
@@ -460,25 +481,21 @@ async function submitOrder() {
   const boys = lines.filter((x) => byId(x.id).gender === 'erkek').reduce((n, x) => n + x.qty, 0);
   const gender = boys * 2 > lines.reduce((n, x) => n + x.qty, 0) ? 'erkek' : 'kiz';
   const thumbs = lines.map((x) => byId(x.id).image);
-  const { order, link, via } = await placeOrder(c, lines, formatPrice, cart.discount());
+  btn.textContent = 'Gönderiliyor…';
+  const { order, sent, configured } = await placeOrder(c, lines, formatPrice, cart.discount());
+  btn.disabled = false;
+  btn.textContent = 'Siparişi Onayla';
+  if (configured && !sent) {
+    // Bağlantı sorunu: sepet ve form korunur, müşteri tekrar dener
+    $('.co-err').textContent = 'Sipariş gönderilemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.';
+    return;
+  }
   cart.clear();
   co.reset();
-  $('.co-no').innerHTML = `Sipariş no: <b>${order.id}</b> · Toplam ${formatPrice(order.total)}`;
-  const send = $('.co-send');
-  if (via === 'endpoint') {
-    $('.co-msg').textContent = `Siparişiniz alındı. Ödeme ve kargo bilgisi için ${c.phone} numarasından size ulaşacağız.`;
-    send.hidden = true;
-  } else {
-    $('.co-msg').textContent = `Son adım: siparişi ${via === 'whatsapp' ? "WhatsApp'tan" : 'e-postayla'} bize gönderin; ödeme ve kargo bilgisini ${c.phone} numarasına hemen iletelim.`;
-    send.hidden = false;
-    send.href = link;
-    send.textContent = via === 'whatsapp' ? 'WhatsApp ile gönder' : 'E-postayla gönder';
-  }
-  setCartStep('done');
-  btn.disabled = false;
+  setCartStep('list');
   // Kutlama: sepet kapanır, el çantayı kameraya uzatır
   toggleCart(false);
-  setTimeout(() => celebration.show({ order, via, link, phone: c.phone, gender, thumbs }), 250);
+  setTimeout(() => celebration.show({ order, phone: c.phone, name: c.name, gender, thumbs }), 250);
 }
 $('.checkout').addEventListener('click', () => { if (cartStep === 'form') submitOrder(); else if (cart.count()) setCartStep('form'); });
 co.addEventListener('submit', (e) => { e.preventDefault(); submitOrder(); });

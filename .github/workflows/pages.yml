@@ -27,6 +27,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Sipariş adresi tanımlı mı?
+        working-directory: store
+        run: |
+          node --input-type=module -e "
+            const { SITE } = await import('./js/config.js');
+            if (!SITE.orderEndpoint) { console.error('js/config.js: orderEndpoint boş. Siparişler kaybolmasın diye yayın durduruldu (bkz. tools/siparis-tablosu.gs).'); process.exit(1); }
+          "
       - name: SEO dosyalarını güncelle
         working-directory: store
         run: node tools/seo_build.mjs
