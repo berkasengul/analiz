@@ -34,112 +34,150 @@ function sizeTo(st, canvas) {
   st.camera.updateProjectionMatrix();
 }
 
-/* ---------- Koleksiyon: altı figür aynı sahnede ---------- */
+/* ---------- Koleksiyon vitrini: tek sırada, eşit ölçekte, kayan premium vitrin ---------- */
+// Figürler aynı boyda ve aralıkta tek sıra hâlinde durur; kamera sıranın üzerinde kayar.
+// Her figürün altında ad/fiyat kartı. Oklar, sürükleme ve kısa süreli otomatik kayma.
 export function createLineup(canvas, products, hooks = {}) {
-  const st = makeStage(canvas, { fov: 26, shadowExtent: 34, groundOpacity: 0.16 });
+  const st = makeStage(canvas, { fov: 24, shadowExtent: 60, groundOpacity: 0.14 });
   if (!st) return null;
   const { scene, camera, renderer } = st;
   const cache = new Map();
+  const stage = canvas.parentElement;
+  const cardsEl = document.createElement('div');
+  cardsEl.className = 'lineup-cards';
+  stage.append(cardsEl);
   const figs = products.map((p, i) => {
     const f = buildFigure(p, cache, { lite: true });
-    f.root.userData.pedestal?.scale.set(0.72, 1, 0.72); // dizilimde kaideler sığsın (ayak açıklığı en geniş pozda da üstte kalır)
+    f.root.userData.pedestal?.scale.set(0.78, 1, 0.78);
     scene.add(f.root);
-    return { f, p, i, lift: 0, dim: 0, base: new THREE.Vector3() };
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'lineup-card';
+    card.innerHTML = `<b>${p.name}</b><span>${hooks.price ? hooks.price(p.price) : p.price}</span><em>İncele</em>`;
+    card.style.setProperty('--c', p.accent);
+    card.addEventListener('click', () => hooks.onOpen?.(p));
+    cardsEl.append(card);
+    return { f, p, i, card, lift: 0, x: 0, show: 1, on: true };
   });
+  const GAP = 6;
   let filter = () => true;
+  let list = figs;
+  let nVis = 5;
+  let focus = 0;
+  let target = 0;
   let hovered = -1;
-  let portrait = false;
-
+  let lastUse = 0;
+  const minF = () => Math.min((nVis - 1) / 2, (list.length - 1) / 2);
+  const maxF = () => Math.max(list.length - 1 - (nVis - 1) / 2, (list.length - 1) / 2);
+  const clampT = (v) => Math.max(minF(), Math.min(maxF(), v));
   function layout() {
-    // Sıralar: masaüstünde 2 sıra (arkadaki sıra boşluklara kayar), mobilde 3 sıra
-    const n = figs.length;
-    const perRow = portrait ? Math.ceil(n / 3) : Math.ceil(n / 2);
-    const gap = portrait ? 4.3 : 5.2;
-    figs.forEach((g, i) => {
-      const row = Math.floor(i / perRow);
-      const col = i % perRow;
-      const inRow = Math.min(perRow, n - row * perRow);
-      const o = col - (inRow - 1) / 2 + (row % 2 ? 0.5 : 0) * (inRow === perRow ? 1 : 0) - (row % 2 ? 0.25 : 0);
-      g.base.set(o * gap, 0, 4 - row * 8 - Math.abs(o) * 0.5);
-    });
-    span = Math.max(...figs.map((g) => Math.abs(g.base.x))) + 1.9; // en dıştaki kaidenin kenarı
+    list = figs.filter((g) => filter(g.p));
+    figs.forEach((g) => { g.on = list.includes(g); });
+    list.forEach((g, k) => { g.x = k * GAP; });
+    target = clampT(target);
   }
-  let span = 10;
   function resize() {
     sizeTo(st, canvas);
-    portrait = canvas.clientWidth / canvas.clientHeight < 0.9;
+    const w = canvas.clientWidth;
+    nVis = w > 1180 ? 5 : w > 860 ? 4 : w > 560 ? 3 : 1.7;
     layout();
+    focus = target;
   }
   addEventListener('resize', resize);
   resize();
+  focus = target = minF();
 
+  // Oklar
+  const nav = (d) => { target = clampT(Math.round(target + d)); lastUse = performance.now(); };
+  stage.querySelector('.world-prev')?.addEventListener('click', () => nav(-1));
+  stage.querySelector('.world-next')?.addEventListener('click', () => nav(1));
+
+  // Sürükleme ve seçme
   const ray = new THREE.Raycaster();
   const ndc = new THREE.Vector2(-9, -9);
-  canvas.addEventListener('pointermove', (e) => {
+  const setNdc = (e) => {
     const r = canvas.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  };
+  let drag = null;
+  canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, f: target, moved: 0 }; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener('pointermove', (e) => {
+    setNdc(e);
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    drag.moved = Math.max(drag.moved, Math.abs(dx));
+    const unitsPerPx = (nVis * GAP) / canvas.clientWidth / GAP;
+    target = clampT(drag.f - dx * unitsPerPx);
+    lastUse = performance.now();
   });
+  const up = (e) => {
+    if (!drag) return;
+    const click = drag.moved < 6;
+    drag = null;
+    target = clampT(Math.round(target));
+    if (click) { setNdc(e); const i = pickAt(); if (i >= 0) hooks.onOpen?.(products[i]); }
+  };
+  canvas.addEventListener('pointerup', up);
+  canvas.addEventListener('pointercancel', () => { drag = null; });
   canvas.addEventListener('pointerleave', () => ndc.set(-9, -9));
   function pickAt() {
     ray.setFromCamera(ndc, camera);
-    for (const g of figs) {
-      if (!filter(g.p)) continue;
-      if (ray.intersectObjects(g.f.meshes, false).length) return g.i;
-    }
+    for (const g of list) if (ray.intersectObjects(g.f.meshes, false).length) return g.i;
     return -1;
   }
-  canvas.addEventListener('click', (e) => {
-    const r = canvas.getBoundingClientRect();
-    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
-    const i = pickAt();
-    if (i >= 0) hooks.onOpen?.(products[i]);
-  });
 
   const blink = blinker();
   const v = new THREE.Vector3();
+  let lastT = 0;
   loopWhenVisible(canvas, (t) => {
-    const r = canvas.getBoundingClientRect();
-    const q = clampS(1 - (r.top + r.height * 0.3) / innerHeight); // bölüme girişte kamera yaklaşır
-    const e = 1 - Math.pow(1 - q, 3);
-    // Kamera, figür sıraları bölümün genişliğini dolduracak mesafeden bakar
+    const dt = Math.min(0.1, t - lastT);
+    lastT = t;
+    // Etkileşim yoksa birkaç saniyede bir sonraki takıma kayar, sonda başa döner
+    if (!drag && !reduced() && performance.now() - lastUse > 6000 && hovered < 0 && list.length > nVis) {
+      lastUse = performance.now();
+      target = target >= maxF() - 0.01 ? minF() : clampT(Math.round(target) + 1);
+    }
+    focus += (target - focus) * (1 - Math.exp(-dt * 6));
     const T = Math.tan((camera.fov * Math.PI) / 360);
-    const dist = (span * 1.04) / (T * camera.aspect) + (1 - e) * 6;
-    if (portrait) {
-      camera.position.set(0, 4 + dist * 0.24, 4 + dist);
-      camera.lookAt(0, 4.4, -8);
-    } else {
-      camera.position.set(Math.sin(t * 0.12) * 0.8, 4 + dist * 0.22, 4 + dist);
-      camera.lookAt(0, 4.8, -4);
-    }
-    const h = pickAt();
-    if (h !== hovered) {
-      hovered = h;
-      canvas.style.cursor = h >= 0 ? 'pointer' : '';
-    }
+    const dist = (nVis * GAP) / (2 * T * camera.aspect);
+    const cx = focus * GAP;
+    camera.position.set(cx, 5.2 + dist * 0.07, dist);
+    camera.lookAt(cx, 4.4, 0);
+    const h = drag ? -1 : pickAt();
+    if (h !== hovered) { hovered = h; canvas.style.cursor = h >= 0 ? 'pointer' : 'grab'; }
     const b = blink(t);
+    const r = canvas.getBoundingClientRect();
     figs.forEach((g) => {
-      const on = filter(g.p);
-      g.dim += ((on ? 0 : 1) - g.dim) * 0.1;
-      g.lift += ((g.i === hovered ? 1 : 0) - g.lift) * 0.12;
+      g.show += ((g.on ? 1 : 0) - g.show) * 0.15;
+      g.lift += ((g.i === hovered ? 1 : 0) - g.lift) * 0.15;
       const { root } = g.f;
-      root.position.set(g.base.x, -g.dim * 1.2, g.base.z + g.lift * 1.8 - g.dim * 3);
-      root.scale.setScalar(1 + g.lift * 0.06 - g.dim * 0.15);
+      root.visible = g.show > 0.02;
+      if (!root.visible) { g.card.style.opacity = 0; g.card.style.pointerEvents = 'none'; return; }
+      root.position.set(g.x, -(1 - g.show) * 2, g.lift * 1.2);
+      root.scale.setScalar((0.92 + g.show * 0.08) * (1 + g.lift * 0.05));
       const face = Math.atan2(camera.position.x - root.position.x, camera.position.z - root.position.z);
-      // Her figür kameraya tam karşıdan bakar; çok hafif salınım
-      root.rotation.y = face + (reduced() ? 0 : Math.sin(t * 0.25 + g.i) * 0.08 * (1 - g.lift));
-      animateFigure(g.f, t, g.i, b && g.i % 2 === 0, g.lift);
+      root.rotation.y = face + (reduced() ? 0 : Math.sin(t * 0.3 + g.i) * 0.12 * (1 - g.lift));
+      animateFigure(g.f, t, g.i, b && g.i % 3 === 0, g.lift);
+      // Kart: kaidenin hemen altında; görünür alanın kenarlarında söner
+      v.set(g.x, -0.2, 0);
+      v.project(camera);
+      const sx = (v.x * 0.5 + 0.5) * r.width;
+      const edge = Math.min(1, Math.max(0, Math.min(sx, r.width - sx) / 80));
+      g.card.style.transform = `translate(${sx.toFixed(1)}px, ${((-v.y * 0.5 + 0.5) * r.height).toFixed(1)}px) translate(-50%, 0)`;
+      g.card.style.opacity = (edge * g.show).toFixed(3);
+      g.card.style.pointerEvents = edge > 0.5 ? 'auto' : 'none';
+      g.card.classList.toggle('is-hover', g.i === hovered);
     });
     renderer.render(scene, camera);
-    if (hovered >= 0) {
-      const root = figs[hovered].f.root;
-      v.set(0, 10.6, 0);
-      root.localToWorld(v);
-      v.project(camera);
-      hooks.onHover?.(products[hovered], (v.x * 0.5 + 0.5) * r.width, (-v.y * 0.5 + 0.5) * r.height);
-    } else hooks.onHover?.(null);
+    const bar = stage.querySelector('.world-progress b');
+    if (bar) {
+      const span = Math.max(0.0001, maxF() - minF());
+      bar.style.width = `${Math.min(100, (nVis / Math.max(nVis, list.length)) * 100)}%`;
+      bar.style.marginLeft = `${((focus - minF()) / span) * (100 - Math.min(100, (nVis / Math.max(nVis, list.length)) * 100))}%`;
+    }
   });
 
-  return { setFilter(fn) { filter = fn; } };
+  return { setFilter(fn) { filter = fn; layout(); lastUse = performance.now(); } };
 }
 
 /* ---------- 3D ikonlar ---------- */

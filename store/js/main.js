@@ -49,18 +49,7 @@ $('.footer-news').addEventListener('submit', (e) => {
 
 /* ---------- 3D ikonlar, koleksiyon sahnesi, final ---------- */
 createIcons($('.icons3d'), $$('.why-card'));
-const label = $('.lineup-label');
-const lineup = createLineup($('.lineup'), PRODUCTS, {
-  onOpen: (p) => openDetail(p.id),
-  onHover: (p, x, y) => {
-    label.hidden = !p;
-    if (!p) return;
-    label.querySelector('b').textContent = p.name;
-    label.querySelector('span').textContent = `${formatPrice(p.price)} · İncele`;
-    label.style.left = `${x}px`;
-    label.style.top = `${y}px`;
-  },
-});
+const lineup = createLineup($('.lineup'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice });
 if (!lineup) $('.world-stage').hidden = true;
 createFinale($('.finale3d'), PRODUCTS, { onOpen: (p) => openDetail(p.id), price: formatPrice });
 const viewer = createViewer($('.detail-3d'), {
@@ -238,9 +227,15 @@ const bag = createBag($('.detail-media'), $('.detail-3d'), {
     const p = byId(state.id);
     cart.add(state.id, state.size);
     bumpBadge();
-    return { text: `${p.name} · ${sizeLabel(state.size)} · ${formatPrice(p.price)}` };
+    // Satışa yönlendirme: sepet özeti ve aynı gruptan iki öneri
+    const pool = PRODUCTS.filter((x) => x.id !== p.id && x.gender === p.gender);
+    const at = PRODUCTS.indexOf(p);
+    const picks = pool.sort((a, b) => ((PRODUCTS.indexOf(a) - at + N) % N) - ((PRODUCTS.indexOf(b) - at + N) % N)).slice(0, 2)
+      .map((x) => ({ id: x.id, name: x.name, price: formatPrice(x.price), img: x.image }));
+    return { text: `${p.name} · ${sizeLabel(state.size)} · ${formatPrice(p.price)}`, count: cart.count(), total: formatPrice(cart.total()), picks };
   },
-  onOpenCart: () => { closeDetail(); toggleCart(true); },
+  onPick: (id) => openDetail(id),
+  onCheckout: () => { closeDetail(); startCheckout(); },
 });
 $('.add').addEventListener('click', () => {
   if (!state.size) { needSize(); return; }
@@ -288,6 +283,12 @@ function flyToCart(fromEl, p) {
     void b.offsetWidth;
     b.classList.add('bump');
   };
+}
+
+// Siparişi tamamla: sohbet asistanındaki sipariş akışını başlatır (yoksa sepeti açar)
+function startCheckout() {
+  if (window.sesaChat) window.sesaChat.checkout();
+  else toggleCart(true);
 }
 
 /* ---------- Sepet ---------- */
