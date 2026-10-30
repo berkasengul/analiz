@@ -272,10 +272,11 @@ input, textarea { caret-color: var(--pink-d); }
 .bag-front { z-index: 2; }
 .bag { --bag-light: #ffd6ee; --bag-mid: #f59bd6; --bag-deep: #c45aa0; }
 .bag svg { filter: drop-shadow(0 22px 26px rgba(90, 30, 80, .28)) drop-shadow(0 4px 6px rgba(43, 47, 107, .18)); }
-.bag-front .bag-fabric { opacity: 0; transition: opacity .7s ease .15s; }
-.bag-front.is-full .bag-fabric { opacity: 1; }
-.bag-front .bag-monogram { transition: opacity .5s; }
-.bag-front.is-full .bag-monogram { opacity: 0; }
+.bag-front.is-full .bag-glint { animation: glint 1.1s ease-in-out .5s both; }
+@keyframes glint { from { transform: skewX(-18deg) translateX(0); } to { transform: skewX(-18deg) translateX(320px); } }
+.bag-front.is-full .bag-bow { animation: bowPop .55s cubic-bezier(.3,1.6,.5,1) .3s both; }
+.bag-bow { transform-box: fill-box; transform-origin: center; }
+@keyframes bowPop { from { transform: scale(.4) rotate(-12deg); opacity: 0; } }
 .bag-back .bag-tissue { transform: translateY(46px); transform-box: fill-box; transition: transform .6s cubic-bezier(.3,1.5,.5,1) .1s; }
 .bag-back.is-full .bag-tissue { transform: none; }
 .bag-front:not(.is-full) .bag-logo { opacity: 0; }
@@ -298,7 +299,7 @@ input, textarea { caret-color: var(--pink-d); }
 .bag-tip { position: absolute; left: 50%; top: -30px; transform: translateX(-50%); white-space: nowrap; padding: 5px 10px; border-radius: 999px; background: rgba(255, 255, 255, .9); color: var(--ink); font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 8px 18px -10px rgba(43, 47, 107, .5); }
 .detail.is-ordering .detail-hint, .detail.is-ordering .zoom-ctl, .detail.is-ordering .detail-nav, .detail.is-ordering .gift-badge { opacity: 0; pointer-events: none; transition: opacity .3s; }
 .detail.is-ordering .detail-blob { opacity: .25; transition: opacity .6s; }
-.bag-done { position: absolute; z-index: 3; left: 50%; top: 9%; transform: translateX(-50%); display: grid; justify-items: center; gap: 8px; text-align: center; width: min(92%, 380px); }
+.bag-done { position: absolute; z-index: 3; left: 50%; top: 5%; transform: translateX(-50%); display: grid; justify-items: center; gap: 8px; text-align: center; width: min(92%, 380px); }
 .bag-done[hidden] { display: none; }
 .bag-check { width: 56px; height: 56px; }
 .bag-check circle { fill: #3bb273; transform-origin: center; }
