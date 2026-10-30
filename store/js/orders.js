@@ -10,7 +10,7 @@ export function normPhone(v) {
 }
 
 // customer: { name, phone, city, address, payment, note, email? }; lines: [{ id, name, size, qty, price }]
-// Dönüş: { order, sent, configured } — configured: sipariş adresi tanımlı mı (değilse önizleme/demo)
+// Dönüş: { order, sent, configured, preview } — configured: sipariş adresi tanımlı mı (değilse demo)
 export async function placeOrder(customer, lines, fmt, discount = 0) {
   const id = `SK-${Date.now().toString(36).toUpperCase().slice(-6)}`;
   const subtotal = lines.reduce((n, x) => n + x.price * x.qty, 0);
@@ -20,7 +20,7 @@ export async function placeOrder(customer, lines, fmt, discount = 0) {
     // E-Tablo ve e-posta bildirimi için okunur özet
     summary: lines.map((x) => `${x.name} – ${x.size} yaş × ${x.qty} = ${fmt(x.price * x.qty)}`).join('\n'),
   };
-  const configured = !!SITE.orderEndpoint;
+  let configured = !!SITE.orderEndpoint;
   let sent = false;
   if (configured) {
     try {
@@ -34,6 +34,10 @@ export async function placeOrder(customer, lines, fmt, discount = 0) {
       }
     } catch { sent = false; }
   }
+  // Tek dosyalık claude.ai önizlemesi dış adreslere bağlanmaya izin vermez: orada sipariş tabloya
+  // ulaşamaz. Müşteri akışını denemek için önizlemede deneme siparişi gibi davran (yayındaki sitede olmaz).
+  const preview = !sent && configured && !!window.__spinSource;
+  if (preview) configured = false;
   // Gönderildiyse (ya da önizlemede) siparişi "Siparişlerim" için bu tarayıcıda da sakla
   if (sent || !configured) {
     try {
@@ -42,5 +46,5 @@ export async function placeOrder(customer, lines, fmt, discount = 0) {
       localStorage.setItem('sesa-orders', JSON.stringify(all));
     } catch { /* yok say */ }
   }
-  return { order, sent, configured };
+  return { order, sent, configured, preview };
 }

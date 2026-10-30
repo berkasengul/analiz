@@ -280,8 +280,9 @@ export function createBag(media, canvas, hooks = {}) {
     if (!fast) { bagWhoosh(0.7); setTimeout(() => burst(m, lift, b), 760); }
     setTimeout(chime, fast ? 0 : 1040);
     await anims[anims.length - 1].finished.catch(() => {});
-    // Havada yavaş salınım
-    if (!fast) for (const el of [back, front]) anims.push(el.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-7px)' }], { duration: 2400, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out', composite: 'add' }));
+    // Havada yavaş salınım: ayrı 'translate' özelliğinde, böylece yukarıdaki transform'u ezmez
+    // (composite:'add' desteklemeyen iOS'ta çanta bu yüzden aşağıda kalıyordu)
+    if (!fast) for (const el of [back, front]) anims.push(el.animate([{ translate: '0 0' }, { translate: '0 -7px' }], { duration: 2400, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' }));
     // 3) Onay ve satışa yönlendirme
     done.querySelector('.bag-sub').textContent = info.text || '';
     done.querySelector('.bag-cart').innerHTML = info.count ? `Sepetinde <b>${info.count} ürün</b> · Toplam <b>${info.total}</b>` : '';

@@ -482,7 +482,7 @@ async function submitOrder() {
   const gender = boys * 2 > lines.reduce((n, x) => n + x.qty, 0) ? 'erkek' : 'kiz';
   const thumbs = lines.map((x) => byId(x.id).image);
   btn.textContent = 'Gönderiliyor…';
-  const { order, sent, configured } = await placeOrder(c, lines, formatPrice, cart.discount());
+  const { order, sent, configured, preview } = await placeOrder(c, lines, formatPrice, cart.discount());
   btn.disabled = false;
   btn.textContent = 'Siparişi Onayla';
   if (configured && !sent) {
@@ -496,6 +496,7 @@ async function submitOrder() {
   // Kutlama: sepet kapanır, el çantayı kameraya uzatır
   toggleCart(false);
   setTimeout(() => celebration.show({ order, phone: c.phone, name: c.name, gender, thumbs }), 250);
+  if (preview) setTimeout(() => toast('Önizleme modu: bu deneme siparişi tabloya iletilmedi. Yayındaki sitede siparişler doğrudan düşer.'), 4000);
 }
 $('.checkout').addEventListener('click', () => { if (cartStep === 'form') submitOrder(); else if (cart.count()) setCartStep('form'); });
 co.addEventListener('submit', (e) => { e.preventDefault(); submitOrder(); });
