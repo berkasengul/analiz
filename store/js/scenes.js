@@ -76,10 +76,30 @@ export function createLineup(canvas, products, hooks = {}) {
     list.forEach((g, k) => { g.x = k * GAP; });
     target = clampT(target);
   }
+  // Kadraj: figür (baş → kaide) sahnenin yüksekliğine sığar, altta isim kartına yer kalır.
+  // Kaç figürün yan yana görüneceği bu ölçekte sahnenin genişliğinden bulunur; dar ekranda
+  // en az 1,6 figür görünecek şekilde genişliğe göre küçültülür.
+  const HEAD = 10.9;
+  const FOOT = -0.15;
+  const TOP = 0.06; // başın üstünde bırakılan pay (sahne yüksekliği oranı)
+  let BOT = 0.8; // kaidenin alt kenarı bu satırda; altı kartlara ayrılır
+  const frameCam = { dist: 40, cy: 5 };
+  function fitCamera() {
+    const T = Math.tan((camera.fov * Math.PI) / 360);
+    const h = canvas.clientHeight || 1;
+    BOT = 1 - Math.min(0.24, Math.max(0.14, 96 / h)); // kart yüksekliği kadar pay (~96 px)
+    let H = (HEAD - FOOT) / (BOT - TOP);
+    let dist = H / (2 * T);
+    const visW = H * camera.aspect;
+    nVis = visW / GAP;
+    if (nVis < 1.6) { nVis = 1.6; H = (nVis * GAP) / camera.aspect; dist = H / (2 * T); }
+    nVis = Math.min(nVis, 6.5);
+    frameCam.dist = dist;
+    frameCam.cy = FOOT + (BOT - 0.5) * H; // kaide alt kenarı BOT satırına gelir
+  }
   function resize() {
     sizeTo(st, canvas);
-    const w = canvas.clientWidth;
-    nVis = w > 1180 ? 5 : w > 860 ? 4 : w > 560 ? 3 : 1.7;
+    fitCamera();
     layout();
     focus = target;
   }
@@ -106,7 +126,7 @@ export function createLineup(canvas, products, hooks = {}) {
     if (!drag) return;
     const dx = e.clientX - drag.x;
     drag.moved = Math.max(drag.moved, Math.abs(dx));
-    const unitsPerPx = (nVis * GAP) / canvas.clientWidth / GAP;
+    const unitsPerPx = nVis / canvas.clientWidth;
     target = clampT(drag.f - dx * unitsPerPx);
     lastUse = performance.now();
   });
@@ -138,11 +158,9 @@ export function createLineup(canvas, products, hooks = {}) {
       target = target >= maxF() - 0.01 ? minF() : clampT(Math.round(target) + 1);
     }
     focus += (target - focus) * (1 - Math.exp(-dt * 6));
-    const T = Math.tan((camera.fov * Math.PI) / 360);
-    const dist = (nVis * GAP) / (2 * T * camera.aspect);
     const cx = focus * GAP;
-    camera.position.set(cx, 5.2 + dist * 0.07, dist);
-    camera.lookAt(cx, 4.4, 0);
+    camera.position.set(cx, frameCam.cy, frameCam.dist);
+    camera.lookAt(cx, frameCam.cy, 0);
     const h = drag ? -1 : pickAt();
     if (h !== hovered) { hovered = h; canvas.style.cursor = h >= 0 ? 'pointer' : 'grab'; }
     const b = blink(t);

@@ -2,6 +2,7 @@
 // Tamamen tarayıcıda çalışır (sunucu gerekmez). Sipariş, config.js'teki WhatsApp numarasına
 // ve/veya sipariş adresine iletilir.
 import { SITE } from './config.js';
+import { placeOrder, normPhone } from './orders.js';
 
 const low = (s) => s.toLocaleLowerCase('tr-TR');
 const fold = (s) => low(s).replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
@@ -255,9 +256,9 @@ export function createChat(api) {
       state.step = 'phone';
       await say(`Teşekkürler ${esc(o.name.split(' ')[0])}. <b>Telefon numaranız</b>? (05xx xxx xx xx)`);
     } else if (state.step === 'phone') {
-      const d = text.replace(/\D/g, '').replace(/^90/, '').replace(/^0/, '');
-      if (!/^5\d{9}$/.test(d)) { await say('Numara geçerli görünmüyor. 05 ile başlayan 11 haneli numaranızı yazar mısınız?'); return; }
-      o.phone = `0${d}`;
+      const ph = normPhone(text);
+      if (!ph) { await say('Numara geçerli görünmüyor. 05 ile başlayan 11 haneli numaranızı yazar mısınız?'); return; }
+      o.phone = ph;
       state.step = 'city';
       await say('<b>İl / ilçe</b>?');
     } else if (state.step === 'city') {
@@ -284,28 +285,11 @@ export function createChat(api) {
   async function place() {
     const o = state.order;
     state.step = null;
-    const id = `SK-${Date.now().toString(36).toUpperCase().slice(-6)}`;
-    const items = cart.items.map((x) => { const p = products.find((y) => y.id === x.id); return { id: p.id, name: p.name, size: x.size, qty: x.qty, price: p.price }; });
-    const order = { id, date: new Date().toISOString(), items, total: cart.total(), customer: o };
-    try { const all = JSON.parse(localStorage.getItem('sesa-orders') || '[]'); all.push(order); localStorage.setItem('sesa-orders', JSON.stringify(all)); } catch { /* yok say */ }
-    let sent = false;
-    if (SITE.orderEndpoint) {
-      try { const r = await fetch(SITE.orderEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(order) }); sent = r.ok; } catch { sent = false; }
-    }
-    const lines = items.map((x) => `• ${x.name} – ${sizeLabel(x.size)} × ${x.qty} = ${formatPrice(x.price * x.qty)}`).join('\n');
-    const msg = `Merhaba, SESA KIDS sipariş vermek istiyorum.\nSipariş no: ${id}\n${lines}\nToplam: ${formatPrice(order.total)}\n\n${o.name}\n${o.phone}\n${o.address}, ${o.city}${o.note ? `\nNot: ${o.note}` : ''}`;
+    const lines = cart.items.map((x) => { const p = products.find((y) => y.id === x.id); return { id: p.id, name: p.name, size: x.size, qty: x.qty, price: p.price }; });
+    const { order, link, via } = await placeOrder(o, lines, formatPrice);
     cart.clear();
-    if (SITE.whatsapp) {
-      const url = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`;
-      await say(`Siparişiniz hazır! Sipariş no: <b>${id}</b>.<br>Son adım: aşağıdaki düğmeyle siparişi WhatsApp'tan bize gönderin, ödeme ve kargo bilgisini hemen iletelim.<p><a class="chat-wa" href="${url}" target="_blank" rel="noopener">WhatsApp ile gönder</a></p>`);
-      window.open(url, '_blank', 'noopener');
-    } else if (sent) {
-      await say(`Siparişiniz alındı! Sipariş no: <b>${id}</b>. Ödeme ve kargo bilgisi için ${esc(o.phone)} numarasından size ulaşacağız.`);
-    } else {
-      // Otomatik iletim ayarlanmamışsa sipariş e-postayla gönderilir (her cihazda çalışır)
-      const mail = `mailto:${SITE.email}?subject=${encodeURIComponent(`SESA KIDS sipariş ${id}`)}&body=${encodeURIComponent(msg)}`;
-      await say(`Sipariş özetiniz hazır (no: <b>${id}</b>). Son adım: aşağıdaki düğmeyle siparişi bize e-postayla gönderin; ödeme ve kargo bilgisini ${esc(o.phone)} numarasına iletelim.<p><a class="chat-wa" href="${mail}">E-postayla gönder</a></p>`);
-    }
+    if (via === 'endpoint') await say(`Siparişiniz alındı! Sipariş no: <b>${order.id}</b>. Ödeme ve kargo bilgisi için ${esc(o.phone)} numarasından size ulaşacağız.`);
+    else await say(`Siparişiniz hazır! Sipariş no: <b>${order.id}</b>.<br>Son adım: siparişi ${via === 'whatsapp' ? "WhatsApp'tan" : 'e-postayla'} bize gönderin, ödeme ve kargo bilgisini hemen iletelim.<p><a class="chat-wa" href="${link}" target="_blank" rel="noopener">${via === 'whatsapp' ? 'WhatsApp ile gönder' : 'E-postayla gönder'}</a></p>`);
     api.onOrder?.(order);
     quick(['Ürünleri göster']);
   }

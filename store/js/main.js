@@ -5,6 +5,8 @@ import { createLineup, createIcons, createFinale, createViewer } from './scenes.
 import { createBag } from './bag.js';
 import { createChat } from './chat.js';
 import { paintBackdrop } from './themes.js';
+import { placeOrder, normPhone } from './orders.js';
+import { SITE } from './config.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -299,10 +301,10 @@ function flyToCart(fromEl, p) {
   };
 }
 
-// Siparişi tamamla: sohbet asistanındaki sipariş akışını başlatır (yoksa sepeti açar)
+// Siparişi tamamla: sepet panelinde teslimat formunu açar (asistan yalnızca kullanıcı isterse açılır)
 function startCheckout() {
-  if (window.sesaChat) window.sesaChat.checkout();
-  else toggleCart(true);
+  toggleCart(true);
+  if (cart.count()) setCartStep('form');
 }
 
 /* ---------- Sepet ---------- */
@@ -361,7 +363,7 @@ function toggleCart(open) {
     $('.cart-close').focus({ preventScroll: true });
   } else {
     scrim.classList.remove('is-open');
-    setTimeout(() => { scrim.hidden = true; }, 300);
+    setTimeout(() => { scrim.hidden = true; if (cartStep !== 'form') setCartStep('list'); }, 300);
   }
 }
 $('.cart-btn').addEventListener('click', () => toggleCart(true));
@@ -374,9 +376,64 @@ $('.cart-items').addEventListener('click', (e) => {
   if (b.classList.contains('remove')) cart.setQty(i, 0);
   else cart.setQty(i, cart.items[i].qty + Number(b.dataset.d));
 });
-// Sohbet asistanı: ürünleri tanır, sepete ekler, siparişi alır
-window.sesaChat = createChat({ products: PRODUCTS, cart, openDetail, formatPrice, sizeLabel });
-$('.checkout').addEventListener('click', () => { toggleCart(false); window.sesaChat.checkout(); });
+// Sohbet asistanı: yalnızca kullanıcı sağ alttaki düğmeye bastığında açılır
+createChat({ products: PRODUCTS, cart, openDetail, formatPrice, sizeLabel });
+
+/* ---------- Sepette sipariş: sepet → teslimat formu → onay ---------- */
+const co = $('.co');
+const coDone = $('.co-done');
+let cartStep = 'list';
+function setCartStep(step) {
+  cartStep = step;
+  $('.cart-items').hidden = step !== 'list';
+  co.hidden = step !== 'form';
+  coDone.hidden = step !== 'done';
+  $('.cart-foot').hidden = step === 'done';
+  const btn = $('.checkout');
+  btn.textContent = step === 'form' ? 'Siparişi Onayla' : 'Siparişi Tamamla';
+  const over = cart.total() >= SITE.freeShippingOver;
+  $('.cart-ship').textContent = step === 'form'
+    ? (over ? 'Kargo ücretsiz.' : `${formatPrice(SITE.freeShippingOver - cart.total())} daha ekleyin, kargo ücretsiz olsun.`)
+    : 'Kargo ödeme adımında hesaplanır.';
+  if (step === 'form') {
+    $('.co-pay').textContent = SITE.payment;
+    $('.co-err').textContent = '';
+    setTimeout(() => co.elements.name.focus({ preventScroll: true }), 350);
+  }
+}
+$('.co-back').addEventListener('click', () => setCartStep('list'));
+$('.co-close').addEventListener('click', () => { setCartStep('list'); toggleCart(false); });
+async function submitOrder() {
+  const f = co.elements;
+  const c = { name: f.name.value.trim(), phone: normPhone(f.phone.value), city: f.city.value.trim(), address: f.address.value.trim(), note: f.note.value.trim() };
+  const bad = (el, msg) => { $('.co-err').textContent = msg; el.focus(); el.setAttribute('aria-invalid', 'true'); return false; };
+  [...co.querySelectorAll('[aria-invalid]')].forEach((el) => el.removeAttribute('aria-invalid'));
+  if (c.name.split(/\s+/).length < 2) return bad(f.name, 'Lütfen ad ve soyadınızı yazın.');
+  if (!c.phone) return bad(f.phone, 'Telefon numarası 05 ile başlayan 11 hane olmalı.');
+  if (c.city.length < 3) return bad(f.city, 'İl ve ilçe yazın.');
+  if (c.address.length < 10) return bad(f.address, 'Kargonun ulaşabilmesi için adresi ayrıntılı yazın.');
+  const btn = $('.checkout');
+  btn.disabled = true;
+  const lines = cart.items.map((x) => { const p = byId(x.id); return { id: p.id, name: p.name, size: x.size, qty: x.qty, price: p.price }; });
+  const { order, link, via } = await placeOrder(c, lines, formatPrice);
+  cart.clear();
+  co.reset();
+  $('.co-no').innerHTML = `Sipariş no: <b>${order.id}</b> · Toplam ${formatPrice(order.total)}`;
+  const send = $('.co-send');
+  if (via === 'endpoint') {
+    $('.co-msg').textContent = `Siparişiniz alındı. Ödeme ve kargo bilgisi için ${c.phone} numarasından size ulaşacağız.`;
+    send.hidden = true;
+  } else {
+    $('.co-msg').textContent = `Son adım: siparişi ${via === 'whatsapp' ? "WhatsApp'tan" : 'e-postayla'} bize gönderin; ödeme ve kargo bilgisini ${c.phone} numarasına hemen iletelim.`;
+    send.hidden = false;
+    send.href = link;
+    send.textContent = via === 'whatsapp' ? 'WhatsApp ile gönder' : 'E-postayla gönder';
+  }
+  setCartStep('done');
+  btn.disabled = false;
+}
+$('.checkout').addEventListener('click', () => { if (cartStep === 'form') submitOrder(); else if (cart.count()) setCartStep('form'); });
+co.addEventListener('submit', (e) => { e.preventDefault(); submitOrder(); });
 cart.render();
 
 $('.year').textContent = new Date().getFullYear();

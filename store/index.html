@@ -259,9 +259,28 @@
       <button class="icon-btn cart-close" aria-label="Sepeti kapat"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="cart-items"></div>
+    <form class="co" hidden novalidate>
+      <button type="button" class="co-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Sepete dön</button>
+      <h3>Teslimat bilgileri</h3>
+      <label>Ad soyad<input name="name" autocomplete="name" required></label>
+      <label>Telefon<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx" required></label>
+      <label>İl / ilçe<input name="city" autocomplete="address-level2" placeholder="İstanbul / Kadıköy" required></label>
+      <label>Açık adres<textarea name="address" rows="3" autocomplete="street-address" placeholder="Mahalle, sokak, bina ve daire no" required></textarea></label>
+      <label>Sipariş notu <small>(isteğe bağlı)</small><input name="note"></label>
+      <p class="co-pay"></p>
+      <p class="co-err" role="alert"></p>
+    </form>
+    <div class="co-done" hidden>
+      <svg class="bag-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
+      <h3>Siparişiniz hazır</h3>
+      <p class="co-no"></p>
+      <p class="co-msg"></p>
+      <a class="btn btn-ink btn-block co-send" target="_blank" rel="noopener"></a>
+      <button type="button" class="btn btn-block co-close">Alışverişe devam</button>
+    </div>
     <div class="cart-foot">
       <div class="row"><span>Ara toplam</span><strong class="cart-sub">₺0</strong></div>
-      <p class="muted">Kargo ödeme adımında hesaplanır.</p>
+      <p class="muted cart-ship">Kargo ödeme adımında hesaplanır.</p>
       <button class="btn btn-ink btn-block checkout">Siparişi Tamamla</button>
     </div>
   </aside>
