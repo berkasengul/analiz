@@ -2,6 +2,7 @@
 // arka plan o ürünün rengine geçer.
 import { formatPrice } from './products.js';
 import { createFigures } from './figure3d.js';
+import { STORIES } from './stories.js';
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (t) => { t = clamp(t); return t * t * (3 - 2 * t); };
@@ -62,6 +63,23 @@ export function createStory(root, products, hooks = {}) {
       <button class="btn btn-ink" data-open="${p.id}">İncele ve beden seç</button>
     </article>`;
   }).join('');
+  // Masal cümleleri: ürün ekrana gelince başlık o pijamanın masalından bir cümleye geçer
+  // (ilk ürün açılış sözüyle karşılar; h1 sayfada sabit kalır, diğerleri üstüne yerleşir)
+  const h1 = $('.intro h1');
+  h1.classList.add('intro-line', 'is-on');
+  const taleOf = (p) => STORIES[p.id];
+  const kicker = (p) => (taleOf(p) ? `<span class="intro-tale">${taleOf(p).emoji} ${taleOf(p).title}</span>` : '');
+  h1.insertAdjacentHTML('beforeend', kicker(products[0]));
+  h1.insertAdjacentHTML('afterend', products.map((p, i) => {
+    const t = taleOf(p);
+    if (!i || !t?.line) return '';
+    return `<p class="intro-line" data-i="${i}" aria-hidden="true">${t.line[0]}<br><em>${t.line[1]}</em>${kicker(p)}</p>`;
+  }).join(''));
+  const introLines = new Map([[0, h1], ...[...$('.intro').querySelectorAll('p.intro-line')].map((el) => [Number(el.dataset.i), el])]);
+  $('.panels').querySelectorAll('.panel').forEach((el, i) => {
+    if (!taleOf(products[i])) return;
+    el.querySelector('[data-open]').insertAdjacentHTML('afterend', `<button type="button" class="panel-tale" data-tale="${products[i].id}">🌙 Masalını oku</button>`);
+  });
   $('.rail').innerHTML = products.map((p, i) => `
     <button data-go="${i}" style="--c:${p.accent}"><b>${pad2(i + 1)}</b><span>${split(p.name)[0]}</span></button>`).join('');
   $('.bar').innerHTML = products.map(() => '<i><b></b></i>').join('');
@@ -136,6 +154,8 @@ export function createStory(root, products, hooks = {}) {
   root.addEventListener('click', (e) => {
     const o = e.target.closest('[data-open]');
     if (o) hooks.onOpen?.(products.find((p) => p.id === o.dataset.open));
+    const tl = e.target.closest('[data-tale]');
+    if (tl) hooks.onTale?.(products.find((p) => p.id === tl.dataset.tale));
     const g = e.target.closest('[data-go]');
     if (g) goTo(Number(g.dataset.go));
     const m = e.target.closest('.model img');
@@ -541,9 +561,10 @@ export function createStory(root, products, hooks = {}) {
       drag.rot = 0; // önceki ürünü çevirmek yeni ürüne taşınmasın
       drag.vel = 0;
       rails.forEach((r, k) => r.classList.toggle('is-active', k === a));
+      const line = introLines.get(a) || h1;
+      introLines.forEach((el) => el.classList.toggle('is-on', el === line));
       hooks.onProduct?.(products[a]);
     }
-    $('.intro').style.opacity = clamp(1 - c * 2.2).toFixed(3);
     $('.floor').style.opacity = (1 - Math.abs(c - a) * 1.2).toFixed(3);
     drawSky(t, prog);
   }

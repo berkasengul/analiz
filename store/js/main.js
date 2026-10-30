@@ -41,6 +41,17 @@ const ageRange = (p) => `${p.sizes[0].split('-')[0]}–${p.sizes[p.sizes.length 
 const stage = $('.story');
 const story = createStory(stage, PRODUCTS, {
   onOpen: (p) => openDetail(p.id),
+  // "Masalını oku": ürün sayfası masal kartı açık ve görünür şekilde açılır
+  onTale: (p) => {
+    openDetail(p.id);
+    setTimeout(() => {
+      const t = $('.tale');
+      if (t.hidden) return;
+      t.classList.add('is-open');
+      t.querySelector('.tale-more').textContent = 'Kısalt';
+      t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 380);
+  },
   isBusy: () => !detail.hidden || cartEl.classList.contains('is-open'),
 });
 
