@@ -132,6 +132,11 @@ input, textarea { caret-color: var(--pink-d); }
 .tag::before { content: ""; position: absolute; left: calc(-1 * var(--lead, 18px)); top: 50%; width: var(--lead, 18px); height: 1px; background: rgba(43, 47, 107, .5); }
 .tag.left { margin-left: 0; translate: calc(-100% - var(--lead, 18px)) 0; flex-direction: row-reverse; padding: 7px 8px 7px 12px; }
 .tag.left::before { left: auto; right: calc(-1 * var(--lead, 18px)); }
+/* Vitrin fiyat etiketi: diğer etiketlerden ayrışan lacivert, büyük fiyat */
+.tags3d .tag-price { padding: 8px 10px 8px 16px; background: var(--ink); color: #fff; font: 700 17px/1 var(--display); letter-spacing: .01em; text-transform: none; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(30, 32, 80, .65); }
+.tags3d .tag-price i { background: var(--acc, var(--pink)); box-shadow: 0 0 0 4px rgba(255, 255, 255, .85); }
+.tags3d .tag-price::before { background: rgba(43, 47, 107, .65); }
+.tags3d .tag-price:hover, .tags3d .tag-price:focus-visible { background: var(--acc-ink, var(--ink)); color: #fff; box-shadow: 0 16px 34px -12px rgba(30, 32, 80, .75); }
 
 .hud { position: absolute; inset: calc(var(--header-h) + 12px) 28px 22px; pointer-events: none; font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); text-shadow: 0 0 12px rgba(255, 255, 255, .8); }
 .hud span { position: absolute; }
@@ -475,6 +480,7 @@ input, textarea { caret-color: var(--pink-d); }
   .panel .btn { height: 44px; font-size: 15px; justify-self: stretch; }
   .rail, .hud { display: none; }
   .tag { font-size: 9.5px; padding: 5px 9px 5px 6px; }
+  .tags3d .tag-price { font-size: 14px; padding: 6px 8px 6px 12px; }
   .focus-back { left: 50%; bottom: auto; top: calc(var(--header-h) + 6px); }
   .bar { bottom: 18px; }
   .bar i { width: 24px; }

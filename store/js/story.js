@@ -95,7 +95,8 @@ export function createStory(root, products, hooks = {}) {
   const m3d = createFigures($('.models3d'), products);
   if (m3d) {
     root.classList.add('is-3d');
-    $('.tags3d').innerHTML = products.map((p, i) => TAGS.map((t) => `<button type="button" class="tag" data-i="${i}" data-k="${t.key}" aria-label="${t.label}: yakınlaştır"><i></i>${t.label}</button>`).join('')).join('');
+    $('.tags3d').innerHTML = products.map((p, i) => TAGS.map((t) => `<button type="button" class="tag" data-i="${i}" data-k="${t.key}" aria-label="${t.label}: yakınlaştır"><i></i>${t.label}</button>`).join('')
+      + `<button type="button" class="tag tag-price" data-i="${i}" data-k="fiyat" aria-label="${p.name}, ${formatPrice(p.price)}: ürünü incele"><i></i>${formatPrice(p.price)}</button>`).join('');
   }
   const tags3d = m3d ? [...$('.tags3d').children] : [];
   const drag = { on: false, x: 0, rot: 0, vel: 0, last: 0 };
@@ -119,6 +120,7 @@ export function createStory(root, products, hooks = {}) {
   $('.tags3d').addEventListener('click', (e) => {
     const tg = e.target.closest('.tag');
     if (!tg) return;
+    if (tg.dataset.k === 'fiyat') { hooks.onOpen?.(products[Number(tg.dataset.i)]); return; }
     if (focus.on && focus.key === tg.dataset.k) unfocus();
     else setFocus(Number(tg.dataset.i), tg.dataset.k);
   });
@@ -530,15 +532,18 @@ export function createStory(root, products, hooks = {}) {
       tags3d.forEach((tg) => {
         const i = Number(tg.dataset.i);
         if (i !== a || settle < 0.05 || focus.amt > 0.02) { tg.style.opacity = 0; tg.style.pointerEvents = 'none'; return; }
-        const [x, y] = products[i].spots[tg.dataset.k];
-        const pt = m3d.project(i, tg.dataset.k);
+        const isPrice = tg.dataset.k === 'fiyat';
+        const [x] = isPrice ? [0] : products[i].spots[tg.dataset.k];
+        const pt = m3d.project(i, isPrice ? 'baski' : tg.dataset.k);
         if (!pt || pt.facing < 0.35) { tg.style.opacity = 0; tg.style.pointerEvents = 'none'; return; }
+        // Fiyat: ön baskının biraz üstünden, sol tarafa (omuz hizası)
+        if (isPrice) pt.y -= (frameBox.bottom - frameBox.top) * vh * 0.11;
         tg.style.pointerEvents = 'auto';
         const left = x < 0.5;
         tg.classList.toggle('left', left);
         // Etiket yazısı figürün silüetinin dışında dursun: nokta detayda, bağlantı çizgisi uzar
         const H = (frameBox.bottom - frameBox.top) * vh * 0.86;
-        const edge = cx() * vw + (left ? -1 : 1) * (EDGE[tg.dataset.k] || 0.15) * H;
+        const edge = cx() * vw + (left ? -1 : 1) * (EDGE[isPrice ? 'baski' : tg.dataset.k] || 0.15) * H;
         let lead = Math.min(180, Math.max(18, left ? pt.x - edge + 10 : edge - pt.x + 10));
         // Dar ekranda yazı ekranın dışına taşmasın
         const tw = Number(tg.dataset.w) || (tg.dataset.w = tg.offsetWidth);
