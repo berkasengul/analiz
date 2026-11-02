@@ -195,6 +195,13 @@ input, textarea { caret-color: var(--pink-d); }
 .lineup-cards { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .lineup-card { position: absolute; left: 0; top: 0; display: grid; justify-items: center; gap: 2px; min-width: 150px; padding: 10px 16px 11px; border: 1px solid rgba(255, 255, 255, .95); border-radius: 18px; background: rgba(255, 255, 255, .86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 14px 30px -18px rgba(43, 47, 107, .45); color: var(--ink); cursor: pointer; white-space: nowrap; transition: box-shadow .25s, background .25s; }
 .lineup-card b { font-family: var(--display); font-weight: 600; font-size: 15px; }
+/* Figürden çıkan fiyat etiketi (vitrindeki etiketlerle aynı dil) */
+.lineup-tag { position: absolute; left: 0; top: 0; display: flex; align-items: center; pointer-events: none; transition: opacity .2s; will-change: transform; }
+.lineup-tag i { width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; background: var(--c, var(--pink-d)); box-shadow: 0 0 0 3px rgba(255, 255, 255, .95), 0 2px 8px rgba(43, 47, 107, .35); flex: none; }
+.lineup-tag s { width: 46px; height: 1.5px; margin-top: -5.5px; background: linear-gradient(90deg, var(--c, var(--pink-d)), rgba(43, 47, 107, .45)); flex: none; transform-origin: left; transition: width .25s; }
+.lineup-tag b { margin-top: -5.5px; padding: 6px 12px 6px; border-radius: 999px; background: rgba(255, 255, 255, .92); border: 1px solid #fff; box-shadow: 0 10px 22px -12px rgba(43, 47, 107, .55); font: 700 15px/1 var(--display); color: var(--ink); letter-spacing: .01em; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); white-space: nowrap; }
+.lineup-tag.is-hover s { width: 58px; }
+.lineup-tag.is-hover b { background: var(--ink); color: #fff; border-color: var(--ink); }
 .lineup-card span { font: 700 13px/1.2 var(--body); color: var(--ink-2); }
 .lineup-card em { font: 700 11px/1 var(--mono); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--c, var(--pink-d)); margin-top: 3px; }
 .lineup-card:hover, .lineup-card.is-hover, .lineup-card:focus-visible { background: #fff; box-shadow: 0 18px 34px -16px rgba(43, 47, 107, .55); }
@@ -481,6 +488,8 @@ input, textarea { caret-color: var(--pink-d); }
   .world-prev { left: 8px; }
   .world-next { right: 8px; }
   .lineup-card { min-width: 132px; padding: 8px 12px; }
+  .lineup-tag s { width: 26px; }
+  .lineup-tag b { font-size: 13px; padding: 5px 9px; }
   .grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .finale { align-items: end; padding-bottom: 24px; }
   .finale-copy { margin: 0 16px; padding: 20px; }
@@ -851,16 +860,23 @@ input, textarea { caret-color: var(--pink-d); }
   .story .dim { background: radial-gradient(ellipse 62% 46% at 50% 44%, transparent 30%, rgba(24, 22, 66, .38) 100%), linear-gradient(180deg, rgba(24, 22, 66, .1), rgba(24, 22, 66, .26)); }
 }
 
-/* Pijama dünyası sahnesi */
+/* Pijama dünyası sahnesi: açık, premium stüdyo (tepeden yumuşak spot, iki yanda pembe/lila ışık, ışıklı zemin) */
 .world-stage { background:
-    radial-gradient(42% 70% at 50% -6%, rgba(255, 246, 228, .55), rgba(255, 246, 228, .12) 55%, transparent 75%),
-    radial-gradient(70% 30% at 50% 92%, rgba(255, 236, 248, .32), transparent 70%),
-    linear-gradient(180deg, #3a2f6e 0%, #2a2358 55%, #1d1944 100%);
-  box-shadow: 0 40px 80px -40px rgba(30, 20, 70, .6); }
-.world-stage::before { background: radial-gradient(70% 100% at 50% 0%, rgba(255, 240, 250, .22), rgba(255, 255, 255, 0) 70%); }
-.world-stage::after { background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 0 120px, rgba(255, 255, 255, .05) 120px 121px); }
-.world-progress { background: rgba(255, 255, 255, .18); }
-.world-progress b { background: #fff; }
+    radial-gradient(34% 62% at 50% -10%, rgba(255, 255, 255, .98), rgba(255, 255, 255, .45) 48%, transparent 72%),
+    radial-gradient(32% 48% at 12% -4%, rgba(255, 214, 234, .75), transparent 70%),
+    radial-gradient(32% 48% at 88% -4%, rgba(222, 226, 255, .75), transparent 70%),
+    radial-gradient(85% 24% at 50% 98%, rgba(236, 178, 214, .42), transparent 72%),
+    linear-gradient(180deg, #fffbfd 0%, #fdf1f7 46%, #f8e2ee 76%, #f2d5e6 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .95), inset 0 -60px 80px -60px rgba(190, 110, 160, .25), 0 50px 90px -50px rgba(150, 60, 120, .45); }
+/* figürlerin bastığı zemin: ışıklı ufuk çizgisi + yumuşak parlama */
+.world-stage::before { height: 34%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .9) 0, rgba(255, 255, 255, 0) 2px),
+    radial-gradient(60% 90% at 50% 0%, rgba(255, 255, 255, .85), rgba(255, 255, 255, .18) 55%, rgba(255, 255, 255, 0) 80%); }
+/* ipeksi dikey perde çizgileri */
+.world-stage::after { background: repeating-linear-gradient(90deg, rgba(214, 150, 190, 0) 0 74px, rgba(214, 150, 190, .07) 74px 76px, rgba(255, 255, 255, .5) 76px 77px, rgba(214, 150, 190, 0) 77px 150px); }
+.world-progress { background: rgba(43, 47, 107, .12); }
+.world-progress b { background: var(--ink); }
 
 /* ---------- Yazı tipleri: Fraunces (masal başlıkları) + Quicksand (arayüz) + Nunito (metin) ---------- */
 /* Tamamı Türkçe karakterleri (ğ, ş, ı, İ, ç, ö, ü) eksiksiz içerir */

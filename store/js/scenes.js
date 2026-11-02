@@ -37,6 +37,7 @@ function sizeTo(st, canvas) {
 /* ---------- Koleksiyon vitrini: tek sırada, eşit ölçekte, kayan premium vitrin ---------- */
 // Figürler aynı boyda ve aralıkta tek sıra hâlinde durur; kamera sıranın üzerinde kayar.
 // Her figürün altında ad/fiyat kartı. Oklar, sürükleme ve kısa süreli otomatik kayma.
+const TAG_X = 0.95, TAG_Y = 5.4; // fiyat çizgisinin figür üzerindeki çıkış noktası (kök koordinatı)
 export function createLineup(canvas, products, hooks = {}) {
   const st = makeStage(canvas, { fov: 24, shadowExtent: 60, groundOpacity: 0.14 });
   if (!st) return null;
@@ -53,11 +54,18 @@ export function createLineup(canvas, products, hooks = {}) {
     const card = document.createElement('button');
     card.type = 'button';
     card.className = 'lineup-card';
-    card.innerHTML = `<b>${p.name}</b><span>${hooks.price ? hooks.price(p.price) : p.price}</span><em>İncele</em>`;
+    card.innerHTML = `<b>${p.name}</b><em>İncele</em>`;
     card.style.setProperty('--c', p.accent);
     card.addEventListener('click', () => hooks.onOpen?.(p));
     cardsEl.append(card);
-    return { f, p, i, card, lift: 0, x: 0, show: 1, on: true };
+    // Fiyat etiketi: figürün belinden çıkan çizginin ucunda
+    const tag = document.createElement('span');
+    tag.className = 'lineup-tag';
+    tag.setAttribute('aria-hidden', 'true');
+    tag.innerHTML = `<i></i><s></s><b>${hooks.price ? hooks.price(p.price) : p.price}</b>`;
+    tag.style.setProperty('--c', p.accent);
+    cardsEl.append(tag);
+    return { f, p, i, card, tag, lift: 0, x: 0, show: 1, on: true };
   });
   const GAP = 6;
   let filter = () => true;
@@ -170,7 +178,7 @@ export function createLineup(canvas, products, hooks = {}) {
       g.lift += ((g.i === hovered ? 1 : 0) - g.lift) * 0.15;
       const { root } = g.f;
       root.visible = g.show > 0.02;
-      if (!root.visible) { g.card.style.opacity = 0; g.card.style.pointerEvents = 'none'; return; }
+      if (!root.visible) { g.card.style.opacity = 0; g.card.style.pointerEvents = 'none'; g.tag.style.opacity = 0; return; }
       root.position.set(g.x, -(1 - g.show) * 2, g.lift * 1.2);
       root.scale.setScalar((0.92 + g.show * 0.08) * (1 + g.lift * 0.05));
       const face = Math.atan2(camera.position.x - root.position.x, camera.position.z - root.position.z);
@@ -185,6 +193,13 @@ export function createLineup(canvas, products, hooks = {}) {
       g.card.style.opacity = (edge * g.show).toFixed(3);
       g.card.style.pointerEvents = edge > 0.5 ? 'auto' : 'none';
       g.card.classList.toggle('is-hover', g.i === hovered);
+      // Fiyat etiketi: belin sağ yanı (figürle birlikte yükselir)
+      v.set(root.position.x + TAG_X * root.scale.x, root.position.y + TAG_Y * root.scale.y, root.position.z);
+      v.project(camera);
+      const tx = (v.x * 0.5 + 0.5) * r.width, ty = (-v.y * 0.5 + 0.5) * r.height;
+      g.tag.style.transform = `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px)`;
+      g.tag.style.opacity = (edge * g.show * (0.9 + g.lift * 0.1)).toFixed(3);
+      g.tag.classList.toggle('is-hover', g.i === hovered);
     });
     renderer.render(scene, camera);
     const bar = stage.querySelector('.world-progress b');
