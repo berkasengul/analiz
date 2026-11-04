@@ -1,0 +1,11 @@
+# bölüm medyası ve üretim çıktıları depoya girmez
+*/out/
+*/tts/
+*/tts_xi*/
+*/img
+*/clips
+*/clips_u/
+*/cf/
+*/__pycache__/
+*.wav
+.xi

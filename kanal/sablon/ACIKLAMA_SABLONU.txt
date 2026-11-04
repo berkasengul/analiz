@@ -1,0 +1,75 @@
+# ŞABLON: Turkish Coffee Lady v4 açıklaması. Marka, bölüm damgaları (timeline / 1.25), prompt ve etiketleri yeni bölüme göre değiştir. Fiyat yazma.
+
+BAŞLIK (önerim)
+Claude ile 3D Web Sitesi Nasıl Yapılır? Kod Bilmeden 8 Adım (+ Nasıl Satılır)
+
+Alternatifler:
+• Kod Bilmeden 3D Web Sitesi Yaptım: Claude ile Adım Adım
+• Yapay Zeka ile 3D Web Sitesi Yap, Markalara Sat (Claude, Kod Yok)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AÇIKLAMA (kopyala, yapıştır)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Claude ile 3D web sitesi nasıl yapılır? Kod bilmeden, yapay zeka ile konuşarak bir kahve markasına 3D lansman sitesi yaptım. 8 adımda nasıl yaptığımı, senin nasıl yapacağını, Claude ile çalışırken 7 ipucunu ve bu işi markalara nasıl sunacağını anlatıyorum 👇
+
+Turkish Coffee Lady, Amerika'da Türk kahvesini tanıtan 16 yıllık bir marka ve buzlu Türk kahvesini kutuda satıyor. Biz de bu kutulara yakışan bir 3D lansman sitesi yaptık: her kahve kendi şehrinde (İstanbul, Mardin, İzmir, Kapadokya, Zeugma) dönüyor; tat bulucu, lansman listesi, İngilizce ve Türkçe, telefonda da aynı sahneler. Videoda markayı araştırmaktan, ilk denemedeki cam şişe hatasına, etiketten 3D kutuya, sahnelerden Netlify'a ve markaya giden maile kadar her adımı gösteriyorum. Sonda en çok sorulan soruları cevaplıyorum.
+
+ℹ️ Bu site, Turkish Coffee Lady için hazırlanmış bağımsız bir konsept demodur; marka sahibiyle bağlantılı değildir.
+
+⏱️ BÖLÜMLER
+00:00 Claude ile yaptığımız 3D web sitesi
+00:44 Neden 3D web sitesi?
+01:02 Bu videoda: nasıl yaptım, sen nasıl yaparsın, nasıl satılır
+01:10 1. Claude'a markayı araştırt
+01:41 2. Şablondan başla (cam şişe hatası)
+02:08 3. Kutu etiketini çizdir
+02:33 4. 3D kutu
+02:46 5. Her tada bir sahne
+03:05 6. Siteyi kur: tat bulucu, lansman listesi, mobil
+03:50 7. Claude'a kontrol ettir
+04:08 8. Demo fabrikası, Netlify ve markaya mail
+04:58 Sen nasıl yaparsın? 6 adım
+05:24 Claude ile çalışırken 7 ipucu
+06:02 Hangi markalara gidilir, nerede bulunur?
+06:24 Para kısmı: kurulum + aylık bakım
+07:11 Kurallar: spam yok, konsept demo, KVKK
+07:30 Sık sorulan sorular
+08:06 Özet
+
+🛠️ KULLANDIĞIM ARAÇLAR
+• Claude / Claude Code: araştırma, site, etiketler, 3D kutular ve mail
+• Three.js / React Three Fiber: sitedeki 3D sahne (Claude kurdu)
+• Netlify: ücretsiz demo linki
+
+━━━━━━━━━━ HAZIR PROMPT ━━━━━━━━━━
+Köşeli parantezleri doldur, Claude'a yapıştır, ürün görsellerini ekle:
+
+Merhaba! [MARKA ADI] için 3D ürünlü bir lansman sitesi yapmanı istiyorum. Kod bilmiyorum; sen yap, ben kontrol edeyim.
+
+Markanın sitesi: [LİNK]. Instagram: [HESAP]. Önce markayı araştır: yeni ürünleri, renkleri, metinleri tek bir ayar dosyasında topla.
+
+1. Ürün etiketini görsellerden yeniden çiz; her ürüne [örn. kendi şehrinin çizimi] koy. Arka yüz de olsun.
+2. Etiketi 3D ürüne sar, parmakla çevrilebilsin. Ürünün oranları fotoğraftakiyle birebir aynı olsun.
+3. Her ürün kendi sahnesinde, şık bir kaidenin üstünde dursun.
+4. Kaydırdıkça ürünler sırayla gelsin; tıklayınca ürün dönüp arkasını ve hikâyesini göstersin.
+5. 3 soruluk bir ürün bulucu ekle; ziyaretçinin ürünü kendi sahnesine insin.
+6. Ürün henüz satışta değilse sepet yerine "Lansman listesine katıl" formu koy.
+7. [DİLLER] dillerinde olsun, telefonda da aynı sahnelerle çalışsın.
+8. Sayfanın altına "Bu site [MARKA] için hazırlanmış bağımsız bir konsept demodur" notunu ekle.
+9. Her değişiklikten sonra masaüstü ve telefon ekran görüntüsü alıp kendin kontrol et. En sonda Netlify'a yüklemek için klasörü ver.
+
+Önce eksik bilgileri bana sor, sonra ilk sürümü göster.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ Not: Bu video bir kazanç garantisi vermez. Markalarla bağlantın yoksa demonu açıkça "konsept demo" olarak belirt; markanın logolarını ve görsellerini yalnızca o markaya teklif için kullan. Toplu veya izinsiz reklam e-postası gönderme; yalnızca herkese açık iletişim adreslerini kullan, KVKK'ya ve ticari elektronik ileti kurallarına uy.
+
+💬 Sıradaki 3D site hangi marka için olsun? Yorumlara yaz.
+
+Karga Zihni'de yapay zeka ile web siteleri ve 3D deneyimler yapıyoruz. Kuşlar seni bekliyor, uç. 🐦‍⬛
+
+#yapayzeka #claude #3dwebsitesi
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ETİKETLER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+claude ile web sitesi, yapay zeka ile web sitesi yapma, 3d web sitesi nasıl yapılır, claude code, kod bilmeden web sitesi, claude ipuçları, web sitesi satmak, freelance web tasarım, 3d ürün sitesi, lansman sitesi, three.js, netlify, yapay zeka ile para kazanma, türk kahvesi, karga zihni
