@@ -1,12 +1,14 @@
 # Kanal serileri
 
 Haftada en az 2 bölüm, otomatik görevle (13:17 İstanbul):
-- **Pazartesi: "Claude ile Yaptım".** Oyun, uygulama, animasyon; web sitesi dışında her şey. Planı aşağıda.
+- **Pazartesi: "Claude ile Yaptım".** Uygulama, araç ve animasyon projeleri (şimdilik oyun yok). Planı aşağıda.
 - **Perşembe: "Claude ile 3D Site".** Bir marka, bir 3D demo site.
 
 Her bölümde bir uzun video (8–10 dk, 1.25x) ve bir Shorts olur.
 
 ## Seri A: "Claude ile Yaptım" (pazartesi)
+
+Web sitesi dışındaki uygulama ve projeler. **Şimdilik oyun yok.** Kullanıcının verdiği "Claude'a GTA İstanbul yaptırmak" örneği sadece fikir içindi.
 
 Araştırmaya göre en çok izlenen formatlar:
 - "Tek prompt / 1 saat / 1 gün" evrimi (aynı proje gittikçe büyür)
@@ -15,28 +17,29 @@ Araştırmaya göre en çok izlenen formatlar:
 - Kod bilmeyen birinin kendi işine yarayan uygulaması
 
 Kurallar:
-- **Var olan bir oyunun kopyası yapılmaz.** İsim, karakter, harita, logo ve müzik alınmaz. Tür aynı olabilir, oyun bizim olur. (Claude Code da birebir kopyayı reddeder.)
-- Gerçek kulüp, marka ve ünlü logosu kullanılmaz.
-- Proje tarayıcıda çalışır (three.js / canvas). Oynanış kaydı Playwright ile otomatik girdiyle alınır.
+- Başkasının ürününün kopyası yapılmaz.
+- Gerçek kişi, kurum ya da marka adına sahte bir şey üretilmez.
+- Kişisel veri işleyen uygulamada KVKK notu olur.
 - Video yapısı:
   1. İlk 30 sn bitmiş projenin en çarpıcı anı
-  2. Tek promptla ilk sürüm (çoğu zaman komik derecede kötü)
+  2. Tek promptla ilk sürüm
   3. Adım adım büyüme (Claude'a ne dedim, ne değişti)
   4. Son hali
   5. "Sen de yap" (hazır prompt açıklamada)
-  6. "Sıradaki ne olsun?"
-- Süre ve hız kuralları 3D site serisiyle aynı (1.25x, 8–10 dk). Uygun yerde "Bunu bir işe nasıl çevirirsin" eklenir; rakam verilmez.
+  6. "Bunu bir işe nasıl çevirirsin" (rakam yok)
+  7. "Sıradaki ne olsun?"
+- Süre ve hız kuralları 3D site serisiyle aynı (1.25x, 8–10 dk).
 
 | Sıra | Proje | Kanca / başlık fikri |
 |---|---|---|
-| A1 | **İstanbul açık dünya oyunu** (özgün): Boğaz köprüsü, sarı taksi, vapur, dolmuş, gece ışıkları | "Claude'a İstanbul'da geçen açık dünya oyunu yaptırdım: tek prompt vs 1 gün" |
-| A2 | **Tavla:** yapay zekâya karşı, 3D zar, mahalle kahvesi sahnesi | "Claude'a tavla yaptırdım, sonra onu yenmeye çalıştım" |
-| A3 | **Kodla animasyonlu tarih anlatımı:** "İstanbul'un 2.700 yılı, 3 dakikada" | "Bu animasyonu Claude kodla çizdi" |
-| A4 | **Çay ocağı işletme oyunu** (idle/tycoon): simit, çay, müşteri, dükkânı büyüt | "Claude'a çay ocağı oyunu yaptırdım, bağımlılık yaptı" |
-| A5 | **Dolmuş şoförü simülatörü:** durak, yolcu, "inecek var" | "Claude ile dolmuş simülatörü yaptım" |
-| A6 | **Kapadokya balon uçuşu:** gün doğumu, peri bacaları, rüzgârla yön | "Kod bilmeden 3D balon oyunu" |
-| A7 | **Kişisel uygulama:** market fiyat karşılaştırma / ders programı / harcama bölüşme | "Kod bilmeden 1 günde telefon uygulaması yaptım" |
-| A8 | **Penaltı / mahalle maçı oyunu** (gerçek kulüp yok) | "Claude'a futbol oyunu yaptırdım" |
+| A1 | **Bu kanalın video motoru:** bu videoları yapan sistem (metin → ses → animasyon → video, tek komut) | "Bu videoyu bile Claude yaptı: kendi YouTube video fabrikamı kurdum" |
+| A2 | **Kodla animasyonlu tarih anlatımı:** "İstanbul'un 2.700 yılı, 3 dakikada" | "Bu animasyonu Claude kodla çizdi" |
+| A3 | **Kuaför / berber randevu uygulaması:** telefondan saat seç, işletmeye bildirim | "Kod bilmeden randevu uygulaması yaptım, mahalledeki berbere sattım?" |
+| A4 | **Restoran QR menü sistemi:** fotoğraflı menü, dil seçeneği, işletme kendisi günceller | "Claude ile 1 günde QR menü sistemi" |
+| A5 | **Harcama bölüşme / ev arkadaşı uygulaması** (telefona kurulan web uygulaması) | "Kod bilmeden telefon uygulaması yaptım" |
+| A6 | **Deprem ve hava durumu haritası:** açık verilerle canlı pano | "Claude'a canlı deprem haritası yaptırdım" |
+| A7 | **İşletme için otomatik rapor:** Excel'den aylık satış raporu ve grafik (tek tık) | "Saatlerce süren Excel işini Claude'a yaptırdım" |
+| A8 | **Instagram gönderi ve kapak üretici:** marka renkleriyle tek tıkla 10 gönderi | "Claude ile kendi Canva'mı yaptım" |
 | A9 | **Kendi mahallemin 3D maketi** (izleyici isteğiyle) | "Mahallemi Claude'a 3D yaptırdım" |
 
 Her 4–5 bölümde bir yorumlardan gelen "bunu yap" isteğiyle bölüm yapılır.
@@ -75,7 +78,7 @@ Alternatif format (her 3–4 bölümde bir): "1 saatte 3 marka" hızlı derleme 
 
 Her pazartesi ve perşembe yeni bir oturum açılır ve o günün serisindeki sıradaki bölümü baştan sona hazırlar:
 1. Bölümü seç.
-2. Projeyi kur ya da demoyu çalıştır. Ekran ve oynanış kaydını kendin al; kullanıcıdan kayıt isteme.
+2. Projeyi kur ya da demoyu çalıştır. Ekran kaydını kendin al; kullanıcıdan kayıt isteme.
 3. Metni yaz, seslendir, render et, 1.25x hızlandır.
 4. Açıklamayı, 3 başlığı, 3 thumbnail'i ve Shorts'u hazırla.
 5. Hepsini kullanıcıya gönder. `SERI.md`'yi güncelle ve depoya gönder.
