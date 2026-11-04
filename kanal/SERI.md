@@ -1,6 +1,6 @@
 # Seri: "Claude ile 3D Site"
 
-Her hafta bir marka, bir 3D demo site, bir uzun video (8–10 dk, 1.25x) ve bir Shorts.
+Haftada en az 2 bölüm (pazartesi + perşembe, 13:17 İstanbul, otomatik görev): her bölümde bir marka, bir 3D demo site, bir uzun video (8–10 dk, 1.25x) ve bir Shorts.
 
 Demolar hazır, `origin/claude/charming-dirac-aq3a53` dalında: `demolar/<marka>` ve `satis/<marka>-mail.md`. Yeni bölüme başlamadan önce demonun canlı linkini ve ekran kaydını hazırla. Mümkünse kaydı kullanıcı çeksin.
 
@@ -30,14 +30,13 @@ Türk izleyici için önce Türk markaları, sonra görsel olarak en çarpıcı 
 
 Alternatif format (her 3–4 bölümde bir): "1 saatte 3 marka" hızlı derleme ya da "izleyicinin istediği marka" (yorumlardan seçilir).
 
-## Haftalık akış
+## Haftalık akış (otomatik)
 
-1. **Pazartesi:**
-   - Bölümü seç, demoyu doğrula.
-   - Kullanıcıdan masaüstü ve mobil ekran kaydı iste (Drive linki).
-2. **Salı–Çarşamba:**
-   - Metin, seslendirme, render.
-   - Kontrol karelerine bak.
-   - 1.25x final, açıklama, 3 thumbnail.
-3. **Perşembe:** Shorts (dikey, 30–45 sn, uzun videoya yönlendiren).
-4. **Kullanıcı:** Yükler, başlık ve thumbnail seçer. Yorumlardan "sıradaki marka" isteklerini topla.
+Her pazartesi ve perşembe yeni bir oturum açılır ve sıradaki markayı baştan sona hazırlar:
+1. Bölümü seç ve demoyu doğrula.
+2. Demoyu kendin çalıştırıp ekran kaydını al; kullanıcıdan kayıt isteme.
+3. Metni yaz, seslendir, render et, 1.25x hızlandır.
+4. Açıklamayı, 3 başlığı, 3 thumbnail'i ve Shorts'u hazırla.
+5. Hepsini kullanıcıya gönder. `SERI.md`'yi güncelle ve depoya gönder.
+
+Kullanıcı videoyu yükler, başlığı ve thumbnail'i seçer. Yorumlardaki "sıradaki marka" isteklerini topla.
