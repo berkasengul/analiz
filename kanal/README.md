@@ -74,6 +74,7 @@ Bu dosya kanalın kalıcı hafızasıdır. Yeni bir oturumda video yapmadan önc
   - Tartışmalı yerde "kaynaklara göre" / "rivayete göre" de.
   - Yaş, tarih gibi bilgileri hesapla. Örnek hata: Fatih 1451'de 18 yaşındaydı, 19 değil.
 - **Tanıtım videoları** animasyonların tamamını anlatmaz: kısa fragman + kanal nasıl açılır ve sürdürülür.
+- **Sadece savaş haritası değil:** Kullanıcı her şeyin harita/savaş olmasını eleştirdi. Çöp adam, beyaz tahta ve veri animasyonu da kullan (`projeler/tarzlar/`). Ana tarz tek olsun; diğerleri özellikle kısa videolarda.
 - **Açıklamaya kaynak yaz:** Natural Earth (kamu malı), Mapzen/Tilezen Terrain Tiles (AWS Open Data).
 
 ## Araçlar (`arac/`)

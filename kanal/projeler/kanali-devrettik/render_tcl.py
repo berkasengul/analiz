@@ -2021,6 +2021,14 @@ LISTS.update({
 LISTS.update({"kaynak": ("Nasıl kontrol edilir?", [("book", "Ansiklopediler"), ("book", "Ders kitapları"), ("search", "Akademik kaynaklar"), ("check", "En az iki kaynak")])})
 QAS += [("Yapay zekâ içerik yasak mı?", "Hayır; ama özgün, emekli ve doğru içerik şart.")]
 
+# ---------- yeni tarzlar: çöp adam, beyaz tahta, veri ----------
+ICONS.update({"person": '<circle cx="12" cy="5" r="2.6"/><path d="M12 7.6v7.4"/><path d="M12 15l-4 6M12 15l4 6"/><path d="M6.5 11h11"/>',
+              "chart": '<path d="M4 20h16"/><path d="M6 20v-6M10.5 20V8M15 20v-9M19.5 20V5"/>'})
+LISTS.update({"tarz": ("Tarih kanalı tarzları", [("map", "Haritalı animasyon"), ("person", "Çöp adam"), ("pencil", "Beyaz tahta"), ("chart", "Veri animasyonu")]),
+              "hangi": ("Hangi konuya hangi tarz?", [("map", "Savaş, sınırlar → harita"), ("person", "Komik bir olay → çöp adam"), ("pencil", "Yapı, kişi → beyaz tahta"), ("chart", "Karşılaştırma → veri")])})
+CLIP_FALLBACK.update({"cop_adam": "cop_adam.jpg", "beyaz_tahta": "beyaz_tahta.jpg", "veri": "veri.jpg"})
+MONT_SR = MONT_SR + [("cop_adam.jpg", "çöp adam"), ("beyaz_tahta.jpg", "beyaz tahta"), ("veri.jpg", "veri")]
+
 class Renderer:
     def __init__(self):
         K.GRAIN = make_grain() if hasattr(K, "make_grain") else None
