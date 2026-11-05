@@ -36,7 +36,7 @@ Kurallar:
 | A1 | Oyun | **İstanbul açık dünya oyunu** (özgün): Boğaz köprüsü, sarı taksi, vapur, gece ışıkları | "Claude'a İstanbul'da geçen açık dünya oyunu yaptırdım: tek prompt vs 1 gün" |
 | A2 | Uygulama | **Bu kanalın video motoru:** metin → ses → animasyon → video, tek komut | "Bu videoyu bile Claude yaptı" |
 | A3 | Oyun | **Tavla:** yapay zekâya karşı, 3D zar, mahalle kahvesi sahnesi | "Claude'a tavla yaptırdım, sonra onu yenmeye çalıştım" |
-| A4 | Animasyon | **Kodla tarih anlatımı:** "İstanbul'un 2.700 yılı, 3 dakikada" | "Bu animasyonu Claude kodla çizdi" |
+| A4 | Animasyon | **Kodla tarih anlatımı (harita motoru hazır: `kanal/projeler/turkler-anadolu`).** Sıradaki konu adayları: İstanbul'un fethi, Osmanlı'nın kuruluşu, İstanbul'un 2.700 yılı | "Bu animasyonu Claude kodla çizdi" |
 | A5 | Uygulama | **Kuaför / berber randevu uygulaması** | "Kod bilmeden randevu uygulaması yaptım" |
 | A6 | Oyun | **Çay ocağı işletme oyunu** (idle/tycoon) | "Claude'a çay ocağı oyunu yaptırdım" |
 | A7 | Uygulama | **Restoran QR menü sistemi** | "Claude ile 1 günde QR menü sistemi" |
@@ -61,6 +61,7 @@ Demolar hazır, `origin/claude/charming-dirac-aq3a53` dalında: `demolar/<marka>
 |---|---|---|---|
 | 1 | SESA KIDS: 3D pijama mağazası | SESA v3, SESA Shorts + kapak | çocuk pijama, Tripo 3D model |
 | 2 | Garden Motors: 3D oto galeri showroom | GardenMotors_v2_*, GARDEN_ACIKLAMA.txt, Garden Shorts | Blender ışık pişirme, kullanıcı kaydı |
+| A | Türkler Anadolu'ya nasıl geldi? (kodla çizilmiş harita animasyonu) | TurklerAnadoluya_*, TURKLER_ANADOLUYA_ACIKLAMA.txt, TA_T1–T3 | Seri A ilk bölüm; kaynak `kanal/projeler/turkler-anadolu/` |
 | 3 | Turkish Coffee Lady: 3D kahve kutusu lansman sitesi | TurkishCoffeeLady_v4_*, TURKISH_COFFEE_v4_ACIKLAMA.txt, TCL_T4 thumbnail | Kurallar listesinin son hali bu bölümde oturdu |
 
 ### Sıradaki bölümler (öneri sırası)
