@@ -105,3 +105,34 @@ def main(out_path, dur, draw):
     o = Out(out_path, dur)
     if len(sys.argv) > 1 and sys.argv[1] == "stills": o.run(draw, [float(a) for a in sys.argv[2:]])
     else: o.run(draw)
+
+import re as _re
+def svgp(d, x=0, y=0, s=1., flip=False):
+    """Küçük SVG yol okuyucu (M L H V C Q Z, mutlak/göreli). flip: yatay ayna."""
+    toks = _re.findall(r"[MLHVCQZmlhvcqz]|-?\d*\.?\d+(?:e-?\d+)?", d)
+    p = skia.Path(); i = 0; cx = cy = 0; sx0 = sy0 = 0; cmd = None
+    def T(a, b): return (x + (-a if flip else a) * s, y + b * s)
+    def num():
+        nonlocal i; v = float(toks[i]); i += 1; return v
+    while i < len(toks):
+        if _re.match(r"[A-Za-z]", toks[i]): cmd = toks[i]; i += 1
+        rel = cmd.islower(); C_ = cmd.upper()
+        if C_ == "Z": p.close(); cx, cy = sx0, sy0; continue
+        if C_ in "ML":
+            a, b = num(), num()
+            if rel: a += cx; b += cy
+            (p.moveTo if C_ == "M" else p.lineTo)(*T(a, b)); cx, cy = a, b
+            if C_ == "M": sx0, sy0 = a, b; cmd = "l" if rel else "L"
+        elif C_ == "H":
+            a = num() + (cx if rel else 0); p.lineTo(*T(a, cy)); cx = a
+        elif C_ == "V":
+            b = num() + (cy if rel else 0); p.lineTo(*T(cx, b)); cy = b
+        elif C_ == "C":
+            v = [num() for _ in range(6)]
+            if rel: v = [v[k] + (cx if k % 2 == 0 else cy) for k in range(6)]
+            p.cubicTo(*T(v[0], v[1]), *T(v[2], v[3]), *T(v[4], v[5])); cx, cy = v[4], v[5]
+        elif C_ == "Q":
+            v = [num() for _ in range(4)]
+            if rel: v = [v[k] + (cx if k % 2 == 0 else cy) for k in range(4)]
+            p.quadTo(*T(v[0], v[1]), *T(v[2], v[3])); cx, cy = v[2], v[3]
+    return p

@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three'; import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const M='../assets/kaykit-medieval-hexagon-pack-1.0/addons/kaykit_medieval_hexagon_pack/Assets/gltf/', C='../assets/kaykit-character-pack-adventures-1.0/addons/kaykit_character_pack_adventures/Characters/gltf/';
+const L=new GLTFLoader(); const out=[];
+for (const f of [C+'Knight.glb',C+'Barbarian.glb',M+'buildings/red/building_castle_red.gltf',M+'buildings/neutral/wall_straight.gltf',M+'buildings/neutral/wall_straight_gate.gltf',M+'buildings/red/building_tower_A_red.gltf',M+'tiles/base/hex_grass.gltf',M+'decoration/nature/mountain_A_grass_trees.gltf',M+'decoration/nature/tree_single_A.gltf',M+'buildings/red/building_tower_catapult_red.gltf']){
+  try{ const g=await L.loadAsync(f); const b=new THREE.Box3().setFromObject(g.scene); const s=b.getSize(new THREE.Vector3());
+  out.push(f.split('/').pop()+' '+s.toArray().map(v=>v.toFixed(2)).join(' ')+' min '+b.min.toArray().map(v=>v.toFixed(2)).join(' '));}catch(e){out.push(f+' ERR '+e.message)}}
+window.OUT=out.join('\n');
+</script>

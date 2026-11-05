@@ -7,7 +7,7 @@ SCRIPT = [
   ("Gemiler denizden değil, karadan yürüyor.", "Gemiler *karadan*", ("clip", "fetih_gemiler")),
   ("Ve elli üç günün sonunda surlar düşüyor.", "Surlar *düşüyor*", ("clip", "fetih_saldiri")),
   ("Bin yıllık bir yolculuk, gerçek arazinin üstünde.", "Gerçek *arazide*", ("clip", "turk_genel")),
-  ("Ama sadece harita değil: çöp adamlar, beyaz tahta, veri animasyonları.", "Sadece *harita değil*", ("clip", "cop_adam:7")),
+  ("Ama sadece harita değil: çöp adamlar, beyaz tahta, veri ve çizgi film.", "Sadece *harita değil*", ("clip", "cop_adam:7")),
 
   # ---- giriş ----
   ("Arkadaşlar, bu animasyonları bir tarih kanalı için yaptık.", "Bir *tarih kanalı* için", ("clip", "turk_genel")),
@@ -23,8 +23,6 @@ SCRIPT = [
   ("Dört: yayın günlerini baştan seç. Biz haftada iki video planladık: pazartesi ve perşembe.", "4. *Haftada 2 video*", ("howto", 4)),
   ("Kanal adı, profil fotoğrafı ve kapak görseli için de Claude'dan öneri alabilirsin; kanal kapağını bile kodla çizdirebilirsin.", "İsim, profil, *kapak*", ("howto", 4)),
   ("Videoları dönemlere göre oynatma listelerine ayır: Selçuklular, Osmanlı, Cumhuriyet.", "Dönemlere göre *listeler*", ("howto", 4)),
-  ("Kanal açıklamasına ne anlattığını tek cümleyle yaz: haritalı, animasyonlu tarih.", "Tek cümle *açıklama*", ("howto", 4)),
-  ("Bu kadar. Kanalın iskeleti hazır; şimdi içini dolduralım.", "İskelet *hazır*", ("howto", 4)),
   ("Peki ne tür videolar? Bu motorla birkaç farklı format yapılabiliyor.", "Hangi *formatlar?*", ("list", "format", 0)),
   ("Harita üzerinde bir savaş, adım adım. Bir devletin doğuşu ve yayılışı.", "Savaş, *devletin yayılışı*", ("list", "format", 2)),
   ("Bir şehrin bin yılı. Ya da tarihte bugün: o gün ne olduysa, onun haritası.", "Şehrin bin yılı, *tarihte bugün*", ("list", "format", 4)),
@@ -46,8 +44,7 @@ SCRIPT = [
   ("Bu mesajın tamamını açıklamaya koydum.", "Prompt *açıklamada*", ("talk", 2, 2)),
 
   # ---- 2b: sadece harita değil ----
-  ("Ama her tarih kanalı harita kanalı değil. Çöp adam kanalları, beyaz tahta anlatımları, veri animasyonları da çok izleniyor.", "Sadece *harita değil*", ("list", "tarz", 0)),
-  ("Bu üç tarzı da Claude ile kodla ve ücretsiz yaptık.", "3 tarz, *kodla*", ("list", "tarz", 0)),
+  ("Ama her tarih kanalı harita kanalı değil. Çöp adam, beyaz tahta, veri animasyonu ve çizgi film kanalları da çok izleniyor. Hepsini Claude ile kodla, ücretsiz yaptık.", "Sadece *harita değil*", ("list", "tarz", 0)),
   ("Birincisi çöp adam. Gemiler karadan yürüyor; askerler halatla çekiyor, surdaki nöbetçi şaşkın.", "1. *Çöp adam*", ("clip", "cop_adam:0.3")),
   ("Komik diyaloglar, basit çizgiler. Özellikle kısa videolarda çok iyi çalışıyor.", "Komik, *Shorts'a uygun*", ("clip", "cop_adam:9")),
   ("Nasıl yaptık? Çöp adam bir daire ve birkaç çizgi. Claude'a karakteri tarif ettik: baş, gövde, kollar, bacaklar.", "1 daire + *birkaç çizgi*", ("full", "nasil_cop.jpg")),
@@ -58,8 +55,12 @@ SCRIPT = [
   ("Üçüncüsü veri animasyonu: hangi devlet kaç yıl yaşadı?", "3. *Veri animasyonu*", ("clip", "veri:1.2")),
   ("Sayaç ilerliyor, her çubuk o devletin ömrü kadar uzuyor ve duruyor. Bizans bin yılı geçiyor, Osmanlı altı yüz yirmi üç yıl.", "Sayaç + *çubuklar*", ("clip", "veri:5")),
   ("Bunun için tek gereken bir tablo: devlet, kuruluş ve yıkılış yılı. Tarihleri sen kontrol et; gerisini kod yapıyor.", "Tablo → *çubuk*", ("full", "nasil_veri.jpg")),
+  ("Dördüncüsü çizgi film. Karakterler konuşuyor, her birinin kendi sesi var. Bir dinleyelim.", "4. *Çizgi film*", ("clip", "cizgi_film:1")),
+  ("", "", ("cfilm", 14.8), 16.4),
+  ("Nasıl yaptık? Önce karakterleri tasarladık: Fatih'in kavuğu ve gülü, yeniçerinin börkü ve uzun bıyığı.", "Karakter *kartı*", ("full", "karakter_tam.jpg")),
+  ("Her karaktere üç ifade çizdik ve ayrı bir yapay zekâ sesi verdik; ağız, sesin şiddetine göre açılıp kapanıyor.", "Ses → *ağız*", ("full", "karakter_ifade.jpg")),
   ("Peki hangi konuya hangi tarz?", "Hangi konuya *hangi tarz?*", ("list", "hangi", 0)),
-  ("Savaş ve sınırlar haritayla. Komik bir olay çöp adamla. Bir yapının ya da kişinin hikâyesi beyaz tahtayla. Karşılaştırmalar veri animasyonuyla.", "Konuya göre *tarz*", ("list", "hangi", 0)),
+  ("Savaş ve sınırlar haritayla. Komik bir olay çöp adamla. Bir yapının hikâyesi beyaz tahtayla. Karşılaştırmalar veri animasyonuyla. Diyaloglu anekdotlar çizgi filmle.", "Konuya göre *tarz*", ("list", "hangi", 0)),
   ("Tarzı Claude'a tek cümleyle anlat: beyaz arka plan, siyah çizgi, çöp adamlar, konuşma balonları. Gerisini o çiziyor.", "Tek cümleyle *tarif et*", ("list", "hangi", 0)),
   ("Bir tavsiye: kanalın ana tarzı tek olsun; diğerlerini ara sıra, özellikle kısa videolarda dene.", "Ana tarz *tek olsun*", ("list", "tarz", 0)),
 
@@ -100,10 +101,7 @@ SCRIPT = [
   ("Dört: takvimi kullan. Yıl dönümlerinden önce o konuyu yayınla: 26 Ağustos'tan önce Malazgirt, 29 Mayıs'tan önce fetih.", "4. *Yıl dönümü takvimi*", ("list", "buyume", 4)),
   ("Örnek bir takvim: 18 Mart Çanakkale, 29 Mayıs fetih, 26 Ağustos Malazgirt, 30 Ağustos Zafer, 29 Ekim Cumhuriyet.", "Yıl dönümü *takvimi*", ("list", "takvim", 0)),
   ("Beş: yorumları oku. Sıradaki konuyu izleyiciler seçsin.", "5. *Yorumlardan konu*", ("list", "buyume", 5)),
-  ("Topluluk sekmesinde anket aç: sıradaki konu hangisi olsun?", "Topluluk *anketi*", ("list", "buyume", 5)),
-  ("Açıklamaya bölüm damgaları ve kaynakları yaz; hem izleyici hem arama motoru bunu sever.", "Bölüm damgası + *kaynak*", ("list", "buyume", 5)),
   ("Altı: istatistiklere bak. Hangi konu tuttuysa o dönemden devam et.", "6. *İstatistiğe bak*", ("list", "buyume", 6)),
-  ("Özellikle ilk otuz saniyeye bak: izleyici orada gidiyorsa girişi kısalt.", "İlk *30 saniye*", ("list", "buyume", 6)),
   ("İlk on video için bir plan da yaptık.", "İlk *10 video*", ("list", "plan", 0)),
   ("Türklerin Anadolu'ya gelişi ve İstanbul'un Fethi hazır. Sırada Malazgirt'in tamamı, Osmanlı'nın kuruluşu, Çanakkale ve Kurtuluş Savaşı var.", "Sıradakiler", ("list", "plan", 0)),
   ("İlk otuz gün için de basit bir plan:", "İlk *30 gün*", ("list", "otuz", 0)),

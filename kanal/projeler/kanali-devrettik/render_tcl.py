@@ -2029,6 +2029,17 @@ LISTS.update({"tarz": ("Tarih kanalı tarzları", [("map", "Haritalı animasyon"
 CLIP_FALLBACK.update({"cop_adam": "cop_adam.jpg", "beyaz_tahta": "beyaz_tahta.jpg", "veri": "veri.jpg"})
 MONT_SR = MONT_SR + [("cop_adam.jpg", "çöp adam"), ("beyaz_tahta.jpg", "beyaz tahta"), ("veri.jpg", "veri")]
 
+# ---------- 4. tarz: çizgi film (kendi sesiyle, 0.8 hızda; final 1.25x ile normale döner) ----------
+LISTS.update({"tarz": ("Tarih kanalı tarzları", [("map", "Haritalı animasyon"), ("person", "Çöp adam"), ("pencil", "Beyaz tahta"), ("chart", "Veri animasyonu"), ("film", "Çizgi film")]),
+              "hangi": ("Hangi konuya hangi tarz?", [("map", "Savaş, sınırlar → harita"), ("person", "Komik bir olay → çöp adam"), ("pencil", "Yapı, kişi → beyaz tahta"), ("chart", "Karşılaştırma → veri"), ("film", "Diyalog, anekdot → çizgi film")])})
+CLIP_FALLBACK.update({"cizgi_film": "cizgi_film.jpg"})
+MONT_SR = MONT_SR + [("cizgi_film.jpg", "çizgi film")]
+def sc_cfilm(c, t, r, x, y, st, b):
+    cl = gm_clip("cizgi_film"); off = float(r["beats"][0]["vis"][1])
+    image = cl.at(off + (t - r["t0"]) * .8) if cl is not None else im(P("cizgi_film.jpg"), 1600)
+    if image is not None: c.drawImageRect(image, skia.Rect.MakeXYWH(x - W / 2, y - H / 2, W, H), skia.SamplingOptions(skia.FilterMode.kLinear))
+SCENES.update({"cfilm": sc_cfilm})
+
 class Renderer:
     def __init__(self):
         K.GRAIN = make_grain() if hasattr(K, "make_grain") else None
