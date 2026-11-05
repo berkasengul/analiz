@@ -1,0 +1,15 @@
+Merhaba Claude! [KONU] hakkında 30–40 saniyelik bir çizgi film
+sahnesi yapmak istiyorum. Kod bilmiyorum; sen yaz, ben bakayım.
+
+1. Olayı araştır, tarihleri kontrol et. Anlatıcı + 2 karakterle kısa
+   bir diyalog yaz; rivayet olan sözleri "rivayete göre" diye belirt.
+2. Python ile ücretsiz çiz: kalın siyah çizgi, düz renkler, hafif gölge.
+3. Karakterleri parça parça kur: kafa, gövde, kollar. Yüzde normal,
+   kızgın, gülen ifadeleri olsun; gözler kırpsın.
+4. Arka planı da kodla çiz: [MEKÂN]. Bir kez çiz, tekrar kullan.
+5. Her repliği ayrı ses dosyası yap; ağız sesin şiddetine göre
+   açılıp kapansın.
+6. Konuşana yakın çekim, alt yazı ekle; ffmpeg ile 1080p video çıkar.
+7. Önce karakter kartını göster; ben düzelteyim, sonra videoyu yap.
+
+Kodu ben çalıştıracağım: kurulumu (Python, ffmpeg) adım adım anlat.

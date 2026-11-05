@@ -21,7 +21,6 @@ SCRIPT = [
   ("İki: akılda kalan bir isim ve tek bir görsel dil. İzleyici haritayı görünce kanalını tanısın.", "2. *İsim + görsel dil*", ("howto", 2)),
   ("Üç: format belli olsun. Sekiz-on dakikalık uzun video, yanına bir dikey kısa video.", "3. *Uzun + kısa video*", ("howto", 3)),
   ("Dört: yayın günlerini baştan seç. Biz haftada iki video planladık: pazartesi ve perşembe.", "4. *Haftada 2 video*", ("howto", 4)),
-  ("Kanal adı, profil fotoğrafı ve kapak görseli için de Claude'dan öneri alabilirsin; kanal kapağını bile kodla çizdirebilirsin.", "İsim, profil, *kapak*", ("howto", 4)),
   ("Videoları dönemlere göre oynatma listelerine ayır: Selçuklular, Osmanlı, Cumhuriyet.", "Dönemlere göre *listeler*", ("howto", 4)),
   ("Peki ne tür videolar? Bu motorla birkaç farklı format yapılabiliyor.", "Hangi *formatlar?*", ("list", "format", 0)),
   ("Harita üzerinde bir savaş, adım adım. Bir devletin doğuşu ve yayılışı.", "Savaş, *devletin yayılışı*", ("list", "format", 2)),
@@ -38,10 +37,8 @@ SCRIPT = [
   ("İlk denemem düz bir haritaydı. Gerçekçi olsun dedim; fark bu.", "İlk deneme → *son hali*", ("ab", "ilk_hali.jpg", "son_hali.jpg", "İlk deneme", "Son hali")),
   ("Beş: hareket. Eğik kamera, pus, bulut gölgeleri; sınırlar dalga gibi yayılıyor, ordular arazinin üstünde savaşıyor.", "5. *Kamera + hareket*", ("clip", "turk_malazgirt")),
   ("Altı: ses ve kurgu. Seslendirme yapay zekâdan, altyazılar kelime kelime, müzik bile kodla üretiliyor.", "6. *Ses + kurgu*", ("list", "ses", 0)),
-  ("Seste tek bir ses ve tek bir ton seç. İsimler için bir telaffuz listesi tut; mesela Claude'u Klod diye okutuyoruz.", "Tek ses, *telaffuz listesi*", ("list", "ses", 2)),
   ("Sen sadece ne görmek istediğini anlatıyorsun ve ekran görüntüsüne bakıp beğenmediğini söylüyorsun.", "Anlat, bak, *söyle*", ("loop", 3)),
   ("İlk mesajın şöyle olabilir: şu konuyu haritalı bir animasyonla anlat, önce olay listesini çıkar, sonra sahneleri öner.", "İlk *mesaj*", ("talk", 2, 2)),
-  ("Bu mesajın tamamını açıklamaya koydum.", "Prompt *açıklamada*", ("talk", 2, 2)),
 
   # ---- 2b: sadece harita değil ----
   ("Ama her tarih kanalı harita kanalı değil. Çöp adam, beyaz tahta, veri animasyonu ve çizgi film kanalları da çok izleniyor. Hepsini Claude ile kodla, ücretsiz yaptık.", "Sadece *harita değil*", ("list", "tarz", 0)),
@@ -58,7 +55,11 @@ SCRIPT = [
   ("Dördüncüsü çizgi film. Karakterler konuşuyor, her birinin kendi sesi var. Bir dinleyelim.", "4. *Çizgi film*", ("clip", "cizgi_film:1")),
   ("", "", ("cfilm", 14.8), 16.4),
   ("Nasıl yaptık? Önce karakterleri tasarladık: Fatih'in kavuğu ve gülü, yeniçerinin börkü ve uzun bıyığı.", "Karakter *kartı*", ("full", "karakter_tam.jpg")),
-  ("Her karaktere üç ifade çizdik ve ayrı bir yapay zekâ sesi verdik; ağız, sesin şiddetine göre açılıp kapanıyor.", "Ses → *ağız*", ("full", "karakter_ifade.jpg")),
+  ("Her karakter parçalardan oluşuyor: kafa, gövde, kollar. Yüzde üç ifade var: normal, kızgın, gülen; gözler de kendiliğinden kırpıyor.", "Parçalar + *3 ifade*", ("full", "karakter_ifade.jpg")),
+  ("Arka plan da kodla çizildi: otağ, tuğlar, toplar, uzakta surlar. Bir kez çiziyorsun, her bölümde tekrar kullanıyorsun.", "Arka plan: *bir kez çiz*", ("full", "cizgi_arka.jpg")),
+  ("Konuşma kısmı şöyle: her replik ayrı seslendiriliyor, kod sesin şiddetini ölçüyor ve ağzı ona göre açıp kapatıyor.", "Ses → *ağız*", ("full", "nasil_ses.jpg")),
+  ("Ücretsiz mi? Çizim, animasyon, müzik ve kurgu tamamen kodla, ücretsiz. Ses için kendi sesini kullanabilir ya da yapay zekâ seslendirmenin ücretsiz katmanıyla başlayabilirsin.", "Çizim, kurgu: *ücretsiz*", ("list", "cfree", 0)),
+  ("Kendin yapman için hazır bir prompt yazdım: konuyu ve mekânı yaz, Claude'a yapıştır. Kodu sen çalıştıracaksan kurulumu da adım adım anlatıyor. Tamamı açıklamada.", "Hazır *prompt*", ("full", "prompt_cizgi.jpg")),
   ("Peki hangi konuya hangi tarz?", "Hangi konuya *hangi tarz?*", ("list", "hangi", 0)),
   ("Savaş ve sınırlar haritayla. Komik bir olay çöp adamla. Bir yapının hikâyesi beyaz tahtayla. Karşılaştırmalar veri animasyonuyla. Diyaloglu anekdotlar çizgi filmle.", "Konuya göre *tarz*", ("list", "hangi", 0)),
   ("Tarzı Claude'a tek cümleyle anlat: beyaz arka plan, siyah çizgi, çöp adamlar, konuşma balonları. Gerisini o çiziyor.", "Tek cümleyle *tarif et*", ("list", "hangi", 0)),
@@ -79,7 +80,6 @@ SCRIPT = [
   ("Yorumlardan sıradaki konuyu topluyorsun. Perşembe aynısı.", "Yorumlardan *konu*", ("list", "hafta", 4)),
   ("Yani yapay zekâya devretsen de senin işin bitmiyor: konuyu onaylamak, bilgiyi kontrol etmek, yorumlara cevap vermek sende.", "Senin işin: *onay, kontrol, yorum*", ("list", "hafta", 4)),
   ("İlk haftalarda her videoyu baştan sona izle; gördüğün her hatayı hafıza dosyasına kural olarak ekle.", "Hatayı *kurala çevir*", ("list", "hafiza", 5)),
-  ("Bir haftada iki uzun video, iki kısa video. Hazır görsel yok, hepsi sıfırdan.", "Haftada *2 + 2 video*", ("rstats", 0)),
 
   # ---- 4: ücretsiz araçlar ----
   ("Peki bunun maliyeti ne?", "Maliyet *ne?*", ("list", "ucretsiz", 0)),
@@ -88,14 +88,12 @@ SCRIPT = [
   ("Müzik kodla üretiliyor, telif derdi yok.", "Müzik: *ücretsiz*", ("list", "ucretsiz", 3)),
   ("Claude'u ücretsiz sürümüyle deneyebilirsin. Ama açık konuşayım: düzenli üretim ve Claude Code için ücretli plan gerekiyor.", "Claude: *ücretsiz başla*", ("list", "ucretsiz", 4)),
   ("Ses için ücretsiz katmanlar var; yalnız kullanım iznine mutlaka bak.", "Ses: *lisansa bak*", ("list", "ucretsiz", 5)),
-  ("Bir de veri lisansı: kullandığın harita ve yükseklik verisinin kaynağını açıklamada belirt.", "Kaynağı *belirt*", ("list", "ucretsiz", 5)),
 
   # ---- 5: büyütmek ----
   ("Peki kanal nasıl büyür?", "Kanal nasıl *büyür?*", ("list", "buyume", 0)),
   ("Bir: merak uyandıran başlık. Malazgirt'te ne oldu, gemiler karadan nasıl yürüdü gibi.", "1. *Merak uyandıran başlık*", ("list", "buyume", 1)),
   ("İki: her videoda aynı tarz, haritalı bir kapak.", "2. *Haritalı kapak*", ("full", "/home/user/analiz/video_teslim/FT_T1_gemiler_karadan.jpg")),
   ("Kapakları da Claude yapıyor: videodan çarpıcı bir kare, üstüne iki-üç kelime, bir de tarih rozeti.", "Kare + 3 kelime + *rozet*", ("full", "/home/user/analiz/video_teslim/TA2_T1_1071_imparator_esir.jpg")),
-  ("Kelimeler merak uyandırsın: İmparator esir, gemiler karadan yürüdü.", "Merak *uyandırsın*", ("full", "/home/user/analiz/video_teslim/FT_T2_53_gunde_fetih.jpg")),
   ("Üç: her uzun videodan bir kısa video kes; savaş anı, gemilerin karadan yürüdüğü an.", "3. *Her videodan 1 Shorts*", ("list", "buyume", 3)),
   ("Kısa videoda ilk iki saniye her şey: en çarpıcı anla başla, altyazılar büyük olsun, sonunda uzun videoya çağır.", "İlk *2 saniye*", ("clip", "fetih_gemiler")),
   ("Dört: takvimi kullan. Yıl dönümlerinden önce o konuyu yayınla: 26 Ağustos'tan önce Malazgirt, 29 Mayıs'tan önce fetih.", "4. *Yıl dönümü takvimi*", ("list", "buyume", 4)),
@@ -129,7 +127,6 @@ SCRIPT = [
 
   # ---- sık sorulanlar ----
   ("En çok sorulanlar. Kod bilmem gerekiyor mu? Hayır; ne görmek istediğini anlatman yeterli.", "Kod *gerekmez*", ("qa", 0)),
-  ("Güçlü bir bilgisayar lazım mı? Hayır; Claude Code bulutta da çalışıyor, render orada yapıldı.", "Bilgisayar: *şart değil*", ("qa", 1)),
   ("Bir video ne kadar sürüyor? İlk harita motoru bir gün sürdü; sonraki konular çok daha hızlı.", "İlk motor: *1 gün*", ("qa", 2)),
   ("Yüzümü göstermem gerekiyor mu? Hayır; bu tarz kanallarda ses ve animasyon yeterli.", "Yüz *gerekmez*", ("qa", 3)),
   ("Hangi konudan başlamalıyım? Bildiğin ve sevdiğin bir dönemden.", "Sevdiğin *dönemden*", ("qa", 4)),

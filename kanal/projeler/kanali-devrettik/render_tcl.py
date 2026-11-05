@@ -2040,6 +2040,8 @@ def sc_cfilm(c, t, r, x, y, st, b):
     if image is not None: c.drawImageRect(image, skia.Rect.MakeXYWH(x - W / 2, y - H / 2, W, H), skia.SamplingOptions(skia.FilterMode.kLinear))
 SCENES.update({"cfilm": sc_cfilm})
 
+LISTS.update({"cfree": ("Çizgi film: ne ücretsiz?", [("pencil", "Çizim ve karakterler: kodla"), ("film", "Animasyon ve kurgu: kodla"), ("star", "Müzik ve efekt: kodla"), ("msg", "Ses: kendi sesin ya da ücretsiz katman"), ("check", "Claude: ücretsiz başla")])})
+
 class Renderer:
     def __init__(self):
         K.GRAIN = make_grain() if hasattr(K, "make_grain") else None
