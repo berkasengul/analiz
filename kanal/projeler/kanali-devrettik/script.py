@@ -1,0 +1,128 @@
+# Kanalımızı yapay zekâya devrettik: sıfırdan tarih kanalı + Claude ile animasyon + süreklilik
+SCRIPT = [
+  # ---- fragman ----
+  ("1071. Malazgirt.", "1071. *Malazgirt*", ("clip", "turk_malazgirt")),
+  ("Selçuklu atlıları, Bizans ordusunu hilal gibi sarıyor.", "Hilal gibi *kuşatma*", ("clip", "turk_malazgirt")),
+  ("1453. İstanbul.", "1453. *İstanbul*", ("clip", "fetih_gemiler")),
+  ("Gemiler denizden değil, karadan yürüyor.", "Gemiler *karadan*", ("clip", "fetih_gemiler")),
+  ("Ve elli üç günün sonunda surlar düşüyor.", "Surlar *düşüyor*", ("clip", "fetih_saldiri")),
+  ("Bin yıllık bir yolculuk, gerçek arazinin üstünde.", "Gerçek *arazide*", ("clip", "turk_genel")),
+
+  # ---- giriş ----
+  ("Arkadaşlar, bu animasyonları bir tarih kanalı için yaptık.", "Bir *tarih kanalı* için", ("clip", "turk_genel")),
+  ("Ama ne ben çizdim, ne de bir satır kod yazdım.", "Çizmedim, *kod yazmadım*", ("clip", "turk_genel")),
+  ("Kanalı yapay zekâya devrettik. Konuyu seçiyor, metni yazıyor, haritayı çiziyor, videoyu hazırlıyor.", "Kanalı *yapay zekâya devrettik*", ("talk", 0, 2)),
+  ("Bu videoda üç şey var: sıfırdan bir tarih kanalı nasıl açılır, bu animasyonlar ücretsiz araçlarla nasıl yapılır ve kanal nasıl sürekli büyür.", "Aç, yap, *büyüt*", ("three",)),
+
+  # ---- 1: kanalı aç ----
+  ("Önce kanalı açalım.", "Önce *kanal*", ("howto", 0)),
+  ("Bir: bir niş seç. Tüm dünya tarihi değil; Türk tarihi, Osmanlı ya da büyük savaşlar gibi tek bir alan.", "1. *Niş seç*", ("howto", 1)),
+  ("İki: akılda kalan bir isim ve tek bir görsel dil. İzleyici haritayı görünce kanalını tanısın.", "2. *İsim + görsel dil*", ("howto", 2)),
+  ("Üç: format belli olsun. Sekiz-on dakikalık uzun video, yanına bir dikey kısa video.", "3. *Uzun + kısa video*", ("howto", 3)),
+  ("Dört: yayın günlerini baştan seç. Biz haftada iki video planladık: pazartesi ve perşembe.", "4. *Haftada 2 video*", ("howto", 4)),
+  ("Kanal adı, profil fotoğrafı ve kapak görseli için de Claude'dan öneri alabilirsin; kanal kapağını bile kodla çizdirebilirsin.", "İsim, profil, *kapak*", ("howto", 4)),
+  ("Videoları dönemlere göre oynatma listelerine ayır: Selçuklular, Osmanlı, Cumhuriyet.", "Dönemlere göre *listeler*", ("howto", 4)),
+  ("Kanal açıklamasına ne anlattığını tek cümleyle yaz: haritalı, animasyonlu tarih.", "Tek cümle *açıklama*", ("howto", 4)),
+  ("Bu kadar. Kanalın iskeleti hazır; şimdi içini dolduralım.", "İskelet *hazır*", ("howto", 4)),
+  ("Peki ne tür videolar? Bu motorla birkaç farklı format yapılabiliyor.", "Hangi *formatlar?*", ("list", "format", 0)),
+  ("Harita üzerinde bir savaş, adım adım. Bir devletin doğuşu ve yayılışı.", "Savaş, *devletin yayılışı*", ("list", "format", 2)),
+  ("Bir şehrin bin yılı. Ya da tarihte bugün: o gün ne olduysa, onun haritası.", "Şehrin bin yılı, *tarihte bugün*", ("list", "format", 4)),
+
+  # ---- 2: animasyon nasıl yapılır ----
+  ("Peki bu animasyonlar nasıl yapılıyor? Altı adımda, kısaca.", "Animasyon: *6 adım*", ("howto2", 0)),
+  ("Bir: konu ve kaynak. Claude'a konuyu veriyorsun; önce tarihleri ve olayları listeliyor.", "1. *Konu + kaynak*", ("howto2", 1)),
+  ("Sonra her bilgiyi kontrol ediyorsun. Bizde bir hata çıktı: Fatih için on dokuz yaşında tahta çıktı yazıyordu; aslında on sekiz.", "Kontrol: *19 değil 18*", ("bug", 21)),
+  ("Neyle kontrol edersin? Ansiklopediler, ders kitapları ve akademik kaynaklarla. Tek kaynağa güvenme; en az iki kaynakta aynı bilgiyi ara.", "En az *iki kaynak*", ("list", "kaynak", 0)),
+  ("İki: sahneler. Her cümlenin altına bir komut yazılıyor: harita nereye baksın, hangi sınır çizilsin.", "2. *Cümle + sahne*", ("editor", 3)),
+  ("Üç: harita. Kara, deniz, göl ve nehirler açık ve ücretsiz bir harita verisinden kodla çiziliyor.", "3. *Ücretsiz harita verisi*", ("full", "harita_duz.jpg")),
+  ("Dört: gerçek arazi. Dünyanın yükseklik verisi de ücretsiz; dağlar, ovalar, kar ve deniz derinliği buradan geliyor.", "4. *Gerçek arazi*", ("full", "arazi_iyi.jpg")),
+  ("İlk denemem düz bir haritaydı. Gerçekçi olsun dedim; fark bu.", "İlk deneme → *son hali*", ("ab", "ilk_hali.jpg", "son_hali.jpg", "İlk deneme", "Son hali")),
+  ("Beş: hareket. Eğik kamera, pus, bulut gölgeleri; sınırlar dalga gibi yayılıyor, ordular arazinin üstünde savaşıyor.", "5. *Kamera + hareket*", ("clip", "turk_malazgirt")),
+  ("Altı: ses ve kurgu. Seslendirme yapay zekâdan, altyazılar kelime kelime, müzik bile kodla üretiliyor.", "6. *Ses + kurgu*", ("list", "ses", 0)),
+  ("Seste tek bir ses ve tek bir ton seç. İsimler için bir telaffuz listesi tut; mesela Claude'u Klod diye okutuyoruz.", "Tek ses, *telaffuz listesi*", ("list", "ses", 2)),
+  ("Sen sadece ne görmek istediğini anlatıyorsun ve ekran görüntüsüne bakıp beğenmediğini söylüyorsun.", "Anlat, bak, *söyle*", ("loop", 3)),
+  ("İlk mesajın şöyle olabilir: şu konuyu haritalı bir animasyonla anlat, önce olay listesini çıkar, sonra sahneleri öner.", "İlk *mesaj*", ("talk", 2, 2)),
+  ("Bu mesajın tamamını açıklamaya koydum.", "Prompt *açıklamada*", ("talk", 2, 2)),
+
+  # ---- 3: devretmek ----
+  ("Şimdi işin asıl kısmı: kanalı yapay zekâya devretmek.", "Kanalı *devretmek*", ("talk", 1, 1)),
+  ("Claude'a dedim ki: her pazartesi ve perşembe bir tarih animasyonu hazırla.", "Her pazartesi ve *perşembe*", ("talk", 1, 2)),
+  ("O da bir akış kurdu: konu seç, metni yaz, kaynakları kontrol et, animasyonu çiz, videoyu hazırla.", "Konu → *video*", ("pipe", 3)),
+  ("Sonra bir görev zamanlayıcı kurduk: her pazartesi ve perşembe Claude kendiliğinden başlıyor, videoyu hazırlayıp bana gönderiyor.", "Kendiliğinden *başlıyor*", ("pipe", 3)),
+  ("Bütün araçları ve kuralları bir hafıza dosyasına yazdı; her yeni videoda oradan devam ediyor.", "Hafıza *dosyası*", ("pipe", 3)),
+  ("Bu dosyada kanalın kuralları var: ton, süre, renkler, kaynak kontrolü, hangi konunun yapıldığı.", "Kanalın *kuralları*", ("list", "hafiza", 0)),
+  ("Böylece her video aynı kalitede ve aynı tarzda çıkıyor.", "Aynı kalite, *aynı tarz*", ("list", "hafiza", 5)),
+  ("Ama bir şeyi baştan söyleyeyim: son kontrol sende.", "Son kontrol *sende*", ("list", "hafta", 0)),
+  ("Pazartesi Claude videoyu hazırlıyor.", "Pzt: *Claude hazırlar*", ("list", "hafta", 1)),
+  ("Sen bilgileri ve görüntüyü kontrol ediyorsun.", "Sen *kontrol edersin*", ("list", "hafta", 2)),
+  ("Başlığı ve kapağı seçip yüklüyorsun.", "Başlık, kapak, *yükle*", ("list", "hafta", 3)),
+  ("Yorumlardan sıradaki konuyu topluyorsun. Perşembe aynısı.", "Yorumlardan *konu*", ("list", "hafta", 4)),
+  ("Yani yapay zekâya devretsen de senin işin bitmiyor: konuyu onaylamak, bilgiyi kontrol etmek, yorumlara cevap vermek sende.", "Senin işin: *onay, kontrol, yorum*", ("list", "hafta", 4)),
+  ("İlk haftalarda her videoyu baştan sona izle; gördüğün her hatayı hafıza dosyasına kural olarak ekle.", "Hatayı *kurala çevir*", ("list", "hafiza", 5)),
+  ("Bir haftada iki uzun video, iki kısa video. Hazır görsel yok, hepsi sıfırdan.", "Haftada *2 + 2 video*", ("rstats", 0)),
+
+  # ---- 4: ücretsiz araçlar ----
+  ("Peki bunun maliyeti ne?", "Maliyet *ne?*", ("list", "ucretsiz", 0)),
+  ("Harita verisi ücretsiz.", "Harita verisi: *ücretsiz*", ("list", "ucretsiz", 1)),
+  ("Yükseklik verisi açık veri, ücretsiz.", "Yükseklik verisi: *ücretsiz*", ("list", "ucretsiz", 2)),
+  ("Müzik kodla üretiliyor, telif derdi yok.", "Müzik: *ücretsiz*", ("list", "ucretsiz", 3)),
+  ("Claude'u ücretsiz sürümüyle deneyebilirsin. Ama açık konuşayım: düzenli üretim ve Claude Code için ücretli plan gerekiyor.", "Claude: *ücretsiz başla*", ("list", "ucretsiz", 4)),
+  ("Ses için ücretsiz katmanlar var; yalnız kullanım iznine mutlaka bak.", "Ses: *lisansa bak*", ("list", "ucretsiz", 5)),
+  ("Bir de veri lisansı: kullandığın harita ve yükseklik verisinin kaynağını açıklamada belirt.", "Kaynağı *belirt*", ("list", "ucretsiz", 5)),
+
+  # ---- 5: büyütmek ----
+  ("Peki kanal nasıl büyür?", "Kanal nasıl *büyür?*", ("list", "buyume", 0)),
+  ("Bir: merak uyandıran başlık. Malazgirt'te ne oldu, gemiler karadan nasıl yürüdü gibi.", "1. *Merak uyandıran başlık*", ("list", "buyume", 1)),
+  ("İki: her videoda aynı tarz, haritalı bir kapak.", "2. *Haritalı kapak*", ("full", "/home/user/analiz/video_teslim/FT_T1_gemiler_karadan.jpg")),
+  ("Kapakları da Claude yapıyor: videodan çarpıcı bir kare, üstüne iki-üç kelime, bir de tarih rozeti.", "Kare + 3 kelime + *rozet*", ("full", "/home/user/analiz/video_teslim/TA2_T1_1071_imparator_esir.jpg")),
+  ("Kelimeler merak uyandırsın: İmparator esir, gemiler karadan yürüdü.", "Merak *uyandırsın*", ("full", "/home/user/analiz/video_teslim/FT_T2_53_gunde_fetih.jpg")),
+  ("Üç: her uzun videodan bir kısa video kes; savaş anı, gemilerin karadan yürüdüğü an.", "3. *Her videodan 1 Shorts*", ("list", "buyume", 3)),
+  ("Kısa videoda ilk iki saniye her şey: en çarpıcı anla başla, altyazılar büyük olsun, sonunda uzun videoya çağır.", "İlk *2 saniye*", ("clip", "fetih_gemiler")),
+  ("Dört: takvimi kullan. Yıl dönümlerinden önce o konuyu yayınla: 26 Ağustos'tan önce Malazgirt, 29 Mayıs'tan önce fetih.", "4. *Yıl dönümü takvimi*", ("list", "buyume", 4)),
+  ("Örnek bir takvim: 18 Mart Çanakkale, 29 Mayıs fetih, 26 Ağustos Malazgirt, 30 Ağustos Zafer, 29 Ekim Cumhuriyet.", "Yıl dönümü *takvimi*", ("list", "takvim", 0)),
+  ("Beş: yorumları oku. Sıradaki konuyu izleyiciler seçsin.", "5. *Yorumlardan konu*", ("list", "buyume", 5)),
+  ("Topluluk sekmesinde anket aç: sıradaki konu hangisi olsun?", "Topluluk *anketi*", ("list", "buyume", 5)),
+  ("Açıklamaya bölüm damgaları ve kaynakları yaz; hem izleyici hem arama motoru bunu sever.", "Bölüm damgası + *kaynak*", ("list", "buyume", 5)),
+  ("Altı: istatistiklere bak. Hangi konu tuttuysa o dönemden devam et.", "6. *İstatistiğe bak*", ("list", "buyume", 6)),
+  ("Özellikle ilk otuz saniyeye bak: izleyici orada gidiyorsa girişi kısalt.", "İlk *30 saniye*", ("list", "buyume", 6)),
+  ("İlk on video için bir plan da yaptık.", "İlk *10 video*", ("list", "plan", 0)),
+  ("Türklerin Anadolu'ya gelişi ve İstanbul'un Fethi hazır. Sırada Malazgirt'in tamamı, Osmanlı'nın kuruluşu, Çanakkale ve Kurtuluş Savaşı var.", "Sıradakiler", ("list", "plan", 6)),
+  ("İlk otuz gün için de basit bir plan:", "İlk *30 gün*", ("list", "otuz", 0)),
+  ("Birinci hafta kanalı kur ve ilk iki videoyu yayınla.", "1. hafta: *kur + 2 video*", ("list", "otuz", 1)),
+  ("İkinci hafta iki video daha; her birinden bir kısa video.", "2. hafta: *+ Shorts*", ("list", "otuz", 2)),
+  ("Üçüncü hafta istatistiklere bak; hangi konu tuttuysa o dönemden devam et.", "3. hafta: *istatistik*", ("list", "otuz", 3)),
+  ("Dördüncü hafta yorumlardan gelen konuyu yap ve izleyiciye bunu söyle.", "4. hafta: *izleyicinin konusu*", ("list", "otuz", 4)),
+  ("Ve en önemlisi: süreklilik. Kanalı büyüten tek bir viral video değil, her hafta gelen yeni video.", "En önemlisi: *süreklilik*", ("clip", "fetih_saldiri")),
+
+  # ---- gelir (rakam yok) ----
+  ("Para kısmında rakam vermeyeceğim.", "Rakam *yok*", ("list", "gelir", 0)),
+  ("Kanal YouTube'un abone ve izlenme şartlarını karşılayınca reklam geliri açılıyor.", "Şartlardan sonra *reklam*", ("list", "gelir", 1)),
+  ("Bunun yanında üyelikler, sponsorluklar; bir de bu animasyonları başka kanallara hizmet olarak yapmak.", "Üyelik, sponsor, *hizmet*", ("list", "gelir", 4)),
+
+  # ---- kurallar ----
+  ("Kurallar da var.", "Kurallar", ("rules", 0)),
+  ("Birbirinin aynısı, seri üretim videolar YouTube'da para kazanmaya uygun bulunmayabilir.", "Seri üretim *yok*", ("rules", 1)),
+  ("O yüzden yapay zekâya devretsen de her videoda özgün araştırma ve anlatım olsun.", "Özgün *araştırma*", ("rules", 2)),
+  ("Bilgiyi kaynaktan kontrol et; yapay zekâ da yanılabilir.", "Kaynaktan *kontrol*", ("rules", 3)),
+  ("Gerçekçi görünen yapay içerikte YouTube'un açıklama seçeneğini işaretle.", "Yapay içerik *etiketi*", ("rules", 4)),
+  ("Bir de şeffaf ol: açıklamaya videonun yapay zekâ yardımıyla hazırlandığını yaz.", "Şeffaf *ol*", ("rules", 5)),
+  ("Açık veri ve telifsiz müzik kullan. Ve kimse sana kazanç garantisi veremez.", "Kazanç *garantisi yok*", ("rules", 6)),
+  ("Bir de en sık yapılan hatalar.", "Sık yapılan *hatalar*", ("list", "hata", 0)),
+  ("Kaynağı kontrol etmemek. Her videoda farklı bir tarz. Düzensiz yayın. Uzun ve boş bir giriş. Telifli müzik.", "5 *hata*", ("list", "hata", 5)),
+
+  # ---- sık sorulanlar ----
+  ("En çok sorulanlar. Kod bilmem gerekiyor mu? Hayır; ne görmek istediğini anlatman yeterli.", "Kod *gerekmez*", ("qa", 0)),
+  ("Güçlü bir bilgisayar lazım mı? Hayır; Claude Code bulutta da çalışıyor, render orada yapıldı.", "Bilgisayar: *şart değil*", ("qa", 1)),
+  ("Bir video ne kadar sürüyor? İlk harita motoru bir gün sürdü; sonraki konular çok daha hızlı.", "İlk motor: *1 gün*", ("qa", 2)),
+  ("Yüzümü göstermem gerekiyor mu? Hayır; bu tarz kanallarda ses ve animasyon yeterli.", "Yüz *gerekmez*", ("qa", 3)),
+  ("Hangi konudan başlamalıyım? Bildiğin ve sevdiğin bir dönemden.", "Sevdiğin *dönemden*", ("qa", 4)),
+  ("Videolar ne kadar uzun olmalı? Konuya göre; ama bizim formatımız sekiz-on dakika.", "Süre: *8–10 dk*", ("qa", 5)),
+  ("Kaç videoda büyür? Kimse bir sayı veremez; büyütecek olan süreklilik.", "Sayı yok: *süreklilik*", ("qa", 6)),
+  ("Yapay zekâ içerik için YouTube yasak mı? Hayır; ama özgün, emek verilmiş ve doğru içerik bekliyor.", "Yasak değil, *özgünlük şart*", ("qa", 7)),
+
+  # ---- kapanış ----
+  ("Özet: niş seç, Claude ile animasyonu yap, akışı kur, her hafta yayınla.", "Seç, yap, kur, *yayınla*", ("montage", 0)),
+  ("Bu kanalın iki animasyonu da yayında: Türkler Anadolu'ya nasıl geldi ve İstanbul'un Fethi.", "İki animasyon *yayında*", ("montage", 0)),
+  ("Hazır promptu açıklamaya koydum. Sıradaki tarih animasyonu hangi konu olsun? Yorumlara yaz.", "Sıradaki *konu?*", ("comment", 0)),
+]
+SAY = {"Claude'a": "Klod'a", "Claude'u": "Klod'u", "Claude'dan": "Klod'dan", "Claude": "Klod", "Shorts": "Şorts"}

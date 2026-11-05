@@ -16,3 +16,16 @@ Seri A "Claude ile Yaptım", ilk animasyon bölümü.
 
 Üretim: `tts_xi.py` → `render_turk.py stills ...` → `render_turk.py render 4` → 1.25x hızlandır ve sıkıştır (`kanal/README.md`).
 Yeni bir harita animasyonu için bu klasörü kopyala; `TERR`, `ROUTES`, `CITY`, `VIEWS` ve `script.py` dosyalarını konuya göre değiştir.
+
+## v2: gerçekçi motor (kodla, ücretsiz)
+- **`arazi.py`:** AWS Terrarium yükseklik karolarından (açık veri) arazi atlasları üretir.
+  - kabartma, doğal renk (Natural Earth NE1 arazi örtüsü), deniz derinliği
+  - göller, yükseklik verisindeki düz yüzeylerden bulunur
+  - seviyeler: dünya / bölge / Anadolu / Malazgirt / İstanbul
+  - çalıştırma: `python3 arazi.py`
+  - NE1 rasterı `ist/data/ne1/bolge.png` olarak kırpılmış durur. Kaynak: naciscdn NE1_50M_SR_W.
+- **`sinema.py`:** eğik kamera (perspektif matrisi), ufuk pusu, bulut gölgeleri.
+  - ışıldayan sınırlar, dairesel yayılarak beliren devletler, ışık atımlı yollar
+  - koyu cam plakalı şehir etiketleri
+  - billboard birlik figürleri, toz, duman ve ateş
+- **`render_turk2.py`:** v2 render; aynı `script.py` ile çalışır. Savaş, `battle_map` ile gerçek arazinin üstünde.

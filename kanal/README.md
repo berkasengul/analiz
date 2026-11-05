@@ -65,6 +65,17 @@ Bu dosya kanalın kalıcı hafızasıdır. Yeni bir oturumda video yapmadan önc
     - Kullanıcının kendi ekran kayıtları her zaman önceliklidir. Google Drive linkiyle gelir; kullanıcının Windows bilgisayarına erişilemiyor.
     - Masaüstü kaydında site alanı y=152–1020; mobil kayıtta x=40–394 kırpılır.
 
+## Tarih animasyonları (Seri A)
+- **Gerçekçilik şart:** Kullanıcı düz, çizim tarzı haritayı "çok kalitesiz" buldu.
+  - Motor: `projeler/turkler-anadolu/{arazi,sinema}.py`. Gerçek yükseklik verisi, eğik kamera, atmosfer.
+  - Kodla ve ücretsiz yapılır; yapay zekâ görüntü servisi kullanılmaz (kullanıcının seçimi).
+- **Tarih doğruluğu:**
+  - Tarihleri yaygın kabul gören bilgilerle sınırla.
+  - Tartışmalı yerde "kaynaklara göre" / "rivayete göre" de.
+  - Yaş, tarih gibi bilgileri hesapla. Örnek hata: Fatih 1451'de 18 yaşındaydı, 19 değil.
+- **Tanıtım videoları** animasyonların tamamını anlatmaz: kısa fragman + kanal nasıl açılır ve sürdürülür.
+- **Açıklamaya kaynak yaz:** Natural Earth (kamu malı), Mapzen/Tilezen Terrain Tiles (AWS Open Data).
+
 ## Araçlar (`arac/`)
 
 | Yol | Ne yapar |
