@@ -6,6 +6,13 @@ Bu dosya kanalın kalıcı hafızasıdır. Yeni bir oturumda video yapmadan önc
 - **Dil:** Türkçe. Kullanıcı kısa ve net cevap ister.
 - **Seri:** "Claude ile 3D Site". Her bölümde bir marka, o markaya Claude ile yapılmış bir 3D demo site. Plan ve bölüm kaydı `SERI.md`'de.
 
+## Kanal adı değişiyor: BerkAİ (eski adı Karga Zihni)
+- Kullanıcı kanala kendi yüzünü koyuyor. HeyGen ile yapılmış avatar videoları (kendi yüzü, konuşan) videolara ara ara eklenecek.
+- Örnek avatar klibi: 1280×720, 25 fps, -17 LUFS, sağ altta HeyGen filigranı (ücretsiz plan). Teslimde: 1080p'ye büyüt, 30 fps'e çevir, sesi -14 LUFS'e eşitle.
+- Kullanım yerleri: açılıştan hemen sonra 5–10 sn giriş, bölüm geçişleri, kapanış/yorum çağrısı. Animasyon üstünde sağ altta yuvarlak köşe görüntü (turuncu halka + "BerkAİ" etiketi).
+- Avatar sesi anlatıcı sesiyle aynı olmalı (ElevenLabs "Berkay" sesi).
+- Gerçekçi yapay avatar: YouTube'da "değiştirilmiş veya yapay içerik" kutusu işaretlenir, açıklamaya not düşülür.
+
 ## Video kuralları (kullanıcının geri bildirimlerinden)
 
 1. **Açılış sitenin kendisiyle:** İlk 30–40 saniye bizim 3D siteyi göster. Kutular, ürünler, tıklama ve telefon görünümü olsun. Sonra markayı kısaca tanıt ve şu anki sitesini göster: "Biz de bu markaya yakışan bir site yapmak istedik."
