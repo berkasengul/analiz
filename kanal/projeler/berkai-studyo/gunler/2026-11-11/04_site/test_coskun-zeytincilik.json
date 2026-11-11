@@ -1,10 +1,10 @@
 {
  "slug": "coskun-zeytincilik",
- "tarih": "2026-11-11T12:31:08.127Z",
+ "tarih": "2026-11-11T12:56:11.852Z",
  "gorunumler": {
   "masaustu": {
-   "hazir_ms": 482,
-   "ilk_goruntu_ms": 28,
+   "hazir_ms": 408,
+   "ilk_goruntu_ms": 32,
    "yatay_tasma_px": 0,
    "not_var": true,
    "noindex": true,
@@ -15,8 +15,8 @@
    "bolum": 4
   },
   "telefon": {
-   "hazir_ms": 448,
-   "ilk_goruntu_ms": 36,
+   "hazir_ms": 461,
+   "ilk_goruntu_ms": 40,
    "yatay_tasma_px": 0,
    "not_var": true,
    "noindex": true,

@@ -1,10 +1,10 @@
 {
- "tarih": "2026-11-11T12:47:56.684Z",
+ "tarih": "2026-11-11T12:57:21.633Z",
  "hatalar": [],
- "normal_hazir_ms": 1416,
+ "normal_hazir_ms": 1490,
  "paneller": {
   "konu": {
-   "ipucu": "E YouTube Konu Ekibi: bugün ne yaptı?",
+   "ipucu": "E 3D Site Ekibi: bugün ne yaptı?",
    "baslik": "YouTube Konu Ekibi",
    "belge": 1,
    "yazi": 6566
@@ -12,14 +12,14 @@
   "yapim": {
    "ipucu": "E YouTube Yapım Ekibi: bugün ne yaptı?",
    "baslik": "YouTube Yapım Ekibi",
-   "belge": 0,
-   "yazi": 64
+   "belge": 6,
+   "yazi": 11955
   },
   "musteri": {
    "ipucu": "E Müşteri Bulma Ekibi: bugün ne yaptı?",
    "baslik": "Müşteri Bulma Ekibi",
-   "belge": 1,
-   "yazi": 12815
+   "belge": 2,
+   "yazi": 8987
   },
   "site": {
    "ipucu": "E 3D Site Ekibi: bugün ne yaptı?",
@@ -36,8 +36,8 @@
   "mudur": {
    "ipucu": "E Müdür: raporu oku, kararlarını ver",
    "baslik": "Müdür",
-   "belge": 0,
-   "yazi": 295
+   "belge": 1,
+   "yazi": 5558
   }
  },
  "karar": {
@@ -47,16 +47,16 @@
   "dosya_adi": "kararlar.json",
   "ilk": {
    "id": "K1",
-   "baslik": "O Atölye'ye mail",
+   "baslik": "O Atölye'ye demo ve mail",
    "karar": "onay",
    "not": ""
   },
-  "adet": 1
+  "adet": 5
  },
- "yurume_m": 1.08,
+ "yurume_m": 1.28,
  "demo_cerceve": "http://yerel/siteler/o-atolye/index.html",
  "dis_istek": [],
- "tur_hazir_ms": 3643,
+ "tur_hazir_ms": 3657,
  "tur": {
   "sure": 107,
   "sahneler": [
@@ -108,6 +108,6 @@
   ]
  },
  "tur_deterministik": true,
- "kare_ms": 1344,
+ "kare_ms": 1320,
  "gecti": true
 }

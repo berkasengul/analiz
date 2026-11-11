@@ -1,1 +1,6 @@
-{"ad":"Müdür","kisa":"Müdür","tek_satir":"hazırlanıyor","ozet":"Hazırlanıyor.","pano":["Hazırlanıyor"],"calisanlar":[],"belgeler":[]}
+{"ad":"Müdür","kisa":"Müdür","tek_satir":"5 karar bekliyor",
+ "ozet":"Beş kararını bekliyorum; ikisi mail gönderimi. Bugün beş ekip 14 site ölçtü, 2 demo yaptı, 4 mail ve bir video paketi hazırladı. Dışarıya hiçbir şey gönderilmedi.",
+ "pano":["5 karar bekliyor","K1–K2: iki demo ve mail gönderilsin mi?","K3: bu haftanın iki videosu","Dışarıya giden: 0","Raporu ve kararları aç: E"],
+ "rakamlar":[{"d":"5","e":"bekleyen karar"},{"d":"0","e":"dışarıya giden"},{"d":"17","e":"çalışan"},{"d":"6","e":"ekip"}],
+ "calisanlar":[{"rol":"Müdür","is":"Beş ekibin çıktısını tek rapora topladı, yapılamayanları yazdı, onayını gerektiren beş kararı sordu ve ofisin veri dosyasını üretti.","cikti":"gunluk_rapor.md"}],
+ "belgeler":["gunluk_rapor.md"]}

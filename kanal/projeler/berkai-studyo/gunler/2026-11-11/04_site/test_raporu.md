@@ -13,13 +13,13 @@ Klasör: `siteler/coskun-zeytincilik/` (710 KB, dış istek yok, internetsiz ça
 | Konsol hatası yok | geçti | masaüstü 0, telefon 0 |
 | Dış istek yok (offline) | geçti | 0 dış istek |
 | Telefonda yatay taşma yok | geçti | 0 px |
-| İlk görüntü 3 sn altında | geçti | masaüstü 28 ms, telefon 36 ms (yerel) |
+| İlk görüntü 3 sn altında | geçti | masaüstü 32 ms, telefon 40 ms (yerel) |
 | "Bağımsız konsept demo" notu | geçti | alt bilgide |
 | Arama motoruna kapalı | geçti | noindex + robots.txt |
 | Kırık bağlantı yok | geçti | 200, 200, 200, 200, 200, 200 |
 | Tur deterministik | geçti | aynı t iki kez → aynı kare; 20.7 sn, 4 sahne |
 
-3D sahne hazır: masaüstü 482 ms, telefon 448 ms. En küçük yazı: masaüstü 12 px, telefon 11 px.
+3D sahne hazır: masaüstü 408 ms, telefon 461 ms. En küçük yazı: masaüstü 12 px, telefon 11 px.
 
 Tur sahneleri (`index.html?tur=1`): Açılış: 5 L teneke (0–4.2 sn) · İlk hasat: galon cam şişe (5.5–9.7 sn) · Zeytin: taze acı kırma (11–15.2 sn) · Kapanış: aile hikâyesi (16.5–20.7 sn)
 
@@ -42,13 +42,13 @@ Klasör: `siteler/o-atolye/` (710 KB, dış istek yok, internetsiz çalışır)
 | Konsol hatası yok | geçti | masaüstü 0, telefon 0 |
 | Dış istek yok (offline) | geçti | 0 dış istek |
 | Telefonda yatay taşma yok | geçti | 0 px |
-| İlk görüntü 3 sn altında | geçti | masaüstü 108 ms, telefon 56 ms (yerel) |
+| İlk görüntü 3 sn altında | geçti | masaüstü 132 ms, telefon 60 ms (yerel) |
 | "Bağımsız konsept demo" notu | geçti | alt bilgide |
 | Arama motoruna kapalı | geçti | noindex + robots.txt |
 | Kırık bağlantı yok | geçti | e-posta bağlantısı, kontrol edilmedi (Instagram oturumsuz isteği engelliyor) |
 | Tur deterministik | geçti | aynı t iki kez → aynı kare; 31.7 sn, 6 sahne |
 
-3D sahne hazır: masaüstü 756 ms, telefon 586 ms. En küçük yazı: masaüstü 12 px, telefon 11 px.
+3D sahne hazır: masaüstü 782 ms, telefon 579 ms. En küçük yazı: masaüstü 12 px, telefon 11 px.
 
 Tur sahneleri (`index.html?tur=1`): Açılış: tablet (0–4.2 sn) · 1. Kakao meyvesi (5.5–9.7 sn) · 2. Kavurma (11–15.2 sn) · 3. Taş değirmen (16.5–20.7 sn) · 4. Tablet (22–26.2 sn) · Kapanış: bütün yolculuk (27.5–31.7 sn)
 

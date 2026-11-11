@@ -1,12 +1,36 @@
 {
   "tarih": "2026-11-11",
-  "disa_aktarim": "2026-11-11T12:49:49.593Z",
+  "disa_aktarim": "2026-11-11T12:59:11.778Z",
   "aciklama": "Bu dosyayı gunler/2026-11-11/kararlar.json olarak kaydet; GUNLUK_KOMUT yarın buradan devam eder.",
   "kararlar": [
     {
       "id": "K1",
-      "baslik": "O Atölye'ye mail",
+      "baslik": "O Atölye'ye demo ve mail",
       "karar": "onay",
+      "not": ""
+    },
+    {
+      "id": "K2",
+      "baslik": "Coşkun Zeytincilik'e demo ve mail",
+      "karar": "bekliyor",
+      "not": ""
+    },
+    {
+      "id": "K3",
+      "baslik": "Bu haftanın videoları",
+      "karar": "bekliyor",
+      "not": ""
+    },
+    {
+      "id": "K4",
+      "baslik": "Zeytin Diyarı: adres yok",
+      "karar": "bekliyor",
+      "not": ""
+    },
+    {
+      "id": "K5",
+      "baslik": "İki kısa mesaj: Kap Seramik ve Yasemin Uğurlu",
+      "karar": "bekliyor",
       "not": ""
     }
   ]

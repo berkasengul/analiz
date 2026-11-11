@@ -1,10 +1,10 @@
 {
  "slug": "o-atolye",
- "tarih": "2026-11-11T12:29:41.144Z",
+ "tarih": "2026-11-11T12:54:45.892Z",
  "gorunumler": {
   "masaustu": {
-   "hazir_ms": 756,
-   "ilk_goruntu_ms": 108,
+   "hazir_ms": 782,
+   "ilk_goruntu_ms": 132,
    "yatay_tasma_px": 0,
    "not_var": true,
    "noindex": true,
@@ -15,8 +15,8 @@
    "bolum": 6
   },
   "telefon": {
-   "hazir_ms": 586,
-   "ilk_goruntu_ms": 56,
+   "hazir_ms": 579,
+   "ilk_goruntu_ms": 60,
    "yatay_tasma_px": 0,
    "not_var": true,
    "noindex": true,
