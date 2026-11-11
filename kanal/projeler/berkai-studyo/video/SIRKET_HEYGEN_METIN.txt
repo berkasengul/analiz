@@ -1,0 +1,93 @@
+BerkAİ — "Yapay Zekâya Şirket Kurdurdum" · HeyGen metni (samimi anlatım)
+═══════════════════════════════════════════════════════════════
+
+NASIL ÜRETİLİR
+• Her PARÇA'yı ayrı bir HeyGen videosu olarak üret (7 parça). Tek parça uzun olursa HeyGen takılabiliyor.
+• Ses: kendi klon sesin. Hız: normal. Arka plan: stüdyo. 1080p.
+• Sadece "HEYGEN'E YAPIŞTIR" bloklarını yapıştır. [Köşeli parantezler] bilgi içindir, yapıştırma.
+• Okunuş için yazılanlar: Klod = Claude, Feybıl = Fable, Netlifay = Netlify. Ekranda doğrusunu yazarım.
+• Toplam ~1.200 kelime ≈ 8,5 dk ham; 1.25x sonrası ~7 dk. Ofis ve demo site turlarıyla 8 dakikanın üstüne tamamlarım.
+
+REFERANS VİDEODAN ALDIĞIMIZ ANLATIM KURALLARI
+1. Selamla ya da "bu videoda şunu, sonra bunu anlatacağım" listesiyle açılmıyor. İlk cümle doğrudan sonuç.
+2. İzleyiciye arkadaşına konuşur gibi hitap ediyor ("dostlar", "bakın", "mesela", "biliyor musunuz?").
+3. Kısa cümleler; her paragrafta bir soru sorup hemen cevaplıyor.
+4. Kendi hatasını açıkça söylüyor ("ben de yaptım"); bu güven veriyor.
+5. Somut veri veriyor ve kaynağını gösteriyor.
+6. Sonda nasihat ya da ikinci özet yok: tek soru, kısa veda, bitti.
+
+═══════════════════════════════════════════════════════════════
+PARÇA 1 — GİRİŞ (~55 sn)  [ilk 3 cümle ofis görüntüsü + köşede sen, sonra tam ekran sen]
+═══════════════════════════════════════════════════════════════
+HEYGEN'E YAPIŞTIR:
+Dostlar, bu ofiste on yedi kişi çalışıyor ve hiçbiri insan değil. Bu sabah hepsine tek bir komut verdim. Akşam masamda neler vardı biliyor musunuz? Kanal için beş video konusu, on dört gerçek işletmenin site incelemesi, iki tane çalışan 3D site, dört tane mail taslağı ve bir de müdürün raporu. Hatta ofisi bile onlar kurdu. İstanbul manzaralı olsun demiştim, olmuş.
+
+Şimdi biri diyecek ki, abi bunlar süslü bir animasyon. Haklı olabilirdi. O yüzden her masada durup ne ürettiklerini açıp göstereceğim. Dosya yoksa iş de yok. Hadi girelim.
+
+═══════════════════════════════════════════════════════════════
+PARÇA 2 — TEK KOMUT VE İLK HATAM (~1 dk 40 sn)  [komut ekranı kısa, sonra ofis girişi]
+═══════════════════════════════════════════════════════════════
+HEYGEN'E YAPIŞTIR:
+Önce şunu söyleyeyim, ben de hata yaptım. Anthropic'in yeni modeli Feybıl pazartesi çıktı. Ben de heyecanla ona bir ofis kurdurmaya başladım. İçine de uydurma veriler koydum. Sahte yorumlar, sahte mailler, içine gizlenmiş sorunlar. Bakalım kaçını bulacak diye. Yarım saat sonra durdum. Çünkü şunu fark ettim: bu ofis ne kadar güzel olursa olsun, benim işimi yapmıyordu. Güzel görünen ama boş bir ofis kimsenin işine yaramıyor.
+
+Hepsini sildim ve baştan başladım. Bu sefer Feybıl'a bir prompt yazmadım, bir iş tanımı yazdım. Dedim ki: benim iki işim var. Bir YouTube kanalım var, bir de küçük işletmelere 3D web siteleri yapıyorum. Bunları her gün ben yapıyorum, artık bir ekip yapsın.
+
+Altı ekip saydım: konu ekibi, yapım ekibi, müşteri bulma, 3D site, mail ve müdür. Üç de kural koydum. Bir, boş iş yok; her çıktıyı gerçekten kullanacağım. İki, uydurma yok; bulamadığını bulamadım diye yazacak. Üç, dışarıya hiçbir şey gitmeyecek; mailler taslak kalacak, gönder tuşu bende. Bir de eski dosyalarımı verdim: kanalın kuralları, satış tablom, daha önce yazdığım mailler. Yani yeni işe başlayan birine ilk gün ne verirseniz onu verdim. Sonra arkama yaslandım. Bir saat sonra bu ofis hazırdı.
+
+═══════════════════════════════════════════════════════════════
+PARÇA 3 — KONU VE YAPIM EKİBİ (~1 dk 40 sn)  [1 Konu ve 2 Yapım bölmeleri, paneller]
+═══════════════════════════════════════════════════════════════
+HEYGEN'E YAPIŞTIR:
+İlk masa konu ekibi. Bunlar kanal için ne çekeceğimi buluyor. Önce benim kanalıma bakmışlar ve açık konuşayım, biraz bozuldum. Son yedi videomun ortalaması dört yüz seksen beş izlenme. Bunu bana bir çalışanım söyledi. Ama asıl önemli bulduğu şey şuydu: başlığa sektörün adıyla başladığım videolar en altta kalıyor. Mesela oto galeri videosu. Yani sorun konu değil, başlıkmış. Bunu ben kendi kendime fark etmemiştim.
+
+Sonra gündeme bakmışlar. Feybıl çıkalı iki gün olmuş, Türkçe videolar şimdiden ilgi görüyor. Yapay zekâ ekibi kuran videolar da izleniyor. İkisini birleştiren Türkçe video yok, demişler. Öneri net: bu videoyu çek. Şu an izlediğiniz video, o önerinin kendisi. Bir de bir konuyu elemişler. Çok izleniyor ama bizim kanalın işi değil diye. Her izlenen şeyi önermemeleri hoşuma gitti açıkçası.
+
+İkinci masa yapım ekibi. Seçilen konunun bütün paketini çıkarıyorlar. Senaryo, başlıklar, açıklama, kapak fikri, bir de Shorts. Kanalın kurallarını da ezberlemişler. Başlık altmış karakteri geçmiyor, videoda fiyat rakamı yok. Burada en sevdiğim çalışan doğrulayıcı oldu. Senaryodaki her bilginin yanına kaynağını yazmış. Doğrulayamadığı cümleyi de direkt silmiş. Çünkü bakın, yapay zekâ bilmediği yerde susmuyor, uyduruyor. Kaynağı yazdırmazsanız fark etmezsiniz bile.
+
+═══════════════════════════════════════════════════════════════
+PARÇA 4 — MÜŞTERİ BULMA VE 3D SİTE (~2 dk)  [3 Müşteri, 4 3D Site, demo site turu; işletme adları bulanık]
+═══════════════════════════════════════════════════════════════
+HEYGEN'E YAPIŞTIR:
+Üçüncü masa işin para kazanan tarafı. Müşteri bulma ekibi. Görevleri basit: sitesi kötü olan gerçek işletmeleri bulmak. İlk denemede duvara tosladılar. Arama motoru onları bot sandı, alakasız sonuçlar verdi. Pes etmediler, haberlerden işletme isimlerini toplayıp sitelerini tek tek açtılar. On dört site. Her birini hem bilgisayarda hem telefonda açıp ölçtüler. Kaç saniyede açılıyor, telefonda kayıyor mu, kırık link var mı.
+
+Mesela bir seramik dükkânı var, sitede beş ürün var, beşi de tükenmiş. Bir zeytinyağı üreticisinin sitesi telefonda beş saniyede açılıyor. Beş saniye internette bir ömür dostlar. Sonuç ne biliyor musunuz? Altı işletmeyi elediler. Neden? Çünkü siteleri zaten iyiydi. İyi siteye yeni site satmaya çalışmak zaman kaybı. Bunu bana kimse söylemedi, kendileri karar verdi. Bir de kişisel telefon numaralarını kayıttan sildiler. Sadece işletmenin herkese açık adresi kaldı.
+
+Dördüncü masa benim asıl işim, 3D site ekibi. En iyi iki aday için gerçekten site yaptılar. Bakın, bir çikolata atölyesi. Kakao meyvesi, kavrulmuş çekirdek, dönen taş değirmen, sonunda tablet. İçinde tek bir fotoğraf yok, hepsi kodla çizildi. Çünkü başkasının fotoğrafını izinsiz kullanmak yok. İlk sürüm kusursuz muydu? Değildi. Tablet ekrana yan dönmüş geliyordu. Test eden çalışan yakaladı, düzelttiler. Sonra sekiz kontrolden geçirdiler, ikisi de geçti. Ve sitenin yanında bir zip dosyası duruyor. Netlifay'a sürükle bırak, site yayında.
+
+═══════════════════════════════════════════════════════════════
+PARÇA 5 — MAİL, MÜDÜR VE DÜZELTMELER (~1 dk 50 sn)  [5 Mail, 6 Müdür odası, karar onayı]
+═══════════════════════════════════════════════════════════════
+HEYGEN'E YAPIŞTIR:
+Beşinci masa mail ekibi. Dört işletmeye dört ayrı taslak yazmışlar. Hepsi kısa, seksen kelimenin altında. Ve her biri o işletmeye ait bir detayla başlıyor. Toplu mail atan biri bunu yazamaz. Fiyat yok, kazanç sözü yok, tek bir soru var: bakıp ne düşündüğünüzü yazar mısınız? En altta da şu cümle: bir daha yazmamamı isterseniz söylemeniz yeterli. Takip planı bile hazır. Dört gün sonra bir hatırlatma, yedi gün sonra son mesaj, sonra bırakıyoruz. Ve hiçbiri gönderilmedi. Gönder tuşu bende.
+
+Gelelim müdürün odasına. Müdür her şeyi tek rapora toplamış ve bana beş karar soruyor. Mesela çikolata atölyesine mail gitsin mi? Onaylıyorum. Yarın sabah ekip bu kararı okuyup kaldığı yerden devam ediyor. Çünkü yarın için de tek bir komut var. Dünkü işlere ve benim kararlarıma bakıyor, yeni işletmeler buluyor, yeni konular getiriyor. Yani ben bir video çekmedim, her sabah çalışan bir düzen kurdum.
+
+Bu arada ofisin ilk hali böyle değildi. Çalışanlar şövalye kılığındaydı, sandalyeye oturamıyorlardı, ortada rastgele ekranlar vardı. Gezdim ve dedim ki, çok karışık, sadeleştir. Kıyafetleri ofis kıyafeti olsun, düzgün otursunlar, ben de görüneyim. Bir komutla düzeltti. Yani bir çalışana nasıl geri bildirim veriyorsanız ona da öyle veriyorsunuz.
+
+═══════════════════════════════════════════════════════════════
+PARÇA 6 — SEN NASIL KURARSIN (~1 dk 40 sn)  [komut ekranı kısa, sonra ofiste serbest yürüyüş]
+═══════════════════════════════════════════════════════════════
+HEYGEN'E YAPIŞTIR:
+Peki siz bunu kendi işiniz için nasıl kurarsınız? Dört adım var, çok basit. Bir, her gün yaptığınız işleri yazın. Kafanızda değil, kâğıtta. Ben yazınca fark ettim, her gün aynı beş işi yapıyormuşum. İki, her ekipten bir dosya isteyin. Sohbet değil, dosya. Çünkü sohbet akıp gidiyor, dosya ertesi gün masanızda duruyor. Üç, kurallarınızı yazın. Ama sadece ne yapacaklarını değil, neyi yapmayacaklarını da. Benim ekibin en iyi kararları zaten o kurallardan çıktı. Dört, son kararı kendinize bırakın. Mail mi gidecek, siz gönderin. Video mu yüklenecek, siz yükleyin.
+
+Bir de benim yaptığım hatayı yapmayın. Önce gerçek işi yaptırın, ofisi en sona bırakın. Ofis güzel ama iş yapmıyorsa sadece bir oyuncak.
+
+Bakın birkaç soru geliyor, hemen cevaplayayım. Kod bilmek gerekiyor mu? Hayır. Ama ne istediğinizi bilmeniz gerekiyor. Yanlış bilgi uydurursa ne olacak? Uydurabilir, o yüzden kaynak yazdırıyorum ve son okumayı ben yapıyorum. Mailleri kendisi gönderse daha hızlı olmaz mı? Olur. Ama toplu mail hem kurallara aykırı hem de karşı tarafa saygısızlık. Ben her mesajı tek tek okuyup kendim gönderiyorum.
+
+Bunu bir işe çevirmek isteyen için de mantık aynı. Bir kuaföre, bir emlakçıya, bir muhasebeciye aynı düzeni kurabilirsiniz. Fiyatı işin kapsamı belirler: kurulum, aylık bakım, ek işler. Ama kazanç garantisi veren biri olursa, ondan uzak durun.
+
+═══════════════════════════════════════════════════════════════
+PARÇA 7 — REDDEDİLEN İŞ VE KAPANIŞ (~1 dk 15 sn)  [tam ekran sen, sonra ofis geniş plan]
+═══════════════════════════════════════════════════════════════
+HEYGEN'E YAPIŞTIR:
+Bu ekipte en çok neyi sevdim biliyor musunuz? Yapmadıkları işi. En güzel adaylardan biri yeni kurulmuş bir zeytinyağı markasıydı. Tam bize göre. Ama sitesinde ne mail vardı ne telefon. Mail ekibi taslak yazmadı. Herkese açık bir adres yok, yazamam dedi. Bir seramik atölyesinin tabaklarındaki çizimler de onlarındı. İzinsiz kopyalamadılar, önce izin isteyen bir mesaj hazırladılar. Bence iyi çalışan, neyi yapmayacağını bilen çalışandır.
+
+Ama dürüst olayım, bu ofis kendi kendine dönmüyor. Sabah bir komut, akşam benim onayım. Kullandığım komutun tamamı açıklamada, kendi işinize göre değiştirip kullanabilirsiniz.
+
+Sizce bu ekibi bir sonraki adımda hangi işe kuralım? Bir kafe mi, bir emlakçı mı, yoksa kendi işiniz mi? Yorumlara yazın, en çok isteneni kuralım. Benden bu kadar dostlar, görüşürüz.
+
+═══════════════════════════════════════════════════════════════
+KONTROL ETMEN GEREKENLER (videoya koymadan önce)
+• "Son yedi videomun ortalaması dört yüz seksen beş izlenme": Fable'ın konu ekibi bunu herkese açık verilerden çıkardı. YouTube Studio'da doğru mu, bir bak; yanlışsa bu cümleyi silerim.
+• İşletme adları seslendirmede geçmiyor. Ekranda da mail gidip cevap gelene kadar bulanık kalacak.
+• Videoda gerçekçi avatar olduğu için YouTube'da "değiştirilmiş veya yapay içerik" kutusunu işaretle.
