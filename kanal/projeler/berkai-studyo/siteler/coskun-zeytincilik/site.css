@@ -39,6 +39,7 @@ footer strong{color:var(--yazi)}footer a{color:var(--yazi)}
   h1{font-size:clamp(32px,9vw,44px)}h2{font-size:clamp(27px,7.4vw,36px)}
   .dugme{padding:12px 18px}.dugme.ikinci{margin-left:0}
   .sira{display:none}
+  .ust{padding:14px 16px}.ust .marka{font-size:12.5px;letter-spacing:.14em;white-space:nowrap}.ust .rozet{font-size:11px;padding:4px 10px;white-space:nowrap}
   .blok.son{padding-bottom:5vh}
 }
 html.tur{scrollbar-width:none}html.tur::-webkit-scrollbar{display:none}

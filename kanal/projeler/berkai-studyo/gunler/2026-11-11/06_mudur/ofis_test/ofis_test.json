@@ -1,0 +1,113 @@
+{
+ "tarih": "2026-11-11T12:47:56.684Z",
+ "hatalar": [],
+ "normal_hazir_ms": 1416,
+ "paneller": {
+  "konu": {
+   "ipucu": "E YouTube Konu Ekibi: bugün ne yaptı?",
+   "baslik": "YouTube Konu Ekibi",
+   "belge": 1,
+   "yazi": 6566
+  },
+  "yapim": {
+   "ipucu": "E YouTube Yapım Ekibi: bugün ne yaptı?",
+   "baslik": "YouTube Yapım Ekibi",
+   "belge": 0,
+   "yazi": 64
+  },
+  "musteri": {
+   "ipucu": "E Müşteri Bulma Ekibi: bugün ne yaptı?",
+   "baslik": "Müşteri Bulma Ekibi",
+   "belge": 1,
+   "yazi": 12815
+  },
+  "site": {
+   "ipucu": "E 3D Site Ekibi: bugün ne yaptı?",
+   "baslik": "3D Site Ekibi",
+   "belge": 1,
+   "yazi": 4292
+  },
+  "mail": {
+   "ipucu": "E Mail Ekibi: bugün ne yaptı?",
+   "baslik": "Mail Ekibi",
+   "belge": 6,
+   "yazi": 2863
+  },
+  "mudur": {
+   "ipucu": "E Müdür: raporu oku, kararlarını ver",
+   "baslik": "Müdür",
+   "belge": 0,
+   "yazi": 295
+  }
+ },
+ "karar": {
+  "localStorage": [
+   "{\"K1\":{\"karar\":\"onay\"}}"
+  ],
+  "dosya_adi": "kararlar.json",
+  "ilk": {
+   "id": "K1",
+   "baslik": "O Atölye'ye mail",
+   "karar": "onay",
+   "not": ""
+  },
+  "adet": 1
+ },
+ "yurume_m": 1.08,
+ "demo_cerceve": "http://yerel/siteler/o-atolye/index.html",
+ "dis_istek": [],
+ "tur_hazir_ms": 3643,
+ "tur": {
+  "sure": 107,
+  "sahneler": [
+   {
+    "ad": "Giriş",
+    "bas": 0,
+    "bit": 7
+   },
+   {
+    "ad": "YouTube konu ekibi",
+    "bas": 7,
+    "bit": 19
+   },
+   {
+    "ad": "YouTube yapım ekibi",
+    "bas": 19,
+    "bit": 31
+   },
+   {
+    "ad": "Müşteri bulma ekibi",
+    "bas": 31,
+    "bit": 43
+   },
+   {
+    "ad": "3D site ekibi",
+    "bas": 43,
+    "bit": 55
+   },
+   {
+    "ad": "Demo site ekranda: O Atölye",
+    "bas": 55,
+    "bit": 70
+   },
+   {
+    "ad": "Mail ekibi",
+    "bas": 70,
+    "bit": 82
+   },
+   {
+    "ad": "Müdür odası: karar onayı",
+    "bas": 82,
+    "bit": 100
+   },
+   {
+    "ad": "Kapanış",
+    "bas": 100,
+    "bit": 107
+   }
+  ]
+ },
+ "tur_deterministik": true,
+ "kare_ms": 1344,
+ "gecti": true
+}

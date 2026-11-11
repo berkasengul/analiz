@@ -1,0 +1,9 @@
+{"ad":"YouTube Konu Ekibi","kisa":"Konu","tek_satir":"5 öneri; 2'si bu hafta",
+ "ozet":"Bu hafta için iki konu öneriyoruz: pazartesi \"Claude Fable 5.2'ye şirket kurdurdum\", perşembe \"Fable 5.2 ile 3D site: çikolata atölyesi\". Fable 5.2 pazartesi çıktı; 2,9 bin aboneli bir Türkçe kanal bir günde 10 bin izlendi.",
+ "pano":["Fable 5.2 pazartesi çıktı: Türkçe 5 video, 36 saatte 59 bin izlenme","Ajan ekibi videosu 49 bin (Avenox)","Kanal ortalaması 485; en iyi başlık 986","Öneri: Pazartesi şirket videosu, perşembe çikolata atölyesi"],
+ "rakamlar":[{"d":"5","e":"konu önerisi"},{"d":"9","e":"vidIQ sorgusu (45 kredi)"},{"d":"485","e":"kanal ortalama izlenme"},{"d":"96.408","e":"\"fable 5.2\" TR arama hacmi"}],
+ "calisanlar":[
+  {"rol":"Trend analisti","is":"vidIQ'dan son iki haftanın Türkçe ve İngilizce Claude videolarını, arama hacimlerini ve Fable 5.2 haberini topladı.","cikti":"ham_veri.json"},
+  {"rol":"Rakip izleyici","is":"Küçük kanalların patlayan videolarını ve kanalın kendi son 7 videosunu karşılaştırdı: sektör adıyla açılan başlıklar altta kalıyor.","cikti":"konu_raporu.md"},
+  {"rol":"Konu editörü","is":"Beş öneriyi kanıtıyla yazdı, birini eledi, ikisini bu haftaya koydu.","cikti":"konu_raporu.md"}],
+ "belgeler":["konu_raporu.md"]}

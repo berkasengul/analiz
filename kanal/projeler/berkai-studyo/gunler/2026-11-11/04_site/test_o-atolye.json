@@ -1,0 +1,93 @@
+{
+ "slug": "o-atolye",
+ "tarih": "2026-11-11T12:29:41.144Z",
+ "gorunumler": {
+  "masaustu": {
+   "hazir_ms": 756,
+   "ilk_goruntu_ms": 108,
+   "yatay_tasma_px": 0,
+   "not_var": true,
+   "noindex": true,
+   "canvas_dolu": true,
+   "en_kucuk_yazi_px": 12,
+   "konsol_hatasi": [],
+   "dis_istek": [],
+   "bolum": 6
+  },
+  "telefon": {
+   "hazir_ms": 586,
+   "ilk_goruntu_ms": 56,
+   "yatay_tasma_px": 0,
+   "not_var": true,
+   "noindex": true,
+   "canvas_dolu": true,
+   "en_kucuk_yazi_px": 11,
+   "konsol_hatasi": [],
+   "dis_istek": [],
+   "bolum": 6
+  }
+ },
+ "baglantilar": [
+  "mailto:o@oatolye.com",
+  "https://www.instagram.com/o_atolye"
+ ],
+ "tur": {
+  "sure": 31.7,
+  "sahneler": [
+   {
+    "ad": "Açılış: tablet",
+    "bas": 0,
+    "bit": 4.2
+   },
+   {
+    "ad": "1. Kakao meyvesi",
+    "bas": 5.5,
+    "bit": 9.7
+   },
+   {
+    "ad": "2. Kavurma",
+    "bas": 11,
+    "bit": 15.2
+   },
+   {
+    "ad": "3. Taş değirmen",
+    "bas": 16.5,
+    "bit": 20.7
+   },
+   {
+    "ad": "4. Tablet",
+    "bas": 22,
+    "bit": 26.2
+   },
+   {
+    "ad": "Kapanış: bütün yolculuk",
+    "bas": 27.5,
+    "bit": 31.7
+   }
+  ],
+  "deterministik": true,
+  "hata": []
+ },
+ "baglanti_kontrol": [
+  {
+   "url": "mailto:o@oatolye.com",
+   "durum": "e-posta bağlantısı"
+  },
+  {
+   "url": "https://www.instagram.com/o_atolye",
+   "durum": "kontrol edilmedi (Instagram oturumsuz isteği engelliyor)"
+  }
+ ],
+ "klasor_kb": 710,
+ "sonuc": {
+  "konsol_temiz": true,
+  "offline": true,
+  "telefonda_tasma_yok": true,
+  "ilk_goruntu_3sn_alti": true,
+  "not_var": true,
+  "noindex": true,
+  "kirik_baglanti_yok": true,
+  "tur_deterministik": true
+ },
+ "gecti": true
+}

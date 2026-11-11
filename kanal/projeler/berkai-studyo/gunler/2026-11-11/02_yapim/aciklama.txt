@@ -1,0 +1,70 @@
+BAŞLIK (önerim)
+Claude Fable 5.2'ye Şirket Kurdurdum: 17 Çalışan, Tek Komut
+
+Alternatifler:
+• Yapay Zekâ Çalışanlarım Bugün Ne Yaptı? (Claude Fable 5.2)
+• Claude'a 3D Ofisli Bir Şirket Kurdurdum, İçinde Yürüdüm
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AÇIKLAMA (kopyala, yapıştır)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Claude Fable 5.2 ile yapay zekâ ekibi nasıl kurulur? Tek komutla 6 ekipli, 17 çalışanlı bir şirket kurdurdum: konu bulan, video hazırlayan, müşteri arayan, 3D site yapan, mail yazan ekipler ve bir müdür. Hepsi içinde yürüyebildiğim İstanbul manzaralı 3D bir ofiste 👇
+
+Bu videoda her masada durup o ekibin bugün ürettiği dosyayı açıyorum: kanıtlı 5 video konusu, tarayıcıyla ölçülmüş 14 gerçek işletme sitesi, kodla çizilmiş 2 üç boyutlu demo site, 4 kişiye özel mail taslağı ve müdürün benden istediği 5 karar. Sonda ekibin yapmayı reddettiği işi ve aynı düzeni kendi işin için nasıl kuracağını anlatıyorum.
+
+ℹ️ Videodaki demo siteler bağımsız konsept demodur; işletmelerle resmi bir bağı yoktur. Hiçbir mail otomatik gönderilmedi.
+ℹ️ Videoda yapay zekâ ile üretilmiş avatar görüntüsü ve ses kullanılmıştır.
+
+⏱️ BÖLÜMLER (tahmini; seslendirmeden sonra zaman çizelgesinden yeniden hesapla)
+00:00 17 çalışanlı ofis: bugün ne üretildi?
+00:35 Bu videoda 3 şey
+01:06 Tek komut: prompt değil, iş tanımı
+01:46 1. YouTube konu ekibi
+02:44 2. YouTube yapım ekibi
+03:13 3. Müşteri bulma ekibi: 14 site, 6 eleme
+04:32 4. 3D site ekibi: kodla çizilen demo
+05:41 5. Mail ekibi: 4 taslak, 0 gönderim
+06:17 6. Müdür odası: kararlar
+06:53 Sen nasıl kurarsın? 4 adım + 3 soru
+07:54 Ekibin reddettiği iş
+
+🛠️ KULLANDIĞIM ARAÇLAR
+• Claude Code + Claude Fable 5.2: bütün ekipler, ofis ve demo siteler
+• Three.js: 3D ofis ve demo siteler (Claude kurdu)
+• Playwright: işletme sitelerini açıp ölçmek, ekran görüntüsü almak
+• vidIQ: izlenme ve arama verisi
+• KayKit karakterleri (Kay Lousberg, CC0)
+
+📚 KAYNAKLAR
+• İzlenme ve arama sayıları: vidIQ, 11 Kasım 2026
+• Fable 5.2 çıkışı: Silicon Report, 9 Kasım 2026
+• Site ölçümleri: kendi ölçümümüz (headless Chromium, tek ölçüm)
+• three.js (MIT), KayKit Adventurers (CC0)
+
+━━━━━━━━━━ HAZIR PROMPT ━━━━━━━━━━
+Köşeli parantezleri kendi işine göre doldur, Claude Code'a yapıştır:
+
+Benim için çalışan gerçek bir şirket kur. İşim: [İŞİNİ YAZ]. Bu işi her gün ben yapıyorum; artık bir ekip yapsın.
+
+Ekipler:
+1. [ARAŞTIRMA EKİBİ]: [ne araştıracak]; her öneriyi kanıtıyla getirsin.
+2. [ÜRETİM EKİBİ]: seçilen işi baştan sona hazırlasın.
+3. [MÜŞTERİ BULMA EKİBİ]: [kime satıyorsun] gerçek işletmeleri bulsun, sitelerini açıp incelesin, kurallara uymayanları elesin.
+4. [MAİL EKİBİ]: her işletmeye ona özel mesaj ve takip planı hazırlasın.
+5. Müdür: hepsini toplasın, bana günlük rapor versin; onayımı gereken kararları sorsun.
+
+Boş iş yok: her çalışanın çıktısı gerçekten kullanacağım bir dosya olsun. Uydurma veri yok: bulamadığını "bulunamadı" diye yaz. Dışarıya hiçbir şey gönderilmesin; mailler taslak kalsın, ben onaylayıp göndereyim. Yalnızca işletmelerin herkese açık kurumsal iletişim bilgisini kullan.
+
+Bütün bunları içinde yürüyebildiğim 3D bir ofiste göster: her ekibin masası olsun, yanına gidince ne yaptığını ve ürettiği işi göreyim; müdür odasında kararlarımı vereyim.
+
+Yarın da aynı ekibi tek komutla yeniden çalıştırabileyim.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚖️ Uyum notu: Toplu mail yok; her mesaj tek tek yazılır ve elle gönderilir. Yalnızca herkese açık kurumsal adresler kullanılır (KVKK). Ticari iletide "bir daha yazma" seçeneği bulunur. Kazanç garantisi yoktur.
+
+💬 Sıradaki ekibi hangi işe kuralım? Kuaför, emlakçı, muhasebeci… Yorumlara yaz.
+
+#Claude #Fable52 #YapayZeka #ClaudeCode #3DWebSitesi
+
+ETİKETLER
+claude fable 5.2, fable 5.2, claude code, claude ile şirket kurmak, yapay zeka ajan ekibi, yapay zeka çalışan, claude ile 3d site, three.js, kod bilmeden uygulama, yapay zeka ile iş kurmak, claude türkçe, yapay zeka otomasyon, 3d ofis, berkai

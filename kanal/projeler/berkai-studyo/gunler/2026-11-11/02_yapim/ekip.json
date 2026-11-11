@@ -1,0 +1,10 @@
+{"ad":"YouTube Yapım Ekibi","kisa":"Yapım","tek_satir":"senaryo 213 cümle, ~8:31",
+ "ozet":"Pazartesi videosunun paketi hazır: \"Claude Fable 5.2'ye şirket kurdurdum\". 213 cümlelik senaryo (1.25x sonrası yaklaşık 8:31), her iddianın kaynağı, üç başlık, açıklama, üç kapak fikri ve 38 saniyelik Shorts. Senaryoda fiyat ve işletme adı yok.",
+ "pano":["Senaryo: 213 cümle, 1.359 kelime, ~8:31","20 iddia kaynağıyla doğrulandı, 2 tek kaynak, 3 çıkarıldı","3 başlık (55–59 karakter), 3 kapak fikri","Shorts: 38 sn, 7 plan","Görüntü: ofis turu, 107 sn"],
+ "rakamlar":[{"d":"213","e":"cümle (ham ~639 sn)"},{"d":"20","e":"doğrulanan iddia"},{"d":"3","e":"çıkarılan iddia"},{"d":"38 sn","e":"Shorts"}],
+ "calisanlar":[
+  {"rol":"Araştırmacı ve doğrulayıcı","is":"Senaryodaki her sayıyı bugünün dosyalarına ve kaynaklara bağladı; tek kaynaklı iki bilgiyi işaretledi, üç iddiayı çıkardı.","cikti":"arastirma_dogrulama.md"},
+  {"rol":"Senarist","is":"Yazım rehberine göre 11 bölümlük metni yazdı: kanca, söz, altı masa, \"sen nasıl kurarsın\", sözün ödenmesi.","cikti":"senaryo.md"},
+  {"rol":"Paketleyici","is":"Üç başlığı karakter sayısıyla, açıklamayı bölüm damgaları ve hazır promptla, üç kapak fikrini hazırladı.","cikti":"aciklama.txt"},
+  {"rol":"Shorts editörü","is":"Ofis turundan yedi planlık 38 saniyelik dikey kurgu planı çıkardı.","cikti":"shorts.md"}],
+ "belgeler":["senaryo.md","arastirma_dogrulama.md","basliklar.md","aciklama.txt","thumbnail.md","shorts.md"]}

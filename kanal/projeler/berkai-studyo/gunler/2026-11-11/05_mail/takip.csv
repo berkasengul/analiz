@@ -1,0 +1,6 @@
+﻿İşletme;Kanal;Adres;Taslak;Durum;Gönderim tarihi;Hatırlatma 1 (+4 gün);Hatırlatma 2 (+7 gün);Cevap;Not
+O Atölye;e-posta;o@oatolye.com;05_mail/o-atolye.md;Taslak - onay bekliyor;;;;;Demo linki Netlify yüklemesinden sonra eklenecek
+Coşkun Zeytincilik;e-posta;info@coskunzeytincilik.com;05_mail/coskun-zeytincilik.md;Taslak - onay bekliyor;;;;;Hız rakamı mailde yok
+Kap Seramik;e-posta;kapseramik@gmail.com;05_mail/kap-seramik.md;Taslak - onay bekliyor;;;;;İzin mesajı, demo yok
+Yasemin Uğurlu;e-posta;info@yaseminugurlu.com;05_mail/yasemin-ugurlu.md;Taslak - onay bekliyor;;;;;Kırık bağlantı haberi
+Zeytin Diyarı;yok;bulunamadı;;Bekliyor;;;;;Sitede iletişim bilgisi yok

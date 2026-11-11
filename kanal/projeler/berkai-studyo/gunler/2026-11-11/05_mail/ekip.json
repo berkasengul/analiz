@@ -1,0 +1,9 @@
+{"ad":"Mail Ekibi","kisa":"Mail","tek_satir":"4 taslak, 0 gönderim",
+ "ozet":"Dört işletmeye ayrı ayrı yazılmış dört taslak hazır; hiçbiri gönderilmedi. Her mail o işletmeye ait bir ayrıntıyla açılıyor, 80 kelimenin altında, fiyat ve kazanç sözü içermiyor, sonunda \"yazma\" seçeneği var.",
+ "pano":["4 taslak: O Atölye, Coşkun, Kap Seramik, Yasemin Uğurlu","Hiçbir şey gönderilmedi","Her mailde tek soru; fiyat yok","Takip: +4 ve +7 gün, sonra bırak","Zeytin Diyarı'na yazılamadı: adres yok"],
+ "rakamlar":[{"d":"4","e":"mail taslağı"},{"d":"0","e":"gönderilen"},{"d":"2","e":"teklif iskeleti (rakamsız)"},{"d":"+4 / +7","e":"hatırlatma günleri"}],
+ "calisanlar":[
+  {"rol":"Metin yazarı","is":"Dört işletmeye ayrı açılış buldu: Saatolog söyleşisi, kasım hasat afişi, tükenen tabaklar, kırık kategori bağlantısı.","cikti":"o-atolye.md"},
+  {"rol":"Takip planlayıcı","is":"Gün 0, +4 ve +7 mesajlarını ve takip tablosunu hazırladı; gönderim tarihini sen yazınca yarınki ekip oradan sürdürür.","cikti":"takip_plani.md"},
+  {"rol":"Uyum okuyucu","is":"Her taslakta alıcı adresinin kaynağını, ret seçeneğini, rakam ve garanti olmadığını kontrol etti.","cikti":"takip.csv"}],
+ "belgeler":["o-atolye.md","coskun-zeytincilik.md","kap-seramik.md","yasemin-ugurlu.md","takip_plani.md","takip.csv"]}

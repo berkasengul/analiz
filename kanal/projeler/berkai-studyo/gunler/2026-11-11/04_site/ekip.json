@@ -1,0 +1,9 @@
+{"ad":"3D Site Ekibi","kisa":"3D Site","tek_satir":"2 demo, 16/16 kontrol",
+ "ozet":"İki demo site yapıldı ve test edildi: O Atölye (kakao meyvesinden tablete beş sahne) ve Coşkun Zeytincilik (teneke, galon şişe, zeytin kavanozu). Bütün ürünler kodla çizildi, fotoğraf kullanılmadı. İkisi de sekiz kontrolün sekizinden geçti.",
+ "pano":["O Atölye: 5 sahne + kapanış, tur 31,7 sn","Coşkun Zeytincilik: 3 sahne + kapanış, tur 20,7 sn","16 kontrolün 16'sı geçti","Fotoğraf yok: ürünler kodla çizildi","Arkadaki ekranlara tıkla, site açılsın"],
+ "rakamlar":[{"d":"2","e":"demo site"},{"d":"16/16","e":"geçen kontrol"},{"d":"7","e":"kodla çizilen ürün"},{"d":"0","e":"dış istek (offline)"}],
+ "calisanlar":[
+  {"rol":"3D tasarımcı","is":"Tablet, kakao meyvesi, çekirdek kabı, taş değirmen, teneke, galon şişe ve zeytin kavanozunu kodla çizdi; etiketlere \"konsept\" notu koydu.","cikti":"test_raporu.md"},
+  {"rol":"Site kurucu","is":"Ayar dosyasından kendi başına çalışan klasör üreten motoru yazdı: siteler/_motor. Yeni marka için tek bir ayar dosyası yeter.","cikti":"test_raporu.md"},
+  {"rol":"Test mühendisi","is":"Her siteyi masaüstü, telefon ve tur modunda açtı: konsol hatası, dış istek, taşma, ilk görüntü, not, noindex, bağlantılar, turun aynı kareyi vermesi.","cikti":"test_raporu.md"}],
+ "belgeler":["test_raporu.md"]}

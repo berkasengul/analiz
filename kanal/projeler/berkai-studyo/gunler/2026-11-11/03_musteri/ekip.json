@@ -1,0 +1,9 @@
+{"ad":"Müşteri Bulma Ekibi","kisa":"Müşteri","tek_satir":"14 site ölçüldü, 3 A aday",
+ "ozet":"14 gerçek işletmenin sitesini tarayıcıyla açıp ölçtük. Üçü güçlü aday: O Atölye'nin sitesi yalnızca \"çok yakında\" diyor, Coşkun Zeytincilik telefonda 5 saniyede açılıyor, Zeytin Diyarı stok fotoğrafla satışa hazırlanıyor. Altısı sitesi zaten iyi olduğu için elendi.",
+ "pano":["14 site açıldı, masaüstü ve telefon ekran görüntüsü alındı","A: O Atölye, Coşkun Zeytincilik, Zeytin Diyarı","B: Kap Seramik, Yasemin Uğurlu","6 işletme elendi: siteleri zaten iyi","Zeytin Diyarı'nın iletişim adresi bulunamadı"],
+ "rakamlar":[{"d":"14","e":"ölçülen site"},{"d":"3","e":"A öncelikli aday"},{"d":"6","e":"elenen (site iyi)"},{"d":"28","e":"ekran görüntüsü"}],
+ "calisanlar":[
+  {"rol":"Kâşif","is":"Seramik, zeytinyağı, çikolata ve bakır işletmelerini haberlerden ve rehberlerden buldu; 6 işletmenin resmi sitesi bulunamadı ve öyle yazıldı.","cikti":"aday_raporu.md"},
+  {"rol":"Site denetçisi","is":"Her siteyi masaüstü ve telefon boyutunda açtı: ilk görüntü süresi, yükleme, yatay taşma, 20 bağlantıda kırık kontrolü, platform.","cikti":"aday_tablosu.csv"},
+  {"rol":"Uyum kontrolcüsü","is":"Yasaklı sektör, ret listesi, önceki satış tablosu ve iletişim kaynağını kontrol etti; cep numaralarını kayıttan sildi.","cikti":"aday_raporu.md"}],
+ "belgeler":["aday_raporu.md","aday_tablosu.csv"]}

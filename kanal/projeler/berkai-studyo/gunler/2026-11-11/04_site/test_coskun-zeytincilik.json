@@ -1,0 +1,103 @@
+{
+ "slug": "coskun-zeytincilik",
+ "tarih": "2026-11-11T12:31:08.127Z",
+ "gorunumler": {
+  "masaustu": {
+   "hazir_ms": 482,
+   "ilk_goruntu_ms": 28,
+   "yatay_tasma_px": 0,
+   "not_var": true,
+   "noindex": true,
+   "canvas_dolu": true,
+   "en_kucuk_yazi_px": 12,
+   "konsol_hatasi": [],
+   "dis_istek": [],
+   "bolum": 4
+  },
+  "telefon": {
+   "hazir_ms": 448,
+   "ilk_goruntu_ms": 36,
+   "yatay_tasma_px": 0,
+   "not_var": true,
+   "noindex": true,
+   "canvas_dolu": true,
+   "en_kucuk_yazi_px": 11,
+   "konsol_hatasi": [],
+   "dis_istek": [],
+   "bolum": 4
+  }
+ },
+ "baglantilar": [
+  "https://coskunzeytincilik.com/urun/5-l-teneke-erken-hasat-tas-baski-zeytinyagi-500-ml-zeytin-sutu-2023-2024-yeni-hasat/",
+  "https://coskunzeytincilik.com/urun/galon-cam-sise-ilk-hasat-tas-baski-zeytinyagi-yuksek-polifenollu-2026-2027-yeni-mahsul-filtresiz-1-lt/",
+  "https://coskunzeytincilik.com/urun/galon-cam-sise-ilk-hasat-tas-baski-zeytinyagi-yuksek-polifenollu-2026-2027-yeni-mahsul-flitresiz-500-ml/",
+  "https://coskunzeytincilik.com/urun/taze-aci-kirma-zeytin-1000-gr/",
+  "https://coskunzeytincilik.com/urun-kategori/zeytinyaglar/",
+  "https://coskunzeytincilik.com/hikayemiz/"
+ ],
+ "tur": {
+  "sure": 20.7,
+  "sahneler": [
+   {
+    "ad": "Açılış: 5 L teneke",
+    "bas": 0,
+    "bit": 4.2
+   },
+   {
+    "ad": "İlk hasat: galon cam şişe",
+    "bas": 5.5,
+    "bit": 9.7
+   },
+   {
+    "ad": "Zeytin: taze acı kırma",
+    "bas": 11,
+    "bit": 15.2
+   },
+   {
+    "ad": "Kapanış: aile hikâyesi",
+    "bas": 16.5,
+    "bit": 20.7
+   }
+  ],
+  "deterministik": true,
+  "hata": []
+ },
+ "baglanti_kontrol": [
+  {
+   "url": "https://coskunzeytincilik.com/urun/5-l-teneke-erken-hasat-tas-baski-zeytinyagi-500-ml-zeytin-sutu-2023-2024-yeni-hasat/",
+   "durum": 200
+  },
+  {
+   "url": "https://coskunzeytincilik.com/urun/galon-cam-sise-ilk-hasat-tas-baski-zeytinyagi-yuksek-polifenollu-2026-2027-yeni-mahsul-filtresiz-1-lt/",
+   "durum": 200
+  },
+  {
+   "url": "https://coskunzeytincilik.com/urun/galon-cam-sise-ilk-hasat-tas-baski-zeytinyagi-yuksek-polifenollu-2026-2027-yeni-mahsul-flitresiz-500-ml/",
+   "durum": 200
+  },
+  {
+   "url": "https://coskunzeytincilik.com/urun/taze-aci-kirma-zeytin-1000-gr/",
+   "durum": 200
+  },
+  {
+   "url": "https://coskunzeytincilik.com/urun-kategori/zeytinyaglar/",
+   "durum": 200
+  },
+  {
+   "url": "https://coskunzeytincilik.com/hikayemiz/",
+   "durum": 200
+  }
+ ],
+ "klasor_kb": 710,
+ "sonuc": {
+  "konsol_temiz": true,
+  "offline": true,
+  "telefonda_tasma_yok": true,
+  "ilk_goruntu_3sn_alti": true,
+  "not_var": true,
+  "noindex": true,
+  "kirik_baglanti_yok": true,
+  "tur_deterministik": true
+ },
+ "gecti": true
+}
