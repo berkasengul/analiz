@@ -1,0 +1,76 @@
+{
+ "slug": "oatolye",
+ "url": "https://oatolye.com",
+ "olcum_tarihi": "2026-11-11T12:12:17.505Z",
+ "not": "Ölçüm veri merkezinden, vekil sunucu üzerinden, headless Chromium ile yapıldı; süreler Türkiye’deki bir telefondan farklı olabilir. Karşılaştırma için kullan.",
+ "masaustu": {
+  "durum": 200,
+  "dcl_ms": 2989,
+  "load_ms": 4636,
+  "son_url": "https://oatolye.com/",
+  "baslik": "O Atolye | Bean to Bar Chocolate & Flower",
+  "fcp_ms": 2076,
+  "ttfb_ms": 694,
+  "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 900,
+  "gorsel_sayisi": 1,
+  "alt_yok": 1,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [
+   "Bean to Bar Chocolate Maker"
+  ],
+  "aciklama": null,
+  "metin": "Bean to Bar Chocolate Maker Çok Yakında | Coming Soon o@oatolye.com İstinye Cad. Ortakçı Çıkmazı Sok. No:9/C İstinye / İstanbul o_atolye",
+  "istek": 19,
+  "aktarilan_kb_bildirilen": 389,
+  "hatali_istek": [
+   "404 https://oatolye.com/assets/vendors/vegas/overlays/02.png"
+  ]
+ },
+ "platform": "bilinmiyor",
+ "iletisim": {
+  "eposta": [
+   {
+    "adres": "o@oatolye.com",
+    "kaynak": "https://oatolye.com/"
+   }
+  ],
+  "instagram": [
+   "http://www.instagram.com/o_atolye"
+  ],
+  "iletisim_sayfasi": null
+ },
+ "baglanti": {
+  "bakilan": 0,
+  "kirik": []
+ },
+ "telefon": {
+  "durum": 200,
+  "dcl_ms": 2239,
+  "load_ms": 3471,
+  "son_url": "https://oatolye.com/",
+  "baslik": "O Atolye | Bean to Bar Chocolate & Flower",
+  "fcp_ms": 2132,
+  "ttfb_ms": 512,
+  "viewport_meta": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 923,
+  "gorsel_sayisi": 1,
+  "alt_yok": 1,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [
+   "Bean to Bar Chocolate Maker"
+  ],
+  "aciklama": null,
+  "istek": 22,
+  "aktarilan_kb_bildirilen": 402,
+  "hatali_istek": []
+ }
+}

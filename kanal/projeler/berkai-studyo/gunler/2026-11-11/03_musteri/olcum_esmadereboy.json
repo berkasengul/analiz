@@ -1,0 +1,71 @@
+{
+ "slug": "esmadereboy",
+ "url": "https://www.esmadereboy.com",
+ "olcum_tarihi": "2026-11-11T12:11:26.324Z",
+ "not": "Ölçüm veri merkezinden, vekil sunucu üzerinden, headless Chromium ile yapıldı; süreler Türkiye’deki bir telefondan farklı olabilir. Karşılaştırma için kullan.",
+ "masaustu": {
+  "durum": 200,
+  "dcl_ms": 2710,
+  "load_ms": 5452,
+  "son_url": "https://www.esmadereboy.com/en",
+  "baslik": "Esma Dereboy | Handmade Porcelain",
+  "fcp_ms": 2348,
+  "ttfb_ms": 1438,
+  "viewport_meta": "width=device-width, initial-scale=1.0, viewport-fit=cover",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 6903,
+  "gorsel_sayisi": 93,
+  "alt_yok": 36,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "metin": "We use cookies and other tracking technologies to improve your browsing experience on our website, to show you personalized content and targeted ads, to analyze our website traffic, and to understand where our visitors are coming from. Accept AllReject AllManage Cookies About Us Production Story Blog Contact Us MEMBER LOGIN ENGLISH 0 TABLEWARE TEA/COFFEE HOME ACCESSORIES COLLECTIONS Popular Products Nest Glitter Espresso Cup with Saucer Set of 2 Rock - Glittery Nile $ 119.00 Add to Cart Capsule Single Small Mug Nile & Ivory $ 64.00 Add to Cart Touch Narrow 30 cm Ivory $ 106.00 Add to Cart Capsule Espresso Cup with Saucers Set of 2 Rock - Rock & Ivory $ 129.00 Add to Cart Round Dinner Plate Double Colour 26,5 cm Rock & Ivory $ 74.00 Add to Cart Art of Leather Rectangle-Shaped Table Mat Mink $ 37.00 Add to Cart Nest Glitter Espresso Cup with Saucer Set of 2 Rock - Glittery Nile $ 119.00 Add to Cart Capsule Single Small Mug Nile & Ivory $ 64.00 Add to Cart Touch Narrow 30 cm Ivory $ 106.00 Add to Cart Capsule Espresso Cup with Saucers Set of 2 Rock - Rock & Ivory $ 129.00 Add to Cart Round Dinner Plate Double Colour 26,5 cm Rock & Ivory $ 74.00 Add to Cart Art of Leather Rectangle-Shaped Table Mat Mink $ 37.00 Add to Cart Nest Glitter Espresso Cup with Saucer Set of 2 Rock - Glittery Nile $ 119.00 Add to Cart Capsule Single Small Mug Nile & Ivory $ 64.00 Add to Cart Touch Narrow 30 cm Ivory $ 106.00 Add to Cart Capsule Espresso Cup with Saucers Set of 2 Rock - Rock & Ivory $ 129",
+  "istek": 128,
+  "aktarilan_kb_bildirilen": 10488,
+  "hatali_istek": []
+ },
+ "platform": "Ticimax",
+ "iletisim": {
+  "eposta": [
+   {
+    "adres": "info@esmadereboy.com",
+    "kaynak": "https://www.esmadereboy.com/en"
+   }
+  ],
+  "instagram": [
+   "https://www.instagram.com/esmadereboyporcelain"
+  ],
+  "iletisim_sayfasi": "https://www.esmadereboy.com/en/contact-us",
+  "sayfa_metni": "We use cookies and other tracking technologies to improve your browsing experience on our website, to show you personalized content and targeted ads, to analyze our website traffic, and to understand where our visitors are coming from. Accept AllReject AllManage Cookies About Us Production Story Blog Contact Us MEMBER LOGIN ENGLISH 0 TABLEWARE TEA/COFFEE HOME ACCESSORIES COLLECTIONS Name Mail Message Send Esma Dereboy Ltd Şti. Address: D100 Güney Yan Yol Cad. Lapishan İş Merkezi No.25/4 Kartal / İstanbul E-Mail: info@esmadereboy.com Phone: +90 216 353 0071 Mobil: [cep numarası kaydedilmedi] GET IN THE KNOW Subscribe to receive email updates regarding upcoming collections. CUSTOMER SERVICES Delivery Cancellation and Refund Policies FAQs Protection of Personal Data ABOUT US About Us Stokist Contact Us CORPORATE Catalogs Corporate Projects CONTACT US +90 216 353 00 71 E-Mail info@esmadereboy.com +90 "
+ },
+ "baglanti": {
+  "bakilan": 20,
+  "kirik": []
+ },
+ "telefon": {
+  "durum": 200,
+  "dcl_ms": 3679,
+  "load_ms": 5345,
+  "son_url": "https://www.esmadereboy.com/en",
+  "baslik": "Esma Dereboy | Handmade Porcelain",
+  "fcp_ms": 3200,
+  "ttfb_ms": 2344,
+  "viewport_meta": "width=device-width, initial-scale=1.0, viewport-fit=cover",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 8732,
+  "gorsel_sayisi": 86,
+  "alt_yok": 35,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "istek": 124,
+  "aktarilan_kb_bildirilen": 11810,
+  "hatali_istek": []
+ }
+}

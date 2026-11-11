@@ -1,0 +1,20 @@
+{
+ "slug":"o-atolye","marka":"O Atölye","baslik":"O Atölye · çekirdekten tablete (konsept demo)","aciklama":"O Atölye için hazırlanmış bağımsız 3D konsept demo: kakao çekirdeğinden tablete üretim yolculuğu.",
+ "tema":{"vurgu":"#f08a3c","kaide":"#eadfce"},
+ "sahneler":[
+  {"ad":"Açılış: tablet","model":"tablet","aci":0.35,"fon":["#150d08","#4d2c18"],
+   "parca":{"vurgu":"#f08a3c","satirlar":[{"t":"O ATÖLYE","boy":0.085,"y":0.44,"aralik":2},{"t":"bean to bar","boy":0.055,"y":0.55},{"t":"SUR DEL LAGO · VENEZUELA","boy":0.034,"y":0.70,"govde":true,"kalin":true},{"t":"konsept ambalaj","boy":0.028,"y":0.86,"govde":true}],"arkaSatirlar":[{"t":"Çekirdekten tablete","boy":0.06,"y":0.4},{"t":"İstinye · İstanbul","boy":0.04,"y":0.55,"govde":true},{"t":"konsept ambalaj","boy":0.028,"y":0.86,"govde":true}]},
+   "kucuk":"İstinye · Bean to bar","baslik":"Çekirdekten tablete, tek atölyede.","metin":["O Atölye kakao çekirdeğini kendi kavuruyor, kendi öğütüyor, kendi tablete döküyor. Bu sayfa o yolculuğu üç boyutlu anlatıyor."],"notlar":["Katkısız","Palm yağı yok","İstinye, İstanbul"]},
+  {"ad":"1. Kakao meyvesi","model":"kakao","aci":0.2,"fon":["#16110a","#5a3b14"],"parca":{},
+   "kucuk":"01 · Çekirdek","baslik":"Her şey bu meyveyle başlıyor.","metin":["Atölyede kullanılan kakaolardan biri Venezuela'nın Sur del Lago bölgesinden geliyor: Maracaibo Gölü'nün güneyi.","Tadında kuru meyve ve hafif bir baharat var."],"notlar":["Sur del Lago","Kuru meyve","Hafif baharat"]},
+  {"ad":"2. Kavurma","model":"cekirdek","aci":0,"fon":["#140c08","#4a2413"],"parca":{},
+   "kucuk":"02 · Kavurma","baslik":"Kavrulur, kabuğu çatlar.","metin":["Çekirdekler atölyede kavruluyor. Kavurmanın sonunda gelen ilk çatlama, aromanın açıldığı an."],"notlar":["Atölyede kavurma","İlk çatlama"]},
+  {"ad":"3. Taş değirmen","model":"degirmen","aci":0.5,"fon":["#120d0b","#3d2a22"],"parca":{"govde":"#f08a3c"},
+   "kucuk":"03 · Taş değirmen","baslik":"Yaklaşık 24 saat döner.","metin":["Kavrulan çekirdek granit taşların altında yaklaşık bir gün öğütülüyor. Çekirdekten tablete yol üç dört gün sürüyor."],"notlar":["~24 saat","3–4 gün"]},
+  {"ad":"4. Tablet","model":"tablet","aci":-0.4,"fon":["#150d08","#5a2f16"],
+   "parca":{"zemin":"#2a1810","yazi":"#f3e6d2","vurgu":"#f08a3c","folyo":"#f08a3c","satirlar":[{"t":"O ATÖLYE","boy":0.085,"y":0.44,"aralik":2},{"t":"bean to bar","boy":0.055,"y":0.55},{"t":"ÜRÜN ADI · KAKAO ORANI","boy":0.034,"y":0.70,"govde":true,"kalin":true},{"t":"konsept ambalaj","boy":0.028,"y":0.86,"govde":true}],"arkaSatirlar":[{"t":"Tadım notları","boy":0.06,"y":0.4},{"t":"buraya gelir","boy":0.04,"y":0.55,"govde":true}]},
+   "kucuk":"04 · Tablet","baslik":"Ve tablet.","metin":["Bu bölümde tabletleriniz tek tek yer alır: adı, kakao oranı, tadım notu, sipariş düğmesi.","Ürün listenizi bilmediğimiz için burada ad uydurmadık."],"dugmeler":[{"t":"Sipariş için yazın","url":"mailto:o@oatolye.com"},{"t":"Instagram","url":"https://www.instagram.com/o_atolye"}]}
+ ],
+ "son":{"ad":"Kapanış: bütün yolculuk","kucuk":"Atölye","baslik":"İstinye'de, kapısı açık.","metin":["İstinye Cad. Ortakçı Çıkmazı Sok. No:9/C, İstinye / İstanbul"],"dugmeler":[{"t":"o@oatolye.com","url":"mailto:o@oatolye.com"},{"t":"@o_atolye","url":"https://www.instagram.com/o_atolye"}]},
+ "kaynak_notu":"Bilgiler oatolye.com'dan ve Saatolog'un 28.01.2026 tarihli söyleşisinden alındı. Ambalaj, tablet ve bütün görseller kodla çizilmiş konsepttir; işletmenin gerçek ürün görseli ya da ambalajı değildir."
+}

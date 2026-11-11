@@ -1,0 +1,69 @@
+{
+ "slug": "kapseramik",
+ "url": "https://www.kapseramik.com",
+ "olcum_tarihi": "2026-11-11T12:11:11.661Z",
+ "not": "Ölçüm veri merkezinden, vekil sunucu üzerinden, headless Chromium ile yapıldı; süreler Türkiye’deki bir telefondan farklı olabilir. Karşılaştırma için kullan.",
+ "masaustu": {
+  "durum": 200,
+  "dcl_ms": 846,
+  "load_ms": 2722,
+  "son_url": "https://www.kapseramik.com/",
+  "baslik": "Kap Seramik",
+  "fcp_ms": 396,
+  "ttfb_ms": 296,
+  "viewport_meta": "width=device-width, initial-scale=1",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 1614,
+  "gorsel_sayisi": 5,
+  "alt_yok": 5,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "metin": "Ana İçeriğe Atla Giriş DÜKKAN KAP SERAMİK İLETİŞİM More... 0 Hızlı Bakış YENİ Oko Tükendi Hızlı Bakış YENİ Imagibo Tükendi Hızlı Bakış YENİ Imagido Tükendi Hızlı Bakış YENİ Imagiwo Tükendi Hızlı Bakış YENİ Helios Tükendi Şu an burada gösterilecek ürünümüz yok. STÜDYO Feneryolu Mah. Gazi Muhtarpaşa Sok. No: 24/B Kadıköy İstanbul Turkey ÜYELİK Email ÜYE OL © 2026 BY KAP SERAMİK",
+  "istek": 199,
+  "aktarilan_kb_bildirilen": 2062,
+  "hatali_istek": []
+ },
+ "platform": "Wix",
+ "iletisim": {
+  "eposta": [
+   {
+    "adres": "kapseramik@gmail.com",
+    "kaynak": "https://www.kapseramik.com/iletisim"
+   }
+  ],
+  "instagram": [],
+  "iletisim_sayfasi": "https://www.kapseramik.com/iletisim",
+  "sayfa_metni": "Ana İçeriğe Atla Giriş DÜKKAN KAP SERAMİK İLETİŞİM More... 0 Email kapseramik@gmail.com Instagram @kap_seramik STÜDYO Feneryolu Mah. Gazi Muhtarpaşa Sok. No: 24/B Kadıköy İstanbul Turkey ÜYELİK Email ÜYE OL © 2026 BY KAP SERAMİK"
+ },
+ "baglanti": {
+  "bakilan": 10,
+  "kirik": []
+ },
+ "telefon": {
+  "durum": 200,
+  "dcl_ms": 920,
+  "load_ms": 2463,
+  "son_url": "https://www.kapseramik.com/",
+  "baslik": "Kap Seramik",
+  "fcp_ms": 316,
+  "ttfb_ms": 201,
+  "viewport_meta": "width=320, user-scalable=yes",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 6058,
+  "gorsel_sayisi": 5,
+  "alt_yok": 5,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "istek": 182,
+  "aktarilan_kb_bildirilen": 2118,
+  "hatali_istek": []
+ }
+}

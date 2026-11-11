@@ -1,0 +1,67 @@
+{
+ "slug": "aktepe",
+ "url": "https://aktepezeytin.com",
+ "olcum_tarihi": "2026-11-11T12:11:55.819Z",
+ "not": "Ölçüm veri merkezinden, vekil sunucu üzerinden, headless Chromium ile yapıldı; süreler Türkiye’deki bir telefondan farklı olabilir. Karşılaştırma için kullan.",
+ "masaustu": {
+  "durum": 502,
+  "dcl_ms": 851,
+  "load_ms": 851,
+  "son_url": "https://aktepezeytin.com/",
+  "baslik": "",
+  "fcp_ms": 856,
+  "ttfb_ms": 837,
+  "viewport_meta": null,
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 900,
+  "gorsel_sayisi": 0,
+  "alt_yok": 0,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "metin": "upstream request failed",
+  "istek": 1,
+  "aktarilan_kb_bildirilen": 0,
+  "hatali_istek": [
+   "502 https://aktepezeytin.com/"
+  ]
+ },
+ "platform": "bilinmiyor",
+ "iletisim": {
+  "eposta": [],
+  "instagram": [],
+  "iletisim_sayfasi": null
+ },
+ "baglanti": {
+  "bakilan": 0,
+  "kirik": []
+ },
+ "telefon": {
+  "durum": 502,
+  "dcl_ms": 902,
+  "load_ms": 903,
+  "son_url": "https://aktepezeytin.com/",
+  "baslik": "",
+  "fcp_ms": 908,
+  "ttfb_ms": 890,
+  "viewport_meta": null,
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 2121,
+  "gorsel_sayisi": 0,
+  "alt_yok": 0,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "istek": 1,
+  "aktarilan_kb_bildirilen": 0,
+  "hatali_istek": [
+   "502 https://aktepezeytin.com/"
+  ]
+ }
+}

@@ -1,0 +1,71 @@
+{
+ "slug": "hermus",
+ "url": "https://www.hermus.com.tr",
+ "olcum_tarihi": "2026-11-11T12:12:37.470Z",
+ "not": "Ölçüm veri merkezinden, vekil sunucu üzerinden, headless Chromium ile yapıldı; süreler Türkiye’deki bir telefondan farklı olabilir. Karşılaştırma için kullan.",
+ "masaustu": {
+  "durum": 200,
+  "dcl_ms": 2173,
+  "load_ms": 2590,
+  "son_url": "https://www.hermus.com.tr/",
+  "baslik": "",
+  "fcp_ms": 1760,
+  "ttfb_ms": 938,
+  "viewport_meta": "width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, minimal-ui",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 3433,
+  "gorsel_sayisi": 16,
+  "alt_yok": 11,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "metin": "Anasayfa Zeytinyağlarımız Hakkımızda 2026 Erken Hasat Nasıl Üretiyoruz? Ödüllerimiz 0 Popüler Tercihler Ayvalık Zeytinyağı 500ml - Sınırlı Sayıda-Ekim 2026 Erken Hasat 1.300,00 TL SEPETE EKLE Arbequina Zeytinyağı Eylül 2026 Erken Hasat -500ml 1.300,00 TL SEPETE EKLE Memecik Zeytinyağı - Eylül 2026 - Erken Hasat -500 ml 1.400,00 TL SEPETE EKLE Emerald Zeytinyağı Eylül 2026 Erken Hasat -100ml 550,00 TL SEPETE EKLE Koroneiki Zeytinyağı- Eylül 2026 Erken Hasat -500ml 1.500,00 TL SEPETE EKLE Ücretsiz Teslimat Güvenli Alışveriş 256bit SSL sertifikası ile bilgileriniz güvende. Kurumsal İletişim İletişim Formu Havale Bildirim Formu Sipariş Sorgula Kargo Takibi Alışveriş Mesafeli Satış Sözleşmesi Gizlilik ve Güvenlik İptal İade Koşullari Kişisel Veriler Politikası Üyelik Yeni Üyelik Üye Girişi Şifremi Unuttum E-Bültene Kayıt Ol E-postalarımızı almak için kaydoluyorsunuz ve istediğiniz zaman abonelikten çıkabilirsiniz. Kaydol 2022 Copyright IdeaSoft - Tüm Hakları Saklıdır. ideasoft e-ticaret paketleri ile hazırlandı.",
+  "istek": 28,
+  "aktarilan_kb_bildirilen": 1225,
+  "hatali_istek": []
+ },
+ "platform": "IdeaSoft",
+ "iletisim": {
+  "eposta": [
+   {
+    "adres": "siparis@hermus.com.tr",
+    "kaynak": "https://www.hermus.com.tr/iletisim"
+   }
+  ],
+  "instagram": [
+   "https://www.instagram.com/hermus_oliveoil"
+  ],
+  "iletisim_sayfasi": "https://www.hermus.com.tr/iletisim",
+  "sayfa_metni": "Anasayfa Zeytinyağlarımız Hakkımızda 2026 Erken Hasat Nasıl Üretiyoruz? Ödüllerimiz 0 İletişim Firma Adı HERMUS OLIVE OIL Firma Resmi Adı HERMUS OLİVE OİL DIŞ TİCARET SAN. VE TİC.LTD.ŞTİ. Telefon 1 [cep numarası kaydedilmedi] E-mail siparis@hermus.com.tr Adres Atatürk Mah. Selvi Sk. No:15/1 Köprübaşı/ MANİSA Ülke Türkiye Şehir Manisa Semt Köprübaşı Sicil Numarası 1300 Vergi No 4610761985 Vergi Dairesi KÖPRÜBAŞI MAL MÜDÜRLÜĞÜ Mersis No 0461076198500001 Havale Bildirim Formu Havale Bildirim Formu Arıza / İade Başvurusu Arıza / İade Başvurusu İletişim Formu İletişim Formu Banka Hesapları IBAN Numarası: TR89 0001 5001 5800 7365 1945 66 Hesap Sahibi: Hermus Olive Oil Dış Tic. San. ve Tic. Ltd. Şti., Hesap Türü: Ücretsiz Teslimat Güvenli Alışveriş 256bit SSL sertifikası ile bilgileriniz güvende. Kurumsal İletişim İletişim Formu Havale Bildirim Formu Sipariş Sorgula Kargo Takibi Alışveriş Mesafeli Satış Söz"
+ },
+ "baglanti": {
+  "bakilan": 20,
+  "kirik": []
+ },
+ "telefon": {
+  "durum": 200,
+  "dcl_ms": 1160,
+  "load_ms": 1533,
+  "son_url": "https://www.hermus.com.tr/",
+  "baslik": "",
+  "fcp_ms": 792,
+  "ttfb_ms": 441,
+  "viewport_meta": "width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, minimal-ui",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 2667,
+  "gorsel_sayisi": 16,
+  "alt_yok": 11,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": null,
+  "istek": 29,
+  "aktarilan_kb_bildirilen": 1295,
+  "hatali_istek": []
+ }
+}

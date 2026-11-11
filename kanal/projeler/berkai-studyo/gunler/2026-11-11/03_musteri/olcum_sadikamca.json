@@ -1,0 +1,72 @@
+{
+ "slug": "sadikamca",
+ "url": "https://sadikamca.com",
+ "olcum_tarihi": "2026-11-11T12:12:55.566Z",
+ "not": "Ölçüm veri merkezinden, vekil sunucu üzerinden, headless Chromium ile yapıldı; süreler Türkiye’deki bir telefondan farklı olabilir. Karşılaştırma için kullan.",
+ "masaustu": {
+  "durum": 200,
+  "dcl_ms": 3819,
+  "load_ms": 4261,
+  "son_url": "https://sadikamca.com/",
+  "baslik": "Ana Sayfa - Sadık Amca Zeytinyağı",
+  "fcp_ms": 1780,
+  "ttfb_ms": 650,
+  "viewport_meta": "width=device-width, initial-scale=1",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 4250,
+  "gorsel_sayisi": 18,
+  "alt_yok": 4,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": "Günlük kullanımdan büyük sofralara, ihtiyacınıza uygun ölçüleri inceleyin.",
+  "metin": "İçeriğe atla ANA SAYFA KURUMSAL MAĞAZA TARİFLER KÜTÜPHANE İLETİŞİM Sepetinizde Ürün Bulunmuyor 0,00 ₺ 0 Sepet Aynı Gün Kargo, Güvenli Teslimat Yemek Kartlarıyla Kolay Ödeme %100 Doğal, Katkısız İçerik Sepette %30’a Varan Avantajlar ÇYDD İş Birliğiyle Eğitime Destek Erken Hasat, Soğuk Sıkım, Yüksek Polifenol Ayvalık'tan Sofranıza Premium Zeytinyağı 0212 283 1100 444 50 70 Giriş Yap Sipariş Takibi Instagram Facebook-f Youtube Whatsapp Koleksiyonu Keşfet Koleksiyonu Keşfet Koleksiyonu Keşfet Koleksiyonu Keşfet Koleksiyonu Keşfet Koleksiyonu Keşfet Kampanyalı Ürünler Yıl sonuna özel hediyeli ürünler ve avantaj paketleri. Kampanyalar 31 Aralık 2026 sonuna kadar geçerlidir. ← → İndirim! Natürel Sızma Ayvalık Zeytinyağı 5 Litre + 1 Litre Hediye 3.298,00 ₺ Orijinal fiyat: 3.298,00 ₺. 2.299,00 ₺ Şu andaki fiyat: 2.299,00 ₺. Sepete Ekle İndirim! Natürel Sızma Ayvalık Zeytinyağı 2 × 5 Litre Avantaj Paketi 5.198,00 ₺ Orijinal fiyat: 5.198,00 ₺. 3.499,00 ₺ Şu andaki fiyat: 3.499,00 ₺. Sepete Ekle İndirim! Natürel Sızma Ayvalık Zeytinyağı 3 Litre + 500 ml Hediye 1.948,00 ₺ Orijinal fiyat: 1.948,00 ₺. 1.499,00 ₺ Şu andaki fiyat: 1.499,00 ₺. Sepete Ekle İndirim! Natürel Sızma Ayvalık Zeytinyağı 2 × 3 Litre Avantaj Paketi 2.998,00 ₺ Orijinal fiyat: 2.998,00 ₺. 2.249,00 ₺ Şu andaki fiyat: 2.249,00 ₺. Sepete Ekle İndirim! Natürel Sızma Ayvalık Zeytinyağı 3 × 2 Litre — 3 Al 2 Öde 3.597,00 ₺ Orijinal fiyat: 3.597,00 ₺. 2.298,00 ₺ Şu andaki fiyat: 2.298,00 ₺. Sepete Ekle Her Sofrada Sadık Amca ← →",
+  "istek": 98,
+  "aktarilan_kb_bildirilen": 5332,
+  "hatali_istek": []
+ },
+ "platform": "WordPress + WooCommerce",
+ "iletisim": {
+  "eposta": [
+   {
+    "adres": "iletisim@dfn.net.tr",
+    "kaynak": "https://sadikamca.com/"
+   }
+  ],
+  "instagram": [
+   "https://instagram.com/sadikamcazeytinyagi"
+  ],
+  "iletisim_sayfasi": null
+ },
+ "baglanti": {
+  "bakilan": 20,
+  "kirik": []
+ },
+ "telefon": {
+  "durum": 200,
+  "dcl_ms": 2945,
+  "load_ms": 3447,
+  "son_url": "https://sadikamca.com/",
+  "baslik": "Ana Sayfa - Sadık Amca Zeytinyağı",
+  "fcp_ms": 1400,
+  "ttfb_ms": 219,
+  "viewport_meta": "width=device-width, initial-scale=1",
+  "yatay_tasma_px": 0,
+  "sayfa_yuksekligi": 7626,
+  "gorsel_sayisi": 18,
+  "alt_yok": 4,
+  "kirik_gorsel": 0,
+  "canvas": 0,
+  "model_viewer": 0,
+  "video": 0,
+  "h1": [],
+  "aciklama": "Günlük kullanımdan büyük sofralara, ihtiyacınıza uygun ölçüleri inceleyin.",
+  "istek": 92,
+  "aktarilan_kb_bildirilen": 3249,
+  "hatali_istek": [
+   "404 https://capig.datah04.com/events/6229030876b1ebe89935206b3b064627c972584fe71bd43375a389d187f51064"
+  ]
+ }
+}
