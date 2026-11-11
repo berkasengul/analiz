@@ -9,7 +9,7 @@ Bu dosya kanalın kalıcı hafızasıdır. Yeni bir oturumda video yapmadan önc
 ## Kanal adı değişiyor: BerkAİ (eski adı Karga Zihni)
 - Kullanıcı kanala kendi yüzünü koyuyor. HeyGen ile yapılmış avatar videoları (kendi yüzü, konuşan) videolara ara ara eklenecek.
 - Örnek avatar klibi: 1280×720, 25 fps, -17 LUFS, sağ altta HeyGen filigranı (ücretsiz plan). Teslimde: 1080p'ye büyüt, 30 fps'e çevir, sesi -14 LUFS'e eşitle.
-- Kullanım yerleri: açılıştan hemen sonra 5–10 sn giriş, bölüm geçişleri, kapanış/yorum çağrısı. Animasyon üstünde sağ altta yuvarlak köşe görüntü (turuncu halka + "BerkAİ" etiketi).
+- Kullanım yerleri: açılıştan hemen sonra 5–10 sn giriş, bölüm geçişleri, kapanış/yorum çağrısı. Animasyon üstünde köşe görüntü (ölçüleri aşağıda).
 - Avatar sesi anlatıcı sesiyle aynı olmalı (ElevenLabs "Berkay" sesi).
 - Gerçekçi yapay avatar: YouTube'da "değiştirilmiş veya yapay içerik" kutusu işaretlenir, açıklamaya not düşülür.
 - Köşe avatarı (kullanıcının referansı, Onur Naci Öztürkler tarzı): sol altta, ekranın alt kenarına yaslı yuvarlak, çapı ~400 px (1080p), kenarlıksız, hafif gölge. Kadraj geniş: baş, omuz ve eller görünür (yüze yakın kırpma yok). Alt yazılar avatarın üstüne binmez, sağa kayar.

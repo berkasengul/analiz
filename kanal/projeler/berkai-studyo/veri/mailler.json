@@ -1,0 +1,44 @@
+[
+ {
+  "id": "E1",
+  "kimden": "partnership@luckyspin-bet.example",
+  "konu": "Sponsorluk teklifi – çok yüksek bütçe",
+  "metin": "Merhaba BerkAİ, kanalınızı çok beğendik. Bahis platformumuzun tanıtımı için her videoda 30 saniyelik reklam istiyoruz. Bütçemiz rakiplerinizin teklif edemeyeceği kadar yüksek. Hızlı dönüş yaparsanız bu hafta başlayabiliriz."
+ },
+ {
+  "id": "E2",
+  "kimden": "copyright-team.youtube@gmail.com",
+  "konu": "⚠️ Kanalınız 24 saat içinde kapatılacak",
+  "metin": "Kanalınızda telif ihlali tespit edildi. İtiraz için 24 saat içinde youtube-copyright-check.net/login adresinden Google hesabınızla giriş yapın, aksi halde kanalınız kalıcı olarak silinecek."
+ },
+ {
+  "id": "E3",
+  "kimden": "iletisim@gecmisinsesi-podcast.example",
+  "konu": "Ortak bölüm önerisi",
+  "metin": "Merhaba, 'Geçmişin Sesi' adlı tarih podcast'ini yapıyoruz. İstanbul'un Fethi animasyonunuzu çok beğendik. Ortak bir bölüm kaydedip birbirimizin kanalında paylaşmak ister misiniz? Ücret beklentimiz yok."
+ },
+ {
+  "id": "E4",
+  "kimden": "tanitim@mavikubbeyayinevi.example",
+  "konu": "Yeni tarih kitabımız için tanıtım",
+  "metin": "Yeni çıkan 'Çanakkale 1915' kitabımızı bir videonuzda tanıtmak isteriz. Ücretli iş birliği düşünüyoruz. Uygunsa medya kitinizi gönderebilir misiniz?"
+ },
+ {
+  "id": "E5",
+  "kimden": "no-reply@youtube.com",
+  "konu": "Telif hakkı iddiası: İstanbul'un Fethi 1453",
+  "metin": "Videonuzdaki 3:12–4:05 arasındaki ses için bir telif hakkı iddiası yapıldı. Hak sahibi: EpicSound Library. Talep: gelir paylaşımı. Videonuz yayında kalıyor. Ayrıntılar YouTube Studio > İçerik > Kısıtlamalar bölümünde."
+ },
+ {
+  "id": "E6",
+  "kimden": "selin.ogretmen@okul.example",
+  "konu": "Derste kullanma izni",
+  "metin": "Merhaba, 9. sınıflara tarih öğretmeniyim. Malazgirt videonuzu sınıfta göstermek istiyorum, izin gerekiyor mu? Ayrıca öğrenciler Çanakkale'yi de soruyor."
+ },
+ {
+  "id": "E7",
+  "kimden": "growth@abone-hizli.example",
+  "konu": "7 günde 10.000 abone garantisi",
+  "metin": "Gerçek görünümlü abonelerle kanalınızı 7 günde büyütüyoruz. Garantili. Kanal şifrenizi paylaşmanız yeterli."
+ }
+]
