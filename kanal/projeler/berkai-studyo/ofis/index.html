@@ -1,18 +1,24 @@
 <!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>BerkAİ Stüdyo · 3D ofis</title><meta name="robots" content="noindex">
 <link rel="stylesheet" href="ofis.css">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/addons/"}}</script>
 </head><body>
+<!--GOVDE-->
+<div id="ofis-kok">
 <canvas id="c" aria-label="BerkAİ Stüdyo 3D ofisi"></canvas>
-<div id="yukleme"><div><p class="marka">BerkAİ Stüdyo</p><p id="yuk-yazi">Ofis hazırlanıyor…</p><div class="cubuk"><i id="yuk-cubuk"></i></div><p class="kucuk" id="yuk-hata"></p></div></div>
-<header id="ust"><div class="sol"><strong>BerkAİ Stüdyo</strong><span id="tarih"></span></div>
- <div class="sag" id="yardim"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> yürü</span><span>fareyi sürükle: bak</span><span><kbd>E</kbd> panel</span><span><kbd>1</kbd>–<kbd>6</kbd> ekibe git</span></div></header>
+<div id="yukleme"><div><p class="marka">BerkAİ Stüdyo</p><p id="yuk-yazi">Ofis hazırlanıyor…</p><p class="kucuk" id="yuk-hata"></p></div></div>
+<header id="ust"><div class="sol"><strong>BerkAİ Stüdyo</strong><span id="tarih"></span></div><div class="sag" id="yardim"><kbd>W A S D</kbd> yürü · sürükle: bak · <kbd>E</kbd> aç · <kbd>1</kbd>–<kbd>6</kbd> ekip</div></header>
 <nav id="ekipler" aria-label="Ekipler"></nav>
 <div id="ipucu" hidden></div>
+<div id="dokun" hidden><div id="kol"><i></i></div><button id="dokun-e">E</button></div>
 <aside id="panel" aria-live="polite"></aside>
-<div id="site"><div class="cerceve"><div class="bar"><span id="site-ad"></span><span class="bosluk"></span><a id="site-yeni" target="_blank" rel="noopener">Yeni sekmede aç</a><button id="site-kapat">Kapat (Esc)</button></div><iframe id="site-cerceve" title="Demo site"></iframe></div></div>
+<div id="okur" class="ortu"><div class="cerceve"><div class="bar"><span id="okur-ad"></span><span class="bosluk"></span><button id="okur-kapat">Kapat</button></div><div id="okur-ic" class="belge"></div></div></div>
+<div id="site" class="ortu"><div class="cerceve"><div class="bar"><span id="site-ad"></span><span class="bosluk"></span><a id="site-yeni" target="_blank" rel="noopener">Yeni sekmede aç</a><a id="site-zip" class="ana">ZIP indir</a><button id="site-kapat">Kapat</button></div><iframe id="site-cerceve" title="Demo site"></iframe></div></div>
+<div id="nasil" class="ortu"><div class="kart"><h2>Ofise hoş geldin</h2><ul><li><kbd>W A S D</kbd> ya da ok tuşlarıyla yürü; fareyi sürükleyerek etrafa bak.</li><li>Bir ekibin bölmesine gir, <kbd>E</kbd>'ye bas: bugün ne yaptıklarını gör.</li><li>3D Site bölmesinde duvardaki ekranlara tıkla: demo site açılır.</li><li>Koridorun sonundaki müdür odasında kararlarını ver.</li></ul><button id="nasil-kapat" class="dugme ana">Başla</button></div></div>
 <div id="imlec" hidden></div>
+</div>
 <script src="veri.js"></script>
 <script type="module" src="ofis.js"></script>
+<!--/GOVDE-->
 </body></html>
