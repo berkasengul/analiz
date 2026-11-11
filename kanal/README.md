@@ -12,6 +12,7 @@ Bu dosya kanalın kalıcı hafızasıdır. Yeni bir oturumda video yapmadan önc
 - Kullanım yerleri: açılıştan hemen sonra 5–10 sn giriş, bölüm geçişleri, kapanış/yorum çağrısı. Animasyon üstünde sağ altta yuvarlak köşe görüntü (turuncu halka + "BerkAİ" etiketi).
 - Avatar sesi anlatıcı sesiyle aynı olmalı (ElevenLabs "Berkay" sesi).
 - Gerçekçi yapay avatar: YouTube'da "değiştirilmiş veya yapay içerik" kutusu işaretlenir, açıklamaya not düşülür.
+- Köşe avatarı (kullanıcının referansı, Onur Naci Öztürkler tarzı): sol altta, ekranın alt kenarına yaslı yuvarlak, çapı ~400 px (1080p), kenarlıksız, hafif gölge. Kadraj geniş: baş, omuz ve eller görünür (yüze yakın kırpma yok). Alt yazılar avatarın üstüne binmez, sağa kayar.
 
 ## Video kuralları (kullanıcının geri bildirimlerinden)
 
