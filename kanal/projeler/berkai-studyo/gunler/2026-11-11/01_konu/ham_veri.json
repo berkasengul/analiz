@@ -1,0 +1,72 @@
+{
+  "alindi": "2026-11-11",
+  "kaynak": "vidIQ MCP (channel_videos, outliers, trending_videos, keyword_research) + web araması",
+  "not": "Sayılar vidIQ'nun 11.11.2026 tarihli anlık değerleridir. vidIQ hesabına bağlı kanal 'Doksan Dokuz' (@doksan99dokuz); BerkAİ/Karga Zihni verisi herkese açık kanal verisinden alındı (@kargazihni).",
+  "kanal_son_videolar": [
+    {"id":"luuI7Z6nN64","baslik":"Yüzünü Göstermeden Youtube Kanalı Aç: Claude ile Ücretsiz Animasyon","tarih":"2026-11-06","izlenme":435,"begeni":5,"yorum":0,"sure":"9:01","vph":1.31},
+    {"id":"VAe_ILYuC1U","baslik":"Claude ile 3D Web Sitesi Yaptım: Nasıl Yapılır ve Nasıl Para Kazanılır?","tarih":"2026-11-04","izlenme":582,"begeni":9,"yorum":4,"sure":"8:01","vph":1.34},
+    {"id":"q4YQlFQIPLQ","baslik":"Oto Galeriler İçin 3D Sanal Showroom Kurdum.","tarih":"2026-11-02","izlenme":309,"begeni":3,"yorum":1,"sure":"8:01","vph":0.93},
+    {"id":"-N14zmewq2A","baslik":"Claude ile Firmalara 3D E-Ticaret Web Sitesi Yapıp Satmak (Beni Kopyala)","tarih":"2026-10-31","izlenme":986,"begeni":15,"yorum":6,"sure":"10:59","vph":0.70},
+    {"id":"emeqfIL3fD8","baslik":"Yapay Zeka ile Oto Galerilere 3D Showroom Web Sitesi Yaptım (Baştan Sona)","tarih":"2026-10-21","izlenme":231,"begeni":5,"yorum":1,"sure":"6:33","vph":0.04},
+    {"id":"xhb_KI1HHt4","baslik":"GPT-6 Astra ile 3D Web Sitesi Yapmak: Müşterilere Nasıl Satılır?","tarih":"2026-10-15","izlenme":328,"begeni":7,"yorum":4,"sure":"5:32","vph":0.11},
+    {"id":"XYUX6-2tIl8","baslik":"Bir kozmetik markasına 3D mağaza yaptım.","tarih":"2026-10-08","izlenme":525,"begeni":9,"yorum":4,"sure":"4:40","vph":0.10}
+  ],
+  "tr_claude_trend_25ekim_sonrasi": [
+    {"id":"400VfsJnyUE","baslik":"2027'de Claude ile Hayatını Değiştirecek 24 Kullanım Örneği","kanal":"Smokich","abone":265,"tarih":"2026-11-05","izlenme":57485,"vph":460},
+    {"id":"FHD2raG0RBY","baslik":"Güle Güle CapCut! Instagram Edits Masaüstü Çıktı: Videomu Claude Kurguladı!","kanal":"Ozan Sihay","abone":581000,"tarih":"2026-11-08","izlenme":42332,"vph":748},
+    {"id":"BAn-6Cu-cCM","baslik":"Claude ile Video Yapmanın Sırrı: Slop Olmayan Sistem!","kanal":"Avenox","abone":31000,"tarih":"2026-11-06","izlenme":41144,"vph":449},
+    {"id":"adieNkpG1K0","baslik":"Claude Fable 5.2 ÇIKTI! Artık İşler Ciddileşti!","kanal":"İsa Nurdoğdu","abone":35300,"tarih":"2026-11-10","izlenme":21516,"vph":944},
+    {"id":"xo2HvH_uNOI","baslik":"Claude Code Rehberi ! 10 Dakikada Bilmeniz Gereken Her Şey !","kanal":"Muhammed Ogulcan","abone":9350,"tarih":"2026-11-06","izlenme":14132,"vph":150},
+    {"id":"wUseglJLedQ","baslik":"Bu videoyu tamamen Claude Fable 5.2 yaptı","kanal":"Doruk Yalçınsoy","abone":37500,"tarih":"2026-11-09","izlenme":12537,"vph":440},
+    {"id":"vlQxHObOD4Q","baslik":"Gemini 4 Carbon Çıktı! Claude Modelleriyle Kıyasladım & Google Geri Döndü","kanal":"Ömer Göçmen","abone":20700,"tarih":"2026-11-10","izlenme":12148,"vph":1050},
+    {"id":"Axt50fdtAII","baslik":"Claude ile Unity Kullanarak 3D MOBİL OYUN Geliştirdim","kanal":"Ülviye Suna","abone":46600,"tarih":"2026-11-05","izlenme":11432,"vph":243},
+    {"id":"p2d_EEi8vQ8","baslik":"Claude Edit Sistemimi Ücretsiz Verdim, 10 Short 700 Bin İzlenme","kanal":"Ömer Göçmen","abone":20100,"tarih":"2026-11-04","izlenme":11377,"vph":149},
+    {"id":"NbdUgfQ6b_4","baslik":"Claude Fable 5.2'ye 10 Farklı İş Verdim","kanal":"Forn AI","abone":2930,"tarih":"2026-11-10","izlenme":10834,"vph":649},
+    {"id":"kMhT4bWwX18","baslik":"Claude Fable 5.2 Çıktı! Opus 5.5'i Geçti mi? 5 Prompt, Tek Net Sonuç","kanal":"Ömer Göçmen","abone":20600,"tarih":"2026-11-10","izlenme":10321,"vph":536},
+    {"id":"qf_4XW623BQ","baslik":"Claude ile 3D Oyun Geliştiriyoruz! (Tripo AI + Opus 5.5 + Unity)","kanal":"Özgür W","abone":77500,"tarih":"2026-11-04","izlenme":7506,"vph":50},
+    {"id":"dCEox8NOHsg","baslik":"Claude Opus 5.5 ile Cilt Analizi Sitesi Yaptım! Tek Başına Yapamazdı! (YouCam API)","kanal":"Yıldız Dikme","abone":20000,"tarih":"2026-11-05","izlenme":6906,"vph":50},
+    {"id":"zLwnOHTBdTI","baslik":"Claude Code'u %90'dan Daha Verimli Kullan! (Claude Subagent)","kanal":"Ömer Göçmen","abone":20200,"tarih":"2026-11-05","izlenme":6165,"vph":50},
+    {"id":"RSRDhba1OOI","baslik":"CapCut devri bitiyor! Claude ile Edits'i birleştirip kurgu yaptırdık!","kanal":"ShiftDelete.Net","abone":2260000,"tarih":"2026-11-10","izlenme":5988,"vph":346},
+    {"id":"OfJjv_r-1ic","baslik":"Yapay Zeka ile Tek Kişilik İşini Böyle Kurabilirsin! (Claude Code)","kanal":"Burak Çatak","abone":14300,"tarih":"2026-11-08","izlenme":5250,"vph":148},
+    {"id":"TB7-mdqMy-Q","baslik":"Claude Fable 5.2: 5 Testte Denedim, Fark Çok Büyük","kanal":"Uğur Keşkekçi","abone":13100,"tarih":"2026-11-10","izlenme":4336,"vph":448},
+    {"id":"s-dePywRqw0","baslik":"Claude ile Video Yapmak: Görsel Model Olmadan, Sadece Kodla","kanal":"Uğur Keşkekçi","abone":13000,"tarih":"2026-11-07","izlenme":4270,"vph":50},
+    {"id":"9TmXYM7YU2s","baslik":"Claude Fable 5.2 Çıktı ! Opus 5.5 Artık Kullanılmaz Mı ?","kanal":"Muhammed Ogulcan","abone":10400,"tarih":"2026-11-10","izlenme":3529,"vph":326},
+    {"id":"KBl3joHlTmg","baslik":"Yapay Zekayla Sıfırdan YouTube Videosu Yaptım! (Claude + Google Flow)","kanal":"Ozillo Studio","abone":1770,"tarih":"2026-11-08","izlenme":3000,"vph":47}
+  ],
+  "tr_ajan_ekibi_sirket": [
+    {"id":"zE_ggoUn7ao","baslik":"Tek Ajandan Yapay Zeka Ekibine: 6 Seviye","kanal":"Avenox","abone":30500,"tarih":"2026-11-05","izlenme":49103,"begeni":1443,"yorum":234,"vph":449},
+    {"id":"rNm-BYXs3Bw","baslik":"İşten ayrıldı, yapay zeka ajanlarıyla kendi işini kurdu.","kanal":"Umut İLHAN ile Sonraki Adım","abone":31000,"tarih":"2026-11-10","izlenme":27819,"vph":1527},
+    {"id":"xg4n5pugGwc","baslik":"Yapay Zeka Bir Günümüzü Yönetti !","kanal":"Biraz Karışık","abone":41600,"tarih":"2026-11-07","izlenme":77205,"vph":835},
+    {"id":"trIpWCRJpsE","baslik":"Yapay Zeka YKS AYT'de Kaç Net Yaptı?","kanal":"Maymun Aklı","abone":11600,"tarih":"2026-11-07","izlenme":52532,"vph":745},
+    {"id":"lnffjLeK_98","baslik":"Yapay Zeka Danışmanlığı ve Yapay Zeka Otomasyon REHBERİ ! İşletmelere Otomasyon Satarak Para Kazan !","kanal":"Muhammed Ogulcan","abone":9140,"tarih":"2026-11-05","izlenme":5190,"vph":48}
+  ],
+  "tr_3d_oyun_site_son6ay": [
+    {"id":"SWNTintqKs4","baslik":"Yapay Zekâyla 3D Oyun Yaptım","kanal":"Mehmet Eren Dikmen","abone":1700,"tarih":"2026-09-21","izlenme":17100,"kat":"13x"},
+    {"id":"g2NBB6ZmpQQ","baslik":"Yapay Zekâyla Sinematik Web Sitesi Yaptım! Tripo + GPT 6 Astra","kanal":"Mehmet Eren Dikmen","abone":1700,"tarih":"2026-10-12","izlenme":7000,"kat":"6.2x"},
+    {"id":"iYwCzKy6W40","baslik":"Claude'a Premium 3D Web Sitesi Yaptırdım | Yazılımcı Gözüyle","kanal":"Yıldız Dikme","abone":21400,"tarih":"2026-05-28","izlenme":11500,"kat":"2.1x"},
+    {"id":"4E75bzeS-o4","baslik":"Claude ile Video Editleme: Ham Çekimden Kurguya Adım Adım","kanal":"Burak Çakır • Filtresiz Yapay Zeka","abone":2900,"tarih":"2026-10-10","izlenme":12400,"kat":"2x"},
+    {"id":"8ehNH9Z6QXQ","baslik":"Ai animasyon yapıyoruz","kanal":"Bi'şeyler Yapıyoruz!","abone":1600,"tarih":"2026-10-13","izlenme":19200,"kat":"25x"},
+    {"id":"QehudB_n5eo","baslik":"Excel'i Yapay Zekaya Bağladım Patronum Beni Dahi Sanıyor (Copilot)","kanal":"Oğuzhan ÇOLAK","abone":172000,"tarih":"2026-08-30","izlenme":164800,"kat":"38x"}
+  ],
+  "en_fable52_ilk_48saat": [
+    {"id":"SsSKJA0EHD4","baslik":"I Tested Fable 5.2 vs Opus 5.5 on 5 Real Use Cases","kanal":"Peter Yang","abone":115000,"izlenme":128000,"vph":3445},
+    {"id":"9ST4fnaEaaE","baslik":"Fable 5.2 is Scary Powerful","kanal":"Dave Lee","abone":230000,"izlenme":126749,"vph":8266},
+    {"id":"9ZxdXEd1pZw","baslik":"Claude Fable 5.2 vs Opus 5.5 Make an Animated Video From Scratch","kanal":"Tensaikun","abone":589,"izlenme":121345,"vph":3369},
+    {"id":"5mA9Hab09Do","baslik":"13 INSANE Things You Can Build w/ Claude Fable 5.2","kanal":"Nick Saraev","abone":616000,"izlenme":80959,"vph":7772},
+    {"id":"G3i2k6DdI0o","baslik":"Claude Fable 5.2: How I'd Make Money With It","kanal":"Greg Isenberg","abone":741000,"izlenme":46442,"vph":2942},
+    {"id":"EKMCt3Z2KIg","baslik":"Claude Fable 5.2 + Roblox Studio is Insane.","kanal":"Cole","abone":18100,"izlenme":44651,"vph":1625},
+    {"id":"gd2-D47ExhY","baslik":"Claude Fable 5.2: 1,000 AI Agents Built an Entire OS (I Tested It)","kanal":"AI with Surya","abone":28200,"izlenme":24922,"vph":836}
+  ],
+  "anahtar_kelime_TR": [
+    {"kelime":"fable 5.2","aylik_arama_dunya":1896021,"tr_hacim":96408,"rekabet":43},
+    {"kelime":"claude fable 5.2","aylik_arama_dunya":343587,"tr_hacim":21326,"rekabet":50},
+    {"kelime":"claude code","aylik_arama_dunya":3405977,"tr_hacim":74161,"rekabet":73},
+    {"kelime":"claude","aylik_arama_dunya":5628641,"tr_hacim":243328,"rekabet":70,"buyume":"+33.5%"},
+    {"kelime":"claude ai","aylik_arama_dunya":1273409,"tr_hacim":18515,"rekabet":69}
+  ],
+  "gundem": [
+    {"olay":"Anthropic, Fable 5.2 ve Mythos 5.2'yi 9 Kasım 2026 Pazartesi yayınladı; Fable 5.2 genel kullanıma açık, Mythos 5.2 yalnızca doğrulanmış kurumlara. 5.1'e göre 'yüzde 30'a kadar daha hızlı' (Anthropic'in iddiası).","kaynak":"https://www.siliconreport.com/anthropic-releases-mythos-5-2-and-fable-5-2","dogrulama":"Tek haber kaynağı okundu; vidIQ'daki 10 Kasım tarihli onlarca video çıkışı dolaylı doğruluyor. Anthropic'in resmi duyurusu bu oturumda açılmadı."},
+    {"olay":"Instagram Edits masaüstü çıktı; Claude ile kurgu videoları trend (Ozan Sihay 42 bin, ShiftDelete, Serhat Şenkal).","kaynak":"vidIQ trending_videos, 11.11.2026"},
+    {"olay":"Gemini 4 Carbon çıktı (10 Kasım).","kaynak":"vidIQ trending_videos (Ömer Göçmen videosu), 11.11.2026; haber kaynağıyla ayrıca doğrulanmadı"}
+  ]
+}
