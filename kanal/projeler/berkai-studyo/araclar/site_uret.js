@@ -30,5 +30,13 @@ ${A.sahneler.map(blok).join('\n')}
   fs.mkdirSync(D,{recursive:true}); fs.writeFileSync(path.join(D,'index.html'),html);
   for(const f of ['site.js','site.css','vendor/three.module.min.js','vendor/THREE_LICENSE','vendor/addons/RoomEnvironment.js']) kopya(path.join(M,f),path.join(D,f));
   fs.writeFileSync(path.join(D,'robots.txt'),'User-agent: *\nDisallow: /\n');
-  console.log('üretildi: siteler/'+slug+'/');
+  // Netlify Drop paketi: index.html kökte
+  const zlib=require('zlib'); const dosyalar=[]; (function gez(d,on){for(const f of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,f.name); if(f.isDirectory())gez(p,on+f.name+'/'); else dosyalar.push([on+f.name,fs.readFileSync(p)]);}})(D,'');
+  const parca=[],merkez=[]; let ofs=0;
+  for(const [ad,veri] of dosyalar.sort((a,b)=>a[0]<b[0]?-1:1)){ const n=Buffer.from(ad,'utf8'),z=zlib.deflateRawSync(veri,{level:9}),crc=zlib.crc32(veri)>>>0; const h=Buffer.alloc(30); h.writeUInt32LE(0x04034b50,0);h.writeUInt16LE(20,4);h.writeUInt16LE(0x0800,6);h.writeUInt16LE(8,8);h.writeUInt16LE(0,10);h.writeUInt16LE(0x5a21,12);h.writeUInt32LE(crc,14);h.writeUInt32LE(z.length,18);h.writeUInt32LE(veri.length,22);h.writeUInt16LE(n.length,26);
+    const c=Buffer.alloc(46); c.writeUInt32LE(0x02014b50,0);c.writeUInt16LE(20,4);c.writeUInt16LE(20,6);c.writeUInt16LE(0x0800,8);c.writeUInt16LE(8,10);c.writeUInt16LE(0,12);c.writeUInt16LE(0x5a21,14);c.writeUInt32LE(crc,16);c.writeUInt32LE(z.length,20);c.writeUInt32LE(veri.length,24);c.writeUInt16LE(n.length,28);c.writeUInt32LE(ofs,42);
+    parca.push(h,n,z); merkez.push(c,n); ofs+=30+n.length+z.length; }
+  const ms=merkez.reduce((s,b)=>s+b.length,0),son=Buffer.alloc(22); son.writeUInt32LE(0x06054b50,0);son.writeUInt16LE(dosyalar.length,8);son.writeUInt16LE(dosyalar.length,10);son.writeUInt32LE(ms,12);son.writeUInt32LE(ofs,16);
+  fs.writeFileSync(path.join(KOK,'siteler',slug+'-Netlify.zip'),Buffer.concat([...parca,...merkez,son]));
+  console.log('üretildi: siteler/'+slug+'/ ve siteler/'+slug+'-Netlify.zip ('+dosyalar.length+' dosya)');
 }

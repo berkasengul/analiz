@@ -1,45 +1,47 @@
 {
- "tarih": "2026-11-11T12:57:21.633Z",
+ "tarih": "2026-11-11T18:06:01.721Z",
  "hatalar": [],
- "normal_hazir_ms": 1490,
+ "normal_hazir_ms": 4471,
+ "nasil_karti": true,
  "paneller": {
   "konu": {
-   "ipucu": "E 3D Site Ekibi: bugün ne yaptı?",
+   "ipucu": "E YouTube Konu Ekibi: bugün ne yaptı?",
    "baslik": "YouTube Konu Ekibi",
-   "belge": 1,
-   "yazi": 6566
+   "belge": 3,
+   "yazi": 740
   },
   "yapim": {
    "ipucu": "E YouTube Yapım Ekibi: bugün ne yaptı?",
    "baslik": "YouTube Yapım Ekibi",
    "belge": 6,
-   "yazi": 11955
+   "yazi": 905
   },
   "musteri": {
    "ipucu": "E Müşteri Bulma Ekibi: bugün ne yaptı?",
    "baslik": "Müşteri Bulma Ekibi",
-   "belge": 2,
-   "yazi": 8987
+   "belge": 3,
+   "yazi": 1191
   },
   "site": {
    "ipucu": "E 3D Site Ekibi: bugün ne yaptı?",
    "baslik": "3D Site Ekibi",
-   "belge": 1,
-   "yazi": 4292
+   "belge": 3,
+   "yazi": 957
   },
   "mail": {
    "ipucu": "E Mail Ekibi: bugün ne yaptı?",
    "baslik": "Mail Ekibi",
    "belge": 6,
-   "yazi": 2863
+   "yazi": 798
   },
   "mudur": {
    "ipucu": "E Müdür: raporu oku, kararlarını ver",
    "baslik": "Müdür",
    "belge": 1,
-   "yazi": 5558
+   "yazi": 2257
   }
  },
+ "okur": 5738,
  "karar": {
   "localStorage": [
    "{\"K1\":{\"karar\":\"onay\"}}"
@@ -53,51 +55,57 @@
   },
   "adet": 5
  },
- "yurume_m": 1.28,
+ "yurume_m": 1.83,
  "demo_cerceve": "http://yerel/siteler/o-atolye/index.html",
+ "zip": {
+  "href": "../siteler/o-atolye-Netlify.zip",
+  "download": "o-atolye-Netlify.zip"
+ },
+ "zip_var": true,
+ "ekran_ipucu": "E O Atölye demosunu aç",
  "dis_istek": [],
- "tur_hazir_ms": 3657,
+ "tur_hazir_ms": 3284,
  "tur": {
   "sure": 107,
   "sahneler": [
    {
     "ad": "Giriş",
     "bas": 0,
-    "bit": 7
+    "bit": 6
    },
    {
-    "ad": "YouTube konu ekibi",
-    "bas": 7,
-    "bit": 19
+    "ad": "YouTube Konu Ekibi",
+    "bas": 6,
+    "bit": 18
    },
    {
-    "ad": "YouTube yapım ekibi",
-    "bas": 19,
-    "bit": 31
+    "ad": "YouTube Yapım Ekibi",
+    "bas": 18,
+    "bit": 30
    },
    {
-    "ad": "Müşteri bulma ekibi",
-    "bas": 31,
-    "bit": 43
+    "ad": "Müşteri Bulma Ekibi",
+    "bas": 30,
+    "bit": 42
    },
    {
-    "ad": "3D site ekibi",
-    "bas": 43,
-    "bit": 55
+    "ad": "3D Site Ekibi",
+    "bas": 42,
+    "bit": 54
    },
    {
     "ad": "Demo site ekranda: O Atölye",
-    "bas": 55,
-    "bit": 70
+    "bas": 54,
+    "bit": 69
    },
    {
-    "ad": "Mail ekibi",
-    "bas": 70,
-    "bit": 82
+    "ad": "Mail Ekibi",
+    "bas": 69,
+    "bit": 81
    },
    {
     "ad": "Müdür odası: karar onayı",
-    "bas": 82,
+    "bas": 81,
     "bit": 100
    },
    {
@@ -108,6 +116,6 @@
   ]
  },
  "tur_deterministik": true,
- "kare_ms": 1320,
+ "kare_ms": 930,
  "gecti": true
 }

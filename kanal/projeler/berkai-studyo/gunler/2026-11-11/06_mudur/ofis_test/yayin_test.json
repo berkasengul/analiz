@@ -1,0 +1,25 @@
+{
+ "hatalar": [],
+ "yok": [],
+ "dis": [],
+ "nasil_karti": true,
+ "panel": "3D Site Ekibi",
+ "panel_gorsel": true,
+ "demo": {
+  "url": "http://paket/siteler/o-atolye/index.html",
+  "canvas": {
+   "w": 1187,
+   "h": 577,
+   "gl": true
+  }
+ },
+ "zip": {
+  "href": "https://github.com/berkasengul/analiz/raw/claude/nifty-maxwell-fmmq61/kanal/projeler/berkai-studyo/siteler/o-atolye-Netlify.zip",
+  "target": "_blank",
+  "download": false
+ },
+ "yeni_sekme": "siteler/o-atolye/index.html",
+ "dokunmatik": true,
+ "dokunmatik_yurume_m": 1.15,
+ "gecti": true
+}

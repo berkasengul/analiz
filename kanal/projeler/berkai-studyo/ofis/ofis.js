@@ -179,12 +179,12 @@ $('#nasil-kapat').onclick = nasilKapat;
 const saga = (P, S, derece) => { const dx = S[0] - P[0], dz = S[2] - P[2], q = derece * Math.PI / 180, c = Math.cos(q), n = Math.sin(q); return [P[0] + dx * c - dz * n, S[1], P[2] + dz * c + dx * n]; };
 // duraklar: [ad, bas, bit, oyuncu x,z, baktığı x,z, kamera x,y,z, kamera hedefi x,y,z, panel]
 const DURAK = []; { const ekle = (id, bas, bit) => { const b = BOLME[id], y = YERLER[id], zc = y.z, o = [b.yan * 3.3, zc + 1.2], P = [-b.yan * .9, 2.25, zc + 3.4], S = [b.yan * 6.2, 1.0, zc - .3]; DURAK.push({ id, ad: E[id].ad, bas, bit, o, yuz: [b.yan * 6.5, zc - .3], P, L: saga(P, S, b.yan < 0 ? 20 : 24), panel: id }); };
-  DURAK.push({ ad: 'Giriş', bas: 0, bit: 6, o: [0, 9.6], yuz: [0, -10], P: [0, 2.9, 11.5], L: [0, 1.4, -6], P0: [0, 3.5, 11.7], o0: [0, 11.2] });
+  DURAK.push({ ad: 'Giriş', bas: 0, bit: 6, o: [0, 8.4], yuz: [0, -10], P: [0, 2.5, 11.3], L: [0, 1.0, 1], P0: [0, 3.0, 11.6], o0: [0, 10.6] });
   ekle('konu', 6, 18); ekle('yapim', 18, 30); ekle('musteri', 30, 42); ekle('site', 42, 54);
   const s0 = V.siteler[0] || { _x: 9.3, _z: 7, ad: '—' };
   DURAK.push({ ad: 'Demo site ekranda: ' + s0.ad, bas: 54, bit: 69, o: [8.3, s0._z + 1.5], yuz: [11, s0._z], P: [6.6, 2.0, s0._z + .5], L: [11, 1.95, s0._z], demo: true });
   ekle('mail', 69, 81);
-  DURAK.push({ id: 'mudur', ad: 'Müdür odası: karar onayı', bas: 81, bit: 100, o: [-.9, -7.9], yuz: [0, -10.5], P: [1.5, 2.2, -6.9], L: saga([1.5, 2.2, -6.9], [-.6, 1.1, -9.9], 22), panel: 'mudur' });
+  DURAK.push({ id: 'mudur', ad: 'Müdür odası: karar onayı', bas: 81, bit: 100, o: [-.7, -7.7], yuz: [0, -10.5], P: [0.5, 2.3, -4.7], L: saga([0.5, 2.3, -4.7], [-.4, 1.1, -9.6], 21), panel: 'mudur' });
   DURAK.push({ ad: 'Kapanış', bas: 100, bit: 107, o: [0, -4.5], yuz: [0, 10], P: [0, 2.6, 10.6], L: [0, 1.5, -8], P0: [0, 3.3, 11.6], kesme: true }); }
 const GECIS = 3.2, SITE_BAS = 57.4, SITE_BIT = 68.6, ONAY_T = 92.6, TUR_SITE = V.siteler[0];
 const imlec = $('#imlec'); let turPanel = null, turOnay = null; const v3 = new THREE.Vector3();
@@ -212,6 +212,7 @@ function turKare(t) {
   D.guncelle(t, { sevinc, oyuncu: { x: ox, z: oz, yaw: oyaw, yuruyor, adimT: adim } }); renderer.render(D.scene, cam); return t;
 }
 
+window.OFIS_BAK = (p, l, t = 3) => { cam.position.set(...p); v3.set(...l); cam.lookAt(v3); D.guncelle(t, { oyuncu: { x: 0, z: 9, yaw: Math.PI, yuruyor: true, adimT: t } }); renderer.render(D.scene, cam); };   // test: serbest kamera
 // ---------- başlat ----------
 $('#yukleme').style.display = 'none';
 if (TUR_MODU) {

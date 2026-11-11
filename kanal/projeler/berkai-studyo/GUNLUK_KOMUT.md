@@ -28,7 +28,7 @@ BUGÜNÜN İŞİ: gunler/<bugünün tarihi YYYY-AA-GG>/ altına, dünkü klasör
    NODE_PATH=/opt/node-tools/node_modules node araclar/site_olc.js gunler/<tarih>/03_musteri <slug>=<url> ...
    Ekran görüntülerine bak. degerlendirme.json yaz (dünkünün biçimi), sonra: node araclar/aday_tablosu.js gunler/<tarih>/03_musteri. aday_raporu.md yaz: neden ihtiyaçları var, kim neden elendi. "Bekliyor" olan eski adayları yeniden kontrol et.
 5. 3D SİTE EKİBİ (04_site): En iyi 1–2 yeni aday için siteler/_motor/markalar/<slug>.json ayarı yaz (yalnızca doğrulanmış bilgi; ürün adı uydurma; etiketlerde "konsept" notu). Gerekirse siteler/_motor/site.js içine yeni kodla çizilen ürün modeli ekle; işletmenin fotoğrafını kopyalama.
-   node araclar/site_uret.js <slug>
+   node araclar/site_uret.js <slug>      (siteler/<slug>/ ve siteler/<slug>-Netlify.zip üretir)
    NODE_PATH=/opt/node-tools/node_modules node araclar/site_test.js gunler/<tarih>/04_site <slug> ...
    node araclar/site_rapor.js gunler/<tarih>/04_site
    Ekran görüntülerine tek tek bak; kalan kontrol varsa düzelt, yeniden test et. Dünkü demoların test dosyalarını da bugüne taşı ki ofiste görünsünler.
@@ -38,6 +38,8 @@ BUGÜNÜN İŞİ: gunler/<bugünün tarihi YYYY-AA-GG>/ altına, dünkü klasör
    node araclar/ofis_veri_uret.js
    NODE_PATH=/opt/node-tools/node_modules node araclar/ofis_test.js gunler/<tarih>/06_mudur/ofis_test
    "gecti": true olmalı; ekran görüntülerine bak (paneller dolu mu, yazılar okunuyor mu).
+   NODE_PATH=/opt/node-tools/node_modules node araclar/yayin_paketi.js test
+   (_yayin/ paketini yeniler ve dener; "gecti": true olmalı. Yeni ZIP dosyaları dala gönderilmeden yayın sayfasındaki "ZIP indir" bağlantısı çalışmaz; raporda hatırlat.)
 
 BİTİNCE kısa rapor: her ekibin bugünkü dosyaları, yeni adaylar ve nedenleri, yapılan demolar ve test sonuçları, benden istenen kararlar, yapılamayanlar.
 ```

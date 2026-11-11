@@ -100,7 +100,7 @@ export function insan(o) {
   for (const s of [-1, 1]) { mesh(new THREE.SphereGeometry(.021, 10, 8), MAT('#1c1410', { roughness: .3 }), s * .06, .015, .15, bas); mesh(new THREE.SphereGeometry(.03, 8, 6), ten, s * .165, -.01, 0, bas); }
   const agiz = mesh(new THREE.TorusGeometry(.035, .008, 6, 12, Math.PI), MAT('#9a4a3a'), 0, -.05, .148, bas); agiz.rotation.z = Math.PI;
   const st = o.sacTipi || 0;
-  if (st !== 4) { const sg = new THREE.SphereGeometry(.176, 24, 14, 0, Math.PI * 2, 0, Math.PI * (st === 1 ? .56 : .5)); const sm = mesh(sg, sac, 0, .012, -.012, bas); sm.rotation.x = -.28; sm.scale.set(1.02, 1.06, 1.04); }
+  if (st !== 4) { const sg = new THREE.SphereGeometry(.176, 24, 14, 0, Math.PI * 2, 0, Math.PI * (st === 1 ? .5 : .46)); const sm = mesh(sg, sac, 0, .014, -.014, bas); sm.rotation.x = -.52; sm.scale.set(1.02, 1.06, 1.04); }
   if (st === 1) mesh(new THREE.SphereGeometry(.075, 12, 10), sac, 0, .14, -.13, bas);                        // topuz
   if (st === 2) { const u = mesh(new THREE.CapsuleGeometry(.13, .16, 4, 12), sac, 0, -.1, -.075, bas); u.scale.set(1.2, 1, .6); }      // uzun
   if (st === 3) mesh(new THREE.BoxGeometry(.3, .06, .1), sac, 0, .1, .1, bas).rotation.x = .3;                                       // perçem
