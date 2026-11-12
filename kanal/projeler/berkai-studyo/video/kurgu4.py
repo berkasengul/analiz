@@ -326,8 +326,8 @@ def chips(f, t, t0, t1, items, y=760):
 # ---------- çekim planı ----------
 SH = []   # (başlangıç, tür, argümanlar, hızlı_zoom)
 def sh(t, kind, *args, whip=False): SH.append((t, kind, args, whip))
-sh(0, "rec", 0.3)
-k = "1"; sh(S(k), "av", 1.0, 1.06, whip=True); sh(c(k, "Akşam"), "rec", 9.0); sh(c(k, "on", 2), "grid"); sh(c(k, "iki"), "demo", "d1", 6.0)
+sh(0, "recfull", 0.0)                                   # giriş: ofis tam ekran, avatar sol altta
+k = "1"; sh(3.5, "recfull", 116.0); sh(7.0, "recfull", 188.5); sh(c(k, "Akşam"), "rec", 9.0, whip=True); sh(c(k, "on", 2), "grid"); sh(c(k, "iki"), "demo", "d1", 6.0)
 sh(c(k, "dört", 2), "rec", 153.0); sh(c(k, "müdürün"), "rec", 199.0); sh(c(k, "Ofisi"), "rec", 0.5); sh(c(k, "bu", 2), "av", 1.12, 1.15)
 k = "n1"; sh(S(k), "av", 1.0, 1.05, whip=True); sh(c(k, "Kafe"), "bg", "ofis"); sh(c(k, "Kod"), "av", 1.12, 1.14)
 k = "2"; sh(S(k), "av", 1.0, 1.04, whip=True); sh(c(k, "ben"), "bg", "konu"); sh(c(k, "Altı"), "rec", 43.5); sh(c(k, "Sonra"), "av", 1.12, 1.14); sh(c(k, "Bir:") - .4, "bg", "ofis")
@@ -379,6 +379,9 @@ def base_of(t, shot):
     if kind == "av":
         av = avf(k, t); z0, z1 = args; return zoom(av, z0 + (z1 - z0) * eio(u / 6), .49, .40)
     if kind == "rec": return rec_shot(args[0] + u)
+    if kind == "recfull":
+        im = rec_frame(args[0] + u); sc = H / im.height; im = im.resize((int(im.width * sc), H), Image.BILINEAR); x0 = (im.width - W) // 2
+        return zoom(im.crop((x0, 0, x0 + W, H)), 1.0 + .03 * min(1, u / 4))
     if kind == "demo": return zoom(demo(args[0], args[1] + u), 1.0 + .03 * min(1, u / 6))
     if kind == "grid": return grid(u)
     if kind == "ss": return screenshot(args[0], u)
