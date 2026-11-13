@@ -103,6 +103,14 @@
    {
     "t": "2026-11-13T11:25+03:00",
     "olay": "mail taslağı kaydedildi (yayından sonra gönderime hazır olur): Halare'nin kolonya ve çiçek suları için 3B vitrin"
+   },
+   {
+    "t": "2026-11-13T12:06+03:00",
+    "olay": "4 ürün çekildi → site-fabrikasi/yukle/halare/taslak.json"
+   },
+   {
+    "t": "2026-11-13T12:09+03:00",
+    "olay": "site üretildi (önizleme yok, kontrol et)"
    }
   ],
   "bulunan_mailler": [

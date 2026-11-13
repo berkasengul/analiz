@@ -3,6 +3,16 @@
 Görev: günde `ayar.json → gunluk_yeni_firma` kadar (5) **yeni** firma bul, her birine 3B demo site üret ve mail taslağını
 hazırla. Kullanıcıya soru sorma; karar verilemeyen firmayı `elendi` yap ve sıradakine geç.
 
+## Kurulum (her yeni oturumda bir kez)
+
+```bash
+git fetch origin claude/youthful-faraday-yv6cwr && git checkout -B calisma FETCH_HEAD   # satış hattının güncel hali
+pip install -q opencv-python-headless numpy "rembg[cpu]"                                # fotoğraf kesimi
+(cd hope-demo && npm ci --no-audit --no-fund)                                           # 3B şablon paketleri
+```
+
+Fotoğraflar depoda yok (`.gitignore`); `yayinla` öncesi gerekirse `hat.py cek` + `hat.py uret` ile yeniden üretilir.
+
 ## Kime yazılır
 
 - Kendi online mağazası olan (Shopify, ikas, WooCommerce) Türk **firması** (şirket, tacir/esnaf): parfüm, kolonya,
