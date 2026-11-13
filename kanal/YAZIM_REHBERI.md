@@ -81,6 +81,7 @@ Videonun ana fikrini tek, tekrar edilebilir bir cümleye sıkıştır.
   - **Firma adı metinde sürekli tekrarlanmaz.** Bir kez söylenir, sonra "bu marka" vb. Ekranda zaten görünür.
   - Kurgudan önce metin taslağı kullanıcıya gösterilir, onay alınmadan seslendirmeye geçilmez.
   - Her video bir öncekinden iyi olmalı. Kullanıcının her yorumu bu listeye işlenir.
+  - **Kurgu:** Avatar sadece giriş, geçiş ve kapanışta olunca ortada 5 dakika yüz görünmüyor. Uzun ekran bölümlerine 1–2 dakikada bir, ekranın şart olmadığı fikir cümlelerinde 5–10 sn tam ekran avatar ara konur. Ses, var olan anlatımdan kesilir.
 
 ## Yapı şablonu (10 dakikalık video)
 | Süre | Bölüm | Ne olur |
