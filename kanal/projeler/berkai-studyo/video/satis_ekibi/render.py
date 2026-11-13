@@ -86,9 +86,11 @@ def bolum(n):
     av = f"{S}/avatar/s{n:02d}.mp4"
     if os.path.exists(av):  # girişte tam ekran avatar, sonra sol altta yuvarlak köşe avatarı (README: çap ~400 px)
         tam = AVTAM.get(n, 0.35) * d
-        vf = (f"[1:v]setpts=PTS-STARTPTS+0.25/TB,scale=1920:1080,fps={FPS},split[af][ap];"
-              f"[ap]crop=1080:1080:420:0,scale=420:420,format=rgba[apc];[apc][2:v]alphamerge[pip];"
-              f"[0:v][af]overlay=0:0:enable='lt(t,{tam:.2f})'[v1];[v1][pip]overlay=48:H-420-20:enable='gte(t,{tam:.2f})*lt(t,{d-0.3:.2f})'")
+        vf = (f"[0:v]scale=1498:842[sv];color=c=0xF7F3EA:s=1920x1080:d={d:.3f}[cz];[cz][sv]overlay=402:119[base];"
+              f"[1:v]setpts=PTS-STARTPTS+0.25/TB,scale=1920:1080,fps={FPS},split[af][ap];"
+              f"[ap]crop=1080:1080:420:0,scale=360:360,format=rgba[apc];[2:v]scale=360:360[mk];[apc][mk]alphamerge[pip];"
+              f"[0:v][af]overlay=0:0:enable='lt(t,{tam:.2f})'[full];[base][pip]overlay=40:690:enable='lt(t,{d-0.3:.2f})'[small];"
+              f"[full][small]overlay=0:0:enable='gte(t,{tam:.2f})'")
         sh(f"ffmpeg -y -v error -i '{ham}' -i '{av}' -loop 1 -i '{K}/daire.png' -filter_complex \"{vf}\" -t {d:.3f} {X264} '{OUT}/b{n:02d}.mp4'")
     else: os.replace(ham, f"{OUT}/b{n:02d}.mp4")
     print(n, f"{d:.1f} sn", len(parcalar), "çekim", "· avatar" if os.path.exists(av) else "")
