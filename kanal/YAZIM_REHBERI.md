@@ -75,6 +75,7 @@ Videonun ana fikrini tek, tekrar edilebilir bir cümleye sıkıştır.
   - "3B" değil, her yerde **"3D"** yazılır ve söylenir.
   - Ton **arkadaşına anlatır gibi**: samimi, akıcı, doğal, insan gibi. Resmi ya da sunum dili olmaz.
   - Referanslar: Maymun Aklı (bu rehberin kaynağı) ve Berkan. Kısa ve yarım cümle, "yani / bakın / abi" (cümle başına en fazla bir dolgu), kendine soru sorup hemen cevaplama, ekranda olanı şimdiki zamanla anlatma.
+  - **Çok nazik olmasın, biraz sert.** İzleyiciye kanka gibi **"sen"** diye hitap: net, dolaysız, yağ çekmeden. "Lütfen / sizlere / rica ederim" yok. Yanlışı yüzüne söyle ("Herkese satarım diyorsan kimseye satamazsın"), sonra yolu göster. Küfür yok.
   - Kurgudan önce metin taslağı kullanıcıya gösterilir, onay alınmadan seslendirmeye geçilmez.
   - Her video bir öncekinden iyi olmalı. Kullanıcının her yorumu bu listeye işlenir.
 
