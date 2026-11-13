@@ -76,6 +76,9 @@ Videonun ana fikrini tek, tekrar edilebilir bir cümleye sıkıştır.
   - Ton **arkadaşına anlatır gibi**: samimi, akıcı, doğal, insan gibi. Resmi ya da sunum dili olmaz.
   - Referanslar: Maymun Aklı (bu rehberin kaynağı) ve Berkan. Kısa ve yarım cümle, "yani / bakın / abi" (cümle başına en fazla bir dolgu), kendine soru sorup hemen cevaplama, ekranda olanı şimdiki zamanla anlatma.
   - **Çok nazik olmasın, biraz sert.** İzleyiciye kanka gibi **"sen"** diye hitap: net, dolaysız, yağ çekmeden. "Lütfen / sizlere / rica ederim" yok. Yanlışı yüzüne söyle ("Herkese satarım diyorsan kimseye satamazsın"), sonra yolu göster. Küfür yok.
+  - **Asıl örnek (kullanıcının verdiği giriş, youtube.com/watch?v=csR0--Z0mwQ):** "Kanka şimdi sana bir ay önce açılmış iki tane YouTube kanalı göstereceğim ve bunların ikisinin toplam izlenmesi 12 milyon ve birazdan da ne kadar para kazandığını da göreceksiniz. ... Bunlar tamamen benim gördüklerim. Hatta aynısını deneyeceğiz zaten. ... Şimdi önce kanallara bakalım."
+    Bu dilin özellikleri: "Kanka" diye açılır. Cümleler kesik kesik değil, akar; "ve", "işte", "falan", "zaten", "hatta", "dediğim gibi", "delice" ile bağlanır. Ne gösterileceği önceden söylenir ("birazdan göreceksin", "her şeyi göstereceğim"). Dürüstlük payı anlatıcının ağzından gelir ("bunlar tamamen benim gördüklerim"). Tarih ve rakam verilir. Geçişler "Şimdi önce şuna bakalım" ile yapılır. **Staccato ("Bitti." "Net.") kısa vuruşları abartma**; konuşma doğal aksın.
+  - **Firma adı metinde sürekli tekrarlanmaz.** Bir kez söylenir, sonra "bu marka" vb. Ekranda zaten görünür.
   - Kurgudan önce metin taslağı kullanıcıya gösterilir, onay alınmadan seslendirmeye geçilmez.
   - Her video bir öncekinden iyi olmalı. Kullanıcının her yorumu bu listeye işlenir.
 
