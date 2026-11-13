@@ -1,0 +1,47 @@
+{
+ "ad": "Mail Ekibi",
+ "kisa": "Mail",
+ "tek_satir": "1 mail hazır · Brevo 11:37",
+ "ozet": "Halare'ye özel bir mail hazır: hangi ürünlerin 3D vitrine taşındığı, demo linki ve tek bir soru. Fiyat yok, en altta 'çıkış' satırı var. Gönderim Brevo üzerinden, hafta içi 11:37'de; günde en fazla 15 mail.",
+ "pano": [
+  "Halare'ye özel mail",
+  "Gönderim: Brevo, hafta içi 11:37",
+  "Günde en fazla 15 mail",
+  "Cevap yoksa +5 gün tek takip",
+  "'Çıkış' yazan bir daha yazılmaz"
+ ],
+ "rakamlar": [
+  {
+   "d": "1",
+   "e": "mail"
+  },
+  {
+   "d": "15",
+   "e": "günlük sınır"
+  },
+  {
+   "d": "+5",
+   "e": "takip günü"
+  },
+  {
+   "d": "0",
+   "e": "fiyat"
+  }
+ ],
+ "calisanlar": [
+  {
+   "rol": "Metin yazarı",
+   "is": "Markanın kendi ürün adlarıyla kısa, kişiye özel bir mail yazdı.",
+   "cikti": "halare.md"
+  },
+  {
+   "rol": "Gönderici",
+   "is": "Sırası gelen maili Brevo ile gönderir, günlük sınırı ve çıkış listesini denetler.",
+   "cikti": "takip.csv"
+  }
+ ],
+ "belgeler": [
+  "halare.md",
+  "takip.csv"
+ ]
+}

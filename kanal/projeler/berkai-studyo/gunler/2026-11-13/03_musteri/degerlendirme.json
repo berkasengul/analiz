@@ -1,0 +1,37 @@
+{
+ "tarih": "2026-11-13",
+ "olcum_notu": "Süreler veri merkezinden, headless Chromium ile tek ölçümdür; işletmeye rakam olarak söylenmez.",
+ "adaylar": [
+  {
+   "slug": "halare",
+   "oncelik": "A",
+   "ad": "Halare",
+   "sehir": "bulunamadı",
+   "sektor": "Aromaterapi (kolonya, çiçek suyu, mum)",
+   "web": "https://www.halarearomatherapy.com",
+   "eposta": "info@halarearomatherapy.com",
+   "eposta_kaynak": "halarearomatherapy.com",
+   "instagram": "halarearomatherapy",
+   "neden": "Kendi ikas mağazası var, ürünleri düz önden çekilmiş; sitede 3D ya da ürünü öne çıkaran bir vitrin yok.",
+   "demo_fikri": "Kolonya ve çiçek suyu şişeleri etiket renklerinde kaidede; 'Spreyi sık' ile buğu.",
+   "kural": "Sektör uygun · ret listesinde değil · adres markanın kendi alan adında",
+   "durum": "Demo yayında, mail hazır",
+   "not": "Dermoeczanem'deki ürün sayfasından bulundu."
+  },
+  {
+   "slug": "ceremony",
+   "oncelik": "E",
+   "ad": "Ceremony",
+   "sehir": "bulunamadı",
+   "sektor": "Parfüm / kolonya",
+   "web": "https://ceremony.com.tr",
+   "eposta": null,
+   "eposta_kaynak": null,
+   "instagram": "",
+   "neden": "Sitede şirket e-postası yok; kişisel adrese yazılmaz.",
+   "kural": "Adres yok → elendi",
+   "durum": "Elendi"
+  }
+ ],
+ "bulunamayanlar": []
+}

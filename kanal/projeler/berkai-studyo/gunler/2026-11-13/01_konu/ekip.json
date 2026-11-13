@@ -1,0 +1,26 @@
+{
+ "ad": "YouTube Konu Ekibi",
+ "kisa": "Konu",
+ "tek_satir": "Bu haftanın videosu: satış ekibi",
+ "ozet": "Bu haftanın konusu: yapay zekâ satış ekibinin bir günü. Müşteri bulma, 3D site ve otomatik mail tek videoda.",
+ "pano": [
+  "Konu: 'Satış ekibim müşteri buldu, site yaptı, mail attı'",
+  "Kanıt: bugünün gerçek işi (Halare)"
+ ],
+ "rakamlar": [
+  {
+   "d": "1",
+   "e": "konu"
+  }
+ ],
+ "calisanlar": [
+  {
+   "rol": "Konu araştırmacısı",
+   "is": "Bugünün gerçek işini videonun konusu olarak önerdi.",
+   "cikti": "konu_raporu.md"
+  }
+ ],
+ "belgeler": [
+  "konu_raporu.md"
+ ]
+}

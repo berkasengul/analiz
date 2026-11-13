@@ -1,0 +1,18 @@
+{
+ "tarih": "2026-11-13",
+ "kararlar": [
+  {
+   "id": "K1",
+   "baslik": "Halare'ye mail",
+   "soru": "Demo yayında, mail hazır. Gönderilsin mi?",
+   "oneri": "Onayla",
+   "gerekce": "Adres markanın kendi sitesinde; demo herkese açık linkte çalışıyor.",
+   "onay_olursa": "Mail ekibi 11:37'de gönderir, +5 gün takip planlanır.",
+   "ret_olursa": "Demo saklanır, marka 'Soğuk' olur.",
+   "ilgili": [
+    "05_mail/halare.md",
+    "04_site/test_raporu.md"
+   ]
+  }
+ ]
+}

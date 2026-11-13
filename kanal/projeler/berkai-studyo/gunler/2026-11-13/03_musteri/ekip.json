@@ -1,0 +1,51 @@
+{
+ "ad": "Müşteri Bulma Ekibi",
+ "kisa": "Müşteri",
+ "tek_satir": "2 marka bakıldı, 1 aday",
+ "ozet": "Bugün iki markaya bakıldı. Halare (aromaterapi) uygun bulundu: kendi ikas mağazası var, ürünleri düz önden çekilmiş, sitesinde şirket adresi yazıyor. Ceremony elendi: sitesinde şirket e-postası yok.",
+ "pano": [
+  "Halare: ikas mağazası, 4 ürün seçildi",
+  "Ürünler: lavanta, mandalina kolonyası, gül ve papatya suyu",
+  "Ceremony elendi: sitede e-posta yok",
+  "Kişisel adrese mail yok"
+ ],
+ "rakamlar": [
+  {
+   "d": "2",
+   "e": "bakılan marka"
+  },
+  {
+   "d": "1",
+   "e": "A aday"
+  },
+  {
+   "d": "1",
+   "e": "elenen"
+  },
+  {
+   "d": "4",
+   "e": "seçilen ürün"
+  }
+ ],
+ "calisanlar": [
+  {
+   "rol": "Kâşif",
+   "is": "Perakendecilerde satılan küçük markaları taradı; Halare'yi bir eczane sitesindeki ürün sayfasından buldu.",
+   "cikti": "aday_raporu.md"
+  },
+  {
+   "rol": "Mağaza kontrolcüsü",
+   "is": "Platformu (ikas), sitedeki şirket e-postasını ve ürün fotoğraflarının açısını kontrol etti.",
+   "cikti": "aday_tablosu.csv"
+  },
+  {
+   "rol": "Uyum kontrolcüsü",
+   "is": "E-postası olmayan markayı eledi; sitedeki cep numarasını kayda almadı.",
+   "cikti": "aday_raporu.md"
+  }
+ ],
+ "belgeler": [
+  "aday_raporu.md",
+  "aday_tablosu.csv"
+ ]
+}

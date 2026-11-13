@@ -1,0 +1,51 @@
+{
+ "ad": "3D Site Ekibi",
+ "kisa": "3D Site",
+ "tek_satir": "1 demo yayında",
+ "ozet": "Halare için 3D vitrin yapıldı: dört şişe etiket renklerinde kaideye iniyor, parmakla dönüyor, 'Spreyi sık' ile buğu çıkıyor. Metinler markanın ürün açıklamalarından; 'Satın al' markanın kendi mağazasına gidiyor. Demo gizli linkle yayında, arama motorlarına kapalı.",
+ "pano": [
+  "Halare: 4 ürünlü 3D vitrin",
+  "Fotoğraftan arka plan temizlendi, şişe sahneye oturdu",
+  "Satın al → markanın kendi mağazası",
+  "Yayında: gizli link, noindex",
+  "Ekrana tıkla, demo açılsın"
+ ],
+ "rakamlar": [
+  {
+   "d": "1",
+   "e": "demo site"
+  },
+  {
+   "d": "4",
+   "e": "ürün"
+  },
+  {
+   "d": "1",
+   "e": "yayında"
+  },
+  {
+   "d": "0",
+   "e": "uydurma metin"
+  }
+ ],
+ "calisanlar": [
+  {
+   "rol": "Fotoğrafçı",
+   "is": "Mağazadan dört ürünün fotoğrafını çekti, arka planı temizledi.",
+   "cikti": "test_raporu.md"
+  },
+  {
+   "rol": "3D tasarımcı",
+   "is": "Şişeleri etiket renkleriyle kaideli bir sahneye yerleştirdi, sprey buğusunu ekledi.",
+   "cikti": "test_raporu.md"
+  },
+  {
+   "rol": "Yayıncı",
+   "is": "Demoyu Netlify'a gizli, arama motorlarına kapalı olarak yükledi.",
+   "cikti": "test_raporu.md"
+  }
+ ],
+ "belgeler": [
+  "test_raporu.md"
+ ]
+}

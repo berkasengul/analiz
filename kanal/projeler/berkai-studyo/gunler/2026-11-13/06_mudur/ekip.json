@@ -1,0 +1,39 @@
+{
+ "ad": "Müdür",
+ "kisa": "Müdür",
+ "tek_satir": "1 marka, 1 demo, 1 mail",
+ "ozet": "Bugün iki marka incelendi; Halare için 3D vitrin yapıldı, yayına alındı ve mail hazırlandı. Ceremony e-posta adresi olmadığı için elendi.",
+ "pano": [
+  "Halare: demo yayında, mail hazır",
+  "Ceremony: elendi (adres yok)",
+  "Bir sonraki tur: hafta içi 07:43"
+ ],
+ "rakamlar": [
+  {
+   "d": "2",
+   "e": "bakılan marka"
+  },
+  {
+   "d": "1",
+   "e": "demo"
+  },
+  {
+   "d": "1",
+   "e": "mail"
+  },
+  {
+   "d": "1",
+   "e": "elenen"
+  }
+ ],
+ "calisanlar": [
+  {
+   "rol": "Müdür",
+   "is": "Ekiplerin çıktısını tek rapora topladı ve ofisin veri dosyasını üretti.",
+   "cikti": "gunluk_rapor.md"
+  }
+ ],
+ "belgeler": [
+  "gunluk_rapor.md"
+ ]
+}

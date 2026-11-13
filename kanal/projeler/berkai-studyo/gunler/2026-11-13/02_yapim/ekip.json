@@ -1,0 +1,27 @@
+{
+ "ad": "Yapım Ekibi",
+ "kisa": "Yapım",
+ "tek_satir": "Senaryo hazır",
+ "ozet": "Satış ekibi videosunun senaryosu hazır: samimi, 'kanka' diliyle, 8–10 dakika.",
+ "pano": [
+  "Senaryo: 11 bölüm",
+  "Ton: arkadaşına anlatır gibi",
+  "Final: 1.25x, 8–10 dk"
+ ],
+ "rakamlar": [
+  {
+   "d": "11",
+   "e": "bölüm"
+  }
+ ],
+ "calisanlar": [
+  {
+   "rol": "Senarist",
+   "is": "Bugünün işinden video metnini yazdı.",
+   "cikti": "senaryo.md"
+  }
+ ],
+ "belgeler": [
+  "senaryo.md"
+ ]
+}

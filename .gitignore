@@ -11,3 +11,6 @@ site-fabrikasi/yukle/*/*.jpg
 !site-fabrikasi/yukle/mavikoy/*
 demo-fabrikasi/markalar/halare-foto/
 demo-fabrikasi/markalar/halare-shopify/
+
+# Satış hattı demoları gerçek marka fotoğrafı içerir: depoya girmez (Netlify sitesinden yeniden indirilir)
+kanal/projeler/berkai-studyo/siteler/halare/
