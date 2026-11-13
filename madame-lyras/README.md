@@ -1,6 +1,9 @@
 # Madame Lyra's · 3B tanıtım sitesi
 
-Dondurularak kurutulmuş meyve markası için tanıtım sitesi. Satış yok: ürünler, nasıl yapılır, hakkımızda, toptan ve iletişim bölümleri var.
+Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi'nin markası Madame Lyra's için tanıtım sitesi (dondurularak kurutulmuş meyve ve dondurma). Satış yok: ürünler, tüm ürünler kataloğu ve afişler, nasıl yapılır, hakkımızda, toptan ve iletişim bölümleri var.
+
+- **Ürün akışı:** 9 ürün sabit bir sahnede kaydırmaya bağlı geçer. Paket süzülerek döner, arka plan rengi ve yazı katmanları kaydırma konumuna göre karışır, eski meyveler dağılıp yenileri gelir. Geri kaydırınca geçiş geri sarılır.
+- **3D inceleme:** Pakete, "3D olarak incele" düğmesine ya da katalog kartına tıklayınca açılır. Sürükleyerek çevirme, tekerlek ya da iki parmakla yakınlaştırma, Ön/Yan/Arka/Üst görünümler, önceki/sonraki ürün, Esc ve geri tuşuyla kapatma. Adres `#incele-<ürün>` ile doğrudan açılabilir.
 
 - **3B sahne** (`src/scene.js`, Three.js): Gerçek ambalaj fotoğrafları düzleştirilip kilitli paket (doypack) modeline giydirildi. Arka etiket bu fotoğrafların renklerinden kendiliğinden çiziliyor. Etrafta her ürünün kendi kurutulmuş meyve parçaları var: çilek, elma halkası, mango küpü, ahududu. Kaydırdıkça paket dönüyor, ürün ve arka plan rengi değişiyor. Süreç bölümünde kırağı parçacıkları çıkıyor.
 - **İçerik** (`src/data.js`, `index.html`): Bilgiler ambalajdan ve solagron.com.tr'den alındı (katkısız, şeker ilavesiz, 16 g, 160 g taze çilek; Silifke tesisi, BRCGS/FDA/Helal/Kosher, ihracat).
@@ -17,7 +20,8 @@ npm run build    # dist/ → Netlify'a yüklenecek klasör
 
 ## Görseller
 
-- `public/tex/*.webp`: ambalaj fotoğrafları (solagron.com.tr/urunler), düzleştirilmiş ve kırpılmış
+- `public/tex/*.webp`: ambalaj fotoğrafları. Çilek, ahududu, elma ve mango solagron.com.tr'den; şeftali, ananas, muz, hindistan cevizi ve dondurma markanın afişlerinden kesildi (önüne meyve gelen alt kısım paket rengiyle tamamlandı)
+- `public/img/afis/*.webp`: markanın afişleri
 - `public/img/*`: kase ve tabak fotoğrafları (solagron.com.tr)
 
 Daha yüksek çözünürlüklü ambalaj fotoğrafları gelirse aynı adla `public/tex/` içine koymak yeterli (oran ~1024×1180).

@@ -93,7 +93,7 @@ function pouchBottom(front, back, SX) {
 
 // Arka etiket: ön dokunun renklerinden üretilir
 function makeBackTexture(img, flavor, logo) {
-  const W = 1024, H = 1180;
+  const W = 1024, H = Math.round(1024 * (flavor.aspect || 1.153));
   const c = document.createElement('canvas');
   c.width = W; c.height = H;
   const x = c.getContext('2d', { willReadFrequently: true });
@@ -104,20 +104,20 @@ function makeBackTexture(img, flavor, logo) {
     for (let i = 0; i < d.length; i += 16) { r += d[i]; g += d[i + 1]; b += d[i + 2]; n++; }
     return `rgb(${(r / n) | 0},${(g / n) | 0},${(b / n) | 0})`;
   };
-  const top = sample(380, 420, 260, 120);
-  const bot = sample(380, 1000, 260, 100);
+  const top = sample(380, Math.round(H * 0.36), 260, 100);
+  const bot = sample(380, Math.round(H * 0.86), 260, 80);
   // üst kilit ve kaynak bölgesi fotoğraftan aynen kalsın, altı yeniden boyansın
-  const grad = x.createLinearGradient(0, 230, 0, H);
+  const seal = Math.round(H * 0.2);
+  const grad = x.createLinearGradient(0, seal, 0, H);
   grad.addColorStop(0, top);
   grad.addColorStop(1, bot);
   x.fillStyle = grad;
-  x.fillRect(0, 230, W, H - 230);
-  const fade = x.createLinearGradient(0, 180, 0, 260);
+  x.fillRect(0, seal, W, H - seal);
+  const fade = x.createLinearGradient(0, seal - 50, 0, seal + 30);
   fade.addColorStop(0, 'rgba(0,0,0,0)');
   fade.addColorStop(1, top);
   x.fillStyle = fade;
-  x.fillRect(0, 180, W, 80);
-  // parlama
+  x.fillRect(0, seal - 50, W, 80);
   const sh = x.createLinearGradient(0, 0, W, 0);
   sh.addColorStop(0, 'rgba(0,0,0,.18)');
   sh.addColorStop(0.18, 'rgba(255,255,255,.10)');
@@ -127,44 +127,42 @@ function makeBackTexture(img, flavor, logo) {
   x.fillStyle = sh;
   x.fillRect(0, 0, W, H);
 
-  const ink = flavor.ink === 'dark' ? '#3b1d05' : '#fff';
+  // açık renkli paketlerde koyu yazı
+  const m = top.match(/\d+/g).map(Number);
+  const light = 0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2] > 165;
+  const ink = light ? '#3b2210' : '#fff';
   x.fillStyle = ink;
-  x.strokeStyle = ink;
-  if (logo) x.drawImage(logo, W / 2 - 110, 290, 220, 220);
+  const cy = seal + (H - seal) * 0.08;
+  if (logo) x.drawImage(logo, W / 2 - 110, cy, 220, 220);
   x.textAlign = 'center';
   x.font = '600 64px Fraunces, Georgia, serif';
-  x.fillText("Madame Lyra's", W / 2, 600);
+  x.fillText("Madame Lyra's", W / 2, cy + 310);
   x.font = '500 34px Manrope, Arial, sans-serif';
-  x.fillText(`Dondurularak Kurutulmuş ${flavor.name}`, W / 2, 652);
+  x.fillText(`Dondurularak Kurutulmuş ${flavor.name}`, W / 2, cy + 362);
   x.globalAlpha = 0.5;
-  x.fillRect(W / 2 - 160, 690, 320, 2);
+  x.fillRect(W / 2 - 160, cy + 400, 320, 2);
   x.globalAlpha = 1;
   x.textAlign = 'left';
-  const lines = [
-    ['İçindekiler', `%100 ${flavor.name.toLocaleLowerCase('tr')}`],
-    ['Net ağırlık', '16 g'],
-    ['', 'Şeker ilavesizdir.'],
-    ['', 'Katkı maddesi, koruyucu ve'],
-    ['', 'renklendirici içermez.'],
-  ];
-  let y = 760;
-  for (const [k, v] of lines) {
-    if (k) {
-      x.font = '700 30px Manrope, Arial, sans-serif';
-      x.fillText(k.toUpperCase(), 190, y);
-      x.font = '500 32px Manrope, Arial, sans-serif';
-      x.fillText(v, 470, y);
-    } else {
-      x.font = '500 30px Manrope, Arial, sans-serif';
-      x.fillText(v, 190, y);
-    }
+  let y = cy + 470;
+  for (const [k, v] of flavor.facts) {
+    x.font = '700 28px Manrope, Arial, sans-serif';
+    x.fillText(k.toLocaleUpperCase('tr'), 190, y);
+    x.font = '500 32px Manrope, Arial, sans-serif';
+    x.fillText(v, 560, y);
     y += 52;
   }
+  x.font = '500 30px Manrope, Arial, sans-serif';
+  y += 10;
+  let line = '';
+  for (const word of (flavor.claims || []).join(' · ').split(' ')) {
+    const test = line ? `${line} ${word}` : word;
+    if (x.measureText(test).width > W - 380 && line) { x.fillText(line, 190, y); y += 42; line = word; } else line = test;
+  }
+  if (line) x.fillText(line, 190, y);
   x.font = '500 22px Manrope, Arial, sans-serif';
   x.globalAlpha = 0.75;
   x.textAlign = 'center';
-  x.fillText('Açtıktan sonra kilidini kapatıp serin ve kuru yerde saklayınız.', W / 2, 1060);
-  x.fillText('Üretim: Solagron Tarım Ürünleri · Silifke OSB, Mersin', W / 2, 1096);
+  x.fillText('Açtıktan sonra kilidini kapatıp serin ve kuru yerde saklayınız.', W / 2, H - 120);
   x.globalAlpha = 1;
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -278,18 +276,79 @@ function appleRing() {
   return { geo: g, mat: [face, side], scale: 1 };
 }
 
-function mangoCube() {
-  const g = new RoundedBoxGeometry(0.1, 0.085, 0.09, 3, 0.022);
-  roughen(g, 0.01, 5);
+function cube({ w = 0.1, h = 0.085, d = 0.09, r = 0.022, rough = 0.01, seed = 5, color, env = 0.4 }) {
+  const g = new RoundedBoxGeometry(w, h, d, 3, r);
+  roughen(g, rough, seed);
   const col = [];
-  const r = rng(21);
+  const rr = rng(seed * 3 + 1);
   const p = g.attributes.position;
-  for (let i = 0; i < p.count; i++) {
-    const k = 0.85 + r() * 0.15;
-    col.push(1 * k, (0.36 + p.getY(i) * 1.1) * k, 0.03 * k);
-  }
+  for (let i = 0; i < p.count; i++) col.push(...color(p.getX(i), p.getY(i), p.getZ(i), rr()));
   g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
-  return { geo: g, mat: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.88, envMapIntensity: 0.4 }), scale: 1 };
+  return { geo: g, mat: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, envMapIntensity: env }), scale: 1 };
+}
+const mangoCube = () => cube({ color: (x, y, z, n) => { const k = 0.85 + n * 0.15; return [1 * k, (0.36 + y * 1.1) * k, 0.03 * k]; } });
+const coconutCube = () => cube({ w: 0.085, h: 0.08, d: 0.085, r: 0.012, rough: 0.008, seed: 8, env: 0.25,
+  color: (x, y, z, n) => { const k = 0.82 + n * 0.12; return [0.98 * k, 0.97 * k, 0.94 * k]; } });
+const iceCube = () => cube({ w: 0.11, h: 0.1, d: 0.1, r: 0.016, rough: 0.012, seed: 12, env: 0.25,
+  color: (x, y, z, n) => { const k = 0.8 + n * 0.14; return [0.99 * k, 0.96 * k, 0.88 * k]; } });
+
+// düz bir şekli kalınlık vererek üretir; yüzü dokulu, kenarı tek renk
+function slab(shape, depth, faceTex, sideColor, seed, texSize) {
+  const g = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: 0.004, bevelSize: 0.004, bevelSegments: 2, curveSegments: 28 });
+  g.translate(0, 0, -depth / 2);
+  roughen(g, 0.004, seed);
+  faceTex.repeat.set(1 / texSize, 1 / texSize);
+  faceTex.offset.set(0.5, 0.5);
+  const face = new THREE.MeshStandardMaterial({ map: faceTex, roughness: 0.95, envMapIntensity: 0.35 });
+  const side = new THREE.MeshStandardMaterial({ color: sideColor, roughness: 0.9, envMapIntensity: 0.3 });
+  return { geo: g, mat: [face, side], scale: 1 };
+}
+
+function bananaSlice() {
+  const shape = new THREE.Shape();
+  for (let i = 0; i <= 40; i++) {
+    const a = (i / 40) * TAU;
+    const rr = 0.07 * (1 + 0.035 * Math.sin(a * 5));
+    if (i === 0) shape.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); else shape.lineTo(Math.cos(a) * rr, Math.sin(a) * rr);
+  }
+  const tex = canvasTex(256, (x, s) => {
+    const c = s / 2, r = rng(31);
+    const g = x.createRadialGradient(c, c, 0, c, c, c);
+    g.addColorStop(0, '#f1dfa6'); g.addColorStop(0.7, '#f6e9bf'); g.addColorStop(0.92, '#ecd795'); g.addColorStop(1, '#c9a54a');
+    x.fillStyle = g; x.fillRect(0, 0, s, s);
+    x.fillStyle = 'rgba(150,110,60,.55)';
+    for (let i = 0; i < 3; i++) { const a = (i / 3) * TAU; x.beginPath(); x.ellipse(c + Math.cos(a) * 12, c + Math.sin(a) * 12, 10, 3.5, a, 0, TAU); x.fill(); }
+    for (let i = 0; i < 400; i++) { x.fillStyle = `rgba(200,170,100,${0.08 + r() * 0.1})`; x.fillRect(r() * s, r() * s, 2 + r() * 3, 1 + r() * 2); }
+  });
+  return slab(shape, 0.018, tex, 0xe9d28c, 17, 0.16);
+}
+
+function pineappleWedge() {
+  const shape = new THREE.Shape();
+  shape.moveTo(-0.06, -0.05); shape.lineTo(0.065, -0.045); shape.quadraticCurveTo(0.01, 0.03, -0.035, 0.07); shape.closePath();
+  const tex = canvasTex(256, (x, s) => {
+    const r = rng(41);
+    x.fillStyle = '#f0c63e'; x.fillRect(0, 0, s, s);
+    x.strokeStyle = 'rgba(215,180,70,.45)'; x.lineWidth = 2;
+    for (let i = 0; i < 70; i++) { const y = r() * s; x.beginPath(); x.moveTo(0, y); x.lineTo(s, y + (r() - 0.5) * 60); x.stroke(); }
+    for (let i = 0; i < 500; i++) { x.fillStyle = `rgba(255,245,200,${0.15 + r() * 0.2})`; x.fillRect(r() * s, r() * s, 2 + r() * 3, 1 + r() * 2); }
+  });
+  return slab(shape, 0.05, tex, 0xdcae32, 23, 0.16);
+}
+
+function peachSlice() {
+  const shape = new THREE.Shape();
+  shape.absarc(0, 0, 0.085, Math.PI * 0.08, Math.PI * 0.92, false);
+  shape.absarc(0, -0.035, 0.07, Math.PI * 0.88, Math.PI * 0.12, true);
+  shape.closePath();
+  const tex = canvasTex(256, (x, s) => {
+    const r = rng(51);
+    const g = x.createLinearGradient(0, 0, 0, s);
+    g.addColorStop(0, '#c4492a'); g.addColorStop(0.18, '#e98a3a'); g.addColorStop(0.5, '#f4b25a'); g.addColorStop(1, '#f6c46c');
+    x.fillStyle = g; x.fillRect(0, 0, s, s);
+    for (let i = 0; i < 500; i++) { x.fillStyle = `rgba(255,220,150,${0.1 + r() * 0.15})`; x.fillRect(r() * s, r() * s, 2 + r() * 4, 1 + r() * 2); }
+  });
+  return slab(shape, 0.02, tex, 0xc9542e, 29, 0.2);
 }
 
 function raspberry() {
@@ -322,7 +381,7 @@ function raspberry() {
   return { geo: g, mat: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, envMapIntensity: 0.35 }), scale: 1 };
 }
 
-const PIECES = { strawberry: strawberryPiece, apple: appleRing, mango: mangoCube, raspberry };
+const PIECES = { strawberry: strawberryPiece, apple: appleRing, mango: mangoCube, raspberry, banana: bananaSlice, pineapple: pineappleWedge, peach: peachSlice, coconut: coconutCube, icecream: iceCube };
 
 /* ------------------------------------------------------------------ */
 /* Sahne                                                               */
@@ -442,50 +501,61 @@ export function createScene(canvas, flavors, onProgress) {
           loaded++;
           onProgress?.(loaded / flavors.length);
           res();
-        });
+        }, undefined, () => res());
       })
     )
   ).then(async () => {
     await logoReady;
-    try { await document.fonts?.ready; } catch (e) { /* yazı tipi yüklenemezse yedek kullanılır */ }
-    flavors.forEach((fl, i) => { backs[i] = makeBackTexture(fronts[i].image, fl, logoImg); });
-    applyFlavor(0, true);
+    try { await document.fonts?.ready; } catch (e) { /* yedek yazı tipi */ }
+    flavors.forEach((fl, i) => { if (fronts[i]) backs[i] = makeBackTexture(fronts[i].image, fl, logoImg); });
+    showFront(0); showBack(0);
   });
 
   const bottomColors = flavors.map((f) => new THREE.Color(f.bg).multiplyScalar(0.75));
+  const aspects = flavors.map((f) => (f.aspect || 1.153) / 1.153);
+  let aspectTarget = aspects[0], aspectNow = aspects[0];
+  let frontIdx = -1, backIdx = -1;
+  function showFront(i) {
+    if (i === frontIdx || !fronts[i]) return;
+    frontIdx = i;
+    pouch.frontMat.map = fronts[i];
+    pouch.frontMat.needsUpdate = true;
+    pouch.bottomMat.color.copy(bottomColors[i]);
+    aspectTarget = aspects[i];
+  }
+  function showBack(i) {
+    if (i === backIdx || !backs[i]) return;
+    backIdx = i;
+    pouch.backMat.map = backs[i];
+    pouch.backMat.needsUpdate = true;
+  }
 
   /* ---- durum ---- */
+  const N = flavors.length;
   let flavor = 0;
   let pendingFront = -1;
   let spin = 0, spinTarget = 0;
+  let stream = null, streamNow = 0; // ürün akışında kaydırmaya bağlı konum (0..N-1)
   const state = { x: 0, y: 0, s: 1, ry: 0, rz: 0, cloud: 1, frost: 0 };
   const target = { ...state };
   const pointer = { x: 0, y: 0, sx: 0, sy: 0 };
   let scrollVel = 0;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cloudTarget = new Array(N).fill(0);
+  cloudTarget[0] = 1;
 
-  function applyFlavor(i, instant) {
-    if (!fronts[i]) return;
-    if (instant) {
-      pouch.frontMat.map = fronts[i];
-      pouch.backMat.map = backs[i];
-      pouch.frontMat.needsUpdate = pouch.backMat.needsUpdate = true;
-      pouch.bottomMat.color.copy(bottomColors[i]);
-      return;
-    }
-    // arka yüz hemen değişir; ön yüz paket arkasını dönünce değişir
-    pouch.backMat.map = backs[i];
-    pouch.backMat.needsUpdate = true;
-    pendingFront = i;
-  }
+  // inceleme modu
+  const insp = { on: false, rx: 0.08, ry: 0, vx: 0, vy: 0, zoom: 1, zoomT: 1, goto: null, idle: 0, pop: 0, blend: 0 };
+  const drag = { pts: new Map(), lastX: 0, lastY: 0, pinch: 0 };
 
   function setFlavor(i) {
     if (i === flavor || i < 0) return;
     const dir = i > flavor ? 1 : -1;
     flavor = i;
-    if (reduce) { applyFlavor(i, true); return; }
+    if (reduce || stream !== null || insp.on) { showFront(i); showBack(i); return; }
     spinTarget = Math.round(spinTarget / TAU) * TAU + dir * TAU;
-    applyFlavor(i, false);
+    showBack(i);
+    pendingFront = i;
   }
 
   function setPose(p) { Object.assign(target, p); }
@@ -504,10 +574,90 @@ export function createScene(canvas, flavors, onProgress) {
     pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
   }, { passive: true });
 
+  /* ---- inceleme: sürükle, döndür, yakınlaştır ---- */
+  canvas.addEventListener('pointerdown', (e) => {
+    if (!insp.on) return;
+    canvas.setPointerCapture(e.pointerId);
+    drag.pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    drag.lastX = e.clientX; drag.lastY = e.clientY;
+    insp.goto = null; insp.idle = 0;
+    if (drag.pts.size === 2) {
+      const [a, b] = [...drag.pts.values()];
+      drag.pinch = Math.hypot(a.x - b.x, a.y - b.y);
+    }
+    canvas.classList.add('grabbing');
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (!insp.on || !drag.pts.has(e.pointerId)) return;
+    drag.pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (drag.pts.size === 2) {
+      const [a, b] = [...drag.pts.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (drag.pinch) insp.zoomT = Math.min(2.4, Math.max(0.75, insp.zoomT * (d / drag.pinch)));
+      drag.pinch = d;
+      return;
+    }
+    const dx = e.clientX - drag.lastX, dy = e.clientY - drag.lastY;
+    drag.lastX = e.clientX; drag.lastY = e.clientY;
+    insp.vy = dx * 0.0085;
+    insp.vx = dy * 0.006;
+    insp.ry += insp.vy;
+    insp.rx = Math.max(-0.9, Math.min(0.9, insp.rx + insp.vx));
+    insp.idle = 0;
+  });
+  const endDrag = (e) => {
+    drag.pts.delete(e.pointerId);
+    if (drag.pts.size < 2) drag.pinch = 0;
+    if (!drag.pts.size) canvas.classList.remove('grabbing');
+  };
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', endDrag);
+  canvas.addEventListener('wheel', (e) => {
+    if (!insp.on) return;
+    e.preventDefault();
+    insp.zoomT = Math.min(2.4, Math.max(0.75, insp.zoomT * Math.exp(-e.deltaY * 0.0015)));
+    insp.idle = 0;
+  }, { passive: false });
+
+  function inspectOpen(i) {
+    insp.on = true;
+    insp.blend = 0;
+    insp.rx = 0.06; insp.vx = insp.vy = 0;
+    // mevcut açıdan devam et ki atlama olmasın
+    insp.ry = pouchHolder.rotation.y;
+    insp.goto = Math.round(insp.ry / TAU) * TAU;
+    insp.zoom = insp.zoomT = 1;
+    insp.idle = 0;
+    flavor = i;
+    pendingFront = -1;
+    showFront(i); showBack(i);
+    cloudTarget.fill(0);
+  }
+  function inspectFlavor(i) {
+    if (!insp.on) return;
+    insp.pop = 1;
+    flavor = i;
+    setTimeout(() => { showFront(i); showBack(i); }, 180);
+    insp.goto = Math.round(insp.ry / TAU) * TAU;
+  }
+  function inspectClose() {
+    insp.on = false;
+    spin = spinTarget = 0;
+    drag.pts.clear();
+    canvas.classList.remove('grabbing');
+  }
+  function setView(v) {
+    const base = Math.round(insp.ry / TAU) * TAU;
+    insp.goto = v === 'back' ? base + Math.PI : v === 'side' ? base + Math.PI / 2 : base;
+    insp.rx = v === 'top' ? 0.7 : 0.06;
+    insp.idle = 0;
+  }
+
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e3 = new THREE.Euler(), v3 = new THREE.Vector3(), s3 = new THREE.Vector3();
   const clock = new THREE.Clock();
   let visible = true;
   document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
+  const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
   function frame() {
     requestAnimationFrame(frame);
@@ -515,54 +665,105 @@ export function createScene(canvas, flavors, onProgress) {
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
 
-    for (const k in state) state[k] = damp(state[k], target[k], 3.2, dt);
+    for (const k in state) state[k] = damp(state[k], target[k], insp.on ? 4 : 3.2, dt);
     pointer.sx = damp(pointer.sx, pointer.x, 2.5, dt);
     pointer.sy = damp(pointer.sy, pointer.y, 2.5, dt);
     spin = damp(spin, spinTarget, 3.4, dt);
 
     if (pendingFront >= 0 && Math.abs(spinTarget - spin) < Math.PI) {
-      pouch.frontMat.map = fronts[pendingFront];
-      pouch.frontMat.needsUpdate = true;
-      pouch.bottomMat.color.copy(bottomColors[pendingFront]);
+      showFront(pendingFront);
       pendingFront = -1;
     }
 
-    const bob = reduce ? 0 : Math.sin(t * 1.1) * 0.035;
-    root.position.set(state.x, state.y + bob, 0);
-    root.scale.setScalar(state.s);
-    pouchHolder.rotation.set(
-      0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03),
-      state.ry + spin + pointer.sx * 0.35,
-      state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025)
-    );
-    shadow.material.opacity = 0.9 * Math.min(1, state.s);
+    // ürün akışı: kaydırma konumuna bağlı, geri sarılabilir geçiş
+    let streamAngle = 0, dip = 0;
+    if (stream !== null && !insp.on) {
+      streamNow = damp(streamNow, stream, 7, dt);
+      const fi = Math.min(N - 1, Math.max(0, streamNow));
+      const i = Math.min(N - 2, Math.floor(fi));
+      const u = fi - i;
+      const r = reduce ? (u > 0.5 ? 1 : 0) : ease(smooth(0.3, 0.7, u));
+      streamAngle = r * TAU;
+      dip = Math.sin(r * Math.PI);
+      showFront(r < 0.5 ? i : i + 1);
+      showBack(r > 0.02 ? i + 1 : i);
+      flavor = r < 0.5 ? i : i + 1;
+      for (let c = 0; c < N; c++) {
+        cloudTarget[c] = c === i ? 1 - smooth(0.22, 0.55, u) : c === i + 1 ? smooth(0.45, 0.8, u) : 0;
+      }
+    } else if (!insp.on) {
+      for (let c = 0; c < N; c++) cloudTarget[c] = c === flavor ? 1 : 0;
+    }
+
+    // inceleme modu
+    insp.blend = damp(insp.blend, insp.on ? 1 : 0, 4, dt);
+    insp.zoom = damp(insp.zoom, insp.zoomT, 6, dt);
+    insp.pop = damp(insp.pop, 0, 5, dt);
+    if (insp.on) {
+      insp.idle += dt;
+      if (!drag.pts.size) {
+        if (insp.goto !== null) {
+          insp.ry = damp(insp.ry, insp.goto, 4.5, dt);
+          if (Math.abs(insp.ry - insp.goto) < 0.002) insp.goto = null;
+          insp.vy = 0;
+        } else {
+          insp.vy *= Math.pow(0.04, dt);
+          insp.vx *= Math.pow(0.04, dt);
+          insp.ry += insp.vy;
+          if (insp.idle > 3 && !reduce) insp.ry += dt * 0.35 * Math.min(1, (insp.idle - 3) / 2);
+        }
+      }
+    }
+    camera.position.z = 5 / insp.zoom;
+
+    const bob = reduce ? 0 : Math.sin(t * 1.1) * 0.035 * (1 - insp.blend);
+    root.position.set(state.x + dip * 0.18, state.y + bob - dip * 0.1, 0);
+    root.scale.setScalar(state.s * (1 - 0.08 * dip) * (1 - 0.12 * insp.pop));
+    if (insp.on) {
+      pouchHolder.rotation.set(insp.rx, insp.ry, 0);
+    } else {
+      pouchHolder.rotation.set(
+        0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03) + dip * 0.12,
+        state.ry + spin + streamAngle + pointer.sx * 0.35,
+        state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025) - dip * 0.16
+      );
+    }
+    shadow.material.opacity = 0.9 * Math.min(1, state.s) * (1 - 0.5 * dip);
+    aspectNow = damp(aspectNow, aspectTarget, 6, dt);
+    pouch.group.scale.set(1 / Math.sqrt(aspectNow), aspectNow / Math.sqrt(aspectNow), 1);
+    shadow.position.y = -0.58 * aspectNow / Math.sqrt(aspectNow) - 0.24;
+    shadow.visible = !insp.on || insp.rx < 0.5;
 
     // meyve parçaları
     scrollVel = damp(scrollVel, 0, 2, dt);
+    const cloudScale = insp.on ? 0.35 : state.cloud;
     clouds.forEach((c, ci) => {
-      c.mix = damp(c.mix, ci === flavor ? state.cloud : 0, 2.6, dt);
+      const tgt = (insp.on ? (ci === flavor ? 1 : 0) : cloudTarget[ci]) * cloudScale;
+      c.leaving = tgt < c.mix - 0.01;
+      c.mix = damp(c.mix, tgt, stream !== null ? 5 : 2.6, dt);
       const visibleCloud = c.mix > 0.002;
       c.mesh.visible = visibleCloud;
       if (!visibleCloud) return;
       c.items.forEach((it, i) => {
-        const delay = Math.min(1, Math.max(0, c.mix * 1.6 - (i / COUNT) * 0.6));
-        const ease = delay * delay * (3 - 2 * delay);
-        const orbit = reduce ? 0 : t * 0.08 + scrollVel * 0.002;
+        const d = Math.min(1, Math.max(0, c.mix * 1.6 - (i / COUNT) * 0.6));
+        const e = d * d * (3 - 2 * d);
+        const orbit = reduce ? 0 : t * 0.08 + scrollVel * 0.002 + (1 - e) * (c.leaving ? 1.2 : -1.2);
         const ca = Math.cos(orbit), sa = Math.sin(orbit);
         const bx = it.base.x * ca - it.base.z * sa;
         const bz = it.base.x * sa + it.base.z * ca;
+        const spread = (c.leaving ? 1 + (1 - e) * 1.1 : 0.55 + 0.45 * e) * (insp.on ? 1.35 : 1);
         v3.set(
-          bx * (0.6 + 0.4 * ease) + pointer.sx * 0.08 * it.size,
-          it.base.y + (reduce ? 0 : Math.sin(t * 0.8 + it.phase) * 0.06) - (1 - ease) * 0.4,
-          bz
+          bx * spread + pointer.sx * 0.08 * it.size,
+          it.base.y * (c.leaving ? 1 + (1 - e) * 0.6 : 1) + (reduce ? 0 : Math.sin(t * 0.8 + it.phase) * 0.06),
+          bz * (insp.on ? 1.2 : 1)
         );
         e3.set(
-          it.rot.x + (reduce ? 0 : t * it.spin.x),
+          it.rot.x + (reduce ? 0 : t * it.spin.x) + (1 - e) * 2,
           it.rot.y + (reduce ? 0 : t * it.spin.y),
           it.rot.z + (reduce ? 0 : t * it.spin.z)
         );
         q.setFromEuler(e3);
-        s3.setScalar(it.size * ease);
+        s3.setScalar(it.size * e);
         m4.compose(v3, q, s3);
         c.mesh.setMatrixAt(i, m4);
       });
@@ -576,7 +777,6 @@ export function createScene(canvas, flavors, onProgress) {
       frost.rotation.y = t * 0.03;
       frost.position.y = Math.sin(t * 0.2) * 0.1;
     }
-    // soğuk bölümde ışık mavimsi
     key.color.setRGB(1 - state.frost * 0.15, 0.96 - state.frost * 0.04, 0.9 + state.frost * 0.1);
 
     renderer.render(scene, camera);
@@ -587,9 +787,16 @@ export function createScene(canvas, flavors, onProgress) {
     ready,
     setFlavor,
     setPose,
+    setStream(f) {
+      if (f === null) { if (stream !== null) { spin = spinTarget = 0; } stream = null; return; }
+      if (stream === null) streamNow = f;
+      stream = f;
+    },
+    inspectOpen, inspectClose, inspectFlavor, setView,
+    zoomBy(k) { insp.zoomT = Math.min(2.4, Math.max(0.75, insp.zoomT * k)); insp.idle = 0; },
     kick(v) { scrollVel += v; },
     get flavor() { return flavor; },
-    halfHeight() { return Math.tan((camera.fov * Math.PI) / 360) * camera.position.z; },
+    halfHeight() { return Math.tan((camera.fov * Math.PI) / 360) * 5; },
     aspect() { return camera.aspect; },
   };
 }

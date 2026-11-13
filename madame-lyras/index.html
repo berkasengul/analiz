@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Madame Lyra's · Dondurularak Kurutulmuş Meyve</title>
-  <meta name="description" content="Madame Lyra's: kriyojenik yöntemle dondurularak kurutulmuş çilek, elma, mango ve ahududu. Sadece meyve, şeker ilavesiz, katkı maddesi içermez." />
+  <meta name="description" content="Madame Lyra's: dondurularak kurutulmuş çilek, ahududu, elma, şeftali, mango, ananas, muz, hindistan cevizi ve sade dondurma." />
   <meta property="og:title" content="Madame Lyra's · Cryo Freeze Dried" />
   <meta property="og:description" content="Sadece meyve. Şeker ilavesiz, katkısız, çıtır." />
   <meta property="og:image" content="/img/og.jpg" />
@@ -40,12 +40,7 @@
     <button class="hdr__menu" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
   </header>
 
-  <aside class="flavors" id="flavorDots" aria-label="Ürünler">
-    <button data-go="0" aria-label="Çilek"></button>
-    <button data-go="1" aria-label="Elma"></button>
-    <button data-go="2" aria-label="Mango"></button>
-    <button data-go="3" aria-label="Ahududu"></button>
-  </aside>
+  <aside class="flavors" id="flavorDots" aria-label="Ürünler"></aside>
 
   <main id="top">
     <!-- HERO -->
@@ -68,13 +63,34 @@
     <!-- MARQUEE -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
-        <span>Çilek</span><i>✦</i><span>Elma</span><i>✦</i><span>Mango</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Sadece meyve</span><i>✦</i><span>Şeker ilavesiz</span><i>✦</i>
-        <span>Çilek</span><i>✦</i><span>Elma</span><i>✦</i><span>Mango</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Sadece meyve</span><i>✦</i><span>Şeker ilavesiz</span><i>✦</i>
+        <span>Çilek</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Elma</span><i>✦</i><span>Şeftali</span><i>✦</i><span>Mango</span><i>✦</i><span>Ananas</span><i>✦</i><span>Muz</span><i>✦</i><span>Hindistan cevizi</span><i>✦</i><span>Sade dondurma</span><i>✦</i>
+        <span>Çilek</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Elma</span><i>✦</i><span>Şeftali</span><i>✦</i><span>Mango</span><i>✦</i><span>Ananas</span><i>✦</i><span>Muz</span><i>✦</i><span>Hindistan cevizi</span><i>✦</i><span>Sade dondurma</span><i>✦</i>
       </div>
     </div>
 
     <!-- ÜRÜNLER -->
-    <div id="urunler" class="products"></div>
+    <div id="urunler" class="products" data-stage="product">
+      <div class="products__stick">
+        <div class="wrap products__layers" id="players"></div>
+        <button class="products__hit" id="productHit" type="button" aria-label="Ürünü 3D olarak incele"><span class="hitlabel" id="hitLabel">3D<br />İncele</span></button>
+      </div>
+    </div>
+
+    <!-- TÜM ÜRÜNLER -->
+    <section class="sec catalog" id="tum-urunler" data-bg="#f4ecdf" data-ink="dark" data-stage="catalog">
+      <div class="wrap">
+        <header class="sec__head reveal">
+          <p class="eyebrow">Tüm ürünler</p>
+          <h2>Dokuz paket,<br /><em>tek yöntem.</em></h2>
+          <p class="sec__lead">Yedi meyve, hindistan cevizi atıştırmalığı ve sade dondurma. Hepsi dondurularak kurutuldu, hepsi kilitli pakette.</p>
+        </header>
+        <div class="catalog__grid" id="catalog"></div>
+      </div>
+      <div class="posters" aria-label="Afişler">
+        <div class="posters__head wrap"><p class="eyebrow reveal">Afişler</p></div>
+        <div class="posters__track" id="posters" tabindex="0"></div>
+      </div>
+    </section>
 
     <!-- SÜREÇ -->
     <section class="sec process" id="surec" data-bg="#10161d" data-ink="light" data-stage="process">
@@ -127,7 +143,7 @@
           <h2 class="reveal">Madame Lyra's'ın<br /><em>tek bir kuralı var.</em></h2>
           <p class="big reveal">Pakete meyveden başka bir şey girmez.</p>
           <p class="reveal">Madame Lyra's, meyveyi en sade haliyle sunmak için var: şeker eklenmemiş, koruyucu ve renklendirici kullanılmamış, sadece suyu alınmış meyve. Çocuğun beslenme çantasına da, pastacının tezgâhına da aynı paket gider.</p>
-          <p class="reveal">Ürünlerimiz kardeş kuruluşumuz <b>Solagron Tarım Ürünleri</b>'nin Mersin Silifke Organize Sanayi Bölgesi'ndeki tesisinde, kriyojenik dondurarak kurutma (Cryo Freeze-Drying) yöntemiyle üretilir. Tesis; kriyojenik dondurma, freeze-drying ve süperkritik CO₂ ekstraksiyon sistemlerini bir arada çalıştırabilen sayılı tesislerden biridir.</p>
+          <p class="reveal">Madame Lyra's, <b>Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi</b> markasıdır. Ürünlerimiz kardeş kuruluşumuz <b>Solagron Tarım Ürünleri</b>'nin Mersin Silifke Organize Sanayi Bölgesi'ndeki tesisinde, kriyojenik dondurarak kurutma (Cryo Freeze-Drying) yöntemiyle üretilir. Tesis; kriyojenik dondurma, freeze-drying ve süperkritik CO₂ ekstraksiyon sistemlerini bir arada çalıştırabilen sayılı tesislerden biridir.</p>
         </div>
         <figure class="about__photo reveal"><img src="/img/tabak.webp" alt="Dondurularak kurutulmuş karışık meyveler" loading="lazy" width="405" height="540" /></figure>
         <dl class="stats">
@@ -170,6 +186,7 @@
           <p class="reveal">Ürünler, satış noktaları, toptan ve endüstriyel talepler için formu doldurun ya da doğrudan e-posta gönderin.</p>
           <a class="mail reveal" id="mailLink" href="mailto:info@madamelyras.com.tr">info@madamelyras.com.tr</a>
           <ul class="contact__meta reveal">
+            <li><span>Firma</span>Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi</li>
             <li><span>Üretim</span>Solagron Tarım Ürünleri · Silifke OSB, Mersin</li>
             <li><span>Yanıt</span>Mesajlarınıza iş günlerinde dönüş yapıyoruz.</li>
           </ul>
@@ -203,9 +220,40 @@
     <div class="wrap ftr__inner">
       <a href="#top" class="ftr__brand"><img src="/logo.svg" alt="" width="56" height="56" /><span>Madame Lyra's</span></a>
       <nav aria-label="Alt menü"><a href="#urunler">Ürünler</a><a href="#surec">Nasıl yapılır</a><a href="#hakkimizda">Hakkımızda</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a></nav>
-      <p class="ftr__small">© <span id="year">2026</span> Madame Lyra's. Ürünlerimiz kardeş kuruluşumuz Solagron Tarım Ürünleri San. ve Tic. A.Ş. tesisinde üretilir. Sitede satış yapılmamaktadır.</p>
+      <p class="ftr__small">© <span id="year">2026</span> Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi. Madame Lyra's, Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi markasıdır. Ürünlerimiz kardeş kuruluşumuz Solagron Tarım Ürünleri San. ve Tic. A.Ş. tesisinde üretilir. Sitede satış yapılmamaktadır.</p>
     </div>
   </footer>
+
+  <div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="detailName" aria-hidden="true" hidden>
+    <button class="detail__close" id="detailClose" type="button" aria-label="İncelemeyi kapat"><span></span><span></span></button>
+    <div class="detail__panel" id="detailPanel">
+      <p class="eyebrow" id="detailSlogan"></p>
+      <h2 class="detail__name" id="detailName"></h2>
+      <p class="detail__lead" id="detailLead"></p>
+      <p class="detail__desc" id="detailDesc"></p>
+      <dl class="facts" id="detailFacts"></dl>
+      <ul class="badges badges--small" id="detailClaims"></ul>
+      <button class="btn btn--light" type="button" id="detailCta">Bu ürün için bilgi al</button>
+    </div>
+    <div class="detail__tools" role="toolbar" aria-label="Görünüm">
+      <div class="seg">
+        <button type="button" data-view="front" class="on">Ön</button>
+        <button type="button" data-view="side">Yan</button>
+        <button type="button" data-view="back">Arka</button>
+        <button type="button" data-view="top">Üst</button>
+      </div>
+      <div class="seg seg--zoom">
+        <button type="button" data-zoom="0.8" aria-label="Uzaklaştır">−</button>
+        <button type="button" data-zoom="1.25" aria-label="Yakınlaştır">+</button>
+      </div>
+    </div>
+    <div class="detail__nav">
+      <button type="button" id="detailPrev" aria-label="Önceki ürün"><i>←</i><span></span></button>
+      <span class="detail__count" id="detailCount"></span>
+      <button type="button" id="detailNext" aria-label="Sonraki ürün"><span></span><i>→</i></button>
+    </div>
+    <p class="detail__hint">Sürükleyerek çevirin · tekerlek ya da iki parmakla yakınlaştırın</p>
+  </div>
 
   <script type="module" src="/src/main.js"></script>
 </body>

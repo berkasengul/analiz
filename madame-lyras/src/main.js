@@ -1,26 +1,52 @@
 import Lenis from 'lenis';
-import { FLAVORS, CLAIMS, SITE } from './data.js';
+import { FLAVORS, SITE } from './data.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const pad = (n) => String(n).padStart(2, '0');
+const lower = (t) => t.toLocaleLowerCase('tr');
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const N = FLAVORS.length;
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = () => window.innerWidth / window.innerHeight < 0.9 || window.innerWidth < 760;
 
-/* ---------- ürün panelleri ---------- */
-const productsEl = $('#urunler');
-productsEl.innerHTML = FLAVORS.map((f, i) => `
-  <section class="sec product" id="urun-${f.id}" data-bg="${f.bg}" data-ink="${f.ink}" data-stage="product" data-flavor="${i}" style="--accent:${f.accent}">
-    <div class="wrap product__inner">
-      <div class="product__text">
-        <p class="product__idx reveal"><b>${String(i + 1).padStart(2, '0')}</b> / ${String(FLAVORS.length).padStart(2, '0')}</p>
-        <p class="eyebrow reveal">Dondurularak kurutulmuş</p>
-        <h2 class="product__name reveal">${f.name}</h2>
-        <p class="product__lead reveal">${f.lead}</p>
-        <p class="product__desc reveal">${f.desc}</p>
-        <dl class="facts reveal">${f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
-        <ul class="badges badges--small reveal">${CLAIMS.map((c) => `<li>${c}</li>`).join('')}</ul>
-      </div>
-      <img class="product__fallback" src="${f.tex}" alt="Madame Lyra's dondurularak kurutulmuş ${f.name.toLocaleLowerCase('tr')} paketi" width="1024" height="1180" loading="lazy" />
+/* ---------- ürün katmanları (sabit sahne içinde) ---------- */
+$('#players').innerHTML = FLAVORS.map((f, i) => `
+  <article class="player" id="urun-${f.id}" data-ink="${f.ink}" aria-hidden="${i ? 'true' : 'false'}">
+    <p class="player__idx" style="--k:0"><b>${pad(i + 1)}</b> / ${pad(N)}</p>
+    <p class="eyebrow" style="--k:1">${f.slogan}</p>
+    <h2 class="player__name${f.name.length > 9 ? ' player__name--long' : ''}" style="--k:2">${f.name}</h2>
+    <p class="player__lead" style="--k:3">${f.lead}</p>
+    <p class="player__desc" style="--k:4">${f.desc}</p>
+    <dl class="facts" style="--k:5">${f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+    <div class="player__actions" style="--k:6">
+      <button class="btn btn--light" type="button" data-inspect="${i}">3D olarak incele</button>
+      <a class="btn btn--ghost" href="#iletisim" data-ask="${i}">Bilgi al</a>
     </div>
-  </section>`).join('');
+    <img class="product__fallback" src="${f.tex}" alt="Madame Lyra's dondurularak kurutulmuş ${lower(f.name)} paketi" width="1024" height="${Math.round(1024 * f.aspect)}" loading="lazy" />
+  </article>`).join('');
+const players = $$('.player');
+const productsEl = $('#urunler');
+productsEl.style.setProperty('--n', N);
+
+/* ---------- katalog ve afişler ---------- */
+$('#catalog').innerHTML = FLAVORS.map((f, i) => `
+  <button class="card reveal" type="button" data-inspect="${i}" style="--c:${f.bg}" aria-label="${f.name}: 3D olarak incele">
+    <span class="card__img"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></span>
+    <span class="card__n">${pad(i + 1)}</span>
+    <b class="card__name">${f.name}</b>
+    <span class="card__slogan">${f.slogan}</span>
+    <span class="card__go">3D incele →</span>
+  </button>`).join('');
+$('#posters').innerHTML = FLAVORS.filter((f) => f.poster).map((f) => `
+  <figure class="poster"><img src="${f.poster}" alt="Madame Lyra's ${lower(f.name)} afişi" loading="lazy" width="880" height="1100" /></figure>`).join('');
+
+/* ---------- ürün noktaları ---------- */
+const dotsEl = $('#flavorDots');
+dotsEl.innerHTML = FLAVORS.map((f, i) => `<button type="button" data-go="${i}" aria-label="${f.name}"><span>${f.short || f.name}</span></button>`).join('');
+const dots = $$('button', dotsEl);
 
 /* ---------- e-posta ---------- */
 const mail = $('#mailLink');
@@ -29,28 +55,51 @@ mail.textContent = SITE.email;
 $('#year').textContent = new Date().getFullYear();
 
 /* ---------- yumuşak kaydırma ---------- */
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const lenis = reduce ? null : new Lenis({ lerp: 0.1, smoothWheel: true });
+const lenis = reduce ? null : new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9 });
 if (lenis) {
   const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
   requestAnimationFrame(raf);
+  lenis.on('scroll', () => update(false));
+}
+function scrollToY(y, duration = 1.6) {
+  if (lenis) lenis.scrollTo(y, { duration });
+  else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
 }
 function goTo(target) {
   const el = typeof target === 'string' ? $(target) : target;
   if (!el) return;
-  if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.4 });
-  else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  scrollToY(el.getBoundingClientRect().top + window.scrollY);
 }
+// ürün akışında i. ürünün tam ortalandığı kaydırma konumu
+function productY(i) {
+  const top = productsEl.getBoundingClientRect().top + window.scrollY;
+  const total = productsEl.offsetHeight - window.innerHeight;
+  return top + (total * i) / (N - 1);
+}
+
 document.addEventListener('click', (e) => {
+  const ins = e.target.closest('[data-inspect]');
+  if (ins) { e.preventDefault(); openDetail(+ins.dataset.inspect); return; }
+  const ask = e.target.closest('[data-ask]');
+  if (ask) { e.preventDefault(); askAbout(+ask.dataset.ask); return; }
   const a = e.target.closest('a[href^="#"]');
   if (!a) return;
   const id = a.getAttribute('href');
-  if (id.length < 2 && id !== '#') return;
   e.preventDefault();
   closeMenu();
   if (a.dataset.topic) $('#f-topic').value = a.dataset.topic;
-  goTo(id === '#' || id === '#top' ? document.body : id);
+  if (id === '#' || id === '#top') scrollToY(0);
+  else if (id === '#urunler') scrollToY(productY(0));
+  else goTo(id);
 });
+
+function askAbout(i) {
+  const f = FLAVORS[i];
+  $('#f-topic').value = 'Ürün bilgisi';
+  const msg = $('#f-msg');
+  if (!msg.value.trim()) msg.value = `Merhaba, ${f.name} ürünü hakkında bilgi almak istiyorum.`;
+  goTo('#iletisim');
+}
 
 /* ---------- menü ---------- */
 const menuBtn = $('#menuBtn');
@@ -65,7 +114,6 @@ menuBtn.addEventListener('click', () => {
   menuBtn.setAttribute('aria-expanded', String(open));
   menuBtn.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
 });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
 /* ---------- görünürken beliren öğeler ---------- */
 const io = new IntersectionObserver((entries) => {
@@ -86,18 +134,16 @@ const hideLoader = () => {
   loaderEl.classList.add('done');
   document.body.classList.add('ready');
 };
-
 function webglOK() {
   try {
     const c = document.createElement('canvas');
     return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')));
   } catch (e) { return false; }
 }
-
 if (webglOK()) {
   import('./scene.js').then(({ createScene }) => {
     scene = createScene($('#gl'), FLAVORS, (p) => { bar.style.transform = `scaleX(${p})`; });
-    scene.ready.then(() => { update(true); setTimeout(hideLoader, 250); });
+    scene.ready.then(() => { lastKey = ''; update(true); setTimeout(hideLoader, 250); });
   }).catch(() => { document.body.classList.add('no-gl'); hideLoader(); });
   setTimeout(hideLoader, 7000);
 } else {
@@ -105,68 +151,222 @@ if (webglOK()) {
   hideLoader();
 }
 
-/* ---------- kaydırmaya bağlı sahne ve renk ---------- */
-const bgEl = $('.bg');
-const flavorDots = $$('#flavorDots button');
-const sections = () => $$('main .sec, .ftr');
-let lastSection = null;
-
-function pose(stage, flavor) {
+/* ---------- sahne pozları ---------- */
+function pose(stage) {
   const H = scene ? scene.halfHeight() : 1.34;
   const A = window.innerWidth / window.innerHeight;
   const W = H * A;
-  const mobile = A < 0.9;
   const off = { y: H * 2.6, s: 0.7, cloud: 0, frost: 0 };
-  if (mobile) {
+  if (isMobile()) {
     switch (stage) {
-      case 'hero': return { x: 0, y: H * 0.5, s: 0.6, ry: -0.3, rz: 0.04, cloud: 1, frost: 0 };
-      case 'product': return { x: 0, y: H * 0.46, s: 0.7, ry: flavor % 2 ? 0.28 : -0.28, rz: 0, cloud: 1, frost: 0 };
+      case 'hero': return { x: 0, y: H * 0.46, s: 0.68, ry: -0.3, rz: 0.04, cloud: 1, frost: 0 };
+      case 'product': return { x: 0, y: H * 0.43, s: 0.78, ry: -0.3, rz: 0.02, cloud: 1, frost: 0 };
+      case 'inspect': return { x: 0, y: H * 0.33, s: 0.74, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
       case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: 0.5, rz: 0, cloud: 0, frost: 1 };
       default: return { x: 0, ...off, ry: 0, rz: 0 };
     }
   }
-  const s = Math.min(1.35, Math.max(0.95, W * 0.48));
+  const big = Math.min(1.55, W * 0.72);
   switch (stage) {
-    case 'hero': return { x: W * 0.4, y: -0.03, s, ry: -0.5, rz: 0.05, cloud: 1, frost: 0 };
-    case 'product': return { x: W * 0.38, y: 0, s: s * 0.98, ry: flavor % 2 ? 0.42 : -0.42, rz: flavor % 2 ? -0.03 : 0.03, cloud: 1, frost: 0 };
-    case 'process': return { x: W * 0.55, y: H * 0.28, s: s * 0.62, ry: -0.65, rz: 0.12, cloud: 0, frost: 1 };
+    case 'hero': return { x: W * 0.38, y: -0.04, s: big * 0.95, ry: -0.5, rz: 0.05, cloud: 1, frost: 0 };
+    case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.38, rz: 0.03, cloud: 1, frost: 0 };
+    case 'inspect': return { x: W * 0.2, y: 0.1, s: big * 0.86, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
+    case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.65, rz: 0.12, cloud: 0, frost: 1 };
     default: return { x: W * 0.3, ...off, ry: -0.4, rz: 0 };
   }
 }
 
+/* ---------- kaydırmaya bağlı durum ---------- */
+const bgEl = $('.bg');
+const hdr = $('.hdr');
+const themeMeta = $('meta[name="theme-color"]');
+const sections = $$('main .sec, .ftr');
+const hex = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16));
+const mix = (a, b, t) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',')})`; };
+let lastKey = '';
 let lastY = window.scrollY;
+let currentProduct = 0;
+let inspecting = false;
+
 function update(force) {
-  const mid = window.innerHeight * 0.5;
-  const list = sections();
-  let active = list[0];
-  for (const s of list) {
-    const r = s.getBoundingClientRect();
-    if (r.top <= mid && r.bottom > mid) { active = s; break; }
-  }
+  if (inspecting) return;
+  const vh = window.innerHeight;
+  const mid = vh * 0.5;
   const y = window.scrollY;
   if (scene) scene.kick((y - lastY) * 0.4);
   lastY = y;
-  document.querySelector('.hdr').classList.toggle('hdr--scrolled', y > 40);
-  if (active === lastSection && !force) return;
-  lastSection = active;
+  hdr.classList.toggle('hdr--scrolled', y > 40);
+
+  // ürün akışı
+  const pr = productsEl.getBoundingClientRect();
+  const inProducts = pr.top <= mid && pr.bottom > mid;
+  if (inProducts) {
+    const total = productsEl.offsetHeight - vh;
+    const f = clamp((-pr.top / total) * (N - 1), 0, N - 1);
+    const i = Math.min(N - 2, Math.floor(f));
+    const u = f - i;
+    const r = reduce ? (u > 0.5 ? 1 : 0) : ease(smooth(0.3, 0.7, u));
+    currentProduct = r < 0.5 ? i : i + 1;
+    bgEl.classList.add('bg--live');
+    bgEl.style.backgroundColor = mix(FLAVORS[i].bg, FLAVORS[i + 1].bg, r);
+    document.documentElement.dataset.ink = FLAVORS[currentProduct].ink;
+    document.body.dataset.stage = 'product';
+    players.forEach((p, k) => {
+      const d = f - k;
+      const o = 1 - smooth(0.16, 0.42, Math.abs(d));
+      p.style.setProperty('--d', d.toFixed(4));
+      p.style.setProperty('--o', o.toFixed(3));
+      p.style.setProperty('--b', `${Math.min(10, Math.abs(d) * 18).toFixed(1)}px`);
+      p.style.visibility = o < 0.002 ? 'hidden' : 'visible';
+      const active = Math.abs(d) < 0.3;
+      if (p.classList.contains('on') !== active) {
+        p.classList.toggle('on', active);
+        p.setAttribute('aria-hidden', active ? 'false' : 'true');
+      }
+    });
+    dots.forEach((d, k) => d.classList.toggle('on', k === currentProduct));
+    if (scene) {
+      scene.setStream(f);
+      scene.setPose(pose('product'));
+    }
+    const key = `p${currentProduct}`;
+    if (key !== lastKey) { lastKey = key; themeMeta.setAttribute('content', FLAVORS[currentProduct].bg); }
+    return;
+  }
+
+  bgEl.classList.remove('bg--live');
+  if (scene) scene.setStream(null);
+  let active = sections[0];
+  for (const s of sections) {
+    const r = s.getBoundingClientRect();
+    if (r.top <= mid && r.bottom > mid) { active = s; break; }
+  }
+  // ürünlerin altındaki bölümlerde son ürün kalsın, üstündekilerde ilk ürün
+  const below = pr.bottom <= mid;
+  const key = `${active.dataset.stage}|${below}`;
+  if (key === lastKey && !force) return;
+  lastKey = key;
   const bg = active.dataset.bg || '#f4ecdf';
   bgEl.style.backgroundColor = bg;
   document.documentElement.dataset.ink = active.dataset.ink || 'light';
-  document.querySelector('meta[name="theme-color"]').setAttribute('content', bg);
-  const fl = active.dataset.flavor;
+  themeMeta.setAttribute('content', bg);
   const stage = active.dataset.stage || 'off';
   document.body.dataset.stage = stage;
   if (scene) {
-    if (fl !== undefined) scene.setFlavor(+fl);
-    scene.setPose(pose(stage, scene.flavor));
+    scene.setFlavor(below ? N - 1 : 0);
+    scene.setPose(pose(stage));
   }
-  flavorDots.forEach((d, i) => d.classList.toggle('on', fl !== undefined && +fl === i && stage === 'product'));
 }
-window.addEventListener('scroll', () => update(false), { passive: true });
-window.addEventListener('resize', () => update(true));
+window.addEventListener('scroll', () => { if (!lenis) update(false); }, { passive: true });
+window.addEventListener('resize', () => { lastKey = ''; update(true); if (inspecting && scene) scene.setPose(pose('inspect')); });
 update(true);
 
-flavorDots.forEach((d) => d.addEventListener('click', () => goTo(`#urun-${FLAVORS[+d.dataset.go].id}`)));
+dots.forEach((d) => d.addEventListener('click', () => scrollToY(productY(+d.dataset.go), 1.8)));
+
+/* ---------- paketin üstündeki tıklama alanı ---------- */
+const hit = $('#productHit');
+const hitLabel = $('#hitLabel');
+hit.addEventListener('click', () => openDetail(currentProduct));
+hit.addEventListener('pointermove', (e) => {
+  const r = hit.getBoundingClientRect();
+  hitLabel.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px)`;
+});
+hit.addEventListener('pointerenter', () => hit.classList.add('hover'));
+hit.addEventListener('pointerleave', () => hit.classList.remove('hover'));
+
+/* ---------- 3B inceleme ---------- */
+const detail = $('#detail');
+let detailIndex = 0;
+let returnFocus = null;
+
+function fillDetail(i) {
+  const f = FLAVORS[i];
+  detailIndex = i;
+  $('#detailSlogan').textContent = f.slogan;
+  $('#detailName').textContent = f.name;
+  $('#detailName').classList.toggle('detail__name--long', f.name.length > 9);
+  $('#detailLead').textContent = f.lead;
+  $('#detailDesc').textContent = f.desc;
+  $('#detailFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  $('#detailClaims').innerHTML = f.claims.map((c) => `<li>${c}</li>`).join('');
+  const prev = FLAVORS[(i - 1 + N) % N], next = FLAVORS[(i + 1) % N];
+  $('#detailPrev span').textContent = prev.short || prev.name;
+  $('#detailNext span').textContent = next.short || next.name;
+  $('#detailCount').textContent = `${pad(i + 1)} / ${pad(N)}`;
+  bgEl.classList.remove('bg--live');
+  bgEl.style.backgroundColor = f.bg;
+  document.documentElement.dataset.ink = f.ink;
+  themeMeta.setAttribute('content', f.bg);
+  $$('.seg [data-view]').forEach((b) => b.classList.toggle('on', b.dataset.view === 'front'));
+  detail.classList.remove('swap');
+  void detail.offsetWidth;
+  detail.classList.add('swap');
+}
+
+function openDetail(i) {
+  if (!scene) { askAbout(i); return; }
+  if (inspecting) { switchDetail(i); return; }
+  inspecting = true;
+  returnFocus = document.activeElement;
+  closeMenu();
+  lenis?.stop();
+  scene.setStream(null);
+  fillDetail(i);
+  scene.inspectOpen(i);
+  scene.setPose(pose('inspect'));
+  detail.hidden = false;
+  detail.setAttribute('aria-hidden', 'false');
+  requestAnimationFrame(() => document.body.classList.add('inspect'));
+  setTimeout(() => $('#detailClose').focus({ preventScroll: true }), 50);
+  history.pushState({ inspect: i }, '', `#incele-${FLAVORS[i].id}`);
+}
+function switchDetail(i) {
+  i = (i + N) % N;
+  fillDetail(i);
+  scene.inspectFlavor(i);
+  history.replaceState({ inspect: i }, '', `#incele-${FLAVORS[i].id}`);
+}
+function closeDetail(fromPop) {
+  if (!inspecting) return;
+  if (!fromPop && history.state && history.state.inspect !== undefined) { history.back(); return; }
+  inspecting = false;
+  document.body.classList.remove('inspect');
+  detail.setAttribute('aria-hidden', 'true');
+  setTimeout(() => { if (!inspecting) detail.hidden = true; }, 600);
+  scene.inspectClose();
+  lenis?.start();
+  lastKey = '';
+  update(true);
+  if (returnFocus && document.contains(returnFocus)) returnFocus.focus({ preventScroll: true });
+}
+window.addEventListener('popstate', () => { if (inspecting) closeDetail(true); });
+
+$('#detailClose').addEventListener('click', () => closeDetail(false));
+$('#detailPrev').addEventListener('click', () => switchDetail(detailIndex - 1));
+$('#detailNext').addEventListener('click', () => switchDetail(detailIndex + 1));
+$('#detailCta').addEventListener('click', () => {
+  const i = detailIndex;
+  closeDetail(false);
+  setTimeout(() => askAbout(i), 350);
+});
+$$('.seg [data-view]').forEach((b) => b.addEventListener('click', () => {
+  scene.setView(b.dataset.view);
+  $$('.seg [data-view]').forEach((x) => x.classList.toggle('on', x === b));
+}));
+$$('.seg [data-zoom]').forEach((b) => b.addEventListener('click', () => scene.zoomBy(+b.dataset.zoom)));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { if (inspecting) closeDetail(false); else closeMenu(); }
+  if (!inspecting) return;
+  if (e.key === 'ArrowRight') switchDetail(detailIndex + 1);
+  if (e.key === 'ArrowLeft') switchDetail(detailIndex - 1);
+  if (e.key === 'Tab') {
+    const f = $$('button, a[href]', detail).filter((el) => el.offsetParent !== null);
+    if (!f.length) return;
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  }
+});
 
 /* ---------- iletişim formu (Netlify Forms) ---------- */
 const form = $('#contactForm');
@@ -198,3 +398,14 @@ form.addEventListener('submit', async (e) => {
     btn.disabled = false;
   }
 });
+
+// sayfa #incele-... ile açılırsa doğrudan inceleme açılır
+const startHash = location.hash.match(/^#incele-(.+)$/);
+if (startHash) {
+  history.replaceState(null, '', location.pathname);
+  const idx = FLAVORS.findIndex((f) => f.id === startHash[1]);
+  if (idx >= 0) {
+    const tryOpen = () => (scene ? scene.ready.then(() => openDetail(idx)) : setTimeout(tryOpen, 200));
+    tryOpen();
+  }
+}
