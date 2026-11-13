@@ -1,8 +1,8 @@
 {
  "gonderim": "elle",
  "kuru": true,
- "gonderen": "(otomatik gönderim için alan adı gerekir; şimdilik çalışanlar Gmail'den gönderir)",
- "cevap_adresi": "",
+ "gonderen": "BerkAİ Studio <berkstudioai@gmail.com>",
+ "cevap_adresi": "berkstudioai@gmail.com",
  "imza": [
   "Berka",
   "BerkAİ Studio · 3B marka siteleri"
