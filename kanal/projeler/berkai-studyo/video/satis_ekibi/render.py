@@ -95,6 +95,22 @@ def bolum(n):
     else: os.replace(ham, f"{OUT}/b{n:02d}.mp4")
     print(n, f"{d:.1f} sn", len(parcalar), "çekim", "· avatar" if os.path.exists(av) else "")
 
+# ---- orta bölümlerde kısa tam ekran avatar araları (ses: bölüm sesinden kesilen cümle, kaynak saniyesi) ----
+ORTA = {3: (24.95, "o1"), 4: (85.10, "o2"), 5: (105.05, "o3"), 6: (20.35, "o4"), 9: (5.00, "o5")}
+def orta_aralik(n):
+    a0, ad = ORTA[n]; av = f"{S}/avatar/{ad}.mp4"; d = dur(f"{OUT}/b{n:02d}_ekran.mp4")
+    t0 = a0 + 0.25; t1 = t0 + dur(av) - 0.03
+    if d - t1 < 1.2: t1 = d  # bölüm sonuna yakınsa avatar bölüm sonuna kadar kalsın
+    return t0, t1
+def orta(n):
+    ek = f"{OUT}/b{n:02d}_ekran.mp4"
+    if not os.path.exists(ek) or os.path.getmtime(f"{OUT}/b{n:02d}.mp4") > os.path.getmtime(ek) + 5: sh(f"cp '{OUT}/b{n:02d}.mp4' '{ek}'")
+    av = f"{S}/avatar/{ORTA[n][1]}.mp4"; t0, t1 = orta_aralik(n)
+    vf = (f"[1:v]scale=1920:1080,fps={FPS},tpad=stop_mode=clone:stop_duration=2,setpts=PTS-STARTPTS+{t0:.3f}/TB[a];"
+          f"[0:v][a]overlay=0:0:eof_action=pass:enable='between(t,{t0:.3f},{t1:.3f})'")
+    sh(f"ffmpeg -y -v error -i '{ek}' -i '{av}' -filter_complex \"{vf}\" {X264} '{OUT}/b{n:02d}.mp4'")
+    print(n, "orta avatar", f"{t0:.2f}-{t1:.2f}")
+
 # ---- altyazı (bölüm içinde karakter oranıyla) ----
 def ass_zaman(t): h = int(t // 3600); m = int(t % 3600 // 60); s = t % 60; return f"{h}:{m:02d}:{s:05.2f}"
 def altyazi(baslangic):
@@ -152,6 +168,9 @@ def son():
     for n in range(1, 13):
         bas[n] = t; kt = t
         for p in sorted(glob.glob(f"{OUT}/b{n:02d}_[0-9][0-9].mp4")): KESIMLER.append(kt); kt += dur(p)
+        if n in ORTA:
+            t0, t1 = orta_aralik(n); KESIMLER.append(t + t0)
+            if t1 < dur(f"{OUT}/b{n:02d}.mp4") - 0.1: KESIMLER.append(t + t1)
         t += dur(f"{OUT}/b{n:02d}.mp4")
     lst = f"{OUT}/hepsi.txt"; open(lst, "w").write("".join(f"file '{OUT}/b{n:02d}.mp4'\n" for n in range(1, 13)))
     sh(f"ffmpeg -y -v error -f concat -safe 0 -i '{lst}' -c copy '{OUT}/goruntu.mp4'")
@@ -162,5 +181,7 @@ def son():
 
 if __name__ == "__main__":
     if sys.argv[1:] == ["son"]: son()
+    elif sys.argv[1:] == ["orta"]:
+        for n in ORTA: orta(n)
     else:
         for n in ([int(x) for x in sys.argv[1:]] or range(1, 13)): bolum(n)
