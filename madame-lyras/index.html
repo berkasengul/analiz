@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Madame Lyra's · Dondurularak Kurutulmuş Meyve</title>
+  <meta name="description" content="Madame Lyra's: kriyojenik yöntemle dondurularak kurutulmuş çilek, elma, mango ve ahududu. Sadece meyve, şeker ilavesiz, katkı maddesi içermez." />
+  <meta property="og:title" content="Madame Lyra's · Cryo Freeze Dried" />
+  <meta property="og:description" content="Sadece meyve. Şeker ilavesiz, katkısız, çıtır." />
+  <meta property="og:image" content="/img/og.jpg" />
+  <meta name="theme-color" content="#b90d10" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><div class="bg__glow"></div><div class="bg__grain"></div></div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+
+  <div class="loader" id="loader">
+    <img src="/logo.svg" alt="" width="84" height="84" />
+    <div class="loader__bar"><span id="loaderBar"></span></div>
+    <p>Meyveler hazırlanıyor</p>
+  </div>
+
+  <header class="hdr" id="hdr">
+    <a href="#top" class="hdr__brand" aria-label="Madame Lyra's ana sayfa">
+      <img src="/logo.svg" alt="" width="40" height="40" />
+      <span>Madame Lyra's</span>
+    </a>
+    <nav class="hdr__nav" id="nav" aria-label="Ana menü">
+      <a href="#urunler">Ürünler</a>
+      <a href="#surec">Nasıl yapılır</a>
+      <a href="#hakkimizda">Hakkımızda</a>
+      <a href="#toptan">Toptan</a>
+      <a href="#iletisim" class="hdr__cta">İletişim</a>
+    </nav>
+    <button class="hdr__menu" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+  </header>
+
+  <aside class="flavors" id="flavorDots" aria-label="Ürünler">
+    <button data-go="0" aria-label="Çilek"></button>
+    <button data-go="1" aria-label="Elma"></button>
+    <button data-go="2" aria-label="Mango"></button>
+    <button data-go="3" aria-label="Ahududu"></button>
+  </aside>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="sec hero" data-bg="#b90d10" data-ink="light" data-stage="hero" data-flavor="0">
+      <div class="wrap hero__inner">
+        <p class="eyebrow reveal"><span lang="en">Cryo Freeze Dried ·</span> Dondurularak kurutulmuş</p>
+        <h1 class="hero__title reveal">Meyvenin kendisi.<br /><em>Suyu hariç.</em></h1>
+        <p class="hero__lead reveal">Olgun meyveyi dondurup suyunu buz halindeyken çekiyoruz. Geriye rengi, aroması ve şekli yerinde, çıtır çıtır bir meyve kalıyor.</p>
+        <ul class="badges reveal">
+          <li>Sadece meyve</li><li>Şeker ilavesiz</li><li>Katkı maddesi yok</li>
+        </ul>
+        <div class="hero__actions reveal">
+          <a class="btn btn--light" href="#urunler">Ürünleri keşfet</a>
+          <a class="btn btn--ghost" href="#iletisim">Bize yazın</a>
+        </div>
+      </div>
+      <a class="scrollcue" href="#urunler" aria-label="Aşağı kaydır"><span></span>Kaydır</a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Çilek</span><i>✦</i><span>Elma</span><i>✦</i><span>Mango</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Sadece meyve</span><i>✦</i><span>Şeker ilavesiz</span><i>✦</i>
+        <span>Çilek</span><i>✦</i><span>Elma</span><i>✦</i><span>Mango</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Sadece meyve</span><i>✦</i><span>Şeker ilavesiz</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ÜRÜNLER -->
+    <div id="urunler" class="products"></div>
+
+    <!-- SÜREÇ -->
+    <section class="sec process" id="surec" data-bg="#10161d" data-ink="light" data-stage="process">
+      <div class="wrap process__inner">
+        <header class="sec__head reveal">
+          <p class="eyebrow">Nasıl yapılır</p>
+          <h2>Buzdan buhara,<br /><em>arada sıvı yok.</em></h2>
+          <p class="sec__lead">Dondurarak kurutmada meyve önce dondurulur, ardından vakum altında içindeki buz doğrudan buhara dönüşür. Isıyla kurutmadan farklı olarak meyve pişmez, büzüşmez.</p>
+        </header>
+        <ol class="steps">
+          <li class="step reveal"><span class="step__n">01</span><h3>Seçim ve hazırlık</h3><p>Olgun meyveler ayıklanır, yıkanır; bütün, dilim ya da küp olarak hazırlanır.</p></li>
+          <li class="step reveal"><span class="step__n">02</span><h3>Kriyojenik dondurma</h3><p>Meyve azotla çok hızlı dondurulur. Hızlı dondurma, meyvenin dokusunu ve rengini korumaya yardımcı olur.</p></li>
+          <li class="step reveal"><span class="step__n">03</span><h3>Vakumda kurutma</h3><p>Vakum altında buz, sıvıya dönüşmeden buhar olur (süblimasyon). Meyvenin suyu alınır, kendisi kalır.</p></li>
+          <li class="step reveal"><span class="step__n">04</span><h3>Kilitli paket</h3><p>Çıtırlığını nemden korumak için kilitli, ışık geçirmeyen ambalaja alınır.</p></li>
+        </ol>
+        <div class="ratio reveal">
+          <div class="ratio__num"><span data-count="160">160</span> g</div>
+          <div class="ratio__arrow" aria-hidden="true"></div>
+          <div class="ratio__num ratio__num--small">16 g</div>
+          <p>Bir paket kurutulmuş çilek, 160 g taze çilekten üretilir.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KULLANIM -->
+    <section class="sec usage" data-bg="#f4ecdf" data-ink="dark" data-stage="usage">
+      <div class="wrap usage__inner">
+        <header class="sec__head reveal">
+          <p class="eyebrow">Nasıl tüketilir</p>
+          <h2>Paketten avuca,<br /><em>kaseden pastaya.</em></h2>
+        </header>
+        <div class="usage__grid">
+          <figure class="photo reveal"><img src="/img/kase-cilek.webp" alt="Kasede dondurularak kurutulmuş bütün çilekler" loading="lazy" width="1200" height="1200" /><figcaption>Dondurularak kurutulmuş çilek</figcaption></figure>
+          <ul class="ideas">
+            <li class="reveal"><b>Atıştırmalık</b><span>Paketten doğrudan; hafif ve çıtır.</span></li>
+            <li class="reveal"><b>Kahvaltı</b><span>Yoğurdun, granolanın, müslinin üzerine.</span></li>
+            <li class="reveal"><b>Tatlı ve pasta</b><span>Kek, pasta ve tatlı süslemelerinde renk ve aroma.</span></li>
+            <li class="reveal"><b>Toz meyve</b><span>Ufalayıp smoothie, krema ve hamurlara katın.</span></li>
+          </ul>
+          <figure class="photo photo--b reveal"><img src="/img/kase-ahududu.webp" alt="Kasede dondurularak kurutulmuş ahududular" loading="lazy" width="1200" height="1200" /><figcaption>Dondurularak kurutulmuş ahududu</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- HAKKIMIZDA -->
+    <section class="sec about" id="hakkimizda" data-bg="#efe4d2" data-ink="dark" data-stage="about">
+      <div class="wrap about__inner">
+        <div class="about__text">
+          <p class="eyebrow reveal">Hakkımızda</p>
+          <h2 class="reveal">Madame Lyra's'ın<br /><em>tek bir kuralı var.</em></h2>
+          <p class="big reveal">Pakete meyveden başka bir şey girmez.</p>
+          <p class="reveal">Madame Lyra's, meyveyi en sade haliyle sunmak için var: şeker eklenmemiş, koruyucu ve renklendirici kullanılmamış, sadece suyu alınmış meyve. Çocuğun beslenme çantasına da, pastacının tezgâhına da aynı paket gider.</p>
+          <p class="reveal">Ürünlerimiz kardeş kuruluşumuz <b>Solagron Tarım Ürünleri</b>'nin Mersin Silifke Organize Sanayi Bölgesi'ndeki tesisinde, kriyojenik dondurarak kurutma (Cryo Freeze-Drying) yöntemiyle üretilir. Tesis; kriyojenik dondurma, freeze-drying ve süperkritik CO₂ ekstraksiyon sistemlerini bir arada çalıştırabilen sayılı tesislerden biridir.</p>
+        </div>
+        <figure class="about__photo reveal"><img src="/img/tabak.webp" alt="Dondurularak kurutulmuş karışık meyveler" loading="lazy" width="405" height="540" /></figure>
+        <dl class="stats">
+          <div class="reveal"><dt>30 dönüm</dt><dd>Silifke OSB'de üretim kampüsü</dd></div>
+          <div class="reveal"><dt>~10.000 m²</dt><dd>Kapalı üretim ve depolama alanı</dd></div>
+          <div class="reveal"><dt>BRCGS · FDA</dt><dd>Helal ve Kosher belgeli tesis</dd></div>
+          <div class="reveal"><dt>İhracat</dt><dd>ABD ve Japonya başta olmak üzere dünyaya</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- TOPTAN -->
+    <section class="sec trade" id="toptan" data-bg="#1c1714" data-ink="light" data-stage="trade">
+      <div class="wrap trade__inner">
+        <header class="sec__head reveal">
+          <p class="eyebrow">Toptan ve endüstriyel</p>
+          <h2>Pastaneye, kafeye,<br /><em>üretim hattına.</em></h2>
+          <p class="sec__lead">Endüstriyel ölçekte bütün, dilim, toz, granül ve küp formda ürünler için bizimle iletişime geçin.</p>
+        </header>
+        <div class="forms reveal" role="list">
+          <div role="listitem"><i class="f f--whole"></i>Bütün</div>
+          <div role="listitem"><i class="f f--slice"></i>Dilim</div>
+          <div role="listitem"><i class="f f--cube"></i>Küp</div>
+          <div role="listitem"><i class="f f--granule"></i>Granül</div>
+          <div role="listitem"><i class="f f--powder"></i>Toz</div>
+        </div>
+        <ul class="range reveal">
+          <li>Çilek</li><li>Dilim çilek</li><li>Ahududu</li><li>Elma</li><li>Mango</li><li>Ejder meyvesi</li>
+        </ul>
+        <a class="btn btn--light reveal" href="#iletisim" data-topic="Toptan / endüstriyel">Teklif isteyin</a>
+      </div>
+    </section>
+
+    <!-- İLETİŞİM -->
+    <section class="sec contact" id="iletisim" data-bg="#f4ecdf" data-ink="dark" data-stage="contact">
+      <div class="wrap contact__inner">
+        <div class="contact__info">
+          <p class="eyebrow reveal">İletişim</p>
+          <h2 class="reveal">Bir sorunuz mu var?<br /><em>Yazın, dönelim.</em></h2>
+          <p class="reveal">Ürünler, satış noktaları, toptan ve endüstriyel talepler için formu doldurun ya da doğrudan e-posta gönderin.</p>
+          <a class="mail reveal" id="mailLink" href="mailto:info@madamelyras.com.tr">info@madamelyras.com.tr</a>
+          <ul class="contact__meta reveal">
+            <li><span>Üretim</span>Solagron Tarım Ürünleri · Silifke OSB, Mersin</li>
+            <li><span>Yanıt</span>Mesajlarınıza iş günlerinde dönüş yapıyoruz.</li>
+          </ul>
+        </div>
+        <form class="form reveal" id="contactForm" name="iletisim" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="iletisim" />
+          <p class="hp"><label>Boş bırakın <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+          <div class="field"><label for="f-name">Ad soyad</label><input id="f-name" name="ad" autocomplete="name" required /></div>
+          <div class="row">
+            <div class="field"><label for="f-mail">E-posta</label><input id="f-mail" name="eposta" type="email" autocomplete="email" required /></div>
+            <div class="field"><label for="f-tel">Telefon <small>(isteğe bağlı)</small></label><input id="f-tel" name="telefon" type="tel" autocomplete="tel" /></div>
+          </div>
+          <div class="field"><label for="f-topic">Konu</label>
+            <select id="f-topic" name="konu">
+              <option>Ürün bilgisi</option>
+              <option>Toptan / endüstriyel</option>
+              <option>Satış noktası / bayilik</option>
+              <option>Diğer</option>
+            </select>
+          </div>
+          <div class="field"><label for="f-msg">Mesajınız</label><textarea id="f-msg" name="mesaj" rows="5" required></textarea></div>
+          <label class="check"><input type="checkbox" name="kvkk" value="evet" required /><span>Kişisel verilerimin bu talebe yanıt verilmesi amacıyla işlenmesini kabul ediyorum.</span></label>
+          <button class="btn btn--dark" type="submit">Gönder</button>
+          <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ftr" data-bg="#141111">
+    <div class="wrap ftr__inner">
+      <a href="#top" class="ftr__brand"><img src="/logo.svg" alt="" width="56" height="56" /><span>Madame Lyra's</span></a>
+      <nav aria-label="Alt menü"><a href="#urunler">Ürünler</a><a href="#surec">Nasıl yapılır</a><a href="#hakkimizda">Hakkımızda</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a></nav>
+      <p class="ftr__small">© <span id="year">2026</span> Madame Lyra's. Ürünlerimiz kardeş kuruluşumuz Solagron Tarım Ürünleri San. ve Tic. A.Ş. tesisinde üretilir. Sitede satış yapılmamaktadır.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
