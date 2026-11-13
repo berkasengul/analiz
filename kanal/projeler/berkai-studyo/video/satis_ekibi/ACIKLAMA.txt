@@ -1,0 +1,74 @@
+BAŞLIK
+Yapay Zekâ Satış Ekibim Müşteri Buldu, 3D Site Yaptı, Mail Attı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AÇIKLAMA (kopyala, yapıştır)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Bu sabah ben kahvemi içerken yapay zekâ satış ekibim bir marka buldu, ona 3D bir site yaptı ve markaya maili gönderdi. Ben hiçbir şey yapmadım. Nasıl kurduğumu baştan sona gösteriyorum, kullandığım promptu da aşağıya koydum 👇
+
+⏱️ BÖLÜMLER
+00:00 Ben hiçbir şey yapmadım
+00:45 Neden izlemelisin
+01:06 Ofis: iki yapay zekâ çalışanım
+01:57 Bulma ekibi müşteriyi nasıl buluyor
+03:28 Eski site ve 3D vitrin
+05:22 Mail ekibi ve Brevo
+06:26 Akşam: müdür odası
+06:47 Sen nasıl kurarsın (5 adım)
+07:24 Sık sorulanlar
+08:37 Bu işi işe nasıl çevirirsin
+08:55 Herkesin yaptığı o hata
+09:19 Kapanış
+
+🛠️ KULLANDIĞIM ARAÇLAR
+• Claude Code: ekipler, 3D site ve 3D ofis → https://claude.com/claude-code
+• Brevo: mail gönderimi (ücretsiz planda günde 300 mail) → https://www.brevo.com/tr/
+• Netlify: siteleri yayına alma (ücretsiz) → https://www.netlify.com
+• HeyGen: avatar
+
+⚠️ O HATA: Brevo'ya Gmail adresiyle bağlanıp mail atma. Hesabın incelemeye alınır ve gönderim durur. Önce kendi alan adını al, Brevo'da doğrula, sonra gönder.
+
+━━━━━━━━━━ HAZIR PROMPT ━━━━━━━━━━
+Köşeli parantezleri kendi işine göre doldur, Claude Code'a yapıştır:
+
+Benim için her sabah kendi kendine çalışan bir satış hattı kur. Ben [NE SATIYORSUN, örn. markalara 3D ürün vitrini] satıyorum.
+
+İki çalışan olsun:
+
+1. Bulma ekibi (her hafta içi sabah [SAAT]):
+- [SEKTÖRLER, örn. parfüm, mum, sabun, kahve] alanında, kendi online mağazası olan küçük markaları bulsun. Büyük zincirleri ve pazaryeri satıcılarını atlasın.
+- Her markanın sitesini açıp kontrol etsin: mağaza nerede kurulu, sitede şirket e-postası var mı, ürün fotoğrafları düz önden mi çekilmiş.
+- Uygun olan markanın 3–4 ürününü seçsin, arka planını temizlesin ve o markaya özel bir demo site yapsın. Yazıları markanın kendi ürün açıklamalarından alsın, tek kelime uydurmasın. "Satın al" butonu markanın kendi mağazasına gitsin.
+- Siteyi Netlify'da gizli bir linkle yayına alsın (Google'da çıkmasın). Site kötü göründüyse yayınlamasın, firmayı elesin.
+- O markaya özel kısa bir mail yazsın: ne yaptığımızı tek cümleyle söylesin, linki koysun, tek bir soru sorsun. Fiyat yazmasın. En altta "istemiyorsanız 'çıkış' yazın" satırı olsun.
+
+2. Mail ekibi (her hafta içi [SAAT]):
+- Sıradaki mailleri Brevo ile göndersin. Gönderen adres benim alan adımdaki adres olsun: [info@alanadin.com].
+- Cevap gelmezse 5 gün sonra tek bir kısa takip maili atsın, sonra bıraksın.
+- "Çıkış" yazanı listeye alsın, ona bir daha asla yazmasın.
+
+Kurallar:
+- Günde en fazla 5 yeni firma, en fazla 15 mail.
+- Sadece sitede yazan şirket adresine yaz. Kişisel adreslere (gmail, hotmail) asla yazma.
+- Uydurma bilgi yok. Bulamadığını "bulunamadı" diye yaz.
+- Emin değilsen firmayı ele, bana sorma.
+
+Akşam bana tek bir rapor ver: kim bulundu, kime site yapıldı, kime mail gitti, kim cevap verdi.
+Bunları Claude Code'da zamanlanmış görev olarak kur ki bilgisayarım kapalıyken de çalışsın. İlk gün mailleri göndermeden önce bana bir örnek göster.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ℹ️ Videodaki demo site, markadan bağımsız bir konsept demodur; markayla resmi bir bağımız yoktur.
+ℹ️ Videoda yapay zekâ ile üretilmiş avatar görüntüsü kullanılmıştır (HeyGen).
+⚖️ Toplu mail yok: günde en fazla 15 mail, her biri markaya özel ve yalnızca herkese açık şirket adresine gönderilir (KVKK). Her mailde "bir daha yazma" seçeneği bulunur. Kazanç garantisi yoktur.
+
+💬 Sıradaki videoda hangi sektöre girelim? Yoruma yaz, en çok yazılanı yapacağız.
+
+#ClaudeCode #YapayZeka #3DSite #Brevo #SatisOtomasyonu
+
+ETİKETLER
+claude code, yapay zeka satış ekibi, yapay zeka ile müşteri bulma, brevo, brevo mail otomasyonu, 3d web sitesi, claude ile 3d site, yapay zeka ile para kazanmak, otomatik mail gönderme, netlify, yapay zeka ajan, kod bilmeden site yapmak, claude türkçe, berkai
+
+YÜKLERKEN
+• YouTube Studio'da "Değiştirilmiş veya yapay içerik" kutusunu işaretle (gerçekçi avatar).
+• "Çocuklara yönelik değil" seç.
+• Kapak: kendi hazırladığın "BEN HİÇBİR ŞEY YAPMADIM" kapağı.
