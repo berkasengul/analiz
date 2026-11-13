@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { createJuice } from './juice.js';
 
 const TAU = Math.PI * 2;
 const smooth = (a, b, x) => {
@@ -276,7 +276,7 @@ function canvasTex(size, draw) {
 /* ------------------------------------------------------------------ */
 /* Sahne                                                               */
 /* ------------------------------------------------------------------ */
-export function createScene(canvas, flavors, onProgress) {
+export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -287,7 +287,20 @@ export function createScene(canvas, flavors, onProgress) {
 
   const scene = new THREE.Scene();
   const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  // Açılış sahnesiyle aynı ışık ortamı (aynı ışık şekillendiriciler): paket iki sahnede de aynı parlar
+  {
+    const env = new THREE.Scene();
+    const panel = (w, h, color, k, pos, rot) => {
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(k), side: THREE.DoubleSide, toneMapped: false }));
+      m.position.set(...pos); m.rotation.set(...rot); env.add(m);
+    };
+    panel(10, 4, '#fff3e6', 2.8, [0, 5, 2], [Math.PI / 2, 0, 0]);
+    panel(2, 6, '#ffffff', 4, [5, 1.5, 3], [0, -Math.PI / 2.5, 0]);
+    panel(2, 6, '#ffb48a', 1.6, [-5, 1, 2], [0, Math.PI / 2.5, 0]);
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.25 * 6, 0.5 * 6, 64), new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff2a1a').multiplyScalar(1.4), side: THREE.DoubleSide, toneMapped: false }));
+    ring.position.set(0, 0, -6); env.add(ring);
+    scene.environment = pmrem.fromScene(env, 0.02).texture;
+  }
 
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
   camera.position.set(0, 0, 5);
@@ -313,6 +326,8 @@ export function createScene(canvas, flavors, onProgress) {
   scene.add(root);
 
   const pouch = makePouch();
+  // açılıştaki paketlerle aynı yansıma ve parlaklık (açılıştaki efekt katmanının ışığını telafi eder)
+  for (const m of [pouch.frontMat, pouch.backMat]) { m.envMapIntensity = 1.0; m.emissiveIntensity = 0.46; }
   const pouchHolder = new THREE.Group();
   pouchHolder.add(pouch.group);
   root.add(pouchHolder);
@@ -327,6 +342,38 @@ export function createScene(canvas, flavors, onProgress) {
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 0.35), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
   shadow.position.set(0, -0.82, -0.2);
   root.add(shadow);
+
+  // ürün akışının sinematik arka planı (ayrı tuval) ve paketin çevresinde parlak meyve suyu damlaları
+  let juice = null;
+  try { juice = juiceCanvas ? createJuice(juiceCanvas) : null; } catch (e) { juice = null; }
+  const juiceCols = flavors.map((f) => new THREE.Color(f.bg));
+  const juiceA = new THREE.Color(), juiceB = new THREE.Color();
+  let juiceBlend = 0;
+  const juiceClip = { top: 2, bottom: 2 };
+  const DROPS = 14;
+  const drops = new THREE.InstancedMesh(
+    new THREE.SphereGeometry(1, 24, 16),
+    new THREE.MeshPhysicalMaterial({ roughness: 0.02, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.02, transparent: true, opacity: 0, envMapIntensity: 2.6, depthWrite: false, emissive: 0x000000 }),
+    DROPS
+  );
+  drops.renderOrder = 3;
+  drops.frustumCulled = false;
+  scene.add(drops);
+  const dropData = [];
+  {
+    const r = rng(311);
+    for (let i = 0; i < DROPS; i++) {
+      const side = i % 2 ? 1 : -1;
+      dropData.push({
+        // sol taraftakiler pakete yakın kalır (yazıların üstüne gelmesin), sağdakiler açılır
+        x: side > 0 ? 0.62 + r() * 0.9 : -(0.58 + r() * 0.22), y: (r() - 0.5) * 1.6, z: -0.5 + r() * 1.1,
+        size: 0.014 + r() * 0.03, ph: r() * 6.28, sp: 0.4 + r() * 0.6,
+      });
+    }
+  }
+  let dropW = 0;
+  const dropCol = new THREE.Color();
+  const dm4 = new THREE.Matrix4(), dq = new THREE.Quaternion(), dv = new THREE.Vector3(), ds = new THREE.Vector3();
 
   // meyve bulutları: markanın afişlerinden kesilmiş gerçek meyve görselleri
   const COUNT = 16;
@@ -638,12 +685,14 @@ export function createScene(canvas, flavors, onProgress) {
       showFront(r < 0.5 ? i : i + 1);
       showBack(r > 0.02 ? i + 1 : i);
       flavor = r < 0.5 ? i : i + 1;
+      juiceA.copy(juiceCols[i]); juiceB.copy(juiceCols[i + 1]); juiceBlend = r;
       for (let c = 0; c < N; c++) {
         cloudTarget[c] = c === i ? 1 - smooth(0.22, 0.55, u) : c === i + 1 ? smooth(0.45, 0.8, u) : 0;
       }
     } else if (!insp.on) {
       for (let c = 0; c < N; c++) cloudTarget[c] = c === flavor ? 1 : 0;
     }
+    if (stream === null || insp.on) { juiceA.copy(juiceCols[flavor]); juiceB.copy(juiceA); juiceBlend = 0; }
 
     // inceleme modu
     insp.blend = damp(insp.blend, insp.on ? 1 : 0, 4, dt);
@@ -757,7 +806,37 @@ export function createScene(canvas, flavors, onProgress) {
     }
     key.color.setRGB(1 - state.frost * 0.15, 0.96 - state.frost * 0.04, 0.9 + state.frost * 0.1);
 
+    // meyve suyu damlaları: yalnızca ürün akışında ve incelemede
+    dropW = damp(dropW, (stream !== null || insp.on) ? Math.min(1, state.cloud * 1.2) : 0, 3, dt);
+    drops.visible = dropW > 0.01;
+    if (drops.visible) {
+      // ürün renginde, içten parlayan cam gibi damlalar
+      dropCol.copy(juiceA).lerp(juiceB, juiceBlend).multiplyScalar(1.3);
+      drops.material.color.copy(dropCol);
+      drops.material.emissive.copy(dropCol).multiplyScalar(0.35);
+      drops.material.opacity = 0.6 * dropW;
+      const sc = state.s * (insp.on ? 1.25 : 1);
+      dropData.forEach((d, i) => {
+        dv.set(
+          root.position.x + d.x * sc,
+          root.position.y + d.y * sc + (reduce ? 0 : Math.sin(t * d.sp + d.ph) * 0.06),
+          d.z + (insp.on ? -0.4 : 0)
+        );
+        const k = d.size * state.s * (0.5 + 0.5 * dropW);
+        ds.set(k, k * 1.08, k);
+        dm4.compose(dv, dq, ds);
+        drops.setMatrixAt(i, dm4);
+      });
+      drops.instanceMatrix.needsUpdate = true;
+    }
+
     renderer.render(scene, camera);
+
+    if (juice) {
+      dv.copy(root.position).project(camera);
+      const lo = insp.on ? 0 : 1 - juiceClip.bottom, hi = insp.on ? 1 : 1 - juiceClip.top;
+      juice.render({ a: juiceA, b: juiceB, blend: juiceBlend, cx: (dv.x + 1) / 2, cy: (dv.y + 1) / 2, clipLo: lo, clipHi: hi, time: t });
+    }
   }
   requestAnimationFrame(frame);
 
@@ -767,7 +846,9 @@ export function createScene(canvas, flavors, onProgress) {
     setPose,
     snapPose,
     setFan(v) { fanTarget = v; },
-    setActive(v) { active = v; },
+    setActive(v) { active = v; if (!v && juice) juice.hide(); },
+    // ürünler bölümünün ekrandaki üst/alt kenarı (ekran yüksekliğine oranla)
+    setJuiceClip(top, bottom) { juiceClip.top = top; juiceClip.bottom = bottom; },
     setStream(f) {
       if (f === null) { if (stream !== null) { spin = spinTarget = 0; } stream = null; return; }
       if (stream === null) streamNow = f;

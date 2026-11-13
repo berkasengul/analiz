@@ -89,7 +89,7 @@ function Lights({ mobile }) {
 }
 
 /* ---------------- kaide ---------------- */
-const PC = [1.85, -0.25]; // platform merkezi (x, z)
+const PC = [2.05, -0.25]; // platform merkezi (x, z)
 function Platform({ mobile }) {
   const pl = useMemo(() => marblePlinth({ R: 2.25, size: mobile ? 512 : 768 }), [mobile]);
   const topMap = useMemo(() => { const t = pl.map; t.repeat.set(1.3, 1.3); return t; }, [pl]);
@@ -111,10 +111,11 @@ function Platform({ mobile }) {
 
 /* ---------------- ürün paketleri ---------------- */
 const POUCHES = [
-  { id: 'seftali', x: 0.82, z: -0.85, ry: 0.36, s: 1.68 },
-  { id: 'hindistan-cevizi', x: 1.36, z: -0.4, ry: 0.22, s: 1.72 },
-  { id: 'ananas', x: 2.78, z: -0.62, ry: -0.38, s: 1.68 },
-  { id: 'cilek', x: 2.0, z: 0.12, ry: -0.06, s: 1.92 },
+  // arkadakiler merdiven gibi sola açılır: her paketin adının yarısı görünür
+  { id: 'seftali', x: 0.75, z: -0.88, ry: 0.28, s: 1.6 },
+  { id: 'hindistan-cevizi', x: 1.55, z: -0.38, ry: 0.2, s: 1.64 },
+  { id: 'ananas', x: 3.38, z: -0.6, ry: -0.32, s: 1.6 },
+  { id: 'cilek', x: 2.4, z: 0.15, ry: -0.06, s: 1.86 },
 ];
 // zemine temas gölgesi
 const blobTex = (() => {
@@ -184,31 +185,31 @@ function Pouches({ flavors, onReady }) {
 // Dengeli kompozisyon: kaidede sol ve sağ kümeler (öndeki çilek paketinin önü açık), üstte paketleri çevreleyen bir yay
 const FRUITS = [
   // kaidenin üstü: sol küme
-  { u: P('yaprak', 1), x: 0.2, z: 1.1, w: 0.8, rest: true, rx: -1.2, rz: 0.5 },
-  { u: P('cilek', 0), x: 0.72, z: 1.0, w: 0.64, rest: true, ry: 0.2, rz: 0.1 },
-  { u: P('cilek', 0), x: 0.3, z: 0.62, w: 0.56, rest: true, ry: 0.35, flip: true },
-  { u: P('hindistan-cevizi', 4), x: 1.02, z: 1.2, w: 0.36, rest: true },
-  { u: P('seftali', 2), x: -0.1, z: 1.05, w: 0.5, rest: true },
-  { u: P('cilek', 1), x: 0.48, z: 1.4, w: 0.42, rest: true, sink: 0.14 },
+  { u: P('yaprak', 1), x: 0.42, z: 1.1, w: 0.8, rest: true, rx: -1.2, rz: 0.5 },
+  { u: P('cilek', 0), x: 0.94, z: 1.0, w: 0.64, rest: true, ry: 0.2, rz: 0.1 },
+  { u: P('cilek', 0), x: 0.52, z: 0.62, w: 0.56, rest: true, ry: 0.35, flip: true },
+  { u: P('hindistan-cevizi', 4), x: 1.24, z: 1.2, w: 0.36, rest: true },
+  { u: P('seftali', 2), x: 0.12, z: 1.05, w: 0.5, rest: true },
+  { u: P('cilek', 1), x: 0.7, z: 1.4, w: 0.42, rest: true, sink: 0.14 },
   // kaidenin üstü: sağ küme
-  { u: P('ananas', 2), x: 3.35, z: 0.55, w: 0.82, rest: true, ry: -0.35 },
-  { u: P('hindistan-cevizi', 1), x: 3.05, z: 1.18, w: 0.3, rest: true },
-  { u: P('cilek', 0), x: 3.55, z: -0.05, w: 0.48, rest: true, ry: -0.45, flip: true },
-  { u: P('yaprak', 2), x: 3.6, z: 0.95, w: 0.6, rest: true, rx: -1.25, rz: -0.6 },
+  { u: P('ananas', 2), x: 3.78, z: 0.6, w: 0.82, rest: true, ry: -0.35 },
+  { u: P('hindistan-cevizi', 1), x: 3.5, z: 1.25, w: 0.3, rest: true },
+  { u: P('cilek', 0), x: 3.77, z: -0.05, w: 0.48, rest: true, ry: -0.45, flip: true },
+  { u: P('yaprak', 2), x: 3.82, z: 0.95, w: 0.6, rest: true, rx: -1.25, rz: -0.6 },
   // paketlerin çevresinde yay biçiminde süzülenler (farklı hızlarda döner)
-  { u: P('cilek', 0), x: 1.25, y: 1.42, z: -0.3, w: 0.58, spin: 0.3 },
-  { u: P('seftali', 3), x: 0.66, y: 1.05, z: 0.2, w: 0.5, spin: 0.5 },
-  { u: P('hindistan-cevizi', 2), x: 0.3, y: 0.75, z: 0.95, w: 0.3, spin: -0.45 },
-  { u: P('ananas', 1), x: 3.15, y: 1.38, z: -0.4, w: 0.52, spin: 0.22 },
-  { u: P('cilek', 0), x: 3.4, y: 1.05, z: 0.25, w: 0.54, spin: -0.3 },
-  { u: P('seftali', 1), x: 3.35, y: 0.55, z: 0.95, w: 0.45, spin: 0.55 },
-  { u: P('ananas', 0), x: 3.75, y: 1.25, z: -0.9, w: 0.42, spin: -0.25 },
-  { u: P('hindistan-cevizi', 1), x: 2.45, y: 1.62, z: -1.0, w: 0.26, spin: 0.7 },
-  { u: P('yaprak', 0), x: 1.95, y: 1.7, z: -1.2, w: 0.42, spin: 0.2 },
+  { u: P('cilek', 0), x: 1.47, y: 1.42, z: -0.3, w: 0.58, spin: 0.3 },
+  { u: P('seftali', 3), x: 0.88, y: 1.05, z: 0.2, w: 0.5, spin: 0.5 },
+  { u: P('hindistan-cevizi', 2), x: 0.52, y: 0.75, z: 0.95, w: 0.3, spin: -0.45 },
+  { u: P('ananas', 1), x: 3.37, y: 1.38, z: -0.4, w: 0.52, spin: 0.22 },
+  { u: P('cilek', 0), x: 3.78, y: 1.0, z: 0.25, w: 0.54, spin: -0.3 },
+  { u: P('seftali', 1), x: 3.57, y: 0.55, z: 0.95, w: 0.45, spin: 0.55 },
+  { u: P('ananas', 0), x: 3.97, y: 1.25, z: -0.9, w: 0.42, spin: -0.25 },
+  { u: P('hindistan-cevizi', 1), x: 2.67, y: 1.62, z: -1.0, w: 0.26, spin: 0.7 },
+  { u: P('yaprak', 0), x: 2.17, y: 1.7, z: -1.2, w: 0.42, spin: 0.2 },
   // arka katman
-  { u: P('seftali', 1), x: 3.4, y: 1.7, z: -3.8, w: 0.5, spin: 0.2, far: true },
-  { u: P('cilek', 0), x: 0.9, y: 1.75, z: -4.0, w: 0.5, spin: -0.15, far: true },
-  { u: P('ananas', 3), x: 4.5, y: 0.6, z: -3.6, w: 0.5, spin: -0.2, far: true },
+  { u: P('seftali', 1), x: 3.62, y: 1.7, z: -3.8, w: 0.5, spin: 0.2, far: true },
+  { u: P('cilek', 0), x: 1.12, y: 1.75, z: -4.0, w: 0.5, spin: -0.15, far: true },
+  { u: P('ananas', 3), x: 4.72, y: 0.6, z: -3.6, w: 0.5, spin: -0.2, far: true },
 ];
 const DRIED = ['cilek-1', 'seftali-1', 'seftali-2', 'seftali-3', 'hindistan-cevizi'];
 // kameraya yakın, bulanık ön plan (kameraya göre konum)
@@ -330,9 +331,9 @@ function LightBurst({ mobile }) {
   const glowRef = useRef();
   const shafts = useRef([]);
   const SH = mobile ? [] : [
-    { x: 3.2, y: 2.6, z: -2.6, r: 0.62, w: 0.9, h: 8, o: 0.16 },
-    { x: 2.4, y: 2.8, z: -2.8, r: 0.5, w: 0.5, h: 8, o: 0.12 },
-    { x: 1.4, y: 3.0, z: -3.0, r: 0.36, w: 1.2, h: 9, o: 0.09 },
+    { x: 3.45, y: 2.6, z: -2.6, r: 0.62, w: 0.9, h: 8, o: 0.16 },
+    { x: 2.65, y: 2.8, z: -2.8, r: 0.5, w: 0.5, h: 8, o: 0.12 },
+    { x: 1.65, y: 3.0, z: -3.0, r: 0.36, w: 1.2, h: 9, o: 0.09 },
   ];
   useFrame((st) => {
     const t = st.clock.elapsedTime;
@@ -345,7 +346,7 @@ function LightBurst({ mobile }) {
   });
   return (
     <group>
-      <mesh ref={glowRef} position={[2.05, 0.75, -1.9]} renderOrder={-5}>
+      <mesh ref={glowRef} position={[2.3, 0.75, -1.9]} renderOrder={-5}>
         <planeGeometry args={[6.5, 6.5]} />
         <meshBasicMaterial map={glow} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} opacity={0} />
       </mesh>

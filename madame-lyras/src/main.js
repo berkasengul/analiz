@@ -146,7 +146,7 @@ function webglOK() {
 }
 if (webglOK()) {
   const sceneReady = import('./scene.js').then(({ createScene }) => {
-    scene = createScene($('#gl'), FLAVORS, (p) => { bar.style.transform = `scaleX(${p * 0.6})`; });
+    scene = createScene($('#gl'), FLAVORS, (p) => { bar.style.transform = `scaleX(${p * 0.6})`; }, $('#juice'));
     return scene.ready.then(() => { lastKey = ''; update(true); });
   });
   // açılış sahnesi: React Three Fiber + GSAP (yalnızca hero alanı)
@@ -216,6 +216,7 @@ function update(force) {
 
   // ürün akışı
   const pr = productsEl.getBoundingClientRect();
+  if (scene) scene.setJuiceClip(pr.top / vh, pr.bottom / vh);
   const inProducts = pr.top <= mid && pr.bottom > mid;
   if (inProducts) {
     const total = productsEl.offsetHeight - vh;
