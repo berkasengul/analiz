@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { createHeroStage, surfY } from './heroStage.js';
 
 const TAU = Math.PI * 2;
 const smooth = (a, b, x) => {
@@ -80,7 +79,7 @@ function pouchBottom(front, back, SX) {
 }
 
 // Arka etiket: ön dokunun renklerinden üretilir
-function makeBackTexture(img, flavor, logo) {
+export function makeBackTexture(img, flavor, logo) {
   const W = 1024, H = Math.round(1024 * (flavor.aspect || 1.153));
   const c = document.createElement('canvas');
   c.width = W; c.height = H;
@@ -158,7 +157,7 @@ function makeBackTexture(img, flavor, logo) {
   return tex;
 }
 
-function makePouch() {
+export function makePouch() {
   const w = 1, h = 1.153, depth = 0.2;
   const f = pouchSurface({ w, h, depth, side: 1 });
   const b = pouchSurface({ w, h, depth, side: -1 });
@@ -307,12 +306,8 @@ export function createScene(canvas, flavors, onProgress) {
   });
 
   // açılışta öndeki paketin arkasında sıralanan diğer paketler
-  const FAN = [
-    { i: flavors.findIndex((f) => f.id === 'ananas'), p: [-0.78, 0, -0.95], ry: 0.32, rz: 0.02, s: 0.98 },
-    { i: flavors.findIndex((f) => f.id === 'ahududu'), p: [-0.4, 0, -0.42], ry: 0.22, rz: 0.01, s: 0.95 },
-    { i: flavors.findIndex((f) => f.id === 'hindistan-cevizi'), p: [0.72, 0, -1.05], ry: -0.3, rz: -0.02, s: 0.95 },
-    { i: flavors.findIndex((f) => f.id === 'elma'), p: [0.42, 0, -0.55], ry: -0.22, rz: -0.01, s: 0.95 },
-  ].filter((f) => f.i >= 0);
+  // açılış sahnesi artık ayrı (R3F) tuvalde; burada paket dizisi yok
+  const FAN = [];
   const fan = FAN.map((cfg, n) => {
     const pk = makePouch();
     const holder = new THREE.Group();
@@ -322,8 +317,8 @@ export function createScene(canvas, flavors, onProgress) {
     const dir = new THREE.Vector3(cfg.p[0], cfg.p[1] + 0.4, 0).normalize();
     return { ...cfg, pk, holder, dir, phase: n * 1.7 };
   });
-  let fanTarget = 1, fanNow = 1;
-  const hero = createHeroStage({ scene, root, camera, spriteTex });
+  let fanTarget = 0, fanNow = 0;
+  let active = true;
 
   // soğuk süreç bölümü için kırağı parçacıkları
   const frostCount = 500;
@@ -390,7 +385,6 @@ export function createScene(canvas, flavors, onProgress) {
       f.pk.bottomMat.color.copy(new THREE.Color(flavors[f.i].bg).multiplyScalar(0.75));
       const asp = (flavors[f.i].aspect || 1.153) / 1.153;
       f.pk.group.scale.set(1 / Math.sqrt(asp), asp / Math.sqrt(asp), 1);
-      f.p[1] = surfY(f.p[2]) + 0.5765 * f.s * (asp / Math.sqrt(asp)) + 0.004;
     });
   });
 
@@ -542,7 +536,7 @@ export function createScene(canvas, flavors, onProgress) {
 
   function frame() {
     requestAnimationFrame(frame);
-    if (!visible) return;
+    if (!visible || (!active && !insp.on)) { clock.getDelta(); return; }
     const dt = Math.min(clock.getDelta(), 0.05);
     const t = clock.elapsedTime;
 
@@ -678,7 +672,6 @@ export function createScene(canvas, flavors, onProgress) {
       f.holder.scale.setScalar(f.s * (0.35 + 0.65 * v));
     });
 
-    hero.update(dt, t, fanNow, pointer, flavors[0].bg, reduce);
 
     // kırağı
     frostMat.opacity = state.frost * 0.9;
@@ -698,6 +691,7 @@ export function createScene(canvas, flavors, onProgress) {
     setFlavor,
     setPose,
     setFan(v) { fanTarget = v; },
+    setActive(v) { active = v; },
     setStream(f) {
       if (f === null) { if (stream !== null) { spin = spinTarget = 0; } stream = null; return; }
       if (stream === null) streamNow = f;

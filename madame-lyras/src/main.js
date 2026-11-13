@@ -29,6 +29,7 @@ $('#players').innerHTML = FLAVORS.map((f, i) => `
   </article>`).join('');
 const players = $$('.player');
 const productsEl = $('#urunler');
+const heroEl = $('#hero');
 productsEl.style.setProperty('--n', N);
 
 /* ---------- katalog ve afişler ---------- */
@@ -141,9 +142,18 @@ function webglOK() {
   } catch (e) { return false; }
 }
 if (webglOK()) {
-  import('./scene.js').then(({ createScene }) => {
-    scene = createScene($('#gl'), FLAVORS, (p) => { bar.style.transform = `scaleX(${p})`; });
-    scene.ready.then(() => { lastKey = ''; update(true); setTimeout(hideLoader, 250); });
+  const sceneReady = import('./scene.js').then(({ createScene }) => {
+    scene = createScene($('#gl'), FLAVORS, (p) => { bar.style.transform = `scaleX(${p * 0.6})`; });
+    return scene.ready.then(() => { lastKey = ''; update(true); });
+  });
+  // açılış sahnesi: React Three Fiber + GSAP (yalnızca hero alanı)
+  const heroReady = import('./hero/index.jsx').then(({ mountHero }) => {
+    const h = mountHero({ container: $('#heroGL'), heroEl: $('#hero'), flavors: FLAVORS });
+    return h.ready;
+  });
+  Promise.all([sceneReady, heroReady]).then(() => {
+    bar.style.transform = 'scaleX(1)';
+    setTimeout(hideLoader, 200);
   }).catch(() => { document.body.classList.add('no-gl'); hideLoader(); });
   setTimeout(hideLoader, 7000);
 } else {
@@ -230,6 +240,7 @@ function update(force) {
     });
     dots.forEach((d, k) => d.classList.toggle('on', k === currentProduct));
     if (scene) {
+      scene.setActive(true);
       scene.setStream(f);
       scene.setPose(pose('product'));
       scene.setFan(0);
@@ -243,18 +254,23 @@ function update(force) {
   bgEl.classList.remove('bg--live');
   streamF = null;
   if (scene) scene.setStream(null);
-  // açılış: öndeki paket kaydırdıkça aşağı süzülüp ilk ürünün yerine oturur, arkadakiler dağılır
+  // açılış ayrı bir 3B sahnede; hero ekranı kaplarken genel sahne çizilmez.
+  // Hero ekrandan çıkarken çilek paketi aşağıdan süzülüp ilk ürünün yerine oturur.
   const above = pr.top > mid;
-  if (scene && above) {
-    const end = productsEl.offsetTop - mid;
-    const h = clamp(y / Math.max(1, end), 0, 1);
-    const k = ease(smooth(0.08, 1, h));
-    const a = pose('hero'), b = pose('product');
-    const p = {};
-    for (const key in a) p[key] = a[key] + (b[key] - a[key]) * k;
-    scene.setPose(p);
-    scene.setFan(1 - smooth(0, 0.45, h));
-  } else if (scene) scene.setFan(0);
+  if (scene) {
+    scene.setFan(0);
+    if (above) {
+      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
+      const k = clamp((y + vh - heroBottom) / Math.max(1, productsEl.offsetTop - heroBottom + mid), 0, 1);
+      scene.setActive(k > 0);
+      const b = pose('product');
+      const a = { ...b, y: b.y - (scene.halfHeight() * 2.4), ry: b.ry - 0.9, cloud: 0 };
+      const e = ease(k);
+      const p = {};
+      for (const key in a) p[key] = a[key] + (b[key] - a[key]) * e;
+      scene.setPose(p);
+    } else scene.setActive(true);
+  }
   let active = sections[0];
   for (const s of sections) {
     const r = s.getBoundingClientRect();
@@ -275,6 +291,7 @@ function update(force) {
     scene.setFlavor(below ? N - 1 : 0);
     if (!above) scene.setPose(pose(stage));
   }
+  if (above) document.documentElement.dataset.ink = 'light';
 }
 window.addEventListener('scroll', () => { if (!lenis) update(false); }, { passive: true });
 window.addEventListener('resize', () => { lastKey = ''; update(true); if (inspecting && scene) scene.setPose(pose('inspect')); });
@@ -346,6 +363,7 @@ function openDetail(i) {
   if (!scene) { askAbout(i); return; }
   if (inspecting) { switchDetail(i); return; }
   inspecting = true;
+  scene.setActive(true);
   returnFocus = document.activeElement;
   closeMenu();
   lenis?.stop();
