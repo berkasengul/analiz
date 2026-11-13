@@ -1,0 +1,200 @@
+<title>BerkAİ Satış Paneli</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Düzen: üstte hat şeridi (aşama sayıları), altında süzgeç + firma listesi; her satır açılınca mail ve geçmiş. */
+:root {
+  --bg: #f3f4f1; --panel: #ffffff; --fg: #191c1a; --muted: #5d655f; --line: #dfe3de;
+  --accent: #0f6b5c; --accent-soft: #dcefe9; --warn: #a35a00; --warn-soft: #fbecd6;
+  --bad: #a2312b; --bad-soft: #f8dfdc; --good: #1f7a3a; --good-soft: #dcf1e2;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121513; --panel: #1a1e1b; --fg: #e8ece8; --muted: #9aa49c; --line: #2b322d;
+  --accent: #4fc3a8; --accent-soft: #163a32; --warn: #f0b05a; --warn-soft: #3a2a12;
+  --bad: #f08a80; --bad-soft: #3d1a17; --good: #7fd498; --good-soft: #17331f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121513; --panel: #1a1e1b; --fg: #e8ece8; --muted: #9aa49c; --line: #2b322d;
+  --accent: #4fc3a8; --accent-soft: #163a32; --warn: #f0b05a; --warn-soft: #3a2a12;
+  --bad: #f08a80; --bad-soft: #3d1a17; --good: #7fd498; --good-soft: #17331f; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--display);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px }
+.wrap { max-width: 1080px; margin: 0 auto; display: grid; gap: 20px }
+header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px }
+h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: -.02em; margin: 0; text-wrap: balance }
+.sub { color: var(--muted); font-size: 13px; margin-top: 4px }
+.mode { font: 500 12px var(--mono); padding: 6px 10px; border-radius: 6px; background: var(--warn-soft); color: var(--warn) }
+.mode.live { background: var(--good-soft); color: var(--good) }
+.pipe { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 10px; background: var(--panel); overflow: hidden }
+.stage { padding: 14px 12px; border-right: 1px solid var(--line); cursor: pointer; background: none; border-top: 0; border-bottom: 0; border-left: 0;
+  text-align: left; color: inherit; font: inherit; display: grid; gap: 2px }
+.stage:last-child { border-right: 0 }
+.stage:hover, .stage:focus-visible { background: var(--accent-soft); outline: none }
+.stage.on { box-shadow: inset 0 -3px 0 var(--accent) }
+.stage b { font: 600 26px/1.1 var(--mono); font-variant-numeric: tabular-nums }
+.stage span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 13px }
+.facts strong { color: var(--fg); font-family: var(--mono); font-weight: 500 }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+input[type=search] { flex: 1 1 220px; min-width: 0; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); font: inherit }
+.chip { font: 500 12px var(--mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); cursor: pointer }
+.chip.on { background: var(--fg); color: var(--bg); border-color: var(--fg) }
+.list { display: grid; gap: 8px }
+details { background: var(--panel); border: 1px solid var(--line); border-radius: 10px }
+summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px 16px }
+summary::-webkit-details-marker { display: none }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 10px }
+.name { font-weight: 600; font-size: 16px; min-width: 0 }
+.name small { display: block; font: 400 12px var(--mono); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.meta { font-size: 13px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.st { font: 500 12px var(--mono); padding: 4px 9px; border-radius: 6px; white-space: nowrap; background: var(--accent-soft); color: var(--accent) }
+.st.wait { background: var(--warn-soft); color: var(--warn) }
+.st.done { background: var(--good-soft); color: var(--good) }
+.st.out { background: var(--bad-soft); color: var(--bad) }
+.body { padding: 0 16px 16px; display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 14px }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px }
+.k { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 4px }
+.v { min-width: 0; overflow-wrap: anywhere }
+a { color: var(--accent) }
+.mail { white-space: pre-wrap; font-size: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px; max-height: 320px; overflow: auto }
+.hist { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13px }
+.hist time { font-family: var(--mono); color: var(--muted); margin-right: 8px; font-size: 12px }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.btn { font: 500 13px var(--display); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); cursor: pointer }
+.btn:hover, .btn:focus-visible { border-color: var(--accent); outline: none }
+.btn.sel { background: var(--accent); color: var(--bg); border-color: var(--accent) }
+.note { font-size: 12px; color: var(--muted) }
+.empty { padding: 32px 20px; text-align: center; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 10px }
+@media (max-width: 760px) {
+  .pipe { grid-template-columns: repeat(4, minmax(0, 1fr)) }
+  .stage:nth-child(4) { border-right: 0 } .stage:nth-child(-n+4) { border-bottom: 1px solid var(--line) }
+  summary { grid-template-columns: minmax(0, 1fr) auto } .meta { display: none }
+  .row2 { grid-template-columns: 1fr }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>BerkAİ Satış Paneli</h1>
+      <div class="sub" id="sub">Ekipler her gün yeni firmaları bulur, demo siteyi üretir ve maili gönderir.</div>
+    </div>
+    <div class="mode" id="mode">Bağlanıyor…</div>
+  </header>
+
+  <nav class="pipe" id="pipe" aria-label="Aşamalar"></nav>
+  <div class="facts" id="facts"></div>
+
+  <div class="tools">
+    <input type="search" id="q" placeholder="Firma, sektör ya da e-posta ara" aria-label="Ara">
+    <button class="chip" id="showOut" type="button">Elenenleri göster</button>
+  </div>
+
+  <div class="list" id="list"><div class="empty">Firma listesi yükleniyor.</div></div>
+</div>
+
+<script>
+const STAGES = [
+  ["aday", "Aday"], ["site", "Site hazır"], ["yayinda", "Yayında"], ["mail_hazir", "Mail hazır"],
+  ["gonderildi", "Gönderildi"], ["takip_gonderildi", "Takip"], ["cevap", "Cevap"]
+];
+const LABEL = { aday: "aday", cekildi: "ürünler çekildi", site_hazir: "site hazır", yayinda: "yayında", mail_hazir: "mail hazır",
+  gonderildi: "mail gönderildi", takip_gonderildi: "takip gönderildi", cevap_geldi: "cevap geldi", ilgilenmiyor: "ilgilenmiyor",
+  elendi: "elendi", cikti: "çıkış istedi", soguk: "soğuk" };
+const MARKS = [["cevap_geldi", "Cevap geldi"], ["ilgilenmiyor", "İlgilenmiyor"], ["cikti", "Çıkış istedi"]];
+const stageOf = d => d === "cekildi" || d === "site_hazir" ? "site" : d === "cevap_geldi" ? "cevap" : d;
+const tone = d => ["cevap_geldi"].includes(d) ? "done" : ["elendi", "cikti", "ilgilenmiyor", "soguk"].includes(d) ? "out"
+  : ["aday", "cekildi", "site_hazir"].includes(d) ? "wait" : "";
+
+let firms = [], marks = {}, summary = null, db = null, filter = null, showOut = false, open = new Set();
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = t => { try { return new Date(t).toLocaleString("tr-TR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }) } catch { return t } };
+
+function render() {
+  const counts = Object.fromEntries(STAGES.map(([k]) => [k, 0]));
+  firms.forEach(f => { const s = stageOf(f.durum); if (s in counts) counts[s]++ });
+  $("pipe").innerHTML = STAGES.map(([k, l]) =>
+    `<button type="button" class="stage${filter === k ? " on" : ""}" data-k="${k}"><b>${counts[k]}</b><span>${l}</span></button>`).join("");
+  const out = firms.filter(f => tone(f.durum) === "out").length;
+  const today = new Date().toISOString().slice(0, 10);
+  const sentToday = firms.reduce((n, f) => n + (f.gonderimler || []).filter(g => !g.kuru && (g.t || "").startsWith(today)).length, 0);
+  const ay = summary?.ayar || {};
+  $("facts").innerHTML = [
+    `Toplam firma <strong>${firms.length}</strong>`,
+    `Bugün gönderilen <strong>${sentToday}${ay.gunluk_limit ? " / " + ay.gunluk_limit : ""}</strong>`,
+    `Elenen <strong>${out}</strong>`,
+    summary?.guncellendi ? `Son güncelleme <strong>${esc(fmt(summary.guncellendi))}</strong>` : ""
+  ].filter(Boolean).join("");
+  const m = $("mode");
+  if (summary) { m.textContent = ay.kuru ? "Kuru mod: mail gönderilmiyor" : "Canlı: mailler gidiyor"; m.className = "mode" + (ay.kuru ? "" : " live") }
+  $("showOut").classList.toggle("on", showOut);
+
+  const q = $("q").value.trim().toLocaleLowerCase("tr");
+  const rows = firms
+    .filter(f => showOut || tone(f.durum) !== "out" || filter)
+    .filter(f => !filter || stageOf(f.durum) === filter)
+    .filter(f => !q || [f.ad, f.site, f.sektor, f.email, f.sehir].join(" ").toLocaleLowerCase("tr").includes(q))
+    .sort((a, b) => String(b.eklendi || "").localeCompare(String(a.eklendi || "")));
+  if (!firms.length) { $("list").innerHTML = `<div class="empty">Henüz firma yok. Bulma ekibi ilk turunu bitirince firmalar burada görünür.</div>`; return }
+  if (!rows.length) { $("list").innerHTML = `<div class="empty">Bu süzgeçte firma yok.</div>`; return }
+  $("list").innerHTML = rows.map(f => {
+    const mk = marks[f.id];
+    const hist = (f.gecmis || []).slice().reverse().map(h => `<li><time>${esc(fmt(h.t))}</time>${esc(h.olay)}</li>`).join("");
+    return `<details data-id="${esc(f.id)}"${open.has(f.id) ? " open" : ""}>
+      <summary>
+        <div class="name">${esc(f.ad)}<small>${esc(f.site)}</small></div>
+        <div class="meta">${esc([f.sektor, f.sehir].filter(Boolean).join(" · "))}</div>
+        <span class="st ${tone(f.durum)}">${esc(LABEL[f.durum] || f.durum)}</span>
+      </summary>
+      <div class="body">
+        <div class="row2">
+          <div><div class="k">Demo</div><div class="v">${f.demo_url ? `<a href="${esc(f.demo_url)}" target="_blank" rel="noopener">${esc(f.demo_url)}</a>` : "Henüz yayında değil"}</div></div>
+          <div><div class="k">E-posta</div><div class="v">${esc(f.email || "yok")}${f.platform ? ` · ${esc(f.platform)}` : ""}</div></div>
+        </div>
+        ${f.neden ? `<div><div class="k">Neden bu firma</div><div class="v">${esc(f.neden)}</div></div>` : ""}
+        ${f.mail_konu ? `<div><div class="k">Mail · ${esc(f.mail_konu)}</div><div class="mail">${esc(f.mail_metin)}</div></div>` : ""}
+        ${hist ? `<div><div class="k">Geçmiş</div><ul class="hist">${hist}</ul></div>` : ""}
+        <div class="acts" role="group" aria-label="Firmayı işaretle">
+          ${MARKS.map(([k, l]) => `<button type="button" class="btn${mk?.durum === k ? " sel" : ""}" data-mark="${k}" data-id="${esc(f.id)}">${l}</button>`).join("")}
+          <span class="note">${mk ? `İşaretlendi: ${esc(LABEL[mk.durum])}. Ekip bir daha yazmaz.` : "Cevap gelirse işaretle; takip maili gitmez."}</span>
+        </div>
+      </div>
+    </details>`;
+  }).join("");
+}
+
+document.addEventListener("click", async e => {
+  const st = e.target.closest(".stage");
+  if (st) { filter = filter === st.dataset.k ? null : st.dataset.k; render(); return }
+  if (e.target.id === "showOut") { showOut = !showOut; render(); return }
+  const b = e.target.closest("[data-mark]");
+  if (b && db) {
+    const id = b.dataset.id, durum = b.dataset.mark;
+    b.disabled = true;
+    try {
+      if (marks[id]?.durum === durum) await db.collection("isaretler").doc(id).delete();
+      else await db.collection("isaretler").doc(id).set({ durum, t: new Date().toISOString() });
+    } catch (err) { b.nextElementSibling && (b.parentElement.querySelector(".note").textContent = "Kaydedilemedi: bu paneli düzenleme iznin olmayabilir.") }
+    b.disabled = false;
+  }
+});
+document.addEventListener("toggle", e => {
+  if (e.target.tagName === "DETAILS") e.target.open ? open.add(e.target.dataset.id) : open.delete(e.target.dataset.id);
+}, true);
+$("q").addEventListener("input", render);
+render();
+
+(async () => {
+  const timer = setTimeout(() => { if (!summary && !firms.length) $("mode").textContent = "Veri gelmedi" }, 10000);
+  db = await (window.claude?.use ? claude.use("db") : null);
+  if (!db) { clearTimeout(timer); $("mode").textContent = "Panel verisi bu görünümde açılmıyor"; $("list").innerHTML = `<div class="empty">Paneli claude.ai'de oturum açıkken aç.</div>`; return }
+  db.collection("firmalar").onSnapshot(s => { clearTimeout(timer); firms = s.docs.map(d => ({ id: d.id, ...d.data() })); render() },
+    () => { $("mode").textContent = "Veri okunamadı" });
+  db.collection("isaretler").onSnapshot(s => { marks = Object.fromEntries(s.docs.map(d => [d.id, d.data()])); render() });
+  db.doc("ozet/son").onSnapshot(s => { summary = s.exists ? s.data() : null; render() });
+})();
+</script>

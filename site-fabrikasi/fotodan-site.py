@@ -65,7 +65,8 @@ def shop_products(M, lang):
             "variants": [{"id": 5000 + k, "title": "Default Title", "price": f"{p.get('price', 0):.2f}",
                           "compare_at_price": None, "available": True, "sku": p["handle"]}],
             "images": [{"src": p["photo"], "position": 1}],
-            "permalink": wa_link(M["whatsapp"], msg) if M.get("whatsapp") else (M.get("website") or ""),
+            # Gerçek markada ürünün kendi mağaza sayfası (url); yoksa WhatsApp'a hazır mesaj.
+            "permalink": p.get("url") or (wa_link(M["whatsapp"], msg) if M.get("whatsapp") else (M.get("website") or "")),
         })
     return out
 
@@ -133,13 +134,28 @@ def brand_config(M):
                          "stats": [[str(len(M["products"])), w["en"]["many"].lower()], [M["size"], M["specs"]["en"].split("·")[0].strip()]]}}
     c["faqs"] = M["faqs"]
     # Arayüz yazıları: UnBe'ye özgü olanlar marka.json'a göre yeniden yazılır.
+    wa = bool(M.get("whatsapp")) and not any(p.get("url") for p in M["products"])
+    dom = re.sub(r"^https?://(www\.)?", "", M.get("website", "")).strip("/")
     for lang in ("tr", "en"):
         u, ww = c["ui"][lang], w[lang]
         tr = lang == "tr"
+        if wa:
+            order = {"contactTag": ("Sipariş ve sorularınız için WhatsApp'tan yazın." if tr else "Message us on WhatsApp for orders and questions."),
+                     "shopTag": order["shopTag"],
+                     "ships": ("WhatsApp'tan sipariş" if tr else "Order on WhatsApp"),
+                     "addToCart": ("WhatsApp'tan sipariş ver" if tr else "Order on WhatsApp"),
+                     "perk": ("WhatsApp'tan kolay sipariş" if tr else "Easy order on WhatsApp")}
+        else:  # gerçek marka: butonlar markanın kendi mağazasındaki ürün sayfasına gider
+            order = {"contactTag": ("Sorularınız için bize yazın." if tr else "Write to us with your questions."),
+                     "shopTag": (f"Seç, {dom} üzerinden satın al." if tr else f"Choose and buy on {dom}."),
+                     "ships": (f"{dom} üzerinden" if tr else f"Via {dom}"),
+                     "addToCart": ("Satın al" if tr else "Buy now"),
+                     "perk": (f"Sipariş: {dom}" if tr else f"Order at {dom}")}
+        perks = (M.get("perks") or {}).get(lang) or [M["specs"][lang], M["sub"], order["perk"]]
         u.update({
             "loading": M["sub"], "madeFor": (f"{name} için hazırlanmış konsept" if tr else f"Concept prepared for {name}"),
             "recyclable": M["specs"][lang], "founder": f"{name} · {M['city']}",
-            "contactTag": ("Sipariş ve sorularınız için WhatsApp'tan yazın." if tr else "Message us on WhatsApp for orders and questions."),
+            "contactTag": order["contactTag"],
             "newsTitle": ("Yeni ürünler önce burada." if tr else "New products, first here."),
             "marquee": M["marquee"][lang], "slogan": M["tagline"][lang],
             "nav": {"flavors": ww["many"], "catalog": ("Tüm ürünler" if tr else "All products"), "categories": ww["many"],
@@ -151,18 +167,20 @@ def brand_config(M):
             "prevFlavor": ("Önceki" if tr else "Previous"), "nextFlavor": ("Sonraki" if tr else "Next"),
             "backToFlavor": ("Ürün bilgisine dön" if tr else "Back to product"), "exploreCan": ("Ürünü keşfet · {0} hikâye" if tr else "Explore · {0} stories"),
             "shopTitle": (f"{ww['one']} seç" if tr else f"Choose your {ww['one'].lower()}"),
-            "shopTag": ("Seç, WhatsApp'tan sipariş ver." if tr else "Choose and order on WhatsApp."),
+            "shopTag": order["shopTag"],
             "flavor": ww["one"], "packPerCan": f"{name} · {{0}}", "caffeine": "",
-            "perks": [M["specs"][lang], ("Atölyeden, küçük partiler" if tr else "Small batches from the atelier"), ("WhatsApp'tan kolay sipariş" if tr else "Easy order on WhatsApp")],
+            "perks": perks,
             "related": ("Diğer ürünler" if tr else "Other products"), "buildBox": ("Ürünleri keşfet" if tr else "Explore the products"),
             "allTag": (f"{{0}} {ww['one'].lower()}." if tr else f"{{0}} {ww['many'].lower()}."),
-            "ships": ("WhatsApp'tan sipariş" if tr else "Order on WhatsApp"), "addToCart": ("WhatsApp'tan sipariş ver" if tr else "Order on WhatsApp"),
+            "ships": order["ships"], "addToCart": order["addToCart"],
             "added": ("Açılıyor" if tr else "Opening"),
         })
         if ww.get("action"):
             u["spray"] = ww["action"]
-    c["contactInfo"] = {"tr": [["WhatsApp", [f"+{M['whatsapp']}"]]] + ([["Instagram", [M["instagram"]]]] if M.get("instagram") else []),
-                        "en": [["WhatsApp", [f"+{M['whatsapp']}"]]] + ([["Instagram", [M["instagram"]]]] if M.get("instagram") else [])}
+    ci = ([["WhatsApp", [f"+{M['whatsapp']}"]]] if M.get("whatsapp") else []) + \
+         ([["E-posta", [M["email"]]]] if M.get("email") else []) + \
+         ([["Instagram", [M["instagram"]]]] if M.get("instagram") else []) + ([["Web", [dom]]] if dom else [])
+    c["contactInfo"] = {"tr": ci, "en": [[("E-mail" if k == "E-posta" else k), v] for k, v in ci]}
     href, serif, sans = FONTS.get(M.get("fonts", "classic"), FONTS["classic"])
     c["theme"].update({"accent": M["accent"], "plinthColor": M.get("plinth", "#f3ece2"),
                        "fonts": {"href": href, "display": serif, "serif": serif, "sans": sans}})

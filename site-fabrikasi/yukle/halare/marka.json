@@ -1,0 +1,299 @@
+{
+  "slug": "halare",
+  "name": "Halare Aromatherapy",
+  "wordmark": "HALARE",
+  "sub": "Aromatherapy",
+  "city": "Bodrum",
+  "whatsapp": "",
+  "email": "info@halarearomatherapy.com",
+  "instagram": "",
+  "website": "https://halarearomatherapy.com",
+  "kind": "kolonya",
+  "size": "100 ml",
+  "specs": {
+    "tr": "Kolonya & çiçek suyu · 100 ml",
+    "en": "Cologne & floral water · 100 ml"
+  },
+  "accent": "#7a4a2e",
+  "plinth": "#efe4d6",
+  "fonts": "classic",
+  "depthRatio": 0.9,
+  "tagline": {
+    "tr": "Senin notan, senin ritmin.",
+    "en": "Your note, your rhythm."
+  },
+  "marquee": {
+    "tr": [
+      "Halare",
+      "Lavanta",
+      "Mandalina",
+      "Gül suyu",
+      "Papatya suyu",
+      "80° kolonya",
+      "Bodrum"
+    ],
+    "en": [
+      "Halare",
+      "Lavender",
+      "Mandarin",
+      "Rose water",
+      "Chamomile water",
+      "80° cologne",
+      "Bodrum"
+    ]
+  },
+  "words": {
+    "tr": {
+      "one": "Ürün",
+      "many": "Kolonya ve Çiçek Suları",
+      "family": "Tür",
+      "notes": "İçerik",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "action": "Spreyi sık"
+    },
+    "en": {
+      "one": "Product",
+      "many": "Colognes & Floral Waters",
+      "family": "Type",
+      "notes": "Contents",
+      "drag": "Drag to turn the bottle",
+      "action": "Spray it"
+    }
+  },
+  "perks": {
+    "tr": [
+      "Uçucu yağlarla hazırlanan kolonyalar",
+      "Su buharı distilasyonuyla çiçek suları",
+      "Sipariş: halarearomatherapy.com"
+    ],
+    "en": [
+      "Colognes made with essential oils",
+      "Floral waters by steam distillation",
+      "Order at halarearomatherapy.com"
+    ]
+  },
+  "products": [
+    {
+      "handle": "lavanta-kolonyasi-333",
+      "photo": "lavanta-kolonyasi-333.webp",
+      "url": "https://halarearomatherapy.com/lavanta-kolonyasi-333",
+      "name": [
+        "Lavanta Kolonyası",
+        "Lavender Cologne"
+      ],
+      "color": "#7472c4",
+      "family": [
+        "Kolonya · 80°",
+        "Cologne · 80°"
+      ],
+      "tagline": [
+        "Lavantanın çiçeksi ferahlığı.",
+        "The floral freshness of lavender."
+      ],
+      "desc": [
+        "Lavanta uçucu yağının çiçeksi ve karakteristik aromasıyla hazırlanan 80 derece kolonya. Ellere ferahlık ve hoş bir koku.",
+        "An 80-degree cologne made with the floral, characteristic aroma of lavender essential oil. Freshness and a pleasant scent for the hands."
+      ],
+      "notes": [
+        [
+          "Lavanta uçucu yağı",
+          "Lavender essential oil"
+        ]
+      ],
+      "price": 0
+    },
+    {
+      "handle": "mandalina-kolonyasi-334",
+      "photo": "mandalina-kolonyasi-334.webp",
+      "url": "https://halarearomatherapy.com/mandalina-kolonyasi-334",
+      "name": [
+        "Mandalina Kolonyası",
+        "Mandarin Cologne"
+      ],
+      "color": "#e2a447",
+      "family": [
+        "Kolonya · 80°",
+        "Cologne · 80°"
+      ],
+      "tagline": [
+        "Taze ve narenciyeli.",
+        "Fresh and citrusy."
+      ],
+      "desc": [
+        "Mandalina uçucu yağının taze ve narenciyeli aromasıyla hazırlanan 80 derece kolonya.",
+        "An 80-degree cologne made with the fresh, citrusy aroma of mandarin essential oil."
+      ],
+      "notes": [
+        [
+          "Mandalina uçucu yağı",
+          "Mandarin essential oil"
+        ]
+      ],
+      "price": 0
+    },
+    {
+      "handle": "gul-suyu-335",
+      "photo": "gul-suyu-335.webp",
+      "url": "https://halarearomatherapy.com/gul-suyu-335",
+      "name": [
+        "Gül Suyu",
+        "Rose Water"
+      ],
+      "color": "#e07a93",
+      "family": [
+        "Hidrosol · Yüz ve vücut",
+        "Hydrosol · Face and body"
+      ],
+      "tagline": [
+        "Cilde ferahlık, gün boyu.",
+        "Freshness for the skin, all day."
+      ],
+      "desc": [
+        "Su buharı distilasyonuyla elde edilen saf gül suyu. Tüm cilt tiplerinin günlük bakımında tonik olarak kullanılabilir.",
+        "Pure rose water obtained by steam distillation. Can be used as a toner in the daily care of all skin types."
+      ],
+      "notes": [
+        [
+          "Gül hidrosolü",
+          "Rose hydrosol"
+        ]
+      ],
+      "price": 0
+    },
+    {
+      "handle": "papatya-suyu-336",
+      "photo": "papatya-suyu-336.webp",
+      "url": "https://halarearomatherapy.com/papatya-suyu-336",
+      "name": [
+        "Papatya Suyu",
+        "Chamomile Water"
+      ],
+      "color": "#e3c94f",
+      "family": [
+        "Hidrosol · Yüz, vücut, saç",
+        "Hydrosol · Face, body, hair"
+      ],
+      "tagline": [
+        "Hafif ve bitkisel.",
+        "Light and herbal."
+      ],
+      "desc": [
+        "Su buharı distilasyonuyla elde edilen papatya suyu. Yüz, vücut ve saç bakımında; durulama gerektirmez.",
+        "Chamomile water obtained by steam distillation. For face, body and hair care; no rinsing needed."
+      ],
+      "notes": [
+        [
+          "Papatya hidrosolü",
+          "Chamomile hydrosol"
+        ]
+      ],
+      "price": 0
+    }
+  ],
+  "features": [
+    {
+      "tr": [
+        "Kolonya",
+        "Sıradan bir kolonya",
+        "80 derece, uçucu yağla",
+        "Lavanta ve mandalina kolonyaları, uçucu yağların kendi aromasıyla hazırlanır."
+      ],
+      "en": [
+        "Cologne",
+        "An ordinary cologne",
+        "80 degrees, with essential oil",
+        "Lavender and mandarin colognes are made with the essential oils' own aroma."
+      ]
+    },
+    {
+      "tr": [
+        "Çiçek suyu",
+        "Hazır bir tonik",
+        "Su buharı distilasyonu",
+        "Gül ve papatya suları su buharı distilasyonu sırasında elde edilir."
+      ],
+      "en": [
+        "Floral water",
+        "An off-the-shelf toner",
+        "Steam distillation",
+        "Rose and chamomile waters are obtained during steam distillation."
+      ]
+    },
+    {
+      "tr": [
+        "Kullanım",
+        "Tek bir kullanım",
+        "Yüz, vücut ve saç",
+        "Çiçek suları yüze, vücuda ve saça; kolonyalar ellere ferahlık için."
+      ],
+      "en": [
+        "Use",
+        "A single use",
+        "Face, body and hair",
+        "Floral waters for face, body and hair; colognes for fresh hands."
+      ]
+    },
+    {
+      "tr": [
+        "Bodrum",
+        "Uzak bir fabrika",
+        "Bodrum'dan",
+        "Halare, aromaterapi ve doğal bakım ürünlerini Bodrum'dan hazırlıyor."
+      ],
+      "en": [
+        "Bodrum",
+        "A distant factory",
+        "From Bodrum",
+        "Halare makes its aromatherapy and natural care products in Bodrum."
+      ]
+    }
+  ],
+  "story": {
+    "tr": {
+      "lead": "Halare Aromatherapy, Bodrum'dan aromaterapi, cilt bakımı ve doğal koku ürünleri hazırlayan bir marka.",
+      "paragraphs": [
+        "Uçucu yağlar, hidrosoller, kolonyalar, mumlar ve tütsüler: hepsi aynı aromaterapi anlayışından.",
+        "Bu sayfa markanın kolonya ve çiçek sularından dördünü 3B vitrinde gösteriyor."
+      ]
+    },
+    "en": {
+      "lead": "Halare Aromatherapy is a Bodrum brand making aromatherapy, skincare and natural scent products.",
+      "paragraphs": [
+        "Essential oils, hydrosols, colognes, candles and incense: all from the same aromatherapy approach.",
+        "This page shows four of the brand's colognes and floral waters in a 3D showcase."
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Kolonyalar kaç derece?",
+        "Lavanta ve mandalina kolonyaları 80 derecedir."
+      ],
+      [
+        "Çiçek suları nasıl kullanılır?",
+        "Temiz cilde püskürtülür ya da pamukla uygulanır; tonik olarak kullanılabilir."
+      ],
+      [
+        "Nasıl sipariş verebilirim?",
+        "Ürün sayfasındaki 'Satın al' butonu sizi halarearomatherapy.com'daki ürüne götürür."
+      ]
+    ],
+    "en": [
+      [
+        "What degree are the colognes?",
+        "The lavender and mandarin colognes are 80 degrees."
+      ],
+      [
+        "How are the floral waters used?",
+        "Spray onto clean skin or apply with a cotton pad; can be used as a toner."
+      ],
+      [
+        "How can I order?",
+        "The 'Buy now' button takes you to the product on halarearomatherapy.com."
+      ]
+    ]
+  },
+  "fictional": false,
+  "spray": true
+}

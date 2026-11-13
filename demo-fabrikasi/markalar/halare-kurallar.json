@@ -1,0 +1,208 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.55,
+  "backSolid": "."
+ },
+ "aktar": {
+  "domain": "wa.me",
+  "platform": "merx",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "100 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "lavanta-kolonyasi-333",
+   "mandalina-kolonyasi-334",
+   "gul-suyu-335",
+   "papatya-suyu-336"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.9
+  },
+  "rename": {
+   "lavanta-kolonyasi-333": [
+    "LAVANTA KOLONYASI",
+    "LAVENDER COLOGNE"
+   ],
+   "mandalina-kolonyasi-334": [
+    "MANDALİNA KOLONYASI",
+    "MANDARIN COLOGNE"
+   ],
+   "gul-suyu-335": [
+    "GÜL SUYU",
+    "ROSE WATER"
+   ],
+   "papatya-suyu-336": [
+    "PAPATYA SUYU",
+    "CHAMOMILE WATER"
+   ]
+  },
+  "categories": [
+   {
+    "id": "hepsi",
+    "tr": "Kolonya ve Çiçek Suları",
+    "en": "Colognes & Floral Waters",
+    "color": "#7a4a2e",
+    "descTr": "Lavanta Kolonyası · Mandalina Kolonyası · Gül Suyu · Papatya Suyu",
+    "descEn": "Lavender Cologne · Mandarin Cologne · Rose Water · Chamomile Water",
+    "match": "."
+   }
+  ],
+  "families": {
+   "lavanta-kolonyasi-333": [
+    "Kolonya · 80°",
+    "Cologne · 80°"
+   ],
+   "mandalina-kolonyasi-334": [
+    "Kolonya · 80°",
+    "Cologne · 80°"
+   ],
+   "gul-suyu-335": [
+    "Hidrosol · Yüz ve vücut",
+    "Hydrosol · Face and body"
+   ],
+   "papatya-suyu-336": [
+    "Hidrosol · Yüz, vücut, saç",
+    "Hydrosol · Face, body, hair"
+   ]
+  },
+  "notes": [
+   [
+    "^lavanta\\-kolonyasi\\-333$",
+    [
+     [
+      "Lavanta uçucu yağı",
+      "Lavender essential oil"
+     ]
+    ]
+   ],
+   [
+    "^mandalina\\-kolonyasi\\-334$",
+    [
+     [
+      "Mandalina uçucu yağı",
+      "Mandarin essential oil"
+     ]
+    ]
+   ],
+   [
+    "^gul\\-suyu\\-335$",
+    [
+     [
+      "Gül hidrosolü",
+      "Rose hydrosol"
+     ]
+    ]
+   ],
+   [
+    "^papatya\\-suyu\\-336$",
+    [
+     [
+      "Papatya hidrosolü",
+      "Chamomile hydrosol"
+     ]
+    ]
+   ]
+  ],
+  "taglines": {
+   "lavanta-kolonyasi-333": [
+    "Lavantanın çiçeksi ferahlığı.",
+    "The floral freshness of lavender."
+   ],
+   "mandalina-kolonyasi-334": [
+    "Taze ve narenciyeli.",
+    "Fresh and citrusy."
+   ],
+   "gul-suyu-335": [
+    "Cilde ferahlık, gün boyu.",
+    "Freshness for the skin, all day."
+   ],
+   "papatya-suyu-336": [
+    "Hafif ve bitkisel.",
+    "Light and herbal."
+   ]
+  },
+  "palette": [
+   [
+    "^lavanta\\-kolonyasi\\-333$",
+    "#7472c4",
+    "#7a4a2e"
+   ],
+   [
+    "^mandalina\\-kolonyasi\\-334$",
+    "#e2a447",
+    "#7a4a2e"
+   ],
+   [
+    "^gul\\-suyu\\-335$",
+    "#e07a93",
+    "#7a4a2e"
+   ],
+   [
+    "^papatya\\-suyu\\-336$",
+    "#e3c94f",
+    "#7a4a2e"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "lavanta-kolonyasi-333",
+    "tr": {
+     "title": "Lavantanın çiçeksi ferahlığı.",
+     "text": "Lavanta uçucu yağının çiçeksi ve karakteristik aromasıyla hazırlanan 80 derece kolonya. Ellere ferahlık ve hoş bir koku.",
+     "stat": "Kolonya · 80°"
+    },
+    "en": {
+     "title": "The floral freshness of lavender.",
+     "text": "An 80-degree cologne made with the floral, characteristic aroma of lavender essential oil. Freshness and a pleasant scent for the hands.",
+     "stat": "Cologne · 80°"
+    }
+   },
+   {
+    "handle": "mandalina-kolonyasi-334",
+    "tr": {
+     "title": "Taze ve narenciyeli.",
+     "text": "Mandalina uçucu yağının taze ve narenciyeli aromasıyla hazırlanan 80 derece kolonya.",
+     "stat": "Kolonya · 80°"
+    },
+    "en": {
+     "title": "Fresh and citrusy.",
+     "text": "An 80-degree cologne made with the fresh, citrusy aroma of mandarin essential oil.",
+     "stat": "Cologne · 80°"
+    }
+   },
+   {
+    "handle": "gul-suyu-335",
+    "tr": {
+     "title": "Cilde ferahlık, gün boyu.",
+     "text": "Su buharı distilasyonuyla elde edilen saf gül suyu. Tüm cilt tiplerinin günlük bakımında tonik olarak kullanılabilir.",
+     "stat": "Hidrosol · Yüz ve vücut"
+    },
+    "en": {
+     "title": "Freshness for the skin, all day.",
+     "text": "Pure rose water obtained by steam distillation. Can be used as a toner in the daily care of all skin types.",
+     "stat": "Hydrosol · Face and body"
+    }
+   },
+   {
+    "handle": "papatya-suyu-336",
+    "tr": {
+     "title": "Hafif ve bitkisel.",
+     "text": "Su buharı distilasyonuyla elde edilen papatya suyu. Yüz, vücut ve saç bakımında; durulama gerektirmez.",
+     "stat": "Hidrosol · Yüz, vücut, saç"
+    },
+    "en": {
+     "title": "Light and herbal.",
+     "text": "Chamomile water obtained by steam distillation. For face, body and hair care; no rinsing needed.",
+     "stat": "Hydrosol · Face, body, hair"
+    }
+   }
+  ]
+ }
+}

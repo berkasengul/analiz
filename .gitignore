@@ -4,3 +4,10 @@ site-fabrikasi/cikti/
 hope-demo/node_modules/
 hope-demo/dist/
 demo-fabrikasi/markalar/*-shopify/images/
+
+# Gerçek markaların ürün fotoğrafları depoya girmez (mağazadan yeniden çekilir)
+site-fabrikasi/yukle/*/*.webp
+site-fabrikasi/yukle/*/*.jpg
+!site-fabrikasi/yukle/mavikoy/*
+demo-fabrikasi/markalar/halare-foto/
+demo-fabrikasi/markalar/halare-shopify/

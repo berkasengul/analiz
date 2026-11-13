@@ -1,0 +1,12 @@
+{
+ "kuru": true,
+ "gonderen": "BerkAİ Studio <demo@ALAN-ADI.com>",
+ "cevap_adresi": "CEVAP@ALAN-ADI.com",
+ "imza": ["Berka", "BerkAİ Studio · 3B marka siteleri"],
+ "cikis_notu": "Bu tür mesajları almak istemezseniz bu maile \"çıkış\" yazmanız yeterli; bir daha yazmam.",
+ "gunluk_limit": 15,
+ "takip_gun": 5,
+ "saat": [10, 17],
+ "sektorler": ["parfüm", "kolonya", "kokulu mum", "oda kokusu", "doğal sabun", "cilt bakımı", "kahve", "çay", "zeytinyağı", "bal"],
+ "gunluk_yeni_firma": 5
+}

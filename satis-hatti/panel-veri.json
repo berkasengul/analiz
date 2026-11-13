@@ -1,0 +1,104 @@
+{
+ "guncellendi": "2026-11-13T11:27+03:00",
+ "ayar": {
+  "kuru": true,
+  "gunluk_limit": 15,
+  "takip_gun": 5
+ },
+ "firmalar": [
+  {
+   "id": "ceremony",
+   "ad": "Ceremony",
+   "site": "ceremony.com.tr",
+   "sektor": "parfüm/kolonya",
+   "sehir": "",
+   "email": "",
+   "instagram": "@ceremonyinbloom",
+   "platform": "shopify",
+   "durum": "elendi",
+   "demo_url": "",
+   "neden": "Kendi Shopify mağazası olan koku markası; kolonya serisi",
+   "eklendi": "2026-11-13T11:16+03:00",
+   "mail_konu": "",
+   "mail_metin": "",
+   "gonderimler": [],
+   "gecmis": [
+    {
+     "t": "2026-11-13T11:16+03:00",
+     "olay": "aday olarak eklendi"
+    },
+    {
+     "t": "2026-11-13T11:16+03:00",
+     "olay": "kontrol: platform=shopify · e-posta=yok · sitede: -"
+    },
+    {
+     "t": "2026-11-13T11:16+03:00",
+     "olay": "sitede e-posta yok → elendi"
+    },
+    {
+     "t": "2026-11-13T11:17+03:00",
+     "olay": "elle: e-posta taraması yenilendi"
+    },
+    {
+     "t": "2026-11-13T11:17+03:00",
+     "olay": "kontrol: platform=shopify · e-posta=yok · sitede: -"
+    },
+    {
+     "t": "2026-11-13T11:17+03:00",
+     "olay": "sitede e-posta yok → elendi"
+    }
+   ]
+  },
+  {
+   "id": "halare",
+   "ad": "Halare",
+   "site": "halarearomatherapy.com",
+   "sektor": "kokulu mum / aromaterapi",
+   "sehir": "",
+   "email": "info@halarearomatherapy.com",
+   "instagram": "@halarearomatherapy",
+   "platform": "ikas",
+   "durum": "site_hazir",
+   "demo_url": "",
+   "neden": "Kendi ikas mağazası olan aromaterapi mum markası",
+   "eklendi": "2026-11-13T11:16+03:00",
+   "mail_konu": "Halare'nin kolonya ve çiçek suları için 3B vitrin",
+   "mail_metin": "Merhaba,\n\nHalare'nin lavanta ve mandalina kolonyalarıyla gül ve papatya sularını 3B bir vitrine taşıdım, canlı olarak buradan bakabilirsiniz: {demo}\n\nKısaca:\n\n- Şişeleriniz kendi etiket renklerinde bir sahnede kaideye iniyor; parmakla çevrilebiliyor.\n- \"Spreyi sık\" butonuyla sprey başlığından buğu çıkıyor, ürünün içeriği beliriyor.\n- Metinler sitenizdeki ürün açıklamalarından; \"Satın al\" butonu her ürünün halarearomatherapy.com'daki sayfasına gidiyor, mevcut mağazanız değişmiyor.\n\nMumlarınız, yağlarınız ve tütsüleriniz de aynı vitrine eklenebilir. İlginizi çekerse 10 dakikalık bir görüntülü görüşmede gösterebilirim.\n\nBu link yalnızca size özel, arama motorlarına kapalı.",
+   "gonderimler": [],
+   "gecmis": [
+    {
+     "t": "2026-11-13T11:17+03:00",
+     "olay": "kontrol: platform=ikas · e-posta=info@halarearomatherapy.com · sitede: info@halarearomatherapy.com, info@roomandroomies.com"
+    },
+    {
+     "t": "2026-11-13T11:18+03:00",
+     "olay": "4 ürün çekildi → site-fabrikasi/yukle/halare/taslak.json"
+    },
+    {
+     "t": "2026-11-13T11:18+03:00",
+     "olay": "elle: görsel düzeltmesi"
+    },
+    {
+     "t": "2026-11-13T11:18+03:00",
+     "olay": "4 ürün çekildi → site-fabrikasi/yukle/halare/taslak.json"
+    },
+    {
+     "t": "2026-11-13T11:21+03:00",
+     "olay": "site üretildi"
+    },
+    {
+     "t": "2026-11-13T11:23+03:00",
+     "olay": "4 ürün çekildi → site-fabrikasi/yukle/halare/taslak.json"
+    },
+    {
+     "t": "2026-11-13T11:25+03:00",
+     "olay": "site üretildi"
+    },
+    {
+     "t": "2026-11-13T11:25+03:00",
+     "olay": "mail taslağı kaydedildi (yayından sonra gönderime hazır olur): Halare'nin kolonya ve çiçek suları için 3B vitrin"
+    }
+   ]
+  }
+ ]
+}

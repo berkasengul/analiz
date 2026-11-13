@@ -1,0 +1,1155 @@
+{
+  "slug": "halare",
+  "meta": {
+    "title": "Halare Aromatherapy · 3B Konsept Demo",
+    "description": "Halare Aromatherapy için 3B konsept demo.",
+    "og": "Halare Aromatherapy: Your note, your rhythm."
+  },
+  "brand": {
+    "name": "Halare Aromatherapy",
+    "sub": "Aromatherapy",
+    "specs": "Kolonya & çiçek suyu · 100 ml",
+    "disclaimer": "Bu sayfa Halare Aromatherapy için hazırlanmış bağımsız bir konsept demodur ve marka sahibiyle bağlantılı değildir.",
+    "en": {
+      "sub": "Aromatherapy",
+      "specs": "Cologne & floral water · 100 ml",
+      "disclaimer": "This page is an independent concept demo prepared for Halare Aromatherapy and is not affiliated with the brand owner."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "HALARE",
+    "submark": "AROMATHERAPY",
+    "concentration": "COLOGNE & FLORAL WATER",
+    "volume": "100 ml"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "Kolonya & çiçek suyu · 100 ml",
+    "en": "Cologne & floral water · 100 ml"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Kolonya",
+        "kicker": "01",
+        "struck": "Sıradan bir kolonya",
+        "title": "80 derece, uçucu yağla",
+        "text": "Lavanta ve mandalina kolonyaları, uçucu yağların kendi aromasıyla hazırlanır."
+      },
+      "en": {
+        "short": "Cologne",
+        "kicker": "01",
+        "struck": "An ordinary cologne",
+        "title": "80 degrees, with essential oil",
+        "text": "Lavender and mandarin colognes are made with the essential oils' own aroma."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "Çiçek suyu",
+        "kicker": "02",
+        "struck": "Hazır bir tonik",
+        "title": "Su buharı distilasyonu",
+        "text": "Gül ve papatya suları su buharı distilasyonu sırasında elde edilir."
+      },
+      "en": {
+        "short": "Floral water",
+        "kicker": "02",
+        "struck": "An off-the-shelf toner",
+        "title": "Steam distillation",
+        "text": "Rose and chamomile waters are obtained during steam distillation."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Kullanım",
+        "kicker": "03",
+        "struck": "Tek bir kullanım",
+        "title": "Yüz, vücut ve saç",
+        "text": "Çiçek suları yüze, vücuda ve saça; kolonyalar ellere ferahlık için."
+      },
+      "en": {
+        "short": "Use",
+        "kicker": "03",
+        "struck": "A single use",
+        "title": "Face, body and hair",
+        "text": "Floral waters for face, body and hair; colognes for fresh hands."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Bodrum",
+        "kicker": "04",
+        "struck": "Uzak bir fabrika",
+        "title": "Bodrum'dan",
+        "text": "Halare, aromaterapi ve doğal bakım ürünlerini Bodrum'dan hazırlıyor."
+      },
+      "en": {
+        "short": "Bodrum",
+        "kicker": "04",
+        "struck": "A distant factory",
+        "title": "From Bodrum",
+        "text": "Halare makes its aromatherapy and natural care products in Bodrum."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "100 ml",
+        "en": "100 ml"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 0
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "TRY",
+      "locale": "en-US",
+      "packs": {
+        "1": 0
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "Halare Aromatherapy · Bodrum",
+    "instagram": "",
+    "website": "https://halarearomatherapy.com",
+    "press": [],
+    "tr": {
+      "lead": "Halare Aromatherapy, Bodrum'dan aromaterapi, cilt bakımı ve doğal koku ürünleri hazırlayan bir marka.",
+      "paragraphs": [
+        "Uçucu yağlar, hidrosoller, kolonyalar, mumlar ve tütsüler: hepsi aynı aromaterapi anlayışından.",
+        "Bu sayfa markanın kolonya ve çiçek sularından dördünü 3B vitrinde gösteriyor."
+      ],
+      "timeline": [
+        [
+          "Lavanta Kolonyası",
+          "Kolonya · 80°"
+        ],
+        [
+          "Mandalina Kolonyası",
+          "Kolonya · 80°"
+        ],
+        [
+          "Gül Suyu",
+          "Hidrosol · Yüz ve vücut"
+        ],
+        [
+          "Papatya Suyu",
+          "Hidrosol · Yüz, vücut, saç"
+        ]
+      ],
+      "stats": [
+        [
+          "4",
+          "ürün"
+        ],
+        [
+          "100 ml",
+          "Kolonya & çiçek suyu"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Halare Aromatherapy is a Bodrum brand making aromatherapy, skincare and natural scent products.",
+      "paragraphs": [
+        "Essential oils, hydrosols, colognes, candles and incense: all from the same aromatherapy approach.",
+        "This page shows four of the brand's colognes and floral waters in a 3D showcase."
+      ],
+      "timeline": [
+        [
+          "Lavender Cologne",
+          "Cologne · 80°"
+        ],
+        [
+          "Mandarin Cologne",
+          "Cologne · 80°"
+        ],
+        [
+          "Rose Water",
+          "Hydrosol · Face and body"
+        ],
+        [
+          "Chamomile Water",
+          "Hydrosol · Face, body, hair"
+        ]
+      ],
+      "stats": [
+        [
+          "4",
+          "colognes & floral waters"
+        ],
+        [
+          "100 ml",
+          "Cologne & floral water"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Kolonyalar kaç derece?",
+        "Lavanta ve mandalina kolonyaları 80 derecedir."
+      ],
+      [
+        "Çiçek suları nasıl kullanılır?",
+        "Temiz cilde püskürtülür ya da pamukla uygulanır; tonik olarak kullanılabilir."
+      ],
+      [
+        "Nasıl sipariş verebilirim?",
+        "Ürün sayfasındaki 'Satın al' butonu sizi halarearomatherapy.com'daki ürüne götürür."
+      ]
+    ],
+    "en": [
+      [
+        "What degree are the colognes?",
+        "The lavender and mandarin colognes are 80 degrees."
+      ],
+      [
+        "How are the floral waters used?",
+        "Spray onto clean skin or apply with a cotton pad; can be used as a toner."
+      ],
+      [
+        "How can I order?",
+        "The 'Buy now' button takes you to the product on halarearomatherapy.com."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Aromatherapy",
+      "madeFor": "Halare Aromatherapy için hazırlanmış konsept",
+      "recyclable": "Kolonya & çiçek suyu · 100 ml",
+      "founder": "Halare Aromatherapy · Bodrum",
+      "contactTag": "Sorularınız için bize yazın.",
+      "newsTitle": "Yeni ürünler önce burada.",
+      "marquee": [
+        "Halare",
+        "Lavanta",
+        "Mandalina",
+        "Gül suyu",
+        "Papatya suyu",
+        "80° kolonya",
+        "Bodrum"
+      ],
+      "slogan": "Senin notan, senin ritmin.",
+      "nav": {
+        "flavors": "Kolonya ve Çiçek Suları",
+        "catalog": "Tüm ürünler",
+        "categories": "Kolonya ve Çiçek Suları",
+        "products": "Kolonya ve Çiçek Suları",
+        "sets": "Kolonya ve Çiçek Suları",
+        "about": "Halare Aromatherapy hakkında",
+        "contact": "İletişim"
+      },
+      "flavors": "Kolonya ve Çiçek Suları",
+      "notes": "İçerik",
+      "discover": "{0} ürününü keşfet",
+      "discoverCan": "Ürünü keşfet",
+      "backToFlavors": "Kolonya ve Çiçek Suları sayfasına dön",
+      "prevFlavor": "Önceki",
+      "nextFlavor": "Sonraki",
+      "backToFlavor": "Ürün bilgisine dön",
+      "exploreCan": "Ürünü keşfet · {0} hikâye",
+      "whatsInside": "İçerik",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Ürün seç",
+      "shopTag": "Seç, halarearomatherapy.com üzerinden satın al.",
+      "flavor": "Ürün",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "Halare Aromatherapy · {0}",
+      "family": "Tür",
+      "caffeine": "",
+      "perks": [
+        "Uçucu yağlarla hazırlanan kolonyalar",
+        "Su buharı distilasyonuyla çiçek suları",
+        "Sipariş: halarearomatherapy.com"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Seçenek",
+      "related": "Diğer ürünler",
+      "buildBox": "Ürünleri keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} ürün.",
+      "year": "Çıkış",
+      "composition": "Nota piramidi",
+      "ships": "halarearomatherapy.com üzerinden",
+      "place": "Nokta",
+      "spot": "Adres",
+      "status": "İletişim",
+      "addToCart": "Satın al",
+      "added": "Açılıyor",
+      "spray": "Spreyi sık"
+    },
+    "en": {
+      "loading": "Aromatherapy",
+      "madeFor": "Concept prepared for Halare Aromatherapy",
+      "recyclable": "Cologne & floral water · 100 ml",
+      "founder": "Halare Aromatherapy · Bodrum",
+      "contactTag": "Write to us with your questions.",
+      "newsTitle": "New products, first here.",
+      "marquee": [
+        "Halare",
+        "Lavender",
+        "Mandarin",
+        "Rose water",
+        "Chamomile water",
+        "80° cologne",
+        "Bodrum"
+      ],
+      "slogan": "Your note, your rhythm.",
+      "nav": {
+        "flavors": "Colognes & Floral Waters",
+        "catalog": "All products",
+        "categories": "Colognes & Floral Waters",
+        "products": "Colognes & Floral Waters",
+        "sets": "Colognes & Floral Waters",
+        "about": "About Halare Aromatherapy",
+        "contact": "Contact"
+      },
+      "flavors": "Colognes & Floral Waters",
+      "notes": "Contents",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover",
+      "backToFlavors": "Back to colognes & floral waters",
+      "prevFlavor": "Previous",
+      "nextFlavor": "Next",
+      "backToFlavor": "Back to product",
+      "exploreCan": "Explore · {0} stories",
+      "whatsInside": "Contents",
+      "drag": "Drag to turn the bottle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your product",
+      "shopTag": "Choose and buy on halarearomatherapy.com.",
+      "flavor": "Product",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "Halare Aromatherapy · {0}",
+      "family": "Type",
+      "caffeine": "",
+      "perks": [
+        "Colognes made with essential oils",
+        "Floral waters by steam distillation",
+        "Order at halarearomatherapy.com"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Option",
+      "related": "Other products",
+      "buildBox": "Explore the products",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} colognes & floral waters.",
+      "year": "Launched",
+      "composition": "Fragrance pyramid",
+      "ships": "Via halarearomatherapy.com",
+      "place": "Location",
+      "spot": "Address",
+      "status": "Contact",
+      "addToCart": "Buy now",
+      "added": "Opening",
+      "spray": "Spray it"
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "bottle"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "bottle",
+  "logo": "brand/logo-cream.png",
+  "labelFinish": {
+    "metalness": 0.1,
+    "roughness": 0.18,
+    "clearcoat": 1,
+    "clearcoatRoughness": 0.08,
+    "envMapIntensity": 1.1
+  },
+  "fillLight": "#ffe6c4",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "ikas": "https://wa.me"
+  },
+  "latinTerms": "Halare\\ Aromatherapy|HALARE|Lavender\\ Cologne|Mandarin\\ Cologne|Rose\\ Water|Chamomile\\ Water",
+  "glass": false,
+  "spray": true,
+  "photoUnlit": 0.55,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#7a4a2e",
+    "particles": "dust",
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300..500&display=swap&subset=latin-ext",
+      "display": "\"Cormorant Garamond\", Georgia, serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "dolly",
+    "cards": "gallery",
+    "fresh": true,
+    "plinthColor": "#efe4d6",
+    "paging": true,
+    "pageDuration": 1.4,
+    "epilogue": false,
+    "productScale": 1.0,
+    "pyramid": true
+  },
+  "defaultLang": "tr",
+  "hide": [
+    "stockists"
+  ],
+  "contactInfo": {
+    "tr": [
+      [
+        "E-posta",
+        [
+          "info@halarearomatherapy.com"
+        ]
+      ],
+      [
+        "Web",
+        [
+          "halarearomatherapy.com"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "E-mail",
+        [
+          "info@halarearomatherapy.com"
+        ]
+      ],
+      [
+        "Web",
+        [
+          "halarearomatherapy.com"
+        ]
+      ]
+    ]
+  },
+  "stockists": {
+    "tr": [],
+    "en": []
+  },
+  "finder": {},
+  "catalog": {
+    "categories": [
+      {
+        "id": "hepsi",
+        "name": {
+          "tr": "Kolonya ve Çiçek Suları",
+          "en": "Colognes & Floral Waters"
+        },
+        "color": "#7a4a2e",
+        "desc": {
+          "tr": "Lavanta Kolonyası · Mandalina Kolonyası · Gül Suyu · Papatya Suyu",
+          "en": "Lavender Cologne · Mandarin Cologne · Rose Water · Chamomile Water"
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "lavanta-kolonyasi-333",
+        "handle": "lavanta-kolonyasi-333",
+        "name": {
+          "tr": "LAVANTA KOLONYASI",
+          "en": "LAVENDER COLOGNE"
+        },
+        "category": "hepsi",
+        "size": "100 ml",
+        "price": {
+          "tr": 0.0,
+          "en": 0.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Lavanta uçucu yağının çiçeksi ve karakteristik aromasıyla hazırlanan 80 derece kolonya. Ellere ferahlık ve hoş bir koku.",
+          "en": "An 80-degree cologne made with the floral, characteristic aroma of lavender essential oil."
+        },
+        "color": "#868cb9",
+        "product": 0,
+        "image": "cut/lavanta-kolonyasi-333.webp",
+        "cutout": true,
+        "bg": "#7472c4",
+        "bg2": "#7a4a2e",
+        "variants": [
+          {
+            "id": 5000
+          }
+        ],
+        "url": "https://halarearomatherapy.com/lavanta-kolonyasi-333"
+      },
+      {
+        "id": "mandalina-kolonyasi-334",
+        "handle": "mandalina-kolonyasi-334",
+        "name": {
+          "tr": "MANDALİNA KOLONYASI",
+          "en": "MANDARIN COLOGNE"
+        },
+        "category": "hepsi",
+        "size": "100 ml",
+        "price": {
+          "tr": 0.0,
+          "en": 0.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Mandalina uçucu yağının taze ve narenciyeli aromasıyla hazırlanan 80 derece kolonya.",
+          "en": "An 80-degree cologne made with the fresh, citrusy aroma of mandarin essential oil."
+        },
+        "color": "#e8d9b9",
+        "product": 1,
+        "image": "cut/mandalina-kolonyasi-334.webp",
+        "cutout": true,
+        "bg": "#e2a447",
+        "bg2": "#7a4a2e",
+        "variants": [
+          {
+            "id": 5001
+          }
+        ],
+        "url": "https://halarearomatherapy.com/mandalina-kolonyasi-334"
+      },
+      {
+        "id": "gul-suyu-335",
+        "handle": "gul-suyu-335",
+        "name": {
+          "tr": "GÜL SUYU",
+          "en": "ROSE WATER"
+        },
+        "category": "hepsi",
+        "size": "100 ml",
+        "price": {
+          "tr": 0.0,
+          "en": 0.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Su buharı distilasyonuyla elde edilen saf gül suyu. Tüm cilt tiplerinin günlük bakımında tonik olarak kullanılabilir.",
+          "en": "Pure rose water obtained by steam distillation. Can be used as a toner in the daily care of all skin types."
+        },
+        "color": "#e38d90",
+        "product": 2,
+        "image": "cut/gul-suyu-335.webp",
+        "cutout": true,
+        "bg": "#e07a93",
+        "bg2": "#7a4a2e",
+        "variants": [
+          {
+            "id": 5002
+          }
+        ],
+        "url": "https://halarearomatherapy.com/gul-suyu-335"
+      },
+      {
+        "id": "papatya-suyu-336",
+        "handle": "papatya-suyu-336",
+        "name": {
+          "tr": "PAPATYA SUYU",
+          "en": "CHAMOMILE WATER"
+        },
+        "category": "hepsi",
+        "size": "100 ml",
+        "price": {
+          "tr": 0.0,
+          "en": 0.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Su buharı distilasyonuyla elde edilen papatya suyu. Yüz, vücut ve saç bakımında; durulama gerektirmez.",
+          "en": "Chamomile water obtained by steam distillation. For face, body and hair care; no rinsing needed."
+        },
+        "color": "#e8d282",
+        "product": 3,
+        "image": "cut/papatya-suyu-336.webp",
+        "cutout": true,
+        "bg": "#e3c94f",
+        "bg2": "#7a4a2e",
+        "variants": [
+          {
+            "id": 5003
+          }
+        ],
+        "url": "https://halarearomatherapy.com/papatya-suyu-336"
+      }
+    ]
+  },
+  "products": [
+    {
+      "name": "LAVANTA KOLONYASI",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Kolonya · 80°",
+      "year": null,
+      "perfumer": null,
+      "color": "#868cb9",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#7472c4",
+        "edge": "#050404",
+        "drop": "#7a4a2e",
+        "accent": "#7a4a2e",
+        "mood": "warm"
+      },
+      "tagline": "Lavantanın çiçeksi ferahlığı.",
+      "notes": [
+        "Lavanta uçucu yağı"
+      ],
+      "description": "Lavanta uçucu yağının çiçeksi ve karakteristik aromasıyla hazırlanan 80 derece kolonya. Ellere ferahlık ve hoş bir koku.",
+      "file": "lavanta-kolonyasi-333.webp",
+      "handle": "lavanta-kolonyasi-333",
+      "en": {
+        "name": "LAVENDER COLOGNE",
+        "family": "Cologne · 80°",
+        "tagline": "The floral freshness of lavender.",
+        "notes": [
+          "Lavender essential oil"
+        ],
+        "description": "An 80-degree cologne made with the floral, characteristic aroma of lavender essential oil. Freshness and a pleasant scent for the hands.",
+        "sub": "100 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2896,
+        "depthRatio": 0.9,
+        "axis": 0.4992,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0547, 0.057, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0609, 0.0641, 0.0813, 0.0992, 0.1039, 0.107, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.107, 0.107, 0.107, 0.107, 0.107, 0.107, 0.107, 0.1062, 0.1062, 0.1062, 0.107, 0.107, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.5547, 0.0328],
+            [0.5281, 0.0312],
+            [0.5266, 0.0297],
+            [0.5156, 0.0297],
+            [0.5141, 0.0312],
+            [0.4844, 0.0312],
+            [0.4828, 0.0328],
+            [0.4766, 0.0328],
+            [0.475, 0.0312],
+            [0.4562, 0.0312],
+            [0.4422, 0.0359],
+            [0.4422, 0.0406],
+            [0.4406, 0.0422],
+            [0.4406, 0.1938],
+            [0.4391, 0.1953],
+            [0.4391, 0.2734],
+            [0.4375, 0.275],
+            [0.4391, 0.2766],
+            [0.4375, 0.2781],
+            [0.4375, 0.2828],
+            [0.4344, 0.2859],
+            [0.425, 0.2859],
+            [0.4234, 0.2875],
+            [0.4094, 0.2891],
+            [0.3984, 0.2938],
+            [0.3922, 0.3],
+            [0.3891, 0.3109],
+            [0.3906, 0.3141],
+            [0.3906, 0.3203],
+            [0.3891, 0.3219],
+            [0.3891, 0.3703],
+            [0.3906, 0.3719],
+            [0.3922, 0.4406],
+            [0.3937, 0.4422],
+            [0.3937, 0.5453],
+            [0.3922, 0.5469],
+            [0.3937, 0.9688],
+            [0.6031, 0.9688],
+            [0.6047, 0.9672],
+            [0.6047, 0.4625],
+            [0.6062, 0.4609],
+            [0.6062, 0.4062],
+            [0.6047, 0.4047],
+            [0.6047, 0.3937],
+            [0.6062, 0.3922],
+            [0.6078, 0.3031],
+            [0.6062, 0.3],
+            [0.5969, 0.2922],
+            [0.5656, 0.2859],
+            [0.5609, 0.2766],
+            [0.5594, 0.0391]
+          ]
+        ],
+        "edge": "#8e97d2"
+      },
+      "price": {
+        "tr": 0.0,
+        "en": 0.0
+      },
+      "photos": [
+        "foto/lavanta-kolonyasi-333/1.webp"
+      ]
+    },
+    {
+      "name": "MANDALİNA KOLONYASI",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Kolonya · 80°",
+      "year": null,
+      "perfumer": null,
+      "color": "#e8d9b9",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#e2a447",
+        "edge": "#050404",
+        "drop": "#7a4a2e",
+        "accent": "#7a4a2e",
+        "mood": "warm"
+      },
+      "tagline": "Taze ve narenciyeli.",
+      "notes": [
+        "Mandalina uçucu yağı"
+      ],
+      "description": "Mandalina uçucu yağının taze ve narenciyeli aromasıyla hazırlanan 80 derece kolonya.",
+      "file": "mandalina-kolonyasi-334.webp",
+      "handle": "mandalina-kolonyasi-334",
+      "en": {
+        "name": "MANDARIN COLOGNE",
+        "family": "Cologne · 80°",
+        "tagline": "Fresh and citrusy.",
+        "notes": [
+          "Mandarin essential oil"
+        ],
+        "description": "An 80-degree cologne made with the fresh, citrusy aroma of mandarin essential oil.",
+        "sub": "100 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2562,
+        "depthRatio": 0.9,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0469, 0.0484, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.0492, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0508, 0.0516, 0.0516, 0.0516, 0.0539, 0.0766, 0.0859, 0.0898, 0.0922, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.093, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0922, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0914, 0.0906, 0.0906, 0.0906, 0.0906, 0.0906, 0.0906, 0.0906, 0.0898, 0.0898, 0.0898, 0.0898, 0.0898, 0.0891, 0.0875, 0.0852, 0.082, 0.0773, 0.0719, 0.0633, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.5219, 0.0297],
+            [0.5141, 0.0297],
+            [0.5125, 0.0312],
+            [0.4859, 0.0312],
+            [0.4844, 0.0328],
+            [0.4813, 0.0312],
+            [0.4625, 0.0312],
+            [0.4609, 0.0328],
+            [0.4547, 0.0328],
+            [0.45, 0.0359],
+            [0.4484, 0.0406],
+            [0.4484, 0.1875],
+            [0.4469, 0.1891],
+            [0.4469, 0.2484],
+            [0.4422, 0.2531],
+            [0.425, 0.2547],
+            [0.4125, 0.2594],
+            [0.4062, 0.2656],
+            [0.4047, 0.2703],
+            [0.4047, 0.3516],
+            [0.4062, 0.3531],
+            [0.4062, 0.8844],
+            [0.4078, 0.8859],
+            [0.4078, 0.9359],
+            [0.4109, 0.9453],
+            [0.4188, 0.9547],
+            [0.4313, 0.9625],
+            [0.4406, 0.9641],
+            [0.4469, 0.9672],
+            [0.5578, 0.9672],
+            [0.575, 0.9578],
+            [0.5844, 0.9484],
+            [0.5891, 0.9375],
+            [0.5891, 0.9187],
+            [0.5906, 0.9172],
+            [0.5906, 0.375],
+            [0.5922, 0.3734],
+            [0.5922, 0.2969],
+            [0.5938, 0.2953],
+            [0.5938, 0.2672],
+            [0.5875, 0.2594],
+            [0.5797, 0.2562],
+            [0.5609, 0.2547],
+            [0.5578, 0.2531],
+            [0.5531, 0.2469],
+            [0.5516, 0.0359],
+            [0.5484, 0.0328],
+            [0.5234, 0.0312]
+          ]
+        ],
+        "edge": "#f3e6c9"
+      },
+      "price": {
+        "tr": 0.0,
+        "en": 0.0
+      },
+      "photos": [
+        "foto/mandalina-kolonyasi-334/1.webp"
+      ]
+    },
+    {
+      "name": "GÜL SUYU",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Hidrosol · Yüz ve vücut",
+      "year": null,
+      "perfumer": null,
+      "color": "#e38d90",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#e07a93",
+        "edge": "#050404",
+        "drop": "#7a4a2e",
+        "accent": "#7a4a2e",
+        "mood": "warm"
+      },
+      "tagline": "Cilde ferahlık, gün boyu.",
+      "notes": [
+        "Gül hidrosolü"
+      ],
+      "description": "Su buharı distilasyonuyla elde edilen saf gül suyu. Tüm cilt tiplerinin günlük bakımında tonik olarak kullanılabilir.",
+      "file": "gul-suyu-335.webp",
+      "handle": "gul-suyu-335",
+      "en": {
+        "name": "ROSE WATER",
+        "family": "Hydrosol · Face and body",
+        "tagline": "Freshness for the skin, all day.",
+        "notes": [
+          "Rose hydrosol"
+        ],
+        "description": "Pure rose water obtained by steam distillation. Can be used as a toner in the daily care of all skin types.",
+        "sub": "100 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2854,
+        "depthRatio": 0.9,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0547, 0.057, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0609, 0.0617, 0.068, 0.0859, 0.1008, 0.1047, 0.107, 0.1086, 0.1094, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.107, 0.107, 0.107, 0.1062, 0.1062, 0.1062, 0.1062, 0.1055, 0.1055, 0.1055, 0.1047, 0.1047, 0.1047, 0.1039, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1023, 0.1023, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1031, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1039, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.1047, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.5547, 0.0328],
+            [0.5297, 0.0312],
+            [0.5281, 0.0297],
+            [0.5156, 0.0297],
+            [0.5141, 0.0312],
+            [0.4562, 0.0312],
+            [0.4547, 0.0328],
+            [0.4484, 0.0328],
+            [0.4422, 0.0375],
+            [0.4422, 0.0953],
+            [0.4406, 0.0969],
+            [0.4406, 0.2437],
+            [0.4391, 0.2453],
+            [0.4391, 0.2797],
+            [0.4359, 0.2844],
+            [0.4141, 0.2875],
+            [0.3984, 0.2938],
+            [0.3906, 0.3047],
+            [0.3906, 0.3703],
+            [0.3922, 0.3719],
+            [0.3922, 0.3875],
+            [0.3937, 0.3891],
+            [0.3937, 0.4016],
+            [0.3953, 0.4031],
+            [0.3953, 0.5453],
+            [0.3937, 0.5469],
+            [0.3937, 0.8453],
+            [0.3953, 0.8469],
+            [0.3953, 0.9688],
+            [0.6047, 0.9688],
+            [0.6047, 0.6516],
+            [0.6031, 0.65],
+            [0.6031, 0.4672],
+            [0.6016, 0.4656],
+            [0.6016, 0.4562],
+            [0.6031, 0.4547],
+            [0.6031, 0.4109],
+            [0.6047, 0.4094],
+            [0.6047, 0.3859],
+            [0.6062, 0.3844],
+            [0.6078, 0.3109],
+            [0.6094, 0.3078],
+            [0.6078, 0.3063],
+            [0.6078, 0.3],
+            [0.6, 0.2922],
+            [0.5687, 0.2859],
+            [0.5625, 0.2781],
+            [0.5625, 0.25],
+            [0.5609, 0.2484],
+            [0.5594, 0.0359]
+          ]
+        ],
+        "edge": "#f195a4"
+      },
+      "price": {
+        "tr": 0.0,
+        "en": 0.0
+      },
+      "photos": [
+        "foto/gul-suyu-335/1.webp"
+      ]
+    },
+    {
+      "name": "PAPATYA SUYU",
+      "form": "photo",
+      "sub": "100 ml",
+      "collection": null,
+      "family": "Hidrosol · Yüz, vücut, saç",
+      "year": null,
+      "perfumer": null,
+      "color": "#e8d282",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#e3c94f",
+        "edge": "#050404",
+        "drop": "#7a4a2e",
+        "accent": "#7a4a2e",
+        "mood": "warm"
+      },
+      "tagline": "Hafif ve bitkisel.",
+      "notes": [
+        "Papatya hidrosolü"
+      ],
+      "description": "Su buharı distilasyonuyla elde edilen papatya suyu. Yüz, vücut ve saç bakımında; durulama gerektirmez.",
+      "file": "papatya-suyu-336.webp",
+      "handle": "papatya-suyu-336",
+      "en": {
+        "name": "CHAMOMILE WATER",
+        "family": "Hydrosol · Face, body, hair",
+        "tagline": "Light and herbal.",
+        "notes": [
+          "Chamomile hydrosol"
+        ],
+        "description": "Chamomile water obtained by steam distillation. For face, body and hair care; no rinsing needed.",
+        "sub": "100 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.2896,
+        "depthRatio": 0.9,
+        "axis": 0.5,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0547, 0.057, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0586, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0594, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0602, 0.0609, 0.0641, 0.0773, 0.1, 0.1039, 0.107, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1086, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.1078, 0.107, 0.107, 0.107, 0.107, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1062, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.1055, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.5547, 0.0328],
+            [0.5281, 0.0312],
+            [0.5266, 0.0297],
+            [0.5172, 0.0297],
+            [0.5156, 0.0312],
+            [0.4859, 0.0312],
+            [0.4844, 0.0328],
+            [0.4781, 0.0328],
+            [0.4766, 0.0312],
+            [0.4578, 0.0312],
+            [0.4437, 0.0359],
+            [0.4422, 0.0391],
+            [0.4422, 0.0984],
+            [0.4406, 0.1],
+            [0.4406, 0.2484],
+            [0.4391, 0.25],
+            [0.4391, 0.2828],
+            [0.4344, 0.2859],
+            [0.4062, 0.2906],
+            [0.3969, 0.2953],
+            [0.3906, 0.3063],
+            [0.3906, 0.3875],
+            [0.3922, 0.3891],
+            [0.3922, 0.4656],
+            [0.3937, 0.4672],
+            [0.3937, 0.9672],
+            [0.3953, 0.9688],
+            [0.6047, 0.9688],
+            [0.6047, 0.8656],
+            [0.6062, 0.8641],
+            [0.6062, 0.3688],
+            [0.6078, 0.3672],
+            [0.6078, 0.3109],
+            [0.6094, 0.3094],
+            [0.6078, 0.3078],
+            [0.6078, 0.3016],
+            [0.6016, 0.2938],
+            [0.5922, 0.2906],
+            [0.5828, 0.2906],
+            [0.5813, 0.2891],
+            [0.5687, 0.2875],
+            [0.5625, 0.2797],
+            [0.5625, 0.2594],
+            [0.5609, 0.2578],
+            [0.5609, 0.1],
+            [0.5594, 0.0984],
+            [0.5594, 0.0359]
+          ]
+        ],
+        "edge": "#f4e194"
+      },
+      "price": {
+        "tr": 0.0,
+        "en": 0.0
+      },
+      "photos": [
+        "foto/papatya-suyu-336/1.webp"
+      ]
+    }
+  ],
+  "home": [0, 1, 2, 3],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Lavantanın çiçeksi ferahlığı.",
+        "text": "Lavanta uçucu yağının çiçeksi ve karakteristik aromasıyla hazırlanan 80 derece kolonya. Ellere ferahlık ve hoş bir koku.",
+        "stat": "Kolonya · 80°"
+      },
+      "en": {
+        "title": "The floral freshness of lavender.",
+        "text": "An 80-degree cologne made with the floral, characteristic aroma of lavender essential oil. Freshness and a pleasant scent for the hands.",
+        "stat": "Cologne · 80°"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Taze ve narenciyeli.",
+        "text": "Mandalina uçucu yağının taze ve narenciyeli aromasıyla hazırlanan 80 derece kolonya.",
+        "stat": "Kolonya · 80°"
+      },
+      "en": {
+        "title": "Fresh and citrusy.",
+        "text": "An 80-degree cologne made with the fresh, citrusy aroma of mandarin essential oil.",
+        "stat": "Cologne · 80°"
+      }
+    },
+    {
+      "flavor": 2,
+      "tr": {
+        "title": "Cilde ferahlık, gün boyu.",
+        "text": "Su buharı distilasyonuyla elde edilen saf gül suyu. Tüm cilt tiplerinin günlük bakımında tonik olarak kullanılabilir.",
+        "stat": "Hidrosol · Yüz ve vücut"
+      },
+      "en": {
+        "title": "Freshness for the skin, all day.",
+        "text": "Pure rose water obtained by steam distillation. Can be used as a toner in the daily care of all skin types.",
+        "stat": "Hydrosol · Face and body"
+      }
+    },
+    {
+      "flavor": 3,
+      "tr": {
+        "title": "Hafif ve bitkisel.",
+        "text": "Su buharı distilasyonuyla elde edilen papatya suyu. Yüz, vücut ve saç bakımında; durulama gerektirmez.",
+        "stat": "Hidrosol · Yüz, vücut, saç"
+      },
+      "en": {
+        "title": "Light and herbal.",
+        "text": "Chamomile water obtained by steam distillation. For face, body and hair care; no rinsing needed.",
+        "stat": "Hydrosol · Face, body, hair"
+      }
+    }
+  ]
+}

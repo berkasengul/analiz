@@ -61,13 +61,16 @@ def main():
     tr, en, raw = [], [], []
     for n, url in enumerate(urls, 1):
         handle = url.rstrip("/").rsplit("/", 1)[-1]
-        d = next_data(get(url))
+        page = get(url)
+        d = next_data(page)
         p = (d or {}).get("props", {}).get("pageProps", {}).get("pageSpecificData")
         if not p or not p.get("variants"):
             print("  ! ürün verisi yok:", handle)
             continue
         # Görsel adresleri: cdn.myikas.com/images/<mağaza>/<görsel>/image_1080.webp
-        m = re.search(r"cdn\.myikas\.com/images/([0-9a-f-]{36})/", json.dumps(d))
+        # Mağaza kimliği bazı temalarda yalnızca sayfadaki <img> adreslerinde geçer.
+        m = re.search(r"cdn\.myikas\.com/images/([0-9a-f-]{36})/", json.dumps(d)) or \
+            re.search(r"cdn\.myikas\.com/images/([0-9a-f-]{36})/", page if isinstance(page, str) else page.decode("utf-8", "replace"))
         store = m.group(1) if m else None
         variants, images = [], []
         for v in p["variants"]:
