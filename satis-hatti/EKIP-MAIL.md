@@ -13,3 +13,12 @@ kayda geçirir (`gonderildi`, `takip_gonderildi`, `cevap_geldi`, `ilgilenmiyor`,
 
 Alan adı alınınca: `ayar.json`'da `"gonderim": "otomatik"`, `gonderen`, `cevap_adresi` doldurulur, `kuru: false`;
 `python3 satis-hatti/hat.py gonder` Resend ile kendisi gönderir.
+
+## Otomatik gönderim (Brevo, ücretsiz, alan adı gerekmez)
+
+`ayar.json`: `"gonderim": "brevo"`, `"gonderen": "BerkAİ Studio <ortak-gmail@gmail.com>"` (Brevo'da doğrulanmış
+gönderen), `"cevap_adresi"`: aynı Gmail, `"kuru": false`. Brevo anahtarı ortamın ağ gizli anahtarlarında
+(`api.brevo.com`, başlık `api-key`) ya da `BREVO_API_KEY` ortam değişkeninde.
+
+Mail ekibi turu: önce `PANEL.md`'deki işaret senkronu, sonra `python3 satis-hatti/hat.py gonder`, sonra panel güncellemesi,
+commit ve push. `gonderim` "elle" iken `gonder` çalışmaz; o zaman yalnızca senkron ve panel güncellemesi yapılır.

@@ -408,6 +408,22 @@ def resend(A, to, konu, metin):
         return json.loads(res.read()).get("id", "")
 
 
+def brevo(A, to, konu, metin):
+    """Brevo (ücretsiz plan, günde 300): gönderen ortak Gmail adresi (Brevo'da doğrulanmış olmalı)."""
+    name, email = re.match(r"\s*(.*?)\s*<([^>]+)>", A["gonderen"]).groups()
+    body = {"sender": {"name": name, "email": email}, "to": [{"email": to}], "subject": konu, "textContent": metin,
+            "htmlContent": "<div style=\"font-family:Arial,sans-serif;font-size:15px;line-height:1.55;color:#222\">" +
+                           re.sub(r"(https?://\S+)", r'<a href="\1">\1</a>', html.escape(metin)).replace("\n", "<br>") + "</div>",
+            "replyTo": {"email": A.get("cevap_adresi") or email},
+            "headers": {"List-Unsubscribe": f"<mailto:{A.get('cevap_adresi') or email}?subject=cikis>"}}
+    key = os.environ.get("BREVO_API_KEY", "proxy-injected")  # anahtar ortam değişkeninde ya da ağ vekilinde
+    req = urllib.request.Request("https://api.brevo.com/v3/smtp/email", data=json.dumps(body).encode(), method="POST",
+                                 headers={"api-key": key, "Content-Type": "application/json", "Accept": "application/json",
+                                          "User-Agent": "satis-hatti"})
+    with urllib.request.urlopen(req, timeout=60) as res:
+        return json.loads(res.read()).get("messageId", "")
+
+
 def gonder(kuru=False):
     rows, A = load(), ayar()
     if A.get("gonderim") == "elle":
@@ -438,7 +454,7 @@ def gonder(kuru=False):
             print(f"\n--- {r['email']} · {konu}\n{full}\n")
             r.setdefault("gonderimler", []).append({"t": now().isoformat(timespec="minutes"), "tur": tur, "kuru": True})
             continue
-        mid = resend(A, r["email"], konu, full)
+        mid = (brevo if A.get("gonderim") == "brevo" else resend)(A, r["email"], konu, full)
         r.setdefault("gonderimler", []).append({"t": now().isoformat(timespec="minutes"), "tur": tur, "id": mid})
         log(r, f"{tur} mail gönderildi → {r['email']}", "gonderildi" if tur == "ilk" else "takip_gonderildi")
     save(rows)
