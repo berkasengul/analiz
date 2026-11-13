@@ -9,7 +9,7 @@ Kayıtlar: satis-hatti/firmalar.json (tek doğru kaynak). Ayarlar: satis-hatti/a
     python3 satis-hatti/hat.py urunler <slug>           mağazadaki ürünlerin listesi (seçim için)
     python3 satis-hatti/hat.py cek <slug> h1 h2 h3 [h4] seçilen ürünleri indir → yukle/<slug>/ + taslak.json
     python3 satis-hatti/hat.py uret <slug>              marka.json hazırsa siteyi üret (fotodan-site.py)
-    python3 satis-hatti/hat.py yayinla <slug>           Netlify'a gizli (arama motorlarına kapalı) demo olarak yükle
+    python3 satis-hatti/hat.py yayinla <slug>           Netlify'a yükle: <firma>.netlify.app, herkese açık, arama motorlarına kapalı
     python3 satis-hatti/hat.py mail <slug> <dosya.md>   mail taslağını kaydet (ilk satır "Konu: ...")
     python3 satis-hatti/hat.py gonder [--kuru]          sırası gelen ilk mailleri ve takipleri gönder (günlük sınırla)
     python3 satis-hatti/hat.py durum [<slug> <durum> [not]]   liste ya da elle durum değiştir
@@ -28,6 +28,7 @@ import shutil
 import subprocess
 import sys
 import unicodedata
+import urllib.error
 import urllib.request
 import uuid
 import zipfile
@@ -320,6 +321,38 @@ def netlify(method, path, data=None, ctype="application/json"):
         return json.loads(res.read() or b"{}")
 
 
+def site_adi(r):
+    """Netlify alt alan adı = firmanın alan adı (halarearomatherapy.com → halarearomatherapy)."""
+    ad = domain(r.get("site") or "").split(".")[0] or r["id"]
+    return re.sub(r"[^a-z0-9-]", "-", norm(ad).replace(" ", "-")).strip("-")[:60]
+
+
+def herkese_ac(site, ad):
+    """Siteyi firmanın adıyla yeniden adlandırır ve Netlify takım girişi korumasını kaldırır.
+    Ad alınmışsa -3b, -3b-2 ... ekleriyle dener."""
+    for ek in ["", "-3b", "-3b-2", "-3b-3"]:
+        try:
+            return netlify("PATCH", f"/sites/{site}", json.dumps({"name": ad + ek, "sso_login": False}).encode())
+        except urllib.error.HTTPError as e:
+            if e.code != 422:  # 422: ad kullanımda
+                raise
+    return netlify("PATCH", f"/sites/{site}", json.dumps({"sso_login": False}).encode())
+
+
+def acik_mi(url, deneme=6):
+    """Demo giriş istemeden açılıyor mu (Netlify koruması yok, 200)."""
+    import time
+    for _ in range(deneme):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as res:
+                if res.status == 200 and b"edge-access" not in res.read(4000):
+                    return True
+        except urllib.error.HTTPError:
+            pass
+        time.sleep(5)
+    return False
+
+
 def yayinla(slug):
     rows = load()
     r = find(rows, slug)
@@ -337,10 +370,17 @@ def yayinla(slug):
     if not site:
         s = netlify("POST", "/sites", json.dumps({"name": f"{slug}-3b-{uuid.uuid4().hex[:6]}"}).encode())
         site = r["netlify_id"] = s["id"]
+        save(rows)
     d = netlify("POST", f"/sites/{site}/deploys", open(zp, "rb").read(), "application/zip")
-    url = d.get("ssl_url") or d.get("url") or ""
+    s = herkese_ac(site, site_adi(r))
+    url = s.get("ssl_url") or d.get("ssl_url") or d.get("url") or ""
     url = re.sub(r"https://[0-9a-f]+--", "https://", url)
+    acik = acik_mi(url)
     r["demo_url"] = url
+    if not acik:
+        log(r, f"yüklendi ama herkese açık değil (giriş istiyor): {url}")
+        save(rows)
+        sys.exit(f"! {url} herkese açık açılmıyor; mail gönderilmeden düzeltilmeli")
     log(r, f"yayında: {url}", "yayinda")
     if r.get("mail_taslak"):
         mail_hazir(r)

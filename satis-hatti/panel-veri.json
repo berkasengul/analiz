@@ -1,5 +1,5 @@
 {
- "guncellendi": "2026-11-13T12:24+03:00",
+ "guncellendi": "2026-11-13T12:28+03:00",
  "ayar": {
   "gonderim": "elle",
   "kuru": true,
@@ -52,7 +52,7 @@
    ]
   },
   {
-   "mail_tam": "Merhaba,\n\nHalare'nin lavanta ve mandalina kolonyalarıyla gül ve papatya sularını 3B bir vitrine taşıdım, canlı olarak buradan bakabilirsiniz: https://halare-3b-a32acd.netlify.app\n\nKısaca:\n\n- Şişeleriniz kendi etiket renklerinde bir sahnede kaideye iniyor; parmakla çevrilebiliyor.\n- \"Spreyi sık\" butonuyla sprey başlığından buğu çıkıyor, ürünün içeriği beliriyor.\n- Metinler sitenizdeki ürün açıklamalarından; \"Satın al\" butonu her ürünün halarearomatherapy.com'daki sayfasına gidiyor, mevcut mağazanız değişmiyor.\n\nMumlarınız, yağlarınız ve tütsüleriniz de aynı vitrine eklenebilir. İlginizi çekerse 10 dakikalık bir görüntülü görüşmede gösterebilirim.\n\nBu link yalnızca size özel, arama motorlarına kapalı.\n\nBerka\nBerkAİ Studio · 3B marka siteleri\n\nBu tür mesajları almak istemezseniz bu maile \"çıkış\" yazmanız yeterli; bir daha yazmam.",
+   "mail_tam": "Merhaba,\n\nHalare'nin lavanta ve mandalina kolonyalarıyla gül ve papatya sularını 3B bir vitrine taşıdım, canlı olarak buradan bakabilirsiniz: https://halarearomatherapy.netlify.app\n\nKısaca:\n\n- Şişeleriniz kendi etiket renklerinde bir sahnede kaideye iniyor; parmakla çevrilebiliyor.\n- \"Spreyi sık\" butonuyla sprey başlığından buğu çıkıyor, ürünün içeriği beliriyor.\n- Metinler sitenizdeki ürün açıklamalarından; \"Satın al\" butonu her ürünün halarearomatherapy.com'daki sayfasına gidiyor, mevcut mağazanız değişmiyor.\n\nMumlarınız, yağlarınız ve tütsüleriniz de aynı vitrine eklenebilir. İlginizi çekerse 10 dakikalık bir görüntülü görüşmede gösterebilirim.\n\nBu link yalnızca size özel, arama motorlarına kapalı.\n\nBerka\nBerkAİ Studio · 3B marka siteleri\n\nBu tür mesajları almak istemezseniz bu maile \"çıkış\" yazmanız yeterli; bir daha yazmam.",
    "id": "halare",
    "ad": "Halare",
    "site": "halarearomatherapy.com",
@@ -63,21 +63,13 @@
    "instagram": "@halarearomatherapy",
    "platform": "ikas",
    "durum": "mail_hazir",
-   "demo_url": "https://halare-3b-a32acd.netlify.app",
+   "demo_url": "https://halarearomatherapy.netlify.app",
    "neden": "Kendi ikas mağazası olan aromaterapi mum markası",
    "eklendi": "2026-11-13T11:16+03:00",
    "mail_konu": "Halare'nin kolonya ve çiçek suları için 3B vitrin",
-   "mail_metin": "Merhaba,\n\nHalare'nin lavanta ve mandalina kolonyalarıyla gül ve papatya sularını 3B bir vitrine taşıdım, canlı olarak buradan bakabilirsiniz: https://halare-3b-a32acd.netlify.app\n\nKısaca:\n\n- Şişeleriniz kendi etiket renklerinde bir sahnede kaideye iniyor; parmakla çevrilebiliyor.\n- \"Spreyi sık\" butonuyla sprey başlığından buğu çıkıyor, ürünün içeriği beliriyor.\n- Metinler sitenizdeki ürün açıklamalarından; \"Satın al\" butonu her ürünün halarearomatherapy.com'daki sayfasına gidiyor, mevcut mağazanız değişmiyor.\n\nMumlarınız, yağlarınız ve tütsüleriniz de aynı vitrine eklenebilir. İlginizi çekerse 10 dakikalık bir görüntülü görüşmede gösterebilirim.\n\nBu link yalnızca size özel, arama motorlarına kapalı.",
+   "mail_metin": "Merhaba,\n\nHalare'nin lavanta ve mandalina kolonyalarıyla gül ve papatya sularını 3B bir vitrine taşıdım, canlı olarak buradan bakabilirsiniz: https://halarearomatherapy.netlify.app\n\nKısaca:\n\n- Şişeleriniz kendi etiket renklerinde bir sahnede kaideye iniyor; parmakla çevrilebiliyor.\n- \"Spreyi sık\" butonuyla sprey başlığından buğu çıkıyor, ürünün içeriği beliriyor.\n- Metinler sitenizdeki ürün açıklamalarından; \"Satın al\" butonu her ürünün halarearomatherapy.com'daki sayfasına gidiyor, mevcut mağazanız değişmiyor.\n\nMumlarınız, yağlarınız ve tütsüleriniz de aynı vitrine eklenebilir. İlginizi çekerse 10 dakikalık bir görüntülü görüşmede gösterebilirim.\n\nBu link yalnızca size özel, arama motorlarına kapalı.",
    "gonderimler": [],
    "gecmis": [
-    {
-     "t": "2026-11-13T11:21+03:00",
-     "olay": "site üretildi"
-    },
-    {
-     "t": "2026-11-13T11:23+03:00",
-     "olay": "4 ürün çekildi → site-fabrikasi/yukle/halare/taslak.json"
-    },
     {
      "t": "2026-11-13T11:25+03:00",
      "olay": "site üretildi"
@@ -100,6 +92,14 @@
     },
     {
      "t": "2026-11-13T12:24+03:00",
+     "olay": "mail hazır: Halare'nin kolonya ve çiçek suları için 3B vitrin"
+    },
+    {
+     "t": "2026-11-13T12:28+03:00",
+     "olay": "yayında: https://halarearomatherapy.netlify.app"
+    },
+    {
+     "t": "2026-11-13T12:28+03:00",
      "olay": "mail hazır: Halare'nin kolonya ve çiçek suları için 3B vitrin"
     }
    ]

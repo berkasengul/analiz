@@ -62,7 +62,10 @@ python3 hat.py cek <slug> h1 h2 h3 h4    # 3–4 ürün: aynı seriden, renkleri
 4. **Mail taslağı:** `site-fabrikasi/yukle/<slug>/mail.md`, örnek `yukle/halare/mail.md`. İlk satır `Konu: ...`;
    en çok 170 kelime; demo linki yerine `{demo}`; markanın kendi ürün adlarıyla somut 3 madde; fiyat yok, abartı yok;
    imza ve çıkış notunu yazma (otomatik eklenir). `python3 hat.py mail <slug> site-fabrikasi/yukle/<slug>/mail.md`
-5. `python3 hat.py yayinla <slug>` (Netlify anahtarı yoksa bu adım hata verir; firma `site_hazir` kalır, sorun değil).
+5. `python3 hat.py yayinla <slug>`: site `<firmanın-alan-adı>.netlify.app` adıyla (ör. `halarearomatherapy.netlify.app`;
+   ad alınmışsa `-3b` eki) yüklenir, Netlify giriş koruması kaldırılır (herkese açık, arama motorlarına kapalı) ve
+   linkin girişsiz açıldığı denetlenir. Açılmazsa araç hata verir, firma `yayinda` olmaz: **mail ancak link herkese
+   açık açılıyorsa gönderilir.** Netlify anahtarı yoksa da hata verir; firma `site_hazir` kalır, özette yaz.
 
 ## Bitiş
 
