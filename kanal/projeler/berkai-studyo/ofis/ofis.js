@@ -186,7 +186,7 @@ const DURAK = []; { const ekle = (id, bas, bit) => { const b = BOLME[id], y = YE
   ekle('mail', 69, 81);
   DURAK.push({ id: 'mudur', ad: 'Müdür odası: karar onayı', bas: 81, bit: 100, o: [-.7, -7.7], yuz: [0, -10.5], P: [0.5, 2.3, -4.7], L: saga([0.5, 2.3, -4.7], [-.4, 1.1, -9.6], 21), panel: 'mudur' });
   DURAK.push({ ad: 'Kapanış', bas: 100, bit: 107, o: [0, -4.5], yuz: [0, 10], P: [0, 2.6, 10.6], L: [0, 1.5, -8], P0: [0, 3.3, 11.6], kesme: true }); }
-const GECIS = 3.2, SITE_BAS = 57.4, SITE_BIT = 68.6, ONAY_T = 92.6, TUR_SITE = V.siteler[0];
+const GECIS = 3.2, SITE_BAS = 57.4, SITE_BIT = 68.6, ONAY_T = 92.6, TUR_SITE = V.siteler.find(s => s.tur_sure > 0); // tur desteği olmayan (satış hattı) demolar turda açılmaz, kurguda ayrı kaydedilir
 const imlec = $('#imlec'); let turPanel = null, turOnay = null; const v3 = new THREE.Vector3();
 // koridor üzerinden yürüyüş yolu: önce koridora çık, koridorda ilerle, bölmeye gir
 const yolNoktalari = (a, b) => { const p = [a]; if (Math.abs(a[0]) > .3) p.push([0, a[1]]); if (Math.abs(b[0]) > .3 || Math.abs(a[1] - b[1]) > .01) p.push([0, b[1]]); p.push(b); return p; };

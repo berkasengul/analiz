@@ -28,9 +28,10 @@ Kod bilmiyorum diyorsan, kanka ben de bilmiyorum, bu iş için bilmene de gerek 
 Şimdi önce düzene bakalım, kim ne iş yapıyor, ona bakalım.
 
 ## 3 · Düzen: iki çalışan (1:10–2:00) [S]
-*Basit şema: Bulma ekibi (07:43) → 3D site → yayın → Mail ekibi (11:37) → Brevo → müşteri.*
+*3D ofis: girişten koridora yürüyüş, bölme tabelaları (Müşteri, 3D Site, Mail, Müdür). Sonra basit şema: Bulma ekibi (07:43) → 3D site → yayın → Mail ekibi (11:37) → Brevo → müşteri.*
 
-Bak şimdi, benim iki tane çalışanım var, ikisi de yapay zekâ.
+Bak şimdi, burası benim ofisim, tabii gerçek bir ofis değil, bunu da Claude kodla yaptı, her ekibin bir bölmesi var, içeri girince o gün ne yaptıklarını görüyorum.
+Benim burada iki tane asıl çalışanım var, ikisi de yapay zekâ.
 Birincisi sabah yedi kırk üçte işe başlıyor, ona bulma ekibi diyorum, işi müşteri bulmak ve ona site yapmak.
 İkincisi on bir otuz yedide başlıyor, o da mail ekibi, sırası gelen maili gönderiyor.
 Bunları Claude Code'da zamanlanmış görev olarak kurdum, yani benim bilgisayarım kapalı olsa bile çalışıyorlar, ben uyurken bile çalışıyorlar.
@@ -39,19 +40,21 @@ Kurallarını da ben koydum tabii: günde en fazla beş yeni firma, günde en fa
 Gerisini zaten kendileri hallediyor, şimdi sabah ne oluyor ona bakalım.
 
 ## 4 · Bulma ekibi (2:00–3:30) [S]
-*Terminal: `hat.py ekle → kontrol → urunler → cek` akıyor.*
+*Ofiste Müşteri bölmesine giriş: "Bugün" panosu (2 marka bakıldı, 1 aday, 1 elenen), Halare kartı ve mevcut sitesinin ekran görüntüsü. Ardından terminal: `hat.py ekle → kontrol → urunler → cek` akıyor.*
 
-Bulma ekibi işe başladı, bak şu an marka arıyor.
+Önce müşteri bölmesine girelim, bak bugün ne yapmışlar panoda yazıyor, iki markaya bakmışlar, biri aday olmuş, biri elenmiş.
+Peki bunu nasıl buldular, ona bakalım, bulma ekibi sabah işe başladığında önce marka arıyor.
 Ne tür marka arıyor? Kendi online mağazası olan küçük markalar, parfüm, kolonya, mum, sabun, kahve, bal falan, benim çalıştığım sektörler bunlar.
 Büyük markalara hiç bulaşmıyor, çünkü onlar seni muhatap bile almaz, boşuna yorulursun.
+Peki marka nerede arıyor? Mesela eczane siteleri, butik mağazalar, büyük perakendecilerde satılan küçük markalar, bunların içinden kendi mağazası olanları ayıklıyor.
+Bu sabah bulduğu marka mesela bir eczane sitesinde satılan bir ürünün sayfasından çıktı, oradan markanın kendi sitesine gitti.
 Bir marka buldu, şimdi kontrol ediyor: mağazası nerede kurulu, ikas'ta. Sitesinde şirket maili var mı, var.
 Bir de ürün fotoğraflarına bakıyor, düz önden mi çekilmiş diye, çünkü yandan çekilmiş fotoğraf 3D'de berbat görünüyor, bunu ben deneye deneye öğrendim.
 *Mağaza (bir kez), seçilen 4 ürün.*
 Bulduğu marka Halare, aromaterapi ürünleri yapan bir marka.
 Dört ürün seçti, iki tane kolonya, iki tane de çiçek suyu, hepsi aynı seriden, renkleri farklı, vitrinde güzel dursun diye.
-Her bulduğu markayı alıyor mu peki? Hayır, mesela bir tanesini direkt eledi, uygun değildi, bana sormadı bile.
+Her bulduğu markayı alıyor mu peki? Hayır, mesela bir parfüm markasını direkt eledi, çünkü sitesinde şirket maili yoktu, ben de kişisel adrese mail atma demiştim, bana sormadı bile.
 Açıkçası ben de böyle olsun istiyorum, emin değilse elesin, çünkü her firmaya yazan kimseye satamıyor.
-*[Ekip bugün çalıştıktan sonra: bugün kaç firma buldu, kaçını eledi, gerçek sayılar buraya.]*
 
 ## 5 · 3D site (3:30–5:00) [S]
 *Ürün fotoğrafının arka planı temizleniyor → sahneye oturuyor → bitmiş site (masaüstü + telefon). Claude sohbet ekranı en fazla 1 kısa an.*
@@ -63,18 +66,24 @@ Kötü bir site değil bu arada, onu da söyleyeyim, ama aklında kalan bir şey
 *Bölünmüş ekran: solda eski site, sağda bizim 3D vitrin, ikisi aynı anda. Sonra sağdaki tam ekrana büyüyor.*
 Şimdi bir de bizimkine bak, aynı ürünler, aynı fotoğraflar, aynı yazılar, ama bambaşka bir şey oldu değil mi?
 İşte markaya sattığın şey tam olarak bu fark, yeni bir mağaza değil, ürünlerini insanların aklında bırakan bir vitrin.
+*Ofiste 3D Site bölmesi: duvardaki ekranda vitrin dönüyor, "Demoyu aç" ile pencerede açılıyor.*
+Bu arada ofiste 3D site bölmesine girince de duvardaki ekranda bu vitrin dönüyor, tıklayınca açılıyor.
 Peki ekip bunu nasıl yaptı, şimdi ona bakalım.
 Fotoğrafları markanın mağazasından çekiyor, arka planı siliyor, sonra şişeleri kendi etiket renkleriyle bir sahneye yerleştiriyor.
 Bak şişe iniyor, parmağınla çevirebiliyorsun, "Spreyi sık" diyorsun, buğu çıkıyor, ben bunu ilk gördüğümde gerçekten kendi kendime güldüm.
 Yazıları nereden buluyor diye soracaksın, markanın kendi ürün açıklamalarından alıyor, tek kelime uydurmuyor.
 "Satın al" butonu da markanın kendi mağazasına gidiyor, yani adamın mağazasına hiç dokunmuyorsun, satış onun, vitrin senin.
 Sonra siteyi gizli bir linkle yayına alıyor, Google'da çıkmıyor, sadece o markaya özel bir link oluyor.
+*Vitrinde gezinti: ürünler arası geçiş, "Ürünü keşfet", "Koku bulucu", TR/EN düğmesi, telefonda kaydırma.*
+Bak burada dört ürün var, kaydırınca bir sonraki şişe kaideye iniyor, yanında içeriği yazıyor, mesela lavantada lavanta uçucu yağı diyor.
+Üstte koku bulucu diye bir bölüm bile koymuş, dil düğmesi de var, Türkçe İngilizce geçebiliyorsun, bunları ben istemedim bu arada, kendisi ekledi.
+Telefonda da aynı şekilde çalışıyor, ki bu çok önemli, çünkü bu markaların müşterisinin çoğu Instagram'dan telefonla geliyor.
 Bir de şu var, site kötü göründüyse yayınlamıyor, firmayı eliyor ve sıradakine geçiyor, çünkü kötü bir demo göndermek hiç göndermemekten daha kötü.
 
 ## 6 · Mail ve Brevo (5:00–6:40) [S] *(ana bölüm)*
-*Panelde markaya özel mail taslağı.*
+*Ofiste Mail bölmesi: pano (1 mail · Brevo 11:37), mail dosyası büyük pencerede açılıyor.*
 
-Tamam site hazır, şimdi birinin markaya haber vermesi lazım, işte burada mail ekibi devreye giriyor.
+Tamam site hazır, şimdi birinin markaya haber vermesi lazım, ofiste bir sonraki bölme mail ekibi, işte burada devreye giriyorlar.
 Önce maili yazıyor ama toplu mail gibi değil, o markaya özel yazıyor.
 Bak mesela burada kolonyalarını 3D bir vitrine taşıdığını söylüyor, altına linki koyuyor, en sonda da tek bir soru soruyor, o kadar.
 Fiyat yok, "hemen dönüş yapın" falan yok, çünkü o tarz mailleri kimse okumuyor, sen de okumuyorsun zaten.
@@ -89,9 +98,9 @@ Cevap gelmezse ne oluyor diye soracaksın, beş gün bekliyor, sonra tek bir kı
 "Çıkış" yazan biri olursa da onu listeye alıyor, bir daha o kişiye asla yazmıyor.
 
 ## 7 · Akşam (6:40–7:20) [A]
-*Panel: bugünün firmaları, durumları.*
+*Ofiste koridorun sonu: Müdür odası, günlük rapor ve karar kartı. Sonra satış paneli.*
 
-Akşam olunca paneli açıyorum, kim bulunmuş, kime site yapılmış, kime mail gitmiş, hepsi burada duruyor.
+Akşam olunca koridorun sonundaki müdür odasına giriyorum, bütün günü tek rapora toplamış, kim bulunmuş, kime site yapılmış, kime mail gitmiş, hepsi burada duruyor.
 Benim işim ne biliyor musun? Biri cevap verirse görüşmeye girmek, o kadar.
 Yani kanka ben aslında bir video çekmedim, her sabah kendi kendine çalışan bir satış hattı kurdum, aradaki fark bu.
 
@@ -105,6 +114,16 @@ Birincisi Claude Code'u açıyorsun ve işini bir iş tanımı gibi yazıyorsun,
 Dördüncüsü mail için Brevo, bir de kendi alan adın, bunu birazdan anlatacağım, çok önemli.
 Beşincisi de zamanlanmış görev, hafta içi her sabah kendisi çalışsın.
 Bu kadar, gerisini ekip yapıyor.
+
+## 8b · Sık sorulanlar (8:30–9:30) [S]
+*Soru kartları, her soru ekranda büyük yazıyla.*
+
+Şimdi yorumlarda gelecek soruları baştan cevaplayayım, çünkü her videoda aynı şeyler soruluyor.
+İlk soru: kod bilmem lazım mı? Hayır kanka, ben de bilmiyorum, sen Claude'a ne istediğini Türkçe anlatıyorsun, kodu o yazıyor, sen sadece sonucuna bakıp beğenmediğini söylüyorsun.
+İkinci soru: markalar kızmaz mı, izinsiz site yapmak sorun olmaz mı? Bak bu önemli, site markanın kendi sitesinin yerine geçmiyor, gizli bir linkte duruyor, Google'da çıkmıyor, altında da konsept demo yazıyor, yani biz markaya "bak senin ürünlerin böyle de görünebilir" diyoruz, o kadar, beğenmezse link kalır öyle, kimse görmez.
+Üçüncü soru: spam olmaz mı? Olmaz, çünkü günde on beş mail atıyoruz, binlerce değil, her mail o markaya özel, sadece sitesinde yazan şirket adresine gidiyor, çıkış yazan da bir daha mail almıyor.
+Dördüncü soru: bu iş her sektörde olur mu? Bence en iyi, ürünü olan markalarda oluyor, şişe, kavanoz, kutu gibi, çünkü 3D'de ürün olunca vitrin bambaşka duruyor, hizmet satan bir işletmede bu kadar etkili olmaz.
+Beşinci soru: Claude ücretli mi? Evet, ücretli bir planı var, ama mail tarafı Brevo'nun ücretsiz planıyla, site yayını da Netlify'ın ücretsiz planıyla dönüyor.
 
 ## 9 · İşe nasıl çevirirsin (8:30–9:00) [S] *(rakam yok)*
 Para kısmına gelirsek, fiyat işin kapsamına göre değişiyor, bir kurulum ücreti var, bir de aylık bakım, ek işler de ayrıca.
@@ -138,5 +157,5 @@ Sıradaki videoda hangi sektöre girelim, yoruma yaz, en çok yazılanı yapaca�
 | Panel ve firma kartları | satis-hatti/panel.html | hazır |
 | Terminal adımları | hat.py çıktıları | hazır |
 | Brevo gönderim kaydı | Brevo paneli (Transactional → Logs) | ekran görüntüsünü senden alacağım |
-| Bugünün yeni firmaları | Bulma ekibi çalıştıktan sonra | **ekibin çalışması bekleniyor** |
+| 3D ofis turu (Müşteri, 3D Site, Mail, Müdür bölmeleri; bugünün işi: Halare) | ofis/index.html?tur=1, gunler/2026-11-13 | hazır, kaydedilecek |
 | Markaya giden mail | Gmail "Gönderilenler" | **sen gönderdikten sonra** |

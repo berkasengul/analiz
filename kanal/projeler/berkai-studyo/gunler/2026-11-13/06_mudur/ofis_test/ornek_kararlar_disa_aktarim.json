@@ -1,0 +1,13 @@
+{
+  "tarih": "2026-11-13",
+  "disa_aktarim": "2026-11-13T12:34:39.921Z",
+  "aciklama": "Bu dosyayı gunler/2026-11-13/kararlar.json olarak kaydet; GUNLUK_KOMUT yarın buradan devam eder.",
+  "kararlar": [
+    {
+      "id": "K1",
+      "baslik": "Halare'ye mail",
+      "karar": "onay",
+      "not": ""
+    }
+  ]
+}
