@@ -1,0 +1,80 @@
+[
+ {
+  "id": 1000,
+  "title": "Limon",
+  "handle": "limon-kolonyasi",
+  "body_html": "<p>Klasik limon kolonyası: ferah, temiz ve tanıdık. Ellerde ve misafir sofrasında.</p>",
+  "vendor": "Mavi Koy",
+  "product_type": "kolonya",
+  "tags": [],
+  "variants": [
+   {
+    "id": 5000,
+    "title": "Default Title",
+    "price": "0.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": "limon-kolonyasi"
+   }
+  ],
+  "images": [
+   {
+    "src": "limon.png",
+    "position": 1
+   }
+  ],
+  "permalink": "https://wa.me/905000000000?text=Merhaba%2C%20Mavi%20Koy%20Limon%20%28400%20ml%29%20sipari%C5%9F%20vermek%20istiyorum."
+ },
+ {
+  "id": 1001,
+  "title": "Lavanta",
+  "handle": "lavanta-kolonyasi",
+  "body_html": "<p>Yumuşak lavanta kolonyası: günün sonunda sakinleştiren, hafif ve çiçeksi.</p>",
+  "vendor": "Mavi Koy",
+  "product_type": "kolonya",
+  "tags": [],
+  "variants": [
+   {
+    "id": 5001,
+    "title": "Default Title",
+    "price": "0.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": "lavanta-kolonyasi"
+   }
+  ],
+  "images": [
+   {
+    "src": "lavanta.png",
+    "position": 1
+   }
+  ],
+  "permalink": "https://wa.me/905000000000?text=Merhaba%2C%20Mavi%20Koy%20Lavanta%20%28400%20ml%29%20sipari%C5%9F%20vermek%20istiyorum."
+ },
+ {
+  "id": 1002,
+  "title": "Tütün",
+  "handle": "tutun-kolonyasi",
+  "body_html": "<p>Sıcak ve derin tütün kolonyası: odunsu notalarla klasik bir berber kokusu.</p>",
+  "vendor": "Mavi Koy",
+  "product_type": "kolonya",
+  "tags": [],
+  "variants": [
+   {
+    "id": 5002,
+    "title": "Default Title",
+    "price": "0.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": "tutun-kolonyasi"
+   }
+  ],
+  "images": [
+   {
+    "src": "tutun.png",
+    "position": 1
+   }
+  ],
+  "permalink": "https://wa.me/905000000000?text=Merhaba%2C%20Mavi%20Koy%20T%C3%BCt%C3%BCn%20%28400%20ml%29%20sipari%C5%9F%20vermek%20istiyorum."
+ }
+]

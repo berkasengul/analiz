@@ -1,0 +1,80 @@
+[
+ {
+  "id": 1000,
+  "title": "Lemon",
+  "handle": "limon-kolonyasi",
+  "body_html": "<p>The classic lemon cologne: fresh, clean and familiar. For hands and for guests.</p>",
+  "vendor": "Mavi Koy",
+  "product_type": "kolonya",
+  "tags": [],
+  "variants": [
+   {
+    "id": 5000,
+    "title": "Default Title",
+    "price": "0.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": "limon-kolonyasi"
+   }
+  ],
+  "images": [
+   {
+    "src": "limon.png",
+    "position": 1
+   }
+  ],
+  "permalink": "https://wa.me/905000000000?text=Hello%2C%20I%27d%20like%20to%20order%20Mavi%20Koy%20Lemon%20%28400%20ml%29."
+ },
+ {
+  "id": 1001,
+  "title": "Lavender",
+  "handle": "lavanta-kolonyasi",
+  "body_html": "<p>A soft lavender cologne: light, floral and calming at the end of the day.</p>",
+  "vendor": "Mavi Koy",
+  "product_type": "kolonya",
+  "tags": [],
+  "variants": [
+   {
+    "id": 5001,
+    "title": "Default Title",
+    "price": "0.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": "lavanta-kolonyasi"
+   }
+  ],
+  "images": [
+   {
+    "src": "lavanta.png",
+    "position": 1
+   }
+  ],
+  "permalink": "https://wa.me/905000000000?text=Hello%2C%20I%27d%20like%20to%20order%20Mavi%20Koy%20Lavender%20%28400%20ml%29."
+ },
+ {
+  "id": 1002,
+  "title": "Tobacco",
+  "handle": "tutun-kolonyasi",
+  "body_html": "<p>A warm, deep tobacco cologne: a classic barbershop scent with woody notes.</p>",
+  "vendor": "Mavi Koy",
+  "product_type": "kolonya",
+  "tags": [],
+  "variants": [
+   {
+    "id": 5002,
+    "title": "Default Title",
+    "price": "0.00",
+    "compare_at_price": null,
+    "available": true,
+    "sku": "tutun-kolonyasi"
+   }
+  ],
+  "images": [
+   {
+    "src": "tutun.png",
+    "position": 1
+   }
+  ],
+  "permalink": "https://wa.me/905000000000?text=Hello%2C%20I%27d%20like%20to%20order%20Mavi%20Koy%20Tobacco%20%28400%20ml%29."
+ }
+]

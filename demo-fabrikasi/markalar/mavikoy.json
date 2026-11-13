@@ -1,0 +1,1094 @@
+{
+  "slug": "mavikoy",
+  "meta": {
+    "title": "Mavi Koy · 3B Konsept Demo",
+    "description": "Mavi Koy için 3B konsept demo.",
+    "og": "Mavi Koy: Freshness from the sea."
+  },
+  "brand": {
+    "name": "Mavi Koy",
+    "sub": "Kolonya Atölyesi",
+    "specs": "Kolonya · 80° · 400 ml",
+    "disclaimer": "Bu sayfa hayali bir marka için hazırlanmış konsept demodur.",
+    "en": {
+      "sub": "Kolonya Atölyesi",
+      "specs": "Eau de Cologne · 80° · 400 ml",
+      "disclaimer": "This page is a concept demo for a fictional brand."
+    }
+  },
+  "labelBrand": {
+    "wordmark": "MAVİ KOY",
+    "submark": "KOLONYA ATÖLYESI",
+    "concentration": "EAU DE COLOGNE",
+    "volume": "400 ml"
+  },
+  "bottle": {
+    "glass": {
+      "width": 1.7,
+      "height": 2.8,
+      "depth": 1.7,
+      "corner": 0.8
+    },
+    "label": {
+      "size": 1.4,
+      "y": -0.05,
+      "back": true
+    },
+    "neck": {
+      "radius": 0.3,
+      "height": 0.16,
+      "color": "#e8e2d6"
+    },
+    "cap": {
+      "shape": "cylinder",
+      "radius": 0.42,
+      "height": 0.8,
+      "color": "#d8b878",
+      "finish": "gold"
+    },
+    "scale": 1.05,
+    "tilt": -0.05,
+    "tube": {
+      "radius": 0.62,
+      "height": 3.3,
+      "capRadius": 0.5,
+      "capHeight": 0.36,
+      "color": "#d8cc9c",
+      "capColor": "#141414",
+      "capFinish": "black",
+      "capShape": "flip",
+      "finish": "pearl",
+      "scale": 1.0
+    }
+  },
+  "specs": {
+    "tr": "Kolonya · 80° · 400 ml",
+    "en": "Eau de Cologne · 80° · 400 ml"
+  },
+  "features": [
+    {
+      "icon": "drop",
+      "pose": {
+        "rotY": 0.03,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Ferahlık",
+        "kicker": "01",
+        "struck": "Sıradan bir kolonya",
+        "title": "80 derece ferahlık",
+        "text": "Geleneksel 80 derece kolonya: ellerde, yolculukta, misafir sofrasında."
+      },
+      "en": {
+        "short": "Freshness",
+        "kicker": "01",
+        "struck": "An ordinary cologne",
+        "title": "80 degrees of freshness",
+        "text": "Traditional 80-degree cologne: for hands, travel and guests."
+      }
+    },
+    {
+      "icon": "star",
+      "pose": {
+        "rotY": 0.5,
+        "rotZ": 0.02,
+        "y": 0.6,
+        "scale": 2.2
+      },
+      "tr": {
+        "short": "Atölye",
+        "kicker": "02",
+        "struck": "Fabrika üretimi",
+        "title": "Küçük atölyede",
+        "text": "Her şişe küçük partiler hâlinde, atölyede hazırlanır."
+      },
+      "en": {
+        "short": "Atelier",
+        "kicker": "02",
+        "struck": "Factory made",
+        "title": "In a small atelier",
+        "text": "Every bottle is prepared in small batches in the atelier."
+      }
+    },
+    {
+      "icon": "leaf",
+      "pose": {
+        "rotY": 3.18,
+        "rotZ": 0.02,
+        "y": -0.2,
+        "scale": 2.4
+      },
+      "tr": {
+        "short": "Koku",
+        "kicker": "03",
+        "struck": "Tek bir koku",
+        "title": "Üç karakter",
+        "text": "Limonun ferahlığı, lavantanın sakinliği, tütünün sıcaklığı."
+      },
+      "en": {
+        "short": "Scent",
+        "kicker": "03",
+        "struck": "A single scent",
+        "title": "Three characters",
+        "text": "The freshness of lemon, the calm of lavender, the warmth of tobacco."
+      }
+    },
+    {
+      "icon": "bottle",
+      "pose": {
+        "rotY": -0.4,
+        "rotZ": 0.02,
+        "y": 0.2,
+        "scale": 2.3
+      },
+      "tr": {
+        "short": "Gelenek",
+        "kicker": "04",
+        "struck": "Unutulan bir alışkanlık",
+        "title": "Yeniden kolonya",
+        "text": "Kolonya ikramı, yeni bir şişede yeniden."
+      },
+      "en": {
+        "short": "Tradition",
+        "kicker": "04",
+        "struck": "A forgotten habit",
+        "title": "Cologne again",
+        "text": "The tradition of offering cologne, in a new bottle."
+      }
+    }
+  ],
+  "packs": [
+    {
+      "size": 1,
+      "factor": 1,
+      "label": {
+        "tr": "400 ml",
+        "en": "400 ml"
+      }
+    }
+  ],
+  "prices": {
+    "tr": {
+      "currency": "TRY",
+      "locale": "tr-TR",
+      "packs": {
+        "1": 0
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    },
+    "en": {
+      "currency": "TRY",
+      "locale": "en-US",
+      "packs": {
+        "1": 0
+      },
+      "freeShipping": 0,
+      "shipping": 0
+    }
+  },
+  "subDiscount": 0,
+  "defaultShopFlavor": 0,
+  "story": {
+    "founder": "Mavi Koy · İstanbul",
+    "instagram": "",
+    "website": "",
+    "press": [],
+    "tr": {
+      "lead": "Mavi Koy, denizin ferahlığını şişeye koyan küçük bir kolonya atölyesi.",
+      "paragraphs": [
+        "Kolonya bizim için bir misafirperverlik geleneği. Mavi Koy bu geleneği sade şişeler ve üç net koku ile yeniden yorumluyor.",
+        "Limon, lavanta ve tütün: her biri günün farklı bir anı için."
+      ],
+      "timeline": [
+        [
+          "Limon",
+          "Narenciye · Ferah"
+        ],
+        [
+          "Lavanta",
+          "Aromatik · Çiçeksi"
+        ],
+        [
+          "Tütün",
+          "Odunsu · Sıcak"
+        ]
+      ],
+      "stats": [
+        [
+          "3",
+          "kolonya"
+        ],
+        [
+          "400 ml",
+          "Kolonya"
+        ]
+      ]
+    },
+    "en": {
+      "lead": "Mavi Koy is a small cologne atelier that bottles the freshness of the sea.",
+      "paragraphs": [
+        "To us, cologne is a tradition of hospitality. Mavi Koy reinterprets it with simple bottles and three clear scents.",
+        "Lemon, lavender and tobacco: each for a different moment of the day."
+      ],
+      "timeline": [
+        [
+          "Lemon",
+          "Citrus · Fresh"
+        ],
+        [
+          "Lavender",
+          "Aromatic · Floral"
+        ],
+        [
+          "Tobacco",
+          "Woody · Warm"
+        ]
+      ],
+      "stats": [
+        [
+          "3",
+          "colognes"
+        ],
+        [
+          "400 ml",
+          "Eau de Cologne"
+        ]
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Kolonya kaç derece?",
+        "Tüm Mavi Koy kolonyaları 80 derecedir."
+      ],
+      [
+        "Nasıl sipariş verebilirim?",
+        "Ürün sayfasındaki butonla WhatsApp'tan yazmanız yeterli."
+      ]
+    ],
+    "en": [
+      [
+        "What is the alcohol degree?",
+        "All Mavi Koy colognes are 80 degrees."
+      ],
+      [
+        "How can I order?",
+        "Just message us on WhatsApp with the button on the product page."
+      ]
+    ]
+  },
+  "ui": {
+    "tr": {
+      "loading": "Kolonya Atölyesi",
+      "madeFor": "Mavi Koy için hazırlanmış konsept",
+      "recyclable": "Kolonya · 80° · 400 ml",
+      "founder": "Mavi Koy · İstanbul",
+      "contactTag": "Sipariş ve sorularınız için WhatsApp'tan yazın.",
+      "newsTitle": "Yeni ürünler önce burada.",
+      "marquee": [
+        "Mavi Koy",
+        "Limon",
+        "Lavanta",
+        "Tütün",
+        "80°",
+        "Kolonya Atölyesi"
+      ],
+      "slogan": "Denizden gelen ferahlık.",
+      "nav": {
+        "flavors": "Kolonyalar",
+        "catalog": "Tüm ürünler",
+        "categories": "Kolonyalar",
+        "products": "Kolonyalar",
+        "sets": "Kolonyalar",
+        "about": "Mavi Koy hakkında",
+        "contact": "İletişim"
+      },
+      "flavors": "Kolonyalar",
+      "notes": "Notalar",
+      "discover": "{0} ürününü keşfet",
+      "discoverCan": "Ürünü keşfet",
+      "backToFlavors": "Kolonyalar sayfasına dön",
+      "prevFlavor": "Önceki",
+      "nextFlavor": "Sonraki",
+      "backToFlavor": "Ürün bilgisine dön",
+      "exploreCan": "Ürünü keşfet · {0} hikâye",
+      "whatsInside": "Notalar",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "inCan": "Bu adımda",
+      "shopTitle": "Kolonya seç",
+      "shopTag": "Seç, WhatsApp'tan sipariş ver.",
+      "flavor": "Kolonya",
+      "mix": "Karışık set",
+      "size": "Paket",
+      "cans": "adet",
+      "packPerCan": "Mavi Koy · {0}",
+      "family": "Koku ailesi",
+      "caffeine": "",
+      "perks": [
+        "Kolonya · 80° · 400 ml",
+        "Atölyeden, küçük partiler",
+        "WhatsApp'tan kolay sipariş"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Seçenek",
+      "related": "Diğer ürünler",
+      "buildBox": "Ürünleri keşfet",
+      "freeUnlocked": "Ücretsiz kargo",
+      "allTag": "{0} kolonya.",
+      "year": "Çıkış",
+      "composition": "Nota piramidi",
+      "ships": "WhatsApp'tan sipariş",
+      "place": "Nokta",
+      "spot": "Adres",
+      "status": "İletişim",
+      "addToCart": "WhatsApp'tan sipariş ver",
+      "added": "Açılıyor",
+      "spray": "Kolonyayı dök"
+    },
+    "en": {
+      "loading": "Kolonya Atölyesi",
+      "madeFor": "Concept prepared for Mavi Koy",
+      "recyclable": "Eau de Cologne · 80° · 400 ml",
+      "founder": "Mavi Koy · İstanbul",
+      "contactTag": "Message us on WhatsApp for orders and questions.",
+      "newsTitle": "New products, first here.",
+      "marquee": [
+        "Mavi Koy",
+        "Lemon",
+        "Lavender",
+        "Tobacco",
+        "80°",
+        "Cologne Atelier"
+      ],
+      "slogan": "Freshness from the sea.",
+      "nav": {
+        "flavors": "Colognes",
+        "catalog": "All products",
+        "categories": "Colognes",
+        "products": "Colognes",
+        "sets": "Colognes",
+        "about": "About Mavi Koy",
+        "contact": "Contact"
+      },
+      "flavors": "Colognes",
+      "notes": "Notes",
+      "discover": "Discover {0}",
+      "discoverCan": "Discover",
+      "backToFlavors": "Back to colognes",
+      "prevFlavor": "Previous",
+      "nextFlavor": "Next",
+      "backToFlavor": "Back to product",
+      "exploreCan": "Explore · {0} stories",
+      "whatsInside": "Notes",
+      "drag": "Drag to turn the bottle",
+      "inCan": "In this step",
+      "shopTitle": "Choose your cologne",
+      "shopTag": "Choose and order on WhatsApp.",
+      "flavor": "Cologne",
+      "mix": "Mixed set",
+      "size": "Pack",
+      "cans": "pcs",
+      "packPerCan": "Mavi Koy · {0}",
+      "family": "Family",
+      "caffeine": "",
+      "perks": [
+        "Eau de Cologne · 80° · 400 ml",
+        "Small batches from the atelier",
+        "Easy order on WhatsApp"
+      ],
+      "taxes": "",
+      "checkoutNote": "",
+      "variant": "Option",
+      "related": "Other products",
+      "buildBox": "Explore the products",
+      "freeUnlocked": "Free shipping",
+      "allTag": "{0} colognes.",
+      "year": "Launched",
+      "composition": "Fragrance pyramid",
+      "ships": "Order on WhatsApp",
+      "place": "Location",
+      "spot": "Address",
+      "status": "Contact",
+      "addToCart": "Order on WhatsApp",
+      "added": "Opening",
+      "spray": "Pour it"
+    }
+  },
+  "packUnit": {
+    "tr": "adet",
+    "en": "bottle"
+  },
+  "detailPack": 1,
+  "backdrop": false,
+  "particles": "none",
+  "nameLang": "en",
+  "icon": "bottle",
+  "logo": "brand/logo-cream.png",
+  "labelFinish": {
+    "metalness": 0.1,
+    "roughness": 0.18,
+    "clearcoat": 1,
+    "clearcoatRoughness": 0.08,
+    "envMapIntensity": 1.1
+  },
+  "fillLight": "#ffe6c4",
+  "commerce": {
+    "packs": false,
+    "plans": false,
+    "variety": false,
+    "goal": null,
+    "shippingAtCheckout": true,
+    "ikas": "https://wa.me"
+  },
+  "latinTerms": "Mavi\\ Koy|MAVİ\\ KOY|Lemon|Lavender|Tobacco",
+  "glass": false,
+  "spray": true,
+  "photoUnlit": 0.55,
+  "photoExact": true,
+  "theme": {
+    "name": "portal",
+    "accent": "#1f3a5f",
+    "particles": "dust",
+    "fonts": {
+      "href": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300..500&display=swap&subset=latin-ext",
+      "display": "\"Cormorant Garamond\", Georgia, serif",
+      "serif": "\"Cormorant Garamond\", Georgia, serif",
+      "sans": "\"Jost\", \"Helvetica Neue\", Arial, sans-serif"
+    },
+    "studio": true,
+    "pedestal": true,
+    "carousel": "dolly",
+    "cards": "gallery",
+    "fresh": true,
+    "plinthColor": "#efe6d6",
+    "paging": true,
+    "pageDuration": 1.4,
+    "epilogue": false,
+    "productScale": 1.0,
+    "pyramid": true
+  },
+  "defaultLang": "tr",
+  "hide": [
+    "stockists"
+  ],
+  "contactInfo": {
+    "tr": [
+      [
+        "WhatsApp",
+        [
+          "+905000000000"
+        ]
+      ]
+    ],
+    "en": [
+      [
+        "WhatsApp",
+        [
+          "+905000000000"
+        ]
+      ]
+    ]
+  },
+  "stockists": {
+    "tr": [],
+    "en": []
+  },
+  "finder": {},
+  "catalog": {
+    "categories": [
+      {
+        "id": "hepsi",
+        "name": {
+          "tr": "Kolonyalar",
+          "en": "Colognes"
+        },
+        "color": "#1f3a5f",
+        "desc": {
+          "tr": "Limon · Lavanta · Tütün",
+          "en": "Lemon · Lavender · Tobacco"
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "limon-kolonyasi",
+        "handle": "limon-kolonyasi",
+        "name": {
+          "tr": "LİMON",
+          "en": "LEMON"
+        },
+        "category": "hepsi",
+        "size": "400 ml",
+        "price": {
+          "tr": 0.0,
+          "en": 0.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Klasik limon kolonyası: ferah, temiz ve tanıdık. Ellerde ve misafir sofrasında.",
+          "en": "The classic lemon cologne: fresh, clean and familiar. For hands and for guests."
+        },
+        "color": "#e7e4bd",
+        "product": 0,
+        "image": "cut/limon-kolonyasi.webp",
+        "cutout": true,
+        "bg": "#e8d36a",
+        "bg2": "#1f3a5f",
+        "variants": [
+          {
+            "id": 5000
+          }
+        ],
+        "url": "https://wa.me/905000000000?text=Merhaba%2C%20Mavi%20Koy%20Limon%20%28400%20ml%29%20sipari%C5%9F%20vermek%20istiyorum."
+      },
+      {
+        "id": "lavanta-kolonyasi",
+        "handle": "lavanta-kolonyasi",
+        "name": {
+          "tr": "LAVANTA",
+          "en": "LAVENDER"
+        },
+        "category": "hepsi",
+        "size": "400 ml",
+        "price": {
+          "tr": 0.0,
+          "en": 0.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Yumuşak lavanta kolonyası: günün sonunda sakinleştiren, hafif ve çiçeksi.",
+          "en": "A soft lavender cologne: light, floral and calming at the end of the day."
+        },
+        "color": "#c7bbaa",
+        "product": 1,
+        "image": "cut/lavanta-kolonyasi.webp",
+        "cutout": true,
+        "bg": "#b9a6d6",
+        "bg2": "#1f3a5f",
+        "variants": [
+          {
+            "id": 5001
+          }
+        ],
+        "url": "https://wa.me/905000000000?text=Merhaba%2C%20Mavi%20Koy%20Lavanta%20%28400%20ml%29%20sipari%C5%9F%20vermek%20istiyorum."
+      },
+      {
+        "id": "tutun-kolonyasi",
+        "handle": "tutun-kolonyasi",
+        "name": {
+          "tr": "TÜTÜN",
+          "en": "TOBACCO"
+        },
+        "category": "hepsi",
+        "size": "400 ml",
+        "price": {
+          "tr": 0.0,
+          "en": 0.0
+        },
+        "exactPrice": true,
+        "desc": {
+          "tr": "Sıcak ve derin tütün kolonyası: odunsu notalarla klasik bir berber kokusu.",
+          "en": "A warm, deep tobacco cologne: a classic barbershop scent with woody notes."
+        },
+        "color": "#d58e3f",
+        "product": 2,
+        "image": "cut/tutun-kolonyasi.webp",
+        "cutout": true,
+        "bg": "#b5651d",
+        "bg2": "#1f3a5f",
+        "variants": [
+          {
+            "id": 5002
+          }
+        ],
+        "url": "https://wa.me/905000000000?text=Merhaba%2C%20Mavi%20Koy%20T%C3%BCt%C3%BCn%20%28400%20ml%29%20sipari%C5%9F%20vermek%20istiyorum."
+      }
+    ]
+  },
+  "products": [
+    {
+      "name": "LİMON",
+      "form": "photo",
+      "sub": "400 ml",
+      "collection": null,
+      "family": "Narenciye · Ferah",
+      "year": null,
+      "perfumer": null,
+      "color": "#e7e4bd",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#e8d36a",
+        "edge": "#050404",
+        "drop": "#1f3a5f",
+        "accent": "#1f3a5f",
+        "mood": "warm"
+      },
+      "tagline": "Ege limonunun ilk kokusu.",
+      "notes": [
+        "Limon",
+        "Bergamot",
+        "Nane"
+      ],
+      "description": "Klasik limon kolonyası: ferah, temiz ve tanıdık. Ellerde ve misafir sofrasında.",
+      "file": "limon-kolonyasi.webp",
+      "handle": "limon-kolonyasi",
+      "en": {
+        "name": "LEMON",
+        "family": "Citrus · Fresh",
+        "tagline": "The first scent of Aegean lemon.",
+        "notes": [
+          "Lemon",
+          "Bergamot",
+          "Mint"
+        ],
+        "description": "The classic lemon cologne: fresh, clean and familiar. For hands and for guests.",
+        "sub": "400 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.1604,
+        "depthRatio": 0.42,
+        "axis": 0.4984,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0492, 0.0688, 0.0734, 0.0742, 0.075, 0.075, 0.0742, 0.0742, 0.0734, 0.0734, 0.0727, 0.0727, 0.0734, 0.0727, 0.0727, 0.0727, 0.0734, 0.0734, 0.0742, 0.075, 0.075, 0.075, 0.075, 0.075, 0.075, 0.075, 0.0758, 0.0789, 0.0758, 0.0711, 0.0766, 0.093, 0.1211, 0.1477, 0.1594, 0.1664, 0.1719, 0.175, 0.1773, 0.1797, 0.1805, 0.1812, 0.1812, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1805, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.1812, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.182, 0.1805, 0.1805, 0.1805, 0.1797, 0.1781, 0.1758, 0.1734, 0.1695, 0.1656, 0.1594, 0.1469, 0.132, 0.1039, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4375, 0.0312],
+            [0.4359, 0.0328],
+            [0.4313, 0.0328],
+            [0.4266, 0.0359],
+            [0.4234, 0.0406],
+            [0.425, 0.1047],
+            [0.4234, 0.1062],
+            [0.4219, 0.1391],
+            [0.4188, 0.1453],
+            [0.4234, 0.1469],
+            [0.4266, 0.15],
+            [0.4266, 0.1531],
+            [0.4141, 0.1594],
+            [0.4062, 0.1594],
+            [0.3984, 0.1625],
+            [0.3812, 0.1625],
+            [0.3797, 0.1641],
+            [0.3625, 0.1656],
+            [0.3609, 0.1672],
+            [0.3422, 0.1703],
+            [0.3328, 0.175],
+            [0.3219, 0.1859],
+            [0.3172, 0.1953],
+            [0.3172, 0.2094],
+            [0.3156, 0.2109],
+            [0.3172, 0.2125],
+            [0.3156, 0.2141],
+            [0.3156, 0.2313],
+            [0.3172, 0.2328],
+            [0.3156, 0.9141],
+            [0.3172, 0.9156],
+            [0.3172, 0.9266],
+            [0.3234, 0.9422],
+            [0.3406, 0.9578],
+            [0.3594, 0.9641],
+            [0.3703, 0.9641],
+            [0.3719, 0.9656],
+            [0.3797, 0.9656],
+            [0.3906, 0.9688],
+            [0.6016, 0.9688],
+            [0.6031, 0.9672],
+            [0.6109, 0.9672],
+            [0.6203, 0.9641],
+            [0.6297, 0.9641],
+            [0.6359, 0.9609],
+            [0.6562, 0.9563],
+            [0.6703, 0.9469],
+            [0.675, 0.9422],
+            [0.6797, 0.9328],
+            [0.6797, 0.9203],
+            [0.6813, 0.9187],
+            [0.6813, 0.675],
+            [0.6797, 0.6734],
+            [0.6797, 0.5453],
+            [0.6781, 0.5437],
+            [0.6781, 0.2906],
+            [0.6797, 0.2891],
+            [0.6797, 0.1984],
+            [0.6734, 0.1844],
+            [0.6672, 0.1781],
+            [0.6531, 0.1703],
+            [0.6078, 0.1625],
+            [0.5922, 0.1578],
+            [0.5813, 0.1578],
+            [0.5734, 0.1547],
+            [0.5703, 0.1516],
+            [0.5703, 0.15],
+            [0.5734, 0.1469],
+            [0.5766, 0.1469],
+            [0.5781, 0.1437],
+            [0.5734, 0.1391],
+            [0.5734, 0.1031],
+            [0.5703, 0.0938],
+            [0.5703, 0.0875],
+            [0.5719, 0.0859],
+            [0.5703, 0.0703],
+            [0.5719, 0.0688],
+            [0.5734, 0.0453],
+            [0.5719, 0.0437],
+            [0.5719, 0.0391],
+            [0.5687, 0.0359],
+            [0.5625, 0.0328],
+            [0.5547, 0.0328],
+            [0.5531, 0.0312],
+            [0.525, 0.0312],
+            [0.5234, 0.0297],
+            [0.4594, 0.0297],
+            [0.4578, 0.0312]
+          ]
+        ],
+        "edge": "#e1ddb8"
+      },
+      "price": {
+        "tr": 0.0,
+        "en": 0.0
+      },
+      "photos": [
+        "foto/limon-kolonyasi/1.webp"
+      ]
+    },
+    {
+      "name": "LAVANTA",
+      "form": "photo",
+      "sub": "400 ml",
+      "collection": null,
+      "family": "Aromatik · Çiçeksi",
+      "year": null,
+      "perfumer": null,
+      "color": "#c7bbaa",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#b9a6d6",
+        "edge": "#050404",
+        "drop": "#1f3a5f",
+        "accent": "#1f3a5f",
+        "mood": "warm"
+      },
+      "tagline": "Akşamın sakinliği.",
+      "notes": [
+        "Lavanta",
+        "Adaçayı",
+        "Misk"
+      ],
+      "description": "Yumuşak lavanta kolonyası: günün sonunda sakinleştiren, hafif ve çiçeksi.",
+      "file": "lavanta-kolonyasi.webp",
+      "handle": "lavanta-kolonyasi",
+      "en": {
+        "name": "LAVENDER",
+        "family": "Aromatic · Floral",
+        "tagline": "The calm of the evening.",
+        "notes": [
+          "Lavender",
+          "Sage",
+          "Musk"
+        ],
+        "description": "A soft lavender cologne: light, floral and calming at the end of the day.",
+        "sub": "400 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.1854,
+        "depthRatio": 0.42,
+        "axis": 0.4992,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0469, 0.0688, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0727, 0.0727, 0.0727, 0.0719, 0.0727, 0.0727, 0.0727, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0719, 0.0727, 0.0727, 0.0719, 0.0719, 0.0727, 0.0719, 0.0828, 0.0945, 0.1242, 0.1437, 0.1492, 0.1531, 0.1547, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1547, 0.1547, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1539, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1547, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1555, 0.1547, 0.1547, 0.1531, 0.1523, 0.15, 0.1453, 0.1375, 0.1281, 0.1172, 0.0867, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4375, 0.0312],
+            [0.4297, 0.0344],
+            [0.4266, 0.0391],
+            [0.4266, 0.1812],
+            [0.4156, 0.1859],
+            [0.4016, 0.1875],
+            [0.3875, 0.1922],
+            [0.375, 0.1922],
+            [0.3734, 0.1938],
+            [0.3578, 0.1953],
+            [0.3531, 0.1969],
+            [0.3438, 0.2078],
+            [0.3438, 0.2297],
+            [0.3422, 0.2313],
+            [0.3422, 0.2516],
+            [0.3438, 0.2531],
+            [0.3438, 0.9375],
+            [0.3469, 0.9422],
+            [0.3469, 0.9453],
+            [0.3625, 0.9594],
+            [0.375, 0.9641],
+            [0.3844, 0.9641],
+            [0.3859, 0.9656],
+            [0.4, 0.9672],
+            [0.4016, 0.9688],
+            [0.5844, 0.9688],
+            [0.5859, 0.9672],
+            [0.5938, 0.9672],
+            [0.6047, 0.9641],
+            [0.6156, 0.9641],
+            [0.6203, 0.9609],
+            [0.6297, 0.9594],
+            [0.6328, 0.9563],
+            [0.6422, 0.9531],
+            [0.6516, 0.9437],
+            [0.6562, 0.9313],
+            [0.6562, 0.7125],
+            [0.6547, 0.7109],
+            [0.6547, 0.6016],
+            [0.6531, 0.6],
+            [0.6531, 0.4219],
+            [0.6547, 0.4203],
+            [0.6547, 0.4141],
+            [0.6531, 0.4125],
+            [0.6547, 0.4078],
+            [0.6531, 0.2547],
+            [0.6547, 0.2531],
+            [0.6547, 0.2109],
+            [0.6516, 0.2047],
+            [0.6422, 0.1969],
+            [0.6375, 0.1969],
+            [0.6312, 0.1938],
+            [0.6156, 0.1938],
+            [0.6141, 0.1922],
+            [0.6031, 0.1922],
+            [0.5969, 0.1891],
+            [0.5906, 0.1891],
+            [0.5859, 0.1859],
+            [0.575, 0.1828],
+            [0.5703, 0.1781],
+            [0.5719, 0.1766],
+            [0.5703, 0.1719],
+            [0.5703, 0.1656],
+            [0.5719, 0.1641],
+            [0.5719, 0.1219],
+            [0.5703, 0.1203],
+            [0.5719, 0.1172],
+            [0.5719, 0.0984],
+            [0.5703, 0.0969],
+            [0.5719, 0.0719],
+            [0.5703, 0.0703],
+            [0.5703, 0.0375],
+            [0.5672, 0.0344],
+            [0.5563, 0.0328],
+            [0.5547, 0.0312],
+            [0.525, 0.0312],
+            [0.5234, 0.0297]
+          ]
+        ],
+        "edge": "#d1cbd7"
+      },
+      "price": {
+        "tr": 0.0,
+        "en": 0.0
+      },
+      "photos": [
+        "foto/lavanta-kolonyasi/1.webp"
+      ]
+    },
+    {
+      "name": "TÜTÜN",
+      "form": "photo",
+      "sub": "400 ml",
+      "collection": null,
+      "family": "Odunsu · Sıcak",
+      "year": null,
+      "perfumer": null,
+      "color": "#d58e3f",
+      "ink": "#1f1a17",
+      "theme": {
+        "glow": "#b5651d",
+        "edge": "#050404",
+        "drop": "#1f3a5f",
+        "accent": "#1f3a5f",
+        "mood": "warm"
+      },
+      "tagline": "Eski İstanbul berberlerinden.",
+      "notes": [
+        "Tütün",
+        "Sedir",
+        "Vanilya"
+      ],
+      "description": "Sıcak ve derin tütün kolonyası: odunsu notalarla klasik bir berber kokusu.",
+      "file": "tutun-kolonyasi.webp",
+      "handle": "tutun-kolonyasi",
+      "en": {
+        "name": "TOBACCO",
+        "family": "Woody · Warm",
+        "tagline": "From the old barbers of Istanbul.",
+        "notes": [
+          "Tobacco",
+          "Cedar",
+          "Vanilla"
+        ],
+        "description": "A warm, deep tobacco cologne: a classic barbershop scent with woody notes.",
+        "sub": "400 ml"
+      },
+      "label": {
+        "style": "photo"
+      },
+      "photo3d": {
+        "profile": "flask",
+        "neck": 0.1729,
+        "depthRatio": 0.42,
+        "axis": 0.5008,
+        "rows": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0453, 0.0703, 0.0734, 0.0742, 0.0742, 0.0742, 0.0742, 0.0742, 0.0742, 0.0734, 0.0727, 0.0711, 0.0727, 0.0734, 0.0734, 0.0719, 0.0719, 0.0742, 0.0742, 0.0734, 0.0734, 0.0742, 0.0742, 0.0742, 0.0742, 0.0742, 0.0742, 0.075, 0.0758, 0.0789, 0.0789, 0.0789, 0.0813, 0.082, 0.0852, 0.0977, 0.1367, 0.1555, 0.1703, 0.1797, 0.1844, 0.1883, 0.1922, 0.1945, 0.1969, 0.1992, 0.2, 0.2008, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2008, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2016, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2023, 0.2016, 0.2008, 0.1992, 0.1961, 0.1938, 0.1891, 0.1836, 0.1781, 0.1633, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "outline": [
+          [
+            [0.4375, 0.0312],
+            [0.4281, 0.0344],
+            [0.4234, 0.0406],
+            [0.4234, 0.0594],
+            [0.425, 0.0609],
+            [0.425, 0.0734],
+            [0.4234, 0.0766],
+            [0.4266, 0.0828],
+            [0.4266, 0.0891],
+            [0.4234, 0.0953],
+            [0.4266, 0.1047],
+            [0.4234, 0.1109],
+            [0.4234, 0.1453],
+            [0.4188, 0.1516],
+            [0.4188, 0.1547],
+            [0.4219, 0.1578],
+            [0.4188, 0.1609],
+            [0.4141, 0.1734],
+            [0.4047, 0.1766],
+            [0.3703, 0.1797],
+            [0.3625, 0.1828],
+            [0.3516, 0.1828],
+            [0.325, 0.1906],
+            [0.3172, 0.1953],
+            [0.3063, 0.2062],
+            [0.3, 0.2172],
+            [0.2984, 0.2266],
+            [0.2953, 0.2328],
+            [0.2953, 0.2641],
+            [0.2969, 0.2656],
+            [0.2953, 0.3031],
+            [0.2969, 0.3047],
+            [0.2969, 0.3609],
+            [0.2984, 0.3625],
+            [0.2984, 0.5],
+            [0.3, 0.5016],
+            [0.2984, 0.5031],
+            [0.3, 0.5047],
+            [0.3, 0.5437],
+            [0.2984, 0.5453],
+            [0.2984, 0.9375],
+            [0.3016, 0.9422],
+            [0.3016, 0.9453],
+            [0.3172, 0.9609],
+            [0.3344, 0.9688],
+            [0.6625, 0.9688],
+            [0.6734, 0.9641],
+            [0.6781, 0.9641],
+            [0.6859, 0.9594],
+            [0.6969, 0.9484],
+            [0.7031, 0.9344],
+            [0.7031, 0.925],
+            [0.7047, 0.9234],
+            [0.7031, 0.6266],
+            [0.7016, 0.625],
+            [0.7031, 0.2297],
+            [0.7, 0.2234],
+            [0.7, 0.2188],
+            [0.6891, 0.2016],
+            [0.6781, 0.1922],
+            [0.6687, 0.1875],
+            [0.6531, 0.1844],
+            [0.6516, 0.1828],
+            [0.6406, 0.1828],
+            [0.6328, 0.1797],
+            [0.5984, 0.1766],
+            [0.5969, 0.175],
+            [0.5859, 0.1734],
+            [0.5828, 0.1703],
+            [0.5813, 0.1625],
+            [0.5781, 0.1594],
+            [0.5813, 0.1531],
+            [0.575, 0.1469],
+            [0.575, 0.1156],
+            [0.5734, 0.1141],
+            [0.575, 0.1016],
+            [0.5719, 0.0969],
+            [0.5719, 0.0922],
+            [0.575, 0.0875],
+            [0.575, 0.0844],
+            [0.5719, 0.0797],
+            [0.5719, 0.0734],
+            [0.575, 0.0672],
+            [0.575, 0.0406],
+            [0.5703, 0.0344],
+            [0.5578, 0.0328],
+            [0.5563, 0.0312],
+            [0.5156, 0.0312],
+            [0.5141, 0.0297]
+          ]
+        ],
+        "edge": "#e4b486"
+      },
+      "price": {
+        "tr": 0.0,
+        "en": 0.0
+      },
+      "photos": [
+        "foto/tutun-kolonyasi/1.webp"
+      ]
+    }
+  ],
+  "home": [0, 1, 2],
+  "ritual": [
+    {
+      "flavor": 0,
+      "tr": {
+        "title": "Ege limonunun ilk kokusu.",
+        "text": "Klasik limon kolonyası: ferah, temiz ve tanıdık. Ellerde ve misafir sofrasında.",
+        "stat": "Narenciye · Ferah"
+      },
+      "en": {
+        "title": "The first scent of Aegean lemon.",
+        "text": "The classic lemon cologne: fresh, clean and familiar. For hands and for guests.",
+        "stat": "Citrus · Fresh"
+      }
+    },
+    {
+      "flavor": 1,
+      "tr": {
+        "title": "Akşamın sakinliği.",
+        "text": "Yumuşak lavanta kolonyası: günün sonunda sakinleştiren, hafif ve çiçeksi.",
+        "stat": "Aromatik · Çiçeksi"
+      },
+      "en": {
+        "title": "The calm of the evening.",
+        "text": "A soft lavender cologne: light, floral and calming at the end of the day.",
+        "stat": "Aromatic · Floral"
+      }
+    },
+    {
+      "flavor": 2,
+      "tr": {
+        "title": "Eski İstanbul berberlerinden.",
+        "text": "Sıcak ve derin tütün kolonyası: odunsu notalarla klasik bir berber kokusu.",
+        "stat": "Odunsu · Sıcak"
+      },
+      "en": {
+        "title": "From the old barbers of Istanbul.",
+        "text": "A warm, deep tobacco cologne: a classic barbershop scent with woody notes.",
+        "stat": "Woody · Warm"
+      }
+    }
+  ]
+}

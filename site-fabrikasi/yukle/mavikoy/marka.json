@@ -1,0 +1,267 @@
+{
+  "slug": "mavikoy",
+  "name": "Mavi Koy",
+  "wordmark": "MAVİ KOY",
+  "sub": "Kolonya Atölyesi",
+  "city": "İstanbul",
+  "whatsapp": "905000000000",
+  "instagram": "",
+  "website": "",
+  "kind": "kolonya",
+  "size": "400 ml",
+  "specs": {
+    "tr": "Kolonya · 80° · 400 ml",
+    "en": "Eau de Cologne · 80° · 400 ml"
+  },
+  "accent": "#1f3a5f",
+  "plinth": "#efe6d6",
+  "fonts": "classic",
+  "tagline": {
+    "tr": "Denizden gelen ferahlık.",
+    "en": "Freshness from the sea."
+  },
+  "marquee": {
+    "tr": [
+      "Mavi Koy",
+      "Limon",
+      "Lavanta",
+      "Tütün",
+      "80°",
+      "Kolonya Atölyesi"
+    ],
+    "en": [
+      "Mavi Koy",
+      "Lemon",
+      "Lavender",
+      "Tobacco",
+      "80°",
+      "Cologne Atelier"
+    ]
+  },
+  "words": {
+    "tr": {
+      "one": "Kolonya",
+      "many": "Kolonyalar",
+      "family": "Koku ailesi",
+      "notes": "Notalar",
+      "drag": "Şişeyi çevirmek için sürükle",
+      "action": "Kolonyayı dök"
+    },
+    "en": {
+      "one": "Cologne",
+      "many": "Colognes",
+      "family": "Family",
+      "notes": "Notes",
+      "drag": "Drag to turn the bottle",
+      "action": "Pour it"
+    }
+  },
+  "products": [
+    {
+      "handle": "limon-kolonyasi",
+      "photo": "limon.png",
+      "name": [
+        "Limon",
+        "Lemon"
+      ],
+      "color": "#e8d36a",
+      "family": [
+        "Narenciye · Ferah",
+        "Citrus · Fresh"
+      ],
+      "tagline": [
+        "Ege limonunun ilk kokusu.",
+        "The first scent of Aegean lemon."
+      ],
+      "desc": [
+        "Klasik limon kolonyası: ferah, temiz ve tanıdık. Ellerde ve misafir sofrasında.",
+        "The classic lemon cologne: fresh, clean and familiar. For hands and for guests."
+      ],
+      "notes": [
+        [
+          "Limon",
+          "Lemon"
+        ],
+        [
+          "Bergamot",
+          "Bergamot"
+        ],
+        [
+          "Nane",
+          "Mint"
+        ]
+      ],
+      "price": 0
+    },
+    {
+      "handle": "lavanta-kolonyasi",
+      "photo": "lavanta.png",
+      "name": [
+        "Lavanta",
+        "Lavender"
+      ],
+      "color": "#b9a6d6",
+      "family": [
+        "Aromatik · Çiçeksi",
+        "Aromatic · Floral"
+      ],
+      "tagline": [
+        "Akşamın sakinliği.",
+        "The calm of the evening."
+      ],
+      "desc": [
+        "Yumuşak lavanta kolonyası: günün sonunda sakinleştiren, hafif ve çiçeksi.",
+        "A soft lavender cologne: light, floral and calming at the end of the day."
+      ],
+      "notes": [
+        [
+          "Lavanta",
+          "Lavender"
+        ],
+        [
+          "Adaçayı",
+          "Sage"
+        ],
+        [
+          "Misk",
+          "Musk"
+        ]
+      ],
+      "price": 0
+    },
+    {
+      "handle": "tutun-kolonyasi",
+      "photo": "tutun.png",
+      "name": [
+        "Tütün",
+        "Tobacco"
+      ],
+      "color": "#b5651d",
+      "family": [
+        "Odunsu · Sıcak",
+        "Woody · Warm"
+      ],
+      "tagline": [
+        "Eski İstanbul berberlerinden.",
+        "From the old barbers of Istanbul."
+      ],
+      "desc": [
+        "Sıcak ve derin tütün kolonyası: odunsu notalarla klasik bir berber kokusu.",
+        "A warm, deep tobacco cologne: a classic barbershop scent with woody notes."
+      ],
+      "notes": [
+        [
+          "Tütün",
+          "Tobacco"
+        ],
+        [
+          "Sedir",
+          "Cedar"
+        ],
+        [
+          "Vanilya",
+          "Vanilla"
+        ]
+      ],
+      "price": 0
+    }
+  ],
+  "features": [
+    {
+      "tr": [
+        "Ferahlık",
+        "Sıradan bir kolonya",
+        "80 derece ferahlık",
+        "Geleneksel 80 derece kolonya: ellerde, yolculukta, misafir sofrasında."
+      ],
+      "en": [
+        "Freshness",
+        "An ordinary cologne",
+        "80 degrees of freshness",
+        "Traditional 80-degree cologne: for hands, travel and guests."
+      ]
+    },
+    {
+      "tr": [
+        "Atölye",
+        "Fabrika üretimi",
+        "Küçük atölyede",
+        "Her şişe küçük partiler hâlinde, atölyede hazırlanır."
+      ],
+      "en": [
+        "Atelier",
+        "Factory made",
+        "In a small atelier",
+        "Every bottle is prepared in small batches in the atelier."
+      ]
+    },
+    {
+      "tr": [
+        "Koku",
+        "Tek bir koku",
+        "Üç karakter",
+        "Limonun ferahlığı, lavantanın sakinliği, tütünün sıcaklığı."
+      ],
+      "en": [
+        "Scent",
+        "A single scent",
+        "Three characters",
+        "The freshness of lemon, the calm of lavender, the warmth of tobacco."
+      ]
+    },
+    {
+      "tr": [
+        "Gelenek",
+        "Unutulan bir alışkanlık",
+        "Yeniden kolonya",
+        "Kolonya ikramı, yeni bir şişede yeniden."
+      ],
+      "en": [
+        "Tradition",
+        "A forgotten habit",
+        "Cologne again",
+        "The tradition of offering cologne, in a new bottle."
+      ]
+    }
+  ],
+  "story": {
+    "tr": {
+      "lead": "Mavi Koy, denizin ferahlığını şişeye koyan küçük bir kolonya atölyesi.",
+      "paragraphs": [
+        "Kolonya bizim için bir misafirperverlik geleneği. Mavi Koy bu geleneği sade şişeler ve üç net koku ile yeniden yorumluyor.",
+        "Limon, lavanta ve tütün: her biri günün farklı bir anı için."
+      ]
+    },
+    "en": {
+      "lead": "Mavi Koy is a small cologne atelier that bottles the freshness of the sea.",
+      "paragraphs": [
+        "To us, cologne is a tradition of hospitality. Mavi Koy reinterprets it with simple bottles and three clear scents.",
+        "Lemon, lavender and tobacco: each for a different moment of the day."
+      ]
+    }
+  },
+  "faqs": {
+    "tr": [
+      [
+        "Kolonya kaç derece?",
+        "Tüm Mavi Koy kolonyaları 80 derecedir."
+      ],
+      [
+        "Nasıl sipariş verebilirim?",
+        "Ürün sayfasındaki butonla WhatsApp'tan yazmanız yeterli."
+      ]
+    ],
+    "en": [
+      [
+        "What is the alcohol degree?",
+        "All Mavi Koy colognes are 80 degrees."
+      ],
+      [
+        "How can I order?",
+        "Just message us on WhatsApp with the button on the product page."
+      ]
+    ]
+  },
+  "fictional": true,
+  "spray": true
+}

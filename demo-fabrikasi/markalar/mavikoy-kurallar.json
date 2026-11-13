@@ -1,0 +1,192 @@
+{
+ "foto": {
+  "ai": true,
+  "studio": true,
+  "backPhotos": false,
+  "views": false,
+  "edgeFrom": "side",
+  "convex": 0.55,
+  "backSolid": "."
+ },
+ "aktar": {
+  "domain": "wa.me",
+  "platform": "merx",
+  "namePrefix": "^$",
+  "idPrefix": "",
+  "defaultSize": "400 ml",
+  "themeGlow": 0.3,
+  "home": [
+   "limon-kolonyasi",
+   "lavanta-kolonyasi",
+   "tutun-kolonyasi"
+  ],
+  "profiles": {
+   "flask": ".",
+   "depthRatio": 0.42
+  },
+  "rename": {
+   "limon-kolonyasi": [
+    "LİMON",
+    "LEMON"
+   ],
+   "lavanta-kolonyasi": [
+    "LAVANTA",
+    "LAVENDER"
+   ],
+   "tutun-kolonyasi": [
+    "TÜTÜN",
+    "TOBACCO"
+   ]
+  },
+  "categories": [
+   {
+    "id": "hepsi",
+    "tr": "Kolonyalar",
+    "en": "Colognes",
+    "color": "#1f3a5f",
+    "descTr": "Limon · Lavanta · Tütün",
+    "descEn": "Lemon · Lavender · Tobacco",
+    "match": "."
+   }
+  ],
+  "families": {
+   "limon-kolonyasi": [
+    "Narenciye · Ferah",
+    "Citrus · Fresh"
+   ],
+   "lavanta-kolonyasi": [
+    "Aromatik · Çiçeksi",
+    "Aromatic · Floral"
+   ],
+   "tutun-kolonyasi": [
+    "Odunsu · Sıcak",
+    "Woody · Warm"
+   ]
+  },
+  "notes": [
+   [
+    "^limon\\-kolonyasi$",
+    [
+     [
+      "Limon",
+      "Lemon"
+     ],
+     [
+      "Bergamot",
+      "Bergamot"
+     ],
+     [
+      "Nane",
+      "Mint"
+     ]
+    ]
+   ],
+   [
+    "^lavanta\\-kolonyasi$",
+    [
+     [
+      "Lavanta",
+      "Lavender"
+     ],
+     [
+      "Adaçayı",
+      "Sage"
+     ],
+     [
+      "Misk",
+      "Musk"
+     ]
+    ]
+   ],
+   [
+    "^tutun\\-kolonyasi$",
+    [
+     [
+      "Tütün",
+      "Tobacco"
+     ],
+     [
+      "Sedir",
+      "Cedar"
+     ],
+     [
+      "Vanilya",
+      "Vanilla"
+     ]
+    ]
+   ]
+  ],
+  "taglines": {
+   "limon-kolonyasi": [
+    "Ege limonunun ilk kokusu.",
+    "The first scent of Aegean lemon."
+   ],
+   "lavanta-kolonyasi": [
+    "Akşamın sakinliği.",
+    "The calm of the evening."
+   ],
+   "tutun-kolonyasi": [
+    "Eski İstanbul berberlerinden.",
+    "From the old barbers of Istanbul."
+   ]
+  },
+  "palette": [
+   [
+    "^limon\\-kolonyasi$",
+    "#e8d36a",
+    "#1f3a5f"
+   ],
+   [
+    "^lavanta\\-kolonyasi$",
+    "#b9a6d6",
+    "#1f3a5f"
+   ],
+   [
+    "^tutun\\-kolonyasi$",
+    "#b5651d",
+    "#1f3a5f"
+   ]
+  ],
+  "ritual": [
+   {
+    "handle": "limon-kolonyasi",
+    "tr": {
+     "title": "Ege limonunun ilk kokusu.",
+     "text": "Klasik limon kolonyası: ferah, temiz ve tanıdık. Ellerde ve misafir sofrasında.",
+     "stat": "Narenciye · Ferah"
+    },
+    "en": {
+     "title": "The first scent of Aegean lemon.",
+     "text": "The classic lemon cologne: fresh, clean and familiar. For hands and for guests.",
+     "stat": "Citrus · Fresh"
+    }
+   },
+   {
+    "handle": "lavanta-kolonyasi",
+    "tr": {
+     "title": "Akşamın sakinliği.",
+     "text": "Yumuşak lavanta kolonyası: günün sonunda sakinleştiren, hafif ve çiçeksi.",
+     "stat": "Aromatik · Çiçeksi"
+    },
+    "en": {
+     "title": "The calm of the evening.",
+     "text": "A soft lavender cologne: light, floral and calming at the end of the day.",
+     "stat": "Aromatic · Floral"
+    }
+   },
+   {
+    "handle": "tutun-kolonyasi",
+    "tr": {
+     "title": "Eski İstanbul berberlerinden.",
+     "text": "Sıcak ve derin tütün kolonyası: odunsu notalarla klasik bir berber kokusu.",
+     "stat": "Odunsu · Sıcak"
+    },
+    "en": {
+     "title": "From the old barbers of Istanbul.",
+     "text": "A warm, deep tobacco cologne: a classic barbershop scent with woody notes.",
+     "stat": "Woody · Warm"
+    }
+   }
+  ]
+ }
+}
