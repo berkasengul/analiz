@@ -434,6 +434,7 @@ export function createScene(canvas, flavors, onProgress) {
   }
 
   function setPose(p) { Object.assign(target, p); }
+  function snapPose(p) { Object.assign(target, p); Object.assign(state, p); }
 
   function resize() {
     const w = window.innerWidth, h = window.innerHeight;
@@ -690,6 +691,7 @@ export function createScene(canvas, flavors, onProgress) {
     ready,
     setFlavor,
     setPose,
+    snapPose,
     setFan(v) { fanTarget = v; },
     setActive(v) { active = v; },
     setStream(f) {

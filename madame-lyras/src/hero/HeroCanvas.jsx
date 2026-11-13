@@ -10,7 +10,7 @@ import { stoneSlab } from './stone.js';
 import { loadRelief, loadFlat } from './relief.js';
 
 /* paylaşılan durum: kaydırma, fare, giriş animasyonu */
-export const S = { p: 0, mx: 0, my: 0, intro: 1, pouchIn: 0, fruitIn: 0 };
+export const S = { p: 0, mx: 0, my: 0, intro: 1, pouchIn: 0, fruitIn: 0, handoff: false, cilek: null, rect: null };
 
 const PT = -1.05; // kaidenin üst yüzeyi
 const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
@@ -138,6 +138,7 @@ function Pouches({ flavors, onReady }) {
           h.pk.setBack(makeBackTexture(texes[i].image, h.fl, im));
           h.holder.visible = true;
         });
+        S.cilek = holders.find((h) => h.cfg.id === 'cilek')?.holder || null;
         onReady(holders);
       });
     return () => { dead = true; };
@@ -335,7 +336,7 @@ function Rig({ mobile }) {
     const close = narrow
       ? { pos: [1.72, 0.35, 6.4], look: [1.74, -0.35, 0] }
       : { pos: [1.55, 0.55, 4.4], look: [1.72, 0.12, 0.2] };
-    const p = ease(clamp01(S.p * 1.15));
+    const p = 0; // kaydırmada kamera yaklaşmaz; yalnızca çilek paketi aşağı iner
     const sway = mobile ? 0 : 1;
     tmp.pos.set(
       rest.pos[0] + (close.pos[0] - rest.pos[0]) * p + S.mx * 0.55 * (1 - p * 0.6) + Math.sin(t * 0.21) * 0.12 * sway,
@@ -357,6 +358,27 @@ function Rig({ mobile }) {
     camera.position.set(0.15, 1.75, 11.8);
     look.set(0.15, 0.65, 0);
   }, []);
+  return null;
+}
+
+/* ---------------- çilek paketinin ekrandaki yeri (ürün bölümüne aktarım için) ---------------- */
+function Handoff() {
+  const { camera, gl } = useThree();
+  const box = useMemo(() => new THREE.Box3(), []);
+  const v = useMemo(() => new THREE.Vector3(), []);
+  useFrame(() => {
+    const h = S.cilek;
+    if (!h) return;
+    // kaydırma başlayınca bu paket gizlenir; yerine aynı konumda ürün bölümündeki paket geçer
+    h.visible = !S.handoff;
+    if (S.handoff) return;
+    box.setFromObject(h);
+    const r = gl.domElement.getBoundingClientRect();
+    const toPx = (x, y, z) => { v.set(x, y, z).project(camera); return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height]; };
+    const cx = (box.min.x + box.max.x) / 2, cz = h.position.z;
+    const top = toPx(cx, box.max.y, cz), bot = toPx(cx, box.min.y, cz);
+    S.rect = { cx: (top[0] + bot[0]) / 2, cy: (top[1] + bot[1]) / 2 + r.top * 0 - window.scrollY * 0, h: bot[1] - top[1], scrollY: window.scrollY };
+  });
   return null;
 }
 
@@ -395,6 +417,7 @@ function Scene({ flavors, mobile, reduce, onReady }) {
           blur={2.6} far={2.6} opacity={0.85} color="#1a0503" frames={mobile ? 1 : Infinity} />
       )}
       <Rig mobile={mobile} />
+      <Handoff />
       {!mobile && (
         <EffectComposer multisampling={0} enableNormalPass={false}>
           <N8AO aoRadius={0.55} intensity={2.4} distanceFalloff={0.7} halfRes quality="medium" color="#200403" />

@@ -130,7 +130,9 @@ body[data-stage='product'] .flavors { opacity: 1; pointer-events: auto; }
 .badges--small li { font-size: 13px; padding: 6px 12px; }
 
 /* ---------- hero ---------- */
-.hero { display: block; min-height: 0; padding: 0; height: 190vh; height: 190svh; background: #3a0509; }
+.hero { display: block; min-height: 0; padding: 0; height: 100vh; height: 100svh; background: #3a0509; }
+/* aktarım sırasında genel 3B tuval açılışın üstünde (paket açılıştan ürünlere süzülür) */
+body.gl-front #gl { z-index: 3; }
 .hero__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; padding-top: 70px; }
 .hero__gl { position: absolute; inset: 0; z-index: 0; background: radial-gradient(70% 80% at 68% 55%, #c8141a 0%, #7a0610 45%, #2c0306 100%); }
 .hero__gl canvas { display: block; }
@@ -366,7 +368,7 @@ body[data-stage='product'] .flavors { opacity: 1; pointer-events: auto; }
   .flavors { right: 12px; top: auto; bottom: 24px; transform: none; flex-direction: row; left: 50%; transform: translateX(-50%); right: auto; }
 
   .sec { padding: 96px 0; align-items: flex-end; }
-  .hero { height: 170svh; padding: 0; }
+  .hero { height: 100svh; padding: 0; }
   .hero__stick { align-items: flex-end; padding-bottom: 40px; }
   .no-gl .hero__fallback { right: 50%; top: 14%; width: 46vw; transform: translateX(50%) rotate(-4deg); }
   .hero__title { font-size: clamp(42px, 12.5vw, 64px); margin-bottom: 22px; max-width: none; }

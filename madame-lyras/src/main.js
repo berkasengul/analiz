@@ -149,6 +149,7 @@ if (webglOK()) {
   // açılış sahnesi: React Three Fiber + GSAP (yalnızca hero alanı)
   const heroReady = import('./hero/index.jsx').then(({ mountHero }) => {
     const h = mountHero({ container: $('#heroGL'), heroEl: $('#hero'), flavors: FLAVORS });
+    heroApi = h;
     return h.ready;
   });
   Promise.all([sceneReady, heroReady]).then(() => {
@@ -198,6 +199,8 @@ let lastY = window.scrollY;
 let currentProduct = 0;
 let inspecting = false;
 let streamF = null;
+let heroApi = null;
+let handing = false;
 
 function update(force) {
   if (inspecting) return;
@@ -239,6 +242,9 @@ function update(force) {
       }
     });
     dots.forEach((d, k) => d.classList.toggle('on', k === currentProduct));
+    // açılışın bir kısmı hâlâ ekrandaysa paket onun önünde kalsın
+    document.body.classList.toggle('gl-front', heroEl.getBoundingClientRect().bottom > 0);
+    heroApi && heroApi.setHandoff(true);
     if (scene) {
       scene.setActive(true);
       scene.setStream(f);
@@ -254,22 +260,44 @@ function update(force) {
   bgEl.classList.remove('bg--live');
   streamF = null;
   if (scene) scene.setStream(null);
-  // açılış ayrı bir 3B sahnede; hero ekranı kaplarken genel sahne çizilmez.
-  // Hero ekrandan çıkarken çilek paketi aşağıdan süzülüp ilk ürünün yerine oturur.
+  // Açılış ayrı bir 3B sahnede. Kaydırma başlayınca açılıştaki çilek paketi gizlenir ve aynı ekran
+  // konumunda bu sahnedeki çilek paketi görünür; kaydırdıkça süzülerek ürünler bölümündeki Çilek yerine oturur.
+  // Diğer paketler ve kaide açılışla birlikte yukarı kayıp gider.
   const above = pr.top > mid;
   if (scene) {
     scene.setFan(0);
     if (above) {
-      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-      const k = clamp((y + vh - heroBottom) / Math.max(1, productsEl.offsetTop - heroBottom + mid), 0, 1);
-      scene.setActive(k > 0);
-      const b = pose('product');
-      const a = { ...b, y: b.y - (scene.halfHeight() * 2.4), ry: b.ry - 0.9, cloud: 0 };
-      const e = ease(k);
-      const p = {};
-      for (const key in a) p[key] = a[key] + (b[key] - a[key]) * e;
-      scene.setPose(p);
-    } else scene.setActive(true);
+      const rect = heroApi && heroApi.cilekRect();
+      const handoff = !!rect && y > 1;
+      if (handoff) {
+        const H = scene.halfHeight();
+        const u = (2 * H) / vh;
+        const vw = window.innerWidth;
+        const startY = rect.cy; // paket ekranda yerinde kalır, açılış altından yukarı kayar: sayfaya göre aşağı iner
+        const start = { x: (rect.cx - vw / 2) * u, y: -(startY - vh / 2) * u, s: (rect.h * u) / 1.153, ry: -0.08, rz: 0, cloud: 0, frost: 0 };
+        const end = pose('product');
+        const k = ease(clamp(y / Math.max(1, productsEl.offsetTop - mid), 0, 1));
+        const p = {};
+        for (const key in end) p[key] = start[key] + (end[key] - start[key]) * k;
+        // başlangıçta açılıştaki paket gibi sahneye otursun (kayma ilerledikçe ürün pozuna geçer)
+        p.y = start.y * (1 - k) + end.y * k;
+        if (!handing) { scene.snapPose({ ...p }); handing = true; }
+        else scene.setPose(p);
+        scene.setFlavor(0);
+        scene.setActive(true);
+        document.body.classList.add('gl-front');
+      } else {
+        handing = false;
+        scene.setActive(false);
+        document.body.classList.remove('gl-front');
+      }
+      heroApi && heroApi.setHandoff(handoff);
+    } else {
+      handing = false;
+      scene.setActive(true);
+      document.body.classList.toggle('gl-front', heroEl.getBoundingClientRect().bottom > 0);
+      heroApi && heroApi.setHandoff(true);
+    }
   }
   let active = sections[0];
   for (const s of sections) {

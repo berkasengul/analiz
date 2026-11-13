@@ -25,11 +25,11 @@ export function mountHero({ container, heroEl, flavors }) {
     S.my += (target.y - S.my) * 0.06;
   });
 
-  // kaydırma: kamera ürünlere yaklaşır, yazılar çekilir
+  // kaydırma: yazılar çekilir (kamera sabit; çilek paketi ürün bölümüne iner)
   ScrollTrigger.create({
     trigger: heroEl,
     start: 'top top',
-    end: 'bottom bottom',
+    end: 'bottom top',
     scrub: true,
     onUpdate: (self) => {
       S.p = self.progress;
@@ -49,5 +49,10 @@ export function mountHero({ container, heroEl, flavors }) {
     return <HeroCanvas flavors={flavors} mobile={mobile} reduce={reduce} active={active} onReady={() => resolveReady()} />;
   }
   createRoot(container).render(<App />);
-  return { ready };
+  return {
+    ready,
+    // ekrandaki çilek paketi (kaydırma 0'dayken ölçülen konum ve yükseklik, piksel)
+    cilekRect: () => S.rect,
+    setHandoff: (v) => { S.handoff = v; },
+  };
 }
