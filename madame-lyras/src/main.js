@@ -1,5 +1,5 @@
 import Lenis from 'lenis';
-import { FLAVORS, SITE } from './data.js';
+import { FLAVORS, SITE, SHOWCASE } from './data.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -9,28 +9,33 @@ const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const N = FLAVORS.length;
+// kaide üzerinde sırayla sergilenen ürünler (FLAVORS içindeki sıraları)
+const SHOW = SHOWCASE.map((id) => FLAVORS.findIndex((f) => f.id === id));
+const NS = SHOW.length;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isMobile = () => window.innerWidth / window.innerHeight < 0.9 || window.innerWidth < 760;
 
-/* ---------- ürün katmanları (sabit sahne içinde) ---------- */
-$('#players').innerHTML = FLAVORS.map((f, i) => `
-  <article class="player" id="urun-${f.id}" data-ink="${f.ink}" aria-hidden="${i ? 'true' : 'false'}">
-    <p class="player__idx" style="--k:0"><b>${pad(i + 1)}</b> / ${pad(N)}</p>
+/* ---------- vitrindeki ürünlerin yazıları (açılış sahnesinin içinde) ---------- */
+$('#players').innerHTML = SHOW.map((fi, i) => {
+  const f = FLAVORS[fi];
+  return `
+  <article class="player" id="urun-${f.id}" data-ink="light" aria-hidden="true">
+    <p class="player__idx" style="--k:0"><b>${pad(i + 1)}</b> / ${pad(NS)}</p>
     <p class="eyebrow" style="--k:1">${f.slogan}</p>
     <h2 class="player__name${f.name.length > 9 ? ' player__name--long' : ''}" style="--k:2">${f.name}</h2>
     <p class="player__lead" style="--k:3">${f.lead}</p>
     <p class="player__desc" style="--k:4">${f.desc}</p>
     <dl class="facts" style="--k:5">${f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
     <div class="player__actions" style="--k:6">
-      <button class="btn btn--light" type="button" data-inspect="${i}">3D olarak incele</button>
-      <a class="btn btn--ghost" href="#iletisim" data-ask="${i}">Bilgi al</a>
+      <button class="btn btn--light" type="button" data-inspect="${fi}">3D olarak incele</button>
+      <a class="btn btn--ghost" href="#iletisim" data-ask="${fi}">Bilgi al</a>
     </div>
     <img class="product__fallback" src="${f.tex}" alt="Dondurularak kurutulmuş ${lower(f.name)} paketi" width="1024" height="${Math.round(1024 * f.aspect)}" loading="lazy" />
-  </article>`).join('');
+  </article>`;
+}).join('');
 const players = $$('.player');
-const productsEl = $('#urunler');
 const heroEl = $('#hero');
-productsEl.style.setProperty('--n', N);
+const heroStick = $('.hero__stick');
 
 /* ---------- katalog ve afişler ---------- */
 $('#catalog').innerHTML = FLAVORS.map((f, i) => `
@@ -46,7 +51,7 @@ $('#posters').innerHTML = FLAVORS.filter((f) => f.poster).map((f) => `
 
 /* ---------- ürün noktaları ---------- */
 const dotsEl = $('#flavorDots');
-dotsEl.innerHTML = FLAVORS.map((f, i) => `<button type="button" data-go="${i}" aria-label="${f.name}"><span>${f.short || f.name}</span></button>`).join('');
+dotsEl.innerHTML = SHOW.map((fi, i) => `<button type="button" data-go="${i}" aria-label="${FLAVORS[fi].name}"><span>${FLAVORS[fi].short || FLAVORS[fi].name}</span></button>`).join('');
 const dots = $$('button', dotsEl);
 
 /* ---------- e-posta ---------- */
@@ -71,11 +76,10 @@ function goTo(target) {
   if (!el) return;
   scrollToY(el.getBoundingClientRect().top + window.scrollY);
 }
-// ürün akışında i. ürünün tam ortalandığı kaydırma konumu
-function productY(i) {
-  const top = productsEl.getBoundingClientRect().top + window.scrollY;
-  const total = productsEl.offsetHeight - window.innerHeight;
-  return top + (total * i) / (N - 1);
+// sahnede k. durağın kaydırma konumu (0 açılış, 1..NS ürünler)
+const stageVH = () => heroStick.offsetHeight || window.innerHeight;
+function stageY(k) {
+  return heroEl.getBoundingClientRect().top + window.scrollY + k * stageVH();
 }
 
 document.addEventListener('click', (e) => {
@@ -90,7 +94,7 @@ document.addEventListener('click', (e) => {
   closeMenu();
   if (a.dataset.topic) $('#f-topic').value = a.dataset.topic;
   if (id === '#' || id === '#top') scrollToY(0);
-  else if (id === '#urunler') scrollToY(productY(0));
+  else if (id === '#urunler') scrollToY(stageY(1), 1.8);
   else goTo(id);
 });
 
@@ -148,8 +152,9 @@ if (webglOK()) {
   });
   // açılış sahnesi: React Three Fiber + GSAP (yalnızca hero alanı)
   const heroReady = import('./hero/index.jsx').then(({ mountHero }) => {
-    const h = mountHero({ container: $('#heroGL'), heroEl: $('#hero'), flavors: FLAVORS });
+    const h = mountHero({ container: $('#heroGL'), heroEl, hitEl: $('#productHit'), flavors: FLAVORS });
     heroApi = h;
+    update(true);
     return h.ready;
   });
   Promise.all([sceneReady, heroReady]).then(() => {
@@ -196,11 +201,11 @@ const hex = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16));
 const mix = (a, b, t) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',')})`; };
 let lastKey = '';
 let lastY = window.scrollY;
+let scrollDir = 1;
 let currentProduct = 0;
 let inspecting = false;
-let streamF = null;
+let stageS = null;
 let heroApi = null;
-let handing = false;
 
 function update(force) {
   if (inspecting) return;
@@ -208,111 +213,59 @@ function update(force) {
   const mid = vh * 0.5;
   const y = window.scrollY;
   if (scene) scene.kick((y - lastY) * 0.4);
+  if (y !== lastY) scrollDir = y > lastY ? 1 : -1;
   lastY = y;
   hdr.classList.toggle('hdr--scrolled', y > 40);
 
-  // ürün akışı
-  const pr = productsEl.getBoundingClientRect();
-  const inProducts = pr.top <= mid && pr.bottom > mid;
-  if (inProducts) {
-    const total = productsEl.offsetHeight - vh;
-    const f = clamp((-pr.top / total) * (N - 1), 0, N - 1);
-    const i = Math.min(N - 2, Math.floor(f));
-    const u = f - i;
-    const r = reduce ? (u > 0.5 ? 1 : 0) : ease(smooth(0.3, 0.7, u));
-    currentProduct = r < 0.5 ? i : i + 1;
-    bgEl.classList.add('bg--live');
-    bgEl.style.backgroundColor = mix(FLAVORS[i].bg, FLAVORS[i + 1].bg, r);
-    document.documentElement.dataset.ink = FLAVORS[currentProduct].ink;
-    document.body.dataset.stage = 'product';
+  // Açılış ve vitrin tek sabit sahnede: kaide yerinde durur, paketler üstünde döner tabla gibi yer değiştirir
+  const hr = heroEl.getBoundingClientRect();
+  if (hr.bottom > mid) {
+    const s = clamp(-hr.top / stageVH(), 0, NS);
+    stageS = s;
+    heroApi && heroApi.setStage(s);
+    heroEl.style.setProperty('--s', Math.min(1, s).toFixed(4));
     players.forEach((p, k) => {
-      const d = f - k;
+      const d = s - (k + 1);
       const ad = Math.abs(d);
-      // ürün ekrandayken yazı tamamen net ve sabit; yalnızca geçiş anında kayar ve solar
+      // ürün öndeyken yazı tamamen net ve sabit; yalnızca geçiş anında kayar ve solar
       const o = 1 - smooth(0.3, 0.47, ad);
       const moved = Math.sign(d) * Math.max(0, ad - 0.18);
       p.style.setProperty('--d', moved.toFixed(4));
       p.style.setProperty('--o', o.toFixed(3));
       p.style.setProperty('--b', ad < 0.32 ? '0px' : `${Math.min(6, (ad - 0.32) * 40).toFixed(1)}px`);
       p.style.visibility = o < 0.002 ? 'hidden' : 'visible';
-      const active = Math.abs(d) < 0.3;
-      if (p.classList.contains('on') !== active) {
-        p.classList.toggle('on', active);
-        p.setAttribute('aria-hidden', active ? 'false' : 'true');
+      const on = ad < 0.3;
+      if (p.classList.contains('on') !== on) {
+        p.classList.toggle('on', on);
+        p.setAttribute('aria-hidden', on ? 'false' : 'true');
       }
     });
-    dots.forEach((d, k) => d.classList.toggle('on', k === currentProduct));
-    // açılışın bir kısmı hâlâ ekrandaysa paket onun önünde kalsın
-    document.body.classList.toggle('gl-front', heroEl.getBoundingClientRect().bottom > 0);
-    heroApi && heroApi.setHandoff(true);
-    if (scene) {
-      scene.setActive(true);
-      scene.setStream(f);
-      scene.setPose(pose('product'));
-      scene.setFan(0);
+    currentProduct = clamp(Math.round(s) - 1, 0, NS - 1);
+    const showing = s > 0.6;
+    heroEl.classList.toggle('showing', showing);
+    dots.forEach((d, k) => d.classList.toggle('on', showing && k === currentProduct));
+    document.body.dataset.stage = showing ? 'product' : 'hero';
+    document.documentElement.dataset.ink = 'light';
+    bgEl.style.backgroundColor = '#3a0509';
+    const key = showing ? `p${currentProduct}` : 'hero';
+    if (key !== lastKey || force) {
+      lastKey = key;
+      themeMeta.setAttribute('content', showing ? FLAVORS[SHOW[currentProduct]].bg : '#b90d10');
     }
-    streamF = f;
-    const key = `p${currentProduct}`;
-    if (key !== lastKey) { lastKey = key; themeMeta.setAttribute('content', FLAVORS[currentProduct].bg); }
+    // genel 3B tuval sahne ekrandayken dinlenir
+    if (scene) scene.setActive(false);
     return;
   }
 
-  bgEl.classList.remove('bg--live');
-  streamF = null;
-  if (scene) scene.setStream(null);
-  // Açılış ayrı bir 3B sahnede. Kaydırma başlayınca açılıştaki çilek paketi gizlenir ve aynı ekran
-  // konumunda bu sahnedeki çilek paketi görünür; kaydırdıkça süzülerek ürünler bölümündeki Çilek yerine oturur.
-  // Diğer paketler ve kaide açılışla birlikte yukarı kayıp gider.
-  const above = pr.top > mid;
-  if (scene) {
-    scene.setFan(0);
-    if (above) {
-      const rect = heroApi && heroApi.cilekRect();
-      const handoff = !!rect && y > 1;
-      if (handoff) {
-        const H = scene.halfHeight();
-        const u = (2 * H) / vh;
-        const vw = window.innerWidth;
-        const startY = rect.cy; // paket ekranda yerinde kalır, açılış altından yukarı kayar: sayfaya göre aşağı iner
-        const start = { x: (rect.cx - vw / 2) * u, y: -(startY - vh / 2) * u, s: (rect.h * u) / 1.153, ry: -0.08, rz: 0, cloud: 0, frost: 0 };
-        const end = pose('product');
-        // sinematik iniş: ilk pikselden itibaren hareket eder (ease-out), aşağı doğru kavis çizer,
-        // hafifçe döner ve eğilir, ürün yerine yavaşlayarak oturur
-        const raw = clamp(y / Math.max(1, productsEl.offsetTop - mid), 0, 1);
-        const k = 1 - Math.pow(1 - raw, 2.2);
-        const arc = Math.sin(raw * Math.PI);
-        const p = {};
-        for (const key in end) p[key] = start[key] + (end[key] - start[key]) * k;
-        p.y -= arc * H * 0.2;
-        p.ry += arc * 0.55;
-        p.rz = arc * -0.1;
-        p.s *= 1 + arc * 0.05;
-        if (!handing) { scene.snapPose({ ...p }); handing = true; }
-        else scene.setPose(p);
-        scene.setFlavor(0);
-        scene.setActive(true);
-        document.body.classList.add('gl-front');
-      } else {
-        handing = false;
-        scene.setActive(false);
-        document.body.classList.remove('gl-front');
-      }
-      heroApi && heroApi.setHandoff(handoff);
-    } else {
-      handing = false;
-      scene.setActive(true);
-      document.body.classList.toggle('gl-front', heroEl.getBoundingClientRect().bottom > 0);
-      heroApi && heroApi.setHandoff(true);
-    }
-  }
+  stageS = null;
+  heroEl.classList.remove('showing');
+  if (scene) scene.setActive(true);
   let active = sections[0];
-  for (const s of sections) {
-    const r = s.getBoundingClientRect();
-    if (r.top <= mid && r.bottom > mid) { active = s; break; }
+  for (const sec of sections) {
+    const r = sec.getBoundingClientRect();
+    if (r.top <= mid && r.bottom > mid) { active = sec; break; }
   }
-  // ürünlerin altındaki bölümlerde son ürün kalsın, üstündekilerde ilk ürün
-  const below = pr.bottom <= mid;
-  const key = `${active.dataset.stage}|${below}`;
+  const key = `${active.dataset.stage}`;
   if (key === lastKey && !force) return;
   lastKey = key;
   const bg = active.dataset.bg || '#f4ecdf';
@@ -322,33 +275,33 @@ function update(force) {
   const stage = active.dataset.stage || 'off';
   document.body.dataset.stage = stage;
   if (scene) {
-    scene.setFlavor(below ? N - 1 : 0);
-    if (!above) scene.setPose(pose(stage));
+    scene.setFlavor(0);
+    scene.setPose(pose(stage));
   }
-  if (above) document.documentElement.dataset.ink = 'light';
 }
 window.addEventListener('scroll', () => { if (!lenis) update(false); }, { passive: true });
 window.addEventListener('resize', () => { lastKey = ''; update(true); if (inspecting && scene) scene.setPose(pose('inspect')); });
 update(true);
 
-dots.forEach((d) => d.addEventListener('click', () => scrollToY(productY(+d.dataset.go), 1.8)));
+dots.forEach((d) => d.addEventListener('click', () => scrollToY(stageY(+d.dataset.go + 1), 1.6)));
 
-// kaydırma durunca en yakın ürüne yumuşakça oturt
+// kaydırma durunca sahnede en yakın durağa (kaydırma yönünde) yumuşakça oturt
 let snapTimer = 0;
 let snapping = false;
+const noSnap = /[?&]nosnap\b/.test(location.search); // ekran görüntüsü/test için
 function scheduleSnap() {
   clearTimeout(snapTimer);
-  if (snapping || reduce || inspecting) return;
+  if (snapping || reduce || inspecting || noSnap) return;
   snapTimer = setTimeout(() => {
-    if (streamF === null || inspecting) return;
-    const pr = productsEl.getBoundingClientRect();
-    if (pr.top > 0 || pr.bottom < window.innerHeight) return;
-    const n = Math.round(streamF);
-    if (Math.abs(streamF - n) < 0.01) return;
+    if (stageS === null || inspecting || stageS >= NS - 0.002) return;
+    const fl = Math.floor(stageS), fr = stageS - fl;
+    if (fr < 0.01 || fr > 0.99) return;
+    // küçük bir itiş bile bir sonraki ürüne taşır; geri dönüşte de aynı
+    const n = scrollDir > 0 ? (fr > 0.12 ? fl + 1 : fl) : (fr < 0.88 ? fl : fl + 1);
     snapping = true;
-    scrollToY(productY(n), 0.9);
-    setTimeout(() => { snapping = false; }, 950);
-  }, 200);
+    scrollToY(stageY(n), 1.1);
+    setTimeout(() => { snapping = false; }, 1150);
+  }, 180);
 }
 if (lenis) lenis.on('scroll', scheduleSnap);
 else window.addEventListener('scroll', scheduleSnap, { passive: true });
@@ -356,7 +309,7 @@ else window.addEventListener('scroll', scheduleSnap, { passive: true });
 /* ---------- paketin üstündeki tıklama alanı ---------- */
 const hit = $('#productHit');
 const hitLabel = $('#hitLabel');
-hit.addEventListener('click', () => openDetail(currentProduct));
+hit.addEventListener('click', () => openDetail(SHOW[heroApi ? heroApi.front() : currentProduct] ?? SHOW[currentProduct]));
 hit.addEventListener('pointermove', (e) => {
   const r = hit.getBoundingClientRect();
   hitLabel.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px)`;
@@ -401,7 +354,6 @@ function openDetail(i) {
   returnFocus = document.activeElement;
   closeMenu();
   lenis?.stop();
-  scene.setStream(null);
   fillDetail(i);
   scene.inspectOpen(i);
   scene.setPose(pose('inspect'));

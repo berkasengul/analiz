@@ -130,18 +130,21 @@ body[data-stage='product'] .flavors { opacity: 1; pointer-events: auto; }
 .badges--small li { font-size: 13px; padding: 6px 12px; }
 
 /* ---------- hero ---------- */
-.hero { display: block; min-height: 0; padding: 0; height: 100vh; height: 100svh; background: #3a0509; }
-/* aktarım sırasında genel 3B tuval açılışın üstünde (paket açılıştan ürünlere süzülür) */
-body.gl-front #gl { z-index: 3; }
+/* açılış + ürün vitrini: tek sabit sahne; kaydırma uzunluğu = 1 açılış + 3 ürün durağı (+ kısa bekleme) */
+.hero { display: block; min-height: 0; padding: 0; --stage-len: 4.3; height: calc(100vh * var(--stage-len)); height: calc(100svh * var(--stage-len)); background: #3a0509; }
+.stage__anchor { position: absolute; left: 0; top: 100vh; top: 100svh; width: 1px; height: 1px; pointer-events: none; }
+.stage__layers { position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 2; pointer-events: none; }
+.hero .products__hit { display: none; z-index: 2; }
+.hero.showing .products__hit { display: block; }
 .hero__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; padding-top: 70px; }
 .hero__gl { position: absolute; inset: 0; z-index: 0; background: radial-gradient(70% 80% at 68% 55%, #c8141a 0%, #7a0610 45%, #2c0306 100%); }
 .hero__gl canvas { display: block; }
 .hero__fallback { display: none; }
 .no-gl .hero__fallback { display: block; position: absolute; right: 9%; top: 50%; width: min(34vw, 420px); transform: translateY(-46%) rotate(-4deg); border-radius: 14px; box-shadow: 0 50px 90px rgba(0, 0, 0, 0.45); }
-.hero__inner { opacity: calc(1 - var(--hp, 0) * 2.4); transform: translateY(calc(var(--hp, 0) * -70px)); }
-.hero .scrollcue { opacity: calc(0.8 - var(--hp, 0) * 4); z-index: 2; }
+.hero__inner { opacity: calc(1 - var(--s, 0) * 2.6); transform: translate3d(calc(var(--s, 0) * -60px), calc(var(--s, 0) * -24px), 0); }
+.hero .scrollcue { opacity: calc(0.8 - var(--s, 0) * 4); z-index: 2; }
 .hero__vignette { position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  background: radial-gradient(120% 90% at 30% 50%, transparent 55%, rgba(40, 0, 0, 0.35) 100%), linear-gradient(90deg, rgba(60, 0, 0, 0.14), transparent 40%); }
+  background: radial-gradient(120% 90% at 30% 50%, transparent 55%, rgba(12, 4, 2, 0.35) 100%), linear-gradient(90deg, rgba(12, 4, 2, 0.3), transparent 46%); }
 .hero__inner { position: relative; z-index: 2; pointer-events: none; }
 .hero__inner a, .hero__inner button { pointer-events: auto; }
 .hero__eyebrow { display: flex; align-items: center; gap: 18px; font-size: 14px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #f4dfc0; margin: 0 0 26px; }
@@ -170,10 +173,6 @@ body.gl-front #gl { z-index: 3; }
 @keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* ---------- kayan bant ---------- */
-.marquee { overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0; }
-.marquee__track { display: flex; gap: 34px; width: max-content; animation: marquee 32s linear infinite; font-family: var(--serif); font-size: clamp(28px, 3.4vw, 46px); font-style: italic; font-weight: 300; white-space: nowrap; align-items: center; }
-.marquee i { font-style: normal; font-size: 0.5em; opacity: 0.6; }
-@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- ürünler ---------- */
 .product { min-height: 110vh; }
@@ -368,7 +367,10 @@ body.gl-front #gl { z-index: 3; }
   .flavors { right: 12px; top: auto; bottom: 24px; transform: none; flex-direction: row; left: 50%; transform: translateX(-50%); right: auto; }
 
   .sec { padding: 96px 0; align-items: flex-end; }
-  .hero { height: 100svh; padding: 0; }
+  .hero { padding: 0; }
+  .stage__layers .player { padding-bottom: 40px; }
+  /* telefonda paketler üstte: karartma yalnızca alttaki yazıların arkasında */
+  .hero__vignette { background: linear-gradient(180deg, transparent 48%, rgba(12, 4, 2, 0.42) 100%); }
   .hero__stick { align-items: flex-end; padding-bottom: 40px; }
   .no-gl .hero__fallback { right: 50%; top: 14%; width: 46vw; transform: translateX(50%) rotate(-4deg); }
   .hero__title { font-size: clamp(42px, 12.5vw, 64px); margin-bottom: 22px; max-width: none; }
@@ -413,10 +415,7 @@ body.gl-front #gl { z-index: 3; }
 }
 
 
-/* ================= ürün akışı (sabit sahne) ================= */
-.products { position: relative; height: calc((var(--n, 9) - 1) * 92vh + 100vh); }
-.products__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
-.products__layers { position: relative; height: 100%; }
+/* ================= vitrindeki ürün yazıları (açılış sahnesinin içinde) ================= */
 .player {
   position: absolute; left: var(--pad); top: 50%; width: min(540px, 40vw);
   transform: translateY(-46%); opacity: var(--o, 0); color: var(--ink);
@@ -512,7 +511,6 @@ body.inspect .detail__panel { transition-delay: 0.15s; }
 .no-gl .player .product__fallback { display: block; position: absolute; left: calc(100% + 10vw); top: 50%; width: min(360px, 30vw); transform: translateY(-50%) rotate(-4deg); border-radius: 16px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3); }
 
 @media (max-width: 760px), (max-aspect-ratio: 9/10) {
-  .products { height: calc((var(--n, 9) - 1) * 88vh + 100vh); }
   .player { top: auto; bottom: 0; left: var(--pad); right: var(--pad); width: auto; transform: none; padding-bottom: 54px; }
   .player__idx { margin-bottom: 10px; }
   .player .eyebrow { margin-bottom: 10px; }
