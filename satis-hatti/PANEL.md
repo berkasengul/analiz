@@ -9,7 +9,7 @@ Veritabanı:
 
 ## Her ekip turunun başında
 
-1. `ArtifactData list` → `isaretler`. Her işaret için:
+1. `ArtifactData list` → `isaretler`. Her işaret için (o durum `firmalar.json`da zaten işlenmediyse):
    `python3 satis-hatti/hat.py durum <slug> <durum> "panelden işaretlendi"` (`cikti` ise adres `cikanlar.txt`'ye eklenir).
    İşlenen işareti silme; panelde seçili kalsın.
 

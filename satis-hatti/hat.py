@@ -202,6 +202,9 @@ def kontrol(slug):
             if not KOTU_MAIL.search(m) and m not in mails:
                 mails.append(m)
     ig = re.findall(r"instagram\.com/([A-Za-z0-9_.]+)", " ".join(pages.values()))
+    tel = re.findall(r"(?:\+?90[\s.-]?)?\(?0?(5\d{2})\)?[\s.-]?(\d{3})[\s.-]?(\d{2})[\s.-]?(\d{2})", " ".join(html.unescape(h) for h in pages.values()))
+    if tel and not r.get("telefon"):
+        r["telefon"] = "90" + "".join(tel[0])  # WhatsApp için cep numarası
     r["platform"] = plat or "bilinmiyor"
     r["bulunan_mailler"] = mails[:6]
     if not r.get("email"):
@@ -407,6 +410,8 @@ def resend(A, to, konu, metin):
 
 def gonder(kuru=False):
     rows, A = load(), ayar()
+    if A.get("gonderim") == "elle":
+        sys.exit("gönderim elle: mailler panelden Gmail ile gönderiliyor (ayar.json → gonderim)")
     kuru = kuru or A.get("kuru", True)
     t = now()
     if not kuru and (t.weekday() > 4 or not (A["saat"][0] <= t.hour < A["saat"][1])):
@@ -446,6 +451,9 @@ def durum(o, rest):
     if rest:
         r = find(rows, rest[0])
         log(r, "elle: " + (" ".join(rest[2:]) or rest[1]), rest[1])
+        if rest[1] in ("gonderildi", "takip_gonderildi"):  # çalışan Gmail'den gönderdi (panelde "Gönderdim")
+            r.setdefault("gonderimler", []).append({"t": now().isoformat(timespec="minutes"),
+                                                    "tur": "ilk" if rest[1] == "gonderildi" else "takip", "elle": True})
         if rest[1] == "cikti":
             open(os.path.join(HAT, "cikanlar.txt"), "a", encoding="utf-8").write(r["email"] + "\n")
         save(rows)
@@ -455,14 +463,22 @@ def durum(o, rest):
 
 
 def panel():
-    rows = load()
+    rows, A = load(), ayar()
     out = []
+    t = now()
     for r in rows:
-        out.append({k: r.get(k) for k in ("id", "ad", "site", "sektor", "sehir", "email", "instagram", "platform", "durum", "demo_url", "neden", "eklendi")} |
+        ek = {}
+        if r.get("mail"):  # çalışanın Gmail'de açacağı tam metin (imza ve çıkış notuyla)
+            ek["mail_tam"] = r["mail"]["metin"] + imza(A)
+        ilk = [g for g in r.get("gonderimler", []) if g["tur"] == "ilk" and not g.get("kuru")]
+        if r["durum"] == "gonderildi" and ilk and A.get("takip_gun") and \
+                (t - dt.datetime.fromisoformat(ilk[0]["t"])).days >= A["takip_gun"]:
+            ek |= {"takip_hazir": True, "takip_konu": "Re: " + r["mail"]["konu"], "takip_tam": takip_metni(r, A) + imza(A)}
+        out.append(ek | {k: r.get(k) for k in ("id", "ad", "site", "sektor", "sehir", "email", "telefon", "instagram", "platform", "durum", "demo_url", "neden", "eklendi")} |
                    {"mail_konu": (r.get("mail") or r.get("mail_taslak") or {}).get("konu", ""),
                     "mail_metin": (r.get("mail") or r.get("mail_taslak") or {}).get("metin", ""),
                     "gonderimler": r.get("gonderimler", []), "gecmis": r.get("gecmis", [])[-8:]})
-    data = {"guncellendi": now().isoformat(timespec="minutes"), "ayar": {k: v for k, v in ayar().items() if k in ("gunluk_limit", "takip_gun", "kuru")},
+    data = {"guncellendi": now().isoformat(timespec="minutes"), "ayar": {k: v for k, v in ayar().items() if k in ("gunluk_limit", "takip_gun", "kuru", "gonderim")},
             "firmalar": out}
     json.dump(data, open(os.path.join(HAT, "panel-veri.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # Panelin veritabanına yazılacak belgeler (ArtifactData batch → file_path): .panel/firmalar/<id>.json, .panel/ozet.json

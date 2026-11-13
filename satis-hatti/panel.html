@@ -66,6 +66,14 @@ a { color: var(--accent) }
 .btn:hover, .btn:focus-visible { border-color: var(--accent); outline: none }
 .btn.sel { background: var(--accent); color: var(--bg); border-color: var(--accent) }
 .note { font-size: 12px; color: var(--muted) }
+.queue { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 12px }
+.queue h2 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -.01em }
+.queue .hint { color: var(--muted); font-size: 13px; margin: 2px 0 0 }
+.qi { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding-top: 12px; border-top: 1px solid var(--line) }
+.qi .who { min-width: 0 } .qi .who b { display: block } .qi .who small { font: 400 12px var(--mono); color: var(--muted); overflow-wrap: anywhere }
+.btn.go { background: var(--accent); color: var(--bg); border-color: var(--accent); text-decoration: none; display: inline-block }
+.tag { font: 500 11px var(--mono); padding: 2px 6px; border-radius: 4px; background: var(--warn-soft); color: var(--warn); margin-left: 6px }
+@media (max-width: 760px) { .qi { grid-template-columns: 1fr } }
 .empty { padding: 32px 20px; text-align: center; color: var(--muted); background: var(--panel); border: 1px dashed var(--line); border-radius: 10px }
 @media (max-width: 760px) {
   .pipe { grid-template-columns: repeat(4, minmax(0, 1fr)) }
@@ -88,6 +96,12 @@ a { color: var(--accent) }
   <nav class="pipe" id="pipe" aria-label="Aşamalar"></nav>
   <div class="facts" id="facts"></div>
 
+  <section class="queue" id="queue" aria-labelledby="qh">
+    <div><h2 id="qh">Bugün gönderilecekler</h2>
+    <p class="hint">"Gmail'de aç" maili hazır doldurur: kontrol et, Gönder'e bas, sonra burada "Gönderdim" de. Takipleri sistem 5 gün sonra buraya getirir.</p></div>
+    <div id="qlist"></div>
+  </section>
+
   <div class="tools">
     <input type="search" id="q" placeholder="Firma, sektör ya da e-posta ara" aria-label="Ara">
     <button class="chip" id="showOut" type="button">Elenenleri göster</button>
@@ -105,6 +119,21 @@ const LABEL = { aday: "aday", cekildi: "ürünler çekildi", site_hazir: "site h
   gonderildi: "mail gönderildi", takip_gonderildi: "takip gönderildi", cevap_geldi: "cevap geldi", ilgilenmiyor: "ilgilenmiyor",
   elendi: "elendi", cikti: "çıkış istedi", soguk: "soğuk" };
 const MARKS = [["cevap_geldi", "Cevap geldi"], ["ilgilenmiyor", "İlgilenmiyor"], ["cikti", "Çıkış istedi"]];
+const gmail = (to, su, body) => "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(to) +
+  "&su=" + encodeURIComponent(su) + "&body=" + encodeURIComponent(body);
+const STOP = ["cevap_geldi", "ilgilenmiyor", "cikti"];
+function queueItems() {
+  const items = [];
+  firms.forEach(f => {
+    const mk = marks[f.id]?.durum;
+    if (STOP.includes(mk)) return;
+    if (f.durum === "mail_hazir" && f.mail_tam && mk !== "gonderildi")
+      items.push({ f, tur: "gonderildi", konu: f.mail_konu, metin: f.mail_tam, etiket: "ilk mail" });
+    else if (f.takip_hazir && mk !== "takip_gonderildi")
+      items.push({ f, tur: "takip_gonderildi", konu: f.takip_konu, metin: f.takip_tam, etiket: "takip" });
+  });
+  return items;
+}
 const stageOf = d => d === "cekildi" || d === "site_hazir" ? "site" : d === "cevap_geldi" ? "cevap" : d;
 const tone = d => ["cevap_geldi"].includes(d) ? "done" : ["elendi", "cikti", "ilgilenmiyor", "soguk"].includes(d) ? "out"
   : ["aday", "cekildi", "site_hazir"].includes(d) ? "wait" : "";
@@ -130,8 +159,22 @@ function render() {
     summary?.guncellendi ? `Son güncelleme <strong>${esc(fmt(summary.guncellendi))}</strong>` : ""
   ].filter(Boolean).join("");
   const m = $("mode");
-  if (summary) { m.textContent = ay.kuru ? "Kuru mod: mail gönderilmiyor" : "Canlı: mailler gidiyor"; m.className = "mode" + (ay.kuru ? "" : " live") }
+  if (summary) { const elle = ay.gonderim === "elle"; m.textContent = elle ? "Gönderim: çalışanlar Gmail'den" : ay.kuru ? "Kuru mod: mail gönderilmiyor" : "Otomatik gönderim açık"; m.className = "mode" + (elle || !ay.kuru ? " live" : "") }
   $("showOut").classList.toggle("on", showOut);
+  const today2 = new Date().toISOString().slice(0, 10);
+  const doneToday = Object.values(marks).filter(m => ["gonderildi", "takip_gonderildi"].includes(m.durum) && (m.t || "").startsWith(today2)).length;
+  const left = Math.max(0, (ay.gunluk_limit || 15) - sentToday - doneToday);
+  const qi = queueItems();
+  $("qlist").innerHTML = !qi.length ? `<div class="note">Şu an gönderilecek mail yok. Bulma ekibi yeni firmaları hazırladıkça burada görünür.</div>`
+    : qi.slice(0, left || 0).map((x, i) => `<div class="qi">
+      <div class="who"><b>${esc(x.f.ad)}<span class="tag">${x.etiket}</span></b><small>${esc(x.f.email)} · ${esc(x.konu)}</small></div>
+      <div class="acts">
+        <a class="btn go" href="${esc(gmail(x.f.email, x.konu, x.metin))}" target="_blank" rel="noopener">Gmail'de aç</a>
+        <button type="button" class="btn" data-copy="${i}">Metni kopyala</button>
+        ${x.f.telefon ? `<a class="btn" href="https://wa.me/${esc(x.f.telefon)}?text=${encodeURIComponent("Merhaba, " + x.f.ad + " için hazırladığım 3B site demosu: " + (x.f.demo_url || ""))}" target="_blank" rel="noopener">WhatsApp</a>` : ""}
+        <button type="button" class="btn" data-mark="${x.tur}" data-id="${esc(x.f.id)}">Gönderdim</button>
+      </div></div>`).join("") + (qi.length > left ? `<div class="note">Bugünkü sınır doldu (${ay.gunluk_limit || 15}). Kalan ${qi.length - left} mail yarın.</div>` : "");
+  window.__q = qi;
 
   const q = $("q").value.trim().toLocaleLowerCase("tr");
   const rows = firms
@@ -171,6 +214,14 @@ document.addEventListener("click", async e => {
   const st = e.target.closest(".stage");
   if (st) { filter = filter === st.dataset.k ? null : st.dataset.k; render(); return }
   if (e.target.id === "showOut") { showOut = !showOut; render(); return }
+  const c = e.target.closest("[data-copy]");
+  if (c) {
+    const x = window.__q?.[+c.dataset.copy]; if (!x) return;
+    const text = "Konu: " + x.konu + "\n\n" + x.metin;
+    try { await navigator.clipboard.writeText(text); c.textContent = "Kopyalandı" }
+    catch { c.textContent = "Kopyalanamadı" }
+    setTimeout(() => c.textContent = "Metni kopyala", 1800); return;
+  }
   const b = e.target.closest("[data-mark]");
   if (b && db) {
     const id = b.dataset.id, durum = b.dataset.mark;
@@ -178,7 +229,7 @@ document.addEventListener("click", async e => {
     try {
       if (marks[id]?.durum === durum) await db.collection("isaretler").doc(id).delete();
       else await db.collection("isaretler").doc(id).set({ durum, t: new Date().toISOString() });
-    } catch (err) { b.nextElementSibling && (b.parentElement.querySelector(".note").textContent = "Kaydedilemedi: bu paneli düzenleme iznin olmayabilir.") }
+    } catch (err) { const n = b.parentElement.querySelector(".note"); if (n) n.textContent = "Kaydedilemedi: bu paneli düzenleme iznin olmayabilir."; else b.textContent = "Kaydedilemedi" }
     b.disabled = false;
   }
 });

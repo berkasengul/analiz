@@ -1,6 +1,7 @@
 {
- "guncellendi": "2026-11-13T11:27+03:00",
+ "guncellendi": "2026-11-13T11:39+03:00",
  "ayar": {
+  "gonderim": "elle",
   "kuru": true,
   "gunluk_limit": 15,
   "takip_gun": 5
@@ -13,6 +14,7 @@
    "sektor": "parfüm/kolonya",
    "sehir": "",
    "email": "",
+   "telefon": null,
    "instagram": "@ceremonyinbloom",
    "platform": "shopify",
    "durum": "elendi",
@@ -56,6 +58,7 @@
    "sektor": "kokulu mum / aromaterapi",
    "sehir": "",
    "email": "info@halarearomatherapy.com",
+   "telefon": null,
    "instagram": "@halarearomatherapy",
    "platform": "ikas",
    "durum": "site_hazir",

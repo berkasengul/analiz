@@ -1,23 +1,15 @@
-# Mail ekibi (hafta içi, 10:00–17:00 arası)
+# Gönderim (şimdilik elle, ücretsiz)
 
-Görev: sırası gelen mailleri günlük sınır içinde göndermek. Kullanıcıya soru sorma.
+`ayar.json → "gonderim": "elle"`: alan adı olmadan otomatik toplu mail Gmail hesabını kapattırır. Bu yüzden:
 
-```bash
-cd satis-hatti
-python3 hat.py durum                      # liste
-python3 hat.py gonder                     # mail_hazir olanlara ilk mail, 5 gün geçenlere tek takip
-python3 hat.py panel
-```
+1. Bulma ekibi maili hazırlar; demo yayına çıkınca firma panelin **Bugün gönderilecekler** listesine düşer.
+2. Çalışan ortak Gmail hesabında oturum açıkken "Gmail'de aç"a basar: alıcı, konu, metin, imza ve çıkış notu
+   dolu gelir. Kontrol eder, Gönder'e basar, panelde **Gönderdim** der.
+3. 5 gün sonra cevap yoksa takip maili aynı listeye düşer. Cevap gelirse "Cevap geldi" işaretlenir, takip gitmez.
+4. Liste günde `gunluk_limit` (15) mail gösterir.
 
-Kurallar (`hat.py` bunları kendisi uygular, sen de kontrol et):
+Bulma ekibi her turun başında panelin `isaretler` koleksiyonunu okuyup `hat.py durum <slug> <durum>` ile
+kayda geçirir (`gonderildi`, `takip_gonderildi`, `cevap_geldi`, `ilgilenmiyor`, `cikti`); bkz. `PANEL.md`.
 
-- Günde en çok `ayar.json → gunluk_limit` (15) mail; hafta içi 10–17 arası. Yeni alan adının itibarı için ilk iki
-  hafta 15'i aşma.
-- Her firmaya en çok **2 mail**: ilk mail + 5 gün sonra tek takip. Sonra `soguk`.
-- Panelde "cevap geldi", "ilgilenmiyor" ya da "çıkış" işaretlenen firmaya bir daha yazılmaz
-  (önce panelin işaretlerini `hat.py durum <slug> <durum>` ile kayda geçir; bkz. `PANEL.md`).
-- `ayar.json → "kuru": true` iken hiçbir şey gönderilmez, yalnızca ekrana yazılır. Anahtar ve alan adı hazır olunca
-  kullanıcı `false` yapar.
-- Gönderim hatası (401/403, alan adı doğrulanmamış): göndermeyi bırak, `firmalar.json`'a dokunma, özetinde yaz.
-
-Bitiş: `git add satis-hatti && git commit -m "Mail ekibi: <tarih>" && git push`, sonra paneli güncelle.
+Alan adı alınınca: `ayar.json`'da `"gonderim": "otomatik"`, `gonderen`, `cevap_adresi` doldurulur, `kuru: false`;
+`python3 satis-hatti/hat.py gonder` Resend ile kendisi gönderir.
