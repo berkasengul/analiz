@@ -4,20 +4,23 @@ Yapay Zekâ Satış Ekibim Müşteri Buldu, 3D Site Yaptı, Mail Attı
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 AÇIKLAMA (kopyala, yapıştır)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Bu sabah ben kahvemi içerken yapay zekâ satış ekibim bir marka buldu, ona 3D bir site yaptı ve markaya maili gönderdi. Ben hiçbir şey yapmadım. Nasıl kurduğumu baştan sona gösteriyorum, kullandığım promptu da aşağıya koydum 👇
+Yapay zekâ ile müşteri bulma, 3D web sitesi yapma ve otomatik mail gönderme: Claude Code ile kendi yapay zekâ satış ekibimi kurdum.
+Kod bilmeden, Brevo ile otomatik mail atan, Netlify'da site yayınlayan ve her sabah kendi kendine çalışan bir satış otomasyonu 👇
+
+Bu videoda yapay zekâ ajanlarım bir markayı buluyor, o markaya özel 3D ürün vitrini (3D web sitesi) yapıyor ve Brevo üzerinden kişiye özel satış maili gönderiyor. Claude Code'da zamanlanmış görevle nasıl kurduğumu adım adım gösteriyorum. Yapay zekâ ile iş kurmak, freelance müşteri bulmak ya da kendi işine otomasyon kurmak istiyorsan, kullandığım hazır prompt aşağıda.
 
 ⏱️ BÖLÜMLER
-00:00 Ben hiçbir şey yapmadım
-00:45 Neden izlemelisin
-01:06 Ofis: iki yapay zekâ çalışanım
-01:57 Bulma ekibi müşteriyi nasıl buluyor
-03:28 Eski site ve 3D vitrin
-05:22 Mail ekibi ve Brevo
-06:26 Akşam: müdür odası
-06:47 Sen nasıl kurarsın (5 adım)
-07:24 Sık sorulanlar
-08:37 Bu işi işe nasıl çevirirsin
-08:55 Herkesin yaptığı o hata
+00:00 Yapay zekâ satış ekibim her şeyi kendi yaptı
+00:45 Bu sistem kimin işine yarar
+01:06 3D ofis: iki yapay zekâ çalışanım
+01:57 Yapay zekâ ile müşteri bulma
+03:28 Eski site ve 3D web sitesi karşılaştırma
+05:22 Brevo ile otomatik mail gönderme
+06:26 Günlük rapor: müdür odası
+06:47 Claude Code ile satış otomasyonu kurulumu (5 adım)
+07:24 Sık sorulanlar: kod bilmek gerekir mi, spam olur mu
+08:37 Bu sistemi işe nasıl çevirirsin
+08:55 Brevo hesabını kapattıran hata
 09:19 Kapanış
 
 🛠️ KULLANDIĞIM ARAÇLAR
@@ -63,10 +66,10 @@ Bunları Claude Code'da zamanlanmış görev olarak kur ki bilgisayarım kapalı
 
 💬 Sıradaki videoda hangi sektöre girelim? Yoruma yaz, en çok yazılanı yapacağız.
 
-#ClaudeCode #YapayZeka #3DSite #Brevo #SatisOtomasyonu
+#YapayZeka #ClaudeCode #SatışOtomasyonu
 
 ETİKETLER
-claude code, yapay zeka satış ekibi, yapay zeka ile müşteri bulma, brevo, brevo mail otomasyonu, 3d web sitesi, claude ile 3d site, yapay zeka ile para kazanmak, otomatik mail gönderme, netlify, yapay zeka ajan, kod bilmeden site yapmak, claude türkçe, berkai
+yapay zeka ile müşteri bulma, yapay zeka satış ekibi, claude code, claude code türkçe, otomatik mail gönderme, brevo, brevo nasıl kullanılır, toplu olmayan mail otomasyonu, 3d web sitesi, yapay zeka ile site yapmak, kod bilmeden site yapmak, yapay zeka ajanları, yapay zeka otomasyon, yapay zeka ile iş kurmak, freelance müşteri bulma, netlify site yayınlama, satış otomasyonu, berkai
 
 YÜKLERKEN
 • YouTube Studio'da "Değiştirilmiş veya yapay içerik" kutusunu işaretle (gerçekçi avatar).
