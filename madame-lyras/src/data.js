@@ -91,6 +91,3 @@ export const FLAVORS = [
   },
 ];
 
-// Açılış sahnesindeki paketler ve kaydırınca kaide üzerinde sırayla sergilenen ürünler (en fazla 3)
-export const HERO_LINEUP = ['cilek', 'seftali', 'ananas', 'hindistan-cevizi'];
-export const SHOWCASE = ['cilek', 'seftali', 'ananas'];

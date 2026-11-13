@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Genç Anadolu Gıda · Dondurularak Kurutulmuş Meyve</title>
-  <meta name="description" content="Genç Anadolu Gıda: dondurularak kurutulmuş çilek, şeftali, ananas, hindistan cevizi, ahududu, elma, mango, muz ve sade dondurma." />
+  <meta name="description" content="Genç Anadolu Gıda: dondurularak kurutulmuş çilek, ahududu, elma, şeftali, mango, ananas, muz, hindistan cevizi ve sade dondurma." />
   <meta property="og:title" content="Genç Anadolu Gıda · Dondurularak kurutulmuş meyve" />
   <meta property="og:description" content="Sadece meyve. Şeker ilavesiz, katkısız, çıtır." />
   <meta property="og:image" content="/img/og.jpg" />
@@ -44,7 +44,7 @@
 
   <main id="top">
     <!-- HERO -->
-    <section class="sec hero" id="hero" data-bg="#b90d10" data-ink="light" data-stage="hero">
+    <section class="sec hero" id="hero" data-bg="#b90d10" data-ink="light" data-stage="hero" data-flavor="0">
       <div class="hero__stick">
       <div class="hero__gl" id="heroGL" aria-hidden="true"><img class="hero__fallback" src="/tex/cilek.webp" alt="" width="1024" height="1180" /></div>
       <div class="hero__vignette" aria-hidden="true"></div>
@@ -64,12 +64,25 @@
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9zM2 9h20M9 3l3 18M15 3l-3 18M6 3l3 6M18 3l-3 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span>Premium<br />Kalite</span></li>
         </ul>
       </div>
-      <div class="wrap stage__layers" id="players"></div>
-      <button class="products__hit" id="productHit" type="button" aria-label="Ürünü 3D olarak incele"><span class="hitlabel" id="hitLabel">3D<br />İncele</span></button>
       <a class="scrollcue" href="#urunler" aria-label="Aşağı kaydır"><span></span>Kaydır</a>
       </div>
-      <span class="stage__anchor" id="urunler" aria-hidden="true"></span>
     </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Çilek</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Elma</span><i>✦</i><span>Şeftali</span><i>✦</i><span>Mango</span><i>✦</i><span>Ananas</span><i>✦</i><span>Muz</span><i>✦</i><span>Hindistan cevizi</span><i>✦</i><span>Sade dondurma</span><i>✦</i>
+        <span>Çilek</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Elma</span><i>✦</i><span>Şeftali</span><i>✦</i><span>Mango</span><i>✦</i><span>Ananas</span><i>✦</i><span>Muz</span><i>✦</i><span>Hindistan cevizi</span><i>✦</i><span>Sade dondurma</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ÜRÜNLER -->
+    <div id="urunler" class="products" data-stage="product">
+      <div class="products__stick">
+        <div class="wrap products__layers" id="players"></div>
+        <button class="products__hit" id="productHit" type="button" aria-label="Ürünü 3D olarak incele"><span class="hitlabel" id="hitLabel">3D<br />İncele</span></button>
+      </div>
+    </div>
 
     <!-- TÜM ÜRÜNLER -->
     <section class="sec catalog" id="tum-urunler" data-bg="#f4ecdf" data-ink="dark" data-stage="catalog">
