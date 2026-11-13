@@ -70,6 +70,14 @@ Videonun ana fikrini tek, tekrar edilebilir bir cümleye sıkıştır.
 - Kendimize ait küçük şakalar: karga, sürü, uçmak, parlak şeyleri sevmek (kargalar parlak şeye bayılır → "o parlak vitrin").
 - Tempo: Dakikada 140–160 kelime. 10 dakika ≈ 1.400–1.600 kelime.
 
+## Kullanıcı geri bildirim günlüğü (her videoda buraya ekle, sonraki videoda uygula)
+- **2026-11-13 · satış ekibi videosu:**
+  - "3B" değil, her yerde **"3D"** yazılır ve söylenir.
+  - Ton **arkadaşına anlatır gibi**: samimi, akıcı, doğal, insan gibi. Resmi ya da sunum dili olmaz.
+  - Referanslar: Maymun Aklı (bu rehberin kaynağı) ve Berkan. Kısa ve yarım cümle, "yani / bakın / abi" (cümle başına en fazla bir dolgu), kendine soru sorup hemen cevaplama, ekranda olanı şimdiki zamanla anlatma.
+  - Kurgudan önce metin taslağı kullanıcıya gösterilir, onay alınmadan seslendirmeye geçilmez.
+  - Her video bir öncekinden iyi olmalı. Kullanıcının her yorumu bu listeye işlenir.
+
 ## Yapı şablonu (10 dakikalık video)
 | Süre | Bölüm | Ne olur |
 |---|---|---|
