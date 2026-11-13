@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { createHeroStage, surfY } from './heroStage.js';
 
 const TAU = Math.PI * 2;
 const smooth = (a, b, x) => {
@@ -19,7 +20,7 @@ function rng(seed) {
 /* ------------------------------------------------------------------ */
 function pouchSurface({ w, h, depth, side }) {
   const SX = 56, SY = 72;
-  const pos = [], uv = [], idx = [];
+  const pos = [], uv = [], idx = [], col = [];
   for (let j = 0; j <= SY; j++) {
     const v = j / SY;
     for (let i = 0; i <= SX; i++) {
@@ -36,6 +37,10 @@ function pouchSurface({ w, h, depth, side }) {
       const y = (v - 0.5) * h;
       pos.push(x, y, side * (t + wrinkle * bulgeU));
       uv.push(side > 0 ? u : 1 - u, v);
+      // tabana ve yan dikişlere doğru koyulaşma (paket hacmi ve zemine oturma hissi)
+      const curve = 0.78 + 0.27 * Math.pow(Math.sin(Math.PI * Math.min(1, u * 1.08)), 0.7);
+      const ao = curve * (1 - 0.45 * (1 - smooth(0.0, 0.14, v)) - 0.2 * (1 - smooth(0.0, 0.06, u)) - 0.2 * (1 - smooth(1.0, 0.94, u)) - 0.06 * smooth(0.9, 1.0, v));
+      col.push(ao, ao, ao);
     }
   }
   const row = SX + 1;
@@ -49,6 +54,7 @@ function pouchSurface({ w, h, depth, side }) {
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   g.setIndex(idx);
   g.computeVertexNormals();
   return { g, SX };
@@ -158,21 +164,27 @@ function makePouch() {
   const b = pouchSurface({ w, h, depth, side: -1 });
   const bottomGeo = pouchBottom(f.g, b.g, f.SX);
   const film = {
-    roughness: 0.34,
-    metalness: 0.12,
-    clearcoat: 0.7,
-    clearcoatRoughness: 0.28,
-    envMapIntensity: 0.55,
+    roughness: 0.38,
+    metalness: 0.05,
+    clearcoat: 0.45,
+    clearcoatRoughness: 0.22,
+    envMapIntensity: 0.32,
+    vertexColors: true,
+    emissive: 0xffffff,
+    emissiveIntensity: 0.07,
   };
   const frontMat = new THREE.MeshPhysicalMaterial({ ...film });
   const backMat = new THREE.MeshPhysicalMaterial({ ...film });
-  const bottomMat = new THREE.MeshPhysicalMaterial({ ...film, color: 0x8a0a0a, side: THREE.DoubleSide });
+  const bottomMat = new THREE.MeshPhysicalMaterial({ ...film, vertexColors: false, emissiveIntensity: 0, color: 0x8a0a0a, side: THREE.DoubleSide });
   const group = new THREE.Group();
   const front = new THREE.Mesh(f.g, frontMat);
   const back = new THREE.Mesh(b.g, backMat);
   const bottom = new THREE.Mesh(bottomGeo, bottomMat);
   group.add(front, back, bottom);
-  return { group, frontMat, backMat, bottomMat };
+  for (const m of [front, back, bottom]) { m.castShadow = true; m.receiveShadow = true; }
+  const setFront = (t) => { frontMat.map = t; frontMat.emissiveMap = t; frontMat.needsUpdate = true; };
+  const setBack = (t) => { backMat.map = t; backMat.emissiveMap = t; backMat.needsUpdate = true; };
+  return { group, frontMat, backMat, bottomMat, setFront, setBack };
 }
 
 /* ------------------------------------------------------------------ */
@@ -195,8 +207,10 @@ export function createScene(canvas, flavors, onProgress) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMapping = THREE.NeutralToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -205,11 +219,21 @@ export function createScene(canvas, flavors, onProgress) {
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
   camera.position.set(0, 0, 5);
 
-  const key = new THREE.DirectionalLight(0xfff4e6, 2.2);
+  const key = new THREE.DirectionalLight(0xfff1e2, 2.9);
   key.position.set(2.5, 3, 4);
+  key.castShadow = true;
+  const small = Math.min(window.innerWidth, window.innerHeight) < 700;
+  key.shadow.mapSize.set(small ? 1024 : 2048, small ? 1024 : 2048);
+  key.shadow.bias = -0.0005;
+  key.shadow.normalBias = 0.025;
+  key.shadow.camera.near = 0.5;
+  key.shadow.camera.far = 20;
+  scene.add(key.target);
+  const warm = new THREE.DirectionalLight(0xffa070, 1.6);
+  warm.position.set(-2.5, 2.5, -3);
   const rim = new THREE.DirectionalLight(0xffffff, 1.4);
   rim.position.set(-3, 1.5, -2);
-  scene.add(key, rim, new THREE.AmbientLight(0xffffff, 0.35));
+  scene.add(key, rim, warm, new THREE.AmbientLight(0xffffff, 0.22));
 
   // sahne kökü: paket + meyve bulutu birlikte hareket eder
   const root = new THREE.Group();
@@ -279,15 +303,15 @@ export function createScene(canvas, flavors, onProgress) {
       });
     }
     root.add(group);
-    return { group, items, mix: fi === 0 ? 1 : 0, leaving: false };
+    return { group, items, mix: 0, leaving: false };
   });
 
   // açılışta öndeki paketin arkasında sıralanan diğer paketler
   const FAN = [
-    { i: flavors.findIndex((f) => f.id === 'ahududu'), p: [-0.36, 0.14, -0.9], ry: 0.45, rz: 0.1, s: 0.92 },
-    { i: flavors.findIndex((f) => f.id === 'elma'), p: [0.44, 0.12, -0.95], ry: -0.5, rz: -0.1, s: 0.92 },
-    { i: flavors.findIndex((f) => f.id === 'ananas'), p: [-0.66, 0.3, -1.95], ry: 0.6, rz: 0.16, s: 0.9 },
-    { i: flavors.findIndex((f) => f.id === 'hindistan-cevizi'), p: [0.8, 0.28, -2.05], ry: -0.65, rz: -0.14, s: 0.9 },
+    { i: flavors.findIndex((f) => f.id === 'ananas'), p: [-0.78, 0, -0.95], ry: 0.32, rz: 0.02, s: 0.98 },
+    { i: flavors.findIndex((f) => f.id === 'ahududu'), p: [-0.4, 0, -0.42], ry: 0.22, rz: 0.01, s: 0.95 },
+    { i: flavors.findIndex((f) => f.id === 'hindistan-cevizi'), p: [0.72, 0, -1.05], ry: -0.3, rz: -0.02, s: 0.95 },
+    { i: flavors.findIndex((f) => f.id === 'elma'), p: [0.42, 0, -0.55], ry: -0.22, rz: -0.01, s: 0.95 },
   ].filter((f) => f.i >= 0);
   const fan = FAN.map((cfg, n) => {
     const pk = makePouch();
@@ -299,6 +323,7 @@ export function createScene(canvas, flavors, onProgress) {
     return { ...cfg, pk, holder, dir, phase: n * 1.7 };
   });
   let fanTarget = 1, fanNow = 1;
+  const hero = createHeroStage({ scene, root, camera, spriteTex });
 
   // soğuk süreç bölümü için kırağı parçacıkları
   const frostCount = 500;
@@ -361,11 +386,11 @@ export function createScene(canvas, flavors, onProgress) {
     showFront(0); showBack(0);
     fan.forEach((f) => {
       if (!fronts[f.i]) return;
-      f.pk.frontMat.map = fronts[f.i]; f.pk.backMat.map = backs[f.i];
-      f.pk.frontMat.needsUpdate = f.pk.backMat.needsUpdate = true;
+      f.pk.setFront(fronts[f.i]); f.pk.setBack(backs[f.i]);
       f.pk.bottomMat.color.copy(new THREE.Color(flavors[f.i].bg).multiplyScalar(0.75));
       const asp = (flavors[f.i].aspect || 1.153) / 1.153;
       f.pk.group.scale.set(1 / Math.sqrt(asp), asp / Math.sqrt(asp), 1);
+      f.p[1] = surfY(f.p[2]) + 0.5765 * f.s * (asp / Math.sqrt(asp)) + 0.004;
     });
   });
 
@@ -376,16 +401,14 @@ export function createScene(canvas, flavors, onProgress) {
   function showFront(i) {
     if (i === frontIdx || !fronts[i]) return;
     frontIdx = i;
-    pouch.frontMat.map = fronts[i];
-    pouch.frontMat.needsUpdate = true;
+    pouch.setFront(fronts[i]);
     pouch.bottomMat.color.copy(bottomColors[i]);
     aspectTarget = aspects[i];
   }
   function showBack(i) {
     if (i === backIdx || !backs[i]) return;
     backIdx = i;
-    pouch.backMat.map = backs[i];
-    pouch.backMat.needsUpdate = true;
+    pouch.setBack(backs[i]);
   }
 
   /* ---- durum ---- */
@@ -394,7 +417,7 @@ export function createScene(canvas, flavors, onProgress) {
   let pendingFront = -1;
   let spin = 0, spinTarget = 0;
   let stream = null, streamNow = 0; // ürün akışında kaydırmaya bağlı konum (0..N-1)
-  const state = { x: 0, y: 0, s: 1, ry: 0, rz: 0, cloud: 1, frost: 0 };
+  const state = { x: 0, y: 0, s: 1, ry: 0, rz: 0, cloud: 0, frost: 0 };
   const target = { ...state };
   const pointer = { x: 0, y: 0, sx: 0, sy: 0 };
   let scrollVel = 0;
@@ -574,9 +597,18 @@ export function createScene(canvas, flavors, onProgress) {
     }
     camera.position.z = 5 / insp.zoom;
 
-    const bob = reduce ? 0 : Math.sin(t * 1.1) * 0.035 * (1 - insp.blend);
+    const bob = reduce ? 0 : Math.sin(t * 1.1) * 0.035 * (1 - insp.blend) * (1 - fanNow);
     root.position.set(state.x + dip * 0.18, state.y + bob - dip * 0.1, 0);
+    // gölge ışığı paketi izler
+    key.target.position.copy(root.position);
+    key.position.set(root.position.x + 3.4, root.position.y + 2.8, 2.2);
+    {
+      const e = 2.6 * Math.max(0.6, state.s);
+      const sc = key.shadow.camera;
+      if (Math.abs(sc.right - e) > 0.05) { sc.left = -e; sc.right = e; sc.top = e; sc.bottom = -e; sc.updateProjectionMatrix(); }
+    }
     root.scale.setScalar(state.s * (1 - 0.08 * dip) * (1 - 0.12 * insp.pop));
+    root.rotation.x = 0.1 * fanNow;
     if (insp.on) {
       pouchHolder.rotation.set(insp.rx, insp.ry, 0);
     } else {
@@ -586,7 +618,7 @@ export function createScene(canvas, flavors, onProgress) {
         state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025) - dip * 0.16
       );
     }
-    shadow.material.opacity = 0.9 * Math.min(1, state.s) * (1 - 0.5 * dip);
+    shadow.material.opacity = 0.9 * Math.min(1, state.s) * (1 - 0.5 * dip) * (1 - fanNow);
     aspectNow = damp(aspectNow, aspectTarget, 6, dt);
     pouch.group.scale.set(1 / Math.sqrt(aspectNow), aspectNow / Math.sqrt(aspectNow), 1);
     shadow.position.y = -0.58 * aspectNow / Math.sqrt(aspectNow) - 0.24;
@@ -635,15 +667,18 @@ export function createScene(canvas, flavors, onProgress) {
       f.holder.visible = v > 0.01;
       if (!f.holder.visible) return;
       const out = 1 - v;
-      const bobF = reduce ? 0 : Math.sin(t * 1.0 + f.phase) * 0.03;
+      const bobF = reduce ? 0 : Math.sin(t * 1.0 + f.phase) * 0.03 * out;
       f.holder.position.set(
         f.p[0] + f.dir.x * out * 2.2,
         f.p[1] + bobF + f.dir.y * out * 1.6 + out * 0.6,
         f.p[2] - out * 1.5
       );
-      f.holder.rotation.set(0.05, f.ry + pointer.sx * 0.25 - out * 0.8 * Math.sign(f.p[0]), f.rz + out * 0.4 * Math.sign(f.p[0]));
+      f.holder.rotation.set(0.02, f.ry + pointer.sx * 0.12 - out * 0.8 * Math.sign(f.p[0]), f.rz + out * 0.4 * Math.sign(f.p[0]));
+
       f.holder.scale.setScalar(f.s * (0.35 + 0.65 * v));
     });
+
+    hero.update(dt, t, fanNow, pointer, flavors[0].bg, reduce);
 
     // kırağı
     frostMat.opacity = state.frost * 0.9;

@@ -159,7 +159,7 @@ function pose(stage) {
   const off = { y: H * 2.6, s: 0.7, cloud: 0, frost: 0 };
   if (isMobile()) {
     switch (stage) {
-      case 'hero': return { x: 0, y: H * 0.5, s: 0.56, ry: -0.25, rz: 0.03, cloud: 1, frost: 0 };
+      case 'hero': return { x: 0.08, y: H * 0.47, s: 0.44, ry: -0.1, rz: 0, cloud: 0, frost: 0 };
       case 'product': return { x: 0, y: H * 0.43, s: 0.78, ry: -0.3, rz: 0.02, cloud: 1, frost: 0 };
       case 'inspect': return { x: 0, y: H * 0.33, s: 0.74, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
       case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: 0.5, rz: 0, cloud: 0, frost: 1 };
@@ -168,7 +168,7 @@ function pose(stage) {
   }
   const big = Math.min(1.55, W * 0.72);
   switch (stage) {
-    case 'hero': return { x: W * 0.42, y: -0.08, s: big * 0.78, ry: -0.3, rz: 0.04, cloud: 1, frost: 0 };
+    case 'hero': return { x: W * 0.53, y: -0.04, s: big * 0.76, ry: -0.1, rz: 0, cloud: 0, frost: 0 };
     case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.38, rz: 0.03, cloud: 1, frost: 0 };
     case 'inspect': return { x: W * 0.2, y: 0.1, s: big * 0.86, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
     case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.65, rz: 0.12, cloud: 0, frost: 1 };

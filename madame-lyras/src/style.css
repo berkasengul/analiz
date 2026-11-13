@@ -130,11 +130,27 @@ body[data-stage='product'] .flavors { opacity: 1; pointer-events: auto; }
 .badges--small li { font-size: 13px; padding: 6px 12px; }
 
 /* ---------- hero ---------- */
-.hero { padding-top: 140px; }
-.hero__inner { position: relative; }
-.hero__title { font-size: clamp(54px, 8vw, 118px); margin-bottom: 28px; max-width: 9.5ch; }
-.hero__lead { font-size: clamp(17px, 1.5vw, 20px); max-width: 470px; color: var(--ink-soft); margin-bottom: 28px; }
-.hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero { padding-top: 120px; overflow: hidden; }
+.hero__vignette { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(120% 90% at 30% 50%, transparent 55%, rgba(40, 0, 0, 0.35) 100%), linear-gradient(90deg, rgba(60, 0, 0, 0.14), transparent 40%); }
+.hero__inner { position: relative; z-index: 1; }
+.hero__eyebrow { display: flex; align-items: center; gap: 18px; font-size: 14px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #f4dfc0; margin: 0 0 26px; }
+.hero__eyebrow::before, .hero__eyebrow::after { content: ''; height: 1px; width: 70px; background: linear-gradient(90deg, transparent, rgba(244, 223, 192, 0.7)); }
+.hero__eyebrow::after { background: linear-gradient(90deg, rgba(244, 223, 192, 0.7), transparent); }
+.hero__eyebrow::before { margin-left: -100px; width: 82px; }
+.hero__title { position: relative; font-size: clamp(54px, 6.4vw, 124px); line-height: 0.92; letter-spacing: -0.03em; margin-bottom: 34px; font-weight: 600; max-width: 8ch;
+  filter: drop-shadow(0 10px 30px rgba(60, 0, 0, 0.35)); }
+.hero__title em { display: block; font-weight: 300; margin-top: 0.06em; padding-left: 0.12em; }
+.gold { background: linear-gradient(175deg, #fffaf0 0%, #fbe9cb 38%, #ecc98f 72%, #d9a764 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.hero__brush { position: absolute; left: 0.45em; bottom: -0.32em; width: 4.1em; height: 0.36em; }
+.hero__lead { font-size: clamp(17px, 1.35vw, 21px); max-width: 500px; color: rgba(255, 244, 232, 0.88); margin-bottom: 30px; }
+.hero__cta { background: linear-gradient(180deg, #fbefd9, #ecd3a7); color: #4a1408; padding: 0 30px; min-height: 56px; font-size: 17px; box-shadow: 0 14px 34px rgba(60, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.7); }
+.hero__cta svg { transition: transform 0.3s var(--ease); }
+.hero__cta:hover svg { transform: translateX(4px); }
+.hero__features { display: flex; gap: 0; list-style: none; padding: 0; margin: 34px 0 0; }
+.hero__features li { display: flex; align-items: center; gap: 12px; padding: 4px 26px; font-size: 15px; font-weight: 600; line-height: 1.2; color: #fff1e0; border-left: 1px solid rgba(255, 230, 200, 0.3); }
+.hero__features li:first-child { padding-left: 0; border-left: 0; }
+.hero__features svg { width: 30px; height: 30px; color: #fbe3bd; flex: none; }
 .scrollcue {
   position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -343,10 +359,16 @@ body[data-stage='product'] .flavors { opacity: 1; pointer-events: auto; }
 
   .sec { padding: 96px 0; align-items: flex-end; }
   .hero { min-height: 100svh; padding-bottom: 90px; }
-  .hero__title { font-size: clamp(42px, 12vw, 64px); margin-bottom: 16px; }
-  .hero .badges { display: none; }
-  .hero .eyebrow span { display: none; }
-  .hero__lead { font-size: 16px; margin-bottom: 20px; }
+  .hero__title { font-size: clamp(42px, 12.5vw, 64px); margin-bottom: 22px; max-width: none; }
+  .hero__eyebrow { font-size: 11px; letter-spacing: 0.18em; margin-bottom: 14px; gap: 10px; }
+  .hero__eyebrow::before { display: none; }
+  .hero__eyebrow::after { width: 40px; }
+  .hero__eyebrow span { display: none; }
+  .hero__lead { font-size: 15px; margin-bottom: 18px; }
+  .hero__cta { min-height: 50px; font-size: 15px; }
+  .hero__features { margin-top: 20px; }
+  .hero__features li { padding: 2px 12px; font-size: 12px; gap: 8px; }
+  .hero__features svg { width: 22px; height: 22px; }
   .scrollcue { display: none; }
 
   .product { min-height: 120svh; padding-bottom: 70px; }
