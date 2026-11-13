@@ -1,8 +1,10 @@
-# Madame Lyra's · 3B tanıtım sitesi
+# Genç Anadolu Gıda · 3B tanıtım sitesi
 
-Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi'nin markası Madame Lyra's için tanıtım sitesi (dondurularak kurutulmuş meyve ve dondurma). Satış yok: ürünler, tüm ürünler kataloğu ve afişler, nasıl yapılır, hakkımızda, toptan ve iletişim bölümleri var.
+Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi için tanıtım sitesi (dondurularak kurutulmuş meyve ve dondurma). Sitede firma adı kullanılır; paket fotoğraflarındaki marka logosu ürünün kendisidir. Satış yok: ürünler, tüm ürünler kataloğu ve afişler, nasıl yapılır, hakkımızda, toptan ve iletişim bölümleri var.
 
-- **Ürün akışı:** 9 ürün sabit bir sahnede kaydırmaya bağlı geçer. Paket süzülerek döner, arka plan rengi ve yazı katmanları kaydırma konumuna göre karışır, eski meyveler dağılıp yenileri gelir. Geri kaydırınca geçiş geri sarılır.
+- **Açılış:** Öndeki çilek paketinin arkasında 4 paket sıralı durur. Kaydırınca arkadakiler dağılır, öndeki paket süzülerek ilk ürünün yerine oturur.
+- **Meyve görselleri:** Paketlerin çevresinde uçan parçalar markanın afişlerinden ve ürün fotoğraflarından kesildi (`public/parca/`, `-b` ile bitenler derinlik için bulanık sürüm).
+- **Ürün akışı:** 9 ürün sabit bir sahnede kaydırmaya bağlı geçer. Paket süzülerek döner, arka plan rengi ve yazı katmanları kaydırma konumuna göre karışır, eski meyveler dağılıp yenileri gelir. Geri kaydırınca geçiş geri sarılır. Kaydırma durunca en yakın ürüne yumuşakça oturur; ürün ekrandayken yazılar tamamen net kalır.
 - **3D inceleme:** Pakete, "3D olarak incele" düğmesine ya da katalog kartına tıklayınca açılır. Sürükleyerek çevirme, tekerlek ya da iki parmakla yakınlaştırma, Ön/Yan/Arka/Üst görünümler, önceki/sonraki ürün, Esc ve geri tuşuyla kapatma. Adres `#incele-<ürün>` ile doğrudan açılabilir.
 
 - **3B sahne** (`src/scene.js`, Three.js): Gerçek ambalaj fotoğrafları düzleştirilip kilitli paket (doypack) modeline giydirildi. Arka etiket bu fotoğrafların renklerinden kendiliğinden çiziliyor. Etrafta her ürünün kendi kurutulmuş meyve parçaları var: çilek, elma halkası, mango küpü, ahududu. Kaydırdıkça paket dönüyor, ürün ve arka plan rengi değişiyor. Süreç bölümünde kırağı parçacıkları çıkıyor.

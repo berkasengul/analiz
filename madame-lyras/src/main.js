@@ -25,7 +25,7 @@ $('#players').innerHTML = FLAVORS.map((f, i) => `
       <button class="btn btn--light" type="button" data-inspect="${i}">3D olarak incele</button>
       <a class="btn btn--ghost" href="#iletisim" data-ask="${i}">Bilgi al</a>
     </div>
-    <img class="product__fallback" src="${f.tex}" alt="Madame Lyra's dondurularak kurutulmuş ${lower(f.name)} paketi" width="1024" height="${Math.round(1024 * f.aspect)}" loading="lazy" />
+    <img class="product__fallback" src="${f.tex}" alt="Dondurularak kurutulmuş ${lower(f.name)} paketi" width="1024" height="${Math.round(1024 * f.aspect)}" loading="lazy" />
   </article>`).join('');
 const players = $$('.player');
 const productsEl = $('#urunler');
@@ -41,7 +41,7 @@ $('#catalog').innerHTML = FLAVORS.map((f, i) => `
     <span class="card__go">3D incele →</span>
   </button>`).join('');
 $('#posters').innerHTML = FLAVORS.filter((f) => f.poster).map((f) => `
-  <figure class="poster"><img src="${f.poster}" alt="Madame Lyra's ${lower(f.name)} afişi" loading="lazy" width="880" height="1100" /></figure>`).join('');
+  <figure class="poster"><img src="${f.poster}" alt="${f.name} afişi" loading="lazy" width="880" height="1100" /></figure>`).join('');
 
 /* ---------- ürün noktaları ---------- */
 const dotsEl = $('#flavorDots');
@@ -159,7 +159,7 @@ function pose(stage) {
   const off = { y: H * 2.6, s: 0.7, cloud: 0, frost: 0 };
   if (isMobile()) {
     switch (stage) {
-      case 'hero': return { x: 0, y: H * 0.46, s: 0.68, ry: -0.3, rz: 0.04, cloud: 1, frost: 0 };
+      case 'hero': return { x: 0, y: H * 0.5, s: 0.56, ry: -0.25, rz: 0.03, cloud: 1, frost: 0 };
       case 'product': return { x: 0, y: H * 0.43, s: 0.78, ry: -0.3, rz: 0.02, cloud: 1, frost: 0 };
       case 'inspect': return { x: 0, y: H * 0.33, s: 0.74, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
       case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: 0.5, rz: 0, cloud: 0, frost: 1 };
@@ -168,7 +168,7 @@ function pose(stage) {
   }
   const big = Math.min(1.55, W * 0.72);
   switch (stage) {
-    case 'hero': return { x: W * 0.38, y: -0.04, s: big * 0.95, ry: -0.5, rz: 0.05, cloud: 1, frost: 0 };
+    case 'hero': return { x: W * 0.42, y: -0.08, s: big * 0.78, ry: -0.3, rz: 0.04, cloud: 1, frost: 0 };
     case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.38, rz: 0.03, cloud: 1, frost: 0 };
     case 'inspect': return { x: W * 0.2, y: 0.1, s: big * 0.86, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
     case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.65, rz: 0.12, cloud: 0, frost: 1 };
@@ -187,6 +187,7 @@ let lastKey = '';
 let lastY = window.scrollY;
 let currentProduct = 0;
 let inspecting = false;
+let streamF = null;
 
 function update(force) {
   if (inspecting) return;
@@ -213,10 +214,13 @@ function update(force) {
     document.body.dataset.stage = 'product';
     players.forEach((p, k) => {
       const d = f - k;
-      const o = 1 - smooth(0.16, 0.42, Math.abs(d));
-      p.style.setProperty('--d', d.toFixed(4));
+      const ad = Math.abs(d);
+      // ürün ekrandayken yazı tamamen net ve sabit; yalnızca geçiş anında kayar ve solar
+      const o = 1 - smooth(0.3, 0.47, ad);
+      const moved = Math.sign(d) * Math.max(0, ad - 0.18);
+      p.style.setProperty('--d', moved.toFixed(4));
       p.style.setProperty('--o', o.toFixed(3));
-      p.style.setProperty('--b', `${Math.min(10, Math.abs(d) * 18).toFixed(1)}px`);
+      p.style.setProperty('--b', ad < 0.32 ? '0px' : `${Math.min(6, (ad - 0.32) * 40).toFixed(1)}px`);
       p.style.visibility = o < 0.002 ? 'hidden' : 'visible';
       const active = Math.abs(d) < 0.3;
       if (p.classList.contains('on') !== active) {
@@ -228,14 +232,29 @@ function update(force) {
     if (scene) {
       scene.setStream(f);
       scene.setPose(pose('product'));
+      scene.setFan(0);
     }
+    streamF = f;
     const key = `p${currentProduct}`;
     if (key !== lastKey) { lastKey = key; themeMeta.setAttribute('content', FLAVORS[currentProduct].bg); }
     return;
   }
 
   bgEl.classList.remove('bg--live');
+  streamF = null;
   if (scene) scene.setStream(null);
+  // açılış: öndeki paket kaydırdıkça aşağı süzülüp ilk ürünün yerine oturur, arkadakiler dağılır
+  const above = pr.top > mid;
+  if (scene && above) {
+    const end = productsEl.offsetTop - mid;
+    const h = clamp(y / Math.max(1, end), 0, 1);
+    const k = ease(smooth(0.08, 1, h));
+    const a = pose('hero'), b = pose('product');
+    const p = {};
+    for (const key in a) p[key] = a[key] + (b[key] - a[key]) * k;
+    scene.setPose(p);
+    scene.setFan(1 - smooth(0, 0.45, h));
+  } else if (scene) scene.setFan(0);
   let active = sections[0];
   for (const s of sections) {
     const r = s.getBoundingClientRect();
@@ -254,7 +273,7 @@ function update(force) {
   document.body.dataset.stage = stage;
   if (scene) {
     scene.setFlavor(below ? N - 1 : 0);
-    scene.setPose(pose(stage));
+    if (!above) scene.setPose(pose(stage));
   }
 }
 window.addEventListener('scroll', () => { if (!lenis) update(false); }, { passive: true });
@@ -262,6 +281,26 @@ window.addEventListener('resize', () => { lastKey = ''; update(true); if (inspec
 update(true);
 
 dots.forEach((d) => d.addEventListener('click', () => scrollToY(productY(+d.dataset.go), 1.8)));
+
+// kaydırma durunca en yakın ürüne yumuşakça oturt
+let snapTimer = 0;
+let snapping = false;
+function scheduleSnap() {
+  clearTimeout(snapTimer);
+  if (snapping || reduce || inspecting) return;
+  snapTimer = setTimeout(() => {
+    if (streamF === null || inspecting) return;
+    const pr = productsEl.getBoundingClientRect();
+    if (pr.top > 0 || pr.bottom < window.innerHeight) return;
+    const n = Math.round(streamF);
+    if (Math.abs(streamF - n) < 0.01) return;
+    snapping = true;
+    scrollToY(productY(n), 0.9);
+    setTimeout(() => { snapping = false; }, 950);
+  }, 200);
+}
+if (lenis) lenis.on('scroll', scheduleSnap);
+else window.addEventListener('scroll', scheduleSnap, { passive: true });
 
 /* ---------- paketin üstündeki tıklama alanı ---------- */
 const hit = $('#productHit');
