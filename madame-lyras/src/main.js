@@ -276,11 +276,17 @@ function update(force) {
         const startY = rect.cy; // paket ekranda yerinde kalır, açılış altından yukarı kayar: sayfaya göre aşağı iner
         const start = { x: (rect.cx - vw / 2) * u, y: -(startY - vh / 2) * u, s: (rect.h * u) / 1.153, ry: -0.08, rz: 0, cloud: 0, frost: 0 };
         const end = pose('product');
-        const k = ease(clamp(y / Math.max(1, productsEl.offsetTop - mid), 0, 1));
+        // sinematik iniş: ilk pikselden itibaren hareket eder (ease-out), aşağı doğru kavis çizer,
+        // hafifçe döner ve eğilir, ürün yerine yavaşlayarak oturur
+        const raw = clamp(y / Math.max(1, productsEl.offsetTop - mid), 0, 1);
+        const k = 1 - Math.pow(1 - raw, 2.2);
+        const arc = Math.sin(raw * Math.PI);
         const p = {};
         for (const key in end) p[key] = start[key] + (end[key] - start[key]) * k;
-        // başlangıçta açılıştaki paket gibi sahneye otursun (kayma ilerledikçe ürün pozuna geçer)
-        p.y = start.y * (1 - k) + end.y * k;
+        p.y -= arc * H * 0.2;
+        p.ry += arc * 0.55;
+        p.rz = arc * -0.1;
+        p.s *= 1 + arc * 0.05;
         if (!handing) { scene.snapPose({ ...p }); handing = true; }
         else scene.setPose(p);
         scene.setFlavor(0);

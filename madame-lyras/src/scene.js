@@ -17,28 +17,35 @@ function rng(seed) {
 /* ------------------------------------------------------------------ */
 /* Kilitli ayaklı paket (doypack)                                      */
 /* ------------------------------------------------------------------ */
+// Ayaklı kilitli paket (doypack) yüzeyi: yan dikiş kanatları, üst kaynak bandı, fermuar sırtı,
+// dolgun gövde, alt körüğe doğru kıvrılan taban ve üst köşelerde film kırışıklıkları.
+const SEAM = 0.022;
 function pouchSurface({ w, h, depth, side }) {
-  const SX = 56, SY = 72;
+  const SX = 64, SY = 120;
   const pos = [], uv = [], idx = [], col = [];
   for (let j = 0; j <= SY; j++) {
     const v = j / SY;
     for (let i = 0; i <= SX; i++) {
       const u = i / SX;
-      const bulgeU = Math.pow(Math.sin(Math.PI * u), 0.5);
-      const top = 1 - smooth(0.8, 0.915, v);
-      const bottom = 0.62 + 0.38 * smooth(0.0, 0.22, v) - 0.22 * smooth(0.3, 0.8, v);
-      const t = depth * bulgeU * top * bottom;
-      // dolu kısım yanlardan hafif içe çekilir
-      const pinch = 1 - 0.07 * (t / depth);
-      // üst kısımda hafif kırışıklık
-      const wrinkle = 0.004 * Math.sin(u * 23 + v * 7) * top * (1 - v * 0.5);
+      const inSeam = u < SEAM || u > 1 - SEAM;
+      const uu = Math.min(1, Math.max(0, (u - SEAM) / (1 - 2 * SEAM)));
+      const bulgeU = inSeam ? 0 : Math.pow(Math.sin(Math.PI * uu), 0.45);
+      const top = 1 - smooth(0.76, 0.9, v);
+      const bottom = 0.72 + 0.28 * smooth(0.0, 0.18, v) - 0.16 * smooth(0.3, 0.78, v);
+      const curl = 1 - smooth(0.0, 0.07, v); // alt körüğe doğru kıvrım
+      let t = depth * bulgeU * top * bottom * (1 - 0.22 * curl * curl);
+      // fermuar sırtı
+      const zip = inSeam ? 0 : Math.exp(-Math.pow((v - 0.872) / 0.0075, 2)) * 0.011;
+      // dolgu gerginliğinden üst köşelerde kırışıklık
+      const wr = 0.0065 * Math.sin(u * 29 + v * 11) * smooth(0.55, 0.78, v) * (1 - smooth(0.8, 0.9, v)) * bulgeU * (1 - Math.sin(Math.PI * uu) * 0.6);
+      const pinch = 1 - 0.085 * (t / depth);
       const x = (u - 0.5) * w * pinch;
-      const y = (v - 0.5) * h;
-      pos.push(x, y, side * (t + wrinkle * bulgeU));
+      const y = (v - 0.5) * h + curl * curl * 0.02 * bulgeU;
+      pos.push(x, y, side * (t + zip + wr));
       uv.push(side > 0 ? u : 1 - u, v);
-      // tabana ve yan dikişlere doğru koyulaşma (paket hacmi ve zemine oturma hissi)
-      const curve = 0.78 + 0.27 * Math.pow(Math.sin(Math.PI * Math.min(1, u * 1.08)), 0.7);
-      const ao = curve * (1 - 0.45 * (1 - smooth(0.0, 0.14, v)) - 0.2 * (1 - smooth(0.0, 0.06, u)) - 0.2 * (1 - smooth(1.0, 0.94, u)) - 0.06 * smooth(0.9, 1.0, v));
+      // tabana, yan dikişlere ve üst kaynağa doğru koyulaşma (hacim ve oturma hissi)
+      const curve = 0.8 + 0.25 * Math.pow(Math.sin(Math.PI * uu), 0.7);
+      const ao = curve * (1 - 0.4 * (1 - smooth(0.0, 0.13, v)) - 0.18 * (1 - smooth(0.0, 0.06, u)) - 0.18 * (1 - smooth(1.0, 0.94, u)) - 0.05 * smooth(0.9, 1.0, v));
       col.push(ao, ao, ao);
     }
   }
@@ -59,17 +66,25 @@ function pouchSurface({ w, h, depth, side }) {
   return { g, SX };
 }
 
+// alt körük: ön ve arka yüzün alt kenarlarını birleştiren, ortası yukarı katlanmış taban
 function pouchBottom(front, back, SX) {
-  // ön ve arka yüzün alt sıralarını birleştiren taban
   const fp = front.attributes.position, bp = back.attributes.position;
+  const STEPS = 6;
   const pos = [], idx = [];
   for (let i = 0; i <= SX; i++) {
-    pos.push(fp.getX(i), fp.getY(i), fp.getZ(i));
-    pos.push(bp.getX(i), bp.getY(i), bp.getZ(i));
+    const fz = fp.getZ(i), bz = bp.getZ(i);
+    for (let k = 0; k <= STEPS; k++) {
+      const s = k / STEPS;
+      const lift = Math.sin(Math.PI * s) * Math.min(0.06, Math.abs(fz - bz) * 0.28);
+      pos.push(fp.getX(i) + (bp.getX(i) - fp.getX(i)) * s, fp.getY(i) + (bp.getY(i) - fp.getY(i)) * s + lift, fz + (bz - fz) * s);
+    }
   }
+  const R = STEPS + 1;
   for (let i = 0; i < SX; i++) {
-    const a = i * 2, b = a + 1, c = a + 2, d = a + 3;
-    idx.push(a, b, c, b, d, c);
+    for (let k = 0; k < STEPS; k++) {
+      const a = i * R + k, b = a + 1, c = a + R, d = c + 1;
+      idx.push(a, b, c, b, d, c);
+    }
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
@@ -78,7 +93,61 @@ function pouchBottom(front, back, SX) {
   return g;
 }
 
-// Arka etiket: ön dokunun renklerinden üretilir
+// film yüzeyi: kaynak tırtılları, yan dikişler ve yumuşak kırışıklıklar (normal + pürüzlülük haritası)
+let filmMaps = null;
+function getFilmMaps() {
+  if (filmMaps) return filmMaps;
+  const N = 512;
+  const hgt = new Float32Array(N * N);
+  const rough = new Uint8ClampedArray(N * N * 4);
+  let s = 7;
+  const r = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const lines = [];
+  for (let i = 0; i < 26; i++) {
+    const corner = i % 4;
+    const cx = corner % 2 ? N * (0.82 + r() * 0.12) : N * (0.06 + r() * 0.12);
+    const cy = corner < 2 ? N * (0.1 + r() * 0.2) : N * (0.82 + r() * 0.12);
+    const a = (corner % 2 ? 2.3 : 0.8) + (r() - 0.5) * 0.6;
+    lines.push({ cx, cy, dx: Math.cos(a), dy: Math.sin(a), len: N * (0.06 + r() * 0.16), amp: 0.4 + r() * 0.6 });
+  }
+  for (let y = 0; y < N; y++) {
+    for (let x = 0; x < N; x++) {
+      const u = x / N, v = 1 - y / N;
+      let hh = 0, ro = 0.22;
+      if (v > 0.915) { hh += 0.6 * Math.sin(x * 1.6) ; ro = 0.55; }        // üst kaynak tırtılı
+      if (u < SEAM || u > 1 - SEAM) { hh += 0.6 * Math.sin(y * 1.6); ro = 0.55; } // yan dikiş
+      if (v < 0.035) { hh += 0.4 * Math.sin(x * 1.2); ro = 0.5; }            // alt kaynak
+      for (const L of lines) {
+        const px = x - L.cx, py = y - L.cy;
+        const along = px * L.dx + py * L.dy;
+        if (along < 0 || along > L.len) continue;
+        const across = -px * L.dy + py * L.dx;
+        hh += L.amp * Math.exp(-(across * across) / 18) * Math.sin((along / L.len) * Math.PI);
+      }
+      hgt[y * N + x] = hh;
+      const k = (y * N + x) * 4;
+      const rv = Math.round(Math.min(1, ro + Math.abs(hh) * 0.05) * 255);
+      rough[k] = rough[k + 1] = rough[k + 2] = rv; rough[k + 3] = 255;
+    }
+  }
+  const nrm = new Uint8ClampedArray(N * N * 4);
+  const H = (x, y) => hgt[Math.min(N - 1, Math.max(0, y)) * N + Math.min(N - 1, Math.max(0, x))];
+  for (let y = 0; y < N; y++) {
+    for (let x = 0; x < N; x++) {
+      const dx = (H(x + 1, y) - H(x - 1, y)) * 0.9, dy = (H(x, y + 1) - H(x, y - 1)) * 0.9;
+      const len = Math.hypot(dx, dy, 1), k = (y * N + x) * 4;
+      nrm[k] = (-dx / len * 0.5 + 0.5) * 255; nrm[k + 1] = (dy / len * 0.5 + 0.5) * 255; nrm[k + 2] = (1 / len * 0.5 + 0.5) * 255; nrm[k + 3] = 255;
+    }
+  }
+  const mk = (data) => {
+    const c = document.createElement('canvas'); c.width = c.height = N;
+    c.getContext('2d').putImageData(new ImageData(data, N, N), 0, 0);
+    const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t;
+  };
+  filmMaps = { normalMap: mk(nrm), roughnessMap: mk(rough) };
+  return filmMaps;
+}
+
 export function makeBackTexture(img, flavor, logo) {
   const W = 1024, H = Math.round(1024 * (flavor.aspect || 1.153));
   const c = document.createElement('canvas');
@@ -162,19 +231,24 @@ export function makePouch() {
   const f = pouchSurface({ w, h, depth, side: 1 });
   const b = pouchSurface({ w, h, depth, side: -1 });
   const bottomGeo = pouchBottom(f.g, b.g, f.SX);
+  const { normalMap, roughnessMap } = getFilmMaps();
+  // parlak lamine film: canlı kalsın diye baskı hafif kendi ışığını da taşır
   const film = {
-    roughness: 0.38,
-    metalness: 0.05,
-    clearcoat: 0.45,
-    clearcoatRoughness: 0.22,
-    envMapIntensity: 0.32,
+    roughness: 1,
+    roughnessMap,
+    normalMap,
+    normalScale: new THREE.Vector2(0.55, 0.55),
+    metalness: 0.1,
+    clearcoat: 0.8,
+    clearcoatRoughness: 0.1,
+    envMapIntensity: 0.5,
     vertexColors: true,
     emissive: 0xffffff,
-    emissiveIntensity: 0.07,
+    emissiveIntensity: 0.3,
   };
   const frontMat = new THREE.MeshPhysicalMaterial({ ...film });
   const backMat = new THREE.MeshPhysicalMaterial({ ...film });
-  const bottomMat = new THREE.MeshPhysicalMaterial({ ...film, vertexColors: false, emissiveIntensity: 0, color: 0x8a0a0a, side: THREE.DoubleSide });
+  const bottomMat = new THREE.MeshPhysicalMaterial({ roughness: 0.4, metalness: 0.1, clearcoat: 0.6, color: 0x8a0a0a, side: THREE.DoubleSide, envMapIntensity: 0.5 });
   const group = new THREE.Group();
   const front = new THREE.Mesh(f.g, frontMat);
   const back = new THREE.Mesh(b.g, backMat);

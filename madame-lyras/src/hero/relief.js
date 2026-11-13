@@ -56,9 +56,15 @@ export function loadRelief(url, opts) {
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.anisotropy = 4;
         const { geo, aspect } = reliefGeometry(tex.image, opts);
-        const mat = new THREE.MeshStandardMaterial({
-          map: tex, alphaTest: 0.45, side: THREE.DoubleSide, roughness: 0.5, metalness: 0,
-          emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.3, envMapIntensity: 0.6,
+        // gerçekçi PBR: dokudan yüzey kabartması; taze meyvede ıslak/parlak cila, kurutulmuşta mat
+        const glossy = opts && opts.glossy;
+        const mat = new THREE.MeshPhysicalMaterial({
+          map: tex, alphaTest: 0.45, side: THREE.DoubleSide,
+          bumpMap: tex, bumpScale: glossy ? 2.2 : 3.2,
+          roughness: glossy ? 0.38 : 0.82, metalness: 0,
+          clearcoat: glossy ? 0.55 : 0, clearcoatRoughness: 0.28,
+          sheen: glossy ? 0 : 0.4, sheenRoughness: 0.8, sheenColor: new THREE.Color('#ffd0c8'),
+          emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.2, envMapIntensity: 0.85,
         });
         const depthMat = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: tex, alphaTest: 0.45 });
         res({ geo, mat, depthMat, aspect, tex });

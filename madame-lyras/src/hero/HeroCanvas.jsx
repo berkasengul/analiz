@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, Lightformer, ContactShadows } from '@react-three/drei';
+import { Environment, Lightformer, ContactShadows, MeshReflectorMaterial } from '@react-three/drei';
 import { EffectComposer, N8AO, Bloom, Vignette, SMAA, ToneMapping } from '@react-three/postprocessing';
 import { ToneMappingMode } from 'postprocessing';
 import gsap from 'gsap';
 import { makePouch, makeBackTexture } from '../scene.js';
-import { stoneSlab } from './stone.js';
+import { marblePlinth } from './stone.js';
 import { loadRelief, loadFlat } from './relief.js';
 
 /* paylaşılan durum: kaydırma, fare, giriş animasyonu */
@@ -71,7 +71,7 @@ function Lights({ mobile }) {
     <>
       <ambientLight intensity={0.32} color="#ffd8c4" />
       <directionalLight
-        position={[5, 6.5, 5]} intensity={2.6} color="#fff1e2"
+        position={[5, 6.5, 5]} intensity={3.0} color="#fff1e2"
         castShadow={!mobile}
         shadow-mapSize={[2048, 2048]} shadow-bias={-0.0004} shadow-normalBias={0.03}
         shadow-camera-left={-5} shadow-camera-right={5} shadow-camera-top={5} shadow-camera-bottom={-5} shadow-camera-far={30}
@@ -79,8 +79,8 @@ function Lights({ mobile }) {
       <spotLight position={[-3, 4.5, -4]} angle={0.8} penumbra={1} intensity={70} distance={20} decay={2} color="#ff7a45" />
       <pointLight position={[1.7, -0.3, 2.4]} intensity={5} distance={6} decay={2} color="#ff3a22" />
       <Environment resolution={mobile ? 64 : 256} frames={1}>
-        <Lightformer form="rect" intensity={2.2} position={[0, 5, 2]} rotation-x={Math.PI / 2} scale={[10, 4, 1]} color="#fff3e6" />
-        <Lightformer form="rect" intensity={3.2} position={[5, 1.5, 3]} rotation-y={-Math.PI / 2.5} scale={[2, 6, 1]} color="#ffffff" />
+        <Lightformer form="rect" intensity={2.8} position={[0, 5, 2]} rotation-x={Math.PI / 2} scale={[10, 4, 1]} color="#fff3e6" />
+        <Lightformer form="rect" intensity={4} position={[5, 1.5, 3]} rotation-y={-Math.PI / 2.5} scale={[2, 6, 1]} color="#ffffff" />
         <Lightformer form="rect" intensity={1.6} position={[-5, 1, 2]} rotation-y={Math.PI / 2.5} scale={[2, 6, 1]} color="#ffb48a" />
         <Lightformer form="ring" intensity={1.4} position={[0, 0, -6]} scale={6} color="#ff2a1a" />
       </Environment>
@@ -89,20 +89,47 @@ function Lights({ mobile }) {
 }
 
 /* ---------------- kaide ---------------- */
+const PC = [1.85, -0.25]; // platform merkezi (x, z)
 function Platform({ mobile }) {
-  const slab = useMemo(() => stoneSlab({ rx: 2.15, rz: 1.35, height: 0.62 }), []);
+  const pl = useMemo(() => marblePlinth({ R: 2.25, size: mobile ? 512 : 768 }), [mobile]);
+  const topMap = useMemo(() => { const t = pl.map; t.repeat.set(1.3, 1.3); return t; }, [pl]);
   return (
-    <mesh geometry={slab.geo} material={slab.materials} position={[1.45, PT - slab.top, -0.15]} receiveShadow castShadow={!mobile} />
+    <group position={[PC[0], PT - pl.top, PC[1]]}>
+      <mesh geometry={pl.geo} material={pl.mat} receiveShadow castShadow={!mobile} />
+      <mesh rotation-x={-Math.PI / 2} position={[0, pl.top + 0.002, 0]} receiveShadow>
+        <circleGeometry args={[2.24, 96]} />
+        {mobile ? (
+          <meshPhysicalMaterial map={topMap} roughness={0.22} clearcoat={0.9} clearcoatRoughness={0.06} envMapIntensity={0.9} />
+        ) : (
+          <MeshReflectorMaterial map={topMap} blur={[420, 140]} resolution={1024} mixBlur={1} mixStrength={2.4}
+            roughness={0.3} depthScale={1.1} minDepthThreshold={0.35} maxDepthThreshold={1.4} metalness={0.25} mirror={0.55} color="#ffffff" />
+        )}
+      </mesh>
+    </group>
   );
 }
 
 /* ---------------- ürün paketleri ---------------- */
 const POUCHES = [
-  { id: 'ananas', x: 0.3, z: -0.72, ry: 0.4, s: 1.58 },
-  { id: 'ahududu', x: 0.96, z: -0.26, ry: 0.26, s: 1.64 },
-  { id: 'elma', x: 2.58, z: -0.52, ry: -0.42, s: 1.58 },
-  { id: 'cilek', x: 1.74, z: 0.2, ry: -0.08, s: 1.78 },
+  { id: 'ananas', x: 0.82, z: -0.85, ry: 0.36, s: 1.72 },
+  { id: 'ahududu', x: 1.36, z: -0.4, ry: 0.22, s: 1.78 },
+  { id: 'elma', x: 2.78, z: -0.62, ry: -0.38, s: 1.72 },
+  { id: 'cilek', x: 2.0, z: 0.12, ry: -0.06, s: 1.92 },
 ];
+// zemine temas gölgesi
+const blobTex = (() => {
+  let t = null;
+  return () => {
+    if (t) return t;
+    const c = document.createElement('canvas'); c.width = 256; c.height = 128;
+    const x = c.getContext('2d');
+    const g = x.createRadialGradient(128, 64, 0, 128, 64, 128);
+    g.addColorStop(0, 'rgba(10,2,2,.9)'); g.addColorStop(0.45, 'rgba(10,2,2,.45)'); g.addColorStop(1, 'rgba(10,2,2,0)');
+    x.setTransform(1, 0, 0, 0.5, 0, 32); x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+    t = new THREE.CanvasTexture(c);
+    return t;
+  };
+})();
 function Pouches({ flavors, onReady }) {
   const root = useMemo(() => new THREE.Group(), []);
   useEffect(() => {
@@ -113,7 +140,7 @@ function Pouches({ flavors, onReady }) {
       const fl = flavors.find((f) => f.id === cfg.id);
       const pk = makePouch();
       for (const m of [pk.frontMat, pk.backMat]) {
-        m.roughness = 0.32; m.clearcoat = 0.7; m.clearcoatRoughness = 0.16; m.envMapIntensity = 0.85; m.emissiveIntensity = 0.06;
+        m.envMapIntensity = 1.0; // açılışta ışık şekillendiricilerden parlak film yansımaları
       }
       const a = (fl.aspect || 1.153) / 1.153;
       pk.group.scale.set(1 / Math.sqrt(a), a / Math.sqrt(a), 1);
@@ -125,6 +152,12 @@ function Pouches({ flavors, onReady }) {
       holder.position.set(cfg.x, PT + 0.5765 * cfg.s * (a / Math.sqrt(a)) + 0.004, cfg.z);
       holder.visible = false;
       root.add(holder);
+      const blob = new THREE.Mesh(new THREE.PlaneGeometry(cfg.s * 1.05, cfg.s * 0.5), new THREE.MeshBasicMaterial({ map: blobTex(), transparent: true, depthWrite: false, opacity: 0.85 }));
+      blob.rotation.x = -Math.PI / 2;
+      blob.rotation.z = -cfg.ry;
+      blob.position.set(cfg.x, PT + 0.006, cfg.z + 0.02);
+      blob.renderOrder = 2;
+      root.add(blob);
       return { cfg, fl, pk, holder };
     });
     Promise.all(holders.map((h) => new Promise((res) => loader.load(h.fl.tex, (t) => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; res(t); }, undefined, () => res(null)))))
@@ -148,38 +181,42 @@ function Pouches({ flavors, onReady }) {
 
 /* ---------------- meyveler (hacimli kabartmalar) ---------------- */
 // rest: kaidenin üstünde duran; float: süzülen; far: arka katman
+// Dengeli kompozisyon: kaidede sol ve sağ kümeler (öndeki çilek paketinin önü açık), üstte paketleri çevreleyen bir yay
 const FRUITS = [
-  // kaidenin üstündekiler
-  { u: P('yaprak', 1), x: -0.25, z: 0.55, w: 0.8, rest: true, rx: -1.15, rz: 0.4 },
-  { u: P('cilek', 0), x: 0.42, z: 0.9, w: 0.64, rest: true, ry: 0.25, rz: 0.12 },
-  { u: P('ahududu', 2), x: 0.08, z: 0.6, w: 0.34, rest: true },
-  { u: P('cilek', 1), x: -0.05, z: 1.0, w: 0.56, rest: true, sink: 0.14 },
-  { u: P('ahududu', 0), x: 0.86, z: 0.62, w: 0.34, rest: true },
-  { u: P('ahududu', 4), x: 3.32, z: 0.95, w: 0.34, rest: true },
-  { u: P('ananas', 2), x: 2.98, z: 0.62, w: 0.76, rest: true, ry: -0.35 },
-  { u: P('cilek', 0), x: 3.42, z: 0.12, w: 0.56, rest: true, ry: -0.45, flip: true },
-  // süzülenler (farklı hızlarda döner)
-  { u: P('ahududu', 0), x: 0.42, y: 1.38, z: 0.25, w: 0.44, spin: 0.55 },
-  { u: P('cilek', 0), x: 3.15, y: 1.18, z: 0.75, w: 0.74, spin: -0.32 },
-  { u: P('ananas', 1), x: 3.45, y: 1.42, z: -0.35, w: 0.6, spin: 0.22 },
-  { u: P('ahududu', 1), x: 3.85, y: 0.4, z: 0.35, w: 0.46, spin: 0.48 },
-  { u: P('cilek', 1), x: 0.62, y: 1.7, z: -0.65, w: 0.5, spin: -0.42 },
-  { u: P('ahududu', 4), x: 1.32, y: 1.78, z: -0.95, w: 0.32, spin: 0.8 },
-  { u: P('yaprak', 2), x: 2.5, y: 1.72, z: -1.05, w: 0.6, spin: 0.18 },
-  { u: P('ananas', 0), x: 3.95, y: -0.2, z: 1.0, w: 0.5, spin: -0.28 },
+  // kaidenin üstü: sol küme
+  { u: P('yaprak', 1), x: 0.2, z: 1.1, w: 0.8, rest: true, rx: -1.2, rz: 0.5 },
+  { u: P('cilek', 0), x: 0.72, z: 1.0, w: 0.64, rest: true, ry: 0.2, rz: 0.1 },
+  { u: P('cilek', 0), x: 0.3, z: 0.62, w: 0.56, rest: true, ry: 0.35, flip: true },
+  { u: P('ahududu', 0), x: 1.02, z: 1.2, w: 0.34, rest: true },
+  { u: P('ahududu', 4), x: -0.1, z: 1.05, w: 0.3, rest: true },
+  { u: P('cilek', 1), x: 0.48, z: 1.4, w: 0.42, rest: true, sink: 0.14 },
+  // kaidenin üstü: sağ küme
+  { u: P('ananas', 2), x: 3.35, z: 0.55, w: 0.82, rest: true, ry: -0.35 },
+  { u: P('ahududu', 0), x: 3.05, z: 1.18, w: 0.34, rest: true },
+  { u: P('cilek', 0), x: 3.55, z: -0.05, w: 0.48, rest: true, ry: -0.45, flip: true },
+  { u: P('yaprak', 2), x: 3.6, z: 0.95, w: 0.6, rest: true, rx: -1.25, rz: -0.6 },
+  // paketlerin çevresinde yay biçiminde süzülenler (farklı hızlarda döner)
+  { u: P('cilek', 0), x: 1.25, y: 1.42, z: -0.3, w: 0.58, spin: 0.3 },
+  { u: P('ahududu', 0), x: 0.66, y: 1.05, z: 0.2, w: 0.38, spin: 0.5 },
+  { u: P('ahududu', 1), x: 0.3, y: 0.75, z: 0.95, w: 0.32, spin: -0.45 },
+  { u: P('ananas', 1), x: 3.15, y: 1.38, z: -0.4, w: 0.52, spin: 0.22 },
+  { u: P('cilek', 0), x: 3.4, y: 1.05, z: 0.25, w: 0.54, spin: -0.3 },
+  { u: P('ahududu', 4), x: 3.35, y: 0.55, z: 0.95, w: 0.34, spin: 0.55 },
+  { u: P('ananas', 0), x: 3.75, y: 1.25, z: -0.9, w: 0.42, spin: -0.25 },
+  { u: P('ahududu', 1), x: 2.45, y: 1.62, z: -1.0, w: 0.28, spin: 0.7 },
+  { u: P('yaprak', 0), x: 1.95, y: 1.7, z: -1.2, w: 0.42, spin: 0.2 },
   // arka katman
-  { u: P('ahududu', 0), x: 3.0, y: 2.6, z: -3.6, w: 0.5, spin: 0.2, far: true },
-  { u: P('cilek', 0), x: 4.7, y: 2.7, z: -4.1, w: 0.62, spin: -0.15, far: true },
-  { u: P('ahududu', 1), x: 1.9, y: 2.45, z: -4.3, w: 0.46, spin: 0.25, far: true },
-  { u: P('ananas', 3), x: 5.3, y: 0.5, z: -3.7, w: 0.56, spin: -0.2, far: true },
-  { u: P('ahududu', 4), x: 0.9, y: -0.2, z: -3.3, w: 0.42, spin: 0.3, far: true },
+  { u: P('ahududu', 0), x: 3.4, y: 1.7, z: -3.8, w: 0.5, spin: 0.2, far: true },
+  { u: P('cilek', 0), x: 0.9, y: 1.75, z: -4.0, w: 0.5, spin: -0.15, far: true },
+  { u: P('ananas', 3), x: 4.5, y: 0.6, z: -3.6, w: 0.5, spin: -0.2, far: true },
 ];
+const DRIED = ['cilek-1', 'ahududu-2', 'ahududu-3'];
 // kameraya yakın, bulanık ön plan (kameraya göre konum)
 const NEAR = [
   { u: P('cilek', 0, true), at: [-0.92, -0.86], z: 4.3, w: 0.95, rot: 0.4, mobile: false },
   { u: P('yaprak', 2, true), at: [-1.02, 0.42], z: 4.1, w: 0.85, rot: -0.7, mobile: true },
   { u: P('yaprak', 0, true), at: [0.98, -0.82], z: 4.0, w: 0.7, rot: 0.3, mobile: true },
-  { u: P('ananas', 2, true), at: [0.32, -1.08], z: 4.4, w: 0.8, rot: -0.2, mobile: false },
+  { u: P('cilek', 0, true), at: [0.62, -1.02], z: 4.4, w: 0.6, rot: -0.5, mobile: false },
 ];
 
 function Fruits({ mobile }) {
@@ -188,7 +225,7 @@ function Fruits({ mobile }) {
   useEffect(() => {
     let dead = false;
     const list = FRUITS.filter((f) => !(mobile && f.far && f.x > 4));
-    Promise.all(list.map((f) => loadRelief(f.u, { seg: mobile ? 28 : 44, depth: f.u.includes('yaprak') ? 0.08 : 0.3 }))).then((res) => {
+    Promise.all(list.map((f) => loadRelief(f.u, { seg: mobile ? 28 : 44, depth: f.u.includes('yaprak') ? 0.08 : 0.3, glossy: !DRIED.some((d) => f.u.includes(d)) }))).then((res) => {
       if (dead) return;
       res.forEach((r, i) => {
         if (!r) return;
@@ -270,6 +307,58 @@ function NearLayer({ mobile }) {
   return <primitive object={group} />;
 }
 
+/* ---------------- paketlerin arkasında ışık patlaması ve hacimli huzmeler ---------------- */
+function LightBurst({ mobile }) {
+  const { glow, shaft } = useMemo(() => {
+    const mk = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; };
+    return {
+      glow: mk(256, 256, (x, w) => {
+        const g = x.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2);
+        g.addColorStop(0, 'rgba(255,236,200,1)'); g.addColorStop(0.18, 'rgba(255,170,90,.75)'); g.addColorStop(0.45, 'rgba(240,60,30,.28)'); g.addColorStop(1, 'rgba(200,20,10,0)');
+        x.fillStyle = g; x.fillRect(0, 0, w, w);
+      }),
+      shaft: mk(64, 512, (x, w, h) => {
+        const g = x.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, 'rgba(255,200,150,0)'); g.addColorStop(0.35, 'rgba(255,190,140,.55)'); g.addColorStop(1, 'rgba(255,120,80,0)');
+        x.fillStyle = g; x.fillRect(0, 0, w, h);
+        const s = x.createLinearGradient(0, 0, w, 0);
+        s.addColorStop(0, 'rgba(0,0,0,1)'); s.addColorStop(0.5, 'rgba(0,0,0,0)'); s.addColorStop(1, 'rgba(0,0,0,1)');
+        x.globalCompositeOperation = 'destination-out'; x.fillStyle = s; x.fillRect(0, 0, w, h);
+      }),
+    };
+  }, []);
+  const glowRef = useRef();
+  const shafts = useRef([]);
+  const SH = mobile ? [] : [
+    { x: 3.2, y: 2.6, z: -2.6, r: 0.62, w: 0.9, h: 8, o: 0.16 },
+    { x: 2.4, y: 2.8, z: -2.8, r: 0.5, w: 0.5, h: 8, o: 0.12 },
+    { x: 1.4, y: 3.0, z: -3.0, r: 0.36, w: 1.2, h: 9, o: 0.09 },
+  ];
+  useFrame((st) => {
+    const t = st.clock.elapsedTime;
+    const k = clamp01(S.fruitIn * 1.2);
+    if (glowRef.current) {
+      glowRef.current.material.opacity = (0.62 + 0.08 * Math.sin(t * 0.6)) * k;
+      glowRef.current.scale.setScalar(1 + 0.03 * Math.sin(t * 0.45));
+    }
+    shafts.current.forEach((m, i) => { if (m) m.material.opacity = SH[i].o * k * (0.75 + 0.25 * Math.sin(t * 0.3 + i * 2)); });
+  });
+  return (
+    <group>
+      <mesh ref={glowRef} position={[2.05, 0.75, -1.9]} renderOrder={-5}>
+        <planeGeometry args={[6.5, 6.5]} />
+        <meshBasicMaterial map={glow} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} opacity={0} />
+      </mesh>
+      {SH.map((sh, i) => (
+        <mesh key={i} ref={(m) => (shafts.current[i] = m)} position={[sh.x, sh.y, sh.z]} rotation-z={sh.r} renderOrder={-4}>
+          <planeGeometry args={[sh.w, sh.h]} />
+          <meshBasicMaterial map={shaft} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} opacity={0} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 /* ---------------- korlar / kırıntılar ---------------- */
 function Embers({ mobile }) {
   const count = mobile ? 70 : 170;
@@ -330,17 +419,17 @@ function Rig({ mobile }) {
     const narrow = aspect < 0.9;
     // dinlenme ve yakın plan kadrajları
     const rest = narrow
-      ? { pos: [1.55, 0.3, 15.5], look: [1.55, -1.75, 0] }
-      : { pos: [0.15, 0.85, 8.4], look: [0.15, 0.25, 0] };
-    if (!narrow && aspect < 1.35) { rest.pos = [0.9, 0.85, 9.6]; rest.look = [0.9, 0.2, 0]; }
+      ? { pos: [1.9, 0.3, 14.2], look: [1.9, -1.55, 0] }
+      : { pos: [0.5, 0.75, 7.9], look: [0.5, -0.02, 0] };
+    if (!narrow && aspect < 1.35) { rest.pos = [1.2, 0.8, 9.4]; rest.look = [1.2, -0.05, 0]; }
     const close = narrow
       ? { pos: [1.72, 0.35, 6.4], look: [1.74, -0.35, 0] }
       : { pos: [1.55, 0.55, 4.4], look: [1.72, 0.12, 0.2] };
     const p = 0; // kaydırmada kamera yaklaşmaz; yalnızca çilek paketi aşağı iner
     const sway = mobile ? 0 : 1;
     tmp.pos.set(
-      rest.pos[0] + (close.pos[0] - rest.pos[0]) * p + S.mx * 0.55 * (1 - p * 0.6) + Math.sin(t * 0.21) * 0.12 * sway,
-      rest.pos[1] + (close.pos[1] - rest.pos[1]) * p - S.my * 0.32 * (1 - p * 0.6) + Math.sin(t * 0.17) * 0.06 * sway + S.intro * 0.9,
+      rest.pos[0] + (close.pos[0] - rest.pos[0]) * p + S.mx * 0.32 + Math.sin(t * 0.16) * 0.05 * sway,
+      rest.pos[1] + (close.pos[1] - rest.pos[1]) * p - S.my * 0.18 + Math.sin(t * 0.13) * 0.03 * sway + S.intro * 0.9,
       rest.pos[2] + (close.pos[2] - rest.pos[2]) * p + S.intro * 3.4
     );
     tmp.look.set(
@@ -348,15 +437,15 @@ function Rig({ mobile }) {
       rest.look[1] + (close.look[1] - rest.look[1]) * p + S.intro * 0.4,
       rest.look[2] + (close.look[2] - rest.look[2]) * p
     );
-    const k = 1 - Math.exp(-4.5 * Math.min(dt, 0.05));
+    const k = 1 - Math.exp(-3 * Math.min(dt, 0.05)); // yumuşak, kontrollü takip
     camera.position.lerp(tmp.pos, k);
     look.lerp(tmp.look, k);
     camera.lookAt(look);
   });
   useEffect(() => {
     // ilk karede doğrudan doğru yere
-    camera.position.set(0.15, 1.75, 11.8);
-    look.set(0.15, 0.65, 0);
+    camera.position.set(0.5, 1.7, 10.7);
+    look.set(0.5, 0.7, 0);
   }, []);
   return null;
 }
@@ -409,11 +498,12 @@ function Scene({ flavors, mobile, reduce, onReady }) {
       <Lights mobile={mobile} />
       <Platform mobile={mobile} />
       <Pouches flavors={flavors} onReady={handleReady} />
+      <LightBurst mobile={mobile} />
       <Fruits mobile={mobile} />
       <NearLayer mobile={mobile} />
       <Embers mobile={mobile} />
       {(!mobile || introDone) && (
-        <ContactShadows position={[1.45, PT + 0.003, -0.15]} scale={[6, 4]} resolution={mobile ? 256 : 512}
+        <ContactShadows position={[PC[0], PT + 0.004, PC[1]]} scale={[6, 4.4]} resolution={mobile ? 256 : 512}
           blur={2.6} far={2.6} opacity={0.85} color="#1a0503" frames={mobile ? 1 : Infinity} />
       )}
       <Rig mobile={mobile} />
@@ -437,7 +527,7 @@ export default function HeroCanvas({ flavors, mobile, reduce, active, onReady })
       shadows={!mobile}
       dpr={mobile ? [1, 1.5] : [1, 2]}
       gl={{ antialias: mobile, powerPreference: 'high-performance', alpha: false, stencil: false }}
-      camera={{ fov: 30, near: 0.1, far: 60, position: [0.15, 1.75, 11.8] }}
+      camera={{ fov: 30, near: 0.1, far: 60, position: [0.5, 1.7, 10.7] }}
       frameloop={active ? 'always' : 'never'}
       onCreated={({ gl }) => { gl.setClearColor('#3a0509'); }}
     >

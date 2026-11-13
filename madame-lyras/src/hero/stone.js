@@ -122,3 +122,56 @@ export function stoneSlab({ rx = 2.0, rz = 1.25, height = 0.55, seed = 3 } = {})
   const side = new THREE.MeshStandardMaterial({ map: sideMap, normalMap: sideNormal, normalScale: new THREE.Vector2(1.6, 1.6), roughness: 0.92, color: 0xb59a88, envMapIntensity: 0.3 });
   return { geo, materials: [top, side], top: height + 0.07 };
 }
+
+/* ---------------- koyu mermer sergileme platformu ---------------- */
+// bordo-siyah zemin üzerinde açık damarlar; cilalı yüzey
+export function marbleTexture(size = 768, seed = 17) {
+  const n = makeNoise(seed), n2 = makeNoise(seed + 5);
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const x = c.getContext('2d');
+  const img = x.createImageData(size, size);
+  for (let y = 0; y < size; y++) {
+    for (let xx = 0; xx < size; xx++) {
+      const u = xx / size * 3, v = y / size * 3;
+      const warp = n(u * 1.2, v * 1.2, 5) * 3.2;
+      const vein = Math.pow(1 - Math.abs(Math.sin((u * 1.1 + v * 0.55 + warp) * Math.PI)), 18);
+      const vein2 = Math.pow(1 - Math.abs(Math.sin((u * 2.6 - v * 1.4 + warp * 1.6) * Math.PI)), 40) * 0.6;
+      const cloud = n2(u * 2, v * 2, 4);
+      let r = 30 + cloud * 26, g = 9 + cloud * 8, b = 12 + cloud * 9;
+      const vv = Math.min(1, vein * 0.85 + vein2);
+      r += vv * 150; g += vv * 98; b += vv * 82;
+      const i = (y * size + xx) * 4;
+      img.data[i] = r; img.data[i + 1] = g; img.data[i + 2] = b; img.data[i + 3] = 255;
+    }
+  }
+  x.putImageData(img, 0, 0);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.anisotropy = 8;
+  return t;
+}
+
+// iki kademeli yuvarlak kaide (yuvarlatılmış üst kenar)
+export function marblePlinth({ R = 2.35, H = 0.55, baseH = 0.18, size = 768 } = {}) {
+  const e = 0.07;
+  const pts = [
+    new THREE.Vector2(0, 0),
+    new THREE.Vector2(R + 0.16, 0),
+    new THREE.Vector2(R + 0.16, baseH - 0.03),
+    new THREE.Vector2(R + 0.13, baseH),
+    new THREE.Vector2(R, baseH),
+    new THREE.Vector2(R, baseH + H - e),
+  ];
+  for (let i = 1; i <= 6; i++) {
+    const a = (i / 6) * (Math.PI / 2);
+    pts.push(new THREE.Vector2(R - e + Math.cos(a) * e, baseH + H - e + Math.sin(a) * e));
+  }
+  pts.push(new THREE.Vector2(0, baseH + H));
+  const geo = new THREE.LatheGeometry(pts, 128);
+  const map = marbleTexture(size);
+  const sideMap = map.clone(); sideMap.needsUpdate = true; sideMap.repeat.set(3, 0.5);
+  const mat = new THREE.MeshPhysicalMaterial({ map: sideMap, roughness: 0.22, metalness: 0.05, clearcoat: 0.9, clearcoatRoughness: 0.08, envMapIntensity: 0.9 });
+  return { geo, mat, map, top: baseH + H };
+}
