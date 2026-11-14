@@ -125,7 +125,7 @@ export function stoneSlab({ rx = 2.0, rz = 1.25, height = 0.55, seed = 3 } = {})
 
 /* ---------------- koyu mermer sergileme platformu ---------------- */
 // bordo-siyah zemin üzerinde açık damarlar; cilalı yüzey
-export function marbleTexture(size = 768, seed = 17) {
+export function marbleTexture(size = 768, seed = 17, vein = 1) {
   const n = makeNoise(seed), n2 = makeNoise(seed + 5);
   const c = document.createElement('canvas');
   c.width = c.height = size;
@@ -140,7 +140,7 @@ export function marbleTexture(size = 768, seed = 17) {
       const cloud = n2(u * 2, v * 2, 4);
       let r = 30 + cloud * 26, g = 9 + cloud * 8, b = 12 + cloud * 9;
       const vv = Math.min(1, vein * 0.85 + vein2);
-      r += vv * 150; g += vv * 98; b += vv * 82;
+      r += vv * 150 * vein; g += vv * 98 * vein; b += vv * 82 * vein;
       const i = (y * size + xx) * 4;
       img.data[i] = r; img.data[i + 1] = g; img.data[i + 2] = b; img.data[i + 3] = 255;
     }
@@ -174,4 +174,48 @@ export function marblePlinth({ R = 2.35, H = 0.55, baseH = 0.18, size = 768 } = 
   const sideMap = map.clone(); sideMap.needsUpdate = true; sideMap.repeat.set(3, 0.5);
   const mat = new THREE.MeshPhysicalMaterial({ map: sideMap, roughness: 0.22, metalness: 0.05, clearcoat: 0.9, clearcoatRoughness: 0.08, envMapIntensity: 0.9 });
   return { geo, mat, map, top: baseH + H };
+}
+
+/* ---------------- lüks sergileme platformu: üç katman ---------------- */
+// Ölçüler sahne birimiyle (paket yüksekliği ≈ 2.1). Üst yüzey y = 0'da.
+//   1) üst sergileme tablası: geniş, pahlı kenarlı, koyu bordo mermer
+//   2) ana gövde: biraz içeri çekilmiş, siyaha yakın bordo, pirinç bantlar
+//   3) alt taban: kademeli halka; kırmızı ve altın ışık çizgileri bunun üstünde
+export function displayPlatform({ R = 2.65, slab = 0.13, body = 0.58, base = 0.1, size = 768 } = {}) {
+  const bev = 0.035;
+  const Rb = R - 0.15; // gövde
+  const Rbase = R - 0.03; // taban
+  const yBodyTop = -slab;
+  const yBaseTop = -slab - body;
+  const yBottom = yBaseTop - base;
+  const seg = 160;
+  const V = (r, y) => new THREE.Vector2(r, y);
+
+  // 1) üst tabla (kenar + alt yüz); üst yüz ayrı (yansımalı)
+  const slabPts = [V(Rb - 0.05, yBodyTop), V(R - 0.02, yBodyTop), V(R, yBodyTop + 0.02), V(R, -bev)];
+  for (let i = 1; i <= 8; i++) {
+    const a = (i / 8) * (Math.PI / 2);
+    slabPts.push(V(R - bev + Math.cos(a) * bev, -bev + Math.sin(a) * bev));
+  }
+  const slabGeo = new THREE.LatheGeometry(slabPts, seg);
+  // 2) gövde: hafif içe kavisli, üstte ve altta küçük pahlar
+  const bodyPts = [];
+  for (let i = 0; i <= 12; i++) {
+    const t = i / 12;
+    const y = yBaseTop + t * body;
+    bodyPts.push(V(Rb - Math.sin(t * Math.PI) * 0.035, y));
+  }
+  const bodyGeo = new THREE.LatheGeometry(bodyPts, seg);
+  // 3) taban: dışa taşan kademeli halka
+  const basePts = [V(0, yBottom), V(Rbase - 0.02, yBottom), V(Rbase, yBottom + 0.02), V(Rbase, yBaseTop - 0.02), V(Rbase - 0.02, yBaseTop), V(Rb - 0.04, yBaseTop)];
+  const baseGeo = new THREE.LatheGeometry(basePts, seg);
+
+  // damarlar daha sakin: kontrollü parlaklıkta koyu bordo / obsidyen
+  const map = marbleTexture(size, 23, 0.28);
+  const sideMap = map.clone(); sideMap.needsUpdate = true; sideMap.repeat.set(4, 0.25);
+  const slabMat = new THREE.MeshPhysicalMaterial({ map: sideMap, roughness: 0.2, metalness: 0.08, clearcoat: 1, clearcoatRoughness: 0.06, envMapIntensity: 1.0 });
+  const bodyMat = new THREE.MeshPhysicalMaterial({ color: '#2a0507', roughness: 0.34, metalness: 0.35, clearcoat: 0.7, clearcoatRoughness: 0.18, envMapIntensity: 0.8 });
+  const baseMat = new THREE.MeshPhysicalMaterial({ color: '#140203', roughness: 0.3, metalness: 0.55, clearcoat: 0.5, envMapIntensity: 0.8 });
+  const brass = new THREE.MeshStandardMaterial({ color: '#d9a85e', metalness: 1, roughness: 0.26, envMapIntensity: 1.5 });
+  return { R, Rb, Rbase, yBodyTop, yBaseTop, yBottom, slabGeo, bodyGeo, baseGeo, slabMat, bodyMat, baseMat, brass, map };
 }
