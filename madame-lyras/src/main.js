@@ -198,14 +198,23 @@ function pose(stage) {
   if (isMobile()) {
     switch (stage) {
       case 'hero': return { x: 0.08, y: H * 0.47, s: 0.44, ry: -0.1, rz: 0, cloud: 0, frost: 0 };
-      case 'product': return { x: 0, y: H * 0.43, s: 0.78, ry: -0.2, rz: 0.02, cloud: 1, frost: 0 };
+      case 'product': {
+        // menünün altı ile ürün yazılarının üstü arasındaki boşluğa tam sığar (kesilmez, yazıya binmez)
+        const vh = window.innerHeight;
+        const ph = Math.max(...players.map((p) => p.offsetHeight || 0));
+        const top = 84, bot = Math.max(top + 160, vh - ph - 8);
+        const hpx = (bot - top) * 0.86;
+        const u = (2 * H) / vh;
+        return { x: 0, y: -((top + bot) / 2 - vh / 2) * u, s: Math.min(0.72, (hpx * u) / 1.153), ry: -0.2, rz: 0.02, cloud: 1, frost: 0 };
+      }
       case 'catalog': return { x: 0, y: H * 0.5, s: 0.62, ry: -0.16, rz: 0, cloud: 0.6, frost: 0 };
       case 'inspect': return { x: 0, y: H * 0.44, s: 0.64, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
       case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: 0.5, rz: 0, cloud: 0, frost: 1 };
       default: return { x: 0, ...off, ry: 0, rz: 0 };
     }
   }
-  const big = Math.min(1.55, W * 0.72);
+  // paket hem genişliğe hem yüksekliğe göre sınırlanır: kısa ekranlarda alttan taşmaz
+  const big = Math.min(1.55, W * 0.72, H * 1.05);
   switch (stage) {
     case 'hero': return { x: W * 0.53, y: -0.04, s: big * 0.76, ry: -0.1, rz: 0, cloud: 0, frost: 0 };
     case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.22, rz: 0.03, cloud: 1, frost: 0 };
@@ -233,14 +242,26 @@ let handing = false;
 const catEl = $('#tum-urunler');
 const lerpPose = (a, b, t) => { const o = {}; for (const k in b) o[k] = (a[k] ?? b[k]) + (b[k] - (a[k] ?? b[k])) * t; return o; };
 // akışın sonundan vitrine: son ürün kesilmeden aşağı, vitrindeki yerine iner; vitrin kayarken onunla birlikte gider
+// ekrandaki bir alanın (piksel) ortasına, o alana sığacak boyda paket pozu
+function boxPose(cx, cy, hpx, base) {
+  const vh = window.innerHeight, vw = window.innerWidth;
+  const u = (2 * scene.halfHeight()) / vh;
+  return { ...base, x: (cx - vw / 2) * u, y: -(cy - vh / 2) * u, s: (hpx * u) / 1.153 };
+}
+// ürün akışı pozu; akış bölümü henüz ekranın altındaysa sahnesiyle birlikte aşağıda durur (paket aşağı iner)
+function productPose(vh) {
+  const p = pose('product');
+  const top = productsEl.getBoundingClientRect().top;
+  if (top > 0) p.y -= top * ((2 * scene.halfHeight()) / vh);
+  return p;
+}
+// vitrin pozu: paket vitrindeki sahne alanının ortasına oturur ve bölümle birlikte kayar
 function catalogPose(vh) {
   const cr = catEl.getBoundingClientRect();
-  const H = scene.halfHeight();
-  const u = (2 * H) / vh;
+  const st = $('#srStage').getBoundingClientRect();
   const enter = clamp(1 - cr.top / vh, 0, 1);
-  const c = pose('catalog');
+  const c = boxPose(st.left + st.width / 2, st.top + st.height / 2, Math.min(st.height * 0.86, st.width * 1.0), pose('catalog'));
   if (cr.top > 0) return { p: lerpPose(pose('product'), c, ease(enter)), t: enter };
-  c.y += -cr.top * u; // vitrin yukarı kaydıkça paket de onunla gider
   return { p: c, t: 1 };
 }
 
@@ -296,7 +317,7 @@ function update(force) {
     if (scene) {
       scene.setActive(true);
       scene.setStream(f);
-      scene.setPose(pr.bottom < vh ? catalogPose(vh).p : pose('product'));
+      scene.setPose(pr.bottom < vh ? catalogPose(vh).p : productPose(vh));
       scene.setFan(0);
     }
     streamF = f;
@@ -326,7 +347,7 @@ function update(force) {
         // fare ve nefes hareketi kapalı. İnerken bu duruş korunur, yalnızca son bölümde ürün pozuna yumuşakça döner.
         const sx = (rect.cx - vw / 2) * u, sy = -(startY - vh / 2) * u;
         const start = { x: sx, y: sy, s: (rect.h * u) / 1.153 * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0 };
-        const end = { ...pose('product'), rx: 0, pt: 1 };
+        const end = { ...productPose(vh), rx: 0, pt: 1 };
         const raw = clamp(y / Math.max(1, productsEl.offsetTop - mid), 0, 1);
         const k = 1 - Math.pow(1 - raw, 2); // ilk pikselden itibaren yumuşak, sonda yavaşlayarak
         const kr = smooth(0.35, 1, raw); // duruş sona doğru değişir

@@ -751,3 +751,50 @@ body:not([data-stage='product']) .products__hit .hitlabel { opacity: 0 !importan
 @media (max-width: 760px), (max-aspect-ratio: 9/10) {
   .showroom__stage .hitlabel { left: auto; top: auto; right: 6%; bottom: 8%; }
 }
+
+/* telefonda vitrin: paket kendi alanında, bilgiler düzenli ve taşmadan */
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .showroom { padding-top: 80px; }
+  .showroom__stage { min-height: 40svh; }
+  .showroom__title { font-size: 30px; }
+  .showroom__product { padding: 16px; border-radius: 20px; }
+  .showroom__name { font-size: 34px; }
+  .showroom__lead { font-size: 15px; }
+  .showroom .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .showroom .facts div { padding: 10px 8px 10px 0; margin-right: 8px; min-width: 0; }
+  .showroom .facts dt { font-size: 10px; letter-spacing: 0.08em; }
+  .showroom .facts dd { font-size: 13px; overflow-wrap: anywhere; }
+  .showroom__actions { display: grid; grid-template-columns: 1fr 1fr 46px; gap: 8px; }
+  .showroom__actions .btn { min-height: 46px; padding: 0 10px; font-size: 13px; white-space: nowrap; }
+  .showroom__actions .btn--icon { width: 46px; }
+  /* sabit iletişim düğmeleri: ürün ekranlarında kendi düğmeleri var */
+  body[data-stage='product'] .dock { opacity: 0; pointer-events: none; transform: translateY(20px); }
+}
+.dock__btn { white-space: nowrap; }
+
+/* kısa masaüstü/dizüstü ekranlar: her bölüm tek ekrana sığar */
+@media (min-aspect-ratio: 9/10) and (max-height: 820px) {
+  .hero__eyebrow { margin-bottom: 14px; }
+  .hero__title { font-size: clamp(46px, 10.5vh, 110px); margin-bottom: 22px; }
+  .hero__lead { font-size: 16px; margin-bottom: 20px; }
+  .hero__cta { min-height: 50px; }
+  .hero__features { margin-top: 20px; }
+  .player__name { font-size: clamp(56px, 13vh, 140px); margin-bottom: 12px; }
+  .player__idx { margin-bottom: 12px; }
+  .player .eyebrow { margin-bottom: 10px; }
+  .player .facts { margin: 14px 0 18px; }
+  .player__desc { font-size: 15px; }
+  .showroom { padding: 86px 0 16px; }
+  .showroom__title { font-size: clamp(32px, 5.6vh, 60px); margin-bottom: 14px; }
+  .showroom__product { padding: 18px 22px; }
+  .showroom__name { font-size: clamp(32px, 6vh, 56px); }
+  .showroom__lead { font-size: 17px; }
+  .showroom .facts { margin: 12px 0 14px; }
+  .showroom .facts div { padding-top: 10px; padding-bottom: 10px; }
+  .showroom__stage { min-height: 40vh; }
+  .showroom__picker { padding-top: 10px; }
+  .pick__img { height: 52px; }
+  .detail__panel { padding: 20px 24px 18px; }
+  .detail__name { font-size: clamp(42px, 9vh, 80px); }
+  .detail .facts { margin: 12px 0 14px; }
+}

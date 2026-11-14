@@ -57,6 +57,8 @@ function cameraPlan(w, h) {
 }
 function planDistance(pl) {
   const t = Math.tan((pl.fov * Math.PI) / 360);
+  // telefon: sahne, düğme ile alttaki özellik satırı arasındaki boşluğa sığar (yazıların üstüne binmez)
+  if (pl.band) return Math.max((PLAT.R * 2) / (2 * pl.frac * t * pl.A), 4.1 / (2 * t * pl.band));
   const dWidth = (PLAT.R * 2) / (2 * pl.frac * t * pl.A);
   // dikeyde kaidenin altı ile yörüngedeki meyvelerin üstü sığsın (≈4.3 birim)
   const dHeight = 4.8 / (2 * 0.86 * t);
@@ -569,7 +571,8 @@ function Embers({ mobile }) {
 
 /* ---------------- kamera: lens kaydırmalı, kontrollü, çok hafif paralaks ---------------- */
 function Rig({ mobile }) {
-  const { camera, size } = useThree();
+  const { camera, size, gl } = useThree();
+  const band = useRef(null);
   const look = useMemo(() => new THREE.Vector3(), []);
   const tmp = useMemo(() => ({ pos: new THREE.Vector3(), look: new THREE.Vector3() }), []);
   const first = useRef(true);
@@ -577,6 +580,23 @@ function Rig({ mobile }) {
     const t = st.clock.elapsedTime;
     const w = size.width, h = size.height;
     const pl = cameraPlan(w, h);
+    if (pl.A < 0.9) {
+      // yazı bloğunun altı (düğme) ile özellik satırının üstü arasındaki bant, ara ara ölçülür
+      if (!band.current || st.clock.elapsedTime - band.current.t > 0.5) {
+        const cv = gl.domElement.getBoundingClientRect();
+        const cta = document.querySelector('.hero__cta'), ft = document.querySelector('.hero__features');
+        if (cta && ft && cv.height) {
+          const top = cta.getBoundingClientRect().bottom - cv.top + 14;
+          const bot = ft.getBoundingClientRect().top - cv.top - 2;
+          band.current = { t: st.clock.elapsedTime, top: top / cv.height, bot: bot / cv.height };
+        }
+      }
+      if (band.current && band.current.bot - band.current.top > 0.2) {
+        const b = band.current;
+        pl.band = b.bot - b.top;
+        pl.sy = b.top + pl.band * 0.56;
+      }
+    }
     const d = planDistance(pl);
     S.view.sx = pl.sx; S.view.sy = pl.sy;
     // lens kaydırma: görüntü merkezi (TARGET) ekranda sx, sy noktasına düşer
