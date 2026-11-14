@@ -1,5 +1,5 @@
 import Lenis from 'lenis';
-import { FLAVORS, SITE } from './data.js';
+import { FLAVORS, SITE, CATS, KITS } from './data.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -9,6 +9,8 @@ const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const N = FLAVORS.length;
+// 3B paketin boyu (sahne birimi; s = 1 iken). Bütün dokular aynı oranda (1:1.40)
+const POUCH_H = 1.153 * Math.sqrt(1.4 / 1.153);
 // kaydırınca sırayla gösterilen ürünler (en fazla 3): Çilek, Şeftali, Ananas (data.js'te listenin başında)
 const NS = 3;
 const STREAM = FLAVORS.slice(0, NS);
@@ -64,6 +66,15 @@ function selectShowroom(i, fromUser) {
   if (fromUser) { const b = picks[srIndex]; b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' }); }
 }
 picks.forEach((b) => b.addEventListener('click', () => selectShowroom(+b.dataset.pick, true)));
+$('#srCount').textContent = `Tüm ürünler · ${N} paket`;
+$('#srCats').innerHTML = CATS.map(([id, label]) => `<button type="button" role="tab" data-cat="${id}" aria-selected="${id === 'tum'}" class="${id === 'tum' ? 'on' : ''}">${label} <small>${id === 'tum' ? N : FLAVORS.filter((f) => f.cat === id).length}</small></button>`).join('');
+$$('#srCats button').forEach((b) => b.addEventListener('click', () => {
+  const c = b.dataset.cat;
+  $$('#srCats button').forEach((x) => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); });
+  picks.forEach((p) => { p.hidden = c !== 'tum' && FLAVORS[+p.dataset.pick].cat !== c; });
+  const first = picks.find((p) => !p.hidden);
+  if (first && picks[srIndex].hidden) selectShowroom(+first.dataset.pick, true);
+}));
 // hakkımızda: ürünlerin küçük resimleri, tıklayınca vitrinde o ürün açılır
 $('#aboutPicks').innerHTML = FLAVORS.map((f, i) => `<button type="button" data-about="${i}" style="--c:${f.bg}" aria-label="${f.name} ürününü vitrinde göster"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></button>`).join('');
 $$('#aboutPicks button').forEach((b) => b.addEventListener('click', () => { selectShowroom(+b.dataset.about, false); goTo('#tum-urunler'); }));
@@ -75,6 +86,28 @@ selectShowroom(srIndex, false);
 const dotsEl = $('#flavorDots');
 dotsEl.innerHTML = STREAM.map((f, i) => `<button type="button" data-go="${i}" aria-label="${f.name}"><span>${f.short || f.name}</span></button>`).join('');
 const dots = $$('button', dotsEl);
+
+/* ---------- hazır gıda kitleri ---------- */
+const nf = (n) => n.toLocaleString('tr-TR');
+$('#kitGrid').innerHTML = KITS.map((k) => `
+  <article class="kit reveal">
+    <div class="kit__img"><img src="${k.img}" alt="${k.name} ${k.title}" loading="lazy" /></div>
+    <div class="kit__body">
+      <p class="kit__brand">ResQ · ${k.title}</p>
+      <h3 class="kit__name">${k.name}</h3>
+      <ul class="kit__chips"><li><b>${k.servis}</b> servis</li><li><b>${nf(k.kcal)}</b> kcal</li><li>${k.who}</li></ul>
+      <p class="kit__menu">${k.menu}</p>
+      <div class="kit__actions">
+        <a class="btn btn--gold" href="#bayilik" data-kit="${k.id}">Toptan teklif iste</a>
+        <a class="btn btn--glass" href="mailto:${SITE.email}?subject=${encodeURIComponent(`ResQ ${k.name} hakkında bilgi`)}">E-posta</a>
+      </div>
+    </div>
+  </article>`).join('');
+$$('[data-kit]').forEach((a) => a.addEventListener('click', () => {
+  const k = KITS.find((x) => x.id === a.dataset.kit);
+  $('#d-ilgi').value = 'Hazır gıda kitleri';
+  const m = $('#d-msg'); if (!m.value.trim()) m.value = `${k.name} (${k.title}) için toptan fiyat teklifi almak istiyorum.`;
+}));
 
 /* ---------- e-posta ve telefon ---------- */
 $('#mailLink').href = mailHref(null);
@@ -208,7 +241,7 @@ function pose(stage) {
         const top = 84, bot = Math.max(top + 160, vh - ph - 8);
         const hpx = (bot - top) * 0.86;
         const u = (2 * H) / vh;
-        return { x: 0, y: -((top + bot) / 2 - vh / 2) * u, s: Math.min(0.72, (hpx * u) / 1.153), ry: -0.2, rz: 0.02, cloud: 1, frost: 0 };
+        return { x: 0, y: -((top + bot) / 2 - vh / 2) * u, s: Math.min(0.72, (hpx * u) / POUCH_H), ry: -0.2, rz: 0.02, cloud: 1, frost: 0 };
       }
       case 'catalog': return { x: 0, y: H * 0.5, s: 0.62, ry: -0.16, rz: 0, cloud: 0.6, frost: 0 };
       case 'inspect': return { x: 0, y: H * 0.44, s: 0.64, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
@@ -256,7 +289,7 @@ function handoffPose(vh, y) {
   const u = (2 * H) / vh;
   const vw = window.innerWidth;
   const sx = (rect.cx - vw / 2) * u, sy = -(rect.cy - vh / 2) * u;
-  const start = { x: sx, y: sy, s: (rect.h * u) / 1.153 * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0 };
+  const start = { x: sx, y: sy, s: (rect.h * u) / POUCH_H * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0 };
   const end = { ...pose('product'), rx: 0, pt: 1 };
   const raw = clamp(y / Math.max(1, productsEl.offsetTop), 0, 1);
   const k = raw * raw * (3 - 2 * raw); // yumuşak başlar, yumuşak oturur
@@ -279,7 +312,7 @@ const lerpPose = (a, b, t) => { const o = {}; for (const k in b) o[k] = (a[k] ??
 function boxPose(cx, cy, hpx, base) {
   const vh = window.innerHeight, vw = window.innerWidth;
   const u = (2 * scene.halfHeight()) / vh;
-  return { ...base, x: (cx - vw / 2) * u, y: -(cy - vh / 2) * u, s: (hpx * u) / 1.153 };
+  return { ...base, x: (cx - vw / 2) * u, y: -(cy - vh / 2) * u, s: (hpx * u) / POUCH_H };
 }
 // ürün akışı pozu; akış bölümü henüz ekranın altındaysa sahnesiyle birlikte aşağıda durur (paket aşağı iner)
 function productPose(vh) {
@@ -583,9 +616,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* ---------- iletişim formu (Netlify Forms) ---------- */
-const form = $('#contactForm');
-const status = $('#formStatus');
+/* ---------- formlar: iletişim ve bayilik başvurusu (Netlify Forms) ---------- */
+function bindForm(form, status, okText) {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   status.className = 'form__status';
@@ -604,7 +636,7 @@ form.addEventListener('submit', async (e) => {
     const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
     if (!res.ok) throw new Error(res.status);
     form.reset();
-    status.textContent = 'Teşekkürler, mesajınız bize ulaştı. En kısa sürede dönüş yapacağız.';
+    status.textContent = okText;
     status.classList.add('ok');
   } catch (err) {
     status.innerHTML = `Mesaj şu an gönderilemedi. Lütfen <a href="mailto:${SITE.email}">${SITE.email}</a> adresine yazın.`;
@@ -613,6 +645,9 @@ form.addEventListener('submit', async (e) => {
     btn.disabled = false;
   }
 });
+}
+bindForm($('#contactForm'), $('#formStatus'), 'Teşekkürler, mesajınız bize ulaştı. En kısa sürede dönüş yapacağız.');
+bindForm($('#dealerForm'), $('#dealerStatus'), 'Teşekkürler, bayilik başvurunuz bize ulaştı. Ekibimiz en kısa sürede sizinle iletişime geçecek.');
 
 // sayfa #incele-... ile açılırsa doğrudan inceleme açılır
 const startHash = location.hash.match(/^#incele-(.+)$/);

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Genç Anadolu Gıda · Dondurularak Kurutulmuş Meyve</title>
-  <meta name="description" content="Genç Anadolu Gıda: dondurularak kurutulmuş çilek, ahududu, elma, şeftali, mango, ananas, muz, hindistan cevizi ve sade dondurma." />
+  <meta name="description" content="Genç Anadolu Gıda: dondurularak kurutulmuş meyve, dondurma ve hazır gıda kitlerinin toptan satışı ve bayiliği." />
   <meta property="og:title" content="Genç Anadolu Gıda · Dondurularak kurutulmuş meyve" />
   <meta property="og:description" content="Sadece meyve. Şeker ilavesiz, katkısız, çıtır." />
   <meta property="og:image" content="/img/og.jpg" />
@@ -32,9 +32,9 @@
       <span>Genç Anadolu <small>Gıda</small></span>
     </a>
     <nav class="hdr__nav" id="nav" aria-label="Ana menü">
-      <a href="#urunler">Ürünler</a>
-      <a href="#surec">Nasıl yapılır</a>
-      <a href="#tum-urunler">Tüm ürünler</a>
+      <a href="#tum-urunler">Ürünler</a>
+      <a href="#hazir-gida">Hazır gıda</a>
+      <a href="#bayilik">Bayilik</a>
       <a href="#hakkimizda">Hakkımızda</a>
       <a href="#iletisim" class="hdr__cta">İletişim</a>
     </nav>
@@ -58,7 +58,10 @@
           </svg>
         </h1>
         <p class="hero__lead reveal">Olgun meyveyi dondurup suyunu buz halindeyken çekiyoruz. Geriye rengi, aroması ve şekli yerinde, çıtır çıtır bir meyve kalıyor.</p>
-        <a class="btn hero__cta reveal" href="#urunler">Ürünleri Keşfet <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="hero__ctas reveal">
+          <a class="btn hero__cta" href="#urunler">Ürünleri Keşfet <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn--glass hero__cta2" href="#bayilik">Bayi olun</a>
+        </div>
         <ul class="hero__features reveal">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M12 2l-2.5 2.5M12 2l2.5 2.5M12 22l-2.5-2.5M12 22l2.5-2.5M3.3 7l.9 3.4M3.3 7l3.4-.9M20.7 17l-.9-3.4M20.7 17l-3.4.9M3.3 17l3.4.9M3.3 17l.9-3.4M20.7 7l-3.4-.9M20.7 7l-.9 3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Dondurarak<br />Kurutma</span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15M5 19l7-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Doğal ve<br />Katkısız</span></li>
@@ -81,8 +84,8 @@
     <section class="sec showroom" id="tum-urunler" data-bg="#1a0507" data-ink="light" data-stage="catalog">
       <div class="wrap showroom__inner">
         <div class="showroom__info">
-          <p class="eyebrow">Tüm ürünler · 9 paket</p>
-          <h2 class="showroom__title">Dokuz paket, <em>tek yöntem.</em></h2>
+          <p class="eyebrow" id="srCount">Tüm ürünler</p>
+          <h2 class="showroom__title">Her paket, <em>tek yöntem.</em></h2>
           <div class="showroom__product" id="srProduct" aria-live="polite">
             <p class="showroom__slogan" id="srSlogan"></p>
             <h3 class="showroom__name" id="srName"></h3>
@@ -98,7 +101,79 @@
         <button class="showroom__stage" id="srStage" type="button" aria-label="Seçili ürünü 3D olarak incele"><span class="hitlabel">3D<br />İncele</span></button>
       </div>
       <div class="wrap">
+        <div class="showroom__cats" id="srCats" role="tablist" aria-label="Kategori"></div>
         <div class="showroom__picker" id="catalog" role="tablist" aria-label="Ürün seçin"></div>
+      </div>
+    </section>
+
+    <!-- HAZIR GIDA (ResQ) -->
+    <section class="sec kits" id="hazir-gida" data-bg="#140607" data-ink="light" data-stage="kits">
+      <div class="wrap">
+        <header class="sec__head reveal">
+          <p class="eyebrow">Hazır gıda · ResQ</p>
+          <h2>Sıcak su ekleyin,<br /><em>yemeğiniz hazır.</em></h2>
+          <p class="sec__lead">Şeflerin hazırladığı yemekler dondurularak kurutulur ve nem almayan özel ambalajlarda saklanır. Belirtilen miktarda sıcak su eklendiğinde 15 dakika içinde tüketime hazırdır. Acil durum, askeri kullanım, dağcılık, kamp ve bireysel tüketim için.</p>
+        </header>
+        <div class="kits__grid" id="kitGrid"></div>
+      </div>
+    </section>
+
+    <!-- BAYİLİK -->
+    <section class="sec dealer" id="bayilik" data-bg="#140607" data-ink="light" data-stage="dealer">
+      <div class="wrap dealer__inner">
+        <div class="dealer__info">
+          <p class="eyebrow reveal">Bayilik ve toptan satış</p>
+          <h2 class="reveal">Bayi ağımıza<br /><em>katılın.</em></h2>
+          <p class="reveal">Genç Anadolu Gıda bir toptan satış ve dağıtım firmasıdır. Market, kafe, pastane, eczane, spor salonu, kamp ve outdoor mağazaları ile toptancılar için dondurularak kurutulmuş meyve, tatlı ve hazır gıda ürünlerinin tedarikini yapıyoruz.</p>
+          <ul class="perks reveal">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Geniş ürün yelpazesi</b>17 meyve ve tatlı paketi, 6 hazır gıda ürünü</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Kendi tesisimizde üretim</b>Solagron'un Silifke OSB tesisi; BRCGS, FDA, Helal ve Kosher belgeli</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Uzun raf ömrü</b>Kilitli, ışık geçirmeyen ambalaj; soğuk zincir gerekmez</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Toptan ve endüstriyel</b>Bütün, dilim, küp, granül ve toz formlarda ürün</span></li>
+          </ul>
+        </div>
+        <form class="form dealer__form reveal" id="dealerForm" name="bayilik" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="bayilik" />
+          <p class="hp"><label>Boş bırakın <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+          <h3 class="form__title">Bayilik başvuru formu</h3>
+          <div class="row">
+            <div class="field"><label for="d-firma">Firma adı</label><input id="d-firma" name="firma" autocomplete="organization" required /></div>
+            <div class="field"><label for="d-yetkili">Yetkili ad soyad</label><input id="d-yetkili" name="yetkili" autocomplete="name" required /></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="d-tel">Telefon</label><input id="d-tel" name="telefon" type="tel" autocomplete="tel" required /></div>
+            <div class="field"><label for="d-mail">E-posta</label><input id="d-mail" name="eposta" type="email" autocomplete="email" required /></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="d-il">İl / ilçe</label><input id="d-il" name="il" required /></div>
+            <div class="field"><label for="d-vergi">Vergi dairesi / no <small>(isteğe bağlı)</small></label><input id="d-vergi" name="vergi" /></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="d-tur">Faaliyet alanı</label>
+              <select id="d-tur" name="faaliyet" required>
+                <option value="">Seçin</option>
+                <option>Market / şarküteri</option>
+                <option>Kafe / pastane / restoran</option>
+                <option>Toptancı / distribütör</option>
+                <option>Eczane / sağlıklı yaşam</option>
+                <option>Spor / kamp / outdoor mağazası</option>
+                <option>Online satış</option>
+                <option>Diğer</option>
+              </select>
+            </div>
+            <div class="field"><label for="d-ilgi">İlgilendiğiniz ürünler</label>
+              <select id="d-ilgi" name="urunler">
+                <option>Meyve ve tatlı paketleri</option>
+                <option>Hazır gıda kitleri</option>
+                <option>Hepsi</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label for="d-msg">Notunuz <small>(tahmini aylık adet, mağaza sayısı vb.)</small></label><textarea id="d-msg" name="mesaj" rows="3"></textarea></div>
+          <label class="check"><input type="checkbox" name="kvkk" value="evet" required /><span>Kişisel verilerimin bayilik başvurumun değerlendirilmesi amacıyla işlenmesini kabul ediyorum.</span></label>
+          <button class="btn btn--gold" type="submit">Başvuruyu gönder</button>
+          <p class="form__status" id="dealerStatus" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -208,7 +283,7 @@
   <footer class="ftr" data-bg="#141111">
     <div class="wrap ftr__inner">
       <a href="#top" class="ftr__brand"><img src="/logo.svg" alt="" width="56" height="56" /><span>Genç Anadolu Gıda</span></a>
-      <nav aria-label="Alt menü"><a href="#urunler">Ürünler</a><a href="#tum-urunler">Tüm ürünler</a><a href="#surec">Nasıl yapılır</a><a href="#hakkimizda">Hakkımızda</a><a href="#iletisim">İletişim</a></nav>
+      <nav aria-label="Alt menü"><a href="#tum-urunler">Ürünler</a><a href="#hazir-gida">Hazır gıda</a><a href="#bayilik">Bayilik</a><a href="#surec">Nasıl yapılır</a><a href="#hakkimizda">Hakkımızda</a><a href="#iletisim">İletişim</a></nav>
       <p class="ftr__small">© <span id="year">2026</span> Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi. Ürünlerimiz kardeş kuruluşumuz Solagron Tarım Ürünleri San. ve Tic. A.Ş. tesisinde üretilir. Sitede satış yapılmamaktadır.</p>
     </div>
   </footer>

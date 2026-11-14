@@ -824,3 +824,66 @@ body:not([data-stage='product']) .products__hit .hitlabel { opacity: 0 !importan
 .contact__side { display: flex; flex-direction: column; gap: 10px; }
 .stage3d--contact { min-height: 34vh; }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) { .stage3d--contact { min-height: 32svh; } }
+
+/* ---------- açılış: iki düğme ---------- */
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.hero__cta2 { min-height: 56px; padding: 0 26px; font-size: 16px; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .hero__ctas { justify-content: center; } .hero__cta2 { min-height: 50px; font-size: 15px; } }
+@media (min-aspect-ratio: 9/10) and (max-height: 820px) { .hero__cta2 { min-height: 50px; } }
+
+/* ---------- vitrin: kategori sekmeleri ---------- */
+.showroom__cats { display: flex; gap: 6px; flex-wrap: wrap; padding-top: 14px; }
+.showroom__cats button { font: 700 13px/1 var(--sans); color: rgba(255, 244, 230, 0.8); background: none; border: 1px solid var(--glass-line); border-radius: 999px; padding: 9px 14px; cursor: pointer; transition: background 0.3s, color 0.3s; }
+.showroom__cats button small { opacity: 0.6; font-weight: 600; margin-left: 2px; }
+.showroom__cats button.on { background: linear-gradient(180deg, var(--gold-1), var(--gold-2)); color: var(--gold-ink); border-color: transparent; }
+.pick[hidden] { display: none; }
+
+/* ---------- hazır gıda kitleri ---------- */
+.kits { display: block; color: #fff4e6; padding: 120px 0 90px; }
+.kits .eyebrow, .dealer .eyebrow { color: #f1d9b0; }
+.kits .sec__lead { color: rgba(255, 244, 230, 0.8); }
+.kits__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.kit { display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: var(--glass); border: 1px solid var(--glass-line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.kit:hover { transform: translateY(-4px); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35); }
+.kit__img { margin: 10px 10px 0; border-radius: 18px; background: radial-gradient(120% 90% at 50% 30%, #ffffff, #f1e9e0); height: 220px; display: grid; place-items: center; overflow: hidden; }
+.kit__img img { max-width: 86%; max-height: 196px; object-fit: contain; transition: transform 0.6s var(--ease); }
+.kit:hover .kit__img img { transform: scale(1.05); }
+.kit__body { display: flex; flex-direction: column; flex: 1; padding: 18px 20px 20px; }
+.kit__brand { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #f1d9b0; margin: 0 0 6px; }
+.kit__name { font-size: 28px; font-weight: 600; margin-bottom: 12px; }
+.kit__chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0 0 12px; }
+.kit__chips li { font-size: 13px; padding: 6px 11px; border-radius: 999px; background: rgba(255, 240, 225, 0.08); border: 1px solid var(--glass-line); }
+.kit__menu { font-size: 14px; color: rgba(255, 244, 230, 0.72); margin: 0 0 16px; flex: 1; }
+.kit__actions { display: flex; gap: 8px; }
+.kit__actions .btn { min-height: 44px; padding: 0 16px; font-size: 13px; }
+.kit__actions .btn--gold { flex: 1; }
+
+/* ---------- bayilik ---------- */
+.dealer { color: #fff4e6; padding: 120px 0; }
+.dealer__inner { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(30px, 5vw, 80px); align-items: start; }
+.dealer__info > p:not(.eyebrow) { color: rgba(255, 244, 230, 0.8); max-width: 520px; }
+.perks { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 10px; }
+.perks li { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 18px; background: var(--glass); border: 1px solid var(--glass-line); }
+.perks svg { flex: none; width: 26px; height: 26px; padding: 5px; border-radius: 50%; background: linear-gradient(180deg, var(--gold-1), var(--gold-2)); color: var(--gold-ink); box-sizing: border-box; }
+.perks b { display: block; font-size: 16px; margin-bottom: 2px; }
+.perks span { font-size: 14px; color: rgba(255, 244, 230, 0.75); }
+.dealer .form { background: rgba(255, 240, 225, 0.06); color: #fff4e6; border: 1px solid var(--glass-line); box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.dealer .form input, .dealer .form select, .dealer .form textarea { background: rgba(255, 255, 255, 0.06); color: #fff4e6; border-color: rgba(255, 225, 190, 0.22); }
+.dealer .form select option { color: #241612; }
+.dealer .form label, .dealer .check span { color: rgba(255, 244, 230, 0.85); }
+.dealer .form__status.ok { color: #b9e39a; }
+.dealer .form__status.err { color: #ffb3a8; }
+.form__title { font-size: 26px; margin-bottom: 18px; }
+
+@media (max-width: 1080px) { .kits__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .kits { padding: 90px 0 60px; }
+  .kits__grid { grid-template-columns: 1fr; gap: 14px; }
+  .kit__img { height: 190px; }
+  .dealer { padding: 90px 0; }
+  .dealer__inner { grid-template-columns: 1fr; }
+  .dealer .form .row { grid-template-columns: 1fr; gap: 0; }
+  .showroom__cats button { padding: 8px 11px; font-size: 12px; }
+}
+.dealer h2 { font-size: clamp(42px, 6vw, 84px); margin-bottom: 22px; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .detail .detail__dock .seg--zoom button { font-size: 18px; padding: 6px 10px; } }

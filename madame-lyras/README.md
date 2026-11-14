@@ -12,7 +12,10 @@ Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi için tanıtım sitesi
 - **İçerik** (`src/data.js`, `index.html`): Bilgiler ambalajdan ve solagron.com.tr'den alındı (katkısız, şeker ilavesiz, 16 g, 160 g taze çilek; Silifke tesisi, BRCGS/FDA/Helal/Kosher, ihracat).
 - **İletişim formu**: Netlify Forms (`name="iletisim"`). Netlify panelinde Forms → Form notifications → Email ile mesajların info@ adresine gelmesi ayarlanır.
 - **E-posta ve telefon**: `src/data.js` içindeki `SITE.email` ve `SITE.phone` (şimdilik e-posta `info@gencanadolugida.com.tr`, telefon yer tutucu `+90 (5XX) XXX XX XX`; `phone.tel` boşken telefon düğmeleri iletişim formuna götürür). Sayfa boyunca sağ altta sabit E-posta / Ara düğmeleri; ürün e-postaları ürün adıyla konu satırı doldurulmuş olarak açılır.
-- **Sayfa yapısı**: Açılış → 3 ürünlük akış → 3B vitrin → Nasıl yapılır → Hakkımızda → İletişim. Tümü aynı koyu bordo / altın tasarım dilinde.
+- **Ürünler**: 17 paket (solagronmarket.com'daki tüm meyve ve dondurma paketleri; `src/data.js`), hepsi aynı boyutta (dokular 1:1.40). Yeni paket dokuları ve meyve parçaları mağaza görsellerinden üretildi. Vitrinde kategori sekmeleri (Meyveler, Dondurmalar, Atıştırmalık).
+- **Hazır gıda (ResQ)**: 6 ürün kartı (`KITS`, görseller `public/img/kit/`), toptan teklif ve e-posta düğmeleri.
+- **Bayilik başvurusu**: Netlify Forms (`name="bayilik"`), Netlify panelinde e-posta bildirimi ayarlanmalı.
+- **Sayfa yapısı**: Açılış → 3 ürünlük akış → 3B vitrin → Hazır gıda → Bayilik → Nasıl yapılır → Hakkımızda → İletişim. Tümü aynı koyu bordo / altın tasarım dilinde.
 
 ## Çalıştırma
 
