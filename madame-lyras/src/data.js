@@ -128,18 +128,59 @@ Object.assign(FLAVORS.find((f) => f.id === 'incir'), { parts: [0.734] });
 Object.assign(FLAVORS.find((f) => f.id === 'lime'), { parts: [0.685] });
 Object.assign(FLAVORS.find((f) => f.id === 'fistikli-dondurma'), { parts: [1.075] });
 // bütün paketler aynı boyutta: dokular aynı tam paket oranında (1:1.40)
+const FRESH = { cilek: 160, ananas: 110, ahududu: 125, elma: 100, mango: 95, muz: 76, 'dilim-cilek': 160, bogurtlen: 94, 'mavi-yemis': 125, 'kirmizi-ejder': 115, 'beyaz-ejder': 115, incir: 76, lime: 80 };
+const KEEP = 'Serin ve kuru yerde saklayınız. Açtıktan sonra hava almayacak şekilde kapatınız.';
 FLAVORS.forEach((f) => {
   f.aspect = 1.4;
+  // ürün içeriği (Solagron ürün sayfalarındaki bilgiler)
+  const ing = (f.facts.find(([k]) => k === 'İçindekiler') || [])[1];
+  f.contents = [
+    ['İçindekiler', f.id === 'hindistan-cevizi' ? 'Hindistan cevizi sütü %42, hindistan cevizi parçası %26, hindistan cevizi suyu %20' : /dondurma/.test(f.id) ? `${f.name}` : ing || `%100 ${f.name.toLocaleLowerCase('tr')}`],
+    ['Net ağırlık', '16 g'],
+    ...(FRESH[f.id] ? [['Taze meyve karşılığı', `${FRESH[f.id]} g taze meyve`]] : []),
+    ['Yöntem', 'Freeze-drying (dondurularak kurutma)'],
+    ...(/dondurma/.test(f.id) ? [] : [['Katkı', 'Katkı maddesi, koruyucu ve renklendirici içermez']]),
+    ['Saklama', KEEP],
+    ['Ambalaj', 'Kilitli doypack poşet'],
+  ];
   f.cat = /dondurma/.test(f.id) ? 'tatli' : f.id === 'hindistan-cevizi' ? 'atistirmalik' : 'meyve';
 });
-export const CATS = [['tum', 'Tümü'], ['meyve', 'Meyveler'], ['tatli', 'Dondurmalar'], ['atistirmalik', 'Atıştırmalık']];
+export const CATS = [['tum', 'Tümü'], ['meyve', 'Meyveler'], ['tatli', 'Dondurmalar'], ['atistirmalik', 'Atıştırmalık'], ['kit', 'Hazır gıda']];
 
 // Hazır gıda (ResQ): dondurularak kurutulmuş yemek kitleri. Bilgiler solagronmarket.com ürün sayfalarından.
+// menu: [ürün, porsiyon, ağırlık (g), kalori (kcal)]
+const KIT_DESC = 'Şeflerin günlük kalori ve protein ihtiyacı gözetilerek hazırladığı yemekler, cryo freeze-drying sistemleriyle kurutulup nem almayan özel ambalajlara kondu. Belirtilen miktarda sıcak su ekleyin; 15 dakikada yemeğiniz hazır. Acil durum, askeri kullanım, dağcılık, kamp ve bireysel tüketim için.';
 export const KITS = [
-  { id: 'mini-mix', name: 'Mini Mix', title: '12 Servis Hazır Gıda Kiti', img: '/img/kit/mini-mix.webp', who: '1 kişi · 3 gün', servis: 12, kcal: 2705, menu: 'Sebzeli omlet, menemen, kahvaltılık gevrek, sebzeli makarna, kıymalı ıspanak, mercimekli bulgur pilavı, sebze çorbası, kuru fasulye, pesto soslu makarna, misket köfte, yayla çorbası' },
-  { id: 'mini-select', name: 'Mini Select', title: '12 Servis Hazır Gıda Kiti', img: '/img/kit/mini-select.webp', who: '1 kişi · 3 gün', servis: 12, kcal: 3193, menu: 'Sebzeli omlet, menemen, kahvaltılık gevrek, kremalı mantar çorbası, mantarlı tavuklu makarna, köri soslu makarna, mercimekli bulgur pilavı, sade dondurma, tavuk sote, pesto soslu makarna, misket köfte, yayla çorbası' },
-  { id: '25-servis', name: '25 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/25-servis.webp', who: 'Aile ve ekip', servis: 25, kcal: 6568, menu: 'Kahvaltılık gevrek, omlet, menemen, baklava, irmik helvası, humus, cacık, çorbalar, makarnalar, bulgur pilavı, taze fasulye, tavuk sote, misket köfte' },
-  { id: '35-servis', name: '35 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/35-servis.webp', who: '1 kişi · 7 gün', servis: 35, kcal: 8303, menu: 'Kahvaltılık gevrek, omlet, menemen, mercimek ve tavuk çorbası, makarnalar, bulgur pilavı, taze fasulye, tavuk sote, misket köfte, humus, cacık, irmik helvası, dondurma, baklava' },
-  { id: '70-servis', name: '70 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/70-servis.webp', who: '2 kişi · 7 gün', servis: 70, kcal: 16606, menu: '35 servislik menünün iki kişilik hali: kahvaltılıklar, çorbalar, ana yemekler, mezeler ve tatlılar' },
-  { id: 'gevrek', name: 'Kahvaltılık Gevrek', title: 'Kuru Meyveli · 75 g', img: '/img/kit/gevrek.webp', who: 'Su ekle, 2 dakikada hazır', servis: 1, kcal: 292, menu: 'Granola, gerçek meyve parçaları ve sütlü karışım. Alerjen: süt, gluten (yulaf) ve fındık içerir.' },
+  { id: 'mini-mix', name: 'Mini Mix', title: '12 Servis Hazır Gıda Kiti', img: '/img/kit/mini-mix.webp', who: '1 kişi · 3 gün', servis: 12, gram: 660, kcal: 2705, model: {"type": "crate", "w": 1.45, "h": 0.8, "d": 0.95, "la": 0.607, "lid": "#2c2c30"},
+    menu: [["Sebzeli Omlet", 1, 50, 216], ["Menemen", 1, 50, 223], ["Kuru Meyveli Kahvaltılık Gevrek", 1, 75, 292], ["Sebzeli Makarna", 1, 85, 377], ["Kıymalı Ispanak Yemeği", 1, 50, 194], ["Yeşil Mercimekli Bulgur Pilavı", 1, 60, 257], ["Sebze Çorbası", 1, 35, 159], ["Kuru Fasulye", 2, 80, 135], ["Pesto Soslu Makarna", 1, 80, 410], ["Misket Köfte", 1, 45, 237], ["Yayla Çorbası", 1, 50, 205]] },
+  { id: 'mini-select', name: 'Mini Select', title: '12 Servis Hazır Gıda Kiti', img: '/img/kit/mini-select.webp', who: '1 kişi · 3 gün', servis: 12, gram: 702, kcal: 3193, model: {"type": "crate", "w": 1.45, "h": 0.8, "d": 0.95, "la": 0.792, "lid": "#2c2c30"},
+    menu: [["Sebzeli Omlet", 1, 50, 216], ["Menemen", 1, 50, 223], ["Kuru Meyveli Kahvaltılık Gevrek", 1, 75, 292], ["Kremalı Mantar Çorbası", 1, 50, 291], ["Kremalı Mantarlı Tavuklu Makarna", 1, 80, 370], ["Köri Soslu Makarna", 1, 80, 350], ["Yeşil Mercimekli Bulgur Pilavı", 1, 60, 257], ["Sade Dondurma", 1, 32, 132], ["Tavuk Sote", 1, 50, 210], ["Pesto Soslu Makarna", 1, 80, 410], ["Misket Köfte", 1, 45, 237], ["Yayla Çorbası", 1, 50, 205]] },
+  { id: '25-servis', name: '25 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/25-servis.webp', who: '1 kişi · 5 gün', servis: 25, gram: 1492, kcal: 6568, model: {"type": "bucket", "w": 1.02, "h": 1.12, "d": 1.0, "la": 1.001, "lid": "#d81f26"},
+    menu: [["Kuru Meyveli Kahvaltılık Gevrek", 2, 150, 498], ["Sebzeli Omlet", 2, 100, 431], ["Menemen", 1, 50, 224], ["Cevizli Baklava", 1, 50, 244], ["İrmik Helvası", 1, 200, 842], ["Humus", 1, 40, 214], ["Cacık", 1, 40, 184], ["Sade Dondurma", 1, 32, 132], ["Mercimek Çorbası", 2, 100, 356], ["Şehriyeli Tavuk Çorbası", 1, 40, 177], ["Kremalı Mantar Çorbası", 2, 100, 582], ["Kremalı Mantarlı Tavuklu Makarna", 1, 80, 370], ["Pesto Soslu Makarna", 1, 80, 410], ["Köri Soslu Makarna", 1, 80, 350], ["Yeşil Mercimekli Bulgur Pilavı", 2, 120, 514], ["Taze Fasulye", 1, 40, 148], ["Tavuk Sote", 2, 100, 419], ["Misket Köfte", 2, 90, 473]] },
+  { id: '35-servis', name: '35 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/35-servis.webp', who: '1 kişi · 7 gün', servis: 35, gram: 1838, kcal: 8303, model: {"type": "crate", "w": 1.32, "h": 1.0, "d": 1.0, "la": 1.122, "lid": "#1c1c1f"},
+    menu: [["Kuru Meyveli Kahvaltılık Gevrek", 3, 225, 900], ["Sebzeli Omlet", 3, 150, 648], ["Menemen", 1, 50, 224], ["Mercimek Çorbası", 3, 150, 534], ["Şehriyeli Tavuk Çorbası", 1, 40, 177], ["Kremalı Mantar Çorbası", 3, 150, 873], ["Kremalı Mantarlı Tavuklu Makarna", 1, 80, 370], ["Pesto Soslu Makarna", 3, 240, 1230], ["Yeşil Mercimekli Bulgur Pilavı", 3, 180, 771], ["Taze Fasulye", 2, 80, 296], ["Tavuk Sote", 2, 100, 420], ["Misket Köfte", 3, 135, 711], ["Humus", 1, 40, 214], ["Cacık", 1, 40, 184], ["İrmik Helvası", 2, 64, 270], ["Fıstıklı Dondurma", 1, 32, 122], ["Sade Dondurma", 1, 32, 132], ["Baklava", 1, 50, 227]] },
+  { id: '70-servis', name: '70 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/70-servis.webp', who: '2 kişi · 7 gün', servis: 70, gram: 3676, kcal: 16606, model: null,
+    menu: [["Kuru Meyveli Kahvaltılık Gevrek", 6, 450, 1800], ["Sebzeli Omlet", 6, 300, 1296], ["Menemen", 2, 100, 448], ["Mercimek Çorbası", 6, 300, 1068], ["Şehriyeli Tavuk Çorbası", 2, 80, 354], ["Kremalı Mantar Çorbası", 6, 300, 1746], ["Kremalı Mantarlı Tavuklu Makarna", 2, 160, 740], ["Pesto Soslu Makarna", 6, 480, 2460], ["Yeşil Mercimekli Bulgur Pilavı", 6, 360, 1542], ["Taze Fasulye", 4, 160, 592], ["Tavuk Sote", 4, 200, 840], ["Misket Köfte", 6, 270, 1422], ["Humus", 2, 80, 428], ["Cacık", 2, 80, 368], ["İrmik Helvası", 4, 128, 540], ["Fıstıklı Dondurma", 2, 64, 244], ["Sade Dondurma", 2, 64, 264], ["Baklava", 2, 100, 454]] },
+  { id: 'gevrek', name: 'Kahvaltılık Gevrek', title: 'Kuru Meyveli · 75 g', img: '/img/kit/gevrek.webp', who: 'Su ekle, 2 dakikada hazır', servis: 1, gram: 75, kcal: 292, model: null, menu: null },
 ];
+// kitler de 3B vitrinde: kasalar ve kova 3B model, poşetler 3B paket
+const KIT_BG = { 'mini-mix': '#a3161c', 'mini-select': '#8f1d2a', '25-servis': '#b3171d', '35-servis': '#7e1418', '70-servis': '#5f646c', gevrek: '#c46a86' };
+KITS.forEach((k) => {
+  const pouch = !k.model;
+  const f = {
+    id: `kit-${k.id}`, kit: k.id, cat: 'kit', brand: 'ResQ',
+    name: k.id === 'gevrek' ? 'Kahvaltılık Gevrek' : `${k.name} Hazır Gıda Kiti`, short: k.name,
+    tex: k.model ? `/tex/kit-${k.id}-label.webp` : `/tex/kit-${k.id}.webp`, thumb: k.img,
+    model: k.model ? { ...k.model } : null, aspect: 1.4, parts: [], bg: KIT_BG[k.id], ink: 'light',
+    slogan: k.id === 'gevrek' ? 'ResQ · Dondurularak kurutulmuş' : `ResQ · ${k.title}`,
+    lead: k.id === 'gevrek' ? 'Granola, gerçek meyve parçaları ve sütlü karışım; su ekleyin, 2 dakikada hazır.' : `${k.servis} servis, ${k.who}. Sıcak su ekleyin, 15 dakikada hazır.`,
+    desc: k.id === 'gevrek' ? 'Özel dondurarak kurutma teknolojisiyle lezzetini ve çıtır dokusunu korur. Kamp, doğa yürüyüşü, karavan, ofis ve okul için hızlı ve besleyici bir kahvaltı. Alerjen: süt, gluten (yulaf) ve fındık içerir.' : KIT_DESC,
+    facts: [['Servis', `${k.servis}`], ['Ağırlık', `${k.gram.toLocaleString('tr-TR')} g`], ['Enerji', `${k.kcal.toLocaleString('tr-TR')} kcal`]],
+    claims: k.id === 'gevrek' ? ['2 dakikada hazır', 'Freeze dried', 'Süt, gluten, fındık içerir'] : ['15 dakikada hazır', 'Uzun raf ömrü', 'Yerli üretim', 'Cryo freeze-dried'],
+    menu: k.menu,
+    contents: k.id === 'gevrek'
+      ? [['İçindekiler', 'Granola, gerçek meyve parçaları, sütlü karışım'], ['Net ağırlık', '75 g'], ['Enerji', '292 kcal'], ['Hazırlama', 'Su ekleyin, 2 dakikada tüketime hazır'], ['Alerjen', 'Süt, gluten (yulaf) ve fındık içerir'], ['Saklama', KEEP]]
+      : [['Kişi / süre', k.who], ['Toplam', `${k.servis} servis · ${k.gram.toLocaleString('tr-TR')} g · ${k.kcal.toLocaleString('tr-TR')} kcal`], ['Hazırlama', 'Belirtilen miktarda sıcak su ekleyin, 15 dakikada hazır'], ['Ambalaj', k.model ? (k.model.type === 'bucket' ? 'Kapaklı, kulplu saklama kovası' : 'Kilitli kapaklı saklama kasası') : 'Kilitli, nem geçirmez poşet']],
+  };
+  FLAVORS.push(f);
+});

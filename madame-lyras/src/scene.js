@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { createJuice } from './juice.js';
+import { makeKit } from './kit3d.js';
 
 const TAU = Math.PI * 2;
 const smooth = (a, b, x) => {
@@ -189,10 +190,10 @@ export function makeBackTexture(img, flavor, logo) {
   const ink = light ? '#3b2210' : '#fff';
   x.fillStyle = ink;
   const cy = seal + (H - seal) * 0.08;
-  if (logo) x.drawImage(logo, W / 2 - 110, cy, 220, 220);
+  if (logo && !flavor.brand) x.drawImage(logo, W / 2 - 110, cy, 220, 220);
   x.textAlign = 'center';
   x.font = '600 60px Fraunces, Georgia, serif';
-  x.fillText('Genç Anadolu Gıda', W / 2, cy + 310);
+  x.fillText(flavor.brand || 'Genç Anadolu Gıda', W / 2, cy + (flavor.brand ? 200 : 310));
   x.font = '500 34px Manrope, Arial, sans-serif';
   x.fillText(`Dondurularak Kurutulmuş ${flavor.name}`, W / 2, cy + 362);
   x.globalAlpha = 0.5;
@@ -330,6 +331,10 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   for (const m of [pouch.frontMat, pouch.backMat]) { m.envMapIntensity = 1.0; m.emissiveIntensity = 0.46; }
   const pouchHolder = new THREE.Group();
   pouchHolder.add(pouch.group);
+  // hazır gıda kitleri (kasa / kova) aynı yerde, paketin yerine görünür
+  const kit = makeKit();
+  kit.group.visible = false;
+  pouchHolder.add(kit.group);
   root.add(pouchHolder);
 
   // yumuşak gölge
@@ -498,7 +503,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   ).then(async () => {
     await logoReady;
     try { await document.fonts?.ready; } catch (e) { /* yedek yazı tipi */ }
-    flavors.forEach((fl, i) => { if (fronts[i]) backs[i] = makeBackTexture(fronts[i].image, fl, logoImg); });
+    flavors.forEach((fl, i) => { if (fronts[i] && !fl.model) backs[i] = makeBackTexture(fronts[i].image, fl, logoImg); });
     showFront(0); showBack(0);
     fan.forEach((f) => {
       if (!fronts[f.i]) return;
@@ -516,6 +521,9 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   function showFront(i) {
     if (i === frontIdx || !fronts[i]) return;
     frontIdx = i;
+    const md = flavors[i].model;
+    if (md) { pouch.group.visible = false; kit.show(md, fronts[i]); aspectTarget = aspects[i]; return; }
+    kit.hide(); pouch.group.visible = true;
     pouch.setFront(fronts[i]);
     pouch.bottomMat.color.copy(bottomColors[i]);
     aspectTarget = aspects[i];
@@ -551,6 +559,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     flavor = i;
     if (reduce || stream !== null || insp.on) { showFront(i); showBack(i); return; }
     spinTarget = Math.round(spinTarget / TAU) * TAU + dir * TAU;
+    // kasa / kova ile paket arasında: model hemen değişir ve bir tur döner
+    if (flavors[i].model || (frontIdx >= 0 && flavors[frontIdx].model)) { showFront(i); showBack(i); pendingFront = -1; return; }
     showBack(i);
     pendingFront = i;
   }
@@ -747,7 +757,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     }
     aspectNow = damp(aspectNow, aspectTarget, 6, dt);
     pouch.group.scale.set(1 / Math.sqrt(aspectNow), aspectNow / Math.sqrt(aspectNow), 1);
-    shadow.position.y = -0.58 * aspectNow / Math.sqrt(aspectNow) - 0.24;
+    shadow.position.y = kit.group.visible ? -kit.height() / 2 - 0.06 : -0.58 * aspectNow / Math.sqrt(aspectNow) - 0.24;
     shadow.visible = !insp.on || insp.rx < 0.5;
 
     // meyve parçaları (gerçek görseller)
@@ -864,6 +874,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     // ürünler bölümünün ekrandaki üst/alt kenarı (ekran yüksekliğine oranla)
     setJuiceClip(top, bottom, dark = 0) { juiceClip.top = top; juiceClip.bottom = bottom; juiceClip.dark = dark; },
     setAutoRotate(v) { insp.auto = v; insp.idle = v ? 1.5 : 0; },
+    // kendiliğinden tek tur döner (açılıştan aşağı inerken)
+    spinOnce(dir = 1) { if (!reduce) spinTarget = Math.round(spinTarget / TAU) * TAU + dir * TAU; },
     resetView() { insp.goto = Math.round(insp.ry / TAU) * TAU; insp.rx = 0.06; insp.zoomT = 1; insp.idle = 0; },
     zoom() { return insp.zoomT; },
     setStream(f) {

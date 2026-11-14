@@ -41,10 +41,21 @@ productsEl.style.setProperty('--n', NS);
 const mailHref = (f) => `mailto:${SITE.email}?subject=${encodeURIComponent(f ? `${f.name} hakkında bilgi` : 'Ürün bilgisi')}&body=${encodeURIComponent(f ? `Merhaba, ${f.name} ürünü hakkında bilgi almak istiyorum.\n\n` : 'Merhaba,\n\n')}`;
 const telHref = () => (SITE.phone && SITE.phone.tel ? `tel:${SITE.phone.tel}` : '#iletisim');
 
+/* ---------- ürün içeriği: bilgi satırları ve (kitlerde) menü tablosu ---------- */
+const nf = (n) => n.toLocaleString('tr-TR');
+function contentsHTML(f) {
+  let h = `<dl class="contents__list">${(f.contents || []).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>`;
+  if (f.menu) {
+    const t = f.menu.reduce((a, r) => [a[0] + r[1], a[1] + r[2], a[2] + r[3]], [0, 0, 0]);
+    h += `<div class="contents__menu"><table><caption>Kit içeriği · ${f.menu.length} çeşit yemek</caption><thead><tr><th scope="col">Ürün</th><th scope="col">Porsiyon</th><th scope="col">Gram</th><th scope="col">kcal</th></tr></thead><tbody>${f.menu.map((r) => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${nf(r[3])}</td></tr>`).join('')}</tbody><tfoot><tr><th scope="row">Toplam</th><td>${t[0]}</td><td>${nf(t[1])}</td><td>${nf(t[2])}</td></tr></tfoot></table></div>`;
+  }
+  return h;
+}
+
 /* ---------- tüm ürünler: 3B vitrin ---------- */
 $('#catalog').innerHTML = FLAVORS.map((f, i) => `
   <button class="pick" type="button" role="tab" data-pick="${i}" style="--c:${f.bg}" aria-selected="false" aria-label="${f.name}">
-    <span class="pick__img"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></span>
+    <span class="pick__img${f.thumb ? ' pick__img--kit' : ''}"><img src="${f.thumb || f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></span>
     <span class="pick__n">${pad(i + 1)}</span>
     <b class="pick__name">${f.short || f.name}</b>
   </button>`).join('');
@@ -58,6 +69,8 @@ function selectShowroom(i, fromUser) {
   $('#srName').textContent = f.name;
   $('#srLead').textContent = f.lead;
   $('#srFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  $('#srContentsBody').innerHTML = contentsHTML(f);
+  $('#srContents summary').textContent = f.menu ? 'İçerik ve menü' : 'İçerik bilgisi';
   $('#srMail').href = mailHref(f);
   $('#srCall').href = telHref();
   const box = $('#srProduct');
@@ -76,7 +89,7 @@ $$('#srCats button').forEach((b) => b.addEventListener('click', () => {
   if (first && picks[srIndex].hidden) selectShowroom(+first.dataset.pick, true);
 }));
 // hakkımızda: ürünlerin küçük resimleri, tıklayınca vitrinde o ürün açılır
-$('#aboutPicks').innerHTML = FLAVORS.map((f, i) => `<button type="button" data-about="${i}" style="--c:${f.bg}" aria-label="${f.name} ürününü vitrinde göster"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></button>`).join('');
+$('#aboutPicks').innerHTML = FLAVORS.map((f, i) => `<button type="button" data-about="${i}" style="--c:${f.bg}" aria-label="${f.name} ürününü vitrinde göster"${f.thumb ? ' class="kitthumb"' : ''}><img src="${f.thumb || f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></button>`).join('');
 $$('#aboutPicks button').forEach((b) => b.addEventListener('click', () => { selectShowroom(+b.dataset.about, false); goTo('#tum-urunler'); }));
 $('#srInspect').addEventListener('click', () => openDetail(srIndex));
 $('#srStage').addEventListener('click', () => openDetail(srIndex));
@@ -88,7 +101,6 @@ dotsEl.innerHTML = STREAM.map((f, i) => `<button type="button" data-go="${i}" ar
 const dots = $$('button', dotsEl);
 
 /* ---------- hazır gıda kitleri ---------- */
-const nf = (n) => n.toLocaleString('tr-TR');
 $('#kitGrid').innerHTML = KITS.map((k) => `
   <article class="kit reveal">
     <div class="kit__img"><img src="${k.img}" alt="${k.name} ${k.title}" loading="lazy" /></div>
@@ -96,10 +108,11 @@ $('#kitGrid').innerHTML = KITS.map((k) => `
       <p class="kit__brand">ResQ · ${k.title}</p>
       <h3 class="kit__name">${k.name}</h3>
       <ul class="kit__chips"><li><b>${k.servis}</b> servis</li><li><b>${nf(k.kcal)}</b> kcal</li><li>${k.who}</li></ul>
-      <p class="kit__menu">${k.menu}</p>
+      <p class="kit__menu">${k.menu ? k.menu.map((r) => r[0]).join(', ') : 'Granola, gerçek meyve parçaları ve sütlü karışım. Alerjen: süt, gluten (yulaf) ve fındık içerir.'}</p>
       <div class="kit__actions">
+        <button class="btn btn--glass" type="button" data-inspect="${FLAVORS.findIndex((f) => f.kit === k.id)}">3D incele</button>
         <a class="btn btn--gold" href="#bayilik" data-kit="${k.id}">Toptan teklif iste</a>
-        <a class="btn btn--glass" href="mailto:${SITE.email}?subject=${encodeURIComponent(`ResQ ${k.name} hakkında bilgi`)}">E-posta</a>
+        <a class="btn btn--glass btn--icon" href="mailto:${SITE.email}?subject=${encodeURIComponent(`ResQ ${k.name} hakkında bilgi`)}" aria-label="E-posta ile sor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
   </article>`).join('');
@@ -293,9 +306,11 @@ function handoffPose(vh, y) {
   const end = { ...pose('product'), rx: 0, pt: 1 };
   const raw = clamp(y / Math.max(1, productsEl.offsetTop), 0, 1);
   const k = raw * raw * (3 - 2 * raw); // yumuşak başlar, yumuşak oturur
-  const kr = smooth(0.3, 1, raw);
+  // önce kendi etrafında döner, düzelir ve yana kayar; sonra dümdüz aşağı iner
+  const kr = smooth(0, 0.32, raw);
+  const kx = smooth(0, 0.4, raw);
   const p = {};
-  for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (key === 'rx' || key === 'ry' || key === 'rz' || key === 'pt' || key === 'cloud' ? kr : k);
+  for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (key === 'rx' || key === 'ry' || key === 'rz' || key === 'pt' ? kr : key === 'x' ? kx : key === 'cloud' ? smooth(0.5, 1, raw) : k);
   return p;
 }
 // bölüm içindeki bir 3B sahne alanına oturan, bölümle birlikte kayan paket pozu
@@ -412,7 +427,7 @@ function update(force) {
         const vw = window.innerWidth;
         const startY = rect.cy; // paket ekranda yerinde kalır, açılış altından yukarı kayar: sayfaya göre aşağı iner
         const p = handoffPose(vh, y);
-        if (!handing) { scene.snapPose({ ...p }); handing = true; }
+        if (!handing) { scene.snapPose({ ...p }); handing = true; if (y < vh * 0.25) scene.spinOnce(1); }
         else scene.setPose(p);
         scene.setFlavor(0);
         scene.setActive(true);
@@ -499,7 +514,7 @@ hit.addEventListener('pointerenter', () => hit.classList.add('hover'));
 hit.addEventListener('pointerleave', () => hit.classList.remove('hover'));
 
 /* ---------- 3B inceleme ---------- */
-$('#detailThumbs').innerHTML = FLAVORS.map((f, i) => `<button type="button" role="tab" data-thumb="${i}" style="--c:${f.bg}" aria-label="${f.name}"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /><span>${f.short || f.name}</span></button>`).join('');
+$('#detailThumbs').innerHTML = FLAVORS.map((f, i) => `<button type="button" role="tab" data-thumb="${i}" style="--c:${f.bg}" aria-label="${f.name}"${f.thumb ? ' class="kitthumb"' : ''}><img src="${f.thumb || f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /><span>${f.short || f.name}</span></button>`).join('');
 const thumbs = $$('#detailThumbs button');
 thumbs.forEach((b) => b.addEventListener('click', () => switchDetail(+b.dataset.thumb)));
 const autoBtn = $('#autoBtn');
@@ -531,6 +546,8 @@ function fillDetail(i) {
   $('#detailDesc').textContent = f.desc;
   $('#detailFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#detailClaims').innerHTML = f.claims.map((c) => `<li>${c}</li>`).join('');
+  $('#detailContentsBody').innerHTML = contentsHTML(f);
+  $('#detailContents summary').textContent = f.menu ? 'İçerik ve menü' : 'İçerik bilgisi';
   const prev = FLAVORS[(i - 1 + N) % N], next = FLAVORS[(i + 1) % N];
   $('#detailPrev span').textContent = prev.short || prev.name;
   $('#detailNext span').textContent = next.short || next.name;

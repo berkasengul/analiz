@@ -887,3 +887,40 @@ body:not([data-stage='product']) .products__hit .hitlabel { opacity: 0 !importan
 }
 .dealer h2 { font-size: clamp(42px, 6vw, 84px); margin-bottom: 22px; }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) { .detail .detail__dock .seg--zoom button { font-size: 18px; padding: 6px 10px; } }
+
+/* ---------- ürün içeriği (açılır panel) ve kit menü tablosu ---------- */
+.contents { margin: -10px 0 18px; border-radius: 16px; border: 1px solid var(--glass-line); background: rgba(255, 240, 225, 0.05); }
+.contents summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 16px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-2); }
+.contents summary::-webkit-details-marker { display: none; }
+.contents summary::after { content: '+'; font-size: 18px; line-height: 1; transition: transform 0.3s var(--ease); }
+.contents[open] summary::after { transform: rotate(45deg); }
+.contents__body { padding: 2px 16px 14px; max-height: min(46vh, 380px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.contents__list { margin: 0; display: grid; gap: 0; }
+.contents__list div { display: grid; grid-template-columns: minmax(96px, 34%) 1fr; gap: 12px; padding: 8px 0; border-top: 1px solid var(--glass-line); }
+.contents__list div:first-child { border-top: 0; }
+.contents__list dt { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); padding-top: 2px; }
+.contents__list dd { margin: 0; font-size: 14px; line-height: 1.45; }
+.contents__menu { margin-top: 10px; }
+.contents__menu table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.contents__menu caption { text-align: left; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-2); padding: 6px 0 8px; }
+.contents__menu th, .contents__menu td { padding: 6px 4px; border-top: 1px solid var(--glass-line); text-align: right; white-space: nowrap; }
+.contents__menu th[scope='row'], .contents__menu thead th:first-child { text-align: left; font-weight: 500; white-space: normal; }
+.contents__menu thead th { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; border-top: 0; }
+.contents__menu tfoot th, .contents__menu tfoot td { font-weight: 700; color: var(--gold-1); border-top: 1px solid var(--gold-2); }
+.detail .contents { margin: -8px 0 16px; }
+.detail__panel { max-height: calc(100vh - 150px); overflow-y: auto; scrollbar-width: none; }
+.detail__panel::-webkit-scrollbar { display: none; }
+/* kit fotoğrafları: geniş görseller kutuya sığsın */
+.pick__img--kit { background: #f4f1ee; }
+.pick__img--kit img { width: 48px; height: 48px; object-fit: contain; box-shadow: none; }
+.about__picks button.kitthumb, .detail__thumbs button.kitthumb { background: #f4f1ee; }
+.about__picks button.kitthumb img, .detail__thumbs button.kitthumb img { width: 80%; height: 80%; object-fit: contain; box-shadow: none; }
+.kit__actions .btn--icon { width: 46px; padding: 0; display: inline-grid; place-items: center; }
+.kit__actions .btn--icon svg { width: 20px; height: 20px; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .contents { margin: -4px 0 12px; }
+  .contents__body { max-height: 40vh; }
+  .detail .contents { display: block; margin: 8px 0 10px; }
+  .detail .contents__body { max-height: 22vh; }
+  .detail__panel { max-height: calc(100vh - 190px); }
+}
