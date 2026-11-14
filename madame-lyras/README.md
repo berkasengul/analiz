@@ -44,3 +44,7 @@ Daha yüksek çözünürlüklü ambalaj fotoğrafları gelirse aynı adla `publi
 - **Hazır gıda (ResQ)**: 3B kit sergisi (sağda büyük 3B kasa/kova/poşet, solda bilgi, menü, teklif; altta kit seçici).
 - **Nasıl yapılır**: Ortada büyük 3B Ahududu, 4 adım paketten çıkan oklarla çevresinde; 125 g → 16 g.
 - **Yazı tipleri**: Cormorant Garamond (başlıklar) + Jost (metin).
+- **Telefon açılışı**: Unbe tarzı; ürünler ortada büyük ve tepeden ışık huzmesi altında, yazılar altta (açıklama ve özellikler telefonda gizli).
+- **Vitrine iniş**: Ananas aşağı iner, vitrindeki yerine otururken Fıstıklı Dondurma'ya dönüşür; vitrinde otomatik değişim yok.
+- **Bayilik**: Ortalanmış başlık, rakamlar şeridi, 4 avantaj kartı, 4 adımlı süreç ve 3 bölümlü premium başvuru formu (yüzen etiketler).
+- **İletişim**: Premium form; bu bölümde 3B paket yok. Bayilik ve iletişimde arka plan marka bordosu.

@@ -50,8 +50,8 @@ function cameraPlan(w, h) {
     // kaidenin kenarları ekrandan biraz taşabilir; paketler kesilmez
     // dikey tablette sahne biraz daha aşağıda ve küçük: paketlerin üstü menünün altına girmesin
     // telefon: yazılar üstte, sahne altta (kaide alttaki özellik satırının hemen üstünde)
-    if (A > 0.6) return { fov: 38, elev: 0.06, frac: 0.9, sx: 0.5, sy: 0.7, A };
-    return { fov: 38, elev: 0.06, frac: 1.0, sx: 0.5, sy: 0.69, A };
+    if (A > 0.6) return { fov: 36, elev: 0.08, frac: 1.2, sx: 0.5, sy: 0.46, A, phone: true };
+    return { fov: 36, elev: 0.08, frac: 1.42, sx: 0.5, sy: 0.45, A, phone: true };
   }
   if (A < 1.35) {
     // tablet: yazılar solda, grup biraz daha küçük
@@ -63,7 +63,7 @@ function cameraPlan(w, h) {
 function planDistance(pl) {
   const t = Math.tan((pl.fov * Math.PI) / 360);
   // telefon: sahne, düğme ile alttaki özellik satırı arasındaki boşluğa sığar (yazıların üstüne binmez)
-  if (pl.band) return Math.max((PLAT.R * 2) / (2 * pl.frac * t * pl.A), 4.1 / (2 * t * pl.band));
+  if (pl.band) return Math.max((PLAT.R * 2) / (2 * pl.frac * t * pl.A), 3.45 / (2 * t * pl.band));
   const dWidth = (PLAT.R * 2) / (2 * pl.frac * t * pl.A);
   // dikeyde kaidenin altı ile yörüngedeki meyvelerin üstü sığsın (≈4.3 birim)
   const dHeight = 4.8 / (2 * 0.86 * t);
@@ -280,7 +280,8 @@ function Pouches({ flavors, mobile, onReady }) {
       for (const m of [pk.frontMat, pk.backMat]) {
         // ana ürün en parlak; arkadakiler bir kademe daha sakin
         m.envMapIntensity = cfg.hero ? 1.0 : 0.85;
-        m.emissiveIntensity = cfg.hero ? 0.3 : 0.22;
+        // telefonda paketler daha canlı (sönük görünmesin)
+        m.emissiveIntensity = (cfg.hero ? 0.3 : 0.22) + (mobile ? 0.14 : 0);
       }
       const a = (fl.aspect || 1.153) / 1.153;
       pk.group.scale.set(1 / Math.sqrt(a), a / Math.sqrt(a), 1);
@@ -465,7 +466,7 @@ const NEAR = [
   { u: P('yaprak', 2, true), at: [-0.98, 0.78], dist: 3.2, w: 0.75, rot: -0.7, mobile: true },
   { u: P('cilek', 0, true), at: [0.8, -0.95], dist: 2.8, w: 0.75, rot: -0.5, mobile: false },
   { u: P('yaprak', 0, true), at: [0.97, -0.55], dist: 3.0, w: 0.6, rot: 0.3, mobile: false },
-  { u: P('yaprak', 0, true), at: [1.0, 0.1], dist: 3.6, w: 0.5, rot: 0.6, mobile: true, only: 'mobile' },
+  { u: P('yaprak', 0, true), at: [1.04, 0.62], dist: 3.6, w: 0.45, rot: 0.6, mobile: true, only: 'mobile' },
 ];
 function NearLayer({ mobile }) {
   const { camera } = useThree();
@@ -503,6 +504,31 @@ function NearLayer({ mobile }) {
     }
   });
   return <primitive object={group} />;
+}
+
+/* ---------------- telefonda: çilek paketine tepeden vuran ışık huzmesi ---------------- */
+function Beam() {
+  const tex = useMemo(() => canvasTex('beam', 256, 256, (x, w, h) => {
+    for (let yy = 0; yy < h; yy++) {
+      const t = yy / h;
+      const half = (0.12 + t * 0.38) * w;
+      const g = x.createLinearGradient(w / 2 - half, 0, w / 2 + half, 0);
+      const a = 0.5 * (1 - t * 0.5);
+      g.addColorStop(0, 'rgba(255,236,215,0)'); g.addColorStop(0.5, `rgba(255,236,215,${a.toFixed(3)})`); g.addColorStop(1, 'rgba(255,236,215,0)');
+      x.fillStyle = g; x.fillRect(w / 2 - half, yy, half * 2, 1);
+    }
+  }), []);
+  const ref = useRef();
+  useFrame((st) => {
+    if (!ref.current) return;
+    ref.current.material.opacity = clamp01(S.fruitIn * 1.2) * (0.85 + 0.08 * Math.sin(st.clock.elapsedTime * 0.6));
+  });
+  return (
+    <mesh ref={ref} position={[0, 3.3, 0.05]} renderOrder={-4}>
+      <planeGeometry args={[3.6, 5.2]} />
+      <meshBasicMaterial map={tex} transparent opacity={0} depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
+    </mesh>
+  );
 }
 
 /* ---------------- grubun arkasında yumuşak ışık yoğunluğu ---------------- */
@@ -589,17 +615,17 @@ function Rig({ mobile }) {
       // yazı bloğunun altı (düğme) ile özellik satırının üstü arasındaki bant, ara ara ölçülür
       if (!band.current || st.clock.elapsedTime - band.current.t > 0.5) {
         const cv = gl.domElement.getBoundingClientRect();
-        const cta = document.querySelector('.hero__cta'), ft = document.querySelector('.hero__features');
-        if (cta && ft && cv.height) {
-          const top = cta.getBoundingClientRect().bottom - cv.top + 14;
-          const bot = ft.getBoundingClientRect().top - cv.top - 2;
+        const hd = document.querySelector('.hdr'), tx = document.querySelector('.hero__eyebrow');
+        if (hd && tx && cv.height) {
+          const top = hd.getBoundingClientRect().bottom - cv.top + 4;
+          const bot = tx.getBoundingClientRect().top - cv.top - 6;
           band.current = { t: st.clock.elapsedTime, top: top / cv.height, bot: bot / cv.height };
         }
       }
       if (band.current && band.current.bot - band.current.top > 0.2) {
         const b = band.current;
         pl.band = b.bot - b.top;
-        pl.sy = b.top + pl.band * 0.56;
+        pl.sy = b.top + pl.band * 0.5;
       }
     }
     const d = planDistance(pl);
@@ -674,13 +700,14 @@ function Scene({ flavors, mobile, reduce, onReady }) {
     }
     requestAnimationFrame(() => onReady());
   };
-  useEffect(() => { gl.toneMapping = THREE.NeutralToneMapping; gl.toneMappingExposure = 1.0; }, [gl]);
+  useEffect(() => { gl.toneMapping = THREE.NeutralToneMapping; gl.toneMappingExposure = mobile ? 1.15 : 1.0; }, [gl, mobile]);
   return (
     <>
       <fog attach="fog" args={['#5a0a0c', 12, 26]} />
       <Backdrop mobile={mobile} />
       <Lights mobile={mobile} heroTarget={HERO_TARGET} />
       <BackGlow />
+      {mobile && <Beam />}
       <Platform mobile={mobile} />
       <Pouches flavors={flavors} mobile={mobile} onReady={handleReady} />
       <Orbit />
@@ -689,7 +716,7 @@ function Scene({ flavors, mobile, reduce, onReady }) {
       <Embers mobile={mobile} />
       {/* yumuşak temas gölgeleri: giriş animasyonu boyunca canlı, sonra sabitlenir (performans) */}
       {(!mobile || introDone) && (
-        <ContactShadows position={[PLAT.x, 0.003, PLAT.z]} scale={[5.8, 5.8]} resolution={mobile ? 256 : 512}
+        <ContactShadows position={[PLAT.x, 0.003, PLAT.z]} scale={[6.6, 6.6]} resolution={mobile ? 256 : 512}
           blur={2.4} far={2.4} opacity={0.85} color="#1a0503" frames={introDone ? 1 : Infinity} />
       )}
       <Rig mobile={mobile} />

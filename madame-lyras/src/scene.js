@@ -430,7 +430,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   let sideList = null; // komşu ürünlerin listesi (ürün akışında ilk üç ürün, vitrinde tümü)
 
   // varış anında paketin arkasından yayılan ışık halkası
-  let ringT = 2;
+  let ringT = -99;
   const ringMesh = new THREE.Mesh(new THREE.RingGeometry(0.55, 0.62, 96), new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffd9a8').multiplyScalar(1.6), transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
   ringMesh.position.z = -0.3;
   root.add(ringMesh);
@@ -452,6 +452,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   const juiceCols = flavors.map((f) => new THREE.Color(f.bg));
   const juiceA = new THREE.Color(), juiceB = new THREE.Color();
   let juiceBlend = 0;
+  let juiceOverride = null; // bayilik ve iletişimde sabit marka rengi
   const juiceClip = { top: 2, bottom: 2, dark: 0 };
   const DROPS = 14;
   const drops = new THREE.InstancedMesh(
@@ -817,7 +818,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     } else if (!insp.on) {
       for (let c = 0; c < N; c++) cloudTarget[c] = c === flavor ? 1 : 0;
     }
-    if (stream === null || insp.on) { juiceA.copy(juiceCols[flavor]); juiceB.copy(juiceA); juiceBlend = 0; }
+    if (stream === null || insp.on) { juiceA.copy(!insp.on && juiceOverride ? juiceOverride : juiceCols[flavor]); juiceB.copy(juiceA); juiceBlend = 0; }
 
     // inceleme modu
     insp.blend = damp(insp.blend, insp.on ? 1 : 0, 4, dt);
@@ -927,9 +928,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
         sd.h.scale.setScalar(0.84);
       });
     }
-    ringT += dt;
     {
-      const p = Math.min(1, ringT / 1.6);
+      const p = Math.min(1, (t - ringT) / 1.6);
       ringMesh.visible = p < 1;
       ringMesh.scale.setScalar(0.8 + p * 2.6);
       ringMesh.material.opacity = (1 - p) * (1 - p) * 0.45;
@@ -1049,6 +1049,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     setFan(v) { fanTarget = v; },
     setActive(v) { active = v; if (!v && juice) juice.hide(); },
     // ürünler bölümünün ekrandaki üst/alt kenarı (ekran yüksekliğine oranla)
+    setJuiceColor(c) { juiceOverride = c ? new THREE.Color(c) : null; },
     setJuiceClip(top, bottom, dark = 0) { juiceClip.top = top; juiceClip.bottom = bottom; juiceClip.dark = dark; },
     setAutoRotate(v) { insp.auto = v; insp.idle = v ? 1.5 : 0; },
     // kendiliğinden tek tur döner (açılıştan aşağı inerken)
@@ -1064,7 +1065,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
       if (reduce) return;
       burst = 1;
       clouds[flavor].mix = 0;
-      ringT = 0;
+      ringT = clock.elapsedTime;
     },
     resetView() { insp.goto = Math.round(insp.ry / TAU) * TAU; insp.rx = 0.06; insp.zoomT = 1; insp.idle = 0; },
     zoom() { return insp.zoomT; },
