@@ -63,8 +63,9 @@ $('#catalog').innerHTML = FLAVORS.map((f, i) => `
     <b class="pick__name">${f.short || f.name}</b>
   </button>`).join('');
 const picks = $$('.pick');
-let srIndex = NS - 1; // akıştaki son ürün (Ananas) vitrine iner ve seçili gelir
-function selectShowroom(i, fromUser) {
+let srIndex = FLAVORS.findIndex((f) => f.id === 'fistikli-dondurma'); // vitrine Fıstıklı Dondurma iner
+const visiblePicks = () => picks.filter((p) => !p.hidden).map((p) => +p.dataset.pick);
+function selectShowroom(i, fromUser, auto) {
   srIndex = (i + N) % N;
   const f = FLAVORS[srIndex];
   picks.forEach((b, k) => { const on = k === srIndex; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
@@ -79,9 +80,22 @@ function selectShowroom(i, fromUser) {
   const box = $('#srProduct');
   box.classList.remove('swap'); void box.offsetWidth; box.classList.add('swap');
   if (fromUser && scene && document.body.dataset.stage === 'catalog') scene.setFlavor(srIndex);
-  if (fromUser) { const b = picks[srIndex]; b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' }); }
+  if (fromUser || auto) {
+    // seçilen ürün yatay listede ortaya kayar (sayfa dikeyde kaymaz)
+    const b = picks[srIndex], box = $('#catalog');
+    box.scrollTo({ left: b.offsetLeft - box.clientWidth / 2 + b.offsetWidth / 2, behavior: reduce ? 'auto' : 'smooth' });
+  }
+  if (auto && scene && document.body.dataset.stage === 'catalog') scene.setFlavor(srIndex);
 }
-picks.forEach((b) => b.addEventListener('click', () => selectShowroom(+b.dataset.pick, true)));
+picks.forEach((b) => b.addEventListener('click', () => { autoHold = Date.now() + 15000; selectShowroom(+b.dataset.pick, true); }));
+// vitrin ekrandayken ürünler kendiliğinden, sırayla değişir (kullanıcı seçince bir süre durur)
+let autoHold = 0;
+setInterval(() => {
+  if (document.body.dataset.stage !== 'catalog' || inspecting || document.hidden || Date.now() < autoHold || reduce) return;
+  const vis = visiblePicks();
+  if (vis.length < 2) return;
+  selectShowroom(vis[(vis.indexOf(srIndex) + 1) % vis.length], false, true);
+}, 4800);
 $('#srCount').textContent = `Tüm ürünler · ${N} paket`;
 $('#srCats').innerHTML = CATS.map(([id, label]) => `<button type="button" role="tab" data-cat="${id}" aria-selected="${id === 'tum'}" class="${id === 'tum' ? 'on' : ''}">${label} <small>${id === 'tum' ? N : FLAVORS.filter((f) => f.cat === id).length}</small></button>`).join('');
 $$('#srCats button').forEach((b) => b.addEventListener('click', () => {
@@ -89,6 +103,7 @@ $$('#srCats button').forEach((b) => b.addEventListener('click', () => {
   $$('#srCats button').forEach((x) => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); });
   picks.forEach((p) => { p.hidden = c !== 'tum' && FLAVORS[+p.dataset.pick].cat !== c; });
   const first = picks.find((p) => !p.hidden);
+  autoHold = Date.now() + 8000;
   if (first && picks[srIndex].hidden) selectShowroom(+first.dataset.pick, true);
 }));
 // hakkımızda: ürünlerin küçük resimleri, tıklayınca vitrinde o ürün açılır
@@ -105,7 +120,7 @@ const dots = $$('button', dotsEl);
 
 /* ---------- hazır gıda kitleri ---------- */
 const kitIdx = (k) => FLAVORS.findIndex((f) => f.kit === k.id);
-let kitSel = KITS.findIndex((k) => k.id === '35-servis');
+let kitSel = KITS.findIndex((k) => k.id === 'gevrek');
 $('#kitGrid').innerHTML = KITS.map((k, i) => `
   <button class="ktab" type="button" role="tab" data-ktab="${i}" aria-selected="false">
     <span class="ktab__img"><img src="${k.img}" alt="" loading="lazy" /></span>
@@ -294,8 +309,10 @@ if (webglOK()) {
 
 /* ---------- sahne pozları ---------- */
 // arka plandaki meyve görselinin görünürlüğü (bölüme göre)
-const BD = { product: 0.55, catalog: 0.9, process: 0.7, about: 0.7, kits: 0.85 };
-const pose = (stage) => ({ bd: BD[stage] ?? 0, ...poseRaw(stage) });
+const BD = { product: 0.3, catalog: 0.6, process: 0.5, about: 0.5, kits: 0.6, inspect: 0.6 };
+// paketin arkasındaki koyu hale: her bölümde ürün arka plandan ayrılır
+const HALO = { product: 0.72, catalog: 0.62, kits: 0.55, process: 0.5, about: 0.5, contact: 0.5, inspect: 0.55 };
+const pose = (stage) => ({ bd: BD[stage] ?? 0, halo: HALO[stage] ?? 0, podium: isMobile() && (stage === 'product' || stage === 'catalog') ? 1 : 0, ...poseRaw(stage) });
 function poseRaw(stage) {
   const H = scene ? scene.halfHeight() : 1.34;
   const A = window.innerWidth / window.innerHeight;
@@ -309,9 +326,10 @@ function poseRaw(stage) {
         const vh = window.innerHeight;
         const ph = Math.max(...players.map((p) => p.offsetHeight || 0));
         const top = 84, bot = Math.max(top + 160, vh - ph - 8);
-        const hpx = (bot - top) * 0.86;
+        // kaide ve yan ürünler için alt tarafta pay bırakılır; paket önden, hafif açıyla
+        const hpx = (bot - top) * 0.72;
         const u = (2 * H) / vh;
-        return { x: 0, y: -((top + bot) / 2 - vh / 2) * u, s: Math.min(0.72, (hpx * u) / POUCH_H), ry: -0.2, rz: 0.02, cloud: 1, frost: 0 };
+        return { x: 0, y: -((top + bot) / 2 - 18 - vh / 2) * u, s: Math.min(0.66, (hpx * u) / POUCH_H), ry: -0.1, rz: 0, cloud: 0.7, frost: 0 };
       }
       case 'catalog': return { x: 0, y: H * 0.5, s: 0.62, ry: -0.16, rz: 0, cloud: 0.6, frost: 0 };
       case 'inspect': return { x: 0, y: H * 0.44, s: 0.64, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
@@ -362,8 +380,9 @@ function handoffPose(vh, y) {
   const u = (2 * H) / vh;
   const vw = window.innerWidth;
   const sx = (rect.cx - vw / 2) * u, sy = -(rect.cy - vh / 2) * u;
-  const start = { x: sx, y: sy, s: (rect.h * u) / POUCH_H * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0, bd: 0 };
+  const start = { x: sx, y: sy, s: (rect.h * u) / POUCH_H * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0, bd: 0, halo: 0, podium: 0 };
   const end = { ...pose('product'), rx: 0, pt: 1 };
+  for (const key of ['halo', 'podium', 'bd']) start[key] = 0;
   const raw = clamp(y / Math.max(1, productsEl.offsetTop), 0, 1);
   const k = raw * raw * (3 - 2 * raw); // yumuşak başlar, yumuşak oturur
   // önce kendi etrafında döner, düzelir ve yana kayar; sonra dümdüz aşağı iner
@@ -427,7 +446,7 @@ function update(force) {
   document.body.classList.toggle('blend-hero', y > 1 && hb > 0);
   const raw = clamp(y / Math.max(1, productsEl.offsetTop), 0, 1);
   const juiceTop = hb > 0 && y > 1 ? Math.min(pr.top, hb - fade * heroEl.offsetHeight) / vh : pr.top / vh;
-  if (scene) scene.setJuiceClip(juiceTop, endEl.bottom / vh, clamp(1 - cr0.top / vh, 0, 1) || (pr.top > 0 ? 0.1 * (1 - raw) : 0));
+  if (scene) scene.setJuiceClip(juiceTop, endEl.bottom / vh, Math.max(clamp(1 - cr0.top / vh, 0, 1), pr.top > 0 ? 0.1 + 0.2 * raw : 0.3));
   if (scene && !arrived && raw >= 0.97) { arrived = true; scene.burst(); }
   if (arrived && raw < 0.6) arrived = false;
   const inProducts = pr.top <= mid && pr.bottom > mid;
@@ -467,7 +486,10 @@ function update(force) {
     heroApi && heroApi.setHandoff(true);
     if (scene) {
       scene.setActive(true);
-      scene.setStream(f);
+      // akış biterken paket Fıstıklı Dondurma'ya dönüşerek vitrine iner
+      const toCatalog = pr.bottom < vh * 0.96;
+      if (toCatalog) { scene.setStream(null); scene.setFlavor(srIndex); } else scene.setStream(f);
+      scene.setSides(isMobile() ? (toCatalog ? visiblePicks() : STREAM.map((_, k) => k)) : null);
       const hp = pr.top > 0 ? handoffPose(vh, y) : null;
       scene.setPose(pr.bottom < vh ? catalogPose(vh).p : hp || pose('product'));
       scene.setFan(0);
@@ -524,6 +546,7 @@ function update(force) {
   if (scene && !above) {
     const st = active.dataset.stage;
     // vitrin, süreç ve hakkımızda: paket bölümdeki 3B sahne alanına oturur, bölümle birlikte kayar
+    scene.setSides(isMobile() && st === 'catalog' ? visiblePicks() : null);
     if (st === 'catalog') scene.setPose(catalogPose(vh).p);
     else if (st === 'kits') scene.setPose(stagePose($('#kitStage'), pose('kits'), 0.9));
     else if (st === 'process') scene.setPose(stagePose($('#processStage'), pose('process'), 0.5));

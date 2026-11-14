@@ -1001,3 +1001,24 @@ body.blend-hero .hero, body.blend-hero .hero__gl { background: transparent; }
   .ktab { flex: none; scroll-snap-align: start; }
   .kit__actions { flex-wrap: wrap; }
 }
+
+/* ---------- telefon: Unbe tarzı ürün sergisi (ortada kaide üstünde paket, altta ortalanmış yazılar) ---------- */
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .player { text-align: center; padding-bottom: 64px; }
+  .player__idx { position: relative; display: inline-flex; align-items: center; gap: 12px; font-family: var(--serif); font-size: 15px; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .player__idx b { font-size: 30px; font-weight: 600; color: #f1d9b0; }
+  .player__idx::before { content: ''; order: 1; width: 44px; height: 1px; background: currentColor; opacity: 0.5; }
+  .player__idx b { order: 0; }
+  .player__idx { color: var(--ink-soft); }
+  .player .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.18em; }
+  .player .eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #ff5a3c; box-shadow: 0 0 10px #ff5a3c; }
+  .player__name { font-size: clamp(46px, 13vw, 72px); letter-spacing: -0.01em; margin-bottom: 6px; }
+  .player__name--long { font-size: clamp(36px, 10vw, 54px); }
+  .player__lead { font-size: 17px; max-width: 320px; margin: 0 auto; }
+  .player .facts { display: none; }
+  .player__actions { justify-content: center; margin-top: 16px; }
+  .player__actions .btn { min-height: 46px; border-radius: 4px; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; }
+  .player__actions .btn--light { background: transparent; color: var(--ink); border: 1px solid rgba(255, 210, 170, 0.6); }
+  .player__actions .btn--light::after { content: '→'; margin-left: 10px; font-size: 15px; }
+  .player__actions .btn--ghost { border-radius: 4px; }
+}
