@@ -349,7 +349,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   const juiceCols = flavors.map((f) => new THREE.Color(f.bg));
   const juiceA = new THREE.Color(), juiceB = new THREE.Color();
   let juiceBlend = 0;
-  const juiceClip = { top: 2, bottom: 2 };
+  const juiceClip = { top: 2, bottom: 2, dark: 0 };
   const DROPS = 14;
   const drops = new THREE.InstancedMesh(
     new THREE.SphereGeometry(1, 24, 16),
@@ -532,7 +532,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   let pendingFront = -1;
   let spin = 0, spinTarget = 0;
   let stream = null, streamNow = 0; // ürün akışında kaydırmaya bağlı konum (0..N-1)
-  const state = { x: 0, y: 0, s: 1, ry: 0, rz: 0, cloud: 0, frost: 0 };
+  // rx: ek eğim; pt: fare/nefes hareketinin ağırlığı (açılıştan devralırken 0, sonra 1)
+  const state = { x: 0, y: 0, s: 1, rx: 0, ry: 0, rz: 0, cloud: 0, frost: 0, pt: 1 };
   const target = { ...state };
   const pointer = { x: 0, y: 0, sx: 0, sy: 0 };
   let scrollVel = 0;
@@ -541,7 +542,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   cloudTarget[0] = 1;
 
   // inceleme modu
-  const insp = { on: false, rx: 0.08, ry: 0, vx: 0, vy: 0, zoom: 1, zoomT: 1, goto: null, idle: 0, pop: 0, blend: 0 };
+  const insp = { on: false, rx: 0.08, ry: 0, vx: 0, vy: 0, zoom: 1, zoomT: 1, goto: null, idle: 0, pop: 0, blend: 0, auto: true };
   const drag = { pts: new Map(), lastX: 0, lastY: 0, pinch: 0 };
 
   function setFlavor(i) {
@@ -554,8 +555,9 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     pendingFront = i;
   }
 
-  function setPose(p) { Object.assign(target, p); }
-  function snapPose(p) { Object.assign(target, p); Object.assign(state, p); }
+  const POSE0 = { rx: 0, pt: 1 };
+  function setPose(p) { Object.assign(target, POSE0, p); }
+  function snapPose(p) { Object.assign(target, POSE0, p); Object.assign(state, POSE0, p); }
 
   function resize() {
     const w = window.innerWidth, h = window.innerHeight;
@@ -709,13 +711,13 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
           insp.vy *= Math.pow(0.04, dt);
           insp.vx *= Math.pow(0.04, dt);
           insp.ry += insp.vy;
-          if (insp.idle > 3 && !reduce) insp.ry += dt * 0.35 * Math.min(1, (insp.idle - 3) / 2);
+          if (insp.auto && insp.idle > 1.5 && !reduce) insp.ry += dt * 0.35 * Math.min(1, (insp.idle - 1.5) / 2);
         }
       }
     }
     camera.position.z = 5 / insp.zoom;
 
-    const bob = reduce ? 0 : Math.sin(t * 1.1) * 0.035 * (1 - insp.blend) * (1 - fanNow);
+    const bob = reduce ? 0 : Math.sin(t * 1.1) * 0.035 * (1 - insp.blend) * (1 - fanNow) * state.pt;
     root.position.set(state.x + dip * 0.18, state.y + bob - dip * 0.1, 0);
     // gölge ışığı paketi izler
     key.target.position.copy(root.position);
@@ -731,12 +733,18 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
       pouchHolder.rotation.set(insp.rx, insp.ry, 0);
     } else {
       pouchHolder.rotation.set(
-        0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03) + dip * 0.12,
-        state.ry + spin + streamAngle + pointer.sx * 0.35,
-        state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025) - dip * 0.16
+        state.rx + (0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03)) * state.pt + dip * 0.12,
+        state.ry + spin + streamAngle + pointer.sx * 0.35 * state.pt,
+        state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025) * state.pt - dip * 0.16
       );
     }
     shadow.material.opacity = 0.9 * Math.min(1, state.s) * (1 - 0.5 * dip) * (1 - fanNow);
+    // açılıştan devralırken açılıştaki tepe ışığının parlaklığı taşınır, ürün yerine indikçe sönümlenir
+    {
+      const hand = 1 - state.pt;
+      pouch.frontMat.emissiveIntensity = 0.46 + hand * 0.3;
+      pouch.frontMat.envMapIntensity = 1.0 + hand * 1.1;
+    }
     aspectNow = damp(aspectNow, aspectTarget, 6, dt);
     pouch.group.scale.set(1 / Math.sqrt(aspectNow), aspectNow / Math.sqrt(aspectNow), 1);
     shadow.position.y = -0.58 * aspectNow / Math.sqrt(aspectNow) - 0.24;
@@ -756,19 +764,25 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
         const d = Math.min(1, Math.max(0, c.mix * 1.5 - (i / COUNT) * 0.5));
         const e = d * d * (3 - 2 * d);
         const inv = 1 - e;
-        const orbit = reduce ? 0 : t * 0.07 + scrollVel * 0.0015 + inv * (c.leaving ? 0.9 : -1.4);
+        // yörünge sınırlı salınır (zamanla paketin önüne kaymaz)
+        const orbit = reduce ? 0 : Math.sin(t * 0.07 + it.phase) * 0.3 + scrollVel * 0.0015 + inv * (c.leaving ? 0.9 : -1.4);
         const ca = Math.cos(orbit), sa = Math.sin(orbit);
         let x = it.base.x * ca - it.base.z * sa * 0.3;
         let z = it.base.z + it.base.x * sa * 0.3;
         let y = it.base.y + (reduce ? 0 : Math.sin(t * 0.8 + it.phase) * 0.05);
         if (c.leaving) {
-          // kameraya doğru savrulup çıkar
-          x *= 1 + inv * 1.4; y *= 1 + inv * 0.8; z += inv * 2.2;
+          // yanlara ve arkaya savrulup çıkar (paketin önünden geçmez)
+          x *= 1 + inv * 1.4; y *= 1 + inv * 0.8; z -= inv * 1.6;
         } else {
           // arkadan, uzaktan dönerek gelir
           x *= 0.45 + 0.55 * e + inv * 0.9; z -= inv * 2.6; y += inv * 0.6 * Math.sign(it.base.y || 1);
         }
         if (insp.on) { x *= 1.45; z = Math.min(z, -0.6) - 0.3; }
+        // paketin önündeki parçalar paketin üzerine gelmesin: silüetin dışına itilir
+        if (z > -0.35 && Math.abs(y) < 0.78) {
+          const lim = 0.62 + it.size * 0.6;
+          if (Math.abs(x) < lim) x = (x < 0 ? -1 : 1) * lim;
+        }
         it.sp.position.set(x + pointer.sx * 0.06 * (1 + it.base.z), y, z);
         const sz = it.size * (0.55 + 0.45 * e);
         it.sp.scale.set(sz * it.flip, sz * it.aspect, 1);
@@ -835,7 +849,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     if (juice) {
       dv.copy(root.position).project(camera);
       const lo = insp.on ? 0 : 1 - juiceClip.bottom, hi = insp.on ? 1 : 1 - juiceClip.top;
-      juice.render({ a: juiceA, b: juiceB, blend: juiceBlend, cx: (dv.x + 1) / 2, cy: (dv.y + 1) / 2, clipLo: lo, clipHi: hi, time: t });
+      juice.render({ dark: insp.on ? 0.35 : juiceClip.dark, a: juiceA, b: juiceB, blend: juiceBlend, cx: (dv.x + 1) / 2, cy: (dv.y + 1) / 2, clipLo: lo, clipHi: hi, time: t });
     }
   }
   requestAnimationFrame(frame);
@@ -848,7 +862,10 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     setFan(v) { fanTarget = v; },
     setActive(v) { active = v; if (!v && juice) juice.hide(); },
     // ürünler bölümünün ekrandaki üst/alt kenarı (ekran yüksekliğine oranla)
-    setJuiceClip(top, bottom) { juiceClip.top = top; juiceClip.bottom = bottom; },
+    setJuiceClip(top, bottom, dark = 0) { juiceClip.top = top; juiceClip.bottom = bottom; juiceClip.dark = dark; },
+    setAutoRotate(v) { insp.auto = v; insp.idle = v ? 1.5 : 0; },
+    resetView() { insp.goto = Math.round(insp.ry / TAU) * TAU; insp.rx = 0.06; insp.zoomT = 1; insp.idle = 0; },
+    zoom() { return insp.zoomT; },
     setStream(f) {
       if (f === null) { if (stream !== null) { spin = spinTarget = 0; } stream = null; return; }
       if (stream === null) streamNow = f;

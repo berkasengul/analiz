@@ -35,27 +35,51 @@ const productsEl = $('#urunler');
 const heroEl = $('#hero');
 productsEl.style.setProperty('--n', NS);
 
-/* ---------- katalog ve afişler ---------- */
+/* ---------- iletişim yardımcıları ---------- */
+const mailHref = (f) => `mailto:${SITE.email}?subject=${encodeURIComponent(f ? `${f.name} hakkında bilgi` : 'Ürün bilgisi')}&body=${encodeURIComponent(f ? `Merhaba, ${f.name} ürünü hakkında bilgi almak istiyorum.\n\n` : 'Merhaba,\n\n')}`;
+const telHref = () => (SITE.phone && SITE.phone.tel ? `tel:${SITE.phone.tel}` : '#iletisim');
+
+/* ---------- tüm ürünler: 3B vitrin ---------- */
 $('#catalog').innerHTML = FLAVORS.map((f, i) => `
-  <button class="card reveal" type="button" data-inspect="${i}" style="--c:${f.bg}" aria-label="${f.name}: 3D olarak incele">
-    <span class="card__img"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></span>
-    <span class="card__n">${pad(i + 1)}</span>
-    <b class="card__name">${f.name}</b>
-    <span class="card__slogan">${f.slogan}</span>
-    <span class="card__go">3D incele →</span>
+  <button class="pick" type="button" role="tab" data-pick="${i}" style="--c:${f.bg}" aria-selected="false" aria-label="${f.name}">
+    <span class="pick__img"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></span>
+    <span class="pick__n">${pad(i + 1)}</span>
+    <b class="pick__name">${f.short || f.name}</b>
   </button>`).join('');
-$('#posters').innerHTML = FLAVORS.filter((f) => f.poster).map((f) => `
-  <figure class="poster"><img src="${f.poster}" alt="${f.name} afişi" loading="lazy" width="880" height="1100" /></figure>`).join('');
+const picks = $$('.pick');
+let srIndex = NS - 1; // akıştaki son ürün (Ananas) vitrine iner ve seçili gelir
+function selectShowroom(i, fromUser) {
+  srIndex = (i + N) % N;
+  const f = FLAVORS[srIndex];
+  picks.forEach((b, k) => { const on = k === srIndex; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+  $('#srSlogan').textContent = f.slogan;
+  $('#srName').textContent = f.name;
+  $('#srLead').textContent = f.lead;
+  $('#srFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  $('#srMail').href = mailHref(f);
+  $('#srCall').href = telHref();
+  const box = $('#srProduct');
+  box.classList.remove('swap'); void box.offsetWidth; box.classList.add('swap');
+  if (fromUser && scene && document.body.dataset.stage === 'catalog') scene.setFlavor(srIndex);
+  if (fromUser) { const b = picks[srIndex]; b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' }); }
+}
+picks.forEach((b) => b.addEventListener('click', () => selectShowroom(+b.dataset.pick, true)));
+$('#srInspect').addEventListener('click', () => openDetail(srIndex));
+$('#srStage').addEventListener('click', () => openDetail(srIndex));
+selectShowroom(srIndex, false);
 
 /* ---------- ürün noktaları ---------- */
 const dotsEl = $('#flavorDots');
 dotsEl.innerHTML = STREAM.map((f, i) => `<button type="button" data-go="${i}" aria-label="${f.name}"><span>${f.short || f.name}</span></button>`).join('');
 const dots = $$('button', dotsEl);
 
-/* ---------- e-posta ---------- */
-const mail = $('#mailLink');
-mail.href = `mailto:${SITE.email}`;
-mail.textContent = SITE.email;
+/* ---------- e-posta ve telefon ---------- */
+$('#mailLink').href = mailHref(null);
+$('#mailText').textContent = SITE.email;
+$('#phoneLink').href = telHref();
+$('#phoneText').textContent = SITE.phone ? SITE.phone.display : '';
+$('#dockMail').href = mailHref(null);
+$('#dockCall').href = telHref();
 $('#year').textContent = new Date().getFullYear();
 
 /* ---------- yumuşak kaydırma ---------- */
@@ -174,8 +198,9 @@ function pose(stage) {
   if (isMobile()) {
     switch (stage) {
       case 'hero': return { x: 0.08, y: H * 0.47, s: 0.44, ry: -0.1, rz: 0, cloud: 0, frost: 0 };
-      case 'product': return { x: 0, y: H * 0.43, s: 0.78, ry: -0.3, rz: 0.02, cloud: 1, frost: 0 };
-      case 'inspect': return { x: 0, y: H * 0.33, s: 0.74, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
+      case 'product': return { x: 0, y: H * 0.43, s: 0.78, ry: -0.2, rz: 0.02, cloud: 1, frost: 0 };
+      case 'catalog': return { x: 0, y: H * 0.5, s: 0.62, ry: -0.16, rz: 0, cloud: 0.6, frost: 0 };
+      case 'inspect': return { x: 0, y: H * 0.44, s: 0.64, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
       case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: 0.5, rz: 0, cloud: 0, frost: 1 };
       default: return { x: 0, ...off, ry: 0, rz: 0 };
     }
@@ -183,7 +208,8 @@ function pose(stage) {
   const big = Math.min(1.55, W * 0.72);
   switch (stage) {
     case 'hero': return { x: W * 0.53, y: -0.04, s: big * 0.76, ry: -0.1, rz: 0, cloud: 0, frost: 0 };
-    case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.38, rz: 0.03, cloud: 1, frost: 0 };
+    case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.22, rz: 0.03, cloud: 1, frost: 0 };
+    case 'catalog': return { x: W * 0.42, y: H * 0.12, s: big * 0.86, ry: -0.18, rz: 0.02, cloud: 0.6, frost: 0 };
     case 'inspect': return { x: W * 0.2, y: 0.1, s: big * 0.86, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
     case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.65, rz: 0.12, cloud: 0, frost: 1 };
     default: return { x: W * 0.3, ...off, ry: -0.4, rz: 0 };
@@ -204,6 +230,19 @@ let inspecting = false;
 let streamF = null;
 let heroApi = null;
 let handing = false;
+const catEl = $('#tum-urunler');
+const lerpPose = (a, b, t) => { const o = {}; for (const k in b) o[k] = (a[k] ?? b[k]) + (b[k] - (a[k] ?? b[k])) * t; return o; };
+// akışın sonundan vitrine: son ürün kesilmeden aşağı, vitrindeki yerine iner; vitrin kayarken onunla birlikte gider
+function catalogPose(vh) {
+  const cr = catEl.getBoundingClientRect();
+  const H = scene.halfHeight();
+  const u = (2 * H) / vh;
+  const enter = clamp(1 - cr.top / vh, 0, 1);
+  const c = pose('catalog');
+  if (cr.top > 0) return { p: lerpPose(pose('product'), c, ease(enter)), t: enter };
+  c.y += -cr.top * u; // vitrin yukarı kaydıkça paket de onunla gider
+  return { p: c, t: 1 };
+}
 
 function update(force) {
   if (inspecting) return;
@@ -213,10 +252,12 @@ function update(force) {
   if (scene) scene.kick((y - lastY) * 0.4);
   lastY = y;
   hdr.classList.toggle('hdr--scrolled', y > 40);
+  document.body.classList.toggle('scrolled', y > vh * 0.6);
 
   // ürün akışı
   const pr = productsEl.getBoundingClientRect();
-  if (scene) scene.setJuiceClip(pr.top / vh, pr.bottom / vh);
+  const cr0 = catEl.getBoundingClientRect();
+  if (scene) scene.setJuiceClip(pr.top / vh, cr0.bottom / vh, clamp(1 - cr0.top / vh, 0, 1));
   const inProducts = pr.top <= mid && pr.bottom > mid;
   if (inProducts) {
     const total = productsEl.offsetHeight - vh;
@@ -229,11 +270,14 @@ function update(force) {
     bgEl.style.backgroundColor = mix(FLAVORS[i].bg, FLAVORS[i + 1].bg, r);
     document.documentElement.dataset.ink = FLAVORS[currentProduct].ink;
     document.body.dataset.stage = 'product';
+    // akış biterken yazılar söner: vitrine inen paketle üst üste binmesin
+    const leaving = smooth(0.45, 0.85, pr.bottom / vh);
+    productsEl.classList.toggle('ending', pr.bottom < vh * 0.97);
     players.forEach((p, k) => {
       const d = f - k;
       const ad = Math.abs(d);
       // ürün ekrandayken yazı tamamen net ve sabit; yalnızca geçiş anında kayar ve solar
-      const o = 1 - smooth(0.3, 0.47, ad);
+      const o = (1 - smooth(0.3, 0.47, ad)) * leaving;
       const moved = Math.sign(d) * Math.max(0, ad - 0.18);
       p.style.setProperty('--d', moved.toFixed(4));
       p.style.setProperty('--o', o.toFixed(3));
@@ -252,7 +296,7 @@ function update(force) {
     if (scene) {
       scene.setActive(true);
       scene.setStream(f);
-      scene.setPose(pose('product'));
+      scene.setPose(pr.bottom < vh ? catalogPose(vh).p : pose('product'));
       scene.setFan(0);
     }
     streamF = f;
@@ -278,19 +322,16 @@ function update(force) {
         const u = (2 * H) / vh;
         const vw = window.innerWidth;
         const startY = rect.cy; // paket ekranda yerinde kalır, açılış altından yukarı kayar: sayfaya göre aşağı iner
-        const start = { x: (rect.cx - vw / 2) * u, y: -(startY - vh / 2) * u, s: (rect.h * u) / 1.153, ry: -0.08, rz: 0, cloud: 0, frost: 0 };
-        const end = pose('product');
-        // sinematik iniş: ilk pikselden itibaren hareket eder (ease-out), aşağı doğru kavis çizer,
-        // hafifçe döner ve eğilir, ürün yerine yavaşlayarak oturur
+        // Açılıştaki paketle aynı duruş: ekrandaki konumu, boyu ve bakış açısı (kamera perspektifi telafi edilir),
+        // fare ve nefes hareketi kapalı. İnerken bu duruş korunur, yalnızca son bölümde ürün pozuna yumuşakça döner.
+        const sx = (rect.cx - vw / 2) * u, sy = -(startY - vh / 2) * u;
+        const start = { x: sx, y: sy, s: (rect.h * u) / 1.153 * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0 };
+        const end = { ...pose('product'), rx: 0, pt: 1 };
         const raw = clamp(y / Math.max(1, productsEl.offsetTop - mid), 0, 1);
-        const k = 1 - Math.pow(1 - raw, 2.2);
-        const arc = Math.sin(raw * Math.PI);
+        const k = 1 - Math.pow(1 - raw, 2); // ilk pikselden itibaren yumuşak, sonda yavaşlayarak
+        const kr = smooth(0.35, 1, raw); // duruş sona doğru değişir
         const p = {};
-        for (const key in end) p[key] = start[key] + (end[key] - start[key]) * k;
-        p.y -= arc * H * 0.2;
-        p.ry += arc * 0.55;
-        p.rz = arc * -0.1;
-        p.s *= 1 + arc * 0.05;
+        for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (key === 'rx' || key === 'ry' || key === 'rz' || key === 'pt' || key === 'cloud' ? kr : k);
         if (!handing) { scene.snapPose({ ...p }); handing = true; }
         else scene.setPose(p);
         scene.setFlavor(0);
@@ -316,6 +357,10 @@ function update(force) {
   }
   // ürünlerin altındaki bölümlerde son ürün kalsın, üstündekilerde ilk ürün
   const below = pr.bottom <= mid;
+  if (scene && !above && active.dataset.stage === 'catalog') {
+    // vitrin: paket kaydırmaya bağlı iner, vitrinle birlikte kayar
+    scene.setPose(catalogPose(vh).p);
+  }
   const key = `${active.dataset.stage}|${below}`;
   if (key === lastKey && !force) return;
   lastKey = key;
@@ -326,8 +371,8 @@ function update(force) {
   const stage = active.dataset.stage || 'off';
   document.body.dataset.stage = stage;
   if (scene) {
-    scene.setFlavor(below ? NS - 1 : 0);
-    if (!above) scene.setPose(pose(stage));
+    scene.setFlavor(stage === 'catalog' ? srIndex : below ? NS - 1 : 0);
+    if (!above && stage !== 'catalog') scene.setPose(pose(stage));
   }
   if (above) document.documentElement.dataset.ink = 'light';
 }
@@ -369,6 +414,24 @@ hit.addEventListener('pointerenter', () => hit.classList.add('hover'));
 hit.addEventListener('pointerleave', () => hit.classList.remove('hover'));
 
 /* ---------- 3B inceleme ---------- */
+$('#detailThumbs').innerHTML = FLAVORS.map((f, i) => `<button type="button" role="tab" data-thumb="${i}" style="--c:${f.bg}" aria-label="${f.name}"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /><span>${f.short || f.name}</span></button>`).join('');
+const thumbs = $$('#detailThumbs button');
+thumbs.forEach((b) => b.addEventListener('click', () => switchDetail(+b.dataset.thumb)));
+const autoBtn = $('#autoBtn');
+const zoomVal = $('#zoomVal');
+const showZoom = () => { if (scene) zoomVal.textContent = `${Math.round(scene.zoom() * 100)}%`; };
+autoBtn.addEventListener('click', () => {
+  const on = autoBtn.getAttribute('aria-pressed') !== 'true';
+  autoBtn.setAttribute('aria-pressed', String(on));
+  autoBtn.classList.toggle('on', on);
+  scene.setAutoRotate(on);
+});
+$('#resetBtn').addEventListener('click', () => {
+  scene.resetView();
+  showZoom();
+  $$('.seg [data-view]').forEach((x) => x.classList.toggle('on', x.dataset.view === 'front'));
+});
+
 const detail = $('#detail');
 let detailIndex = 0;
 let returnFocus = null;
@@ -387,6 +450,10 @@ function fillDetail(i) {
   $('#detailPrev span').textContent = prev.short || prev.name;
   $('#detailNext span').textContent = next.short || next.name;
   $('#detailCount').textContent = `${pad(i + 1)} / ${pad(N)}`;
+  $('#detailMail').href = mailHref(f);
+  $('#detailCall').href = telHref();
+  thumbs.forEach((b, k) => { const on = k === i; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+  thumbs[i].scrollIntoView({ block: 'nearest', inline: 'center' });
   bgEl.classList.remove('bg--live');
   bgEl.style.backgroundColor = f.bg;
   document.documentElement.dataset.ink = f.ink;
@@ -448,7 +515,8 @@ $$('.seg [data-view]').forEach((b) => b.addEventListener('click', () => {
   scene.setView(b.dataset.view);
   $$('.seg [data-view]').forEach((x) => x.classList.toggle('on', x === b));
 }));
-$$('.seg [data-zoom]').forEach((b) => b.addEventListener('click', () => scene.zoomBy(+b.dataset.zoom)));
+$$('.seg [data-zoom]').forEach((b) => b.addEventListener('click', () => { scene.zoomBy(+b.dataset.zoom); showZoom(); }));
+$('#gl').addEventListener('wheel', () => requestAnimationFrame(showZoom), { passive: true });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') { if (inspecting) closeDetail(false); else closeMenu(); }

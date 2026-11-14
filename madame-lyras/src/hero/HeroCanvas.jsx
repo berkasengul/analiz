@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { makePouch, makeBackTexture } from '../scene.js';
 import { displayPlatform } from './stone.js';
 import { loadRelief, loadFlat } from './relief.js';
+import { juiceMaterial } from '../juice.js';
 
 /*
   Açılış sahnesi. Dünya ölçüsü: kaidenin üst yüzeyi y = 0, ana (çilek) paketin boyu ≈ 2.1 birim.
@@ -43,8 +44,9 @@ function cameraPlan(w, h) {
     // telefon: sahne üstte, yazılar altta; kaide neredeyse tam genişlikte
     // kaidenin kenarları ekrandan biraz taşabilir; paketler kesilmez
     // dikey tablette sahne biraz daha aşağıda ve küçük: paketlerin üstü menünün altına girmesin
-    if (A > 0.6) return { fov: 38, elev: 0.06, frac: 1.0, sx: 0.5, sy: 0.27, A };
-    return { fov: 38, elev: 0.06, frac: 1.18, sx: 0.5, sy: 0.215, A };
+    // telefon: yazılar üstte, sahne altta (kaide alttaki özellik satırının hemen üstünde)
+    if (A > 0.6) return { fov: 38, elev: 0.06, frac: 0.9, sx: 0.5, sy: 0.7, A };
+    return { fov: 38, elev: 0.06, frac: 1.06, sx: 0.5, sy: 0.69, A };
   }
   if (A < 1.35) {
     // tablet: yazılar solda, grup biraz daha küçük
@@ -61,46 +63,24 @@ function planDistance(pl) {
   return Math.max(dWidth, dHeight);
 }
 
-/* ---------------- arka plan: derin bordo, grubun arkasında yumuşak ışık, köşelerde vinyet ---------------- */
+/* ---------------- arka plan: ürün sayfalarıyla aynı sinematik tasarım ----------------
+   Çilek renginde parlayan merkez, yavaş akan duman, ürünlerin arkasından yayılan ışık huzmeleri,
+   paketlerin arkasından kıvrılarak geçen parlak meyve suyu şeridi, alttan dalgalanan meyve suyu,
+   bulanık damlalar, vinyet ve ince gren (src/juice.js ile ortak). */
 function Backdrop({ mobile }) {
-  const mat = useMemo(() => new THREE.ShaderMaterial({
-    uniforms: { uTime: { value: 0 }, uAspect: { value: 1.6 }, uC: { value: new THREE.Vector2(0.69, 0.48) }, uMobile: { value: mobile ? 1 : 0 } },
-    vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.9999, 1.0); }',
-    fragmentShader: /* glsl */ `
-      uniform float uTime, uAspect, uMobile; uniform vec2 uC;
-      varying vec2 vUv;
-      float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
-      float noise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
-        return mix(mix(hash(i), hash(i + vec2(1, 0)), f.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), f.x), f.y); }
-      float fbm(vec2 p){ float s = 0.0, a = 0.5; for (int i = 0; i < 4; i++) { s += noise(p) * a; p *= 2.02; a *= 0.5; } return s; }
-      void main(){
-        vec2 uv = vUv;
-        vec2 q = vec2(uv.x * uAspect, uv.y);
-        vec3 deep = vec3(0.075, 0.006, 0.012), wine = vec3(0.3, 0.018, 0.03), red = vec3(0.7, 0.05, 0.05), warm = vec3(1.0, 0.36, 0.16);
-        float d = length((uv - uC) * vec2(uAspect * 0.62, 1.0));
-        float glow = smoothstep(1.05, 0.0, d);
-        vec3 col = mix(deep, wine, smoothstep(0.0, 0.55, glow));
-        col = mix(col, red, smoothstep(0.5, 1.0, glow));
-        col += warm * pow(glow, 4.0) * 0.18;
-        // çok hafif atmosferik derinlik
-        float sm = fbm(q * 1.3 + vec2(uTime * 0.012, -uTime * 0.009));
-        col *= 0.9 + 0.18 * sm;
-        // grubun arkasında yukarıdan inen yumuşak ışık perdesi
-        float curtain = smoothstep(0.32, 0.0, abs(uv.x - uC.x) / uAspect * 1.6) * smoothstep(0.15, 1.0, uv.y);
-        col += warm * curtain * 0.05;
-        // köşelere doğru kararan vinyet
-        float v = smoothstep(1.35, 0.25, length((uv - vec2(0.55, 0.5)) * vec2(0.95, 1.2)));
-        col *= mix(0.38, 1.0, v);
-        col += (hash(uv * 700.0 + fract(uTime) * 41.0) - 0.5) * 0.008;
-        gl_FragColor = vec4(pow(max(col, 0.0), vec3(2.2)), 1.0);
-        #include <colorspace_fragment>
-      }`,
-    depthWrite: false, depthTest: false, toneMapped: false,
-  }), [mobile]);
+  const mat = useMemo(() => {
+    const m = juiceMaterial();
+    m.uniforms.uA.value.set('#b90d10');
+    m.uniforms.uB.value.set('#b90d10');
+    m.uniforms.uDark.value = 0.1;
+    m.uniforms.uMobile.value = mobile ? 1 : 0;
+    return m;
+  }, [mobile]);
   useFrame((st) => {
-    mat.uniforms.uTime.value = st.clock.elapsedTime;
-    mat.uniforms.uAspect.value = st.size.width / st.size.height;
-    mat.uniforms.uC.value.set(S.view.sx, 1 - S.view.sy + 0.04);
+    const u = mat.uniforms;
+    u.uTime.value = st.clock.elapsedTime;
+    u.uAspect.value = st.size.width / st.size.height;
+    u.uC.value.set(S.view.sx, 1 - S.view.sy + 0.06);
   });
   return <mesh frustumCulled={false} renderOrder={-100} material={mat}><planeGeometry args={[2, 2]} /></mesh>;
 }
@@ -126,7 +106,7 @@ function Lights({ mobile, heroTarget }) {
       {/* FILL: önden, düşük, nötr-sıcak */}
       <directionalLight position={[5, 2, 7]} intensity={0.55} color="#ffeadf" />
       {/* TOP: ana çilek paketine en güçlü ışık */}
-      <spotLight ref={topRef} position={[0.5, 6.6, 3.0]} angle={0.3} penumbra={0.75} intensity={95} distance={16} decay={2} color="#fff1e2" />
+      <spotLight ref={topRef} position={[0.5, 6.6, 3.0]} angle={0.3} penumbra={0.75} intensity={62} distance={16} decay={2} color="#fff1e2" />
       {/* RIM: arkadan amber ve kırmızı kontur */}
       <spotLight ref={rimR} position={[3.6, 3.3, -3.6]} angle={0.85} penumbra={1} intensity={95} distance={18} decay={2} color="#ffa060" />
       <spotLight ref={rimL} position={[-4.0, 3.0, -3.3]} angle={0.85} penumbra={1} intensity={70} distance={18} decay={2} color="#ff5a3c" />
@@ -270,6 +250,19 @@ function blobTex() {
 }
 function Pouches({ flavors, mobile, onReady }) {
   const root = useMemo(() => new THREE.Group(), []);
+  const list = useRef([]);
+  // Ana çilek paketi ağır çekimde, çok az hareketle kendini gösterir: yavaşça sağa sola döner, hafifçe yükselip iner
+  useFrame((st) => {
+    const t = st.clock.elapsedTime;
+    const k = clamp01(S.fruitIn * 1.2);
+    for (const h of list.current) {
+      if (!h.cfg.hero) continue;
+      const lift = (1 - Math.cos(t * 0.5)) * 0.022 * k;
+      h.sway.rotation.set(Math.sin(t * 0.31) * 0.012 * k, Math.sin(t * 0.33) * 0.17 * k, Math.sin(t * 0.27 + 1) * 0.01 * k);
+      h.sway.position.y = lift / h.holder.scale.y;
+      h.blob.material.opacity = (mobile ? 0.95 : 0.8) * (1 - lift * 4);
+    }
+  });
   useEffect(() => {
     let dead = false;
     const loader = new THREE.TextureLoader();
@@ -290,7 +283,10 @@ function Pouches({ flavors, mobile, onReady }) {
       const bb = new THREE.Box3().setFromObject(pk.group);
       const sc = S0 * cfg.s;
       const holder = new THREE.Group();
-      holder.add(pk.group);
+      // iç grup: ana paketin ağır çekim salınımı (giriş animasyonu dış grubu, salınım iç grubu oynatır)
+      const sway = new THREE.Group();
+      sway.add(pk.group);
+      holder.add(sway);
       holder.scale.setScalar(sc);
       holder.rotation.y = cfg.ry;
       holder.position.set(cfg.x, -bb.min.y * sc - 0.008, cfg.z);
@@ -303,8 +299,9 @@ function Pouches({ flavors, mobile, onReady }) {
       blob.position.set(cfg.x, 0.004, cfg.z + 0.03);
       blob.renderOrder = 2;
       root.add(blob);
-      return { cfg, fl, pk, holder };
+      return { cfg, fl, pk, holder, sway, blob };
     });
+    list.current = holders;
     Promise.all(holders.map((h) => new Promise((res) => loader.load(h.fl.tex, (t) => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; res(t); }, undefined, () => res(null)))))
       .then(async (texes) => {
         const im = await logo;
@@ -460,7 +457,8 @@ const NEAR = [
   { u: P('cilek', 0, true), at: [-0.93, -0.72], dist: 3.0, w: 0.9, rot: 0.35, mobile: false },
   { u: P('yaprak', 2, true), at: [-0.98, 0.78], dist: 3.2, w: 0.75, rot: -0.7, mobile: true },
   { u: P('cilek', 0, true), at: [0.8, -0.95], dist: 2.8, w: 0.75, rot: -0.5, mobile: false },
-  { u: P('yaprak', 0, true), at: [0.97, -0.55], dist: 3.0, w: 0.6, rot: 0.3, mobile: true },
+  { u: P('yaprak', 0, true), at: [0.97, -0.55], dist: 3.0, w: 0.6, rot: 0.3, mobile: false },
+  { u: P('yaprak', 0, true), at: [1.0, 0.1], dist: 3.6, w: 0.5, rot: 0.6, mobile: true, only: 'mobile' },
 ];
 function NearLayer({ mobile }) {
   const { camera } = useThree();
@@ -469,7 +467,7 @@ function NearLayer({ mobile }) {
   const v = useMemo(() => new THREE.Vector3(), []);
   useEffect(() => {
     let dead = false;
-    const list = NEAR.filter((n) => !mobile || n.mobile);
+    const list = NEAR.filter((n) => (mobile ? n.mobile : n.only !== 'mobile'));
     Promise.all(list.map((n) => loadFlat(n.u))).then((res) => {
       if (dead) return;
       res.forEach((r, i) => {
@@ -625,7 +623,8 @@ function Handoff() {
     const toPx = (x, y, z) => { v.set(x, y, z).project(camera); return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height]; };
     const cx = (box.min.x + box.max.x) / 2, cz = h.position.z;
     const top = toPx(cx, box.max.y, cz), bot = toPx(cx, box.min.y, cz);
-    S.rect = { cx: (top[0] + bot[0]) / 2, cy: (top[1] + bot[1]) / 2, h: bot[1] - top[1], scrollY: window.scrollY };
+    const sw = h.children[0];
+    S.rect = { cx: (top[0] + bot[0]) / 2, cy: (top[1] + bot[1]) / 2, h: bot[1] - top[1], scrollY: window.scrollY, ry: h.rotation.y + (sw ? sw.rotation.y : 0) };
   });
   return null;
 }
@@ -653,7 +652,7 @@ function Scene({ flavors, mobile, reduce, onReady }) {
   useEffect(() => { gl.toneMapping = THREE.NeutralToneMapping; gl.toneMappingExposure = 1.0; }, [gl]);
   return (
     <>
-      <fog attach="fog" args={['#2a0306', 12, 26]} />
+      <fog attach="fog" args={['#5a0a0c', 12, 26]} />
       <Backdrop mobile={mobile} />
       <Lights mobile={mobile} heroTarget={HERO_TARGET} />
       <BackGlow />
@@ -691,7 +690,7 @@ export default function HeroCanvas({ flavors, mobile, reduce, active, onReady })
       gl={{ antialias: mobile, powerPreference: 'high-performance', alpha: false, stencil: false }}
       camera={{ fov: 36, near: 0.1, far: 80, position: [0, 3, 14] }}
       frameloop={active ? 'always' : 'never'}
-      onCreated={({ gl }) => { gl.setClearColor('#140204'); }}
+      onCreated={({ gl }) => { gl.setClearColor('#5a0a0c'); }}
     >
       <Scene flavors={flavors} mobile={mobile} reduce={reduce} onReady={onReady} />
     </Canvas>

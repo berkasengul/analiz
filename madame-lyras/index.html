@@ -34,8 +34,8 @@
     <nav class="hdr__nav" id="nav" aria-label="Ana menü">
       <a href="#urunler">Ürünler</a>
       <a href="#surec">Nasıl yapılır</a>
+      <a href="#tum-urunler">Tüm ürünler</a>
       <a href="#hakkimizda">Hakkımızda</a>
-      <a href="#toptan">Toptan</a>
       <a href="#iletisim" class="hdr__cta">İletişim</a>
     </nav>
     <button class="hdr__menu" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
@@ -69,14 +69,6 @@
       </div>
     </section>
 
-    <!-- MARQUEE -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span>Çilek</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Elma</span><i>✦</i><span>Şeftali</span><i>✦</i><span>Mango</span><i>✦</i><span>Ananas</span><i>✦</i><span>Muz</span><i>✦</i><span>Hindistan cevizi</span><i>✦</i><span>Sade dondurma</span><i>✦</i>
-        <span>Çilek</span><i>✦</i><span>Ahududu</span><i>✦</i><span>Elma</span><i>✦</i><span>Şeftali</span><i>✦</i><span>Mango</span><i>✦</i><span>Ananas</span><i>✦</i><span>Muz</span><i>✦</i><span>Hindistan cevizi</span><i>✦</i><span>Sade dondurma</span><i>✦</i>
-      </div>
-    </div>
-
     <!-- ÜRÜNLER -->
     <div id="urunler" class="products" data-stage="product">
       <div class="products__stick">
@@ -85,24 +77,33 @@
       </div>
     </div>
 
-    <!-- TÜM ÜRÜNLER -->
-    <section class="sec catalog" id="tum-urunler" data-bg="#f4ecdf" data-ink="dark" data-stage="catalog">
-      <div class="wrap">
-        <header class="sec__head reveal">
-          <p class="eyebrow">Tüm ürünler</p>
-          <h2>Dokuz paket,<br /><em>tek yöntem.</em></h2>
-          <p class="sec__lead">Yedi meyve, hindistan cevizi atıştırmalığı ve sade dondurma. Hepsi dondurularak kurutuldu, hepsi kilitli pakette.</p>
-        </header>
-        <div class="catalog__grid" id="catalog"></div>
+    <!-- TÜM ÜRÜNLER: 3B VİTRİN -->
+    <section class="sec showroom" id="tum-urunler" data-bg="#1a0507" data-ink="light" data-stage="catalog">
+      <div class="wrap showroom__inner">
+        <div class="showroom__info">
+          <p class="eyebrow">Tüm ürünler · 9 paket</p>
+          <h2 class="showroom__title">Dokuz paket, <em>tek yöntem.</em></h2>
+          <div class="showroom__product" id="srProduct" aria-live="polite">
+            <p class="showroom__slogan" id="srSlogan"></p>
+            <h3 class="showroom__name" id="srName"></h3>
+            <p class="showroom__lead" id="srLead"></p>
+            <dl class="facts" id="srFacts"></dl>
+            <div class="showroom__actions">
+              <button class="btn btn--gold" type="button" id="srInspect">3D olarak incele</button>
+              <a class="btn btn--glass" id="srMail" href="#iletisim">E-posta ile sor</a>
+              <a class="btn btn--glass btn--icon" id="srCall" href="#iletisim" aria-label="Telefonla ara"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <button class="showroom__stage" id="srStage" type="button" aria-label="Seçili ürünü 3D olarak incele"><span class="hitlabel">3D<br />İncele</span></button>
       </div>
-      <div class="posters" aria-label="Afişler">
-        <div class="posters__head wrap"><p class="eyebrow reveal">Afişler</p></div>
-        <div class="posters__track" id="posters" tabindex="0"></div>
+      <div class="wrap">
+        <div class="showroom__picker" id="catalog" role="tablist" aria-label="Ürün seçin"></div>
       </div>
     </section>
 
     <!-- SÜREÇ -->
-    <section class="sec process" id="surec" data-bg="#10161d" data-ink="light" data-stage="process">
+    <section class="sec process" id="surec" data-bg="#140607" data-ink="light" data-stage="process">
       <div class="wrap process__inner">
         <header class="sec__head reveal">
           <p class="eyebrow">Nasıl yapılır</p>
@@ -124,28 +125,8 @@
       </div>
     </section>
 
-    <!-- KULLANIM -->
-    <section class="sec usage" data-bg="#f4ecdf" data-ink="dark" data-stage="usage">
-      <div class="wrap usage__inner">
-        <header class="sec__head reveal">
-          <p class="eyebrow">Nasıl tüketilir</p>
-          <h2>Paketten avuca,<br /><em>kaseden pastaya.</em></h2>
-        </header>
-        <div class="usage__grid">
-          <figure class="photo reveal"><img src="/img/kase-cilek.webp" alt="Kasede dondurularak kurutulmuş bütün çilekler" loading="lazy" width="1200" height="1200" /><figcaption>Dondurularak kurutulmuş çilek</figcaption></figure>
-          <ul class="ideas">
-            <li class="reveal"><b>Atıştırmalık</b><span>Paketten doğrudan; hafif ve çıtır.</span></li>
-            <li class="reveal"><b>Kahvaltı</b><span>Yoğurdun, granolanın, müslinin üzerine.</span></li>
-            <li class="reveal"><b>Tatlı ve pasta</b><span>Kek, pasta ve tatlı süslemelerinde renk ve aroma.</span></li>
-            <li class="reveal"><b>Toz meyve</b><span>Ufalayıp smoothie, krema ve hamurlara katın.</span></li>
-          </ul>
-          <figure class="photo photo--b reveal"><img src="/img/kase-ahududu.webp" alt="Kasede dondurularak kurutulmuş ahududular" loading="lazy" width="1200" height="1200" /><figcaption>Dondurularak kurutulmuş ahududu</figcaption></figure>
-        </div>
-      </div>
-    </section>
-
     <!-- HAKKIMIZDA -->
-    <section class="sec about" id="hakkimizda" data-bg="#efe4d2" data-ink="dark" data-stage="about">
+    <section class="sec about" id="hakkimizda" data-bg="#1a0708" data-ink="light" data-stage="about">
       <div class="wrap about__inner">
         <div class="about__text">
           <p class="eyebrow reveal">Hakkımızda</p>
@@ -164,40 +145,27 @@
       </div>
     </section>
 
-    <!-- TOPTAN -->
-    <section class="sec trade" id="toptan" data-bg="#1c1714" data-ink="light" data-stage="trade">
-      <div class="wrap trade__inner">
-        <header class="sec__head reveal">
-          <p class="eyebrow">Toptan ve endüstriyel</p>
-          <h2>Pastaneye, kafeye,<br /><em>üretim hattına.</em></h2>
-          <p class="sec__lead">Endüstriyel ölçekte bütün, dilim, toz, granül ve küp formda ürünler için bizimle iletişime geçin.</p>
-        </header>
-        <div class="forms reveal" role="list">
-          <div role="listitem"><i class="f f--whole"></i>Bütün</div>
-          <div role="listitem"><i class="f f--slice"></i>Dilim</div>
-          <div role="listitem"><i class="f f--cube"></i>Küp</div>
-          <div role="listitem"><i class="f f--granule"></i>Granül</div>
-          <div role="listitem"><i class="f f--powder"></i>Toz</div>
-        </div>
-        <ul class="range reveal">
-          <li>Çilek</li><li>Dilim çilek</li><li>Ahududu</li><li>Elma</li><li>Mango</li><li>Ejder meyvesi</li>
-        </ul>
-        <a class="btn btn--light reveal" href="#iletisim" data-topic="Toptan / endüstriyel">Teklif isteyin</a>
-      </div>
-    </section>
-
     <!-- İLETİŞİM -->
-    <section class="sec contact" id="iletisim" data-bg="#f4ecdf" data-ink="dark" data-stage="contact">
+    <section class="sec contact" id="iletisim" data-bg="#120506" data-ink="light" data-stage="contact">
       <div class="wrap contact__inner">
         <div class="contact__info">
           <p class="eyebrow reveal">İletişim</p>
-          <h2 class="reveal">Bir sorunuz mu var?<br /><em>Yazın, dönelim.</em></h2>
-          <p class="reveal">Ürünler, satış noktaları, toptan ve endüstriyel talepler için formu doldurun ya da doğrudan e-posta gönderin.</p>
-          <a class="mail reveal" id="mailLink" href="mailto:info@gencanadolugida.com.tr">info@gencanadolugida.com.tr</a>
+          <h2 class="reveal">Ürünler hakkında<br /><em>bilgi alın.</em></h2>
+          <p class="reveal">Ürün bilgisi, satış noktaları, toptan ve endüstriyel talepler için bize e-postayla ya da telefonla ulaşın; formu doldurursanız biz size dönelim.</p>
+          <div class="reach reveal">
+            <a class="reach__card" id="mailLink" href="mailto:info@gencanadolugida.com.tr">
+              <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i>
+              <span><small>E-posta gönderin</small><b id="mailText">info@gencanadolugida.com.tr</b></span>
+            </a>
+            <a class="reach__card" id="phoneLink" href="#iletisim">
+              <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg></i>
+              <span><small>Telefonla arayın</small><b id="phoneText"></b></span>
+            </a>
+          </div>
           <ul class="contact__meta reveal">
             <li><span>Firma</span>Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi</li>
             <li><span>Üretim</span>Solagron Tarım Ürünleri · Silifke OSB, Mersin</li>
-            <li><span>Yanıt</span>Mesajlarınıza iş günlerinde dönüş yapıyoruz.</li>
+            <li><span>Toptan</span>Pastane, kafe ve üretim hatları için bütün, dilim, küp, granül ve toz formlar</li>
           </ul>
         </div>
         <form class="form reveal" id="contactForm" name="iletisim" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
@@ -216,9 +184,9 @@
               <option>Diğer</option>
             </select>
           </div>
-          <div class="field"><label for="f-msg">Mesajınız</label><textarea id="f-msg" name="mesaj" rows="5" required></textarea></div>
+          <div class="field"><label for="f-msg">Mesajınız</label><textarea id="f-msg" name="mesaj" rows="4" required></textarea></div>
           <label class="check"><input type="checkbox" name="kvkk" value="evet" required /><span>Kişisel verilerimin bu talebe yanıt verilmesi amacıyla işlenmesini kabul ediyorum.</span></label>
-          <button class="btn btn--dark" type="submit">Gönder</button>
+          <button class="btn btn--gold" type="submit">Gönder</button>
           <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -228,13 +196,22 @@
   <footer class="ftr" data-bg="#141111">
     <div class="wrap ftr__inner">
       <a href="#top" class="ftr__brand"><img src="/logo.svg" alt="" width="56" height="56" /><span>Genç Anadolu Gıda</span></a>
-      <nav aria-label="Alt menü"><a href="#urunler">Ürünler</a><a href="#surec">Nasıl yapılır</a><a href="#hakkimizda">Hakkımızda</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a></nav>
+      <nav aria-label="Alt menü"><a href="#urunler">Ürünler</a><a href="#tum-urunler">Tüm ürünler</a><a href="#surec">Nasıl yapılır</a><a href="#hakkimizda">Hakkımızda</a><a href="#iletisim">İletişim</a></nav>
       <p class="ftr__small">© <span id="year">2026</span> Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi. Ürünlerimiz kardeş kuruluşumuz Solagron Tarım Ürünleri San. ve Tic. A.Ş. tesisinde üretilir. Sitede satış yapılmamaktadır.</p>
     </div>
   </footer>
 
+  <div class="dock" id="dock" aria-label="Hızlı iletişim">
+    <a class="dock__btn" id="dockMail" href="#iletisim" aria-label="E-posta ile bilgi alın"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>E-posta</span></a>
+    <a class="dock__btn" id="dockCall" href="#iletisim" aria-label="Telefonla arayın"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg><span>Ara</span></a>
+  </div>
+
   <div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="detailName" aria-hidden="true" hidden>
-    <button class="detail__close" id="detailClose" type="button" aria-label="İncelemeyi kapat"><span></span><span></span></button>
+    <div class="detail__top">
+      <button class="detail__back" id="detailClose" type="button" aria-label="İncelemeyi kapat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Geri dön</span></button>
+      <p class="detail__count" id="detailCount"></p>
+      <p class="detail__hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Sürükleyerek çevirin · tekerlek ya da iki parmakla yakınlaştırın</p>
+    </div>
     <div class="detail__panel" id="detailPanel">
       <p class="eyebrow" id="detailSlogan"></p>
       <h2 class="detail__name" id="detailName"></h2>
@@ -242,26 +219,34 @@
       <p class="detail__desc" id="detailDesc"></p>
       <dl class="facts" id="detailFacts"></dl>
       <ul class="badges badges--small" id="detailClaims"></ul>
-      <button class="btn btn--light" type="button" id="detailCta">Bu ürün için bilgi al</button>
-    </div>
-    <div class="detail__tools" role="toolbar" aria-label="Görünüm">
-      <div class="seg">
-        <button type="button" data-view="front" class="on">Ön</button>
-        <button type="button" data-view="side">Yan</button>
-        <button type="button" data-view="back">Arka</button>
-        <button type="button" data-view="top">Üst</button>
+      <div class="detail__cta">
+        <a class="btn btn--gold" id="detailMail" href="#iletisim"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>E-posta ile sor</a>
+        <a class="btn btn--glass" id="detailCall" href="#iletisim"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg>Ara</a>
       </div>
+      <button class="detail__form" type="button" id="detailCta">İletişim formuyla yazın <span aria-hidden="true">→</span></button>
+    </div>
+    <div class="detail__side">
+      <button class="detail__arrow" type="button" id="detailPrev" aria-label="Önceki ürün"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span></span></button>
+      <button class="detail__arrow" type="button" id="detailNext" aria-label="Sonraki ürün"><span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="detail__dock" role="toolbar" aria-label="Görünüm">
+      <div class="seg">
+        <button type="button" data-view="front" class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Ön</button>
+        <button type="button" data-view="side"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v18h-4z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Yan</button>
+        <button type="button" data-view="back"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 2"/></svg>Arka</button>
+        <button type="button" data-view="top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l8-5 8 5-8 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Üst</button>
+      </div>
+      <i class="dock__sep" aria-hidden="true"></i>
       <div class="seg seg--zoom">
         <button type="button" data-zoom="0.8" aria-label="Uzaklaştır">−</button>
+        <span class="zoomval" id="zoomVal">100%</span>
         <button type="button" data-zoom="1.25" aria-label="Yakınlaştır">+</button>
       </div>
+      <i class="dock__sep" aria-hidden="true"></i>
+      <button class="dock__tool on" type="button" id="autoBtn" aria-pressed="true" title="Kendiliğinden dönsün"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 11-2.3-5.7M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Döndür</span></button>
+      <button class="dock__tool" type="button" id="resetBtn" title="Görünümü sıfırla"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M4.5 15a8 8 0 101.9-8.3L4 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sıfırla</span></button>
     </div>
-    <div class="detail__nav">
-      <button type="button" id="detailPrev" aria-label="Önceki ürün"><i>←</i><span></span></button>
-      <span class="detail__count" id="detailCount"></span>
-      <button type="button" id="detailNext" aria-label="Sonraki ürün"><span></span><i>→</i></button>
-    </div>
-    <p class="detail__hint">Sürükleyerek çevirin · tekerlek ya da iki parmakla yakınlaştırın</p>
+    <div class="detail__thumbs" id="detailThumbs" role="tablist" aria-label="Ürünler"></div>
   </div>
 
   <script type="module" src="/src/main.js"></script>

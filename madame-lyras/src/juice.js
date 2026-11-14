@@ -6,23 +6,18 @@ import * as THREE from 'three';
   paketin arkasından kıvrılarak geçen bir su şeridi, bulanık damlalar ve ince gren.
   Yalnızca ürünler bölümünün ekrandaki alanına (ve 3B incelemede tüm ekrana) çizilir.
 */
-export function createJuice(canvas) {
-  const mobile = () => window.innerWidth / window.innerHeight < 0.9 || window.innerWidth < 760;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, premultipliedAlpha: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(mobile() ? 1 : Math.min(window.devicePixelRatio, 1.5));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  const scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+// Paylaşılan arka plan malzemesi: ürün akışı, vitrin, inceleme ve açılış sahnesi aynı tasarımı kullanır
+export function juiceMaterial() {
   const U = {
     uTime: { value: 0 }, uAspect: { value: 1.6 }, uMobile: { value: 0 },
-    uA: { value: new THREE.Color() }, uB: { value: new THREE.Color() }, uBlend: { value: 0 },
+    uA: { value: new THREE.Color() }, uB: { value: new THREE.Color() }, uBlend: { value: 0 }, uDark: { value: 0 },
     uC: { value: new THREE.Vector2(0.66, 0.5) }, uClip: { value: new THREE.Vector2(0, 1) },
   };
-  const mat = new THREE.ShaderMaterial({
+  return new THREE.ShaderMaterial({
     uniforms: U,
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
     fragmentShader: /* glsl */ `
-      uniform float uTime, uAspect, uMobile, uBlend;
+      uniform float uTime, uAspect, uMobile, uBlend, uDark;
       uniform vec3 uA, uB;
       uniform vec2 uC, uClip;
       varying vec2 vUv;
@@ -107,6 +102,8 @@ export function createJuice(canvas) {
           }
         }
 
+        // koyu mod (vitrin ve inceleme): ürün renginde ama derin, yazılar açık renkte okunur
+        col = mix(col, col * vec3(0.3, 0.27, 0.27) + deep * 0.3, uDark);
         // sinematik vinyet ve gren
         float v = smoothstep(1.45, 0.35, length((uv - vec2(0.55, 0.52)) * vec2(1.0, 1.15)));
         col *= mix(0.72, 1.0, v);
@@ -116,6 +113,17 @@ export function createJuice(canvas) {
       }`,
     depthTest: false, depthWrite: false, toneMapped: false,
   });
+}
+
+export function createJuice(canvas) {
+  const mobile = () => window.innerWidth / window.innerHeight < 0.9 || window.innerWidth < 760;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, premultipliedAlpha: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(mobile() ? 1 : Math.min(window.devicePixelRatio, 1.5));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const mat = juiceMaterial();
+  const U = mat.uniforms;
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat);
   quad.frustumCulled = false;
   scene.add(quad);
@@ -133,10 +141,10 @@ export function createJuice(canvas) {
 
   return {
     // clip: ekranda görünen bant (alttan 0..1); boşsa çizilmez
-    render({ a, b, blend, cx, cy, clipLo, clipHi, time }) {
+    render({ a, b, blend, cx, cy, clipLo, clipHi, time, dark = 0 }) {
       if (clipHi <= 0.001 || clipLo >= 0.999 || clipHi <= clipLo) { show(false); return; }
       show(true);
-      U.uA.value.copy(a); U.uB.value.copy(b); U.uBlend.value = blend;
+      U.uA.value.copy(a); U.uB.value.copy(b); U.uBlend.value = blend; U.uDark.value = dark;
       U.uC.value.set(cx, cy);
       U.uClip.value.set(clipLo, clipHi);
       U.uTime.value = time;
