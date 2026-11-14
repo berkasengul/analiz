@@ -11,7 +11,7 @@ const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const N = FLAVORS.length;
 // 3B paketin boyu (sahne birimi; s = 1 iken). Bütün dokular aynı oranda (1:1.40)
 const POUCH_H = 1.153 * Math.sqrt(1.4 / 1.153);
-// kaydırınca sırayla gösterilen ürünler (en fazla 3): Çilek, Şeftali, Ananas (data.js'te listenin başında)
+// kaydırınca sırayla gösterilen ürünler (en fazla 3): Çilek, Beyaz Ejder Meyvesi, Ananas (data.js'te listenin başında)
 const NS = 3;
 const STREAM = FLAVORS.slice(0, NS);
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -45,6 +45,9 @@ const telHref = () => (SITE.phone && SITE.phone.tel ? `tel:${SITE.phone.tel}` : 
 const nf = (n) => n.toLocaleString('tr-TR');
 function contentsHTML(f) {
   let h = `<dl class="contents__list">${(f.contents || []).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>`;
+  if (f.nutrition) {
+    h += `<div class="contents__menu contents__nut"><table><caption>Enerji ve besin öğeleri</caption><thead><tr><th scope="col"></th><th scope="col">16 g</th><th scope="col">100 g</th><th scope="col">%RA*</th></tr></thead><tbody>${f.nutrition.map((r) => `<tr${/^(Doymuş|Şeker|İlave)/.test(r[0]) ? ' class="sub"' : ''}><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table><p class="contents__note">*Ortalama bir yetişkinin referans alım düzeyi (8400 kJ / 2000 kcal). İçindekiler: Dondurularak kurutulmuş ${lower(f.name)}.</p></div>`;
+  }
   if (f.menu) {
     const t = f.menu.reduce((a, r) => [a[0] + r[1], a[1] + r[2], a[2] + r[3]], [0, 0, 0]);
     h += `<div class="contents__menu"><table><caption>Kit içeriği · ${f.menu.length} çeşit yemek</caption><thead><tr><th scope="col">Ürün</th><th scope="col">Porsiyon</th><th scope="col">Gram</th><th scope="col">kcal</th></tr></thead><tbody>${f.menu.map((r) => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${nf(r[3])}</td></tr>`).join('')}</tbody><tfoot><tr><th scope="row">Toplam</th><td>${t[0]}</td><td>${nf(t[1])}</td><td>${nf(t[2])}</td></tr></tfoot></table></div>`;
@@ -70,7 +73,7 @@ function selectShowroom(i, fromUser) {
   $('#srLead').textContent = f.lead;
   $('#srFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#srContentsBody').innerHTML = contentsHTML(f);
-  $('#srContents summary').textContent = f.menu ? 'İçerik ve menü' : 'İçerik bilgisi';
+  $('#srContents summary').textContent = f.menu ? 'İçerik ve menü' : f.nutrition ? 'İçerik ve besin değerleri' : 'İçerik bilgisi';
   $('#srMail').href = mailHref(f);
   $('#srCall').href = telHref();
   const box = $('#srProduct');
@@ -101,26 +104,44 @@ dotsEl.innerHTML = STREAM.map((f, i) => `<button type="button" data-go="${i}" ar
 const dots = $$('button', dotsEl);
 
 /* ---------- hazır gıda kitleri ---------- */
-$('#kitGrid').innerHTML = KITS.map((k) => `
-  <article class="kit reveal">
-    <div class="kit__img"><img src="${k.img}" alt="${k.name} ${k.title}" loading="lazy" /></div>
-    <div class="kit__body">
-      <p class="kit__brand">ResQ · ${k.title}</p>
-      <h3 class="kit__name">${k.name}</h3>
-      <ul class="kit__chips"><li><b>${k.servis}</b> servis</li><li><b>${nf(k.kcal)}</b> kcal</li><li>${k.who}</li></ul>
-      <p class="kit__menu">${k.menu ? k.menu.map((r) => r[0]).join(', ') : 'Granola, gerçek meyve parçaları ve sütlü karışım. Alerjen: süt, gluten (yulaf) ve fındık içerir.'}</p>
-      <div class="kit__actions">
-        <button class="btn btn--glass" type="button" data-inspect="${FLAVORS.findIndex((f) => f.kit === k.id)}">3D incele</button>
-        <a class="btn btn--gold" href="#bayilik" data-kit="${k.id}">Toptan teklif iste</a>
-        <a class="btn btn--glass btn--icon" href="mailto:${SITE.email}?subject=${encodeURIComponent(`ResQ ${k.name} hakkında bilgi`)}" aria-label="E-posta ile sor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></a>
-      </div>
-    </div>
-  </article>`).join('');
-$$('[data-kit]').forEach((a) => a.addEventListener('click', () => {
+const kitIdx = (k) => FLAVORS.findIndex((f) => f.kit === k.id);
+let kitSel = KITS.findIndex((k) => k.id === '35-servis');
+$('#kitGrid').innerHTML = KITS.map((k, i) => `
+  <button class="ktab" type="button" role="tab" data-ktab="${i}" aria-selected="false">
+    <span class="ktab__img"><img src="${k.img}" alt="" loading="lazy" /></span>
+    <span class="ktab__txt"><small>${k.model ? (k.model.type === 'bucket' ? 'Kova' : 'Kasa') : 'Poşet'} · ${k.servis} servis</small><b>${k.name}</b></span>
+  </button>`).join('');
+const ktabs = $$('.ktab');
+function selectKit(i, fromUser) {
+  kitSel = (i + KITS.length) % KITS.length;
+  const k = KITS[kitSel], f = FLAVORS[kitIdx(k)];
+  ktabs.forEach((b, j) => { const on = j === kitSel; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+  $('#kitInfo').innerHTML = `
+    <p class="kit__brand">ResQ · ${k.title}</p>
+    <h3 class="kitshow__name">${k.name}</h3>
+    <p class="kitshow__lead">${f.lead}</p>
+    <ul class="kit__chips"><li><b>${k.servis}</b> servis</li><li><b>${nf(k.gram)}</b> g</li><li><b>${nf(k.kcal)}</b> kcal</li><li>${k.who}</li></ul>
+    <p class="kitshow__menu">${k.menu ? `<b>${k.menu.length} çeşit:</b> ${k.menu.map((r) => r[0]).join(', ')}` : 'Granola, gerçek meyve parçaları ve sütlü karışım. Alerjen: süt, gluten (yulaf) ve fındık içerir.'}</p>
+    <details class="contents"><summary>${k.menu ? 'İçerik ve menü' : 'İçerik bilgisi'}</summary><div class="contents__body">${contentsHTML(f)}</div></details>
+    <div class="kit__actions">
+      <a class="btn btn--gold" href="#bayilik" data-kit="${k.id}">Toptan teklif iste</a>
+      <button class="btn btn--glass" type="button" data-inspect="${kitIdx(k)}">3D incele</button>
+      <a class="btn btn--glass btn--icon" href="mailto:${SITE.email}?subject=${encodeURIComponent(`ResQ ${k.name} hakkında bilgi`)}" aria-label="E-posta ile sor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></a>
+    </div>`;
+  const box = $('#kitInfo'); box.classList.remove('swap'); void box.offsetWidth; box.classList.add('swap');
+  if (fromUser && scene && document.body.dataset.stage === 'kits') scene.setFlavor(kitIdx(k));
+}
+ktabs.forEach((b) => b.addEventListener('click', () => selectKit(+b.dataset.ktab, true)));
+$('#kitStage').addEventListener('click', () => openDetail(kitIdx(KITS[kitSel])));
+// toptan teklif: bayilik formu seçili kitle doldurulur
+$('#kitInfo').addEventListener('click', (e) => {
+  const a = e.target.closest('[data-kit]');
+  if (!a) return;
   const k = KITS.find((x) => x.id === a.dataset.kit);
   $('#d-ilgi').value = 'Hazır gıda kitleri';
   const m = $('#d-msg'); if (!m.value.trim()) m.value = `${k.name} (${k.title}) için toptan fiyat teklifi almak istiyorum.`;
-}));
+});
+selectKit(kitSel, false);
 
 /* ---------- e-posta ve telefon ---------- */
 $('#mailLink').href = mailHref(null);
@@ -130,6 +151,39 @@ $('#phoneText').textContent = SITE.phone ? SITE.phone.display : '';
 $('#dockMail').href = mailHref(null);
 $('#dockCall').href = telHref();
 $('#year').textContent = new Date().getFullYear();
+
+/* ---------- nasıl yapılır: paketten adımlara oklar ---------- */
+const diagram = $('#processDiagram');
+function drawProcessLines() {
+  const svg = $('#processLines');
+  if (!diagram || !svg) return;
+  const d = diagram.getBoundingClientRect();
+  const st = $('#processStage').getBoundingClientRect();
+  if (!d.width || getComputedStyle(svg).display === 'none') return;
+  const cx = st.left + st.width / 2 - d.left, cy = st.top + st.height / 2 - d.top;
+  const ph = Math.min(st.height * 0.86, st.width * 1.05), pw = ph * 0.72;
+  const NS_ = 'http://www.w3.org/2000/svg';
+  let html = `<defs><marker id="pArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f1d9b0" style="stroke:none;stroke-dasharray:none;opacity:1"/></marker></defs>`;
+  const dots = [];
+  [['tl', -1, -0.24], ['bl', -1, 0.2], ['tr', 1, -0.24], ['br', 1, 0.2]].forEach(([k, sx, sy]) => {
+    const el = $(`.step--${k}`, diagram);
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const ax = cx + sx * pw * 0.34, ay = cy + sy * ph;
+    const ex = (sx < 0 ? r.right : r.left) - d.left - sx * 10, ey = r.top + r.height / 2 - d.top;
+    const mx = (ax + ex) / 2;
+    html += `<path pathLength="1" marker-end="url(#pArrow)" d="M${ax.toFixed(1)} ${ay.toFixed(1)} C${mx.toFixed(1)} ${ay.toFixed(1)} ${mx.toFixed(1)} ${ey.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}"/>`;
+    dots.push(`<circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="4"/><circle class="ring" cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="9"/>`);
+  });
+  svg.innerHTML = html + dots.join('');
+  void NS_;
+}
+if (diagram) {
+  new IntersectionObserver((en, ob) => { en.forEach((e) => { if (e.isIntersecting) { drawProcessLines(); diagram.classList.add('in'); ob.disconnect(); } }); }, { threshold: 0.25 }).observe(diagram);
+  window.addEventListener('resize', drawProcessLines);
+  document.fonts?.ready.then(drawProcessLines);
+  drawProcessLines();
+}
 
 /* ---------- yumuşak kaydırma ---------- */
 const lenis = reduce ? null : new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9 });
@@ -239,7 +293,10 @@ if (webglOK()) {
 }
 
 /* ---------- sahne pozları ---------- */
-function pose(stage) {
+// arka plandaki meyve görselinin görünürlüğü (bölüme göre)
+const BD = { product: 0.55, catalog: 0.9, process: 0.7, about: 0.7, kits: 0.85 };
+const pose = (stage) => ({ bd: BD[stage] ?? 0, ...poseRaw(stage) });
+function poseRaw(stage) {
   const H = scene ? scene.halfHeight() : 1.34;
   const A = window.innerWidth / window.innerHeight;
   const W = H * A;
@@ -258,7 +315,8 @@ function pose(stage) {
       }
       case 'catalog': return { x: 0, y: H * 0.5, s: 0.62, ry: -0.16, rz: 0, cloud: 0.6, frost: 0 };
       case 'inspect': return { x: 0, y: H * 0.44, s: 0.64, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
-      case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: -0.4, rz: 0, cloud: 0, frost: 1 };
+      case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: -0.2, rz: 0, cloud: 0, frost: 1 };
+      case 'kits': return { x: 0, y: 0, s: 0.6, ry: -0.42, rz: 0, cloud: 0, frost: 0 };
       case 'about': return { x: 0, y: 0, s: 0.6, ry: -0.3, rz: 0, cloud: 0.55, frost: 0 };
       default: return { x: 0, ...off, ry: 0, rz: 0 };
     }
@@ -270,7 +328,8 @@ function pose(stage) {
     case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.22, rz: 0.03, cloud: 1, frost: 0 };
     case 'catalog': return { x: W * 0.42, y: H * 0.12, s: big * 0.86, ry: -0.18, rz: 0.02, cloud: 0.6, frost: 0 };
     case 'inspect': return { x: W * 0.2, y: 0.1, s: big * 0.86, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
-    case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.45, rz: 0.08, cloud: 0, frost: 1 };
+    case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.2, rz: 0.03, cloud: 0, frost: 1 };
+    case 'kits': return { x: W * 0.4, y: 0, s: big * 0.7, ry: -0.42, rz: 0, cloud: 0, frost: 0 };
     case 'about': return { x: W * 0.5, y: 0, s: big * 0.7, ry: -0.3, rz: 0.03, cloud: 0.55, frost: 0 };
     default: return { x: W * 0.3, ...off, ry: -0.4, rz: 0 };
   }
@@ -290,6 +349,7 @@ let inspecting = false;
 let streamF = null;
 let heroApi = null;
 let handing = false;
+let arrived = false; // ürün akışına ilk varış (paket açılır)
 // alt bölümlerde farklı ürünler: Nasıl yapılır → Ahududu, Hakkımızda → Muz, İletişim → Sade Dondurma
 const fIdx = (id) => FLAVORS.findIndex((f) => f.id === id);
 const SECTION_FLAVOR = { process: fIdx('ahududu'), about: fIdx('muz'), contact: fIdx('dondurma') };
@@ -302,7 +362,7 @@ function handoffPose(vh, y) {
   const u = (2 * H) / vh;
   const vw = window.innerWidth;
   const sx = (rect.cx - vw / 2) * u, sy = -(rect.cy - vh / 2) * u;
-  const start = { x: sx, y: sy, s: (rect.h * u) / POUCH_H * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0 };
+  const start = { x: sx, y: sy, s: (rect.h * u) / POUCH_H * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0, bd: 0 };
   const end = { ...pose('product'), rx: 0, pt: 1 };
   const raw = clamp(y / Math.max(1, productsEl.offsetTop), 0, 1);
   const k = raw * raw * (3 - 2 * raw); // yumuşak başlar, yumuşak oturur
@@ -310,7 +370,7 @@ function handoffPose(vh, y) {
   const kr = smooth(0, 0.32, raw);
   const kx = smooth(0, 0.4, raw);
   const p = {};
-  for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (key === 'rx' || key === 'ry' || key === 'rz' || key === 'pt' ? kr : key === 'x' ? kx : key === 'cloud' ? smooth(0.5, 1, raw) : k);
+  for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (key === 'rx' || key === 'ry' || key === 'rz' || key === 'pt' ? kr : key === 'x' ? kx : key === 'cloud' ? 0 : k);
   return p;
 }
 // bölüm içindeki bir 3B sahne alanına oturan, bölümle birlikte kayan paket pozu
@@ -360,7 +420,16 @@ function update(force) {
   const pr = productsEl.getBoundingClientRect();
   const cr0 = catEl.getBoundingClientRect();
   const endEl = $('#iletisim').getBoundingClientRect();
-  if (scene) scene.setJuiceClip(pr.top / vh, endEl.bottom / vh, clamp(1 - cr0.top / vh, 0, 1));
+  // açılıştan ürünlere: açılışın alt kısmı yumuşakça ürün arka planına karışır (arada çizgi/iz kalmaz)
+  const hb = heroEl.getBoundingClientRect().bottom;
+  const fade = Math.min(0.42, (y / vh) * 1.6);
+  heroEl.style.setProperty('--fade', `${(fade * 100).toFixed(1)}%`);
+  document.body.classList.toggle('blend-hero', y > 1 && hb > 0);
+  const raw = clamp(y / Math.max(1, productsEl.offsetTop), 0, 1);
+  const juiceTop = hb > 0 && y > 1 ? Math.min(pr.top, hb - fade * heroEl.offsetHeight) / vh : pr.top / vh;
+  if (scene) scene.setJuiceClip(juiceTop, endEl.bottom / vh, clamp(1 - cr0.top / vh, 0, 1) || (pr.top > 0 ? 0.1 * (1 - raw) : 0));
+  if (scene && !arrived && raw >= 0.97) { arrived = true; scene.burst(); }
+  if (arrived && raw < 0.6) arrived = false;
   const inProducts = pr.top <= mid && pr.bottom > mid;
   if (inProducts) {
     const total = productsEl.offsetHeight - vh;
@@ -456,7 +525,8 @@ function update(force) {
     const st = active.dataset.stage;
     // vitrin, süreç ve hakkımızda: paket bölümdeki 3B sahne alanına oturur, bölümle birlikte kayar
     if (st === 'catalog') scene.setPose(catalogPose(vh).p);
-    else if (st === 'process') scene.setPose(stagePose($('#processStage'), pose('process'), 1.2));
+    else if (st === 'kits') scene.setPose(stagePose($('#kitStage'), pose('kits'), 0.9));
+    else if (st === 'process') scene.setPose(stagePose($('#processStage'), pose('process'), 0.5));
     else if (st === 'about') scene.setPose(stagePose($('#aboutStage'), pose('about'), 1.6));
     else if (st === 'contact') scene.setPose(stagePose($('#contactStage'), pose('about'), 1.4));
   }
@@ -470,8 +540,8 @@ function update(force) {
   const stage = active.dataset.stage || 'off';
   document.body.dataset.stage = stage;
   if (scene) {
-    scene.setFlavor(stage === 'catalog' ? srIndex : SECTION_FLAVOR[stage] ?? (below ? NS - 1 : 0));
-    if (!above && !['catalog', 'process', 'about', 'contact'].includes(stage)) scene.setPose(pose(stage));
+    scene.setFlavor(stage === 'catalog' ? srIndex : stage === 'kits' ? kitIdx(KITS[kitSel]) : SECTION_FLAVOR[stage] ?? (below ? NS - 1 : 0));
+    if (!above && !['catalog', 'kits', 'process', 'about', 'contact'].includes(stage)) scene.setPose(pose(stage));
   }
   if (above) document.documentElement.dataset.ink = 'light';
 }
@@ -547,7 +617,7 @@ function fillDetail(i) {
   $('#detailFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#detailClaims').innerHTML = f.claims.map((c) => `<li>${c}</li>`).join('');
   $('#detailContentsBody').innerHTML = contentsHTML(f);
-  $('#detailContents summary').textContent = f.menu ? 'İçerik ve menü' : 'İçerik bilgisi';
+  $('#detailContents summary').textContent = f.menu ? 'İçerik ve menü' : f.nutrition ? 'İçerik ve besin değerleri' : 'İçerik bilgisi';
   const prev = FLAVORS[(i - 1 + N) % N], next = FLAVORS[(i + 1) % N];
   $('#detailPrev span').textContent = prev.short || prev.name;
   $('#detailNext span').textContent = next.short || next.name;

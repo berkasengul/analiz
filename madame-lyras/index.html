@@ -12,7 +12,7 @@
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
@@ -115,7 +115,12 @@
           <h2>Sıcak su ekleyin,<br /><em>yemeğiniz hazır.</em></h2>
           <p class="sec__lead">Şeflerin hazırladığı yemekler dondurularak kurutulur ve nem almayan özel ambalajlarda saklanır. Belirtilen miktarda sıcak su eklendiğinde 15 dakika içinde tüketime hazırdır. Acil durum, askeri kullanım, dağcılık, kamp ve bireysel tüketim için.</p>
         </header>
-        <div class="kits__grid" id="kitGrid"></div>
+        <!-- 3B kit sergisi: seçilen kit 3B olarak sağda döner, bilgileri ve menüsü solda -->
+        <div class="kitshow">
+          <div class="kitshow__info" id="kitInfo" aria-live="polite"></div>
+          <button class="kitshow__stage" id="kitStage" type="button" aria-label="Seçili kiti 3D olarak incele"><span class="hitlabel">3D<br />İncele</span></button>
+        </div>
+        <div class="kitshow__picker" id="kitGrid" role="tablist" aria-label="Kit seçin"></div>
       </div>
     </section>
 
@@ -181,26 +186,27 @@
     <!-- SÜREÇ -->
     <section class="sec process" id="surec" data-bg="#140607" data-ink="light" data-stage="process">
       <div class="wrap process__inner">
-        <div class="process__top">
-          <header class="sec__head reveal">
-            <p class="eyebrow">Nasıl yapılır</p>
-            <h2>Buzdan buhara,<br /><em>arada sıvı yok.</em></h2>
-            <p class="sec__lead">Dondurarak kurutmada meyve önce dondurulur, ardından vakum altında içindeki buz doğrudan buhara dönüşür. Isıyla kurutmadan farklı olarak meyve pişmez, büzüşmez.</p>
-          </header>
-          <!-- 3B paket bu alana oturur (kırağı parçacıklarıyla) -->
-          <div class="stage3d" id="processStage" aria-hidden="true"></div>
+        <header class="sec__head process__head reveal">
+          <p class="eyebrow">Nasıl yapılır</p>
+          <h2>Buzdan buhara,<br /><em>arada sıvı yok.</em></h2>
+          <p class="sec__lead">Dondurarak kurutmada meyve önce dondurulur, ardından vakum altında içindeki buz doğrudan buhara dönüşür. Isıyla kurutmadan farklı olarak meyve pişmez, büzüşmez.</p>
+        </header>
+        <!-- ortada büyük 3B Ahududu paketi; adımlar paketten çıkan oklarla çevresinde -->
+        <div class="process__diagram" id="processDiagram">
+          <svg class="process__lines" id="processLines" aria-hidden="true"></svg>
+          <div class="stage3d stage3d--process" id="processStage" aria-hidden="true"></div>
+          <ol class="steps steps--callout">
+            <li class="step step--tl reveal"><span class="step__n">01</span><h3>Seçim ve hazırlık</h3><p>Olgun meyveler ayıklanır, yıkanır; bütün, dilim ya da küp olarak hazırlanır.</p></li>
+            <li class="step step--bl reveal"><span class="step__n">02</span><h3>Kriyojenik dondurma</h3><p>Meyve azotla çok hızlı dondurulur. Hızlı dondurma, meyvenin dokusunu ve rengini korumaya yardımcı olur.</p></li>
+            <li class="step step--tr reveal"><span class="step__n">03</span><h3>Vakumda kurutma</h3><p>Vakum altında buz, sıvıya dönüşmeden buhar olur (süblimasyon). Meyvenin suyu alınır, kendisi kalır.</p></li>
+            <li class="step step--br reveal"><span class="step__n">04</span><h3>Kilitli paket</h3><p>Çıtırlığını nemden korumak için kilitli, ışık geçirmeyen ambalaja alınır.</p></li>
+          </ol>
         </div>
-        <ol class="steps">
-          <li class="step reveal"><span class="step__n">01</span><h3>Seçim ve hazırlık</h3><p>Olgun meyveler ayıklanır, yıkanır; bütün, dilim ya da küp olarak hazırlanır.</p></li>
-          <li class="step reveal"><span class="step__n">02</span><h3>Kriyojenik dondurma</h3><p>Meyve azotla çok hızlı dondurulur. Hızlı dondurma, meyvenin dokusunu ve rengini korumaya yardımcı olur.</p></li>
-          <li class="step reveal"><span class="step__n">03</span><h3>Vakumda kurutma</h3><p>Vakum altında buz, sıvıya dönüşmeden buhar olur (süblimasyon). Meyvenin suyu alınır, kendisi kalır.</p></li>
-          <li class="step reveal"><span class="step__n">04</span><h3>Kilitli paket</h3><p>Çıtırlığını nemden korumak için kilitli, ışık geçirmeyen ambalaja alınır.</p></li>
-        </ol>
         <div class="ratio reveal">
-          <div class="ratio__num"><span data-count="160">160</span> g</div>
+          <div class="ratio__num"><span data-count="125">125</span> g</div>
           <div class="ratio__arrow" aria-hidden="true"></div>
           <div class="ratio__num ratio__num--small">16 g</div>
-          <p>Bir paket kurutulmuş çilek, 160 g taze çilekten üretilir.</p>
+          <p>Bir paket kurutulmuş ahududu, 125 g taze ahudududan üretilir. Suyu alınır; lifi, rengi ve aroması pakette kalır.</p>
         </div>
       </div>
     </section>

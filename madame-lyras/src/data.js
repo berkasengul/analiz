@@ -184,3 +184,108 @@ KITS.forEach((k) => {
   };
   FLAVORS.push(f);
 });
+
+// ürüne özel kısa başlık, giriş ve açıklama (paket üstündeki yazılar ürünle ilgili olsun)
+const TEXTS = {
+ "cilek": [
+  "Bütün çilek · 160 g tazeden",
+  "Bütün çilek, dondurularak kurutuldu.",
+  "Dişlediğiniz anda çıtırdar, ağızda erirken çileğin kendi tatlılığı ve mayhoşluğu kalır. 160 g taze çilekten tek paket; şeker eklemedik, gerek yok."
+ ],
+ "beyaz-ejder": [
+  "Tropik · 115 g tazeden",
+  "Beyaz ejder meyvesi, siyah çekirdekleriyle çıtır.",
+  "Pembe kabuğunun içindeki beyaz meyve, kurutulunca hafif ve çıtır bir dokuya döner; tatlılığı yumuşak, aroması ferahtır. Kahvaltı kâselerinde ve smoothie süslemesinde rengiyle öne çıkar."
+ ],
+ "ananas": [
+  "Tropik · 110 g tazeden",
+  "Ananas, güneş sarısı ve çıtır.",
+  "Ananasın mayhoş tatlılığı, hafif ve çıtır bir dokuda. Kahvaltıda, yoğurtta ya da paketten doğrudan."
+ ],
+ "seftali": [
+  "Yaz meyvesi · dilim",
+  "Yaz bahçesinden, kurutulmuş haliyle.",
+  "Şeftalinin kokulu, yaz tadındaki aroması; suyu alınmış, kendisi yerinde. Şeker eklenmedi."
+ ],
+ "hindistan-cevizi": [
+  "Sütü, suyu ve parçalarıyla",
+  "Sütü, suyu ve parçalarıyla hindistan cevizi küpleri.",
+  "Hindistan cevizinin sütü, suyu ve parçaları bir araya gelip dondurularak kurutuldu. Ağızda eriyen, hafif küpler."
+ ],
+ "ahududu": [
+  "Bütün ahududu · 125 g tazeden",
+  "Bütün ahududu, mayhoş ve aromatik.",
+  "Şeklini koruyan, parmaklar arasında ufalanan ahududu. Lifi yüksek; tatlıların ve pastaların üzerinde rengiyle göz alır."
+ ],
+ "elma": [
+  "İnce dilim · 100 g tazeden",
+  "İnce dilim elma, suyu alınmış haliyle.",
+  "Cips kadar hafif, cips kadar çıtır; ama içinde elmadan başka bir şey yok. Beslenme çantası için birebir."
+ ],
+ "mango": [
+  "Tropik · 95 g tazeden",
+  "Tropik mango, parlak rengiyle.",
+  "Mangonun yoğun aroması kurutulunca daha da belirginleşir. Yoğurdun, granolanın ya da sadece avucunuzun içinde."
+ ],
+ "muz": [
+  "Dilim muz · 76 g tazeden",
+  "Dilim dilim muz, çıtır çıtır.",
+  "Muzun yumuşak tatlılığı, kurutulunca hafif ve çıtır bir atıştırmalığa dönüşür. Küçüklerin de büyüklerin de elinden düşmeyecek."
+ ],
+ "dondurma": [
+  "Sade dondurma · çıtır küp",
+  "Dondurma, ama elde erimeyen haliyle.",
+  "Sade dondurma, dondurularak kurutulup çıtır küplere dönüştü. Ağızda yavaş yavaş dondurma tadına döner; kampa, yola, çantaya girer."
+ ],
+ "dilim-cilek": [
+  "İnce dilim · 160 g tazeden",
+  "İnce dilim çilek, çıtır ve hafif.",
+  "Çilek ince dilimlenip dondurularak kurutuldu; her dilim ağızda çıtırdayıp erir. Granola, yoğurt ve pasta süslemesi için ideal."
+ ],
+ "bogurtlen": [
+  "Orman meyvesi · 94 g tazeden",
+  "Böğürtlen, koyu rengi ve derin aromasıyla.",
+  "Böğürtlenin mayhoş, hafif buruk tadı kurutulunca yoğunlaşır. 100 gramında 22,4 g lif; koyu rengiyle tatlılara ve kahvaltıya karakter katar."
+ ],
+ "mavi-yemis": [
+  "Orman meyvesi · 125 g tazeden",
+  "Mavi yemiş, küçük ama yoğun.",
+  "Yaban mersininin tatlı-ekşi lezzeti, bütün haliyle kurutulmuş tanelerde. Yulafa, yoğurda ya da doğrudan avuca."
+ ],
+ "kirmizi-ejder": [
+  "Tropik · 115 g tazeden",
+  "Kırmızı ejder meyvesi, eflatun rengiyle.",
+  "İçi koyu pembe ejder meyvesi, kurutulunca rengini ve hafif tatlılığını korur. Smoothie kâselerinin ve tatlıların en dikkat çeken süsü."
+ ],
+ "incir": [
+  "Akdeniz · 76 g tazeden",
+  "İncir, balımsı tatlılığıyla.",
+  "İncirin bal gibi tatlılığı ve çıtır çekirdekleri, suyu alınmış hafif bir dilimde. 100 gramında 21,2 g lif."
+ ],
+ "lime": [
+  "Narenciye · 80 g tazeden",
+  "Lime dilimleri, ferah ve ekşi.",
+  "Lime ince dilimlenip kurutuldu: kokteyl ve mocktail süslemesinde, çayda, sularda ve tatlılarda ferah bir dokunuş. Şeker oranı düşük."
+ ],
+ "fistikli-dondurma": [
+  "Fıstıklı dondurma · çıtır küp",
+  "Fıstıklı dondurma, elde erimeyen haliyle.",
+  "Fıstıklı dondurma dondurularak kurutulup çıtır küplere dönüştü; ağızda yavaş yavaş kremamsı fıstık tadına döner."
+ ]
+};
+// besin değerleri (Solagron ürün sayfalarındaki 'Enerji ve Besin Öğeleri' tabloları): [satır, 16 g, 100 g, %RA]
+const NUTRITION = {"ahududu": [["Enerji (kJ/kcal)", "225 / 54", "1422 / 340", "%17"], ["Yağ (g)", "0,3", "1,7", "%2"], ["Doymuş yağ (g)", "0", "0", "%0"], ["Karbonhidrat (g)", "13", "81", "%31"], ["Şekerler (g)", "7", "48", "%53"], ["Lif (g)", "3", "18", "%72"], ["Protein (g)", "1,5", "9", "%18"], ["Tuz (g)", "0,1", "0,3", "%5"]], "beyaz-ejder": [["Enerji (kJ/kcal)", "263 / 63", "1548 / 352", "%20"], ["Yağ (g)", "0,5", "3,1", "%4"], ["Doymuş yağ (g)", "0,2", "1,2", "%6"], ["Karbonhidrat (g)", "11,7", "72,5", "%28"], ["Şekerler (g)", "9", "55", "%61"], ["Lif (g)", "1,6", "9,7", "%39"], ["Protein (g)", "1,1", "6,7", "%13"], ["Tuz (g)", "0", "0", "%0"]], "bogurtlen": [["Enerji (kJ/kcal)", "247 / 59", "1540 / 368", "%18"], ["Yağ (g)", "0,5", "3,1", "%4"], ["Doymuş yağ (g)", "0", "0", "%0"], ["Karbonhidrat (g)", "12,6", "79", "%30"], ["Şekerler (g)", "5,9", "37", "%41"], ["Lif (g)", "3,6", "22,4", "%89"], ["Protein (g)", "0,9", "6,2", "%12"], ["Tuz (g)", "0", "0", "%0"]], "cilek": [["Enerji (kJ/kcal)", "222 / 53", "1389 / 332", "%16"], ["Yağ (g)", "0,2", "1,1", "%2"], ["Doymuş yağ (g)", "0,1", "0,1", "%1"], ["Karbonhidrat (g)", "13,7", "85,6", "%33"], ["Şekerler (g)", "8", "50,5", "%56"], ["Lif (g)", "2,8", "17,6", "%70"], ["Protein (g)", "0,9", "5,91", "%12"], ["Tuz (g)", "0", "0,1", "%2"]], "elma": [["Enerji (kJ/kcal)", "242 / 58", "1523 / 364", "%18"], ["Yağ (g)", "0", "0,6", "%1"], ["Doymuş yağ (g)", "0", "0", "%0"], ["Karbonhidrat (g)", "15", "95", "%36"], ["Şekerler (g)", "13,7", "85,5", "%95"], ["Lif (g)", "2", "13", "%52"], ["Protein (g)", "0,2", "1,1", "%2"], ["Tuz (g)", "0", "0", "%0"]], "fistikli-dondurma": [["Enerji (kJ/kcal)", "197 / 47", "1239 / 296", "%15"], ["Yağ (g)", "3,2", "20", "%31"], ["Doymuş yağ (g)", "2,5", "16", "%80"], ["Karbonhidrat (g)", "4,3", "27", "%10"], ["Şekerler (g)", "4,3", "27", "%30"], ["Lif (g)", "0,1", "0,8", "%3"], ["Protein (g)", "0,4", "2,7", "%5"], ["Tuz (g)", "0", "0,3", "%5"]], "incir": [["Enerji (kJ/kcal)", "242 / 58", "1523 / 364", "%18"], ["Yağ (g)", "0,7", "4,4", "%6"], ["Doymuş yağ (g)", "0,1", "0,8", "%4"], ["Karbonhidrat (g)", "10,4", "65", "%25"], ["Şekerler (g)", "8,9", "56", "%62"], ["Lif (g)", "3,4", "21,2", "%85"], ["Protein (g)", "0,9", "6,2", "%12"], ["Tuz (g)", "0", "0,1", "%2"]], "kirmizi-ejder": [["Enerji (kJ/kcal)", "259 / 62", "1623 / 388", "%19"], ["Yağ (g)", "0,2", "1,1", "%2"], ["Doymuş yağ (g)", "0", "0", "%0"], ["Karbonhidrat (g)", "10,8", "67,6", "%26"], ["Şekerler (g)", "8,9", "56", "%62"], ["Lif (g)", "1,6", "9,8", "%39"], ["Protein (g)", "1,1", "6,5", "%13"], ["Tuz (g)", "0", "0", "%0"]], "lime": [["Enerji (kJ/kcal)", "230 / 55", "1435 / 343", "%17"], ["Yağ (g)", "0,18", "1,1", "%2"], ["Doymuş yağ (g)", "0", "0", "%0"], ["Karbonhidrat (g)", "11", "69", "%27"], ["Şekerler (g)", "2,9", "18", "%20"], ["Lif (g)", "3", "19", "%76"], ["Protein (g)", "0,8", "5,1", "%10"], ["Tuz (g)", "0", "0,04", "%1"]], "mango": [["Enerji (kJ/kcal)", "247 / 59", "1548 / 370", "%18"], ["Yağ (g)", "0,1", "0,7", "%1"], ["Doymuş yağ (g)", "0", "0,2", "%1"], ["Karbonhidrat (g)", "14,8", "92,5", "%35"], ["Şekerler (g)", "14,3", "89,5", "%99"], ["Lif (g)", "1,4", "8,5", "%34"], ["Protein (g)", "0,4", "2,6", "%5"], ["Tuz (g)", "0", "0", "%0"]], "mavi-yemis": [["Enerji (kJ/kcal)", "238 / 57", "1502 / 359", "%18"], ["Yağ (g)", "0,2", "1,4", "%2"], ["Doymuş yağ (g)", "0", "0", "%0"], ["Karbonhidrat (g)", "12", "75", "%29"], ["Şekerler (g)", "8", "51", "%57"], ["Lif (g)", "2,9", "18", "%72"], ["Protein (g)", "0,6", "3,7", "%7"], ["Tuz (g)", "0", "0,1", "%2"]], "muz": [["Enerji (kJ/kcal)", "234 / 56", "1489 / 356", "%18"], ["Yağ (g)", "0,1", "0,2", "%0"], ["Doymuş yağ (g)", "0", "0", "%0"], ["Karbonhidrat (g)", "14", "90", "%35"], ["Şekerler (g)", "9", "61", "%68"], ["Lif (g)", "2", "14", "%56"], ["Protein (g)", "0,7", "4,9", "%10"], ["Tuz (g)", "0", "0,2", "%3"]], "dondurma": [["Enerji (kJ/kcal)", "121 / 29", "753 / 180", "%9"], ["Yağ (g)", "1,1", "6,8", "%11"], ["Doymuş yağ (g)", "0,7", "4,5", "%22"], ["Karbonhidrat (g)", "4,1", "26", "%10"], ["Şekerler (g)", "3,3", "21", "%23"], ["Lif (g)", "0,1", "0,7", "%14"], ["Protein (g)", "0,6", "3,5", "%7"], ["Tuz (g)", "0", "0,4", "%6"]], "dilim-cilek": [["Enerji (kJ/kcal)", "222 / 53", "1389 / 332", "%16"], ["Yağ (g)", "0,2", "1,1", "%2"], ["Doymuş yağ (g)", "0,1", "0,1", "%1"], ["Karbonhidrat (g)", "13,7", "85,6", "%33"], ["Şekerler (g)", "8", "50,5", "%56"], ["Lif (g)", "2,8", "17,6", "%70"], ["Protein (g)", "0,9", "5,91", "%12"], ["Tuz (g)", "0", "0,1", "%2"]], "hindistan-cevizi": [["Enerji (kJ/kcal)", "380 / 91", "2380 / 568,8", "%28"], ["Yağ (g)", "6,5", "40,6", "%58"], ["Doymuş yağ (g)", "6", "37,5", "%188"], ["Karbonhidrat (g)", "9", "56,3", "%22"], ["Şekerler (g)", "7", "43,8", "%49"], ["İlave şeker (g)", "0,6", "3,8", "%4"], ["Lif (g)", "1", "6,3", "%21"], ["Protein (g)", "1", "6,3", "%13"]]};
+FLAVORS.forEach((f) => {
+  const tx = TEXTS[f.id];
+  if (tx) [f.slogan, f.lead, f.desc] = tx;
+  if (NUTRITION[f.id]) f.nutrition = NUTRITION[f.id];
+  // 3B modelin arkasındaki meyve görseli (public/bg/<id>.webp)
+  if ((!f.kit || f.kit === 'gevrek') && f.id !== 'seftali') f.backdrop = `/bg/${f.kit ? 'kit-gevrek' : f.id}.webp`;
+});
+// ürün akışı: Çilek → Beyaz Ejder Meyvesi → Ananas
+{
+  const i = FLAVORS.findIndex((f) => f.id === 'beyaz-ejder');
+  FLAVORS.splice(1, 0, FLAVORS.splice(i, 1)[0]);
+  const j = FLAVORS.findIndex((f) => f.id === 'ananas');
+  FLAVORS.splice(2, 0, FLAVORS.splice(j, 1)[0]);
+}

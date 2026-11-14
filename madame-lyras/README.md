@@ -34,3 +34,13 @@ npm run build    # dist/ → Netlify'a yüklenecek klasör
 - `public/img/*`: kase ve tabak fotoğrafları (solagron.com.tr)
 
 Daha yüksek çözünürlüklü ambalaj fotoğrafları gelirse aynı adla `public/tex/` içine koymak yeterli (oran ~1024×1180).
+
+## Son güncellemeler
+- **Açılış sahnesi**: 7 paket (Çilek önde; Hindistan Cevizi, Kırmızı Ejder, Şeftali, Ananas, Lime, Fıstıklı Dondurma iki yana kademeli yelpaze). Yerleşim `src/hero/HeroCanvas.jsx` içindeki `POUCHES` listesinde.
+- **Ürün akışı**: Çilek → Beyaz Ejder Meyvesi → Ananas. İlk kaydırmada çilek paketi ~3 sn'lik ağır çekim bir tur döner; akışa varınca paket "açılır" (meyve parçaları paketten saçılır, ışık halkası yayılır).
+- **Geçiş**: Açılışın altı ürün arka planına yumuşakça karışır (`--fade` maskesi), arada çizgi kalmaz.
+- **Meyve arka planları**: Solagron ürün görsellerinden `public/bg/<id>.webp`; 3B paketin arkasında görünür.
+- **Besin değerleri**: Solagron "Enerji ve Besin Öğeleri" tabloları `data.js` → `NUTRITION`; vitrinde ve 3D incelemede "İçerik ve besin değerleri" panelinde.
+- **Hazır gıda (ResQ)**: 3B kit sergisi (sağda büyük 3B kasa/kova/poşet, solda bilgi, menü, teklif; altta kit seçici).
+- **Nasıl yapılır**: Ortada büyük 3B Ahududu, 4 adım paketten çıkan oklarla çevresinde; 125 g → 16 g.
+- **Yazı tipleri**: Cormorant Garamond (başlıklar) + Jost (metin).

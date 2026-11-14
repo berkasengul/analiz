@@ -192,9 +192,9 @@ export function makeBackTexture(img, flavor, logo) {
   const cy = seal + (H - seal) * 0.08;
   if (logo && !flavor.brand) x.drawImage(logo, W / 2 - 110, cy, 220, 220);
   x.textAlign = 'center';
-  x.font = '600 60px Fraunces, Georgia, serif';
+  x.font = '600 66px "Cormorant Garamond", Georgia, serif';
   x.fillText(flavor.brand || 'Genç Anadolu Gıda', W / 2, cy + (flavor.brand ? 200 : 310));
-  x.font = '500 34px Manrope, Arial, sans-serif';
+  x.font = '500 34px Jost, Arial, sans-serif';
   x.fillText(`Dondurularak Kurutulmuş ${flavor.name}`, W / 2, cy + 362);
   x.globalAlpha = 0.5;
   x.fillRect(W / 2 - 160, cy + 400, 320, 2);
@@ -202,13 +202,13 @@ export function makeBackTexture(img, flavor, logo) {
   x.textAlign = 'left';
   let y = cy + 470;
   for (const [k, v] of flavor.facts) {
-    x.font = '700 28px Manrope, Arial, sans-serif';
+    x.font = '700 28px Jost, Arial, sans-serif';
     x.fillText(k.toLocaleUpperCase('tr'), 190, y);
-    x.font = '500 32px Manrope, Arial, sans-serif';
+    x.font = '500 32px Jost, Arial, sans-serif';
     x.fillText(v, 560, y);
     y += 52;
   }
-  x.font = '500 30px Manrope, Arial, sans-serif';
+  x.font = '500 30px Jost, Arial, sans-serif';
   y += 10;
   let line = '';
   for (const word of (flavor.claims || []).join(' · ').split(' ')) {
@@ -216,7 +216,7 @@ export function makeBackTexture(img, flavor, logo) {
     if (x.measureText(test).width > W - 380 && line) { x.fillText(line, 190, y); y += 42; line = word; } else line = test;
   }
   if (line) x.fillText(line, 190, y);
-  x.font = '500 22px Manrope, Arial, sans-serif';
+  x.font = '500 22px Jost, Arial, sans-serif';
   x.globalAlpha = 0.75;
   x.textAlign = 'center';
   x.fillText('Açtıktan sonra kilidini kapatıp serin ve kuru yerde saklayınız.', W / 2, H - 120);
@@ -336,6 +336,31 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   kit.group.visible = false;
   pouchHolder.add(kit.group);
   root.add(pouchHolder);
+
+  // 3B modelin arkasında ürünün meyve görseli (Solagron ürün görselleri, kenarları yumuşakça sönük)
+  const bdMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, toneMapped: false });
+  const bdMesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), bdMat);
+  bdMesh.position.z = -1.25;
+  bdMesh.renderOrder = -2;
+  root.add(bdMesh);
+  const bdTex = new Map();
+  let bdNow = 0, bdIdx = -1;
+  function backdropFor(i) {
+    const url = flavors[i] && flavors[i].backdrop;
+    if (!url) return null;
+    if (!bdTex.has(url)) {
+      const t = new THREE.TextureLoader().load(url, (tt) => { tt.userData.ok = true; });
+      t.colorSpace = THREE.SRGBColorSpace;
+      bdTex.set(url, t);
+    }
+    return bdTex.get(url);
+  }
+
+  // varış anında paketin arkasından yayılan ışık halkası
+  let ringT = 2;
+  const ringMesh = new THREE.Mesh(new THREE.RingGeometry(0.55, 0.62, 96), new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffd9a8').multiplyScalar(1.6), transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }));
+  ringMesh.position.z = -0.3;
+  root.add(ringMesh);
 
   // yumuşak gölge
   const shadowTex = canvasTex(128, (x, s) => {
@@ -539,9 +564,11 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   let flavor = 0;
   let pendingFront = -1;
   let spin = 0, spinTarget = 0;
+  let spinAnim = null, spinLean = 0; // açılıştan inerken ağır çekim tek tur
+  let burst = 0; // ürün akışına varınca paketin 'açılması': parçalar paketten dışarı saçılır, ışık halkası yayılır
   let stream = null, streamNow = 0; // ürün akışında kaydırmaya bağlı konum (0..N-1)
   // rx: ek eğim; pt: fare/nefes hareketinin ağırlığı (açılıştan devralırken 0, sonra 1)
-  const state = { x: 0, y: 0, s: 1, rx: 0, ry: 0, rz: 0, cloud: 0, frost: 0, pt: 1 };
+  const state = { x: 0, y: 0, s: 1, rx: 0, ry: 0, rz: 0, cloud: 0, frost: 0, pt: 1, bd: 0 };
   const target = { ...state };
   const pointer = { x: 0, y: 0, sx: 0, sy: 0 };
   let scrollVel = 0;
@@ -555,6 +582,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
 
   function setFlavor(i) {
     if (i === flavor || i < 0) return;
+    spinAnim = null;
     const dir = i > flavor ? 1 : -1;
     flavor = i;
     if (reduce || stream !== null || insp.on) { showFront(i); showBack(i); return; }
@@ -565,7 +593,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     pendingFront = i;
   }
 
-  const POSE0 = { rx: 0, pt: 1 };
+  const POSE0 = { rx: 0, pt: 1, bd: 0 };
   function setPose(p) { Object.assign(target, POSE0, p); }
   function snapPose(p) { Object.assign(target, POSE0, p); Object.assign(state, POSE0, p); }
 
@@ -677,7 +705,18 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     for (const k in state) state[k] = damp(state[k], target[k], insp.on ? 4 : 4.5, dt);
     pointer.sx = damp(pointer.sx, pointer.x, 2.5, dt);
     pointer.sy = damp(pointer.sy, pointer.y, 2.5, dt);
-    spin = damp(spin, spinTarget, 3.4, dt);
+    if (spinAnim) {
+      // ağır başlar, ortada süzülür, yumuşakça durur; dönerken hafifçe öne eğilip nefes alır
+      const p = Math.min(1, (t - spinAnim.t0) / spinAnim.dur);
+      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      spin = spinAnim.from + (spinAnim.to - spinAnim.from) * e;
+      spinLean = Math.sin(Math.PI * p);
+      if (p >= 1) { spinAnim = null; spinLean = 0; }
+    } else {
+      spin = damp(spin, spinTarget, 3.4, dt);
+      spinLean = damp(spinLean, 0, 4, dt);
+    }
+    burst = damp(burst, 0, 1.1, dt);
 
     if (pendingFront >= 0 && Math.abs(spinTarget - spin) < Math.PI) {
       showFront(pendingFront);
@@ -737,22 +776,22 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
       const sc = key.shadow.camera;
       if (Math.abs(sc.right - e) > 0.05) { sc.left = -e; sc.right = e; sc.top = e; sc.bottom = -e; sc.updateProjectionMatrix(); }
     }
-    root.scale.setScalar(state.s * (1 - 0.08 * dip) * (1 - 0.12 * insp.pop));
+    root.scale.setScalar(state.s * (1 - 0.08 * dip) * (1 - 0.12 * insp.pop) * (1 + 0.035 * spinLean + 0.06 * burst * burst));
     root.rotation.x = 0.1 * fanNow;
     if (insp.on) {
       pouchHolder.rotation.set(insp.rx, insp.ry, 0);
     } else {
       pouchHolder.rotation.set(
-        state.rx + (0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03)) * state.pt + dip * 0.12,
+        state.rx + (0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03)) * state.pt + dip * 0.12 + spinLean * 0.07,
         state.ry + spin + streamAngle + pointer.sx * 0.35 * state.pt,
-        state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025) * state.pt - dip * 0.16
+        state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025) * state.pt - dip * 0.16 - spinLean * 0.06
       );
     }
     shadow.material.opacity = 0.9 * Math.min(1, state.s) * (1 - 0.5 * dip) * (1 - fanNow);
     // açılıştan devralırken açılıştaki tepe ışığının parlaklığı taşınır, ürün yerine indikçe sönümlenir
     {
       const hand = 1 - state.pt;
-      pouch.frontMat.emissiveIntensity = 0.46 + hand * 0.3;
+      pouch.frontMat.emissiveIntensity = 0.46 + hand * 0.3 + burst * 0.35;
       pouch.frontMat.envMapIntensity = 1.0 + hand * 1.1;
     }
     aspectNow = damp(aspectNow, aspectTarget, 6, dt);
@@ -760,6 +799,29 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     shadow.position.y = kit.group.visible ? -kit.height() / 2 - 0.06 : -0.58 * aspectNow / Math.sqrt(aspectNow) - 0.24;
     shadow.visible = !insp.on || insp.rx < 0.5;
 
+    // arka plan meyve görseli: görünen ürünün görseli, ürün değişince yumuşakça geçer
+    {
+      const want = flavor;
+      if (want !== bdIdx) {
+        bdNow = damp(bdNow, 0, 9, dt);
+        if (bdNow < 0.03) { bdIdx = want; const tx = backdropFor(want); bdMat.map = tx; bdMat.needsUpdate = true; }
+      } else bdNow = damp(bdNow, 1, 3, dt);
+      const tx = bdMat.map;
+      const ok = tx && tx.image && tx.image.width;
+      const asp = ok ? tx.image.height / tx.image.width : 1.19;
+      const w = 2.5 * (1 + 0.04 * Math.sin(t * 0.2));
+      bdMesh.scale.set(w, w * asp, 1);
+      bdMesh.position.y = 0.06;
+      bdMat.opacity = ok ? (insp.on ? 0.9 * insp.blend : state.bd) * bdNow : 0;
+      bdMesh.visible = bdMat.opacity > 0.004;
+    }
+    ringT += dt;
+    {
+      const p = Math.min(1, ringT / 1.6);
+      ringMesh.visible = p < 1;
+      ringMesh.scale.setScalar(0.8 + p * 2.6);
+      ringMesh.material.opacity = (1 - p) * (1 - p) * 0.8;
+    }
     // meyve parçaları (gerçek görseller)
     scrollVel = damp(scrollVel, 0, 2, dt);
     const cloudScale = insp.on ? 0.55 : state.cloud;
@@ -784,8 +846,11 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
           // yanlara ve arkaya savrulup çıkar (paketin önünden geçmez)
           x *= 1 + inv * 1.4; y *= 1 + inv * 0.8; z -= inv * 1.6;
         } else {
-          // arkadan, uzaktan dönerek gelir
-          x *= 0.45 + 0.55 * e + inv * 0.9; z -= inv * 2.6; y += inv * 0.6 * Math.sign(it.base.y || 1);
+          // arkadan, uzaktan dönerek gelir; varışta ise paketin içinden dışarı saçılır
+          const b = burst > 0.05 ? Math.min(1, burst * 1.3) : 0;
+          const ax = x * (0.45 + 0.55 * e + inv * 0.9), az = z - inv * 2.6, ay = y + inv * 0.6 * Math.sign(it.base.y || 1);
+          const bx = x * (0.08 + 0.92 * e), bz = z * e + inv * 0.25, by = y * (0.1 + 0.9 * e);
+          x = ax + (bx - ax) * b; z = az + (bz - az) * b; y = ay + (by - ay) * b;
         }
         if (insp.on) { x *= 1.45; z = Math.min(z, -0.6) - 0.3; }
         // paketin önündeki parçalar paketin üzerine gelmesin: silüetin dışına itilir
@@ -875,7 +940,18 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     setJuiceClip(top, bottom, dark = 0) { juiceClip.top = top; juiceClip.bottom = bottom; juiceClip.dark = dark; },
     setAutoRotate(v) { insp.auto = v; insp.idle = v ? 1.5 : 0; },
     // kendiliğinden tek tur döner (açılıştan aşağı inerken)
-    spinOnce(dir = 1) { if (!reduce) spinTarget = Math.round(spinTarget / TAU) * TAU + dir * TAU; },
+    spinOnce(dir = 1, dur = 3.0) {
+      if (reduce) return;
+      spinTarget = Math.round(spinTarget / TAU) * TAU + dir * TAU;
+      spinAnim = { from: spin, to: spinTarget, t0: clock.elapsedTime, dur };
+    },
+    // ürün akışına varış: paket "açılır", meyve parçaları paketten dışarı saçılır
+    burst() {
+      if (reduce) return;
+      burst = 1;
+      clouds[flavor].mix = 0;
+      ringT = 0;
+    },
     resetView() { insp.goto = Math.round(insp.ry / TAU) * TAU; insp.rx = 0.06; insp.zoomT = 1; insp.idle = 0; },
     zoom() { return insp.zoomT; },
     setStream(f) {
