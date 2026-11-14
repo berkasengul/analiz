@@ -105,11 +105,15 @@
     <!-- SÜREÇ -->
     <section class="sec process" id="surec" data-bg="#140607" data-ink="light" data-stage="process">
       <div class="wrap process__inner">
-        <header class="sec__head reveal">
-          <p class="eyebrow">Nasıl yapılır</p>
-          <h2>Buzdan buhara,<br /><em>arada sıvı yok.</em></h2>
-          <p class="sec__lead">Dondurarak kurutmada meyve önce dondurulur, ardından vakum altında içindeki buz doğrudan buhara dönüşür. Isıyla kurutmadan farklı olarak meyve pişmez, büzüşmez.</p>
-        </header>
+        <div class="process__top">
+          <header class="sec__head reveal">
+            <p class="eyebrow">Nasıl yapılır</p>
+            <h2>Buzdan buhara,<br /><em>arada sıvı yok.</em></h2>
+            <p class="sec__lead">Dondurarak kurutmada meyve önce dondurulur, ardından vakum altında içindeki buz doğrudan buhara dönüşür. Isıyla kurutmadan farklı olarak meyve pişmez, büzüşmez.</p>
+          </header>
+          <!-- 3B paket bu alana oturur (kırağı parçacıklarıyla) -->
+          <div class="stage3d" id="processStage" aria-hidden="true"></div>
+        </div>
         <ol class="steps">
           <li class="step reveal"><span class="step__n">01</span><h3>Seçim ve hazırlık</h3><p>Olgun meyveler ayıklanır, yıkanır; bütün, dilim ya da küp olarak hazırlanır.</p></li>
           <li class="step reveal"><span class="step__n">02</span><h3>Kriyojenik dondurma</h3><p>Meyve azotla çok hızlı dondurulur. Hızlı dondurma, meyvenin dokusunu ve rengini korumaya yardımcı olur.</p></li>
@@ -135,7 +139,11 @@
           <p class="reveal">Genç Anadolu Gıda, meyveyi en sade haliyle sunmak için var: şeker eklenmemiş, koruyucu ve renklendirici kullanılmamış, sadece suyu alınmış meyve. Çocuğun beslenme çantasına da, pastacının tezgâhına da aynı paket gider.</p>
           <p class="reveal"><b>Genç Anadolu Gıda Pazarlama Dağıtım Limited Şirketi</b> olarak ürünlerimizi kardeş kuruluşumuz <b>Solagron Tarım Ürünleri</b>'nin Mersin Silifke Organize Sanayi Bölgesi'ndeki tesisinde, kriyojenik dondurarak kurutma (Cryo Freeze-Drying) yöntemiyle üretiyoruz. Tesis; kriyojenik dondurma, freeze-drying ve süperkritik CO₂ ekstraksiyon sistemlerini bir arada çalıştırabilen sayılı tesislerden biridir.</p>
         </div>
-        <figure class="about__photo reveal"><img src="/img/tabak.webp" alt="Dondurularak kurutulmuş karışık meyveler" loading="lazy" width="405" height="540" /></figure>
+        <div class="about__side">
+          <!-- 3B paket bu alana oturur -->
+          <div class="stage3d stage3d--about" id="aboutStage" aria-hidden="true"></div>
+          <div class="about__picks" id="aboutPicks" aria-label="Ürünlerimiz"></div>
+        </div>
         <dl class="stats">
           <div class="reveal"><dt>30 dönüm</dt><dd>Silifke OSB'de üretim kampüsü</dd></div>
           <div class="reveal"><dt>~10.000 m²</dt><dd>Kapalı üretim ve depolama alanı</dd></div>
@@ -168,6 +176,9 @@
             <li><span>Toptan</span>Pastane, kafe ve üretim hatları için bütün, dilim, küp, granül ve toz formlar</li>
           </ul>
         </div>
+        <div class="contact__side">
+        <!-- 3B paket bu alana oturur -->
+        <div class="stage3d stage3d--contact" id="contactStage" aria-hidden="true"></div>
         <form class="form reveal" id="contactForm" name="iletisim" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
           <input type="hidden" name="form-name" value="iletisim" />
           <p class="hp"><label>Boş bırakın <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
@@ -189,6 +200,7 @@
           <button class="btn btn--gold" type="submit">Gönder</button>
           <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
+        </div>
       </div>
     </section>
   </main>

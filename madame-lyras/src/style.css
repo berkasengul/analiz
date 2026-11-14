@@ -798,3 +798,29 @@ body:not([data-stage='product']) .products__hit .hitlabel { opacity: 0 !importan
   .detail__name { font-size: clamp(42px, 9vh, 80px); }
   .detail .facts { margin: 12px 0 14px; }
 }
+
+/* süreç ve hakkımızda: 3B paketin oturduğu sahne alanları, aynı cam/altın dil */
+.process__top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 30px; align-items: center; margin-bottom: 40px; }
+.process__top .sec__head { margin-bottom: 0; }
+.stage3d { position: relative; min-height: 46vh; pointer-events: none; }
+.stage3d::after { content: ''; position: absolute; left: 18%; right: 18%; bottom: 4%; height: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 190, 120, 0.22), transparent); filter: blur(6px); }
+.process .sec__lead, .about__text p:not(.big):not(.eyebrow) { color: rgba(255, 244, 230, 0.8); }
+.ratio { border-color: var(--glass-line); }
+.about__side { display: flex; flex-direction: column; gap: 18px; }
+.stage3d--about { min-height: 52vh; }
+.about__picks { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; padding: 8px; border-radius: 20px; background: var(--glass); border: 1px solid var(--glass-line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.about__picks button { aspect-ratio: 1; border: 0; border-radius: 12px; background: var(--c); display: grid; place-items: center; cursor: pointer; padding: 0; overflow: hidden; transition: transform 0.3s var(--ease); }
+.about__picks button:hover { transform: translateY(-3px) scale(1.05); }
+.about__picks img { height: 78%; width: auto; border-radius: 3px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); }
+.stats div { padding: 22px 20px; margin-top: 16px; margin-right: 12px; border-radius: 18px; background: var(--glass); border: 1px solid var(--glass-line); }
+.stats { border-top: 0; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .process__top { grid-template-columns: 1fr; gap: 0; margin-bottom: 20px; }
+  .stage3d { min-height: 38svh; }
+  .stage3d--about { min-height: 40svh; }
+  .about__picks { grid-template-columns: repeat(9, 1fr); gap: 4px; padding: 6px; }
+  .stats div { padding: 16px 14px; margin-right: 8px; }
+}
+.contact__side { display: flex; flex-direction: column; gap: 10px; }
+.stage3d--contact { min-height: 34vh; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .stage3d--contact { min-height: 32svh; } }

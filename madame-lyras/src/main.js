@@ -64,6 +64,9 @@ function selectShowroom(i, fromUser) {
   if (fromUser) { const b = picks[srIndex]; b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' }); }
 }
 picks.forEach((b) => b.addEventListener('click', () => selectShowroom(+b.dataset.pick, true)));
+// hakkımızda: ürünlerin küçük resimleri, tıklayınca vitrinde o ürün açılır
+$('#aboutPicks').innerHTML = FLAVORS.map((f, i) => `<button type="button" data-about="${i}" style="--c:${f.bg}" aria-label="${f.name} ürününü vitrinde göster"><img src="${f.tex}" alt="" loading="lazy" width="1024" height="${Math.round(1024 * f.aspect)}" /></button>`).join('');
+$$('#aboutPicks button').forEach((b) => b.addEventListener('click', () => { selectShowroom(+b.dataset.about, false); goTo('#tum-urunler'); }));
 $('#srInspect').addEventListener('click', () => openDetail(srIndex));
 $('#srStage').addEventListener('click', () => openDetail(srIndex));
 selectShowroom(srIndex, false);
@@ -209,7 +212,8 @@ function pose(stage) {
       }
       case 'catalog': return { x: 0, y: H * 0.5, s: 0.62, ry: -0.16, rz: 0, cloud: 0.6, frost: 0 };
       case 'inspect': return { x: 0, y: H * 0.44, s: 0.64, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
-      case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: 0.5, rz: 0, cloud: 0, frost: 1 };
+      case 'process': return { x: 0, y: H * 2.4, s: 0.6, ry: -0.4, rz: 0, cloud: 0, frost: 1 };
+      case 'about': return { x: 0, y: 0, s: 0.6, ry: -0.3, rz: 0, cloud: 0.55, frost: 0 };
       default: return { x: 0, ...off, ry: 0, rz: 0 };
     }
   }
@@ -220,7 +224,8 @@ function pose(stage) {
     case 'product': return { x: W * 0.36, y: -0.02, s: big, ry: -0.22, rz: 0.03, cloud: 1, frost: 0 };
     case 'catalog': return { x: W * 0.42, y: H * 0.12, s: big * 0.86, ry: -0.18, rz: 0.02, cloud: 0.6, frost: 0 };
     case 'inspect': return { x: W * 0.2, y: 0.1, s: big * 0.86, ry: 0, rz: 0, cloud: 0.35, frost: 0 };
-    case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.65, rz: 0.12, cloud: 0, frost: 1 };
+    case 'process': return { x: W * 0.55, y: H * 0.28, s: big * 0.6, ry: -0.45, rz: 0.08, cloud: 0, frost: 1 };
+    case 'about': return { x: W * 0.5, y: 0, s: big * 0.7, ry: -0.3, rz: 0.03, cloud: 0.55, frost: 0 };
     default: return { x: W * 0.3, ...off, ry: -0.4, rz: 0 };
   }
 }
@@ -239,6 +244,34 @@ let inspecting = false;
 let streamF = null;
 let heroApi = null;
 let handing = false;
+// alt bölümlerde farklı ürünler: Nasıl yapılır → Ahududu, Hakkımızda → Muz, İletişim → Sade Dondurma
+const fIdx = (id) => FLAVORS.findIndex((f) => f.id === id);
+const SECTION_FLAVOR = { process: fIdx('ahududu'), about: fIdx('muz'), contact: fIdx('dondurma') };
+// Açılıştan ürün akışına: paket ekranda açılıştaki yerinden ürün yerine, ürün bölümü ekranın tepesine
+// gelene kadar (kaydırmanın tamamı boyunca) ağır ağır kayar; sayfa altından akarken kamera paketi izliyormuş gibi görünür
+function handoffPose(vh, y) {
+  const rect = heroApi && heroApi.cilekRect();
+  if (!rect || !scene) return null;
+  const H = scene.halfHeight();
+  const u = (2 * H) / vh;
+  const vw = window.innerWidth;
+  const sx = (rect.cx - vw / 2) * u, sy = -(rect.cy - vh / 2) * u;
+  const start = { x: sx, y: sy, s: (rect.h * u) / 1.153 * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0 };
+  const end = { ...pose('product'), rx: 0, pt: 1 };
+  const raw = clamp(y / Math.max(1, productsEl.offsetTop), 0, 1);
+  const k = raw * raw * (3 - 2 * raw); // yumuşak başlar, yumuşak oturur
+  const kr = smooth(0.3, 1, raw);
+  const p = {};
+  for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (key === 'rx' || key === 'ry' || key === 'rz' || key === 'pt' || key === 'cloud' ? kr : k);
+  return p;
+}
+// bölüm içindeki bir 3B sahne alanına oturan, bölümle birlikte kayan paket pozu
+function stagePose(el, base, spin = 0) {
+  const r = el.getBoundingClientRect();
+  const p = boxPose(r.left + r.width / 2, r.top + r.height / 2, Math.min(r.height * 0.86, r.width * 1.05), base);
+  p.ry += ((r.top + r.height / 2) / window.innerHeight - 0.5) * spin; // kaydırdıkça ağır ağır döner
+  return p;
+}
 const catEl = $('#tum-urunler');
 const lerpPose = (a, b, t) => { const o = {}; for (const k in b) o[k] = (a[k] ?? b[k]) + (b[k] - (a[k] ?? b[k])) * t; return o; };
 // akışın sonundan vitrine: son ürün kesilmeden aşağı, vitrindeki yerine iner; vitrin kayarken onunla birlikte gider
@@ -278,7 +311,8 @@ function update(force) {
   // ürün akışı
   const pr = productsEl.getBoundingClientRect();
   const cr0 = catEl.getBoundingClientRect();
-  if (scene) scene.setJuiceClip(pr.top / vh, cr0.bottom / vh, clamp(1 - cr0.top / vh, 0, 1));
+  const endEl = $('#iletisim').getBoundingClientRect();
+  if (scene) scene.setJuiceClip(pr.top / vh, endEl.bottom / vh, clamp(1 - cr0.top / vh, 0, 1));
   const inProducts = pr.top <= mid && pr.bottom > mid;
   if (inProducts) {
     const total = productsEl.offsetHeight - vh;
@@ -317,7 +351,8 @@ function update(force) {
     if (scene) {
       scene.setActive(true);
       scene.setStream(f);
-      scene.setPose(pr.bottom < vh ? catalogPose(vh).p : productPose(vh));
+      const hp = pr.top > 0 ? handoffPose(vh, y) : null;
+      scene.setPose(pr.bottom < vh ? catalogPose(vh).p : hp || pose('product'));
       scene.setFan(0);
     }
     streamF = f;
@@ -343,16 +378,7 @@ function update(force) {
         const u = (2 * H) / vh;
         const vw = window.innerWidth;
         const startY = rect.cy; // paket ekranda yerinde kalır, açılış altından yukarı kayar: sayfaya göre aşağı iner
-        // Açılıştaki paketle aynı duruş: ekrandaki konumu, boyu ve bakış açısı (kamera perspektifi telafi edilir),
-        // fare ve nefes hareketi kapalı. İnerken bu duruş korunur, yalnızca son bölümde ürün pozuna yumuşakça döner.
-        const sx = (rect.cx - vw / 2) * u, sy = -(startY - vh / 2) * u;
-        const start = { x: sx, y: sy, s: (rect.h * u) / 1.153 * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0 };
-        const end = { ...productPose(vh), rx: 0, pt: 1 };
-        const raw = clamp(y / Math.max(1, productsEl.offsetTop - mid), 0, 1);
-        const k = 1 - Math.pow(1 - raw, 2); // ilk pikselden itibaren yumuşak, sonda yavaşlayarak
-        const kr = smooth(0.35, 1, raw); // duruş sona doğru değişir
-        const p = {};
-        for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (key === 'rx' || key === 'ry' || key === 'rz' || key === 'pt' || key === 'cloud' ? kr : k);
+        const p = handoffPose(vh, y);
         if (!handing) { scene.snapPose({ ...p }); handing = true; }
         else scene.setPose(p);
         scene.setFlavor(0);
@@ -378,9 +404,13 @@ function update(force) {
   }
   // ürünlerin altındaki bölümlerde son ürün kalsın, üstündekilerde ilk ürün
   const below = pr.bottom <= mid;
-  if (scene && !above && active.dataset.stage === 'catalog') {
-    // vitrin: paket kaydırmaya bağlı iner, vitrinle birlikte kayar
-    scene.setPose(catalogPose(vh).p);
+  if (scene && !above) {
+    const st = active.dataset.stage;
+    // vitrin, süreç ve hakkımızda: paket bölümdeki 3B sahne alanına oturur, bölümle birlikte kayar
+    if (st === 'catalog') scene.setPose(catalogPose(vh).p);
+    else if (st === 'process') scene.setPose(stagePose($('#processStage'), pose('process'), 1.2));
+    else if (st === 'about') scene.setPose(stagePose($('#aboutStage'), pose('about'), 1.6));
+    else if (st === 'contact') scene.setPose(stagePose($('#contactStage'), pose('about'), 1.4));
   }
   const key = `${active.dataset.stage}|${below}`;
   if (key === lastKey && !force) return;
@@ -392,8 +422,8 @@ function update(force) {
   const stage = active.dataset.stage || 'off';
   document.body.dataset.stage = stage;
   if (scene) {
-    scene.setFlavor(stage === 'catalog' ? srIndex : below ? NS - 1 : 0);
-    if (!above && stage !== 'catalog') scene.setPose(pose(stage));
+    scene.setFlavor(stage === 'catalog' ? srIndex : SECTION_FLAVOR[stage] ?? (below ? NS - 1 : 0));
+    if (!above && !['catalog', 'process', 'about', 'contact'].includes(stage)) scene.setPose(pose(stage));
   }
   if (above) document.documentElement.dataset.ink = 'light';
 }
@@ -406,9 +436,10 @@ dots.forEach((d) => d.addEventListener('click', () => scrollToY(productY(+d.data
 // kaydırma durunca en yakın ürüne yumuşakça oturt
 let snapTimer = 0;
 let snapping = false;
+const noSnap = /[?&]nosnap\b/.test(location.search); // ekran görüntüsü/test için
 function scheduleSnap() {
   clearTimeout(snapTimer);
-  if (snapping || reduce || inspecting) return;
+  if (snapping || reduce || inspecting || noSnap) return;
   snapTimer = setTimeout(() => {
     if (streamF === null || inspecting) return;
     const pr = productsEl.getBoundingClientRect();
