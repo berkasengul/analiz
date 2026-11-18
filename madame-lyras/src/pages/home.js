@@ -1,4 +1,7 @@
 import { $, FLAVORS, productCard, initReveal, webglOK } from '../site.js';
+// açılış sahnesi sayfa ile birlikte, beklemeden yüklenir
+import { mountHero } from '../hero/index.jsx';
+import { initStream } from './stream.js';
 
 const byId = (id) => FLAVORS.find((f) => f.id === id);
 const count = (c) => FLAVORS.filter((f) => f.cat === c).length;
@@ -25,9 +28,10 @@ initReveal();
 
 /* ---------- açılış: 3B ürün sergisi ---------- */
 if (webglOK()) {
-  import('../hero/index.jsx').then(({ mountHero }) => {
-    mountHero({ container: $('#heroGL'), heroEl: $('#hero'), flavors: FLAVORS });
-  }).catch(() => document.body.classList.add('no-gl'));
+  try {
+    const heroApi = mountHero({ container: $('#heroGL'), heroEl: $('#hero'), flavors: FLAVORS });
+    initStream(heroApi);
+  } catch (e) { document.body.classList.add('no-gl'); }
 } else {
   document.body.classList.add('no-gl');
 }

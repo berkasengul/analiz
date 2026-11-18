@@ -12,41 +12,49 @@
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/corp.css" />
 </head>
 <body data-page="urunler">
   <!-- @include header -->
   <main id="icerik">
-    <section class="pd">
-      <div class="wrap">
-        <ol class="crumbs crumbs--dark" id="crumbs"><li><a href="/">Ana sayfa</a></li><li><a href="/urunler.html">Ürünler</a></li></ol>
-        <div class="pd__grid">
-          <div class="viewer" id="viewer">
-            <div class="viewer__stage" id="stage">
-              <canvas id="pv" aria-label="Ürünün 3B görünümü: sürükleyerek çevirin"></canvas>
-              <img class="viewer__img" id="pimg" alt="" />
-              <span class="viewer__badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>3B görünüm</span>
-              <p class="viewer__hint">Sürükleyerek çevirin</p>
-            </div>
-            <div class="viewer__bar" role="toolbar" aria-label="Görünüm">
-              <div class="seg"><button type="button" data-view="front" class="on">Ön</button><button type="button" data-view="side">Yan</button><button type="button" data-view="back">Arka</button><button type="button" data-view="top">Üst</button></div>
-              <div class="seg"><button type="button" data-zoom="0.8" aria-label="Uzaklaştır">−</button><button type="button" data-zoom="1.25" aria-label="Yakınlaştır">+</button><button type="button" id="spinBtn" class="on" aria-pressed="true">Döndür</button></div>
-            </div>
-          </div>
-          <div class="pd__info">
-            <p class="eyebrow" id="pCat"></p>
-            <h1 id="pName"></h1>
-            <p class="pd__lead" id="pLead"></p>
-            <p class="pd__desc" id="pDesc"></p>
-            <dl class="keyfacts" id="pFacts"></dl>
-            <ul class="claims" id="pClaims"></ul>
-            <div class="pd__actions">
-              <a class="btn btn--primary" id="pQuote" href="/bayilik.html#basvuru">Toptan teklif iste</a>
-              <button class="btn btn--outline" type="button" id="pPrint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Ürün föyü (PDF)</button>
-              <a class="btn btn--outline" id="pMail" href="/iletisim.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>E-posta</a>
-            </div>
-          </div>
+    <!-- 3B ÜRÜN SAHNESİ: her ürünün kendi renginde arka plan, meyve parçaları ve 3B paket -->
+    <section class="pstage" id="pstage" aria-label="Ürünün 3B görünümü">
+      <div class="pstage__view">
+      <canvas class="pstage__bg" id="pbg" aria-hidden="true"></canvas>
+      <canvas class="pstage__gl" id="pv" aria-label="Ürünün 3B görünümü: sürükleyerek çevirin"></canvas>
+      <img class="pstage__img" id="pimg" alt="" />
+      <div class="pstage__top">
+        <a class="pstage__back" href="/urunler.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Tüm ürünler</span></a>
+        <p class="pstage__count" id="pCount"></p>
+        <p class="pstage__hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Sürükleyerek çevirin · yakınlaştırmak için + / −</p>
+      </div>
+      <div class="pstage__side">
+        <a class="pstage__arrow" id="pPrev" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span></span></a>
+        <a class="pstage__arrow pstage__arrow--next" id="pNext" href="#"><span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="pstage__dock" role="toolbar" aria-label="Görünüm">
+        <div class="seg"><button type="button" data-view="front" class="on">Ön</button><button type="button" data-view="side">Yan</button><button type="button" data-view="back">Arka</button><button type="button" data-view="top">Üst</button></div>
+        <i class="pstage__sep" aria-hidden="true"></i>
+        <div class="seg"><button type="button" data-zoom="0.8" aria-label="Uzaklaştır">−</button><span class="pstage__zoom" id="pZoom">100%</span><button type="button" data-zoom="1.25" aria-label="Yakınlaştır">+</button></div>
+        <i class="pstage__sep" aria-hidden="true"></i>
+        <button class="pstage__tool on" type="button" id="spinBtn" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 11-2.3-5.6M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Döndür</span></button>
+        <button class="pstage__tool" type="button" id="resetBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 102.3-5.6M4 4v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sıfırla</span></button>
+      </div>
+      <nav class="pstage__thumbs" id="pThumbs" aria-label="Diğer ürünler"></nav>
+      </div>
+      <div class="pstage__panel" id="pPanel">
+        <ol class="crumbs" id="crumbs"><li><a href="/">Ana sayfa</a></li><li><a href="/urunler.html">Ürünler</a></li></ol>
+        <p class="eyebrow eyebrow--gold" id="pCat"></p>
+        <h1 id="pName"></h1>
+        <p class="pd__lead" id="pLead"></p>
+        <p class="pd__desc" id="pDesc"></p>
+        <dl class="keyfacts" id="pFacts"></dl>
+        <ul class="claims" id="pClaims"></ul>
+        <div class="pd__actions">
+          <a class="btn btn--gold" id="pQuote" href="/bayilik.html#basvuru">Toptan teklif iste</a>
+          <button class="btn btn--line" type="button" id="pPrint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Ürün föyü (PDF)</button>
+          <a class="btn btn--line btn--icon" id="pMail" href="/iletisim.html" aria-label="E-posta ile sor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>

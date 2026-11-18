@@ -192,9 +192,9 @@ export function makeBackTexture(img, flavor, logo) {
   const cy = seal + (H - seal) * 0.08;
   if (logo && !flavor.brand) x.drawImage(logo, W / 2 - 110, cy, 220, 220);
   x.textAlign = 'center';
-  x.font = '600 66px "Cormorant Garamond", Georgia, serif';
+  x.font = '600 60px Fraunces, Georgia, serif';
   x.fillText(flavor.brand || 'Genç Anadolu Gıda', W / 2, cy + (flavor.brand ? 200 : 310));
-  x.font = '500 34px Jost, Arial, sans-serif';
+  x.font = '500 34px Manrope, Arial, sans-serif';
   x.fillText(`Dondurularak Kurutulmuş ${flavor.name}`, W / 2, cy + 362);
   x.globalAlpha = 0.5;
   x.fillRect(W / 2 - 160, cy + 400, 320, 2);
@@ -202,13 +202,13 @@ export function makeBackTexture(img, flavor, logo) {
   x.textAlign = 'left';
   let y = cy + 470;
   for (const [k, v] of flavor.facts) {
-    x.font = '700 28px Jost, Arial, sans-serif';
+    x.font = '700 28px Manrope, Arial, sans-serif';
     x.fillText(k.toLocaleUpperCase('tr'), 190, y);
-    x.font = '500 32px Jost, Arial, sans-serif';
+    x.font = '500 32px Manrope, Arial, sans-serif';
     x.fillText(v, 560, y);
     y += 52;
   }
-  x.font = '500 30px Jost, Arial, sans-serif';
+  x.font = '500 30px Manrope, Arial, sans-serif';
   y += 10;
   let line = '';
   for (const word of (flavor.claims || []).join(' · ').split(' ')) {
@@ -216,7 +216,7 @@ export function makeBackTexture(img, flavor, logo) {
     if (x.measureText(test).width > W - 380 && line) { x.fillText(line, 190, y); y += 42; line = word; } else line = test;
   }
   if (line) x.fillText(line, 190, y);
-  x.font = '500 22px Jost, Arial, sans-serif';
+  x.font = '500 22px Manrope, Arial, sans-serif';
   x.globalAlpha = 0.75;
   x.textAlign = 'center';
   x.fillText('Açtıktan sonra kilidini kapatıp serin ve kuru yerde saklayınız.', W / 2, H - 120);
@@ -450,7 +450,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
 
   // ürün akışının sinematik arka planı (ayrı tuval) ve paketin çevresinde parlak meyve suyu damlaları
   let juice = null;
-  try { juice = juiceCanvas ? createJuice(juiceCanvas) : null; } catch (e) { juice = null; }
+  try { juice = juiceCanvas ? createJuice(juiceCanvas, opts.box ? juiceCanvas.parentElement : null) : null; } catch (e) { juice = null; }
   const juiceCols = flavors.map((f) => new THREE.Color(f.bg));
   const juiceA = new THREE.Color(), juiceB = new THREE.Color();
   let juiceBlend = 0;
@@ -588,31 +588,28 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     im.src = '/logo.svg';
   });
   let loaded = 0;
-  const ready = Promise.all(
-    flavors.map((fl, i) =>
-      new Promise((res) => {
-        loader.load(fl.tex, (t) => {
-          t.colorSpace = THREE.SRGBColorSpace;
-          t.anisotropy = renderer.capabilities.getMaxAnisotropy();
-          fronts[i] = t;
-          loaded++;
-          onProgress?.(loaded / flavors.length);
-          res();
-        }, undefined, () => res());
-      })
-    )
-  ).then(async () => {
+  // dokular sırayla yüklenir: ilk gösterilecek ürün (opts.first) hazır olunca sahne açılır, diğerleri arkadan gelir
+  const first = opts.first || 0;
+  let resolveReady;
+  const ready = new Promise((r) => { resolveReady = r; });
+  const prep = (async () => {
     await logoReady;
-    try { await document.fonts?.ready; } catch (e) { /* yedek yazı tipi */ }
-    flavors.forEach((fl, i) => { if (fronts[i] && !fl.model) backs[i] = makeBackTexture(fronts[i].image, fl, logoImg); });
-    showFront(0); showBack(0);
-    fan.forEach((f) => {
-      if (!fronts[f.i]) return;
-      f.pk.setFront(fronts[f.i]); f.pk.setBack(backs[f.i]);
-      f.pk.bottomMat.color.copy(new THREE.Color(flavors[f.i].bg).multiplyScalar(0.75));
-      const asp = (flavors[f.i].aspect || 1.153) / 1.153;
-      f.pk.group.scale.set(1 / Math.sqrt(asp), asp / Math.sqrt(asp), 1);
-    });
+    try { await Promise.race([document.fonts?.ready, new Promise((r) => setTimeout(r, 400))]); } catch (e) { /* yedek yazı tipi */ }
+  })();
+  const order = flavors.map((_, i) => i).sort((a, b) => (a === first ? -1 : b === first ? 1 : 0));
+  order.forEach((i) => {
+    const fl = flavors[i];
+    loader.load(fl.tex, async (t) => {
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      await prep;
+      fronts[i] = t;
+      if (!fl.model) backs[i] = makeBackTexture(t.image, fl, logoImg);
+      loaded++;
+      onProgress?.(loaded / flavors.length);
+      if (i === first) { flavor = first; showFront(first); showBack(first); resolveReady(); }
+      else if (i === flavor && frontIdx !== i) { showFront(i); showBack(i); }
+    }, undefined, () => { loaded++; if (i === first) resolveReady(); });
   });
 
   const bottomColors = flavors.map((f) => new THREE.Color(f.bg).multiplyScalar(0.75));
@@ -891,7 +888,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       const w = 2.5 * (1 + 0.04 * Math.sin(t * 0.2));
       bdMesh.scale.set(w, w * asp, 1);
       bdMesh.position.y = 0.06;
-      bdMat.opacity = ok && !opts.plain ? (insp.on ? 0.9 * insp.blend : state.bd) * bdNow : 0;
+      bdMat.opacity = ok && !opts.plain && !opts.noBackdrop ? (insp.on ? 0.9 * insp.blend : state.bd) * bdNow : 0;
       bdMesh.visible = bdMat.opacity > 0.004;
     }
     // koyu hale ve kontur ışığı

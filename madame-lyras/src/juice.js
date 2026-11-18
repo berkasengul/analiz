@@ -115,7 +115,8 @@ export function juiceMaterial() {
   });
 }
 
-export function createJuice(canvas) {
+// box: verilirse tuval tüm ekran yerine bu öğenin boyutunda çizilir (ürün sayfası)
+export function createJuice(canvas, box = null) {
   const mobile = () => window.innerWidth / window.innerHeight < 0.9 || window.innerWidth < 760;
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, premultipliedAlpha: false, powerPreference: 'high-performance' });
   renderer.setPixelRatio(mobile() ? 1 : Math.min(window.devicePixelRatio, 1.5));
@@ -132,11 +133,13 @@ export function createJuice(canvas) {
   const show = (v) => { if (v !== shown) { shown = v; canvas.style.visibility = v ? 'visible' : 'hidden'; } };
   function resize() {
     renderer.setPixelRatio(mobile() ? 1 : Math.min(window.devicePixelRatio, 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight, false);
-    U.uAspect.value = window.innerWidth / window.innerHeight;
+    const w = box ? Math.max(1, box.clientWidth) : window.innerWidth, h = box ? Math.max(1, box.clientHeight) : window.innerHeight;
+    renderer.setSize(w, h, false);
+    U.uAspect.value = w / h;
     U.uMobile.value = mobile() ? 1 : 0;
   }
   window.addEventListener('resize', resize);
+  if (box && window.ResizeObserver) new ResizeObserver(resize).observe(box);
   resize();
 
   return {

@@ -10,13 +10,23 @@
   <meta property="og:image" content="/img/og.jpg" />
   <meta name="theme-color" content="#7a0f15" />
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <!-- açılıştaki paketlerin dokuları sayfa açılır açılmaz indirilir -->
+  <link rel="preload" as="image" href="/tex/cilek.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/tex/kirmizi-ejder.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/tex/hindistancevizi.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/tex/seftali.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/tex/ananas.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/tex/lime.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/tex/fistikli-dondurma.webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/corp.css" />
 </head>
 <body data-page="index">
   <!-- @include header -->
+  <canvas id="juice" aria-hidden="true"></canvas>
+  <canvas id="gl" aria-hidden="true"></canvas>
   <main id="icerik">
     <!-- AÇILIŞ: 3B ürün sergisi -->
     <section class="hero" id="hero" aria-label="Genç Anadolu Gıda">
@@ -40,6 +50,15 @@
           <li><b>17</b>meyve ve tatlı paketi</li>
           <li><b>6</b>hazır gıda ürünü</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- 3B ÜRÜN AKIŞI: açılıştaki çilek paketi kaydırınca buraya iner; Çilek → Beyaz Ejder → Ananas -->
+    <section class="products" id="akis" aria-label="Öne çıkan ürünler">
+      <div class="products__stick">
+        <div class="wrap products__layers" id="players"></div>
+        <a class="products__hit" id="productHit" href="/urunler.html" aria-label="Ürünü incele"><span class="hitlabel" id="hitLabel">3D<br />İncele</span></a>
+        <nav class="flavors" id="flavorDots" aria-label="Ürünler"></nav>
       </div>
     </section>
 

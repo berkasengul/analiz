@@ -50,8 +50,9 @@ function cameraPlan(w, h) {
     // kaidenin kenarları ekrandan biraz taşabilir; paketler kesilmez
     // dikey tablette sahne biraz daha aşağıda ve küçük: paketlerin üstü menünün altına girmesin
     // telefon: yazılar üstte, sahne altta (kaide alttaki özellik satırının hemen üstünde)
-    if (A > 0.6) return { fov: 36, elev: 0.08, frac: 1.2, sx: 0.5, sy: 0.46, A, phone: true };
-    return { fov: 36, elev: 0.08, frac: 1.42, sx: 0.5, sy: 0.45, A, phone: true };
+    // telefon: yazılar üstte, sahne düğmelerin altı ile alttaki bilgi satırı arasında
+    if (A > 0.6) return { fov: 38, elev: 0.06, frac: 0.9, sx: 0.5, sy: 0.7, A };
+    return { fov: 38, elev: 0.06, frac: 1.08, sx: 0.5, sy: 0.69, A };
   }
   if (A < 1.35) {
     // tablet: yazılar solda, grup biraz daha küçük
@@ -63,7 +64,7 @@ function cameraPlan(w, h) {
 function planDistance(pl) {
   const t = Math.tan((pl.fov * Math.PI) / 360);
   // telefon: sahne, düğme ile alttaki özellik satırı arasındaki boşluğa sığar (yazıların üstüne binmez)
-  if (pl.band) return Math.max((PLAT.R * 2) / (2 * pl.frac * t * pl.A), 3.45 / (2 * t * pl.band));
+  if (pl.band) return Math.max((PLAT.R * 2) / (2 * pl.frac * t * pl.A), 4.1 / (2 * t * pl.band));
   const dWidth = (PLAT.R * 2) / (2 * pl.frac * t * pl.A);
   // dikeyde kaidenin altı ile yörüngedeki meyvelerin üstü sığsın (≈4.3 birim)
   const dHeight = 4.8 / (2 * 0.86 * t);
@@ -313,7 +314,7 @@ function Pouches({ flavors, mobile, onReady }) {
     Promise.all(holders.map((h) => new Promise((res) => loader.load(h.fl.tex, (t) => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; res(t); }, undefined, () => res(null)))))
       .then(async (texes) => {
         const im = await logo;
-        try { await document.fonts?.ready; } catch (e) { /* yedek yazı tipi */ }
+        try { await Promise.race([document.fonts?.ready, new Promise((r) => setTimeout(r, 400))]); } catch (e) { /* yedek yazı tipi */ }
         if (dead) return;
         holders.forEach((h, i) => {
           if (!texes[i]) return;
@@ -615,17 +616,17 @@ function Rig({ mobile }) {
       // yazı bloğunun altı (düğme) ile özellik satırının üstü arasındaki bant, ara ara ölçülür
       if (!band.current || st.clock.elapsedTime - band.current.t > 0.5) {
         const cv = gl.domElement.getBoundingClientRect();
-        const hd = document.querySelector('.hdr'), tx = document.querySelector('.hero__eyebrow');
-        if (hd && tx && cv.height) {
-          const top = hd.getBoundingClientRect().bottom - cv.top + 4;
-          const bot = tx.getBoundingClientRect().top - cv.top - 6;
+        const cta = document.querySelector('.hero__ctas'), ft = document.querySelector('.hero__facts');
+        if (cta && ft && cv.height) {
+          const top = cta.getBoundingClientRect().bottom - cv.top + 12;
+          const bot = ft.getBoundingClientRect().top - cv.top - 4;
           band.current = { t: st.clock.elapsedTime, top: top / cv.height, bot: bot / cv.height };
         }
       }
       if (band.current && band.current.bot - band.current.top > 0.2) {
         const b = band.current;
         pl.band = b.bot - b.top;
-        pl.sy = b.top + pl.band * 0.5;
+        pl.sy = b.top + pl.band * 0.56;
       }
     }
     const d = planDistance(pl);
@@ -690,13 +691,13 @@ function Scene({ flavors, mobile, reduce, onReady }) {
     const tl = gsap.timeline({ onComplete: () => setIntroDone(true) });
     if (reduce) { S.intro = 0; S.fruitIn = 1; tl.call(() => {}); }
     else {
-      tl.to(S, { intro: 0, duration: 2.6, ease: 'power3.out' }, 0);
+      tl.to(S, { intro: 0, duration: 1.5, ease: 'power3.out' }, 0);
       holders.forEach((h, i) => {
         const y = h.holder.position.y;
-        tl.from(h.holder.position, { y: y + 2.2, duration: 1.35, ease: 'back.out(1.2)' }, 0.25 + i * 0.12);
-        tl.from(h.holder.rotation, { z: (i % 2 ? 1 : -1) * 0.2, duration: 1.35, ease: 'power3.out' }, 0.25 + i * 0.12);
+        tl.from(h.holder.position, { y: y + 1.4, duration: 0.8, ease: 'back.out(1.2)' }, 0.05 + i * 0.05);
+        tl.from(h.holder.rotation, { z: (i % 2 ? 1 : -1) * 0.2, duration: 0.8, ease: 'power3.out' }, 0.05 + i * 0.05);
       });
-      tl.to(S, { fruitIn: 1, duration: 2.2, ease: 'power2.out' }, 0.7);
+      tl.to(S, { fruitIn: 1, duration: 1.3, ease: 'power2.out' }, 0.3);
     }
     requestAnimationFrame(() => onReady());
   };
