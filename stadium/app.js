@@ -89,7 +89,7 @@ const LAYOUT = {
    ====================================================================== */
 const canvas = $('#c');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.setPixelRatio(REC ? Math.min(window.devicePixelRatio || 1, 2) : Math.min(2, Math.max(1.5, window.devicePixelRatio || 1)));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -125,7 +125,7 @@ const flood = new THREE.DirectionalLight(0xfff4e6, 0); flood.position.set(30, 30
 const flood2 = new THREE.DirectionalLight(0xffe9d2, 0); flood2.position.set(-60, 220, -90); scene.add(flood2);
 scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffecd0, 0.0);
-sun.position.set(300, 420, -120);
+sun.position.set(320, 300, -170);
 sun.castShadow = true;
 sun.shadow.mapSize.set(4096, 4096);
 Object.assign(sun.shadow.camera, { left: -150, right: 150, top: 150, bottom: -150, near: 100, far: 1100 });
@@ -176,6 +176,8 @@ const pitchTex = (() => {
   const IW = (A0 + 1) * 2, IH = (B0 + 1) * 2, S = 16; // px per metre
   return canvasTex(Math.round(IW * S), Math.round(IH * S), (g, w, h) => {
     const cx = w / 2, cy = h / 2, m = (v) => v * S;
+    g.fillStyle = '#21452f'; g.fillRect(0, 0, w, h);
+    g.save(); g.beginPath(); g.rect(cx - m(PITCH_L / 2 + 3), cy - m(PITCH_W / 2 + 3), m(PITCH_L + 6), m(PITCH_W + 6)); g.clip();
     g.fillStyle = '#285f28'; g.fillRect(0, 0, w, h);
     const sw = PITCH_L / 18;
     for (let i = -12; i < 12; i++) { g.fillStyle = i % 2 ? '#357c33' : '#2b6a2b'; g.fillRect(cx + m(i * sw), 0, m(sw) + 1, h); }
@@ -183,6 +185,7 @@ const pitchTex = (() => {
     const cw = PITCH_W / 10;
     for (let j = -8; j < 8; j++) { g.fillStyle = j % 2 ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.015)'; g.fillRect(0, cy + m(j * cw), w, m(cw) + 1); }
     for (let i = 0; i < 120000; i++) { const v = Math.random(); g.fillStyle = v < 0.5 ? `rgba(10,40,10,${0.05 + Math.random() * 0.08})` : `rgba(150,200,90,${0.03 + Math.random() * 0.05})`; g.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 1); }
+    g.restore();
     const vg = g.createRadialGradient(cx, cy, m(20), cx, cy, m(75)); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,20,0,0.25)'); g.fillStyle = vg; g.fillRect(0, 0, w, h);
     g.strokeStyle = 'rgba(255,255,255,0.92)'; g.lineWidth = m(0.12) + 0.5;
     const L = m(PITCH_L / 2), W = m(PITCH_W / 2);
@@ -387,7 +390,7 @@ const MOSAIC = (() => {
 const seatVar = new Float32Array(SEATS);
 function seatColour(i, c) {
   const b = blocks[seatBlk[i]], mos = MOSAIC(i);
-  if (mos) c.setRGB(mos[0], mos[1], mos[2], THREE.SRGBColorSpace); else c.setHex(b.tier.lvl === 2 ? 0x8a1019 : 0x9e1420);
+  if (mos) c.setRGB(mos[0], mos[1], mos[2], THREE.SRGBColorSpace); else c.setHex(b.tier.lvl === 2 ? 0xa3141b : 0xc0181e);
   c.multiplyScalar(seatVar[i]);
   seatBase[i * 3] = c.r; seatBase[i * 3 + 1] = c.g; seatBase[i * 3 + 2] = c.b;
 }
@@ -421,7 +424,7 @@ const seatGeo = (() => {
   g.computeVertexNormals();
   return g;
 })();
-const seatMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.38, metalness: 0.0, vertexColors: true });
+const seatMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.42, metalness: 0.0, vertexColors: true });
 const seatMeshes = [];
 {
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), s = new THREE.Vector3(1, 1, 1), p = new THREE.Vector3();
@@ -495,7 +498,8 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
     g.fillStyle = '#3a3d43'; g.fillRect(0, 0, w, h);
     for (let x = 0; x < w; x += 32) { g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(x, 0, 2, h); }
     for (let y = 0; y < h; y += 32) { g.fillStyle = 'rgba(255,255,255,0.05)'; g.fillRect(0, y, w, 2); }
-    g.fillStyle = 'rgba(160,175,190,0.35)'; for (let x = 40; x < w; x += 128) { g.fillRect(x, 60, 70, 10); g.fillRect(x, 84, 70, 10); g.fillRect(x, 108, 70, 10); }
+    g.fillStyle = 'rgba(205,210,215,0.55)'; for (let x = 20; x < w; x += 256) { g.fillRect(x, 70, 190, 9); g.fillRect(x + 40, 96, 150, 9); g.fillRect(x + 10, 122, 200, 9); }
+    g.fillStyle = 'rgba(20,24,30,0.6)'; g.fillRect(0, h - 46, w, 46);
   }, { repeat: [1, 1] });
   cladTex.wrapS = cladTex.wrapT = THREE.RepeatWrapping;
   const base = new THREE.Mesh(loft([[FACADE_D, -0.1], [FACADE_D, 13]], ...FULL, 720, { uScale: 32 }), new THREE.MeshStandardMaterial({ map: cladTex, roughness: 0.75, side: THREE.DoubleSide }));
@@ -503,11 +507,11 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
   const white = new THREE.MeshStandardMaterial({ color: 0xeeeff1, roughness: 0.5, side: THREE.DoubleSide });
   scene.add(new THREE.Mesh(loft([[FACADE_D + 0.4, 12.6], [FACADE_D + 0.4, 14.2], [FACADE_D - 3, 14.2]], ...FULL, 720), white));
   scene.add(new THREE.Mesh(loft([[FACADE_D - 3, 30.4], [FACADE_D + 0.4, 30.4], [FACADE_D + 0.4, 31.8]], ...FULL, 720), white));
-  const glass = new THREE.Mesh(loft([[FACADE_D - 3, 14.2], [FACADE_D - 3, 30.4]], ...FULL, 720), new THREE.MeshStandardMaterial({ color: 0x1b222c, roughness: 0.15, metalness: 0.6, side: THREE.DoubleSide }));
+  const glass = new THREE.Mesh(loft([[FACADE_D - 3, 14.2], [FACADE_D - 3, 30.4]], ...FULL, 720), new THREE.MeshStandardMaterial({ color: 0x8e1219, roughness: 0.55, metalness: 0.05, side: THREE.DoubleSide }));
   scene.add(glass);
   const upTex = canvasTex(256, 256, (g, w, h) => { g.fillStyle = '#5a5e66'; g.fillRect(0, 0, w, h); for (let x = 0; x < w; x += 16) { g.fillStyle = x % 32 ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.08)'; g.fillRect(x, 0, 6, h); } }, { repeat: [1, 1] });
   upTex.wrapS = upTex.wrapT = THREE.RepeatWrapping;
-  const up = new THREE.Mesh(loft([[FACADE_D - 1, 31.8], [FACADE_D - 1, ROOF_Y + 0.6]], ...FULL, 720, { uScale: 16 }), new THREE.MeshStandardMaterial({ map: upTex, roughness: 0.7, side: THREE.DoubleSide }));
+  const up = new THREE.Mesh(loft([[FACADE_D - 1, 31.8], [FACADE_D - 1, 37.6]], ...FULL, 720, { uScale: 16 }), new THREE.MeshStandardMaterial({ map: upTex, roughness: 0.7, side: THREE.DoubleSide }));
   up.castShadow = true; scene.add(up);
   // white V-columns around the glazed band
   const arc = arcTable(-Math.PI, Math.PI, FACADE_D + 0.2, 720), n = Math.round(arc.L / 9);
@@ -522,12 +526,22 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
     });
   }
   col.castShadow = true; scene.add(col);
-  // big white pylons at the four corners of the main facades
-  for (const ph of [Math.PI / 2 - 0.62, Math.PI / 2 + 0.62, -Math.PI / 2 - 0.62, -Math.PI / 2 + 0.62]) {
-    const [x, z] = pAt(ph, FACADE_D + 3.6), [ix, iz] = inwardAt(ph, FACADE_D);
-    const py = new THREE.Mesh(new THREE.BoxGeometry(5, ROOF_Y + 1, 5), white);
-    py.position.set(x, (ROOF_Y + 1) / 2, z); py.rotation.y = Math.atan2(ix, iz); py.castShadow = true; scene.add(py);
+  // sloped concrete pylons carrying the roof (12 around the bowl)
+  const concTex = canvasTex(128, 512, (g, w, h) => { g.fillStyle = '#c9c5bd'; g.fillRect(0, 0, w, h); for (let i = 0; i < 2500; i++) { const v = 170 + Math.random() * 50; g.fillStyle = `rgba(${v},${v - 4},${v - 10},0.35)`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); } g.fillStyle = 'rgba(0,0,0,0.12)'; for (let y = 64; y < h; y += 64) g.fillRect(0, y, w, 2); });
+  const concMat = new THREE.MeshStandardMaterial({ map: concTex, roughness: 0.85 });
+  const prof = new THREE.Shape([new THREE.Vector2(1.6, 0), new THREE.Vector2(10.5, 0), new THREE.Vector2(10.5, 2.5), new THREE.Vector2(5.6, ROOF_Y - 1), new THREE.Vector2(1.6, ROOF_Y - 1)]);
+  const pyGeo = new THREE.ExtrudeGeometry(prof, { depth: 4.2, bevelEnabled: false }); pyGeo.translate(0, 0, -2.1);
+  const pyArc = arcTable(-Math.PI, Math.PI, FACADE_D, 720), NP = 12; window.__pyPhis = [];
+  for (let k = 0; k < NP; k++) {
+    const ph = pyArc.phiAt(pyArc.L * (k + 0.5) / NP), [x, z] = pAt(ph, FACADE_D - 0.5), [ix, iz] = inwardAt(ph, FACADE_D);
+    window.__pyPhis.push(ph);
+    const py = new THREE.Mesh(pyGeo, concMat);
+    py.position.set(x, 0, z); py.rotation.y = Math.atan2(-iz, ix) + Math.PI; // local +x points outward
+    py.castShadow = py.receiveShadow = true; scene.add(py);
   }
+  // podium the stadium stands on
+  const podium = new THREE.Mesh(loft([[FACADE_D - 1, 1.3], [FACADE_D + 11, 1.3], [FACADE_D + 11, -0.4]], ...FULL, 720, { uScale: 6 }), new THREE.MeshStandardMaterial({ color: 0xd9d6cf, roughness: 0.9, side: THREE.DoubleSide }));
+  podium.receiveShadow = true; scene.add(podium);
   // signage on the west (main) facade
   const sign = (text, color, glow, phi, y, w, h) => {
     const t = canvasTex(1024, 128, (g, cw, ch) => {
@@ -539,9 +553,13 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
     const [x, z] = pAt(phi, FACADE_D + 0.7), [ix, iz] = inwardAt(phi, FACADE_D);
     m.position.set(x, y, z); m.rotation.y = Math.atan2(-ix, -iz); scene.add(m);
   };
-  sign('≡RAMS PARK', '#ffffff', false, Math.PI / 2 - 0.26, 22.2, 66, 8.2);
-  sign('GALATASARAY SPOR KULÜBÜ', '#f5b21c', true, Math.PI / 2 + 0.28, 22.2, 76, 6.4);
-  sign('≡RAMS PARK', '#ffffff', false, -Math.PI / 2 + 0.26, 22.2, 66, 8.2);
+  // place each sign in the middle of a bay between two pylons
+  const P = window.__pyPhis.slice().sort((a, b) => a - b), bays = P.map((p, k) => { const q = k + 1 < P.length ? P[k + 1] : P[0] + Math.PI * 2; let m = (p + q) / 2; if (m > Math.PI) m -= Math.PI * 2; return m; });
+  const near = (t) => bays.reduce((best, m) => (Math.abs(Math.atan2(Math.sin(m - t), Math.cos(m - t))) < Math.abs(Math.atan2(Math.sin(best - t), Math.cos(best - t))) ? m : best), bays[0]);
+  const west = near(Math.PI / 2), westL = near(Math.PI / 2 + 0.55), east = near(-Math.PI / 2);
+  sign('≡RAMS PARK', '#ffffff', false, west, 22.2, 44, 6.6);
+  sign('GALATASARAY SPOR KULÜBÜ', '#f5b21c', true, westL, 22.2, 48, 4.4);
+  sign('≡RAMS PARK', '#ffffff', false, east, 22.2, 44, 6.6);
 }
 
 /* ----- roof: white rim, solar panels split by a "#" of white trusses, rectangular opening ----- */
@@ -556,8 +574,10 @@ const ROOF = (() => {
     g.save(); g.beginPath();
     for (let i = 0; i <= 256; i++) { const [x, z] = pAt(-Math.PI + i / 128 * Math.PI, FACADE_D - 6.5); i ? g.lineTo(X(x), Z(z)) : g.moveTo(X(x), Z(z)); }
     g.closePath(); g.clip();
-    g.fillStyle = '#39404c'; g.fillRect(0, 0, w, h);
-    g.strokeStyle = 'rgba(190,200,215,0.55)'; g.lineWidth = 1;
+    const sg = g.createLinearGradient(0, 0, w, h); sg.addColorStop(0, '#3a4560'); sg.addColorStop(0.5, '#4b5878'); sg.addColorStop(1, '#343e57');
+    g.fillStyle = sg; g.fillRect(0, 0, w, h);
+    for (let y = 0; y < h; y += S * 1.1) for (let x = 0; x < w; x += S * 2.2) { g.fillStyle = `rgba(${150 + Math.random() * 40},${170 + Math.random() * 40},${210},${0.05 + Math.random() * 0.07})`; g.fillRect(x + 1, y + 1, S * 2.2 - 2, S * 1.1 - 2); }
+    g.strokeStyle = 'rgba(205,212,225,0.6)'; g.lineWidth = 1;
     for (let x = 0; x < w; x += S * 2.2) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); }
     for (let y = 0; y < h; y += S * 1.1) { g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); }
     g.fillStyle = 'rgba(255,255,255,0.08)'; for (let y = 0; y < h; y += S * 9) g.fillRect(0, y, w, S * 0.9);
@@ -584,10 +604,11 @@ const ROOF = (() => {
   geo.setAttribute('position', new THREE.Float32BufferAttribute(P, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(UV, 2));
   geo.setIndex(I); geo.computeVertexNormals();
   if (geo.attributes.normal.getY(5) < 0) { for (let q = 0; q < I.length; q += 3) { const t = I[q + 1]; I[q + 1] = I[q + 2]; I[q + 2] = t; } geo.setIndex(I); geo.computeVertexNormals(); }
-  const topMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.45, metalness: 0.0, transparent: true, opacity: 1, side: THREE.FrontSide });
+  const topMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.32, metalness: 0.25, transparent: true, opacity: 1, side: THREE.FrontSide });
   const top = new THREE.Mesh(geo, topMat); top.castShadow = true; top.receiveShadow = true; scene.add(top);
-  const underMat = new THREE.MeshStandardMaterial({ color: 0x8e9197, emissive: 0x1a0d04, roughness: 0.85, transparent: true, opacity: 1, side: THREE.BackSide });
-  const under = new THREE.Mesh(geo, underMat); under.position.y = -0.08; scene.add(under);
+  const ug = geo.clone(); { const cc = []; for (let i = 0; i <= NA; i++) for (let k = 0; k <= NR; k++) { const t = k / NR, v = t < 0.2 ? 1.0 : 0.78 - 0.1 * t; cc.push(v, v, v * (t < 0.2 ? 1.03 : 1)); } ug.setAttribute('color', new THREE.Float32BufferAttribute(cc, 3)); }
+  const underMat = new THREE.MeshStandardMaterial({ color: 0xe6e3dc, roughness: 0.8, vertexColors: true, transparent: true, opacity: 1, side: THREE.BackSide });
+  const under = new THREE.Mesh(ug, underMat); under.position.y = -0.08; scene.add(under);
   // white ribs under the overhang
   const ribs = [];
   for (let i = 0; i < 120; i++) { const ph = -Math.PI + (i / 120) * Math.PI * 2; const [x0, z0] = pAt(ph, FACADE_D - 0.5), [x1, z1] = pAt(ph, FACADE_D + OVH - 0.4); ribs.push([x0, roofY(0.86) - 1.6, z0, x1, roofY(0.99) - 0.9, z1]); }
@@ -604,7 +625,7 @@ const ROOF = (() => {
   const segs = [];
   const SEG = (a, b, r) => segs.push([a, b, r]);
   const V = (x, y, z) => new THREE.Vector3(x, y, z);
-  const yT = ROOF_Y - 0.5, yB = ROOF_Y - 6.5;
+  const yT = ROOF_Y - 0.5, yB = ROOF_Y - 8.5;
   const lacing = (A1, A2, B1, B2, n, r) => { for (let k = 0; k <= n; k++) { const t = k / n, t2 = Math.min(1, (k + 0.5) / n); const a = A1.clone().lerp(A2, t), b = B1.clone().lerp(B2, t2); SEG(a, b, r); if (k < n) SEG(b, A1.clone().lerp(A2, (k + 1) / n), r); } };
   const sides = [ // [axis, sign]: along x at z=±OPEN_Z, along z at x=±OPEN_X
     ...[-1, 1].map((sg) => ({ P: (u, o, y) => V(u, y, sg * (OPEN_Z + o)), L: OPEN_X + 6, rim: (u) => ext(u, ea, eb), sg })),
@@ -614,9 +635,9 @@ const ROOF = (() => {
     const { P, L } = sd;
     // main triangular truss
     const tA1 = P(-L, 0.6, yT), tA2 = P(L, 0.6, yT), tB1 = P(-L, 5.0, yT), tB2 = P(L, 5.0, yT), bo1 = P(-L, 2.8, yB), bo2 = P(L, 2.8, yB);
-    SEG(tA1, tA2, 0.35); SEG(tB1, tB2, 0.35); SEG(bo1, bo2, 0.42);
+    SEG(tA1, tA2, 0.5); SEG(tB1, tB2, 0.5); SEG(bo1, bo2, 0.65);
     const n = Math.round(L / 3);
-    lacing(tA1, tA2, bo1, bo2, n, 0.14); lacing(tB1, tB2, bo1, bo2, n, 0.14);
+    lacing(tA1, tA2, bo1, bo2, n, 0.2); lacing(tB1, tB2, bo1, bo2, n, 0.2);
     // secondary trusses out to the rim
     for (let u = -L + 4; u <= L - 4; u += 10) {
       const rimO = sd.rim(u) - (sd.L === OPEN_X + 6 ? OPEN_Z : OPEN_X); if (rimO < 8) continue;
@@ -853,20 +874,20 @@ function overviewPose(extraDist = 1, azOff = 0) {
 let ovTheta = -Math.PI / 2; // interior overview: direction the camera looks at (−π/2 = Doğu, the GALATASARAY stand)
 function landingPose(az = orbitAz) {
   const portrait = isPortrait();
-  const el = THREE.MathUtils.degToRad(portrait ? 40 : 30), dist = portrait ? 640 : 430;
+  const el = THREE.MathUtils.degToRad(portrait ? 34 : 24), dist = portrait ? 600 : 380;
   const target = new THREE.Vector3(0, 8, 0);
   const pos = new THREE.Vector3(Math.cos(el) * Math.sin(az), Math.sin(el), Math.cos(el) * Math.cos(az)).multiplyScalar(dist).add(target);
   return { pos, target, fov: 34 };
 }
 function interiorPose(th = ovTheta) {
   const c = Math.cos(th), sn = Math.sin(th), portrait = isPortrait();
-  return { pos: new THREE.Vector3(-c * A0 * 0.55, portrait ? 27 : 24, -sn * B0 * 0.85), target: new THREE.Vector3(c * (A0 + 10), portrait ? 8 : 10, sn * (B0 + 12)), fov: portrait ? 72 : 58 };
+  return { pos: new THREE.Vector3(-c * A0 * 0.32, portrait ? 23 : 20, -sn * B0 * 0.5), target: new THREE.Vector3(c * (A0 + 14), portrait ? 9 : 11, sn * (B0 + 16)), fov: portrait ? 72 : 62 };
 }
 function blockPose(b) {
   const c = b.center.clone();
   const n = b.inward.clone();
   const portrait = isPortrait();
-  const pos = c.clone().addScaledVector(n, portrait ? 36 : 31); pos.y = Math.min(c.y + (portrait ? 26 : 23), 41);
+  const pos = c.clone().addScaledVector(n, portrait ? 26 : 21); pos.y = Math.min(c.y + (portrait ? 17 : 14), 40);
   return { pos, target: c.clone().addScaledVector(n, -2).add(new THREE.Vector3(0, -2, 0)), fov: portrait ? 62 : 50 };
 }
 function seatPose(i) {
@@ -1012,17 +1033,18 @@ function buildLocator(b) {
   L.innerHTML = h;
 }
 function buildPanel(b) {
-  $('#pStand').textContent = `${b.stand} Tribünü · ${tierWord(b.tier)}`;
+  $('#pStand').textContent = `${b.stand} Tribünü · ${tierWord(b.tier)}`.toLocaleUpperCase('tr-TR');
   $('#pTitle').textContent = `Blok ${b.id}`;
   $('#pPrice').textContent = b.price ? TL(b.price) : '—';
   $('#pCat').textContent = b.cat;
-  $('#pFree').textContent = b.free ? `● ${fmt(b.free)} boş` : '● Tükendi';
+  $('#pFree').textContent = b.free ? `● ${fmt(b.free)} boş koltuk` : '● Tükendi';
   $('#pGate').textContent = `Kapı ${STANDS[b.stand].gate}`;
   const sold = 1 - b.free / b.seatCount;
   $('#pAvail').style.width = (sold * 100).toFixed(0) + '%';
-  $('#pAvailTxt').textContent = `%${Math.round(sold * 100)} dolu`;
-  $('#pPerks').innerHTML = ['Çatı altında', ...(PERKS[b.cat] || [])].map((x) => `<li>${x}</li>`).join('');
+  $('#pAvailTxt').textContent = `%${Math.round(sold * 100)}`;
+  $('#pPerks').innerHTML = [...(PERKS[b.cat] || []), 'Çatı altında'].map((x) => `<li>${x}</li>`).join('');
   buildLocator(b);
+  if (ui.pickSeat < 0) heroForBlock(b);
   const nRows = b.rows.length, maxN = Math.max(...b.rows.map((r) => r.count));
   const cx = 0, R0 = 300, dr = nRows > 10 ? 9.4 : 18;
   const spanBack = (maxN * 9.2) / (R0 + nRows * dr);
@@ -1057,18 +1079,27 @@ function buildPanel(b) {
   updateSelCard();
 }
 function updateSelCard() {
-  const set = ui.pickSet, card = $('#selCard'), btn = $('#selBtn');
+  const set = ui.pickSet, btn = $('#selBtn'), chips = $('#selChips');
   $('#qVal').textContent = ui.qty;
   if (!set.length || !ui.focus) {
-    card.classList.remove('on'); btn.disabled = true; btn.textContent = 'Koltuk seç';
-    $('#selRow').textContent = '–'; $('#selSeat').textContent = '–'; $('#selTotal').textContent = '–';
+    chips.innerHTML = '<span class="sel-empty">Haritadan ya da stadyumdan bir koltuk seç</span>';
+    btn.disabled = true; btn.textContent = 'Koltuk seç'; $('#selTotal').textContent = '–';
     return;
   }
-  const b = blocks[seatBlk[set[0]]], nums = set.map((i) => seatNum[i]).sort((x, y) => x - y);
-  $('#selRow').textContent = seatRow[set[0]];
-  $('#selSeat').textContent = nums.length > 1 ? `${nums[0]}–${nums[nums.length - 1]}` : nums[0];
+  const b = blocks[seatBlk[set[0]]];
+  chips.innerHTML = [...set].sort((x, y) => seatNum[x] - seatNum[y]).map((i) => `<span class="seat-chip"><i>Sıra</i>${seatRow[i]}<i>Koltuk</i>${seatNum[i]}</span>`).join('');
   $('#selTotal').textContent = TL(b.price * set.length);
-  card.classList.add('on'); btn.disabled = false; btn.textContent = 'Koltuktan görünümü aç →';
+  btn.disabled = false; btn.textContent = set.length > 1 ? `${set.length} koltuğu seç · görünümü aç →` : 'Koltuktan görünümü aç →';
+}
+// preview camera for the panel: a bit above and in front of the seat so the highlighted seats are not in the way
+function previewPose(i) {
+  const p = seatPose(i), f = new THREE.Vector3(Math.sin(seatYaw[i]), 0, Math.cos(seatYaw[i]));
+  p.pos.addScaledVector(f, 0.9); p.pos.y += 0.35; return p;
+}
+function heroForBlock(b) {
+  const r = b.rows[Math.floor(b.rows.length / 2)], i = r.start + Math.floor(r.count / 2);
+  const p = previewPose(i); snapshotReq = { pos: p.pos, target: p.target, fov: 62, canvas: $('#selView') };
+  $('#heroLbl').textContent = `Blok ${b.id} · Sıra ${seatRow[i]}`;
 }
 function seatGroup(i, n) {
   const r = blocks[seatBlk[i]].rows[seatRow[i] - 1], lo = r.start, hi = r.start + r.count - 1;
@@ -1084,7 +1115,8 @@ function pickSeat(i) {
   ui.pickSeat = i; ui.pickSet = g; paintDirty = true;
   seatmap.querySelectorAll('g.s.sel').forEach((e) => e.classList.replace('sel', 'free'));
   for (const k of g) { const el = seatmap.querySelector(`g.s[data-i="${k}"]`); if (el) el.classList.replace('free', 'sel'); }
-  const pose = seatPose(i); snapshotReq = { pos: pose.pos, target: pose.target, fov: 60, canvas: $('#selView') };
+  const pose = previewPose(i); snapshotReq = { pos: pose.pos, target: pose.target, fov: 62, canvas: $('#selView') };
+  $('#heroLbl').textContent = `Sıra ${seatRow[i]} · Koltuk ${seatNum[i]}`;
   updateSelCard();
 }
 $('#qMinus').addEventListener('click', () => { ui.qty = Math.max(1, ui.qty - 1); if (ui.pickSeat >= 0) pickSeat(ui.pickSeat); else updateSelCard(); });
@@ -1307,10 +1339,10 @@ function step(dt) {
   flood.intensity = 2.3 * night; flood2.intensity = 0.9 * night;
   scene.environmentIntensity = lerp(0.32, 0.22, night);
   scene.background = night > 0.5 ? skyNight : skyDay;
-  ROOF.edgeMat.emissiveIntensity = 2.2 * lt; ROOF.lampMat.emissiveIntensity = 4.0 * lt; ROOF.glowMat.opacity = 0.9 * lt * night;
+  ROOF.edgeMat.emissiveIntensity = 0.7 * lt; ROOF.lampMat.emissiveIntensity = 1.6 * lt; ROOF.glowMat.opacity = 0.9 * lt * night;
   const front = lightsT0 < 0 ? 0 : lerp(20, 210, sstep(0.1, 2.8, clock.t - lightsT0));
   if (front !== ui.revealFront) { ui.revealFront = front; paintDirty = true; }
-  const wantNight = ui.state === 'landing' ? 0 : lightsT0 >= 0 ? 1 : 0;
+  const wantNight = 0;
   nightK = lerp(nightK, wantNight, 1 - Math.exp(-dt * 2.2)); if (Math.abs(nightK - wantNight) < 0.002) nightK = wantNight;
   // ambient effects
   ledTex.offset.x = (clock.t * 0.04) % 1; ribbonTex.offset.x = (clock.t * 0.012) % 1;

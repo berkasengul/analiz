@@ -30,50 +30,44 @@
   <div id="seatTip" class="seattip"></div>
 
   <aside id="panel" class="panel" aria-live="polite">
-    <div class="panel-head">
-      <div>
-        <div class="eyebrow" id="pStand"></div>
-        <h2 id="pTitle"></h2>
-      </div>
-      <div class="price"><small>kişi başı</small><b id="pPrice"></b></div>
-    </div>
-    <div class="p-meta">
-      <svg id="locator" class="locator" viewBox="0 0 120 92" aria-label="Stadyumdaki konum"></svg>
-      <div class="p-meta-r">
-        <div class="chips">
-          <span class="chip cat" id="pCat"></span>
-          <span class="chip free" id="pFree"></span>
-          <span class="chip" id="pGate"></span>
+    <div class="pn-scroll">
+      <header class="pn-head">
+        <div class="pn-eyebrow" id="pStand"></div>
+        <div class="pn-titlerow">
+          <h2 id="pTitle"></h2>
+          <div class="pn-price"><b id="pPrice"></b><small>kişi başı</small></div>
         </div>
-        <div class="avail"><div class="avail-bar"><i id="pAvail"></i></div><span id="pAvailTxt"></span></div>
+        <div class="pn-tags"><span class="tag cat" id="pCat"></span><span class="tag free" id="pFree"></span><span class="tag" id="pGate"></span></div>
+      </header>
+      <section class="pn-hero">
+        <canvas id="selView" width="640" height="360"></canvas>
+        <div class="pn-hero-top"><span class="live">● Canlı görünüm</span><span id="heroLbl">Blok ortasından</span></div>
+        <svg id="locator" class="locator" viewBox="0 0 120 92" aria-label="Stadyumdaki konum"></svg>
+      </section>
+      <section class="pn-stats">
+        <div class="pn-occ"><small>Doluluk</small><div class="avail-bar"><i id="pAvail"></i></div><b id="pAvailTxt"></b></div>
         <ul class="perks" id="pPerks"></ul>
-      </div>
-    </div>
-    <div class="map-wrap">
-      <div class="pitch-bar">SAHA</div>
-      <svg id="seatmap" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet"></svg>
-    </div>
-    <div class="legend">
-      <span><i class="dot free"></i>Boş</span>
-      <span><i class="dot sold"></i>Dolu</span>
-      <span><i class="dot sel"></i>Seçili</span>
-      <span class="legend-tip">Koltuğa stadyumda da tıklayabilirsin</span>
-    </div>
-    <div id="selCard" class="selcard">
-      <div class="sel-top">
-        <div class="sel-view"><canvas id="selView" width="320" height="180"></canvas><span>Bu koltuktan</span></div>
-        <div class="sel-info">
-          <div><small>Sıra</small><b id="selRow">–</b></div>
-          <div><small>Koltuk</small><b id="selSeat">–</b></div>
+      </section>
+      <section class="pn-map">
+        <div class="pn-map-head">
+          <b>Koltuğunu seç</b>
+          <div class="legend"><span><i class="dot free"></i>Boş</span><span><i class="dot sold"></i>Dolu</span><span><i class="dot sel"></i>Seçili</span></div>
         </div>
-      </div>
-      <div class="sel-qty">
-        <span class="q-l">Bilet adedi</span>
-        <div class="stepper"><button id="qMinus" type="button" aria-label="Azalt">−</button><b id="qVal">1</b><button id="qPlus" type="button" aria-label="Arttır">+</button></div>
+        <div class="map-wrap">
+          <div class="pitch-bar">SAHA</div>
+          <svg id="seatmap" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet"></svg>
+        </div>
+        <p class="legend-tip">Koltuğa stadyumun içinde de tıklayabilirsin</p>
+      </section>
+    </div>
+    <footer id="selCard" class="pn-foot">
+      <div class="sel-chips" id="selChips"><span class="sel-empty">Henüz koltuk seçmedin</span></div>
+      <div class="pn-row">
+        <div class="q-wrap"><span class="q-l">Bilet</span><div class="stepper"><button id="qMinus" type="button" aria-label="Azalt">−</button><b id="qVal">1</b><button id="qPlus" type="button" aria-label="Arttır">+</button></div></div>
         <div class="sel-total"><small>Toplam</small><b id="selTotal">–</b></div>
       </div>
       <button id="selBtn" type="button" class="sel-btn" disabled>Koltuk seç</button>
-    </div>
+    </footer>
   </aside>
 
   <div id="ticketWrap" class="ticket-wrap">
