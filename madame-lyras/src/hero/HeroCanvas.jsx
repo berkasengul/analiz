@@ -23,7 +23,7 @@ const P = (id, k, b = false) => `/parca/${id}-${k}${b ? 'b' : ''}.webp`;
 
 /* ---------------- sahne yerleşimi ---------------- */
 // kaide grubun arkasına kaydırıldı: paketler kaidenin ön yarısında, ön kenara yakın durur
-const PLAT = { x: -0.06, z: -0.5, R: 3.2 };
+const PLAT = { x: 0, z: -0.4, R: 3.75 };
 const TARGET = new THREE.Vector3(0.0, 1.05, 1.0); // ürün grubunun görsel ağırlık merkezi (çilek baskın)
 // s: çilek paketine göre ölçek; ry: en fazla ~5°, ön yüzler kameraya dönük
 const K = 1.05; // paket ölçeği (7 paketin hepsi kaideye sığsın)
@@ -32,10 +32,10 @@ const S0 = 1.86 * K;
 // 7 paket yelpaze gibi kademeli dizilir: çilek önde ortada, diğerleri iki yana doğru birer adım geride;
 // her paketin yarıdan fazlası (adı ve logosu) görünür
 // üst kat (açık renk mermer tabla) yüksekliği ve konumu
-const TIER = { x: 0.05, z: 0.95, R: 1.62, h: 0.14 };
+const TIER = { x: 0, z: -0.12, R: 2.78, h: 0.16 };
 const POUCHES = [
-  { id: 'seftali', x: -2.1, z: 0.4, ry: 0.3, s: 0.86 },
-  { id: 'ananas', x: 2.2, z: 0.4, ry: -0.3, s: 0.86 },
+  { id: 'seftali', x: -2.1, z: 0.4, ry: 0.3, s: 0.86, y: TIER.h },
+  { id: 'ananas', x: 2.2, z: 0.4, ry: -0.3, s: 0.86, y: TIER.h },
   { id: 'hindistan-cevizi', x: -1.15, z: 0.85, ry: 0.15, s: 0.95, y: TIER.h },
   { id: 'ahududu', x: 1.25, z: 0.85, ry: -0.15, s: 0.95, y: TIER.h },
   { id: 'cilek', x: 0.05, z: 1.3, ry: -0.03, s: 1.08, hero: true, y: TIER.h },
@@ -51,15 +51,15 @@ function cameraPlan(w, h) {
     // dikey tablette sahne biraz daha aşağıda ve küçük: paketlerin üstü menünün altına girmesin
     // telefon: yazılar üstte, sahne altta (kaide alttaki özellik satırının hemen üstünde)
     // telefon: yazılar üstte, sahne düğmelerin altı ile alttaki bilgi satırı arasında
-    if (A > 0.6) return { fov: 38, elev: 0.06, frac: 0.9, sx: 0.5, sy: 0.7, A };
-    return { fov: 38, elev: 0.06, frac: 1.08, sx: 0.5, sy: 0.69, A };
+    if (A > 0.6) return { fov: 38, elev: 0.06, frac: 1.0, sx: 0.5, sy: 0.7, A };
+    return { fov: 38, elev: 0.06, frac: 1.22, sx: 0.5, sy: 0.69, A };
   }
   if (A < 1.35) {
     // tablet: yazılar solda, grup biraz daha küçük
     return { fov: 36, elev: 0.04, frac: 0.44, sx: 0.78, sy: 0.47, A };
   }
   // göz hizasına yakın, tam karşıdan: kaide ince bir elips, paketler zeminde duruyormuş gibi
-  return { fov: 36, elev: 0.035, frac: 0.7, sx: 0.69, sy: 0.47, A };
+  return { fov: 36, elev: 0.04, frac: 0.8, sx: 0.68, sy: 0.48, A };
 }
 function planDistance(pl) {
   const t = Math.tan((pl.fov * Math.PI) / 360);
@@ -271,7 +271,7 @@ function UpperTier() {
 }
 
 /* ---------------- önde hindistan cevizi yarımı (kahverengi kabuk, beyaz iç) ---------------- */
-function Coconut({ position = [-2.55, 0.34, 1.35], r = 0.5 }) {
+function Coconut({ position = [-3.2, 0.3, 0.6], r = 0.46 }) {
   const { shell, flesh, rim } = useMemo(() => {
     const c = document.createElement('canvas'); c.width = c.height = 256;
     const x = c.getContext('2d');
@@ -302,7 +302,7 @@ function Coconut({ position = [-2.55, 0.34, 1.35], r = 0.5 }) {
 }
 
 /* ---------------- sağda mermer kâse (içinde ahududular) ---------------- */
-function Bowl({ position = [2.66, 0, 0.9] }) {
+function Bowl({ position = [3.24, 0, 0.42] }) {
   const { geo, mat } = useMemo(() => {
     const pts = [];
     pts.push(new THREE.Vector2(0.0, 0.0), new THREE.Vector2(0.2, 0.0), new THREE.Vector2(0.22, 0.04), new THREE.Vector2(0.17, 0.07));
@@ -456,22 +456,20 @@ function Orbit() {
 // rest: kaide üstünde (ön kenara yakın, ana paketin önünü kapatmadan sol ve sağ kümeler)
 // orbit: yörünge çizgisi üzerinde (açı derece; paketlerin logo ve yazılarının üstünde değil)
 const REST = [
-  // sol: şeftali dilimi ve çilekler
-  { u: P('seftali', 0), x: -1.85, z: 2.0, w: 1.0, ry: 0.35 },
-  { u: P('cilek', 0), x: -0.95, z: 2.25, w: 0.82, ry: -0.18 },
-  { u: P('cilek', 0), x: -0.25, z: 2.42, w: 0.6, ry: 0.3, flip: true },
-  { u: P('cilek', 1), x: 0.55, z: 2.45, w: 0.55, sink: 0.08 },
-  // sağ: ananas parçaları
-  { u: P('ananas', 2), x: 1.45, z: 2.05, w: 1.0, ry: -0.3 },
-  { u: P('ananas', 3), x: 2.15, z: 1.6, w: 0.72, ry: -0.5 },
-  // kâsedeki ahududular (kâse ayrı 3B model)
-  { u: P('ahududu', 0), x: 2.62, z: 1.02, y: 0.36, w: 0.34, ry: -0.3 },
-  { u: P('ahududu', 4), x: 2.86, z: 0.92, y: 0.4, w: 0.32, ry: -0.5 },
-  { u: P('ahududu', 1), x: 2.72, z: 0.78, y: 0.44, w: 0.3, ry: -0.4 },
-  { u: P('ahududu', 5), x: 2.45, z: 0.86, y: 0.42, w: 0.3, ry: -0.1 },
+  // sol yan: şeftali dilimi ve çilekler (hindistan cevizi ayrı 3B model)
+  { u: P('seftali', 0), x: -3.2, z: 1.55, w: 0.78, ry: 0.55 },
+  { u: P('cilek', 0), x: -2.75, z: 2.2, w: 0.55, ry: 0.35 },
+  { u: P('cilek', 0), x: -3.35, z: 2.05, w: 0.42, ry: 0.6, flip: true },
+  // sağ yan: ananas parçaları ve kâsedeki ahududular (kâse ayrı 3B model)
+  { u: P('ananas', 2), x: 3.05, z: 1.75, w: 0.8, ry: -0.5 },
+  { u: P('ananas', 3), x: 3.5, z: 1.2, w: 0.55, ry: -0.7 },
+  { u: P('ahududu', 0), x: 3.2, z: 0.55, y: 0.36, w: 0.32, ry: -0.3 },
+  { u: P('ahududu', 4), x: 3.42, z: 0.45, y: 0.4, w: 0.3, ry: -0.5 },
+  { u: P('ahududu', 1), x: 3.3, z: 0.3, y: 0.44, w: 0.28, ry: -0.4 },
+  { u: P('ahududu', 5), x: 3.05, z: 0.38, y: 0.42, w: 0.28, ry: -0.1 },
   // yerde birkaç yaprak
-  { u: P('yaprak', 1), x: -2.45, z: 1.75, w: 0.8, rx: -1.25, rz: 0.5, leaf: true, desk: true },
-  { u: P('yaprak', 2), x: 1.95, z: 2.2, w: 0.6, rx: -1.25, rz: -0.6, leaf: true },
+  { u: P('yaprak', 1), x: -3.5, z: 0.9, w: 0.7, rx: -1.25, rz: 0.5, leaf: true, desk: true },
+  { u: P('yaprak', 2), x: 2.75, z: 2.35, w: 0.5, rx: -1.25, rz: -0.6, leaf: true },
 ];
 const ON_ORBIT = [];
 const ON_ORBIT_S = ON_ORBIT.map((f) => ({ ...f, w: f.w * FK }));
@@ -784,7 +782,7 @@ function Scene({ flavors, mobile, reduce, onReady }) {
       <Embers mobile={mobile} />
       {/* yumuşak temas gölgeleri: giriş animasyonu boyunca canlı, sonra sabitlenir (performans) */}
       {(!mobile || introDone) && (
-        <ContactShadows position={[PLAT.x, 0.003, PLAT.z]} scale={[6.6, 6.6]} resolution={mobile ? 256 : 512}
+        <ContactShadows position={[TIER.x, TIER.h + 0.004, TIER.z]} scale={[5.6, 5.6]} resolution={mobile ? 256 : 512}
           blur={2.4} far={2.4} opacity={0.85} color="#1a0503" frames={introDone ? 1 : Infinity} />
       )}
       <Rig mobile={mobile} />
