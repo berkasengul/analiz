@@ -119,7 +119,7 @@ export function juiceMaterial() {
 export function createJuice(canvas, box = null) {
   const mobile = () => window.innerWidth / window.innerHeight < 0.9 || window.innerWidth < 760;
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, premultipliedAlpha: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(mobile() ? 1 : Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(1); // yumuşak arka plan: tam çözünürlük gerekmez (akıcı kaydırma)
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -130,9 +130,9 @@ export function createJuice(canvas, box = null) {
   scene.add(quad);
 
   let shown = true;
-  const show = (v) => { if (v !== shown) { shown = v; canvas.style.visibility = v ? 'visible' : 'hidden'; } };
+  const show = (v) => { if (v !== shown) { shown = v; canvas.style.visibility = v ? 'visible' : 'hidden'; canvas.style.display = v ? '' : 'none'; } };
   function resize() {
-    renderer.setPixelRatio(mobile() ? 1 : Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(1); // yumuşak arka plan: tam çözünürlük gerekmez (akıcı kaydırma)
     const w = box ? Math.max(1, box.clientWidth) : window.innerWidth, h = box ? Math.max(1, box.clientHeight) : window.innerHeight;
     renderer.setSize(w, h, false);
     U.uAspect.value = w / h;

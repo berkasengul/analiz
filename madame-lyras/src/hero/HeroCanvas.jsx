@@ -750,6 +750,8 @@ export default function HeroCanvas({ flavors, mobile, reduce, active, frozen, on
       gl={{ antialias: mobile, powerPreference: 'high-performance', alpha: false, stencil: false }}
       camera={{ fov: 36, near: 0.1, far: 80, position: [0, 3, 14] }}
       frameloop={active ? (frozen ? 'demand' : 'always') : 'never'}
+      // kaydırmada tuval konumu yeniden ölçülmez (her kaydırmada sahnenin yeniden çizilmesini önler)
+      resize={{ scroll: false, debounce: { scroll: 0, resize: 120 } }}
       onCreated={({ gl }) => { gl.setClearColor('#5a0a0c'); }}
     >
       <Scene flavors={flavors} mobile={mobile} reduce={reduce} onReady={onReady} />

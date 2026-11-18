@@ -281,7 +281,7 @@ function canvasTex(size, draw) {
 // opts.plain: açık zeminde koyu hale kullanılmaz; opts.wheel: false ise tekerlekle yakınlaştırma kapalı (sayfa kaysın)
 export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.toneMappingExposure = 1.0;
@@ -312,7 +312,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   key.position.set(2.5, 3, 4);
   key.castShadow = true;
   const small = Math.min(window.innerWidth, window.innerHeight) < 700;
-  key.shadow.mapSize.set(small ? 1024 : 2048, small ? 1024 : 2048);
+  key.shadow.mapSize.set(1024, 1024);
   key.shadow.bias = -0.0005;
   key.shadow.normalBias = 0.025;
   key.shadow.camera.near = 0.5;
@@ -1048,7 +1048,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     setPose,
     snapPose,
     setFan(v) { fanTarget = v; },
-    setActive(v) { active = v; if (!v && juice) juice.hide(); },
+    // kullanılmazken tuval tamamen gizlenir (sayfanın geri kalanında kaydırma akıcı kalsın)
+    setActive(v) { active = v; canvas.style.display = v ? '' : 'none'; if (!v && juice) juice.hide(); },
     // ürünler bölümünün ekrandaki üst/alt kenarı (ekran yüksekliğine oranla)
     setJuiceColor(c) { juiceOverride = c ? new THREE.Color(c) : null; },
     setJuiceClip(top, bottom, dark = 0) { juiceClip.top = top; juiceClip.bottom = bottom; juiceClip.dark = dark; },

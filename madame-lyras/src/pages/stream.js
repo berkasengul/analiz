@@ -1,6 +1,5 @@
 // Ana sayfa 3B ürün akışı: açılıştaki çilek paketi kaydırınca dönerek alt bölüme iner,
 // ardından Çilek → Beyaz Ejder → Ananas arasında kaydırmaya bağlı, dönerek geçer.
-import Lenis from 'lenis';
 import { $, $$, FLAVORS, productUrl, reduce } from '../site.js';
 
 const NS = 3;
@@ -15,6 +14,7 @@ const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 
 
 export function initStream(heroApi) {
   const productsEl = $('#akis');
+  const fadeEl = $('.hero__fade');
   const heroEl = $('#hero');
   const hdr = $('#hdr');
   if (!productsEl) return;
@@ -38,10 +38,22 @@ export function initStream(heroApi) {
   $('#flavorDots').innerHTML = STREAM.map((f, i) => `<button type="button" data-go="${i}" aria-label="${f.name}"><span>${f.short || f.name}</span></button>`).join('');
   const dots = $$('#flavorDots button');
 
-  /* ---------- yumuşak kaydırma ---------- */
-  const lenis = reduce ? null : new Lenis({ lerp: 0.09, smoothWheel: true, wheelMultiplier: 0.9 });
-  if (lenis) { const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
-  const scrollToY = (y, duration = 1.6) => (lenis ? lenis.scrollTo(y, { duration }) : window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' }));
+  /* ---------- kaydırma: tarayıcının kendi (akıcı) kaydırması; duraklar arası geçiş hafif bir animasyonla ---------- */
+  const easeIO = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  let anim = 0;
+  function animateTo(target, seconds, done) {
+    cancelAnimationFrame(anim);
+    const from = window.scrollY, dist = target - from;
+    if (reduce || Math.abs(dist) < 2) { window.scrollTo({ top: target, behavior: 'instant' }); done && done(); return; }
+    const t0 = performance.now(), ms = seconds * 1000;
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / ms);
+      window.scrollTo({ top: from + dist * easeIO(p), behavior: 'instant' });
+      if (p < 1) anim = requestAnimationFrame(step); else done && done();
+    };
+    anim = requestAnimationFrame(step);
+  }
+  const scrollToY = (y, duration = 1.6) => animateTo(y, duration);
   const hs = () => hdr.getBoundingClientRect().height; // yapışkan menünün yüksekliği
   const docTop = (el) => el.getBoundingClientRect().top + window.scrollY;
   const productY = (i) => docTop(productsEl) - hs() + ((productsEl.offsetHeight - (window.innerHeight - hs())) * i) / (NS - 1);
@@ -89,10 +101,8 @@ export function initStream(heroApi) {
     const pr = productsEl.getBoundingClientRect();
     const hb = heroEl.getBoundingClientRect().bottom;
     // açılışın altı ürün arka planına yumuşakça karışır (arada çizgi kalmaz)
-    const fade = Math.min(0.4, (y / vh) * 1.6);
-    heroEl.style.setProperty('--fade', `${(fade * 100).toFixed(1)}%`);
-    document.body.classList.toggle('blend-hero', y > 1 && hb > 0);
-    const juiceTop = hb > 0 && y > 1 ? Math.min(pr.top, hb - fade * heroEl.offsetHeight) : pr.top;
+    if (fadeEl) fadeEl.style.opacity = Math.min(1, (y / vh) * 3).toFixed(3);
+    const juiceTop = pr.top;
     const raw = clamp(y / Math.max(1, docTop(productsEl) - top), 0, 1);
     scene.setJuiceClip(Math.max(juiceTop, top) / vh, pr.bottom / vh, pr.top > top ? 0.1 + 0.2 * raw : 0.3);
 
@@ -141,7 +151,6 @@ export function initStream(heroApi) {
       const o = (1 - smooth(0.3, 0.47, ad)) * leaving * (pr.top > top ? smooth(0.55, 1, raw) : 1);
       p.style.setProperty('--d', (Math.sign(d) * Math.max(0, ad - 0.18)).toFixed(4));
       p.style.setProperty('--o', o.toFixed(3));
-      p.style.setProperty('--b', ad < 0.32 ? '0px' : `${Math.min(6, (ad - 0.32) * 40).toFixed(1)}px`);
       p.style.visibility = o < 0.002 ? 'hidden' : 'visible';
       const on = ad < 0.3;
       if (p.classList.contains('on') !== on) { p.classList.toggle('on', on); p.setAttribute('aria-hidden', on ? 'false' : 'true'); }
@@ -157,7 +166,6 @@ export function initStream(heroApi) {
     return [0, productY(0), productY(1), productY(2), end];
   };
   const DUR = [2.6, 1.8, 1.8, 1.4]; // duraklar arası süre (sn)
-  const easeIO = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   let animating = false, lastWheel = 0, settleUntil = 0;
   function page(dir) {
     const S = stops(), y = window.scrollY;
@@ -167,17 +175,14 @@ export function initStream(heroApi) {
     if (to < 0) return false;
     const from = dir > 0 ? Math.max(0, to - 1) : to;
     animating = true;
-    lenis.scrollTo(S[to], {
-      duration: DUR[Math.min(DUR.length - 1, from)], easing: easeIO, lock: true, force: true,
-      onComplete: () => { animating = false; settleUntil = performance.now() + 380; },
-    });
+    animateTo(S[to], DUR[Math.min(DUR.length - 1, from)], () => { animating = false; settleUntil = performance.now() + 380; });
     return true;
   }
   const inZone = (dir) => {
     const end = stops()[4], y = window.scrollY;
     return dir > 0 ? y < end - 4 : y <= end + 4 && y > 4;
   };
-  if (lenis) {
+  if (!reduce) {
     window.addEventListener('wheel', (e) => {
       const dir = Math.sign(e.deltaY);
       if (!dir || !inZone(dir)) return;
@@ -211,8 +216,10 @@ export function initStream(heroApi) {
       e.preventDefault();
       if (!animating) page(dir);
     });
-    lenis.on('scroll', update);
-  } else window.addEventListener('scroll', update, { passive: true });
+  }
+  // kaydırma başına en fazla bir hesaplama (her karede bir)
+  let queued = false;
+  window.addEventListener('scroll', () => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; update(); }); }, { passive: true });
   window.addEventListener('resize', update);
 
   // tıklama alanında "3D İncele" etiketi imleci izler

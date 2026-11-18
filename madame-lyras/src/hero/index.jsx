@@ -1,10 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import { useEffect, useState } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroCanvas, { S } from './HeroCanvas.jsx';
 
-gsap.registerPlugin(ScrollTrigger);
 
 // Açılış sahnesini hero alanına yerleştirir. Hazır olunca `ready` çözülür.
 export function mountHero({ container, heroEl, flavors }) {
@@ -25,17 +23,6 @@ export function mountHero({ container, heroEl, flavors }) {
     S.my += (target.y - S.my) * 0.06;
   });
 
-  // kaydırma: yazılar çekilir (kamera sabit; çilek paketi ürün bölümüne iner)
-  ScrollTrigger.create({
-    trigger: heroEl,
-    start: 'top top',
-    end: 'bottom top',
-    scrub: true,
-    onUpdate: (self) => {
-      S.p = self.progress;
-      heroEl.style.setProperty('--hp', self.progress.toFixed(4));
-    },
-  });
 
   function App() {
     const [active, setActive] = useState(true);
@@ -47,7 +34,8 @@ export function mountHero({ container, heroEl, flavors }) {
       return () => window.removeEventListener('hero-freeze', f);
     }, []);
     useEffect(() => {
-      const io = new IntersectionObserver(([en]) => setActive(en.isIntersecting), { rootMargin: '80px' });
+      // ekran dışındayken açılış tuvali tamamen gizlenir (birleştirilmez, kaydırma akıcı kalır)
+      const io = new IntersectionObserver(([en]) => { setActive(en.isIntersecting); container.style.visibility = en.isIntersecting ? '' : 'hidden'; container.style.contentVisibility = en.isIntersecting ? '' : 'hidden'; }, { rootMargin: '80px' });
       io.observe(heroEl);
       const vis = () => setActive(!document.hidden && heroEl.getBoundingClientRect().bottom > -80);
       document.addEventListener('visibilitychange', vis);
