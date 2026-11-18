@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Aslan Bilet · RAMS Park 3D</title>
+<meta name="description" content="RAMS Park için 3D bilet deneyimi: tribünü seç, bloğa uç, koltuğundan göreceğin manzarayı bilet almadan önce gör. Hayran yapımı demo." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <canvas id="c"></canvas>
+  <div id="labels"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <div><b>ASLAN BİLET</b><small>RAMS Park · 3D bilet deneyimi</small></div>
+    </div>
+    <div class="match">
+      <div class="teams"><b>GALATASARAY</b><span>vs</span><b>FENERBAHÇE</b></div>
+      <small>Süper Lig · Derbi · 20:00</small>
+    </div>
+  </header>
+
+  <div id="tooltip" class="tooltip"></div>
+
+  <aside id="panel" class="panel" aria-live="polite">
+    <div class="panel-head">
+      <div>
+        <div class="eyebrow" id="pStand"></div>
+        <h2 id="pTitle"></h2>
+      </div>
+      <div class="price"><small>bilet</small><b id="pPrice"></b></div>
+    </div>
+    <div class="chips">
+      <span class="chip cat" id="pCat"></span>
+      <span class="chip free" id="pFree"></span>
+      <span class="chip" id="pGate"></span>
+    </div>
+    <div class="map-wrap">
+      <div class="pitch-bar">SAHA</div>
+      <svg id="seatmap" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="legend">
+      <span><i class="dot free"></i>Boş</span>
+      <span><i class="dot sold"></i>Dolu</span>
+      <span><i class="dot sel"></i>Seçili</span>
+    </div>
+    <p class="hint-sm">Bir koltuğa tıkla, oradan göreceğin manzarayı gör</p>
+  </aside>
+
+  <div id="ticketWrap" class="ticket-wrap">
+    <div id="ticket" class="ticket">
+      <div class="face front">
+        <div class="t-top">
+          <div class="t-match"><b>GALATASARAY</b><span>vs</span><b>FENERBAHÇE</b></div>
+          <div class="t-sub">RAMS Park · Seyrantepe · 20:00</div>
+        </div>
+        <div class="t-view">
+          <canvas id="viewCanvas" width="640" height="360"></canvas>
+          <span class="t-view-tag">Koltuğundan görünüm</span>
+        </div>
+        <div class="t-grid">
+          <div><small>Tribün</small><b id="tStand">–</b></div>
+          <div><small>Blok</small><b id="tBlock">–</b></div>
+          <div><small>Sıra</small><b id="tRow">–</b></div>
+          <div><small>Koltuk</small><b id="tSeat">–</b></div>
+        </div>
+        <div class="t-foot">
+          <div><small id="tCat">–</small><b id="tPrice">–</b></div>
+          <div class="barcode" aria-hidden="true"></div>
+        </div>
+        <div class="t-actions">
+          <button id="btnOther" type="button">Başka koltuk</button>
+          <button id="btnBuy" type="button" class="primary">Sepete ekle</button>
+        </div>
+      </div>
+      <div class="face back">
+        <div class="vip-glow"></div>
+        <div class="vip-top">
+          <span class="vip-badge">VIP</span>
+          <div class="vip-title">LOCA</div>
+          <div class="vip-sub">Batı Tribünü · 200 seviyesi</div>
+        </div>
+        <ul class="vip-perks">
+          <li>Deri koltuklar, 12 kişilik özel loca</li>
+          <li>Tüm sahayı gören cam cephe</li>
+          <li>İkram, özel giriş ve otopark</li>
+        </ul>
+        <div class="vip-foot">
+          <div><small>Loca / maç (örnek)</small><b>₺85.000</b></div>
+          <div class="barcode gold" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="typed" class="typed" aria-hidden="true"></div>
+  <div id="toast" class="toast"></div>
+
+  <div id="hint" class="hint">
+    <span id="hintText">Bir tribünün üstüne gel, bloğa tıkla</span>
+    <button id="vipBtn" type="button" class="vip-btn"><kbd>BİLET</kbd> yaz → VIP</button>
+  </div>
+
+  <button id="back" class="backbtn" type="button">← Geri</button>
+
+  <footer class="disclaimer">Hayran yapımı demo · Galatasaray SK, RAMS veya Passo ile bağlantısı yoktur · Fiyatlar örnektir</footer>
+
+  <div id="loader" class="loader"><div class="spin"></div><span>RAMS Park yükleniyor…</span></div>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
