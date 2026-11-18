@@ -35,16 +35,23 @@
         <div class="eyebrow" id="pStand"></div>
         <h2 id="pTitle"></h2>
       </div>
-      <div class="price"><small>bilet</small><b id="pPrice"></b></div>
+      <div class="price"><small>kişi başı</small><b id="pPrice"></b></div>
     </div>
-    <div class="chips">
-      <span class="chip cat" id="pCat"></span>
-      <span class="chip free" id="pFree"></span>
-      <span class="chip" id="pGate"></span>
+    <div class="p-meta">
+      <svg id="locator" class="locator" viewBox="0 0 120 92" aria-label="Stadyumdaki konum"></svg>
+      <div class="p-meta-r">
+        <div class="chips">
+          <span class="chip cat" id="pCat"></span>
+          <span class="chip free" id="pFree"></span>
+          <span class="chip" id="pGate"></span>
+        </div>
+        <div class="avail"><div class="avail-bar"><i id="pAvail"></i></div><span id="pAvailTxt"></span></div>
+        <ul class="perks" id="pPerks"></ul>
+      </div>
     </div>
     <div class="map-wrap">
       <div class="pitch-bar">SAHA</div>
-      <svg id="seatmap" xmlns="http://www.w3.org/2000/svg"></svg>
+      <svg id="seatmap" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet"></svg>
     </div>
     <div class="legend">
       <span><i class="dot free"></i>Boş</span>
@@ -53,12 +60,19 @@
       <span class="legend-tip">Koltuğa stadyumda da tıklayabilirsin</span>
     </div>
     <div id="selCard" class="selcard">
-      <div class="sel-info">
-        <div><small>Sıra</small><b id="selRow">–</b></div>
-        <div><small>Koltuk</small><b id="selSeat">–</b></div>
-        <div><small>Fiyat</small><b id="selPrice">–</b></div>
+      <div class="sel-top">
+        <div class="sel-view"><canvas id="selView" width="320" height="180"></canvas><span>Bu koltuktan</span></div>
+        <div class="sel-info">
+          <div><small>Sıra</small><b id="selRow">–</b></div>
+          <div><small>Koltuk</small><b id="selSeat">–</b></div>
+        </div>
       </div>
-      <button id="selBtn" type="button" class="sel-btn" disabled>Koltuktan görünümü aç →</button>
+      <div class="sel-qty">
+        <span class="q-l">Bilet adedi</span>
+        <div class="stepper"><button id="qMinus" type="button" aria-label="Azalt">−</button><b id="qVal">1</b><button id="qPlus" type="button" aria-label="Arttır">+</button></div>
+        <div class="sel-total"><small>Toplam</small><b id="selTotal">–</b></div>
+      </div>
+      <button id="selBtn" type="button" class="sel-btn" disabled>Koltuk seç</button>
     </div>
   </aside>
 
