@@ -786,3 +786,26 @@ body.gl-front #gl { z-index: 5; }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) {
   .hero__gl { background: url('/img/hero-poster-m.webp') center bottom / cover no-repeat, radial-gradient(80% 60% at 50% 70%, #c8141a 0%, #7a0610 50%, #2c0306 100%); }
 }
+
+/* ================= KATALOG: 3B giriş ================= */
+.cstage__cats { gap: 2px; }
+.cstage__cats button { min-height: 38px; padding: 0 16px; border: 0; border-radius: 999px; background: none; color: #fff4e6; font: 600 13.5px var(--sans); cursor: pointer; transition: background 0.2s, color 0.2s; }
+.cstage__cats button:hover { background: rgba(255, 240, 225, 0.12); }
+.cstage__cats button.on { background: linear-gradient(180deg, var(--gold-1), var(--gold-2)); color: var(--gold-ink); }
+.cstage .pd__actions .btn svg { width: 16px; height: 16px; }
+.cstage__down { position: absolute; z-index: 3; left: var(--pad); bottom: 24px; width: 26px; height: 42px; border-radius: 999px; border: 1.5px solid rgba(255, 240, 225, 0.55); }
+.cstage__down span { position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: #fff4e6; animation: cdown 1.8s ease-in-out infinite; }
+@keyframes cdown { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
+.catalog { padding-top: 70px; }
+.catalog__head { margin-bottom: 20px; }
+.pstage__thumbs a[hidden] { display: none; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .cstage__cats { left: 12px; right: 12px; translate: none; overflow-x: auto; scrollbar-width: none; justify-content: flex-start; }
+  .cstage__cats::-webkit-scrollbar { display: none; }
+  .cstage__cats button { flex: none; padding: 0 12px; font-size: 12.5px; }
+  .cstage__down { display: none; }
+}
+
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .pstage__panel { translate: none; max-height: none; }
+}

@@ -18,15 +18,39 @@
 <body data-page="urunler">
   <!-- @include header -->
   <main id="icerik">
-    <section class="phero">
-      <div class="wrap">
-        <ol class="crumbs"><li><a href="/">Ana sayfa</a></li><li>Ürünler</li></ol>
-        <h1>Ürün <em>kataloğu</em></h1>
-        <p>Dondurularak kurutulmuş meyve, dondurma, atıştırmalık ve hazır gıda ürünlerimiz. Her ürünün 3B görünümü, besin değerleri ve ürün föyü ürün sayfasında.</p>
+    <!-- 3B KATALOG GİRİŞİ: ürünler kendi renklerinde, tek tek sergilenir; aşağıda tüm ürünler -->
+    <section class="pstage cstage" id="pstage" aria-label="Ürünlerin 3B sergisi">
+      <div class="pstage__view">
+        <canvas class="pstage__bg" id="pbg" aria-hidden="true"></canvas>
+        <canvas class="pstage__gl" id="pv" aria-label="Ürünün 3B görünümü: sürükleyerek çevirin"></canvas>
+        <img class="pstage__img" id="pimg" alt="" />
+        <div class="pstage__top">
+          <p class="pstage__count" id="pCount"></p>
+          <p class="pstage__hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Sürükleyerek çevirin</p>
+        </div>
+        <div class="pstage__side">
+          <a class="pstage__arrow" id="pPrev" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span></span></a>
+          <a class="pstage__arrow pstage__arrow--next" id="pNext" href="#"><span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="pstage__dock cstage__cats" id="cCats" role="tablist" aria-label="Kategori"></div>
+        <nav class="pstage__thumbs" id="pThumbs" aria-label="Ürünler"></nav>
       </div>
+      <div class="pstage__panel" id="pPanel">
+        <ol class="crumbs"><li><a href="/">Ana sayfa</a></li><li>Ürünler</li></ol>
+        <p class="eyebrow eyebrow--gold">Ürün kataloğu · 23 ürün</p>
+        <h1 id="pName"></h1>
+        <p class="pd__lead" id="pLead"></p>
+        <dl class="keyfacts" id="pFacts"></dl>
+        <div class="pd__actions">
+          <a class="btn btn--gold" id="pGo" href="/urunler.html">Ürünü incele <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn--line" href="#liste">Tüm ürünler <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+      <a class="cstage__down" href="#liste" aria-label="Tüm ürünlere in"><span></span></a>
     </section>
-    <section class="section section--cream catalog">
+    <section class="section section--cream catalog" id="liste">
       <div class="wrap">
+        <header class="sec-head catalog__head"><p class="eyebrow">Toplu görünüm</p><h2>Tüm <em>ürünler</em></h2></header>
         <div class="filters" role="search">
           <div class="filters__cats" id="cats" role="tablist" aria-label="Kategori"></div>
           <label class="filters__search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sr">Ürün ara</span><input id="q" type="search" placeholder="Ürün ara" autocomplete="off" /></label>
