@@ -1,6 +1,7 @@
 // Aslan Bilet — RAMS Park 3D bilet deneyimi (hayran yapımı demo)
 // Saha 105x68, 3 seviye (100 alt kat / 200 VIP-loca / 400 üst kat), 84 blok.
 import * as THREE from './vendor/three.module.min.js';
+import { RoomEnvironment } from './vendor/addons/environments/RoomEnvironment.js';
 
 const $ = (s) => document.querySelector(s);
 const REC = new URLSearchParams(location.search).has('rec');
@@ -41,9 +42,9 @@ function arcTable(p0, p1, d, n = 96) {
 }
 
 const TIERS = [
-  { lvl: 1, name: 'Alt Kat', rows: 37, d0: 0.8, depth: 0.78, h0: 0.6, riseA: 0.27, riseB: 0.47, color: 0xc4121f },
+  { lvl: 1, name: 'Alt Kat', rows: 37, d0: 0.8, depth: 0.78, h0: 0.6, riseA: 0.27, riseB: 0.47, color: 0xd0142c },
   { lvl: 2, name: 'VIP & Loca', rows: 3, d0: 31.0, depth: 0.95, h0: 16.8, riseA: 0.42, riseB: 0.42, color: 0x232026 },
-  { lvl: 4, name: 'Üst Kat', rows: 27, d0: 36.6, depth: 0.72, h0: 23.2, riseA: 0.5, riseB: 0.56, color: 0xf3b70a },
+  { lvl: 4, name: 'Üst Kat', rows: 27, d0: 36.6, depth: 0.72, h0: 23.2, riseA: 0.5, riseB: 0.56, color: 0xffb800 },
 ];
 for (const t of TIERS) {
   t.rd = []; t.rh = []; let h = t.h0;
@@ -92,9 +93,14 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
+renderer.toneMappingExposure = 0.88;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(36, 1, 0.5, 6000);
+{
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environmentIntensity = 0.32;
+}
 
 function canvasTex(w, h, draw, opts = {}) {
   const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); draw(g, w, h);
@@ -109,7 +115,7 @@ scene.background = canvasTex(4, 256, (g, w, h) => {
   gr.addColorStop(0, '#2b3f63'); gr.addColorStop(0.55, '#c9a27c'); gr.addColorStop(1, '#f2d3a6');
   g.fillStyle = gr; g.fillRect(0, 0, w, h);
 });
-scene.fog = new THREE.Fog(0xcdb594, 900, 3200);
+scene.fog = new THREE.Fog(0xcdb594, 2600, 7000);
 
 // lights
 const hemi = new THREE.HemisphereLight(0xd8e6ff, 0x46523a, 0.0);
@@ -117,14 +123,14 @@ scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffecd0, 0.0);
 sun.position.set(300, 420, -120);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
-Object.assign(sun.shadow.camera, { left: -230, right: 230, top: 230, bottom: -230, near: 50, far: 1100 });
-sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.6;
+sun.shadow.mapSize.set(4096, 4096);
+Object.assign(sun.shadow.camera, { left: -150, right: 150, top: 150, bottom: -150, near: 100, far: 1100 });
+sun.shadow.bias = -0.0002; sun.shadow.normalBias = 0.25;
 scene.add(sun);
 
 /* ----- generic loft along the bowl ----- */
 function loft(profile, phi0, phi1, segs, opt = {}) {
-  const pos = [], uv = [], idx = [];
+  const pos = [], uv = [], idx = [], col = [];
   const uS = opt.uScale || 10;
   let vAcc = 0;
   for (let k = 0; k < profile.length - 1; k++) {
@@ -138,6 +144,12 @@ function loft(profile, phi0, phi1, segs, opt = {}) {
       if (prev0) { u0 += Math.hypot(a[0] - prev0[0], a[1] - prev0[1]); u1 += Math.hypot(b[0] - prev1[0], b[1] - prev1[1]); }
       prev0 = a; prev1 = b;
       pos.push(a[0], y0, a[1], b[0], y1, b[1]);
+      if (opt.ao) {
+        let c0 = 1, c1 = 1;
+        if (Math.abs(y1 - y0) < 1e-4 && d1 > d0) { c0 = 1.0; c1 = 0.5; }        // tread: front lit, back (under the seat) dark
+        else if (Math.abs(d1 - d0) < 1e-4 && y1 > y0) { c0 = 0.45; c1 = 0.92; } // riser: dark at the foot
+        col.push(c0, c0, c0, c1, c1, c1);
+      }
       if (opt.vAcross) uv.push(u0 / uS, 0, u1 / uS, 1);
       else uv.push(u0 / uS, vAcc / uS, u1 / uS, (vAcc + segLen) / uS);
       if (i > 0) { const q = base + (i - 1) * 2; idx.push(q, q + 2, q + 1, q + 1, q + 2, q + 3); }
@@ -147,6 +159,7 @@ function loft(profile, phi0, phi1, segs, opt = {}) {
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  if (opt.ao) g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   g.setIndex(idx); g.computeVertexNormals();
   return g;
 }
@@ -163,7 +176,10 @@ const pitchTex = (() => {
     const sw = PITCH_L / 18;
     for (let i = -12; i < 12; i++) { g.fillStyle = i % 2 ? '#3d9440' : '#358a39'; g.fillRect(cx + m(i * sw), 0, m(sw) + 1, h); }
     // subtle noise
-    for (let i = 0; i < 9000; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * 0.05})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
+    const cw = PITCH_W / 10;
+    for (let j = -8; j < 8; j++) { g.fillStyle = j % 2 ? 'rgba(255,255,255,0.035)' : 'rgba(0,0,0,0.035)'; g.fillRect(0, cy + m(j * cw), w, m(cw) + 1); }
+    for (let i = 0; i < 120000; i++) { const v = Math.random(); g.fillStyle = v < 0.5 ? `rgba(10,40,10,${0.05 + Math.random() * 0.08})` : `rgba(150,200,90,${0.03 + Math.random() * 0.05})`; g.fillRect(Math.random() * w, Math.random() * h, 1 + Math.random() * 2, 1); }
+    const vg = g.createRadialGradient(cx, cy, m(20), cx, cy, m(75)); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,20,0,0.25)'); g.fillStyle = vg; g.fillRect(0, 0, w, h);
     g.strokeStyle = 'rgba(255,255,255,0.92)'; g.lineWidth = m(0.12) + 0.5;
     const L = m(PITCH_L / 2), W = m(PITCH_W / 2);
     g.strokeRect(cx - L, cy - W, L * 2, W * 2);
@@ -278,8 +294,8 @@ for (const t of TIERS) {
       b.seatCount = tmpSeats.x.length - b.seatStart;
       // tread mesh
       const segs = Math.max(4, Math.ceil(arc.L / ids.length / 1.6));
-      const geo = loft(prof, pa, pb, segs, { uScale: 8 });
-      const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color(t.lvl === 2 ? 0x8c8a90 : 0xa3a5ab).lerp(new THREE.Color(t.color), t.lvl === 2 ? 0 : 0.38), map: concreteTex, roughness: 0.92, side: THREE.DoubleSide, emissive: 0x000000 });
+      const geo = loft(prof, pa, pb, segs, { uScale: 8, ao: true });
+      const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color(t.lvl === 2 ? 0x8c8a90 : 0xb4b5b8), map: concreteTex, roughness: 0.92, side: THREE.DoubleSide, emissive: 0x000000, vertexColors: true });
       const mesh = new THREE.Mesh(geo, mat); mesh.castShadow = true; mesh.receiveShadow = true; mesh.userData.block = b;
       scene.add(mesh); b.mesh = mesh;
       const pm = (pa + pb) / 2, jm = Math.floor(t.rows / 2);
@@ -288,6 +304,31 @@ for (const t of TIERS) {
       blocks.push(b); blockById[id] = b;
     });
   }
+}
+
+// aisle stairs: a half-step in the back of every tread, at every block boundary, with a yellow nosing
+{
+  const steps = [];
+  for (const b of blocks) {
+    const t = b.tier; if (t.lvl === 2) continue;
+    for (let j = 0; j < t.rows - 1; j++) {
+      const rise = t.rh[j + 1] - t.rh[j];
+      const d = t.rd[j] + t.depth * 0.75;
+      const [x, z] = pAt(b.phi0, d); const [ix, iz] = inwardAt(b.phi0, d);
+      steps.push([x, t.rh[j], z, Math.atan2(ix, iz), t.depth * 0.5, rise * 0.5]);
+    }
+  }
+  const box = new THREE.BoxGeometry(1, 1, 1); box.translate(0, 0.5, 0);
+  const stepMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: 0xd2d0cb, roughness: 0.9 }), steps.length);
+  const noseMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: 0xf2c200, roughness: 0.6 }), steps.length);
+  const m = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), p = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), off = new THREE.Vector3();
+  steps.forEach(([x, y, z, yaw, dep, h], i) => {
+    q.setFromAxisAngle(up, yaw);
+    p.set(x, y, z); sc.set(1.25, h, dep); m.compose(p, q, sc); stepMesh.setMatrixAt(i, m);
+    off.set(0, 0, dep / 2 - 0.03).applyQuaternion(q); p.set(x + off.x, y + h, z + off.z); sc.set(1.25, 0.02, 0.06); m.compose(p, q, sc); noseMesh.setMatrixAt(i, m);
+  });
+  stepMesh.castShadow = stepMesh.receiveShadow = true; noseMesh.receiveShadow = true;
+  scene.add(stepMesh, noseMesh);
 }
 
 const SEATS = tmpSeats.x.length;
@@ -311,18 +352,20 @@ const seatCol = new Float32Array(SEATS * 3);
     seatBase[i * 3] = c.r; seatBase[i * 3 + 1] = c.g; seatBase[i * 3 + 2] = c.b;
   }
 }
-// seat geometry: pan + back (4 triangles)
+// moulded bucket seat: side profile extruded across the seat width, darker underneath (baked AO)
 const seatGeo = (() => {
-  const w = 0.22, v = [
-    -w, 0.42, 0.18, w, 0.42, 0.18, w, 0.44, -0.2, -w, 0.44, -0.2, // pan (back edge shared)
-    w, 0.86, -0.3, -w, 0.86, -0.3,                               // back top
-  ];
-  const g = new THREE.BufferGeometry();
-  g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3));
-  g.setIndex([0, 1, 2, 0, 2, 3, 3, 2, 4, 3, 4, 5]); g.computeVertexNormals();
+  const P = [[0.20, 0.40], [0.17, 0.445], [-0.12, 0.425], [-0.19, 0.47], [-0.235, 0.84], [-0.205, 0.855], [-0.16, 0.50], [-0.10, 0.46], [0.16, 0.475], [0.215, 0.44]];
+  const shape = new THREE.Shape(P.map(([z, y]) => new THREE.Vector2(z, y)));
+  const g = new THREE.ExtrudeGeometry(shape, { depth: 0.42, bevelEnabled: true, bevelThickness: 0.012, bevelSize: 0.012, bevelSegments: 1, curveSegments: 1 });
+  // extrude axis is +z: rotate so the width runs along x and the profile's first coord is z (facing +z)
+  g.translate(0, 0, -0.21); g.rotateY(-Math.PI / 2);
+  const p = g.attributes.position, c = [];
+  for (let i = 0; i < p.count; i++) { const y = p.getY(i); const k = 0.55 + 0.45 * Math.min(1, Math.max(0, (y - 0.4) / 0.42)); c.push(k, k, k); }
+  g.setAttribute('color', new THREE.Float32BufferAttribute(c, 3));
+  g.computeVertexNormals();
   return g;
 })();
-const seatMat = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+const seatMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.38, metalness: 0.0, vertexColors: true });
 const seatMeshes = [];
 {
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), s = new THREE.Vector3(1, 1, 1), p = new THREE.Vector3();
@@ -330,7 +373,7 @@ const seatMeshes = [];
     const im = new THREE.InstancedMesh(seatGeo, seatMat, b.seatCount);
     for (let k = 0; k < b.seatCount; k++) { const i = b.seatStart + k; e.set(0, seatYaw[i], 0); q.setFromEuler(e); p.set(seatX[i], seatY[i], seatZ[i]); m.compose(p, q, s); im.setMatrixAt(k, m); }
     im.instanceColor = new THREE.InstancedBufferAttribute(seatCol.subarray(b.seatStart * 3, (b.seatStart + b.seatCount) * 3), 3);
-    im.computeBoundingSphere();
+    im.computeBoundingSphere(); im.castShadow = true; im.receiveShadow = true;
     scene.add(im); seatMeshes.push(im); b.seats = im;
   }
 }
@@ -345,7 +388,7 @@ const seatPoints = (() => {
   const p = new THREE.Points(g, m); p.frustumCulled = false; scene.add(p); return p;
 })();
 function setSeatLod() {
-  const far = camera.position.length() > 230;
+  const far = camera.position.length() > 1400;
   seatPoints.visible = far; for (const im of seatMeshes) im.visible = !far;
 }
 const standStats = {};
@@ -464,8 +507,8 @@ const VIP = (() => {
   const W = 6.2;
   const wood = new THREE.MeshStandardMaterial({ color: 0x3b2416, roughness: 0.55 });
   const wall = new THREE.MeshStandardMaterial({ color: 0x3a3029, roughness: 0.7 });
-  const leather = new THREE.MeshStandardMaterial({ color: 0x5b2a14, roughness: 0.38, metalness: 0.05 });
-  const leatherDark = new THREE.MeshStandardMaterial({ color: 0x3e1b0c, roughness: 0.42 });
+  const leather = new THREE.MeshPhysicalMaterial({ color: 0x6b3218, roughness: 0.42, metalness: 0.0, clearcoat: 0.35, clearcoatRoughness: 0.4, sheen: 0.3, sheenColor: 0xffc79a });
+  const leatherDark = new THREE.MeshPhysicalMaterial({ color: 0x4a200e, roughness: 0.45, clearcoat: 0.3, clearcoatRoughness: 0.45 });
   const gold = new THREE.MeshStandardMaterial({ color: 0xc99a35, metalness: 0.9, roughness: 0.25 });
   const add = (geo, mat, x, y, z, sh = true) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = sh; m.receiveShadow = true; g.add(m); return m; };
   const depth = zB - zG;
@@ -489,13 +532,21 @@ const VIP = (() => {
   add(new THREE.BoxGeometry(3.3, 0.05, 0.7), gold, -2.6, y0 + 1.07, zB - 0.9, false);
   for (let i = 0; i < 6; i++) add(new THREE.CylinderGeometry(0.05, 0.05, 0.32, 10), new THREE.MeshStandardMaterial({ color: [0x2a5b2a, 0x5b2a14, 0xd8d0b0][i % 3], roughness: 0.15, metalness: 0.2 }), -3.8 + i * 0.45, y0 + 1.25, zB - 0.95, false);
   // leather armchairs: 2 rows x 5
+  const rbox = (w, h, d, r) => {
+    const sh = new THREE.Shape(); const x0 = -w / 2 + r, y0_ = -h / 2 + r, x1 = w / 2 - r, y1_ = h / 2 - r;
+    sh.moveTo(x0, -h / 2); sh.lineTo(x1, -h / 2); sh.quadraticCurveTo(w / 2, -h / 2, w / 2, y0_); sh.lineTo(w / 2, y1_); sh.quadraticCurveTo(w / 2, h / 2, x1, h / 2);
+    sh.lineTo(x0, h / 2); sh.quadraticCurveTo(-w / 2, h / 2, -w / 2, y1_); sh.lineTo(-w / 2, y0_); sh.quadraticCurveTo(-w / 2, -h / 2, x0, -h / 2);
+    const g = new THREE.ExtrudeGeometry(sh, { depth: Math.max(0.01, d - 2 * r), bevelEnabled: true, bevelThickness: r, bevelSize: r * 0.9, bevelSegments: 4, curveSegments: 6 });
+    g.translate(0, 0, -(d - 2 * r) / 2); g.computeVertexNormals(); return g;
+  };
+  const gSeat = rbox(0.74, 0.3, 0.7, 0.09), gBack = rbox(0.8, 0.66, 0.24, 0.1), gArm = rbox(0.16, 0.36, 0.74, 0.07), gCush = rbox(0.6, 0.12, 0.56, 0.05);
   const chair = (x, z, yLift) => {
     const y = y0 + yLift;
-    add(new THREE.BoxGeometry(0.78, 0.36, 0.72), leather, x, y + 0.3, z);
-    add(new THREE.BoxGeometry(0.8, 0.62, 0.2), leather, x, y + 0.72, z + 0.36).rotation.x = -0.2;
-    add(new THREE.BoxGeometry(0.12, 0.28, 0.7), leatherDark, x - 0.42, y + 0.56, z);
-    add(new THREE.BoxGeometry(0.12, 0.28, 0.7), leatherDark, x + 0.42, y + 0.56, z);
-    add(new THREE.BoxGeometry(0.66, 0.08, 0.6), leatherDark, x, y + 0.5, z - 0.02, false);
+    add(gSeat, leather, x, y + 0.26, z);
+    add(gCush, leatherDark, x, y + 0.45, z - 0.03, false);
+    add(gBack, leather, x, y + 0.72, z + 0.34).rotation.x = -0.18;
+    add(gArm, leatherDark, x - 0.42, y + 0.46, z + 0.02);
+    add(gArm, leatherDark, x + 0.42, y + 0.46, z + 0.02);
   };
   for (let i = 0; i < 6; i++) chair(-4.6 + i * 1.84, zG + 1.2, 0);
   add(new THREE.BoxGeometry(W * 2 - 0.3, 0.3, 1.6), wood, 0, y0 + 0.15, zG + 2.9, false);
@@ -530,7 +581,6 @@ const satReady = (async () => {
   const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: tex, roughness: 1, metalness: 0 }));
   m.position.y = -0.6; m.receiveShadow = true; scene.add(m);
   outer.material.color.set(meta.mean);
-  scene.fog.color.set(0xb9b7a6);
 })();
 const outer = new THREE.Mesh(new THREE.PlaneGeometry(9000, 9000), new THREE.MeshStandardMaterial({ color: 0x656c5b, roughness: 1 }));
 outer.rotation.x = -Math.PI / 2; outer.position.y = -1.2; outer.receiveShadow = true; scene.add(outer);
@@ -557,7 +607,7 @@ function paintSeats() {
       if (bi !== fb) { r *= 0.32; g *= 0.32; b *= 0.32; }
       else if (seatSold[i]) { const l = (r + g + b) / 3; r = l * 0.35 + r * 0.2; g = l * 0.35 + g * 0.2; b = l * 0.38 + b * 0.2; }
     }
-    if (bi === hb && ui.state !== 'seat' && ui.state !== 'vip') { r = r + (1 - r) * 0.55; g = g + (1 - g) * 0.55; b = b + (1 - b) * 0.55; }
+    if (bi === hb && ui.state !== 'seat' && ui.state !== 'vip') { r = lerp(r, 1.0, 0.8); g = lerp(g, 0.5, 0.8); b = lerp(b, 0.08, 0.8); }
     if (i === ui.selSeat) { r = 0.1; g = 1.0; b = 0.55; }
     if (revealing) {
       const u = seatX[i] * ui.revealDir.x + seatZ[i] * ui.revealDir.y;
@@ -574,7 +624,7 @@ function paintSeats() {
 function paintTreads() {
   for (const b of blocks) {
     const on = ui.hover === b && (ui.state === 'overview' || ui.state === 'block');
-    b.mesh.material.emissive.setHex(on ? 0x5a4a18 : 0x000000);
+    b.mesh.material.emissive.setHex(on ? 0x6a3008 : 0x000000);
   }
 }
 
@@ -784,7 +834,7 @@ function selectBlock(b) {
 }
 function selectSeat(i) {
   const b = blocks[seatBlk[i]];
-  ui.focus = b; ui.selSeat = i; ui.state = 'seat'; ui.hover = null;
+  ui.focus = b; ui.selSeat = i; ui.state = 'seat'; ui.hover = null; showTooltip(null);
   buildPanel(b);
   panel.classList.remove('open');
   fillTicket(i); ticketEl.classList.remove('flip');
@@ -925,8 +975,8 @@ function step(dt) {
   // intro lighting + sweep
   const it = clock.t;
   const lightK = sstep(1.2, 4.2, it);
-  hemi.intensity = lerp(0.55, 1.05, lightK);
-  sun.intensity = lerp(1.3, 2.7, sstep(0.6, 3.6, it));
+  hemi.intensity = lerp(0.45, 0.8, lightK);
+  sun.intensity = lerp(1.2, 2.5, sstep(0.6, 3.6, it));
   ROOF.edgeMat.emissiveIntensity = lerp(0, 1.6, sstep(0.3, 1.6, it));
   if (ui.state === 'intro') { ui.revealFront = lerp(170, -190, sstep(1.5, 4.4, it)); paintDirty = true; }
   // ambient effects
