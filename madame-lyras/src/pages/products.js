@@ -25,6 +25,7 @@ function render() {
 }
 $$('#cats button').forEach((b) => b.addEventListener('click', () => { cat = b.dataset.cat; render(); }));
 $('#q').addEventListener('input', (e) => { q = e.target.value; render(); });
+if (CATS.length < 2) { $('#cats').hidden = true; $('#cCats').hidden = true; }
 render();
 // kategoriyle gelindiyse (ana sayfadaki ürün grupları) doğrudan listeye in
 if (params.get('kat')) requestAnimationFrame(() => $('#liste').scrollIntoView({ block: 'start' }));

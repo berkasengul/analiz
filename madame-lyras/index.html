@@ -4,20 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Genç Anadolu Gıda · Dondurularak Kurutulmuş Meyve · Toptan Satış ve Bayilik</title>
-  <meta name="description" content="Genç Anadolu Gıda Pazarlama Dağıtım Ltd. Şti.: dondurularak kurutulmuş meyve, dondurma ve hazır gıda ürünlerinin toptan satışı, dağıtımı ve bayiliği." />
+  <meta name="description" content="Genç Anadolu Gıda Pazarlama Dağıtım Ltd. Şti.: 14 çeşit dondurularak kurutulmuş meyvenin toptan satışı, dağıtımı ve bayiliği." />
   <meta property="og:title" content="Genç Anadolu Gıda · Dondurularak kurutulmuş meyve" />
-  <meta property="og:description" content="Dondurularak kurutulmuş meyve, dondurma ve hazır gıda ürünlerinde toptan satış ve bayilik." />
+  <meta property="og:description" content="Dondurularak kurutulmuş meyvede toptan satış ve bayilik. 14 çeşit, şeker ilavesiz ve katkısız." />
   <meta property="og:image" content="/img/og.jpg" />
   <meta name="theme-color" content="#7a0f15" />
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
-  <!-- açılış: önce sahnenin görüntüsü (ürünler hemen görünür), sonra 3B sahnenin paket dokuları -->
-  <link rel="preload" as="image" href="/img/hero-poster-d.webp" media="(min-width: 761px) and (min-aspect-ratio: 9/10)" fetchpriority="high" />
-  <link rel="preload" as="image" href="/img/hero-poster-m.webp" media="(max-width: 760px), (max-aspect-ratio: 9/10)" fetchpriority="high" />
-  <link rel="preload" as="image" href="/tex/cilek.webp" />
-  <link rel="preload" as="image" href="/tex/hindistancevizi.webp" />
-  <link rel="preload" as="image" href="/tex/ahududu.webp" />
-  <link rel="preload" as="image" href="/tex/seftali.webp" />
-  <link rel="preload" as="image" href="/tex/ananas.webp" />
+  <link rel="preload" as="image" href="/img/hero-d.webp" media="(min-width: 761px) and (min-aspect-ratio: 9/10)" fetchpriority="high" />
+  <link rel="preload" as="image" href="/img/hero-m.webp" media="(max-width: 760px), (max-aspect-ratio: 9/10)" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -25,14 +19,15 @@
 </head>
 <body data-page="index">
   <!-- @include header -->
-  <canvas id="juice" aria-hidden="true"></canvas>
-  <canvas id="gl" aria-hidden="true"></canvas>
   <main id="icerik">
     <!-- AÇILIŞ: 3B ürün sergisi -->
     <section class="hero" id="hero" aria-label="Genç Anadolu Gıda">
-      <div class="hero__gl" id="heroGL" aria-hidden="true"><img class="hero__fallback" src="/tex/cilek.webp" alt="" width="1024" height="1434" /></div>
+      <!-- sabit görsel (ana sayfada hareket/3B yok) -->
+      <picture class="hero__media">
+        <source media="(max-width: 760px), (max-aspect-ratio: 9/10)" srcset="/img/hero-m.webp" />
+        <img src="/img/hero-d.webp" alt="Genç Anadolu Gıda dondurularak kurutulmuş meyve paketleri: şeftali, elma, çilek, kırmızı ejder meyvesi ve ananas" width="2880" height="1470" fetchpriority="high" />
+      </picture>
       <div class="hero__vignette" aria-hidden="true"></div>
-      <div class="hero__fade" aria-hidden="true"></div>
       <div class="wrap hero__inner">
         <p class="hero__eyebrow">Dondurularak kurutulmuş · Toptan tedarik</p>
         <h1 class="hero__title"><span class="gold">Meyvenin<br /> kendisi.</span><em class="gold">Suyu hariç.</em>
@@ -41,25 +36,16 @@
             <path d="M6 24 C 90 10, 210 6, 300 9 S 400 14, 414 12 L 412 17 C 330 15, 220 14, 140 20 S 30 30, 8 29 Z" fill="url(#brushGold)"/>
           </svg>
         </h1>
-        <p class="hero__lead">Genç Anadolu Gıda; dondurularak kurutulmuş meyve, dondurma ve hazır gıda ürünlerinin toptan satışını ve dağıtımını yapar. Şeker ilavesiz, katkısız ürünler kendi tesisimizde üretilir.</p>
+        <p class="hero__lead">Genç Anadolu Gıda; dondurularak kurutulmuş meyvenin toptan satışını ve dağıtımını yapar. Şeker ilavesiz, katkısız 14 çeşit meyve kendi tesisimizde üretilir.</p>
         <div class="hero__ctas">
           <a class="btn btn--gold" href="/urunler.html">Ürün kataloğu <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           <a class="btn btn--line" href="/bayilik.html">Bayilik başvurusu</a>
         </div>
         <ul class="hero__facts">
-          <li><b>23</b>ürün çeşidi</li>
-          <li><b>17</b>meyve ve tatlı paketi</li>
-          <li><b>6</b>hazır gıda ürünü</li>
+          <li><b>14</b>meyve çeşidi</li>
+          <li><b>%100</b>meyve</li>
+          <li><b>0</b>şeker ilavesi</li>
         </ul>
-      </div>
-    </section>
-
-    <!-- 3B ÜRÜN AKIŞI: açılıştaki çilek paketi kaydırınca buraya iner; Çilek → Beyaz Ejder → Ananas -->
-    <section class="products" id="akis" aria-label="Öne çıkan ürünler">
-      <div class="products__stick">
-        <div class="wrap products__layers" id="players"></div>
-        <a class="products__hit" id="productHit" href="/urunler.html" aria-label="Ürünü incele"><span class="hitlabel" id="hitLabel">3D<br />İncele</span></a>
-        <nav class="flavors" id="flavorDots" aria-label="Ürünler"></nav>
       </div>
     </section>
 
@@ -70,18 +56,6 @@
         <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></i><div><b>Belgeli üretim</b><span>BRCGS · FDA · Helal · Kosher</span></div></div>
         <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></i><div><b>Dondurarak kurutma</b><span>Şeker ilavesiz, katkısız</span></div></div>
         <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i><div><b>Toptan ve endüstriyel</b><span>Bütün, dilim, küp, granül, toz</span></div></div>
-      </div>
-    </section>
-
-    <!-- ÜRÜN GRUPLARI -->
-    <section class="section section--cream">
-      <div class="wrap">
-        <header class="sec-head sec-head--center reveal">
-          <p class="eyebrow">Ürün grupları</p>
-          <h2>Üç ürün grubu, <em>tek tedarikçi.</em></h2>
-          <p>Perakende, kafe ve pastane ile endüstriyel kullanım için dondurularak kurutulmuş meyve, tatlı ve hazır gıda.</p>
-        </header>
-        <div class="groups" id="groups"></div>
       </div>
     </section>
 
@@ -115,7 +89,7 @@
             <h2>Öne çıkan <em>ürünlerimiz</em></h2>
             <p>Her ürünün 3B görünümü, besin değerleri ve ürün föyü ürün sayfasında.</p>
           </div>
-          <a class="btn btn--outline" href="/urunler.html">Tüm ürünler (23)</a>
+          <a class="btn btn--outline" href="/urunler.html">Tüm ürünler (14)</a>
         </header>
         <div class="pgrid" id="featured"></div>
       </div>
@@ -129,7 +103,7 @@
           <h2>Neden <em>Genç Anadolu Gıda?</em></h2>
         </header>
         <div class="features">
-          <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><h3>Geniş ürün yelpazesi</h3><p>17 meyve ve tatlı paketi ile 6 hazır gıda ürünü tek tedarikçiden.</p></div>
+          <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><h3>Geniş ürün yelpazesi</h3><p>14 çeşit dondurularak kurutulmuş meyve tek tedarikçiden.</p></div>
           <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><h3>Belgeli üretim</h3><p>BRCGS, FDA, Helal ve Kosher belgeli tesiste üretim.</p></div>
           <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></i><h3>Uzun raf ömrü</h3><p>Nem ve ışık geçirmeyen kilitli ambalaj; soğuk zincir gerekmez.</p></div>
           <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 20h5v-2a4 4 0 00-5-3.9M9 20H2v-2a4 4 0 014-4h2a4 4 0 014 4v2zM8 10a3 3 0 100-6 3 3 0 000 6zM17 10a3 3 0 100-6 3 3 0 000 6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><h3>Bayi desteği</h3><p>Ürün föyleri, görseller ve bölge sorumlusuyla doğrudan iletişim.</p></div>

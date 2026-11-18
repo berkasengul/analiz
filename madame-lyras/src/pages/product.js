@@ -2,7 +2,7 @@ import { $, $$, FLAVORS, SITE, productCard, initReveal, webglOK, mailHref, nf, C
 import { KITS } from '../data.js';
 
 const pad = (n) => String(n).padStart(2, '0');
-const CAT_LINK = { meyve: '/urunler.html?kat=meyve', tatli: '/urunler.html?kat=tatli', atistirmalik: '/urunler.html?kat=atistirmalik', kit: '/hazir-gida.html' };
+const CAT_LINK = { meyve: '/urunler.html?kat=meyve', tatli: '/urunler.html?kat=tatli', atistirmalik: '/urunler.html?kat=atistirmalik', kit: '/urunler.html' };
 const row = (k, v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
 const N = FLAVORS.length;
 let idx = FLAVORS.findIndex((x) => x.id === new URLSearchParams(location.search).get('id'));

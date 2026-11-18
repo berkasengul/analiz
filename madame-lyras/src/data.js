@@ -152,7 +152,7 @@ FLAVORS.forEach((f) => {
   ];
   f.cat = /dondurma/.test(f.id) ? 'tatli' : f.id === 'hindistan-cevizi' ? 'atistirmalik' : 'meyve';
 });
-export const CATS = [['tum', 'Tümü'], ['meyve', 'Meyveler'], ['tatli', 'Dondurmalar'], ['atistirmalik', 'Atıştırmalık'], ['kit', 'Hazır gıda']];
+export const CATS = [['tum', 'Tümü']]; // tek ürün grubu: meyve (14 çeşit)
 
 // Hazır gıda (ResQ): dondurularak kurutulmuş yemek kitleri. Bilgiler solagronmarket.com ürün sayfalarından.
 // menu: [ürün, porsiyon, ağırlık (g), kalori (kcal)]
@@ -295,4 +295,12 @@ FLAVORS.forEach((f) => {
   FLAVORS.splice(1, 0, FLAVORS.splice(i, 1)[0]);
   const j = FLAVORS.findIndex((f) => f.id === 'ananas');
   FLAVORS.splice(2, 0, FLAVORS.splice(j, 1)[0]);
+}
+
+// Firma yalnızca meyve grubunda çalışır (14 çeşit; Trendyol'daki Solagron mağazasıyla aynı):
+// dondurmalar, hindistan cevizi ve hazır gıda kitleri sitede gösterilmez.
+{
+  const keep = FLAVORS.filter((f) => f.cat === 'meyve');
+  FLAVORS.length = 0;
+  FLAVORS.push(...keep);
 }

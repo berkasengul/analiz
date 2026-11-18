@@ -36,8 +36,8 @@ const TIER = { x: 0, z: -0.12, R: 2.78, h: 0.16 };
 const POUCHES = [
   { id: 'seftali', x: -2.1, z: 0.4, ry: 0.3, s: 0.86, y: TIER.h },
   { id: 'ananas', x: 2.2, z: 0.4, ry: -0.3, s: 0.86, y: TIER.h },
-  { id: 'hindistan-cevizi', x: -1.15, z: 0.85, ry: 0.15, s: 0.95, y: TIER.h },
-  { id: 'ahududu', x: 1.25, z: 0.85, ry: -0.15, s: 0.95, y: TIER.h },
+  { id: 'elma', x: -1.15, z: 0.85, ry: 0.15, s: 0.95, y: TIER.h },
+  { id: 'kirmizi-ejder', x: 1.25, z: 0.85, ry: -0.15, s: 0.95, y: TIER.h },
   { id: 'cilek', x: 0.05, z: 1.3, ry: -0.03, s: 1.08, hero: true, y: TIER.h },
 ];
 
@@ -59,7 +59,7 @@ function cameraPlan(w, h) {
     return { fov: 36, elev: 0.04, frac: 0.44, sx: 0.78, sy: 0.47, A };
   }
   // göz hizasına yakın, tam karşıdan: kaide ince bir elips, paketler zeminde duruyormuş gibi
-  return { fov: 36, elev: 0.04, frac: 0.8, sx: 0.68, sy: 0.48, A };
+  return { fov: 36, elev: 0.04, frac: 0.62, sx: 0.7, sy: 0.5, A };
 }
 function planDistance(pl) {
   const t = Math.tan((pl.fov * Math.PI) / 360);
@@ -67,7 +67,7 @@ function planDistance(pl) {
   if (pl.band) return Math.max((PLAT.R * 2) / (2 * pl.frac * t * pl.A), 4.1 / (2 * t * pl.band));
   const dWidth = (PLAT.R * 2) / (2 * pl.frac * t * pl.A);
   // dikeyde kaidenin altı ile yörüngedeki meyvelerin üstü sığsın (≈4.3 birim)
-  const dHeight = 4.25 / (2 * 0.86 * t); // ürün grubu daha büyük: açılışta önce ürünler göze çarpsın
+  const dHeight = 4.9 / (2 * 0.86 * t); // ürün grubu daha büyük: açılışta önce ürünler göze çarpsın
   return Math.max(dWidth, dHeight);
 }
 
@@ -775,7 +775,6 @@ function Scene({ flavors, mobile, reduce, onReady }) {
       <Platform mobile={mobile} />
       <Pouches flavors={flavors} mobile={mobile} onReady={handleReady} />
       <UpperTier />
-      <Coconut />
       <Bowl />
       <Fruits mobile={mobile} />
       <NearLayer mobile={mobile} />

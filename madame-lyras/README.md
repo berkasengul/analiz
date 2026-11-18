@@ -1,8 +1,12 @@
 # Genç Anadolu Gıda · kurumsal web sitesi
 
 Genç Anadolu Gıda Pazarlama Dağıtım Ltd. Şti. için çok sayfalı kurumsal site (Vite). Sitede satış yapılmaz;
-ürün kataloğu, bayilik başvurusu ve iletişim formları vardır. 3B yalnızca iki yerde kullanılır:
-ana sayfa açılışındaki ürün sergisi ve ürün sayfasındaki 3B görüntüleyici.
+ürün kataloğu, bayilik başvurusu ve iletişim formları vardır.
+
+- **Ürünler:** yalnızca meyve grubu, 14 çeşit (`src/data.js`; dondurma, hindistan cevizi ve ResQ kitlerinin verisi dosyada durur ama sitede gösterilmez).
+- **Ana sayfa hareketsizdir:** açılışta sabit görsel (`public/img/hero-d.webp`, `hero-m.webp`); 3B kod yüklenmez.
+  Görsel `src/hero/` altındaki 3B sahneden çekilmiştir; sahne değişirse yeniden çekilmelidir.
+- **3B** yalnızca ürün kataloğu girişinde ve ürün sayfalarındaki görüntüleyicide kullanılır.
 
 ## Sayfalar
 | Dosya | İçerik |
@@ -11,7 +15,6 @@ ana sayfa açılışındaki ürün sergisi ve ürün sayfasındaki 3B görüntü
 | `kurumsal.html` | Hakkımızda, misyon ve vizyon, üretim tesisi (`#uretim`), kalite ve belgeler (`#kalite`) |
 | `urunler.html` | Filtreli ürün kataloğu (`?kat=meyve|tatli|atistirmalik|kit`) ve arama |
 | `urun.html?id=<id>` | Ürün sayfası: 3B görüntüleyici, ürün bilgileri, besin değerleri, kit içeriği, ambalaj ve lojistik, yazdırılabilir PDF ürün föyü |
-| `hazir-gida.html` | ResQ hazır gıda kitleri ve karşılaştırma tablosu |
 | `bayilik.html` | Avantajlar, kimler başvurabilir, süreç, sık sorulan sorular, başvuru formu (`#basvuru`, Netlify formu `bayilik`) |
 | `iletisim.html` | İletişim kartları, isteğe bağlı harita, iletişim formu (Netlify formu `iletisim`) |
 | `kvkk.html`, `cerez.html` | KVKK aydınlatma metni ve çerez politikası (şablon; hukuk danışmanınca gözden geçirilmeli) |

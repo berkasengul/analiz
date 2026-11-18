@@ -8,7 +8,6 @@ bindForm($('#contactForm'), $('#formStatus'), 'Teşekkürler, mesajınız bize u
 const urun = new URLSearchParams(location.search).get('urun');
 if (urun && $('#d-msg')) {
   $('#d-msg').value = `${urun} için toptan fiyat teklifi almak istiyorum.`;
-  if (/kit|gevrek/i.test(urun) && $('#d-ilgi')) $('#d-ilgi').value = 'Hazır gıda kitleri';
 }
 
 // harita yalnızca istenince yüklenir (Google çerezleri)
