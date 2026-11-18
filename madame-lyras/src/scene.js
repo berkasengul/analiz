@@ -891,7 +891,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       const w = 2.5 * (1 + 0.04 * Math.sin(t * 0.2));
       bdMesh.scale.set(w, w * asp, 1);
       bdMesh.position.y = 0.06;
-      bdMat.opacity = ok ? (insp.on ? 0.9 * insp.blend : state.bd) * bdNow : 0;
+      bdMat.opacity = ok && !opts.plain ? (insp.on ? 0.9 * insp.blend : state.bd) * bdNow : 0;
       bdMesh.visible = bdMat.opacity > 0.004;
     }
     // koyu hale ve kontur ışığı
@@ -940,7 +940,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     }
     // meyve parçaları (gerçek görseller)
     scrollVel = damp(scrollVel, 0, 2, dt);
-    const cloudScale = insp.on ? 0.55 : state.cloud;
+    const cloudScale = insp.on ? (opts.plain ? 0.32 : 0.55) : state.cloud;
     clouds.forEach((c, ci) => {
       const tgt = (insp.on ? (ci === flavor ? 1 : 0) : cloudTarget[ci]) * cloudScale;
       c.leaving = tgt < c.mix - 0.01;

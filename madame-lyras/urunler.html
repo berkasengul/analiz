@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ürün Kataloğu · Genç Anadolu Gıda</title>
+  <meta name="description" content="Dondurularak kurutulmuş meyve, dondurma, atıştırmalık ve ResQ hazır gıda ürünleri kataloğu." />
+  <meta property="og:title" content="Genç Anadolu Gıda · Dondurularak kurutulmuş meyve" />
+  <meta property="og:description" content="Dondurularak kurutulmuş meyve, dondurma ve hazır gıda ürünlerinde toptan satış ve bayilik." />
+  <meta property="og:image" content="/img/og.jpg" />
+  <meta name="theme-color" content="#7a0f15" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/corp.css" />
+</head>
+<body data-page="urunler">
+  <!-- @include header -->
+  <main id="icerik">
+    <section class="phero">
+      <div class="wrap">
+        <ol class="crumbs"><li><a href="/">Ana sayfa</a></li><li>Ürünler</li></ol>
+        <h1>Ürün <em>kataloğu</em></h1>
+        <p>Dondurularak kurutulmuş meyve, dondurma, atıştırmalık ve hazır gıda ürünlerimiz. Her ürünün 3B görünümü, besin değerleri ve ürün föyü ürün sayfasında.</p>
+      </div>
+    </section>
+    <section class="section section--cream catalog">
+      <div class="wrap">
+        <div class="filters" role="search">
+          <div class="filters__cats" id="cats" role="tablist" aria-label="Kategori"></div>
+          <label class="filters__search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sr">Ürün ara</span><input id="q" type="search" placeholder="Ürün ara" autocomplete="off" /></label>
+        </div>
+        <p class="catalog__count" id="count" aria-live="polite"></p>
+        <div class="pgrid" id="grid"></div>
+        <p class="catalog__empty" id="empty" hidden>Aramanıza uygun ürün bulunamadı.</p>
+      </div>
+    </section>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/pages/products.js"></script>
+</body>
+</html>

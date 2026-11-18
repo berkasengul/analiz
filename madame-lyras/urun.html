@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ürün · Genç Anadolu Gıda</title>
+  <meta name="description" content="Ürün bilgileri, besin değerleri, 3B görünüm ve ürün föyü." />
+  <meta property="og:title" content="Genç Anadolu Gıda · Dondurularak kurutulmuş meyve" />
+  <meta property="og:description" content="Dondurularak kurutulmuş meyve, dondurma ve hazır gıda ürünlerinde toptan satış ve bayilik." />
+  <meta property="og:image" content="/img/og.jpg" />
+  <meta name="theme-color" content="#7a0f15" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/corp.css" />
+</head>
+<body data-page="urunler">
+  <!-- @include header -->
+  <main id="icerik">
+    <section class="pd">
+      <div class="wrap">
+        <ol class="crumbs crumbs--dark" id="crumbs"><li><a href="/">Ana sayfa</a></li><li><a href="/urunler.html">Ürünler</a></li></ol>
+        <div class="pd__grid">
+          <div class="viewer" id="viewer">
+            <div class="viewer__stage" id="stage">
+              <canvas id="pv" aria-label="Ürünün 3B görünümü: sürükleyerek çevirin"></canvas>
+              <img class="viewer__img" id="pimg" alt="" />
+              <span class="viewer__badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9zM12 12l8-4.5M12 12v9M12 12L4 7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>3B görünüm</span>
+              <p class="viewer__hint">Sürükleyerek çevirin</p>
+            </div>
+            <div class="viewer__bar" role="toolbar" aria-label="Görünüm">
+              <div class="seg"><button type="button" data-view="front" class="on">Ön</button><button type="button" data-view="side">Yan</button><button type="button" data-view="back">Arka</button><button type="button" data-view="top">Üst</button></div>
+              <div class="seg"><button type="button" data-zoom="0.8" aria-label="Uzaklaştır">−</button><button type="button" data-zoom="1.25" aria-label="Yakınlaştır">+</button><button type="button" id="spinBtn" class="on" aria-pressed="true">Döndür</button></div>
+            </div>
+          </div>
+          <div class="pd__info">
+            <p class="eyebrow" id="pCat"></p>
+            <h1 id="pName"></h1>
+            <p class="pd__lead" id="pLead"></p>
+            <p class="pd__desc" id="pDesc"></p>
+            <dl class="keyfacts" id="pFacts"></dl>
+            <ul class="claims" id="pClaims"></ul>
+            <div class="pd__actions">
+              <a class="btn btn--primary" id="pQuote" href="/bayilik.html#basvuru">Toptan teklif iste</a>
+              <button class="btn btn--outline" type="button" id="pPrint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Ürün föyü (PDF)</button>
+              <a class="btn btn--outline" id="pMail" href="/iletisim.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>E-posta</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section section--cream pdx">
+      <div class="wrap">
+        <div class="tabs" role="tablist" aria-label="Ürün bilgileri" id="tabs"></div>
+        <div id="panels"></div>
+      </div>
+    </section>
+    <section class="section section--white">
+      <div class="wrap">
+        <header class="sec-head sec-head--row">
+          <div><p class="eyebrow">Benzer ürünler</p><h2>Aynı gruptan <em>ürünler</em></h2></div>
+          <a class="btn btn--outline" href="/urunler.html">Tüm ürünler</a>
+        </header>
+        <div class="pgrid" id="related"></div>
+      </div>
+    </section>
+    <!-- yazdırılabilir ürün föyü (PDF olarak kaydedilir) -->
+    <div class="sheet" id="sheet" aria-hidden="true"></div>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/pages/product.js"></script>
+</body>
+</html>
