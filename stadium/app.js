@@ -13,6 +13,7 @@ const fmt = (n) => n.toLocaleString('tr-TR');
 const TL = (n) => '₺' + fmt(n);
 function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 const rand = rng(1905);
+const fontsReady = document.fonts ? Promise.race([document.fonts.load('900 120px Inter'), new Promise((r) => setTimeout(r, 2500))]).catch(() => {}) : Promise.resolve();
 
 /* ======================================================================
    Stadium geometry (superellipse bowl around a 105 x 68 pitch)
@@ -413,24 +414,34 @@ const crestReady = new Promise((res) => {
 }
 // moulded bucket seat: side profile extruded across the seat width, darker underneath (baked AO)
 const seatGeo = (() => {
-  const P = [[0.20, 0.40], [0.17, 0.445], [-0.12, 0.425], [-0.19, 0.47], [-0.235, 0.84], [-0.205, 0.855], [-0.16, 0.50], [-0.10, 0.46], [0.16, 0.475], [0.215, 0.44]];
-  const shape = new THREE.Shape(P.map(([z, y]) => new THREE.Vector2(z, y)));
-  const g = new THREE.ExtrudeGeometry(shape, { depth: 0.42, bevelEnabled: true, bevelThickness: 0.012, bevelSize: 0.012, bevelSegments: 1, curveSegments: 1 });
-  // extrude axis is +z: rotate so the width runs along x and the profile's first coord is z (facing +z)
-  g.translate(0, 0, -0.21); g.rotateY(-Math.PI / 2);
-  const p = g.attributes.position, c = [];
-  for (let i = 0; i < p.count; i++) { const y = p.getY(i); const k = 0.55 + 0.45 * Math.min(1, Math.max(0, (y - 0.4) / 0.42)); c.push(k, k, k); }
-  g.setAttribute('color', new THREE.Float32BufferAttribute(c, 3));
-  g.computeVertexNormals();
+  // moulded shell (side profile extruded across the seat), curved backrest, rounded front lip
+  const P = [[0.205, 0.405], [0.19, 0.448], [0.10, 0.462], [-0.10, 0.452], [-0.17, 0.48], [-0.205, 0.56], [-0.228, 0.70], [-0.235, 0.83], [-0.215, 0.862], [-0.19, 0.845], [-0.18, 0.70], [-0.15, 0.555], [-0.11, 0.50], [0.08, 0.492], [0.17, 0.486], [0.222, 0.445]];
+  const shell = new THREE.ExtrudeGeometry(new THREE.Shape(P.map(([z, y]) => new THREE.Vector2(z, y))), { depth: 0.43, bevelEnabled: true, bevelThickness: 0.014, bevelSize: 0.014, bevelSegments: 2, curveSegments: 2 });
+  shell.translate(0, 0, -0.215); shell.rotateY(-Math.PI / 2);
+  const foot = new THREE.BoxGeometry(0.07, 0.4, 0.09); foot.translate(0, 0.2, -0.05);
+  const bracket = new THREE.BoxGeometry(0.3, 0.035, 0.05); bracket.translate(0, 0.39, -0.02);
+  const parts = [[shell, null], [foot.toNonIndexed(), 0.14], [bracket.toNonIndexed(), 0.14]];
+  const pos = [], nor = [], col = [];
+  for (const [g, dark] of parts) {
+    const gp = (g.index ? g.toNonIndexed() : g).attributes; g.computeVertexNormals();
+    const P2 = (g.index ? g.toNonIndexed() : g).attributes.position, N2 = (g.index ? g.toNonIndexed() : g).attributes.normal;
+    for (let i = 0; i < P2.count; i++) {
+      const y = P2.getY(i); pos.push(P2.getX(i), y, P2.getZ(i)); nor.push(N2.getX(i), N2.getY(i), N2.getZ(i));
+      const k = dark != null ? dark : 0.5 + 0.5 * Math.min(1, Math.max(0, (y - 0.4) / 0.45));
+      col.push(k, k, k);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
   return g;
 })();
-const seatMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.42, metalness: 0.0, vertexColors: true });
+const seatMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.38, metalness: 0.0, clearcoat: 0.25, clearcoatRoughness: 0.5, vertexColors: true });
 const seatMeshes = [];
 {
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), s = new THREE.Vector3(1, 1, 1), p = new THREE.Vector3();
   for (const b of blocks) {
     const im = new THREE.InstancedMesh(seatGeo, seatMat, b.seatCount);
-    for (let k = 0; k < b.seatCount; k++) { const i = b.seatStart + k; e.set(0, seatYaw[i], 0); q.setFromEuler(e); p.set(seatX[i], seatY[i], seatZ[i]); m.compose(p, q, s); im.setMatrixAt(k, m); }
+    for (let k = 0; k < b.seatCount; k++) { const i = b.seatStart + k; e.set(0, seatYaw[i] + (rand() - 0.5) * 0.05, 0); q.setFromEuler(e); p.set(seatX[i], seatY[i], seatZ[i]); m.compose(p, q, s); im.setMatrixAt(k, m); }
     im.instanceColor = new THREE.InstancedBufferAttribute(seatCol.subarray(b.seatStart * 3, (b.seatStart + b.seatCount) * 3), 3);
     im.computeBoundingSphere(); im.castShadow = true; im.receiveShadow = true;
     scene.add(im); seatMeshes.push(im); b.seats = im;
@@ -499,11 +510,22 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
     for (let x = 0; x < w; x += 32) { g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(x, 0, 2, h); }
     for (let y = 0; y < h; y += 32) { g.fillStyle = 'rgba(255,255,255,0.05)'; g.fillRect(0, y, w, 2); }
     g.fillStyle = 'rgba(205,210,215,0.55)'; for (let x = 20; x < w; x += 256) { g.fillRect(x, 70, 190, 9); g.fillRect(x + 40, 96, 150, 9); g.fillRect(x + 10, 122, 200, 9); }
-    g.fillStyle = 'rgba(20,24,30,0.6)'; g.fillRect(0, h - 46, w, 46);
+    for (let x = 0; x < w; x += 64) for (let y = 0; y < h; y += 32) { g.fillStyle = `rgba(255,255,255,${Math.random() * 0.04})`; g.fillRect(x + 1, y + 1, 62, 30); }
   }, { repeat: [1, 1] });
   cladTex.wrapS = cladTex.wrapT = THREE.RepeatWrapping;
-  const base = new THREE.Mesh(loft([[FACADE_D, -0.1], [FACADE_D, 13]], ...FULL, 720, { uScale: 32 }), new THREE.MeshStandardMaterial({ map: cladTex, roughness: 0.75, side: THREE.DoubleSide }));
+  const base = new THREE.Mesh(loft([[FACADE_D, 5.2], [FACADE_D, 13]], ...FULL, 720, { uScale: 32 }), new THREE.MeshStandardMaterial({ map: cladTex, roughness: 0.45, metalness: 0.35, side: THREE.DoubleSide }));
   base.castShadow = base.receiveShadow = true; scene.add(base);
+  // glazed ground floor (entrances / shops): blue-grey glass with mullions and a dark soffit
+  const lobbyTex = canvasTex(512, 128, (g, w, h) => {
+    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#2b3a48'); gr.addColorStop(0.55, '#5d7488'); gr.addColorStop(1, '#22303c'); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    g.fillStyle = 'rgba(255,255,255,0.08)'; for (let x = 0; x < w; x += 9) g.fillRect(x, 0, 3, h);
+    g.fillStyle = '#c9ccd0'; for (let x = 0; x < w; x += 64) g.fillRect(x, 0, 4, h); g.fillRect(0, 0, w, 6); g.fillRect(0, h * 0.62, w, 3);
+    g.fillStyle = 'rgba(255,214,150,0.35)'; for (let x = 20; x < w; x += 128) g.fillRect(x, h * 0.66, 30, h * 0.3);
+  }, { repeat: [1, 1] });
+  lobbyTex.wrapS = lobbyTex.wrapT = THREE.RepeatWrapping;
+  const lobby = new THREE.Mesh(loft([[FACADE_D - 1.6, 1.25], [FACADE_D - 1.6, 5.2]], ...FULL, 720, { uScale: 24, vAcross: true }), new THREE.MeshStandardMaterial({ map: lobbyTex, roughness: 0.12, metalness: 0.55, side: THREE.DoubleSide }));
+  scene.add(lobby);
+  scene.add(new THREE.Mesh(loft([[FACADE_D - 1.6, 5.2], [FACADE_D, 5.2]], ...FULL, 720), new THREE.MeshStandardMaterial({ color: 0x2a2d32, roughness: 0.8, side: THREE.DoubleSide })));
   const white = new THREE.MeshStandardMaterial({ color: 0xeeeff1, roughness: 0.5, side: THREE.DoubleSide });
   scene.add(new THREE.Mesh(loft([[FACADE_D + 0.4, 12.6], [FACADE_D + 0.4, 14.2], [FACADE_D - 3, 14.2]], ...FULL, 720), white));
   scene.add(new THREE.Mesh(loft([[FACADE_D - 3, 30.4], [FACADE_D + 0.4, 30.4], [FACADE_D + 0.4, 31.8]], ...FULL, 720), white));
@@ -544,22 +566,32 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
   podium.receiveShadow = true; scene.add(podium);
   // signage on the west (main) facade
   const sign = (text, color, glow, phi, y, w, h) => {
-    const t = canvasTex(1024, 128, (g, cw, ch) => {
-      g.clearRect(0, 0, cw, ch); g.font = `900 ${ch * 0.62}px "Arial Black", Inter, Arial, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
-      if (glow) { g.shadowColor = color; g.shadowBlur = 18; }
-      g.fillStyle = color; g.fillText(text, cw / 2, ch / 2 + 4);
+    const t = canvasTex(2048, 256, (g, cw, ch) => {
+      g.clearRect(0, 0, cw, ch);
+      g.font = `900 ${ch * 0.6}px Inter, "Arial Black", Arial, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+      const tw = Math.min(cw * 0.94, g.measureText(text).width);
+      g.save(); g.translate(cw / 2, ch / 2 + 6); g.scale(tw / g.measureText(text).width, 1);
+      if (glow) { g.shadowColor = color; g.shadowBlur = 26; }
+      g.fillStyle = color; g.fillText(text, 0, 0);
+      g.shadowBlur = 0; g.lineWidth = 3; g.strokeStyle = 'rgba(0,0,0,0.35)'; g.strokeText(text, 0, 0);
+      g.restore();
     });
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, transparent: true, emissive: glow ? new THREE.Color(color) : new THREE.Color(0x000000), emissiveMap: glow ? t : null, emissiveIntensity: glow ? 1.4 : 0, roughness: 0.4, depthWrite: false }));
-    const [x, z] = pAt(phi, FACADE_D + 0.7), [ix, iz] = inwardAt(phi, FACADE_D);
-    m.position.set(x, y, z); m.rotation.y = Math.atan2(-ix, -iz); scene.add(m);
+    t.anisotropy = 16;
+    const [x, z] = pAt(phi, FACADE_D + 1.75), [ix, iz] = inwardAt(phi, FACADE_D), ry = Math.atan2(-ix, -iz);
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(w * 1.04, h * 1.5, 0.4), new THREE.MeshStandardMaterial({ color: 0x1d2026, roughness: 0.4, metalness: 0.5 }));
+    const [px, pz] = pAt(phi, FACADE_D + 1.35); panel.position.set(px, y, pz); panel.rotation.y = ry; panel.castShadow = true; scene.add(panel);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, transparent: true, emissive: new THREE.Color(glow ? color : 0x555555), emissiveMap: t, emissiveIntensity: glow ? 1.5 : 0.35, roughness: 0.35, metalness: 0.2, depthWrite: false }));
+    m.position.set(x, y, z); m.rotation.y = ry; scene.add(m);
   };
   // place each sign in the middle of a bay between two pylons
   const P = window.__pyPhis.slice().sort((a, b) => a - b), bays = P.map((p, k) => { const q = k + 1 < P.length ? P[k + 1] : P[0] + Math.PI * 2; let m = (p + q) / 2; if (m > Math.PI) m -= Math.PI * 2; return m; });
   const near = (t) => bays.reduce((best, m) => (Math.abs(Math.atan2(Math.sin(m - t), Math.cos(m - t))) < Math.abs(Math.atan2(Math.sin(best - t), Math.cos(best - t))) ? m : best), bays[0]);
   const west = near(Math.PI / 2), westL = near(Math.PI / 2 + 0.55), east = near(-Math.PI / 2);
-  sign('≡RAMS PARK', '#ffffff', false, west, 22.2, 44, 6.6);
-  sign('GALATASARAY SPOR KULÜBÜ', '#f5b21c', true, westL, 22.2, 48, 4.4);
-  sign('≡RAMS PARK', '#ffffff', false, east, 22.2, 44, 6.6);
+  fontsReady.then(() => {
+    sign('≡RAMS PARK', '#ffffff', false, west, 22.2, 44, 6.6);
+    sign('GALATASARAY SPOR KULÜBÜ', '#f5b21c', true, westL, 22.2, 48, 4.4);
+    sign('≡RAMS PARK', '#ffffff', false, east, 22.2, 44, 6.6);
+  });
 }
 
 /* ----- roof: white rim, solar panels split by a "#" of white trusses, rectangular opening ----- */
@@ -919,6 +951,7 @@ function updateCamera(dt) {
   } else if (ui.state === 'landing') {
     orbitAz += dt * 0.045;
     const p = landingPose(); cam.pos.copy(p.pos); cam.target.copy(p.target); cam.fov = p.fov;
+    const o = window.__dbg && window.__dbg.landingOverride; if (o) { cam.pos.set(...o.pos); cam.target.set(...o.target); cam.fov = o.fov; }
   } else if (ui.state === 'overview') {
     if (orbitOn) ovTheta += dt * 0.06;
     const p = interiorPose();
@@ -1339,7 +1372,7 @@ function step(dt) {
   flood.intensity = 2.3 * night; flood2.intensity = 0.9 * night;
   scene.environmentIntensity = lerp(0.32, 0.22, night);
   scene.background = night > 0.5 ? skyNight : skyDay;
-  ROOF.edgeMat.emissiveIntensity = 0.7 * lt; ROOF.lampMat.emissiveIntensity = 1.6 * lt; ROOF.glowMat.opacity = 0.9 * lt * night;
+  ROOF.edgeMat.emissiveIntensity = 0.22 * lt; ROOF.lampMat.emissiveIntensity = 1.6 * lt; ROOF.glowMat.opacity = 0.9 * lt * night;
   const front = lightsT0 < 0 ? 0 : lerp(20, 210, sstep(0.1, 2.8, clock.t - lightsT0));
   if (front !== ui.revealFront) { ui.revealFront = front; paintDirty = true; }
   const wantNight = 0;
@@ -1385,7 +1418,7 @@ function loop(now) { step((now - last) / 1000); last = now; requestAnimationFram
 
 // boot
 paintSeats();
-Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady]).finally(() => {
+Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady, fontsReady]).finally(() => {
   $('#loader').classList.add('done');
   startIntro();
   if (REC) window.__step = (dt) => step(dt);
