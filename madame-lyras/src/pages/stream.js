@@ -89,7 +89,7 @@ export function initStream(heroApi) {
     const p = {};
     for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (['rx', 'ry', 'rz', 'pt', 'halo', 'bd'].includes(key) ? kr : key === 'x' ? kx : key === 'cloud' ? 0 : k);
     // inerken kendi etrafında ağır çekimde tam bir tur döner (kaydırmaya bağlı)
-    if (!reduce) p.ry += Math.PI * 2 * ease(smooth(0.04, 0.96, raw));
+    if (!reduce) p.ry += Math.PI * 2 * raw; // inişin tamamına eşit yayılmış, ilk andan itibaren görünen ağır çekim tam tur
     return p;
   }
 
@@ -102,9 +102,10 @@ export function initStream(heroApi) {
     const hb = heroEl.getBoundingClientRect().bottom;
     // açılışın altı ürün arka planına yumuşakça karışır (arada çizgi kalmaz)
     if (fadeEl) fadeEl.style.opacity = Math.min(1, (y / vh) * 3).toFixed(3);
-    const juiceTop = pr.top;
+    // arka plan açılışın ve sonraki bölümün altına biraz taşar: kaydırma sırasında arada çizgi/boşluk kalmaz
+    const juiceTop = pr.top - 220;
     const raw = clamp(y / Math.max(1, docTop(productsEl) - top), 0, 1);
-    scene.setJuiceClip(Math.max(juiceTop, top) / vh, pr.bottom / vh, pr.top > top ? 0.1 + 0.2 * raw : 0.3);
+    scene.setJuiceClip(Math.max(juiceTop, top) / vh, (pr.bottom + 220) / vh, pr.top > top ? 0.1 + 0.2 * raw : 0.3);
 
     // açılış tamamen yukarıdayken ya da akış geçildiyse sahne dinlenir
     if (pr.bottom <= top || y <= 1) {
@@ -136,6 +137,7 @@ export function initStream(heroApi) {
     } else {
       handing = true;
       const p = pose();
+      if (!reduce) p.ry += Math.PI * 2; // inişteki tam turla aynı açıdan devam (geri dönmez)
       // akışın sonu: paket bölümle birlikte yukarı kayar
       if (pr.bottom < vh) p.y += (vh - pr.bottom) * ((2 * scene.halfHeight()) / vh);
       scene.setPose(p);
