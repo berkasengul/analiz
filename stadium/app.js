@@ -2,6 +2,10 @@
 // Saha 105x68, 3 seviye (100 alt kat / 200 VIP-loca / 400 üst kat), 84 blok.
 import * as THREE from './vendor/three.module.min.js';
 import { RoomEnvironment } from './vendor/addons/environments/RoomEnvironment.js';
+import { STADIUMS } from './stadiums.js';
+const SID = new URLSearchParams(location.search).get('s') || (location.hash || '').replace('#', '') || 'rams';
+window.addEventListener('hashchange', () => location.reload());
+const CFG = STADIUMS[SID] || STADIUMS.rams;
 
 const $ = (s) => document.querySelector(s);
 const REC = new URLSearchParams(location.search).has('rec');
@@ -19,10 +23,10 @@ const fontsReady = document.fonts ? Promise.race([document.fonts.load('900 120px
    Stadium geometry (superellipse bowl around a 105 x 68 pitch)
    ====================================================================== */
 const PITCH_L = 105, PITCH_W = 68;
-const A0 = PITCH_L / 2 + 8.2;  // kale arkası 1. sıra ~8 m
-const B0 = PITCH_W / 2 + 6.2;  // yan tribün 1. sıra ~6 m
-const SEN = 4.2;
-const KA = 0.96, KB = 1.06; // bowl grows a bit faster on the sides (real footprint 232 x 205 m)
+const A0 = PITCH_L / 2 + CFG.geo.A0;  // goal-end first row distance
+const B0 = PITCH_W / 2 + CFG.geo.B0;  // touchline first row distance
+const SEN = CFG.geo.SEN;
+const KA = CFG.geo.KA, KB = CFG.geo.KB; // bowl growth per axis (matches the real footprint)
 function rAt(phi, d) {
   const a = A0 + d * KA, b = B0 + d * KB;
   const c = Math.abs(Math.cos(phi)) / a, s = Math.abs(Math.sin(phi)) / b;
@@ -42,20 +46,16 @@ function arcTable(p0, p1, d, n = 96) {
   return { L, phiAt(x) { if (x <= 0) return p0; if (x >= L) return p1; let lo = 0, hi = n; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (s[m] < x) lo = m; else hi = m; } const t = (x - s[lo]) / (s[hi] - s[lo]); return ph[lo] + (ph[hi] - ph[lo]) * t; } };
 }
 
-const TIERS = [
-  { lvl: 1, name: 'Alt Kat', rows: 37, d0: 0.8, depth: 0.78, h0: 0.6, riseA: 0.27, riseB: 0.47, color: 0xd0142c },
-  { lvl: 2, name: 'VIP & Loca', rows: 3, d0: 31.0, depth: 0.95, h0: 16.8, riseA: 0.42, riseB: 0.42, color: 0x232026 },
-  { lvl: 4, name: 'Üst Kat', rows: 27, d0: 36.6, depth: 0.72, h0: 23.2, riseA: 0.5, riseB: 0.56, color: 0xffb800 },
-];
+const TIERS = CFG.tiers.map((t) => ({ ...t, color: CFG.seatColor[t.lvl] }));
 for (const t of TIERS) {
   t.rd = []; t.rh = []; let h = t.h0;
   for (let j = 0; j < t.rows; j++) { t.rd.push(t.d0 + j * t.depth); t.rh.push(h); h += lerp(t.riseA, t.riseB, j / Math.max(1, t.rows - 1)); }
   t.dEnd = t.d0 + t.rows * t.depth; t.hEnd = t.rh[t.rows - 1];
 }
 const T1 = TIERS[0], T2 = TIERS[1], T4 = TIERS[2];
-const GLASS_D = T2.dEnd + 0.4, LOCA_BACK = 42, LOCA_CEIL = T4.h0 - 1.6;
-const FACADE_D = 57.5, ROOF_Y = 46.5, ROOF_OUT = 47.4;
-const OPEN_X = 57, OPEN_Z = 42; // rectangular roof opening (from the satellite image)
+const GLASS_D = T2.dEnd + 0.4, LOCA_BACK = T2.dEnd + 8.2, LOCA_CEIL = T4.h0 - 1.6;
+const FACADE_D = CFG.geo.facadeD, ROOF_Y = CFG.geo.roofY, ROOF_OUT = ROOF_Y + 0.9;
+const OPEN_X = CFG.geo.open.x, OPEN_Z = CFG.geo.open.z, OPEN_ELL = CFG.geo.open.shape === 'ellipse'; // roof opening (from the satellite image)
 
 /* ----- categories (gsplan.org kategori tablosu; fiyatlar örnek) ----- */
 const CATS = {
@@ -65,25 +65,10 @@ const CATS = {
   '6. Kategori': { price: 2150, sold: 0.92 }, '7. Kategori': { price: 1650, sold: 0.96 }, '8. Kategori': { price: 1250, sold: 0.95 },
   'Misafir': { price: 1500, sold: 0.7 }, 'Protokol': { price: 0, sold: 1 },
 };
-const CAT_OF = {};
-const setCat = (ids, c) => ids.forEach((i) => (CAT_OF[i] = c));
-const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => String(a + i));
-setCat(['213'], 'Premium'); setCat(['212', '214', '201', '225'], 'Delux'); setCat(['211', '215', '202', '224'], 'Lux');
-setCat(['101V', '100', '125V'], 'Classic'); setCat(['113'], '1. Kategori'); setCat(['112', '114', '101', '125'], '2. Kategori');
-setCat(['111', '115', '102', '124'], '3. Kategori'); setCat(['110', '116', '103', '123', '210', '216', '203', '223'], '4. Kategori');
-setCat(['413', '414', '415', '416', '417', '402', '401', '400', '429', '428'], '5. Kategori'); setCat(['412', '403', '427'], '6. Kategori');
-setCat([...range(104, 109), ...range(117, 122), ...range(204, 209), ...range(217, 222)], '7. Kategori');
-setCat([...range(404, 411), ...range(422, 426)], '8. Kategori'); setCat(range(418, 421), 'Misafir'); setCat(['200'], 'Protokol');
-
-const STANDS = {
-  'Güney': { gate: 'D', mid: 0 }, 'Batı': { gate: 'A', mid: Math.PI / 2 },
-  'Kuzey': { gate: 'B', mid: Math.PI }, 'Doğu': { gate: 'C', mid: Math.PI * 1.5 },
-};
-const LAYOUT = {
-  1: { 'Güney': range(117, 122), 'Batı': ['123', '124', '125', '125V', '100', '101V', '101', '102', '103'], 'Kuzey': range(104, 109), 'Doğu': range(110, 116) },
-  2: { 'Güney': range(217, 222), 'Batı': ['223', '224', '225', '200', '201', '202', '203'], 'Kuzey': range(204, 209), 'Doğu': range(210, 216) },
-  4: { 'Güney': range(419, 426), 'Batı': ['427', '428', '429', '400', '401', '402', '403'], 'Kuzey': range(404, 411), 'Doğu': range(412, 418) },
-};
+const CAT_OF = CFG.cats;
+const SIDE_NAMES = CFG.stands.map((x) => x.name);
+const STANDS = {}; CFG.stands.forEach((x, k) => { STANDS[x.name] = { gate: x.gate, mid: k * Math.PI / 2, side: k }; });
+const LAYOUT = {}; for (const [lvl, sides] of Object.entries(CFG.layout)) { LAYOUT[lvl] = {}; sides.forEach((ids, k) => { LAYOUT[lvl][SIDE_NAMES[k]] = ids; }); }
 
 /* ======================================================================
    Renderer / scene
@@ -232,10 +217,10 @@ const pitchTex = (() => {
 // LED boards
 const ledTex = canvasTex(2048, 64, (g, w, h) => {
   g.fillStyle = '#0b0610'; g.fillRect(0, 0, w, h);
-  const words = ['RAMS PARK', 'ASLAN BİLET', '3D KOLTUK SEÇİMİ', 'CİMBOM'];
+  const words = CFG.led;
   g.font = '900 40px Inter, Arial'; g.textBaseline = 'middle';
   let x = 10, i = 0;
-  while (x < w) { const t = words[i % words.length]; g.fillStyle = i % 2 ? '#fdb912' : '#ff2a4f'; g.fillText(t, x, h / 2 + 2); x += g.measureText(t).width + 60; i++; }
+  while (x < w) { const t = words[i % words.length]; g.fillStyle = i % 2 ? CFG.colors.accent : (CFG.ledAlt || '#ff2a4f'); g.fillText(t, x, h / 2 + 2); x += g.measureText(t).width + 60; i++; }
 }, { repeat: [1, 1] });
 {
   const mat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: ledTex, emissiveIntensity: 1.1, roughness: 0.6 });
@@ -268,15 +253,16 @@ function tierProfile(t) {
   return P;
 }
 
-const SEAT_W = 0.6, AISLE = 0.8;
+const SEAT_W = CFG.seatW || 0.6, AISLE = 0.8;
 const tmpSeats = { x: [], y: [], z: [], yaw: [], blk: [], row: [], num: [] };
 
 for (const t of TIERS) {
   const prof = tierProfile(t);
   const dMid = t.rd[Math.floor(t.rows / 2)];
   const delta = Math.atan2(B0 + dMid, A0 + dMid);
-  const ranges = { 'Güney': [-delta, delta], 'Batı': [delta, Math.PI - delta], 'Kuzey': [Math.PI - delta, Math.PI + delta], 'Doğu': [Math.PI + delta, 2 * Math.PI - delta] };
-  for (const stand of ['Güney', 'Batı', 'Kuzey', 'Doğu']) {
+  const RG = [[-delta, delta], [delta, Math.PI - delta], [Math.PI - delta, Math.PI + delta], [Math.PI + delta, 2 * Math.PI - delta]];
+  const ranges = {}; SIDE_NAMES.forEach((n, k) => { ranges[n] = RG[k]; });
+  for (const stand of SIDE_NAMES) {
     const ids = LAYOUT[t.lvl][stand];
     const [s0, s1] = ranges[stand];
     const arc = arcTable(s0, s1, dMid, 200);
@@ -352,13 +338,14 @@ const seatBase = new Float32Array(SEATS * 3);
 const seatCol = new Float32Array(SEATS * 3);
 // seat mosaic on the Doğu lower tier: the club crest (from assets/gs-crest.png) and the club name in yellow-orange seats
 const MOSAIC = (() => {
-  const b0 = blockById['110'], b1 = blockById['116'];
-  const p0 = b0.phi0, p1 = b1.phi1, rows = T1.rows, W = 1400, RH = 6, H = rows * RH;
+  const mIds = LAYOUT[CFG.mosaic.tier][SIDE_NAMES[CFG.mosaic.side]], b0 = blockById[mIds[0]], b1 = blockById[mIds[mIds.length - 1]];
+  const p0 = b0.phi0, p1 = b1.phi1, rows = b0.tier.rows, W = 1400, RH = 6, H = rows * RH;
   const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
-  const top = (rows - 33) * RH, bot = (rows - 4) * RH, hh = bot - top;
-  g.fillStyle = '#f2a21c'; g.font = `900 ${(rows - 6 - 5) * RH * 1.18}px "Arial Black", "DejaVu Sans", Arial, sans-serif`; g.textBaseline = 'alphabetic';
-  const txt = 'GALATASARAY', tw = g.measureText(txt).width, x0 = W * 0.165, x1 = W * 0.985;
-  g.save(); g.translate(x0, (rows - 5) * RH); g.scale((x1 - x0) / tw, 1); g.fillText(txt, 0, 0); g.restore();
+  const top = rows * 0.11 * RH, bot = rows * 0.89 * RH, hh = bot - top;
+  g.fillStyle = CFG.mosaic.color; g.font = `900 ${rows * 0.7 * RH * 1.18}px "Arial Black", "DejaVu Sans", Arial, sans-serif`; g.textBaseline = 'alphabetic';
+  const txt = CFG.mosaic.text, tw = g.measureText(txt).width, x0 = W * (CFG.mosaic.crest || CFG.mosaic.year ? 0.165 : 0.06), x1 = W * 0.985;
+  g.save(); g.translate(x0, rows * 0.865 * RH); g.scale((x1 - x0) / tw, 1); g.fillText(txt, 0, 0); g.restore();
+  if (CFG.mosaic.year) { g.save(); g.font = `900 ${rows * 0.68 * RH * 0.62}px "Arial Black", "DejaVu Sans", Arial, sans-serif`; g.textAlign = 'center'; g.translate(W * 0.083, rows * 0.76 * RH); g.scale(0.62, 1); g.fillText(CFG.mosaic.year, 0, 0); g.restore(); }
   let img = g.getImageData(0, 0, W, H).data;
   // crest box in mosaic pixels (seat columns are ~1.25x wider per metre than rows, hence the 0.96 factor)
   const ch = hh, cw = ch * (367 / 480) * 1.256, cx0 = W * 0.083 - cw / 2;
@@ -391,13 +378,13 @@ const MOSAIC = (() => {
 const seatVar = new Float32Array(SEATS);
 function seatColour(i, c) {
   const b = blocks[seatBlk[i]], mos = MOSAIC(i);
-  if (mos) c.setRGB(mos[0], mos[1], mos[2], THREE.SRGBColorSpace); else c.setHex(b.tier.lvl === 2 ? 0xa3141b : 0xc0181e);
+  if (mos) c.setRGB(mos[0], mos[1], mos[2], THREE.SRGBColorSpace); else c.setHex(CFG.seatColor[b.tier.lvl]);
   c.multiplyScalar(seatVar[i]);
   seatBase[i * 3] = c.r; seatBase[i * 3 + 1] = c.g; seatBase[i * 3 + 2] = c.b;
 }
 const crestReady = new Promise((res) => {
   const im = new Image(); im.onload = () => { MOSAIC.setCrest(im); const c = new THREE.Color(); for (let i = MOSAIC.range[0]; i < MOSAIC.range[1]; i++) seatColour(i, c); paintDirty = true; res(); };
-  im.onerror = () => res(); im.src = 'assets/gs-crest.png';
+  im.onerror = () => res(); if (CFG.mosaic.crest) im.src = CFG.mosaic.crest; else res();
 });
 {
   const c = new THREE.Color();
@@ -491,10 +478,10 @@ locaTex.wrapS = THREE.RepeatWrapping;
 /* ----- LED ribbon boards between the tiers ----- */
 const ribbonTex = canvasTex(2048, 48, (g, w, h) => {
   g.fillStyle = '#05060c'; g.fillRect(0, 0, w, h);
-  g.fillStyle = '#b8102a'; g.fillRect(0, 3, w, h - 6);
-  const words = ['≡RAMS PARK', 'GALATASARAY', '≡RAMS PARK', 'CİMBOM'];
+  g.fillStyle = CFG.ribbon.bg; g.fillRect(0, 3, w, h - 6);
+  const words = CFG.ribbon.words;
   g.font = '900 24px Inter, Arial, sans-serif'; g.textBaseline = 'middle'; g.textAlign = 'center';
-  for (let k = 0; k < 8; k++) { const x = (k + 0.5) * w / 8; g.fillStyle = '#ffffff'; g.fillText(words[k % 4], x, h / 2 + 1); g.fillStyle = '#fdb912'; g.beginPath(); g.arc(x + w / 16, h / 2, 4, 0, Math.PI * 2); g.fill(); }
+  for (let k = 0; k < 8; k++) { const x = (k + 0.5) * w / 8; g.fillStyle = CFG.ribbon.fg; g.fillText(words[k % 4], x, h / 2 + 1); g.fillStyle = CFG.ribbon.dot; g.beginPath(); g.arc(x + w / 16, h / 2, 4, 0, Math.PI * 2); g.fill(); }
 }, { repeat: [1, 1] });
 ribbonTex.wrapS = THREE.RepeatWrapping;
 {
@@ -503,8 +490,28 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
   scene.add(new THREE.Mesh(loft([[T4.d0 - 1.06, T4.h0 - 1.5], [T4.d0 - 1.06, T4.h0 + 0.85]], ...FULL, 720, { uScale: 40, vAcross: true }), mat));
 }
 
+/* ----- facade signage helper ----- */
+const sign = (text, color, glow, phi, y, w, h) => {
+    const t = canvasTex(2048, 256, (g, cw, ch) => {
+      g.clearRect(0, 0, cw, ch);
+      g.font = `900 ${ch * 0.6}px Inter, "Arial Black", Arial, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+      const tw = Math.min(cw * 0.94, g.measureText(text).width);
+      g.save(); g.translate(cw / 2, ch / 2 + 6); g.scale(tw / g.measureText(text).width, 1);
+      if (glow) { g.shadowColor = color; g.shadowBlur = 26; }
+      g.fillStyle = color; g.fillText(text, 0, 0);
+      g.shadowBlur = 0; g.lineWidth = 3; g.strokeStyle = 'rgba(0,0,0,0.35)'; g.strokeText(text, 0, 0);
+      g.restore();
+    });
+    t.anisotropy = 16;
+    const [x, z] = pAt(phi, FACADE_D + 1.75), [ix, iz] = inwardAt(phi, FACADE_D), ry = Math.atan2(-ix, -iz);
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(w * 1.04, h * 1.5, 0.4), new THREE.MeshStandardMaterial({ color: 0x1d2026, roughness: 0.4, metalness: 0.5 }));
+    const [px, pz] = pAt(phi, FACADE_D + 1.35); panel.position.set(px, y, pz); panel.rotation.y = ry; panel.castShadow = true; scene.add(panel);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, transparent: true, emissive: new THREE.Color(glow ? color : 0x555555), emissiveMap: t, emissiveIntensity: glow ? 1.5 : 0.35, roughness: 0.35, metalness: 0.2, depthWrite: false }));
+    m.position.set(x, y, z); m.rotation.y = ry; scene.add(m);
+  };
+
 /* ----- facade (from the reference renders): dark clad base, glazed band behind white V-columns, pylons, signage ----- */
-{
+if (CFG.facade.style === 'rams') {
   const cladTex = canvasTex(512, 256, (g, w, h) => {
     g.fillStyle = '#3a3d43'; g.fillRect(0, 0, w, h);
     for (let x = 0; x < w; x += 32) { g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(x, 0, 2, h); }
@@ -565,36 +572,87 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
   const podium = new THREE.Mesh(loft([[FACADE_D - 1, 1.3], [FACADE_D + 11, 1.3], [FACADE_D + 11, -0.4]], ...FULL, 720, { uScale: 6 }), new THREE.MeshStandardMaterial({ color: 0xd9d6cf, roughness: 0.9, side: THREE.DoubleSide }));
   podium.receiveShadow = true; scene.add(podium);
   // signage on the west (main) facade
-  const sign = (text, color, glow, phi, y, w, h) => {
-    const t = canvasTex(2048, 256, (g, cw, ch) => {
-      g.clearRect(0, 0, cw, ch);
-      g.font = `900 ${ch * 0.6}px Inter, "Arial Black", Arial, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
-      const tw = Math.min(cw * 0.94, g.measureText(text).width);
-      g.save(); g.translate(cw / 2, ch / 2 + 6); g.scale(tw / g.measureText(text).width, 1);
-      if (glow) { g.shadowColor = color; g.shadowBlur = 26; }
-      g.fillStyle = color; g.fillText(text, 0, 0);
-      g.shadowBlur = 0; g.lineWidth = 3; g.strokeStyle = 'rgba(0,0,0,0.35)'; g.strokeText(text, 0, 0);
-      g.restore();
-    });
-    t.anisotropy = 16;
-    const [x, z] = pAt(phi, FACADE_D + 1.75), [ix, iz] = inwardAt(phi, FACADE_D), ry = Math.atan2(-ix, -iz);
-    const panel = new THREE.Mesh(new THREE.BoxGeometry(w * 1.04, h * 1.5, 0.4), new THREE.MeshStandardMaterial({ color: 0x1d2026, roughness: 0.4, metalness: 0.5 }));
-    const [px, pz] = pAt(phi, FACADE_D + 1.35); panel.position.set(px, y, pz); panel.rotation.y = ry; panel.castShadow = true; scene.add(panel);
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, transparent: true, emissive: new THREE.Color(glow ? color : 0x555555), emissiveMap: t, emissiveIntensity: glow ? 1.5 : 0.35, roughness: 0.35, metalness: 0.2, depthWrite: false }));
-    m.position.set(x, y, z); m.rotation.y = ry; scene.add(m);
-  };
   // place each sign in the middle of a bay between two pylons
   const P = window.__pyPhis.slice().sort((a, b) => a - b), bays = P.map((p, k) => { const q = k + 1 < P.length ? P[k + 1] : P[0] + Math.PI * 2; let m = (p + q) / 2; if (m > Math.PI) m -= Math.PI * 2; return m; });
   const near = (t) => bays.reduce((best, m) => (Math.abs(Math.atan2(Math.sin(m - t), Math.cos(m - t))) < Math.abs(Math.atan2(Math.sin(best - t), Math.cos(best - t))) ? m : best), bays[0]);
   const west = near(Math.PI / 2), westL = near(Math.PI / 2 + 0.55), east = near(-Math.PI / 2);
   fontsReady.then(() => {
-    sign('≡RAMS PARK', '#ffffff', false, west, 22.2, 44, 6.6);
-    sign('GALATASARAY SPOR KULÜBÜ', '#f5b21c', true, westL, 22.2, 48, 4.4);
-    sign('≡RAMS PARK', '#ffffff', false, east, 22.2, 44, 6.6);
+    const at = { main: west, mainLeft: westL, back: east };
+    for (const sg of CFG.facade.signs) sign(sg.text, sg.color, !!sg.glow, at[sg.at], 22.2, sg.glow ? 48 : 44, sg.glow ? 4.4 : 6.6);
+  });
+} else {
+  // modern facade: clad base (optionally stone arches), glazed band with vertical fins, accent stripe, signage
+  const F = CFG.facade, topY = T4.hEnd + 1.6;
+  const baseTex = canvasTex(512, 256, (g, w, h) => {
+    g.fillStyle = F.base; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 3000; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * 0.05})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
+    if (F.arches) { // stone arcade like the historic Dolmabahçe side
+      g.fillStyle = 'rgba(0,0,0,0.12)'; for (let y = 0; y < h; y += 20) g.fillRect(0, y, w, 1);
+      for (let x = 16; x < w; x += 64) { g.fillStyle = '#1d2228'; g.beginPath(); g.moveTo(x, h); g.lineTo(x, h * 0.42); g.arc(x + 16, h * 0.42, 16, Math.PI, 0); g.lineTo(x + 32, h); g.fill(); g.strokeStyle = 'rgba(255,255,255,0.35)'; g.lineWidth = 2; g.stroke(); }
+    } else {
+      g.fillStyle = 'rgba(0,0,0,0.18)'; for (let x = 0; x < w; x += 32) g.fillRect(x, 0, 2, h); for (let y = 0; y < h; y += 32) g.fillRect(0, y, w, 2);
+      g.fillStyle = 'rgba(30,40,52,0.8)'; for (let x = 10; x < w; x += 64) g.fillRect(x, h * 0.55, 44, h * 0.42);
+    }
+  }, { repeat: [1, 1] });
+  baseTex.wrapS = baseTex.wrapT = THREE.RepeatWrapping;
+  const base = new THREE.Mesh(loft([[FACADE_D, -0.1], [FACADE_D, 11]], ...FULL, 720, { uScale: 34, vAcross: true }), new THREE.MeshStandardMaterial({ map: baseTex, roughness: 0.8, side: THREE.DoubleSide }));
+  base.castShadow = base.receiveShadow = true; scene.add(base);
+  const bandTex = canvasTex(512, 256, (g, w, h) => {
+    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, F.band); gr.addColorStop(0.6, '#2f3f55'); gr.addColorStop(1, F.band); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    g.fillStyle = 'rgba(255,255,255,0.07)'; for (let x = 0; x < w; x += 12) g.fillRect(x, 0, 4, h);
+    g.fillStyle = '#d9dce0'; for (let x = 0; x < w; x += 48) g.fillRect(x, 0, 5, h);
+  }, { repeat: [1, 1] });
+  bandTex.wrapS = bandTex.wrapT = THREE.RepeatWrapping;
+  const band = new THREE.Mesh(loft([[FACADE_D - 0.4, 11], [FACADE_D - 0.4, topY]], ...FULL, 720, { uScale: 24, vAcross: true }), new THREE.MeshStandardMaterial({ map: bandTex, roughness: 0.15, metalness: 0.55, side: THREE.DoubleSide }));
+  band.castShadow = true; scene.add(band);
+  scene.add(new THREE.Mesh(loft([[FACADE_D + 0.3, 10.6], [FACADE_D + 0.3, 12.0]], ...FULL, 720), new THREE.MeshStandardMaterial({ color: new THREE.Color(F.accent), roughness: 0.5, side: THREE.DoubleSide })));
+  scene.add(new THREE.Mesh(loft([[FACADE_D - 0.4, topY], [FACADE_D + 0.4, topY], [FACADE_D + 0.4, topY + 1.2]], ...FULL, 720), new THREE.MeshStandardMaterial({ color: 0xe9eaec, roughness: 0.5, side: THREE.DoubleSide })));
+  // slender steel columns carrying the roof
+  const arc = arcTable(-Math.PI, Math.PI, FACADE_D + 1.2, 720), n = Math.round(arc.L / 12);
+  const colGeo = new THREE.CylinderGeometry(0.45, 0.6, ROOF_Y + 1, 10); colGeo.translate(0, (ROOF_Y + 1) / 2, 0);
+  const cols = new THREE.InstancedMesh(colGeo, new THREE.MeshStandardMaterial({ color: 0xe7e8ea, roughness: 0.4, metalness: 0.3 }), n);
+  const m4 = new THREE.Matrix4();
+  for (let k = 0; k < n; k++) { const [x, z] = pAt(arc.phiAt(arc.L * k / n), FACADE_D + 1.2); m4.makeTranslation(x, 0, z); cols.setMatrixAt(k, m4); }
+  cols.castShadow = true; scene.add(cols);
+  scene.add(new THREE.Mesh(loft([[FACADE_D - 1, 1.2], [FACADE_D + 9, 1.2], [FACADE_D + 9, -0.4]], ...FULL, 720), new THREE.MeshStandardMaterial({ color: 0xd2cfc8, roughness: 0.9, side: THREE.DoubleSide })));
+  fontsReady.then(() => {
+    const at = { main: Math.PI / 2, mainLeft: Math.PI / 2 + 0.5, back: -Math.PI / 2 };
+    for (const sg of F.signs) sign(sg.text, sg.color, !!sg.glow, at[sg.at], (11 + topY) / 2, sg.glow ? 40 : 52, sg.glow ? 5 : 6);
   });
 }
 
 /* ----- roof: white rim, solar panels split by a "#" of white trusses, rectangular opening ----- */
+// white membrane roof: radial seams, a grey truss band, painted lettering (and an eagle on the Tüpraş roof)
+function drawMembrane(g, w, h, X, Z) {
+  g.fillStyle = '#f2f3f4'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(120,128,140,0.28)'; g.lineWidth = 2;
+  for (let i = 0; i < 160; i++) { const ph = -Math.PI + i / 80 * Math.PI, [ax, az] = pAt(ph, -4), [bx, bz] = pAt(ph, FACADE_D + 7); g.beginPath(); g.moveTo(X(ax), Z(az)); g.lineTo(X(bx), Z(bz)); g.stroke(); }
+  for (const d of [FACADE_D * 0.35, FACADE_D * 0.6]) {
+    g.lineWidth = d < FACADE_D * 0.5 ? 16 : 6; g.strokeStyle = d < FACADE_D * 0.5 ? 'rgba(150,158,168,0.55)' : 'rgba(150,158,168,0.35)';
+    g.beginPath(); for (let i = 0; i <= 256; i++) { const [x, z] = pAt(-Math.PI + i / 128 * Math.PI, d); i ? g.lineTo(X(x), Z(z)) : g.moveTo(X(x), Z(z)); } g.closePath(); g.stroke();
+  }
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) { const [rx, rz] = pAt(Math.atan2(sz * (B0 + 40), sx * (A0 + 40)), FACADE_D + 5); g.lineWidth = 10; g.strokeStyle = 'rgba(150,158,168,0.5)'; g.beginPath(); g.moveTo(X(sx * OPEN_X * 0.9), Z(sz * OPEN_Z * 0.9)); g.lineTo(X(rx), Z(rz)); g.stroke(); }
+  const S8 = w / (2 * (A0 + (FACADE_D + 7) * KA));
+  for (const t of CFG.roof.texts || []) {
+    const ph = t.side * Math.PI / 2, [x, z] = pAt(ph, FACADE_D * 0.5);
+    g.save(); g.translate(X(x), Z(z)); g.rotate(t.side === 1 ? 0 : t.side === 3 ? Math.PI : t.side === 0 ? -Math.PI / 2 : Math.PI / 2);
+    g.fillStyle = '#2a2d33'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    const size = (t.side % 2 ? FACADE_D * 0.36 : FACADE_D * 0.3) * S8; g.font = `${t.lower ? 800 : 900} ${size}px Inter, "Arial Black", Arial, sans-serif`;
+    const maxW = (t.side % 2 ? (A0 + FACADE_D * 0.5) * 1.5 : (B0 + FACADE_D * 0.5) * 1.4) * S8;
+    const tw = g.measureText(t.text).width; const sc = Math.min(1, maxW / tw);
+    g.scale(sc, 1); g.fillText(t.lower ? t.text : t.text.split('').join(String.fromCharCode(8202)), 0, 0); g.restore();
+  }
+  if (CFG.roof.eagle) { // stylised eagle with spread wings on the +x end
+    const [x, z] = pAt(0.35, FACADE_D * 0.55); const s = FACADE_D * 0.42 * S8;
+    g.save(); g.translate(X(x), Z(z)); g.rotate(-0.4); g.fillStyle = '#2a2d33';
+    g.beginPath(); g.moveTo(0, -s * 0.15);
+    g.bezierCurveTo(-s * 0.3, -s * 0.5, -s * 0.8, -s * 0.55, -s * 1.1, -s * 0.2); g.lineTo(-s * 0.85, -s * 0.18); g.lineTo(-s * 0.95, 0); g.lineTo(-s * 0.7, -s * 0.02); g.lineTo(-s * 0.78, s * 0.15); g.lineTo(-s * 0.45, s * 0.05);
+    g.lineTo(-s * 0.15, s * 0.25); g.lineTo(-s * 0.1, s * 0.75); g.lineTo(0, s * 0.55); g.lineTo(s * 0.1, s * 0.75); g.lineTo(s * 0.15, s * 0.25);
+    g.lineTo(s * 0.45, s * 0.05); g.lineTo(s * 0.78, s * 0.15); g.lineTo(s * 0.7, -s * 0.02); g.lineTo(s * 0.95, 0); g.lineTo(s * 0.85, -s * 0.18); g.lineTo(s * 1.1, -s * 0.2);
+    g.bezierCurveTo(s * 0.8, -s * 0.55, s * 0.3, -s * 0.5, 0, -s * 0.15); g.fill();
+    g.beginPath(); g.arc(0, -s * 0.22, s * 0.09, 0, Math.PI * 2); g.fill(); g.restore();
+  }
+}
 const ROOF = (() => {
   const OVH = 7; // roof overhang beyond the facade
   const RX = A0 + (FACADE_D + OVH) * KA, RZ = B0 + (FACADE_D + OVH) * KB;
@@ -602,6 +660,7 @@ const ROOF = (() => {
   const tex = canvasTex(Math.round(RX * 2 * S), Math.round(RZ * 2 * S), (g, w, h) => {
     const X = (x) => (x + RX) * S, Z = (z) => (z + RZ) * S;
     g.fillStyle = '#eef0f2'; g.fillRect(0, 0, w, h);
+    if (CFG.roof.style === 'membrane') { drawMembrane(g, w, h, X, Z); return; }
     // solar field = whole roof minus rim (drawn via clip of an inner superellipse)
     g.save(); g.beginPath();
     for (let i = 0; i <= 256; i++) { const [x, z] = pAt(-Math.PI + i / 128 * Math.PI, FACADE_D - 6.5); i ? g.lineTo(X(x), Z(z)) : g.moveTo(X(x), Z(z)); }
@@ -624,7 +683,7 @@ const ROOF = (() => {
   const roofY = (t) => ROOF_Y + 3.0 * Math.sin(Math.PI * t * 0.85) - 7.5 * Math.pow(Math.max(0, (t - 0.8) / 0.2), 2);
   for (let i = 0; i <= NA; i++) {
     const ph = -Math.PI + (i / NA) * Math.PI * 2, c = Math.cos(ph), sn = Math.sin(ph);
-    const tr = Math.min(OPEN_X / Math.max(1e-6, Math.abs(c)), OPEN_Z / Math.max(1e-6, Math.abs(sn)));
+    const tr = OPEN_ELL ? 1 / Math.hypot(c / OPEN_X, sn / OPEN_Z) : Math.min(OPEN_X / Math.max(1e-6, Math.abs(c)), OPEN_Z / Math.max(1e-6, Math.abs(sn)));
     const ix = c * tr, iz = sn * tr; const [ox, oz] = pAt(ph, FACADE_D + OVH);
     for (let k = 0; k <= NR; k++) {
       const t = k / NR, x = lerp(ix, ox, t), z = lerp(iz, oz, t);
@@ -646,7 +705,7 @@ const ROOF = (() => {
   for (let i = 0; i < 120; i++) { const ph = -Math.PI + (i / 120) * Math.PI * 2; const [x0, z0] = pAt(ph, FACADE_D - 0.5), [x1, z1] = pAt(ph, FACADE_D + OVH - 0.4); ribs.push([x0, roofY(0.86) - 1.6, z0, x1, roofY(0.99) - 0.9, z1]); }
 
   // opening edge: floodlight strip + truss fascia
-  const edgeMat = new THREE.MeshStandardMaterial({ color: 0x40230e, emissive: 0xff8a1e, emissiveIntensity: 0, transparent: true, opacity: 1 });
+  const edgeMat = new THREE.MeshStandardMaterial({ color: SID === 'rams' ? 0x40230e : 0x3a3d44, emissive: SID === 'rams' ? 0xff8a1e : 0xfff2dc, emissiveIntensity: 0, transparent: true, opacity: 1 });
   const edge = new THREE.Group();
   for (const [w, d, x, z] of [[OPEN_X * 2, 1.2, 0, -OPEN_Z], [OPEN_X * 2, 1.2, 0, OPEN_Z], [1.2, OPEN_Z * 2, -OPEN_X, 0], [1.2, OPEN_Z * 2, OPEN_X, 0]]) {
     const m = new THREE.Mesh(new THREE.BoxGeometry(w, 2.2, d), edgeMat); m.position.set(x, ROOF_Y - 1.1, z); edge.add(m);
@@ -704,8 +763,8 @@ const ROOF = (() => {
   // two scoreboards hanging from the end trusses
   const sbTex = canvasTex(512, 256, (g, w, h) => {
     g.fillStyle = '#07080c'; g.fillRect(0, 0, w, h); g.strokeStyle = '#2a2d36'; g.lineWidth = 8; g.strokeRect(4, 4, w - 8, h - 8);
-    g.fillStyle = '#fdb912'; g.font = '900 64px Inter, Arial'; g.textAlign = 'center'; g.fillText('GS  0 - 0  FB', w / 2, 118);
-    g.fillStyle = '#ffffff'; g.font = '700 34px Inter, Arial'; g.fillText("00:00  ·  RAMS PARK", w / 2, 190);
+    g.fillStyle = '#fdb912'; g.font = '900 64px Inter, Arial'; g.textAlign = 'center'; g.fillText(CFG.match.short.replace('–', '-'), w / 2, 118);
+    g.fillStyle = '#ffffff'; g.font = '700 34px Inter, Arial'; g.fillText('00:00  ·  ' + CFG.stadium.toLocaleUpperCase('tr-TR'), w / 2, 190);
   });
   const sbMat = new THREE.MeshStandardMaterial({ color: 0x0b0c10, emissive: 0xffffff, emissiveMap: sbTex, emissiveIntensity: 0.9 });
   for (const sx of [-1, 1]) {
@@ -753,8 +812,8 @@ const VIP = (() => {
   const tvTex = canvasTex(512, 288, (c, w, h) => {
     const gr = c.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#a90432'); gr.addColorStop(1, '#fdb912'); c.fillStyle = gr; c.fillRect(0, 0, w, h);
     c.fillStyle = 'rgba(0,0,0,0.35)'; c.fillRect(0, h - 70, w, 70);
-    c.fillStyle = '#fff'; c.font = '900 54px Inter, Arial'; c.textAlign = 'center'; c.fillText('GS  0 – 0  FB', w / 2, 120);
-    c.font = '700 26px Inter, Arial'; c.fillText('CANLI · RAMS PARK', w / 2, h - 26);
+    c.fillStyle = '#fff'; c.font = '900 54px Inter, Arial'; c.textAlign = 'center'; c.fillText(CFG.match.short, w / 2, 120);
+    c.font = '700 26px Inter, Arial'; c.fillText('CANLI · ' + CFG.stadium.toLocaleUpperCase('tr-TR'), w / 2, h - 26);
   });
   add(new THREE.BoxGeometry(2.4, 1.35, 0.06), new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: tvTex, emissiveIntensity: 0.9 }), 0, y0 + 2.2, zB - 0.1, false);
   // bar counter
@@ -795,12 +854,12 @@ const VIP = (() => {
    Surroundings: real satellite imagery of Seyrantepe (Esri World Imagery)
    The stadium long axis points 53° east of north-east; +x = Güney (SW), +z = Batı (NW).
    ====================================================================== */
-const SAT = { centre: [-3.6, 0.6], ax: [-0.6018, -0.7986], az: [-0.7986, 0.6018] };
+const SAT = (() => { const a = CFG.sat.axisDeg * Math.PI / 180, b = a - Math.PI / 2; return { centre: CFG.sat.centre, ax: [Math.cos(a), Math.sin(a)], az: [Math.cos(b), Math.sin(b)] }; })();
 const toWorld = ([e, n]) => { const de = e - SAT.centre[0], dn = n - SAT.centre[1]; return [de * SAT.ax[0] + dn * SAT.ax[1], de * SAT.az[0] + dn * SAT.az[1]]; };
 const satReady = (async () => {
-  const meta = await (await fetch('assets/sat.json')).json();
+  const meta = await (await fetch(`assets/${CFG.sat.prefix}.json`)).json();
   const small = Math.min(window.innerWidth, window.innerHeight) < 700 && !REC;
-  const tex = await new THREE.TextureLoader().loadAsync(small ? 'assets/sat-2k.jpg' : 'assets/sat.jpg');
+  const tex = await new THREE.TextureLoader().loadAsync(small ? `assets/${CFG.sat.prefix}-2k.jpg` : `assets/${CFG.sat.prefix}.jpg`);
   tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
   const c = [meta.tl, meta.tr, meta.bl, meta.br].map(toWorld);
   const g = new THREE.BufferGeometry();
@@ -903,7 +962,7 @@ function overviewPose(extraDist = 1, azOff = 0) {
   // keep the stadium visually centred when the top bar takes space
   return { pos, target, fov };
 }
-let ovTheta = -Math.PI / 2; // interior overview: direction the camera looks at (−π/2 = Doğu, the GALATASARAY stand)
+let ovTheta = CFG.mosaic.side * Math.PI / 2; if (ovTheta > Math.PI) ovTheta -= Math.PI * 2; // interior overview: direction the camera looks at (−π/2 = Doğu, the GALATASARAY stand)
 function landingPose(az = orbitAz) {
   const portrait = isPortrait();
   const el = THREE.MathUtils.degToRad(portrait ? 34 : 24), dist = portrait ? 600 : 380;
@@ -1247,7 +1306,7 @@ function triggerVip() {
   if (ui.state === 'landing' || ui.state === 'enter') return;
   vipActive = true;
   if (!ticketWrap.classList.contains('on')) {
-    if (ui.selSeat < 0) { $('#tStand').textContent = 'Batı VIP'; $('#tBlock').textContent = '201'; $('#tRow').textContent = 'L'; $('#tSeat').textContent = '12'; $('#tCat').textContent = 'Delux · Kapı A'; $('#tPrice').textContent = TL(CATS['Delux'].price); snapshotReq = { pos: vipPose().pos, target: vipPose().target, fov: 62 }; }
+    if (ui.selSeat < 0) { $('#tStand').textContent = `${SIDE_NAMES[1]} VIP`; $('#tBlock').textContent = '201'; $('#tRow').textContent = 'L'; $('#tSeat').textContent = '12'; $('#tCat').textContent = 'Delux · Kapı A'; $('#tPrice').textContent = TL(CATS['Delux'].price); snapshotReq = { pos: vipPose().pos, target: vipPose().target, fov: 62 }; }
     ticketWrap.classList.add('on');
   }
   panel.classList.remove('open');
@@ -1416,6 +1475,21 @@ function render() {
 let last = performance.now();
 function loop(now) { step((now - last) / 1000); last = now; requestAnimationFrame(loop); }
 
+// page texts + club colours
+{
+  const r = document.documentElement.style;
+  r.setProperty('--red', CFG.colors.primary); r.setProperty('--red-2', CFG.colors.primary2); r.setProperty('--yellow', CFG.colors.accent);
+  document.title = `${CFG.stadium} 3D Bilet`;
+  document.querySelectorAll('.brand b').forEach((e) => (e.textContent = CFG.brand));
+  document.querySelectorAll('.brand small').forEach((e) => (e.textContent = `${CFG.stadium} · 3D bilet deneyimi`));
+  document.querySelectorAll('.teams, .cta-teams, .t-match').forEach((e) => { e.innerHTML = `<b>${CFG.match.home}</b><span>vs</span><b>${CFG.match.away}</b>`; });
+  document.querySelectorAll('.match small, .cta-card small').forEach((e) => (e.textContent = `${CFG.match.league}${e.closest('.match') ? ' · ' + CFG.match.time : ''}`));
+  document.querySelectorAll('.cta-meta, .t-sub').forEach((e) => (e.textContent = `${CFG.stadium} · ${CFG.place} · ${CFG.match.time}`));
+  document.querySelectorAll('.switch a').forEach((e) => e.classList.toggle('on', e.dataset.s === SID));
+  const lt = $('#loader span'); if (lt) lt.textContent = `${CFG.stadium} yükleniyor…`;
+  const disc = $('.disclaimer'); if (disc) disc.textContent = `Hayran yapımı demo · Kulüpler, stadyum işletmesi veya Passo ile bağlantısı yoktur · Fiyatlar örnektir`;
+}
+
 // boot
 paintSeats();
 Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady, fontsReady]).finally(() => {
@@ -1439,4 +1513,4 @@ window.app = {
   selectBlock: (id) => selectBlock(blockById[id]), selectSeat, triggerVip, goOverview, back, enterStadium, goLanding, pickSeat,
   setOrbit(v) { orbitOn = v; idleT = v ? 99 : 0; },
 };
-console.log(`[RAMS Park] ${blocks.length} blok, ${SEATS} koltuk modellendi`);
+console.log(`[${CFG.stadium}] ${blocks.length} blok, ${SEATS} koltuk modellendi`);

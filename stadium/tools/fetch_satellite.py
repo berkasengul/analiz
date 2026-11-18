@@ -7,6 +7,8 @@ from PIL import Image, ImageFilter
 LAT0, LON0 = 41.103369, 28.9909522   # RAMS Park (OSM way 342828509)
 Z, N = 18, 16                        # zoom, tiles per side -> 4096 px
 OUT = os.path.join(os.path.dirname(__file__), '..', 'assets')
+PREFIX = 'sat'
+if len(sys.argv) >= 4: LAT0, LON0, PREFIX = float(sys.argv[1]), float(sys.argv[2]), sys.argv[3]
 URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
 
 def deg2px(lat, lon, z):
@@ -51,8 +53,8 @@ for y in range(W):
         mpx[x, y] = 255 if d >= m else int(255 * (d / m) ** 1.5)
 bg = Image.new('RGB', img.size, mean)
 img = Image.composite(img, bg, mask)
-img.save(os.path.join(OUT, 'sat.jpg'), quality=86, optimize=True, progressive=True)
-img.resize((2048, 2048), Image.LANCZOS).save(os.path.join(OUT, 'sat-2k.jpg'), quality=86, optimize=True, progressive=True)
+img.save(os.path.join(OUT, PREFIX + '.jpg'), quality=86, optimize=True, progressive=True)
+img.resize((2048, 2048), Image.LANCZOS).save(os.path.join(OUT, PREFIX + '-2k.jpg'), quality=86, optimize=True, progressive=True)
 
 # metres east/north (local tangent plane at LAT0/LON0) of each image corner
 kx = 111320 * math.cos(math.radians(LAT0)); ky = 110574
@@ -64,5 +66,5 @@ meta = {
     'tl': en(0, 0), 'tr': en(W, 0), 'bl': en(0, W), 'br': en(W, W),
     'source': 'Esri World Imagery (Esri, Maxar, Earthstar Geographics)',
 }
-json.dump(meta, open(os.path.join(OUT, 'sat.json'), 'w'), indent=1)
+json.dump(meta, open(os.path.join(OUT, PREFIX + '.json'), 'w'), indent=1)
 print(json.dumps(meta))
