@@ -211,6 +211,35 @@ button { font: inherit; color: inherit; }
 .spin { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.12); border-top-color: var(--yellow); animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ---------- landing CTA ---------- */
+.cta {
+  position: absolute; z-index: 6; left: 50%; bottom: 46px; transform: translate(-50%, 30px);
+  opacity: 0; pointer-events: none; transition: opacity 0.5s, transform 0.6s cubic-bezier(.2, .9, .25, 1.1);
+}
+.cta.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.cta-card {
+  display: grid; justify-items: center; gap: 6px; padding: 18px 26px 20px; border-radius: 22px; text-align: center;
+  background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+.cta-card small { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.cta-teams { display: flex; gap: 10px; align-items: baseline; font-size: 20px; letter-spacing: 0.03em; }
+.cta-teams b { font-weight: 900; }
+.cta-teams b:first-child { color: var(--yellow); }
+.cta-teams span { color: var(--muted); font-size: 13px; }
+.cta-meta { color: var(--muted); font-size: 12.5px; }
+.cta-btn {
+  margin-top: 8px; border: 0; cursor: pointer; padding: 14px 44px; border-radius: 999px;
+  font-size: 18px; font-weight: 900; letter-spacing: 0.04em; color: #fff;
+  background: linear-gradient(90deg, var(--red), var(--red-2));
+  box-shadow: 0 10px 30px rgba(169, 4, 50, 0.55), inset 0 0 0 2px rgba(253, 185, 18, 0.55);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+.cta-btn:hover { filter: brightness(1.1); }
+.cta-btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+@keyframes pulse { 0%, 100% { box-shadow: 0 10px 30px rgba(169, 4, 50, 0.55), inset 0 0 0 2px rgba(253, 185, 18, 0.55); } 50% { box-shadow: 0 10px 44px rgba(208, 16, 58, 0.85), inset 0 0 0 2px rgba(253, 185, 18, 0.9); } }
+@media (prefers-reduced-motion: reduce) { .cta-btn { animation: none; } }
+
 /* ---------- portrait / phone ---------- */
 @media (max-aspect-ratio: 1/1), (max-width: 760px) {
   .topbar { padding: max(12px, env(safe-area-inset-top)) 14px 12px; }
@@ -227,6 +256,8 @@ button { font: inherit; color: inherit; }
   .ticket-wrap { left: 50%; right: auto; bottom: 34px; width: min(360px, calc(100% - 28px)); transform: translate(-50%, 40px) scale(0.96); }
   .ticket-wrap.on { transform: translate(-50%, 0); }
   .hint { bottom: 34px; font-size: 12px; }
+  .cta { bottom: 40px; width: calc(100% - 32px); }
+  .cta-teams { font-size: 17px; }
   .backbtn { top: 66px; left: 12px; }
   .typed span { width: 52px; height: 64px; font-size: 34px; }
   .slabel { padding: 6px 9px 7px; gap: 9px; }
