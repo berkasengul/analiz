@@ -806,7 +806,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       const fi = Math.min(N - 1, Math.max(0, streamNow));
       const i = Math.min(N - 2, Math.floor(fi));
       const u = fi - i;
-      const r = reduce ? (u > 0.5 ? 1 : 0) : ease(smooth(0.3, 0.7, u));
+      const r = reduce ? (u > 0.5 ? 1 : 0) : ease(smooth(0.1, 0.9, u)); // ürünler arası dönüş geçişin büyük kısmına yayılır (ağır çekim)
       streamAngle = r * TAU;
       dip = Math.sin(r * Math.PI);
       showFront(r < 0.5 ? i : i + 1);

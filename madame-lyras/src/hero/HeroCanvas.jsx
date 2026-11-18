@@ -24,7 +24,7 @@ const P = (id, k, b = false) => `/parca/${id}-${k}${b ? 'b' : ''}.webp`;
 /* ---------------- sahne yerleşimi ---------------- */
 // kaide grubun arkasına kaydırıldı: paketler kaidenin ön yarısında, ön kenara yakın durur
 const PLAT = { x: -0.06, z: -0.5, R: 3.2 };
-const TARGET = new THREE.Vector3(-0.06, 1.08, 0.0); // ürün grubunun görsel ağırlık merkezi (çilek baskın)
+const TARGET = new THREE.Vector3(-0.06, 1.08, 0.7); // ürün grubunun görsel ağırlık merkezi (çilek baskın)
 // s: çilek paketine göre ölçek; ry: en fazla ~5°, ön yüzler kameraya dönük
 const K = 1.05; // paket ölçeği (7 paketin hepsi kaideye sığsın)
 const FK = 1.12; // meyve konum/boyut ölçeği
@@ -32,13 +32,13 @@ const S0 = 1.86 * K;
 // 7 paket yelpaze gibi kademeli dizilir: çilek önde ortada, diğerleri iki yana doğru birer adım geride;
 // her paketin yarıdan fazlası (adı ve logosu) görünür
 const POUCHES = [
-  { id: 'lime', x: -2.5, z: -1.2, ry: 0.26, s: 0.78 },
-  { id: 'fistikli-dondurma', x: 2.5, z: -1.2, ry: -0.26, s: 0.78 },
-  { id: 'seftali', x: -1.82, z: -0.6, ry: 0.18, s: 0.82 },
-  { id: 'ananas', x: 1.82, z: -0.6, ry: -0.18, s: 0.82 },
-  { id: 'hindistan-cevizi', x: -1.0, z: 0.0, ry: 0.1, s: 0.86 },
-  { id: 'kirmizi-ejder', x: 1.0, z: 0.0, ry: -0.1, s: 0.86 },
-  { id: 'cilek', x: 0.0, z: 0.55, ry: -0.035, s: 1.0, hero: true },
+  { id: 'lime', x: -2.45, z: -0.45, ry: 0.26, s: 0.78 },
+  { id: 'fistikli-dondurma', x: 2.45, z: -0.45, ry: -0.26, s: 0.78 },
+  { id: 'seftali', x: -1.8, z: 0.15, ry: 0.18, s: 0.82 },
+  { id: 'ananas', x: 1.8, z: 0.15, ry: -0.18, s: 0.82 },
+  { id: 'hindistan-cevizi', x: -1.0, z: 0.75, ry: 0.1, s: 0.86 },
+  { id: 'kirmizi-ejder', x: 1.0, z: 0.75, ry: -0.1, s: 0.86 },
+  { id: 'cilek', x: 0.0, z: 1.3, ry: -0.035, s: 1.0, hero: true },
 ];
 
 /* ---------------- kamera çözücü (masaüstü / tablet / telefon) ---------------- */
@@ -332,7 +332,7 @@ function Pouches({ flavors, mobile, onReady }) {
 
 /* ---------------- ürünleri çevreleyen altın yörünge çizgisi ---------------- */
 // Arkada yüksek, önde alçak eğik bir elips. Ön kısmı (ana ürünün önünden geçen yay) söner.
-const ORBIT = { x: -0.06, y: 1.62, z: -0.3, rx: 3.35, rz: 1.75, a: 0.9, b: 0.13 };
+const ORBIT = { x: -0.06, y: 1.62, z: 0.4, rx: 3.35, rz: 1.75, a: 0.9, b: 0.13 };
 function orbitPoint(th, out = new THREE.Vector3()) {
   return out.set(ORBIT.x + ORBIT.rx * Math.cos(th), ORBIT.y + ORBIT.a * Math.sin(th) + ORBIT.b * Math.cos(th), ORBIT.z - ORBIT.rz * Math.sin(th));
 }
@@ -393,7 +393,7 @@ const REST = [
   { u: P('hindistan-cevizi', 1), x: 1.25, z: 1.25, w: 0.3, ry: -0.4 },
   { u: P('seftali', 2), x: 1.95, z: 0.15, w: 0.5, ry: -0.5, desk: true },
   { u: P('yaprak', 2), x: 1.4, z: 1.15, w: 0.55, rx: -1.25, rz: -0.6, leaf: true },
-].map((f) => ({ ...f, x: f.x * FK, z: f.z * FK, w: f.w * FK }));
+].map((f) => ({ ...f, x: f.x * FK, z: f.z * FK + 0.6, w: f.w * FK })); // paketler öne alındı: meyveler de önlerinde kalsın
 const ON_ORBIT = [
   { u: P('cilek', 0), th: 175, w: 0.5, off: [0, 0.05, 0.05] },
   { u: P('seftali', 3), th: 150, w: 0.52, off: [0, 0.1, 0] },
@@ -735,17 +735,25 @@ function Scene({ flavors, mobile, reduce, onReady }) {
   );
 }
 
-export default function HeroCanvas({ flavors, mobile, reduce, active, onReady }) {
+// donmuşken tek kare çizilir: çilek paketi gizlenmiş haliyle kalır
+function Invalidate({ frozen }) {
+  const { invalidate } = useThree();
+  useEffect(() => { invalidate(); const t = setTimeout(() => invalidate(), 60); return () => clearTimeout(t); }, [frozen, invalidate]);
+  return null;
+}
+
+export default function HeroCanvas({ flavors, mobile, reduce, active, frozen, onReady }) {
   return (
     <Canvas
       shadows={!mobile}
       dpr={mobile ? [1, 1.5] : [1, 2]}
       gl={{ antialias: mobile, powerPreference: 'high-performance', alpha: false, stencil: false }}
       camera={{ fov: 36, near: 0.1, far: 80, position: [0, 3, 14] }}
-      frameloop={active ? 'always' : 'never'}
+      frameloop={active ? (frozen ? 'demand' : 'always') : 'never'}
       onCreated={({ gl }) => { gl.setClearColor('#5a0a0c'); }}
     >
       <Scene flavors={flavors} mobile={mobile} reduce={reduce} onReady={onReady} />
+      <Invalidate frozen={frozen} />
     </Canvas>
   );
 }

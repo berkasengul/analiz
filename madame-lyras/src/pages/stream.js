@@ -73,9 +73,11 @@ export function initStream(heroApi) {
     const start = { x: sx, y: sy, s: (rect.h * u) / POUCH_H * 0.95, rx: Math.atan2(sy, 5) - 0.035, ry: -Math.atan2(sx, 5) + (rect.ry ?? -0.035), rz: 0, cloud: 0, frost: 0, pt: 0, halo: 0, bd: 0 };
     const end = { ...pose(), rx: 0, pt: 1 };
     const raw = clamp(y / Math.max(1, docTop(productsEl) - hs()), 0, 1);
-    const k = raw * raw * (3 - 2 * raw), kr = smooth(0, 0.32, raw), kx = smooth(0, 0.4, raw);
+    const k = raw * raw * (3 - 2 * raw), kr = smooth(0, 0.5, raw), kx = smooth(0, 0.6, raw);
     const p = {};
     for (const key in end) p[key] = start[key] + (end[key] - start[key]) * (['rx', 'ry', 'rz', 'pt', 'halo', 'bd'].includes(key) ? kr : key === 'x' ? kx : key === 'cloud' ? 0 : k);
+    // inerken kendi etrafında ağır çekimde tam bir tur döner (kaydırmaya bağlı)
+    if (!reduce) p.ry += Math.PI * 2 * ease(smooth(0.04, 0.96, raw));
     return p;
   }
 
@@ -118,7 +120,7 @@ export function initStream(heroApi) {
     if (pr.top > top) {
       // açılıştan iniş
       const p = handoffPose(vh, y);
-      if (!handing) { if (p) scene.snapPose({ ...p }); handing = true; if (y < vh * 0.25) scene.spinOnce(1); }
+      if (!handing) { if (p) scene.snapPose({ ...p }); handing = true; }
       else if (p) scene.setPose(p);
       scene.setStream(0);
     } else {
@@ -149,24 +151,68 @@ export function initStream(heroApi) {
     productsEl.classList.toggle('live', pr.top <= top + 1 && pr.bottom > vh * 0.6);
   }
 
-  // kaydırma durunca en yakın ürüne yumuşakça oturt
-  let snapTimer = 0, snapping = false;
-  function scheduleSnap() {
-    clearTimeout(snapTimer);
-    if (snapping || reduce || /[?&]nosnap\b/.test(location.search)) return;
-    snapTimer = setTimeout(() => {
-      if (streamF === null) return;
-      const pr = productsEl.getBoundingClientRect();
-      if (pr.top > hs() + 2 || pr.bottom < window.innerHeight) return;
-      const n = Math.round(streamF);
-      if (Math.abs(streamF - n) < 0.01) return;
-      snapping = true;
-      scrollToY(productY(n), 0.9);
-      setTimeout(() => { snapping = false; }, 950);
-    }, 220);
+  // tek kaydırma = bir sonraki durak (açılış → Çilek → Beyaz Ejder → Ananas → sonraki bölüm), sinematik ve ağır çekimde
+  const stops = () => {
+    const end = docTop(productsEl) + productsEl.offsetHeight - hs();
+    return [0, productY(0), productY(1), productY(2), end];
+  };
+  const DUR = [2.6, 1.8, 1.8, 1.4]; // duraklar arası süre (sn)
+  const easeIO = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  let animating = false, lastWheel = 0, settleUntil = 0;
+  function page(dir) {
+    const S = stops(), y = window.scrollY;
+    let to = -1;
+    if (dir > 0) to = S.findIndex((v) => v > y + 4);
+    else for (let k = S.length - 1; k >= 0; k--) if (S[k] < y - 4) { to = k; break; }
+    if (to < 0) return false;
+    const from = dir > 0 ? Math.max(0, to - 1) : to;
+    animating = true;
+    lenis.scrollTo(S[to], {
+      duration: DUR[Math.min(DUR.length - 1, from)], easing: easeIO, lock: true, force: true,
+      onComplete: () => { animating = false; settleUntil = performance.now() + 380; },
+    });
+    return true;
   }
-  if (lenis) lenis.on('scroll', () => { update(); scheduleSnap(); });
-  else window.addEventListener('scroll', () => { update(); scheduleSnap(); }, { passive: true });
+  const inZone = (dir) => {
+    const end = stops()[4], y = window.scrollY;
+    return dir > 0 ? y < end - 4 : y <= end + 4 && y > 4;
+  };
+  if (lenis) {
+    window.addEventListener('wheel', (e) => {
+      const dir = Math.sign(e.deltaY);
+      if (!dir || !inZone(dir)) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const now = performance.now(), gap = now - lastWheel;
+      lastWheel = now;
+      // dokunmatik yüzeyin süren ataleti yeni bir kaydırma sayılmaz
+      if (animating || now < settleUntil || (gap < 140 && now < settleUntil + 600)) return;
+      if (Math.abs(e.deltaY) < 3) return;
+      page(dir);
+    }, { passive: false, capture: true });
+    let ty = null;
+    window.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      if (ty === null) return;
+      const dir = Math.sign(ty - e.touches[0].clientY);
+      if (dir && inZone(dir)) e.preventDefault();
+    }, { passive: false });
+    window.addEventListener('touchend', (e) => {
+      if (ty === null) return;
+      const dy = ty - e.changedTouches[0].clientY;
+      ty = null;
+      const dir = Math.sign(dy);
+      if (Math.abs(dy) > 24 && inZone(dir) && !animating) page(dir);
+    }, { passive: true });
+    window.addEventListener('keydown', (e) => {
+      if (e.target.closest('input, textarea, select')) return;
+      const dir = ['ArrowDown', 'PageDown', ' '].includes(e.key) ? 1 : ['ArrowUp', 'PageUp'].includes(e.key) ? -1 : 0;
+      if (!dir || !inZone(dir)) return;
+      e.preventDefault();
+      if (!animating) page(dir);
+    });
+    lenis.on('scroll', update);
+  } else window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
 
   // tıklama alanında "3D İncele" etiketi imleci izler

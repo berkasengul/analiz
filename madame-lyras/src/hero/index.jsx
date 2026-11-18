@@ -39,6 +39,13 @@ export function mountHero({ container, heroEl, flavors }) {
 
   function App() {
     const [active, setActive] = useState(true);
+    const [frozen, setFrozen] = useState(false);
+    useEffect(() => {
+      // paket ürün bölümüne inerken açılış sahnesi son karesinde durur (aynı anda iki 3B sahne çizilmez, takılma olmaz)
+      const f = (e) => setFrozen(e.detail && S.fruitIn >= 0.99);
+      window.addEventListener('hero-freeze', f);
+      return () => window.removeEventListener('hero-freeze', f);
+    }, []);
     useEffect(() => {
       const io = new IntersectionObserver(([en]) => setActive(en.isIntersecting), { rootMargin: '80px' });
       io.observe(heroEl);
@@ -46,13 +53,13 @@ export function mountHero({ container, heroEl, flavors }) {
       document.addEventListener('visibilitychange', vis);
       return () => { io.disconnect(); document.removeEventListener('visibilitychange', vis); };
     }, []);
-    return <HeroCanvas flavors={flavors} mobile={mobile} reduce={reduce} active={active} onReady={() => resolveReady()} />;
+    return <HeroCanvas flavors={flavors} mobile={mobile} reduce={reduce} active={active} frozen={frozen} onReady={() => resolveReady()} />;
   }
   createRoot(container).render(<App />);
   return {
     ready,
     // ekrandaki çilek paketi (kaydırma 0'dayken ölçülen konum ve yükseklik, piksel)
     cilekRect: () => S.rect,
-    setHandoff: (v) => { S.handoff = v; },
+    setHandoff: (v) => { if (S.handoff !== v) { S.handoff = v; window.dispatchEvent(new CustomEvent('hero-freeze', { detail: v })); } },
   };
 }
