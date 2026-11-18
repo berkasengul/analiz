@@ -68,21 +68,34 @@ button { font: inherit; color: inherit; }
 .slabel .p small { display: block; font-size: 9.5px; color: #7c7686; font-weight: 700; letter-spacing: 0.06em; }
 .slabel .p b { font-size: 14px; font-weight: 800; color: var(--red); }
 
-/* ---------- tooltip ---------- */
-.tooltip {
-  position: absolute; z-index: 6; pointer-events: none; left: 0; top: 0;
-  padding: 10px 12px; border-radius: 12px; min-width: 170px;
-  background: var(--glass-2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-  opacity: 0; transform: translate(14px, 14px); transition: opacity 0.15s;
-  font-size: 12px;
+/* ---------- pinned block card (like a map pin over the block) ---------- */
+.tooltip.pin {
+  position: absolute; z-index: 6; left: 0; top: 0; pointer-events: none;
+  display: flex; align-items: stretch; gap: 0; padding: 0; border-radius: 12px; overflow: visible;
+  background: rgba(255, 255, 255, 0.96); color: #15131a; border: 0;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+  transform: translate(-50%, calc(-100% - 12px)); opacity: 0; transition: opacity 0.2s;
 }
-.tooltip.on { opacity: 1; }
-.tooltip .tt-h { font-weight: 800; font-size: 14px; }
-.tooltip .tt-s { color: var(--muted); margin: 1px 0 6px; }
-.tooltip .tt-r { display: flex; justify-content: space-between; gap: 14px; }
-.tooltip .tt-r b { color: var(--yellow); }
-.tooltip .tt-free { color: var(--sel); font-weight: 700; }
+.tooltip.pin.on { opacity: 1; }
+.tooltip.pin::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; background: rgba(255, 255, 255, 0.96); transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
+.pin-l { padding: 9px 13px 9px; display: grid; gap: 1px; }
+.pin-l small { font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; color: #7c7686; }
+.pin-l b { font-size: 17px; font-weight: 900; letter-spacing: -0.01em; }
+.pin-free { font-size: 11px; font-weight: 700; color: #138a55; }
+.pin-sold { font-size: 11px; font-weight: 700; color: #c8102e; }
+.pin-r { padding: 9px 13px; border-left: 1px solid #e6e2ec; display: grid; align-content: center; text-align: right; }
+.pin-r small { font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; color: #7c7686; }
+.pin-r b { font-size: 16px; font-weight: 900; color: var(--red); font-variant-numeric: tabular-nums; }
+
+.seattip {
+  position: absolute; z-index: 7; left: 0; top: 0; pointer-events: none; display: grid; gap: 1px;
+  padding: 7px 11px; border-radius: 10px; background: #15131a; color: #fff; font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45); opacity: 0; transition: opacity 0.12s;
+}
+.seattip.on { opacity: 1; }
+.seattip b { font-weight: 800; }
+.st-free { color: var(--sel); font-weight: 700; }
+.st-sold { color: #ff6b81; font-weight: 700; }
 
 /* ---------- side panel ---------- */
 .panel {
@@ -107,15 +120,32 @@ button { font: inherit; color: inherit; }
 .map-wrap { flex: 1; min-height: 0; overflow: auto; border-radius: 12px; background: rgba(0, 0, 0, 0.28); border: 1px solid var(--line); padding: 8px; }
 .pitch-bar { margin: 0 auto 8px; width: 70%; text-align: center; font-size: 10px; font-weight: 800; letter-spacing: 0.3em; color: #0b2a12; background: linear-gradient(90deg, #2f8f3a, #49b552, #2f8f3a); border-radius: 0 0 40px 40px; padding: 3px 0; }
 #seatmap { display: block; width: 100%; height: auto; }
-#seatmap .s { cursor: pointer; transition: r 0.12s; }
-#seatmap .s.free { fill: var(--free); }
-#seatmap .s.sold { fill: var(--sold); cursor: not-allowed; }
-#seatmap .s.free:hover, #seatmap .s.hov { fill: #fff; }
-#seatmap .s.sel { fill: var(--sel); }
-#seatmap .rl { fill: #75707f; font-size: 6px; font-weight: 700; font-family: Inter, sans-serif; }
-.legend { display: flex; gap: 14px; font-size: 11.5px; color: var(--muted); }
+#seatmap .s { cursor: pointer; }
+#seatmap .s rect { transition: fill 0.12s; }
+#seatmap .s.free rect { fill: var(--free); }
+#seatmap .s.free rect.bk { fill: #c98c0b; }
+#seatmap .s.sold rect { fill: #3a3640; }
+#seatmap .s.sold rect.bk { fill: #2c2931; }
+#seatmap .s.sold { cursor: not-allowed; }
+#seatmap .s.free:hover rect { fill: #fff; }
+#seatmap .s.sel rect { fill: var(--sel); }
+#seatmap .s.sel rect.bk { fill: #12a86f; }
+#seatmap .s.sel { filter: drop-shadow(0 0 3px rgba(46, 229, 157, 0.9)); }
+#seatmap .rl { fill: #8a8494; font-size: 7px; font-weight: 700; font-family: Inter, sans-serif; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 11.5px; color: var(--muted); align-items: center; }
+.legend-tip { margin-left: auto; font-size: 11px; opacity: 0.8; }
+.selcard { display: grid; gap: 10px; padding: 12px; border-radius: 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); }
+.sel-info { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 8px; }
+.sel-info small { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.sel-info b { font-size: 20px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.selcard.on .sel-info b { color: var(--sel); }
+.sel-info div:last-child b { color: var(--yellow); }
+.sel-btn { border: 0; cursor: pointer; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 14px; color: #fff; background: linear-gradient(90deg, var(--red), var(--red-2)); }
+.sel-btn:disabled { cursor: default; background: rgba(255, 255, 255, 0.08); color: var(--muted); }
+.sel-btn:not(:disabled):hover { filter: brightness(1.1); }
+.sel-btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
-.dot.free { background: var(--free); } .dot.sold { background: var(--sold); } .dot.sel { background: var(--sel); }
+.dot.free { background: var(--free); } .dot.sold { background: #3a3640; } .dot.sel { background: var(--sel); }
 .hint-sm { margin: 0; font-size: 12px; color: var(--muted); }
 
 /* ---------- ticket ---------- */
@@ -253,6 +283,9 @@ button { font: inherit; color: inherit; }
   }
   .panel.open { transform: none; }
   .panel h2 { font-size: 23px; }
+  .panel { height: 52%; }
+  .legend-tip { display: none; }
+  .sel-info b { font-size: 17px; }
   .ticket-wrap { left: 50%; right: auto; bottom: 34px; width: min(360px, calc(100% - 28px)); transform: translate(-50%, 40px) scale(0.96); }
   .ticket-wrap.on { transform: translate(-50%, 0); }
   .hint { bottom: 34px; font-size: 12px; }

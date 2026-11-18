@@ -26,7 +26,8 @@
     </div>
   </header>
 
-  <div id="tooltip" class="tooltip"></div>
+  <div id="tooltip" class="tooltip pin"></div>
+  <div id="seatTip" class="seattip"></div>
 
   <aside id="panel" class="panel" aria-live="polite">
     <div class="panel-head">
@@ -49,8 +50,16 @@
       <span><i class="dot free"></i>Boş</span>
       <span><i class="dot sold"></i>Dolu</span>
       <span><i class="dot sel"></i>Seçili</span>
+      <span class="legend-tip">Koltuğa stadyumda da tıklayabilirsin</span>
     </div>
-    <p class="hint-sm">Bir koltuğa tıkla, oradan göreceğin manzarayı gör</p>
+    <div id="selCard" class="selcard">
+      <div class="sel-info">
+        <div><small>Sıra</small><b id="selRow">–</b></div>
+        <div><small>Koltuk</small><b id="selSeat">–</b></div>
+        <div><small>Fiyat</small><b id="selPrice">–</b></div>
+      </div>
+      <button id="selBtn" type="button" class="sel-btn" disabled>Koltuktan görünümü aç →</button>
+    </div>
   </aside>
 
   <div id="ticketWrap" class="ticket-wrap">

@@ -342,30 +342,55 @@ const seatRow = Uint8Array.from(tmpSeats.row), seatNum = Uint8Array.from(tmpSeat
 const seatSold = new Uint8Array(SEATS);
 const seatBase = new Float32Array(SEATS * 3);
 const seatCol = new Float32Array(SEATS * 3);
-// seat mosaic: club name in yellow-orange seats across the Doğu lower tier, round emblem on the left
+// seat mosaic on the Doğu lower tier: the club crest (from assets/gs-crest.png) and the club name in yellow-orange seats
 const MOSAIC = (() => {
   const b0 = blockById['110'], b1 = blockById['116'];
   const p0 = b0.phi0, p1 = b1.phi1, rows = T1.rows, W = 1400, RH = 6, H = rows * RH;
   const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
-  const top = (rows - 32) * RH, bot = (rows - 5) * RH, hh = bot - top, cy = (top + bot) / 2;
-  // emblem: white disc with an orange ring
-  g.fillStyle = '#f3a21b'; g.beginPath(); g.ellipse(W * 0.072, cy, hh * 0.56, hh * 0.53, 0, 0, Math.PI * 2); g.fill();
-  g.fillStyle = '#f4f1ea'; g.beginPath(); g.ellipse(W * 0.072, cy, hh * 0.46, hh * 0.43, 0, 0, Math.PI * 2); g.fill();
-  g.fillStyle = '#f3a21b'; g.beginPath(); g.ellipse(W * 0.072, cy, hh * 0.2, hh * 0.19, 0, 0, Math.PI * 2); g.fill();
-  // lettering, stretched to fill the stand
-  g.fillStyle = '#f2a21c'; g.font = `900 ${hh * 1.18}px "Arial Black", "DejaVu Sans", Arial, sans-serif`; g.textBaseline = 'alphabetic';
-  const txt = 'GALATASARAY', tw = g.measureText(txt).width, x0 = W * 0.15, x1 = W * 0.985;
-  g.save(); g.translate(x0, bot); g.scale((x1 - x0) / tw, 1); g.fillText(txt, 0, 0); g.restore();
-  const img = g.getImageData(0, 0, W, H).data;
-  return (i) => {
+  const top = (rows - 33) * RH, bot = (rows - 4) * RH, hh = bot - top;
+  g.fillStyle = '#f2a21c'; g.font = `900 ${(rows - 6 - 5) * RH * 1.18}px "Arial Black", "DejaVu Sans", Arial, sans-serif`; g.textBaseline = 'alphabetic';
+  const txt = 'GALATASARAY', tw = g.measureText(txt).width, x0 = W * 0.165, x1 = W * 0.985;
+  g.save(); g.translate(x0, (rows - 5) * RH); g.scale((x1 - x0) / tw, 1); g.fillText(txt, 0, 0); g.restore();
+  let img = g.getImageData(0, 0, W, H).data;
+  // crest box in mosaic pixels (seat columns are ~1.25x wider per metre than rows, hence the 0.96 factor)
+  const ch = hh, cw = ch * (367 / 480) * 1.256, cx0 = W * 0.083 - cw / 2;
+  let crest = null; // { data, w, h }
+  const PAL = [[244, 241, 234], [242, 165, 27], [196, 22, 56], [28, 24, 28]];
+  const sample = (i) => {
     if (seatBlk[i] < b0.index || seatBlk[i] > b1.index) return null;
     let ph = Math.atan2(seatZ[i], seatX[i]); if (ph < 0) ph += Math.PI * 2;
-    const u = (ph - p0) / (p1 - p0), r = seatRow[i];
-    const px = Math.floor(u * W), py = Math.floor((rows - r + 0.5) * RH);
-    if (px < 0 || px >= W || py < 0 || py >= H) return null;
-    const o = (py * W + px) * 4; return img[o + 3] > 110 ? [img[o] / 255, img[o + 1] / 255, img[o + 2] / 255] : null;
+    const px = ((ph - p0) / (p1 - p0)) * W, py = (rows - seatRow[i] + 0.5) * RH;
+    if (crest && px >= cx0 && px < cx0 + cw && py >= top && py < bot) {
+      const u = (px - cx0) / cw, v = (py - top) / ch;
+      if (((u - 0.5) / 0.458) ** 2 + ((v - 0.5) / 0.462) ** 2 <= 1) {
+        const o = (Math.floor(v * crest.h) * crest.w + Math.floor(u * crest.w)) * 4, d = crest.data;
+        let best = 0, bd = 1e9; for (let k = 0; k < PAL.length; k++) { const e = (d[o] - PAL[k][0]) ** 2 + (d[o + 1] - PAL[k][1]) ** 2 + (d[o + 2] - PAL[k][2]) ** 2; if (e < bd) { bd = e; best = k; } }
+        return PAL[best].map((x) => x / 255);
+      }
+    }
+    const qx = Math.floor(px), qy = Math.floor(py);
+    if (qx < 0 || qx >= W || qy < 0 || qy >= H) return null;
+    const o = (qy * W + qx) * 4; return img[o + 3] > 110 ? [img[o] / 255, img[o + 1] / 255, img[o + 2] / 255] : null;
   };
+  sample.setCrest = (im) => {
+    const cc = document.createElement('canvas'); cc.width = 160; cc.height = Math.round(160 * im.height / im.width);
+    const cg = cc.getContext('2d'); cg.fillStyle = '#fff'; cg.fillRect(0, 0, cc.width, cc.height); cg.drawImage(im, 0, 0, cc.width, cc.height);
+    crest = { data: cg.getImageData(0, 0, cc.width, cc.height).data, w: cc.width, h: cc.height };
+  };
+  sample.range = [b0.seatStart, b1.seatStart + b1.seatCount];
+  return sample;
 })();
+const seatVar = new Float32Array(SEATS);
+function seatColour(i, c) {
+  const b = blocks[seatBlk[i]], mos = MOSAIC(i);
+  if (mos) c.setRGB(mos[0], mos[1], mos[2], THREE.SRGBColorSpace); else c.setHex(b.tier.lvl === 2 ? 0x6a1019 : 0x7c1521);
+  c.multiplyScalar(seatVar[i]);
+  seatBase[i * 3] = c.r; seatBase[i * 3 + 1] = c.g; seatBase[i * 3 + 2] = c.b;
+}
+const crestReady = new Promise((res) => {
+  const im = new Image(); im.onload = () => { MOSAIC.setCrest(im); const c = new THREE.Color(); for (let i = MOSAIC.range[0]; i < MOSAIC.range[1]; i++) seatColour(i, c); paintDirty = true; res(); };
+  im.onerror = () => res(); im.src = 'assets/gs-crest.png';
+});
 {
   const c = new THREE.Color();
   for (let i = 0; i < SEATS; i++) {
@@ -376,10 +401,7 @@ const MOSAIC = (() => {
     seatSold[i] = rand() < p * (0.85 + 0.3 * n) ? 1 : 0;
     if (b.cat === 'Protokol') seatSold[i] = 1;
     if (!seatSold[i]) b.free++;
-    const mos = MOSAIC(i);
-    if (mos) c.setRGB(mos[0], mos[1], mos[2], THREE.SRGBColorSpace); else c.setHex(b.tier.lvl === 2 ? 0x6a1019 : 0x7c1521);
-    const v = 0.92 + rand() * 0.14; c.multiplyScalar(v);
-    seatBase[i * 3] = c.r; seatBase[i * 3 + 1] = c.g; seatBase[i * 3 + 2] = c.b;
+    seatVar[i] = 0.92 + rand() * 0.14; seatColour(i, c);
   }
 }
 // moulded bucket seat: side profile extruded across the seat width, darker underneath (baked AO)
@@ -673,21 +695,17 @@ outer.rotation.x = -Math.PI / 2; outer.position.y = -1.2; outer.receiveShadow = 
    Seat painting
    ====================================================================== */
 const ui = {
-  state: 'landing', hover: null, focus: null, selSeat: -1, revealFront: 0, lightsOn: 0,
+  state: 'landing', hover: null, focus: null, selSeat: -1, hoverSeat: -1, pickSeat: -1, revealFront: 0, lightsOn: 0,
 };
 let paintDirty = true;
 function paintSeats() {
   const hb = ui.hover ? ui.hover.index : -1, fb = ui.focus ? ui.focus.index : -1;
-  const focusMode = ui.state === 'block' && fb >= 0;
   const revealing = ui.revealFront < 200;
   for (let i = 0; i < SEATS; i++) {
     const bi = seatBlk[i]; let r = seatBase[i * 3], g = seatBase[i * 3 + 1], b = seatBase[i * 3 + 2];
-    if (focusMode) {
-      if (bi !== fb) { r *= 0.32; g *= 0.32; b *= 0.32; }
-      else if (seatSold[i]) { const l = (r + g + b) / 3; r = l * 0.35 + r * 0.2; g = l * 0.35 + g * 0.2; b = l * 0.38 + b * 0.2; }
-    }
-    if (bi === hb && ui.state !== 'seat' && ui.state !== 'vip') { r = lerp(r, 1.0, 0.8); g = lerp(g, 0.5, 0.8); b = lerp(b, 0.08, 0.8); }
-    if (i === ui.selSeat) { r = 0.1; g = 1.0; b = 0.55; }
+    if (bi === hb && ui.state === 'overview') { r = lerp(r, 1.0, 0.8); g = lerp(g, 0.5, 0.8); b = lerp(b, 0.08, 0.8); }
+    if (i === ui.hoverSeat && ui.state === 'block') { r = lerp(r, 1, 0.75); g = lerp(g, 1, 0.75); b = lerp(b, 1, 0.75); }
+    if (i === ui.pickSeat || i === ui.selSeat) { r = 0.1; g = 1.0; b = 0.55; }
     if (revealing) { // stadium lights coming on: a wave from the pitch outwards
       const u = Math.hypot(seatX[i] / 1.15, seatZ[i]);
       const k = sstep(ui.revealFront + 6, ui.revealFront - 10, u);
@@ -700,9 +718,34 @@ function paintSeats() {
   seatPoints.geometry.attributes.color.needsUpdate = true;
   paintDirty = false;
 }
+const focusFx = (() => {
+  const tubeMat = new THREE.MeshBasicMaterial({ color: 0xffc83a, toneMapped: false });
+  const dotMat = new THREE.PointsMaterial({ color: 0x2ee59d, size: 0.42, sizeAttenuation: true, toneMapped: false, transparent: true, opacity: 0.95, depthWrite: false });
+  let tube = null, dots = null;
+  return {
+    set(b) {
+      if (tube) { scene.remove(tube); tube.geometry.dispose(); tube = null; }
+      if (dots) { scene.remove(dots); dots.geometry.dispose(); dots = null; }
+      if (!b) return;
+      const t = b.tier, pts = [], n = 24, j1 = t.rows - 1;
+      const at = (ph, j, back) => { const d = t.rd[j] + (back ? t.depth : 0); const [x, z] = pAt(ph, d); return new THREE.Vector3(x, t.rh[j] + 1.0, z); };
+      for (let k = 0; k <= n; k++) pts.push(at(lerp(b.phi0, b.phi1, k / n), 0, false));
+      for (let j = 1; j <= j1; j++) pts.push(at(b.phi1, j, j === j1));
+      for (let k = n; k >= 0; k--) pts.push(at(lerp(b.phi0, b.phi1, k / n), j1, true));
+      for (let j = j1 - 1; j >= 0; j--) pts.push(at(b.phi0, j, false));
+      tube = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0.05), 400, 0.13, 6, true), tubeMat);
+      scene.add(tube);
+      const dp = [];
+      for (let i = b.seatStart; i < b.seatStart + b.seatCount; i++) if (!seatSold[i]) dp.push(seatX[i], seatY[i] + 1.15, seatZ[i]);
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(dp, 3));
+      dotMat.size = 0.42 * renderer.getPixelRatio();
+      dots = new THREE.Points(g, dotMat); scene.add(dots);
+    },
+  };
+})();
 function paintTreads() {
   for (const b of blocks) {
-    const on = ui.hover === b && (ui.state === 'overview' || ui.state === 'block');
+    const on = ui.hover === b && ui.state === 'overview';
     b.mesh.material.emissive.setHex(on ? 0x6a3008 : 0x000000);
   }
 }
@@ -745,8 +788,9 @@ function interiorPose(th = ovTheta) {
 function blockPose(b) {
   const c = b.center.clone();
   const n = b.inward.clone();
-  const pos = c.clone().addScaledVector(n, 46); pos.y = Math.min(c.y + 16, 39);
-  return { pos, target: c.clone().add(new THREE.Vector3(0, -1.5, 0)), fov: 52 };
+  const portrait = isPortrait();
+  const pos = c.clone().addScaledVector(n, portrait ? 36 : 31); pos.y = Math.min(c.y + (portrait ? 26 : 23), 41);
+  return { pos, target: c.clone().addScaledVector(n, -2).add(new THREE.Vector3(0, -2, 0)), fov: portrait ? 62 : 50 };
 }
 function seatPose(i) {
   const b = blocks[seatBlk[i]];
@@ -787,7 +831,7 @@ function updateCamera(dt) {
   } else if (ui.state === 'block' && ui.focus) {
     const p = blockPose(ui.focus); const k = 1 - Math.exp(-dt * 2.5);
     const right = new THREE.Vector3().subVectors(p.target, p.pos).cross(new THREE.Vector3(0, 1, 0)).normalize();
-    cam.pos.lerp(p.pos.clone().addScaledVector(right, mouse.nx * 4), k); cam.target.lerp(p.target, k);
+    cam.pos.lerp(p.pos.clone().addScaledVector(right, mouse.nx * 1.2), k); cam.target.lerp(p.target, k);
   }
   look.yaw = lerp(look.yaw, look.tYaw, 1 - Math.exp(-dt * 8));
   look.pitch = lerp(look.pitch, look.tPitch, 1 - Math.exp(-dt * 8));
@@ -837,17 +881,34 @@ function updateLabels() {
     if (want !== l.on) { l.on = want; l.el.classList.toggle('on', want); }
   }
 }
+let pinned = null;
 function showTooltip(b) {
+  pinned = b;
   if (!b) { tooltip.classList.remove('on'); return; }
   const price = b.price ? TL(b.price) : 'Satışta değil';
-  tooltip.innerHTML = `<div class="tt-h">Blok ${b.id}</div><div class="tt-s">${b.stand} · ${tierWord(b.tier)}</div>` +
-    `<div class="tt-r"><span>${b.cat}</span><b>${price}</b></div><div class="tt-r"><span>Boş koltuk</span><span class="tt-free">${fmt(b.free)}</span></div>`;
+  const avail = b.free ? `<span class="pin-free">● ${fmt(b.free)} boş</span>` : '<span class="pin-sold">● Tükendi</span>';
+  tooltip.innerHTML = `<div class="pin-l"><small>${tierWord(b.tier).toLocaleUpperCase('tr-TR')} · ${b.stand.toLocaleUpperCase('tr-TR')}</small><b>Blok ${b.id}</b>${avail}</div>` +
+    `<div class="pin-r"><small>${b.cat === 'Protokol' ? 'PROTOKOL' : 'TL'}</small><b>${price.replace('₺', '')}</b></div>`;
   tooltip.classList.add('on');
 }
 function placeTooltip() {
-  const w = tooltip.offsetWidth, h = tooltip.offsetHeight;
-  let x = mouse.px, y = mouse.py; if (x + w + 24 > view.W) x -= w + 28; if (y + h + 24 > view.H) y -= h + 28;
-  tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
+  if (!pinned) return;
+  const t = pinned.tier, pm = (pinned.phi0 + pinned.phi1) / 2, j = t.rows - 1;
+  const [x, z] = pAt(pm, t.rd[j]); const v = new THREE.Vector3(x, t.rh[j] + 2.5, z).project(camera);
+  if (v.z > 1) { tooltip.style.opacity = 0; return; }
+  tooltip.style.opacity = '';
+  const right = view.W - (ui.state === 'block' && !isPortrait() && view.W >= 760 ? 420 : 0);
+  const px = clamp((v.x * 0.5 + 0.5) * view.W, 130, right - 130), py = clamp((-v.y * 0.5 + 0.5) * view.H, 150, view.H - 40);
+  tooltip.style.left = px.toFixed(1) + 'px'; tooltip.style.top = py.toFixed(1) + 'px';
+}
+const seatTip = $('#seatTip');
+function showSeatTip(i) {
+  if (i < 0) { seatTip.classList.remove('on'); return; }
+  const b = blocks[seatBlk[i]];
+  seatTip.innerHTML = `<b>Sıra ${seatRow[i]} · Koltuk ${seatNum[i]}</b><span class="${seatSold[i] ? 'st-sold' : 'st-free'}">${seatSold[i] ? 'Dolu' : TL(b.price)}</span>`;
+  seatTip.classList.add('on');
+  let x = mouse.px + 16, y = mouse.py - 46; if (x + 180 > view.W) x = mouse.px - 196;
+  seatTip.style.left = x + 'px'; seatTip.style.top = y + 'px';
 }
 
 const svgNS = 'http://www.w3.org/2000/svg';
@@ -857,28 +918,51 @@ function buildPanel(b) {
   $('#pTitle').textContent = `Blok ${b.id}`;
   $('#pPrice').textContent = b.price ? TL(b.price) : '—';
   $('#pCat').textContent = b.cat;
-  $('#pFree').textContent = `● ${fmt(b.free)} boş / ${fmt(b.seatCount)}`;
+  $('#pFree').textContent = b.free ? `● ${fmt(b.free)} boş / ${fmt(b.seatCount)}` : '● Tükendi';
   $('#pGate').textContent = `Kapı ${STANDS[b.stand].gate}`;
-  const maxN = Math.max(...b.rows.map((r) => r.count));
-  const sx = 8.4, sy = 9.2, left = 14, top = 6;
-  const W = left + maxN * sx + 6, H = top + b.rows.length * sy + 4;
-  seatmap.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const nRows = b.rows.length, maxN = Math.max(...b.rows.map((r) => r.count));
+  const W = 400, cx = W / 2, R0 = 320, dr = nRows > 10 ? 8.6 : 16, top = 10;
+  const spanBack = Math.min(1.25, (maxN * 8.9) / (R0 + nRows * dr)); // angular span of the back row
   let html = '';
   b.rows.forEach((r, j) => {
-    const y = top + j * sy + 3.5; const off = left + (maxN - r.count) * sx / 2;
-    if ((j + 1) % 2 === 1 || j === b.rows.length - 1) html += `<text class="rl" x="1" y="${y + 2}">${j + 1}</text>`;
+    const R = R0 + j * dr, span = spanBack * (r.count / maxN) * ((R0 + nRows * dr) / R);
+    const yRow = top + j * dr;
+    if (j % 4 === 0 || j === nRows - 1) {
+      const a0 = -span / 2 - 0.03, lx = cx + R * Math.sin(a0), ly = yRow + R * (1 - Math.cos(a0));
+      html += `<text class="rl" x="${(lx - 4).toFixed(1)}" y="${(ly + 2).toFixed(1)}" text-anchor="end">${j + 1}</text>`;
+    }
     for (let k = 0; k < r.count; k++) {
-      const i = r.start + k; const cls = i === ui.selSeat ? 'sel' : seatSold[i] ? 'sold' : 'free';
-      html += `<circle class="s ${cls}" data-i="${i}" cx="${(off + k * sx + sx / 2).toFixed(1)}" cy="${y}" r="3.3"/>`;
+      const i = r.start + k, a = -span / 2 + span * (k + 0.5) / r.count;
+      const x = cx + R * Math.sin(a), y = yRow + R * (1 - Math.cos(a));
+      const cls = i === ui.pickSeat ? 'sel' : seatSold[i] ? 'sold' : 'free';
+      html += `<g class="s ${cls}" data-i="${i}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(a * 57.3).toFixed(1)})"><rect x="-3.2" y="-2.6" width="6.4" height="5.4" rx="1.6"/><rect class="bk" x="-3.2" y="2" width="6.4" height="1.5" rx="0.7"/></g>`;
     }
   });
+  const lastR = R0 + (nRows - 1) * dr, H = top + (nRows - 1) * dr + lastR * (1 - Math.cos(spanBack / 2)) + 14;
+  seatmap.setAttribute('viewBox', `0 0 ${W} ${H.toFixed(0)}`);
   seatmap.innerHTML = html;
+  updateSelCard();
+}
+function updateSelCard() {
+  const i = ui.pickSeat, card = $('#selCard');
+  if (i < 0 || !ui.focus) { card.classList.remove('on'); $('#selBtn').disabled = true; return; }
+  const b = blocks[seatBlk[i]];
+  $('#selRow').textContent = seatRow[i]; $('#selSeat').textContent = seatNum[i]; $('#selPrice').textContent = TL(b.price);
+  card.classList.add('on'); $('#selBtn').disabled = false;
+}
+function pickSeat(i) {
+  if (i < 0 || seatSold[i]) { if (i >= 0) toast('Bu koltuk dolu'); return; }
+  ui.pickSeat = i; paintDirty = true;
+  seatmap.querySelectorAll('g.s.sel').forEach((e) => e.classList.replace('sel', 'free'));
+  const el = seatmap.querySelector(`g.s[data-i="${i}"]`); if (el) el.classList.replace('free', 'sel');
+  updateSelCard();
 }
 seatmap.addEventListener('click', (e) => {
-  const c = e.target.closest('circle.s'); if (!c) return;
-  const i = +c.dataset.i; if (seatSold[i]) { toast('Bu koltuk dolu'); return; }
-  selectSeat(i);
+  const c = e.target.closest('g.s'); if (!c) return;
+  pickSeat(+c.dataset.i);
 });
+seatmap.addEventListener('pointerover', (e) => { const c = e.target.closest('g.s'); if (c && ui.state === 'block') { ui.hoverSeat = +c.dataset.i; paintDirty = true; } });
+$('#selBtn').addEventListener('click', () => { if (ui.pickSeat >= 0) selectSeat(ui.pickSeat); });
 
 const viewCanvas = $('#viewCanvas');
 let snapshotReq = null;
@@ -895,7 +979,7 @@ function fillTicket(i) {
 function setInsets() {
   const portrait = isPortrait() || view.W < 760;
   view.tInsetR = 0; view.tInsetB = 0;
-  if (ui.state === 'block') { if (portrait) view.tInsetB = view.H * 0.46 + 10; else view.tInsetR = 410; }
+  if (ui.state === 'block') { if (portrait) view.tInsetB = view.H * 0.52 + 10; else view.tInsetR = 410; }
   if (ui.state === 'seat' || ui.state === 'vip') { if (portrait) view.tInsetB = Math.min(ticketWrap.offsetHeight || 420, view.H * 0.55) * 0.9; else view.tInsetR = 0; }
 }
 function setHint() {
@@ -911,7 +995,7 @@ function setHint() {
   ctaEl.classList.toggle('on', ui.state === 'landing');
 }
 function goOverview() {
-  ui.state = 'overview'; ui.focus = null; ui.selSeat = -1; ui.hover = null;
+  ui.state = 'overview'; ui.focus = null; ui.selSeat = -1; ui.hover = null; ui.pickSeat = -1; ui.hoverSeat = -1; focusFx.set(null); showSeatTip(-1);
   panel.classList.remove('open'); ticketWrap.classList.remove('on'); ticketEl.classList.remove('flip');
   showTooltip(null); setInsets(); setHint(); paintDirty = true; paintTreads();
   flyTo(() => interiorPose(), 2.4, 8);
@@ -929,7 +1013,7 @@ function enterStadium() {
   };
 }
 function goLanding() {
-  ui.state = 'landing'; ui.focus = null; ui.selSeat = -1; ui.hover = null;
+  ui.state = 'landing'; ui.focus = null; ui.selSeat = -1; ui.hover = null; ui.pickSeat = -1; focusFx.set(null);
   panel.classList.remove('open'); ticketWrap.classList.remove('on'); ticketEl.classList.remove('flip');
   showTooltip(null); setInsets(); paintDirty = true; paintTreads();
   const p = landingPose(); flyTo(p, 2.6, 40); flight.onDone = () => setHint();
@@ -939,15 +1023,16 @@ $('#ctaBtn').addEventListener('click', enterStadium);
 function selectBlock(b) {
   if (!b) return;
   if (b.cat === 'Protokol') { toast('Protokol bloğu satışa kapalı'); return; }
-  ui.state = 'block'; ui.focus = b; ui.selSeat = -1; ui.hover = null;
-  showTooltip(null); buildPanel(b); panel.classList.add('open'); ticketWrap.classList.remove('on'); ticketEl.classList.remove('flip');
+  ui.state = 'block'; ui.focus = b; ui.selSeat = -1; ui.hover = null; ui.hoverSeat = -1;
+  if (ui.pickSeat >= 0 && seatBlk[ui.pickSeat] !== b.index) ui.pickSeat = -1;
+  showTooltip(b); focusFx.set(b); buildPanel(b); panel.classList.add('open'); ticketWrap.classList.remove('on'); ticketEl.classList.remove('flip');
   setInsets(); setHint(); paintDirty = true; paintTreads();
   flyTo(() => blockPose(b), 2.4, 6);
   idleT = 0;
 }
 function selectSeat(i) {
   const b = blocks[seatBlk[i]];
-  ui.focus = b; ui.selSeat = i; ui.state = 'seat'; ui.hover = null; showTooltip(null);
+  ui.focus = b; ui.selSeat = i; ui.pickSeat = i; ui.state = 'seat'; ui.hover = null; ui.hoverSeat = -1; showTooltip(null); showSeatTip(-1); focusFx.set(null);
   buildPanel(b);
   panel.classList.remove('open');
   fillTicket(i); ticketEl.classList.remove('flip');
@@ -969,7 +1054,7 @@ function triggerVip() {
   }
   panel.classList.remove('open');
   setTimeout(() => ticketEl.classList.add('flip'), REC ? 0 : 60);
-  ui.state = 'vip'; ui.hover = null; showTooltip(null); setHint(); paintDirty = true; paintTreads();
+  ui.state = 'vip'; ui.hover = null; showTooltip(null); showSeatTip(-1); focusFx.set(null); setHint(); paintDirty = true; paintTreads();
   setInsets();
   const p = vipPose();
   flyTo(p, 3.4, 10);
@@ -1021,7 +1106,7 @@ canvas.addEventListener('pointermove', (e) => {
     look.tYaw = drag.yaw - (e.clientX - drag.x) * 0.004; look.tPitch = clamp(drag.pitch + (e.clientY - drag.y) * 0.003, -0.6, 0.6);
   }
 });
-canvas.addEventListener('pointerleave', () => { mouse.inside = false; ui.hover = null; showTooltip(null); paintDirty = true; paintTreads(); });
+canvas.addEventListener('pointerleave', () => { mouse.inside = false; if (ui.state === 'overview') { ui.hover = null; showTooltip(null); } ui.hoverSeat = -1; showSeatTip(-1); paintDirty = true; paintTreads(); });
 canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY, yaw: look.tYaw, pitch: look.tPitch, theta: ovTheta, moved: 0 }; });
 canvas.addEventListener('pointerup', (e) => {
   const moved = drag ? Math.hypot(e.clientX - drag.x, e.clientY - drag.y) : 0; drag = null;
@@ -1030,13 +1115,14 @@ canvas.addEventListener('pointerup', (e) => {
   else if (ui.state === 'block') {
     const hit = pick();
     if (hit && hit.block !== ui.focus) selectBlock(hit.block);
-    else if (hit) {
-      let best = -1, bd = 1e9; const b = hit.block;
-      for (let i = b.seatStart; i < b.seatStart + b.seatCount; i++) { if (seatSold[i]) continue; const d = (seatX[i] - hit.point.x) ** 2 + (seatY[i] - hit.point.y) ** 2 + (seatZ[i] - hit.point.z) ** 2; if (d < bd) { bd = d; best = i; } }
-      if (best >= 0 && bd < 9) selectSeat(best);
-    }
+    else if (hit) { const i = nearestSeat(hit); if (i >= 0) pickSeat(i); }
   }
 });
+function nearestSeat(hit) {
+  let best = -1, bd = 1e9; const b = hit.block;
+  for (let i = b.seatStart; i < b.seatStart + b.seatCount; i++) { const d = (seatX[i] - hit.point.x) ** 2 + (seatY[i] + 0.4 - hit.point.y) ** 2 + (seatZ[i] - hit.point.z) ** 2; if (d < bd) { bd = d; best = i; } }
+  return bd < 1.2 ? best : -1;
+}
 function pick() {
   raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera);
   const h = raycaster.intersectObjects(pickMeshes, false)[0];
@@ -1046,10 +1132,15 @@ function updateHover() {
   if (!pointerDirty || flight) return; pointerDirty = false;
   if (!mouse.inside || (ui.state !== 'overview' && ui.state !== 'block')) return;
   const h = pick(); const b = h ? h.block : null;
-  const nb = b && ui.state === 'block' && b === ui.focus ? null : b;
-  if (nb !== ui.hover) { ui.hover = nb; paintDirty = true; paintTreads(); showTooltip(ui.state === 'overview' ? nb : null); }
+  if (ui.state === 'block') {
+    const i = h && b === ui.focus ? nearestSeat(h) : -1;
+    if (i !== ui.hoverSeat) { ui.hoverSeat = i; paintDirty = true; }
+    showSeatTip(i);
+    document.getElementById('app').classList.toggle('pointer', i >= 0 || (!!b && b !== ui.focus));
+    return;
+  }
+  if (b !== ui.hover) { ui.hover = b; paintDirty = true; paintTreads(); showTooltip(b); }
   document.getElementById('app').classList.toggle('pointer', !!b);
-  if (ui.hover) placeTooltip();
 }
 
 /* ======================================================================
@@ -1095,6 +1186,7 @@ function step(dt) {
   setSeatLod();
   if (paintDirty) paintSeats();
   updateLabels();
+  placeTooltip();
   render();
 }
 function render() {
@@ -1121,7 +1213,7 @@ function loop(now) { step((now - last) / 1000); last = now; requestAnimationFram
 
 // boot
 paintSeats();
-satReady.catch((e) => console.warn('satellite', e)).finally(() => {
+Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady]).finally(() => {
   $('#loader').classList.add('done');
   startIntro();
   if (REC) window.__step = (dt) => step(dt);
@@ -1129,16 +1221,17 @@ satReady.catch((e) => console.warn('satellite', e)).finally(() => {
 });
 
 // public API (used by the demo recorder and for debugging)
-window.__dbg = { renderer, scene, seatMeshes, camera };
+window.__dbg = { renderer, scene, seatMeshes, camera, seat: { x: seatX, y: seatY, z: seatZ } };
 window.app = {
   blocks, SEATS, standStats,
   get state() { return ui.state; },
   get flying() { return !!flight; },
   blockScreen(id) { const b = blockById[id]; const v = b.center.clone().project(camera); return { x: (v.x * 0.5 + 0.5) * view.W, y: (-v.y * 0.5 + 0.5) * view.H }; },
+  seatScreen(i) { const SX = window.__dbg.seat; const v = new THREE.Vector3(SX.x[i], SX.y[i] + 0.6, SX.z[i]).project(camera); return { x: (v.x * 0.5 + 0.5) * view.W, y: (-v.y * 0.5 + 0.5) * view.H }; },
   pointScreen(x, y, z) { const v = new THREE.Vector3(x, y, z).project(camera); return { x: (v.x * 0.5 + 0.5) * view.W, y: (-v.y * 0.5 + 0.5) * view.H }; },
   seatIndex(blockId, row, num) { const b = blockById[blockId]; const r = b.rows[row - 1]; return r.start + num - 1; },
   freeSeatNear(blockId, row) { const b = blockById[blockId]; for (let d = 0; d < 20; d++) for (const rr of [row + d, row - d]) { const r = b.rows[rr - 1]; if (!r) continue; const mid = Math.floor(r.count / 2); for (let k = 0; k < r.count; k++) { const kk = mid + (k % 2 ? -(k + 1) / 2 : k / 2); const i = r.start + kk; if (kk >= 0 && kk < r.count && !seatSold[i]) return i; } } return -1; },
-  selectBlock: (id) => selectBlock(blockById[id]), selectSeat, triggerVip, goOverview, back, enterStadium, goLanding,
+  selectBlock: (id) => selectBlock(blockById[id]), selectSeat, triggerVip, goOverview, back, enterStadium, goLanding, pickSeat,
   setOrbit(v) { orbitOn = v; idleT = v ? 99 : 0; },
 };
 console.log(`[RAMS Park] ${blocks.length} blok, ${SEATS} koltuk modellendi`);
