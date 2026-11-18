@@ -41,7 +41,7 @@ export function mountHero({ container, heroEl, flavors }) {
       document.addEventListener('visibilitychange', vis);
       return () => { io.disconnect(); document.removeEventListener('visibilitychange', vis); };
     }, []);
-    return <HeroCanvas flavors={flavors} mobile={mobile} reduce={reduce} active={active} frozen={frozen} onReady={() => resolveReady()} />;
+    return <HeroCanvas flavors={flavors} mobile={mobile} reduce={reduce} active={active} frozen={frozen} onReady={() => { resolveReady(); requestAnimationFrame(() => requestAnimationFrame(() => container.classList.add('live'))); }} />;
   }
   createRoot(container).render(<App />);
   return {

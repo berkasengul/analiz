@@ -733,3 +733,56 @@ body.gl-front #gl { z-index: 5; }
   .hdr__nav a[aria-current='page'] { color: var(--gold-2); }
   .hdr__cta--menu { display: inline-flex; margin-top: 24px; min-height: 54px; font-size: 16px; }
 }
+
+/* ---------- açılış yazıları: üst üste binmez, geniş ekranda alan tam kullanılır ---------- */
+.hero .wrap.hero__inner { max-width: 1560px; }
+.hero__eyebrow { margin-bottom: 18px; }
+.hero__title { font-size: clamp(44px, 4.5vw, 82px); line-height: 1.04; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 10ch; }
+.hero__title em { margin-top: 0.02em; }
+.hero__brush { bottom: -0.22em; }
+.hero__lead { max-width: 440px; font-size: clamp(15.5px, 1.1vw, 17.5px); line-height: 1.65; }
+.hero__facts { margin-top: 30px; }
+.hero__facts b { font-size: 28px; }
+@media (max-height: 760px) and (min-aspect-ratio: 9/10) {
+  .hero__title { font-size: clamp(40px, 4vw, 66px); margin-bottom: 18px; }
+  .hero__lead { margin-bottom: 20px; }
+  .hero__facts { margin-top: 20px; }
+}
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .hero__title { font-size: clamp(36px, 10vw, 52px); max-width: none; line-height: 1.02; margin-bottom: 14px; }
+  .hero__lead { max-width: 32ch; font-size: 15px; margin: 0 auto 16px; }
+  .hero__facts { margin-top: 0; }
+  .hero__facts b { font-size: 24px; }
+}
+
+/* ---------- ürün sayfası paneli: her ekranda tek parça sığar, düğmeler tek satır ---------- */
+.pstage__panel { padding: 24px 26px 22px; translate: 0 -48%; max-height: calc(100% - 120px); }
+.pstage__panel .crumbs { margin-bottom: 10px; }
+.pstage__panel h1 { font-size: clamp(36px, 3.6vw, 60px); margin: 2px 0 10px; }
+.pstage__panel h1.long { font-size: clamp(30px, 2.8vw, 44px); }
+.pstage .pd__lead { font-size: clamp(17px, 1.35vw, 20px); margin-bottom: 8px; }
+.pstage .pd__desc { font-size: 14px; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
+.pstage .keyfacts { margin: 14px 0; }
+.pstage .keyfacts div { padding: 10px 10px 10px 0; }
+.pstage .keyfacts div + div { padding-left: 12px; }
+.pstage .keyfacts dt { font-size: 10.5px; }
+.pstage .keyfacts dd { font-size: 15px; }
+.pstage .claims { gap: 6px; margin-bottom: 16px; }
+.pstage .claims li { font-size: 12.5px; padding: 5px 11px; }
+.pstage .claims li:nth-child(n + 5) { display: none; }
+.pstage .pd__actions { flex-wrap: nowrap; gap: 8px; }
+.pstage .pd__actions .btn { min-height: 44px; padding: 0 15px; font-size: 13.5px; white-space: nowrap; }
+@media (max-height: 820px) and (min-aspect-ratio: 9/10) {
+  .pstage .pd__desc { display: none; }
+  .pstage__panel h1 { font-size: clamp(34px, 3.2vw, 52px); }
+  .pstage .claims li:nth-child(n + 3) { display: none; }
+}
+@media (max-width: 1280px) and (min-aspect-ratio: 9/10) { .pstage .pd__actions .btn span { display: none; } }
+
+/* ---------- açılış: 3B sahne yüklenene kadar aynı sahnenin görüntüsü (ürünler hemen görünür) ---------- */
+.hero__gl { background: url('/img/hero-poster-d.webp') center / cover no-repeat, radial-gradient(70% 80% at 68% 55%, #c8141a 0%, #7a0610 45%, #2c0306 100%); }
+.hero__gl canvas { opacity: 0; transition: opacity 0.5s ease; }
+.hero__gl.live canvas { opacity: 1; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .hero__gl { background: url('/img/hero-poster-m.webp') center bottom / cover no-repeat, radial-gradient(80% 60% at 50% 70%, #c8141a 0%, #7a0610 50%, #2c0306 100%); }
+}

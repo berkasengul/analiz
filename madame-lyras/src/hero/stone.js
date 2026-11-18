@@ -125,7 +125,8 @@ export function stoneSlab({ rx = 2.0, rz = 1.25, height = 0.55, seed = 3 } = {})
 
 /* ---------------- koyu mermer sergileme platformu ---------------- */
 // bordo-siyah zemin üzerinde açık damarlar; cilalı yüzey
-export function marbleTexture(size = 768, seed = 17, vein = 1) {
+// ivory: krem-fildişi mermer, altın-gri damarlı (site renkleriyle uyumlu)
+export function marbleTexture(size = 768, seed = 17, vein = 1, ivory = false) {
   const n = makeNoise(seed), n2 = makeNoise(seed + 5);
   const c = document.createElement('canvas');
   c.width = c.height = size;
@@ -140,7 +141,13 @@ export function marbleTexture(size = 768, seed = 17, vein = 1) {
       const cloud = n2(u * 2, v * 2, 4);
       let r = 30 + cloud * 26, g = 9 + cloud * 8, b = 12 + cloud * 9;
       const vv = Math.min(1, vein * 0.85 + vein2);
-      r += vv * 150 * vein; g += vv * 98 * vein; b += vv * 82 * vein;
+      if (ivory) {
+        // açık krem zemin, yumuşak bulut ve ince altın-kahve damarlar
+        r = 238 - cloud * 18; g = 229 - cloud * 20; b = 214 - cloud * 22;
+        r -= vv * 70 * vein; g -= vv * 86 * vein; b -= vv * 104 * vein;
+      } else {
+        r += vv * 150 * vein; g += vv * 98 * vein; b += vv * 82 * vein;
+      }
       const i = (y * size + xx) * 4;
       img.data[i] = r; img.data[i + 1] = g; img.data[i + 2] = b; img.data[i + 3] = 255;
     }
@@ -211,11 +218,12 @@ export function displayPlatform({ R = 2.65, slab = 0.13, body = 0.58, base = 0.1
   const baseGeo = new THREE.LatheGeometry(basePts, seg);
 
   // damarlar daha sakin: kontrollü parlaklıkta koyu bordo / obsidyen
-  const map = marbleTexture(size, 23, 0.28);
+  // üst tabla: krem-fildişi mermer; gövde: derin bordo lake; taban: koyu bordo; kenarlar pirinç
+  const map = marbleTexture(size, 23, 0.95, false); // koyu, açık damarlı mermer (alt kat)
   const sideMap = map.clone(); sideMap.needsUpdate = true; sideMap.repeat.set(4, 0.25);
-  const slabMat = new THREE.MeshPhysicalMaterial({ map: sideMap, roughness: 0.2, metalness: 0.08, clearcoat: 1, clearcoatRoughness: 0.06, envMapIntensity: 1.0 });
-  const bodyMat = new THREE.MeshPhysicalMaterial({ color: '#2a0507', roughness: 0.34, metalness: 0.35, clearcoat: 0.7, clearcoatRoughness: 0.18, envMapIntensity: 0.8 });
-  const baseMat = new THREE.MeshPhysicalMaterial({ color: '#140203', roughness: 0.3, metalness: 0.55, clearcoat: 0.5, envMapIntensity: 0.8 });
+  const slabMat = new THREE.MeshPhysicalMaterial({ map: sideMap, roughness: 0.18, metalness: 0.02, clearcoat: 1, clearcoatRoughness: 0.05, envMapIntensity: 0.9 });
+  const bodyMat = new THREE.MeshPhysicalMaterial({ color: '#1e0806', roughness: 0.28, metalness: 0.25, clearcoat: 1, clearcoatRoughness: 0.1, envMapIntensity: 1.0 });
+  const baseMat = new THREE.MeshPhysicalMaterial({ color: '#22050a', roughness: 0.3, metalness: 0.4, clearcoat: 0.7, envMapIntensity: 0.9 });
   const brass = new THREE.MeshStandardMaterial({ color: '#d9a85e', metalness: 1, roughness: 0.26, envMapIntensity: 1.5 });
   return { R, Rb, Rbase, yBodyTop, yBaseTop, yBottom, slabGeo, bodyGeo, baseGeo, slabMat, bodyMat, baseMat, brass, map };
 }

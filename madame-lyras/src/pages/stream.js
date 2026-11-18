@@ -61,7 +61,7 @@ export function initStream(heroApi) {
 
   let scene = null;
   let currentProduct = 0;
-  let handing = false, arrived = false, streamF = null;
+  let handing = false, arrived = false, streamF = null, swapT = 0;
 
   /* ---------- pozlar ---------- */
   function pose() {
@@ -108,12 +108,31 @@ export function initStream(heroApi) {
     scene.setJuiceClip(Math.max(juiceTop, top) / vh, (pr.bottom + 220) / vh, pr.top > top ? 0.1 + 0.2 * raw : 0.3);
 
     // açılış tamamen yukarıdayken ya da akış geçildiyse sahne dinlenir
-    if (pr.bottom <= top || y <= 1) {
-      scene.setActive(y > 1 && pr.bottom > top);
+    if (y <= 1) {
+      // en üste dönüş: paket önce açılıştaki yerine ve açısına tam oturur, sonra açılıştaki paketle sessizce yer değiştirir
+      if (handing) {
+        const p = handoffPose(vh, 0);
+        if (p) scene.snapPose(p);
+        handing = false;
+        clearTimeout(swapT);
+        swapT = setTimeout(() => {
+          if (window.scrollY > 1) return;
+          scene.setActive(false);
+          document.body.classList.remove('gl-front');
+          heroApi && heroApi.setHandoff(false);
+        }, 140);
+      } else if (!swapT) {
+        scene.setActive(false);
+        heroApi && heroApi.setHandoff(false);
+      }
+      arrived = false;
+      return;
+    }
+    clearTimeout(swapT); swapT = 0;
+    if (pr.bottom <= top) {
+      scene.setActive(false);
       document.body.classList.remove('gl-front');
       handing = false;
-      if (y <= 1) { heroApi && heroApi.setHandoff(false); arrived = false; }
-      if (pr.bottom <= top) { scene.setActive(false); }
       return;
     }
     scene.setActive(true);

@@ -10,14 +10,14 @@
   <meta property="og:image" content="/img/og.jpg" />
   <meta name="theme-color" content="#7a0f15" />
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
-  <!-- açılıştaki paketlerin dokuları sayfa açılır açılmaz indirilir -->
-  <link rel="preload" as="image" href="/tex/cilek.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/tex/kirmizi-ejder.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/tex/hindistancevizi.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/tex/seftali.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/tex/ananas.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/tex/lime.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/tex/fistikli-dondurma.webp" fetchpriority="high" />
+  <!-- açılış: önce sahnenin görüntüsü (ürünler hemen görünür), sonra 3B sahnenin paket dokuları -->
+  <link rel="preload" as="image" href="/img/hero-poster-d.webp" media="(min-width: 761px) and (min-aspect-ratio: 9/10)" fetchpriority="high" />
+  <link rel="preload" as="image" href="/img/hero-poster-m.webp" media="(max-width: 760px), (max-aspect-ratio: 9/10)" fetchpriority="high" />
+  <link rel="preload" as="image" href="/tex/cilek.webp" />
+  <link rel="preload" as="image" href="/tex/hindistancevizi.webp" />
+  <link rel="preload" as="image" href="/tex/ahududu.webp" />
+  <link rel="preload" as="image" href="/tex/seftali.webp" />
+  <link rel="preload" as="image" href="/tex/ananas.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />

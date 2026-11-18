@@ -6,7 +6,7 @@ import { EffectComposer, N8AO, Bloom, Vignette, SMAA, ToneMapping } from '@react
 import { ToneMappingMode } from 'postprocessing';
 import gsap from 'gsap';
 import { makePouch, makeBackTexture } from '../scene.js';
-import { displayPlatform } from './stone.js';
+import { displayPlatform, marbleTexture } from './stone.js';
 import { loadRelief, loadFlat } from './relief.js';
 import { juiceMaterial } from '../juice.js';
 
@@ -24,21 +24,21 @@ const P = (id, k, b = false) => `/parca/${id}-${k}${b ? 'b' : ''}.webp`;
 /* ---------------- sahne yerleşimi ---------------- */
 // kaide grubun arkasına kaydırıldı: paketler kaidenin ön yarısında, ön kenara yakın durur
 const PLAT = { x: -0.06, z: -0.5, R: 3.2 };
-const TARGET = new THREE.Vector3(-0.06, 1.08, 0.7); // ürün grubunun görsel ağırlık merkezi (çilek baskın)
+const TARGET = new THREE.Vector3(0.0, 1.05, 1.0); // ürün grubunun görsel ağırlık merkezi (çilek baskın)
 // s: çilek paketine göre ölçek; ry: en fazla ~5°, ön yüzler kameraya dönük
 const K = 1.05; // paket ölçeği (7 paketin hepsi kaideye sığsın)
 const FK = 1.12; // meyve konum/boyut ölçeği
 const S0 = 1.86 * K;
 // 7 paket yelpaze gibi kademeli dizilir: çilek önde ortada, diğerleri iki yana doğru birer adım geride;
 // her paketin yarıdan fazlası (adı ve logosu) görünür
+// üst kat (açık renk mermer tabla) yüksekliği ve konumu
+const TIER = { x: 0.05, z: 0.95, R: 1.62, h: 0.14 };
 const POUCHES = [
-  { id: 'lime', x: -2.45, z: -0.45, ry: 0.26, s: 0.78 },
-  { id: 'fistikli-dondurma', x: 2.45, z: -0.45, ry: -0.26, s: 0.78 },
-  { id: 'seftali', x: -1.8, z: 0.15, ry: 0.18, s: 0.82 },
-  { id: 'ananas', x: 1.8, z: 0.15, ry: -0.18, s: 0.82 },
-  { id: 'hindistan-cevizi', x: -1.0, z: 0.75, ry: 0.1, s: 0.86 },
-  { id: 'kirmizi-ejder', x: 1.0, z: 0.75, ry: -0.1, s: 0.86 },
-  { id: 'cilek', x: 0.0, z: 1.3, ry: -0.035, s: 1.0, hero: true },
+  { id: 'seftali', x: -2.1, z: 0.4, ry: 0.3, s: 0.86 },
+  { id: 'ananas', x: 2.2, z: 0.4, ry: -0.3, s: 0.86 },
+  { id: 'hindistan-cevizi', x: -1.15, z: 0.85, ry: 0.15, s: 0.95, y: TIER.h },
+  { id: 'ahududu', x: 1.25, z: 0.85, ry: -0.15, s: 0.95, y: TIER.h },
+  { id: 'cilek', x: 0.05, z: 1.3, ry: -0.03, s: 1.08, hero: true, y: TIER.h },
 ];
 
 /* ---------------- kamera çözücü (masaüstü / tablet / telefon) ---------------- */
@@ -67,7 +67,7 @@ function planDistance(pl) {
   if (pl.band) return Math.max((PLAT.R * 2) / (2 * pl.frac * t * pl.A), 4.1 / (2 * t * pl.band));
   const dWidth = (PLAT.R * 2) / (2 * pl.frac * t * pl.A);
   // dikeyde kaidenin altı ile yörüngedeki meyvelerin üstü sığsın (≈4.3 birim)
-  const dHeight = 4.8 / (2 * 0.86 * t);
+  const dHeight = 4.25 / (2 * 0.86 * t); // ürün grubu daha büyük: açılışta önce ürünler göze çarpsın
   return Math.max(dWidth, dHeight);
 }
 
@@ -198,7 +198,8 @@ function Platform({ mobile }) {
       )}
     </group>
   );
-  const red = new THREE.Color(1.0, 0.14, 0.07).multiplyScalar(4.2);
+  // ışık halkaları: kırmızı yerine sıcak altın (site renkleriyle uyumlu, daha sakin)
+  const red = new THREE.Color(1.0, 0.55, 0.22).multiplyScalar(2.6);
   const gold = new THREE.Color(1.0, 0.68, 0.32).multiplyScalar(2.6);
   const goldSoft = new THREE.Color(1.0, 0.72, 0.4).multiplyScalar(1.5);
   return (
@@ -212,7 +213,7 @@ function Platform({ mobile }) {
         {mobile ? (
           <meshPhysicalMaterial map={topMap} roughness={0.2} clearcoat={1} clearcoatRoughness={0.05} envMapIntensity={1.0} />
         ) : (
-          <MeshReflectorMaterial map={topMap} blur={[360, 120]} resolution={1024} mixBlur={1} mixStrength={2.2}
+          <MeshReflectorMaterial map={topMap} blur={[360, 120]} resolution={1024} mixBlur={1} mixStrength={1.1}
             roughness={0.26} depthScale={1.1} minDepthThreshold={0.35} maxDepthThreshold={1.4} metalness={0.3} mirror={0.55} color="#ffffff" />
         )}
       </mesh>
@@ -220,9 +221,9 @@ function Platform({ mobile }) {
       <mesh position={[0, pl.yBodyTop - 0.012, 0]} rotation-x={Math.PI / 2} material={pl.brass}><torusGeometry args={[pl.Rb + 0.004, 0.014, 8, 200]} /></mesh>
       <mesh position={[0, pl.yBaseTop + 0.06, 0]} rotation-x={Math.PI / 2} material={pl.brass}><torusGeometry args={[pl.Rb - 0.03, 0.009, 8, 200]} /></mesh>
       {/* ışık 1: tablanın altında ince sıcak altın çizgi */}
-      {ring(PLAT.R - 0.06, pl.yBodyTop - 0.004, 0.006, goldSoft, 'g0', goldSoft, 0.06, 0.25)}
+      {ring(PLAT.R - 0.01, -0.012, 0.012, gold, 'g0', new THREE.Color(1, 0.7, 0.35), 0.1, 0.55)}
       {/* ışık 2: tabanı çevreleyen kırmızı halka, ışık 3: biraz altında sıcak altın çizgi */}
-      {ring(pl.Rbase + 0.004, pl.yBaseTop, 0.011, red, 'r1', new THREE.Color(1, 0.18, 0.08), 0.22, 0.55)}
+      {ring(pl.Rbase + 0.004, pl.yBaseTop, 0.011, red, 'r1', new THREE.Color(1, 0.55, 0.25), 0.18, 0.35)}
       {ring(pl.Rbase + 0.002, pl.yBottom + 0.035, 0.007, gold, 'g1', new THREE.Color(1, 0.62, 0.3), 0.12, 0.35)}
       {/* stüdyo zemini */}
       <mesh rotation-x={-Math.PI / 2} position={[0, pl.yBottom - 0.002, 0]} receiveShadow>
@@ -244,6 +245,77 @@ function Platform({ mobile }) {
   );
 }
 
+/* ---------------- üst kat: açık renk mermer tabla (orta paketler bunun üstünde) ---------------- */
+function UpperTier() {
+  const { geo, mat, topMat, brass } = useMemo(() => {
+    const R = TIER.R, H = TIER.h, e = 0.025;
+    const pts = [new THREE.Vector2(0, 0), new THREE.Vector2(R - 0.02, 0), new THREE.Vector2(R, 0.02), new THREE.Vector2(R, H - e)];
+    for (let k = 1; k <= 6; k++) { const a = (k / 6) * (Math.PI / 2); pts.push(new THREE.Vector2(R - e + Math.cos(a) * e, H - e + Math.sin(a) * e)); }
+    const g = new THREE.LatheGeometry(pts, 128);
+    const map = marbleTexture(512, 41, 0.6, true);
+    const side = map.clone(); side.needsUpdate = true; side.repeat.set(4, 0.2);
+    return {
+      geo: g,
+      mat: new THREE.MeshPhysicalMaterial({ map: side, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.06, envMapIntensity: 0.8 }),
+      topMat: new THREE.MeshPhysicalMaterial({ map, roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 0.9 }),
+      brass: new THREE.MeshStandardMaterial({ color: '#d9a85e', metalness: 1, roughness: 0.25, envMapIntensity: 1.5 }),
+    };
+  }, []);
+  return (
+    <group position={[TIER.x, 0, TIER.z]}>
+      <mesh geometry={geo} material={mat} castShadow receiveShadow />
+      <mesh rotation-x={-Math.PI / 2} position={[0, TIER.h + 0.001, 0]} material={topMat} receiveShadow><circleGeometry args={[TIER.R - 0.025, 96]} /></mesh>
+      <mesh rotation-x={Math.PI / 2} position={[0, 0.012, 0]} material={brass}><torusGeometry args={[TIER.R + 0.004, 0.012, 8, 160]} /></mesh>
+    </group>
+  );
+}
+
+/* ---------------- önde hindistan cevizi yarımı (kahverengi kabuk, beyaz iç) ---------------- */
+function Coconut({ position = [-2.55, 0.34, 1.35], r = 0.5 }) {
+  const { shell, flesh, rim } = useMemo(() => {
+    const c = document.createElement('canvas'); c.width = c.height = 256;
+    const x = c.getContext('2d');
+    x.fillStyle = '#5a3418'; x.fillRect(0, 0, 256, 256);
+    for (let k = 0; k < 2600; k++) { // lifli kabuk
+      x.strokeStyle = `rgba(${90 + Math.random() * 70},${55 + Math.random() * 40},${25 + Math.random() * 25},${0.35 + Math.random() * 0.4})`;
+      x.lineWidth = 0.6 + Math.random() * 1.2;
+      const px = Math.random() * 256, py = Math.random() * 256, a = Math.random() * 0.6 - 0.3;
+      x.beginPath(); x.moveTo(px, py); x.lineTo(px + Math.cos(a) * 14, py + Math.sin(a) * 14); x.stroke();
+    }
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 2);
+    return {
+      shell: new THREE.MeshStandardMaterial({ map: t, roughness: 0.95, side: THREE.FrontSide }),
+      flesh: new THREE.MeshPhysicalMaterial({ color: '#fbf8f1', roughness: 0.45, clearcoat: 0.3, side: THREE.BackSide, emissive: '#2a2622', emissiveIntensity: 0.25 }),
+      rim: new THREE.MeshPhysicalMaterial({ color: '#fffdf8', roughness: 0.4 }),
+    };
+  }, []);
+  // açık yüzü öne ve hafif yukarı bakan yarım küre
+  return (
+    <group position={position} rotation={[0.62, 0.55, 0]}>
+      <group position={[0, 0, 0]}>
+        <mesh material={shell} castShadow><sphereGeometry args={[r, 48, 24, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2]} /></mesh>
+        <mesh material={flesh}><sphereGeometry args={[r * 0.9, 48, 24, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2]} /></mesh>
+        <mesh material={rim} rotation-x={Math.PI / 2}><ringGeometry args={[r * 0.9, r, 64]} /></mesh>
+      </group>
+    </group>
+  );
+}
+
+/* ---------------- sağda mermer kâse (içinde ahududular) ---------------- */
+function Bowl({ position = [2.66, 0, 0.9] }) {
+  const { geo, mat } = useMemo(() => {
+    const pts = [];
+    pts.push(new THREE.Vector2(0.0, 0.0), new THREE.Vector2(0.2, 0.0), new THREE.Vector2(0.22, 0.04), new THREE.Vector2(0.17, 0.07));
+    for (let k = 0; k <= 12; k++) { const a = (k / 12) * (Math.PI / 2); pts.push(new THREE.Vector2(0.17 + Math.sin(a) * 0.36, 0.07 + (1 - Math.cos(a)) * 0.3)); }
+    pts.push(new THREE.Vector2(0.55, 0.38), new THREE.Vector2(0.51, 0.38));
+    for (let k = 12; k >= 0; k--) { const a = (k / 12) * (Math.PI / 2); pts.push(new THREE.Vector2(0.13 + Math.sin(a) * 0.36, 0.11 + (1 - Math.cos(a)) * 0.27)); }
+    const g = new THREE.LatheGeometry(pts, 96);
+    const map = marbleTexture(256, 57, 0.7, true); map.repeat.set(2, 1);
+    return { geo: g, mat: new THREE.MeshPhysicalMaterial({ map, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 0.9, side: THREE.DoubleSide }) };
+  }, []);
+  return <mesh geometry={geo} material={mat} position={position} castShadow receiveShadow />;
+}
+
 /* ---------------- ürün paketleri ---------------- */
 let blobT = null;
 function blobTex() {
@@ -260,8 +332,11 @@ function Pouches({ flavors, mobile, onReady }) {
   const root = useMemo(() => new THREE.Group(), []);
   const list = useRef([]);
   // Ana çilek paketi ağır çekimde, çok az hareketle kendini gösterir: yavaşça sağa sola döner, hafifçe yükselip iner
-  useFrame((st) => {
-    const t = st.clock.elapsedTime;
+  const swayT = useRef(0);
+  useFrame((st, dt) => {
+    // ürün bölümüne inerken salınım durur: geri döndüğünde paket ayrıldığı açıyla yerine oturur
+    if (!S.handoff) swayT.current += Math.min(dt, 0.05);
+    const t = swayT.current;
     const k = clamp01(S.fruitIn * 1.2);
     for (const h of list.current) {
       if (!h.cfg.hero) continue;
@@ -298,14 +373,14 @@ function Pouches({ flavors, mobile, onReady }) {
       holder.add(sway);
       holder.scale.setScalar(sc);
       holder.rotation.y = cfg.ry;
-      holder.position.set(cfg.x, -bb.min.y * sc - 0.008, cfg.z);
+      holder.position.set(cfg.x, (cfg.y || 0) - bb.min.y * sc - 0.008, cfg.z);
       holder.visible = false;
       root.add(holder);
       const w = (bb.max.x - bb.min.x) * sc;
       const blob = new THREE.Mesh(new THREE.PlaneGeometry(w * 1.12, w * 0.5), new THREE.MeshBasicMaterial({ map: blobTex(), transparent: true, depthWrite: false, opacity: mobile ? 0.95 : 0.8 }));
       blob.rotation.x = -Math.PI / 2;
       blob.rotation.z = -cfg.ry;
-      blob.position.set(cfg.x, 0.004, cfg.z + 0.03);
+      blob.position.set(cfg.x, (cfg.y || 0) + 0.004, cfg.z + 0.03);
       blob.renderOrder = 2;
       root.add(blob);
       return { cfg, fl, pk, holder, sway, blob };
@@ -381,31 +456,24 @@ function Orbit() {
 // rest: kaide üstünde (ön kenara yakın, ana paketin önünü kapatmadan sol ve sağ kümeler)
 // orbit: yörünge çizgisi üzerinde (açı derece; paketlerin logo ve yazılarının üstünde değil)
 const REST = [
-  // sol küme: şeftali ve hindistan cevizinin önü (hepsi kaide yüzeyinin içinde, ana paketin önü açık)
-  { u: P('seftali', 0), x: -1.68, z: 0.95, w: 0.66, ry: 0.25 },
-  { u: P('cilek', 0), x: -1.25, z: 0.95, w: 0.56, ry: -0.2 },
-  { u: P('cilek', 0), x: -1.05, z: 1.45, w: 0.46, ry: 0.4, flip: true },
-  { u: P('cilek', 1), x: -1.45, z: 1.2, w: 0.46, sink: 0.12 },
-  { u: P('hindistan-cevizi', 4), x: -0.92, z: 1.15, w: 0.34, ry: 0.3 },
-  { u: P('yaprak', 1), x: -1.9, z: 0.75, w: 0.7, rx: -1.25, rz: 0.55, leaf: true, desk: true },
-  // sağ küme: ananasın önü
-  { u: P('ananas', 2), x: 1.62, z: 0.62, w: 0.78, ry: -0.3 },
-  { u: P('hindistan-cevizi', 1), x: 1.25, z: 1.25, w: 0.3, ry: -0.4 },
-  { u: P('seftali', 2), x: 1.95, z: 0.15, w: 0.5, ry: -0.5, desk: true },
-  { u: P('yaprak', 2), x: 1.4, z: 1.15, w: 0.55, rx: -1.25, rz: -0.6, leaf: true },
-].map((f) => ({ ...f, x: f.x * FK, z: f.z * FK + 0.6, w: f.w * FK })); // paketler öne alındı: meyveler de önlerinde kalsın
-const ON_ORBIT = [
-  { u: P('cilek', 0), th: 175, w: 0.5, off: [0, 0.05, 0.05] },
-  { u: P('seftali', 3), th: 150, w: 0.52, off: [0, 0.1, 0] },
-  { u: P('cilek', 0), th: 125, w: 0.5, off: [0, 0.12, 0], desk: true },
-  { u: P('yaprak', 0), th: 108, w: 0.3, off: [0, 0.05, 0], desk: true },
-  { u: P('hindistan-cevizi', 2), th: 92, w: 0.28, off: [0, 0.08, 0] },
-  { u: P('cilek', 0), th: 72, w: 0.48, off: [0, 0.1, 0], desk: true },
-  { u: P('ananas', 1), th: 50, w: 0.56, off: [0, 0.12, 0] },
-  { u: P('cilek', 0), th: 22, w: 0.52, off: [0.05, 0.08, 0] },
-  { u: P('cilek', 0), th: 0, w: 0.46, off: [0.1, 0, 0], desk: true },
-  { u: P('hindistan-cevizi', 1), th: -18, w: 0.26, off: [0.08, -0.05, 0] },
+  // sol: şeftali dilimi ve çilekler
+  { u: P('seftali', 0), x: -1.85, z: 2.0, w: 1.0, ry: 0.35 },
+  { u: P('cilek', 0), x: -0.95, z: 2.25, w: 0.82, ry: -0.18 },
+  { u: P('cilek', 0), x: -0.25, z: 2.42, w: 0.6, ry: 0.3, flip: true },
+  { u: P('cilek', 1), x: 0.55, z: 2.45, w: 0.55, sink: 0.08 },
+  // sağ: ananas parçaları
+  { u: P('ananas', 2), x: 1.45, z: 2.05, w: 1.0, ry: -0.3 },
+  { u: P('ananas', 3), x: 2.15, z: 1.6, w: 0.72, ry: -0.5 },
+  // kâsedeki ahududular (kâse ayrı 3B model)
+  { u: P('ahududu', 0), x: 2.62, z: 1.02, y: 0.36, w: 0.34, ry: -0.3 },
+  { u: P('ahududu', 4), x: 2.86, z: 0.92, y: 0.4, w: 0.32, ry: -0.5 },
+  { u: P('ahududu', 1), x: 2.72, z: 0.78, y: 0.44, w: 0.3, ry: -0.4 },
+  { u: P('ahududu', 5), x: 2.45, z: 0.86, y: 0.42, w: 0.3, ry: -0.1 },
+  // yerde birkaç yaprak
+  { u: P('yaprak', 1), x: -2.45, z: 1.75, w: 0.8, rx: -1.25, rz: 0.5, leaf: true, desk: true },
+  { u: P('yaprak', 2), x: 1.95, z: 2.2, w: 0.6, rx: -1.25, rz: -0.6, leaf: true },
 ];
+const ON_ORBIT = [];
 const ON_ORBIT_S = ON_ORBIT.map((f) => ({ ...f, w: f.w * FK }));
 const DRIED = ['cilek-1', 'seftali-1', 'seftali-2', 'seftali-3', 'hindistan-cevizi'];
 
@@ -432,7 +500,7 @@ function Fruits({ mobile }) {
         m.castShadow = !mobile;
         const h = f.w * r.aspect;
         let pos;
-        if (f.rest) pos = new THREE.Vector3(f.x, h / 2 - (f.sink || 0) * h - (f.rx ? h * 0.42 : 0), f.z);
+        if (f.rest) pos = new THREE.Vector3(f.x, (f.y || 0) + h / 2 - (f.sink || 0) * h - (f.rx ? h * 0.42 : 0), f.z);
         else pos = orbitPoint((f.th * Math.PI) / 180).add(new THREE.Vector3(...(f.off || [0, 0, 0])));
         m.position.copy(pos);
         m.rotation.set(f.rx || 0, f.ry || 0, f.rz || 0);
@@ -691,13 +759,10 @@ function Scene({ flavors, mobile, reduce, onReady }) {
     const tl = gsap.timeline({ onComplete: () => setIntroDone(true) });
     if (reduce) { S.intro = 0; S.fruitIn = 1; tl.call(() => {}); }
     else {
-      tl.to(S, { intro: 0, duration: 1.5, ease: 'power3.out' }, 0);
-      holders.forEach((h, i) => {
-        const y = h.holder.position.y;
-        tl.from(h.holder.position, { y: y + 1.4, duration: 0.8, ease: 'back.out(1.2)' }, 0.05 + i * 0.05);
-        tl.from(h.holder.rotation, { z: (i % 2 ? 1 : -1) * 0.2, duration: 0.8, ease: 'power3.out' }, 0.05 + i * 0.05);
-      });
-      tl.to(S, { fruitIn: 1, duration: 1.3, ease: 'power2.out' }, 0.3);
+      // ürünler beklemeden, yerlerinde görünür; kamera ve meyveler kısa ve sakin bir girişle tamamlanır
+      // açılış görseli (poster) ile birebir aynı kareden başlar: canlı sahneye geçiş fark edilmez
+      S.intro = 0; S.fruitIn = 1;
+      tl.call(() => {});
     }
     requestAnimationFrame(() => onReady());
   };
@@ -711,7 +776,9 @@ function Scene({ flavors, mobile, reduce, onReady }) {
       {mobile && <Beam />}
       <Platform mobile={mobile} />
       <Pouches flavors={flavors} mobile={mobile} onReady={handleReady} />
-      <Orbit />
+      <UpperTier />
+      <Coconut />
+      <Bowl />
       <Fruits mobile={mobile} />
       <NearLayer mobile={mobile} />
       <Embers mobile={mobile} />
