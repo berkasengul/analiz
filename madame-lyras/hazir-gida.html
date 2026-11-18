@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Hazır Gıda (ResQ) · Genç Anadolu Gıda</title>
+  <meta name="description" content="ResQ dondurularak kurutulmuş hazır gıda kitleri: 12, 25, 35 ve 70 servislik kitler ve kahvaltılık gevrek." />
+  <meta property="og:title" content="Genç Anadolu Gıda · Dondurularak kurutulmuş meyve" />
+  <meta property="og:description" content="Dondurularak kurutulmuş meyve, dondurma ve hazır gıda ürünlerinde toptan satış ve bayilik." />
+  <meta property="og:image" content="/img/og.jpg" />
+  <meta name="theme-color" content="#7a0f15" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/corp.css" />
+</head>
+<body data-page="hazir-gida">
+  <!-- @include header -->
+  <main id="icerik">
+    <section class="phero">
+      <div class="wrap">
+        <ol class="crumbs"><li><a href="/">Ana sayfa</a></li><li>Hazır gıda</li></ol>
+        <h1>Hazır gıda <em>ResQ</em></h1>
+        <p>Şeflerin hazırladığı yemekler dondurularak kurutulur ve nem almayan özel ambalajlarda saklanır. Sıcak su ekleyin; 15 dakikada yemeğiniz hazır.</p>
+      </div>
+    </section>
+    <section class="section section--white">
+      <div class="wrap">
+        <div class="features">
+          <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></i><h3>15 dakikada hazır</h3><p>Belirtilen miktarda sıcak su eklemek yeterli.</p></div>
+          <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><h3>Uzun raf ömrü</h3><p>Nem almayan özel ambalaj; soğuk zincir gerekmez.</p></div>
+          <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20l6-12 4 7 3-4 5 9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><h3>Kullanım alanı</h3><p>Acil durum, askeri kullanım, dağcılık, kamp ve bireysel tüketim.</p></div>
+          <div class="feature reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><h3>Yerli üretim</h3><p>Cryo freeze-drying sistemleriyle Silifke'de üretim.</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="section section--cream">
+      <div class="wrap">
+        <header class="sec-head reveal"><p class="eyebrow">Ürünler</p><h2>Hazır gıda <em>kitleri</em></h2><p>Her kitin tam menüsü, porsiyon, gram ve kalori bilgisi ile 3B görünümü ürün sayfasında.</p></header>
+        <div class="kits" id="kits"></div>
+      </div>
+    </section>
+    <section class="section section--white">
+      <div class="wrap">
+        <header class="sec-head reveal"><p class="eyebrow">Karşılaştırma</p><h2>Kitleri <em>karşılaştırın</em></h2></header>
+        <div class="tbl reveal" id="compare"></div>
+      </div>
+    </section>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/pages/kits.js"></script>
+</body>
+</html>
