@@ -277,7 +277,9 @@ function canvasTex(size, draw) {
 /* ------------------------------------------------------------------ */
 /* Sahne                                                               */
 /* ------------------------------------------------------------------ */
-export function createScene(canvas, flavors, onProgress, juiceCanvas) {
+// opts.box: tuval tüm ekran yerine kapsayıcısının boyutunda (ürün sayfasındaki 3B görüntüleyici)
+// opts.plain: açık zeminde koyu hale kullanılmaz; opts.wheel: false ise tekerlekle yakınlaştırma kapalı (sayfa kaysın)
+export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -672,12 +674,14 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   function snapPose(p) { Object.assign(target, POSE0, p); Object.assign(state, POSE0, p); }
 
   function resize() {
-    const w = window.innerWidth, h = window.innerHeight;
+    const box = opts.box ? canvas.parentElement : null;
+    const w = box ? Math.max(1, box.clientWidth) : window.innerWidth, h = box ? Math.max(1, box.clientHeight) : window.innerHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
   window.addEventListener('resize', resize);
+  if (opts.box && window.ResizeObserver) new ResizeObserver(resize).observe(canvas.parentElement);
   resize();
 
   window.addEventListener('pointermove', (e) => {
@@ -724,7 +728,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
   canvas.addEventListener('pointerup', endDrag);
   canvas.addEventListener('pointercancel', endDrag);
   canvas.addEventListener('wheel', (e) => {
-    if (!insp.on) return;
+    if (!insp.on || opts.wheel === false) return;
     e.preventDefault();
     insp.zoomT = Math.min(2.4, Math.max(0.75, insp.zoomT * Math.exp(-e.deltaY * 0.0015)));
     insp.idle = 0;
@@ -892,7 +896,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas) {
     }
     // koyu hale ve kontur ışığı
     {
-      const hv = insp.on ? 0.55 * insp.blend : state.halo;
+      const hv = opts.plain ? 0 : insp.on ? 0.55 * insp.blend : state.halo;
       haloMat.opacity = hv;
       haloMesh.visible = hv > 0.004;
       const hs = kit.group.visible ? 3.6 : 3.0;

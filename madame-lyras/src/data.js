@@ -3,6 +3,13 @@ export const SITE = {
   email: 'info@gencanadolugida.com.tr', // alan adı kesinleşince burayı ve index.html'deki mailto'yu güncelle
   // telefon: tel boşsa telefon düğmeleri iletişim formuna götürür. Gerçek numara gelince ikisini de doldurun.
   phone: { display: '+90 (5XX) XXX XX XX', tel: '' },
+  // yasal bilgiler: boş olanlar sitede gösterilmez. Kesinleşince doldurun.
+  address: '',            // örn. 'Silifke OSB, ... Mersin'
+  mersis: '',             // MERSİS no
+  taxOffice: '',          // vergi dairesi
+  taxNo: '',              // vergi no
+  kep: '',                // KEP adresi
+  mapQuery: 'Silifke Organize Sanayi Bölgesi, Mersin',
 };
 
 const FRUIT_CLAIMS = ['Sadece meyve', 'Şeker ilavesiz', 'Katkı maddesi yok', 'Koruyucu ve renklendirici yok'];
