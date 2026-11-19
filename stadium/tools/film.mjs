@@ -11,7 +11,7 @@ const FPS = +(process.argv[4] || 30);
 const FROM = +(process.argv[5] || 0), TO = +(process.argv[6] || 1e9);
 fs.mkdirSync(out, { recursive: true });
 const innerW = +(process.env.W || 1280), innerH = +(process.env.H || 720);
-const END = +(process.env.END || 26);
+const END = +(process.env.END || 27.5);
 
 const port = 8130 + Math.floor(Math.random() * 50);
 const srv = await serve(port);
@@ -59,23 +59,25 @@ async function click(t) {
   ring = { x: cur.x, y: cur.y, t0: t }; ev('click', t);
   await page.mouse.move(cur.x, cur.y); await page.mouse.down(); await page.mouse.up();
 }
+const SEAT = (i) => `#seatmap g.s[data-i="${i}"]`;
 const beats = [
   [4.6, async (t) => { cur.on = true; moveTo(await elCenter('#ctaBtn'), t, 1.6); }],
   [6.6, async (t) => { cur.down = true; }],
   [6.8, async (t) => { cur.down = false; await click(t); ev('whoosh', t + 0.1); }],
   [12.4, async (t) => { blockId = await pickBlock(); moveTo(await page.evaluate((id) => app.blockScreen(id), blockId), t, 1.3); }],
   [14.2, async (t) => { await click(t); ev('whoosh', t + 0.1); }],
-  [18.0, async (t) => { seatIdx = await page.evaluate((id) => app.freeSeatNear(id, 8), blockId); moveTo(await elCenter(`circle[data-i="${seatIdx}"]`), t, 1.3); }],
-  [19.6, async (t) => { const p = await elCenter(`circle[data-i="${seatIdx}"]`); cur.x = p.x; cur.y = p.y; ring = { x: cur.x, y: cur.y, t0: t }; ev('click', t); ev('whoosh', t + 0.1); await page.click(`circle[data-i="${seatIdx}"]`); }],
-  [20.2, async (t) => moveTo({ x: innerW * 0.88, y: innerH * 0.95 }, t, 1.4)],
-  [21.8, async (t) => { cur.on = false; }],
+  [18.0, async (t) => { seatIdx = await page.evaluate((id) => app.freeSeatNear(id, 8), blockId); moveTo(await elCenter(SEAT(seatIdx)), t, 1.3); }],
+  [19.6, async (t) => { const p = await elCenter(SEAT(seatIdx)); cur.x = p.x; cur.y = p.y; ring = { x: cur.x, y: cur.y, t0: t }; ev('click', t); await page.click(SEAT(seatIdx)); }],
+  [20.4, async (t) => moveTo(await elCenter('#selBtn'), t, 1.0)],
+  [21.6, async (t) => { const p = await elCenter('#selBtn'); cur.x = p.x; cur.y = p.y; ring = { x: cur.x, y: cur.y, t0: t }; ev('click', t); ev('whoosh', t + 0.1); await page.click('#selBtn'); }],
+  [22.2, async (t) => moveTo({ x: innerW * 0.9, y: innerH * 0.96 }, t, 1.4)],
+  [23.8, async (t) => { cur.on = false; }],
 ];
 
 const N = Math.round(END * FPS);
 let bi = 0; const t0 = Date.now();
-for (let f = 0; f < N; f++) {
-  const t = f / FPS;
-  while (bi < beats.length && beats[bi][0] <= t) { await beats[bi][1](t); bi++; }
+async function tick(t, dt, shot, f) {
+  while (bi < beats.length && beats[bi][0] <= t + 1e-6) { await beats[bi][1](t); bi++; }
   if (move) {
     const k = Math.min(1, Math.max(0, (t - move.t0) / (move.t1 - move.t0))); const e = ease(k);
     const arc = Math.sin(Math.PI * e) * 40;
@@ -85,8 +87,16 @@ for (let f = 0; f < N; f++) {
   }
   const rk = ring ? (t - ring.t0) / 0.45 : -1;
   await page.evaluate(([x, y, d, on, rx, ry, rk]) => { window.__rec.cursor(x, y, d, on); window.__rec.ring(rx, ry, rk > 1 ? -1 : rk); }, [cur.x, cur.y, cur.down, cur.on, ring?.x || 0, ring?.y || 0, rk]);
-  await page.evaluate((dt) => { window.__step(dt); const gl = document.querySelector('canvas').getContext('webgl2'); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4)); }, 1 / FPS);
-  if (t >= FROM && t <= TO) await page.screenshot({ path: `${out}/f${String(f).padStart(5, '0')}.jpg`, type: 'jpeg', quality: 92 });
+  await page.evaluate(([dt, sync]) => { window.__step(dt); if (sync) { const gl = document.querySelector('canvas').getContext('webgl2'); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4)); } }, [dt, shot]);
+  if (shot) await page.screenshot({ path: `${out}/f${String(f).padStart(5, '0')}.jpg`, type: 'jpeg', quality: 92 });
+}
+// before FROM: coarse 0.1 s steps (the app caps dt at 0.1; flights and orbit are time based), no screenshots
+const f0 = Math.round(FROM * FPS); let tt = 0;
+while (f0 / FPS - tt > 0.1 + 1e-6) { await tick(tt, 0.1, false); tt += 0.1; }
+if (f0 / FPS - tt > 1e-6) { await tick(tt, f0 / FPS - tt, false); }
+for (let f = f0; f < N; f++) {
+  const t = f / FPS;
+  await tick(t, 1 / FPS, t <= TO, f);
   if (f % 30 === 0) console.log(`${SID} frame ${f}/${N} t=${t.toFixed(1)}s elapsed ${((Date.now() - t0) / 1000).toFixed(0)}s`);
 }
 fs.writeFileSync(`${out}/events.json`, JSON.stringify({ blockId, seatIdx, events }, null, 1));
