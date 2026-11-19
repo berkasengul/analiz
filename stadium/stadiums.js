@@ -127,8 +127,21 @@ const _S = {
 };
 
 // Türk Telekom Arena = RAMS Park's former name: same seating data, geometry from the user's SketchUp model
-_S.rams.model = { url: 'assets/models/turktelekom.gltf.json', pitch: [22.7, 9.6, 0.15], rotY: 127, solarRoof: { minY: 35 } };
+_S.rams.model = {
+  url: 'assets/models/turktelekom.gltf.json', pitch: [22.7, 9.6, 0.15], rotY: 127, solarRoof: { minY: 35 },
+  // our bowl lives inside the model: drop the model's own (flat, textured) stands and pitch, keep facade, roof and trusses
+  combined: true, cutInside: { d: 44, y: 31.5 },
+  dropMaterials: ['kirmizikoltuk', 'merdiven', 'loca', 'pankart', 'pankart2', 'pankart3', 'bilboard1', '*2', '*2_4', '*2_53', 'discepheustarka2'],
+};
+// stands fitted to the model (its seating runs 4–43 m from the pitch and up to 31 m high)
+_S.rams.tiers = [
+  { lvl: 1, name: 'Alt Kat', rows: 27, d0: 4.4, depth: 0.8, h0: 0.9, riseA: 0.36, riseB: 0.62 },
+  { lvl: 2, name: 'VIP & Loca', rows: 3, d0: 27.6, depth: 0.95, h0: 14.4, riseA: 0.42, riseB: 0.42 },
+  { lvl: 4, name: 'Üst Kat', rows: 15, d0: 32.4, depth: 0.72, h0: 18.4, riseA: 0.78, riseB: 0.98 },
+];
 _S.rams.sat = { ..._S.rams.sat, shift: [0, 14] };
+_S.rams.osm = 'assets/osm-rams.json';
+_S.rams.mood = 'evening';
 _S.tta = _S.rams; // old link name
 // user-supplied SketchUp models for the other two grounds (exterior; our bowl is used inside for ticketing)
 _S.fb.model = { url: 'assets/models/sukrusaracoglu.gltf.json', pitch: [158.5, 0, -110.5], rotY: 0, scale: 0.94, solarRoof: { minY: 32.5 } };
