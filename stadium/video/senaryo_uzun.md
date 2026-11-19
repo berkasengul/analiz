@@ -91,7 +91,7 @@ Bir, kamera stadın içine girerken donuyordu, sonra kendi etrafında dönüyord
 Dört, dosya çok büyüktü, Beşiktaş'ın modeli sınırı aşıyordu, ikiye böldük, gereksiz veriyi attık.
 Buradaki asıl ders şu kanka: yapay zekâya sadece "olmamış" deme, ekran görüntüsü at ve neyin yanlış olduğunu tek cümleyle söyle. Bu projede en çok işe yarayan şey buydu.
 
-## 6 · Sen nasıl yaparsın (5:25–6:25) [A → S]
+## 6 · Sen nasıl yaparsın (5:25–6:50) [A → S]
 [A] Şimdi sen bunu nasıl yaparsın, beş adım var, not al.
 [S] *5 adım kartı, her adım ekranda belirir.*
 Birincisi bir referans bul. Ben Instagram'da gördüğüm bir videoyu verdim, "bunun gibi olsun" dedim, çünkü yapay zekâ kafandakini görmüyor, referansı görüyor.
@@ -99,8 +99,11 @@ Birincisi bir referans bul. Ben Instagram'da gördüğüm bir videoyu verdim, "b
 Üçüncüsü veriyi topla: uydu görüntüsü, OpenStreetMap, bir de 3D Warehouse'ta o mekânın modeli varsa onu, yoksa fotoğraflar.
 Dördüncüsü Klod Kod'a işi bir iş tanımı gibi anlat: dışı modelden gelsin, koltuklar tıklansın, "Bilet Al"a basınca kamera içeri girsin, koltuktan saha görünsün. Kullandığım komutun tamamı açıklamada.
 Beşincisi telefonda dene. İnsanların çoğu bu siteyi telefondan açacak, telefonda kasıyorsa hiçbir anlamı yok. Netlifay'a koy, telefondan aç, beğenmediğin yeri ekran görüntüsüyle söyle.
+*Kart: maliyet.*
+Maliyet ne diye soracaksın: Klod'un ücretli bir planı var, onun dışında OpenStreetMap ücretsiz, hazır modeller ücretsiz, Netlifay'ın ücretsiz planı da yetiyor. Yani asıl harcadığın şey para değil, zaman.
+Bir de şunu bil, ilk stat en uzun süren oldu, diğer ikisi çok daha hızlı gitti, çünkü düzen artık hazırdı. İkinci müşterin her zaman ilkinden kolay olur.
 
-## 7 · Parası nerede (6:25–7:35) [S]
+## 7 · Parası nerede (6:50–8:05) [S]
 *Kartlar: dört müşteri türü. Sonra "önce demo, sonra mail" akışı.*
 
 Şimdi gelelim baştaki soruya: bunu kime satacaksın?
@@ -111,15 +114,16 @@ Bir, konser salonları, tiyatrolar, spor salonları. İnsanların en çok sordu�
 Üç, ve bence en büyüğü, konut projeleri. Aynı teknoloji, koltuk yerine daire: daireyi seçiyorsun, balkona çıkıyorsun, manzarayı görüyorsun. Satış ofisleri bunun için ciddi para harcıyor.
 Dört, oteller, oda manzarası için aynı şey.
 Nasıl satarsın? Önce o mekânın demosunu yap, sonra yaz. "Size site yaparım" mailini kimse okumuyor, "bak senin salonun böyle görünüyor" diye link atınca okuyor.
+Demoda da şuna dikkat et: linke tıklayan kişi ilk beş saniyede etkilenmezse kapatıyor. O yüzden açılış sahnesi en güzel açı olsun, benimki gibi akşam ışığında, havadan. Uzun bir yükleme ekranı varsa kimse beklemez.
 Fiyatı işin kapsamına göre konuşuyorsun, bir kurulum ücreti, bir de aylık bakım. Kazanç garantisi yok tabii, telefonu açıp konuşmayacaksan bu iş sana göre değil.
 Bir de her demonu Shorts'a çevir. Ben her stat için ayrı bir Shorts yaptım, taraftarlar birbirine atıyor, vitrinini senin yerine insanlar dağıtıyor.
 
-## 8 · Söz verilen hata (7:35–7:55) [A]
+## 8 · Söz verilen hata (8:05–8:25) [A]
 Ve söz verdiğim hata: kulübün adıyla, logosuyla para kazanmaya kalkmak.
 Logolar ve isimler tescilli marka, bunlarla satış yaparsan siten kapanır, başın da belaya girer. Benimki hayran projesi, bilet satmıyor, kimseden para almıyor.
 Müşteriye yaptığında da bilet satışını sen yapma, resmi satış sitesine yönlendir, sen vitrini sat.
 
-## 9 · Kapanış (7:55–8:10) [A] *(merak → vaat → video)*
+## 9 · Kapanış (8:25–8:40) [A] *(merak → vaat → video)*
 *Bitiş ekranı: satış ekibi videosu.*
 Peki demoyu yaptın, ama göndereceğin mekânı nereden bulacaksın, kime, hangi adrese yazacaksın?
 Ben bunu hiç uğraşmadan çözdüm: yapay zekâ ekibim her sabah müşteri buluyor, demosunu yapıyor, maili atıyor.
