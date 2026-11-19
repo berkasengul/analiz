@@ -1,14 +1,12 @@
 /* Bold Istanbul · Turkish Coffee Lady — concept site */
 
 /* =====================================================
-   FILMS — add the commercial videos here.
-   Put files in /videos and list them below. `poster` is
-   shown until the video can play. ratio: '16/9' or '9/16'.
+   FILMS — YouTube video IDs. The front screen plays a muted
+   preview; clicking opens the film with sound.
    ===================================================== */
 const FILMS = [
-  { src: './videos/film-1.mp4', poster: './assets/photo-1.webp', title: { en: 'Bold Istanbul', tr: 'Bold Istanbul' },            tag: { en: 'Main film', tr: 'Ana film' } },
-  { src: './videos/film-2.mp4', poster: './assets/skyline.webp', title: { en: 'A Journey Through Istanbul', tr: 'İstanbul’da Bir Yolculuk' }, tag: { en: 'Film 02', tr: 'Film 02' } },
-  { src: './videos/film-3.mp4', poster: './assets/stage.webp', title: { en: 'Shake Well. Drink Cold.', tr: 'Çalkala. Soğuk İç.' }, tag: { en: 'Film 03', tr: 'Film 03' } },
+  { yt: 'X8lP0j7vcnA', poster: './assets/film-2.webp', title: { en: 'Turkish Coffee Tales of Anatolia', tr: 'Anadolu’nun Türk Kahvesi Hikâyeleri' }, tag: { en: 'Documentary · Teaser', tr: 'Belgesel · Fragman' } },
+  { yt: 'zXI4Pu0NAJY', poster: './assets/film-1.webp', title: { en: 'A Cup of Courage', tr: 'Bir Fincan Cesaret' }, tag: { en: 'Feature · Seyir', tr: 'Röportaj · Seyir' } },
 ];
 
 const LAUNCH = new Date('2026-12-05T00:00:00-05:00');
@@ -29,7 +27,7 @@ const TR = {
   'j.eyebrow': 'Boğaz’dan', 'j.title': 'Dünyaya kahve içmeyi <em>öğreten şehir.</em>',
   'j.t1': 'İlk kahvehaneler', 'j.p1': 'İstanbul dünyanın ilk kahvehanelerinden bazılarını açar. Kahve sohbete dönüşür.',
   'j.t2': 'İnsanlığın mirası', 'j.p2': 'UNESCO, Türk kahvesi kültürü ve geleneğini Somut Olmayan Kültürel Miras listesine alır.',
-  'j.t3': 'Şimdi buzlu', 'j.p3': 'Aynı koyu, kadifemsi lezzet; Amerika’nın bugün kahve içtiği gibi: soğuk ve yolda.',
+  'j.t3': 'Dünyada bir ilk: şişede soğuk', 'j.p3': 'Turkish Coffee Lady, dünyanın ilk şişelenmiş soğuk Türk kahvesi serisini yaratır (patent başvurusu sürüyor): aynı koyu, kadifemsi lezzet, Amerika’nın bugün kahve içtiği gibi.',
   'f.eyebrow': 'Filmler', 'f.title': 'Bold Istanbul’un <em>hayat bulduğu an.</em>', 'f.hint': 'Çevirmek için sürükle · sesli izlemek için ekrana dokun',
   'r.eyebrow': 'Ritüel', 'r.title': 'Çalkala. Soğuk iç. <em>Falına bak.</em>',
   'r.t1': 'Çalkala', 'r.p1': 'Türk kahvesi yoğundur. İyi bir çalkalama gövdeyi ve köpüğü uyandırır.',
@@ -37,10 +35,16 @@ const TR = {
   'r.t3': 'Fal', 'r.p3': 'Türkiye’de fincan hep bir falla biter. İşte seninki.',
   'r.wait': 'Falın fincanın dibinde seni bekliyor.', 'r.btn': 'Falıma bak', 'r.again': 'Bir daha bak',
   's.eyebrow': 'Hikâyemiz', 's.title': '“Bir fincan kahvenin <em>kırk yıl hatırı vardır.</em>”',
-  's.p1': 'Turkish Coffee Lady, Türk kahvesinin zengin kültürünü dünyada yaşatmak ve yeni nesillere taşımak için kurulan, 16 yıllık birikime sahip global bir marka.',
+  's.p1': 'Turkish Coffee Lady, 2007’den bu yana Türk kahvesinin zengin kültürünü dünyada yaşatmak ve yeni nesillere taşımak için çalışan global bir marka.',
   's.p2': 'Buzlu seri, 2025’te InvestBev hızlandırma programıyla bir araya gelen ekiple hayata geçti ve ABD’de sıfır şekerli Bold Istanbul ile raflara çıkıyor.',
   's.role': 'Kurucu · Turkish Coffee Lady',
-  's.l1': 'Kurucunun Türk kahvesi elçiliği başlıyor', 's.l2': 'Turkish Coffee Lady Kültür Evi', 's.l3': 'InvestBev hızlandırma programı', 's.l4': 'Bold Istanbul ABD’de raflarda',
+  's.l1': 'Her şey Boston’da bir fincan kahveyle başladı', 's.l2': 'İlk Türk Kahvesi Kamyonu Amerika’yı dolaştı', 's.l3': 'Kadınları güçlendirmek için ABD’deki ilk Türk kahvesi dükkânı',
+  's.l4': 'Dünyanın ilk kahve diplomasisi vakfı: Turkish Coffee Lady Foundation', 's.l5': 'Old Town Alexandria’da bir Türk kültür evi', 's.l6': 'Dünyanın ilk şişelenmiş soğuk Türk kahvesi serisi (patent başvurusu sürüyor)',
+  's.l7': 'TOA Awards tarafından Amerika’nın En Etkili 100 Türk’ünden biri seçildi',
+  'nav.book': 'Kitap', 'bk.eyebrow': 'Kitap · Gizem Şalcıgil White', 'bk.sub': 'Bir fincan cesaretle.',
+  'bk.p1': 'Bir kadın göçmenin Amerika’daki girişimcilik hikâyesi. Gizem, 20 yılı aşkın süredir gastrodiplomasi çalışmaları ve bir kahve kamyonuyla Türk kahvesi kültürünü dünyaya anlatıyor.',
+  'bk.p2': 'Hayalini Demle; bir anne girişimcinin önyargılarla mücadelesini, göçmenliğin gerçekleriyle yüzleşirken kanseri yenmesini ve ekonomik zorlukların üstesinden gelip sıfırdan bir marka kurmasını anlatıyor. Girişimci olmak isteyen tüm kadınlara: korkuyla yüzleş, hayalinden vazgeçme.',
+  'bk.q': '“Bir fincan cesaretle başlayan yolculuk.”',
   'l.eyebrow': '5 Aralık · Dünya Türk Kahvesi Günü', 'l.title': 'ABD’ye iniyor',
   'l.d': 'Gün', 'l.h': 'Saat', 'l.m': 'Dakika', 'l.s': 'Saniye', 'l.btn': 'Bana haber ver', 'l.zip': 'Posta kodu',
   'l.ok': 'Teşekkürler! Bold Istanbul raflara çıktığında ilk sen duyacaksın.', 'l.err': 'Bir sorun oldu, lütfen tekrar dene.', 'l.live': 'Şimdi raflarda',
@@ -344,79 +348,83 @@ async function initThree() {
 }
 
 /* ---------------- films: 3D ring ---------------- */
+const ytSrc = (id, preview) => preview
+  ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1`
+  : `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0&modestbranding=1`;
 const films = (() => {
   const ring = document.getElementById('ring');
   const stage = document.getElementById('stage3d');
   const nameEl = document.getElementById('filmName');
   const countEl = document.getElementById('filmCount');
-  const N = FILMS.length;
-  const STEP = 38; // degrees between screens
-  let pw = 0, ph = 0, radius = 0, cur = 0, target = 0, front = -1;
-  const panels = FILMS.map((f, i) => {
+  const NF = FILMS.length;
+  // repeat the list so the ring always has screens on both sides
+  const slots = []; while (slots.length < 4) FILMS.forEach((_, i) => slots.push(i));
+  const N = slots.length;
+  const STEP = 38;
+  let pw = 0, ph = 0, radius = 0, cur = 0, target = 0, front = -1, moved = false;
+  const mod = (a, n) => ((a % n) + n) % n;
+  const panels = slots.map((fi, i) => {
+    const f = FILMS[fi];
     const el = document.createElement('div');
     el.className = 'panel';
-    el.innerHTML = `<img src="${f.poster}" alt="" loading="lazy" /><span class="panel__soon" hidden></span>
+    el.innerHTML = `<img src="${f.poster}" alt="" loading="lazy" />
       <div class="panel__label"><span><small></small><b></b></span><i class="panel__play"></i></div>`;
-    const vid = document.createElement('video');
-    vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'metadata'; vid.poster = f.poster;
-    vid.setAttribute('playsinline', '');
-    vid.hidden = true;
-    el.prepend(vid);
-    f.ok = false;
-    vid.addEventListener('loadeddata', () => { f.ok = true; vid.hidden = false; el.querySelector('img').hidden = true; el.querySelector('.panel__soon').hidden = true; if (i === front) vid.play().catch(() => {}); });
-    vid.addEventListener('error', () => { f.ok = false; const s = el.querySelector('.panel__soon'); s.hidden = false; s.textContent = lang === 'tr' ? 'Film yakında' : 'Film coming soon'; });
-    const src = document.createElement('source'); src.src = f.src; src.type = 'video/mp4'; src.addEventListener('error', () => vid.dispatchEvent(new Event('error')));
-    vid.appendChild(src);
-    el.addEventListener('click', () => { if (moved) return; if (i === Math.round(mod(cur, N))) open(i); else go(i); });
+    el.addEventListener('click', () => { if (moved) return; if (i === Math.round(mod(cur, N))) open(fi); else go(i); });
     ring.appendChild(el);
-    return { el, vid };
+    return { el, fi, iframe: null };
   });
-  const mod = (a, n) => ((a % n) + n) % n;
+
+  function setPreview(p, on) {
+    if (on && !p.iframe) {
+      const fr = document.createElement('iframe');
+      fr.allow = 'autoplay; encrypted-media; picture-in-picture';
+      fr.title = FILMS[p.fi].title.en; fr.tabIndex = -1;
+      fr.src = ytSrc(FILMS[p.fi].yt, true);
+      fr.addEventListener('load', () => setTimeout(() => fr.classList.add('on'), 1400));
+      p.el.insertBefore(fr, p.el.querySelector('.panel__label'));
+      p.iframe = fr;
+    } else if (!on && p.iframe) { p.iframe.remove(); p.iframe = null; }
+  }
 
   function layout() {
-    const w = stage.clientWidth;
-    pw = Math.min(760, w * (innerWidth < 900 ? 0.78 : 0.56));
+    pw = Math.min(760, stage.clientWidth * (innerWidth < 900 ? 0.78 : 0.56));
     ph = pw * 9 / 16;
     radius = (pw / 2) / Math.tan((STEP * Math.PI / 180) / 2) * 1.12;
-    ring.style.setProperty('--pw', pw + 'px'); ring.style.setProperty('--ph', ph + 'px');
     panels.forEach((p) => { p.el.style.setProperty('--pw', pw + 'px'); p.el.style.setProperty('--ph', ph + 'px'); });
   }
   function relabel() {
-    panels.forEach((p, i) => {
-      p.el.querySelector('small').textContent = FILMS[i].tag[lang];
-      p.el.querySelector('b').textContent = FILMS[i].title[lang];
-      const s = p.el.querySelector('.panel__soon'); if (!s.hidden) s.textContent = lang === 'tr' ? 'Film yakında' : 'Film coming soon';
+    panels.forEach((p) => {
+      p.el.querySelector('small').textContent = FILMS[p.fi].tag[lang];
+      p.el.querySelector('b').textContent = FILMS[p.fi].title[lang];
     });
     update(true);
   }
+  let previewTimer = 0;
   function update(force) {
-    // shortest offset of each panel from current position
     panels.forEach((p, i) => {
       let d = i - cur; d = d - Math.round(d / N) * N;
-      const ang = d * STEP;
       const op = Math.max(0, 1 - Math.max(0, Math.abs(d) - 1.2) * 0.9);
-      p.el.style.transform = `rotateY(${ang}deg) translateZ(${radius}px)`;
+      p.el.style.transform = `rotateY(${d * STEP}deg) translateZ(${radius}px)`;
       p.el.style.opacity = op;
       p.el.style.visibility = op <= 0.01 ? 'hidden' : 'visible';
-      p.el.style.zIndex = String(100 - Math.round(Math.abs(d) * 10));
     });
     ring.style.transform = `translateZ(${-radius}px)`;
     const f = Math.round(mod(cur, N));
     if (f !== front || force) {
       front = f;
-      panels.forEach((p, i) => { p.el.classList.toggle('is-front', i === f); if (i === f && FILMS[i].ok) p.vid.play().catch(() => {}); else p.vid.pause(); });
-      countEl.textContent = `${String(f + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}`;
-      nameEl.textContent = FILMS[f].title[lang];
+      panels.forEach((p, i) => { p.el.classList.toggle('is-front', i === f); if (i !== f) setPreview(p, false); });
+      clearTimeout(previewTimer);
+      previewTimer = setTimeout(() => { if (inView && lb.hidden) setPreview(panels[front], true); }, 700);
+      const fi = panels[f].fi;
+      countEl.textContent = `${String(fi + 1).padStart(2, '0')} / ${String(NF).padStart(2, '0')}`;
+      nameEl.textContent = FILMS[fi].title[lang];
     }
   }
-  function go(i) {
-    let d = i - mod(target, N); d = d - Math.round(d / N) * N; target += d;
-  }
+  function go(i) { let d = i - mod(target, N); d = d - Math.round(d / N) * N; target += d; }
   document.getElementById('prevFilm').addEventListener('click', () => { target = Math.round(target) - 1; });
   document.getElementById('nextFilm').addEventListener('click', () => { target = Math.round(target) + 1; });
 
-  // drag
-  let dragging = false, sx = 0, st = 0, moved = false;
+  let dragging = false, sx = 0, st = 0;
   stage.addEventListener('pointerdown', (e) => { dragging = true; moved = false; sx = e.clientX; st = target; });
   addEventListener('pointermove', (e) => {
     if (!dragging) return;
@@ -425,39 +433,30 @@ const films = (() => {
   });
   addEventListener('pointerup', () => { if (!dragging) return; dragging = false; target = Math.round(target); setTimeout(() => (moved = false), 0); });
 
-  // run only when in view
   let inView = false;
-  new IntersectionObserver(([e]) => { inView = e.isIntersecting; if (!inView) panels.forEach((p) => p.vid.pause()); else update(true); }).observe(stage);
+  new IntersectionObserver(([e]) => {
+    inView = e.isIntersecting;
+    if (!inView) panels.forEach((p) => setPreview(p, false)); else update(true);
+  }, { threshold: 0.25 }).observe(stage);
   (function loop() {
-    if (inView) {
-      const d = target - cur;
-      if (Math.abs(d) > 0.0005) { cur += d * 0.1; update(); }
-    }
+    if (inView) { const d = target - cur; if (Math.abs(d) > 0.0005) { cur += d * 0.1; update(); } }
     requestAnimationFrame(loop);
   })();
   addEventListener('resize', () => { layout(); update(true); });
-  layout(); relabel();
 
-  // lightbox
   const lb = document.getElementById('lightbox');
   const frame = document.getElementById('lbFrame');
-  function open(i) {
-    const f = FILMS[i];
+  function open(fi) {
+    const f = FILMS[fi];
     frame.innerHTML = '';
-    if (f.ok) {
-      const v = document.createElement('video');
-      v.src = f.src; v.controls = true; v.autoplay = true; v.playsInline = true; v.poster = f.poster;
-      frame.appendChild(v);
-    } else {
-      const im = document.createElement('img'); im.src = f.poster; im.alt = f.title[lang]; frame.appendChild(im);
-    }
-    panels.forEach((p) => p.vid.pause());
+    const fr = document.createElement('iframe');
+    fr.src = ytSrc(f.yt, false); fr.title = f.title[lang];
+    fr.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; fr.allowFullscreen = true;
+    frame.appendChild(fr);
+    panels.forEach((p) => setPreview(p, false));
     lb.hidden = false; document.body.style.overflow = 'hidden';
   }
-  function close() {
-    lb.hidden = true; frame.innerHTML = ''; document.body.style.overflow = '';
-    update(true);
-  }
+  function close() { lb.hidden = true; frame.innerHTML = ''; document.body.style.overflow = ''; update(true); }
   document.getElementById('lbClose').addEventListener('click', close);
   lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
   addEventListener('keydown', (e) => {
@@ -465,6 +464,8 @@ const films = (() => {
     if (lb.hidden && inView && e.key === 'ArrowRight') target = Math.round(target) + 1;
     if (lb.hidden && inView && e.key === 'ArrowLeft') target = Math.round(target) - 1;
   });
+  document.querySelectorAll('[data-open-film]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); open(+a.dataset.openFilm); }));
+  layout(); relabel();
   return { relabel };
 })();
 

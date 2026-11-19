@@ -41,6 +41,7 @@
       <a href="#films" data-i18n="nav.films">Films</a>
       <a href="#ritual" data-i18n="nav.ritual">Ritual</a>
       <a href="#story" data-i18n="nav.story">Story</a>
+      <a href="#book" data-i18n="nav.book">The Book</a>
     </nav>
     <div class="nav__right">
       <div class="lang" role="group" aria-label="Language">
@@ -67,7 +68,7 @@
         <p class="hero__lead" data-i18n="hero.lead">Five centuries of Turkish coffee, poured cold. Dark, rich and made with nothing but the good stuff.</p>
         <div class="hero__cta">
           <a href="#launch" class="btn" data-i18n="hero.cta">Be first in line</a>
-          <a href="#films" class="btn btn--ghost"><span class="play-ico"></span><span data-i18n="hero.film">Watch the film</span></a>
+          <a href="#films" class="btn btn--ghost" data-open-film="0"><span class="play-ico"></span><span data-i18n="hero.film">Watch the film</span></a>
         </div>
       </div>
       <div class="hero__badges">
@@ -110,7 +111,7 @@
         <div class="journey__steps">
           <article class="reveal"><span>1554</span><h3 data-i18n="j.t1">The first coffeehouses</h3><p data-i18n="j.p1">Istanbul opens some of the world's first coffeehouses. Coffee becomes conversation.</p></article>
           <article class="reveal"><span>2013</span><h3 data-i18n="j.t2">A heritage of humanity</h3><p data-i18n="j.p2">UNESCO recognizes Turkish coffee culture and tradition as Intangible Cultural Heritage.</p></article>
-          <article class="reveal"><span>2026</span><h3 data-i18n="j.t3">Now, iced</h3><p data-i18n="j.p3">The same deep, velvety brew, made for the way America drinks coffee today: cold and on the go.</p></article>
+          <article class="reveal"><span>2025</span><h3 data-i18n="j.t3">The world’s first, bottled cold</h3><p data-i18n="j.p3">Turkish Coffee Lady creates the world’s first bottled cold Turkish coffee line (patent pending): the same deep, velvety brew, made for how America drinks coffee today.</p></article>
         </div>
       </div>
     </section>
@@ -128,12 +129,12 @@
       <div class="films__ctrl">
         <button class="circle-btn" id="prevFilm" aria-label="Previous film">←</button>
         <div class="films__info">
-          <span class="films__count" id="filmCount">01 / 03</span>
+          <span class="films__count" id="filmCount">01 / 02</span>
           <span class="films__name" id="filmName">—</span>
         </div>
         <button class="circle-btn" id="nextFilm" aria-label="Next film">→</button>
       </div>
-      <p class="films__hint" data-i18n="f.hint">Drag to turn · tap a screen to watch with sound</p>
+      <p class="films__hint" data-i18n="f.hint">Drag to turn · tap the screen to watch with sound</p>
     </section>
 
     <!-- RITUAL -->
@@ -163,18 +164,45 @@
       <div class="story__text">
         <p class="eyebrow reveal" data-i18n="s.eyebrow">Our story</p>
         <h2 class="display reveal" data-i18n="s.title">“A cup of coffee is remembered <em>for forty years.</em>”</h2>
-        <p class="body reveal" data-i18n="s.p1">Turkish Coffee Lady is a global brand, 16 years in the making, founded to keep the rich culture of Turkish coffee alive around the world and carry it to new generations.</p>
+        <p class="body reveal" data-i18n="s.p1">Since 2007, Turkish Coffee Lady has worked to keep the rich culture of Turkish coffee alive around the world and carry it to new generations.</p>
         <p class="body reveal" data-i18n="s.p2">The iced line came to life with the team formed through the InvestBev accelerator in 2025, and launches in the US with zero-sugar Bold Istanbul.</p>
         <div class="founder reveal">
+          <img src="./assets/founder.webp" alt="Gizem Şalcıgil White" class="founder__img" loading="lazy" />
           <span class="founder__name">Gizem Şalcıgil White</span>
           <span class="founder__role" data-i18n="s.role">Founder · Turkish Coffee Lady</span>
         </div>
         <ol class="timeline">
-          <li class="reveal"><b>2009</b><span data-i18n="s.l1">Founder begins her Turkish coffee ambassadorship</span></li>
-          <li class="reveal"><b>Alexandria, VA</b><span data-i18n="s.l2">Turkish Coffee Lady Culture House</span></li>
-          <li class="reveal"><b>2025</b><span data-i18n="s.l3">InvestBev accelerator program</span></li>
-          <li class="reveal"><b>Dec 5</b><span data-i18n="s.l4">Bold Istanbul launches in the USA</span></li>
+          <li class="reveal"><b>2007</b><span data-i18n="s.l1">It all began with a cup of coffee in Boston</span></li>
+          <li class="reveal"><b>2012</b><span data-i18n="s.l2">The first Turkish Coffee Truck tours the United States</span></li>
+          <li class="reveal"><b>2017</b><span data-i18n="s.l3">The first Turkish coffee shop in the US, built to empower women</span></li>
+          <li class="reveal"><b>2020</b><span data-i18n="s.l4">Turkish Coffee Lady Foundation, the world’s first coffee diplomacy foundation</span></li>
+          <li class="reveal"><b>2021</b><span data-i18n="s.l5">A Turkish culture house opens in Old Town Alexandria</span></li>
+          <li class="reveal"><b>2025</b><span data-i18n="s.l6">The world’s first bottled cold Turkish coffee line (patent pending)</span></li>
+          <li class="reveal"><b>2026</b><span data-i18n="s.l7">Named one of America’s 100 Most Influential Turks by TOA Awards</span></li>
         </ol>
+      </div>
+    </section>
+
+    <!-- BOOK -->
+    <section class="book-sec" id="book">
+      <div class="book-wrap reveal">
+        <div class="book" id="book3d">
+          <div class="book__inner">
+            <div class="book__face book__front"><img src="./assets/book-cover.webp" alt="Hayalini Demle book cover" loading="lazy" /></div>
+            <div class="book__face book__spine" style="background-image:url(./assets/book-spine.webp)"></div>
+            <div class="book__face book__pages"></div>
+            <div class="book__face book__top"></div>
+            <div class="book__face book__back"></div>
+          </div>
+          <div class="book__shadow"></div>
+        </div>
+      </div>
+      <div class="book-sec__text">
+        <p class="eyebrow reveal" data-i18n="bk.eyebrow">The book · by Gizem Şalcıgil White</p>
+        <h2 class="display reveal">Hayalini Demle<br /><em data-i18n="bk.sub">Brew Your Dream.</em></h2>
+        <p class="body reveal" data-i18n="bk.p1">A woman immigrant’s entrepreneurship story in America. For more than twenty years, Gizem has carried Turkish coffee culture around the world through gastrodiplomacy and a coffee truck.</p>
+        <p class="body reveal" data-i18n="bk.p2">Hayalini Demle tells how a mother and entrepreneur faced prejudice, the realities of immigration, beat cancer and overcame financial hardship to build a brand from scratch. An invitation to every woman who wants to start something: face the fear, keep the dream.</p>
+        <p class="book-sec__quote reveal" data-i18n="bk.q">“A journey that began with one cup of courage.”</p>
       </div>
     </section>
 
