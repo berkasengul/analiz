@@ -44,11 +44,11 @@ def seri(parcalar, d, o):  # birkaç kısa kesit art arda (süre kesitlere eşit
     for j, (a, b) in enumerate(parcalar):
         oo = f"{o}.{j}.mp4"; kayit(a, b, d * (b - a) / tops, oo); ara.append(oo)
     lst = f"{o}.txt"; open(lst, "w").write("".join(f"file '{x}'\n" for x in ara)); sh(f"ffmpeg -y -v error -f concat -safe 0 -i '{lst}' -c copy '{o}'")
-def bolunmus(sol, sag, d, o):  # solda ilk sürüm, sağda son hali
-    vf = (f"[0:v]scale=880:495:force_original_aspect_ratio=increase,crop=880:495[l];[1:v]scale=880:495:force_original_aspect_ratio=increase,crop=880:495[r];"
-          f"color=c=0xF7F3EA:s=1920x1080:d={d:.3f}[z];[z][l]overlay=60:330[z1];[z1][r]overlay=980:330,"
-          f"drawtext=fontfile={BLACK}:text='İLK DENEME':x=60:y=240:fontsize=60:fontcolor=0xD23C32,"
-          f"drawtext=fontfile={BLACK}:text='ŞİMDİ':x=980:y=240:fontsize=60:fontcolor=0x289650,fps={FPS}")
+def bolunmus(sol, sag, d, o):  # solda ilk sürüm, sağda son hali (sol alttaki avatar dairesine binmez)
+    vf = (f"[0:v]scale=700:394:force_original_aspect_ratio=increase,crop=700:394[l];[1:v]scale=700:394:force_original_aspect_ratio=increase,crop=700:394[r];"
+          f"color=c=0xF7F3EA:s=1920x1080:d={d:.3f}[z];[z][l]overlay=420:360[z1];[z1][r]overlay=1160:360,"
+          f"drawtext=fontfile={BLACK}:text='ÖNCE':x=420:y=270:fontsize=64:fontcolor=0xD23C32,"
+          f"drawtext=fontfile={BLACK}:text='ŞİMDİ':x=1160:y=270:fontsize=64:fontcolor=0x289650,fps={FPS}")
     sh(f"ffmpeg -y -v error -loop 1 -t {d:.3f} -i '{sol}' -loop 1 -t {d:.3f} -i '{sag}' -filter_complex \"{vf}\" -t {d:.3f} {X264} '{o}'")
 def bos(d, o): sh(f"ffmpeg -y -v error -f lavfi -i color=c=0xF7F3EA:s=1920x1080:d={d:.3f}:r={FPS} {X264} '{o}'")
 
