@@ -11,7 +11,16 @@ import numpy as np
 
 args = sys.argv[1:]
 src, dst = args[0], args[1]
-drop = set(args[args.index('--drop') + 1:]) if '--drop' in args else set()
+def opt_list(flag):
+    if flag not in args: return None
+    out = []
+    for a in args[args.index(flag) + 1:]:
+        if a.startswith('--'): break
+        out.append(a)
+    return set(out)
+drop = opt_list('--drop') or set()
+only = opt_list('--only')
+no_normals = '--no-normals' in args
 
 b = open(src, 'rb').read()
 jl = struct.unpack('<I', b[12:16])[0]
@@ -63,7 +72,7 @@ while stack:
         if p.get('mode', 4) != 4: continue
         mat = p.get('material', -1)
         mname = J['materials'][mat].get('name', '') if mat >= 0 else ''
-        if mname in drop: continue
+        if mname in drop or (only is not None and mname not in only): continue
         P = read(p['attributes']['POSITION'])
         P = (W[:3, :3] @ P.T).T + W[:3, 3]
         N = read(p['attributes']['NORMAL']) if 'NORMAL' in p['attributes'] else None
@@ -101,8 +110,9 @@ print('material bounds (metres):')
 for mat, g in sorted(groups.items(), key=lambda kv: kv[0]):
     P = np.concatenate(g['P']).astype(np.float32); I = np.concatenate(g['I']).astype(np.uint32).reshape(-1)
     attrs = {'POSITION': add_acc(P, 5126, 'VEC3', 34962, True)}
-    if g['hasN']: attrs['NORMAL'] = add_acc(np.concatenate(g['N']).astype(np.float32), 5126, 'VEC3', 34962)
-    if g['hasUV']: attrs['TEXCOORD_0'] = add_acc(np.concatenate(g['UV']).astype(np.float32), 5126, 'VEC2', 34962)
+    if g['hasN'] and not no_normals: attrs['NORMAL'] = add_acc(np.concatenate(g['N']).astype(np.float32), 5126, 'VEC3', 34962)
+    textured = mat >= 0 and 'baseColorTexture' in J['materials'][mat].get('pbrMetallicRoughness', {})
+    if g['hasUV'] and textured: attrs['TEXCOORD_0'] = add_acc(np.concatenate(g['UV']).astype(np.float32), 5126, 'VEC2', 34962)
     pr = {'attributes': attrs, 'indices': add_acc(I.reshape(-1, 1), 5125, 'SCALAR', 34963), 'mode': 4}
     if mat >= 0: pr['material'] = mat
     prims.append(pr)

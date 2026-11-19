@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><title>Model preview</title>
+<style>html,body{margin:0;height:100%;background:#9fb3c8}canvas{display:block}</style>
+<script type="module">
+import * as THREE from '../vendor/three.module.min.js';
+import { GLTFLoader } from '../vendor/addons/loaders/GLTFLoader.js';
+const q = new URLSearchParams(location.search);
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); r.setSize(innerWidth, innerHeight); document.body.appendChild(r.domElement);
+r.toneMapping = THREE.ACESFilmicToneMapping;
+const s = new THREE.Scene(); s.add(new THREE.HemisphereLight(0xffffff, 0x667766, 1.4)); const d = new THREE.DirectionalLight(0xffffff, 2); d.position.set(200, 300, 150); s.add(d);
+const cam = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 1, 5000);
+const g = await new GLTFLoader().loadAsync(q.get('f'));
+g.scene.traverse((o) => { if (o.isMesh) [].concat(o.material).forEach((m) => (m.side = THREE.DoubleSide)); });
+s.add(g.scene);
+const box = new THREE.Box3().setFromObject(g.scene), c = box.getCenter(new THREE.Vector3()), sz = box.getSize(new THREE.Vector3());
+const R = Math.max(sz.x, sz.z);
+window.shot = (view) => {
+  if (view === 'top') { cam.position.set(c.x, c.y + R * 1.5, c.z + 0.01); cam.lookAt(c); }
+  else if (view === 'side') { cam.position.set(c.x + R * 0.9, c.y + R * 0.35, c.z + R * 0.9); cam.lookAt(c); }
+  else { cam.position.set(c.x + R * 0.05, c.y + sz.y * 0.9, c.z + R * 0.12); cam.lookAt(c.x + R * 0.3, c.y, c.z - R * 0.2); }
+  r.render(s, cam);
+};
+window.info = { min: box.min.toArray(), max: box.max.toArray() };
+window.ready = true;
+</script>

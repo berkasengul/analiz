@@ -127,7 +127,10 @@ const _S = {
 };
 
 // Türk Telekom Arena = RAMS Park's former name: same seating data, geometry from the user's SketchUp model
-_S.rams.model = { url: 'assets/models/turktelekom.gltf.json', pitch: [22.7, 9.6, 0.15], rotY: 127 };
+_S.rams.model = { url: 'assets/models/turktelekom.gltf.json', pitch: [22.7, 9.6, 0.15], rotY: 127, solarRoof: { minY: 35 } };
 _S.rams.sat = { ..._S.rams.sat, shift: [0, 14] };
 _S.tta = _S.rams; // old link name
+// user-supplied SketchUp models for the other two grounds (exterior; our bowl is used inside for ticketing)
+_S.fb.model = { url: 'assets/models/sukrusaracoglu.gltf.json', pitch: [158.5, 0, -110.5], rotY: 0, scale: 0.94, solarRoof: { minY: 32.5 } };
+_S.bjk.model = { url: ['assets/models/vodafonepark-a.gltf.json', 'assets/models/vodafonepark-b.gltf.json'], pitch: [0, 0, 0], rotY: 90, scale: 1, solarRoof: { minY: 24.5 } };
 export const STADIUMS = _S;

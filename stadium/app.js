@@ -789,7 +789,7 @@ const ROOF = (() => {
   }
   let vis = 1;
   return {
-    edgeMat, lampMat, glowMat,
+    edgeMat, lampMat, glowMat, tex, RX, RZ,
     set(v) { // 0 = hidden, 1 = full roof
       vis = v;
       topMat.opacity = v; underMat.opacity = v;
@@ -868,16 +868,38 @@ const VIP = (() => {
 PROC_TAG = null;
 /* ----- imported stadium model (converted from SketchUp) ----- */
 let MODEL = null;
-const modelReady = !CFG.model ? Promise.resolve() : new GLTFLoader().loadAsync(CFG.model.url).then((g) => {
-  const M = CFG.model, root = g.scene;
+const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.model.url).map((u) => new GLTFLoader().loadAsync(u))).then((gs) => {
+  const M = CFG.model, root = new THREE.Group(); gs.forEach((g) => root.add(g.scene));
   root.traverse((o) => {
     if (!o.isMesh) return;
+    if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals();
     o.castShadow = true; o.receiveShadow = true;
     for (const m of [].concat(o.material)) { m.side = THREE.DoubleSide; if (m.map) { m.map.anisotropy = 8; m.map.colorSpace = THREE.SRGBColorSpace; } if (m.metalness > 0.5) m.metalness = 0.2; m.roughness = Math.max(m.roughness ?? 0.8, 0.45); }
   });
-  root.position.set(-M.pitch[0], -M.pitch[1] - 0.06, -M.pitch[2]);
-  const pivot = new THREE.Group(); pivot.add(root); pivot.rotation.y = M.rotY * Math.PI / 180; scene.add(pivot);
-  MODEL = pivot;
+  root.position.set(-M.pitch[0], -M.pitch[1] - 0.06 / (M.scale || 1), -M.pitch[2]);
+  const pivot = new THREE.Group(); pivot.add(root); pivot.rotation.y = M.rotY * Math.PI / 180; pivot.scale.setScalar(M.scale || 1);
+  const group = new THREE.Group(); group.add(pivot); scene.add(group);
+  MODEL = group;
+  if (M.solarRoof) { // repaint the model's up-facing roof surfaces with our solar-panel roof texture (planar projection)
+    group.updateMatrixWorld(true);
+    const pos = [], uv = [], A = new THREE.Vector3(), B = new THREE.Vector3(), C = new THREE.Vector3(), n = new THREE.Vector3(), e1 = new THREE.Vector3(), e2 = new THREE.Vector3();
+    root.traverse((o) => {
+      if (!o.isMesh || !o.geometry.index) return;
+      const P = o.geometry.attributes.position, I = o.geometry.index.array, keep = [];
+      for (let t = 0; t < I.length; t += 3) {
+        A.fromBufferAttribute(P, I[t]).applyMatrix4(o.matrixWorld); B.fromBufferAttribute(P, I[t + 1]).applyMatrix4(o.matrixWorld); C.fromBufferAttribute(P, I[t + 2]).applyMatrix4(o.matrixWorld);
+        n.crossVectors(e1.subVectors(B, A), e2.subVectors(C, A)).normalize();
+        if (Math.abs(n.y) > 0.55 && (A.y + B.y + C.y) / 3 > M.solarRoof.minY) {
+          for (const v of [A, B, C]) { pos.push(v.x, v.y + 0.03, v.z); uv.push((v.x + ROOF.RX) / (2 * ROOF.RX), 1 - (v.z + ROOF.RZ) / (2 * ROOF.RZ)); }
+        } else keep.push(I[t], I[t + 1], I[t + 2]);
+      }
+      o.geometry.setIndex(keep);
+    });
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); g.computeVertexNormals();
+    const solar = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: ROOF.tex, roughness: 0.32, metalness: 0.25, side: THREE.DoubleSide }));
+    solar.castShadow = true; solar.receiveShadow = true; group.add(solar);
+  }
   setModelMode(true);
 }).catch((e) => console.warn('model', e));
 // outside: the imported model; inside (after "Bilet Al"): our bowl with individual, clickable seats
