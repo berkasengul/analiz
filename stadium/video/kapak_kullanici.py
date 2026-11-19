@@ -59,8 +59,10 @@ out = Image.fromarray(np.clip(np.asarray(canli).astype(float) * (1 - km_kisi) + 
 # ---- yazılar: kırmızı şerit ve alttaki etiket yeniden çizilir (orijinal tasarımın stili: kırmızı zemin, beyaz kalın eğik yazı)
 SERIT = os.environ.get("SERIT", "3D STADYUM"); ETIKET = os.environ.get("ETIKET", "SEN DE YAP")
 from PIL import ImageFont
-FI = lambda sz: ImageFont.truetype("/usr/share/fonts/opentype/inter/Inter-BlackItalic.otf", sz)
-def kirmizi_sekil(img, poly, aci_metin, metin, hedef_w, hedef_h, merkez):
+def FI(sz):  # Montserrat Black Italic (değişken yazı tipi, ağırlık 900)
+    f = ImageFont.truetype(f"{D}/fonts/Montserrat-Italic-VF.ttf", sz); f.set_variation_by_axes([900]); return f
+SARI = (255, 212, 0, 255)
+def kirmizi_sekil(img, poly, aci_metin, metin, hedef_w, hedef_h, merkez, renk=(255, 255, 255, 255)):
     W_, H_ = img.size; img = img.convert("RGBA")
     # gölge
     g = Image.new("RGBA", (W_, H_), (0, 0, 0, 0)); ImageDraw.Draw(g).polygon([(x + 6, y + 10) for x, y in poly], fill=(0, 0, 0, 170))
@@ -80,8 +82,9 @@ def kirmizi_sekil(img, poly, aci_metin, metin, hedef_w, hedef_h, merkez):
         if (bb[2] - bb[0]) <= hedef_w and (bb[3] - bb[1]) <= hedef_h: break
         sz -= 4
     tw, th = bb[2] - bb[0], bb[3] - bb[1]
-    lay = Image.new("RGBA", (tw + 80, th + 80), (0, 0, 0, 0)); ImageDraw.Draw(lay).text((40 - bb[0], 40 - bb[1]), metin, font=f, fill=(255, 255, 255, 255))
-    k = 0.16  # ek eğiklik: orijinal "BU BİR" yazısının italiğine yaklaştırır
+    kt = max(3, round(sz * 0.045))
+    lay = Image.new("RGBA", (tw + 80, th + 80), (0, 0, 0, 0)); ImageDraw.Draw(lay).text((40 - bb[0], 40 - bb[1]), metin, font=f, fill=renk, stroke_width=kt, stroke_fill=(25, 6, 8, 255))
+    k = 0.10  # ek eğiklik: orijinal "BU BİR" yazısının italiğine yaklaştırır
     lay = lay.transform((lay.width + int(lay.height * k), lay.height), Image.AFFINE, (1, k, -lay.height * k, 0, 1, 0), resample=Image.BICUBIC)
     lay = lay.rotate(aci_metin, resample=Image.BICUBIC, expand=True)
     sh = Image.new("RGBA", lay.size, (0, 0, 0, 0)); sh.putalpha(lay.getchannel("A").point(lambda v: int(v * 0.6)))
@@ -89,23 +92,24 @@ def kirmizi_sekil(img, poly, aci_metin, metin, hedef_w, hedef_h, merkez):
     gg = Image.new("RGBA", (W_, H_), (0, 0, 0, 0)); gg.alpha_composite(sh, (x + 4, y + 7)); img.alpha_composite(gg.filter(ImageFilter.GaussianBlur(4)))
     img.alpha_composite(lay, (x, y))
     return img.convert("RGB")
-def beyaz_yazi(img, metin, hedef_w, hedef_h, merkez, aci):
+def beyaz_yazi(img, metin, hedef_w, hedef_h, merkez, aci, renk=(255, 255, 255, 255)):
     img = img.convert("RGBA"); sz = 300
     while True:
         f = FI(sz); bb = ImageDraw.Draw(Image.new("L", (1, 1))).textbbox((0, 0), metin, font=f)
         if (bb[2] - bb[0]) <= hedef_w and (bb[3] - bb[1]) <= hedef_h: break
         sz -= 4
     tw, th = bb[2] - bb[0], bb[3] - bb[1]
-    lay = Image.new("RGBA", (tw + 80, th + 80), (0, 0, 0, 0)); ImageDraw.Draw(lay).text((40 - bb[0], 40 - bb[1]), metin, font=f, fill=(255, 255, 255, 255))
-    k = 0.16; lay = lay.transform((lay.width + int(lay.height * k), lay.height), Image.AFFINE, (1, k, -lay.height * k, 0, 1, 0), resample=Image.BICUBIC)
+    kt = max(4, round(sz * 0.06))
+    lay = Image.new("RGBA", (tw + 80, th + 80), (0, 0, 0, 0)); ImageDraw.Draw(lay).text((40 - bb[0], 40 - bb[1]), metin, font=f, fill=renk, stroke_width=kt, stroke_fill=(15, 10, 12, 255))
+    k = 0.10; lay = lay.transform((lay.width + int(lay.height * k), lay.height), Image.AFFINE, (1, k, -lay.height * k, 0, 1, 0), resample=Image.BICUBIC)
     lay = lay.rotate(aci, resample=Image.BICUBIC, expand=True)
     sh = Image.new("RGBA", lay.size, (0, 0, 0, 0)); sh.putalpha(lay.getchannel("A").point(lambda v: int(v * 0.8)))
     x = int(merkez[0] - lay.width / 2); y = int(merkez[1] - lay.height / 2)
     gg = Image.new("RGBA", img.size, (0, 0, 0, 0)); gg.alpha_composite(sh, (x + 5, y + 9)); img.alpha_composite(gg.filter(ImageFilter.GaussianBlur(7)))
     img.alpha_composite(lay, (x, y)); return img.convert("RGB")
-if UST: out = beyaz_yazi(out, UST, 470, 112, (330, 112), 2.0)
+if UST: out = beyaz_yazi(out, UST, 520, 132, (340, 104), 2.0, SARI)
 # şerit (1672x941 ölçüsünde): eski "WEB SİTESİ" şeridini tamamen örter
-out = kirmizi_sekil(out, [(112, 176), (1084, 120), (1080, 304), (94, 344)], 3.4, SERIT, 900, 150, (588, 238))
+out = kirmizi_sekil(out, [(112, 176), (1084, 120), (1080, 304), (94, 344)], 3.4, SERIT, 930, 156, (588, 238))
 # etiket: eski "OYUN DEĞİL"
 out = kirmizi_sekil(out, [(50, 788), (482, 780), (478, 882), (46, 890)], 1.0, ETIKET, 370, 66, (264, 834))
 ad = os.environ.get("AD") or ("kapak_J_3d_stadyum" if LOGO else "kapak_J_3d_stadyum_logosuz")
