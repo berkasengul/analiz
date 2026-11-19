@@ -227,16 +227,25 @@ const pitchTex = (() => {
   }
 }
 // LED boards
-const ledTex = canvasTex(2048, 64, (g, w, h) => {
-  g.fillStyle = '#0b0610'; g.fillRect(0, 0, w, h);
-  const words = CFG.led;
-  g.font = '900 40px Inter, Arial'; g.textBaseline = 'middle';
-  let x = 10, i = 0;
-  while (x < w) { const t = words[i % words.length]; g.fillStyle = i % 2 ? CFG.colors.accent : (CFG.ledAlt || '#ff2a4f'); g.fillText(t, x, h / 2 + 2); x += g.measureText(t).width + 60; i++; }
+const ledTex = canvasTex(4096, 96, (g, w, h) => {
+  // European-night board style: deep navy, star field, white wordmarks (no official competition logos)
+  const words = CFG.ledWords || CFG.led, SEG = w / 8;
+  for (let k = 0; k < 8; k++) {
+    const x = k * SEG, gr = g.createLinearGradient(x, 0, x + SEG, h);
+    gr.addColorStop(0, k % 2 ? '#04103a' : '#0a1f6e'); gr.addColorStop(1, k % 2 ? '#0a1f6e' : '#04103a');
+    g.fillStyle = gr; g.fillRect(x, 0, SEG, h);
+    for (let i = 0; i < 40; i++) { const sx = x + Math.random() * SEG, sy = Math.random() * h, r = Math.random() * 1.6 + 0.4; g.fillStyle = `rgba(255,255,255,${0.25 + Math.random() * 0.6})`; g.beginPath(); g.arc(sx, sy, r, 0, Math.PI * 2); g.fill(); }
+    // star ring
+    const cx = x + 56, cy = h / 2; g.strokeStyle = 'rgba(255,255,255,0.9)'; g.fillStyle = '#ffffff';
+    for (let s2 = 0; s2 < 8; s2++) { const a2 = s2 / 8 * Math.PI * 2, px = cx + Math.cos(a2) * 26, py = cy + Math.sin(a2) * 26; star(g, px, py, 7, 3); }
+    g.font = `800 ${h * 0.42}px Inter, Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = '#ffffff';
+    { const t = words[k % words.length], tw = g.measureText(t).width, room = SEG - 124, sc = Math.min(1, room / tw); g.save(); g.translate(x + 104, h / 2 + 2); g.scale(sc, 1); g.fillText(t, 0, 0); g.restore(); }
+  }
+  function star(c, x, y, R, r) { c.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r : R; c.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } c.closePath(); c.fill(); }
 }, { repeat: [1, 1] });
 {
-  const mat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: ledTex, emissiveIntensity: 1.1, roughness: 0.6 });
-  const mk = (len, x, z, ry) => { const tex = ledTex; const g = new THREE.BoxGeometry(len, 0.9, 0.15); const m = new THREE.Mesh(g, mat); m.position.set(x, 0.45, z); m.rotation.y = ry; m.castShadow = true; scene.add(m); };
+  const mat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: ledTex, emissiveIntensity: 1.25, roughness: 0.5 });
+  const mk = (len, x, z, ry) => { const g = new THREE.BoxGeometry(len, 0.9, 0.15); { const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getX(i) * len / 60); } const m = new THREE.Mesh(g, mat); m.position.set(x, 0.45, z); m.rotation.y = ry; m.castShadow = true; scene.add(m); };
   mk(100, 0, -(PITCH_W / 2 + 3.6), 0); mk(100, 0, PITCH_W / 2 + 3.6, Math.PI);
   mk(26, -(PITCH_L / 2 + 4.5), -20, Math.PI / 2); mk(26, -(PITCH_L / 2 + 4.5), 20, Math.PI / 2);
   mk(26, PITCH_L / 2 + 4.5, -20, -Math.PI / 2); mk(26, PITCH_L / 2 + 4.5, 20, -Math.PI / 2);
@@ -881,7 +890,7 @@ const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.mo
   const M = CFG.model, root = new THREE.Group(); gs.forEach((g) => root.add(g.scene));
   root.traverse((o) => {
     if (!o.isMesh) return;
-    if (M.dropMaterials && [].concat(o.material).some((m) => M.dropMaterials.includes(m.name))) { o.visible = false; o.geometry.setIndex([]); return; }
+    if (M.dropMaterials && [].concat(o.material).some((m) => M.dropMaterials.some((pn) => (pn.endsWith('*') ? (m.name || '').startsWith(pn.slice(0, -1)) : m.name === pn)))) { o.visible = false; o.geometry.setIndex([]); return; }
     if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals();
     o.castShadow = true; o.receiveShadow = true;
     for (const m of [].concat(o.material)) { m.side = THREE.DoubleSide; if (m.map) { m.map.anisotropy = 8; m.map.colorSpace = THREE.SRGBColorSpace; } if (m.metalness > 0.5) m.metalness = 0.2; m.roughness = Math.max(m.roughness ?? 0.8, 0.45); }
@@ -895,6 +904,12 @@ const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.mo
     for (const t of TIERS) if (d >= t.d0 - 1.2 && d <= t.dEnd + 0.6) { const j = clamp(Math.floor((d - t.d0) / t.depth), 0, t.rows - 1); return t.rh[j]; }
     return null;
   };
+  // top of our seating envelope at distance d (gaps between tiers take the higher neighbour)
+  const envH = (d) => {
+    let h = 0;
+    for (const t of TIERS) { if (d >= t.d0 - 1.5) h = Math.max(h, d <= t.dEnd ? t.rh[clamp(Math.floor((d - t.d0) / t.depth), 0, t.rows - 1)] : t.hEnd); }
+    return h;
+  };
   if (M.cutInside) {
     group.updateMatrixWorld(true);
     const dOf = (x, z) => { const ph = Math.atan2(z, x), r = Math.hypot(x, z); let lo = -60, hi = 140; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (rAt(ph, m) < r) lo = m; else hi = m; } return lo; };
@@ -902,9 +917,13 @@ const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.mo
     root.traverse((o) => {
       if (!o.isMesh || !o.geometry.index) return;
       const P = o.geometry.attributes.position, I = o.geometry.index.array, keep = [];
+      const prot = (M.protect || []).some((pn) => [].concat(o.material).some((m) => (pn.endsWith('*') ? (m.name || '').startsWith(pn.slice(0, -1)) : m.name === pn)));
       for (let t = 0; t < I.length; t += 3) {
         c.set(0, 0, 0); for (let k = 0; k < 3; k++) c.add(v.fromBufferAttribute(P, I[t + k]).applyMatrix4(o.matrixWorld)); c.multiplyScalar(1 / 3);
         const d = dOf(c.x, c.z), hs = standH(d);
+        if (prot) { keep.push(I[t], I[t + 1], I[t + 2]); continue; }
+        if (M.cutInside.solid && d > 3.5 && d < M.cutInside.solid && c.y < envH(d) + 6) continue; // anything poking through our stands
+        if (M.cutInside.solid && d >= M.cutInside.solid && d < M.cutInside.solid + 8 && c.y > envH(d) - 2.5 && c.y < envH(d) + 6) continue; // corners: only what rises above the seats
         const up = d > T4.d0 - 1.5 && d < T4.dEnd - 1.2 ? 5.5 : 1.6;
         const onStands = d < M.cutInside.d && hs != null && c.y > hs - 2.2 && c.y < hs + up, onPitch = d < 3 && c.y < 0.6;
         if (!(onStands || onPitch)) keep.push(I[t], I[t + 1], I[t + 2]);
@@ -993,7 +1012,7 @@ const cityReady = !CFG.osm ? Promise.resolve() : (async () => {
   const W = (p) => { const [x, z] = toWorld(p); return [x + SH[0], z + SH[1]]; };
   const satUV = ([e, n]) => [(e - meta.tl[0]) / (meta.tr[0] - meta.tl[0]), (n - meta.bl[1]) / (meta.tl[1] - meta.bl[1])];
   const hash = (k) => { let h = 2166136261; for (let i = 0; i < k.length; i++) h = Math.imul(h ^ k.charCodeAt(i), 16777619); return (h >>> 0) / 4294967296; };
-  const keepOut = (x, z) => Math.hypot(x, z) < FACADE_D + 22; // stadium + plaza
+  const keepOut = (x, z) => Math.hypot(x, z) < rAt(Math.atan2(z, x), FACADE_D + 20); // stadium + plaza (follows the bowl shape)
   // ---------- buildings
   const wallTex = canvasTex(256, 256, (g, w, h) => {
     g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
@@ -1211,7 +1230,7 @@ function blockPose(b) {
   const c = b.center.clone();
   const n = b.inward.clone();
   const portrait = isPortrait();
-  const pos = c.clone().addScaledVector(n, portrait ? 26 : 21); pos.y = Math.min(c.y + (portrait ? 17 : 14), 40);
+  const pos = c.clone().addScaledVector(n, portrait ? 26 : 21); pos.y = Math.min(c.y + (portrait ? 17 : 14), CFG.model && CFG.model.combined ? ROOF_Y - 15 : 40);
   return { pos, target: c.clone().addScaledVector(n, -2).add(new THREE.Vector3(0, -2, 0)), fov: portrait ? 62 : 50 };
 }
 function seatPose(i) {
@@ -1233,6 +1252,10 @@ function updateCamera(dt) {
   view.insetB = lerp(view.insetB, view.tInsetB, 1 - Math.exp(-dt * 6));
   if (flight) {
     flight.t += dt; const k = clamp(flight.t / flight.dur), e = ease(k);
+    if (flight.path) {
+      const p = flight.path(k); cam.pos.copy(p.pos); cam.target.copy(p.target); cam.fov = p.fov;
+      if (k >= 1) { const done = flight.onDone; flight = null; done && done(); }
+    } else {
     const f = flight.from, t = typeof flight.to === 'function' ? flight.to() : flight.to;
     const mid = f.pos.clone().lerp(t.pos, 0.5); mid.y += flight.arc;
     const a = f.pos.clone().lerp(mid, e), b = mid.clone().lerp(t.pos, e);
@@ -1240,6 +1263,7 @@ function updateCamera(dt) {
     cam.target.copy(f.target).lerp(t.target, e);
     cam.fov = lerp(f.fov, t.fov, e);
     if (k >= 1) { const done = flight.onDone; flight = null; done && done(); }
+    }
   } else if (ui.state === 'landing') {
     orbitAz += dt * 0.045;
     const p = landingPose(); cam.pos.copy(p.pos); cam.target.copy(p.target); cam.fov = p.fov;
@@ -1493,14 +1517,18 @@ const ctaEl = $('#cta');
 function enterStadium() {
   if (ui.state !== 'landing') return;
   ui.state = 'enter'; setHint(); idleT = 0;
-  const above = { pos: new THREE.Vector3(0, 175, 2), target: new THREE.Vector3(0, 0, 0), fov: 48 };
-  flyTo(above, 2.0, 30);
-  flight.onDone = () => {
-    setModelMode(false);
-    lightsT0 = clock.t;
-    flyTo(() => interiorPose(), 3.0, 0);
-    flight.onDone = () => { ui.state = 'overview'; setHint(); standLabels.forEach((l, i) => { l.delay = clock.t + 0.2 + i * 0.15; }); };
+  setModelMode(false); lightsT0 = clock.t;
+  const P0 = cam.pos.clone(), T0 = cam.target.clone(), F0 = cam.fov, I = interiorPose();
+  const P1 = new THREE.Vector3(P0.x * 0.45, P0.y + 30, P0.z * 0.45);           // swing in, slightly rising
+  const P2 = new THREE.Vector3(I.pos.x * 0.7, ROOF_Y + 45, I.pos.z * 0.7);     // above the roof opening
+  const bez = (t) => { const u = 1 - t; return P0.clone().multiplyScalar(u * u * u).addScaledVector(P1, 3 * u * u * t).addScaledVector(P2, 3 * u * t * t).addScaledVector(I.pos, t * t * t); };
+  const smooth = (t) => t * t * t * (t * (t * 6 - 15) + 10);
+  flyTo(I, 4.2, 0);
+  flight.path = (k) => {
+    const e = smooth(k), te = smooth(Math.min(1, k * 1.25)); // look ahead a little sooner: never stares straight down
+    return { pos: bez(e), target: T0.clone().lerp(I.target, te), fov: lerp(F0, I.fov, e) };
   };
+  flight.onDone = () => { ui.state = 'overview'; setHint(); standLabels.forEach((l, i) => { l.delay = clock.t + 0.2 + i * 0.15; }); };
 }
 function goLanding() {
   lightsT0 = -1; ui.state = 'landing'; ui.focus = null; ui.selSeat = -1; ui.hover = null; ui.pickSeat = -1; ui.pickSet = []; focusFx.set(null);
@@ -1747,12 +1775,13 @@ paintSeats();
 Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady, fontsReady, modelReady, cityReady]).finally(() => {
   $('#loader').classList.add('done');
   startIntro();
+  { const vis = seatMeshes.map((m) => m.visible); seatMeshes.forEach((m) => (m.visible = true)); renderer.compile(scene, camera); seatMeshes.forEach((m, i) => (m.visible = vis[i])); }
   if (REC) window.__step = (dt) => step(dt);
   else requestAnimationFrame((t) => { last = t; requestAnimationFrame(loop); });
 });
 
 // public API (used by the demo recorder and for debugging)
-window.__dbg = { setAz: (a) => { orbitAz = a; }, renderer, scene, seatMeshes, camera, seat: { x: seatX, y: seatY, z: seatZ } };
+window.__dbg = { pickAt: (px, py) => { const rc = new THREE.Raycaster(); rc.setFromCamera(new THREE.Vector2(px / view.W * 2 - 1, -(py / view.H) * 2 + 1), camera); return rc.intersectObjects(scene.children, true).slice(0, 4).map((h) => ({ d: +h.distance.toFixed(1), name: h.object.name, mat: [].concat(h.object.material)[0].name, proc: h.object.userData.proc || (h.object.parent && h.object.parent.userData.proc) || '', type: h.object.type, p: h.point.toArray().map((v) => +v.toFixed(1)) })); }, setAz: (a) => { orbitAz = a; }, renderer, scene, seatMeshes, camera, seat: { x: seatX, y: seatY, z: seatZ } };
 window.app = {
   blocks, SEATS, standStats,
   get state() { return ui.state; },

@@ -71,6 +71,7 @@ const _S = {
     mosaic: { side: 3, tier: 1, text: 'GALATASARAY', color: '#f2a21c', crest: 'assets/gs-crest.png' },
     ribbon: { bg: '#b8102a', fg: '#ffffff', dot: '#fdb912', words: ['≡RAMS PARK', 'GALATASARAY', '≡RAMS PARK', 'CİMBOM'] },
     led: ['RAMS PARK', 'ASLAN BİLET', '3D KOLTUK SEÇİMİ', 'CİMBOM'],
+    ledWords: ['ŞAMPİYONLAR GECESİ', 'RAMS PARK', 'CHAMPIONS NIGHT', 'ASLAN BİLET', 'İSTANBUL', 'GALATASARAY', 'ŞAMPİYONLAR GECESİ', 'CİMBOM'],
     sat: { prefix: 'sat', centre: [-3.6, 0.6], axisDeg: 233 },
     roof: { style: 'solar' },
     facade: { style: 'rams', signs: [{ text: '≡RAMS PARK', color: '#ffffff', at: 'main' }, { text: 'GALATASARAY SPOR KULÜBÜ', color: '#f5b21c', glow: true, at: 'mainLeft' }, { text: '≡RAMS PARK', color: '#ffffff', at: 'back' }] },
@@ -130,8 +131,9 @@ const _S = {
 _S.rams.model = {
   url: 'assets/models/turktelekom.gltf.json', pitch: [22.7, 9.6, 0.15], rotY: 127, solarRoof: { minY: 35 },
   // our bowl lives inside the model: drop the model's own (flat, textured) stands and pitch, keep facade, roof and trusses
-  combined: true, cutInside: { d: 44, y: 31.5 },
-  dropMaterials: ['kirmizikoltuk', 'merdiven', 'loca', 'pankart', 'pankart2', 'pankart3', 'bilboard1', '*2', '*2_4', '*2_53', 'discepheustarka2'],
+  combined: true, cutInside: { d: 44, y: 31.5, solid: 37 },
+  protect: ['ttarenayazi', 'yantex*', 'ortacam*', 'discephe2', 'kapitel', 'giris*', 'skorboard1', '[Gray6]', 'pnd', '[Metal_Corrogated_Shiny]', '[Cladding_Stucco_White]1'],
+  dropMaterials: ['kirmizikoltuk', 'merdiven', 'loca', 'pankart', 'pankart2', 'pankart3', 'bilboard1', '*2', '*2_4', '*2_53', 'discepheustarka*'],
 };
 // stands fitted to the model (its seating runs 4–43 m from the pitch and up to 31 m high)
 _S.rams.tiers = [
