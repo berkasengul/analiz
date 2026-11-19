@@ -1,0 +1,26 @@
+BerkAİ — Stadyum Shorts · HeyGen metni (3 parça, her biri ~35–40 sn)
+══════════════════════════════════════════════════════════════════
+
+HEYGEN AYARLARI (kanalın mevcut düzeni)
+• Avatar: kendi Photo Avatar'ın (siyah polar + beyaz tişört). Ses: Berkay klonu.
+• Hız 1.05–1.1. "Expressive Motion" KAPALI (dakikada +40 kredi).
+• Format: dikey 9:16, 1080×1920, göğüsten/geniş kadraj, sade arka plan.
+• Her parçayı ayrı üret. Önce 1. parçayı test et, beğenirsen diğer ikisi.
+• Okunuş metne işlendi: "tri di" = 3D, "Klod" = Claude.
+• Toplam ~2 dk avatar ≈ 40–62 kredi (Avatar IV, 20–31 kredi/dk).
+• Virgül ve üç nokta nefes yeri, noktalama bilerek böyle.
+
+══════════════════════════════════════════════════════════════════
+PARÇA 1 — RAMS PARK (~38 sn)
+══════════════════════════════════════════════════════════════════
+Kanka bu bir oyun değil... bu bir web sitesi. Galatasaray'ın stadı RAMS Park'ı, çatısıyla, güneş panelleriyle, etrafındaki binalarla, yollarla tri di yaptım, ve tek satır kod yazmadım, hepsini yapay zekâ yazdı. Bak şimdi "Bilet Al"a basıyorum, kamera stadın içine süzülüyor. Tribünü seçiyorum, sonra koltuğu, ve o koltuktan sahanın nasıl göründüğünü bilet almadan önce görüyorum. Bu arada resmi bir site değil, benim yaptığım bir hayran projesi. Fenerbahçe'yi ve Beşiktaş'ı da yaptım, sence hangisi daha iyi oldu? Yoruma yaz.
+
+══════════════════════════════════════════════════════════════════
+PARÇA 2 — ŞÜKRÜ SARACOĞLU (~37 sn)
+══════════════════════════════════════════════════════════════════
+Bilet almadan önce koltuğundan sahayı görebilseydin, hangi tribünü seçerdin? Bak bu Şükrü Saracoğlu, Kadıköy'deki stat, gece ışıklarıyla, etrafındaki sokaklarla, arabalarla tri di bir site olarak yaptım. "Bilet Al" diyorum, kamera içeri giriyor, sarı lacivert tribünler, sahanın kenarında reklam panoları falan, hepsi burada. Bir bloğa tıklıyorum, koltuğu seçiyorum, ve işte o koltuğun manzarası bu. Bunu yapay zekâyla yaptım, kod bilmeden. Resmi değil tabii, hayran projesi. Beşiktaş'ınki de var, sıradaki videoda.
+
+══════════════════════════════════════════════════════════════════
+PARÇA 3 — TÜPRAŞ STADYUMU (~37 sn)
+══════════════════════════════════════════════════════════════════
+Kanka Dolmabahçe'deki statta bir koltuk seçsen, sahayı nereden görürsün? Bak bu Beşiktaş'ın stadı, Tüpraş Stadyumu, beyaz koltuklarıyla, tribündeki "Beşiktaş JK" yazısıyla, Boğaz tarafındaki binalarla tri di bir web sitesi. "Bilet Al"a basıyorum, kamera stadın içine iniyor, bloğu seçiyorum, koltuğu seçiyorum, ve o koltuktan maç nasıl görünüyor, direkt görüyorum. Hepsini yapay zekâ yazdı, ben sadece ne istediğimi anlattım. Resmi bir site değil, hayran projesi. Üç stadı da yaptım, sence en iyisi hangisi? Yoruma yaz.
