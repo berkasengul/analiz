@@ -343,3 +343,5 @@ button { font: inherit; color: inherit; }
   .slabel { padding: 6px 9px 7px; gap: 9px; }
   .slabel .n b, .slabel .p b { font-size: 12.5px; }
 }
+
+[hidden] { display: none !important; }

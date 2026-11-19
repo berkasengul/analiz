@@ -3,6 +3,7 @@
 import * as THREE from './vendor/three.module.min.js';
 import { RoomEnvironment } from './vendor/addons/environments/RoomEnvironment.js';
 import { STADIUMS } from './stadiums.js';
+import { GLTFLoader } from './vendor/addons/loaders/GLTFLoader.js';
 const SID = new URLSearchParams(location.search).get('s') || (location.hash || '').replace('#', '') || 'rams';
 window.addEventListener('hashchange', () => location.reload());
 const CFG = STADIUMS[SID] || STADIUMS.rams;
@@ -118,6 +119,10 @@ Object.assign(sun.shadow.camera, { left: -150, right: 150, top: 150, bottom: -15
 sun.shadow.bias = -0.0002; sun.shadow.normalBias = 0.25;
 scene.add(sun);
 
+/* ----- section tags: everything added to the scene is labelled, so an imported model can replace parts ----- */
+let PROC_TAG = null;
+{ const add0 = scene.add.bind(scene); scene.add = (...objs) => { if (PROC_TAG) objs.forEach((o) => { o.userData.proc = PROC_TAG; }); return add0(...objs); }; }
+
 /* ----- generic loft along the bowl ----- */
 function loft(profile, phi0, phi1, segs, opt = {}) {
   const pos = [], uv = [], idx = [], col = [];
@@ -230,6 +235,7 @@ const ledTex = canvasTex(2048, 64, (g, w, h) => {
   mk(26, PITCH_L / 2 + 4.5, -20, -Math.PI / 2); mk(26, PITCH_L / 2 + 4.5, 20, -Math.PI / 2);
 }
 
+PROC_TAG = 'treads';
 /* ======================================================================
    Stands: blocks, treads, seats
    ====================================================================== */
@@ -300,6 +306,7 @@ for (const t of TIERS) {
   }
 }
 
+PROC_TAG = 'stairs';
 // aisle stairs: a half-step in the back of every tread, at every block boundary, with a yellow nosing
 {
   const steps = [];
@@ -430,11 +437,12 @@ const seatMeshes = [];
     const im = new THREE.InstancedMesh(seatGeo, seatMat, b.seatCount);
     for (let k = 0; k < b.seatCount; k++) { const i = b.seatStart + k; e.set(0, seatYaw[i] + (rand() - 0.5) * 0.05, 0); q.setFromEuler(e); p.set(seatX[i], seatY[i], seatZ[i]); m.compose(p, q, s); im.setMatrixAt(k, m); }
     im.instanceColor = new THREE.InstancedBufferAttribute(seatCol.subarray(b.seatStart * 3, (b.seatStart + b.seatCount) * 3), 3);
-    im.computeBoundingSphere(); im.castShadow = true; im.receiveShadow = true;
+    im.computeBoundingSphere(); im.castShadow = true; im.receiveShadow = true; im.userData.procSeat = true;
     scene.add(im); seatMeshes.push(im); b.seats = im;
   }
 }
 // far LOD: one point per seat (overview), 3D chairs when the camera is close
+PROC_TAG = 'seats';
 const seatPoints = (() => {
   const pos = new Float32Array(SEATS * 3);
   for (let i = 0; i < SEATS; i++) { pos[i * 3] = seatX[i]; pos[i * 3 + 1] = seatY[i] + 0.55; pos[i * 3 + 2] = seatZ[i]; }
@@ -446,7 +454,8 @@ const seatPoints = (() => {
 })();
 function setSeatLod() {
   const far = camera.position.length() > 300;
-  seatPoints.visible = far; for (const im of seatMeshes) im.visible = !far;
+  const hid = seatMeshes[0] && seatMeshes[0].userData.hidden;
+  seatPoints.visible = far && !hid; for (const im of seatMeshes) im.visible = !far && !hid;
 }
 const standStats = {};
 for (const b of blocks) {
@@ -455,6 +464,7 @@ for (const b of blocks) {
   if (b.price > 0 && b.cat !== 'Misafir' && b.free > 0) s.min = Math.min(s.min, b.price);
 }
 
+PROC_TAG = 'loca';
 /* ----- loca glass band, back wall, ceiling ----- */
 const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x9cc3d6, metalness: 0.1, roughness: 0.05, transparent: true, opacity: 0.22, side: THREE.DoubleSide, depthWrite: false });
 scene.add(new THREE.Mesh(loft([[GLASS_D, T2.hEnd], [GLASS_D, LOCA_CEIL]], ...FULL, 720), glassMat));
@@ -475,6 +485,7 @@ locaTex.wrapS = THREE.RepeatWrapping;
   scene.add(ml);
 }
 
+PROC_TAG = 'ribbons';
 /* ----- LED ribbon boards between the tiers ----- */
 const ribbonTex = canvasTex(2048, 48, (g, w, h) => {
   g.fillStyle = '#05060c'; g.fillRect(0, 0, w, h);
@@ -490,6 +501,7 @@ ribbonTex.wrapS = THREE.RepeatWrapping;
   scene.add(new THREE.Mesh(loft([[T4.d0 - 1.06, T4.h0 - 1.5], [T4.d0 - 1.06, T4.h0 + 0.85]], ...FULL, 720, { uScale: 40, vAcross: true }), mat));
 }
 
+PROC_TAG = 'facade';
 /* ----- facade signage helper ----- */
 const sign = (text, color, glow, phi, y, w, h) => {
     const t = canvasTex(2048, 256, (g, cw, ch) => {
@@ -507,6 +519,7 @@ const sign = (text, color, glow, phi, y, w, h) => {
     const panel = new THREE.Mesh(new THREE.BoxGeometry(w * 1.04, h * 1.5, 0.4), new THREE.MeshStandardMaterial({ color: 0x1d2026, roughness: 0.4, metalness: 0.5 }));
     const [px, pz] = pAt(phi, FACADE_D + 1.35); panel.position.set(px, y, pz); panel.rotation.y = ry; panel.castShadow = true; scene.add(panel);
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, transparent: true, emissive: new THREE.Color(glow ? color : 0x555555), emissiveMap: t, emissiveIntensity: glow ? 1.5 : 0.35, roughness: 0.35, metalness: 0.2, depthWrite: false }));
+    panel.userData.proc = 'facade'; m.userData.proc = 'facade';
     m.position.set(x, y, z); m.rotation.y = ry; scene.add(m);
   };
 
@@ -621,6 +634,7 @@ if (CFG.facade.style === 'rams') {
   });
 }
 
+PROC_TAG = 'roof';
 /* ----- roof: white rim, solar panels split by a "#" of white trusses, rectangular opening ----- */
 // white membrane roof: radial seams, a grey truss band, painted lettering (and an eagle on the Tüpraş roof)
 function drawMembrane(g, w, h, X, Z) {
@@ -787,6 +801,7 @@ const ROOF = (() => {
   };
 })();
 
+PROC_TAG = 'vip';
 /* ======================================================================
    VIP loca interior (Batı, 200 seviyesi, merkez)
    ====================================================================== */
@@ -850,6 +865,28 @@ const VIP = (() => {
   return { group: g, light, light2, zG, zB, y0, y1 };
 })();
 
+PROC_TAG = null;
+/* ----- imported stadium model (converted from SketchUp) ----- */
+let MODEL = null;
+const modelReady = !CFG.model ? Promise.resolve() : new GLTFLoader().loadAsync(CFG.model.url).then((g) => {
+  const M = CFG.model, root = g.scene;
+  root.traverse((o) => {
+    if (!o.isMesh) return;
+    o.castShadow = true; o.receiveShadow = true;
+    for (const m of [].concat(o.material)) { m.side = THREE.DoubleSide; if (m.map) { m.map.anisotropy = 8; m.map.colorSpace = THREE.SRGBColorSpace; } if (m.metalness > 0.5) m.metalness = 0.2; m.roughness = Math.max(m.roughness ?? 0.8, 0.45); }
+  });
+  root.position.set(-M.pitch[0], -M.pitch[1] - 0.06, -M.pitch[2]);
+  const pivot = new THREE.Group(); pivot.add(root); pivot.rotation.y = M.rotY * Math.PI / 180; scene.add(pivot);
+  MODEL = pivot;
+  setModelMode(true);
+}).catch((e) => console.warn('model', e));
+// outside: the imported model; inside (after "Bilet Al"): our bowl with individual, clickable seats
+function setModelMode(on) {
+  if (!MODEL) return;
+  MODEL.visible = on;
+  scene.traverse((o) => { if (o.userData.proc && o !== MODEL) o.visible = !on; });
+  for (const im of seatMeshes) im.userData.hidden = on;
+}
 /* ======================================================================
    Surroundings: real satellite imagery of Seyrantepe (Esri World Imagery)
    The stadium long axis points 53° east of north-east; +x = Güney (SW), +z = Batı (NW).
@@ -868,7 +905,7 @@ const satReady = (async () => {
   g.setIndex([0, 2, 1, 1, 2, 3]); g.computeVertexNormals();
   if (g.attributes.normal.getY(0) < 0) g.setIndex([0, 1, 2, 1, 3, 2]), g.computeVertexNormals();
   const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: tex, roughness: 1, metalness: 0 }));
-  m.position.y = -0.6; m.receiveShadow = true; scene.add(m);
+  m.position.set((CFG.sat.shift || [0, 0])[0], -0.6, (CFG.sat.shift || [0, 0])[1]); m.receiveShadow = true; scene.add(m);
   outer.material.color.set(meta.mean);
 })();
 const outer = new THREE.Mesh(new THREE.PlaneGeometry(9000, 9000), new THREE.MeshStandardMaterial({ color: 0x656c5b, roughness: 1 }));
@@ -1263,6 +1300,7 @@ function enterStadium() {
   const above = { pos: new THREE.Vector3(0, 175, 2), target: new THREE.Vector3(0, 0, 0), fov: 48 };
   flyTo(above, 2.0, 30);
   flight.onDone = () => {
+    setModelMode(false);
     lightsT0 = clock.t;
     flyTo(() => interiorPose(), 3.0, 0);
     flight.onDone = () => { ui.state = 'overview'; setHint(); standLabels.forEach((l, i) => { l.delay = clock.t + 0.2 + i * 0.15; }); };
@@ -1272,7 +1310,7 @@ function goLanding() {
   lightsT0 = -1; ui.state = 'landing'; ui.focus = null; ui.selSeat = -1; ui.hover = null; ui.pickSeat = -1; ui.pickSet = []; focusFx.set(null);
   panel.classList.remove('open'); ticketWrap.classList.remove('on'); ticketEl.classList.remove('flip');
   showTooltip(null); setInsets(); paintDirty = true; paintTreads();
-  const p = landingPose(); flyTo(p, 2.6, 40); flight.onDone = () => setHint();
+  const p = landingPose(); flyTo(p, 2.6, 40); flight.onDone = () => { setHint(); }; setTimeout(() => setModelMode(true), REC ? 0 : 900);
   setHint(); ctaEl.classList.remove('on');
 }
 $('#ctaBtn').addEventListener('click', enterStadium);
@@ -1499,7 +1537,7 @@ function loop(now) { step((now - last) / 1000); last = now; requestAnimationFram
 
 // boot
 paintSeats();
-Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady, fontsReady]).finally(() => {
+Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady, fontsReady, modelReady]).finally(() => {
   $('#loader').classList.add('done');
   startIntro();
   if (REC) window.__step = (dt) => step(dt);

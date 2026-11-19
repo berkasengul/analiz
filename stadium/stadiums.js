@@ -54,7 +54,7 @@ setCat([...range(404, 411), ...range(422, 426)], '8. Kategori'); setCat(range(41
 const fbLayout = genLayout({ 1: [6, 9, 6, 9], 2: [5, 7, 5, 7], 4: [6, 8, 6, 8] });
 const bjkLayout = genLayout({ 1: [6, 9, 6, 9], 2: [5, 7, 5, 7], 4: [6, 8, 6, 8] });
 
-export const STADIUMS = {
+const _S = {
   rams: {
     id: 'rams', stadium: 'RAMS Park', place: 'Seyrantepe', brand: 'ASLAN BİLET',
     colors: { primary: '#a90432', primary2: '#d0103a', accent: '#fdb912' },
@@ -125,3 +125,11 @@ export const STADIUMS = {
     facade: { style: 'modern', base: '#d9d4c7', band: '#141418', accent: '#ffffff', arches: true, signs: [{ text: 'TÜPRAŞ STADYUMU', color: '#ffffff', at: 'main' }, { text: 'BEŞİKTAŞ', color: '#ffffff', glow: true, at: 'mainLeft' }, { text: 'BEŞİKTAŞ', color: '#ffffff', at: 'back' }] },
   },
 };
+
+// Türk Telekom Arena = RAMS Park's former name: same seating data, geometry from the user's SketchUp model
+_S.tta = {
+  ..._S.rams, id: 'tta',
+  model: { url: 'assets/models/turktelekom.glb', pitch: [22.7, 9.6, 0.15], rotY: 127 },
+  sat: { ..._S.rams.sat, shift: [0, 14] },
+};
+export const STADIUMS = _S;
