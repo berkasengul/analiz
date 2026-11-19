@@ -146,6 +146,27 @@ _S.rams.osm = 'assets/osm-rams.json';
 _S.rams.mood = 'evening';
 _S.tta = _S.rams; // old link name
 // user-supplied SketchUp models for the other two grounds (exterior; our bowl is used inside for ticketing)
-_S.fb.model = { url: 'assets/models/sukrusaracoglu.gltf.json', pitch: [158.5, 0, -110.5], rotY: 0, scale: 0.94, solarRoof: { minY: 32.5 } };
-_S.bjk.model = { url: ['assets/models/vodafonepark-a.gltf.json', 'assets/models/vodafonepark-b.gltf.json'], pitch: [0, 0, 0], rotY: 90, scale: 1, solarRoof: { minY: 24.5 } };
+// Şükrü Saracoğlu: model stands run 0–36 m from the pitch, roof underside ~33 m
+_S.fb.model = {
+  url: 'assets/models/sukrusaracoglu.gltf.json', pitch: [158.5, 0, -110.5], rotY: 0, scale: 0.94, solarRoof: { minY: 32.5 },
+  combined: true, lamps: false, cutInside: { d: 40, y: 32.5, solid: 35.5, ceil: 32.8 }, pitchCut: { d: 0.3, y: 3.2 },
+  protect: ['*19'],
+};
+_S.fb.tiers = [
+  { lvl: 1, name: 'Alt Kat', rows: 24, d0: 0.6, depth: 0.8, h0: 0.6, riseA: 0.32, riseB: 0.52 },
+  { lvl: 2, name: 'Loca Katı', rows: 2, d0: 20.2, depth: 0.95, h0: 11.6, riseA: 0.42, riseB: 0.42 },
+  { lvl: 4, name: 'Üst Kat', rows: 17, d0: 22.6, depth: 0.78, h0: 15.6, riseA: 0.75, riseB: 1.0 },
+];
+_S.fb.osm = 'assets/osm-fb.json'; _S.fb.mood = 'evening';
+// Tüpraş (Vodafone Park model): stands start close to the pitch, roof underside ~28.5 m
+_S.bjk.model = {
+  url: ['assets/models/vodafonepark-a.gltf.json', 'assets/models/vodafonepark-b.gltf.json'], pitch: [0, 0, 0], rotY: 90, scale: 1, solarRoof: { minY: 27.6 },
+  combined: true, lamps: false, cutInside: { d: 38, y: 27.6, solid: 35.5, ceil: 27.6 }, pitchCut: { d: -6, y: 3.6 },
+};
+_S.bjk.tiers = [
+  { lvl: 1, name: 'Alt Kat', rows: 31, d0: -5.5, depth: 0.8, h0: 1.8, riseA: 0.4, riseB: 0.65 },
+  { lvl: 2, name: 'Loca Katı', rows: 2, d0: 19.8, depth: 0.95, h0: 18.6, riseA: 0.3, riseB: 0.3 },
+  { lvl: 4, name: 'Üst Kat', rows: 16, d0: 23.0, depth: 0.85, h0: 20.4, riseA: 0.34, riseB: 0.42 },
+];
+_S.bjk.osm = 'assets/osm-bjk.json'; _S.bjk.mood = 'evening';
 export const STADIUMS = _S;

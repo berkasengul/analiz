@@ -922,8 +922,10 @@ const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.mo
         c.set(0, 0, 0); for (let k = 0; k < 3; k++) c.add(v.fromBufferAttribute(P, I[t + k]).applyMatrix4(o.matrixWorld)); c.multiplyScalar(1 / 3);
         const d = dOf(c.x, c.z), hs = standH(d);
         if (prot) { keep.push(I[t], I[t + 1], I[t + 2]); continue; }
-        if (M.cutInside.solid && d > 3.5 && d < M.cutInside.solid && c.y < envH(d) + 6) continue; // anything poking through our stands
-        if (M.cutInside.solid && d >= M.cutInside.solid && d < M.cutInside.solid + 8 && c.y > envH(d) - 2.5 && c.y < envH(d) + 6) continue; // corners: only what rises above the seats
+        const top = Math.min(envH(d) + 6, M.cutInside.ceil ?? 1e9);
+        if (M.pitchCut && d < M.pitchCut.d && c.y < M.pitchCut.y) continue; // stage, benches, tunnel on the pitch
+        if (M.cutInside.solid && d > Math.min(3.5, TIERS[0].d0 - 0.5) && d < M.cutInside.solid && c.y < top) continue; // anything poking through our stands
+        if (M.cutInside.solid && d >= M.cutInside.solid && d < M.cutInside.solid + 8 && c.y > envH(d) - 2.5 && c.y < top) continue; // corners: only what rises above the seats
         const up = d > T4.d0 - 1.5 && d < T4.dEnd - 1.2 ? 5.5 : 1.6;
         const onStands = d < M.cutInside.d && hs != null && c.y > hs - 2.2 && c.y < hs + up, onPitch = d < 3 && c.y < 0.6;
         if (!(onStands || onPitch)) keep.push(I[t], I[t + 1], I[t + 2]);
@@ -959,7 +961,7 @@ function setModelMode(on) {
   if (CFG.model.combined) { // model + our bowl together, always: only our own facade and roof are replaced
     MODEL.visible = true;
     scene.traverse((o) => { if (o.userData.proc === 'facade' || o.userData.proc === 'roof') o.visible = false; });
-    if (EVENING) ROOF.lamps.forEach((o) => (o.visible = true)); // floodlights hang under the model's roof
+    if (EVENING && CFG.model.lamps !== false) ROOF.lamps.forEach((o) => (o.visible = true)); // floodlights hang under the model's roof
     return;
   }
   MODEL.visible = on;
