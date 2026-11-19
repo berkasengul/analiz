@@ -59,8 +59,24 @@ out = Image.fromarray(np.clip(np.asarray(canli).astype(float) * (1 - km_kisi) + 
 # ---- yazılar: kırmızı şerit ve alttaki etiket yeniden çizilir (orijinal tasarımın stili: kırmızı zemin, beyaz kalın eğik yazı)
 SERIT = os.environ.get("SERIT", "3D STADYUM"); ETIKET = os.environ.get("ETIKET", "SEN DE YAP")
 from PIL import ImageFont
-def FI(sz):  # Montserrat Black Italic (değişken yazı tipi, ağırlık 900)
+STIL = os.environ.get("STIL", "premium")  # premium: Poppins Black düz, geçişli dolgu · italik: Montserrat Black Italic, kalın kontur
+def FI(sz):
+    if STIL == "premium": return ImageFont.truetype(f"{D}/fonts/Poppins-Black.ttf", sz)
     f = ImageFont.truetype(f"{D}/fonts/Montserrat-Italic-VF.ttf", sz); f.set_variation_by_axes([900]); return f
+ALTIN = ((255, 236, 150), (242, 178, 0)); BEYAZ = ((255, 255, 255), (226, 228, 234))
+def metin_katmani(metin, f, renk, kt, kontur):
+    """Yazıyı RGBA katman olarak çizer; renk tek renk ya da (üst, alt) geçiş çifti olabilir."""
+    bb = ImageDraw.Draw(Image.new("L", (1, 1))).textbbox((0, 0), metin, font=f, stroke_width=kt)
+    w, h = bb[2] - bb[0] + 80, bb[3] - bb[1] + 80; o = (40 - bb[0], 40 - bb[1])
+    lay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    if kt: ImageDraw.Draw(lay).text(o, metin, font=f, fill=kontur, stroke_width=kt, stroke_fill=kontur)
+    m = Image.new("L", (w, h), 0); ImageDraw.Draw(m).text(o, metin, font=f, fill=255)
+    if isinstance(renk[0], tuple):
+        y0, y1 = 40, h - 40; dol = Image.new("RGBA", (w, h)); dd_ = ImageDraw.Draw(dol)
+        for y in range(h):
+            t = min(1, max(0, (y - y0) / max(1, y1 - y0))); dd_.line([(0, y), (w, y)], fill=tuple(int(renk[0][c] + (renk[1][c] - renk[0][c]) * t) for c in range(3)) + (255,))
+    else: dol = Image.new("RGBA", (w, h), renk)
+    lay.paste(dol, (0, 0), m); return lay
 SARI = (255, 212, 0, 255)
 def kirmizi_sekil(img, poly, aci_metin, metin, hedef_w, hedef_h, merkez, renk=(255, 255, 255, 255)):
     W_, H_ = img.size; img = img.convert("RGBA")
@@ -82,9 +98,9 @@ def kirmizi_sekil(img, poly, aci_metin, metin, hedef_w, hedef_h, merkez, renk=(2
         if (bb[2] - bb[0]) <= hedef_w and (bb[3] - bb[1]) <= hedef_h: break
         sz -= 4
     tw, th = bb[2] - bb[0], bb[3] - bb[1]
-    kt = max(3, round(sz * 0.045))
-    lay = Image.new("RGBA", (tw + 80, th + 80), (0, 0, 0, 0)); ImageDraw.Draw(lay).text((40 - bb[0], 40 - bb[1]), metin, font=f, fill=renk, stroke_width=kt, stroke_fill=(25, 6, 8, 255))
-    k = 0.10  # ek eğiklik: orijinal "BU BİR" yazısının italiğine yaklaştırır
+    kt = max(2, round(sz * (0.02 if STIL == "premium" else 0.045)))
+    lay = metin_katmani(metin, f, BEYAZ if (STIL == "premium" and renk == (255, 255, 255, 255)) else renk, kt, (60, 6, 12, 255))
+    k = 0.0 if STIL == "premium" else 0.10  # italik stilde orijinal "BU BİR" yazısına yaklaştırmak için ek eğiklik
     lay = lay.transform((lay.width + int(lay.height * k), lay.height), Image.AFFINE, (1, k, -lay.height * k, 0, 1, 0), resample=Image.BICUBIC)
     lay = lay.rotate(aci_metin, resample=Image.BICUBIC, expand=True)
     sh = Image.new("RGBA", lay.size, (0, 0, 0, 0)); sh.putalpha(lay.getchannel("A").point(lambda v: int(v * 0.6)))
@@ -99,15 +115,16 @@ def beyaz_yazi(img, metin, hedef_w, hedef_h, merkez, aci, renk=(255, 255, 255, 2
         if (bb[2] - bb[0]) <= hedef_w and (bb[3] - bb[1]) <= hedef_h: break
         sz -= 4
     tw, th = bb[2] - bb[0], bb[3] - bb[1]
-    kt = max(4, round(sz * 0.06))
-    lay = Image.new("RGBA", (tw + 80, th + 80), (0, 0, 0, 0)); ImageDraw.Draw(lay).text((40 - bb[0], 40 - bb[1]), metin, font=f, fill=renk, stroke_width=kt, stroke_fill=(15, 10, 12, 255))
-    k = 0.10; lay = lay.transform((lay.width + int(lay.height * k), lay.height), Image.AFFINE, (1, k, -lay.height * k, 0, 1, 0), resample=Image.BICUBIC)
+    kt = max(3, round(sz * (0.035 if STIL == "premium" else 0.06)))
+    lay = metin_katmani(metin, f, renk, kt, (15, 10, 12, 255))
+    k = 0.0 if STIL == "premium" else 0.10
+    if k: lay = lay.transform((lay.width + int(lay.height * k), lay.height), Image.AFFINE, (1, k, -lay.height * k, 0, 1, 0), resample=Image.BICUBIC)
     lay = lay.rotate(aci, resample=Image.BICUBIC, expand=True)
     sh = Image.new("RGBA", lay.size, (0, 0, 0, 0)); sh.putalpha(lay.getchannel("A").point(lambda v: int(v * 0.8)))
     x = int(merkez[0] - lay.width / 2); y = int(merkez[1] - lay.height / 2)
     gg = Image.new("RGBA", img.size, (0, 0, 0, 0)); gg.alpha_composite(sh, (x + 5, y + 9)); img.alpha_composite(gg.filter(ImageFilter.GaussianBlur(7)))
     img.alpha_composite(lay, (x, y)); return img.convert("RGB")
-if UST: out = beyaz_yazi(out, UST, 520, 132, (340, 104), 2.0, SARI)
+if UST: out = beyaz_yazi(out, UST, 520, 132, (340, 104), 2.0, ALTIN if STIL == "premium" else SARI)
 # şerit (1672x941 ölçüsünde): eski "WEB SİTESİ" şeridini tamamen örter
 out = kirmizi_sekil(out, [(112, 176), (1084, 120), (1080, 304), (94, 344)], 3.4, SERIT, 930, 156, (588, 238))
 # etiket: eski "OYUN DEĞİL"
