@@ -339,9 +339,9 @@ PROC_TAG = 'stairs';
     }
   }
   const box = new THREE.BoxGeometry(1, 1, 1); box.translate(0, 0.5, 0);
-  const stepMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: 0xe0961a, roughness: 0.75 }), steps.length);
-  const noseMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: 0xffc83a, roughness: 0.6 }), steps.length);
-  const plateMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: 0xd88c16, roughness: 0.8 }), steps.length);
+  const stepMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: (CFG.stairs || {}).step ?? 0xe0961a, roughness: 0.75 }), steps.length);
+  const noseMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: (CFG.stairs || {}).nose ?? 0xffc83a, roughness: 0.6 }), steps.length);
+  const plateMesh = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ color: (CFG.stairs || {}).plate ?? 0xd88c16, roughness: 0.8 }), steps.length);
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), p = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), off = new THREE.Vector3();
   steps.forEach(([x, y, z, yaw, dep, h, xf, zf], i) => {
     q.setFromAxisAngle(up, yaw);
@@ -400,9 +400,31 @@ const MOSAIC = (() => {
   sample.range = [b0.seatStart, b1.seatStart + b1.seatCount];
   return sample;
 })();
+// extra text mosaics (e.g. a sponsor name on the upper tier) and scattered dark seats
+const EXTRA = (CFG.mosaics || []).map((m) => {
+  const ids = LAYOUT[m.tier][SIDE_NAMES[m.side]], b0 = blockById[ids[0]], b1 = blockById[ids[ids.length - 1]];
+  const p0 = b0.phi0, p1 = b1.phi1, rows = b0.tier.rows, W = 1400, RH = 6, H = rows * RH;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+  g.fillStyle = m.color; g.font = `${m.weight || 900} ${rows * (m.size || 0.62) * RH * 1.18}px "Arial Black", "DejaVu Sans", Arial, sans-serif`; g.textBaseline = 'alphabetic';
+  const tw = g.measureText(m.text).width, x0 = W * (m.x0 ?? 0.08), x1 = W * (m.x1 ?? 0.92);
+  g.save(); g.translate(x0, rows * (m.base || 0.8) * RH); g.scale((x1 - x0) / tw, 1); g.fillText(m.text, 0, 0); g.restore();
+  const img = g.getImageData(0, 0, W, H).data;
+  return (i) => {
+    if (seatBlk[i] < b0.index || seatBlk[i] > b1.index) return null;
+    let ph = Math.atan2(seatZ[i], seatX[i]); if (ph < 0) ph += Math.PI * 2;
+    const qx = Math.floor(((ph - p0) / (p1 - p0)) * W), qy = Math.floor((rows - seatRow[i] + 0.5) * RH);
+    if (qx < 0 || qx >= W || qy < 0 || qy >= H) return null;
+    const o = (qy * W + qx) * 4; return img[o + 3] > 110 ? [img[o] / 255, img[o + 1] / 255, img[o + 2] / 255] : null;
+  };
+});
 const seatVar = new Float32Array(SEATS);
 function seatColour(i, c) {
-  const b = blocks[seatBlk[i]], mos = MOSAIC(i);
+  const b = blocks[seatBlk[i]]; let mos = MOSAIC(i);
+  for (const ex of EXTRA) { if (mos) break; mos = ex(i); }
+  if (!mos && CFG.speckle && b.tier.lvl !== 2 && !(b.tier.lvl === CFG.mosaic.tier && b.stand === SIDE_NAMES[CFG.mosaic.side])) { // scattered dark seats, denser towards the back rows
+    const k = seatRow[i] / b.tier.rows, h = Math.sin(i * 12.9898 + seatRow[i] * 78.233) * 43758.5453, r = h - Math.floor(h);
+    if (r < lerp(CFG.speckle.p0, CFG.speckle.p1, k)) { c.set(CFG.speckle.color); c.multiplyScalar(seatVar[i]); seatBase[i * 3] = c.r; seatBase[i * 3 + 1] = c.g; seatBase[i * 3 + 2] = c.b; return; }
+  }
   if (mos) c.setRGB(mos[0], mos[1], mos[2], THREE.SRGBColorSpace); else c.setHex(CFG.seatColor[b.tier.lvl]);
   c.multiplyScalar(seatVar[i]);
   seatBase[i * 3] = c.r; seatBase[i * 3 + 1] = c.g; seatBase[i * 3 + 2] = c.b;
@@ -613,7 +635,47 @@ if (CFG.facade.style === 'rams') {
   });
 } else {
   // modern facade: clad base (optionally stone arches), glazed band with vertical fins, accent stripe, signage
-  const F = CFG.facade, topY = T4.hEnd + 1.6;
+  const F = CFG.facade, topY = F.top || T4.hEnd + 1.6;
+  if (F.theme === 'fb') { // night shot of Kadıköy: lit Fenerium storefronts, light cladding with navy/yellow fins, navy crown with lettering
+    const shop = canvasTex(1024, 256, (g, w, h) => {
+      g.fillStyle = '#10182c'; g.fillRect(0, 0, w, h);
+      for (let x = 0; x < w; x += 128) {
+        const gr = g.createLinearGradient(0, h * 0.2, 0, h); gr.addColorStop(0, '#ffd98a'); gr.addColorStop(1, '#c98a3a');
+        g.fillStyle = gr; g.fillRect(x + 8, h * 0.28, 112, h * 0.66);
+        g.fillStyle = 'rgba(16,24,44,0.85)'; for (let k = 1; k < 4; k++) g.fillRect(x + 8 + k * 28, h * 0.28, 3, h * 0.66);
+        g.fillStyle = '#ffd200'; g.fillRect(x + 8, h * 0.18, 112, 10);
+      }
+      g.fillStyle = '#0b1f5c'; g.fillRect(0, 0, w, h * 0.16);
+    }, { repeat: [1, 1] }); shop.wrapS = THREE.RepeatWrapping;
+    const clad = canvasTex(1024, 512, (g, w, h) => {
+      g.fillStyle = '#d6d9de'; g.fillRect(0, 0, w, h);
+      for (let y = 0; y < h; y += 16) { g.fillStyle = y % 32 ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.25)'; g.fillRect(0, y, w, 2); }
+      for (let x = 0; x < w; x += 128) { g.fillStyle = '#0b1f5c'; g.fillRect(x, 0, 18, h); g.fillStyle = '#ffd200'; g.fillRect(x + 18, 0, 6, h); }
+      for (let y = 40; y < h - 60; y += 86) for (let x = 36; x < w; x += 128) { g.fillStyle = Math.random() < 0.6 ? '#ffe1a6' : '#2a3a5a'; g.fillRect(x, y, 76, 26); }
+      g.fillStyle = '#0b1f5c'; g.fillRect(0, h - 70, w, 70); g.fillStyle = '#ffd200'; g.fillRect(0, h - 78, w, 8);
+    }, { repeat: [1, 1] }); clad.wrapS = THREE.RepeatWrapping;
+    const lit = (map, k) => new THREE.MeshStandardMaterial({ map, emissive: 0xffffff, emissiveMap: map, emissiveIntensity: k, roughness: 0.6, side: THREE.DoubleSide });
+    const lo = new THREE.Mesh(loft([[FACADE_D, -0.1], [FACADE_D, 7]], ...FULL, 720, { uScale: 22, vAcross: true }), lit(shop, 0.55)); lo.receiveShadow = true; scene.add(lo);
+    const hi = new THREE.Mesh(loft([[FACADE_D - 0.3, 7], [FACADE_D - 0.3, topY]], ...FULL, 720, { uScale: 30, vAcross: true }), lit(clad, 0.12)); hi.castShadow = true; scene.add(hi);
+    // crown: navy band carrying the stadium name, warm-white uplight
+    const crown = canvasTex(4096, 128, (g, w, h) => {
+      g.fillStyle = '#0b1f5c'; g.fillRect(0, 0, w, h); g.fillStyle = '#ffd200'; g.fillRect(0, h - 10, w, 10); g.fillRect(0, 0, w, 6);
+      g.font = `900 ${h * 0.56}px Inter, "Arial Black", Arial, sans-serif`; g.textBaseline = 'middle'; g.fillStyle = '#ffd200';
+      const t = 'FENERBAHÇE · ŞÜKRÜ SARACOĞLU STADYUMU · '; let x = 20; while (x < w) { g.fillText(t, x, h / 2 + 2); x += g.measureText(t).width; }
+    }, { repeat: [1, 1] }); crown.wrapS = THREE.RepeatWrapping; crown.repeat.x = -1; // loft runs counter-clockwise: mirror so it reads from outside
+    scene.add(new THREE.Mesh(loft([[FACADE_D + 0.2, topY - 3.2], [FACADE_D + 0.2, topY + 0.6]], ...FULL, 720, { uScale: 120, vAcross: true }), lit(crown, 0.8)));
+    // corner stair towers (glass cylinders)
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+      const [x, z] = pAt(Math.atan2(sz * B0, sx * A0), FACADE_D + 4);
+      const tw = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 4.2, topY - 2, 24, 1, true), new THREE.MeshStandardMaterial({ color: 0x1b2b48, emissive: 0x3a5aa8, emissiveIntensity: 0.35, roughness: 0.15, metalness: 0.6, side: THREE.DoubleSide }));
+      tw.position.set(x, (topY - 2) / 2, z); scene.add(tw);
+    }
+    scene.add(new THREE.Mesh(loft([[FACADE_D - 1, 0.8], [FACADE_D + 10, 0.8], [FACADE_D + 10, -0.4]], ...FULL, 720), new THREE.MeshStandardMaterial({ color: 0x9a9890, roughness: 0.9, side: THREE.DoubleSide })));
+    fontsReady.then(() => {
+      const at = { main: Math.PI / 2, mainLeft: Math.PI / 2 + 0.55, back: -Math.PI / 2 };
+      for (const sg of F.signs) sign(sg.text, sg.color, !!sg.glow, at[sg.at], (7 + topY - 3.2) / 2, sg.glow ? 44 : 56, sg.glow ? 6 : 7);
+    });
+  } else {
   const baseTex = canvasTex(512, 256, (g, w, h) => {
     g.fillStyle = F.base; g.fillRect(0, 0, w, h);
     for (let i = 0; i < 3000; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * 0.05})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
@@ -650,12 +712,13 @@ if (CFG.facade.style === 'rams') {
     const at = { main: Math.PI / 2, mainLeft: Math.PI / 2 + 0.5, back: -Math.PI / 2 };
     for (const sg of F.signs) sign(sg.text, sg.color, !!sg.glow, at[sg.at], (11 + topY) / 2, sg.glow ? 40 : 52, sg.glow ? 5 : 6);
   });
+  }
 }
 
 PROC_TAG = 'roof';
 /* ----- roof: white rim, solar panels split by a "#" of white trusses, rectangular opening ----- */
 // white membrane roof: radial seams, a grey truss band, painted lettering (and an eagle on the Tüpraş roof)
-function drawMembrane(g, w, h, X, Z) {
+function drawMembrane(g, w, h, X, Z, S8) {
   g.fillStyle = '#f2f3f4'; g.fillRect(0, 0, w, h);
   g.strokeStyle = 'rgba(120,128,140,0.28)'; g.lineWidth = 2;
   for (let i = 0; i < 160; i++) { const ph = -Math.PI + i / 80 * Math.PI, [ax, az] = pAt(ph, -4), [bx, bz] = pAt(ph, FACADE_D + 7); g.beginPath(); g.moveTo(X(ax), Z(az)); g.lineTo(X(bx), Z(bz)); g.stroke(); }
@@ -664,9 +727,8 @@ function drawMembrane(g, w, h, X, Z) {
     g.beginPath(); for (let i = 0; i <= 256; i++) { const [x, z] = pAt(-Math.PI + i / 128 * Math.PI, d); i ? g.lineTo(X(x), Z(z)) : g.moveTo(X(x), Z(z)); } g.closePath(); g.stroke();
   }
   for (const sx of [-1, 1]) for (const sz of [-1, 1]) { const [rx, rz] = pAt(Math.atan2(sz * (B0 + 40), sx * (A0 + 40)), FACADE_D + 5); g.lineWidth = 10; g.strokeStyle = 'rgba(150,158,168,0.5)'; g.beginPath(); g.moveTo(X(sx * OPEN_X * 0.9), Z(sz * OPEN_Z * 0.9)); g.lineTo(X(rx), Z(rz)); g.stroke(); }
-  const S8 = w / (2 * (A0 + (FACADE_D + 7) * KA));
   for (const t of CFG.roof.texts || []) {
-    const ph = t.side * Math.PI / 2, [x, z] = pAt(ph, FACADE_D * 0.5);
+    const ph = t.side * Math.PI / 2, [x, z] = pAt(ph, FACADE_D * (CFG.roof.textD || 0.5));
     g.save(); g.translate(X(x), Z(z)); g.rotate(t.side === 1 ? 0 : t.side === 3 ? Math.PI : t.side === 0 ? -Math.PI / 2 : Math.PI / 2);
     g.fillStyle = '#2a2d33'; g.textAlign = 'center'; g.textBaseline = 'middle';
     const size = (t.side % 2 ? FACADE_D * 0.36 : FACADE_D * 0.3) * S8; g.font = `${t.lower ? 800 : 900} ${size}px Inter, "Arial Black", Arial, sans-serif`;
@@ -675,7 +737,7 @@ function drawMembrane(g, w, h, X, Z) {
     g.scale(sc, 1); g.fillText(t.lower ? t.text : t.text.split('').join(String.fromCharCode(8202)), 0, 0); g.restore();
   }
   if (CFG.roof.eagle) { // stylised eagle with spread wings on the +x end
-    const [x, z] = pAt(0.35, FACADE_D * 0.55); const s = FACADE_D * 0.42 * S8;
+    const [x, z] = pAt(0.35, FACADE_D * (CFG.roof.textD || 0.5) * 1.1); const s = FACADE_D * 0.42 * S8;
     g.save(); g.translate(X(x), Z(z)); g.rotate(-0.4); g.fillStyle = '#2a2d33';
     g.beginPath(); g.moveTo(0, -s * 0.15);
     g.bezierCurveTo(-s * 0.3, -s * 0.5, -s * 0.8, -s * 0.55, -s * 1.1, -s * 0.2); g.lineTo(-s * 0.85, -s * 0.18); g.lineTo(-s * 0.95, 0); g.lineTo(-s * 0.7, -s * 0.02); g.lineTo(-s * 0.78, s * 0.15); g.lineTo(-s * 0.45, s * 0.05);
@@ -689,10 +751,10 @@ const ROOF = (() => {
   const OVH = 7; // roof overhang beyond the facade
   const RX = A0 + (FACADE_D + OVH) * KA, RZ = B0 + (FACADE_D + OVH) * KB;
   const S = 8; // px per metre
-  const tex = canvasTex(Math.round(RX * 2 * S), Math.round(RZ * 2 * S), (g, w, h) => {
+  const makeTex = (RX, RZ, S = 8) => canvasTex(Math.round(RX * 2 * S), Math.round(RZ * 2 * S), (g, w, h) => {
     const X = (x) => (x + RX) * S, Z = (z) => (z + RZ) * S;
     g.fillStyle = '#eef0f2'; g.fillRect(0, 0, w, h);
-    if (CFG.roof.style === 'membrane') { drawMembrane(g, w, h, X, Z); return; }
+    if (CFG.roof.style === 'membrane') { drawMembrane(g, w, h, X, Z, S); return; }
     // solar field = whole roof minus rim (drawn via clip of an inner superellipse)
     g.save(); g.beginPath();
     for (let i = 0; i <= 256; i++) { const [x, z] = pAt(-Math.PI + i / 128 * Math.PI, FACADE_D - 6.5); i ? g.lineTo(X(x), Z(z)) : g.moveTo(X(x), Z(z)); }
@@ -710,6 +772,7 @@ const ROOF = (() => {
     for (const sz of [-1, 1]) g.fillRect(0, Z(sz * (OPEN_Z + 3.5)) - bw / 2, w, bw);
     g.restore();
   });
+  const tex = makeTex(RX, RZ, S);
   // domed roof: rays from the rectangular opening out to the overhanging rim; the rim curls down like the real roof
   const NA = 288, NR = 18, P = [], UV = [], I = [];
   const roofY = (t) => ROOF_Y + 3.0 * Math.sin(Math.PI * t * 0.85) - 7.5 * Math.pow(Math.max(0, (t - 0.8) / 0.2), 2);
@@ -807,7 +870,7 @@ const ROOF = (() => {
   }
   let vis = 1;
   return {
-    edgeMat, lampMat, glowMat, tex, RX, RZ, lamps: [lampMesh, glow],
+    edgeMat, lampMat, glowMat, tex, RX, RZ, makeTex, lamps: [lampMesh, glow],
     set(v) { // 0 = hidden, 1 = full roof
       vis = v;
       topMat.opacity = v; underMat.opacity = v;
@@ -895,8 +958,8 @@ const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.mo
     o.castShadow = true; o.receiveShadow = true;
     for (const m of [].concat(o.material)) { m.side = THREE.DoubleSide; if (m.map) { m.map.anisotropy = 8; m.map.colorSpace = THREE.SRGBColorSpace; } if (m.metalness > 0.5) m.metalness = 0.2; m.roughness = Math.max(m.roughness ?? 0.8, 0.45); }
   });
-  root.position.set(-M.pitch[0], -M.pitch[1] - 0.06 / (M.scale || 1), -M.pitch[2]);
-  const pivot = new THREE.Group(); pivot.add(root); pivot.rotation.y = M.rotY * Math.PI / 180; pivot.scale.setScalar(M.scale || 1);
+  root.position.set(-M.pitch[0], -M.pitch[1] - 0.06, -M.pitch[2]);
+  const pivot = new THREE.Group(); pivot.add(root); pivot.rotation.y = M.rotY * Math.PI / 180; if (Array.isArray(M.scale)) pivot.scale.set(...M.scale); else pivot.scale.setScalar(M.scale || 1);
   const group = new THREE.Group(); group.add(pivot); scene.add(group);
   MODEL = group;
   // height of our seating surface at bowl distance d (null outside the tiers)
@@ -913,15 +976,22 @@ const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.mo
   if (M.cutInside) {
     group.updateMatrixWorld(true);
     const dOf = (x, z) => { const ph = Math.atan2(z, x), r = Math.hypot(x, z); let lo = -60, hi = 140; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (rAt(ph, m) < r) lo = m; else hi = m; } return lo; };
-    const v = new THREE.Vector3(), c = new THREE.Vector3();
+    const v = new THREE.Vector3(), c = new THREE.Vector3(), va = new THREE.Vector3(), vb = new THREE.Vector3(), nn = new THREE.Vector3(), e1 = new THREE.Vector3(), e2 = new THREE.Vector3();
     root.traverse((o) => {
       if (!o.isMesh || !o.geometry.index) return;
       const P = o.geometry.attributes.position, I = o.geometry.index.array, keep = [];
       const prot = (M.protect || []).some((pn) => [].concat(o.material).some((m) => (pn.endsWith('*') ? (m.name || '').startsWith(pn.slice(0, -1)) : m.name === pn)));
       for (let t = 0; t < I.length; t += 3) {
-        c.set(0, 0, 0); for (let k = 0; k < 3; k++) c.add(v.fromBufferAttribute(P, I[t + k]).applyMatrix4(o.matrixWorld)); c.multiplyScalar(1 / 3);
+        va.fromBufferAttribute(P, I[t]).applyMatrix4(o.matrixWorld); vb.fromBufferAttribute(P, I[t + 1]).applyMatrix4(o.matrixWorld); v.fromBufferAttribute(P, I[t + 2]).applyMatrix4(o.matrixWorld);
+        c.copy(va).add(vb).add(v).multiplyScalar(1 / 3);
         const d = dOf(c.x, c.z), hs = standH(d);
         if (prot) { keep.push(I[t], I[t + 1], I[t + 2]); continue; }
+        if (M.ownFacade && d > FACADE_D - M.ownFacade && c.y < (M.cutInside.ceil ?? 99) + 0.8) continue; // replaced by our facade
+        if (M.keepOutward && d > M.keepOutward) {
+          nn.crossVectors(e1.subVectors(vb, va), e2.subVectors(v, va)).normalize();
+          const rl = Math.hypot(c.x, c.z) || 1;
+          if (Math.abs(nn.y) < 0.4 && (nn.x * c.x + nn.z * c.z) / rl > 0.3) { keep.push(I[t], I[t + 1], I[t + 2]); continue; }
+        }
         const top = Math.min(envH(d) + 6, M.cutInside.ceil ?? 1e9);
         if (M.pitchCut && d < M.pitchCut.d && c.y < M.pitchCut.y) continue; // stage, benches, tunnel on the pitch
         if (M.cutInside.solid && d > Math.min(3.5, TIERS[0].d0 - 0.5) && d < M.cutInside.solid && c.y < top) continue; // anything poking through our stands
@@ -943,14 +1013,18 @@ const modelReady = !CFG.model ? Promise.resolve() : Promise.all([].concat(CFG.mo
         A.fromBufferAttribute(P, I[t]).applyMatrix4(o.matrixWorld); B.fromBufferAttribute(P, I[t + 1]).applyMatrix4(o.matrixWorld); C.fromBufferAttribute(P, I[t + 2]).applyMatrix4(o.matrixWorld);
         n.crossVectors(e1.subVectors(B, A), e2.subVectors(C, A)).normalize();
         if (Math.abs(n.y) > 0.55 && (A.y + B.y + C.y) / 3 > M.solarRoof.minY) {
-          for (const v of [A, B, C]) { pos.push(v.x, v.y + 0.03, v.z); uv.push((v.x + ROOF.RX) / (2 * ROOF.RX), 1 - (v.z + ROOF.RZ) / (2 * ROOF.RZ)); }
+          for (const v of [A, B, C]) pos.push(v.x, v.y + 0.03, v.z);
         } else keep.push(I[t], I[t + 1], I[t + 2]);
       }
       o.geometry.setIndex(keep);
     });
+    let RX2 = ROOF.RX, RZ2 = ROOF.RZ;
+    for (let i = 0; i < pos.length; i += 3) { RX2 = Math.max(RX2, Math.abs(pos[i]) + 2); RZ2 = Math.max(RZ2, Math.abs(pos[i + 2]) + 2); }
+    for (let i = 0; i < pos.length; i += 3) uv.push((pos[i] + RX2) / (2 * RX2), 1 - (pos[i + 2] + RZ2) / (2 * RZ2));
+    const rtex = RX2 > ROOF.RX + 0.5 || RZ2 > ROOF.RZ + 0.5 ? ROOF.makeTex(RX2, RZ2, Math.min(8, 2600 / RX2)) : ROOF.tex;
     const g = new THREE.BufferGeometry();
     g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); g.computeVertexNormals();
-    const solar = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: ROOF.tex, roughness: 0.32, metalness: 0.25, side: THREE.DoubleSide }));
+    const solar = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: rtex, roughness: 0.32, metalness: 0.25, side: THREE.DoubleSide }));
     solar.castShadow = true; solar.receiveShadow = true; group.add(solar);
   }
   setModelMode(true);
@@ -960,7 +1034,7 @@ function setModelMode(on) {
   if (!MODEL) return;
   if (CFG.model.combined) { // model + our bowl together, always: only our own facade and roof are replaced
     MODEL.visible = true;
-    scene.traverse((o) => { if (o.userData.proc === 'facade' || o.userData.proc === 'roof') o.visible = false; });
+    scene.traverse((o) => { if ((o.userData.proc === 'facade' && !CFG.model.ownFacade) || o.userData.proc === 'roof') o.visible = false; });
     if (EVENING && CFG.model.lamps !== false) ROOF.lamps.forEach((o) => (o.visible = true)); // floodlights hang under the model's roof
     return;
   }
@@ -1769,7 +1843,7 @@ function loop(now) { step((now - last) / 1000); last = now; requestAnimationFram
     $('#skfbClose').addEventListener('click', () => { box.hidden = true; fr.src = 'about:blank'; });
   }
   const lt = $('#loader span'); if (lt) lt.textContent = `${CFG.stadium} yükleniyor…`;
-  const disc = $('.disclaimer'); if (disc) disc.textContent = `Hayran yapımı demo · Kulüpler, stadyum işletmesi veya Passo ile bağlantısı yoktur · Fiyatlar örnektir`;
+  const disc = $('.disclaimer'); if (disc) disc.textContent = `Hayran yapımı demo · Kulüpler, stadyum işletmesi veya Passo ile bağlantısı yoktur · Fiyatlar örnektir${CFG.model && CFG.model.credit ? ' · ' + CFG.model.credit : ''} · Harita © OpenStreetMap`;
 }
 
 // boot
@@ -1783,7 +1857,7 @@ Promise.all([satReady.catch((e) => console.warn('satellite', e)), crestReady, fo
 });
 
 // public API (used by the demo recorder and for debugging)
-window.__dbg = { pickAt: (px, py) => { const rc = new THREE.Raycaster(); rc.setFromCamera(new THREE.Vector2(px / view.W * 2 - 1, -(py / view.H) * 2 + 1), camera); return rc.intersectObjects(scene.children, true).slice(0, 4).map((h) => ({ d: +h.distance.toFixed(1), name: h.object.name, mat: [].concat(h.object.material)[0].name, proc: h.object.userData.proc || (h.object.parent && h.object.parent.userData.proc) || '', type: h.object.type, p: h.point.toArray().map((v) => +v.toFixed(1)) })); }, setAz: (a) => { orbitAz = a; }, renderer, scene, seatMeshes, camera, seat: { x: seatX, y: seatY, z: seatZ } };
+window.__dbg = { pickAt: (px, py) => { const rc = new THREE.Raycaster(); rc.setFromCamera(new THREE.Vector2(px / view.W * 2 - 1, -(py / view.H) * 2 + 1), camera); return rc.intersectObjects(scene.children, true).slice(0, 4).map((h) => ({ d: +h.distance.toFixed(1), name: h.object.name, path: (() => { let o = h.object, p = []; while (o && p.length < 5) { p.push(o.name || o.type); o = o.parent; } return p.join('<'); })(), col: [].concat(h.object.material)[0].color && [].concat(h.object.material)[0].color.getHexString(), hasMap: !![].concat(h.object.material)[0].map, mat: [].concat(h.object.material)[0].name, proc: h.object.userData.proc || (h.object.parent && h.object.parent.userData.proc) || '', type: h.object.type, p: h.point.toArray().map((v) => +v.toFixed(1)) })); }, setAz: (a) => { orbitAz = a; }, renderer, scene, seatMeshes, camera, seat: { x: seatX, y: seatY, z: seatZ } };
 window.app = {
   blocks, SEATS, standStats,
   get state() { return ui.state; },

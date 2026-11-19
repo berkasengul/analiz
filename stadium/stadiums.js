@@ -146,22 +146,26 @@ _S.rams.osm = 'assets/osm-rams.json';
 _S.rams.mood = 'evening';
 _S.tta = _S.rams; // old link name
 // user-supplied SketchUp models for the other two grounds (exterior; our bowl is used inside for ticketing)
-// Şükrü Saracoğlu: model stands run 0–36 m from the pitch, roof underside ~33 m
+// Şükrü Saracoğlu: "Ülker Şükrü Saraçoğlu Stadyumu" by Ahmet Ş. (SketchUp 3D Warehouse), scaled to the real footprint
 _S.fb.model = {
-  url: 'assets/models/sukrusaracoglu.gltf.json', pitch: [158.5, 0, -110.5], rotY: 0, scale: 0.94, solarRoof: { minY: 32.5 },
-  combined: true, lamps: false, cutInside: { d: 40, y: 32.5, solid: 35.5, ceil: 32.8 }, pitchCut: { d: 0.3, y: 3.2 },
-  protect: ['*19'],
+  url: 'assets/models/sukrusaracoglu-w3d.gltf.json', pitch: [81.2, 0, -103.3], rotY: 90, scale: [1.16, 1.2, 1.266], solarRoof: { minY: 33.6 },
+  combined: true, lamps: false, keepOutward: 30, cutInside: { d: 40, y: 29.5, solid: 37, ceil: 29.5 }, pitchCut: { d: 0.3, y: 3.4 },
+  credit: 'Stadyum modeli: “Ülker Şükrü Saraçoğlu Stadyumu”, Ahmet Ş. (SketchUp 3D Warehouse)',
 };
 _S.fb.tiers = [
-  { lvl: 1, name: 'Alt Kat', rows: 24, d0: 0.6, depth: 0.8, h0: 0.6, riseA: 0.32, riseB: 0.52 },
-  { lvl: 2, name: 'Loca Katı', rows: 2, d0: 20.2, depth: 0.95, h0: 11.6, riseA: 0.42, riseB: 0.42 },
-  { lvl: 4, name: 'Üst Kat', rows: 17, d0: 22.6, depth: 0.78, h0: 15.6, riseA: 0.75, riseB: 1.0 },
+  { lvl: 1, name: 'Alt Kat', rows: 22, d0: 0.6, depth: 0.8, h0: 0.8, riseA: 0.32, riseB: 0.52 },
+  { lvl: 2, name: 'Loca Katı', rows: 2, d0: 18.8, depth: 0.95, h0: 10.9, riseA: 0.42, riseB: 0.42 },
+  { lvl: 4, name: 'Üst Kat', rows: 19, d0: 21.6, depth: 0.8, h0: 13.6, riseA: 0.65, riseB: 0.9 },
 ];
+_S.fb.seatColor = { 1: 0x1f3fa8, 2: 0x10245e, 4: 0xffc800 };
+_S.fb.mosaic = { side: 2, tier: 4, text: 'FENERBAHÇE', color: '#1a2f8f', crest: null, year: null };
 _S.fb.osm = 'assets/osm-fb.json'; _S.fb.mood = 'evening';
+
+_S.fb.roof = { ..._S.fb.roof, textD: 0.62 };
 // Tüpraş (Vodafone Park model): stands start close to the pitch, roof underside ~28.5 m
 _S.bjk.model = {
   url: ['assets/models/vodafonepark-a.gltf.json', 'assets/models/vodafonepark-b.gltf.json'], pitch: [0, 0, 0], rotY: 90, scale: 1, solarRoof: { minY: 27.6 },
-  combined: true, lamps: false, cutInside: { d: 38, y: 27.6, solid: 35.5, ceil: 27.6 }, pitchCut: { d: -6, y: 3.6 },
+  combined: true, lamps: false, keepOutward: 27, cutInside: { d: 38, y: 27.6, solid: 35.5, ceil: 27.6 }, pitchCut: { d: -6, y: 3.6 },
 };
 _S.bjk.tiers = [
   { lvl: 1, name: 'Alt Kat', rows: 31, d0: -5.5, depth: 0.8, h0: 1.8, riseA: 0.4, riseB: 0.65 },
@@ -169,4 +173,10 @@ _S.bjk.tiers = [
   { lvl: 4, name: 'Üst Kat', rows: 16, d0: 23.0, depth: 0.85, h0: 20.4, riseA: 0.34, riseB: 0.42 },
 ];
 _S.bjk.osm = 'assets/osm-bjk.json'; _S.bjk.mood = 'evening';
+// interior from the reference photos: white/light-grey seats with scattered dark ones, BEŞİKTAŞ JK lower, vodafone arena upper
+_S.bjk.seatColor = { 1: 0xe9eaec, 2: 0x2a2b30, 4: 0xe2e3e6 };
+_S.bjk.speckle = { color: '#2b2c31', p0: 0.04, p1: 0.2 };
+_S.bjk.stairs = { step: 0xb4b7bd, nose: 0xf2f2f2, plate: 0xa6a9af };
+_S.bjk.mosaic = { side: 3, tier: 1, text: 'BEŞİKTAŞ JK', color: '#17181c', crest: null, year: null };
+_S.bjk.mosaics = [{ side: 3, tier: 4, text: 'vodafone arena', color: '#8d9096', weight: 800, size: 0.6, base: 0.78, x0: 0.14, x1: 0.86 }];
 export const STADIUMS = _S;

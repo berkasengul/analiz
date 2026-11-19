@@ -8,6 +8,7 @@ import numpy as np
 CFG = {  # A0, B0, SEN, KA, KB, pitch(x,y,z), rotY, scale
     'fb': (7.0, 6.0, 7.0, 1.0, 1.02, (158.5, 0, -110.5), 0, 0.94),
     'bjk': (7.5, 6.5, 3.0, 1.0, 0.86, (0, 0, 0), 90, 1.0),
+    'fbw': (7.0, 6.0, 7.0, 1.0, 1.02, (81.2, 0, -103.3), 90, (1.16, 1.2, 1.266)),
 }
 a0, b0, SEN, KA, KB, pitch, rot, scale = CFG[sys.argv[1]]
 A0 = 105 / 2 + a0; B0 = 68 / 2 + b0
@@ -33,7 +34,8 @@ for path in sys.argv[2:]:
     for p in J['meshes'][0]['primitives']:
         a = J['accessors'][p['attributes']['POSITION']]; v = J['bufferViews'][a['bufferView']]
         P = np.frombuffer(B, dtype=np.float32, count=a['count'] * 3, offset=v.get('byteOffset', 0) + a.get('byteOffset', 0)).reshape(-1, 3).astype(float)
-        x = (P[:, 0] - pitch[0]) * scale; y = (P[:, 1] - pitch[1]) * scale; z = (P[:, 2] - pitch[2]) * scale
+        sc = scale if isinstance(scale, tuple) else (scale, scale, scale)
+        x = (P[:, 0] - pitch[0]) * sc[0]; y = (P[:, 1] - pitch[1]) * sc[1]; z = (P[:, 2] - pitch[2]) * sc[2]
         wx = x * c + z * s; wz = -x * s + z * c
         idx = np.random.default_rng(0).choice(len(P), min(1200, len(P)), replace=False)
         D = np.array([dOf(wx[i], wz[i]) for i in idx]); Y = y[idx]
