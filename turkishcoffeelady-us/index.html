@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bold Istanbul · Turkish Coffee Lady</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Bold Istanbul iced Turkish coffee. 100% natural, zero sugar, low calories. Launching in the USA on December 5, World Turkish Coffee Day. Concept demo." />
+  <meta name="theme-color" content="#0b0907" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bold Istanbul · Turkish Coffee Lady" />
+  <meta property="og:description" content="Good Coffee. Good Fortune. Iced Turkish coffee, zero sugar. December 5 · USA." />
+  <meta property="og:image" content="./assets/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+</head>
+<body class="is-loading">
+
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <img src="./assets/logo-cream.png" alt="" class="loader__logo" />
+    <div class="loader__bar"><span id="loaderBar"></span></div>
+    <p class="loader__count"><span id="loaderCount">000</span> — <span data-i18n="tagline">Good Coffee. Good Fortune.</span></p>
+  </div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__logo" aria-label="Turkish Coffee Lady"><img src="./assets/logo-cream.png" alt="Turkish Coffee Lady" /></a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#can" data-i18n="nav.can">The Can</a>
+      <a href="#films" data-i18n="nav.films">Films</a>
+      <a href="#ritual" data-i18n="nav.ritual">Ritual</a>
+      <a href="#story" data-i18n="nav.story">Story</a>
+    </nav>
+    <div class="nav__right">
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="en" class="is-active">EN</button><button data-lang="tr">TR</button>
+      </div>
+      <a href="#launch" class="btn btn--small" data-i18n="nav.notify">Get notified</a>
+      <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <img src="./assets/can-cut.webp" alt="" class="can-fallback" id="canFallback" />
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <h1 class="hero__title" aria-label="Bold Istanbul">
+        <span class="hero__word hero__word--a">Bold</span>
+        <span class="hero__word hero__word--b">Istanbul</span>
+      </h1>
+      <div class="hero__meta">
+        <p class="eyebrow"><span data-i18n="hero.eyebrow">Iced Turkish Coffee</span> · 8.5 FL OZ</p>
+        <p class="hero__lead" data-i18n="hero.lead">Five centuries of Turkish coffee, poured cold. Dark, rich and made with nothing but the good stuff.</p>
+        <div class="hero__cta">
+          <a href="#launch" class="btn" data-i18n="hero.cta">Be first in line</a>
+          <a href="#films" class="btn btn--ghost"><span class="play-ico"></span><span data-i18n="hero.film">Watch the film</span></a>
+        </div>
+      </div>
+      <div class="hero__badges">
+        <span data-i18n="b.sugar">Zero sugar</span><i></i><span data-i18n="b.natural">100% natural</span><i></i><span data-i18n="b.cal">Low calories</span>
+      </div>
+      <div class="hero__date"><span>12.05</span><small data-i18n="hero.date">USA launch</small></div>
+      <div class="scroll-hint"><span data-i18n="scroll">Scroll</span><i></i></div>
+    </section>
+
+    <!-- SPECS -->
+    <section class="specs" id="can">
+      <div class="specs__inner">
+        <p class="eyebrow reveal" data-i18n="specs.eyebrow">Inside the can</p>
+        <h2 class="display reveal" data-i18n="specs.title">A journey through Istanbul, <em>in every sip.</em></h2>
+        <p class="body reveal" data-i18n="specs.body">Made from the finest hand-picked coffee beans, ground as fine as flour the way Istanbul has done it for five hundred years, then brewed, chilled and sealed. No syrups. No shortcuts.</p>
+        <ul class="specs__list">
+          <li class="reveal"><b>0<small>g</small></b><span data-i18n="specs.s1">Sugar. Not a gram.</span></li>
+          <li class="reveal"><b>100<small>%</small></b><span data-i18n="specs.s2">Natural ingredients</span></li>
+          <li class="reveal"><b data-i18n="specs.low">Low</b><span data-i18n="specs.s3">Calories, all the boldness</span></li>
+          <li class="reveal"><b>8.5<small>oz</small></b><span data-i18n="specs.s4">250 ml, ready to drink</span></li>
+        </ul>
+        <p class="specs__note reveal"><span class="evil-eye" aria-hidden="true"></span><span data-i18n="specs.note">The evil eye on every can: a small promise of good fortune.</span></p>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Good Coffee. Good Fortune.</span><b>✦</b><span>Shake well. Drink cold.</span><b>✦</b><span>Zero sugar</span><b>✦</b><span>500 years of heritage</span><b>✦</b><span>December 5 · USA</span><b>✦</b>
+        <span>Good Coffee. Good Fortune.</span><b>✦</b><span>Shake well. Drink cold.</span><b>✦</b><span>Zero sugar</span><b>✦</b><span>500 years of heritage</span><b>✦</b><span>December 5 · USA</span><b>✦</b>
+      </div>
+    </div>
+
+    <!-- JOURNEY -->
+    <section class="journey" id="istanbul">
+      <div class="journey__sky" style="background-image:url(./assets/skyline.webp)"></div>
+      <div class="journey__inner">
+        <p class="eyebrow reveal" data-i18n="j.eyebrow">From the Bosphorus</p>
+        <h2 class="display reveal" data-i18n="j.title">The city that taught the world <em>to drink coffee.</em></h2>
+        <div class="journey__steps">
+          <article class="reveal"><span>1554</span><h3 data-i18n="j.t1">The first coffeehouses</h3><p data-i18n="j.p1">Istanbul opens some of the world's first coffeehouses. Coffee becomes conversation.</p></article>
+          <article class="reveal"><span>2013</span><h3 data-i18n="j.t2">A heritage of humanity</h3><p data-i18n="j.p2">UNESCO recognizes Turkish coffee culture and tradition as Intangible Cultural Heritage.</p></article>
+          <article class="reveal"><span>2026</span><h3 data-i18n="j.t3">Now, iced</h3><p data-i18n="j.p3">The same deep, velvety brew, made for the way America drinks coffee today: cold and on the go.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILMS -->
+    <section class="films" id="films">
+      <div class="films__head">
+        <p class="eyebrow reveal" data-i18n="f.eyebrow">The films</p>
+        <h2 class="display reveal" data-i18n="f.title">Watch Bold Istanbul <em>come to life.</em></h2>
+      </div>
+      <div class="stage3d" id="stage3d">
+        <div class="ring" id="ring"></div>
+        <div class="stage3d__floor"></div>
+      </div>
+      <div class="films__ctrl">
+        <button class="circle-btn" id="prevFilm" aria-label="Previous film">←</button>
+        <div class="films__info">
+          <span class="films__count" id="filmCount">01 / 03</span>
+          <span class="films__name" id="filmName">—</span>
+        </div>
+        <button class="circle-btn" id="nextFilm" aria-label="Next film">→</button>
+      </div>
+      <p class="films__hint" data-i18n="f.hint">Drag to turn · tap a screen to watch with sound</p>
+    </section>
+
+    <!-- RITUAL -->
+    <section class="ritual" id="ritual">
+      <div class="ritual__inner">
+        <p class="eyebrow reveal" data-i18n="r.eyebrow">The ritual</p>
+        <h2 class="display reveal" data-i18n="r.title">Shake well. Drink cold. <em>Read your fortune.</em></h2>
+        <div class="ritual__grid">
+          <div class="step reveal"><i>01</i><h3 data-i18n="r.t1">Shake</h3><p data-i18n="r.p1">Turkish coffee is famously rich. A good shake wakes up the body and the foam.</p></div>
+          <div class="step reveal"><i>02</i><h3 data-i18n="r.t2">Chill</h3><p data-i18n="r.p2">Best ice cold, straight from the can or poured over ice.</p></div>
+          <div class="step reveal"><i>03</i><h3 data-i18n="r.t3">Fortune</h3><p data-i18n="r.p3">In Turkey, the cup always ends with a fortune. Here's yours.</p></div>
+        </div>
+        <div class="fortune reveal" id="fortune">
+          <div class="fortune__cup" aria-hidden="true"><span class="evil-eye evil-eye--big"></span></div>
+          <p class="fortune__text" id="fortuneText" data-i18n="r.wait">Your fortune is waiting at the bottom of the cup.</p>
+          <button class="btn" id="fortuneBtn" data-i18n="r.btn">Read my fortune</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="story" id="story">
+      <div class="story__photos">
+        <img src="./assets/photo-1.webp" alt="Bold Istanbul can, front" class="reveal" loading="lazy" />
+        <img src="./assets/photo-2.webp" alt="Bold Istanbul can, back" class="reveal" loading="lazy" />
+      </div>
+      <div class="story__text">
+        <p class="eyebrow reveal" data-i18n="s.eyebrow">Our story</p>
+        <h2 class="display reveal" data-i18n="s.title">“A cup of coffee is remembered <em>for forty years.</em>”</h2>
+        <p class="body reveal" data-i18n="s.p1">Turkish Coffee Lady is a global brand, 16 years in the making, founded to keep the rich culture of Turkish coffee alive around the world and carry it to new generations.</p>
+        <p class="body reveal" data-i18n="s.p2">The iced line came to life with the team formed through the InvestBev accelerator in 2025, and launches in the US with zero-sugar Bold Istanbul.</p>
+        <div class="founder reveal">
+          <span class="founder__name">Gizem Şalcıgil White</span>
+          <span class="founder__role" data-i18n="s.role">Founder · Turkish Coffee Lady</span>
+        </div>
+        <ol class="timeline">
+          <li class="reveal"><b>2009</b><span data-i18n="s.l1">Founder begins her Turkish coffee ambassadorship</span></li>
+          <li class="reveal"><b>Alexandria, VA</b><span data-i18n="s.l2">Turkish Coffee Lady Culture House</span></li>
+          <li class="reveal"><b>2025</b><span data-i18n="s.l3">InvestBev accelerator program</span></li>
+          <li class="reveal"><b>Dec 5</b><span data-i18n="s.l4">Bold Istanbul launches in the USA</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- LAUNCH -->
+    <section class="launch" id="launch">
+      <div class="launch__glow"></div>
+      <p class="eyebrow reveal" data-i18n="l.eyebrow">December 5 · World Turkish Coffee Day</p>
+      <h2 class="launch__title reveal" data-i18n="l.title">Landing in the USA</h2>
+      <div class="countdown reveal" id="countdown">
+        <div><b id="cdD">00</b><span data-i18n="l.d">Days</span></div>
+        <div><b id="cdH">00</b><span data-i18n="l.h">Hours</span></div>
+        <div><b id="cdM">00</b><span data-i18n="l.m">Minutes</span></div>
+        <div><b id="cdS">00</b><span data-i18n="l.s">Seconds</span></div>
+      </div>
+      <div class="launch__spacer" aria-hidden="true"></div>
+      <form class="notify reveal" name="notify" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="notifyForm">
+        <input type="hidden" name="form-name" value="notify" />
+        <p class="hp"><label>Leave empty <input name="bot-field" /></label></p>
+        <label class="sr" for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="you@email.com" autocomplete="email" />
+        <input type="text" name="zip" placeholder="ZIP" inputmode="numeric" maxlength="10" aria-label="ZIP code" data-i18n-ph="l.zip" />
+        <button class="btn" type="submit" data-i18n="l.btn">Notify me</button>
+      </form>
+      <p class="notify__msg" id="notifyMsg" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="./assets/logo-cream.png" alt="Turkish Coffee Lady" class="footer__logo" />
+    <p class="footer__tag">Good Coffee. Good Fortune.</p>
+    <div class="footer__links">
+      <a href="https://turkishcoffeelady.com/" target="_blank" rel="noopener">turkishcoffeelady.com</a>
+      <a href="https://www.instagram.com/turkishcoffeelady/" target="_blank" rel="noopener">@turkishcoffeelady</a>
+    </div>
+    <p class="footer__fine" data-i18n="footer">Concept demo prepared for Turkish Coffee Lady.</p>
+  </footer>
+
+  <!-- Film lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Film" hidden>
+    <button class="lightbox__close" id="lbClose" aria-label="Close">×</button>
+    <div class="lightbox__frame" id="lbFrame"></div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
