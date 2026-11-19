@@ -14,6 +14,18 @@ for i, ad in enumerate(("rams", "fb", "bjk")):
     x0 = (p.width - pw) // 2; y0 = int(min(max(0, cy * p.height - ph / 2), p.height - ph))
     p = ImageEnhance.Color(p.crop((x0, y0, x0 + pw, y0 + ph))).enhance(1.15)
     ekran.paste(p, (i * pw, 0))
+# her panelin üstüne kulüp logosu (gölgeli), stadın üstünde şehir kısmına
+LOGO = os.environ.get("LOGO", "1") == "1"
+if LOGO:
+    ek = ekran.convert("RGBA")
+    for i, ad in enumerate(("gs", "fb", "bjk")):
+        lg = Image.open(f"{K}/_logo_{ad}.png").convert("RGBA"); lg = lg.crop(lg.getbbox())
+        hh = 118; lg = lg.resize((round(lg.width * hh / lg.height), hh), Image.LANCZOS)
+        x = i * pw + (pw - lg.width) // 2; y = 22
+        gl = Image.new("RGBA", ek.size, (0, 0, 0, 0)); sh = Image.new("RGBA", lg.size, (0, 0, 0, 200)); sh.putalpha(lg.getchannel("A").point(lambda v: int(v * 0.75)))
+        gl.alpha_composite(sh, (x + 3, y + 6)); ek.alpha_composite(gl.filter(ImageFilter.GaussianBlur(6)))
+        ek.alpha_composite(lg, (x, y))
+    ekran = ek.convert("RGB")
 dd = ImageDraw.Draw(ekran)
 for x in (pw, 2 * pw): dd.rectangle((x - 2, 0, x + 2, ph), fill=(8, 8, 10))
 # korunacak katmanlar: kırmızı grafikler (bant, ok, etiket) + içlerindeki beyaz yazılar, ve kişi
@@ -35,6 +47,7 @@ canli = ImageEnhance.Color(out).enhance(1.28); canli = ImageEnhance.Contrast(can
 canli = canli.filter(ImageFilter.UnsharpMask(1.8, 55, 2))
 km_kisi = np.asarray(kisi.filter(ImageFilter.GaussianBlur(2))).astype(float)[..., None] / 255
 out = Image.fromarray(np.clip(np.asarray(canli).astype(float) * (1 - km_kisi) + np.asarray(out).astype(float) * km_kisi, 0, 255).astype(np.uint8))
-out.save(f"{K}/kapak_H_kullanici_3stat.jpg", quality=95)
-out.resize((1280, 720), Image.LANCZOS).save(f"{K}/kapak_H_kullanici_3stat_1280.jpg", quality=95)
+ad = "kapak_I_kullanici_logolu" if LOGO else "kapak_H_kullanici_3stat"
+out.save(f"{K}/{ad}.jpg", quality=95)
+out.resize((1280, 720), Image.LANCZOS).save(f"{K}/{ad}_1280.jpg", quality=95)
 print("ok")
