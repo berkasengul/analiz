@@ -1,0 +1,67 @@
+BAŞLIK (önerilen)
+Üç Büyüklerin Statlarını Yapay Zekâyla 3D Yaptım (Kod Bilmeden)
+
+Alternatifler:
+• Bu Bir Oyun Değil, Web Sitesi: Yapay Zekâyla 3 Stadı 3D Yaptım
+• Yapay Zekâyla 3D Stadyum Bilet Sitesi Yaptım, Bunu Kime Satarsın?
+• Galatasaray, Fenerbahçe, Beşiktaş Statlarını Kod Bilmeden 3D Yaptım
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AÇIKLAMA (kopyala, yapıştır)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Yapay zekâ ile 3D web sitesi yaptım: RAMS Park, Şükrü Saracoğlu ve Tüpraş Stadyumu, etrafındaki binalara ve koltuğuna kadar 3D. Tek satır kod yazmadan, Claude Code ile 👇
+
+Bu videoda 3D stadyum bilet sitesini nasıl yaptığımı adım adım anlatıyorum: "Bilet Al"a basınca kamera stadın içine giriyor, bloğu ve koltuğu seçiyorsun, bilet almadan önce o koltuktan sahanın nasıl göründüğünü görüyorsun. Sonra senin bunu nasıl yapacağını ve bu 3D siteyi kime satıp nasıl para kazanabileceğini anlatıyorum. Kullandığım hazır komut aşağıda.
+
+⏱️ BÖLÜMLER
+00:00 Bu bir oyun değil, bir web sitesi
+00:36 Her şey bir Instagram videosuyla başladı
+01:03 Sonuç: RAMS Park, Şükrü Saracoğlu, Tüpraş
+01:36 İlk deneme ve yaptığım hata
+02:03 3D site nasıl yapıldı: 3 parça
+03:19 Çıkan 4 sorun ve çözümü
+04:01 Sen nasıl yaparsın: 5 adım ve maliyet
+04:55 3D siteyi kime satarsın, nasıl para kazanırsın
+06:16 Bu işi satarken herkesin yaptığı hata
+
+🛠️ KULLANDIĞIM ARAÇLAR
+• Claude Code: siteyi baştan sona yazdı
+• OpenStreetMap: binalar ve yollar (ücretsiz)
+• SketchUp 3D Warehouse: hazır stat modelleri
+• Netlify: siteyi yayına almak için (ücretsiz plan)
+• HeyGen: avatar
+
+━━━━━━━━━━ HAZIR KOMUT ━━━━━━━━━━
+Köşeli parantezleri kendi mekânına göre doldur, Claude Code'a yapıştır:
+
+[MEKÂN ADI, örn. bir konser salonu / stat / konut projesi] için 3D bir "yerini seç" sitesi yap. Referans olarak şu videoya benzesin: [REFERANS VİDEO LİNKİ].
+
+- Açılışta mekân havadan, akşam ışığında görünsün. Etrafındaki binalar ve yollar gerçek olsun: zemin için uydu görüntüsü, binalar ve yollar için OpenStreetMap kullan, sitenin altına "Harita © OpenStreetMap" yaz.
+- Mekânın dışı için şu 3D modeli kullan: [MODEL DOSYASI, örn. SketchUp 3D Warehouse'tan indirdiğim dosya]. Modeli yapanın adını sitenin altına yaz.
+- İçeriyi sen yap: koltukları (ya da daireleri/odaları) tek tek dizebilirsin, her biri tıklanabilir olsun. Renkleri ve yazıları şu fotoğraflara göre yap: [FOTOĞRAFLAR].
+- "Bilet Al" (ya da "Yerini Seç") butonuna basınca kamera tek ve yumuşak bir hareketle içeri girsin; donmasın, kendi etrafında dönmesin.
+- Bir bloğa tıklayınca kamera o bloğa yaklaşsın, sağda koltuk haritası açılsın. Koltuğu seçince o koltuktan görünüm gelsin.
+- Telefonda da akıcı çalışsın. Dosya çok büyükse böl ve küçült.
+- Gerçek satış yapma: satın alma butonu [RESMİ SATIŞ SİTESİ] adresine gitsin.
+
+Her adımdan sonra bana ekran görüntüsü göster. Beğenmediğim yeri ekran görüntüsüyle söyleyeceğim.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ℹ️ Bu site bir hayran projesidir. Galatasaray, Fenerbahçe, Beşiktaş, stadyum işletmeleri ve bilet satış platformlarıyla hiçbir bağı yoktur; bilet satmaz, fiyatlar örnektir. Kulüp adları ve logoları sahiplerinin tescilli markalarıdır.
+ℹ️ Şükrü Saracoğlu dış modeli: "Ülker Şükrü Saraçoğlu Stadyumu", Ahmet Ş. (SketchUp 3D Warehouse). Harita verisi © OpenStreetMap katkıcıları. Uydu görüntüsü: Esri World Imagery.
+ℹ️ Videoda yapay zekâ ile üretilmiş avatar ve ses kullanılmıştır (HeyGen).
+⚖️ Kazanç garantisi yoktur. Fiyatlandırma işin kapsamına göre değişir.
+
+💬 Sence hangi stat daha güzel olmuş: RAMS Park mı, Saracoğlu mu, Tüpraş mı? Yoruma yaz, en çok yazılanı ayrıca Shorts olarak paylaşacağım.
+
+#YapayZeka #ClaudeCode #3DWebSitesi
+
+ETİKETLER
+yapay zeka ile site yapmak, 3d web sitesi, claude code, claude code türkçe, kod bilmeden site yapmak, yapay zeka ile 3d site, 3d stadyum, stadyum bilet sitesi, rams park 3d, şükrü saracoğlu 3d, tüpraş stadyumu 3d, galatasaray stadı, fenerbahçe stadı, beşiktaş stadı, yapay zeka ile para kazanmak, yapay zeka ile iş kurmak, freelance web tasarım, openstreetmap, netlify, berkai
+
+YÜKLERKEN
+• YouTube Studio'da "Değiştirilmiş veya yapay içerik" kutusunu işaretle (gerçekçi avatar ve ses).
+• "Çocuklara yönelik değil" seç.
+• Altyazı: stadyum_uzun.srt dosyasını "Altyazılar > Dosya yükle > Zamanlamalı" ile Türkçe olarak yükle.
+• Bitiş ekranı (son 20 sn): satış ekibi videosu ("Yapay Zekâ Benim Yerime Müşteri Buldu, Site Yaptı, Mail Attı"). Videoda "ekrandaki videoda anlattım" deniyor.
+• Kapak: thumbnail klasöründeki seçtiğin kapak.
