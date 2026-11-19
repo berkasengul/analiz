@@ -19,7 +19,7 @@ Bu sürüm, senin doğaçlama ses kayıtlarına göre yeniden yazıldı. Kayıtl
 
 **Kayıt notu:** Video 1'in sonunda bir cümle anlaşılmadı ("Ve şimdi de o video … arkadaşlar"). Aşağıya o kısmı koymadım.
 
-**Uzunluk:** ~1.030 kelime. Senin hızınla ~7,5 dk konuşma, araya giren görüntülerle ~8 dk.
+**Uzunluk:** ~975 kelime. Senin hızınla ~7 dk konuşma, araya giren görüntülerle ~8 dk.
 **[A]** avatar/sen kamerada · **[S]** yalnız ses, ekranda site ve kartlar.
 
 ---
