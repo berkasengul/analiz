@@ -1,7 +1,7 @@
 # Stadyum uzun videosu kurgusu (BerkAİ stili).
 # Kullanım: python3 -I montaj.py [parça no...]   (boşsa hepsi)  ·  python3 -I montaj.py son
 # Girdi: heygen/0N_*.mp4 (avatar parçaları) + heygen/0N_*.words.json (kelime zamanları)
-#        $SP/film/<stad>.mp4 (site kaydı, 30 kare/sn), $SP/kart/*.png, $SP/v1shots/*.png (ilk sürüm)
+#        $KAYIT (kullanıcının site ekran kaydı), $SP/kart/*.png, $SP/v1shots/*.png (ilk sürüm)
 # Çıktı: $SP/kurgu/out/pNN.mp4 ve son video
 import json, os, re, subprocess, sys, glob
 D = os.path.dirname(os.path.abspath(__file__))
@@ -27,15 +27,26 @@ class Cue:
         raise SystemExit(f"cue bulunamadı: {kelimeler} (> {sonra})")
 
 # ---- içerik klipleri: d saniyelik 1920x1080 sessiz mp4 ----
+PEN = "scale=1498:842,pad=1920:1080:382:119:color=0xF7F3EA"  # kartlar krem zeminde pencere: sol alt avatar dairesine yer kalır
 def kart(ad, d, o):  # hafif yaklaşma
-    sh(f"ffmpeg -y -v error -loop 1 -t {d:.3f} -i '{KART}/{ad}.png' -vf \"scale=2016:1134,crop=1920:1080:'48*t/{d:.3f}':'27*t/{d:.3f}',fps={FPS}\" {X264} '{o}'")
+    sh(f"ffmpeg -y -v error -loop 1 -t {d:.3f} -i '{KART}/{ad}.png' -vf \"scale=2016:1134,crop=1920:1080:'48*t/{d:.3f}':'27*t/{d:.3f}',{PEN},fps={FPS}\" {X264} '{o}'")
 def resim(p, d, o):
-    sh(f"ffmpeg -y -v error -loop 1 -t {d:.3f} -i '{p}' -vf \"scale=2016:1134,crop=1920:1080:'48*t/{d:.3f}':'27*t/{d:.3f}',fps={FPS}\" {X264} '{o}'")
-def film(stad, a, b, d, o):  # kaydın a-b saniyesi; kısa kalırsa en fazla 1.5x yavaşlar, sonra son kare bekler
-    L = b - a; k = min(1.5, max(1.0, d / L))
-    sh(f"ffmpeg -y -v error -i '{FILM}/{stad}.mp4' -vf \"trim={a}:{b},setpts=(PTS-STARTPTS)*{k:.4f},scale=1920:1080:flags=lanczos,tpad=stop_mode=clone:stop_duration={d:.3f},fps={FPS}\" -t {d:.3f} {X264} '{o}'")
+    sh(f"ffmpeg -y -v error -loop 1 -t {d:.3f} -i '{p}' -vf \"scale=2016:1134,crop=1920:1080:'48*t/{d:.3f}':'27*t/{d:.3f}',{PEN},fps={FPS}\" {X264} '{o}'")
+KAYIT = os.environ.get("KAYIT", f"{SP}/insta/kayit.mp4")  # kullanıcının kendi ekran kaydı (1920x814, 30 kare/sn)
+def _kayit_vf(a, b, d):
+    k = min(1.4, max(0.8, d / (b - a)))  # süreye uydurmak için hafif hızlandırma/yavaşlatma
+    return (f"trim={a}:{b},setpts=(PTS-STARTPTS)*{k:.4f},split[x][y];[x]scale=2546:1080,crop=1920:1080,boxblur=28:3,eq=brightness=-0.18[bg];"
+            f"[bg][y]overlay=0:133,tpad=stop_mode=clone:stop_duration={d:.3f},fps={FPS}")
+def kayit(a, b, d, o):  # tam genişlik, üst/alt boşluk aynı görüntünün bulanığı
+    sh(f"ffmpeg -y -v error -i '{KAYIT}' -filter_complex \"[0:v]{_kayit_vf(a, b, d)}\" -t {d:.3f} {X264} '{o}'")
+def seri(parcalar, d, o):  # birkaç kısa kesit art arda (süre kesitlere eşit bölünür)
+    tops = sum(b - a for a, b in parcalar); ara = []
+    for j, (a, b) in enumerate(parcalar):
+        oo = f"{o}.{j}.mp4"; kayit(a, b, d * (b - a) / tops, oo); ara.append(oo)
+    lst = f"{o}.txt"; open(lst, "w").write("".join(f"file '{x}'\n" for x in ara)); sh(f"ffmpeg -y -v error -f concat -safe 0 -i '{lst}' -c copy '{o}'")
 def bolunmus(sol, sag, d, o):  # solda ilk sürüm, sağda son hali
-    vf = (f"[0:v]scale=880:495[l];[1:v]scale=880:495[r];color=c=0xF7F3EA:s=1920x1080:d={d:.3f}[z];[z][l]overlay=60:330[z1];[z1][r]overlay=980:330,"
+    vf = (f"[0:v]scale=880:495:force_original_aspect_ratio=increase,crop=880:495[l];[1:v]scale=880:495:force_original_aspect_ratio=increase,crop=880:495[r];"
+          f"color=c=0xF7F3EA:s=1920x1080:d={d:.3f}[z];[z][l]overlay=60:330[z1];[z1][r]overlay=980:330,"
           f"drawtext=fontfile={BLACK}:text='İLK DENEME':x=60:y=240:fontsize=60:fontcolor=0xD23C32,"
           f"drawtext=fontfile={BLACK}:text='ŞİMDİ':x=980:y=240:fontsize=60:fontcolor=0x289650,fps={FPS}")
     sh(f"ffmpeg -y -v error -loop 1 -t {d:.3f} -i '{sol}' -loop 1 -t {d:.3f} -i '{sag}' -filter_complex \"{vf}\" -t {d:.3f} {X264} '{o}'")
@@ -45,21 +56,26 @@ ETIKET = {3: "İLK DENEME", 4: "NASIL YAPTIK", 5: "ÇIKAN SORUNLAR", 6: "SİZ NA
 
 def plan(n, c, L):
     """[(başlangıç sn, görüntü)] · görüntü: ('A',) tam avatar | ('kart', ad) | ('film', stad, a, b) | ('resim', yol) | ('bolunmus', sol, sag)"""
-    R = f"{FILM}/rams_kare.jpg"
-    if n == 1: return [(0, ("film", "rams", 0.0, 4.5)), (c("galatasaray"), ("A",)), (c("bilet", "almadan"), ("film", "rams", 19.0, 26.0)), (c("ama", "baştan"), ("A",))]
-    if n == 2: return [(0, ("A",)), (c("instagramda"), ("kart", "instagram")), (c("ilk", "birkaç"), ("resim", f"{V1}/b-intro2.png")), (c("sonra", "dedim"), ("film", "fb", 0.0, 5.0)), (c("önce", "sonucu"), ("A",)), (c("siteyi", "açınca"), ("film", "rams", 0.5, 26.0)),
-                       (c("aynısını"), ("film", "fb", 1.0, 7.0)), (c("tüpra"), ("film", "bjk", 1.0, 7.0)), (c("bu", "arada"), ("A",))]
-    if n == 3: return [(0, ("A",)), (c("şimdi", "ilk"), ("bolunmus", f"{V1}/b-intro2.png", R)), (c("ve", "burada"), ("kart", "hatam")), (c("ben", "de", "gittim"), ("film", "rams", 12.0, 26.0)), (c("yani", "yapay"), ("A",))]
-    if n == 4: return [(0, ("A",)), (c("site", "3"), ("kart", "parca_1")), (c("zemin"), ("film", "rams", 0.0, 6.5)), (c("ücretsiz"), ("kart", "kaynak")),
-                       (c("ikincisi"), ("kart", "parca_2")), (c("fenerbahçe", "nin", "dışını"), ("film", "fb", 0.0, 13.5)), (c("fenerbahçe", "nin", "modeli"), ("kart", "kaynak")),
-                       (c("üçüncüsü"), ("kart", "parca_3")), (c("modeldeki", "tribünleri"), ("film", "bjk", 12.0, 26.0)), (c("bu", "arada", "sizce"), ("A",)), (c("taraftarlığı"), ("kart", "yorum"))]
+    R = f"{SP}/insta/rams_kare.jpg"
+    K = lambda a, b: ("kayit", a, b)
+    if n == 1: return [(0, K(0.0, 4.3)), (c("galatasaray"), ("A",)), (c("bilet", "almadan"), K(18.0, 21.5)), (c("ama", "baştan"), ("A",))]
+    if n == 2: return [(0, ("A",)), (c("instagramda"), ("kart", "instagram")), (c("ilk", "birkaç"), ("resim", f"{V1}/b-intro2.png")),
+                       (c("sonra", "dedim"), ("seri", [(1.0, 2.6), (64.0, 65.6), (133.0, 134.6)])), (c("önce", "sonucu"), ("A",)),
+                       (c("siteyi", "açınca"), K(0.0, 6.3)), (c("bilet", "al", "butonuna"), K(6.3, 11.0)), (c("sahanın", "kenarında"), K(40.5, 45.0)),
+                       (c("bir", "bloğa"), K(12.0, 17.5)), (c("koltuğu", "seçiyorum"), K(18.0, 22.5)),
+                       (c("aynısını"), K(83.0, 86.0)), (c("tüpra"), K(146.0, 151.0)), (c("bu", "arada"), ("A",))]
+    if n == 3: return [(0, ("A",)), (c("şimdi", "ilk"), ("bolunmus", f"{V1}/b-intro2.png", R)), (c("ve", "burada"), ("kart", "hatam")),
+                       (c("ben", "de", "gittim"), K(23.0, 32.0)), (c("yani", "yapay"), ("A",))]
+    if n == 4: return [(0, ("A",)), (c("site", "3"), ("kart", "parca_1")), (c("zemin"), ("seri", [(0.0, 6.3), (200.5, 205.0)])), (c("ücretsiz"), ("kart", "kaynak")),
+                       (c("ikincisi"), ("kart", "parca_2")), (c("fenerbahçe", "nin", "dışını"), K(62.0, 82.5)), (c("fenerbahçe", "nin", "modeli"), ("kart", "kaynak")),
+                       (c("üçüncüsü"), ("kart", "parca_3")), (c("modeldeki", "tribünleri"), K(146.0, 162.0)), (c("bu", "arada", "sizce"), ("A",)), (c("taraftarlığı"), ("kart", "yorum"))]
     if n == 5: return [(0, ("A",)), (c("1", "kamera"), ("kart", "sorun_1")), (c("2", "içeri"), ("kart", "sorun_2")), (c("3", "hazır"), ("kart", "sorun_3")),
                        (c("4", "dosya"), ("kart", "sorun_4")), (c("şunu", "söyleyeyim"), ("kart", "ders")), (c("bu", "projede"), ("A",))]
     if n == 6: return [(0, ("A",)), (c("5", "adım"), ("kart", "adim_1")), (c("ikincisi"), ("kart", "adim_2")), (c("üçüncüsü"), ("kart", "adim_3")),
-                       (c("dördüncüsü"), ("kart", "adim_4")), (c("beşincisi"), ("kart", "adim_5")), (c("maliyet"), ("kart", "maliyet")), (c("ilk", "stat"), ("film", "rams", 6.0, 13.0))]
+                       (c("dördüncüsü"), ("kart", "adim_4")), (c("beşincisi"), ("kart", "adim_5")), (c("maliyet"), ("kart", "maliyet")), (c("ilk", "stat"), K(104.0, 111.0))]
     if n == 7: return [(0, ("A",)), (c("galatasaray", "a", "mı"), ("kart", "kime")), (c("birincisi"), ("kart", "musteri_1")), (c("ikincisi"), ("kart", "musteri_2")),
                        (c("üçüncüsü"), ("kart", "musteri_3")), (c("dördüncüsü"), ("kart", "musteri_4")), (c("peki", "nasıl"), ("kart", "satis")),
-                       (c("bir", "de", "demo"), ("film", "rams", 0.0, 6.0)), (c("fiyatı"), ("kart", "satis")), (c("bir", "de", "her"), ("film", "bjk", 0.5, 12.0))]
+                       (c("bir", "de", "demo"), K(131.0, 142.0)), (c("fiyatı"), ("kart", "satis")), (c("bir", "de", "her"), K(166.0, 174.0))]
     if n == 8: return [(0, ("A",)), (c("kulübün"), ("kart", "hata")), (c("peki", "demo"), ("A",))]
 
 def filmler():
@@ -81,7 +97,8 @@ def parca(n):
         o = f"{OUT}/p{n:02d}_{i:02d}.mp4"
         if g[0] == "A": bos(d, o); avtam.append((t0, t0 + d))
         elif g[0] == "kart": kart(g[1], d, o)
-        elif g[0] == "film": film(g[1], g[2], g[3], d, o)
+        elif g[0] == "kayit": kayit(g[1], g[2], d, o)
+        elif g[0] == "seri": seri(g[1], d, o)
         elif g[0] == "resim": resim(g[1], d, o)
         elif g[0] == "bolunmus": bolunmus(g[1], g[2], d, o)
         klip.append(o)
@@ -93,7 +110,7 @@ def parca(n):
         et = (f",drawtext=fontfile={BLACK}:text='{ETIKET[n]}':x=60:y=50:fontsize=46:fontcolor=0xFFFDF8:box=1:boxcolor=0xF28C28:boxborderw=18:"
               f"enable='between(t,0.3,3.8)'")
     # içerik krem zeminde 1498x842 pencere + sol altta yuvarlak avatar; tam avatar anlarında avatar tam ekran
-    vf = (f"[0:v]scale=1498:842[sv];color=c=0xF7F3EA:s=1920x1080:d={L:.3f}:r={FPS}[cz];[cz][sv]overlay=382:119[base];"
+    vf = (f"[0:v]fps={FPS}[base];"
           f"[1:v]scale=1920:1080,fps={FPS},split[af][ap];"
           f"[ap]crop=1080:1080:420:0,scale=340:340,format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='if(lte(hypot(X-170,Y-170),168),255,0)'[pip];"
           f"[base][pip]overlay=28:712[small];"
