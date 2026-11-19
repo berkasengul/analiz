@@ -1486,6 +1486,13 @@ function loop(now) { step((now - last) / 1000); last = now; requestAnimationFram
   document.querySelectorAll('.match small, .cta-card small').forEach((e) => (e.textContent = `${CFG.match.league}${e.closest('.match') ? ' · ' + CFG.match.time : ''}`));
   document.querySelectorAll('.cta-meta, .t-sub').forEach((e) => (e.textContent = `${CFG.stadium} · ${CFG.place} · ${CFG.match.time}`));
   document.querySelectorAll('.switch a').forEach((e) => e.classList.toggle('on', e.dataset.s === SID));
+  if (CFG.sketchfab) {
+    const sk = CFG.sketchfab, btn = $('#skfbBtn'), box = $('#skfb'), fr = $('#skfbFrame');
+    btn.hidden = false; $('#skfbTitle').textContent = sk.title;
+    $('#skfbLink').textContent = sk.title; $('#skfbLink').href = sk.url; $('#skfbAuthor').textContent = sk.author; $('#skfbAuthor').href = sk.authorUrl;
+    btn.addEventListener('click', () => { fr.src = `https://sketchfab.com/models/${sk.id}/embed?autostart=1`; box.hidden = false; });
+    $('#skfbClose').addEventListener('click', () => { box.hidden = true; fr.src = 'about:blank'; });
+  }
   const lt = $('#loader span'); if (lt) lt.textContent = `${CFG.stadium} yükleniyor…`;
   const disc = $('.disclaimer'); if (disc) disc.textContent = `Hayran yapımı demo · Kulüpler, stadyum işletmesi veya Passo ile bağlantısı yoktur · Fiyatlar örnektir`;
 }

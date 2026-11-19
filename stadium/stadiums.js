@@ -96,6 +96,7 @@ export const STADIUMS = {
     ribbon: { bg: '#0b1f5c', fg: '#ffd200', dot: '#ffffff', words: ['ŞÜKRÜ SARACOĞLU', 'FENERBAHÇE', 'KADIKÖY', '1907'] },
     led: ['ŞÜKRÜ SARACOĞLU', 'KANARYA BİLET', '3D KOLTUK SEÇİMİ', 'FENERBAHÇE'],
     sat: { prefix: 'sat-fb', centre: [6.8, 15.0], axisDeg: 295 },
+    sketchfab: { id: '67602830cbd54d4799e76a6931c5d150', title: 'Şükrü Saraçoglu Stadium 3D', author: 'mustafasahinfb', url: 'https://sketchfab.com/3d-models/sukru-saracoglu-stadium-3d-67602830cbd54d4799e76a6931c5d150', authorUrl: 'https://sketchfab.com/mustafasahinfb' },
     roof: { style: 'membrane', texts: [{ text: 'MUSTAFA KEMAL', side: 3 }, { text: 'ATATÜRK', side: 1 }] },
     facade: { style: 'modern', base: '#c9ccd2', band: '#13234f', accent: '#ffd200', signs: [{ text: 'ŞÜKRÜ SARACOĞLU', color: '#ffffff', at: 'main' }, { text: 'FENERBAHÇE', color: '#ffd200', glow: true, at: 'mainLeft' }, { text: 'FENERBAHÇE', color: '#ffd200', at: 'back' }] },
   },
