@@ -4,6 +4,15 @@ import os, numpy as np
 from PIL import Image, ImageFilter, ImageEnhance, ImageDraw
 D = os.path.dirname(os.path.abspath(__file__)); K = f"{D}/kapak"
 im = Image.open(f"{K}/_kullanici_ham.jpg").convert("RGB"); W, H = im.size  # 1672x941
+UST = os.environ.get("UST", "")  # boşsa orijinal "BU BİR" kalır; doluysa silinip bu yazı yazılır
+if UST:
+    import cv2
+    arr = np.asarray(im).copy(); bx0, by0, bx1, by1 = 70, 12, 640, 182
+    reg = arr[by0:by1, bx0:bx1].astype(int)
+    beyaz = (reg.min(axis=2) > 185).astype(np.uint8) * 255
+    m = np.zeros(arr.shape[:2], np.uint8); m[by0:by1, bx0:bx1] = cv2.dilate(beyaz, np.ones((15, 15), np.uint8))
+    arr = cv2.inpaint(arr, m, 9, cv2.INPAINT_TELEA)
+    im = Image.fromarray(arr)
 X0, Y0, X1, Y1 = 138, 338, 1122, 800   # TV ekranının görünen alanı (bandın altı)
 pw = (X1 - X0) // 3; ph = Y1 - Y0
 ekran = Image.new("RGB", (X1 - X0, ph), (8, 8, 10))
@@ -80,11 +89,26 @@ def kirmizi_sekil(img, poly, aci_metin, metin, hedef_w, hedef_h, merkez):
     gg = Image.new("RGBA", (W_, H_), (0, 0, 0, 0)); gg.alpha_composite(sh, (x + 4, y + 7)); img.alpha_composite(gg.filter(ImageFilter.GaussianBlur(4)))
     img.alpha_composite(lay, (x, y))
     return img.convert("RGB")
+def beyaz_yazi(img, metin, hedef_w, hedef_h, merkez, aci):
+    img = img.convert("RGBA"); sz = 300
+    while True:
+        f = FI(sz); bb = ImageDraw.Draw(Image.new("L", (1, 1))).textbbox((0, 0), metin, font=f)
+        if (bb[2] - bb[0]) <= hedef_w and (bb[3] - bb[1]) <= hedef_h: break
+        sz -= 4
+    tw, th = bb[2] - bb[0], bb[3] - bb[1]
+    lay = Image.new("RGBA", (tw + 80, th + 80), (0, 0, 0, 0)); ImageDraw.Draw(lay).text((40 - bb[0], 40 - bb[1]), metin, font=f, fill=(255, 255, 255, 255))
+    k = 0.16; lay = lay.transform((lay.width + int(lay.height * k), lay.height), Image.AFFINE, (1, k, -lay.height * k, 0, 1, 0), resample=Image.BICUBIC)
+    lay = lay.rotate(aci, resample=Image.BICUBIC, expand=True)
+    sh = Image.new("RGBA", lay.size, (0, 0, 0, 0)); sh.putalpha(lay.getchannel("A").point(lambda v: int(v * 0.8)))
+    x = int(merkez[0] - lay.width / 2); y = int(merkez[1] - lay.height / 2)
+    gg = Image.new("RGBA", img.size, (0, 0, 0, 0)); gg.alpha_composite(sh, (x + 5, y + 9)); img.alpha_composite(gg.filter(ImageFilter.GaussianBlur(7)))
+    img.alpha_composite(lay, (x, y)); return img.convert("RGB")
+if UST: out = beyaz_yazi(out, UST, 470, 112, (330, 112), 2.0)
 # şerit (1672x941 ölçüsünde): eski "WEB SİTESİ" şeridini tamamen örter
 out = kirmizi_sekil(out, [(112, 176), (1084, 120), (1080, 304), (94, 344)], 3.4, SERIT, 900, 150, (588, 238))
 # etiket: eski "OYUN DEĞİL"
 out = kirmizi_sekil(out, [(50, 788), (482, 780), (478, 882), (46, 890)], 1.0, ETIKET, 370, 66, (264, 834))
-ad = "kapak_J_3d_stadyum" if LOGO else "kapak_J_3d_stadyum_logosuz"
+ad = os.environ.get("AD") or ("kapak_J_3d_stadyum" if LOGO else "kapak_J_3d_stadyum_logosuz")
 out.save(f"{K}/{ad}.jpg", quality=95)
 out.resize((1280, 720), Image.LANCZOS).save(f"{K}/{ad}_1280.jpg", quality=95)
 print("ok")
