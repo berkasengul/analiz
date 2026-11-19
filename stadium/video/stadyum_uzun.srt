@@ -1,0 +1,707 @@
+1
+00:00:00,000 --> 00:00:02,840
+Arkadaşlar bu gördüğünüz bir oyun ya da fotoğraf değil,
+
+2
+00:00:03,140 --> 00:00:04,200
+bu bir web sitesi.
+
+3
+00:00:04,420 --> 00:00:07,680
+Galatasaray'ın, Fenerbahçe'nin ve Beşiktaş'ın statlarını yaptım.
+
+4
+00:00:07,940 --> 00:00:11,360
+Etrafındaki binalara, yollara, hatta koltuğuna kadar 3D.
+
+5
+00:00:11,980 --> 00:00:14,900
+Ve tek satır kod yazmadım, hepsini yapay zekâ yaptı.
+
+6
+00:00:15,280 --> 00:00:18,060
+Bilet almadan önce koltuğunuza oturup sahayı görüyorsunuz.
+
+7
+00:00:18,260 --> 00:00:20,540
+Ama baştan söyleyeyim ilk denemem o kadar da iyi
+
+8
+00:00:20,540 --> 00:00:21,120
+değildi.
+
+9
+00:00:21,340 --> 00:00:23,780
+Yine de size göstereceğim çünkü asıl mesele orada.
+
+10
+00:00:24,300 --> 00:00:27,240
+Bir de en sonda bunu satarken çoğu kişinin yaptığı
+
+11
+00:00:27,240 --> 00:00:28,200
+bir hata var.
+
+12
+00:00:28,200 --> 00:00:29,260
+Onu da anlatacağım.
+
+13
+00:00:29,420 --> 00:00:31,500
+Önümüzdeki 8 dakikada 3 şey var.
+
+14
+00:00:31,880 --> 00:00:34,560
+Bunu nasıl yaptık, siz nasıl yaparsınız ve bunu nasıl
+
+15
+00:00:34,560 --> 00:00:35,540
+paraya çevirirsiniz.
+
+16
+00:00:35,840 --> 00:00:36,320
+Hadi geçelim.
+
+17
+00:00:36,652 --> 00:00:41,352
+Arkadaşlar ben Instagram'da 3D bir Stadyum'dan bilet alma videosu gördüm.
+
+18
+00:00:41,532 --> 00:00:44,912
+Altına yorum bırakın, size nasıl yapıldığını mesaj atacağım yazmışlardı.
+
+19
+00:00:45,212 --> 00:00:46,292
+Ben de mesaj attım.
+
+20
+00:00:46,572 --> 00:00:48,592
+Göndereceğiz dediler ama göndermediler.
+
+21
+00:00:48,872 --> 00:00:50,252
+Şu anda ekranda görüyorsunuz zaten.
+
+22
+00:00:50,612 --> 00:00:53,172
+Ben de oturdum, nasıl yapıldığını kendim araştırdım.
+
+23
+00:00:53,332 --> 00:00:55,432
+İlk birkaç deneme oldukça berbattı.
+
+24
+00:00:55,652 --> 00:00:59,472
+Sonra dedim ki Galatasaray, Fenerbahçe ve Beşiktaş için birer
+
+25
+00:00:59,472 --> 00:01:00,172
+stadyum yapayım.
+
+26
+00:01:00,592 --> 00:01:03,212
+Önce sonucu göstereyim, sonra nasıl yaptığımıza geçelim.
+
+27
+00:01:03,892 --> 00:01:05,812
+Siteyi açınca stat akşam ışığında geliyor.
+
+28
+00:01:05,812 --> 00:01:10,032
+Çatısı, güneş panelleri, üstünde RAMS Park yazısı.
+
+29
+00:01:10,252 --> 00:01:13,012
+Etrafta binalar var, yollarda arabalar gidiyor.
+
+30
+00:01:13,232 --> 00:01:16,372
+"Bilet Al" butonuna basıyorum, kamera stadın içine giriyor.
+
+31
+00:01:16,692 --> 00:01:19,712
+Sahanın kenarında Şampiyonlar Ligi'ndeki gibi reklam panoları dönüyor.
+
+32
+00:01:20,292 --> 00:01:22,852
+Bir bloğa tıklıyorum, kamera o bloğa yaklaşıyor.
+
+33
+00:01:23,212 --> 00:01:27,212
+Koltuğu seçiyorum ve o koltuktan sahanın nasıl göründüğünü görüyorum.
+
+34
+00:01:27,512 --> 00:01:30,292
+Aynısını Şükrü Saracoğlu ve Tüpraş Stadyumu için de yaptım.
+
+35
+00:01:30,452 --> 00:01:32,572
+Bu arada bu resmi bir bilet sitesi değil arkadaşlar,
+
+36
+00:01:32,792 --> 00:01:33,952
+bir hayran projesi.
+
+37
+00:01:34,112 --> 00:01:35,732
+Bunu para kısmında tekrar konuşacağız.
+
+38
+00:01:36,148 --> 00:01:37,708
+Şimdi ilk denemeye bakalım.
+
+39
+00:01:38,228 --> 00:01:41,648
+Önce Galatasaray stadı RAMS Park'ı yaptık ama oldukça kalitesiz
+
+40
+00:01:41,648 --> 00:01:44,188
+olmuştu ve burada benim bir hatam vardı.
+
+41
+00:01:44,408 --> 00:01:47,428
+Ona çok kalitesiz, çok basit olmuş dedikçe o da
+
+42
+00:01:47,428 --> 00:01:48,588
+bunun üstüne çıkamıyordu.
+
+43
+00:01:48,868 --> 00:01:50,588
+Çünkü neyin kötü olduğunu söylemiyordum.
+
+44
+00:01:50,848 --> 00:01:53,988
+Ben de gittim, Galatasaray stadının fotoğraflarını aldım, Claude'a
+
+45
+00:01:53,988 --> 00:01:54,708
+verdim.
+
+46
+00:01:54,928 --> 00:01:57,108
+İçini, dışını, tribünleri, koltukları.
+
+47
+00:01:57,628 --> 00:01:59,028
+Ve Claude bunu başladı yapmaya.
+
+48
+00:01:59,508 --> 00:02:01,968
+Yani yapay zekâ sizin kafanızdaki stadı bilmiyor.
+
+49
+00:02:02,368 --> 00:02:03,368
+Ne verirseniz onu yapıyor.
+
+50
+00:02:03,748 --> 00:02:06,248
+Şimdi geçelim, bu site nasıl yapıldı ona.
+
+51
+00:02:06,808 --> 00:02:08,308
+Site 3 parçadan oluşuyor.
+
+52
+00:02:08,548 --> 00:02:09,988
+Birincisi statın etrafı.
+
+53
+00:02:10,108 --> 00:02:11,768
+Zemin gerçek uydu fotoğrafı.
+
+54
+00:02:12,008 --> 00:02:14,368
+Binalar ve yollar da OpenStreetMap'ten geliyor.
+
+55
+00:02:14,968 --> 00:02:16,608
+Yani haritadaki gerçek binalar.
+
+56
+00:02:16,808 --> 00:02:18,748
+Arabalar da gerçek yolların üstünde gidiyor.
+
+57
+00:02:19,128 --> 00:02:20,728
+OpenStreetMap ücretsiz bu arada.
+
+58
+00:02:21,048 --> 00:02:23,348
+Tek şartı, sitede kaynağını yazmanız.
+
+59
+00:02:23,568 --> 00:02:25,008
+İkincisi statın dışı.
+
+60
+00:02:25,148 --> 00:02:27,228
+Dışını kodla çizdirmek pek gerçek durmadı.
+
+61
+00:02:27,748 --> 00:02:29,808
+Fenerbahçe'nin dışını defalarca yaptırdım.
+
+62
+00:02:30,068 --> 00:02:31,668
+Her seferinde Kadıköy'e benzemedi.
+
+63
+00:02:31,668 --> 00:02:35,448
+Sonra SketchUp'ın 3D Warehouse sitesinde hazır stat modelleri
+
+64
+00:02:35,448 --> 00:02:36,268
+olduğunu öğrendim.
+
+65
+00:02:36,548 --> 00:02:38,808
+Modeli indirdik, siteye uygun hale getirdik.
+
+66
+00:02:39,188 --> 00:02:41,568
+Claude'a da dışını modelden al, içini sen yap
+
+67
+00:02:41,568 --> 00:02:42,188
+dedik.
+
+68
+00:02:42,568 --> 00:02:44,728
+Fenerbahçe'nin modeli Ahmet adında birinin.
+
+69
+00:02:45,168 --> 00:02:46,528
+Adını sitenin altına yazdık.
+
+70
+00:02:46,808 --> 00:02:49,508
+Siz de modeli kim yaptıysa adını yazın, lisansına da
+
+71
+00:02:49,508 --> 00:02:49,728
+bakın.
+
+72
+00:02:50,348 --> 00:02:51,428
+Üçüncüsü koltuklar.
+
+73
+00:02:51,608 --> 00:02:52,328
+Asıl iş burada.
+
+74
+00:02:52,928 --> 00:02:54,348
+Modeldeki tribünleri çıkardık.
+
+75
+00:02:54,568 --> 00:02:56,508
+Yerine Claude kendi koltuklarını dizdi.
+
+76
+00:02:56,808 --> 00:02:59,668
+Binlerce koltuk var ve her birine tek tek tıklanıyor.
+
+77
+00:02:59,668 --> 00:03:02,248
+Çünkü modeldeki koltuğa tıklayamıyorsunuz.
+
+78
+00:03:02,368 --> 00:03:04,848
+Bilet sitesinde de tıklanamayan koltuk işe yaramaz.
+
+79
+00:03:05,108 --> 00:03:08,628
+Renkleri, tribündeki yazıları da fotoğraflara bakarak yaptırdık.
+
+80
+00:03:09,008 --> 00:03:10,868
+Bu arada sizce hangi stat daha güzel olmuş?
+
+81
+00:03:11,548 --> 00:03:14,108
+RAMS Park mı, Saracoğlu mu, Tüpraş mı?
+
+82
+00:03:14,428 --> 00:03:16,788
+Taraftarlığı bir kenara bırakın, yorumlara yazın.
+
+83
+00:03:17,028 --> 00:03:19,348
+En çok yazılanı ayrıca Shorts olarak paylaşacağım.
+
+84
+00:03:19,803 --> 00:03:21,403
+Peki hiç sorun çıkmadı mı?
+
+85
+00:03:21,523 --> 00:03:23,783
+Çıktı tabi, dört tane büyük sorun çıktı.
+
+86
+00:03:23,983 --> 00:03:24,243
+1.
+
+87
+00:03:24,603 --> 00:03:27,723
+Kamera stadın içine girerken donuyordu, sonra da kendi etrafında
+
+88
+00:03:27,723 --> 00:03:28,223
+dönüyordu.
+
+89
+00:03:28,703 --> 00:03:31,183
+Tek ve yumuşak bir hareketle girecek şekilde düzelttik.
+
+90
+00:03:31,603 --> 00:03:32,203
+2.
+
+91
+00:03:32,323 --> 00:03:34,623
+İçeri girerken koltukların rengi değişiyordu.
+
+92
+00:03:35,003 --> 00:03:37,083
+Bunu ben fark ettim, Claude fark etmemişti.
+
+93
+00:03:37,463 --> 00:03:39,663
+Bir açılış efekti varmış, onu kaldırdık.
+
+94
+00:03:39,963 --> 00:03:40,563
+3.
+
+95
+00:03:40,723 --> 00:03:43,223
+Hazır modelin parçaları koltukların arasından çıkıyordu.
+
+96
+00:03:43,423 --> 00:03:44,943
+Bunu ekran görüntüsü atarak çözdük.
+
+97
+00:03:45,183 --> 00:03:46,383
+Bak şuradan çıkıyor dedim.
+
+98
+00:03:46,703 --> 00:03:47,283
+4.
+
+99
+00:03:47,443 --> 00:03:48,563
+Dosya çok büyüktü.
+
+100
+00:03:48,563 --> 00:03:51,543
+Beşiktaş'ın modeli sınırı aşıyordu, ikiye böldük.
+
+101
+00:03:51,943 --> 00:03:55,183
+Şunu söyleyeyim arkadaşlar, Claude'a sadece olmamış demeyin.
+
+102
+00:03:55,363 --> 00:03:58,243
+Ekran görüntüsü atın ve neyin yanlış olduğunu tek cümleyle
+
+103
+00:03:58,243 --> 00:03:58,963
+söyleyin.
+
+104
+00:03:59,243 --> 00:04:01,243
+Bu projede en çok işe yarayan şey bu oldu.
+
+105
+00:04:01,643 --> 00:04:04,023
+Şimdi geçelim, siz bunu nasıl yaparsınız ona.
+
+106
+00:04:04,223 --> 00:04:04,883
+5 adım var.
+
+107
+00:04:05,103 --> 00:04:06,183
+Birincisi bir referans bulun.
+
+108
+00:04:06,523 --> 00:04:09,183
+Ben Instagram'daki o videoyu verdim, bunun gibi olsun dedim.
+
+109
+00:04:09,643 --> 00:04:11,403
+İkincisi gerçek bir yer seçin.
+
+110
+00:04:11,563 --> 00:04:13,423
+Bir stat değil, şu stat deyin.
+
+111
+00:04:13,743 --> 00:04:15,923
+Gerçek yer olunca gerçek veri buluyorsunuz.
+
+112
+00:04:16,103 --> 00:04:17,603
+Üçüncüsü, veriyi toplayın.
+
+113
+00:04:17,803 --> 00:04:21,343
+Uydu görüntüsü, OpenStreetMap, varsa 3D Warehouse'dan model,
+
+114
+00:04:21,523 --> 00:04:22,443
+yoksa fotoğraflar.
+
+115
+00:04:23,083 --> 00:04:25,543
+Dördüncüsü, Claude Code'a ne istediğinizi anlatın.
+
+116
+00:04:25,703 --> 00:04:29,463
+Dışı modelden gelsin, koltuklar tıklansın, "Bilet Al"a basınca kamera
+
+117
+00:04:29,463 --> 00:04:30,023
+içeri girsin.
+
+118
+00:04:30,023 --> 00:04:32,523
+Benim kullandığım komut açıklamada var.
+
+119
+00:04:32,823 --> 00:04:34,523
+Beşincisi, telefonda deneyin.
+
+120
+00:04:34,883 --> 00:04:36,543
+Çoğu kişi bu siteyi telefondan açacak.
+
+121
+00:04:37,003 --> 00:04:38,403
+Telefonda kasıyorsa bir anlamı yok.
+
+122
+00:04:38,843 --> 00:04:41,463
+Maliyet derseniz, Claude'un ücretli bir planı var.
+
+123
+00:04:41,883 --> 00:04:45,463
+Onun dışında OpenStreetMap ücretsiz, modeller ücretsiz, Netlify
+
+124
+00:04:45,463 --> 00:04:46,863
+'ın ücretsiz planı da yetiyor.
+
+125
+00:04:47,323 --> 00:04:48,783
+Yani asıl harcadığınız şey zaman.
+
+126
+00:04:49,643 --> 00:04:51,123
+İlk stat en uzun süreni oldu.
+
+127
+00:04:51,723 --> 00:04:54,503
+Diğer ikisi çok daha hızlı gitti, çünkü düzen artık
+
+128
+00:04:54,503 --> 00:04:54,923
+hazırdı.
+
+129
+00:04:55,331 --> 00:04:57,411
+Şimdi gelelim en önemli kısma.
+
+130
+00:04:57,651 --> 00:04:58,631
+Bunu kime satacaksınız?
+
+131
+00:04:58,911 --> 00:04:59,631
+Galatasaray'a mı?
+
+132
+00:04:59,991 --> 00:05:00,871
+Hayır arkadaşlar.
+
+133
+00:05:01,231 --> 00:05:04,371
+Büyük kulüplerin zaten kendi bilet sistemleri var, oraya giremezsiniz.
+
+134
+00:05:04,671 --> 00:05:05,891
+Bu site sizin vitrininiz.
+
+135
+00:05:06,411 --> 00:05:07,771
+Ne yapabildiğinizi gösteriyor.
+
+136
+00:05:08,171 --> 00:05:10,851
+Asıl para, aynı fikri başka yerlere götürünce geliyor.
+
+137
+00:05:11,631 --> 00:05:14,631
+Fikir şu, almadan önce oradan nasıl göründüğünü gör.
+
+138
+00:05:15,251 --> 00:05:18,831
+Birincisi, konser salonları, tiyatrolar, spor salonları.
+
+139
+00:05:19,191 --> 00:05:21,711
+İnsanlar hep aynı şeyi soruyor, sahneyi görebilecek miyim?
+
+140
+00:05:22,471 --> 00:05:25,691
+İkincisi, alt lig kulüpleri ve organizasyon şirketleri.
+
+141
+00:05:25,951 --> 00:05:27,331
+Onların böyle bir sistemi yok.
+
+142
+00:05:27,911 --> 00:05:30,351
+Üçüncüsü, bence en büyüğü, konut projeleri.
+
+143
+00:05:30,651 --> 00:05:31,731
+Koltuk yerine daire.
+
+144
+00:05:32,091 --> 00:05:35,271
+Daireyi seçiyorsunuz, balkona çıkıyorsunuz, manzarayı görüyorsunuz.
+
+145
+00:05:35,391 --> 00:05:36,291
+Dördüncüsü oteller.
+
+146
+00:05:36,931 --> 00:05:38,251
+Oda manzarası için aynı şey.
+
+147
+00:05:38,491 --> 00:05:39,531
+Peki nasıl satacaksınız?
+
+148
+00:05:40,011 --> 00:05:42,531
+Önce o yerin demosunu yapın, sonra yazın.
+
+149
+00:05:42,791 --> 00:05:44,731
+Size site yaparım mesajını kimse okumuyor.
+
+150
+00:05:45,251 --> 00:05:48,531
+Bakın, sizin salonunuz böyle görünüyor deyip link atınca okuyorlar.
+
+151
+00:05:48,891 --> 00:05:51,211
+Bir de demo açılınca ilk 5 saniye çok önemli.
+
+152
+00:05:52,071 --> 00:05:53,111
+Etkilenmezlerse kapatıyorlar.
+
+153
+00:05:53,391 --> 00:05:55,611
+O yüzden açılışa en güzel açıyı koyun.
+
+154
+00:05:55,891 --> 00:05:58,411
+Ben akşam ışığında havadan bir açı koydum.
+
+155
+00:05:58,571 --> 00:06:00,931
+Fiyatı da işin büyüklüğüne göre konuşursunuz.
+
+156
+00:06:01,131 --> 00:06:03,271
+Bir kurulum ücreti, bir de aylık bakım.
+
+157
+00:06:03,531 --> 00:06:05,171
+Ama kazanç garantisi yok arkadaşlar.
+
+158
+00:06:05,831 --> 00:06:08,151
+Telefonu açıp konuşmayacaksanız, bu iş size göre değil.
+
+159
+00:06:08,751 --> 00:06:10,271
+Bir de her demoyu Shorts'a çevirin.
+
+160
+00:06:10,511 --> 00:06:12,271
+Ben de her stat için ayrı bir Shorts yapıyorum.
+
+161
+00:06:12,771 --> 00:06:16,091
+Taraftarlar birbirine atıyor, vitrininizi sizin yerinize başkaları yayıyor.
+
+162
+00:06:16,531 --> 00:06:18,311
+Baştaki hataya gelelim.
+
+163
+00:06:18,591 --> 00:06:21,111
+Kulübün adıyla, logosuyla para kazanmaya çalışmak.
+
+164
+00:06:21,451 --> 00:06:22,771
+Bunlar tescilli marka.
+
+165
+00:06:22,971 --> 00:06:26,651
+Bununla satış yaparsanız siteniz kapanır, başınızda belaya girer.
+
+166
+00:06:26,831 --> 00:06:28,171
+Benimki hayran projesi.
+
+167
+00:06:28,371 --> 00:06:30,471
+Bilet satmıyor, kimseden para almıyor.
+
+168
+00:06:30,691 --> 00:06:33,411
+Müşteriye yaptığınızda da bilet satışını siz yapmayın.
+
+169
+00:06:33,751 --> 00:06:36,531
+Resmi satış sitesine yönlendirin, siz vitrini satın.
+
+170
+00:06:36,891 --> 00:06:38,131
+Peki demoyu yaptınız.
+
+171
+00:06:38,431 --> 00:06:39,611
+Ama kime göndereceksiniz?
+
+172
+00:06:39,811 --> 00:06:41,211
+Müşteriyi nereden bulacaksınız?
+
+173
+00:06:41,631 --> 00:06:43,471
+Ben bunu kendim uğraşmadan çözdüm.
+
+174
+00:06:43,471 --> 00:06:47,211
+Yapay zekâ ekibim her sabah müşteri buluyor, demosunu yapıyor,
+
+175
+00:06:47,511 --> 00:06:48,331
+maili atıyor.
+
+176
+00:06:48,691 --> 00:06:50,871
+Nasıl kurduğumu ekrandaki videoda anlattım.
+
+177
+00:06:51,071 --> 00:06:52,771
+Hadi ona geçelim, orada görüşürüz.

@@ -47,20 +47,20 @@ def plan(n, c, L):
     """[(başlangıç sn, görüntü)] · görüntü: ('A',) tam avatar | ('kart', ad) | ('film', stad, a, b) | ('resim', yol) | ('bolunmus', sol, sag)"""
     R = f"{FILM}/rams_kare.jpg"
     if n == 1: return [(0, ("film", "rams", 0.0, 4.5)), (c("galatasaray"), ("A",)), (c("bilet", "almadan"), ("film", "rams", 19.0, 26.0)), (c("ama", "baştan"), ("A",))]
-    if n == 2: return [(0, ("A",)), (c("instagramda"), ("kart", "instagram")), (c("önce", "sonucu"), ("A",)), (c("siteyi", "açınca"), ("film", "rams", 0.5, 26.0)),
-                       (c("aynısını"), ("film", "fb", 1.0, 7.0)), (c("tüpraş"), ("film", "bjk", 1.0, 7.0)), (c("bu", "arada"), ("A",))]
-    if n == 3: return [(0, ("A",)), (c("şimdi", "ilk"), ("bolunmus", f"{V1}/b-intro2.png", R)), (c("ve", "burada"), ("kart", "hatam")), (c("yani", "yapay"), ("A",))]
-    if n == 4: return [(0, ("A",)), (c("site", "üç"), ("kart", "parca_1")), (c("zemin"), ("film", "rams", 0.0, 6.5)), (c("ücretsiz"), ("kart", "kaynak")),
-                       (c("ikincisi"), ("kart", "parca_2")), (c("fenerbahçenin", "dışını"), ("film", "fb", 0.0, 7.0)), (c("fenerbahçenin", "modeli"), ("kart", "kaynak")),
+    if n == 2: return [(0, ("A",)), (c("instagramda"), ("kart", "instagram")), (c("ilk", "birkaç"), ("resim", f"{V1}/b-intro2.png")), (c("sonra", "dedim"), ("film", "fb", 0.0, 5.0)), (c("önce", "sonucu"), ("A",)), (c("siteyi", "açınca"), ("film", "rams", 0.5, 26.0)),
+                       (c("aynısını"), ("film", "fb", 1.0, 7.0)), (c("tüpra"), ("film", "bjk", 1.0, 7.0)), (c("bu", "arada"), ("A",))]
+    if n == 3: return [(0, ("A",)), (c("şimdi", "ilk"), ("bolunmus", f"{V1}/b-intro2.png", R)), (c("ve", "burada"), ("kart", "hatam")), (c("ben", "de", "gittim"), ("film", "rams", 12.0, 26.0)), (c("yani", "yapay"), ("A",))]
+    if n == 4: return [(0, ("A",)), (c("site", "3"), ("kart", "parca_1")), (c("zemin"), ("film", "rams", 0.0, 6.5)), (c("ücretsiz"), ("kart", "kaynak")),
+                       (c("ikincisi"), ("kart", "parca_2")), (c("fenerbahçe", "nin", "dışını"), ("film", "fb", 0.0, 13.5)), (c("fenerbahçe", "nin", "modeli"), ("kart", "kaynak")),
                        (c("üçüncüsü"), ("kart", "parca_3")), (c("modeldeki", "tribünleri"), ("film", "bjk", 12.0, 26.0)), (c("bu", "arada", "sizce"), ("A",)), (c("taraftarlığı"), ("kart", "yorum"))]
-    if n == 5: return [(0, ("A",)), (c("bir", "kamera"), ("kart", "sorun_1")), (c("iki"), ("kart", "sorun_2")), (c("üç", "hazır"), ("kart", "sorun_3")),
-                       (c("dört", "dosya"), ("kart", "sorun_4")), (c("şunu", "söyleyeyim"), ("kart", "ders")), (c("bu", "projede"), ("A",))]
-    if n == 6: return [(0, ("A",)), (c("beş", "adım"), ("kart", "adim_1")), (c("ikincisi"), ("kart", "adim_2")), (c("üçüncüsü"), ("kart", "adim_3")),
-                       (c("dördüncüsü"), ("kart", "adim_4")), (c("beşincisi"), ("kart", "adim_5")), (c("maliyet"), ("kart", "maliyet")), (c("ilk", "stat"), ("film", "fb", 6.5, 13.0))]
-    if n == 7: return [(0, ("A",)), (c("galatasaraya"), ("kart", "kime")), (c("birincisi"), ("kart", "musteri_1")), (c("ikincisi"), ("kart", "musteri_2")),
+    if n == 5: return [(0, ("A",)), (c("1", "kamera"), ("kart", "sorun_1")), (c("2", "içeri"), ("kart", "sorun_2")), (c("3", "hazır"), ("kart", "sorun_3")),
+                       (c("4", "dosya"), ("kart", "sorun_4")), (c("şunu", "söyleyeyim"), ("kart", "ders")), (c("bu", "projede"), ("A",))]
+    if n == 6: return [(0, ("A",)), (c("5", "adım"), ("kart", "adim_1")), (c("ikincisi"), ("kart", "adim_2")), (c("üçüncüsü"), ("kart", "adim_3")),
+                       (c("dördüncüsü"), ("kart", "adim_4")), (c("beşincisi"), ("kart", "adim_5")), (c("maliyet"), ("kart", "maliyet")), (c("ilk", "stat"), ("film", "rams", 6.0, 13.0))]
+    if n == 7: return [(0, ("A",)), (c("galatasaray", "a", "mı"), ("kart", "kime")), (c("birincisi"), ("kart", "musteri_1")), (c("ikincisi"), ("kart", "musteri_2")),
                        (c("üçüncüsü"), ("kart", "musteri_3")), (c("dördüncüsü"), ("kart", "musteri_4")), (c("peki", "nasıl"), ("kart", "satis")),
                        (c("bir", "de", "demo"), ("film", "rams", 0.0, 6.0)), (c("fiyatı"), ("kart", "satis")), (c("bir", "de", "her"), ("film", "bjk", 0.5, 12.0))]
-    if n == 8: return [(0, ("A",)), (c("kulübün"), ("kart", "hata")), (c("peki", "demoyu"), ("A",))]
+    if n == 8: return [(0, ("A",)), (c("kulübün"), ("kart", "hata")), (c("peki", "demo"), ("A",))]
 
 def filmler():
     """15 kare/sn site kayıtlarını 30 kare/sn mp4'e çevirir (hareket aradeğerleme), RAMS için tek kare çıkarır."""
@@ -109,12 +109,20 @@ def srt():
     ts = lambda t: f"{int(t//3600):02d}:{int(t%3600//60):02d}:{int(t%60):02d},{int(round(t%1*1000))%1000:03d}"
     for n in PARCA:
         W = json.load(open(f"{AV}/{PARCA[n]}.words.json")); buf = []
+        if any(w["w"].startswith("Altyazı") for w in W): W = W[:[w["w"].startswith("Altyazı") for w in W].index(True)]  # whisper uydurması
         for i, w in enumerate(W):
             buf.append(w)
             if w["w"].endswith((".", "?", "!")) or len(buf) >= 9 or i == len(W) - 1:
                 satir.append(f"{k}\n{ts(t0 + buf[0]['s'])} --> {ts(t0 + buf[-1]['e'])}\n{' '.join(x['w'] for x in buf)}\n"); k += 1; buf = []
         t0 += dur(f"{AV}/{PARCA[n]}.mp4")
-    open(f"{D}/stadyum_uzun.srt", "w").write("\n".join(satir))
+    txt = "\n".join(satir)
+    for a, b in [(" 'ın", "'ın"), (" 'nin", "'nin"), (" 'ın", "'ın"), (" 'a", "'a"), (" 'e", "'e"), (" 'un", "'un"), (" 'yu", "yu"), (" 'ten", "'ten"),
+                 ("Cloud Code", "Claude Code"), ("Cloud", "Claude"), ("Tridiver House", "3D Warehouse"), ("Tridibis", "3D bir"), ("tridi", "3D"), ("Tridi", "3D"),
+                 ("Remspark", "RAMS Park"), ("Ramspark", "RAMS Park"), ("Rams Park", "RAMS Park"), ("Tüpraç", "Tüpraş"), ("Saracoglu", "Saracoğlu"), ("altlik", "alt lig"),
+                 ("maile atıyor", "maili atıyor"), ("shortsa", "Shorts'a"), ("shorts", "Shorts"), ("Ligindeki", "Ligi'ndeki"), ("open street map", "OpenStreetMap"),
+                 ("Bilet al butonuna", "\"Bilet Al\" butonuna"), ("bilet ala basınca", "\"Bilet Al\"a basınca"), ("Yapay Zeka", "Yapay zekâ"), ("yapay zeka", "yapay zekâ")]:
+        txt = txt.replace(a, b)
+    open(f"{D}/stadyum_uzun.srt", "w").write(txt)
 
 def son():
     parcalar = [f"{OUT}/p{n:02d}.mp4" for n in PARCA]
