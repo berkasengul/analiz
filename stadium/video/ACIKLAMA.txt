@@ -64,4 +64,4 @@ YÜKLERKEN
 • "Çocuklara yönelik değil" seç.
 • Altyazı: stadyum_uzun.srt dosyasını "Altyazılar > Dosya yükle > Zamanlamalı" ile Türkçe olarak yükle.
 • Bitiş ekranı (son 20 sn): satış ekibi videosu ("Yapay Zekâ Benim Yerime Müşteri Buldu, Site Yaptı, Mail Attı"). Videoda "ekrandaki videoda anlattım" deniyor.
-• Kapak: kapak/kapak_J_3d_stadyum_1280.jpg ("BU BİR 3D STADYUM", "SEN DE YAP", logolu); logosuz: kapak_J_3d_stadyum_logosuz_1280.jpg.
+• Kapak: kapak/kapak_M_beyaz_ceket_1280.jpg (beyaz ceketli, KOD YAZMADIM, logolu); logosuz: kapak_M_beyaz_ceket_logosuz_1280.jpg.

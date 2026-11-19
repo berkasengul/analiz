@@ -3,7 +3,7 @@
 import os, numpy as np
 from PIL import Image, ImageFilter, ImageEnhance, ImageDraw
 D = os.path.dirname(os.path.abspath(__file__)); K = f"{D}/kapak"
-im = Image.open(f"{K}/_kullanici_ham.jpg").convert("RGB"); W, H = im.size  # 1672x941
+im = Image.open(f"{K}/" + os.environ.get("HAM", "_kullanici_ham.jpg")).convert("RGB").resize((1672, 941), Image.LANCZOS); W, H = im.size  # 1672x941
 UST = os.environ.get("UST", "")  # boşsa orijinal "BU BİR" kalır; doluysa silinip bu yazı yazılır
 if UST:
     import cv2
