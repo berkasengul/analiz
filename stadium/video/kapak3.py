@@ -1,5 +1,6 @@
 # Kapak v3 (gerçekçi): HeyGen görüntü üretimi (nano-banana-2) ile kullanıcının kendi fotoğrafı + sitenin net render'ı
-# monitörde birleştirildi (kapak/_ham_gercekci_*.png). Bu betik yalnızca yazıyı ekler.
+# monitörde birleştirildi (kapak/_ham_gercekci_*.png; 3-4: ekran 3 stada bölünmüş, yüz kullanıcının kendi fotoğraflarıyla düzeltilmiş).
+# Bu betik yalnızca yazıyı ekler.
 import os
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
 D = os.path.dirname(os.path.abspath(__file__)); K = f"{D}/kapak"
@@ -10,7 +11,7 @@ def golge(im, xy, metin, font, renk, kalin=9):
     lay = Image.new("RGBA", im.size, (0, 0, 0, 0)); ImageDraw.Draw(lay).text((xy[0] + 5, xy[1] + 9), metin, font=font, fill=(0, 0, 0, 220))
     im.alpha_composite(lay.filter(ImageFilter.GaussianBlur(9)))
     ImageDraw.Draw(im).text(xy, metin, font=font, fill=renk, stroke_width=kalin, stroke_fill=INK)
-for i, ad in ((1, "kapak_D_gercekci"), (2, "kapak_E_gercekci")):
+for i, ad in ((1, "kapak_D_gercekci"), (2, "kapak_E_gercekci"), (3, "kapak_F_3stat_gercekci"), (4, "kapak_G_3stat_gercekci")):
     im = Image.open(f"{K}/_ham_gercekci_{i}.png").convert("RGB").resize((W, H), Image.LANCZOS)
     im = ImageEnhance.Contrast(im).enhance(1.06); im = ImageEnhance.Color(im).enhance(1.1); im = im.filter(ImageFilter.UnsharpMask(1.6, 50, 2)).convert("RGBA")
     g = Image.new("RGBA", (W, H), (0, 0, 0, 0)); dg = ImageDraw.Draw(g)

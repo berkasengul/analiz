@@ -64,4 +64,4 @@ YÜKLERKEN
 • "Çocuklara yönelik değil" seç.
 • Altyazı: stadyum_uzun.srt dosyasını "Altyazılar > Dosya yükle > Zamanlamalı" ile Türkçe olarak yükle.
 • Bitiş ekranı (son 20 sn): satış ekibi videosu ("Yapay Zekâ Benim Yerime Müşteri Buldu, Site Yaptı, Mail Attı"). Videoda "ekrandaki videoda anlattım" deniyor.
-• Kapak: kapak/kapak_D_gercekci.jpg (önerilen); test için kapak_C_3stat_net.jpg.
+• Kapak: kapak/kapak_F_3stat_gercekci.jpg (önerilen); test için kapak_G_3stat_gercekci.jpg.
