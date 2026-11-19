@@ -2588,7 +2588,8 @@ class GLTFParser {
 
 		}
 
-		if ( typeof createImageBitmap === 'undefined' || ( isSafari && safariVersion < 17 ) || ( isFirefox && firefoxVersion < 98 ) ) {
+		// patched: always decode images through <img> (works under a CSP that blocks fetch() of data:/blob: URLs)
+		if ( true ) {
 
 			this.textureLoader = new TextureLoader( this.options.manager );
 
@@ -2998,6 +2999,16 @@ class GLTFParser {
 		}
 
 		const options = this.options;
+
+		// patched: decode base64 data: buffers in-page instead of fetch() (blocked by the artifact CSP)
+		if ( typeof bufferDef.uri === 'string' && bufferDef.uri.startsWith( 'data:' ) ) {
+
+			const b64 = bufferDef.uri.slice( bufferDef.uri.indexOf( ',' ) + 1 );
+			const bin = atob( b64 ), out = new Uint8Array( bin.length );
+			for ( let i = 0; i < bin.length; i ++ ) out[ i ] = bin.charCodeAt( i );
+			return Promise.resolve( out.buffer );
+
+		}
 
 		return new Promise( function ( resolve, reject ) {
 

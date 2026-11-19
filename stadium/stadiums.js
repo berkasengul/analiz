@@ -127,9 +127,7 @@ const _S = {
 };
 
 // Türk Telekom Arena = RAMS Park's former name: same seating data, geometry from the user's SketchUp model
-_S.tta = {
-  ..._S.rams, id: 'tta',
-  model: { url: 'assets/models/turktelekom.gltf.json', pitch: [22.7, 9.6, 0.15], rotY: 127 },
-  sat: { ..._S.rams.sat, shift: [0, 14] },
-};
+_S.rams.model = { url: 'assets/models/turktelekom.gltf.json', pitch: [22.7, 9.6, 0.15], rotY: 127 };
+_S.rams.sat = { ..._S.rams.sat, shift: [0, 14] };
+_S.tta = _S.rams; // old link name
 export const STADIUMS = _S;

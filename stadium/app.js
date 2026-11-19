@@ -1523,7 +1523,7 @@ function loop(now) { step((now - last) / 1000); last = now; requestAnimationFram
   document.querySelectorAll('.teams, .cta-teams, .t-match').forEach((e) => { e.innerHTML = `<b>${CFG.match.home}</b><span>vs</span><b>${CFG.match.away}</b>`; });
   document.querySelectorAll('.match small, .cta-card small').forEach((e) => (e.textContent = `${CFG.match.league}${e.closest('.match') ? ' · ' + CFG.match.time : ''}`));
   document.querySelectorAll('.cta-meta, .t-sub').forEach((e) => (e.textContent = `${CFG.stadium} · ${CFG.place} · ${CFG.match.time}`));
-  document.querySelectorAll('.switch a').forEach((e) => e.classList.toggle('on', e.dataset.s === SID));
+  document.querySelectorAll('.switch a').forEach((e) => e.classList.toggle('on', e.dataset.s === CFG.id));
   if (CFG.sketchfab) {
     const sk = CFG.sketchfab, btn = $('#skfbBtn'), box = $('#skfb'), fr = $('#skfbFrame');
     btn.hidden = false; $('#skfbTitle').textContent = sk.title;

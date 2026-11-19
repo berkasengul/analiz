@@ -5,14 +5,16 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.mp3': 'audio/mpeg' };
+const types = { '.json': 'application/json', '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.mp3': 'audio/mpeg' };
 export function serve(port = 8123) {
   return new Promise((res) => {
     const s = http.createServer((req, rsp) => {
       let p = decodeURIComponent(new URL(req.url, 'http://x').pathname); if (p.endsWith('/')) p += 'index.html';
       const f = path.join(root, p);
       if (!f.startsWith(root) || !fs.existsSync(f)) { rsp.writeHead(404); rsp.end(); return; }
-      rsp.writeHead(200, { 'content-type': types[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(rsp);
+      const h = { 'content-type': types[path.extname(f)] || 'application/octet-stream' };
+      if (process.env.CSP) h['content-security-policy'] = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'";
+      rsp.writeHead(200, h); fs.createReadStream(f).pipe(rsp);
     }).listen(port, () => res(s));
   });
 }
