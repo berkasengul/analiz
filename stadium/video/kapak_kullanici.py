@@ -30,9 +30,11 @@ e = np.asarray(ekran).astype(float)
 bolge = yeni[Y0:Y1, X0:X1]; k = koru[Y0:Y1, X0:X1, None]
 yeni[Y0:Y1, X0:X1] = e * (1 - k) + bolge * k
 out = Image.fromarray(np.clip(yeni, 0, 255).astype(np.uint8))
-# canlılık: doygunluk, kontrast, hafif netlik
-out = ImageEnhance.Color(out).enhance(1.28); out = ImageEnhance.Contrast(out).enhance(1.10); out = ImageEnhance.Brightness(out).enhance(1.03)
-out = out.filter(ImageFilter.UnsharpMask(1.8, 55, 2))
+# canlılık yalnız ekrana ve odaya: kişi (yüz, kıyafet, el) orijinal haliyle kalır
+canli = ImageEnhance.Color(out).enhance(1.28); canli = ImageEnhance.Contrast(canli).enhance(1.10); canli = ImageEnhance.Brightness(canli).enhance(1.03)
+canli = canli.filter(ImageFilter.UnsharpMask(1.8, 55, 2))
+km_kisi = np.asarray(kisi.filter(ImageFilter.GaussianBlur(2))).astype(float)[..., None] / 255
+out = Image.fromarray(np.clip(np.asarray(canli).astype(float) * (1 - km_kisi) + np.asarray(out).astype(float) * km_kisi, 0, 255).astype(np.uint8))
 out.save(f"{K}/kapak_H_kullanici_3stat.jpg", quality=95)
 out.resize((1280, 720), Image.LANCZOS).save(f"{K}/kapak_H_kullanici_3stat_1280.jpg", quality=95)
 print("ok")
