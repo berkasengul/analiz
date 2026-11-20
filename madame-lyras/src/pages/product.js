@@ -82,7 +82,11 @@ function fill() {
     const v = $('#sVid');
     $('#sMedia').classList.toggle('has-video', !!f.video);
     v.hidden = !f.video;
-    if (f.video) { v.poster = f.videoPoster || f.storyImg; if (!v.src.endsWith(f.video)) { v.src = f.video; v.load(); } } else { v.pause(); v.removeAttribute('src'); }
+    if (f.video) {
+      v.muted = true; v.autoplay = true; v.poster = f.videoPoster || f.storyImg;
+      if (!v.src.endsWith(f.video)) { v.src = f.video; v.load(); }
+      v.play().catch(() => {});
+    } else { v.pause(); v.removeAttribute('src'); }
   }
   // video hissi: meyve parçaları görselin önünde ve arkasında ağır ağır süzülür
   {

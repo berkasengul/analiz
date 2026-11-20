@@ -46,3 +46,9 @@ npm run dev
 - **ResQ ürünleri**: kahvaltılık gevrek ve kitlerdeki yemekler tek porsiyon (`RESQ_MEALS`, porsiyon ve kcal değerleri kit menülerinden).
 - Paketlerin **arka yüzleri** `public/tex/back/<id>.webp` (ambalaj görsellerinden kırpıldı, `f.back`). Arka yüzü olmayan ürünlerde arka yüz sahnede çizilir.
 - 3B sahnede dokular gerektikçe yüklenir (gösterilen ürün ve iki yanındakiler); ürün sayfası yalnızca ürünün kendi grubuyla çalışır.
+
+## Ürün videoları
+- `public/video/<id>.mp4` + `<id>.webp` (ilk kare); `src/data.js` → `VIDEOS`. Ekleme: `scripts/video-ekle.sh <video> <id> [başlangıç-sn]`.
+- Şu anki 12 video Mixkit'ten; her birinin Mixkit sayfasında **Stock Video Free License** (ticari kullanım serbest) doğrulandı:
+  cilek 10438 · dilim-cilek 50526 · ahududu 10423 · bogurtlen 10437 · mavi-yemis 52224 · muz 5075 · elma 42946 · ananas 10430 · kivi 5073 · karpuz 10426 · hindistan-cevizi 10432 · dondurma 3547 (mixkit.co/free-stock-video/…-<no>/).
+- Videosu olmayan ürünlerde hareketli görsel kullanılır. Higgsfield ile üretmek için tarifler: `docs/higgsfield-video-tarifleri.md`.
