@@ -604,9 +604,23 @@ FLAVORS.filter((f) => f.meal).forEach((f) => {
 });
 
 // ürün videoları (Higgsfield): public/video/<id>.mp4 ve ilk kare public/video/<id>.webp. Eklenen her video için id'yi buraya yazın.
-export const VIDEOS = []; // şimdilik video yok: ürün sayfasında hareketli görsel kullanılır
-// Videolar ürünün kendi görsellerinden üretildi (meyve görseli + meyve parçaları → ürünün paketi): scripts/urun-videosu/
-FLAVORS.forEach((f) => { if (VIDEOS.includes(f.id)) { f.video = `/video/${f.id}.mp4`; f.videoPoster = `/video/${f.id}.webp`; } });
+// Ürün videoları: ürün id → public/video/<dosya>.mp4 (kapak: <dosya>.webp). Birden fazla ürün aynı videoyu paylaşabilir.
+// Kaynaklar: Mixkit (her biri için 'Stock Video Free License' doğrulandı, ticari kullanım serbest) ve firmanın kendi videoları (dogallik, uretim, tesis).
+export const VIDEO_MAP = {
+  cilek: 'cilek', 'dilim-cilek': 'dilim-cilek', ahududu: 'ahududu', bogurtlen: 'bogurtlen', 'mavi-yemis': 'mavi-yemis',
+  muz: 'muz', elma: 'elma', ananas: 'ananas', kivi: 'kivi', karpuz: 'karpuz', 'hindistan-cevizi': 'hindistan-cevizi', dondurma: 'dondurma',
+  mango: 'meyve-sofrasi', lime: 'dogallik', 'fistikli-dondurma': 'fistikli-dondurma',
+  seftali: 'meyve-sofrasi', kavun: 'meyve-sofrasi', incir: 'uretim', 'beyaz-ejder': 'uretim', 'kirmizi-ejder': 'uretim',
+  'kit-mini-mix': 'kamp-kahvalti', 'kit-mini-select': 'kamp-kahve', 'kit-25-servis': 'kamp-kurulum', 'kit-35-servis': 'kamp-kahvalti', 'kit-70-servis': 'kamp-kurulum',
+  'kit-gevrek': 'gevrek',
+};
+// ResQ yemekleri: türüne göre
+const MEAL_VIDEO = { kahvalti: 'kamp-kahvalti', corba: 'kamp-kahve', ana: 'makarna', meze: 'kamp-kahve', tatli: 'kamp-kahve' };
+export const VIDEOS = Object.keys(VIDEO_MAP);
+FLAVORS.forEach((f) => {
+  const v = VIDEO_MAP[f.id] || (f.meal && MEAL_VIDEO[f.meal]);
+  if (v) { f.video = `/video/${v}.mp4`; f.videoPoster = `/video/${v}.webp`; }
+});
 
 // sayı yazımı: '17,6' → 17.6
 const num = (v) => parseFloat(String(v).replace(',', '.'));
