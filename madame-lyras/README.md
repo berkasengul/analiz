@@ -11,11 +11,12 @@ Genç Anadolu Gıda Pazarlama Dağıtım Ltd. Şti. için çok sayfalı kurumsal
 ## Sayfalar
 | Dosya | İçerik |
 |---|---|
-| `index.html` | Ana sayfa: 3B açılış, güven şeridi, ürün grupları, kurumsal tanıtım, öne çıkan ürünler, neden biz, üretim, belgeler |
+| `index.html` | Sade ana sayfa: sabit açılış görseli, güven şeridi, doğallık, Solagron meyveleri, restoran / kafe / pastane, ürünlerin yararları |
 | `kurumsal.html` | Hakkımızda, misyon ve vizyon, üretim tesisi (`#uretim`), kalite ve belgeler (`#kalite`) |
-| `urunler.html` | Filtreli ürün kataloğu (`?kat=meyve|tatli|atistirmalik|kit`) ve arama |
-| `urun.html?id=<id>` | Ürün sayfası: 3B görüntüleyici, ürün bilgileri, besin değerleri, kit içeriği, ambalaj ve lojistik, yazdırılabilir PDF ürün föyü |
-| `bayilik.html` | Avantajlar, kimler başvurabilir, süreç, sık sorulan sorular, başvuru formu (`#basvuru`, Netlify formu `bayilik`) |
+| `urunler.html` | 3B katalog girişi ve tüm ürünler (arama) |
+| `urun.html?id=<id>` | Ürün sayfası: 3B görüntüleyici, ürünün hikâyesi, yararları, restoran / kafe / pastanede kullanımı, ürün bilgileri, besin değerleri, ambalaj ve lojistik, yazdırılabilir PDF ürün föyü |
+| `teklif.html` | Toptan teklif formu (ürün seçimi, ambalaj, aylık miktar; Netlify formu `toptan-teklif`). `?urun=<id>` ile o ürün seçili açılır |
+| `bayilik.html` | Yumuşak tonlu bayilik sayfası, kısa tanışma formu (`#basvuru`, Netlify formu `bayilik`) |
 | `iletisim.html` | İletişim kartları, isteğe bağlı harita, iletişim formu (Netlify formu `iletisim`) |
 | `kvkk.html`, `cerez.html` | KVKK aydınlatma metni ve çerez politikası (şablon; hukuk danışmanınca gözden geçirilmeli) |
 
@@ -25,7 +26,9 @@ Ortak üst ve alt bilgi `src/partials/header.html` ve `src/partials/footer.html`
 ## Düzenlenecek bilgiler (`src/data.js` → `SITE`)
 - `phone` (görünen numara ve `tel`), `email`
 - `address`, `mersis`, `taxOffice`, `taxNo`, `kep` (boş olanlar sitede gösterilmez)
-- Ürün bilgileri, besin değerleri ve kit menüleri de `src/data.js` içindedir.
+- `whatsapp` (wa.me numarası), `brand` (Solagron)
+- Ürün bilgileri, besin değerleri, ürün hikâyeleri ve kullanım önerileri (`STORIES`) de `src/data.js` içindedir.
+  Yararlar ambalaj bilgileri ve besin değerleri tablosundan üretilir ("yüksek lif" ≥ 6 g/100 g, "düşük yağ" ≤ 3 g/100 g).
 
 ## Netlify
 - `npm run build` → `dist/`. Formlar Netlify Forms ile çalışır; e-posta bildirimi için Netlify panelinde

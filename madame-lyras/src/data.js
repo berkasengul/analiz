@@ -2,7 +2,9 @@
 export const SITE = {
   email: 'info@gencanadolugida.com.tr', // alan adı kesinleşince burayı ve index.html'deki mailto'yu güncelle
   // telefon: tel boşsa telefon düğmeleri iletişim formuna götürür. Gerçek numara gelince ikisini de doldurun.
-  phone: { display: '+90 (5XX) XXX XX XX', tel: '' },
+  phone: { display: '0533 055 36 86', tel: '+905330553686' },
+  whatsapp: '905330553686', // wa.me bağlantısı (başında + ve 0 olmadan)
+  brand: 'Solagron',
   // yasal bilgiler: boş olanlar sitede gösterilmez. Kesinleşince doldurun.
   address: '',            // örn. 'Silifke OSB, ... Mersin'
   mersis: '',             // MERSİS no
@@ -304,3 +306,61 @@ FLAVORS.forEach((f) => {
   FLAVORS.length = 0;
   FLAVORS.push(...keep);
 }
+
+// ---------------------------------------------------------------
+// Her ürünün hikâyesi ve restoran / kafe / pastanede kullanımı.
+// story: [başlık, metin]; uses: [restoran, kafe, pastane]
+// ---------------------------------------------------------------
+const STORIES = {
+  cilek: [['Haziranı paketledik.', "Çileğin en güzel hali, dalında kızardığı o kısa haftalardır. Biz o haftaları pakete aldık: olgun çilek bütün haliyle dondurulur, içindeki su buz olarak çekilir; geriye rengi, kokusu ve çıtır bir doku kalır. Kış ortasında açtığınız paketten yine haziran kokar."],
+    ['Tatlı tabaklarında süsleme, peynir tabağı ve salatalarda renk', 'Granola ve yoğurt kâsesi, smoothie bowl, milkshake üstü', 'Pasta ve tart üstü, ufalanmış haliyle krema ve makaron dolgusu']],
+  'dilim-cilek': [['İçindeki kalbi gösteren dilim.', "Aynı olgun çilek, bu kez ince dilimlerle. Her dilim kurutulunca bir yaprak kadar hafifler; kesiti, çileğin içindeki o kalp desenini olduğu gibi gösterir. Sunumda göz, ağızda çıtırtı arayanlar için."],
+    ['Tatlı ve kahvaltı tabaklarında dekor', 'Latte, sıcak çikolata ve yoğurt kâsesi üstü', 'Pasta yüzeyi, cheesecake ve tart süslemesi']],
+  'beyaz-ejder': [['Kabuğunun altındaki sürpriz.', "Ejder meyvesi, pullu pembe kabuğuyla tezgâhın en dikkat çeken meyvesidir; asıl sürpriz ise içindedir: siyah çekirdeklerle bezeli bembeyaz bir meyve. Kurutulunca o desen bozulmaz, tadı yumuşak ve ferah kalır."],
+    ['Tropik tatlı tabakları, salatalarda farklı bir dokunuş', 'Smoothie bowl, açaí kâsesi ve buzlu içecekler', 'Egzotik tart, pavlova ve mus süslemesi']],
+  'kirmizi-ejder': [['Rengi boyadan değil, meyveden.', "Kırmızı ejder meyvesinin içi, adının hakkını veren koyu bir eflatundur. Bu renk hiçbir boyadan gelmez; meyvenin kendisidir. Dondurarak kurutma o rengi soldurmadan saklar; tabağa koyduğunuz anda sunumun rengi değişir."],
+    ['Renkli tatlı tabakları, sorbe ve dondurma yanında', 'Pembe smoothie, bowl ve buzlu çay', 'Ufalanmış haliyle doğal renkli krema, makaron ve tart süslemesi']],
+  ananas: [['Güneşin tadı, yıl boyu.', "Ananas, tatlılığı ile ekşiliği arasındaki dengeyle tanınır. Kurutulunca bu denge kaybolmaz, yoğunlaşır. Parça parça, çıtır ve hafif: tropik bir tadı yılın her günü tezgâhınızda tutmanın en kolay yolu."],
+    ['Tropik tatlılar, soslar ve salatalar', 'Smoothie, mocktail süsü ve yoğurt kâsesi', 'Tropik kek, tart ve dondurma üstü']],
+  seftali: [['Yaz bahçesinin kokusu.', "Şeftali, yazın kokusudur; olgunlaştığında bütün bahçeyi sarar. O kokuyu kışa taşımak için dilimlerini dondurup suyunu buz olarak çektik. Paketi açtığınızda gelen ilk şey, yine o yaz bahçesidir."],
+    ['Peynir tabağı, salata ve tatlı tabakları', 'Buzlu çay, yoğurt kâsesi ve kahvaltı tabağı', 'Şeftalili tart, kek ve krema']],
+  ahududu: [['Hasat gününün tadında.', "Ahududu, dalından koparıldığı gün en güzelidir; ertesi gün bile aynı değildir. Bu yüzden onu olgunluğunun tam zirvesinde, bütün haliyle donduruyoruz. Parmaklar arasında ufalanan mayhoş, kokulu taneler hasat gününü anlatır."],
+    ['Çikolatalı tatlıların yanında, sos ve süsleme', 'Mocha ve sıcak çikolata üstü, granola kâsesi', 'Makaron, tart ve pasta süslemesi; ufalanmış haliyle krema']],
+  elma: [['Çocukluğun meyvesi, çıtır haliyle.', "Elma, hepimizin çocukluk meyvesidir. Onu ince dilimledik ve dondurarak kuruttuk: cips kadar hafif, cips kadar çıtır, ama içinde elmadan başka bir şey yok. Masada, tabakta, çantada; sade ve tanıdık bir lezzet."],
+    ['Peynir tabağı, salatalarda çıtırlık', 'Çay ve kahve yanında atıştırmalık, yulaf kâsesi', 'Tarçınlı tart, kek ve kurabiye süslemesi']],
+  mango: [['Altın sarısı bir aroma.', "Mango, tropiklerin en kokulu meyvelerinden biridir; olgunlaştığında rengi altına döner. Kurutulunca aroması kaybolmaz, yoğunlaşır. Her parça, mangonun en olgun halini taşır."],
+    ['Tropik tatlılar, salata ve soslar', 'Mango smoothie, bowl ve buzlu içecekler', 'Mangolu cheesecake, mus ve tart süslemesi']],
+  muz: [['Tanıdık meyve, yeni doku.', "Muz, en tanıdık meyvelerdendir; ama çıtır hali pek bilinmez. Dondurularak kurutulan muz dilimleri hafifler, tatlılığını korur ve ağızda yumuşacık erir. Küçükler için de büyükler için de pratik bir ara öğün."],
+    ['Kahvaltı tabağı ve tatlıların yanında', 'Yulaf kâsesi, smoothie ve pankek üstü', 'Muzlu kek, tart ve çikolata kaplama']],
+  bogurtlen: [['Çalıların arasından gelen renk.', "Böğürtlen, çalılar arasında kendiliğinden büyüyen yaban bir meyvedir; parmakları morartan o koyu renkle tanınır. Kurutulunca mayhoş ve hafif buruk tadı yoğunlaşır; tabağa derin bir renk ve karakter katar."],
+    ['Et yemekleri için sos, peynir tabağı', 'Granola, yoğurt kâsesi ve sıcak çikolata', 'Orman meyveli tart, cheesecake ve pasta süslemesi']],
+  'mavi-yemis': [['Küçük tane, büyük lezzet.', "Mavi yemiş, küçük taneleriyle büyük bir lezzet taşır; tatlı ile ekşi arasında ince bir çizgide durur. Bütün haliyle kurutulan taneler yuvarlak şeklini korur. Yulafın, yoğurdun ve kahvaltının en sevilen eşlikçisi."],
+    ['Kahvaltı tabağı, salata ve tatlı süsü', 'Bowl, granola ve muffin üstü', 'Muffin, cheesecake ve tart süslemesi']],
+  incir: [['Anadolu’nun bal tadı.', "İncir, Anadolu'nun en eski meyvelerinden biridir; bal gibi tatlılığı ve çıtır çekirdekleriyle tanınır. Taze inciri uzun süre saklamak zordur; dondurarak kurutma onu ilk günkü tadıyla tutar. Hafif bir dilimde, bütün Akdeniz."],
+    ['Peynir ve şarküteri tabağı, salata', 'Kahvaltı tabağı, yoğurt ve granola', 'İncirli tart, kek ve kurabiye']],
+  lime: [['Bardağa düşen ferahlık.', "Lime, küçük ama keskin bir meyvedir; kokusu bulunduğu yere yayılır. İnce dilimlenip kurutulan lime, şeklini ve rengini korur; bardağa düştüğünde hem göze hem damağa ferahlık verir."],
+    ['Balık ve deniz ürünleri sunumu, kokteyl süsü', 'Limonata, soda, mocktail ve buzlu çay', 'Limonlu tart, cheesecake ve kek süslemesi']],
+};
+// sayı yazımı: '17,6' → 17.6
+const num = (v) => parseFloat(String(v).replace(',', '.'));
+FLAVORS.forEach((f) => {
+  const st = STORIES[f.id];
+  if (!st) return;
+  [f.storyTitle, f.story] = st[0];
+  f.uses = st[1];
+  f.storyImg = f.backdrop || f.poster || f.tex;
+  // yararları: ambalaj bilgileri ve besin değerleri tablosuna dayanır
+  const n = Object.fromEntries((f.nutrition || []).map(([k, , g100]) => [k, g100]));
+  const fiber = n['Lif (g)'] && num(n['Lif (g)']);
+  const fat = n['Yağ (g)'] && num(n['Yağ (g)']);
+  f.benefits = [
+    ['Sadece meyve', 'İçinde meyveden başka bir şey yok; katkı maddesi, koruyucu ve renklendirici içermez.'],
+    ['Şeker ilavesiz', 'Tatlılığı meyvenin kendi şekerinden gelir.'],
+    ...(fiber >= 6 ? [['Yüksek lif', `100 gramında ${String(fiber).replace('.', ',')} g lif bulunur.`]] : []),
+    ...(fat !== undefined && fat <= 3 ? [['Düşük yağ', `100 gramında ${String(fat).replace('.', ',')} g yağ bulunur.`]] : []),
+    ...(FRESH[f.id] ? [['Hafif ve pratik', `16 g’lık paket, ${FRESH[f.id]} g taze meyveye karşılık gelir.`]] : [['Hafif ve pratik', 'Suyu alındığı için hafiftir; çantada, masada, tezgâhta kolayca taşınır.']]),
+    ['Rengi ve aroması korunur', 'Dondurarak kurutmada meyve pişmez; rengini, kokusunu ve dokusunu korur.'],
+    ['Uzun raf ömrü', 'Soğuk zincir gerekmez; serin ve kuru yerde saklanır.'],
+  ];
+  f.benefits = f.benefits.slice(0, 6);
+});

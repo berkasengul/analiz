@@ -17,6 +17,7 @@ function fillSite() {
   $$('[data-site="mailText"]').forEach((el) => { el.textContent = SITE.email; });
   $$('[data-site="tel"]').forEach((a) => { a.href = telHref(); });
   $$('[data-site="telText"]').forEach((el) => { el.textContent = SITE.phone ? SITE.phone.display : ''; });
+  $$('[data-site="wa"]').forEach((a) => { if (SITE.whatsapp) a.href = `https://wa.me/${SITE.whatsapp}`; else a.hidden = true; });
   $$('[data-site="address"]').forEach((el) => { el.textContent = SITE.address || ''; el.hidden = !SITE.address; });
   $$('[data-site="year"]').forEach((el) => { el.textContent = new Date().getFullYear(); });
   const legal = [SITE.mersis && `MERSİS: ${SITE.mersis}`, SITE.taxOffice && `${SITE.taxOffice} V.D.`, SITE.taxNo && `VKN: ${SITE.taxNo}`, SITE.kep && `KEP: ${SITE.kep}`].filter(Boolean);
@@ -89,7 +90,7 @@ export function productCard(f, i = 0) {
   return `<a class="pcard reveal" href="${productUrl(f)}" style="--c:${f.bg}">
     <span class="pcard__media${f.thumb ? ' pcard__media--kit' : ''}"><img src="${img}" alt="${f.name} ürün görseli" loading="lazy" /></span>
     <span class="pcard__body">
-      <small>${CAT_NAMES[f.cat] || ''}${f.kit ? ' · ResQ' : ' · 16 g'}</small>
+      <small>${f.kit ? `${CAT_NAMES[f.cat]} · ResQ` : '<b class="sola">SOLAGRON</b> · 16 g'}</small>
       <b>${f.name}</b>
       <span class="pcard__more">Ürünü incele <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </span>

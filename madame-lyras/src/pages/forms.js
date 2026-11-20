@@ -1,14 +1,22 @@
 // bayilik ve iletişim sayfaları: Netlify formları, ürün sayfasından gelen teklif talebi, isteğe bağlı harita
-import { $, bindForm, SITE } from '../site.js';
+import { $, $$, bindForm, SITE } from '../site.js';
 
-bindForm($('#dealerForm'), $('#dealerStatus'), 'Teşekkürler, bayilik başvurunuz bize ulaştı. Bölge sorumlumuz en kısa sürede sizinle iletişime geçecek.');
+bindForm($('#dealerForm'), $('#dealerStatus'), 'Teşekkürler, mesajınız bize ulaştı. En kısa sürede sizi arayıp tanışmak isteriz.');
+bindForm($('#quoteForm'), $('#quoteStatus'), 'Teşekkürler, teklif talebiniz bize ulaştı. En kısa sürede sizi arayacağız.');
 bindForm($('#contactForm'), $('#formStatus'), 'Teşekkürler, mesajınız bize ulaştı. En kısa sürede dönüş yapacağız.');
 
-// ürün sayfasındaki "Toptan teklif iste" → bayilik formu o ürünle doldurulur
+// ürün sayfasındaki "Toptan teklif iste" → teklif formunda o ürün seçili gelir
 const urun = new URLSearchParams(location.search).get('urun');
-if (urun && $('#d-msg')) {
-  $('#d-msg').value = `${urun} için toptan fiyat teklifi almak istiyorum.`;
+if (urun) {
+  const box = $(`#pick input[data-id="${CSS.escape(urun)}"]`);
+  if (box) box.checked = true;
 }
+$('#pickAll')?.addEventListener('click', (e) => {
+  const boxes = $$('#pick input');
+  const all = boxes.every((b) => b.checked);
+  boxes.forEach((b) => { b.checked = !all; });
+  e.currentTarget.textContent = all ? 'Tümünü seç' : 'Seçimi temizle';
+});
 
 // harita yalnızca istenince yüklenir (Google çerezleri)
 $('#mapBtn')?.addEventListener('click', () => {

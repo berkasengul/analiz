@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Toptan Teklif Formu · Solagron · Genç Anadolu Gıda</title>
+  <meta name="description" content="Restoran, kafe, pastane, market ve toptancılar için Solagron dondurularak kurutulmuş meyvelerde toptan teklif formu." />
+  <meta property="og:title" content="Genç Anadolu Gıda · Solagron dondurularak kurutulmuş meyve" />
+  <meta property="og:description" content="Solagron dondurularak kurutulmuş meyvelerinde toptan satış. 14 çeşit, şeker ilavesiz ve katkısız." />
+  <meta property="og:image" content="/img/og.jpg" />
+  <meta name="theme-color" content="#7a0f15" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/corp.css" />
+</head>
+<body data-page="teklif">
+  <!-- @include header -->
+  <main id="icerik">
+    <section class="phero">
+      <div class="wrap">
+        <ol class="crumbs"><li><a href="/">Ana sayfa</a></li><li>Toptan teklif</li></ol>
+        <h1>Toptan <em>teklif formu</em></h1>
+        <p>Restoran, kafe, pastane, market ve toptancılar için Solagron meyvelerinde toptan fiyat ve koşullar. İlgilendiğiniz ürünleri seçin, size özel teklifi iletelim.</p>
+      </div>
+    </section>
+    <section class="section section--white" id="form">
+      <div class="wrap two two--form">
+        <div class="reveal">
+          <p class="eyebrow">Nasıl işler</p>
+          <h2 class="h2">Üç adımda <em>teklifiniz hazır</em></h2>
+          <ol class="timeline">
+            <li><span>01</span><div><b>Ürünleri seçin</b><p>İlgilendiğiniz Solagron meyvelerini ve tahmini miktarı belirtin.</p></div></li>
+            <li><span>02</span><div><b>Sizi arayalım</b><p>İhtiyacınızı birlikte netleştirip uygun ambalajı belirleyelim.</p></div></li>
+            <li><span>03</span><div><b>Teklifiniz gelsin</b><p>Fiyat, minimum sipariş ve teslimat koşulları yazılı olarak iletilir.</p></div></li>
+          </ol>
+          <div class="cards">
+            <a class="ccard" data-site="tel" href="/iletisim.html"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg></i><span><small>Hemen arayın</small><b data-site="telText"></b></span></a>
+            <a class="ccard ccard--wa" data-site="wa" href="/iletisim.html" target="_blank" rel="noopener"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-3.6A8 8 0 1112 20a8 8 0 01-4-1.1zM9 8.5c0 3 2.5 6.5 6 6.8l1-1.3-1.8-1-1 .8c-1-.5-2-1.5-2.4-2.4l.8-1-1-1.9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></i><span><small>WhatsApp</small><b>Mesajla teklif isteyin</b></span></a>
+          </div>
+          <ul class="checks">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Perakende 16 g paketler ve endüstriyel dökme ürün.</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Ürün föyleri ve görselleri teklifle birlikte paylaşılır.</span></li>
+          </ul>
+        </div>
+        <form class="fcard reveal" id="quoteForm" name="toptan-teklif" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="toptan-teklif" />
+          <p class="hp"><label>Boş bırakın <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+          <fieldset><legend>İşletme</legend>
+            <div class="row"><div class="field"><input id="q-firma" name="isletme" type="text" placeholder=" " autocomplete="organization" required /><label for="q-firma">İşletme adı *</label></div><div class="field"><input id="q-ad" name="yetkili" type="text" placeholder=" " autocomplete="name" required /><label for="q-ad">Ad soyad *</label></div></div>
+            <div class="row"><div class="field"><input id="q-tel" name="telefon" type="tel" placeholder=" " autocomplete="tel" required /><label for="q-tel">Telefon *</label></div><div class="field"><input id="q-mail" name="eposta" type="email" placeholder=" " autocomplete="email" /><label for="q-mail">E-posta <small>(isteğe bağlı)</small></label></div></div>
+            <div class="row">
+              <div class="field field--select"><select id="q-tur" name="isletme_turu" required><option value="" disabled selected hidden></option><option>Restoran</option><option>Kafe</option><option>Pastane / pâtisserie</option><option>Otel</option><option>Market / şarküteri</option><option>Toptancı / distribütör</option><option>Endüstriyel üretim</option><option>Diğer</option></select><label for="q-tur">İşletme türü *</label></div>
+              <div class="field"><input id="q-il" name="il" type="text" placeholder=" " required /><label for="q-il">İl *</label></div>
+            </div>
+          </fieldset>
+          <fieldset><legend>Ürünler</legend>
+            <div class="pick" id="pick">
+              <label><input type="checkbox" name="urunler[]" value="Çilek" data-id="cilek" /><img src="/tex/cilek.webp" alt="" width="30" height="36" loading="lazy" /><span>Çilek</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Beyaz Ejder Meyvesi" data-id="beyaz-ejder" /><img src="/tex/beyaz-ejder.webp" alt="" width="30" height="36" loading="lazy" /><span>Beyaz Ejder Meyvesi</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Ananas" data-id="ananas" /><img src="/tex/ananas.webp" alt="" width="30" height="36" loading="lazy" /><span>Ananas</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Şeftali" data-id="seftali" /><img src="/tex/seftali.webp" alt="" width="30" height="36" loading="lazy" /><span>Şeftali</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Ahududu" data-id="ahududu" /><img src="/tex/ahududu.webp" alt="" width="30" height="36" loading="lazy" /><span>Ahududu</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Elma" data-id="elma" /><img src="/tex/elma.webp" alt="" width="30" height="36" loading="lazy" /><span>Elma</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Mango" data-id="mango" /><img src="/tex/mango.webp" alt="" width="30" height="36" loading="lazy" /><span>Mango</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Muz" data-id="muz" /><img src="/tex/muz.webp" alt="" width="30" height="36" loading="lazy" /><span>Muz</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Dilim Çilek" data-id="dilim-cilek" /><img src="/tex/dilim-cilek.webp" alt="" width="30" height="36" loading="lazy" /><span>Dilim Çilek</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Böğürtlen" data-id="bogurtlen" /><img src="/tex/bogurtlen.webp" alt="" width="30" height="36" loading="lazy" /><span>Böğürtlen</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Mavi Yemiş" data-id="mavi-yemis" /><img src="/tex/mavi-yemis.webp" alt="" width="30" height="36" loading="lazy" /><span>Mavi Yemiş</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Kırmızı Ejder Meyvesi" data-id="kirmizi-ejder" /><img src="/tex/kirmizi-ejder.webp" alt="" width="30" height="36" loading="lazy" /><span>Kırmızı Ejder Meyvesi</span></label>
+              <label><input type="checkbox" name="urunler[]" value="İncir" data-id="incir" /><img src="/tex/incir.webp" alt="" width="30" height="36" loading="lazy" /><span>İncir</span></label>
+              <label><input type="checkbox" name="urunler[]" value="Lime Dilimleri" data-id="lime" /><img src="/tex/lime.webp" alt="" width="30" height="36" loading="lazy" /><span>Lime Dilimleri</span></label>
+            </div>
+            <button class="pick__all" type="button" id="pickAll">Tümünü seç</button>
+            <div class="row">
+              <div class="field field--select field--set"><select id="q-amb" name="ambalaj"><option>Perakende paket (16 g)</option><option>Dökme / endüstriyel</option><option>Her ikisi</option></select><label for="q-amb">Ambalaj</label></div>
+              <div class="field"><input id="q-mik" name="aylik_miktar" type="text" placeholder=" " /><label for="q-mik">Tahmini aylık miktar <small>(ör. 200 paket)</small></label></div>
+            </div>
+            <div class="field"><textarea id="q-msg" name="not" rows="3" placeholder=" "></textarea><label for="q-msg">Notunuz <small>(isteğe bağlı)</small></label></div>
+          </fieldset>
+          <label class="check"><input type="checkbox" name="kvkk" value="evet" required /><i aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span><a href="/kvkk.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; kişisel verilerimin teklif talebime yanıt verilmesi amacıyla işlenmesini kabul ediyorum. *</span></label>
+          <button class="btn btn--primary btn--block" type="submit">Teklif iste <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <p class="form__status" id="quoteStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/pages/forms.js"></script>
+</body>
+</html>
