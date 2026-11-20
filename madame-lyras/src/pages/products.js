@@ -79,22 +79,26 @@ function show(k) {
   if (scene) { scene.inspectFlavor(fIdx()); stagePose(); }
 }
 const phoneView = () => window.innerWidth < 760 || window.innerWidth / window.innerHeight < 0.9;
-function stagePose() {
+function stagePose(snap) {
   if (!scene) return;
+  const pose = snap === true ? scene.snapPose : scene.setPose;
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A, k = FLAVORS[fIdx()].model ? 1.05 : 1;
-  if (phoneView()) scene.setPose({ x: 0, y: H * 0.06, s: Math.min(1.15, W * 0.95) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else scene.setPose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  if (phoneView()) pose({ x: 0, y: H * 0.06, s: Math.min(1.15, W * 0.95) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 fillStage();
+$('#pstage').classList.add('filled');
 if (webglOK()) {
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: fIdx(), noBackdrop: true });
     await scene.ready;
     scene.setActive(true);
     scene.inspectOpen(fIdx());
-    stagePose();
+    stagePose(true); // ilk görünüm: paket doğrudan yerinde (büyüyerek gelmez)
     $('#pstage').classList.add('gl-on');
-    window.addEventListener('resize', stagePose);
+    window.addEventListener('resize', () => stagePose());
+    // küçük resmin üzerine gelince ürün dokusu önceden yüklenir (geçiş beklemeden başlar)
+    $$('#pThumbs a').forEach((a) => a.addEventListener('pointerenter', () => scene.preload(+a.dataset.i)));
     // sahne ekrandan çıkınca çizim durur (aşağıdaki liste akıcı kayar)
     new IntersectionObserver(([en]) => scene.setActive(en.isIntersecting)).observe($('#pstage'));
   }).catch(() => {});

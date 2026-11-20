@@ -139,16 +139,18 @@ $('#pPrint').addEventListener('click', () => { buildSheet(); setTimeout(() => wi
 window.addEventListener('beforeprint', buildSheet);
 
 fill();
+$('#pstage').classList.add('filled');
 
 /* ---------- 3B sahne: ürünün renginde arka plan, meyve parçaları, sürüklenebilir paket ---------- */
 const phone = () => window.innerWidth < 760 || window.innerWidth / window.innerHeight < 0.9;
-function setPose() {
+function setPose(snap) {
   if (!scene) return;
+  const pose = snap === true ? scene.snapPose : scene.setPose;
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A;
   const f = FLAVORS[idx];
   const k = f.model ? 1.05 : 1;
-  if (phone()) scene.setPose({ x: 0, y: H * 0.06, s: Math.min(1.15, W * 0.95) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else scene.setPose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  if (phone()) pose({ x: 0, y: H * 0.06, s: Math.min(1.15, W * 0.95) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 if (webglOK()) {
   import('../scene.js').then(async ({ createScene }) => {
@@ -156,9 +158,10 @@ if (webglOK()) {
     await scene.ready;
     scene.setActive(true);
     scene.inspectOpen(idx);
-    setPose();
+    setPose(true);
     $('#pstage').classList.add('gl-on');
-    window.addEventListener('resize', setPose);
+    window.addEventListener('resize', () => setPose());
+    $$('#pThumbs a').forEach((a) => a.addEventListener('pointerenter', () => scene.preload(+a.dataset.i)));
     const zoomText = () => { $('#pZoom').textContent = `${Math.round(scene.zoom() * 100)}%`; };
     $$('.pstage__dock [data-view]').forEach((b) => b.addEventListener('click', () => {
       scene.setView(b.dataset.view);

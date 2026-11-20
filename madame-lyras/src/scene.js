@@ -115,9 +115,9 @@ function getFilmMaps() {
     for (let x = 0; x < N; x++) {
       const u = x / N, v = 1 - y / N;
       let hh = 0, ro = 0.22;
-      if (v > 0.915) { hh += 0.6 * Math.sin(x * 1.6) ; ro = 0.55; }        // üst kaynak tırtılı
-      if (u < SEAM || u > 1 - SEAM) { hh += 0.6 * Math.sin(y * 1.6); ro = 0.55; } // yan dikiş
-      if (v < 0.035) { hh += 0.4 * Math.sin(x * 1.2); ro = 0.5; }            // alt kaynak
+      if (v > 0.915) { hh += 0.3 * Math.sin(x * 1.6); ro = 0.5; }          // üst kaynak tırtılı (hafif)
+      if (u < SEAM || u > 1 - SEAM) { ro = 0.6; }                             // yan dikiş: düz, mat
+      if (v < 0.035) { ro = 0.55; }                                         // alt kaynak: düz, mat
       for (const L of lines) {
         const px = x - L.cx, py = y - L.cy;
         const along = px * L.dx + py * L.dy;
@@ -454,6 +454,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   const juiceCols = flavors.map((f) => new THREE.Color(f.bg));
   const juiceA = new THREE.Color(), juiceB = new THREE.Color();
   let juiceBlend = 0;
+  let juiceInit = false;
   let juiceOverride = null; // bayilik ve iletişimde sabit marka rengi
   const juiceClip = { top: 2, bottom: 2, dark: 0 };
   const DROPS = 14;
@@ -779,13 +780,25 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     showFront(i); showBack(i);
     cloudTarget.fill(0);
   }
+  // geçiş: önce yeni ürünün dokusu hazırlanır, sonra paket ağır bir tur atar; tam yan döndüğü anda
+  // (ön yüz görünmezken) yeni pakete geçilir, ikinci yarıda yeni ürün öne döner. Hafif bir küçülme ve yükselme eşlik eder.
+  const swap = { on: false, t: 0, dur: 1.05, i: -1, done: false, dir: 1, token: 0 };
   function inspectFlavor(i) {
     if (!insp.on) return;
-    insp.pop = 1;
-    flavor = i;
-    setTimeout(() => { showFront(i); showBack(i); }, 180);
-    insp.goto = Math.round(insp.ry / TAU) * TAU;
+    const prev = swap.on ? swap.i : flavor;
+    const token = ++swap.token;
+    ensure(i).then(() => {
+      if (token !== swap.token) return;
+      if (reduce) { flavor = i; showFront(i); showBack(i); return; }
+      // önceki geçiş sürüyorsa açısı kalıcı açıya eklenir (sıçrama olmasın)
+      if (swap.on) { insp.ry += swap.dir * TAU * easeIO(swap.t); swap.on = false; }
+      Object.assign(swap, { on: true, t: 0, i, done: false, dir: i >= prev ? 1 : -1 });
+      insp.goto = Math.round(insp.ry / TAU) * TAU;
+      insp.idle = 0;
+    });
+    near(i);
   }
+  const easeIO = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
   function inspectClose() {
     insp.on = false;
     spin = spinTarget = 0;
@@ -853,7 +866,11 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     } else if (!insp.on) {
       for (let c = 0; c < N; c++) cloudTarget[c] = c === flavor ? 1 : 0;
     }
-    if (stream === null || insp.on) { juiceA.copy(!insp.on && juiceOverride ? juiceOverride : juiceCols[flavor]); juiceB.copy(juiceA); juiceBlend = 0; }
+    if (stream === null || insp.on) {
+      const want = !insp.on && juiceOverride ? juiceOverride : juiceCols[flavor];
+      if (insp.on && juiceInit) juiceA.lerp(want, 1 - Math.exp(-3.2 * dt)); else juiceA.copy(want);
+      juiceInit = true; juiceB.copy(juiceA); juiceBlend = 0;
+    }
 
     // inceleme modu
     insp.blend = damp(insp.blend, insp.on ? 1 : 0, 4, dt);
@@ -889,7 +906,19 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     root.scale.setScalar(state.s * (1 - 0.08 * dip) * (1 - 0.12 * insp.pop) * (1 + 0.035 * spinLean + 0.06 * burst * burst));
     root.rotation.x = 0.1 * fanNow;
     if (insp.on) {
-      pouchHolder.rotation.set(insp.rx, insp.ry, 0);
+      let swOff = 0, swS = 0;
+      if (swap.on) {
+        swap.t = Math.min(1, swap.t + dt / swap.dur);
+        const e = easeIO(swap.t);
+        swOff = swap.dir * TAU * e;
+        swS = Math.sin(Math.PI * swap.t);
+        // çeyrek turda paket tam yandan görünür: ön yüz kaybolurken yeni ürüne geç
+        if (!swap.done && e >= 0.25) { swap.done = true; flavor = swap.i; frontIdx = -1; backIdx = -1; showFront(swap.i); showBack(swap.i); }
+        if (swap.t >= 1) swap.on = false;
+      }
+      pouchHolder.rotation.set(insp.rx - 0.05 * swS, insp.ry + swOff, 0);
+      pouchHolder.position.y = 0.06 * swS;
+      pouchHolder.scale.setScalar(1 - 0.07 * swS);
     } else {
       pouchHolder.rotation.set(
         state.rx + (0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03)) * state.pt + dip * 0.12 + spinLean * 0.07,
@@ -1111,6 +1140,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       stream = f;
     },
     inspectOpen, inspectClose, inspectFlavor, setView,
+    preload: (i) => ensure(i),
     zoomBy(k) { insp.zoomT = Math.min(2.4, Math.max(0.75, insp.zoomT * k)); insp.idle = 0; },
     kick(v) { scrollVel += v; },
     get flavor() { return flavor; },
