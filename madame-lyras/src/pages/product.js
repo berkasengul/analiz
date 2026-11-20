@@ -77,9 +77,16 @@ function fill() {
   $('#sMedia').style.setProperty('--c', f.bg);
   $('#sImg').src = f.storyImg || img;
   $('#sImg').alt = `${f.name}`;
+  // video varsa görselin yerine video (sessiz, döngü; yalnızca görünürken oynar)
+  {
+    const v = $('#sVid');
+    $('#sMedia').classList.toggle('has-video', !!f.video);
+    v.hidden = !f.video;
+    if (f.video) { v.poster = f.videoPoster || f.storyImg; if (!v.src.endsWith(f.video)) { v.src = f.video; v.load(); } } else { v.pause(); v.removeAttribute('src'); }
+  }
   // video hissi: meyve parçaları görselin önünde ve arkasında ağır ağır süzülür
   {
-    const n = (f.parts || []).length;
+    const n = f.video ? 0 : (f.parts || []).length;
     const spots = [[8, 14, 1], [78, 10, 0], [84, 62, 1], [6, 70, 0], [46, 84, 1], [64, 30, 0], [22, 40, 0]];
     $('#sParts').innerHTML = n ? spots.map(([x, y, front], k) => {
       const i = k % n, blur = front ? 'b' : '';
@@ -151,7 +158,11 @@ window.addEventListener('beforeprint', buildSheet);
 fill();
 $('#pstage').classList.add('filled');
 // hareket yalnızca görünürken çalışır
-new IntersectionObserver(([en]) => $('#sMedia').classList.toggle('play', en.isIntersecting), { threshold: 0.15 }).observe($('#sMedia'));
+new IntersectionObserver(([en]) => {
+  $('#sMedia').classList.toggle('play', en.isIntersecting);
+  const v = $('#sVid');
+  if (!v.hidden) { if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }
+}, { threshold: 0.15 }).observe($('#sMedia'));
 
 /* ---------- 3B sahne: ürünün renginde arka plan, meyve parçaları, sürüklenebilir paket ---------- */
 const phone = () => window.innerWidth < 760 || window.innerWidth / window.innerHeight < 0.9;

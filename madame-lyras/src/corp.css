@@ -1156,3 +1156,7 @@ body[data-page='teklif'] .cta-band { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .story__media.play img#sImg, .story__media.play .story__parts img, .story__media.play .story__light, .story__media.play .story__bubbles i { animation: none; }
 }
+
+/* ürün videosu (varsa görselin yerine) */
+.story__media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.story__media.has-video img#sImg, .story__media.has-video .story__light, .story__media.has-video .story__bubbles { display: none; }

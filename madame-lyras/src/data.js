@@ -603,6 +603,10 @@ FLAVORS.filter((f) => f.meal).forEach((f) => {
   PITCH[f.id] = [t, `${s} ${f.name}, bir porsiyonu ${f.facts[0][1]} ve ${f.facts[1][1]}; ResQ hazır gıda kitlerinde de yer alır.`, MEAL_CH];
 });
 
+// ürün videoları (Higgsfield): public/video/<id>.mp4 ve ilk kare public/video/<id>.webp. Eklenen her video için id'yi buraya yazın.
+export const VIDEOS = [];
+FLAVORS.forEach((f) => { if (VIDEOS.includes(f.id)) { f.video = `/video/${f.id}.mp4`; f.videoPoster = `/video/${f.id}.webp`; } });
+
 // sayı yazımı: '17,6' → 17.6
 const num = (v) => parseFloat(String(v).replace(',', '.'));
 FLAVORS.forEach((f) => {
