@@ -77,6 +77,16 @@ function fill() {
   $('#sMedia').style.setProperty('--c', f.bg);
   $('#sImg').src = f.storyImg || img;
   $('#sImg').alt = `${f.name}`;
+  // video hissi: meyve parçaları görselin önünde ve arkasında ağır ağır süzülür
+  {
+    const n = (f.parts || []).length;
+    const spots = [[8, 14, 1], [78, 10, 0], [84, 62, 1], [6, 70, 0], [46, 84, 1], [64, 30, 0], [22, 40, 0]];
+    $('#sParts').innerHTML = n ? spots.map(([x, y, front], k) => {
+      const i = k % n, blur = front ? 'b' : '';
+      const w = front ? 18 + (k % 3) * 4 : 9 + (k % 3) * 3;
+      return `<img src="/parca/${f.id}-${i}${blur}.webp" alt="" style="left:${x}%;top:${y}%;width:${w}%;--d:${(k * 1.3).toFixed(1)}s;--t:${(7 + (k % 4) * 1.6).toFixed(1)}s;--r:${k % 2 ? 14 : -12}deg" class="${front ? 'fg' : 'bk'}" loading="lazy" />`;
+    }).join('') : '';
+  }
   const brand = f.group === 'atistirmalik' ? 'Solagron' : 'ResQ';
   $('#sEyebrow').textContent = `İşletmeler için · Neden ${brand} ${f.name}?`;
   $('#sChHead').textContent = `${brand} ${f.name} nerede satılır?`;
@@ -140,6 +150,8 @@ window.addEventListener('beforeprint', buildSheet);
 
 fill();
 $('#pstage').classList.add('filled');
+// hareket yalnızca görünürken çalışır
+new IntersectionObserver(([en]) => $('#sMedia').classList.toggle('play', en.isIntersecting), { threshold: 0.15 }).observe($('#sMedia'));
 
 /* ---------- 3B sahne: ürünün renginde arka plan, meyve parçaları, sürüklenebilir paket ---------- */
 const phone = () => window.innerWidth < 760 || window.innerWidth / window.innerHeight < 0.9;
