@@ -1,16 +1,11 @@
 import { $, $$, FLAVORS, SITE, productCard, initReveal, webglOK, mailHref, nf, CAT_NAMES, contentsHTML, productUrl } from '../site.js';
-import { KITS } from '../data.js';
+import { KITS, CHANNEL_ICONS } from '../data.js';
 
 const pad = (n) => String(n).padStart(2, '0');
 const CAT_LINK = { meyve: '/urunler.html?kat=meyve', tatli: '/urunler.html?kat=tatli', atistirmalik: '/urunler.html?kat=atistirmalik', kit: '/urunler.html' };
 const row = (k, v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
 const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const USE_NAMES = ['Restoranlarda', 'Kafelerde', 'Pastanelerde'];
-const USE_ICONS = [
-  '<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 004 0V3M7 11v10M17 3c-2 0-3 2.5-3 6s1 4 3 4v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>',
-  '<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 10h1.5a2.5 2.5 0 010 5H17M8 3v3M12 3v3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>',
-  '<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M5 20v-6h14v6M5 14c0-2 1.5-3 3.5-3h7c2 0 3.5 1 3.5 3M12 11V8M12 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>',
-];
+const chIcon = (k) => `<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${CHANNEL_ICONS[k]}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>`;
 const N = FLAVORS.length;
 let idx = FLAVORS.findIndex((x) => x.id === new URLSearchParams(location.search).get('id'));
 if (idx < 0) { location.replace('/urunler.html'); idx = 0; }
@@ -57,6 +52,7 @@ function fill() {
   $('#pFacts').innerHTML = f.facts.map(([k, v]) => row(k, v)).join('');
   $('#pClaims').innerHTML = f.claims.map((c) => `<li>${c}</li>`).join('');
   $('#pQuote').href = `/teklif.html?urun=${encodeURIComponent(f.id)}#form`;
+  $('#sQuote').href = $('#pQuote').href;
   $('#pMail').href = mailHref(f);
   $('#pimg').src = img;
   $('#pimg').alt = `${f.name} ürün görseli`;
@@ -76,11 +72,12 @@ function fill() {
   $('#sMedia').style.setProperty('--c', f.bg);
   $('#sImg').src = f.storyImg || img;
   $('#sImg').alt = `${f.name}`;
-  $('#sEyebrow').textContent = `Solagron ${f.name} · Hikâyesi`;
+  $('#sEyebrow').textContent = `İşletmeler için · Neden Solagron ${f.name}?`;
+  $('#sChHead').textContent = `Solagron ${f.name} nerede satılır?`;
   $('#sTitle').textContent = f.storyTitle || f.lead;
   $('#sText').textContent = f.story || f.desc;
   $('#sBens').innerHTML = (f.benefits || []).map(([b, t]) => `<li>${CHECK}<span><b>${b}</b>${t}</span></li>`).join('');
-  $('#sUses').innerHTML = (f.uses || []).map((u, i) => `<div class="puse">${USE_ICONS[i]}<b>${USE_NAMES[i]}</b><p>${u}</p></div>`).join('');
+  $('#sUses').innerHTML = (f.channels || []).map(([k, name, why]) => `<div class="puse">${chIcon(k)}<b>${name}</b><p>${why}</p></div>`).join('');
   $('#hikaye').hidden = !f.story;
 
   /* sekmeler */
@@ -123,9 +120,9 @@ function buildSheet() {
         <dl class="spec">${f.facts.map(([k, v]) => row(k, v)).join('')}</dl>
       </div>
     </div>
-    ${f.story ? `<h2>Hikâyesi</h2><p>${f.story}</p>` : ''}
+    ${f.story ? `<h2>${f.storyTitle}</h2><p>${f.story}</p>` : ''}
     ${f.benefits ? `<h2>Yararları</h2><dl class="spec">${f.benefits.map(([k, v]) => row(k, v)).join('')}</dl>` : ''}
-    ${f.uses ? `<h2>Kullanım önerileri</h2><dl class="spec">${f.uses.map((u, i) => row(USE_NAMES[i], u)).join('')}</dl>` : ''}
+    ${f.channels ? `<h2>Nerede satılır</h2><dl class="spec">${f.channels.map(([, name, why]) => row(name, why)).join('')}</dl>` : ''}
     <h2>Ürün bilgileri</h2><dl class="spec">${(f.contents || []).map(([k, v]) => row(k, v)).join('')}</dl>
     ${f.nutrition ? `<h2>Besin değerleri</h2>${contentsHTML({ nutrition: f.nutrition, name: f.name }).replace('<dl class="spec"></dl>', '')}` : ''}
     ${f.menu ? `<h2>Kit içeriği</h2>${contentsHTML({ menu: f.menu }).replace('<dl class="spec"></dl>', '')}` : ''}

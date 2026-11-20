@@ -10,8 +10,6 @@
   <meta property="og:image" content="/img/og.jpg" />
   <meta name="theme-color" content="#7a0f15" />
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="/img/hero-d.webp" media="(min-width: 761px) and (min-aspect-ratio: 9/10)" fetchpriority="high" />
-  <link rel="preload" as="image" href="/img/hero-m.webp" media="(max-width: 760px), (max-aspect-ratio: 9/10)" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -20,15 +18,10 @@
 <body data-page="index">
   <!-- @include header -->
   <main id="icerik">
-    <!-- AÇILIŞ: sabit görsel -->
-    <section class="hero" id="hero" aria-label="Genç Anadolu Gıda">
-      <!-- sabit görsel (ana sayfada hareket/3B yok) -->
-      <picture class="hero__media">
-        <source media="(max-width: 760px), (max-aspect-ratio: 9/10)" srcset="/img/hero-m.webp" />
-        <img src="/img/hero-d.webp" alt="Genç Anadolu Gıda dondurularak kurutulmuş meyve paketleri: şeftali, elma, çilek, kırmızı ejder meyvesi ve ananas" width="2880" height="1470" fetchpriority="high" />
-      </picture>
-      <div class="hero__vignette" aria-hidden="true"></div>
+    <!-- AÇILIŞ: yazı + görsel -->
+    <section class="hero hero--new" id="hero" data-v="a" aria-label="Genç Anadolu Gıda">
       <div class="wrap hero__inner">
+        <div class="hero__text">
         <p class="hero__eyebrow">Solagron · Dondurularak kurutulmuş</p>
         <h1 class="hero__title"><span class="gold">Meyvenin<br /> kendisi.</span><em class="gold">Suyu hariç.</em>
           <svg class="hero__brush" viewBox="0 0 420 34" preserveAspectRatio="none" aria-hidden="true">
@@ -36,7 +29,7 @@
             <path d="M6 24 C 90 10, 210 6, 300 9 S 400 14, 414 12 L 412 17 C 330 15, 220 14, 140 20 S 30 30, 8 29 Z" fill="url(#brushGold)"/>
           </svg>
         </h1>
-        <p class="hero__lead">Solagron’un 14 çeşit dondurularak kurutulmuş meyvesi; restoran, kafe, pastane ve marketlere Genç Anadolu Gıda güvencesiyle ulaşır. Şeker ilavesiz, katkısız; sadece meyve.</p>
+        <p class="hero__lead">Solagron’un 14 çeşit dondurularak kurutulmuş meyvesi; akaryakıt istasyonlarından spor salonlarına, restoranlardan otellere Genç Anadolu Gıda güvencesiyle ulaşır. Şeker ilavesiz, katkısız; sadece meyve.</p>
         <div class="hero__ctas">
           <a class="btn btn--gold" href="/urunler.html">Ürünlerimiz <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           <a class="btn btn--line" href="/teklif.html">Toptan teklif al</a>
@@ -46,6 +39,26 @@
           <li><b>%100</b>meyve</li>
           <li><b>0</b>şeker ilavesi</li>
         </ul>
+        </div>
+        <!-- açılış görseli: üç seçenek (a: doğal fotoğraf, b: meyve mozaiği, c: ürün dizisi). Seçim yapılınca diğerleri silinecek. -->
+        <div class="hero__art hero__art--a" aria-hidden="true">
+          <figure class="pic pic--main"><img src="/img/kase-cilek.webp" alt="" width="1200" height="1200" fetchpriority="high" /></figure>
+          <figure class="pic pic--side"><img src="/img/kase-ahududu.webp" alt="" width="1200" height="1200" /></figure>
+          <div class="hero__badge"><b>160 g → 16 g</b><span>Bir paket çilek, 160 g taze çilekten</span></div>
+          <div class="hero__chip">Sadece meyve · Şeker ilavesiz</div>
+        </div>
+        <div class="hero__art hero__art--b" aria-hidden="true">
+          <figure class="tile" style="--c:#c4161c"><img src="/bg/cilek.webp" alt="" width="640" height="762" /><figcaption>Çilek</figcaption></figure>
+          <figure class="tile" style="--c:#f2a20f"><img src="/bg/mango.webp" alt="" width="640" height="762" /><figcaption>Mango</figcaption></figure>
+          <figure class="tile" style="--c:#1f9e8f"><img src="/bg/lime.webp" alt="" width="640" height="762" /><figcaption>Lime</figcaption></figure>
+          <figure class="tile" style="--c:#3f5f91"><img src="/bg/mavi-yemis.webp" alt="" width="640" height="762" /><figcaption>Mavi Yemiş</figcaption></figure>
+          <figure class="tile" style="--c:#c2185b"><img src="/bg/beyaz-ejder.webp" alt="" width="640" height="762" /><figcaption>Ejder Meyvesi</figcaption></figure>
+          <figure class="tile" style="--c:#5c9a34"><img src="/bg/incir.webp" alt="" width="640" height="762" /><figcaption>İncir</figcaption></figure>
+        </div>
+        <div class="hero__art hero__art--c" aria-hidden="true">
+          <img class="pouch" src="/tex/seftali.webp" alt="Solagron Şeftali" width="1024" height="1434" /><img class="pouch" src="/tex/elma.webp" alt="Solagron Elma" width="1024" height="1434" /><img class="pouch" src="/tex/mango.webp" alt="Solagron Mango" width="1024" height="1434" /><img class="pouch" src="/tex/cilek.webp" alt="Solagron Çilek" width="1024" height="1434" /><img class="pouch" src="/tex/kirmizi-ejder.webp" alt="Solagron Kırmızı Ejder" width="1024" height="1434" /><img class="pouch" src="/tex/lime.webp" alt="Solagron Lime" width="1024" height="1434" /><img class="pouch" src="/tex/ananas.webp" alt="Solagron Ananas" width="1024" height="1434" />
+          <i class="shelf"></i>
+        </div>
       </div>
     </section>
 
@@ -55,7 +68,7 @@
         <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l6 3V9l6 3V5l6 3v13zM7 17h2M12 17h2M17 17h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i><div><b>Solagron üretimi</b><span>Silifke OSB, Mersin</span></div></div>
         <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></i><div><b>Belgeli üretim</b><span>BRCGS · FDA · Helal · Kosher</span></div></div>
         <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></i><div><b>Dondurarak kurutma</b><span>Şeker ilavesiz, katkısız</span></div></div>
-        <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i><div><b>Toptan tedarik</b><span>Restoran, kafe, pastane, market</span></div></div>
+        <div class="trust__item"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i><div><b>Toptan tedarik</b><span>İstasyon, spor salonu, restoran, otel</span></div></div>
       </div>
     </section>
 
@@ -95,27 +108,32 @@
       </div>
     </section>
 
-    <!-- RESTORAN, KAFE, PASTANE -->
+    <!-- KİMLER SATIYOR: işletmeler neden bu ürünleri alıp satsın -->
     <section class="section section--white" id="kullanim">
       <div class="wrap">
         <header class="sec-head sec-head--center reveal">
-          <p class="eyebrow">Kimler için</p>
-          <h2>Restoranlar, kafeler <em>ve pastaneler</em></h2>
-          <p>Çıtır dokusu, canlı rengi ve uzun raf ömrüyle Solagron meyveleri mutfakta, tezgâhta ve vitrinde işinizi kolaylaştırır.</p>
+          <p class="eyebrow">İşletmeler için</p>
+          <h2>Solagron’u kimler <em>satıyor?</em></h2>
+          <p>Akaryakıt istasyonlarından spor salonlarına, restoranlardan otellere: sağlıklı atıştırmalık arayan müşterinin olduğu her yerde.</p>
         </header>
-        <div class="uses">
-          <article class="use reveal">
-            <div class="use__media"><img src="/img/tabak.webp" alt="Dondurularak kurutulmuş meyvelerle hazırlanmış sunum tabağı" width="405" height="540" loading="lazy" /></div>
-            <div class="use__body"><small>Restoranlar</small><h3>Tabakta renk</h3><p>Tatlı tabaklarında, salatalarda ve peynir tabaklarında hazır, mevsimsiz bir süsleme.</p><ul><li>Tatlı sunumu</li><li>Salata</li><li>Peynir tabağı</li><li>Sos</li></ul></div>
-          </article>
-          <article class="use reveal">
-            <div class="use__media"><img src="/img/kase-ahududu.webp" alt="Kâsede dondurularak kurutulmuş ahududu" width="1200" height="1200" loading="lazy" /></div>
-            <div class="use__body"><small>Kafeler</small><h3>Bardakta ve kâsede</h3><p>Smoothie, bowl, granola ve içeceklerde; tek elle açılan kilitli pakette, israf olmadan.</p><ul><li>Smoothie bowl</li><li>Granola</li><li>Mocktail</li><li>Kahvaltı</li></ul></div>
-          </article>
-          <article class="use reveal">
-            <div class="use__media"><img src="/bg/dilim-cilek.webp" alt="Taze çilek" width="640" height="762" loading="lazy" /></div>
-            <div class="use__body"><small>Pastaneler · Pâtisserie</small><h3>Vitrinde göz alıcı</h3><p>Pasta, tart ve makaronlarda; ufalanmış haliyle kremalara doğal renk ve aroma.</p><ul><li>Pasta üstü</li><li>Tart</li><li>Makaron</li><li>Krema</li></ul></div>
-          </article>
+        <div class="chans">
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5a2 2 0 012-2h6a2 2 0 012 2v16M3 21h12M4 10h10M14 8h2a2 2 0 012 2v6a1.5 1.5 0 003 0V9l-3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Akaryakıt istasyonu marketleri</h3><p>Kasa önünde yolculuk için hafif, şeker ilavesiz atıştırmalık. Küçük paket, az yer, uzun raf ömrü.</p><ul><li><a href="/urun.html?id=cilek">Çilek</a></li><li><a href="/urun.html?id=elma">Elma</a></li><li><a href="/urun.html?id=muz">Muz</a></li></ul></article>
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Spor salonları</h3><p>Resepsiyonda ve büfede antrenman sonrası meyve. Çantada ezilmez, bozulmaz.</p><ul><li><a href="/urun.html?id=muz">Muz</a></li><li><a href="/urun.html?id=mavi-yemis">Mavi Yemiş</a></li><li><a href="/urun.html?id=bogurtlen">Böğürtlen</a></li></ul></article>
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 004 0V3M7 11v10M17 3c-2 0-3 2.5-3 6s1 4 3 4v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Restoranlar</h3><p>Tatlı, salata ve peynir tabaklarında hazır süsleme. Yıkama, doğrama ve fire yok.</p><ul><li><a href="/urun.html?id=incir">İncir</a></li><li><a href="/urun.html?id=dilim-cilek">Dilim Çilek</a></li><li><a href="/urun.html?id=lime">Lime</a></li></ul></article>
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 10h1.5a2.5 2.5 0 010 5H17M8 3v3M12 3v3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Kafeler</h3><p>Smoothie, bowl, granola ve içeceklerde her gün aynı renk ve tat.</p><ul><li><a href="/urun.html?id=mango">Mango</a></li><li><a href="/urun.html?id=kirmizi-ejder">Kırmızı Ejder</a></li><li><a href="/urun.html?id=lime">Lime</a></li></ul></article>
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M5 20v-6h14v6M5 14c0-2 1.5-3 3.5-3h7c2 0 3.5 1 3.5 3M12 11V8M12 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Pastaneler</h3><p>Pasta, tart ve makaronda mevsimden bağımsız, bozulmayan meyve süslemesi.</p><ul><li><a href="/urun.html?id=ahududu">Ahududu</a></li><li><a href="/urun.html?id=dilim-cilek">Dilim Çilek</a></li><li><a href="/urun.html?id=bogurtlen">Böğürtlen</a></li></ul></article>
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 10.2a1 1 0 001 .8h8.9a1 1 0 001-.8L20 8H6.2M9 20a1 1 0 100-2 1 1 0 000 2zM17 20a1 1 0 100-2 1 1 0 000 2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Marketler ve zincirler</h3><p>Atıştırmalık ve sağlıklı yaşam raflarında 14 çeşitle tam bir seri.</p><ul><li><a href="/urun.html?id=cilek">Çilek</a></li><li><a href="/urun.html?id=beyaz-ejder">Beyaz Ejder</a></li><li><a href="/urun.html?id=seftali">Şeftali</a></li></ul></article>
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 00-3-3h-7v5M7 12a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Oteller</h3><p>Kahvaltı büfesinde yıl boyu aynı kalitede meyve; açık büfede bozulma derdi yok.</p><ul><li><a href="/urun.html?id=incir">İncir</a></li><li><a href="/urun.html?id=mavi-yemis">Mavi Yemiş</a></li><li><a href="/urun.html?id=seftali">Şeftali</a></li></ul></article>
+          <article class="chan reveal"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4zM9 8V5h6v3M4 13h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><h3>Ofisler ve kurumsal ikram</h3><p>Çalışanlara sunulan ikram kutularında hafif ve sağlıklı bir seçenek.</p><ul><li><a href="/urun.html?id=elma">Elma</a></li><li><a href="/urun.html?id=muz">Muz</a></li><li><a href="/urun.html?id=mango">Mango</a></li></ul></article>
+        </div>
+        <div class="why reveal">
+          <h3>İşletmeniz neden <em>Solagron satmalı?</em></h3>
+          <div class="why__grid">
+          <div class="why__item reveal"><b>Soğuk zincir gerekmez</b><p>Serin ve kuru yerde saklanır; dolap ve soğutucu gerektirmez.</p></div>
+          <div class="why__item reveal"><b>Fire yok</b><p>Taze meyve gibi birkaç günde bozulmaz; stok kaybı yaşanmaz.</p></div>
+          <div class="why__item reveal"><b>Küçük paket, az yer</b><p>16 g’lık hafif paket; kasa önü, büfe ve raf için uygun.</p></div>
+          <div class="why__item reveal"><b>Anlatması kolay</b><p>Sadece meyve, şeker ilavesiz: sağlıklı ürün arayan müşteriye tek cümlede anlatılır.</p></div>
+          </div>
         </div>
       </div>
     </section>
@@ -139,6 +157,7 @@
     </section>
   </main>
   <!-- @include footer -->
+  <script>{ const v = new URLSearchParams(location.search).get('hero'); if (/^[abc]$/.test(v || '')) document.getElementById('hero').dataset.v = v; }</script>
   <script type="module" src="/src/pages/home.js"></script>
 </body>
 </html>

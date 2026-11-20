@@ -11,10 +11,10 @@ Genç Anadolu Gıda Pazarlama Dağıtım Ltd. Şti. için çok sayfalı kurumsal
 ## Sayfalar
 | Dosya | İçerik |
 |---|---|
-| `index.html` | Sade ana sayfa: sabit açılış görseli, güven şeridi, doğallık, Solagron meyveleri, restoran / kafe / pastane, ürünlerin yararları |
+| `index.html` | Sade ana sayfa: açılış (yazı + görsel; `?hero=a|b|c` ile üç seçenek önizlenir, varsayılan `data-v` index.html'de), güven şeridi, doğallık, Solagron meyveleri, kimler satıyor (8 satış kanalı), ürünlerin yararları |
 | `kurumsal.html` | Hakkımızda, misyon ve vizyon, üretim tesisi (`#uretim`), kalite ve belgeler (`#kalite`) |
 | `urunler.html` | 3B katalog girişi ve tüm ürünler (arama) |
-| `urun.html?id=<id>` | Ürün sayfası: 3B görüntüleyici, ürünün hikâyesi, yararları, restoran / kafe / pastanede kullanımı, ürün bilgileri, besin değerleri, ambalaj ve lojistik, yazdırılabilir PDF ürün föyü |
+| `urun.html?id=<id>` | Ürün sayfası: 3B görüntüleyici, işletmeler için hikâyesi (neden satılır), müşteriye anlatılacak yararları, nerede satılır (4 satış kanalı), ürün bilgileri, besin değerleri, ambalaj ve lojistik, yazdırılabilir PDF ürün föyü |
 | `teklif.html` | Toptan teklif formu (ürün seçimi, ambalaj, aylık miktar; Netlify formu `toptan-teklif`). `?urun=<id>` ile o ürün seçili açılır |
 | `bayilik.html` | Yumuşak tonlu bayilik sayfası, kısa tanışma formu (`#basvuru`, Netlify formu `bayilik`) |
 | `iletisim.html` | İletişim kartları, isteğe bağlı harita, iletişim formu (Netlify formu `iletisim`) |
@@ -27,7 +27,7 @@ Ortak üst ve alt bilgi `src/partials/header.html` ve `src/partials/footer.html`
 - `phone` (görünen numara ve `tel`), `email`
 - `address`, `mersis`, `taxOffice`, `taxNo`, `kep` (boş olanlar sitede gösterilmez)
 - `whatsapp` (wa.me numarası), `brand` (Solagron)
-- Ürün bilgileri, besin değerleri, ürün hikâyeleri ve kullanım önerileri (`STORIES`) de `src/data.js` içindedir.
+- Ürün bilgileri, besin değerleri ve işletmeler için ürün hikâyeleri (`PITCH`: neden satılır, hangi satış noktasında; kanallar `CHANNELS`) de `src/data.js` içindedir.
   Yararlar ambalaj bilgileri ve besin değerleri tablosundan üretilir ("yüksek lif" ≥ 6 g/100 g, "düşük yağ" ≤ 3 g/100 g).
 
 ## Netlify
