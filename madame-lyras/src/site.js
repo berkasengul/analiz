@@ -9,7 +9,7 @@ export const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 export const productUrl = (f) => `/urun.html?id=${encodeURIComponent(f.id)}`;
 export const mailHref = (f) => `mailto:${SITE.email}?subject=${encodeURIComponent(f ? `${f.name} hakkında bilgi` : 'Ürün bilgisi')}`;
 export const telHref = () => (SITE.phone && SITE.phone.tel ? `tel:${SITE.phone.tel}` : '/iletisim.html');
-export const CAT_NAMES = { meyve: 'Meyve', tatli: 'Dondurma', atistirmalik: 'Atıştırmalık', kit: 'Hazır gıda' };
+export const CAT_NAMES = { meyve: 'Meyve', tatli: 'Dondurma', atistirmalik: 'Atıştırmalık', kit: 'Hazır gıda kiti', resq: 'ResQ' };
 
 /* ---------- iletişim ve yasal bilgiler ---------- */
 function fillSite() {
@@ -90,7 +90,7 @@ export function productCard(f, i = 0) {
   return `<a class="pcard reveal" href="${productUrl(f)}" style="--c:${f.bg}">
     <span class="pcard__media${f.thumb ? ' pcard__media--kit' : ''}"><img src="${img}" alt="${f.name} ürün görseli" loading="lazy" /></span>
     <span class="pcard__body">
-      <small>${f.kit ? `${CAT_NAMES[f.cat]} · ResQ` : '<b class="sola">SOLAGRON</b> · 16 g'}</small>
+      <small>${f.group === 'atistirmalik' ? '<b class="sola">SOLAGRON</b> · 16 g' : `<b class="sola">RESQ</b> · ${f.cat === 'kit' ? f.facts[0][1] + ' servis' : f.kit === 'gevrek' ? '75 g' : f.facts[0][1]}`}</small>
       <b>${f.name}</b>
       <span class="pcard__more">Ürünü incele <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </span>

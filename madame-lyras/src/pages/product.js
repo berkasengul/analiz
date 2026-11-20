@@ -1,21 +1,26 @@
-import { $, $$, FLAVORS, SITE, productCard, initReveal, webglOK, mailHref, nf, CAT_NAMES, contentsHTML, productUrl } from '../site.js';
-import { KITS, CHANNEL_ICONS } from '../data.js';
+import { $, $$, FLAVORS as ALL, SITE, productCard, initReveal, webglOK, mailHref, nf, CAT_NAMES, contentsHTML, productUrl } from '../site.js';
+import { KITS, CHANNEL_ICONS, GROUPS } from '../data.js';
+
+// ürün sayfası yalnızca ürünün kendi grubundaki ürünlerle çalışır (küçük resimler, oklar, 3B sahne)
+const urlId = new URLSearchParams(location.search).get('id');
+const own = ALL.find((x) => x.id === urlId);
+const FLAVORS = own ? ALL.filter((x) => x.group === own.group) : ALL;
 
 const pad = (n) => String(n).padStart(2, '0');
-const CAT_LINK = { meyve: '/urunler.html?kat=meyve', tatli: '/urunler.html?kat=tatli', atistirmalik: '/urunler.html?kat=atistirmalik', kit: '/urunler.html' };
+const groupLink = (f) => `/urunler.html?kat=${f.group}#liste`;
 const row = (k, v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
 const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const chIcon = (k) => `<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${CHANNEL_ICONS[k]}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>`;
 const N = FLAVORS.length;
-let idx = FLAVORS.findIndex((x) => x.id === new URLSearchParams(location.search).get('id'));
+let idx = FLAVORS.findIndex((x) => x.id === urlId);
 if (idx < 0) { location.replace('/urunler.html'); idx = 0; }
 let scene = null;
 
 const logisticsOf = (f) => {
   const kit = f.kit ? KITS.find((k) => k.id === f.kit) : null;
-  const packing = kit ? (kit.model ? (kit.model.type === 'bucket' ? 'Kapaklı, kulplu saklama kovası' : 'Kilitli kapaklı saklama kasası') : 'Kilitli, nem geçirmez poşet') : 'Kilitli, ışık geçirmeyen doypack poşet';
+  const packing = kit ? (kit.model ? (kit.model.type === 'bucket' ? 'Kapaklı, kulplu saklama kovası' : 'Kilitli kapaklı saklama kasası') : 'Kilitli, nem geçirmez poşet') : f.meal ? 'Nem geçirmez ResQ poşeti' : 'Kilitli, ışık geçirmeyen doypack poşet';
   return [
-    ['Net ağırlık', kit ? `${nf(kit.gram)} g` : '16 g'],
+    ['Net ağırlık', kit ? `${nf(kit.gram)} g` : f.meal ? f.facts[0][1] : '16 g'],
     ['Ambalaj', packing],
     ['Koli içi adet', 'Teklifte bildirilir'],
     ['Raf ömrü', 'Tavsiye edilen tüketim tarihi ambalaj üzerindedir'],
@@ -39,19 +44,19 @@ document.addEventListener('keydown', (e) => {
 function fill() {
   const f = FLAVORS[idx];
   const img = f.thumb || f.tex;
-  document.title = `Solagron ${f.name} · Genç Anadolu Gıda`;
+  document.title = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name} · Genç Anadolu Gıda`;
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${f.name}: ${f.lead}`);
   $('#pstage').style.setProperty('--c', f.bg);
-  $('#crumbs').innerHTML = `<li><a href="/">Ana sayfa</a></li><li><a href="/urunler.html">Ürünler</a></li><li><a href="${CAT_LINK[f.cat]}">${CAT_NAMES[f.cat]}</a></li>`;
+  $('#crumbs').innerHTML = `<li><a href="/">Ana sayfa</a></li><li><a href="/urunler.html">Ürünler</a></li><li><a href="${groupLink(f)}">${GROUPS[f.group]}</a></li>`;
   $('#pCount').textContent = `${pad(idx + 1)} / ${pad(N)}`;
-  $('#pCat').textContent = f.kit ? `ResQ · ${CAT_NAMES[f.cat]}` : `Solagron · ${f.slogan}`;
+  $('#pCat').textContent = f.group === 'atistirmalik' ? `Solagron · ${f.slogan}` : f.meal ? f.slogan : `ResQ · ${CAT_NAMES[f.cat]}`;
   $('#pName').textContent = f.name;
   $('#pName').classList.toggle('long', f.name.length > 14);
   $('#pLead').textContent = f.lead;
   $('#pDesc').textContent = f.desc;
   $('#pFacts').innerHTML = f.facts.map(([k, v]) => row(k, v)).join('');
   $('#pClaims').innerHTML = f.claims.map((c) => `<li>${c}</li>`).join('');
-  $('#pQuote').href = `/teklif.html?urun=${encodeURIComponent(f.id)}#form`;
+  $('#pQuote').href = `/teklif.html?urun=${encodeURIComponent(f.id)}${f.meal ? `&ad=${encodeURIComponent('ResQ ' + f.name)}` : ''}#form`;
   $('#sQuote').href = $('#pQuote').href;
   $('#pMail').href = mailHref(f);
   $('#pimg').src = img;
@@ -72,8 +77,9 @@ function fill() {
   $('#sMedia').style.setProperty('--c', f.bg);
   $('#sImg').src = f.storyImg || img;
   $('#sImg').alt = `${f.name}`;
-  $('#sEyebrow').textContent = `İşletmeler için · Neden Solagron ${f.name}?`;
-  $('#sChHead').textContent = `Solagron ${f.name} nerede satılır?`;
+  const brand = f.group === 'atistirmalik' ? 'Solagron' : 'ResQ';
+  $('#sEyebrow').textContent = `İşletmeler için · Neden ${brand} ${f.name}?`;
+  $('#sChHead').textContent = `${brand} ${f.name} nerede satılır?`;
   $('#sTitle').textContent = f.storyTitle || f.lead;
   $('#sText').textContent = f.story || f.desc;
   $('#sBens').innerHTML = (f.benefits || []).map(([b, t]) => `<li>${CHECK}<span><b>${b}</b>${t}</span></li>`).join('');
@@ -113,7 +119,7 @@ function buildSheet() {
     <div class="sheet__top">
       <img class="sheet__img" src="${f.thumb || f.tex}" alt="" />
       <div>
-        <p class="sheet__cat">${f.kit ? `ResQ · ${CAT_NAMES[f.cat]}` : 'Solagron · Dondurularak kurutulmuş meyve'}</p>
+        <p class="sheet__cat">${f.group === 'atistirmalik' ? 'Solagron · Dondurularak kurutulmuş' : `ResQ · ${CAT_NAMES[f.cat]}`}</p>
         <h1>${f.name}</h1>
         <p class="sheet__lead">${f.lead}</p>
         <p>${f.desc}</p>

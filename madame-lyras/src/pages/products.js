@@ -1,5 +1,6 @@
 import { $, $$, FLAVORS, productCard, initReveal, lower, productUrl, webglOK } from '../site.js';
-import { CATS } from '../data.js';
+import { CATS, GROUPS } from '../data.js';
+const SHORT = { tum: 'Tümü', atistirmalik: 'Meyve ve dondurma', kit: 'Hazır gıda kitleri', resq: 'ResQ ürünleri' };
 
 /* ================= toplu ürün listesi (filtre + arama) ================= */
 const params = new URLSearchParams(location.search);
@@ -7,14 +8,14 @@ let cat = CATS.some(([id]) => id === params.get('kat')) ? params.get('kat') : 't
 let q = '';
 
 $('#cats').innerHTML = CATS.map(([id, label]) => {
-  const n = id === 'tum' ? FLAVORS.length : FLAVORS.filter((f) => f.cat === id).length;
+  const n = id === 'tum' ? FLAVORS.length : FLAVORS.filter((f) => f.group === id).length;
   return `<button type="button" role="tab" data-cat="${id}">${label} <small>${n}</small></button>`;
 }).join('');
 
 function render() {
   $$('#cats button').forEach((b) => { const on = b.dataset.cat === cat; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
   const k = lower(q.trim());
-  const items = FLAVORS.filter((f) => (cat === 'tum' || f.cat === cat) && (!k || lower(f.name).includes(k)));
+  const items = FLAVORS.filter((f) => (cat === 'tum' || f.group === cat) && (!k || lower(f.name).includes(k)));
   $('#grid').innerHTML = items.map((f) => productCard(f)).join('');
   $('#count').textContent = `${items.length} ürün listeleniyor`;
   $('#empty').hidden = items.length > 0;
@@ -32,18 +33,19 @@ if (params.get('kat')) requestAnimationFrame(() => $('#liste').scrollIntoView({ 
 
 /* ================= 3B katalog girişi: ürünler tek tek, kendi renklerinde ================= */
 const pad2 = (n) => String(n).padStart(2, '0');
-let list = FLAVORS.map((_, i) => i);
+let list = FLAVORS.map((_, i) => i).filter((i) => cat === 'tum' || FLAVORS[i].group === cat);
 let cur = 0; // list içindeki sıra
 let scene = null;
 const fIdx = () => list[cur];
 
 $('#pThumbs').innerHTML = FLAVORS.map((f, i) => `<a href="${productUrl(f)}" data-i="${i}" style="--c:${f.bg}" class="${f.thumb ? 'kit' : ''}" aria-label="${f.name}"><img src="${f.thumb || f.tex}" alt="" loading="lazy" /></a>`).join('');
+$$('#pThumbs a').forEach((a) => { a.hidden = !list.includes(+a.dataset.i); });
 $$('#pThumbs a').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); const k = list.indexOf(+a.dataset.i); if (k >= 0) show(k); }));
-$('#cCats').innerHTML = CATS.map(([id, label]) => `<button type="button" data-c="${id}" class="${id === 'tum' ? 'on' : ''}">${label}</button>`).join('');
+$('#cCats').innerHTML = CATS.map(([id]) => `<button type="button" data-c="${id}" class="${id === cat ? 'on' : ''}">${SHORT[id]}</button>`).join('');
 $$('#cCats button').forEach((b) => b.addEventListener('click', () => {
   const c = b.dataset.c;
   $$('#cCats button').forEach((x) => x.classList.toggle('on', x === b));
-  list = FLAVORS.map((_, i) => i).filter((i) => c === 'tum' || FLAVORS[i].cat === c);
+  list = FLAVORS.map((_, i) => i).filter((i) => c === 'tum' || FLAVORS[i].group === c);
   $$('#pThumbs a').forEach((a) => { a.hidden = !list.includes(+a.dataset.i); });
   show(0);
 }));
@@ -54,6 +56,7 @@ function fillStage() {
   const f = FLAVORS[fIdx()];
   $('#pstage').style.setProperty('--c', f.bg);
   $('#pCount').textContent = `${pad2(cur + 1)} / ${pad2(list.length)}`;
+  $('#cEye').textContent = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} · ${GROUPS[f.group]}`;
   $('#pName').textContent = f.name;
   $('#pName').classList.toggle('long', f.name.length > 14);
   $('#pLead').textContent = f.lead;

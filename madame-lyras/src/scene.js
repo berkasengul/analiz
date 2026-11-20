@@ -596,28 +596,62 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     await logoReady;
     try { await Promise.race([document.fonts?.ready, new Promise((r) => setTimeout(r, 400))]); } catch (e) { /* yedek yazı tipi */ }
   })();
-  const order = flavors.map((_, i) => i).sort((a, b) => (a === first ? -1 : b === first ? 1 : 0));
-  order.forEach((i) => {
+  // dokular gerektikçe yüklenir (ürün sayısı arttı): önce ilk ürün, sonra yalnızca gösterilen ürün ve iki yanındakiler.
+  // Aynı adresteki doku bir kez indirilir (ör. ResQ yemeklerinin ortak poşeti).
+  const packTex = new Map();
+  const loadTex = (url) => {
+    if (!packTex.has(url)) {
+      packTex.set(url, new Promise((res, rej) => loader.load(url, (t) => {
+        t.colorSpace = THREE.SRGBColorSpace;
+        t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        res(t);
+      }, undefined, rej)));
+    }
+    return packTex.get(url);
+  };
+  const pending = new Map();
+  const backWait = new Set();
+  function ensure(i) {
+    if (i < 0 || i >= flavors.length) return Promise.resolve();
+    if (pending.has(i)) return pending.get(i);
     const fl = flavors[i];
-    loader.load(fl.tex, async (t) => {
-      t.colorSpace = THREE.SRGBColorSpace;
-      t.anisotropy = renderer.capabilities.getMaxAnisotropy();
-      await prep;
-      fronts[i] = t;
-      if (!fl.model) backs[i] = makeBackTexture(t.image, fl, logoImg);
+    const p = (async () => {
+      try {
+        const t = await loadTex(fl.tex);
+        await prep;
+        if (!fl.model && fl.back) backWait.add(i);
+        fronts[i] = t;
+        // paketin gerçek arka yüzü (ambalaj görseli) varsa o kullanılır
+        if (!fl.model && fl.back) {
+          try { backs[i] = await loadTex(fl.back); } catch (e) { /* çizilen arka yüze düşer */ }
+          backWait.delete(i);
+        }
+      } catch (e) { /* doku yüklenemedi */ }
       loaded++;
       onProgress?.(loaded / flavors.length);
-      if (i === first) { flavor = first; showFront(first); showBack(first); resolveReady(); }
-      else if (i === flavor && frontIdx !== i) { showFront(i); showBack(i); }
-    }, undefined, () => { loaded++; if (i === first) resolveReady(); });
-  });
+      if (i === flavor && frontIdx !== i) { showFront(i); showBack(i); }
+      else if (i === flavor) showBack(i);
+    })();
+    pending.set(i, p);
+    return p;
+  }
+  // çizilen arka yüz yalnızca gösterileceği zaman oluşturulur (bellek); gerçek arka yüz yükleniyorsa beklenir
+  function backFor(i) {
+    if (backs[i] || !fronts[i] || flavors[i].model || backWait.has(i)) return backs[i];
+    backs[i] = makeBackTexture(fronts[i].image, flavors[i], logoImg);
+    return backs[i];
+  }
+  const near = (i) => { ensure(i); ensure((i + 1) % flavors.length); ensure((i - 1 + flavors.length) % flavors.length); };
+  ensure(first).then(() => { flavor = first; showFront(first); showBack(first); resolveReady(); setTimeout(() => near(first), 300); });
 
   const bottomColors = flavors.map((f) => new THREE.Color(f.bg).multiplyScalar(0.75));
   const aspects = flavors.map((f) => (f.aspect || 1.153) / 1.153);
   let aspectTarget = aspects[0], aspectNow = aspects[0];
   let frontIdx = -1, backIdx = -1;
   function showFront(i) {
+    if (i >= 0 && !fronts[i]) { near(i); return; }
     if (i === frontIdx || !fronts[i]) return;
+    near(i);
     frontIdx = i;
     const md = flavors[i].model;
     if (md) { pouch.group.visible = false; kit.show(md, fronts[i]); aspectTarget = aspects[i]; return; }
@@ -627,7 +661,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     aspectTarget = aspects[i];
   }
   function showBack(i) {
-    if (i === backIdx || !backs[i]) return;
+    if (i === backIdx || !backFor(i)) return;
     backIdx = i;
     pouch.setBack(backs[i]);
   }

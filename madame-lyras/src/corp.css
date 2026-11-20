@@ -1064,3 +1064,49 @@ body[data-page='teklif'] .cta-band { display: none; }
   .hero__art--c .pouch:nth-child(6) { left: 70%; width: 31%; }
 }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) { .hero__art--c { aspect-ratio: 1.4; } }
+
+/* ---------- ana sayfa: ürün grupları (premium kartlar, üzerine gelince ürünler hafifçe büyür) ---------- */
+.groups2 { background: linear-gradient(180deg, #f6efe6 0%, #fbf7f1 100%); }
+.grps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
+.grp { position: relative; display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: #fff; text-decoration: none; color: inherit; border: 1px solid rgba(122, 15, 21, 0.1); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 18px 40px rgba(60, 25, 15, 0.07); transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), border-color 0.4s; }
+.grp::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(184, 138, 74, 0); transition: box-shadow 0.5s; }
+.grp:hover { transform: translateY(-6px); box-shadow: 0 34px 70px rgba(60, 25, 15, 0.16); border-color: rgba(184, 138, 74, 0.45); }
+.grp:hover::after { box-shadow: inset 0 0 0 1px rgba(184, 138, 74, 0.5); }
+.grp__art { position: relative; display: block; aspect-ratio: 5 / 4; overflow: hidden; }
+.grp--snack .grp__art { background: radial-gradient(80% 75% at 50% 58%, #fff 0%, #fbeee7 52%, #f2d8cc 100%); }
+.grp--kit .grp__art { background: radial-gradient(80% 75% at 50% 58%, #fff 0%, #f3f1ee 55%, #e3dfda 100%); }
+.grp--resq .grp__art { background: radial-gradient(80% 75% at 50% 58%, #fff 0%, #f9eef1 55%, #efd9df 100%); }
+.grp__art::before { content: ''; position: absolute; left: 14%; right: 14%; bottom: 7%; height: 9%; border-radius: 50%; background: radial-gradient(closest-side, rgba(60, 25, 15, 0.22), transparent); }
+.grp__art img { position: absolute; transition: transform 0.9s var(--ease); will-change: transform; }
+.grp:hover .grp__art img { transform: scale(1.05); }
+/* atıştırmalık: üç paket */
+.g-p { bottom: 11%; width: 34%; border-radius: 8px; box-shadow: 0 18px 30px rgba(60, 25, 15, 0.22); transform-origin: 50% 100%; }
+.g-p--c { left: 33%; width: 36%; z-index: 2; }
+.g-p--l { left: 12%; bottom: 14%; rotate: -8deg; width: 30%; }
+.g-p--r { right: 12%; bottom: 14%; rotate: 8deg; width: 30%; }
+.grp:hover .g-p--l { transform: scale(1.05) translateX(-4%); }
+.grp:hover .g-p--r { transform: scale(1.05) translateX(4%); }
+/* kitler: kova ve kasa (beyaz zemin karışır) */
+.g-k { mix-blend-mode: multiply; transform-origin: 50% 100%; }
+.g-k--b { left: 8%; bottom: 12%; width: 42%; }
+.g-k--f { right: 6%; bottom: 9%; width: 56%; }
+/* ResQ: poşet ve gevrek */
+.g-r { transform-origin: 50% 100%; }
+.g-r--b { left: 16%; bottom: 13%; width: 31%; border-radius: 8px; rotate: -6deg; box-shadow: 0 18px 30px rgba(60, 25, 15, 0.18); }
+.g-r--f { right: 15%; bottom: 10%; width: 36%; mix-blend-mode: multiply; }
+.grp__body { display: flex; flex-direction: column; flex: 1; padding: 24px 26px 26px; border-top: 1px solid rgba(122, 15, 21, 0.08); }
+.grp__body small { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+.grp__body small b { color: var(--bordo); font-weight: 800; }
+.grp__body h3 { font-size: clamp(25px, 2.1vw, 31px); margin-bottom: 10px; }
+.grp__body p { font-size: 14.5px; color: var(--ink-2); margin-bottom: 16px; }
+.grp__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.grp__chips i { font-style: normal; padding: 5px 11px; border-radius: 999px; background: var(--cream); border: 1px solid var(--line); font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+.grp__go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; color: var(--bordo); }
+.grp__go svg { width: 18px; height: 18px; transition: transform 0.4s var(--ease); }
+.grp:hover .grp__go svg { transform: translateX(5px); }
+@media (prefers-reduced-motion: reduce) { .grp, .grp__art img { transition: none; } .grp:hover { transform: none; } .grp:hover .grp__art img { transform: none; } }
+@media (max-width: 980px) { .grps { grid-template-columns: 1fr 1fr; } .grps .grp:last-child { grid-column: 1 / -1; } .grps .grp:last-child .grp__art { aspect-ratio: 16 / 7; } }
+@media (max-width: 640px) { .grps { grid-template-columns: 1fr; } .grps .grp:last-child .grp__art { aspect-ratio: 5 / 4; } }
+
+/* teklif formu: grup başlıkları */
+.pick__head { margin: 6px 0 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }

@@ -168,12 +168,12 @@ export const KITS = [
     menu: [["Kuru Meyveli Kahvaltılık Gevrek", 2, 150, 498], ["Sebzeli Omlet", 2, 100, 431], ["Menemen", 1, 50, 224], ["Cevizli Baklava", 1, 50, 244], ["İrmik Helvası", 1, 200, 842], ["Humus", 1, 40, 214], ["Cacık", 1, 40, 184], ["Sade Dondurma", 1, 32, 132], ["Mercimek Çorbası", 2, 100, 356], ["Şehriyeli Tavuk Çorbası", 1, 40, 177], ["Kremalı Mantar Çorbası", 2, 100, 582], ["Kremalı Mantarlı Tavuklu Makarna", 1, 80, 370], ["Pesto Soslu Makarna", 1, 80, 410], ["Köri Soslu Makarna", 1, 80, 350], ["Yeşil Mercimekli Bulgur Pilavı", 2, 120, 514], ["Taze Fasulye", 1, 40, 148], ["Tavuk Sote", 2, 100, 419], ["Misket Köfte", 2, 90, 473]] },
   { id: '35-servis', name: '35 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/35-servis.webp', who: '1 kişi · 7 gün', servis: 35, gram: 1838, kcal: 8303, model: {"type": "crate", "w": 1.32, "h": 1.0, "d": 1.0, "la": 1.122, "lid": "#1c1c1f"},
     menu: [["Kuru Meyveli Kahvaltılık Gevrek", 3, 225, 900], ["Sebzeli Omlet", 3, 150, 648], ["Menemen", 1, 50, 224], ["Mercimek Çorbası", 3, 150, 534], ["Şehriyeli Tavuk Çorbası", 1, 40, 177], ["Kremalı Mantar Çorbası", 3, 150, 873], ["Kremalı Mantarlı Tavuklu Makarna", 1, 80, 370], ["Pesto Soslu Makarna", 3, 240, 1230], ["Yeşil Mercimekli Bulgur Pilavı", 3, 180, 771], ["Taze Fasulye", 2, 80, 296], ["Tavuk Sote", 2, 100, 420], ["Misket Köfte", 3, 135, 711], ["Humus", 1, 40, 214], ["Cacık", 1, 40, 184], ["İrmik Helvası", 2, 64, 270], ["Fıstıklı Dondurma", 1, 32, 122], ["Sade Dondurma", 1, 32, 132], ["Baklava", 1, 50, 227]] },
-  { id: '70-servis', name: '70 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/70-servis.webp', who: '2 kişi · 7 gün', servis: 70, gram: 3676, kcal: 16606, model: null,
+  { id: '70-servis', name: '70 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/70-servis.webp', who: '2 kişi · 7 gün', servis: 70, gram: 3676, kcal: 16606, model: {"type": "crate", "w": 1.32, "h": 1.0, "d": 1.0, "la": 1.122, "lid": "#1c1c1f"},
     menu: [["Kuru Meyveli Kahvaltılık Gevrek", 6, 450, 1800], ["Sebzeli Omlet", 6, 300, 1296], ["Menemen", 2, 100, 448], ["Mercimek Çorbası", 6, 300, 1068], ["Şehriyeli Tavuk Çorbası", 2, 80, 354], ["Kremalı Mantar Çorbası", 6, 300, 1746], ["Kremalı Mantarlı Tavuklu Makarna", 2, 160, 740], ["Pesto Soslu Makarna", 6, 480, 2460], ["Yeşil Mercimekli Bulgur Pilavı", 6, 360, 1542], ["Taze Fasulye", 4, 160, 592], ["Tavuk Sote", 4, 200, 840], ["Misket Köfte", 6, 270, 1422], ["Humus", 2, 80, 428], ["Cacık", 2, 80, 368], ["İrmik Helvası", 4, 128, 540], ["Fıstıklı Dondurma", 2, 64, 244], ["Sade Dondurma", 2, 64, 264], ["Baklava", 2, 100, 454]] },
   { id: 'gevrek', name: 'Kahvaltılık Gevrek', title: 'Kuru Meyveli · 75 g', img: '/img/kit/gevrek.webp', who: 'Su ekle, 2 dakikada hazır', servis: 1, gram: 75, kcal: 292, model: null, menu: null },
 ];
 // kitler de 3B vitrinde: kasalar ve kova 3B model, poşetler 3B paket
-const KIT_BG = { 'mini-mix': '#a3161c', 'mini-select': '#8f1d2a', '25-servis': '#b3171d', '35-servis': '#7e1418', '70-servis': '#5f646c', gevrek: '#c46a86' };
+const KIT_BG = { 'mini-mix': '#a3161c', 'mini-select': '#8f1d2a', '25-servis': '#b3171d', '35-servis': '#7e1418', '70-servis': '#6b1015', gevrek: '#c46a86' };
 KITS.forEach((k) => {
   const pouch = !k.model;
   const f = {
@@ -299,12 +299,109 @@ FLAVORS.forEach((f) => {
   FLAVORS.splice(2, 0, FLAVORS.splice(j, 1)[0]);
 }
 
-// Firma yalnızca meyve grubunda çalışır (14 çeşit; Trendyol'daki Solagron mağazasıyla aynı):
-// dondurmalar, hindistan cevizi ve hazır gıda kitleri sitede gösterilmez.
+// ---------------------------------------------------------------
+// Ürün grupları (ana sayfa ve katalog):
+//   atistirmalik → meyve, dondurma ve hindistan cevizi atıştırmalıkları (Solagron, 16 g)
+//   kit          → ResQ hazır gıda kitleri (kasa / kova)
+//   resq         → ResQ ürünleri: kahvaltılık gevrek ve kitlerdeki yemekler (tek porsiyon)
+// ---------------------------------------------------------------
+export const GROUPS = {
+  atistirmalik: 'Meyve ve dondurma atıştırmalıkları',
+  kit: 'Hazır gıda kitleri',
+  resq: 'ResQ ürünleri',
+};
+
+// Drive'daki paket görsellerinden gelen yeni meyveler (kavun, karpuz, kivi)
+FLAVORS.push(
+  more('kavun', 'Kavun', '#e9a73a', '160 g taze kavundan üretilmiştir.', {
+    ink: 'dark', slogan: 'Yaz meyvesi · 160 g tazeden', lead: 'Kavun, yazın en tatlı hali; çıtır ve hafif.',
+    desc: 'Olgun kavunun bal gibi tatlılığı ve ferah kokusu, suyu alınmış hafif bir dokuda. 160 g taze kavundan tek paket; şeker eklenmedi.',
+    nutrition: [['Enerji (kJ/kcal)', '210 / 50', '1310 / 313', '%16'], ['Yağ (g)', '0,2', '1,5', '%2'], ['Doymuş yağ (g)', '0', '0,3', '%1'], ['Karbonhidrat (g)', '13,1', '81,8', '%31'], ['Şekerler (g)', '11,1', '69,2', '%77'], ['Lif (g)', '1,5', '9,1', '%36'], ['Protein (g)', '1,6', '10,1', '%20'], ['Tuz (g)', '0', '0', '%0']],
+  }),
+  more('karpuz', 'Karpuz', '#d8323b', '%100 taze karpuzdan üretilmiştir.', {
+    slogan: 'Yaz meyvesi · %100 karpuz', lead: 'Karpuz, ağızda eriyen çıtır bir yaz.',
+    desc: 'Karpuzun serin, tatlı lezzeti dondurularak kurutulunca ağızda eriyen çıtır bir atıştırmalığa dönüşür. Şeker eklenmedi.',
+    facts: [['Net', '16 g'], ['İçindekiler', '%100 karpuz'], ['Biçim', 'Dilim']],
+    nutrition: [['Enerji (kJ/kcal)', '221 / 52,8', '1381 / 330', '%17'], ['Yağ (g)', '0,2', '1,1', '%1'], ['Doymuş yağ (g)', '0', '0', '%0'], ['Karbonhidrat (g)', '13,2', '82,5', '%32'], ['Şekerler (g)', '10,6', '66', '%73'], ['Lif (g)', '0,7', '4,4', '%17'], ['Protein (g)', '1,1', '6,6', '%13'], ['Tuz (g)', '0', '0', '%0']],
+  }),
+  more('kivi', 'Kivi', '#5d8a1c', '100 g taze kividen üretilmiştir.', {
+    slogan: 'Dilim kivi · 100 g tazeden', lead: 'Kivi dilimleri, yeşil ve mayhoş.',
+    desc: 'Kivinin canlı yeşili ve siyah çekirdekleri, ince dilimlerde kurutuldu. Mayhoş, ferah ve çıtır; şeker eklenmedi.',
+    facts: [['Net', '16 g'], ['İçindekiler', '%100 kivi'], ['Kaynak', '100 g taze kivi']],
+    // ambalajın arkasında yalnızca paket başına (16 g) değerler var
+    nutrition: [['Enerji (kcal)', '64', '–', '–'], ['Yağ (g)', '0', '–', '–'], ['Karbonhidrat (g)', '13', '–', '–'], ['Şekerler (g)', '3', '–', '–'], ['Lif (g)', '2', '–', '–'], ['Protein (g)', '1', '–', '–']],
+  }),
+);
+['kavun', 'karpuz', 'kivi'].forEach((id) => {
+  const f = FLAVORS.find((x) => x.id === id);
+  f.aspect = 1.4;
+  f.cat = 'meyve';
+  f.contents = [['İçindekiler', `%100 ${f.name.toLocaleLowerCase('tr')}`], ['Net ağırlık', '16 g'], ...(id === 'kavun' ? [['Taze meyve karşılığı', '160 g taze kavun']] : id === 'kivi' ? [['Taze meyve karşılığı', '100 g taze kivi']] : []), ['Yöntem', 'Freeze-drying (dondurularak kurutma)'], ['Katkı', 'Katkı maddesi, koruyucu ve renklendirici içermez'], ['Saklama', KEEP], ['Ambalaj', 'Kilitli doypack poşet']];
+});
+FRESH.kavun = 160; FRESH.kivi = 100;
+
+// paketlerin arka yüzleri (Drive: ambalaj arka yüz görselleri); olmayanlarda arka yüz sahnede çizilir
+['ahududu', 'cilek', 'dilim-cilek', 'dondurma', 'elma', 'fistikli-dondurma', 'incir', 'karpuz', 'kavun', 'kirmizi-ejder', 'mango', 'mavi-yemis', 'muz']
+  .forEach((id) => { const f = FLAVORS.find((x) => x.id === id); if (f) f.back = `/tex/back/${id}.webp`; });
+
+// ResQ: kahvaltılık gevrek ResQ ürünleri grubunda; kitlerdeki yemekler tek porsiyon olarak
+const RESQ_MEALS = [
+  // [id, ad, tür, porsiyon (g), enerji (kcal)]  — değerler solagronmarket.com kit menülerinden (1 porsiyon)
+  ['menemen', 'Menemen', 'kahvalti', 50, 223],
+  ['sebzeli-omlet', 'Sebzeli Omlet', 'kahvalti', 50, 216],
+  ['mercimek-corbasi', 'Mercimek Çorbası', 'corba', 50, 178],
+  ['kremali-mantar-corbasi', 'Kremalı Mantar Çorbası', 'corba', 50, 291],
+  ['sehriyeli-tavuk-corbasi', 'Şehriyeli Tavuk Çorbası', 'corba', 40, 177],
+  ['yayla-corbasi', 'Yayla Çorbası', 'corba', 50, 205],
+  ['sebze-corbasi', 'Sebze Çorbası', 'corba', 35, 159],
+  ['pesto-soslu-makarna', 'Pesto Soslu Makarna', 'ana', 80, 410],
+  ['kori-soslu-makarna', 'Köri Soslu Makarna', 'ana', 80, 350],
+  ['kremali-mantarli-tavuklu-makarna', 'Kremalı Mantarlı Tavuklu Makarna', 'ana', 80, 370],
+  ['sebzeli-makarna', 'Sebzeli Makarna', 'ana', 85, 377],
+  ['tavuk-sote', 'Tavuk Sote', 'ana', 50, 210],
+  ['misket-kofte', 'Misket Köfte', 'ana', 45, 237],
+  ['yesil-mercimekli-bulgur-pilavi', 'Yeşil Mercimekli Bulgur Pilavı', 'ana', 60, 257],
+  ['kiymali-ispanak', 'Kıymalı Ispanak Yemeği', 'ana', 50, 194],
+  ['taze-fasulye', 'Taze Fasulye', 'ana', 40, 148],
+  ['kuru-fasulye', 'Kuru Fasulye', 'ana', 40, 68],
+  ['humus', 'Humus', 'meze', 40, 214],
+  ['cacik', 'Cacık', 'meze', 40, 184],
+  ['baklava', 'Baklava', 'tatli', 50, 227],
+  ['cevizli-baklava', 'Cevizli Baklava', 'tatli', 50, 244],
+  ['irmik-helvasi', 'İrmik Helvası', 'tatli', 32, 135],
+];
+const MEAL_TYPE = {
+  kahvalti: ['Kahvaltı', '#b8841f'], corba: ['Çorba', '#a2521f'], ana: ['Ana yemek', '#8f1d2a'], meze: ['Meze', '#4f7a2a'], tatli: ['Tatlı', '#6d3a6e'],
+};
+const RESQ_KEEP = 'Serin ve kuru yerde saklayınız. Açtıktan sonra hava almayacak şekilde kapatınız. Üretim, tavsiye edilen tüketim tarihi ve parti numarası ambalaj üzerindedir.';
+RESQ_MEALS.forEach(([id, name, type, g, kcal]) => {
+  const [tname, bg] = MEAL_TYPE[type];
+  FLAVORS.push({
+    id: `resq-${id}`, name, short: name.length > 16 ? name.split(' ').slice(-2).join(' ') : name, cat: 'resq', meal: type, brand: 'ResQ',
+    tex: '/tex/resq-poset.webp', aspect: 1.4, parts: [], bg, ink: 'light',
+    slogan: `ResQ · ${tname}`,
+    lead: `${name}, dondurularak kurutulmuş; sıcak su ekleyin, hazır.`,
+    desc: `ResQ ${name.toLocaleLowerCase('tr')}, pişirildikten sonra cryo freeze-drying ile kurutuldu. Belirtilen miktarda sıcak su ekleyip yaklaşık 15 dakika bekletmeniz yeterli. Uzun raf ömrü sayesinde kamp, outdoor, acil durum stokları ve iş yerleri için.`,
+    facts: [['Porsiyon', `${g} g`], ['Enerji', `${kcal} kcal`], ['Hazırlama', 'Sıcak su · 15 dk']],
+    claims: ['Sıcak su ile hazır', 'Uzun raf ömrü', 'Cryo freeze-dried'],
+    contents: [['Ürün', `${name} (dondurularak kurutulmuş)`], ['Porsiyon', `1 porsiyon · ${g} g · ${kcal} kcal`], ['Hazırlama', 'Belirtilen miktarda sıcak su ekleyin, yaklaşık 15 dakikada hazır'], ['Tür', tname], ['Saklama', RESQ_KEEP], ['Not', 'ResQ hazır gıda kitlerinde yer alır; tek porsiyon tedarik için teklif isteyin.']],
+  });
+});
+
+// kitler: ResQ kasa / kova; gevrek ResQ ürünleri grubunda
+FLAVORS.forEach((f) => {
+  if (f.kit === 'gevrek') f.cat = 'resq';
+  f.group = f.cat === 'kit' ? 'kit' : f.cat === 'resq' ? 'resq' : 'atistirmalik';
+});
+CATS.length = 0;
+CATS.push(['tum', 'Tümü'], ...Object.entries(GROUPS));
+// gösterim sırası: atıştırmalıklar, kitler, ResQ ürünleri
 {
-  const keep = FLAVORS.filter((f) => f.cat === 'meyve');
+  const order = { atistirmalik: 0, kit: 1, resq: 2 };
+  const sub = { meyve: 0, tatli: 1, atistirmalik: 2 };
+  const sorted = [...FLAVORS].sort((a, b) => order[a.group] - order[b.group] || (sub[a.cat] ?? 0) - (sub[b.cat] ?? 0));
   FLAVORS.length = 0;
-  FLAVORS.push(...keep);
+  FLAVORS.push(...sorted);
 }
 
 // ---------------------------------------------------------------
@@ -410,6 +507,102 @@ const PITCH = {
       ['otel', 'Lobi ve havuz barında, su ve içecek servislerinde.'],
       ['spor', 'Aromalı su istasyonlarına ferah bir dokunuş.']]],
 };
+// ---------- işletmeler için hikâye: yeni meyveler, dondurmalar, hindistan cevizi, ResQ ----------
+Object.assign(CHANNELS, {
+  outdoor: 'Kamp ve outdoor mağazaları',
+  kurum: 'Kurumlar ve afet hazırlığı',
+});
+Object.assign(CHANNEL_ICONS, {
+  outdoor: 'M3 20L12 4l9 16H3zM12 4v16M8.5 20l3.5-6 3.5 6',
+  kurum: 'M4 21V9l8-5 8 5v12M9 21v-6h6v6M3 21h18',
+});
+Object.assign(PITCH, {
+  kavun: ['Yazın en sevilen tadı, dört mevsim.',
+    "Kavun yazın sofraların vazgeçilmezidir, ama sezonu kısadır ve taze hali hızla bozulur. 160 g taze kavundan üretilen 16 g’lık paket, bu tatlı ve kokulu meyveyi yılın her ayında rafınıza taşır. Tanıdık tat, yeni doku: müşteri merak eder, dener, tekrar alır.",
+    [['istasyon', 'Yaz yolculuklarında serinletici, hafif bir atıştırmalık.'],
+      ['kafe', 'Yoğurt kâsesi, smoothie ve buzlu içeceklerde yaz aroması.'],
+      ['otel', 'Kahvaltı büfesinde sezon dışında da kavun.'],
+      ['market', 'Atıştırmalık rafında yeni ve merak uyandıran bir tat.']]],
+  karpuz: ['Kimsenin görmediği karpuz.',
+    "Karpuzu herkes bilir, ama çıtır halini çok az kişi denemiştir. Dondurularak kurutulmuş karpuz ağızda eriyen, şaşırtan bir dokuya sahiptir; bu şaşkınlık satışın kendisidir. Rafta ilk kez görülen ürün, müşterinin sepete attığı ürün olur.",
+    [['istasyon', 'Kasa önünde dikkat çeken, ‘ilk kez gördüm’ dedirten paket.'],
+      ['kafe', 'Kokteyl, mocktail ve limonatada renkli bir süs.'],
+      ['spor', 'Antrenman sonrası hafif ve ferah bir meyve.'],
+      ['market', 'Yenilik rafında merak uyandıran bir ürün.']]],
+  kivi: ['Yeşilin en canlı hali.',
+    "Kivi dilimleri, yeşil rengi ve siyah çekirdekleriyle tabakta ve bardakta hemen fark edilir. Taze kivi soyulması zahmetli ve kısa ömürlü bir meyvedir; kurutulmuş kivi açılır ve hazırdır. 100 g taze kividen üretilen paket, mayhoş tadıyla menülere ferahlık katar.",
+    [['kafe', 'Smoothie bowl, yoğurt ve içeceklerde canlı yeşil bir topping.'],
+      ['pastane', 'Tart ve pastalarda bozulmayan, rengini koruyan kivi.'],
+      ['spor', 'Ferah ve hafif bir atıştırmalık arayan üyeler için.'],
+      ['otel', 'Kahvaltı büfesinde soymaya gerek kalmadan kivi.']]],
+  dondurma: ['Elde erimeyen dondurma.',
+    "Dondurma satmak dondurucu, elektrik ve soğuk zincir ister; erime riski hep vardır. Dondurularak kurutulmuş sade dondurma bunların hiçbirini istemez: rafta durur, çantada taşınır, ağızda yavaş yavaş dondurma tadına döner. Çocukların ve meraklıların ilgisini çeken bir ürün.",
+    [['istasyon', 'Dondurucu olmadan dondurma satın; yolculukta erimez.'],
+      ['outdoor', 'Kampta ve doğa yürüyüşünde dondurma keyfi.'],
+      ['kafe', 'Kahve yanında farklı ve eğlenceli bir ikram.'],
+      ['market', 'Çocuk atıştırmalıkları rafında dikkat çeken bir yenilik.']]],
+  'fistikli-dondurma': ['Fıstıklı dondurma, rafta.',
+    "Fıstıklı dondurma Türkiye’de en sevilen tatlardandır. Dondurularak kurutulmuş hali soğuk zincir gerektirmez ve erimez; ağızda kremamsı fıstık tadına döner. Sade dondurmayla birlikte iki çeşitlik küçük bir dondurma rafı kurmanızı sağlar.",
+    [['istasyon', 'Dondurucu gerektirmeyen dondurma; kasa önünde merak uyandırır.'],
+      ['outdoor', 'Kamp ve outdoor kitlerinde tatlı bir sürpriz.'],
+      ['pastane', 'Tatlı tabaklarında ve ikramlarda çıtır fıstıklı küpler.'],
+      ['market', 'Atıştırmalık rafında farklı bir dondurma seçeneği.']]],
+  'hindistan-cevizi': ['Tropik ve doyurucu bir atıştırmalık.',
+    "Hindistan cevizinin sütü, suyu ve parçaları bir araya gelip dondurularak kurutuldu. Ağızda eriyen hafif küpler, alışılmış kuruyemişlere farklı bir alternatiftir. Sağlıklı ve farklı ürün arayan müşterinin ilgisini çeker.",
+    [['spor', 'Farklı bir atıştırmalık arayan üyeler için tropik küpler.'],
+      ['kafe', 'Bowl, granola ve tatlılarda hindistan cevizi aroması.'],
+      ['market', 'Kuruyemiş ve atıştırmalık rafına farklı bir seçenek.'],
+      ['istasyon', 'Yolculukta doyurucu ve hafif bir paket.']]],
+  'kit-mini-mix': ['Üç günlük güvence, tek kutuda.',
+    "Mini Mix, bir kişinin üç günlük ihtiyacını karşılayan 12 servislik hazır gıda kitidir: kahvaltıdan çorbaya, makarnadan köfteye. Sıcak su eklenir, 15 dakikada hazırdır. Afet hazırlığı yapan kurumlar, outdoor mağazaları ve bireysel stok yapan müşteriler için.",
+    [['kurum', 'Afet ve acil durum stoklarında bir kişilik üç günlük güvence.'],
+      ['outdoor', 'Kamp, dağcılık ve doğa sporları için hafif hazır yemek.'],
+      ['istasyon', 'Uzun yol ve tır şoförleri için pratik bir çözüm.'],
+      ['market', 'Afet çantası ve acil durum rafında.']]],
+  'kit-mini-select': ['Seçkin menüyle üç günlük kit.',
+    "Mini Select, Mini Mix’in seçkin menülü kardeşidir: kremalı mantar çorbası, köri soslu makarna, tavuk sote ve sade dondurma dahil 12 servis. Bir kişinin üç günlük ihtiyacını karşılar; sıcak suyla 15 dakikada hazırdır.",
+    [['kurum', 'Acil durum stoklarında çeşitli ve dengeli bir menü.'],
+      ['outdoor', 'Kamp ve dağcılık için zengin menülü hafif kit.'],
+      ['ofis', 'İş yerlerinde deprem ve acil durum hazırlığı.'],
+      ['market', 'Acil durum ve outdoor rafında.']]],
+  'kit-25-servis': ['Beş günlük hazırlık, kulplu kovada.',
+    "25 servislik kit, bir kişinin beş günlük ihtiyacını kapaklı ve kulplu bir saklama kovasında sunar. Kahvaltı, çorba, ana yemek, meze ve tatlıdan oluşan menü, uzun süreli ihtiyaçlar için dengeli bir çözümdür.",
+    [['kurum', 'Kurumların afet stoklarında taşınabilir, dayanıklı kova.'],
+      ['outdoor', 'Uzun kamp ve keşif gezileri için.'],
+      ['ofis', 'İş yeri acil durum dolapları için.'],
+      ['market', 'Afet hazırlığı rafında öne çıkan ürün.']]],
+  'kit-35-servis': ['Bir haftalık güvence.',
+    "35 servislik kit, bir kişinin yedi günlük ihtiyacını kilitli kapaklı bir saklama kasasında sunar. 18 çeşit yemekle zengin bir menü, uzun raf ömrü ve kolay hazırlama: sıcak su yeterlidir.",
+    [['kurum', 'Afet ve acil durum stoklarında bir haftalık hazırlık.'],
+      ['outdoor', 'Uzun süreli kamp ve keşif için.'],
+      ['ofis', 'İş yeri ve tesis acil durum stokları için.'],
+      ['market', 'Afet hazırlığı ve outdoor rafında.']]],
+  'kit-70-servis': ['İki kişi, bir hafta.',
+    "70 servislik kit, iki kişinin yedi günlük ihtiyacını karşılar. Aileler, küçük ekipler ve kurumlar için en kapsamlı ResQ çözümüdür; 18 çeşit yemek, uzun raf ömrü ve sıcak suyla kolay hazırlama.",
+    [['kurum', 'Kurumların ve ekiplerin afet hazırlığında kapsamlı çözüm.'],
+      ['ofis', 'Küçük ekipler için iş yeri acil durum stoku.'],
+      ['outdoor', 'Grup kampları ve keşif gezileri için.'],
+      ['market', 'Aile tipi afet hazırlığı ürünü olarak.']]],
+  'kit-gevrek': ['Suyu ekle, kahvaltı hazır.',
+    "Kuru meyveli kahvaltılık gevrek; granola, gerçek meyve parçaları ve sütlü karışımdan oluşur. Su eklenir, iki dakikada hazırdır. Kampta, yolda, ofiste ya da okulda hızlı ve besleyici bir kahvaltı arayan herkes için.",
+    [['istasyon', 'Sabah yolculuğunda kahvaltı yapamayanlar için hızlı bir çözüm.'],
+      ['ofis', 'Ofiste kahvaltı köşesi için su ekleyip hazırlanan gevrek.'],
+      ['outdoor', 'Kampta ve doğa yürüyüşünde pratik kahvaltı.'],
+      ['spor', 'Antrenman öncesi hızlı ve besleyici bir öğün.']]],
+});
+const MEAL_PITCH = {
+  kahvalti: ['Sıcak su ile hazır kahvaltı.', 'Kahvaltı, uzun bir günün en önemli öğünüdür; yolda ya da kampta çoğu zaman atlanır. ResQ kahvaltılıkları sıcak suyla hazırlanır, hafiftir ve uzun süre saklanır.'],
+  corba: ['Her yerde sıcak bir çorba.', 'Sıcak bir çorba, soğuk bir günde ve zor bir anda en çok aranan şeydir. ResQ çorbaları sıcak su eklenerek hazırlanır; hafif ambalajı sayesinde çantada, araçta ve stokta kolayca taşınır.'],
+  ana: ['Doyurucu bir ana yemek, 15 dakikada.', 'Doyurucu bir ana yemek için mutfak gerekmez: ResQ ana yemekleri sıcak suyla 15 dakikada hazır olur. Uzun raf ömrü sayesinde acil durum stoklarında, kampta ve iş yerlerinde güvenle saklanır.'],
+  meze: ['Sofraya tanıdık bir lezzet.', 'Humus ve cacık gibi tanıdık mezeler, hazır yemeği bir sofraya dönüştürür. ResQ mezeleri hafif, uzun ömürlü ve hazırlaması kolaydır.'],
+  tatli: ['Zor anlarda bile tatlı.', 'Uzun bir günün ya da zor bir anın sonunda tatlı bir şey moral verir. ResQ tatlıları hafif ambalajında uzun süre saklanır ve kolayca hazırlanır.'],
+};
+const MEAL_CH = [['outdoor', 'Kamp, dağcılık ve doğa sporları için hafif hazır yemek.'], ['kurum', 'Afet ve acil durum stoklarında uzun ömürlü bir öğün.'], ['istasyon', 'Uzun yol şoförleri için sıcak suyla hazırlanan yemek.'], ['ofis', 'İş yeri acil durum dolapları ve vardiya ikramları için.']];
+FLAVORS.filter((f) => f.meal).forEach((f) => {
+  const [t, s] = MEAL_PITCH[f.meal];
+  PITCH[f.id] = [t, `${s} ${f.name}, bir porsiyonu ${f.facts[0][1]} ve ${f.facts[1][1]}; ResQ hazır gıda kitlerinde de yer alır.`, MEAL_CH];
+});
+
 // sayı yazımı: '17,6' → 17.6
 const num = (v) => parseFloat(String(v).replace(',', '.'));
 FLAVORS.forEach((f) => {
@@ -417,7 +610,7 @@ FLAVORS.forEach((f) => {
   if (!st) return;
   [f.storyTitle, f.story] = st;
   f.channels = st[2].map(([k, why]) => [k, CHANNELS[k], why]);
-  f.storyImg = f.backdrop || f.poster || f.tex;
+  f.storyImg = (f.kit && f.thumb) || f.backdrop || f.poster || f.tex;
   // yararları: ambalaj bilgileri ve besin değerleri tablosuna dayanır
   const n = Object.fromEntries((f.nutrition || []).map(([k, , g100]) => [k, g100]));
   const fiber = n['Lif (g)'] && num(n['Lif (g)']);
@@ -432,4 +625,32 @@ FLAVORS.forEach((f) => {
     ['Uzun raf ömrü', 'Soğuk zincir gerekmez; serin ve kuru yerde saklanır.'],
   ];
   f.benefits = f.benefits.slice(0, 6);
+  if (f.cat === 'tatli') f.benefits = [
+    ['Soğuk zincir gerekmez', 'Dondurucu olmadan rafta durur; erimez, akmaz.'],
+    ['Çıtır küpler', 'Ağızda yavaş yavaş dondurma tadına döner.'],
+    ['Hafif ve pratik', '16 g’lık paket; çantada, yolda ve kampta taşınır.'],
+    ['Uzun raf ömrü', 'Serin ve kuru yerde saklanır.'],
+  ];
+  if (f.cat === 'atistirmalik') f.benefits = [
+    ['Katkısız', 'Katkı maddesi, koruyucu ve renklendirici içermez.'],
+    ['Sütü, suyu ve parçası', 'Hindistan cevizinin üç hali bir arada: %42 süt, %26 parça, %20 su.'],
+    ['Ağızda eriyen küpler', 'Hafif ve çıtır bir doku.'],
+    ['Uzun raf ömrü', 'Soğuk zincir gerekmez; serin ve kuru yerde saklanır.'],
+  ];
+  if (f.cat === 'kit') {
+    const k = KITS.find((x) => x.id === f.kit);
+    f.benefits = [
+      ['Sıcak su ile hazır', 'Belirtilen miktarda sıcak su ekleyin; yaklaşık 15 dakikada hazır.'],
+      ['Dengeli menü', `${k.servis} servis, toplam ${k.kcal.toLocaleString('tr-TR')} kcal; kahvaltıdan tatlıya.`],
+      ['Uzun raf ömrü', 'Nem almayan ambalajlarda, serin ve kuru yerde uzun süre saklanır.'],
+      ['Taşınabilir', k.model && k.model.type === 'bucket' ? 'Kapaklı ve kulplu saklama kovası.' : 'Kilitli kapaklı, istiflenebilir saklama kasası.'],
+      ['Yerli üretim', 'Solagron · Silifke OSB, Mersin.'],
+    ];
+  }
+  if (f.cat === 'resq') f.benefits = [
+    ['Sıcak su ile hazır', f.kit === 'gevrek' ? 'Su ekleyin; yaklaşık 2 dakikada hazır.' : 'Sıcak su ekleyin; yaklaşık 15 dakikada hazır.'],
+    ['Hafif', f.kit === 'gevrek' ? '75 g’lık paket; çantada kolayca taşınır.' : `Bir porsiyon ${f.facts[0][1]}; çantada kolayca taşınır.`],
+    ['Uzun raf ömrü', 'Serin ve kuru yerde uzun süre saklanır.'],
+    ['Yerli üretim', 'Solagron · Silifke OSB, Mersin.'],
+  ];
 });

@@ -13,7 +13,7 @@ Genç Anadolu Gıda Pazarlama Dağıtım Ltd. Şti. için çok sayfalı kurumsal
 |---|---|
 | `index.html` | Sade ana sayfa: açılış (yazı + Solagron paketleri yan yana), güven şeridi, doğallık, Solagron meyveleri, kimler satıyor (8 satış kanalı), ürünlerin yararları |
 | `kurumsal.html` | Hakkımızda, misyon ve vizyon, üretim tesisi (`#uretim`), kalite ve belgeler (`#kalite`) |
-| `urunler.html` | 3B katalog girişi ve tüm ürünler (arama) |
+| `urunler.html` | 3B katalog girişi ve tüm ürünler; üç grup filtresi (`?kat=atistirmalik|kit|resq`) ve arama |
 | `urun.html?id=<id>` | Ürün sayfası: 3B görüntüleyici, işletmeler için hikâyesi (neden satılır), müşteriye anlatılacak yararları, nerede satılır (4 satış kanalı), ürün bilgileri, besin değerleri, ambalaj ve lojistik, yazdırılabilir PDF ürün föyü |
 | `teklif.html` | Toptan teklif formu (ürün seçimi, ambalaj, aylık miktar; Netlify formu `toptan-teklif`). `?urun=<id>` ile o ürün seçili açılır |
 | `bayilik.html` | Yumuşak tonlu bayilik sayfası, kısa tanışma formu (`#basvuru`, Netlify formu `bayilik`) |
@@ -39,3 +39,10 @@ Ortak üst ve alt bilgi `src/partials/header.html` ve `src/partials/footer.html`
 npm install
 npm run dev
 ```
+
+## Ürün grupları (Kasım 2026)
+- **Meyve ve dondurma atıştırmalıkları** (Solagron, 16 g): 17 meyve (kavun, karpuz, kivi dahil), sade ve fıstıklı dondurma, hindistan cevizi.
+- **Hazır gıda kitleri** (ResQ): Mini Mix, Mini Select, 25 / 35 / 70 servis.
+- **ResQ ürünleri**: kahvaltılık gevrek ve kitlerdeki yemekler tek porsiyon (`RESQ_MEALS`, porsiyon ve kcal değerleri kit menülerinden).
+- Paketlerin **arka yüzleri** `public/tex/back/<id>.webp` (ambalaj görsellerinden kırpıldı, `f.back`). Arka yüzü olmayan ürünlerde arka yüz sahnede çizilir.
+- 3B sahnede dokular gerektikçe yüklenir (gösterilen ürün ve iki yanındakiler); ürün sayfası yalnızca ürünün kendi grubuyla çalışır.

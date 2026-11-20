@@ -8,8 +8,13 @@ bindForm($('#contactForm'), $('#formStatus'), 'Teşekkürler, mesajınız bize u
 // ürün sayfasındaki "Toptan teklif iste" → teklif formunda o ürün seçili gelir
 const urun = new URLSearchParams(location.search).get('urun');
 if (urun) {
-  const box = $(`#pick input[data-id="${CSS.escape(urun)}"]`);
+  const box = $(`#pick input[data-id="${CSS.escape(urun)}"]`) || (urun.startsWith('resq-') ? $('#pick input[data-id="resq-yemek"]') : null);
   if (box) box.checked = true;
+  // ResQ yemeği: hangi çeşit olduğu not alanına yazılır
+  if (urun.startsWith('resq-') && box && box.dataset.id === 'resq-yemek' && $('#q-msg')) {
+    const name = new URLSearchParams(location.search).get('ad');
+    if (name) $('#q-msg').value = `${name} için teklif almak istiyorum.`;
+  }
 }
 $('#pickAll')?.addEventListener('click', (e) => {
   const boxes = $$('#pick input');
