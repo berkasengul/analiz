@@ -604,8 +604,7 @@ FLAVORS.filter((f) => f.meal).forEach((f) => {
 });
 
 // ürün videoları (Higgsfield): public/video/<id>.mp4 ve ilk kare public/video/<id>.webp. Eklenen her video için id'yi buraya yazın.
-export const VIDEOS = ['cilek', 'beyaz-ejder', 'ananas', 'seftali', 'ahududu', 'elma', 'mango', 'muz', 'dilim-cilek', 'bogurtlen', 'mavi-yemis', 'kirmizi-ejder', 'incir', 'lime', 'kavun', 'karpuz', 'kivi', 'dondurma', 'fistikli-dondurma', 'hindistan-cevizi',
-  'kit-mini-mix', 'kit-mini-select', 'kit-25-servis', 'kit-35-servis', 'kit-70-servis', 'kit-gevrek'];
+export const VIDEOS = []; // şimdilik video yok: ürün sayfasında hareketli görsel kullanılır
 // Videolar ürünün kendi görsellerinden üretildi (meyve görseli + meyve parçaları → ürünün paketi): scripts/urun-videosu/
 FLAVORS.forEach((f) => { if (VIDEOS.includes(f.id)) { f.video = `/video/${f.id}.mp4`; f.videoPoster = `/video/${f.id}.webp`; } });
 
