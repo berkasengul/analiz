@@ -1164,3 +1164,43 @@ body[data-page='teklif'] .cta-band { display: none; }
 /* video: her ekranda 4:5 (paket kırpılmaz) */
 .story__media.has-video { aspect-ratio: 4 / 5; }
 @media (max-width: 980px) { .story__media.has-video { max-width: 520px; margin-inline: auto; } }
+
+/* kurumsal: üretim videosu */
+.split__media--video { aspect-ratio: 4 / 5; background: #2a0709; }
+.split__media--video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* 3B zeminin görüntüsü (canlı zemin bunun üzerine geçer) */
+.pstage { background-image: var(--zemin, none), radial-gradient(60% 75% at 58% 42%, color-mix(in srgb, var(--c) 82%, #fff 18%) 0%, var(--c) 38%, color-mix(in srgb, var(--c) 62%, #000) 100%); background-size: cover, auto; background-position: center, center; background-repeat: no-repeat; }
+
+/* ---------- teklif formu: ürün seçimi (alt alta liste yerine sarmalanan seçim etiketleri) ---------- */
+#pick { display: grid; gap: 14px; margin-bottom: 10px; }
+.pick__head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 8px; }
+.pick { display: flex; flex-wrap: wrap; gap: 7px; margin: 0; grid-template-columns: none; }
+.pick label { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 5px; min-height: 38px; border-radius: 999px; border: 1px solid var(--line-2); background: #fff; font-size: 13.5px; font-weight: 600; color: var(--ink-2); line-height: 1.2; cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; }
+.pick label::after { display: none; }
+.pick img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; object-position: 50% 62%; flex: none; background: var(--cream); }
+.pick span { flex: none; }
+.pick label:hover { border-color: var(--bordo); color: var(--ink); }
+.pick label:has(input:checked) { background: var(--bordo); border-color: var(--bordo); color: #fff; }
+.pick label:has(input:checked) img { box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7); }
+.pick__grp { padding: 14px; border-radius: 16px; background: var(--cream); border: 1px solid var(--line); }
+.pick__grpall { background: none; border: 0; padding: 0; font: 600 12.5px var(--sans); color: var(--bordo); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; letter-spacing: 0; text-transform: none; }
+@media (max-width: 480px) { .pick label { font-size: 13px; min-height: 36px; } .pick__grp { padding: 12px; } }
+
+/* telefonda paket büyük: 3B öncesi görsel de aynı boyutta */
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .pstage__img { top: 46%; height: 64%; } }
+/* seçim etiketleri: eşit genişlikte ızgara, kutucuk gizli (seçilince etiket boyanır) */
+.pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 7px; }
+.pick label { width: 100%; min-width: 0; }
+.pick label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.fcard .pick input[type='checkbox'] { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.pick__head span { font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.pick__grpall { flex: none; margin-left: 10px; }
+#pickAll { display: none; }
+@media (max-width: 380px) { .pick { grid-template-columns: 1fr 1fr; } .pick label { font-size: 12.5px; padding-right: 8px; } }
+.pick { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); }
+.pick label { border-radius: 14px; padding: 5px 8px 5px 5px; font-size: 12.5px; }
+.pick label span { white-space: normal; overflow: visible; line-height: 1.2; }
+@media (max-width: 380px) { .pick { grid-template-columns: 1fr 1fr; } }
+.split__media--video .split__badge b { font-size: 22px; white-space: nowrap; }
+.split__media--video .split__badge { max-width: 250px; padding: 14px 16px; }

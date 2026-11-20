@@ -9,7 +9,7 @@ let q = '';
 
 $('#cats').innerHTML = CATS.map(([id, label]) => {
   const n = id === 'tum' ? FLAVORS.length : FLAVORS.filter((f) => f.group === id).length;
-  return `<button type="button" role="tab" data-cat="${id}">${label} <small>${n}</small></button>`;
+  return `<button type="button" role="tab" data-cat="${id}" title="${label}">${SHORT[id] || label} <small>${n}</small></button>`;
 }).join('');
 
 function render() {
@@ -55,6 +55,8 @@ $('#pNext').addEventListener('click', (e) => { e.preventDefault(); show(cur + 1)
 function fillStage() {
   const f = FLAVORS[fIdx()];
   $('#pstage').style.setProperty('--c', f.bg);
+  // 3B arka planın önceden kaydedilmiş görüntüsü: sayfa açılır açılmaz gerçek zemin görünür
+  $('#pstage').style.setProperty('--zemin', `url(/img/zemin/${f.id}.webp)`);
   $('#pCount').textContent = `${pad2(cur + 1)} / ${pad2(list.length)}`;
   $('#cEye').textContent = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} · ${GROUPS[f.group]}`;
   $('#pName').textContent = f.name;
@@ -83,7 +85,7 @@ function stagePose(snap) {
   if (!scene) return;
   const pose = snap === true ? scene.snapPose : scene.setPose;
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A, k = FLAVORS[fIdx()].model ? 1.05 : 1;
-  if (phoneView()) pose({ x: 0, y: H * 0.06, s: Math.min(1.15, W * 0.95) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  if (phoneView()) pose({ x: 0, y: H * 0.02, s: Math.min(1.75, W * 1.42, H * 0.9) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
   else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 fillStage();

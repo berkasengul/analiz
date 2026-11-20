@@ -42,7 +42,8 @@ function pouchSurface({ w, h, depth, side }) {
       const pinch = 1 - 0.085 * (t / depth);
       const x = (u - 0.5) * w * pinch;
       const y = (v - 0.5) * h + curl * curl * 0.02 * bulgeU;
-      pos.push(x, y, side * (t + zip + wr));
+      // ön ve arka yüz kenarda çakışmasın (çakışınca kenarda siyah tırtıklı şerit oluşuyordu): ince bir kalınlık
+      pos.push(x, y, side * (t + zip + wr + 0.004));
       uv.push(side > 0 ? u : 1 - u, v);
       // tabana, yan dikişlere ve üst kaynağa doğru koyulaşma (hacim ve oturma hissi)
       const curve = 0.8 + 0.25 * Math.pow(Math.sin(Math.PI * uu), 0.7);

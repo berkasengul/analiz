@@ -47,6 +47,8 @@ function fill() {
   document.title = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name} · Genç Anadolu Gıda`;
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${f.name}: ${f.lead}`);
   $('#pstage').style.setProperty('--c', f.bg);
+  // 3B arka planın önceden kaydedilmiş görüntüsü: sayfa açılır açılmaz gerçek zemin görünür
+  $('#pstage').style.setProperty('--zemin', `url(/img/zemin/${f.id}.webp)`);
   $('#crumbs').innerHTML = `<li><a href="/">Ana sayfa</a></li><li><a href="/urunler.html">Ürünler</a></li><li><a href="${groupLink(f)}">${GROUPS[f.group]}</a></li>`;
   $('#pCount').textContent = `${pad(idx + 1)} / ${pad(N)}`;
   $('#pCat').textContent = f.group === 'atistirmalik' ? `Solagron · ${f.slogan}` : f.meal ? f.slogan : `ResQ · ${CAT_NAMES[f.cat]}`;
@@ -176,7 +178,7 @@ function setPose(snap) {
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A;
   const f = FLAVORS[idx];
   const k = f.model ? 1.05 : 1;
-  if (phone()) pose({ x: 0, y: H * 0.06, s: Math.min(1.15, W * 0.95) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  if (phone()) pose({ x: 0, y: H * 0.02, s: Math.min(1.75, W * 1.42, H * 0.9) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
   else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 if (webglOK()) {

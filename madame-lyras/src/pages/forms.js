@@ -16,6 +16,12 @@ if (urun) {
     if (name) $('#q-msg').value = `${name} için teklif almak istiyorum.`;
   }
 }
+$$('.pick__grpall').forEach((btn) => btn.addEventListener('click', () => {
+  const boxes = [...btn.closest('.pick__grp').querySelectorAll('input')];
+  const all = boxes.every((b) => b.checked);
+  boxes.forEach((b) => { b.checked = !all; });
+  btn.textContent = all ? 'Tümünü seç' : 'Seçimi temizle';
+}));
 $('#pickAll')?.addEventListener('click', (e) => {
   const boxes = $$('#pick input');
   const all = boxes.every((b) => b.checked);
