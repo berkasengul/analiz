@@ -609,8 +609,8 @@ FLAVORS.filter((f) => f.meal).forEach((f) => {
 export const VIDEO_MAP = {
   cilek: 'cilek', 'dilim-cilek': 'dilim-cilek', ahududu: 'ahududu', bogurtlen: 'bogurtlen', 'mavi-yemis': 'mavi-yemis',
   muz: 'muz', elma: 'elma', ananas: 'ananas', kivi: 'kivi', karpuz: 'karpuz', 'hindistan-cevizi': 'hindistan-cevizi', dondurma: 'dondurma',
-  mango: 'meyve-sofrasi', lime: 'dogallik', 'fistikli-dondurma': 'fistikli-dondurma',
-  seftali: 'meyve-sofrasi', kavun: 'meyve-sofrasi', incir: 'uretim', 'beyaz-ejder': 'uretim', 'kirmizi-ejder': 'uretim',
+  lime: 'dogallik', 'fistikli-dondurma': 'fistikli-dondurma',
+  // incir, beyaz / kırmızı ejder, şeftali, kavun, mango: ürüne uygun telifsiz video bulunamadı → hareketli meyve görseli
   'kit-mini-mix': 'kamp-kahvalti', 'kit-mini-select': 'kamp-kahve', 'kit-25-servis': 'kamp-kurulum', 'kit-35-servis': 'kamp-kahvalti', 'kit-70-servis': 'kamp-kurulum',
   'kit-gevrek': 'gevrek',
 };

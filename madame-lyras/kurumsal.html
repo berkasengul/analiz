@@ -51,7 +51,10 @@
     </section>
     <section class="section section--white" id="uretim">
       <div class="wrap split split--rev">
-        <div class="split__media split__media--video reveal"><video src="/video/tesis.mp4" poster="/video/tesis.webp" muted autoplay loop playsinline preload="metadata" aria-label="Silifke OSB üretim tesisi: kurutma odası, raflar ve lime dilimleri"></video></div>
+        <div class="split__media split__media--video split__media--wide reveal">
+          <video id="tesisLoop" src="/video/tesis.mp4" poster="/video/tesis.webp" muted autoplay loop playsinline preload="metadata" aria-label="Solagron Silifke OSB tesisi: çilek hattı, kurutma odaları ve paketleme"></video>
+          <button class="film-btn" type="button" id="filmBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><span>Tanıtım filmini izle <small>3:38</small></span></button>
+        </div>
         <div class="reveal">
           <p class="eyebrow">Üretim tesisi</p>
           <h2>Silifke OSB'de <em>kriyojenik üretim.</em></h2>
@@ -84,6 +87,10 @@
       </div>
     </section>
   </main>
+  <dialog class="film" id="film" aria-label="Solagron tesis tanıtım filmi">
+    <button class="film__close" type="button" id="filmClose" aria-label="Kapat">×</button>
+    <video id="filmVid" controls playsinline preload="none" poster="/video/tesis.webp"><source src="/video/tesis-film.mp4" type="video/mp4" /></video>
+  </dialog>
   <!-- @include footer -->
   <script type="module" src="/src/pages/basic.js"></script>
 </body>
