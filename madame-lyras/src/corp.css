@@ -905,17 +905,6 @@ body.gl-front #gl { z-index: 5; }
 }
 
 /* ---------- toptan teklif formu ---------- */
-.pick { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
-.pick label { position: relative; display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--line-2); font-size: 14.5px; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
-.pick label:hover { border-color: var(--bordo); }
-.pick input { position: absolute; opacity: 0; }
-.pick img { width: 30px; height: 36px; object-fit: contain; flex: none; }
-.pick span { flex: 1; line-height: 1.25; }
-.pick label::after { content: ''; flex: none; width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--line-2); background: #fff center / 12px no-repeat; }
-.pick label:has(input:checked) { border-color: var(--bordo); background: #fbf3ef; }
-.pick label:has(input:checked)::after { background-color: var(--bordo); border-color: var(--bordo); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12l4 4 10-10' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
-.pick label:has(input:focus-visible) { box-shadow: 0 0 0 4px rgba(122, 15, 21, 0.12); }
-.pick__all { background: none; border: 0; padding: 0; margin: -4px 0 12px; font: 600 13.5px var(--sans); color: var(--bordo); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 480px) { .pick { grid-template-columns: 1fr; } }
 .ccard--wa i { color: #1f8f4e; }
 .soft { font-family: var(--serif); font-size: clamp(18px, 1.5vw, 20px); line-height: 1.6; color: var(--ink-2); font-weight: 400; }
@@ -949,48 +938,32 @@ body[data-page='teklif'] .cta-band { display: none; }
 
 /* =================================================================
    Açılış (Kasım 2026, ikinci tur): 3B kaide görüntüsü yerine yazı + görsel.
-   data-v: a = doğal fotoğraf (açık zemin), b = meyve mozaiği (bordo), c = ürün dizisi (açık zemin)
+   data-v='c': açık zemin, Solagron paketleri yan yana (müşteri seçimi)
    ================================================================= */
 .hero--new { height: auto; min-height: calc(100svh - var(--hdr-h)); max-height: none; display: flex; }
 .hero--new .hero__inner { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: center; gap: clamp(30px, 4vw, 70px); width: 100%; padding-top: clamp(40px, 6vh, 80px); padding-bottom: clamp(40px, 6vh, 80px); pointer-events: auto; }
 .hero--new .hero__text { min-width: 0; }
 .hero--new .hero__lead { max-width: 470px; }
 .hero__art { display: none; position: relative; min-width: 0; }
-.hero[data-v='a'] .hero__art--a, .hero[data-v='b'] .hero__art--b, .hero[data-v='c'] .hero__art--c { display: block; }
+.hero[data-v='c'] .hero__art--c { display: block; }
 
 /* açık zemin (a, c) */
-.hero[data-v='a'], .hero[data-v='c'] { background: radial-gradient(60% 70% at 78% 50%, #fff 0%, rgba(255, 255, 255, 0) 70%), linear-gradient(180deg, #f8f2e9, #f3eadc); color: var(--ink); }
-.hero[data-v='a'] .gold, .hero[data-v='c'] .gold { background: none; -webkit-text-fill-color: currentColor; color: var(--ink); }
-.hero[data-v='a'] .hero__title em.gold, .hero[data-v='c'] .hero__title em.gold { color: var(--bordo); }
-.hero[data-v='a'] .hero__title, .hero[data-v='c'] .hero__title { filter: none; }
-.hero[data-v='a'] .hero__eyebrow, .hero[data-v='c'] .hero__eyebrow { color: var(--bordo); }
-.hero[data-v='a'] .hero__eyebrow::before, .hero[data-v='c'] .hero__eyebrow::before { background: linear-gradient(90deg, transparent, var(--bordo)); }
-.hero[data-v='a'] .hero__lead, .hero[data-v='c'] .hero__lead { color: var(--ink-2); }
-.hero[data-v='a'] .btn--gold, .hero[data-v='c'] .btn--gold { background: var(--bordo); color: #fff; box-shadow: 0 12px 26px rgba(122, 15, 21, 0.25); }
-.hero[data-v='a'] .btn--line, .hero[data-v='c'] .btn--line { border-color: rgba(36, 22, 18, 0.3); color: var(--ink); background: transparent; }
-.hero[data-v='a'] .btn--line:hover, .hero[data-v='c'] .btn--line:hover { border-color: var(--bordo); color: var(--bordo); }
-.hero[data-v='a'] .hero__facts li, .hero[data-v='c'] .hero__facts li { color: var(--ink-2); border-color: var(--line-2); }
-.hero[data-v='a'] .hero__facts b, .hero[data-v='c'] .hero__facts b { color: var(--bordo); }
+.hero[data-v='c'] { background: radial-gradient(60% 70% at 78% 50%, #fff 0%, rgba(255, 255, 255, 0) 70%), linear-gradient(180deg, #f8f2e9, #f3eadc); color: var(--ink); }
+.hero[data-v='c'] .gold { background: none; -webkit-text-fill-color: currentColor; color: var(--ink); }
+.hero[data-v='c'] .hero__title em.gold { color: var(--bordo); }
+.hero[data-v='c'] .hero__title { filter: none; }
+.hero[data-v='c'] .hero__eyebrow { color: var(--bordo); }
+.hero[data-v='c'] .hero__eyebrow::before { background: linear-gradient(90deg, transparent, var(--bordo)); }
+.hero[data-v='c'] .hero__lead { color: var(--ink-2); }
+.hero[data-v='c'] .btn--gold { background: var(--bordo); color: #fff; box-shadow: 0 12px 26px rgba(122, 15, 21, 0.25); }
+.hero[data-v='c'] .btn--line { border-color: rgba(36, 22, 18, 0.3); color: var(--ink); background: transparent; }
+.hero[data-v='c'] .btn--line:hover { border-color: var(--bordo); color: var(--bordo); }
+.hero[data-v='c'] .hero__facts li { color: var(--ink-2); border-color: var(--line-2); }
+.hero[data-v='c'] .hero__facts b { color: var(--bordo); }
 
 /* a: doğal fotoğraf */
-.hero__art--a { aspect-ratio: 1 / 0.92; max-height: 76vh; margin-left: auto; width: 100%; max-width: 680px; }
-.pic { position: absolute; margin: 0; overflow: hidden; border-radius: 28px; background: #fff; box-shadow: 0 40px 80px rgba(70, 30, 20, 0.16); }
-.pic img { width: 100%; height: 100%; object-fit: cover; }
-.pic--main { right: 0; top: 0; width: 82%; aspect-ratio: 1; }
-.pic--side { left: 0; bottom: 0; width: 40%; aspect-ratio: 1; border: 8px solid #fff; border-radius: 26px; }
-.hero__badge { position: absolute; right: 5%; bottom: 4%; padding: 16px 20px; border-radius: 18px; background: rgba(255, 255, 255, 0.94); box-shadow: 0 20px 40px rgba(70, 30, 20, 0.14); max-width: 240px; }
-.hero__badge b { display: block; font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--bordo); line-height: 1.1; }
-.hero__badge span { font-size: 13px; color: var(--ink-2); line-height: 1.4; }
-.hero__chip { position: absolute; left: 6%; top: 8%; padding: 10px 16px; border-radius: 999px; background: var(--bordo); color: #fff4e8; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; box-shadow: 0 14px 30px rgba(122, 15, 21, 0.3); }
 
 /* b: meyve mozaiği (bordo zemin korunur) */
-.hero[data-v='b'] { background: radial-gradient(70% 90% at 75% 50%, #a3141b 0%, #6d0b11 55%, #3a0509 100%); }
-.hero__art--b { display: none; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 640px; margin-left: auto; width: 100%; }
-.hero[data-v='b'] .hero__art--b { display: grid; }
-.tile { position: relative; margin: 0; aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; background: radial-gradient(90% 80% at 50% 40%, color-mix(in srgb, var(--c) 70%, #fff), var(--c)); box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3); }
-.tile:nth-child(3n + 2) { translate: 0 34px; }
-.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.tile figcaption { position: absolute; left: 12px; bottom: 10px; padding: 5px 11px; border-radius: 999px; background: rgba(20, 2, 4, 0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: #fff; font-size: 12.5px; font-weight: 700; }
 
 /* c: ürün dizisi (açık zemin) */
 .hero__art--c { height: min(62vh, 520px); width: 100%; }
@@ -1010,19 +983,10 @@ body[data-page='teklif'] .cta-band { display: none; }
   .hero--new .hero__inner { grid-template-columns: 1fr; gap: 30px; padding-top: 28px; padding-bottom: 34px; }
   .hero--new .hero__text { text-align: center; }
   .hero--new .hero__facts { position: static; margin-top: 22px; justify-content: center; }
-  .hero__art--a { max-width: 420px; margin: 0 auto; }
-  .hero__art--b { gap: 10px; max-width: 440px; margin: 0 auto 34px; }
-  .tile { border-radius: 16px; }
-  .tile figcaption { left: 8px; bottom: 8px; font-size: 11px; padding: 4px 8px; }
   .hero__art--c { height: auto; aspect-ratio: 1.45; max-width: 460px; margin: 0 auto; }
-  .hero__badge { padding: 12px 14px; max-width: 190px; }
-  .hero__badge b { font-size: 20px; }
-  .hero__badge span { font-size: 12px; }
-  .hero__chip { font-size: 11.5px; padding: 8px 12px; }
 }
 .hero--new { align-items: center; }
 .hero--new .hero__inner { height: auto; }
-.hero__badge { max-width: 270px; }
 .hero__art--c { height: min(66vh, 580px); }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) {
   .hero__art--c { height: auto; aspect-ratio: 1.55; width: 112%; margin-left: -6%; max-width: none; }
@@ -1063,3 +1027,40 @@ body[data-page='teklif'] .cta-band { display: none; }
   .chan h3 { font-size: 20px; }
   .chan ul { grid-column: 2; }
 }
+
+/* açılış C (seçilen): paketler büyük, görsel alanı geniş */
+.hero--new .hero__inner { grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); gap: clamp(20px, 2.5vw, 40px); }
+.hero--new .hero__inner.wrap { max-width: 1680px; }
+.hero__art--c { height: min(72vh, 680px); margin-right: -2%; }
+.hero__art--c .pouch { bottom: 8%; border-radius: 12px 12px 10px 10px; box-shadow: 0 34px 50px rgba(60, 25, 15, 0.25); }
+.hero__art--c .pouch:nth-child(1) { left: -3%; width: 22%; bottom: 14%; rotate: -9deg; }
+.hero__art--c .pouch:nth-child(2) { left: 8%; width: 26%; bottom: 11%; rotate: -5deg; }
+.hero__art--c .pouch:nth-child(3) { left: 21%; width: 29%; bottom: 9%; z-index: 2; rotate: -2deg; }
+.hero__art--c .pouch:nth-child(4) { left: 33%; width: 34%; bottom: 6%; z-index: 4; rotate: 0deg; }
+.hero__art--c .pouch:nth-child(5) { left: 50%; width: 29%; bottom: 9%; z-index: 3; rotate: 2deg; }
+.hero__art--c .pouch:nth-child(6) { left: 66%; width: 26%; bottom: 11%; z-index: 2; rotate: 5deg; }
+.hero__art--c .pouch:nth-child(7) { left: 81%; width: 22%; bottom: 14%; z-index: 1; rotate: 9deg; }
+.hero__art--c .shelf { bottom: 2%; height: 9%; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .hero--new .hero__inner { grid-template-columns: 1fr; gap: 18px; }
+  .hero__art--c { height: auto; aspect-ratio: 1.2; width: 116%; margin: 0 -8%; max-width: none; }
+}
+.hero__art--c { height: auto; aspect-ratio: 1.5; margin-right: 0; }
+.hero__art--c .pouch:nth-child(1) { left: 0; }
+.hero__art--c .pouch:nth-child(2) { left: 10%; }
+.hero__art--c .pouch:nth-child(3) { left: 21%; }
+.hero__art--c .pouch:nth-child(4) { left: 33%; }
+.hero__art--c .pouch:nth-child(5) { left: 48%; }
+.hero__art--c .pouch:nth-child(6) { left: 62%; }
+.hero__art--c .pouch:nth-child(7) { left: 76%; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .hero__art--c { aspect-ratio: 1.3; width: 108%; margin: 0 -4%; } }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .hero__art--c { aspect-ratio: 1.15; }
+  .hero__art--c .pouch:nth-child(1), .hero__art--c .pouch:nth-child(7) { display: none; }
+  .hero__art--c .pouch:nth-child(2) { left: -1%; width: 31%; }
+  .hero__art--c .pouch:nth-child(3) { left: 15%; width: 34%; }
+  .hero__art--c .pouch:nth-child(4) { left: 29%; width: 42%; }
+  .hero__art--c .pouch:nth-child(5) { left: 51%; width: 34%; }
+  .hero__art--c .pouch:nth-child(6) { left: 70%; width: 31%; }
+}
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .hero__art--c { aspect-ratio: 1.4; } }

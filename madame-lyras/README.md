@@ -11,7 +11,7 @@ Genç Anadolu Gıda Pazarlama Dağıtım Ltd. Şti. için çok sayfalı kurumsal
 ## Sayfalar
 | Dosya | İçerik |
 |---|---|
-| `index.html` | Sade ana sayfa: açılış (yazı + görsel; `?hero=a|b|c` ile üç seçenek önizlenir, varsayılan `data-v` index.html'de), güven şeridi, doğallık, Solagron meyveleri, kimler satıyor (8 satış kanalı), ürünlerin yararları |
+| `index.html` | Sade ana sayfa: açılış (yazı + Solagron paketleri yan yana), güven şeridi, doğallık, Solagron meyveleri, kimler satıyor (8 satış kanalı), ürünlerin yararları |
 | `kurumsal.html` | Hakkımızda, misyon ve vizyon, üretim tesisi (`#uretim`), kalite ve belgeler (`#kalite`) |
 | `urunler.html` | 3B katalog girişi ve tüm ürünler (arama) |
 | `urun.html?id=<id>` | Ürün sayfası: 3B görüntüleyici, işletmeler için hikâyesi (neden satılır), müşteriye anlatılacak yararları, nerede satılır (4 satış kanalı), ürün bilgileri, besin değerleri, ambalaj ve lojistik, yazdırılabilir PDF ürün föyü |

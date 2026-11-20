@@ -19,7 +19,7 @@
   <!-- @include header -->
   <main id="icerik">
     <!-- AÇILIŞ: yazı + görsel -->
-    <section class="hero hero--new" id="hero" data-v="a" aria-label="Genç Anadolu Gıda">
+    <section class="hero hero--new" id="hero" data-v="c" aria-label="Genç Anadolu Gıda">
       <div class="wrap hero__inner">
         <div class="hero__text">
         <p class="hero__eyebrow">Solagron · Dondurularak kurutulmuş</p>
@@ -40,23 +40,9 @@
           <li><b>0</b>şeker ilavesi</li>
         </ul>
         </div>
-        <!-- açılış görseli: üç seçenek (a: doğal fotoğraf, b: meyve mozaiği, c: ürün dizisi). Seçim yapılınca diğerleri silinecek. -->
-        <div class="hero__art hero__art--a" aria-hidden="true">
-          <figure class="pic pic--main"><img src="/img/kase-cilek.webp" alt="" width="1200" height="1200" fetchpriority="high" /></figure>
-          <figure class="pic pic--side"><img src="/img/kase-ahududu.webp" alt="" width="1200" height="1200" /></figure>
-          <div class="hero__badge"><b>160 g → 16 g</b><span>Bir paket çilek, 160 g taze çilekten</span></div>
-          <div class="hero__chip">Sadece meyve · Şeker ilavesiz</div>
-        </div>
-        <div class="hero__art hero__art--b" aria-hidden="true">
-          <figure class="tile" style="--c:#c4161c"><img src="/bg/cilek.webp" alt="" width="640" height="762" /><figcaption>Çilek</figcaption></figure>
-          <figure class="tile" style="--c:#f2a20f"><img src="/bg/mango.webp" alt="" width="640" height="762" /><figcaption>Mango</figcaption></figure>
-          <figure class="tile" style="--c:#1f9e8f"><img src="/bg/lime.webp" alt="" width="640" height="762" /><figcaption>Lime</figcaption></figure>
-          <figure class="tile" style="--c:#3f5f91"><img src="/bg/mavi-yemis.webp" alt="" width="640" height="762" /><figcaption>Mavi Yemiş</figcaption></figure>
-          <figure class="tile" style="--c:#c2185b"><img src="/bg/beyaz-ejder.webp" alt="" width="640" height="762" /><figcaption>Ejder Meyvesi</figcaption></figure>
-          <figure class="tile" style="--c:#5c9a34"><img src="/bg/incir.webp" alt="" width="640" height="762" /><figcaption>İncir</figcaption></figure>
-        </div>
+        <!-- açılış görseli: Solagron paketleri -->
         <div class="hero__art hero__art--c" aria-hidden="true">
-          <img class="pouch" src="/tex/seftali.webp" alt="Solagron Şeftali" width="1024" height="1434" /><img class="pouch" src="/tex/elma.webp" alt="Solagron Elma" width="1024" height="1434" /><img class="pouch" src="/tex/mango.webp" alt="Solagron Mango" width="1024" height="1434" /><img class="pouch" src="/tex/cilek.webp" alt="Solagron Çilek" width="1024" height="1434" /><img class="pouch" src="/tex/kirmizi-ejder.webp" alt="Solagron Kırmızı Ejder" width="1024" height="1434" /><img class="pouch" src="/tex/lime.webp" alt="Solagron Lime" width="1024" height="1434" /><img class="pouch" src="/tex/ananas.webp" alt="Solagron Ananas" width="1024" height="1434" />
+          <img class="pouch" src="/tex/seftali.webp" alt="Solagron Şeftali" width="1024" height="1434" /><img class="pouch" src="/tex/elma.webp" alt="Solagron Elma" width="1024" height="1434" /><img class="pouch" src="/tex/mango.webp" alt="Solagron Mango" width="1024" height="1434" /><img class="pouch" fetchpriority="high" src="/tex/cilek.webp" alt="Solagron Çilek" width="1024" height="1434" /><img class="pouch" src="/tex/kirmizi-ejder.webp" alt="Solagron Kırmızı Ejder" width="1024" height="1434" /><img class="pouch" src="/tex/lime.webp" alt="Solagron Lime" width="1024" height="1434" /><img class="pouch" src="/tex/ananas.webp" alt="Solagron Ananas" width="1024" height="1434" />
           <i class="shelf"></i>
         </div>
       </div>
@@ -157,7 +143,6 @@
     </section>
   </main>
   <!-- @include footer -->
-  <script>{ const v = new URLSearchParams(location.search).get('hero'); if (/^[abc]$/.test(v || '')) document.getElementById('hero').dataset.v = v; }</script>
   <script type="module" src="/src/pages/home.js"></script>
 </body>
 </html>
