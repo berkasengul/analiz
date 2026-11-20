@@ -1,0 +1,132 @@
+<!doctype html>
+<html><head><meta charset="utf-8" />
+<style>
+  html, body { margin: 0; background: #000; }
+  #st { position: relative; width: 720px; height: 900px; overflow: hidden; }
+  #st > * { position: absolute; }
+  #base { inset: 0; }
+  #fruit { inset: -2%; width: 104%; height: 104%; object-fit: cover; will-change: transform, filter, opacity; }
+  #art { left: 50%; top: 50%; width: 820px; will-change: transform, opacity; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); }
+  #rays { inset: -30%; background: conic-gradient(from 0deg at 50% 50%, transparent 0 8%, rgba(255,255,255,.10) 10%, transparent 13% 22%, rgba(255,255,255,.08) 24%, transparent 27% 41%, rgba(255,255,255,.10) 43%, transparent 46% 58%, rgba(255,255,255,.08) 60%, transparent 63% 77%, rgba(255,255,255,.09) 79%, transparent 82%); mix-blend-mode: screen; }
+  #glow { left: 50%; top: 46%; width: 900px; height: 900px; margin: -450px 0 0 -450px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.55), rgba(255,255,255,0)); mix-blend-mode: soft-light; }
+  .pc { left: 0; top: 0; will-change: transform, filter; filter: drop-shadow(0 18px 18px rgba(0,0,0,.28)); }
+  #shadow { left: 50%; top: 0; width: 420px; height: 60px; margin-left: -210px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.45), rgba(0,0,0,0)); }
+  #pw { left: 50%; top: 50%; width: 400px; height: 560px; margin: -300px 0 0 -200px; perspective: 1400px; }
+  #pouch { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform, opacity; }
+  #pouch img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 14px 14px 10px 10px; box-shadow: 0 40px 60px -18px rgba(0,0,0,.5); }
+  #pouch.kit img { object-fit: contain; border-radius: 0; box-shadow: none; mix-blend-mode: multiply; }
+  #gloss { position: absolute; inset: 0; border-radius: 14px 14px 10px 10px; background: linear-gradient(105deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.38) 45%, rgba(255,255,255,.06) 52%, rgba(255,255,255,0) 60%); background-size: 260% 100%; mix-blend-mode: screen; }
+  #edge { position: absolute; inset: 0; border-radius: 14px 14px 10px 10px; background: linear-gradient(90deg, rgba(0,0,0,.22), rgba(0,0,0,0) 9%, rgba(0,0,0,0) 91%, rgba(0,0,0,.24)), linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 7%, rgba(0,0,0,0) 90%, rgba(0,0,0,.18)); }
+  #pouch.kit #gloss, #pouch.kit #edge { display: none; }
+  #vig { inset: 0; background: radial-gradient(120% 95% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.28) 100%); }
+  .bub { border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.85), rgba(255,255,255,.15) 45%, rgba(255,255,255,0) 70%); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35); }
+</style></head>
+<body><div id="st"><div id="base"></div><img id="fruit" /><img id="art" /><div id="rays"></div><div id="glow"></div><div id="back"></div><div id="shadow"></div><div id="pw"><div id="pouch"><img id="pimg" /><div id="edge"></div><div id="gloss"></div></div></div><div id="front"></div><div id="bubs"></div><div id="vig"></div></div>
+<script>
+// Ürün videosu: meyve sahnesi → paket ortaya çıkar → parçalar paketin etrafında döner → döngü başına döner.
+const T = 6;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const eOut = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const lerp = (a, b, k) => a + (b - a) * k;
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+let P, pieces = [], bubs = [];
+
+function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
+
+window.setup = async (p) => {
+  P = p;
+  const c = p.color;
+  document.getElementById('base').style.background = `radial-gradient(70% 60% at 50% 42%, color-mix(in srgb, ${c} 70%, #fff 30%) 0%, ${c} 45%, color-mix(in srgb, ${c} 55%, #000) 100%)`;
+  const fruit = document.getElementById('fruit'), art = document.getElementById('art');
+  fruit.style.display = p.fruit ? '' : 'none';
+  art.style.display = p.art ? '' : 'none';
+  if (p.fruit) fruit.src = p.fruit;
+  if (p.art) art.src = p.art;
+  const pimg = document.getElementById('pimg');
+  pimg.src = p.pouch;
+  document.getElementById('pouch').classList.toggle('kit', !!p.kit);
+  if (p.kit) { const pw = document.getElementById('pw'); pw.style.width = '560px'; pw.style.height = '560px'; pw.style.margin = '-300px 0 0 -280px'; }
+  // parçalar: arkadaki (net, küçük) ve öndeki (bulanık, büyük)
+  const r = rng(p.seed || 7);
+  const back = document.getElementById('back'), front = document.getElementById('front');
+  back.innerHTML = front.innerHTML = '';
+  pieces = [];
+  const n = p.parts.length ? Math.max(8, p.parts.length * 2) : 0;
+  for (let i = 0; i < n; i++) {
+    const src = p.parts[i % p.parts.length];
+    const img = document.createElement('img');
+    img.className = 'pc';
+    img.src = src;
+    const q = { img, th0: (i / n) * Math.PI * 2 + r() * 0.5, w: 70 + r() * 70, rx: 230 + r() * 70, ry: 300 + r() * 80, spin: (r() - 0.5) * 2.2, rot0: r() * 360, bob: r() * 6, sp: 0.32 + r() * 0.12 };
+    pieces.push(q);
+    back.appendChild(img);
+  }
+  const bb = document.getElementById('bubs'); bb.innerHTML = ''; bubs = [];
+  for (let i = 0; i < 9; i++) { const d = document.createElement('div'); d.className = 'bub'; bb.appendChild(d); bubs.push({ d, x: 60 + r() * 600, s: 10 + r() * 22, ph: r(), sp: 1 + Math.floor(r() * 2) }); d.style.position = 'absolute'; }
+  await Promise.all([...document.images].filter((i) => i.src && i.style.display !== 'none').map((i) => i.decode().catch(() => {})));
+};
+
+window.render = (t) => {
+  // sahne zamanları
+  const E = P.early ? 0.15 : 2.35;               // kitlerde paket baştan gelir
+  const pin = ease(seg(t, E, E + 1.1));          // paket girişi
+  const pout = ease(seg(t, 5.35, 6.0));          // döngü sonu: paket çıkar, meyve geri gelir
+  const fruitOut = ease(seg(t, 2.2, 3.2));
+  const fruitBack = ease(seg(t, 5.35, 6.0));
+  // meyve katmanı
+  // m: meyve katmanının hareketi (0 → 1, döngü sonunda 0'a döner: başla aynı kare)
+  const m = t < 3.2 ? ease(seg(t, 0, 3.2)) : lerp(0.4, 0, fruitBack);
+  const fz = 1 + 0.16 * m;
+  const fo = t < 5.35 ? 1 - fruitOut : fruitBack;
+  const fb = (1 - fo) * 10;
+  for (const el of [document.getElementById('fruit')]) { el.style.transform = `scale(${fz}) translate(${-1.2 * m}%, ${1 * m}%)`; el.style.opacity = fo; el.style.filter = `blur(${fb}px)`; }
+  const art = document.getElementById('art');
+  art.style.transform = `translate(-50%, -50%) scale(${fz * 1.0}) rotate(${lerp(-3, 2, m)}deg)`; art.style.opacity = fo; art.style.filter = `blur(${fb}px)`;
+  // ışık
+  const rays = document.getElementById('rays');
+  rays.style.transform = `rotate(${16 * Math.sin((2 * Math.PI * t) / T)}deg)`; rays.style.opacity = 0.35 + 0.65 * (pin * (1 - pout));
+  document.getElementById('glow').style.opacity = 0.4 + 0.6 * pin * (1 - pout);
+  // paket
+  const vis = pin * (1 - pout);
+  const fl = Math.sin((t - E - 1.1) * 1.6) * 8 * pin;
+  const ry = lerp(-38, 0, pin) + Math.sin((t - E - 1.1) * 1.2) * 7 * pin + 30 * pout;
+  const sc = lerp(0.82, 1, eOut(seg(t, E, E + 1.25))) * (1 + 0.06 * pout);
+  const ty = lerp(170, 0, eOut(seg(t, E, E + 1.15))) + fl - 40 * pout;
+  const pouch = document.getElementById('pouch');
+  pouch.style.transform = `translateY(${ty}px) rotateY(${ry}deg) rotateX(${lerp(10, 3, pin)}deg) scale(${sc})`;
+  pouch.style.opacity = vis;
+  pouch.style.filter = `blur(${(1 - pin) * 6 + pout * 8}px)`;
+  document.getElementById('gloss').style.backgroundPosition = `${lerp(120, -40, ease(seg(t, E + 1.25, E + 2.25)))}% 0`;
+  const sh = document.getElementById('shadow');
+  sh.style.top = `${450 + 300 - 8 + ty * 0.15}px`; sh.style.opacity = vis * 0.9; sh.style.transform = `scaleX(${0.85 + 0.15 * vis - fl * 0.004})`;
+  // parçalar: başta dışarıdan gelir, paketin çevresinde döner, sonda dışarı çıkar
+  const radIn = eOut(seg(t, 0, 1.5)), radOut = ease(seg(t, 5.3, 6));
+  const back = document.getElementById('back'), front = document.getElementById('front');
+  for (const q of pieces) {
+    // paketin çevresinde elips halka: üstte ve altta paketten uzak, yanlarda paketin dışında (ön yüzü kapatmaz)
+    const th = q.th0 + t * q.sp;
+    const k = lerp(2.2, 1, radIn) * lerp(1, 2.2, radOut);
+    const RX = (P.kit ? 330 : 300) + (q.rx - 260) * 0.4, RY = 380 + (q.ry - 340) * 0.3;
+    const x = 360 + Math.cos(th) * RX * k;
+    const y = 450 + Math.sin(th) * RY * k + Math.sin(t * 1.3 + q.bob) * 10;
+    const depth = Math.sin(th);                 // >0: altta/önde
+    const s = 0.8 + 0.4 * (depth + 1) / 2;
+    const w = q.w * s * (1 + 0.2 * (1 - pin));
+    const blur = depth > 0.7 ? (depth - 0.7) * 10 : 0;
+    q.img.style.width = `${w}px`;
+    q.img.style.transform = `translate(${x - w / 2}px, ${y - w / 2}px) rotate(${q.rot0 + t * q.spin * 57}deg)`;
+    q.img.style.filter = `blur(${blur}px) drop-shadow(0 ${10 + 10 * s}px ${12 * s}px rgba(0,0,0,.3))`;
+    q.img.style.opacity = radIn * (1 - radOut);
+    const wantFront = depth > 0;
+    if (wantFront && q.img.parentNode !== front) front.appendChild(q.img);
+    if (!wantFront && q.img.parentNode !== back) back.appendChild(q.img);
+  }
+  for (const b of bubs) {
+    const u = ((t / T) * b.sp + b.ph) % 1;
+    b.d.style.width = b.d.style.height = `${b.s}px`;
+    b.d.style.transform = `translate(${b.x + Math.sin(u * 8) * 14}px, ${940 - u * 1000}px)`;
+    b.d.style.opacity = Math.sin(Math.PI * u) * 0.8;
+  }
+};
+</script></body></html>

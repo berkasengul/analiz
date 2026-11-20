@@ -1160,3 +1160,7 @@ body[data-page='teklif'] .cta-band { display: none; }
 /* ürün videosu (varsa görselin yerine) */
 .story__media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 .story__media.has-video img#sImg, .story__media.has-video .story__light, .story__media.has-video .story__bubbles { display: none; }
+
+/* video: her ekranda 4:5 (paket kırpılmaz) */
+.story__media.has-video { aspect-ratio: 4 / 5; }
+@media (max-width: 980px) { .story__media.has-video { max-width: 520px; margin-inline: auto; } }

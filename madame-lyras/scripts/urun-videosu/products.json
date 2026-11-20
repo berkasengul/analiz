@@ -1,0 +1,254 @@
+{
+ "cilek": {
+  "color": "#b90d10",
+  "pouch": "/tex/cilek.webp",
+  "parts": [
+   "/parca/cilek-0.webp",
+   "/parca/cilek-1.webp"
+  ],
+  "seed": 11,
+  "fruit": "/bg/cilek.webp"
+ },
+ "beyaz-ejder": {
+  "color": "#c2185b",
+  "pouch": "/tex/beyaz-ejder.webp",
+  "parts": [
+   "/parca/beyaz-ejder-0.webp"
+  ],
+  "seed": 12,
+  "fruit": "/bg/beyaz-ejder.webp"
+ },
+ "ananas": {
+  "color": "#b3c21c",
+  "pouch": "/tex/ananas.webp",
+  "parts": [
+   "/parca/ananas-0.webp",
+   "/parca/ananas-1.webp",
+   "/parca/ananas-2.webp",
+   "/parca/ananas-3.webp"
+  ],
+  "seed": 13,
+  "fruit": "/bg/ananas.webp"
+ },
+ "seftali": {
+  "color": "#ee9a4e",
+  "pouch": "/tex/seftali.webp",
+  "parts": [
+   "/parca/seftali-0.webp",
+   "/parca/seftali-1.webp",
+   "/parca/seftali-2.webp",
+   "/parca/seftali-3.webp",
+   "/parca/seftali-4.webp"
+  ],
+  "seed": 14,
+  "art": "art/seftali.webp"
+ },
+ "ahududu": {
+  "color": "#b8587f",
+  "pouch": "/tex/ahududu.webp",
+  "parts": [
+   "/parca/ahududu-0.webp",
+   "/parca/ahududu-1.webp",
+   "/parca/ahududu-2.webp",
+   "/parca/ahududu-3.webp",
+   "/parca/ahududu-4.webp",
+   "/parca/ahududu-5.webp"
+  ],
+  "seed": 15,
+  "fruit": "/bg/ahududu.webp"
+ },
+ "elma": {
+  "color": "#4f8a12",
+  "pouch": "/tex/elma.webp",
+  "parts": [
+   "/parca/elma-0.webp",
+   "/parca/elma-1.webp",
+   "/parca/elma-2.webp",
+   "/parca/elma-3.webp"
+  ],
+  "seed": 16,
+  "fruit": "/bg/elma.webp"
+ },
+ "mango": {
+  "color": "#f08a12",
+  "pouch": "/tex/mango.webp",
+  "parts": [
+   "/parca/mango-0.webp",
+   "/parca/mango-1.webp",
+   "/parca/mango-2.webp"
+  ],
+  "seed": 17,
+  "fruit": "/bg/mango.webp"
+ },
+ "muz": {
+  "color": "#f2cf2f",
+  "pouch": "/tex/muz.webp",
+  "parts": [
+   "/parca/muz-0.webp",
+   "/parca/muz-1.webp",
+   "/parca/muz-2.webp",
+   "/parca/muz-3.webp",
+   "/parca/muz-4.webp"
+  ],
+  "seed": 18,
+  "fruit": "/bg/muz.webp"
+ },
+ "dilim-cilek": {
+  "color": "#e0525a",
+  "pouch": "/tex/dilim-cilek.webp",
+  "parts": [
+   "/parca/dilim-cilek-0.webp"
+  ],
+  "seed": 19,
+  "fruit": "/bg/dilim-cilek.webp"
+ },
+ "bogurtlen": {
+  "color": "#4a3566",
+  "pouch": "/tex/bogurtlen.webp",
+  "parts": [
+   "/parca/bogurtlen-0.webp"
+  ],
+  "seed": 20,
+  "fruit": "/bg/bogurtlen.webp"
+ },
+ "mavi-yemis": {
+  "color": "#3f5f91",
+  "pouch": "/tex/mavi-yemis.webp",
+  "parts": [
+   "/parca/mavi-yemis-0.webp"
+  ],
+  "seed": 21,
+  "fruit": "/bg/mavi-yemis.webp"
+ },
+ "kirmizi-ejder": {
+  "color": "#5a2a5c",
+  "pouch": "/tex/kirmizi-ejder.webp",
+  "parts": [
+   "/parca/kirmizi-ejder-0.webp"
+  ],
+  "seed": 22,
+  "fruit": "/bg/kirmizi-ejder.webp"
+ },
+ "incir": {
+  "color": "#5c9a34",
+  "pouch": "/tex/incir.webp",
+  "parts": [
+   "/parca/incir-0.webp"
+  ],
+  "seed": 23,
+  "fruit": "/bg/incir.webp"
+ },
+ "lime": {
+  "color": "#1f9e8f",
+  "pouch": "/tex/lime.webp",
+  "parts": [
+   "/parca/lime-0.webp"
+  ],
+  "seed": 24,
+  "fruit": "/bg/lime.webp"
+ },
+ "kavun": {
+  "color": "#e9a73a",
+  "pouch": "/tex/kavun.webp",
+  "parts": [],
+  "seed": 25,
+  "art": "art/kavun.webp"
+ },
+ "karpuz": {
+  "color": "#d8323b",
+  "pouch": "/tex/karpuz.webp",
+  "parts": [],
+  "seed": 26,
+  "art": "art/karpuz.webp"
+ },
+ "kivi": {
+  "color": "#5d8a1c",
+  "pouch": "/tex/kivi.webp",
+  "parts": [],
+  "seed": 27,
+  "art": "art/kivi.webp"
+ },
+ "dondurma": {
+  "color": "#1d3557",
+  "pouch": "/tex/dondurma.webp",
+  "parts": [
+   "/parca/dondurma-0.webp",
+   "/parca/dondurma-1.webp",
+   "/parca/dondurma-2.webp",
+   "/parca/dondurma-3.webp"
+  ],
+  "seed": 28,
+  "fruit": "/bg/dondurma.webp"
+ },
+ "fistikli-dondurma": {
+  "color": "#8fa356",
+  "pouch": "/tex/fistikli-dondurma.webp",
+  "parts": [
+   "/parca/fistikli-dondurma-0.webp"
+  ],
+  "seed": 29,
+  "fruit": "/bg/fistikli-dondurma.webp"
+ },
+ "hindistan-cevizi": {
+  "color": "#6e4329",
+  "pouch": "/tex/hindistancevizi.webp",
+  "parts": [
+   "/parca/hindistan-cevizi-0.webp",
+   "/parca/hindistan-cevizi-1.webp",
+   "/parca/hindistan-cevizi-2.webp",
+   "/parca/hindistan-cevizi-3.webp",
+   "/parca/hindistan-cevizi-4.webp",
+   "/parca/hindistan-cevizi-5.webp"
+  ],
+  "seed": 30,
+  "fruit": "/bg/hindistan-cevizi.webp"
+ },
+ "kit-mini-mix": {
+  "color": "#a3161c",
+  "pouch": "/img/kit/mini-mix.webp",
+  "parts": [],
+  "kit": true,
+  "early": true,
+  "seed": 50
+ },
+ "kit-mini-select": {
+  "color": "#8f1d2a",
+  "pouch": "/img/kit/mini-select.webp",
+  "parts": [],
+  "kit": true,
+  "early": true,
+  "seed": 51
+ },
+ "kit-25-servis": {
+  "color": "#b3171d",
+  "pouch": "/img/kit/25-servis.webp",
+  "parts": [],
+  "kit": true,
+  "early": true,
+  "seed": 52
+ },
+ "kit-35-servis": {
+  "color": "#7e1418",
+  "pouch": "/img/kit/35-servis.webp",
+  "parts": [],
+  "kit": true,
+  "early": true,
+  "seed": 53
+ },
+ "kit-70-servis": {
+  "color": "#6b1015",
+  "pouch": "/img/kit/70-servis.webp",
+  "parts": [],
+  "kit": true,
+  "early": true,
+  "seed": 54
+ },
+ "kit-gevrek": {
+  "color": "#c46a86",
+  "pouch": "/img/kit/gevrek.webp",
+  "parts": [],
+  "kit": true,
+  "early": true,
+  "seed": 55
+ }
+}
