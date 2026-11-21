@@ -10,3 +10,9 @@ for f in glob.glob('public/img/kit/*.webp'):
     b = os.path.basename(f)
     if '-cut' in b: continue
     im = Image.open(f).convert('RGB'); im.thumbnail((200, 200), Image.LANCZOS); im.save('public/tex/mini/kit-' + b, 'WEBP', quality=82)
+# orta boy (kartlar, açılış görselleri): public/tex/md
+os.makedirs('public/tex/md', exist_ok=True)
+for f in glob.glob('public/tex/*.webp'):
+    b = os.path.basename(f)
+    if b.endswith('-label.webp'): continue
+    im = Image.open(f).convert('RGB'); im.thumbnail((520, 728), Image.LANCZOS); im.save('public/tex/md/' + b, 'WEBP', quality=80, method=6)

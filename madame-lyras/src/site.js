@@ -46,7 +46,7 @@ function quoteWa(urun) {
   return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(t)}`;
 }
 function initQuoteChooser() {
-  const btns = $$('a.btn[href^="/teklif.html"]');
+  const btns = $$('a[href^="/teklif.html"]');
   if (!btns.length || document.body.dataset.page === 'teklif') return;
   const dlg = document.createElement('dialog');
   dlg.className = 'qdlg';
@@ -66,8 +66,8 @@ function initQuoteChooser() {
   dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
   dlg.querySelectorAll('.qopt').forEach((o) => o.addEventListener('click', () => setTimeout(close, 150)));
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a.btn[href^="/teklif.html"]');
-    if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const a = e.target.closest('a[href^="/teklif.html"]');
+    if (!a || a.closest('.qdlg') || e.metaKey || e.ctrlKey || e.shiftKey) return;
     e.preventDefault();
     const urun = a.dataset.urun || '';
     $('#qdlgSub').textContent = urun ? `${urun} için fiyat teklifi isteyin.` : 'Fiyat listesi ve teslimat koşulları için bize ulaşın.';
@@ -141,7 +141,7 @@ export function bindForm(form, status, okText) {
 
 /* ---------- ürün kartı ---------- */
 export function productCard(f, i = 0) {
-  const img = f.thumb || f.tex;
+  const img = f.md || f.thumb || f.tex;
   return `<a class="pcard reveal" href="${productUrl(f)}" style="--c:${f.bg}">
     <span class="pcard__media${f.thumb ? ' pcard__media--kit' : ''}"><img src="${img}" alt="${f.name} ürün görseli" loading="lazy" /></span>
     <span class="pcard__body">

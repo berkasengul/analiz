@@ -7,7 +7,7 @@ const own = ALL.find((x) => x.id === urlId);
 const FLAVORS = own ? ALL.filter((x) => x.group === own.group) : ALL;
 
 const pad = (n) => String(n).padStart(2, '0');
-const groupLink = (f) => `/urunler.html?kat=${f.group}#liste`;
+const groupLink = (f) => `/urunler.html?kat=${f.group}`;
 const row = (k, v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
 const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const chIcon = (k) => `<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${CHANNEL_ICONS[k]}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>`;
@@ -45,7 +45,7 @@ function fill() {
   const f = FLAVORS[idx];
   const img = f.thumb || f.tex;
   // sahne yüklenene kadar görünen görsel: kitlerde beyaz zeminsiz kesilmiş fotoğraf, poşetlerde paket yüzü
-  const stageImg = f.model ? `/img/kit/${f.kit}-cut.webp` : f.kit ? f.tex : img;
+  const stageImg = f.model ? `/img/kit/${f.kit}-cut.webp` : f.md;
   document.title = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name} · Genç Anadolu Gıda`;
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${f.name}: ${f.lead}`);
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', `https://www.gencanadolugida.com.tr${productUrl(f)}`);
@@ -178,6 +178,16 @@ new IntersectionObserver(([en]) => {
 
 /* ---------- 3B sahne: ürünün renginde arka plan, meyve parçaları, sürüklenebilir paket ---------- */
 const phone = () => window.innerWidth < 760 || window.innerWidth / window.innerHeight < 0.9;
+// masaüstünde paket, sol panel ile sağdaki küçük resimler arasındaki boşluğun tam ortasında durur
+function stageCenter() {
+  const st = $('#pstage').getBoundingClientRect();
+  const pl = $('#pstage .pstage__panel')?.getBoundingClientRect();
+  const th = $('#pThumbs')?.getBoundingClientRect();
+  if (!pl || !th || !st.width || !pl.width || !th.width) return 0.585;
+  const f = ((pl.right + th.left) / 2 - st.left) / st.width;
+  return Math.min(0.7, Math.max(0.5, f));
+}
+function markCenter() { $('#pstage').style.setProperty('--cx', `${(stageCenter() * 100).toFixed(2)}%`); }
 function setPose(snap) {
   if (!scene) return;
   const pose = snap === true ? scene.snapPose : scene.setPose;
@@ -185,8 +195,10 @@ function setPose(snap) {
   const f = FLAVORS[idx];
   const k = f.model ? 1.05 : 1;
   if (phone()) pose({ x: 0, y: H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  else pose({ x: W * (2 * stageCenter() - 1), y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
+markCenter();
+window.addEventListener('resize', markCenter);
 if (webglOK()) {
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: idx, noBackdrop: true });

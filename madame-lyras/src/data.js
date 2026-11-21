@@ -618,7 +618,7 @@ export const VIDEO_MAP = {
 const MEAL_VIDEO = { kahvalti: 'kamp-kahvalti', corba: 'kamp-kahve', ana: 'makarna', meze: 'kamp-kahve', tatli: 'kamp-kahve' };
 export const VIDEOS = Object.keys(VIDEO_MAP);
 // küçük resimler için hafif önizleme (public/tex/mini, scripts/mini.py ile üretilir)
-FLAVORS.forEach((f) => { f.mini = f.thumb ? `/tex/mini/kit-${f.thumb.split('/').pop()}` : `/tex/mini/${f.tex.split('/').pop()}`; });
+FLAVORS.forEach((f) => { f.md = f.thumb || `/tex/md/${f.tex.split('/').pop()}`; f.mini = f.thumb ? `/tex/mini/kit-${f.thumb.split('/').pop()}` : `/tex/mini/${f.tex.split('/').pop()}`; });
 FLAVORS.forEach((f) => {
   const v = VIDEO_MAP[f.id] || (f.meal && MEAL_VIDEO[f.meal]);
   if (v) { f.video = `/video/${v}.mp4`; f.videoPoster = `/video/${v}.webp`; }

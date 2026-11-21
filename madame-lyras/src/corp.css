@@ -1233,7 +1233,7 @@ body[data-page='teklif'] .cta-band { display: none; }
 @media (max-width: 600px) { .hdr__logo, .hdr__logo img { width: 42px; height: 42px; } }
 
 /* ---- açılış: paket ilk anda ekranda; görsel 3B paketin ölçülen yer ve boyutunda durur, 3B hazır olunca fark edilmeden yerini alır ---- */
-.pstage .pstage__img:not([src*='-cut.webp']) { left: 58.5%; top: 46.7%; height: 62.3%; width: auto; aspect-ratio: 0.767; object-fit: fill; transform: translate(-50%, -50%); rotate: none; border-radius: 6px 6px 10px 10px; box-shadow: 0 50px 50px -30px rgba(0, 0, 0, 0.5); }
+.pstage .pstage__img:not([src*='-cut.webp']) { left: var(--cx, 58.5%); top: 46.7%; height: 62.3%; width: auto; aspect-ratio: 0.767; object-fit: fill; transform: translate(-50%, -50%); rotate: none; border-radius: 6px 6px 10px 10px; box-shadow: 0 50px 50px -30px rgba(0, 0, 0, 0.5); }
 .pstage__img { transition: opacity 0.45s ease; }
 .pstage.gl-on .pstage__img { transition-delay: 0.1s; }
 .pstage__gl { transition: opacity 0.45s ease; }
@@ -1311,3 +1311,6 @@ body[data-page='teklif'] .cta-band { display: none; }
   .zoomfab small { margin-top: 3px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
   .zoomfab.on .zf-plus { d: path('M7.8 10.5h5.4'); }
 }
+
+.pstage .pstage__img[src*='-cut.webp'] { left: var(--cx, 58.5%); }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .pstage .pstage__img[src*='-cut.webp'] { left: 50%; } }

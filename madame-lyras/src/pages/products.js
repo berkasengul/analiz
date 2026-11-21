@@ -28,8 +28,6 @@ $$('#cats button').forEach((b) => b.addEventListener('click', () => { cat = b.da
 $('#q').addEventListener('input', (e) => { q = e.target.value; render(); });
 if (CATS.length < 2) { $('#cats').hidden = true; $('#cCats').hidden = true; }
 render();
-// kategoriyle gelindiyse (ana sayfadaki ürün grupları) doğrudan listeye in
-if (params.get('kat')) requestAnimationFrame(() => $('#liste').scrollIntoView({ block: 'start' }));
 
 /* ================= 3B katalog girişi: ürünler tek tek, kendi renklerinde ================= */
 const pad2 = (n) => String(n).padStart(2, '0');
@@ -64,7 +62,7 @@ function fillStage() {
   $('#pLead').textContent = f.lead;
   $('#pFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#pGo').href = productUrl(f);
-  $('#pimg').src = f.model ? `/img/kit/${f.kit}-cut.webp` : f.kit ? f.tex : (f.thumb || f.tex);
+  $('#pimg').src = f.model ? `/img/kit/${f.kit}-cut.webp` : f.md;
   const n = list.length;
   const prev = FLAVORS[list[(cur - 1 + n) % n]], next = FLAVORS[list[(cur + 1) % n]];
   $('#pPrev span').textContent = prev.short || prev.name;
@@ -81,15 +79,27 @@ function show(k) {
   if (scene) { scene.inspectFlavor(fIdx()); stagePose(); }
 }
 const phoneView = () => window.innerWidth < 760 || window.innerWidth / window.innerHeight < 0.9;
+// masaüstünde paket, sol panel ile sağdaki küçük resimler arasındaki boşluğun tam ortasında durur
+function stageCenter() {
+  const st = $('#pstage').getBoundingClientRect();
+  const pl = $('#pstage .pstage__panel')?.getBoundingClientRect();
+  const th = $('#pThumbs')?.getBoundingClientRect();
+  if (!pl || !th || !st.width || !pl.width || !th.width) return 0.585;
+  const f = ((pl.right + th.left) / 2 - st.left) / st.width;
+  return Math.min(0.7, Math.max(0.5, f));
+}
+function markCenter() { $('#pstage').style.setProperty('--cx', `${(stageCenter() * 100).toFixed(2)}%`); }
 function stagePose(snap) {
   if (!scene) return;
   const pose = snap === true ? scene.snapPose : scene.setPose;
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A, k = FLAVORS[fIdx()].model ? 1.05 : 1;
   if (phoneView()) pose({ x: 0, y: H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  else pose({ x: W * (2 * stageCenter() - 1), y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 fillStage();
 $('#pstage').classList.add('filled');
+markCenter();
+window.addEventListener('resize', markCenter);
 if (webglOK()) {
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: fIdx(), noBackdrop: true });
