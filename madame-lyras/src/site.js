@@ -107,7 +107,27 @@ export function initReveal(root = document) {
   $$('.reveal:not(.in)', root).forEach((el, i) => { el.style.setProperty('--d', `${(i % 4) * 70}ms`); io.observe(el); });
 }
 
-/* ---------- formlar (Netlify Forms) ---------- */
+/* ---------- formlar (Netlify Forms, yedek: FormSubmit ile doğrudan e-posta) ---------- */
+const FORM_TITLES = { iletisim: 'İletişim formu', bayilik: 'Bayilik / iş birliği başvurusu', 'toptan-teklif': 'Toptan teklif talebi' };
+const FIELD_NAMES = { ad: 'Ad soyad', yetkili: 'Yetkili', firma: 'Firma', isletme: 'İşletme', telefon: 'Telefon', eposta: 'E-posta', il: 'İl', konu: 'Konu', faaliyet: 'Faaliyet alanı', isletme_turu: 'İşletme türü', aylik_miktar: 'Aylık miktar', ambalaj: 'Ambalaj', not: 'Not', mesaj: 'Mesaj', 'urunler[]': 'Ürünler', kvkk: 'KVKK onayı' };
+async function mailForm(fd) {
+  const kind = fd.get('form-name') || 'iletisim';
+  const data = { _subject: `${FORM_TITLES[kind] || 'Web sitesi formu'} · gencanadolugida.com.tr`, _template: 'table', _captcha: 'false' };
+  const seen = {};
+  for (const [k, v] of fd.entries()) {
+    if (k === 'form-name' || k === 'bot-field' || !String(v).trim()) continue;
+    const label = FIELD_NAMES[k] || k;
+    seen[label] = seen[label] ? `${seen[label]}, ${v}` : String(v);
+  }
+  Object.assign(data, seen);
+  const mail = fd.get('eposta') || fd.get('email');
+  if (mail) data._replyto = mail;
+  data['Sayfa'] = location.href;
+  try {
+    const res = await fetch(`https://formsubmit.co/ajax/${SITE.email}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
+    return res.ok;
+  } catch (e) { return false; }
+}
 export function bindForm(form, status, okText) {
   if (!form) return;
   form.addEventListener('submit', async (e) => {
@@ -124,9 +144,16 @@ export function bindForm(form, status, okText) {
     btn.disabled = true;
     status.textContent = 'Gönderiliyor…';
     try {
-      const body = new URLSearchParams(new FormData(form)).toString();
-      const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
-      if (!res.ok) throw new Error(res.status);
+      const fd = new FormData(form);
+      // bot tuzağı doluysa sessizce "gönderildi" denir, hiçbir yere gönderilmez
+      // 1) Netlify Forms (sitede form algılama açıksa); 2) olmazsa doğrudan e-postaya (FormSubmit)
+      let ok = !!fd.get('bot-field');
+      if (!ok) try {
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(fd).toString() });
+        ok = res.ok;
+      } catch (e2) { ok = false; }
+      if (!ok) ok = await mailForm(fd);
+      if (!ok) throw new Error('gönderilemedi');
       form.reset();
       status.textContent = okText;
       status.classList.add('ok');
