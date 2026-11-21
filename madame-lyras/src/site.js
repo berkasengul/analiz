@@ -125,7 +125,10 @@ async function mailForm(fd) {
   data['Sayfa'] = location.href;
   try {
     const res = await fetch(`https://formsubmit.co/ajax/${SITE.email}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
-    return res.ok;
+    if (!res.ok) return false;
+    // FormSubmit, etkinleştirilmemiş formda da 200 döner ama success "false" olur: o durumda iletilmemiştir
+    const j = await res.json().catch(() => ({}));
+    return j.success === true || j.success === 'true';
   } catch (e) { return false; }
 }
 export function bindForm(form, status, okText) {
@@ -168,7 +171,7 @@ export function bindForm(form, status, okText) {
 
 /* ---------- ürün kartı ---------- */
 export function productCard(f, i = 0) {
-  const img = f.md || f.thumb || f.tex;
+  const img = f.thumb || f.md || f.tex;
   return `<a class="pcard reveal" href="${productUrl(f)}" style="--c:${f.bg}">
     <span class="pcard__media${f.thumb ? ' pcard__media--kit' : ''}"><img src="${img}" alt="${f.name} ürün görseli" loading="lazy" /></span>
     <span class="pcard__body">
