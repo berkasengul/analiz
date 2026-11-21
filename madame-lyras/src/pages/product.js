@@ -31,7 +31,7 @@ const logisticsOf = (f) => {
 };
 
 /* ---------- küçük resimler (tüm ürünler) ---------- */
-$('#pThumbs').innerHTML = FLAVORS.map((f, i) => `<a href="${productUrl(f)}" data-i="${i}" style="--c:${f.bg}" class="${f.thumb ? 'kit' : ''}" aria-label="${f.name}"><img src="${f.thumb || f.tex}" alt="" loading="lazy" /></a>`).join('');
+$('#pThumbs').innerHTML = FLAVORS.map((f, i) => `<a href="${productUrl(f)}" data-i="${i}" style="--c:${f.bg}" class="${f.thumb ? 'kit' : ''}" aria-label="${f.name}"><img src="${f.mini}" alt="" ${i < 8 ? '' : 'loading="lazy" '}/></a>`).join('');
 $$('#pThumbs a').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); go(+a.dataset.i); }));
 $('#pPrev').addEventListener('click', (e) => { e.preventDefault(); go(idx - 1); });
 $('#pNext').addEventListener('click', (e) => { e.preventDefault(); go(idx + 1); });
@@ -48,6 +48,8 @@ function fill() {
   const stageImg = f.model ? `/img/kit/${f.kit}-cut.webp` : f.kit ? f.tex : img;
   document.title = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name} · Genç Anadolu Gıda`;
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${f.name}: ${f.lead}`);
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', `https://www.gencanadolugida.com.tr${productUrl(f)}`);
+  document.querySelector('meta[property="og:url"]')?.setAttribute('content', `https://www.gencanadolugida.com.tr${productUrl(f)}`);
   $('#pstage').style.setProperty('--c', f.bg);
   // 3B arka planın önceden kaydedilmiş görüntüsü: sayfa açılır açılmaz gerçek zemin görünür
   $('#pstage').style.setProperty('--zemin', `url(/img/zemin/${f.id}.webp)`);
@@ -181,10 +183,14 @@ function setPose(snap) {
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A;
   const f = FLAVORS[idx];
   const k = f.model ? 1.05 : 1;
-  if (phone()) pose({ x: 0, y: H * 0.02, s: Math.min(1.75, W * 1.42, H * 0.9) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  if (phone()) pose({ x: 0, y: H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
   else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 if (webglOK()) {
+  // 3B sahne hazırlanırken düz ürün fotoğrafı gösterilmez (sonradan 3B pakete dönüşüp 'zıplamasın');
+  // sahne geç kalırsa (yavaş cihaz) fotoğraf yedek olarak belirir
+  $('#pstage').classList.add('gl-wait');
+  setTimeout(() => $('#pstage').classList.remove('gl-wait'), 3500);
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: idx, noBackdrop: true });
     await scene.ready;

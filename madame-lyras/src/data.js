@@ -1,6 +1,6 @@
 // Site ayarları ve ürün bilgileri. Metinler yalnızca ambalajlarda, markanın afişlerinde ve Solagron sitesinde yazan bilgilere dayanır.
 export const SITE = {
-  email: 'info@gencanadolugida.com.tr', // alan adı kesinleşince burayı ve index.html'deki mailto'yu güncelle
+  email: 'info@gencanadolugida.com.tr',
   // telefon: tel boşsa telefon düğmeleri iletişim formuna götürür. Gerçek numara gelince ikisini de doldurun.
   phone: { display: '0533 055 36 86', tel: '+905330553686' },
   whatsapp: '905330553686', // wa.me bağlantısı (başında + ve 0 olmadan)
@@ -617,6 +617,8 @@ export const VIDEO_MAP = {
 // ResQ yemekleri: türüne göre
 const MEAL_VIDEO = { kahvalti: 'kamp-kahvalti', corba: 'kamp-kahve', ana: 'makarna', meze: 'kamp-kahve', tatli: 'kamp-kahve' };
 export const VIDEOS = Object.keys(VIDEO_MAP);
+// küçük resimler için hafif önizleme (public/tex/mini, scripts/mini.py ile üretilir)
+FLAVORS.forEach((f) => { f.mini = f.thumb ? `/tex/mini/kit-${f.thumb.split('/').pop()}` : `/tex/mini/${f.tex.split('/').pop()}`; });
 FLAVORS.forEach((f) => {
   const v = VIDEO_MAP[f.id] || (f.meal && MEAL_VIDEO[f.meal]);
   if (v) { f.video = `/video/${v}.mp4`; f.videoPoster = `/video/${v}.webp`; }

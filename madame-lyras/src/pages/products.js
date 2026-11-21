@@ -38,7 +38,7 @@ let cur = 0; // list içindeki sıra
 let scene = null;
 const fIdx = () => list[cur];
 
-$('#pThumbs').innerHTML = FLAVORS.map((f, i) => `<a href="${productUrl(f)}" data-i="${i}" style="--c:${f.bg}" class="${f.thumb ? 'kit' : ''}" aria-label="${f.name}"><img src="${f.thumb || f.tex}" alt="" loading="lazy" /></a>`).join('');
+$('#pThumbs').innerHTML = FLAVORS.map((f, i) => `<a href="${productUrl(f)}" data-i="${i}" style="--c:${f.bg}" class="${f.thumb ? 'kit' : ''}" aria-label="${f.name}"><img src="${f.mini}" alt="" ${i < 8 ? '' : 'loading="lazy" '}/></a>`).join('');
 $$('#pThumbs a').forEach((a) => { a.hidden = !list.includes(+a.dataset.i); });
 $$('#pThumbs a').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); const k = list.indexOf(+a.dataset.i); if (k >= 0) show(k); }));
 $('#cCats').innerHTML = CATS.map(([id]) => `<button type="button" data-c="${id}" class="${id === cat ? 'on' : ''}">${SHORT[id]}</button>`).join('');
@@ -85,12 +85,16 @@ function stagePose(snap) {
   if (!scene) return;
   const pose = snap === true ? scene.snapPose : scene.setPose;
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A, k = FLAVORS[fIdx()].model ? 1.05 : 1;
-  if (phoneView()) pose({ x: 0, y: H * 0.02, s: Math.min(1.75, W * 1.42, H * 0.9) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  if (phoneView()) pose({ x: 0, y: H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
   else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 fillStage();
 $('#pstage').classList.add('filled');
 if (webglOK()) {
+  // 3B sahne hazırlanırken düz ürün fotoğrafı gösterilmez (sonradan 3B pakete dönüşüp 'zıplamasın');
+  // sahne geç kalırsa (yavaş cihaz) fotoğraf yedek olarak belirir
+  $('#pstage').classList.add('gl-wait');
+  setTimeout(() => $('#pstage').classList.remove('gl-wait'), 3500);
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: fIdx(), noBackdrop: true });
     await scene.ready;
