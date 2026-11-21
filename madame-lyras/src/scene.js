@@ -587,7 +587,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     const im = new Image();
     im.onload = () => { logoImg = im; res(); };
     im.onerror = () => res();
-    im.src = '/logo.svg';
+    im.src = '/logo.webp';
   });
   let loaded = 0;
   // dokular sırayla yüklenir: ilk gösterilecek ürün (opts.first) hazır olunca sahne açılır, diğerleri arkadan gelir

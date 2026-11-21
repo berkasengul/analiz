@@ -64,7 +64,7 @@ function fillStage() {
   $('#pLead').textContent = f.lead;
   $('#pFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#pGo').href = productUrl(f);
-  $('#pimg').src = f.thumb || f.tex;
+  $('#pimg').src = f.model ? `/img/kit/${f.kit}-cut.webp` : f.kit ? f.tex : (f.thumb || f.tex);
   const n = list.length;
   const prev = FLAVORS[list[(cur - 1 + n) % n]], next = FLAVORS[list[(cur + 1) % n]];
   $('#pPrev span').textContent = prev.short || prev.name;

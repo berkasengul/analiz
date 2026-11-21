@@ -1,4 +1,4 @@
-import { $, $$, FLAVORS as ALL, SITE, productCard, initReveal, webglOK, mailHref, nf, CAT_NAMES, contentsHTML, productUrl } from '../site.js';
+import { $, $$, FLAVORS as ALL, SITE, productCard, initReveal, webglOK, mailHref, waHref, nf, CAT_NAMES, contentsHTML, productUrl } from '../site.js';
 import { KITS, CHANNEL_ICONS, GROUPS } from '../data.js';
 
 // ürün sayfası yalnızca ürünün kendi grubundaki ürünlerle çalışır (küçük resimler, oklar, 3B sahne)
@@ -44,6 +44,8 @@ document.addEventListener('keydown', (e) => {
 function fill() {
   const f = FLAVORS[idx];
   const img = f.thumb || f.tex;
+  // sahne yüklenene kadar görünen görsel: kitlerde beyaz zeminsiz kesilmiş fotoğraf, poşetlerde paket yüzü
+  const stageImg = f.model ? `/img/kit/${f.kit}-cut.webp` : f.kit ? f.tex : img;
   document.title = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name} · Genç Anadolu Gıda`;
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${f.name}: ${f.lead}`);
   $('#pstage').style.setProperty('--c', f.bg);
@@ -61,7 +63,8 @@ function fill() {
   $('#pQuote').href = `/teklif.html?urun=${encodeURIComponent(f.id)}${f.meal ? `&ad=${encodeURIComponent('ResQ ' + f.name)}` : ''}#form`;
   $('#sQuote').href = $('#pQuote').href;
   $('#pMail').href = mailHref(f);
-  $('#pimg').src = img;
+  if (SITE.whatsapp) document.querySelectorAll('[data-site="wa"]').forEach((a) => { a.href = waHref(f); });
+  $('#pimg').src = stageImg;
   $('#pimg').alt = `${f.name} ürün görseli`;
   const prev = FLAVORS[(idx - 1 + N) % N], next = FLAVORS[(idx + 1) % N];
   $('#pPrev span').textContent = prev.short || prev.name;
@@ -138,7 +141,7 @@ function buildSheet() {
   const f = FLAVORS[idx];
   const today = new Date().toLocaleDateString('tr-TR');
   $('#sheet').innerHTML = `
-    <header class="sheet__head"><img src="/logo.svg" alt="" width="52" height="52" /><div><b>Genç Anadolu Gıda</b><span>Pazarlama Dağıtım Limited Şirketi</span></div><p>Ürün föyü<br /><small>${today}</small></p></header>
+    <header class="sheet__head"><img src="/logo.webp" alt="" width="52" height="52" /><div><b>Genç Anadolu Gıda</b><span>Pazarlama Dağıtım Limited Şirketi</span></div><p>Ürün föyü<br /><small>${today}</small></p></header>
     <div class="sheet__top">
       <img class="sheet__img" src="${f.thumb || f.tex}" alt="" />
       <div>

@@ -8,6 +8,15 @@ export const nf = (n) => n.toLocaleString('tr-TR');
 export const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const productUrl = (f) => `/urun.html?id=${encodeURIComponent(f.id)}`;
 export const mailHref = (f) => `mailto:${SITE.email}?subject=${encodeURIComponent(f ? `${f.name} hakkında bilgi` : 'Ürün bilgisi')}`;
+// WhatsApp: mesaj kutusu hazır bir bilgi talebiyle açılır (ürün sayfasında ürün adıyla)
+export const waText = (f) => {
+  if (f) return `Merhaba, ${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name} ürünü hakkında bilgi almak istiyorum. Toptan fiyat, koli içi adet ve teslimat koşullarını paylaşabilir misiniz?`;
+  const page = document.body.dataset.page;
+  if (page === 'teklif') return 'Merhaba, Solagron ve ResQ ürünleriniz için toptan fiyat teklifi almak istiyorum. Ürün listesi, koli içi adetler ve teslimat koşulları hakkında bilgi verebilir misiniz?';
+  if (page === 'bayilik') return 'Merhaba, Solagron ve ResQ ürünlerinin bayiliği hakkında bilgi almak istiyorum.';
+  return 'Merhaba, Solagron ve ResQ ürünleriniz hakkında bilgi almak istiyorum. Ürün çeşitleri, toptan fiyatlar ve teslimat koşulları hakkında bilgi verebilir misiniz?';
+};
+export const waHref = (f) => `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(waText(f))}`;
 export const telHref = () => (SITE.phone && SITE.phone.tel ? `tel:${SITE.phone.tel}` : '/iletisim.html');
 export const CAT_NAMES = { meyve: 'Meyve', tatli: 'Dondurma', atistirmalik: 'Atıştırmalık', kit: 'Hazır gıda kiti', resq: 'ResQ' };
 
@@ -17,7 +26,7 @@ function fillSite() {
   $$('[data-site="mailText"]').forEach((el) => { el.textContent = SITE.email; });
   $$('[data-site="tel"]').forEach((a) => { a.href = telHref(); });
   $$('[data-site="telText"]').forEach((el) => { el.textContent = SITE.phone ? SITE.phone.display : ''; });
-  $$('[data-site="wa"]').forEach((a) => { if (SITE.whatsapp) a.href = `https://wa.me/${SITE.whatsapp}`; else a.hidden = true; });
+  $$('[data-site="wa"]').forEach((a) => { if (SITE.whatsapp) a.href = waHref(); else a.hidden = true; });
   $$('[data-site="address"]').forEach((el) => { el.textContent = SITE.address || ''; el.hidden = !SITE.address; });
   $$('[data-site="year"]').forEach((el) => { el.textContent = new Date().getFullYear(); });
   const legal = [SITE.mersis && `MERSİS: ${SITE.mersis}`, SITE.taxOffice && `${SITE.taxOffice} V.D.`, SITE.taxNo && `VKN: ${SITE.taxNo}`, SITE.kep && `KEP: ${SITE.kep}`].filter(Boolean);

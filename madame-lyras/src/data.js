@@ -170,7 +170,7 @@ export const KITS = [
     menu: [["Kuru Meyveli Kahvaltılık Gevrek", 3, 225, 900], ["Sebzeli Omlet", 3, 150, 648], ["Menemen", 1, 50, 224], ["Mercimek Çorbası", 3, 150, 534], ["Şehriyeli Tavuk Çorbası", 1, 40, 177], ["Kremalı Mantar Çorbası", 3, 150, 873], ["Kremalı Mantarlı Tavuklu Makarna", 1, 80, 370], ["Pesto Soslu Makarna", 3, 240, 1230], ["Yeşil Mercimekli Bulgur Pilavı", 3, 180, 771], ["Taze Fasulye", 2, 80, 296], ["Tavuk Sote", 2, 100, 420], ["Misket Köfte", 3, 135, 711], ["Humus", 1, 40, 214], ["Cacık", 1, 40, 184], ["İrmik Helvası", 2, 64, 270], ["Fıstıklı Dondurma", 1, 32, 122], ["Sade Dondurma", 1, 32, 132], ["Baklava", 1, 50, 227]] },
   { id: '70-servis', name: '70 Servis', title: 'Hazır Gıda Kiti', img: '/img/kit/70-servis.webp', who: '2 kişi · 7 gün', servis: 70, gram: 3676, kcal: 16606, model: {"type": "crate", "w": 1.32, "h": 1.0, "d": 1.0, "la": 1.122, "lid": "#1c1c1f"},
     menu: [["Kuru Meyveli Kahvaltılık Gevrek", 6, 450, 1800], ["Sebzeli Omlet", 6, 300, 1296], ["Menemen", 2, 100, 448], ["Mercimek Çorbası", 6, 300, 1068], ["Şehriyeli Tavuk Çorbası", 2, 80, 354], ["Kremalı Mantar Çorbası", 6, 300, 1746], ["Kremalı Mantarlı Tavuklu Makarna", 2, 160, 740], ["Pesto Soslu Makarna", 6, 480, 2460], ["Yeşil Mercimekli Bulgur Pilavı", 6, 360, 1542], ["Taze Fasulye", 4, 160, 592], ["Tavuk Sote", 4, 200, 840], ["Misket Köfte", 6, 270, 1422], ["Humus", 2, 80, 428], ["Cacık", 2, 80, 368], ["İrmik Helvası", 4, 128, 540], ["Fıstıklı Dondurma", 2, 64, 244], ["Sade Dondurma", 2, 64, 264], ["Baklava", 2, 100, 454]] },
-  { id: 'gevrek', name: 'Kahvaltılık Gevrek', title: 'Kuru Meyveli · 75 g', img: '/img/kit/gevrek.webp', who: 'Su ekle, 2 dakikada hazır', servis: 1, gram: 75, kcal: 292, model: null, menu: null },
+  { id: 'gevrek', name: 'Kahvaltılık Gevrek', title: 'Kuru Meyveli · 75 g', img: '/img/kit/gevrek.webp', who: 'Su ekle, 2 dakikada hazır', servis: 1, gram: 75, kcal: 300, model: null, menu: null },
 ];
 // kitler de 3B vitrinde: kasalar ve kova 3B model, poşetler 3B paket
 const KIT_BG = { 'mini-mix': '#a3161c', 'mini-select': '#8f1d2a', '25-servis': '#b3171d', '35-servis': '#7e1418', '70-servis': '#6b1015', gevrek: '#c46a86' };
@@ -180,7 +180,7 @@ KITS.forEach((k) => {
     id: `kit-${k.id}`, kit: k.id, cat: 'kit', brand: 'ResQ',
     name: k.id === 'gevrek' ? 'Kahvaltılık Gevrek' : `${k.name} Hazır Gıda Kiti`, short: k.name,
     tex: k.model ? `/tex/kit-${k.id}-label.webp` : `/tex/kit-${k.id}.webp`, thumb: k.img,
-    model: k.model ? { ...k.model } : null, aspect: 1.4, parts: [], bg: KIT_BG[k.id], ink: 'light',
+    model: k.model ? { ...k.model } : null, aspect: k.id === 'gevrek' ? 1.5 : 1.4, back: k.id === 'gevrek' ? '/tex/back/kit-gevrek.webp' : undefined, parts: [], bg: KIT_BG[k.id], ink: 'light',
     slogan: k.id === 'gevrek' ? 'ResQ · Dondurularak kurutulmuş' : `ResQ · ${k.title}`,
     lead: k.id === 'gevrek' ? 'Granola, gerçek meyve parçaları ve sütlü karışım; su ekleyin, 2 dakikada hazır.' : `${k.servis} servis, ${k.who}. Sıcak su ekleyin, 15 dakikada hazır.`,
     desc: k.id === 'gevrek' ? 'Özel dondurarak kurutma teknolojisiyle lezzetini ve çıtır dokusunu korur. Kamp, doğa yürüyüşü, karavan, ofis ve okul için hızlı ve besleyici bir kahvaltı. Alerjen: süt, gluten (yulaf) ve fındık içerir.' : KIT_DESC,
@@ -188,7 +188,7 @@ KITS.forEach((k) => {
     claims: k.id === 'gevrek' ? ['2 dakikada hazır', 'Freeze dried', 'Süt, gluten, fındık içerir'] : ['15 dakikada hazır', 'Uzun raf ömrü', 'Yerli üretim', 'Cryo freeze-dried'],
     menu: k.menu,
     contents: k.id === 'gevrek'
-      ? [['İçindekiler', 'Granola, gerçek meyve parçaları, sütlü karışım'], ['Net ağırlık', '75 g'], ['Enerji', '292 kcal'], ['Hazırlama', 'Su ekleyin, 2 dakikada tüketime hazır'], ['Alerjen', 'Süt, gluten (yulaf) ve fındık içerir'], ['Saklama', KEEP]]
+      ? [['İçindekiler', 'Granola (yulaf ezmesi, zeytinyağı, elma suyu konsantresi, tam buğday gevreği, fındık, tuz), süt, şeker, dondurularak kurutulmuş elma, çilek ve mango'], ['Net ağırlık', '75 g'], ['Enerji', '300 kcal (75 g)'], ['Hazırlama', '175 ml (1 su bardağı) soğuk su ekleyin, kapatıp çalkalayın, 2 dakikada hazır'], ['Alerjen', 'Süt, gluten (yulaf) ve fındık içerir'], ['Saklama', KEEP]]
       : [['Kişi / süre', k.who], ['Toplam', `${k.servis} servis · ${k.gram.toLocaleString('tr-TR')} g · ${k.kcal.toLocaleString('tr-TR')} kcal`], ['Hazırlama', 'Belirtilen miktarda sıcak su ekleyin, 15 dakikada hazır'], ['Ambalaj', k.model ? (k.model.type === 'bucket' ? 'Kapaklı, kulplu saklama kovası' : 'Kilitli kapaklı saklama kasası') : 'Kilitli, nem geçirmez poşet']],
   };
   FLAVORS.push(f);
@@ -609,8 +609,8 @@ FLAVORS.filter((f) => f.meal).forEach((f) => {
 export const VIDEO_MAP = {
   cilek: 'cilek', 'dilim-cilek': 'dilim-cilek', ahududu: 'ahududu', bogurtlen: 'bogurtlen', 'mavi-yemis': 'mavi-yemis',
   muz: 'muz', elma: 'elma', ananas: 'ananas', kivi: 'kivi', karpuz: 'karpuz', 'hindistan-cevizi': 'hindistan-cevizi', dondurma: 'dondurma',
-  lime: 'dogallik', 'fistikli-dondurma': 'fistikli-dondurma',
-  // incir, beyaz / kırmızı ejder, şeftali, kavun, mango: ürüne uygun telifsiz video bulunamadı → hareketli meyve görseli
+  lime: 'dogallik', 'beyaz-ejder': 'beyaz-ejder', 'fistikli-dondurma': 'fistikli-dondurma',
+  // incir, kırmızı ejder, şeftali, kavun, mango: ürüne uygun telifsiz video bulunamadı → hareketli meyve görseli
   'kit-mini-mix': 'kamp-kahvalti', 'kit-mini-select': 'kamp-kahve', 'kit-25-servis': 'kamp-kurulum', 'kit-35-servis': 'kamp-kahvalti', 'kit-70-servis': 'kamp-kurulum',
   'kit-gevrek': 'gevrek',
 };
