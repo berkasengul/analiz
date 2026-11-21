@@ -193,7 +193,7 @@ export function makeBackTexture(img, flavor, logo) {
   const cy = seal + (H - seal) * 0.08;
   if (logo && !flavor.brand) x.drawImage(logo, W / 2 - 110, cy, 220, 220);
   x.textAlign = 'center';
-  x.font = '600 60px Fraunces, Georgia, serif';
+  x.font = "600 60px 'Fraunces Variable', Fraunces, Georgia, serif";
   x.fillText(flavor.brand || 'Genç Anadolu Gıda', W / 2, cy + (flavor.brand ? 200 : 310));
   x.font = '500 34px Manrope, Arial, sans-serif';
   x.fillText(`Dondurularak Kurutulmuş ${flavor.name}`, W / 2, cy + 362);

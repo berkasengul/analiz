@@ -1,3 +1,9 @@
+@import '@fontsource-variable/fraunces/full.css';
+@import '@fontsource-variable/fraunces/full-italic.css';
+@import '@fontsource/manrope/400.css';
+@import '@fontsource/manrope/500.css';
+@import '@fontsource/manrope/600.css';
+@import '@fontsource/manrope/700.css';
 /* ================================================================
    Genç Anadolu Gıda — kurumsal site
    Açık, resmi zemin (krem / beyaz), bordo ve altın vurgular.
@@ -20,7 +26,7 @@
   --gold-1: #fbefd9;
   --gold-2: #e8cc9c;
   --gold-ink: #4a1408;
-  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --serif: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
   --sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
   --pad: clamp(18px, 4vw, 56px);
   --max: 1280px;
