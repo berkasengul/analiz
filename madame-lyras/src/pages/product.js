@@ -64,6 +64,7 @@ function fill() {
   $('#pClaims').innerHTML = f.claims.map((c) => `<li>${c}</li>`).join('');
   $('#pQuote').href = `/teklif.html?urun=${encodeURIComponent(f.id)}${f.meal ? `&ad=${encodeURIComponent('ResQ ' + f.name)}` : ''}#form`;
   $('#sQuote').href = $('#pQuote').href;
+  $('#pQuote').dataset.urun = $('#sQuote').dataset.urun = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name}`;
   $('#pMail').href = mailHref(f);
   if (SITE.whatsapp) document.querySelectorAll('[data-site="wa"]').forEach((a) => { a.href = waHref(f); });
   $('#pimg').src = stageImg;
