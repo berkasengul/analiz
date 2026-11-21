@@ -67,7 +67,7 @@ function fill() {
   $('#pQuote').dataset.urun = $('#sQuote').dataset.urun = `${f.group === 'atistirmalik' ? 'Solagron' : 'ResQ'} ${f.name}`;
   $('#pMail').href = mailHref(f);
   if (SITE.whatsapp) document.querySelectorAll('[data-site="wa"]').forEach((a) => { a.href = waHref(f); });
-  $('#pimg').src = stageImg;
+  if (window.__early) window.__early(f.id); else $('#pimg').src = stageImg;
   $('#pimg').alt = `${f.name} ürün görseli`;
   const prev = FLAVORS[(idx - 1 + N) % N], next = FLAVORS[(idx + 1) % N];
   $('#pPrev span').textContent = prev.short || prev.name;
@@ -187,7 +187,7 @@ function stageCenter() {
   const f = ((pl.right + th.left) / 2 - st.left) / st.width;
   return Math.min(0.7, Math.max(0.5, f));
 }
-function markCenter() { $('#pstage').style.setProperty('--cx', `${(stageCenter() * 100).toFixed(2)}%`); }
+function markCenter() { if (window.__fit) window.__fit(); else $('#pstage').style.setProperty('--cx', `${(stageCenter() * 100).toFixed(2)}%`); }
 function setPose(snap) {
   if (!scene) return;
   const pose = snap === true ? scene.snapPose : scene.setPose;
@@ -202,6 +202,7 @@ window.addEventListener('resize', markCenter);
 if (webglOK()) {
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: idx, noBackdrop: true });
+    window.__scene = scene;
     await scene.ready;
     scene.setActive(true);
     scene.inspectOpen(idx);

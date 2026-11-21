@@ -62,7 +62,7 @@ function fillStage() {
   $('#pLead').textContent = f.lead;
   $('#pFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#pGo').href = productUrl(f);
-  $('#pimg').src = f.model ? `/img/kit/${f.kit}-cut.webp` : f.md;
+  if (window.__early) window.__early(f.id); else $('#pimg').src = f.model ? `/img/kit/${f.kit}-cut.webp` : f.md;
   const n = list.length;
   const prev = FLAVORS[list[(cur - 1 + n) % n]], next = FLAVORS[list[(cur + 1) % n]];
   $('#pPrev span').textContent = prev.short || prev.name;
@@ -88,7 +88,7 @@ function stageCenter() {
   const f = ((pl.right + th.left) / 2 - st.left) / st.width;
   return Math.min(0.7, Math.max(0.5, f));
 }
-function markCenter() { $('#pstage').style.setProperty('--cx', `${(stageCenter() * 100).toFixed(2)}%`); }
+function markCenter() { if (window.__fit) window.__fit(); else $('#pstage').style.setProperty('--cx', `${(stageCenter() * 100).toFixed(2)}%`); }
 function stagePose(snap) {
   if (!scene) return;
   const pose = snap === true ? scene.snapPose : scene.setPose;

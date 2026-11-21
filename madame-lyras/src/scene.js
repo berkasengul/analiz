@@ -1147,6 +1147,38 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     kick(v) { scrollVel += v; },
     get flavor() { return flavor; },
     halfHeight() { return Math.tan((camera.fov * Math.PI) / 360) * 5; },
+    // yalnızca paketin (kitin) şeffaf zeminli görüntüsü: sayfa açılışında gösterilen ilk görsel bununla üretilir
+    snapshot() {
+      const hidden = [];
+      const hide = (o) => { if (o.visible) { o.visible = false; hidden.push(o); } };
+      scene.children.forEach((o) => { if (o !== root && !o.isLight) hide(o); });
+      root.children.forEach((o) => { if (o !== pouchHolder) hide(o); });
+      pouchHolder.children.forEach((o) => { if (o !== pouch.group && o !== kit.group) hide(o); });
+      const bg = scene.background; scene.background = null;
+      renderer.setClearColor(0x000000, 0);
+      renderer.render(scene, camera);
+      const url = renderer.domElement.toDataURL('image/png');
+      scene.background = bg;
+      hidden.forEach((o) => { o.visible = true; });
+      return url;
+    },
+    // paketin (veya kitin) ekrandaki kutusu, tuval boyutuna göre 0..1 (ilk görseli 3B ile hizalamak için ölçüm)
+    screenBox() {
+      const obj = kit.group.visible ? kit.group : pouch.group;
+      obj.updateWorldMatrix(true, true);
+      let x0 = 1, x1 = 0, y0 = 1, y1 = 0;
+      const v = new THREE.Vector3();
+      obj.traverse((m) => {
+        if (!m.isMesh || !m.visible || !m.geometry?.attributes?.position) return;
+        const pos = m.geometry.attributes.position;
+        for (let k = 0; k < pos.count; k += 3) {
+          v.fromBufferAttribute(pos, k).applyMatrix4(m.matrixWorld).project(camera);
+          const sx = (v.x + 1) / 2, sy = (1 - v.y) / 2;
+          x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy);
+        }
+      });
+      return { cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, h: y1 - y0, w: x1 - x0 };
+    },
     aspect() { return camera.aspect; },
   };
 }

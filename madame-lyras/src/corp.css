@@ -1233,12 +1233,12 @@ body[data-page='teklif'] .cta-band { display: none; }
 @media (max-width: 600px) { .hdr__logo, .hdr__logo img { width: 42px; height: 42px; } }
 
 /* ---- açılış: paket ilk anda ekranda; görsel 3B paketin ölçülen yer ve boyutunda durur, 3B hazır olunca fark edilmeden yerini alır ---- */
-.pstage .pstage__img:not([src*='-cut.webp']) { left: var(--cx, 58.5%); top: 46.7%; height: 62.3%; width: auto; aspect-ratio: 0.767; object-fit: fill; transform: translate(-50%, -50%); rotate: none; border-radius: 6px 6px 10px 10px; box-shadow: 0 50px 50px -30px rgba(0, 0, 0, 0.5); }
+.pstage .pstage__img:not([src*='-cut.webp']) { left: var(--cx, 58.5%); top: var(--py, 46.7%); height: var(--ph, 62.3%); width: auto; aspect-ratio: 0.767; object-fit: fill; transform: translate(-50%, -50%); rotate: none; border-radius: 6px 6px 10px 10px; box-shadow: 0 50px 50px -30px rgba(0, 0, 0, 0.5); }
 .pstage__img { transition: opacity 0.45s ease; }
 .pstage.gl-on .pstage__img { transition-delay: 0.1s; }
 .pstage__gl { transition: opacity 0.45s ease; }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) {
-  .pstage .pstage__img:not([src*='-cut.webp']) { left: 50%; top: 32.5%; height: 34%; }
+  .pstage .pstage__img:not([src*='-cut.webp']) { left: 50%; top: var(--py, 40%); height: var(--ph, 40.2%); }
 }
 
 /* ---- 360° inceleme çubuğu (premium) ---- */
@@ -1314,3 +1314,12 @@ body[data-page='teklif'] .cta-band { display: none; }
 
 .pstage .pstage__img[src*='-cut.webp'] { left: var(--cx, 58.5%); }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) { .pstage .pstage__img[src*='-cut.webp'] { left: 50%; } }
+
+/* form gönderilemezse: WhatsApp / e-posta ile tek dokunuşta iletme */
+.form__alt { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.form__alt .btn { min-height: 44px; padding: 0 18px; font-size: 14.5px; }
+.btn--wa { background: #25d366; color: #fff; border-color: #25d366; }
+
+/* açılış görseli = 3B paketin kendi render'ı (şeffaf zemin): 3B ile birebir aynı görünür */
+.pstage .pstage__img[src*='/img/snap/'] { left: var(--cx, 58.5%); top: var(--py, 49%); height: var(--ph, 66.9%); width: auto; aspect-ratio: auto; object-fit: contain; border-radius: 0; box-shadow: none; padding: 0; background: none; filter: drop-shadow(0 34px 30px rgba(0, 0, 0, 0.32)); transform: translate(-50%, -50%); rotate: none; max-height: none; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .pstage .pstage__img[src*='/img/snap/'] { left: 50%; top: var(--py, 43.3%); height: var(--ph, 47.1%); } }

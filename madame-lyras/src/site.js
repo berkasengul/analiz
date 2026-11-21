@@ -110,6 +110,25 @@ export function initReveal(root = document) {
 /* ---------- formlar (Netlify Forms, yedek: FormSubmit ile doğrudan e-posta) ---------- */
 const FORM_TITLES = { iletisim: 'İletişim formu', bayilik: 'Bayilik / iş birliği başvurusu', 'toptan-teklif': 'Toptan teklif talebi' };
 const FIELD_NAMES = { ad: 'Ad soyad', yetkili: 'Yetkili', firma: 'Firma', isletme: 'İşletme', telefon: 'Telefon', eposta: 'E-posta', il: 'İl', konu: 'Konu', faaliyet: 'Faaliyet alanı', isletme_turu: 'İşletme türü', aylik_miktar: 'Aylık miktar', ambalaj: 'Ambalaj', not: 'Not', mesaj: 'Mesaj', 'urunler[]': 'Ürünler', kvkk: 'KVKK onayı' };
+// süre sınırlı istek: yanıt gecikirse müşteri bekletilmez
+function fetchT(url, opts, ms) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ms);
+  return fetch(url, { ...opts, signal: c.signal }).finally(() => clearTimeout(t));
+}
+// gönderilemezse: müşterinin yazdıkları hazır mesaj olarak WhatsApp ve e-postaya aktarılır
+function formText(fd) {
+  const kind = fd.get('form-name') || 'iletisim';
+  const lines = [`${FORM_TITLES[kind] || 'Web sitesi formu'}`];
+  const seen = {};
+  for (const [k, v] of fd.entries()) {
+    if (['form-name', 'bot-field', 'kvkk'].includes(k) || !String(v).trim()) continue;
+    const label = FIELD_NAMES[k] || k;
+    seen[label] = seen[label] ? `${seen[label]}, ${v}` : String(v);
+  }
+  for (const [k, v] of Object.entries(seen)) lines.push(`${k}: ${v}`);
+  return lines.join('\n');
+}
 async function mailForm(fd) {
   const kind = fd.get('form-name') || 'iletisim';
   const data = { _subject: `${FORM_TITLES[kind] || 'Web sitesi formu'} · gencanadolugida.com.tr`, _template: 'table', _captcha: 'false' };
@@ -124,7 +143,7 @@ async function mailForm(fd) {
   if (mail) data._replyto = mail;
   data['Sayfa'] = location.href;
   try {
-    const res = await fetch(`https://formsubmit.co/ajax/${SITE.email}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
+    const res = await fetchT(`https://formsubmit.co/ajax/${SITE.email}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) }, 8000);
     if (!res.ok) return false;
     // FormSubmit, etkinleştirilmemiş formda da 200 döner ama success "false" olur: o durumda iletilmemiştir
     const j = await res.json().catch(() => ({}));
@@ -152,16 +171,19 @@ export function bindForm(form, status, okText) {
       // 1) Netlify Forms (sitede form algılama açıksa); 2) olmazsa doğrudan e-postaya (FormSubmit)
       let ok = !!fd.get('bot-field');
       if (!ok) try {
-        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(fd).toString() });
+        const res = await fetchT('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(fd).toString() }, 5000);
         ok = res.ok;
       } catch (e2) { ok = false; }
       if (!ok) ok = await mailForm(fd);
-      if (!ok) throw new Error('gönderilemedi');
+      if (!ok) { const err = new Error('gönderilemedi'); err.fd = fd; throw err; }
       form.reset();
       status.textContent = okText;
       status.classList.add('ok');
     } catch (err) {
-      status.innerHTML = `Mesaj şu an gönderilemedi. Lütfen <a href="mailto:${SITE.email}">${SITE.email}</a> adresine yazın.`;
+      const txt = err.fd ? formText(err.fd) : '';
+      const wa = SITE.whatsapp ? `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(txt)}` : '';
+      const mail = `mailto:${SITE.email}?subject=${encodeURIComponent('Web sitesi formu')}&body=${encodeURIComponent(txt)}`;
+      status.innerHTML = `Bağlantı şu an yanıt vermedi. Yazdıklarınızı tek dokunuşla iletebilirsiniz:<span class="form__alt">${wa ? `<a class="btn btn--wa" href="${wa}" target="_blank" rel="noopener">WhatsApp'tan gönder</a>` : ''}<a class="btn btn--outline" href="${mail}">E-postayla gönder</a></span>`;
       status.classList.add('err');
     } finally {
       btn.disabled = false;
