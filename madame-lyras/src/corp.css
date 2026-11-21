@@ -1232,11 +1232,14 @@ body[data-page='teklif'] .cta-band { display: none; }
 @media (max-width: 1100px) { .hdr__logo, .hdr__logo img { width: 48px; height: 48px; } }
 @media (max-width: 600px) { .hdr__logo, .hdr__logo img { width: 42px; height: 42px; } }
 
-/* ---- 3B sahne açılışı: düz fotoğraf yerine paket yumuşakça belirir ---- */
-.pstage.gl-wait:not(.gl-on) .pstage__img { opacity: 0; transition: none; }
-.pstage.gl-on .pstage__gl { animation: glIn 1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-@keyframes glIn { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .pstage.gl-on .pstage__gl { animation: none; } }
+/* ---- açılış: paket ilk anda ekranda; görsel 3B paketin ölçülen yer ve boyutunda durur, 3B hazır olunca fark edilmeden yerini alır ---- */
+.pstage .pstage__img:not([src*='-cut.webp']) { left: 58.5%; top: 46.7%; height: 62.3%; width: auto; aspect-ratio: 0.767; object-fit: fill; transform: translate(-50%, -50%); rotate: none; border-radius: 6px 6px 10px 10px; box-shadow: 0 50px 50px -30px rgba(0, 0, 0, 0.5); }
+.pstage__img { transition: opacity 0.45s ease; }
+.pstage.gl-on .pstage__img { transition-delay: 0.1s; }
+.pstage__gl { transition: opacity 0.45s ease; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .pstage .pstage__img:not([src*='-cut.webp']) { left: 50%; top: 32.5%; height: 34%; }
+}
 
 /* ---- 360° inceleme çubuğu (premium) ---- */
 .pstage__dock { gap: 2px; padding: 5px 6px 5px 5px; background: linear-gradient(180deg, rgba(40, 8, 11, 0.72), rgba(20, 3, 5, 0.72)); border: 1px solid rgba(232, 204, 156, 0.35); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 236, 200, 0.12); }
@@ -1296,3 +1299,15 @@ body[data-page='teklif'] .cta-band { display: none; }
 .qopt span { display: grid; gap: 2px; min-width: 0; }
 .qopt b { font-size: 16px; }
 .qopt small { font-size: 13px; color: rgba(255, 244, 232, 0.65); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- telefonda yakınlaştır düğmesi ---- */
+.zoomfab { display: none; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .zoomfab { position: absolute; z-index: 4; right: 14px; bottom: 136px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; border: 1px solid rgba(232, 204, 156, 0.45); border-radius: 999px; background: linear-gradient(180deg, rgba(44, 8, 11, 0.8), rgba(20, 3, 5, 0.8)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: #fff4e8; font: inherit; cursor: pointer; box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 236, 200, 0.14); transition: transform 0.25s var(--ease); }
+  .zoomfab:active { transform: scale(0.96); }
+  .zoomfab svg { width: 36px; height: 36px; padding: 7px; border-radius: 50%; color: var(--gold-ink); background: linear-gradient(135deg, #f6e2b8, #d9b06e 60%, #c4914a); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6); }
+  .zoomfab span { display: grid; line-height: 1; text-align: left; }
+  .zoomfab b { font-family: var(--serif); font-size: 16px; font-weight: 700; color: var(--gold-2); }
+  .zoomfab small { margin-top: 3px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .zoomfab.on .zf-plus { d: path('M7.8 10.5h5.4'); }
+}

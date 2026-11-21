@@ -91,10 +91,6 @@ function stagePose(snap) {
 fillStage();
 $('#pstage').classList.add('filled');
 if (webglOK()) {
-  // 3B sahne hazırlanırken düz ürün fotoğrafı gösterilmez (sonradan 3B pakete dönüşüp 'zıplamasın');
-  // sahne geç kalırsa (yavaş cihaz) fotoğraf yedek olarak belirir
-  $('#pstage').classList.add('gl-wait');
-  setTimeout(() => $('#pstage').classList.remove('gl-wait'), 3500);
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: fIdx(), noBackdrop: true });
     await scene.ready;

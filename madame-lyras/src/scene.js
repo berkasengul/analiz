@@ -1142,6 +1142,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     },
     inspectOpen, inspectClose, inspectFlavor, setView,
     preload: (i) => ensure(i),
+    zoomTarget() { return insp.zoomT; },
     zoomBy(k) { insp.zoomT = Math.min(2.4, Math.max(0.75, insp.zoomT * k)); insp.idle = 0; },
     kick(v) { scrollVel += v; },
     get flavor() { return flavor; },

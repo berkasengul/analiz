@@ -188,10 +188,6 @@ function setPose(snap) {
   else pose({ x: W * 0.17, y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 if (webglOK()) {
-  // 3B sahne hazırlanırken düz ürün fotoğrafı gösterilmez (sonradan 3B pakete dönüşüp 'zıplamasın');
-  // sahne geç kalırsa (yavaş cihaz) fotoğraf yedek olarak belirir
-  $('#pstage').classList.add('gl-wait');
-  setTimeout(() => $('#pstage').classList.remove('gl-wait'), 3500);
   import('../scene.js').then(async ({ createScene }) => {
     scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: idx, noBackdrop: true });
     await scene.ready;
@@ -214,8 +210,23 @@ if (webglOK()) {
       spin.classList.toggle('on', on);
       scene.setAutoRotate(on);
     });
+    // telefonda yakınlaştır düğmesi: 1× → 1,7× → 2,4× → 1×; yakınlaşınca dönüş durur, yazılar okunur
+    const LV = [1, 1.7, 2.4];
+    let lv = 0;
+    const fab = $('#zoomFab');
+    const fabShow = () => {
+      $('#zoomFabLv').textContent = `${String(LV[lv]).replace('.', ',')}×`;
+      $('#zoomFabTx').textContent = lv === LV.length - 1 ? 'Uzaklaştır' : 'Yakınlaştır';
+      fab.classList.toggle('on', lv > 0);
+    };
+    fab.addEventListener('click', () => {
+      lv = (lv + 1) % LV.length;
+      scene.zoomBy(LV[lv] / scene.zoomTarget());
+      if (lv > 0 && spin.getAttribute('aria-pressed') === 'true') spin.click();
+      fabShow(); zoomText();
+    });
     $('#resetBtn').addEventListener('click', () => {
-      scene.resetView(); zoomText();
+      scene.resetView(); zoomText(); lv = 0; fabShow();
       $$('.pstage__dock [data-view]').forEach((x) => x.classList.toggle('on', x.dataset.view === 'front'));
     });
   }).catch(() => {});
