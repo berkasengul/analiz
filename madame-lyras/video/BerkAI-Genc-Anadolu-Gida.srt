@@ -1,0 +1,160 @@
+1
+00:00:00,000 --> 00:00:03,833
+Arkadaşlar bu gördüğünüz bir reklam filmi değil. Bu bir web sitesi.
+
+2
+00:00:03,883 --> 00:00:07,716
+Ve bu site satıldı, gerçek bir firmaya.
+
+3
+00:00:07,766 --> 00:00:11,599
+Firmayı ben bulmadım. Siteyi ben yapmadım. İlk maili de ben yazmadım.
+
+4
+00:00:11,649 --> 00:00:15,481
+Hepsini benim yapay zekâ ofisim yaptı. Hadi nasıl olduğuna bakalım.
+
+5
+00:00:15,830 --> 00:00:20,140
+Önce ofisi tanıyın Burası benim ofisim Tabii gerçek bir ofis değil bunu
+
+6
+00:00:20,182 --> 00:00:25,343
+da Claude yaptı Koridorun iki yanında ekipler var Konu ekibi yapım ekibi
+
+7
+00:00:25,557 --> 00:00:29,652
+müşteri ekibi üç de site ekibi mail ekibi En sonda da müdür
+
+8
+00:00:29,695 --> 00:00:33,578
+odası var Son kararı orada ben veriyorum Her ekibin duvarında bir pano
+
+9
+00:00:33,620 --> 00:00:39,097
+var O gün ne yaptıklarını orada görüyorum Şimdi müşteri bölmesine girelim Müşteri
+
+10
+00:00:39,141 --> 00:00:43,262
+ekibi her gün firma arıyor Ama her firmayı değil Ürünü çok olan
+
+11
+00:00:43,561 --> 00:00:48,168
+ürünü güzel olan ama bunu gösterecek bir vitrini olmayan firmaları arıyor Ve
+
+12
+00:00:48,212 --> 00:00:52,861
+bu sefer bir gıda firması buldu Genç Anadolu Gıda Dondurularak kurutulmuş meyve
+
+13
+00:00:52,861 --> 00:00:59,028
+satıyorlar Çilek muz mango ejder meyvesi Bir de hazır gıda kitleri Toplam
+
+14
+00:00:59,114 --> 00:01:05,173
+kırk sekiz ürün Bunları akaryakıt istasyonlarına spor salonlarına kafelere satıyorlar Ekip şunu
+
+15
+00:01:05,215 --> 00:01:10,444
+fark etti Paketler çok renkli çok düzgün Ama bayilere gösterecek bir siteleri
+
+16
+00:01:10,487 --> 00:01:13,986
+yok Paketli ürün de üç de'de çok iyi duruyor arkadaşlar Ekip bunu
+
+17
+00:01:14,028 --> 00:01:18,822
+biliyor Sonra iş üç de site ekibine geçti Duvardaki ekranda siteyi görüyorsunuz
+
+18
+00:01:18,864 --> 00:01:23,899
+zaten Açalım Her ürün kendi renginde bir sahnede açılıyor Çilek kırmızıda muz
+
+19
+00:01:23,984 --> 00:01:30,148
+sarıda Paket gerçekten üç de Parmağınızla çeviriyorsunuz Arkasını çevirince firmanın gerçek ambalajı
+
+20
+00:01:30,191 --> 00:01:35,780
+çıkıyor Besin tablosu içindekiler hepsi okunuyor Altta üç yüz altmış derece incele
+
+21
+00:01:35,908 --> 00:01:41,067
+diye bir çubuk var Ön yan arka tek tuşla Başka ürüne geçince
+
+22
+00:01:41,237 --> 00:01:45,504
+paket bir tur dönüyor ve yenisi geliyor Kitleri de unutmadık Onlar kasa
+
+23
+00:01:45,548 --> 00:01:49,301
+ve kova olarak geliyor Aşağı inince ürünün videosu var Bir de bu
+
+24
+00:01:49,344 --> 00:01:54,998
+ürünü kim satar onu anlatıyor İstasyon spor salonu kafe Çünkü bu siteyi
+
+25
+00:01:55,042 --> 00:02:01,015
+müşteri değil bayi görecek Bayiye bunu neden satmalıyım sorusunun cevabını veriyor Bu
+
+26
+00:02:01,057 --> 00:02:05,557
+bayilerin çoğu siteyi telefondan açacak O yüzden telefonda bir de yakınlaştır düğmesi
+
+27
+00:02:05,600 --> 00:02:11,275
+koyduk Basıyorsunuz paket büyüyor arkasındaki yazıyı okuyorsunuz Teklif iste'ye basınca da üç
+
+28
+00:02:11,318 --> 00:02:16,157
+seçenek çıkıyor WhatsApp e posta ya da form WhatsApp'a basınca mesaj hazır
+
+29
+00:02:16,200 --> 00:02:21,106
+yazılmış geliyor Bayi sadece gönder diyor Site hazır olunca iş mail ekibine
+
+30
+00:02:21,193 --> 00:02:26,076
+geçti Mail ekibi kısa bir mail yazdı Uzun uzun anlatmadı Demoyu koydu
+
+31
+00:02:26,503 --> 00:02:31,324
+bakıp ne düşündüğünüzü yazar mısınız dedi Fiyat yok abartı yok Ve firma
+
+32
+00:02:31,367 --> 00:02:36,657
+cevap verdi Beğenmişler Kendi isteklerini gönderdiler Biz de o istekleri siteye işledik
+
+33
+00:02:37,276 --> 00:02:42,609
+Logolarını koyduk eksik arka yüzleri tamamladık videolarını ekledik En son müdür odasına
+
+34
+00:02:42,652 --> 00:02:47,814
+geldi Son karar benim Onayladım Ve site firmanın kendi adresinde yayına girdi
+
+35
+00:02:48,302 --> 00:02:53,294
+Arkadaşlar burada size bir şey söyleyeyim Satış siteyi yaptığımız an olmadı Firmanın
+
+36
+00:02:53,337 --> 00:02:58,457
+isteklerini dinlediğimiz an oldu Logoyu değiştir dediler değiştirdik Şu video olsun dediler
+
+37
+00:02:58,670 --> 00:03:04,712
+koyduk Mailler gitmiyor dediler düzelttik Yapay zekâ işi hızlı yapıyor Ama müşteriyi
+
+38
+00:03:04,755 --> 00:03:09,448
+dinlemek yine sizin işiniz Site şu anda yayında Linki açıklamaya koydum siz
+
+39
+00:03:09,491 --> 00:03:14,203
+de girip bakabilirsiniz Ofisin nasıl kurulduğunu önceki videoda anlatmıştım O da açıklamada
+
+40
+00:03:14,757 --> 00:03:19,323
+Sizce bir sonraki müşteri hangi sektörden olsun Yorumlara yazın Görüşmek üzere arkadaşlar
+
