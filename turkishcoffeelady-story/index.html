@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bold Istanbul</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Bold Istanbul, iced Turkish coffee by Turkish Coffee Lady. Zero sugar. Launching in the USA on December 5. Concept demo." />
+  <meta name="theme-color" content="#f1ece3" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="nav" id="nav">
+    <a href="#stage" class="nav__logo" aria-label="Turkish Coffee Lady"><img src="./assets/logo.png" alt="Turkish Coffee Lady" /></a>
+    <nav class="nav__links">
+      <a href="#stage" data-i18n="nav.places">Places</a>
+      <a href="#films" data-i18n="nav.films">Films</a>
+      <a href="#details" data-i18n="nav.details">Details</a>
+      <button class="lang" id="lang" aria-label="Language">TR</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1 · STAGE: tap the can, change the place and the hour -->
+    <section class="stage" id="stage">
+      <div class="stage__img" id="stageImg">
+        <img alt="" id="imgA" />
+        <img alt="" id="imgB" />
+      </div>
+      <button class="tap" id="tap" aria-label="Pour the can"><span data-i18n="tap">tap</span></button>
+      <div class="stage__copy">
+        <h1 class="stage__title"><span data-i18n="h1a">Pour your</span><br /><b data-i18n="h1b">own</b> <span data-i18n="h1c">Istanbul.</span></h1>
+        <p class="mono" data-i18n="h1sub">Tap the can, the cup changes.</p>
+      </div>
+      <div class="panel">
+        <ul class="panel__places" id="places">
+          <li><button data-place="home" data-i18n="p.home">At home</button></li>
+          <li><button data-place="office" data-i18n="p.office">At the office</button></li>
+          <li><button data-place="bosphorus" data-i18n="p.bosphorus">By the Bosphorus</button></li>
+        </ul>
+        <div class="panel__time" id="times">
+          <button data-time="morning" data-i18n="t.morning">Morning</button><button data-time="evening" data-i18n="t.evening">Evening</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · FILMS -->
+    <section class="films" id="films">
+      <h2 class="big reveal" data-i18n="f.title">Two films,<br />one cup of courage.</h2>
+      <div class="acc" id="acc"></div>
+    </section>
+
+    <!-- 3 · DETAILS -->
+    <section class="details" id="details">
+      <p class="side mono" data-i18n="nav.details">Details</p>
+      <div class="details__text">
+        <h2 class="big reveal" data-i18n="d.title">Look<br />closer.</h2>
+        <ul class="notes" id="notes">
+          <li data-img="drops"><b data-i18n="d.1t">Zero sugar. Not a gram.</b><span data-i18n="d.1">Cold, clean, low calories.</span></li>
+          <li data-img="eye"><b data-i18n="d.2t">An evil eye on every can.</b><span data-i18n="d.2">A small promise of good fortune.</span></li>
+          <li data-img="pour"><b data-i18n="d.3t">Ground as fine as flour.</b><span data-i18n="d.3">The way Istanbul has done it for 500 years.</span></li>
+          <li data-img="top"><b data-i18n="d.4t">Shake well. Drink cold.</b><span data-i18n="d.4">Straight from the can, or over ice.</span></li>
+        </ul>
+      </div>
+      <div class="details__media">
+        <img class="details__big" id="detailBig" src="./assets/detail/drops.webp" alt="" />
+        <img class="details__small" id="detailSmall" src="./assets/detail/eye.webp" alt="" />
+      </div>
+    </section>
+
+    <!-- 4 · ATELIER: one sentence -->
+    <section class="atelier">
+      <p class="statement reveal"><span data-i18n="a.1">Started with one cup in Boston,</span> <i class="eye" aria-hidden="true"></i> <span data-i18n="a.2">brewed cold for America.</span></p>
+      <p class="mono center reveal" data-i18n="a.sub">Turkish Coffee Lady · since 2007</p>
+    </section>
+
+    <!-- 5 · FOUNDER -->
+    <section class="founder">
+      <img src="./assets/founder.webp" alt="Gizem Şalcıgil White" class="founder__img reveal" loading="lazy" />
+      <div class="founder__text reveal">
+        <p class="mono" data-i18n="fo.k">The founder</p>
+        <p class="founder__quote" data-i18n="fo.q">“A cup of coffee is remembered for forty years.”</p>
+        <p class="founder__name">Gizem Şalcıgil White</p>
+        <p class="founder__body" data-i18n="fo.b">Coffee truck across America, the first Turkish coffee shop in the US, a culture house in Old Town Alexandria, and now the world’s first bottled cold Turkish coffee (patent pending). Her book <i>Hayalini Demle</i> tells the whole story.</p>
+      </div>
+      <img src="./assets/book-cover.webp" alt="Hayalini Demle" class="founder__book reveal" loading="lazy" />
+    </section>
+
+    <!-- 6 · CLOSING -->
+    <section class="closing" id="closing">
+      <h2 class="big reveal" data-i18n="c.title">Don’t leave<br />without a sip.</h2>
+      <div class="closing__can">
+        <img src="./assets/can-cut.webp" alt="Bold Istanbul can" id="closingCan" />
+        <button class="tap tap--static" id="tap2" aria-label="Read your fortune"><span data-i18n="tap">tap</span></button>
+      </div>
+      <p class="fortune mono" id="fortune" aria-live="polite"></p>
+      <div class="closing__launch">
+        <p class="mono" data-i18n="c.date">December 5 · World Turkish Coffee Day · USA</p>
+        <p class="count" id="count">—</p>
+        <form class="notify" name="notify" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="notifyForm">
+          <input type="hidden" name="form-name" value="notify" />
+          <p hidden><label>Leave empty <input name="bot-field" /></label></p>
+          <input type="email" name="email" required placeholder="you@email.com" aria-label="Email" />
+          <button type="submit" data-i18n="c.btn">Notify me →</button>
+        </form>
+        <p class="mono" id="notifyMsg" role="status"></p>
+      </div>
+      <p class="wordmark" aria-hidden="true">Bold Istanbul</p>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <span data-i18n="foot">Bold Istanbul, iced Turkish coffee</span>
+    <span>turkishcoffeelady.com · 2026</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox__close" id="lbClose" aria-label="Close">×</button>
+    <div class="lightbox__frame" id="lbFrame"></div>
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+</html>
