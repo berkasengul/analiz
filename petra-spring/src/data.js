@@ -199,6 +199,48 @@ const BENEFITS = {
   ],
 };
 
+// ürünlere özel arka plan sahnesi (src/backdrop.js)
+const SCENE = {
+  anka: 'embers', ocean: 'ocean', 'once-vatan': 'silk', gulumse: 'sun', art: 'stars', electro: 'neon',
+  forest: 'forest', 'petra-x': 'pine', sirius: 'snow', free: 'fruit', 'star-light': 'velvet', 'star-dark': 'noir',
+};
+// oda kokuları: kokuya uygun parçacık [tür, renkler]
+const ROOM_FX = {
+  kerasus: ['petal', ['#ffc2d6', '#ff8fb3', '#ffe4ee']], miracle: ['dust', ['#ffd27a', '#fff1c4']], zeus: ['bokeh', ['#fff8e0', '#fff3b0']],
+  keops: ['petal', ['#ffffff', '#ffe9e6']], agartha: ['petal', ['#ffffff', '#f6d6ff', '#d9ecff']], paris: ['leaf', ['#9fd36b', '#c8ec8f', '#e8ffe0']],
+};
+
+// ---------------------------------------------------------------
+// Kokuyu keşfet: kokunun tarifi (3B sahnede gösterilir)
+// mood: tek cümlelik his; steps: [başlık, tarif] × 3 (cam şişelerde markanın açılış / kalp / taban notaları);
+// tags: karakter; meters: [ferahlık, sıcaklık, yoğunluk] 1–5
+// ---------------------------------------------------------------
+const SENSE = {
+  anka: ['Küllerinden doğan bir ateşin sıcaklığı: cesur, çarpıcı, unutulmaz.', [['Kıvılcım', 'Holywood esintili parlak ve canlı bir açılış; ilk nefeste dikkat çeker.'], ['Alev', 'Sıcak, karakterli ve özgüvenli bir gövde; aracın içini doldurur.'], ['Kor', 'Yolculuk boyunca kalan derin, etkileyici bir iz.']], ['Sıcak', 'Karakterli', 'Enerjik'], [2, 5, 5]],
+  ocean: ['Açık denizde, rüzgârın yüzünüze çarptığı o ilk an.', [['Deniz esintisi', 'Ocean Breeze’in serin, tuzlu ve temiz açılışı.'], ['Dalga', 'Ferah ve hafif; aracın havası tazelenmiş gibi gelir.'], ['Kıyı', 'Güneşte kurumuş bir sahil gibi temiz ve huzurlu bir iz.']], ['Ferah', 'Temiz', 'Serin'], [5, 1, 3]],
+  'once-vatan': ['Bahar sabahı açan sümbüllerin zarif, doğal kokusu.', [['Tomurcuk', 'Sümbül çiçeğinin taze, yeşil ve ferah ilk dokunuşu.'], ['Çiçek', 'Çiçeksi, doğal ve hoş; aracı da evi de ferahlatır.'], ['Bahçe', 'Uzun süre kalan yumuşak ve temiz bir çiçek izi.']], ['Çiçeksi', 'Doğal', 'Ferah'], [4, 2, 3]],
+  gulumse: ['Güneşli bir sabah, temiz çarşaflar ve iyi bir ruh hali.', [['Ferahlık', 'Rebul esintili parlak, temiz ve canlı bir açılış.'], ['Neşe', 'Keyifli ve hafif; her yolculuğa güler yüz katar.'], ['Huzur', 'Arkasında temiz ve ferahlatıcı bir his bırakır.']], ['Canlı', 'Temiz', 'Neşeli'], [5, 2, 3]],
+  art: ['Serin bir gece, yıldızların altında sakin bir sürüş.', [['Serinlik', 'Cool’un ferah ve modern açılışı.'], ['Canlılık', 'Temiz ve serin bir hava; zihni açar.'], ['Modern iz', 'Hafif, şık ve kalıcı bir ferahlık.']], ['Serin', 'Modern', 'Ferah'], [5, 1, 3]],
+  electro: ['Şehrin ışıkları altında enerjik, modern bir parfüm.', [['Elektrik', 'Roch parfümünün ferah ve etkileyici açılışı.'], ['Enerji', 'Dinamik ve sofistike; araca parfüm hissi verir.'], ['Şıklık', 'Temiz ve zarif bir parfüm izi.']], ['Enerjik', 'Sofistike', 'Ferah'], [4, 3, 4]],
+  forest: ['Yağmurdan sonra ormanda derin bir nefes.', [['Yağmur', 'Rain Forest’ın ıslak toprak ve taze yaprak açılışı.'], ['Orman', 'Yeşil, doğal ve tazeleyici bir gövde.'], ['Yosun', 'Şehirde bile doğanın huzurunu hatırlatan bir iz.']], ['Doğal', 'Yeşil', 'Tazeleyici'], [5, 2, 3]],
+  'petra-x': ['Sabahın erken saatinde, sisli bir çam ormanında yürüyüş.', [['Temizlik', 'My Baby Forest’ın yumuşak ve temiz açılışı.'], ['Orman esintisi', 'Ferah, sakin ve hafif yeşil bir karakter.'], ['Sükûnet', 'Aracınızda huzur veren yumuşak bir iz.']], ['Yumuşak', 'Temiz', 'Sakin'], [4, 2, 2]],
+  sirius: ['Tropik bir sahilde, gün batımında vanilyalı bir tatlılık.', [['Hindistan cevizi', 'Kremamsı, tropikal ve davetkâr bir açılış.'], ['Vanilya', 'Sıcak ve tatlı notalar kokuyu yumuşatır.'], ['Gün batımı', 'Huzurlu, yumuşak ve sarmalayan bir iz.']], ['Tatlı', 'Kremamsı', 'Sıcak'], [2, 5, 4]],
+  free: ['Yazın ilk meyve kasesi: tatlı, canlı ve özgür.', [['Meyve', 'Tutti’nin sulu ve canlı meyve açılışı.'], ['Tatlılık', 'Tatlı ve meyvemsi; yolculuğa enerji katar.'], ['Pozitif', 'Dinamik ve ferah bir koku hissi bırakır.']], ['Meyvemsi', 'Tatlı', 'Enerjik'], [4, 3, 3]],
+  'star-light': ['Gala gecesi, kırmızı halıda zarif bir giriş.', [['Parıltı', 'Jön parfüm esanslı, parlak ve etkileyici açılış.'], ['Zarafet', 'Aroma özlü, karakterli ve şık bir gövde.'], ['Alkış', 'Yolculuk boyunca kalan zarif bir parfüm izi.']], ['Zarif', 'Parfümsü', 'Karakterli'], [3, 3, 4]],
+  'star-dark': ['Gece yarısı, siyah takım ve sessiz bir özgüven.', [['Gölge', 'Jön parfüm esanslı, derin ve etkileyici açılış.'], ['Karakter', 'Aroma özlü, koyu ve maskülen bir gövde.'], ['Gece', 'Uzun süren güçlü ve karakterli bir iz.']], ['Koyu', 'Maskülen', 'Etkileyici'], [2, 4, 5]],
+  'cam-aura': ['Her sürüşü bir prestij anına çeviren oriental bir büyü.', [['Açılış · modern parfüm', 'Modern parfümerinin dinamik ve enerjik ilk dokunuşu.'], ['Kalp · Doğu esansları', 'Doğu’nun zengin esans geleneği; sofistike ve lüks.'], ['Taban · oriental iz', 'Derin, sıcak ve kalıcı oriental izler.']], ['Oriental', 'Lüks', 'Derin'], [2, 5, 5]],
+  'cam-ocean': ['Günlerce süren temiz, serin ve kalıcı bir okyanus hissi.', [['Açılış · açık deniz', 'Açık denizin serinliği; ilk nefeste ferahlık.'], ['Kalp · sahil esintisi', 'Kıyıya vuran dalgalar, temiz ve hafif bir hava.'], ['Taban · temiz serinlik', 'Sahil kıyısının huzuru; uzun süren tazelik.']], ['Ferah', 'Serin', 'Temiz'], [5, 1, 3]],
+  'cam-tutti': ['Tropik meyve bahçesinden güneşli bir yaz gününe.', [['Açılış · mango ve kavun', 'Taze mango ve kavunun sulu, tropikal patlaması.'], ['Kalp · kremamsı çiçek', 'Olgun meyve ve kremamsı çiçeklerle dolu bir kalp.'], ['Taban · vanilya ve amber', 'Sıcak ve yumuşak vanilya, amber tabanı.']], ['Tropikal', 'Meyvemsi', 'Yaz'], [4, 4, 4]],
+  'cam-yasemen': ['Akdeniz gecesinde, çiçek açmış bir yasemin bahçesi.', [['Açılış · yasemin tomurcuğu', 'Yasemin tomurcuklarının ferah ve canlı açılışı.'], ['Kalp · yasemin buketi', 'Egzotik ve büyüleyici bir yasemin buketi.'], ['Taban · sandal ve amber', 'Sandal ağacı ve amberin kadifemsi kalıcılığı.']], ['Çiçeksi', 'Romantik', 'Zarif'], [3, 4, 4]],
+  'cam-forest': ['Lavanta tarlasından sakin bir spa anına uzanan terapi.', [['Açılış · Provence lavantası', 'Aromatik lavantanın canlandırıcı ilk dokunuşu.'], ['Kalp · mor leylak', 'Sakinleştirici, pudralı bir leylak dengesi.'], ['Taban · musk ve sedir', 'Temiz musk ve sedirle zarif bir bitiş.']], ['Aromatik', 'Sakin', 'Temiz'], [4, 2, 3]],
+  kerasus: ['İstanbul’da bir bambu bahçesinde sakin bir öğleden sonra.', [['Bambu', 'Ferah, doğal ve yeşil bir açılış.'], ['Sofistike', 'Gün boyu dengeli yayılan zarif bir koku.'], ['Huzur', 'Evi ve ofisi saran sakin, seçkin bir atmosfer.']], ['Ferah', 'Doğal', 'Zarif'], [4, 2, 3]],
+  miracle: ['Işığın içeri dolduğu, modern ve aydınlık bir salon.', [['Ferahlık', 'Rebul esintili temiz ve modern açılış.'], ['Modern', 'Sofistike, dengeli ve kalıcı bir karakter.'], ['Seçkinlik', 'Mekâna gün boyu süren seçkin bir hava.']], ['Modern', 'Temiz', 'Sofistike'], [4, 3, 3]],
+  zeus: ['Güneşte kurumuş, yeni serilmiş temiz çarşaflar.', [['Temiz pamuk', 'Soft Linen’in yumuşak ve temiz açılışı.'], ['Yumuşaklık', 'Hafif, pudramsı ve ferah bir gövde.'], ['Huzur', 'Evde sakin ve sofistike bir atmosfer.']], ['Temiz', 'Yumuşak', 'Ferah'], [5, 2, 2]],
+  keops: ['Bembeyaz çiçeklerle dolu, zarif bir vazo.', [['Beyaz çiçek', 'Ferah ve zarif çiçek açılışı.'], ['Buket', 'Yumuşak, çiçeksi ve sofistike bir kalp.'], ['Zarafet', 'Gün boyu süren hafif bir çiçek izi.']], ['Çiçeksi', 'Zarif', 'Ferah'], [4, 2, 3]],
+  agartha: ['Baharda açan manolyaların kremamsı, ferah kokusu.', [['Manolya', 'Çiçeksi ve ferah bir manolya açılışı.'], ['Kremamsı çiçek', 'Yumuşak ve sarmalayan bir kalp.'], ['Hoş atmosfer', 'Salonda ve yatak odasında hoş bir iz.']], ['Çiçeksi', 'Kremamsı', 'Hoş'], [4, 3, 3]],
+  paris: ['Paris’te bir otel odası: lüks, beyaz ve tertemiz.', [['Blanc', 'Özel formüllü, tertemiz ve parlak bir açılış.'], ['Saflık', 'Gün boyu süren ferahlık ve saflık hissi.'], ['Lüks', 'Yaşam alanlarına lüks bir nefes.']], ['Temiz', 'Lüks', 'Ferah'], [5, 2, 3]],
+};
+
 export const VIDEO_MAP = {};
 export const VIDEOS = [];
 
@@ -213,5 +255,13 @@ FLAVORS.forEach((f) => {
   f.benefits = BENEFITS[f.group];
   // hikâye görseli: oda ve cam şişede yaşam alanı fotoğrafı, kartlarda ambalaj
   f.storyImg = f.group === 'kagit' ? f.tex : `/img/foto/${f.id}-1.webp`;
+  { const [mood, steps, tags, meters] = SENSE[f.id]; f.sense = { mood, steps, tags, meters }; }
+  if (f.group === 'kagit') f.scene = SCENE[f.id];
+  else {
+    f.scene = 'photo';
+    f.bgPhoto = `/img/foto/${f.id}-1.webp`;
+    if (f.group === 'oda') { f.bgCrop = [0, 0.04, 0.36, 0.92]; f.bgBlur = 10; [f.particle, f.sceneColors] = ROOM_FX[f.id]; f.sceneN = 40; }
+    else { f.bgBlur = 12; f.particle = 'bokeh'; f.sceneColors = [f.model.liquid, '#ffffff']; }
+  }
   f.photos = f.group === 'kagit' ? [f.tex, f.back] : [`/img/foto/${f.id}-0.webp`, `/img/foto/${f.id}-1.webp`];
 });

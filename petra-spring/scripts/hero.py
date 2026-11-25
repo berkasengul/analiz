@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFilter
 W, H, BASE = 1400, 1000, 950
 # [id, boy, yatay merkez, taban kayması] arkadan öne
 LAY = [('once-vatan', 600, 115, -40), ('gulumse', 600, 1285, -40), ('anka', 740, 330, -20), ('ocean', 740, 1070, -20),
-       ('kerasus', 860, 700, 0), ('cam-aura', 500, 500, 10), ('cam-ocean', 480, 905, 12)]
+       ('kerasus', 860, 700, 0), ('cam-aura', 410, 455, 16), ('cam-ocean', 400, 950, 18)]
 out = Image.new('RGBA', (W, H), (0, 0, 0, 0))
 for pid, h, cx, dy in LAY:
     im = Image.open(f'/tmp/hero_{pid}.png').convert('RGBA')

@@ -37,8 +37,10 @@ async function run(b, ctxOpts, key, saveImg) {
       }
       const r = await p.evaluate((want) => {
         const s = window.__scene; const box = s.screenBox();
-        return { box, url: want ? s.snapshot() : null, cw: s.aspect() };
+        return { box, url: want ? s.snapshot() : null, bg: want ? s.backdropURL() : null, cw: s.aspect() };
       }, saveImg);
+      // ürünün arka planı: sayfa açılır açılmaz görünen zemin (public/img/zemin/<id>.webp)
+      if (r.bg) { fs.mkdirSync('public/img/zemin', { recursive: true }); fs.writeFileSync(`public/img/zemin/${id}.webp`, Buffer.from(r.bg.split(',')[1], 'base64')); }
       meta[id] = meta[id] || {};
       meta[id][key] = { cx: +r.box.cx.toFixed(4), cy: +r.box.cy.toFixed(4), h: +r.box.h.toFixed(4), w: +r.box.w.toFixed(4) };
       if (saveImg) {

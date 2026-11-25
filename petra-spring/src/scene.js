@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { createJuice } from './juice.js';
 import { makePetra } from './petra3d.js';
+import { createBackdrop } from './backdrop.js';
 
 const TAU = Math.PI * 2;
 const smooth = (a, b, x) => {
@@ -308,6 +309,20 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
 
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
   camera.position.set(0, 0, 5);
+  scene.add(camera);
+  // ürüne özel arka plan: kameraya bağlı düzlem (cam şişeler bu sahneyi kırarak gösterir)
+  const BD_DIST = 30;
+  let bd = null, bdTexL = null, bdPlane = null, bdAcc = 0;
+  if (opts.backdrop) {
+    bd = createBackdrop();
+    bdTexL = new THREE.CanvasTexture(bd.canvas);
+    bdTexL.colorSpace = THREE.SRGBColorSpace;
+    bdPlane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: bdTexL, toneMapped: false, depthWrite: false }));
+    bdPlane.position.z = -BD_DIST;
+    bdPlane.renderOrder = -10;
+    bdPlane.frustumCulled = false;
+    camera.add(bdPlane);
+  }
 
   const key = new THREE.DirectionalLight(0xfff1e2, 2.9);
   key.position.set(2.5, 3, 4);
@@ -713,6 +728,10 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    if (bdPlane) {
+      const hh = 2 * BD_DIST * Math.tan((camera.fov * Math.PI) / 360);
+      bdPlane.scale.set(hh * camera.aspect * 1.02, hh * 1.02, 1);
+    }
   }
   window.addEventListener('resize', resize);
   if (opts.box && window.ResizeObserver) new ResizeObserver(resize).observe(canvas.parentElement);
@@ -958,7 +977,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     }
     // koyu hale ve kontur ışığı
     {
-      const hv = opts.plain ? 0 : insp.on ? 0.55 * insp.blend : state.halo;
+      const hv = opts.plain ? 0 : insp.on ? (bd ? 0.22 : 0.55) * insp.blend : state.halo;
       haloMat.opacity = hv;
       haloMesh.visible = hv > 0.004;
       const hs = kit.group.visible ? 3.6 : 3.0;
@@ -1074,7 +1093,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     key.color.setRGB(1 - state.frost * 0.15, 0.96 - state.frost * 0.04, 0.9 + state.frost * 0.1);
 
     // meyve suyu damlaları: yalnızca ürün akışında ve incelemede
-    dropW = damp(dropW, (stream !== null || insp.on) ? Math.min(1, state.cloud * 1.2) : 0, 3, dt);
+    dropW = damp(dropW, !bd && (stream !== null || insp.on) ? Math.min(1, state.cloud * 1.2) : 0, 3, dt);
     drops.visible = dropW > 0.01;
     if (drops.visible) {
       // ürün renginde, içten parlayan cam gibi damlalar
@@ -1097,6 +1116,11 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       drops.instanceMatrix.needsUpdate = true;
     }
 
+    if (bd) {
+      bd.setProduct(flavors[flavor]);
+      bdAcc += dt;
+      if (bdAcc > 1 / 40) { bd.draw(t, bdAcc); bdTexL.needsUpdate = true; bdAcc = 0; }
+    }
     renderer.render(scene, camera);
 
     if (juice) {
@@ -1134,6 +1158,20 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       clouds[flavor].mix = 0;
       ringT = clock.elapsedTime;
     },
+    // kokuyu keşfet: ürün ağır bir tur atar, hafifçe yaklaşır, arkasında ışık halkası ve parçacık patlaması
+    discover(on) {
+      if (on) {
+        insp.goto = Math.round(insp.ry / TAU) * TAU + TAU;
+        insp.rx = 0.04; insp.idle = 0;
+        ringT = clock.elapsedTime;
+        burst = 1;
+        if (bd) {
+          v3.copy(root.position).project(camera);
+          bd.burst((v3.x + 1) / 2, (1 - v3.y) / 2);
+        }
+      }
+      if (bd) bd.setCalm(on);
+    },
     resetView() { insp.goto = Math.round(insp.ry / TAU) * TAU; insp.rx = 0.06; insp.zoomT = 1; insp.idle = 0; },
     zoom() { return insp.zoomT; },
     setStream(f) {
@@ -1152,7 +1190,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     snapshot() {
       const hidden = [];
       const hide = (o) => { if (o.visible) { o.visible = false; hidden.push(o); } };
-      scene.children.forEach((o) => { if (o !== root && !o.isLight) hide(o); });
+      scene.children.forEach((o) => { if (o !== root && !o.isLight && o !== camera) hide(o); });
+      if (bdPlane) hide(bdPlane);
       root.children.forEach((o) => { if (o !== pouchHolder) hide(o); });
       pouchHolder.children.forEach((o) => { if (o !== pouch.group && o !== kit.group) hide(o); });
       const bg = scene.background; scene.background = null;
@@ -1163,6 +1202,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       hidden.forEach((o) => { o.visible = true; });
       return url;
     },
+    // arka planın o anki görüntüsü (sayfa açılışında gösterilen zemin görseli bununla üretilir)
+    backdropURL() { return bd ? bd.canvas.toDataURL('image/webp', 0.82) : null; },
     // paketin (veya kitin) ekrandaki kutusu, tuval boyutuna göre 0..1 (ilk görseli 3B ile hizalamak için ölçüm)
     screenBox() {
       const obj = kit.group.visible ? kit.group : pouch.group;

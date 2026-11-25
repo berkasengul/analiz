@@ -1,3 +1,4 @@
+import { initSense } from '../sense.js';
 import { $, $$, FLAVORS as ALL, SITE, productCard, initReveal, webglOK, mailHref, waHref, nf, CAT_NAMES, contentsHTML, productUrl } from '../site.js';
 import { CHANNEL_ICONS, GROUPS, fiyat } from '../data.js';
 
@@ -131,6 +132,7 @@ function go(i) {
   history.replaceState(null, '', productUrl(FLAVORS[idx]));
   fill();
   if (scene) { scene.inspectFlavor(idx); setPose(); }
+  sense.update();
 }
 
 /* ---------- ürün föyü (yazdırılır, PDF olarak kaydedilir) ---------- */
@@ -174,6 +176,7 @@ new IntersectionObserver(([en]) => {
 const phone = () => window.innerWidth < 760 || window.innerWidth / window.innerHeight < 0.9;
 // masaüstünde paket, sol panel ile sağdaki küçük resimler arasındaki boşluğun tam ortasında durur
 function stageCenter() {
+  if ($('#pstage').classList.contains('sensing')) return 0.5;
   const st = $('#pstage').getBoundingClientRect();
   const pl = $('#pstage .pstage__panel')?.getBoundingClientRect();
   const th = $('#pThumbs')?.getBoundingClientRect();
@@ -188,14 +191,15 @@ function setPose(snap) {
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A;
   const f = FLAVORS[idx];
   const k = f.model ? 1.05 : 1;
-  if (phone()) pose({ x: 0, y: H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else pose({ x: W * (2 * stageCenter() - 1), y: 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  if (phone()) pose({ x: 0, y: $('#pstage').classList.contains('sensing') ? H * 0.44 : H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k * ($('#pstage').classList.contains('sensing') ? 0.5 : 1), ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  else pose({ x: W * (2 * stageCenter() - 1), y: $('#pstage').classList.contains('sensing') ? -H * 0.1 : 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k * ($('#pstage').classList.contains('sensing') ? 0.8 : 1), ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 markCenter();
 window.addEventListener('resize', markCenter);
+const sense = initSense({ stage: $('#pstage'), getFlavor: () => FLAVORS[idx], getScene: () => scene, onToggle: () => setPose() });
 if (webglOK()) {
   import('../scene.js').then(async ({ createScene }) => {
-    scene = createScene($('#pv'), FLAVORS, null, $('#pbg'), { box: true, wheel: false, first: idx, noBackdrop: true });
+    scene = createScene($('#pv'), FLAVORS, null, null, { backdrop: true, box: true, wheel: false, first: idx, noBackdrop: true });
     window.__scene = scene;
     await scene.ready;
     scene.setActive(true);

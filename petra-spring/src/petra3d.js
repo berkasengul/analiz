@@ -1,6 +1,6 @@
 // Petra Spring ürünlerinin 3B modelleri (ürün sahnesinde paketin yerine geçer)
 //   card   : asma kağıt araba kokusu, blister ambalajında (ön ve arka yüz ürünün gerçek fotoğrafından, poşet kısmı hacimli)
-//   vial   : 8 ml cam şişe araba kokusu: elma biçimli cam, renkli esans, oluklu ahşap kapak, askı ipi
+//   vial   : 8 ml cam şişe araba kokusu: elma biçimli (ısırıklı) kalın cam, gömme logo, renkli esans, 4 halkalı ahşap kapak, boncuk ve bükümlü ip
 //   reed   : 100 ml bambu çubuklu oda kokusu: kare cam şişe, renkli esans, siyah kapak, altın etiket, 5 siyah çubuk
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
@@ -37,21 +37,56 @@ function cardSurface(w, h, side, head) {
   return g;
 }
 
-/* ---------- elma biçimli şişe profili (dönen gövde) ---------- */
-function appleProfile(r, h, inset = 0) {
-  const pts = [];
-  const N = 40;
-  for (let i = 0; i <= N; i++) {
-    const t = i / N; // 0 alt, 1 üst
-    // alt: yuvarlak taban; orta: dolgun; üst: omuz ve boyun
-    const a = t * Math.PI;
-    let x = Math.sin(a) * r * (1 - 0.18 * Math.pow(t, 3));
-    x += r * 0.07 * Math.sin(t * Math.PI * 2) * (t < 0.5 ? 1 : 0.4); // elma girintisi
-    x = Math.max(0.001, x - inset);
-    const y = (-Math.cos(a) * 0.5 + 0.5) * h;
-    pts.push(new THREE.Vector2(x, y));
+// elma silueti (alt orta 0,0; genişlik ~1.04, boy ~0.94); k: ölçek, inset: içe kaydırma
+function appleShape(k = 1, lift = 0) {
+  const s = new THREE.Shape();
+  const P = (x, y) => [x * k, y * k + lift + (1 - k) * 0.47];
+  s.moveTo(...P(0, 0.06));
+  s.bezierCurveTo(...P(0.08, 0.0), ...P(0.15, -0.01), ...P(0.25, 0.02));
+  s.bezierCurveTo(...P(0.38, 0.06), ...P(0.47, 0.2), ...P(0.5, 0.32));
+  // ısırık
+  s.bezierCurveTo(...P(0.37, 0.38), ...P(0.35, 0.63), ...P(0.47, 0.7));
+  s.bezierCurveTo(...P(0.43, 0.85), ...P(0.33, 0.94), ...P(0.2, 0.94));
+  s.bezierCurveTo(...P(0.11, 0.94), ...P(0.06, 0.9), ...P(0.0, 0.9));
+  s.bezierCurveTo(...P(-0.06, 0.9), ...P(-0.11, 0.94), ...P(-0.2, 0.94));
+  s.bezierCurveTo(...P(-0.4, 0.94), ...P(-0.53, 0.77), ...P(-0.53, 0.53));
+  s.bezierCurveTo(...P(-0.53, 0.28), ...P(-0.4, 0.0), ...P(-0.25, 0.02));
+  s.bezierCurveTo(...P(-0.15, -0.01), ...P(-0.08, 0.0), ...P(0, 0.06));
+  return s;
+}
+
+function embossCanvas() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 256;
+  const x = c.getContext('2d');
+  x.strokeStyle = 'rgba(255,255,255,.75)'; x.fillStyle = 'rgba(255,255,255,.8)';
+  x.lineWidth = 6; x.beginPath(); x.arc(128, 128, 116, 0, Math.PI * 2); x.stroke();
+  x.lineWidth = 2; x.beginPath(); x.arc(128, 128, 104, 0, Math.PI * 2); x.stroke();
+  x.textAlign = 'center';
+  x.font = "700 64px 'Fraunces Variable', Fraunces, Georgia, serif"; x.fillText('Petra', 128, 140);
+  x.font = '600 22px Manrope, Arial, sans-serif'; x.fillText('s p r i n g', 128, 172);
+  // güneş ışınları (logodaki gibi)
+  for (let i = 0; i < 9; i++) { const a = Math.PI + (i / 8) * Math.PI; x.fillRect(128 + Math.cos(a) * 62 - 2, 86 + Math.sin(a) * 30 - 2, 4, 4); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  return t;
+}
+
+function woodCanvas() {
+  const c = document.createElement('canvas');
+  c.width = 512; c.height = 128;
+  const x = c.getContext('2d');
+  x.fillStyle = '#d2ae7c'; x.fillRect(0, 0, 512, 128);
+  let s = 11; const r = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
+  for (let i = 0; i < 70; i++) {
+    const y = r() * 128;
+    x.strokeStyle = `rgba(${120 + r() * 40},${80 + r() * 30},${40 + r() * 20},${0.08 + r() * 0.22})`;
+    x.lineWidth = 0.6 + r() * 2.2;
+    x.beginPath(); x.moveTo(0, y);
+    for (let X = 0; X <= 512; X += 32) x.lineTo(X, y + Math.sin(X * 0.02 + i) * (2 + r() * 3));
+    x.stroke();
   }
-  return pts;
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
 }
 
 function labelCanvas(md, kind) {
@@ -98,10 +133,11 @@ export function makePetra() {
   const frontMat = new THREE.MeshPhysicalMaterial({ ...film });
   const backMat = new THREE.MeshPhysicalMaterial({ ...film });
   // cam ve esans
-  const glass = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.03, metalness: 0, transmission: 1, thickness: 0.05, ior: 1.4, clearcoat: 0.6, clearcoatRoughness: 0.05, envMapIntensity: 0.9, transparent: true, opacity: 1, specularIntensity: 0.7, depthWrite: false });
-  const liquid = new THREE.MeshPhysicalMaterial({ color: 0xff3355, roughness: 0.12, transmission: 0, ior: 1.36, emissive: 0x000000, envMapIntensity: 0.7, clearcoat: 1, clearcoatRoughness: 0.08 });
-  const wood = new THREE.MeshStandardMaterial({ color: 0xa47a4c, roughness: 0.62, metalness: 0 });
-  const cord = new THREE.MeshStandardMaterial({ color: 0x8a6440, roughness: 0.9 });
+  const glass = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.02, metalness: 0, transmission: 1, thickness: 0.12, ior: 1.45, clearcoat: 1, clearcoatRoughness: 0.03, envMapIntensity: 1.1, transparent: true, opacity: 1, specularIntensity: 1, depthWrite: false });
+  const liquid = new THREE.MeshPhysicalMaterial({ color: 0xff3355, roughness: 0.18, metalness: 0, emissive: 0x000000, envMapIntensity: 0.6, clearcoat: 1, clearcoatRoughness: 0.06 });
+  const embossMat = new THREE.MeshPhysicalMaterial({ map: embossCanvas(), transparent: true, opacity: 0.55, roughness: 0.15, clearcoat: 1, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3 });
+  const wood = new THREE.MeshStandardMaterial({ map: woodCanvas(), color: 0xffffff, roughness: 0.68, metalness: 0 });
+  const cord = new THREE.MeshStandardMaterial({ color: 0xb48c5a, roughness: 0.95 });
   const black = new THREE.MeshPhysicalMaterial({ color: 0x0d0d0e, roughness: 0.32, clearcoat: 0.6, clearcoatRoughness: 0.25, envMapIntensity: 0.8 });
   const reedMat = new THREE.MeshStandardMaterial({ color: 0x141414, roughness: 0.75 });
   const labelMat = new THREE.MeshPhysicalMaterial({ roughness: 0.32, metalness: 0.55, clearcoat: 0.8, clearcoatRoughness: 0.15, envMapIntensity: 1.1, emissive: 0xffffff, emissiveIntensity: 0.18, polygonOffset: true, polygonOffsetFactor: -2 });
@@ -127,38 +163,56 @@ export function makePetra() {
   }
 
   function buildVial(md) {
-    // ölçüler: şişe ~0.62, kapak ~0.3, ip ilmeği ~0.55 (toplam ~1.55); orta nokta 0
-    const bh = 0.62, br = 0.3;
-    const total = 1.55, y0 = -total / 2;
-    const bottle = add(new THREE.LatheGeometry(appleProfile(br, bh), 64), glass, 0, y0, 0);
-    bottle.scale.z = 0.72;
-    const liq = add(new THREE.LatheGeometry(appleProfile(br, bh * 0.9, 0.028), 64), liquid, 0, y0 + 0.03, 0, false);
-    liq.scale.z = 0.7; liq.scale.y = 0.96;
-    liq.renderOrder = 1; bottle.renderOrder = 2;
+    // Ürün görselindeki şişe: elma biçimli (sağda ısırık), kalın cam, önde gömme yuvarlak Petra logosu;
+    // boyunda 4 halkalı ahşap kapak, tepesinde ahşap boncuk ve bükümlü ip ilmeği
+    const S = appleShape();
+    const D = 0.3, BT = 0.085, BS = 0.07;
+    const bottleGeo = new THREE.ExtrudeGeometry(S, { depth: D, bevelEnabled: true, bevelThickness: BT, bevelSize: BS, bevelSegments: 10, curveSegments: 64 });
+    bottleGeo.translate(0, 0, -D / 2);
+    bottleGeo.computeVertexNormals();
+    const total = 1.62, y0 = -total / 2 + 0.07; // taban (bevel taşmasıyla)
+    const bottle = add(bottleGeo, glass, 0, y0, 0);
+    bottle.renderOrder = 2;
+    // esans: camın iç hacmi (kalın cam duvar ve kalın taban)
+    const L = appleShape(0.8, 0.07);
+    const liqGeo = new THREE.ExtrudeGeometry(L, { depth: D * 0.62, bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.05, bevelSegments: 8, curveSegments: 48 });
+    liqGeo.translate(0, 0, -D * 0.31);
+    const liq = add(liqGeo, liquid, 0, y0, 0, false);
+    liq.renderOrder = 1;
+    // önde gömme logo (camda kabartma: yarı saydam beyaz)
+    const logo = add(new THREE.PlaneGeometry(0.34, 0.34), embossMat, 0, y0 + 0.4, D / 2 + BT + 0.003, false);
+    logo.renderOrder = 3;
     // boyun
-    add(new THREE.CylinderGeometry(0.07, 0.085, 0.07, 32), glass, 0, y0 + bh + 0.02, 0);
-    // oluklu ahşap kapak
-    const capPts = [];
-    const ch = 0.3, cr = 0.105;
-    for (let i = 0; i <= 60; i++) {
-      const t = i / 60;
-      let r = cr * (1 - 0.12 * t) + 0.007 * Math.sin(t * Math.PI * 12);
-      if (t > 0.94) r *= 1 - (t - 0.94) * 6;
-      capPts.push(new THREE.Vector2(Math.max(0.001, r), t * ch));
+    const ny = y0 + 0.9 + BS * 0.3;
+    add(new THREE.CylinderGeometry(0.075, 0.09, 0.09, 40), glass, 0, ny + 0.03, 0).renderOrder = 2;
+    // 4 halkalı ahşap kapak
+    const ringH = 0.072, ringR = 0.135;
+    const ringPts = [];
+    for (let i = 0; i <= 24; i++) {
+      const a = (i / 24) * Math.PI;
+      const r = ringR - 0.026 * (1 - Math.sin(a)) ;
+      ringPts.push(new THREE.Vector2(Math.max(0.001, r), (1 - Math.cos(a)) / 2 * ringH));
     }
-    capPts.unshift(new THREE.Vector2(0.001, 0));
-    add(new THREE.LatheGeometry(capPts, 48), wood, 0, y0 + bh + 0.045, 0);
-    // askı ipi: kapağın tepesinden çıkan ilmek
-    const top = y0 + bh + 0.045 + ch;
-    const curve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.012, top - 0.01, 0), new THREE.Vector3(-0.09, top + 0.16, 0.01), new THREE.Vector3(-0.1, top + 0.38, 0),
-      new THREE.Vector3(0, top + 0.5, -0.01), new THREE.Vector3(0.1, top + 0.38, 0), new THREE.Vector3(0.09, top + 0.16, -0.01), new THREE.Vector3(0.012, top - 0.01, 0),
-    ]);
-    add(new THREE.TubeGeometry(curve, 80, 0.011, 8, false), cord);
-    // ipin düğümü
-    add(new THREE.SphereGeometry(0.026, 16, 12), cord, 0, top + 0.01, 0);
+    ringPts.unshift(new THREE.Vector2(0.001, 0)); ringPts.push(new THREE.Vector2(0.001, ringH));
+    const ringGeo = new THREE.LatheGeometry(ringPts, 64);
+    const capY = ny + 0.06;
+    for (let k = 0; k < 4; k++) add(ringGeo.clone(), wood, 0, capY + k * (ringH - 0.004), 0);
+    // üstte boncuk
+    const topY = capY + 4 * (ringH - 0.004);
+    add(new THREE.SphereGeometry(0.068, 32, 24), wood, 0, topY + 0.058, 0);
+    // bükümlü ip: boncuğun içinden çıkan iki kol, yukarıda ilmek
+    const by = topY + 0.1;
+    const pts = [];
+    for (let i = 0; i <= 40; i++) {
+      const t = i / 40, a = t * Math.PI * 2;
+      pts.push(new THREE.Vector3(Math.sin(a) * 0.11 * (0.35 + 0.65 * Math.sin(t * Math.PI)), by + (1 - Math.cos(a)) * 0.17 + Math.sin(t * Math.PI) * 0.05, Math.sin(a * 2) * 0.012));
+    }
+    for (const tw of [0, Math.PI]) {
+      const p2 = pts.map((v, i) => v.clone().add(new THREE.Vector3(Math.cos(i * 1.4 + tw) * 0.007, 0, Math.sin(i * 1.4 + tw) * 0.007)));
+      add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(p2), 120, 0.011, 10, false), cord);
+    }
     liquid.color.set(md.liquid);
-    liquid.emissive.set(md.liquid).multiplyScalar(0.25);
+    liquid.emissive.set(md.liquid).multiplyScalar(0.42);
     height = total;
   }
 
@@ -187,12 +241,12 @@ export function makePetra() {
       s.position.copy(base).addScaledVector(dir, L / 2);
     });
     liquid.color.set(md.liquid);
-    liquid.emissive.set(md.liquid).multiplyScalar(0.22);
+    liquid.emissive.set(md.liquid).multiplyScalar(0.38);
     height = total;
   }
 
   // sahnede görünen boy (paketle aynı alana sığsın)
-  const FIT = { card: 1.24, vial: 1.2, reed: 1.26 };
+  const FIT = { card: 1.24, vial: 1.3, reed: 1.26 };
   function build(md) {
     clear();
     if (md.type === 'card') buildCard(md);
