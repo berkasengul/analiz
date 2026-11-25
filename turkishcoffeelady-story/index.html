@@ -10,95 +10,136 @@
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 </head>
-<body>
+<body class="loading">
+  <div class="loader" aria-hidden="true">
+    <img src="./assets/logo.png" alt="" />
+    <span class="mono" id="loadPct">0%</span>
+  </div>
+
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <img src="./assets/can-cut.webp" alt="" class="fallback" />
+  <div class="callouts" id="callouts" aria-hidden="true"></div>
+  <button class="tap" id="tap" aria-label="Shake the can"><span data-i18n="tap">tap</span></button>
+
   <header class="nav" id="nav">
-    <a href="#stage" class="nav__logo" aria-label="Turkish Coffee Lady"><img src="./assets/logo.png" alt="Turkish Coffee Lady" /></a>
+    <a href="#top" class="nav__logo" aria-label="Turkish Coffee Lady"><img src="./assets/logo.png" alt="Turkish Coffee Lady" /></a>
     <nav class="nav__links">
-      <a href="#stage" data-i18n="nav.places">Places</a>
+      <a href="#sugar" data-i18n="nav.can">The can</a>
       <a href="#films" data-i18n="nav.films">Films</a>
-      <a href="#details" data-i18n="nav.details">Details</a>
+      <a href="#closing" data-i18n="nav.launch">Launch</a>
       <button class="lang" id="lang" aria-label="Language">TR</button>
     </nav>
   </header>
 
-  <main>
-    <!-- 1 · STAGE: tap the can, change the place and the hour -->
-    <section class="stage" id="stage">
-      <div class="stage__img" id="stageImg">
-        <img alt="" id="imgA" />
-        <img alt="" id="imgB" />
-      </div>
-      <button class="tap" id="tap" aria-label="Pour the can"><span data-i18n="tap">tap</span></button>
-      <div class="stage__copy">
-        <h1 class="stage__title"><span data-i18n="h1a">Pour your</span><br /><b data-i18n="h1b">own</b> <span data-i18n="h1c">Istanbul.</span></h1>
-        <p class="mono" data-i18n="h1sub">Tap the can, the cup changes.</p>
-      </div>
-      <div class="panel">
-        <ul class="panel__places" id="places">
-          <li><button data-place="home" data-i18n="p.home">At home</button></li>
-          <li><button data-place="office" data-i18n="p.office">At the office</button></li>
-          <li><button data-place="bosphorus" data-i18n="p.bosphorus">By the Bosphorus</button></li>
-        </ul>
-        <div class="panel__time" id="times">
-          <button data-time="morning" data-i18n="t.morning">Morning</button><button data-time="evening" data-i18n="t.evening">Evening</button>
-        </div>
+  <ol class="chapters mono" id="chapters" aria-hidden="true">
+    <li data-go="sugar"><i></i><span data-i18n="c1.k">Sugar</span></li>
+    <li data-go="ice"><i></i><span data-i18n="c2.k">Cold</span></li>
+    <li data-go="beans"><i></i><span data-i18n="c3.k">Grind</span></li>
+    <li data-go="eye"><i></i><span data-i18n="c4.k">Fortune</span></li>
+    <li data-go="parts"><i></i><span data-i18n="c5.k">The can</span></li>
+    <li data-go="pour"><i></i><span data-i18n="c6.k">Pour</span></li>
+  </ol>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <p class="hero__k mono"><span class="dot"></span><span data-i18n="hero.k">Iced Turkish coffee · 8.5 fl oz</span></p>
+      <h1 class="hero__title">
+        <span class="ln"><span data-i18n="h1a">Pour your</span></span>
+        <span class="ln"><span><b data-i18n="h1b">own</b> <span data-i18n="h1c">Istanbul.</span></span></span>
+      </h1>
+      <p class="hero__sub" data-i18n="hero.sub">Five hundred years of Turkish coffee, cold, with zero sugar. Tap the can.</p>
+      <div class="hero__meta mono">
+        <span data-i18n="hero.date">USA launch · December 5</span>
+        <span class="scroll"><i></i><span data-i18n="scroll">Scroll</span></span>
       </div>
     </section>
 
-    <!-- 2 · FILMS -->
-    <section class="films" id="films">
-      <h2 class="big reveal" data-i18n="f.title">Two films,<br />one cup of courage.</h2>
+    <!-- 3D CHAPTERS -->
+    <section class="ch ch--left" id="sugar" data-ch="sugar">
+      <div class="card">
+        <p class="card__no mono">01 / 06</p>
+        <h2 class="card__title"><span data-i18n="c1.a">Zero sugar.</span><br /><b data-i18n="c1.b">Not a gram.</b></h2>
+        <p class="card__body" data-i18n="c1.p">No syrups, no sweeteners. Just finely ground coffee, water and cold. Low in calories, big in flavour.</p>
+        <p class="card__stat"><b>0</b><span class="mono">g sugar</span></p>
+      </div>
+    </section>
+
+    <section class="ch ch--right" id="ice" data-ch="ice">
+      <div class="card">
+        <p class="card__no mono">02 / 06</p>
+        <h2 class="card__title"><span data-i18n="c2.a">Brewed hot,</span><br /><b data-i18n="c2.b">served ice cold.</b></h2>
+        <p class="card__body" data-i18n="c2.p">Turkish coffee is brewed slowly, then chilled and sealed. Straight from the fridge, or over ice.</p>
+      </div>
+    </section>
+
+    <section class="ch ch--left" id="beans" data-ch="beans">
+      <div class="card">
+        <p class="card__no mono">03 / 06</p>
+        <h2 class="card__title"><span data-i18n="c3.a">Ground as fine</span><br /><b data-i18n="c3.b">as flour.</b></h2>
+        <p class="card__body" data-i18n="c3.p">The way Istanbul has done it since the first coffeehouses opened in 1554. That is what makes it dark, rich and velvety.</p>
+        <p class="card__stat"><b>1554</b><span class="mono" data-i18n="c3.s">Istanbul’s first coffeehouses</span></p>
+      </div>
+    </section>
+
+    <section class="ch ch--right" id="eye" data-ch="eye">
+      <div class="card">
+        <p class="card__no mono">04 / 06</p>
+        <h2 class="card__title"><span data-i18n="c4.a">An evil eye</span><br /><b data-i18n="c4.b">on every can.</b></h2>
+        <p class="card__body" data-i18n="c4.p">In Turkey the cup always ends with a fortune. Every Bold Istanbul carries a nazar, a small promise of good luck.</p>
+      </div>
+    </section>
+
+    <section class="ch ch--left" id="parts" data-ch="parts">
+      <div class="card">
+        <p class="card__no mono">05 / 06</p>
+        <h2 class="card__title"><span data-i18n="c5.a">Istanbul,</span><br /><b data-i18n="c5.b">wrapped around a can.</b></h2>
+        <p class="card__body" data-i18n="c5.p">A watercolor of the Bosphorus, Galata and the Maiden’s Tower on the label. 250 ml, ready to drink, wherever you are.</p>
+      </div>
+    </section>
+
+    <section class="ch ch--right" id="pour" data-ch="pour">
+      <div class="card">
+        <p class="card__no mono">06 / 06</p>
+        <h2 class="card__title"><span data-i18n="c6.a">Shake well.</span><br /><b data-i18n="c6.b">Drink cold.</b></h2>
+        <p class="card__body" data-i18n="c6.p">Give it a good shake to wake up the body and the foam, then pour it over ice. Good coffee, good fortune.</p>
+      </div>
+    </section>
+
+    <!-- FILMS -->
+    <section class="films solid" id="films">
+      <p class="mono" data-i18n="f.k">Films</p>
+      <h2 class="big" data-i18n="f.title">Two films,<br />one cup of courage.</h2>
       <div class="acc" id="acc"></div>
     </section>
 
-    <!-- 3 · DETAILS -->
-    <section class="details" id="details">
-      <p class="side mono" data-i18n="nav.details">Details</p>
-      <div class="details__text">
-        <h2 class="big reveal" data-i18n="d.title">Look<br />closer.</h2>
-        <ul class="notes" id="notes">
-          <li data-img="drops"><b data-i18n="d.1t">Zero sugar. Not a gram.</b><span data-i18n="d.1">Cold, clean, low calories.</span></li>
-          <li data-img="eye"><b data-i18n="d.2t">An evil eye on every can.</b><span data-i18n="d.2">A small promise of good fortune.</span></li>
-          <li data-img="pour"><b data-i18n="d.3t">Ground as fine as flour.</b><span data-i18n="d.3">The way Istanbul has done it for 500 years.</span></li>
-          <li data-img="top"><b data-i18n="d.4t">Shake well. Drink cold.</b><span data-i18n="d.4">Straight from the can, or over ice.</span></li>
-        </ul>
-      </div>
-      <div class="details__media">
-        <img class="details__big" id="detailBig" src="./assets/detail/drops.webp" alt="" />
-        <img class="details__small" id="detailSmall" src="./assets/detail/eye.webp" alt="" />
-      </div>
-    </section>
-
-    <!-- 4 · ATELIER: one sentence -->
-    <section class="atelier">
-      <p class="statement reveal"><span data-i18n="a.1">Started with one cup in Boston,</span> <i class="eye" aria-hidden="true"></i> <span data-i18n="a.2">brewed cold for America.</span></p>
-      <p class="mono center reveal" data-i18n="a.sub">Turkish Coffee Lady · since 2007</p>
-    </section>
-
-    <!-- 5 · FOUNDER -->
-    <section class="founder">
-      <img src="./assets/founder.webp" alt="Gizem Şalcıgil White" class="founder__img reveal" loading="lazy" />
-      <div class="founder__text reveal">
+    <!-- FOUNDER -->
+    <section class="founder solid">
+      <img src="./assets/founder.webp" alt="Gizem Şalcıgil White" class="founder__img" loading="lazy" />
+      <div>
         <p class="mono" data-i18n="fo.k">The founder</p>
         <p class="founder__quote" data-i18n="fo.q">“A cup of coffee is remembered for forty years.”</p>
         <p class="founder__name">Gizem Şalcıgil White</p>
-        <p class="founder__body" data-i18n="fo.b">Coffee truck across America, the first Turkish coffee shop in the US, a culture house in Old Town Alexandria, and now the world’s first bottled cold Turkish coffee (patent pending). Her book <i>Hayalini Demle</i> tells the whole story.</p>
+        <p class="founder__body" data-i18n="fo.b">It started with one cup in Boston in 2007. Then a coffee truck across America, the first Turkish coffee shop in the US, a culture house in Old Town Alexandria, and now the world’s first bottled cold Turkish coffee (patent pending). Her book <i>Hayalini Demle</i> tells the whole story.</p>
       </div>
-      <img src="./assets/book-cover.webp" alt="Hayalini Demle" class="founder__book reveal" loading="lazy" />
+      <img src="./assets/book-cover.webp" alt="Hayalini Demle" class="founder__book" loading="lazy" />
     </section>
 
-    <!-- 6 · CLOSING -->
+    <!-- CLOSING -->
     <section class="closing" id="closing">
-      <h2 class="big reveal" data-i18n="c.title">Don’t leave<br />without a sip.</h2>
-      <div class="closing__can">
-        <img src="./assets/can-cut.webp" alt="Bold Istanbul can" id="closingCan" />
-        <button class="tap tap--static" id="tap2" aria-label="Read your fortune"><span data-i18n="tap">tap</span></button>
-      </div>
-      <p class="fortune mono" id="fortune" aria-live="polite"></p>
-      <div class="closing__launch">
+      <div class="closing__text">
+        <h2 class="big" data-i18n="c.title">Don’t leave<br />without a sip.</h2>
+        <p class="fortune" id="fortune" aria-live="polite" data-i18n="c.hint">Tap the can for your fortune.</p>
         <p class="mono" data-i18n="c.date">December 5 · World Turkish Coffee Day · USA</p>
         <p class="count" id="count">—</p>
         <form class="notify" name="notify" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="notifyForm">
@@ -114,7 +155,7 @@
   </main>
 
   <footer class="footer mono">
-    <span data-i18n="foot">Bold Istanbul, iced Turkish coffee</span>
+    <span data-i18n="foot">Bold Istanbul, iced Turkish coffee · concept demo</span>
     <span>turkishcoffeelady.com · 2026</span>
   </footer>
 
@@ -123,6 +164,6 @@
     <div class="lightbox__frame" id="lbFrame"></div>
   </div>
 
-  <script src="./main.js"></script>
+  <script type="module" src="./main.js"></script>
 </body>
 </html>
