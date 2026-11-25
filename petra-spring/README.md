@@ -9,9 +9,11 @@ Genç Anadolu Gıda sitesinin (`madame-lyras/`, dal `claude/3d-product-catalog-s
   - `card`: asma kağıt koku, blister kart; ön ve arka yüz ürünün gerçek fotoğrafından (beyaz zemin kesildi, askı deliği saydam), poşet kısmı hafif şişkin.
   - `vial`: ürün görselindeki elma biçimli cam şişe (sağda ısırık, kalın cam, önde gömme yuvarlak Petra logosu), renkli esans, 4 halkalı ahşap kapak, ahşap boncuk ve bükümlü ip (kodla çizildi).
   - `reed`: kare cam şişe, renkli esans, siyah kapak, altın etiket (ürün adı tuvalde yazılır), 5 siyah bambu çubuk.
-- **Ürüne özel arka plan** (`src/backdrop.js`): 3B sahnenin içinde, kameranın arkasındaki düzlemde çizilir (cam arkadaki sahneyi kırar).
-  Kart kokularında kokuya göre sahne (Anka: kor ve kıvılcım, Ocean: dalga ve kabarcık, Önce Vatan: kırmızı ipek, Forest: orman ışığı …),
-  cam şişe ve oda kokularında markanın kendi çekiminden bulanık mekân + kokuya uygun parçacıklar (`src/data.js` → `SCENE`, `ROOM_FX`).
+- **Ana sayfa** (`src/pages/stream.js`): kurumsal, kaydırmalı 3B akış. Açılışta başlık ve Önce Vatan; kaydırınca ürün açık taş kaideye
+  iner, 8 ürün dönerek değişir; solda sıra, ad, koku hissi, bilgiler ve düğmeler, sağda numaralı liste, altta ilerleme çizgisi; fareyle ürün eğilir.
+- **Ürüne özel arka plan** (`src/backdrop.js`): ferah stüdyo; ürünün renginde pastel duvar ve zemin, pencere ışığı ve kokuya göre gölge
+  (çiçekli dal, palmiye, panjur, pencere, su yansıması, güneş), rüzgârda hafifçe sallanır. 3B sahnenin içinde çizilir (cam arkadaki sahneyi kırar).
+  Renkler ve gölge türü `STUDIO` tablosunda.
 - **Kokuyu keşfet** (`src/sense.js`): ürün sahnesindeki düğme. Bilgi paneli çekilir, ürün ortaya gelip tur atar, arkasında ışık ve parçacık
   patlaması olur; kokunun hikâyesi, 3 adımlı tarifi (cam şişelerde markanın açılış / kalp / taban notaları), karakter etiketleri ve
   ferahlık / sıcaklık / yoğunluk göstergeleri sırayla belirir. Metinler `src/data.js` → `SENSE`.

@@ -17,7 +17,7 @@ Kısaca:
 
 - 12 asma kağıt koku, ön ve arka yüzüyle gerçek ambalajından 3B kart olarak dönüyor; Anka'dan Önce Vatan'a hepsi parmakla çevrilebiliyor.
 - Elma biçimli cam şişeler halkalı ahşap kapağı ve ipiyle, oda kokuları altın etiketi ve bambu çubuklarıyla 3B çizildi; esans rengi her kokuda farklı.
-- Her ürünün kendi sahnesi var; "Kokuyu keşfet" düğmesine basınca ürün dönüyor ve ekranda kokunun notaları beliriyor.
+- Ana sayfada kaydırdıkça ürünler 3B olarak tek tek geliyor; her ürünün kendi renginde ferah bir sahnesi var, "Kokuyu keşfet" düğmesine basınca ekranda kokunun notaları beliriyor.
 - Metinler ve fiyatlar usepetra.com'dan; "Satın al" butonu her ürünün kendi sayfanıza gidiyor, mevcut mağazanız değişmiyor.
 - İstasyon, oto yıkama ve market gibi satış noktaları için ayrı bir bayi teklifi ve bayilik bölümü de var.
 

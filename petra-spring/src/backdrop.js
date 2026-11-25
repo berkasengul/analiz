@@ -1,337 +1,263 @@
-// Her ürünün kendine ait hareketli arka planı. 2B tuvalde çizilir, 3B sahnede kameranın arkasındaki düzleme doku olur
+// Her ürünün kendine ait, ferah stüdyo arka planı. 2B tuvalde çizilir, 3B sahnede kameranın arkasındaki düzleme doku olur
 // (cam şişeler arkadaki sahneyi gerçekten kırarak gösterir).
-// Tema (f.scene): kart kokularında kokuya göre çizilmiş sahne; cam şişe ve oda kokularında markanın kendi
-// çekiminden bulanık mekân fotoğrafı + kokuya uygun parçacıklar.
+// Stüdyo: ürünün renginde pastel duvar ve zemin (yumuşak geçişli fon), pencereden düşen ışık ve kokuya göre gölge
+// (yaprak, çiçekli dal, panjur, pencere, su yansıması, güneş), ürünün arkasında yumuşak ışık. Gölgeler rüzgârda hafifçe sallanır.
 const TAU = Math.PI * 2;
 function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
-const hex = (h, a = 1) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+const hexRgb = (h) => { const n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; };
+const rgba = (h, a = 1) => { const [r, g, b] = hexRgb(h); return `rgba(${r},${g},${b},${a})`; };
+const mix = (a, b, t) => { const A = hexRgb(a), B = hexRgb(b); return `#${A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join('')}`; };
 
-// temalar: zemin renkleri [üst, orta, alt], parçacık türü, parçacık renkleri, ışık
-export const THEMES = {
-  embers: { g: ['#120726', '#2b0f45', '#5a1a12'], glow: ['#ff7a1a', 0.55, 0.5, 1.05], p: 'ember', c: ['#ffb347', '#ff6a00', '#ffd27a'], n: 90, rays: 0 },
-  ocean: { g: ['#04121f', '#0b2c4a', '#0f5770'], glow: ['#5fd3ff', 0.35, 0.6, -0.1], p: 'bubble', c: ['#bdf2ff', '#7fd8ff'], n: 55, rays: 0.5, rayC: '#9fe6ff', waves: '#1d7fa6' },
-  silk: { g: ['#2a0204', '#7d0a10', '#b5121a'], glow: ['#ffcf6a', 0.32, 0.55, 0.15], p: 'dust', c: ['#ffd98a', '#fff0c8'], n: 70, rays: 0, silk: ['#d4161f', '#8e0a10', '#ff4a3a'] },
-  sun: { g: ['#fff3b0', '#f7cf2a', '#e5a50a'], glow: ['#fffbe6', 0.6, 0.78, 0.0], p: 'petal', c: ['#ffffff', '#fff6d6'], n: 34, rays: 0.9, rayC: '#fffbe0' },
-  stars: { g: ['#0b0820', '#231a52', '#3c1d5c'], glow: ['#ff5f6d', 0.3, 0.25, 0.85], p: 'star', c: ['#ffd36b', '#fff3c4'], n: 110, rays: 0, blobs: ['#c2185b', '#5e35b1', '#ff7043'] },
-  neon: { g: ['#02100f', '#06302c', '#0b4a43'], glow: ['#5fffd0', 0.3, 0.6, 0.6], p: 'spark', c: ['#b8fff0', '#4fffd0'], n: 60, rays: 0, neon: ['#3dffd0', '#7dfcff', '#a6ff6b'] },
-  forest: { g: ['#0b1a0d', '#29401a', '#6b5a24'], glow: ['#ffe39a', 0.5, 0.75, -0.1], p: 'leaf', c: ['#7da33a', '#a8c45a', '#c9a24a'], n: 26, rays: 1, rayC: '#fff0b8' },
-  pine: { g: ['#030c06', '#0d2412', '#163a1a'], glow: ['#a6ff3d', 0.25, 0.65, 0.3], p: 'bokeh', c: ['#a6ff3d', '#d6ff8a'], n: 40, rays: 0.4, rayC: '#d9ffb0', fog: 1 },
-  snow: { g: ['#3a2410', '#8a6236', '#d8b27a'], glow: ['#fff1d6', 0.45, 0.6, 0.2], p: 'flake', c: ['#ffffff', '#fff3dc'], n: 46, rays: 0.3, rayC: '#fff4dc' },
-  fruit: { g: ['#3a1802', '#9a5208', '#e39a18'], glow: ['#ffd27a', 0.45, 0.6, 0.2], p: 'fruit', c: ['#ff5a3c', '#ffb020', '#ff2d6f', '#ffe14d', '#8bd13a'], n: 30, rays: 0.3, rayC: '#fff0c0' },
-  velvet: { g: ['#1a0405', '#5a0c10', '#b92a2a'], glow: ['#fff2c8', 0.5, 0.5, -0.2], p: 'star', c: ['#ffd36b', '#fff6d8'], n: 60, rays: 0, spot: '#fff4d6', floor: '#f3e6cf' },
-  noir: { g: ['#020202', '#0d0c0a', '#1c1a16'], glow: ['#ffcf6a', 0.4, 0.5, -0.2], p: 'star', c: ['#d9a84a', '#ffe3a0'], n: 70, rays: 0, spot: '#ffdca0', smoke: 1 },
-  // fotoğraflı (cam şişe ve oda kokuları): parçacık türü ürüne göre
-  photo: { g: ['#000', '#000', '#000'], glow: ['#ffffff', 0.25, 0.55, 0.2], p: 'bokeh', c: ['#ffffff'], n: 34, rays: 0 },
+// ürün → [duvar, zemin, vurgu, gölge türü, parçacık]
+export const STUDIO = {
+  'once-vatan': ['#f8e7e1', '#efd3c9', '#c8202a', 'branches', null],
+  anka: ['#fbe6d6', '#f3d2bd', '#e8742a', 'palm', null],
+  ocean: ['#dff1f6', '#c9e5ee', '#2f8fb8', 'caustic', null],
+  gulumse: ['#fcf2cc', '#f5e3a6', '#e8b10a', 'sun', null],
+  art: ['#e9e5f7', '#d9d3f0', '#5b4bb0', 'blinds', null],
+  electro: ['#dcf3ee', '#c6e9e1', '#2f8f80', 'blinds', null],
+  forest: ['#e8eed9', '#d8e2c2', '#7d8f3a', 'palm', null],
+  'petra-x': ['#e2f0e0', '#cfe4cc', '#3f7a3a', 'palm', null],
+  sirius: ['#f6ecdc', '#ecdcc2', '#b58b4c', 'palm', null],
+  free: ['#fde8cf', '#f8d6ad', '#e08a16', 'sun', null],
+  'star-light': ['#f7ebdb', '#efdcc3', '#c23a3f', 'window', null],
+  'star-dark': ['#e9e6e1', '#dad5ce', '#3a3631', 'blinds', null],
+  'cam-aura': ['#f8e0e2', '#efc9cd', '#c0121f', 'window', null],
+  'cam-ocean': ['#ddeefb', '#c8e1f5', '#2f8fe0', 'caustic', null],
+  'cam-tutti': ['#fdebd8', '#f8d8b8', '#f07a12', 'palm', null],
+  'cam-yasemen': ['#eee2f5', '#e0cfec', '#8a2a8c', 'branches', null],
+  'cam-forest': ['#e7ecdd', '#d6dfc6', '#58a02a', 'branches', null],
+  kerasus: ['#fbe4ec', '#f4cfdb', '#e0507a', 'branches', null],
+  miracle: ['#fbecd5', '#f3dbb6', '#d88a1e', 'window', null],
+  zeus: ['#fbf4da', '#f2e6bb', '#c9a21c', 'blinds', null],
+  keops: ['#fbe2de', '#f3cbc5', '#d8323a', 'branches', null],
+  agartha: ['#e1ecf9', '#cddff3', '#2c7fe0', 'caustic', null],
+  paris: ['#e5f3e3', '#d2e8cf', '#3faa3a', 'palm', null],
 };
+const DEFAULT = ['#f3eee6', '#e8dfd1', '#164c43', 'window', null];
 
 export function createBackdrop(W = 1280, H = 720) {
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
   const x = canvas.getContext('2d');
-  let cur = null, curTheme = null, parts = [], photo = null, photoKey = '';
-  let fade = 1; // ürün değişince yeni sahne yumuşakça belirir
-  let boost = 0, bcx = 0.5, bcy = 0.5, calm = 0; // kokuyu keşfet: ışık patlaması ve sakin, parlak sahne
-  let flash = [];
+  let cur = null, st = DEFAULT, gobo = null, parts = [];
+  let fade = 1;
   const prev = document.createElement('canvas'); prev.width = W; prev.height = H;
   const px = prev.getContext('2d');
-  const photoCache = new Map();
+  let boost = 0, bcx = 0.58, bcy = 0.5, calm = 0;
+  let flash = [];
+  const goboCache = new Map();
 
-  function loadPhoto(f) {
-    const key = f.bgPhoto ? `${f.bgPhoto}|${(f.bgCrop || []).join(',')}` : '';
-    if (key === photoKey) return;
-    photoKey = key; photo = null;
-    if (!key) return;
-    if (photoCache.has(key)) { photo = photoCache.get(key); return; }
-    const im = new Image();
-    im.onload = () => {
-      // bulanık, renkleri ürüne göre ısıtılmış mekân fotoğrafı (bir kez hazırlanır)
-      const c = document.createElement('canvas'); c.width = W; c.height = H;
-      const g = c.getContext('2d');
-      const [cx0, cy0, cw, ch] = f.bgCrop || [0, 0, 1, 1];
-      let sw = im.width * cw, sh = im.height * ch, sx = im.width * cx0, sy = im.height * cy0;
-      const want = W / H;
-      if (sw / sh > want) { const n = sh * want; sx += (sw - n) / 2; sw = n; } else { const n = sw / want; sy += (sh - n) / 2; sh = n; }
-      g.filter = `blur(${f.bgBlur ?? 16}px) saturate(1.25)`;
-      g.drawImage(im, sx, sy, sw, sh, -40, -40, W + 80, H + 80);
-      g.filter = 'none';
-      photoCache.set(key, c);
-      if (photoKey === key) photo = c;
+  /* ---------- gölge ve ışık desenleri (bir kez çizilir, bulanıklaştırılır) ---------- */
+  function makeGobo(kind, seed) {
+    const key = `${kind}|${seed}`;
+    if (goboCache.has(key)) return goboCache.get(key);
+    const c = document.createElement('canvas');
+    const GW = Math.round(W * 1.2), GH = Math.round(H * 1.2);
+    c.width = GW; c.height = GH;
+    const g = c.getContext('2d');
+    const r = rng(seed);
+    const shadow = document.createElement('canvas'); shadow.width = GW; shadow.height = GH;
+    const s = shadow.getContext('2d');
+    const light = document.createElement('canvas'); light.width = GW; light.height = GH;
+    const l = light.getContext('2d');
+    s.fillStyle = '#000'; l.fillStyle = '#fff';
+    // pencereden düşen ışık lekesi (eğik, iki kanatlı)
+    const windowPatch = (panes, cx, cy, w, h, skew) => {
+      l.save(); l.translate(cx, cy); l.transform(1, 0, skew, 1, 0, 0);
+      const pw = w / panes;
+      for (let i = 0; i < panes; i++) for (let j = 0; j < 2; j++) l.fillRect(-w / 2 + i * pw + 6, -h / 2 + j * (h / 2) + 6, pw - 12, h / 2 - 12);
+      l.restore();
     };
-    im.src = f.bgPhoto;
+    if (kind === 'window') windowPatch(2, GW * 0.68, GH * 0.42, GW * 0.42, GH * 0.62, -0.45);
+    if (kind === 'blinds') {
+      l.save(); l.translate(GW * 0.62, GH * 0.42); l.rotate(-0.12); l.transform(1, 0, -0.5, 1, 0, 0);
+      for (let i = 0; i < 16; i++) l.fillRect(-GW * 0.24, -GH * 0.34 + i * GH * 0.044, GW * 0.48, GH * 0.026);
+      l.restore();
+    }
+    if (kind === 'sun') {
+      const grd = l.createLinearGradient(GW * 0.9, 0, GW * 0.3, GH);
+      grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
+      l.fillStyle = grd;
+      for (let i = 0; i < 4; i++) {
+        l.beginPath(); const o = i * GW * 0.11;
+        l.moveTo(GW * 0.78 + o, -10); l.lineTo(GW * 0.86 + o, -10); l.lineTo(GW * 0.38 + o, GH + 10); l.lineTo(GW * 0.24 + o, GH + 10); l.closePath(); l.fill();
+      }
+    }
+    // gölgeler
+    const frond = (bx, by, ang, len, lw) => {
+      // palmiye / eğrelti yaprağı: kavisli sap ve iki yanda ince yapraklar
+      s.save(); s.translate(bx, by); s.rotate(ang);
+      s.lineWidth = lw; s.strokeStyle = '#000'; s.lineCap = 'round';
+      s.beginPath(); s.moveTo(0, 0); s.quadraticCurveTo(len * 0.5, len * 0.12, len, len * 0.3); s.stroke();
+      const n = 22;
+      for (let i = 2; i < n; i++) {
+        const t = i / n, px0 = len * t, py0 = len * 0.12 * t * 2 * (1 - t / 2) + len * 0.3 * t * t * 0.4;
+        const L = len * 0.36 * Math.sin(Math.PI * Math.min(1, t * 1.15)) * (0.8 + r() * 0.3);
+        for (const side of [-1, 1]) {
+          s.save(); s.translate(px0, py0); s.rotate(side * (0.9 + r() * 0.25) + 0.15);
+          s.beginPath(); s.ellipse(L / 2, 0, L / 2, Math.max(2, L * 0.07), 0, 0, TAU); s.fill(); s.restore();
+        }
+      }
+      s.restore();
+    };
+    const branch = (bx, by, ang, len, depth, flower) => {
+      if (depth <= 0 || len < 14) return;
+      const ex = bx + Math.cos(ang) * len, ey = by + Math.sin(ang) * len;
+      s.lineWidth = Math.max(1.5, depth * 2.2); s.lineCap = 'round';
+      s.beginPath(); s.moveTo(bx, by); s.quadraticCurveTo((bx + ex) / 2 + (r() - 0.5) * 20, (by + ey) / 2 + (r() - 0.5) * 20, ex, ey); s.stroke();
+      if (flower && depth <= 2) for (let k = 0; k < 6; k++) { const t = r(); s.beginPath(); s.arc(bx + (ex - bx) * t + (r() - 0.5) * 18, by + (ey - by) * t + (r() - 0.5) * 18, 4 + r() * 7, 0, TAU); s.fill(); }
+      else if (depth <= 2) for (let k = 0; k < 4; k++) { const t = r(); s.save(); s.translate(bx + (ex - bx) * t, by + (ey - by) * t); s.rotate(ang + (r() - 0.5) * 2); s.beginPath(); s.ellipse(10, 0, 12, 5, 0, 0, TAU); s.fill(); s.restore(); }
+      const n = 2 + (r() > 0.5 ? 1 : 0);
+      for (let i = 0; i < n; i++) branch(ex, ey, ang + (r() - 0.5) * 1.3, len * (0.62 + r() * 0.2), depth - 1, flower);
+    };
+    if (kind === 'palm') {
+      frond(-GW * 0.02, GH * 0.05, 0.35, GW * 0.42, 6);
+      frond(GW * 0.02, GH * 0.42, -0.12, GW * 0.3, 5);
+      frond(GW * 1.02, GH * 0.08, Math.PI - 0.45, GW * 0.38, 6);
+      frond(GW * 1.0, GH * 0.5, Math.PI + 0.1, GW * 0.26, 4);
+      windowPatch(1, GW * 0.6, GH * 0.4, GW * 0.5, GH * 0.7, -0.3);
+    }
+    if (kind === 'branches') {
+      branch(-10, GH * 0.12, 0.25, GW * 0.2, 5, true);
+      branch(GW + 10, GH * 0.06, Math.PI - 0.35, GW * 0.18, 5, true);
+      branch(GW * 0.9, -10, Math.PI / 2 + 0.6, GH * 0.22, 4, true);
+      windowPatch(2, GW * 0.62, GH * 0.4, GW * 0.44, GH * 0.6, -0.35);
+    }
+    if (kind === 'blinds' || kind === 'window') {
+      // pencerenin önünde bir dal gölgesi (derinlik)
+      branch(GW * 1.02, GH * 0.02, Math.PI - 0.5, GW * 0.14, 4, false);
+    }
+    // birleştir: ışık yumuşak, gölge daha yumuşak (uzaktaki nesne)
+    g.filter = 'blur(10px)'; g.globalAlpha = 1; g.drawImage(light, 0, 0);
+    g.filter = 'blur(7px)'; g.globalCompositeOperation = 'destination-out'; g.drawImage(shadow, 0, 0);
+    const res = { light: c, shadow: (() => { const d = document.createElement('canvas'); d.width = GW; d.height = GH; const q = d.getContext('2d'); q.filter = 'blur(8px)'; q.drawImage(shadow, 0, 0); return d; })(), kind };
+    goboCache.set(key, res);
+    return res;
   }
 
-  function seed(f) {
-    const th = THEMES[f.scene] || THEMES.photo;
-    const r = rng(f.id.split('').reduce((a, ch) => a * 31 + ch.charCodeAt(0), 7));
-    const cols = f.sceneColors || th.c;
-    const n = f.sceneN || th.n;
-    const kind = f.particle || th.p;
+  function seedParts(kind, accent, seed) {
     parts = [];
-    for (let i = 0; i < n; i++) {
-      parts.push({
-        x: r(), y: r(), z: 0.25 + r() * 0.95, // z: yakınlık (büyük = önde, bulanık)
-        vx: (r() - 0.5) * 0.02, vy: 0, rot: r() * TAU, vr: (r() - 0.5) * 0.8,
-        c: cols[i % cols.length], ph: r() * TAU, s: 0.6 + r() * 0.8, kind,
-      });
-    }
-    return th;
+    if (!kind) return;
+    const r = rng(seed);
+    const cols = kind === 'petal' ? ['#ffffff', mix(accent, '#ffffff', 0.55), mix(accent, '#ffffff', 0.75)] : [mix(accent, '#ffffff', 0.35), mix(accent, '#ffffff', 0.6)];
+    for (let i = 0; i < 16; i++) parts.push({ x: r(), y: r(), z: 0.4 + r() * 0.9, rot: r() * TAU, vr: (r() - 0.5) * 0.8, ph: r() * TAU, c: cols[i % cols.length], kind });
   }
 
   function setProduct(f) {
     if (cur === f) return;
     if (cur) { px.clearRect(0, 0, W, H); px.drawImage(canvas, 0, 0); fade = 0; }
     cur = f;
-    curTheme = seed(f);
-    loadPhoto(f);
+    st = STUDIO[f.id] || DEFAULT;
+    const seed = f.id.split('').reduce((a, ch) => a * 31 + ch.charCodeAt(0), 7) >>> 0;
+    gobo = makeGobo(st[3], seed);
+    seedParts(st[4], st[2], seed);
   }
 
-  /* ---------- çizim yardımcıları ---------- */
-  function glow(col, a, gx, gy, rad) {
-    const g = x.createRadialGradient(gx * W, gy * H, 0, gx * W, gy * H, rad * W);
-    g.addColorStop(0, hex(col, a)); g.addColorStop(1, hex(col, 0));
-    x.fillStyle = g; x.fillRect(0, 0, W, H);
-  }
-  function rays(col, a, t) {
-    x.save();
-    x.globalCompositeOperation = 'lighter';
-    const ox = W * 0.72, oy = -H * 0.15;
-    for (let i = 0; i < 7; i++) {
-      const ang = 1.75 + i * 0.13 + Math.sin(t * 0.15 + i) * 0.03;
-      const len = H * 1.7, wdt = 0.035 + (i % 3) * 0.02;
-      const g = x.createLinearGradient(ox, oy, ox + Math.cos(ang) * len, oy + Math.sin(ang) * len);
-      const k = a * (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 0.4 + i * 1.7)));
-      g.addColorStop(0, hex(col, 0.32 * k)); g.addColorStop(1, hex(col, 0));
-      x.fillStyle = g;
-      x.beginPath(); x.moveTo(ox, oy);
-      x.lineTo(ox + Math.cos(ang - wdt) * len, oy + Math.sin(ang - wdt) * len);
-      x.lineTo(ox + Math.cos(ang + wdt) * len, oy + Math.sin(ang + wdt) * len);
-      x.closePath(); x.fill();
-    }
-    x.restore();
-  }
-  function bokeh(px0, py0, rad, col, a) {
-    const g = x.createRadialGradient(px0, py0, 0, px0, py0, rad);
-    g.addColorStop(0, hex(col, a)); g.addColorStop(0.7, hex(col, a * 0.6)); g.addColorStop(1, hex(col, 0));
-    x.fillStyle = g; x.beginPath(); x.arc(px0, py0, rad, 0, TAU); x.fill();
-  }
-  function starShape(r1, r2) {
-    x.beginPath();
-    for (let i = 0; i < 10; i++) { const rr = i % 2 ? r2 : r1, a = -Math.PI / 2 + (i * Math.PI) / 5; x.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
-    x.closePath();
-  }
-
-  /* ---------- parçacıklar ---------- */
-  function particles(t, dt) {
-    const sp = 1 + boost * 3.5;
-    dt *= sp;
-    for (const p of parts) {
-      const sz = p.z * p.s;
-      // hareket
-      if (p.kind === 'ember' || p.kind === 'bubble' || p.kind === 'spark') p.y -= dt * (0.025 + 0.05 * p.z);
-      else if (p.kind === 'petal' || p.kind === 'leaf' || p.kind === 'flake' || p.kind === 'star') p.y += dt * (0.012 + 0.025 * p.z);
-      else p.y += dt * 0.004 * Math.sin(t * 0.3 + p.ph);
-      p.x += dt * (p.vx + Math.sin(t * 0.5 + p.ph) * 0.006);
-      p.rot += dt * p.vr;
-      if (p.y < -0.1) p.y += 1.2; if (p.y > 1.1) p.y -= 1.2;
-      if (p.x < -0.1) p.x += 1.2; if (p.x > 1.1) p.x -= 1.2;
-      const X = p.x * W, Y = p.y * H;
-      const tw = 0.55 + 0.45 * Math.sin(t * 2.2 + p.ph * 3);
-      x.save();
-      x.translate(X, Y);
-      switch (p.kind) {
-        case 'ember': {
-          x.globalCompositeOperation = 'lighter';
-          bokeh(0, 0, 3 + sz * 9, p.c, 0.85 * tw);
-          bokeh(0, 0, 1 + sz * 2.2, '#fff4d0', tw);
-          break;
-        }
-        case 'spark': {
-          x.globalCompositeOperation = 'lighter';
-          x.strokeStyle = hex(p.c, 0.8 * tw); x.lineWidth = 1 + sz;
-          x.beginPath(); x.moveTo(0, 0); x.lineTo(Math.sin(p.ph + t) * 8, 10 + sz * 16); x.stroke();
-          bokeh(0, 0, 2 + sz * 6, p.c, 0.7 * tw);
-          break;
-        }
-        case 'bubble': {
-          const r = 3 + sz * 12;
-          x.strokeStyle = hex(p.c, 0.35 + 0.25 * p.z); x.lineWidth = 1.2;
-          x.beginPath(); x.arc(0, 0, r, 0, TAU); x.stroke();
-          bokeh(-r * 0.35, -r * 0.35, r * 0.35, '#ffffff', 0.5);
-          break;
-        }
-        case 'dust': case 'bokeh': {
-          x.globalCompositeOperation = 'lighter';
-          bokeh(0, 0, 2 + sz * (p.kind === 'bokeh' ? 26 : 5), p.c, (p.kind === 'bokeh' ? 0.22 : 0.7) * tw);
-          break;
-        }
-        case 'star': {
-          x.globalCompositeOperation = 'lighter';
-          x.rotate(p.rot * 0.2);
-          x.fillStyle = hex(p.c, 0.85 * tw);
-          const r = 2 + sz * 6; starShape(r, r * 0.42); x.fill();
-          bokeh(0, 0, r * 2.4, p.c, 0.18 * tw);
-          break;
-        }
-        case 'petal': case 'leaf': {
-          x.rotate(p.rot);
-          const r = 6 + sz * 14;
-          x.fillStyle = hex(p.c, p.kind === 'petal' ? 0.85 : 0.8);
-          if (p.z > 1) x.filter = `blur(${(p.z - 1) * 10}px)`;
-          x.beginPath(); x.ellipse(0, 0, r, r * (p.kind === 'leaf' ? 0.42 : 0.58), 0, 0, TAU); x.fill();
-          if (p.kind === 'leaf') { x.strokeStyle = 'rgba(40,60,10,.35)'; x.lineWidth = 1; x.beginPath(); x.moveTo(-r, 0); x.lineTo(r, 0); x.stroke(); }
-          break;
-        }
-        case 'flake': {
-          x.rotate(p.rot * 0.3);
-          x.strokeStyle = hex(p.c, 0.75); x.lineWidth = 1 + sz * 0.8;
-          const r = 4 + sz * 10;
-          for (let k = 0; k < 6; k++) {
-            x.rotate(TAU / 6); x.beginPath(); x.moveTo(0, 0); x.lineTo(0, r);
-            x.moveTo(0, r * 0.55); x.lineTo(r * 0.22, r * 0.75); x.moveTo(0, r * 0.55); x.lineTo(-r * 0.22, r * 0.75); x.stroke();
-          }
-          break;
-        }
-        case 'fruit': {
-          // meyve dilimi: renkli halka, dilim çizgileri, su damlası parıltısı
-          const r = 8 + sz * 20;
-          if (p.z > 1) x.filter = `blur(${(p.z - 1) * 12}px)`;
-          x.rotate(p.rot * 0.3);
-          x.fillStyle = hex(p.c, 0.9); x.beginPath(); x.arc(0, 0, r, 0, TAU); x.fill();
-          x.fillStyle = 'rgba(255,255,255,.35)'; x.beginPath(); x.arc(0, 0, r * 0.82, 0, TAU); x.fill();
-          x.fillStyle = hex(p.c, 0.85); x.beginPath(); x.arc(0, 0, r * 0.74, 0, TAU); x.fill();
-          x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineWidth = 1.5;
-          for (let k = 0; k < 8; k++) { x.beginPath(); x.moveTo(0, 0); x.lineTo(Math.cos((k * TAU) / 8) * r * 0.74, Math.sin((k * TAU) / 8) * r * 0.74); x.stroke(); }
-          break;
-        }
-        default: break;
-      }
-      x.restore();
-    }
-  }
-
-  /* ---------- sahne ---------- */
+  /* ---------- çizim ---------- */
   function draw(t, dt) {
     if (!cur) return;
-    const th = curTheme;
-    x.globalCompositeOperation = 'source-over';
-    x.filter = 'none';
-    if (photo) {
-      x.drawImage(photo, 0, 0);
-      // ürün rengiyle hafif renk ve koyulaşma (ürün ve yazılar öne çıksın)
-      x.fillStyle = hex(cur.bg, 0.28); x.fillRect(0, 0, W, H);
-    } else {
-      const g = x.createLinearGradient(0, 0, 0, H);
-      g.addColorStop(0, th.g[0]); g.addColorStop(0.55, th.g[1]); g.addColorStop(1, th.g[2]);
-      x.fillStyle = g; x.fillRect(0, 0, W, H);
+    const [wall, floor, accent, kind] = st;
+    x.globalCompositeOperation = 'source-over'; x.filter = 'none'; x.globalAlpha = 1;
+    // fon: duvar → yumuşak kıvrım → zemin
+    const g = x.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, mix(wall, '#ffffff', 0.35));
+    g.addColorStop(0.5, wall);
+    g.addColorStop(0.66, mix(wall, floor, 0.5));
+    g.addColorStop(0.8, floor);
+    g.addColorStop(1, mix(floor, '#ffffff', 0.25));
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+    // pencere ışığı ve gölge: rüzgârda hafifçe sallanır
+    if (gobo) {
+      const sway = Math.sin(t * 0.45) * 6 + Math.sin(t * 0.9 + 1) * 3;
+      const ox = -W * 0.1 + sway, oy = -H * 0.1 + Math.sin(t * 0.35) * 3;
+      x.save();
+      x.globalCompositeOperation = 'soft-light'; x.globalAlpha = 0.85; x.drawImage(gobo.light, ox, oy);
+      x.globalCompositeOperation = 'screen'; x.globalAlpha = 0.32; x.drawImage(gobo.light, ox, oy);
+      x.globalCompositeOperation = 'multiply'; x.globalAlpha = 0.07;
+      x.drawImage(gobo.shadow, ox + sway * 1.6, oy);
+      x.restore();
+      // gölge rengi: duvarın koyu tonu (soğuk gri yerine renkli gölge)
+      x.save(); x.globalCompositeOperation = 'multiply'; x.globalAlpha = 0.1;
+      x.drawImage(gobo.shadow, ox + sway * 1.6 + 8, oy + 6);
+      x.restore();
     }
-    // renkli bulutlar (resim tuvali gibi)
-    if (th.blobs) th.blobs.forEach((c, i) => glow(c, 0.28, 0.2 + i * 0.32 + Math.sin(t * 0.1 + i) * 0.04, 0.3 + (i % 2) * 0.4, 0.38));
-    // ipek kurdeleler
-    if (th.silk) {
-      th.silk.forEach((c, i) => {
-        x.save();
-        const g = x.createLinearGradient(0, 0, W, H);
-        g.addColorStop(0, hex(c, 0)); g.addColorStop(0.5, hex(c, 0.55)); g.addColorStop(1, hex(c, 0));
-        x.fillStyle = g;
+    // su yansıması: duvarda gezen ışık dalgaları
+    if (kind === 'caustic') {
+      x.save(); x.globalCompositeOperation = 'screen'; x.lineCap = 'round';
+      for (let i = 0; i < 26; i++) {
+        const yb = H * (0.06 + i * 0.024);
+        x.strokeStyle = `rgba(255,255,255,${0.16 + 0.12 * Math.sin(t * 0.8 + i)})`;
+        x.lineWidth = 2 + (i % 3);
         x.beginPath();
-        const yb = H * (0.25 + i * 0.25), amp = H * 0.16;
-        x.moveTo(0, yb);
-        for (let X = 0; X <= W; X += 20) x.lineTo(X, yb + Math.sin(X / W * 3.2 + t * 0.25 + i * 1.3) * amp);
-        for (let X = W; X >= 0; X -= 20) x.lineTo(X, yb + H * 0.14 + Math.sin(X / W * 3.2 + t * 0.25 + i * 1.3 + 0.6) * amp);
-        x.closePath(); x.fill();
-        x.restore();
-      });
-    }
-    // deniz dalgaları
-    if (th.waves) {
-      x.save(); x.globalCompositeOperation = 'lighter';
-      for (let i = 0; i < 5; i++) {
-        x.strokeStyle = hex(th.waves, 0.18 - i * 0.025); x.lineWidth = 30 - i * 4;
-        x.beginPath();
-        const yb = H * (0.62 + i * 0.08);
-        for (let X = 0; X <= W; X += 16) x.lineTo(X, yb + Math.sin(X / W * 6 + t * (0.5 + i * 0.1) + i) * 14);
+        for (let X = W * 0.15; X <= W; X += 18) {
+          const w = Math.sin(X * 0.012 + t * 0.9 + i * 0.7) * 10 + Math.sin(X * 0.031 - t * 1.3 + i) * 5;
+          x.lineTo(X, yb + w);
+        }
         x.stroke();
       }
       x.restore();
     }
-    // neon çizgiler
-    if (th.neon) {
-      x.save(); x.globalCompositeOperation = 'lighter'; x.lineCap = 'round';
-      th.neon.forEach((c, i) => {
-        const yb = H * (0.2 + i * 0.28);
-        for (const [lw, a] of [[18, 0.08], [7, 0.25], [2, 0.9]]) {
-          x.strokeStyle = hex(c, a * (0.7 + 0.3 * Math.sin(t * 3 + i))); x.lineWidth = lw;
-          x.beginPath();
-          for (let X = -20; X <= W + 20; X += 40) x.lineTo(X, yb + Math.sin(X / W * 2.4 + t * 0.4 + i * 2) * H * 0.08);
-          x.stroke();
-        }
-      });
+    // ürünün arkasında yumuşak ışık
+    const kx = W * 0.58, ky = H * 0.46;
+    const kg = x.createRadialGradient(kx, ky, 0, kx, ky, W * 0.42);
+    kg.addColorStop(0, 'rgba(255,255,255,.75)'); kg.addColorStop(0.5, 'rgba(255,255,255,.22)'); kg.addColorStop(1, 'rgba(255,255,255,0)');
+    x.fillStyle = kg; x.fillRect(0, 0, W, H);
+    // zeminde ürün renginde hafif yansıma
+    const fg = x.createRadialGradient(kx, H * 0.8, 0, kx, H * 0.8, W * 0.32);
+    fg.addColorStop(0, rgba(accent, 0.1)); fg.addColorStop(1, rgba(accent, 0));
+    x.fillStyle = fg; x.fillRect(0, 0, W, H);
+    // süzülen yapraklar (yalnızca bazı ürünlerde, çok az)
+    for (const p of parts) {
+      p.y += dt * (0.01 + 0.012 * p.z); p.x += dt * (0.006 + Math.sin(t * 0.4 + p.ph) * 0.006); p.rot += dt * p.vr;
+      if (p.y > 1.1) { p.y -= 1.2; p.x = Math.random(); }
+      if (p.x > 1.1) p.x -= 1.2;
+      x.save(); x.translate(p.x * W, p.y * H); x.rotate(p.rot);
+      if (p.z > 1.05) x.filter = `blur(${(p.z - 1) * 10}px)`;
+      const rr = 5 + p.z * 9;
+      x.fillStyle = rgba(p.c, 0.85);
+      x.beginPath(); x.ellipse(0, 0, rr, rr * (p.kind === 'leaf' ? 0.4 : 0.62), 0, 0, TAU); x.fill();
       x.restore();
     }
-    glow(th.glow[0], th.glow[1], th.glow[2], th.glow[3] + Math.sin(t * 0.3) * 0.01, 0.75);
-    if (th.rays) rays(th.rayC || '#ffffff', th.rays, t);
-    // spot ışığı ve zemin (sahne)
-    if (th.spot) {
-      x.save(); x.globalCompositeOperation = 'lighter';
-      const g = x.createLinearGradient(W * 0.6, 0, W * 0.6, H);
-      g.addColorStop(0, hex(th.spot, 0.5)); g.addColorStop(1, hex(th.spot, 0));
-      x.fillStyle = g;
-      x.beginPath(); x.moveTo(W * 0.55, -10); x.lineTo(W * 0.65, -10); x.lineTo(W * 0.86, H); x.lineTo(W * 0.34, H); x.closePath(); x.fill();
-      const e = x.createRadialGradient(W * 0.6, H * 0.92, 0, W * 0.6, H * 0.92, W * 0.3);
-      e.addColorStop(0, hex(th.spot, 0.45)); e.addColorStop(1, hex(th.spot, 0));
-      x.fillStyle = e; x.fillRect(0, 0, W, H);
-      x.restore();
-    }
-    if (th.smoke || th.fog) {
-      for (let i = 0; i < 4; i++) glow(th.fog ? '#cfe8d0' : '#9a8f80', 0.07, (0.15 + i * 0.27 + t * 0.008 * (i + 1)) % 1.2, 0.55 + Math.sin(t * 0.2 + i) * 0.1, 0.35);
-    }
-    // kokuyu keşfet: üründen yayılan ışık ve parçacıklar
+    // kokuyu keşfet: ürünün arkasından yayılan ışık halkası ve renkli parıltılar
     if (boost > 0.002 || calm > 0.002) {
-      x.save(); x.globalCompositeOperation = 'lighter';
-      const gc = th.glow[0] === '#ffffff' ? (cur.sceneColors || ['#ffffff'])[0] : th.glow[0];
-      glow(gc, 0.55 * boost + 0.16 * calm, bcx, bcy, 0.25 + 0.35 * (1 - boost));
-      const R0 = (1 - boost) * W * 0.55;
-      x.strokeStyle = hex(gc, 0.5 * boost); x.lineWidth = 2 + 6 * boost;
-      x.beginPath(); x.arc(bcx * W, bcy * H, R0, 0, TAU); x.stroke();
-      x.restore();
+      const gc = mix(accent, '#ffffff', 0.35);
+      const cg = x.createRadialGradient(bcx * W, bcy * H, 0, bcx * W, bcy * H, W * (0.22 + 0.3 * (1 - boost)));
+      cg.addColorStop(0, rgba(gc, 0.35 * boost + 0.18 * calm)); cg.addColorStop(1, rgba(gc, 0));
+      x.fillStyle = cg; x.fillRect(0, 0, W, H);
+      x.strokeStyle = rgba(accent, 0.35 * boost); x.lineWidth = 1.5 + 3 * boost;
+      x.beginPath(); x.arc(bcx * W, bcy * H, (1 - boost) * W * 0.5, 0, TAU); x.stroke();
     }
     flash = flash.filter((q) => (q.life -= dt) > 0);
     for (const q of flash) {
-      q.x += q.vx * dt; q.y += q.vy * dt; q.vx *= 0.985; q.vy = q.vy * 0.985 + (q.kind === 'ember' || q.kind === 'spark' || q.kind === 'bubble' ? -0.02 : 0.015) * dt;
-      x.save(); x.translate(q.x * W, q.y * H); x.globalAlpha = Math.min(1, q.life * 1.5);
-      x.globalCompositeOperation = 'lighter';
-      if (q.kind === 'petal' || q.kind === 'leaf') { x.globalCompositeOperation = 'source-over'; x.rotate(q.rot += dt * 2); x.fillStyle = hex(q.c, 0.9); x.beginPath(); x.ellipse(0, 0, q.r * 1.6, q.r * (q.kind === 'leaf' ? 0.6 : 0.9), 0, 0, TAU); x.fill(); }
-      else if (q.kind === 'star') { x.rotate(q.rot); x.fillStyle = hex(q.c, 0.95); starShape(q.r * 1.3, q.r * 0.55); x.fill(); bokeh(0, 0, q.r * 3, q.c, 0.25); }
-      else if (q.kind === 'flake') { x.strokeStyle = hex(q.c, 0.9); x.lineWidth = 1.4; for (let k = 0; k < 6; k++) { x.rotate(TAU / 6); x.beginPath(); x.moveTo(0, 0); x.lineTo(0, q.r * 1.4); x.stroke(); } }
-      else { bokeh(0, 0, q.r * 2.2, q.c, 0.8); bokeh(0, 0, q.r * 0.7, '#ffffff', 0.9); }
+      q.x += q.vx * dt; q.y += q.vy * dt; q.vx *= 0.985; q.vy = q.vy * 0.985 + 0.012 * dt; q.rot += dt * 2;
+      x.save(); x.translate(q.x * W, q.y * H); x.rotate(q.rot); x.globalAlpha = Math.min(1, q.life * 1.4);
+      x.fillStyle = rgba(q.c, 0.9);
+      x.beginPath(); x.ellipse(0, 0, q.r * 1.5, q.r * 0.7, 0, 0, TAU); x.fill();
       x.restore();
     }
-    particles(t, dt);
     boost = Math.max(0, boost - dt * 0.55);
-    // kenar koyulaşması
-    const v = x.createRadialGradient(W * 0.58, H * 0.5, H * 0.25, W * 0.58, H * 0.5, W * 0.75);
-    v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, `rgba(0,0,0,${photo ? 0.55 : 0.45})`);
+    // hafif kenar yumuşatma (açık tonda)
+    const v = x.createRadialGradient(W * 0.55, H * 0.45, H * 0.35, W * 0.55, H * 0.45, W * 0.8);
+    v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, rgba(mix(floor, '#000000', 0.5), 0.16));
     x.fillStyle = v; x.fillRect(0, 0, W, H);
-    // geçiş
     if (fade < 1) {
-      fade = Math.min(1, fade + dt * 1.6);
+      fade = Math.min(1, fade + dt * 1.8);
       x.globalAlpha = 1 - fade; x.drawImage(prev, 0, 0); x.globalAlpha = 1;
     }
   }
 
-  // kokuyu keşfet: (cx, cy) ürünün ekrandaki yeri (0..1)
   function burst(cx = 0.5, cy = 0.5) {
     boost = 1; bcx = cx; bcy = cy;
-    const th = curTheme || THEMES.photo;
-    const cols = cur.sceneColors || th.c;
-    const kind = cur.particle || th.p;
+    const accent = st[2];
+    const cols = ['#ffffff', mix(accent, '#ffffff', 0.4), accent];
     const r = rng((Math.random() * 1e9) | 0);
-    for (let i = 0; i < 70; i++) {
-      const a = r() * TAU, v = 0.12 + r() * 0.4;
-      flash.push({ x: cx, y: cy, vx: Math.cos(a) * v * (H / W), vy: Math.sin(a) * v, life: 1.6 + r() * 1.8, r: 3 + r() * 9, c: cols[i % cols.length], kind, rot: r() * TAU });
+    for (let i = 0; i < 44; i++) {
+      const a = r() * TAU, v = 0.1 + r() * 0.32;
+      flash.push({ x: cx, y: cy, vx: Math.cos(a) * v * (H / W), vy: Math.sin(a) * v, life: 1.4 + r() * 1.6, r: 3 + r() * 6, c: cols[i % 3], rot: r() * TAU });
     }
   }
   function setCalm(v) { calm = v ? 1 : 0; }
 
-  return { canvas, setProduct, draw, burst, setCalm, get ready() { return !!cur && (!photoKey || !!photo); } };
+  return { canvas, setProduct, draw, burst, setCalm, get ready() { return !!cur; } };
 }

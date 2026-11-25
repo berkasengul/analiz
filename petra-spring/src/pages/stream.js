@@ -4,7 +4,7 @@
 import { $, $$, FLAVORS, productUrl, reduce } from '../site.js';
 import { GROUPS, fiyat } from '../data.js';
 
-const IDS = ['anka', 'cam-aura', 'kerasus', 'ocean', 'cam-tutti', 'once-vatan', 'agartha', 'electro'];
+const IDS = ['once-vatan', 'cam-aura', 'kerasus', 'ocean', 'cam-tutti', 'anka', 'agartha', 'cam-forest'];
 const STREAM = IDS.map((id) => FLAVORS.find((f) => f.id === id));
 const N = STREAM.length;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -23,17 +23,17 @@ export function initStream() {
   /* ---------- yazı katmanları: açılış + her ürün ---------- */
   $('#players').insertAdjacentHTML('beforeend', STREAM.map((f, i) => `
     <article class="player player--p" data-k="${i + 1}" aria-hidden="true">
-      <p class="player__idx" style="--k:0"><b>${pad(i + 1)}</b> / ${pad(N)} <span>· ${GROUPS[f.group]}</span></p>
+      <p class="player__idx" style="--k:0"><b>${pad(i + 1)}</b><i></i>${GROUPS[f.group].replace(/ları$|leri$/, 'su')}</p>
       <h2 class="player__name${f.name.length > 8 ? ' player__name--long' : ''}" style="--k:1">${f.name}</h2>
       <p class="player__lead" style="--k:2">${f.sense.mood}</p>
-      <ul class="player__tags" style="--k:3">${f.sense.tags.map((t) => `<li>${t}</li>`).join('')}<li class="price">${fiyat(f.price)}</li></ul>
+      <dl class="player__facts" style="--k:3">${f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
       <div class="player__actions" style="--k:4">
-        <a class="btn btn--gold" href="${productUrl(f)}">3B incele ${ARROW}</a>
-        <a class="btn btn--line" href="${productUrl(f)}&kesfet=1">${SPARK} Kokuyu keşfet</a>
+        <a class="btn btn--primary" href="${productUrl(f)}">Ürünü 3B incele ${ARROW}</a>
+        <a class="btn btn--outline" href="${productUrl(f)}&kesfet=1">${SPARK} Kokuyu keşfet</a>
       </div>
     </article>`).join(''));
   const players = $$('.player', sec);
-  $('#flavorList').innerHTML = STREAM.map((f, i) => `<button type="button" data-go="${i}"><i style="--c:${f.model.liquid || f.bg}"></i><span>${f.name}</span></button>`).join('');
+  $('#flavorList').innerHTML = STREAM.map((f, i) => `<button type="button" data-go="${i}"><small>${pad(i + 1)}</small><span>${f.name}</span></button>`).join('');
   const dots = $$('#flavorList button');
 
   const hs = () => hdr.getBoundingClientRect().height;
@@ -55,12 +55,12 @@ export function initStream() {
       const ph = Math.max(...players.map((p) => p.offsetHeight || 0));
       const t = top + 10, bot = Math.max(t + 200, vh - ph - 10);
       const y = -((t + bot) / 2 - vh / 2) * u, s = Math.min(1.05, ((bot - t) * u) / 1.75);
-      return { intro: { x: 0, y, s, ry: -0.25, rz: 0, podium: 0, halo: 0.2 }, stage: { x: 0, y: y - 0.06 * s, s: s * 0.9, ry: 0, rz: 0, podium: 1, halo: 0.25 } };
+      return { intro: { x: 0, y, s, ry: -0.25, rz: 0, podium: 0, halo: 0 }, stage: { x: 0, y: y - 0.06 * s, s: s * 0.9, ry: 0, rz: 0, podium: 1, halo: 0 } };
     }
     const s = Math.min(1.3, H * 0.92, W * 0.5);
     return {
-      intro: { x: W * 0.34, y: cy - 0.02, s: s * 1.05, ry: -0.3, rz: 0.04, podium: 0, halo: 0.25 },
-      stage: { x: W * 0.17, y: cy + 0.1, s: s * 1.0, ry: 0, rz: 0, podium: 1, halo: 0.3 },
+      intro: { x: W * 0.3, y: cy + 0.02, s: s * 1.0, ry: -0.28, rz: 0.03, podium: 0, halo: 0 },
+      stage: { x: W * 0.2, y: cy + 0.1, s: s * 0.95, ry: 0, rz: 0, podium: 1, halo: 0 },
     };
   }
 
@@ -97,7 +97,8 @@ export function initStream() {
     });
     dots.forEach((d, k) => d.classList.toggle('on', f > 0.5 && k === cur));
     $('#flavorList').classList.toggle('show', f > 0.55);
-    $('#streamCount').innerHTML = f > 0.55 ? `<b>${pad(cur + 1)}</b> / ${pad(N)}` : '';
+    $('#streamCount').innerHTML = `<b>${pad(cur + 1)}</b><i><span style="width:${(clamp(f - 1, 0, N - 1) / (N - 1)) * 100}%"></span></i>${pad(N)}`;
+    $('#streamCount').classList.toggle('show', f > 0.55);
     $('#productHit').href = productUrl(STREAM[f < 0.5 ? 0 : cur]);
   }
 
@@ -127,7 +128,6 @@ export function initStream() {
 
   import('../scene.js').then(({ createScene }) => {
     scene = createScene($('#gl'), STREAM, null, null, { backdrop: true });
-    scene.setSides(STREAM.map((_, i) => i));
     scene.ready.then(() => {
       const P = poses();
       scene.snapPose({ ...P.intro, cloud: 0, frost: 0, bd: 0 });

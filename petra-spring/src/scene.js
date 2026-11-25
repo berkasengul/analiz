@@ -395,12 +395,12 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   // telefonda Unbe tarzı sahne: paket ışıklı bir kaidenin üstünde, tepeden ışık huzmesi, yanlarda komşu ürünler
   const podium = new THREE.Group();
   root.add(podium);
-  const podTop = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.05, 64), new THREE.MeshPhysicalMaterial({ color: 0xf6efe6, roughness: 0.25, clearcoat: 1, clearcoatRoughness: 0.1, envMapIntensity: 1 }));
-  const podBody = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.64, 0.12, 64), new THREE.MeshPhysicalMaterial({ color: 0x0a2621, roughness: 0.35, metalness: 0.3, envMapIntensity: 0.8 }));
+  const podTop = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.05, 64), new THREE.MeshPhysicalMaterial({ color: 0xfbf8f3, roughness: 0.42, clearcoat: 0.4, clearcoatRoughness: 0.3, envMapIntensity: 0.7 }));
+  const podBody = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.64, 0.12, 64), new THREE.MeshPhysicalMaterial({ color: 0xece5da, roughness: 0.55, metalness: 0, envMapIntensity: 0.6 }));
   podBody.position.y = -0.085;
-  const podRing = new THREE.Mesh(new THREE.TorusGeometry(0.63, 0.008, 8, 96), new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffcf7a').multiplyScalar(2.2), toneMapped: false }));
+  const podRing = new THREE.Mesh(new THREE.TorusGeometry(0.63, 0.008, 8, 96), new THREE.MeshStandardMaterial({ color: 0xc9a35a, roughness: 0.3, metalness: 0.9, envMapIntensity: 1 }));
   podRing.rotation.x = Math.PI / 2; podRing.position.y = -0.03;
-  const podRing2 = new THREE.Mesh(new THREE.TorusGeometry(0.66, 0.006, 8, 96), new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffc890').multiplyScalar(2), toneMapped: false }));
+  const podRing2 = new THREE.Mesh(new THREE.TorusGeometry(0.66, 0.006, 8, 96), new THREE.MeshStandardMaterial({ color: 0xc9a35a, roughness: 0.3, metalness: 0.9, envMapIntensity: 1 }));
   podRing2.rotation.x = Math.PI / 2; podRing2.position.y = -0.145;
   const podGlow = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 0.7), new THREE.MeshBasicMaterial({
     map: canvasTex(128, (x, s) => {
@@ -411,12 +411,15 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   }));
   podGlow.rotation.x = -Math.PI / 2; podGlow.position.y = -0.15;
   // geniş alt kat: yan ürünler de bunun üstünde, ana paketin hemen arkasında durur
-  const podBase = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.34, 0.07, 96), new THREE.MeshPhysicalMaterial({ color: 0x061c18, roughness: 0.22, metalness: 0.35, clearcoat: 1, clearcoatRoughness: 0.12, envMapIntensity: 0.9 }));
+  const podBase = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.34, 0.07, 96), new THREE.MeshPhysicalMaterial({ color: 0xf3eee7, roughness: 0.5, metalness: 0, envMapIntensity: 0.5, transparent: true, opacity: 0.0 }));
   podBase.position.set(0, -0.19, -0.45);
-  const podBaseRing = new THREE.Mesh(new THREE.TorusGeometry(1.32, 0.007, 8, 160), new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffc890').multiplyScalar(1.8), toneMapped: false }));
+  const podBaseRing = new THREE.Mesh(new THREE.TorusGeometry(1.32, 0.007, 8, 160), new THREE.MeshBasicMaterial({ color: 0xc9a35a, transparent: true, opacity: 0 }));
   podBaseRing.rotation.x = Math.PI / 2; podBaseRing.position.set(0, -0.155, -0.45);
   podBase.receiveShadow = true;
-  podium.add(podBase, podBaseRing, podTop, podBody, podRing, podRing2, podGlow);
+  // kurumsal sade kaide: açık taş, ince altın çizgi (geniş alt kat ve parıltı kullanılmıyor)
+  podGlow.visible = false;
+  podium.add(podTop, podBody, podRing, podRing2);
+  for (const m of [podTop, podBody]) m.castShadow = true;
   podTop.receiveShadow = true;
   const beamMat = new THREE.MeshBasicMaterial({
     map: canvasTex(256, (x, s) => {
@@ -990,7 +993,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       podium.visible = pv > 0.01;
       podium.position.y = -halfH - 0.03 - (1 - pv) * 0.4;
       podium.scale.setScalar(Math.max(0.001, pv) * (kit.group.visible ? 0.78 : 1));
-      beamMat.opacity = pv;
+      beamMat.opacity = 0;
       beam.visible = pv > 0.01;
       const hw = Math.tan((camera.fov * Math.PI) / 360) * camera.position.z * camera.aspect / Math.max(0.2, state.s); // ekran yarı genişliği (paket birimi)
       sides.forEach((sd) => {
