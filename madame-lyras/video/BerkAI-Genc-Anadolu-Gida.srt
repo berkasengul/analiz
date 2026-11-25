@@ -1,420 +1,436 @@
 1
-00:00:00,299 --> 00:00:03,626
-Arkadaşlar, bu siteyi on beş bin liraya sattım. Firmayı
+00:00:00,370 --> 00:00:02,509
+Arkadaşlar, bu gördüğünüz bir reklam filmi değil.
 
 2
-00:00:03,669 --> 00:00:06,570
-ben bulmadım. Siteyi ben yapmadım. İlk maili de ben
+00:00:03,089 --> 00:00:03,950
+Bu bir web sitesi.
 
 3
-00:00:06,613 --> 00:00:10,061
-yazmadım. Hepsini benim yapay zekâ ofisim yaptı. Bu videoda
+00:00:04,639 --> 00:00:06,769
+Ve bu site satıldı, gerçek bir firmaya.
 
 4
-00:00:10,191 --> 00:00:14,354
-size nasıl olduğunu baştan sona göstereceğim. Hadi başlayalım. Önce
+00:00:07,190 --> 00:00:08,199
+Firmayı ben bulmadım.
 
 5
-00:00:14,397 --> 00:00:17,682
-ofisi tanıyın Burası benim ofisim Tabii gerçek bir ofis
+00:00:08,390 --> 00:00:09,380
+Siteyi ben yapmadım.
 
 6
-00:00:17,768 --> 00:00:21,138
-değil bunu da Claude yaptı Koridorun iki yanında ekipler
+00:00:09,890 --> 00:00:11,140
+İlk maili de ben yazmadım.
 
 7
-00:00:21,224 --> 00:00:25,318
-var Konu ekibi yapım ekibi müşteri ekibi üç de
+00:00:11,669 --> 00:00:13,630
+Hepsini benim yapay zekâ ofisim yaptı.
 
 8
-00:00:25,361 --> 00:00:28,176
-site ekibi mail ekibi En sonda da müdür odası
+00:00:14,189 --> 00:00:15,289
+Hadi nasıl olduğuna bakalım.
 
 9
-00:00:28,219 --> 00:00:31,419
-var Son kararı orada ben veriyorum Her ekibin duvarında
+00:00:16,125 --> 00:00:19,409
+Önce ofisi tanıyın. Burası benim ofisim Tabii gerçek bir ofis
 
 10
-00:00:31,461 --> 00:00:34,209
-bir pano var O gün ne yaptıklarını orada görüyorum
+00:00:19,496 --> 00:00:22,865
+değil bunu da Claude yaptı Koridorun iki yanında ekipler
 
 11
-00:00:34,763 --> 00:00:38,390
-Şimdi müşteri bölmesine girelim Müşteri ekibi her gün firma
+00:00:22,951 --> 00:00:27,045
+var Konu ekibi yapım ekibi müşteri ekibi üç de
 
 12
-00:00:38,433 --> 00:00:42,127
-arıyor Ama her firmayı değil Ürünü çok olan ürünü
+00:00:27,088 --> 00:00:29,903
+site ekibi mail ekibi En sonda da müdür odası
 
 13
-00:00:42,170 --> 00:00:45,412
-güzel olan ama bunu gösterecek bir vitrini olmayan firmaları
+00:00:29,947 --> 00:00:33,146
+var Son kararı orada ben veriyorum Her ekibin duvarında
 
 14
-00:00:45,456 --> 00:00:48,698
-arıyor Ve bu sefer bir gıda firması buldu Genç
+00:00:33,189 --> 00:00:35,937
+bir pano var O gün ne yaptıklarını orada görüyorum
 
 15
-00:00:48,741 --> 00:00:53,884
-Anadolu Gıda Dondurularak kurutulmuş meyve satıyorlar Çilek muz mango
+00:00:36,490 --> 00:00:40,118
+Şimdi müşteri bölmesine girelim Müşteri ekibi her gün firma
 
 16
-00:00:54,183 --> 00:00:57,595
-ejder meyvesi Bir de hazır gıda kitleri Toplam kırk
+00:00:40,161 --> 00:00:43,855
+arıyor Ama her firmayı değil Ürünü çok olan ürünü
 
 17
-00:00:57,639 --> 00:01:02,332
-sekiz ürün Bunları akaryakıt istasyonlarına spor salonlarına kafelere satıyorlar
+00:00:43,898 --> 00:00:47,140
+güzel olan ama bunu gösterecek bir vitrini olmayan firmaları
 
 18
-00:01:03,015 --> 00:01:06,451
-Ekip şunu fark etti Paketler çok renkli çok düzgün
+00:00:47,184 --> 00:00:50,426
+arıyor Ve bu sefer bir gıda firması buldu Genç
 
 19
-00:01:06,878 --> 00:01:10,078
-Ama bayilere gösterecek bir siteleri yok Paketli ürün de
+00:00:50,469 --> 00:00:55,612
+Anadolu Gıda Dondurularak kurutulmuş meyve satıyorlar Çilek muz mango
 
 20
-00:01:10,121 --> 00:01:12,594
-üç de'de çok iyi duruyor arkadaşlar Ekip bunu biliyor
+00:00:55,911 --> 00:00:59,323
+ejder meyvesi Bir de hazır gıda kitleri Toplam kırk
 
 21
-00:01:13,406 --> 00:01:16,605
-Şimdi size siteyi baştan sona bir gezdireyim Bu kaydı
+00:00:59,367 --> 00:01:04,060
+sekiz ürün Bunları akaryakıt istasyonlarına spor salonlarına kafelere satıyorlar
 
 22
-00:01:16,647 --> 00:01:20,573
-ben aldım kendi ekranımdan Ana sayfa açılıyor Meyvenin kendisi
+00:01:04,742 --> 00:01:08,178
+Ekip şunu fark etti Paketler çok renkli çok düzgün
 
 23
-00:01:20,743 --> 00:01:24,582
-suyu hariç Paketler direkt karşınızda Aşağı inince üç ürün
+00:01:08,605 --> 00:01:11,805
+Ama bayilere gösterecek bir siteleri yok Paketli ürün de
 
 24
-00:01:24,626 --> 00:01:28,381
-grubu var Meyve ve dondurma atıştırmalıkları hazır gıda kitleri
+00:01:11,848 --> 00:01:14,321
+üç de'de çok iyi duruyor arkadaşlar Ekip bunu biliyor
 
 25
-00:01:28,509 --> 00:01:31,367
-ve ResQ ürünleri Her grubun altında ürünleri tek tek
+00:01:15,134 --> 00:01:18,332
+Şimdi size siteyi baştan sona bir gezdireyim Bu kaydı
 
 26
-00:01:31,409 --> 00:01:36,427
-görüyorsunuz Bir ürüne tıklıyorum Çilek Paket kendi renginde kırmızı
+00:01:18,375 --> 00:01:22,300
+ben aldım kendi ekranımdan Ana sayfa açılıyor Meyvenin kendisi
 
 27
-00:01:36,471 --> 00:01:40,908
-bir sahnede açılıyor Etrafında çilek parçaları uçuşuyor Paketi çeviriyorum
+00:01:22,470 --> 00:01:26,309
+suyu hariç Paketler direkt karşınızda Aşağı inince üç ürün
 
 28
-00:01:41,121 --> 00:01:45,748
-arkası geliyor Besin tablosu burada gerçek ambalajdan Yan taraftan
+00:01:26,353 --> 00:01:30,108
+grubu var Meyve ve dondurma atıştırmalıkları hazır gıda kitleri
 
 29
-00:01:45,792 --> 00:01:49,503
-başka ürüne geçiyorum Beyaz ejder meyvesi Bakın sahne de
+00:01:30,236 --> 00:01:33,094
+ve ResQ ürünleri Her grubun altında ürünleri tek tek
 
 30
-00:01:49,546 --> 00:01:53,771
-renk değiştiriyor Aşağı inince ürünün hikâyesi var Bayiye bu
+00:01:33,137 --> 00:01:38,155
+görüyorsunuz Bir ürüne tıklıyorum Çilek Paket kendi renginde kırmızı
 
 31
-00:01:53,813 --> 00:01:56,911
-ürün rafınıza neden yakışır onu anlatıyor Bir de nerede
+00:01:38,198 --> 00:01:42,635
+bir sahnede açılıyor Etrafında çilek parçaları uçuşuyor Paketi çeviriyorum
 
 32
-00:01:56,954 --> 00:02:02,757
-satılır kısmı var Kafeler spor salonları marketler restoranlar Ananas
+00:01:42,848 --> 00:01:47,475
+arkası geliyor Besin tablosu burada gerçek ambalajdan Yan taraftan
 
 33
-00:02:02,842 --> 00:02:06,724
-sarıda açılıyor Ahududu pembede Her ürünün kendi dünyası var
+00:01:47,519 --> 00:01:51,230
+başka ürüne geçiyorum Beyaz ejder meyvesi Bakın sahne de
 
 34
-00:02:06,768 --> 00:02:11,436
-arkadaşlar Kurumsal sayfada firmanın üretim tesisi var Silifke'deki tesisin
+00:01:51,274 --> 00:01:55,498
+renk değiştiriyor Aşağı inince ürünün hikâyesi var Bayiye bu
 
 35
-00:02:11,478 --> 00:02:14,679
-gerçek videosunu koyduk En sonda da toptan teklif formu
+00:01:55,540 --> 00:01:58,638
+ürün rafınıza neden yakışır onu anlatıyor Bir de nerede
 
 36
-00:02:14,935 --> 00:02:19,689
-Bayi ürünleri seçiyor adetleri yazıyor gönderiyor Mesaj direkt firmanın
+00:01:58,681 --> 00:02:04,484
+satılır kısmı var Kafeler spor salonları marketler restoranlar Ananas
 
 37
-00:02:19,733 --> 00:02:22,413
-mailine düşüyor Sonra iş üç de site ekibine geçti
+00:02:04,569 --> 00:02:08,451
+sarıda açılıyor Ahududu pembede Her ürünün kendi dünyası var
 
 38
-00:02:22,983 --> 00:02:26,695
-Duvardaki ekranda siteyi görüyorsunuz zaten Açalım Her ürün kendi
+00:02:08,496 --> 00:02:13,164
+arkadaşlar Kurumsal sayfada firmanın üretim tesisi var Silifke'deki tesisin
 
 39
-00:02:26,738 --> 00:02:30,919
-renginde bir sahnede açılıyor Çilek kırmızıda muz sarıda Paket
+00:02:13,206 --> 00:02:16,407
+gerçek videosunu koyduk En sonda da toptan teklif formu
 
 40
-00:02:31,004 --> 00:02:35,632
-gerçekten üç de Parmağınızla çeviriyorsunuz Arkasını çevirince firmanın gerçek
+00:02:16,663 --> 00:02:21,417
+Bayi ürünleri seçiyor adetleri yazıyor gönderiyor Mesaj direkt firmanın
 
 41
-00:02:35,675 --> 00:02:40,581
-ambalajı çıkıyor Besin tablosu içindekiler hepsi okunuyor Altta üç
+00:02:21,461 --> 00:02:24,141
+mailine düşüyor Sonra iş üç de site ekibine geçti
 
 42
-00:02:40,625 --> 00:02:43,098
-yüz altmış derece incele diye bir çubuk var Ön
+00:02:24,711 --> 00:02:28,423
+Duvardaki ekranda siteyi görüyorsunuz zaten Açalım Her ürün kendi
 
 43
-00:02:43,354 --> 00:02:47,617
-yan arka tek tuşla Başka ürüne geçince paket bir
+00:02:28,466 --> 00:02:32,647
+renginde bir sahnede açılıyor Çilek kırmızıda muz sarıda Paket
 
 44
-00:02:47,661 --> 00:02:51,074
-tur dönüyor ve yenisi geliyor Kitleri de unutmadık Onlar
+00:02:32,731 --> 00:02:37,360
+gerçekten üç de Parmağınızla çeviriyorsunuz Arkasını çevirince firmanın gerçek
 
 45
-00:02:51,116 --> 00:02:54,359
-kasa ve kova olarak geliyor Aşağı inince ürünün videosu
+00:02:37,403 --> 00:02:42,308
+ambalajı çıkıyor Besin tablosu içindekiler hepsi okunuyor Altta üç
 
 46
-00:02:54,487 --> 00:02:56,877
-var Bir de bu ürünü kim satar onu anlatıyor
+00:02:42,353 --> 00:02:44,826
+yüz altmış derece incele diye bir çubuk var Ön
 
 47
-00:02:57,325 --> 00:03:01,463
-İstasyon spor salonu kafe Çünkü bu siteyi müşteri değil
+00:02:45,082 --> 00:02:49,344
+yan arka tek tuşla Başka ürüne geçince paket bir
 
 48
-00:03:01,719 --> 00:03:06,327
-bayi görecek Bayiye bunu neden satmalıyım sorusunun cevabını veriyor
+00:02:49,389 --> 00:02:52,802
+tur dönüyor ve yenisi geliyor Kitleri de unutmadık Onlar
 
 49
-00:03:06,754 --> 00:03:10,315
-Bu bayilerin çoğu siteyi telefondan açacak O yüzden telefonda
+00:02:52,844 --> 00:02:56,087
+kasa ve kova olarak geliyor Aşağı inince ürünün videosu
 
 50
-00:03:10,358 --> 00:03:14,711
-bir de yakınlaştır düğmesi koyduk Basıyorsunuz paket büyüyor arkasındaki
+00:02:56,215 --> 00:02:58,605
+var Bir de bu ürünü kim satar onu anlatıyor
 
 51
-00:03:14,753 --> 00:03:17,868
-yazıyı okuyorsunuz Teklif iste'ye basınca da üç seçenek çıkıyor
+00:02:59,052 --> 00:03:03,191
+İstasyon spor salonu kafe Çünkü bu siteyi müşteri değil
 
 52
-00:03:18,166 --> 00:03:21,769
-WhatsApp e posta ya da form WhatsApp'a basınca mesaj
+00:03:03,447 --> 00:03:08,055
+bayi görecek Bayiye bunu neden satmalıyım sorusunun cevabını veriyor
 
 53
-00:03:21,812 --> 00:03:26,121
-hazır yazılmış geliyor Bayi sadece gönder diyor Şimdi size
+00:03:08,481 --> 00:03:12,043
+Bu bayilerin çoğu siteyi telefondan açacak O yüzden telefonda
 
 54
-00:03:26,164 --> 00:03:28,596
-bir şey itiraf edeyim. Site ilk gün bu halde
+00:03:12,086 --> 00:03:16,439
+bir de yakınlaştır düğmesi koyduk Basıyorsunuz paket büyüyor arkasındaki
 
 55
-00:03:28,639 --> 00:03:31,327
-değildi. Firma her baktığında bir şey istedi. Ve iyi
+00:03:16,480 --> 00:03:19,596
+yazıyı okuyorsunuz Teklif iste'ye basınca da üç seçenek çıkıyor
 
 56
-00:03:31,370 --> 00:03:35,377
-ki istedi. Önce logo değişti. Kendi logolarını gönderdiler, koyduk.
+00:03:19,894 --> 00:03:23,497
+WhatsApp e posta ya da form WhatsApp'a basınca mesaj
 
 57
-00:03:35,588 --> 00:03:40,196
-Sonra paketlerin kenarlarında bulanıklık vardı. Fotoğraftan kalma çizgiler. Onları
+00:03:23,540 --> 00:03:27,849
+hazır yazılmış geliyor Bayi sadece gönder diyor Şimdi size
 
 58
-00:03:40,239 --> 00:03:44,197
-tek tek temizledik. Bazı ürünlerin arka yüzü yoktu. Firma
+00:03:27,891 --> 00:03:30,324
+bir şey itiraf edeyim. Site ilk gün bu halde
 
 59
-00:03:44,239 --> 00:03:47,439
-bize panelleri gönderdi, biz de çilek paketinin arka yüzü
+00:03:30,367 --> 00:03:33,055
+değildi. Firma her baktığında bir şey istedi. Ve iyi
 
 60
-00:03:47,483 --> 00:03:51,066
-gibi aynı tasarımla hazırladık. Telefonda paket ilk açılışta küçük
+00:03:33,098 --> 00:03:37,105
+ki istedi. Önce logo değişti. Kendi logolarını gönderdiler, koyduk.
 
 61
-00:03:51,151 --> 00:03:54,674
-gelip sonra büyüyordu. Onu da düzelttik, artık direkt yerinde
+00:03:37,316 --> 00:03:41,924
+Sonra paketlerin kenarlarında bulanıklık vardı. Fotoğraftan kalma çizgiler. Onları
 
 62
-00:03:54,802 --> 00:03:58,343
-açılıyor. Bir de formlar vardı. Bayi formu dolduruyor ama
+00:03:41,967 --> 00:03:45,925
+tek tek temizledik. Bazı ürünlerin arka yüzü yoktu. Firma
 
 63
-00:03:58,428 --> 00:04:02,387
-mail gitmiyordu. Onu da çözdük. Arkadaşlar şunu söyleyeyim, her
+00:03:45,967 --> 00:03:49,167
+bize panelleri gönderdi, biz de çilek paketinin arka yüzü
 
 64
-00:04:02,430 --> 00:04:05,545
-istekten sonra site biraz daha iyi oldu. Yapay zekâya
+00:03:49,211 --> 00:03:52,794
+gibi aynı tasarımla hazırladık. Telefonda paket ilk açılışta küçük
 
 65
-00:04:05,587 --> 00:04:09,627
-sadece olmamış demedim. Ekran görüntüsü attım, neyin yanlış olduğunu
+00:03:52,879 --> 00:03:56,402
+gelip sonra büyüyordu. Onu da düzelttik, artık direkt yerinde
 
 66
-00:04:09,669 --> 00:04:12,486
-tek cümleyle söyledim. Bu projede en çok işe yarayan
+00:03:56,530 --> 00:04:00,070
+açılıyor. Bir de formlar vardı. Bayi formu dolduruyor ama
 
 67
-00:04:12,528 --> 00:04:15,258
-şey bu oldu. Bu arada size sitenin ilk halini
+00:04:00,156 --> 00:04:04,115
+mail gitmiyordu. Onu da çözdük. Arkadaşlar şunu söyleyeyim, her
 
 68
-00:04:15,301 --> 00:04:19,217
-göstereyim. İlk hali buydu. Sayfayı aşağı kaydırdıkça çilek paketi
+00:04:04,158 --> 00:04:07,272
+istekten sonra site biraz daha iyi oldu. Yapay zekâya
 
 69
-00:04:19,260 --> 00:04:23,164
-yukarıdan iniyor, kaideye oturuyor. Her ürün kendi renginde geliyor.
+00:04:07,314 --> 00:04:11,355
+sadece olmamış demedim. Ekran görüntüsü attım, neyin yanlış olduğunu
 
 70
-00:04:23,441 --> 00:04:26,929
-Ama müşteri bunu beğenmedi. Şu anki tasarımdan çok farklıydı.
+00:04:11,397 --> 00:04:14,213
+tek cümleyle söyledim. Bu projede en çok işe yarayan
 
 71
-00:04:27,174 --> 00:04:30,204
-Ve açıkçası ben hâlâ şunu düşünüyorum. Bu animasyonun üstüne
+00:04:14,256 --> 00:04:16,985
+şey bu oldu. Bu arada size sitenin ilk halini
 
 72
-00:04:30,246 --> 00:04:33,873
-çalışsaydık, belki çok daha iyi olabilirdi. Şimdi yan yana
+00:04:17,028 --> 00:04:20,944
+göstereyim. İlk hali buydu. Sayfayı aşağı kaydırdıkça çilek paketi
 
 73
-00:04:33,958 --> 00:04:38,040
-bakın. Solda ilk hali, sağda şimdiki hali. Siz hangisini
+00:04:20,987 --> 00:04:24,891
+yukarıdan iniyor, kaideye oturuyor. Her ürün kendi renginde geliyor.
 
 74
-00:04:38,083 --> 00:04:41,197
-daha çok beğendiniz? İlk hali mi, şimdiki hali mi?
+00:04:25,168 --> 00:04:28,656
+Ama müşteri bunu beğenmedi. Şu anki tasarımdan çok farklıydı.
 
 75
-00:04:41,411 --> 00:04:44,971
-Yorumlara yazın, gerçekten merak ediyorum. Site hazır olunca iş
+00:04:28,901 --> 00:04:31,932
+Ve açıkçası ben hâlâ şunu düşünüyorum. Bu animasyonun üstüne
 
 76
-00:04:45,056 --> 00:04:47,915
-mail ekibine geçti Mail ekibi kısa bir mail yazdı
+00:04:31,973 --> 00:04:35,600
+çalışsaydık, belki çok daha iyi olabilirdi. Şimdi yan yana
 
 77
-00:04:48,128 --> 00:04:52,158
-Uzun uzun anlatmadı Demoyu koydu bakıp ne düşündüğünüzü yazar
+00:04:35,686 --> 00:04:39,768
+bakın. Solda ilk hali, sağda şimdiki hali. Siz hangisini
 
 78
-00:04:52,201 --> 00:04:56,041
-mısınız dedi Fiyat yok abartı yok Ve firma cevap
+00:04:39,811 --> 00:04:42,925
+daha çok beğendiniz? İlk hali mi, şimdiki hali mi?
 
 79
-00:04:56,126 --> 00:05:00,393
-verdi Beğenmişler Kendi isteklerini gönderdiler Biz de o istekleri
+00:04:43,139 --> 00:04:46,699
+Yorumlara yazın, gerçekten merak ediyorum. Site hazır olunca iş
 
 80
-00:05:00,436 --> 00:05:05,107
-siteye işledik Logolarını koyduk eksik arka yüzleri tamamladık videolarını
+00:04:46,783 --> 00:04:49,643
+mail ekibine geçti Mail ekibi kısa bir mail yazdı
 
 81
-00:05:05,150 --> 00:05:08,392
-ekledik En son müdür odasına geldi Son karar benim
+00:04:49,855 --> 00:04:53,886
+Uzun uzun anlatmadı Demoyu koydu bakıp ne düşündüğünüzü yazar
 
 82
-00:05:08,734 --> 00:05:13,239
-Onayladım Ve site firmanın kendi adresinde yayına girdi Gelelim
+00:04:53,929 --> 00:04:57,769
+mısınız dedi Fiyat yok abartı yok Ve firma cevap
 
 83
-00:05:13,282 --> 00:05:16,482
-parasına Bu siteyi on beş bin liraya sattım Ve
+00:04:57,853 --> 00:05:02,120
+verdi Beğenmişler Kendi isteklerini gönderdiler Biz de o istekleri
 
 84
-00:05:16,525 --> 00:05:20,257
-şunu söyleyeyim firma bunu pahalı bulmadı Çünkü karşılarında bir
+00:05:02,163 --> 00:05:06,835
+siteye işledik Logolarını koyduk eksik arka yüzleri tamamladık videolarını
 
 85
-00:05:20,300 --> 00:05:24,268
-site değil bayilere gösterecekleri bir katalog gördüler Kırk sekiz
+00:05:06,877 --> 00:05:10,120
+ekledik En son müdür odasına geldi Son karar benim
 
 86
-00:05:24,311 --> 00:05:27,084
-ürünü tek tek üç de olarak gösteren bir katalog
+00:05:10,461 --> 00:05:14,966
+Onayladım Ve site firmanın kendi adresinde yayına girdi Gelelim
 
 87
-00:05:27,659 --> 00:05:32,011
-Basılı bir katalog bastırsalar her güncellemede tekrar bastıracaklar Bu
+00:05:15,009 --> 00:05:18,210
+parasına Bu siteyi on beş bin liraya sattım Ve
 
 88
-00:05:32,054 --> 00:05:35,382
-ise her zaman güncel Fiyatı konuşurken ben siteyi anlatmadım
+00:05:18,252 --> 00:05:21,985
+şunu söyleyeyim firma bunu pahalı bulmadı Çünkü karşılarında bir
 
 89
-00:05:35,884 --> 00:05:39,383
-Onların bayisinin bu siteyi açtığında ne göreceğini anlattım Satışı
+00:05:22,028 --> 00:05:25,995
+site değil bayilere gösterecekleri bir katalog gördüler Kırk sekiz
 
 90
-00:05:39,426 --> 00:05:42,114
-yapan da bu oldu Peki siz bunu nasıl yaparsınız
+00:05:26,038 --> 00:05:28,812
+ürünü tek tek üç de olarak gösteren bir katalog
 
 91
-00:05:42,327 --> 00:05:45,767
-Üç adım var Birincisi ürünü çok olan ama vitrini
+00:05:29,387 --> 00:05:33,739
+Basılı bir katalog bastırsalar her güncellemede tekrar bastıracaklar Bu
 
 92
-00:05:45,809 --> 00:05:48,881
-zayıf olan bir firma bulun Bunu yapay zekâya yaptırabilirsiniz
+00:05:33,781 --> 00:05:37,110
+ise her zaman güncel Fiyatı konuşurken ben siteyi anlatmadım
 
 93
-00:05:49,180 --> 00:05:53,446
-ben öyle yaptım İkincisi firmaya önce demoyu gösterin Teklif
+00:05:37,612 --> 00:05:41,110
+Onların bayisinin bu siteyi açtığında ne göreceğini anlattım Satışı
 
 94
-00:05:53,532 --> 00:05:56,925
-değil demo İnsanlar kendi ürününü üç de görünce karar
+00:05:41,153 --> 00:05:43,841
+yapan da bu oldu Peki siz bunu nasıl yaparsınız
 
 95
-00:05:57,010 --> 00:06:01,277
-veriyor Üçüncüsü firmanın isteklerini dinleyin ve siteyi birlikte bitirin
+00:05:44,055 --> 00:05:47,495
+Üç adım var Birincisi ürünü çok olan ama vitrini
 
 96
-00:06:01,960 --> 00:06:06,425
-Maliyet derseniz Claude'un ücretli planı var Netlify'ın ücretsiz planı
+00:05:47,537 --> 00:05:50,608
+zayıf olan bir firma bulun Bunu yapay zekâya yaptırabilirsiniz
 
 97
-00:06:06,468 --> 00:06:10,423
-yetiyor Asıl harcadığınız şey zaman Arkadaşlar burada size bir
+00:05:50,908 --> 00:05:55,174
+ben öyle yaptım İkincisi firmaya önce demoyu gösterin Teklif
 
 98
-00:06:10,465 --> 00:06:14,860
-şey söyleyeyim Satış siteyi yaptığımız an olmadı Firmanın isteklerini
+00:05:55,259 --> 00:05:58,653
+değil demo İnsanlar kendi ürününü üç de görünce karar
 
 99
-00:06:14,903 --> 00:06:18,700
-dinlediğimiz an oldu Logoyu değiştir dediler değiştirdik Şu video
+00:05:58,737 --> 00:06:03,004
+veriyor Üçüncüsü firmanın isteklerini dinleyin ve siteyi birlikte bitirin
 
 100
-00:06:18,871 --> 00:06:23,547
-olsun dediler koyduk Mailler gitmiyor dediler düzelttik Yapay zekâ
+00:06:03,687 --> 00:06:08,153
+Maliyet derseniz Claude'un ücretli planı var Netlify'ın ücretsiz planı
 
 101
-00:06:23,590 --> 00:06:26,875
-işi hızlı yapıyor Ama müşteriyi dinlemek yine sizin işiniz
+00:06:08,196 --> 00:06:12,151
+yetiyor Asıl harcadığınız şey zaman Arkadaşlar burada size bir
 
 102
-00:06:27,387 --> 00:06:30,545
-Site şu anda yayında Linki açıklamaya koydum siz de
+00:06:12,192 --> 00:06:16,588
+şey söyleyeyim Satış siteyi yaptığımız an olmadı Firmanın isteklerini
 
 103
-00:06:30,587 --> 00:06:34,616
-girip bakabilirsiniz Ofisin nasıl kurulduğunu önceki videoda anlatmıştım O
+00:06:16,631 --> 00:06:20,427
+dinlediğimiz an oldu Logoyu değiştir dediler değiştirdik Şu video
 
 104
-00:06:34,659 --> 00:06:37,859
-da açıklamada Sizce bir sonraki müşteri hangi sektörden olsun
+00:06:20,598 --> 00:06:25,275
+olsun dediler koyduk Mailler gitmiyor dediler düzelttik Yapay zekâ
 
 105
-00:06:38,328 --> 00:06:40,334
+00:06:25,317 --> 00:06:28,603
+işi hızlı yapıyor Ama müşteriyi dinlemek yine sizin işiniz
+
+106
+00:06:29,115 --> 00:06:32,273
+Site şu anda yayında Linki açıklamaya koydum siz de
+
+107
+00:06:32,314 --> 00:06:36,343
+girip bakabilirsiniz Ofisin nasıl kurulduğunu önceki videoda anlatmıştım O
+
+108
+00:06:36,387 --> 00:06:39,586
+da açıklamada Sizce bir sonraki müşteri hangi sektörden olsun
+
+109
+00:06:40,055 --> 00:06:42,062
 Yorumlara yazın Görüşmek üzere arkadaşlar
 
