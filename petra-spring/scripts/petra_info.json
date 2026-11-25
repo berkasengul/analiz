@@ -1,0 +1,152 @@
+{
+ "kerasus": {
+  "photoBg": "#e6afac",
+  "handle": "kerasus-100ml-bambu-cubuklu-oda-kokusu",
+  "title": "Kerasus 100ML Bambu Çubuklu Oda Kokusu",
+  "price": "865.00"
+ },
+ "miracle": {
+  "photoBg": "#d7a962",
+  "handle": "miracle-100ml-bambu-cubuklu-oda-kokusu",
+  "title": "Miracle 100ML Bambu Çubuklu Oda Kokusu",
+  "price": "865.00"
+ },
+ "zeus": {
+  "photoBg": "#e5d095",
+  "handle": "zeus-100ml-bambu-cubuklu-oda-kokusu",
+  "title": "Zeus 100ML Bambu Çubuklu Oda Kokusu",
+  "price": "865.00"
+ },
+ "keops": {
+  "photoBg": "#eca195",
+  "handle": "keops-100ml-bambu-cubuklu-oda-kokusu",
+  "title": "Keops 100ML Bambu Çubuklu Oda Kokusu",
+  "price": "865.00"
+ },
+ "agartha": {
+  "photoBg": "#9dc0d9",
+  "handle": "agartha-100ml-bambu-cubuklu-oda-kokusu",
+  "title": "Agartha 100ML Bambu Çubuklu Oda Kokusu",
+  "price": "865.00"
+ },
+ "art": {
+  "aspect": 2.347,
+  "head": "#2e245b",
+  "handle": "art-asma-oto-kokusu",
+  "title": "Art Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "star-light": {
+  "aspect": 2.202,
+  "head": "#e5e3de",
+  "handle": "star-light-asma-oto-kokusu",
+  "title": "Star Light Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "gulumse": {
+  "aspect": 2.132,
+  "head": "#e4b906",
+  "handle": "gulumse-asma-oto-kokusu",
+  "title": "Gülümse Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "sirius": {
+  "aspect": 2.37,
+  "head": "#efdfbc",
+  "handle": "sirius-vatan-asma-oto-kokusu",
+  "title": "Sirius Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "anka": {
+  "aspect": 2.29,
+  "head": "#382c51",
+  "handle": "anka-asma-oto-kokusu",
+  "title": "Anka Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "petra-x": {
+  "aspect": 2.327,
+  "head": "#282828",
+  "handle": "petra-x-oto-kokusu",
+  "title": "Petra X Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "electro": {
+  "aspect": 2.063,
+  "head": "#c5ddd8",
+  "handle": "electro",
+  "title": "Electro Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "forest": {
+  "aspect": 2.297,
+  "head": "#9f8142",
+  "handle": "forest-asma-oto-kokusu",
+  "title": "Forest Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "ocean": {
+  "aspect": 2.257,
+  "head": "#16283c",
+  "handle": "ocean-asma-oto-kokusu",
+  "title": "Ocean Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "free": {
+  "aspect": 2.247,
+  "head": "#d19a22",
+  "handle": "free-asma-oto-kokusu",
+  "title": "Free Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "star-dark": {
+  "aspect": 2.408,
+  "head": "#262625",
+  "handle": "star-dark-asma-oto-kokusu",
+  "title": "Star Dark Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "once-vatan": {
+  "aspect": 2.407,
+  "head": "#b70509",
+  "handle": "once-vatan-asma-oto-kokusu",
+  "title": "Önce Vatan Asma Oto Kokusu",
+  "price": "165.00"
+ },
+ "paris": {
+  "photoBg": "#cdd9ad",
+  "handle": "petra-spring-paris-100ml-bambu-cubuklu-oda-kokusu",
+  "title": "Petra Spring Paris 100ML – Bambu Çubuklu Oda Kokusu",
+  "price": "865.00"
+ },
+ "cam-tutti": {
+  "photoBg": "#fce2ef",
+  "handle": "tutti-cam-sise-premium-kalici-araba-kokusu",
+  "title": "\"Tutti\" Cam Şişe Premium Kalıcı Araba Kokusu",
+  "price": "120.00"
+ },
+ "cam-ocean": {
+  "photoBg": "#e6f2ff",
+  "handle": "ocean-cam-sise-premium-kalici-araba-kokusu",
+  "title": "\"Ocean\" Cam Şişe Premium Kalıcı Araba Kokusu",
+  "price": "120.00"
+ },
+ "cam-aura": {
+  "photoBg": "#e6e3da",
+  "handle": "aura-cam-sise-premium-kalici-araba-kokusu",
+  "title": "\"Aura\" Cam Şişe Premium Kalıcı Araba Kokusu",
+  "price": "120.00"
+ },
+ "cam-yasemen": {
+  "photoBg": "#fefee6",
+  "handle": "yasemen-cam-sise-premium-kalici-araba-kokusu",
+  "title": "\"Yasemen\" Cam Şişe Premium Kalıcı Araba Kokusu",
+  "price": "120.00"
+ },
+ "cam-forest": {
+  "photoBg": "#f9fce9",
+  "handle": "forest-cam-sise-premium-kalici-araba-kokusu",
+  "title": "\"Forest\" Cam Şişe Premium Kalıcı Araba Kokusu",
+  "price": "120.00"
+ }
+}

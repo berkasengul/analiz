@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ürünler · Petra Spring</title>
+  <meta name="description" content="Petra Spring asma kağıt araba kokuları, cam şişe araba kokuları ve bambu çubuklu oda kokuları; 3B katalog." />
+  <meta property="og:title" content="Petra Spring · Araba ve oda kokuları" />
+  <meta property="og:description" content="Petra Spring asma kağıt ve cam şişe araba kokuları ile bambu çubuklu oda kokuları: 3B ürün kataloğu, bayi ve toptan satış." />
+  <meta property="og:image" content="/img/og.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Petra Spring" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#164c43" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/src/corp.css" />
+</head>
+<body data-page="urunler">
+  <!-- @include header -->
+  <main id="icerik">
+    <!-- 3B KATALOG GİRİŞİ: ürünler kendi renklerinde, tek tek sergilenir; aşağıda tüm ürünler -->
+    <section class="pstage cstage" id="pstage" aria-label="Ürünlerin 3B sergisi">
+      <div class="pstage__view">
+        <canvas class="pstage__bg" id="pbg" aria-hidden="true"></canvas>
+        <canvas class="pstage__gl" id="pv" aria-label="Ürünün 3B görünümü: sürükleyerek çevirin"></canvas>
+        <img class="pstage__img" id="pimg" alt="" />
+        <div class="pstage__top">
+          <p class="pstage__count" id="pCount"></p>
+          <p class="pstage__hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Sürükleyerek çevirin</p>
+        </div>
+        <div class="pstage__side">
+          <a class="pstage__arrow" id="pPrev" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span></span></a>
+          <a class="pstage__arrow pstage__arrow--next" id="pNext" href="#"><span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="pstage__dock cstage__cats" id="cCats" role="tablist" aria-label="Kategori"></div>
+        <nav class="pstage__thumbs" id="pThumbs" aria-label="Ürünler"></nav>
+      </div>
+      <div class="pstage__panel" id="pPanel">
+        <ol class="crumbs"><li><a href="/">Ana sayfa</a></li><li>Ürünler</li></ol>
+        <p class="eyebrow eyebrow--gold" id="cEye">Petra Spring ürün kataloğu</p>
+        <h1 id="pName"></h1>
+        <p class="pd__lead" id="pLead"></p>
+        <dl class="keyfacts" id="pFacts"></dl>
+        <div class="pd__actions">
+          <a class="btn btn--gold" id="pGo" href="/urunler.html">Ürünü incele <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn--line" href="#liste">Tüm ürünler <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+      <a class="cstage__down" href="#liste" aria-label="Tüm ürünlere in"><span></span></a>
+    </section>
+    <!-- early --><script>(function(){var M={"anka":["/img/snap/anka.webp","#3b2c5c",68.3,48.9,48.2,43.3,0],"ocean":["/img/snap/ocean.webp","#17304a",68.3,48.9,48.2,43.3,0],"once-vatan":["/img/snap/once-vatan.webp","#a3080d",68.3,48.9,48.2,43.3,0],"gulumse":["/img/snap/gulumse.webp","#d9a90a",68.3,48.9,48.2,43.3,0],"art":["/img/snap/art.webp","#2e245b",68.3,48.9,48.2,43.3,0],"electro":["/img/snap/electro.webp","#2f6f66",68.3,48.9,48.2,43.3,0],"forest":["/img/snap/forest.webp","#8d7138",68.3,48.9,48.2,43.3,0],"petra-x":["/img/snap/petra-x.webp","#1f3a22",68.3,48.9,48.2,43.3,0],"sirius":["/img/snap/sirius.webp","#b58b4c",68.3,48.9,48.2,43.3,0],"free":["/img/snap/free.webp","#c98b14",68.3,48.9,48.2,43.3,0],"star-light":["/img/snap/star-light.webp","#b3242b",68.3,48.9,48.2,43.3,0],"star-dark":["/img/snap/star-dark.webp","#2a2723",68.3,48.9,48.2,43.3,0],"cam-aura":["/img/snap/cam-aura.webp","#2a1a12",62.8,50.7,44.3,44.6,-0.004],"cam-ocean":["/img/snap/cam-ocean.webp","#18406e",62.8,50.7,44.3,44.6,-0.004],"cam-tutti":["/img/snap/cam-tutti.webp","#c2407a",62.8,50.7,44.3,44.6,-0.004],"cam-yasemen":["/img/snap/cam-yasemen.webp","#5a3a7a",62.8,50.7,44.3,44.6,-0.004],"cam-forest":["/img/snap/cam-forest.webp","#1f4a2a",62.8,50.7,44.3,44.6,-0.004],"kerasus":["/img/snap/kerasus.webp","#c25a72",70.9,50.6,49.4,44.2,0.006],"miracle":["/img/snap/miracle.webp","#a8702a",70.9,50.6,49.4,44.2,0.006],"zeus":["/img/snap/zeus.webp","#a68a2a",70.9,50.6,49.4,44.2,0.006],"keops":["/img/snap/keops.webp","#b0323a",70.9,50.6,49.4,44.2,0.006],"agartha":["/img/snap/agartha.webp","#3b6f9c",70.9,50.6,49.4,44.2,0.006],"paris":["/img/snap/paris.webp","#5f8f45",70.9,50.6,49.4,44.2,0.006]},F={"kagit":"anka","cam":"cam-aura","oda":"kerasus","tum":"anka"},q=new URLSearchParams(location.search),id=F[q.get('kat')]||F.tum;if(!M[id])id=F.tum;var e=M[id],s=document.getElementById('pstage'),i=document.getElementById('pimg');if(!e||!s||!i)return;i.src=e[0];s.style.setProperty('--c',e[1]);s.style.setProperty('--zemin','url(/img/zemin/'+id+'.webp)');window.__early=function(nid){if(M[nid]){e=M[nid];i.src=e[0];window.__fit();}};window.__fit=function(){var v=s.querySelector('.pstage__view')||s,vr=v.getBoundingClientRect();if(!vr.width||!vr.height)return;var A=vr.width/vr.height,ph=innerWidth<760||innerWidth/innerHeight<0.9,h,cy,cx=50;if(ph){h=e[4]*Math.min(1,A*1.757);cy=e[5];}else{var k=Math.min(1,A*0.5714);h=e[2]*k;cy=e[3];var pl=s.querySelector('.pstage__panel'),th=document.getElementById('pThumbs');if(pl&&th){var a=pl.getBoundingClientRect(),b=th.getBoundingClientRect();if(a.width&&b.width){cx=Math.min(70,Math.max(50,((a.right+b.left)/2-vr.left)/vr.width*100));}}cx+=(e[6]||0)*h/A;}s.style.setProperty('--cx',cx.toFixed(2)+'%');s.style.setProperty('--py',cy.toFixed(2)+'%');s.style.setProperty('--ph',h.toFixed(2)+'%');};window.__fit();addEventListener('resize',window.__fit);})();</script><!-- /early -->
+    <section class="section section--cream catalog" id="liste">
+      <div class="wrap">
+        <header class="sec-head catalog__head"><p class="eyebrow">Toplu görünüm</p><h2>Tüm <em>ürünler</em></h2></header>
+        <div class="filters" role="search">
+          <div class="filters__cats" id="cats" role="tablist" aria-label="Kategori"></div>
+          <label class="filters__search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 100-14 7 7 0 000 14zM20 20l-4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sr">Ürün ara</span><input id="q" type="search" placeholder="Ürün ara" autocomplete="off" /></label>
+        </div>
+        <p class="catalog__count" id="count" aria-live="polite"></p>
+        <div class="pgrid" id="grid"></div>
+        <p class="catalog__empty" id="empty" hidden>Aramanıza uygun ürün bulunamadı.</p>
+      </div>
+    </section>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/pages/products.js"></script>
+</body>
+</html>

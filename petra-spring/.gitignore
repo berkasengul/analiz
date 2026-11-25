@@ -1,0 +1,7 @@
+node_modules
+dist
+*.zip
+
+# BerkAİ video çıktısı (büyük dosya, git dışında)
+video/*.mp4
+node_modules
