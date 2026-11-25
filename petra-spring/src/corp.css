@@ -1435,3 +1435,66 @@ body[data-page='teklif'] .cta-band { display: none; }
   .snote p { font-size: 12px; line-height: 1.35; }
   .sense__meta { display: none; }
 }
+
+/* =====================================================================
+   Ana sayfa: kaydırmalı 3B ürün akışı (Unbe tarzı)
+   ===================================================================== */
+body[data-page='index'] #gl { display: block; }
+.ph { position: relative; height: calc((var(--n, 9) - 1) * 78vh + 100vh); background: transparent; }
+.ph__stick { position: sticky; top: var(--hdr-sticky); height: calc(100vh - var(--hdr-sticky)); height: calc(100svh - var(--hdr-sticky)); overflow: hidden; color: #fff8f0; }
+.ph__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; transition: opacity 1.2s ease; }
+body.gl-ready .ph__poster { opacity: 0; }
+body.no-gl .ph { height: auto; }
+body.no-gl .ph__stick { position: relative; min-height: 80vh; }
+.ph .player { --pc: #fff8f0; --pcs: rgba(255, 248, 240, 0.8); --pl: rgba(255, 248, 240, 0.24); width: min(560px, 40vw); filter: blur(var(--b, 0)); text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35); }
+.ph .player--intro { --o: 1; width: min(620px, 46vw); }
+.ph .player__idx span { color: var(--pcs); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; font-size: 11.5px; }
+.ph .player__name { font-size: clamp(76px, 9.5vw, 156px); text-transform: none; }
+.ph .player__name--long { font-size: clamp(56px, 6.6vw, 110px); }
+.ph .player__lead { max-width: 480px; margin-bottom: 18px; color: rgba(255, 248, 240, 0.92); }
+.player__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; padding: 0; list-style: none; }
+.player__tags li { padding: 8px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; color: #fff3da; border: 1px solid rgba(232, 204, 156, 0.5); background: rgba(6, 14, 12, 0.32); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.player__tags li.price { background: linear-gradient(180deg, #f6dca6, #d9a35a); color: #2a1a06; border-color: transparent; }
+.ph .btn--line svg { width: 16px; height: 16px; }
+.ph__title { margin: 0 0 22px; font-family: var(--serif); font-weight: 600; font-size: clamp(56px, 6.8vw, 112px); line-height: 0.95; letter-spacing: -0.03em; color: #fff8f0; }
+.ph__title em { display: block; font-style: italic; font-weight: 500; color: var(--gold-2); }
+.ph__lead { max-width: 500px; margin: 0 0 28px; font-size: 17px; color: rgba(255, 248, 240, 0.85); }
+.ph .hero__eyebrow { color: var(--gold-2); }
+.ph__facts { display: flex; gap: 30px; margin: 30px 0 0; padding: 0; list-style: none; }
+.ph__facts li { display: flex; flex-direction: column; font-size: 12px; letter-spacing: 0.08em; color: rgba(255, 248, 240, 0.7); padding-left: 16px; border-left: 1px solid rgba(232, 204, 156, 0.4); }
+.ph__facts b { font-family: var(--serif); font-size: 30px; line-height: 1.1; color: #fff8f0; letter-spacing: 0; }
+.ph__list { position: absolute; z-index: 4; right: var(--pad); top: 50%; translate: 0 -50%; display: flex; flex-direction: column; gap: 4px; opacity: 0; transform: translateX(16px); pointer-events: none; transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.ph__list.show { opacity: 1; transform: none; pointer-events: auto; }
+.ph__list button { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 6px 0; border: 0; background: none; cursor: pointer; font: 600 13px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 248, 240, 0.5); transition: color 0.3s; }
+.ph__list button span { order: -1; transition: transform 0.4s var(--ease); }
+.ph__list button i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25); transition: transform 0.4s var(--ease), box-shadow 0.4s; }
+.ph__list button:hover, .ph__list button.on { color: #fff8f0; }
+.ph__list button.on span { transform: translateX(-6px); }
+.ph__list button.on i { transform: scale(1.5); box-shadow: 0 0 0 2px #fff8f0, 0 0 14px var(--c); }
+.ph__count { position: absolute; z-index: 4; left: 50%; bottom: 26px; translate: -50% 0; margin: 0; font-size: 13px; letter-spacing: 0.2em; color: rgba(255, 248, 240, 0.6); }
+.ph__count b { color: #fff8f0; font-size: 16px; }
+.ph__next { position: absolute; z-index: 4; left: 50%; bottom: 26px; translate: -50% 0; display: flex; flex-direction: column; align-items: center; gap: 10px; border: 0; background: none; color: rgba(255, 248, 240, 0.8); font: 600 11px/1 var(--sans); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: opacity 0.5s; }
+.ph__next i { width: 1px; height: 44px; background: linear-gradient(180deg, #fff8f0, transparent); animation: phNext 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes phNext { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+.ph__list.show ~ .ph__next { opacity: 0; pointer-events: none; }
+.ph .products__hit { left: 47%; width: 28%; top: 8%; height: 80%; }
+.ph .hitlabel { background: rgba(255, 248, 240, 0.92); color: #10332c; }
+@media (max-width: 1180px) and (min-width: 761px) { .ph .player { width: min(460px, 42vw); } .ph .player--intro { width: 48vw; } }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .ph { height: calc((var(--n, 9) - 1) * 72vh + 100vh); }
+  .ph .player, .ph .player--intro { width: auto; padding-bottom: 54px; }
+  .ph__title { font-size: clamp(40px, 12vw, 58px); margin-bottom: 12px; }
+  .ph__lead { font-size: 14.5px; margin-bottom: 16px; }
+  .ph__facts { display: none; }
+  .ph .player__name { font-size: clamp(54px, 16vw, 86px); }
+  .ph .player__name--long { font-size: clamp(40px, 11.5vw, 62px); }
+  .ph .player__lead { font-size: 17px; margin-bottom: 12px; }
+  .player__tags { margin-bottom: 14px; gap: 6px; }
+  .player__tags li { padding: 6px 10px; font-size: 11px; }
+  .ph__list { top: auto; bottom: 14px; right: 50%; translate: 50% 0; flex-direction: row; gap: 10px; }
+  .ph__list button { padding: 4px; }
+  .ph__list button span { display: none; }
+  .ph__count { display: none; }
+  .ph .products__hit { left: 10%; width: 80%; top: 3%; height: 40%; }
+  .ph__next { display: none; }
+}

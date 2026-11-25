@@ -206,6 +206,8 @@ if (webglOK()) {
     scene.inspectOpen(idx);
     setPose(true);
     $('#pstage').classList.add('gl-on');
+    // ana sayfadaki "Kokuyu keşfet" bağlantısı: tarif açık gelir
+    if (new URLSearchParams(location.search).has('kesfet')) setTimeout(() => sense.open(), 900);
     window.addEventListener('resize', () => setPose());
     $$('#pThumbs a').forEach((a) => a.addEventListener('pointerenter', () => scene.preload(+a.dataset.i)));
     const zoomText = () => { $('#pZoom').textContent = `${Math.round(scene.zoom() * 100)}%`; };

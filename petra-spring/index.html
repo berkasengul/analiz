@@ -18,35 +18,29 @@
   <link rel="stylesheet" href="/src/corp.css" />
 </head>
 <body data-page="index">
+  <canvas id="gl" aria-hidden="true"></canvas>
   <!-- @include header -->
   <main id="icerik">
-    <!-- AÇILIŞ: yazı + ürünlerin 3B görüntüsü -->
-    <section class="hero hero--new" id="hero" data-v="c" aria-label="Petra Spring">
-      <div class="wrap hero__inner">
-        <div class="hero__text">
-        <p class="hero__eyebrow">Petra Spring · Araba ve oda kokuları</p>
-        <h1 class="hero__title"><span class="gold">Kalıcı ferahlık.</span><em class="gold">Farkı yaşa.</em>
-          <svg class="hero__brush" viewBox="0 0 420 34" preserveAspectRatio="none" aria-hidden="true">
-            <defs><linearGradient id="brushGold" x1="0" x2="1"><stop offset="0" stop-color="#f6dca6" stop-opacity="0"/><stop offset=".18" stop-color="#f2cf8d"/><stop offset=".7" stop-color="#d9a35a"/><stop offset="1" stop-color="#c88a3e" stop-opacity=".2"/></linearGradient></defs>
-            <path d="M6 24 C 90 10, 210 6, 300 9 S 400 14, 414 12 L 412 17 C 330 15, 220 14, 140 20 S 30 30, 8 29 Z" fill="url(#brushGold)"/>
-          </svg>
-        </h1>
-        <p class="hero__lead hero__lead--m">Asma kağıt ve cam şişe araba kokuları, bambu çubuklu oda kokuları; 3B inceleyin.</p>
-        <p class="hero__lead hero__lead--d">Yoğun esanslı asma kağıt kokulardan bambu kapaklı cam şişelere, 100 ml bambu çubuklu oda kokularına: Petra Spring’in 23 ürününü 3B olarak çevirin, inceleyin; ister online mağazadan alın, ister bayimiz olun.</p>
-        <div class="hero__ctas">
-          <a class="btn btn--gold" href="/urunler.html">Ürünleri 3B incele <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a class="btn btn--line" href="/teklif.html">Bayi teklifi al</a>
+    <!-- AÇILIŞ + 3B ÜRÜN AKIŞI: kaydırdıkça ürünler ışıklı kaidede dönerek değişir, her ürünün kendi sahnesi -->
+    <section class="ph" id="akis" aria-label="Petra Spring kokuları">
+      <div class="ph__stick">
+        <img class="ph__poster" src="/img/zemin/anka.webp" alt="" aria-hidden="true" />
+        <div class="wrap products__layers" id="players">
+          <article class="player player--intro on" data-k="0">
+            <p class="hero__eyebrow" style="--k:0">Petra Spring · Araba ve oda kokuları</p>
+            <h1 class="ph__title" style="--k:1">Kalıcı ferahlık.<em>Farkı yaşa.</em></h1>
+            <p class="ph__lead" style="--k:2">Yoğun esanslı asma kağıt kokulardan bambu kapaklı cam şişelere, 100 ml bambu çubuklu oda kokularına: her kokunun kendi dünyası var. Kaydırın, çevirin, keşfedin.</p>
+            <div class="player__actions" style="--k:3">
+              <a class="btn btn--gold" href="/urunler.html">Tüm ürünler <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="btn btn--line" href="/teklif.html">Bayi teklifi al</a>
+            </div>
+            <ul class="ph__facts" style="--k:4"><li><b>23</b>ürün</li><li><b>30</b>güne kadar kalıcı</li><li><b>3</b>ürün grubu</li></ul>
+          </article>
         </div>
-        <ul class="hero__facts">
-          <li><b>23</b>ürün</li>
-          <li><b>30</b>güne kadar kalıcı</li>
-          <li><b>3</b>ürün grubu</li>
-        </ul>
-        </div>
-        <div class="hero__art hero__art--p" aria-hidden="true">
-          <img src="/img/hero.webp" alt="" width="1400" height="1000" fetchpriority="high" />
-          <i class="shelf"></i>
-        </div>
+        <a class="products__hit" id="productHit" href="/urunler.html" aria-label="Ürünü 3B incele"><span class="hitlabel" id="hitLabel">3B<br />İncele</span></a>
+        <nav class="ph__list" id="flavorList" aria-label="Ürünler"></nav>
+        <p class="ph__count" id="streamCount" aria-hidden="true"></p>
+        <button class="ph__next" id="introNext" type="button" aria-label="Kokulara in"><span>Kaydır</span><i></i></button>
       </div>
     </section>
 

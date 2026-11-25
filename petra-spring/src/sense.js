@@ -57,6 +57,7 @@ export function initSense({ stage, getFlavor, getScene, onToggle }) {
     // ürün değişince açık tarif yeni ürünle yenilenir
     update() { if (on) { render(getFlavor()); box.classList.remove('in'); void box.offsetWidth; box.classList.add('in'); getScene()?.discover(true); } },
     close() { if (on) set(false); },
+    open() { if (!on) set(true); },
     get on() { return on; },
   };
 }

@@ -121,7 +121,9 @@ function labelCanvas(md, kind) {
   return t;
 }
 
-export function makePetra() {
+// opts.dim: komşu ürünler için karartma çarpanı (ana sayfa kaidesinin yanlarında karanlıkta silüet)
+export function makePetra(opts = {}) {
+  const DIM = opts.dim || 1;
   const group = new THREE.Group();
   let parts = [];
   let key = '';
@@ -142,6 +144,10 @@ export function makePetra() {
   const reedMat = new THREE.MeshStandardMaterial({ color: 0x141414, roughness: 0.75 });
   const labelMat = new THREE.MeshPhysicalMaterial({ roughness: 0.32, metalness: 0.55, clearcoat: 0.8, clearcoatRoughness: 0.15, envMapIntensity: 1.1, emissive: 0xffffff, emissiveIntensity: 0.18, polygonOffset: true, polygonOffsetFactor: -2 });
   mats.push(frontMat, backMat, glass, liquid, wood, cord, black, reedMat, labelMat);
+  if (DIM < 1) {
+    for (const m of mats) { if (m.color) m.color.multiplyScalar(DIM); if ('emissiveIntensity' in m) m.emissiveIntensity *= DIM; if ('envMapIntensity' in m) m.envMapIntensity *= DIM; }
+    embossMat.opacity *= DIM;
+  }
 
   function clear() {
     for (const m of parts) { group.remove(m); m.geometry.dispose(); }
@@ -252,6 +258,7 @@ export function makePetra() {
     if (md.type === 'card') buildCard(md);
     else if (md.type === 'vial') buildVial(md);
     else buildReed(md);
+    if (DIM < 1) { liquid.color.multiplyScalar(DIM); liquid.emissive.multiplyScalar(DIM); }
     const k = FIT[md.type] / height;
     group.scale.setScalar(k);
     height *= k;
