@@ -1,5 +1,8 @@
 @import '@fontsource-variable/montserrat/wght.css';
 @import '@fontsource-variable/montserrat/wght-italic.css';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/500-italic.css';
 /* ================================================================
    Petra Spring — 3B ürün sitesi (Genç Anadolu Gıda tasarımı üzerine)
    Açık zemin, Petra yeşili ve altın vurgular; yazı tipi Montserrat.
@@ -1691,3 +1694,92 @@ body[data-page='urunler'] .pstage__panel { margin-top: calc(var(--hdr-sticky) / 
 @media (prefers-reduced-motion: reduce) { .ph .player--p > *, .ph .player--p .player__name span { transition-duration: 0.01s !important; transition-delay: 0s !important; } }
 .ph__next { left: auto; right: var(--pad); translate: none; }
 @media (max-width: 760px), (max-aspect-ratio: 9/10) { .ph__next { display: none; } }
+
+/* ---------- üst menü her zaman düz beyaz (ürün değişince arkadaki renk menüye yansımaz) ---------- */
+.hdr, .hdr--scrolled { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
+
+/* ---------- ana sayfa: sahne sabit yükseklikte (telefonda adres çubuğu açılıp kapanınca kaide oynamaz) ---------- */
+body[data-page='index'] #gl, body[data-page='index'] .ph__poster { bottom: auto; height: 100vh; height: 100lvh; will-change: transform; }
+.ph .products__hit { right: auto; bottom: auto; }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .ph .hitlabel { display: none; }
+  .ph .player, .ph .player--intro { padding-bottom: 34px; }
+  .ph .player__idx { margin-bottom: 6px; }
+  .ph .player__name { font-size: clamp(44px, 13vw, 72px); margin-bottom: 2px; }
+  .ph .player__name--long { font-size: clamp(36px, 10vw, 54px); }
+  .ph .player__lead { font-size: 15px; line-height: 1.3; margin-bottom: 8px; }
+  .ph .player__facts { margin: 0 0 12px; }
+  .ph .player__facts div { padding: 7px 8px 7px 0; }
+}
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .ph .player__actions { flex-wrap: nowrap; gap: 8px; }
+  .ph .player__actions .btn { flex: 1 1 auto; min-width: 0; min-height: 44px; padding: 0 12px; font-size: 13px; white-space: nowrap; justify-content: center; }
+  .ph .player__actions .btn svg { width: 14px; height: 14px; flex: none; }
+  .ph__lead { display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 14px; line-height: 1.5; margin-bottom: 14px; }
+  .ph__title { margin-bottom: 8px; }
+  .ph .player__facts dd { font-size: 13px; }
+}
+
+.hdr a, .hdr button { -webkit-tap-highlight-color: transparent; }
+
+/* ---------- ürün sayfası: sergi düzeni ve premium panel (beyaz kart yok) ---------- */
+:root { --display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; --ink-d: #0f2e28; --gold-l: #e9d3a1; --gold-m: #b8913f; }
+.pstage .pbox { width: min(420px, 31vw); padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; overflow: visible; }
+.pstage .pbox::before { display: none; }
+.pstage .pbox .crumbs, .pstage .pbox .crumbs a { color: rgba(15, 46, 40, 0.55); font-size: 11.5px; letter-spacing: 0.04em; }
+.pbox__cat { gap: 12px; margin: 2px 0 6px; font-size: 11px; letter-spacing: 0.26em; color: #8a6a2c; }
+.pbox__cat i { width: 26px; height: 1px; border-radius: 0; background: linear-gradient(90deg, #b8913f, rgba(184, 145, 63, 0)); box-shadow: none; }
+.pstage .pbox h1 { font-family: var(--display); font-weight: 600; font-size: clamp(60px, 5.6vw, 96px); line-height: 0.9; letter-spacing: -0.012em; margin: 0 0 10px; color: var(--ink-d); }
+.pstage .pbox h1.long { font-size: clamp(48px, 4.4vw, 76px); }
+.pstage .pbox .pd__lead { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(19px, 1.5vw, 23px); line-height: 1.3; color: #33463f; margin: 0 0 22px; max-width: 380px; }
+.pbox__price { gap: 16px; padding: 0 0 18px; margin: 0 0 18px; border: 0; background: linear-gradient(90deg, rgba(184, 145, 63, 0.7), rgba(184, 145, 63, 0)) bottom left / 100% 1px no-repeat; }
+.pbox__price b { font-family: var(--display); font-weight: 600; font-size: 46px; letter-spacing: 0; line-height: 1; color: var(--ink-d); }
+.pbox__price span { font-size: 11px; letter-spacing: 0.04em; color: #5e6e68; }
+.pbox__price em { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #2c6b4c; }
+.pbox__facts { display: flex; gap: 0; margin: 0 0 24px; }
+.pbox__facts div { flex: 1; padding: 0 16px; border: 0; border-left: 1px solid rgba(15, 46, 40, 0.16); border-radius: 0; background: none; }
+.pbox__facts div:first-child { padding-left: 0; border-left: 0; }
+.pbox__facts dt { font-size: 9.5px; letter-spacing: 0.22em; color: #8a6a2c; }
+.pbox__facts dd { margin-top: 5px; font-family: var(--display); font-size: 21px; font-weight: 600; line-height: 1.1; color: var(--ink-d); }
+.buy { min-height: 62px; padding: 0 10px 0 26px; gap: 14px; border-radius: 999px; color: var(--gold-l); background: linear-gradient(180deg, #16433b 0%, #0d2b26 100%); border: 1px solid rgba(214, 180, 110, 0.55); box-shadow: 0 22px 44px rgba(11, 36, 32, 0.3), inset 0 1px 0 rgba(255, 236, 190, 0.16); }
+.buy::after { background: linear-gradient(105deg, transparent 38%, rgba(255, 226, 160, 0.18) 50%, transparent 62%); }
+.buy:hover { box-shadow: 0 26px 50px rgba(11, 36, 32, 0.36), inset 0 1px 0 rgba(255, 236, 190, 0.22); }
+.buy svg { color: var(--gold-l); width: 18px; height: 18px; }
+.buy span { font-size: 12.5px; font-weight: 700; letter-spacing: 0.24em; color: var(--gold-l); }
+.buy b { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 999px; font-family: var(--display); font-size: 22px; font-weight: 600; color: #1b1405; background: linear-gradient(180deg, #f4e2b4, #caa258); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+.buy > svg:last-child { display: none; }
+.pbox__sub { justify-content: flex-start; gap: 26px; margin: 16px 4px 0; }
+.pbox__sub a { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-d); border-bottom: 1px solid rgba(184, 145, 63, 0.7); padding-bottom: 3px; }
+.pbox__sub a:hover { color: #8a6a2c; }
+.pbox__trust { justify-content: flex-start; gap: 22px; margin-top: 22px; padding-top: 16px; border-top: 0; background: linear-gradient(90deg, rgba(15, 46, 40, 0.16), rgba(15, 46, 40, 0)) top left / 100% 1px no-repeat; }
+.pbox__trust li { font-size: 11px; letter-spacing: 0.04em; color: #4e5f59; }
+.pbox__trust svg { color: #8a6a2c; }
+/* üst çubuk: geri, ürün sırası ve oklar ortada; kokuyu keşfet sağ üstte (ürünün üstüne binmez) */
+.pstage .pstage__back { background: transparent; border: 1px solid rgba(15, 46, 40, 0.22); color: var(--ink-d); backdrop-filter: none; -webkit-backdrop-filter: none; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.pstage .pstage__back:hover { background: rgba(15, 46, 40, 0.06); }
+.pstage .pstage__count { position: absolute; left: 50%; translate: -50% 0; font-family: var(--display); font-size: 17px; font-weight: 600; letter-spacing: 0.22em; color: var(--ink-d); }
+.pstage .pstage__side { left: 50%; right: auto; top: 18px; width: 230px; transform: translateX(-50%); }
+.pstage .pstage__arrow span { display: none; }
+.pstage .pstage__arrow svg { width: 44px; height: 44px; padding: 13px; color: var(--ink-d); background: transparent; border: 1px solid rgba(15, 46, 40, 0.22); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.pstage .pstage__arrow:hover svg { background: var(--ink-d); color: var(--gold-l); }
+.pstage .pstage__thumbs { background: transparent; border-color: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+@media (min-width: 761px) and (min-aspect-ratio: 9/10) {
+  .pstage .pstage__hint { display: none; }
+  .pstage .sense-btn { left: auto; right: var(--pad); bottom: auto; top: 18px; translate: none; }
+}
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .pstage .pbox, .pstage .pstage__panel { width: auto; background: transparent; padding: 24px var(--pad) 30px; }
+  .pstage .pbox h1 { font-size: clamp(50px, 14vw, 68px); }
+  .pstage .pstage__side { top: 16px; width: 200px; }
+  .pstage .pstage__count { top: 28px; }
+  .pstage .pstage__arrow svg { width: 38px; height: 38px; padding: 11px; }
+  .pbox__facts dd { font-size: 18px; }
+}
+@media (max-width: 760px), (max-aspect-ratio: 9/10) {
+  .pstage .pstage__view { height: 74svh; min-height: 500px; }
+  .pstage .pstage__dock { display: none; }
+  .pstage .pstage__count { display: none; }
+  .pstage .pstage__side { left: auto; right: 12px; top: 14px; width: 96px; transform: none; }
+  .pstage .sense-btn, .pstage .zoomfab { bottom: 88px; }
+  .pstage .pstage__thumbs { bottom: 10px; }
+}

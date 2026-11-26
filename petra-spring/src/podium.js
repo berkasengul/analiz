@@ -209,6 +209,9 @@ export function makePodium() {
   const tmpC = new THREE.Color();
   return {
     group,
+    // ölçüm ve tek kare çekim için: kaidenin katı parçaları ve zemin gölgesi
+    solids: [body, top, band, line, rimLine],
+    floor,
     // ürün tipine göre temas gölgesinin boyu (kaide biriminde)
     setFootprint(w, d) { contact.scale.set(w, d, 1); },
     setContact(v) { contactMat.opacity = v; },

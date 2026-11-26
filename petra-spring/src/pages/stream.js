@@ -5,11 +5,15 @@ import { $, $$, FLAVORS, productUrl, reduce } from '../site.js';
 import { GROUPS, fiyat } from '../data.js';
 import POSTER from '../poster.json';
 
-const IDS = ['once-vatan', 'ocean', 'kerasus'];
+const IDS = ['petra-x', 'cam-aura', 'agartha'];
 const STREAM = IDS.map((id) => FLAVORS.find((f) => f.id === id));
 const N = STREAM.length;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const easeIO = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const TAU = Math.PI * 2;
+// kaidenin genişliği (ürün biriminde)
+const POD_W = 2 * 0.734 * 0.78;
 const pad = (n) => String(n).padStart(2, '0');
 // sahnenin yarı yüksekliği (kamera z=5, görüş açısı 30°) ve ürün + kaide yığınının boyu (ürün biriminde)
 const H0 = Math.tan((15 * Math.PI) / 180) * 5;
@@ -23,6 +27,7 @@ export function initStream() {
   if (!sec) return;
   sec.style.setProperty('--n', N + 1);
   const hdr = $('#hdr');
+  const gl = $('#gl'), stick = $('.ph__stick', sec);
 
   /* ---------- yazı katmanları: açılış + her ürün ---------- */
   $('#players').insertAdjacentHTML('beforeend', STREAM.map((f, i) => `
@@ -44,34 +49,47 @@ export function initStream() {
   const docTop = (el) => el.getBoundingClientRect().top + window.scrollY;
   // akıştaki k. durak (0: açılış, 1..N: ürünler) için kaydırma konumu
   const stopY = (k) => docTop(sec) + ((sec.offsetHeight - window.innerHeight) * k) / N;
-  dots.forEach((d) => d.addEventListener('click', () => window.scrollTo({ top: stopY(+d.dataset.go + 1), behavior: reduce ? 'auto' : 'smooth' })));
-  $('#introNext')?.addEventListener('click', () => window.scrollTo({ top: stopY(1), behavior: reduce ? 'auto' : 'smooth' }));
 
   let scene = null, f = 0, cur = 0;
 
   /* ---------- pozlar ---------- */
-  // Ürün her zaman mermer kaidenin üstünde: ürün + kaide yığını menünün altındaki alana sığdırılır.
-  // Sahne hazır olmadan da hesaplanır (açılış görseli aynı hesapla yerleşir, 3B gelince boyut değişmez).
+  // Kaide hep aynı yerde durur (açılışta da, ürünler arasında da); yalnızca üstündeki ürün döner ve değişir.
+  // Ürün + kaide yığını menünün altındaki alana sığdırılır. Ölçüler sabit yükseklikten alınır: telefonda adres
+  // çubuğu açılıp kapanınca kaide oynamaz. Sahne hazır olmadan da hesaplanır (açılış görseli aynı hesapla yerleşir).
+  // vh: tuvalin (sabit) yüksekliği; vis: her zaman görünen alanın alt kenarı
+  const dims = () => {
+    const vw = window.innerWidth, vh = (gl && gl.clientHeight) || window.innerHeight;
+    const top = hs(), vis = Math.min(vh, top + (stick ? stick.offsetHeight : vh - top));
+    return { vw, vh, top, vis };
+  };
   function poses() {
-    const vh = window.innerHeight, vw = window.innerWidth, u = (2 * H0) / vh, W = H0 * (vw / vh);
-    const top = hs();
+    const { vw, vh, top, vis } = dims();
+    const u = (2 * H0) / vh, W = H0 * (vw / vh);
+    let s, stackTop, x;
     if (isMobile()) {
       const ph = Math.max(...players.map((p) => p.offsetHeight || 0));
-      const t = top + 6, bot = Math.max(t + 220, vh - ph + 4);
+      const t = top + 10, bot = Math.max(t + 240, vis - ph - 2);
       const R = (bot - t) * u;
-      const s = Math.min(1.0, (R * 0.9) / STACK, W * 0.62);
-      const stackTop = H0 - t * u - (R - STACK * s) / 2;
-      const y = stackTop - 0.76 * s;
-      return { intro: { x: 0, y, s, ry: -0.3, rz: 0, podium: 1, halo: 0 }, stage: { x: 0, y, s, ry: 0, rz: 0, podium: 1, halo: 0 } };
+      s = Math.min(1.25, (R * 0.95) / STACK, (2 * W * 0.8) / POD_W);
+      stackTop = H0 - t * u - (R - STACK * s) / 2;
+      x = 0;
+    } else {
+      const A = (vis - top) * u;
+      s = Math.min((0.86 * A) / STACK, W * 0.5);
+      stackTop = H0 - top * u - 0.05 * A - (0.86 * A - STACK * s) / 2;
+      x = W * 0.26;
     }
-    const A = (vh - top) * u;
-    const s = Math.min((0.86 * A) / STACK, W * 0.5);
-    const stackTop = H0 - top * u - 0.05 * A - (0.86 * A - STACK * s) / 2;
     const y = stackTop - 0.76 * s;
-    return {
-      intro: { x: W * 0.3, y, s, ry: -0.3, rz: 0, podium: 1, halo: 0 },
-      stage: { x: W * 0.2, y, s, ry: 0, rz: 0, podium: 1, halo: 0 },
-    };
+    const base = { x, y, s, rz: 0, podium: 1, halo: 0 };
+    return { intro: { ...base, ry: -0.3 }, stage: { ...base, ry: reduce ? 0 : TAU } };
+  }
+  // "3B incele" tıklama alanı ürünün ve kaidenin üstünde
+  const hit = $('#productHit');
+  function placeHit() {
+    const P = poses().intro, { vw, vh, top } = dims(), ppu = vh / (2 * H0);
+    const w = POD_W * P.s * ppu * 1.05, h = STACK * P.s * ppu;
+    const cx = vw / 2 + P.x * ppu, ty = vh / 2 - (P.y + 0.76 * P.s) * ppu;
+    Object.assign(hit.style, { left: `${cx - w / 2}px`, top: `${ty - top}px`, width: `${w}px`, height: `${h}px` });
   }
 
   /* ---------- açılış görseli: 3B'nin ilk karesiyle birebir aynı yerde ve boyda ---------- */
@@ -80,7 +98,7 @@ export function initStream() {
     if (!layer || document.body.classList.contains('gl-ready')) return;
     const meta = POSTER[isMobile() ? 'm' : 'd'];
     if (!meta) return;
-    const P = poses().intro, vh = window.innerHeight, vw = window.innerWidth, ppu = vh / (2 * H0);
+    const P = poses().intro, { vw, vh } = dims(), ppu = vh / (2 * H0);
     const k = (P.s * ppu) / meta.k;
     const ax = vw / 2 + P.x * ppu, ay = vh / 2 - P.y * ppu;
     Object.assign(layer.style, { width: `${meta.w * k}px`, height: `${meta.h * k}px`, left: `${ax - meta.ax * k}px`, top: `${ay - meta.ay * k}px` });
@@ -96,10 +114,10 @@ export function initStream() {
     if (k === shown) return;
     const prev = shown;
     shown = k;
-    // ürünler arası geçişte yazı, yeni ürün kaideden yükselirken gelir
-    sec.style.setProperty('--in', prev >= 1 && k >= 1 ? '0.95s' : '0.15s');
+    // ürünler arası geçişte eski yazı ürün dönmeye başlarken çekilir, yenisi ürün yerine otururken gelir
+    sec.style.setProperty('--in', prev >= 1 || k >= 1 ? '0.12s' : '0.15s');
     players.forEach((pl, i) => {
-      if (i === 0) return;
+      if (i === 0 || (i !== k && i !== prev)) return;
       const on = i === k;
       if (on) { clearTimeout(outTimers.get(pl)); pl.classList.remove('out'); }
       else if (pl.classList.contains('on')) {
@@ -113,26 +131,27 @@ export function initStream() {
   }
   function update() {
     if (!scene) return;
-    const vh = window.innerHeight, top = hs();
+    const { top } = dims();
     const r = sec.getBoundingClientRect();
-    const total = sec.offsetHeight - vh;
-    f = clamp((-r.top / total) * N, 0, N); // 0: açılış, 1..N: ürünler
+    const total = sec.offsetHeight - window.innerHeight;
+    f = clamp((-r.top / total) * N, 0, N); // 0: açılış, 1..N: ürünler (ara değerler geçiş)
     const live = r.bottom > top + 40;
     scene.setActive(live);
     sec.classList.toggle('live', live);
+    // akışın sonu: sahne bölümle birlikte, sayfayla aynı hızda yukarı kayar (kaide yerinde, gecikmesiz)
+    const shift = Math.min(0, r.bottom - window.innerHeight);
+    gl.style.transform = shift ? `translate3d(0, ${shift.toFixed(1)}px, 0)` : '';
     if (!live) return;
     const P = poses();
-    const m = smooth(0, 1, f); // açılış → sahne
+    const m = smooth(0, 1, f); // açılış → ilk ürün: ürün kaidenin üstünde bir tur döner
     const p = {};
     for (const k in P.stage) p[k] = P.intro[k] + (P.stage[k] - P.intro[k]) * m;
-    // akışın sonu: ürün bölümle birlikte yukarı kayar
-    if (r.bottom < vh) p.y += (vh - r.bottom) * ((2 * H0) / vh);
     scene.setPose({ ...p, cloud: 0, frost: 0, bd: 0 });
+    scene.setStream(clamp(f - 1, 0, N - 1));
     cur = Math.round(clamp(f - 1, 0, N - 1));
-    scene.setStream(cur);
 
-    // açılış yazısı kaydırmayla çekilir; ürün yazıları geçişle birlikte gelir
-    const intro = players[0], d = f, ad = Math.abs(d);
+    // açılış yazısı kaydırmayla çekilir; ürün yazıları ürün yerine otururken gelir
+    const intro = players[0], ad = Math.abs(f);
     const o = 1 - smooth(0.18, 0.42, ad);
     intro.style.setProperty('--d', Math.max(0, ad - 0.05).toFixed(4));
     intro.style.setProperty('--o', o.toFixed(3));
@@ -140,42 +159,122 @@ export function initStream() {
     intro.style.visibility = o < 0.002 ? 'hidden' : 'visible';
     intro.classList.toggle('on', ad < 0.3);
     intro.setAttribute('aria-hidden', ad < 0.3 ? 'false' : 'true');
-    showPlayer(f < 0.5 ? 0 : cur + 1);
+    const near = Math.round(f);
+    showPlayer(f < 0.5 ? 0 : Math.abs(f - near) < 0.3 && near >= 1 ? near : -1);
 
     dots.forEach((dd, k) => dd.classList.toggle('on', f > 0.5 && k === cur));
     $('#flavorList').classList.toggle('show', f > 0.55);
     $('#streamCount').innerHTML = `<b>${pad(cur + 1)}</b><i><span style="width:${(cur / (N - 1)) * 100}%"></span></i>${pad(N)}`;
     $('#streamCount').classList.toggle('show', f > 0.55);
-    $('#productHit').href = productUrl(STREAM[f < 0.5 ? 0 : cur]);
+    hit.href = productUrl(STREAM[f < 0.5 ? 0 : cur]);
   }
 
-  // kaydırma durunca en yakın durağa yumuşakça otur
-  let snapTimer = 0, snapping = false;
+  // tek kaydırma = bir sonraki durak (açılış → ürünler → sayfanın devamı), sinematik ve ağır çekimde
+  // (Genç Anadolu ana sayfasındaki akışla aynı): ürün bu sürede kaidenin üstünde bir tur dönerek değişir
+  let anim = 0, animating = false, lastWheel = 0, settleUntil = 0;
+  function animateTo(target, seconds, done) {
+    cancelAnimationFrame(anim);
+    const from = window.scrollY, dist = target - from;
+    if (reduce || Math.abs(dist) < 2) { window.scrollTo({ top: target, behavior: 'instant' }); done && done(); return; }
+    const t0 = performance.now(), ms = seconds * 1000;
+    const step = (now) => {
+      const q = Math.min(1, (now - t0) / ms);
+      window.scrollTo({ top: from + dist * easeIO(q), behavior: 'instant' });
+      if (q < 1) anim = requestAnimationFrame(step); else done && done();
+    };
+    anim = requestAnimationFrame(step);
+  }
+  const stops = () => [...Array(N + 1).keys()].map(stopY).concat(docTop(sec) + sec.offsetHeight - hs());
+  const DUR = [1.7, 1.9, 1.9, 1.3];
+  function go(to, from) {
+    const S = stops();
+    animating = true;
+    animateTo(S[to], DUR[Math.min(DUR.length - 1, Math.max(0, from))] * (to === S.length - 1 ? 0.7 : 1), () => { animating = false; settleUntil = performance.now() + 380; });
+  }
+  function page(dir) {
+    const S = stops(), y = window.scrollY;
+    let to = -1;
+    if (dir > 0) to = S.findIndex((v) => v > y + 4);
+    else for (let k = S.length - 1; k >= 0; k--) if (S[k] < y - 4) { to = k; break; }
+    if (to < 0) return false;
+    go(to, dir > 0 ? to - 1 : to);
+    return true;
+  }
+  const inZone = (dir) => {
+    const S = stops(), end = S[S.length - 1], y = window.scrollY;
+    return dir > 0 ? y < end - 4 : y <= end + 4 && y > 4;
+  };
+  dots.forEach((d) => d.addEventListener('click', () => { if (!animating) go(+d.dataset.go + 1, Math.round(f)); }));
+  $('#introNext')?.addEventListener('click', () => { if (!animating) go(1, 0); });
+  if (!reduce && !/[?&]nosnap\b/.test(location.search)) {
+    window.addEventListener('wheel', (e) => {
+      if (document.body.classList.contains('menu-open')) return;
+      const dir = Math.sign(e.deltaY);
+      if (!dir || !inZone(dir)) return;
+      e.preventDefault();
+      const now = performance.now(), gap = now - lastWheel;
+      lastWheel = now;
+      // dokunmatik yüzeyin süren ataleti yeni bir kaydırma sayılmaz
+      if (animating || now < settleUntil || (gap < 140 && now < settleUntil + 600)) return;
+      if (Math.abs(e.deltaY) < 3) return;
+      page(dir);
+    }, { passive: false });
+    let ty = null;
+    window.addEventListener('touchstart', (e) => { ty = e.touches.length === 1 ? e.touches[0].clientY : null; }, { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      if (ty === null || document.body.classList.contains('menu-open')) return;
+      const dir = Math.sign(ty - e.touches[0].clientY);
+      if (dir && inZone(dir)) e.preventDefault();
+    }, { passive: false });
+    window.addEventListener('touchend', (e) => {
+      if (ty === null) return;
+      const dy = ty - e.changedTouches[0].clientY;
+      ty = null;
+      const dir = Math.sign(dy);
+      if (Math.abs(dy) > 24 && inZone(dir) && !animating) page(dir);
+    }, { passive: true });
+    window.addEventListener('keydown', (e) => {
+      if (e.target.closest && e.target.closest('input, textarea, select, button, a')) return;
+      const dir = ['ArrowDown', 'PageDown', ' '].includes(e.key) ? 1 : ['ArrowUp', 'PageUp'].includes(e.key) ? -1 : 0;
+      if (!dir || !inZone(dir)) return;
+      e.preventDefault();
+      if (!animating) page(dir);
+    });
+  }
+  // kaydırma çubuğuyla bırakılırsa en yakın durağa otur
+  let snapTimer = 0;
   function scheduleSnap() {
     clearTimeout(snapTimer);
-    if (snapping || reduce || /[?&]nosnap\b/.test(location.search)) return;
+    if (animating || reduce || /[?&]nosnap\b/.test(location.search)) return;
     snapTimer = setTimeout(() => {
+      if (animating) return;
       const r = sec.getBoundingClientRect();
       if (r.top > 2 || r.bottom < window.innerHeight - 2) return;
       const n = Math.round(f);
       if (Math.abs(f - n) < 0.02) return;
-      snapping = true;
-      window.scrollTo({ top: stopY(n), behavior: 'smooth' });
-      setTimeout(() => { snapping = false; }, 800);
+      go(n, Math.min(n, Math.floor(f)));
     }, 260);
   }
-  window.addEventListener('scroll', () => { update(); scheduleSnap(); }, { passive: true });
-  window.addEventListener('resize', update);
+  let queued = false;
+  window.addEventListener('scroll', () => {
+    scheduleSnap();
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; update(); });
+  }, { passive: true });
+  window.addEventListener('resize', () => { placeHit(); update(); });
+  placeHit();
+  document.fonts?.ready.then(placeHit);
 
   // ürünün üzerinde "3B incele" etiketi imleci izler
-  const hit = $('#productHit'), label = $('#hitLabel');
+  const label = $('#hitLabel');
   hit.addEventListener('pointermove', (e) => { const r = hit.getBoundingClientRect(); label.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px)`; });
   hit.addEventListener('pointerenter', () => hit.classList.add('hover'));
   hit.addEventListener('pointerleave', () => hit.classList.remove('hover'));
 
   import('../scene.js').then(({ createScene }) => {
     const still = /[?&]poster\b/.test(location.search);
-    scene = createScene($('#gl'), STREAM, null, null, { backdrop: true, still });
+    scene = createScene(gl, STREAM, null, null, { backdrop: true, still, fixed: true });
     window.__scene = scene;
     window.__pose = () => poses().intro;
     scene.ready.then(() => {

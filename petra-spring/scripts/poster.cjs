@@ -17,7 +17,7 @@ const fs = require('fs');
     await p.waitForFunction(() => document.body.classList.contains('gl-ready'), null, { timeout: 180000 });
     await p.waitForTimeout(9000);
     const r = await p.evaluate(() => {
-      const P = window.__pose(), vw = innerWidth, vh = innerHeight, H0 = Math.tan((15 * Math.PI) / 180) * 5, ppu = vh / (2 * H0);
+      const P = window.__pose(), vw = innerWidth, vh = document.getElementById('gl').clientHeight || innerHeight, H0 = Math.tan((15 * Math.PI) / 180) * 5, ppu = vh / (2 * H0);
       return { png: window.__scene.layerShot(), bg: window.__scene.backdropURL(), ax: vw / 2 + P.x * ppu, ay: vh / 2 - P.y * ppu, k: P.s * ppu, dpr: Math.min(devicePixelRatio, 2) };
     });
     fs.writeFileSync(`/tmp/layer-${name}.png`, Buffer.from(r.png.split(',')[1], 'base64'));

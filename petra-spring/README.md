@@ -7,12 +7,20 @@ Genç Anadolu Gıda sitesinin (`madame-lyras/`, dal `claude/3d-product-catalog-s
 - **23 ürün** (`src/data.js`): 12 asma kağıt araba kokusu, 5 cam şişe araba kokusu, 6 bambu çubuklu oda kokusu.
 - **3B modeller** (`src/petra3d.js`):
   - `card`: asma kağıt koku, blister kart; ön ve arka yüz ürünün gerçek fotoğrafından (beyaz zemin kesildi, askı deliği saydam), poşet kısmı hafif şişkin.
-  - `vial`: ürün görselindeki elma biçimli cam şişe (sağda ısırık, kalın cam, önde gömme yuvarlak Petra logosu), renkli esans, 4 halkalı ahşap kapak, ahşap boncuk ve bükümlü ip (kodla çizildi).
-  - `reed`: kare cam şişe, renkli esans, siyah kapak, altın etiket (ürün adı tuvalde yazılır), 5 siyah bambu çubuk.
+  - `blister`: cam şişe araba kokuları gerçek blister kartında: ön yüz ürünün fotoğrafı (`public/tex/bl/<id>.webp`, köşeler ve askı deliği saydam),
+    arka yüz kullanım talimatı, belgeler ve uyarılar (`public/tex/bl/back/`, markanın kendi görsellerinden); şişenin üstünde hacimli saydam plastik kabarcık.
+  - `vial`: kartsız elma biçimli cam şişe (kodla çizildi; şu an kullanılmıyor).
+  - `reed`: kalın tabanlı kare cam şişe, renkli esans, uzun siyah kapak, süslü altın etiket, 5 siyah bambu çubuk; arkasında ürünün 3B kutusu
+    (gümüş karton, altın "ORTAM KOKUSU · REED DIFFUSER" bandı, Petra logosu, dikey isim etiketi, şişe çizimi, ürün renginde alt kısım; tuvalde çizilir).
+  - Ürün değişimlerinde eski model dönerken çözülür, yenisi aynı anda belirir (iki model üst üste; ani boyut/biçim değişimi olmaz).
+- **Ürün sayfası**: ürün mermer kaidenin üstünde sergilenir (kaidenin alt kısmı sahnenin altına taşar); panel beyaz kartsız, ürün adı ve fiyat
+  Cormorant Garamond, koyu yeşil ve altın satın alma düğmesi; ürün sırası ve oklar üstte ortada, "Kokuyu keşfet" sağ üstte.
 - **Ana sayfa** (`src/pages/stream.js`): kurumsal, kaydırmalı 3B akış. Ürün baştan sona cilalı mermer kaidenin (`src/podium.js`: pahlı tabla,
-  altın kakma, geniş taban, temas ve zemin gölgesi) üstünde durur. Kaydırınca 3 ürün (Önce Vatan, Ocean, Kerasus) sinematik bir geçişle değişir:
-  ürün dönerek kaidenin içine iner, kaidede ışık halkası, yükselen ışık sütunu ve parıltılar belirir, arka plan yeni ürünün rengine geçer,
-  yeni ürün dönerek kaideden yükselip hafifçe yaylanarak oturur; yazılar ürünle birlikte sırayla gelir. Fareyle ürün tabanı etrafında eğilir.
+  altın kakma, geniş taban, temas ve zemin gölgesi) üstünde durur; kaide hiç oynamaz (telefonda adres çubuğu açılıp kapanınca da sabit:
+  tuval `100lvh`). Ürünler: Petra X (asma kağıt), Aura (cam şişe, blister kart), Agartha (bambu, kutusuyla).
+  Tek kaydırma = bir sonraki ürün (Genç Anadolu ana sayfasındaki akış): ürün kaidenin üstünde hafifçe yükselip kaydırmaya
+  bağlı, geri sarılabilir tam bir tur döner, dönerken eski ürün çözülüp yenisi belirir; kaidede ışık halkası, ışık sütunu ve parıltılar belirir,
+  arka plan yeni ürünün rengine geçer, yazılar ürün yerine otururken sırayla gelir. Fareyle ürün tabanı etrafında eğilir.
 - **Ürüne özel arka plan** (`src/backdrop.js`): ferah stüdyo; ürünün renginde pastel duvar ve zemin, pencere ışığı ve kokuya göre gölge
   (çiçekli dal, palmiye, panjur, pencere, su yansıması, güneş), rüzgârda hafifçe sallanır. 3B sahnenin içinde çizilir (cam arkadaki sahneyi kırar).
   Renkler ve gölge türü `STUDIO` tablosunda.

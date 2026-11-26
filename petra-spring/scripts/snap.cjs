@@ -22,8 +22,8 @@ async function run(b, ctxOpts, key, saveImg) {
     const n = await p.$$eval('#pThumbs a', (a) => a.length);
     for (let i = 0; i < n; i++) {
       const id = await p.$eval(`#pThumbs a[data-i="${i}"]`, (a) => new URL(a.href).searchParams.get('id'));
-      if (i > 0 || first !== id) { await p.click(`#pThumbs a[data-i="${i}"]`); }
-      await p.waitForTimeout(i === 0 ? 1500 : 2200);
+      if (i > 0 || first !== id) { await p.$eval(`#pThumbs a[data-i="${i}"]`, (a) => a.click()); }
+      await p.waitForTimeout(i === 0 ? 4000 : 4500);
       // tam önden: görünümü sıfırla, dönüş kapalı kalsın
       await p.evaluate(() => { const sp = document.querySelector('#spinBtn'); if (sp.getAttribute('aria-pressed') === 'true') sp.click(); window.__scene.setAutoRotate(false); window.__scene.resetView(); });
       if (REDO.length && !REDO.includes(id)) continue;
@@ -61,7 +61,7 @@ print('${id}', c.size)`], { stdio: 'inherit' });
 
 (async () => {
   const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
-  await run(b, { viewport: { width: 1920, height: 960 }, deviceScaleFactor: 1 }, 'd', true);
+  if (!process.env.MOBILE_ONLY) await run(b, { viewport: { width: 1920, height: 960 }, deviceScaleFactor: 1 }, 'd', true);
   await run(b, { ...devices['iPhone 13'], deviceScaleFactor: 1 }, 'm', false);
   for (const [id, v] of Object.entries(meta)) if (!v.m) v.m = { ...meta[id.startsWith('cam-') ? 'cam-aura' : ['kerasus','miracle','zeus','keops','agartha','paris'].includes(id) ? 'kerasus' : 'anka'].m };
   fs.writeFileSync('scripts/snap.json', JSON.stringify(meta, null, 1));

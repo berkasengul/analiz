@@ -98,8 +98,8 @@ CARDS.forEach(([id, name, scent, desc, bg, handle]) => FLAVORS.push({
 }));
 VIALS.forEach(([id, name, notes, desc, liquid, bg, handle]) => FLAVORS.push({
   id, name, scent: notes.join(' · '), notes, group: 'cam', cat: 'cam', price: '120', handle, bg, ink: 'light',
-  tex: `/tex/md/${id}.webp`, thumb: `/img/foto/${id}-0.webp`, parts: [], aspect: 1.4,
-  model: { type: 'vial', liquid, label: name },
+  tex: `/tex/bl/${id}.webp`, back: `/tex/bl/back/${id}.webp`, thumb: `/img/foto/${id}-0.webp`, parts: [], aspect: 1.4,
+  model: { type: 'blister', aspect: 2.144, liquid, label: name },
   full: `${name} Cam Şişe Araba Kokusu`,
   slogan: '8 ml · bambu kapaklı cam şişe',
   lead: `Üç katmanlı ${name.toLocaleLowerCase('tr')} kokusu, bambu kapaklı cam şişede.`,

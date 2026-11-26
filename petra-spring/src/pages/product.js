@@ -157,10 +157,23 @@ function setPose(snap) {
   if (!scene) return;
   const pose = snap === true ? scene.snapPose : scene.setPose;
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A;
-  const f = FLAVORS[idx];
-  const k = f.model ? 1.05 : 1;
-  if (phone()) pose({ x: 0, y: $('#pstage').classList.contains('sensing') ? H * 0.44 : H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k * ($('#pstage').classList.contains('sensing') ? 0.5 : 1), ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else pose({ x: W * (2 * stageCenter() - 1), y: $('#pstage').classList.contains('sensing') ? -H * 0.1 : 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k * ($('#pstage').classList.contains('sensing') ? 0.74 : 1), podium: $('#pstage').classList.contains('sensing') ? 1 : 0, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  const sensing = $('#pstage').classList.contains('sensing');
+  const base = { rz: 0, cloud: 0, frost: 0, bd: 0, ry: 0 };
+  if (sensing) {
+    if (phone()) pose({ ...base, x: 0, y: H * 0.44, s: Math.min(1.6, W * 1.3, H * 0.74) * 0.5 });
+    else pose({ ...base, x: W * (2 * stageCenter() - 1), y: -H * 0.1, s: Math.min(1.5, W * 0.6, H * 1.05) * 0.74, podium: 1 });
+    return;
+  }
+  // vitrin: ürün mermer kaidenin üstünde sergilenir; ürün sahnenin büyük kısmını kaplar, kaidenin alt kısmı
+  // sahnenin altına taşar (sergi tezgâhı görünümü). Ürünün üst kenarı üst çubuğun hemen altında.
+  const v = $('#pstage .pstage__view').getBoundingClientRect(), vh = v.height || window.innerHeight, u = (2 * H) / vh;
+  const PH = 1.36; // ürün boyu (model birimi)
+  const top = phone() ? 66 : 78;
+  // telefonda alttaki düğmelerin (kokuyu keşfet, küçük resimler) üstünde kalır
+  const avail = phone() ? vh - top - 146 : 0.68 * vh;
+  const s = Math.min((avail * u) / PH, phone() ? W * 1.2 : W * 0.62);
+  const y = H - top * u - PH * s + 0.76 * s;
+  pose({ ...base, x: phone() ? 0 : W * (2 * stageCenter() - 1), y, s, podium: 1 });
 }
 markCenter();
 window.addEventListener('resize', markCenter);
