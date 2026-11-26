@@ -961,3 +961,138 @@ function TclFooter() {
     ],
   });
 }
+
+// ---------------- scroll opening: bag → can ----------------
+const TclOpenSteps = [0, 0.13, 0.28, 0.42, 0.6, 0.8, 0.92, 1],
+  TclOpenCopy = {
+    tr: {
+      labels: ["Başla", "Yırt", "Aç", "Kaşık", "Dönüşüm", "Soğuk", "Hazır"],
+      steps: [
+        ["Dünyanın ilk kahvesi.", "Bold Istanbul", "Yüz yıllık bir harman, 250 gramlık bir pakette."],
+        ["Yırt.", "Kokla.", "Paketi açtığınız an İstanbul'un kahve kokusu odaya yayılır."],
+        ["%100 Arabica.", "İnce çekim.", "Orta kavrulmuş, Türk kahvesi için un kıvamında öğütülmüş."],
+        ["Bir kaşık", "yeter.", "Fincan başına iki çay kaşığı (10 g). Ritüel hep aynı."],
+        ["Aynı harman.", "Şimdi buzlu.", "Yüz yıllık ritüel, soğuk ve sıfır şekerle bir kutuda."],
+        ["Çalkala.", "Soğuk iç.", "250 ml Bold Istanbul: koyu ve yoğun, %100 doğal, düşük kalori."],
+        ["Aynı İstanbul.", "İki ritüel.", "Paket mutfağınızda, kutu yanınızda."],
+      ],
+      cta: "Ürünü keşfet",
+      film: "Filmi izle",
+      scroll: "Kaydır",
+    },
+    en: {
+      labels: ["Start", "Tear", "Open", "Scoop", "Pour", "Chill", "Ready"],
+      steps: [
+        ["The world's first coffee.", "Bold Istanbul", "A centuries-old blend in a 250 g bag."],
+        ["Tear it.", "Breathe it in.", "The moment you open the bag, Istanbul's coffee aroma fills the room."],
+        ["100% Arabica.", "Finely ground.", "Medium roasted, ground as fine as flour for Turkish coffee."],
+        ["One spoon", "is all it takes.", "Two teaspoons (10 g) a cup. The ritual never changes."],
+        ["Same blend.", "Now iced.", "A centuries-old ritual, cold and zero sugar, in a can."],
+        ["Shake well.", "Drink cold.", "8.5 fl oz of Bold Istanbul: dark and rich, 100% natural, low calorie."],
+        ["One Istanbul.", "Two rituals.", "The bag in your kitchen, the can in your hand."],
+      ],
+      cta: "Explore the product",
+      film: "Watch the film",
+      scroll: "Scroll",
+    },
+  };
+
+function TclOpening() {
+  const { lang: L } = Nn(),
+    c = TclOpenCopy[L === "en" ? "en" : "tr"],
+    sec = K.useRef(null),
+    stage = K.useRef(null),
+    api = K.useRef(null),
+    [step, setStep] = K.useState(0),
+    [prog, setProg] = K.useState(0),
+    [ready, setReady] = K.useState(!1);
+  K.useEffect(() => {
+    let alive = !0, raf = 0;
+    const p3 = ft.products[0].photo3d;
+    import(new URL("film/open/opening.js", document.baseURI).href)
+      .then((m) =>
+        m.mount(stage.current, { canTexture: bq, rows: p3.rows, axis: p3.axis, onReady: () => alive && setReady(!0) }),
+      )
+      .then((a) => {
+        if (!alive) return a.destroy();
+        api.current = a;
+        tick();
+      })
+      .catch((e) => console.warn("opening", e));
+    const tick = () => {
+      raf = 0;
+      const el = sec.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect(),
+        span = Math.max(1, r.height - innerHeight),
+        p = Math.min(1, Math.max(0, -r.top / span)),
+        vis = r.bottom > 0 && r.top < innerHeight;
+      window.__tclOpenVis = vis;
+      if (api.current) (api.current.setProgress(p), api.current.setVisible(vis));
+      let i = 0;
+      TclOpenSteps.forEach((s, k) => k < 7 && p >= s - 0.001 && (i = k));
+      setStep(i);
+      setProg(p);
+    };
+    const on = () => raf || (raf = requestAnimationFrame(tick));
+    addEventListener("scroll", on, { passive: !0 });
+    addEventListener("resize", on);
+    tick();
+    return () => {
+      alive = !1;
+      window.__tclOpenVis = !1;
+      removeEventListener("scroll", on);
+      removeEventListener("resize", on);
+      cancelAnimationFrame(raf);
+      api.current && api.current.destroy();
+    };
+  }, []);
+  const s = c.steps[step];
+  return w.jsx("section", {
+    id: "acilis",
+    className: `tcl-open${ready ? " is-ready" : ""}`,
+    ref: sec,
+    children: w.jsxs("div", {
+      className: "tcl-open__sticky",
+      children: [
+        w.jsx("div", { className: "tcl-open__bg", "aria-hidden": "true" }),
+        w.jsx("div", { className: "tcl-open__stage", ref: stage, "aria-hidden": "true" }),
+        w.jsxs(
+          "div",
+          {
+            className: "tcl-open__copy",
+            children: [
+              w.jsx("p", { className: "mono tcl-open__num", children: `${String(step + 1).padStart(2, "0")} / 07` }),
+              w.jsxs("h2", { className: "tcl-open__title", children: [s[0], w.jsx("br", {}), w.jsx("em", { children: s[1] })] }),
+              w.jsx("p", { className: "tcl-open__lead", children: s[2] }),
+              step === 6 &&
+                w.jsxs("div", {
+                  className: "tcl-open__cta",
+                  children: [
+                    w.jsxs("a", { className: "tcl-btn tcl-btn--gold", href: "#/urun", children: [c.cta] }),
+                    w.jsxs("a", { className: "tcl-btn", href: "#/film", children: [w.jsx(TclPlay, {}), c.film] }),
+                  ],
+                }),
+            ],
+          },
+          `${L}-${step}`,
+        ),
+        w.jsxs("div", {
+          className: "tcl-open__bar",
+          children: [
+            w.jsx("ol", {
+              children: c.labels.map((l, i) =>
+                w.jsx("li", { className: i === step ? "is-on" : i < step ? "is-done" : "", children: l }, l),
+              ),
+            }),
+            w.jsx("span", { className: "tcl-open__track", children: w.jsx("i", { style: { transform: `scaleX(${prog})` } }) }),
+          ],
+        }),
+        w.jsxs("p", {
+          className: `mono tcl-open__hint${prog > 0.02 ? " is-gone" : ""}`,
+          children: [c.scroll, w.jsx("span", {})],
+        }),
+      ],
+    }),
+  });
+}

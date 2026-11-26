@@ -1324,3 +1324,212 @@ a.tcl-btn {
     grid-template-columns: 110px 1fr;
   }
 }
+
+/* =========================================================
+   Scroll opening: bag → can
+   ========================================================= */
+.tcl-open {
+  position: relative;
+  height: 720vh;
+  pointer-events: auto;
+  background: #070a14;
+}
+.tcl-open__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+.tcl-open__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(55% 45% at 62% 42%, rgba(214, 170, 110, 0.22), transparent 70%),
+    radial-gradient(90% 70% at 60% 35%, #1a2440 0%, #0e1530 45%, #070a14 100%);
+}
+.tcl-open__bg:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 70%;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(10, 14, 28, 0) 0%, #060810 100%);
+}
+.tcl-open__stage {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.tcl-open.is-ready .tcl-open__stage {
+  opacity: 1;
+}
+.tcl-open__stage canvas {
+  display: block;
+}
+.tcl-open__copy {
+  position: absolute;
+  left: clamp(20px, 6vw, 96px);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: min(440px, 38vw);
+  z-index: 2;
+  animation: tcl-open-in 0.9s var(--ease) both;
+}
+@keyframes tcl-open-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-50% + 24px));
+  }
+}
+.tcl-open__num {
+  color: var(--theme-accent, #e8c79a);
+  margin-bottom: 18px;
+}
+.tcl-open__title {
+  font-family: var(--wide);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.6vw, 4.4rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+.tcl-open__title em {
+  font-style: normal;
+  color: var(--theme-accent, #e8c79a);
+}
+.tcl-open__lead {
+  margin-top: 20px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(242, 239, 233, 0.75);
+}
+.tcl-open__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.tcl-open__bar {
+  position: absolute;
+  left: clamp(20px, 6vw, 96px);
+  bottom: clamp(22px, 5vh, 44px);
+  z-index: 2;
+  width: min(560px, 60vw);
+}
+.tcl-open__bar ol {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.tcl-open__bar li {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 233, 0.32);
+  transition: color 0.4s;
+}
+.tcl-open__bar li.is-done {
+  color: rgba(242, 239, 233, 0.6);
+}
+.tcl-open__bar li.is-on {
+  color: var(--theme-accent, #e8c79a);
+}
+.tcl-open__track {
+  display: block;
+  height: 1px;
+  background: rgba(242, 239, 233, 0.16);
+}
+.tcl-open__track i {
+  display: block;
+  height: 100%;
+  background: var(--theme-accent, #e8c79a);
+  transform-origin: 0 50%;
+}
+.tcl-open__hint {
+  position: absolute;
+  right: clamp(20px, 6vw, 96px);
+  bottom: clamp(22px, 5vh, 44px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: opacity 0.6s;
+}
+.tcl-open__hint span {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(180deg, var(--theme-accent, #e8c79a), transparent);
+  animation: tcl-hint 1.8s ease-in-out infinite;
+}
+@keyframes tcl-hint {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+.tcl-open__hint.is-gone {
+  opacity: 0;
+}
+@media (max-width: 760px) {
+  .tcl-open__copy {
+    top: auto;
+    bottom: 96px;
+    transform: none;
+    max-width: none;
+    right: 20px;
+    animation-name: tcl-open-in-m;
+  }
+  @keyframes tcl-open-in-m {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+  .tcl-open__title {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+  }
+  .tcl-open__lead {
+    margin-top: 10px;
+    font-size: 0.92rem;
+  }
+  .tcl-open__bar {
+    width: auto;
+    right: 20px;
+  }
+  .tcl-open__bar li {
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+  }
+  .tcl-open__hint {
+    display: none;
+  }
+  .tcl-open__bg:after {
+    top: 45%;
+    background: linear-gradient(180deg, rgba(10, 14, 28, 0) 0%, rgba(6, 8, 16, 0.92) 60%);
+  }
+}
+/* keep the copy legible over the 3D objects */
+.tcl-open__sticky:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(7, 10, 20, 0.78) 0%, rgba(7, 10, 20, 0.45) 28%, rgba(7, 10, 20, 0) 46%);
+}
+@media (max-width: 760px) {
+  .tcl-open__sticky:before {
+    background: linear-gradient(180deg, rgba(7, 10, 20, 0) 45%, rgba(7, 10, 20, 0.82) 72%);
+  }
+}

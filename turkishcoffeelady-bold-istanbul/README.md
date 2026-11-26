@@ -5,7 +5,8 @@
 
 ## Sayfalar
 Çok sayfalı (adres çubuğunda `#/...`), sade düzen:
-- **Ana sayfa** (`/`): 3D Bold Istanbul (kaide + yeni stüdyo fonu), kısa giriş ve üç kapı: Ürün, Hikâye, Film.
+- **Ana sayfa** (`/`): kaydırmalı 3D açılış (paket → yırt → aç → kaşık → kahve taneleri kutuya dönüşür → buğu → hazır),
+  ardından 3D Bold Istanbul kutusu (kaide + stüdyo fonu), kısa giriş ve üç kapı: Ürün, Hikâye, Film.
 - **Ürün** (`#/urun`): ürün hikâyesi, ön/arka kutu geçişi, içindekiler, besin değerleri, kutu bilgisi.
 - **Hikâye** (`#/hikaye`): Boston'dan Alexandria'ya 8 perde; "Filmde izle" filmin o anına götürür (`#/film?t=...`).
 - **Film** (`#/film`): 36 dk belgesel, 15 bölüm.
@@ -30,3 +31,10 @@
 - QR ve barkod fotoğraftan okunamadı; görsel olarak çizildi, taranınca çalışmaz.
   Gerçek QR bağlantısı ve barkod numarası gelirse `kaynak/kutu/` içinden yeniden üretilir.
 - Yeniden üretim: `kaynak/kutu/strip.html` → `strip.png` (arka etiket), sonra `python3 compose.py`.
+
+## Kaydırmalı açılış (paket → kutu)
+- Sahne: `site/film/open/opening.js` (three.js 0.160, jsDelivr'den). Her şey kaydırma ilerlemesinin saf fonksiyonu;
+  ileri/geri kaydırma kusursuz çalışır. Paket, kaşık, kahve taneleri ve buğu kodla üretilir; kutu sitedeki gerçek dokuyla.
+- Paket etiketi `site/film/open/bag-front.webp` / `bag-back.webp`; kaynakları `kaynak/paket/` (çizim ve hanım logosu
+  orijinal paket görselinden 4× büyütülüp temizlendi, yazılar yeniden yazıldı).
+- Video yok, kredi gerekmez. İleride yapay zekâ videosu üretilirse aynı kaydırma altyapısına takılabilir.
