@@ -6,7 +6,7 @@
 ## Sayfalar
 Çok sayfalı (adres çubuğunda `#/...`), sade düzen:
 - **Ana sayfa** (`/`): tek bir kaydırmalı 3D sahne (paket → yırt → aç → kaşık → kahve taneleri kutuya dönüşür → buğu →
-  sayfa aşağı kayarken kutu kamerayla birlikte kemerin içindeki ince kaideye süzülür), ardından film bölümü,
+  kamera geri çekilip paket ve kutuyu kemerle birlikte tam kadraja alır; kaide ve kemer sabit), ardından film bölümü,
   kısa giriş ve üç kapı: Ürün, Hikâye, Film. Kaidedeki kutuya tıklamak 3D İncele sayfasını açar.
 - **Ürün** (`#/urun`): ürün hikâyesi, ön/arka kutu geçişi, içindekiler, besin değerleri, kutu bilgisi.
 - **Hikâye** (`#/hikaye`): Boston'dan Alexandria'ya 8 perde; "Filmde izle" filmin o anına götürür (`#/film?t=...`).

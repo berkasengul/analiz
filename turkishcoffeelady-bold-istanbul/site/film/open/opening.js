@@ -723,13 +723,16 @@ export async function mount(el, { canTexture, rows, axis, onReady, onInspect }) 
     [1.0, V(1.05, 0.72, 5.25), V(1.05, 0.72, 0.85)],
   ];
   const camPos = V(0, 0, 0), camTgt = V(0, 0, 0);
+  const posCurve = new THREE.CatmullRomCurve3(camKeys.map((k) => k[1]), false, "centripetal");
+  const tgtCurve = new THREE.CatmullRomCurve3(camKeys.map((k) => k[2]), false, "centripetal");
   function cameraAt(p) {
     let i = 0;
     while (i < camKeys.length - 2 && p > camKeys[i + 1][0]) i++;
-    const [p0, a0, t0] = camKeys[i], [p1, a1, t1] = camKeys[i + 1];
-    const t = ease(clamp((p - p0) / (p1 - p0)));
-    camPos.lerpVectors(a0, a1, t);
-    camTgt.lerpVectors(t0, t1, t);
+    const lt = clamp((p - camKeys[i][0]) / (camKeys[i + 1][0] - camKeys[i][0]));
+    // gentle ease only at the very start and end of the whole path
+    const u = (i + lt) / (camKeys.length - 1);
+    posCurve.getPoint(u, camPos);
+    tgtCurve.getPoint(u, camTgt);
   }
   const spoonPath = (s, out) => {
     // s: 0..1 over scoop+pour. [s, bowl position, yaw, pitch (handle elevation), roll (pour)]
@@ -753,9 +756,10 @@ export async function mount(el, { canTexture, rows, axis, onReady, onInspect }) 
   const tip = V(0, 0, 0);
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = V(1, 1, 1), dp = V(0, 0, 0);
 
-  let progress = 0, dirty = true, visible = true, raf = 0, time = 0;
+  let progress = 0, shown = 0, dirty = true, visible = true, raf = 0, time = 0;
   const view = { w: 1, h: 1 };
   const FIN = 0.78;
+  const CAMW = V(0.75, 1.45, 6.9), TGTW = V(0.6, 1.12, 0.45), CAMW_M = V(0.6, 1.5, 8.3), TGTW_M = V(0.55, 1.2, 0.45);
   const camFin = V(1.05, 0.86, 5.15), tgtFin = V(1.05, 0.72, 0.85), cP = V(0, 0, 0), cT = V(0, 0, 0);
   function apply(P) {
     const p = P < FIN ? (P / FIN) * 0.92 : 0.92;
@@ -775,7 +779,7 @@ export async function mount(el, { canTexture, rows, axis, onReady, onInspect }) 
     updateBagPanel(gF, open, topFrac);
     updateBagPanel(gB, open, topFrac);
     fill.visible = open > 0.01;
-    const bagA = 1 - smooth(seg(p, 0.76, 0.85));
+    const bagA = 1;
     bagMats.forEach((m) => (m.opacity = bagA));
     cap.material.transparent = true; cap.material.opacity = bagA;
     fill.material.transparent = true; fill.material.opacity = bagA;
@@ -840,7 +844,7 @@ export async function mount(el, { canTexture, rows, axis, onReady, onInspect }) 
     sweep.target.position.set(CAN_POS.x, 0.7, CAN_POS.z);
     // focus: fade the studio while the camera is tight on the can
     const tight = seg(p, 0.74, S[5]) * (1 - seg(p, 0.97, 1));
-    studio.arch.visible = tight < 0.98;
+    studio.arch.visible = true;
     studio.haze.material.opacity *= 1 - tight * 0.5;
 
     if (view.w / view.h >= 1.2) {
@@ -851,54 +855,31 @@ export async function mount(el, { canTexture, rows, axis, onReady, onInspect }) 
     camera.position.copy(camPos);
     camera.lookAt(camTgt);
 
-    // ---------- finale: the page scrolls down and the can glides down with it onto the slim pedestal ----------
-    const DROP = 1.85;
-    studio.ped.visible = f > 0;
-    studio.ped.position.set(CAN_POS.x, -DROP, CAN_POS.z);
+    // ---------- finale: pull back to frame both products; plinth and arch never move ----------
+    studio.ped.visible = false;
+    plinthMats.forEach((m) => (m.opacity = 1));
+    studio.plinth.visible = true;
+    floor.material.opacity = 0.32;
+    studio.arch.position.copy(ARCH0);
+    studio.arch.scale.setScalar(1);
+    studio.floor.position.y = FLOOR0;
+    studio.bokeh.position.y = 0;
+    studio.pglow.material.opacity = 0;
+    can.group.position.copy(CAN_POS);
     if (f > 0) {
-      const d = ease(seg(f, 0.04, 0.8));
-      const settle = -Math.sin(seg(f, 0.8, 0.92) * Math.PI) * 0.018;
-      can.group.position.set(CAN_POS.x, -DROP * d + settle, CAN_POS.z);
-      can.group.rotation.y = Math.sin(Math.PI * d) * 0.32 + Math.sin(time * 0.45) * 0.02 * seg(f, 0.9, 1);
-      // the wide plinth melts away as the can leaves it
-      const pa = 1 - smooth(seg(f, 0.02, 0.28));
-      plinthMats.forEach((m) => (m.opacity = pa));
-      studio.plinth.visible = pa > 0.01;
-      floor.material.opacity = 0.32 * pa;
-      const k = ease(seg(f, 0.04, 0.8));
-      studio.arch.visible = true;
-      studio.arch.position.set(lerp(ARCH0.x, CAN_POS.x, k), lerp(ARCH0.y, -DROP - 0.5, k), lerp(ARCH0.z, CAN_POS.z - 0.7, k));
-      studio.arch.scale.setScalar(lerp(1, 0.42, k));
-      studio.floor.position.y = lerp(FLOOR0, -DROP - 1.95, k);
-      studio.bokeh.position.y = -DROP * k;
-      studio.haze.material.opacity = lerp(studio.haze.material.opacity, 1, k);
-      studio.shaft.material.opacity = 0.32 * k + studio.shaft.material.opacity * (1 - k);
-      studio.pglow.material.opacity = Math.exp(-Math.pow((f - 0.81) / 0.045, 2)) * 0.9 + seg(f, 0.84, 1) * 0.22;
-      // camera cranes down a beat behind the can, then settles square-on (the hero shot)
-      // the camera rides down with the can (it stays framed while the arch and pedestal rise into view)
-      const t = ease(seg(f, 0.04, 0.92));
-      const canY = can.group.position.y;
-      cT.lerpVectors(camTgt, V(CAN_POS.x, 0, CAN_POS.z), t);
-      cT.y = canY + lerp(camTgt.y, 0.72, t);
-      cP.lerpVectors(camPos, V(CAN_POS.x, 0, CAN_POS.z + 4.3), t);
-      cP.y = cT.y + lerp(camPos.y - camTgt.y, 0.14, t);
-      cP.z += Math.sin(Math.PI * t) * 0.55;
-      cP.x += Math.sin(Math.PI * t) * 0.2;
+      const t = ease(seg(f, 0, 0.72));
+      const portrait = view.w / view.h < 0.8;
+      cP.lerpVectors(camPos, portrait ? CAMW_M : CAMW, t);
+      cT.lerpVectors(camTgt, portrait ? TGTW_M : TGTW, t);
+      cP.y += Math.sin(Math.PI * t) * 0.25;
       camera.position.copy(cP);
       camera.lookAt(cT);
+      studio.haze.material.opacity = lerp(studio.haze.material.opacity, 1, t);
+      studio.shaft.material.opacity = lerp(studio.shaft.material.opacity, 0.32, t);
       if (view.w / view.h >= 1.2) {
-        camera.setViewOffset(view.w, view.h, -view.w * lerp(0.2, 0.14, t), 0, view.w, view.h);
+        camera.setViewOffset(view.w, view.h, -view.w * lerp(0.2, 0.17, t), 0, view.w, view.h);
         camera.updateProjectionMatrix();
       }
-    } else {
-      plinthMats.forEach((m) => (m.opacity = 1));
-      studio.plinth.visible = true;
-      floor.material.opacity = 0.32;
-      studio.arch.position.copy(ARCH0);
-      studio.arch.scale.setScalar(1);
-      studio.floor.position.y = FLOOR0;
-      studio.bokeh.position.y = 0;
-      studio.pglow.material.opacity = 0;
     }
     finale = f;
   }
@@ -924,14 +905,17 @@ export async function mount(el, { canTexture, rows, axis, onReady, onInspect }) 
   const loop = (t) => {
     raf = requestAnimationFrame(loop);
     if (!visible) return;
+    const dt = Math.min(0.05, t / 1000 - time || 0.016);
     time = t / 1000;
-    apply(progress);
+    shown += (progress - shown) * (1 - Math.exp(-dt * 7));
+    if (Math.abs(progress - shown) < 0.0002) shown = progress;
+    apply(shown);
     renderer.render(scene, camera);
   };
   raf = requestAnimationFrame(loop);
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
   const hitCan = (e) => {
-    if (finale < 0.85) return false;
+    if (finale < 0.55) return false;
     const r = renderer.domElement.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
