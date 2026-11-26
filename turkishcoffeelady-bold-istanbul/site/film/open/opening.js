@@ -1,6 +1,7 @@
 // Bold Istanbul · scroll-driven opening: bag → tear → open → scoop → grains swirl into the can → cold → ready.
 // Every visual is a pure function of the scroll progress p (0..1), so scrubbing works both ways.
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import * as THREE from "three";
+import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = (t) => t * t * (3 - 2 * t);
@@ -224,33 +225,223 @@ function makeEnv(renderer) {
   return rt.texture;
 }
 
-// ---------- spoon (Turkish coffee spoon, copper) ----------
 function makeSpoon(envMap, coffeeTex) {
+  // a classic polished silver teaspoon: thick elliptical bowl, flat tapering handle, teardrop finial
   const outer = new THREE.Group();
-  const g = new THREE.Group();
-  g.rotation.order = "YXZ";
-  outer.add(g);
-  const copper = new THREE.MeshPhysicalMaterial({ color: 0xd99a62, metalness: 1, roughness: 0.22, clearcoat: 0.7, clearcoatRoughness: 0.15, envMap, envMapIntensity: 2.4 });
-  const bowl = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 20, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), copper);
-  bowl.scale.set(0.11, 0.05, 0.15);
+  const rig = new THREE.Group();
+  rig.rotation.order = "YXZ";
+  outer.add(rig);
+  const silver = new THREE.MeshPhysicalMaterial({
+    color: 0xe3e1dc, metalness: 1, roughness: 0.13, clearcoat: 0.5, clearcoatRoughness: 0.08, envMap, envMapIntensity: 1.6,
+  });
+  // bowl: lathe of a shallow cup with real wall thickness, squeezed into an ellipse
+  const prof = [];
+  const N = 18;
+  for (let i = 0; i <= N; i++) { const t = i / N; prof.push(new THREE.Vector2(t, -0.36 * (1 - t * t) + 0.02)); } // inner surface
+  prof.push(new THREE.Vector2(1.04, 0.03), new THREE.Vector2(1.06, 0.0));
+  for (let i = N; i >= 0; i--) { const t = i / N; prof.push(new THREE.Vector2(t * 1.06, -0.42 * (1 - t * t) - 0.02)); } // outer
+  const bowlGeo = new THREE.LatheGeometry(prof.reverse(), 64);
+  bowlGeo.scale(0.085, 0.13, 0.125);
+  const bowl = new THREE.Mesh(bowlGeo, silver);
   bowl.material.side = THREE.DoubleSide;
-  g.add(bowl);
-  const curve = new THREE.CatmullRomCurve3([V(0, 0, -0.14), V(0, 0.03, -0.3), V(0, 0.1, -0.6), V(0, 0.16, -0.95)]);
-  const handle = new THREE.Mesh(new THREE.TubeGeometry(curve, 40, 0.012, 10, false), copper);
-  g.add(handle);
-  const knob = new THREE.Mesh(new THREE.SphereGeometry(0.028, 20, 14), copper);
-  knob.position.set(0, 0.16, -0.97);
-  g.add(knob);
+  rig.add(bowl);
+  // handle: flat tapered outline, bevelled, bent upward from the neck
+  const sh = new THREE.Shape();
+  const half = (z) => {
+    // z from 0 (neck) to 1 (tip): narrow neck, slim shaft, teardrop finial
+    const neck = 0.012 + 0.01 * Math.exp(-z * 30);
+    const shaft = 0.012 + 0.008 * z;
+    const fin = 0.036 * Math.exp(-Math.pow((z - 0.88) / 0.08, 2));
+    const w = Math.max(neck, shaft) + fin;
+    return w * Math.sqrt(clamp((1 - z) / 0.07)) + 0.0005;
+  };
+  const L = 0.78, steps = 60;
+  for (let i = 0; i <= steps; i++) { const z = i / steps; sh.lineTo(half(z), z * L); }
+  for (let i = steps; i >= 0; i--) { const z = i / steps; sh.lineTo(-half(z), z * L); }
+  const hGeo = new THREE.ExtrudeGeometry(sh, { depth: 0.008, bevelEnabled: true, bevelThickness: 0.004, bevelSize: 0.004, bevelSegments: 3, curveSegments: 4, steps: 1 });
+  // shape is in XY, extrude along Z -> lay it flat (XZ), handle along -z
+  hGeo.rotateX(Math.PI / 2);
+  hGeo.rotateY(Math.PI);
+  const hp = hGeo.attributes.position;
+  for (let i = 0; i < hp.count; i++) {
+    const z = -hp.getZ(i); // 0..L along the handle
+    const t = z / L;
+    hp.setY(i, hp.getY(i) + 0.03 * smooth(clamp(t / 0.25)) + 0.045 * t * t);
+    hp.setZ(i, hp.getZ(i) - 0.1);
+  }
+  hGeo.computeVertexNormals();
+  const handle = new THREE.Mesh(hGeo, silver);
+  handle.position.y = 0.012;
+  rig.add(handle);
+  // a little engraved band at the neck
+  // heap of coffee in the bowl
   const heap = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2),
+    new THREE.SphereGeometry(1, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2),
     new THREE.MeshStandardMaterial({ map: coffeeTex, roughness: 0.95, color: 0xffffff }),
   );
-  heap.scale.set(0.1, 0.06, 0.13);
-  heap.position.y = -0.005;
-  g.add(heap);
-  g.traverse((o) => o.isMesh && (o.castShadow = true));
-  g.scale.setScalar(1.12);
-  return { group: outer, rig: g, heap };
+  heap.scale.set(0.075, 0.045, 0.11);
+  heap.position.y = 0.0;
+  rig.add(heap);
+  rig.traverse((o) => o.isMesh && (o.castShadow = true));
+  rig.scale.setScalar(1.18);
+  return { group: outer, rig, heap };
+}
+
+// ---------- studio: same language as the hero (ogee arch, fluted marble plinth, blue haze, bokeh) ----------
+function marbleTexture() {
+  const c = document.createElement("canvas");
+  c.width = 1024; c.height = 512;
+  const x = c.getContext("2d");
+  x.fillStyle = "#f1eee9"; x.fillRect(0, 0, 1024, 512);
+  x.globalAlpha = 0.5;
+  for (let k = 0; k < 26; k++) {
+    x.strokeStyle = `rgba(${150 + Math.random() * 40},${150 + Math.random() * 30},${150 + Math.random() * 30},${0.25 + Math.random() * 0.35})`;
+    x.lineWidth = 0.6 + Math.random() * 2.2;
+    x.beginPath();
+    let px = Math.random() * 1024, py = Math.random() * 512;
+    x.moveTo(px, py);
+    for (let i = 0; i < 14; i++) { px += (Math.random() - 0.3) * 120; py += (Math.random() - 0.5) * 80; x.lineTo(px, py); }
+    x.stroke();
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = THREE.RepeatWrapping;
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+function glowTexture(inner, outer) {
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const x = c.getContext("2d");
+  const g = x.createRadialGradient(128, 128, 0, 128, 128, 128);
+  g.addColorStop(0, inner); g.addColorStop(1, outer);
+  x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+  return new THREE.CanvasTexture(c);
+}
+function shaftTexture() {
+  const c = document.createElement("canvas");
+  c.width = 64; c.height = 256;
+  const x = c.getContext("2d");
+  const g = x.createLinearGradient(0, 0, 64, 0);
+  g.addColorStop(0, "rgba(255,255,255,0)"); g.addColorStop(0.5, "rgba(255,255,255,1)"); g.addColorStop(1, "rgba(255,255,255,0)");
+  x.fillStyle = g; x.fillRect(0, 0, 64, 256);
+  const v = x.createLinearGradient(0, 0, 0, 256);
+  v.addColorStop(0, "rgba(0,0,0,0)"); v.addColorStop(0.25, "rgba(0,0,0,1)"); v.addColorStop(1, "rgba(0,0,0,0.0)");
+  x.globalCompositeOperation = "destination-in"; x.fillStyle = v; x.fillRect(0, 0, 64, 256);
+  return new THREE.CanvasTexture(c);
+}
+function makeStudio(envMap, center) {
+  const g = new THREE.Group();
+  const silver = new THREE.MeshStandardMaterial({ color: 0xc9d2e8, metalness: 1, roughness: 0.3, envMap, envMapIntensity: 0.9, emissive: 0x1c2550, emissiveIntensity: 0.25, fog: true });
+  // pointed (ogee) arch outline
+  const archPts = (w, h, spring) => {
+    const pts = [];
+    for (let i = 0; i <= 10; i++) pts.push(V(-w, (i / 10) * spring, 0));
+    for (let i = 1; i <= 40; i++) {
+      const t = i / 40;
+      const ang = Math.PI - t * (Math.PI / 2 - 0.0);
+      const x = -w + w * (1 - Math.cos((t * Math.PI) / 2)) ;
+      const y = spring + (h - spring) * Math.sin((t * Math.PI) / 2) ** 1.4;
+      pts.push(V(x * (1 - 0.0 * ang), y, 0));
+    }
+    const right = pts.slice(0, -1).reverse().map((p) => V(-p.x, p.y, 0));
+    return pts.concat(right);
+  };
+  const W = 2.05, Hh = 5.6, SP = 3.5;
+  for (const [s, r] of [[1, 0.014], [0.92, 0.009]]) {
+    const pts = archPts(W * s, Hh - (1 - s) * 0.5, SP);
+    const curve = new THREE.CatmullRomCurve3(pts);
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 240, r, 8, false), silver));
+  }
+  // eight-point stars between the two lines
+  const star = new THREE.Shape();
+  for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2, rr = i % 2 ? 0.018 : 0.04; i ? star.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : star.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+  const starGeo = new THREE.ExtrudeGeometry(star, { depth: 0.008, bevelEnabled: false });
+  const midCurve = new THREE.CatmullRomCurve3(archPts(W * 0.96, Hh - 0.2, SP));
+  const n = 58;
+  const stars = new THREE.InstancedMesh(starGeo, silver, n);
+  const m = new THREE.Matrix4();
+  for (let i = 0; i < n; i++) { const p = midCurve.getPointAt((i + 0.5) / n); m.makeTranslation(p.x, p.y, 0); stars.setMatrixAt(i, m); }
+  g.add(stars);
+  // crescent finial
+  const cres = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.018, 10, 40, Math.PI * 1.35), silver);
+  cres.position.set(0, Hh + 0.22, 0);
+  cres.rotation.z = Math.PI * 0.82;
+  g.add(cres);
+  const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.2, 8), silver);
+  rod.position.set(0, Hh + 0.06, 0);
+  g.add(rod);
+  // blue haze inside the arch + light shaft
+  const haze = new THREE.Mesh(
+    new THREE.PlaneGeometry(5.6, 7.0),
+    new THREE.MeshBasicMaterial({ map: glowTexture("rgba(120,150,235,0.75)", "rgba(30,45,110,0)"), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }),
+  );
+  haze.position.set(0, 2.8, -0.05);
+  g.add(haze);
+  const shaft = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.5, 6.5),
+    new THREE.MeshBasicMaterial({ map: shaftTexture(), color: 0xbfd0ff, transparent: true, opacity: 0.32, depthWrite: false, blending: THREE.AdditiveBlending }),
+  );
+  shaft.position.set(0, 3.4, 0.0);
+  g.add(shaft);
+  g.position.set(center.x, -0.3, center.z - 2.9);
+
+  // fluted marble plinth (top at y = 0)
+  const plinth = new THREE.Group();
+  const R = 1.28, Hp = 0.95;
+  const col = new THREE.CylinderGeometry(R, R, Hp, 144, 1, true);
+  const cp = col.attributes.position;
+  for (let i = 0; i < cp.count; i++) {
+    const x = cp.getX(i), z = cp.getZ(i), a = Math.atan2(z, x);
+    const k = 1 - 0.02 * Math.pow(Math.abs(Math.cos(a * 16)), 0.6);
+    cp.setX(i, x * k); cp.setZ(i, z * k);
+  }
+  col.computeVertexNormals();
+  const marble = new THREE.MeshStandardMaterial({ map: marbleTexture(), color: 0xc9ccd6, roughness: 0.42, metalness: 0.0, envMap, envMapIntensity: 0.45 });
+  const colM = new THREE.Mesh(col, marble);
+  colM.position.y = -Hp / 2 - 0.08;
+  colM.receiveShadow = true;
+  plinth.add(colM);
+  const top = new THREE.Mesh(new THREE.CylinderGeometry(R + 0.07, R + 0.07, 0.08, 96), marble);
+  top.position.y = -0.04;
+  top.receiveShadow = true;
+  plinth.add(top);
+  const gold = new THREE.MeshStandardMaterial({ color: 0xd8b26e, metalness: 1, roughness: 0.25, envMap, envMapIntensity: 1.4 });
+  const navy = new THREE.MeshStandardMaterial({ color: 0x1d2d63, metalness: 0.3, roughness: 0.4, envMap });
+  const ring1 = new THREE.Mesh(new THREE.TorusGeometry(R + 0.07, 0.012, 10, 120), gold);
+  ring1.rotation.x = Math.PI / 2; ring1.position.y = -0.002;
+  const ring2 = new THREE.Mesh(new THREE.TorusGeometry(R - 0.12, 0.016, 10, 120), navy);
+  ring2.rotation.x = Math.PI / 2; ring2.position.y = 0.002;
+  const ring3 = new THREE.Mesh(new THREE.TorusGeometry(R + 0.075, 0.012, 10, 120), gold);
+  ring3.rotation.x = Math.PI / 2; ring3.position.y = -0.08;
+  plinth.add(ring1, ring2, ring3);
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(R + 0.55, R + 0.62, 0.14, 96), marble);
+  base.position.y = -Hp - 0.15;
+  base.receiveShadow = true;
+  plinth.add(base);
+  const ring4 = new THREE.Mesh(new THREE.TorusGeometry(R + 0.56, 0.014, 10, 140), gold);
+  ring4.rotation.x = Math.PI / 2; ring4.position.y = -Hp - 0.08;
+  plinth.add(ring4);
+  plinth.position.set(center.x, 0, center.z);
+
+  // floor glow
+  const floor = new THREE.Mesh(
+    new THREE.CircleGeometry(5, 64),
+    new THREE.MeshBasicMaterial({ map: glowTexture("rgba(150,175,255,0.35)", "rgba(20,30,70,0)"), transparent: true, depthWrite: false }),
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.set(center.x, -Hp - 0.22, center.z);
+
+  // bokeh
+  const bokehTex = glowTexture("rgba(210,225,255,0.9)", "rgba(210,225,255,0)");
+  const bokeh = new THREE.Group();
+  for (let i = 0; i < 38; i++) {
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: bokehTex, transparent: true, depthWrite: false, opacity: 0.08 + Math.random() * 0.16, blending: THREE.AdditiveBlending }));
+    const sc = 0.12 + Math.random() * 0.45;
+    s.scale.set(sc, sc, 1);
+    s.userData = { x: center.x + (Math.random() - 0.5) * 9, y: -0.5 + Math.random() * 5.5, z: center.z - 2.5 - Math.random() * 3, sp: 0.05 + Math.random() * 0.12, ph: Math.random() * 6 };
+    bokeh.add(s);
+  }
+  return { arch: g, plinth, floor, bokeh, haze, shaft };
 }
 
 // ---------- particles: coffee grains that swirl into the can ----------
@@ -328,11 +519,20 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   el.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const env = makeEnv(renderer);
+  let env = makeEnv(renderer);
+  try {
+    const hdr = await new RGBELoader().loadAsync(new URL("../../assets/potsdamer_platz_0.256k-Nbnl77fg.hdr", import.meta.url).href);
+    hdr.mapping = THREE.EquirectangularReflectionMapping;
+    const pm = new THREE.PMREMGenerator(renderer);
+    env = pm.fromEquirectangular(hdr).texture;
+    pm.dispose();
+    hdr.dispose();
+  } catch (e) {}
   scene.environment = env;
+  scene.fog = new THREE.Fog(0x0c1530, 7, 16);
   const camera = new THREE.PerspectiveCamera(30, 1, 0.05, 60);
 
-  scene.add(new THREE.HemisphereLight(0xfff3e2, 0x1b2238, 0.55));
+  scene.add(new THREE.HemisphereLight(0xe9efff, 0x1b2550, 0.75));
   const key = new THREE.DirectionalLight(0xfff0dc, 2.1);
   key.position.set(-2.5, 5, 4);
   key.castShadow = true;
@@ -341,14 +541,17 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   key.shadow.radius = 6;
   key.shadow.bias = -0.0005;
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0x9fb9ff, 1.3);
+  const rim = new THREE.DirectionalLight(0x9fb9ff, 1.8);
   rim.position.set(3, 3, -4);
   scene.add(rim);
 
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.ShadowMaterial({ opacity: 0.35 }));
+  const floor = new THREE.Mesh(new THREE.CircleGeometry(1.3, 64), new THREE.ShadowMaterial({ opacity: 0.32 }));
+  floor.position.set(0.42, 0.001, 0.42);
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
   scene.add(floor);
+  const studio = makeStudio(env, V(0.42, 0, 0.42));
+  scene.add(studio.arch, studio.plinth, studio.floor, studio.bokeh);
 
   const loader = new THREE.TextureLoader();
   const load = (u) =>
@@ -455,8 +658,8 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   const S = STEPS;
   const camKeys = [
     // p, position, target
-    [0.0, V(0.05, 1.3, 5.6), V(0.05, 1.18, 0)],
-    [S[1], V(0.25, 1.55, 4.6), V(0.0, 1.45, 0)],
+    [0.0, V(0.3, 1.55, 7.0), V(0.25, 1.5, 0)],
+    [S[1], V(0.3, 1.75, 5.2), V(0.05, 1.6, 0)],
     [S[2], V(0.4, 2.55, 3.1), V(0.0, 2.05, 0)],
     [S[3], V(0.1, 4.25, 1.25), V(0.0, 2.2, 0)],
     [0.52, V(0.3, 3.9, 1.9), V(0.1, 2.3, 0)],
@@ -464,7 +667,7 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     [0.72, V(0.95, 1.5, 6.0), V(0.7, 1.05, 0.4)],
     [S[5], V(2.05, 1.1, 3.75), V(1.0, 0.74, 0.85)],
     [S[6], V(1.95, 1.0, 3.55), V(1.0, 0.72, 0.85)],
-    [1.0, V(0.7, 1.4, 6.4), V(0.6, 1.05, 0.4)],
+    [1.0, V(0.75, 1.6, 7.4), V(0.55, 1.45, 0.4)],
   ];
   const camPos = V(0, 0, 0), camTgt = V(0, 0, 0);
   function cameraAt(p) {
@@ -476,23 +679,24 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     camTgt.lerpVectors(t0, t1, t);
   }
   const spoonPath = (s, out) => {
-    // s: 0..1 over scoop+pour
+    // s: 0..1 over scoop+pour. [s, bowl position, yaw, pitch (handle elevation), roll (pour)]
     const k = [
-      [0, V(1.6, 3.6, 0.6), 0.0, -0.6],
-      [0.25, V(0.15, 2.7, 0.08), 0.0, -0.25],
-      [0.42, V(0.05, fillY + 0.03, 0.02), 0.0, -0.1],
-      [0.6, V(0.15, 2.85, 0.05), 0.0, -0.35],
-      [0.8, V(1.05, 2.35, 0.75), 0.0, -0.3],
-      [1.0, V(1.1, 2.3, 0.75), 1.9, -0.2],
+      [0.0, V(0.32, 3.75, 0.2), -2.36, 1.2, 0.0],
+      [0.25, V(0.02, 2.62, -0.02), -2.36, 1.12, 0.0],
+      [0.42, V(0.0, fillY + 0.03, -0.04), -2.36, 1.02, 0.0],
+      [0.6, V(0.04, 2.8, -0.01), -2.36, 0.95, 0.0],
+      [0.8, V(1.02, 2.38, 0.74), -2.1, 0.42, 0.0],
+      [1.0, V(1.06, 2.32, 0.76), -2.1, 0.42, 1.95],
     ];
     let i = 0;
     while (i < k.length - 2 && s > k[i + 1][0]) i++;
     const t = ease(clamp((s - k[i][0]) / (k[i + 1][0] - k[i][0])));
     out.pos.lerpVectors(k[i][1], k[i + 1][1], t);
-    out.roll = lerp(k[i][2], k[i + 1][2], t);
+    out.yaw = lerp(k[i][2], k[i + 1][2], t);
     out.pitch = lerp(k[i][3], k[i + 1][3], t);
+    out.roll = lerp(k[i][4], k[i + 1][4], t);
   };
-  const sp = { pos: V(0, 0, 0), roll: 0, pitch: 0 };
+  const sp = { pos: V(0, 0, 0), roll: 0, pitch: 0, yaw: 0 };
   const tip = V(0, 0, 0);
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = V(1, 1, 1), dp = V(0, 0, 0);
 
@@ -519,11 +723,11 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     spoonPath(s, sp);
     spoon.group.visible = s > 0 && p < S[5] + 0.02;
     spoon.group.position.copy(sp.pos);
-    spoon.rig.rotation.set(-0.35 + sp.pitch * 0.3, -2.1 + s * 0.35, sp.roll);
+    spoon.rig.rotation.set(sp.pitch, sp.yaw, sp.roll);
     const pourLocal = seg(p, S[4] - 0.02, S[5] - 0.02);
-    spoon.heap.scale.set(0.1, 0.06, 0.13).multiplyScalar(Math.max(0.0001, smooth(seg(s, 0.42, 0.5)) * (1 - smooth(seg(pourLocal, 0.05, 0.55)))));
+    spoon.heap.scale.set(0.075, 0.045, 0.11).multiplyScalar(Math.max(0.0001, smooth(seg(s, 0.42, 0.5)) * (1 - smooth(seg(pourLocal, 0.05, 0.55)))));
     spoon.group.updateMatrixWorld();
-    tip.set(0.0, -0.01, 0.1).applyMatrix4(spoon.rig.matrixWorld);
+    tip.set(0.0, 0.0, 0.11).applyMatrix4(spoon.rig.matrixWorld);
     spoon.group.position.y += seg(p, S[5] - 0.01, S[5] + 0.03) * 2.5;
 
     // grains + can reveal
@@ -555,6 +759,14 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
       s.scale.setScalar(0.5 + o * 0.6);
       s.material.opacity = cold * (1 - seg(p, S[6], 1) * 0.6) * 0.18 * Math.sin(o * Math.PI);
     });
+
+    studio.bokeh.children.forEach((b) => {
+      const u = b.userData;
+      b.position.set(u.x + Math.sin(time * u.sp + u.ph) * 0.3, u.y + ((time * u.sp * 0.6) % 1) * 0.4, u.z);
+    });
+    const close = seg(p, S[2] + 0.04, S[3]) * (1 - seg(p, S[4] - 0.02, S[4] + 0.08));
+    studio.haze.material.opacity = 1 - close * 0.7;
+    studio.shaft.material.opacity = 0.32 * (1 - close);
 
     cameraAt(p);
     camera.position.copy(camPos);

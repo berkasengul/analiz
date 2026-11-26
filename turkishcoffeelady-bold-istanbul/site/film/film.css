@@ -1533,3 +1533,31 @@ a.tcl-btn {
     background: linear-gradient(180deg, rgba(7, 10, 20, 0) 45%, rgba(7, 10, 20, 0.82) 72%);
   }
 }
+
+/* one studio language across the home page: blue haze, soft bokeh, gold accents */
+.tcl-home {
+  background:
+    radial-gradient(40% 30% at 18% 22%, rgba(200, 215, 255, 0.06), transparent 70%),
+    radial-gradient(30% 22% at 82% 60%, rgba(200, 215, 255, 0.05), transparent 70%),
+    radial-gradient(70% 55% at 50% 0%, rgba(70, 100, 200, 0.35), transparent 72%),
+    linear-gradient(180deg, #0d1531 0%, #0a0f22 55%, #070a14 100%);
+}
+.tcl-card {
+  background: linear-gradient(180deg, rgba(30, 44, 92, 0.55), rgba(12, 16, 34, 0.9));
+  border-color: rgba(200, 215, 255, 0.14);
+  backdrop-filter: blur(6px);
+}
+.tcl-card__img {
+  background: radial-gradient(70% 70% at 50% 55%, #33478f, #111a3a);
+}
+.tcl-footer {
+  background: linear-gradient(180deg, #070a14, #05070e);
+}
+.tcl-open {
+  background: #0b1228;
+}
+.tcl-open__bg {
+  background:
+    radial-gradient(45% 55% at 62% 40%, rgba(110, 140, 230, 0.42), transparent 70%),
+    radial-gradient(90% 70% at 60% 35%, #22336b 0%, #121d45 45%, #080c1c 100%);
+}
