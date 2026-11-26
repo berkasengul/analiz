@@ -7,11 +7,11 @@
 {% macro pcard(p, r, cls='') -%}
 <a href="{{ r }}portfolyo/{{ p.slug }}.html" class="pc wk rv {{ cls }}" data-c="{{ p.cat }}">
   <div class="wk-media">
-    <img src="{{ r }}assets/img/work/{{ p.images[0][0] }}" alt="{{ p.title }}" loading="lazy" width="1600" height="1200">
-    {% if p.konsept %}<span class="konsept">Konsept</span>{% endif %}
+    <img src="{{ r }}assets/img/work/{{ p.images[0][0] }}" alt="{{ p.title }}" loading="lazy" width="1600" height="1200"{% if p.get("pos") %} style="object-position:{{ p.pos }}"{% endif %}>
+    {% if p.konsept %}<span class="konsept">Konsept</span>{% endif %}{% if p.get("video") %}<span class="playb" aria-label="Video">▶</span>{% endif %}
     <span class="view">İncele</span>
   </div>
-  <div class="wk-meta"><div><span class="cat">{{ CAT[p.cat] }}</span><h3>{{ p.title }}</h3></div><span>{{ p.year }}</span></div>
+  <div class="wk-meta"><div><span class="cat">{{ CAT[p.cat] }}</span><h3>{{ p.title }}</h3></div><span>{{ p.year or ("Video" if p.get("video") else "") }}</span></div>
 </a>
 {%- endmacro %}
 

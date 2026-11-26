@@ -7,24 +7,27 @@
     <nav class="crumbs rv" aria-label="Sayfa yolu"><a href="{{ r }}index.html">Ana Sayfa</a><span class="sep">/</span><a href="{{ r }}portfolyo.html">Portfolyo</a><span class="sep">/</span><a href="{{ r }}portfolyo.html#{{ p.cat }}">{{ CAT[p.cat] }}</a></nav>
     <h1 class="display rv" style="font-size:clamp(40px,7vw,112px)">{{ p.title }}</h1>
     <p class="lead rv d1">{{ p.summary }}</p>
+    {% if p.get('url') %}<a href="{{ p.url }}" target="_blank" rel="noopener" class="btn btn-red rv d2" style="margin-top:28px">Siteyi ziyaret et ↗</a>{% endif %}
     <div class="pmeta rv d2">
       <div><small>Müşteri</small><b>{{ p.client }}{% if p.konsept %} <span style="color:var(--muted);font-weight:400">(konsept)</span>{% endif %}</b></div>
       <div><small>Kategori</small><b>{{ CAT[p.cat] }}</b></div>
       <div><small>Hizmetler</small><b>{{ p.services|join(', ') }}</b></div>
-      <div><small>Yıl</small><b>{{ p.year }}</b></div>
+      {% if p.get('url') %}<div><small>Canlı site</small><b><a href="{{ p.url }}" target="_blank" rel="noopener" style="color:var(--red)">{{ p.url.split('//')[1].rstrip('/') }} ↗</a></b></div>{% elif p.year %}<div><small>Yıl</small><b>{{ p.year }}</b></div>{% endif %}
     </div>
   </div>
 </section>
 
 <section class="sec-tight" style="padding-bottom:0">
   <div class="wrap">
-    <div class="pcover rv" style="margin-top:0"><img src="{{ r }}assets/img/work/{{ p.images[0][0] }}" alt="{{ p.title }} — {{ p.images[0][1] }}" width="1600" height="1200"></div>
+    {% if p.get('video') %}<div class="pcover pvideo rv" style="margin-top:0"><video src="{{ r }}assets/video/{{ p.video }}" poster="{{ r }}assets/img/work/{{ p.images[0][0] }}" autoplay muted loop playsinline controls></video></div>
+    {% else %}<div class="pcover rv{% if not p.konsept %} real{% endif %}" style="margin-top:0"><img src="{{ r }}assets/img/work/{{ p.images[0][0] }}" alt="{{ p.title }} — {{ p.images[0][1] }}"></div>{% endif %}
   </div>
 </section>
 
 <section class="sec-tight">
   <div class="wrap ptext">
-    <div class="rv"><span class="wide eyebrow">İhtiyaç</span><h2 style="margin-top:20px">Neye ihtiyaç vardı?</h2><p>{{ p.need }}</p></div>
+    {% if p.get('need') %}<div class="rv"><span class="wide eyebrow">İhtiyaç</span><h2 style="margin-top:20px">Neye ihtiyaç vardı?</h2><p>{{ p.need }}</p></div>
+    {% else %}<div class="rv"><span class="wide eyebrow">Proje</span><h2 style="margin-top:20px">{{ p.client }}</h2><p>{{ p.summary }}</p></div>{% endif %}
     <div class="rv d1"><span class="wide eyebrow">Çözüm</span><h2 style="margin-top:20px">Ne yaptık?</h2><ul>{% for x in p.solution %}<li>{{ x }}</li>{% endfor %}</ul></div>
   </div>
 </section>

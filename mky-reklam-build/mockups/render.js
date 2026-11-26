@@ -2,10 +2,10 @@
 const {chromium}=require('playwright');const path=require('path');const fs=require('fs');
 const OUT=path.resolve(__dirname,'../../mky-reklam-site/assets/img/work');fs.mkdirSync(OUT,{recursive:true});
 const sc=(f,q)=>'file://'+path.resolve(__dirname,'scenes',f)+'?'+new URLSearchParams(q);
-const BG={mola:'linear-gradient(135deg,#C8693B,#8f4424)',vadi:'linear-gradient(135deg,#1C4038,#0c221e)',atlas:'linear-gradient(135deg,#FFC400,#e0a800)',lina:'linear-gradient(135deg,#E9CFC4,#cfa597)'};
-const URL={mola:'molacoffee.co',vadi:'vadigayrimenkul.com',atlas:'atlasoto.com',lina:'linabutik.com'};
+const BG={mola:'linear-gradient(135deg,#C8693B,#8f4424)',vadi:'linear-gradient(135deg,#1C4038,#0c221e)',atlas:'linear-gradient(135deg,#FFC400,#e0a800)',lina:'linear-gradient(135deg,#E9CFC4,#cfa597)',genc:'linear-gradient(135deg,#7a1f24,#2e0a0d)'};
+const URL={mola:'molacoffee.co',vadi:'vadigayrimenkul.com',atlas:'atlasoto.com',lina:'linabutik.com',genc:'gencanadolugida.com.tr'};
 const jobs=[];
-for(const s of ['mola','vadi','atlas','lina']){
+for(const s of ['mola','vadi','atlas','lina','genc']){
  jobs.push([`${s}-web-1`,sc('devices.html',{mode:'laptop',site:s,bg:BG[s]}),1600,1200]);
  jobs.push([`${s}-web-2`,sc('devices.html',{mode:'browser',site:s,bg:'#e9e6e3',url:URL[s],h:2300}),1400,2500]);
  jobs.push([`${s}-web-3`,sc('devices.html',{mode:'trio',site:s,bg:BG[s]}),1600,1100]);

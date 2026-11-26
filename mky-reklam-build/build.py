@@ -43,6 +43,10 @@ def render(tpl, path, **ctx):
 
 
 print("Sayfalar üretiliyor →", OUT)
+# silinen proje/hizmet sayfaları kalmasın
+for d_ in ("portfolyo", "hizmetler"):
+    for f_ in (OUT / d_).glob("*.html"):
+        f_.unlink()
 featured = [p for p in PROJECTS if p.get("featured")][:6]
 render("index.html", "index.html", page="home", title=SITE["name"], featured=featured,
        desc="Tabela, araç giydirme, web tasarım, sosyal medya ve dijital reklam. MKY Reklam & Medya markanızı sokaktan ekrana tek ekipte büyütür.")
