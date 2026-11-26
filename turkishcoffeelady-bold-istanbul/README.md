@@ -6,11 +6,14 @@
 ## Sayfalar
 Çok sayfalı (adres çubuğunda `#/...`), sade düzen:
 - **Ana sayfa** (`/`): tek bir kaydırmalı 3D sahne (paket → yırt → aç → kaşık → kahve taneleri kutuya dönüşür → buğu →
-  kutu kalkıp dönerek kemerin içindeki kaideye iner), ardından kısa giriş ve üç kapı: Ürün, Hikâye, Film.
+  sayfa aşağı kayarken kutu kamerayla birlikte kemerin içindeki ince kaideye süzülür), ardından film bölümü,
+  kısa giriş ve üç kapı: Ürün, Hikâye, Film. Kaidedeki kutuya tıklamak 3D İncele sayfasını açar.
 - **Ürün** (`#/urun`): ürün hikâyesi, ön/arka kutu geçişi, içindekiler, besin değerleri, kutu bilgisi.
 - **Hikâye** (`#/hikaye`): Boston'dan Alexandria'ya 8 perde; "Filmde izle" filmin o anına götürür (`#/film?t=...`).
 - **Film** (`#/film`): 36 dk belgesel, 15 bölüm.
 - **İletişim** (`#/iletisim`): iletişim bilgileri, form (e-posta ile), SSS.
+- **3D İncele** (`#/incele`): kutu sürükleyerek çevrilir, yakınlaştırılır; Ön/Yan/Arka ve etiket bilgi noktaları
+  (`site/film/open/viewer.js`).
 
 3D sahne yalnızca ana sayfada çalışır; alt sayfalarda durdurulur. TR/EN dil düğmesi tüm sayfalarda çalışır.
 

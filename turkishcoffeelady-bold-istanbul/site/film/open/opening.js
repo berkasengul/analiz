@@ -422,6 +422,8 @@ function makeStudio(envMap, center) {
   ring4.rotation.x = Math.PI / 2; ring4.position.y = -Hp - 0.08;
   plinth.add(ring4);
   plinth.position.set(center.x, 0, center.z);
+  const plinthMats = [];
+  plinth.traverse((o) => { if (o.isMesh) { o.material = o.material.clone(); o.material.transparent = true; plinthMats.push(o.material); } });
 
   // floor glow
   const floor = new THREE.Mesh(
@@ -478,7 +480,7 @@ function makeStudio(envMap, center) {
   pglow.position.y = 0.01;
   ped.add(pglow);
   ped.visible = false;
-  return { arch: g, plinth, floor, bokeh, haze, shaft, ped, pglow };
+  return { arch: g, plinth, floor, bokeh, haze, shaft, ped, pglow, plinthMats };
 }
 
 // ---------- particles: coffee grains that swirl into the can ----------
@@ -545,7 +547,7 @@ function makeGrains(count, canPos, canR, canH) {
   return pts;
 }
 
-export async function mount(el, { canTexture, rows, axis, onReady }) {
+export async function mount(el, { canTexture, rows, axis, onReady, onInspect }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -577,6 +579,9 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   Object.assign(key.shadow.camera, { left: -3, right: 4, top: 4, bottom: -1, near: 0.5, far: 15 });
   key.shadow.radius = 6;
   key.shadow.bias = -0.0005;
+  key.shadow.camera.bottom = -3.4;
+  key.shadow.camera.top = 3.5;
+  key.shadow.camera.updateProjectionMatrix();
   scene.add(key);
   const sweep = new THREE.SpotLight(0xfff3e0, 0, 6, 0.32, 0.6, 1.2);
   scene.add(sweep, sweep.target);
@@ -592,6 +597,9 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   const studio = makeStudio(env, V(0.42, 0, 0.42));
   scene.add(studio.arch, studio.plinth, studio.floor, studio.bokeh, studio.ped);
   const ARCH0 = studio.arch.position.clone();
+  const FLOOR0 = studio.floor.position.y;
+  const plinthMats = studio.plinthMats;
+  let finale = 0;
 
   const loader = new THREE.TextureLoader();
   const load = (u) =>
@@ -843,33 +851,39 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     camera.position.copy(camPos);
     camera.lookAt(camTgt);
 
-    // ---------- finale: the can lifts, spins and lands on the slim pedestal inside the arch ----------
-    studio.ped.visible = f > 0.12;
+    // ---------- finale: the page scrolls down and the can glides down with it onto the slim pedestal ----------
+    const DROP = 1.85;
+    studio.ped.visible = f > 0;
+    studio.ped.position.set(CAN_POS.x, -DROP, CAN_POS.z);
     if (f > 0) {
-      const up = ease(seg(f, 0, 0.3)), down = ease(seg(f, 0.5, 0.86));
-      const settle = Math.sin(seg(f, 0.86, 1) * Math.PI) * 0.015;
-      can.group.position.set(CAN_POS.x, 0.55 * up * (1 - down) + settle, CAN_POS.z);
-      can.group.rotation.y = Math.PI * 2 * ease(seg(f, 0.04, 0.82)) + Math.sin(time * 0.45) * 0.02 * seg(f, 0.9, 1);
-      const sink = ease(seg(f, 0.08, 0.5));
-      studio.plinth.position.y = -3.6 * sink;
-      floor.position.y = studio.plinth.position.y + 0.001;
-      floor.visible = sink < 0.98;
-      studio.ped.position.set(CAN_POS.x, lerp(-3.2, 0, ease(seg(f, 0.18, 0.66))), CAN_POS.z);
-      const k = ease(seg(f, 0.1, 0.7));
+      const d = ease(seg(f, 0.04, 0.8));
+      const settle = -Math.sin(seg(f, 0.8, 0.92) * Math.PI) * 0.018;
+      can.group.position.set(CAN_POS.x, -DROP * d + settle, CAN_POS.z);
+      can.group.rotation.y = Math.sin(Math.PI * d) * 0.32 + Math.sin(time * 0.45) * 0.02 * seg(f, 0.9, 1);
+      // the wide plinth melts away as the can leaves it
+      const pa = 1 - smooth(seg(f, 0.02, 0.28));
+      plinthMats.forEach((m) => (m.opacity = pa));
+      studio.plinth.visible = pa > 0.01;
+      floor.material.opacity = 0.32 * pa;
+      const k = ease(seg(f, 0.04, 0.8));
       studio.arch.visible = true;
-      studio.arch.position.set(lerp(ARCH0.x, CAN_POS.x, k), lerp(ARCH0.y, -0.5, k), lerp(ARCH0.z, CAN_POS.z - 0.7, k));
+      studio.arch.position.set(lerp(ARCH0.x, CAN_POS.x, k), lerp(ARCH0.y, -DROP - 0.5, k), lerp(ARCH0.z, CAN_POS.z - 0.7, k));
       studio.arch.scale.setScalar(lerp(1, 0.42, k));
+      studio.floor.position.y = lerp(FLOOR0, -DROP - 1.95, k);
+      studio.bokeh.position.y = -DROP * k;
       studio.haze.material.opacity = lerp(studio.haze.material.opacity, 1, k);
       studio.shaft.material.opacity = 0.32 * k + studio.shaft.material.opacity * (1 - k);
-      studio.pglow.material.opacity = Math.exp(-Math.pow((f - 0.87) / 0.05, 2)) * 0.9 + seg(f, 0.88, 1) * 0.25;
-      // camera: crane back and up, then settle square-on (the hero shot)
-      const t = ease(seg(f, 0, 0.92));
-      cP.lerpVectors(camPos, camFin, t);
-      cT.lerpVectors(camTgt, tgtFin, t);
-      cP.y += Math.sin(Math.PI * t) * 0.45;
-      cP.z += Math.sin(Math.PI * t) * 0.9;
-      cP.x += Math.sin(Math.PI * t) * 0.45;
-      cT.y += (can.group.position.y) * 0.85;
+      studio.pglow.material.opacity = Math.exp(-Math.pow((f - 0.81) / 0.045, 2)) * 0.9 + seg(f, 0.84, 1) * 0.22;
+      // camera cranes down a beat behind the can, then settles square-on (the hero shot)
+      // the camera rides down with the can (it stays framed while the arch and pedestal rise into view)
+      const t = ease(seg(f, 0.04, 0.92));
+      const canY = can.group.position.y;
+      cT.lerpVectors(camTgt, V(CAN_POS.x, 0, CAN_POS.z), t);
+      cT.y = canY + lerp(camTgt.y, 0.72, t);
+      cP.lerpVectors(camPos, V(CAN_POS.x, 0, CAN_POS.z + 4.3), t);
+      cP.y = cT.y + lerp(camPos.y - camTgt.y, 0.14, t);
+      cP.z += Math.sin(Math.PI * t) * 0.55;
+      cP.x += Math.sin(Math.PI * t) * 0.2;
       camera.position.copy(cP);
       camera.lookAt(cT);
       if (view.w / view.h >= 1.2) {
@@ -877,13 +891,16 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
         camera.updateProjectionMatrix();
       }
     } else {
-      studio.plinth.position.y = 0;
-      floor.position.y = 0.001;
-      floor.visible = true;
+      plinthMats.forEach((m) => (m.opacity = 1));
+      studio.plinth.visible = true;
+      floor.material.opacity = 0.32;
       studio.arch.position.copy(ARCH0);
       studio.arch.scale.setScalar(1);
+      studio.floor.position.y = FLOOR0;
+      studio.bokeh.position.y = 0;
       studio.pglow.material.opacity = 0;
     }
+    finale = f;
   }
   function resize() {
     const w = el.clientWidth, h = el.clientHeight;
@@ -912,6 +929,18 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     renderer.render(scene, camera);
   };
   raf = requestAnimationFrame(loop);
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  const hitCan = (e) => {
+    if (finale < 0.85) return false;
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    return ray.intersectObject(can.group, true).length > 0;
+  };
+  const onMove = (e) => (renderer.domElement.style.cursor = hitCan(e) ? "pointer" : "");
+  const onClick = (e) => hitCan(e) && onInspect && onInspect();
+  renderer.domElement.addEventListener("pointermove", onMove);
+  renderer.domElement.addEventListener("click", onClick);
   onReady && onReady();
   return {
     setProgress(p) {
@@ -929,3 +958,5 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     },
   };
 }
+
+export { makeCan, makeStudio, makeEnv, coffeeTexture };

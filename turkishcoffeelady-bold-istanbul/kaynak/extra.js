@@ -516,7 +516,7 @@ function TclJourney() {
 
 
 // ---------------- multi-page shell ----------------
-const TclPages = ["urun", "hikaye", "film", "iletisim"],
+const TclPages = ["urun", "hikaye", "film", "iletisim", "incele"],
   TclPageCopy = {
     tr: {
       homeEyebrow: "Turkish Coffee Lady",
@@ -637,7 +637,7 @@ const TclPages = ["urun", "hikaye", "film", "iletisim"],
   };
 
 function TclSubNow() {
-  return /^#\/(urun|hikaye|film|iletisim)(\?|$)/.test(location.hash);
+  return /^#\/(urun|hikaye|film|iletisim|incele)(\?|$)/.test(location.hash);
 }
 function TclPageOf(route) {
   const p = (route || "").split("?")[0];
@@ -670,6 +670,7 @@ function TclPage({ route }) {
       page === "hikaye" && w.jsx(TclJourney, {}),
       page === "film" && w.jsx(TclFilm, { start: t }),
       page === "iletisim" && w.jsx(TclContact, {}),
+      page === "incele" && w.jsx(TclViewer, {}),
       w.jsx(TclFooter, {}),
     ],
   });
@@ -976,8 +977,9 @@ const TclOpenSteps = [0, 0.11, 0.237, 0.356, 0.509, 0.678, 0.78, 1],
         ["Çalkala.", "Soğuk iç.", "250 ml Bold Istanbul: koyu ve yoğun, %100 doğal, düşük kalori."],
         ["Bold Istanbul.", "Koyu ve yoğun.", "%100 doğal, sıfır şeker, düşük kalori. 250 ml; çalkala, soğuk iç."],
       ],
-      cta: "Ürünü keşfet",
+      cta: "3D incele",
       film: "Filmi izle",
+      tap: "ya da kutuya dokunun",
       scroll: "Kaydır",
     },
     en: {
@@ -991,8 +993,9 @@ const TclOpenSteps = [0, 0.11, 0.237, 0.356, 0.509, 0.678, 0.78, 1],
         ["Shake well.", "Drink cold.", "8.5 fl oz of Bold Istanbul: dark and rich, 100% natural, low calorie."],
         ["Bold Istanbul.", "Dark & rich.", "100% natural, zero sugar, low calorie. 8.5 fl oz; shake well, drink cold."],
       ],
-      cta: "Explore the product",
+      cta: "Inspect in 3D",
       film: "Watch the film",
+      tap: "or tap the can",
       scroll: "Scroll",
     },
   };
@@ -1016,6 +1019,7 @@ function TclOpening() {
           canTexture: bq,
           rows: p3.rows,
           axis: p3.axis,
+          onInspect: () => (location.hash = "#/incele"),
           onReady: () => {
             window.__tclOpenReady = !0;
             alive && setReady(!0);
@@ -1088,8 +1092,9 @@ function TclOpening() {
                 w.jsxs("div", {
                   className: "tcl-open__cta",
                   children: [
-                    w.jsxs("a", { className: "tcl-btn tcl-btn--gold", href: "#/urun", children: [c.cta] }),
+                    w.jsxs("a", { className: "tcl-btn tcl-btn--gold", href: "#/incele", children: [c.cta] }),
                     w.jsxs("a", { className: "tcl-btn", href: "#/film", children: [w.jsx(TclPlay, {}), c.film] }),
+                    w.jsx("p", { className: "mono tcl-open__tap", children: c.tap }),
                   ],
                 }),
             ],
@@ -1131,4 +1136,89 @@ function TclHeroDrop(r, n) {
 
 function TclLoaderReady() {
   return TclSubNow() || !!window.__tclOpenReady;
+}
+
+// ---------------- 3D inspect page ----------------
+const TclViewerCopy = {
+  tr: {
+    eyebrow: "3D incele",
+    hint: "Sürükleyerek çevirin · kaydırarak yakınlaştırın",
+    views: [["front", "Ön"], ["side", "Yan"], ["back", "Arka"]],
+    back: "Ana sayfa",
+    product: "Ürün sayfası",
+    spots: [
+      { angle: 0, y: 1.05, title: "Nazar boncuğu", text: "Uğur getiren nazar, her kutuda." },
+      { angle: 0.55, y: 0.78, title: "hasankale çizimi", text: "Galata Kulesi, Kız Kulesi ve Boğaz'da bir vapur." },
+      { angle: -0.25, y: 0.33, title: "Koyu & yoğun", text: "%100 doğal, sıfır şeker, düşük kalori · 250 ml." },
+      { angle: Math.PI - 0.49, y: 0.6, title: "Besin değerleri", text: "Porsiyon 10 g · 21,6 kcal · 0 g şeker." },
+      { angle: Math.PI + 0.55, y: 0.42, title: "İçindekiler", text: "Arabica; orta kavrum, ince çekim. Türkiye'de üretildi." },
+    ],
+  },
+  en: {
+    eyebrow: "Inspect in 3D",
+    hint: "Drag to turn · scroll to zoom",
+    views: [["front", "Front"], ["side", "Side"], ["back", "Back"]],
+    back: "Home",
+    product: "Product page",
+    spots: [
+      { angle: 0, y: 1.05, title: "Evil eye", text: "Good fortune on every can." },
+      { angle: 0.55, y: 0.78, title: "Art by hasankale", text: "Galata Tower, Maiden's Tower and a Bosphorus ferry." },
+      { angle: -0.25, y: 0.33, title: "Dark & rich", text: "100% natural, zero sugar, low calorie · 8.5 fl oz." },
+      { angle: Math.PI - 0.49, y: 0.6, title: "Nutrition facts", text: "Serving 10 g · 21.6 kcal · 0 g sugar." },
+      { angle: Math.PI + 0.55, y: 0.42, title: "Ingredients", text: "Arabica; medium roast, fine grind. Made in Türkiye." },
+    ],
+  },
+};
+function TclViewer() {
+  const { lang: L } = Nn(),
+    c = TclViewerCopy[L === "en" ? "en" : "tr"],
+    stage = K.useRef(null),
+    api = K.useRef(null),
+    [ready, setReady] = K.useState(!1),
+    [cur, setCur] = K.useState("front");
+  K.useEffect(() => {
+    let alive = !0;
+    const p3 = ft.products[0].photo3d;
+    import(new URL("film/open/viewer.js", document.baseURI).href)
+      .then((m) =>
+        m.mount(stage.current, { canTexture: bq, rows: p3.rows, axis: p3.axis, hotspots: c.spots, onReady: () => alive && setReady(!0) }),
+      )
+      .then((a) => (alive ? (api.current = a) : a.destroy()))
+      .catch((e) => console.warn("viewer", e));
+    return () => {
+      alive = !1;
+      api.current && api.current.destroy();
+      api.current = null;
+    };
+  }, [L]);
+  const go = (v) => (setCur(v), api.current && api.current.view(v));
+  return w.jsxs("section", {
+    className: `tcl tcl-viewer${ready ? " is-ready" : ""}`,
+    children: [
+      w.jsx("div", { className: "tcl-open__bg", "aria-hidden": "true" }),
+      w.jsx("div", { className: "tcl-viewer__stage", ref: stage, "data-lenis-prevent": "" }),
+      w.jsxs("div", {
+        className: "tcl-viewer__head",
+        children: [
+          w.jsx("p", { className: "mono section__eyebrow", children: c.eyebrow }),
+          w.jsx("h1", { className: "tcl-page-title", children: "Bold Istanbul" }),
+          w.jsx("p", { className: "mono tcl-viewer__hint", children: c.hint }),
+        ],
+      }),
+      w.jsx("div", {
+        className: "tcl-viewer__views",
+        role: "group",
+        children: c.views.map(([k, l]) =>
+          w.jsx("button", { className: cur === k ? "is-on" : "", "aria-pressed": cur === k, onClick: () => go(k), children: l }, k),
+        ),
+      }),
+      w.jsxs("div", {
+        className: "tcl-viewer__links",
+        children: [
+          w.jsxs("a", { className: "tcl-btn", href: "#flavors", children: ["← ", c.back] }),
+          w.jsx("a", { className: "tcl-btn tcl-btn--gold", href: "#/urun", children: c.product }),
+        ],
+      }),
+    ],
+  });
 }

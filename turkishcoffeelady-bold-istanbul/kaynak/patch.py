@@ -50,7 +50,7 @@ rep(
     """          : TclPageOf(n)
             ? w.jsx(TclPage, { route: n })
             : w.jsxs("main", {
-                children: [w.jsx(TclOpening, {}), w.jsx(TclHome, {})],
+                children: [w.jsx(TclOpening, {}), w.jsx(TclFilm, {}), w.jsx(TclHome, {})],
               }),""",
 )
 # the hero scene only renders while its own section is on screen (the opening sits above it)
