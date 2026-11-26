@@ -541,6 +541,8 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   key.shadow.radius = 6;
   key.shadow.bias = -0.0005;
   scene.add(key);
+  const sweep = new THREE.SpotLight(0xfff3e0, 0, 6, 0.32, 0.6, 1.2);
+  scene.add(sweep, sweep.target);
   const rim = new THREE.DirectionalLight(0x9fb9ff, 1.8);
   rim.position.set(3, 3, -4);
   scene.add(rim);
@@ -576,9 +578,12 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
         "#include <map_fragment>\n if(!gl_FrontFacing){ diffuseColor.rgb = vec3(0.74,0.75,0.78); }",
       );
     };
+    m.transparent = true;
+    bagMats.push(m);
     return m;
   };
   const gF = makeBagPanel(1), gB = makeBagPanel(-1);
+  const bagMats = [];
   const mF = new THREE.Mesh(gF, bagMat(front)), mB = new THREE.Mesh(gB, bagMat(back));
   mF.castShadow = mB.castShadow = true;
   bag.add(mF, mB);
@@ -628,13 +633,13 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   scene.add(can.group);
   // droplets
   const dropGeo = new THREE.SphereGeometry(1, 10, 8);
-  const dropMat = new THREE.MeshStandardMaterial({ color: 0xf4f8ff, roughness: 0.02, metalness: 0.2, transparent: true, opacity: 0.55, envMapIntensity: 4 });
-  const DROPS = 900;
+  const dropMat = new THREE.MeshStandardMaterial({ color: 0xdfe8f5, roughness: 0.03, metalness: 0.35, transparent: true, opacity: 0.42, envMapIntensity: 3.5 });
+  const DROPS = 1400;
   const drops = new THREE.InstancedMesh(dropGeo, dropMat, DROPS);
   const dropData = [];
   for (let i = 0; i < DROPS; i++) {
     const th = (Math.random() - 0.5) * Math.PI * 1.15, y = 0.12 + Math.random() * (can.height - 0.3);
-    dropData.push({ th, y, r: 0.003 + Math.pow(Math.random(), 3) * 0.011, d: Math.random() });
+    dropData.push({ th, y, r: 0.0016 + Math.pow(Math.random(), 4) * 0.0055, d: Math.random() });
   }
   can.group.add(drops);
   const mist = new THREE.Group();
@@ -658,16 +663,18 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   const S = STEPS;
   const camKeys = [
     // p, position, target
-    [0.0, V(0.3, 1.55, 7.0), V(0.25, 1.5, 0)],
-    [S[1], V(0.3, 1.75, 5.2), V(0.05, 1.6, 0)],
-    [S[2], V(0.4, 2.55, 3.1), V(0.0, 2.05, 0)],
+    [0.0, V(1.25, 0.8, 5.7), V(0.1, 1.25, 0)],
+    [0.07, V(1.05, 0.9, 5.2), V(0.06, 1.32, 0)],
+    [S[1], V(0.7, 1.75, 3.5), V(0.0, 1.95, 0)],
+    [S[2], V(0.45, 2.85, 2.6), V(0.0, 2.15, 0)],
     [S[3], V(0.1, 4.25, 1.25), V(0.0, 2.2, 0)],
     [0.52, V(0.3, 3.9, 1.9), V(0.1, 2.3, 0)],
     [S[4], V(0.95, 2.4, 5.0), V(0.75, 1.45, 0.3)],
-    [0.72, V(0.95, 1.5, 6.0), V(0.7, 1.05, 0.4)],
-    [S[5], V(2.05, 1.1, 3.75), V(1.0, 0.74, 0.85)],
-    [S[6], V(1.95, 1.0, 3.55), V(1.0, 0.72, 0.85)],
-    [1.0, V(0.75, 1.6, 7.4), V(0.55, 1.45, 0.4)],
+    [0.72, V(1.2, 1.15, 4.0), V(0.98, 0.85, 0.7)],
+    [S[5], V(1.22, 0.72, 4.25), V(1.05, 0.66, 0.85)],
+    [0.86, V(1.05, 0.68, 4.05), V(1.05, 0.66, 0.85)],
+    [S[6], V(1.05, 0.7, 4.5), V(1.05, 0.7, 0.85)],
+    [1.0, V(1.05, 0.72, 5.25), V(1.05, 0.72, 0.85)],
   ];
   const camPos = V(0, 0, 0), camTgt = V(0, 0, 0);
   function cameraAt(p) {
@@ -701,11 +708,12 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = V(1, 1, 1), dp = V(0, 0, 0);
 
   let progress = 0, dirty = true, visible = true, raf = 0, time = 0;
+  const view = { w: 1, h: 1 };
   function apply(p) {
     // bag pose
     const tear = seg(p, S[1] + 0.02, S[2] - 0.02);
     const open = smooth(seg(p, S[2], S[3] - 0.02));
-    bag.rotation.y = lerp(-0.42, 0, smooth(seg(p, 0, S[2]))) + 0.04 * Math.sin(time * 0.6) * (1 - seg(p, 0, S[1]));
+    bag.rotation.y = lerp(-0.62, 0, smooth(seg(p, 0.04, S[2]))) + 0.03 * Math.sin(time * 0.6) * (1 - seg(p, 0, S[1]));
     stripPivot.rotation.z = smooth(tear) * 1.9;
     stripPivot.position.y = BAG.H - BAG.seal / 2 + tear * tear * 1.6;
     stripPivot.position.x = -BAG.W / 2 - tear * tear * 0.9;
@@ -716,6 +724,11 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     updateBagPanel(gF, open, topFrac);
     updateBagPanel(gB, open, topFrac);
     fill.visible = open > 0.01;
+    const bagA = 1 - smooth(seg(p, 0.76, 0.85));
+    bagMats.forEach((m) => (m.opacity = bagA));
+    cap.material.transparent = true; cap.material.opacity = bagA;
+    fill.material.transparent = true; fill.material.opacity = bagA;
+    bag.visible = bagA > 0.01;
     inner.intensity = open * (1 - seg(p, S[4], S[4] + 0.08)) * 6;
 
     // spoon
@@ -738,7 +751,9 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     const reveal = seg(p, S[4] + 0.06, S[5] - 0.005);
     can.mats.forEach((m) => (m.userData.reveal.value = reveal));
     can.group.visible = reveal > 0;
-    can.group.rotation.y = lerp(-0.25, 0.25, seg(p, S[4], 1)) + (p > S[5] ? Math.sin(time * 0.5) * 0.03 : 0);
+    // turn to face the camera square-on for the presentation
+    can.group.rotation.y = lerp(-0.4, 0, ease(seg(p, S[4], S[5] + 0.03))) + (p > S[5] ? Math.sin(time * 0.45) * 0.015 : 0);
+    can.group.position.copy(CAN_POS);
 
     // cold: droplets + mist
     const cold = seg(p, S[5], S[6] - 0.02);
@@ -768,6 +783,19 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     studio.haze.material.opacity = 1 - close * 0.7;
     studio.shaft.material.opacity = 0.32 * (1 - close);
 
+    const sw = seg(p, S[5] - 0.01, S[6]);
+    sweep.intensity = Math.sin(Math.PI * sw) * 26;
+    sweep.position.set(CAN_POS.x + lerp(-1.6, 1.6, sw), 1.3, CAN_POS.z + 1.6);
+    sweep.target.position.set(CAN_POS.x, 0.7, CAN_POS.z);
+    // focus: fade the studio while the camera is tight on the can
+    const tight = seg(p, 0.74, S[5]) * (1 - seg(p, 0.97, 1));
+    studio.arch.visible = tight < 0.98;
+    studio.haze.material.opacity *= 1 - tight * 0.5;
+
+    if (view.w / view.h >= 1.2) {
+      camera.setViewOffset(view.w, view.h, -view.w * lerp(0.2, 0.12, smooth(seg(p, S[6], 1))), 0, view.w, view.h);
+      camera.updateProjectionMatrix();
+    }
     cameraAt(p);
     camera.position.copy(camPos);
     camera.lookAt(camTgt);
@@ -780,6 +808,7 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     camera.aspect = w / h;
     // keep the composition on narrow screens
     camera.fov = w / h < 0.8 ? 50 : w / h < 1.2 ? 38 : 30;
+    view.w = w; view.h = h;
     if (w / h >= 1.2) camera.setViewOffset(w, h, -w * 0.2, 0, w, h);
     else if (w / h < 0.8) camera.setViewOffset(w, h, 0, h * 0.16, w, h);
     else camera.clearViewOffset();

@@ -1561,3 +1561,44 @@ a.tcl-btn {
     radial-gradient(45% 55% at 62% 40%, rgba(110, 140, 230, 0.42), transparent 70%),
     radial-gradient(90% 70% at 60% 35%, #22336b 0%, #121d45 45%, #080c1c 100%);
 }
+
+/* cinematic letterbox during the can close-up */
+.tcl-open__lb {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: calc(var(--lb, 0) * 11vh);
+  background: #000;
+  pointer-events: none;
+}
+.tcl-open__lb--t {
+  top: 0;
+}
+.tcl-open__lb--b {
+  bottom: 0;
+}
+.tcl-open__sticky:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--lb, 0);
+  background: radial-gradient(75% 70% at 60% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* the opening overlaps the hero by one screen and dissolves into it (no seam) */
+.tcl-open {
+  height: 820vh;
+  margin-bottom: -100vh;
+  z-index: 3;
+  pointer-events: none;
+  background: transparent;
+}
+.tcl-open__sticky {
+  will-change: opacity;
+}
+.tcl-open__stage {
+  transform: translateY(calc(var(--sink, 0) * 6vh)) scale(calc(1 + var(--sink, 0) * 0.04));
+}

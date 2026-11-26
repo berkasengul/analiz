@@ -20,6 +20,9 @@ rep("      flavor: 2,\n", "      flavor: 0,\n")
 rep("    catalog: KY,", "    catalog: { ...KY, items: KY.items.slice(0, 1) },")
 rep("ft.catalog && w.jsx(jZ, {}),", "!1 && w.jsx(jZ, {}),")
 
+# the hero can waits fully out of frame before it drops in
+rep("(nt.introAt ? 7 : -9)", "(nt.introAt ? 16 : -9)", 2)
+
 # --- multi-page: home (3D hero + short intro) and #/urun, #/hikaye, #/film, #/iletisim
 rep("function NK() {", extra + "\nfunction NK() {")
 rep(
@@ -51,7 +54,7 @@ rep(
               }),""",
 )
 # the hero scene only renders while its own section is on screen (the opening sits above it)
-rep("      (bt.sceneVisible = i.bottom > 0),", "      (bt.sceneVisible = i.bottom > 0 && i.top < n),")
+rep("      (bt.sceneVisible = i.bottom > 0),", "      (bt.sceneVisible = i.bottom > 0 && i.top < n),\n      TclHeroDrop(i, n),")
 # 3D scene only renders on the home page; the loader does not wait for it on sub-pages
 rep("(r(bt.sceneVisible), (i = requestAnimationFrame(s)));", "(r(bt.sceneVisible && !TclSubNow()), (i = requestAnimationFrame(s)));")
 rep("    l = e ? 100 : Math.min(n, 92);", "    l = e || TclSubNow() ? 100 : Math.min(n, 92);")

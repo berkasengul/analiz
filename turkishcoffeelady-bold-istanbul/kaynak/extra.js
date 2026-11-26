@@ -1001,6 +1001,7 @@ function TclOpening() {
   const { lang: L } = Nn(),
     c = TclOpenCopy[L === "en" ? "en" : "tr"],
     sec = K.useRef(null),
+    sticky = K.useRef(null),
     stage = K.useRef(null),
     api = K.useRef(null),
     [step, setStep] = K.useState(0),
@@ -1023,11 +1024,22 @@ function TclOpening() {
       raf = 0;
       const el = sec.current;
       if (!el) return;
+      // the last viewport of the section overlaps the hero: the opening dissolves into it
       const r = el.getBoundingClientRect(),
-        span = Math.max(1, r.height - innerHeight),
+        span = Math.max(1, r.height - 2 * innerHeight),
         p = Math.min(1, Math.max(0, -r.top / span)),
-        vis = r.bottom > 0 && r.top < innerHeight;
+        hero = document.getElementById("flavors"),
+        fade = hero ? Math.min(1, Math.max(0, (hero.getBoundingClientRect().top / innerHeight - 0.45) / 0.55)) : 1,
+        vis = r.bottom > 0 && r.top < innerHeight && fade > 0.005;
+      if (sticky.current) {
+        sticky.current.style.opacity = fade.toFixed(3);
+        sticky.current.style.pointerEvents = fade > 0.5 ? "auto" : "none";
+        sticky.current.style.setProperty("--sink", (1 - fade).toFixed(3));
+      }
       window.__tclOpenVis = vis;
+      const sm = (t) => t * t * (3 - 2 * t), cl = (t) => Math.min(1, Math.max(0, t));
+      const lb = sm(cl((p - 0.74) / 0.06)) * (1 - sm(cl((p - 0.95) / 0.05)));
+      sticky.current && sticky.current.style.setProperty("--lb", lb.toFixed(3));
       if (api.current) (api.current.setProgress(p), api.current.setVisible(vis));
       let i = 0;
       TclOpenSteps.forEach((s, k) => k < 7 && p >= s - 0.001 && (i = k));
@@ -1054,7 +1066,10 @@ function TclOpening() {
     ref: sec,
     children: w.jsxs("div", {
       className: "tcl-open__sticky",
+      ref: sticky,
       children: [
+        w.jsx("span", { className: "tcl-open__lb tcl-open__lb--t", "aria-hidden": "true" }),
+        w.jsx("span", { className: "tcl-open__lb tcl-open__lb--b", "aria-hidden": "true" }),
         w.jsx("div", { className: "tcl-open__bg", "aria-hidden": "true" }),
         w.jsx("div", { className: "tcl-open__stage", ref: stage, "aria-hidden": "true" }),
         w.jsxs(
@@ -1095,4 +1110,17 @@ function TclOpening() {
       ],
     }),
   });
+}
+
+// the can drops into the hero from above every time the visitor scrolls down into it
+function TclHeroDrop(r, n) {
+  if (TclSubNow() || typeof nt === "undefined") return;
+  if (r.top >= n * 0.98) {
+    nt.intro = 0;
+    nt.introAt = performance.now() + 1e9;
+    nt.__tclArmed = 1;
+  } else if (nt.__tclArmed && r.top < n * 0.5) {
+    nt.__tclArmed = 0;
+    nt.introAt = performance.now() + 60;
+  }
 }
