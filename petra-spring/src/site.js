@@ -31,7 +31,18 @@ function fillSite() {
 }
 
 /* ---------- menü ---------- */
+// Ürünler alt sekmesi: üç grup ve ürün adları (küçük görselleriyle)
+function initMega() {
+  const box = $('#mega');
+  if (!box) return;
+  box.innerHTML = Object.entries(GROUPS).map(([g, label]) => `
+    <div class="mega__col">
+      <a class="mega__head" href="/urunler.html?kat=${g}">${label}<small>${FLAVORS.filter((f) => f.group === g).length} ürün</small></a>
+      <ul>${FLAVORS.filter((f) => f.group === g).map((f) => `<li><a href="${productUrl(f)}"><img src="${f.mini}" alt="" loading="lazy" width="28" height="28" /><span>${f.name}</span><em>${fiyat(f.price)}</em></a></li>`).join('')}</ul>
+    </div>`).join('') + '<a class="mega__all" href="/urunler.html">Tüm ürünleri 3B incele →</a>';
+}
 function initHeader() {
+  initMega();
   const page = document.body.dataset.page;
   $$('[data-nav]').forEach((a) => { if (a.dataset.nav === page) a.setAttribute('aria-current', 'page'); });
   const btn = $('#menuBtn');

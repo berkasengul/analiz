@@ -2,16 +2,16 @@
 <header class="hdr" id="hdr">
   <div class="wrap hdr__inner">
     <a href="/" class="hdr__brand" aria-label="Petra Spring ana sayfa">
-      <img class="hdr__wm" src="/logo-w.svg" alt="Petra Spring" width="117" height="48" />
+      <img class="hdr__wm" src="/logo-g.svg" alt="Petra Spring" width="117" height="48" />
     </a>
     <span class="hdr__sola" aria-label="Araba ve oda kokuları"><small>Araba ve oda</small><b>KOKULARI</b></span>
     <nav class="hdr__nav" id="nav" aria-label="Ana menü">
       <a href="/" data-nav="index">Ana sayfa</a>
       <a href="/kurumsal.html" data-nav="kurumsal">Hakkımızda</a>
-      <a href="/urunler.html?kat=kagit" data-nav="kagit">Asma kağıt</a>
-      <a href="/urunler.html?kat=cam" data-nav="cam">Cam şişe</a>
-      <a href="/urunler.html?kat=oda" data-nav="oda">Oda kokuları</a>
-      <a href="/urunler.html" data-nav="urunler">Tüm ürünler</a>
+      <div class="hdr__dd">
+        <a href="/urunler.html" data-nav="urunler" class="hdr__ddbtn" aria-haspopup="true">Ürünler <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="hdr__mega" id="mega" role="menu"></div>
+      </div>
       <a href="/iletisim.html" data-nav="iletisim">İletişim</a>
       <a class="btn btn--gold hdr__phone--menu" href="https://usepetra.com/collections/all" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 016 0v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Online mağaza</span></a>
     </nav>
