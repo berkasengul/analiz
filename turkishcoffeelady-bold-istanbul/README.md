@@ -5,8 +5,8 @@
 
 ## Sayfalar
 Çok sayfalı (adres çubuğunda `#/...`), sade düzen:
-- **Ana sayfa** (`/`): kaydırmalı 3D açılış (paket → yırt → aç → kaşık → kahve taneleri kutuya dönüşür → buğu → hazır),
-  ardından 3D Bold Istanbul kutusu (kaide + stüdyo fonu), kısa giriş ve üç kapı: Ürün, Hikâye, Film.
+- **Ana sayfa** (`/`): tek bir kaydırmalı 3D sahne (paket → yırt → aç → kaşık → kahve taneleri kutuya dönüşür → buğu →
+  kutu kalkıp dönerek kemerin içindeki kaideye iner), ardından kısa giriş ve üç kapı: Ürün, Hikâye, Film.
 - **Ürün** (`#/urun`): ürün hikâyesi, ön/arka kutu geçişi, içindekiler, besin değerleri, kutu bilgisi.
 - **Hikâye** (`#/hikaye`): Boston'dan Alexandria'ya 8 perde; "Filmde izle" filmin o anına götürür (`#/film?t=...`).
 - **Film** (`#/film`): 36 dk belgesel, 15 bölüm.

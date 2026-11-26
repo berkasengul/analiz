@@ -50,15 +50,16 @@ rep(
     """          : TclPageOf(n)
             ? w.jsx(TclPage, { route: n })
             : w.jsxs("main", {
-                children: [w.jsx(TclOpening, {}), o, w.jsx(TclHome, {})],
+                children: [w.jsx(TclOpening, {}), w.jsx(TclHome, {})],
               }),""",
 )
 # the hero scene only renders while its own section is on screen (the opening sits above it)
 rep("      (bt.sceneVisible = i.bottom > 0),", "      (bt.sceneVisible = i.bottom > 0 && i.top < n),\n      TclHeroDrop(i, n),")
 # 3D scene only renders on the home page; the loader does not wait for it on sub-pages
 rep("(r(bt.sceneVisible), (i = requestAnimationFrame(s)));", "(r(bt.sceneVisible && !TclSubNow()), (i = requestAnimationFrame(s)));")
-rep("    l = e ? 100 : Math.min(n, 92);", "    l = e || TclSubNow() ? 100 : Math.min(n, 92);")
-rep("      if (!t && e && i >= 100) {", "      if (!t && (e || TclSubNow()) && i >= 100) {")
+rep("    l = e ? 100 : Math.min(n, 92);", "    l = e || TclLoaderReady() ? 100 : Math.min(n, 92);")
+rep("      !i && w.jsx(Q$, {}),", "      !1 && w.jsx(Q$, {}),")
+rep("      if (!t && e && i >= 100) {", "      if (!t && (e || TclLoaderReady()) && i >= 100) {")
 
 # --- navigation: Bold Istanbul / Story / Film / Contact as pages
 rep(

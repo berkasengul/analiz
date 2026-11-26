@@ -1602,3 +1602,14 @@ a.tcl-btn {
 .tcl-open__stage {
   transform: translateY(calc(var(--sink, 0) * 6vh)) scale(calc(1 + var(--sink, 0) * 0.04));
 }
+
+/* one continuous scene: the opening is the whole home hero now */
+.tcl-open {
+  height: 940vh;
+  margin-bottom: 0;
+  pointer-events: auto;
+  background: #0b1228;
+}
+.tcl-open__sticky {
+  opacity: 1 !important;
+}

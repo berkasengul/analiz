@@ -963,7 +963,7 @@ function TclFooter() {
 }
 
 // ---------------- scroll opening: bag → can ----------------
-const TclOpenSteps = [0, 0.13, 0.28, 0.42, 0.6, 0.8, 0.92, 1],
+const TclOpenSteps = [0, 0.11, 0.237, 0.356, 0.509, 0.678, 0.78, 1],
   TclOpenCopy = {
     tr: {
       labels: ["Başla", "Yırt", "Aç", "Kaşık", "Dönüşüm", "Soğuk", "Hazır"],
@@ -974,7 +974,7 @@ const TclOpenSteps = [0, 0.13, 0.28, 0.42, 0.6, 0.8, 0.92, 1],
         ["Bir kaşık", "yeter.", "Fincan başına iki çay kaşığı (10 g). Ritüel hep aynı."],
         ["Aynı harman.", "Şimdi buzlu.", "Yüz yıllık ritüel, soğuk ve sıfır şekerle bir kutuda."],
         ["Çalkala.", "Soğuk iç.", "250 ml Bold Istanbul: koyu ve yoğun, %100 doğal, düşük kalori."],
-        ["Aynı İstanbul.", "İki ritüel.", "Paket mutfağınızda, kutu yanınızda."],
+        ["Bold Istanbul.", "Koyu ve yoğun.", "%100 doğal, sıfır şeker, düşük kalori. 250 ml; çalkala, soğuk iç."],
       ],
       cta: "Ürünü keşfet",
       film: "Filmi izle",
@@ -989,7 +989,7 @@ const TclOpenSteps = [0, 0.13, 0.28, 0.42, 0.6, 0.8, 0.92, 1],
         ["One spoon", "is all it takes.", "Two teaspoons (10 g) a cup. The ritual never changes."],
         ["Same blend.", "Now iced.", "A centuries-old ritual, cold and zero sugar, in a can."],
         ["Shake well.", "Drink cold.", "8.5 fl oz of Bold Istanbul: dark and rich, 100% natural, low calorie."],
-        ["One Istanbul.", "Two rituals.", "The bag in your kitchen, the can in your hand."],
+        ["Bold Istanbul.", "Dark & rich.", "100% natural, zero sugar, low calorie. 8.5 fl oz; shake well, drink cold."],
       ],
       cta: "Explore the product",
       film: "Watch the film",
@@ -1012,33 +1012,37 @@ function TclOpening() {
     const p3 = ft.products[0].photo3d;
     import(new URL("film/open/opening.js", document.baseURI).href)
       .then((m) =>
-        m.mount(stage.current, { canTexture: bq, rows: p3.rows, axis: p3.axis, onReady: () => alive && setReady(!0) }),
+        m.mount(stage.current, {
+          canTexture: bq,
+          rows: p3.rows,
+          axis: p3.axis,
+          onReady: () => {
+            window.__tclOpenReady = !0;
+            alive && setReady(!0);
+          },
+        }),
       )
       .then((a) => {
         if (!alive) return a.destroy();
         api.current = a;
         tick();
       })
-      .catch((e) => console.warn("opening", e));
+      .catch((e) => {
+        window.__tclOpenReady = !0;
+        console.warn("opening", e);
+      });
     const tick = () => {
       raf = 0;
       const el = sec.current;
       if (!el) return;
       // the last viewport of the section overlaps the hero: the opening dissolves into it
       const r = el.getBoundingClientRect(),
-        span = Math.max(1, r.height - 2 * innerHeight),
+        span = Math.max(1, r.height - innerHeight),
         p = Math.min(1, Math.max(0, -r.top / span)),
-        hero = document.getElementById("flavors"),
-        fade = hero ? Math.min(1, Math.max(0, (hero.getBoundingClientRect().top / innerHeight - 0.45) / 0.55)) : 1,
-        vis = r.bottom > 0 && r.top < innerHeight && fade > 0.005;
-      if (sticky.current) {
-        sticky.current.style.opacity = fade.toFixed(3);
-        sticky.current.style.pointerEvents = fade > 0.5 ? "auto" : "none";
-        sticky.current.style.setProperty("--sink", (1 - fade).toFixed(3));
-      }
+        vis = r.bottom > 0 && r.top < innerHeight;
       window.__tclOpenVis = vis;
       const sm = (t) => t * t * (3 - 2 * t), cl = (t) => Math.min(1, Math.max(0, t));
-      const lb = sm(cl((p - 0.74) / 0.06)) * (1 - sm(cl((p - 0.95) / 0.05)));
+      const lb = sm(cl((p - 0.625) / 0.05)) * (1 - sm(cl((p - 0.775) / 0.04)));
       sticky.current && sticky.current.style.setProperty("--lb", lb.toFixed(3));
       if (api.current) (api.current.setProgress(p), api.current.setVisible(vis));
       let i = 0;
@@ -1123,4 +1127,8 @@ function TclHeroDrop(r, n) {
     nt.__tclArmed = 0;
     nt.introAt = performance.now() + 60;
   }
+}
+
+function TclLoaderReady() {
+  return TclSubNow() || !!window.__tclOpenReady;
 }

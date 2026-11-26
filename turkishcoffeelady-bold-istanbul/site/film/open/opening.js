@@ -441,7 +441,44 @@ function makeStudio(envMap, center) {
     s.userData = { x: center.x + (Math.random() - 0.5) * 9, y: -0.5 + Math.random() * 5.5, z: center.z - 2.5 - Math.random() * 3, sp: 0.05 + Math.random() * 0.12, ph: Math.random() * 6 };
     bokeh.add(s);
   }
-  return { arch: g, plinth, floor, bokeh, haze, shaft };
+  // slim fluted pedestal for the finale (same language as the hero shot)
+  const ped = new THREE.Group();
+  const PR = 0.5, PH = 1.7;
+  const pc = new THREE.CylinderGeometry(PR, PR * 1.03, PH, 120, 1, true);
+  const pp = pc.attributes.position;
+  for (let i = 0; i < pp.count; i++) {
+    const x = pp.getX(i), z = pp.getZ(i), a = Math.atan2(z, x);
+    const k = 1 - 0.035 * Math.pow(Math.abs(Math.cos(a * 11)), 0.7);
+    pp.setX(i, x * k); pp.setZ(i, z * k);
+  }
+  pc.computeVertexNormals();
+  const pm = new THREE.Mesh(pc, marble);
+  pm.position.y = -PH / 2 - 0.07;
+  pm.receiveShadow = true;
+  ped.add(pm);
+  const ptop = new THREE.Mesh(new THREE.CylinderGeometry(PR + 0.07, PR + 0.07, 0.07, 96), marble);
+  ptop.position.y = -0.035;
+  ptop.receiveShadow = true;
+  ped.add(ptop);
+  const pr1 = new THREE.Mesh(new THREE.TorusGeometry(PR + 0.07, 0.01, 10, 96), gold);
+  pr1.rotation.x = Math.PI / 2; pr1.position.y = -0.002;
+  const pr2 = new THREE.Mesh(new THREE.TorusGeometry(PR - 0.06, 0.012, 10, 96), navy);
+  pr2.rotation.x = Math.PI / 2; pr2.position.y = 0.002;
+  const pr3 = new THREE.Mesh(new THREE.TorusGeometry(PR + 0.072, 0.01, 10, 96), gold);
+  pr3.rotation.x = Math.PI / 2; pr3.position.y = -0.07;
+  ped.add(pr1, pr2, pr3);
+  const pbase = new THREE.Mesh(new THREE.CylinderGeometry(PR + 0.26, PR + 0.32, 0.13, 96), marble);
+  pbase.position.y = -PH - 0.13;
+  ped.add(pbase);
+  const pglow = new THREE.Mesh(
+    new THREE.CircleGeometry(PR + 0.4, 48),
+    new THREE.MeshBasicMaterial({ map: glowTexture("rgba(190,210,255,0.9)", "rgba(120,150,255,0)"), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0 }),
+  );
+  pglow.rotation.x = -Math.PI / 2;
+  pglow.position.y = 0.01;
+  ped.add(pglow);
+  ped.visible = false;
+  return { arch: g, plinth, floor, bokeh, haze, shaft, ped, pglow };
 }
 
 // ---------- particles: coffee grains that swirl into the can ----------
@@ -553,7 +590,8 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   floor.receiveShadow = true;
   scene.add(floor);
   const studio = makeStudio(env, V(0.42, 0, 0.42));
-  scene.add(studio.arch, studio.plinth, studio.floor, studio.bokeh);
+  scene.add(studio.arch, studio.plinth, studio.floor, studio.bokeh, studio.ped);
+  const ARCH0 = studio.arch.position.clone();
 
   const loader = new THREE.TextureLoader();
   const load = (u) =>
@@ -663,8 +701,8 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
   const S = STEPS;
   const camKeys = [
     // p, position, target
-    [0.0, V(1.25, 0.8, 5.7), V(0.1, 1.25, 0)],
-    [0.07, V(1.05, 0.9, 5.2), V(0.06, 1.32, 0)],
+    [0.0, V(0.35, 0.82, 5.8), V(0.05, 1.24, 0)],
+    [0.07, V(0.3, 0.92, 5.3), V(0.04, 1.3, 0)],
     [S[1], V(0.7, 1.75, 3.5), V(0.0, 1.95, 0)],
     [S[2], V(0.45, 2.85, 2.6), V(0.0, 2.15, 0)],
     [S[3], V(0.1, 4.25, 1.25), V(0.0, 2.2, 0)],
@@ -709,11 +747,16 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
 
   let progress = 0, dirty = true, visible = true, raf = 0, time = 0;
   const view = { w: 1, h: 1 };
-  function apply(p) {
+  const FIN = 0.78;
+  const camFin = V(1.05, 0.86, 5.15), tgtFin = V(1.05, 0.72, 0.85), cP = V(0, 0, 0), cT = V(0, 0, 0);
+  function apply(P) {
+    const p = P < FIN ? (P / FIN) * 0.92 : 0.92;
+    const f = seg(P, FIN, 1);
     // bag pose
     const tear = seg(p, S[1] + 0.02, S[2] - 0.02);
     const open = smooth(seg(p, S[2], S[3] - 0.02));
-    bag.rotation.y = lerp(-0.62, 0, smooth(seg(p, 0.04, S[2]))) + 0.03 * Math.sin(time * 0.6) * (1 - seg(p, 0, S[1]));
+    const face = Math.atan2(camera.position.x - bag.position.x, camera.position.z - bag.position.z);
+    bag.rotation.y = lerp(face, 0, smooth(seg(p, S[1], S[2])));
     stripPivot.rotation.z = smooth(tear) * 1.9;
     stripPivot.position.y = BAG.H - BAG.seal / 2 + tear * tear * 1.6;
     stripPivot.position.x = -BAG.W / 2 - tear * tear * 0.9;
@@ -799,6 +842,48 @@ export async function mount(el, { canTexture, rows, axis, onReady }) {
     cameraAt(p);
     camera.position.copy(camPos);
     camera.lookAt(camTgt);
+
+    // ---------- finale: the can lifts, spins and lands on the slim pedestal inside the arch ----------
+    studio.ped.visible = f > 0.12;
+    if (f > 0) {
+      const up = ease(seg(f, 0, 0.3)), down = ease(seg(f, 0.5, 0.86));
+      const settle = Math.sin(seg(f, 0.86, 1) * Math.PI) * 0.015;
+      can.group.position.set(CAN_POS.x, 0.55 * up * (1 - down) + settle, CAN_POS.z);
+      can.group.rotation.y = Math.PI * 2 * ease(seg(f, 0.04, 0.82)) + Math.sin(time * 0.45) * 0.02 * seg(f, 0.9, 1);
+      const sink = ease(seg(f, 0.08, 0.5));
+      studio.plinth.position.y = -3.6 * sink;
+      floor.position.y = studio.plinth.position.y + 0.001;
+      floor.visible = sink < 0.98;
+      studio.ped.position.set(CAN_POS.x, lerp(-3.2, 0, ease(seg(f, 0.18, 0.66))), CAN_POS.z);
+      const k = ease(seg(f, 0.1, 0.7));
+      studio.arch.visible = true;
+      studio.arch.position.set(lerp(ARCH0.x, CAN_POS.x, k), lerp(ARCH0.y, -0.5, k), lerp(ARCH0.z, CAN_POS.z - 0.7, k));
+      studio.arch.scale.setScalar(lerp(1, 0.42, k));
+      studio.haze.material.opacity = lerp(studio.haze.material.opacity, 1, k);
+      studio.shaft.material.opacity = 0.32 * k + studio.shaft.material.opacity * (1 - k);
+      studio.pglow.material.opacity = Math.exp(-Math.pow((f - 0.87) / 0.05, 2)) * 0.9 + seg(f, 0.88, 1) * 0.25;
+      // camera: crane back and up, then settle square-on (the hero shot)
+      const t = ease(seg(f, 0, 0.92));
+      cP.lerpVectors(camPos, camFin, t);
+      cT.lerpVectors(camTgt, tgtFin, t);
+      cP.y += Math.sin(Math.PI * t) * 0.45;
+      cP.z += Math.sin(Math.PI * t) * 0.9;
+      cP.x += Math.sin(Math.PI * t) * 0.45;
+      cT.y += (can.group.position.y) * 0.85;
+      camera.position.copy(cP);
+      camera.lookAt(cT);
+      if (view.w / view.h >= 1.2) {
+        camera.setViewOffset(view.w, view.h, -view.w * lerp(0.2, 0.14, t), 0, view.w, view.h);
+        camera.updateProjectionMatrix();
+      }
+    } else {
+      studio.plinth.position.y = 0;
+      floor.position.y = 0.001;
+      floor.visible = true;
+      studio.arch.position.copy(ARCH0);
+      studio.arch.scale.setScalar(1);
+      studio.pglow.material.opacity = 0;
+    }
   }
   function resize() {
     const w = el.clientWidth, h = el.clientHeight;
