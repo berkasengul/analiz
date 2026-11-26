@@ -62,6 +62,8 @@ function fillStage() {
   $('#pLead').textContent = f.lead;
   $('#pFacts').innerHTML = f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#pGo').href = productUrl(f);
+  $('#pBuy').href = f.buy;
+  $('#pBuyPrice').textContent = fiyat(f.price);
   if (window.__early) window.__early(f.id); else $('#pimg').src = f.md;
   const n = list.length;
   const prev = FLAVORS[list[(cur - 1 + n) % n]], next = FLAVORS[list[(cur + 1) % n]];
@@ -96,7 +98,7 @@ function stagePose(snap) {
   const pose = snap === true ? scene.snapPose : scene.setPose;
   const H = scene.halfHeight(), A = scene.aspect(), W = H * A, k = FLAVORS[fIdx()].model ? 1.05 : 1;
   if (phoneView()) pose({ x: 0, y: $('#pstage').classList.contains('sensing') ? H * 0.44 : H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k * ($('#pstage').classList.contains('sensing') ? 0.5 : 1), ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else pose({ x: W * (2 * stageCenter() - 1), y: $('#pstage').classList.contains('sensing') ? -H * 0.1 : 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k * ($('#pstage').classList.contains('sensing') ? 0.8 : 1), ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  else pose({ x: W * (2 * stageCenter() - 1), y: $('#pstage').classList.contains('sensing') ? -H * 0.1 : 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k * ($('#pstage').classList.contains('sensing') ? 0.74 : 1), podium: $('#pstage').classList.contains('sensing') ? 1 : 0, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 fillStage();
 $('#pstage').classList.add('filled');

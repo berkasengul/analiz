@@ -17,6 +17,9 @@ export const SITE = {
   mapQuery: 'Giyimkent 3. Sokak No 93 Oruçreis Esenler İstanbul',
 };
 
+// usepetra.com Shopify varyant numaraları: Hemen satın al → /cart/<varyant>:1 (doğrudan ödeme sayfası)
+const VARIANT = {"kerasus-100ml-bambu-cubuklu-oda-kokusu": 47317044363437, "miracle-100ml-bambu-cubuklu-oda-kokusu": 47317039906989, "zeus-100ml-bambu-cubuklu-oda-kokusu": 47317025685677, "keops-100ml-bambu-cubuklu-oda-kokusu": 47317008187565, "agartha-100ml-bambu-cubuklu-oda-kokusu": 47315443941549, "art-asma-oto-kokusu": 47310918090925, "star-light-asma-oto-kokusu": 47310910718125, "gulumse-asma-oto-kokusu": 47310902624429, "sirius-vatan-asma-oto-kokusu": 47310901575853, "anka-asma-oto-kokusu": 47310892925101, "petra-x-oto-kokusu": 47310876115117, "electro": 47310872182957, "forest-asma-oto-kokusu": 47310641692845, "ocean-asma-oto-kokusu": 47310600503469, "free-asma-oto-kokusu": 47310569832621, "star-dark-asma-oto-kokusu": 47310514487469, "once-vatan-asma-oto-kokusu": 47306478944429, "petra-spring-paris-100ml-bambu-cubuklu-oda-kokusu": 47287321428141, "tutti-cam-sise-premium-kalici-araba-kokusu": 46017444118701, "ocean-cam-sise-premium-kalici-araba-kokusu": 46017385136301, "aura-cam-sise-premium-kalici-araba-kokusu": 46017378877613, "yasemen-cam-sise-premium-kalici-araba-kokusu": 46017363148973, "forest-cam-sise-premium-kalici-araba-kokusu": 45991343620269};
+
 export const fiyat = (p) => `${Number(p).toLocaleString('tr-TR', { minimumFractionDigits: 0 })} ₺`;
 
 // ---------------------------------------------------------------
@@ -155,28 +158,10 @@ export const CHANNEL_ICONS = {
   hediye: 'M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3-5-1s3 1 5 1zM12 7c1.5-3 5-3 5-1s-3 1-5 1z',
   eticaret: 'M4 5h16v11H4zM2 19h20M9 9l2 2 4-4',
 };
-const CH_CARD = [
-  ['istasyon', 'Kasa önü standında en çok dönen ürün: 165 ₺’lik fiyatla anlık alım, yakıt alan her sürücü potansiyel müşteri.'],
-  ['yikama', 'Yıkama sonrası “arabanız mis gibi koksun” teklifi; temizlik hizmetine eklenen kolay bir satış.'],
-  ['servis', 'Bakımdan çıkan araca hediye ya da tezgâh üstü satış; servis markanızla birlikte hatırlanır.'],
-  ['market', 'Oto aksesuar rafında 12 farklı tasarım; renkli kartlar askılı standda kendini satar.'],
-];
-const CH_VIAL = [
-  ['istasyon', 'Premium ürün arayan sürücü için kasa önünde cam şişe; kağıt kokudan bir üst segment.'],
-  ['galeri', 'Teslim edilen araçta Petra kokusu: galeri ve kiralama firmaları için şık bir karşılama detayı.'],
-  ['yikama', 'Detaylı temizlik paketlerine eklenen kalıcı koku; ahşap kapaklı cam şişe aracın içinde güzel görünür.'],
-  ['hediye', 'Ahşap kapaklı, ipli cam şişe: hediye ve konsept mağazalarda kasa yanı ürünü.'],
-];
-const CH_REED = [
-  ['ofis', 'Resepsiyon, toplantı odası ve mağaza girişinde gün boyu süren koku; kurumsal ikram olarak da uygun.'],
-  ['hediye', 'Kutulu, altın etiketli 100 ml şişe; hediye ve ev dekorasyonu mağazalarında vitrin ürünü.'],
-  ['market', 'Ev bakım ve dekorasyon rafında premium segment; altı farklı renk rafı canlandırır.'],
-  ['eticaret', 'Kutulu, sağlam ambalaj; e-ticaret ve pazaryerlerinde kargoya uygun.'],
-];
 const PITCH = {
-  kagit: (f) => [`Kasa önünde kendini satan ${f.name}.`, `${f.name}, ${f.scent} esanslı yoğun formülüyle 30 güne kadar kalıcı bir asma oto kokusu. Renkli blister kartı askılı standda dikkat çeker, 165 ₺’lik fiyatı anlık alımı kolaylaştırır. 12 farklı tasarım bir arada sergilendiğinde müşteri kendi kokusunu seçer.`, CH_CARD],
-  cam: (f) => [`${f.name}: cam şişede premium araç kokusu.`, `Bambu ahşap kapaklı 8 ml cam şişe, kokuyu kapaktan dengeli yayar. ${f.name} üç katmanlı notalarıyla (${f.notes.join(', ').toLocaleLowerCase('tr')}) kağıt kokudan bir üst segmentte; şık görünümüyle hediye ve teslimat anlarında da tercih edilir.`, CH_VIAL],
-  oda: (f) => [`${f.name}: mekânın imza kokusu.`, `${f.scent} esanslı 100 ml oda kokusu, 5 siyah bambu çubukla gün boyu yayılır. Altın etiketli kare cam şişe ve kutusuyla resepsiyon, mağaza ve ev için hem koku hem dekor; hediye olarak da kolay satılır.`, CH_REED],
+  kagit: (f) => [`${f.name}: her yolculukta ${f.scent.toLocaleLowerCase('tr')} ferahlığı.`, `Petra Spring ${f.name}, ${f.scent} esanslı yoğun formülüyle aracınıza 30 güne kadar kalıcı bir koku taşır. Poşetten çektiğiniz miktarla yoğunluğu siz ayarlarsınız; ipinden dikiz aynasına asmanız yeterli. Otomobilin yanı sıra dolapta ve küçük yaşam alanlarında da kullanılabilir.`],
+  cam: (f) => [`${f.name}: kaliteden ödün vermeyenler için.`, `Yolculuklarında kaliteden ödün vermeyenler için tasarlanan cam şişe asma araba kokuları, özel ahşap kapak mekanizması sayesinde kokuyu her an dengeli bir şekilde yayar. ${f.name}, ${f.notes.join(', ').toLocaleLowerCase('tr')} notalarıyla üç katmanlı bir koku yolculuğu sunar.`],
+  oda: (f) => [`${f.name}: yaşam alanlarınıza zarif bir dokunuş.`, `${f.scent} esanslı ${f.name}, uzun süre hissedebileceğiniz premium bir oda kokusu deneyimi sunar. Doğal bambu çubuklar sayesinde esans ortama dengeli şekilde yayılır; ev, ofis, salon, yatak odası, banyo ve çalışma alanlarında gün boyu kalıcılığını korur.`],
 };
 const BENEFITS = {
   kagit: [
@@ -248,11 +233,12 @@ FLAVORS.forEach((f) => {
   f.short = f.name.length > 10 ? f.name.split(' ')[0] : undefined;
   f.md = `/tex/md/${f.id}.webp`;
   f.mini = `/tex/mini/${f.id}.webp`;
-  f.buy = `${SITE.shop}/products/${f.handle}`;
-  const [t, s, ch] = PITCH[f.group](f);
+  f.shopUrl = `${SITE.shop}/products/${f.handle}`;
+  f.buy = VARIANT[f.handle] ? `${SITE.shop}/cart/${VARIANT[f.handle]}:1` : f.shopUrl;
+  const [t, s] = PITCH[f.group](f);
   f.storyTitle = t; f.story = s;
-  f.channels = ch.map(([k, why]) => [k, CHANNELS[k], why]);
   f.benefits = BENEFITS[f.group];
+  f.usage = (f.contents.find(([k]) => k === 'Kullanım') || [, ''])[1];
   // hikâye görseli: oda ve cam şişede yaşam alanı fotoğrafı, kartlarda ambalaj
   f.storyImg = f.group === 'kagit' ? f.tex : `/img/foto/${f.id}-1.webp`;
   { const [mood, steps, tags, meters] = SENSE[f.id]; f.sense = { mood, steps, tags, meters }; }

@@ -10,10 +10,7 @@ export const productUrl = (f) => `/urun.html?id=${encodeURIComponent(f.id)}`;
 export const mailHref = (f) => `mailto:${SITE.email}?subject=${encodeURIComponent(f ? `${f.name} hakkında bilgi` : 'Ürün bilgisi')}`;
 // WhatsApp: mesaj kutusu hazır bir bilgi talebiyle açılır (ürün sayfasında ürün adıyla)
 export const waText = (f) => {
-  if (f) return `Merhaba, Petra Spring ${f.full} hakkında bilgi almak istiyorum. Toptan fiyat, koli içi adet ve teslimat koşullarını paylaşabilir misiniz?`;
-  const page = document.body.dataset.page;
-  if (page === 'teklif') return 'Merhaba, Petra Spring araba ve oda kokuları için toptan fiyat teklifi almak istiyorum. Ürün listesi, koli içi adetler ve teslimat koşulları hakkında bilgi verebilir misiniz?';
-  if (page === 'bayilik') return 'Merhaba, Petra Spring ürünlerinin bayiliği hakkında bilgi almak istiyorum.';
+  if (f) return `Merhaba, Petra Spring ${f.full} hakkında bilgi almak istiyorum.`;
   return 'Merhaba, Petra Spring ürünleriniz hakkında bilgi almak istiyorum.';
 };
 export const waHref = (f) => `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(waText(f))}`;
@@ -31,52 +28,6 @@ function fillSite() {
   $$('[data-site="year"]').forEach((el) => { el.textContent = new Date().getFullYear(); });
   const legal = [SITE.mersis && `MERSİS: ${SITE.mersis}`, SITE.taxOffice && `${SITE.taxOffice} V.D.`, SITE.taxNo && `VKN: ${SITE.taxNo}`, SITE.kep && `KEP: ${SITE.kep}`].filter(Boolean);
   $$('[data-site="legal"]').forEach((el) => { el.textContent = legal.length ? ` · ${legal.join(' · ')}` : ''; });
-}
-
-/* ---------- teklif iste: e-posta, WhatsApp ya da form ---------- */
-// sayfadaki "Toptan teklif" düğmeleri (menü bağlantısı hariç) küçük bir seçim penceresi açar;
-// ürün sayfasında düğmenin data-urun değeri mesaja yazılır
-function quoteMail(urun) {
-  const subject = `Toptan teklif talebi${urun ? ` · ${urun}` : ''}`;
-  const body = `Merhaba,\n\n${urun ? `${urun} ürünü` : 'Petra Spring ürünleriniz'} için toptan fiyat teklifi almak istiyorum.\n\nFirma adı:\nYetkili:\nTelefon:\nİl / ilçe:\nİşletme türü:\nÜrün(ler) ve tahmini miktar:\n\nTeşekkürler.`;
-  return `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-function quoteWa(urun) {
-  const t = `Merhaba, ${urun ? `${urun} ürünü` : 'Petra Spring ürünleriniz'} için toptan fiyat teklifi almak istiyorum. Fiyat listesi, koli içi adetler ve teslimat koşullarını paylaşabilir misiniz?`;
-  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(t)}`;
-}
-function initQuoteChooser() {
-  const btns = $$('a[href^="/teklif.html"]');
-  if (!btns.length || document.body.dataset.page === 'teklif') return;
-  const dlg = document.createElement('dialog');
-  dlg.className = 'qdlg';
-  dlg.setAttribute('aria-labelledby', 'qdlgTitle');
-  dlg.innerHTML = `<button class="qdlg__x" type="button" aria-label="Kapat">×</button>
-    <p class="qdlg__eyebrow">Toptan teklif</p>
-    <h2 id="qdlgTitle">Nasıl ulaşmak istersiniz?</h2>
-    <p class="qdlg__sub" id="qdlgSub"></p>
-    <div class="qdlg__opts">
-      <a class="qopt qopt--wa" id="qWa" target="_blank" rel="noopener"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-3.6A8 8 0 1112 20a8 8 0 01-4-1.1zM9 8.5c0 3 2.5 6.5 6 6.8l1-1.3-1.8-1-1 .8c-1-.5-2-1.5-2.4-2.4l.8-1-1-1.9z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i><span><b>WhatsApp'tan yazın</b><small>Hazır mesajla, hemen yanıt</small></span></a>
-      <a class="qopt qopt--mail" id="qMail"><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i><span><b>E-posta gönderin</b><small>${SITE.email}</small></span></a>
-      <a class="qopt qopt--form" id="qForm"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z M14 3v4h4 M10 12h6 M10 16h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></i><span><b>Teklif formunu doldurun</b><small>Ürünleri seçin, size dönelim</small></span></a>
-    </div>`;
-  document.body.appendChild(dlg);
-  const close = () => dlg.close();
-  dlg.querySelector('.qdlg__x').addEventListener('click', close);
-  dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
-  dlg.querySelectorAll('.qopt').forEach((o) => o.addEventListener('click', () => setTimeout(close, 150)));
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="/teklif.html"]');
-    if (!a || a.closest('.qdlg') || e.metaKey || e.ctrlKey || e.shiftKey) return;
-    e.preventDefault();
-    const urun = a.dataset.urun || '';
-    $('#qdlgSub').textContent = urun ? `${urun} için fiyat teklifi isteyin.` : 'Fiyat listesi ve teslimat koşulları için bize ulaşın.';
-    $('#qWa').href = quoteWa(urun);
-    $('#qWa').hidden = !SITE.whatsapp;
-    $('#qMail').href = quoteMail(urun);
-    $('#qForm').href = a.getAttribute('href');
-    dlg.showModal();
-  });
 }
 
 /* ---------- menü ---------- */
@@ -108,7 +59,7 @@ export function initReveal(root = document) {
 }
 
 /* ---------- formlar (Netlify Forms, yedek: FormSubmit ile doğrudan e-posta) ---------- */
-const FORM_TITLES = { iletisim: 'İletişim formu', bayilik: 'Bayilik / iş birliği başvurusu', 'toptan-teklif': 'Toptan teklif talebi' };
+const FORM_TITLES = { iletisim: 'İletişim formu' };
 const FIELD_NAMES = { ad: 'Ad soyad', yetkili: 'Yetkili', firma: 'Firma', isletme: 'İşletme', telefon: 'Telefon', eposta: 'E-posta', il: 'İl', konu: 'Konu', faaliyet: 'Faaliyet alanı', isletme_turu: 'İşletme türü', aylik_miktar: 'Aylık miktar', ambalaj: 'Ambalaj', not: 'Not', mesaj: 'Mesaj', 'urunler[]': 'Ürünler', kvkk: 'KVKK onayı' };
 // süre sınırlı istek: yanıt gecikirse müşteri bekletilmez
 function fetchT(url, opts, ms) {
@@ -229,6 +180,5 @@ export function webglOK() {
 
 fillSite();
 initHeader();
-initQuoteChooser();
 initReveal();
 export { SITE, FLAVORS };

@@ -194,9 +194,9 @@ export function makeBackTexture(img, flavor, logo) {
   const cy = seal + (H - seal) * 0.08;
   if (logo && !flavor.brand) x.drawImage(logo, W / 2 - 110, cy, 220, 220);
   x.textAlign = 'center';
-  x.font = "600 60px 'Fraunces Variable', Fraunces, Georgia, serif";
+  x.font = "600 60px Montserrat Variable, Montserrat, Arial, sans-serif";
   x.fillText(flavor.brand || 'Genç Anadolu Gıda', W / 2, cy + (flavor.brand ? 200 : 310));
-  x.font = '500 34px Manrope, Arial, sans-serif';
+  x.font = '500 34px Montserrat Variable, Montserrat, Arial, sans-serif';
   x.fillText(`Dondurularak Kurutulmuş ${flavor.name}`, W / 2, cy + 362);
   x.globalAlpha = 0.5;
   x.fillRect(W / 2 - 160, cy + 400, 320, 2);
@@ -204,13 +204,13 @@ export function makeBackTexture(img, flavor, logo) {
   x.textAlign = 'left';
   let y = cy + 470;
   for (const [k, v] of flavor.facts) {
-    x.font = '700 28px Manrope, Arial, sans-serif';
+    x.font = '700 28px Montserrat Variable, Montserrat, Arial, sans-serif';
     x.fillText(k.toLocaleUpperCase('tr'), 190, y);
-    x.font = '500 32px Manrope, Arial, sans-serif';
+    x.font = '500 32px Montserrat Variable, Montserrat, Arial, sans-serif';
     x.fillText(v, 560, y);
     y += 52;
   }
-  x.font = '500 30px Manrope, Arial, sans-serif';
+  x.font = '500 30px Montserrat Variable, Montserrat, Arial, sans-serif';
   y += 10;
   let line = '';
   for (const word of (flavor.claims || []).join(' · ').split(' ')) {
@@ -218,7 +218,7 @@ export function makeBackTexture(img, flavor, logo) {
     if (x.measureText(test).width > W - 380 && line) { x.fillText(line, 190, y); y += 42; line = word; } else line = test;
   }
   if (line) x.fillText(line, 190, y);
-  x.font = '500 22px Manrope, Arial, sans-serif';
+  x.font = '500 22px Montserrat Variable, Montserrat, Arial, sans-serif';
   x.globalAlpha = 0.75;
   x.textAlign = 'center';
   x.fillText('Açtıktan sonra kilidini kapatıp serin ve kuru yerde saklayınız.', W / 2, H - 120);
@@ -283,7 +283,7 @@ function canvasTex(size, draw) {
 // opts.plain: açık zeminde koyu hale kullanılmaz; opts.wheel: false ise tekerlekle yakınlaştırma kapalı (sayfa kaysın)
 export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.toneMappingExposure = 1.0;
@@ -393,8 +393,25 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   root.add(rimBack, rimBack.target);
 
   // telefonda Unbe tarzı sahne: paket ışıklı bir kaidenin üstünde, tepeden ışık huzmesi, yanlarda komşu ürünler
+  // kokuyu keşfet: ürünün arkasında yavaşça dönen ince altın halkalar
+  const auraRings = new THREE.Group();
+  {
+    const gold = new THREE.MeshStandardMaterial({ color: 0xc9a35a, roughness: 0.25, metalness: 1, envMapIntensity: 1.2, transparent: true, opacity: 0 });
+    [[1.02, 0.006, 0], [1.16, 0.003, 0.5], [0.88, 0.0035, -0.4]].forEach(([r, t, tilt]) => {
+      const m = new THREE.Mesh(new THREE.TorusGeometry(r, t, 12, 160), gold);
+      m.rotation.set(tilt * 0.3, tilt, 0);
+      auraRings.add(m);
+    });
+    auraRings.userData.mat = gold;
+    auraRings.visible = false;
+    scene.add(auraRings);
+  }
+  let senseNow = 0, senseOn = 0;
+  // kaide sahnede sabit durur (ürün değişirken dönen ve alçalan yalnızca ürün)
   const podium = new THREE.Group();
-  root.add(podium);
+  scene.add(podium);
+  const POD_H = 0.76; // kaidenin üstünün sabit yüksekliği (en uzun ürünün yarı boyu)
+  let lift = 0;
   const podTop = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.05, 64), new THREE.MeshPhysicalMaterial({ color: 0xfbf8f3, roughness: 0.42, clearcoat: 0.4, clearcoatRoughness: 0.3, envMapIntensity: 0.7 }));
   const podBody = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.64, 0.12, 64), new THREE.MeshPhysicalMaterial({ color: 0xece5da, roughness: 0.55, metalness: 0, envMapIntensity: 0.6 }));
   podBody.position.y = -0.085;
@@ -473,7 +490,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   const juiceA = new THREE.Color(), juiceB = new THREE.Color();
   let juiceBlend = 0;
   let juiceInit = false;
-  let juiceOverride = null; // bayilik ve iletişimde sabit marka rengi
+  let juiceOverride = null; // iletişimde sabit marka rengi
   const juiceClip = { top: 2, bottom: 2, dark: 0 };
   const DROPS = 14;
   const drops = new THREE.InstancedMesh(
@@ -917,7 +934,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     camera.position.z = 5 / insp.zoom;
 
     const bob = reduce ? 0 : Math.sin(t * 1.1) * 0.035 * (1 - insp.blend) * (1 - fanNow) * state.pt;
-    root.position.set(state.x + dip * 0.18, state.y + bob - dip * 0.1, 0);
+    const fixPod = state.podium; // kaide varken ürün yerinde döner, kaideye gömülmez
+    root.position.set(state.x + dip * 0.18 * (1 - fixPod), state.y + bob * (1 - fixPod) - dip * 0.1 * (1 - fixPod) + dip * 0.04 * fixPod * state.s, 0);
     // gölge ışığı paketi izler
     key.target.position.copy(root.position);
     key.position.set(root.position.x + 3.4, root.position.y + 2.8, 2.2);
@@ -926,7 +944,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       const sc = key.shadow.camera;
       if (Math.abs(sc.right - e) > 0.05) { sc.left = -e; sc.right = e; sc.top = e; sc.bottom = -e; sc.updateProjectionMatrix(); }
     }
-    root.scale.setScalar(state.s * (1 - 0.08 * dip) * (1 - 0.12 * insp.pop) * (1 + 0.035 * spinLean + 0.06 * burst * burst));
+    root.scale.setScalar(state.s * (1 - 0.08 * dip * (1 - fixPod)) * (1 - 0.12 * insp.pop) * (1 + 0.035 * spinLean + 0.06 * burst * burst));
     root.rotation.x = 0.1 * fanNow;
     if (insp.on) {
       let swOff = 0, swS = 0;
@@ -940,7 +958,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
         if (swap.t >= 1) swap.on = false;
       }
       pouchHolder.rotation.set(insp.rx - 0.05 * swS, insp.ry + swOff, 0);
-      pouchHolder.position.y = 0.06 * swS;
+      pouchHolder.position.y = lift + 0.06 * swS;
       pouchHolder.scale.setScalar(1 - 0.07 * swS);
     } else {
       pouchHolder.rotation.set(
@@ -991,8 +1009,20 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       const pv = state.podium;
       const halfH = kit.group.visible ? kit.height() / 2 : 0.58 * aspectNow / Math.sqrt(aspectNow);
       podium.visible = pv > 0.01;
-      podium.position.y = -halfH - 0.03 - (1 - pv) * 0.4;
-      podium.scale.setScalar(Math.max(0.001, pv) * (kit.group.visible ? 0.78 : 1));
+      // kaide: sahnede sabit (ürünün boyundan ve geçişten bağımsız); ürün kaidenin üstüne oturur
+      podium.position.set(state.x, state.y + (-POD_H - 0.03 - (1 - pv) * 0.4) * state.s, 0);
+      podium.scale.setScalar(Math.max(0.001, pv) * 0.78 * state.s);
+      lift = damp(lift, (halfH - POD_H) * pv, 8, dt);
+      if (!insp.on) pouchHolder.position.y = lift;
+      // altın halkalar: kaidenin üstünde, ürünün arkasında
+      senseNow = damp(senseNow, senseOn, 3, dt);
+      auraRings.visible = senseNow > 0.01;
+      if (auraRings.visible) {
+        auraRings.userData.mat.opacity = senseNow * 0.85;
+        auraRings.position.set(root.position.x, root.position.y + 0.02 * state.s, -0.7);
+        auraRings.scale.setScalar(state.s * (0.72 + 0.12 * senseNow));
+        auraRings.children.forEach((m, k) => { m.rotation.z = t * (0.12 + k * 0.05) * (k % 2 ? -1 : 1); });
+      }
       beamMat.opacity = 0;
       beam.visible = pv > 0.01;
       const hw = Math.tan((camera.fov * Math.PI) / 360) * camera.position.z * camera.aspect / Math.max(0.2, state.s); // ekran yarı genişliği (paket birimi)
@@ -1172,6 +1202,8 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
         }
       }
       if (bd) bd.setCalm(on);
+      senseOn = on ? 1 : 0;
+      insp.auto = true; insp.idle = on ? 1.5 : insp.idle;
     },
     resetView() { insp.goto = Math.round(insp.ry / TAU) * TAU; insp.rx = 0.06; insp.zoomT = 1; insp.idle = 0; },
     zoom() { return insp.zoomT; },

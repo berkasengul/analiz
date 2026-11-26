@@ -63,8 +63,8 @@ function embossCanvas() {
   x.lineWidth = 6; x.beginPath(); x.arc(128, 128, 116, 0, Math.PI * 2); x.stroke();
   x.lineWidth = 2; x.beginPath(); x.arc(128, 128, 104, 0, Math.PI * 2); x.stroke();
   x.textAlign = 'center';
-  x.font = "700 64px 'Fraunces Variable', Fraunces, Georgia, serif"; x.fillText('Petra', 128, 140);
-  x.font = '600 22px Manrope, Arial, sans-serif'; x.fillText('s p r i n g', 128, 172);
+  x.font = "700 64px Montserrat Variable, Montserrat, Arial, sans-serif"; x.fillText('Petra', 128, 140);
+  x.font = '600 22px Montserrat Variable, Montserrat, Arial, sans-serif'; x.fillText('s p r i n g', 128, 172);
   // güneş ışınları (logodaki gibi)
   for (let i = 0; i < 9; i++) { const a = Math.PI + (i / 8) * Math.PI; x.fillRect(128 + Math.cos(a) * 62 - 2, 86 + Math.sin(a) * 30 - 2, 4, 4); }
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
@@ -102,17 +102,17 @@ function labelCanvas(md, kind) {
   x.strokeStyle = 'rgba(40,28,8,.35)'; x.lineWidth = 2; x.strokeRect(26, 26, W - 52, H - 52);
   x.fillStyle = '#2a1d06'; x.textAlign = 'center';
   const brand = kind === 'reed' ? 110 : 96;
-  x.font = `700 ${brand}px 'Fraunces Variable', Fraunces, Georgia, serif`;
+  x.font = `700 ${brand}px Montserrat Variable, Montserrat, Arial, sans-serif`;
   x.fillText('Petra', W / 2, kind === 'reed' ? 150 : 128);
-  x.font = `600 ${kind === 'reed' ? 34 : 28}px Manrope, Arial, sans-serif`;
+  x.font = `600 ${kind === 'reed' ? 34 : 28}px Montserrat Variable, Montserrat, Arial, sans-serif`;
   x.fillText('s p r i n g', W / 2, kind === 'reed' ? 196 : 166);
   x.fillRect(W / 2 - 90, kind === 'reed' ? 222 : 186, 180, 3);
-  x.font = `800 ${kind === 'reed' ? 60 : 50}px Manrope, Arial, sans-serif`;
+  x.font = `800 ${kind === 'reed' ? 60 : 50}px Montserrat Variable, Montserrat, Arial, sans-serif`;
   x.fillText((md.label || '').toLocaleUpperCase('tr'), W / 2, kind === 'reed' ? 300 : 248);
   if (kind === 'reed') {
-    x.font = '600 26px Manrope, Arial, sans-serif';
+    x.font = '600 26px Montserrat Variable, Montserrat, Arial, sans-serif';
     x.fillText('BAMBU ÇUBUKLU ORTAM KOKUSU', W / 2, 352);
-    x.font = '700 30px Manrope, Arial, sans-serif';
+    x.font = '700 30px Montserrat Variable, Montserrat, Arial, sans-serif';
     x.fillText('100 ml', W / 2, 400);
   }
   const t = new THREE.CanvasTexture(c);
@@ -223,7 +223,7 @@ export function makePetra(opts = {}) {
   }
 
   function buildReed(md) {
-    const bw = 0.62, bh = 0.62, total = 1.78, y0 = -total / 2;
+    const bw = 0.62, bh = 0.62, total = 1.55, y0 = -total / 2;
     // kalın cam taban + gövde
     const body = add(new RoundedBoxGeometry(bw, bh, bw, 6, 0.06), glass, 0, y0 + bh / 2, 0);
     body.renderOrder = 2;
@@ -237,7 +237,7 @@ export function makePetra(opts = {}) {
     const lab = add(new THREE.PlaneGeometry(0.4, 0.36), labelMat, 0, y0 + bh * 0.47, bw / 2 + 0.002, false);
     lab.renderOrder = 3;
     // 5 siyah bambu çubuk: yelpaze gibi açılır
-    const L = 1.18;
+    const L = 0.95;
     const tilts = [[-0.2, 0.05], [-0.09, -0.08], [0.02, 0.06], [0.12, -0.05], [0.22, 0.04]];
     tilts.forEach(([rz, rx], i) => {
       const s = add(new THREE.CylinderGeometry(0.009, 0.009, L, 10), reedMat, 0, 0, 0);
@@ -252,7 +252,7 @@ export function makePetra(opts = {}) {
   }
 
   // sahnede görünen boy (paketle aynı alana sığsın)
-  const FIT = { card: 1.24, vial: 1.3, reed: 1.26 };
+  const FIT = { card: 1.3, vial: 1.36, reed: 1.5 };
   function build(md) {
     clear();
     if (md.type === 'card') buildCard(md);

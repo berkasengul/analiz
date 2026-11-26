@@ -1,13 +1,8 @@
-@import '@fontsource-variable/fraunces/full.css';
-@import '@fontsource-variable/fraunces/full-italic.css';
-@import '@fontsource/manrope/400.css';
-@import '@fontsource/manrope/500.css';
-@import '@fontsource/manrope/600.css';
-@import '@fontsource/manrope/700.css';
+@import '@fontsource-variable/montserrat/wght.css';
+@import '@fontsource-variable/montserrat/wght-italic.css';
 /* ================================================================
-   Genç Anadolu Gıda — kurumsal site
-   Açık, resmi zemin (krem / beyaz), bordo ve altın vurgular.
-   3B yalnızca ana sayfa açılışında ve ürün sayfasındaki görüntüleyicide.
+   Petra Spring — 3B ürün sitesi (Genç Anadolu Gıda tasarımı üzerine)
+   Açık zemin, Petra yeşili ve altın vurgular; yazı tipi Montserrat.
    ================================================================ */
 :root {
   --bordo: #164c43;
@@ -26,8 +21,8 @@
   --gold-1: #fbefd9;
   --gold-2: #e8cc9c;
   --gold-ink: #10332c;
-  --serif: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
-  --sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --serif: 'Montserrat Variable', 'Montserrat', system-ui, Arial, sans-serif;
+  --sans: 'Montserrat Variable', 'Montserrat', system-ui, Arial, sans-serif;
   --pad: clamp(18px, 4vw, 56px);
   --max: 1280px;
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
@@ -1368,7 +1363,7 @@ body[data-page='teklif'] .cta-band { display: none; }
 .pstage__panel, .pstage__thumbs, .pstage__side, .pstage__hint, .pstage__count { transition: opacity 0.6s var(--ease), transform 0.7s var(--ease); }
 @media (min-width: 761px) and (min-aspect-ratio: 9/10) { .pstage.sensing .pstage__panel { opacity: 0; transform: translateX(-40px); pointer-events: none; } }
 .pstage.sensing .pstage__thumbs { opacity: 0; transform: translateX(30px); pointer-events: none; }
-.pstage.sensing .pstage__side, .pstage.sensing .pstage__hint { opacity: 0; pointer-events: none; }
+.pstage.sensing .pstage__side, .pstage.sensing .pstage__hint, .pstage.sensing .pstage__count { opacity: 0; pointer-events: none; }
 .pstage.sensing .sense-btn { left: 50%; }
 .pstage.sensing .pstage__dock { opacity: 0.35; }
 
@@ -1555,3 +1550,58 @@ body.no-gl .ph__stick { position: relative; min-height: 80vh; }
 .sense-btn { background: #164c43; border-color: #164c43; box-shadow: 0 16px 34px rgba(16, 51, 44, 0.3); }
 .sense-btn.on { background: #fff; color: #10332c; border-color: rgba(16, 51, 44, 0.2); }
 .sense-btn.on svg { color: #164c43; }
+
+/* ---------- ürün paneli: premium satın alma kartı ---------- */
+.pstage .pbox { width: min(440px, 33vw); padding: 30px 32px 26px; border-radius: 28px; background: linear-gradient(165deg, rgba(255, 255, 255, 0.95) 0%, rgba(251, 247, 240, 0.92) 100%); border: 1px solid rgba(201, 163, 90, 0.38); box-shadow: 0 40px 90px rgba(16, 51, 44, 0.18), inset 0 1px 0 #fff; overflow: hidden; }
+.pstage .pbox::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, #164c43, #c9a35a 55%, #164c43); }
+.pbox__cat { display: flex; align-items: center; gap: 10px; margin: 6px 0 10px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #164c43; }
+.pbox__cat i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent); }
+.pstage .pbox h1 { margin: 0 0 8px; font-size: clamp(38px, 3.6vw, 58px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: #0f2e28; }
+.pstage .pbox .pd__lead { margin: 0 0 18px; font-size: 15.5px; font-weight: 500; font-style: italic; line-height: 1.45; color: #4e5f59; }
+.pbox__price { display: flex; align-items: center; gap: 14px; padding: 14px 0; margin-bottom: 14px; border-top: 1px solid rgba(16, 51, 44, 0.1); border-bottom: 1px solid rgba(16, 51, 44, 0.1); }
+.pbox__price b { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; color: #0f2e28; }
+.pbox__price span { font-size: 11.5px; line-height: 1.35; color: #6a7a74; }
+.pbox__price em { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-style: normal; font-size: 12px; font-weight: 700; color: #1f7a4a; }
+.pbox__price em i { width: 8px; height: 8px; border-radius: 50%; background: #2fa868; box-shadow: 0 0 0 3px rgba(47, 168, 104, 0.2); animation: stockPulse 2s ease-in-out infinite; }
+@keyframes stockPulse { 50% { box-shadow: 0 0 0 6px rgba(47, 168, 104, 0.05); } }
+.pbox__facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 18px; }
+.pbox__facts div { padding: 10px 12px; border-radius: 14px; background: #f5f0e7; border: 1px solid rgba(16, 51, 44, 0.06); }
+.pbox__facts dt { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7a8a84; }
+.pbox__facts dd { margin: 3px 0 0; font-size: 13.5px; font-weight: 700; line-height: 1.25; color: #0f2e28; }
+.buy { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 62px; padding: 0 20px 0 22px; border-radius: 18px; overflow: hidden; text-decoration: none; color: #fff; background: linear-gradient(135deg, #1f7a68 0%, #164c43 55%, #0f3a33 100%); box-shadow: 0 18px 36px rgba(22, 76, 67, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2); transition: transform 0.25s var(--ease), box-shadow 0.25s; }
+.buy::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.25) 50%, transparent 65%); translate: -120% 0; animation: senseSweep 4s ease-in-out infinite; }
+.buy:hover { transform: translateY(-2px); box-shadow: 0 24px 44px rgba(22, 76, 67, 0.42); }
+.buy svg { width: 20px; height: 20px; flex: none; }
+.buy span { font-size: 15px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.buy b { margin-left: auto; padding: 6px 12px; border-radius: 999px; font-size: 14px; font-weight: 800; color: #10332c; background: linear-gradient(180deg, #f6dca6, #d9a35a); }
+.pbox__sub { display: flex; justify-content: space-between; gap: 10px; margin: 12px 2px 0; }
+.pbox__sub a { font-size: 13px; font-weight: 600; color: #164c43; text-decoration: none; border-bottom: 1px solid rgba(22, 76, 67, 0.3); }
+.pbox__sub a:hover { border-color: #164c43; }
+.pbox__trust { display: flex; justify-content: space-between; gap: 8px; margin: 18px 0 0; padding: 14px 0 0; list-style: none; border-top: 1px dashed rgba(16, 51, 44, 0.15); }
+.pbox__trust li { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: #4e5f59; }
+.pbox__trust svg { width: 16px; height: 16px; color: #164c43; }
+@media (max-width: 1280px) and (min-aspect-ratio: 9/10) { .pstage .pbox { padding: 24px 24px 20px; } .pbox__price b { font-size: 28px; } .buy { min-height: 54px; } .pbox__trust { display: none; } }
+@media (max-width: 760px), (max-aspect-ratio: 9/10) { .pstage .pbox { width: auto; border-radius: 0; box-shadow: none; border: 0; padding: 22px var(--pad) 30px; } }
+/* nasıl kullanılır */
+.usage { display: grid; grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr); gap: 30px; align-items: center; margin: 46px 0 26px; padding: 30px 34px; border-radius: 24px; background: #f7f2ea; border: 1px solid rgba(16, 51, 44, 0.08); }
+.usage h3 { margin: 4px 0 0; font-size: clamp(24px, 2.2vw, 32px); }
+.usage p:last-child { margin: 0; font-size: 16px; line-height: 1.7; color: #3f4f4a; }
+@media (max-width: 760px) { .usage { grid-template-columns: 1fr; gap: 10px; padding: 22px; } }
+
+/* kokuyu keşfet: büyük ürün, sabit kaide, altın halkalar; notalar ürünün yanında */
+.pstage.sensing .pstage__dock, .pstage.sensing .cstage__cats, .pstage.sensing .cstage__down { opacity: 0 !important; pointer-events: none; }
+@media (min-width: 761px) and (min-aspect-ratio: 9/10) {
+  .pstage.sensing .sense-btn { left: auto; right: var(--pad); bottom: auto; top: 20px; translate: none; }
+  .sense { --side: max(2.5%, calc(50% - 600px)); }
+  .sense__head { top: 4.5%; width: min(760px, 62%); }
+  .sense__mood { font-size: clamp(21px, 1.9vw, 30px); font-weight: 600; font-style: italic; letter-spacing: -0.01em; }
+  .snote { width: min(290px, 22vw); padding: 18px 20px; }
+  .snote b { font-size: 21px; font-weight: 700; }
+  .snote small { font-size: 10px; }
+  .snote--0 { top: 27%; }
+  .snote--1 { top: 27%; }
+  .snote--2 { top: 55%; }
+  .sense__meta { top: 55%; width: min(290px, 22vw); }
+  .snote--0::after, .snote--2::after { width: clamp(30px, 4vw, 80px); }
+}
+.snote b, .sense__mood { font-family: var(--sans); }

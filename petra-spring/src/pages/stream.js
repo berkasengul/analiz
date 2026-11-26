@@ -4,7 +4,7 @@
 import { $, $$, FLAVORS, productUrl, reduce } from '../site.js';
 import { GROUPS, fiyat } from '../data.js';
 
-const IDS = ['once-vatan', 'cam-aura', 'kerasus', 'ocean', 'cam-tutti', 'anka', 'agartha', 'cam-forest'];
+const IDS = ['once-vatan', 'ocean', 'kerasus'];
 const STREAM = IDS.map((id) => FLAVORS.find((f) => f.id === id));
 const N = STREAM.length;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -57,7 +57,7 @@ export function initStream() {
       const y = -((t + bot) / 2 - vh / 2) * u, s = Math.min(1.05, ((bot - t) * u) / 1.75);
       return { intro: { x: 0, y, s, ry: -0.25, rz: 0, podium: 0, halo: 0 }, stage: { x: 0, y: y - 0.06 * s, s: s * 0.9, ry: 0, rz: 0, podium: 1, halo: 0 } };
     }
-    const s = Math.min(1.3, H * 0.92, W * 0.5);
+    const s = Math.min(1.5, H * 1.0, W * 0.56);
     return {
       intro: { x: W * 0.3, y: cy + 0.02, s: s * 1.0, ry: -0.28, rz: 0.03, podium: 0, halo: 0 },
       stage: { x: W * 0.2, y: cy + 0.1, s: s * 0.95, ry: 0, rz: 0, podium: 1, halo: 0 },

@@ -1,6 +1,6 @@
 import { initSense } from '../sense.js';
 import { $, $$, FLAVORS as ALL, SITE, productCard, initReveal, webglOK, mailHref, waHref, nf, CAT_NAMES, contentsHTML, productUrl } from '../site.js';
-import { CHANNEL_ICONS, GROUPS, fiyat } from '../data.js';
+import { GROUPS, fiyat } from '../data.js';
 
 // ürün sayfası yalnızca ürünün kendi grubundaki ürünlerle çalışır (küçük resimler, oklar, 3B sahne)
 const urlId = new URLSearchParams(location.search).get('id');
@@ -11,20 +11,18 @@ const pad = (n) => String(n).padStart(2, '0');
 const groupLink = (f) => `/urunler.html?kat=${f.group}`;
 const row = (k, v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
 const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const chIcon = (k) => `<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${CHANNEL_ICONS[k]}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i>`;
 const N = FLAVORS.length;
 let idx = FLAVORS.findIndex((x) => x.id === urlId);
 if (idx < 0) { location.replace('/urunler.html'); idx = 0; }
 let scene = null;
 
 const logisticsOf = (f) => [
-  ['Ürün grubu', GROUPS[f.group]],
-  ['Perakende fiyatı', `${fiyat(f.price)} (usepetra.com)`],
-  ['Ambalaj', f.group === 'kagit' ? 'Askılı blister kart' : f.group === 'cam' ? 'Askılı blister kart, cam şişe' : 'Kutulu cam şişe ve 5 bambu çubuk'],
-  ['Koli içi adet', 'Teklifte bildirilir'],
-  ['Teslimat', '1–3 iş günü; 50 desi ve üzeri siparişler 7 iş günü (anlaşmalı lojistik)'],
-  ['Üretici', 'Petray Ltd. Şti. · Esenler, İstanbul'],
-  ['Menşe', 'Türkiye'],
+  ['Fiyat', `${fiyat(f.price)} (KDV dahil)`],
+  ['Ödeme', 'Kredi kartı ile güvenli ödeme (usepetra.com)'],
+  ['Kargo', 'Siparişleriniz 1–3 iş günü içerisinde kargoya teslim edilir'],
+  ['Büyük siparişler', '50 desi ve üzeri siparişler 7 iş günü içinde anlaşmalı lojistik firmalarıyla teslim edilir'],
+  ['Müşteri hizmetleri', `${SITE.phone.display} · ${SITE.email} · WhatsApp`],
+  ['Üretici', 'Petray İnşaat Kimya San. ve Dış Tic. Ltd. Şti. · Esenler, İstanbul'],
 ];
 
 /* ---------- küçük resimler (tüm ürünler) ---------- */
@@ -49,19 +47,18 @@ function fill() {
   $('#pstage').style.setProperty('--zemin', `url(/img/zemin/${f.id}.webp)`);
   $('#crumbs').innerHTML = `<li><a href="/">Ana sayfa</a></li><li><a href="/urunler.html">Ürünler</a></li><li><a href="${groupLink(f)}">${GROUPS[f.group]}</a></li>`;
   $('#pCount').textContent = `${pad(idx + 1)} / ${pad(N)}`;
-  $('#pCat').textContent = `${CAT_NAMES[f.group]} · ${f.slogan}`;
+  $('#pCat').innerHTML = `<i style="--c:${f.model?.liquid || f.bg}"></i>${CAT_NAMES[f.group]}`;
+  $('#pPrice').textContent = fiyat(f.price);
   $('#pName').textContent = f.name;
   $('#pName').classList.toggle('long', f.name.length > 14);
   $('#pLead').textContent = f.lead;
-  $('#pDesc').textContent = f.desc;
-  $('#pFacts').innerHTML = f.facts.map(([k, v]) => row(k, v)).join('');
-  $('#pClaims').innerHTML = f.claims.map((c) => `<li>${c}</li>`).join('');
-  $('#pQuote').href = `/teklif.html?urun=${encodeURIComponent(f.id)}#form`;
+  $('#pFacts').innerHTML = f.facts.filter(([k]) => k !== 'Fiyat').concat([f.group === 'kagit' ? ['Kullanım', 'Araç ve ev'] : f.group === 'cam' ? ['Notalar', '3 katman'] : ['Çubuk', '5 bambu']]).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
   $('#pBuy').href = f.buy;
+  $('#pShop').href = f.shopUrl;
+  $('#sBuy').href = f.buy;
+  $('#sCtaName').textContent = `Petra ${f.name} · ${fiyat(f.price)}`;
+  $('#sUse').textContent = f.usage;
   $('#pBuyPrice').textContent = fiyat(f.price);
-  $('#sQuote').href = $('#pQuote').href;
-  $('#pQuote').dataset.urun = $('#sQuote').dataset.urun = `Petra Spring ${f.full}`;
-  $('#pMail').href = mailHref(f);
   if (SITE.whatsapp) document.querySelectorAll('[data-site="wa"]').forEach((a) => { a.href = waHref(f); });
   if (window.__early) window.__early(f.id); else $('#pimg').src = stageImg;
   $('#pimg').alt = `${f.name} ürün görseli`;
@@ -102,19 +99,17 @@ function fill() {
       return `<img src="/parca/${f.id}-${i}${blur}.webp" alt="" style="left:${x}%;top:${y}%;width:${w}%;--d:${(k * 1.3).toFixed(1)}s;--t:${(7 + (k % 4) * 1.6).toFixed(1)}s;--r:${k % 2 ? 14 : -12}deg" class="${front ? 'fg' : 'bk'}" loading="lazy" />`;
     }).join('') : '';
   }
-  $('#sEyebrow').textContent = `İşletmeler için · Neden Petra ${f.name}?`;
-  $('#sChHead').textContent = `Petra ${f.name} nerede satılır?`;
+  $('#sEyebrow').textContent = `Petra Spring · ${CAT_NAMES[f.group]}`;
   $('#sTitle').textContent = f.storyTitle || f.lead;
   $('#sText').textContent = f.story || f.desc;
   $('#sBens').innerHTML = (f.benefits || []).map(([b, t]) => `<li>${CHECK}<span><b>${b}</b>${t}</span></li>`).join('');
-  $('#sUses').innerHTML = (f.channels || []).map(([k, name, why]) => `<div class="puse">${chIcon(k)}<b>${name}</b><p>${why}</p></div>`).join('');
   $('#hikaye').hidden = !f.story;
 
   /* sekmeler */
   const tabs = [['bilgi', 'Ürün bilgileri', `<dl class="spec">${(f.contents || []).map(([k, v]) => row(k, v)).join('')}</dl>`]];
   if (f.nutrition) tabs.push(['besin', 'Besin değerleri', contentsHTML({ nutrition: f.nutrition, name: f.name })]);
   if (f.menu) tabs.push(['menu', 'Kit içeriği', contentsHTML({ menu: f.menu })]);
-  tabs.push(['lojistik', 'Ambalaj ve lojistik', `<dl class="spec">${logisticsOf(f).map(([k, v]) => row(k, v)).join('')}</dl><p class="tbl__note">Koli içi adet, bayi fiyatı ve barkod bilgileri bayi teklifinde paylaşılır.</p>`]);
+  tabs.push(['teslimat', 'Teslimat ve ödeme', `<dl class="spec">${logisticsOf(f).map(([k, v]) => row(k, v)).join('')}</dl>`]);
   $('#tabs').innerHTML = tabs.map(([k, label], i) => `<button type="button" role="tab" id="t-${k}" aria-controls="p-${k}" aria-selected="${i === 0}">${label}</button>`).join('');
   $('#panels').innerHTML = tabs.map(([k, , html], i) => `<div class="panel" role="tabpanel" id="p-${k}" aria-labelledby="t-${k}"${i ? ' hidden' : ''}>${html.replace(/<dl class="spec"><\/dl>/, '')}</div>`).join('');
   $$('#tabs button').forEach((b) => b.addEventListener('click', () => {
@@ -135,33 +130,6 @@ function go(i) {
   sense.update();
 }
 
-/* ---------- ürün föyü (yazdırılır, PDF olarak kaydedilir) ---------- */
-function buildSheet() {
-  const f = FLAVORS[idx];
-  const today = new Date().toLocaleDateString('tr-TR');
-  $('#sheet').innerHTML = `
-    <header class="sheet__head"><img src="/logo-g.svg" alt="" width="120" height="50" /><div><b>Petra Spring</b><span>Araba ve oda kokuları</span></div><p>Ürün föyü<br /><small>${today}</small></p></header>
-    <div class="sheet__top">
-      <img class="sheet__img" src="${f.thumb || f.tex}" alt="" />
-      <div>
-        <p class="sheet__cat">Petra Spring · ${CAT_NAMES[f.group]}</p>
-        <h1>${f.name}</h1>
-        <p class="sheet__lead">${f.lead}</p>
-        <p>${f.desc}</p>
-        <dl class="spec">${f.facts.map(([k, v]) => row(k, v)).join('')}</dl>
-      </div>
-    </div>
-    ${f.story ? `<h2>${f.storyTitle}</h2><p>${f.story}</p>` : ''}
-    ${f.benefits ? `<h2>Yararları</h2><dl class="spec">${f.benefits.map(([k, v]) => row(k, v)).join('')}</dl>` : ''}
-    ${f.channels ? `<h2>Nerede satılır</h2><dl class="spec">${f.channels.map(([, name, why]) => row(name, why)).join('')}</dl>` : ''}
-    <h2>Ürün bilgileri</h2><dl class="spec">${(f.contents || []).map(([k, v]) => row(k, v)).join('')}</dl>
-    ${f.nutrition ? `<h2>Besin değerleri</h2>${contentsHTML({ nutrition: f.nutrition, name: f.name }).replace('<dl class="spec"></dl>', '')}` : ''}
-    ${f.menu ? `<h2>Kit içeriği</h2>${contentsHTML({ menu: f.menu }).replace('<dl class="spec"></dl>', '')}` : ''}
-    <h2>Ambalaj ve lojistik</h2><dl class="spec">${logisticsOf(f).map(([k, v]) => row(k, v)).join('')}</dl>
-    <footer class="sheet__foot">${SITE.company} · ${SITE.email}${SITE.phone && SITE.phone.tel ? ` · ${SITE.phone.display}` : ''} · ${location.origin}${productUrl(f)}</footer>`;
-}
-$('#pPrint').addEventListener('click', () => { buildSheet(); setTimeout(() => window.print(), 80); });
-window.addEventListener('beforeprint', buildSheet);
 
 fill();
 $('#pstage').classList.add('filled');
@@ -192,7 +160,7 @@ function setPose(snap) {
   const f = FLAVORS[idx];
   const k = f.model ? 1.05 : 1;
   if (phone()) pose({ x: 0, y: $('#pstage').classList.contains('sensing') ? H * 0.44 : H * 0.13, s: Math.min(1.6, W * 1.3, H * 0.74) * k * ($('#pstage').classList.contains('sensing') ? 0.5 : 1), ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
-  else pose({ x: W * (2 * stageCenter() - 1), y: $('#pstage').classList.contains('sensing') ? -H * 0.1 : 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k * ($('#pstage').classList.contains('sensing') ? 0.8 : 1), ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
+  else pose({ x: W * (2 * stageCenter() - 1), y: $('#pstage').classList.contains('sensing') ? -H * 0.1 : 0.02, s: Math.min(1.5, W * 0.6, H * 1.05) * k * ($('#pstage').classList.contains('sensing') ? 0.74 : 1), podium: $('#pstage').classList.contains('sensing') ? 1 : 0, ry: 0, rz: 0, cloud: 0, frost: 0, bd: 0 });
 }
 markCenter();
 window.addEventListener('resize', markCenter);
