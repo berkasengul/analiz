@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  html, body { margin: 0; }
+  body { width: 1536px; height: 2048px; position: relative; overflow: hidden; background: #070a14; }
+  .l { position: absolute; inset: 0; }
+  /* studio wall: deep ink navy with a soft vertical falloff */
+  .wall { background:
+      radial-gradient(60% 38% at 50% 44%, rgba(214, 170, 110, 0.30) 0%, rgba(120, 96, 80, 0.12) 45%, transparent 75%),
+      radial-gradient(90% 60% at 50% 40%, #1a2440 0%, #101831 45%, #080c18 100%); }
+  /* horizon haze, warm like the sunset on the can */
+  .haze { background: linear-gradient(180deg, transparent 52%, rgba(232, 170, 96, 0.10) 61%, rgba(232, 170, 96, 0.04) 66%, transparent 72%); }
+  /* floor */
+  .floor { top: 64.5%; background:
+      radial-gradient(55% 40% at 50% 12%, rgba(230, 200, 160, 0.16), transparent 70%),
+      linear-gradient(180deg, #121a30 0%, #0a0f1d 40%, #05070d 100%); }
+  .line { top: 64.5%; height: 2px; background: linear-gradient(90deg, transparent, rgba(232, 199, 154, 0.35) 30%, rgba(232, 199, 154, 0.35) 70%, transparent); filter: blur(0.6px); }
+  svg { position: absolute; left: 0; top: 0; }
+  .grain { opacity: .10; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .vig { background: radial-gradient(120% 85% at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%); }
+</style></head>
+<body>
+  <div class="l wall"></div>
+  <div class="l haze"></div>
+  <!-- faint Istanbul skyline on the horizon: Galata tower, mosques with minarets, Maiden's tower -->
+  <svg width="1536" height="2048" viewBox="0 0 1536 2048">
+    <defs>
+      <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2a3557" stop-opacity=".0"/>
+        <stop offset=".35" stop-color="#2a3557" stop-opacity=".38"/>
+        <stop offset="1" stop-color="#1b2440" stop-opacity=".6"/>
+      </linearGradient>
+      <filter id="soft"><feGaussianBlur stdDeviation="2.2"/></filter>
+    </defs>
+    <g fill="url(#sk)" filter="url(#soft)">
+      <!-- left mosque -->
+      <rect x="120" y="1236" width="300" height="86"/>
+      <path d="M170 1240 a100 92 0 0 1 200 0 z"/>
+      <path d="M140 1262 a48 44 0 0 1 96 0 z"/><path d="M304 1262 a48 44 0 0 1 96 0 z"/>
+      <rect x="252" y="1112" width="36" height="40"/><path d="M252 1112 a18 22 0 0 1 36 0 z"/>
+      <rect x="96" y="1040" width="12" height="282"/><path d="M96 1040 L102 960 L108 1040 z"/>
+      <rect x="432" y="1050" width="12" height="272"/><path d="M432 1050 L438 972 L444 1050 z"/>
+      <!-- Galata tower -->
+      <rect x="1080" y="1080" width="70" height="242"/>
+      <rect x="1072" y="1070" width="86" height="20"/>
+      <path d="M1074 1072 L1115 960 L1156 1072 z"/>
+      <rect x="1112" y="930" width="6" height="34"/>
+      <!-- right mosque -->
+      <rect x="1200" y="1250" width="250" height="72"/>
+      <path d="M1240 1254 a85 78 0 0 1 170 0 z"/>
+      <rect x="1470" y="1070" width="11" height="252"/><path d="M1470 1070 L1475.5 996 L1481 1070 z"/>
+      <!-- low city -->
+      <path d="M0 1322 L0 1286 L60 1286 L60 1270 L110 1270 L110 1296 L470 1296 L470 1280 L540 1280 L540 1300 L620 1300 L620 1288 L690 1288 L690 1302 L840 1302 L840 1286 L920 1286 L920 1300 L1060 1300 L1060 1290 L1180 1290 L1180 1296 L1536 1296 L1536 1322 z"/>
+    </g>
+  </svg>
+  <div class="l floor"></div>
+  <div class="l line"></div>
+  <div class="l vig"></div>
+  <div class="l grain"></div>
+</body></html>

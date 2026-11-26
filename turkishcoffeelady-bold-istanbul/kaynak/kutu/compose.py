@@ -83,15 +83,51 @@ xs_ok = list(cols)
 
 # ---- shading from the plain cream strip just under the top band
 ref = np.array([248, 245, 240], np.float32)
+R_lab0 = body * s
 shade = {}
 for x in xs_ok:
     y = int(round(tb1[x])) + 4
     shade[x] = np.clip(fr[y : y + 10, x].mean(0) / ref, 0.2, 1.08)
 
+# ---- front paper colour per row (unshaded), sampled near both label edges where there is no artwork
+paper = {}
+edge_cols = [x for x in xs_ok if 0.80 * R_lab0 <= abs(x + 0.5 - AX_T) <= 0.93 * R_lab0]
+y_lo = int(round(min(tb1.values()))) + 1
+y_hi = int(round(max(bb0.values())))
+for y in range(y_lo, y_hi):
+    vals = []
+    for x in edge_cols:
+        if tb1[x] < y < bb0[x]:
+            px = fr[y, x] / shade[x]
+            if px.mean() > 150:
+                vals.append(px)
+    if vals:
+        paper[y] = np.median(np.array(vals), 0)
+ART0 = TOP_T + (700 - TOP_S) * s   # artwork band (sky/sunset/sea) on the front, target px
+ART1 = TOP_T + (1105 - TOP_S) * s
+ys_all = sorted(paper)
+ys_p = [y for y in ys_all if y < ART0 or y > ART1]
+arr = np.array([paper[y] for y in ys_p])
+k = 12
+arr = np.array([np.median(arr[max(0, i - k) : i + k + 1], 0) for i in range(len(arr))])
+top_c = arr[[i for i, y in enumerate(ys_p) if y < ART0]][-20:].mean(0)
+bot_i = [i for i, y in enumerate(ys_p) if y > ART1]
+bot_c = arr[bot_i][:20].mean(0)
+def paper_fn(y):
+    if y < ART0 or y > ART1:
+        i = int(np.clip(np.searchsorted(ys_p, y), 0, len(ys_p) - 1))
+        return arr[i]
+    t = (y - ART0) / (ART1 - ART0)
+    t = t * t * (3 - 2 * t)
+    return top_c * (1 - t) + bot_c * t
+arr_s = np.array([paper_fn(y) for y in (ys_all[0], ys_all[-1])])
+print("paper top", arr_s[0], "bottom", arr_s[-1])
+
 # ---- back half: start from the front (lid + base metal), repaint bands + label
 back = front.copy()
 strip = cv2.cvtColor(cv2.imread("strip.png"), cv2.COLOR_BGR2RGB).astype(np.float32)
 strip = cv2.GaussianBlur(strip, (0, 0), 1.6)
+STRIP_BG = np.array([246, 242, 234], np.float32)
 SH, SW = strip.shape[:2]
 R_lab = body * s
 for x in xs_ok:
@@ -115,6 +151,8 @@ for x in xs_ok:
     mapx = np.full((len(ys), 1), sx, np.float32)
     mapy = sy.astype(np.float32)[:, None]
     px = cv2.remap(strip, mapx, mapy, cv2.INTER_LINEAR)[:, 0]
+    base = np.array([paper_fn(y) for y in ys], np.float32)
+    px = px / STRIP_BG * base
     back[ya:yb, x, :3] = np.clip(px * shade[x], 0, 255)
 
 tex = np.zeros((HALF, HALF * 2, 4), np.float32)

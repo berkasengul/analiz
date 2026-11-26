@@ -20,36 +20,52 @@ rep("      flavor: 2,\n", "      flavor: 0,\n")
 rep("    catalog: KY,", "    catalog: { ...KY, items: KY.items.slice(0, 1) },")
 rep("ft.catalog && w.jsx(jZ, {}),", "!1 && w.jsx(jZ, {}),")
 
-# --- new sections: film + journey + product story, where finder/catalog were
+# --- multi-page: home (3D hero + short intro) and #/urun, #/hikaye, #/film, #/iletisim
 rep("function NK() {", extra + "\nfunction NK() {")
 rep(
-    "                !1 && w.jsx(jZ, {}),",
-    "                !1 && w.jsx(jZ, {}),\n"
-    "                w.jsx(TclFilm, {}),\n"
-    "                w.jsx(TclJourney, {}),\n"
-    "                w.jsx(TclProduct, {}),",
+    """          : w.jsxs("main", {
+              children: [
+                o,
+                w.jsx(oK, {}),
+                j2 && w.jsx(LZ, {}),
+                !1 && w.jsx(jZ, {}),
+                xK && w.jsx(_K, {}),
+                !gf && w.jsx(gK, {}),
+                w.jsxs("div", {
+                  className: `epilogue${rk ? " epilogue--stage" : ""}`,
+                  children: [
+                    rk && w.jsx(yK, {}),
+                    w.jsx(lK, {}),
+                    !Za.has("story") && w.jsx(cK, {}),
+                    !Za.has("stockists") && w.jsx(fK, {}),
+                    w.jsx(pK, {}),
+                    w.jsx(nk, {}),
+                  ],
+                }),
+              ],
+            }),""",
+    """          : TclPageOf(n)
+            ? w.jsx(TclPage, { route: n })
+            : w.jsxs("main", {
+                children: [o, w.jsx(TclHome, {})],
+              }),""",
 )
+# 3D scene only renders on the home page; the loader does not wait for it on sub-pages
+rep("(r(bt.sceneVisible), (i = requestAnimationFrame(s)));", "(r(bt.sceneVisible && !TclSubNow()), (i = requestAnimationFrame(s)));")
+rep("    l = e ? 100 : Math.min(n, 92);", "    l = e || TclSubNow() ? 100 : Math.min(n, 92);")
+rep("      if (!t && e && i >= 100) {", "      if (!t && (e || TclSubNow()) && i >= 100) {")
 
-# --- navigation: no flavor dropdown; Bold Istanbul / Film / Story / Contact
+# --- navigation: Bold Istanbul / Story / Film / Contact as pages
 rep(
     '      Ua &&\n        w.jsxs("div", {\n          className: `navcat',
     '      !1 &&\n        w.jsxs("div", {\n          className: `navcat',
 )
-rep(
-    '          ...(c ? [["#/urunler/set", n.nav.sets]] : []),\n          ...(j2',
-    '          ["#flavors", "Bold Istanbul"],\n'
-    '          ["#film", n.nav.film],\n'
-    '          ["#journey", n.nav.journey],\n'
-    '          ...(c ? [["#/urunler/set", n.nav.sets]] : []),\n          ...(j2',
-)
-rep(
-    '          ...(Za.has("story") ? [] : [["#story", n.nav.about ?? n.nav.story]]),\n          ...(ft.locator',
-    "          ...(ft.locator",
-)
-rep(
-    '        ["#/urunler", "products"],',
-    '        ["#flavors", "bold"],\n        ["#film", "film"],\n        ["#journey", "journey"],',
-)
+_u0 = src.index("    u = Ua\n      ? [", src.index("function tK({ ui: n })"))
+_u1 = src.index("    f = (m) => Ua.items.filter", _u0)
+src = src[:_u0] + "    u = TclNavItems(n.nav),\n" + src[_u1:]
+_e0 = src.index("const ek = (\n  ft.catalog")
+_e1 = src.index(").filter(([n]) => !Za.has(n.slice(1)));", _e0) + len(").filter(([n]) => !Za.has(n.slice(1)));")
+src = src[:_e0] + 'const ek = [\n  ["#/urun", "bold"],\n  ["#/hikaye", "journey"],\n  ["#/film", "film"],\n  ["#/iletisim", "contact"],\n];' + src[_e1:]
 rep(
     '      ft.catalog &&\n        w.jsxs("nav", {\n          className: "menu__cats",',
     '      !1 &&\n        w.jsxs("nav", {\n          className: "menu__cats",',

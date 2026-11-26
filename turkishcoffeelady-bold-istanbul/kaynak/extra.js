@@ -264,7 +264,7 @@ function TclPlay() {
   });
 }
 
-function TclFilm() {
+function TclFilm({ start }) {
   const { lang: L } = Nn(),
     c = TclCopy[L === "en" ? "en" : "tr"],
     lk = L === "en" ? "en" : "tr",
@@ -275,8 +275,15 @@ function TclFilm() {
     rail = K.useRef(null),
     [started, setStarted] = K.useState(!1),
     [cur, setCur] = K.useState(0),
-    [active, setActive] = K.useState(0);
+    [active, setActive] = K.useState(0),
+    [pend, setPend] = K.useState(start ?? null);
   TclReveal(root, L);
+  K.useEffect(() => {
+    if (start == null) return;
+    setPend(start);
+    const h = setTimeout(() => TclToPlayer(frame.current), 350);
+    return () => clearTimeout(h);
+  }, [start]);
   const play = K.useCallback((t) => {
     const v = vid.current;
     if (!v) return;
@@ -367,7 +374,7 @@ function TclFilm() {
           !started &&
             w.jsxs("button", {
               className: "tcl-player__cover",
-              onClick: () => play(cur > 1 ? void 0 : 0),
+              onClick: () => play(pend != null ? pend : cur > 1 ? void 0 : 0),
               children: [
                 w.jsx("img", { src: TclImg("poster"), alt: "", loading: "lazy" }),
                 w.jsxs("span", {
@@ -377,7 +384,7 @@ function TclFilm() {
                     w.jsxs("span", {
                       className: "tcl-player__label",
                       children: [
-                        w.jsx("strong", { children: cur > 1 ? c.resume : c.watch }),
+                        w.jsx("strong", { children: pend != null ? `${c.watch} · ${TclFmt(pend)}` : cur > 1 ? c.resume : c.watch }),
                         w.jsxs("span", { className: "mono", children: ["35:53 · ", c.lang] }),
                       ],
                     }),
@@ -449,7 +456,7 @@ function TclJourney() {
     c = TclCopy[lk],
     root = K.useRef(null);
   TclReveal(root, L);
-  const seek = (t) => window.dispatchEvent(new CustomEvent("tcl-seek", { detail: t }));
+  const seek = (t) => (location.hash = "#/film?t=" + Math.round(t));
   return w.jsxs("section", {
     id: "journey",
     className: "tcl tcl-journey",
@@ -507,83 +514,449 @@ function TclJourney() {
   });
 }
 
-function TclProduct() {
+
+// ---------------- multi-page shell ----------------
+const TclPages = ["urun", "hikaye", "film", "iletisim"],
+  TclPageCopy = {
+    tr: {
+      homeEyebrow: "Turkish Coffee Lady",
+      homeTitle: "Dünyanın ilk kahvesi. Şimdi buzlu.",
+      homeLead: "Türk kahvesi, kahvenin ilk pişirme yöntemi. Bold Istanbul onu bir kutuya, soğuk ve sıfır şekerle taşıyor.",
+      cards: [
+        ["#/urun", "Ürün", "Bold Istanbul", "cut"],
+        ["#/hikaye", "Hikâye", "Bir cezveden bir kutuya", "truck"],
+        ["#/film", "Film", "Bir Fincan Cesaret · 36 dk", "poster"],
+      ],
+      more: "Keşfet",
+      prodEyebrow: "Buzlu Türk Kahvesi · 250 ml",
+      front: "Ön",
+      back: "Arka",
+      watchFilm: "Filmi izle",
+      details: "Kutunun üzerinde",
+      ingTitle: "İçindekiler",
+      ing: [
+        ["İçerik", "Kavrulmuş ve öğütülmüş kahve"],
+        ["Çekirdek", "Arabica"],
+        ["Kavrum", "Orta"],
+        ["Öğütüm", "İnce"],
+        ["Menşei", "Türkiye · Türk Gıda Kodeksi'ne uygun"],
+      ],
+      nutTitle: "Besin değerleri",
+      nutNote: "Porsiyon 2 çay kaşığı (10 g) · ambalajda 25 porsiyon",
+      nut: [
+        ["Enerji", "21,6 kcal"],
+        ["Toplam yağ", "1 g"],
+        ["Doymuş yağ", "0,5 g"],
+        ["Karbonhidrat", "6 g"],
+        ["Lif", "5 g"],
+        ["Şeker", "0 g"],
+        ["Protein", "1 g"],
+        ["Sodyum", "1 mg"],
+      ],
+      canTitle: "Kutu",
+      can: [
+        ["Hacim", "8.5 fl oz (250 ml)"],
+        ["Kullanım", "Çalkala, soğuk iç"],
+        ["Kutu çizimi", "hasankale"],
+        ["Kuruluş", "2017"],
+      ],
+      contactEyebrow: "İletişim",
+      contactTitle: "Bize yazın",
+      contactLead: "Lisanslama, bayilik ve iş birliği için.",
+      info: [
+        ["E-posta", "hello@turkishcoffeelady.com", "mailto:hello@turkishcoffeelady.com"],
+        ["Instagram", "@turkishcoffeelady", "https://www.instagram.com/turkishcoffeelady/"],
+        ["Web", "turkishcoffeelady.com", "https://turkishcoffeelady.com/"],
+        ["Kültür evi", "Old Town Alexandria, VA", null],
+      ],
+      name: "Ad soyad",
+      email: "E-posta",
+      message: "Mesaj",
+      send: "Gönder",
+      faq: "Sık sorulanlar",
+      footNote: "Turkish Coffee Lady için hazırlanmış bağımsız bir konsept demodur; marka sahibiyle bağlantılı değildir.",
+    },
+    en: {
+      homeEyebrow: "Turkish Coffee Lady",
+      homeTitle: "The world's first coffee. Now iced.",
+      homeLead: "Turkish coffee is the first way coffee was ever brewed. Bold Istanbul carries it in a can, cold and with zero sugar.",
+      cards: [
+        ["#/urun", "Product", "Bold Istanbul", "cut"],
+        ["#/hikaye", "Story", "From a cezve to a can", "truck"],
+        ["#/film", "Film", "A Cup of Courage · 36 min", "poster"],
+      ],
+      more: "Explore",
+      prodEyebrow: "Iced Turkish Coffee · 8.5 fl oz",
+      front: "Front",
+      back: "Back",
+      watchFilm: "Watch the film",
+      details: "On the can",
+      ingTitle: "Ingredients",
+      ing: [
+        ["Ingredients", "Roasted and ground coffee"],
+        ["Bean", "Arabica"],
+        ["Roast", "Medium"],
+        ["Grind", "Fine"],
+        ["Origin", "Türkiye · Turkish Food Codex"],
+      ],
+      nutTitle: "Nutrition facts",
+      nutNote: "Serving size 2 teaspoons (10 g) · 25 servings per container",
+      nut: [
+        ["Calories", "21.6"],
+        ["Total fat", "1 g"],
+        ["Saturated fat", "0.5 g"],
+        ["Carbohydrate", "6 g"],
+        ["Dietary fiber", "5 g"],
+        ["Sugars", "0 g"],
+        ["Protein", "1 g"],
+        ["Sodium", "1 mg"],
+      ],
+      canTitle: "The can",
+      can: [
+        ["Volume", "8.5 fl oz (250 ml)"],
+        ["Serve", "Shake well, drink cold"],
+        ["Art work", "hasankale"],
+        ["Established", "2017"],
+      ],
+      contactEyebrow: "Contact",
+      contactTitle: "Write to us",
+      contactLead: "For licensing, wholesale and partnerships.",
+      info: [
+        ["Email", "hello@turkishcoffeelady.com", "mailto:hello@turkishcoffeelady.com"],
+        ["Instagram", "@turkishcoffeelady", "https://www.instagram.com/turkishcoffeelady/"],
+        ["Web", "turkishcoffeelady.com", "https://turkishcoffeelady.com/"],
+        ["Culture house", "Old Town Alexandria, VA", null],
+      ],
+      name: "Full name",
+      email: "Email",
+      message: "Message",
+      send: "Send",
+      faq: "Good questions",
+      footNote: "An independent concept demo prepared for Turkish Coffee Lady; not affiliated with the brand owner.",
+    },
+  };
+
+function TclSubNow() {
+  return /^#\/(urun|hikaye|film|iletisim)(\?|$)/.test(location.hash);
+}
+function TclPageOf(route) {
+  const p = (route || "").split("?")[0];
+  return TclPages.includes(p) ? p : null;
+}
+function TclNavItems(nav) {
+  return [
+    ["#/urun", nav.bold ?? "Bold Istanbul"],
+    ["#/hikaye", nav.journey ?? nav.story],
+    ["#/film", nav.film ?? "Film"],
+    ["#/iletisim", nav.contact],
+  ];
+}
+
+function TclPage({ route }) {
+  const page = TclPageOf(route),
+    q = new URLSearchParams((route.split("?")[1] || "")),
+    t = q.has("t") ? Number(q.get("t")) || 0 : null;
+  K.useLayoutEffect(() => {
+    document.documentElement.dataset.tclPage = page;
+    pr.lenis ? pr.lenis.scrollTo(0, { immediate: !0, force: !0 }) : scrollTo(0, 0);
+    return () => {
+      delete document.documentElement.dataset.tclPage;
+    };
+  }, [page]);
+  return w.jsxs("main", {
+    className: `tcl-main tcl-main--${page}`,
+    children: [
+      page === "urun" && w.jsx(TclProductPage, {}),
+      page === "hikaye" && w.jsx(TclJourney, {}),
+      page === "film" && w.jsx(TclFilm, { start: t }),
+      page === "iletisim" && w.jsx(TclContact, {}),
+      w.jsx(TclFooter, {}),
+    ],
+  });
+}
+
+function TclArrow() {
+  return w.jsx("svg", {
+    viewBox: "0 0 24 24",
+    width: 16,
+    height: 16,
+    "aria-hidden": !0,
+    children: w.jsx("path", { d: "M5 12h13M13 6l6 6-6 6", fill: "none", stroke: "currentColor", strokeWidth: 1.5 }),
+  });
+}
+
+function TclHome() {
+  const { lang: L } = Nn(),
+    c = TclPageCopy[L === "en" ? "en" : "tr"],
+    root = K.useRef(null);
+  TclReveal(root, L);
+  const img = (k) => (k === "cut" ? "./cut/bold-istanbul.webp" : TclImg(k));
+  return w.jsxs(w.Fragment, {
+    children: [
+      w.jsxs("section", {
+        className: "tcl tcl-home",
+        ref: root,
+        children: [
+          w.jsxs("header", {
+            className: "tcl-home__head",
+            children: [
+              w.jsx("p", { className: "mono section__eyebrow tcl-fx", children: c.homeEyebrow }),
+              w.jsx("h2", { className: "tcl-home__title tcl-fx", children: c.homeTitle }),
+              w.jsx("p", { className: "tcl-home__lead tcl-fx", children: c.homeLead }),
+            ],
+          }),
+          w.jsx("ul", {
+            className: "tcl-cards",
+            children: c.cards.map(([href, k, title, im], i) =>
+              w.jsx(
+                "li",
+                {
+                  className: "tcl-fx",
+                  style: { transitionDelay: `${i * 0.12}s` },
+                  children: w.jsxs("a", {
+                    href,
+                    className: `tcl-card tcl-card--${im}`,
+                    children: [
+                      w.jsx("span", { className: "tcl-card__img", children: w.jsx("img", { src: img(im), alt: "", loading: "lazy" }) }),
+                      w.jsxs("span", {
+                        className: "tcl-card__body",
+                        children: [
+                          w.jsx("span", { className: "mono", children: k }),
+                          w.jsx("strong", { children: title }),
+                          w.jsxs("span", { className: "tcl-card__more mono", children: [c.more, w.jsx(TclArrow, {})] }),
+                        ],
+                      }),
+                    ],
+                  }),
+                },
+                href,
+              ),
+            ),
+          }),
+        ],
+      }),
+      w.jsx(TclFooter, {}),
+    ],
+  });
+}
+
+function TclProductPage() {
   const { lang: L } = Nn(),
     lk = L === "en" ? "en" : "tr",
     c = TclCopy[lk],
+    p = TclPageCopy[lk],
     root = K.useRef(null),
-    can = K.useRef(null);
+    [side, setSide] = K.useState("front");
   TclReveal(root, L);
-  K.useEffect(() => {
-    const el = root.current,
-      img = can.current;
-    if (!el || !img) return;
-    let raf = 0;
-    const tick = () => {
-      raf = 0;
-      const r = el.getBoundingClientRect(),
-        p = Math.max(-1, Math.min(1, (r.top + r.height / 2 - innerHeight / 2) / innerHeight));
-      img.style.setProperty("--tcl-y", `${(p * 60).toFixed(1)}px`);
-      img.style.setProperty("--tcl-r", `${(p * -6).toFixed(2)}deg`);
-    };
-    const on = () => raf || (raf = requestAnimationFrame(tick));
-    addEventListener("scroll", on, { passive: !0 });
-    tick();
-    return () => removeEventListener("scroll", on);
-  }, []);
-  const mail = () => {
-    const g = ft.commerce && ft.commerce.showcase;
-    g ? iq("Bold Istanbul", lk) : (location.href = "mailto:hello@turkishcoffeelady.com");
-  };
-  return w.jsxs("section", {
-    id: "bold-istanbul",
-    className: "tcl tcl-product",
+  const join = () => (ft.commerce && ft.commerce.showcase ? iq("Bold Istanbul", lk) : (location.href = "mailto:hello@turkishcoffeelady.com"));
+  const list = (title, rows, note) =>
+    w.jsxs("div", {
+      className: "tcl-spec tcl-fx",
+      children: [
+        w.jsx("h3", { className: "mono", children: title }),
+        w.jsx("dl", {
+          children: rows.map(([k, v]) =>
+            w.jsxs("div", { children: [w.jsx("dt", { children: k }), w.jsx("dd", { children: v })] }, k),
+          ),
+        }),
+        note && w.jsx("p", { className: "tcl-spec__note", children: note }),
+      ],
+    });
+  return w.jsxs("div", {
     ref: root,
     children: [
-      w.jsx("div", {
-        className: "tcl-product__bg",
-        "aria-hidden": "true",
-        style: { backgroundImage: "url(./fon/bold-istanbul.webp)" },
-      }),
-      w.jsxs("div", {
-        className: "tcl-product__grid",
+      w.jsxs("section", {
+        className: "tcl tcl-prod",
         children: [
+          w.jsx("div", { className: "tcl-prod__bg", "aria-hidden": "true" }),
           w.jsxs("div", {
-            className: "tcl-product__body",
+            className: "tcl-prod__grid",
             children: [
-              w.jsx("p", { className: "mono section__eyebrow tcl-fx", children: c.productEyebrow }),
-              w.jsx("h2", { className: "section__title tcl-fx", children: c.productTitle }),
-              w.jsx("p", { className: "tcl-product__sub tcl-fx", children: c.productSub }),
-              c.productText.map((p, i) => w.jsx("p", { className: "tcl-product__text tcl-fx", children: p }, i)),
-              w.jsx("blockquote", { className: "tcl-act__quote tcl-fx", children: c.productQuote }),
-              w.jsx("ul", {
-                className: "tcl-facts tcl-fx",
-                children: c.productFacts.map(([a, b], i) =>
-                  w.jsxs("li", { children: [w.jsx("strong", { children: a }), w.jsx("span", { className: "mono", children: b })] }, i),
-                ),
+              w.jsxs("div", {
+                className: "tcl-prod__body",
+                children: [
+                  w.jsx("p", { className: "mono section__eyebrow tcl-fx", children: p.prodEyebrow }),
+                  w.jsx("h1", { className: "tcl-prod__title tcl-fx", children: "Bold Istanbul" }),
+                  w.jsx("p", { className: "tcl-prod__sub tcl-fx", children: c.productSub }),
+                  w.jsx("p", { className: "tcl-prod__text tcl-fx", children: c.productText[0] }),
+                  w.jsx("p", { className: "tcl-prod__text tcl-fx", children: c.productText[1] }),
+                  w.jsx("ul", {
+                    className: "tcl-facts tcl-fx",
+                    children: c.productFacts.map(([a, b], i) =>
+                      w.jsxs("li", { children: [w.jsx("strong", { children: a }), w.jsx("span", { className: "mono", children: b })] }, i),
+                    ),
+                  }),
+                  w.jsxs("div", {
+                    className: "tcl-prod__cta tcl-fx",
+                    children: [
+                      w.jsx("button", { className: "tcl-btn tcl-btn--gold", onClick: join, children: c.join }),
+                      w.jsxs("a", { className: "tcl-btn", href: "#/film", children: [w.jsx(TclPlay, {}), p.watchFilm] }),
+                    ],
+                  }),
+                ],
               }),
               w.jsxs("div", {
-                className: "tcl-product__cta tcl-fx",
+                className: "tcl-prod__stage tcl-fx",
                 children: [
-                  w.jsx("button", { className: "tcl-btn tcl-btn--gold", onClick: mail, children: c.join }),
-                  w.jsxs("button", {
-                    className: "tcl-btn",
-                    onClick: () => window.dispatchEvent(new CustomEvent("tcl-seek", { detail: 0 })),
-                    children: [w.jsx(TclPlay, {}), c.watch],
+                  w.jsx("span", { className: "tcl-prod__halo", "aria-hidden": "true" }),
+                  w.jsxs("div", {
+                    className: `tcl-prod__can is-${side}`,
+                    children: [
+                      w.jsx("img", { className: "tcl-prod__front", src: "./cut/bold-istanbul.webp", alt: "Bold Istanbul" }),
+                      w.jsx("img", { className: "tcl-prod__back", src: "./cut/bold-istanbul-arka.webp", alt: "" }),
+                    ],
+                  }),
+                  w.jsx("div", {
+                    className: "tcl-toggle",
+                    role: "group",
+                    children: [
+                      ["front", p.front],
+                      ["back", p.back],
+                    ].map(([k, label]) =>
+                      w.jsx(
+                        "button",
+                        { className: side === k ? "is-on" : "", "aria-pressed": side === k, onClick: () => setSide(k), children: label },
+                        k,
+                      ),
+                    ),
                   }),
                 ],
               }),
             ],
           }),
+        ],
+      }),
+      w.jsxs("section", {
+        className: "tcl tcl-specs",
+        children: [
+          w.jsx("p", { className: "mono section__eyebrow tcl-fx", children: p.details }),
           w.jsxs("div", {
-            className: "tcl-product__stage tcl-fx",
+            className: "tcl-specs__grid",
+            children: [list(p.ingTitle, p.ing), list(p.nutTitle, p.nut, p.nutNote), list(p.canTitle, p.can)],
+          }),
+          w.jsxs("figure", {
+            className: "tcl-specs__quote tcl-fx",
             children: [
-              w.jsx("span", { className: "tcl-product__halo", "aria-hidden": "true" }),
-              w.jsx("img", { ref: can, className: "tcl-product__can", src: "./cut/bold-istanbul.webp", alt: "Bold Istanbul" }),
-              w.jsx("p", { className: "mono tcl-product__shake", children: c.shake }),
+              w.jsx("blockquote", { children: c.productQuote }),
+              w.jsx("figcaption", { className: "mono", children: "Gizem Şalcıgil White · Turkish Coffee Lady" }),
             ],
           }),
         ],
+      }),
+    ],
+  });
+}
+
+function TclContact() {
+  const { lang: L, faqs } = Nn(),
+    lk = L === "en" ? "en" : "tr",
+    p = TclPageCopy[lk],
+    root = K.useRef(null),
+    [open, setOpen] = K.useState(0);
+  TclReveal(root, L);
+  const send = (e) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget),
+      body = `${f.get("message") || ""}\n\n${f.get("name") || ""} · ${f.get("email") || ""}`;
+    location.href = `mailto:hello@turkishcoffeelady.com?subject=${encodeURIComponent("Turkish Coffee Lady · Bold Istanbul")}&body=${encodeURIComponent(body)}`;
+  };
+  return w.jsxs("div", {
+    ref: root,
+    children: [
+      w.jsx("section", {
+        className: "tcl tcl-contact",
+        children: w.jsxs("div", {
+          className: "tcl-contact__grid",
+          children: [
+            w.jsxs("div", {
+              children: [
+                w.jsx("p", { className: "mono section__eyebrow tcl-fx", children: p.contactEyebrow }),
+                w.jsx("h1", { className: "tcl-page-title tcl-fx", children: p.contactTitle }),
+                w.jsx("p", { className: "tcl-page-lead tcl-fx", children: p.contactLead }),
+                w.jsx("dl", {
+                  className: "tcl-info tcl-fx",
+                  children: p.info.map(([k, v, href]) =>
+                    w.jsxs(
+                      "div",
+                      {
+                        children: [
+                          w.jsx("dt", { className: "mono", children: k }),
+                          w.jsx("dd", {
+                            children: href
+                              ? w.jsx("a", { href, target: href.startsWith("http") ? "_blank" : void 0, rel: "noopener", children: v })
+                              : v,
+                          }),
+                        ],
+                      },
+                      k,
+                    ),
+                  ),
+                }),
+              ],
+            }),
+            w.jsxs("form", {
+              className: "tcl-form tcl-fx",
+              onSubmit: send,
+              children: [
+                w.jsxs("label", { children: [w.jsx("span", { className: "mono", children: p.name }), w.jsx("input", { name: "name", autoComplete: "name" })] }),
+                w.jsxs("label", {
+                  children: [w.jsx("span", { className: "mono", children: p.email }), w.jsx("input", { name: "email", type: "email", autoComplete: "email" })],
+                }),
+                w.jsxs("label", { children: [w.jsx("span", { className: "mono", children: p.message }), w.jsx("textarea", { name: "message", rows: 5 })] }),
+                w.jsx("button", { className: "tcl-btn tcl-btn--gold", type: "submit", children: p.send }),
+              ],
+            }),
+          ],
+        }),
+      }),
+      w.jsxs("section", {
+        className: "tcl tcl-faq",
+        children: [
+          w.jsx("h2", { className: "tcl-faq__title tcl-fx", children: p.faq }),
+          w.jsx("ul", {
+            className: "tcl-faq__list tcl-fx",
+            children: (faqs || []).map(([q, a], i) =>
+              w.jsxs(
+                "li",
+                {
+                  className: open === i ? "is-open" : "",
+                  children: [
+                    w.jsxs("button", {
+                      "aria-expanded": open === i,
+                      onClick: () => setOpen(open === i ? -1 : i),
+                      children: [w.jsx("span", { children: q }), w.jsx("i", { "aria-hidden": "true" })],
+                    }),
+                    w.jsx("div", { className: "tcl-faq__a", children: w.jsx("p", { children: a }) }),
+                  ],
+                },
+                q,
+              ),
+            ),
+          }),
+        ],
+      }),
+    ],
+  });
+}
+
+function TclFooter() {
+  const { lang: L, ui } = Nn(),
+    p = TclPageCopy[L === "en" ? "en" : "tr"];
+  return w.jsxs("footer", {
+    className: "tcl tcl-footer",
+    children: [
+      w.jsxs("div", {
+        className: "tcl-footer__top",
+        children: [
+          w.jsx("a", { href: "#flavors", className: "tcl-footer__logo", children: w.jsx("img", { src: "./brand/logo-cream.png", alt: "Turkish Coffee Lady" }) }),
+          w.jsx("nav", {
+            children: TclNavItems(ui.nav).map(([h, l]) => w.jsx("a", { href: h, children: l }, h)),
+          }),
+        ],
+      }),
+      w.jsxs("div", {
+        className: "tcl-footer__bottom",
+        children: [w.jsx("p", { className: "mono", children: "Good Coffee. Good Fortune." }), w.jsx("p", { children: p.footNote })],
       }),
     ],
   });

@@ -776,3 +776,551 @@
 .buy__more {
   display: none !important;
 }
+
+/* =========================================================
+   Multi-page, quieter layout
+   ========================================================= */
+
+/* header: no search / cart for a single product */
+.search-btn,
+.cart-btn {
+  display: none !important;
+}
+/* active page in the nav */
+html[data-tcl-page="urun"] .header__nav > a[href="#/urun"],
+html[data-tcl-page="hikaye"] .header__nav > a[href="#/hikaye"],
+html[data-tcl-page="film"] .header__nav > a[href="#/film"],
+html[data-tcl-page="iletisim"] .header__nav > a[href="#/iletisim"] {
+  color: #fff;
+}
+html[data-tcl-page="urun"] .header__nav > a[href="#/urun"]:after,
+html[data-tcl-page="hikaye"] .header__nav > a[href="#/hikaye"]:after,
+html[data-tcl-page="film"] .header__nav > a[href="#/film"]:after,
+html[data-tcl-page="iletisim"] .header__nav > a[href="#/iletisim"]:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--theme-accent, #e8c79a);
+}
+html[data-tcl-page] .canvas {
+  visibility: hidden !important;
+}
+
+/* hero: keep name, line, CTA; drop counters, tick track and the duplicate profile list */
+.count--inline,
+.track,
+.hud__count {
+  display: none !important;
+}
+
+.tcl-main {
+  pointer-events: none;
+  min-height: 100vh;
+  background: var(--bg);
+}
+.tcl-main > * {
+  pointer-events: auto;
+}
+.tcl-main .tcl-film {
+  padding-top: clamp(130px, 18vh, 190px);
+}
+.tcl-main .tcl-journey {
+  padding-top: clamp(140px, 20vh, 200px);
+}
+.tcl-page-title,
+.tcl-prod__title {
+  font-family: var(--wide);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 6.4vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.tcl-page-lead {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  color: rgba(242, 239, 233, 0.78);
+}
+
+/* ---------- home: intro + three doors ---------- */
+.tcl-home {
+  padding: clamp(110px, 16vh, 180px) var(--gutter) clamp(90px, 14vh, 150px);
+  background:
+    radial-gradient(70% 50% at 50% 0%, rgba(31, 45, 94, 0.45), transparent 70%),
+    var(--bg);
+}
+.tcl-home__head {
+  max-width: 820px;
+  margin: 0 auto clamp(56px, 9vh, 96px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.tcl-home__title {
+  font-family: var(--wide);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.8vw, 4.4rem);
+  line-height: 1.04;
+  text-wrap: balance;
+}
+.tcl-home__lead {
+  max-width: 560px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.tcl-cards {
+  list-style: none;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 24px);
+}
+.tcl-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  border: 1px solid rgba(232, 199, 154, 0.16);
+  background: #0f1220;
+  overflow: hidden;
+  transition:
+    border-color 0.5s,
+    transform 0.6s var(--ease);
+}
+.tcl-card:hover {
+  border-color: rgba(232, 199, 154, 0.5);
+  transform: translateY(-4px);
+}
+.tcl-card__img {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: radial-gradient(70% 70% at 50% 60%, #22305a, #0c1122);
+}
+.tcl-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9);
+  transition: transform 1.2s var(--ease);
+}
+.tcl-card--cut .tcl-card__img img {
+  object-fit: contain;
+  padding: 7% 0 4%;
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.6));
+}
+.tcl-card:hover .tcl-card__img img {
+  transform: scale(1.05);
+}
+.tcl-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px 26px;
+}
+.tcl-card__body strong {
+  font-family: var(--wide);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+  line-height: 1.1;
+  color: var(--fg);
+}
+.tcl-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  color: var(--theme-accent, #e8c79a);
+}
+
+/* ---------- product page ---------- */
+.tcl-prod {
+  padding: clamp(130px, 18vh, 180px) var(--gutter) clamp(70px, 10vh, 110px);
+  background: #090c18;
+}
+.tcl-prod__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(42% 55% at 72% 48%, rgba(214, 170, 110, 0.2), transparent 70%),
+    radial-gradient(80% 70% at 70% 40%, #18213d, #090c18 75%);
+}
+.tcl-prod__grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(40px, 6vw, 110px);
+  align-items: center;
+}
+.tcl-prod__body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.tcl-prod__sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.1vw, 1.9rem);
+  color: var(--theme-accent, #e8c79a);
+}
+.tcl-prod__text {
+  max-width: 560px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(242, 239, 233, 0.74);
+}
+.tcl-prod__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+a.tcl-btn {
+  color: var(--fg);
+  text-decoration: none;
+}
+.tcl-prod__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.tcl-prod__halo {
+  position: absolute;
+  top: 6%;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 199, 154, 0.18);
+  background: radial-gradient(circle, rgba(127, 178, 230, 0.16), transparent 65%);
+}
+.tcl-prod__can {
+  position: relative;
+  height: clamp(420px, 66vh, 680px);
+  aspect-ratio: 458 / 1200;
+}
+.tcl-prod__can img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 46px 44px rgba(0, 0, 0, 0.7));
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.9s var(--ease);
+}
+.tcl-prod__back {
+  opacity: 0;
+  transform: rotateY(25deg) scale(0.98);
+}
+.tcl-prod__can.is-back .tcl-prod__front {
+  opacity: 0;
+  transform: rotateY(-25deg) scale(0.98);
+}
+.tcl-prod__can.is-back .tcl-prod__back {
+  opacity: 1;
+  transform: none;
+}
+.tcl-toggle {
+  position: relative;
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid rgba(232, 199, 154, 0.3);
+  border-radius: 999px;
+}
+.tcl-toggle button {
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition:
+    background 0.4s,
+    color 0.4s;
+}
+.tcl-toggle button.is-on {
+  color: var(--ink, #0c0a09);
+  background: var(--theme-accent, #e8c79a);
+}
+
+.tcl-specs {
+  padding: clamp(80px, 12vh, 130px) var(--gutter);
+  border-top: 1px solid rgba(232, 199, 154, 0.12);
+}
+.tcl-specs > .section__eyebrow {
+  max-width: 1280px;
+  margin: 0 auto 28px;
+}
+.tcl-specs__grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 64px);
+}
+.tcl-spec h3 {
+  padding-bottom: 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(232, 199, 154, 0.35);
+  color: var(--fg);
+}
+.tcl-spec dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--faint);
+  font-weight: 300;
+}
+.tcl-spec dt {
+  color: var(--muted);
+}
+.tcl-spec dd {
+  text-align: right;
+}
+.tcl-spec__note {
+  margin-top: 12px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+.tcl-specs__quote {
+  max-width: 860px;
+  margin: clamp(70px, 11vh, 120px) auto 0;
+  text-align: center;
+}
+.tcl-specs__quote blockquote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  line-height: 1.4;
+  color: #f6e8cf;
+}
+.tcl-specs__quote figcaption {
+  margin-top: 18px;
+}
+
+/* ---------- contact page ---------- */
+.tcl-contact {
+  padding: clamp(140px, 20vh, 200px) var(--gutter) clamp(70px, 10vh, 110px);
+}
+.tcl-contact__grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 7vw, 120px);
+  align-items: start;
+}
+.tcl-contact__grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.tcl-info {
+  margin-top: 18px;
+}
+.tcl-info > div {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--faint);
+}
+.tcl-info dd a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(232, 199, 154, 0.35);
+}
+.tcl-info dd a:hover {
+  color: var(--theme-accent, #e8c79a);
+}
+.tcl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: clamp(26px, 3vw, 40px);
+  border: 1px solid rgba(232, 199, 154, 0.18);
+  background: rgba(18, 18, 22, 0.55);
+}
+.tcl-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tcl-form input,
+.tcl-form textarea {
+  font: inherit;
+  font-weight: 300;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(242, 239, 233, 0.25);
+  padding: 8px 0;
+  resize: vertical;
+}
+.tcl-form input:focus,
+.tcl-form textarea:focus {
+  outline: none;
+  border-bottom-color: var(--theme-accent, #e8c79a);
+}
+.tcl-form .tcl-btn {
+  align-self: flex-start;
+}
+.tcl-faq {
+  padding: clamp(60px, 9vh, 100px) var(--gutter) clamp(90px, 14vh, 140px);
+}
+.tcl-faq__title,
+.tcl-faq__list {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.tcl-faq__title {
+  font-family: var(--wide);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin-bottom: 24px;
+}
+.tcl-faq__list {
+  list-style: none;
+  border-top: 1px solid var(--faint);
+}
+.tcl-faq__list li {
+  border-bottom: 1px solid var(--faint);
+}
+.tcl-faq__list button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 0;
+  text-align: left;
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+}
+.tcl-faq__list i {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.tcl-faq__list i:before,
+.tcl-faq__list i:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6.5px;
+  width: 14px;
+  height: 1px;
+  background: var(--theme-accent, #e8c79a);
+  transition: transform 0.4s var(--ease);
+}
+.tcl-faq__list i:after {
+  transform: rotate(90deg);
+}
+.tcl-faq__list li.is-open i:after {
+  transform: rotate(0);
+}
+.tcl-faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease);
+}
+.tcl-faq__a p {
+  overflow: hidden;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(242, 239, 233, 0.72);
+}
+.tcl-faq__list li.is-open .tcl-faq__a {
+  grid-template-rows: 1fr;
+}
+.tcl-faq__list li.is-open .tcl-faq__a p {
+  padding-bottom: 22px;
+}
+
+/* ---------- footer ---------- */
+.tcl-footer {
+  padding: clamp(48px, 7vh, 70px) var(--gutter) 34px;
+  background: #07060a;
+  border-top: 1px solid rgba(232, 199, 154, 0.12);
+}
+.tcl-footer__top,
+.tcl-footer__bottom {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.tcl-footer__logo img {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+.tcl-footer nav {
+  display: flex;
+  gap: clamp(18px, 3vw, 40px);
+  flex-wrap: wrap;
+}
+.tcl-footer nav a {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+}
+.tcl-footer nav a:hover {
+  color: var(--fg);
+}
+.tcl-footer__bottom {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--faint);
+}
+.tcl-footer__bottom p:last-child {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(242, 239, 233, 0.4);
+  max-width: 560px;
+}
+
+@media (max-width: 900px) {
+  .tcl-cards,
+  .tcl-specs__grid,
+  .tcl-contact__grid,
+  .tcl-prod__grid {
+    grid-template-columns: 1fr;
+  }
+  .tcl-prod__stage {
+    order: -1;
+  }
+  .tcl-prod__can {
+    height: clamp(340px, 56vh, 480px);
+  }
+  .tcl-info > div {
+    grid-template-columns: 110px 1fr;
+  }
+}

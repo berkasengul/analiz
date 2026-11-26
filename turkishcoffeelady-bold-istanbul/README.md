@@ -3,16 +3,15 @@
 Önceki 5 tatlı konsept sitenin aynısı, tek ürüne (Bold Istanbul) indirilmiş ve
 "Bir Fincan Cesaret" belgeseli üzerine kurulu bir hikâye katmanı eklenmiş hali.
 
-## Sayfa akışı
-1. Hero: 3D Bold Istanbul (tek ürün; carousel, tat bulucu ve 5'li katalog kaldırıldı)
-2. Lansman (3 adım, hepsi Bold Istanbul)
-3. **Film** (`#film`): 36 dk belgesel, özel oynatıcı + 15 tıklanabilir bölüm
-4. **Hikâye** (`#journey`): Boston'dan Alexandria'ya 8 perde; her perdede filmden kare,
-   transkriptten birebir alıntı ve "Filmde izle" ile o ana atlama
-5. **Ürünün hikâyesi** (`#bold-istanbul`): Bold Istanbul kutusu ve hikâyeyle bağı
-6. Marka hikâyesi, nerede, SSS, iletişim (mevcut bölümler, metinler tek ürüne göre güncellendi)
+## Sayfalar
+Çok sayfalı (adres çubuğunda `#/...`), sade düzen:
+- **Ana sayfa** (`/`): 3D Bold Istanbul (kaide + yeni stüdyo fonu), kısa giriş ve üç kapı: Ürün, Hikâye, Film.
+- **Ürün** (`#/urun`): ürün hikâyesi, ön/arka kutu geçişi, içindekiler, besin değerleri, kutu bilgisi.
+- **Hikâye** (`#/hikaye`): Boston'dan Alexandria'ya 8 perde; "Filmde izle" filmin o anına götürür (`#/film?t=...`).
+- **Film** (`#/film`): 36 dk belgesel, 15 bölüm.
+- **İletişim** (`#/iletisim`): iletişim bilgileri, form (e-posta ile), SSS.
 
-TR/EN dil düğmesi yeni bölümlerde de çalışır.
+3D sahne yalnızca ana sayfada çalışır; alt sayfalarda durdurulur. TR/EN dil düğmesi tüm sayfalarda çalışır.
 
 ## Klasörler
 - `site/`: Netlify'a olduğu gibi yüklenecek klasör.
