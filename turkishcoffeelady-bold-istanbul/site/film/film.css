@@ -771,3 +771,8 @@
     justify-content: center;
   }
 }
+
+/* single product: no "other cities" link in the detail view */
+.buy__more {
+  display: none !important;
+}

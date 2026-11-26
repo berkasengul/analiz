@@ -99,4 +99,21 @@ rep(
     '        "The full “A Cup of Courage” documentary (in Turkish) is in the Film section of this page. Use the chapter list to jump to any moment.",',
 )
 
+# --- real Bold Istanbul can: new photo texture (front render + redrawn back label) and silhouette
+import json as _json
+_here = pathlib.Path(__file__).parent
+_geom = _json.loads((_here / "geom.json").read_text())
+_hash = (_here / "tex_hash").read_text().strip()
+rep('new URL("bold-istanbul-jHUIzGQy.webp", import.meta.url)', f'new URL("bold-istanbul-real-{_hash}.webp", import.meta.url)')
+_i = src.index('photo3d: {', src.index('name: "Bold Istanbul"'))
+_e = src.index('edge: "#767675"', _i)
+_block = src[_i:_e]
+_j = _block.index("rows: [")
+_k = _block.index("],", _j) + 2
+_block = _block[:_j] + "rows: " + _json.dumps(_geom["rows"]) + "," + _block[_k:]
+_o = _block.index("outline: [")
+_block = _block[:_o] + "outline: " + _json.dumps(_geom["outline"]) + ",\n        "
+_block = _block.replace("axis: 0.4992,", "axis: %s," % _geom["axis"], 1)
+src = src[:_i] + _block + src[_e:]
+
 pathlib.Path(out).write_text(src, encoding="utf-8")

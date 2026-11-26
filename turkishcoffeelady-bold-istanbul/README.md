@@ -20,3 +20,14 @@ TR/EN dil düğmesi yeni bölümlerde de çalışır.
 - `kaynak/`: orijinal bundle (okunabilir hali), yamalar (`patch.py`) ve yeni bölümler (`extra.js`).
   Stil: `site/film/film.css`.
 - `transkript/`: belgeselin zaman damgalı transkripti (alıntılar ve bölüm saatleri buradan).
+
+## 3D kutu (gerçek ambalaj)
+3D kutu, `site/assets/bold-istanbul-real-*.webp` dokusundan üretilir (2560×1280; sol yarı ön, sağ yarı arka).
+- Ön yüz: markanın resmi Bold Istanbul render'ı, birebir.
+- Arka yüz: gerçek kutudan yeniden çizildi: hanım logosu + "Art Work: hasankale" (fotoğraftan, ışık düzeltmeli),
+  besin tablosu, "Established 2017" bloğu, içindekiler, "Discover Your Daily Coffee Wisdom", QR ve barkod.
+  Panel içeriği silindire göre bükülüp ön render'ın ışığıyla gölgelendirildi.
+- Gövde silüeti (`kaynak/geom.json`) gerçek kutunun kenarından hesaplandı.
+- QR ve barkod fotoğraftan okunamadı; görsel olarak çizildi, taranınca çalışmaz.
+  Gerçek QR bağlantısı ve barkod numarası gelirse `kaynak/kutu/` içinden yeniden üretilir.
+- Yeniden üretim: `kaynak/kutu/strip.html` → `strip.png` (arka etiket), sonra `python3 compose.py`.

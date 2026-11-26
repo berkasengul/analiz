@@ -45,7 +45,7 @@ const TclFilmSrc = "./film/bir-fincan-cesaret.mp4",
       productSub: "Bir fincan cesaret, kutuda.",
       productText: [
         "2012'de Washington sokaklarında bir kamyondan bedavaya dağıtılan fincanlar, bugün İstanbul'un adını taşıyan bir kutuda. Bold Istanbul, Turkish Coffee Lady'nin buzlu Türk kahvesi serisinin ilk kutusu ve ABD lansmanının öncüsü.",
-        "İçinde, yüzyıllık bir harmanın koyu ve yoğun karakteri var: %100 doğal, sıfır şeker, düşük kalori. Kutunun üzerinde ise markanın kendi ambalajındaki suluboya İstanbul ve uğur getiren nazar.",
+        "İçinde, Türkiye'de üretilen, orta kavrulmuş ve ince öğütülmüş Arabica'dan koyu ve yoğun bir harman var: %100 doğal, sıfır şeker, düşük kalori. Kutunun üzerinde ise hasankale imzalı bir İstanbul: Kız Kulesi, Galata Kulesi, Boğaz'da bir vapur ve uğur getiren nazar.",
         "Toronto'da bir AVM'de, bedava Türk kahvesinin önünden geçip parayla espresso sırasına giren insanları izlerken öğrenilen ders burada: Türk kahvesinin hak ettiği yere varması için bir marka olması gerekiyordu. Bold Istanbul o markanın elde taşınabilen hali.",
       ],
       productFacts: [
@@ -79,7 +79,7 @@ const TclFilmSrc = "./film/bir-fincan-cesaret.mp4",
       productSub: "A cup of courage, canned.",
       productText: [
         "In 2012 the cups were handed out for free from a truck on the streets of Washington. Today they come in a can that carries Istanbul's name. Bold Istanbul is the first can of Turkish Coffee Lady's iced Turkish coffee line, and it leads the US launch.",
-        "Inside is the dark, rich character of a centuries-old blend: 100% natural, zero sugar, low calorie. On the outside, the watercolor Istanbul from the brand's own packaging and the evil eye for good fortune.",
+        "Inside is a dark, rich blend of medium-roasted, finely ground Arabica, produced in Türkiye: 100% natural, zero sugar, low calorie. On the outside, an Istanbul signed by hasankale: the Maiden's Tower, Galata Tower, a ferry on the Bosphorus and the evil eye for good fortune.",
         "In a Toronto mall she watched people walk past free Turkish coffee to pay for espresso, and learned the lesson this can is built on: for Turkish coffee to reach the place it deserves, it had to become a brand. Bold Istanbul is that brand, made to carry in your hand.",
       ],
       productFacts: [
