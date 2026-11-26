@@ -10,7 +10,7 @@ sonra `python3 build.py` çalıştırılarak tüm sayfalar yeniden üretilir.
 # ---------------------------------------------------------------------------
 SITE = {
     "name": "MKY Reklam & Medya",
-    "url": "https://www.mkyreklam.com",          # yayına alınca gerçek alan adı
+    "url": "https://mkyreklam.netlify.app",      # kendi alan adınızı bağlayınca değiştirin
     "phone": "0 (5XX) XXX XX XX",                 # ekranda görünen
     "wa": "905XXXXXXXXX",                         # WhatsApp: 90 + numara, boşluksuz
     "email": "info@mkyreklam.com",
