@@ -9,8 +9,10 @@ Genç Anadolu Gıda sitesinin (`madame-lyras/`, dal `claude/3d-product-catalog-s
   - `card`: asma kağıt koku, blister kart; ön ve arka yüz ürünün gerçek fotoğrafından (beyaz zemin kesildi, askı deliği saydam), poşet kısmı hafif şişkin.
   - `vial`: ürün görselindeki elma biçimli cam şişe (sağda ısırık, kalın cam, önde gömme yuvarlak Petra logosu), renkli esans, 4 halkalı ahşap kapak, ahşap boncuk ve bükümlü ip (kodla çizildi).
   - `reed`: kare cam şişe, renkli esans, siyah kapak, altın etiket (ürün adı tuvalde yazılır), 5 siyah bambu çubuk.
-- **Ana sayfa** (`src/pages/stream.js`): kurumsal, kaydırmalı 3B akış. Açılışta başlık ve Önce Vatan; kaydırınca ürün açık taş kaideye
-  iner (kaide sabit), 3 ürün (Önce Vatan, Ocean, Kerasus) dönerek değişir; solda sıra, ad, koku hissi, bilgiler ve düğmeler, sağda numaralı liste, altta ilerleme çizgisi; fareyle ürün eğilir.
+- **Ana sayfa** (`src/pages/stream.js`): kurumsal, kaydırmalı 3B akış. Ürün baştan sona cilalı mermer kaidenin (`src/podium.js`: pahlı tabla,
+  altın kakma, geniş taban, temas ve zemin gölgesi) üstünde durur. Kaydırınca 3 ürün (Önce Vatan, Ocean, Kerasus) sinematik bir geçişle değişir:
+  ürün dönerek kaidenin içine iner, kaidede ışık halkası, yükselen ışık sütunu ve parıltılar belirir, arka plan yeni ürünün rengine geçer,
+  yeni ürün dönerek kaideden yükselip hafifçe yaylanarak oturur; yazılar ürünle birlikte sırayla gelir. Fareyle ürün tabanı etrafında eğilir.
 - **Ürüne özel arka plan** (`src/backdrop.js`): ferah stüdyo; ürünün renginde pastel duvar ve zemin, pencere ışığı ve kokuya göre gölge
   (çiçekli dal, palmiye, panjur, pencere, su yansıması, güneş), rüzgârda hafifçe sallanır. 3B sahnenin içinde çizilir (cam arkadaki sahneyi kırar).
   Renkler ve gölge türü `STUDIO` tablosunda.
@@ -18,7 +20,8 @@ Genç Anadolu Gıda sitesinin (`madame-lyras/`, dal `claude/3d-product-catalog-s
   patlaması olur; kokunun hikâyesi, 3 adımlı tarifi (cam şişelerde markanın açılış / kalp / taban notaları), karakter etiketleri ve
   ferahlık / sıcaklık / yoğunluk göstergeleri sırayla belirir. Metinler `src/data.js` → `SENSE`.
 - Renk: Petra logosunun yeşili (`#164c43`) ve altın; yazı tipi Montserrat; şeffaf cam üst menü. Metinler usepetra.com'dan.
-- Ana sayfa açılış görseli `public/img/home-d.webp` / `home-m.webp` (`node scripts/poster.cjs`): 3B gelmeden önce gerçek ilk kare görünür.
+- Ana sayfa açılış görseli (`node scripts/poster.cjs`): arka plan `public/img/home-bg.webp` + şeffaf ürün/kaide katmanı `home-pd.webp` / `home-pm.webp`
+  ve `src/poster.json` (çapa ve ölçek). Katman 3B ile aynı poz hesabıyla yerleşir; ekran boyutu ne olursa olsun 3B gelince ürün yerinden ve boyundan oynamaz.
 - Tanıtım sürümü: `SITE.demo = true` iken formlar markanın e-postasına iletilmez (FormSubmit kapalı); `robots.txt` ve `X-Robots-Tag` arama motorlarını engeller.
 
 ## Görselleri yeniden üretmek

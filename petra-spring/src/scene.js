@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { createJuice } from './juice.js';
 import { makePetra } from './petra3d.js';
 import { createBackdrop } from './backdrop.js';
+import { makePodium, POD_TOP } from './podium.js';
 
 const TAU = Math.PI * 2;
 const smooth = (a, b, x) => {
@@ -412,32 +413,24 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   scene.add(podium);
   const POD_H = 0.76; // kaidenin üstünün sabit yüksekliği (en uzun ürünün yarı boyu)
   let lift = 0;
-  const podTop = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.05, 64), new THREE.MeshPhysicalMaterial({ color: 0xfbf8f3, roughness: 0.42, clearcoat: 0.4, clearcoatRoughness: 0.3, envMapIntensity: 0.7 }));
-  const podBody = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.64, 0.12, 64), new THREE.MeshPhysicalMaterial({ color: 0xece5da, roughness: 0.55, metalness: 0, envMapIntensity: 0.6 }));
-  podBody.position.y = -0.085;
-  const podRing = new THREE.Mesh(new THREE.TorusGeometry(0.63, 0.008, 8, 96), new THREE.MeshStandardMaterial({ color: 0xc9a35a, roughness: 0.3, metalness: 0.9, envMapIntensity: 1 }));
-  podRing.rotation.x = Math.PI / 2; podRing.position.y = -0.03;
-  const podRing2 = new THREE.Mesh(new THREE.TorusGeometry(0.66, 0.006, 8, 96), new THREE.MeshStandardMaterial({ color: 0xc9a35a, roughness: 0.3, metalness: 0.9, envMapIntensity: 1 }));
-  podRing2.rotation.x = Math.PI / 2; podRing2.position.y = -0.145;
-  const podGlow = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 0.7), new THREE.MeshBasicMaterial({
-    map: canvasTex(128, (x, s) => {
-      const g = x.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
-      g.addColorStop(0, 'rgba(255,214,150,.5)'); g.addColorStop(1, 'rgba(255,190,110,0)');
-      x.fillStyle = g; x.fillRect(0, 0, s, s);
-    }), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
-  }));
-  podGlow.rotation.x = -Math.PI / 2; podGlow.position.y = -0.15;
-  // geniş alt kat: yan ürünler de bunun üstünde, ana paketin hemen arkasında durur
-  const podBase = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.34, 0.07, 96), new THREE.MeshPhysicalMaterial({ color: 0xf3eee7, roughness: 0.5, metalness: 0, envMapIntensity: 0.5, transparent: true, opacity: 0.0 }));
-  podBase.position.set(0, -0.19, -0.45);
-  const podBaseRing = new THREE.Mesh(new THREE.TorusGeometry(1.32, 0.007, 8, 160), new THREE.MeshBasicMaterial({ color: 0xc9a35a, transparent: true, opacity: 0 }));
-  podBaseRing.rotation.x = Math.PI / 2; podBaseRing.position.set(0, -0.155, -0.45);
-  podBase.receiveShadow = true;
-  // kurumsal sade kaide: açık taş, ince altın çizgi (geniş alt kat ve parıltı kullanılmıyor)
-  podGlow.visible = false;
-  podium.add(podTop, podBody, podRing, podRing2);
-  for (const m of [podTop, podBody]) m.castShadow = true;
-  podTop.receiveShadow = true;
+  // gerçekçi mermer kaide (src/podium.js); POD_K: kaidenin ürüne göre ölçeği
+  const POD_K = 0.78;
+  const pod = makePodium();
+  podium.add(pod.group);
+  // ürün kaideden yükselirken/inerken kaidenin üst yüzeyinde kesilir
+  const clipPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 1e5);
+  renderer.localClippingEnabled = true;
+  const pivV = new THREE.Vector3();
+  const FOOT = { card: [1.05, 0.2], vial: [0.62, 0.42], reed: [0.66, 0.6] };
+  function fitContact(i = flavor) { const md = flavors[i] && flavors[i].model; const f = FOOT[md && md.type] || FOOT.card; pod.setFootprint(f[0], f[1]); }
+  const clipSet = new WeakSet();
+  const applyClip = (obj) => obj.traverse((m) => {
+    if (!m.isMesh || !m.material) return;
+    for (const mt of Array.isArray(m.material) ? m.material : [m.material]) {
+      if (clipSet.has(mt)) continue;
+      clipSet.add(mt); mt.clippingPlanes = [clipPlane]; mt.needsUpdate = true;
+    }
+  });
   const beamMat = new THREE.MeshBasicMaterial({
     map: canvasTex(256, (x, s) => {
       // tepeden aşağı genişleyen yumuşak ışık huzmesi
@@ -691,7 +684,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     near(i);
     frontIdx = i;
     const md = flavors[i].model;
-    if (md) { pouch.group.visible = false; kit.show(md, fronts[i], backs[i]); aspectTarget = aspects[i]; return; }
+    if (md) { pouch.group.visible = false; kit.show(md, fronts[i], backs[i]); aspectTarget = aspects[i]; fitContact(i); return; }
     kit.hide(); pouch.group.visible = true;
     pouch.setFront(fronts[i]);
     pouch.bottomMat.color.copy(bottomColors[i]);
@@ -710,7 +703,11 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
   let spin = 0, spinTarget = 0;
   let spinAnim = null, spinLean = 0; // açılıştan inerken ağır çekim tek tur
   let burst = 0; // ürün akışına varınca paketin 'açılması': parçalar paketten dışarı saçılır, ışık halkası yayılır
-  let stream = null, streamNow = 0; // ürün akışında kaydırmaya bağlı konum (0..N-1)
+  let stream = null, streamNow = 0, streamCur = 0;
+  const tr = { on: false, t: 0, to: 0, dir: 1, swapped: false };
+  const TR_DUR = 1.75, TR_OUT = 0.4, TR_IN = 0.5;
+  let liftSnap = false;
+  let sink = 0, trGlow = 0, stillMode = !!opts.still, glowV = 0, glowT0 = 0; // ürün akışında kaydırmaya bağlı konum (0..N-1)
   // rx: ek eğim; pt: fare/nefes hareketinin ağırlığı (açılıştan devralırken 0, sonra 1)
   const state = { x: 0, y: 0, s: 1, rx: 0, ry: 0, rz: 0, cloud: 0, frost: 0, pt: 1, bd: 0, halo: 0, podium: 0 };
   const target = { ...state };
@@ -739,7 +736,7 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
 
   const POSE0 = { rx: 0, pt: 1, bd: 0, halo: 0, podium: 0 };
   function setPose(p) { Object.assign(target, POSE0, p); }
-  function snapPose(p) { Object.assign(target, POSE0, p); Object.assign(state, POSE0, p); }
+  function snapPose(p) { Object.assign(target, POSE0, p); Object.assign(state, POSE0, p); liftSnap = true; }
 
   function resize() {
     const box = opts.box ? canvas.parentElement : null;
@@ -886,25 +883,39 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       pendingFront = -1;
     }
 
-    // ürün akışı: kaydırma konumuna bağlı, geri sarılabilir geçiş
+    // ürün akışı: ürün kaideye iner (üst yüzeyde kesilerek kaybolur), kaidede ışık halkası ve ışık sütunu
+    // parlar, yeni ürün dönerek kaideden yükselir ve hafifçe yaylanarak yerine oturur (zamana bağlı geçiş)
     let streamAngle = 0, dip = 0;
+    trGlow = damp(trGlow, 0, 2.2, dt);
+    if (glowV) { const gp = (t - glowT0) / 1.8; if (gp >= 1) glowV = 0; else trGlow = Math.max(trGlow, glowV * Math.sin(Math.PI * gp)); }
     if (stream !== null && !insp.on) {
-      streamNow = damp(streamNow, stream, 7, dt);
-      const fi = Math.min(N - 1, Math.max(0, streamNow));
-      const i = Math.min(N - 2, Math.floor(fi));
-      const u = fi - i;
-      const r = reduce ? (u > 0.5 ? 1 : 0) : ease(smooth(0.1, 0.9, u)); // ürünler arası dönüş geçişin büyük kısmına yayılır (ağır çekim)
-      streamAngle = r * TAU;
-      dip = Math.sin(r * Math.PI);
-      showFront(r < 0.5 ? i : i + 1);
-      showBack(r > 0.02 ? i + 1 : i);
-      flavor = r < 0.5 ? i : i + 1;
-      juiceA.copy(juiceCols[i]); juiceB.copy(juiceCols[i + 1]); juiceBlend = r;
-      for (let c = 0; c < N; c++) {
-        cloudTarget[c] = c === i ? 1 - smooth(0.22, 0.55, u) : c === i + 1 ? smooth(0.45, 0.8, u) : 0;
+      if (!tr.on && stream !== streamCur && fronts[stream]) {
+        Object.assign(tr, { on: true, t: 0, to: stream, dir: stream > streamCur ? 1 : -1, swapped: false });
+        pod.setAccent(flavors[stream].bg || '#ffd9a0');
       }
-    } else if (!insp.on) {
-      for (let c = 0; c < N; c++) cloudTarget[c] = c === flavor ? 1 : 0;
+      if (tr.on) {
+        tr.t = Math.min(1, tr.t + dt / (reduce ? 0.3 : TR_DUR));
+        const p = tr.t;
+        if (p < TR_OUT) {
+          const q = p / TR_OUT, e = q * q * (3 - 2 * q) * q; // yavaş başlar, hızlanarak iner
+          sink = e;
+          streamAngle = tr.dir * e * Math.PI * 0.85;
+        } else {
+          if (!tr.swapped) {
+            tr.swapped = true;
+            streamCur = tr.to; flavor = tr.to;
+            showFront(tr.to); showBack(tr.to);
+            lift = (kit.height() / 2 - POD_H) * state.podium;
+          }
+          const q = Math.max(0, (p - TR_IN) / (1 - TR_IN));
+          const c1 = 1.1, c3 = c1 + 1;
+          const e = q <= 0 ? 0 : 1 + c3 * Math.pow(q - 1, 3) + c1 * Math.pow(q - 1, 2); // hafif yaylanma
+          sink = 1 - e;
+          streamAngle = -tr.dir * Math.pow(1 - Math.min(1, q * 1.08), 3) * Math.PI * 1.15;
+        }
+        trGlow = Math.max(trGlow, Math.sin(Math.min(1, p * 1.15) * Math.PI));
+        if (p >= 1) { tr.on = false; sink = 0; streamAngle = 0; }
+      }
     }
     if (stream === null || insp.on) {
       const want = !insp.on && juiceOverride ? juiceOverride : juiceCols[flavor];
@@ -962,12 +973,12 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       pouchHolder.scale.setScalar(1 - 0.07 * swS);
     } else {
       pouchHolder.rotation.set(
-        state.rx + (0.06 + pointer.sy * 0.12 + (reduce ? 0 : Math.sin(t * 0.7) * 0.03)) * state.pt + dip * 0.12 + spinLean * 0.07,
+        state.rx + (0.06 + pointer.sy * 0.12 * (1 - 0.5 * fixPod) + (reduce || stillMode ? 0 : Math.sin(t * 0.7) * 0.03 * (1 - 0.6 * fixPod))) * state.pt + dip * 0.12 + spinLean * 0.07,
         state.ry + spin + streamAngle + pointer.sx * 0.35 * state.pt,
-        state.rz + (reduce ? 0 : Math.sin(t * 0.9) * 0.025) * state.pt - dip * 0.16 - spinLean * 0.06
+        state.rz + (reduce || stillMode ? 0 : Math.sin(t * 0.9) * 0.025 * (1 - 0.7 * fixPod)) * state.pt - dip * 0.16 - spinLean * 0.06
       );
     }
-    shadow.material.opacity = 0.9 * Math.min(1, state.s) * (1 - 0.5 * dip) * (1 - fanNow);
+    shadow.material.opacity = 0.9 * Math.min(1, state.s) * (1 - 0.5 * dip) * (1 - fanNow) * (1 - Math.min(1, state.podium * 2));
     // açılıştan devralırken açılıştaki tepe ışığının parlaklığı taşınır, ürün yerine indikçe sönümlenir
     {
       const hand = 1 - state.pt;
@@ -1010,10 +1021,22 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
       const halfH = kit.group.visible ? kit.height() / 2 : 0.58 * aspectNow / Math.sqrt(aspectNow);
       podium.visible = pv > 0.01;
       // kaide: sahnede sabit (ürünün boyundan ve geçişten bağımsız); ürün kaidenin üstüne oturur
-      podium.position.set(state.x, state.y + (-POD_H - 0.03 - (1 - pv) * 0.4) * state.s, 0);
-      podium.scale.setScalar(Math.max(0.001, pv) * 0.78 * state.s);
-      lift = damp(lift, (halfH - POD_H) * pv, 8, dt);
-      if (!insp.on) pouchHolder.position.y = lift;
+      podium.position.set(state.x, state.y + (-POD_H - POD_TOP * POD_K - (1 - pv) * 0.4) * state.s, 0);
+      podium.scale.setScalar(Math.max(0.001, pv) * POD_K * state.s);
+      lift = liftSnap ? (halfH - POD_H) * pv : damp(lift, (halfH - POD_H) * pv, 8, dt);
+      liftSnap = false;
+      if (!insp.on) {
+        pouchHolder.position.set(0, lift - sink * (2 * halfH + 0.1), 0);
+        // kaidede ürün tabanının ortası etrafında eğilir (havaya kalkmaz, kaideye gömülmez)
+        pivV.set(0, -halfH, 0).applyEuler(pouchHolder.rotation);
+        pouchHolder.position.x += (0 - pivV.x) * pv; pouchHolder.position.y += (-halfH - pivV.y) * pv; pouchHolder.position.z += (0 - pivV.z) * pv;
+      }
+      // geçişte ürün kaidenin üst yüzeyinde kesilir (kaidenin içine iner / içinden yükselir)
+      const topY = podium.position.y + POD_TOP * podium.scale.y;
+      clipPlane.constant = pv > 0.5 && !insp.on && (tr.on || sink > 0.0005) ? -topY : 1e5;
+      applyClip(kit.group);
+      pod.fx(trGlow * pv, tr.on ? tr.t : 1, t);
+      pod.setContact(Math.max(0, 1 - sink * 4) * Math.min(1, pv * 1.5));
       // altın halkalar: kaidenin üstünde, ürünün arkasında
       senseNow = damp(senseNow, senseOn, 3, dt);
       auraRings.visible = senseNow > 0.01;
@@ -1207,11 +1230,16 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     },
     resetView() { insp.goto = Math.round(insp.ry / TAU) * TAU; insp.rx = 0.06; insp.zoomT = 1; insp.idle = 0; },
     zoom() { return insp.zoomT; },
+    // ürün akışı: gösterilecek ürünün sırası (tam sayı); geçiş zamana bağlı oynar
     setStream(f) {
-      if (f === null) { if (stream !== null) { spin = spinTarget = 0; } stream = null; return; }
-      if (stream === null) streamNow = f;
-      stream = f;
+      if (f === null) { stream = null; tr.on = false; sink = 0; return; }
+      const i = Math.max(0, Math.min(N - 1, Math.round(f)));
+      if (stream === null) { streamCur = i; flavor = i; showFront(i); showBack(i); for (let k = 0; k < N; k++) ensure(k); }
+      stream = i;
     },
+    // açılış görseli için: sabit duruş (nefes, sallanma yok)
+    still(v) { stillMode = v; },
+    glow(v) { glowV = v; glowT0 = clock.elapsedTime; },
     inspectOpen, inspectClose, inspectFlavor, setView,
     preload: (i) => ensure(i),
     zoomTarget() { return insp.zoomT; },
@@ -1220,6 +1248,15 @@ export function createScene(canvas, flavors, onProgress, juiceCanvas, opts = {})
     get flavor() { return flavor; },
     halfHeight() { return Math.tan((camera.fov * Math.PI) / 360) * 5; },
     // yalnızca paketin (kitin) şeffaf zeminli görüntüsü: sayfa açılışında gösterilen ilk görsel bununla üretilir
+    // ürün + kaide, şeffaf zeminli (ana sayfa açılış görselinin ön katmanı)
+    layerShot() {
+      if (bdPlane) bdPlane.visible = false;
+      renderer.setClearColor(0x000000, 0);
+      renderer.render(scene, camera);
+      const url = renderer.domElement.toDataURL('image/png');
+      if (bdPlane) bdPlane.visible = true;
+      return url;
+    },
     snapshot() {
       const hidden = [];
       const hide = (o) => { if (o.visible) { o.visible = false; hidden.push(o); } };

@@ -3,6 +3,7 @@
 // dönerek bir sonraki ürüne geçer. Her ürünün kendi sahnesi (arka plan) var; fare ürünü eğip çevirir.
 import { $, $$, FLAVORS, productUrl, reduce } from '../site.js';
 import { GROUPS, fiyat } from '../data.js';
+import POSTER from '../poster.json';
 
 const IDS = ['once-vatan', 'ocean', 'kerasus'];
 const STREAM = IDS.map((id) => FLAVORS.find((f) => f.id === id));
@@ -10,6 +11,9 @@ const N = STREAM.length;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const pad = (n) => String(n).padStart(2, '0');
+// sahnenin yarı yüksekliği (kamera z=5, görüş açısı 30°) ve ürün + kaide yığınının boyu (ürün biriminde)
+const H0 = Math.tan((15 * Math.PI) / 180) * 5;
+const STACK = 1.52 + 0.6 * 0.78;
 const isMobile = () => window.innerWidth / window.innerHeight < 0.9 || window.innerWidth < 760;
 const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l1.6 4.6 4.9.2-3.9 3 1.4 4.7L12 12.3 8 15l1.4-4.7-3.9-3 4.9-.2z" fill="currentColor"/></svg>';
@@ -24,7 +28,7 @@ export function initStream() {
   $('#players').insertAdjacentHTML('beforeend', STREAM.map((f, i) => `
     <article class="player player--p" data-k="${i + 1}" aria-hidden="true">
       <p class="player__idx" style="--k:0"><b>${pad(i + 1)}</b><i></i>${GROUPS[f.group].replace(/ları$|leri$/, 'su')}</p>
-      <h2 class="player__name${f.name.length > 8 ? ' player__name--long' : ''}" style="--k:1">${f.name}</h2>
+      <h2 class="player__name${f.name.length > 8 ? ' player__name--long' : ''}" style="--k:1"><span>${f.name}</span></h2>
       <p class="player__lead" style="--k:2">${f.sense.mood}</p>
       <dl class="player__facts" style="--k:3">${f.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
       <div class="player__actions" style="--k:4">
@@ -46,25 +50,67 @@ export function initStream() {
   let scene = null, f = 0, cur = 0;
 
   /* ---------- pozlar ---------- */
-  // ekran birimi: sahne düzleminde 1 px kaç birim
+  // Ürün her zaman mermer kaidenin üstünde: ürün + kaide yığını menünün altındaki alana sığdırılır.
+  // Sahne hazır olmadan da hesaplanır (açılış görseli aynı hesapla yerleşir, 3B gelince boyut değişmez).
   function poses() {
-    const H = scene.halfHeight(), vh = window.innerHeight, vw = window.innerWidth, u = (2 * H) / vh, W = H * (vw / vh);
+    const vh = window.innerHeight, vw = window.innerWidth, u = (2 * H0) / vh, W = H0 * (vw / vh);
     const top = hs();
-    const cy = -((top + vh) / 2 - vh / 2) * u; // menünün altında kalan alanın ortası
     if (isMobile()) {
       const ph = Math.max(...players.map((p) => p.offsetHeight || 0));
-      const t = top + 10, bot = Math.max(t + 200, vh - ph - 10);
-      const y = -((t + bot) / 2 - vh / 2) * u, s = Math.min(1.05, ((bot - t) * u) / 1.75);
-      return { intro: { x: 0, y, s, ry: -0.25, rz: 0, podium: 0, halo: 0 }, stage: { x: 0, y: y - 0.06 * s, s: s * 0.9, ry: 0, rz: 0, podium: 1, halo: 0 } };
+      const t = top + 6, bot = Math.max(t + 220, vh - ph + 4);
+      const R = (bot - t) * u;
+      const s = Math.min(1.0, (R * 0.9) / STACK, W * 0.62);
+      const stackTop = H0 - t * u - (R - STACK * s) / 2;
+      const y = stackTop - 0.76 * s;
+      return { intro: { x: 0, y, s, ry: -0.3, rz: 0, podium: 1, halo: 0 }, stage: { x: 0, y, s, ry: 0, rz: 0, podium: 1, halo: 0 } };
     }
-    const s = Math.min(1.5, H * 1.0, W * 0.56);
+    const A = (vh - top) * u;
+    const s = Math.min((0.86 * A) / STACK, W * 0.5);
+    const stackTop = H0 - top * u - 0.05 * A - (0.86 * A - STACK * s) / 2;
+    const y = stackTop - 0.76 * s;
     return {
-      intro: { x: W * 0.3, y: cy + 0.02, s: s * 1.0, ry: -0.28, rz: 0.03, podium: 0, halo: 0 },
-      stage: { x: W * 0.2, y: cy + 0.1, s: s * 0.95, ry: 0, rz: 0, podium: 1, halo: 0 },
+      intro: { x: W * 0.3, y, s, ry: -0.3, rz: 0, podium: 1, halo: 0 },
+      stage: { x: W * 0.2, y, s, ry: 0, rz: 0, podium: 1, halo: 0 },
     };
   }
 
+  /* ---------- açılış görseli: 3B'nin ilk karesiyle birebir aynı yerde ve boyda ---------- */
+  const layer = $('#posterLayer');
+  function placePoster() {
+    if (!layer || document.body.classList.contains('gl-ready')) return;
+    const meta = POSTER[isMobile() ? 'm' : 'd'];
+    if (!meta) return;
+    const P = poses().intro, vh = window.innerHeight, vw = window.innerWidth, ppu = vh / (2 * H0);
+    const k = (P.s * ppu) / meta.k;
+    const ax = vw / 2 + P.x * ppu, ay = vh / 2 - P.y * ppu;
+    Object.assign(layer.style, { width: `${meta.w * k}px`, height: `${meta.h * k}px`, left: `${ax - meta.ax * k}px`, top: `${ay - meta.ay * k}px` });
+    layer.classList.add('placed');
+  }
+  placePoster();
+  document.fonts?.ready.then(placePoster);
+  window.addEventListener('resize', placePoster);
+
   /* ---------- kaydırmaya bağlı durum ---------- */
+  let shown = -1, outTimers = new Map();
+  function showPlayer(k) {
+    if (k === shown) return;
+    const prev = shown;
+    shown = k;
+    // ürünler arası geçişte yazı, yeni ürün kaideden yükselirken gelir
+    sec.style.setProperty('--in', prev >= 1 && k >= 1 ? '0.95s' : '0.15s');
+    players.forEach((pl, i) => {
+      if (i === 0) return;
+      const on = i === k;
+      if (on) { clearTimeout(outTimers.get(pl)); pl.classList.remove('out'); }
+      else if (pl.classList.contains('on')) {
+        pl.classList.add('out');
+        clearTimeout(outTimers.get(pl));
+        outTimers.set(pl, setTimeout(() => pl.classList.remove('out'), 700));
+      }
+      pl.classList.toggle('on', on);
+      pl.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+  }
   function update() {
     if (!scene) return;
     const vh = window.innerHeight, top = hs();
@@ -76,28 +122,29 @@ export function initStream() {
     sec.classList.toggle('live', live);
     if (!live) return;
     const P = poses();
-    const m = smooth(0, 1, f); // açılış → kaide
+    const m = smooth(0, 1, f); // açılış → sahne
     const p = {};
     for (const k in P.stage) p[k] = P.intro[k] + (P.stage[k] - P.intro[k]) * m;
     // akışın sonu: ürün bölümle birlikte yukarı kayar
-    if (r.bottom < vh) p.y += (vh - r.bottom) * ((2 * scene.halfHeight()) / vh);
+    if (r.bottom < vh) p.y += (vh - r.bottom) * ((2 * H0) / vh);
     scene.setPose({ ...p, cloud: 0, frost: 0, bd: 0 });
-    scene.setStream(clamp(f - 1, 0, N - 1));
     cur = Math.round(clamp(f - 1, 0, N - 1));
+    scene.setStream(cur);
 
-    players.forEach((pl, k) => {
-      const d = f - k, ad = Math.abs(d);
-      const o = 1 - smooth(0.28, 0.48, ad);
-      pl.style.setProperty('--d', (Math.sign(d) * Math.max(0, ad - 0.15)).toFixed(4));
-      pl.style.setProperty('--o', o.toFixed(3));
-      pl.style.setProperty('--b', ad < 0.3 ? '0px' : `${Math.min(8, (ad - 0.3) * 40).toFixed(1)}px`);
-      pl.style.visibility = o < 0.002 ? 'hidden' : 'visible';
-      const on = ad < 0.3;
-      if (pl.classList.contains('on') !== on) { pl.classList.toggle('on', on); pl.setAttribute('aria-hidden', on ? 'false' : 'true'); }
-    });
-    dots.forEach((d, k) => d.classList.toggle('on', f > 0.5 && k === cur));
+    // açılış yazısı kaydırmayla çekilir; ürün yazıları geçişle birlikte gelir
+    const intro = players[0], d = f, ad = Math.abs(d);
+    const o = 1 - smooth(0.18, 0.42, ad);
+    intro.style.setProperty('--d', Math.max(0, ad - 0.05).toFixed(4));
+    intro.style.setProperty('--o', o.toFixed(3));
+    intro.style.setProperty('--b', ad < 0.2 ? '0px' : `${Math.min(8, (ad - 0.2) * 40).toFixed(1)}px`);
+    intro.style.visibility = o < 0.002 ? 'hidden' : 'visible';
+    intro.classList.toggle('on', ad < 0.3);
+    intro.setAttribute('aria-hidden', ad < 0.3 ? 'false' : 'true');
+    showPlayer(f < 0.5 ? 0 : cur + 1);
+
+    dots.forEach((dd, k) => dd.classList.toggle('on', f > 0.5 && k === cur));
     $('#flavorList').classList.toggle('show', f > 0.55);
-    $('#streamCount').innerHTML = `<b>${pad(cur + 1)}</b><i><span style="width:${(clamp(f - 1, 0, N - 1) / (N - 1)) * 100}%"></span></i>${pad(N)}`;
+    $('#streamCount').innerHTML = `<b>${pad(cur + 1)}</b><i><span style="width:${(cur / (N - 1)) * 100}%"></span></i>${pad(N)}`;
     $('#streamCount').classList.toggle('show', f > 0.55);
     $('#productHit').href = productUrl(STREAM[f < 0.5 ? 0 : cur]);
   }
@@ -127,14 +174,19 @@ export function initStream() {
   hit.addEventListener('pointerleave', () => hit.classList.remove('hover'));
 
   import('../scene.js').then(({ createScene }) => {
-    scene = createScene($('#gl'), STREAM, null, null, { backdrop: true });
+    const still = /[?&]poster\b/.test(location.search);
+    scene = createScene($('#gl'), STREAM, null, null, { backdrop: true, still });
+    window.__scene = scene;
+    window.__pose = () => poses().intro;
     scene.ready.then(() => {
       const P = poses();
       scene.snapPose({ ...P.intro, cloud: 0, frost: 0, bd: 0 });
       update();
-      document.body.classList.add('gl-ready');
-      // açılış: ürün ağır bir tur atarak belirir
-      if (!reduce) scene.spinOnce(1, 2.4);
+      // ilk kare çizildikten sonra açılış görseli yumuşakça çekilir; ardından kaidede hafif bir ışık belirir
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.body.classList.add('gl-ready');
+        if (!reduce && !still) setTimeout(() => scene.glow(0.75), 700);
+      }));
     });
   }).catch(() => { document.body.classList.add('no-gl'); });
 }
