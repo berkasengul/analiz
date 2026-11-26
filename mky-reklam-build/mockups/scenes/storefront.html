@@ -1,0 +1,108 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,400&family=Cormorant+Garamond:wght@600&family=Inter:wght@500&family=Barlow+Condensed:ital,wght@0,600;1,800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1600px;height:1100px;overflow:hidden;background:#111}
+#zoom{width:1600px;height:1100px;transform-origin:0 0;position:relative}
+.scene{position:absolute;inset:0;overflow:hidden}
+.wall{position:absolute;inset:0 0 170px 0}
+.walk{position:absolute;left:0;right:0;bottom:0;height:170px;background:linear-gradient(#8d8a86,#6d6a66);}
+.walk::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 158px,rgba(0,0,0,.18) 158px 160px),repeating-linear-gradient(0deg,transparent 0 56px,rgba(0,0,0,.15) 56px 58px)}
+.curb{position:absolute;left:0;right:0;bottom:170px;height:14px;background:#5d5a57;box-shadow:0 6px 10px rgba(0,0,0,.3)}
+.front{position:absolute;left:170px;right:170px;top:330px;bottom:184px;display:flex;gap:0;background:#1a1a1a;padding:14px;box-shadow:0 0 0 1px rgba(255,255,255,.05)}
+.glass{position:relative;flex:1;overflow:hidden;border:6px solid #222;margin-right:14px}
+.glass:last-child{margin-right:0}
+.glass img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.glass::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.28) 0%,rgba(255,255,255,.05) 30%,transparent 45%,rgba(255,255,255,.12) 60%,transparent 75%)}
+.door{flex:0 0 260px}
+.door::before{content:"";position:absolute;right:22px;top:46%;width:10px;height:150px;background:linear-gradient(90deg,#999,#eee,#999);z-index:2;border-radius:4px}
+.decal{position:absolute;left:0;right:0;top:44%;text-align:center;z-index:2;color:#fff;opacity:.85;font:500 15px Inter;letter-spacing:.3em}
+.band{position:absolute;left:150px;right:150px;top:120px;height:190px;display:flex;align-items:center;justify-content:center}
+.planter{position:absolute;bottom:170px;width:120px;height:110px;background:linear-gradient(#3a3330,#221d1b);border-radius:6px 6px 10px 10px;z-index:3}
+.planter::before{content:"";position:absolute;left:-30px;right:-30px;bottom:96px;height:150px;background:radial-gradient(ellipse at 50% 100%,#2f5a2a 0 35%,transparent 36%),radial-gradient(circle at 30% 60%,#3d7036 0 30%,transparent 31%),radial-gradient(circle at 70% 55%,#356530 0 28%,transparent 29%),radial-gradient(circle at 50% 30%,#4a8040 0 26%,transparent 27%)}
+.blade{position:absolute;top:150px;width:150px;height:150px;border-radius:50%;display:grid;place-items:center;z-index:4}
+.blade::before{content:"";position:absolute;left:-60px;top:70px;width:60px;height:8px;background:#222}
+.shade{position:absolute;inset:0;pointer-events:none}
+.lamp{position:absolute;top:96px;width:90px;height:18px;background:#222;border-radius:3px;z-index:5}
+.lamp::after{content:"";position:absolute;left:-60px;right:-60px;top:18px;height:220px;background:radial-gradient(ellipse at 50% 0,rgba(255,236,200,.35),transparent 70%);opacity:0}
+
+/* ---- MOLA ---- */
+.mola .wall{background:url(../photos/p210.jpg) center/700px}
+.mola .band{background:#1c120d;border:8px solid #2a1c14;box-shadow:0 20px 40px -10px rgba(0,0,0,.6)}
+.mola .band span{font:600 120px/1 Fraunces;color:#F3EBE1;letter-spacing:-.02em}
+.mola .band span i{font-style:italic;font-weight:400;color:#E08A5A}
+.mola .blade{left:40px;background:#C8693B;border:8px solid #2a1c14;font:italic 400 80px/1 Fraunces;color:#F3EBE1}
+/* ---- VADI ---- */
+.vadi .wall{background:linear-gradient(90deg,rgba(0,0,0,.08) 2px,transparent 2px) 0 0/320px 100%,linear-gradient(rgba(0,0,0,.08) 2px,transparent 2px) 0 0/100% 230px,linear-gradient(180deg,#1f463d,#173830)}
+.vadi .band{flex-direction:column;gap:10px}
+.vadi .band b{font:600 150px/1 "Cormorant Garamond";letter-spacing:.08em;color:#d8b46a;background:linear-gradient(180deg,#f1d79a,#b8903f 55%,#e7c77f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 4px rgba(0,0,0,.45))}
+.vadi .band small{font:500 26px Inter;letter-spacing:.7em;color:#d9be83;margin-right:-.7em}
+.vadi .front{background:#0e1f1b}
+.vadi .blade{display:none}
+/* ---- ATLAS ---- */
+.atlas .wall{background:repeating-linear-gradient(90deg,#5d6066 0 18px,#7b7e85 18px 26px,#53565c 26px 40px)}
+.atlas .band{background:#FFC400;border:10px solid #18191c;flex-direction:column;box-shadow:0 20px 40px -10px rgba(0,0,0,.6)}
+.atlas .band b{font:italic 800 150px/.9 "Barlow Condensed";color:#0f1012;letter-spacing:.02em}
+.atlas .band b span{color:#fff;-webkit-text-stroke:4px #0f1012}
+.atlas .band small{font:600 28px "Barlow Condensed";letter-spacing:.6em;color:#0f1012;margin-top:6px}
+.atlas .front{background:#18191c}
+.atlas .glass.shutter{flex:2.3}
+.atlas .glass.shutter::before{content:"";position:absolute;left:0;right:0;top:0;height:34%;z-index:2;background:repeating-linear-gradient(0deg,#9a9da3 0 10px,#7d8086 10px 14px);box-shadow:0 8px 12px rgba(0,0,0,.4)}
+.atlas .blade{right:40px;left:auto;background:#0f1012;border:8px solid #FFC400;font:italic 800 66px/1 "Barlow Condensed";color:#FFC400}
+.atlas .blade::before{left:auto;right:-60px}
+
+.letter{position:absolute;left:0;right:0;top:9%;z-index:2;text-align:center;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.letter i{display:block;font:italic 400 40px/1.25 Fraunces}
+.letter small{display:block;font:500 13px Inter;letter-spacing:.3em;margin-top:10px}
+.letter.r{top:auto;bottom:8%}.letter.r i{font-size:32px}
+.listings{position:absolute;inset:7% 9%;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.listings div{background:#fff;padding:6px 6px 8px;box-shadow:0 8px 16px rgba(0,0,0,.35);display:flex;flex-direction:column}
+.listings img{position:static!important;height:auto!important;flex:1;min-height:0}
+.listings b{font:500 11px Inter;letter-spacing:.2em;color:#12302A;margin-top:6px}
+.listings span{font:600 17px "Cormorant Garamond";color:#12302A}
+.frost{position:absolute;left:0;right:0;top:38%;height:24%;z-index:2;background:rgba(240,240,235,.55);backdrop-filter:blur(3px);display:grid;place-items:center;text-align:center;font:600 40px/1.05 "Cormorant Garamond";letter-spacing:.12em;color:#12302A}
+/* ---- NIGHT ---- */
+.night .wall,.night .walk,.night .curb{filter:brightness(.28) saturate(.7)}
+.night .glass img{filter:brightness(.95) sepia(.3) saturate(1.25)}
+.night .glass{box-shadow:inset 0 0 80px rgba(255,170,80,.35)}
+.night .glass::after{background:linear-gradient(115deg,rgba(255,255,255,.08),transparent 40%)}
+.night .front{box-shadow:0 0 120px 20px rgba(255,190,120,.18)}
+.night .shade{background:radial-gradient(ellipse at 50% 30%,transparent 30%,rgba(0,0,0,.55) 100%)}
+.night.mola .band{background:#0d0806}
+.night.mola .band span{text-shadow:0 0 6px #fff4e0,0 0 22px rgba(255,214,160,.9),0 0 60px rgba(255,170,100,.6)}
+.night.mola .band span i{color:#ffb27f;text-shadow:0 0 8px #ffd9bd,0 0 26px rgba(255,140,80,.9),0 0 70px rgba(255,120,60,.6)}
+.night.mola .blade{box-shadow:0 0 40px 10px rgba(220,120,70,.55);background:#e0743f}
+.night .walk::after{content:"";position:absolute;left:15%;right:15%;top:0;height:130px;background:radial-gradient(ellipse at 50% 0,rgba(255,200,140,.35),transparent 70%)}
+.night.vadi .wall{filter:brightness(.35)}
+.night.vadi .band b{filter:drop-shadow(0 0 2px rgba(255,230,170,.9)) drop-shadow(0 0 30px rgba(255,200,110,.55))}
+.night.vadi .band small{text-shadow:0 0 14px rgba(255,210,140,.9)}
+.night.vadi .band::before{content:"";position:absolute;inset:-40px -80px;background:radial-gradient(ellipse,rgba(255,200,110,.22),transparent 65%);z-index:-1}
+.night.atlas .band{box-shadow:0 0 80px 20px rgba(255,196,0,.45),0 0 0 10px #18191c;background:#ffd23a}
+.night.atlas .blade{box-shadow:0 0 50px 8px rgba(255,196,0,.45)}
+.night .lamp::after{opacity:1}
+</style></head><body>
+<div id="zoom"><div class="scene" id="sc">
+  <div class="wall"></div>
+  <div class="band" id="band"></div>
+  <div class="blade" id="blade"></div>
+  <div class="front" id="front"></div>
+  <div class="curb"></div><div class="walk"></div>
+  <div class="planter" style="left:60px"></div><div class="planter" style="right:60px"></div>
+  <div class="shade"></div>
+</div></div>
+<script>
+const q=new URLSearchParams(location.search), brand=q.get('brand'), mode=q.get('mode')||'day';
+const sc=document.getElementById('sc'); sc.classList.add(brand, mode);
+const P=id=>`../photos/p${id}.jpg`;
+const cfg={
+ mola:{band:'<span>Mola <i>Coffee</i> Co.</span>',blade:'m',front:[[P(42),'','','<div class="letter"><i>Kahve · Tatlı · Sohbet</i><small>HER GÜN 07:30 – 22:00</small></div>'],[P(1060),'AÇIK · OPEN','door'],[P(431),'','','<div class="letter r"><i>Flat White</i><i>Filtre Kahve</i><i>San Sebastian</i></div>']],planters:true},
+ vadi:{band:'<b>VADİ</b><small>GAYRİMENKUL</small>',blade:'',front:[[P(625),'','','<div class="listings">'+[[1031,'SATILIK','₺12.450.000'],[1008,'KİRALIK','₺48.000/ay'],[437,'SATILIK','₺38.900.000'],[1048,'SATILIK','₺8.750.000']].map(([i,t,p])=>`<div><img src="${P(i)}"><b>${t}</b><span>${p}</span></div>`).join('')+'</div>'],[P(625),'VADİ','door'],[P(1008),'','','<div class="frost">ÜCRETSİZ<br>EKSPERTİZ</div>']],planters:true},
+ atlas:{band:'<b>ATLAS<span>/</span>OTO</b><small>SERVİS & BAKIM</small>',blade:'A/',front:[[P(133),'','shutter'],[P(514),'RANDEVU · 7/24','door']],planters:false}
+}[brand];
+document.getElementById('band').innerHTML=cfg.band;
+document.getElementById('blade').textContent=cfg.blade;
+document.getElementById('front').innerHTML=cfg.front.map(([img,txt,cls,extra])=>`<div class="glass ${cls||''}"><img src="${img}">${txt?`<div class="decal">${txt}</div>`:''}${extra||''}</div>`).join('');
+if(!cfg.planters) document.querySelectorAll('.planter').forEach(p=>p.remove());
+['22%','78%'].forEach(l=>{const d=document.createElement('div');d.className='lamp';d.style.left=`calc(${l} - 45px)`;sc.appendChild(d)});
+const z=q.get('zoom'); if(z){const [s,x,y]=z.split(',').map(Number);document.getElementById('zoom').style.transform=`scale(${s}) translate(${-x}px,${-y}px)`}
+</script></body></html>

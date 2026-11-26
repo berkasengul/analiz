@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,800&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:1600px;height:1000px;overflow:hidden}
+.street{position:absolute;inset:0;background:url(../photos/p371.jpg) center 40%/cover;filter:blur(5px) brightness(.8) saturate(.8);transform:scale(1.05)}
+.road{position:absolute;left:0;right:0;bottom:0;height:300px;background:linear-gradient(#3b3c3f,#26272a)}
+.road::before{content:"";position:absolute;left:0;right:0;top:0;height:16px;background:#8c8a86}
+.shadow{position:absolute;left:230px;width:1140px;bottom:212px;height:46px;background:radial-gradient(ellipse,rgba(0,0,0,.75),transparent 70%)}
+svg.van{position:absolute;left:200px;bottom:200px;width:1200px}
+.flat{position:absolute;inset:0;background:#f3f3f1}
+.flat::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px) 0 0/40px 40px}
+.v1,.v2{position:absolute;width:1000px;left:500px}
+.spec{position:absolute;left:60px;top:70px;font:600 14px Inter;color:#333;letter-spacing:.12em}
+.spec h1{font:italic 800 64px/1 "Barlow Condensed";letter-spacing:.01em;color:#0f1012;margin-bottom:6px}
+.spec p{margin-top:28px;display:flex;align-items:center;gap:12px}.spec p i{width:34px;height:34px;border-radius:50%}
+.label{position:absolute;font:600 13px Inter;letter-spacing:.2em;color:#888}
+</style></head><body>
+<template id="vanT">
+<svg viewBox="0 0 1000 420" class="van" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <clipPath id="body"><path d="M40 335 L40 255 Q42 215 85 195 L200 120 Q228 100 262 98 L930 92 Q962 92 964 124 L972 335 Z"/></clipPath>
+  <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient>
+ </defs>
+ <g clip-path="url(#body)">
+  <rect width="1000" height="420" fill="#0F1012"/>
+  <path d="M330 92 L560 92 L420 340 L190 340 Z" fill="#FFC400"/>
+  <path d="M585 92 L640 92 L500 340 L445 340 Z" fill="#FFC400"/>
+  <text x="560" y="205" font-family="Barlow Condensed" font-style="italic" font-weight="800" font-size="80" fill="#fff">ATLAS<tspan fill="#FFC400">/</tspan>OTO</text>
+  <text x="566" y="252" font-family="Barlow Condensed" font-weight="600" font-size="26" letter-spacing="9" fill="#FFC400">SERVİS &amp; BAKIM</text>
+  <text x="566" y="300" font-family="Inter" font-weight="600" font-size="16" fill="#fff">ONLİNE RANDEVU</text>
+  <rect x="40" y="318" width="940" height="20" fill="#FFC400"/>
+  <rect width="1000" height="420" fill="url(#sheen)"/>
+ </g>
+ <!-- windows -->
+ <path d="M206 132 L262 110 L330 108 L330 196 L110 200 Q150 160 206 132Z" fill="#1d2a33"/>
+ <path d="M214 136 L262 116 L300 115 L240 196 L130 198Z" fill="#fff" opacity=".12"/>
+ <rect x="340" y="108" width="190" height="88" rx="6" fill="#1d2a33"/>
+ <!-- door seams -->
+ <path d="M335 100 V335 M540 98 V335 M955 100 V335" stroke="#000" stroke-opacity=".35" stroke-width="3" fill="none"/>
+ <rect x="350" y="214" width="28" height="7" rx="3" fill="#333"/>
+ <!-- mirror + lights -->
+ <path d="M188 150 l-26 6 l2 34 l22 -6Z" fill="#0F1012"/>
+ <path d="M40 262 Q42 240 62 236 L80 236 L80 268 L40 272Z" fill="#ffe9a8"/>
+ <rect x="958" y="150" width="14" height="60" rx="3" fill="#c0262d"/>
+ <!-- bumper -->
+ <rect x="30" y="318" width="70" height="24" rx="8" fill="#222"/><rect x="930" y="318" width="50" height="24" rx="8" fill="#222"/>
+ <!-- arches -->
+ <path d="M120 340 A78 78 0 0 1 276 340 Z" fill="#0a0a0a"/><path d="M720 340 A78 78 0 0 1 876 340 Z" fill="#0a0a0a"/>
+ <g><circle cx="198" cy="345" r="62" fill="#151515"/><circle cx="198" cy="345" r="34" fill="#8a8d93"/><circle cx="198" cy="345" r="12" fill="#444"/></g>
+ <g><circle cx="798" cy="345" r="62" fill="#151515"/><circle cx="798" cy="345" r="34" fill="#8a8d93"/><circle cx="798" cy="345" r="12" fill="#444"/></g>
+</svg>
+</template>
+<div id="root"></div>
+<script>
+const mode=new URLSearchParams(location.search).get('mode')||'street';
+const T=document.getElementById('vanT').innerHTML, R=document.getElementById('root');
+if(mode==='street'){R.innerHTML='<div class="street"></div><div class="road"></div><div class="shadow"></div>'+T}
+else{R.innerHTML=`<div class="flat"></div><div class="spec"><h1>ATLAS/OTO</h1>ARAÇ GİYDİRME · UYGULAMA ŞABLONU<p><i style="background:#FFC400"></i>PANTONE 7548 C</p><p><i style="background:#0F1012"></i>MAT SİYAH FOLYO</p><p><i style="background:#fff;border:1px solid #ccc"></i>CAST FOLYO · 7 YIL</p></div>
+<span class="label" style="left:500px;top:110px">SOL YAN GÖRÜNÜM</span>${T.replace('class="van"','class="v1" style="top:140px"')}
+<span class="label" style="left:500px;top:560px">SAĞ YAN GÖRÜNÜM</span>${T.replace('class="van"','class="v2" style="top:590px;transform:scaleX(-1)"').replace(/<text[^>]*>ONLİNE RANDEVU<\/text>/,'').replace(/<text x="(\d+)"/g,(m,x)=>`<text transform="translate(1000,0) scale(-1,1)" x="${+x-460}"`)}`}
+</script></body></html>

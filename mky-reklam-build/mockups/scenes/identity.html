@@ -1,0 +1,63 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F3EBE1;--esp:#2E1B12;--terra:#C8693B;--sand:#E4D5C3}
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:1600px;height:1200px;overflow:hidden}
+.table{position:absolute;inset:0;background:#d9c7b2}
+.table::after{content:"";position:absolute;inset:0;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+.o{position:absolute;box-shadow:0 30px 40px -18px rgba(60,30,10,.45),0 4px 8px rgba(60,30,10,.15)}
+.logo{font:600 44px/1 Fraunces;letter-spacing:-.02em;display:flex;align-items:center;gap:14px}
+.logo i{width:56px;height:56px;border-radius:50%;background:currentColor;display:grid;place-items:center;font-style:italic;font-weight:400;font-size:32px}
+.logo i span{color:var(--esp)}
+.bag{left:120px;top:160px;width:430px;height:600px;background:linear-gradient(90deg,#c9a77f,#d9b88f 30%,#c49f75);transform:rotate(-6deg);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--esp)}
+.bag::before{content:"";position:absolute;top:0;left:0;right:0;height:70px;background:repeating-linear-gradient(90deg,#b8946b 0 2px,transparent 2px 14px),linear-gradient(#bf9a70,#cfae86)}
+.bag .stamp{width:200px;height:200px;border-radius:50%;border:4px solid var(--esp);display:grid;place-items:center;font:italic 400 110px Fraunces}
+.bag small{font:700 15px "DM Sans";letter-spacing:.4em;margin-top:24px}
+.cup{left:640px;top:520px;width:330px;height:330px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.cup::before{content:"";width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#e9d3b4 0 18%,#a8693d 19% 22%,#e9d3b4 23% 30%,#7a4420 31% 60%,#5b2f15 61%);box-shadow:inset 0 0 0 12px #f6f1ea}
+.saucer{left:600px;top:480px;width:410px;height:410px;border-radius:50%;background:#f7f2ec}
+.card1{left:1060px;top:140px;width:420px;height:240px;background:var(--esp);color:var(--cream);transform:rotate(8deg);display:grid;place-items:center}
+.card2{left:1020px;top:330px;width:420px;height:240px;background:var(--cream);transform:rotate(-4deg);padding:34px;color:var(--esp)}
+.card2 b{font:600 26px Fraunces;display:block}.card2 small{font:500 13px "DM Sans";color:var(--terra);letter-spacing:.2em}
+.card2 p{font:400 14px/1.8 "DM Sans";margin-top:34px;opacity:.75}
+.menu{left:1080px;top:640px;width:360px;height:480px;background:var(--cream);transform:rotate(5deg);padding:40px;color:var(--esp)}
+.menu h3{font:italic 400 40px Fraunces;color:var(--terra);margin-bottom:20px}
+.menu div{display:flex;justify-content:space-between;font:400 17px "DM Sans";padding:10px 0;border-bottom:1px dashed rgba(46,27,18,.3)}
+.sticker{left:560px;top:150px;width:170px;height:170px;border-radius:50%;background:var(--terra);color:var(--cream);display:grid;place-items:center;transform:rotate(12deg)}
+.sticker svg{position:absolute;inset:0}
+.bean{position:absolute;width:34px;height:24px;border-radius:50%;background:radial-gradient(ellipse at 40% 35%,#7a4825,#3d2012);box-shadow:0 4px 4px rgba(0,0,0,.25)}
+.bean::after{content:"";position:absolute;left:15px;top:3px;width:4px;height:18px;border-radius:50%;background:#2a140a;transform:rotate(12deg)}
+.cups{left:180px;top:830px;width:220px;height:300px}
+.takeaway{position:absolute;bottom:0;width:150px;height:230px;background:var(--cream);clip-path:polygon(0 0,100% 0,88% 100%,12% 100%);display:grid;place-items:center}
+.takeaway::before{content:"";position:absolute;top:70px;left:0;right:0;height:90px;background:var(--terra)}
+.takeaway span{position:relative;font:italic 400 52px Fraunces;color:var(--cream)}
+.lid{position:absolute;bottom:224px;left:-8px;width:166px;height:24px;background:var(--esp);border-radius:8px 8px 2px 2px}
+/* sheet */
+.sheet{position:absolute;inset:0;background:#e8e1d8;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:24px;padding:60px}
+.tile{border-radius:18px;display:grid;place-items:center;position:relative;overflow:hidden}
+.tile .cap{position:absolute;left:24px;bottom:20px;font:500 13px "DM Sans";letter-spacing:.2em;opacity:.6}
+.sw{display:flex;flex-direction:column;width:100%;height:100%}.sw div{flex:1;display:flex;align-items:flex-end;justify-content:space-between;padding:16px 24px;font:500 15px "DM Sans"}
+.type{color:var(--esp);text-align:left;padding:40px;width:100%}.type b{font:400 120px/1 Fraunces;display:block}.type p{font:400 18px "DM Sans";margin-top:14px}
+</style></head><body><div id="root"></div>
+<script>
+const mode=new URLSearchParams(location.search).get('mode')||'flatlay';
+const L=(c)=>`<div class="logo" style="color:${c}"><i><span style="color:${c==='#2E1B12'?'#F3EBE1':'#2E1B12'}">m</span></i>Mola Coffee Co.</div>`;
+const beans=[[600,960],[650,1000],[560,1040],[950,980],[1000,930],[480,420],[520,470],[930,170],[880,220],[1500,600]].map(([x,y],i)=>`<i class="bean" style="left:${x}px;top:${y}px;transform:rotate(${i*47}deg)"></i>`).join('');
+document.getElementById('root').innerHTML = mode==='flatlay' ? `<div class="table"></div>
+<div class="o bag"><div class="stamp">m</div><small>MOLA COFFEE CO.</small></div>
+<div class="o saucer"></div><div class="o cup"></div>
+<div class="o card1">${L('#F3EBE1')}</div>
+<div class="o card2"><b>Deniz Kaya</b><small>BARİSTA · ŞUBE MÜDÜRÜ</small><p>0 (5XX) XXX XX XX<br>merhaba@molacoffee.co</p></div>
+<div class="o menu"><h3>Menü</h3><div><span>Espresso</span><span>70</span></div><div><span>Flat White</span><span>95</span></div><div><span>Filtre Kahve</span><span>80</span></div><div><span>Cold Brew</span><span>110</span></div><div><span>San Sebastian</span><span>145</span></div></div>
+<div class="o sticker"><svg viewBox="0 0 170 170"><defs><path id="c" d="M85,85 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/></defs><text fill="#F3EBE1" font-family="DM Sans" font-weight="700" font-size="13" letter-spacing="5"><textPath href="#c">KAHVE · TATLI · SOHBET · MOLA ·</textPath></text></svg><span style="font:italic 400 60px Fraunces">m</span></div>
+<div class="cups" style="position:absolute"><div class="takeaway" style="left:0;filter:drop-shadow(0 20px 20px rgba(60,30,10,.35))"><span>m</span><div class="lid"></div></div></div>
+${beans}`
+: `<div class="sheet">
+<div class="tile" style="background:#F3EBE1">${L('#2E1B12')}<span class="cap">ANA LOGO</span></div>
+<div class="tile" style="background:#2E1B12;color:#F3EBE1">${L('#F3EBE1')}<span class="cap">NEGATİF</span></div>
+<div class="tile" style="background:#C8693B"><div class="logo" style="color:#F3EBE1"><i style="width:150px;height:150px;font-size:96px"><span style="color:#C8693B">m</span></i></div><span class="cap" style="color:#fff">MONOGRAM</span></div>
+<div class="tile"><div class="sw"><div style="background:#2E1B12;color:#F3EBE1"><span>Espresso</span><span>#2E1B12</span></div><div style="background:#C8693B;color:#fff"><span>Terra</span><span>#C8693B</span></div><div style="background:#E4D5C3"><span>Kum</span><span>#E4D5C3</span></div><div style="background:#F3EBE1"><span>Krem</span><span>#F3EBE1</span></div></div></div>
+<div class="tile" style="background:#F3EBE1"><div class="type"><b>Aa</b><p><strong>Fraunces</strong> — Başlıklar</p><p style="font-family:'DM Sans'">DM Sans — Metinler</p></div><span class="cap">TİPOGRAFİ</span></div>
+<div class="tile" style="background:#E4D5C3"><div class="sticker" style="position:relative;left:auto;top:auto;width:240px;height:240px;border-radius:50%;background:#2E1B12;color:#F3EBE1;display:grid;place-items:center"><svg viewBox="0 0 170 170" style="position:absolute;inset:0"><defs><path id="c2" d="M85,85 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/></defs><text fill="#F3EBE1" font-family="DM Sans" font-weight="700" font-size="13" letter-spacing="5"><textPath href="#c2">KAHVE · TATLI · SOHBET · MOLA ·</textPath></text></svg><span style="font:italic 400 80px Fraunces">m</span></div><span class="cap">ROZET / ETİKET</span></div>
+</div>`;
+</script></body></html>

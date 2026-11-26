@@ -1,0 +1,43 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden}
+body{display:grid;place-items:center;position:relative;font-family:sans-serif}
+.bg{position:absolute;inset:0}
+#root{position:relative}
+.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.18),transparent 60%)}
+.stage{position:relative;width:1240px;height:820px}
+/* laptop */
+.lap{position:absolute;left:40px;top:60px;width:1040px}
+.lid{background:#1b1b1d;border-radius:26px 26px 6px 6px;padding:22px 22px 30px;box-shadow:0 0 0 2px #3a3a3e inset,0 60px 90px -30px rgba(0,0,0,.55)}
+.lid .scr{aspect-ratio:16/10;overflow:hidden;border-radius:4px;background:#000}
+.lid img,.ph img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.base{height:28px;margin:0 -70px;background:linear-gradient(#d9dadd,#a9abb0 60%,#7d7f84);border-radius:0 0 30px 30px;position:relative;box-shadow:0 40px 60px -20px rgba(0,0,0,.6)}
+.base::before{content:"";position:absolute;left:50%;top:0;width:170px;height:10px;margin-left:-85px;background:#b9bbc0;border-radius:0 0 12px 12px}
+/* phone */
+.ph{position:absolute;right:20px;bottom:10px;width:250px;aspect-ratio:390/844;background:#111;border-radius:42px;padding:11px;box-shadow:0 0 0 2px #444 inset,0 50px 80px -20px rgba(0,0,0,.65)}
+.ph .in{width:100%;height:100%;border-radius:32px;overflow:hidden;position:relative}
+.ph .in::before{content:"";position:absolute;top:10px;left:50%;width:84px;height:24px;margin-left:-42px;background:#000;border-radius:20px;z-index:2}
+/* trio */
+.trio{display:flex;gap:56px;align-items:center}
+.trio .ph{position:relative;right:auto;bottom:auto;width:300px}
+.trio .ph:nth-child(2){transform:translateY(-40px) scale(1.06)}
+.trio .ph:nth-child(1){transform:rotate(-4deg)}.trio .ph:nth-child(3){transform:rotate(4deg)}
+/* browser */
+.br{width:1240px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 60px 100px -30px rgba(0,0,0,.55)}
+.br .bar{height:46px;background:#ececef;display:flex;align-items:center;gap:8px;padding:0 18px}
+.br .bar i{width:13px;height:13px;border-radius:50%;background:#ff5f57}.br .bar i:nth-child(2){background:#febc2e}.br .bar i:nth-child(3){background:#28c840}
+.br .bar span{margin-left:22px;flex:1;max-width:520px;height:28px;border-radius:8px;background:#fff;font-size:13px;color:#777;display:flex;align-items:center;padding:0 14px}
+.br .sc{height:var(--h);overflow:hidden}.br .sc img{width:100%;display:block}
+</style></head><body>
+<div class="bg" id="bg"></div>
+<div id="root"></div>
+<script>
+const q=new URLSearchParams(location.search), mode=q.get('mode'), s=q.get('site');
+document.getElementById('bg').style.background=q.get('bg');
+const R=document.getElementById('root');
+const shot=n=>`../shots/${s}-${n}.png`;
+if(mode==='laptop'){R.className='stage';R.innerHTML=`<div class="lap"><div class="lid"><div class="scr"><img src="${shot('desk')}"></div></div><div class="base"></div></div><div class="ph"><div class="in"><img src="${shot('mob')}"></div></div>`}
+if(mode==='trio'){R.className='trio';R.innerHTML=[shot('mob2'),shot('mob'),shot('mob3')].map(x=>`<div class="ph"><div class="in"><img src="${x}"></div></div>`).join('')}
+if(mode==='browser'){R.innerHTML=`<div class="br" style="--h:${q.get('h')}px"><div class="bar"><i></i><i></i><i></i><span>${q.get('url')}</span></div><div class="sc"><img src="${shot('full')}"></div></div>`}
+</script></body></html>

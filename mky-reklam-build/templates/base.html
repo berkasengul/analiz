@@ -1,0 +1,103 @@
+{%- from "_macros.html" import icon, arrow -%}
+<!doctype html>
+<html lang="tr" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ title }} | {{ SITE.name }}{% endblock %}</title>
+<meta name="description" content="{{ desc }}">
+<meta name="theme-color" content="#681C20">
+<link rel="canonical" href="{{ SITE.url }}/{{ path }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ title }} | {{ SITE.name }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:image" content="{{ SITE.url }}/assets/img/{{ og|default('og.jpg') }}">
+<meta property="og:locale" content="tr_TR">
+<link rel="icon" href="{{ r }}assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ r }}assets/css/style.css?v={{ ver }}">
+{% block schema %}{% endblock %}
+</head>
+<body class="page-{{ page }}">
+
+{% block loader %}<div id="curtain" aria-hidden="true"><img src="{{ r }}assets/logo-white.png" alt=""></div>{% endblock %}
+<div class="cursor"></div><div class="cursor-dot"></div>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="{{ r }}index.html" class="nav-logo" aria-label="{{ SITE.name }} ana sayfa"><img src="{{ r }}assets/logo.png" alt="{{ SITE.name }}" width="164" height="34"></a>
+    <ul class="nav-links">
+      <li><a href="{{ r }}hakkimizda.html"{% if page=='hakkimizda' %} class="active"{% endif %}>Hakkımızda</a></li>
+      <li class="has-dd mega"><a href="{{ r }}hizmetler.html"{% if page in ('hizmetler','hizmet') %} class="active"{% endif %}>Hizmetler <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="dd"><div class="dd-in">
+          {% for s in SERVICES %}<a href="{{ r }}hizmetler/{{ s.slug }}.html"><span class="dd-ic">{{ icon(s.icon) }}</span><span><b>{{ s.title }}</b><small>{{ s.short }}</small></span></a>{% endfor %}
+          <a href="{{ r }}hizmetler.html" class="all">Tüm hizmetler ve paketler {{ arrow() }}</a>
+        </div></div>
+      </li>
+      <li class="has-dd simple"><a href="{{ r }}portfolyo.html"{% if page in ('portfolyo','proje') %} class="active"{% endif %}>Portfolyo <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></a>
+        <div class="dd"><div class="dd-in">
+          {% for k,v in CATS %}<a href="{{ r }}portfolyo.html#{{ k }}">{{ v }} <span>{{ counts[k] }}</span></a>{% endfor %}
+          <a href="{{ r }}portfolyo.html" class="all">Tüm işler {{ arrow() }}</a>
+        </div></div>
+      </li>
+      <li><a href="{{ r }}iletisim.html"{% if page=='iletisim' %} class="active"{% endif %}>İletişim</a></li>
+      <li><a href="{{ r }}teklif-al.html" class="pill"><span class="dot"></span>Teklif Al</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menüyü aç"><span></span><span></span></button>
+  </div>
+</header>
+
+<nav class="mobile-menu" aria-label="Mobil menü">
+  <a href="{{ r }}index.html" class="display">Ana Sayfa</a>
+  <a href="{{ r }}hakkimizda.html" class="display">Hakkımızda</a>
+  <details><summary class="display" style="font-size:clamp(40px,11vw,64px)">Hizmetler</summary>
+    <div class="sub"><a href="{{ r }}hizmetler.html">Tüm hizmetler →</a>{% for s in SERVICES %}<a href="{{ r }}hizmetler/{{ s.slug }}.html">{{ s.title }}</a>{% endfor %}</div></details>
+  <details><summary class="display" style="font-size:clamp(40px,11vw,64px)">Portfolyo</summary>
+    <div class="sub"><a href="{{ r }}portfolyo.html">Tüm işler →</a>{% for k,v in CATS %}<a href="{{ r }}portfolyo.html#{{ k }}">{{ v }}</a>{% endfor %}</div></details>
+  <a href="{{ r }}iletisim.html" class="display">İletişim</a>
+  <a href="{{ r }}teklif-al.html" class="display red">Teklif Al</a>
+  <div class="m-foot"><span>{{ SITE.ig_handle }}</span><span>{{ SITE.phone }}</span></div>
+</nav>
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+{% block cta %}
+<section class="sec cta">
+  <div class="wrap">
+    <span class="wide rv">İlk görüşme &amp; analiz ücretsiz</span>
+    <h2 class="display rv">Sıradaki büyük<br>proje <span class="outline">sizinki.</span></h2>
+    <a href="{{ r }}teklif-al.html" class="magnet">Teklif Al →</a>
+  </div>
+</section>
+{% endblock %}
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <p class="lead">Markanızın bir sonraki adımını birlikte atalım.</p>
+        <div class="socials">
+          <a href="{{ SITE.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="https://wa.me/{{ SITE.wa }}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 32 32" fill="currentColor"><path d="{{ WA_PATH }}"/></svg></a>
+          <a href="mailto:{{ SITE.email }}" aria-label="E-posta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+        </div>
+      </div>
+      <div><h4>Hizmetler</h4><ul>{% for s in SERVICES %}<li><a href="{{ r }}hizmetler/{{ s.slug }}.html">{{ s.title }}</a></li>{% endfor %}</ul></div>
+      <div><h4>Portfolyo</h4><ul>{% for k,v in CATS %}<li><a href="{{ r }}portfolyo.html#{{ k }}">{{ v }}</a></li>{% endfor %}</ul></div>
+      <div><h4>Kurumsal</h4><ul><li><a href="{{ r }}hakkimizda.html">Hakkımızda</a></li><li><a href="{{ r }}iletisim.html">İletişim</a></li><li><a href="{{ r }}teklif-al.html">Teklif Al</a></li><li><a href="https://wa.me/{{ SITE.wa }}">{{ SITE.phone }}</a></li><li><a href="mailto:{{ SITE.email }}">{{ SITE.email }}</a></li></ul></div>
+    </div>
+    <div class="f-logo"><img src="{{ r }}assets/logo.png" alt="{{ SITE.name }}" loading="lazy"></div>
+    <div class="f-bottom"><span>© <span id="yr">2026</span> {{ SITE.name }}. Tüm hakları saklıdır.</span><span class="totop" id="totop">Yukarı dön ↑</span></div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/{{ SITE.wa }}?text=Merhaba%2C%20hizmetleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener" aria-label="WhatsApp ile yazın">
+  <svg viewBox="0 0 32 32"><path d="{{ WA_PATH }}"/></svg><span>WhatsApp'tan yaz</span>
+</a>
+<script src="{{ r }}assets/js/main.js?v={{ ver }}"></script>
+</body>
+</html>

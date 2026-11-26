@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_macros.html" import arrow, page_hero, pcard %}
+{% block content %}
+{{ page_hero(r, 'Portfolyo', 'Port<span class="red">folyo</span>', 'Web siteleri, ışıklı tabelalar, araç giydirme, billboard, kurumsal kimlik ve sosyal medya. Kategorilere göre filtreleyin, her projenin detayına girin.', [(None,'Portfolyo')]) }}
+
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="filters rv" role="tablist">
+      <button data-f="all" class="on">Tümü <sup>{{ PROJECTS|length }}</sup></button>
+      {% for k,v in CATS %}{% if counts[k] %}<button data-f="{{ k }}">{{ v }} <sup>{{ counts[k] }}</sup></button>{% endif %}{% endfor %}
+    </div>
+    <div class="pgrid">
+      {% for p in PROJECTS %}{{ pcard(p, '') }}{% endfor %}
+    </div>
+    <p class="rv" style="color:var(--muted);font-size:14px;margin-top:50px;max-width:720px">“Konsept” etiketli çalışmalar, hizmet kalitemizi göstermek için hazırladığımız örnek marka uygulamalarıdır. Gerçek müşteri işlerimizin güncel hallerini <a href="{{ SITE.instagram }}" target="_blank" rel="noopener" style="color:var(--red)">Instagram hesabımızda</a> görebilirsiniz.</p>
+  </div>
+</section>
+{% endblock %}

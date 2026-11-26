@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% from "_macros.html" import arrow, page_hero %}
+{% block content %}
+{{ page_hero(r, 'İletişim', 'İleti<span class="red">şim</span>', 'Bir fikriniz mi var, yoksa sadece fiyat mı soracaksınız? Hangisi olursa olsun yazın; aynı gün dönüş yapıyoruz.', [(None,'İletişim')]) }}
+
+<section class="sec-tight">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="wide eyebrow rv">Bize ulaşın</span>
+      <div class="c-info rv d1">
+        <a class="c-row" href="https://wa.me/{{ SITE.wa }}" target="_blank" rel="noopener"><div><small>WhatsApp / Telefon</small><strong>{{ SITE.phone }}</strong></div>{{ arrow() }}</a>
+        <a class="c-row" href="mailto:{{ SITE.email }}"><div><small>E-posta</small><strong>{{ SITE.email }}</strong></div>{{ arrow() }}</a>
+        <a class="c-row" href="{{ SITE.instagram }}" target="_blank" rel="noopener"><div><small>Instagram</small><strong>{{ SITE.ig_handle }}</strong></div>{{ arrow() }}</a>
+        <a class="c-row" href="{{ SITE.maps }}" target="_blank" rel="noopener"><div><small>Adres</small><strong>{{ SITE.address }}</strong></div>{{ arrow() }}</a>
+      </div>
+      <span class="wide eyebrow rv" style="margin-top:50px">Çalışma saatleri</span>
+      <div class="hours rv">{% for d,h in SITE.hours %}<div><span>{{ d }}</span><span>{{ h }}</span></div>{% endfor %}</div>
+    </div>
+    <form name="iletisim" method="POST" action="{{ r }}tesekkurler.html" data-netlify="true" netlify-honeypot="bot-field" class="rv d1">
+      <input type="hidden" name="form-name" value="iletisim">
+      <p hidden><label>Boş bırakın <input name="bot-field"></label></p>
+      <h2 class="display" style="font-size:clamp(30px,3.6vw,48px)">Mesaj <span class="red">gönderin</span></h2>
+      <div class="f2">
+        <div class="field"><input id="ad" name="ad" placeholder=" " required><label for="ad">Ad Soyad *</label></div>
+        <div class="field"><input id="firma" name="firma" placeholder=" "><label for="firma">Firma</label></div>
+        <div class="field"><input id="tel" name="telefon" type="tel" placeholder=" " required><label for="tel">Telefon *</label></div>
+        <div class="field"><input id="mail" name="eposta" type="email" placeholder=" "><label for="mail">E-posta</label></div>
+      </div>
+      <div class="field"><textarea id="msg" name="mesaj" placeholder=" " required></textarea><label for="msg">Mesajınız *</label></div>
+      <button type="submit" class="btn btn-red">Gönder {{ arrow() }}</button>
+      <p style="color:var(--muted);font-size:14px;margin-top:14px">Detaylı fiyat teklifi için <a href="{{ r }}teklif-al.html" style="color:var(--red)">teklif formunu</a> kullanabilirsiniz.</p>
+    </form>
+  </div>
+  <div class="wrap">
+    <div class="mapbox rv">
+      <div class="pin"><i></i><b>{{ SITE.name }}</b><span>{{ SITE.address }}</span><br><a href="{{ SITE.maps }}" target="_blank" rel="noopener" class="btn btn-line">Yol tarifi al {{ arrow() }}</a></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block cta %}{% endblock %}

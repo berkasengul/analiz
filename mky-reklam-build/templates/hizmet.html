@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "_macros.html" import arrow, icon, page_hero, check, pcard %}
+{% block schema %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"{{ s.title }}","provider":{"@type":"LocalBusiness","name":"{{ SITE.name }}"},"description":"{{ s.short }}"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for q,a in s.faq %}{"@type":"Question","name":{{ q|tojson }},"acceptedAnswer":{"@type":"Answer","text":{{ a|tojson }}}}{{ "," if not loop.last }}{% endfor %}]}</script>{% endblock %}
+{% block content %}
+{% call page_hero(r, 'Hizmet', s.title, s.lead, [(r ~ 'hizmetler.html','Hizmetler'),(None,s.title)]) %}
+<a href="{{ r }}teklif-al.html?hizmet={{ s.slug }}" class="btn btn-red rv d2">Bu hizmet için teklif al {{ arrow() }}</a>
+{% endcall %}
+
+<section class="sec-tight">
+  <div class="wrap split">
+    <div class="img rv"><img src="{{ r }}assets/img/work/{{ s.img }}" alt="{{ s.title }}" width="1600" height="1200"></div>
+    <div>
+      <span class="wide eyebrow rv">Ne yapıyoruz?</span>
+      <p class="rv" style="margin-top:24px;font-size:clamp(18px,1.6vw,22px);color:var(--cream)">{{ s.about }}</p>
+      <ul class="checks rv">{% for c in s.checks %}<li>{{ check() }}{{ c }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec-title display rv">Kapsam</h2>
+      <p class="rv d1">{{ s.title }} kapsamında sunduğumuz çözümler.</p>
+    </div>
+    <div class="subs">
+      {% for t,d in s.subs %}<div class="sub rv"><span class="n">{{ '%02d' % loop.index }}</span><h3>{{ t }}</h3><p>{{ d }}</p></div>{% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if related %}
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec-title display rv">İlgili<br><span class="outline">İşler</span></h2>
+      <a href="{{ r }}portfolyo.html#{{ s.cats[0] }}" class="btn btn-line rv">Tümünü gör {{ arrow() }}</a>
+    </div>
+    <div class="pgrid{% if related|length > 2 %} three{% endif %}">
+      {% for p in related %}{{ pcard(p, r) }}{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="sec-title display rv">Süreç</h2></div>
+    <div class="mini-steps">
+      {% for t,d in PROCESS %}<div class="ms rv{% if loop.index>1 %} d{{ loop.index0 }}{% endif %}"><span class="sn display">{{ '%02d' % loop.index }}</span><h3>{{ t }}</h3><p>{{ d }}</p></div>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec-tight">
+  <div class="wrap process-grid">
+    <div class="sticky">
+      <span class="wide eyebrow rv">SSS</span>
+      <h2 class="sec-title display rv" style="margin-top:22px">Sık sorulan<br><span class="red">sorular</span></h2>
+    </div>
+    <div class="faq rv">
+      {% for q,a in s.faq %}<details{% if loop.first %} open{% endif %}><summary>{{ q }}<i>+</i></summary><div class="a">{{ a }}</div></details>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec-tight" style="padding-top:0">
+  <div class="wrap">
+    <span class="wide eyebrow rv" style="margin-bottom:24px">Diğer hizmetlerimiz</span>
+    <div class="other-svc rv">{% for o in SERVICES if o.slug != s.slug %}<a href="{{ r }}hizmetler/{{ o.slug }}.html">{{ o.title }}</a>{% endfor %}</div>
+  </div>
+</section>
+{% endblock %}

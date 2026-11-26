@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "_macros.html" import arrow, icon, page_hero, check, svc_card %}
+{% block content %}
+{{ page_hero(r, 'Hizmetler', 'Hizmet<span class="red">ler</span>', 'Tabeladan web sitesine, sosyal medyadan araç giydirmeye; markanızın ihtiyaç duyduğu her şeyi tek ekipte, uçtan uca üretiyoruz.', [(None,'Hizmetler')]) }}
+
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="svc-list">
+      {% for s in SERVICES %}
+      <a href="{{ r }}hizmetler/{{ s.slug }}.html" class="svc rv"><span class="num">{{ '%02d' % loop.index }}</span><h3 class="display">{{ s.title }}</h3><div class="desc">{{ s.short }} {{ s.lead }}<div class="tags">{% for t,_ in s.subs[:4] %}<span>{{ t }}</span>{% endfor %}</div></div><span class="arrow">{{ arrow() }}</span></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec-title display rv">Aylık<br><span class="outline">Paketler</span></h2>
+      <p class="rv d1">Dijital tarafta düzenli büyüme için hazırladığımız paketler. İçerik ve kapsam ihtiyacınıza göre esnetilir; fiyat için teklif isteyin.</p>
+    </div>
+    <div class="packs">
+      {% for name, who, items, hot in [
+        ('Başlangıç','Sosyal medyaya yeni başlayan işletmeler',['Aylık 12 post tasarımı','Haftalık story paylaşımı','Profil & biyografi düzeni','Aylık performans raporu'],False),
+        ('Büyüme','Düzenli müşteri kazanmak isteyen markalar',['Aylık 16 post + 4 Reels','Aylık 1 çekim günü','Meta reklam yönetimi','Yorum & DM yönetimi','Rakip analizi ve aylık rapor'],True),
+        ('Kurumsal','Çok şubeli ve entegre çalışmak isteyenler',['Sınırsız içerik planlaması','Meta + Google Ads yönetimi','Web sitesi bakım & SEO','Kampanya & açık hava uyarlamaları','Öncelikli destek & haftalık toplantı'],False)] %}
+      <div class="pk rv{% if hot %} hot{% endif %}{% if loop.index>1 %} d{{ loop.index0 }}{% endif %}">
+        <h3>{{ name }}</h3><p class="for">{{ who }}</p>
+        <ul>{% for i in items %}<li>{{ check() }}{{ i }}</li>{% endfor %}</ul>
+        <a href="{{ r }}teklif-al.html" class="btn {{ 'btn-red' if not hot else 'btn-line' }}"{% if hot %} style="background:var(--cream);color:var(--ink)"{% endif %}>Teklif İste {{ arrow() }}</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap process-grid">
+    <div class="sticky">
+      <span class="wide eyebrow rv">SSS</span>
+      <h2 class="sec-title display rv" style="margin-top:22px">Merak<br><span class="red">edilenler</span></h2>
+      <p class="rv d1">Aradığınız cevabı bulamazsanız bize WhatsApp'tan yazın, aynı gün dönelim.</p>
+    </div>
+    <div class="faq rv">
+      {% for q,a in [
+        ('Sadece tek bir hizmet alabilir miyim?','Elbette. Tek bir tabela, logo ya da web sitesi için de çalışıyoruz. Entegre çalıştığımızda ise tüm işleriniz aynı kimlik altında birleşir.'),
+        ('Teklif almak ücretli mi?','Hayır. İlk görüşme, keşif ve teklif tamamen ücretsizdir.'),
+        ('Hangi şehirlerde hizmet veriyorsunuz?','Dijital hizmetleri her yere veriyoruz. Tabela, araç giydirme ve montaj işlerinde bölgemiz ve çevre illerde çalışıyoruz; büyük projelerde tüm Türkiye\'ye uygulama yapıyoruz.'),
+        ('Ödeme nasıl yapılıyor?','Projelerde genellikle başlangıçta ön ödeme, teslimde kalan tutar şeklinde çalışıyoruz. Aylık hizmetler her ay başında faturalandırılır.'),
+        ] + SERVICES[0].faq[:1] + SERVICES[1].faq[:1] %}
+      <details><summary>{{ q }}<i>+</i></summary><div class="a">{{ a }}</div></details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

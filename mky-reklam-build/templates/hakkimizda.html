@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% from "_macros.html" import arrow, icon, page_hero, check %}
+{% block content %}
+{{ page_hero(r, 'Hakkımızda', 'Markalara<br><span class="red">ses</span> veriyoruz.', 'MKY Reklam &amp; Medya; tasarımcıları, uygulama ustaları ve dijital uzmanlarıyla markanızın göründüğü her yüzeyi tek çatı altında üreten bir reklam ajansıdır.', [(None,'Hakkımızda')]) }}
+
+<section class="sec">
+  <div class="wrap">
+    <div class="about-grid">
+      <div><span class="wide eyebrow rv">Hikâyemiz</span></div>
+      <div>
+        <p class="manifesto" id="manifesto">Reklamcılığa sokaktan başladık: tabelalar, vitrinler, araçlar. Zamanla müşterilerimizin aynı markayı Instagram'da, Google'da ve web sitesinde de *tutarlı* görmek istediğini fark ettik. Bugün tasarımdan uygulamaya, sokaktan ekrana kadar her şeyi *tek ekipte* üretiyoruz.</p>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar rv"><span class="n">01 —</span><h3>Tek ekip, tek muhatap</h3><p>Tabelacı, tasarımcı, kameraman ve reklam uzmanını ayrı ayrı aramanıza gerek yok. Hepsi tek çatı altında.</p></div>
+      <div class="pillar rv d1"><span class="n">02 —</span><h3>Kendi üretimimiz</h3><p>Tabela ve baskı işlerini kendi atölyemizde üretip kendi ekibimizle monte ediyoruz. Kalite ve süre bizim kontrolümüzde.</p></div>
+      <div class="pillar rv d2"><span class="n">03 —</span><h3>Ölç, raporla, büyüt</h3><p>Dijital işlerde her kampanyayı ölçer, raporlar ve bütçenizi en çok sonuç veren kanala yönlendiririz.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap split">
+    <div class="img rv"><img src="{{ r }}assets/img/work/vadi-tabela-2.jpg" alt="Cephe ve tabela uygulaması" loading="lazy"></div>
+    <div>
+      <span class="wide eyebrow rv">Neden MKY?</span>
+      <h2 class="display rv" style="margin-top:22px">Sokaktan<br><span class="red">ekrana.</span></h2>
+      <p class="rv">Markanızın kimliği tabelada başka, Instagram'da başka, web sitesinde başka görünmesin. Tüm temas noktalarını tek bir kimlik altında tasarlıyor, böylece her yatırımın bir diğerini güçlendirmesini sağlıyoruz.</p>
+      <ul class="checks rv">
+        {% for c in ['Ücretsiz keşif ve ön analiz','Şeffaf ve yazılı teklif','Zamanında teslim taahhüdü','Garantili malzeme ve işçilik','Tasarımdan montaja tek elden','Satış sonrası destek'] %}<li>{{ check() }}{{ c }}</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec-title display rv">Değer<span class="red">lerimiz</span></h2>
+      <p class="rv d1">Her projede bizi yönlendiren dört ilke.</p>
+    </div>
+    <div class="mini-steps">
+      {% for t,d in [('Dürüstlük','İşe yaramayacak bir şeyi satmayız; bütçenizi kendi paramız gibi harcarız.'),('Özen','Bir kartvizitle bir cephe kaplamasına aynı titizlikle yaklaşırız.'),('Hız','Net takvim veririz ve ona uyarız. Sorularınız aynı gün yanıt bulur.'),('Sonuç','Güzel tasarım başlangıçtır; asıl hedef müşterinizin kapınızı çalmasıdır.')] %}
+      <div class="ms rv{% if loop.index>1 %} d{{ loop.index0 }}{% endif %}"><span class="sn display">{{ '%02d' % loop.index }}</span><h3>{{ t }}</h3><p>{{ d }}</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap process-grid">
+    <div class="sticky">
+      <span class="wide eyebrow rv">Çalışma Şeklimiz</span>
+      <h2 class="sec-title display rv" style="margin-top:22px">Fikirden<br><span class="red">Sonuca</span></h2>
+      <p class="rv d1">İster tek bir kartvizit, ister tüm şube ağınız için cephe ve dijital kampanya olsun; süreç her zaman net.</p>
+      <a href="{{ r }}teklif-al.html" class="btn btn-red rv" style="margin-top:30px">Projeyi başlatalım {{ arrow() }}</a>
+    </div>
+    <div>
+      {% for t, d in PROCESS %}<div class="step rv"><span class="sn display">{{ '%02d' % loop.index }}</span><div><h3>{{ t }}</h3><p>{{ d }}</p></div></div>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

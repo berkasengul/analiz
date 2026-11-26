@@ -1,0 +1,51 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Jost:wght@400;500;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:1600px;height:1200px;overflow:hidden}
+.bg{position:absolute;inset:0;background:linear-gradient(135deg,#E9CFC4,#d7b1a3)}
+.phone{position:absolute;left:560px;top:90px;width:480px;height:1020px;background:#111;border-radius:64px;padding:16px;box-shadow:0 0 0 3px #3a3a3a inset,0 60px 100px -30px rgba(80,30,20,.6)}
+.scr{width:100%;height:100%;background:#fff;border-radius:50px;overflow:hidden;font-family:Inter;color:#111;position:relative}
+.isl{position:absolute;top:14px;left:50%;width:120px;height:34px;margin-left:-60px;background:#000;border-radius:20px}
+.top{padding:62px 20px 0;display:flex;justify-content:space-between;font-weight:600;font-size:19px}
+.pr{display:flex;align-items:center;gap:22px;padding:18px 20px}
+.av{width:96px;height:96px;border-radius:50%;padding:4px;background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)}
+.av span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#E9CFC4;border:3px solid #fff;font:italic 400 34px "Playfair Display"}
+.st{display:flex;gap:22px;text-align:center;font-size:13px}.st b{display:block;font-size:18px}
+.bio{padding:0 20px;font-size:14px;line-height:1.45}.bio b{display:block}
+.btn{margin:14px 20px;display:flex;gap:8px}.btn span{flex:1;background:#efefef;border-radius:8px;text-align:center;padding:8px;font-size:13px;font-weight:600}
+.hl{display:flex;gap:16px;padding:4px 20px 14px}.hl div{text-align:center;font-size:11px}.hl i{display:block;width:62px;height:62px;border-radius:50%;border:2px solid #ddd;background-size:cover;background-position:center;margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.post{aspect-ratio:1;position:relative;overflow:hidden;background-size:cover;background-position:center;display:grid;place-items:center;text-align:center}
+.t1{font:400 22px/1.05 "Playfair Display";color:#141212}.t1 i{color:#B5756A}
+.tw{font:500 11px Jost;letter-spacing:.3em;color:#fff;position:absolute;bottom:10px;left:0;right:0;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.big{position:absolute;width:420px;height:420px;box-shadow:0 40px 70px -25px rgba(80,30,20,.55);border-radius:10px;overflow:hidden}
+.big .post{width:100%;height:100%;aspect-ratio:auto}
+.big .t1{font-size:54px}.big .tw{font-size:16px;bottom:26px}
+.flatg{position:absolute;inset:60px 230px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+</style></head><body><div id="root"></div>
+<script>
+const mode=new URLSearchParams(location.search).get('mode')||'phone';
+const P=id=>`url(../photos/p${id}.jpg)`;
+const posts=[
+ `<div class="post" style="background:#E9CFC4"><div class="t1">Zamansız<br><i>zarafet.</i></div></div>`,
+ `<div class="post" style="background-image:${P(1059)}"><span class="tw">YENİ SEZON</span></div>`,
+ `<div class="post" style="background:#141212;color:#fff"><div class="t1" style="color:#fff">%40<br><i style="color:#E9CFC4">sezon sonu</i></div></div>`,
+ `<div class="post" style="background-image:${P(21)}"><span class="tw">SATEN STİLETTO</span></div>`,
+ `<div class="post" style="background:#FAF7F4"><div class="t1" style="font-size:18px">“Az ama<br><i>öz.</i>”</div></div>`,
+ `<div class="post" style="background-image:${P(535)}"><span class="tw">TRİKO</span></div>`,
+ `<div class="post" style="background-image:${P(604)}"><span class="tw">DENIM EDIT</span></div>`,
+ `<div class="post" style="background:#B5756A"><div class="t1" style="color:#fff;font-size:18px">Kargo<br><i style="color:#141212">ücretsiz.</i></div></div>`,
+ `<div class="post" style="background-image:${P(64)}"><span class="tw">LİNA KULÜP</span></div>`
+];
+const R=document.getElementById('root');
+if(mode==='phone'){R.innerHTML=`<div class="bg"></div>
+<div class="big" style="left:110px;top:200px;transform:rotate(-7deg)">${posts[0].replace('class="post"','class="post"')}</div>
+<div class="big" style="left:1080px;top:520px;transform:rotate(6deg)">${posts[1]}</div>
+<div class="phone"><div class="scr"><div class="isl"></div><div class="top"><span>linabutik</span><span>☰</span></div>
+<div class="pr"><div class="av"><span>Lina</span></div><div class="st"><div><b>248</b>gönderi</div><div><b>12,4B</b>takipçi</div><div><b>310</b>takip</div></div></div>
+<div class="bio"><b>Lina Butik</b>Zamansız parçalar, sade kesimler ✦<br>Ücretsiz kargo · Aynı gün gönderim</div>
+<div class="btn"><span>Takip Et</span><span>Mesaj</span><span>Mağaza</span></div>
+<div class="hl">${[[1059,'Yeni'],[21,'Ayakkabı'],[535,'Triko'],[64,'Kulüp']].map(([i,t])=>`<div><i style="background-image:${P(i)}"></i>${t}</div>`).join('')}</div>
+<div class="grid">${posts.join('')}</div></div></div>`}
+else{R.innerHTML=`<div class="bg" style="background:#f4efeb"></div><div class="flatg">${posts.join('')}</div>`;document.querySelectorAll('.t1').forEach(t=>t.style.fontSize='40px');document.querySelectorAll('.tw').forEach(t=>t.style.fontSize='15px')}
+</script></body></html>

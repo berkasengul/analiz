@@ -1,0 +1,35 @@
+{% macro arrow() -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8h14M9 2l6 6-6 6"/></svg>{%- endmacro %}
+
+{% macro icon(name) -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{{ ICONS[name]|safe }}</svg>{%- endmacro %}
+
+{% macro check() -%}<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>{%- endmacro %}
+
+{% macro pcard(p, r, cls='') -%}
+<a href="{{ r }}portfolyo/{{ p.slug }}.html" class="pc wk rv {{ cls }}" data-c="{{ p.cat }}">
+  <div class="wk-media">
+    <img src="{{ r }}assets/img/work/{{ p.images[0][0] }}" alt="{{ p.title }}" loading="lazy" width="1600" height="1200">
+    {% if p.konsept %}<span class="konsept">Konsept</span>{% endif %}
+    <span class="view">İncele</span>
+  </div>
+  <div class="wk-meta"><div><span class="cat">{{ CAT[p.cat] }}</span><h3>{{ p.title }}</h3></div><span>{{ p.year }}</span></div>
+</a>
+{%- endmacro %}
+
+{% macro svc_card(s, i, r) -%}
+<a href="{{ r }}hizmetler/{{ s.slug }}.html" class="sc rv{% if s.get('feature') %} feature{% endif %}">
+  <span class="dd-ic">{{ icon(s.icon) }}</span><span class="num">{{ '%02d' % i }}</span>
+  <h3>{{ s.title }}</h3><p>{{ s.short }}</p>
+  <span class="go">Detaylı incele {{ arrow() }}</span>
+</a>
+{%- endmacro %}
+
+{% macro page_hero(r, kicker, title, lead='', crumbs=[]) -%}
+<section class="page-hero">
+  <div class="glow"></div><div class="slashes"></div>
+  <div class="wrap">
+    <nav class="crumbs rv" aria-label="Sayfa yolu"><a href="{{ r }}index.html">Ana Sayfa</a>{% for href, label in crumbs %}<span class="sep">/</span>{% if href %}<a href="{{ href }}">{{ label }}</a>{% else %}<span>{{ label }}</span>{% endif %}{% endfor %}</nav>
+    <h1 class="display rv">{{ title|safe }}</h1>
+    {% if lead %}<div class="ph-row"><p class="lead rv d1">{{ lead|safe }}</p>{% if caller is defined %}{{ caller() }}{% endif %}</div>{% endif %}
+  </div>
+</section>
+{%- endmacro %}

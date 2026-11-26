@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "_macros.html" import arrow %}
+{% block content %}
+<section class="nf">
+  <div class="wrap">
+    {% if page == '404' %}
+    <h1 class="display"><span class="outline">4</span><span class="red">0</span><span class="outline">4</span></h1>
+    <p>Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.</p>
+    {% else %}
+    <div class="wiz-done"><div class="ok">✓</div></div>
+    <h1 class="display" style="font-size:clamp(34px,10vw,130px)">Teşekkür<span class="red">ler!</span></h1>
+    <p>Mesajınız bize ulaştı. En geç 24 saat içinde size dönüş yapacağız.<br>Acil durumlar için WhatsApp'tan yazabilirsiniz.</p>
+    {% endif %}
+    <div class="hero-ctas" style="justify-content:center">
+      <a href="{{ r }}index.html" class="btn btn-red">Ana sayfaya dön {{ arrow() }}</a>
+      <a href="{{ r }}portfolyo.html" class="btn btn-line">Portfolyoyu incele</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block cta %}{% endblock %}

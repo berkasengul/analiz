@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:1600px;height:1000px;overflow:hidden;background:#ddd}
+.sky{position:absolute;inset:0;background:url(../photos/p182.jpg) center 60%/cover}
+.sky::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.05),rgba(0,0,0,.15))}
+.bb{position:absolute;left:330px;top:120px;width:1000px;transform:perspective(1600px) rotateY(-18deg);transform-origin:left center}
+.face{height:500px;background:#141212;padding:14px;box-shadow:0 40px 70px -20px rgba(0,0,0,.6)}
+.poster{width:100%;height:100%;display:grid;grid-template-columns:1fr 1.1fr;overflow:hidden}
+.poster .ph{background:url(../photos/p1059.jpg) center/cover}
+.poster .tx{background:#E9CFC4;display:flex;flex-direction:column;justify-content:center;padding:0 56px;color:#141212;position:relative}
+.poster small{font:500 15px Jost;letter-spacing:.34em}
+.poster h2{font:400 92px/1 "Playfair Display";margin:14px 0 16px}.poster h2 i{color:#B5756A}
+.poster p{font:400 20px Jost}
+.poster .lg{position:absolute;right:46px;bottom:36px;font:italic 400 52px "Playfair Display"}
+.poster .pct{position:absolute;right:46px;top:36px;width:110px;height:110px;border-radius:50%;background:#141212;color:#fff;display:grid;place-items:center;text-align:center;font:500 15px/1.2 Jost;letter-spacing:.1em}
+.poster .pct b{display:block;font:400 38px "Playfair Display"}
+.catwalk{height:18px;background:#2a2a2a;margin:0 30px;position:relative}
+.catwalk::before{content:"";position:absolute;left:0;right:0;top:-30px;height:30px;background:repeating-linear-gradient(90deg,#333 0 3px,transparent 3px 40px);border-top:3px solid #333}
+.lights{position:absolute;top:-70px;left:60px;right:60px;display:flex;justify-content:space-between}
+.lights i{width:60px;height:14px;background:#333;border-radius:2px;position:relative}.lights i::before{content:"";position:absolute;left:28px;top:14px;width:4px;height:56px;background:#333}
+.pole{position:absolute;left:50%;top:100%;width:56px;margin-left:-28px;height:600px;background:linear-gradient(90deg,#3b3b3b,#6a6a6a 45%,#2c2c2c)}
+.flat{position:absolute;inset:0;background:#efecea;display:grid;place-items:center}
+.flat .poster{width:1400px;height:700px;box-shadow:0 40px 80px -30px rgba(0,0,0,.4)}
+.flat .meta{position:absolute;left:100px;bottom:50px;font:500 14px Jost;letter-spacing:.2em;color:#777}
+</style></head><body><div id="root"></div>
+<script>
+const mode=new URLSearchParams(location.search).get('mode')||'scene';
+const P=`<div class="poster"><div class="ph"></div><div class="tx"><span class="pct"><span><b>%40</b>SEZON<br>SONU</span></span><small>SONBAHAR / KIŞ 2026</small><h2>Zamansız<br><i>zarafet.</i></h2><p>Yeni koleksiyon mağazalarda ve linabutik'te.</p><span class="lg">Lina</span></div></div>`;
+document.getElementById('root').innerHTML = mode==='scene'
+ ? `<div class="sky"></div><div class="bb"><div class="lights"><i></i><i></i><i></i></div><div class="face">${P}</div><div class="catwalk"></div><div class="pole"></div></div>`
+ : `<div class="flat">${P}<span class="meta">BILLBOARD 12×6 M · CLP / RAKET 1.2×1.75 M UYARLAMASI</span></div>`;
+</script></body></html>

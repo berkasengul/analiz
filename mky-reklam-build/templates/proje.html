@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "_macros.html" import arrow, page_hero, pcard %}
+{% block content %}
+<section class="page-hero">
+  <div class="glow"></div><div class="slashes"></div>
+  <div class="wrap">
+    <nav class="crumbs rv" aria-label="Sayfa yolu"><a href="{{ r }}index.html">Ana Sayfa</a><span class="sep">/</span><a href="{{ r }}portfolyo.html">Portfolyo</a><span class="sep">/</span><a href="{{ r }}portfolyo.html#{{ p.cat }}">{{ CAT[p.cat] }}</a></nav>
+    <h1 class="display rv" style="font-size:clamp(40px,7vw,112px)">{{ p.title }}</h1>
+    <p class="lead rv d1">{{ p.summary }}</p>
+    <div class="pmeta rv d2">
+      <div><small>Müşteri</small><b>{{ p.client }}{% if p.konsept %} <span style="color:var(--muted);font-weight:400">(konsept)</span>{% endif %}</b></div>
+      <div><small>Kategori</small><b>{{ CAT[p.cat] }}</b></div>
+      <div><small>Hizmetler</small><b>{{ p.services|join(', ') }}</b></div>
+      <div><small>Yıl</small><b>{{ p.year }}</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-tight" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="pcover rv" style="margin-top:0"><img src="{{ r }}assets/img/work/{{ p.images[0][0] }}" alt="{{ p.title }} — {{ p.images[0][1] }}" width="1600" height="1200"></div>
+  </div>
+</section>
+
+<section class="sec-tight">
+  <div class="wrap ptext">
+    <div class="rv"><span class="wide eyebrow">İhtiyaç</span><h2 style="margin-top:20px">Neye ihtiyaç vardı?</h2><p>{{ p.need }}</p></div>
+    <div class="rv d1"><span class="wide eyebrow">Çözüm</span><h2 style="margin-top:20px">Ne yaptık?</h2><ul>{% for x in p.solution %}<li>{{ x }}</li>{% endfor %}</ul></div>
+  </div>
+</section>
+
+{% if p.images|length > 1 %}
+<section style="padding-bottom:clamp(70px,9vw,120px)">
+  <div class="wrap gallery">
+    {% for img in p.images[1:] %}
+    <figure class="rv{% if img|length > 2 %} {{ img[2] }}{% endif %}"><img src="{{ r }}assets/img/work/{{ img[0] }}" alt="{{ p.title }} — {{ img[1] }}" loading="lazy"><figcaption>{{ img[1] }}{% if img|length > 2 %} · kaydırarak inceleyin{% endif %}</figcaption></figure>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section>
+  <div class="wrap pnav">
+    <a href="{{ r }}portfolyo/{{ prev.slug }}.html"><small>← Önceki proje</small><b>{{ prev.title }}</b></a>
+    <a href="{{ r }}portfolyo/{{ next.slug }}.html"><small>Sonraki proje →</small><b>{{ next.title }}</b></a>
+  </div>
+</section>
+
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="sec-title display rv">Benzer<br><span class="outline">İşler</span></h2><a href="{{ r }}portfolyo.html" class="btn btn-line rv">Tüm portfolyo {{ arrow() }}</a></div>
+    <div class="pgrid three">{% for q in similar %}{{ pcard(q, r) }}{% endfor %}</div>
+  </div>
+</section>
+{% endblock %}
