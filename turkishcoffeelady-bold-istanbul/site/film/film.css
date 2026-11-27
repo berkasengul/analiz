@@ -1833,3 +1833,92 @@ a.tcl-btn {
     background: linear-gradient(180deg, rgba(7, 10, 20, 0) 40%, rgba(7, 10, 20, 0.88) 70%);
   }
 }
+
+/* ---------- opening v3: Istanbul night scene + scrubbed close-ups, all layers in one 16:9 box ---------- */
+.tcl-open {
+  height: 820vh;
+  background: #070b18;
+}
+.tcl-open__bg {
+  background: radial-gradient(80% 70% at 60% 40%, #121a36 0%, #080c1a 70%, #05070f 100%);
+}
+.tcl-open__stage {
+  transform: none;
+}
+.tcl-open__world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 56.25vw;
+  will-change: transform;
+}
+.tcl-open__layer {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+.tcl-open__layer > img,
+.tcl-open__layer > .tcl-open__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.tcl-open__layer--vid,
+.tcl-open__layer--can {
+  opacity: 0;
+  visibility: hidden;
+}
+.tcl-open__layer > img.tcl-open__strip {
+  inset: auto;
+  left: 49.219%;
+  top: 11.52%;
+  width: 17.031%;
+  height: 3.748%;
+  object-fit: fill;
+  transform-origin: 80% 50%;
+  will-change: transform, opacity;
+}
+.tcl-open__video {
+  background: transparent;
+}
+.tcl-open__inspect {
+  position: absolute;
+  left: 49.6%;
+  top: 14%;
+  width: 16.6%;
+  height: 72%;
+  transform: none;
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: none;
+}
+.tcl-open.is-final .tcl-open__inspect {
+  pointer-events: auto;
+}
+.tcl-open__sticky:before {
+  background:
+    linear-gradient(90deg, rgba(5, 8, 18, 0.72) 0%, rgba(5, 8, 18, 0.38) 24%, rgba(5, 8, 18, 0) 42%),
+    linear-gradient(180deg, rgba(5, 8, 18, 0.45) 0%, rgba(5, 8, 18, 0) 14%, rgba(5, 8, 18, 0) 84%, rgba(5, 8, 18, 0.55) 100%);
+}
+@media (max-width: 760px) {
+  .tcl-open__inspect {
+    left: 49.6%;
+    width: 16.6%;
+    top: 14%;
+    height: 72%;
+  }
+  .tcl-open__world {
+    -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+  }
+  .tcl-open__sticky:before {
+    background: linear-gradient(180deg, rgba(5, 8, 18, 0.35) 0%, rgba(5, 8, 18, 0) 12%, rgba(5, 8, 18, 0) 58%, rgba(5, 8, 18, 0.9) 76%);
+  }
+}

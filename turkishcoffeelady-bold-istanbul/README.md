@@ -36,11 +36,16 @@
 - Yeniden üretim: `kaynak/kutu/strip.html` → `strip.png` (arka etiket), sonra `python3 compose.py`.
 
 ## Kaydırmalı açılış (paket → kutu)
-- Ana sayfa açılışı Higgsfield'de üretilen iki videonun birleşimi: paket → yırtılma → kaşık → döküm (video 1) ve
-  kahve → Bold Istanbul kutusu kaidede (video 2). Kaydırma videoyu ileri/geri sarar; video oynatılmaz.
-- Dosyalar: `site/film/open/acilis-1920.mp4` (masaüstü, 1920×1080) ve `acilis-mobil.mp4` (dikey, 720×1280),
-  posterleri `acilis-poster*.webp`. Akıcı sarma için 6 karede bir anahtar kare (`-g 6 -bf 0`), `+faststart`;
-  sayfa videoyu blob olarak önbelleğe alır.
-- Adım yazıları videonun zamanına bağlı (`TclOpenSteps`, `kaynak/extra.js`); son adımda kutuya tıklayınca `#/incele`.
-- `site/film/open/opening.js` artık yalnızca 3D İncele sayfasının kutu/stüdyo parçalarını sağlar (`viewer.js`).
+Katmanlı bir film; tüm katmanlar aynı 16:9 kutuda, kaydırma ilerlemesinin saf fonksiyonu (ileri/geri kusursuz):
+1. **Sahne (paket):** `site/film/open/sahne-paket.webp`: İstanbul gece manzarası, mermer masa, fincan, cezve; paket büyük ve önde.
+   Üst kapama şeridi ayrı katman (`serit.webp`): "Yırt" adımında koparak uçar.
+2. **Yakınlaşma ve video:** sahne pakete yaklaşır, aynı karede logo hizasında Higgsfield videosuna geçer
+   (`acilis-1920.mp4`, telefonda `acilis-1280.mp4`); kaşık, döküm ve kutuya dönüşüm kaydırmayla sarılır.
+   Video sahnenin koyu lacivert/altın tonlarına göre renk ayarlı; 6 karede bir anahtar kare, blob önbellek.
+3. **Sahne (kutu):** videodaki kutu nazar boncuğu hizasında `sahne-kutu.webp`'ye geçer, kamera geri çekilir.
+   Kutuya tıklayınca `#/incele`.
+- Hizalama değerleri `TclOpenGeo` (`kaynak/extra.js`); adım eşikleri `TclOpenSteps`.
+- Sahne görsellerinin üretimi `kaynak/sahne/`: `clean.py` (referanstaki arayüz yazılarını siler), `sr.py` (EDSR 4× büyütme),
+  `compose.py` (paketi kaldırıp kutuyu kahve tepeciği, gölge ve mermer yansımasıyla yerleştirir), `tear.py` (şerit katmanı).
+- `site/film/open/opening.js` yalnızca 3D İncele sayfasının kutu/stüdyo parçalarını sağlar (`viewer.js`).
 - Paket etiketi `site/film/open/bag-front.webp` / `bag-back.webp`; kaynakları `kaynak/paket/`.
