@@ -964,7 +964,7 @@ function TclFooter() {
 }
 
 // ---------------- scroll opening: bag → can ----------------
-const TclOpenSteps = [0, 0.06, 0.16, 0.3, 0.46, 0.63, 0.885, 1],
+const TclOpenSteps = [0, 0.06, 0.16, 0.3, 0.46, 0.66, 0.885, 1],
   TclOpenCopy = {
     tr: {
       labels: ["Başla", "Yırt", "Aç", "Kaşık", "Dönüşüm", "Soğuk", "Hazır"],
@@ -1005,11 +1005,11 @@ const TclOpenGeo = {
   // box-normalised geometry (all layers share one 16:9 box)
   bag: { cx: 0.58 },
   vid0: { s: 1.03, tx: -0.015, ty: -0.03 }, // video framing at the hand-over from the still
-  bagIn: { s: 1.4899, tx: -0.292, ty: -0.0137 }, // still pushed in so its bag matches the video bag
+  bagIn: { s: 1.506, tx: -0.2913, ty: -0.0113 }, // still pushed in so its bag matches the video bag
   vidOut: { s: 1.04, tx: -0.02, ty: -0.02 }, // video pushed in so its can matches the still can
   canIn: { s: 1.04, tx: -0.02, ty: -0.02 },
   // scroll -> film time (s): scoop, dissolve into the vortex, can forms, glow settles
-  knots: [[0.28, 0], [0.4, 3.1], [0.46, 4.3], [0.53, 5.3], [0.63, 6.9], [0.77, 9.0], [0.85, 10.45]],
+  knots: [[0.28, 0], [0.38, 2.0], [0.45, 3.2], [0.53, 4.7], [0.62, 6.8], [0.7, 8.0], [0.8, 10.3], [0.85, 11.35]],
   q: { tear: [0.06, 0.16], push: [0.16, 0.24], fadeA: [0.24, 0.27], relaxA: [0.28, 0.35], play: [0.28, 0.85], pushB: [0.8, 0.85], fadeB: [0.85, 0.88], relaxB: [0.89, 0.97] },
 };
 function TclOpening() {
@@ -1102,7 +1102,7 @@ function TclOpening() {
       }
       // the box: covers the screen (desktop) or the upper part (phones), product kept in view
       const vw = st.clientWidth, vh = st.clientHeight, phone = vw / vh < 0.8;
-      const lead = q < 0.26 ? { T: bagT, cx: G.bag.cx } : q < 0.87 ? { T: vidT, cx: 0.575 - 0.27 * ss([0.4, 0.445], q) * (1 - ss([0.5, 0.56], q)) } : { T: canT, cx: G.bag.cx };
+      const lead = q < 0.26 ? { T: bagT, cx: G.bag.cx } : q < 0.87 ? { T: vidT, cx: 0.575 - 0.08 * ss([0.36, 0.42], q) * (1 - ss([0.56, 0.62], q)) } : { T: canT, cx: G.bag.cx };
       const fx = lead.T.s * lead.cx + lead.T.tx;
       // phones: the scene shrinks a little on the last step so the can sits above the buttons
       let bh = phone ? vh * (0.8 - 0.21 * ss([0.885, 0.95], q)) : Math.max(vh, (vw * 9) / 16), bw = (bh * 16) / 9;
