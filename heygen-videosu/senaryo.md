@@ -1,136 +1,129 @@
-# Video Senaryosu — "Bu Videoyu Ben Çekmedim"
+# Video Senaryosu: "Kameraya Hiç Geçmeden YouTube Videosu"
 
-**Kanal:** berkai · **Süre hedefi:** 8–9 dk · **Format:** yatay 1920×1080 (+ 3 Shorts kesiti)
+**Kanal:** berkai · **Süre hedefi:** ~5 dk · **Format:** yatay 1920×1080 (+ 3 Shorts kesiti)
+**Kamera yok.** Videonun tamamını BerkAİ avatarı anlatıyor. Görüntüler ya avatarın kendisi ya da ekran kaydı.
 
 **Başlık (birini seç):**
-1. Bu Videoyu Ben Çekmedim — Yapay Zeka Avatarımı Nasıl Yaptım? (HeyGen)
-2. Kendi Yapay Zeka İkizimi Yaptım: Ses + Avatar Baştan Sona
-3. HeyGen ile Kendi Avatarını Konuştur — Kamerasız YouTube Kanalı Rehberi
-
-**Kısaltmalar:**
-- **[AVATAR]** = HeyGen'de BerkAİ avatarı + klon ses ile üretilecek (kredi harcar)
-- **[KAMERA]** = Gerçek sen, telefon/kamera ile çekilecek
-- **[EKRAN]** = Ekran kaydı (OBS / Xbox Game Bar / ShareX)
-- `[ ]` içindekiler senin dolduracağın / kontrol edeceğin yerler
+1. Kameraya Hiç Geçmeden YouTube Videosu Yapıyorum (Tek Fotoğrafla)
+2. Bu Videoda Ben Yokum: Tek Fotoğraftan Yapay Zeka Avatarı
+3. HeyGen ile Kendi Avatarını Konuştur: Kamerasız Kanal Rehberi
 
 ---
 
-## SAHNE 1 — Açılış (0:00–0:35) · [AVATAR]
+## Nasıl üretilecek?
 
-> **Avatarın okuyacağı metin (HeyGen'e bu kısmı yapıştır, ~30 sn):**
->
-> Selam, ben Berk. Bugün size YouTube videolarımı nasıl hazırladığımı anlatacağım. Kanalda gördüğünüz her videoyu nasıl çekiyorum, ışığı nasıl ayarlıyorum, kaç saat montaj yapıyorum... Aslında hepsini tek tek göstereceğim. Ama önce size küçük bir itirafım var. Şu an konuştuğunuz kişi... ben değilim.
+1. **Tek render:** Aşağıdaki "HeyGen'e yapıştırılacak metin" bölümünün tamamı tek seferde avatarla render edilir.
+   - Görünüm: **BerkAİ** (yatay)
+   - Ses: avatarın varsayılan sesi (ElevenLabs klonu)
+2. **Ekran kayıtları:** Senin bilgisayarında, kamera gerekmez. Neyin kaydedileceği aşağıdaki tabloda.
+3. **Montaj (CapCut):** Avatar videosu ana ses kanalı olur.
+   - Açılış ve kapanışta avatar tam ekran görünür.
+   - Diğer bölümlerde ekran kaydı tam ekran olur, avatar sağ alt köşede küçük kutu halinde konuşmaya devam eder.
 
-**Kurgu notu:** Son cümlede görüntüyü 0,5 sn dondur, hafif "glitch" efekti, ses kesilsin.
+| Bölüm | Ekranda ne var | Senin kaydedeceğin |
+|---|---|---|
+| 1. Açılış | Avatar tam ekran | — |
+| 2. Yorum | İlyas Hoca'nın yorumu (zoom) | Yorumun ekran görüntüsü (sende var) |
+| 3. Fotoğraf | HeyGen'de fotoğraf avatarı oluşturma ekranı | HeyGen → Avatars → fotoğraf yükleme adımları |
+| 4. Görünümler | 6 görünümün yan yana | HeyGen'de BerkAİ avatar grubunun sayfası |
+| 5. Ses | ElevenLabs ses klonlama ekranı + HeyGen ses listesi | ElevenLabs Voice Lab + HeyGen Voices sayfası |
+| 6. Konuşturma | HeyGen'de yeni video: görünüm seç, ses seç, metin yapıştır | Aynı adımların kaydı (render'a basmana gerek yok) |
+| 7. Maliyet | HeyGen plan/kredi sayfası | Faturalandırma ekranı (**e-postanı bulanıklaştır**) |
+| 8. Kapanış | Avatar tam ekran | — |
 
----
-
-## SAHNE 2 — İfşa (0:35–1:00) · [KAMERA]
-
-> Evet. Az önce izlediğiniz kişi benim yapay zeka ikizimdi. Sesi de benim sesim değil, benim sesimin klonu. Ben o videoyu çekmedim, sadece metni yazdım. Kanaldaki videoların çoğu da aynen böyle çıkıyor.
->
-> Bu videoyu aslında bir yorum yüzünden çekiyorum.
-
-**Kurgu notu:** Burada avatar ile gerçek seni 2 sn yan yana (split-screen) göster.
-
----
-
-## SAHNE 3 — Yorum (1:00–1:25) · [EKRAN] + [KAMERA]
-
-**Görüntü:** İlyas Hoca'nın yorumunun ekran görüntüsü, yavaş zoom.
-
-> İlyas Hocam şunu sormuş: "Kendi konuşmanı ve modelini hazırlama sürecini nasıl yapıyorsun? Avatarı konuşturma kısmını merak ediyorum." Bir de "Standart üyelikle kaç video çıkarabiliyorsunuz?" diye sormuş. Hocam, iki sorunun cevabı da bu videoda. Siz de aynı şeyi merak ediyorsanız sonuna kadar izleyin, en sonda bu işin gerçek maliyetini de göstereceğim.
+**Kontrol et:** Menü isimleri ve adımlar senin panelinde nasıl görünüyorsa, ekran kaydı da öyle olsun. Metin genel konuşuyor, menü adı söylemiyor, bu yüzden uyumsuzluk olmaz.
 
 ---
 
-## SAHNE 4 — Adım 1: Avatar için çekim (1:25–3:00) · [KAMERA] + çekimden kesitler
+## HeyGen'e yapıştırılacak metin
 
-> Her şey tek bir videoyla başlıyor. HeyGen'in sizi öğrenmesi için kendinizi birkaç dakika kameraya konuşurken çekmeniz gerekiyor. Ben bunu [telefonla / kamerayla] çektim. Dikkat ettiğim beş şey var:
->
-> **Bir: Işık.** Yüzünüze önden, yumuşak bir ışık gelsin. Ben [pencere karşısında / halka ışıkla] çektim. Yüzün yarısı gölgede kalırsa avatar da öyle kalıyor.
->
-> **İki: Sade arka plan.** Arkanızda hareket eden hiçbir şey olmasın. Ne insan, ne perde, ne ekran.
->
-> **Üç: Kameraya bakın.** Gözünüz sürekli lensin içinde olsun. Avatar sizin baktığınız yere bakıyor.
->
-> **Dört: Kafanızı çok oynatmayın, eller aşağıda kalsın.** Eller yüzün önünden geçerse, avatarda o kısım bozuluyor.
->
-> **Beş: Doğal konuşun ama arada kısa duraklar verin.** Ben [2–3] dakika boyunca gerçekten bir konuyu anlatıyormuş gibi konuştum. Ezber metin okumayın, robotik duruyor.
->
-> Bir de şunu söyleyeyim: aynı kıyafetle değil, farklı kıyafetlerle birkaç çekim yaparsanız, farklı "görünümler" elde ediyorsunuz. Benim şu an [6] tane görünümüm var. Her videoda farklı biri gibi duruyorum.
+> Köşeli parantez veya not yok, olduğu gibi yapıştırılabilir. ~650 kelime, yaklaşık 4,5–5 dakika.
 
-**Görüntü önerisi:** Kendi ham çekiminden 3–4 sn'lik kesitler. "Yanlış / doğru" karşılaştırması (karanlık oda vs. aydınlık oda) çok iyi çalışır.
+**[1. AÇILIŞ]**
+
+Bu videoda gördüğün yüz benim. Duyduğun ses de benim. Ama ikisi de gerçek değil.
+
+Bu videoyu hazırlamak için kameranın karşısına bir saniye bile geçmedim. Mikrofona bu metni okumadım. Sadece yazdım. Gerisini yapay zeka yaptı.
+
+Bugün sana bunu nasıl yaptığımı baştan sona göstereceğim. Hem de tek bir fotoğrafla.
+
+**[2. YORUM]**
+
+Bu videoyu aslında bir yorum yüzünden hazırladım. İlyas Hocam şunu sormuş: Kendi konuşmanı ve modelini nasıl hazırlıyorsun, avatarı nasıl konuşturuyorsun? Bir de, standart üyelikle kaç video çıkarabiliyorsun?
+
+Hocam, iki sorunun cevabı da bu videoda. Siz de aynı şeyi merak ediyorsanız sonuna kadar izleyin. En sonda bu işin gerçek maliyetini de söyleyeceğim.
+
+**[3. ADIM BİR: FOTOĞRAF]**
+
+Her şey tek bir fotoğrafla başlıyor. Video çekmene gerek yok. HeyGen'e bir fotoğrafını yüklüyorsun, o fotoğraftan konuşan bir avatar oluşturuyor.
+
+Ama fotoğraf ne kadar iyiyse, avatar da o kadar iyi oluyor. Dikkat etmen gereken dört şey var.
+
+Bir. Yüzün tam karşıya baksın. Yandan çekilmiş fotoğraflarda ağız hareketleri bozuluyor.
+
+İki. Işık önden gelsin. Yüzünün yarısı gölgede kalırsa, avatar da öyle kalıyor.
+
+Üç. Fotoğraf net ve yüksek çözünürlüklü olsun. Ekran görüntüsü ya da bulanık bir fotoğraf kullanma.
+
+Dört. Ağzın kapalı olsun, en fazla hafif gülümse. Saçın, elin ya da gözlüğün yüzünü kapatmasın.
+
+Fotoğrafı yükledikten sonra birkaç dakika içinde avatarın hazır oluyor.
+
+**[4. ADIM İKİ: GÖRÜNÜMLER]**
+
+İşin en güzel kısmı şu. Tek bir avatarla kalmak zorunda değilsin. Ben aynı yüzden altı farklı görünüm oluşturdum. Beyaz ceketli bir versiyonum var, Shorts için dikey bir versiyonum var. Her videoda farklı bir ortamda, farklı kıyafetle duruyormuşum gibi görünüyorum. Ama hepsi aynı fotoğraftan çıktı.
+
+**[5. ADIM ÜÇ: SES]**
+
+Gelelim sese. Avatar ne kadar iyi olursa olsun, ses yabancıysa izleyici hemen anlıyor.
+
+Sesimi klonlamak için kamera gerekmedi, sadece mikrofon gerekti. Sessiz bir odada, yaklaşık bir iki dakika boyunca doğal bir şekilde konuştum. Arkada klima, müzik ya da uğultu olmamalı. Kayıt ne kadar temizse klon o kadar iyi.
+
+Ben sesimi Eleven Labs'ta klonladım ve HeyGen'e bağladım. Bir ipucu vereyim: Benzerlik ayarını yüzde yetmiş beş civarında, kararlılık ayarını yüzde elli civarında tuttum. Kararlılığı çok yükseltirsen ses robotik oluyor, çok düşürürsen her cümlede farklı biri gibi konuşuyor.
+
+Şimdi sana aynı cümleyi üç farklı klon sesimle dinleteceğim. Hepsi yapay. Sence hangisi en doğal? Cevabını yorumlara A, B ya da C diye yaz.
+
+**[6. ADIM DÖRT: KONUŞTURMA]**
+
+Artık her şey hazır. Yeni bir video açıyorum, avatarımı seçiyorum, sesimi seçiyorum ve metni yapıştırıyorum. Hepsi bu kadar.
+
+Ama burada iki önemli ipucu var.
+
+Birincisi, Türkçede avatar bazı kelimeleri yanlış okuyabiliyor. Özellikle İngilizce kelimeleri ve kısaltmaları. Mesela kısaltma yazarsan harf harf okuyabiliyor. O yüzden metni nasıl okunmasını istiyorsan öyle yaz.
+
+İkincisi, noktalama işaretleri her şey demek. Virgül kısa bir nefes, nokta uzun bir duraklama. Avatarın doğal konuşması tamamen buna bağlı. Uzun cümleler kurma. Kısa yaz, sık nokta koy.
+
+**[7. MALİYET]**
+
+Gelelim İlyas Hocamın ikinci sorusuna. Ben HeyGen'in Creator planını kullanıyorum. Bu planda her ay altı yüz kredi geliyor.
+
+Kaç video çıkaracağın, videonun uzunluğuna ve seçtiğin avatar motoruna göre değişiyor. Kısa videolar az kredi harcıyor, uzun videolar çok.
+
+Dürüst olayım: Bu ay kredimin tamamını kullandım. Yani her gün uzun avatar videosu yayınlamak istiyorsan, ya bir üst plana geçmen ya da avatarı akıllıca kullanman gerekiyor. Mesela bu videoda avatarı sadece bir kere render ettim. Ekran kayıtlarını da montajda üstüne ekledim.
+
+**[8. KAPANIŞ]**
+
+Özetle: bir fotoğraf, bir dakikalık ses kaydı ve bir metin. Kamera yok, stüdyo yok, ışık yok.
+
+Ama şunu unutma. İyi bir avatar, kötü bir içeriği kurtarmıyor. Asıl iş hâlâ metinde.
+
+Bir sonraki videoda, avatarla sıfırdan bir YouTube kanalı nasıl açılır, ilk otuz günde neler yapılır, onu anlatacağım. Kaçırmamak için abone ol.
+
+Ve yorumlara yazmayı unutma. A, B, C. Hangisi en doğal sesti?
 
 ---
 
-## SAHNE 5 — Adım 2: HeyGen'e yükleme (3:00–4:30) · [EKRAN]
+## Ses testi (Bölüm 5) için ayrı klipler
 
-**Ekranda göster:** HeyGen paneli → Avatars → Create Avatar → Digital Twin (veya kullandığın yol)
+Aynı cümleyi üç sesle ayrıca üret (kısa ses dosyası, avatar videosu değil):
 
-> Çektiğim videoyu HeyGen'e yüklüyorum. Burada [Avatars → Create → Digital Twin] kısmına giriyorsunuz.
->
-> HeyGen sizden bir de **onay videosu** istiyor. Ekranda bir metin çıkıyor, onu kameraya okuyorsunuz. Bu, başkası sizin videonuzu alıp sizin avatarınızı yapmasın diye. Bence çok doğru bir güvenlik önlemi.
->
-> Yükledikten sonra avatarın hazırlanması [X dakika / saat] sürdü. Hazır olunca da ilk denemeyi yapıyorsunuz.
+> "Merhaba, bu cümleyi yapay zeka ile klonlanmış sesimle okuyorum."
 
-**Kontrol et:** Menü isimlerini kendi panelinden birebir doğrula, ekranda nasıl yazıyorsa öyle söyle.
+- **A:** "Berk- Voice" (HeyGen klonu)
+- **B:** "My_Video" (HeyGen klonu)
+- **C:** ElevenLabs klonu (avatarın varsayılan sesi)
 
----
-
-## SAHNE 6 — Adım 3: Ses klonlama (4:30–6:00) · [EKRAN] + ses karşılaştırması
-
-> Gelelim sese. Avatar ne kadar iyi olursa olsun, ses yabancıysa izleyici hemen anlıyor.
->
-> Ben sesimi [ElevenLabs'ta klonlayıp HeyGen'e bağladım / doğrudan HeyGen'de klonladım]. Bunun için temiz bir ortamda, mikrofona [1–2 dakika] konuştum. Arkada uğultu, klima, müzik olmamalı. Ses kaydı ne kadar temizse klon o kadar iyi.
->
-> Şimdi size üç sesi dinleteceğim. Biri benim gerçek sesim, ikisi klon. Bakalım hangisi gerçek, anlayabilecek misiniz?
-
-**Görüntü:** Ekranda "SES A / SES B / SES C" kartları. Aynı cümleyi üç kez:
-- Senin gerçek kaydın
-- HeyGen klonu ("Berk- Voice")
-- ElevenLabs klonu
-
-> Cevabı yorumlara yazın, doğru cevabı sabitlenmiş yorumda vereceğim.
-
-**Not:** Bu bölüm yorum sayısını artırır. Doğru cevabı videoda verme, sabitlenmiş yoruma yaz.
-
----
-
-## SAHNE 7 — Adım 4: Avatarı konuşturma (6:00–7:00) · [EKRAN]
-
-**Ekranda göster:** Yeni video → avatar ve görünüm seç → ses seç → metni yapıştır → render.
-
-> Artık her şey hazır. Yeni bir video açıyorum, avatarımı seçiyorum, sesimi seçiyorum ve metni yapıştırıyorum. Hepsi bu.
->
-> Metni nasıl yazıyorum? [Kendi yöntemin: ChatGPT/Claude ile taslak → kendim düzeltiyorum]. Burada çok önemli bir ipucu var: **Türkçe'de avatar bazı kelimeleri yanlış okuyabiliyor.** Özellikle İngilizce kelimeler ve kısaltmalar. Mesela "AI" yazarsanız "ay" diye okuyor. Bunu "yapay zeka" diye yazın ya da okunduğu gibi "ey ay" diye yazın.
->
-> Bir de noktalama işaretlerini iyi kullanın. Virgül kısa bir nefes, nokta uzun bir duraklama demek. Avatarın doğal konuşması tamamen buna bağlı.
-
----
-
-## SAHNE 8 — Maliyet: Standart üyelikle kaç video? (7:00–8:00) · [EKRAN] + [KAMERA]
-
-**Ekranda göster:** HeyGen faturalandırma / kullanım sayfası (e-postanı ve kart bilgini bulanıklaştır!)
-
-> Gelelim İlyas Hoca'nın ikinci sorusuna. Ben HeyGen'in **Creator** planını kullanıyorum, ayda **[ücret]** ödüyorum. Bu planda ayda **600 kredi** geliyor.
->
-> Bu kredi bana ayda yaklaşık **[X dakika / X video]** çıkarıyor. Benim videolarım ortalama [X dakika] olduğu için ayda yaklaşık [X] video yapabiliyorum.
->
-> Dürüst olayım: Bu ay kredimi bitirdim. Yani bu kanalı tamamen avatarla, haftada [X] video yayınlayarak yürütmek istiyorsanız, ya bir üst plana geçmeniz ya da benim gibi avatarı sadece belli yerlerde kullanmanız gerekiyor. Bu videoda da avatar sadece girişte konuştu, gerisi benim.
-
-**Doldur:** Gerçek ücreti ve dakika karşılığını kendi kullanımından yaz. Uydurma rakam verme, bu kısım güvenini belirler.
-
----
-
-## SAHNE 9 — Kapanış (8:00–8:40) · [KAMERA]
-
-> Özetle: bir video çekiyorsun, sesini klonluyorsun, metni yazıyorsun, gerisini yapay zeka yapıyor. Ama şunu unutma, iyi bir avatar kötü bir içeriği kurtarmıyor. Asıl iş hâlâ metinde.
->
-> İlyas Hoca da "ben de böyle bir kanal açmak istiyorum" demişti. O yüzden bir sonraki videoda **avatarla sıfırdan bir YouTube kanalı nasıl açılır, ilk 30 günde ne yapılır** onu anlatacağım. Kaçırmamak için abone ol.
->
-> Ve yorumlara yaz: A, B, C. Hangisi benim gerçek sesimdi?
-
-**Son kare:** Avatar ve sen yan yana el sallıyorsunuz. Avatar kısmını Sahne 1 ile aynı render'dan al, ekstra kredi harcama.
+Montajda "SES A / SES B / SES C" kartlarıyla arka arkaya koy.
 
 ---
 
@@ -139,46 +132,54 @@
 ## Açıklama (kopyala-yapıştır)
 
 ```
-Kanaldaki videoları nasıl yaptığımı soran çok fazla yorum geldi. Bu videoda yapay zeka avatarımı ve ses klonumu nasıl hazırladığımı baştan sona anlatıyorum.
+Bu videoyu hazırlamak için kameranın karşısına hiç geçmedim. Tek bir fotoğraftan yapay zeka avatarımı, bir dakikalık ses kaydından da ses klonumu nasıl oluşturduğumu baştan sona anlatıyorum.
 
-00:00 Bu videoyu ben çekmedim
-00:35 İfşa
-01:00 Bu video neden var
-01:25 Adım 1 – Avatar için doğru çekim
-03:00 Adım 2 – HeyGen'e yükleme
-04:30 Adım 3 – Ses klonlama (hangisi gerçek?)
-06:00 Adım 4 – Avatarı konuşturma
-07:00 Maliyet: Ayda kaç video çıkar?
-08:00 Sıradaki video
+00:00 Bu videoda ben yokum
+00:25 Bu video neden var
+00:55 Adım 1 – Doğru fotoğraf
+01:50 Adım 2 – 6 farklı görünüm
+02:20 Adım 3 – Ses klonlama (hangisi en doğal?)
+03:25 Adım 4 – Avatarı konuşturma
+04:10 Maliyet: Ayda kaç video çıkar?
+04:45 Sıradaki video
 
 Kullandığım araçlar:
-- HeyGen (avatar)
-- [ElevenLabs] (ses klonu)
-- [Montaj programı]
+- HeyGen (fotoğraf avatarı)
+- ElevenLabs (ses klonu)
+- CapCut (montaj)
 
 #yapayzeka #heygen #aiavatar
 ```
 
+**Not:** Zaman damgalarını render sonrası gerçek sürelere göre düzelt.
+
 ## Etiketler
 
-heygen, heygen türkçe, yapay zeka avatar, ai avatar nasıl yapılır, ses klonlama, kendi avatarını yap, yapay zeka ile video yapma, kamerasız youtube, elevenlabs türkçe, digital twin
+heygen, heygen türkçe, yapay zeka avatar, fotoğraftan avatar, ses klonlama, kamerasız youtube, yüzsüz youtube kanalı, elevenlabs türkçe, ai avatar nasıl yapılır, yapay zeka ile video yapma
 
 ## Kapak
 
-- Sol yarıda gerçek yüzün, şaşkın ifade, "GERÇEK" etiketi
-- Sağ yarıda avatarın aynı açıdan, "YAPAY ZEKA" etiketi
-- Ortada büyük "?" ya da "HANGİSİ?" yazısı
-- En fazla 3 kelime
+- Solda orijinal fotoğrafın, "1 FOTOĞRAF" etiketi
+- Ok işareti
+- Sağda avatarın 3–4 farklı görünümü üst üste
+- Büyük yazı: **"KAMERA YOK"**
 
 ## Sabitlenmiş yorum
 
 ```
-Ses testi cevabı: [B] benim gerçek sesimdi. Kaç kişi bildi? 👇
+Üç ses de yapay zekaydı 😄 Sence en doğalı hangisiydi? A, B, C 👇
 Bir sonraki video: Avatarla sıfırdan YouTube kanalı açmak. İlk 30 gün.
 ```
 
-## Shorts kesitleri (aynı malzemeden, ekstra çekim yok)
+## İlyas Hoca'ya cevap (video yayınlanınca)
 
-1. **"Bu videoyu ben çekmedim"**: Sahne 1 + Sahne 2 (0:00–0:50), dikey kırp
-2. **"Hangisi gerçek sesim?"**: Sahne 6'daki A/B/C testi
-3. **"Avatarın Türkçe'yi yanlış okumasını böyle düzelt"**: Sahne 7'deki ipucu
+```
+Hocam sorunuz üzerine baştan sona anlattım, buyurun: [video linki]
+Kamerasız kanal için bir sonraki videoda ilk 30 günü anlatacağım.
+```
+
+## Shorts kesitleri (ekstra render yok)
+
+1. **"Bu videoda ben yokum":** Bölüm 1, dikey kırp
+2. **"Hangisi en doğal ses?":** Bölüm 5'teki A/B/C testi
+3. **"Avatar için doğru fotoğraf":** Bölüm 3'teki 4 kural
