@@ -1093,10 +1093,21 @@ function TclOpening() {
       const lead = { T: I, cx: 0.575 - 0.08 * ss([0.28, 0.34], q) * (1 - ss([0.5, 0.56], q)) };
       const fx = lead.T.s * lead.cx + lead.T.tx;
       // phones: the scene shrinks a little on the last step so the can sits above the buttons
-      let bh = phone ? vh * (0.8 - 0.21 * ss([0.9, 0.96], q)) : Math.max(vh, (vw * 9) / 16), bw = (bh * 16) / 9;
-      if (!phone && bw < vw) (bw = vw), (bh = (vw * 9) / 16);
-      const left = Math.min(0, Math.max(vw - bw, vw * (phone ? 0.5 : 0.6) - fx * bw));
-      const top = phone ? 0 : (vh - bh) / 2;
+      // desktop: cover the screen, but never so large that the product (box 0.12-0.83) runs under the header
+      const HDR = 100;
+      let bh, bw, left, top;
+      if (phone) {
+        bh = vh * (0.8 - 0.21 * ss([0.9, 0.96], q));
+        bw = (bh * 16) / 9;
+        left = Math.min(0, Math.max(vw - bw, vw * 0.5 - fx * bw));
+        top = 0;
+      } else {
+        bh = Math.min(Math.max(vh, (vw * 9) / 16), (vh - HDR - 30) / 0.74);
+        bw = (bh * 16) / 9;
+        left = bw > vw ? Math.min(0, Math.max(vw - bw, vw * 0.6 - fx * bw)) : (vw - bw) / 2;
+        top = Math.min(0, Math.max(vh - bh, HDR + 12 - 0.12 * bh));
+      }
+      wd.classList.toggle("is-narrow", bw < vw - 1);
       wd.style.width = bw + "px";
       wd.style.height = bh + "px";
       wd.style.transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -1152,6 +1163,7 @@ function TclOpening() {
               layer(lVid, "tcl-open__layer--vid", [
                 w.jsx("video", { ref: vid, className: "tcl-open__video", muted: !0, playsInline: !0, preload: "auto", poster: "./film/open/acilis-poster.webp" }, "v"),
                 w.jsx("a", { className: "tcl-open__inspect", href: "#/incele", tabIndex: -1, "aria-label": c.cta }, "a"),
+                w.jsx("span", { className: "tcl-open__new", children: w.jsx("b", { children: L === "en" ? "New" : "Yeni" }) }, "n"),
               ]),
             ],
           }),

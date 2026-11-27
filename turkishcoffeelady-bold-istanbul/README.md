@@ -41,6 +41,8 @@ Tek bir film, araya sabit görsel ya da geçiş girmeden kaydırmayla ileri/geri
 afiş `acilis-poster.webp` filmin ilk karesi. Film Higgsfield'de İstanbul gece sahnesinde üretildi: paket → kamera yaklaşır →
 kaşık kahveyi alır, paketten uzaklaşıp boşluğa döker → girdap → Bold Istanbul kutusu. Son adımda kutuya tıklayınca `#/incele`.
 - Kaydırma → film zamanı eşlemesi `TclOpenGeo.knots`, adım eşikleri `TclOpenSteps` (`kaynak/extra.js`).
+- Masaüstünde film ekranı kaplar ama ürün hiçbir zaman menünün altına taşmayacak boyutta tutulur; çok geniş ekranlarda
+  kenarlar arka plana yumuşakça karışır. Son adımda kutunun sağ üst omzunda altın "Yeni / New" mührü belirir (`.tcl-open__new`).
 - Higgsfield için hazırlanan sahne kareleri `kaynak/sahne/`: `clean.py` (referanstaki arayüz yazılarını siler), `sr.py` (EDSR 4× büyütme),
   `compose.py` (paketi kaldırıp kutuyu kahve tepeciği, gölge ve mermer yansımasıyla yerleştirir), `tear.py` (şerit katmanı).
 - `site/film/open/opening.js` yalnızca 3D İncele sayfasının kutu/stüdyo parçalarını sağlar (`viewer.js`).

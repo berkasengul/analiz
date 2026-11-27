@@ -1928,3 +1928,62 @@ a.tcl-btn {
   opacity: 1;
   visibility: visible;
 }
+/* very wide screens: the film is sized so the product clears the header; soft edges into the backdrop */
+.tcl-open__world.is-narrow {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3.5%, #000 96.5%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 3.5%, #000 96.5%, transparent 100%);
+}
+@media (max-width: 760px) {
+  .tcl-open__world.is-narrow {
+    -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+  }
+}
+.tcl-open__world {
+  container-type: size;
+}
+/* "new" seal on the can's top-right shoulder, once the can has settled */
+.tcl-open__new {
+  position: absolute;
+  left: 62.2%;
+  top: 12.6%;
+  width: 6.4%;
+  aspect-ratio: 1;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), transparent 42%),
+    conic-gradient(from 210deg, #f6dd9c, #c99a45, #8a6223, #d9b062, #f6dd9c);
+  box-shadow:
+    0 0 0 0.18cqw rgba(255, 236, 190, 0.85) inset,
+    0 0 0 0.45cqw rgba(120, 84, 30, 0.55) inset,
+    0 0.6cqw 1.6cqw rgba(0, 0, 0, 0.45),
+    0 0 2.2cqw rgba(246, 210, 140, 0.35);
+  opacity: 0;
+  transform: scale(0.4) rotate(-40deg);
+  transition: opacity 0.5s var(--ease), transform 0.9s cubic-bezier(0.2, 1.4, 0.3, 1);
+}
+.tcl-open__new:before {
+  content: "";
+  position: absolute;
+  inset: 9%;
+  border-radius: 50%;
+  border: 0.12cqw dashed rgba(70, 45, 12, 0.55);
+}
+.tcl-open__new b {
+  font-family: var(--font-display, "Playfair Display", serif);
+  font-weight: 600;
+  font-size: 1.32cqw;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3a2508;
+  text-shadow: 0 0.06cqw 0 rgba(255, 240, 205, 0.6);
+}
+.tcl-open.is-final .tcl-open__new {
+  opacity: 1;
+  transform: scale(1) rotate(-12deg);
+  transition-delay: 0.25s;
+}
