@@ -36,18 +36,12 @@
 - Yeniden üretim: `kaynak/kutu/strip.html` → `strip.png` (arka etiket), sonra `python3 compose.py`.
 
 ## Kaydırmalı açılış (paket → kutu)
-Katmanlı bir film; tüm katmanlar aynı 16:9 kutuda, kaydırma ilerlemesinin saf fonksiyonu (ileri/geri kusursuz):
-1. **Sahne (paket):** `site/film/open/sahne-paket.webp`: İstanbul gece manzarası, mermer masa, fincan, cezve; paket büyük ve önde.
-   Üst kapama şeridi ayrı katman (`serit.webp`): "Yırt" adımında koparak uçar.
-2. **Yakınlaşma ve video:** sahne pakete yaklaşır ve aynı karede Higgsfield filmine geçer
-   (`acilis-1920.mp4`, telefonda `acilis-1280.mp4`, 11,4 sn; 4K kaynağın 1,9. saniyesinden itibaren, 25 fps).
-   Filmde kaşık kahveyi paketten alır, paketten uzaklaşıp boşluğa döker; kahve girdaba, girdap Bold Istanbul kutusuna
-   dönüşür. 6 karede bir anahtar kare, blob önbellek. Kaydırma → film zamanı eşlemesi `TclOpenGeo.knots`.
-3. **Sahne (kutu):** filmin son karesi `sahne-kutu.webp` ile birebir örtüşür (ORB ile ölçüldü). Bu karedeki kutu gerçek etiketle
-   yeniden kaplandı (`relabel.py`), yazılar net ve doğru.
-   Kutuya tıklayınca `#/incele`.
-- Hizalama değerleri `TclOpenGeo` (`kaynak/extra.js`); adım eşikleri `TclOpenSteps`.
-- Sahne görsellerinin üretimi `kaynak/sahne/`: `clean.py` (referanstaki arayüz yazılarını siler), `sr.py` (EDSR 4× büyütme),
+Tek bir film, araya sabit görsel ya da geçiş girmeden kaydırmayla ileri/geri sarılır:
+`site/film/open/acilis-1920.mp4` (telefonda `acilis-1280.mp4`, 13,3 sn, 25 fps, 6 karede bir anahtar kare, blob önbellek),
+afiş `acilis-poster.webp` filmin ilk karesi. Film Higgsfield'de İstanbul gece sahnesinde üretildi: paket → kamera yaklaşır →
+kaşık kahveyi alır, paketten uzaklaşıp boşluğa döker → girdap → Bold Istanbul kutusu. Son adımda kutuya tıklayınca `#/incele`.
+- Kaydırma → film zamanı eşlemesi `TclOpenGeo.knots`, adım eşikleri `TclOpenSteps` (`kaynak/extra.js`).
+- Higgsfield için hazırlanan sahne kareleri `kaynak/sahne/`: `clean.py` (referanstaki arayüz yazılarını siler), `sr.py` (EDSR 4× büyütme),
   `compose.py` (paketi kaldırıp kutuyu kahve tepeciği, gölge ve mermer yansımasıyla yerleştirir), `tear.py` (şerit katmanı).
 - `site/film/open/opening.js` yalnızca 3D İncele sayfasının kutu/stüdyo parçalarını sağlar (`viewer.js`).
 - Paket etiketi `site/film/open/bag-front.webp` / `bag-back.webp`; kaynakları `kaynak/paket/`.

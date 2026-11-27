@@ -1922,3 +1922,9 @@ a.tcl-btn {
     background: linear-gradient(180deg, rgba(5, 8, 18, 0.35) 0%, rgba(5, 8, 18, 0) 12%, rgba(5, 8, 18, 0) 58%, rgba(5, 8, 18, 0.9) 76%);
   }
 }
+
+/* opening v4: one film, no stills */
+.tcl-open__layer--vid {
+  opacity: 1;
+  visibility: visible;
+}

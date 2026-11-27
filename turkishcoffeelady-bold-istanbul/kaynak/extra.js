@@ -964,7 +964,7 @@ function TclFooter() {
 }
 
 // ---------------- scroll opening: bag → can ----------------
-const TclOpenSteps = [0, 0.06, 0.16, 0.3, 0.46, 0.66, 0.885, 1],
+const TclOpenSteps = [0, 0.08, 0.17, 0.24, 0.45, 0.65, 0.9, 1],
   TclOpenCopy = {
     tr: {
       labels: ["Başla", "Yırt", "Aç", "Kaşık", "Dönüşüm", "Soğuk", "Hazır"],
@@ -1009,7 +1009,7 @@ const TclOpenGeo = {
   vidOut: { s: 1.04, tx: -0.02, ty: -0.02 }, // video pushed in so its can matches the still can
   canIn: { s: 1.04, tx: -0.02, ty: -0.02 },
   // scroll -> film time (s): scoop, dissolve into the vortex, can forms, glow settles
-  knots: [[0.28, 0], [0.38, 2.0], [0.45, 3.2], [0.53, 4.7], [0.62, 6.8], [0.7, 8.0], [0.8, 10.3], [0.85, 11.35]],
+  knots: [[0, 0], [0.2, 2.2], [0.32, 3.9], [0.42, 5.2], [0.52, 6.6], [0.63, 8.6], [0.72, 9.9], [0.86, 12.0], [0.95, 13.25]],
   q: { tear: [0.06, 0.16], push: [0.16, 0.24], fadeA: [0.24, 0.27], relaxA: [0.28, 0.35], play: [0.28, 0.85], pushB: [0.8, 0.85], fadeB: [0.85, 0.88], relaxB: [0.89, 0.97] },
 };
 function TclOpening() {
@@ -1018,10 +1018,7 @@ function TclOpening() {
     sec = K.useRef(null),
     sticky = K.useRef(null),
     world = K.useRef(null),
-    lBag = K.useRef(null),
-    lStrip = K.useRef(null),
     lVid = K.useRef(null),
-    lCan = K.useRef(null),
     vid = K.useRef(null),
     [step, setStep] = K.useState(0),
     [prog, setProg] = K.useState(0),
@@ -1043,8 +1040,11 @@ function TclOpening() {
       window.__tclOpenReady = !0;
       alive && setReady(!0);
     };
-    const bagImg = lBag.current.querySelector("img");
-    bagImg.complete ? markReady() : bagImg.addEventListener("load", markReady, { once: !0 });
+    // one film from the first frame to the last: the poster is its first frame
+    const poster = new Image();
+    poster.onload = markReady;
+    poster.src = new URL("film/open/acilis-poster.webp", document.baseURI).href;
+    poster.complete && markReady();
     const fallback = setTimeout(markReady, 6000);
     v.addEventListener("loadeddata", () => (vidOk = !0), { once: !0 });
     // the whole file as a blob: seeking is instant in both directions
@@ -1078,19 +1078,7 @@ function TclOpening() {
       if (Math.abs(target - shown) < 0.0004) shown = target;
       const q = shown, st = sticky.current, wd = world.current;
       if (!st || !wd) return;
-      // layer transforms
-      const bagT = mix(I, G.bagIn, ss(Q.push, q));
-      const vidT = q < Q.pushB[0] ? mix(G.vid0, I, ss(Q.relaxA, q)) : mix(I, G.vidOut, ss(Q.pushB, q));
-      const canT = mix(G.canIn, I, ss(Q.relaxB, q));
-      const fa = vidOk ? ss(Q.fadeA, q) : 0, fb = ss(Q.fadeB, q);
-      // each layer fades in on top of the previous one, which then hides
-      put(lBag.current, bagT, fa >= 1 ? 0 : 1);
-      put(lVid.current, vidT, fb >= 1 ? 0 : fa);
-      put(lCan.current, canT, fb);
-      // the sealed strip tears off and flies away
-      const k = ss(Q.tear, q);
-      lStrip.current.style.transform = `translate3d(${k * 22}%, ${-k * k * 260}%, 0) rotate(${k * 11}deg)`;
-      lStrip.current.style.opacity = 1 - ss([Q.tear[0] + (Q.tear[1] - Q.tear[0]) * 0.45, Q.tear[1]], q);
+      put(lVid.current, I, 1);
       // video time
       if (vidOk && v.duration) {
         const kn = G.knots;
@@ -1102,10 +1090,10 @@ function TclOpening() {
       }
       // the box: covers the screen (desktop) or the upper part (phones), product kept in view
       const vw = st.clientWidth, vh = st.clientHeight, phone = vw / vh < 0.8;
-      const lead = q < 0.26 ? { T: bagT, cx: G.bag.cx } : q < 0.87 ? { T: vidT, cx: 0.575 - 0.08 * ss([0.36, 0.42], q) * (1 - ss([0.56, 0.62], q)) } : { T: canT, cx: G.bag.cx };
+      const lead = { T: I, cx: 0.575 - 0.08 * ss([0.28, 0.34], q) * (1 - ss([0.5, 0.56], q)) };
       const fx = lead.T.s * lead.cx + lead.T.tx;
       // phones: the scene shrinks a little on the last step so the can sits above the buttons
-      let bh = phone ? vh * (0.8 - 0.21 * ss([0.885, 0.95], q)) : Math.max(vh, (vw * 9) / 16), bw = (bh * 16) / 9;
+      let bh = phone ? vh * (0.8 - 0.21 * ss([0.9, 0.96], q)) : Math.max(vh, (vw * 9) / 16), bw = (bh * 16) / 9;
       if (!phone && bw < vw) (bw = vw), (bh = (vw * 9) / 16);
       const left = Math.min(0, Math.max(vw - bw, vw * (phone ? 0.5 : 0.6) - fx * bw));
       const top = phone ? 0 : (vh - bh) / 2;
@@ -1161,13 +1149,8 @@ function TclOpening() {
             className: "tcl-open__world",
             ref: world,
             children: [
-              layer(lBag, "tcl-open__layer--bag", [
-                w.jsx("img", { src: "./film/open/sahne-paket.webp", alt: "", decoding: "async", fetchpriority: "high" }, "b"),
-                w.jsx("img", { ref: lStrip, className: "tcl-open__strip", src: "./film/open/serit.webp", alt: "" }, "s"),
-              ]),
-              layer(lVid, "tcl-open__layer--vid", w.jsx("video", { ref: vid, className: "tcl-open__video", muted: !0, playsInline: !0, preload: "auto" })),
-              layer(lCan, "tcl-open__layer--can", [
-                w.jsx("img", { src: "./film/open/sahne-kutu.webp", alt: "", decoding: "async" }, "c"),
+              layer(lVid, "tcl-open__layer--vid", [
+                w.jsx("video", { ref: vid, className: "tcl-open__video", muted: !0, playsInline: !0, preload: "auto", poster: "./film/open/acilis-poster.webp" }, "v"),
                 w.jsx("a", { className: "tcl-open__inspect", href: "#/incele", tabIndex: -1, "aria-label": c.cta }, "a"),
               ]),
             ],
