@@ -1,16 +1,26 @@
 #!/bin/bash
-# Yeniden derleme: orijinal bundle + yamalar -> ../site
-# Kullanım: kaynak/ klasöründe ./build.sh  (node/npx gerekir)
+# usage: build.sh  -> builds site into $S/site from src + patched bundle
 set -e
-cd "$(dirname "$0")"
-python3 patch.py orijinal-bundle.pretty.js /tmp/tcl-patched.js extra.js
-npx --yes esbuild /tmp/tcl-patched.js --minify --format=esm --log-level=warning --outfile=/tmp/tcl-patched.min.js
-OLD=$(ls ../site/assets/index-*.js | xargs -n1 basename)
-H=$(sha1sum /tmp/tcl-patched.min.js | cut -c1-8)
-OLDSTILL=$(ls ../site/assets/Still-*.js | xargs -n1 basename)
-rm ../site/assets/$OLD
-cp /tmp/tcl-patched.min.js ../site/assets/index-$H.js
-sed -i "s#$OLD#index-$H.js#g" ../site/index.html ../site/assets/$OLDSTILL
-mv ../site/assets/$OLDSTILL ../site/assets/Still-$H.js 2>/dev/null || true
-sed -i "s#Still-[A-Za-z0-9_-]*\.js#Still-$H.js#g" ../site/assets/index-$H.js
-echo "index-$H.js"
+S=/tmp/claude-0/-home-user-analiz/db0b5979-befc-579d-9661-ddb5b674622d/scratchpad
+cd $S
+python3 -I tools/patch.py work/full.pretty.js work/patched.js tools/extra.js
+npx --yes esbuild work/patched.js --minify --format=esm --log-level=warning --outfile=work/patched.min.js
+H=$(sha1sum work/patched.min.js | cut -c1-8)
+rm -rf site && cp -r src site
+rm site/assets/index-BOBW-ACE.js
+cp work/patched.min.js site/assets/index-$H.js
+sed -i "s#index-BOBW-ACE.js#index-$H.js#g" site/index.html site/assets/Still-CQ5tHmbq.js
+mv site/assets/Still-CQ5tHmbq.js site/assets/Still-$H.js
+sed -i "s#Still-CQ5tHmbq.js#Still-$H.js#g" site/assets/index-$H.js
+[ -d tools/static ] && cp -r tools/static/. site/
+echo built index-$H.js
+# three.js import map for the opening scene
+sed -i 's#<script type="module" crossorigin#<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>\n    <script type="module" crossorigin#' site/index.html
+# the site has its own TR/EN switch: keep browsers from auto-translating brand names
+sed -i 's#<html lang="en">#<html lang="en" translate="no" class="notranslate">#; s#<meta charset="UTF-8" />#<meta charset="UTF-8" />\n    <meta name="google" content="notranslate" />#' site/index.html
+# film stylesheet + metadata
+sed -i 's#</head>#    <link rel="stylesheet" href="./film/film.css" />\n  </head>#' site/index.html
+sed -i 's#<title>.*</title>#<title>Bold Istanbul · Turkish Coffee Lady</title>#' site/index.html
+sed -i 's#<meta name="description" content="[^"]*" />#<meta name="description" content="Bold Istanbul iced Turkish coffee and the story behind it: A Cup of Courage, the Turkish Coffee Lady documentary. Concept demo, not affiliated with the brand owner." />#' site/index.html
+sed -i 's#<meta property="og:title" content="[^"]*" />#<meta property="og:title" content="Bold Istanbul · Turkish Coffee Lady" />#' site/index.html
+echo html patched

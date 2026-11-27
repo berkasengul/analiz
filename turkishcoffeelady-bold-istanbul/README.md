@@ -36,8 +36,11 @@
 - Yeniden üretim: `kaynak/kutu/strip.html` → `strip.png` (arka etiket), sonra `python3 compose.py`.
 
 ## Kaydırmalı açılış (paket → kutu)
-- Sahne: `site/film/open/opening.js` (three.js 0.160, jsDelivr'den). Her şey kaydırma ilerlemesinin saf fonksiyonu;
-  ileri/geri kaydırma kusursuz çalışır. Paket, kaşık, kahve taneleri ve buğu kodla üretilir; kutu sitedeki gerçek dokuyla.
-- Paket etiketi `site/film/open/bag-front.webp` / `bag-back.webp`; kaynakları `kaynak/paket/` (çizim ve hanım logosu
-  orijinal paket görselinden 4× büyütülüp temizlendi, yazılar yeniden yazıldı).
-- Video yok, kredi gerekmez. İleride yapay zekâ videosu üretilirse aynı kaydırma altyapısına takılabilir.
+- Ana sayfa açılışı Higgsfield'de üretilen iki videonun birleşimi: paket → yırtılma → kaşık → döküm (video 1) ve
+  kahve → Bold Istanbul kutusu kaidede (video 2). Kaydırma videoyu ileri/geri sarar; video oynatılmaz.
+- Dosyalar: `site/film/open/acilis-1920.mp4` (masaüstü, 1920×1080) ve `acilis-mobil.mp4` (dikey, 720×1280),
+  posterleri `acilis-poster*.webp`. Akıcı sarma için 6 karede bir anahtar kare (`-g 6 -bf 0`), `+faststart`;
+  sayfa videoyu blob olarak önbelleğe alır.
+- Adım yazıları videonun zamanına bağlı (`TclOpenSteps`, `kaynak/extra.js`); son adımda kutuya tıklayınca `#/incele`.
+- `site/film/open/opening.js` artık yalnızca 3D İncele sayfasının kutu/stüdyo parçalarını sağlar (`viewer.js`).
+- Paket etiketi `site/film/open/bag-front.webp` / `bag-back.webp`; kaynakları `kaynak/paket/`.

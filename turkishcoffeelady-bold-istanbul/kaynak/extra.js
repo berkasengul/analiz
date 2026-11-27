@@ -964,7 +964,7 @@ function TclFooter() {
 }
 
 // ---------------- scroll opening: bag → can ----------------
-const TclOpenSteps = [0, 0.11, 0.237, 0.356, 0.509, 0.678, 0.78, 1],
+const TclOpenSteps = [0, 0.031, 0.109, 0.204, 0.489, 0.734, 0.816, 1],
   TclOpenCopy = {
     tr: {
       labels: ["Başla", "Yırt", "Aç", "Kaşık", "Dönüşüm", "Soğuk", "Hazır"],
@@ -975,7 +975,7 @@ const TclOpenSteps = [0, 0.11, 0.237, 0.356, 0.509, 0.678, 0.78, 1],
         ["Bir kaşık", "yeter.", "Fincan başına iki çay kaşığı (10 g). Ritüel hep aynı."],
         ["Aynı harman.", "Şimdi buzlu.", "Yüz yıllık ritüel, soğuk ve sıfır şekerle bir kutuda."],
         ["Çalkala.", "Soğuk iç.", "250 ml Bold Istanbul: koyu ve yoğun, %100 doğal, düşük kalori."],
-        ["Aynı İstanbul.", "İki ritüel.", "Bold Istanbul: koyu ve yoğun; pakette geleneksel, kutuda buzlu."],
+        ["Bold Istanbul.", "Koyu ve yoğun.", "%100 doğal, sıfır şeker, düşük kalori. 250 ml; çalkala, soğuk iç."],
       ],
       cta: "3D incele",
       film: "Filmi izle",
@@ -991,7 +991,7 @@ const TclOpenSteps = [0, 0.11, 0.237, 0.356, 0.509, 0.678, 0.78, 1],
         ["One spoon", "is all it takes.", "Two teaspoons (10 g) a cup. The ritual never changes."],
         ["Same blend.", "Now iced.", "A centuries-old ritual, cold and zero sugar, in a can."],
         ["Shake well.", "Drink cold.", "8.5 fl oz of Bold Istanbul: dark and rich, 100% natural, low calorie."],
-        ["One Istanbul.", "Two rituals.", "Bold Istanbul, dark and rich: traditional in the bag, iced in the can."],
+        ["Bold Istanbul.", "Dark & rich.", "100% natural, zero sugar, low calorie. 8.5 fl oz; shake well, drink cold."],
       ],
       cta: "Inspect in 3D",
       film: "Watch the film",
@@ -1010,47 +1010,58 @@ function TclOpening() {
     [step, setStep] = K.useState(0),
     [prog, setProg] = K.useState(0),
     [ready, setReady] = K.useState(!1);
+  const vid = K.useRef(null);
   K.useEffect(() => {
-    let alive = !0, raf = 0;
-    const p3 = ft.products[0].photo3d;
-    import(new URL("film/open/opening.js", document.baseURI).href)
-      .then((m) =>
-        m.mount(stage.current, {
-          canTexture: bq,
-          rows: p3.rows,
-          axis: p3.axis,
-          onInspect: () => (location.hash = "#/incele"),
-          onReady: () => {
-            window.__tclOpenReady = !0;
-            alive && setReady(!0);
-          },
-        }),
-      )
-      .then((a) => {
-        if (!alive) return a.destroy();
-        api.current = a;
-        tick();
+    // scroll-scrubbed film (bag -> spoon -> coffee vortex -> Bold Istanbul can)
+    let alive = !0, raf = 0, raf2 = 0, blobUrl = null, target = 0, shown = 0;
+    const v = vid.current;
+    const mobile = matchMedia("(max-aspect-ratio: 4/5)").matches;
+    const src = new URL(mobile ? "film/open/acilis-mobil.mp4" : "film/open/acilis-1920.mp4", document.baseURI).href;
+    v.muted = !0;
+    v.defaultMuted = !0;
+    v.playsInline = !0;
+    v.setAttribute("playsinline", "");
+    v.setAttribute("muted", "");
+    v.preload = "auto";
+    v.src = src;
+    const markReady = () => {
+      window.__tclOpenReady = !0;
+      alive && setReady(!0);
+    };
+    v.addEventListener("loadeddata", markReady, { once: !0 });
+    const fallback = setTimeout(markReady, 7000);
+    // the whole file as a blob: seeking is instant in both directions
+    fetch(src)
+      .then((r) => r.blob())
+      .then((b) => {
+        if (!alive) return;
+        const t = v.currentTime;
+        blobUrl = URL.createObjectURL(b);
+        v.src = blobUrl;
+        v.addEventListener("loadedmetadata", () => (v.currentTime = t), { once: !0 });
       })
-      .catch((e) => {
-        window.__tclOpenReady = !0;
-        console.warn("opening", e);
-      });
+      .catch(() => {});
+    const unlock = () => v.play().then(() => v.pause()).catch(() => {});
+    addEventListener("touchstart", unlock, { passive: !0, once: !0 });
+    const loop = () => {
+      raf2 = requestAnimationFrame(loop);
+      if (!v.duration || v.readyState < 1) return;
+      shown += (target - shown) * 0.2;
+      if (Math.abs(target - shown) < 0.0015) shown = target;
+      const t = shown * (v.duration - 0.06);
+      if (!v.seeking && Math.abs(v.currentTime - t) > 0.015) v.currentTime = t;
+    };
+    raf2 = requestAnimationFrame(loop);
     const tick = () => {
       raf = 0;
       const el = sec.current;
       if (!el) return;
-      // the last viewport of the section overlaps the hero: the opening dissolves into it
       const r = el.getBoundingClientRect(),
         span = Math.max(1, r.height - innerHeight),
-        p = Math.min(1, Math.max(0, -r.top / span)),
-        vis = r.bottom > 0 && r.top < innerHeight;
-      window.__tclOpenVis = vis;
-      const sm = (t) => t * t * (3 - 2 * t), cl = (t) => Math.min(1, Math.max(0, t));
-      const lb = sm(cl((p - 0.625) / 0.05)) * (1 - sm(cl((p - 0.775) / 0.04)));
-      sticky.current && sticky.current.style.setProperty("--lb", lb.toFixed(3));
-      if (api.current) (api.current.setProgress(p), api.current.setVisible(vis));
+        p = Math.min(1, Math.max(0, -r.top / span));
+      target = Math.min(1, p / 0.9); // the last tenth of the scroll holds on the can
       let i = 0;
-      TclOpenSteps.forEach((s, k) => k < 7 && p >= s - 0.001 && (i = k));
+      TclOpenSteps.forEach((st, k) => k < 7 && p >= st - 0.001 && (i = k));
       setStep(i);
       setProg(p);
     };
@@ -1060,11 +1071,13 @@ function TclOpening() {
     tick();
     return () => {
       alive = !1;
-      window.__tclOpenVis = !1;
+      clearTimeout(fallback);
       removeEventListener("scroll", on);
       removeEventListener("resize", on);
+      removeEventListener("touchstart", unlock);
       cancelAnimationFrame(raf);
-      api.current && api.current.destroy();
+      cancelAnimationFrame(raf2);
+      blobUrl && URL.revokeObjectURL(blobUrl);
     };
   }, []);
   const s = c.steps[step];
@@ -1079,7 +1092,21 @@ function TclOpening() {
         w.jsx("span", { className: "tcl-open__lb tcl-open__lb--t", "aria-hidden": "true" }),
         w.jsx("span", { className: "tcl-open__lb tcl-open__lb--b", "aria-hidden": "true" }),
         w.jsx("div", { className: "tcl-open__bg", "aria-hidden": "true" }),
-        w.jsx("div", { className: "tcl-open__stage", ref: stage, "aria-hidden": "true" }),
+        w.jsx("div", {
+          className: "tcl-open__stage",
+          ref: stage,
+          "aria-hidden": "true",
+          children: w.jsx("video", {
+            ref: vid,
+            className: "tcl-open__video",
+            muted: !0,
+            playsInline: !0,
+            preload: "auto",
+            poster: matchMedia("(max-aspect-ratio: 4/5)").matches ? "./film/open/acilis-poster-mobil.webp" : "./film/open/acilis-poster.webp",
+          }),
+        }),
+        step === 6 &&
+          w.jsx("a", { className: "tcl-open__inspect", href: "#/incele", "aria-label": c.cta }),
         w.jsxs(
           "div",
           {

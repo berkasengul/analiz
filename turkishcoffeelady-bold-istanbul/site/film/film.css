@@ -1793,3 +1793,43 @@ a.tcl-btn {
     max-width: none;
   }
 }
+
+/* ---------- the opening is a scroll-scrubbed film now ---------- */
+.tcl-open {
+  height: 780vh;
+}
+.tcl-open__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  background: #0b1228;
+}
+.tcl-open__sticky:before {
+  background: linear-gradient(90deg, rgba(7, 10, 20, 0.82) 0%, rgba(7, 10, 20, 0.5) 26%, rgba(7, 10, 20, 0) 44%);
+}
+.tcl-open__lb {
+  display: none;
+}
+.tcl-open__inspect {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 24%;
+  width: 16vw;
+  height: 62%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+@media (max-width: 760px) {
+  .tcl-open__inspect {
+    width: 44vw;
+    top: 22%;
+    height: 40%;
+  }
+  .tcl-open__sticky:before {
+    background: linear-gradient(180deg, rgba(7, 10, 20, 0) 40%, rgba(7, 10, 20, 0.88) 70%);
+  }
+}
