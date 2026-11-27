@@ -40,11 +40,14 @@ Katmanlı bir film; tüm katmanlar aynı 16:9 kutuda, kaydırma ilerlemesinin sa
 1. **Sahne (paket):** `site/film/open/sahne-paket.webp`: İstanbul gece manzarası, mermer masa, fincan, cezve; paket büyük ve önde.
    Üst kapama şeridi ayrı katman (`serit.webp`): "Yırt" adımında koparak uçar.
 2. **Yakınlaşma ve video:** sahne pakete yaklaşır ve aynı karede Higgsfield filmine geçer
-   (`acilis-1920.mp4`, telefonda `acilis-1280.mp4`, 8,6 sn). Film iki videodan kurgulandı (`kaynak/sahne/splice.py`):
-   video 1 (kaşık kahveyi alır) + hizalı geçiş + video 2'nin 2,3. saniyesinden sonrası (paket kahve girdabına dönüşür,
-   kutu oluşur). Video 2'nin başındaki "kahveyi pakete geri döken" kısım kesildi. İki video da İstanbul sahnesinde
-   çekildi; 6 karede bir anahtar kare, blob önbellek. Kaydırma → film zamanı eşlemesi `TclOpenGeo.knots`.
-3. **Sahne (kutu):** filmin son karesi `sahne-kutu.webp` ile birebir örtüşür (ORB ile ölçüldü), keskin sahne karesine geçilir.
+   (`acilis-1920.mp4`, telefonda `acilis-1280.mp4`, 10,5 sn). Film, İstanbul sahnesindeki 4K Higgsfield videosundan
+   kurgulandı; videodaki "kaşık kahveyi pakete geri döker" hatası çıkarıldı (`kaynak/sahne/`):
+   `spoon.py` + `spoonmove.py` dolu kaşığı 5,0. saniyedeki kareden ayırıp paketin dışına taşır (arka plan temizlenir),
+   `pour4.py` kaşıktaki kahveyi gerçek renkleriyle toz bulutuna çevirip paketin çevresinde döndürür ve videonun
+   8,1. saniyesindeki girdaba hizalı geçişle bağlar; sonrası (girdap → kutu) orijinal video.
+   Kaydırma → film zamanı eşlemesi `TclOpenGeo.knots`; telefonda kamera dışarı çıkan kaşığı takip eder.
+3. **Sahne (kutu):** filmin son karesi `sahne-kutu.webp` ile birebir örtüşür (ORB ile ölçüldü). Bu karedeki kutu gerçek etiketle
+   yeniden kaplandı (`relabel.py`), yazılar net ve doğru.
    Kutuya tıklayınca `#/incele`.
 - Hizalama değerleri `TclOpenGeo` (`kaynak/extra.js`); adım eşikleri `TclOpenSteps`.
 - Sahne görsellerinin üretimi `kaynak/sahne/`: `clean.py` (referanstaki arayüz yazılarını siler), `sr.py` (EDSR 4× büyütme),
