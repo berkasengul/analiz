@@ -1987,3 +1987,24 @@ a.tcl-btn {
   transform: scale(1) rotate(-12deg);
   transition-delay: 0.25s;
 }
+
+/* opening v5: Istanbul film from the studio cut; the can stands at 42–57% x, 25–91% y of the frame */
+.tcl-open__inspect,
+.tcl-open__world .tcl-open__inspect {
+  left: 41.6%;
+  top: 24%;
+  width: 16.4%;
+  height: 67%;
+}
+.tcl-open__new {
+  left: 53.4%;
+  top: 21%;
+}
+@media (max-width: 760px) {
+  .tcl-open__world .tcl-open__inspect {
+    left: 41.6%;
+    top: 24%;
+    width: 16.4%;
+    height: 67%;
+  }
+}
