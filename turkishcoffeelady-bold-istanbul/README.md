@@ -36,11 +36,10 @@
 - Yeniden üretim: `kaynak/kutu/strip.html` → `strip.png` (arka etiket), sonra `python3 compose.py`.
 
 ## Kaydırmalı açılış (paket → kutu)
-Tek bir film, kaydırmayla ileri/geri sarılır: `site/film/open/acilis-1920.mp4` (telefonda `acilis-1280.mp4`,
-15 sn, 24 fps, 6 karede bir anahtar kare, blob önbellek); afiş `acilis-poster.webp` filmin ilk karesi.
-Higgsfield'de üretildi: dört anahtar kare (Nano Banana Pro, Boğaz'da yalı, mavi saat; `kaynak/sahne/premium/`) ve
-aralarında üç Kling 3.0 Pro (1080p) klibi: paket yırtılır, kamera paketin içine iner, kaşık kahveyi alır →
-kaşık paketin önünde kahveyi masaya döker → kahve tozu bulutu ve Bold Istanbul kutusu. Son adımda kutuya tıklayınca `#/incele`.
+Tek bir film, araya sabit görsel ya da geçiş girmeden kaydırmayla ileri/geri sarılır:
+`site/film/open/acilis-1920.mp4` (telefonda `acilis-1280.mp4`, 13,3 sn, 25 fps, 6 karede bir anahtar kare, blob önbellek),
+afiş `acilis-poster.webp` filmin ilk karesi. Film Higgsfield'de İstanbul gece sahnesinde üretildi: paket → kamera yaklaşır →
+kaşık kahveyi alır, paketten uzaklaşıp boşluğa döker → girdap → Bold Istanbul kutusu. Son adımda kutuya tıklayınca `#/incele`.
 - Kaydırma → film zamanı eşlemesi `TclOpenGeo.knots`, adım eşikleri `TclOpenSteps` (`kaynak/extra.js`).
 - Masaüstünde film ekranı kaplar ama ürün hiçbir zaman menünün altına taşmayacak boyutta tutulur; çok geniş ekranlarda
   kenarlar arka plana yumuşakça karışır. Son adımda kutunun sağ üst omzunda altın "Yeni / New" mührü belirir (`.tcl-open__new`).
