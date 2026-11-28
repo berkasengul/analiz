@@ -2000,3 +2000,17 @@ a.tcl-btn {
   left: 65.2%;
   top: 21.5%;
 }
+
+/* opening v8 (daytime): the can stands at 62–72% x, 39–88% y of the frame */
+.tcl-open__inspect,
+.tcl-open__world .tcl-open__inspect {
+  left: 61.4%;
+  top: 38%;
+  width: 10.8%;
+  height: 51%;
+}
+.tcl-open__new {
+  left: 69.2%;
+  top: 35.5%;
+  width: 5.4%;
+}
