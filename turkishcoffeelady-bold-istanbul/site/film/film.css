@@ -2014,3 +2014,17 @@ a.tcl-btn {
   top: 35.5%;
   width: 5.4%;
 }
+
+/* opening v9: the can stands at 36–48% x, 33–88% y of the frame, left of the pouch */
+.tcl-open__inspect,
+.tcl-open__world .tcl-open__inspect {
+  left: 35.4%;
+  top: 32%;
+  width: 12.8%;
+  height: 56%;
+}
+.tcl-open__new {
+  left: 32.2%;
+  top: 29.5%;
+  width: 5.6%;
+}

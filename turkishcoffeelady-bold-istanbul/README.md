@@ -39,9 +39,10 @@
 Tek bir film, kaydırmayla ileri/geri sarılır: `site/film/open/acilis-1920.mp4` (telefonda `acilis-1280.mp4`,
 20 sn, 24 fps, 6 karede bir anahtar kare, blob önbellek); afiş `acilis-poster.webp` filmin ilk karesi.
 Higgsfield'de gündüz sahnesinde (Osmanlı kemerli pencere, güneşli Boğaz ve Galata) yeni Bold Istanbul paketiyle
-Kling 3.0 Pro (1080p) iki çekim: (1) paket sabit durur, el paketi yırtar, kamera paketin ağzına yaklaşır, kaşık kahveyi alır;
-(2) kamera geri çekilir, kahve paketin yanındaki masaya dökülür ve hemen Bold Istanbul kutusuna dönüşür; son karede paket
-arkada, kutu önde. Son adımda kutuya tıklayınca `#/incele`.
+Kling 3.0 Pro (1080p) iki çekim: (1) paket sabit durur, eller paketin üstünü açar, kamera paketin ağzına yaklaşır, kaşık
+kahveyi alır; (2) kamera kaşığı sola takip eder (paket kadraj dışında kalır), kahve masaya dökülür dökülmez Bold Istanbul
+kutusu belirir, kamera geri çekilip iki ürüne karşıdan bakarak biter (kutu solda önde, paket arkada).
+Son adımda kutuya tıklayınca `#/incele`.
 - Kaydırma → film zamanı eşlemesi `TclOpenGeo.knots`, adım eşikleri `TclOpenSteps` (`kaynak/extra.js`).
 - Masaüstünde film ekranı kaplar ama ürün hiçbir zaman menünün altına taşmayacak boyutta tutulur; çok geniş ekranlarda
   kenarlar arka plana yumuşakça karışır. Son adımda kutunun sağ üst omzunda altın "Yeni / New" mührü belirir (`.tcl-open__new`).

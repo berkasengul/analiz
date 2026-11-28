@@ -964,7 +964,7 @@ function TclFooter() {
 }
 
 // ---------------- scroll opening: bag → can ----------------
-const TclOpenSteps = [0, 0.05, 0.15, 0.33, 0.6, 0.74, 0.86, 1],
+const TclOpenSteps = [0, 0.07, 0.19, 0.33, 0.66, 0.76, 0.83, 1],
   TclOpenCopy = {
     tr: {
       labels: ["Başla", "Yırt", "Aç", "Kaşık", "Dönüşüm", "Soğuk", "Hazır"],
@@ -1090,7 +1090,7 @@ function TclOpening() {
       }
       // the box: covers the screen (desktop) or the upper part (phones), product kept in view
       const vw = st.clientWidth, vh = st.clientHeight, phone = vw / vh < 0.8;
-      const lead = { T: I, cx: 0.6 - 0.1 * ss([0.12, 0.3], q) * (1 - ss([0.5, 0.62], q)) };
+      const lead = { T: I, cx: 0.58 - 0.08 * ss([0.12, 0.3], q) - 0.06 * ss([0.5, 0.62], q) + 0.08 * ss([0.76, 0.86], q) };
       const fx = lead.T.s * lead.cx + lead.T.tx;
       // phones: the scene shrinks a little on the last step so the can sits above the buttons
       // desktop: cover the screen, but never so large that the product (box 0.12-0.83) runs under the header
