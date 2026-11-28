@@ -964,7 +964,7 @@ function TclFooter() {
 }
 
 // ---------------- scroll opening: bag → can ----------------
-const TclOpenSteps = [0, 0.06, 0.17, 0.25, 0.52, 0.72, 0.88, 1],
+const TclOpenSteps = [0, 0.05, 0.114, 0.165, 0.475, 0.76, 0.86, 1],
   TclOpenCopy = {
     tr: {
       labels: ["Başla", "Yırt", "Aç", "Kaşık", "Dönüşüm", "Soğuk", "Hazır"],
@@ -1009,7 +1009,7 @@ const TclOpenGeo = {
   vidOut: { s: 1.04, tx: -0.02, ty: -0.02 }, // video pushed in so its can matches the still can
   canIn: { s: 1.04, tx: -0.02, ty: -0.02 },
   // scroll -> film time (s): scoop, dissolve into the vortex, can forms, glow settles
-  knots: [[0, 0], [0.06, 0.4], [0.14, 1.6], [0.22, 3.0], [0.42, 6.8], [0.52, 8.0], [0.62, 9.4], [0.72, 10.6], [0.86, 12.2], [0.95, 13.25]],
+  knots: [[0, 0], [0.95, 15.05]],
   q: { tear: [0.06, 0.16], push: [0.16, 0.24], fadeA: [0.24, 0.27], relaxA: [0.28, 0.35], play: [0.28, 0.85], pushB: [0.8, 0.85], fadeB: [0.85, 0.88], relaxB: [0.89, 0.97] },
 };
 function TclOpening() {
@@ -1090,7 +1090,7 @@ function TclOpening() {
       }
       // the box: covers the screen (desktop) or the upper part (phones), product kept in view
       const vw = st.clientWidth, vh = st.clientHeight, phone = vw / vh < 0.8;
-      const lead = { T: I, cx: 0.495 };
+      const lead = { T: I, cx: 0.625 - 0.12 * ss([0.1, 0.17], q) * (1 - ss([0.36, 0.43], q)) };
       const fx = lead.T.s * lead.cx + lead.T.tx;
       // phones: the scene shrinks a little on the last step so the can sits above the buttons
       // desktop: cover the screen, but never so large that the product (box 0.12-0.83) runs under the header
